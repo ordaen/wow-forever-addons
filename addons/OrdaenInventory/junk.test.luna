@@ -24,6 +24,8 @@ const CLOTH: FileId = 132889
 const GEM: FileId = 134134
 const COIN: Asset = "Interface/MoneyFrame/UI-GoldIcon"
 const UPGRADE_ARROW: Atlas = "bags-greenarrow"
+// The client's slot for the hands.
+const HANDS = 10
 const BANK_TAB: FileId = 133639
 // The bank's first tab, as the client numbers its container (`Enum.BagIndex.CharacterBankTab_1`).
 const BANK = 6
@@ -254,6 +256,34 @@ test "gear worth more to the player's spec than what it wears carries the game's
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW) && !bags().button(FOOT).paintedWith(UPGRADE_ARROW))
+}
+
+test "the green arrow follows the gear: better gloves put on take it from the bags' gloves, taken off give it back" {
+  const world = new World([{ bag: 0, slot: 1, id: 25, name: "Worn Gloves", icon: SWORD, kind: 4, subkind: 1 }])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
+  }
+  // The gloves worn give twice the bags' intellect.
+  Client.C_Item.GetItemStats = (link: String): Unknown => {
+    const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:worn" ? 20 : 10 }
+    return stats
+  }
+  let wearing = false
+  Client.GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == HANDS ? "item:worn" : nil
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
+  wearing = true
+  Test.event("PLAYER_EQUIPMENT_CHANGED", HANDS, false)
+  Test.expect(!bags().button(SWORD).paintedWith(UPGRADE_ARROW))
+  wearing = false
+  Test.event("PLAYER_EQUIPMENT_CHANGED", HANDS, true)
+  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
 }
 
 test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
