@@ -123,9 +123,7 @@ public class Heading implements Component {
   derived marked: Number = self.picked ? 1 : 0
   derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
-  // Under a group's heading it stands in the middle of its column, as the group's title does over it.
-  derived align: Align | nil = self.half ? Align.Center : self.column.align
-  derived markFirst: Boolean = self.align == Align.End
+  derived markFirst: Boolean = self.column.align == Align.End
   derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | ByInteractionState<Color> = self.sortable ? SHADE : CLEAR
 
@@ -165,7 +163,7 @@ public class Heading implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rowSpan={self.rows} yAlignSelf={Align.Stretch} padding={self.padding} xAlign={self.align} yAlign={Align.Center} background={self.shade}
+      <box rowSpan={self.rows} yAlignSelf={Align.Stretch} padding={self.padding} xAlign={self.column.align} yAlign={Align.Center} background={self.shade}
            @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
@@ -203,7 +201,9 @@ class GroupHeading implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columnSpan={self.span.columns} padding={HALF_PADDING} xAlign={Align.Center} border={self.rule}>
+      // Its title in the middle of its row, as the headings under it are in theirs.
+      <box columnSpan={self.span.columns} yAlignSelf={Align.Stretch} padding={HALF_PADDING} xAlign={Align.Center}
+           yAlign={Align.Center} border={self.rule}>
         <text value={self.span.title} textColor={PLAIN} wrap={.None} />
       </box>
     }

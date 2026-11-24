@@ -19,24 +19,24 @@ box 0,0 600x95.07
             text 540.33,16.57 38.33x14.4 "Profit" #a3977f
         box 147.38,28.03 80x18.67 #00000000 @keyPress @pointerPress
           box 147.38,45.03 80x1.67 absolute #00000000
-          box 166.79,30.17 41.18x14.4
-            text 166.79,30.17 31.67x14.4 "House" #cbb994
-            box 201.3,34.87 6.67x5
-              box 197.97,30.7 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+          box 186.2,30.17 41.18x14.4
+            box 186.2,34.87 6.67x5
+              box 182.87,30.7 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+            text 195.71,30.17 31.67x14.4 "House" #cbb994
         box 235.91,28.03 80x18.67 #00000033 @keyPress @pointerPress
           box 235.91,45.03 80x1.67 absolute #d6a56b
-          box 251.99,30.17 47.84x14.4
-            text 251.99,30.17 38.33x14.4 "Vendor" #f0c860
-            box 293.17,34.87 6.67x5
-              box 289.83,30.7 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+          box 268.07,30.17 47.84x14.4
+            box 268.07,34.87 6.67x5
+              box 264.73,30.7 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+            text 277.58,30.17 38.33x14.4 "Vendor" #f0c860
         box 324.44,28.03 80x18.67 #00000000 @keyPress @pointerPress
           box 324.44,45.03 80x1.67 absolute #00000000
-          box 347.19,30.17 34.51x14.4
-            text 347.19,30.17 31.67x14.4 "House" #a3977f
+          box 369.93,30.17 34.51x14.4
+            text 369.93,30.17 31.67x14.4 "House" #a3977f
         box 412.98,28.03 80x18.67 #00000000 @keyPress @pointerPress
           box 412.98,45.03 80x1.67 absolute #00000000
-          box 432.39,30.17 41.18x14.4
-            text 432.39,30.17 38.33x14.4 "Vendor" #a3977f
+          box 451.8,30.17 41.18x14.4
+            text 451.8,30.17 38.33x14.4 "Vendor" #a3977f
     box 0,47.53 600x47.53 scrolled 0 of 0
       box 0,47.53 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
         text 18.49,51.8 120.36x14.4 "Copper Bar" #ffffff
