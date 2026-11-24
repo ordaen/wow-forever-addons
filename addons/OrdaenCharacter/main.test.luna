@@ -400,6 +400,18 @@ test "the game's sets are tabs over the columns, the one worn picked: another pi
   Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
 }
 
+test "the paper doll's sides are the tabs' plain rule, no cut in the wood, the scene out to it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.box(Ordaen.art.ctl.cut.upright.dark).count() == 0)
+  // The doll's dark (the scene's box's parent) inside the ruled box round it, a rule's width in at each side.
+  const dark = Test.edges("@/media/backdrop-dwarf.tga", 1)
+  const ruled = Test.edges("@/media/backdrop-dwarf.tga", 2)
+  const rule = Style.DOLL_SIDES.width / 1ui
+  Test.expect((dark.left - ruled.left - rule).abs() < 0.5 && (ruled.right - dark.right - rule).abs() < 0.5)
+}
+
 test "the paper doll's slots stand in the client's talent frame, as the talents' nodes do" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

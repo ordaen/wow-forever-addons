@@ -3,6 +3,7 @@
 // its text.
 import { ArtBorder, Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
+import { RULE_COLOR, RULE_WIDTH } from "Ordaen"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
@@ -98,6 +99,8 @@ public const SCENE_ASPECT: Number = 231 / 322
 public const SCENE_HEIGHT: Number<Length> = 780.55dp
 public const SCENE_HEIGHT_INSPECTED: Number<Length> = 801.24dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
+// The paper doll's sides: the tabs' plain rule down each, not a cut in the wood.
+public const DOLL_SIDES: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Left, Side.Right] }
 public const MODEL_BACK: Color = Color.hex("#0b0805")
 public const DOLL_ROOM: Number<Spacing> = 6sp
 public const DOLL_PAD: Edges = { top: DOLL_ROOM, right: DOLL_ROOM, bottom: DOLL_ROOM, left: DOLL_ROOM }

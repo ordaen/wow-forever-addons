@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
+import { ButtonPlate, Component, Cut, Groove, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -43,11 +43,11 @@ const SCENES: Map<String, Asset> = {
   Skyborne: "@/media/backdrop-skyborne.tga"
 }
 
-// The paper doll's width at a slot's size: its two cuts, its room at the sides, the slots' columns with the gaps beside
+// The paper doll's width at a slot's size: its two side rules, its room at the sides, the slots' columns with the gaps beside
 // them, and the four weapons between (main hand, off hand, ranged, ammo) with theirs; at least the model's room.
 function dollWidthOf(slot: Number<Length>): Number<Length> {
   const room = Ordaen.lengthOf(Style.DOLL_ROOM * 2 + Style.DOLL_GAP * 2 + Style.WEAPON_GAP * 3)
-  return (CUT * 2 + slot * 6 + room).max(Style.DOLL)
+  return (RULE_WIDTH * 2 + slot * 6 + room).max(Style.DOLL)
 }
 
 // The durability bar's colour for what is left of an item.
@@ -362,7 +362,7 @@ public class GearPage implements Component {
   // The sets' strip along the page's top (the player's own character alone), the columns under it meeting its line.
   derived rows: Array<Track> = self.own ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
   derived sceneWidth: Number<Length> = (self.own ? Style.SCENE_HEIGHT : Style.SCENE_HEIGHT_INSPECTED) * Style.SCENE_ASPECT
-  derived sceneLeft: Number<Length> = (self.dollWidth - CUT * 2 - self.sceneWidth) / 2
+  derived sceneLeft: Number<Length> = (self.dollWidth - RULE_WIDTH * 2 - self.sceneWidth) / 2
   constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
     usesAmmo: Signal<Boolean>, choices: Signal<Choices>, fitsSlots: Signal<Array<Integer>> = NO_SLOTS,
     sets: Signal<Array<GearSet>> = NO_SETS, flyoutSlot: Signal<Integer | nil> = nil, fitting: Signal<Array<Integer>> = NO_SLOTS,
@@ -453,8 +453,7 @@ public class GearPage implements Component {
               <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
-          <box columns={[CUT, { fr: 1 }, CUT]} rows={[{ fr: 1 }]}>
-            <Groove upright={true} />
+          <box rows={[{ fr: 1 }]} border={Style.DOLL_SIDES}>
             <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={Style.DOLL_GAP} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
               <box $if={self.scene != nil} position={Position.Absolute} left={self.sceneLeft} top={0ui}
@@ -487,7 +486,6 @@ public class GearPage implements Component {
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
             </box>
-            <Groove upright={true} />
           </box>
           <box>
             <box columns={5} yAlign={Align.Stretch}>
