@@ -1,12 +1,13 @@
 // The merchant's window as the player meets it: it opens with the merchant in place of the game's and leaves with it;
-// the goods with their prices, what is left of them and what they cost besides; buying by the right click, a count by
-// Shift+Left-click, a dear purchase asked first; the search and the footer's count; the buyback, newest first; the
+// the goods with their prices, what is left of them and what they cost besides; buying by the left click, the menu by
+// the right, a count by Shift+Left-click, a dear purchase asked first; the search and the footer's count; the buyback, newest first; the
 // repairs. The client's merchant is the test's: what the window asks of it is heard.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { ItemKind, kindName } from "Ordaen"
 import Locale from "@/locales"
 
 // The player's screen: 2470 by 1054.
@@ -94,7 +95,7 @@ test "the merchant's window opens with the merchant, each item with its price, a
   Test.expect(!Test.page().window(VENDOR).shown())
 }
 
-test "the right click buys one purchase, Shift+Left-click a count, and a dear purchase or one paid in items is asked first" {
+test "the left click buys one purchase, Shift+Left-click a count, and a dear purchase or one paid in items is asked first" {
   Client.UnitName = nameOf
   Client.GetMerchantNumItems = (): Integer => 5
   Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
@@ -108,18 +109,18 @@ test "the right click buys one purchase, Shift+Left-click a count, and a dear pu
   Test.mount(nil, SCREEN)
   Events.MERCHANT_SHOW.emit()
   const window = Test.page().window(VENDOR)
-  window.button(THREAD).rightClick()
+  window.button(THREAD).click()
   Test.expect(heard.take() == "buy 1 0")
   // Asked first: the pattern's price is past the game's asking price, the mark is paid in ore.
-  window.button(PATTERN).rightClick()
+  window.button(PATTERN).click()
   Test.expect(heard.take() == "")
   Test.page().window(Locale.BUY).button(Locale.BUY).click()
   Test.expect(heard.take() == "buy 3 0")
-  window.button(MARK).rightClick()
+  window.button(MARK).click()
   Test.expect(Test.page().window(Locale.BUY).text("2 Copper Ore").shown())
   Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
   Test.expect(heard.take() == "")
-  // Shift: a count of the thread, three; Shift+Right-click its link.
+  // Shift: a count of the thread, three.
   Test.hold([.Shift])
   window.button(THREAD).click()
   Test.hold([])
@@ -128,14 +129,33 @@ test "the right click buys one purchase, Shift+Left-click a count, and a dear pu
   dialog.button("+").click()
   dialog.button(Locale.BUY).click()
   Test.expect(heard.take() == "buy 1 3" && !Test.page().window(Locale.HOW_MANY).shown())
-  _ = Test.requests()
-  Test.hold([.Shift])
-  window.button(THREAD).rightClick()
-  Test.hold([])
-  Test.expect(heard.take() == "" && Test.requests().join(", ").contains("Chat.link 101"))
 }
 
-test "a left click on a purchase the game asks about asks first, as a right click does; nothing goes onto the cursor" {
+test "the right click opens the item's menu: buy, how many (where a purchase takes more than one), try on, link" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.GetMerchantItemMaxStack = (index: Number): Number => index == 1 ? 20 : 1
+  const heard = new Heard()
+  Client.BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Game.money.amount = 10000
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  window.button(THREAD).rightClick()
+  Test.expect(heard.take() == "" && Test.page().text(Locale.BUY_SEVERAL).shown() && Test.page().text(Locale.TRY_ON).shown())
+  Test.page().window(Locale.TRY_ON).text(Locale.BUY).click()
+  Test.expect(heard.take() == "buy 1 0" && !Test.page().text(Locale.TRY_ON).shown())
+  // The dagger is sold one at a time: no «how many».
+  window.button(DAGGER).rightClick()
+  Test.expect(!Test.page().text(Locale.BUY_SEVERAL).shown())
+  _ = Test.requests()
+  Test.page().window(Locale.TRY_ON).text(Locale.LINK).click()
+  Test.expect(heard.take() == "" && Test.requests().join(", ").contains("Chat.link 102"))
+}
+
+test "a left click on a purchase the game asks about asks first; a cheap one is bought at once, nothing onto the cursor" {
   Client.UnitName = nameOf
   Client.GetMerchantNumItems = (): Integer => 5
   Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
@@ -156,9 +176,8 @@ test "a left click on a purchase the game asks about asks first, as a right clic
   window.button(MARK).click()
   Test.expect(heard.take() == "" && Test.page().window(Locale.BUY).text("2 Copper Ore").shown())
   Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
-  // A cheap one goes onto the cursor, bought where it lands.
   window.button(THREAD).click()
-  Test.expect(heard.take() == "pickup 1")
+  Test.expect(heard.take() == "buy 1 0")
 }
 
 // The thread a trade good, the dagger a weapon; the rest the client hasn't loaded.
@@ -170,7 +189,7 @@ function itemInfo(item: String | Integer): (String | nil, String | nil, Client.I
   return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
 }
 
-test "by category each kind has its caption with its count, folded by a click; as a table, a row's right click buys" {
+test "by category each kind has its caption with its count, folded by a click; as a table, a row's left click buys" {
   Client.UnitName = nameOf
   Client.GetMerchantNumItems = (): Integer => 5
   Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
@@ -183,14 +202,14 @@ test "by category each kind has its caption with its count, folded by a click; a
   const window = Test.page().window(VENDOR)
   window.button(Ordaen.art.ctl.tool.list).click()
   Test.page().button(Locale.VIEW_CATEGORIES).click()
-  Test.expect(window.text(`${Locale.TAB_TRADE} (1)`).shown() && window.text(`${Locale.TAB_EQUIPMENT} (1)`).shown())
-  window.text(`${Locale.TAB_TRADE} (1)`).click()
+  Test.expect(window.text(`${kindName(ItemKind.Trade)} (1)`).shown() && window.text(`${kindName(ItemKind.Equipment)} (1)`).shown())
+  window.text(`${kindName(ItemKind.Trade)} (1)`).click()
   Test.expect(!window.text("Coarse Thread").shown() && window.text("Gladius").shown())
   // The view's button shows the view's own glyph.
   window.button(Ordaen.art.ctl.tool.categories).click()
   Test.page().button(Locale.VIEW_TABLE).click()
   Test.expect(window.text(Locale.COLUMN_IN_BAGS).shown() && window.text("Trade Goods").shown())
-  window.button(THREAD).rightClick()
+  window.text("Coarse Thread").click()
   Test.expect(heard.take() == "buy 1 0")
 }
 
@@ -219,14 +238,14 @@ function questWareAt(index: Integer): Client.MerchantItemInfo | nil {
   return { isQuestStartItem: true, ..info }
 }
 
-test "an item that starts a quest has the game's mark; Left puts it onto the cursor, Ctrl tries it on, Alt is the client's click" {
+test "an item that starts a quest has the game's mark; Left buys it, Ctrl tries it on, Alt is the client's click" {
   Client.UnitName = nameOf
   Client.GetMerchantNumItems = (): Integer => 5
   Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
   Client.GetMerchantItemLink = (index: Number): String | nil => `item:${100 + index}`
   Client.C_MerchantFrame.GetItemInfo = questWareAt
   const heard = new Heard()
-  Client.PickupMerchantItem = (index: Integer): nil => heard.add(`pickup ${index}`)
+  Client.BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
   Client.DressUpItemLink = (link: String): Boolean => {
     heard.add(`dress ${link}`)
     return true
@@ -240,7 +259,7 @@ test "an item that starts a quest has the game's mark; Left puts it onto the cur
   const window = Test.page().window(VENDOR)
   Test.expect(window.box("Interface/ContainerFrame/UI-Icon-QuestBang").count() == 1)
   window.button(THREAD).click()
-  Test.expect(heard.take() == "pickup 1")
+  Test.expect(heard.take() == "buy 1 0")
   Test.hold([.Ctrl])
   window.button(DAGGER).click()
   Test.expect(heard.take() == "dress item:102")
@@ -260,12 +279,12 @@ test "a purchase paid in items that can't be refunded says so as it is asked" {
   Client.C_MerchantFrame.IsMerchantItemRefundable = (index: Integer): Boolean => index != 5
   Test.mount(nil, SCREEN)
   Events.MERCHANT_SHOW.emit()
-  Test.page().window(VENDOR).button(MARK).rightClick()
+  Test.page().window(VENDOR).button(MARK).click()
   Test.expect(Test.page().window(Locale.BUY).text(Locale.NO_REFUND).shown())
   Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
   Client.C_MerchantFrame.IsMerchantItemRefundable = (index: Integer): Boolean => true
   Events.MERCHANT_UPDATE.emit()
-  Test.page().window(VENDOR).button(MARK).rightClick()
+  Test.page().window(VENDOR).button(MARK).click()
   Test.expect(!Test.page().window(Locale.BUY).text(Locale.NO_REFUND).shown())
 }
 

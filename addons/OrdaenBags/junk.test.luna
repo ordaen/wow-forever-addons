@@ -387,29 +387,6 @@ test "the junk is sold as a merchant's window opens; with «Sell junk at merchan
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
 }
 
-test "the merchant's window sells the bags' junk from its right column, saying what it brings" {
-  const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Client.CanGuildBankRepair = (): Boolean => false
-  Client.UnitName = (unit: String): (String, String) => {
-    return "Tharynn", ""
-  }
-  Test.mount(nil, SCREEN)
-  // The merchant opens the bags with its window, as the game's does: the two stand side by side.
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  Events.MERCHANT_SHOW.emit()
-  Test.flush()
-  Test.expect(bags().rect().left > Test.page().window("Tharynn").rect().right)
-  _ = Test.requests()
-  Test.page().window("Tharynn").button(`${Locale.SELL_JUNK} ${Game.money.format(30)}`).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
-}
-
 // The clicks
 
 test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
@@ -640,7 +617,7 @@ test "a purchase still refundable is asked about at the merchant and refunded, n
   Test.expect(refunded == "0/3" && !Test.page().window(Locale.REFUND).shown())
 }
 
-test "while the merchant's window shows the buyback, a slot's use sells nothing" {
+test "while the merchant's buyback shows (Ordaen Trading's window says so), a slot's use sells nothing" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -650,8 +627,32 @@ test "while the merchant's window shows the buyback, a slot's use sells nothing"
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
   Events.MERCHANT_SHOW.emit()
-  Test.page().button(Locale.BUYBACK).click()
+  Bags.showsBuyback(true)
+  // The junk sold as the merchant opened is past.
+  Test.flush()
   _ = Test.requests()
   bags().button(CLOTH).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Bags.showsBuyback(false)
+  bags().button(CLOTH).click()
+  Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
+  Events.MERCHANT_CLOSED.emit()
+}
+
+test "«Sell junk» sells the junk the bags know, at a merchant" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  Events.MERCHANT_SHOW.emit()
+  Test.flush()
+  Test.expect(Bags.carriedJunkCount == 1 && Bags.carriedJunkWorth == 30)
+  _ = Test.requests()
+  Bags.sellJunk()
+  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
+  Events.MERCHANT_CLOSED.emit()
 }

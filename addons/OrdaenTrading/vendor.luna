@@ -5,8 +5,7 @@
 import Client from "$client"
 import Events from "$events"
 import { Art } from "$ltml"
-import { Quality, qualityFrom } from "Ordaen"
-import { Tab, tabOf } from "@/model"
+import { ItemKind, Quality, kindOf, qualityFrom } from "Ordaen"
 
 // A part of what an item costs besides money: an item or a currency, its icon, how many and its name.
 public struct Cost {
@@ -35,7 +34,7 @@ public struct Ware {
   const most: Integer
   // The level it needs, and the bags' tab its kind falls in: the categories view's caption.
   const level: Integer
-  const tab: Tab
+  const tab: ItemKind
   const kind: String
   // It starts a quest (the game's «!» over its icon); the purchase can be refunded (one paid in items or currencies
   // that can't is said so as it is asked); its link (the dressing room's, the chat's).
@@ -84,7 +83,7 @@ function wareAt(index: Integer): Ware | nil {
     price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
     usable: info.isUsable, purchasable: info.isPurchasable, costs: info.hasExtendedCost ? costsOf(index) : [],
     most: Client.GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
-    tab: tabOf((classId ?? NO_CLASS).floor(), crafting == true, nil), kind: kind ?? "", quest: info.isQuestStartItem,
+    tab: kindOf((classId ?? NO_CLASS).floor(), crafting == true), kind: kind ?? "", quest: info.isQuestStartItem,
     refundable: Client.C_MerchantFrame.IsMerchantItemRefundable(index), link: Client.GetMerchantItemLink(index)
   }
 }

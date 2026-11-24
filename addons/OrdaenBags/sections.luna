@@ -2,22 +2,23 @@
 // in one grid. Worked out again only when what lies in the bags changes where they are, or when a choice of the window's
 // does; a count or a lock changing is drawn by its slot alone.
 import Runtime from "$runtime"
+import { kindName } from "Ordaen"
 import { Section } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, Slot, SortBy, Tab, rankOf } from "@/model"
 
-// A tab's name.
+// A tab's name: a kind's is Ordaen's (`kindName`).
 public function tabName(tab: Tab): String {
   return match (tab) {
     .All => Locale.TAB_ALL
     .New => Locale.TAB_NEW
-    .Quest => Locale.TAB_QUEST
-    .Consumables => Locale.TAB_CONSUMABLES
-    .Equipment => Locale.TAB_EQUIPMENT
-    .Trade => Locale.TAB_TRADE
-    .Recipes => Locale.TAB_RECIPES
-    .Keys => Locale.TAB_KEYS
-    .Other => Locale.TAB_OTHER
+    .Quest => kindName(.Quest)
+    .Consumables => kindName(.Consumables)
+    .Equipment => kindName(.Equipment)
+    .Trade => kindName(.Trade)
+    .Recipes => kindName(.Recipes)
+    .Keys => kindName(.Keys)
+    .Other => kindName(.Other)
     .Junk => Locale.TAB_JUNK
   }
 }

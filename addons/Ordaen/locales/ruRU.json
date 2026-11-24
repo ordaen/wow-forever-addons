@@ -289,5 +289,12 @@
   "CAST_MINUTES": "%s мин.",
   "CAST_NEXT": "Следующая",
   "MELEE_RANGE_SHORT": "5 м",
-  "MELEE_RANGE_TEXT": "Дистанция ближнего боя"
+  "MELEE_RANGE_TEXT": "Дистанция ближнего боя",
+  "KIND_QUEST": "Предметы для заданий",
+  "KIND_CONSUMABLES": "Расходуемые",
+  "KIND_EQUIPMENT": "Снаряжение",
+  "KIND_TRADE": "Предметы для профессий",
+  "KIND_RECIPES": "Рецепты",
+  "KIND_KEYS": "Ключи",
+  "KIND_OTHER": "Разное"
 }
