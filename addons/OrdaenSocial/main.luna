@@ -16,7 +16,7 @@ import { AllyCategory, BattleNetSelf, Club, ClubStream, Friend, FriendRequest, G
 import { Align, Event, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CopyBox, Dialog, Field, FooterBand, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
+import { ButtonPlate, CopyBox, Dialog, Field, FooterCount, GamePass, KeptWindow, ListFooter, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
 import { AllyCard, AllyFilter, AllyList, allyFilterStart, categoriesOf } from "@/allies"
 import { ClubCard } from "@/communities"
 import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
@@ -187,16 +187,8 @@ public class Social implements Module, App {
   derived broadcastCount: String = Locale.BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
   derived leaveText: String = Locale.LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
   derived counts: Array<FooterCount> = self.countsOf()
-  // The footer, as every list window's: the counts as label and value pairs; in a development build, the game's own
-  // window to compare with.
-  const footer: Template = $ltml {
-    <FooterBand>
-      <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
-        <FooterCounts counts={self.counts} />
-        <GameWindowButton @click={self.onGameCompare} />
-      </box>
-    </FooterBand>
-  }
+  // The footer, as every list window's: the counts as label and value pairs.
+  const footer: Template = $ltml { <ListFooter counts={self.counts} /> }
 
   constructor() {
     Ordaen.modules.add(self)
@@ -580,18 +572,6 @@ public class Social implements Module, App {
     if (self.communities == nil) { _ = Client.C_AddOns.LoadAddOn(COMMUNITIES_ADDON) }
     const communities = self.communities
     if (communities != nil) { self.showGame(communities) }
-  }
-
-  // A development build's footer button: the game's own window of the tab shown, as it is, to compare ours with (the
-  // friends window for the friends and the recent allies, the guild and communities window for the guild and the
-  // communities).
-  onGameCompare(mut self) {
-    if (self.tab == TAB_GUILD || self.tab == TAB_COMMUNITIES) {
-      self.onGameGuild()
-      return
-    }
-    const friends = Runtime.frame(FRIENDS_WINDOW)
-    if (friends != nil) { self.showGame(friends) }
   }
 
   // The game's window as it is: ours closes, the game's shows until it closes.

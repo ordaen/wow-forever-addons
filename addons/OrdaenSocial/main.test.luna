@@ -450,35 +450,6 @@ test "the friends' view, sort and filter are there after a reload" {
   Test.expect(friendsOrder(again) == "Alexei, Eliana")
 }
 
-test "a development build's footer button shows the game's own window of the tab, as it is, until it closes" {
-  Test.mount(nil, PAGE)
-  Game.friends.list = friends
-  Game.friends.requests = requests
-  Game.friends.ignored = ignoredOnes
-  Game.friends.battleNetSelf = battleNetSelf
-  Game.guild.roster = guildRoster
-  Game.guild.motd = guildMotd
-  Game.guild.news = guildNews
-  Game.guild.newsFilters = newsFilters
-  Game.communities.clubs = clubs
-  Game.communities.members = clubMembers
-  Game.communities.streams = streams
-  Game.recentAllies.list = allies
-  Game.recentAllies.categories = allyCategories
-  const people = new FakePeople()
-  Social.people = people
-  const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
-  game.Hide()
-  Social.hook(game, nil)
-  game.Show()
-  Test.page().window(WINDOW).button("Blizzard window").click()
-  Test.expect(!Test.page().window(WINDOW).shown())
-  Test.expect(game.IsShown() && game.GetAlpha() == 1)
-  game.Hide()
-  game.Show()
-  Test.expect(Test.page().window(WINDOW).text("Alexei").shown())
-}
-
 test "a friend picked shows their card, whose buttons ask the game in the click" {
   Test.mount(nil, PAGE)
   Game.friends.list = friends
