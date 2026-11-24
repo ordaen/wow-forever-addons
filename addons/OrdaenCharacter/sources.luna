@@ -139,6 +139,8 @@ function changed(change: Change): Array<Stat> {
     .Expertise => [.Expertise]
     .AttackSpeed => [.MeleeHaste]
     .RangedSpeed => [.RangedHaste]
+    .AttackRangedSpeed => [.MeleeHaste, .RangedHaste]
+    .CastSpeed => [.SpellHaste]
     .Haste => [.MeleeHaste, .RangedHaste, .SpellHaste]
     .RunSpeed => [.RunSpeed]
     else => []

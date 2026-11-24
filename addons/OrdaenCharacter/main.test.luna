@@ -806,7 +806,27 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
 
 // Battle Shout, as the client has it on the character: 100 attack power.
 const SHOUT = 6673
-function spellNames(id: Integer): String | nil { return id == SHOUT ? "Battle Shout" : nil }
+// The Skyborne's racial: melee and ranged speed at once, and casting speed, 2% each.
+const WIND_BLESSED = 1259710
+function spellNames(id: Integer): String | nil {
+  if (id == WIND_BLESSED) { return "Wind Blessed" }
+  return id == SHOUT ? "Battle Shout" : nil
+}
+
+test "an aura's melee and ranged speed at once is each of the two's haste; its casting speed the spells'" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Game.spells.name = spellNames
+  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: WIND_BLESSED, stacks: 0, harmful: false, points: [2, 2] }]
+  Auras.refresh()
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHaste: 7, rangedHaste: 6, rangedSkill: WANDS, rangedSpeed: 1.5 }
+  const window = opened(mut sheet)
+  window.text("7.00%").hover()
+  Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
+  window.text("6.00%").hover()
+  Test.expect(Test.page().window(Locale.HASTE_RANGED_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
+}
 
 test "a main stat's tooltip: its name (its value stands on the window), the game's words, its base, then the items that give it, the most first" {
   Test.mount(nil, PAGE)
