@@ -230,6 +230,7 @@ public struct Stats {
   // 63's) past the level's: each point of skill past a target's defense takes 0.04% off its misses, dodges and parries
   // and adds as much to crit, as the game's skills frame counts it.
   meleeSkillPast: Number = 0
+  offSkillPast: Number = 0
   rangedSkillPast: Number = 0
   bossDefensePast: Number = 15
   // The chance a swing of the main hand glances, and how much less a glancing blow deals, in percent: against a raid
@@ -684,6 +685,7 @@ public class ClientSheet implements Sheet {
       offSkill: weaponSkill(17),
       rangedSkill: rangedSkill,
       meleeSkillPast: (skillValue(mainSkill) ?? levelDefense) - levelDefense,
+      offSkillPast: (skillValue(weaponSkill(17)) ?? levelDefense) - levelDefense,
       rangedSkillPast: (skillValue(rangedSkill) ?? levelDefense) - levelDefense,
       bossDefensePast: bossDefense - levelDefense,
       bossGlancing: Client.GetGlancingBlowChance(nil, bossDefense) * 100,

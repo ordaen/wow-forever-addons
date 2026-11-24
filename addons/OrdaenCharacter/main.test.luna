@@ -573,25 +573,59 @@ test "a crit's tooltip says what a crit does in its own section alone" {
   Test.expect(!tip.texts().join(" | ").contains("spell"))
 }
 
-test "the defence's cards stand first, block's on top, the damage reduction and the hit on you side by side; then the defense skill, dodge, parry, the armor and the resistances" {
+test "defence: the defense skill over all; the damage reduction and the hit on you side by side, block's two under them; then dodge, parry, the armor and the resistances" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { defense: 300, dodge: 7, parry: 6, block: 5, shield: true, armor: 2000, armorReduction: 30, resistances: [0, 10, 0, 0, 0] }
+  sheet.figures = (): Stats => Stats { defense: 300, dodge: 7, parry: 6, block: 5, blockValue: 42, shield: true, armor: 2000, armorReduction: 30, resistances: [0, 10, 0, 0, 0] }
   const window = opened(mut sheet)
-  const block = window.text("Block").rect()
+  const defense = window.text("300").rect()
   const reduction = window.text("Damage reduction").rect()
   const taken = window.text("Hit on you").rect()
-  const defense = window.text("300").rect()
+  const block = window.text("Block").rect()
+  const blocked = window.text("Damage Blocked").rect()
   const dodge = window.text("7.00%").rect()
   const parry = window.text("6.00%").rect()
   const armor = window.text("2000").rect()
   const resistance = window.text("Resistance").rect()
-  Test.expect(block.bottom <= reduction.top && block.bottom <= taken.top && taken.left >= reduction.right)
-  Test.expect(reduction.bottom <= defense.top && taken.bottom <= defense.top)
+  Test.expect(defense.bottom <= reduction.top && defense.bottom <= taken.top && taken.left >= reduction.right)
+  Test.expect(reduction.bottom <= block.top && taken.bottom <= blocked.top && blocked.left >= block.right)
   // Each card's value whole beside its name: the armor's 30, and 100 less 5 of misses, 7 of dodges and 6 of parries.
-  Test.expect(window.text("30.00%").shown() && window.text("82.00%").shown())
-  Test.expect(defense.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
+  Test.expect(window.text("30.00%").shown() && window.text("82.00%").shown() && window.text("42").shown())
+  Test.expect(block.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
+  // Block's cards wear the shield, and the shield struck through: the glyphs' twelfth and thirteenth rows.
+  const sheetArt: Asset = "@/media/character-glyphs.tga"
+  const shield: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 11 }
+  const struck: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 12 }
+  Test.expect(window.paintedWith(shield) && window.paintedWith(struck))
+}
+
+test "dodge's tooltip lists the defense past the level's among its sources, 0.04% a point" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { defense: 315, defensePast: 15, dodge: 7 }
+  const window = opened(mut sheet)
+  window.text("7.00%").hover()
+  const tip = Test.page().window("15 × 0.04 =")
+  Test.expect(tip.texts().join(" | ").contains("Defense | 15 × 0.04 = | 0.60%"))
+}
+
+test "a weapon's skill stands over its section's cards, its tooltip what it does against each target" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  // 38 of 45 in the main hand's skill: 7 short of its level, 277 short of a boss's 315.
+  sheet.figures = (): Stats => Stats {
+    attackPower: 832, mainSkill: MACES, meleeSkillPast: -7, bossDefensePast: 270, bossGlancing: 100, bossGlancingPenalty: 89
+  }
+  const window = opened(mut sheet)
+  Test.expect(window.text("Maces").rect().bottom <= window.text("Attack power").rect().top)
+  window.text("Maces").hover()
+  const tip = Test.page().window(Locale.WEAPON_SKILL_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Hit, dodge and parry | -0.28% | Crit | -0.28% | Glancing blow"))
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Hit, dodge and parry | -11.08% | Crit | -11.08% | Glancing blow | 100.00% · 89.00% less damage"))
+  Test.expect(tip.text("-11.08%").nth(1).textColor().equal(Style.RED))
 }
 
 test "the paper doll's sides are the tabs' plain rule, no cut in the wood, the scene out to it" {
