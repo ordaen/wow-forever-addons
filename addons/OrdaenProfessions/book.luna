@@ -58,11 +58,12 @@ public function playerName(): String {
   return surname == "" ? Game.player.name : Game.player.name + " " + surname
 }
 
-// The book with the open profession's page of the character being played written in; none where nothing changed or
-// the client gave no list.
+// The book with the open profession's page of the character being played written in: the recipes learned of the
+// list the game holds for it (`Game.tradeSkill.recipes`, never another profession's); none where nothing changed or
+// no list came yet.
 public function written(book: Book, skillLine: Integer, recipes: Array<Game.Recipe>): Book | nil {
-  const known = Game.recipeReader.known()
-  if (known == nil) { return nil }
+  if (recipes.length == 0) { return nil }
+  const known = recipes.filter(recipe => recipe.learned).map(recipe => recipe.id)
   const guid = Game.player.guid
   const next = book.clone()
   const shelf = next.characters[guid]

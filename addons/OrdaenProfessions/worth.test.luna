@@ -35,8 +35,6 @@ function schematic(id: Integer): Game.Schematic | nil {
   return { recipe: id, makes: CLOTH, least: 1, most: 1, parts: [{ item: LINEN, count: 2 }] }
 }
 
-function known(): Array<Integer> | nil { return [CLOAK_RECIPE, BOLT_RECIPE] }
-
 function professions(): Array<Game.Profession> {
   return [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }]
 }
@@ -78,7 +76,6 @@ test "the tab prices each known recipe for one making, the profit and how many t
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Game.recipeReader.known = known
   Game.bags.holdings = bags
   Test.mount(nil, SCREEN)
   Game.bags.changed.emit()
@@ -100,7 +97,6 @@ test "«From what you have» lists what the holdings make now and what one missi
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Game.recipeReader.known = known
   Game.bags.holdings = bags
   Test.mount(nil, SCREEN)
   Game.bags.changed.emit()
@@ -124,7 +120,6 @@ test "the picked row's missing reagents go onto the shopping list" {
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Game.recipeReader.known = known
   Game.bags.holdings = bags
   Test.mount(nil, SCREEN)
   Game.bags.changed.emit()
@@ -144,7 +139,6 @@ test "a character is named in the book as Forever names it: its name and its sur
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Game.recipeReader.known = known
   Test.mount(nil, SCREEN)
   Test.login({ guid: "Player-1-0000003", name: "Regy", surname: "Ironsight", realm: "Stand-in", faction: "Alliance", classTag: "WARRIOR" })
   Game.tradeSkill.open = TAILORING
@@ -161,7 +155,6 @@ test "the book is the account's: another character played reads the first one's 
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Game.recipeReader.known = known
   Game.bags.holdings = bags
   Test.mount(nil, SCREEN)
   Game.bags.changed.emit()
@@ -170,8 +163,8 @@ test "the book is the account's: another character played reads the first one's 
   Game.tradeSkill.open = nil
   Test.flush()
   Test.login({ guid: "Player-1-0000002", name: "Regron", surname: "", realm: "Stand-in", faction: "Alliance", classTag: "WARRIOR" })
-  Game.recipeReader.known = (): Array<Integer> | nil => []
-  Game.tradeSkill.recipes = []
+  // Regron's tailoring: the same list, none of it learned.
+  Game.tradeSkill.recipes = recipes().map(one => ({ learned: false, ..one }))
   Game.tradeSkill.open = TAILORING
   Test.page().button("Worth it").click()
   // Player's recipes from the book, while Regron is played; Regron's bags and Player's hold four linen each.
