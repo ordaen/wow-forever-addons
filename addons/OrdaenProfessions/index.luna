@@ -1,4 +1,5 @@
 // Ordaen Professions: one window for the character's professions. Another module reads `uses(item)` and `queue` of
 // the root (`import root Professions from "OrdaenProfessions"`), and the types they answer with.
+public import { CraftRecipe, Crafting, skillUpRank } from "@/crafters"
 public import { Professions } from "@/main"
 public import { QueueItem, Use } from "@/published"

@@ -64,13 +64,30 @@ public function craftersOf(book: Book): Map<Integer, Array<Crafter>> {
   return found
 }
 
-// Who crafts with each item, as `craftersOf` gives it: read as a tooltip asks, so the tooltip follows the book.
-public type CraftersRead = () => Map<Integer, Array<Crafter>>
-// The book itself, for the recipes' names and what they make.
-public type BookRead = () => Book
+// A recipe that takes an item, as a character who knows it sees it: its name, what making it does for the
+// character's skill and that difficulty's colour, the item it makes (none for an enchant).
+public struct CraftRecipe {
+  name: String
+  difficulty: Game.Difficulty
+  color: Color
+  makes: Integer | nil
+}
+
+// A character's profession whose known recipes take an item: the recipes, and the best of them for skilling up with
+// its colour.
+public struct Crafting {
+  skillLine: Integer
+  profession: String
+  guid: String
+  name: String
+  rank: Integer
+  best: Game.Difficulty
+  bestColor: Color
+  recipes: Array<CraftRecipe>
+}
 
 // The order a difficulty is better in for skilling up: orange first.
-function rankOf(difficulty: Game.Difficulty): Integer {
+public function skillUpRank(difficulty: Game.Difficulty): Integer {
   return match (difficulty) {
     Game.Difficulty.Always => 0
     Game.Difficulty.Usually => 1
@@ -78,6 +95,27 @@ function rankOf(difficulty: Game.Difficulty): Integer {
     Game.Difficulty.Never => 3
   }
 }
+
+// A crafter's recipes as it sees them, at its rank, by the profession's thresholds; the best first met.
+public function craftingOf(crafter: Crafter, book: Book, table: Thresholds): Crafting {
+  let best = Game.Difficulty.Never
+  const recipes: Array<CraftRecipe> = []
+  for (recipe of crafter.recipes) {
+    const difficulty = difficultyAt(table, recipe, crafter.rank)
+    if (skillUpRank(difficulty) < skillUpRank(best)) { best = difficulty }
+    const entry = book.recipes[recipe]
+    recipes.push({ name: entry?.name ?? "", difficulty: difficulty, color: Style.difficultyColor(difficulty), makes: entry?.makes })
+  }
+  return {
+    skillLine: crafter.skillLine, profession: crafter.profession, guid: crafter.guid, name: crafter.name,
+    rank: crafter.rank, best: best, bestColor: Style.difficultyColor(best), recipes: recipes
+  }
+}
+
+// Who crafts with each item, as `craftersOf` gives it: read as a tooltip asks, so the tooltip follows the book.
+public type CraftersRead = () => Map<Integer, Array<Crafter>>
+// The book itself, for the recipes' names and what they make.
+public type BookRead = () => Book
 
 // How many of an item a character holds, bags and bank, by Ordaen Alts' records; the bags alone for the character
 // played while Alts is off, nothing for another.
@@ -127,21 +165,18 @@ public class CraftersLines implements ItemLines {
 
   // A crafter's line: its name in its best recipe's colour, opening the recipes; its profession at the right.
   lineOf(self, crafter: Crafter, item: Integer, book: Book, table: Thresholds): Line {
-    let best = Game.Difficulty.Never
+    const crafting = craftingOf(crafter, book, table)
     const rows: Array<Listed> = []
-    for (recipe of crafter.recipes) {
-      const difficulty = difficultyAt(table, recipe, crafter.rank)
-      if (rankOf(difficulty) < rankOf(best)) { best = difficulty }
-      const entry = book.recipes[recipe]
-      const yellow = table.yellow[recipe]
+    for (index, recipe of crafting.recipes) {
+      const yellow = table.yellow[crafter.recipes[index] ?? 0]
       rows.push({
-        left: entry?.name ?? "", right: yellow == nil ? nil : String.of(yellow),
-        color: Style.difficultyColor(difficulty), item: entry?.makes
+        left: recipe.name, right: yellow == nil ? nil : String.of(yellow), color: recipe.color,
+        item: recipe.makes
       })
     }
     const own = crafter.guid == Game.player.guid
     return {
-      left: own ? playerName() : crafter.name, right: crafter.profession, color: Style.difficultyColor(best),
+      left: own ? playerName() : crafter.name, right: crafter.profession, color: crafting.bestColor,
       rightColor: Style.DIM,
       opens: {
         name: `${crafter.profession}: ${crafter.name}`, rows: rows,

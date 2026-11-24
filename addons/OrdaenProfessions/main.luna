@@ -17,7 +17,7 @@ import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenT
 import { BandBar } from "@/bandBar"
 import { Book, written } from "@/book"
 import { makesOf } from "@/cost"
-import { Crafter, TooltipCrafters, craftersOf } from "@/crafters"
+import { Crafter, Crafting, TooltipCrafters, craftersOf, craftingOf } from "@/crafters"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
 import { Learning, Taught, learnedFrom } from "@/learn"
@@ -360,6 +360,20 @@ public class Professions implements Module, App {
 
   // The recipes of every character's book that take an item: another module's read.
   public uses(self, item: Integer): Array<Use> { return self.usedBy[item] ?? NO_USES }
+
+  // Each character's profession whose known recipes take an item, the recipes at its rank: another module's read
+  // (Ordaen Mail's «To my characters»).
+  public craftingWith(self, item: Integer): Array<Crafting> {
+    const book = self.written
+    const tables: Map<Integer, Thresholds> = {}
+    const list: Array<Crafting> = []
+    for (crafter of self.crafters[item] ?? []) {
+      const table = tables[crafter.skillLine] ?? thresholdsOf(crafter.skillLine)
+      tables[crafter.skillLine] = table
+      list.push(craftingOf(crafter, book, table))
+    }
+    return list
+  }
 
   // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept,
   // and its window shows them.
