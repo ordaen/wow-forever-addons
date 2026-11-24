@@ -39,9 +39,9 @@ const GOLD: Color = Color.hex("#ffd100")
 const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 
 public class RingButton implements Component {
-  // In the frame's box, whose places start at its line (`artOrigin`), ROOM in from the minimap's whole.
-  derived left: Number<Length> = self.map.ringLeft(self.spec) - ROOM
-  derived top: Number<Length> = self.map.ringTop(self.spec) - ROOM
+  // In the frame's box, whose places start at its line (`artOrigin`).
+  derived left: Number<Length> = self.map.ringLeft(self.spec)
+  derived top: Number<Length> = self.map.ringTop(self.spec)
   derived opacity: Number = self.map.ringOpacity()
   // The game's button under ours, where there is one.
   derived theirs: any Frame | nil = self.frameOf()
@@ -114,7 +114,7 @@ public class RingButton implements Component {
     }
   }
 
-  onDragStart(mut self) { self.map.startDrag(self.spec) }
+  onDragStart(mut self, drag: Event.Drag) { self.map.startDrag(self.spec, drag.dx, drag.dy) }
   onDrag(mut self, drag: Event.Drag) { self.map.dragTo(drag.dx, drag.dy) }
   onDragStop(mut self) { self.map.stopDrag(self.spec) }
 

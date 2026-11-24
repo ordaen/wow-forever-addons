@@ -1,6 +1,6 @@
 import Build from "$build"
 import Game from "$game"
-import { Align, Anchored, EmbedLook, Event, Frame, Line, MouseButton, Overflow, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, ArtBorder, EmbedLook, Event, Frame, Line, MouseButton, Overflow, Point, Position, Shadow, Side } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown, timeText } from "Ordaen"
@@ -55,31 +55,34 @@ public class Minimap implements Module, App {
   state angles: mut Map<RingId, Number> = {}
   state hovered = false
   state drawerOpen = false
-  // The ring button being dragged, and its angle meanwhile.
+  // The ring button being dragged, its angle meanwhile, and where its middle stood as the drag began.
   state dragging: RingId | nil = nil
   state dragAngle: Number = 0
-  dragLeft: Number<Length> = 0ui
-  dragTop: Number<Length> = 0ui
+  dragX: Number = 0
+  dragY: Number = 0
   state hint: Hint = Hint.None
   state entryName = ""
 
-  // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
+  // At home it stands in the screen's top right corner with nothing round it there: the frame's line on the screen's
+  // edges, its metal on its left and bottom alone (the bottom left corner the one rounded), the ring along those two.
+  derived docked: Boolean = Ordaen.moved(PART) == nil
+  derived metal: ArtBorder = self.docked ? Minimap.cornered(Ordaen.art.frame.small) : Ordaen.art.frame.small
+  // The frame is square at every setting: the map fills it, inside the metal's wood, and the zone's strip and the
+  // coordinates' and clock's lie over the map's top and bottom.
   derived out: Number<Length> = (Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset) * 1ui
   derived size: Number<Length> = MAP * self.settings.values.scale
-  derived headHeight: Number<Length> = self.settings.values.showZone ? STRIP : 0ui
   derived hasFoot: Boolean = self.settings.values.showCoords || self.settings.values.showClock
-  derived footHeight: Number<Length> = self.hasFoot ? STRIP : 0ui
-  derived frameWidth: Number<Length> = self.size + 2 * self.out
-  derived frameHeight: Number<Length> = self.size + 2 * self.out + self.headHeight + self.footHeight
-  derived wholeWidth: Number<Length> = self.frameWidth + 2 * ROOM
-  derived wholeHeight: Number<Length> = self.frameHeight + 2 * ROOM
+  derived frameSide: Number<Length> = self.size + 2 * self.out
+  // The room round the frame for the ring: on all four sides, or docked, on its left and bottom.
+  derived roomTop: Number<Length> = self.docked ? 0ui : ROOM
+  derived wholeWidth: Number<Length> = self.frameSide + ROOM + self.roomTop
+  derived wholeHeight: Number<Length> = self.frameSide + ROOM + self.roomTop
   // The metal stands past its line, and the frame's box holds it: the box starts that far out, and is that much
   // larger than its size at the line.
-  derived frameLeft: Number<Length> = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale * 1ui
-  derived frameTop: Number<Length> = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
-  derived frameBoxWidth: Number<Length> = self.frameWidth + reachAcross(Ordaen.art.frame.small)
-  derived frameBoxHeight: Number<Length> = self.frameHeight + reachDown(Ordaen.art.frame.small)
-  derived mapTop: Number<Length> = self.out + self.headHeight
+  derived frameLeft: Number<Length> = ROOM - self.metal.reach.left * self.metal.scale * 1ui
+  derived frameTop: Number<Length> = self.docked ? 0ui : ROOM - self.metal.reach.top * self.metal.scale * 1ui
+  derived frameBoxWidth: Number<Length> = self.frameSide + reachAcross(self.metal)
+  derived frameBoxHeight: Number<Length> = self.frameSide + reachDown(self.metal)
 
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
   derived zoneColor: Color = self.colorOf()
@@ -107,8 +110,8 @@ public class Minimap implements Module, App {
   // The drawer's box: its size at its frame's line, and the art past the line.
   derived drawerBoxWidth: Number<Length> = self.drawerWidth + reachAcross(Ordaen.art.frame.small)
   derived drawerBoxHeight: Number<Length> = self.drawerHeight + reachDown(Ordaen.art.frame.small)
-  derived drawerLeft: Number<Length> = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
-  derived drawerTop: Number<Length> = self.ringTop(DRAWER_BUTTON) + BUTTON + 2.34375dp
+  derived drawerLeft: Number<Length> = ROOM + self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
+  derived drawerTop: Number<Length> = self.roomTop + self.ringTop(DRAWER_BUTTON) + BUTTON + 2.34375dp
 
   // The tooltip of what the cursor is on: written in that part's box, it stands beside it on the screen.
   public derived hintTitle: String = self.titleOf()
@@ -123,8 +126,7 @@ public class Minimap implements Module, App {
     // The room it keeps down from the screen's top right corner while it stands at home there: what stands along the
     // right edge (the tracker) starts under it.
     watch {
-      const home = self.shown && Ordaen.moved(PART) == nil
-      Ordaen.keepTopRight(FOLDER, home ? self.wholeHeight : 0ui)
+      Ordaen.keepTopRight(FOLDER, self.shown && self.docked ? self.wholeHeight : 0ui)
     }
   }
 
@@ -169,7 +171,7 @@ public class Minimap implements Module, App {
     }
   }
 
-  // ---- the ring, for its buttons
+  // ---- the ring, for its buttons: its places in the frame's box from its line's top left corner, in ui
 
   // A ring button's angle: as dragged now, as the player left it, or its own.
   public angle(self, spec: RingSpec): Number {
@@ -177,26 +179,73 @@ public class Minimap implements Module, App {
     return self.angles[spec.id] ?? spec.angle
   }
 
-  // Where a ring button's centre sits, from the frame's centre: along its angle, onto the box RING_OUT round the
-  // frame (a square's projection, not a circle's), rounded to hundredths.
-  offset(self, spec: RingSpec): (Number<Length>, Number<Length>) {
-    let t = self.angle(spec).rad()
-    let x = t.sin()
-    let y = -t.cos()
-    let halfWidth = self.frameWidth / 2 + RING_OUT
-    let halfHeight = self.frameHeight / 2 + RING_OUT
-    let k = (halfWidth / x.abs().max(1e-9)).min(halfHeight / y.abs().max(1e-9))
-    return (x * k / 1ui * 100 + 0.5).floor() / 100 * 1ui, (y * k / 1ui * 100 + 0.5).floor() / 100 * 1ui
+  // The frame's side, how far out the ring runs (its box's far sides), and docked, where a button's middle stops short
+  // of the screen's edges: the bottom's right end, as far down from the top.
+  derived side: Number = self.frameSide / 1ui
+  derived ringOut: Number = RING_OUT / 1ui
+  derived ringFar: Number = self.side + self.ringOut
+  derived cornerEnd: Number = self.side - BUTTON / 2 / 1ui
+
+  // A button's middle at `angle`: along it from the frame's middle onto the box RING_OUT round the frame (a square's
+  // projection, not a circle's). Docked, the screen's edges stand on the frame's top and right: what would stand on
+  // the right lies along the bottom, and what on top up the left, each as far from the screen's corner, clockwise
+  // still. Rounded to hundredths.
+  ringAt(self, angle: Number): (Number, Number) {
+    let t = angle.rad()
+    let dx = t.sin()
+    let dy = -t.cos()
+    let k = (self.side / 2 + self.ringOut) / dx.abs().max(dy.abs())
+    let x = self.side / 2 + dx * k
+    let y = self.side / 2 + dy * k
+    if (self.docked) {
+      if (x >= self.ringFar - 1e-6) {
+        x = self.side - y
+        y = self.ringFar
+      } else if (y <= -self.ringOut + 1e-6) {
+        y = self.side - x
+        x = -self.ringOut
+      }
+      x = x.min(self.cornerEnd)
+      y = y.max(self.side - self.cornerEnd)
+    }
+    return Minimap.hundredths(x), Minimap.hundredths(y)
+  }
+
+  // The angle a place points to from the frame's middle, to the whole degree; docked, its nearest place along the
+  // bottom and the left, where the ring runs.
+  angleAt(self, x: Number, y: Number): Number {
+    let px = x
+    let py = y
+    if (self.docked) {
+      let bottomX = x.max(-self.ringOut).min(self.cornerEnd)
+      let leftY = y.max(self.side - self.cornerEnd).min(self.ringFar)
+      let onBottom = Minimap.apart(x - bottomX, y - self.ringFar) <= Minimap.apart(x + self.ringOut, y - leftY)
+      px = onBottom ? bottomX : -self.ringOut
+      py = onBottom ? self.ringFar : leftY
+    }
+    return ((px - self.side / 2).atan2(self.side / 2 - py).deg() % 360 + 0.5).floor()
+  }
+
+  hundredths(value: Number): Number { return (value * 100 + 0.5).floor() / 100 }
+  // How far apart two places are, squared.
+  apart(x: Number, y: Number): Number { return x * x + y * y }
+
+  // The small frame's metal on the left and bottom alone: docked, the screen's edges are its others.
+  cornered(metal: ArtBorder): ArtBorder {
+    return {
+      reach: metal.reach, drawnFrom: metal.drawnFrom, art: metal.art, width: metal.width, scale: metal.scale,
+      inset: metal.inset, sides: [Side.Left, Side.Bottom], curves: metal.curves, lineStart: metal.lineStart
+    }
   }
 
   public ringLeft(self, spec: RingSpec): Number<Length> {
-    let x, y = self.offset(spec)
-    return ROOM + self.frameWidth / 2 + x - BUTTON / 2
+    let x, y = self.ringAt(self.angle(spec))
+    return x * 1ui - BUTTON / 2
   }
 
   public ringTop(self, spec: RingSpec): Number<Length> {
-    let x, y = self.offset(spec)
-    return ROOM + self.frameHeight / 2 + y - BUTTON / 2
+    let x, y = self.ringAt(self.angle(spec))
+    return y * 1ui - BUTTON / 2
   }
 
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
@@ -210,20 +259,22 @@ public class Minimap implements Module, App {
   public isDrawerOn(self): Boolean { return self.settings.values.drawerOn }
   public holds(self): Integer { return self.held }
 
-  public startDrag(mut self, spec: RingSpec) {
-    self.dragLeft = self.ringLeft(spec)
-    self.dragTop = self.ringTop(spec)
+  // The drag taken as it starts: the client starts it once the cursor has gone a few pixels from the press, and the
+  // button is where those take it at once, never left behind until the cursor moves again.
+  public startDrag(mut self, spec: RingSpec, dx: Number<Length>, dy: Number<Length>) {
+    let x, y = self.ringAt(self.angle(spec))
+    self.dragX = x
+    self.dragY = y
     self.dragAngle = self.angle(spec)
     self.dragging = spec.id
     self.hint = Hint.None
+    self.dragTo(dx, dy)
   }
 
   // The cursor gone `dx`, `dy` since the press: the button's middle as it stood, moved as far, held by the cursor
   // where it took it.
   public dragTo(mut self, dx: Number<Length>, dy: Number<Length>) {
-    let cx = self.dragLeft + BUTTON / 2 + dx - ROOM - self.frameWidth / 2
-    let cy = self.dragTop + BUTTON / 2 + dy - ROOM - self.frameHeight / 2
-    self.dragAngle = ((cx / 1ui).atan2(-cy / 1ui).deg() % 360 + 0.5).floor()
+    self.dragAngle = self.angleAt(self.dragX + dx / 1ui, self.dragY + dy / 1ui)
   }
 
   public stopDrag(mut self, spec: RingSpec) {
@@ -306,13 +357,13 @@ public class Minimap implements Module, App {
         // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
         <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>
           <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameBoxWidth}
-               height={self.frameBoxHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
+               height={self.frameBoxHeight} border={self.metal} background={Ordaen.art.window.wood}
                artOrigin={true} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-            <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
+            <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.out}
                    width={self.size} height={self.size} />
 
             <box $if={self.settings.values.showZone} position={Position.Absolute} left={self.out} top={self.out}
-                 width={self.size} height={STRIP} background={Ordaen.art.window.wood} border={RULE_BELOW}
+                 width={self.size} height={STRIP} zLevel={1} background={Ordaen.art.window.wood} border={RULE_BELOW}
                  xAlign={Align.Center} yAlign={Align.Center}>
               <box @pointerEnter={self.onZoneEnter} @pointerLeave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
@@ -322,7 +373,7 @@ public class Minimap implements Module, App {
             </box>
 
             <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
-                 height={STRIP} background={Ordaen.art.window.wood} border={RULE_ABOVE}
+                 height={STRIP} zLevel={1} background={Ordaen.art.window.wood} border={RULE_ABOVE}
                  columns={[{ fr: 1 }, "max-content"]} padding={{ left: 3sp, right: 3sp }} yAlign={Align.Center}>
               <box $if={self.showsCoords} @pointerPress={self.onCoordsClick} @pointerEnter={self.onCoordsEnter}
                    @pointerLeave={self.onHintLeave}>

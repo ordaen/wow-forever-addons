@@ -4,6 +4,7 @@
 // player uses it; the game's map and buttons are frames the test gives the fake game.
 import Client from "$client"
 import Game from "$game"
+import { Point } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -94,7 +95,74 @@ function angleOf(part: Test.Part): Number {
   return (x.atan2(-y).deg() + 360) % 360
 }
 
+// The minimap moved off its home in the screen's corner, as the placing mode leaves it.
+function moveAway() {
+  Ordaen.putAt("OrdaenMinimap.map", { point: Point.TopRight, x: -200ui, y: 150ui })
+}
+
+// The frame: the first box in the wood of the minimap (the surface showing `text`), its metal round it.
+function frameRect(text: String = ZONE): Test.Rect {
+  return Test.page().window(text).box(Ordaen.art.window.wood).nth(1).rect()
+}
+
+// Two lengths alike to a hundredth of a unit.
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
 // What the minimap shows
+
+test "at home the frame stands in the screen's top right corner, square, its metal on its left and bottom alone" {
+  Test.mount(nil, SCREEN)
+  const at = frameRect()
+  Test.expect(near(at.right, SCREEN.width) && near(at.top, 0) && near(at.right - at.left, at.bottom - at.top))
+}
+
+test "the frame is square with or without the zone's strip, the clock's and the coordinates'" {
+  Test.mount(nil, SCREEN)
+  const side = frameRect().right - frameRect().left
+  const square = (shown: String): Boolean => {
+    const at = frameRect(shown)
+    return near(at.right - at.left, side) && near(at.bottom - at.top, side)
+  }
+  // The strips taken away one by one, each time by a text still shown.
+  tick(ZONE_BOX)
+  Test.expect(square(CLOCK))
+  tick(CLOCK_BOX)
+  Test.expect(square(COORDS))
+  tick(ZONE_BOX)
+  tick(COORDS_BOX)
+  Test.expect(square(ZONE))
+}
+
+test "moved off its home the frame has its metal on every side, the ring round it" {
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  moveAway()
+  minimap().hover()
+  const at = frameRect()
+  const mail = minimap().button(MAIL).rect()
+  Test.expect(at.right < SCREEN.width - 100)
+  Test.expect(at.top > 100)
+  Test.expect(near(at.right - at.left, at.bottom - at.top))
+  Test.expect(mail.left > at.right - 10)
+}
+
+test "docked, the ring runs along the frame's left and bottom, every button on the screen" {
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Game.frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
+  Game.frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  const at = frameRect()
+  const ring = minimap().box(Ordaen.art.minimap.ring)
+  for (nth of 1..ring.count()) {
+    const button = ring.nth(nth).rect()
+    Test.expect(button.top >= 0 && button.right <= SCREEN.width)
+    Test.expect(middleX(button) < at.left + 10 || middleY(button) > at.bottom - 10)
+  }
+  // The mail, right of the top at home elsewhere, lies along the bottom.
+  Test.expect(middleY(minimap().button(MAIL).rect()) > at.bottom - 10)
+}
 
 test "the minimap shows the zone's name, the coordinates and the clock" {
   Game.minimap.frame = frame("Minimap", true)
@@ -348,6 +416,7 @@ test "a ring button dragged round the frame follows the cursor, frame after fram
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
   Test.mount(nil, SCREEN)
+  moveAway()
   minimap().hover()
   const before = angleOf(minimap().button(MAIL))
   minimap().button(MAIL).hover()
@@ -385,6 +454,40 @@ test "a ring button taken off its middle and dragged by a pixel moves by a pixel
   Test.release(nil)
   // Two pixels down, to the ring's whole degree: no jump towards the cursor.
   Test.expect((now.left - at.left).abs() <= 3 && (now.top - at.top).abs() <= 3)
+}
+
+test "a ring button follows the cursor from the drag's start, the pixels the client waits for counted" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  moveAway()
+  minimap().hover()
+  const at = minimap().button(MAIL).rect()
+  Test.moveTo({ x: middleX(at), y: middleY(at) })
+  Test.press(nil)
+  // The client starts the drag here, six pixels on: no motion after it.
+  Test.moveTo({ x: middleX(at), y: middleY(at) + 6 })
+  Test.pass(0.02)
+  const now = minimap().button(MAIL).rect()
+  Test.release(nil)
+  Test.expect((middleY(now) - middleY(at) - 6).abs() <= 2)
+}
+
+test "docked, a ring button dragged along the bottom follows the cursor along it" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  const at = minimap().button(MAIL).rect()
+  Test.moveTo({ x: middleX(at), y: middleY(at) })
+  Test.press(nil)
+  Test.moveTo({ x: middleX(at) - 30, y: middleY(at) })
+  Test.pass(0.02)
+  Test.moveTo({ x: middleX(at) - 60, y: middleY(at) + 3 })
+  Test.pass(0.02)
+  const now = minimap().button(MAIL).rect()
+  Test.release(nil)
+  Test.expect((middleY(now) - middleY(at)).abs() <= 1 && (middleX(now) - middleX(at) + 60).abs() <= 4)
 }
 
 test "a ring button let go hides with the ring once the cursor leaves the minimap" {
