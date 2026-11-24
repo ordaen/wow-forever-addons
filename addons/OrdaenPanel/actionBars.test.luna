@@ -544,6 +544,24 @@ test "a bar that hides empty buttons shows them while something is dragged, and 
   Test.expect(Test.page().text("S2").shown())
 }
 
+test "a bar's size changed while it shows keeps the client's art in proportion: the frame round the icon" {
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
+      choice.size = 54
+    })
+  })
+  Test.flush()
+  const client: any Client.Frame = button("2", 1)
+  const frame = client is Client.Button ? client.GetNormalTexture() : nil
+  Test.expect(about(client.GetWidth(), 54))
+  Test.expect(frame != nil && about(frame.GetWidth(), 54 * 51 / 45))
+  if (client is Client.ActionButton) { Test.expect(about(client.icon.GetWidth(), 54)) }
+}
+
 // The masks among a button's regions (a texture is a kind of mask texture: a mask is told by its own word): each
 // one's width.
 function maskWidths(...regions: any Client.Region): Array<Number> {

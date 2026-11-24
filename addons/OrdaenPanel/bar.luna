@@ -36,6 +36,8 @@ public class Slot {
   // button holds what it shows.
   public state holds: Boolean = true
   slotHeard: Handle | nil = nil
+  // The template's art as the template lays it out, fitted to each size the button is given.
+  const art: TemplateArt
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
@@ -46,15 +48,11 @@ public class Slot {
     self.shown = frame.IsShown()
     frame.HotKey.SetAlpha(0)
     const life = self.life
-    const art = templateArt(frame, ...frame.GetRegions())
-    fitArt(frame, art)
+    self.art = templateArt(frame, ...frame.GetRegions())
     self.readHolds()
     self.slotHeard = Events.ACTIONBAR_SLOT_CHANGED.listen(self.onSlotChanged)
     _ = frame.HookScript("OnAttributeChanged", (): nil => {
       if (life.on) { self.readHolds() }
-    })
-    _ = frame.HookScript("OnSizeChanged", (): nil => {
-      if (life.on) { fitArt(frame, art) }
     })
     // The template tells each button by one global function: the hook's body one comparison for another's.
     Client.hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
@@ -72,6 +70,10 @@ public class Slot {
     self.life.on = false
     if (self.slotHeard != nil) { destroy self.slotHeard }
   }
+
+  // The template's art fitted to the size the button gives the client's frame: told by the button itself, as the
+  // client tells some of these frames no `OnSizeChanged` (two bars of 37 kept the art at 45's in the game).
+  public fit(self, size: Number) { fitArt(self.art, size) }
 
   onSlotChanged(mut self, slot: Number) {
     if (self.frame.action == slot) { self.readHolds() }
@@ -106,6 +108,7 @@ struct Piece {
 // from the button as it is made): the frame larger than the button and anchored at its top left, the icon's mask
 // centred on the icon and larger than it, the icon filling the button.
 struct TemplateArt {
+  frame: any Client.Frame
   width: Number
   height: Number
   pieces: Array<Piece>
@@ -126,15 +129,16 @@ function templateArt(frame: any Client.Frame, ...regions: any Client.Region): Te
       pieces.push({ region: region, pins: pins, width: region.GetWidth(), height: region.GetHeight() })
     }
   }
-  return { width: frame.GetWidth(), height: frame.GetHeight(), pieces: pieces }
+  return { frame: frame, width: frame.GetWidth(), height: frame.GetHeight(), pieces: pieces }
 }
 
 // The template's art at the size the button is given: every piece in proportion, as the template lays it out for its
 // own (its texts keep their corners). Stretched to the button instead, the frame's opening, in the art's top left part,
 // would be smaller than the icon, and the icon would stand out of it to the right and below.
-function fitArt(frame: any Client.Frame, art: TemplateArt) {
-  const across = art.width > 0 ? frame.GetWidth() / art.width : 1
-  const down = art.height > 0 ? frame.GetHeight() / art.height : 1
+function fitArt(art: TemplateArt, size: Number) {
+  const frame = art.frame
+  const across = art.width > 0 ? size / art.width : 1
+  const down = art.height > 0 ? size / art.height : 1
   for (piece of art.pieces) {
     const region = piece.region
     region.ClearAllPoints()
@@ -231,6 +235,8 @@ public class Button implements Component {
     self.face = face
     self.hideEmpty = hideEmpty
     self.dragging = dragging
+    // The client's art fitted to the size the button gives its frame, each time it changes.
+    watch (given of self.size) { self.slot.fit(given / 1ui) }
   }
 
   public render(self): Template {
