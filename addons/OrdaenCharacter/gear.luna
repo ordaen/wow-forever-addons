@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
+import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -127,7 +127,7 @@ public class GearSlot implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={2sp}>
-        <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size}
+        <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size} well={SlotWell.Framed}
                     count={self.worn.count} dimmed={self.worn.locked} worn={self.wornSlot} action={self.use}
                     @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged}>
           <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}

@@ -301,6 +301,29 @@ test "a crested slot holds its icon inside the crest's rim, the rim taking an un
   Test.expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
 }
 
+// The same icon in two talent-framed slots: an uncommon item's, a common one's.
+class Framed {
+  public render(self): Template {
+    return $ltml {
+      <box columns={2} gap={4sp}>
+        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} well={SlotWell.Framed} />
+        <ItemButton item={2589} art={HAMMER} well={SlotWell.Framed} />
+      </box>
+    }
+  }
+}
+
+test "a framed slot has the client's talent frame over it, tinted in an uncommon item's colour, the icon a tenth in" {
+  Test.mount(new Framed(), { left: 0, top: 0, width: 400, height: 100 })
+  const frames = Test.page().box("talents-node-square-gray")
+  Test.expect(frames.count() == 2)
+  Test.expect(frames.nth(1).paintedWith(Color.hex("#1eff00")) && !frames.nth(2).paintedWith(Color.hex("#1eff00")))
+  const slot = frames.nth(1).rect()
+  const icon = Test.page().box(HAMMER).nth(1).rect()
+  const rim = (slot.right - slot.left) / 10
+  Test.expect((icon.left - slot.left - rim).abs() < 0.5 && (slot.bottom - icon.bottom - rim).abs() < 0.5)
+}
+
 test "a slot's count is written in the numbers' font, outlined, so it reads on any icon" {
   Test.mount(new Bag(), { left: 0, top: 0, width: 600, height: 100 })
   const told = Test.page().text("20").told()

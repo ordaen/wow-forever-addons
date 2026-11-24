@@ -400,6 +400,13 @@ test "the game's sets are tabs over the columns, the one worn picked: another pi
   Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
 }
 
+test "the paper doll's slots stand in the client's talent frame, as the talents' nodes do" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.box("talents-node-square-gray").count() >= 19)
+}
+
 test "the sets' tabs are the window's subtab band, its marble out to the frame at either side, «Save» on it" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()

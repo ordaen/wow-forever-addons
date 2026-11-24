@@ -73,9 +73,10 @@ public function usableItem(item: Integer): Boolean {
 
 public enum Corner { TopLeft = "topLeft", TopRight = "topRight", BottomLeft = "bottomLeft" }
 
-// What an empty slot shows: a sunk well (the default), or the client's own crested slot, as its bank and mailbox show
-// it (standing out on the wood).
-public enum SlotWell { Sunk, Crested }
+// What an empty slot shows: a sunk well (the default), the client's own crested slot, as its bank and mailbox show
+// it (standing out on the wood), or the client's square talent frame round the icon, as the talents draw theirs (a
+// paper doll's slots, beside the talents' nodes).
+public enum SlotWell { Sunk, Crested, Framed }
 
 // A pip a module puts on an item's corner.
 public struct Marker {
@@ -93,6 +94,10 @@ const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const CREST_WHOLE = 64 / 41
 const CREST_RIM = 3 / 41
 const ICON_MASK: Asset = "Interface/Common/Common-IconMask"
+// Framed: the client's talent frame (grey, its metal) over the slot, the icon and the well inside it, a tenth of the
+// slot in from each side as the talents' nodes hold theirs; an item's quality from uncommon up the frame's tint.
+const TALENT_FRAME: Atlas = "talents-node-square-gray"
+const TALENT_FRAME_RIM = 0.1
 const NO_EDGE: Line = { width: 0dp, color: Color.hex("#00000000") }
 const CLEAR: Color = Color.hex("#00000000")
 const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
@@ -152,18 +157,23 @@ public class ItemButton implements Component {
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
   public derived lit: Boolean = self.item != nil && self.quality != Quality.Poor && self.quality != Quality.Common
-  // Always drawn, at no opacity when not lit (or in a crest, whose rim takes the colour): the slot keeps its boxes
-  // whatever it holds.
-  derived rim: Number = self.lit && !self.crested ? 1 : 0
+  // Always drawn, at no opacity when not lit (or in a crest or a talent frame, which takes the colour): the slot keeps
+  // its boxes whatever it holds.
+  derived rim: Number = self.lit && self.sunk ? 1 : 0
   derived opacity: Number = self.dimmed ? 0.35 : 1
   derived counted: Boolean = self.count > 1
+  derived sunk: Boolean = self.well == SlotWell.Sunk
   derived crested: Boolean = self.well == SlotWell.Crested
-  derived floor: Color = self.crested ? CLEAR : WELL
+  derived talentFramed: Boolean = self.well == SlotWell.Framed
+  // The well's dark under the whole slot when sunk; inside the talent frame when framed; none in a crest.
+  derived floor: Color = self.sunk ? WELL : CLEAR
   derived crestSize: Number<Length> = self.size * CREST_WHOLE
-  // Where the icon stands inside the slot: inside the crest's rim, or edge to edge.
-  derived inset: Number<Length> = self.crested ? self.size * CREST_RIM : 0dp
-  // The border goes round the slot on a sunk well; a crest's rim is its own, coloured by an item's quality.
-  derived slotEdge: Line = self.crested ? NO_EDGE : self.edge
+  // Where the icon stands inside the slot: inside the crest's rim or the talent frame, or edge to edge.
+  derived inset: Number<Length> = self.crested ? self.size * CREST_RIM : self.talentFramed ? self.size * TALENT_FRAME_RIM : 0dp
+  // The border goes round the slot on a sunk well; a crest's rim and a talent frame are their own, coloured by an item's
+  // quality.
+  derived slotEdge: Line = self.sunk ? self.edge : NO_EDGE
+  derived frameTint: Color = self.lit ? self.edge.color : UNTINTED
   derived framed: Boolean = self.crested && self.lit
   derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 
@@ -365,8 +375,12 @@ public class ItemButton implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
                background={CREST} />
         </box>
+        <box $if={self.talentFramed} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
+             bottom={self.inset} background={WELL} />
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              icon={self.icon} tint={self.tint} mask={self.iconMask} cooldown={self.cooldown} />
+        <box $if={self.talentFramed} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             background={TALENT_FRAME} tint={self.frameTint} zLevel={1} />
         <box $if={self.framed} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              overflow={.Hidden}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
