@@ -312,6 +312,9 @@ test "another module's part stands past the fill in its colour, the rested part 
   const done = Test.page().box(DONE).rect()
   const rested = Test.page().box(RESTED).rect()
   Test.expect(rested.left >= done.right - 0.5)
+  // The quests' part the fill's own art tinted green; the rested part its pale wash alone.
+  Test.expect(Test.page().box(DONE).paintedWith(xpFillArt(XpFill.Brushed)))
+  Test.expect(!Test.page().box(RESTED).paintedWith(xpFillArt(XpFill.Brushed)))
   // Three tenths to two, within the pixels the edges snap to.
   Test.expect(((rested.right - rested.left) / (done.right - done.left) - 1.5).abs() < 0.075)
   Test.page().box(DONE).hover()

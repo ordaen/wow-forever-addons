@@ -10,7 +10,7 @@ import { Align, Art, Bounds, Edges, Event, Line, Position, Shadow, Side, Track }
 import root Ordaen from "Ordaen"
 import { Component, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
 import { XpView } from "@/choices"
-import { XpPart } from "@/extend"
+import { XpLook, XpPart } from "@/extend"
 import Locale from "@/locales"
 
 // The experience's fill as it starts.
@@ -67,6 +67,26 @@ function tracksOf(value: Integer, least: Integer, most: Integer, parts: Array<Xp
   }
   tracks.push({ fr: 100 - reached })
   return tracks
+}
+
+// One part past a tube's fill as its look says: the tube's fill art made grey and tinted the part's colour, or the
+// colour alone.
+class PartFill implements Component {
+  derived filled: Boolean = self.part.look == XpLook.Fill
+
+  part: Signal<XpPart>
+  fill: Signal<Art>
+  constructor(part: Signal<XpPart>, fill: Signal<Art>) {
+    self.part = part
+    self.fill = fill
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.filled} background={self.fill} tint={self.part.color} desaturate={true} />
+      <box $else background={self.part.color} />
+    }
+  }
 }
 
 // The cursor's place on one part past a tube's fill: its tooltip while the cursor is on it, and the tube told, so the
@@ -264,7 +284,7 @@ public class Tube implements Component {
             <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.tracks}
                  rows={FILL}>
               <box />
-              <box $for={part of self.parts} background={part.color} />
+              <PartFill $for={part of self.parts} part={part} fill={self.fill} />
               <box />
             </box>
             <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
@@ -349,7 +369,7 @@ public class XpBar implements Component {
     if (Game.player.rested > 0) {
       parts.push({
         amount: Game.player.rested, color: RESTED, title: Locale.RESTED_TIP_TITLE, text: Locale.RESTED_TIP,
-        rows: self.restedRows
+        rows: self.restedRows, look: XpLook.Wash
       })
     }
     return parts

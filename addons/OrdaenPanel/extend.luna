@@ -12,7 +12,12 @@ public struct XpPart {
   title: String
   text: String
   rows: Array<TipRow>
+  look: XpLook = XpLook.Fill
 }
+
+// How a part is drawn: the experience's own fill, made grey and tinted the part's colour (the same glass in another
+// colour), or the colour alone laid over the trough (the rested bonus's pale wash).
+public enum XpLook { Fill = "fill", Wash = "wash" }
 
 public trait XpSource {
   // What to draw now; none: nothing. Read in a derived: what it reads is followed.

@@ -1,3 +1,3 @@
 // Ordaen Panel: one panel along an edge of the screen, with the game's menu, the money and the bags.
-public import { XpPart, XpSource } from "@/extend"
+public import { XpLook, XpPart, XpSource } from "@/extend"
 public import { PORTRAIT_HEIGHT, PORTRAIT_WIDTH, Panel } from "@/main"
