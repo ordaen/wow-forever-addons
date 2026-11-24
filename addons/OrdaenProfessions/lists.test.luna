@@ -378,26 +378,49 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   Test.expect(chosen() == "Linen Cloak")
 }
 
-test "a table's row says its made item's class and where it is worn; «Class» sorts by it, one with none last" {
+test "a table's row says its made item's class and where it is worn, else its kind; «Class» sorts by it, one with none last" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.recipeReader.schematic = schematic
-  // The cloak (1110) and the vest (1111) are cloth, worn on the back and the chest; the bag (1120) a bag, not worn;
-  // the woolen bag makes nothing.
+  // The cloak (1110) and the vest (1111) are cloth, worn on the back and the chest; the bag (1120) a bag, not worn, a
+  // container; the woolen bag makes nothing.
   Game.items.subtype = (id: Integer): String | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
   Game.items.equipSlot = (id: Integer): String | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
+  Game.items.category = (id: Integer): String | nil => id == 1120 ? "Container" : id == 1110 || id == 1111 ? "Armor" : nil
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("Table")
   Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   window().button("Class").click()
   Test.expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
   window().button("Class").click()
   // The other way round, two of one class by name the other way too; still last, the one with none.
   Test.expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
+}
+
+test "a table's class and type wrap onto lines of their own, their row as high as they come to" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.recipeReader.schematic = schematic
+  Game.items.subtype = (id: Integer): String | nil => id == 1111 ? "Cloth Woven Of Many Long Threads" : "Cloth"
+  Game.items.category = (id: Integer): String | nil => id == 1111 ? "Armor Of Every Kind There Is" : "Armor"
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  view("Table")
+  const one = heightOf(window().text("Linen Cloak").nth(1))
+  Test.expect(heightOf(window().text("Cloth Woven Of Many Long Threads")) > one * 1.5)
+  Test.expect(heightOf(window().text("Armor Of Every Kind There Is")) > one * 1.5)
+  Test.expect(heightOf(window().text("Brown Linen Vest").nth(1).item()) > heightOf(window().text("Linen Cloak").nth(1).item()))
+}
+
+function heightOf(part: Test.Part): Number {
+  const rect = part.rect()
+  return rect.bottom - rect.top
 }
 
 test "the camp's tab lists its recipes in one list whatever the view, with no view to pick" {

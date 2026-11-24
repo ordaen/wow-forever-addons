@@ -82,12 +82,12 @@ public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
 }
 
 // What the table shows of a recipe besides the game's: the skill it is learned at (its orange point), the made item's
-// subclass («Ткань») and where it is worn («Спина»), its totals at the house and at a merchant (none while prices
+// subclass («Ткань») and where it is worn («Спина»), or its class where it isn't worn («Расходуемые»), its totals at the house and at a merchant (none while prices
 // aren't shown).
 public struct TableFacts {
   skill: Integer | nil
   subtype: String | nil
-  slot: String | nil
+  kind: String | nil
   both: BothSources | nil
 }
 
@@ -108,7 +108,7 @@ public const COLUMN_PROFIT = 10
 // A recipe's text in a column; none for a column of numbers, or where it has none.
 function textAt(column: Integer, facts: TableFacts | nil): String | nil {
   if (column == COLUMN_CLASS) { return facts?.subtype }
-  if (column == COLUMN_TYPE) { return facts?.slot }
+  if (column == COLUMN_TYPE) { return facts?.kind }
   return nil
 }
 

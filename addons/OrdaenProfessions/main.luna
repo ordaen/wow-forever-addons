@@ -670,7 +670,7 @@ public class Professions implements Module, App {
       const fact: TableFacts = {
         skill: learned[recipe.id] ?? taught[recipe.name]?.skill,
         subtype: made == nil ? nil : Game.items.subtype(made),
-        slot: made == nil ? nil : Game.items.equipSlot(made),
+        kind: made == nil ? nil : Game.items.equipSlot(made) ?? Game.items.category(made),
         both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, made, 1)
       }
       facts[recipe.id] = fact
@@ -1019,13 +1019,15 @@ public class Professions implements Module, App {
                   </SideList>
                   <box $else rows={FILL}>
                     <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
-                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}>
+                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}
+                           rowsVary={true}>
                       <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       chosen={self.chosenRecipe} kept={self.kept}
                                       menuFor={self.menuFor} priced={true} @act={self.onAct} />
                     </Table>
                     <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn}
-                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}>
+                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}
+                           rowsVary={true}>
                       <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       chosen={self.chosenRecipe} kept={self.kept}
                                       menuFor={self.menuFor} @act={self.onAct} />

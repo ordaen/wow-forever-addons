@@ -239,7 +239,7 @@ public class RecipeTableRow implements Component {
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived skill: String = self.facts?.skill == nil ? "—" : "%d".format(self.facts?.skill ?? 0)
   derived subtype: String = self.facts?.subtype ?? ""
-  derived slot: String = self.facts?.slot ?? ""
+  derived kind: String = self.facts?.kind ?? ""
   derived menuOpen: Boolean = self.menuFor == self.recipe.id
   derived both: BothSources | nil = self.facts?.both
   derived auction: SourceTotals = (self.both ?? NO_SOURCES).auction
@@ -287,15 +287,14 @@ public class RecipeTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={"subgrid"}>
-        // The table builds only the rows in view, each as high as the first: every row is one line, a long name cut
-        // short («…») at its column.
+        // A long name is cut short («…») at its column; the class and the type wrap, their row as high as they come to.
         <TableRow selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
           <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.Cut} /> </TableCell>
           <TableCell align={Align.End}>
             <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
           </TableCell>
-          <TableCell> <text value={self.subtype} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
-          <TableCell> <text value={self.slot} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+          <TableCell> <text value={self.subtype} textColor={Style.DIM} /> </TableCell>
+          <TableCell> <text value={self.kind} textColor={Style.DIM} /> </TableCell>
           <TableCell align={Align.End}>
             <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
           </TableCell>
