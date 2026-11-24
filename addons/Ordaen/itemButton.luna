@@ -200,6 +200,7 @@ public class ItemButton implements Component {
   well: Signal<SlotWell>
   cursor: Signal<Cursor | nil>
   tipped: Signal<Boolean>
+  toldUsable: Signal<Boolean | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -240,8 +241,12 @@ public class ItemButton implements Component {
     // The cursor's look while it is on the slot (the coin bag at a merchant).
     cursor: Signal<Cursor | nil> = nil,
     // Whether it shows its tooltip itself; off where what holds it shows one for all of it (a reward's row).
-    tipped: Signal<Boolean> = true
+    tipped: Signal<Boolean> = true,
+    // Whether the player can use it, where the game says so in its own right (a toy: the toy box's `IsToyUsable`) and
+    // not by its tooltip, whose «Already known» a toy collected has in red. None: by its tooltip.
+    usable: Signal<Boolean | nil> = nil
   ) {
+    self.toldUsable = usable
     self.cursor = cursor
     self.tipped = tipped
     self.cooldown = cooldown
@@ -275,6 +280,8 @@ public class ItemButton implements Component {
   }
 
   usableOf(self): Boolean {
+    const said = self.toldUsable
+    if (said != nil) { return said }
     const item = self.item
     if (item == nil) { return true }
     return usableItem(item)
