@@ -77,6 +77,8 @@
   "HISTORY_SETTINGS_MANY": "%d settings",
   "HISTORY_MORE": "%s and %d more",
   "CANCEL": "Cancel",
+  "ICON_SEARCH": "Search icons by name",
+  "ICON_PICK": "Pick",
   "THEME_FONT": "Text font",
   "THEME_FONTHEADER": "Title font",
   "THEME_FONTNUMBERS": "Number font",

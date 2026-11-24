@@ -77,6 +77,8 @@
   "HISTORY_SETTINGS_MANY": "%d настроек",
   "HISTORY_MORE": "%s и ещё %d",
   "CANCEL": "Отмена",
+  "ICON_SEARCH": "Поиск значков по названию",
+  "ICON_PICK": "Выбрать",
   "THEME_FONT": "Шрифт текста",
   "THEME_FONTHEADER": "Шрифт заголовков",
   "THEME_FONTNUMBERS": "Шрифт чисел",
