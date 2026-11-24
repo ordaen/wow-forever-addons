@@ -416,12 +416,15 @@ test "the damage a second's card says each hand's speed, damage and damage a sec
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, mainSkill: MACES }
+  sheet.figures = (): Stats => Stats {
+    attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, mainSkill: MACES,
+    bossGlancing: 40, bossGlancingPenalty: 35, levelGlancing: 10, levelGlancingPenalty: 5
+  }
   const window = opened(mut sheet)
   window.text("50.0").hover()
-  // Its title the name alone: the value stands on the card.
+  // Its title the name alone: the value stands on the card. Then each target's glancing blows: how often, how much less.
   const tip = Test.page().window("Main Hand")
-  Test.expect(tip.texts().join(" | ") == "DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0")
+  Test.expect(tip.texts().join(" | ") == "DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Glancing blows | Raid bosses | 40.00% · 35.00% less damage | Targets of your level | 10.00% · 5.00% less damage")
   // The main hand's slot shows its share; attack power glows, as what feeds it.
   Test.expect(window.text("50.0").count() >= 2)
 }

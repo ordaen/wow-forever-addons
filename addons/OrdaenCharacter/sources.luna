@@ -291,7 +291,16 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
     sections.push({ title: Locale.OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off) })
     shares[OFF_HAND_SLOT] = "%.1f".format(handDps(stats.offMinDamage, stats.offMaxDamage, off))
   }
+  sections.push({ title: Locale.GLANCING_BLOWS, rows: [
+    glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancing, stats.bossGlancingPenalty),
+    glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancing, stats.levelGlancingPenalty)
+  ] })
   return { text: "", sections: sections, fed: [.AttackPower], shares: shares }
+}
+
+// A target's glancing blows in the damage's tooltip: how often a swing glances, and how much less such a blow deals.
+function glancingRow(target: String, chance: Number, penalty: Number): TipRow {
+  return { label: target, value: Locale.GLANCING_PENALTY.format(amountText(chance, true), amountText(penalty, true)) }
 }
 
 // The weapons' slots.

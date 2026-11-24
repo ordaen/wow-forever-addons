@@ -232,9 +232,12 @@ public struct Stats {
   meleeSkillPast: Number = 0
   rangedSkillPast: Number = 0
   bossDefensePast: Number = 15
-  // The chance a swing of the main hand glances: against a raid boss, and against a target of the player's level.
+  // The chance a swing of the main hand glances, and how much less a glancing blow deals, in percent: against a raid
+  // boss, and against a target of the player's level.
   bossGlancing: Number = 0
   levelGlancing: Number = 0
+  bossGlancingPenalty: Number = 0
+  levelGlancingPenalty: Number = 0
   conversions: Conversions = {}
 }
 
