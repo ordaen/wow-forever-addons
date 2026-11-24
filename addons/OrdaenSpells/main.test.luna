@@ -1211,6 +1211,20 @@ function batch(): Array<Game.TrainerService> {
   ]
 }
 
+test "«Learn available» stands in the one footer under the list and the card, there while a skill is picked too" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = batch
+  Game.money.amount = 1000
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("A").click()
+  const all = window.button("Learn available · 0g 6s 0c").rect()
+  const learn = window.button("Learn").rect()
+  // Under the card's «Learn», at the band's right: under the card's column, past the list.
+  Test.expect(all.top > learn.bottom && all.right > learn.left)
+}
+
 test "with nothing picked, «Learn available» asks first, then learns what can be learned now from the bottom up, no profession" {
   Test.mount(nil, PAGE)
   Game.trainer.services = batch

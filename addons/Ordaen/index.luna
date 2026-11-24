@@ -80,7 +80,7 @@ public import { BODY_LINE, BODY_TEXT, BRIGHT_TEXT, PROSE_LINE, RULE_COLOR, RULE_
 public import { ALWAYS, StateVisibility, Visibility, VisibilityRows, Visible, opacityNow } from "@/visibility"
 public import { SPEC_WEIGHTS, SpecWeights, Weights } from "@/weights"
 public import { DEAD_ZONE, SLOT_LUA, WHEEL_MOST, WHEEL_SIZE, Wheel, WheelItem, WheelMiddle, WheelNames, itemTurn, plainItem, slotAt } from "@/wheel"
-public import { FOOTER_ROOM, HeaderTab, KeptWindow, Occasion, Placing, WINDOW_MIN_WIDTH, Window, WindowSide, WindowTab, WindowTabSpec, WindowView, windowSideWide, windowSides } from "@/window"
+public import { FOOTER_ROOM, HeaderTab, KeptWindow, Occasion, Placing, SideBottom, WINDOW_MIN_WIDTH, Window, WindowSide, WindowTab, WindowTabSpec, WindowView, windowSideWide, windowSides } from "@/window"
 public import { WindowsPage, windowsTitle } from "@/windowsPage"
 public import { GearWorth, Places, classCanUse, defaultBuildOf, placesFor, scoreWith, specOf, specsOf, upgradeText } from "@/worth"
 public import { ZoneItem, Zones } from "@/zones"
