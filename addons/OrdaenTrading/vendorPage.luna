@@ -22,7 +22,7 @@ public struct Sellers {
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1, min: 175.78125dp } },
-  { title: Locale.COLUMN_TO_BUY, width: 93.75dp, align: Align.End },
+  { title: Locale.COLUMN_TO_BUY, width: 105.46875dp, align: Align.End },
   { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End },
   { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
   { title: Locale.COLUMN_NEAREST, width: 105.46875dp, align: Align.End }
