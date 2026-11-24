@@ -1,0 +1,27 @@
+// The library's SmallTabs: a click picks a tab, which is lit and ruled; the others stand on nothing, and none moves.
+import Test from "$test"
+import { SmallTabs } from "@/smallTabs"
+
+const LIGHT: Color = Color.hex("#ffffff14")
+
+class Page {
+  public state picked = 1
+
+  public render(self): Template {
+    return $ltml { <SmallTabs tabs={["Where to learn", "Prices & costs"]} selected={mut self.picked} /> }
+  }
+}
+
+test "a click picks a tab: it is lit, the one before goes plain, and neither moves" {
+  let page = new Page()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const screen = Test.page()
+  const where = screen.text("Prices & costs").rect()
+  Test.expect(screen.button("Where to learn").paintedWith(LIGHT) && !screen.button("Prices & costs").paintedWith(LIGHT))
+  screen.button("Prices & costs").click()
+  Test.expect(page.picked == 2)
+  Test.expect(screen.button("Prices & costs").paintedWith(LIGHT) && !screen.button("Where to learn").paintedWith(LIGHT))
+  Test.expect(screen.text("Prices & costs").rect().left == where.left)
+  destroy page
+  Test.expect(Test.blank())
+}

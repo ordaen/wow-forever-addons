@@ -1,0 +1,67 @@
+// SmallTabs: a few tabs inside a page, standing on its wood (a card's sections: «Where to learn», «Prices & costs"):
+// each tab its name; the picked one a plain light ruled all round, the others their name dim on nothing, lighter with
+// a shade under the cursor, each keeping the picked one's room (its line drawing nothing), so nothing moves as another
+// is picked. A click, Enter or Space picks one: the strip writes its place, from 1, into the cell it was handed.
+import { Align, ByInteractionState, Edges, Line, Side } from "$ltml"
+import { Component } from "@/module"
+import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH } from "@/units"
+
+const CLEAR: Color = Color.hex("#00000000")
+const LIGHT: Color = Color.hex("#ffffff14")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
+const ALL: Array<Side> = [Side.Top, Side.Right, Side.Bottom, Side.Left]
+const RULED: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: ALL }
+const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: ALL }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const TAB_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 4sp }
+
+class SmallTab implements Component {
+  public pick: Event<Integer> = new Event()
+  derived picked: Boolean = self.selected == self.index
+  derived back: Color | ByInteractionState<Color> = self.picked ? LIGHT : SHADE
+  derived rule: Line = self.picked ? RULED : UNRULED
+  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
+
+  label: Signal<String>
+  const index: Integer
+  selected: Signal<Integer>
+  constructor(label: Signal<String>, index: Integer, selected: Signal<Integer>) {
+    self.label = label
+    self.index = index
+    self.selected = selected
+  }
+
+  onPick(mut self) { self.pick.emit(self.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={TAB_PAD} background={self.back} border={self.rule} interactionState={self.$interactionState}
+           @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
+        <text value={self.label} textColor={self.color} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+public class SmallTabs implements Component {
+  tabs: Signal<Array<String>>
+  selected: mut Signal<Integer>
+  constructor(
+    tabs: Signal<Array<String>>,
+    // The picked tab's place, from 1.
+    selected: mut Signal<Integer>
+  ) {
+    self.tabs = tabs
+    self.selected = selected
+  }
+
+  onPick(mut self, index: Integer) { self.selected = index }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={{ each: "max-content" }} gap={2sp} yAlign={Align.Center}>
+        <SmallTab $for={index, label of self.tabs} label={label} index={index} selected={self.selected} @pick={self.onPick} />
+      </box>
+    }
+  }
+}
