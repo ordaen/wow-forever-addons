@@ -652,7 +652,7 @@ public class TrainerPage {
   // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
   // what is ignored, where anything is.
   derived counts: Array<FooterCount> = self.countsOf()
-  public derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
+  public derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card, bottom: .OverFooter }
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
   derived greeting: String = self.greetingOf()
@@ -1010,23 +1010,22 @@ public class TrainerPage {
         <PushButton $if={self.acts} label={self.action ?? ""} width={TRAIN_WIDTH} @click={self.onAct} />
         <text $else value={Locale.TRAINER_AT_TRAINER} textColor={DIM} textSize={SECONDARY_TEXT} />
       </box>
-      <box $else columns={PAIR} gap={3sp} yAlign={Align.Center}>
-        <box>
-          <Money $if={self.has} amount={self.price} color={self.priceInk} />
-        </box>
-        <PushButton $if={self.has} label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain}
+      <box $elseif={self.has} columns={PAIR} gap={3sp} yAlign={Align.Center}>
+        <Money amount={self.price} color={self.priceInk} />
+        <PushButton label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain}
                     tip={self.reason} @click={self.onTrain} />
-        <PushButton $else label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canLearnAll}
-                    tip={self.allTip} @click={self.onLearnAll} />
       </box>
     </box>
   }
 
-  // The footer, a band across the main section: the counts at its left, the player's money at its right.
+  // The footer, one band under the list and the card: the counts at its left, the player's money at its right, and at a
+  // trainer «Learn available» after it.
   public const footer: Template = $ltml {
     <ListFooter counts={self.counts}>
       <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       <Money amount={Game.money.amount} />
+      <PushButton $if={self.atTrainer} label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate.Accent}
+                  disabled={!self.canLearnAll} tip={self.allTip} @click={self.onLearnAll} />
     </ListFooter>
   }
 
