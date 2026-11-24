@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, SmallTabs, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -86,10 +86,12 @@ const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
 const SET_WIDTH = 820.3125dp
 const BUTTON = 140.625dp
-// The window's tabs, by their place.
+// The window's tabs, by their place: the game's options, and its mods (the AddOns list).
 public const SETTINGS_TAB = 1
-public const KEYS_TAB = 2
-public const ADDONS_TAB = 3
+public const ADDONS_TAB = 2
+// The options' own small tab of key bindings, second after the game's first group (as Blizzard lists them).
+const KEYS_SECTION = 2
+const OPTIONS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 
 // An addon of a parent's group (`## Group`), the parent itself aside.
 function isUnder(addon: AddOn, parent: String): Boolean { return addon.group == parent && addon.name != parent }
@@ -156,12 +158,17 @@ public class AddOnsWindow implements Component {
     Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
   derived tabs: Array<WindowTabSpec> = [
     { title: Client.SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01" },
-    { title: Client.KEY_BINDINGS, desc: self.keysText(), icon: "Interface/Icons/INV_Misc_Key_03" },
     { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01", padding: EDGE_TO_EDGE }
   ]
-  derived onGameSettings: Boolean = self.tab == SETTINGS_TAB
+  // The options' small tab picked: the game's groups in the client's order, its key bindings second.
+  state section = 1
+  derived sections: Array<String> = self.sectionsOf()
+  derived onOptions: Boolean = self.tab == SETTINGS_TAB
+  derived onKeys: Boolean = self.onOptions && self.section == KEYS_SECTION
+  derived onGameSettings: Boolean = self.onOptions && !self.onKeys
+  // The group of the settings shown, by its place among the client's groups.
+  derived group: Integer = self.section < KEYS_SECTION ? self.section : self.section - 1
   derived onAddOns: Boolean = self.tab == ADDONS_TAB
-  derived onKeys: Boolean = self.tab == KEYS_TAB
   derived side: WindowSide | nil = self.onAddOns && self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
     { width: Style.CARD, content: self.card } : nil
   // Asked before every key goes back to the client's defaults.
@@ -252,7 +259,7 @@ public class AddOnsWindow implements Component {
     // Blizzard's settings are read as their tab shows, and the page's values again whenever a console variable
     // changes, while it shows.
     watch {
-      if (self.shown && self.onGameSettings) {
+      if (self.shown && self.onOptions) {
         self.settings.read()
         Events.CVAR_UPDATE.listen(self.onSetting)
       }
@@ -261,8 +268,18 @@ public class AddOnsWindow implements Component {
 
   onBindings(mut self) { self.bindings.read() }
   onSetting(mut self, name: String, value: String) { self.settings.refresh() }
-  // How many commands there are, once the tab has read them.
-  keysText(self): String { return self.bindings.commands.length == 0 ? "" : "%d".format(self.bindings.commands.length) }
+  // The options' small tabs: each group's name, the key bindings' second.
+  sectionsOf(self): Array<String> {
+    const names = self.settings.groups.map(group => group.name)
+    const keys = Runtime.text("SETTINGS_KEYBINDINGS_LABEL") ?? Client.KEY_BINDINGS
+    const list: Array<String> = []
+    for (index, name of names) {
+      if (index == KEYS_SECTION) { list.push(keys) }
+      list.push(name)
+    }
+    if (names.length < KEYS_SECTION) { list.push(keys) }
+    return list
+  }
   onResetAsk(mut self) { self.resetAsked = true }
   cancelReset(mut self) { self.resetAsked = false }
   confirmReset(mut self) {
@@ -621,8 +638,11 @@ public class AddOnsWindow implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
-        <SettingsTab $if={self.onGameSettings} settings={mut self.settings} @blizzard={self.onBlizzard} />
-        <KeysPage $elseif={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
+        <box $if={self.onOptions} rows={OPTIONS_ROWS} gap={3sp}>
+          <SmallTabs tabs={self.sections} selected={mut self.section} />
+          <KeysPage $if={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
+          <SettingsTab $else settings={mut self.settings} group={self.group} @blizzard={self.onBlizzard} />
+        </box>
         <box $else rows={BODY} gap={3sp}>
           <box padding={TOOLS}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>

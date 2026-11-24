@@ -5,6 +5,7 @@
 // the variable itself (`SetCVar`), as Blizzard's setting would write it; one that isn't (Blizzard's own getter and
 // setter) is read only, and Blizzard's window changes it.
 import Client from "$client"
+import Runtime from "$runtime"
 
 // What a line of a page is, by the template Blizzard draws it with.
 public enum LineKind {
@@ -35,8 +36,8 @@ public struct SettingLine {
   step: Number
 }
 
-// A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether it is an addon's own frame,
-// which only Blizzard's window shows.
+// A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether Blizzard draws it as a
+// frame of its own (a canvas), which only Blizzard's window shows.
 public struct SettingsPage {
   id: Integer
   name: String
@@ -45,7 +46,7 @@ public struct SettingsPage {
   child: Boolean
 }
 
-// A group of the list (Game, Accessibility, System, AddOns) and its pages, in order.
+// A group of the list (Game, Accessibility, System) and its pages, in order.
 public struct PageGroup {
   name: String
   pages: Array<SettingsPage>
@@ -60,6 +61,15 @@ function kindOf(template: String, data: Client.SettingsData): LineKind {
   if (template.contains("Slider")) { return .Slider }
   if (template.contains("Dropdown")) { return .Choice }
   return .Blizzard
+}
+
+// The pages Blizzard lists that the tab doesn't: an addon's (the «Mods» tab has its addons), the key bindings (the tab's
+// own «Key Bindings» has them), and what the client names `NoDisplayKB`, the key bindings' pages its list never shows.
+const HIDDEN = "NoDisplayKB"
+
+function shown(category: any Client.SettingsCategory): Boolean {
+  const name = category.GetName()
+  return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime.text("SETTINGS_KEYBINDINGS_LABEL")
 }
 
 function pageOf(panel: any Client.SettingsPanelFrame, category: any Client.SettingsCategory, child: Boolean): SettingsPage {
@@ -86,11 +96,14 @@ public class SystemSettings {
     for (group of panel.GetCategoryList().groups) {
       const pages: Array<SettingsPage> = []
       for (category of group.categories) {
+        if (!shown(category)) { continue }
         pages.push(pageOf(panel, category, false))
-        for (under of category.GetSubcategories()) { pages.push(pageOf(panel, under, true)) }
+        for (under of category.GetSubcategories()) {
+          if (shown(under)) { pages.push(pageOf(panel, under, true)) }
+        }
       }
       for (page of pages) { everyLine[page.id] = self.linesOf(page.id) }
-      groups.push({ name: group.groupText, pages: pages })
+      if (pages.length > 0) { groups.push({ name: group.groupText, pages: pages }) }
     }
     self.groups = groups
     self.everyLine = everyLine

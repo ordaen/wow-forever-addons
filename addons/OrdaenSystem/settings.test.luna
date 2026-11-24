@@ -1,5 +1,5 @@
-// The «Settings» tab against the stand-in's options window: Game (Controls, Mouse under it, Interface), System (Audio)
-// and the addons' pages, each a list of the client's settings or an addon's own frame.
+// The «Settings» tab against the stand-in's options window: Game (Controls, Mouse under it, Interface) and System
+// (Audio), each page a list of the client's settings; the addons' pages are the «Mods» tab's.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
@@ -22,9 +22,9 @@ function names(settings: SystemSettings): String {
   return all.join(" | ")
 }
 
-test "the pages are the client's groups and their pages in its order, a page under another marked so" {
+test "the pages are the client's game groups and their pages in its order, a page under another marked so" {
   const settings = read()
-  Test.expect(names(settings) == "Game | Controls |   Mouse | Interface | System | Audio | AddOns | Ordaen")
+  Test.expect(names(settings) == "Game | Controls |   Mouse | Interface | System | Audio")
 }
 
 test "the first page shows as the tab opens, each line read as its kind with the client's value" {
@@ -42,14 +42,6 @@ test "the search finds a page by a setting's name, and the tab shows only the se
   Test.page().input().type("auto loot")
   Test.expect(Test.page().text("Auto Loot").shown() && !Test.page().text("Interact on Left Click").shown())
   Test.expect(!Test.page().text("Audio").shown())
-}
-
-test "an addon's own page says it opens in the game's window, with the button that opens it" {
-  const settings = read()
-  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.page().text("Ordaen").click()
-  Test.expect(Test.page().text("This addon draws its own page: it opens in the game's window.").shown())
-  Test.expect(Test.page().button("Open in the game's window").shown())
 }
 
 test "a setting over a console variable is written as it is changed; one over none is Blizzard's, and nothing is in a fight" {

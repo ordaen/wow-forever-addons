@@ -11,8 +11,8 @@ import Locale from "@/locales"
 import { LineKind, PageGroup, SettingLine, SettingsPage, SystemSettings, lineMatches } from "@/settings"
 import Style from "@/style"
 
-const LIST_WIDTH = 281.25dp
-const COLUMNS: Array<Track> = [LIST_WIDTH, { fr: 1 }]
+// The list as wide as its pages' names, each on one line.
+const COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
 const PAD: Edges = { left: 3sp, right: 3sp }
 const INDENT: Edges = { left: 5.5sp }
 const BUTTON = 234.375dp
@@ -27,14 +27,30 @@ public class SettingsTab implements Component {
   public blizzard: Event<Integer> = new Event()
   state search = ""
   derived query: String = self.search.lower()
+  // The groups the list shows: the picked one, or every one while searching.
+  derived listed: Array<PageGroup> = self.query != "" ? self.settings.groups : self.pickedGroup()
   derived found: Map<Integer, Boolean> = self.settings.matching(self.query)
   derived shownLines: Array<SettingLine> = self.settings.lines.filter(line => lineMatches(line, self.query))
   derived title: String = self.titleOf()
   derived canvas: Boolean = self.pageOf()?.canvas == true
 
   const settings: mut SystemSettings
-  constructor(settings: mut SystemSettings) {
+  // The group picked, by its place among the settings' groups.
+  group: Signal<Integer>
+  constructor(settings: mut SystemSettings, group: Signal<Integer> = 1) {
     self.settings = settings
+    self.group = group
+    // A group picked opens its first page, unless the page shown is one of its own.
+    watch (picked of self.group) {
+      const pages = (peek self.settings.groups)[picked]?.pages ?? []
+      const page = peek self.settings.page
+      if (pages.length > 0 && !pages.any(each => each.id == page)) { self.settings.open(pages[1]?.id ?? 0) }
+    }
+  }
+
+  pickedGroup(self): Array<PageGroup> {
+    const group = self.settings.groups[self.group]
+    return group == nil ? [] : [group]
   }
 
   pageOf(self): SettingsPage | nil {
@@ -56,7 +72,7 @@ public class SettingsTab implements Component {
         <Toolbar search={mut self.search} placeholder={Locale.SETTINGS_SEARCH} />
         <box columns={COLUMNS} gap={6sp}>
           <ScrolledList>
-            <PageGroupList $for={group of self.settings.groups} group={group} picked={self.settings.page}
+            <PageGroupList $for={group of self.listed} group={group} picked={self.settings.page}
                            query={self.query} found={self.found} @pick={self.onPick} />
           </ScrolledList>
           <box rows={["max-content", { fr: 1 }]} gap={3sp}>
@@ -65,7 +81,7 @@ public class SettingsTab implements Component {
               <text value={Locale.SETTINGS_ADDON_PAGE} textColor={Style.DIM} />
               <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
             </box>
-            <ScrolledList $else>
+            <ScrolledList $else gap={2sp}>
               <LineRow $for={line of self.shownLines} $key={`${line.variable}|${line.name}`} line={line} settings={mut self.settings} @blizzard={self.onBlizzard} />
             </ScrolledList>
           </box>
@@ -123,7 +139,7 @@ class PageEntry implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={self.padding}>
-        <ListTab label={self.page.name} selected={self.selected} @pick={self.onPick} />
+        <ListTab label={self.page.name} selected={self.selected} oneLine={true} @pick={self.onPick} />
       </box>
     }
   }

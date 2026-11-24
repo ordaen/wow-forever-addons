@@ -108,5 +108,5 @@
   "KEYS_SET": "Set",
   "SETTINGS_SEARCH": "Search settings by name or description",
   "SETTINGS_OPEN_BLIZZARD": "Open in the game's window",
-  "SETTINGS_ADDON_PAGE": "This addon draws its own page: it opens in the game's window."
+  "SETTINGS_ADDON_PAGE": "The game draws this page itself: it opens in the game's window."
 }

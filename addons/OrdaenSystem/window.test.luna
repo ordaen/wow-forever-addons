@@ -380,7 +380,7 @@ test "the menu's «Options» opens the window at its settings, Blizzard's shut; 
   Test.page().text(Client.GAMEMENU_OPTIONS).click()
   Test.expect(Test.page().text("Auto Loot").shown())
   Test.expect(!(Client.SettingsPanel?.IsShown() ?? false) && !Test.page().text(Client.MAINMENU_BUTTON).shown())
-  Test.page().text("Ordaen").click()
+  Test.page().text("Interface").click()
   Test.page().button("Open in the game's window").click()
   Test.expect((Client.SettingsPanel?.IsShown() ?? false) && !Test.page().text("Auto Loot").shown())
   // Shut, the game's window is ours again the next time it is asked for.
@@ -389,6 +389,19 @@ test "the menu's «Options» opens the window at its settings, Blizzard's shut; 
   Test.page().text(Client.GAMEMENU_OPTIONS).click()
   // Ours, at the page it was left on.
   Test.expect(Test.page().button("Open in the game's window").shown() && !(Client.SettingsPanel?.IsShown() ?? false))
+}
+
+test "the options' small tabs are the game's groups, its key bindings second; each lists its own pages, one line each" {
+  Test.mount(nil, SCREEN)
+  gameMenu()
+  Test.page().text(Client.GAMEMENU_OPTIONS).click()
+  Test.expect(Test.page().text("Game").shown() && Test.page().text("Key Bindings").shown() && Test.page().text("System").shown())
+  Test.expect(Test.page().text("Controls").shown() && !Test.page().text("Audio").shown())
+  Test.page().text("System").click()
+  Test.expect(Test.page().text("Audio").shown() && !Test.page().text("Controls").shown())
+  Test.expect(Test.page().text("Master Volume").shown())
+  Test.page().text("Key Bindings").click()
+  Test.expect(Test.page().text("Move Forward").shown() && !Test.page().text("Audio").shown())
 }
 
 test "Escape closes the window, and the menu's «AddOns» opens it again" {
@@ -423,7 +436,7 @@ test "the list stands by category, a caption with its count over its addons, «O
     "Search by title, folder, author, notes | 6 | AddOn | Now | Peak | Memory | Inventory | 1 | Bagger | — | — | 0 KB | " +
       `Map | 1 | Old Map | ${Client.ADDON_INTERFACE_VERSION} | — | — | — | User Interface | 2 | Ordaen | — | — | 0 KB | ` +
       "Ordaen System | on in Ordaen | — | — | 0 KB | Other | 2 | Chatter | on demand | — | — | — | LunaType | — | — | " +
-      "0 KB | The client isn't measuring addons. | Reset | Disable all | Sets | Reload | Options | Key Bindings | AddOns | 6 of 6"
+      "0 KB | The client isn't measuring addons. | Reset | Disable all | Sets | Reload | Options | AddOns | 6 of 6"
   ))
 }
 
