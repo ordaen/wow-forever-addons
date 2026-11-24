@@ -1,6 +1,6 @@
 // The chosen recipe's reagents with Ordaen Trading's prices, and the totals under them (`cost.luna`): a reagent's
-// icon, name, have / need for the make row's count (red when short), its price at «Auction» and at «Merchant» for
-// that quantity («—» where none is known), the cheaper on a green ground. The totals: «Cost», «Price» (what it sells
+// icon and name («Reagent»), what one making needs («For 1»), what the bags hold («In the bags», red short of what the
+// make row's count needs), its price at «Auction» and at «Merchant» for that count («—» where none is known), the cheaper on a green ground. The totals: «Cost», «Price» (what it sells
 // for, the house's cut taken; its tip the full price and the cut; «doesn't sell» for what makes no item), «Profit»
 // (red under nought), and how old the oldest price taken is, in its age's colour; «—» where a part has no price.
 import Game from "$game"
@@ -12,13 +12,16 @@ import { SourceTotals, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
 
 const SLOT = 37.5dp
-// The headings, each reagent's row and the totals are rows of one grid, in its columns: the icon, the name,
-// have / need, the price at the house and at a merchant. Each reagent is a row of its own (its shade under the
+// The headings, each reagent's row and the totals are rows of one grid, in its columns: the icon, the name, what one
+// making needs, what the bags hold, the price at the house and at a merchant. Each reagent is a row of its own (its shade under the
 // cursor, its item's tooltip beside the whole row), so the columns are of set widths, not each as wide as its widest
 // cell.
 const MONEY = 119.53125dp
 // The names never narrower than the totals' labels («Cost», «Price», «Profit»), which stand under them.
-const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, 58.59375dp, MONEY, MONEY]
+// «For 1» and «In the bags»: their headings' widths in the wider language, the numbers under them shorter.
+const EACH = 58.59375dp
+const HAVE = 105.46875dp
+const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, EACH, HAVE, MONEY, MONEY]
 // The icon fills its column, with a cell's room over and under it.
 const ICON_ROOM: Edges = { top: 1.5sp, bottom: 1.5sp }
 // A total's line: less room over and under than a reagent's.
@@ -67,8 +70,10 @@ public class PricedReagentRow implements Component {
         <TableCell padding={ICON_ROOM}> <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} /> </TableCell>
         <TableCell> <text value={self.price.name} textColor={Style.INK} wrap={.Cut} /> </TableCell>
         <TableCell align={Align.End}>
-          <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={.None} textColor={self.color}
-                textFont={.Numbers} />
+          <text value={"%d"} arguments={[self.price.each]} wrap={.None} textColor={Style.INK} textFont={.Numbers} />
+        </TableCell>
+        <TableCell align={Align.End}>
+          <text value={"%d"} arguments={[self.price.have]} wrap={.None} textColor={self.color} textFont={.Numbers} />
         </TableCell>
         <TableCell align={Align.End} background={self.auctionBack}>
           <Money $if={self.hasAuction} amount={self.auction} />
@@ -152,6 +157,7 @@ class TotalRow implements Component {
         <TableCell padding={LINE_ROOM} />
         <TableCell padding={LINE_ROOM}> <text value={self.label} textColor={Style.DIM} wrap={.None} /> </TableCell>
         <TableCell padding={LINE_ROOM} />
+        <TableCell padding={LINE_ROOM} />
         <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} />
         <TotalCell amount={self.merchant} rough={self.merchantRough} tip={self.merchantTip} />
       </box>
@@ -207,7 +213,15 @@ public class PriceTable implements Component {
     return $ltml {
       <box columns={PRICED}>
         <box columns={"subgrid"}>
-          <TableCell span={3} />
+          <TableCell span={2}>
+            <text value={Locale.PRICE_REAGENT} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          </TableCell>
+          <TableCell align={Align.End}>
+            <text value={Locale.PRICE_EACH} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          </TableCell>
+          <TableCell align={Align.End}>
+            <text value={Locale.PRICE_HAVE} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          </TableCell>
           <TableCell align={Align.End}>
             <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
           </TableCell>

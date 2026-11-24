@@ -17,7 +17,8 @@ public struct PartPrice {
   // The game's number of the item; none for a reagent the game names no item of.
   item: Integer | nil
   icon: Art
-  // All the count needs, and what the bags hold.
+  // What one making needs, all the count needs, and what the bags hold.
+  each: Integer
   need: Integer
   have: Integer
   // The house's and a merchant's price of all it needs; none where none is known.
@@ -77,7 +78,7 @@ public function partOf(prices: any PriceSource, reagent: Game.Reagent, count: In
   const bought = one.bought
   const sold = one.sold
   return {
-    name: reagent.name, item: reagent.itemID, icon: reagent.icon, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
+    name: reagent.name, item: reagent.itemID, icon: reagent.icon, each: reagent.need, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
     vendor: sold == nil ? nil : sold * need, way: one.way, unit: one.unit, age: one.age
   }
 }

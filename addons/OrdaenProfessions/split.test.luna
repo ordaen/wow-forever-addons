@@ -7,7 +7,7 @@ import { Source, sourceTotalsOf } from "@/split"
 // A part priced `auction` at the house and `merchant` at a merchant for its count (none: not sold there).
 function part(name: String, auction: Integer | nil, merchant: Integer | nil): PartPrice {
   return {
-    name: name, item: 1, icon: "Interface/Icons/INV_Misc_QuestionMark", need: 1, have: 0, auction: auction, vendor: merchant,
+    name: name, item: 1, icon: "Interface/Icons/INV_Misc_QuestionMark", each: 1, need: 1, have: 0, auction: auction, vendor: merchant,
     way: Way.Buy, unit: auction ?? merchant, age: nil
   }
 }

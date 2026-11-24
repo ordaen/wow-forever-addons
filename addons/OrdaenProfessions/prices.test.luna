@@ -154,11 +154,14 @@ test "each reagent's price at the house and at a merchant for the count, the che
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   Test.expect(window().text("Auction").shown() && window().text("Merchant").shown() && !window().text("Best").shown())
-  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | 0g 1s 0c | —"))
-  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | 0g 0s 10c"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 | 1 | 0g 1s 0c | —"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 1 | 0 | 0g 0s 15c | 0g 0s 10c"))
   Test.expect(reads(window().text("Coarse Thread").item().box(CHEAPER), "0g 0s 10c"))
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item().box(CHEAPER), "0g 1s 0c"))
-  Test.expect(window().text("0 / 1").textColor().equal(RED) && near(window().text("1 / 1").textColor(), INK))
+  // What the bags hold, red short of what the count needs; what one making needs, never.
+  const thread = window().text("Coarse Thread").item()
+  Test.expect(thread.text("0").textColor().equal(RED) && near(thread.text("1").textColor(), INK))
+  Test.expect(near(window().text("Bolt of Linen Cloth").nth(2).item().text("1").nth(2).textColor(), INK))
   // A reagent is a row of its own: the cursor anywhere on it, its price too, shows its item's tooltip beside the row.
   _ = Test.requests()
   window().text("Coarse Thread").item().text("0g 0s 15c").hover()
@@ -221,7 +224,7 @@ test "the prices and totals are for the make row's count" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button("+").click()
-  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 2 | 0g 0s 30c | 0g 0s 20c"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 1 | 0 | 0g 0s 30c | 0g 0s 20c"))
   Test.expect(totals("Cost | 0g 2s 30c | ~ | 0g 0s 20c | Price | 0g 9s 50c | — | Profit | 0g 7s 20c | ~ | - | 0g 2s 20c | Prices: 0 h ago | To the shopping list"))
 }
 
@@ -238,7 +241,7 @@ test "a merchant's price as cheap as the house's is taken" {
   Game.recipeReader.schematic = schematic
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | 0g 0s 15c"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 1 | 0 | 0g 0s 15c | 0g 0s 15c"))
 }
 
 test "a part with no price makes the cost and profit none; left to buy is none only where it is lacking" {
@@ -253,7 +256,7 @@ test "a part with no price makes the cost and profit none; left to buy is none o
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // The bolt, held, has no price; the thread is bought.
-  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | — | —"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 | 1 | — | —"))
   Test.expect(totals("Cost | ~ | 0g 0s 15c | — | Price | 0g 4s 75c | — | Profit | ~ | 0g 4s 60c | ~ | - | 0g 0s 15c | Prices: 0 h ago | To the shopping list"))
   // Two: one bolt lacking, with no price.
   window().button("+").click()
@@ -406,7 +409,7 @@ test "a reagent the game names no item of has no price" {
   Game.recipeReader.schematic = schematic
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | — | —"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 1 | 0 | — | —"))
 }
 
 test "with nothing scanned the card says there are no prices, and the totals are none" {
