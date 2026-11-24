@@ -1,0 +1,73 @@
+// What Quests says a creature is wanted for, in Ordaen Tooltips' creature tooltips: each objective of a quest in the
+// log to do that asks for an item the creature drops (QuestieDB's drops), with the log's count. The client's own quest
+// rows say this only for a quest's own drops; an item that is ordinary loot (a boar's meat) gets its rows from here.
+import root Tooltips from "OrdaenTooltips"
+import type { UnitWants, Wanted } from "OrdaenTooltips"
+import { LogQuest } from "@/book"
+import { QuestFacts } from "@/questie"
+
+const NONE: Array<Wanted> = []
+
+// An objective's text split into its label and its count («Кусок кабанины: 2/4»: «Кусок кабанины», 2, 4); nil for
+// one without a count.
+function counted(quest: String, text: String): Wanted | nil {
+  const have, need = text.match("(%d+)%s*/%s*(%d+)%s*$")
+  if (have == nil || need == nil) { return nil }
+  return {
+    quest: quest, objective: text.replace("%s*:?%s*%d+%s*/%s*%d+%s*$", ""),
+    have: (have.toNumber() ?? 0).floor(), need: (need.toNumber() ?? 0).floor()
+  }
+}
+
+// The log's quests to do by the creatures that drop what their objectives ask for.
+public function wantsOf(quests: Array<LogQuest>, facts: Map<Integer, QuestFacts>): Map<Integer, Array<Wanted>> {
+  const by: Map<Integer, mut Array<Wanted>> = {}
+  for (quest of quests) {
+    const known = facts[quest.id]
+    if (quest.done || quest.failed || known == nil) { continue }
+    for (drop of known.drops) {
+      if (drop.name == "") { continue }
+      const objective = quest.objectives.find(objective => objective.text.contains(drop.name))
+      if (objective == nil) { continue }
+      const want = counted(quest.title, objective.text)
+      if (want == nil) { continue }
+      for (creature of drop.creatures) {
+        const list = by[creature]
+        if (list == nil) {
+          by[creature] = [want]
+        } else {
+          list.push(want)
+        }
+      }
+    }
+  }
+  return by
+}
+
+public class QuestWants implements UnitWants {
+  derived by: Map<Integer, Array<Wanted>> = wantsOf(self.quests, self.facts)
+
+  quests: Signal<Array<LogQuest>>
+  facts: Signal<Map<Integer, QuestFacts>>
+  constructor(quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>) {
+    self.quests = quests
+    self.facts = facts
+  }
+
+  public wants(self, creature: Integer): Array<Wanted> {
+    return self.by[creature] ?? NONE
+  }
+}
+
+// The wants, added to Tooltips' `wants` while Tooltips is on: the watch's run owns them, so they end when either
+// module does. Without Tooltips the root import stays nil and nothing is added.
+public class TooltipWants {
+  const wants: QuestWants
+  constructor(quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>) {
+    self.wants = new QuestWants(quests, facts)
+    watch (tooltips of Tooltips) {
+      if (tooltips == nil) { return }
+      tooltips.wants.add(self.wants)
+    }
+  }
+}

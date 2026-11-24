@@ -26,6 +26,14 @@ public struct WantedItem {
   name: String
 }
 
+// An item a quest asks for and every creature QuestieDB says drops it, by their numbers: a creature's tooltip says
+// the quest's count where the client's doesn't (an item that is ordinary loot, not a quest's own drop).
+public struct ItemDrops {
+  item: Integer
+  name: String
+  creatures: Array<Integer>
+}
+
 // A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
 public struct FactionGain {
   faction: Integer
@@ -49,6 +57,8 @@ public struct QuestFacts {
   targets: Array<Figure>
   // The items it asks for.
   items: Array<WantedItem>
+  // Each of those items with every creature that drops it.
+  drops: Array<ItemDrops> = []
   // The reputations it changes once turned in (the client's quest window doesn't say them).
   reputation: Array<FactionGain>
   // The quest after it in its chain; 0 for none.

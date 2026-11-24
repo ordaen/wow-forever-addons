@@ -1,0 +1,36 @@
+// What Quests says a creature is wanted for: the objectives of the log's quests to do whose items it drops.
+import Test from "$test"
+import { LogQuest } from "@/book"
+import { QuestFacts } from "@/questie"
+import { wantsOf } from "@/wants"
+
+function facts(drops: Array<Integer>): QuestFacts {
+  return {
+    name: "", level: 5, minLevel: 3, task: "", zone: 12, reputation: [], items: [], next: 0, nextName: "",
+    givers: [], takers: [], targets: [],
+    drops: [{ item: 769, name: "Chunk of Boar Meat", creatures: drops }, { item: 0, name: "", creatures: drops }]
+  }
+}
+
+function pie(done: Boolean, objective: String): LogQuest {
+  return {
+    id: 86, title: "Pie for Billy", level: 5, header: "Elwynn Forest", kind: .World, done: done, failed: false,
+    tracked: false, group: 0, shareable: false, objectives: [{ text: objective, done: false }], xp: 0, money: 0
+  }
+}
+
+test "a creature that drops what a quest to do asks for is wanted for its objective, with the log's count" {
+  const by = wantsOf([pie(false, "Chunk of Boar Meat: 2/4")], { [86]: facts([113, 119]) })
+  for (creature of [113, 119]) {
+    const want = (by[creature] ?? panic("wanted"))[1] ?? panic("a want")
+    Test.expect(want.quest == "Pie for Billy" && want.objective == "Chunk of Boar Meat")
+    Test.expect(want.have == 2 && want.need == 4)
+  }
+  Test.expect(by[114] == nil)
+}
+
+test "a quest done, one QuestieDB doesn't know, and an objective that isn't the item's want nothing" {
+  Test.expect(wantsOf([pie(true, "Chunk of Boar Meat: 4/4")], { [86]: facts([113]) })[113] == nil)
+  Test.expect(wantsOf([pie(false, "Chunk of Boar Meat: 2/4")], {})[113] == nil)
+  Test.expect(wantsOf([pie(false, "Boar Tusk: 1/3")], { [86]: facts([113]) })[113] == nil)
+}

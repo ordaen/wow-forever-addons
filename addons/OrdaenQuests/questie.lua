@@ -45,6 +45,16 @@ local function addFigures(into, db, kind, ids)
 	end
 end
 
+-- A list of numbers, every one (a creature's tooltip asks by number, so none is left out), the rest dropped.
+local function idsOf(list)
+	local ids = {}
+	if type(list) ~= "table" then return ids end
+	for _, id in ipairs(list) do
+		if type(id) == "number" then ids[#ids + 1] = id end
+	end
+	return ids
+end
+
 -- Each entry of an objective's list is `{ id, text? }`.
 local function addTargets(into, db, kind, list)
 	if type(list) ~= "table" then return end
@@ -79,7 +89,7 @@ function questie.quest(id)
 	local found = _G.LibQuestieDB
 	local quests, npcs, objects, items = found.Quest, found.Npc, found.Object, found.Item
 	if not quests.Exists(id) then return nil end
-	local givers, takers, targets, wanted = {}, {}, {}, {}
+	local givers, takers, targets, wanted, drops = {}, {}, {}, {}, {}
 	local starts = quests.Get(id, "startedBy")
 	if type(starts) == "table" then
 		addFigures(givers, npcs, "npc", starts[1])
@@ -100,7 +110,9 @@ function questie.quest(id)
 				if type(item) == "number" and items.Exists(item) then
 					local named = items.Get(item, "name")
 					if type(named) == "string" and named ~= "" then wanted[#wanted + 1] = { id = item, name = named } end
-					addFigures(targets, npcs, "npc", items.Get(item, "npcDrops"))
+					local droppers = items.Get(item, "npcDrops")
+					addFigures(targets, npcs, "npc", droppers)
+					drops[#drops + 1] = { item = item, name = type(named) == "string" and named or "", creatures = idsOf(droppers) }
 					addFigures(targets, objects, "object", items.Get(item, "objectDrops"))
 				end
 			end
@@ -121,6 +133,7 @@ function questie.quest(id)
 		takers = takers,
 		targets = targets,
 		items = wanted,
+		drops = drops,
 		reputation = reputationOf(quests.Get(id, "reputationReward")),
 		next = type(next) == "number" and next or 0,
 		nextName = type(next) == "number" and next > 0 and type(quests.Get(next, "name")) == "string" and quests.Get(next, "name") or "",

@@ -20,6 +20,7 @@ import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, Fi
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import { Named, Standing } from "OrdaenQuestPage"
+import root Tooltips from "OrdaenTooltips"
 import root Tracker from "OrdaenTracker"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
@@ -36,6 +37,7 @@ import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { TrackerLines } from "@/tracker"
 import { Act, ChainPage, QuestButtons, QuestPage } from "@/view"
+import { TooltipWants } from "@/wants"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.
 const TOGGLE = "OrdaenQuestsToggle"
@@ -170,8 +172,8 @@ public class Quests implements Module, App {
   derived docked: Boolean = Maps?.docked == true
   derived mapShowing: Boolean = Maps?.showing == true
   derived ownKey: Boolean = self.settings.values.ownKey && !self.docked
-  // The log is read while something shows it: the window, or Map's pins.
-  derived reading: Boolean = self.open || Maps != nil
+  // The log is read while something shows it: the window, Map's pins, or Tooltips' creature rows.
+  derived reading: Boolean = self.open || Maps != nil || Tooltips != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
@@ -208,8 +210,10 @@ public class Quests implements Module, App {
   const npcPins: NpcPins
   const dungeonQuests: DungeonQuests
   const trackerLines: TrackerLines
+  const tooltipWants: TooltipWants
 
   constructor() {
+    self.tooltipWants = new TooltipWants(self.quests, self.facts)
     self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.npcPins = new NpcPins(self.shownNpc)
