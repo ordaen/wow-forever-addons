@@ -6,7 +6,7 @@
 // «Delete».
 import Client from "$client"
 import Game from "$game"
-import { Align, Frame, Overflow, Track } from "$ltml"
+import { Align, Frame, Modifier, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, UNUSABLE, upgradeText, usableItem } from "Ordaen"
 import { daysText, senderOf } from "@/inbox"
@@ -51,14 +51,12 @@ public class Attachment implements Component {
     self.upgrade = upgrade
   }
 
-  // Left-click takes it; with Ctrl it is tried on (Shift's link is the slot's own).
-  onPick(mut self) {
-    if (Game.input.shiftDown()) { return }
-    if (Game.input.controlDown()) {
-      self.act.emit(.TryOn { link: self.item.link })
-      return
-    }
-    self.act.emit(.TakeItem { place: self.item.place })
+  // Left-click takes it.
+  onPick(mut self) { self.act.emit(.TakeItem { place: self.item.place }) }
+
+  // With Ctrl it is tried on; Shift's link is the slot's own.
+  onModified(mut self, key: Modifier) {
+    if (key == .Ctrl) { self.act.emit(.TryOn { link: self.item.link }) }
   }
 
   // The attachment's tooltip beside its whole row, as the game's open letter shows it.
@@ -66,7 +64,7 @@ public class Attachment implements Component {
 
   public render(self): Template {
     return $ltml {
-      <PickRow columns={REWARD} @pick={self.onPick} @entered={self.onEntered}>
+      <PickRow columns={REWARD} @pick={self.onPick} @modified={self.onModified} @entered={self.onEntered}>
         <ItemButton item={self.item.item} count={self.item.count} size={SLOT} mail={[self.index, self.item.place]} tipped={false} />
         <box columns={1}>
           <text value={self.item.name} textColor={self.info.color} wrap={.None} />
