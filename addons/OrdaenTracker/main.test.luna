@@ -313,3 +313,25 @@ test "an objective moving on sounds as the game's tracker does" {
   const played = Test.sounds()
   Test.expect(played.length == 1 && played[1] == 26905)
 }
+
+test "a timed quest says its time left under its title, counting down, red in its last minute" {
+  Test.questLog([
+    { id: 201, title: "Rescue the Princess", header: "Elwynn Forest", level: 8, watched: true, timer: 125,
+      objectives: [{ text: "Princess saved: 0/1" }] }
+  ])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("Time left: 2:05").shown())
+  Test.expect(!Test.page().text("Time left: 2:05").textColor().equal(Color.hex("#ff2020")))
+  Test.pass(70)
+  Test.expect(Test.page().text("Time left: 0:55").textColor().equal(Color.hex("#ff2020")))
+}
+
+test "a quest without a timer says no time" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().texts().all(text => !text.contains("Time left")))
+}

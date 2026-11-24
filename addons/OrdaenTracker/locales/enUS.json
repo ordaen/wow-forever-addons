@@ -9,6 +9,7 @@
   "ABANDON_ASK": "Abandon «%s»?",
   "CANCEL": "Cancel",
   "FAILED": "Failed",
+  "TIME_LEFT": "Time left: %s",
   "TAG_GROUP": "(Group)",
   "TAG_PVP": "(PvP)",
   "TAG_RAID": "(Raid)",

@@ -9,6 +9,7 @@
   "ABANDON_ASK": "Отказаться от задания «%s»?",
   "CANCEL": "Отмена",
   "FAILED": "Провалено",
+  "TIME_LEFT": "Осталось: %s",
   "TAG_GROUP": "(Группа)",
   "TAG_PVP": "(PvP)",
   "TAG_RAID": "(Рейд)",

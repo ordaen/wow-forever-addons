@@ -53,6 +53,19 @@ function tagText(tag: Integer | nil): String {
   }
 }
 
+// The whole seconds from `now` to `ends` (both the game's time), none once it passed.
+public function secondsLeft(ends: Number, now: Number): Integer {
+  return (ends - now).ceil().max(0)
+}
+
+// Seconds as a clock says them: «4:05», «1:02:03».
+public function clockText(seconds: Integer): String {
+  const hours = (seconds / 3600).floor()
+  const minutes = ((seconds % 3600) / 60).floor()
+  const rest = seconds % 60
+  return hours > 0 ? "%d:%02d:%02d".format(hours, minutes, rest) : "%d:%02d".format(minutes, rest)
+}
+
 // The first `count` of the quests, or all of them where there are fewer.
 function firstOf(quests: Array<Game.LogQuest>, count: Integer): Array<Game.LogQuest> {
   const first: Array<Game.LogQuest> = []
@@ -236,6 +249,12 @@ class TrackedQuest implements Component {
   derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
   // Done: a green check at its title's right, no line of where to hand it in. Failed: said under its title.
   derived checked: Boolean = self.quest.done && !self.quest.failed
+  // A timed quest's time left, said under its title while it runs, red in its last minute; read from the clock only
+  // while there is one.
+  derived timed: Boolean = self.quest.ends != nil && !self.quest.failed
+  derived left: Integer = self.timed ? secondsLeft(self.quest.ends ?? 0, Game.clock.seconds) : 0
+  derived timeText: String = Locale.TIME_LEFT.format(clockText(self.left))
+  derived timeColor: Color = self.left < 60 ? RED : DIM
   derived entries: Array<MenuEntry> = [
     { label: self.pointed ? Locale.UNSUPER_TRACK : Locale.SUPER_TRACK },
     { label: Locale.OPEN_IN_LOG },
@@ -297,6 +316,7 @@ class TrackedQuest implements Component {
         </box>
         <box />
         <box columns={1} gap={1sp}>
+          <text $if={self.timed} value={self.timeText} textColor={self.timeColor} textFont={.Numbers} />
           <box $if={!self.quest.done && !self.quest.failed} columns={1} gap={1sp}>
             <text $for={objective of self.quest.objectives} value={objective.text} textColor={BRIGHT_TEXT} />
           </box>
