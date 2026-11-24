@@ -1,4 +1,4 @@
-// Ordaen Inventory' pages in the settings window beside its windows: «Convenience» (what the bags do by themselves), «Look» (the slots' size and the room between them), «Junk» (the rules, learning, the chat's lines, and the
+// Ordaen Inventory's pages in the settings window beside its windows: «Convenience» (what the bags do by themselves), «Look» (the slots' size and the room between them), «Junk» (the rules, learning, the chat's lines, and the
 // two resets of what play made: the learned scores and the player's marks) and «Slot» (the nine clicks of a slot, each
 // one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
 // else, so no scheme leaves an item without a click to use it or to open its menu.
@@ -7,6 +7,7 @@ import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choices
 import { JunkRules } from "@/junk"
 import { ROW_LEAST, ROW_LEAST_MOST, SLOT_GAP_MOST, SLOT_SIZE_LEAST, SLOT_SIZE_MOST } from "@/layout"
 import Locale from "@/locales"
+import { LootChoices } from "@/loot"
 
 const BUTTON = 187.5dp
 
@@ -43,6 +44,28 @@ public class ConveniencePage implements Component {
   public render(self): Template {
     return $ltml {
       <Switch label={Locale.SELL_JUNK_AUTO} hint={Locale.SELL_JUNK_AUTO_TIP} value={mut self.sellJunk} />
+    }
+  }
+}
+
+// «Loot»: looting fast, the sounds, and the lines of what was looted.
+public class LootPage implements Component {
+  choices: mut Signal<LootChoices>
+  constructor(choices: mut Signal<LootChoices>) { self.choices = choices }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_LOOT_FAST}>
+        <Switch label={Locale.LOOT_FAST} hint={Locale.LOOT_FAST_TIP} value={mut self.choices.fast} />
+        <Switch label={Locale.LOOT_EVERY} hint={Locale.LOOT_EVERY_TIP} value={mut self.choices.everyCharacter} />
+      </Section>
+      <Section title={Locale.SECTION_LOOT_SOUNDS}>
+        <Switch label={Locale.LOOT_FULL_SOUND} hint={Locale.LOOT_FULL_SOUND_TIP} value={mut self.choices.fullSound} />
+        <Switch label={Locale.LOOT_REEL_SOUND} hint={Locale.LOOT_REEL_SOUND_TIP} value={mut self.choices.reelSound} />
+      </Section>
+      <Section title={Locale.SECTION_LOOT_SHOWN}>
+        <Switch label={Locale.LOOT_TOASTS_ON} hint={Locale.LOOT_TOASTS_ON_TIP} value={mut self.choices.toasts} />
+      </Section>
     }
   }
 }

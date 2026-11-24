@@ -17,6 +17,7 @@ import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
 import { CARD_GAP, CardRoom, CardRow, PAGE_SIDE, ROW_LEAST, ROW_ROOM, SIDE_ROOM, SLOT_GAP, SLOT_SIZE, Section, TOOL_ROOM, TOP_ROOM, cardRoom, cardWidth, frameSides, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
+import { LOOT_CHOICES, LootChoices } from "@/loot"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
 import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
@@ -38,6 +39,7 @@ public struct Choices implements Plain {
   slotGap: Number = SLOT_GAP
   slotSize: Number = SLOT_SIZE
   rowLeast: Number = ROW_LEAST
+  loot: LootChoices = LOOT_CHOICES
 }
 
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The

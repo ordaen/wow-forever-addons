@@ -30,11 +30,13 @@ import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
 import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
+import { LOOT_CHOICES, LootChoices, Looter } from "@/loot"
 import { CONTAINER, MOVED, Slot, SortBy, handsOver } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
-import { ClicksPage, ConveniencePage, JunkPage, LookPage } from "@/settings"
+import { ClicksPage, ConveniencePage, JunkPage, LookPage, LootPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
+import { LootLines, LootToasts } from "@/toasts"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
 
 // What the module remembers for the character: the protected slots, one at most for each slot of the bags.
@@ -61,7 +63,7 @@ struct Sale {
 enum MoneyMove { Deposit, Withdraw }
 
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, slotPresses: OURS, slotGap: SLOT_GAP, slotSize: SLOT_SIZE,
-  rowLeast: ROW_LEAST
+  rowLeast: ROW_LEAST, loot: LOOT_CHOICES
 }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
@@ -106,6 +108,7 @@ public class Inventory implements Module, App {
     { title: Locale.PAGE_LOOK, content: $ltml { <LookPage slotSize={mut self.settings.values.slotSize} slotGap={mut self.settings.values.slotGap}
                                                           rowLeast={mut self.settings.values.rowLeast} /> } },
     { title: Locale.PAGE_CONVENIENCE, content: $ltml { <ConveniencePage sellJunk={mut self.settings.values.sellJunkAtVendor} /> } },
+    { title: Locale.PAGE_LOOT, content: $ltml { <LootPage choices={mut self.settings.values.loot} /> } },
     { title: Locale.PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
     { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotPresses} /> } }
   ]
@@ -181,6 +184,13 @@ public class Inventory implements Module, App {
   // The bags' window's body, and the vault's.
   public main: Pane
   public side: Pane
+  // Looting fast, and the lines of what was looted.
+  public looter: Looter
+  public lootLines: mut LootLines = new LootLines()
+  derived lootChoices: LootChoices = self.settings.values.loot
+  derived toastsShown: Boolean = self.lootChoices.toasts
+  // The money while a loot window is open: what it gains is looted.
+  lootMoney: Integer | nil = nil
 
   constructor() {
     self.gold = new Gold()
@@ -196,6 +206,11 @@ public class Inventory implements Module, App {
       self.carried, self.bank, self.vaultGuild, self.guild, self.vaultOpen, self.atVault, mut self.list, self.settings.values,
       self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
     )
+    self.looter = new Looter(self.lootChoices)
+    self.looter.took.listen(self.onLooted)
+    Game.loot.opened.listen(self.onLootOpened)
+    Game.loot.closed.listen(self.onLootClosed)
+    watch (copper of Game.money.amount) { self.onMoney(copper) }
     Ordaen.modules.add(self)
     self.changer.stuck.listen(self.onBagStuck)
     Game.bags.updated.listen(self.onUpdated)
@@ -802,9 +817,25 @@ public class Inventory implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
+  // An item or a currency taken from the loot window is a line; the money is the purse's gain.
+  onLooted(mut self, slot: Game.LootSlot) {
+    if (peek self.toastsShown && slot.kind != .Money) { self.lootLines.post(slot) }
+  }
+
+  onLootOpened(mut self, auto: Boolean) { self.lootMoney = peek Game.money.amount }
+  onLootClosed(mut self) { self.lootMoney = nil }
+
+  onMoney(mut self, copper: Integer) {
+    const was = self.lootMoney
+    if (was == nil) { return }
+    self.lootMoney = copper
+    if (copper > was && peek self.toastsShown) { self.lootLines.postCoins(copper - was) }
+  }
+
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
+      <LootToasts $if={self.toastsShown} lines={mut self.lootLines} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
                 minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>

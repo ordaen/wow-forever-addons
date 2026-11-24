@@ -1,0 +1,187 @@
+// What was looted, a line each beside the screen's middle: an item's or a currency's icon in its quality's edge and
+// «+count name» in its colour, the money as its coins. A line slides in, stays three and a half seconds (each new one
+// keeps every line up that long again, and the cursor on one keeps them all), and fades its last second away; one of
+// what is shown already counts up instead. An epic or better flashes in its colour as it comes. The cursor on an item's
+// line shows its tooltip. The lines stand where the player put them in Ordaen's placing mode, which shows three
+// sample lines to place.
+import Game from "$game"
+import { LootKind, LootSlot } from "$game"
+import { Align, Anchored, Art, Frame, Line, Position, TextWrap, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, Placed, Quality, qualityColor } from "Ordaen"
+import Locale from "@/locales"
+
+const LIFE = 3.5
+// The last second a line fades; a line slides in this long, from this far left.
+const FADE = 1
+const SLIDE = 0.2
+const FROM = 20ui
+// A line comes at most this soon after the one before it: they slide in one by one.
+const APART = 0.15
+const MOST = 20
+// An epic or better flashes this long.
+const FLASH = 1
+const ICON = 28ui
+const WIDTH = 200ui
+const ROW: Array<Track> = [ICON, { fr: 1 }]
+const BACK: Color = Color.hex("#000000aa")
+const COUNT: Color = Color.hex("#ffffff")
+const COINS: Asset = "Interface/Icons/INV_Misc_Coin_01"
+// Where the lines stand while the player never moved them: right of the screen's middle, a little up.
+const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
+
+// A line: what it shows, and when it came, is kept up to and flashed.
+struct Toast {
+  key: String
+  name: String
+  icon: Art | nil
+  quality: Quality
+  count: Integer
+  link: String | nil
+  quest: Boolean
+  coins: Boolean
+  came: Number
+  until: Number
+  flashed: Number
+}
+
+// The samples the placing mode shows, as at this moment of their lives: come, not fading.
+const SAMPLED: Number = 1
+const SAMPLES: Array<Toast> = [
+  { key: "epic", name: "Epic", icon: 132331, quality: .Epic, count: 1, link: nil, quest: false, coins: false, came: 0, until: SAMPLED + LIFE, flashed: 0 },
+  { key: "common", name: "Common", icon: 134400, quality: .Common, count: 5, link: nil, quest: false, coins: false, came: 0, until: SAMPLED + LIFE, flashed: 0 },
+  { key: "coins", name: "", icon: nil, quality: .Common, count: 12345, link: nil, quest: false, coins: true, came: 0, until: SAMPLED + LIFE, flashed: 0 }
+]
+
+// The quality of a slot's item by the client's number for it.
+function qualityOf(quality: Integer): Quality {
+  return match (quality) {
+    0 => Quality.Poor
+    2 => Quality.Uncommon
+    3 => Quality.Rare
+    4 => Quality.Epic
+    5 => Quality.Legendary
+    6 => Quality.Artifact
+    7 => Quality.Heirloom
+    else => Quality.Common
+  }
+}
+
+// One line.
+class ToastLine implements Component {
+  derived color: Color = qualityColor(self.toast.quality)
+  derived edge: Line = { width: 1ui, color: self.color }
+  derived text: String = self.toast.coins ? Game.money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
+  derived age: Number = self.now - self.toast.came
+  derived left: Number<Length> = self.age >= SLIDE ? 0ui : FROM * (self.age / SLIDE - 1)
+  derived opacity: Number = self.age < SLIDE ? self.age / SLIDE : (self.toast.until - self.now).min(FADE).max(0) / FADE
+  derived flash: Number = (FLASH - (self.now - self.toast.flashed)).max(0) / FLASH
+
+  toast: Signal<Toast>
+  now: Signal<Number>
+  constructor(toast: Signal<Toast>, now: Signal<Number>) {
+    self.toast = toast
+    self.now = now
+  }
+
+  onEnter(self, frame: any Frame) {
+    const link = self.toast.link
+    if (link != nil) { Game.items.showLink(frame, link) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={2sp} width={WIDTH} yAlign={Align.Center} background={BACK} opacity={self.opacity} left={self.left}
+           @pointerEnter={self.onEnter}>
+        <box width={ICON} height={ICON} background={self.toast.coins ? COINS : self.toast.icon} border={self.edge} />
+        <text value={self.text} textColor={self.color} wrap={TextWrap.Cut} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.color}
+             opacity={self.flash * 0.5} />
+      </box>
+    }
+  }
+}
+
+// The lines shown and to come: what the module posts as it loots, kept as long as a line lives.
+public class LootLines {
+  state toasts: Array<Toast> = []
+  // The game's time, read only while a line shows: nothing is run each frame otherwise.
+  derived now: Number = self.toasts.length > 0 ? Game.clock.time : 0
+  public derived shown: Array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
+  derived samples: Boolean = Ordaen.placing
+  public derived clock: Number = self.samples ? SAMPLED : self.now
+
+  constructor() {
+    watch (now of self.now) { self.forget(now) }
+  }
+
+  // A line for what was looted: one of it shown already counts up.
+  public post(mut self, slot: LootSlot) {
+    const coins = slot.kind == LootKind.Money
+    self.add(coins ? "coins" : slot.link ?? slot.name, slot.name, slot.icon, qualityOf(slot.quality), slot.count.max(1), slot.link,
+      slot.quest, coins)
+  }
+
+  // Money looted, in copper.
+  public postCoins(mut self, copper: Integer) {
+    self.add("coins", "", nil, .Common, copper, nil, false, true)
+  }
+
+  add(mut self, key: String, name: String, icon: Art | nil, quality: Quality, count: Integer, link: String | nil, quest: Boolean,
+    coins: Boolean) {
+    const now = peek Game.clock.time
+    const flashed = quality == .Epic || quality == .Legendary || quality == .Artifact ? now : 0
+    let list: Array<Toast> = []
+    let found = false
+    let last: Number = now - APART
+    for (toast of peek self.toasts) {
+      last = last.max(toast.came)
+      if (toast.key == key) {
+        found = true
+        list.push({ count: toast.count + count, until: now + LIFE, flashed: flashed.max(toast.flashed), ..toast })
+      } else {
+        list.push({ until: now + LIFE, ..toast })
+      }
+    }
+    if (!found && list.length < MOST) {
+      const came = now.max(last + APART)
+      list.push({
+        key: key, name: name, icon: icon, quality: quality, count: count, link: link, quest: quest, coins: coins, came: came,
+        until: came + LIFE, flashed: flashed > 0 ? came : 0
+      })
+    }
+    self.toasts = list
+  }
+
+  // The lines past their time go.
+  forget(mut self, now: Number) {
+    if (now == 0) { return }
+    const kept = peek self.toasts
+    if (kept.all(toast => toast.until > now)) { return }
+    self.toasts = kept.filter(toast => toast.until > now)
+  }
+
+  // The cursor on a line keeps every line up.
+  public keep(mut self) {
+    const now = peek Game.clock.time
+    self.toasts = (peek self.toasts).map(toast => ({ until: now + LIFE, ..toast }))
+  }
+}
+
+// The lines, where the player put them.
+public class LootToasts implements Component {
+  lines: mut LootLines
+  constructor(lines: mut LootLines) { self.lines = lines }
+
+  onHover(mut self) { self.lines.keep() }
+
+  public render(self): Template {
+    return $ltml {
+      <Placed id={"OrdaenInventory.loot"} title={Locale.LOOT_TOASTS} home={HOME}>
+        <box gap={1sp} width={WIDTH} @pointerEnter={self.onHover}>
+          <ToastLine $for={toast of self.lines.shown} $key={toast.key} toast={toast} now={self.lines.clock} />
+        </box>
+      </Placed>
+    }
+  }
+}

@@ -1,0 +1,122 @@
+// Fast looting: as a loot window opens that the client's auto loot takes, every slot is taken at once, one a frame,
+// the game's own window held unseen meanwhile. A slot that can't be taken (the group's rules hold it, it is locked, the
+// bags have no room for it) leaves the game's window shown with what is left; so does a window the player loots by
+// hand, and the bags filling up. A sound tells the bags full, and a catch's reel comes in with the game's sound.
+import Client from "$client"
+import Game from "$game"
+import { LootRefusal, LootSlot } from "$game"
+
+// One slot a step, as fast as the client takes them: faster, it refuses some.
+const STEP = 0.033
+// The game's sound of a catch coming in.
+const REEL = "FISHING_REEL_IN"
+const CHANNEL = "master"
+
+// What the player chose of looting, the profile's.
+public struct LootChoices implements Plain {
+  // Every slot taken at once where the client's auto loot takes the window.
+  fast: Boolean = true
+  // The client's auto loot on for every character of the account, kept on at each login.
+  everyCharacter: Boolean = false
+  // A sound as the bags are full while looting.
+  fullSound: Boolean = false
+  // The game's reel as a catch comes in.
+  reelSound: Boolean = true
+  // What was looted shown beside the screen's middle, a line each (`LootToasts`).
+  toasts: Boolean = false
+}
+
+// What looting is while the player chose nothing.
+public const LOOT_CHOICES: LootChoices = {}
+
+// The sound the bags full make, the one Speedy AutoLoot plays on this client.
+const FULL_SOUND = 139
+
+public class Looter {
+  // A slot taken: the toasts show what it held.
+  public took: Event<LootSlot> = new Event()
+  derived fast: Boolean = self.choices.fast
+  derived everyCharacter: Boolean = self.choices.everyCharacter
+
+  choices: Signal<LootChoices>
+  // The window being looted: its slots as it opened, and whether something was left.
+  slots: Array<LootSlot> = []
+  left = false
+  // The bags' sound once a window.
+  sounded = false
+  looting: Task<nil> | nil = nil
+
+  constructor(choices: Signal<LootChoices>) {
+    self.choices = choices
+    Game.loot.opened.listen(self.onOpened)
+    Game.loot.cleared.listen(self.onCleared)
+    Game.loot.closed.listen(self.onClosed)
+    Game.loot.refused.listen(self.onRefused)
+    watch (fast of self.fast) { Game.loot.showWindow(!fast) }
+    watch (every of self.everyCharacter) {
+      if (every && !Game.loot.autoLoot()) { Game.loot.setAutoLoot(true) }
+    }
+  }
+
+  destructor() {
+    if (self.looting != nil) { destroy self.looting }
+    Game.loot.showWindow(true)
+  }
+
+  onOpened(mut self, auto: Boolean) {
+    self.slots = Game.loot.slots()
+    self.left = false
+    self.sounded = false
+    if (Game.loot.fishing() && peek self.choices.reelSound) { _ = Client.PlaySound(Client.SOUNDKIT[REEL] ?? 0, CHANNEL, nil) }
+    if (!peek self.choices.fast) { return }
+    if (!auto) {
+      Game.loot.showWindow(true)
+      return
+    }
+    self.looting = self.lootAll()
+  }
+
+  // From the last slot to the first, a step apart: a slot taken shifts none of those before it.
+  async lootAll(mut self) {
+    const threshold = Game.loot.threshold()
+    for (index of self.slots.length..1 step -1) {
+      const slot = self.slots[index] ?? panic("a slot of the window")
+      if (takes(slot, threshold) && Game.loot.fits(slot.slot)) {
+        Game.loot.take(slot.slot)
+      } else {
+        self.left = true
+      }
+      await Game.delay(STEP)
+    }
+    if (self.left) { Game.loot.showWindow(true) }
+    self.looting = nil
+  }
+
+  onCleared(self, cleared: Integer) {
+    for (slot of self.slots) {
+      if (slot.slot == cleared) { self.took.emit(slot) }
+    }
+  }
+
+  onClosed(mut self) {
+    if (self.looting != nil) { destroy self.looting }
+    self.looting = nil
+    self.slots = []
+    if (peek self.choices.fast) { Game.loot.showWindow(false) }
+  }
+
+  onRefused(mut self, why: LootRefusal) {
+    if (!peek self.choices.fast) { return }
+    Game.loot.showWindow(true)
+    if (why == .Full && peek self.choices.fullSound && !self.sounded) {
+      self.sounded = true
+      _ = Client.PlaySound(FULL_SOUND, CHANNEL, nil)
+    }
+  }
+}
+
+// Whether a slot is the player's to take: no roll or master looter holds it, and it isn't locked.
+function takes(slot: LootSlot, threshold: Integer | nil): Boolean {
+  if (slot.locked) { return false }
+  return threshold == nil || slot.kind != .Item || slot.quality < threshold
+}
