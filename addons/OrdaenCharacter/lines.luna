@@ -25,8 +25,9 @@ public struct ChanceWord {
 }
 
 // The client's words the reader tells lines by: the enchant's and an active set bonus's starts, the flat bonuses, the
-// chances, the word that makes a chance a spell's, and a shield's block as its own line says it («%d Блок», the
-// client's `SHIELD_BLOCK_TEMPLATE`; none: no such line is read).
+// chances, the word that makes a chance a spell's, and a shield's block as its own line says it (the client's
+// `SHIELD_BLOCK_TEMPLATE`: Forever's «Вероятность блока: %s», the amount the damage a block stops; none: no such line
+// is read).
 public struct LineWords {
   const enchant: String
   const setBonus: String
@@ -50,9 +51,10 @@ public struct LineBonuses {
   const set: WornSet | nil
 }
 
-// The amount a line says in a template's place for it («39 Блок» by «%d Блок»); none where the line isn't one.
+// The amount a line says in a template's place for it («39 Блок» by «%d Блок», «Вероятность блока: 3» by Forever's
+// «Вероятность блока: %s»); none where the line isn't one.
 function amountBy(text: String, template: String): Number | nil {
-  const start, end = template.match("^(.-)%%d(.*)$")
+  const start, end = template.match("^(.-)%%[ds](.*)$")
   if (start == nil || end == nil) { return nil }
   const rest = start == "" ? text : after(text, start)
   if (rest == nil) { return nil }

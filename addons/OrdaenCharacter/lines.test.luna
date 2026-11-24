@@ -46,6 +46,20 @@ test "a shield's block line gives the block's damage as the item's own; a block 
   Test.expect(told(bonusesOf(lines, RUSSIAN).base) == "BlockValue 39")
 }
 
+test "Forever's shield line, its template's amount a string's place, gives the block's damage" {
+  const forever: LineWords = {
+    enchant: "Чары: ", setBonus: "Комплект: ", flat: [], chances: [], spells: "заклинан",
+    shieldBlock: "Вероятность блока: %s"
+  }
+  const lines: Array<ItemLine> = [
+    { text: "Дубовый щит истопника", kind: 22 },
+    { text: "Броня: 161", kind: 0 },
+    { text: "Вероятность блока: 3", kind: 0 },
+    { text: "Прочность: 45 / 45", kind: 0 }
+  ]
+  Test.expect(told(bonusesOf(lines, forever).base) == "BlockValue 3")
+}
+
 test "a set's name and its bonuses in effect, a flat one and a chance; one not yet in effect is left out" {
   const lines: Array<ItemLine> = [
     { text: "Плащ соучастника", kind: 0 },
