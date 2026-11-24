@@ -1,7 +1,8 @@
 // The bag slots: a small window of their own beside the bags, opened by the header's bag button. Each bag with its
 // icon, its name and its fill («5/16»), the backpack first; the cursor on one shows its tooltip and lights its items in
-// the bags' window, the rest faded. An empty place stands too, as «Empty bag slot»; a bag let go on a line, or a
-// click there while the cursor holds one, puts it on in that place.
+// the bags' window, the rest faded; a click keeps it lit, as the game's bag button opens its bag, until clicked
+// again. An empty place stands too, as «Empty bag slot». A bag let go on a line, or a click there while the cursor
+// holds one, puts it on in that place; a worn bag's line dragged takes the bag off its place onto the cursor.
 import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
@@ -28,6 +29,10 @@ public struct BagLine {
 class BagEntry implements Component {
   public lit: Event<Integer> = new Event()
   public put: Event<Integer> = new Event()
+  public pick: Event<Integer> = new Event()
+  public lift: Event<Integer> = new Event()
+  // The backpack is no place: it is never taken off, nor anything put on there.
+  derived place: Boolean = self.line.info.bag > 0
   derived name: String = self.line.info.slots > 0 ? self.line.info.name : Locale.EMPTY_BAG_PLACE
   state hovered = false
   derived fill: String = self.line.info.slots > 0 ? Locale.FILL.format(self.line.used, self.line.info.slots) : ""
@@ -43,10 +48,20 @@ class BagEntry implements Component {
     self.lit.emit(self.line.info.bag)
   }
 
-  onDrop(self) { self.put.emit(self.line.info.bag) }
+  onDrop(self) {
+    if (self.place) { self.put.emit(self.line.info.bag) }
+  }
 
   onPress(self) {
-    if (Client.CursorHasItem()) { self.put.emit(self.line.info.bag) }
+    if (!Client.CursorHasItem()) {
+      self.pick.emit(self.line.info.bag)
+    } else if (self.place) {
+      self.put.emit(self.line.info.bag)
+    }
+  }
+
+  onDragStart(self) {
+    if (self.place && self.line.info.slots > 0) { self.lift.emit(self.line.info.bag) }
   }
 
   onLeave(mut self) {
@@ -57,7 +72,7 @@ class BagEntry implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} yAlign={Align.Center} padding={ROW_ROOM} background={self.back} @pointerEnter={self.onEnter}
-           @pointerLeave={self.onLeave} @drop={self.onDrop} @pointerPress={self.onPress}>
+           @pointerLeave={self.onLeave} @drop={self.onDrop} @pointerPress={self.onPress} @dragStart={self.onDragStart}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.name} textColor={INK} />
         <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
@@ -71,6 +86,9 @@ public class BagSlotsWindow implements Component {
   public lit: Event<Integer> = new Event()
   // A bag let go on a place, by the place.
   public put: Event<Integer> = new Event()
+  // A line clicked with nothing held, and a worn bag's line dragged: by the place.
+  public pick: Event<Integer> = new Event()
+  public lift: Event<Integer> = new Event()
   state tab = 1
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
 
@@ -84,12 +102,15 @@ public class BagSlotsWindow implements Component {
   onClose(self) { self.close.emit() }
   onLit(self, bag: Integer) { self.lit.emit(bag) }
   onPut(self, bag: Integer) { self.put.emit(bag) }
+  onPick(self, bag: Integer) { self.pick.emit(bag) }
+  onLift(self, bag: Integer) { self.lift.emit(bag) }
 
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>
-          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} @put={self.onPut} />
+          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} @put={self.onPut} @pick={self.onPick}
+                    @lift={self.onLift} />
         </box>
       </Window>
     }

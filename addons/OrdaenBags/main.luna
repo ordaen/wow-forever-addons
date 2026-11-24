@@ -137,6 +137,9 @@ public class Bags implements Module, App {
   public state slotsOpen = false
   public state bankSlotsOpen = false
   public state lit = -1
+  // The bag a line of the bag slots kept lit by a click; -1 for none. The cursor's coming and going lights another
+  // and gives it back.
+  state kept = -1
   // The client's bag buttons hooked (the bottom panel shows them): the cursor on one lights its bag, as on ours.
   hooked: mut Map<any Client.Frame, Boolean> = {}
   // The slot whose menu is open, with its lines.
@@ -559,13 +562,17 @@ public class Bags implements Module, App {
     if (line != "") { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
   }
 
-  // A bag of the bags held on the cursor let go on a bag's place: the client holds it locked in its slot, which is let
-  // go first; anything else on the cursor stays.
+  // A bag held on the cursor let go on a bag's place. One from the bags (the client holds it locked in its slot) is
+  // let go and put on as its use is, the bag there emptied first where it must be; one taken off a place is put on
+  // there, the client swapping the two where the one there is empty.
   onPutBag(mut self, into: Integer) {
     const bag = self.carried.all.find(slot => peek slot.locked && slot.read.kind == CONTAINER && slot.vault == Vault.Bags)
-    if (bag == nil) { return }
-    Client.ClearCursor()
-    self.change(bag, into)
+    if (bag != nil) {
+      Client.ClearCursor()
+      self.change(bag, into)
+      return
+    }
+    if (Game.bags.wearHeld(into) == Game.Wear.Refused) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_BAG_REFUSED) }
   }
 
   // A line of the module's in the chat, where the player keeps them.
@@ -737,7 +744,16 @@ public class Bags implements Module, App {
     self.arranger.start(self.carried.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, peek self.list.values.sort)
   }
 
-  onLit(mut self, bag: Integer) { self.lit = bag }
+  onLit(mut self, bag: Integer) { self.lit = bag < 0 ? peek self.kept : bag }
+
+  // A bag's line clicked: that bag kept lit, or no more.
+  onKeepBag(mut self, bag: Integer) {
+    self.kept = peek self.kept == bag ? -1 : bag
+    self.lit = peek self.kept < 0 ? bag : peek self.kept
+  }
+
+  // A worn bag's line dragged: the bag onto the cursor.
+  onLiftBag(mut self, bag: Integer) { _ = Game.bags.pickupBag(bag) }
 
   hookBag(mut self, button: Game.BagButton) {
     const frame: any Client.Frame = button.frame
@@ -789,7 +805,8 @@ public class Bags implements Module, App {
           {self.side.body}
         </Window>
         <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
-                        @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag} />
+                        @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag}
+                        @pick={self.onKeepBag} @lift={self.onLiftBag} />
         <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
                          @close={self.onBankSlotsClosed} />
         <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale.REFUND}>

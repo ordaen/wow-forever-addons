@@ -2047,3 +2047,45 @@ test "gold on the cursor let go on a slot goes back into the purse; the guild ba
   bags().button(SWORD).click()
   Test.expect(dropped == 1 && withdrawn == 500 && askedOnly(""))
 }
+
+test "a bag's line clicked keeps its items lit, the rest faded, until clicked again" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  bagSlots().text("Linen Bag").click()
+  Test.moveTo({ x: 5, y: 5 })
+  Test.flush()
+  Test.expect(held(POTION).opacity() < 1 && held(RECIPE).opacity() == 1)
+  bagSlots().text("Linen Bag").click()
+  Test.moveTo({ x: 5, y: 5 })
+  Test.flush()
+  Test.expect(held(POTION).opacity() == 1)
+}
+
+test "a worn bag's line dragged takes the bag off its place; a bag held from a place let go on another is put on there" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  Test.flush()
+  _ = Test.requests()
+  const from = Test.holding("Linen Bag", nil)
+  Test.moveTo(from)
+  Test.press(nil)
+  Test.moveTo({ x: from.x + 30, y: from.y })
+  // Let go away from the window (on its own line it would go back on).
+  Test.moveTo({ x: 5, y: 5 })
+  Test.release(nil)
+  Test.expect(askedOnly("Bags.pickupBag 1"))
+  // Held from its place (the cursor holds it; no slot of the bags is locked): let go on an empty place.
+  Client.CursorHasItem = (): Boolean => true
+  bagSlots().text("Empty bag slot").nth(1).click()
+  Test.expect(askedOnly("Bags.wearHeld 2"))
+}
