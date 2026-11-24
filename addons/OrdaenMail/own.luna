@@ -13,7 +13,7 @@ import { Component, CountInput, FooterCount, ListFooter, PickRow, PushButton, SE
 import type { Alts } from "OrdaenAlts"
 import { skillUpRank } from "OrdaenProfessions"
 import type { CraftRecipe, Crafting } from "OrdaenProfessions"
-import { PLACES } from "@/letters"
+import { lettersFor } from "@/letters"
 import Locale from "@/locales"
 import { Sender } from "@/sender"
 import Style from "@/style"
@@ -173,9 +173,6 @@ public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
   return stacks
 }
 
-// How many letters stacks take.
-public function lettersFor(stacks: Integer): Integer { return (stacks / PLACES).ceil() }
-
 // What goes of the offers, by the counts chosen (`chosen` by «who:item»: 0 for one unticked, all where unset); an item
 // in two of them once, at the most chosen.
 function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer>): Array<Game.MailStack> {
@@ -302,7 +299,7 @@ public class OwnTab implements Component {
   derived currentWho: String = self.current?.who ?? ""
   derived sections: Array<Section> = self.current?.sections ?? []
   derived letters: Integer = self.lettersNow()
-  derived counts: Array<FooterCount> = [{ label: Locale.OWN_LETTERS, value: String.of(self.letters) }]
+  derived counts: Array<FooterCount> = [{ label: Locale.LETTERS, value: String.of(self.letters) }]
 
   reached: Signal<Array<Kin> | nil>
   const crafting: CraftingRead
@@ -335,10 +332,12 @@ public class OwnTab implements Component {
     return ownRows(self.kin, self.held, self.crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
   }
 
+  // How many letters «Send all» takes: none where nothing is ticked.
   lettersNow(self): Integer {
     const row = self.current
     if (row == nil) { return 0 }
-    return lettersFor(stacksOf(wantedOf(row.who, offersOf(row), self.chosen)).length)
+    const stacks = stacksOf(wantedOf(row.who, offersOf(row), self.chosen)).length
+    return stacks == 0 ? 0 : lettersFor(stacks)
   }
 
   onPick(mut self, who: String) { self.picked = who }

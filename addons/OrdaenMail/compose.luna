@@ -5,13 +5,14 @@
 // twelve a letter (more go out as several letters, «Letter 2» over the next), an empty slot always after the last,
 // filled by letting an item go on a slot or by the game's own ways into the letter being written (Right-click in the
 // bags: the form takes the item from the game's letter); a slot clicked gives its item back. Then «Send money» or
-// «C.O.D.», the window's inner tabs over the amount; the footer: the attachments and letters and the postage on one
-// line, and «Send» under them, greyed until a recipient is typed.
+// «C.O.D.», the window's inner tabs over the amount; under them the attachments and the letters, a dim line each,
+// the title at the left and the count at the right. The column's marble footer: the postage, and «Send», greyed until
+// a recipient is typed.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { Align, Beside, Bounds, Layer, Overflow, Track } from "$ltml"
-import { ButtonPlate, Component, Fact, Field, ItemButton, MoneyField, PickRow, PushButton, SECONDARY_TEXT, Tabs, trimmed } from "Ordaen"
+import { ButtonPlate, Component, Field, FooterCount, ItemButton, ListFooter, MoneyField, PickRow, PushButton, SECONDARY_TEXT, Tabs, trimmed } from "Ordaen"
 import type { Alts } from "OrdaenAlts"
 import { PLACES, SUBJECT_MOST, lettersFor } from "@/letters"
 import Locale from "@/locales"
@@ -128,7 +129,8 @@ public class Compose implements Component {
   derived letters: Integer = lettersFor(self.stacks.length)
   derived slots: Array<LetterSlots> = self.slotsOf()
   derived postage: Integer = self.postageOf()
-  derived attached: String = Locale.ATTACHED_LETTERS.format(self.stacks.length, self.letters)
+  // The footer's: what the letters cost to send.
+  derived counts: Array<FooterCount> = [{ label: Locale.POSTAGE, value: Game.money.format(self.postage) }]
   derived codTooHigh: Boolean = self.cod && self.copper > COD_MOST
   derived codSplit: Boolean = self.cod && self.copper > 0 && self.letters > 1
   derived ready: Boolean = self.typed != "" && !self.codTooHigh && !self.codSplit
@@ -258,17 +260,17 @@ public class Compose implements Component {
           </box>
           <text $if={self.codTooHigh} value={Locale.COD_TOO_HIGH} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           <text $if={self.codSplit} value={Locale.COD_ONE_LETTER} textColor={Style.RED} textSize={SECONDARY_TEXT} />
-        </box>
-        <box columns={1} gap={2sp} border={Style.RULE} padding={{ top: 2sp }}>
-          <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
-            <Fact label={Locale.ATTACHMENTS} value={self.attached} />
-            <Fact label={Locale.POSTAGE} value={Game.money.format(self.postage)} />
-          </box>
-          <box columns={1} xAlign={Align.End}>
-            <PushButton label={Locale.SEND} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={!self.ready}
-                        @click={self.onSend} />
+          <box columns={FOOT} gap={2sp}>
+            <text value={Locale.ATTACHMENTS} textColor={Style.DIM} />
+            <text value={"%d"} arguments={[self.stacks.length]} textColor={Style.DIM} textFont={.Numbers} />
+            <text value={Locale.LETTERS} textColor={Style.DIM} />
+            <text value={"%d"} arguments={[self.letters]} textColor={Style.DIM} textFont={.Numbers} />
           </box>
         </box>
+        <ListFooter counts={self.counts}>
+          <PushButton label={Locale.SEND} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={!self.ready}
+                      @click={self.onSend} />
+        </ListFooter>
       </box>
     }
   }

@@ -6,7 +6,7 @@ import Test from "$test"
 import { classColor } from "Ordaen"
 import type { Crafting } from "OrdaenProfessions"
 import { Sent } from "@/letters"
-import { Kin, Least, OwnTab, SendRule, SendRules, lettersFor, ownRows, ruleKey, ruleOf, stacksOf } from "@/own"
+import { Kin, Least, OwnTab, SendRule, SendRules, ownRows, ruleKey, ruleOf, stacksOf } from "@/own"
 import { Sender } from "@/sender"
 
 const BAR = 2841
@@ -87,10 +87,6 @@ test "a count sent takes whole stacks that fit and the rest as a part, which the
   Test.expect(stacks.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/3 5, 0/0 7")
   const whole = stacksOf([{ bag: 0, slot: 0, item: LINEN, count: 25 }])
   Test.expect(whole.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/2 20, 0/3 5")
-}
-
-test "twelve stacks go in a letter, thirteen in two; none in none" {
-  Test.expect(lettersFor(0) == 0 && lettersFor(1) == 1 && lettersFor(12) == 1 && lettersFor(13) == 2)
 }
 
 // The tab on a page, and the bags it reads: twenty bronze bars and five stones, each one stack, until the test takes

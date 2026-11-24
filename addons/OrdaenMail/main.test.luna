@@ -520,7 +520,7 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   Client.GetSendMailItem = (place: Integer): (String | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
     return nil, nil, nil, nil, nil
   }
-  Test.expect(window.text("1 in 1 letters").shown())
+  Test.expect(window.texts().join(" | ").contains("Attachments | 1 | Letters | 1"))
   inLetter = false
   _ = Test.requests()
   window.button("Send").click()
@@ -554,13 +554,13 @@ test "the form draws an empty slot, and an item from the bags let go on it goes 
   }
   Client.C_Container.PickupContainerItem(0, 2)
   window.box(SLOT_WELL).nth(4).click()
-  Test.expect(window.text("1 in 1 letters").shown())
+  Test.expect(window.texts().join(" | ").contains("Attachments | 1 | Letters | 1"))
   Test.expect(window.box(SLOT_WELL).count() == 6)
   // Right-click in the bags (the item used) while the form writes: the game's letter takes it, the form after it.
   Test.inKey(() => Client.C_Container.UseContainerItem(0, 3, nil, nil, nil))
   Events.MAIL_SEND_INFO_UPDATE.emit()
   Test.expect(!Client.HasSendMailItem(1))
-  Test.expect(window.text("2 in 1 letters").shown())
+  Test.expect(window.texts().join(" | ").contains("Attachments | 2 | Letters | 1"))
 }
 
 test "«To» completes against every recipient in a popover: each name in its class's colour, who it is beside it" {
@@ -612,7 +612,7 @@ test "«Send money» and «C.O.D.» are the form's tabs; the amount goes as cash
   Test.expect(asked().contains("Mailbox.send Regron Money  0 500"))
 }
 
-test "the attachments and the postage stand on one line over «Send»; there is no «Clear»" {
+test "the attachments and the letters a dim line each; the postage and «Send» in the column's marble footer; there is no «Clear»" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailObserver.open = true
@@ -621,6 +621,7 @@ test "the attachments and the postage stand on one line over «Send»; there is 
   window.text("Outbox").click()
   window.button("Write").click()
   Test.expect(!window.button("Clear").shown())
+  Test.expect(window.texts().join(" | ").contains("Attachments | 0 | Letters | 1 | Postage"))
   Test.shot("the form")
 }
 
