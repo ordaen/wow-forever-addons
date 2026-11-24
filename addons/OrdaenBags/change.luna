@@ -1,8 +1,10 @@
 // A bag from the bags put on: into an empty place of its kind (a bag's, or the reagent bag's) at once; else in place
 // of the smallest bag worn there, which is emptied into the other bags first. Emptying is swaps of its items into free
 // slots of the bags that take any item, all at once; the bag goes on once the client's word (`Game.bags.updated`)
-// leaves the place empty and nothing locked, or the run gives up after a few goes.
+// leaves the place empty and nothing locked, or the run gives up after a few goes (`stuck`).
+import Client from "$client"
 import Game from "$game"
+import { Event } from "$ltml"
 import { Slot } from "@/model"
 
 // What a use of a bag came to.
@@ -15,10 +17,14 @@ public enum Change {
   NoRoom
   // The client took nothing.
   Refused
+  // The cursor holds something: the bag can't be picked up to go on.
+  Busy
 }
 
 // The client's subclass of a reagent bag (`Enum.ItemClass.Container`'s).
 const REAGENT_BAG = 11
+// An ordinary bag's subclass, which takes any item.
+const ORDINARY = 0
 // How many of the client's words a run waits for before it gives up.
 const GOES = 8
 
@@ -29,14 +35,17 @@ function changeOf(wear: Game.Wear): Change {
 }
 
 // Where a bag goes: an empty place of its kind, else the place of the smallest bag of its kind worn; none for no place.
+// An ordinary bag never takes the place of a bag for one kind of thing (a soul bag, a herb bag): that one is kept.
 function placeFor(bag: Slot): Integer | nil {
   const reagent = bag.read.subkind == REAGENT_BAG
+  const ordinary = bag.read.subkind == ORDINARY
   let target: Integer | nil = nil
   let least = 0
   for (button of peek Game.bags.buttons) {
     if (button.kind == (reagent ? Game.BagKind.Reagent : Game.BagKind.Bag)) {
       const size = Game.bags.size(button.bag)
-      if (target == nil || size < least) {
+      const kept = ordinary && size > 0 && !Game.bags.bag(button.bag).general
+      if (!kept && (target == nil || size < least)) {
         target = button.bag
         least = size
       }
@@ -47,6 +56,8 @@ function placeFor(bag: Slot): Integer | nil {
 
 public class BagChanger {
   public state running = false
+  // A run gave up: the place kept something the client wouldn't move.
+  public stuck: Event<nil> = new Event()
   // The bag being put on, by its item, and the place it goes.
   item = 0
   into = 0
@@ -60,6 +71,7 @@ public class BagChanger {
   // The bag lying in `bag` put on: in the place `into` (where it was let go), else where it fits best. `slots` is
   // every slot of the bags in their order; `general` tells the bags that take any item.
   public start(mut self, bag: Slot, slots: Array<Slot>, general: (bag: Integer) => Boolean, into: Integer | nil = nil): Change {
+    if (Client.CursorHasItem()) { return Change.Busy }
     const target = into ?? placeFor(bag)
     if (target == nil) { return Change.NoPlace }
     if (Game.bags.size(target) == 0) { return changeOf(Game.bags.wear(bag.bag, bag.index, target)) }
@@ -82,6 +94,7 @@ public class BagChanger {
     if (!peek self.running) { return }
     if (self.left <= 0) {
       self.running = false
+      self.stuck.emit()
       return
     }
     self.left -= 1

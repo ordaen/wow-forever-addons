@@ -86,6 +86,8 @@
   "REFUND": "Refund",
   "REFUND_ASK": "Return %s to the merchant for a refund?",
   "REFUND_ASK_MONEY": "Return %s to the merchant for a refund of %s?",
+  "CHAT_BAG_BUSY": "put down what the cursor holds first.",
+  "CHAT_BAG_STUCK": "the bag it replaces kept items the game wouldn't move; nothing was put on.",
   "CHAT_SOLD": "sold %s for %s.",
   "CHAT_SOLD_JUNK": "sold junk: %d for %s.",
   "CHAT_LEARNED": "%s is junk now: you often sell it.",

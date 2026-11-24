@@ -203,6 +203,7 @@ public class Bags implements Module, App {
       self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
     )
     Ordaen.modules.add(self)
+    self.changer.stuck.listen(self.onBagStuck)
     Game.bags.updated.listen(self.onUpdated)
     Game.bags.loaded.listen(self.onLoaded)
     Game.bankObserver.changed.listen(self.onBankChanged)
@@ -550,6 +551,8 @@ public class Bags implements Module, App {
   // A bag of the bags used: put on, in an empty place or the smallest bag's; the chat says why where it can't be.
   putOn(mut self, slot: Slot) { self.change(slot, nil) }
 
+  onBagStuck(self) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_BAG_STUCK) }
+
   change(mut self, slot: Slot, into: Integer | nil) {
     const infos = peek self.carried.infos
     const change = self.changer.start(slot, self.carried.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, into)
@@ -558,6 +561,7 @@ public class Bags implements Module, App {
       Change.NoPlace => Locale.CHAT_NO_BAG_PLACE
       Change.NoRoom => Locale.CHAT_NO_BAG_ROOM
       Change.Refused => Locale.CHAT_BAG_REFUSED
+      Change.Busy => Locale.CHAT_BAG_BUSY
     }
     if (line != "") { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
   }

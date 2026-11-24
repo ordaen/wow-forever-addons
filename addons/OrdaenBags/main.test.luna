@@ -10,6 +10,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT } from "Ordaen"
 import root Bags from "OrdaenBags"
+import { BagChanger, Change } from "@/change"
 import { Purse, Purses } from "@/gold"
 import Locale from "@/locales"
 import { Choices } from "@/pane"
@@ -2088,4 +2089,46 @@ test "a worn bag's line dragged takes the bag off its place; a bag held from a p
   Client.CursorHasItem = (): Boolean => true
   bagSlots().text("Empty bag slot").nth(1).click()
   Test.expect(askedOnly("Bags.wearHeld 2"))
+}
+
+test "an ordinary bag never takes a bag for one kind of thing off: the smallest ordinary one is replaced" {
+  const world = new World(everyday())
+  world.sizes = [16, 6, 8, 8, 8]
+  // The linen bag, the smallest, takes one kind of thing alone.
+  world.general = false
+  withNewBag(mut world)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.requests()
+  bags().button(LINEN_BAG).click()
+  Test.expect(askedOnly("Bags.wear 0 6 2"))
+}
+
+test "a run the client won't finish gives up after its goes, and the chat says the bag wasn't put on" {
+  const world = new World(everyday())
+  world.sizes = [16, 6, 8, 8, 8]
+  // The client takes the swaps and moves nothing.
+  world.moves = false
+  withNewBag(mut world)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean =>
+  world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.printed()
+  bags().button(LINEN_BAG).click()
+  for (go of 1..10) { Game.bags.updated.emit(1) }
+  Test.expect(Test.printed().join("\n").contains("wouldn't move"))
+}
+
+test "a bag isn't put on while the cursor holds something" {
+  const world = new World(everyday())
+  withNewBag(mut world)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  const bag = Bags.carried.all.find(slot => slot.bag == 0 && slot.index == 6) ?? panic("the new bag lies there")
+  Client.CursorHasItem = (): Boolean => true
+  Test.expect(new BagChanger().start(bag, [], (place: Integer): Boolean => true) == Change.Busy)
 }
