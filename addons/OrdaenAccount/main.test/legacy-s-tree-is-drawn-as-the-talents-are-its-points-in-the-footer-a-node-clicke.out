@@ -4,56 +4,57 @@ surface 305.78,189.85 988.44x520.31 on MEDIUM clamped raised by a click
     box 312.98,233.8 974.04x428.61
       box 312.98,233.8 974.04x428.61
         box 312.98,233.8 974.04x428.61
-          box 312.98,233.8 974.04x65.02
-            box 335.73,256.55 928.53x42.27 Interface/FrameGeneral/UI-Background-Marble
-              box 335.73,267.93 928.53x0
-              box 335.73,267.93 928.53x30.89
-                box 335.73,267.93 18.49x30.89
-                box 354.22,267.93 67.47x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                  box 353.39,297.99 69.13x0.83 absolute #00000000
-                  text 372.12,275.87 31.67x15.83 "Trees" #f0e6d2
-                box 421.69,267.93 79.97x30.89 #00000000 @keyPress @pointerPress
-                  box 420.86,297.99 81.63x0.83 absolute #3e2f1d
-                  text 439.59,275.87 44.17x15.83 "Rewards" #a3977f
-                box 501.66,267.93 762.61x30.89
-          box 312.98,298.82 974.04x363.59
-            box 312.98,298.82 974.04x363.59
-              box 312.98,298.82 184.89x363.59
-                box 312.98,298.82 183.89x54.04 #00000059 @keyPress @pointerPress
-                  box 312.98,298.82 3x54.04 absolute #d6a56b
-                  box 330.04,310.2 31.29x31.29 icon=UI-Legacy-Tree-Professions
-                  text 372.71,316.26 112.78x19.17 "Professions" #f0e6d2
-                box 312.98,352.86 183.89x54.04 #00000000 @keyPress @pointerPress
-                  box 312.98,352.86 3x54.04 absolute #00000000
-                  box 330.04,364.24 31.29x31.29 icon=UI-Legacy-Tree-Adventure
-                  text 372.71,370.3 112.78x19.17 "Adventure" #e8dcc4
-                box 312.98,406.91 183.89x54.04 #00000000 @keyPress @pointerPress
-                  box 312.98,406.91 3x54.04 absolute #00000000
-                  box 330.04,418.29 31.29x31.29 icon=UI-Legacy-Tree-Progression
-                  text 372.71,424.35 112.78x19.17 "Resourcefulness" #e8dcc4
-              box 497.87,298.82 789.16x363.59 Legacy-Tree-Frame-background
-                box 863.28,422.28 58.33x116.67
-                  box 863.28,422.28 58.33x116.67
-                    box 863.28,422.28 58.33x58.33
-                      box 863.28,422.28 58.33x7.5
-                      box 863.28,429.78 58.33x43.33
-                        box 870.78,429.78 43.33x43.33 absolute opacity=1 @pointerEnter @pointerLeave @pointerPress
-                          box 875.11,434.11 34.67x34.67 absolute
-                          box 870.78,429.78 43.33x43.33 absolute talents-node-square-green
-                          box 870.78,429.78 43.33x43.33 absolute
-                            text 870.78,438.85 43.33x25.2 "3" #19ff19 centred
-                      box 863.28,473.11 58.33x7.5
-                        box 890.78,473.11 3.33x7.5 absolute #4a3a24
-                    box 863.28,480.61 58.33x58.33
-                      box 863.28,480.61 58.33x7.5
-                        box 890.78,480.61 3.33x7.5 absolute #4a3a24
-                        box 884.94,473.11 15x15 absolute talents-arrow-head-gray
-                      box 863.28,488.11 58.33x43.33
-                        box 870.78,488.11 43.33x43.33 absolute opacity=1 @pointerEnter @pointerLeave @pointerPress
-                          box 875.11,492.45 34.67x34.67 absolute
-                          box 875.11,492.45 34.67x34.67 absolute #000000 opacity=0.25
-                          box 870.78,488.11 43.33x43.33 absolute talents-node-square-gray
-                      box 863.28,531.45 58.33x7.5
+          box 312.98,233.8 974.04x42.27 Interface/FrameGeneral/UI-Background-Marble
+            box 312.98,245.17 974.04x0
+            box 312.98,245.17 974.04x30.89
+              box 312.98,245.17 18.49x30.89
+              box 331.47,245.17 67.47x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                box 330.63,275.23 69.13x0.83 absolute #00000000
+                text 349.37,253.12 31.67x15.83 "Trees" #f0e6d2
+              box 398.93,245.17 79.97x30.89 #00000000 @keyPress @pointerPress
+                box 398.1,275.23 81.63x0.83 absolute #3e2f1d
+                text 416.83,253.12 44.17x15.83 "Rewards" #a3977f
+              box 478.9,245.17 808.12x30.89
+          box 312.98,276.06 974.04x386.34
+            box 312.98,276.06 974.04x386.34
+              box 312.98,276.06 184.89x386.34
+                box 312.98,276.06 183.89x54.04 #00000059 @keyPress @pointerPress
+                  box 312.98,276.06 3x54.04 absolute #d6a56b
+                  box 330.04,287.44 31.29x31.29 icon=UI-Legacy-Tree-Professions
+                  text 372.71,293.5 112.78x19.17 "Professions" #f0e6d2
+                box 312.98,330.11 183.89x54.04 #00000000 @keyPress @pointerPress
+                  box 312.98,330.11 3x54.04 absolute #00000000
+                  box 330.04,341.49 31.29x31.29 icon=UI-Legacy-Tree-Adventure
+                  text 372.71,347.55 112.78x19.17 "Adventure" #e8dcc4
+                box 312.98,384.15 183.89x54.04 #00000000 @keyPress @pointerPress
+                  box 312.98,384.15 3x54.04 absolute #00000000
+                  box 330.04,395.53 31.29x31.29 icon=UI-Legacy-Tree-Progression
+                  text 372.71,401.59 112.78x19.17 "Resourcefulness" #e8dcc4
+              box 497.87,276.06 789.16x386.34
+                box 863.28,410.9 58.33x116.67
+                  box 863.28,410.9 58.33x116.67
+                    box 863.28,410.9 58.33x58.33
+                      box 863.28,410.9 58.33x7.5
+                      box 863.28,418.4 58.33x43.33
+                        box 870.78,418.4 43.33x43.33 absolute opacity=1 @pointerEnter @pointerLeave @pointerPress
+                          box 875.11,422.74 34.67x34.67 absolute
+                          box 870.78,418.4 43.33x43.33 absolute talents-node-square-green
+                          box 895.61,448.5 17.5x12.24 absolute
+                            text 895.61,448.5 17.5x12.24 "3/5" #ffffff
+                      box 863.28,461.74 58.33x7.5
+                        box 890.78,461.74 3.33x7.5 absolute #4a3a24
+                    box 863.28,469.24 58.33x58.33
+                      box 863.28,469.24 58.33x7.5
+                        box 890.78,469.24 3.33x7.5 absolute #4a3a24
+                        box 884.94,461.74 15x15 absolute talents-arrow-head-gray
+                      box 863.28,476.74 58.33x43.33
+                        box 870.78,476.74 43.33x43.33 absolute opacity=1 @pointerEnter @pointerLeave @pointerPress
+                          box 875.11,481.07 34.67x34.67 absolute
+                          box 875.11,481.07 34.67x34.67 absolute #000000 opacity=0.25
+                          box 870.78,476.74 43.33x43.33 absolute talents-node-square-gray
+                          box 895.61,506.83 17.5x12.24 absolute
+                            text 895.61,506.83 17.5x12.24 "0/1" #ffffff
+                      box 863.28,520.07 58.33x7.5
     box 312.98,662.41 974.04x40.54
       box 312.98,662.41 974.04x40.54
         box 312.98,662.41 974.04x40.54 Interface/FrameGeneral/UI-Background-Marble
@@ -77,7 +78,7 @@ surface 305.78,189.85 988.44x520.31 on MEDIUM clamped raised by a click
   box 305.78,189.85 988.44x39
     box 320.18,189.85 871.11x39
       box 320.18,189.85 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x0.85, right 0.97>0.96 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 326.93,196.6 32.25x32.25 absolute icon=Interface/Icons/Achievement_General cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 326.93,196.6 32.25x32.25 absolute icon=UI-Legacy-Tree-Adventure cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 356.63,196.6 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.68]
         box 363.66,197.05 54.28x31.8
           text 371.64,205.03 38.33x15.83 "Legacy" #ffd100

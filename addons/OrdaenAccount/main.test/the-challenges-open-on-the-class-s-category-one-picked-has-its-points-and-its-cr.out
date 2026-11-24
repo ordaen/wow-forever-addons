@@ -80,7 +80,7 @@ surface 301.66,189.85 1298.34x520.31 on MEDIUM clamped raised by a click
   box 301.66,189.85 1298.34x39
     box 316.06,189.85 1181.01x39
       box 316.06,189.85 113.5x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.98, top 0.99>0.98 x2.94, left 0.99>0.98 x0.85, right 0.98>0.97 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 322.81,196.6 32.25x32.25 absolute icon=Interface/Icons/Achievement_General cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 322.81,196.6 32.25x32.25 absolute icon=UI-Legacy-Tree-Adventure cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 352.51,196.6 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.68]
         box 359.54,197.05 54.28x31.8
           text 367.51,205.03 38.33x15.83 "Legacy" #a3977f

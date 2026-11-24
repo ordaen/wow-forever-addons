@@ -276,9 +276,8 @@ public class Collections {
 
   public const content: Template = $ltml {
     <box columns={1} rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
-      <box padding={Style.TOP_ROOM}>
-        <Tabs tabs={SUBS} selected={mut self.sub} />
-      </box>
+      // The sub tabs' band runs to the frame's line on every side.
+      <Tabs tabs={SUBS} selected={mut self.sub} />
       <box $if={self.transmog} padding={Style.SIDE_ROOM} gap={3sp}>
         <text value={Locale.TRANSMOG_GAME} textColor={Style.DIM} />
         <PushButton label={Locale.OPEN_APPEARANCES} width={220dp} @click={self.onTransmog} />

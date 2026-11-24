@@ -237,8 +237,8 @@ public class Legacy {
       <box border={{ width: 1ui, color: RULE, sides: ["right"] }}>
         <TreeChoice $for={index, tree of TREES} tree={tree} index={index} chosen={self.treeIndex} @pick={self.onTree} />
       </box>
-      <box background={"Legacy-Tree-Frame-background"} padding={6sp} xAlign={Align.Center} yAlign={Align.Center}>
-        <TalentTreeView $if={self.tree != nil} tree={self.tree ?? panic("tested")} titled={false} @spend={self.onBuy}
+      <box padding={6sp} xAlign={Align.Center} yAlign={Align.Center}>
+        <TalentTreeView $if={self.tree != nil} tree={self.tree ?? panic("tested")} titled={false} fraction={true} @spend={self.onBuy}
                         @refund={self.onRefund} />
       </box>
     </box>
@@ -269,9 +269,8 @@ public class Legacy {
   }
   public const content: Template = $ltml {
     <box columns={1} rows={["max-content", { fr: 1 }]}>
-      <box padding={Style.TOP_ROOM}>
-        <Tabs tabs={SUBS} selected={mut self.sub} />
-      </box>
+      // The sub tabs' band runs to the frame's line on every side.
+      <Tabs tabs={SUBS} selected={mut self.sub} />
       <box $if={!self.open} xAlign={Align.Center} yAlign={Align.Center}>
         <text value={Locale.LEGACY_LOCKED} textColor={Style.DIM} />
       </box>

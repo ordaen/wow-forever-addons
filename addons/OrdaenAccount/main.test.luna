@@ -114,12 +114,12 @@ test "Legacy's tree is drawn as the talents are, its points in the footer; a nod
   Game.talentTrees.of = (id: Integer): mut any Game.TalentConfig | nil => id == 1187 ? tree : nil
   Test.mount(nil, SCREEN)
   account()
-  Test.expect(window().text(Locale.TREE_PROFESSIONS).shown() && window().text("3").shown())
+  // Each node says its rank of its ranks, as the game's Legacy tree does.
+  Test.expect(window().text(Locale.TREE_PROFESSIONS).shown() && window().text("3/5").shown() && window().text("0/1").shown())
   Test.expect(window().text(Locale.POINTS_LEFT).item().texts().join(" ") == `${Locale.POINTS_LEFT} 3`)
   Test.expect(!window().button(Locale.UNDO).shown())
   Test.shot("tree")
-  // The node's rank, the first «3» drawn; the footer's points the second.
-  window().text("3").nth(1).click()
+  window().text("3/5").click()
   Test.expect(tree.asked.join(", ") == "spend 1" && window().button(Locale.UNDO).shown())
 }
 
