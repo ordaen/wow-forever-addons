@@ -185,8 +185,10 @@ function perText(per: Number): String {
 }
 
 // How a stat's share of another is worked out, written before it in its tooltip: «20 × 15 =», or with the first points
-// giving one each, «20 + (280 × 10) =».
+// giving one each, «20 + (280 × 10) =», or counted from a start, «(44 − 45) × 0.04 =».
 function workingOf(feed: Feed, points: Number): String {
+  // Counted from a start: the stat less it, «(44 − 45) × 0.04 =».
+  if (feed.start != 0) { return `(${(points + feed.start).floor()} − ${feed.start.floor()}) × ${perText(feed.per)} =` }
   const counted = points.floor()
   if (feed.past > 0 && counted > feed.past) { return `${feed.past} + (${counted - feed.past} × ${perText(feed.per)}) =` }
   if (feed.past > 0) { return "" }

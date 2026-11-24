@@ -600,15 +600,27 @@ test "defence: the defense skill over all; the damage reduction and the hit on y
   Test.expect(window.paintedWith(shield) && window.paintedWith(struck))
 }
 
-test "dodge's tooltip lists the defense past the level's among its sources, 0.04% a point" {
+test "dodge's tooltip lists the defense past the level's among its sources, 0.04% a point, worked out from the level's" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { defense: 315, defensePast: 15, dodge: 7 }
   const window = opened(mut sheet)
   window.text("7.00%").hover()
-  const tip = Test.page().window("15 × 0.04 =")
-  Test.expect(tip.texts().join(" | ").contains("Defense | 15 × 0.04 = | 0.60%"))
+  const tip = Test.page().window("(315 − 300) × 0.04 =")
+  Test.expect(tip.texts().join(" | ").contains("Defense | (315 − 300) × 0.04 = | 0.60%"))
+}
+
+test "a defense short of the level's takes off dodge, its working the defense less the level's" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  // Level 9: 44 of the level's 45.
+  sheet.figures = (): Stats => Stats { defense: 44, defensePast: -1, dodge: 5 }
+  const window = opened(mut sheet)
+  window.text("5.00%").hover()
+  const tip = Test.page().window("(44 − 45) × 0.04 =")
+  Test.expect(tip.texts().join(" | ").contains("Defense | (44 − 45) × 0.04 = | -0.04%"))
 }
 
 test "a weapon's skill stands over its section's cards, its tooltip what it does against each target" {
