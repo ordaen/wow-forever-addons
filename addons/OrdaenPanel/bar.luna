@@ -118,18 +118,35 @@ function templateArt(frame: any Client.Frame, ...regions: any Client.Region): Te
   const pieces: Array<Piece> = []
   for (i of 1..regions.length) {
     const region = regions[i]
-    // A texture is a kind of mask texture to the client: both are the template's art.
-    if (region is Client.MaskTexture) {
-      const pins: Array<Pin> = []
-      for (p of 1..region.GetNumPoints()) {
-        let point, to, toPoint, x, y = region.GetPoint(p, nil)
-        const at = point ?? "CENTER"
-        pins.push({ point: at, to: to, toPoint: toPoint ?? at, x: x ?? 0, y: y ?? 0 })
-      }
-      pieces.push({ region: region, pins: pins, width: region.GetWidth(), height: region.GetHeight() })
+    // The template's art: its textures and its masks, each its own kind to the client (a texture is no mask texture).
+    if (region is Client.Texture) {
+      pieces.push(pieceOf(region))
+    } else if (region is Client.MaskTexture) {
+      pieces.push(pieceOf(region))
     }
   }
   return { frame: frame, width: frame.GetWidth(), height: frame.GetHeight(), pieces: pieces }
+}
+
+// A piece of the art as the template lays it out: its points, and its size, or its atlas's where the client hasn't
+// sized it yet (the icon's mask, sized by its atlas only once drawn).
+function pieceOf(region: any Client.MaskTexture): Piece {
+  const pins: Array<Pin> = []
+  for (p of 1..region.GetNumPoints()) {
+    let point, to, toPoint, x, y = region.GetPoint(p, nil)
+    const at = point ?? "CENTER"
+    pins.push({ point: at, to: to, toPoint: toPoint ?? at, x: x ?? 0, y: y ?? 0 })
+  }
+  let width = region.GetWidth()
+  let height = region.GetHeight()
+  // Only a piece placed by one point is sized (`fitArt`); the client names no atlas for a piece without one.
+  const name: String | nil = pins.length == 1 && (width <= 0 || height <= 0) ? region.GetAtlas() : nil
+  const atlas = name != nil ? Client.C_Texture.GetAtlasInfo(name) : nil
+  if (atlas != nil) {
+    width = atlas.width
+    height = atlas.height
+  }
+  return { region: region, pins: pins, width: width, height: height }
 }
 
 // The template's art at the size the button is given: every piece in proportion, as the template lays it out for its
