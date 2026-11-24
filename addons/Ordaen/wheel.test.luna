@@ -348,6 +348,18 @@ test "the middle names the chosen item and what a click does; every item named u
   Test.expect(Test.page().texts().join(", ") == "3, Click to use")
 }
 
+test "an item with no icon is its name in its hollow, not again under it" {
+  const page = new Drawn()
+  page.items = [plainItem("/laugh", nil, false), plainItem("Talents", QUESTION, false)]
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test.expect(Test.page().box(QUESTION).count() == 1)
+  Test.expect(Test.page().text("/laugh").shown())
+  page.names = WheelNames.Always
+  page.middle = { name: "", hints: [], dim: true }
+  Test.expect(Test.page().texts().join(", ") == "/laugh, Talents")
+  Test.shot("an item written in its hollow beside one with an icon")
+}
+
 const BAG: Asset = "Interface/Icons/INV_Misc_Bag_08"
 
 test "the middle shows the ring's own icon, none on the first ring" {

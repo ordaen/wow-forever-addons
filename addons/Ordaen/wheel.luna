@@ -38,13 +38,15 @@ public const SLOT_LUA: String = [
   "end"
 ].join("\n")
 
-// How the items' names show: never, the one aimed at's in the middle, or that and every item's under its icon.
+// How the items' names show: never, the one aimed at's in the middle, or that and every item's under its icon (an
+// item with no icon has its name in its hollow already).
 public enum WheelNames implements Plain { Off = "off", Chosen = "chosen", Always = "always" }
 
 // One item of a ring as it is drawn.
 public struct WheelItem {
   name: String
-  icon: Art
+  // Its picture; none: its name, written in its hollow instead (an emote's command).
+  icon: Art | nil
   // Dimmed where it stands: it can't be used now.
   dim: Boolean
   // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
@@ -59,7 +61,7 @@ public struct WheelItem {
 }
 
 // An item that is a plain picture and a name, with no state.
-public function plainItem(name: String, icon: Art, dim: Boolean): WheelItem {
+public function plainItem(name: String, icon: Art | nil, dim: Boolean): WheelItem {
   return { name: name, icon: icon, dim: dim, count: "", tone: nil, cooldown: nil, segments: 0, segment: 0 }
 }
 
@@ -348,6 +350,12 @@ public class Wheel implements Component {
                yAlign={Align.End} zLevel={1}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
           </box>
+          // An item with no picture: its name in the hollow, one line, cut to it.
+          <box $if={spot.item.icon == nil} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
+               top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale}
+               xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
+            <text value={spot.item.name} textSize={SECONDARY_TEXT * self.scale} textColor={BRIGHT_TEXT} wrap={.Cut} />
+          </box>
           <box $if={spot.chosen} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
                top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale} border={ICON_LIT}
                zLevel={2} />
@@ -355,7 +363,7 @@ public class Wheel implements Component {
         <$if={self.names == WheelNames.Always}>
           <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
                width={CARVE * self.scale + 60dp} xAlign={Align.Center} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
-            <text value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
+            <text $if={spot.item.icon != nil} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
           </box>
         </>
         <box position={Position.Absolute} left={(self.size - self.middleSize) / 2} top={(self.size - self.middleSize) / 2}
