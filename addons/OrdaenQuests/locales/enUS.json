@@ -72,5 +72,11 @@
   "VIEW_ZONES": "By zone",
   "VIEW_LIST": "One list",
   "NOTHING_FOUND": "No quest fits the search and the filter.",
-  "SECTION_PROGRESS": "Progress"
+  "SECTION_PROGRESS": "Progress",
+  "PANEL_XP_TITLE": "Completed quests",
+  "PANEL_XP_TEXT": "Experience the log's completed quests give once turned in.",
+  "PANEL_XP_QUESTS": "Quests",
+  "PANEL_XP_AMOUNT": "Experience",
+  "PANEL_XP_AFTER": "After turning in",
+  "PANEL_XP_LEVEL_UP": "level %d"
 }

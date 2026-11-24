@@ -72,5 +72,11 @@
   "VIEW_ZONES": "По зонам",
   "VIEW_LIST": "Одним списком",
   "NOTHING_FOUND": "Ни одно задание не подходит под поиск и фильтр.",
-  "SECTION_PROGRESS": "Ход выполнения"
+  "SECTION_PROGRESS": "Ход выполнения",
+  "PANEL_XP_TITLE": "Выполненные задания",
+  "PANEL_XP_TEXT": "Опыт, который дадут выполненные задания журнала, когда их сдать.",
+  "PANEL_XP_QUESTS": "Заданий",
+  "PANEL_XP_AMOUNT": "Опыт",
+  "PANEL_XP_AFTER": "После сдачи",
+  "PANEL_XP_LEVEL_UP": "уровень %d"
 }

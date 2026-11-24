@@ -1,0 +1,55 @@
+// The experience the log's completed quests give once turned in, as Ordaen Panel's experience bar shows it: a green
+// part past the player's fill, its own tooltip over it. A number's thousands are parted by a space that never breaks
+// (written `~` here).
+import Game from "$game"
+import Test from "$test"
+import root Quests from "OrdaenQuests"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const DONE: Color = Color.hex("#3fbf3f")
+
+function quest(id: Integer, xp: Integer, complete: Boolean): Test.LogQuest {
+  return { id: id, title: "Quest %d".format(id), header: "Elwynn Forest", level: 10, xp: xp, complete: complete }
+}
+
+// A text as it is shown: each `~` the space that parts a number's thousands.
+function shown(text: String): String {
+  return text.replace("~", String.char(194) + String.char(160))
+}
+
+// The player at level 10, this far into its 10 000, with this log.
+function playing(xp: Integer, log: Array<Test.LogQuest>) {
+  Game.player.level = 10
+  Game.player.xpMax = 10000
+  Game.player.xp = xp
+  Game.player.rested = 0
+  Test.questLog(log)
+  Test.mount(nil, PAGE)
+}
+
+function tip(): String {
+  return Test.page().window("Completed quests").texts().join(" | ")
+}
+
+test "the completed quests' experience is a green part of the panel's bar, its tooltip counting them and where turning them in takes the player" {
+  playing(2500, [quest(1, 1200, true), quest(2, 800, true), quest(3, 500, false)])
+  Test.page().box(DONE).hover()
+  const wanted = "Completed quests | Experience the log's completed quests give once turned in. | Quests | 2 | Experience | " +
+    "2~000 (20%) | After turning in | 45%"
+  Test.expect(tip() == shown(wanted))
+}
+
+test "completed quests worth the rest of the level say the level turning them in reaches" {
+  playing(9000, [quest(1, 1200, true)])
+  Test.page().box(DONE).hover()
+  Test.expect(tip().contains("After turning in | level 11"))
+}
+
+test "with no completed quest the bar has no green part, and one completed in the log brings it" {
+  playing(2500, [quest(1, 1200, false)])
+  Test.expect(Test.page().box(DONE).count() == 0)
+  Test.questLog([quest(1, 1200, true)])
+  Quests.refresh()
+  Test.flush()
+  Test.expect(Test.page().box(DONE).shown())
+}

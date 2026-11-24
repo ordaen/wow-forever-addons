@@ -19,6 +19,7 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterBand, FooterCount, KeptWindow, ListFooter, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
+import root Panel from "OrdaenPanel"
 import { Named, Standing } from "OrdaenQuestPage"
 import root Tooltips from "OrdaenTooltips"
 import root Tracker from "OrdaenTracker"
@@ -31,6 +32,7 @@ import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { namedOfFacts } from "@/names"
+import { DoneQuestsXp } from "@/panel"
 import { Figure, NpcQuests, QuestFacts, Spot } from "@/questie"
 import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
@@ -172,8 +174,9 @@ public class Quests implements Module, App {
   derived docked: Boolean = Maps?.docked == true
   derived mapShowing: Boolean = Maps?.showing == true
   derived ownKey: Boolean = self.settings.values.ownKey && !self.docked
-  // The log is read while something shows it: the window, Map's pins, or Tooltips' creature rows.
-  derived reading: Boolean = self.open || Maps != nil || Tooltips != nil
+  // The log is read while something shows it: the window, Map's pins, Tooltips' creature rows, or Panel's experience
+  // bar (the completed quests' part).
+  derived reading: Boolean = self.open || Maps != nil || Tooltips != nil || Panel != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
@@ -211,12 +214,14 @@ public class Quests implements Module, App {
   const dungeonQuests: DungeonQuests
   const trackerOpener: TrackerOpener
   const tooltipCreatures: TooltipCreatures
+  const doneXp: DoneQuestsXp
 
   constructor() {
     self.tooltipCreatures = new TooltipCreatures(
       self.quests, self.facts, (id: Integer): NpcQuests => self.data.npcQuests(id),
       (id: Integer): QuestFacts | nil => self.data.quest(id)
     )
+    self.doneXp = new DoneQuestsXp(self.quests)
     self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.npcPins = new NpcPins(self.shownNpc)
@@ -241,6 +246,10 @@ public class Quests implements Module, App {
         self.shownOnMap = 0
         self.shownNpc = nil
       }
+    }
+    watch (panel of Panel) {
+      if (panel == nil) { return }
+      panel.xpSources.add(self.doneXp)
     }
     watch (tracker of Tracker) {
       if (tracker == nil) { return }
