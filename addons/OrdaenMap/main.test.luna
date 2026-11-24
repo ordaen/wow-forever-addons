@@ -257,3 +257,13 @@ test "without OpenMap the client doesn't load Map, and says OpenMap is missing" 
   Test.expect(loads != true)
   Test.expect(why == "DEP_MISSING")
 }
+
+test "how far a place is from the player is said in the world's yards on one continent, and not where the client can't say" {
+  // The stand-in's player stands at 0.421, 0.655 of Elwynn Forest (area 12); Westfall (area 40) is its neighbour.
+  Test.expect((Maps.distanceTo(12, 0.421, 0.655) ?? panic("yards")) < 0.001)
+  const westfall = Maps.distanceTo(40, 0.5, 0.5) ?? panic("Westfall's yards")
+  Test.expect(westfall > 1000 && westfall < 10000)
+  Test.expect(Maps.distanceTo(999999, 0.5, 0.5) == nil)
+  Client.C_Map.GetPlayerMapPosition = (map: Number, unit: String): Client.vector2 | nil => nil
+  Test.expect(Maps.distanceTo(12, 0.8, 0.9) == nil)
+}
