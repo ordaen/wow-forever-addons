@@ -356,6 +356,11 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Test.expect(bags().button(CLOTH).paintedWith(COIN))
 }
 
+// The merchant takes what the bags send it (the fake writes the ask).
+function merchantSells() {
+  Game.bags.send = (bag: Integer, slot: Integer): Boolean => true
+}
+
 test "a click that sold nothing teaches nothing" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -379,6 +384,7 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Game.items.maxStack = (id: Integer): Integer | nil => 20
+  merchantSells()
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(!bags().button("Sell junk").shown())
@@ -386,6 +392,25 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
   _ = Test.requests()
   bags().button("Sell junk").click()
   Test.expect(Test.requests().join(", ") == "Bags.send 0 1")
+  Test.expect(Test.printed().join("\n").contains("sold junk: 1 for"))
+}
+
+test "«Sell junk» that sells nothing while junk shows says why for each slot: a fault the game's errors show" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Game.bags.send = (bag: Integer, slot: Integer): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  _ = Test.printed()
+  bags().button("Sell junk").click()
+  Test.expect(Test.printed().length == 0)
+  const errors = Test.errors()
+  Test.expect(errors.length == 1 && (errors[1] ?? "").contains("«Sell junk» sold nothing: 0/1 refused at merchant"))
 }
 
 test "the junk is sold as a merchant's window opens; with «Sell junk at merchants» off it stays" {
@@ -396,6 +421,7 @@ test "the junk is sold as a merchant's window opens; with «Sell junk at merchan
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Client.CanGuildBankRepair = (): Boolean => false
+  merchantSells()
   Test.mount(nil, SCREEN)
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.requests()
@@ -653,6 +679,7 @@ test "while the merchant's buyback shows (Ordaen Trading's window says so), a sl
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  merchantSells()
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
@@ -675,6 +702,7 @@ test "«Sell junk» sells the junk the bags know, at a merchant" {
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  merchantSells()
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant

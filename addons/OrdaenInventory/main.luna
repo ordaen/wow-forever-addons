@@ -10,6 +10,7 @@
 // player's choice), beside its tabs where they show, and at least as high as its list: no item hides under a scroll.
 // While it is shut nothing is read and no event of it is heard.
 import Client from "$client"
+import Debug from "$debug"
 import Events from "$events"
 import Game from "$game"
 import { Event, Frame, MouseButton } from "$ltml"
@@ -660,15 +661,26 @@ public class Inventory implements Module, App {
   public sellJunk(mut self) {
     let sold = 0
     let worth = 0
+    // Why each junk slot passed over was: told where junk shows and none sold.
+    let passed: Array<String> = []
     for (slot of self.carried.all) {
-      if (sold < SAFE_SALE && slot.junk && peek slot.id != 0 && !peek slot.locked && slot.read.price > 0 && refundOf(slot) == nil) {
-        if (Game.bags.send(slot.bag, slot.index)) {
+      if (sold < SAFE_SALE && slot.junk) {
+        const why = unsellable(slot)
+        if (why != nil) {
+          passed.push(`${slot.bag}/${slot.index} ${why}`)
+        } else if (Game.bags.send(slot.bag, slot.index)) {
           sold += 1
           worth += slot.read.price * peek slot.count
+        } else {
+          passed.push(`${slot.bag}/${slot.index} refused at ${peek Game.bags.place}`)
         }
       }
     }
-    if (sold > 0) { self.say(Locale.CHAT_SOLD_JUNK.format(sold, Game.money.format(worth))) }
+    if (sold > 0) {
+      self.say(Locale.CHAT_SOLD_JUNK.format(sold, Game.money.format(worth)))
+    } else if (passed.length > 0) {
+      Debug.fault("Inventory", `«Sell junk» sold nothing: ${passed.join(", ")}`)
+    }
   }
 
   // «Forget what was learned» and «Forget my marks» on the junk's page.
@@ -850,6 +862,16 @@ public class Inventory implements Module, App {
 
 // What the merchant gives back for a purchase still refundable (bought for items, currencies or more money than it sells
 // for, within the game's time); none for anything else.
+// Why a junk slot isn't sold now: its item gone, locked by a move or a sale not yet answered, worth nothing to a
+// merchant, or bought back within its refund's time. None: it sells.
+function unsellable(slot: Slot): String | nil {
+  if (peek slot.id == 0) { return "empty" }
+  if (peek slot.locked) { return "locked" }
+  if (slot.read.price <= 0) { return "no price" }
+  if (refundOf(slot) != nil) { return "refundable" }
+  return nil
+}
+
 function refundOf(slot: Slot): Client.ItemPurchaseInfo | nil {
   const info = Client.C_Container.GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
   if (info == nil || info.refundSeconds <= 0) { return nil }
