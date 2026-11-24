@@ -91,7 +91,8 @@ public const SETTINGS_TAB = 1
 public const ADDONS_TAB = 2
 // The options' own small tab of key bindings, second after the game's first group (as Blizzard lists them).
 const KEYS_SECTION = 2
-const OPTIONS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
+const OPTIONS_ROWS: Array<Track> = ["max-content", { fr: 1, min: 0ui }]
+const FILL: Array<Track> = [{ fr: 1, min: 0ui }]
 // Under the options' tabs, which run edge to edge: the window's room round the page.
 const OPTIONS_PAGE: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 5sp, left: WINDOW_ROOM }
 
@@ -642,7 +643,7 @@ public class AddOnsWindow implements Component {
               footer={self.footer} side={self.side} @close={self.onClose}>
         <box $if={self.onOptions} rows={OPTIONS_ROWS}>
           <Tabs tabs={self.sections} selected={mut self.section} />
-          <box padding={OPTIONS_PAGE}>
+          <box padding={OPTIONS_PAGE} rows={FILL}>
             <KeysPage $if={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
             <SettingsTab $else settings={mut self.settings} group={self.group} @blizzard={self.onBlizzard} />
           </box>

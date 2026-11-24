@@ -404,6 +404,16 @@ test "the options' small tabs are the game's groups, its key bindings second; ea
   Test.expect(Test.page().text("Move Forward").shown() && !Test.page().text("Audio").shown())
 }
 
+test "on a screen shorter than the window, the window is the screen's height and its pages scroll" {
+  Game.screen.height = 300ui
+  Test.mount(nil, SCREEN)
+  gameMenu()
+  Test.page().text(Client.GAMEMENU_OPTIONS).click()
+  const surface = Test.page().window("Auto Loot").rect()
+  Test.expect(surface.bottom - surface.top <= 300)
+  Game.screen.height = Client.UIParent.GetHeight() * 1ui
+}
+
 test "Escape closes the window, and the menu's «AddOns» opens it again" {
   Test.mount(nil, SCREEN)
   open()

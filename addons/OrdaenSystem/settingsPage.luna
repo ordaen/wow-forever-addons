@@ -13,6 +13,8 @@ import Style from "@/style"
 
 // The list as wide as its pages' names, each on one line.
 const COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+// The room the page leaves, which each list scrolls in: never its content's whole height.
+const FILL: Array<Track> = [{ fr: 1, min: 0ui }]
 const PAD: Edges = { left: 3sp, right: 3sp }
 const INDENT: Edges = { left: 5.5sp }
 const BUTTON = 234.375dp
@@ -72,12 +74,12 @@ public class SettingsTab implements Component {
     return $ltml {
       <box rows={["max-content", { fr: 1 }]} gap={3sp}>
         <Toolbar search={mut self.search} placeholder={Locale.SETTINGS_SEARCH} />
-        <box columns={COLUMNS} gap={6sp}>
+        <box columns={COLUMNS} rows={FILL} gap={6sp}>
           <ScrolledList>
             <PageGroupList $for={group of self.listed} group={group} captioned={self.searching} picked={self.settings.page}
                            query={self.query} found={self.found} @pick={self.onPick} />
           </ScrolledList>
-          <box>
+          <box rows={FILL}>
             <box $if={self.canvas} rows={["max-content", "max-content"]} gap={3sp}>
               <text value={Locale.SETTINGS_ADDON_PAGE} textColor={Style.DIM} />
               <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />

@@ -478,7 +478,9 @@ public class Window implements Component {
   derived width: Number<Length> | nil = self.full ? nil : self.declared.placing.width + self.sideWide
   derived bounds: Bounds = { min: self.width, max: nil }
   derived sideWide: Number<Length> = self.sideWideOf()
-  derived height: Number<Length> | nil = self.full || self.docked != nil ? nil : self.tabHeight + (self.held ?? self.declared.placing.height)
+  // Never taller than the screen: what the page holds past it scrolls.
+  derived height: Number<Length> | nil = self.full || self.docked != nil ? nil :
+    (self.tabHeight + (self.held ?? self.declared.placing.height)).min(Game.screen.height)
   // The height the open tab holds the body at; none where it holds none.
   derived held: Number<Length> | nil = self.tabs[self.selected]?.height
   // The grip shows where the window may be resized: placed freely, and not on a tab that keeps its size.
