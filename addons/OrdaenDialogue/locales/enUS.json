@@ -4,6 +4,7 @@
   "SETTING_AUTO_EQUIP_TIP": "A quest's reward is put on as it comes into the bags where it is worth enough more to your spec than what you wear (Ordaen's item worth). In a fight, once it ends.",
   "SETTING_EQUIP_FROM": "Better by at least, %",
   "SETTING_EQUIP_FROM_TIP": "How much more than what you wear a reward must be worth to be put on.",
+  "CHAT_BINDS_ON_EQUIP": "%s binds when worn: not put on (%s better). Put it on yourself to keep it.",
   "CHAT_EQUIPPED": "Put on: %s (%s)",
   "CHAT_CAPTION": "Dialogue",
   "TAB_GENERAL": "General",

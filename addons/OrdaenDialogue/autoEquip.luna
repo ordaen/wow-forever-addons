@@ -1,6 +1,8 @@
 // A quest's reward worn as it comes: the item taken (`note`), where it is worth at least the setting's share more to
 // the player's spec than what is worn (Ordaen's worth), is put on as it lands in the bags; in a fight, once the fight
-// ends (the client refuses gear changed in one). A line in the chat says what was put on and by how much.
+// ends (the client refuses gear changed in one). A line in the chat says what was put on and by how much. One that
+// binds as it is worn is left in the bags, and the chat says so: binding it is the player's choice, not a popup
+// that comes after the dialogue.
 import Client from "$client"
 import Events from "$events"
 import { say, upgradeText } from "Ordaen"
@@ -32,7 +34,19 @@ public class AutoEquip {
     if (link == nil || Client.InCombatLockdown()) { return }
     if (Client.C_Item.GetItemCount(link, false, nil, nil, nil) <= 0) { return }
     self.pending = nil
+    if (bindsOnEquip(link)) {
+      say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_BINDS_ON_EQUIP.format(link, upgradeText(self.share)))
+      return
+    }
     Client.C_Item.EquipItemByName(link, nil)
     say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_EQUIPPED.format(link, upgradeText(self.share)))
   }
+}
+
+// The client's bind type of what binds as it is worn (`GetItemInfo`'s fourteenth value).
+const BIND_ON_EQUIP = 2
+
+function bindsOnEquip(link: String): Boolean {
+  const _, _, _, _, _, _, _, _, _, _, _, _, _, bind, _, _, _, _ = Client.C_Item.GetItemInfo(link)
+  return bind == BIND_ON_EQUIP
 }
