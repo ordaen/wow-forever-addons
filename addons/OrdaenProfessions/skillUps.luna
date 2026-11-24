@@ -15,29 +15,35 @@ public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Int
   return Game.Difficulty.Rarely
 }
 
-// The open profession's recipes by number: the skill each turns yellow at, and grey at.
+// The open profession's recipes by number: the skill each turns yellow at, and grey at; and for a recipe an item
+// teaches, the skill the item asks to learn it (its orange point). A trainer's recipe says its own while the trainer
+// shows it (`Game.trainer.services`' `skill`).
 public struct Thresholds {
   yellow: Map<Integer, Integer>
   grey: Map<Integer, Integer>
+  learned: Map<Integer, Integer> = {}
 }
 
 // The profession's thresholds; none for one the table hasn't (a skill line of no recipes).
 public function thresholdsOf(skillLine: Integer | nil): Thresholds {
   const yellow: Map<Integer, Integer> = {}
   const grey: Map<Integer, Integer> = {}
+  const learned: Map<Integer, Integer> = {}
   const text = skillLine == nil ? nil : Levels.lines[skillLine]
-  if (text == nil) { return { yellow: yellow, grey: grey } }
+  if (text == nil) { return { yellow: yellow, grey: grey, learned: learned } }
   for (entry of text.split(";")) {
-    const spell, low, high = entry.match("^(%d+),(%d+),(%d+)$")
+    const spell, low, high, asks = entry.match("^(%d+),(%d+),(%d+),?(%d*)$")
     const id = spell?.toNumber()
     const from = low?.toNumber()
     const to = high?.toNumber()
     if (id != nil && from != nil && to != nil) {
       yellow[id.floor()] = from.floor()
       grey[id.floor()] = to.floor()
+      const at = asks?.toNumber()
+      if (at != nil) { learned[id.floor()] = at.floor() }
     }
   }
-  return { yellow: yellow, grey: grey }
+  return { yellow: yellow, grey: grey, learned: learned }
 }
 
 // How many makings it takes, on average, to raise the skill by `points` from `skill`: none where the skill would

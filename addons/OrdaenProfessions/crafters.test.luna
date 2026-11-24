@@ -3,7 +3,7 @@ import Game from "$game"
 import Test from "$test"
 import { Book } from "@/book"
 import { CraftersLines, craftersOf } from "@/crafters"
-import { Thresholds, difficultyAt } from "@/skillUps"
+import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 
 const FEATHER = 4776
@@ -68,4 +68,10 @@ test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, 
   Test.expect(difficultyAt(table, 7, 70) == Game.Difficulty.Never)
   Test.expect(difficultyAt(table, 8, 1) == Game.Difficulty.Never)
   Test.expect(Style.difficultyColor(difficultyAt(table, 7, 1)) != Style.difficultyColor(difficultyAt(table, 7, 69)))
+}
+
+test "a recipe an item teaches says the skill the item asks; a trainer's recipe says none here" {
+  const smithing = thresholdsOf(164)
+  // The plans for Mighty Iron Hammer ask 120; Copper Mace is a trainer's.
+  Test.expect(smithing.learned[3297] == 120 && smithing.yellow[3297] == 150 && smithing.learned[2737] == nil)
 }
