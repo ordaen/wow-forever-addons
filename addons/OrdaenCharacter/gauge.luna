@@ -6,9 +6,63 @@
 // the gauge's tone, rounded as the well is at its left end (and its right once full), a gloss over its upper half
 // alone, the marble left as it is; its text, in the body's size, stands in the middle over all of it, outlined. The
 // fill is a grid's track, its share of the well, so it never stands past the well.
-import { Align, Position, Shadow, TextFont, Track } from "$ltml"
+import { Align, Event, Position, Shadow, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, Corners, RoundedFill } from "Ordaen"
+import { BRIGHT_TEXT, Component, Corners, RoundedFill, Tip } from "Ordaen"
+
+// A mark on a gauge: where it stands, as a share of the gauge (a cap: the hit that misses nothing, the expertise that
+// takes a target's dodge off), and its tooltip's title and text.
+public struct GaugeMark {
+  const share: Number
+  const title: String
+  const text: String
+}
+const NO_MARKS: Array<GaugeMark> = []
+// A mark's line, and the room round it that takes the cursor.
+const MARK_LINE = 1.7578125dp
+const MARK_ROOM = 7.03125dp
+const MARK: Color = Color.hex("#ffd100d9")
+
+// A mark: a thin bright line down the well at its share, its tooltip under the cursor; `entered` and `left` told, so
+// what holds the gauge keeps its own tooltip shut meanwhile.
+class MarkView implements Component {
+  public entered: Event<nil> = new Event()
+  public left: Event<nil> = new Event()
+
+  state hovered = false
+  derived columns: Array<Track> = [{ fr: self.mark.share.max(0).min(1) }, 0ui, { fr: 1 - self.mark.share.max(0).min(1) }]
+
+  mark: Signal<GaugeMark>
+  constructor(mark: Signal<GaugeMark>) {
+    self.mark = mark
+  }
+
+  onEnter(mut self) {
+    self.hovered = true
+    self.entered.emit()
+  }
+
+  onLeave(mut self) {
+    self.hovered = false
+    self.left.emit()
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.columns} rows={ONE}>
+        <box />
+        <box>
+          <box position={Position.Absolute} left={-MARK_ROOM / 2} top={0ui} bottom={0ui} width={MARK_ROOM} xAlign={Align.Center}
+               yAlign={Align.Stretch} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+            <box width={MARK_LINE} background={MARK} />
+            <Tip $if={self.hovered} title={self.mark.title} text={self.mark.text} />
+          </box>
+        </box>
+        <box />
+      </box>
+    }
+  }
+}
 
 // The client's classic status bar, white to grey down its height: tinted, a lit and shaded bar in one colour.
 const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
@@ -65,6 +119,10 @@ function sharesOf(value: Number): Array<Track> {
 }
 
 public class GaugeBar implements Component {
+  // A mark under the cursor, and none.
+  public markEntered: Event<nil> = new Event()
+  public markLeft: Event<nil> = new Event()
+
   derived shares: Array<Track> = sharesOf(self.value)
   derived full: Boolean = self.value >= 1
   derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.full, bottomRight: self.full }
@@ -76,6 +134,7 @@ public class GaugeBar implements Component {
   height: Signal<Number<Length>>
   text: Signal<String>
   font: Signal<TextFont>
+  marks: Signal<Array<GaugeMark>>
   constructor(
     // How full, from 0 to 1.
     value: Signal<Number>,
@@ -83,14 +142,19 @@ public class GaugeBar implements Component {
     height: Signal<Number<Length>>,
     // In its middle; none: no text. In the numbers' font unless it is words (a standing's name).
     text: Signal<String> = "",
-    font: Signal<TextFont> = TextFont.Numbers
+    font: Signal<TextFont> = TextFont.Numbers,
+    marks: Signal<Array<GaugeMark>> = NO_MARKS
   ) {
     self.value = value
     self.tone = tone
     self.height = height
     self.text = text
     self.font = font
+    self.marks = marks
   }
+
+  onMarkEntered(self) { self.markEntered.emit() }
+  onMarkLeft(self) { self.markLeft.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -106,6 +170,7 @@ public class GaugeBar implements Component {
           <box />
         </box>
         <CarveShade />
+        <MarkView $for={mark of self.marks} mark={mark} @entered={self.onMarkEntered} @left={self.onMarkLeft} />
         <box $if={self.hasText} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              xAlign={Align.Center} yAlign={Align.Center}>
           <text value={self.text} textColor={BRIGHT_TEXT} leading={.Tight} textFont={self.font}

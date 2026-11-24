@@ -295,54 +295,106 @@ const RANGED_SLOT = 18
 
 // The hit that misses nothing (the game's `CR_<CLASS>_HIT_CAP_TOOLTIP`), in percent: against a raid's boss and a target
 // of the player's level, for melee and ranged attacks, spells, and a weapon in each hand's own swings.
-public struct HitCaps {
+struct HitCaps {
   const boss: Number
   const level: Number
 }
-public const WEAPON_HIT_CAPS: HitCaps = { boss: 8, level: 5 }
-public const SPELL_HIT_CAPS: HitCaps = { boss: 17, level: 4 }
+const WEAPON_HIT_CAPS: HitCaps = { boss: 8, level: 5 }
+const SPELL_HIT_CAPS: HitCaps = { boss: 17, level: 4 }
 const DUAL_HIT_CAPS: HitCaps = { boss: 27, level: 24 }
 
-// A cap's rows: each green once the hit reaches it.
-function capRows(hit: Number, caps: HitCaps): Array<TipRow> {
-  const reached = (cap: Number): Color | nil => hit >= cap ? Style.GREEN : nil
-  return [
-    { label: Locale.HIT_CAP_BOSS, value: amountText(caps.boss, true), valueTone: reached(caps.boss) },
-    { label: Locale.HIT_CAP_LEVEL, value: amountText(caps.level, true), valueTone: reached(caps.level) }
-  ]
+// How a chance reads: green at its best, yellow while at least half the way there from where it starts, red short of
+// that. `left` is what is left of what the stat takes off (a miss, a dodge), `whole` all of it.
+function toneOf(left: Number, whole: Number): Color {
+  if (left <= 0) { return Style.GREEN }
+  return left * 2 <= whole ? Style.YELLOW : Style.RED
 }
 
-// A hit's caps, its section's alone: the spells' for spell hit; for melee and ranged hit the weapons', and with a
-// weapon in each hand its own swings' too.
-function hitCapsOf(stat: Stat, stats: Stats): Array<TipSection> {
-  if (stat == .SpellHit) { return [{ title: Locale.HIT_CAP, rows: capRows(stats.spellHit, SPELL_HIT_CAPS) }] }
-  const hit = stat == .RangedHit ? stats.rangedHit : stats.meleeHit
-  const sections: Array<TipSection> = [{ title: Locale.HIT_CAP, rows: capRows(hit, WEAPON_HIT_CAPS) }]
-  if (stat == .MeleeHit && (stats.offSpeed ?? 0) > 0) {
-    sections.push({ title: Locale.HIT_CAP_DUAL, rows: capRows(hit, DUAL_HIT_CAPS) })
+// The chance to hit a target, bigger better: what the hit leaves of the target's misses taken off the whole.
+function hitRow(label: String, hit: Number, cap: Number): TipRow {
+  const miss = (cap - hit).max(0)
+  return { label: label, value: amountText(100 - miss, true), valueTone: toneOf(miss, cap) }
+}
+
+function hitRows(hit: Number, caps: HitCaps): Array<TipRow> {
+  return [hitRow(Locale.HIT_CAP_BOSS, hit, caps.boss), hitRow(Locale.HIT_CAP_LEVEL, hit, caps.level)]
+}
+
+// A hit's caps, its section's alone: the spells' for spell hit; for melee and ranged hit the weapons', and with a weapon
+// in each hand its own swings' too (`dual`).
+function capsOf(stat: Stat, dual: Boolean): Array<HitCaps> {
+  if (stat == .SpellHit) { return [SPELL_HIT_CAPS] }
+  return stat == .MeleeHit && dual ? [WEAPON_HIT_CAPS, DUAL_HIT_CAPS] : [WEAPON_HIT_CAPS]
+}
+
+function hitOf(stat: Stat, stats: Stats): Number {
+  return stat == .SpellHit ? stats.spellHit : stat == .RangedHit ? stats.rangedHit : stats.meleeHit
+}
+
+function dualOf(stats: Stats): Boolean { return (stats.offSpeed ?? 0) > 0 }
+
+// A hit's chances to hit, its section's alone: a raid's boss and a target of the player's level; with a weapon in each
+// hand its plain swings' too.
+function hitChancesOf(stat: Stat, stats: Stats): Array<TipSection> {
+  const hit = hitOf(stat, stats)
+  const caps = capsOf(stat, dualOf(stats))
+  return caps.map(c => TipSection { title: c == DUAL_HIT_CAPS ? Locale.HIT_CAP_DUAL : Locale.HIT_CHANCE, rows: hitRows(hit, c) })
+}
+
+// A cap a gauge marks: where it stands in the stat's own unit, and its tooltip's title and text.
+public struct Cap {
+  const at: Number
+  const title: String
+  const text: String
+}
+
+// A hit gauge's caps: each target's hit that misses nothing.
+public function hitCaps(stat: Stat, stats: Stats): Array<Cap> {
+  const caps: Array<Cap> = []
+  for (c of capsOf(stat, dualOf(stats))) {
+    const title = c == DUAL_HIT_CAPS ? Locale.HIT_CAP_DUAL : ""
+    caps.push({ at: c.boss, title: title != "" ? `${title}: ${Locale.HIT_CAP_BOSS}` : Locale.HIT_CAP_BOSS, text: Locale.HIT_MARK.format(amountText(c.boss, true)) })
+    caps.push({ at: c.level, title: title != "" ? `${title}: ${Locale.HIT_CAP_LEVEL}` : Locale.HIT_CAP_LEVEL, text: Locale.HIT_MARK.format(amountText(c.level, true)) })
   }
-  return sections
+  return caps
 }
 
 // What a target dodges and parries, in percent (the game's `CR_EXPERTISE_TOOLTIP`, `BASE_ENEMY_DODGE_CHANCE`): a raid's
 // boss, three levels over the player, and a target of the player's level. Expertise takes the dodge off first, and only
 // what is past the dodge takes off the parry (`GetEnemyParryChance`).
-public struct Avoidance {
+struct Avoidance {
   const dodge: Number
   const parry: Number
 }
-public const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5 }
+const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5 }
+// A target by its name in a tooltip, and what it dodges and parries.
+struct Target {
+  const name: String
+  const of: Avoidance
+}
 const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5 }
 
-// One target's dodge and parry as the expertise that takes each off whole: the dodge's own, the parry's past it; each
-// green once the expertise reaches it.
+// One target's chances to dodge and to parry at the player's expertise, bigger worse: the dodge less the expertise, the
+// parry less what is past the dodge.
 function avoidanceRows(expertise: Number, of: Avoidance): Array<TipRow> {
-  const taken = (cap: Number): Color | nil => expertise >= cap ? Style.GREEN : nil
-  const parryCap = of.dodge + of.parry
+  const dodge = (of.dodge - expertise).max(0)
+  const parry = (of.parry - (expertise - of.dodge).max(0)).max(0)
   return [
-    { label: Locale.DODGE, value: amountText(of.dodge, true), valueTone: taken(of.dodge) },
-    { label: Locale.PARRY, value: amountText(parryCap, true), valueTone: taken(parryCap) }
+    { label: Locale.DODGE, value: amountText(dodge, true), valueTone: toneOf(dodge, of.dodge) },
+    { label: Locale.PARRY, value: amountText(parry, true), valueTone: toneOf(parry, of.parry) }
   ]
+}
+
+// The expertise gauge's caps: where each target no longer dodges, and where it no longer parries (past its dodge).
+public function expertiseCaps(): Array<Cap> {
+  const caps: Array<Cap> = []
+  const targets: Array<Target> = [{ name: Locale.HIT_CAP_BOSS, of: BOSS_AVOIDANCE }, { name: Locale.HIT_CAP_LEVEL, of: LEVEL_AVOIDANCE }]
+  for (target of targets) {
+    const parry = target.of.dodge + target.of.parry
+    caps.push({ at: target.of.dodge, title: target.name, text: Locale.DODGE_MARK.format(amountText(target.of.dodge, true)) })
+    caps.push({ at: parry, title: target.name, text: Locale.PARRY_MARK.format(amountText(parry, true)) })
+  }
+  return caps
 }
 
 // Expertise's sections: a raid's boss's, and a target of the player's level's.
@@ -369,7 +421,7 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   section(Locale.FROM_ITEMS, parts.fromItems, mut sections)
   section(Locale.FROM_EFFECTS, parts.fromEffects, mut sections)
   if (stat == .MeleeHit || stat == .RangedHit || stat == .SpellHit) {
-    for (caps of hitCapsOf(stat, facts.stats)) { sections.push(caps) }
+    for (chances of hitChancesOf(stat, facts.stats)) { sections.push(chances) }
   }
   if (stat == .Expertise) {
     for (target of avoidanceOf(facts.stats.expertise)) { sections.push(target) }

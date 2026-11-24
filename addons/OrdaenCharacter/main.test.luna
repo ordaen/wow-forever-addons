@@ -441,7 +441,7 @@ test "what health and mana regain stands under their bars, out of a fight and in
   Test.expect(tip.texts().join(" | ") == "Regeneration | Stats | Spirit | 100 × 0.3 = | 30 | Base | 10")
 }
 
-test "a hit's tooltip lists its own section's caps, each green once the hit reaches it; a weapon in each hand its swings' too" {
+test "a hit's tooltip says its section's chance to hit each target, green at no misses, yellow half way, red short of it" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
@@ -449,11 +449,27 @@ test "a hit's tooltip lists its own section's caps, each green once the hit reac
   const window = opened(mut sheet)
   window.text("6.00%").nth(1).hover()
   const tip = Test.page().window("Raid bosses")
-  Test.expect(tip.texts().join(" | ").contains("Needed to never miss | Raid bosses | 8.00% | Targets of your level | 5.00% | A weapon in each hand, plain swings | Raid bosses | 27.00% | Targets of your level | 24.00%"))
-  Test.expect(tip.text("5.00%").textColor().equal(Style.GREEN) && !tip.text("8.00%").textColor().equal(Style.GREEN))
+  // A boss's 8% of misses less 6 of hit, a target of the player's level's 5% gone; a weapon in each hand's 27 and 24.
+  Test.expect(tip.texts().join(" | ").contains("Chance to hit | Raid bosses | 98.00% | Targets of your level | 100.00% | A weapon in each hand, plain swings | Raid bosses | 79.00% | Targets of your level | 82.00%"))
+  Test.expect(tip.text("100.00%").textColor().equal(Style.GREEN) && tip.text("98.00%").textColor().equal(Style.YELLOW))
+  Test.expect(tip.text("79.00%").textColor().equal(Style.RED))
 }
 
-test "expertise's tooltip: a section a target, the expertise that takes off its dodge and then its parry, green once reached" {
+test "a hit's caps are marks on its gauge, each a tooltip of its own, the gauge's shut meanwhile" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHit: 6 }
+  const window = opened(mut sheet)
+  const marks = window.box(Color.hex("#ffd100d9"))
+  // The melee's two (a boss's and a target of the player's level's), the spells' and ranged ones not on a warrior's.
+  Test.expect(marks.count() >= 2)
+  marks.nth(1).hover()
+  Test.expect(Test.page().window(Locale.HIT_MARK.format("8.00%")).shown())
+  Test.expect(!Test.page().text("Chance to hit").shown())
+}
+
+test "expertise's tooltip: each target's chance to dodge, then to parry past the dodge, green at none, red at most" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
@@ -461,10 +477,10 @@ test "expertise's tooltip: a section a target, the expertise that takes off its 
   const window = opened(mut sheet)
   window.text("5.25%").hover()
   const tip = Test.page().window(Locale.EXPERTISE_TIP)
-  // The parry goes only past the dodge: a boss's 6.5 + 16.5, a target of the player's level's 5 + 5.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Dodge | 6.50% | Parry | 23.00% | Targets of your level | Dodge | 5.00% | Parry | 10.00%"))
-  Test.expect(tip.text("5.00%").textColor().equal(Style.GREEN) && !tip.text("6.50%").textColor().equal(Style.GREEN))
-  Test.expect(!tip.text("10.00%").textColor().equal(Style.GREEN))
+  // A boss: 6.5 - 5.25 of dodge, its parry whole; a target of the player's level: no dodge, 5 - 0.25 of parry.
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Dodge | 1.25% | Parry | 16.50% | Targets of your level | Dodge | 0.00% | Parry | 4.75%"))
+  Test.expect(tip.text("0.00%").textColor().equal(Style.GREEN) && tip.text("1.25%").textColor().equal(Style.YELLOW))
+  Test.expect(tip.text("16.50%").textColor().equal(Style.RED))
 }
 
 test "a crit's tooltip says what a crit does in its own section alone" {

@@ -4,10 +4,10 @@
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Tip, Weights } from "Ordaen"
-import { CarveShade, CarvedFloor, GaugeBar } from "@/gauge"
+import { CarveShade, CarvedFloor, GaugeBar, GaugeMark } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
-import { BOSS_AVOIDANCE, Boost, Breakdown, NO_BREAKDOWN, SPELL_HIT_CAPS, WEAPON_HIT_CAPS, statName } from "@/sources"
+import { Boost, Breakdown, Cap, NO_BREAKDOWN, expertiseCaps, hitCaps, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
 
@@ -20,7 +20,17 @@ public struct Gauge {
   const tone: Color
   // The stat its tooltip tells the sources of; none for one without.
   const stat: Stat | nil = nil
+  // Its caps, marked on it.
+  const caps: Array<Cap> = []
 }
+
+// A gauge whose caps are marked on it: it reaches a fifth past the greatest, so each mark stands inside it.
+function capped(label: String, value: Number, stat: Stat, caps: Array<Cap>): Gauge {
+  let most: Number = 0
+  for (c of caps) { most = most.max(c.at) }
+  return { label: label, value: value, cap: most * CAPPED_ROOM, text: percent(value), tone: Style.GAUGE, stat: stat, caps: caps }
+}
+const CAPPED_ROOM = 1.2
 
 // A stat on a line of its own: its name, its value and a unit after it.
 public struct Row {
@@ -70,12 +80,10 @@ public struct Main {
   const valued: Boolean = false
 }
 
-// The caps: hit against a boss (melee and ranged, spells), crit, expertise, defense (a level 63 boss can't crit),
-// dodge, parry and block, haste; the armor and a resistance that stop three quarters of a level 63 boss's damage.
-const MELEE_HIT_CAP: Number = WEAPON_HIT_CAPS.boss
-const SPELL_HIT_CAP: Number = SPELL_HIT_CAPS.boss
+// The gauges' full: crit, defense (a level 63 boss can't crit), dodge, parry and block, haste; the armor and a
+// resistance that stop three quarters of a level 63 boss's damage. Hit and expertise reach past their caps, marked
+// on them (`capped`).
 const CRIT_CAP = 40
-const EXPERTISE_CAP: Number = BOSS_AVOIDANCE.dodge
 const DEFENSE_CAP = 440
 const AVOIDANCE_CAP = 30
 const HASTE_CAP = 20
@@ -268,9 +276,9 @@ function melee(stats: Stats, skills: Array<Skill>): Section {
       { label: Locale.DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .MeleeDps }
     ],
     gauges: joined([
-      rate(Locale.HIT, stats.meleeHit, MELEE_HIT_CAP, .MeleeHit),
+      capped(Locale.HIT, stats.meleeHit, .MeleeHit, hitCaps(.MeleeHit, stats)),
       rate(Locale.CRIT, stats.meleeCrit, CRIT_CAP, .MeleeCrit),
-      rate(Locale.EXPERTISE, stats.expertise, EXPERTISE_CAP, .Expertise)
+      capped(Locale.EXPERTISE, stats.expertise, .Expertise, expertiseCaps())
     ], skillGauges(stats.mainSkill, stats.offSkill, skills)),
     rows: rows
   }
@@ -295,7 +303,7 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
       { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT, stat: .RangedAttackPower },
       { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .RangedDps }
     ],
-    gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP, .RangedHit), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP, .RangedCrit)], skillGauges(skill, nil, skills)),
+    gauges: joined([capped(Locale.HIT, stats.rangedHit, .RangedHit, hitCaps(.RangedHit, stats)), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP, .RangedCrit)], skillGauges(skill, nil, skills)),
     rows: [speed]
   }
 }
@@ -317,7 +325,7 @@ function spells(stats: Stats, classTag: String): Section | nil {
   return {
     title: Locale.SECTION_SPELLS,
     cards: cards,
-    gauges: [rate(Locale.HIT, stats.spellHit, SPELL_HIT_CAP, .SpellHit), rate(Locale.CRIT, stats.spellCrit, CRIT_CAP, .SpellCrit)],
+    gauges: [capped(Locale.HIT, stats.spellHit, .SpellHit, hitCaps(.SpellHit, stats)), rate(Locale.CRIT, stats.spellCrit, CRIT_CAP, .SpellCrit)],
     rows: [{ label: Locale.SPELL_PENETRATION, value: String.of(stats.spellPenetration), stat: .SpellPenetration }]
   }
 }
@@ -356,16 +364,19 @@ public class StatSpot implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   state hovered = false
-  derived open: Boolean = self.hovered && self.stat != nil
+  derived open: Boolean = self.hovered && self.stat != nil && !self.quiet
   derived glows: Boolean = self.stat != nil && self.shown.fed.any(s => s == self.stat)
 
   stat: Signal<Stat | nil>
   title: Signal<String>
   shown: Signal<Breakdown>
-  constructor(stat: Signal<Stat | nil>, title: Signal<String>, shown: Signal<Breakdown>) {
+  // Something in it shows a tooltip of its own (a gauge's mark under the cursor): its own stays shut meanwhile.
+  quiet: Signal<Boolean>
+  constructor(stat: Signal<Stat | nil>, title: Signal<String>, shown: Signal<Breakdown>, quiet: Signal<Boolean> = false) {
     self.stat = stat
     self.title = title
     self.shown = shown
+    self.quiet = quiet
   }
 
   onEnter(mut self) {
@@ -390,11 +401,19 @@ public class StatSpot implements Component {
   }
 }
 
-// A gauge: the name, the channel filled up to the value's share of the cap, the value at the right.
+// A gauge's caps as marks at their shares of its full.
+function marksOf(gauge: Gauge): Array<GaugeMark> {
+  return gauge.cap <= 0 ? [] : gauge.caps.map(c => GaugeMark { share: c.at / gauge.cap, title: c.title, text: c.text })
+}
+
+// A gauge: the name, the channel filled up to the value's share of the cap, its caps marked on it, the value at the
+// right. A mark under the cursor shows its own tooltip, the gauge's shut meanwhile.
 public class StatGauge implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
+  state onMark = false
   derived share: Number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
+  derived marks: Array<GaugeMark> = marksOf(self.gauge)
   derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = self.gauge.label
 
@@ -408,13 +427,16 @@ public class StatGauge implements Component {
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onMarkEntered(mut self) { self.onMark = true }
+  onMarkLeft(mut self) { self.onMark = false }
 
   public render(self): Template {
     return $ltml {
-      <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
+      <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} quiet={self.onMark} @tipped={self.onTipped}>
         <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
           <text value={self.gauge.label} textColor={BRIGHT_TEXT} wrap={.None} />
-          <GaugeBar value={self.share} tone={self.gauge.tone} height={Style.CHANNEL} />
+          <GaugeBar value={self.share} tone={self.gauge.tone} height={Style.CHANNEL} marks={self.marks}
+                    @markEntered={self.onMarkEntered} @markLeft={self.onMarkLeft} />
           <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
                 wrap={.None} />
         </box>
