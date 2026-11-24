@@ -2,7 +2,7 @@
   "title": "Ordaen Trading",
   "version": "1.0.0",
   "icon": "Interface/Icons/INV_Misc_Coin_02",
-  "notes": "Auction prices, the house window and the shopping list.",
+  "notes": "Auction prices, the house and merchant windows, and the shopping list.",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0", "OrdaenTooltips": "^1.0.0" }
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenTooltips": "^1.0.0", "OrdaenBags": "^1.0.0" }
 }

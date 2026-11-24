@@ -2,13 +2,16 @@
 // house on «Vendors», the rest on «Auction», each tab with its count; «Vendors» says how far the nearest seller is,
 // shows it on the map, and buys what is left at an open merchant that sells it.
 import Client from "$client"
+import Events from "$events"
 import Game from "$game"
+import { Position } from "$ltml"
 import Test from "$test"
 import { ItemId } from "Ordaen"
 import root Trading from "OrdaenTrading"
 import type { Sellers } from "OrdaenTrading"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// Wide enough that the merchant's window, about the middle, leaves the tab at the right clear.
+const SCREEN: Test.Page = { left: 0, top: 0, width: 4000, height: 900, screen: true }
 const LINEN: Integer = 2589
 const THREAD: Integer = 2320
 // The thread's seller, 120 yards away.
@@ -33,7 +36,7 @@ class Page {
     self.tab = Trading.shoppingTab(sellers)
   }
   public render(self): Template {
-    return $ltml { <box width={900ui} height={500ui}> {self.tab} </box> }
+    return $ltml { <box position={Position.Absolute} left={3000ui} top={0ui} width={900ui} height={500ui}> {self.tab} </box> }
   }
 }
 
@@ -62,10 +65,10 @@ test "a merchant's item on «Vendors», the rest on «Auction»; the nearest sel
   Client.GetMerchantItemID = (index: Number): Number | nil => THREAD
   Client.GetMerchantItemMaxStack = (index: Number): Number => 20
   Client.BuyMerchantItem = (index: Integer, count: Integer | nil) => { page.bought.push("%d×%d".format(index, count ?? 0)) }
-  Game.merchant.opened.emit()
+  Events.MERCHANT_SHOW.emit()
   Test.page().button("Buy").click()
   Test.expect(page.bought.join(", ") == "1×20, 1×5")
-  Game.merchant.closed.emit()
+  Events.MERCHANT_CLOSED.emit()
   Trading.shopping.remove(ItemId.of(LINEN))
   Trading.shopping.remove(ItemId.of(THREAD))
   destroy page

@@ -9,13 +9,10 @@
 // at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
 // that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
-import { Align, Art, Columns, Cursor, Event, Frame, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Columns, Cursor, Edges, Event, Frame, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterBand, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
-import { NO_ROOM, TOOL_ROOM } from "@/layout"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, ITEM_KINDS, ItemButton, ItemKind, KeptWindow, ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, kindName, tracksOf } from "Ordaen"
 import Locale from "@/locales"
-import { KINDS, Tab } from "@/model"
-import { tabName } from "@/sections"
 import { Sold, Vendor, Ware } from "@/vendor"
 
 // How the goods show: two columns in the merchant's order, by category, or as a table.
@@ -41,6 +38,10 @@ struct Purchase {
 }
 
 // The game's own price past which a purchase is asked first (`MERCHANT_HIGH_PRICE_COST`).
+// The window keeps no room of its own: its toolbar has the page's side room, its list runs to the frame.
+const NO_ROOM: Edges = {}
+const TOOL_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+
 const HIGH_PRICE = 1500000
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
@@ -158,7 +159,7 @@ function mostFor(ware: Ware, money: Integer): Integer {
 
 // The line under an item's name: how many the merchant has left, and how many the bags hold.
 function stockLine(ware: Ware, carried: Integer): String {
-  const held = carried > 0 ? Locale.IN_BAGS.format(carried) : ""
+  const held = carried > 0 ? Locale.MERCHANT_IN_BAGS.format(carried) : ""
   if (ware.available < 0) { return held }
   const left = Locale.LEFT.format(ware.available)
   return held == "" ? left : `${left} · ${held}`
@@ -187,6 +188,9 @@ class CostTag implements Component {
 class WareCell implements Component {
   public pressed: Event<(Ware, Event.Press)> = new Event()
   public dragged: Event<Ware> = new Event()
+  // An entry of its menu picked, by its place; the menu closed by a click outside it.
+  public chose: Event<Integer> = new Event()
+  public closed: Event<nil> = new Event()
 
   derived dear: Boolean = self.ware.price > Game.money.amount
   derived priceColor: Color = self.dear ? RED : INK
@@ -197,14 +201,23 @@ class WareCell implements Component {
   derived stock: String = stockLine(self.ware, Game.items.inBags(self.ware.id))
 
   ware: Signal<Ware>
-  constructor(ware: Signal<Ware>) { self.ware = ware }
+  menuShown: Signal<Boolean>
+  entries: Signal<Array<MenuEntry>>
+  constructor(ware: Signal<Ware>, menuShown: Signal<Boolean>, entries: Signal<Array<MenuEntry>>) {
+    self.ware = ware
+    self.menuShown = menuShown
+    self.entries = entries
+  }
 
   onPressed(self, click: Event.Press) { self.pressed.emit(self.ware, click) }
   onDragged(self) { self.dragged.emit(self.ware) }
+  onChose(self, place: Integer) { self.chose.emit(place) }
+  onClosed(self) { self.closed.emit() }
 
   public render(self): Template {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
+        <Menu $if={self.menuShown} entries={self.entries} title={self.ware.name} @pick={self.onChose} @close={self.onClosed} />
         <ItemButton item={self.ware.id} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
                     size={SLOT} linkOnShift={false} cursor={self.cursor} @pressed={self.onPressed}
                     @dragged={self.onDragged}>
@@ -225,20 +238,30 @@ class WareCell implements Component {
   }
 }
 
-// One item of the buyback: its slot, its name, what buying it back costs.
+// One item of the buyback: its slot, its name, what buying it back costs. A left click buys it back, a right click
+// opens its menu.
 class SoldCell implements Component {
-  public pressed: Event<Sold> = new Event()
+  public pressed: Event<(Sold, MouseButton)> = new Event()
+  public chose: Event<Integer> = new Event()
+  public closed: Event<nil> = new Event()
 
   derived nameColor: Color = self.sold.usable ? INK : RED
 
   sold: Signal<Sold>
-  constructor(sold: Signal<Sold>) { self.sold = sold }
+  menuShown: Signal<Boolean>
+  constructor(sold: Signal<Sold>, menuShown: Signal<Boolean>) {
+    self.sold = sold
+    self.menuShown = menuShown
+  }
 
-  onPressed(self) { self.pressed.emit(self.sold) }
+  onPressed(self, click: Event.Press) { self.pressed.emit(self.sold, click.button) }
+  onChose(self, place: Integer) { self.chose.emit(place) }
+  onClosed(self) { self.closed.emit() }
 
   public render(self): Template {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
+        <Menu $if={self.menuShown} entries={SOLD_ENTRIES} title={self.sold.name} @pick={self.onChose} @close={self.onClosed} />
         <ItemButton item={nil} art={self.sold.icon} count={self.sold.count} size={SLOT} linkOnShift={false}
                     cursor={Cursor.Buy} @pressed={self.onPressed} />
         <box columns={1}>
@@ -253,13 +276,13 @@ class SoldCell implements Component {
 // A category's caption in the categories view: across both columns, its name and how many of its items show; a
 // click folds it.
 class WareCaption implements Component {
-  public toggled: Event<Tab> = new Event()
-  derived title: String = "%s (%d)".format(tabName(self.tab), self.count)
+  public toggled: Event<ItemKind> = new Event()
+  derived title: String = "%s (%d)".format(kindName(self.tab), self.count)
 
-  const tab: Tab
+  const tab: ItemKind
   count: Signal<Integer>
   folded: Signal<Boolean>
-  constructor(tab: Tab, count: Signal<Integer>, folded: Signal<Boolean>) {
+  constructor(tab: ItemKind, count: Signal<Integer>, folded: Signal<Boolean>) {
     self.tab = tab
     self.count = count
     self.folded = folded
@@ -279,6 +302,8 @@ class WareCaption implements Component {
 // One item as a row of the table.
 class WareTableRow implements Component {
   public pressed: Event<(Ware, MouseButton)> = new Event()
+  public chose: Event<Integer> = new Event()
+  public closed: Event<nil> = new Event()
 
   derived carried: Integer = Game.items.inBags(self.ware.id)
   derived dear: Boolean = self.ware.price > Game.money.amount
@@ -286,10 +311,18 @@ class WareTableRow implements Component {
   derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
 
   ware: Signal<Ware>
-  constructor(ware: Signal<Ware>) { self.ware = ware }
+  menuShown: Signal<Boolean>
+  entries: Signal<Array<MenuEntry>>
+  constructor(ware: Signal<Ware>, menuShown: Signal<Boolean>, entries: Signal<Array<MenuEntry>>) {
+    self.ware = ware
+    self.menuShown = menuShown
+    self.entries = entries
+  }
 
   onPick(self, button: MouseButton) { self.pressed.emit(self.ware, button) }
   onSlot(self, click: Event.Press) { self.pressed.emit(self.ware, click.button) }
+  onChose(self, place: Integer) { self.chose.emit(place) }
+  onClosed(self) { self.closed.emit() }
 
   // The item's tooltip beside its whole row.
   onRowEnter(self, frame: any Frame) {
@@ -314,6 +347,7 @@ class WareTableRow implements Component {
         <box xAlign={Align.End}>
           <Money amount={self.ware.price} color={self.priceColor} />
         </box>
+        <Menu $if={self.menuShown} entries={self.entries} title={self.ware.name} @pick={self.onChose} @close={self.onClosed} />
       </TableRow>
     }
   }
@@ -325,11 +359,17 @@ public class MerchantWindow implements Component {
 
   state tab = 1
   state search = ""
-  state folded: Map<Tab, Boolean> = {}
+  state folded: Map<ItemKind, Boolean> = {}
   // The purchase asked about, and the item whose count is being chosen with the count chosen.
   state asking: Purchase | nil = nil
   state counting: Ware | nil = nil
   state count = 1
+  // The item whose menu is open, by its place in the merchant's list, and the buyback's by its place there; 0: none.
+  state menuAt = 0
+  state soldMenuAt = 0
+  derived menuWare: Ware | nil = self.vendor.wares.find(ware => ware.index == self.menuAt)
+  derived menuActs: Array<WareAct> = actsOf(self.menuWare)
+  derived menuEntries: Array<MenuEntry> = self.menuActs.map(act => MenuEntry { label: actLabel(act) })
 
   derived tabs: Array<WindowTabSpec> = [
     { title: self.vendor.name == "" ? Locale.MERCHANT : self.vendor.name, desc: nil, icon: VENDOR_ICON },
@@ -341,7 +381,7 @@ public class MerchantWindow implements Component {
   derived tabled: Boolean = self.list.values.view == WareView.Table
   derived grouped: Boolean = self.list.values.view == WareView.Categories
   derived narrowed: Boolean = self.list.values.filter != WareFilter.All
-  derived groups: Array<Tab> = KINDS.filter(tab => self.shown.any(ware => ware.tab == tab))
+  derived groups: Array<ItemKind> = ITEM_KINDS.filter(tab => self.shown.any(ware => ware.tab == tab))
   // The buyback, the newest first.
   derived sold: Array<Sold> = self.soldOf()
   derived counts: Array<FooterCount> = self.countsOf()
@@ -409,12 +449,12 @@ public class MerchantWindow implements Component {
   }
 
   // The items of a category, as the categories view shows them: none while it is folded.
-  inGroup(self, tab: Tab): Array<Ware> {
+  inGroup(self, tab: ItemKind): Array<Ware> {
     if (self.folded[tab] == true) { return [] }
     return self.shown.filter(ware => ware.tab == tab)
   }
 
-  countIn(self, tab: Tab): Integer { return self.shown.count(ware => ware.tab == tab) }
+  countIn(self, tab: ItemKind): Integer { return self.shown.count(ware => ware.tab == tab) }
 
   askTitleOf(self): String {
     const asking = self.asking
@@ -436,30 +476,62 @@ public class MerchantWindow implements Component {
     return asking.ware.costs.map(cost => `${cost.amount} ${cost.name}`).join(", ")
   }
 
-  // A click on an item, in the player's own call: Left puts it onto the cursor (bought as it is put into a bag), Right
-  // buys one purchase (asked first where the game asks), Shift+Right links it, Shift+Left asks how many, Ctrl tries it
-  // on, Alt is the client's modified click.
+  // A click on an item, in the player's own call: Left buys one purchase (asked first where the game asks), Right opens
+  // its menu (buy, how many, try on, link), Shift+Left asks how many, Ctrl tries it on, Alt is the client's modified
+  // click; a drag puts it onto the cursor, bought as it is put into a bag.
   onWare(mut self, ware: Ware, click: Event.Press) {
-    const shift = Game.input.shiftDown()
     if (Game.input.controlDown()) {
       self.vendor.dressUp(ware)
     } else if (Game.input.altDown()) {
       self.vendor.modifiedClick(ware)
     } else if (click.button == MouseButton.Right) {
-      if (shift) {
-        Game.chat.link(ware.id)
-      } else {
-        self.purchase(ware, nil)
-      }
-    } else if (click.button == MouseButton.Left && shift) {
-      if (ware.most > 1) {
-        self.count = 1
-        self.counting = ware
-      }
+      self.menuAt = ware.index
+    } else if (click.button == MouseButton.Left && Game.input.shiftDown()) {
+      self.askCount(ware)
     } else if (click.button == MouseButton.Left) {
-      self.pickUp(ware)
+      self.purchase(ware, nil)
     }
   }
+
+  // How many of an item to buy, asked where one purchase may take more than one.
+  askCount(mut self, ware: Ware) {
+    if (ware.most <= 1) { return }
+    self.count = 1
+    self.counting = ware
+  }
+
+  // An entry of an item's menu picked: the menu closes, and the entry acts on its item.
+  onChose(mut self, place: Integer) {
+    const ware = peek self.menuWare
+    const act = (peek self.menuActs)[place]
+    self.menuAt = 0
+    if (ware == nil || act == nil) { return }
+    match (act) {
+      .Buy => { self.purchase(ware, nil) }
+      .Several => { self.askCount(ware) }
+      .TryOn => { self.vendor.dressUp(ware) }
+      .Link => { Game.chat.link(ware.id) }
+    }
+  }
+
+  onMenuClosed(mut self) { self.menuAt = 0 }
+
+  // A buyback's item: a left click buys it back, a right click opens its menu.
+  onSold(mut self, sold: Sold, button: MouseButton) {
+    if (button == MouseButton.Right) {
+      self.soldMenuAt = sold.place
+    } else {
+      self.vendor.buyBack(sold)
+    }
+  }
+
+  onSoldChose(mut self, place: Integer) {
+    const sold = self.vendor.sold.find(each => each.place == peek self.soldMenuAt)
+    self.soldMenuAt = 0
+    if (sold != nil && place == 1) { self.vendor.buyBack(sold) }
+  }
+
+  onSoldMenuClosed(mut self) { self.soldMenuAt = 0 }
 
   onDragged(mut self, ware: Ware) { self.pickUp(ware) }
 
@@ -473,8 +545,13 @@ public class MerchantWindow implements Component {
     }
   }
 
+  // A row of the table: a left click buys one purchase, a right click opens its menu.
   onWareRow(mut self, ware: Ware, button: MouseButton) {
-    if (button == MouseButton.Right) { self.purchase(ware, nil) }
+    if (button == MouseButton.Right) {
+      self.menuAt = ware.index
+    } else if (button == MouseButton.Left) {
+      self.purchase(ware, nil)
+    }
   }
 
   // A purchase: bought at once, or asked about first where its price reaches the game's asking price or it is paid
@@ -503,10 +580,8 @@ public class MerchantWindow implements Component {
 
   onCountCancel(mut self) { self.counting = nil }
 
-  onSold(self, sold: Sold) { self.vendor.buyBack(sold) }
-
-  onToggle(mut self, tab: Tab) {
-    let folded: Map<Tab, Boolean> = {}
+  onToggle(mut self, tab: ItemKind) {
+    let folded: Map<ItemKind, Boolean> = {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[tab] = folded[tab] == true ? nil : true
     self.folded = folded
@@ -531,7 +606,8 @@ public class MerchantWindow implements Component {
         </box>
         <box $if={self.hasLastSold} columns={1} gap={2sp}>
           <text value={Locale.LAST_SOLD} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <SoldCell $for={sold of self.lastSold} $key={sold.place} sold={sold} @pressed={self.onSold} />
+          <SoldCell $for={sold of self.lastSold} $key={sold.place} sold={sold} menuShown={self.soldMenuAt == sold.place} @pressed={self.onSold}
+                    @chose={self.onSoldChose} @closed={self.onSoldMenuClosed} />
         </box>
       </box>
       <box columns={1} gap={3sp}>
@@ -545,9 +621,7 @@ public class MerchantWindow implements Component {
   }
 
   const footer: Template = $ltml {
-    <FooterBand>
-      <FooterCounts counts={self.counts} />
-    </FooterBand>
+    <ListFooter counts={self.counts} />
   }
 
   public render(self): Template {
@@ -556,7 +630,7 @@ public class MerchantWindow implements Component {
               @close={self.onClose}>
         <box $if={self.buying} rows={BODY} gap={6sp}>
           <box padding={TOOL_ROOM}>
-            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <Toolbar search={mut self.search} placeholder={Locale.MERCHANT_SEARCH}>
               <ToolPick $if={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
                         title={Locale.SORT} />
               <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
@@ -566,21 +640,25 @@ public class MerchantWindow implements Component {
           </box>
           <box $if={self.tabled} rows={FILL}>
             <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
-              <WareTableRow $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWareRow} />
+              <WareTableRow $for={ware of self.shown} $key={ware.index} ware={ware} menuShown={self.menuAt == ware.index}
+                            entries={self.menuEntries} @pressed={self.onWareRow} @chose={self.onChose} @closed={self.onMenuClosed} />
             </Table>
           </box>
           <ScrolledList $elseif={self.grouped} columns={2} gap={3sp}>
             <$for={tab of self.groups}>
               <WareCaption tab={peek tab} count={self.countIn(tab)} folded={self.folded[tab] == true} @toggled={self.onToggle} />
-              <WareCell $for={ware of self.inGroup(tab)} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
+              <WareCell $for={ware of self.inGroup(tab)} $key={ware.index} ware={ware} menuShown={self.menuAt == ware.index} entries={self.menuEntries}
+                        @pressed={self.onWare} @dragged={self.onDragged} @chose={self.onChose} @closed={self.onMenuClosed} />
             </>
           </ScrolledList>
           <ScrolledList $else columns={2} gap={3sp}>
-            <WareCell $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
+            <WareCell $for={ware of self.shown} $key={ware.index} ware={ware} menuShown={self.menuAt == ware.index} entries={self.menuEntries}
+                      @pressed={self.onWare} @dragged={self.onDragged} @chose={self.onChose} @closed={self.onMenuClosed} />
           </ScrolledList>
         </box>
         <ScrolledList $else columns={2} gap={3sp}>
-          <SoldCell $for={sold of self.sold} $key={sold.place} sold={sold} @pressed={self.onSold} />
+          <SoldCell $for={sold of self.sold} $key={sold.place} sold={sold} menuShown={self.soldMenuAt == sold.place} @pressed={self.onSold}
+                    @chose={self.onSoldChose} @closed={self.onSoldMenuClosed} />
         </ScrolledList>
       </Window>
       <Dialog $if={self.asking != nil} width={DIALOG} title={Locale.MERCHANT}>
@@ -601,6 +679,27 @@ public class MerchantWindow implements Component {
     }
   }
 }
+
+// What an item's menu does: buy one purchase, ask how many (where one purchase may take more than one), try it on,
+// link it in the chat.
+enum WareAct { Buy, Several, TryOn, Link }
+
+function actsOf(ware: Ware | nil): Array<WareAct> {
+  if (ware == nil) { return [] }
+  return ware.most > 1 ? [.Buy, .Several, .TryOn, .Link] : [.Buy, .TryOn, .Link]
+}
+
+function actLabel(act: WareAct): String {
+  return match (act) {
+    .Buy => Locale.BUY
+    .Several => Locale.BUY_SEVERAL
+    .TryOn => Locale.TRY_ON
+    .Link => Locale.LINK
+  }
+}
+
+// A buyback's item's menu: buy it back.
+const SOLD_ENTRIES: Array<MenuEntry> = [{ label: Locale.BUY_BACK }]
 
 // Whether the game asks about a purchase first: its price reaches the game's asking price, or it is paid in items or
 // currencies.

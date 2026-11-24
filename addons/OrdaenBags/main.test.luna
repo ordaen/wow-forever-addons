@@ -8,7 +8,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT } from "Ordaen"
+import { BRIGHT_TEXT, ItemKind, kindName } from "Ordaen"
 import root Bags from "OrdaenBags"
 import { BagChanger, Change } from "@/change"
 import { Purse, Purses } from "@/gold"
@@ -385,7 +385,7 @@ test "every item shows under «All», a section for each category in the kinds' 
   Test.expect(bags().button(WELL).count() == 10)
   // A section a category, captioned by its tab's name (there twice: its tab and its caption); no subclass's caption.
   const kinds = [
-    Locale.TAB_QUEST, Locale.TAB_CONSUMABLES, Locale.TAB_EQUIPMENT, Locale.TAB_TRADE, Locale.TAB_RECIPES, Locale.TAB_OTHER,
+    kindName(ItemKind.Quest), kindName(ItemKind.Consumables), kindName(ItemKind.Equipment), kindName(ItemKind.Trade), kindName(ItemKind.Recipes), kindName(ItemKind.Other),
     Locale.TAB_JUNK
   ]
   for (kind of kinds) { Test.expect(bags().text(kind).count() == 2) }
@@ -684,7 +684,7 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
-  bags().button(Locale.TAB_TRADE).click()
+  bags().button(kindName(ItemKind.Trade)).click()
   Test.expect(!bags().box(Ordaen.art.ctl.markOpen).shown() && !bags().button("Cloth").shown())
   Test.page().text("Cloth").click()
   Test.page().text("Free").click()
@@ -699,7 +699,7 @@ test "each category stands on the wood, its caption over its slots, each slot we
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
-  bags().button(Locale.TAB_TRADE).click()
+  bags().button(kindName(ItemKind.Trade)).click()
   Test.expect(bags().text("Cloth").item().paintedWith(WELL) && bags().text("Free").item().paintedWith(WELL))
   Test.expect(reads(bags().text("Free").item(), "Free | 13"))
   Test.expect(Test.faults().length == 0)
@@ -1533,7 +1533,7 @@ test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plai
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
-  bags().button(Locale.TAB_TRADE).click()
+  bags().button(kindName(ItemKind.Trade)).click()
   Test.expect(bags().text("Cloth").textColor().equal(CAPTION) && bags().text("Free").textColor().equal(LABEL))
   pick(Ordaen.art.ctl.tool.categories, "By bag")
   Test.expect(bags().text("Backpack").textColor().equal(CAPTION) && !bags().paintedWith(Ordaen.art.ctl.markOpen))
@@ -1570,7 +1570,7 @@ test "a caption longer than its card is cut at the card's edge" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
-  bags().button(Locale.TAB_QUEST).click()
+  bags().button(kindName(ItemKind.Quest)).click()
   Test.expect(bags().text("Предметы для заданий и поручений").shown())
 }
 
@@ -1585,7 +1585,7 @@ test "the sections of a kind stand in the order of the game's subclasses" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
-  bags().button(Locale.TAB_EQUIPMENT).click()
+  bags().button(kindName(ItemKind.Equipment)).click()
   Test.expect(inOrder([SWORD, MOSS]))
 }
 
@@ -1599,8 +1599,8 @@ test "the client's miscellaneous «Junk» subclass (a hearthstone) is captioned 
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  bags().button(Locale.TAB_OTHER).click()
-  Test.expect(bags().text(Locale.TAB_OTHER).count() == 2 && bags().text(Locale.TAB_JUNK).count() == 1)
+  bags().button(kindName(ItemKind.Other)).click()
+  Test.expect(bags().text(kindName(ItemKind.Other)).count() == 2 && bags().text(Locale.TAB_JUNK).count() == 1)
 }
 
 test "a stack taken out leaves its slot empty: no count, no glow" {

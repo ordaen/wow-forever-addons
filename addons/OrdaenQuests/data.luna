@@ -1,13 +1,21 @@
 // What the world holds of a quest: who gives it, who takes it, where its objectives are. `QuestieData` asks QuestieDB
 // once a quest and keeps what it said for the session (each read of QuestieDB makes fresh tables, so nothing is read
 // from it while drawing or per event).
+import Game from "$game"
 import { LibQuestieDB } from "QuestieDB"
 import Questie from "@/questie"
-import { Figure, NpcQuests, QuestFacts } from "@/questie"
+import { Figure, NpcQuests, QuestFacts, Seller } from "@/questie"
 
 // The contract of QuestieDB's data this module is written against.
 const CONTRACT = 4
 const NO_QUESTS: NpcQuests = { starts: [], ends: [] }
+
+// Of the sellers, those friendly to `side` (QuestieDB's "A" and "H"); none for a player of neither.
+public function sellingTo(sellers: Array<Seller>, side: Game.Faction): Array<Integer> {
+  const letter = side == Game.Faction.Alliance ? "A" : side == Game.Faction.Horde ? "H" : nil
+  if (letter == nil) { return [] }
+  return sellers.filter(seller => seller.sides.contains(letter)).map(seller => seller.npc)
+}
 
 public class QuestieData {
   known: mut Map<Integer, QuestFacts> = {}
@@ -33,6 +41,12 @@ public class QuestieData {
       self.known[id] = read
     }
     return read
+  }
+
+  // The NPCs that sell an item who trade with `side`'s players; none where QuestieDB can't be read. Asked as a list
+  // of things to buy opens, not kept.
+  public vendorsOf(self, item: Integer, side: Game.Faction): Array<Integer> {
+    return self.fault() == nil ? sellingTo(Questie.vendors(item), side) : []
   }
 
   // An NPC's name and spawns; nil for one QuestieDB doesn't know, or where it can't be read. Asked on a click, not

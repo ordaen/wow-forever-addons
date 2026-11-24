@@ -289,5 +289,12 @@
   "CAST_MINUTES": "%s min",
   "CAST_NEXT": "Next",
   "MELEE_RANGE_SHORT": "5 yd",
-  "MELEE_RANGE_TEXT": "Melee Range"
+  "MELEE_RANGE_TEXT": "Melee Range",
+  "KIND_QUEST": "Quest items",
+  "KIND_CONSUMABLES": "Consumables",
+  "KIND_EQUIPMENT": "Equipment",
+  "KIND_TRADE": "Trade goods",
+  "KIND_RECIPES": "Recipes",
+  "KIND_KEYS": "Keys",
+  "KIND_OTHER": "Other"
 }

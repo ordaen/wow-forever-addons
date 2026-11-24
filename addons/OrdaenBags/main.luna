@@ -17,7 +17,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
   ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec,
-  WindowsPage, say, windowSideWide, windowsTitle
+  WindowsPage, say, windowsTitle
 } from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
@@ -30,14 +30,12 @@ import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
 import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
-import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { CONTAINER, MOVED, Slot, SortBy, handsOver } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, ConveniencePage, JunkPage, LookPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
-import { Vendor } from "@/vendor"
 
 // What the module remembers for the character: the protected slots, one at most for each slot of the bags.
 // Where the window stands is the window's own (`Window`, the profile's).
@@ -71,14 +69,10 @@ const NOTHING_KEPT: Kept = { guards: [] }
 const BESIDE: Number<Spacing> = 6sp
 const WIDTH = 773.4375dp
 const HEIGHT = 609.375dp
-// The merchant's window: two columns of goods; its right column widens it.
-const MERCHANT_WIDTH = 796.875dp
-// The merchant's window and the bags open together: by default they stand side by side about the screen's middle, the
-// merchant's on the left (its side column with it), this gap between them. Where the screen is too narrow for both,
-// they overlap.
+// The bags and Ordaen Trading's merchant window open together: by default they stand side by side about the screen's
+// middle, the bags on the right, this gap between them.
 const APART = 11.71875dp
 const BAGS_X = (WIDTH + APART) / 2
-function merchantX(): Number<Length> { return -(MERCHANT_WIDTH + APART) / 2 - windowSideWide(SIDE_WIDTH) }
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
 const SAFE_SALE = 12
 
@@ -95,17 +89,17 @@ public class Bags implements Module, App {
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: BAGS_X, y: 0ui, width: WIDTH, height: HEIGHT })
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale.BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
-  public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: merchantX(), y: 0ui, width: MERCHANT_WIDTH, height: HEIGHT })
   // The bank's or the guild bank's window while the game has it open.
   public vaultWindow: mut KeptWindow = new KeptWindow("vault", Locale.BANK, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [
-    self.window, self.vaultWindow, self.slotsWindow, self.bankSlotsWindow, self.merchantWindow
+    self.window, self.vaultWindow, self.slotsWindow, self.bankSlotsWindow
   ]
-  // The merchant the player stands at, and how the player left its window's list (the profile's).
-  public vendor: mut Vendor = new Vendor()
+  // A merchant's window is open; Ordaen Trading's shows its buyback (`showsBuyback`): a slot's use there sells nothing,
+  // as the game's window has it.
+  state atMerchant = false
+  state buyingBack = false
   // The junk was sold by itself at this merchant's visit.
   state soldThisVisit = false
-  public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
@@ -181,8 +175,8 @@ public class Bags implements Module, App {
   derived running: Boolean = self.arranger.running
   // The bags' junk, whatever the window shows: what the merchant's window sells.
   derived carriedJunk: Array<Slot> = junkIn(self.carried)
-  derived carriedJunkCount: Integer = self.carriedJunk.count(slot => peek slot.id != 0)
-  derived carriedJunkWorth: Integer = worthIn(self.carriedJunk)
+  public derived carriedJunkCount: Integer = self.carriedJunk.count(slot => peek slot.id != 0)
+  public derived carriedJunkWorth: Integer = worthIn(self.carriedJunk)
   derived moneyTitle: String = self.moving == MoneyMove.Withdraw ? Locale.GUILD_WITHDRAW : Locale.GUILD_DEPOSIT
   // The bags' window's body, and the vault's.
   public main: Pane
@@ -206,6 +200,8 @@ public class Bags implements Module, App {
     self.changer.stuck.listen(self.onBagStuck)
     Game.bags.updated.listen(self.onUpdated)
     Game.bags.loaded.listen(self.onLoaded)
+    Events.MERCHANT_SHOW.listen(self.onMerchantShown)
+    Events.MERCHANT_CLOSED.listen(self.onMerchantClosed)
     Game.bankObserver.changed.listen(self.onBankChanged)
     self.guild.slots.listen(self.readGuild)
     self.hear(self.main)
@@ -287,10 +283,6 @@ public class Bags implements Module, App {
     if (self.bankOpen) {
       const bank = Runtime.frame("BankFrame")
       if (bank != nil) { frames.push(bank) }
-    }
-    if (self.vendor.open) {
-      const merchant = Runtime.frame("MerchantFrame")
-      if (merchant != nil) { frames.push(merchant) }
     }
     // The guild bank's window is loaded as it opens: looked for again once its first slots came.
     if (self.guild.open && !self.guild.loading) {
@@ -517,7 +509,7 @@ public class Bags implements Module, App {
     const place = peek Game.bags.place
     if (place == Game.BagPlace.Merchant && slot.vault == Vault.Bags) {
       // The buyback shown: nothing is sold. A purchase still refundable is asked about first, and refunded.
-      if (peek self.vendor.buyingBack) { return }
+      if (peek self.buyingBack) { return }
       if (refundOf(slot) != nil) {
         self.refunding = slot
         return
@@ -633,7 +625,7 @@ public class Bags implements Module, App {
   // At a merchant, its junk sold once a visit where the player wants it so: as soon as the bags know their junk (the
   // merchant opens them with its window, and they read their slots then).
   sellAtVisit(mut self) {
-    if (!self.vendor.open) {
+    if (!self.atMerchant) {
       self.soldThisVisit = false
       return
     }
@@ -642,9 +634,19 @@ public class Bags implements Module, App {
     self.sellJunk()
   }
 
-  // «Sell junk» at a merchant: the next junk items, `SAFE_SALE` at most so all can be bought back, each the client's
-  // sale in the player's click. A locked slot and junk the merchant gives nothing for stay.
-  sellJunk(mut self) {
+  // Ordaen Trading's merchant window shows its buyback, or its goods again.
+  public showsBuyback(mut self, shown: Boolean) { self.buyingBack = shown }
+
+  onMerchantShown(mut self) { self.atMerchant = true }
+
+  onMerchantClosed(mut self) {
+    self.atMerchant = false
+    self.buyingBack = false
+  }
+
+  // «Sell junk» at a merchant (Ordaen Trading's window): the next junk items, `SAFE_SALE` at most so all can be bought
+  // back, each the client's sale in the player's click. A locked slot and junk the merchant gives nothing for stay.
+  public sellJunk(mut self) {
     let sold = 0
     let worth = 0
     for (slot of self.carried.all) {
@@ -803,8 +805,6 @@ public class Bags implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
-      <MerchantWindow $if={self.vendor.open} vendor={mut self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
-                      junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
                 minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>

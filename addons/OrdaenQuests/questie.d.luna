@@ -108,3 +108,12 @@ public struct NpcQuests {
 
 // An NPC's quests; nil for one QuestieDB doesn't know. Asked as `quest` is.
 public function npcQuests(id: Integer): NpcQuests | nil
+
+// An NPC that sells an item, and the sides it is friendly to: "A", "H", "AH", "" for neither.
+public struct Seller {
+  npc: Integer
+  sides: String
+}
+
+// The NPCs that sell an item; none for an item QuestieDB doesn't know or no one sells. Asked as `quest` is.
+public function vendors(item: Integer): Array<Seller>

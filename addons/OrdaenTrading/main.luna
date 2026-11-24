@@ -2,16 +2,18 @@
 // merchants' prices; the sales ledger; the house's window, shown while the house is open.
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
-import { Side, Track } from "$ltml"
+import { Frame, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { FOOTER_ROOM, KeptWindow, Module, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { FOOTER_ROOM, KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowSideWide, windowsTitle } from "Ordaen"
+import root Bags from "OrdaenBags"
 import { BuyPage, Chosen, Found } from "@/buy"
 import { DataPage } from "@/dataPage"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { Ledger } from "@/ledger"
 import Locale from "@/locales"
+import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { OwnedPage } from "@/owned"
 import { OrdaenPrices, takeMerchant } from "@/prices"
 import { PriceSource } from "@/quote"
@@ -24,6 +26,7 @@ import { ShoppingPage } from "@/shoppingPage"
 import { ShoppingTab } from "@/shoppingTab"
 import { Status } from "@/status"
 import Style from "@/style"
+import { Vendor } from "@/vendor"
 import { Sellers } from "@/vendorPage"
 
 // What the module keeps, under its own saved variable.
@@ -38,6 +41,13 @@ const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.
 const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
 const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
 const FILL: Array<Track> = [{ fr: 1 }]
+// The merchant's window: two columns of goods; its right column widens it. It opens with Ordaen Bags' window: by
+// default they stand side by side about the screen's middle, the merchant's on the left (its side column with it),
+// this gap between them. Where the screen is too narrow for both, they overlap.
+const MERCHANT_WIDTH = 796.875dp
+const MERCHANT_HEIGHT = 609.375dp
+const APART = 11.71875dp
+function merchantX(): Number<Length> { return -(MERCHANT_WIDTH + APART) / 2 - windowSideWide(SIDE_WIDTH) }
 
 public class Trading implements Module, App {
   public const title: String = "Ordaen Trading"
@@ -46,7 +56,11 @@ public class Trading implements Module, App {
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT }, true)
   public shoppingWindow: mut KeptWindow = new KeptWindow("shopping", Locale.PAGE_SHOPPING, { x: 0ui, y: 0ui, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
   public ownedWindow: mut KeptWindow = new KeptWindow("owned", Locale.PAGE_OWNED, { x: 0ui, y: 0ui, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow]
+  public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: merchantX(), y: 0ui, width: MERCHANT_WIDTH, height: MERCHANT_HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow, self.merchantWindow]
+  // The merchant the player stands at, and how the player left its window's list (the profile's).
+  public vendor: mut Vendor = new Vendor()
+  public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.PAGE_DATA, content: $ltml {
@@ -76,9 +90,9 @@ public class Trading implements Module, App {
   state page = BUY
   derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window
   state shoppingOpen = false
-  // A merchant's window is open: the shopping list's «Vendors» buys there.
-  state atMerchant = false
   state ownedOpen = false
+  // The game's merchant window, while a merchant is open.
+  derived merchantFrames: Array<any Frame> = self.merchantFramesOf()
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
@@ -123,24 +137,31 @@ public class Trading implements Module, App {
     self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)
     Game.auctionHouse.opened.listen(self.onOpened)
     Game.merchant.opened.listen(self.onMerchant)
-    Game.merchant.closed.listen(self.onMerchantClosed)
+    // The buyback shown in the merchant's window: Ordaen Bags' slots sell nothing then.
+    watch (back of self.vendor.buyingBack) { Bags?.showsBuyback(back) }
     Ordaen.modules.add(self)
   }
 
   // The shopping list as another window's tab (the professions window's): the house's items and the merchants', the
   // sellers found as `sellers` says.
   public shoppingTab(mut self, sellers: Sellers): Template {
-    return $ltml { <ShoppingTab prices={self.prices} list={mut self.shopping} sellers={sellers} atMerchant={self.atMerchant} /> }
+    return $ltml { <ShoppingTab prices={self.prices} list={mut self.shopping} sellers={sellers} atMerchant={self.vendor.open} /> }
   }
 
   onOpened(mut self) {
     if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
   }
 
-  onMerchantClosed(mut self) { self.atMerchant = false }
+  merchantFramesOf(self): Array<any Frame> {
+    if (!self.vendor.open) { return [] }
+    const frame = Runtime.frame("MerchantFrame")
+    return frame == nil ? [] : [frame]
+  }
+
+  // «Sell junk» in the merchant's window: Ordaen Bags knows the junk, and sells it.
+  onSellJunk(self) { Bags?.sellJunk() }
 
   onMerchant(mut self) {
-    self.atMerchant = true
     const given = Game.merchant.prices()
     if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
   }
@@ -163,6 +184,13 @@ public class Trading implements Module, App {
 
   public render(self): Template {
     return $ltml {
+      <$if={self.vendor.open}>
+        // The game's merchant window stays open, unseen and off the screen: hiding it would close the merchant.
+        <frame $for={frame of self.merchantFrames} of={frame} opacity={0} away={true} />
+        <MerchantWindow vendor={mut self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
+                        junkCount={Bags?.carriedJunkCount ?? 0} junkWorth={Bags?.carriedJunkWorth ?? 0}
+                        @sellJunk={self.onSellJunk} />
+      </>
       <$if={self.shown}>
         // The game's own window stays open, unseen and off the screen: hiding it would close the house.
         <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
