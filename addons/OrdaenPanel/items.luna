@@ -1,7 +1,7 @@
 // The panel's items that are rows of cells or of text: the game's menu, friends and guild, the money, the bags. Each
 // is drawn in its zone of the panel, or standing free where the player put it.
 import Game from "$game"
-import { Align, Art, Shadow, TextWrap, Track } from "$ltml"
+import { Align, Art, Frame, Shadow, TextWrap, Track } from "$ltml"
 import { Component } from "Ordaen"
 import { CELL_HEIGHT } from "@/cells"
 import { Cell, CellGroup } from "@/group"
@@ -169,7 +169,10 @@ public class MoneyLine implements Component {
 // Every bag button the game has, in its order: the backpack with the free slots of every bag, the bags, the reagent
 // bag, the keyring; a cut before the first, parting them from the money.
 public class BagLine implements Component {
-  derived cells: Array<Cell> = Game.bags.buttons.map(button => Cell.Bag { button: button })
+  // The keyring has no cell: its keys are read with the bags, under their own tab. The game's keyring button is kept
+  // unseen.
+  derived cells: Array<Cell> = Game.bags.buttons.filter(button => button.kind != Game.BagKind.Keyring).map(button => Cell.Bag { button: button })
+  derived keyrings: Array<any Frame> = Game.bags.buttons.filter(button => button.kind == Game.BagKind.Keyring).map(button => button.frame)
 
   vertical: Signal<Boolean>
   height: Signal<Number<Length>>
@@ -188,6 +191,7 @@ public class BagLine implements Component {
   public render(self): Template {
     return $ltml {
       <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} rise={self.rise} leading={true} />
+      <frame $for={keyring of self.keyrings} of={keyring} shown={false} />
     }
   }
 }

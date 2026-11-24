@@ -40,7 +40,6 @@ const BAG: FileId = 133633
 const REAGENT: FileId = 136511
 const KEYRING: FileId = 130980
 // The keyring's cell shows the key ring's icon, not the client's button sheet.
-const KEYRING_ICON: Asset = "Interface/Icons/INV_Misc_Key_03"
 // Every cell's ground while the cursor is away: what counts the cells in the order drawn.
 const CELL: Color = Color.hex("#00000000")
 // The cut between two cells across the screen: its lip of light, added to the wood.
@@ -230,15 +229,14 @@ test "every button of the game's menu has its cell on the panel, with its icon, 
   Test.expect(Test.page().box(FRIENDS).count() == 1 && Test.page().box(PROFESSIONS).count() == 1)
 }
 
-test "every bag button the game has stands in a cell after the menu, in its order, with its icon, the keyring with the key ring's own" {
+test "every bag button the game has stands in a cell after the menu, in its order, with its icon; the keyring has none" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const window = panel()
   let icons: Array<Art> = [BACKPACK]
   for (slot of 1..Client.NUM_BAG_SLOTS) { icons.push(BAG) }
   for (slot of 1..Client.NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
-  icons.push(KEYRING_ICON)
-  Test.expect(window.box(CELL).count() == 10 + icons.length)
+  Test.expect(window.box(CELL).count() == 10 + icons.length && !window.box(KEYRING).shown())
   for (at, icon of icons) { Test.expect(window.box(CELL).nth(10 + at).paintedWith(icon)) }
 }
 
@@ -295,7 +293,7 @@ test "one groove parts each two cells of a group, none before the menu's first, 
   const window = panel()
   Test.expect(!window.box(PROFESSIONS).item().paintedWith(divider()))
   Test.expect(window.box(SPELLBOOK).item().paintedWith(divider()) && window.box(GAME_MENU).item().paintedWith(divider()))
-  Test.expect(window.box(BACKPACK).item().paintedWith(divider()) && window.box(KEYRING_ICON).item().paintedWith(divider()))
+  Test.expect(window.box(BACKPACK).item().paintedWith(divider()) && window.box(REAGENT).item().paintedWith(divider()))
 }
 
 test "a groove runs up past the cells to the panel's metal, through the room under it" {
@@ -438,7 +436,7 @@ test "the backpack's cell counts the free slots of every bag, and no other cell 
   Test.mount(nil, SCREEN)
   Game.bags.free = 23
   Test.expect(panel().box(BACKPACK).item().texts().join(" | ") == "23")
-  Test.expect(panel().box(KEYRING_ICON).item().texts().length == 0)
+  Test.expect(panel().box(REAGENT).item().texts().length == 0)
   Game.bags.free = 0
   Test.expect(panel().box(BACKPACK).item().texts().length == 0)
 }
@@ -451,9 +449,14 @@ test "the bags opened, each bag button of the game's stays unseen in its cell" {
   // The client's item buttons fade their icon alone through their own `SetAlpha`: the button itself, the slot's
   // frame, the light the open lights on it and the backpack's free slots are the frame's to hide.
   Client.ToggleAllBags()
-  Test.expect(panel().box(KEYRING_ICON).shown())
+  Test.expect(panel().box(REAGENT).shown())
   for (bag of bags) {
     const held: any Client.Frame = bag.frame
+    // The keyring's has no cell: it is hidden.
+    if (bag.kind == .Keyring) {
+      Test.expect(!held.IsShown())
+      continue
+    }
     Test.expect(held.GetParent() != Client.C_UI.GetUIParent() && held.GetAlpha() == 0)
   }
 }

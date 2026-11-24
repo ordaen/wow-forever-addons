@@ -350,27 +350,12 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
             box 965,805.65 93x93 absolute #00000000
               box 982.11,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
               embed 965,805.65 93x93 absolute frame=none opacity=0
-  box 1058,854.15 618.34x0
-    box 1058,854.15 618.34x0
-  box 1676.34,809.65 723.66x89
-    box 1676.34,846.23 59.96x15.83
-      text 1676.34,846.23 50x15.83 "0g 0s 0c" #e8dcc4
-    box 1744.83,809.65 655.17x89
-      box 1744.83,809.65 93x89
-        box 1744.83,809.65 4.17x89
-          box 1744.83,805.65 4.17x93 absolute
-            box 1744.83,805.65 4.17x93
-              box 1744.83,805.65 0.83x93 #000000 opacity=0.7
-              box 1745.67,805.65 0.83x93 #000000 opacity=0.85
-              box 1746.5,805.65 0.83x93 #000000 opacity=0.85
-              box 1747.33,805.65 0.83x93 #000000 opacity=0.7
-              box 1748.17,805.65 0.83x93 #1e1e1e blend=ADD
-              box 1744.83,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 1744.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 1749,809.65 88.83x89
-          box 1749,805.65 93x93 absolute #00000000
-            box 1766.11,822.76 58.77x58.77 absolute icon=130716
-            embed 1749,805.65 93x93 absolute frame=MainMenuBarBackpackButton opacity=0
+  box 1058,854.15 671x0
+    box 1058,854.15 671x0
+  box 1729,809.65 671x89
+    box 1769.34,846.23 59.96x15.83
+      text 1769.34,846.23 50x15.83 "0g 0s 0c" #e8dcc4
+    box 1837.83,809.65 562.17x89
       box 1837.83,809.65 93x89
         box 1837.83,809.65 4.17x89
           box 1837.83,805.65 4.17x93 absolute
@@ -384,8 +369,8 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
               box 1837.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
         box 1842,809.65 88.83x89
           box 1842,805.65 93x93 absolute #00000000
-            box 1859.11,822.76 58.77x58.77 absolute icon=133633
-            embed 1842,805.65 93x93 absolute frame=CharacterBag0Slot opacity=0
+            box 1859.11,822.76 58.77x58.77 absolute icon=130716
+            embed 1842,805.65 93x93 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1930.83,809.65 93x89
         box 1930.83,809.65 4.17x89
           box 1930.83,805.65 4.17x93 absolute
@@ -400,7 +385,7 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
         box 1935,809.65 88.83x89
           box 1935,805.65 93x93 absolute #00000000
             box 1952.11,822.76 58.77x58.77 absolute icon=133633
-            embed 1935,805.65 93x93 absolute frame=CharacterBag1Slot opacity=0
+            embed 1935,805.65 93x93 absolute frame=CharacterBag0Slot opacity=0
       box 2023.83,809.65 93x89
         box 2023.83,809.65 4.17x89
           box 2023.83,805.65 4.17x93 absolute
@@ -415,7 +400,7 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
         box 2028,809.65 88.83x89
           box 2028,805.65 93x93 absolute #00000000
             box 2045.11,822.76 58.77x58.77 absolute icon=133633
-            embed 2028,805.65 93x93 absolute frame=CharacterBag2Slot opacity=0
+            embed 2028,805.65 93x93 absolute frame=CharacterBag1Slot opacity=0
       box 2116.83,809.65 93x89
         box 2116.83,809.65 4.17x89
           box 2116.83,805.65 4.17x93 absolute
@@ -430,7 +415,7 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
         box 2121,809.65 88.83x89
           box 2121,805.65 93x93 absolute #00000000
             box 2138.11,822.76 58.77x58.77 absolute icon=133633
-            embed 2121,805.65 93x93 absolute frame=CharacterBag3Slot opacity=0
+            embed 2121,805.65 93x93 absolute frame=CharacterBag2Slot opacity=0
       box 2209.83,809.65 93x89
         box 2209.83,809.65 4.17x89
           box 2209.83,805.65 4.17x93 absolute
@@ -444,8 +429,8 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
               box 2209.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
         box 2214,809.65 88.83x89
           box 2214,805.65 93x93 absolute #00000000
-            box 2231.11,822.76 58.77x58.77 absolute icon=136511
-            embed 2214,805.65 93x93 absolute frame=CharacterReagentBag0Slot opacity=0
+            box 2231.11,822.76 58.77x58.77 absolute icon=133633
+            embed 2214,805.65 93x93 absolute frame=CharacterBag3Slot opacity=0
       box 2302.83,809.65 97.17x89
         box 2302.83,809.65 4.17x89
           box 2302.83,805.65 4.17x93 absolute
@@ -459,8 +444,8 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
               box 2302.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
         box 2307,809.65 93x89
           box 2307,805.65 93x93 absolute #00000000
-            box 2324.11,822.76 58.77x58.77 absolute icon=Interface/Icons/INV_Misc_Key_03
-            embed 2307,805.65 93x93 absolute frame=KeyRingButton opacity=0
+            box 2324.11,822.76 58.77x58.77 absolute icon=136511
+            embed 2307,805.65 93x93 absolute frame=CharacterReagentBag0Slot opacity=0
 surface 0,776 128x124 on LOW opacity=1
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,785 119x115 absolute face:player
