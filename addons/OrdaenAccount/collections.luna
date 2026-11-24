@@ -72,7 +72,7 @@ const BUTTON: Number<Length> = 180dp
 const TILE: Number<Length> = 46dp
 const TILES: Columns = { autoFit: TILE }
 const CARD_HEAD: Array<Track> = [Style.CARD_ICON, { fr: 1 }]
-const CARD_PARTS: Array<Track> = ["max-content", PREVIEW, "max-content", "max-content", { fr: 1 }, "max-content"]
+const CARD_PARTS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", { fr: 1 }, "max-content"]
 
 // The client gives some icons as plain numbers: a file's number, or nothing.
 function fileOf(icon: Number | nil): FileId | nil {
@@ -263,7 +263,8 @@ public class Collections {
         <box width={Style.CARD_ICON} height={Style.CARD_ICON} icon={self.picked?.icon} />
         <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
       </box>
-      <box background={Style.STAGE} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
+      // Its own height: a box sizes to what it holds, and a figure holds nothing that gives it one.
+      <box height={PREVIEW} background={Style.STAGE} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
         <text $if={!self.modelShown} value={Locale.NO_PREVIEW} textColor={Style.DIM} />
       </box>
       <text value={self.card.description} textColor={Style.INK} leading={.Prose} />
