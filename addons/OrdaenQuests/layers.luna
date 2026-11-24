@@ -166,6 +166,16 @@ public function nearestOf(figures: Array<Figure>, distance: (spot: Spot) => Numb
   return best ?? first
 }
 
+// Of a figure's spots, the distance to the nearest by `distance`; nil where none is measurable.
+public function nearestYards(figure: Figure, distance: (spot: Spot) => Number | nil): Number | nil {
+  let best: Number | nil = nil
+  for (spot of figure.spots) {
+    const yards = distance(spot)
+    if (yards != nil && (best == nil || yards < best)) { best = yards }
+  }
+  return best
+}
+
 // The NPC another module asked to see on the map (a trainer or a vendor of a recipe): its spots, lit, its name in the
 // tooltip, until the map hides.
 public class NpcPins implements Layer {
