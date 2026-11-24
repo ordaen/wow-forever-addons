@@ -320,6 +320,33 @@ test "emotes stand in families of groups, each named by its command with no icon
   Test.combat(false)
 }
 
+// The first ring's Emotes submenu as an older build saved it: eight lines, the last one `last`.
+function oldEmotes(last: String) {
+  editRing(1, (ring: mut Ring): nil => {
+    const lines = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", last]
+    const kept: Map<String, Item> = {}
+    for (place, item of ring.items) {
+      if (place.sub(1, 2) != "5_") { kept[place] = item }
+    }
+    ring.items = kept
+    for (index, line of lines) { ring.items[`5_${index}`] = .Line { title: line, line: line, icon: "Interface/Icons/INV_Misc_Toy_10" } }
+    ring.counts["5"] = 8
+  })
+}
+
+test "rings an older build saved take every emote where its Emotes submenu was left as it came" {
+  start()
+  oldEmotes("/cry")
+  Test.expect(firstRing().items["5_1"] is Item.Menu && firstRing().items["5_1_1_1"] is Item.Emote)
+  Test.expect(firstRing().counts["5"] == 8 && firstRing().items["5_8_3_1"] is Item.Emote)
+}
+
+test "an Emotes submenu the player changed stays as it is" {
+  start()
+  oldEmotes("/roar")
+  Test.expect(firstRing().items["5_8"] is Item.Line && firstRing().items["5_1_1"] == nil)
+}
+
 test "each kind of ping shows the client's own mark of it and sends its own number" {
   start()
   hold("H", 0, -FAR)

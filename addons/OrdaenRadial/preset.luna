@@ -4,6 +4,7 @@ import { WheelNames } from "Ordaen"
 import { Choices, Item, OpensAt, Ping, Ring, Window } from "@/choices"
 import { EMOTES } from "@/emotes"
 import Locale from "@/locales"
+import { emptyUnder, within } from "@/places"
 
 // A ring from its rings' sizes and its items, each by its place.
 function ring(counts: mut Map<String, Integer>, placed: Array<[String, Item]>): mut Ring {
@@ -33,6 +34,33 @@ function addEmotes(target: mut Ring, at: String) {
       for (index, token of group.tokens) { items[`${groupAt}_${index}`] = .Emote { token: token } }
     }
   }
+}
+
+// The emote lines an older preset put in its Emotes submenu, in order: a submenu that still holds exactly these was
+// never changed by the player.
+const OLD_EMOTE_LINES: Array<String> = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", "/cry"]
+
+// Whether a submenu holds the older preset's emote lines and nothing else.
+function holdsOldEmotes(saved: Ring, at: String): Boolean {
+  if ((saved.counts[at] ?? 0) != OLD_EMOTE_LINES.length) { return false }
+  for (index, wanted of OLD_EMOTE_LINES) {
+    const item = saved.items[within(at, index)]
+    if (!(item is Item.Line) || item.line != wanted) { return false }
+  }
+  return true
+}
+
+// A ring saved by an older build, its untouched Emotes submenu made the whole tree of emotes; none where it has none.
+public function upgraded(saved: Ring): Ring | nil {
+  for (place, item of saved.items) {
+    if (item is Item.Menu && holdsOldEmotes(saved, place)) {
+      const fresh = saved.clone()
+      emptyUnder(mut fresh, place)
+      addEmotes(mut fresh, place)
+      return fresh
+    }
+  }
+  return nil
 }
 
 // The first key's ring: Windows up, then clockwise Professions, Pings, Marks, Emotes, Travel, Group, Placing.

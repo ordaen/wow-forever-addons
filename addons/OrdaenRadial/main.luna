@@ -21,7 +21,7 @@ import { actionOf, inForm, refusesInFight, shown } from "@/items"
 import { RadialKind, RadialOffer } from "@/kinds"
 import Locale from "@/locales"
 import { parentOf, within } from "@/places"
-import { preset } from "@/preset"
+import { preset, upgraded } from "@/preset"
 import { RingsPage } from "@/settings"
 
 // How much of the wheel shows while an item taken by a press waits for its release with the cursor over the wheel,
@@ -147,9 +147,23 @@ public class Radial implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     for (wheel of self.wheels) { wheel.picked.listen(self.onPick) }
+    // Rings saved by an older build (loaded after the module is made, again with each profile) take what it lacked.
+    watch (choices of self.settings.values) { self.upgrade(choices) }
     watch (laids of self.laids) { self.apply(laids) }
     self.bind()
     Events.UPDATE_BINDINGS.listen(self.bind)
+  }
+
+  // Each ring an older build saved, upgraded (`upgraded`); the settings changed only where one was.
+  upgrade(mut self, choices: Choices) {
+    let changed = false
+    const rings: Array<Ring> = []
+    for (ring of choices.rings) {
+      const fresh = upgraded(ring)
+      if (fresh != nil) { changed = true }
+      rings.push(fresh ?? ring)
+    }
+    if (changed) { self.settings.change((values: mut Choices): nil => { values.rings = rings }) }
   }
 
   // How an item is drawn now: another module's kind as it offers, an emote by its command.
