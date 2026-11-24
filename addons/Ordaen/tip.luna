@@ -28,6 +28,8 @@ const MARKED: Array<Track> = ["max-content", "max-content", "max-content"]
 const ICON = 16dp
 // A section's bar of shares: thin, under its rows.
 const SHARES_HEIGHT = 8dp
+// The bar's one row, its whole height: its slices hold nothing that gives them a height of their own.
+const ONE_ROW: Array<Track> = [{ fr: 1 }]
 
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
@@ -78,8 +80,10 @@ class TipShares implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} height={SHARES_HEIGHT} padding={{ top: 1sp }}>
-        <box $for={slice of self.shares} background={slice.color} />
+      <box padding={{ top: 1sp }}>
+        <box columns={self.columns} rows={ONE_ROW} height={SHARES_HEIGHT}>
+          <box $for={slice of self.shares} background={slice.color} />
+        </box>
       </box>
     }
   }

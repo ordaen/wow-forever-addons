@@ -112,6 +112,8 @@ test "a section's shares are a bar under its rows, each as wide as its part of t
   const red = Test.page().box(RED).rect()
   const green = Test.page().box(GREEN).rect()
   Test.expect(red.top > Test.page().text("Miss").rect().bottom)
+  // As tall as the bar: its slices hold nothing that gives them a height.
+  Test.expect(red.bottom - red.top >= 4 && green.bottom - green.top == red.bottom - red.top)
   Test.expect(green.left >= red.right - 0.5 && ((red.right - red.left) - 3 * (green.right - green.left)).abs() < 1)
   destroy page
 }
