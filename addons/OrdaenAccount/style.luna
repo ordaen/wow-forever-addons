@@ -1,5 +1,6 @@
 // The window's look: its size at the player's scale, and its colours.
-public const WIDTH: Number<Length> = 1120dp
+// As wide as Ordaen Alts' table of characters, which its «Alts» tab shows.
+public const WIDTH: Number<Length> = 1390dp
 public const HEIGHT: Number<Length> = 680dp
 // The card beside a list: the picked entry's look and words.
 public const CARD: Number<Length> = 380dp
