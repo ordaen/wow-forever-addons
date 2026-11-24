@@ -68,7 +68,7 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                   box 526.53,325.65 1x28.44 absolute #0000003d
                   box 527.53,325.65 1x28.44 absolute #d6a56b16
                   box 295.2,325.65 233.33x28.44 scrolled 0 of 26.81
-                    box 295.2,325.65 233.33x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerPress
+                    box 295.2,325.65 233.33x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerEnter @pointerPress
                       box 295.2,325.65 233.33x1 absolute #0000003d
                       box 295.2,326.65 233.33x1 absolute #d6a56b16
                       box 295.2,350.86 233.33x1 absolute #0000003d
@@ -77,20 +77,20 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                       box 491.81,331.34 22.5x15.83
                         text 491.81,331.34 8.33x15.83 "3" #ffffff
                         text 500.14,331.34 14.17x15.83 "/3" #a3977f
-                    box 295.2,352.86 233.33x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 295.2,352.86 233.33x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 313.69,359.39 171.01x15.83 "Bags, quivers and pouches" #ffd100
                       box 491.81,359.39 22.5x15.83
                         text 491.81,359.39 8.33x15.83 "1" #ffffff
                         text 500.14,359.39 14.17x15.83 "/1" #a3977f
                 box 528.53,325.65 305.56x28.44 Interface\AddOns\Ordaen\media\window-wood tint=#86684e
                   box 528.53,325.65 305.56x28.44 scrolled 0 of 54.86
-                    box 534.22,325.65 299.87x27.21 #e8c89629 clipped @keyPress @pointerPress
+                    box 534.22,325.65 299.87x27.21 #e8c89629 clipped @keyPress @pointerEnter @pointerPress
                       text 542.76,331.34 250x15.83 "Enchanted Runecloth Robe of Long Nights" #ff8040
                       text 799.87,331.34 20x15.83 "[1]" #f0e6d2
-                    box 534.22,352.86 299.87x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 534.22,352.86 299.87x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 542.76,359.39 250x15.83 "Linen Cloak" #ff8040
                       text 799.87,359.39 20x15.83 "[1]" #f0e6d2
-                    box 534.22,380.91 299.87x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 534.22,380.91 299.87x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 542.76,387.43 250x15.83 "Rich Purple Silk Shirt" #ff8040
                       text 799.87,387.43 20x15.83 "[1]" #f0e6d2
             box 834.09,271.72 345.72x82.38 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.67>0.60 x4.29]
@@ -262,7 +262,7 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                   box 552.72,325.65 1x28.44 absolute #0000003d
                   box 553.72,325.65 1x28.44 absolute #d6a56b16
                   box 295.2,325.65 259.52x28.44 scrolled 0 of 26.81
-                    box 295.2,325.65 259.52x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerPress
+                    box 295.2,325.65 259.52x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerEnter @pointerPress
                       box 295.2,325.65 259.52x1 absolute #0000003d
                       box 295.2,326.65 259.52x1 absolute #d6a56b16
                       box 295.2,350.86 259.52x1 absolute #0000003d
@@ -271,20 +271,20 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                       box 518,331.34 22.5x15.83
                         text 518,331.34 8.33x15.83 "3" #ffffff
                         text 526.33,331.34 14.17x15.83 "/3" #a3977f
-                    box 295.2,352.86 259.52x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 295.2,352.86 259.52x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 313.69,359.39 197.2x15.83 "Bags, quivers and pouches" #ffd100
                       box 518,359.39 22.5x15.83
                         text 518,359.39 8.33x15.83 "1" #ffffff
                         text 526.33,359.39 14.17x15.83 "/1" #a3977f
                 box 554.72,325.65 389.28x28.44 Interface\AddOns\Ordaen\media\window-wood tint=#86684e
                   box 554.72,325.65 389.28x28.44 scrolled 0 of 54.86
-                    box 560.41,325.65 383.59x27.21 #e8c89629 clipped @keyPress @pointerPress
+                    box 560.41,325.65 383.59x27.21 #e8c89629 clipped @keyPress @pointerEnter @pointerPress
                       text 568.94,331.34 333.72x15.83 "Enchanted Runecloth Robe of Long Nights" #ff8040
                       text 909.78,331.34 20x15.83 "[1]" #f0e6d2
-                    box 560.41,352.86 383.59x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 560.41,352.86 383.59x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 568.94,359.39 333.72x15.83 "Linen Cloak" #ff8040
                       text 909.78,359.39 20x15.83 "[1]" #f0e6d2
-                    box 560.41,380.91 383.59x28.04 #00000000 clipped @keyPress @pointerPress
+                    box 560.41,380.91 383.59x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 568.94,387.43 333.72x15.83 "Rich Purple Silk Shirt" #ff8040
                       text 909.78,387.43 20x15.83 "[1]" #f0e6d2
             box 944,271.72 648.8x82.38 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.69>0.62 x4.29]

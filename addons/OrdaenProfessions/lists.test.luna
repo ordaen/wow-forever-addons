@@ -885,6 +885,19 @@ test "a click elsewhere closes the menu and goes no further" {
   Test.expect(chosen() == "Brown Linen Vest")
 }
 
+test "a recipe's row shows the tooltip of the item it makes, and one that makes none its spell's" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = [recipe(1, "Linen Cloak", 11, Game.Difficulty.Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true)]
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  window().text("Brown Linen Vest").hover()
+  Test.expect(asked("Items.show 1111"))
+}
+
 test "«Link in chat» puts the item the recipe makes into the chat and closes the menu" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
@@ -894,8 +907,8 @@ test "«Link in chat» puts the item the recipe makes into the chat and closes t
   Game.recipeReader.schematic = schematic
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
   window().text("Brown Linen Vest").rightClick()
+  _ = Test.requests()
   choose("Link in chat")
   Test.expect(asked("Chat.link 1111") && !Test.page().window("Link in chat").shown())
 }
@@ -909,8 +922,8 @@ test "a recipe that makes no item has its link dim, and a click on it does nothi
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button("Bags").click()
-  _ = Test.requests()
   window().text("Woolen Bag").nth(1).rightClick()
+  _ = Test.requests()
   const menu = Test.page().window("Link in chat")
   Test.expect(menu.text("Link in chat").textColor().equal(MENU_DIM))
   choose("Link in chat")
@@ -928,8 +941,8 @@ test "the menu's «Create [N]» makes all the bags allow, in the click" {
   ]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
   window().text("Linen Bag").rightClick()
+  _ = Test.requests()
   choose("Create [2]")
   Test.expect(asked("TradeSkill.craft 120 2") && !Test.page().window("Link in chat").shown())
   window().button("Queue (1)").click()

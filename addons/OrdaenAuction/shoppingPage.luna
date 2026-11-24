@@ -6,7 +6,7 @@
 // as it is picked or its «Buy N» first clicked. «Search all» browses every item in one query; a row picked can be
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
-import { Align, Track } from "$ltml"
+import { Align, Frame, Track } from "$ltml"
 import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
@@ -115,11 +115,16 @@ class ShoppingRow implements Component {
   // From the player's click alone: the page buys with it.
   onBuy(self) { self.buy.emit(self.row.item) }
 
+  // The item's tooltip beside its whole row.
+  onRowEnter(self, frame: any Frame) {
+    Game.items.show(frame, self.row.item)
+  }
+
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
+          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} tipped={false} />
           // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
           <box rows={["max-content", "max-content"]}>
             <text value={self.name} textColor={self.color} wrap={.Cut} />

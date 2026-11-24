@@ -4,7 +4,7 @@
 // for, the house's cut taken; its tip the full price and the cut; «doesn't sell» for what makes no item), «Profit»
 // (red under nought), and how old the oldest price taken is, in its age's colour; «—» where a part has no price.
 import Game from "$game"
-import { Align, Art, Edges, Line, Side, Track } from "$ltml"
+import { Align, Art, Edges, Frame, Line, Side, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
@@ -59,13 +59,19 @@ public class PricedReagentRow implements Component {
     self.index = index
   }
 
+  // The reagent's name shows its tooltip as its icon does.
+  onEnter(self, frame: any Frame) {
+    const item = self.item
+    if (item != nil) { Game.items.show(frame, item) }
+  }
+
   public render(self): Template {
     return $ltml {
       <>
         <box padding={FIRST} border={self.rule} yAlign={Align.Center}>
           <ItemButton item={self.item} art={self.icon} size={SLOT} />
         </box>
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
+        <box padding={NEXT} border={self.rule} yAlign={Align.Center} @pointerEnter={self.onEnter}>
           <text value={self.price.name} textColor={Style.INK} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>

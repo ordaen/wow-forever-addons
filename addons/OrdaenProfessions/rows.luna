@@ -3,7 +3,7 @@
 // category on the recipes' stained wood, cut into the groove between them; a recipe a plain light). A recipe's row
 // says what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
-import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Edges, Frame, Line, MouseButton, Position, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, ItemButton, Money, TableRow, WINDOW_ROOM } from "Ordaen"
 import { RecipeMenu } from "@/menu"
 import { SourceTotals, roughCost, roughProfit } from "@/split"
@@ -71,6 +71,17 @@ public class CategoryRow implements Component {
   }
 }
 
+// A recipe's tooltip beside its row: the item it makes, as the game's professions window shows it; the recipe's own
+// spell for one that makes none (an enchant).
+public function showRecipe(frame: any Frame, recipe: Integer) {
+  const made = Game.recipeReader.schematic(recipe)?.makes
+  if (made != nil) {
+    Game.items.show(frame, made)
+  } else {
+    Game.items.showSpell(frame, recipe)
+  }
+}
+
 // A recipe: its name in its difficulty's colour (an unlearned one dim), a gold pip when the player starred it, `[N]`
 // at the right for how many the bags can make now. Its menu stands under it while the window says it is the one open.
 public class RecipeRow implements Component {
@@ -114,11 +125,12 @@ public class RecipeRow implements Component {
   }
 
   onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
+  onEnter(self, frame: any Frame) { showRecipe(frame, self.recipe.id) }
 
   public render(self): Template {
     return $ltml {
       <TabItem selected={self.isChosen} into={Style.RECIPE_LIT} first={self.first} columns={NAME_COUNT}
-               padding={self.padding} @pick={self.onClick}>
+               padding={self.padding} @pick={self.onClick} @enter={self.onEnter}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
         <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
@@ -242,11 +254,12 @@ public class RecipeTableRow implements Component {
   }
 
   onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
+  onEnter(self, frame: any Frame) { showRecipe(frame, self.recipe.id) }
 
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick}>
+        <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick} @enter={self.onEnter}>
           <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.None} />
           <box xAlign={Align.End}>
             <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
@@ -288,10 +301,18 @@ public class ReagentRow implements Component {
     self.index = index
   }
 
+  // The reagent's tooltip beside its whole row.
+  onEnter(self, frame: any Frame) {
+    Game.tooltip.rowAt(frame)
+    const item = self.item
+    if (item != nil) { Game.items.show(frame, item) }
+  }
+
   public render(self): Template {
     return $ltml {
-      <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
-        <ItemButton item={self.item} art={self.icon} size={SLOT} />
+      <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}
+           @pointerEnter={self.onEnter}>
+        <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} />
         <text value={self.reagent.name} textColor={Style.INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={.None} textColor={self.color}
               textFont={.Numbers} />

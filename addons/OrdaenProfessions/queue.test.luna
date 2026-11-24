@@ -72,8 +72,9 @@ function window(): Test.Part {
   return Test.page().window("Overview")
 }
 
+// What the game was asked, but the tooltips of the rows the cursor crossed.
 function asked(expected: String): Boolean {
-  const said = Test.requests().join(", ")
+  const said = Test.requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }

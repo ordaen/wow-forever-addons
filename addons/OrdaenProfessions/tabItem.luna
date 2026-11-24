@@ -3,11 +3,12 @@
 // (`into`), so it reads as part of it; the others stand on their own list's. Where its list is parted from the section
 // by a groove (`groove`), the selected one carries the groove along its top and bottom, a tab cut into it. A faint rule
 // above every item but the first; a light under the cursor. A click of either button reports `pick` (a right-click
-// opens the item's menu).
+// opens the item's menu); the cursor coming onto it reports `enter` with its frame, a list's row a tooltip stands beside.
 //
 // A prototype of the professions window's design: Ordaen's `SelectItem` takes the same arguments but `into`, so it
 // can become an option of it once the design holds.
-import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
+import Game from "$game"
+import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import { Component } from "Ordaen"
 import Style from "@/style"
 
@@ -18,6 +19,7 @@ const ONE: Array<Track> = [{ fr: 1 }]
 
 public class TabItem implements Component {
   public pick: Event<MouseButton> = new Event()
+  public enter: Event<any Frame> = new Event()
 
   derived background: Art | Color | ByInteractionState<Color> = self.selected ? self.into.art : SHADE
   derived tint: Color | nil = self.selected ? self.into.tint : nil
@@ -51,12 +53,16 @@ public class TabItem implements Component {
 
   onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
   onKey(mut self) { self.pick.emit(.Left) }
+  onEnter(mut self, frame: any Frame) {
+    Game.tooltip.rowAt(frame)
+    self.enter.emit(frame)
+  }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.background} tint={self.tint} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
-           @keyPress(.Space)={self.onKey}>
+           @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter}>
         <$if={self.grooved}>
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={Style.GROOVE} background={Style.GROOVE_DARK} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={Style.GROOVE} height={Style.GROOVE}

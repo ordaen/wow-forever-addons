@@ -6,7 +6,7 @@
 // dragged out onto the action bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
@@ -170,7 +170,7 @@ class SpellSlot implements Component {
   public render(self): Template {
     return $ltml {
       <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed} linkOnShift={false}
-                  markers={self.marks} @dragged={self.onGrab} @pressed={self.onPressed}>
+                  markers={self.marks} tipped={false} @dragged={self.onGrab} @pressed={self.onPressed}>
         <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={DIMMED}
              fill={self.shade} zLevel={1} />
       </ItemButton>
@@ -210,6 +210,12 @@ function rankOf(spell: Game.SpellEntry): String | nil {
   return number == nil ? spell.rank : Locale.SPELL_RANK.format(number.floor())
 }
 
+// A spell's tooltip beside its whole row, as the game's spellbook shows it.
+function showSpellRow(frame: any Frame, spell: Game.SpellEntry) {
+  Game.tooltip.rowAt(frame)
+  Game.items.showSpell(frame, spell.id)
+}
+
 // A spell's row: its slot, its name, and under it what its group doesn't say, a bullet between each.
 public class SpellRow implements Component {
   derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
@@ -222,11 +228,12 @@ public class SpellRow implements Component {
   }
 
   onGrab(self) { pickUp(self.spell) }
+  onEnter(self, frame: any Frame) { showSpellRow(frame, peek self.spell) }
 
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={2.5sp} yAlign={Align.Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
-           background={GROUND} @dragStart={self.onGrab}>
+           background={GROUND} @dragStart={self.onGrab} @pointerEnter={self.onEnter}>
         <SpellSlot spell={self.spell} size={SLOT} />
         <box columns={1} gap={LINES_APART}>
           <text value={self.spell.name} textColor={self.ink} leading={.Tight} />
@@ -254,10 +261,11 @@ public class SpellTableRow implements Component {
   }
 
   onGrab(self) { pickUp(self.spell) }
+  onEnter(self, frame: any Frame) { showSpellRow(frame, peek self.spell) }
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS}>
+      <TableRow tracks={TRACKS} @enter={self.onEnter}>
         <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
           <SpellSlot spell={self.spell} size={23.4375dp} />
           <text value={self.title} textColor={self.ink} wrap={.None} />

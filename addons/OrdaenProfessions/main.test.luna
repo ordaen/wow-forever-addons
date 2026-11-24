@@ -257,8 +257,8 @@ test "the window's close asks the game to close the profession" {
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
   Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
   window().text("Linen Cloak").hover()
+  _ = Test.requests()
   window().button(Ordaen.art.ctl.corner.close).click()
   Test.expect(asked("TradeSkill.close"))
 }

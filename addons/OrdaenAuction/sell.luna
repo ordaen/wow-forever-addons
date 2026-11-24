@@ -4,7 +4,7 @@
 // less a copper, or the market), the duration, the merchant's price and the deposit as money, and «Post», one auction
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
-import { Align, Track } from "$ltml"
+import { Align, Frame, Track } from "$ltml"
 import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
@@ -73,11 +73,16 @@ class OfferedRow implements Component {
 
   onPick(self) { self.pick.emit(self.offered.item) }
 
+  // The item's tooltip beside its whole row.
+  onRowEnter(self, frame: any Frame) {
+    Game.items.show(frame, self.offered.item)
+  }
+
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.offered.item} size={Style.SLOT} />
+          <ItemButton item={self.offered.item} size={Style.SLOT} tipped={false} />
           <box overflow={.Hidden}>
             <text value={self.offered.name} textColor={self.offered.color} wrap={.None} />
           </box>

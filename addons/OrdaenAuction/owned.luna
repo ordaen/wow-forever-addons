@@ -3,7 +3,7 @@
 // the price for one, the time left, and «Cancel» on a row (one a click,
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
-import { Align, Track } from "$ltml"
+import { Align, Frame, Track } from "$ltml"
 import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
@@ -65,11 +65,16 @@ class OwnedRow implements Component {
 
   onCancel(self) { self.cancel.emit(self.shown.auction) }
 
+  // The item's tooltip beside its whole row.
+  onRowEnter(self, frame: any Frame) {
+    Game.items.show(frame, self.shown.item)
+  }
+
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS}>
+      <TableRow tracks={TRACKS} @enter={self.onRowEnter}>
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.shown.item} size={Style.SLOT} />
+          <ItemButton item={self.shown.item} size={Style.SLOT} tipped={false} />
           <box rows={LINES} overflow={.Hidden}>
             <text value={self.shown.name} textColor={self.shown.color} wrap={.None} />
             <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={.None} />

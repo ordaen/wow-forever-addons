@@ -9,7 +9,7 @@
 // the right its listings, a quantity, the total, «Buy» (the client's from a click alone) and «Add to shopping list». A
 // row right-clicked: its menu (`RowMenu`).
 import Game from "$game"
-import { Align, Beside, Edges, Layer, Line, MouseButton, Side, Track } from "$ltml"
+import { Align, Beside, Edges, Frame, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
@@ -378,12 +378,17 @@ class FoundRow implements Component {
     return color
   }
 
+  // The item's tooltip beside its whole row.
+  onRowEnter(self, frame: any Frame) {
+    Game.items.show(frame, self.found.item)
+  }
+
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.found.item} size={Style.SLOT} />
+          <ItemButton item={self.found.item} size={Style.SLOT} tipped={false} />
           <box overflow={.Hidden}>
             <text value={self.found.name} textColor={self.found.color} wrap={.Cut} />
           </box>

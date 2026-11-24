@@ -77,9 +77,10 @@ function reads(part: Test.Part, expected: String): Boolean {
   return true
 }
 
+// What the game was asked, but the tooltips of the rows the cursor crossed.
 function asked(expected: String): Boolean {
   Test.flush()
-  const said = Test.requests().join(", ")
+  const said = Test.requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }

@@ -34,7 +34,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 501.82,280.02 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
                 box 508.49,280.02 686.38x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
             box 454.96,302.65 739.91x88
-              box 454.96,302.65 240x39.02 #00000000 @dragStart
+              box 454.96,302.65 240x39.02 #00000000 @dragStart @pointerEnter
                 box 459.22,305.5 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 459.22,305.5 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
                   box 459.22,305.5 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
@@ -42,7 +42,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 499.67,307.54 191.02x29.24
                   text 499.67,307.54 191.02x14.4 "Find Treasure" #e8dcc4
                   text 499.67,324.79 191.02x12 "General" #a3977f
-              box 704.91,302.65 240x39.02 #00000000 @dragStart
+              box 704.91,302.65 240x39.02 #00000000 @dragStart @pointerEnter
                 box 709.18,305.5 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 709.18,305.5 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
                   box 709.18,305.5 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
@@ -50,7 +50,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 749.62,307.54 191.02x29.24
                   text 749.62,307.54 191.02x14.4 "Heroic Strike" #e8dcc4
                   text 749.62,324.79 191.02x12 "Warrior • Rank 2" #a3977f
-              box 954.87,302.65 240x39.02 #00000000 @dragStart
+              box 954.87,302.65 240x39.02 #00000000 @dragStart @pointerEnter
                 box 959.13,305.5 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 959.13,305.5 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
                   box 959.13,305.5 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
@@ -58,7 +58,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 999.58,307.54 191.02x29.24
                   text 999.58,307.54 191.02x14.4 "Mortal Strike" #e8dcc4
                   text 999.58,324.79 191.02x12 "Arms" #a3977f
-              box 454.96,351.63 240x39.02 #00000000 @dragStart
+              box 454.96,351.63 240x39.02 #00000000 @dragStart @pointerEnter
                 box 459.22,354.47 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 459.22,354.47 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
                   box 459.22,354.47 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
@@ -73,7 +73,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 507.66,417.99 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
                 box 514.32,417.99 680.54x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
             box 454.96,440.62 739.91x39.02
-              box 454.96,440.62 240x39.02 #00000000 @dragStart
+              box 454.96,440.62 240x39.02 #00000000 @dragStart @pointerEnter
                 box 459.22,443.46 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 459.22,443.46 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
                   box 459.22,443.46 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0

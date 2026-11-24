@@ -9,7 +9,7 @@
 // at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
 // that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
-import { Align, Art, Columns, Cursor, Event, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Columns, Cursor, Event, Frame, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterBand, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import { NO_ROOM, TOOL_ROOM } from "@/layout"
@@ -289,11 +289,16 @@ class WareTableRow implements Component {
   onPick(self, button: MouseButton) { self.pressed.emit(self.ware, button) }
   onSlot(self, click: Event.Press) { self.pressed.emit(self.ware, click.button) }
 
+  // The item's tooltip beside its whole row.
+  onRowEnter(self, frame: any Frame) {
+    Game.items.show(frame, self.ware.id)
+  }
+
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} @pick={self.onPick} @enter={self.onRowEnter}>
         <box columns={TABLE_CELL} gap={3sp} yAlign={Align.Center}>
-          <ItemButton item={self.ware.id} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
+          <ItemButton item={self.ware.id} tipped={false} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
                       size={TABLE_SLOT} linkOnShift={false} @pressed={self.onSlot} />
           <text value={self.ware.name} textColor={self.nameColor} wrap={.Cut} />
         </box>

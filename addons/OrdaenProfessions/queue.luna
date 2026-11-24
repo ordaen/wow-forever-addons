@@ -5,7 +5,7 @@
 // doing or why it waits, what the missing parts cost with «To the shopping list» while prices show, and «Create
 // next», the player's click that starts the next run (the client starts a craft from nothing else).
 import Game from "$game"
-import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
+import { Align, Art, Edges, Frame, Line, Overflow, Track } from "$ltml"
 import { ButtonPlate, Component, CountInput, FooterBand, ItemButton, Money, PushButton, SECONDARY_TEXT, WINDOW_ROOM } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
@@ -202,10 +202,18 @@ public class NeedRow implements Component {
     self.priced = priced
   }
 
+  // The reagent's tooltip beside its whole row.
+  onEnter(self, frame: any Frame) {
+    Game.tooltip.rowAt(frame)
+    const item = self.item
+    if (item != nil) { Game.items.show(frame, item) }
+  }
+
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={3sp} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
-        <ItemButton item={self.item} art={self.icon} size={32.8125dp} />
+      <box columns={self.columns} gap={3sp} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}
+           @pointerEnter={self.onEnter}>
+        <ItemButton item={self.item} art={self.icon} size={32.8125dp} tipped={false} />
         <text value={self.need.name} textColor={Style.INK} wrap={.None} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
