@@ -23,8 +23,8 @@ import Style from "@/style"
 import { KeptWipe } from "@/talents"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
-// A screen with room beside the window on either side.
-const WIDE_PAGE: Test.Page = { left: 0, top: 0, width: 2600, height: 1000, screen: true }
+// A screen with room beside the window on every side.
+const WIDE_PAGE: Test.Page = { left: 0, top: 0, width: 2600, height: 1800, screen: true }
 // How far a tooltip's edge may stand from the one it meets.
 const EDGE = 12
 // A text the window always shows: its last tab.
@@ -487,13 +487,30 @@ test "a stat's tooltip stands beside the stat, out of the window on its column's
   Test.expect((right.left - haste.rect().right).abs() < EDGE)
   Test.expect(right.left > window.rect().right - EDGE * 3)
   Test.expect((right.top - haste.rect().top).abs() < EDGE)
-  // The damage reduction, in the left column: its right edge left of the card, past the window's left.
-  const taken = window.text(Locale.DAMAGE_REDUCTION)
+}
+
+test "the cards and the armor that hide what their tooltips light have their own ways: over, right or left of them" {
+  Test.mount(nil, WIDE_PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { armor: 1200, meleeHit: 6, expertise: 2, atMaxLevel: true }
+  const window = opened(mut sheet)
+  // The damage reduction's over its card, their left edges together.
+  const reduction = window.text(Locale.DAMAGE_REDUCTION)
+  reduction.hover()
+  const over = Test.page().window(Locale.DAMAGE_REDUCTION_TIP).rect()
+  Test.expect(over.bottom <= reduction.rect().top && over.bottom > reduction.rect().top - EDGE * 2)
+  Test.expect(over.left < reduction.rect().left && over.left > reduction.rect().left - EDGE * 4)
+  // The hit on you's right of its card, their bottoms level.
+  const taken = window.text(Locale.HIT_TAKEN)
   taken.hover()
-  const left = Test.page().window(Locale.DAMAGE_REDUCTION_TIP).rect()
-  Test.expect(left.right < taken.rect().left)
-  Test.expect(left.right < window.rect().left + EDGE * 3)
-  Test.expect((left.top - taken.rect().top).abs() < EDGE * 2)
+  const right = Test.page().window(Locale.HIT_TAKEN_TIP).rect()
+  Test.expect(right.left > taken.rect().right && right.bottom >= taken.rect().bottom)
+  // Melee's chance to hit's left of its card.
+  const lands = window.text("93.50%")
+  lands.hover()
+  const left = Test.page().window(Locale.LANDS_TIP).rect()
+  Test.expect(left.right < lands.rect().left && left.bottom >= lands.rect().bottom)
 }
 
 test "the damage a second's tooltip lights what feeds it directly: attack power and attack speed, not the haste behind it" {

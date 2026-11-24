@@ -2,7 +2,7 @@
 // big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
-import { Align, Beside, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
+import { Align, Beside, Event, Hang, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Tip, Weights } from "Ordaen"
 import { CarveShade, CarvedFloor, GaugeBar, GaugeMark, WELL_INSET, WellSlice } from "@/gauge"
 import Locale from "@/locales"
@@ -22,6 +22,8 @@ public struct Gauge {
   const stat: Stat | nil = nil
   // Its caps, marked on it.
   const caps: Array<Cap> = []
+  // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the gauge's.
+  const tip: Hang | nil = nil
 }
 
 // A gauge whose caps are marked on it: it reaches a fifth past the greatest, so each mark stands inside it.
@@ -49,6 +51,8 @@ public struct Figure {
   const color: Color
   const lit: Boolean = false
   const stat: Stat | nil = nil
+  // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the card's.
+  const tip: Hang | nil = nil
 }
 
 // A section of the right column: its title on the cut over it, its leading gauges (the skills it rests on: the
@@ -177,15 +181,25 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
 }
 
 // The defence section's cards: the armor's cut of the damage and what of an enemy's blows lands on the player, side by
-// side, against the enemy the cards count; under them, with a shield, block's chance and the damage a block stops.
+// side, against the enemy the cards count; under them, with a shield, block's chance and the damage a block stops. The
+// reduction's tooltip stands over it, the hit's on its right, block's on its left, each clear of what it lights.
 function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
   const rows: Array<Array<Figure>> = [[
-    { label: Locale.DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .DamageReduction },
-    { label: Locale.HIT_TAKEN, value: percent(statValue(.HitTaken, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: .HitTaken }
+    {
+      label: Locale.DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH),
+      color: Style.STAT, stat: .DamageReduction, tip: { point: .BottomLeft, to: .TopLeft }
+    },
+    {
+      label: Locale.HIT_TAKEN, value: percent(statValue(.HitTaken, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT,
+      stat: .HitTaken, tip: { point: .BottomLeft, to: .BottomRight }
+    }
   ]]
   if (stats.shield) {
     rows.push([
-      { label: Locale.BLOCK, value: percent(stats.block), glyph: glyph(BLOCK_GLYPH), color: Style.STAT, stat: .Block },
+      {
+        label: Locale.BLOCK, value: percent(stats.block), glyph: glyph(BLOCK_GLYPH), color: Style.STAT, stat: .Block,
+        tip: { point: .BottomRight, to: .BottomLeft }
+      },
       { label: Locale.BLOCK_VALUE, value: String.of(stats.blockValue), glyph: glyph(BLOCKED_GLYPH), color: Style.STAT, stat: .BlockValue }
     ])
   }
@@ -204,12 +218,15 @@ public function defenceOf(stats: Stats): Section {
   }
 }
 
-// The defence section's gauges under its cards: dodge and parry, then the armor.
+// The defence section's gauges under its cards: dodge and parry, then the armor, its tooltip over it.
 function defenceGauges(stats: Stats): Array<Gauge> {
   return [
     rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP, .Dodge),
     rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP, .Parry),
-    { label: Locale.ARMOR, value: stats.armor, cap: ARMOR_CAP, text: String.of(stats.armor), tone: Style.ARMOR, stat: .Armor }
+    {
+      label: Locale.ARMOR, value: stats.armor, cap: ARMOR_CAP, text: String.of(stats.armor), tone: Style.ARMOR, stat: .Armor,
+      tip: { point: .BottomLeft, to: .TopLeft }
+    }
   ]
 }
 
@@ -282,9 +299,13 @@ function skillGauges(held: Array<Held>, skills: Array<Skill>): Array<Gauge> {
   return gauges
 }
 
-// A section's card of what lands of its attacks, in percent to the hundredth.
+// A section's card of what lands of its attacks, in percent to the hundredth; its tooltip on its left, clear of the
+// skills, the hit and the expertise it lights.
 function landsCard(stat: Stat, stats: Stats): Figure {
-  return { label: Locale.LANDS, value: percent(statValue(stat, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: stat }
+  return {
+    label: Locale.LANDS, value: percent(statValue(stat, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: stat,
+    tip: { point: .BottomRight, to: .BottomLeft }
+  }
 }
 
 // A section's card of the seconds between its swings or its shots.
@@ -417,6 +438,14 @@ public const TIP_LEFT: Beside = {
   ]
 }
 
+// Where a view's tooltip stands: its own way first where it has one, then its column's.
+function placeFor(column: Beside, own: Hang | nil): Beside {
+  if (own == nil) { return column }
+  const prefer: Array<Hang> = [own]
+  for (hang of column.prefer ?? []) { prefer.push(hang) }
+  return { beside: column.beside, prefer: prefer }
+}
+
 // What a stat's view stands in: with the cursor on it, the stat's tooltip (its name and value, the game's words on it,
 // its sources) stands beside it (`tip`: on which side), and `tipped` tells the page which stat it is, so its sources
 // light; a stat that feeds the one whose tooltip is open glows gold. A view of no stat (`stat` none) is a plain box.
@@ -481,6 +510,7 @@ public class StatGauge implements Component {
   derived marks: Array<GaugeMark> = marksOf(self.gauge)
   derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = self.gauge.label
+  derived place: Beside = placeFor(self.tip, self.gauge.tip)
 
   gauge: Signal<Gauge>
   shown: Signal<Breakdown>
@@ -500,7 +530,7 @@ public class StatGauge implements Component {
 
   public render(self): Template {
     return $ltml {
-      <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} quiet={self.onMark} tip={self.tip}
+      <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} quiet={self.onMark} tip={self.place}
                 @tipped={self.onTipped}>
         <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
           <text value={self.gauge.label} textColor={BRIGHT_TEXT} wrap={.None} />
@@ -556,6 +586,7 @@ public class StatCard implements Component {
 
   derived glyphShade: Number = self.figure.lit ? 1 : 0.7
   derived title: String = self.figure.label
+  derived place: Beside = placeFor(self.tip, self.figure.tip)
   derived ink: Color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
 
   figure: Signal<Figure>
@@ -574,7 +605,7 @@ public class StatCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} tip={self.tip} @tipped={self.onTipped}>
+      <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} tip={self.place} @tipped={self.onTipped}>
         <box columns={[Style.SOCKET, { fr: 1 }, "max-content"]} gap={Style.CARD_GAP} padding={Style.CARD_PAD}
              yAlign={Align.Stretch}>
           <CarvedFloor />
