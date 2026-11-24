@@ -6,7 +6,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Art } from "$ltml"
+import { Art, Piece } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -517,6 +517,15 @@ test "below the greatest level a target of the player's level counts; weapon ski
   Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 3.60% | Dodge | 3.60% | Parry | 4.60% | Glancing blow | 10.00% | Ordinary hit | 27.80% | Crit | 50.40% | Raid bosses"))
   // A boss leaves 42.2 for a crit of 50 - 0.2: it takes all of it, no ordinary hit.
   Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 6.60% | Dodge | 5.10% | Parry | 16.10% | Glancing blow | 30.00% | Ordinary hit | 0.00% | Crit | 42.20%"))
+}
+
+test "what lands's card wears the percent glyph, the glyphs' eleventh row" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  const sheet: Asset = "@/media/character-glyphs.tga"
+  const percent: Piece = { file: sheet, width: 64, height: 1024, rows: 16, normal: 10 }
+  Test.expect(window.paintedWith(percent))
 }
 
 test "a spell's misses come first, its crits of what lands" {

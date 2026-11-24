@@ -92,19 +92,20 @@ const ARMOR_CAP = 17265
 const RESISTANCE_CAP = 315
 
 // The glyphs (art/pieces/character-glyphs.json): a column of 64-texel cells, white, tinted where they are drawn: holy,
-// fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage and armor.
+// fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage, armor and percent.
 const GLYPH_FILE: Asset = "@/media/character-glyphs.tga"
 const function glyphPieces(): Array<Piece> {
   let list: Array<Piece> = []
-  for (row of 0..9) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
+  for (row of 0..10) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
   return list
 }
 const GLYPHS: Array<Piece> = glyphPieces()
-function glyph(row: Integer): Piece { return GLYPHS[row] ?? panic("ten glyphs") }
+function glyph(row: Integer): Piece { return GLYPHS[row] ?? panic("eleven glyphs") }
 const HEAL_GLYPH = 7
 const POWER_GLYPH = 8
 const DAMAGE_GLYPH = 9
 const ARMOR_GLYPH = 10
+const PERCENT_GLYPH = 11
 // The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
 const SCHOOL_COLORS: Array<Color> = [Style.HOLY, Style.FIRE, Style.NATURE, Style.FROST, Style.SHADOW, Style.ARCANE]
 function schoolColor(school: Integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
@@ -270,7 +271,7 @@ function joined(first: Array<Gauge>, then: Array<Gauge>): Array<Gauge> {
 
 // A section's card of what lands of its attacks, in percent to the hundredth.
 function landsCard(stat: Stat, stats: Stats): Figure {
-  return { label: Locale.LANDS, value: percent(statValue(stat, stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: stat }
+  return { label: Locale.LANDS, value: percent(statValue(stat, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: stat }
 }
 
 function melee(stats: Stats, skills: Array<Skill>): Section {

@@ -1,9 +1,9 @@
 {
-  "says": "The character window's stat glyphs, in a card's socket and under a resistance's bar (OrdaenCharacter's stats.luna, GLYPHS): one column of 32 x 32 px cells (64 x 64 texels), each a 28 px glyph 2 px in from its cell's top left, drawn white for the game to tint with the school's or the stat's colour, in this order: holy, fire, nature, frost, shadow, arcane, heal, power, damage, armor; six rows empty.",
+  "says": "The character window's stat glyphs, in a card's socket and under a resistance's bar (OrdaenCharacter's stats.luna, GLYPHS): one column of 32 x 32 px cells (64 x 64 texels), each a 28 px glyph 2 px in from its cell's top left, drawn white for the game to tint with the school's or the stat's colour, in this order: holy, fire, nature, frost, shadow, arcane, heal, power, damage, armor, percent; five rows empty.",
   "ships": [
     "addons/OrdaenCharacter/media/character-glyphs.tga"
   ],
-  "origin": "Drawn by the design's own glyphs: wow-dev-tools `design/scripts/stat-glyphs.mjs <page> holy fire nature frost shadow arcane heal power damage armor` writes a page from theme/stat-glyphs.js's statGlyph (Ordaen's glyph set in glyphs.js, and the window's own: heal, power); the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 32 --height 512 --scale 2` (`?bg=black`, `?bg=white`), then matted.",
+  "origin": "Drawn by the design's own glyphs: wow-dev-tools `design/scripts/stat-glyphs.mjs <page> holy fire nature frost shadow arcane heal power damage armor percent` writes a page from theme/stat-glyphs.js's statGlyph (Ordaen's glyph set in glyphs.js, and the window's own: heal, power, percent); the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 32 --height 512 --scale 2` (`?bg=black`, `?bg=white`), then matted.",
   "steps": [
     { "matte": { "black": "art/sources/character-glyphs-black.png", "white": "art/sources/character-glyphs-white.png", "out": "addons/OrdaenCharacter/media/character-glyphs.tga", "width": 64, "height": 1024 } }
   ]
