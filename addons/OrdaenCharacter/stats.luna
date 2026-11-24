@@ -7,7 +7,7 @@ import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, T
 import { CarveShade, CarvedFloor, GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
-import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
+import { Boost, Breakdown, NO_BREAKDOWN, SPELL_HIT_CAPS, WEAPON_HIT_CAPS, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
 
@@ -72,8 +72,8 @@ public struct Main {
 
 // The caps: hit against a boss (melee and ranged, spells), crit, expertise, defense (a level 63 boss can't crit),
 // dodge, parry and block, haste; the armor and a resistance that stop three quarters of a level 63 boss's damage.
-const MELEE_HIT_CAP = 9
-const SPELL_HIT_CAP = 17
+const MELEE_HIT_CAP: Number = WEAPON_HIT_CAPS.boss
+const SPELL_HIT_CAP: Number = SPELL_HIT_CAPS.boss
 const CRIT_CAP = 40
 const EXPERTISE_CAP = 6.5
 const DEFENSE_CAP = 440

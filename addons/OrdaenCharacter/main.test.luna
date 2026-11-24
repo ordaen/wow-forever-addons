@@ -441,6 +441,18 @@ test "what health and mana regain stands under their bars, out of a fight and in
   Test.expect(tip.texts().join(" | ") == "Regeneration | Stats | Spirit | 100 × 0.3 = | 30 | Base | 10")
 }
 
+test "a hit's tooltip lists its own section's caps, each green once the hit reaches it; a weapon in each hand its swings' too" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHit: 6, spellHit: 6, speed: 2.6, offSpeed: 1.8 }
+  const window = opened(mut sheet)
+  window.text("6.00%").nth(1).hover()
+  const tip = Test.page().window("Raid bosses")
+  Test.expect(tip.texts().join(" | ").contains("Needed to never miss | Raid bosses | 8.00% | Targets of your level | 5.00% | A weapon in each hand, plain swings | Raid bosses | 27.00% | Targets of your level | 24.00%"))
+  Test.expect(tip.text("5.00%").textColor().equal(Style.GREEN) && !tip.text("8.00%").textColor().equal(Style.GREEN))
+}
+
 test "the defense skill stands over block, so block's chance stands over the damage it stops" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
