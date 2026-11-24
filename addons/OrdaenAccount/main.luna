@@ -1,0 +1,200 @@
+// Ordaen Account: one window of four tabs, «Legacy» (its tree and its rewards), «Achievements», «Alts» (Ordaen Alts'
+// pages, while that module runs) and «Collections» (mounts, pets, toys; the appearances are the game's own window).
+// It opens in place of the game's own Legacy window, achievements window and collections journal: whatever shows one
+// of them (the micro menu's button, a key, another addon's call) shows ours on its tab, the game's held unseen and off
+// the screen while ours shows; closing ours closes the game's. The micro menu's collections button opens ours on the
+// tab last open. `/account` opens it too, and `/alts` on «Alts».
+import Client from "$client"
+import Events from "$events"
+import { Align, Frame } from "$ltml"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { GamePass, KeptWindow, Module, PushButton, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import root Alts from "OrdaenAlts"
+import { Challenges } from "@/challenges"
+import { Collection, Kind } from "@/collections"
+import { Legacy } from "@/legacy"
+import Locale from "@/locales"
+import Style from "@/style"
+
+public const TAB_LEGACY = 1
+public const TAB_ACHIEVEMENTS = 2
+public const TAB_ALTS = 3
+public const TAB_COLLECTIONS = 4
+// The collections' sub tabs; the appearances are the game's journal's fifth.
+const SUB_TRANSMOG = 4
+const JOURNAL_APPEARANCES = 5
+
+const TABS: Array<WindowTabSpec> = [
+  { title: Locale.TAB_LEGACY, icon: "Interface/Icons/Achievement_General" },
+  { title: Locale.TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08" },
+  { title: Locale.TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male" },
+  { title: Locale.TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse" }
+]
+const LEGACY_SUBS: Array<String> = [Locale.SUB_TREE, Locale.SUB_REWARDS]
+const COLLECTION_SUBS: Array<String> = [Locale.SUB_MOUNTS, Locale.SUB_PETS, Locale.SUB_TOYS, Locale.SUB_TRANSMOG]
+
+// A window of the game's ours stands for: its addon, its frame's name, and the tab ours opens on.
+struct GameWindow {
+  addon: String
+  frame: String
+  tab: Integer
+}
+const GAME_WINDOWS: Array<GameWindow> = [
+  { addon: "Blizzard_LegacySystem", frame: "LegacySystemFrame", tab: TAB_LEGACY },
+  { addon: "Blizzard_AchievementUI", frame: "AchievementFrame", tab: TAB_ACHIEVEMENTS },
+  { addon: "Blizzard_Collections", frame: "CollectionsJournal", tab: TAB_COLLECTIONS }
+]
+const OPENER = "CollectionsMicroButton"
+const JOURNAL = "CollectionsJournal"
+const JOURNAL_ADDON = "Blizzard_Collections"
+
+public class Account implements Module, App {
+  public const title: String = "Ordaen Account"
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
+  ]
+
+  public state open = false
+  public state tab: Integer = TAB_LEGACY
+  public state legacySub = 1
+  public state collectionSub = 1
+  derived kind: Kind = self.collectionSub == 1 ? .Mounts : self.collectionSub == 2 ? .Pets : .Toys
+  // «Alts»: Ordaen Alts' pages while it runs, else how to turn it on.
+  const altsOff: Template = $ltml {
+    <box xAlign={Align.Center} yAlign={Align.Center}>
+      <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+    </box>
+  }
+  derived alts: Template = Alts?.content ?? self.altsOff
+  // The game's windows ours stands for, and those of them showing: held unseen and off the screen.
+  games: mut Array<any Client.Frame> = []
+  state held: mut Array<any Frame> = []
+  pass: mut GamePass = new GamePass()
+  // The micro menu's button pressed: the journal it shows opens ours on the tab last open, not on «Collections».
+  fromButton = false
+  addonHeard: Handle | nil = nil
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Runtime.command("/account", (text: String): nil => {
+      for (module of Ordaen.modules) {
+        if (module == self) { self.toggle() }
+      }
+      return nil
+    })
+    // `/alts` while Alts' pages are this window's.
+    watch (alts of Alts) {
+      if (alts != nil) { alts.asked.listen(self.openAlts) }
+    }
+    for (game of GAME_WINDOWS) { self.hook(Runtime.frame(game.frame), game.tab) }
+    self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
+    const button = Runtime.frame(OPENER)
+    if (button != nil) {
+      const opener: any Client.Frame = button
+      _ = opener.HookScript("OnMouseDown", (): nil => {
+        self.fromButton = true
+        return nil
+      })
+    }
+  }
+
+  onAddonLoaded(mut self, name: String) {
+    for (game of GAME_WINDOWS) {
+      if (game.addon == name) { self.hook(Runtime.frame(game.frame), game.tab) }
+    }
+  }
+
+  // A game's window ours stands for: ours opens and closes with it, on its tab.
+  hook(mut self, frame: any Frame | nil, tab: Integer) {
+    if (frame == nil) { return }
+    const window: any Client.Frame = frame
+    if (self.games.any(one => one == window)) { return }
+    self.games.push(window)
+    _ = window.HookScript("OnShow", (): nil => {
+      self.onGameShown(frame, tab)
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.onGameHidden(frame)
+      return nil
+    })
+    if (window.IsShown()) { self.onGameShown(frame, tab) }
+  }
+
+  onGameShown(mut self, frame: any Frame, tab: Integer) {
+    if (self.pass.passes(frame)) { return }
+    if (!self.fromButton) { self.window.ask(tab) }
+    self.fromButton = false
+    if (!(peek self.held).any(one => one == frame)) { self.held.push(frame) }
+    self.open = true
+  }
+
+  onGameHidden(mut self, frame: any Frame) {
+    if (self.pass.hidden(frame)) { return }
+    self.held = (peek self.held).filter(one => one != frame)
+    if ((peek self.held).length == 0) { self.open = false }
+  }
+
+  public toggle(mut self) {
+    if (peek self.open) {
+      self.onClose()
+    } else {
+      self.open = true
+    }
+  }
+
+  openAlts(mut self) {
+    self.window.ask(TAB_ALTS)
+    self.open = true
+  }
+
+  // Ours closed: the game's close with it.
+  onClose(mut self) {
+    self.open = false
+    for (game of self.games) {
+      if (game.IsShown()) { Client.HideUIPanel(game) }
+    }
+  }
+
+  // The appearances: the game's own journal on its tab, as it is; ours closes.
+  onTransmog(mut self) {
+    self.onClose()
+    // Its addon loaded first (and hooked, as it loads), so the journal shows let through, then turns to its tab.
+    if (Runtime.frame(JOURNAL) == nil) { _ = Client.C_AddOns.LoadAddOn(JOURNAL_ADDON) }
+    const journal = Runtime.frame(JOURNAL)
+    if (journal == nil) { return }
+    self.pass.pass(journal)
+    Client.SetCollectionsJournalShown(true, JOURNAL_APPEARANCES)
+  }
+
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $for={game of self.held} of={game} opacity={0} away={true} />
+      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true}
+              @close={self.onClose} @settings={self.onSettings}>
+        <box $if={self.tab == TAB_LEGACY} rows={["max-content", { fr: 1 }]} gap={3sp}>
+          <Tabs tabs={LEGACY_SUBS} selected={mut self.legacySub} />
+          <Legacy sub={self.legacySub} />
+        </box>
+        <Challenges $elseif={self.tab == TAB_ACHIEVEMENTS} />
+        <box $elseif={self.tab == TAB_ALTS}>
+          {self.alts}
+        </box>
+        <box $else rows={["max-content", { fr: 1 }]} gap={3sp}>
+          <Tabs tabs={COLLECTION_SUBS} selected={mut self.collectionSub} />
+          <box $if={self.collectionSub == SUB_TRANSMOG} rows={["max-content", "max-content"]} gap={3sp} xAlign={Align.Center}
+               yAlign={Align.Center}>
+            <text value={Locale.TRANSMOG_GAME} textColor={Style.DIM} />
+            <PushButton label={Locale.OPEN_APPEARANCES} width={220dp} @click={self.onTransmog} />
+          </box>
+          <Collection $else kind={self.kind} />
+        </box>
+      </Window>
+    }
+  }
+}

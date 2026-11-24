@@ -1,0 +1,116 @@
+// Ordaen Account's window: its tabs, the collections' lists and cards, the challenges and their criteria, Legacy
+// locked and open, and Alts' pages in its tab.
+import Client from "$client"
+import Test from "$test"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+// The window: found by its first tab, which it always shows.
+function window(): Test.Part {
+  return Test.page().window(Locale.TAB_LEGACY)
+}
+
+function account() {
+  (Client.SlashCmdList["ACCOUNT"] ?? panic("/account is the module's command"))("")
+}
+
+// Three mounts: one collected, two not, given out of order.
+function mounts() {
+  Client.C_MountJournal.GetMountIDs = (): Array<Number> => [3, 1, 2]
+  Client.C_MountJournal.GetMountInfoByID = (id: Number) => {
+    if (id == 1) { return "Zebra", 101, 132261, false, true, 0, false, false, nil, false, true, 1, false }
+    if (id == 2) { return "Alpaca", 102, 132261, false, true, 0, false, false, nil, false, false, 2, false }
+    return "Bear", 103, 132261, false, true, 0, false, false, nil, false, false, 3, false
+  }
+  Client.C_MountJournal.GetMountInfoExtraByID = (id: Number) => {
+    return 1234, "A striped horse of the plains.", "Vendor: Zeb", false, 230, 4, 0, 0, false
+  }
+}
+
+test "the window opens on Legacy, which is locked until the player's first Legacy rank" {
+  Test.mount(nil, SCREEN)
+  account()
+  Test.expect(window().text(Locale.LEGACY_LOCKED).shown())
+  account()
+  Test.expect(!window().shown())
+}
+
+test "the mounts list collected ones first, then by name; picking one shows its card, and the search narrows the list" {
+  mounts()
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_COLLECTIONS).click()
+  // In the order drawn: the collected Zebra before Alpaca and Bear.
+  const names = window().texts().filter(text => text == "Zebra" || text == "Alpaca" || text == "Bear")
+  Test.expect(names.join(",") == "Zebra,Alpaca,Bear")
+  Test.expect(window().text(Locale.COLLECTED.format(1, 3)).shown())
+  Test.shot("mounts")
+  window().text("Zebra").click()
+  Test.expect(window().text("A striped horse of the plains.").shown() && window().text("Vendor: Zeb").shown())
+  window().input().type("alp")
+  Test.expect(window().text("Alpaca").shown() && !window().text("Bear").shown())
+}
+
+test "the filters leave out what isn't collected" {
+  mounts()
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_COLLECTIONS).click()
+  window().button(Locale.SHOW_MISSING).click()
+  Test.expect(window().text("Zebra").shown() && !window().text("Alpaca").shown())
+}
+
+test "the challenges open on the class's category; a challenge picked shows its points and its criteria" {
+  Client.GetCategoryList = (): Array<Integer> => [15585, 15580]
+  Client.GetCategoryInfo = (id: Integer) => {
+    if (id == 15585) { return "Warrior", -1, 0 }
+    return "Paladin", -1, 0
+  }
+  Client.GetCategoryNumAchievements = (id: Number) => {
+    if (id == 15585) { return 2, 1, 1 }
+    return 0, 0, 0
+  }
+  Client.GetAchievementInfo = (category: Integer, index: Integer | nil) => {
+    if (index == 1) {
+      return 501, "Shield Wall", 10, true, 6, 3, 26, "Block a hundred blows.", 0, 132341, "", false, true, ""
+    }
+    return 502, "Execute", 10, false, nil, nil, nil, "Finish twenty foes.", 0, 132342, "", false, false, ""
+  }
+  Client.C_Traits.GetTraitCurrencyForAchievement = (currency: Number, id: Number): Number => id == 501 ? 5 : 10
+  Client.GetAchievementNumCriteria = (id: Number): Number => id == 502 ? 1 : 0
+  Client.GetAchievementCriteriaInfo = (id: Integer, index: Integer) => {
+    return "Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true
+  }
+  Client.UnitClass = (unit: String) => { return "Warrior", "WARRIOR", 1 }
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_ACHIEVEMENTS).click()
+  Test.expect(window().text("Shield Wall").shown() && window().text("Execute").shown())
+  // «Incomplete» unticked: the completed alone.
+  window().button(Locale.SHOW_OPEN).click()
+  Test.expect(window().text("Shield Wall").shown() && !window().text("Execute").shown())
+  window().button(Locale.SHOW_OPEN).click()
+  window().text("Execute").click()
+  Test.expect(window().text(Locale.POINTS.format(10)).shown() && window().text("7 / 20").shown())
+  Test.shot("challenges")
+}
+
+test "Legacy's tree shows its nodes and their ranks, and the points the player has" {
+  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 4
+  Test.legacyTalents([{ node: 110314, spell: 1225485, rank: 3, ranks: 5 }])
+  const config = Client.C_Traits.GetConfigIDBySystemID(45) ?? panic("the legacy talents are seeded")
+  Client.C_Traits.GetConfigIDByTreeID = (tree: Number): Number | nil => tree == 1187 ? config : nil
+  Client.C_Traits.GetTreeNodes = (tree: Number): Array<Number> | nil => tree == 1187 ? [110314] : nil
+  Test.mount(nil, SCREEN)
+  account()
+  Test.expect(window().text("3/5").shown() && window().text(Locale.TREE_PROFESSIONS).shown())
+  Test.shot("tree")
+}
+
+test "Alts' pages are a tab of the window, and /alts opens it there; Alts draws no window of its own" {
+  Test.mount(nil, SCREEN)
+  (Client.SlashCmdList["ALTS"] ?? panic("/alts is Alts' command"))("")
+  Test.expect(window().text("Characters").shown() && window().text("Gold").shown())
+  Test.expect(Test.page().window("Gold").count() == 1)
+}

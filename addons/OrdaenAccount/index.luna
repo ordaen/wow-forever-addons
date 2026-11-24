@@ -1,0 +1,3 @@
+// Ordaen Account: what the player builds up over time, in one window of four tabs: Legacy (its trees and its reward
+// track), the achievements (Forever's Legacy challenges), the characters (Ordaen Alts' pages) and the collections.
+public import { Account } from "@/main"

@@ -1,0 +1,271 @@
+// «Collections»: the mounts, the companion pets and the toys, each a list the player searches and filters, collected
+// ones first, then by name, as the game's own journal orders them; the picked one's card beside it, with its figure
+// (a mount's and a pet's, turned by a drag and brought nearer by the wheel), its words and what it is used with. The
+// appearances (transmog) stay the game's own window. What a list holds is read as its tab shows, and again when the
+// game says the collection changed.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Action, Align, Frame, Track } from "$ltml"
+import { Checkbox, Component, Field, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// What a list collects.
+public enum Kind { Mounts, Pets, Toys }
+
+// One entry of a list: what it is, and what its card says and shows.
+public struct Entry {
+  // What tells it from the others of its list.
+  key: String
+  name: String
+  icon: FileId | nil
+  owned: Boolean
+  // The player may use it now (a mount where it may be ridden, a toy of the player's class).
+  usable: Boolean
+  // A mount's number; a pet's journal ID (owned) or its species'; a toy's item.
+  id: Integer
+  // An owned pet's own ID, what summons it.
+  pet: String | nil
+  // The spell a mount is ridden with: its tooltip.
+  spell: Integer | nil
+}
+
+// The picked entry's card: its figure (a creature's look by its display ID) and its words, read as it is picked.
+public struct Card {
+  model: Integer | nil
+  description: String
+  source: String
+}
+
+const NO_CARD: Card = { model: nil, description: "", source: "" }
+const ROW: Array<Track> = [Style.ICON, { fr: 1 }]
+const LIST_PARTS: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const FILTERS: Array<Track> = ["max-content", "max-content"]
+const PREVIEW: Number<Length> = 300dp
+const BUTTON: Number<Length> = 180dp
+
+// The client gives some icons as plain numbers: a file's number, or nothing.
+function fileOf(icon: Number | nil): FileId | nil {
+  if (icon == nil) { return nil }
+  const whole = icon.floor()
+  return whole is FileId ? whole : nil
+}
+
+// Collected first, then by name.
+function ordered(entries: mut Array<Entry>) {
+  entries.sort((a, b) => a.owned != b.owned ? a.owned : a.name < b.name)
+}
+
+function mounts(): Array<Entry> {
+  const list: Array<Entry> = []
+  for (id of Client.C_MountJournal.GetMountIDs()) {
+    const name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _ = Client.C_MountJournal.GetMountInfoByID(id)
+    if (name != nil && hidden != true) {
+      list.push({
+        key: String.of(id), name: name, icon: icon, owned: owned == true, usable: usable == true, id: id.floor(), pet: nil,
+        spell: spell?.floor()
+      })
+    }
+  }
+  ordered(mut list)
+  return list
+}
+
+function pets(): Array<Entry> {
+  // The journal's own search would leave pets out: every pet is read, the list searched here.
+  Client.C_PetJournal.ClearSearchFilter()
+  const list: Array<Entry> = []
+  const count, _ = Client.C_PetJournal.GetNumPets()
+  for (index of 1..count.floor()) {
+    const pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _ = Client.C_PetJournal.GetPetInfoByIndex(index)
+    if (!revoked) {
+      list.push({
+        key: pet ?? "species:" + String.of(species), name: custom ?? name, icon: icon, owned: owned, usable: owned,
+        id: species, pet: pet, spell: nil
+      })
+    }
+  }
+  ordered(mut list)
+  return list
+}
+
+function toys(): Array<Entry> {
+  Client.C_ToyBox.SetFilterString("")
+  const list: Array<Entry> = []
+  for (index of 1..Client.C_ToyBox.GetNumFilteredToys().floor()) {
+    const item = Client.C_ToyBox.GetToyFromIndex(index)
+    if (item > 0) {
+      const _, name, icon, _, _ = Client.C_ToyBox.GetToyInfo(item)
+      list.push({
+        key: String.of(item), name: name, icon: fileOf(icon), owned: Client.PlayerHasToy(item),
+        usable: Client.C_ToyBox.IsToyUsable(item), id: item.floor(), pet: nil, spell: nil
+      })
+    }
+  }
+  ordered(mut list)
+  return list
+}
+
+function entriesOf(kind: Kind): Array<Entry> {
+  return match (kind) {
+    .Mounts => mounts()
+    .Pets => pets()
+    .Toys => toys()
+  }
+}
+
+function cardOf(kind: Kind, entry: Entry): Card {
+  if (kind == .Mounts) {
+    const display, description, source, _, _, _, _, _, _ = Client.C_MountJournal.GetMountInfoExtraByID(entry.id)
+    return { model: display?.floor(), description: description ?? "", source: source ?? "" }
+  }
+  if (kind == .Pets) {
+    const _, _, _, _, source, description, _, _, _, _, _, display = Client.C_PetJournal.GetPetInfoBySpeciesID(entry.id)
+    return { model: display, description: description ?? "", source: source ?? "" }
+  }
+  return NO_CARD
+}
+
+// One entry as a row: its icon and its name, dimmed while not collected.
+public class EntryRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived picked: Boolean = self.entry.key == self.chosen
+  derived ink: Color = self.entry.owned ? Style.INK : Style.MISSING
+  derived tint: Color = self.entry.owned ? Style.INK : Style.MISSING
+
+  entry: Signal<Entry>
+  chosen: Signal<String>
+  constructor(entry: Signal<Entry>, chosen: Signal<String>) {
+    self.entry = entry
+    self.chosen = chosen
+  }
+
+  onPick(mut self) { self.pick.emit(self.entry.key) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
+        <box width={Style.ICON} height={Style.ICON} icon={self.entry.icon} tint={self.tint} />
+        <text value={self.entry.name} textColor={self.ink} wrap={.Cut} />
+      </PickRow>
+    }
+  }
+}
+
+public class Collection implements Component {
+  // What the list holds, read as it shows and again when the game says it changed.
+  state entries: Array<Entry> = []
+  state search = ""
+  state collected = true
+  state missing = true
+  // The picked entry, by its key, and its card.
+  state chosen = ""
+  derived shown: Array<Entry> = self.filtered()
+  derived picked: Entry | nil = self.chosen == "" ? nil : self.entries.find(entry => entry.key == self.chosen)
+  derived card: Card = self.picked != nil ? cardOf(self.kind, self.picked ?? panic("tested")) : NO_CARD
+  derived owned: Integer = self.entries.count(entry => entry.owned)
+  derived counted: String = Locale.COLLECTED.format(self.owned, self.entries.length)
+  derived action: String = self.actionOf()
+  derived usable: Boolean = self.picked?.usable == true
+  derived modelShown: Boolean = self.card.model != nil
+
+  kind: Signal<Kind>
+  constructor(kind: Signal<Kind>) {
+    self.kind = kind
+    watch (shown of self.kind) {
+      self.chosen = ""
+      self.read()
+      match (shown) {
+        .Mounts => {
+          Events.NEW_MOUNT_ADDED.listen(self.read)
+          Events.COMPANION_LEARNED.listen(self.read)
+          Events.MOUNT_JOURNAL_USABILITY_CHANGED.listen(self.read)
+        }
+        .Pets => Events.PET_JOURNAL_LIST_UPDATE.listen(self.read)
+        .Toys => {
+          Events.TOYS_UPDATED.listen(self.read)
+          Events.NEW_TOY_ADDED.listen(self.read)
+        }
+      }
+    }
+  }
+
+  read(mut self) { self.entries = entriesOf(peek self.kind) }
+
+  filtered(self): Array<Entry> {
+    const words = self.search.lower()
+    return self.entries.filter(entry =>
+      (entry.owned ? self.collected : self.missing) && (words == "" || entry.name.lower().contains(words))
+    )
+  }
+
+  actionOf(self): String {
+    return match (self.kind) {
+      .Mounts => Locale.MOUNT
+      .Pets => Locale.SUMMON
+      .Toys => Locale.USE
+    }
+  }
+
+  onPick(mut self, key: String) { self.chosen = key }
+
+  onEnter(self, frame: any Frame) {
+    const entry = peek self.picked
+    if (entry == nil) { return }
+    if (entry.spell != nil) {
+      Game.items.showSpell(frame, entry.spell)
+    } else if (peek self.kind == .Toys) {
+      Game.items.show(frame, entry.id)
+    }
+  }
+
+  // Ride the mount, summon the pet; a toy is the game's to use, by its secure button.
+  onUse(self) {
+    const entry = peek self.picked
+    if (entry == nil) { return }
+    if (peek self.kind == .Mounts) {
+      Client.C_MountJournal.SummonByID(entry.id)
+    } else if (entry.pet != nil) {
+      Client.C_PetJournal.SummonPetByGUID(entry.pet)
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, Style.CARD]} rows={[{ fr: 1 }]} gap={6sp}>
+        <box rows={LIST_PARTS} gap={3sp}>
+          <Field value={mut self.search} placeholder={Locale.SEARCH} />
+          <box columns={FILTERS} gap={6sp}>
+            <Checkbox label={Locale.SHOW_COLLECTED} value={mut self.collected} />
+            <Checkbox label={Locale.SHOW_MISSING} value={mut self.missing} />
+          </box>
+          <ScrolledList virtual={true}>
+            <EntryRow $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} />
+          </ScrolledList>
+          <text value={self.counted} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        </box>
+        <box $if={self.picked != nil} rows={["max-content", PREVIEW, "max-content", "max-content", { fr: 1 }]} gap={3sp}>
+          <box columns={[Style.ICON, { fr: 1 }]} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter}>
+            <box width={Style.ICON} height={Style.ICON} icon={self.picked?.icon} />
+            <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
+          </box>
+          <box background={Style.STAGE} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
+            <text $if={!self.modelShown} value={Locale.NO_PREVIEW} textColor={Style.DIM} />
+          </box>
+          <text value={self.card.description} textColor={Style.INK} leading={.Prose} />
+          <text value={self.card.source} textColor={Style.DIM} textSize={SECONDARY_TEXT} leading={.Prose} />
+          <box xAlign={Align.Start} yAlign={Align.End}>
+            <PushButton $if={self.kind == .Toys} label={self.action} width={BUTTON} disabled={!self.usable}
+                        action={Action.UseItem { item: self.picked?.id ?? 0 }} />
+            <PushButton $else label={self.action} width={BUTTON} disabled={!self.usable} @click={self.onUse} />
+          </box>
+        </box>
+        <box $else xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.PICK_ONE} textColor={Style.DIM} />
+        </box>
+      </box>
+    }
+  }
+}

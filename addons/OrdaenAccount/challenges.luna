@@ -1,0 +1,268 @@
+// «Achievements»: on Forever, the Legacy challenges. The categories on the left (each class's, and the others'),
+// a category's challenges in the middle, done ones first, each with the Legacy points it gives; the picked one's card
+// on the right with its criteria. A search finds challenges by name in every category; the filters show the done,
+// the not done or both (one done by another character of the account counts as not done here, as the game's own
+// window has it). The window opens on the player's class's category. Read as the tab shows, and again when the game
+// says a challenge was earned or a criterion moved.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Align, Frame, Track } from "$ltml"
+import { Checkbox, Component, Field, ListTab, PickRow, SECONDARY_TEXT, ScrolledList, TITLE_TEXT } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The Legacy points' trait currency (`Constants.LegacyConsts.LEGACY_POINTS_TRAIT_CURRENCY_ID`).
+public const LEGACY_POINTS = 4225
+// Each class's category, which the window opens on (`LEGACY_DEFAULT_CATEGORY_<CLASS>`).
+const CLASS_CATEGORIES: Map<String, Integer> = {
+  WARRIOR: 15585, PALADIN: 15580, HUNTER: 15578, ROGUE: 15582, PRIEST: 15581, SHAMAN: 15583, MAGE: 15579,
+  WARLOCK: 15584, DRUID: 15577
+}
+
+// A category as the list shows it: under its parent, where it has one.
+public struct Category {
+  id: Integer
+  name: String
+  depth: Integer
+}
+
+// One challenge.
+public struct Challenge {
+  id: Integer
+  name: String
+  description: String
+  icon: FileId | nil
+  // Done by this character.
+  done: Boolean
+  // When, as the game writes a date; empty while not done.
+  date: String
+  points: Integer
+}
+
+// One of a challenge's criteria.
+public struct Criterion {
+  text: String
+  done: Boolean
+  // «3 / 10» for one counted, empty for one that is done or not.
+  count: String
+}
+
+const CHALLENGE_ROW: Array<Track> = [Style.ICON, { fr: 1 }, "max-content"]
+const PARTS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+
+function challengeOf(id: Number | nil, name: String | nil, done: Boolean | nil, month: Number | nil, day: Number | nil,
+  year: Number | nil, description: String | nil, icon: FileId | nil, mine: Boolean | nil): Challenge | nil {
+  if (id == nil || name == nil) { return nil }
+  const whole = id.floor()
+  const earned = done == true && mine != false
+  return {
+    id: whole, name: name, description: description ?? "", icon: icon, done: earned,
+    date: earned && month != nil && day != nil && year != nil ? "%d/%d/%02d".format(day.floor(), month.floor(), year.floor()) : "",
+    points: Client.C_Traits.GetTraitCurrencyForAchievement(LEGACY_POINTS, whole).floor()
+  }
+}
+
+// A category's challenges, done ones first as the game gives them.
+function challengesIn(category: Integer): Array<Challenge> {
+  const list: Array<Challenge> = []
+  const total, _, _ = Client.GetCategoryNumAchievements(category)
+  for (index of 1..total.floor()) {
+    const id, name, _, done, month, day, year, description, _, icon, _, _, mine, _ = Client.GetAchievementInfo(category, index)
+    const one = challengeOf(id, name, done, month, day, year, description, icon, mine)
+    if (one != nil) { list.push(one) }
+  }
+  return list
+}
+
+// Every category with challenges, each under its parent, in the game's order.
+function categoriesOf(): Array<Category> {
+  const ids = Client.GetCategoryList()
+  const parents: Map<Integer, Integer> = {}
+  const names: Map<Integer, String> = {}
+  for (id of ids) {
+    const name, parent, _ = Client.GetCategoryInfo(id)
+    names[id] = name
+    parents[id] = parent
+  }
+  const list: Array<Category> = []
+  for (id of ids) {
+    if ((parents[id] ?? -1) == -1) {
+      list.push({ id: id, name: names[id] ?? "", depth: 0 })
+      for (child of ids) {
+        if (parents[child] == id) { list.push({ id: child, name: names[child] ?? "", depth: 1 }) }
+      }
+    }
+  }
+  return list
+}
+
+function criteriaOf(challenge: Integer): Array<Criterion> {
+  const list: Array<Criterion> = []
+  for (index of 1..Client.GetAchievementNumCriteria(challenge).floor()) {
+    const text, _, done, have, need, _, _, _, shown, _, _ = Client.GetAchievementCriteriaInfo(challenge, index)
+    list.push({ text: text, done: done, count: need > 1 && !done ? (shown != "" ? shown : "%d / %d".format(have, need)) : "" })
+  }
+  return list
+}
+
+// A category as a row: indented under its parent.
+public class CategoryRow implements Component {
+  public pick: Event<Integer> = new Event()
+  derived picked: Boolean = self.category.id == self.chosen
+  derived name: String = (self.category.depth > 0 ? "   " : "") + self.category.name
+
+  category: Signal<Category>
+  chosen: Signal<Integer>
+  constructor(category: Signal<Category>, chosen: Signal<Integer>) {
+    self.category = category
+    self.chosen = chosen
+  }
+
+  onPick(mut self) { self.pick.emit(self.category.id) }
+
+  public render(self): Template {
+    return $ltml { <ListTab label={self.name} selected={self.picked} oneLine={true} @pick={self.onPick} /> }
+  }
+}
+
+public class ChallengeRow implements Component {
+  public pick: Event<Integer> = new Event()
+  derived picked: Boolean = self.challenge.id == self.chosen
+  derived ink: Color = self.challenge.done ? Style.INK : Style.MISSING
+  derived points: String = Locale.POINTS_SHORT.format(self.challenge.points)
+
+  challenge: Signal<Challenge>
+  chosen: Signal<Integer>
+  constructor(challenge: Signal<Challenge>, chosen: Signal<Integer>) {
+    self.challenge = challenge
+    self.chosen = chosen
+  }
+
+  onPick(mut self) { self.pick.emit(self.challenge.id) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={CHALLENGE_ROW} picked={self.picked} @pick={self.onPick}>
+        <box width={Style.ICON} height={Style.ICON} icon={self.challenge.icon} tint={self.ink} />
+        <box rows={["max-content", "max-content"]}>
+          <text value={self.challenge.name} textColor={self.ink} wrap={.Cut} />
+          <text value={self.challenge.description} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+        </box>
+        <text value={self.points} textColor={Style.GOLD} textFont={.Numbers} wrap={.None} />
+      </PickRow>
+    }
+  }
+}
+
+public class CriterionRow implements Component {
+  derived ink: Color = self.criterion.done ? Style.GREEN : Style.DIM
+
+  criterion: Signal<Criterion>
+  constructor(criterion: Signal<Criterion>) { self.criterion = criterion }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
+        <text value={self.criterion.text} textColor={self.ink} />
+        <text value={self.criterion.count} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+public class Challenges implements Component {
+  // Moves when the game says a challenge or a criterion changed: what is shown is read again.
+  state touched = 0
+  state categories: Array<Category> = []
+  state chosenCategory = 0
+  state chosen = 0
+  state search = ""
+  state showDone = true
+  state showOpen = true
+  derived all: Array<Challenge> = self.readChallenges()
+  derived shown: Array<Challenge> = self.all.filter(one => one.done ? self.showDone : self.showOpen)
+  derived picked: Challenge | nil = self.chosen == 0 ? nil : self.all.find(one => one.id == self.chosen)
+  derived criteria: Array<Criterion> = self.readCriteria()
+  derived pickedPoints: String = Locale.POINTS.format(self.picked?.points ?? 0)
+  derived pickedDate: String = self.picked?.done == true ? Locale.DONE_ON.format(self.picked?.date ?? "") : Locale.NOT_DONE
+
+  constructor() {
+    self.categories = categoriesOf()
+    const _, classFile, _ = Client.UnitClass("player")
+    const own = CLASS_CATEGORIES[classFile ?? ""]
+    const first = self.categories[1]
+    self.chosenCategory = own ?? (first != nil ? first.id : 0)
+    Events.ACHIEVEMENT_EARNED.listen(self.onChanged)
+    Events.CRITERIA_UPDATE.listen(self.onChanged)
+  }
+
+  onChanged(mut self) { self.touched += 1 }
+
+  // The category's challenges; while a search is typed, every category's whose name holds it.
+  readChallenges(self): Array<Challenge> {
+    _ = self.touched
+    const words = self.search.lower()
+    if (words == "") { return challengesIn(self.chosenCategory) }
+    const found: Array<Challenge> = []
+    for (category of self.categories) {
+      for (one of challengesIn(category.id)) {
+        if (one.name.lower().contains(words)) { found.push(one) }
+      }
+    }
+    return found
+  }
+
+  readCriteria(self): Array<Criterion> {
+    _ = self.touched
+    return self.chosen == 0 ? [] : criteriaOf(self.chosen)
+  }
+
+  onCategory(mut self, id: Integer) {
+    self.chosenCategory = id
+    self.search = ""
+  }
+
+  onPick(mut self, id: Integer) { self.chosen = id }
+
+  onEnter(self, frame: any Frame) {
+    const link = Client.GetAchievementLink(peek self.chosen)
+    if (link != nil) { Game.items.showLink(frame, link) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.SIDE_LIST, { fr: 1 }, Style.CARD]} rows={[{ fr: 1 }]} gap={6sp}>
+        <ScrolledList>
+          <CategoryRow $for={category of self.categories} $key={category.id} category={category} chosen={self.chosenCategory}
+                       @pick={self.onCategory} />
+        </ScrolledList>
+        <box rows={PARTS} gap={3sp}>
+          <Field value={mut self.search} placeholder={Locale.SEARCH} />
+          <box columns={["max-content", "max-content"]} gap={6sp}>
+            <Checkbox label={Locale.SHOW_DONE} value={mut self.showDone} />
+            <Checkbox label={Locale.SHOW_OPEN} value={mut self.showOpen} />
+          </box>
+          <ScrolledList virtual={true}>
+            <ChallengeRow $for={one of self.shown} $key={one.id} challenge={one} chosen={self.chosen} @pick={self.onPick} />
+          </ScrolledList>
+        </box>
+        <box $if={self.picked != nil} rows={["max-content", "max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp}>
+          <box columns={[Style.ICON, { fr: 1 }]} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter}>
+            <box width={Style.ICON} height={Style.ICON} icon={self.picked?.icon} />
+            <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
+          </box>
+          <text value={self.picked?.description ?? ""} textColor={Style.INK} leading={.Prose} />
+          <text value={self.pickedPoints} textColor={Style.GOLD} />
+          <text value={self.pickedDate} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <ScrolledList gap={2sp}>
+            <CriterionRow $for={criterion of self.criteria} criterion={criterion} />
+          </ScrolledList>
+        </box>
+        <box $else xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.PICK_CHALLENGE} textColor={Style.DIM} />
+        </box>
+      </box>
+    }
+  }
+}

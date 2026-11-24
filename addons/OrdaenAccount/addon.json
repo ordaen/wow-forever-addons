@@ -1,0 +1,8 @@
+{
+  "title": "Ordaen Account",
+  "icon": "Interface/Icons/Achievement_General",
+  "notes": "Legacy, achievements, your characters and your collections in one window.",
+  "version": "0.1.0",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenAlts": "^1.0.0" }
+}
