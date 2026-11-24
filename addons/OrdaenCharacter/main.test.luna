@@ -483,6 +483,35 @@ test "expertise's tooltip: each target's chance to dodge, then to parry past the
   Test.expect(tip.text("16.50%").textColor().equal(Style.RED))
 }
 
+test "what lands of a blow is a card of its own: at the greatest level a boss's, each target's misses, dodges and parries" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHit: 6, expertise: 2, atMaxLevel: true }
+  const window = opened(mut sheet)
+  // A boss: 8 - 6 of misses and 6.5 - 2 of dodges fail from behind, its 16.5 of parries too from the front.
+  Test.expect(window.text(Locale.LANDS).shown())
+  window.text("93.50%").hover()
+  const tip = Test.page().window(Locale.LANDS_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 2.00% | Dodge | 4.50% | Parry | 16.50% | From behind | 93.50% | From the front | 77.00%"))
+  // A target of the player's level: no misses, 5 - 2 of dodges, its parries whole.
+  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 0.00% | Dodge | 3.00% | Parry | 5.00% | From behind | 97.00% | From the front | 92.00%"))
+  Test.expect(tip.text("0.00%").textColor().equal(Style.GREEN) && tip.text("16.50%").textColor().equal(Style.RED))
+}
+
+test "below the greatest level, what lands is counted against a target of the player's level" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHit: 1, expertise: 1 }
+  const window = opened(mut sheet)
+  // 5 - 1 of misses, 5 - 1 of dodges, 5 of parries from the front; the boss's section second.
+  window.text("92.00%").hover()
+  const tip = Test.page().window(Locale.LANDS_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 4.00%"))
+  Test.expect(tip.texts().join(" | ").contains("From the front | 87.00% | Raid bosses"))
+}
+
 test "a crit's tooltip says what a crit does in its own section alone" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

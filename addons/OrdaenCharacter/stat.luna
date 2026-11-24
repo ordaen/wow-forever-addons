@@ -43,6 +43,10 @@ public enum Stat {
   // The weapons' damage a second: both hands', the ranged weapon's.
   MeleeDps
   RangedDps
+  // What lands of a section's attacks, in percent: neither a miss, nor a dodge, nor a parry.
+  MeleeLands
+  RangedLands
+  SpellLands
 }
 
 // Every stat, in the enum's order.
@@ -85,7 +89,10 @@ public const EVERY_STAT: Array<Stat> = [
   .CombatHealthRegen,
   .RunSpeed,
   .MeleeDps,
-  .RangedDps
+  .RangedDps,
+  .MeleeLands,
+  .RangedLands,
+  .SpellLands
 ]
 
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).

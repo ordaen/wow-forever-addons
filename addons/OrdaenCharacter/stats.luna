@@ -7,7 +7,7 @@ import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, T
 import { CarveShade, CarvedFloor, GaugeBar, GaugeMark } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
-import { Boost, Breakdown, Cap, NO_BREAKDOWN, expertiseCaps, hitCaps, statName } from "@/sources"
+import { Boost, Breakdown, Cap, NO_BREAKDOWN, expertiseCaps, hitCaps, statName, statValue } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
 
@@ -51,10 +51,11 @@ public struct Figure {
   const stat: Stat | nil = nil
 }
 
-// A section of the right column: its title on the cut over it, its cards, its gauges and its lines.
+// A section of the right column: its title on the cut over it, its cards (a row each, a row's cards sharing its width,
+// a lone card half of it), its gauges and its lines.
 public struct Section {
   const title: String
-  const cards: Array<Figure>
+  const cards: Array<Array<Figure>>
   const gauges: Array<Gauge>
   const rows: Array<Row>
 }
@@ -267,14 +268,19 @@ function joined(first: Array<Gauge>, then: Array<Gauge>): Array<Gauge> {
   return all
 }
 
+// A section's card of what lands of its attacks, in percent to the hundredth.
+function landsCard(stat: Stat, stats: Stats): Figure {
+  return { label: Locale.LANDS, value: percent(statValue(stat, stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: stat }
+}
+
 function melee(stats: Stats, skills: Array<Skill>): Section {
   const rows: Array<Row> = stats.speed > 0 ? [{ label: Locale.ATTACK_SPEED, value: seconds(swingOf(stats)), unit: Locale.SECONDS }] : []
   return {
     title: Locale.SECTION_MELEE,
-    cards: [
+    cards: [[
       { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT, stat: .AttackPower },
       { label: Locale.DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .MeleeDps }
-    ],
+    ], [landsCard(.MeleeLands, stats)]],
     gauges: joined([
       capped(Locale.HIT, stats.meleeHit, .MeleeHit, hitCaps(.MeleeHit, stats)),
       rate(Locale.CRIT, stats.meleeCrit, CRIT_CAP, .MeleeCrit),
@@ -299,10 +305,10 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
   }
   return {
     title: Locale.SECTION_RANGED,
-    cards: [
+    cards: [[
       { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT, stat: .RangedAttackPower },
       { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .RangedDps }
-    ],
+    ], [landsCard(.RangedLands, stats)]],
     gauges: joined([capped(Locale.HIT, stats.rangedHit, .RangedHit, hitCaps(.RangedHit, stats)), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP, .RangedCrit)], skillGauges(skill, nil, skills)),
     rows: [speed]
   }
@@ -324,7 +330,7 @@ function spells(stats: Stats, classTag: String): Section | nil {
   }
   return {
     title: Locale.SECTION_SPELLS,
-    cards: cards,
+    cards: [cards, [landsCard(.SpellLands, stats)]],
     gauges: [capped(Locale.HIT, stats.spellHit, .SpellHit, hitCaps(.SpellHit, stats)), rate(Locale.CRIT, stats.spellCrit, CRIT_CAP, .SpellCrit)],
     rows: [{ label: Locale.SPELL_PENETRATION, value: String.of(stats.spellPenetration), stat: .SpellPenetration }]
   }
@@ -530,7 +536,6 @@ public class StatCard implements Component {
 public class SectionView implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived columns: Integer = self.section.cards.length.max(2)
   derived carded: Boolean = self.section.cards.length > 0
 
   section: Signal<Section>
@@ -549,9 +554,10 @@ public class SectionView implements Component {
       <box gap={2.5sp}>
         <Groove title={self.section.title} />
         <box gap={2sp} padding={Style.SECTION_PAD}>
-          <box $if={self.carded} columns={self.columns} gap={2.5sp} padding={Style.CARDS_PAD}>
-            <StatCard $for={card of self.section.cards} figure={card} shown={self.shown} boosts={self.boosts}
-                      @tipped={self.onTipped} />
+          <box $if={self.carded} gap={2.5sp} padding={Style.CARDS_PAD}>
+            <box $for={line of self.section.cards} columns={line.length.max(2)} gap={2.5sp}>
+              <StatCard $for={card of line} figure={card} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+            </box>
           </box>
           <box gap={1.5sp}>
             <StatGauge $for={g of self.section.gauges} gauge={g} shown={self.shown} boosts={self.boosts}

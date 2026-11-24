@@ -189,6 +189,8 @@ public struct Stats {
   manaFromSpirit: Number = 0
   // The class keeps a relic where others keep a ranged weapon (a paladin's libram, a druid's idol, a shaman's totem).
   relic: Boolean = false
+  // At the game's greatest level: what lands is counted against a raid's boss, else against a target of its level.
+  atMaxLevel: Boolean = false
   // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
   bases: Array<Integer> = [0, 0, 0, 0, 0]
   tips: StatTips = {}
@@ -612,6 +614,7 @@ public class ClientSheet implements Sheet {
       healthFromSpirit: healthFromSpirit * SPIRIT_STANDING * 5,
       manaFromSpirit: manaFromSpirit * 5,
       relic: relic,
+      atMaxLevel: level >= Client.GetMaxPlayerLevel(),
       meleeHit: (Client.GetCombatRatingBonus(RATING_HIT_MELEE) ?? 0) + hit,
       rangedHit: (Client.GetCombatRatingBonus(RATING_HIT_RANGED) ?? 0) + Client.GetRangedHitModifier(),
       spellHit: (Client.GetCombatRatingBonus(RATING_HIT_SPELL) ?? 0) + Client.GetSpellHitModifier(),

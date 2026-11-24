@@ -59,11 +59,17 @@ function specOf(stat: Stat): Spec {
     .RunSpeed => { name: Locale.RUN_SPEED, percent: true, of: s => s.runSpeed }
     .MeleeDps => { name: Locale.DPS, percent: false, of: s => meleeDps(s) }
     .RangedDps => { name: Locale.DPS, percent: false, of: s => rangedDps(s) }
+    .MeleeLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Melee, s) }
+    .RangedLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Ranged, s) }
+    .SpellLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Spell, s) }
   }
 }
 
 // A stat's name, as its tooltip's title says it.
 public function statName(stat: Stat): String { return specOf(stat).name }
+
+// A stat's value, as its card and its gauge show it.
+public function statValue(stat: Stat, stats: Stats): Number { return specOf(stat).of(stats) }
 
 // A stat that feeds another: so much of `to` a point of `from` gives, past the first `past` points (stamina's first
 // twenty give a point of health each, the rest ten).
@@ -405,9 +411,92 @@ function avoidanceOf(expertise: Number): Array<TipSection> {
   ]
 }
 
+// What lands of a section's attacks: a melee blow, a ranged shot, a spell.
+public enum Strike { Melee, Ranged, Spell }
+
+// The strike a stat of what lands counts; none for any other stat.
+function strikeOf(stat: Stat): Strike | nil {
+  return match (stat) {
+    .MeleeLands => .Melee
+    .RangedLands => .Ranged
+    .SpellLands => .Spell
+    else => nil
+  }
+}
+
+// What fails of a strike against a target, in percent, at the player's hit and expertise: a miss; a dodge (not a
+// spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone). One roll settles a
+// blow, so the shares subtract.
+struct Odds {
+  const miss: Number
+  const dodge: Number
+  const parry: Number
+}
+
+function oddsOf(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Odds {
+  const hit = strike == .Spell ? stats.spellHit : strike == .Ranged ? stats.rangedHit : stats.meleeHit
+  const miss = ((boss ? caps.boss : caps.level) - hit).max(0)
+  if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0 } }
+  const of = boss ? BOSS_AVOIDANCE : LEVEL_AVOIDANCE
+  if (strike == .Ranged) { return { miss: miss, dodge: of.dodge, parry: 0 } }
+  const dodge = (of.dodge - stats.expertise).max(0)
+  const parry = (of.parry - (stats.expertise - of.dodge).max(0)).max(0)
+  return { miss: miss, dodge: dodge, parry: parry }
+}
+
+function strikeCaps(strike: Strike): HitCaps { return strike == .Spell ? SPELL_HIT_CAPS : WEAPON_HIT_CAPS }
+
+// What lands of a strike, from behind (a blow there is never parried), against the target the card counts: a raid's
+// boss at the game's greatest level, else a target of the player's level.
+public function landsOf(strike: Strike, stats: Stats): Number {
+  const odds = oddsOf(strike, stats, stats.atMaxLevel, strikeCaps(strike))
+  return 100 - odds.miss - odds.dodge
+}
+
+// One target's lines of what lands: its miss, dodge and parry, then what lands (a blow's from behind and from the
+// front); each coloured by what is left of what the target starts with.
+function landsRows(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Array<TipRow> {
+  const odds = oddsOf(strike, stats, boss, caps)
+  const whole = oddsOf(strike, {}, boss, caps)
+  const rows: Array<TipRow> = [{ label: Locale.MISS, value: amountText(odds.miss, true), valueTone: toneOf(odds.miss, whole.miss) }]
+  if (strike != .Spell) { rows.push({ label: Locale.DODGE, value: amountText(odds.dodge, true), valueTone: toneOf(odds.dodge, whole.dodge) }) }
+  if (strike == .Melee) {
+    rows.push({ label: Locale.PARRY, value: amountText(odds.parry, true), valueTone: toneOf(odds.parry, whole.parry) })
+    const behind = odds.miss + odds.dodge
+    const front = behind + odds.parry
+    rows.push({ label: Locale.LANDS_BEHIND, value: amountText(100 - behind, true), valueTone: toneOf(behind, whole.miss + whole.dodge) })
+    rows.push({ label: Locale.LANDS_FRONT, value: amountText(100 - front, true), valueTone: toneOf(front, whole.miss + whole.dodge + whole.parry) })
+  } else {
+    const fails = odds.miss + odds.dodge
+    rows.push({ label: Locale.LANDS, value: amountText(100 - fails, true), valueTone: toneOf(fails, whole.miss + whole.dodge) })
+  }
+  return rows
+}
+
+// What lands's tooltip: what it is, then a section a target, the one the card counts first; with a weapon in each hand,
+// its plain swings' against that target too.
+function landsBreakdown(strike: Strike, stats: Stats): Breakdown {
+  const text = strike == .Melee ? Locale.LANDS_TIP : strike == .Ranged ? Locale.LANDS_RANGED_TIP : Locale.LANDS_SPELL_TIP
+  const caps = strikeCaps(strike)
+  const boss = stats.atMaxLevel
+  const first = boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL
+  const second = boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS
+  const sections: Array<TipSection> = [
+    { title: first, rows: landsRows(strike, stats, boss, caps) },
+    { title: second, rows: landsRows(strike, stats, !boss, caps) }
+  ]
+  if (strike == .Melee && dualOf(stats)) {
+    sections.push({ title: `${Locale.HIT_CAP_DUAL}: ${first}`, rows: landsRows(strike, stats, boss, DUAL_HIT_CAPS) })
+  }
+  const fed: Array<Stat> = strike == .Melee ? [.MeleeHit, .Expertise] : strike == .Ranged ? [.RangedHit] : [.SpellHit]
+  return { text: text, sections: sections, fed: fed, shares: {} }
+}
+
 // What a stat's tooltip lists, and what lights with it.
 public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   if (stat == .MeleeDps || stat == .RangedDps) { return damageBreakdown(stat == .RangedDps, facts.stats) }
+  const strike = strikeOf(stat)
+  if (strike != nil) { return landsBreakdown(strike, facts.stats) }
   const spec = specOf(stat)
   const parts = partsOf(stat, facts)
   const fromStats = parts.fromStats.map(part => part)
