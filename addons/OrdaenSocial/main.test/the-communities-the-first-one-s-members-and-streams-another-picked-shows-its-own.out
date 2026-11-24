@@ -36,10 +36,10 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
               box 432.2,350.16 735.6x317.97 #0000004d
                 box 433.03,351 733.93x33.73
                   box 441.57,351 716.87x33.73 #00000040
-                    box 450.1,351 16.67x17.07 #00000000 @keyPress @pointerPress
-                      box 450.1,366.4 16.67x1.67 absolute #00000000
-                      box 450.1,359.53 16.67x0
-                        text 450.1,359.53 0x0 "" #a3977f
+                    box 450.1,351 16.67x32.9 #00000000 @keyPress @pointerPress
+                      box 450.1,382.23 16.67x1.67 absolute #00000000
+                      box 450.1,367.45 16.67x0
+                        text 450.1,367.45 0x0 "" #a3977f
                     box 475.3,351 58.33x32.9 #00000000 @keyPress @pointerPress
                       box 475.3,382.23 58.33x1.67 absolute #00000000
                       box 483.88,359.53 41.18x15.83
