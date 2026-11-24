@@ -15,7 +15,7 @@ public const DEFAULT_PROFILE: ProfileName = "Default"
 public struct Profile implements Plain {
   // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
   sections: mut Map<String, String> = {}
-  // Each profile's `ModuleMemory`'s values, packed, by its key (`OrdaenAuction:window:main`): where the player left a
+  // Each profile's `ModuleMemory`'s values, packed, by its key (`OrdaenTrading:window:main`): where the player left a
   // window or a list. Never in an export.
   memory: mut Map<String, String> = {}
 }
@@ -123,6 +123,31 @@ public struct SavedProfiles implements Plain {
     self.profiles[gone] = nil
     self.picks.without(gone)
   }
+
+  // A module's sections and memory under its former name moved to its current one, in every profile.
+  public moved(mut self, former: String, current: String) {
+    for (_, profile of self.profiles) {
+      movedKeys(mut profile.sections, former, current)
+      movedKeys(mut profile.memory, former, current)
+    }
+  }
+}
+
+// A module renamed: its former name to its current one. What was kept under the former moves once at login, where
+// the current has nothing yet: the account's and the character's saved keys, and each profile's sections and memory.
+public const RENAMED: Map<String, String> = { ["OrdaenAuction"]: "OrdaenTrading" }
+
+// The key `former` and every `former:…` moved to `current` and `current:…`, where nothing stands there yet.
+function movedKeys(keys: mut Map<String, String>, former: String, current: String) {
+  let moving: Array<String> = []
+  for (key, _ of keys) {
+    if (key == former || key.sub(1, former.length + 1) == `${former}:`) { moving.push(key) }
+  }
+  for (key of moving) {
+    const next = `${current}${key.sub(former.length + 1)}`
+    if (keys[next] == nil) { keys[next] = keys[key] }
+    keys[key] = nil
+  }
 }
 
 // The profile a character uses and the rule that names it: the one picked for its specialisation, for it, for its
@@ -188,7 +213,13 @@ public class Profiles {
   public const finishing: Event<nil> = new Event()
 
   constructor() {
-    self.kept = load(.Account, "profiles", SavedProfiles {})
+    for (former, current of RENAMED) {
+      Game.saved.renamed(.Account, former, current)
+      Game.saved.renamed(.Character, former, current)
+    }
+    let kept = load(.Account, "profiles", SavedProfiles {})
+    for (former, current of RENAMED) { kept.moved(former, current) }
+    self.kept = kept
     Events.PLAYER_LOGOUT.listen(self.pack)
   }
 

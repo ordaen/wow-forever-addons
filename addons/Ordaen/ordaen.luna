@@ -17,7 +17,7 @@ import Locale from "@/locales"
 import { Look, LookArt, Preset, artOf, preset, unoffered } from "@/look"
 import { Module } from "@/module"
 import { Mover } from "@/placed"
-import { ProfileName } from "@/profiles"
+import { ProfileName, RENAMED } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
 import { BODY_TEXT, LEADINGS, spacingFor } from "@/units"
@@ -115,6 +115,11 @@ public class OrdaenCore implements App {
     self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
     self.globals = new Settings<Globals>(DEFAULTS, "", mut self.keeper)
     self.chosen = load<Map<String, Boolean>>(.Account, "choices", {})
+    // A renamed module stays on or off as it was under its former name.
+    for (former, current of RENAMED) {
+      if (self.chosen[current] == nil) { self.chosen[current] = self.chosen[former] }
+      self.chosen[former] = nil
+    }
     // The account's places, kept before profiles held them, are moved into «Default» as they are first read.
     const before = Game.saved.stored(.Account, "places")
     if (before != nil) {

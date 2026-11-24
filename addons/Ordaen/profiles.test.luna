@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import { DEFAULTS, Density, Globals } from "@/globals"
 import { Preset, preset } from "@/look"
 import { KeptPlace } from "@/ordaen"
-import { DEFAULT_PROFILE, Profile, ProfileName, ProfilePicks, Profiles, picked } from "@/profiles"
+import { DEFAULT_PROFILE, Profile, ProfileName, ProfilePicks, Profiles, SavedProfiles, picked } from "@/profiles"
 import { ModuleMemory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.
@@ -230,4 +230,29 @@ test "a second character of another class follows the class's pick or the accoun
   Test.expect(Ordaen.keeper.profiles.active == "Mages" && Ordaen.keeper.profiles.why == Profiles.Reason.Class)
   Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil })
   Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE && Ordaen.keeper.profiles.why == Profiles.Reason.Account)
+}
+
+test "a renamed module keeps what was kept under its former name: its settings, its memory, its sections, on or off" {
+  const settings: Map<String, Unknown> = {}
+  settings["OrdaenAuction"] = Probe { scale: 2 }
+  settings["OrdaenAuction:buy"] = Remembered { last: "Linen" }
+  const choices: Map<String, Boolean> = {}
+  choices["OrdaenAuction"] = false
+  settings["choices"] = choices
+  const sections: Map<String, String> = {}
+  sections["OrdaenAuction:list"] = "packed"
+  const profile: Profile = { sections: sections }
+  const profiles: Map<String, mut Profile> = {}
+  profiles[DEFAULT_PROFILE] = profile
+  settings["profiles"] = SavedProfiles { profiles: profiles }
+  const account: Map<String, Unknown> = {}
+  account["settings"] = settings
+  Test.saved("LunaTypeDB", account)
+  Test.reload()
+  Test.expect(load(.Account, "OrdaenTrading", Probe {}).scale == 2)
+  Test.expect(load(.Account, "OrdaenTrading:buy", Remembered {}).last == "Linen")
+  Test.expect(Game.saved.stored(.Account, "OrdaenAuction") == nil)
+  Test.expect(Ordaen.chosen["OrdaenTrading"] == false && Ordaen.chosen["OrdaenAuction"] == nil)
+  const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE] ?? panic("the default profile")
+  Test.expect(kept.sections["OrdaenTrading:list"] == "packed" && kept.sections["OrdaenAuction:list"] == nil)
 }
