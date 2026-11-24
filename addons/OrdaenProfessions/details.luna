@@ -14,7 +14,7 @@ import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
 import { LearnPlaceRow } from "@/learnPlaces"
 import Locale from "@/locales"
-import { MakeRow } from "@/make"
+import { MakeRow, Queueing } from "@/make"
 import { PriceTable, PricesAge } from "@/priceRows"
 import { ReagentRow } from "@/rows"
 import { LearnPlace, RecipeSource, asksOf, placesOf, sideOfPlayer } from "@/sources"
@@ -49,6 +49,8 @@ public class RecipeDetails implements Component {
   public open: Event<LearnPlace> = new Event()
   // «Create» clicked, with how many.
   public create: Event<Integer> = new Event()
+  // «Stop» or «Remove from queue», with the recipe.
+  public drop: Event<Integer> = new Event()
 
   derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
@@ -99,6 +101,7 @@ public class RecipeDetails implements Component {
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
   sources: Signal<Map<Integer, RecipeSource>>
+  queueing: Signal<Queueing>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     kept: Signal<Kept>,
@@ -113,7 +116,9 @@ public class RecipeDetails implements Component {
     yellow: Signal<Integer | nil>,
     grey: Signal<Integer | nil>,
     // Where the recipes of the profession open are learned.
-    sources: Signal<Map<Integer, RecipeSource>>
+    sources: Signal<Map<Integer, RecipeSource>>,
+    // Where the recipe stands in the queue.
+    queueing: Signal<Queueing> = Queueing.None
   ) {
     self.recipe = recipe
     self.kept = kept
@@ -125,9 +130,11 @@ public class RecipeDetails implements Component {
     self.yellow = yellow
     self.grey = grey
     self.sources = sources
+    self.queueing = queueing
   }
 
   onCreate(self, count: Integer) { self.create.emit(count) }
+  onDrop(self) { self.drop.emit(self.shown.id) }
   placesOf(self): Array<LearnPlace> {
     const source = self.source
     return source == nil ? [] : placesOf(source, sideOfPlayer())
@@ -232,7 +239,8 @@ public class RecipeDetails implements Component {
             </box>
           </box>
           <MakeRow $if={self.learned} recipe={self.recipe} count={mut self.count} mode={mut self.mode}
-                   profession={self.profession} yellow={self.yellow} grey={self.grey} @create={self.onCreate} />
+                   profession={self.profession} yellow={self.yellow} grey={self.grey} queueing={self.queueing}
+                   @create={self.onCreate} @drop={self.onDrop} />
           <box $else />
           <text $if={self.noted} value={self.note} textSize={SECONDARY_TEXT} textColor={NOTE} />
         </>

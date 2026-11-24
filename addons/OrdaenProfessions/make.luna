@@ -20,9 +20,22 @@ const MODES: Array<Choice<MakeMode>> = [
   { value: MakeMode.All, label: Locale.MAKE_ALL }
 ]
 
+// Where the shown recipe stands in the queue: not in it, waiting in it, or being made.
+public enum Queueing { None, Waiting, Making }
+
 public class MakeRow implements Component {
   // «Create» clicked, with how many: making must start in the click.
   public create: Event<Integer> = new Event()
+  // «Stop» or «Remove from queue» clicked: the recipe leaves the queue, its run ending with the craft under way.
+  public drop: Event<nil> = new Event()
+
+  derived making: Boolean = self.queueing == Queueing.Making
+  derived button: String = match (self.queueing) {
+    Queueing.None => Locale.CREATE
+    Queueing.Waiting => Locale.UNQUEUE
+    Queueing.Making => Locale.STOP
+  }
+  derived blocked: Boolean = self.queueing == Queueing.None && self.cannot
 
   derived counted: Boolean = self.mode != MakeMode.All
   // The most the count may be: by «Quantity», what the bags make now; by «Raise skill», the points left before the
@@ -31,9 +44,9 @@ public class MakeRow implements Component {
   // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
   derived expected: Integer | nil = self.expectedOf()
   // How many «Create» makes.
-  derived making: Integer = self.makingOf()
+  derived makes: Integer = self.makingOf()
   derived hint: String = self.hintOf()
-  derived cannot: Boolean = self.making < 1
+  derived cannot: Boolean = self.makes < 1
   // What the bags make of the recipe now.
   derived craftable: Integer = self.recipe?.craftable ?? 0
 
@@ -43,6 +56,7 @@ public class MakeRow implements Component {
   profession: Signal<Game.Profession | nil>
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
+  queueing: Signal<Queueing>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     // How many to make, or skill points to gain.
@@ -52,7 +66,8 @@ public class MakeRow implements Component {
     profession: Signal<Game.Profession | nil>,
     // The skill at which the recipe turns yellow and grey; none where the client's table hasn't it.
     yellow: Signal<Integer | nil>,
-    grey: Signal<Integer | nil>
+    grey: Signal<Integer | nil>,
+    queueing: Signal<Queueing> = Queueing.None
   ) {
     self.recipe = recipe
     self.count = count
@@ -60,6 +75,7 @@ public class MakeRow implements Component {
     self.profession = profession
     self.yellow = yellow
     self.grey = grey
+    self.queueing = queueing
   }
 
   expectedOf(self): Integer | nil {
@@ -90,22 +106,26 @@ public class MakeRow implements Component {
     return match (self.mode) {
       MakeMode.Count => ""
       MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.expected ?? 0)
-      MakeMode.All => Locale.MAKE_PIECES.format(self.making)
+      MakeMode.All => Locale.MAKE_PIECES.format(self.makes)
     }
   }
 
-  onCreate(mut self) {
-    if (!self.cannot) { self.create.emit(self.making) }
+  onClick(mut self) {
+    if (self.queueing != Queueing.None) {
+      self.drop.emit()
+    } else if (!self.cannot) {
+      self.create.emit(self.makes)
+    }
   }
 
   public render(self): Template {
     return $ltml {
       <box columns={MAKE} gap={3sp} yAlign={Align.Center}>
-        <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
+        <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} disabled={self.making} />
         <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
         <box $else />
         <box />
-        <PushButton label={Locale.CREATE} width={128.90625dp} disabled={self.cannot} @click={self.onCreate} />
+        <PushButton label={self.button} width={128.90625dp} disabled={self.blocked} @click={self.onClick} />
         <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} columnSpan={4} />
       </box>
     }

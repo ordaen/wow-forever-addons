@@ -3,6 +3,8 @@
   "TAB_RECIPES": "Recipes",
   "TAB_UNLEARNED": "Not learned",
   "CRAFTER_HOLDS": "In bags and bank",
+  "STOP": "Stop",
+  "UNQUEUE": "Remove from queue",
   "USED_IN": "Used in crafting",
   "GROUP": "Group by",
   "GROUP_READINESS": "What you can learn",

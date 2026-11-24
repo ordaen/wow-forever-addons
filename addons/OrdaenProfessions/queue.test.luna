@@ -146,15 +146,19 @@ test "the note that a recipe waits goes when another recipe is picked, or anothe
   Game.tradeSkill.open = TAILORING
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 1)
-  window().text("Linen Cloak").click()
-  Test.expect(!window().text(NOTE).shown())
-  create("Bolt of Linen Cloth", 1)
   window().button("Camp").click()
   window().button("Recipes").click()
   Test.expect(!window().text(NOTE).shown())
+  // Taken out and asked for again, it waits again.
+  window().text("Bolt of Linen Cloth").nth(1).click()
+  window().button("Remove from queue").click()
+  window().button("Create").click()
+  Test.expect(window().text(NOTE).shown())
+  window().text("Linen Cloak").click()
+  Test.expect(!window().text(NOTE).shown())
 }
 
-test "«Create» of a recipe already waiting adds to its count" {
+test "a recipe waiting reads «Remove from queue» in «Create»'s place, which takes it out" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
@@ -163,9 +167,31 @@ test "«Create» of a recipe already waiting adds to its count" {
   Game.tradeSkill.open = TAILORING
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 2)
-  window().button("Create").click()
-  window().button("Queue (2)").click()
-  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | 4 | + | x"))
+  Test.expect(!window().button("Create").shown() && window().text(NOTE).shown())
+  _ = Test.requests()
+  window().button("Remove from queue").click()
+  Test.expect(asked("") && window().button("Create").shown() && !window().text(NOTE).shown())
+  Test.expect(queueTab().texts().join("") == "Queue (1)")
+}
+
+test "the recipe being made reads «Stop», which ends the run and takes it out; its mode is off meanwhile" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 3)
+  window().text("Quantity").click()
+  Test.expect(!Test.page().text("Raise skill").shown())
+  // The count still changes.
+  window().button("-").click()
+  _ = Test.requests()
+  window().button("Stop").click()
+  Test.expect(asked("TradeSkill.stop") && window().button("Create").shown())
+  Test.expect(queueTab().texts().join("") == "Queue")
+  window().text("Quantity").click()
+  Test.expect(Test.page().text("Raise skill").shown())
 }
 
 // The run
@@ -547,9 +573,8 @@ test "the reagents the lines need: each once, summed, with what the bags hold an
   Game.tradeSkill.reagents = reagents
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  create("Linen Cloak", 2)
+  create("Linen Cloak", 4)
   create("Bolt of Linen Cloth", 1)
-  create("Linen Cloak", 2)
   window().button("Queue (2)").click()
   Test.expect(window().text("Need").shown() && window().text("Have").shown() && window().text("Missing").shown())
   Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 4 | 0 | 4 | —"))
@@ -698,7 +723,7 @@ test "a queue emptied stops waiting: what comes next starts at «Create»" {
   Test.expect(window().text("Making Bolt of Linen Cloth: 1 left.").shown())
 }
 
-test "a line's count stops at 999: «Create» of more with nothing ahead makes 999" {
+test "«Create» of more than 999 with nothing ahead makes 999" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
@@ -711,8 +736,6 @@ test "a line's count stops at 999: «Create» of more with nothing ahead makes 9
   _ = Test.requests()
   window().button("Create").click()
   Test.expect(asked("TradeSkill.craft 2387 999"))
-  // Once more onto its line: it stays 999.
-  window().button("Create").click()
   window().button("Queue (1)").click()
   Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 999 | + | x"))
 }

@@ -79,6 +79,13 @@ public class CraftQueue {
     self.write(queue, peek self.paused)
   }
 
+  // The player's «Stop»: the run ends with the craft under way, and its recipe leaves the queue.
+  public stop(mut self) {
+    if (!peek self.running) { return }
+    Game.tradeSkill.stop()
+    self.recount(peek self.making, 0)
+  }
+
   // The player's click («Create next», or «Create» with nothing ahead): the open profession's first line's run
   // starts, as many as the bags make of what is left of it. Where it can't, that queue pauses and says why.
   public next(mut self) {

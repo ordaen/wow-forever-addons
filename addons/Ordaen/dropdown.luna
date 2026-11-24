@@ -119,7 +119,7 @@ public class Dropdown<T: Unknown> implements Component {
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
-               background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
+               background={Ordaen.art.ctl.button} disabled={self.disabled} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={GOLD} textWeight={TextWeight.Bold} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
@@ -148,17 +148,26 @@ public class CompactDropdown<T: Unknown> implements Component {
   value: mut Signal<T>
   const choices: Array<Choice<T>>
   width: Signal<Number<Length>>
+  disabled: Signal<Boolean>
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
-    width: Signal<Number<Length>>
+    width: Signal<Number<Length>>,
+    // Shown dimmed, and opens no list.
+    disabled: Signal<Boolean> = false
   ) {
     self.value = value
     self.choices = choices
     self.width = width
+    self.disabled = disabled
+    watch {
+      if (self.disabled) { self.open = false }
+    }
   }
 
-  toggle(mut self) { self.open = !self.open }
+  toggle(mut self) {
+    if (!self.disabled) { self.open = !self.open }
+  }
   close(mut self) { self.open = false }
 
   onPick(mut self, value: T) {

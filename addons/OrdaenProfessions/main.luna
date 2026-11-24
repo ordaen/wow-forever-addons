@@ -20,6 +20,7 @@ import { makesOf } from "@/cost"
 import { Crafter, TooltipCrafters, craftersOf } from "@/crafters"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
+import { Queueing } from "@/make"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { OverviewPage, knownSpellName } from "@/overview"
@@ -279,6 +280,7 @@ public class Professions implements Module, App {
   // next» starts its next run.
   public derived queued: Array<Queued> = self.crafting.linesOf(Game.tradeSkill.open)
   derived queueStatus: String = self.queueStatusOf()
+  derived queueing: Queueing = self.queueingOf()
   derived queueReady: Boolean = !self.crafting.running && self.queued.length > 0 && !Game.situation.combat
   // What became of the last «Create» that didn't start: it waits in the queue.
   state note = ""
@@ -800,6 +802,24 @@ public class Professions implements Module, App {
     self.note = self.crafting.add(open, recipe.id, recipe.name, count) ? Locale.QUEUED_AFTER : ""
   }
 
+  // The card's «Stop» or «Remove from queue»: the recipe being made stops, one waiting leaves the queue.
+  onDrop(mut self, recipe: Integer) {
+    if (self.crafting.running && self.crafting.making == recipe) {
+      self.crafting.stop()
+    } else {
+      self.crafting.recount(recipe, 0)
+    }
+    self.note = ""
+  }
+
+  // Where the chosen recipe stands in the queue.
+  queueingOf(self): Queueing {
+    const recipe = self.chosen
+    if (recipe == nil) { return Queueing.None }
+    if (self.crafting.running && self.crafting.making == recipe.id) { return Queueing.Making }
+    return self.crafting.lines.any(line => line.recipe == recipe.id) ? Queueing.Waiting : Queueing.None
+  }
+
   // A line's stepper set its recipe's count.
   onQueueCount(mut self, recipe: Integer, count: Integer) { self.crafting.recount(recipe, count) }
 
@@ -957,7 +977,8 @@ public class Professions implements Module, App {
                 <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
                                count={mut self.count}
                                mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
-                               grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate}
+                               grey={self.chosenGrey} sources={self.sources} queueing={self.queueing}
+                               @act={self.onAct} @create={self.onCreate} @drop={self.onDrop}
                                @shop={self.onCardShop} @open={self.onPlace} />
               </box>
             </box>
