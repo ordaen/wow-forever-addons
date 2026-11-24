@@ -1,0 +1,112 @@
+// A ring's places as the settings change them: a place is its ring's place and its number there (`"3_2"`: the second
+// of the third's submenu, `"3"` the third of the ring itself); what stands under a place (a submenu's or a slot's
+// items, their counts and conditions) moves with it.
+import { WHEEL_MOST } from "Ordaen"
+import { Item, Ring } from "@/choices"
+
+// The ring a place stands in (`""`: the ring itself).
+public function parentOf(place: String): String { return place.match("^(.+)_%d+$") ?? "" }
+
+// A place's number in its ring.
+public function numberOf(place: String): Integer { return ((place.match("(%d+)$") ?? "0").toNumber() ?? 0).floor() }
+
+// An item's place inside a ring's place.
+public function within(parent: String, number: Integer): String {
+  return parent == "" ? String.of(number) : `${parent}_${number}`
+}
+
+// Whether a key is the place or stands under it.
+function under(key: String, place: String): Boolean {
+  return key == place || key.sub(1, place.length + 1) == `${place}_`
+}
+
+// A key with its place moved: the place itself, or what stands under it, from `from` to `to`.
+function movedKey(key: String, from: String, to: String): String {
+  return under(key, from) ? to + key.sub(from.length + 1) : key
+}
+
+// Whether a place holds items of its own: a submenu or a slot.
+public function holdsItems(item: Item): Boolean { return item is Item.Menu || item is Item.Slot }
+
+// How many items a ring's place holds now.
+public function countOf(ring: Ring, parent: String): Integer { return ring.counts[parent] ?? 0 }
+
+// Whether one more item fits in a ring's place.
+public function hasRoom(ring: Ring, parent: String): Boolean { return countOf(ring, parent) < WHEEL_MOST }
+
+// Every key of the three maps moved from one place to another.
+function move(ring: mut Ring, from: String, to: String) {
+  const items: Map<String, Item> = {}
+  for (key, item of ring.items) { items[movedKey(key, from, to)] = item }
+  ring.items = items
+  const counts: Map<String, Integer> = {}
+  for (key, count of ring.counts) { counts[movedKey(key, from, to)] = count }
+  ring.counts = counts
+  const conditions = ring.conditions.clone()
+  ring.conditions = {}
+  for (key, condition of conditions) { ring.conditions[movedKey(key, from, to)] = condition }
+}
+
+// The keys a test holds taken away from the three maps.
+function dropWhere(ring: mut Ring, gone: (key: String) => Boolean) {
+  const items: Map<String, Item> = {}
+  for (key, item of ring.items) {
+    if (!gone(key)) { items[key] = item }
+  }
+  ring.items = items
+  const counts: Map<String, Integer> = {}
+  for (key, count of ring.counts) {
+    if (!gone(key)) { counts[key] = count }
+  }
+  ring.counts = counts
+  const conditions = ring.conditions.clone()
+  ring.conditions = {}
+  for (key, condition of conditions) {
+    if (!gone(key)) { ring.conditions[key] = condition }
+  }
+}
+
+// Everything under a place taken away, the place too.
+function drop(ring: mut Ring, place: String) { dropWhere(mut ring, key => under(key, place)) }
+
+// Everything under a place taken away, the place itself kept: a submenu made a spell.
+public function emptyUnder(ring: mut Ring, place: String) {
+  dropWhere(mut ring, key => key != place && under(key, place))
+}
+
+// An empty place added at the end of a ring's place: its place, or none where the ring is full.
+public function addPlace(ring: mut Ring, parent: String): String | nil {
+  if (!hasRoom(ring, parent)) { return nil }
+  const number = countOf(ring, parent) + 1
+  ring.counts[parent] = number
+  const place = within(parent, number)
+  ring.items[place] = Item.Empty
+  return place
+}
+
+// A place taken away with all under it; those after it move up one.
+public function removePlace(ring: mut Ring, place: String) {
+  const parent = parentOf(place)
+  const count = countOf(ring, parent)
+  drop(mut ring, place)
+  for (number of numberOf(place) + 1..count) { move(mut ring, within(parent, number), within(parent, number - 1)) }
+  ring.counts[parent] = (count - 1).max(0)
+}
+
+// Two places of one ring swapped, with all under each.
+public function swapPlaces(ring: mut Ring, first: String, second: String) {
+  const aside = "~"
+  move(mut ring, first, aside)
+  move(mut ring, second, first)
+  move(mut ring, aside, second)
+}
+
+// A place moved one along in its ring (`by` -1 back, 1 on): its new place, or none at either end.
+public function shiftPlace(ring: mut Ring, place: String, by: Integer): String | nil {
+  const parent = parentOf(place)
+  const number = numberOf(place) + by
+  if (number < 1 || number > countOf(ring, parent)) { return nil }
+  const other = within(parent, number)
+  swapPlaces(mut ring, place, other)
+  return other
+}

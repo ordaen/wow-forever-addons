@@ -1,12 +1,8 @@
 // What the player chooses for the wheels: each ring's items by their place, where it opens and how it names them.
 import { SlotMode, WheelModifier, WheelNames } from "Ordaen"
 
-// A window an item opens: the game's or Ordaen's.
-public enum Window implements Plain {
-  Character = "character", Spellbook = "spellbook", Talents = "talents", Quests = "quests", Map = "map"
-  Social = "social", Guild = "guild", GroupFinder = "groupFinder", Calendar = "calendar", Bags = "bags"
-  Settings = "settings", Placing = "placing"
-}
+// A window of Ordaen's an item opens.
+public enum Window implements Plain { Settings = "settings", Placing = "placing" }
 
 // The client's ping kinds.
 public enum Ping implements Plain { Attack = "attack", Assist = "assist", Warning = "warning", OnMyWay = "onmyway" }
@@ -29,8 +25,10 @@ public enum Item implements Plain {
   Pinged { ping: Ping }
   // A line of a macro: an emote (`/wave`), a command (`/readycheck`, `/roll`, `/reload`).
   Line { title: String, line: String, icon: Asset }
-  // Its own ring, in place: its items stand under its place (`3_1`, `3_2`).
-  Menu { title: String, icon: Asset }
+  // An emote of the client's, by its token (`LAUGH`): named by its command in the player's language (`/смех`), no icon.
+  Emote { token: String }
+  // Its own ring, in place: its items stand under its place (`3_1`, `3_2`). With no icon, its title stands in its place.
+  Menu { title: String, icon: Asset | nil }
   // The player's professions, a ring of them: each opens its window.
   Professions
   // A slot of several: its children stand under its place, as a submenu's do; it does the current one.

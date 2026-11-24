@@ -1,0 +1,126 @@
+// Every emote of the client's, by its token (`LAUGH`), sorted for the wheel: families, each of groups, each of eight
+// emotes at most, so a family is a submenu of submenus. An emote shows the client's own command for it in the
+// player's language (`/смех`), and does it by its token.
+import Client from "$client"
+import Locale from "@/locales"
+
+public struct EmoteGroup {
+  title: String
+  tokens: Array<String>
+}
+
+public struct EmoteFamily {
+  title: String
+  groups: Array<EmoteGroup>
+}
+
+public const EMOTES: Array<EmoteFamily> = [
+  {
+    title: Locale.EMOTES_MANNERS, groups: [
+      { title: Locale.EMOTES_GREETINGS, tokens: ["HELLO", "GREET", "HAIL", "WAVE", "WELCOME", "INTRODUCE", "BECKON"] },
+      { title: Locale.EMOTES_FAREWELLS, tokens: ["BYE", "GOING", "BRB", "ABSENT"] },
+      { title: Locale.EMOTES_RESPECT, tokens: ["BOW", "CURTSEY", "KNEEL", "SALUTE", "GROVEL", "CRINGE", "PRAY"] },
+      { title: Locale.EMOTES_THANKS, tokens: ["THANK", "YW", "APOLOGIZE", "OFFER", "PROMISE", "TRUCE", "MERCY", "SURRENDER"] },
+      { title: Locale.EMOTES_ANSWERS, tokens: ["AGREE", "NOD", "NO", "DISAGREE", "DOUBT", "OBJECT", "VETO", "SHRUG"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_JOY, groups: [
+      { title: Locale.EMOTES_PRAISE, tokens: ["APPLAUD", "CLAP", "GOLFCLAP", "CHEER", "HUZZAH", "PRAISE", "COMMEND", "CONGRATULATE"] },
+      { title: Locale.EMOTES_ENCOURAGE, tokens: ["ENCOURAGE", "LUCK", "IMPRESSED", "MAGNIFICENT", "AWE", "AMAZE", "HIGHFIVE", "TWIDDLE"] },
+      { title: Locale.EMOTES_LAUGHTER, tokens: ["LAUGH", "GIGGLE", "CHUCKLE", "CACKLE", "GUFFAW", "ROFL", "SNICKER", "JK"] },
+      { title: Locale.EMOTES_HAPPY, tokens: ["SMILE", "GRIN", "HAPPY", "JOKE", "VICTORY", "PROUD", "DING", "WHOA"] },
+      { title: Locale.EMOTES_CELEBRATE, tokens: ["DANCE", "SHIMMY", "BOUNCE", "WHISTLE", "SING", "VIOLIN", "FLEX", "TRAIN"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_AFFECTION, groups: [
+      { title: Locale.EMOTES_LOVE, tokens: ["KISS", "HUG", "CUDDLE", "LOVE", "FLIRT", "SEXY", "CHARM", "WINK"] },
+      { title: Locale.EMOTES_SHY, tokens: ["BLUSH", "BASHFUL", "SHY", "EMBARRASS"] },
+      { title: Locale.EMOTES_TOUCH, tokens: ["HOLDHAND", "PAT", "PET", "TICKLE", "MASSAGE", "RUFFLE", "BOOP", "POKE"] },
+      { title: Locale.EMOTES_COMFORT, tokens: ["COMFORT", "SOOTHE", "CALM", "PITY"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_SORROW, groups: [
+      { title: Locale.EMOTES_SADNESS, tokens: ["CRY", "SAD", "MOURN", "SIGH", "GROAN", "WHINE", "POUT", "REGRET"] },
+      { title: Locale.EMOTES_DESPAIR, tokens: ["PLEAD", "BEG", "FACEPALM", "OOPS", "BLAME", "HEADACHE"] },
+      { title: Locale.EMOTES_FEAR, tokens: ["COWER", "SCARED", "PANIC", "NERVOUS", "SHIVER", "SHUDDER", "WINCE", "FAINT"] },
+      { title: Locale.EMOTES_SURPRISE, tokens: ["GASP", "SURPRISED", "BOGGLE", "BADFEELING", "BLANK", "BLINK", "EYEBROW"] },
+      { title: Locale.EMOTES_PUZZLED, tokens: ["CONFUSED", "PUZZLE", "LOST", "CURIOUS", "PONDER", "THINK", "IDEA", "SHIFTY"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_ANGER, groups: [
+      { title: Locale.EMOTES_RAGE, tokens: ["ANGRY", "GLARE", "GLOWER", "SCOWL", "FROWN", "SNARL", "GROWL", "ROAR"] },
+      { title: Locale.EMOTES_THREATS, tokens: ["THREATEN", "SHAKEFIST", "CHALLENGE", "REVENGE", "ENEMY", "BRANDISH", "HISS", "CROSSARMS"] },
+      { title: Locale.EMOTES_MOCKERY, tokens: ["MOCK", "TAUNT", "TEASE", "GLOAT", "SMIRK", "SCOFF", "ROLLEYES", "SNORT"] },
+      { title: Locale.EMOTES_RUDENESS, tokens: ["RUDE", "INSULT", "SNUB", "SCOLD", "SPIT", "SHOO", "JEALOUS", "SUSPICIOUS"] },
+      { title: Locale.EMOTES_BLOWS, tokens: ["SLAP", "SMACK", "PUNCH", "BONK", "BITE", "PINCH", "POUNCE"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_COMBAT, groups: [
+      { title: Locale.EMOTES_ORDERS, tokens: ["ATTACKMYTARGET", "CHARGE", "OPENFIRE", "INCOMING", "FLEE", "FOLLOW", "WAIT"] },
+      { title: Locale.EMOTES_CALLS, tokens: ["HELPME", "HEALME", "OOM", "READY", "GO", "HURRY", "WARN", "SIGNAL"] },
+      { title: Locale.EMOTES_SCOUTING, tokens: ["FORTHEALLIANCE", "FORTHEHORDE", "POINT", "MAP", "SEARCH", "SNEAK", "BACKPACK"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_BODY, groups: [
+      { title: Locale.EMOTES_POSES, tokens: ["SIT", "STAND", "LAYDOWN", "LEAN", "DUCK", "RAISE", "ARM", "COVEREARS"] },
+      { title: Locale.EMOTES_FOOD, tokens: ["EAT", "DRINK", "CHUG", "HUNGRY", "THIRSTY", "HICCUP", "BURP", "DROOL"] },
+      { title: Locale.EMOTES_HEALTH, tokens: ["COUGH", "SNEEZE", "SNIFF", "SWEAT", "BLEED", "PULSE", "BREATH", "COLD"] },
+      { title: Locale.EMOTES_TIRED, tokens: ["TIRED", "YAWN", "SLEEP", "BORED", "FIDGET", "TAP"] },
+      { title: Locale.EMOTES_SILLY, tokens: ["FART", "MOON", "NOSEPICK", "CHICKEN", "SCRATCH", "FLOP", "CRACK", "SNAP"] }
+    ]
+  },
+  {
+    title: Locale.EMOTES_TALK, groups: [
+      { title: Locale.EMOTES_SPEECH, tokens: ["TALK", "TALKEX", "TALKQ", "SHOUT", "MUTTER", "SILENCE", "LISTEN", "READ"] },
+      { title: Locale.EMOTES_LOOKS, tokens: ["LOOK", "STARE", "PEER", "GAZE", "EYE", "RASP", "WORK", "MOUNTSPECIAL"] },
+      { title: Locale.EMOTES_SOUNDS, tokens: ["MEOW", "MOO", "QUACK", "BARK", "SQUEAL", "PURR", "LICK"] }
+    ]
+  }
+]
+
+// The client numbers its emotes up to this (`MAXEMOTEINDEX`; a few numbers stand empty).
+const EMOTES_MOST = 700
+// The most commands the client gives one emote (`EMOTE61_CMD1` to `_CMD9`).
+const COMMANDS_MOST = 9
+
+function text(name: String): String | nil {
+  const value = Client.getglobal(name)
+  return value is String ? value : nil
+}
+
+// What the wheel names each emote by, by its token: its first command; where an emote of a lower number has the same
+// first command (`/привет` is «hello» and «greet»: the client takes it for the lower), the first of its own that is no
+// emote's first.
+public function emoteNames(): Map<String, String> {
+  const commands: Map<String, Array<String>> = {}
+  // Each first command's emote: the lowest number's.
+  const owners: Map<String, String> = {}
+  for (index of 1..EMOTES_MOST) {
+    const token = text(`EMOTE${index}_TOKEN`)
+    if (token != nil && commands[token] == nil) {
+      const own: Array<String> = []
+      for (step of 1..COMMANDS_MOST) {
+        const command = text(`EMOTE${index}_CMD${step}`)
+        if (command == nil) { break }
+        own.push(command)
+      }
+      const first = own[1]
+      if (first != nil) {
+        commands[token] = own
+        if (owners[first] == nil) { owners[first] = token }
+      }
+    }
+  }
+  const names: Map<String, String> = {}
+  for (token, own of commands) {
+    const first = own[1] ?? token
+    names[token] = owners[first] == token ? first : own.find(command => owners[command] == nil) ?? first
+  }
+  return names
+}

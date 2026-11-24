@@ -45,7 +45,7 @@ function clickAt(x: Number, y: Number) {
 test "the key held opens the ring and names what the mouse goes towards, from where its aim has trailed to" {
   start()
   hold("F", 0, -2 * FAR)
-  Test.expect(Test.page().texts().join(", ") == "Windows, Click to open, Scroll to choose")
+  Test.expect(Test.page().texts().join(", ") == "Professions, Click to open, Scroll to choose")
   // Gone far up, the aim's middle trailed it, a reach behind: a way back about that far comes into it, which cancels.
   Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 2 * FAR + 90 })
   Test.pass(0.05)
@@ -53,21 +53,21 @@ test "the key held opens the ring and names what the mouse goes towards, from wh
   // A move right from there turns to the item on the right.
   Test.moveTo({ x: MIDDLE.x + 3 * FAR, y: MIDDLE.y - 2 * FAR + 90 })
   Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
+  Test.expect(Test.page().texts().join(", ") == "Marks, Click to open, Scroll to choose")
   _ = Test.releaseBound("F")
 }
 
 test "a ring's item opens its ring in place on a click, and a click there does its item, in a fight too" {
   start()
   Test.combat(true)
-  hold("F", 0, -FAR)
-  clickAt(0, -FAR)
-  // On the wheel, its middle is the aim's: the item right of it is right of the middle.
-  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Talents, Click to use")
+  hold("F", FAR, 0)
   clickAt(FAR, 0)
-  Test.expect(Test.performed().join(", ") == "macro /click TalentMicroButton")
+  // On the wheel, its middle is the aim's: the item up from it is up from the middle.
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - FAR })
+  Test.pass(0.05)
+  Test.expect(Test.page().texts().join(", ") == "Mark 8, Click to use")
+  clickAt(0, -FAR)
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
   Test.expect(Test.page().texts().length == 0)
   _ = Test.releaseBound("F")
   Test.combat(false)
@@ -111,20 +111,57 @@ test "a window of ours is opened out of a fight, and is dimmed and does nothing 
   Test.expect(Test.page().window("Move mode").shown())
 }
 
-test "the settings' tab puts an item in a place, and the preset takes it back" {
-  start()
+// The settings window on the wheels' tab: the surface that holds the tab's own «All rings back» (the catalogue's list,
+// open, says «Move mode» too).
+function radialTab(): Test.Part {
   Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
-  settings.button("Radial").click()
-  settings.text("Key").wheel(-10)
-  settings.input().nth(2).type("Find Herbs")
-  settings.button("Put it there").click()
-  const radial = Radial
-  const first = radial.settings.values.rings[1] ?? panic("the first ring")
-  Test.expect(first.items["1"] is Item.Spell)
-  settings.button("Back to the preset").click()
-  const again = radial.settings.values.rings[1] ?? panic("the first ring")
-  Test.expect(again.items["1"] is Item.Menu)
+  Test.page().window("Move mode").button("Radial").click()
+  return Test.page().window("All rings back")
+}
+
+// A part of the tab clicked as the player does: the tab scrolled from its top down until it is in view.
+function clickDown(settings: Test.Part, part: Test.Part) {
+  settings.hover()
+  for (notch of 1..30) { Test.wheel(1) }
+  for (notch of 1..60) {
+    if (Test.refused(() => part.click()) == nil) { return }
+    Test.wheel(-1)
+  }
+  panic("the part is never in view")
+}
+
+function firstRing(): Ring { return Radial.settings.values.rings[1] ?? panic("the first ring") }
+
+test "the tab's tree opens a submenu, the place chosen shows its item and takes another, and the preset takes it back" {
+  start()
+  const settings = radialTab()
+  clickDown(settings, settings.button("2. Pings"))
+  clickDown(settings, settings.button("1. Attack"))
+  // The catalogue's plate says what stands there: the second «Attack», after the line's own.
+  clickDown(settings, settings.button("Attack").nth(2))
+  Test.page().button("Spell or mount").click()
+  clickDown(settings, settings.input().nth(1))
+  settings.input().nth(1).type("Find Herbs")
+  clickDown(settings, settings.button("Put it there"))
+  Test.expect(firstRing().items["2_1"] is Item.Spell)
+  clickDown(settings, settings.button("Back to the preset"))
+  Test.expect(firstRing().items["2_1"] is Item.Pinged)
+}
+
+test "a place added inside a submenu is moved earlier, and one taken away takes what stands under it, those after it moving up" {
+  start()
+  const settings = radialTab()
+  clickDown(settings, settings.button("1. Professions"))
+  clickDown(settings, settings.button("Add inside"))
+  Test.expect(firstRing().counts["1"] == 2 && firstRing().items["1_2"] == Item.Empty)
+  clickDown(settings, settings.button("Move earlier"))
+  Test.expect(firstRing().items["1_1"] == Item.Empty && firstRing().items["1_2"] == Item.Professions)
+  clickDown(settings, settings.button("2. Pings"))
+  clickDown(settings, settings.button("Remove"))
+  // The marks moved up into the pings' place, their own marks with them.
+  const ring = firstRing()
+  Test.expect(ring.counts[""] == 6 && ring.counts["2"] == 8 && ring.items["2_8"] is Item.RaidMark)
+  Test.expect(ring.items["1_2"] == Item.Professions && ring.items["6"] is Item.Menu && ring.items["7"] == nil)
 }
 
 // One ring of the player's changed as `edit` changes it.
@@ -149,14 +186,11 @@ class Junk implements RadialKind {
 test "a spell dropped from the spellbook goes in the place chosen" {
   start()
   Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
-  settings.button("Radial").click()
-  settings.text("Key").wheel(-10)
+  const settings = radialTab()
+  clickDown(settings, settings.button("5. Travel"))
   Client.C_Spell.PickupSpell(2383)
-  settings.button("Drop a spell, an item or a macro here: it goes in the place").click()
-  const first = Radial.settings.values.rings[1] ?? panic("the first ring")
-  Test.expect(first.items["1"] is Item.Spell)
+  clickDown(settings, settings.button("Drop a spell, an item or a macro here: it goes in the place"))
+  Test.expect(firstRing().items["5"] is Item.Spell && firstRing().items["5_1"] == nil)
   Test.expect(!Client.CursorHasSpell())
 }
 
@@ -231,21 +265,20 @@ test "an item from the bags and a macro dropped go in the place chosen" {
   start()
   Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
   Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
-  settings.button("Radial").click()
-  settings.text("Key").wheel(-10)
-  const drop = "Drop a spell, an item or a macro here: it goes in the place"
-  settings.button(drop).click()
-  Test.expect((Radial.settings.values.rings[1] ?? panic("the first ring")).items["1"] is Item.Bag)
+  const settings = radialTab()
+  clickDown(settings, settings.button("1. Professions"))
+  const drop = settings.button("Drop a spell, an item or a macro here: it goes in the place")
+  clickDown(settings, drop)
+  Test.expect(firstRing().items["1"] is Item.Bag)
   Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
-  settings.button(drop).click()
-  Test.expect((Radial.settings.values.rings[1] ?? panic("the first ring")).items["1"] is Item.Macro)
+  clickDown(settings, drop)
+  Test.expect(firstRing().items["1"] is Item.Macro)
 }
 
 test "the mouse wheel over a submenu shows the item it steps to, and the middle says which of how many" {
   start()
-  hold("F", 0, -FAR)
+  // The pings, up and to the right.
+  hold("F", 94, -75)
   Test.wheel(-1)
   Test.pass(0.05)
   const texts = Test.page().texts()
@@ -268,6 +301,25 @@ test "a ping taken by a press says to point and let go; the wheel is see-through
   Test.release(nil)
   _ = Test.releaseBound("H")
   Test.expect(Test.performed().join(", ") == "macro /ping 1")
+}
+
+test "emotes stand in families of groups, each named by its command with no icon and done by its token" {
+  start()
+  Test.combat(true)
+  // The emotes, down and a little to the right.
+  hold("F", 60, 104)
+  clickAt(60, 104)
+  clickAt(0, -FAR)
+  clickAt(0, -FAR)
+  // «hello» and «greet» share `/привет`: the client takes it for «greet», the lower, and «hello» is named by its next.
+  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y - FAR })
+  Test.pass(0.05)
+  Test.expect(Test.page().text("/при").shown() && Test.page().text("/привет").shown())
+  Test.expect(!Test.drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Toy_10"))
+  clickAt(FAR, -FAR)
+  _ = Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "macro /run DoEmote(\"GREET\")")
+  Test.combat(false)
 }
 
 test "each kind of ping shows the client's own mark of it and sends its own number" {

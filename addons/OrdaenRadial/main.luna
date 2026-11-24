@@ -16,9 +16,11 @@ import {
   WheelModifier, WheelNames, WheelRing, WHEEL_MOST, slotAt
 } from "Ordaen"
 import { Choices, Condition, Item, Ring, Window } from "@/choices"
+import { emoteNames } from "@/emotes"
 import { actionOf, inForm, refusesInFight, shown } from "@/items"
 import { RadialKind, RadialOffer } from "@/kinds"
 import Locale from "@/locales"
+import { parentOf, within } from "@/places"
 import { preset } from "@/preset"
 import { RingsPage } from "@/settings"
 
@@ -35,8 +37,6 @@ public const RING_KEYS: Array<String> = ["ORDAEN_RADIAL_1", "ORDAEN_RADIAL_2", "
 // A ring's place inside the client's wheel: `""` the ring itself (`r`), `"3_2"` (`r_3_2`).
 public function wheelPlace(place: String): String { return place == "" ? ROOT : `${ROOT}_${place}` }
 public function placeOf(wheelPath: String): String { return wheelPath == ROOT ? "" : wheelPath.sub(ROOT.length + 2) }
-// An item's place inside a ring's place.
-public function within(ring: String, index: Integer): String { return ring == "" ? String.of(index) : `${ring}_${index}` }
 
 // The player's class, as the client tags it (`WARRIOR`).
 function playerClass(): String | nil {
@@ -76,7 +76,7 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
   for (place, item of ring.items) {
     if (item == Item.Professions) {
       // The ring this stands in holds the player's professions in its place.
-      const cut = place.match("^(.+)_%d+$") ?? ""
+      const cut = parentOf(place)
       const known = Game.professions.list
       counts[cut] = known.length
       for (index, one of known) { items[within(cut, index)] = .Spell { spell: one.name } }
@@ -111,12 +111,14 @@ public class Radial implements Module, App {
 
   public settings: mut Settings<Choices> = new Settings<Choices>(preset())
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} kinds={self.kinds} /> } }
+    { title: Locale.TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} kinds={self.kinds} emotes={self.emotes} /> } }
   ]
   // A secure wheel for each ring's key.
   public const wheels: mut Array<mut SecureWheel> = [
     new SecureWheel("OrdaenRadial1"), new SecureWheel("OrdaenRadial2"), new SecureWheel("OrdaenRadial3")
   ]
+  // What the wheel names each emote by (its command in the player's language), by its token.
+  const emotes: Map<String, String> = emoteNames()
   // What each kind of another module's offers now, by its id.
   derived offers: Map<String, RadialOffer> = self.offersOf()
   // Each ring as the wheel shows it, followed as the settings, the professions and the kinds' offers change.
@@ -150,6 +152,11 @@ public class Radial implements Module, App {
     Events.UPDATE_BINDINGS.listen(self.bind)
   }
 
+  // How an item is drawn now: another module's kind as it offers, an emote by its command.
+  drawnOf(self, item: Item): WheelItem {
+    return shown(item, item is Item.Kind ? self.offers[item.kind] : nil, self.emotes)
+  }
+
   offersOf(self): Map<String, RadialOffer> {
     const offers: Map<String, RadialOffer> = {}
     for (kind of self.kinds) { offers[kind.id] = kind.offer() }
@@ -180,7 +187,7 @@ public class Radial implements Module, App {
     if (chosen == 0) {
       const own = ring.items[place]
       if (own == nil) { return { name: "", hints: [Locale.HINT_CANCEL], dim: true } }
-      return { name: shown(own, own is Item.Kind ? self.offers[own.kind] : nil).name, hints: [Locale.HINT_BACK], dim: true }
+      return { name: self.drawnOf(own).name, hints: [Locale.HINT_BACK], dim: true }
     }
     const at = within(place, chosen)
     const item = ring.items[at] ?? Item.Empty
@@ -189,7 +196,7 @@ public class Radial implements Module, App {
     if (item is Item.Menu || item is Item.Slot) {
       const step = wheel.step(wheelPlace(at))
       if (step == 0) {
-        return { name: shown(item, nil).name, hints: [Locale.HINT_OPEN, Locale.HINT_SCROLL], dim: false }
+        return { name: self.drawnOf(item).name, hints: [Locale.HINT_OPEN, Locale.HINT_SCROLL], dim: false }
       }
       return { name: name, hints: [Locale.HINT_USE, Locale.HINT_STEP.format(step, drawn?.segments ?? 0)], dim: false }
     }
@@ -204,7 +211,7 @@ public class Radial implements Module, App {
     if (ring == nil || self.level == ROOT) { return nil }
     const item = ring.items[placeOf(self.level)]
     if (item == nil) { return nil }
-    return shown(item, item is Item.Kind ? self.offers[item.kind] : nil).icon
+    return self.drawnOf(item).icon
   }
 
   // The items of the ring shown, with their state now: read again as the wheel's count moves while it is up.
@@ -223,7 +230,7 @@ public class Radial implements Module, App {
       const item = ring.items[at] ?? Item.Empty
       // A submenu or a slot of several has a band of its items; it shows the one the mouse wheel stepped to, or a
       // slot its current child.
-      let drawn = shown(item, item is Item.Kind ? self.offers[item.kind] : nil)
+      let drawn = self.drawnOf(item)
       let segments = 0
       let segment = 0
       if (item is Item.Menu || item is Item.Slot) {
@@ -231,7 +238,7 @@ public class Radial implements Module, App {
         const step = wheel.step(wheelPlace(at))
         segment = step > 0 || item is Item.Menu ? step : wheel.current(wheelPlace(at))
         const child = segment > 0 ? ring.items[within(at, segment)] : nil
-        if (child != nil) { drawn = shown(child, child is Item.Kind ? self.offers[child.kind] : nil) }
+        if (child != nil) { drawn = self.drawnOf(child) }
       }
       const off = !holdsNow(ring.conditions[at]) || fighting && refusesInFight(item)
       items.push({

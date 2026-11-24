@@ -1,13 +1,20 @@
 // The wheels' tab in the settings window: a ring chosen, where it opens and how it names its items, its key (the
-// client's Key Bindings window binds it), each of its places given an item from the catalogue, and «Back to the
+// client's Key Bindings window binds it); its places as a tree (a submenu's and a slot's items under it), each added,
+// moved, taken away and chosen; the place chosen given an item from the catalogue on a condition; and «Back to the
 // preset» for the ring or for all. A change applies at once; out of a fight the wheel takes it, in one at its end.
 import Client from "$client"
 import { Align, Line } from "$ltml"
-import { Checkbox, Choice, Component, Dropdown, Fact, NumberInput, PushButton, Section, Settings, SlotMode, TextField, Unit, WheelModifier, WheelNames } from "Ordaen"
+import {
+  Checkbox, Choice, Component, Dropdown, Fact, NumberInput, PushButton, SECONDARY_TEXT, Section, Settings, SlotMode,
+  TextField, Unit, WheelModifier, WheelNames
+} from "Ordaen"
 import { Choices, Condition, Item, OpensAt, Ping, Ring, Window } from "@/choices"
+import { shown } from "@/items"
 import { RadialKind } from "@/kinds"
 import Locale from "@/locales"
+import { addPlace, emptyUnder, hasRoom, holdsItems, numberOf, parentOf, removePlace, shiftPlace, within } from "@/places"
 import { preset, presetRing } from "@/preset"
+import { SlotLine, SlotRow } from "@/slotLine"
 
 const RINGS: Array<Choice<Integer>> = [
   { value: 1, label: Locale.RING_FIRST },
@@ -24,25 +31,16 @@ const NAMES: Array<Choice<WheelNames>> = [
   { value: WheelNames.Always, label: Locale.NAMES_ALWAYS }
 ]
 
-// What can stand in a place: the catalogue, by a name of its own; a spell, an item, a macro and a submenu take the
-// text written beside it.
+// What can stand in a place: the catalogue, by a name of its own; a spell, an item, a macro, an emote and a submenu
+// take the text written beside it.
 public const CATALOGUE: Array<Choice<String>> = [
   { value: "empty", label: Locale.KIND_EMPTY },
   { value: "spell", label: Locale.KIND_SPELL },
   { value: "item", label: Locale.KIND_ITEM },
   { value: "macro", label: Locale.KIND_MACRO },
+  { value: "emote", label: Locale.KIND_EMOTE },
   { value: "menu", label: Locale.KIND_MENU },
   { value: "professions", label: Locale.RING_PROFESSIONS },
-  { value: "character", label: Locale.WINDOW_CHARACTER },
-  { value: "spellbook", label: Locale.WINDOW_SPELLBOOK },
-  { value: "talents", label: Locale.WINDOW_TALENTS },
-  { value: "quests", label: Locale.WINDOW_QUESTS },
-  { value: "map", label: Locale.WINDOW_MAP },
-  { value: "social", label: Locale.WINDOW_SOCIAL },
-  { value: "guild", label: Locale.WINDOW_GUILD },
-  { value: "groupFinder", label: Locale.WINDOW_GROUP_FINDER },
-  { value: "calendar", label: Locale.WINDOW_CALENDAR },
-  { value: "bags", label: Locale.WINDOW_BAGS },
   { value: "settings", label: Locale.WINDOW_SETTINGS },
   { value: "placing", label: Locale.WINDOW_PLACING },
   { value: "attack", label: Locale.PING_ATTACK },
@@ -60,15 +58,27 @@ public const CATALOGUE: Array<Choice<String>> = [
 const DROP_EDGE: Line = { width: 1dp, color: Color.hex("#6c5535") }
 const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
 const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
+const BUTTON_WIDTH = 160dp
+
+// An emote by what the player wrote: its token (`laugh`), or the command the wheel names it by (`/смех`).
+function emoteToken(text: String, emotes: Map<String, String>): String {
+  const token = text.upper()
+  if (emotes[token] != nil) { return token }
+  for (one, name of emotes) {
+    if (name == text) { return one }
+  }
+  return token
+}
 
 // The item a catalogue's entry makes, with the text written beside it.
-public function itemOf(kind: String, text: String): Item {
+public function itemOf(kind: String, text: String, emotes: Map<String, String>): Item {
   const number = text.toNumber()
   const whole = number != nil ? number.floor() : 0
   return match (kind) {
     "spell" => .Spell { spell: text }
     "item" => .Bag { item: whole }
     "macro" => .Macro { macro: text }
+    "emote" => .Emote { token: emoteToken(text, emotes) }
     "menu" => .Menu { title: text, icon: MENU_ICON }
     "professions" => Item.Professions
     "mark" => .RaidMark { mark: whole }
@@ -78,22 +88,44 @@ public function itemOf(kind: String, text: String): Item {
     "assist" => .Pinged { ping: Ping.Assist }
     "warning" => .Pinged { ping: Ping.Warning }
     "onmyway" => .Pinged { ping: Ping.OnMyWay }
-    "character" => .Open { window: Window.Character }
-    "spellbook" => .Open { window: Window.Spellbook }
-    "talents" => .Open { window: Window.Talents }
-    "quests" => .Open { window: Window.Quests }
-    "map" => .Open { window: Window.Map }
-    "social" => .Open { window: Window.Social }
-    "guild" => .Open { window: Window.Guild }
-    "groupFinder" => .Open { window: Window.GroupFinder }
-    "calendar" => .Open { window: Window.Calendar }
-    "bags" => .Open { window: Window.Bags }
     "settings" => .Open { window: Window.Settings }
     "placing" => .Open { window: Window.Placing }
     "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Cycle }
     "slotRemember" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Remember }
     "slotFirst" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.First }
     else => kind.sub(1, 5) == "kind:" ? Item.Kind { kind: kind.sub(6) } : Item.Empty
+  }
+}
+
+// The catalogue's entry an item is: what the tab shows of a place chosen. One that takes no text is the entry that
+// makes it.
+public function kindOf(item: Item): String {
+  return match (item) {
+    .Spell => "spell"
+    .Bag => "item"
+    .Macro => "macro"
+    .Emote => "emote"
+    .Menu => "menu"
+    .RaidMark => "mark"
+    .WorldMark => "worldMark"
+    .Line => "line"
+    .Slot => match (item.mode) { .Cycle => "slotCycle", .Remember => "slotRemember", .First => "slotFirst" }
+    .Kind => `kind:${item.kind}`
+    .Empty, .Professions, .Pinged, .Open => CATALOGUE.find(choice => itemOf(choice.value, "", {}).equal(item))?.value ?? "empty"
+  }
+}
+
+// The text an item was made with, written back in the field beside the catalogue.
+public function textOf(item: Item, emotes: Map<String, String>): String {
+  return match (item) {
+    .Spell => item.spell
+    .Bag => String.of(item.item)
+    .Macro => item.macro
+    .Emote => emotes[item.token] ?? item.token
+    .Menu, .Slot => item.title
+    .RaidMark, .WorldMark => String.of(item.mark)
+    .Line => item.line
+    else => ""
   }
 }
 
@@ -118,6 +150,15 @@ public function conditionOf(classTag: String, form: String, modifier: String): C
   return { classTag: tag == "" ? nil : tag, form: number?.floor(), modifier: held }
 }
 
+function modifierOf(condition: Condition | nil): String {
+  return match (condition?.modifier) {
+    .Shift => "shift"
+    .Ctrl => "ctrl"
+    .Alt => "alt"
+    nil => ""
+  }
+}
+
 // What the cursor holds, as an item of a ring: a spell (by its name), an item of the bags, a macro of the player's;
 // none for anything else.
 public function heldItem(): Item | nil {
@@ -134,10 +175,20 @@ public function heldItem(): Item | nil {
   return nil
 }
 
+// A new item put where an old one stood: a submenu or a slot keeps its icon while it stays one.
+function kept(item: Item, old: Item | nil): Item {
+  if (item is Item.Menu && old is Item.Menu) { return .Menu { title: item.title, icon: old.icon } }
+  if (item is Item.Slot && old is Item.Slot) { return .Slot { title: item.title, icon: old.icon, mode: item.mode } }
+  return item
+}
+
 public class RingsPage implements Component {
-  // The ring and the place being given an item, the item and its condition.
+  // The ring shown, and the place chosen in it (`""`: none).
   state ring = 1
-  state place = "1"
+  state place = ""
+  // The places that hold items whose items the tree shows under them.
+  state opened: Map<String, Boolean> = {}
+  // The item for the place chosen and its condition, as the fields say.
   state kind = "spell"
   state text = ""
   state classTag = ""
@@ -149,17 +200,28 @@ public class RingsPage implements Component {
   state remember = false
   state anchored = true
   derived keys: String = self.keysOf()
+  derived shownRing: Ring | nil = self.settings.values.rings[self.ring]
+  derived rows: Array<SlotRow> = self.rowsOf()
+  derived chosenItem: Item | nil = self.itemAt(self.place)
+  derived path: String = self.pathOf()
+  derived hasChoice: Boolean = self.chosenItem != nil
+  derived roomBeside: Boolean = self.roomBesideOf()
+  derived roomInside: Boolean = self.roomInsideOf()
   // The catalogue, with the kinds other modules add as the page is made.
   const catalogue: Array<Choice<String>>
 
   settings: mut Settings<Choices>
-  constructor(settings: mut Settings<Choices>, kinds: Signal<Array<any RadialKind>>) {
+  // What the wheel names each emote by, by its token.
+  const emotes: Map<String, String>
+  constructor(settings: mut Settings<Choices>, kinds: Signal<Array<any RadialKind>>, emotes: Map<String, String>) {
     self.settings = settings
+    self.emotes = emotes
     const all: Array<Choice<String>> = []
     for (choice of CATALOGUE) { all.push(choice) }
     for (kind of peek kinds) { all.push({ value: `kind:${kind.id}`, label: kind.title }) }
     self.catalogue = all
     watch (ring of self.ring) { self.load(ring) }
+    watch (place of self.place) { self.loadPlace(place) }
     watch (opensAt of self.opensAt) { self.change((r: mut Ring): nil => { r.opensAt = opensAt }) }
     watch (names of self.names) { self.change((r: mut Ring): nil => { r.names = names }) }
     watch (scale of self.scale) { self.change((r: mut Ring): nil => { r.scale = scale }) }
@@ -175,6 +237,22 @@ public class RingsPage implements Component {
     self.scale = ring.scale
     self.remember = ring.remember
     self.anchored = ring.anchored
+    self.place = ""
+    self.opened = {}
+  }
+
+  // The fields say what stands in the place chosen now.
+  loadPlace(mut self, place: String) {
+    const ring = peek self.shownRing
+    if (ring == nil) { return }
+    const item = ring.items[place]
+    if (item == nil) { return }
+    const condition = ring.conditions[place]
+    self.kind = kindOf(item)
+    self.text = textOf(item, self.emotes)
+    self.classTag = condition?.classTag ?? ""
+    self.form = condition?.form != nil ? String.of(condition?.form ?? 0) : ""
+    self.modifier = modifierOf(condition)
   }
 
   // The chosen ring changed as `edit` changes it, unless it is already so.
@@ -190,35 +268,154 @@ public class RingsPage implements Component {
     self.settings.values.rings = rings
   }
 
+  // What stands in a place of the ring shown.
+  itemAt(self, place: String): Item | nil {
+    const ring = self.shownRing
+    return ring != nil ? ring.items[place] : nil
+  }
+
+  // Whether a place fits beside the one chosen (in the ring itself where none is chosen).
+  roomBesideOf(self): Boolean {
+    const ring = self.shownRing
+    return ring != nil && hasRoom(ring, parentOf(self.place))
+  }
+
+  // Whether the place chosen holds items and one more fits in it.
+  roomInsideOf(self): Boolean {
+    const ring = self.shownRing
+    const item = self.chosenItem
+    return ring != nil && item != nil && holdsItems(item) && hasRoom(ring, self.place)
+  }
+
   keysOf(self): String {
     const first, second = Client.GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
     if (first == nil) { return Locale.KEY_NONE }
     return second == nil ? first : `${first}, ${second}`
   }
 
+  // A place's line: its number and what stands there.
+  labelOf(self, item: Item, place: String): String {
+    const name = item is Item.Empty ? Locale.KIND_EMPTY : shown(item, nil, self.emotes).name
+    return `${numberOf(place)}. ${name}`
+  }
+
+  kindLabel(self, item: Item): String {
+    const key = kindOf(item)
+    return self.catalogue.find(choice => choice.value == key)?.label ?? key
+  }
+
+  // The tree's lines: each place of the ring, and under one that holds items and is open, its own.
+  rowsOf(self): Array<SlotRow> {
+    const rows: Array<SlotRow> = []
+    const ring = self.shownRing
+    if (ring != nil) { self.addRows(ring, "", 0, mut rows) }
+    return rows
+  }
+
+  addRows(self, ring: Ring, parent: String, depth: Integer, rows: mut Array<SlotRow>) {
+    for (number of 1..(ring.counts[parent] ?? 0)) {
+      const place = within(parent, number)
+      const item = ring.items[place] ?? Item.Empty
+      const holds = holdsItems(item)
+      const open = holds && self.opened[place] == true
+      rows.push({
+        place: place, depth: depth, label: self.labelOf(item, place), kind: self.kindLabel(item), holds: holds, open: open
+      })
+      if (open) { self.addRows(ring, place, depth + 1, mut rows) }
+    }
+  }
+
+  // Where the place chosen stands: the titles of the submenus it is in, and its number.
+  pathOf(self): String {
+    const ring = self.shownRing
+    if (ring == nil || self.place == "") { return Locale.SLOT_NONE }
+    const labels: Array<String> = []
+    let at = ""
+    for (number of self.place.split("_")) {
+      at = at == "" ? number : `${at}_${number}`
+      labels.push(self.labelOf(ring.items[at] ?? Item.Empty, at))
+    }
+    return labels.join(" › ")
+  }
+
+  // A line clicked: its place chosen, and one that holds items opened or closed.
+  choose(mut self, place: String) {
+    const item = peek self.itemAt(place)
+    if (item != nil && holdsItems(item)) {
+      const opened = (peek self.opened).clone()
+      opened[place] = opened[place] != true
+      self.opened = opened
+    }
+    self.place = place
+  }
+
+  // An empty place added beside the one chosen (at the end of its ring), and chosen.
+  addBeside(mut self) {
+    const parent = parentOf(self.place)
+    let added: String | nil = nil
+    self.change((r: mut Ring): nil => { added = addPlace(mut r, parent) })
+    const place = added
+    if (place != nil) { self.place = place }
+  }
+
+  // An empty place added at the end of the submenu or the slot chosen, shown and chosen.
+  addInside(mut self) {
+    const parent = self.place
+    let added: String | nil = nil
+    self.change((r: mut Ring): nil => { added = addPlace(mut r, parent) })
+    const place = added
+    if (place == nil) { return }
+    const opened = (peek self.opened).clone()
+    opened[parent] = true
+    self.opened = opened
+    self.place = place
+  }
+
+  shift(mut self, by: Integer) {
+    const place = self.place
+    let moved: String | nil = nil
+    self.change((r: mut Ring): nil => { moved = shiftPlace(mut r, place, by) })
+    const next = moved
+    if (next != nil) { self.place = next }
+  }
+
+  earlier(mut self) { self.shift(-1) }
+  later(mut self) { self.shift(1) }
+
+  remove(mut self) {
+    const place = self.place
+    self.change((r: mut Ring): nil => { removePlace(mut r, place) })
+    self.place = ""
+  }
+
   // An item put in the place chosen, on the condition the fields say.
   putItem(mut self, item: Item) {
     const place = self.place
+    if (place == "") { return }
     const condition = conditionOf(self.classTag, self.form, self.modifier)
     self.change((r: mut Ring): nil => {
-      r.items[place] = item
+      const old = r.items[place]
+      const next = kept(item, old)
+      r.items[place] = next
       r.conditions[place] = condition
-      // A place past the ring's count grows it; a submenu or a slot starts with no items.
-      const ring = place.match("^(.+)_%d+$") ?? ""
-      const index = (place.match("(%d+)$") ?? "0").toNumber() ?? 0
-      if ((r.counts[ring] ?? 0) < index) { r.counts[ring] = index.floor() }
-      if ((item is Item.Menu || item is Item.Slot) && r.counts[place] == nil) { r.counts[place] = 0 }
+      // What stood under a submenu or a slot goes with it; a new one starts with no items.
+      if (!holdsItems(next)) {
+        emptyUnder(mut r, place)
+      } else if (r.counts[place] == nil) {
+        r.counts[place] = 0
+      }
     })
+    self.loadPlace(place)
   }
 
   // The catalogue's item chosen put in the place chosen.
-  put(mut self) { self.putItem(itemOf(self.kind, self.text)) }
+  put(mut self) { self.putItem(itemOf(self.kind, self.text, self.emotes)) }
 
   // What the cursor holds (a spell from the spellbook, an item from the bags, a macro), let go here: put in the place
   // chosen, and the cursor emptied.
   dropped(mut self) {
     const item = heldItem()
-    if (item == nil) { return }
+    if (item == nil || self.place == "") { return }
     self.putItem(item)
     Client.ClearCursor()
   }
@@ -254,22 +451,35 @@ public class RingsPage implements Component {
         <Checkbox label={Locale.REMEMBER} hint={Locale.REMEMBER_TIP} value={mut self.remember} />
         <Checkbox label={Locale.ANCHORED} hint={Locale.ANCHORED_TIP} value={mut self.anchored} />
       </Section>
+      <Section title={Locale.SECTION_PLACES}>
+        <text value={Locale.PLACES_TIP} textSize={SECONDARY_TEXT} leading={.Prose} />
+        <box columns={1}>
+          <SlotLine $for={row of self.rows} $key={row.place} row={row} picked={row.place == self.place} @chosen={self.choose} />
+        </box>
+        <box columns={"wrap"} gap={2sp}>
+          <PushButton label={Locale.PLACE_ADD} width={BUTTON_WIDTH} disabled={!self.roomBeside} @click={self.addBeside} />
+          <PushButton label={Locale.PLACE_ADD_INSIDE} width={BUTTON_WIDTH} disabled={!self.roomInside} @click={self.addInside} />
+          <PushButton label={Locale.PLACE_EARLIER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.earlier} />
+          <PushButton label={Locale.PLACE_LATER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.later} />
+          <PushButton label={Locale.PLACE_REMOVE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.remove} />
+        </box>
+      </Section>
       <Section title={Locale.SECTION_ITEM}>
-        <TextField label={Locale.PLACE} hint={Locale.PLACE_TIP} value={mut self.place} />
-        <Dropdown label={Locale.KIND} value={mut self.kind} choices={self.catalogue} />
+        <Fact label={Locale.PLACE} value={self.path} />
+        <Dropdown label={Locale.KIND} value={mut self.kind} choices={self.catalogue} disabled={!self.hasChoice} />
         <TextField label={Locale.ITEM_TEXT} hint={Locale.ITEM_TEXT_TIP} value={mut self.text} />
         <TextField label={Locale.CONDITION_CLASS} hint={Locale.CONDITION_CLASS_TIP} value={mut self.classTag} />
         <TextField label={Locale.CONDITION_FORM} hint={Locale.CONDITION_FORM_TIP} value={mut self.form} />
         <Dropdown label={Locale.CONDITION_MODIFIER} value={mut self.modifier} choices={MODIFIERS} />
-        <PushButton label={Locale.PUT} width={160dp} @click={self.put} />
+        <PushButton label={Locale.PUT} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.put} />
         <box padding={{ top: 3sp, bottom: 3sp }} border={DROP_EDGE} xAlign={Align.Center} @drop={self.dropped}
              @pointerPress={self.dropped}>
           <text value={Locale.DROP} />
         </box>
       </Section>
       <Section title={Locale.SECTION_PRESET}>
-        <PushButton label={Locale.RESET_RING} width={160dp} @click={self.resetRing} />
-        <PushButton label={Locale.RESET_ALL} width={160dp} @click={self.resetAll} />
+        <PushButton label={Locale.RESET_RING} width={BUTTON_WIDTH} @click={self.resetRing} />
+        <PushButton label={Locale.RESET_ALL} width={BUTTON_WIDTH} @click={self.resetAll} />
       </Section>
     }
   }
