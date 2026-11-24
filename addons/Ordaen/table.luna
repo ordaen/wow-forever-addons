@@ -10,7 +10,7 @@
 // has no rows, the table
 // says what it is given as `empty` under its headings. `ToolSort` is its sort in the toolbar, with sorts no column shows.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Event, Frame, Gaps, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Ground, ScrolledList } from "@/scrolledList"
@@ -80,9 +80,12 @@ const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: 3sp, bottom: 3sp }
-// A heading in a row of two (a group's, and those under it): a quarter of the room, so the two rows stand close to as
-// high as one heading's with its room.
-const HALF_PADDING: Edges = { top: 0.75sp, bottom: 0.75sp }
+// A heading in a row of two (a group's, and those under it): half the room, as a row of the table has, so the two rows
+// stand as high as one heading's with its room.
+const HALF_PADDING: Edges = { top: 1.5sp, bottom: 1.5sp }
+// The headings' columns stand apart as the rows' do; their two rows touch, the rule between them on their line, so a
+// title stands in the middle between the rules over and under it.
+const HEAD_GAPS: Gaps = { columns: 3sp, rows: 0sp }
 // A row of one line of text is the line and half a line round it: a line and a half of the rhythm, whatever the
 // density.
 const ROW_PADDING: Edges = { top: 1.5sp, right: 3sp, bottom: 1.5sp, left: 3sp }
@@ -353,7 +356,7 @@ public class Table implements Component {
     return $ltml {
       <box columns={1} rows={FILLED}>
         <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary} ground={self.ground}>
-          <box #head columns={self.tracks} gap={3sp} padding={self.headSides} background={self.headBack} border={self.headRule}
+          <box #head columns={self.tracks} gap={HEAD_GAPS} padding={self.headSides} background={self.headBack} border={self.headRule}
                columnRule={self.columnRule} rowRule={self.columnRule}>
             <$if={self.grouped}>
               <$for={span of self.spans}>
