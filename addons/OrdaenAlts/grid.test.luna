@@ -77,9 +77,8 @@ test "each character's skill is shown in each profession by name, a dash where i
   Test.expect(shows(
     `Character | Alchemy | Mining | Tailoring | Aria | 120 / 225 | — | 300 / 300 | Player | — | 75 / 150 | — | ${TABS}`
   ))
-  Test.expect(window.text("Character").textColor().equal(GOLD) && window.text("Mining").textColor().equal(GOLD))
   Test.expect(window.text("Aria").textColor().equal(INK) && window.text("75 / 150").textColor().equal(INK))
-  Test.expect(window.text("Player").item().texts().join("") == "Player")
+  Test.expect(window.text("Player").item().texts().join(" | ") == "Player | — | 75 / 150 | —")
 }
 
 test "a dash for a profession a character lacks is dim" {
@@ -128,4 +127,36 @@ test "the skills follow the game as it lists them, and a profession it hasn't na
   Test.expect(shows(`Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
   Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 76, max: 225, kind: .Crafting }]
   Test.expect(shows(`Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
+}
+
+test "a profession's skill and name follow the game, one dropped leaves the table, and an empty list changes nothing" {
+  Test.mount(nil, SCREEN)
+  _ = grid()
+  Game.professions.list = [
+    { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
+    { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
+  ]
+  Test.expect(shows(`Character | Blacksmithing | Mining | Player | 150 / 300 | 75 / 300 | ${TABS}`))
+  Game.professions.list = [
+    { skillLine: 164, name: "Schmiedekunst", icon: "x", rank: 151, max: 300, kind: .Crafting },
+    { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
+  ]
+  Test.expect(shows(`Character | Mining | Schmiedekunst | Player | 75 / 300 | 151 / 300 | ${TABS}`))
+  Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 80, max: 300, kind: .Gathering }]
+  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+  Game.professions.list = []
+  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+}
+
+test "a profession's heading sorts by its skill, the highest first, again the lowest, a character without it last" {
+  Test.mount(nil, SCREEN)
+  recorded([
+    crafter("Aria", "Stand-in", [skill("Mining", 50, 75)]), crafter("Bram", "Stand-in", [skill("Mining", 200, 300)]),
+    crafter("Cole", "Stand-in", [skill("Tailoring", 10, 75)])
+  ])
+  const window = grid()
+  window.button("Mining").click()
+  Test.expect(shows(`Character | Mining | Tailoring | Bram | 200 / 300 | — | Aria | 50 / 75 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
+  window.button("Mining").click()
+  Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Bram | 200 / 300 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
 }

@@ -1,23 +1,67 @@
-// «Professions»: the characters down the side, the professions across, the skill in each cell.
-import { Align, Track } from "$ltml"
-import { Component, ScrolledList } from "Ordaen"
+// «Professions»: a table of the characters, a column for each profession any of them has, the skill in each cell; a
+// click on a heading sorts by it (a profession's column by the skill, a character without it last), again reverses.
+import { Align } from "$ltml"
+import { Column, Component, Table, TableCell, TableRow } from "Ordaen"
 import { Character } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-// One cell: its text, its colour (a heading's gold, a profession a character lacks dim) and where it stands in its
-// column: a character's name at the start, a profession and a skill in the middle.
-public struct Cell {
+// A profession's cell: the skill, `150 / 300`, or a dash.
+public struct Skill {
   text: String
-  color: Color
-  align: Align
+  // The rank it sorts by: -1 for a character without the profession.
+  rank: Integer
+}
+
+// One character as a row: its name and its skill in each profession, in the columns' order.
+public struct SkillLine {
+  key: String
+  name: String
+  skills: Array<Skill>
+}
+
+const NONE: Skill = { text: "—", rank: -1 }
+// The least a column is wide: a character's name; a profession's heading in either language, and its skill.
+const NAME_LEAST = 200dp
+const SKILL_LEAST = 170dp
+
+class SkillCell implements Component {
+  derived ink: Color = self.skill.rank < 0 ? Style.DIM : Style.INK
+
+  skill: Signal<Skill>
+  constructor(skill: Signal<Skill>) { self.skill = skill }
+
+  public render(self): Template {
+    return $ltml {
+      <TableCell align={Align.Center}>
+        <text value={self.skill.text} textColor={self.ink} wrap={.None} />
+      </TableCell>
+    }
+  }
+}
+
+class SkillRow implements Component {
+  line: Signal<SkillLine>
+  constructor(line: Signal<SkillLine>) { self.line = line }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow>
+        <TableCell> <text value={self.line.name} textColor={Style.INK} wrap={.Cut} /> </TableCell>
+        <SkillCell $for={skill of self.line.skills} skill={skill} />
+      </TableRow>
+    }
+  }
 }
 
 public class Grid implements Component {
+  state sorted = 1
+  state descending = false
   derived names: Array<String> = self.namesOf()
-  derived tracks: Array<Track> = self.tracksOf()
-  derived cells: Array<Cell> = self.cellsOf()
+  derived columns: Array<Column> = self.columnsOf()
+  derived lines: Array<SkillLine> = self.linesOf()
+  derived ordered: Array<SkillLine> = self.order()
 
   const records: Records
   touched: Signal<Integer>
@@ -45,40 +89,57 @@ public class Grid implements Component {
     return list
   }
 
-  tracksOf(self): Array<Track> {
-    const list: Array<Track> = [{ fr: 2 }]
-    for (index of 1..self.names.length) { list.push({ fr: 1 }) }
+  // The name's column, then a profession's each, sharing the width beyond their least.
+  columnsOf(self): Array<Column> {
+    const list: Array<Column> = [{ title: Locale.COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
+    for (name of self.names) { list.push({ title: name, width: { fr: 1, min: SKILL_LEAST }, align: Align.Center, sortable: true }) }
     return list
   }
 
-  // A heading row, then a row for each character: its skill in each profession, `150 / 300`, or a dash.
-  cellsOf(self): Array<Cell> {
-    const list: Array<Cell> = [{ text: Locale.COL_NAME, color: Style.GOLD, align: Align.Start }]
-    for (name of self.names) { list.push({ text: name, color: Style.GOLD, align: Align.Center }) }
-    // Each character its own row, by name, then by realm where two share a name.
+  // Each character a line, by name, then by realm where two share a name.
+  linesOf(self): Array<SkillLine> {
     const characters: Array<Character> = []
     for (_, character of self.records.characters) { characters.push(character) }
     characters.sort((a, b) => a.name < b.name || (a.name == b.name && a.realm < b.realm))
+    const list: Array<SkillLine> = []
     for (character of characters) {
-      list.push({ text: character.name, color: Style.INK, align: Align.Start })
+      const skills: Array<Skill> = []
       for (name of self.names) {
-        let text = "—"
+        let skill = NONE
         for (known of character.professions) {
-          if (known.name == name) { text = "%d / %d".format(known.rank, known.max) }
+          if (known.name == name) { skill = { text: "%d / %d".format(known.rank, known.max), rank: known.rank } }
         }
-        list.push({ text: text, color: text == "—" ? Style.DIM : Style.INK, align: Align.Center })
+        skills.push(skill)
       }
+      list.push({ key: character.name + "-" + character.realm, name: character.name, skills: skills })
     }
+    return list
+  }
+
+  // The lines by the column the table is sorted by: the name's, or a profession's skill (without it, last either way).
+  order(self): Array<SkillLine> {
+    const list: Array<SkillLine> = []
+    for (line of self.lines) { list.push(line) }
+    const column = self.sorted
+    const down = self.descending
+    if (column <= 1) {
+      if (down) { list.sort((a, b) => a.name > b.name) }
+      return list
+    }
+    list.sort((a, b) => {
+      const left = a.skills[column - 1]?.rank ?? -1
+      const right = b.skills[column - 1]?.rank ?? -1
+      if (left < 0 || right < 0) { return left > right }
+      return down ? left < right : left > right
+    })
     return list
   }
 
   public render(self): Template {
     return $ltml {
-      <ScrolledList columns={self.tracks} gap={3sp}>
-        <box $for={cell of self.cells} $key={cell} xAlign={cell.align}>
-          <text value={cell.text} textColor={cell.color} wrap={.None} />
-        </box>
-      </ScrolledList>
+      <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
+        <SkillRow $for={line of self.ordered} $key={line.key} line={line} />
+      </Table>
     }
   }
 }

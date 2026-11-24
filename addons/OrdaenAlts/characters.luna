@@ -11,8 +11,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
   { title: Locale.COL_LEVEL, width: 75dp, align: Align.End, sortable: true },
   { title: Locale.COL_GOLD, width: 140.625dp, align: Align.End, sortable: true },
-  { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
-  { title: Locale.COL_BAGS, width: 125dp, align: Align.End, sortable: true },
+  { title: Locale.COL_BAGS, width: 175dp, align: Align.End, sortable: true },
   { title: Locale.COL_SEEN, width: 105.46875dp, align: Align.End, sortable: true },
   { title: Locale.COL_BANK, width: 138.28125dp },
   { title: Locale.COL_MAIL, width: 150dp },
@@ -26,7 +25,6 @@ public struct Line {
   name: String
   level: Integer
   money: Integer
-  professions: String
   // Free bag slots; -1 for bags never read.
   free: Integer
   // Hours since it was played.
@@ -69,7 +67,6 @@ public class CharacterRow implements Component {
         <TableCell align={Align.End}>
           <Money amount={self.line.money} />
         </TableCell>
-        <TableCell> <text value={self.line.professions} textColor={Style.DIM} /> </TableCell>
         <TableCell align={Align.End}>
           <text value={self.bags} textColor={Style.INK} wrap={.None} />
         </TableCell>
@@ -112,11 +109,6 @@ public class Characters implements Component {
     const now = Hour.now()
     const list: Array<Line> = []
     for (who, character of self.records.characters) {
-      const names: Array<String> = []
-      for (known of character.professions) {
-        // A profession whose recipes were read before the game listed it has no name, nor skill, yet.
-        if (known.name != "") { names.push("%s %d".format(known.name, known.rank)) }
-      }
       const bank = character.read[Place.Bank]
       const mail = character.read[Place.Mail]
       const expires = character.mailExpires
@@ -124,7 +116,7 @@ public class Characters implements Component {
       if (expires != nil) { mailText = Style.until(expires - now) }
       list.push({
         who: who, name: character.name, level: character.level, money: character.money,
-        professions: names.join(", "), free: character.slots == 0 ? -1 : character.free,
+        free: character.slots == 0 ? -1 : character.free,
         away: now - character.seen,
         bank: bank == nil ? Locale.NEVER_OPENED : Style.ago(now - bank),
         mail: mailText,
@@ -149,7 +141,7 @@ public class Characters implements Component {
       if (column == 1) { return down ? a.name > b.name : a.name < b.name }
       if (column == 2) { return down ? a.level > b.level : a.level < b.level }
       if (column == 3) { return down ? a.money > b.money : a.money < b.money }
-      if (column == 5) { return down ? a.free > b.free : a.free < b.free }
+      if (column == 4) { return down ? a.free > b.free : a.free < b.free }
       return down ? a.away > b.away : a.away < b.away
     })
     return list
@@ -175,7 +167,6 @@ public class Characters implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
-        // A character's professions wrap: its row is as high as they are.
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}>
           <CharacterRow $for={line of self.ordered} $key={line.who} line={line} @forget={self.ask} />
         </Table>
