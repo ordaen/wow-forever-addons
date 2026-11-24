@@ -110,6 +110,7 @@
   "SPELL_PENETRATION": "Spell Penetration",
   "CRIT_WEAPON": "A critical strike deals 100%% more damage.",
   "CRIT_SPELL": "A critical effect makes a spell's damage and healing 50%% greater. Most periodic effects can be critical too.",
+  "EXPERTISE_TIP": "Lowers the chance a target dodges or parries your melee attacks.",
   "HIT_CAP": "Needed to never miss",
   "HIT_CAP_DUAL": "A weapon in each hand, plain swings",
   "HIT_CAP_BOSS": "Raid bosses",

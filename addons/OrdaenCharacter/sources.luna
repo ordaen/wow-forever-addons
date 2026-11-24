@@ -231,7 +231,7 @@ public function wordsOf(stat: Stat, stats: Stats): String {
     .RangedAttackPower => tips.rangedAttackPower
     .MeleeCrit, .RangedCrit => Locale.CRIT_WEAPON.format()
     .SpellCrit => Locale.CRIT_SPELL.format()
-    .Expertise => tips.expertise
+    .Expertise => Locale.EXPERTISE_TIP
     .Defense => tips.defense
     .BlockValue => tips.block
     .ArmorPenetration => tips.armorPenetration
@@ -324,6 +324,32 @@ function hitCapsOf(stat: Stat, stats: Stats): Array<TipSection> {
   return sections
 }
 
+// What a target dodges and parries, in percent, which expertise takes off (the game's `CR_EXPERTISE_TOOLTIP`): a raid's
+// boss, and a target of the player's level.
+public struct Avoidance {
+  const dodge: Number
+  const parry: Number
+}
+public const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5 }
+const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5 }
+
+// One target's dodge and parry, each green once the expertise takes it all.
+function avoidanceRows(expertise: Number, of: Avoidance): Array<TipRow> {
+  const taken = (chance: Number): Color | nil => expertise >= chance ? Style.GREEN : nil
+  return [
+    { label: Locale.DODGE, value: amountText(of.dodge, true), valueTone: taken(of.dodge) },
+    { label: Locale.PARRY, value: amountText(of.parry, true), valueTone: taken(of.parry) }
+  ]
+}
+
+// Expertise's sections: a raid's boss's, and a target of the player's level's.
+function avoidanceOf(expertise: Number): Array<TipSection> {
+  return [
+    { title: Locale.HIT_CAP_BOSS, rows: avoidanceRows(expertise, BOSS_AVOIDANCE) },
+    { title: Locale.HIT_CAP_LEVEL, rows: avoidanceRows(expertise, LEVEL_AVOIDANCE) }
+  ]
+}
+
 // What a stat's tooltip lists, and what lights with it.
 public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   if (stat == .MeleeDps || stat == .RangedDps) { return damageBreakdown(stat == .RangedDps, facts.stats) }
@@ -341,6 +367,9 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   section(Locale.FROM_EFFECTS, parts.fromEffects, mut sections)
   if (stat == .MeleeHit || stat == .RangedHit || stat == .SpellHit) {
     for (caps of hitCapsOf(stat, facts.stats)) { sections.push(caps) }
+  }
+  if (stat == .Expertise) {
+    for (target of avoidanceOf(facts.stats.expertise)) { sections.push(target) }
   }
   return { text: text, sections: sections, fed: parts.fed, shares: parts.shares }
 }

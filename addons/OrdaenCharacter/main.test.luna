@@ -453,6 +453,18 @@ test "a hit's tooltip lists its own section's caps, each green once the hit reac
   Test.expect(tip.text("5.00%").textColor().equal(Style.GREEN) && !tip.text("8.00%").textColor().equal(Style.GREEN))
 }
 
+test "expertise's tooltip: a section a target, its dodge and its parry, each green once the expertise takes it all" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { expertise: 5.25 }
+  const window = opened(mut sheet)
+  window.text("5.25%").hover()
+  const tip = Test.page().window(Locale.EXPERTISE_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Dodge | 6.50% | Parry | 16.50% | Targets of your level | Dodge | 5.00% | Parry | 5.00%"))
+  Test.expect(tip.text("5.00%").nth(1).textColor().equal(Style.GREEN) && !tip.text("6.50%").textColor().equal(Style.GREEN))
+}
+
 test "a crit's tooltip says what a crit does in its own section alone" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

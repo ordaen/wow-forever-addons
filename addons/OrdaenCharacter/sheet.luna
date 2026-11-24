@@ -124,7 +124,6 @@ public struct StatTips {
   armor: String = ""
   attackPower: String = ""
   rangedAttackPower: String = ""
-  expertise: String = ""
   defense: String = ""
   block: String = ""
   armorPenetration: String = ""
@@ -681,7 +680,6 @@ public class ClientSheet implements Sheet {
         armor: said("STAT_ARMOR_TOOLTIP").format(reduction),
         attackPower: attackTip.format((attackPower / ATTACK_POWER_PER_DPS).max(0)),
         rangedAttackPower: said("RANGED_ATTACK_POWER_TOOLTIP").format((rangedAttackPower / ATTACK_POWER_PER_DPS).max(0)),
-        expertise: said("CR_EXPERTISE_TOOLTIP").format("%.2f%%".format(expertise)),
         defense: said("DEFAULT_STATDEFENSE_TOOLTIP").format(beyondDefense * DEFENSE_SHARE, beyondDefense * DEFENSE_SHARE),
         block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client.GetShieldBlock()),
         armorPenetration: said("ARMOR_PENETRATION_TOOLTIP").format(Client.GetArmorPenetration().floor()),

@@ -7,7 +7,7 @@ import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, T
 import { CarveShade, CarvedFloor, GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
-import { Boost, Breakdown, NO_BREAKDOWN, SPELL_HIT_CAPS, WEAPON_HIT_CAPS, statName } from "@/sources"
+import { BOSS_AVOIDANCE, Boost, Breakdown, NO_BREAKDOWN, SPELL_HIT_CAPS, WEAPON_HIT_CAPS, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
 
@@ -75,7 +75,7 @@ public struct Main {
 const MELEE_HIT_CAP: Number = WEAPON_HIT_CAPS.boss
 const SPELL_HIT_CAP: Number = SPELL_HIT_CAPS.boss
 const CRIT_CAP = 40
-const EXPERTISE_CAP = 6.5
+const EXPERTISE_CAP: Number = BOSS_AVOIDANCE.dodge
 const DEFENSE_CAP = 440
 const AVOIDANCE_CAP = 30
 const HASTE_CAP = 20
