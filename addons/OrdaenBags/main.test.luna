@@ -812,7 +812,7 @@ test "Shift+right-click puts the item's link into the chat" {
 
 // Where the player stands
 
-test "at a merchant a quest's items dim" {
+test "at a merchant and at the mailbox a quest's items dim" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -822,7 +822,25 @@ test "at a merchant a quest's items dim" {
   Game.bags.place = Game.BagPlace.Merchant
   Test.expect(held(DEED).opacity() == DIMMED && held(POTION).opacity() == 1 && held(SWORD).opacity() == 1)
   Game.bags.place = Game.BagPlace.Mail
+  Test.expect(held(DEED).opacity() == DIMMED)
+  Game.bags.place = Game.BagPlace.None
   Test.expect(held(DEED).opacity() == 1)
+}
+
+test "at the mailbox what is bound dims, and what is put into the letter dims under the game's letter" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
+    { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 },
+    { bag: 0, slot: 3, id: 3, name: "Sent Blade", icon: POTION, kind: 2, locked: true }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Mail
+  Test.expect(held(SWORD).opacity() == DIMMED && held(SHIRT).opacity() == 1 && held(POTION).opacity() == DIMMED)
+  Test.expect(bags().box("Interface/Minimap/Tracking/Mailbox").count() == 1)
 }
 
 test "at the auction house what is bound dims" {
