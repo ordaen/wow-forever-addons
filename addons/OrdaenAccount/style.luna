@@ -1,4 +1,5 @@
-// The window's look: its size at the player's scale, and its colours.
+// The window's look: its size at the player's scale, its rooms and its colours.
+import { Edges } from "$ltml"
 // As wide as Ordaen Alts' table of characters, which its «Alts» tab shows.
 public const WIDTH: Number<Length> = 1390dp
 public const HEIGHT: Number<Length> = 680dp
@@ -7,8 +8,19 @@ public const CARD: Number<Length> = 380dp
 // A list's column of categories or trees.
 public const SIDE_LIST: Number<Length> = 260dp
 public const ICON: Number<Length> = 32dp
+// The card's icon by its name.
+public const CARD_ICON: Number<Length> = 44dp
+
+// A page runs to the frame's line on every side (its tab's `padding` none); what stands over its list keeps the
+// window's room: at the top and the sides where it is the first thing (`TOP_ROOM`), at the sides under another
+// (`SIDE_ROOM`).
+public const NO_ROOM: Edges = {}
+public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+public const SIDE_ROOM: Edges = { right: 8sp, left: 8sp }
 
 public const INK: Color = Color.hex("#e8dcc4")
+// A picked entry's name.
+public const WHITE_INK: Color = Color.hex("#f0e6d2")
 public const DIM: Color = Color.hex("#a3977f")
 public const GOLD: Color = Color.hex("#ffd100")
 public const GREEN: Color = Color.hex("#40d060")

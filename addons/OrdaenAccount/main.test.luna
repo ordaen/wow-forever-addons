@@ -1,7 +1,9 @@
-// Ordaen Account's window: its tabs, the collections' lists and cards, the challenges and their criteria, Legacy
-// locked and open, and Alts' pages in its tab.
+// Ordaen Account's window as the player meets it: Legacy locked and open (its trees, drawn as the talents are, and its
+// reward track), the challenges' list and card, the collections' lists, cards and toys, and Alts' pages in their tab.
 import Client from "$client"
+import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -13,6 +15,11 @@ function window(): Test.Part {
 
 function account() {
   (Client.SlashCmdList["ACCOUNT"] ?? panic("/account is the module's command"))("")
+}
+
+// The names among `names` the window shows, in the order drawn.
+function inOrder(names: Array<String>): String {
+  return window().texts().filter(text => names.any(name => name == text)).join(", ")
 }
 
 // Three mounts: one collected, two not, given out of order.
@@ -28,40 +35,20 @@ function mounts() {
   }
 }
 
-test "the window opens on Legacy, which is locked until the player's first Legacy rank" {
-  Test.mount(nil, SCREEN)
-  account()
-  Test.expect(window().text(Locale.LEGACY_LOCKED).shown())
-  account()
-  Test.expect(!window().shown())
+// Two toys: one the player has, one not.
+function toys() {
+  Client.C_ToyBox.GetNumFilteredToys = (): Number => 2
+  Client.C_ToyBox.GetToyFromIndex = (index: Integer): Number => index == 1 ? 1973 : 18984
+  Client.C_ToyBox.GetToyInfo = (item: Number) => {
+    if (item == 1973) { return 1973, "Orb of Deception", 134334, false, false }
+    return 18984, "Dimensional Ripper", 133870, false, false
+  }
+  Client.PlayerHasToy = (item: Number): Boolean => item == 1973
+  Client.C_ToyBox.IsToyUsable = (item: Number): Boolean => true
 }
 
-test "the mounts list collected ones first, then by name; picking one shows its card, and the search narrows the list" {
-  mounts()
-  Test.mount(nil, SCREEN)
-  account()
-  window().button(Locale.TAB_COLLECTIONS).click()
-  // In the order drawn: the collected Zebra before Alpaca and Bear.
-  const names = window().texts().filter(text => text == "Zebra" || text == "Alpaca" || text == "Bear")
-  Test.expect(names.join(",") == "Zebra,Alpaca,Bear")
-  Test.expect(window().text(Locale.COLLECTED.format(1, 3)).shown())
-  Test.shot("mounts")
-  window().text("Zebra").click()
-  Test.expect(window().text("A striped horse of the plains.").shown() && window().text("Vendor: Zeb").shown())
-  window().input().type("alp")
-  Test.expect(window().text("Alpaca").shown() && !window().text("Bear").shown())
-}
-
-test "the filters leave out what isn't collected" {
-  mounts()
-  Test.mount(nil, SCREEN)
-  account()
-  window().button(Locale.TAB_COLLECTIONS).click()
-  window().button(Locale.SHOW_MISSING).click()
-  Test.expect(window().text("Zebra").shown() && !window().text("Alpaca").shown())
-}
-
-test "the challenges open on the class's category; a challenge picked shows its points and its criteria" {
+// The Warrior's category of challenges, one completed and one not, and the Paladin's, empty.
+function challenges() {
   Client.GetCategoryList = (): Array<Integer> => [15585, 15580]
   Client.GetCategoryInfo = (id: Integer) => {
     if (id == 15585) { return "Warrior", -1, 0 }
@@ -83,29 +70,149 @@ test "the challenges open on the class's category; a challenge picked shows its 
     return "Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true
   }
   Client.UnitClass = (unit: String) => { return "Warrior", "WARRIOR", 1 }
+}
+
+// The Professions tree's configuration as the game gives it: two nodes, an arrow from the first to the second, three
+// points left; what was bought and applied is written down.
+class LegacyTree implements Game.TalentConfig {
+  asked: mut Array<String> = []
+  public trees(self): Array<Game.TalentTree> {
+    return [{
+      id: 1187, name: "Legacy",
+      nodes: [
+        { id: 1, x: 1200, y: 600, name: "Herbalist", icon: nil, rank: 3, ranks: 5, canSpend: true, canRefund: true, edges: [2] },
+        { id: 2, x: 1200, y: 1800, name: "Miner", icon: nil, rank: 0, ranks: 1, canSpend: false, canRefund: false, edges: [] }
+      ]
+    }]
+  }
+  public unspent(self): Integer { return 3 }
+  public staged(self): Boolean { return self.asked.length > 0 }
+  public spend(mut self, node: Integer): Boolean {
+    self.asked.push("spend %d".format(node))
+    return true
+  }
+  public refund(mut self, node: Integer): Boolean {
+    self.asked.push("refund %d".format(node))
+    return true
+  }
+  public commit(mut self): Boolean { return true }
+  public rollback(mut self): Boolean { return true }
+  public reset(mut self): Boolean { return true }
+}
+
+test "the window opens on Legacy, which is locked until the player's first Legacy rank; again it closes" {
+  Test.mount(nil, SCREEN)
+  account()
+  Test.expect(window().text(Locale.LEGACY_LOCKED).shown())
+  account()
+  Test.expect(!window().shown())
+}
+
+test "Legacy's tree is drawn as the talents are, its points in the footer; a node clicked is bought, and Apply waits for it" {
+  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 4
+  const tree = new LegacyTree()
+  Game.talentTrees.of = (id: Integer): mut any Game.TalentConfig | nil => id == 1187 ? tree : nil
+  Test.mount(nil, SCREEN)
+  account()
+  Test.expect(window().text(Locale.TREE_PROFESSIONS).shown() && window().text("3").shown())
+  Test.expect(window().text(Locale.POINTS_LEFT).item().texts().join(" ") == `${Locale.POINTS_LEFT} 3`)
+  Test.expect(!window().button(Locale.UNDO).shown())
+  Test.shot("tree")
+  // The node's rank, the first «3» drawn; the footer's points the second.
+  window().text("3").nth(1).click()
+  Test.expect(tree.asked.join(", ") == "spend 1" && window().button(Locale.UNDO).shown())
+}
+
+test "Legacy's rewards are the game's track: the rank in its emblem, four cards a time, the arrows turning it" {
+  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 2
+  Client.C_MajorFactions.GetRenownLevels = (id: Number): Array<Client.MajorFactionRenownLevelInfo> => {
+    const levels: Array<Client.MajorFactionRenownLevelInfo> = []
+    for (level of 1..6) { levels.push({ factionID: 2802, level: level, locked: level > 2, isMilestone: false, isCapstone: false }) }
+    return levels
+  }
+  Client.C_MajorFactions.GetRenownRewardsForLevel = (id: Number, level: Number): Array<Client.MajorFactionRenownRewardInfo> => {
+    return [{ renownRewardID: level, uiOrder: 1, isAccountUnlock: true, name: "Reward %d".format(level.floor()), icon: 134400 }]
+  }
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.SUB_REWARDS).click()
+  Test.expect(window().text(Locale.TRACK_POINTS).shown())
+  Test.expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 1, Reward 2, Reward 3, Reward 4")
+  Test.shot("rewards")
+  // The left arrow is greyed at the track's start: the right one alone has the arrow's art.
+  window().box("Legacy-Rewards-Tracker-Arrow-Big-Left").click()
+  Test.expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 2, Reward 3, Reward 4, Reward 5")
+}
+
+test "the mounts list collected ones first, then by name; one picked has its card beside the list; the search narrows" {
+  mounts()
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_COLLECTIONS).click()
+  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra, Alpaca, Bear")
+  Test.expect(window().text(Locale.COUNT_COLLECTED).item().texts().join(" ") == `${Locale.COUNT_COLLECTED} 1 / 3`)
+  window().text("Zebra").click()
+  Test.expect(window().text("A striped horse of the plains.").shown() && window().text("Vendor: Zeb").shown())
+  Test.shot("mounts")
+  window().input().type("alp")
+  // The list, then the card of the one picked, which stays.
+  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Zebra")
+}
+
+test "the filter leaves out what isn't collected, and the sort by name mixes them" {
+  mounts()
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_COLLECTIONS).click()
+  window().button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().text(Locale.SORT_NAME).click()
+  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Bear, Zebra")
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().text(Locale.SHOW_MISSING).click()
+  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra")
+}
+
+test "toys are a list with no card: the game's tooltip on one, and the player's toys first" {
+  toys()
+  Test.mount(nil, SCREEN)
+  account()
+  window().button(Locale.TAB_COLLECTIONS).click()
+  window().button(Locale.SUB_TOYS).click()
+  Test.expect(inOrder(["Orb of Deception", "Dimensional Ripper"]) == "Orb of Deception, Dimensional Ripper")
+  window().text("Orb of Deception").click()
+  Test.expect(!window().text(Locale.MOUNT).shown() && !window().text(Locale.SUMMON).shown())
+  _ = Test.requests()
+  window().box(134334).hover()
+  Test.expect(Test.requests().any(r => r == "Items.show 1973"))
+}
+
+test "the challenges open on the class's category; one picked has its points and its criteria in the card" {
+  challenges()
   Test.mount(nil, SCREEN)
   account()
   window().button(Locale.TAB_ACHIEVEMENTS).click()
   Test.expect(window().text("Shield Wall").shown() && window().text("Execute").shown())
-  // «Incomplete» unticked: the completed alone.
-  window().button(Locale.SHOW_OPEN).click()
-  Test.expect(window().text("Shield Wall").shown() && !window().text("Execute").shown())
-  window().button(Locale.SHOW_OPEN).click()
+  Test.expect(window().text(Locale.COUNT_DONE).item().texts().join(" ") == `${Locale.COUNT_DONE} 1 / 2`)
   window().text("Execute").click()
   Test.expect(window().text(Locale.POINTS.format(10)).shown() && window().text("7 / 20").shown())
   Test.shot("challenges")
 }
 
-test "Legacy's tree shows its nodes and their ranks, and the points the player has" {
-  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 4
-  Test.legacyTalents([{ node: 110314, spell: 1225485, rank: 3, ranks: 5 }])
-  const config = Client.C_Traits.GetConfigIDBySystemID(45) ?? panic("the legacy talents are seeded")
-  Client.C_Traits.GetConfigIDByTreeID = (tree: Number): Number | nil => tree == 1187 ? config : nil
-  Client.C_Traits.GetTreeNodes = (tree: Number): Array<Number> | nil => tree == 1187 ? [110314] : nil
+test "the filter leaves the completed alone; the list's view, sorted by points, has every challenge in one list" {
+  challenges()
   Test.mount(nil, SCREEN)
   account()
-  Test.expect(window().text("3/5").shown() && window().text(Locale.TREE_PROFESSIONS).shown())
-  Test.shot("tree")
+  window().button(Locale.TAB_ACHIEVEMENTS).click()
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().text(Locale.SHOW_OPEN).click()
+  Test.expect(window().text("Shield Wall").shown() && !window().text("Execute").shown())
+  Test.page().text(Locale.SHOW_OPEN).click()
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  window().button(Ordaen.art.ctl.tool.categories).click()
+  Test.page().text(Locale.VIEW_LIST).click()
+  window().button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().text(Locale.SORT_POINTS).click()
+  Test.expect(inOrder(["Shield Wall", "Execute", "Warrior"]) == "Execute, Shield Wall")
 }
 
 test "Alts' pages are a tab of the window, and /alts opens it there; Alts draws no window of its own" {

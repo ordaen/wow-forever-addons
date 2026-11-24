@@ -1,20 +1,22 @@
-// «Legacy»: Forever's own system, as its window has it. «Tree»: its three trees (Professions, Adventure,
-// Progression), bought with the account's Legacy points, which each character spends on its own; a node bought with a
-// left click, given back with a right one, the changes held until «Apply», taken back by «Undo», every node given back
-// by «Reset». «Rewards»: the reward track, a renown with a hidden faction, each level its rewards. Everything is
-// locked until the player has the track's first level, as the game's own window is.
+// «Legacy»: Forever's own system, as its window has it, under two sub tabs. «Tree»: its three trees (Professions,
+// Adventure, Resourcefulness) in a column at the left, the picked one drawn as the talents are (Ordaen's
+// `TalentTreeView`: the client's frames and arrows), bought with the account's Legacy points, which each character
+// spends on its own: a left click buys a rank, a right one gives it back, held until «Apply»; «Undo» takes the changes
+// back, «Reset» every rank. The points left and the buttons are the footer's. «Rewards»: the reward track as the game's
+// window draws it, its art and its layout: the rank in the emblem, the bar, four cards of levels at a time, each its
+// reward, the arrows turning the track a card at a time. Everything waits for the track's first rank, as the game's
+// window does.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Event, Frame, Position, Track } from "$ltml"
-import { ButtonPlate, Component, ListTab, ProgressBar, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT } from "Ordaen"
-import { LEGACY_POINTS } from "@/challenges"
+import { Align, ByInteractionState, Edges, Position, Track } from "$ltml"
+import { ButtonPlate, Component, FooterCount, ListFooter, PushButton, TITLE_TEXT, Tabs, TalentTreeView } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
 // The reward track's faction (`Constants.LegacyConsts.LEGACY_REWARD_TRACK_FACTION_ID`).
 public const TRACK = 2802
-// The trees, in the game's order (`LegacyTreeData`).
+// A Legacy tree: its trait tree, its name and its emblem (`LegacyTreeData`).
 public struct TreeKind {
   id: Integer
   name: String
@@ -25,163 +27,127 @@ const TREES: Array<TreeKind> = [
   { id: 1188, name: Locale.TREE_ADVENTURE, icon: "UI-Legacy-Tree-Adventure" },
   { id: 1189, name: Locale.TREE_PROGRESSION, icon: "UI-Legacy-Tree-Progression" }
 ]
-// The canvas a tree's nodes are laid out in, and a node's size.
-const CANVAS_WIDTH: Number<Length> = 560dp
-const CANVAS_HEIGHT: Number<Length> = 380dp
-const NODE: Number<Length> = 40dp
-const BUTTON: Number<Length> = 120dp
-const REWARD_ROW: Array<Track> = [56dp, { fr: 1 }]
+const SUBS: Array<String> = [Locale.SUB_TREE, Locale.SUB_REWARDS]
+const BUTTON: Number<Length> = 140dp
+// The trees' column: each a row edge to edge, its emblem large.
+const TREE_EMBLEM: Number<Length> = 44dp
+const TREE_ROW: Array<Track> = [TREE_EMBLEM, { fr: 1 }]
+const TREE_PAD: Edges = { top: 4sp, right: 4sp, bottom: 4sp, left: 6sp }
+const TREE_SHADE: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffffff14") }
+const TREE_PICKED: Color = Color.hex("#00000059")
+const TREE_LIGHT: Color = Color.hex("#d6a56b")
+const CLEAR: Color = Color.hex("#00000000")
+const RULE: Color = Color.hex("#d6a56b33")
+
+// The reward track's art and sizes, the game's (`Blizzard_LegacyRewardTrack.xml`).
+const TRACK_BACK: Atlas = "Legacy-Rewards-Tracker-background"
+const TRACK_EMBLEM: Atlas = "Legacy-Rewards-Tracker-Icon"
+const BAR_BACK: Atlas = "Legacy-Progressbar-BG"
+const BAR_FILL: Atlas = "Legacy-Progressbar-Fill"
+const BAR_FRAME: Atlas = "Legacy-Progressbar-Frame"
+const CARD_EARNED: Atlas = "Legacy-Rewards-Tracker-Cards"
+const CARD_LAST: Atlas = "Legacy-Rewards-Tracker-Cards-Green"
+const CARD_LOCKED: Atlas = "Legacy-Rewards-Tracker-Cards-Disable"
+const DIAMOND: Atlas = "Legacy-Rewards-Tracker-Diamond"
+const DIAMOND_LOCKED: Atlas = "Legacy-Rewards-Tracker-Diamond-Disable"
+const ICON_FRAME: Atlas = "Legacy-Rewards-Tracker-Icons-Frame"
+const ICON_FRAME_LOCKED: Atlas = "Legacy-Rewards-Tracker-Icons-Frame-Disable"
+const CHECK: Atlas = "worldquest-tracker-checkmark"
+const ARROW: Atlas = "Legacy-Rewards-Tracker-Arrow-Big-Left"
+const ARROW_OFF: Atlas = "Legacy-Rewards-Tracker-Arrow-Big-Left-disable"
+const EMBLEM_WIDTH = 108ui
+const EMBLEM_HEIGHT = 155ui
+const BAR_WIDTH = 850ui
+const BAR_HEIGHT = 12ui
+const CARD_WIDTH = 216ui
+const CARD_HEIGHT = 241ui
+// Four cards at a time, side by side under the bar.
+const CARDS = 4
+const ARROW_WIDTH = 25ui
+const ARROW_HEIGHT = 40ui
+const DIAMOND_SIZE = 56ui
+const ICON_SIZE = 64ui
+const ICON_FRAME_SIZE = 80ui
+const CHECK_WIDTH = 40ui
+const CHECK_HEIGHT = 35ui
+// Where each of the four cards stands along the bar, out of 100 (`STATIC_CARD_POSITION_TO_PROGRESS`).
+const CARD_AT: Array<Number> = [12, 38, 63, 88]
+const WHITE: Color = Color.hex("#ffffff")
+const DISABLED: Color = Color.hex("#7f7f7f")
 
 // Whether the player has the reward track's first level: what opens every page.
 public function legacyOpen(): Boolean { return Client.C_MajorFactions.GetCurrentRenownLevel(TRACK) > 0 }
 
-// One node of a tree, where it stands in the canvas.
-public struct Node {
-  id: Integer
-  left: Number<Length>
-  top: Number<Length>
-  icon: FileId | nil
-  spell: Integer | nil
-  rank: Integer
-  ranks: Integer
-  canBuy: Boolean
-  canRefund: Boolean
-  // Its edges' requirements are met: it may be bought.
-  open: Boolean
-}
-
-// A level of the reward track and its rewards.
+// A level of the reward track and its first reward (and how many more it gives).
 public struct Level {
   level: Integer
   reached: Boolean
-  rewards: Array<Reward>
-}
-public struct Reward {
+  // The level the player has now: its card is green.
+  last: Boolean
   name: String
   icon: FileId | nil
 }
 
-function nodesOf(config: Integer, tree: Integer): Array<Node> {
-  const ids = Client.C_Traits.GetTreeNodes(tree) ?? []
-  const infos: Array<Client.TraitNodeInfo> = []
-  for (id of ids) {
-    const info = Client.C_Traits.GetNodeInfo(config, id)
-    if (info != nil && info.isVisible) { infos.push(info) }
-  }
-  if (infos.length == 0) { return [] }
-  let left: Number = infos[1]?.posX ?? 0
-  let right: Number = left
-  let top: Number = infos[1]?.posY ?? 0
-  let bottom: Number = top
-  for (info of infos) {
-    left = left.min(info.posX)
-    right = right.max(info.posX)
-    top = top.min(info.posY)
-    bottom = bottom.max(info.posY)
-  }
-  // The tree laid out in the canvas, a node's middle at its place, the whole as large as fits.
-  const across = (right - left).max(1)
-  const down = (bottom - top).max(1)
-  const room = ((CANVAS_WIDTH - NODE) / across).min((CANVAS_HEIGHT - NODE) / down)
-  const nodes: Array<Node> = []
-  for (info of infos) {
-    const entry = info.activeEntry?.entryID ?? info.entryIDs[1]
-    let spell: Integer | nil = nil
-    let icon: FileId | nil = nil
-    if (entry != nil) {
-      const definition = Client.C_Traits.GetEntryInfo(config, entry)?.definitionID
-      const shown = definition != nil ? Client.C_Traits.GetDefinitionInfo(definition) : nil
-      spell = shown?.spellID?.floor()
-      icon = fileOfNumber(shown?.overrideIcon) ?? spellIcon(spell)
-    }
-    nodes.push({
-      id: info.ID.floor(), left: (info.posX - left) * room, top: (info.posY - top) * room, icon: icon, spell: spell,
-      rank: info.currentRank.floor(), ranks: info.maxRanks.floor(), canBuy: info.canPurchaseRank, canRefund: info.canRefundRank,
-      open: info.meetsEdgeRequirements
-    })
-  }
-  return nodes
-}
-
-function spellIcon(spell: Integer | nil): FileId | nil {
-  if (spell == nil) { return nil }
-  const icon, _, _ = Client.C_Spell.GetSpellTexture(spell)
-  return icon
-}
-
-function fileOfNumber(icon: Number | nil): FileId | nil {
-  if (icon == nil) { return nil }
-  const whole = icon.floor()
-  return whole is FileId ? whole : nil
-}
-
 function levelsOf(): Array<Level> {
-  const reached = Client.C_MajorFactions.GetCurrentRenownLevel(TRACK)
+  const reached = Client.C_MajorFactions.GetCurrentRenownLevel(TRACK).floor()
   const list: Array<Level> = []
   for (info of Client.C_MajorFactions.GetRenownLevels(TRACK)) {
-    const rewards: Array<Reward> = []
-    for (reward of Client.C_MajorFactions.GetRenownRewardsForLevel(TRACK, info.level)) {
-      rewards.push({ name: reward.name ?? "", icon: reward.icon })
-    }
-    list.push({ level: info.level.floor(), reached: info.level <= reached, rewards: rewards })
+    const level = info.level.floor()
+    const rewards: Array<Client.MajorFactionRenownRewardInfo> = []
+    for (reward of Client.C_MajorFactions.GetRenownRewardsForLevel(TRACK, level)) { rewards.push(reward) }
+    rewards.sort((a, b) => a.uiOrder < b.uiOrder)
+    const first = rewards[1]
+    const more = rewards.length > 1 ? " +" + String.of(rewards.length - 1) : ""
+    list.push({ level: level, reached: level <= reached, last: level == reached, name: (first?.name ?? "") + more, icon: first?.icon })
   }
   return list
 }
 
-// A node: its icon, its rank under it; gold while it has ranks, dimmed while it can't be bought.
-public class NodeButton implements Component {
-  public buy: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
-
-  derived rank: String = "%d/%d".format(self.node.rank, self.node.ranks)
-  derived tint: Color = self.node.rank > 0 || self.node.canBuy ? Style.INK : Style.MISSING
-  derived ink: Color = self.node.rank >= self.node.ranks ? Style.GOLD : self.node.rank > 0 ? Style.GREEN : Style.DIM
-
-  node: Signal<Node>
-  constructor(node: Signal<Node>) { self.node = node }
-
-  onBuy(mut self) { self.buy.emit(self.node.id) }
-  onRefund(mut self) { self.refund.emit(self.node.id) }
-  onEnter(self, frame: any Frame) {
-    const spell = self.node.spell
-    if (spell != nil) { Game.items.showSpell(frame, spell) }
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box position={Position.Absolute} left={self.node.left} top={self.node.top} width={NODE} height={NODE}
-           icon={self.node.icon} tint={self.tint} @pointerPress(.Left)={self.onBuy} @pointerPress(.Right)={self.onRefund}
-           @pointerEnter={self.onEnter} xAlign={Align.End} yAlign={Align.End}>
-        <text value={self.rank} textColor={self.ink} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
-      </box>
+// How far the bar is filled, out of 100, with the cards from `first` shown: Blizzard's `SetupProgressDetails` for a
+// track of cards that stand still. Under the first card's level it fills from the bar's start to the first card; between
+// two cards, by how far the player is from the one to the next.
+function filledOf(levels: Array<Level>, rank: Integer, earned: Number, threshold: Number, first: Integer): Number {
+  let reachedAt = 0
+  let toNext: Number = rank
+  let gap = 100.0
+  let last = 0
+  for (index, level of levels) {
+    if (rank >= level.level) {
+      reachedAt = index
+      toNext -= level.level - last
+    } else {
+      gap = level.level - last
+      break
     }
+    last = level.level
   }
+  // Within a level, how far by the reputation earned toward the next.
+  const part = threshold > 0 ? (toNext + earned / threshold) / gap : toNext / gap
+  if (reachedAt < 1 && first <= 1) { return CARD_AT[1] * part.min(1) }
+  if (reachedAt < first) { return 0 }
+  if (reachedAt >= first + CARDS) { return 100 }
+  const at = reachedAt - first + 1
+  const here = CARD_AT[at] ?? 100
+  const next = CARD_AT[at + 1] ?? 100
+  return here + (next - here) * part.min(1)
 }
 
-public class RewardRow implements Component {
-  derived ink: Color = self.level.reached ? Style.INK : Style.MISSING
-  derived names: String = self.level.rewards.map(reward => reward.name).join(", ")
-  derived icon: FileId | nil = self.level.rewards[1]?.icon
-
-  level: Signal<Level>
-  constructor(level: Signal<Level>) { self.level = level }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={REWARD_ROW} gap={3sp} yAlign={Align.Center} padding={2sp}>
-        <text value={"%d"} arguments={[self.level.level]} textColor={self.ink} textFont={.Numbers} textSize={TITLE_TEXT} wrap={.None} />
-        <box columns={[Style.ICON, { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
-          <box width={Style.ICON} height={Style.ICON} icon={self.icon} tint={self.ink} />
-          <text value={self.names} textColor={self.ink} />
-        </box>
-      </box>
-    }
+// The four levels from `first`, as many as there are.
+function windowOf(levels: Array<Level>, first: Integer): Array<Level> {
+  const list: Array<Level> = []
+  for (index, level of levels) {
+    if (index >= first && index < first + CARDS) { list.push(level) }
   }
+  return list
 }
 
+// A tree in the trees' column: its emblem and its name, the picked one shaded with a light along its left.
 public class TreeChoice implements Component {
   public pick: Event<Integer> = new Event()
   derived picked: Boolean = self.index == self.chosen
+  derived background: Color | ByInteractionState<Color> = self.picked ? TREE_PICKED : TREE_SHADE
+  derived light: Color = self.picked ? TREE_LIGHT : CLEAR
+  derived ink: Color = self.picked ? Style.WHITE_INK : Style.INK
 
   tree: Signal<TreeKind>
   const index: Integer
@@ -195,33 +161,148 @@ public class TreeChoice implements Component {
   onPick(mut self) { self.pick.emit(self.index) }
 
   public render(self): Template {
-    return $ltml { <ListTab label={self.tree.name} icon={self.tree.icon} selected={self.picked} @pick={self.onPick} /> }
+    return $ltml {
+      <box columns={TREE_ROW} gap={4sp} padding={TREE_PAD} yAlign={Align.Center} background={self.background}
+           @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
+        <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3ui} background={self.light} />
+        <box width={TREE_EMBLEM} height={TREE_EMBLEM} icon={self.tree.icon} />
+        <text value={self.tree.name} textSize={TITLE_TEXT} textFont={.Title} textColor={self.ink} wrap={.None} />
+      </box>
+    }
   }
 }
 
-public class Legacy implements Component {
+// A card of the reward track: the game's card, its level in the diamond over its top, its reward's icon in its frame,
+// the reward's name under it, a check while earned.
+public class RewardCard implements Component {
+  derived back: Atlas = self.level.last ? CARD_LAST : self.level.reached ? CARD_EARNED : CARD_LOCKED
+  derived diamond: Atlas = self.level.reached ? DIAMOND : DIAMOND_LOCKED
+  derived frame: Atlas = self.level.reached ? ICON_FRAME : ICON_FRAME_LOCKED
+  derived ink: Color = self.level.reached ? WHITE : DISABLED
+
+  level: Signal<Level>
+  constructor(level: Signal<Level>) { self.level = level }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={CARD_WIDTH} height={CARD_HEIGHT} background={self.back} xAlign={Align.Center}>
+        <box position={Position.Absolute} top={-18ui} left={(CARD_WIDTH - DIAMOND_SIZE) / 2} width={DIAMOND_SIZE} height={DIAMOND_SIZE}
+             background={self.diamond} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[self.level.level]} textColor={self.ink} textFont={.Numbers} wrap={.None} leading={.Tight} />
+        </box>
+        <box $if={self.level.reached} position={Position.Absolute} top={15ui} right={20ui} width={CHECK_WIDTH} height={CHECK_HEIGHT}
+             background={CHECK} />
+        <box position={Position.Absolute} top={60ui - (ICON_FRAME_SIZE - ICON_SIZE) / 2} left={(CARD_WIDTH - ICON_FRAME_SIZE) / 2}
+             width={ICON_FRAME_SIZE} height={ICON_FRAME_SIZE} xAlign={Align.Center} yAlign={Align.Center}>
+          <box width={ICON_SIZE} height={ICON_SIZE} icon={self.level.icon} desaturate={!self.level.reached} />
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.frame} />
+        </box>
+        <box position={Position.Absolute} top={60ui + ICON_SIZE + (ICON_FRAME_SIZE - ICON_SIZE) / 2 + 10ui} left={(CARD_WIDTH - 120ui) / 2}
+             width={120ui} xAlign={Align.Center}>
+          <text value={self.level.name} textColor={self.ink} textAlign={.Center} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// The page: its sub tabs and pages (`content`) and its footer, the points and the tree's buttons (`footer`).
+public class Legacy {
+  // While the page shows: its tree's configuration is asked then.
+  public state visible = false
   // Moves when the game says a tree or the track changed: what is shown is read again.
   state touched = 0
+  state sub = 1
   state treeIndex = 1
+  // The first of the four cards shown.
+  state first = 1
+  state config: mut any Game.TalentConfig | nil = nil
   derived open: Boolean = self.readOpen()
-  derived tree: TreeKind = TREES[self.treeIndex] ?? panic("three trees")
-  derived config: Integer | nil = self.readConfig()
-  derived nodes: Array<Node> = self.readNodes()
+  derived treeKind: TreeKind = TREES[self.treeIndex] ?? panic("three trees")
+  derived tree: Game.TalentTree | nil = self.readTree()
   derived points: Integer = self.readPoints()
-  derived pointsText: String = Locale.POINTS_AVAILABLE.format(self.points)
   derived staged: Boolean = self.readStaged()
-  derived bought: Boolean = self.nodes.any(node => node.rank > 0)
+  derived bought: Boolean = self.tree?.nodes?.any(node => node.rank > 0) == true
+  derived treeShown: Boolean = self.sub == 1
   derived levels: Array<Level> = self.readLevels()
   derived rank: Integer = self.readRank()
-  derived progress: Number = self.readProgress()
-  derived rankText: String = Locale.LEGACY_RANK.format(self.rank)
+  derived shownLevels: Array<Level> = windowOf(self.levels, self.first)
+  derived filled: Number = self.readFilled()
+  derived fillTracks: Array<Track> = [{ fr: self.filled.max(0.001) }, { fr: (100 - self.filled).max(0.001) }]
+  derived canBack: Boolean = self.first > 1
+  derived canOn: Boolean = self.first + CARDS <= self.levels.length
+  derived counts: Array<FooterCount> = [{ label: Locale.POINTS_LEFT, value: String.of(self.points) }]
+  const treePage: Template = $ltml {
+    <box columns={[Style.SIDE_LIST, { fr: 1 }]} rows={[{ fr: 1 }]}>
+      <box border={{ width: 1ui, color: RULE, sides: ["right"] }}>
+        <TreeChoice $for={index, tree of TREES} tree={tree} index={index} chosen={self.treeIndex} @pick={self.onTree} />
+      </box>
+      <box background={"Legacy-Tree-Frame-background"} padding={6sp} xAlign={Align.Center} yAlign={Align.Center}>
+        <TalentTreeView $if={self.tree != nil} tree={self.tree ?? panic("tested")} titled={false} @spend={self.onBuy}
+                        @refund={self.onRefund} />
+      </box>
+    </box>
+  }
+  const rewardsPage: Template = $ltml {
+    <box background={TRACK_BACK} rows={["max-content", "max-content", "max-content", { fr: 1 }]} xAlign={Align.Center} padding={{ top: 6sp }}>
+      <box width={EMBLEM_WIDTH} height={EMBLEM_HEIGHT} background={TRACK_EMBLEM} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={"%d"} arguments={[self.rank]} textSize={2.2rem} textFont={.Numbers} textColor={WHITE} textOutline={1} wrap={.None} />
+      </box>
+      <text value={Locale.TRACK_POINTS} textSize={TITLE_TEXT} textColor={Style.GOLD} wrap={.None} />
+      <box padding={{ top: 12sp }}>
+        <box width={BAR_WIDTH} height={BAR_HEIGHT} background={BAR_BACK} columns={self.fillTracks}>
+          <box background={BAR_FILL} />
+          <box />
+          <box position={Position.Absolute} left={-8ui} top={-7ui} right={-8ui} bottom={-10ui} background={BAR_FRAME} />
+        </box>
+      </box>
+      <box columns={[ARROW_WIDTH, { fr: 1 }, ARROW_WIDTH]} yAlign={Align.Center} padding={{ top: 8sp }}>
+        <box width={ARROW_WIDTH} height={ARROW_HEIGHT} background={self.canBack ? ARROW : ARROW_OFF} disabled={!self.canBack}
+             @pointerPress(.Left)={self.onBack} />
+        <box columns={[CARD_WIDTH, CARD_WIDTH, CARD_WIDTH, CARD_WIDTH]} xAlign={Align.Center}>
+          <RewardCard $for={level of self.shownLevels} $key={level.level} level={level} />
+        </box>
+        <box width={ARROW_WIDTH} height={ARROW_HEIGHT} background={self.canOn ? ARROW : ARROW_OFF} rotation={180deg}
+             disabled={!self.canOn} @pointerPress(.Left)={self.onOn} />
+      </box>
+    </box>
+  }
+  public const content: Template = $ltml {
+    <box columns={1} rows={["max-content", { fr: 1 }]}>
+      <box padding={Style.TOP_ROOM}>
+        <Tabs tabs={SUBS} selected={mut self.sub} />
+      </box>
+      <box $if={!self.open} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.LEGACY_LOCKED} textColor={Style.DIM} />
+      </box>
+      <box $elseif={self.treeShown} rows={[{ fr: 1 }]}>
+        {self.treePage}
+      </box>
+      <box $else rows={[{ fr: 1 }]}>
+        {self.rewardsPage}
+      </box>
+    </box>
+  }
+  public const footer: Template = $ltml {
+    <ListFooter counts={self.counts}>
+      <box $if={self.treeShown && self.open} columns={["max-content", "max-content"]} gap={3sp}>
+        <PushButton $if={self.staged} label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
+        <PushButton $else label={Locale.RESET} width={BUTTON} disabled={!self.bought} @click={self.onReset} />
+        <PushButton label={Locale.APPLY} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.staged} @click={self.onApply} />
+      </box>
+    </ListFooter>
+  }
 
-  sub: Signal<Integer>
-  constructor(sub: Signal<Integer>) {
-    self.sub = sub
+  constructor() {
     Events.TRAIT_CONFIG_UPDATED.listen(self.onChanged)
     Events.TRAIT_TREE_CURRENCY_INFO_UPDATED.listen(self.onChanged)
     Events.MAJOR_FACTION_RENOWN_LEVEL_CHANGED.listen(self.onChanged)
+    // The picked tree's configuration, asked again as another is picked or the game says the trees changed.
+    watch {
+      if (!self.visible) { return }
+      _ = self.touched
+      self.config = Game.talentTrees.of((TREES[self.treeIndex] ?? panic("three trees")).id)
+    }
   }
 
   onChanged(mut self) { self.touched += 1 }
@@ -231,29 +312,20 @@ public class Legacy implements Component {
     return legacyOpen()
   }
 
-  readConfig(self): Integer | nil {
+  readTree(self): Game.TalentTree | nil {
     _ = self.touched
-    return Client.C_Traits.GetConfigIDByTreeID(self.tree.id)?.floor()
-  }
-
-  readNodes(self): Array<Node> {
-    _ = self.touched
-    const config = self.config
-    return config != nil ? nodesOf(config, self.tree.id) : []
+    const trees = self.config?.trees() ?? []
+    return trees.find(tree => tree.id == self.treeKind.id) ?? trees[1]
   }
 
   readPoints(self): Integer {
     _ = self.touched
-    const config = self.config
-    if (config == nil) { return 0 }
-    const info = Client.C_Traits.GetTreeCurrencyInfo(config, self.tree.id, false)
-    return (info.find(one => one.traitCurrencyID == LEGACY_POINTS) ?? info[1])?.quantity?.floor() ?? 0
+    return self.config?.unspent() ?? 0
   }
 
   readStaged(self): Boolean {
     _ = self.touched
-    const config = self.config
-    return config != nil && Client.C_Traits.ConfigHasStagedChanges(config)
+    return self.config?.staged() == true
   }
 
   readLevels(self): Array<Level> {
@@ -266,78 +338,38 @@ public class Legacy implements Component {
     return Client.C_MajorFactions.GetCurrentRenownLevel(TRACK).floor()
   }
 
-  // How far to the next level, 0 to 1.
-  readProgress(self): Number {
-    _ = self.touched
+  readFilled(self): Number {
     const data = Client.C_MajorFactions.GetMajorFactionData(TRACK)
-    if (data == nil || data.renownLevelThreshold <= 0) { return 0 }
-    return (data.renownReputationEarned / data.renownLevelThreshold).min(1)
+    if (data == nil) { return 0 }
+    return filledOf(self.levels, self.rank, data.renownReputationEarned, data.renownLevelThreshold, self.first)
   }
 
   onTree(mut self, index: Integer) { self.treeIndex = index }
+  onBack(mut self) { self.first = (1).max(self.first - 1) }
+  onOn(mut self) { self.first = self.first + 1 }
 
   onBuy(mut self, node: Integer) {
-    const config = peek self.config
-    if (config == nil) { return }
-    _ = Client.C_Traits.PurchaseRank(config, node)
+    _ = self.config?.spend(node)
     self.touched += 1
   }
 
   onRefund(mut self, node: Integer) {
-    const config = peek self.config
-    if (config == nil) { return }
-    _ = Client.C_Traits.RefundRank(config, node)
+    _ = self.config?.refund(node)
     self.touched += 1
   }
 
   onApply(mut self) {
-    const config = peek self.config
-    if (config != nil) { _ = Client.C_Traits.CommitConfig(config) }
+    _ = self.config?.commit()
     self.touched += 1
   }
 
   onUndo(mut self) {
-    const config = peek self.config
-    if (config != nil) { _ = Client.C_Traits.RollbackConfig(config) }
+    _ = self.config?.rollback()
     self.touched += 1
   }
 
   onReset(mut self) {
-    const config = peek self.config
-    if (config != nil) { _ = Client.C_Traits.ResetTree(config, (peek self.tree).id) }
+    _ = self.config?.reset()
     self.touched += 1
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box $if={!self.open} xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.LEGACY_LOCKED} textColor={Style.DIM} />
-      </box>
-      <box $elseif={self.sub == 1} columns={[Style.SIDE_LIST, { fr: 1 }]} rows={[{ fr: 1 }]} gap={6sp}>
-        <box rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp}>
-          <TreeChoice $for={index, tree of TREES} tree={tree} index={index} chosen={self.treeIndex} @pick={self.onTree} />
-          <text value={self.pointsText} textColor={Style.GOLD} />
-        </box>
-        <box rows={["max-content", { fr: 1 }, "max-content"]} gap={3sp}>
-          <text value={self.tree.name} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
-          <box width={CANVAS_WIDTH} height={CANVAS_HEIGHT} xAlignSelf={Align.Center}>
-            <NodeButton $for={node of self.nodes} $key={node.id} node={node} @buy={self.onBuy} @refund={self.onRefund} />
-          </box>
-          <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
-            <box />
-            <PushButton $if={self.staged} label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
-            <PushButton $else label={Locale.RESET} width={BUTTON} disabled={!self.bought} @click={self.onReset} />
-            <PushButton label={Locale.APPLY} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.staged} @click={self.onApply} />
-          </box>
-        </box>
-      </box>
-      <box $else rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
-        <text value={self.rankText} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
-        <ProgressBar fraction={self.progress} />
-        <ScrolledList virtual={true}>
-          <RewardRow $for={level of self.levels} $key={level.level} level={level} />
-        </ScrolledList>
-      </box>
-    }
   }
 }

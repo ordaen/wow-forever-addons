@@ -9,10 +9,10 @@ import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { GamePass, KeptWindow, Module, PushButton, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { GamePass, KeptWindow, ListFooter, Module, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import { Challenges } from "@/challenges"
-import { Collection, Kind } from "@/collections"
+import { Collections } from "@/collections"
 import { Legacy } from "@/legacy"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -21,18 +21,15 @@ public const TAB_LEGACY = 1
 public const TAB_ACHIEVEMENTS = 2
 public const TAB_ALTS = 3
 public const TAB_COLLECTIONS = 4
-// The collections' sub tabs; the appearances are the game's journal's fifth.
-const SUB_TRANSMOG = 4
-const JOURNAL_APPEARANCES = 5
 
+// Each tab runs to the frame's line (its `padding` none): its sections keep their own room. Alts' pages keep the
+// window's.
 const TABS: Array<WindowTabSpec> = [
-  { title: Locale.TAB_LEGACY, icon: "Interface/Icons/Achievement_General" },
-  { title: Locale.TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08" },
+  { title: Locale.TAB_LEGACY, icon: "Interface/Icons/Achievement_General", padding: Style.NO_ROOM },
+  { title: Locale.TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08", padding: Style.NO_ROOM },
   { title: Locale.TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male" },
-  { title: Locale.TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse" }
+  { title: Locale.TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse", padding: Style.NO_ROOM }
 ]
-const LEGACY_SUBS: Array<String> = [Locale.SUB_TREE, Locale.SUB_REWARDS]
-const COLLECTION_SUBS: Array<String> = [Locale.SUB_MOUNTS, Locale.SUB_PETS, Locale.SUB_TOYS, Locale.SUB_TRANSMOG]
 
 // A window of the game's ours stands for: its addon, its frame's name, and the tab ours opens on.
 struct GameWindow {
@@ -59,9 +56,19 @@ public class Account implements Module, App {
 
   public state open = false
   public state tab: Integer = TAB_LEGACY
-  public state legacySub = 1
-  public state collectionSub = 1
-  derived kind: Kind = self.collectionSub == 1 ? .Mounts : self.collectionSub == 2 ? .Pets : .Toys
+  // The pages: what each shows, its footer and its side.
+  const legacy: mut Legacy = new Legacy()
+  const challenges: mut Challenges = new Challenges()
+  const collections: mut Collections = new Collections()
+  derived side: WindowSide | nil = self.tab == TAB_ACHIEVEMENTS ? self.challenges.side :
+    self.tab == TAB_COLLECTIONS ? self.collections.side : nil
+  // The footer, of the tab shown: Alts' pages have none of their own.
+  const footer: Template = $ltml {
+    <box $if={self.tab == TAB_LEGACY}> {self.legacy.footer} </box>
+    <box $elseif={self.tab == TAB_ACHIEVEMENTS}> {self.challenges.footer} </box>
+    <box $elseif={self.tab == TAB_COLLECTIONS}> {self.collections.footer} </box>
+    <ListFooter $else counts={[]} />
+  }
   // «Alts»: Ordaen Alts' pages while it runs, else how to turn it on.
   const altsOff: Template = $ltml {
     <box xAlign={Align.Center} yAlign={Align.Center}>
@@ -88,6 +95,13 @@ public class Account implements Module, App {
     // `/alts` while Alts' pages are this window's.
     watch (alts of Alts) {
       if (alts != nil) { alts.asked.listen(self.openAlts) }
+    }
+    self.collections.asked.listen(self.onTransmog)
+    // Each page reads what it shows while its tab is open.
+    watch {
+      self.legacy.visible = self.open && self.tab == TAB_LEGACY
+      self.challenges.visible = self.open && self.tab == TAB_ACHIEVEMENTS
+      self.collections.visible = self.open && self.tab == TAB_COLLECTIONS
     }
     for (game of GAME_WINDOWS) { self.hook(Runtime.frame(game.frame), game.tab) }
     self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
@@ -160,14 +174,14 @@ public class Account implements Module, App {
   }
 
   // The appearances: the game's own journal on its tab, as it is; ours closes.
-  onTransmog(mut self) {
+  onTransmog(mut self, tab: Integer) {
     self.onClose()
     // Its addon loaded first (and hooked, as it loads), so the journal shows let through, then turns to its tab.
     if (Runtime.frame(JOURNAL) == nil) { _ = Client.C_AddOns.LoadAddOn(JOURNAL_ADDON) }
     const journal = Runtime.frame(JOURNAL)
     if (journal == nil) { return }
     self.pass.pass(journal)
-    Client.SetCollectionsJournalShown(true, JOURNAL_APPEARANCES)
+    Client.SetCollectionsJournalShown(true, tab)
   }
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
@@ -176,24 +190,11 @@ public class Account implements Module, App {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              @close={self.onClose} @settings={self.onSettings}>
-        <box $if={self.tab == TAB_LEGACY} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <Tabs tabs={LEGACY_SUBS} selected={mut self.legacySub} />
-          <Legacy sub={self.legacySub} />
-        </box>
-        <Challenges $elseif={self.tab == TAB_ACHIEVEMENTS} />
-        <box $elseif={self.tab == TAB_ALTS}>
-          {self.alts}
-        </box>
-        <box $else rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <Tabs tabs={COLLECTION_SUBS} selected={mut self.collectionSub} />
-          <box $if={self.collectionSub == SUB_TRANSMOG} rows={["max-content", "max-content"]} gap={3sp} xAlign={Align.Center}
-               yAlign={Align.Center}>
-            <text value={Locale.TRANSMOG_GAME} textColor={Style.DIM} />
-            <PushButton label={Locale.OPEN_APPEARANCES} width={220dp} @click={self.onTransmog} />
-          </box>
-          <Collection $else kind={self.kind} />
-        </box>
+              footer={self.footer} side={self.side} @close={self.onClose} @settings={self.onSettings}>
+        <box $if={self.tab == TAB_LEGACY} rows={[{ fr: 1 }]}> {self.legacy.content} </box>
+        <box $elseif={self.tab == TAB_ACHIEVEMENTS} rows={[{ fr: 1 }]}> {self.challenges.content} </box>
+        <box $elseif={self.tab == TAB_ALTS} rows={[{ fr: 1 }]}> {self.alts} </box>
+        <box $else rows={[{ fr: 1 }]}> {self.collections.content} </box>
       </Window>
     }
   }
