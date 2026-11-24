@@ -26,7 +26,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, startsAt } from "@/layers"
+import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, nearestYards, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
@@ -107,6 +107,11 @@ function tabTitle(kind: QuestKind): String {
 
 // The sub-tabs' titles, in `KINDS`' order.
 const KIND_TITLES: Array<String> = KINDS.map(kind => tabTitle(kind))
+
+// A spot's world yards from the player (Ordaen Map's); nil on another continent or without Ordaen Map.
+function fromPlayer(spot: Spot): Number | nil {
+  return Maps?.distanceTo(spot.area, spot.x, spot.y)
+}
 
 public class Quests implements Module, App {
   public const title: String = "Ordaen Quests"
@@ -390,8 +395,16 @@ public class Quests implements Module, App {
       const figure = self.data.npc(npc)
       if (figure != nil) { figures.push(figure) }
     }
-    const nearest = nearestOf(figures, (spot: Spot): Number | nil => Maps?.distanceTo(spot.area, spot.x, spot.y))
+    const nearest = nearestOf(figures, fromPlayer)
     return nearest != nil && self.showAt(nearest.figure, nearest.spot)
+  }
+
+  // The world yards from the player to the NPC's nearest spot (QuestieDB's) on the player's continent, as
+  // `showNearest` measures them: another module's distance column of trainers or vendors. Nil where QuestieDB has no
+  // spot of it on this continent, or without Ordaen Map.
+  public distanceTo(mut self, npc: Integer): Number | nil {
+    const figure = self.data.npc(npc)
+    return figure != nil ? nearestYards(figure, fromPlayer) : nil
   }
 
   // The map opened at a spot of an NPC's, its pins lit. Not without Ordaen Map, in a fight, or without a spot.

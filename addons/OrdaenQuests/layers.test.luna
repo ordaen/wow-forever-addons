@@ -4,7 +4,7 @@ import Test from "$test"
 import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import type { Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
-import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, startsAt } from "@/layers"
+import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, nearestYards, startsAt } from "@/layers"
 import { Figure, QuestFacts, Spot } from "@/questie"
 
 function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
@@ -134,4 +134,17 @@ test "of several NPCs' spots the one nearest the player is picked; with none mea
   const none = nearestOf([far, near], (spot: Spot): Number | nil => nil) ?? panic("the first")
   Test.expect(none.figure.name == "Far Trainer" && none.spot.x == 0.9)
   Test.expect(nearestOf([{ id: 3, kind: .Npc, name: "Nowhere", spots: [] }], distance) == nil)
+}
+
+test "an NPC's distance is to its nearest spot on the player's continent, nil where none is" {
+  const npc: Figure = {
+    id: 1,
+    kind: .Npc,
+    name: "Trainer",
+    spots: [{ area: 1519, x: 0.5, y: 0.5 }, { area: 12, x: 0.4, y: 0.9 }, { area: 12, x: 0.4, y: 0.7 }]
+  }
+  const distance = (spot: Spot): Number | nil => spot.area == 12 ? ((spot.x - 0.4) ** 2 + (spot.y - 0.5) ** 2).sqrt() : nil
+  const yards = nearestYards(npc, distance) ?? panic("measured")
+  Test.expect((yards - 0.2).abs() < 0.0001)
+  Test.expect(nearestYards(npc, (spot: Spot): Number | nil => nil) == nil)
 }
