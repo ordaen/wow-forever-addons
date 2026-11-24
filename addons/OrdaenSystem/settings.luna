@@ -70,12 +70,13 @@ public struct SettingLine {
   // How the window writes it.
   writing: Writing
   // The checkbox the line stands under, by its variable (`""`: none): a slider's or a dropdown's of a line of two
-  // controls, greyed while the checkbox is off, as Blizzard's is.
+  // controls, hidden while the checkbox is off.
   under: String
-  // A slider's range.
+  // A slider's range, and how Blizzard's window writes its value beside it (none: as a number).
   least: Number
   most: Number
   step: Number
+  format: ((value: Number) => String) | nil
 }
 
 // A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether Blizzard draws it as a
@@ -113,23 +114,49 @@ function shown(category: any Client.SettingsCategory): Boolean {
   return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime.text("SETTINGS_KEYBINDINGS_LABEL")
 }
 
+// A tooltip Blizzard gives as its text, or as the function that writes it.
+function textOf(tooltip: String | (() => String) | nil): String {
+  if (tooltip == nil) { return "" }
+  if (tooltip is String) { return tooltip }
+  return tooltip()
+}
+
+// What a slider's label beside it writes (`MinimalSliderWithSteppersMixin.Label.Right`).
+const SLIDER_RIGHT = 2
+
+function formatOf(range: Client.SettingsSliderOptions | nil): ((value: Number) => String) | nil {
+  const formatters = range?.formatters
+  return formatters == nil ? nil : formatters[SLIDER_RIGHT]
+}
+
+// Text in a colour of Blizzard's tooltips.
+const HIGHLIGHT = "ffffffff"
+const NORMAL = "ffffd100"
+const DISABLED = "ff808080"
+const ERROR = "ffff2020"
+const GREEN = "ff19ff19"
+const WARNING = "ffff8000"
+
+function colored(color: String, text: String): String { return "|c" + color + text + "|r" }
+
 // A line of a page: its kind, name and tooltip, its setting (none: a header or Blizzard's own), a slider's range, and
 // the checkbox it stands under.
 function lineOf(
-  kind: LineKind, name: String, tooltip: String, setting: any Client.Setting | nil, range: Client.SettingsSliderOptions | nil,
+  kind: LineKind, name: String, tooltip: String | (() => String) | nil, setting: any Client.Setting | nil, range: Client.SettingsSliderOptions | nil,
   under: String
 ): SettingLine {
   const variable = setting?.GetVariable() ?? ""
   return {
     kind: kind,
     name: name,
-    tooltip: tooltip,
+    tooltip: textOf(tooltip),
     variable: variable,
     writing: writingOf(setting),
     under: under,
     least: range?.minValue ?? 0,
     most: range?.maxValue ?? 0,
-    step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps
+    step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps,
+    format: formatOf(range)
   }
 }
 
@@ -188,20 +215,20 @@ public class SystemSettings {
       if (box != nil) {
         // A line of two controls: its checkbox, then its slider or its dropdown under it.
         const check = box.GetVariable()
-        lines.push(lineOf(.Check, data.cbLabel ?? box.GetName(), data.cbTooltip ?? "", box, nil, ""))
+        lines.push(lineOf(.Check, data.cbLabel ?? box.GetName(), data.cbTooltip, box, nil, ""))
         const slider = data.sliderSetting
         const dropdown = data.dropdownSetting
         if (slider != nil) {
-          lines.push(lineOf(.Slider, data.sliderLabel ?? slider.GetName(), data.sliderTooltip ?? "", slider, data.sliderOptions, check))
+          lines.push(lineOf(.Slider, data.sliderLabel ?? slider.GetName(), data.sliderTooltip, slider, data.sliderOptions, check))
         } else if (dropdown != nil) {
-          lines.push(lineOf(.Choice, data.dropDownLabel ?? dropdown.GetName(), data.dropDownTooltip ?? "", dropdown, nil, check))
+          lines.push(lineOf(.Choice, data.dropDownLabel ?? dropdown.GetName(), data.dropDownTooltip, dropdown, nil, check))
         }
         continue
       }
       const options = data.options
       const range = options is Client.SettingsSliderOptions ? options : nil
       const kind = kindOf(initializer.GetTemplate(), data)
-      lines.push(lineOf(kind, data.name ?? data.setting?.GetName() ?? "", data.tooltip ?? "", data.setting, range, ""))
+      lines.push(lineOf(kind, data.name ?? data.setting?.GetName() ?? "", data.tooltip, data.setting, range, ""))
     }
     return lines
   }
@@ -273,6 +300,51 @@ public class SystemSettings {
       if (data.dropdownSetting?.GetVariable() == variable && offered != nil) { return offered() }
     }
     return []
+  }
+
+  // A line's tooltip as Blizzard's window writes it under the line's name: its text; a dropdown's choices that say
+  // more of themselves, the one the game recommends and what the one picked warns of; and what the change asks, a
+  // restart of the client or a reload.
+  public tipOf(self, line: SettingLine): String {
+    const parts: Array<String> = line.tooltip == "" ? [] : [line.tooltip]
+    const setting = line.variable == "" ? nil : Client.Settings?.GetSetting(line.variable)
+    if (setting == nil) { return parts.join("\n") }
+    if (line.kind == .Choice) {
+      const now = self.values[line.variable]
+      const fallback = setting.GetDefaultValue()
+      let recommended = ""
+      let warning = ""
+      for (option of self.choicesOf(self.page, line.variable)) {
+        const said = option.tooltip
+        const disabled = option.disabled
+        if (said != nil || disabled != nil) {
+          const label = colored(disabled == nil ? HIGHLIGHT : DISABLED, option.label)
+          parts.push("")
+          parts.push(said == nil ? label : label + ": " + colored(disabled == nil ? NORMAL : DISABLED, said))
+          if (disabled != nil) { parts.push(colored(ERROR, disabled)) }
+        }
+        if (option.value == fallback && option.recommend == true) { recommended = option.label }
+        const warns = option.warning
+        if (warns != nil && option.value == now) { warning = warns }
+      }
+      if (recommended != "") {
+        parts.push("")
+        parts.push(colored(HIGHLIGHT, (Runtime.text("VIDEO_OPTIONS_RECOMMENDED") ?? "") + ": ") + colored(GREEN, recommended))
+      }
+      if (warning != "") {
+        parts.push("")
+        parts.push(colored(WARNING, warning))
+      }
+    }
+    if (setting.HasCommitFlag(.ClientRestart)) {
+      parts.push("")
+      parts.push(colored(ERROR, Runtime.text("VIDEO_OPTIONS_NEED_CLIENTRESTART") ?? ""))
+    }
+    if (setting.HasCommitFlag(.UIReload)) {
+      parts.push("")
+      parts.push(colored(ERROR, Runtime.text("VIDEO_OPTIONS_NEED_UIRELOAD") ?? ""))
+    }
+    return parts.join("\n")
   }
 
   // The pages a search finds, by their ids: those whose name, or a line's name or tooltip, holds it.

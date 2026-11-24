@@ -191,7 +191,10 @@ class LineRow implements Component {
   derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
     self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
   derived fighting: Boolean = Game.situation.combat
-  derived locked: Boolean = self.line.writing == .None || self.fighting || self.settings.values[self.line.under] == false
+  derived locked: Boolean = self.line.writing == .None || self.fighting
+  // A line under a checkbox that is off: hidden, as Blizzard's is.
+  derived hidden: Boolean = self.settings.values[self.line.under] == false
+  derived tip: String = self.settings.tipOf(self.line)
   derived inset: Edges = self.line.under == "" ? {} : INDENT
 
   line: Signal<SettingLine>
@@ -229,14 +232,14 @@ class LineRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={self.inset}>
+      <box $if={!self.hidden} padding={self.inset}>
         <Checkbox $if={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
-                  hint={self.line.tooltip} disabled={self.locked} />
+                  hint={self.tip} disabled={self.locked} />
         <NumberInput $elseif={self.line.kind == LineKind.Slider} label={self.line.name} value={mut self.number}
-                     least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} hint={self.line.tooltip} disabled={self.locked} />
+                     least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} format={peek self.line.format} hint={self.tip} disabled={self.locked} />
         <Dropdown $elseif={self.line.kind == LineKind.Choice} label={self.line.name} value={mut self.chosen}
-                  choices={peek self.choices} hint={self.line.tooltip} disabled={self.locked} />
-        <SettingRow $else label={self.line.name} hint={self.line.tooltip}>
+                  choices={peek self.choices} hint={self.tip} disabled={self.locked} />
+        <SettingRow $else label={self.line.name} hint={self.tip}>
           <box xAlign={Align.Start}>
             <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} disabled={self.fighting} @click={self.onBlizzard} />
           </box>

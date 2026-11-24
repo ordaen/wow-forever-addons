@@ -4,7 +4,7 @@ import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { SystemSettings } from "@/settings"
+import { SettingLine, SystemSettings } from "@/settings"
 import { SettingsTab } from "@/settingsPage"
 
 function read(): mut SystemSettings {
@@ -66,7 +66,7 @@ test "a setting is written as it is changed: a console variable itself, any othe
   Game.situation.combat = false
 }
 
-test "a line of two controls is its checkbox and, set in under it, its slider or dropdown, greyed while the box is off" {
+test "a line of two controls is its checkbox and, set in under it, its slider or dropdown, hidden while the box is off" {
   const settings = read()
   Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
   Test.page().text("Mouse").click()
@@ -74,12 +74,10 @@ test "a line of two controls is its checkbox and, set in under it, its slider or
   const slider = settings.lines.find(line => line.variable == "mouseSpeed") ?? panic("the slider's line")
   Test.expect(box.kind == .Check && slider.kind == .Slider && slider.under == "enableMouseSpeed")
   Test.expect((settings.lines.find(line => line.variable == "cameraSmoothTrackingStyle")?.under ?? "") == "autoInteract")
-  Test.expect(Test.page().text("Sensitivity").shown() && Test.page().text("Camera").shown())
   Test.expect(!Test.page().button("Open in the game's window").shown())
-  // Off, the slider takes nothing; on, it writes its variable.
+  // Off, the slider isn't shown; on, it shows and writes its variable.
+  Test.expect(!Test.page().text("Sensitivity").shown())
   const before = Client.C_CVar.GetCVar("mouseSpeed")
-  Test.page().text("Sensitivity").item().button("+").click()
-  Test.expect(Client.C_CVar.GetCVar("mouseSpeed") == before)
   Test.page().text("Mouse Sensitivity").item().button(Ordaen.art.ctl.check).click()
   Test.expect(Client.C_CVar.GetCVar("enableMouseSpeed") == "1")
   Test.page().text("Sensitivity").item().button("+").click()
@@ -112,4 +110,34 @@ test "the page's defaults set each of its settings back to the game's" {
   settings.refresh()
   settings.defaults()
   Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == Client.C_CVar.GetCVarDefault("autoLootDefault"))
+}
+
+// The line of a variable, its page opened.
+function lineFor(settings: mut SystemSettings, variable: String): SettingLine {
+  for (group of settings.groups) {
+    for (page of group.pages) {
+      const line = settings.linesOf(page.id).find(line => line.variable == variable)
+      if (line != nil) {
+        settings.open(page.id)
+        return line
+      }
+    }
+  }
+  return panic(`the line of ${variable}`)
+}
+
+test "a line's tooltip is Blizzard's: its text, a dropdown's choices that say more, the one recommended" {
+  const settings = read()
+  const status = lineFor(mut settings, "statusText")
+  const tip = settings.tipOf(status)
+  Test.expect(tip.contains("What the bars write on them."))
+  Test.expect(tip.contains("|cffffffffNumeric|r: |cffffd100Their numbers.|r"))
+  Test.expect(tip.contains("|cff19ff19None|r"))
+}
+
+test "a slider writes its value as Blizzard's window does: 72% for 0.72" {
+  const settings = read()
+  const distance = lineFor(mut settings, "cameraDistanceMaxZoomFactor")
+  const format = distance.format ?? panic("its format")
+  Test.expect(format(0.72) == "72%")
 }

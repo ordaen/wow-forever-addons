@@ -124,7 +124,7 @@ public class NumberInput implements Component {
   derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
   derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
   derived knobLeft: Number<Length> = self.fraction * LENGTH
-  derived shown: String = self.sliding ? said(self.held, self.unit, self.step) : nameOf(self.unit)
+  derived shown: String = self.sliding ? self.saying(self.held) : nameOf(self.unit)
   // The field's text, and whether it is a number.
   public state text: String
   public derived bad: Boolean = numberOf(self.text) == nil
@@ -153,6 +153,9 @@ public class NumberInput implements Component {
   const sliding: Boolean
   // A field shows a percent in hundredths: 70, not 0.7.
   const scale: Number
+  // How the value beside the slider is written, where its own owner says (Blizzard's 72% for 0.72): a control with
+  // one always slides, as its value can't be typed.
+  const format: ((value: Number) => String) | nil
   constructor(
     label: Signal<String>,
     value: mut Signal<Number>,
@@ -161,7 +164,8 @@ public class NumberInput implements Component {
     step: Number = 1,
     unit: Unit = Unit.None,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    disabled: Signal<Boolean> = false,
+    format: ((value: Number) => String) | nil = nil
   ) {
     self.label = label
     self.value = value
@@ -171,7 +175,8 @@ public class NumberInput implements Component {
     self.unit = unit
     self.hint = hint
     self.disabled = disabled
-    self.sliding = (most - least) / step <= SLID
+    self.format = format
+    self.sliding = format != nil || (most - least) / step <= SLID
     self.scale = unit == Unit.Percent ? 100 : 1
     self.text = ""
     self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
@@ -193,6 +198,12 @@ public class NumberInput implements Component {
     } else if (kept != number / self.scale) {
       self.text = self.written(kept)
     }
+  }
+
+  // The value beside the slider: as its format writes it, else in its unit.
+  saying(self, value: Number): String {
+    const format = self.format
+    return format == nil ? said(value, self.unit, self.step) : format(value)
   }
 
   // A value as the field writes it: in its scale, to its step's decimals.
