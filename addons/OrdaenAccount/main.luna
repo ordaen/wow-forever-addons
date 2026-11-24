@@ -22,12 +22,11 @@ public const TAB_ACHIEVEMENTS = 2
 public const TAB_ALTS = 3
 public const TAB_COLLECTIONS = 4
 
-// Each tab runs to the frame's line (its `padding` none): its sections keep their own room. Alts' pages keep the
-// window's.
+// Each tab runs to the frame's line (its `padding` none): its sections keep their own room.
 const TABS: Array<WindowTabSpec> = [
   { title: Locale.TAB_LEGACY, icon: "UI-Legacy-Tree-Adventure", padding: Style.NO_ROOM },
   { title: Locale.TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08", padding: Style.NO_ROOM },
-  { title: Locale.TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male" },
+  { title: Locale.TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male", padding: Style.NO_ROOM },
   { title: Locale.TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse", padding: Style.NO_ROOM }
 ]
 
