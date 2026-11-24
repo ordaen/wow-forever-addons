@@ -9,17 +9,33 @@ import Locale from "@/locales"
 
 const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 
-// A window of Ordaen's: its name and its icon. Radial opens it itself, out of a fight.
+// A window: its name, its icon, and how it is opened (a line of a macro the client runs, in a fight too; none: ours).
 struct Opening {
   title: String
   icon: Asset
+  line: String | nil
 }
 
 function opening(window: Window): Opening {
   return match (window) {
-    .Settings => { title: Locale.WINDOW_SETTINGS, icon: "Interface/Icons/Trade_Engineering" }
-    .Placing => { title: Locale.WINDOW_PLACING, icon: "Interface/Icons/Ability_Hunter_Pathfinding" }
+    .Character => { title: Locale.WINDOW_CHARACTER, icon: "Interface/Icons/INV_Chest_Cloth_17", line: "/click CharacterMicroButton" }
+    .Spellbook => { title: Locale.WINDOW_SPELLBOOK, icon: "Interface/Icons/INV_Misc_Book_09", line: "/click SpellbookMicroButton" }
+    .Talents => { title: Locale.WINDOW_TALENTS, icon: "Interface/Icons/Ability_Marksmanship", line: "/click TalentMicroButton" }
+    .Quests => { title: Locale.WINDOW_QUESTS, icon: "Interface/Icons/INV_Misc_Book_08", line: "/click QuestLogMicroButton" }
+    .Map => { title: Locale.WINDOW_MAP, icon: "Interface/Icons/INV_Misc_Map_01", line: "/run ToggleWorldMap()" }
+    .Social => { title: Locale.WINDOW_SOCIAL, icon: "Interface/Icons/INV_Letter_15", line: "/run ToggleFriendsFrame()" }
+    .Guild => { title: Locale.WINDOW_GUILD, icon: "Interface/Icons/INV_Shirt_GuildTabard_01", line: "/click GuildMicroButton" }
+    .GroupFinder => { title: Locale.WINDOW_GROUP_FINDER, icon: "Interface/Icons/INV_Misc_GroupLooking", line: "/click LFDMicroButton" }
+    .Calendar => { title: Locale.WINDOW_CALENDAR, icon: "Interface/Icons/INV_Misc_Note_02", line: "/run ToggleCalendar()" }
+    .Bags => { title: Locale.WINDOW_BAGS, icon: "Interface/Icons/INV_Misc_Bag_08", line: "/run ToggleAllBags()" }
+    .Settings => { title: Locale.WINDOW_SETTINGS, icon: "Interface/Icons/Trade_Engineering", line: nil }
+    .Placing => { title: Locale.WINDOW_PLACING, icon: "Interface/Icons/Ability_Hunter_Pathfinding", line: nil }
   }
+}
+
+function openAction(window: Window): WheelAction {
+  const line = opening(window).line
+  return line != nil ? WheelAction.MacroText { text: line } : WheelAction.Ours
 }
 
 // A kind of ping: its name, the client's mark of it, and its number for `/ping` (the client reads a kind's name only
@@ -132,10 +148,11 @@ public function shown(item: Item, offer: RadialOffer | nil, emotes: Map<String, 
 // What an item does; a kind of another module's what it offers now (none: nothing).
 public function actionOf(item: Item, offer: RadialOffer | nil): WheelAction {
   return match (item) {
-    .Empty, .Professions, .Open => WheelAction.Ours
+    .Empty, .Professions => WheelAction.Ours
     .Spell => .Spell { spell: item.spell }
     .Bag => .Item { item: item.item }
     .Macro => .Macro { macro: item.macro }
+    .Open => openAction(item.window)
     .RaidMark => .MacroText { text: `/tm ${item.mark}` }
     .WorldMark => .MacroText { text: item.mark == 0 ? "/cwm all" : `/wm ${item.mark}` }
     .Pinged => .MacroText { text: `/ping ${pinging(item.ping).number}` }

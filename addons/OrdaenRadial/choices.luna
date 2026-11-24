@@ -1,8 +1,12 @@
 // What the player chooses for the wheels: each ring's items by their place, where it opens and how it names them.
 import { SlotMode, WheelModifier, WheelNames } from "Ordaen"
 
-// A window of Ordaen's an item opens.
-public enum Window implements Plain { Settings = "settings", Placing = "placing" }
+// A window an item opens: the game's or Ordaen's.
+public enum Window implements Plain {
+  Character = "character", Spellbook = "spellbook", Talents = "talents", Quests = "quests", Map = "map"
+  Social = "social", Guild = "guild", GroupFinder = "groupFinder", Calendar = "calendar", Bags = "bags"
+  Settings = "settings", Placing = "placing"
+}
 
 // The client's ping kinds.
 public enum Ping implements Plain { Attack = "attack", Assist = "assist", Warning = "warning", OnMyWay = "onmyway" }

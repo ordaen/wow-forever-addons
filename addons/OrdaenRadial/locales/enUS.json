@@ -1,5 +1,5 @@
 {
-  "MODULE_NOTES": "Wheels of actions held on a key: professions, pings, marks, emotes, travel, group; aimed with the mouse, in a fight too.",
+  "MODULE_NOTES": "Wheels of actions held on a key: windows, professions, pings, marks, emotes, travel; aimed with the mouse, in a fight too.",
   "TAB_RINGS": "Rings",
   "RING_PROFESSIONS": "Professions",
   "RING_PINGS": "Pings",
@@ -128,5 +128,16 @@
   "PLACE_EARLIER": "Move earlier",
   "PLACE_LATER": "Move later",
   "PLACE_REMOVE": "Remove",
-  "SLOT_NONE": "Choose a place in the list"
+  "SLOT_NONE": "Choose a place in the list",
+  "RING_WINDOWS": "Windows",
+  "WINDOW_CHARACTER": "Character",
+  "WINDOW_SPELLBOOK": "Spellbook",
+  "WINDOW_TALENTS": "Talents",
+  "WINDOW_QUESTS": "Quests",
+  "WINDOW_MAP": "Map",
+  "WINDOW_SOCIAL": "Social",
+  "WINDOW_GUILD": "Guild",
+  "WINDOW_GROUP_FINDER": "Group finder",
+  "WINDOW_CALENDAR": "Calendar",
+  "WINDOW_BAGS": "Bags"
 }

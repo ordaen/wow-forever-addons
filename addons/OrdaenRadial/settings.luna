@@ -41,6 +41,16 @@ public const CATALOGUE: Array<Choice<String>> = [
   { value: "emote", label: Locale.KIND_EMOTE },
   { value: "menu", label: Locale.KIND_MENU },
   { value: "professions", label: Locale.RING_PROFESSIONS },
+  { value: "character", label: Locale.WINDOW_CHARACTER },
+  { value: "spellbook", label: Locale.WINDOW_SPELLBOOK },
+  { value: "talents", label: Locale.WINDOW_TALENTS },
+  { value: "quests", label: Locale.WINDOW_QUESTS },
+  { value: "map", label: Locale.WINDOW_MAP },
+  { value: "social", label: Locale.WINDOW_SOCIAL },
+  { value: "guild", label: Locale.WINDOW_GUILD },
+  { value: "groupFinder", label: Locale.WINDOW_GROUP_FINDER },
+  { value: "calendar", label: Locale.WINDOW_CALENDAR },
+  { value: "bags", label: Locale.WINDOW_BAGS },
   { value: "settings", label: Locale.WINDOW_SETTINGS },
   { value: "placing", label: Locale.WINDOW_PLACING },
   { value: "attack", label: Locale.PING_ATTACK },
@@ -88,6 +98,16 @@ public function itemOf(kind: String, text: String, emotes: Map<String, String>):
     "assist" => .Pinged { ping: Ping.Assist }
     "warning" => .Pinged { ping: Ping.Warning }
     "onmyway" => .Pinged { ping: Ping.OnMyWay }
+    "character" => .Open { window: Window.Character }
+    "spellbook" => .Open { window: Window.Spellbook }
+    "talents" => .Open { window: Window.Talents }
+    "quests" => .Open { window: Window.Quests }
+    "map" => .Open { window: Window.Map }
+    "social" => .Open { window: Window.Social }
+    "guild" => .Open { window: Window.Guild }
+    "groupFinder" => .Open { window: Window.GroupFinder }
+    "calendar" => .Open { window: Window.Calendar }
+    "bags" => .Open { window: Window.Bags }
     "settings" => .Open { window: Window.Settings }
     "placing" => .Open { window: Window.Placing }
     "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Cycle }

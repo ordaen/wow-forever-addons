@@ -1,4 +1,4 @@
-// The wheels as they come: one ring on the first key, seven directions each opening a ring of its own; the raid marks
+// The wheels as they come: one ring on the first key, eight directions each opening a ring of its own; the raid marks
 // and the pings each a ring of their own on the next keys, where in a fight one flick beats two.
 import { WheelNames } from "Ordaen"
 import { Choices, Item, OpensAt, Ping, Ring, Window } from "@/choices"
@@ -35,43 +35,52 @@ function addEmotes(target: mut Ring, at: String) {
   }
 }
 
-// The first key's ring: Professions up, then clockwise Pings, Marks, Emotes, Travel, Group, Placing.
+// The first key's ring: Windows up, then clockwise Professions, Pings, Marks, Emotes, Travel, Group, Placing.
 function main(): Ring {
   const first = firstRing()
-  addEmotes(mut first, "4")
+  addEmotes(mut first, "5")
   return first
 }
 
 function firstRing(): mut Ring {
-  return ring({ [""]: 7, ["1"]: 1, ["2"]: 4, ["3"]: 8, ["5"]: 2, ["6"]: 3, ["7"]: 3 }, [
-    ["1", .Menu { title: Locale.RING_PROFESSIONS, icon: "Interface/Icons/Trade_BlackSmithing" }],
-    ["1_1", Item.Professions],
-    ["2", .Menu { title: Locale.RING_PINGS, icon: "Interface/Icons/Ability_Hunter_MarkedForDeath" }],
-    ["2_1", .Pinged { ping: Ping.Attack }],
-    ["2_2", .Pinged { ping: Ping.Assist }],
-    ["2_3", .Pinged { ping: Ping.Warning }],
-    ["2_4", .Pinged { ping: Ping.OnMyWay }],
-    ["3", .Menu { title: Locale.RING_MARKS, icon: "Interface/TargetingFrame/UI-RaidTargetingIcon_8" }],
-    ["3_1", .RaidMark { mark: 8 }],
-    ["3_2", .RaidMark { mark: 7 }],
-    ["3_3", .RaidMark { mark: 6 }],
-    ["3_4", .RaidMark { mark: 5 }],
-    ["3_5", .RaidMark { mark: 4 }],
-    ["3_6", .RaidMark { mark: 3 }],
-    ["3_7", .RaidMark { mark: 2 }],
-    ["3_8", .RaidMark { mark: 1 }],
-    ["4", .Menu { title: Locale.RING_EMOTES, icon: "Interface/Icons/Spell_Holy_Excorcism" }],
-    ["5", .Menu { title: Locale.RING_TRAVEL, icon: "Interface/Icons/INV_Misc_Rune_01" }],
-    ["5_1", .Bag { item: 6948 }],
-    ["5_2", Item.Empty],
-    ["6", .Menu { title: Locale.RING_GROUP, icon: "Interface/Icons/INV_Misc_GroupNeedMore" }],
-    ["6_1", line(Locale.GROUP_READY, "/readycheck", "Interface/RaidFrame/ReadyCheck-Ready")],
-    ["6_2", line(Locale.GROUP_ROLL, "/roll", "Interface/Buttons/UI-GroupLoot-Dice-Up")],
-    ["6_3", line(Locale.GROUP_LEAVE, "/leave", "Interface/Icons/Ability_Rogue_Sprint")],
-    ["7", .Menu { title: Locale.RING_PLACING, icon: "Interface/Icons/Trade_Engineering" }],
-    ["7_1", .Open { window: Window.Placing }],
-    ["7_2", .Open { window: Window.Settings }],
-    ["7_3", line(Locale.PLACING_RELOAD, "/reload", "Interface/Icons/Spell_Holy_BorrowedTime")]
+  return ring({ [""]: 8, ["1"]: 8, ["2"]: 1, ["3"]: 4, ["4"]: 8, ["6"]: 2, ["7"]: 3, ["8"]: 3 }, [
+    ["1", .Menu { title: Locale.RING_WINDOWS, icon: "Interface/Icons/INV_Misc_Book_09" }],
+    ["1_1", .Open { window: Window.Character }],
+    ["1_2", .Open { window: Window.Spellbook }],
+    ["1_3", .Open { window: Window.Talents }],
+    ["1_4", .Open { window: Window.Quests }],
+    ["1_5", .Open { window: Window.Map }],
+    ["1_6", .Open { window: Window.Social }],
+    ["1_7", .Open { window: Window.Bags }],
+    ["1_8", .Open { window: Window.Settings }],
+    ["2", .Menu { title: Locale.RING_PROFESSIONS, icon: "Interface/Icons/Trade_BlackSmithing" }],
+    ["2_1", Item.Professions],
+    ["3", .Menu { title: Locale.RING_PINGS, icon: "Interface/Icons/Ability_Hunter_MarkedForDeath" }],
+    ["3_1", .Pinged { ping: Ping.Attack }],
+    ["3_2", .Pinged { ping: Ping.Assist }],
+    ["3_3", .Pinged { ping: Ping.Warning }],
+    ["3_4", .Pinged { ping: Ping.OnMyWay }],
+    ["4", .Menu { title: Locale.RING_MARKS, icon: "Interface/TargetingFrame/UI-RaidTargetingIcon_8" }],
+    ["4_1", .RaidMark { mark: 8 }],
+    ["4_2", .RaidMark { mark: 7 }],
+    ["4_3", .RaidMark { mark: 6 }],
+    ["4_4", .RaidMark { mark: 5 }],
+    ["4_5", .RaidMark { mark: 4 }],
+    ["4_6", .RaidMark { mark: 3 }],
+    ["4_7", .RaidMark { mark: 2 }],
+    ["4_8", .RaidMark { mark: 1 }],
+    ["5", .Menu { title: Locale.RING_EMOTES, icon: "Interface/Icons/Spell_Holy_Excorcism" }],
+    ["6", .Menu { title: Locale.RING_TRAVEL, icon: "Interface/Icons/INV_Misc_Rune_01" }],
+    ["6_1", .Bag { item: 6948 }],
+    ["6_2", Item.Empty],
+    ["7", .Menu { title: Locale.RING_GROUP, icon: "Interface/Icons/INV_Misc_GroupNeedMore" }],
+    ["7_1", line(Locale.GROUP_READY, "/readycheck", "Interface/RaidFrame/ReadyCheck-Ready")],
+    ["7_2", line(Locale.GROUP_ROLL, "/roll", "Interface/Buttons/UI-GroupLoot-Dice-Up")],
+    ["7_3", line(Locale.GROUP_LEAVE, "/leave", "Interface/Icons/Ability_Rogue_Sprint")],
+    ["8", .Menu { title: Locale.RING_PLACING, icon: "Interface/Icons/Trade_Engineering" }],
+    ["8_1", .Open { window: Window.Placing }],
+    ["8_2", .Open { window: Window.Settings }],
+    ["8_3", line(Locale.PLACING_RELOAD, "/reload", "Interface/Icons/Spell_Holy_BorrowedTime")]
   ])
 }
 

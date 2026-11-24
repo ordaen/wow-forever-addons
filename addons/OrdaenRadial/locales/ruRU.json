@@ -1,5 +1,5 @@
 {
-  "MODULE_NOTES": "Колёса действий на клавише: профессии, сигналы, метки, эмоции, путешествия, группа; выбор мышью, и в бою тоже.",
+  "MODULE_NOTES": "Колёса действий на клавише: окна, профессии, метки, сигналы, эмоции, путешествия; выбор мышью, и в бою тоже.",
   "TAB_RINGS": "Кольца",
   "RING_PROFESSIONS": "Профессии",
   "RING_PINGS": "Сигналы",
@@ -128,5 +128,16 @@
   "PLACE_EARLIER": "Раньше",
   "PLACE_LATER": "Позже",
   "PLACE_REMOVE": "Убрать",
-  "SLOT_NONE": "Выберите место в списке"
+  "SLOT_NONE": "Выберите место в списке",
+  "RING_WINDOWS": "Окна",
+  "WINDOW_CHARACTER": "Персонаж",
+  "WINDOW_SPELLBOOK": "Книга заклинаний",
+  "WINDOW_TALENTS": "Таланты",
+  "WINDOW_QUESTS": "Задания",
+  "WINDOW_MAP": "Карта",
+  "WINDOW_SOCIAL": "Друзья",
+  "WINDOW_GUILD": "Гильдия",
+  "WINDOW_GROUP_FINDER": "Поиск группы",
+  "WINDOW_CALENDAR": "Календарь",
+  "WINDOW_BAGS": "Сумки"
 }
