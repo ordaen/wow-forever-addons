@@ -544,17 +544,20 @@ test "a bar that hides empty buttons shows them while something is dragged, and 
   Test.expect(Test.page().text("S2").shown())
 }
 
-// The masks among a button's regions: how many points each is placed by.
-function maskPoints(...regions: any Client.Region): Array<Integer> {
-  const points: Array<Integer> = []
+// The masks among a button's regions (a texture is a kind of mask texture: a mask is told by its own word): each
+// one's width.
+function maskWidths(...regions: any Client.Region): Array<Number> {
+  const widths: Array<Number> = []
   for (i of 1..regions.length) {
     const region = regions[i]
-    if (region is Client.MaskTexture) { points.push(region.GetNumPoints()) }
+    if (region is Client.MaskTexture && region.GetObjectType() == "MaskTexture") { widths.push(region.GetWidth()) }
   }
-  return points
+  return widths
 }
 
-test "a bar of smaller buttons leaves the icon's mask where the template puts it, centred on the icon, not stretched" {
+function about(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
+test "a bar of smaller buttons keeps the client's art in the template's proportions: the frame round the icon, not on it" {
   alone()
   const holder = new Holder()
   holder.settings.change((values: mut BarsChoices): nil => {
@@ -565,6 +568,15 @@ test "a bar of smaller buttons leaves the icon's mask where the template puts it
   Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
   Test.flush()
   const client: any Client.Frame = button("2", 1)
-  const masks = maskPoints(...client.GetRegions())
-  Test.expect(masks.length == 1 && masks[1] == 1)
+  // The template's 45 made 30: its frame (51, at the top left, the icon's opening in its top left 45) 34, the icon's
+  // mask (64, centred on the icon) 42.67.
+  const frame = client is Client.Button ? client.GetNormalTexture() : nil
+  Test.expect(frame != nil)
+  if (frame != nil) {
+    Test.expect(about(frame.GetWidth(), 34) && about(frame.GetHeight(), 34))
+    let point, to, toPoint, x, y = frame.GetPoint(1, nil)
+    Test.expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to == client && toPoint == "TOPLEFT" && x == 0 && y == 0)
+  }
+  const masks = maskWidths(...client.GetRegions())
+  Test.expect(masks.length == 1 && about(masks[1] ?? 0, 64 * 30 / 45))
 }

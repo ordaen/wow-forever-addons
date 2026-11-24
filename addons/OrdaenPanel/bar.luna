@@ -46,14 +46,15 @@ public class Slot {
     self.shown = frame.IsShown()
     frame.HotKey.SetAlpha(0)
     const life = self.life
-    fillButton(frame, ...frame.GetRegions())
+    const art = templateArt(frame, ...frame.GetRegions())
+    fitArt(frame, art)
     self.readHolds()
     self.slotHeard = Events.ACTIONBAR_SLOT_CHANGED.listen(self.onSlotChanged)
     _ = frame.HookScript("OnAttributeChanged", (): nil => {
       if (life.on) { self.readHolds() }
     })
     _ = frame.HookScript("OnSizeChanged", (): nil => {
-      if (life.on) { fillButton(frame, ...frame.GetRegions()) }
+      if (life.on) { fitArt(frame, art) }
     })
     // The template tells each button by one global function: the hook's body one comparison for another's.
     Client.hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
@@ -83,17 +84,68 @@ public class Slot {
   }
 }
 
-// The client's template lays its art out for its own size (45): its icon and its frames fill the button at the size
-// it is given, as its texts keep their corners. Its icon's mask is left as the template places it, centred on the
-// icon: its art carries room round the opening, so stretched to the button it would cut the icon short and aside.
-function fillButton(frame: any Client.Frame, ...regions: any Client.Region) {
+// One point a piece of the template's art is placed by.
+struct Pin {
+  point: String
+  to: any Client.Region | nil
+  toPoint: String
+  x: Number
+  y: Number
+}
+
+// A piece of the client's template's art (a texture or a mask) as the template lays it out: its points, and its size
+// where they don't give it one.
+struct Piece {
+  region: any Client.MaskTexture
+  pins: Array<Pin>
+  width: Number
+  height: Number
+}
+
+// The template's art as it is laid out for the template's own size (the action button's 45, the small one's 30, read
+// from the button as it is made): the frame larger than the button and anchored at its top left, the icon's mask
+// centred on the icon and larger than it, the icon filling the button.
+struct TemplateArt {
+  width: Number
+  height: Number
+  pieces: Array<Piece>
+}
+
+function templateArt(frame: any Client.Frame, ...regions: any Client.Region): TemplateArt {
+  const pieces: Array<Piece> = []
   for (i of 1..regions.length) {
     const region = regions[i]
-    // A mask is a kind of texture to the client: told apart by its own word.
-    if (region is Client.Texture && region.GetObjectType() == "Texture") {
-      region.ClearAllPoints()
+    // A texture is a kind of mask texture to the client: both are the template's art.
+    if (region is Client.MaskTexture) {
+      const pins: Array<Pin> = []
+      for (p of 1..region.GetNumPoints()) {
+        let point, to, toPoint, x, y = region.GetPoint(p, nil)
+        const at = point ?? "CENTER"
+        pins.push({ point: at, to: to, toPoint: toPoint ?? at, x: x ?? 0, y: y ?? 0 })
+      }
+      pieces.push({ region: region, pins: pins, width: region.GetWidth(), height: region.GetHeight() })
+    }
+  }
+  return { width: frame.GetWidth(), height: frame.GetHeight(), pieces: pieces }
+}
+
+// The template's art at the size the button is given: every piece in proportion, as the template lays it out for its
+// own (its texts keep their corners). Stretched to the button instead, the frame's opening, in the art's top left part,
+// would be smaller than the icon, and the icon would stand out of it to the right and below.
+function fitArt(frame: any Client.Frame, art: TemplateArt) {
+  const across = art.width > 0 ? frame.GetWidth() / art.width : 1
+  const down = art.height > 0 ? frame.GetHeight() / art.height : 1
+  for (piece of art.pieces) {
+    const region = piece.region
+    region.ClearAllPoints()
+    if (piece.pins.length == 0) {
+      // Placed by no point, it fills the button, as the client lays out a texture without one.
       region.SetAllPoints(frame, nil)
     }
+    for (pin of piece.pins) {
+      region.SetPoint(pin.point, pin.to, pin.toPoint, pin.x * across, pin.y * down)
+    }
+    if (piece.pins.length == 1) { region.SetSize(piece.width * across, piece.height * down) }
   }
 }
 
