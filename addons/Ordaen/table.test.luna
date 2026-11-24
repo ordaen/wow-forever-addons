@@ -1,7 +1,7 @@
 // The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
 // nothing, the rows follow their own cells, and a body given a height builds only the rows in view: a row handed
 // another item follows its cell.
-import { Align, MouseButton, Track } from "$ltml"
+import { Align, Frame, MouseButton, Track } from "$ltml"
 import Test from "$test"
 import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
@@ -257,11 +257,15 @@ const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
 class Grouped {
   public state sorted = 0
   public state descending = false
+  // The row the cursor last came onto.
+  public row: any Frame | nil = nil
+
+  onRow(mut self, frame: any Frame) { self.row = frame }
 
   public render(self): Template {
     return $ltml {
       <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
-        <TableRow $for={ware of WARES} tracks={GROUPED_TRACKS} ground={Ground.Wood}>
+        <TableRow $for={ware of WARES} tracks={GROUPED_TRACKS} ground={Ground.Wood} @enter={self.onRow}>
           <text value={ware} />
           <text value={"1"} />
           <text value={"2"} />
@@ -290,6 +294,32 @@ test "neighbouring columns of one group share a heading over theirs; a table on 
   Test.click(Test.holding("Vendor", nil), nil)
   Test.expect(page.sorted == 3)
   Test.shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
+  destroy page
+  Test.expect(Test.blank())
+}
+
+// How many lines down what the client describes: a texture of the border's layer narrower than 2 and higher than 5.
+function upright(described: String): Integer {
+  let count = 0
+  for (line of described.split("\n")) {
+    const words = line.split(" ").filter(word => word != "")
+    if (words[1] == "Texture" && words[2] == "BORDER") {
+      const size = (words[4] ?? "").split("x")
+      const wide = (size[1] ?? "").toNumber() ?? 0
+      const high = (size[2] ?? "").toNumber() ?? 0
+      if (wide < 2 && high > 5) { count += 1 }
+    }
+  }
+  return count
+}
+
+test "a table on the wood rules its columns apart: a line down each gap of a row" {
+  let page = new Grouped()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test.page().text("Copper Bar").hover()
+  const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
+  // Six columns: a rule in each of the five gaps.
+  Test.expect(upright(Test.dump(row)) == 5)
   destroy page
   Test.expect(Test.blank())
 }

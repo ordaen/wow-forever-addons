@@ -71,6 +71,8 @@ const GOLD: Color = Color.hex("#f0c860")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 // The headings of a table on the wood: ruled over and under.
 const HEAD_RULES: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top, Side.Bottom] }
+// The columns of a table on the wood: ruled apart down the middle of each gap, as its rows are, the headings with them.
+const COLUMN_RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: nil }
 // A group's heading: its title over its columns, a rule under it reaching across them.
 const GROUP_RULE: Line = { width: 1.171875dp, color: Color.hex("#5a4630"), sides: [Side.Bottom] }
 const LIGHT: Color = Color.hex("#d6a56b")
@@ -189,7 +191,7 @@ class GroupHeading implements Component {
 }
 
 // One row of a table: its cells in the slot, laid out in the columns' tracks. The shade under the cursor; selected, a
-// darker one. On the wood (`Ground.Wood`, as its table stands) a rule under it. A click of any button reports `pick` with the click (its button and where it was in the row), as a
+// darker one. On the wood (`Ground.Wood`, as its table stands) a rule under it and one between its columns. A click of any button reports `pick` with the click (its button and where it was in the row), as a
 // box's `click` does: the page tells a left-click from a right-click. A double press reports `double` after its
 // second `pick`; the cursor coming onto any part of the row reports `enter` with the row's frame (a tooltip stands
 // beside it), and leaving it `leave`.
@@ -201,6 +203,7 @@ public class TableRow implements Component {
 
   derived background: Color | ByInteractionState<Color> = self.selected ? BACK : SHADE
   derived rule: Line | nil = self.ground == Ground.Wood ? RULE : nil
+  derived columnRule: Line | nil = self.ground == Ground.Wood ? COLUMN_RULE : nil
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
@@ -234,7 +237,7 @@ public class TableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.tracks} height={self.height} gap={3sp} padding={ROW_PADDING} yAlign={Align.Center} background={self.background} border={self.rule}
-           @pointerPress.self={self.onClick} @pointerPress.self.double={self.onDouble} @pointerEnter={self.onEnter}
+           columnRule={self.columnRule} @pointerPress.self={self.onClick} @pointerPress.self.double={self.onDouble} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <slot />
       </box>
@@ -287,6 +290,7 @@ public class Table implements Component {
   derived headBack: Color | nil = self.onWood ? nil : BACK
   // On the wood the headings are ruled over and under; in a well, under (the rim is over them).
   derived headRule: Line = self.onWood ? HEAD_RULES : RULE
+  derived columnRule: Line | nil = self.onWood ? COLUMN_RULE : nil
 
   const columns: Array<Column>
   sorted: mut Signal<Integer>
@@ -327,7 +331,8 @@ public class Table implements Component {
     return $ltml {
       <box columns={1} rows={FILLED}>
         <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary} ground={self.ground}>
-          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={self.headBack} border={self.headRule}>
+          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={self.headBack} border={self.headRule}
+               columnRule={self.columnRule}>
             <$if={self.grouped}>
               <$for={span of self.spans}>
                 <GroupHeading $if={span.title != ""} span={span} />
