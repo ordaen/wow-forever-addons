@@ -66,6 +66,12 @@ local function bitsOf(mask)
 	return numbers
 end
 
+-- A requirement `{ id, amount }` (a faction and a standing, a skill line and a rank); nil for none.
+local function pairOf(pair)
+	if type(pair) ~= "table" or type(pair[1]) ~= "number" or type(pair[2]) ~= "number" then return nil end
+	return { id = pair[1], amount = pair[2] }
+end
+
 -- QuestieDB's drop chances of the items quests ask for, `{ [item] = { [creature] = percent } }`: its support data
 -- holds them as Lua text, read once a session on the first ask; false where it holds none or it doesn't read.
 local chances
@@ -175,6 +181,9 @@ function questie.quest(id)
 		after = idsOf(quests.Get(id, "preQuestGroup")),
 		afterAny = idsOf(quests.Get(id, "preQuestSingle")),
 		exclusive = idsOf(quests.Get(id, "exclusiveTo")),
+		minStanding = pairOf(quests.Get(id, "requiredMinRep")),
+		maxStanding = pairOf(quests.Get(id, "requiredMaxRep")),
+		skill = pairOf(quests.Get(id, "requiredSkill")),
 		task = taskOf(quests.Get(id, "objectivesText")),
 		zone = type(zone) == "number" and zone or 0,
 		givers = givers,

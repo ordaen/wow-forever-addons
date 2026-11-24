@@ -3,7 +3,9 @@
 //   client's own quest rows say this only of a quest's own drops; an item that is ordinary loot (a boar's meat) gets
 //   its rows from here. An item dropped by more than `COMMON` creatures is everyday loot (cloth, herbs, leather) and
 //   names none, and a creature that drops it far less often than the best does (`RARE_SHARE`) isn't named either.
-// - the quests it gives that the player may take now, and the log's done quests it takes back.
+// - the quests it gives that the player may take now, and the log's done quests it takes back. A faction not met yet
+//   counts as a standing of 0 (Questie's rule), though a few start below neutral.
+import Client from "$client"
 import Game from "$game"
 import root Tooltips from "OrdaenTooltips"
 import type { CreatureQuests, Offered, Wanted } from "OrdaenTooltips"
@@ -74,6 +76,20 @@ public struct Seeker {
   level: Integer
   race: Integer
   classNumber: Integer
+  // The player's standing with a faction, the client's value (0 for a faction not met yet), and rank in a profession
+  // by its skill line (none for one not learned).
+  standing: (faction: Integer) => Integer
+  skill: (line: Integer) => Integer | nil
+}
+
+// The player's standing with a faction: the client's value of it; 0 for one the player hasn't met.
+function standingWith(faction: Integer): Integer {
+  return (Client.C_Reputation.GetFactionDataByID(faction)?.currentStanding ?? 0).floor()
+}
+
+// The player's rank in a profession by its skill line; none where they haven't learned it.
+function skillIn(line: Integer): Integer | nil {
+  return Game.professions.list.find(profession => profession.skillLine == line)?.rank
 }
 
 // Whether every one of `ids` is turned in, one of them is, or one is taken or turned in.
@@ -81,7 +97,8 @@ function allDone(ids: Array<Integer>, done: (id: Integer) => Boolean): Boolean {
 function anyDone(ids: Array<Integer>, done: (id: Integer) => Boolean): Boolean { return ids.any(id => done(id)) }
 
 // Whether the player may take a quest now: of the level, the race and the class it is for, the quests before it
-// turned in, none it excludes taken or turned in, and it neither turned in nor in the log.
+// turned in, none it excludes taken or turned in, the standing and the skill it asks, and it neither turned in nor in
+// the log.
 public function takeable(
   id: Integer, facts: QuestFacts, seeker: Seeker, logged: (id: Integer) => Boolean, done: (id: Integer) => Boolean
 ): Boolean {
@@ -91,6 +108,12 @@ public function takeable(
   if (facts.classes.length > 0 && !facts.classes.any(number => number == seeker.classNumber)) { return false }
   if (!allDone(facts.after, done)) { return false }
   if (facts.afterAny.length > 0 && !anyDone(facts.afterAny, done)) { return false }
+  const least = facts.minStanding
+  if (least != nil && seeker.standing(least.id) < least.amount) { return false }
+  const under = facts.maxStanding
+  if (under != nil && seeker.standing(under.id) >= under.amount) { return false }
+  const skill = facts.skill
+  if (skill != nil && (seeker.skill(skill.id) ?? -1) < skill.amount) { return false }
   return !facts.exclusive.any(other => other != id && (logged(other) || done(other)))
 }
 
@@ -117,7 +140,8 @@ public function offersOf(
 public class QuestCreatures implements CreatureQuests {
   derived by: Map<Integer, Array<Wanted>> = wantsOf(self.quests, self.facts)
   derived seeker: Seeker = {
-    level: Game.player.level, race: Game.player.raceNumber, classNumber: Game.player.classNumber
+    level: Game.player.level, race: Game.player.raceNumber, classNumber: Game.player.classNumber,
+    standing: standingWith, skill: skillIn
   }
 
   quests: Signal<Array<LogQuest>>

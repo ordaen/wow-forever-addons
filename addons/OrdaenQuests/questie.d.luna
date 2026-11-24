@@ -40,6 +40,12 @@ public struct ItemDrops {
   sources: Array<DropSource>
 }
 
+// What a quest asks of the player before it is given: a faction and a standing with it, or a skill line and a rank.
+public struct Needed {
+  id: Integer
+  amount: Integer
+}
+
 // A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
 public struct FactionGain {
   faction: Integer
@@ -61,6 +67,11 @@ public struct QuestFacts {
   after: Array<Integer> = []
   afterAny: Array<Integer> = []
   exclusive: Array<Integer> = []
+  // The standing with a faction it asks at least, and the one it must be under (the client's standing values: 3000
+  // friendly); the skill in a profession it asks (a skill line, a rank). None where it asks none.
+  minStanding: Needed | nil = nil
+  maxStanding: Needed | nil = nil
+  skill: Needed | nil = nil
   // What it asks, in the quest's own words (its lines, one paragraph); "" where QuestieDB says nothing.
   task: String
   // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.

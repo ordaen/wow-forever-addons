@@ -90,7 +90,11 @@ test "where QuestieDB has chances, a creature that drops the item under a tenth 
   Test.expect(named.length == 2 && named.any(creature => creature == 113) && named.any(creature => creature == 119))
 }
 
-const HUMAN_MAGE: Seeker = { level: 10, race: 1, classNumber: 8 }
+// Friendly (3500) with Stormwind (72), unmet elsewhere; Cooking (185) at 60, no other profession.
+const HUMAN_MAGE: Seeker = {
+  level: 10, race: 1, classNumber: 8, standing: (faction: Integer): Integer => faction == 72 ? 3500 : 0,
+  skill: (line: Integer): Integer | nil => line == 185 ? 60 : nil
+}
 
 function never(id: Integer): Boolean { return false }
 
@@ -108,6 +112,19 @@ test "a quest may be taken at its level, by its race and class, after the quests
   Test.expect(!takeable(9, { exclusive: [9, 1], ..BARE }, HUMAN_MAGE, never, done))
   Test.expect(!takeable(9, BARE, HUMAN_MAGE, (id: Integer): Boolean => id == 9, never))
   Test.expect(!takeable(9, BARE, HUMAN_MAGE, never, (id: Integer): Boolean => id == 9))
+}
+
+test "a quest may be taken with the standing it asks and under the one it caps, and with the skill it asks" {
+  Test.expect(takeable(9, { minStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(!takeable(9, { minStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
+  // A faction not met counts as 0: a quest asking neutral (0) may be taken, one asking friendly may not.
+  Test.expect(takeable(9, { minStanding: { id: 69, amount: 0 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(!takeable(9, { minStanding: { id: 69, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(!takeable(9, { maxStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(takeable(9, { maxStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(takeable(9, { skill: { id: 185, amount: 50 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(!takeable(9, { skill: { id: 185, amount: 75 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test.expect(!takeable(9, { skill: { id: 356, amount: 1 }, ..BARE }, HUMAN_MAGE, never, never))
 }
 
 test "an NPC offers the log's done quests it takes back, then those it gives that may be taken" {
