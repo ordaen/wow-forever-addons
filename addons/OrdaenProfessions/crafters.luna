@@ -1,49 +1,61 @@
-// Ordaen Professions' lines in an item's tooltip, added to Ordaen Tooltips' `uses` section: the professions whose
-// recipes take the item, each with the characters who know such a recipe, as the recipe book has them (every
-// character's professions as each last opened them): «Used in crafting», then «Tailoring — Ann, Bob». The player's
-// own character first, in white; nothing for an item no known recipe takes.
+// Ordaen Professions' lines in an item's tooltip, added to Ordaen Tooltips' `uses` section: the characters whose known
+// recipes take the item, as the recipe book has them (every character's professions as each last opened them):
+// «Used in crafting», then a line for each character and profession, «Ann — Tailoring», the player's own character
+// first, its name in the colour of the best recipe for its skill among those it knows taking the item. In a locked tooltip the name opens the list of those recipes, each opening the item it makes,
+// with how many of the item that character holds under them. Nothing for an item no known recipe takes.
+import Game from "$game"
+import { ItemId } from "Ordaen"
+import root Alts from "OrdaenAlts"
 import root Tooltips from "OrdaenTooltips"
-import type { ItemLines, Line } from "OrdaenTooltips"
+import type { ItemLines, Line, Listed } from "OrdaenTooltips"
 import { Book, playerName } from "@/book"
 import Locale from "@/locales"
+import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 
 const NONE: Array<Line> = []
 const HEAD: Color = Color.hex("#ffd100")
-const OWN: Color = Color.hex("#ffffff")
 
-// A profession whose known recipes take an item, and who knows one.
-public struct Crafters {
+// A character who knows recipes of a profession taking an item, and which.
+public struct Crafter {
   profession: String
-  characters: Array<String>
+  skillLine: Integer
+  guid: String
+  name: String
+  // The character's skill in the profession, when last opened.
+  rank: Integer
+  recipes: Array<Integer>
 }
 
 // A list of an item's crafters, empty, for its first.
-function none(): mut Array<Crafters> { return [] }
+function none(): mut Array<Crafter> { return [] }
 
-// Every item a known recipe takes, with its professions and their characters, in the order first met: made once as the
-// book changes, a map read for each tooltip.
-public function craftersOf(book: Book): Map<Integer, Array<Crafters>> {
-  const found: Map<Integer, mut Array<Crafters>> = {}
-  // Where an item's profession stands in its list, by «item, profession».
+// Every item a known recipe takes, with its crafters by profession, in the order first met: made once as the book
+// changes, a map read for each tooltip.
+public function craftersOf(book: Book): Map<Integer, Array<Crafter>> {
+  const found: Map<Integer, mut Array<Crafter>> = {}
+  // Where an item's crafter stands in its list, by «item, profession, character».
   const at: Map<String, Integer> = {}
-  for (_, shelf of book.characters) {
-    for (_, learned of shelf.professions) {
+  for (guid, shelf of book.characters) {
+    for (skillLine, learned of shelf.professions) {
       for (recipe of learned.recipes) {
         for (part of book.recipes[recipe]?.parts ?? []) {
           const list = found[part.item] ?? none()
           found[part.item] = list
-          const key = `${part.item}\n${learned.name}`
+          const key = `${part.item}\n${skillLine}\n${guid}`
           const index = at[key]
-          const crafters = index == nil ? nil : list[index]
-          if (crafters == nil) {
-            list.push({ profession: learned.name, characters: [shelf.name] })
+          const crafter = index == nil ? nil : list[index]
+          if (crafter == nil) {
+            list.push({
+              profession: learned.name, skillLine: skillLine, guid: guid, name: shelf.name, rank: learned.rank,
+              recipes: [recipe]
+            })
             at[key] = list.length
-          } else if (index != nil && !crafters.characters.any((name: String) => name == shelf.name)) {
-            const characters: Array<String> = []
-            for (name of crafters.characters) { characters.push(name) }
-            characters.push(shelf.name)
-            list[index] = { profession: crafters.profession, characters: characters }
+          } else if (index != nil && !crafter.recipes.any((known: Integer) => known == recipe)) {
+            const recipes: Array<Integer> = []
+            for (known of crafter.recipes) { recipes.push(known) }
+            recipes.push(recipe)
+            list[index] = { recipes: recipes, ..crafter }
           }
         }
       }
@@ -52,28 +64,90 @@ public function craftersOf(book: Book): Map<Integer, Array<Crafters>> {
   return found
 }
 
-// The «Used in crafting» lines of an item's tooltip.
 // Who crafts with each item, as `craftersOf` gives it: read as a tooltip asks, so the tooltip follows the book.
-public type CraftersRead = () => Map<Integer, Array<Crafters>>
+public type CraftersRead = () => Map<Integer, Array<Crafter>>
+// The book itself, for the recipes' names and what they make.
+public type BookRead = () => Book
+
+// The order a difficulty is better in for skilling up: orange first.
+function rankOf(difficulty: Game.Difficulty): Integer {
+  return match (difficulty) {
+    Game.Difficulty.Always => 0
+    Game.Difficulty.Usually => 1
+    Game.Difficulty.Rarely => 2
+    Game.Difficulty.Never => 3
+  }
+}
+
+// How many of an item a character holds, bags and bank, by Ordaen Alts' records; the bags alone for the character
+// played while Alts is off, nothing for another.
+function heldBy(guid: String, item: Integer): Integer {
+  const alts = Alts
+  if (alts == nil) { return guid == Game.player.guid ? (Game.bags.holdings() ?? {})[item] ?? 0 : 0 }
+  let count = 0
+  for (held of alts.holders(ItemId.of(item))) {
+    if (held.who == guid) { count += held.count }
+  }
+  return count
+}
 
 public class CraftersLines implements ItemLines {
   const crafters: CraftersRead
-  constructor(crafters: CraftersRead) { self.crafters = crafters }
+  const book: BookRead
+  constructor(crafters: CraftersRead, book: BookRead) {
+    self.crafters = crafters
+    self.book = book
+  }
 
   public lines(self, item: Integer, link: String): Array<Line> {
     const found = self.crafters()[item]
     if (found == nil || found.length == 0) { return NONE }
-    const me = playerName()
+    const me = Game.player.guid
+    const book = self.book()
+    const thresholds: Map<Integer, Thresholds> = {}
     const lines: Array<Line> = [{ left: Locale.USED_IN, color: HEAD }]
-    for (each of found) {
-      const mine = each.characters.any(name => name == me)
-      const names: Array<String> = mine ? [me] : []
-      for (name of each.characters) {
-        if (name != me) { names.push(name) }
+    // Each profession in the order first met, the character played first in it.
+    const professions: Array<Integer> = []
+    for (crafter of found) {
+      if (!professions.any(line => line == crafter.skillLine)) { professions.push(crafter.skillLine) }
+    }
+    for (skillLine of professions) {
+      const table = thresholds[skillLine] ?? thresholdsOf(skillLine)
+      thresholds[skillLine] = table
+      for (own of [true, false]) {
+        for (crafter of found) {
+          if (crafter.skillLine == skillLine && (crafter.guid == me) == own) {
+            lines.push(self.lineOf(crafter, item, book, table))
+          }
+        }
       }
-      lines.push({ left: each.profession, right: names.join(", "), rightColor: mine ? OWN : Style.DIM, indent: true })
     }
     return lines
+  }
+
+  // A crafter's line: its name in its best recipe's colour, opening the recipes; its profession at the right.
+  lineOf(self, crafter: Crafter, item: Integer, book: Book, table: Thresholds): Line {
+    let best = Game.Difficulty.Never
+    const rows: Array<Listed> = []
+    for (recipe of crafter.recipes) {
+      const difficulty = difficultyAt(table, recipe, crafter.rank)
+      if (rankOf(difficulty) < rankOf(best)) { best = difficulty }
+      const entry = book.recipes[recipe]
+      const yellow = table.yellow[recipe]
+      rows.push({
+        left: entry?.name ?? "", right: yellow == nil ? nil : String.of(yellow),
+        color: Style.difficultyColor(difficulty), item: entry?.makes
+      })
+    }
+    const own = crafter.guid == Game.player.guid
+    return {
+      left: own ? playerName() : crafter.name, right: crafter.profession, color: Style.difficultyColor(best),
+      rightColor: Style.DIM,
+      opens: {
+        name: `${crafter.profession}: ${crafter.name}`, rows: rows,
+        foot: [{ left: Locale.CRAFTER_HOLDS, right: String.of(heldBy(crafter.guid, item)) }]
+      }
+    }
   }
 }
 
@@ -81,8 +155,8 @@ public class CraftersLines implements ItemLines {
 // module does. Without Tooltips the root import stays nil and nothing is added.
 public class TooltipCrafters {
   const lines: CraftersLines
-  constructor(crafters: CraftersRead) {
-    self.lines = new CraftersLines(crafters)
+  constructor(crafters: CraftersRead, book: BookRead) {
+    self.lines = new CraftersLines(crafters, book)
     watch (tooltips of Tooltips) {
       if (tooltips == nil) { return }
       tooltips.uses.add(self.lines)

@@ -1,7 +1,19 @@
 // How making a recipe raises the skill: where it turns yellow and grey (the client's table, read for the profession
 // open alone), and how many makings, on average, raise the skill by a number of points, by classic's chance: always
 // while the recipe is orange, (grey − skill) / (grey − yellow) while it is yellow or green, never once it is grey.
+import Game from "$game"
 import Levels from "@/levels"
+
+// How hard a recipe is at a skill, as the client colours it: orange below yellow, yellow up to halfway to grey, green
+// up to grey, grey from there; grey for one the table hasn't.
+public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Integer): Game.Difficulty {
+  const yellow = thresholds.yellow[recipe]
+  const grey = thresholds.grey[recipe]
+  if (yellow == nil || grey == nil || skill >= grey) { return Game.Difficulty.Never }
+  if (skill < yellow) { return Game.Difficulty.Always }
+  if (skill < (yellow + grey) / 2) { return Game.Difficulty.Usually }
+  return Game.Difficulty.Rarely
+}
 
 // The open profession's recipes by number: the skill each turns yellow at, and grey at.
 public struct Thresholds {

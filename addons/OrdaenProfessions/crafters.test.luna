@@ -1,11 +1,16 @@
 // Who crafts with an item, by every character's known recipes, and how its tooltip says it.
+import Game from "$game"
 import Test from "$test"
 import { Book } from "@/book"
 import { CraftersLines, craftersOf } from "@/crafters"
+import { Thresholds, difficultyAt } from "@/skillUps"
+import Style from "@/style"
 
 const FEATHER = 4776
 const CLOTH = 2589
-// Two characters: Ann a tailor and a leatherworker, Player (the one played) a tailor; the feather taken by a recipe of each profession.
+const ME = "Player-1-00000001"
+// Two characters: Ann a tailor and a leatherworker, Player (the one played) a tailor; the feather taken by a recipe of
+// each profession.
 function book(): Book {
   return {
     recipes: {
@@ -16,33 +21,51 @@ function book(): Book {
     characters: {
       ["Player-1-0001"]: {
         name: "Ann", realm: "Home",
-        professions: { [197]: { name: "Tailoring", recipes: [100, 300] }, [165]: { name: "Leatherworking", recipes: [200] } }
+        professions: {
+          [197]: { name: "Tailoring", recipes: [100, 300], rank: 40 },
+          [165]: { name: "Leatherworking", recipes: [200], rank: 10 }
+        }
       },
-      ["Player-1-0002"]: { name: "Player", realm: "Home", professions: { [197]: { name: "Tailoring", recipes: [100] } } }
+      [ME]: { name: "Player", realm: "Home", professions: { [197]: { name: "Tailoring", recipes: [100], rank: 5 } } }
     }
   }
 }
 
-test "an item's professions each with the characters who know a recipe taking it, each named once" {
+test "an item's crafters: each character once per profession, with the recipes taking it" {
   const found = craftersOf(book())
   const feather = found[FEATHER] ?? []
-  const tailoring = feather.find(each => each.profession == "Tailoring")
-  Test.expect(feather.length == 2 && (tailoring?.characters ?? []).length == 2)
-  Test.expect((feather.find(each => each.profession == "Leatherworking")?.characters ?? []).join(", ") == "Ann")
-  Test.expect(((found[CLOTH] ?? []).find(each => each.profession == "Tailoring")?.characters ?? []).length == 2)
+  Test.expect(feather.length == 3)
+  Test.expect(feather.filter(each => each.profession == "Tailoring").length == 2)
+  const ann = (found[CLOTH] ?? []).find(each => each.name == "Ann")
+  Test.expect((ann?.recipes ?? []).length == 2 && ann?.rank == 40)
   Test.expect(found[1100] == nil)
 }
 
-test "the tooltip says «Used in crafting», then each profession with its characters, the one played first, and its profession lit" {
-  // The test kit's character is «Player».
+test "the tooltip says «Used in crafting», then a line per character, the one played first, each opening its recipes" {
   Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
-  const found = craftersOf(book())
-  const lines = new CraftersLines(() => found).lines(FEATHER, "")
+  Test.expect(Game.player.guid == ME)
+  const written = book()
+  const found = craftersOf(written)
+  const lines = new CraftersLines(() => found, () => written).lines(FEATHER, "")
   Test.expect(lines[1]?.left == "Used in crafting")
-  const tailoring = lines.find(line => line.left == "Tailoring")
-  const leather = lines.find(line => line.left == "Leatherworking")
-  Test.expect(tailoring?.right == "Player, Ann" && leather?.right == "Ann")
-  // The played character's profession stands out from one only another character has.
-  Test.expect(tailoring?.rightColor != nil && leather?.rightColor != nil && tailoring?.rightColor != leather?.rightColor)
-  Test.expect(new CraftersLines(() => found).lines(1100, "").length == 0)
+  Test.expect(lines[2]?.left == "Player" && lines[2]?.right == "Tailoring")
+  Test.expect(lines[3]?.left == "Ann" && lines[3]?.right == "Tailoring")
+  Test.expect(lines[4]?.left == "Ann" && lines[4]?.right == "Leatherworking")
+  const rows = lines[2]?.opens?.rows ?? []
+  Test.expect(rows.length == 1 && rows[1]?.left == "Feathered Cap" && rows[1]?.item == 1100)
+  // The bags hold no feather in the stand-in.
+  const foot = lines[2]?.opens?.foot ?? []
+  Test.expect(foot[1]?.left == "In bags and bank" && foot[1]?.right == "0")
+  Test.expect(lines[1]?.opens == nil)
+  Test.expect(new CraftersLines(() => found, () => written).lines(1100, "").length == 0)
+}
+
+test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, green to grey, grey past; grey unknown" {
+  const table: Thresholds = { yellow: { [7]: 50 }, grey: { [7]: 70 } }
+  Test.expect(difficultyAt(table, 7, 49) == Game.Difficulty.Always)
+  Test.expect(difficultyAt(table, 7, 50) == Game.Difficulty.Usually)
+  Test.expect(difficultyAt(table, 7, 60) == Game.Difficulty.Rarely)
+  Test.expect(difficultyAt(table, 7, 70) == Game.Difficulty.Never)
+  Test.expect(difficultyAt(table, 8, 1) == Game.Difficulty.Never)
+  Test.expect(Style.difficultyColor(difficultyAt(table, 7, 1)) != Style.difficultyColor(difficultyAt(table, 7, 69)))
 }

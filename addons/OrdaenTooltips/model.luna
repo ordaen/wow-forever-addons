@@ -3,6 +3,7 @@
 // The reader fills one from the game's tooltip data; the frame draws it.
 import { Art } from "$ltml"
 import { BandFact } from "Ordaen"
+import { Listing } from "@/extend"
 import { Term } from "@/terms"
 
 public enum Kind {
@@ -19,6 +20,8 @@ public enum Opens {
   Text { name: String, text: String }
   Unit { unit: String }
   Item { id: Integer }
+  // A list another module's line gives (the recipes that take a reagent), whose rows open further.
+  Listing { listing: Listing }
   None
 }
 

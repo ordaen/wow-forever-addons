@@ -11,6 +11,23 @@ public struct Line {
   color: Color | nil = nil
   rightColor: Color | nil = nil
   indent: Boolean = false
+  // What its label opens once the tooltip is locked and the cursor comes onto it: a list of its own.
+  opens: Listing | nil = nil
+}
+
+// A list a line opens, drawn as a tooltip beside it: its title, its rows, and the notes under them.
+public struct Listing {
+  name: String
+  rows: Array<Listed>
+  foot: Array<Line> = []
+}
+
+// A row of a list: a name with its value at the right; it may open an item's own tooltip (a recipe's product).
+public struct Listed {
+  left: String
+  right: String | nil = nil
+  color: Color | nil = nil
+  item: Integer | nil = nil
 }
 
 // What a module adds to an item's tooltip. Asked each time an item is shown (the same item shown again after the

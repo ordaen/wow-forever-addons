@@ -26,6 +26,8 @@ public struct Entry implements Plain {
 public struct Learned implements Plain {
   name: String = ""
   recipes: Array<Integer> = []
+  // The character's skill in it, when last opened.
+  rank: Integer = 0
 }
 
 // A character's page of the book.
@@ -91,11 +93,15 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
     }
   }
   let name = ""
+  let rank = 0
   for (profession of Game.professions.list) {
-    if (profession.skillLine == skillLine) { name = profession.name }
+    if (profession.skillLine == skillLine) {
+      name = profession.name
+      rank = profession.rank
+    }
   }
   const professions: Map<Integer, Learned> = shelf == nil ? {} : shelf.professions.clone()
-  professions[skillLine] = { name: name, recipes: known.filter(id => next.recipes[id] != nil) }
+  professions[skillLine] = { name: name, recipes: known.filter(id => next.recipes[id] != nil), rank: rank }
   next.characters[guid] = { name: playerName(), realm: Game.player.realm, professions: professions }
   if (next.equal(book)) { return nil }
   return next

@@ -42,7 +42,7 @@ const COMPARED: Array<Track> = ["max-content", "max-content", "max-content", "ma
 const COMPARED_GAP = 1sp
 const COMPARED_MARK = 11.71875dp
 // A text at its own width, the rest of its row empty.
-const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
+public const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
 // The hotkeys, last in a tooltip that has no bar, keep a section's room under them (`Hotkeys` keeps it over them);
 // before the bar, the bar's own room is all there is between them.
@@ -97,14 +97,15 @@ function opensSomething(opens: Opens): Boolean {
 }
 
 // A text that may open something: in a locked tooltip it is underlined, the cursor on it is the question mark, and
-// what it opens is drawn beside it, by whoever fills `opened`, until the cursor leaves it. Never wrapped; the
-// underline and the cursor's reach are the text's own width.
+// what it opens is drawn beside it, by whoever fills `opened`, until the cursor leaves both (what it opens may open
+// further: a list's rows). Never wrapped; the underline and the cursor's reach are the text's own width.
 public class TermText implements Component {
   public slot opened(opens: Opens)
 
   state over = false
+  state onOpened = false
   derived lit: Boolean = self.locked && self.opensSomething()
-  derived open: Boolean = self.lit && self.over
+  derived open: Boolean = self.lit && (self.over || self.onOpened)
 
   text: Signal<String>
   color: Signal<Color>
@@ -134,11 +135,16 @@ public class TermText implements Component {
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
   forgetCursor(mut self) {
-    if (!self.lit) { self.over = false }
+    if (!self.lit) {
+      self.over = false
+      self.onOpened = false
+    }
   }
 
   onEnter(mut self) { self.over = true }
   onLeave(mut self) { self.over = false }
+  onEnterOpened(mut self) { self.onOpened = true }
+  onLeaveOpened(mut self) { self.onOpened = false }
 
   public render(self): Template {
     return $ltml {
@@ -150,7 +156,9 @@ public class TermText implements Component {
         <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
         <surface leading={.Tight} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
-          <slot #opened opens={self.opens} />
+          <box mouseThrough={true} @pointerEnter={self.onEnterOpened} @pointerLeave={self.onLeaveOpened}>
+            <slot #opened opens={self.opens} />
+          </box>
         </surface>
       </box>
     }

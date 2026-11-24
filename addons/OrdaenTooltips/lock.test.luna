@@ -846,3 +846,36 @@ test "a new tooltip locked waits for the cursor, though the cursor was on the on
   Test.pass(0.5)
   Test.expect(isLocked())
 }
+
+// Another module's line that opens a list: a crafter, the recipes it knows taking the item, each opening what it makes.
+class Crafters implements ItemLines {
+  public lines(self, item: Integer, link: String): Array<Line> {
+    return [{
+      left: "Ann", right: "Tailoring",
+      opens: {
+        name: "Tailoring: Ann", rows: [{ left: "Feathered Cap", right: "50", item: 9011 }],
+        foot: [{ left: "In bags and bank", right: "3" }]
+      }
+    }]
+  }
+}
+
+test "a line another module adds opens its list, whose rows open the items they name" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id != 9011 ? nil : shield()
+  const added = Tooltips.uses.add(new Crafters())
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
+  Test.expect(!Test.page().text("Tailoring: Ann").shown())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("Ann").hover()
+  const list = Test.page().window("Tailoring: Ann")
+  Test.expect(reads(list, "Tailoring: Ann | Feathered Cap | 50 | In bags and bank | 3"))
+  Test.expect(Test.cursor() == HELP)
+  // The list is locked itself: its row opens the item it makes, and the first tooltip stays.
+  list.text("Feathered Cap").hover()
+  Test.expect(Test.page().text("Shield").shown())
+  Test.expect(isLocked())
+  destroy added
+}

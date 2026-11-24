@@ -539,18 +539,18 @@ public class Tooltips implements Module, App {
                 @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave}>
         // Each entry asks nothing while the tooltip isn't of its kind; with no entry, nothing is drawn or asked.
-        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
-        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
-        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
-        <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
+        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} options={self.chosen} />
+        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} options={self.chosen} />
+        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} options={self.chosen} />
+        <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} locked={self.locked} options={self.chosen} />
       </TipGroup>
       // The pinned tooltip: locked from the start; its close button closes the game's, and a drag moves it.
       <TipGroup $if={self.pinnedShown} model={self.pinnedModel} sides={self.pinnedSides} compared={self.pinnedCompared}
                 standing={self.pinnedStanding} shown={true} options={self.chosen} locks={true} charge={STEPS} locked={true}
                 draggable={true} @close={self.unpin} @drag={self.dragPinned}>
-        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
-        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
-        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
+        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} options={self.chosen} />
+        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} options={self.chosen} />
+        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} options={self.chosen} />
       </TipGroup>
     }
   }

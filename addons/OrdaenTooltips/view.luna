@@ -11,9 +11,10 @@ import { Align, Edges, Frame, Hang, Place, Point } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
+import { Listing } from "@/extend"
 import { HEADER, TipFrame } from "@/frame"
 import { item } from "@/item"
-import { Kind, Model, Opens } from "@/model"
+import { Kind, Model, Note, Opens, TextLine } from "@/model"
 import { Options } from "@/options"
 import { term } from "@/term"
 import { unitOf } from "@/unit"
@@ -61,12 +62,26 @@ const NOTHING: Model = {
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 
-// The tooltip a part of a locked tooltip opens. It takes no cursor, and opens nothing further. A unit that is gone
-// opens nothing.
-class Opened implements Component {
+// A list as a tooltip: its rows the body, each opening its item; its notes the footer.
+function listed(listing: Listing): Model {
+  return {
+    kind: Kind.Text, name: listing.name, nameColor: GOLD, desc: [], info: [], facts: [],
+    body: listing.rows.map(row => TextLine {
+      left: row.left, right: row.right, color: row.color, rightColor: nil, desc: nil, indent: nil, stat: nil,
+      compared: nil, opens: row.item != nil ? Opens.Item { id: row.item } : Opens.None
+    }),
+    more: [], foot: listing.foot.map(line => Note { left: line.left, right: line.right, valueColor: line.rightColor }),
+    keys: []
+  }
+}
+
+// The tooltip a part of a locked tooltip opens. A unit that is gone opens nothing. A list (another module's) is
+// locked itself, its rows opening what they name; anything else takes no cursor and opens nothing further.
+public class Opened implements Component {
   derived read: Model | nil = self.readNow()
   derived some: Boolean = self.read != nil
   derived model: Model = self.read ?? NOTHING
+  derived further: Boolean = self.opensFurther()
 
   opens: Signal<Opens>
   options: Signal<Options>
@@ -88,13 +103,23 @@ class Opened implements Component {
         let data = Game.items.tooltip(opens.id)
         return data != nil ? item(data, self.options)?.model : nil
       }
+      Opens.Listing => return listed(opens.listing)
       Opens.None => return nil
+    }
+  }
+
+  opensFurther(self): Boolean {
+    match (self.opens) {
+      Opens.Listing => return true
+      else => return false
     }
   }
 
   public render(self): Template {
     return $ltml {
-      <TipFrame $if={self.some} model={self.model} side={true} />
+      <TipFrame $if={self.some} model={self.model} side={true} locked={self.further}>
+        <Opened #opened={opens} opens={opens} options={self.options} />
+      </TipFrame>
     }
   }
 }

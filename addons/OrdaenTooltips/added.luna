@@ -4,26 +4,46 @@
 import { Edges } from "$ltml"
 import { Component } from "Ordaen"
 import { ItemLines, Line, ObjectLines } from "@/extend"
-import { BODY, INDENT, NAME_VALUE, NO_PAD, RULE, SECTION_PAD } from "@/frame"
+import { BODY, INDENT, NAME_VALUE, NO_PAD, OWN_WIDTH, RULE, SECTION_PAD, TermText } from "@/frame"
+import { Opens } from "@/model"
+import { Options } from "@/options"
+import { Opened } from "@/view"
 
 // A line, drawn as it is: a name with its value on the right in the numbers' font, never wrapped, or a sentence
-// that wraps; set in where it says so.
+// that wraps; set in where it says so. A label that opens a list is a term: underlined in a locked tooltip, the list
+// beside it while the cursor is on it.
 class AddedLine implements Component {
   derived paired: Boolean = self.line.right != nil
   derived right: String = self.line.right ?? ""
   derived leftColor: Color = self.line.color ?? BODY
   derived rightColor: Color = self.line.rightColor ?? self.line.color ?? BODY
   derived padding: Edges = self.line.indent ? INDENT : NO_PAD
+  derived opens: Opens = self.opensOf()
+  derived opening: Boolean = self.line.opens != nil
 
   line: Signal<Line>
-  constructor(line: Signal<Line>) {
+  locked: Signal<Boolean>
+  options: Signal<Options>
+  constructor(line: Signal<Line>, locked: Signal<Boolean>, options: Signal<Options>) {
     self.line = line
+    self.locked = locked
+    self.options = options
+  }
+
+  opensOf(self): Opens {
+    const listing = self.line.opens
+    return listing == nil ? Opens.None : Opens.Listing { listing: listing }
   }
 
   public render(self): Template {
     return $ltml {
       <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.padding}>
-        <text value={self.line.left} textColor={self.leftColor} />
+        <box $if={self.opening} columns={OWN_WIDTH}>
+          <TermText text={self.line.left} color={self.leftColor} size={1rem} opens={self.opens} locked={self.locked}>
+            <Opened #opened={opens} opens={opens} options={self.options} />
+          </TermText>
+        </box>
+        <text $else value={self.line.left} textColor={self.leftColor} />
         <text value={self.right} textColor={self.rightColor} wrap={.None} textFont={.Numbers} />
       </box>
       <box $else padding={self.padding}>
@@ -38,14 +58,18 @@ class AddedLines implements Component {
   derived some: Boolean = self.lines.length > 0
 
   lines: Signal<Array<Line>>
-  constructor(lines: Signal<Array<Line>>) {
+  locked: Signal<Boolean>
+  options: Signal<Options>
+  constructor(lines: Signal<Array<Line>>, locked: Signal<Boolean>, options: Signal<Options>) {
     self.lines = lines
+    self.locked = locked
+    self.options = options
   }
 
   public render(self): Template {
     return $ltml {
       <box $if={self.some} gap={0.5sp} padding={SECTION_PAD} border={RULE}>
-        <AddedLine $for={line of self.lines} line={line} />
+        <AddedLine $for={line of self.lines} line={line} locked={self.locked} options={self.options} />
       </box>
     }
   }
@@ -65,18 +89,26 @@ public class AddedToItem implements Component {
   item: Signal<Integer>
   link: Signal<String>
   locked: Signal<Boolean>
-  constructor(row: Signal<any ItemLines>, item: Signal<Integer>, link: Signal<String>, locked: Signal<Boolean>) {
+  options: Signal<Options>
+  constructor(
+    row: Signal<any ItemLines>,
+    item: Signal<Integer>,
+    link: Signal<String>,
+    locked: Signal<Boolean>,
+    options: Signal<Options>
+  ) {
     self.row = row
     self.item = item
     self.link = link
     self.locked = locked
+    self.options = options
     watch {
       if (!self.locked) { self.lines = self.asked }
     }
   }
 
   public render(self): Template {
-    return $ltml { <AddedLines lines={self.lines} /> }
+    return $ltml { <AddedLines lines={self.lines} locked={self.locked} options={self.options} /> }
   }
 }
 
@@ -87,12 +119,16 @@ public class AddedToObject implements Component {
 
   row: Signal<any ObjectLines>
   name: Signal<String>
-  constructor(row: Signal<any ObjectLines>, name: Signal<String>) {
+  locked: Signal<Boolean>
+  options: Signal<Options>
+  constructor(row: Signal<any ObjectLines>, name: Signal<String>, locked: Signal<Boolean>, options: Signal<Options>) {
     self.row = row
     self.name = name
+    self.locked = locked
+    self.options = options
   }
 
   public render(self): Template {
-    return $ltml { <AddedLines lines={self.lines} /> }
+    return $ltml { <AddedLines lines={self.lines} locked={self.locked} options={self.options} /> }
   }
 }
