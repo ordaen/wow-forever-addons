@@ -64,6 +64,10 @@ public struct TextLine {
   desc: Boolean | nil
   // A party member's progress under an objective: set in.
   indent: Boolean | nil
+  // A quest's title over its objectives: apart from the rows before it, its objectives close under it.
+  heads: Boolean | nil
+  // The icon before its name: the game's mark of a quest to take or to hand in.
+  icon: Art | nil
   // On an item's stat: the game's key for it, which a comparison finds it by.
   stat: String | nil
   // An item's stat against the one it is compared with: after its value, in brackets.

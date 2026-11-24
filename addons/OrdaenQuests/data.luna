@@ -3,15 +3,18 @@
 // from it while drawing or per event).
 import { LibQuestieDB } from "QuestieDB"
 import Questie from "@/questie"
-import { Figure, QuestFacts } from "@/questie"
+import { Figure, NpcQuests, QuestFacts } from "@/questie"
 
 // The contract of QuestieDB's data this module is written against.
 const CONTRACT = 4
+const NO_QUESTS: NpcQuests = { starts: [], ends: [] }
 
 public class QuestieData {
   known: mut Map<Integer, QuestFacts> = {}
   // Quests asked of and not known, so they aren't asked again.
   unknown: mut Map<Integer, Boolean> = {}
+  // The NPCs' quests asked of.
+  npcs: mut Map<Integer, NpcQuests> = {}
 
   // Why nothing can be read (QuestieDB of another contract, its own message); nil where it can be.
   public fault(self): String | nil {
@@ -36,5 +39,15 @@ public class QuestieData {
   // kept.
   public npc(self, id: Integer): Figure | nil {
     return self.fault() == nil ? Questie.npc(id) : nil
+  }
+
+  // The quests an NPC gives and takes back; none for one QuestieDB doesn't know. Asked as a creature's tooltip shows,
+  // kept for the session.
+  public npcQuests(mut self, id: Integer): NpcQuests {
+    const kept = self.npcs[id]
+    if (kept != nil) { return kept }
+    const read = self.fault() == nil ? Questie.npcQuests(id) ?? NO_QUESTS : NO_QUESTS
+    self.npcs[id] = read
+    return read
   }
 }

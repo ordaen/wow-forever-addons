@@ -26,12 +26,18 @@ public struct WantedItem {
   name: String
 }
 
-// An item a quest asks for and every creature QuestieDB says drops it, by their numbers: a creature's tooltip says
-// the quest's count where the client's doesn't (an item that is ordinary loot, not a quest's own drop).
+// A creature that drops an item, by its number, and the chance it does in percent where QuestieDB has one.
+public struct DropSource {
+  creature: Integer
+  chance: Number | nil = nil
+}
+
+// An item a quest asks for and every creature QuestieDB says drops it: a creature's tooltip says the quest's count
+// where the client's doesn't (an item that is ordinary loot, not a quest's own drop).
 public struct ItemDrops {
   item: Integer
   name: String
-  creatures: Array<Integer>
+  sources: Array<DropSource>
 }
 
 // A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
@@ -44,8 +50,17 @@ public struct FactionGain {
 public struct QuestFacts {
   name: String
   level: Integer
-  // The level it may be taken at.
+  // The level it may be taken at, and the last it may (0: no last).
   minLevel: Integer
+  maxLevel: Integer = 0
+  // The races and classes it is for, by the client's numbers (`UnitRace`'s, `UnitClass`'s); none: every one.
+  races: Array<Integer> = []
+  classes: Array<Integer> = []
+  // The quests turned in before it may be taken: every one of `after`, one of `afterAny`. None of `exclusive` may be
+  // taken or turned in.
+  after: Array<Integer> = []
+  afterAny: Array<Integer> = []
+  exclusive: Array<Integer> = []
   // What it asks, in the quest's own words (its lines, one paragraph); "" where QuestieDB says nothing.
   task: String
   // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.
@@ -73,3 +88,12 @@ public function quest(id: Integer): QuestFacts | nil
 
 // An NPC's name and where it stands; nil for one QuestieDB doesn't know. Asked as `quest` is.
 public function npc(id: Integer): Figure | nil
+
+// The quests an NPC gives and those it takes back, by their numbers.
+public struct NpcQuests {
+  starts: Array<Integer>
+  ends: Array<Integer>
+}
+
+// An NPC's quests; nil for one QuestieDB doesn't know. Asked as `quest` is.
+public function npcQuests(id: Integer): NpcQuests | nil

@@ -1,6 +1,6 @@
 // What other modules add to Ordaen Tooltips' tooltips: the contract, imported by type alone
 // (`import type { ItemLines, Line } from "OrdaenTooltips"`). Each section is a registry of Tooltips' root (`worth`,
-// `uses`, `held` for an item, `gives` for a world object, `wants` for a creature), added to in a watch that follows that root; Tooltips
+// `uses`, `held` for an item, `gives` for a world object, `creatures` for a creature, drawn among its quest rows), added to in a watch that follows that root; Tooltips
 // draws what was added after its own footer (before the hotkeys), a section after another, each entry's lines
 // together. An item's hotkeys take what `keys` gives after their own.
 
@@ -44,19 +44,32 @@ public trait ItemKeys {
   public keys(self, item: Integer, link: String): Array<String>
 }
 
-// An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the
-// quest's title, the objective's text without its count, and the count.
+// An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the quest by
+// its number and its title, the objective's text without its count, the count, and whether it is done.
 public struct Wanted {
-  quest: String
+  quest: Integer
+  title: String
   objective: String
   have: Integer
   need: Integer
+  done: Boolean
 }
 
-// What a module says a creature is wanted for, by the creature's number (`Game.UnitInfo.creature`): drawn as the
-// game's own quest rows are, after them, a quest the game's rows already name left out. Budget as for `ItemLines`.
-public trait UnitWants {
+// A quest a creature gives the player now, or takes back from them (`turnIn`: one of the log's, done): its title and
+// its level.
+public struct Offered {
+  title: String
+  level: Integer
+  turnIn: Boolean
+}
+
+// What a module says of a creature's quests, by the creature's number (`Game.UnitInfo.creature`): the objectives it
+// serves, drawn among the game's own quest rows as they are (under the quest's title where the game's rows name it,
+// an objective they already have left out), and the quests it gives or takes, before them while the NPCs' «Quests»
+// setting is on. Budget as for `ItemLines`.
+public trait CreatureQuests {
   public wants(self, creature: Integer): Array<Wanted>
+  public offers(self, creature: Integer): Array<Offered>
 }
 
 // What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for

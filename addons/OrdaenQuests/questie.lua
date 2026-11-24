@@ -55,6 +55,47 @@ local function idsOf(list)
 	return ids
 end
 
+-- The numbers a mask holds, bit n (from 0) the number n + 1: QuestieDB's races and classes a quest is for, by the
+-- client's race and class numbers; none for 0 or no mask (every one).
+local function bitsOf(mask)
+	local numbers = {}
+	if type(mask) ~= "number" or mask <= 0 then return numbers end
+	for n = 1, 32 do
+		if bit.band(mask, bit.lshift(1, n - 1)) ~= 0 then numbers[#numbers + 1] = n end
+	end
+	return numbers
+end
+
+-- QuestieDB's drop chances of the items quests ask for, `{ [item] = { [creature] = percent } }`: its support data
+-- holds them as Lua text, read once a session on the first ask; false where it holds none or it doesn't read.
+local chances
+local function chancesOf(item)
+	if chances == nil then
+		chances = false
+		local support = _G.LibQuestieDB.Support
+		local drops = support and support.Get and support.Get("QuestieClassicItemDrops")
+		local text = drops and drops.wowheadData
+		if type(text) == "string" then
+			local chunk = loadstring(text)
+			local ok, read = false, nil
+			if chunk then ok, read = pcall(chunk) end
+			if ok and type(read) == "table" then chances = read end
+		end
+	end
+	return chances and chances[item] or nil
+end
+
+-- The creatures that drop an item, each with its chance where QuestieDB has one (`{ creature, chance? }`).
+local function sourcesOf(item, droppers)
+	local known = chancesOf(item)
+	local sources = {}
+	for _, creature in ipairs(idsOf(droppers)) do
+		local chance = known and known[creature]
+		sources[#sources + 1] = { creature = creature, chance = type(chance) == "number" and chance or nil }
+	end
+	return sources
+end
+
 -- Each entry of an objective's list is `{ id, text? }`.
 local function addTargets(into, db, kind, list)
 	if type(list) ~= "table" then return end
@@ -112,7 +153,7 @@ function questie.quest(id)
 					if type(named) == "string" and named ~= "" then wanted[#wanted + 1] = { id = item, name = named } end
 					local droppers = items.Get(item, "npcDrops")
 					addFigures(targets, npcs, "npc", droppers)
-					drops[#drops + 1] = { item = item, name = type(named) == "string" and named or "", creatures = idsOf(droppers) }
+					drops[#drops + 1] = { item = item, name = type(named) == "string" and named or "", sources = sourcesOf(item, droppers) }
 					addFigures(targets, objects, "object", items.Get(item, "objectDrops"))
 				end
 			end
@@ -123,10 +164,17 @@ function questie.quest(id)
 	local zone = quests.Get(id, "zoneOrSort")
 	local next = quests.Get(id, "nextQuestInChain")
 	local least = quests.Get(id, "requiredLevel")
+	local most = quests.Get(id, "requiredMaxLevel")
 	return {
 		name = type(title) == "string" and title or "",
 		level = type(level) == "number" and level or 0,
 		minLevel = type(least) == "number" and least or 0,
+		maxLevel = type(most) == "number" and most or 0,
+		races = bitsOf(quests.Get(id, "requiredRaces")),
+		classes = bitsOf(quests.Get(id, "requiredClasses")),
+		after = idsOf(quests.Get(id, "preQuestGroup")),
+		afterAny = idsOf(quests.Get(id, "preQuestSingle")),
+		exclusive = idsOf(quests.Get(id, "exclusiveTo")),
 		task = taskOf(quests.Get(id, "objectivesText")),
 		zone = type(zone) == "number" and zone or 0,
 		givers = givers,
@@ -142,6 +190,13 @@ end
 
 function questie.npc(id)
 	return figureOf(_G.LibQuestieDB.Npc, "npc", id)
+end
+
+-- The quests an NPC gives and those it takes back, by their numbers; nil for an NPC QuestieDB doesn't know.
+function questie.npcQuests(id)
+	local npcs = _G.LibQuestieDB.Npc
+	if type(id) ~= "number" or not npcs.Exists(id) then return nil end
+	return { starts = idsOf(npcs.Get(id, "questStarts")), ends = idsOf(npcs.Get(id, "questEnds")) }
 end
 
 LunaType.addon(name)["questie"] = questie

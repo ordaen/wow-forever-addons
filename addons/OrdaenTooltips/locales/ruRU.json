@@ -94,6 +94,8 @@
   "TOOLTIPS_NPCSLOOT_TIP": "Имя серое, если добыча не ваша.",
   "TOOLTIPS_NPCSON": "Включено",
   "TOOLTIPS_NPCSON_TIP": "Выключено: подсказки NPC и существ остаются игровыми.",
+  "TOOLTIPS_NPCSQUESTS": "Задания",
+  "TOOLTIPS_NPCSQUESTS_TIP": "Задания, которые НИП даёт вам сейчас, и те, что можно ему сдать.",
   "TOOLTIPS_NPCSPARTY": "Задания группы",
   "TOOLTIPS_NPCSPARTY_TIP": "Счётчики заданий у членов вашей группы.",
   "TOOLTIPS_NPCSREP": "Репутация",

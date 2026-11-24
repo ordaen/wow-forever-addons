@@ -36,6 +36,7 @@ public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "max-content"]
 // A line's icon (a reagent's), a line of the footer's text high.
 const LINE_ICON = 16.40625dp
 const ICON_NAME_VALUE: Array<Track> = [LINE_ICON, { fr: 1 }, "max-content"]
+const ICON_NAME: Array<Track> = [LINE_ICON, { fr: 1 }]
 // A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
 // 10 px (ctl.compareUp, ctl.compareDown).
 const COMPARED: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
@@ -69,6 +70,8 @@ public const NO_PAD: Edges = {}
 public const INDENT: Edges = { left: 3.5sp }
 // Where the body turns from rows into sentences or back.
 const SPACED: Edges = { top: 2sp }
+// Over a quest's title that follows another quest's rows.
+const APART: Edges = { top: 4sp }
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
@@ -262,6 +265,10 @@ public class Row implements Component {
         <text $if={self.plainValue} value={self.right} textColor={self.line.rightColor} textSize={self.line.size}
               wrap={.None} textFont={.Numbers} />
       </box>
+      <box $elseif={self.hasIcon} columns={ICON_NAME} gap={3sp} yAlign={Align.Center} padding={self.line.padding}>
+        <box width={LINE_ICON} height={LINE_ICON} icon={self.line.icon} />
+        <text value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
+      </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
           <TermText text={self.line.left} color={self.line.leftColor} size={self.line.size} opens={self.line.opens}
@@ -287,11 +294,19 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
   let list: Array<Drawn> = []
   let same = lines.length == was.length
   let pairedBefore = false
+  let underHead = false
   for (index, line of lines) {
     let paired = line.right != nil
     let padding = NO_PAD
-    if (line.indent == true) { padding = INDENT } else if (index > 1 && paired != pairedBefore) { padding = SPACED }
+    if (line.indent == true) {
+      padding = INDENT
+    } else if (line.heads == true) {
+      padding = index > 1 ? APART : NO_PAD
+    } else if (index > 1 && paired != pairedBefore && !underHead) {
+      padding = SPACED
+    }
     pairedBefore = paired
+    underHead = line.heads == true
     let old = was[index]
     if (old != nil && from[index] == line && old.padding == padding) {
       list.push(old)
@@ -302,7 +317,7 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
     list.push({
       left: line.left, right: line.right, leftColor: line.color ?? plain,
       rightColor: line.rightColor ?? line.color ?? BODY, size: 1rem, padding: padding, opens: line.opens,
-      valueOpens: Opens.None, compared: line.compared, sentence: line.desc == true
+      valueOpens: Opens.None, compared: line.compared, sentence: line.desc == true, icon: line.icon
     })
   }
   return same ? was : list

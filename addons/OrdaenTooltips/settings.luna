@@ -185,6 +185,8 @@ public class NpcsPage implements Component {
       <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.npcsDelay}
                 choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_NPCSQUESTS} hint={Locale.TOOLTIPS_NPCSQUESTS_TIP}
+                  value={mut self.settings.values.npcsQuests} disabled={self.off} />
         <Checkbox label={Locale.TOOLTIPS_NPCSPARTY} hint={Locale.TOOLTIPS_NPCSPARTY_TIP}
                   value={mut self.settings.values.npcsParty} disabled={self.off} />
         <Checkbox label={Locale.TOOLTIPS_NPCSLOOT} hint={Locale.TOOLTIPS_NPCSLOOT_TIP}

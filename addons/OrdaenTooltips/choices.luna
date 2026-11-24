@@ -66,6 +66,8 @@ public struct Choices implements Plain {
   npcsParty: Boolean
   npcsLoot: Boolean
   npcsRep: Boolean
+  // The quests an NPC gives and takes back, in its tooltip.
+  npcsQuests: Boolean = true
   objectsOn: Boolean
   objectsLock: Boolean
   objectsPlace: KindPlace

@@ -1,8 +1,11 @@
-// The quest lines of a unit's or an object's tooltip, as a section of their own under the body: the quest's name
-// in gold, each objective a row with the player's counter, green once done, and the party's under it, set in.
+// The quest lines of a unit's or an object's tooltip, as a section of their own under the body: first the quests a
+// creature gives or takes back, each with the game's mark of it and its level in its colour; then each quest it is
+// part of, its name in gold, each objective a row with the player's counter, green once done, and the party's under
+// it, set in. A quest's title stands apart from the quest before it, its objectives close under it.
 import Game from "$game"
+import { questLevelColor } from "Ordaen"
 import { GOLD, GREEN } from "@/colors"
-import { Wanted } from "@/extend"
+import { Offered, Wanted } from "@/extend"
 import { TextLine, named } from "@/model"
 import { Term } from "@/terms"
 import { clean } from "@/text"
@@ -12,56 +15,133 @@ public const QUEST_TITLE = 17
 public const QUEST_OBJECTIVE = 8
 public const QUEST_PLAYER = 18
 
-// The rows of what other modules say a creature is wanted for, as `quests` draws the game's: each quest's title once,
-// its objectives under it; a quest whose title the game's rows (`lines`) already name is left out.
-public function wantedRows(wants: Array<Wanted>, lines: Array<Game.TooltipLine>): mut Array<TextLine> {
-  let listed: Map<String, Boolean> = {}
-  for (line of lines) {
-    let text = clean(line.left)
-    if (line.kind == QUEST_TITLE && text != nil) { listed[text] = true }
-  }
-  let rows: Array<TextLine> = []
-  let last = ""
-  for (want of wants) {
-    if (listed[want.quest] == true) { continue }
-    if (want.quest != last) {
-      rows.push({ left: want.quest, color: GOLD })
-      last = want.quest
-    }
-    rows.push({
-      left: want.objective, right: `${want.have}/${want.need}`, rightColor: want.have >= want.need ? GREEN : nil,
-      opens: named(Term.Quest)
-    })
-  }
-  return rows
+// The game's marks of a quest to take and of one to hand in.
+const TO_TAKE: Asset = "Interface/GossipFrame/AvailableQuestIcon"
+const TO_HAND_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
+
+// One quest's rows as the game says them: its title ("" for objectives under none), the player's objectives, then
+// the party's.
+struct Block {
+  title: String
+  own: Array<TextLine>
+  party: Array<TextLine>
 }
 
-// `party`: the party's objectives are shown too.
-public function quests(lines: Array<Game.TooltipLine>, party: Boolean): mut Array<TextLine> {
-  let rows: Array<TextLine> = []
+// An objective's text without its count, wherever the client puts it («Wolf slain: 2/5», «2/5 Wolf slain», «- Wolf
+// slain: 2/5»).
+public function labelOf(text: String): String {
+  return text.replace("^%s*%-%s*", "").replace("^%d+%s*/%s*%d+%s*", "").replace("%s*:?%s*%d+%s*/%s*%d+%s*$", "")
+}
+
+// A row of the game's objective: its text without its count, the count at the right, green once done.
+function objectiveRow(text: String, label: String, done: Boolean, indent: Boolean): TextLine {
+  let have, need = text.match("(%d+)%s*/%s*(%d+)")
+  let counted = have != nil && need != nil && (have.toNumber() ?? 0) >= (need.toNumber() ?? 0)
+  let value = have != nil && need != nil ? have + "/" + need : nil
+  return {
+    left: label, right: value, rightColor: done || counted ? GREEN : nil, indent: indent, opens: named(Term.Quest)
+  }
+}
+
+// The game's quest rows as blocks, in its order. `party`: the party's objectives are kept too.
+function blocksOf(lines: Array<Game.TooltipLine>, party: Boolean): Array<Block> {
+  const blocks: Array<Block> = []
+  let started = false
+  let title = ""
+  let own: Array<TextLine> = []
+  let theirs: Array<TextLine> = []
   let member: String | nil = nil
   for (line of lines) {
     let text = clean(line.left)
     if (text == nil) { continue }
     if (line.kind == QUEST_TITLE) {
+      if (started) { blocks.push({ title: title, own: own, party: theirs }) }
+      started = true
+      title = text
+      own = []
+      theirs = []
       member = nil
-      rows.push({ left: text, color: GOLD })
     } else if (line.kind == QUEST_PLAYER) {
       member = text
     } else if (line.kind == QUEST_OBJECTIVE) {
-      let have, need = text.match("(%d+)%s*/%s*(%d+)")
-      let label = (text.replace("%s*:?%s*%d+%s*/%s*%d+%s*", "")).replace("^%s*%-%s*", "")
-      let counted = have != nil && need != nil && (have.toNumber() ?? 0) >= (need.toNumber() ?? 0)
-      let done = line.completed == true || counted
-      let value = have != nil && need != nil ? have + "/" + need : nil
+      started = true
       if (member == nil) {
-        rows.push({ left: label, right: value, rightColor: done ? GREEN : nil, opens: named(Term.Quest) })
+        own.push(objectiveRow(text, labelOf(text), line.completed == true, false))
       } else if (party) {
-        rows.push({
-          left: member, right: value, rightColor: done ? GREEN : nil, indent: true, opens: named(Term.Quest)
-        })
+        theirs.push(objectiveRow(text, member, line.completed == true, true))
       }
     }
   }
+  if (started) { blocks.push({ title: title, own: own, party: theirs }) }
+  return blocks
+}
+
+// The place of the game's block of a quest's title; nil where the game names no such quest.
+function blockOf(blocks: Array<Block>, title: String): Integer | nil {
+  for (at, block of blocks) {
+    if (block.title == title) { return at }
+  }
+  return nil
+}
+
+// An objective another module adds, as the game's own are drawn.
+function wantedRow(want: Wanted): TextLine {
+  return {
+    left: want.objective, right: `${want.have}/${want.need}`, rightColor: want.done ? GREEN : nil,
+    opens: named(Term.Quest)
+  }
+}
+
+// A quest a creature gives or takes: the game's mark, then «[level] title» in the level's colour.
+function offeredRow(offer: Offered): TextLine {
+  return {
+    left: `[${offer.level}] ${offer.title}`, color: questLevelColor(offer.level, Game.player.level, GOLD),
+    icon: offer.turnIn ? TO_HAND_IN : TO_TAKE
+  }
+}
+
+// The section: the quests offered, then the game's quest rows with the objectives other modules add. A want joins
+// the game's block of its quest's title, unless that block already has its objective; else its quest's own block,
+// after the game's.
+public function questRows(
+  lines: Array<Game.TooltipLine>, party: Boolean, wants: Array<Wanted>, offers: Array<Offered>
+): mut Array<TextLine> {
+  const blocks = blocksOf(lines, party)
+  // The rows added to each of the game's blocks, by its place; and the quests the game names none of, in order.
+  const added: Map<Integer, mut Array<TextLine>> = {}
+  const ownRows: Map<Integer, mut Array<TextLine>> = {}
+  const ownQuests: Array<Wanted> = []
+  for (want of wants) {
+    const at = blockOf(blocks, want.title)
+    if (at != nil) {
+      if ((blocks[at] ?? panic("a block")).own.any(row => row.left == want.objective)) { continue }
+      const list = added[at]
+      if (list == nil) { added[at] = [wantedRow(want)] } else { list.push(wantedRow(want)) }
+    } else {
+      const list = ownRows[want.quest]
+      if (list == nil) {
+        ownRows[want.quest] = [wantedRow(want)]
+        ownQuests.push(want)
+      } else {
+        list.push(wantedRow(want))
+      }
+    }
+  }
+  const rows: Array<TextLine> = offers.map(offer => offeredRow(offer))
+  for (at, block of blocks) {
+    if (block.title != "") { rows.push({ left: block.title, color: GOLD, heads: true }) }
+    for (row of block.own) { rows.push(row) }
+    for (row of added[at] ?? []) { rows.push(row) }
+    for (row of block.party) { rows.push(row) }
+  }
+  for (want of ownQuests) {
+    rows.push({ left: want.title, color: GOLD, heads: true })
+    for (row of ownRows[want.quest] ?? []) { rows.push(row) }
+  }
   return rows
+}
+
+// The game's quest rows alone (an object's tooltip). `party`: the party's objectives are shown too.
+public function quests(lines: Array<Game.TooltipLine>, party: Boolean): mut Array<TextLine> {
+  return questRows(lines, party, [], [])
 }

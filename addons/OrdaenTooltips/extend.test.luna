@@ -1,11 +1,11 @@
 // What other modules add to Ordaen Tooltips' tooltips, through its registries (`worth`, `uses`, `held` and `keys` for an
-// item, `gives` for a world object, `wants` for a creature), as small adders of the test's own: what each adds stands in its section after
+// item, `gives` for a world object, `creatures` for a creature), as small adders of the test's own: what each adds stands in its section after
 // the tooltip's own footer, follows what it read, and goes with its handle.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import root Tooltips from "OrdaenTooltips"
-import { ItemKeys, ItemLines, Line, ObjectLines, UnitWants, Wanted } from "@/extend"
+import { CreatureQuests, ItemKeys, ItemLines, Line, ObjectLines, Offered, Wanted } from "@/extend"
 
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
@@ -239,15 +239,24 @@ test "an item the game gives no number for asks the added rows nothing" {
   destroy added
 }
 
-// What a boar is wanted for: a quest's meat, while it is one of the boars that drop it.
-class Hunted implements UnitWants {
+// What a boar is to the player's quests while it is one of the boars that drop the meat: the meat for one quest,
+// two objectives of another (one of which the game's own rows have); and what it gives and takes back.
+class Hunted implements CreatureQuests {
   public state have = 2
 
   public wants(self, creature: Integer): Array<Wanted> {
     if (creature != 113) { return [] }
     return [
-      { quest: "Pie for Billy", objective: "Chunk of Boar Meat", have: self.have, need: 4 },
-      { quest: "The Fargodeep Mine", objective: "Boar Tusk", have: 1, need: 3 }
+      { quest: 86, title: "Pie for Billy", objective: "Chunk of Boar Meat", have: self.have, need: 4, done: self.have >= 4 },
+      { quest: 40, title: "The Fargodeep Mine", objective: "Boar Tusk", have: 1, need: 3, done: false },
+      { quest: 40, title: "The Fargodeep Mine", objective: "Boar Hide", have: 0, need: 2, done: false }
+    ]
+  }
+
+  public offers(self, creature: Integer): Array<Offered> {
+    if (creature != 113) { return [] }
+    return [
+      { title: "Princess Must Die!", level: 7, turnIn: true }, { title: "Report to Goldshire", level: 5, turnIn: false }
     ]
   }
 
@@ -262,7 +271,7 @@ function boar(creature: Integer): Game.UnitInfo {
   }
 }
 
-// The boar's tooltip; the client's own rows name a quest of the two.
+// The boar's tooltip; the client's own rows name one objective of one quest, the count first as Forever writes it.
 function boarTip(): Game.TooltipData {
   return {
     kind: 2,
@@ -270,20 +279,22 @@ function boarTip(): Game.TooltipData {
       { left: "Stonetusk Boar", kind: 2, unit: "mouseover" },
       { left: "Level 5 Beast", kind: 0 },
       { left: "The Fargodeep Mine", kind: 17 },
-      { left: " - Boar Tusk: 1/3", kind: 8 }
+      { left: "1/3 Boar Tusk", kind: 8 }
     ]
   }
 }
 
-test "what a creature is wanted for stands after the game's quest rows as they do, a quest they name left out, and follows what it read" {
+test "a creature's quests: what it gives and takes first, then each objective it serves under its quest's title, the game's own once" {
   let creature = 113
   Game.units.of = (unit: String): Game.UnitInfo | nil => boar(creature)
   Test.mount(nil, SCREEN)
   const hunted = new Hunted()
-  const wants = Tooltips.wants.add(hunted)
+  const added = Tooltips.creatures.add(hunted)
   Game.tooltip.main = showing(boarTip())
   Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | The Fargodeep Mine | Boar Tusk | 1/3 | Pie for Billy | Chunk of Boar Meat | 2/4"))
+  Test.expect(reads(Test.page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | [7] Princess Must Die! | [5] Report to Goldshire | The Fargodeep Mine | Boar Tusk | 1/3 | Boar Hide | 0/2 | Pie for Billy | Chunk of Boar Meat | 2/4"))
+  Test.expect(Test.page().box("Interface/GossipFrame/ActiveQuestIcon").shown())
+  Test.expect(Test.page().box("Interface/GossipFrame/AvailableQuestIcon").shown())
   Test.expect(Test.page().text("Pie for Billy").textColor().equal(Color.hex("#ffd100")))
   hunted.loot()
   Test.pass(SHOWS)
@@ -291,6 +302,30 @@ test "what a creature is wanted for stands after the game's quest rows as they d
   creature = 114
   Game.tooltip.main = showing(boarTip())
   Test.pass(SHOWS)
-  Test.expect(!Test.page().text("Pie for Billy").shown())
-  destroy wants
+  Test.expect(!Test.page().text("Pie for Billy").shown() && !Test.page().text("[5] Report to Goldshire").shown())
+  destroy added
+}
+
+test "a quest's objectives stand close under its title, and the next quest's title stands apart from them" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(113)
+  Test.mount(nil, SCREEN)
+  const added = Tooltips.creatures.add(new Hunted())
+  Game.tooltip.main = showing(boarTip())
+  Test.pass(SHOWS)
+  const under = Test.page().text("Chunk of Boar Meat").letters().top - Test.page().text("Pie for Billy").letters().bottom
+  const between = Test.page().text("Pie for Billy").letters().top - Test.page().text("Boar Hide").letters().bottom
+  Test.expect(under < between)
+  destroy added
+}
+
+test "with the NPCs' «Quests» unticked a creature names no quest it gives or takes, its objectives still" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(113)
+  Test.mount(nil, SCREEN)
+  const added = Tooltips.creatures.add(new Hunted())
+  Tooltips.settings.values.npcsQuests = false
+  Game.tooltip.main = showing(boarTip())
+  Test.pass(SHOWS)
+  Test.expect(!Test.page().text("[5] Report to Goldshire").shown() && Test.page().text("Pie for Billy").shown())
+  Tooltips.settings.values.npcsQuests = true
+  destroy added
 }

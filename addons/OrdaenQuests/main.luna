@@ -31,13 +31,13 @@ import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { namedOfFacts } from "@/names"
-import { Figure, QuestFacts } from "@/questie"
+import { Figure, NpcQuests, QuestFacts } from "@/questie"
 import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { TrackerOpener } from "@/tracker"
 import { Act, ChainPage, QuestButtons, QuestPage } from "@/view"
-import { TooltipWants } from "@/wants"
+import { TooltipCreatures } from "@/wants"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.
 const TOGGLE = "OrdaenQuestsToggle"
@@ -210,10 +210,13 @@ public class Quests implements Module, App {
   const npcPins: NpcPins
   const dungeonQuests: DungeonQuests
   const trackerOpener: TrackerOpener
-  const tooltipWants: TooltipWants
+  const tooltipCreatures: TooltipCreatures
 
   constructor() {
-    self.tooltipWants = new TooltipWants(self.quests, self.facts)
+    self.tooltipCreatures = new TooltipCreatures(
+      self.quests, self.facts, (id: Integer): NpcQuests => self.data.npcQuests(id),
+      (id: Integer): QuestFacts | nil => self.data.quest(id)
+    )
     self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.npcPins = new NpcPins(self.shownNpc)

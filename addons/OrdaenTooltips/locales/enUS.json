@@ -94,6 +94,8 @@
   "TOOLTIPS_NPCSLOOT_TIP": "The name grey when the loot isn't yours.",
   "TOOLTIPS_NPCSON": "On",
   "TOOLTIPS_NPCSON_TIP": "Off: NPC and creature tooltips stay the game's own.",
+  "TOOLTIPS_NPCSQUESTS": "Quests",
+  "TOOLTIPS_NPCSQUESTS_TIP": "The quests the NPC gives you now, and those you can hand in to it.",
   "TOOLTIPS_NPCSPARTY": "Party quests",
   "TOOLTIPS_NPCSPARTY_TIP": "Your party members' quest counters.",
   "TOOLTIPS_NPCSREP": "Reputation",

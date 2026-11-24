@@ -1,7 +1,7 @@
 // Ordaen Tooltips: every tooltip in the one Ordaen skeleton.
 public import { Tooltips } from "@/main"
 // What other modules add to a tooltip: the contract, imported by type alone.
-public import { ItemKeys, ItemLines, Line, Listed, Listing, ObjectLines, UnitWants, Wanted } from "@/extend"
+public import { CreatureQuests, ItemKeys, ItemLines, Line, Listed, Listing, ObjectLines, Offered, Wanted } from "@/extend"
 public import { TipFrame } from "@/frame"
 public import { compare } from "@/item"
 public import { Fact, Kind, Model, Note, Part, TextLine } from "@/model"
