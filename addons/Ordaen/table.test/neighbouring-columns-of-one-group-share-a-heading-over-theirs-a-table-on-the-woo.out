@@ -1,54 +1,54 @@
 -- grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row
 box 0,0 600x104.43
   box 0,0 600x104.43
-    box 0.83,0 598.33x56.9
-      box 0.83,0 598.33x56.9
-        box 9.37,0.83 138.6x55.23 #00000000 @keyPress @pointerPress
-          box 9.37,54.4 138.6x1.67 absolute #00000000
-          box 9.37,21.25 138.6x14.4
-            text 9.37,21.25 25.83x14.4 "Item" #cbb994
-            box 38.04,25.95 6.67x5
-              box 34.71,21.78 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-        box 156.5,0.83 168.53x23.77
-          text 227.85,5.1 25.83x14.4 "Cost" #a3977f
-        box 333.57,0.83 168.53x23.77
-          text 402,5.1 31.67x14.4 "Price" #a3977f
-        box 510.63,0.83 80x55.23 #00000000 @keyPress @pointerPress
-          box 510.63,54.4 80x1.67 absolute #00000000
-          box 549.46,21.25 41.18x14.4
-            text 549.46,21.25 38.33x14.4 "Profit" #a3977f
-        box 156.5,33.13 80x22.93 #00000000 @keyPress @pointerPress
-          box 156.5,54.4 80x1.67 absolute #00000000
-          box 195.32,37.4 41.18x14.4
-            text 195.32,37.4 31.67x14.4 "House" #cbb994
-            box 229.83,42.1 6.67x5
-              box 226.5,37.93 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-        box 245.03,33.13 80x22.93 #00000033 @keyPress @pointerPress
-          box 245.03,54.4 80x1.67 absolute #d6a56b
-          box 277.19,37.4 47.84x14.4
-            text 277.19,37.4 38.33x14.4 "Vendor" #f0c860
-            box 318.37,42.1 6.67x5
-              box 315.03,37.93 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
-        box 333.57,33.13 80x22.93 #00000000 @keyPress @pointerPress
-          box 333.57,54.4 80x1.67 absolute #00000000
-          box 379.06,37.4 34.51x14.4
-            text 379.06,37.4 31.67x14.4 "House" #a3977f
-        box 422.1,33.13 80x22.93 #00000000 @keyPress @pointerPress
-          box 422.1,54.4 80x1.67 absolute #00000000
-          box 460.92,37.4 41.18x14.4
-            text 460.92,37.4 38.33x14.4 "Vendor" #a3977f
-    box 0.83,56.9 598.33x47.53 scrolled 0 of 0
-      box 0.83,56.9 598.33x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-        text 9.37,61.17 138.6x14.4 "Copper Bar" #ffffff
-        text 156.5,61.17 80x14.4 "1" #ffffff
-        text 245.03,61.17 80x14.4 "2" #ffffff
-        text 333.57,61.17 80x14.4 "3" #ffffff
-        text 422.1,61.17 80x14.4 "4" #ffffff
-        text 510.63,61.17 80x14.4 "5" #ffffff
-      box 0.83,80.67 598.33x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-        text 9.37,84.93 138.6x14.4 "Bronze Axe" #ffffff
-        text 156.5,84.93 80x14.4 "1" #ffffff
-        text 245.03,84.93 80x14.4 "2" #ffffff
-        text 333.57,84.93 80x14.4 "3" #ffffff
-        text 422.1,84.93 80x14.4 "4" #ffffff
-        text 510.63,84.93 80x14.4 "5" #ffffff
+    box 0,0 600x56.9
+      box 0,0 600x56.9
+        box 8.53,0.83 140.27x55.23 #00000000 @keyPress @pointerPress
+          box 8.53,54.4 140.27x1.67 absolute #00000000
+          box 8.53,21.25 140.27x14.4
+            text 8.53,21.25 25.83x14.4 "Item" #cbb994
+            box 37.21,25.95 6.67x5
+              box 33.88,21.78 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+        box 157.33,0.83 168.53x23.77
+          text 228.68,5.1 25.83x14.4 "Cost" #a3977f
+        box 334.4,0.83 168.53x23.77
+          text 402.83,5.1 31.67x14.4 "Price" #a3977f
+        box 511.47,0.83 80x55.23 #00000000 @keyPress @pointerPress
+          box 511.47,54.4 80x1.67 absolute #00000000
+          box 550.29,21.25 41.18x14.4
+            text 550.29,21.25 38.33x14.4 "Profit" #a3977f
+        box 157.33,33.13 80x22.93 #00000000 @keyPress @pointerPress
+          box 157.33,54.4 80x1.67 absolute #00000000
+          box 196.16,37.4 41.18x14.4
+            text 196.16,37.4 31.67x14.4 "House" #cbb994
+            box 230.67,42.1 6.67x5
+              box 227.33,37.93 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+        box 245.87,33.13 80x22.93 #00000033 @keyPress @pointerPress
+          box 245.87,54.4 80x1.67 absolute #d6a56b
+          box 278.02,37.4 47.84x14.4
+            text 278.02,37.4 38.33x14.4 "Vendor" #f0c860
+            box 319.2,42.1 6.67x5
+              box 315.87,37.93 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+        box 334.4,33.13 80x22.93 #00000000 @keyPress @pointerPress
+          box 334.4,54.4 80x1.67 absolute #00000000
+          box 379.89,37.4 34.51x14.4
+            text 379.89,37.4 31.67x14.4 "House" #a3977f
+        box 422.93,33.13 80x22.93 #00000000 @keyPress @pointerPress
+          box 422.93,54.4 80x1.67 absolute #00000000
+          box 461.76,37.4 41.18x14.4
+            text 461.76,37.4 38.33x14.4 "Vendor" #a3977f
+    box 0,56.9 600x47.53 scrolled 0 of 0
+      box 0,56.9 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+        text 8.53,61.17 140.27x14.4 "Copper Bar" #ffffff
+        text 157.33,61.17 80x14.4 "1" #ffffff
+        text 245.87,61.17 80x14.4 "2" #ffffff
+        text 334.4,61.17 80x14.4 "3" #ffffff
+        text 422.93,61.17 80x14.4 "4" #ffffff
+        text 511.47,61.17 80x14.4 "5" #ffffff
+      box 0,80.67 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+        text 8.53,84.93 140.27x14.4 "Bronze Axe" #ffffff
+        text 157.33,84.93 80x14.4 "1" #ffffff
+        text 245.87,84.93 80x14.4 "2" #ffffff
+        text 334.4,84.93 80x14.4 "3" #ffffff
+        text 422.93,84.93 80x14.4 "4" #ffffff
+        text 511.47,84.93 80x14.4 "5" #ffffff
