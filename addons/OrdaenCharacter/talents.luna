@@ -10,10 +10,9 @@
 import Game from "$game"
 import { Align, ArtBorder, Edges, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, Tip, Toolbar } from "Ordaen"
+import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, TalentTreeView, Tip, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
-import { TalentTreeView } from "@/talentTree"
 
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]

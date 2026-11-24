@@ -1,5 +1,6 @@
 // A talent tree as the client lays it out (`Game.TalentTree`): its name and the points spent in it over a grid of its
-// nodes, each in the cell of the client's grid it stands in (a step of `CELL` from the tree's top left), the cells a
+// nodes (the name left out where its owner names the tree), each in the cell of the client's grid it stands in (a step
+// of the grid from the tree's top left: the least gap between two of its nodes, `CELL` for a tree of one), the cells a
 // node's width and a gap apart across and sharing the tree's height down. A node is the client's square talent frame
 // round its icon (gold when full, green while it has a rank or may take one, grey otherwise, its icon grey too where
 // no point may go yet), its rank in a badge at its lower right. The arrows from a node to those it leads to run under
@@ -11,8 +12,9 @@
 // held does (or the first will), what the next rank will, the points its tree still needs, and that a click learns it.
 import Game from "$game"
 import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
-import { Component, Tip, TipRow, TipSection } from "Ordaen"
 import Locale from "@/locales"
+import { Component } from "@/module"
+import { Tip, TipRow, TipSection } from "@/tip"
 
 // One step of the client's grid: its talents stand this far apart in its own units.
 const CELL = 600
@@ -90,35 +92,51 @@ function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
   return nodes.length == 0 ? 0 : least
 }
 
+// The client's grid of a tree: the least gap between two of its nodes across or down (a talent tree's `CELL`, a Legacy
+// tree's own), `CELL` where no two stand apart.
+function cellOf(nodes: Array<Game.TalentNode>): Number {
+  let cell = Number.huge
+  for (node of nodes) {
+    for (other of nodes) {
+      const across = (node.x - other.x).abs()
+      const down = (node.y - other.y).abs()
+      if (across > 0) { cell = cell.min(across) }
+      if (down > 0) { cell = cell.min(down) }
+    }
+  }
+  return cell == Number.huge ? CELL : cell
+}
+
 // The column or row of the client's grid a node stands in, from the tree's first.
-function stepOf(at: Number, least: Number): Integer {
-  return ((at - least) / CELL + 0.5).floor()
+function stepOf(at: Number, least: Number, cell: Number): Integer {
+  return ((at - least) / cell + 0.5).floor()
 }
 
 // A tree laid out on its grid, its arrows drawn into the cells they cross.
 public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
   const leastX = leastOf(nodes, false)
   const leastY = leastOf(nodes, true)
+  const cell = cellOf(nodes)
   let columns = 0
   let rows = 0
   for (node of nodes) {
-    columns = columns.max(stepOf(node.x, leastX) + 1)
-    rows = rows.max(stepOf(node.y, leastY) + 1)
+    columns = columns.max(stepOf(node.x, leastX, cell) + 1)
+    rows = rows.max(stepOf(node.y, leastY, cell) + 1)
   }
   const cells: Array<mut TreeCell> = []
   for (place of 1..columns * rows) { cells.push({}) }
   const at = (column: Integer, row: Integer): mut TreeCell => cells[row * columns + column + 1] ?? panic("a cell of the grid")
-  for (node of nodes) { at(stepOf(node.x, leastX), stepOf(node.y, leastY)).node = node }
+  for (node of nodes) { at(stepOf(node.x, leastX, cell), stepOf(node.y, leastY, cell)).node = node }
   for (node of nodes) {
-    const fromColumn = stepOf(node.x, leastX)
-    const fromRow = stepOf(node.y, leastY)
+    const fromColumn = stepOf(node.x, leastX, cell)
+    const fromRow = stepOf(node.y, leastY, cell)
     const color = node.rank == node.ranks ? GOLD : EDGE
     const head = node.rank == node.ranks ? HEAD_GOLD : HEAD_DIM
     for (edge of node.edges) {
       for (target of nodes) {
         if (target.id == edge) {
-          const toColumn = stepOf(target.x, leastX)
-          const toRow = stepOf(target.y, leastY)
+          const toColumn = stepOf(target.x, leastX, cell)
+          const toRow = stepOf(target.y, leastY, cell)
           const right = toColumn > fromColumn
           // Across the node's row, to the column of the one it leads to.
           if (toColumn != fromColumn) {
@@ -340,15 +358,24 @@ public class TalentTreeView implements Component {
   public refund: Event<Integer> = new Event()
 
   derived title: String = `${self.tree.name}: ${spentIn(self.tree)}`
+  // The title over the grid while it is shown, the grid the rest.
+  derived parts: Array<Track> = self.titled ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
   derived grid: TreeGrid = gridOf(self.tree.nodes)
   derived columns: Array<Track> = tracksOf(self.grid.columns, STEP)
   derived rows: Array<Track> = rowTracksOf(self.grid.rows)
 
   tree: Signal<Game.TalentTree>
   search: Signal<String>
-  constructor(tree: Signal<Game.TalentTree>, search: Signal<String> = "") {
+  const titled: Boolean
+  constructor(
+    tree: Signal<Game.TalentTree>,
+    search: Signal<String> = "",
+    // The tree's name and points over it; none where its owner names the tree (Legacy's list of trees).
+    titled: Boolean = true
+  ) {
     self.tree = tree
     self.search = search
+    self.titled = titled
   }
 
   onSpend(mut self, id: Integer) { self.spend.emit(id) }
@@ -356,8 +383,8 @@ public class TalentTreeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", { fr: 1 }]} gap={3sp} xAlign={Align.Center}>
-        <text value={self.title} textColor={GOLD} wrap={.None} />
+      <box rows={self.parts} gap={3sp} xAlign={Align.Center}>
+        <text $if={self.titled} value={self.title} textColor={GOLD} wrap={.None} />
         <box columns={self.columns} rows={self.rows}>
           <TreeCellView $for={index, cell of self.grid.cells} $key={index} cell={cell} search={self.search}
                         @spend={self.onSpend} @refund={self.onRefund} />

@@ -5,12 +5,11 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import Runtime from "$runtime"
-import { Component, SECONDARY_TEXT, TITLE_TEXT } from "Ordaen"
+import { Component, SECONDARY_TEXT, TITLE_TEXT, TalentTreeView } from "Ordaen"
 import { LineWords } from "@/lines"
 import Locale from "@/locales"
 import { Who, Worn, clientWords, wornBy } from "@/sheet"
 import Style from "@/style"
-import { TalentTreeView } from "@/talentTree"
 
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const HONOR_ROWS: Array<Track> = ["max-content", "max-content"]
