@@ -10,7 +10,7 @@ import Game from "$game"
 import { Action, Align, Columns, Frame, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, Choice, Component, Ground, FilterButton, ItemButton, FilterGroup, FooterCount, ListFooter, PickRow, PushButton, SECONDARY_TEXT, ScrolledList,
+  ARTWORK, Choice, Component, FilterButton, ItemButton, FilterGroup, FooterCount, ListFooter, PickRow, PushButton, SECONDARY_TEXT, ScrolledList,
   TITLE_TEXT, Tabs, ToolPick, Toolbar, WindowSide
 } from "Ordaen"
 import Locale from "@/locales"
@@ -72,6 +72,10 @@ const PREVIEW: Number<Length> = 320dp
 const BUTTON: Number<Length> = 180dp
 const TILE: Number<Length> = 46dp
 const TILES: Columns = { autoFit: TILE }
+// The rows' view: columns as many as fit, each at least this wide; the window is never so narrow that fewer than two
+// fit (`LIST_LEAST`).
+public const ROW_LEAST: Number<Length> = 240dp
+const ROWS: Columns = { autoFit: { min: ROW_LEAST, max: nil } }
 const CARD_HEAD: Array<Track> = [Style.CARD_ICON, { fr: 1 }]
 // The figure takes the card's height that its name, its words and its button leave.
 const CARD_PARTS: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
@@ -222,9 +226,11 @@ public class ToyRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemButton $if={self.icons} item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={TILE} action={self.action} />
+      <ItemButton $if={self.icons} item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={TILE} action={self.action}
+                  usable={self.entry.usable} />
       <box $else columns={ROW} gap={2sp} padding={2sp} yAlign={Align.Center}>
-        <ItemButton item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={Style.ICON} action={self.action} />
+        <ItemButton item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={Style.ICON} action={self.action}
+                    usable={self.entry.usable} />
         <text value={self.entry.name} textColor={self.ink} wrap={.Cut} />
       </box>
     }
@@ -293,14 +299,18 @@ public class Collections {
         </Toolbar>
       </box>
       <box $if={self.transmog} />
-      <ScrolledList $elseif={self.icons} columns={TILES} gap={2sp} ground={Ground.Wood}>
-        <$if={self.toys}> <ToyRow $for={entry of self.shown} $key={entry.key} entry={entry} icons={true} /> </>
-        <$else> <EntryTile $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} /> </>
-      </ScrolledList>
-      <ScrolledList $else virtual={true} ground={Ground.Wood}>
-        <$if={self.toys}> <ToyRow $for={entry of self.shown} $key={entry.key} entry={entry} /> </>
-        <$else> <EntryRow $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} /> </>
-      </ScrolledList>
+      // The list in its well, the window's room at its sides and under it; its rows in as many columns as its width
+      // fits, two at the least.
+      <box $else padding={Style.LIST_ROOM} rows={[{ fr: 1 }]}>
+        <ScrolledList $if={self.icons} columns={TILES} gap={2sp}>
+          <$if={self.toys}> <ToyRow $for={entry of self.shown} $key={entry.key} entry={entry} icons={true} /> </>
+          <$else> <EntryTile $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} /> </>
+        </ScrolledList>
+        <ScrolledList $else columns={ROWS} gap={{ columns: 3sp, rows: 1sp }}>
+          <$if={self.toys}> <ToyRow $for={entry of self.shown} $key={entry.key} entry={entry} /> </>
+          <$else> <EntryRow $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} /> </>
+        </ScrolledList>
+      </box>
     </box>
   }
   public const footer: Template = $ltml { <ListFooter counts={self.counts} /> }

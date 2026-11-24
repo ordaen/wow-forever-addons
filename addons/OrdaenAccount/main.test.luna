@@ -173,8 +173,12 @@ test "the filter leaves out what isn't collected, and the sort by name mixes the
   Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra")
 }
 
-test "toys are a list with no card: the game's tooltip on one, and the player's toys first" {
+test "toys are a list with no card: the game's tooltip on one, the player's toys first, red only where the toy box says no" {
   toys()
+  // A toy collected says «Already known» in red in its tooltip: the toy box, not the tooltip, says whether it is usable.
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: "Orb of Deception", kind: 0 }, { left: "Already known", kind: 0, usable: false }] }
+  }
   Test.mount(nil, SCREEN)
   account()
   window().button(Locale.TAB_COLLECTIONS).click()
@@ -185,6 +189,7 @@ test "toys are a list with no card: the game's tooltip on one, and the player's 
   _ = Test.requests()
   window().box(134334).hover()
   Test.expect(Test.requests().any(r => r == "Items.show 1973"))
+  Test.expect(!window().box(134334).paintedWith(Color.hex("#ff1a1a")))
 }
 
 test "the challenges open on the class's category; one picked has its points and its criteria in the card" {

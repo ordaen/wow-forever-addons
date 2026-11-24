@@ -188,7 +188,7 @@ public class Account implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
-      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true}
+      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true} minWidth={Style.LEAST_WIDTH}
               footer={self.footer} side={self.side} @close={self.onClose} @settings={self.onSettings}>
         <box $if={self.tab == TAB_LEGACY} rows={[{ fr: 1 }]}> {self.legacy.content} </box>
         <box $elseif={self.tab == TAB_ACHIEVEMENTS} rows={[{ fr: 1 }]}> {self.challenges.content} </box>

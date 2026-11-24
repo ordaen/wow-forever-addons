@@ -3,6 +3,8 @@ import { Edges } from "$ltml"
 // As wide as Ordaen Alts' table of characters, which its «Alts» tab shows.
 public const WIDTH: Number<Length> = 1390dp
 public const HEIGHT: Number<Length> = 680dp
+// The least the window is wide: a collection's list of two columns of rows beside its card.
+public const LEAST_WIDTH: Number<Length> = 1000dp
 // The card beside a list: the picked entry's look and words.
 public const CARD: Number<Length> = 380dp
 // A list's column of categories or trees.
@@ -17,6 +19,8 @@ public const CARD_ICON: Number<Length> = 44dp
 public const NO_ROOM: Edges = {}
 public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
 public const SIDE_ROOM: Edges = { right: 8sp, left: 8sp }
+// A list under a toolbar: the window's room at its sides and under it.
+public const LIST_ROOM: Edges = { right: 8sp, bottom: 6sp, left: 8sp }
 
 public const INK: Color = Color.hex("#e8dcc4")
 // A picked entry's name.

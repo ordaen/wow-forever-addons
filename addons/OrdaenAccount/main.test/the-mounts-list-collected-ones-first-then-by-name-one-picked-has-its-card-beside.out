@@ -41,17 +41,18 @@ surface 301.66,189.85 1298.34x520.31 on MEDIUM clamped raised by a click
                     box 1231.81,284.6 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 1239.31,292.1 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16 tint=#e8dcc4
           box 308.86,321.46 974.04x355.94
-            box 308.86,321.46 974.04x0
-            box 308.86,321.46 974.04x355.94 scrolled 0 of 0
-              box 308.86,321.46 974.04x34.13 #ffd10026 @keyPress @pointerEnter @pointerPress
-                box 314.54,327.15 22.76x22.76 icon=132261
-                text 342.99,330.61 934.22x15.83 "Zebra" #e8dcc4
-              box 308.86,355.6 974.04x34.13 #00000000 @keyPress @pointerEnter @pointerPress
-                box 314.54,361.29 22.76x22.76 icon=132261
-                text 342.99,364.75 934.22x15.83 "Alpaca" #7a7060
-              box 308.86,389.73 974.04x34.13 #00000000 @keyPress @pointerEnter @pointerPress
-                box 314.54,395.42 22.76x22.76 icon=132261
-                text 342.99,398.88 934.22x15.83 "Bear" #7a7060
+            box 331.61,321.46 928.53x338.88 #0000004d
+              box 332.44,322.3 926.87x0
+              box 332.44,322.3 926.87x337.21 scrolled 0 of 0
+                box 340.98,330.83 175.13x34.13 #ffd10026 @keyPress @pointerEnter @pointerPress
+                  box 346.67,336.52 22.76x22.76 icon=132261
+                  text 375.11,339.98 135.31x15.83 "Zebra" #e8dcc4
+                box 524.64,330.83 175.13x34.13 #00000000 @keyPress @pointerEnter @pointerPress
+                  box 530.33,336.52 22.76x22.76 icon=132261
+                  text 558.78,339.98 135.31x15.83 "Alpaca" #7a7060
+                box 708.31,330.83 175.13x34.13 #00000000 @keyPress @pointerEnter @pointerPress
+                  box 714,336.52 22.76x22.76 icon=132261
+                  text 742.44,339.98 135.31x15.83 "Bear" #7a7060
     box 1282.9,233.8 309.9x469.16
       box 1285.6,233.8 307.2x469.16
         box 1308.36,256.55 261.69x432.18
