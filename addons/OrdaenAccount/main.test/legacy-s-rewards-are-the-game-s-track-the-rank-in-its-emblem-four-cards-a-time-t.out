@@ -1,6 +1,6 @@
 -- rewards
-surface 305.78,189.85 988.44x620.08 on MEDIUM clamped raised by a click
-  box 305.78,226.6 988.44x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x33.32, bottom 0.80>0.60 x33.32, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
+surface 305.78,189.85 988.44x635.08 on MEDIUM clamped raised by a click
+  box 305.78,226.6 988.44x598.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x33.32, bottom 0.80>0.60 x33.32, left 0.98>0.80 x19.78, right 0.78>0.61 x19.78] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 312.98,233.8 974.04x543.39
       box 312.98,233.8 974.04x543.39
         box 312.98,233.8 974.04x543.39
@@ -63,17 +63,17 @@ surface 305.78,189.85 988.44x620.08 on MEDIUM clamped raised by a click
                     box 1064,678.19 120x15.83 absolute
                       text 1099,678.19 50x15.83 "Reward 4" #7f7f7f centred
                 box 1232,636.69 25x40 Legacy-Rewards-Tracker-Arrow-Big-Left turn=180.0 @pointerPress
-    box 312.98,777.19 974.04x25.54
-      box 312.98,777.19 974.04x25.54
-        box 312.98,777.19 974.04x25.54 Interface/FrameGeneral/UI-Background-Marble
-          box 335.73,783.71 928.53x13.33
-            box 335.73,783.71 911.47x13.33
-              box 335.73,783.71 46.87x13.33
-                text 335.73,783.71 31.67x13.33 "Points" #a3977f
-                text 375.93,783.71 6.67x13.33 "0" #e8dcc4
-            box 1264.27,790.37 0x0
-    box 1272.47,788.18 13.33x13.33 absolute
-      box 1272.47,788.18 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 312.98,777.19 974.04x40.54
+      box 312.98,777.19 974.04x40.54
+        box 312.98,777.19 974.04x40.54 Interface/FrameGeneral/UI-Background-Marble
+          box 335.73,783.71 928.53x28.33
+            box 335.73,797.87 430x0
+            box 765.73,788.29 68.53x19.17
+              text 765.73,788.29 50.83x19.17 "Points:" #ffd100
+              text 825.1,788.29 9.17x19.17 "0" #f0e6d2
+            box 834.27,783.71 430x28.33
+    box 1272.47,803.18 13.33x13.33 absolute
+      box 1272.47,803.18 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 305.78,189.85 988.44x39
     box 320.18,189.85 871.11x39
       box 320.18,189.85 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x0.85, right 0.97>0.96 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
@@ -91,7 +91,7 @@ surface 305.78,189.85 988.44x620.08 on MEDIUM clamped raised by a click
         box 623.42,196.6 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.82>0.81 x1.68]
         box 630.46,197.05 54.28x31.8
           text 644.68,205.03 25.83x15.83 "Alts" #a3977f
-      box 710.43,189.85 127.55x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.89, top 0.91>0.89 x3.43, left 0.91>0.90 x0.85, right 0.89>0.88 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+      box 710.43,189.85 127.55x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.89, top 0.91>0.89 x3.43, left 0.91>0.91 x0.85, right 0.89>0.88 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
         box 717.18,196.6 32.25x32.25 absolute icon=Interface/Icons/Ability_Mount_RidingHorse cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 746.88,196.6 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.80>0.79 x1.68]
         box 753.91,197.05 68.33x31.8

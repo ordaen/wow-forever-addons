@@ -28,7 +28,6 @@
   "TREE_PROGRESSION": "Находчивость",
   "LEGACY_LOCKED": "Наследие откроется с первым рангом наследия.",
   "UNDO": "Отменить",
-  "RESET": "Сбросить",
   "APPLY": "Применить",
   "VIEW": "Вид",
   "SORT": "Сортировка",
@@ -43,7 +42,7 @@
   "COUNT_DONE": "Выполнено",
   "COUNT_POINTS": "Получено очков",
   "COUNT_COLLECTED": "Собрано",
-  "POINTS_LEFT": "Очки",
+  "POINTS_LEFT": "Очки:",
   "TRACK_POINTS": "Очки старинных наград",
   "NOTHING_FOUND": "Ничего не найдено."
 }

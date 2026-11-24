@@ -108,7 +108,7 @@ test "the window opens on Legacy, which is locked until the player's first Legac
   Test.expect(!window().shown())
 }
 
-test "Legacy's tree is drawn as the talents are, its points in the footer; a node clicked is bought, and Apply waits for it" {
+test "Legacy's tree is drawn as the talents are, its points in the footer; a node clicked is bought, and Undo and Apply come with it" {
   Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 4
   const tree = new LegacyTree()
   Game.talentTrees.of = (id: Integer): mut any Game.TalentConfig | nil => id == 1187 ? tree : nil
@@ -116,11 +116,12 @@ test "Legacy's tree is drawn as the talents are, its points in the footer; a nod
   account()
   // Each node says its rank of its ranks, as the game's Legacy tree does.
   Test.expect(window().text(Locale.TREE_PROFESSIONS).shown() && window().text("3/5").shown() && window().text("0/1").shown())
-  Test.expect(window().text(Locale.POINTS_LEFT).item().texts().join(" ") == `${Locale.POINTS_LEFT} 3`)
-  Test.expect(!window().button(Locale.UNDO).shown())
+  Test.expect(window().text(Locale.POINTS_LEFT).shown() && window().text("3").shown())
+  // Nothing changed yet: no Undo, no Apply, and never a Reset (a tree is reset at the game's NPC).
+  Test.expect(!window().button(Locale.UNDO).shown() && !window().button(Locale.APPLY).shown())
   Test.shot("tree")
   window().text("3/5").click()
-  Test.expect(tree.asked.join(", ") == "spend 1" && window().button(Locale.UNDO).shown())
+  Test.expect(tree.asked.join(", ") == "spend 1" && window().button(Locale.UNDO).shown() && window().button(Locale.APPLY).shown())
 }
 
 test "Legacy's rewards are the game's track: the rank in its emblem, four cards a time, the arrows turning it" {

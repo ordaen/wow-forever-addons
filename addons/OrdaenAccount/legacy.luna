@@ -2,15 +2,15 @@
 // Adventure, Resourcefulness) in a column at the left, the picked one drawn as the talents are (Ordaen's
 // `TalentTreeView`: the client's frames and arrows), bought with the account's Legacy points, which each character
 // spends on its own: a left click buys a rank, a right one gives it back, held until «Apply»; «Undo» takes the changes
-// back, «Reset» every rank. The points left and the buttons are the footer's. «Rewards»: the reward track as the game's
-// window draws it, its art and its layout: the rank in the emblem, the bar, four cards of levels at a time, each its
-// reward, the arrows turning the track a card at a time. Everything waits for the track's first rank, as the game's
-// window does.
+// back (a tree is reset at the game's own NPC alone). The points left and the buttons are the footer's. «Rewards»: the
+// reward track as the game's window draws it, its art and its layout: the rank in the emblem, the bar, four cards of
+// levels at a time, each its reward, the arrows turning the track a card at a time. Everything waits for the track's
+// first rank, as the game's window does.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { Align, ByInteractionState, Edges, Position, Track } from "$ltml"
-import { ButtonPlate, Component, FooterCount, ListFooter, PushButton, TITLE_TEXT, Tabs, TalentTreeView } from "Ordaen"
+import { BUTTON_HEIGHT, ButtonPlate, Component, FooterBand, PushButton, TITLE_TEXT, Tabs, TalentTreeView } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -29,6 +29,8 @@ const TREES: Array<TreeKind> = [
 ]
 const SUBS: Array<String> = [Locale.SUB_TREE, Locale.SUB_REWARDS]
 const BUTTON: Number<Length> = 140dp
+// The footer's band: the points in its middle, the buttons at its right.
+const FOOTER: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The trees' column: each a row edge to edge, its emblem large.
 const TREE_EMBLEM: Number<Length> = 44dp
 const TREE_ROW: Array<Track> = [TREE_EMBLEM, { fr: 1 }]
@@ -222,7 +224,6 @@ public class Legacy {
   derived tree: Game.TalentTree | nil = self.readTree()
   derived points: Integer = self.readPoints()
   derived staged: Boolean = self.readStaged()
-  derived bought: Boolean = self.tree?.nodes?.any(node => node.rank > 0) == true
   derived treeShown: Boolean = self.sub == 1
   derived levels: Array<Level> = self.readLevels()
   derived rank: Integer = self.readRank()
@@ -231,7 +232,8 @@ public class Legacy {
   derived fillTracks: Array<Track> = [{ fr: self.filled.max(0.001) }, { fr: (100 - self.filled).max(0.001) }]
   derived canBack: Boolean = self.first > 1
   derived canOn: Boolean = self.first + CARDS <= self.levels.length
-  derived counts: Array<FooterCount> = [{ label: Locale.POINTS_LEFT, value: String.of(self.points) }]
+  // Changes wait to be applied, on the tree's page.
+  derived changing: Boolean = self.staged && self.treeShown && self.open
   const treePage: Template = $ltml {
     <box columns={[Style.SIDE_LIST, { fr: 1 }]} rows={[{ fr: 1 }]}>
       <box border={{ width: 1ui, color: RULE, sides: ["right"] }}>
@@ -282,14 +284,22 @@ public class Legacy {
       </box>
     </box>
   }
+  // The points left in the band's middle, large; Undo and Apply at its right while changes wait (a tree is reset at
+  // the game's own NPC, not here). The buttons' room is kept while they are gone: the band keeps its height.
   public const footer: Template = $ltml {
-    <ListFooter counts={self.counts}>
-      <box $if={self.treeShown && self.open} columns={["max-content", "max-content"]} gap={3sp}>
-        <PushButton $if={self.staged} label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
-        <PushButton $else label={Locale.RESET} width={BUTTON} disabled={!self.bought} @click={self.onReset} />
-        <PushButton label={Locale.APPLY} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.staged} @click={self.onApply} />
+    <FooterBand>
+      <box columns={FOOTER} yAlign={Align.Center}>
+        <box />
+        <box columns={["max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
+          <text value={Locale.POINTS_LEFT} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} wrap={.None} />
+          <text value={"%d"} arguments={[self.points]} textSize={TITLE_TEXT} textFont={.Numbers} textColor={Style.WHITE_INK} wrap={.None} />
+        </box>
+        <box height={BUTTON_HEIGHT} columns={["max-content", "max-content"]} gap={3sp} xAlign={Align.End} yAlign={Align.Center}>
+          <PushButton $if={self.changing} label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
+          <PushButton $if={self.changing} label={Locale.APPLY} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onApply} />
+        </box>
       </box>
-    </ListFooter>
+    </FooterBand>
   }
 
   constructor() {
@@ -364,11 +374,6 @@ public class Legacy {
 
   onUndo(mut self) {
     _ = self.config?.rollback()
-    self.touched += 1
-  }
-
-  onReset(mut self) {
-    _ = self.config?.reset()
     self.touched += 1
   }
 }

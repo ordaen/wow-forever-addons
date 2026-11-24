@@ -28,7 +28,6 @@
   "TREE_PROGRESSION": "Resourcefulness",
   "LEGACY_LOCKED": "Legacy opens with your first Legacy rank.",
   "UNDO": "Undo",
-  "RESET": "Reset",
   "APPLY": "Apply",
   "VIEW": "View",
   "SORT": "Sort",
@@ -43,7 +42,7 @@
   "COUNT_DONE": "Completed",
   "COUNT_POINTS": "Legacy points earned",
   "COUNT_COLLECTED": "Collected",
-  "POINTS_LEFT": "Points",
+  "POINTS_LEFT": "Points:",
   "TRACK_POINTS": "Legacy Reward Points",
   "NOTHING_FOUND": "Nothing found."
 }
