@@ -324,8 +324,9 @@ function hitCapsOf(stat: Stat, stats: Stats): Array<TipSection> {
   return sections
 }
 
-// What a target dodges and parries, in percent, which expertise takes off (the game's `CR_EXPERTISE_TOOLTIP`): a raid's
-// boss, and a target of the player's level.
+// What a target dodges and parries, in percent (the game's `CR_EXPERTISE_TOOLTIP`, `BASE_ENEMY_DODGE_CHANCE`): a raid's
+// boss, three levels over the player, and a target of the player's level. Expertise takes the dodge off first, and only
+// what is past the dodge takes off the parry (`GetEnemyParryChance`).
 public struct Avoidance {
   const dodge: Number
   const parry: Number
@@ -333,12 +334,14 @@ public struct Avoidance {
 public const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5 }
 const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5 }
 
-// One target's dodge and parry, each green once the expertise takes it all.
+// One target's dodge and parry as the expertise that takes each off whole: the dodge's own, the parry's past it; each
+// green once the expertise reaches it.
 function avoidanceRows(expertise: Number, of: Avoidance): Array<TipRow> {
-  const taken = (chance: Number): Color | nil => expertise >= chance ? Style.GREEN : nil
+  const taken = (cap: Number): Color | nil => expertise >= cap ? Style.GREEN : nil
+  const parryCap = of.dodge + of.parry
   return [
     { label: Locale.DODGE, value: amountText(of.dodge, true), valueTone: taken(of.dodge) },
-    { label: Locale.PARRY, value: amountText(of.parry, true), valueTone: taken(of.parry) }
+    { label: Locale.PARRY, value: amountText(parryCap, true), valueTone: taken(parryCap) }
   ]
 }
 
