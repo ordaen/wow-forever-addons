@@ -18,10 +18,8 @@ const SLOT = 37.5dp
 // cell.
 const MONEY = 119.53125dp
 // The names never narrower than the totals' labels («Cost», «Price», «Profit»), which stand under them.
-// «For 1» and «In the bags»: their headings' widths in the wider language, the numbers under them shorter.
-const EACH = 58.59375dp
-const HAVE = 105.46875dp
-const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, EACH, HAVE, MONEY, MONEY]
+// «For 1» and «In the bags» as wide as their headings and numbers.
+const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, "max-content", "max-content", MONEY, MONEY]
 // The icon fills its column, with a cell's room over and under it.
 const ICON_ROOM: Edges = { top: 1.5sp, bottom: 1.5sp }
 // A total's line: less room over and under than a reagent's.

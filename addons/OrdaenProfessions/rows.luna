@@ -287,9 +287,9 @@ public class RecipeTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={"subgrid"}>
-        // A long name is cut short («…») at its column; the class and the type wrap, their row as high as they come to.
+        // The name, the class and the type wrap at their columns, their row as high as they come to: nothing is cut.
         <TableRow selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
-          <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.Cut} /> </TableCell>
+          <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} /> </TableCell>
           <TableCell align={Align.End}>
             <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
           </TableCell>

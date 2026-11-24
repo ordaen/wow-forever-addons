@@ -14,7 +14,7 @@
 // lines collapsed onto their boundaries, and each row ruled under. `ToolSort` is its sort in the toolbar, with sorts
 // no column shows.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Event, Fit, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Ground, ScrolledList } from "@/scrolledList"
@@ -119,10 +119,14 @@ const MARK_CELL = 18.75dp
 const MARK_LEFT = (MARK_WIDTH - MARK_CELL) / 2
 const MARK_TOP = (MARK_HEIGHT - MARK_CELL) / 2
 
-// The tracks of a table's columns: one per column, as wide as its `width`.
+// The tracks of a table's columns: one per column. A width is a `fit` column of it: as wide as its heading and its
+// cells need where the room allows, the shares giving way first, its cells wrapped where none can; never cut.
 function tracksOf(columns: Array<Column>): Array<Track> {
   let list: Array<Track> = []
-  for (column of columns) { list.push(column.width) }
+  for (column of columns) {
+    const width = column.width
+    list.push(width is Number ? Fit { fit: width } : width)
+  }
   return list
 }
 

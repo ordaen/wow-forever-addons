@@ -361,31 +361,31 @@ surface 0,776 128x124 on LOW opacity=1
   box 0,776 128x124 absolute border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,right pieces=[tr 0.80, top 0.99>0.82 x2.83, right 0.78>0.61 x2.73]
   box 101,767 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 114.83,777.08 8.33x15.83 "1" #b88f57
-surface 288,134.12 952.03x215.08 on MEDIUM clamped raised by a click
-  box 288,182.54 952.03x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.75, bl 0.81, br 0.61, top 0.95>0.75 x32.06, bottom 0.80>0.61 x32.06, left 0.94>0.81 x4.79, right 0.74>0.61 x4.79] @drag @dragStart @dragStop @pointerEnter @pointerLeave
-    box 295.2,189.74 937.63x152.27
-      box 295.2,189.74 937.63x152.27
-        box 295.2,189.74 937.63x81.98 Interface/FrameGeneral/UI-Background-Marble
-          box 295.2,201.12 937.63x39.71
-            box 313.69,201.12 900.66x28.33
-              box 313.69,201.12 900.66x28.33 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.93, tr 0.74, bl 0.91, br 0.72, top 0.93>0.74 x45.91, bottom 0.91>0.72 x45.91, left 0.92>0.91 x0.48, right 0.73>0.73 x0.48]
-                box 318.19,205.62 891.66x19.33 absolute
-                  box 318.19,205.62 368.55x19.33 Interface\AddOns\Ordaen\media\xp-fill-brushed
-                  box 686.74,205.62 523.1x19.33
-                box 318.19,205.62 891.66x19.33 absolute
-                  box 318.19,205.62 89.17x19.33
-                  box 407.35,205.62 89.17x19.33
-                  box 496.52,205.62 89.17x19.33
-                  box 585.69,205.62 89.17x19.33
-                  box 674.85,205.62 89.17x19.33
-                  box 764.02,205.62 89.17x19.33
-                  box 853.18,205.62 89.17x19.33
-                  box 942.35,205.62 89.17x19.33
-                  box 1031.51,205.62 89.17x19.33
-                  box 1120.68,205.62 89.17x19.33
-                box 318.19,205.62 891.66x19.33 absolute
-                  text 703.18,207.37 121.67x15.83 "Apprentice · 31 / 75" #f0e6d2
-          box 295.2,240.83 937.63x30.89
+surface 288,134.12 935.77x215.08 on MEDIUM clamped raised by a click
+  box 288,182.54 935.77x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.75, bl 0.81, br 0.61, top 0.95>0.75 x31.49, bottom 0.80>0.61 x31.49, left 0.94>0.81 x4.79, right 0.74>0.61 x4.79] @drag @dragStart @dragStop @pointerEnter @pointerLeave
+    box 295.2,189.74 921.37x152.27
+      box 295.2,189.74 921.37x152.27
+        box 295.2,189.74 921.37x81.98 Interface/FrameGeneral/UI-Background-Marble
+          box 295.2,201.12 921.37x39.71
+            box 313.69,201.12 884.39x28.33
+              box 313.69,201.12 884.39x28.33 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.93, tr 0.74, bl 0.91, br 0.72, top 0.93>0.74 x45.06, bottom 0.91>0.72 x45.06, left 0.92>0.91 x0.48, right 0.73>0.73 x0.48]
+                box 318.19,205.62 875.39x19.33 absolute
+                  box 318.19,205.62 361.83x19.33 Interface\AddOns\Ordaen\media\xp-fill-brushed
+                  box 680.02,205.62 513.56x19.33
+                box 318.19,205.62 875.39x19.33 absolute
+                  box 318.19,205.62 87.54x19.33
+                  box 405.73,205.62 87.54x19.33
+                  box 493.27,205.62 87.54x19.33
+                  box 580.81,205.62 87.54x19.33
+                  box 668.34,205.62 87.54x19.33
+                  box 755.88,205.62 87.54x19.33
+                  box 843.42,205.62 87.54x19.33
+                  box 930.96,205.62 87.54x19.33
+                  box 1018.5,205.62 87.54x19.33
+                  box 1106.04,205.62 87.54x19.33
+                box 318.19,205.62 875.39x19.33 absolute
+                  text 695.05,207.37 121.67x15.83 "Apprentice · 31 / 75" #f0e6d2
+          box 295.2,240.83 921.37x30.89
             box 295.2,240.83 18.49x30.89
             box 313.69,240.83 85.8x30.89 #00000033 @keyPress @pointerPress
               box 312.86,270.89 87.47x0.83 absolute #3e2f1d
@@ -405,9 +405,9 @@ surface 288,134.12 952.03x215.08 on MEDIUM clamped raised by a click
             box 736.86,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
               box 736.02,270.89 117.47x0.83 absolute #3e2f1d
               text 754.76,248.78 80x15.83 "Shopping list" #a3977f
-            box 852.66,240.83 380.18x30.89
-        box 295.2,271.72 937.63x70.29
-          box 295.2,271.72 937.63x70.29
+            box 852.66,240.83 363.91x30.89
+        box 295.2,271.72 921.37x70.29
+          box 295.2,271.72 921.37x70.29
             box 295.2,271.72 538.89x70.29
               box 295.2,271.72 538.89x53.93
                 box 313.69,284.52 501.91x28.33
@@ -458,15 +458,15 @@ surface 288,134.12 952.03x215.08 on MEDIUM clamped raised by a click
                     box 534.22,380.91 299.87x28.04 #00000000 clipped @keyPress @pointerEnter @pointerPress
                       text 542.76,387.43 250x15.83 "Rich Purple Silk Shirt" #ff8040
                       text 799.87,387.43 20x15.83 "[1]" #f0e6d2
-            box 834.09,271.72 398.74x70.29 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.67>0.61 x3.66]
-              box 851.01,285.94 363.33x41.84 scrolled 0 of 217.08
-                box 851.01,285.94 363.33x43.33
+            box 834.09,271.72 382.48x70.29 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.66>0.61 x3.66]
+              box 851.01,285.94 347.07x41.84 scrolled 0 of 217.08
+                box 851.01,285.94 347.07x43.33
                   box 851.01,285.94 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-                  box 908.57,291.48 305.78x32.26
-                    text 908.57,291.48 305.78x17.5 "Enchanted Runecloth Robe of Long Nights" #f0e6d2
-                    text 908.57,310.4 305.78x13.33 "Always raises the skill" #ff8040
-                text 851.01,340.65 363.33x0 "" #e8dcc4
-                box 851.01,352.03 363.33x36.87
+                  box 908.57,291.48 289.51x32.26
+                    text 908.57,291.48 289.51x17.5 "Enchanted Runecloth Robe of Long Nights" #f0e6d2
+                    text 908.57,310.4 289.51x13.33 "Always raises the skill" #ff8040
+                text 851.01,340.65 347.07x0 "" #e8dcc4
+                box 851.01,352.03 347.07x36.87
                   box 851.01,352.03 116.67x28.33
                     box 851.01,352.03 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
                       text 860.97,358.28 80.58x15.83 "Quantity" #f0c860
@@ -478,90 +478,90 @@ surface 288,134.12 952.03x215.08 on MEDIUM clamped raised by a click
                       text 1010.23,358.28 8.33x15.83 "1" #f0e6d2
                     box 1029.26,352.03 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                       text 1036.76,358.28 8.33x15.83 "+" #808080
-                  box 1061.12,366.2 53.02x0
-                  box 1122.68,352.03 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                    box 1126,366.2 0x0
-                    text 1149.34,358.28 38.33x15.83 "Create" #ffd100
-                    box 1211.02,366.2 0x0
-                  text 851.01,388.9 363.33x0 "" #a3977f
-                text 851.01,400.27 363.33x0 "" #a3977f
-                box 851.01,411.65 363.33x95.8
-                  box 851.01,411.65 363.33x87.27
-                    box 851.01,411.65 363.33x21.87
+                  box 1061.12,366.2 36.76x0
+                  box 1106.41,352.03 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                    box 1109.73,366.2 0x0
+                    text 1133.08,358.28 38.33x15.83 "Create" #ffd100
+                    box 1194.76,366.2 0x0
+                  text 851.01,388.9 347.07x0 "" #a3977f
+                text 851.01,400.27 347.07x0 "" #a3977f
+                box 851.01,411.65 347.07x95.8
+                  box 851.01,411.65 347.07x87.27
+                    box 851.01,411.65 347.07x21.87
                       box 851.01,411.65 76.67x21.87
                         text 855.28,415.92 68.13x13.33 "Reagent" #a3977f
-                      box 927.68,411.65 41.67x21.87
-                        text 938.41,415.92 26.67x13.33 "For 1" #a3977f right
-                      box 969.34,411.65 75x21.87
-                        text 983.41,415.92 56.67x13.33 "In the bags" #a3977f right
-                      box 1044.34,411.65 85x21.87
-                        text 1088.41,415.92 36.67x13.33 "Auction" #a3977f right
-                      box 1129.34,411.65 85x21.87
-                        text 1168.41,415.92 41.67x13.33 "Merchant" #a3977f right
-                    box 851.01,433.52 363.33x22.36
+                      box 927.68,411.65 35.2x21.87
+                        text 931.94,415.92 26.67x13.33 "For 1" #a3977f right
+                      box 962.88,411.65 65.2x21.87
+                        text 967.14,415.92 56.67x13.33 "In the bags" #a3977f right
+                      box 1028.08,411.65 85x21.87
+                        text 1072.14,415.92 36.67x13.33 "Auction" #a3977f right
+                      box 1113.08,411.65 85x21.87
+                        text 1152.14,415.92 41.67x13.33 "Merchant" #a3977f right
+                    box 851.01,433.52 347.07x22.36
                       box 851.01,442.27 26.67x5.69
                       box 877.68,434.35 50x21.52
                         text 881.94,437.2 41.47x15.83 "Cost" #a3977f
-                      box 927.68,442.27 41.67x5.69
-                      box 969.34,442.27 75x5.69
-                      box 1044.34,434.35 85x21.52
-                        box 1075.08,437.2 50x15.83 @pointerEnter @pointerLeave
-                          text 1075.08,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
-                      box 1129.34,434.35 85x21.52
-                        box 1160.08,437.2 50x15.83 @pointerEnter @pointerLeave
-                          text 1160.08,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
-                    box 851.01,455.88 363.33x21.52
+                      box 927.68,442.27 35.2x5.69
+                      box 962.88,442.27 65.2x5.69
+                      box 1028.08,434.35 85x21.52
+                        box 1058.81,437.2 50x15.83 @pointerEnter @pointerLeave
+                          text 1058.81,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
+                      box 1113.08,434.35 85x21.52
+                        box 1143.81,437.2 50x15.83 @pointerEnter @pointerLeave
+                          text 1143.81,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
+                    box 851.01,455.88 347.07x21.52
                       box 851.01,463.79 26.67x5.69
                       box 877.68,455.88 50x21.52
                         text 881.94,458.72 41.47x15.83 "Price" #a3977f
-                      box 927.68,463.79 41.67x5.69
-                      box 969.34,463.79 75x5.69
-                      box 1044.34,455.88 85x21.52
-                        text 1116.74,458.72 8.33x15.83 "—" #a3977f right
-                      box 1129.34,455.88 85x21.52
-                        text 1201.74,458.72 8.33x15.83 "—" #a3977f right
-                    box 851.01,477.4 363.33x21.52
+                      box 927.68,463.79 35.2x5.69
+                      box 962.88,463.79 65.2x5.69
+                      box 1028.08,455.88 85x21.52
+                        text 1100.48,458.72 8.33x15.83 "—" #a3977f right
+                      box 1113.08,455.88 85x21.52
+                        text 1185.48,458.72 8.33x15.83 "—" #a3977f right
+                    box 851.01,477.4 347.07x21.52
                       box 851.01,485.31 26.67x5.69
                       box 877.68,477.4 50x21.52
                         text 881.94,480.24 41.47x15.83 "Profit" #a3977f
-                      box 927.68,485.31 41.67x5.69
-                      box 969.34,485.31 75x5.69
-                      box 1044.34,477.4 85x21.52
-                        text 1116.74,480.24 8.33x15.83 "—" #a3977f right
-                      box 1129.34,477.4 85x21.52
-                        text 1201.74,480.24 8.33x15.83 "—" #a3977f right
-                  box 851.01,507.45 363.33x0
-                box 851.01,518.83 363.33x26.03
-                  box 851.01,528.2 173.13x16.67
-                    text 851.01,528.61 132.93x15.83 "Favorite" #e8dcc4
-                    box 992.48,528.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                      box 989.98,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                      box 1004.98,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-                  box 1041.21,528.2 173.13x16.67
-                    text 1041.21,528.61 132.93x15.83 "Track" #e8dcc4
-                    box 1182.68,528.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                      box 1180.18,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                      box 1195.18,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-    box 1218.28,327.46 13.33x13.33 absolute
-      box 1218.28,327.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 288,134.12 952.03x50.67
-    box 302.4,134.12 834.7x50.67
-      box 302.4,134.12 126.72x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x3.40, left 0.98>0.95 x1.26, right 0.96>0.92 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+                      box 927.68,485.31 35.2x5.69
+                      box 962.88,485.31 65.2x5.69
+                      box 1028.08,477.4 85x21.52
+                        text 1100.48,480.24 8.33x15.83 "—" #a3977f right
+                      box 1113.08,477.4 85x21.52
+                        text 1185.48,480.24 8.33x15.83 "—" #a3977f right
+                  box 851.01,507.45 347.07x0
+                box 851.01,518.83 347.07x26.03
+                  box 851.01,528.2 165x16.67
+                    text 851.01,528.61 124.8x15.83 "Favorite" #e8dcc4
+                    box 984.34,528.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                      box 981.84,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                      box 996.84,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+                  box 1033.08,528.2 165x16.67
+                    text 1033.08,528.61 124.8x15.83 "Track" #e8dcc4
+                    box 1166.41,528.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                      box 1163.91,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                      box 1178.91,525.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+    box 1202.02,327.46 13.33x13.33 absolute
+      box 1202.02,327.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 288,134.12 935.77x50.67
+    box 302.4,134.12 818.43x50.67
+      box 302.4,134.12 126.72x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x3.40, left 0.98>0.95 x1.26, right 0.96>0.92 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
         box 309.15,140.88 43.92x43.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 350.52,140.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.83 x2.29]
         box 357.55,141.32 55.83x43.47
           text 357.55,147.76 55.83x15.83 "Tailoring" #ffd100
           text 367.13,165.02 36.67x13.33 "31 / 75" #8f8470
-    box 1145.63,158.12 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
-      box 1145.63,158.12 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1145.63,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1153.97,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1173.13,158.12 25x26.67 absolute clipped @keyPress @pointerPress
-        box 1173.13,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1179.38,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1198.13,158.12 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1198.13,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1204.38,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1129.37,158.12 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1129.37,158.12 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1129.37,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1137.7,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1156.87,158.12 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1156.87,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1163.12,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1181.87,158.12 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1181.87,158.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1188.12,167.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- the window widened: no name wraps, the lists and the card wider alike
 box 0,0 0x0
@@ -1053,11 +1053,11 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
                 box 960.92,411.65 613.39x95.8
                   box 960.92,411.65 613.39x87.27
                     box 960.92,411.65 613.39x21.87
-                      box 960.92,411.65 326.72x21.87
-                        text 965.19,415.92 318.19x13.33 "Reagent" #a3977f
-                      box 1287.64,411.65 41.67x21.87
-                        text 1298.38,415.92 26.67x13.33 "For 1" #a3977f right
-                      box 1329.31,411.65 75x21.87
+                      box 960.92,411.65 342.99x21.87
+                        text 965.19,415.92 334.46x13.33 "Reagent" #a3977f
+                      box 1303.91,411.65 35.2x21.87
+                        text 1308.18,415.92 26.67x13.33 "For 1" #a3977f right
+                      box 1339.11,411.65 65.2x21.87
                         text 1343.38,415.92 56.67x13.33 "In the bags" #a3977f right
                       box 1404.31,411.65 85x21.87
                         text 1448.38,415.92 36.67x13.33 "Auction" #a3977f right
@@ -1065,10 +1065,10 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
                         text 1528.38,415.92 41.67x13.33 "Merchant" #a3977f right
                     box 960.92,433.52 613.39x22.36
                       box 960.92,442.27 26.67x5.69
-                      box 987.59,434.35 300.06x21.52
-                        text 991.86,437.2 291.52x15.83 "Cost" #a3977f
-                      box 1287.64,442.27 41.67x5.69
-                      box 1329.31,442.27 75x5.69
+                      box 987.59,434.35 316.32x21.52
+                        text 991.86,437.2 307.79x15.83 "Cost" #a3977f
+                      box 1303.91,442.27 35.2x5.69
+                      box 1339.11,442.27 65.2x5.69
                       box 1404.31,434.35 85x21.52
                         box 1435.04,437.2 50x15.83 @pointerEnter @pointerLeave
                           text 1435.04,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
@@ -1077,20 +1077,20 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
                           text 1520.04,437.2 50x15.83 "0g 0s 0c" #f0e6d2 right
                     box 960.92,455.88 613.39x21.52
                       box 960.92,463.79 26.67x5.69
-                      box 987.59,455.88 300.06x21.52
-                        text 991.86,458.72 291.52x15.83 "Price" #a3977f
-                      box 1287.64,463.79 41.67x5.69
-                      box 1329.31,463.79 75x5.69
+                      box 987.59,455.88 316.32x21.52
+                        text 991.86,458.72 307.79x15.83 "Price" #a3977f
+                      box 1303.91,463.79 35.2x5.69
+                      box 1339.11,463.79 65.2x5.69
                       box 1404.31,455.88 85x21.52
                         text 1476.71,458.72 8.33x15.83 "—" #a3977f right
                       box 1489.31,455.88 85x21.52
                         text 1561.71,458.72 8.33x15.83 "—" #a3977f right
                     box 960.92,477.4 613.39x21.52
                       box 960.92,485.31 26.67x5.69
-                      box 987.59,477.4 300.06x21.52
-                        text 991.86,480.24 291.52x15.83 "Profit" #a3977f
-                      box 1287.64,485.31 41.67x5.69
-                      box 1329.31,485.31 75x5.69
+                      box 987.59,477.4 316.32x21.52
+                        text 991.86,480.24 307.79x15.83 "Profit" #a3977f
+                      box 1303.91,485.31 35.2x5.69
+                      box 1339.11,485.31 65.2x5.69
                       box 1404.31,477.4 85x21.52
                         text 1476.71,480.24 8.33x15.83 "—" #a3977f right
                       box 1489.31,477.4 85x21.52
