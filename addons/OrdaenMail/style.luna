@@ -8,6 +8,8 @@ public const HEIGHT: Number<Length> = 703.125dp
 public const SIDE: Number<Length> = 562.5dp
 public const BUTTON: Number<Length> = 140.625dp
 public const WIDE_BUTTON: Number<Length> = 234.375dp
+// «To my characters»' list of characters at the left.
+public const OWN_LIST: Number<Length> = 222.65625dp
 public const ASK: Number<Length> = 468.75dp
 
 public const INK: Color = Color.hex("#e8dcc4")

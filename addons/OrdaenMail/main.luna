@@ -12,6 +12,7 @@ import { ButtonPlate, Dialog, FOOTER_ROOM, FooterCount, FooterCounts, GamePass, 
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
 import root Professions from "OrdaenProfessions"
+import type { Crafting } from "OrdaenProfessions"
 import { Collector } from "@/collector"
 import { Compose } from "@/compose"
 import { Inbox, RowClick } from "@/inbox"
@@ -19,7 +20,8 @@ import { LetterAct, LetterView } from "@/letter"
 import { Sent, SentState, keyOf, waits } from "@/letters"
 import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
-import { OwnTab, Requests } from "@/own"
+import { CraftingRead, Kin, OwnTab, SendRules, kinOf } from "@/own"
+import { RulesPage } from "@/rules"
 import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -48,17 +50,23 @@ public class Mail implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_RULES, content: $ltml { <RulesPage alts={Alts} rules={mut self.sendRules} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ keepFree: 0, blockTrades: false })
   public collector: mut Collector = new Collector()
   public sender: mut Sender = new Sender()
-  // The requests between the player's characters, the account's: the player's own lists, so saved (at most 50).
-  public requests: mut ModuleMemory<Requests> = new ModuleMemory<Requests>({}, .Account, "requests")
+  // What «To my characters» sends to each character's professions, the account's (`RulesPage`).
+  public sendRules: mut ModuleMemory<SendRules> = new ModuleMemory<SendRules>({}, .Account, "sendRules")
   pass: mut GamePass = new GamePass()
   // How much more an item is worth to the player's spec than what it wears (Ordaen's worth).
   public upgrade: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
+
+  // «To my characters»' reads: the characters a letter reaches (none while Ordaen Alts is off), whose recipes take an
+  // item.
+  derived kin: Array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? panic("tested"))
+  const crafting: CraftingRead = (item: Integer): Array<Crafting> => Professions.craftingWith(item)
 
   state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []
@@ -428,7 +436,8 @@ public class Mail implements Module, App {
                @returnTicked={self.onReturnTicked} />
         <Outbox $elseif={self.tab == TAB_OUTBOX} queue={self.queue} history={self.history} picked={self.sentPicked}
                 @pick={self.onSentPick} @write={self.onWrite} @stop={self.onStop} @resume={self.onResume} />
-        <OwnTab $else alts={Alts} professions={Professions} sender={mut self.sender} requests={mut self.requests} />
+        <OwnTab $else reached={self.kin} crafting={self.crafting} rules={self.sendRules.values} sender={mut self.sender}
+                @configure={self.onSettings} />
       </Window>
       <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
         <text value={self.askText} textColor={Style.INK} />

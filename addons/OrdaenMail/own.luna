@@ -1,89 +1,95 @@
-// «To my characters»: quick send and requests between the player's characters, from Ordaen Alts (who they are, what
-// each knows and holds) and Ordaen Professions (what an item is used in, what the queue takes). Each reachable
-// character has a row of what the bags hold that its professions use, each ticked, and «Send to Regron (3)» puts one
-// letter into the queue. «Requests» lists what this character's queue lacks and who holds it; «Ask» keeps a request,
-// which the holder meets at its next mailbox with «Send» (the letter made from it) and «Decline». With Ordaen Alts off,
-// no other character, or Ordaen Professions off, it says so and offers nothing.
+// «To my characters»: what the bags hold for the professions of the player's other characters, from Ordaen Alts (who
+// they are, what each holds) and Ordaen Professions (whose recipes take an item, at what difficulty), as the sending
+// rules let through (`SendRules`: per character and profession, on or off, and the least a recipe must do for the
+// skill). At the left a list of the characters something goes to, each with how many items; nothing for anyone, a
+// note and a way to the rules. At the right the chosen character's items, a section per profession: each ticked with
+// its count, its recipes' count in the colour of the best for the skill, its tooltip the recipes in their colours;
+// each section sends its own, and the footer sends all, with how many letters that takes. The tab follows the bags: a
+// letter sent takes its items out, and what is left is what it shows.
 import Client from "$client"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, CountInput, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Tick, classColor } from "Ordaen"
-import { RecipeId } from "OrdaenAlts"
-import type { Alts, Place } from "OrdaenAlts"
-import type { Professions, QueueItem, Use } from "OrdaenProfessions"
+import { Component, CountInput, FooterCount, ListFooter, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Tick, Tip, TipRow, classColor } from "Ordaen"
+import type { Alts } from "OrdaenAlts"
+import { skillUpRank } from "OrdaenProfessions"
+import type { CraftRecipe, Crafting } from "OrdaenProfessions"
 import { PLACES } from "@/letters"
 import Locale from "@/locales"
 import { Sender } from "@/sender"
 import Style from "@/style"
 
-// The most requests kept, account-wide: one past it isn't kept.
-public const REQUESTS_MOST = 50
 const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const LINE: Array<Track> = [{ fr: 1 }, "max-content"]
+const ENTRY: Array<Track> = [{ fr: 1 }, "max-content"]
+const SPLIT: Array<Track> = [Style.OWN_LIST, { fr: 1 }]
+const DETAILS: Array<Track> = [{ fr: 1 }, "max-content"]
+const FILL: Array<Track> = [{ fr: 1 }]
 
-// One of the bags' items a character's professions use: how many the bags hold, and which professions.
+// The least a recipe must do for a character's skill for what it takes to go: any, green or better, yellow or
+// better, orange alone.
+public enum Least implements Plain { Any = "any", Green = "green", Yellow = "yellow", Orange = "orange" }
+
+// What goes to one character for one of its professions.
+public struct SendRule implements Plain {
+  on: Boolean = true
+  least: Least = Least.Any
+}
+
+// The rules, the account's, by «who:skillLine»: one never set is on, for any recipe.
+public struct SendRules implements Plain {
+  rules: Map<String, SendRule> = {}
+}
+
+public const DEFAULT_RULE: SendRule = {}
+
+public function ruleKey(who: String, skillLine: Integer): String { return `${who}:${skillLine}` }
+
+public function ruleOf(rules: SendRules, who: String, skillLine: Integer): SendRule {
+  return rules.rules[ruleKey(who, skillLine)] ?? DEFAULT_RULE
+}
+
+// The worst difficulty a rule lets through, as `skillUpRank` orders them (orange 0, grey 3).
+function worstOf(least: Least): Integer {
+  return match (least) {
+    Least.Any => 3
+    Least.Green => 2
+    Least.Yellow => 1
+    Least.Orange => 0
+  }
+}
+
+// Whether a rule lets a profession's recipes take an item: it is on, and the best of them is good enough.
+public function allows(rule: SendRule, crafting: Crafting): Boolean {
+  return rule.on && skillUpRank(crafting.best) <= worstOf(rule.least)
+}
+
+// One of the bags' items a character's profession uses: how many the bags hold, its recipes in that profession as the
+// character sees them, and the best one's colour.
 public struct Offer {
   item: Integer
   name: String
   count: Integer
-  why: String
+  recipes: Array<CraftRecipe>
+  color: Color
 }
 
-// A reachable character and what the bags hold for it.
+// A profession of a character and what the bags hold for it.
+public struct Section {
+  skillLine: Integer
+  profession: String
+  offers: Array<Offer>
+}
+
+// A character something goes to: its sections, and how many items they hold (an item in two sections once).
 public struct OwnRow {
   who: String
   name: String
   color: Color | nil
-  offers: Array<Offer>
+  sections: Array<Section>
+  items: Integer
 }
 
-// A request between two of the player's characters: who asks (by GUID, with its name as it was), who holds it, the
-// item and how many.
-public struct Request implements Plain {
-  number: Integer = 0
-  from: String = ""
-  fromName: String = ""
-  to: String = ""
-  item: Integer = 0
-  count: Integer = 0
-}
-
-public struct Requests implements Plain {
-  list: Array<Request> = []
-  next: Integer = 1
-}
-
-// What this character's queue lacks of an item, and one character who holds it.
-public struct Lack {
-  item: Integer
-  name: String
-  count: Integer
-  holder: String
-  holderName: String
-  held: Integer
-  place: Place
-}
-
-function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(item) ?? String.of(item) }
-
-function placeText(place: Place): String {
-  return match (place) {
-    .Bags => Locale.PLACE_BAGS
-    .Bank => Locale.PLACE_BANK
-    .Mail => Locale.PLACE_MAIL
-    .Auctions => Locale.PLACE_AUCTIONS
-  }
-}
-
-// The names of the characters the one being played can send to, by name.
-public function reachableNames(alts: Alts): Array<String> {
-  const names: Array<String> = []
-  for (who, character of alts.characters) {
-    if (who != alts.current && alts.reaches(who)) { names.push(character.name) }
-  }
-  names.sort((a, b) => a < b)
-  return names
-}
+// Whose recipes take an item, as Ordaen Professions answers it.
+public type CraftingRead = (item: Integer) => Array<Crafting>
 
 // One of the player's other characters a letter reaches.
 public struct Kin {
@@ -92,12 +98,7 @@ public struct Kin {
   classTag: String
 }
 
-// A kin's holding of an item, and where.
-public struct Holding {
-  who: String
-  place: Place
-  count: Integer
-}
+function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(item) ?? String.of(item) }
 
 // The characters the one being played can send to.
 public function kinOf(alts: Alts): Array<Kin> {
@@ -105,57 +106,52 @@ public function kinOf(alts: Alts): Array<Kin> {
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) { kin.push({ who: who, name: character.name, classTag: character.classTag }) }
   }
+  kin.sort((a, b) => a.name < b.name)
   return kin
 }
 
-// Per kin, what the bags hold that a recipe it knows takes: `uses` the recipes that take an item, `knows` whether a
-// character knows a recipe.
+// Per kin, what the bags hold that its professions' recipes take, as the rules let through: `crafting` whose recipes
+// take an item. A character nothing goes to has no row.
 public function ownRows(
-  kin: Array<Kin>, held: Map<Integer, Integer>, uses: (item: Integer) => Array<Use>, knows: (who: String, recipe: Integer) => Boolean
+  kin: Array<Kin>, held: Map<Integer, Integer>, crafting: (item: Integer) => Array<Crafting>,
+  rule: (who: String, skillLine: Integer) => SendRule
 ): Array<OwnRow> {
   const rows: Array<OwnRow> = []
   for (one of kin) {
-    const offers: Array<Offer> = []
-    for (item, count of held) {
-      const why: Array<String> = []
-      for (use of uses(item)) {
-        if (knows(one.who, use.recipe) && !why.any(name => name == use.profession)) { why.push(use.profession) }
-      }
-      if (why.length > 0) { offers.push({ item: item, name: itemName(item), count: count, why: why.join(", ") }) }
-    }
-    offers.sort((a, b) => a.name < b.name)
-    rows.push({ who: one.who, name: one.name, color: classColor(one.classTag), offers: offers })
-  }
-  rows.sort((a, b) => a.name < b.name)
-  return rows
-}
-
-// What the queue takes past what the bags hold, each with the kin who holds the most of it.
-public function lacksOf(
-  kin: Array<Kin>, queue: Array<QueueItem>, held: Map<Integer, Integer>, holders: (item: Integer) => Array<Holding>
-): Array<Lack> {
-  const lacks: Array<Lack> = []
-  for (need of queue) {
-    const short = need.count - (held[need.item] ?? 0)
-    if (short > 0) {
-      let best: Lack | nil = nil
-      for (holder of holders(need.item)) {
-        const one = kin.find(k => k.who == holder.who)
-        if (one != nil && (best == nil || holder.count > best.held)) {
-          best = {
-            item: need.item, name: itemName(need.item), count: short, holder: one.who, holderName: one.name,
-            held: holder.count, place: holder.place
+    const offers: Map<Integer, mut Array<Offer>> = {}
+    const professions: Map<Integer, String> = {}
+    const items: Map<Integer, Boolean> = {}
+    let count = 0
+    for (item, bagged of held) {
+      for (use of crafting(item)) {
+        if (use.guid == one.who && allows(rule(one.who, use.skillLine), use)) {
+          const offer: Offer = { item: item, name: itemName(item), count: bagged, recipes: use.recipes, color: use.bestColor }
+          const list = offers[use.skillLine]
+          if (list == nil) { offers[use.skillLine] = [offer] } else { list.push(offer) }
+          professions[use.skillLine] = use.profession
+          if (items[item] == nil) {
+            items[item] = true
+            count += 1
           }
         }
       }
-      if (best != nil) { lacks.push(best) }
+    }
+    const sections: Array<Section> = []
+    for (skillLine, list of offers) {
+      list.sort((a, b) => a.name < b.name)
+      sections.push({ skillLine: skillLine, profession: professions[skillLine] ?? "", offers: list })
+    }
+    if (count > 0) {
+      sections.sort((a, b) => a.profession < b.profession)
+      rows.push({ who: one.who, name: one.name, color: classColor(one.classTag), sections: sections, items: count })
     }
   }
-  return lacks
+  return rows
 }
 
-// The stacks a letter takes for each item and count wanted, up to a letter's places: the bags' whole stacks while
-// they fit in what is left, and the rest as one part, which the queue splits off a bigger stack as the letter goes.
+// The stacks a letter takes for each item and count wanted: the bags' whole stacks while they fit in what is left,
+// and the rest as one part, which the queue splits off a bigger stack as the letter goes. The queue cuts them into
+// letters of twelve.
 public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
   const stacks: Array<Game.MailStack> = []
   let slot = Game.SlotItem {
@@ -166,24 +162,74 @@ public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
     let left = want.count
     for (bag of 0..Game.bags.last) {
       for (place of 1..Game.bags.size(bag)) {
-        if (left > 0 && stacks.length < PLACES && Game.bags.readSlot(bag, place, mut slot) && !slot.locked &&
-            slot.id == want.item && slot.count <= left) {
+        if (left > 0 && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
           stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
           left -= slot.count
         }
       }
     }
-    if (left > 0 && stacks.length < PLACES) { stacks.push({ bag: 0, slot: 0, item: want.item, count: left }) }
+    if (left > 0) { stacks.push({ bag: 0, slot: 0, item: want.item, count: left }) }
   }
   return stacks
 }
 
+// How many letters stacks take.
+public function lettersFor(stacks: Integer): Integer { return (stacks / PLACES).ceil() }
+
+// What goes of the offers, by the counts chosen (`chosen` by «who:item»: 0 for one unticked, all where unset); an item
+// in two of them once, at the most chosen.
+function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer>): Array<Game.MailStack> {
+  const wanted: Array<mut Game.MailStack> = []
+  for (offer of offers) {
+    const count = chosen[`${who}:${offer.item}`] ?? offer.count
+    if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
+  }
+  return wanted
+}
+
+function offersOf(row: OwnRow): Array<Offer> {
+  const offers: Array<Offer> = []
+  for (section of row.sections) {
+    for (offer of section.offers) { offers.push(offer) }
+  }
+  return offers
+}
+
+// A character in the list: its name in its class's colour, how many items go to it.
+class KinEntry implements Component {
+  public pick: Event<String> = new Event()
+
+  derived on: Boolean = self.picked == self.row.who
+
+  row: Signal<OwnRow>
+  picked: Signal<String>
+  constructor(row: Signal<OwnRow>, picked: Signal<String>) {
+    self.row = row
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(self.row.who) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={ENTRY} picked={self.on} @pick={self.onPick}>
+        <text value={self.row.name} textColor={self.row.color ?? Style.INK} wrap={.Cut} />
+        <text value={"%d"} arguments={[self.row.items]} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
+      </PickRow>
+    }
+  }
+}
+
+// An item that goes: ticked, its name, its recipes' count in the best one's colour, how many; its tooltip the
+// recipes, each in its colour.
 class OfferRow implements Component {
-  // The item, and whether it goes now.
   // The item, and how many of it go now: 0 while it is unticked.
   public toggled: Event<(Integer, Integer)> = new Event()
   state checked = true
   state count = 0
+  state hovered = false
+  derived recipes: String = Locale.OWN_RECIPES.format(self.offer.recipes.length)
+  derived rows: Array<TipRow> = self.offer.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
 
   offer: Signal<Offer>
   constructor(offer: Signal<Offer>) {
@@ -192,149 +238,113 @@ class OfferRow implements Component {
     watch { self.toggled.emit(self.offer.item, self.checked ? self.count : 0) }
   }
 
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
   public render(self): Template {
     return $ltml {
-      <box columns={OFFER} gap={2sp} yAlign={Align.Center}>
-        <Tick value={mut self.checked} />
-        <box columns={1}>
-          <text value={self.offer.name} textColor={Style.INK} wrap={.None} />
-          <text value={self.offer.why} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+      <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <box columns={OFFER} gap={2sp} yAlign={Align.Center}>
+          <Tick value={mut self.checked} />
+          <box columns={1}>
+            <text value={self.offer.name} textColor={Style.INK} wrap={.Cut} />
+            <text value={self.recipes} textColor={self.offer.color} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+          <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
         </box>
-        <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
+        <Tip $if={self.hovered} title={self.offer.name} text={""} rows={self.rows} />
       </box>
     }
   }
 }
 
-class CharacterOffers implements Component {
-  public send: Event<OwnRow> = new Event()
-  public toggled: Event<(String, Integer)> = new Event()
+// A profession's items, under its name, with «Send» for them.
+class SectionBlock implements Component {
+  public send: Event<Section> = new Event()
+  public toggled: Event<(Integer, Integer)> = new Event()
 
-  derived ticked: Integer = self.row.offers.filter(offer => (self.chosen[`${self.row.who}:${offer.item}`] ?? offer.count) > 0).length
-  derived label: String = Locale.OWN_SEND.format(self.row.name, self.ticked)
+  section: Signal<Section>
+  constructor(section: Signal<Section>) { self.section = section }
 
-  row: Signal<OwnRow>
-  chosen: Signal<Map<String, Integer>>
-  constructor(row: Signal<OwnRow>, chosen: Signal<Map<String, Integer>>) {
-    self.row = row
-    self.chosen = chosen
-  }
-
-  onToggle(mut self, item: Integer, count: Integer) { self.toggled.emit(`${self.row.who}:${item}`, count) }
-  onSend(mut self) { self.send.emit(self.row) }
+  onSend(mut self) { self.send.emit(self.section) }
+  onToggle(mut self, item: Integer, count: Integer) { self.toggled.emit(item, count) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={1sp}>
-        <text value={self.row.name} textColor={self.row.color ?? Style.INK} />
-        <text $if={self.row.offers.length == 0} value={Locale.OWN_NOTHING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-        <OfferRow $for={offer of self.row.offers} $key={offer.item} offer={offer} @toggled={self.onToggle} />
-        <box $if={self.row.offers.length > 0} xAlign={Align.End}>
-          <PushButton label={self.label} width={Style.WIDE_BUTTON} disabled={self.ticked == 0} @click={self.onSend} />
+      <box columns={1} gap={2sp}>
+        <text value={self.section.profession} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
+        <OfferRow $for={offer of self.section.offers} $key={offer.item} offer={offer} @toggled={self.onToggle} />
+        <box xAlign={Align.End}>
+          <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
         </box>
-      </box>
-    }
-  }
-}
-
-class LackRow implements Component {
-  public ask: Event<Lack> = new Event()
-
-  lack: Signal<Lack>
-  asked: Signal<Boolean>
-  constructor(lack: Signal<Lack>, asked: Signal<Boolean>) {
-    self.lack = lack
-    self.asked = asked
-  }
-
-  onAsk(mut self) { self.ask.emit(self.lack) }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={LINE} gap={2sp} yAlign={Align.Center}>
-        <box columns={1}>
-          <text value={Locale.LACKS.format(self.lack.name, self.lack.count)} textColor={Style.INK} wrap={.None} />
-          <text value={Locale.HOLDS.format(self.lack.holderName, self.lack.held, placeText(self.lack.place))} textColor={Style.DIM}
-                textSize={SECONDARY_TEXT} wrap={.None} />
-        </box>
-        <PushButton label={self.asked ? Locale.ASKED : Locale.ASK} width={Style.BUTTON} disabled={self.asked} @click={self.onAsk} />
-      </box>
-    }
-  }
-}
-
-class AskedRow implements Component {
-  public send: Event<Request> = new Event()
-  public decline: Event<Request> = new Event()
-
-  request: Signal<Request>
-  constructor(request: Signal<Request>) { self.request = request }
-
-  onSend(mut self) { self.send.emit(self.request) }
-  onDecline(mut self) { self.decline.emit(self.request) }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-        <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
-        <PushButton label={Locale.DECLINE} width={Style.BUTTON} @click={self.onDecline} />
-        <text value={Locale.ASKS.format(self.request.fromName, self.request.count, itemName(self.request.item))}
-              textColor={Style.GOLD} wrap={.None} />
       </box>
     }
   }
 }
 
 public class OwnTab implements Component {
+  // «Set up the rules», where nothing goes to anyone.
+  public configure: Event<nil> = new Event()
+
   // How many of each item go, by «who:item»: 0 for one unticked; the whole of what the bags hold where unset.
   state chosen: Map<String, Integer> = {}
-  derived noAlts: Boolean = self.alts == nil
-  derived names: Array<String> = self.namesOf()
-  derived alone: Boolean = !self.noAlts && self.names.length == 0
-  derived noProfessions: Boolean = !self.noAlts && !self.alone && self.professions == nil
+  // What the bags hold, by item: read again each time they change (a letter sent takes its items out).
+  state held: Map<Integer, Integer> = {}
+  // The character chosen in the list; the first where none is, or the one chosen has nothing now.
+  state picked = ""
+  derived noAlts: Boolean = self.reached == nil
+  derived kin: Array<Kin> = self.reached ?? []
+  derived alone: Boolean = !self.noAlts && self.kin.length == 0
   derived rows: Array<OwnRow> = self.rowsOf()
-  derived lacks: Array<Lack> = self.lacksOfNow()
-  derived me: String = self.alts?.current ?? ""
-  derived toMe: Array<Request> = self.requests.values.list.filter(request => request.to == self.me)
+  derived nothing: Boolean = !self.noAlts && !self.alone && self.rows.length == 0
+  derived shown: Boolean = self.rows.length > 0
+  derived current: OwnRow | nil = self.rows.find(row => row.who == self.picked) ?? self.rows[1]
+  derived currentWho: String = self.current?.who ?? ""
+  derived sections: Array<Section> = self.current?.sections ?? []
+  derived letters: Integer = self.lettersNow()
+  derived counts: Array<FooterCount> = [{ label: Locale.OWN_LETTERS, value: String.of(self.letters) }]
 
-  alts: Signal<Alts | nil>
-  professions: Signal<Professions | nil>
+  reached: Signal<Array<Kin> | nil>
+  const crafting: CraftingRead
+  rules: Signal<SendRules>
   sender: mut Sender
-  requests: mut ModuleMemory<Requests>
-  constructor(alts: Signal<Alts | nil>, professions: Signal<Professions | nil>, sender: mut Sender, requests: mut ModuleMemory<Requests>) {
-    self.alts = alts
-    self.professions = professions
+  constructor(
+    // The characters a letter reaches (`kinOf`); none while Ordaen Alts is off.
+    reached: Signal<Array<Kin> | nil>,
+    // Whose recipes take an item (Ordaen Professions' `craftingWith`).
+    crafting: CraftingRead,
+    rules: Signal<SendRules>,
+    sender: mut Sender
+  ) {
+    self.reached = reached
+    self.crafting = crafting
+    self.rules = rules
     self.sender = sender
-    self.requests = requests
+    self.onBags()
+    Game.bags.changed.listen(self.onBags)
   }
 
-  namesOf(self): Array<String> {
-    const alts = self.alts
-    return alts == nil ? [] : reachableNames(alts)
+  // The bags changed: what they hold is read again; where the game gave no count, what was read stays.
+  onBags(mut self) {
+    const held = Game.bags.holdings()
+    if (held != nil) { self.held = held }
   }
 
   rowsOf(self): Array<OwnRow> {
-    const alts = self.alts
-    const professions = self.professions
-    if (alts == nil || professions == nil) { return [] }
-    const knows = (who: String, recipe: Integer): Boolean => alts.knowers(RecipeId.of(recipe)).any(knower => knower.who == who)
-    return ownRows(kinOf(alts), Game.bags.holdings() ?? {}, (item: Integer): Array<Use> => professions.uses(item), knows)
+    const rules = self.rules
+    return ownRows(self.kin, self.held, self.crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
   }
 
-  lacksOfNow(self): Array<Lack> {
-    const alts = self.alts
-    const professions = self.professions
-    if (alts == nil || professions == nil) { return [] }
-    const holders = (item: Integer): Array<Holding> =>
-    alts.holders(ItemId.of(item)).map(held => Holding { who: held.who, place: held.place, count: held.count })
-    return lacksOf(kinOf(alts), professions.queue, Game.bags.holdings() ?? {}, holders)
+  lettersNow(self): Integer {
+    const row = self.current
+    if (row == nil) { return 0 }
+    return lettersFor(stacksOf(wantedOf(row.who, offersOf(row), self.chosen)).length)
   }
 
-  isAsked(self, lack: Lack): Boolean {
-    return self.requests.values.list.any(r => r.from == self.me && r.to == lack.holder && r.item == lack.item)
-  }
+  onPick(mut self, who: String) { self.picked = who }
 
-  onToggle(mut self, key: String, count: Integer) {
+  onToggle(mut self, item: Integer, count: Integer) {
+    const key = `${peek self.currentWho}:${item}`
     const before = peek self.chosen
     if (before[key] == count) { return }
     const next = before.clone()
@@ -342,70 +352,51 @@ public class OwnTab implements Component {
     self.chosen = next
   }
 
-  onSend(mut self, row: OwnRow) {
-    const chosen = peek self.chosen
-    const wanted: Array<Game.MailStack> = []
-    for (offer of row.offers) {
-      const count = chosen[`${row.who}:${offer.item}`] ?? offer.count
-      if (count > 0) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
-    }
-    const stacks = stacksOf(wanted)
+  // What the offers come to goes to the chosen character, as letters of twelve stacks.
+  sendOffers(mut self, offers: Array<Offer>) {
+    const row = peek self.current
+    if (row == nil) { return }
+    const stacks = stacksOf(wantedOf(row.who, offers, peek self.chosen))
     if (stacks.length == 0) { return }
     self.sender.put(row.name, Locale.OWN_SUBJECT, "", stacks, 0, 0)
   }
 
-  onAsk(mut self, lack: Lack) {
-    const values = peek self.requests.values
-    if (values.list.length >= REQUESTS_MOST) { return }
-    const alts = peek self.alts
-    if (alts == nil) { return }
-    const mine = alts.characters[alts.current]
-    const request: Request = {
-      number: values.next, from: peek self.me, fromName: mine?.name ?? "", to: lack.holder, item: lack.item, count: lack.count
-    }
-    const list = values.list.clone()
-    list.push(request)
-    self.requests.write({ list: list, next: values.next + 1 })
+  onSendSection(mut self, section: Section) { self.sendOffers(section.offers) }
+
+  onSendAll(mut self) {
+    const row = peek self.current
+    if (row != nil) { self.sendOffers(offersOf(row)) }
   }
 
-  drop(mut self, request: Request) {
-    const values = peek self.requests.values
-    self.requests.write({ list: values.list.filter(r => r.number != request.number), next: values.next })
-  }
-
-  // «Send»: the letter made from the request (its count split off a stack where none is that size), and the request
-  // gone.
-  onAnswer(mut self, request: Request) {
-    self.sender.put(request.fromName, Locale.OWN_SUBJECT, "", [{ bag: 0, slot: 0, item: request.item, count: request.count }], 0, 0)
-    self.drop(request)
-  }
-
-  onDecline(mut self, request: Request) { self.drop(request) }
+  onConfigure(mut self) { self.configure.emit() }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box columns={1} gap={1sp}>
-          <AskedRow $for={request of self.toMe} $key={request.number} request={request} @send={self.onAnswer}
-                    @decline={self.onDecline} />
-        </box>
+      <box rows={FILL}>
         <box $if={self.noAlts} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
         </box>
         <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
         </box>
-        <box $elseif={self.noProfessions} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.PROFESSIONS_OFF} textColor={Style.DIM} />
+        <box $elseif={self.nothing} columns={1} gap={4sp} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.OWN_NOTHING} textColor={Style.DIM} />
+          <PushButton label={Locale.OWN_RULES} width={Style.WIDE_BUTTON} @click={self.onConfigure} />
         </box>
-        <ScrolledList $else columns={1} gap={3sp}>
-          <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
-          <CharacterOffers $for={row of self.rows} $key={row.who} row={row} chosen={self.chosen} @send={self.onSend}
-                           @toggled={self.onToggle} />
-          <text value={Locale.REQUESTS} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
-          <text $if={self.lacks.length == 0} value={Locale.REQUESTS_NONE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-          <LackRow $for={lack of self.lacks} $key={lack.item} lack={lack} asked={self.isAsked(lack)} @ask={self.onAsk} />
-        </ScrolledList>
+        <box $else columns={SPLIT} gap={4sp}>
+          <ScrolledList columns={1}>
+            <KinEntry $for={row of self.rows} $key={row.who} row={row} picked={self.currentWho} @pick={self.onPick} />
+          </ScrolledList>
+          <box rows={DETAILS}>
+            <ScrolledList columns={1} gap={6sp}>
+              <SectionBlock $for={section of self.sections} $key={section.skillLine} section={section}
+                            @send={self.onSendSection} @toggled={self.onToggle} />
+            </ScrolledList>
+            <ListFooter counts={self.counts}>
+              <PushButton label={Locale.OWN_SEND_ALL} width={Style.WIDE_BUTTON} disabled={self.letters == 0} @click={self.onSendAll} />
+            </ListFooter>
+          </box>
+        </box>
       </box>
     }
   }

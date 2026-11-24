@@ -1,0 +1,152 @@
+// The sending rules' page in the settings window: what «To my characters» sends to each of the player's other
+// characters. At the left the characters a letter reaches that have a profession, at the right the chosen one's
+// professions, each with whether what its recipes take goes at all and the least a recipe must do for its skill.
+// Each control writes its rule at once, the account's.
+import { Align, Track } from "$ltml"
+import { Checkbox, Choice, CompactDropdown, Component, ModuleMemory, PickRow, ScrolledList, TITLE_TEXT } from "Ordaen"
+import type { Alts } from "OrdaenAlts"
+import Locale from "@/locales"
+import { Least, SendRule, SendRules, ruleKey, ruleOf } from "@/own"
+import Style from "@/style"
+
+const SPLIT: Array<Track> = [Style.OWN_LIST, { fr: 1 }]
+const ONE: Array<Track> = [{ fr: 1 }]
+const RULE: Array<Track> = [{ fr: 1 }, "max-content"]
+const LEAST_WIDTH = 210.9375dp
+const LEASTS: Array<Choice<Least>> = [
+  { value: Least.Any, label: Locale.LEAST_ANY },
+  { value: Least.Green, label: Locale.LEAST_GREEN },
+  { value: Least.Yellow, label: Locale.LEAST_YELLOW },
+  { value: Least.Orange, label: Locale.LEAST_ORANGE }
+]
+
+// A profession of a character, as the rules see it.
+public struct RuledProfession {
+  skillLine: Integer
+  name: String
+}
+
+// A character with professions a letter reaches.
+public struct RuledKin {
+  who: String
+  name: String
+  professions: Array<RuledProfession>
+}
+
+// The characters a letter reaches that have a profession, with their professions, each by name.
+public function ruledKinOf(alts: Alts): Array<RuledKin> {
+  const list: Array<RuledKin> = []
+  for (who, character of alts.characters) {
+    if (who != alts.current && alts.reaches(who) && character.professions.length > 0) {
+      const professions: Array<RuledProfession> = []
+      for (known of character.professions) { professions.push({ skillLine: known.skillLine, name: known.name }) }
+      professions.sort((a, b) => a.name < b.name)
+      list.push({ who: who, name: character.name, professions: professions })
+    }
+  }
+  list.sort((a, b) => a.name < b.name)
+  return list
+}
+
+// One profession's rule: whether it sends, and the least recipe.
+class RuleRow implements Component {
+  // Its skill line, and the rule as it now stands.
+  public changed: Event<(Integer, SendRule)> = new Event()
+  state on = true
+  state least = Least.Any
+
+  profession: Signal<RuledProfession>
+  constructor(profession: Signal<RuledProfession>, rule: Signal<SendRule>) {
+    self.profession = profession
+    // The rule as kept when the row is made; the row writes it from then on.
+    const kept = peek rule
+    self.on = kept.on
+    self.least = kept.least
+    watch { self.changed.emit(peek self.profession.skillLine, { on: self.on, least: self.least }) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={2sp}>
+        <text value={self.profession.name} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
+        <box columns={RULE} gap={4sp} yAlign={Align.Center}>
+          <Checkbox label={Locale.RULE_ON} value={mut self.on} />
+          <CompactDropdown value={mut self.least} choices={LEASTS} width={LEAST_WIDTH} disabled={!self.on} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A character in the list.
+class RuledEntry implements Component {
+  public pick: Event<String> = new Event()
+  derived on: Boolean = self.picked == self.ruled.who
+
+  ruled: Signal<RuledKin>
+  picked: Signal<String>
+  constructor(ruled: Signal<RuledKin>, picked: Signal<String>) {
+    self.ruled = ruled
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(self.ruled.who) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={ONE} picked={self.on} @pick={self.onPick}>
+        <text value={self.ruled.name} textColor={Style.INK} wrap={.Cut} />
+      </PickRow>
+    }
+  }
+}
+
+public class RulesPage implements Component {
+  state picked = ""
+  derived kin: Array<RuledKin> = self.kinNow()
+  derived current: RuledKin | nil = self.kin.find(one => one.who == self.picked) ?? self.kin[1]
+  derived currentWho: String = self.current?.who ?? ""
+  derived professions: Array<RuledProfession> = self.current?.professions ?? []
+  derived none: Boolean = self.kin.length == 0
+
+  alts: Signal<Alts | nil>
+  rules: mut ModuleMemory<SendRules>
+  constructor(alts: Signal<Alts | nil>, rules: mut ModuleMemory<SendRules>) {
+    self.alts = alts
+    self.rules = rules
+  }
+
+  kinNow(self): Array<RuledKin> {
+    const alts = self.alts
+    return alts == nil ? [] : ruledKinOf(alts)
+  }
+
+  ruleNow(self, skillLine: Integer): SendRule { return ruleOf(peek self.rules.values, peek self.currentWho, skillLine) }
+
+  onPick(mut self, who: String) { self.picked = who }
+
+  onChanged(mut self, skillLine: Integer, rule: SendRule) {
+    const values = peek self.rules.values
+    const key = ruleKey(peek self.currentWho, skillLine)
+    const before = ruleOf(values, peek self.currentWho, skillLine)
+    if (before.on == rule.on && before.least == rule.least) { return }
+    const next = values.rules.clone()
+    next[key] = rule
+    self.rules.write({ rules: next })
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={self.none} value={Locale.RULES_NONE} textColor={Style.DIM} />
+      <box $else columns={SPLIT} gap={4sp}>
+        <ScrolledList columns={1}>
+          <RuledEntry $for={one of self.kin} $key={one.who} ruled={one} picked={self.currentWho} @pick={self.onPick} />
+        </ScrolledList>
+        <box columns={1} gap={6sp}>
+          <RuleRow $for={profession of self.professions} $key={`${self.currentWho}:${profession.skillLine}`}
+                   profession={profession} rule={self.ruleNow(profession.skillLine)} @changed={self.onChanged} />
+        </box>
+      </box>
+    }
+  }
+}
