@@ -15,6 +15,13 @@ public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Int
   return Game.Difficulty.Rarely
 }
 
+// A recipe as the lists show it: one not learned says what it would do for the skill now (the client says nothing of
+// it), so its name takes that colour as a learned one's does; a learned one is the client's.
+public function learnable(recipe: Game.Recipe, thresholds: Thresholds, rank: Integer): Game.Recipe {
+  if (recipe.learned) { return recipe }
+  return { difficulty: difficultyAt(thresholds, recipe.id, rank), ..recipe }
+}
+
 // The open profession's recipes by number: the skill each turns yellow at, and grey at; and for a recipe an item
 // teaches, the skill the item asks to learn it (its orange point). A trainer's recipe says its own while the trainer
 // shows it (`Game.trainer.services`' `skill`).

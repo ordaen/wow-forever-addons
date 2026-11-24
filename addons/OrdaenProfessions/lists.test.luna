@@ -7,6 +7,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { Thresholds, learnable } from "@/skillUps"
 import { Kept } from "@/view"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -680,7 +681,7 @@ test "reagents the game told late are searched once the profession is opened aga
 
 // A recipe's row
 
-test "a recipe's name is in its difficulty's colour, one not learned dim; what the bags make stands at its right" {
+test "a recipe's name is in its difficulty's colour, one not learned in what it would be now; what the bags make stands at its right" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -694,7 +695,17 @@ test "a recipe's name is in its difficulty's colour, one not learned dim; what t
   window().button("Recipes").click()
   Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | [2]") && reads(window().text("Woolen Bag").item(), "Woolen Bag"))
   window().button("Not learned").click()
-  Test.expect(window().text("Woolen Cape").nth(1).textColor().equal(UNLEARNED))
+  // The cape, which the skill table doesn't know, in what it would be now (grey), not the old dim.
+  Test.expect(!window().text("Woolen Cape").nth(1).textColor().equal(UNLEARNED))
+}
+
+test "a recipe not learned takes what it would do for the skill now; a learned one keeps the client's" {
+  const table: Thresholds = { yellow: { [112]: 50, [113]: 20 }, grey: { [112]: 70, [113]: 30 } }
+  const cape = learnable(recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false), table, 31)
+  const shirt = learnable(recipe(113, "Linen Shirt", 11, Game.Difficulty.Never, 0, false), table, 31)
+  const vest = learnable(recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true), table, 31)
+  Test.expect(cape.difficulty == Game.Difficulty.Always && shirt.difficulty == Game.Difficulty.Never)
+  Test.expect(vest.difficulty == Game.Difficulty.Usually)
 }
 
 test "a recipe that no longer raises the skill is grey" {

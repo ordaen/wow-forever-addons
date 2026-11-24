@@ -29,7 +29,7 @@ import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
-import { Thresholds, thresholdsOf } from "@/skillUps"
+import { Thresholds, learnable, thresholdsOf } from "@/skillUps"
 import { LearnPlace, RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import { bothSourcesOf } from "@/split"
 import Style from "@/style"
@@ -556,8 +556,10 @@ public class Professions implements Module, App {
     const kept = open == nil ? nil : self.sortedOf[open]
     if (kept != nil && kept.of == all) { return kept.list }
     let list: Array<Game.Recipe> = []
+    const thresholds = self.thresholds
+    const rank = self.profession?.rank ?? 0
     for (recipe of all) {
-      if (self.passes(recipe, sought)) { list.push(recipe) }
+      if (self.passes(recipe, sought)) { list.push(learnable(recipe, thresholds, rank)) }
     }
     if (self.byReadiness) {
       const sources = self.sources

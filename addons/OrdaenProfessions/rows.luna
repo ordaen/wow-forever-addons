@@ -114,7 +114,7 @@ public class RecipeRow implements Component {
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
   derived first: Boolean = self.index == 1
-  derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
+  derived color: Color = Style.difficultyColor(self.recipe.difficulty)
   derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
   derived starred: Boolean = has(self.kept.favorites, self.recipe.id)
   derived padding: Edges = self.indent ? INDENT_PAD : RECIPE_PAD
@@ -235,7 +235,7 @@ public class RecipeTableRow implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
-  derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
+  derived color: Color = Style.difficultyColor(self.recipe.difficulty)
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived skill: String = self.facts?.skill == nil ? "—" : "%d".format(self.facts?.skill ?? 0)
   derived subtype: String = self.facts?.subtype ?? ""
