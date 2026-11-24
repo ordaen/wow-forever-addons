@@ -1,0 +1,2 @@
+// Ordaen Inventory: every bag in one window.
+public import { Inventory } from "@/main"

@@ -48,7 +48,7 @@ function made(): Number {
   let kb: Number = 0
   if (Build.dev) {
     for (span of Debug.spans()) {
-      if (span.addon == "OrdaenBags" && span.label.sub(1, 7) != "layout ") { kb += span.kb }
+      if (span.addon == "OrdaenInventory" && span.label.sub(1, 7) != "layout ") { kb += span.kb }
     }
   }
   return kb

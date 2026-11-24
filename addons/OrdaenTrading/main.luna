@@ -6,7 +6,7 @@ import { Frame, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { FOOTER_ROOM, KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowSideWide, windowsTitle } from "Ordaen"
-import root Bags from "OrdaenBags"
+import root Inventory from "OrdaenInventory"
 import { BuyPage, Chosen, Found } from "@/buy"
 import { DataPage } from "@/dataPage"
 import { House } from "@/house"
@@ -41,7 +41,7 @@ const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.
 const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
 const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
 const FILL: Array<Track> = [{ fr: 1 }]
-// The merchant's window: two columns of goods; its right column widens it. It opens with Ordaen Bags' window: by
+// The merchant's window: two columns of goods; its right column widens it. It opens with Ordaen Inventory' window: by
 // default they stand side by side about the screen's middle, the merchant's on the left (its side column with it),
 // this gap between them. Where the screen is too narrow for both, they overlap.
 const MERCHANT_WIDTH = 796.875dp
@@ -137,8 +137,8 @@ public class Trading implements Module, App {
     self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)
     Game.auctionHouse.opened.listen(self.onOpened)
     Game.merchant.opened.listen(self.onMerchant)
-    // The buyback shown in the merchant's window: Ordaen Bags' slots sell nothing then.
-    watch (back of self.vendor.buyingBack) { Bags?.showsBuyback(back) }
+    // The buyback shown in the merchant's window: Ordaen Inventory' slots sell nothing then.
+    watch (back of self.vendor.buyingBack) { Inventory?.showsBuyback(back) }
     Ordaen.modules.add(self)
   }
 
@@ -158,8 +158,8 @@ public class Trading implements Module, App {
     return frame == nil ? [] : [frame]
   }
 
-  // «Sell junk» in the merchant's window: Ordaen Bags knows the junk, and sells it.
-  onSellJunk(self) { Bags?.sellJunk() }
+  // «Sell junk» in the merchant's window: Ordaen Inventory knows the junk, and sells it.
+  onSellJunk(self) { Inventory?.sellJunk() }
 
   onMerchant(mut self) {
     const given = Game.merchant.prices()
@@ -188,7 +188,7 @@ public class Trading implements Module, App {
         // The game's merchant window stays open, unseen and off the screen: hiding it would close the merchant.
         <frame $for={frame of self.merchantFrames} of={frame} opacity={0} away={true} />
         <MerchantWindow vendor={mut self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
-                        junkCount={Bags?.carriedJunkCount ?? 0} junkWorth={Bags?.carriedJunkWorth ?? 0}
+                        junkCount={Inventory?.carriedJunkCount ?? 0} junkWorth={Inventory?.carriedJunkWorth ?? 0}
                         @sellJunk={self.onSellJunk} />
       </>
       <$if={self.shown}>

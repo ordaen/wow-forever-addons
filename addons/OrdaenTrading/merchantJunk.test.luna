@@ -1,4 +1,4 @@
-// The merchant's window with Ordaen Bags beside it: it opens to the bags' left, «Sell junk» sells the bags' junk and
+// The merchant's window with Ordaen Inventory beside it: it opens to the bags' left, «Sell junk» sells the bags' junk and
 // says what it brings, and while it shows the buyback a slot's use in the bags sells nothing.
 import Client from "$client"
 import Events from "$events"
@@ -60,7 +60,7 @@ function atMerchant() {
 
 test "the merchant's window sells the bags' junk from its right column, saying what it brings" {
   atMerchant()
-  Test.expect(Test.page().window("Bags").rect().left > Test.page().window("Tharynn").rect().right)
+  Test.expect(Test.page().window("Inventory").rect().left > Test.page().window("Tharynn").rect().right)
   _ = Test.requests()
   Test.page().window("Tharynn").button(`${Locale.SELL_JUNK} ${Game.money.format(30)}`).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
@@ -71,11 +71,11 @@ test "while the merchant's window shows the buyback, a slot's use in the bags se
   atMerchant()
   Test.page().button(Locale.BUYBACK).click()
   _ = Test.requests()
-  Test.page().window("Bags").button(CLOTH).click()
+  Test.page().window("Inventory").button(CLOTH).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
   // The goods again: the cloth sells.
   Test.page().button("Tharynn").click()
-  Test.page().window("Bags").button(CLOTH).click()
+  Test.page().window("Inventory").button(CLOTH).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 2"))
   Events.MERCHANT_CLOSED.emit()
 }

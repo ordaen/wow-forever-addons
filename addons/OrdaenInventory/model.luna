@@ -1,4 +1,4 @@
-// Ordaen Bags' model: a slot of the bags as the window keeps it, the views, the sorts and the tabs, and where an item
+// Ordaen Inventory' model: a slot of the bags as the window keeps it, the views, the sorts and the tabs, and where an item
 // belongs among them.
 import Client from "$client"
 import Game from "$game"

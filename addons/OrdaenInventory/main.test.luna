@@ -1,4 +1,4 @@
-// Ordaen Bags as the player meets it: the window that shows while the game has its bags open, in place of the game's
+// Ordaen Inventory as the player meets it: the window that shows while the game has its bags open, in place of the game's
 // own; its tabs, views and sorts picked from the header; the search; a slot's clicks; the protection from «Sort the
 // bags»; the bag slots; the footer's free slots and gold; and what is kept between sessions. The game is a world of
 // items the test keeps (`World`): what each slot holds, each item with an icon of its own, by which the player tells
@@ -9,7 +9,7 @@ import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, ItemKind, kindName } from "Ordaen"
-import root Bags from "OrdaenBags"
+import root Inventory from "OrdaenInventory"
 import { BagChanger, Change } from "@/change"
 import { Purse, Purses } from "@/gold"
 import Locale from "@/locales"
@@ -324,16 +324,16 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Test.mount(nil, SCREEN)
   // Small slots against each other, the bags low enough for the settings to cover their gear; the player left the bags
   // in the screen's middle, where the settings open.
-  Bags.settings.change((values: mut Choices): nil => {
+  Inventory.settings.change((values: mut Choices): nil => {
     values.slotGap = 0
     values.slotSize = 37
   })
-  Bags.window.memory.write({ x: 0ui, ..Bags.window.memory.values })
+  Inventory.window.memory.write({ x: 0ui, ..Inventory.window.memory.values })
   Game.bags.open = true
   bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()
   const page = Test.page().window(SETTINGS)
-  Test.expect(page.text("Ordaen Bags").shown() && page.text(Locale.BAG_SLOTS).shown())
+  Test.expect(page.text("Ordaen Inventory").shown() && page.text(Locale.BAG_SLOTS).shown())
   // The settings cover the bags, the gear too, and a window stops the clicks on what it draws: a click where the gear
   // stands is the settings' and leaves them open.
   const gearAt = Test.page().window("13 of 22").button(Ordaen.art.ctl.corner.gear).rect()
@@ -513,7 +513,7 @@ test "the window is as high as its slots, so none hides under a scroll: the last
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   // Slots small enough for all of them to fit the screen.
-  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   Test.expect(bags().button(WELL).count() == 160)
@@ -681,7 +681,7 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   // Slots small enough for all of them to fit the screen.
-  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
   bags().button(kindName(ItemKind.Trade)).click()
@@ -715,7 +715,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Test.hold([.Shift])
   Test.hold([.Shift])
@@ -760,7 +760,7 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A button of the client's action bar template, as Ordaen Panel's bars are made of, on slot 61.
-  const bar = Client.CreateFrame("CheckButton", "OrdaenBagsTestAction", Client.UIParent, "ActionBarButtonTemplate")
+  const bar = Client.CreateFrame("CheckButton", "OrdaenInventoryTestAction", Client.UIParent, "ActionBarButtonTemplate")
   bar.SetAttribute("action", 61)
   bar.SetSize(40, 40)
   bar.SetPoint("BOTTOMLEFT", Client.UIParent, "BOTTOMLEFT", 20, 20)
@@ -784,7 +784,7 @@ test "a left click on a slot is the client's own use of the item, each click one
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
   // The slot placed again (the window resized): its hover's highlight still lets the press through to the use.
-  Bags.settings.change((values: mut Choices): nil => { values.slotGap = values.slotGap + 1 })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotGap = values.slotGap + 1 })
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
   // Shut and opened again, the slot hovered before the press.
@@ -1394,7 +1394,7 @@ test "fifty characters' gold is kept, this one's among them" {
   for (index of 1..49) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
-  Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
+  Game.saved.store(.Account, "OrdaenInventory:memory", Purses { characters: characters })
   Test.reload()
   Game.bags.open = true
   bags().text(Game.money.format(0)).hover()
@@ -1411,7 +1411,7 @@ test "past fifty characters the one seen longest ago is forgotten" {
   for (index of 1..50) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
-  Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
+  Game.saved.store(.Account, "OrdaenInventory:memory", Purses { characters: characters })
   Test.reload()
   Game.bags.open = true
   bags().text(Game.money.format(0)).hover()
@@ -1653,7 +1653,7 @@ test "slots stand apart by the setting's room, three steps where none is chosen;
   const first = nth(1).rect()
   const second = nth(2).rect()
   Test.expect(second.left - first.right >= Ordaen.lengthOf(3sp) / 1ui - 0.01)
-  Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
   Test.flush()
   Test.expect((nth(2).rect().left - nth(1).rect().right).abs() < 0.01)
 }
@@ -1667,7 +1667,7 @@ test "a slot is as big as the setting says, 50 where none is chosen, its icon wi
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   const before = nth(1).rect()
-  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 40 })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotSize = 40 })
   Test.flush()
   const after = nth(1).rect()
   Test.expect(((after.right - after.left) / (before.right - before.left) - 0.8).abs() < 0.01)
@@ -1857,7 +1857,7 @@ function narrowest() {
 
 // How many slots the first card's row holds.
 function firstSpan(): Integer {
-  return ((Bags.main.lines[1]?.cards ?? [])[1])?.span ?? 0
+  return ((Inventory.main.lines[1]?.cards ?? [])[1])?.span ?? 0
 }
 
 test "the one-bag view keeps no room for the tabs it doesn't show: it may be the tab list narrower than the categories" {
@@ -1867,10 +1867,10 @@ test "the one-bag view keeps no room for the tabs it doesn't show: it may be the
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
-  const withTabs = Bags.main.leastWidth
-  Bags.list.write({ view: .One, ..Bags.list.values })
+  const withTabs = Inventory.main.leastWidth
+  Inventory.list.write({ view: .One, ..Inventory.list.values })
   Test.flush()
-  Test.expect(Bags.main.leastWidth < withTabs - 100ui)
+  Test.expect(Inventory.main.leastWidth < withTabs - 100ui)
 }
 
 test "a group is at least the fewest slots in a row wide, as the player sets it, and the window narrows to one" {
@@ -1878,12 +1878,12 @@ test "a group is at least the fewest slots in a row wide, as the player sets it,
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
-  Bags.settings.change((values: mut Choices): nil => { values.rowLeast = 6 })
+  Inventory.settings.change((values: mut Choices): nil => { values.rowLeast = 6 })
   Game.bags.open = true
   Test.flush()
-  Test.expect(Bags.main.lines.all(line => line.cards.all(card => card.section.title == "" || card.span >= 6)))
+  Test.expect(Inventory.main.lines.all(line => line.cards.all(card => card.section.title == "" || card.span >= 6)))
   narrowest()
-  Test.expect(Bags.main.lines.all(line => line.cards.length == 1) && firstSpan() == 6)
+  Test.expect(Inventory.main.lines.all(line => line.cards.length == 1) && firstSpan() == 6)
 }
 
 test "the grip narrows a wide window past the row it opened with, down to its least: the cards ask nothing of it" {
@@ -1891,8 +1891,8 @@ test "the grip narrows a wide window past the row it opened with, down to its le
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
-  Bags.list.write({ view: .One, ..Bags.list.values })
-  Bags.window.memory.write({ width: 1400ui, ..Bags.window.memory.values })
+  Inventory.list.write({ view: .One, ..Inventory.list.values })
+  Inventory.window.memory.write({ width: 1400ui, ..Inventory.window.memory.values })
   Game.bags.open = true
   Test.flush()
   Test.expect(firstSpan() == 22)
@@ -2128,7 +2128,7 @@ test "a bag isn't put on while the cursor holds something" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
-  const bag = Bags.carried.all.find(slot => slot.bag == 0 && slot.index == 6) ?? panic("the new bag lies there")
+  const bag = Inventory.carried.all.find(slot => slot.bag == 0 && slot.index == 6) ?? panic("the new bag lies there")
   Client.CursorHasItem = (): Boolean => true
   Test.expect(new BagChanger().start(bag, [], (place: Integer): Boolean => true) == Change.Busy)
 }

@@ -135,7 +135,7 @@ public struct SavedProfiles implements Plain {
 
 // A module renamed: its former name to its current one. What was kept under the former moves once at login, where
 // the current has nothing yet: the account's and the character's saved keys, and each profile's sections and memory.
-public const RENAMED: Map<String, String> = { ["OrdaenAuction"]: "OrdaenTrading" }
+public const RENAMED: Map<String, String> = { ["OrdaenAuction"]: "OrdaenTrading", ["OrdaenBags"]: "OrdaenInventory" }
 
 // The key `former` and every `former:…` moved to `current` and `current:…`, where nothing stands there yet.
 function movedKeys(keys: mut Map<String, String>, former: String, current: String) {

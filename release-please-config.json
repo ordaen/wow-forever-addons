@@ -75,10 +75,10 @@
         "addon.jsonc"
       ]
     },
-    "addons/OrdaenBags": {
+    "addons/OrdaenInventory": {
       "release-type": "simple",
-      "component": "OrdaenBags",
-      "package-name": "OrdaenBags",
+      "component": "OrdaenInventory",
+      "package-name": "OrdaenInventory",
       "initial-version": "0.1.0",
       "extra-files": [
         "addon.jsonc"

@@ -1,4 +1,4 @@
-// Ordaen Bags: every bag in one window, in place of the game's bag windows. At a banker or the guild's vault the bank or
+// Ordaen Inventory: every bag in one window, in place of the game's bag windows. At a banker or the guild's vault the bank or
 // the guild bank is a window of its own beside the bags'; away from them, each is a tab of the bags' window with its
 // icon, showing what it held when the player last saw it this session. The bags' window shows while the game has its
 // bags, its bank or its guild bank open, the vault's while it has the bank or the guild bank open, and the game's own
@@ -83,8 +83,8 @@ const DIALOG = 375dp
 // The bags' tab of the window: the game's bag icon.
 const BAGS_ICON: Asset = "Interface/Icons/INV_Misc_Bag_08"
 
-public class Bags implements Module, App {
-  public const title: String = "Ordaen Bags"
+public class Inventory implements Module, App {
+  public const title: String = "Ordaen Inventory"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: BAGS_X, y: 0ui, width: WIDTH, height: HEIGHT })
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })

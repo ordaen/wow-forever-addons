@@ -166,7 +166,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   paths (`git commit -- <paths>`).
 - Line endings: LF everywhere via `.gitattributes`.
 - commitlint (`commitlint.config.mjs`) holds the commit rules, enforced by the husky `commit-msg` hook and in CI (PR title + PR commits).
-- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are six folders of `addons/` (`OrdaenBags`, `OrdaenChat`, `OrdaenCore`, `OrdaenMinimap`, `OrdaenQoL`, `OrdaenTooltips`), of which three don't exist; each addon's `addon.json` carries its `version`, which the TOC gets.
+- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are six folders of `addons/` (`OrdaenInventory`, `OrdaenChat`, `OrdaenCore`, `OrdaenMinimap`, `OrdaenQoL`, `OrdaenTooltips`), of which three don't exist; each addon's `addon.json` carries its `version`, which the TOC gets.
 - Quality: the lunatype suite (`zig build -j16 test -Daddons=<checkout>/addons` in `../lunatype`); manual testing in game with dev mode (Ordaen Companion).
 - **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
   dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell

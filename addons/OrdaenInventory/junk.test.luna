@@ -6,7 +6,7 @@ import Events from "$events"
 import Game from "$game"
 import { Art, Key, Modifier, MouseButton } from "$ltml"
 import Test from "$test"
-import root Bags from "OrdaenBags"
+import root Inventory from "OrdaenInventory"
 import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useClickOf } from "@/clicks"
 import {
   JUNK_RULES, JunkLists, LEARNED, MOST_LEARNED, MOST_MARKS, Mark, NO_LISTS, Why, afterBuyback, afterSale, junkWhy, shareOf,
@@ -377,7 +377,7 @@ test "the junk is sold as a merchant's window opens; with «Sell junk at merchan
   Events.MERCHANT_CLOSED.emit()
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
-  settings.button("Bags").click()
+  settings.button("Inventory").click()
   settings.button("Convenience").click()
   settings.button("Sell junk at merchants").click()
   Test.key(Key.Escape)
@@ -410,7 +410,7 @@ test "Shift+left set to Pick up picks the item up, and the right opens the menu,
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Test.hold([.Shift])
   Test.hold([.Shift])
@@ -474,7 +474,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   // Two windows: the bags' with the bags alone, and the bank's.
   Test.expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale.BANK).shown())
   Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
-  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Test.hold([.Shift])
   Test.hold([.Shift])
@@ -560,12 +560,12 @@ test "a scheme saved before the left click used is let go: Ordaen's own, with it
   kept["slotClicks"] = old
   kept["slotSize"] = 50
   const settings: Map<String, Unknown> = {}
-  settings["OrdaenBags"] = kept
+  settings["OrdaenInventory"] = kept
   const account: Map<String, Unknown> = {}
   account["settings"] = settings
   Test.saved("LunaTypeDB", account)
   Test.reload()
-  const clicks = Bags.settings.values.slotPresses
+  const clicks = Inventory.settings.values.slotPresses
   Test.expect(clicks.left == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
   Test.expect(useClickOf(clicks).chord == MouseButton.Left)
 }
@@ -627,13 +627,13 @@ test "while the merchant's buyback shows (Ordaen Trading's window says so), a sl
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
   Events.MERCHANT_SHOW.emit()
-  Bags.showsBuyback(true)
+  Inventory.showsBuyback(true)
   // The junk sold as the merchant opened is past.
   Test.flush()
   _ = Test.requests()
   bags().button(CLOTH).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
-  Bags.showsBuyback(false)
+  Inventory.showsBuyback(false)
   bags().button(CLOTH).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
   Events.MERCHANT_CLOSED.emit()
@@ -650,9 +650,9 @@ test "«Sell junk» sells the junk the bags know, at a merchant" {
   Game.bags.place = Game.BagPlace.Merchant
   Events.MERCHANT_SHOW.emit()
   Test.flush()
-  Test.expect(Bags.carriedJunkCount == 1 && Bags.carriedJunkWorth == 30)
+  Test.expect(Inventory.carriedJunkCount == 1 && Inventory.carriedJunkWorth == 30)
   _ = Test.requests()
-  Bags.sellJunk()
+  Inventory.sellJunk()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
   Events.MERCHANT_CLOSED.emit()
 }
