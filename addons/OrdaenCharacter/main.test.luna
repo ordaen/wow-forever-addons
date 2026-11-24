@@ -400,6 +400,31 @@ test "the game's sets are tabs over the columns, the one worn picked: another pi
   Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
 }
 
+test "the sets' tabs are the window's subtab band, its marble out to the frame at either side, «Save» on it" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  const band = Test.edges(Ordaen.art.window.marble, 0)
+  const reach = Ordaen.art.frame.window.reach
+  Test.expect(band.left - body.left <= reach.left + 2 && body.right - band.right <= reach.right + 2)
+  window.button("New Set").click()
+  const save = window.button("Save").rect()
+  Test.expect(save.top >= band.top && save.bottom <= band.bottom && save.right < band.right)
+}
+
+test "with no set worn whole, «New Set» is the picked tab, «Save» beside it" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  sheet.wornSet = -1
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Test.expect(window.text("New Set").textColor().equal(BRIGHT_TEXT))
+  Test.expect(!window.text("Tank").textColor().equal(BRIGHT_TEXT))
+  Test.expect(window.text("Save").shown())
+}
+
 test "a set picked in a fight isn't put on, and the worn one stays picked" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()

@@ -61,10 +61,6 @@ public function detailsLine(): ArtBorder {
   return { sides: [Side.Left], ..Ordaen.art.frame.tabIconLine }
 }
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
-// The sets' strip along the page's top: the sections' room at its sides, and the line its tabs stand on (Ordaen's
-// tabs' own, run to the frame).
-public const SETS_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, left: SIDE_ROOM }
-public const SETS_LINE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 public const CARDS_PAD: Edges = { bottom: 2sp }
 // A main stat's room and its number's size: twice the body's, whatever size the look gives the body.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
@@ -92,7 +88,7 @@ public const TROUGH: Color = Color.hex("#000000a6")
 // own, over the footer's estimate on another's; centred and cut at the column's sides. A veil over it so the slots read;
 // the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
 public const SCENE_ASPECT: Number = 231 / 322
-public const SCENE_HEIGHT: Number<Length> = 769.38dp
+public const SCENE_HEIGHT: Number<Length> = 780.55dp
 public const SCENE_HEIGHT_INSPECTED: Number<Length> = 801.24dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
