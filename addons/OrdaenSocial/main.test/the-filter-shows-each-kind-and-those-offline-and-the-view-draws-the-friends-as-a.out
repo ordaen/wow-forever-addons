@@ -57,9 +57,9 @@ surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
                     box 663.92,351 58.33x32.9 #00000000 @keyPress @pointerPress
                       box 663.92,382.23 58.33x1.67 absolute #00000000
                       box 681.08,359.53 41.18x15.83
-                        text 681.08,359.53 31.67x15.83 "Level" #cbb994
-                        box 715.59,364.95 6.67x5
-                          box 712.26,360.78 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                        box 681.08,364.95 6.67x5
+                          box 677.74,360.78 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                        text 690.59,359.53 31.67x15.83 "Level" #cbb994
                     box 730.79,351 205.29x32.9 #00000000 @keyPress @pointerPress
                       box 730.79,382.23 205.29x1.67 absolute #00000000
                       box 730.79,359.53 205.29x15.83
