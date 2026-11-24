@@ -442,16 +442,18 @@ test "the attack speed is a card beside what lands, its tooltip each hand's seco
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { speed: 2.5, meleeHaste: 5 }
+  // A 2.30 weapon, hasted 15%: a swing every 2.00 seconds, as the client gives it.
+  sheet.figures = (): Stats => Stats { speed: 2, meleeHaste: 15 }
   const window = opened(mut sheet)
   // The card's seconds, its hourglass the glyphs' fourteenth row.
-  Test.expect(window.text("2.50 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
+  Test.expect(window.text("2.00 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
   const sheetArt: Asset = "@/media/character-glyphs.tga"
   const hourglass: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 13 }
   Test.expect(window.paintedWith(hourglass))
   window.text("Attack speed").hover()
   const tip = Test.page().window(Locale.ATTACK_SPEED_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Main Hand | 2.50 s | Haste | +5.00%"))
+  // The haste, then the weapon's own speed divided by it.
+  Test.expect(tip.texts().join(" | ").contains("Haste | +15.00% | Main Hand | 2.30 ÷ 1.15 = | 2.00 s"))
   Test.expect(window.box(Style.SOURCE_GLOW).count() > 0)
 }
 
@@ -468,15 +470,16 @@ test "each section has its own haste, its tooltip what it speeds up; none is sha
   Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).shown())
 }
 
-test "the damage a second's tooltip lights what feeds it: attack power, attack speed and the melee's haste" {
+test "the damage a second's tooltip lights what feeds it directly: attack power and attack speed, not the haste behind it" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, meleeHaste: 5 }
   const window = opened(mut sheet)
   window.text("50.0").hover()
-  // Each glows: the attack power's card, the attack speed's card, the haste's gauge.
-  Test.expect(window.box(Style.SOURCE_GLOW).count() >= 3)
+  // The attack power's card, the attack speed's and the main hand's slot (its share) glow; the haste's gauge, attack
+  // speed's own source, doesn't.
+  Test.expect(window.box(Style.SOURCE_GLOW).count() == 3)
 }
 
 test "with a weapon in each hand the damage a second's card says each hand's speed, damage and damage a second" {

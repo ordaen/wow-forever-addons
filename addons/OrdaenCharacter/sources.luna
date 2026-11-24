@@ -317,7 +317,7 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
   if (ranged) {
     shares[RANGED_SLOT] = "%.1f".format(rangedDps(stats))
     const rows = handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed, false)
-    return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower, .RangedAttackSpeed, .RangedHaste], shares: shares }
+    return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower, .RangedAttackSpeed], shares: shares }
   }
   shares[MAIN_HAND_SLOT] = "%.1f".format(handDps(stats.minDamage, stats.maxDamage, stats.speed))
   const sections: Array<TipSection> = []
@@ -335,7 +335,7 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
     glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancingPenalty, hit),
     glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancingPenalty, hit)
   ] })
-  return { text: "", rows: rows, sections: sections, fed: [.AttackPower, .AttackSpeed, .MeleeHaste], shares: shares }
+  return { text: "", rows: rows, sections: sections, fed: [.AttackPower, .AttackSpeed], shares: shares }
 }
 
 // A target's glancing blows in the damage's tooltip: how much less such a blow deals, in percent and in damage off the
@@ -684,20 +684,28 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
   return { text: Locale.WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
 }
 
-// The seconds between swings (each hand's, with a weapon in each) or between shots, and the haste that shortens them,
-// which lights with them.
+// The seconds between swings (each hand's, with a weapon in each) or between shots: the haste first, then each weapon's
+// own speed divided by it, worked out before what it comes to («2.30 ÷ 1.15 = 2.00 s»). The client gives the hasted
+// seconds; the weapon's own are those times the haste. The haste lights with it.
 function speedBreakdown(ranged: Boolean, stats: Stats): Breakdown {
-  const rows: Array<TipRow> = []
+  const haste = ranged ? stats.rangedHaste : stats.meleeHaste
+  const rows: Array<TipRow> = [{ label: Locale.HASTE, value: added(haste, true) }]
   if (ranged) {
-    rows.push({ label: Locale.SECTION_RANGED, value: secondsText(stats.rangedSpeed) })
+    rows.push(swingRow(Locale.SECTION_RANGED, stats.rangedSpeed, haste))
   } else {
-    rows.push({ label: Locale.MAIN_HAND, value: secondsText(stats.speed) })
+    rows.push(swingRow(Locale.MAIN_HAND, stats.speed, haste))
     const off = stats.offSpeed ?? 0
-    if (off > 0) { rows.push({ label: Locale.OFF_HAND, value: secondsText(off) }) }
+    if (off > 0) { rows.push(swingRow(Locale.OFF_HAND, off, haste)) }
   }
-  rows.push({ label: Locale.HASTE, value: added(ranged ? stats.rangedHaste : stats.meleeHaste, true) })
   const fed: Array<Stat> = [ranged ? .RangedHaste : .MeleeHaste]
   return { text: ranged ? Locale.RANGED_SPEED_TIP : Locale.ATTACK_SPEED_TIP, rows: rows, sections: [], fed: fed, shares: {} }
+}
+
+// A weapon's seconds between attacks: its own speed divided by the haste, worked out where there is haste.
+function swingRow(label: String, hasted: Number, haste: Number): TipRow {
+  if (haste == 0) { return { label: label, value: secondsText(hasted) } }
+  const by = 1 + haste / 100
+  return { label: label, working: `${"%.2f".format(hasted * by)} ÷ ${"%.2f".format(by)} =`, value: secondsText(hasted) }
 }
 
 function secondsText(seconds: Number): String { return `${"%.2f".format(seconds)} ${Locale.SECONDS}` }
