@@ -7,7 +7,7 @@ import { Art } from "$ltml"
 import { TipRow, TipSection, TipSlice, qualityColor } from "Ordaen"
 import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
-import { Resource, Stats, Worn, handDps, meleeDps, rangedDps } from "@/sheet"
+import { Resource, Stats, Worn, handDps, meleeDps, rangedDps, swingOf } from "@/sheet"
 import { EVERY_STAT, MAINS, Stat } from "@/stat"
 import Style from "@/style"
 
@@ -67,6 +67,8 @@ function specOf(stat: Stat): Spec {
     .MainHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.meleeSkillPast }
     .OffHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.offSkillPast }
     .RangedSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.rangedSkillPast }
+    .AttackSpeed => { name: Locale.ATTACK_SPEED, percent: false, of: s => swingOf(s) }
+    .RangedAttackSpeed => { name: Locale.ATTACK_SPEED, percent: false, of: s => s.rangedSpeed }
   }
 }
 
@@ -673,6 +675,32 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
   return { text: Locale.WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
 }
 
+// Haste as the game's paper doll lists it: the melee swings', the ranged shots' (the ammo's with it), the spells'.
+function hasteRows(stats: Stats): Array<TipRow> {
+  return [
+    { label: Locale.SECTION_MELEE, value: amountText(stats.meleeHaste, true) },
+    { label: Locale.SECTION_RANGED, value: amountText(stats.rangedHaste, true) },
+    { label: Locale.SECTION_SPELLS, value: amountText(stats.spellHaste, true) }
+  ]
+}
+
+// The seconds between swings (each hand's, with a weapon in each) or between shots, and the haste that shortens them,
+// which lights with them.
+function speedBreakdown(ranged: Boolean, stats: Stats): Breakdown {
+  const rows: Array<TipRow> = []
+  if (ranged) {
+    rows.push({ label: Locale.SECTION_RANGED, value: secondsText(stats.rangedSpeed) })
+  } else {
+    rows.push({ label: Locale.MAIN_HAND, value: secondsText(stats.speed) })
+    const off = stats.offSpeed ?? 0
+    if (off > 0) { rows.push({ label: Locale.OFF_HAND, value: secondsText(off) }) }
+  }
+  rows.push({ label: Locale.HASTE, value: added(ranged ? stats.rangedHaste : stats.meleeHaste, true) })
+  return { text: ranged ? Locale.RANGED_SPEED_TIP : Locale.ATTACK_SPEED_TIP, rows: rows, sections: [], fed: [.Haste], shares: {} }
+}
+
+function secondsText(seconds: Number): String { return `${"%.2f".format(seconds)} ${Locale.SECONDS}` }
+
 // A change in percent with its sign: «+0.28%», «-11.08%».
 function signedPercent(value: Number): String { return "%+.2f%%".format(value) }
 
@@ -698,6 +726,7 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   if (strike != nil) { return landsBreakdown(strike, facts.stats) }
   if (stat == .HitTaken) { return takenBreakdown(facts.stats) }
   if (stat == .MainHandSkill || stat == .OffHandSkill || stat == .RangedSkill) { return skillBreakdown(stat, facts.stats) }
+  if (stat == .AttackSpeed || stat == .RangedAttackSpeed) { return speedBreakdown(stat == .RangedAttackSpeed, facts.stats) }
   if (stat == .DamageReduction) { return reductionBreakdown(facts.stats) }
   const spec = specOf(stat)
   const parts = partsOf(stat, facts)
@@ -716,6 +745,10 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   }
   if (stat == .Expertise) {
     for (target of avoidanceOf(facts.stats.expertise)) { sections.push(target) }
+  }
+  // Haste says what it speeds up, and by how much each, over its sources.
+  if (stat == .Haste) {
+    return { text: Locale.HASTE_TIP, rows: hasteRows(facts.stats), sections: sections, fed: parts.fed, shares: parts.shares }
   }
   return { text: text, sections: sections, fed: parts.fed, shares: parts.shares }
 }

@@ -54,6 +54,9 @@ public enum Stat {
   MainHandSkill
   OffHandSkill
   RangedSkill
+  // The seconds between swings, and between shots.
+  AttackSpeed
+  RangedAttackSpeed
 }
 
 // Every stat, in the enum's order.
@@ -104,7 +107,9 @@ public const EVERY_STAT: Array<Stat> = [
   .HitTaken,
   .MainHandSkill,
   .OffHandSkill,
-  .RangedSkill
+  .RangedSkill,
+  .AttackSpeed,
+  .RangedAttackSpeed
 ]
 
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).

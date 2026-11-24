@@ -438,6 +438,28 @@ test "the damage a second's card says the weapon's speed and damage, and how muc
   Test.expect(window.text("50.0").count() >= 2)
 }
 
+test "the attack speed's tooltip says each hand's seconds and the haste that shortens them, haste lit" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { speed: 2.5, offSpeed: 2, meleeHaste: 5, haste: 5 }
+  const window = opened(mut sheet)
+  window.text("Attack speed").hover()
+  const tip = Test.page().window(Locale.ATTACK_SPEED_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Main Hand | 2.50 s | Off Hand | 2.00 s | Haste | +5.00%"))
+}
+
+test "haste's tooltip says what it speeds up, and by how much each: swings, shots, spells" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { haste: 6, meleeHaste: 6, rangedHaste: 4, spellHaste: 3 }
+  const window = opened(mut sheet)
+  window.text("Haste").hover()
+  const tip = Test.page().window(Locale.HASTE_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Melee | 6.00% | Ranged | 4.00% | Spells | 3.00%"))
+}
+
 test "with a weapon in each hand the damage a second's card says each hand's speed, damage and damage a second" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

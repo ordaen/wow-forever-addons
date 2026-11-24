@@ -293,7 +293,7 @@ function landsCard(stat: Stat, stats: Stats): Figure {
 }
 
 function melee(stats: Stats, skills: Array<Skill>): Section {
-  const rows: Array<Row> = stats.speed > 0 ? [{ label: Locale.ATTACK_SPEED, value: seconds(swingOf(stats)), unit: Locale.SECONDS }] : []
+  const rows: Array<Row> = stats.speed > 0 ? [{ label: Locale.ATTACK_SPEED, value: seconds(swingOf(stats)), unit: Locale.SECONDS, stat: .AttackSpeed }] : []
   return {
     title: Locale.SECTION_MELEE,
     lead: skillGauges([{ skill: stats.mainSkill, stat: .MainHandSkill }, { skill: stats.offSkill, stat: .OffHandSkill }], skills),
@@ -314,7 +314,7 @@ function melee(stats: Stats, skills: Array<Skill>): Section {
 function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
   const skill = stats.rangedSkill
   if (skill == nil) { return nil }
-  const speed: Row = { label: Locale.ATTACK_SPEED, value: seconds(stats.rangedSpeed), unit: Locale.SECONDS }
+  const speed: Row = { label: Locale.ATTACK_SPEED, value: seconds(stats.rangedSpeed), unit: Locale.SECONDS, stat: .RangedAttackSpeed }
   const lead = skillGauges([{ skill: skill, stat: .RangedSkill }], skills)
   if (skill == WANDS) {
     return {
