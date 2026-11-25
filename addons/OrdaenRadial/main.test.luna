@@ -372,6 +372,16 @@ test "rings an older build saved take every emote where its Emotes submenu was l
   Test.expect(firstRing().counts["5"] == 8 && firstRing().items["5_8_3_1"] is Item.Emote)
 }
 
+test "an emote the server does nothing for leaves a saved ring, the emotes after it moving up" {
+  start()
+  const count = firstRing().counts["5_8_3"] ?? 0
+  const second = firstRing().items["5_8_3_2"] ?? panic("the sounds' second emote")
+  editRing(1, (ring: mut Ring): nil => { ring.items["5_8_3_1"] = .Emote { token: "QUACK" } })
+  const first = firstRing().items["5_8_3_1"] ?? panic("the sounds' first emote")
+  Test.expect(firstRing().counts["5_8_3"] == count - 1 && first.equal(second))
+  Test.expect(firstRing().items[`5_8_3_${count}`] == nil)
+}
+
 test "an Emotes submenu the player changed stays as it is" {
   start()
   oldEmotes("/roar")

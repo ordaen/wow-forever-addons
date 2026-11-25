@@ -2,9 +2,9 @@
 // and the pings each a ring of their own on the next keys, where in a fight one flick beats two.
 import { WheelNames } from "Ordaen"
 import { Choices, Item, OpensAt, Ping, Ring, Window } from "@/choices"
-import { EMOTES } from "@/emotes"
+import { EMOTES, SILENT } from "@/emotes"
 import Locale from "@/locales"
-import { emptyUnder, within } from "@/places"
+import { emptyUnder, removePlace, within } from "@/places"
 
 // A ring from its rings' sizes and its items, each by its place.
 function ring(counts: mut Map<String, Integer>, placed: Array<[String, Item]>): mut Ring {
@@ -50,17 +50,32 @@ function holdsOldEmotes(saved: Ring, at: String): Boolean {
   return true
 }
 
-// A ring saved by an older build, its untouched Emotes submenu made the whole tree of emotes; none where it has none.
-public function upgraded(saved: Ring): Ring | nil {
-  for (place, item of saved.items) {
-    if (item is Item.Menu && holdsOldEmotes(saved, place)) {
-      const fresh = saved.clone()
-      emptyUnder(mut fresh, place)
-      addEmotes(mut fresh, place)
-      return fresh
-    }
+// A place of a ring that holds an emote the server does nothing for (`SILENT`); none where no place does.
+function silentPlace(shown: Ring): String | nil {
+  for (place, item of shown.items) {
+    if (item is Item.Emote && SILENT.any(token => token == item.token)) { return place }
   }
   return nil
+}
+
+// A ring saved by an older build, made as this one makes it: its untouched Emotes submenu the whole tree of emotes,
+// and every emote the server does nothing for taken away (those after it in its submenu moving up); none where
+// nothing changes.
+public function upgraded(saved: Ring): Ring | nil {
+  const fresh = saved.clone()
+  for (place, item of saved.items) {
+    if (item is Item.Menu && holdsOldEmotes(saved, place)) {
+      emptyUnder(mut fresh, place)
+      addEmotes(mut fresh, place)
+      break
+    }
+  }
+  for (pass of 1..) {
+    const place = silentPlace(fresh)
+    if (place == nil) { break }
+    removePlace(mut fresh, place)
+  }
+  return fresh.equal(saved) ? nil : fresh
 }
 
 // The first key's ring: Windows up, then clockwise Professions, Pings, Marks, Emotes, Travel, Group, Placing.
