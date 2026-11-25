@@ -177,6 +177,12 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **A frame that takes the keyboard hears a key held go down again as the client repeats it, and its up once;**
   the up is kept from the bindings or let go on by the frame's propagation as it stands. Known: the client's key
   repeat. Stand-in: `Client.key` (`phase`), `Test.keyDown`/`Test.keyUp`.
+- **A secure button clicked by a key bound to it (`SetOverrideBindingClick`) is told `OnMouseDown` before its
+  `PreClick`, as one clicked with the mouse is,** with the button's name the binding gave. In order, for the key: a
+  propagating keyboard frame's `OnKeyDown`, the button's `OnMouseDown`, `PreClick` and `PostClick` (down), then
+  `PreClick` and `PostClick` (up) as the key comes up, with no `OnMouseUp`. For the mouse: `OnMouseDown`, `PreClick`,
+  `PostClick` (down), `OnMouseUp`, `PreClick`, `PostClick` (up). So what must run before a secure action runs at the
+  button's going down. Probed 2026-11-25 (1.60.1, 71091), the button registered for `AnyDown` and `AnyUp`.
 
 ## Text and fonts
 
