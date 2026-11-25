@@ -183,6 +183,13 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **A font file the client hasn't loaded yet is measured in its own text font,** and nothing is said as the file
   comes. Known: 70303b0 («Тема» drawn «Те…» in the settings window). Stand-in: `Client.fontWidth`
   (`client.lua`), `Test.fontWidth`; `tests/runtime/Runtime/fonts`.
+- **A font file loads only for a piece of text that is shown, and a piece that never had a font has none until it
+  does.** A fresh font string told an addon's file not loaded yet: `SetFont` gives false and its width is 0. On a
+  shown frame (off the screen and at alpha 0 counts) the width becomes the letters' own a few seconds later, with
+  nothing told again, and `SetFont` gives true from then on; on a hidden frame it never does. A file that doesn't
+  exist raises «Invalid font asset … file not found». Probed 2026-11-25 (1.60.1, 71091). The renderer watches each
+  file by one shown piece of text (`flush.luna`: `arrivals`). Stand-in: `FontString:SetFont`, the frame's end in
+  `Client.draw`.
 - **A Battle.net name the client keeps from addons (`|K…|k`, a friend's account name) measures 0 unbounded**
   (`GetUnboundedStringWidth`), while the client draws it as the real name and `GetStringWidth` gives that width.
   Known: the friends list's star drawn over each name (`|Ks3|k` drawn 95 wide, laid out 0). Stand-in:
