@@ -237,7 +237,8 @@ test "a text tooltip the game fills anew with the same lines makes no tooltip an
     Test.pass(SHOWS)
     Test.flush()
   })
-  const other = memory("3 MB")
+  // A line of another width: one that measures what it did lays nothing out, and costs little more than none.
+  const other = memory("1024 MB")
   const changed = Test.garbage((): nil => {
     Game.tooltip.main = { data: other, ..shown }
     Test.pass(SHOWS)
