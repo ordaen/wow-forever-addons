@@ -398,11 +398,11 @@ public class MerchantWindow implements Component {
   // «Repair an item» lit while the cursor mends.
   derived repairPlate: ButtonPlate = self.vendor.repairing ? ButtonPlate::Accent : ButtonPlate::Bronze
   // The item sold last, under the goods (the game's buyback slot): a click buys it back.
-  derived lastSold: array<Sold> = self.buying && self.vendor.sold.length > 0 ? [self.vendor.sold[self.vendor.sold.length] ?? panic("within the buyback")] : []
+  derived lastSold: array<Sold> = self.buying && self.vendor.sold.length > 0 ? [self.vendor.sold[self.vendor.sold.length] ?? throw Error { message: "within the buyback" }] : []
   derived hasLastSold: boolean = self.lastSold.length > 0
   derived hasCurrencies: boolean = self.vendor.currencies.length > 0
-  derived countMost: integer = self.counting == nil ? 1 : mostFor(self.counting ?? panic("counting"), Game::money.amount)
-  derived countPrice: integer = self.counting == nil ? 0 : moneyFor(self.counting ?? panic("counting"), self.count)
+  derived countMost: integer = self.counting == nil ? 1 : mostFor(self.counting ?? throw Error { message: "counting" }, Game::money.amount)
+  derived countPrice: integer = self.counting == nil ? 0 : moneyFor(self.counting ?? throw Error { message: "counting" }, self.count)
 
   vendor: mut Vendor
   declared: mut KeptWindow
@@ -438,7 +438,7 @@ public class MerchantWindow implements Component {
 
   soldOf(): array<Sold> {
     let sold: array<Sold> = mut []
-    for (index of self.vendor.sold.length..1 step -1) { sold.push(self.vendor.sold[index] ?? panic("within the buyback")) }
+    for (index of self.vendor.sold.length..1 step -1) { sold.push(self.vendor.sold[index] ?? throw Error { message: "within the buyback" }) }
     return sold
   }
 

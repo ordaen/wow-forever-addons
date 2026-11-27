@@ -58,14 +58,14 @@ function showing(data: Game::TooltipData): Game::ShownTip {
 // «·»), joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().map(text => text.match("^%s*(.-)%s*$") ?? text).join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
 // Whether a text is drawn in this colour: where it isn't, the test fails with the colour it is in.
 function inColor(part: Test::Part, color: color): boolean {
   const drawn = part.textColor()
-  if (!drawn.equal(color)) { panic(`it is drawn in ${code(drawn)}, not ${code(color)}`) }
+  if (!drawn.equal(color)) { throw Error { message: `it is drawn in ${code(drawn)}, not ${code(color)}` } }
   return true
 }
 
@@ -190,7 +190,7 @@ test "a text tooltip the game fills anew with the same lines draws nothing anew"
     Test::flush()
   })
   // The tooltip is placed again where the game's stands; no text of it is set or tinted.
-  Test::expect(!said.contains("SetText") || panic(said))
+  Test::expect(!said.contains("SetText") || throw Error { message: said })
 }
 
 test "a text tooltip the game fills anew draws anew only the line that changed, in its text or its colour" {
@@ -204,13 +204,13 @@ test "a text tooltip the game fills anew draws anew only the line that changed, 
     Test::pass(SHOWS)
     Test::flush()
   })
-  Test::expect(said.contains("SetText=1") || panic(said))
+  Test::expect(said.contains("SetText=1") || throw Error { message: said })
   const tinted = Test::calls((): nil => {
     Game::tooltip.main = { data: menu(32, GAME_RED), ..shown }
     Test::pass(SHOWS)
     Test::flush()
   })
-  Test::expect((!tinted.contains("SetText=") && tinted.contains("SetTextColor=1")) || panic(tinted))
+  Test::expect((!tinted.contains("SetText=") && tinted.contains("SetTextColor=1")) || throw Error { message: tinted })
   Test::expect(inColor(tip("Latency:").text("32 ms"), GAME_RED))
 }
 
@@ -244,7 +244,7 @@ test "a text tooltip the game fills anew with the same lines makes no tooltip an
     Test::pass(SHOWS)
     Test::flush()
   })
-  Test::expect(kept * 2 < changed || panic("%.2f kB the same, %.2f kB a line changed".format(kept, changed)))
+  Test::expect(kept * 2 < changed || throw Error { message: "%.2f kB the same, %.2f kB a line changed".format(kept, changed) })
 }
 
 // The game's tooltip at the same place showing other lines.
@@ -279,7 +279,7 @@ test "a text tooltip filled anew with a line fewer shows it no more" {
   Game::tooltip.main = shown
   Test::pass(SHOWS)
   Test::flush()
-  Game::tooltip.main = refilled(shown, [{ left: "Game Menu |cffffd200(Esc)|r", kind: 0 }, menu(31, GAME_GREEN).lines[2] ?? panic("a line")])
+  Game::tooltip.main = refilled(shown, [{ left: "Game Menu |cffffd200(Esc)|r", kind: 0 }, menu(31, GAME_GREEN).lines[2] ?? throw Error { message: "a line" }])
   Test::pass(SHOWS)
   Test::expect(reads(tip("Latency:"), "Game Menu | Latency: | 31 ms | Esc: open"))
 }
@@ -294,7 +294,7 @@ test "a text tooltip filled anew shows a line's colour changed in any of its par
   for (color of [#801a1a, #80401a, #804040, #80404080]) {
     Game::tooltip.main = refilled(shown, [title, { left: "Durability is low", leftColor: color, kind: 0 }])
     Test::pass(SHOWS)
-    Test::expect(tip("Game Menu").text("Durability is low").textColor().equal(color) || panic(code(color)))
+    Test::expect(tip("Game Menu").text("Durability is low").textColor().equal(color) || throw Error { message: code(color) })
   }
   Game::tooltip.main = refilled(shown, [title, { left: "Durability is low", kind: 0 }])
   Test::pass(SHOWS)
@@ -644,7 +644,7 @@ test "a talent's next rank whose first word changes starts with that word lit, n
   Game::tooltip.main = showing({ kind: 1, id: 11069, lines: [{ left: "2 sec. off Fireball's cast.", kind: DESCRIBED }] })
   Test::pass(SHOWS)
   const texts = tip("Improved Fireball").texts()
-  Test::expect(texts.any(text => text == "|cff40ff603|r sec. off Fireball's cast.") || panic(texts.join(" | ")))
+  Test::expect(texts.any(text => text == "|cff40ff603|r sec. off Fireball's cast.") || throw Error { message: texts.join(" | ") })
 }
 
 test "a talent at its last rank shows its rank in green and no next rank" {
@@ -1894,7 +1894,7 @@ test "a class other than a priest names its own cures: a mage's for a curse, a d
     Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ dispel: dispel, dispelName: dispel, ..burning() })
     Game::tooltip.main = showing(holyFire())
     Test::pass(SHOWS)
-    Test::expect(tip("Holy Fire").text(`Spell ${cure[3] ?? ""}`).shown() || panic(tag))
+    Test::expect(tip("Holy Fire").text(`Spell ${cure[3] ?? ""}`).shown() || throw Error { message: tag })
   }
 }
 

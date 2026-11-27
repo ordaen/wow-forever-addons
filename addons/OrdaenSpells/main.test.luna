@@ -150,7 +150,7 @@ test "the game is asked for its words on spells while the spellbook shows, and n
 // The client's spells window, named to the module as the game loads it: shut, on no page yet.
 function gameWindow(): any Client::Frame {
   Test::clientFrames()
-  const found = Runtime::frame("PlayerSpellsFrame") ?? panic("the client has its spells window")
+  const found = Runtime::frame("PlayerSpellsFrame") ?? throw Error { message: "the client has its spells window" }
   const game: any Client::Frame = found
   Game::frames.PlayerSpells = game
   return game

@@ -118,7 +118,7 @@ const MANA_POWER = 0
 // The stats an aura's change changes; none for a change no stat of the window shows.
 function changed(change: Change): array<Stat> {
   return match (change.kind) {
-    .Stat, .StatPercent => change.misc < 0 ? MAINS : [MAINS[change.misc + 1] ?? panic("five main stats")]
+    .Stat, .StatPercent => change.misc < 0 ? MAINS : [MAINS[change.misc + 1] ?? throw Error { message: "five main stats" }]
     .Resist, .ResistPercent => SCHOOLS.filter(school => (change.misc / school.bit).floor() % 2 == 1).map(school => school.stat)
     .Armor => [.Armor]
     .Health => [.Health]

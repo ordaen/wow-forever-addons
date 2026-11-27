@@ -67,7 +67,7 @@ public class Catcher {
       if (addon != nil) {
         let found = addon.captures("^([%w_%-%.]+)$")
         if (found != nil) {
-          source = found[1] ?? panic("the pattern captures the whole name")
+          source = found[1] ?? throw Error { message: "the pattern captures the whole name" }
         }
       }
       const (blizzard, _) = source.find("^Blizzard_")

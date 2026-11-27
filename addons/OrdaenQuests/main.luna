@@ -194,7 +194,7 @@ public class Quests implements Module, App {
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
   // The picked quest as a list of one, or none: the docked panel's page.
-  derived pickedList: array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
+  derived pickedList: array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? throw Error { message: "a quest" }]
   // Docked on the map while it shows: the side panel Quests' log stands over, where, and how big.
   derived dockedSide: SidePanel | nil = Maps?.side
   derived dockedPlace: Place = { point: Point::TopLeft, to: Point::TopLeft, by: self.dockedSide?.frame }
@@ -205,7 +205,7 @@ public class Quests implements Module, App {
   derived level: integer = Game::player.level
   derived chainTabs: array<WindowTabSpec> = [{ title: Locale::CHAIN_WINDOW, icon: CHAIN_ICON }]
   // The chain's quest as a list of one, or none: the chain window's page.
-  derived chainedList: array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
+  derived chainedList: array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? throw Error { message: "facts" }]
 
   const toggle: any Client::Frame
   const turnIns: TurnInPins

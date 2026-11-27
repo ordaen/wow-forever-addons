@@ -200,7 +200,7 @@ test "a junk slot carries a coin, and the «Junk» tab counts it" {
 
 test "a grey item read before the client loaded it is judged again once it is: the coin comes" {
   const lying = carried()
-  const foot = lying[1] ?? panic("the foot")
+  const foot = lying[1] ?? throw Error { message: "the foot" }
   foot.loaded = false
   const world = new World(lying)
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)

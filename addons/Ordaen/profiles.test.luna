@@ -176,7 +176,7 @@ test "what a module remembers is written whole by its own method" {
 
 test "picks name a profile for a spec, a character, a class and the account, each rule winning in turn, and say which" {
   const profiles = Ordaen.keeper.profiles
-  const me = profiles.who().character ?? panic("the stand-in's player has a GUID")
+  const me = profiles.who().character ?? throw Error { message: "the stand-in's player has a GUID" }
   Test::expect(profiles.make("Account", nil) && profiles.make("Priests", nil) && profiles.make("Mine", nil))
   Test::expect(profiles.make("Tank", nil))
   profiles.use("Account")
@@ -253,6 +253,6 @@ test "a renamed module keeps what was kept under its former name: its settings, 
   Test::expect(load(.Account, "OrdaenTrading:buy", Remembered {}).last == "Linen")
   Test::expect(Game::saved.stored(.Account, "OrdaenAuction") == nil)
   Test::expect(Ordaen.chosen["OrdaenTrading"] == false && Ordaen.chosen["OrdaenAuction"] == nil)
-  const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE] ?? panic("the default profile")
+  const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE] ?? throw Error { message: "the default profile" }
   Test::expect(kept.sections["OrdaenTrading:list"] == "packed" && kept.sections["OrdaenAuction:list"] == nil)
 }

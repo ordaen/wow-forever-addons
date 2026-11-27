@@ -250,7 +250,7 @@ public class Outbox implements Component {
   // The queue's letters then those gone, the newest first.
   allOf(): array<Sent> {
     const list: array<Sent> = mut []
-    for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? panic("within the queue")) }
+    for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? throw Error { message: "within the queue" }) }
     for (letter of self.history) { list.push(letter) }
     return list
   }

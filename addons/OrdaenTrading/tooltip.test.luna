@@ -49,7 +49,7 @@ function tip(name: string): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -113,7 +113,7 @@ test "the price line off in the settings: the tooltip has none" {
   Game::clock.server = START
   Test::mount(nil, SCREEN)
   Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("trading")
   const page = Test::page().window(SETTINGS)
   page.button("Price in item tooltips").click()
   Game::tooltip.main = hidden()
@@ -145,7 +145,7 @@ test "the lines go with Tooltips turned off, and are back with it on" {
   Test::mount(nil, SCREEN)
   Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
   Trading.shopping.add(ItemId::of(ORE), 12, .ByHand)
-  const tooltips = Runtime::Addon::of(Tooltips) ?? panic("the tooltips are installed")
+  const tooltips = Runtime::Addon::of(Tooltips) ?? throw Error { message: "the tooltips are installed" }
   tooltips.disable()
   Test::pass(0.02)
   Test::expect(Tooltips == nil && Test::errors().length == 0)

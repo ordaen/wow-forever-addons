@@ -9,15 +9,15 @@ struct Probe implements Plain {
 
 function sample(): Shared {
   const shared = Shared { name: "Raid" }
-  shared.sections["OrdaenMinimap"] = Game::encoding.serialize(Probe { scale: 1.5 }) ?? panic("the client packs")
-  shared.sections["OrdaenNotInstalled"] = Game::encoding.serialize(Probe { scale: 2 }) ?? panic("the client packs")
+  shared.sections["OrdaenMinimap"] = Game::encoding.serialize(Probe { scale: 1.5 }) ?? throw Error { message: "the client packs" }
+  shared.sections["OrdaenNotInstalled"] = Game::encoding.serialize(Probe { scale: 2 }) ?? throw Error { message: "the client packs" }
   return shared
 }
 
 // The text for a body of the client's packing, as a text of this build is made.
 function textOf(raw: string): string {
-  const packed = Game::encoding.compress(raw) ?? panic("the client packs")
-  return "ORDAEN:1:" + (Game::encoding.toBase64(packed) ?? panic("the client packs"))
+  const packed = Game::encoding.compress(raw) ?? throw Error { message: "the client packs" }
+  return "ORDAEN:1:" + (Game::encoding.toBase64(packed) ?? throw Error { message: "the client packs" })
 }
 
 function why(result: Shared | Refused): Refusal | nil {
@@ -27,7 +27,7 @@ function why(result: Shared | Refused): Refusal | nil {
 
 test "a profile written as text reads back equal, with the sections of modules nobody knows" {
   const shared = sample()
-  const text = write(shared) ?? panic("written")
+  const text = write(shared) ?? throw Error { message: "written" }
   Test::expect(text.sub(1, 9) == "ORDAEN:1:")
   const back = read(text)
   Test::expect(back is Shared)
@@ -41,7 +41,7 @@ test "a profile written as text reads back equal, with the sections of modules n
 }
 
 test "a text that isn't a profile is refused, each with its reason" {
-  const text = write(sample()) ?? panic("written")
+  const text = write(sample()) ?? throw Error { message: "written" }
   Test::expect(why(read("")) == Refusal::NotProfile)
   Test::expect(why(read("hello")) == Refusal::NotProfile)
   Test::expect(why(read("ORDAEN:x:abcd")) == Refusal::NotProfile)
@@ -53,15 +53,15 @@ test "a text that isn't a profile is refused, each with its reason" {
   // Base64 of something that isn't deflated, and deflate cut short.
   Test::expect(why(read(text.sub(1, text.length - 6))) == Refusal::Damaged)
   // CBOR cut short, packed and encoded right.
-  const raw = Game::encoding.serialize(sample()) ?? panic("the client packs")
+  const raw = Game::encoding.serialize(sample()) ?? throw Error { message: "the client packs" }
   Test::expect(why(read(textOf(raw.sub(1, raw.length - 5)))) == Refusal::Damaged)
   // A section that is not CBOR (a text string whose length is cut off).
   const bad = Shared { name: "Bad" }
   bad.sections["OrdaenMinimap"] = "{{{{"
-  Test::expect(why(read(write(bad) ?? panic("written"))) == Refusal::Damaged)
+  Test::expect(why(read(write(bad) ?? throw Error { message: "written" })) == Refusal::Damaged)
   // CBOR that is a number, or a table with no sections.
-  Test::expect(why(read(textOf(Game::encoding.serialize(5) ?? panic("the client packs")))) == Refusal::Damaged)
-  Test::expect(why(read(textOf(Game::encoding.serialize(Probe {}) ?? panic("the client packs")))) == Refusal::NotProfile)
+  Test::expect(why(read(textOf(Game::encoding.serialize(5) ?? throw Error { message: "the client packs" }))) == Refusal::Damaged)
+  Test::expect(why(read(textOf(Game::encoding.serialize(Probe {}) ?? throw Error { message: "the client packs" }))) == Refusal::NotProfile)
   // 64 KB and more.
   Test::expect(why(read("ORDAEN:1:" + "A".rep(70000))) == Refusal::TooLong)
 }

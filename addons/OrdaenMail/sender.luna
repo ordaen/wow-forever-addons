@@ -44,7 +44,7 @@ public class Sender {
     for (place of 1..count) {
       const items: array<SentItem> = mut []
       for (index of ((place - 1) * PLACES + 1)..(place * PLACES).min(stacks.length)) {
-        const stack = stacks[index] ?? panic("within the stacks")
+        const stack = stacks[index] ?? throw Error { message: "within the stacks" }
         items.push({ item: stack.item, count: stack.count })
       }
       if (queue.length < QUEUE_MOST) {

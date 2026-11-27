@@ -639,15 +639,15 @@ public class TrainerPage {
   derived name: string = self.current?.name ?? ""
   // What it does, lit as a tooltip's description is: its numbers with their units, a damage school, a spell's name.
   derived text: string = richDescription(self.current?.description ?? "")
-  derived currentIgnored: boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
+  derived currentIgnored: boolean = self.current != nil && isIgnored(self.current ?? throw Error { message: "current" }, self.ignoredNames)
   // The card says an ignored service is ignored, where its row's plate does.
-  derived needs: string = self.current == nil ? "" : self.currentIgnored ? Locale::TRAINER_IGNORED : self.rows.needsOf(self.current ?? panic("current"))
+  derived needs: string = self.current == nil ? "" : self.currentIgnored ? Locale::TRAINER_IGNORED : self.rows.needsOf(self.current ?? throw Error { message: "current" })
   derived price: integer = self.current?.cost ?? 0
   derived dear: boolean = self.price > Game::money.amount
   derived priceInk: color = self.dear ? RED : INK
   // A new profession needs a free slot, as the game's window greys «Learn» without one.
   derived noSlot: boolean = self.current?.profession == true && self.current?.status == Game::ServiceStatus::Available && !slotFree()
-  derived canTrain: boolean = self.current != nil && learnable(self.current ?? panic("current"), self.ignoredNames)
+  derived canTrain: boolean = self.current != nil && learnable(self.current ?? throw Error { message: "current" }, self.ignoredNames)
   derived confirmText: string = Locale::TRAINER_CONFIRM_PROFESSION.format(self.current?.name ?? "")
   // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
   // what is ignored, where anything is.
@@ -676,9 +676,9 @@ public class TrainerPage {
   // Why «Learn» can't be pressed, on its Tip.
   derived reason: TipText | nil = self.reasonOf()
   // Away from a trainer: the picked service's own action, where it has one.
-  derived action: string | nil = self.current == nil ? nil : self.actions[(self.current ?? panic("current")).index]
+  derived action: string | nil = self.current == nil ? nil : self.actions[(self.current ?? throw Error { message: "current" }).index]
   derived acts: boolean = self.action != nil
-  derived priceLines: array<PlacePrice> = self.current == nil ? [] : self.prices[(self.current ?? panic("current")).index] ?? []
+  derived priceLines: array<PlacePrice> = self.current == nil ? [] : self.prices[(self.current ?? throw Error { message: "current" }).index] ?? []
   derived priced: boolean = self.priceLines.length > 0
 
   services: Signal<array<Game::TrainerService>>

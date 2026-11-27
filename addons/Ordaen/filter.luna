@@ -156,7 +156,7 @@ public class FilterButton<K: unknown> implements Component {
   mut onFlip(key: K) { self.values = switched(self.values, [key], self.values[key] != true) }
 
   mut onFlipAll(index: integer) {
-    const group = self.groups[index] ?? panic("a section is one of the filter's groups")
+    const group = self.groups[index] ?? throw Error { message: "a section is one of the filter's groups" }
     const keys = group.options.map(option => option.key)
     self.values = switched(self.values, keys, shownOf(group, self.values) != .On)
   }

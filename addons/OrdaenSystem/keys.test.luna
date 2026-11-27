@@ -20,11 +20,11 @@ test "the list is every command in the client's order, under its section's text,
   _ = Client::SetBinding("W", "MOVEFORWARD", nil)
   _ = Client::SetBinding("UP", "MOVEFORWARD", nil)
   const bindings = read()
-  const first = bindings.commands[1] ?? panic("a command")
+  const first = bindings.commands[1] ?? throw Error { message: "a command" }
   Test::expect(first.name == "Move Forward" && first.section == "Movement Keys" && first.keys.join(" ") == "W UP")
   Test::expect(bindings.commands.map(command => command.action).join(" ") ==
       "MOVEFORWARD MOVEBACKWARD JUMP OPENCHAT OPENCHATSLASH TOGGLEGAMEMENU")
-  Test::expect((bindings.commands[4] ?? panic("a command")).section == "Chat")
+  Test::expect((bindings.commands[4] ?? throw Error { message: "a command" }).section == "Chat")
 }
 
 test "a key set on a command leaves the command that held it, and «Undo» puts both back" {

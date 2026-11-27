@@ -128,7 +128,7 @@ public function gridOf(nodes: array<Game::TalentNode>): TreeGrid {
   }
   const cells: array<mut TreeCell> = mut []
   for (place of 1..columns * rows) { cells.push({}) }
-  const at = (column: integer, row: integer): mut TreeCell => cells[row * columns + column + 1] ?? panic("a cell of the grid")
+  const at = (column: integer, row: integer): mut TreeCell => cells[row * columns + column + 1] ?? throw Error { message: "a cell of the grid" }
   for (node of nodes) { at(stepOf(node.x, leastX, cell), stepOf(node.y, leastY, cell)).node = node }
   for (node of nodes) {
     const fromColumn = stepOf(node.x, leastX, cell)

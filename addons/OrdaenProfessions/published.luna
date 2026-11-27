@@ -55,7 +55,7 @@ public function needsOf(book: Book, queue: array<Queued>): array<QueueItem> {
           needs.push({ item: part.item, count: part.count * line.count })
           at[part.item] = needs.length
         } else {
-          const need = needs[index] ?? panic("an index it gave")
+          const need = needs[index] ?? throw Error { message: "an index it gave" }
           needs[index] = { item: need.item, count: need.count + part.count * line.count }
         }
       }

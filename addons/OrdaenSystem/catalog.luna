@@ -326,7 +326,7 @@ public class Catalog {
     const character = self.character()
     const player = Game::player.guid
     for (index of step.changes.length..1 step -1) {
-      const change = step.changes[index] ?? panic("an index of the list")
+      const change = step.changes[index] ?? throw Error { message: "an index of the list" }
       match (change.before) {
         .On => Client::C_AddOns::EnableAddOn(change.name, character)
         .Off => Client::C_AddOns::DisableAddOn(change.name, character)

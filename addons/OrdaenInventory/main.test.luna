@@ -138,7 +138,7 @@ class World {
     for (item of self.items) {
       if (item.bag == bag && item.slot == slot) { return item }
     }
-    panic(`nothing lies in ${bag}/${slot}`)
+    throw Error { message: `nothing lies in ${bag}/${slot}` }
   }
 
   // The two slots' stacks change places, as the client does.
@@ -242,7 +242,7 @@ function tab(name: string): string {
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -250,7 +250,7 @@ function reads(part: Test::Part, expected: string): boolean {
 // what it was asked.
 function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -273,7 +273,7 @@ function gameWindow(): any Client::Frame {
 
 // Ordaen's settings window at the module's page, as `/ordaen bags` opens it.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("bags")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("bags")
   return Test::page().window(SETTINGS)
 }
 
@@ -1958,7 +1958,7 @@ test "in the category view the tabs stand down a marble column the page's height
 // What the game was asked, but the tooltips of the slots the cursor crossed: where it isn't this, the test fails with it.
 function askedOnly(expected: string): boolean {
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -2143,7 +2143,7 @@ test "a bag isn't put on while the cursor holds something" {
   Test::mount(nil, SCREEN)
   Game::bags.open = true
   Test::flush()
-  const bag = Inventory.carried.all.find(slot => slot.bag == 0 && slot.index == 6) ?? panic("the new bag lies there")
+  const bag = Inventory.carried.all.find(slot => slot.bag == 0 && slot.index == 6) ?? throw Error { message: "the new bag lies there" }
   Client::CursorHasItem = (): boolean => true
   Test::expect(new BagChanger().start(bag, [], (place: integer): boolean => true) == Change::Busy)
 }

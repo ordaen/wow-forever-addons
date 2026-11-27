@@ -75,13 +75,13 @@ function window(): Test::Part {
 // What the game was asked, but the tooltips of the rows the cursor crossed.
 function asked(expected: string): boolean {
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -98,7 +98,7 @@ function queueTab(): Test::Part {
     const label = count == 0 ? "Queue" : `Queue (${count})`
     if (window().button(label).shown()) { return window().button(label) }
   }
-  panic("no «Queue» tab")
+  throw Error { message: "no «Queue» tab" }
 }
 
 function off(part: Test::Part): boolean {
@@ -596,7 +596,7 @@ test "a reagent two recipes need is summed on one line, and follows a line's cou
   Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     const thread: Game::Reagent = { itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 1, need: 1 }
     if (id == 3275) { return [thread] }
-    if (id == CLOAK) { return [reagents(CLOAK)[1] ?? panic("the cloak takes a bolt"), thread] }
+    if (id == CLOAK) { return [reagents(CLOAK)[1] ?? throw Error { message: "the cloak takes a bolt" }, thread] }
     return reagents(id)
   }
   Test::mount(nil, SCREEN)

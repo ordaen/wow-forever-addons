@@ -46,7 +46,7 @@ function shown(text: string): string {
 
 // The bars drawn alone: the panel's own turned off.
 function alone() {
-  (Runtime::Addon::of(Panel) ?? panic("the panel is installed")).disable()
+  (Runtime::Addon::of(Panel) ?? throw Error { message: "the panel is installed" }).disable()
 }
 
 // The texts of the tooltip that holds this text, joined.

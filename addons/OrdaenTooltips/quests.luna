@@ -114,7 +114,7 @@ public function questRows(
   for (want of wants) {
     const at = blockOf(blocks, want.title)
     if (at != nil) {
-      if ((blocks[at] ?? panic("a block")).own.any(row => row.left == want.objective)) { continue }
+      if ((blocks[at] ?? throw Error { message: "a block" }).own.any(row => row.left == want.objective)) { continue }
       const list = added[at]
       if (list == nil) { added[at] = mut [wantedRow(want)] } else { list.push(wantedRow(want)) }
     } else {

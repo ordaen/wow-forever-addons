@@ -71,8 +71,8 @@ test "a held tooltip the game fills anew costs what changed in it: a refill of t
     }))
     Test::expect(Test::page().window("Game Menu").text("2.12 MB").shown())
   }
-  const few = made[1] ?? panic("the short tooltip's refill")
-  const many = made[2] ?? panic("the long tooltip's refill")
+  const few = made[1] ?? throw Error { message: "the short tooltip's refill" }
+  const many = made[2] ?? throw Error { message: "the long tooltip's refill" }
   // Twenty lines more cost nothing more (each line read and drawn anew would be over a kilobyte a line), and a
   // refill is a few tables: the changed line's, the model's, the lists'.
   Test::expect(many - few < 1)

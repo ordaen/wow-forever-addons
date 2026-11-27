@@ -351,7 +351,7 @@ public class Bar implements Component {
     for (index of 1..spec.most) {
       const name = buttonName(spec.id, index)
       const frame = Client::CreateFrame("CheckButton", name, Client::UIParent, spec.template)
-      if (!(frame is Client::ActionButton)) { panic("the client's action button templates make check buttons") }
+      if (!(frame is Client::ActionButton)) { throw Error { message: "the client's action button templates make check buttons" } }
       const command = `${spec.command}${index}`
       // The binding the client's Quick Keybind mode binds while the cursor is on the button, as the game's bars give
       // their buttons theirs.

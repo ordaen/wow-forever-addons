@@ -149,5 +149,5 @@ public function preset(): Choices {
 
 // One ring as it comes: «Back to the preset».
 public function presetRing(index: integer): Ring {
-  return preset().rings[index] ?? panic("the preset has a ring for each key")
+  return preset().rings[index] ?? throw Error { message: "the preset has a ring for each key" }
 }

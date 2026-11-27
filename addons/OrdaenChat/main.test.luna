@@ -133,7 +133,7 @@ function underOr(shown: Test::Part, text: string, color: color): Test::Rect | ni
 function standsOn(shown: Test::Part, text: string, color: color): boolean { return underOr(shown, text, color) != nil }
 
 function under(shown: Test::Part, text: string, color: color): Test::Rect {
-  return underOr(shown, text, color) ?? panic(`«${text}» stands on no box of that colour`)
+  return underOr(shown, text, color) ?? throw Error { message: `«${text}» stands on no box of that colour` }
 }
 
 test "a tab's count stands on a plain fill beside its name, never over it: nothing moves for it" {
@@ -378,15 +378,15 @@ test "whispers are Ordaen Social's: no tab shows them, its conversation counts t
   const shown = chat()
   Game::chat.heard.emit(whisper("Thrall", "see https://a.io/x"))
   Test::expect(!shown.texts().any(text => text.contains("a.io")))
-  const social = Social ?? panic("Ordaen Social is on in the tests")
-  const talk = social.talks[1] ?? panic("Thrall's conversation made")
+  const social = Social ?? throw Error { message: "Ordaen Social is on in the tests" }
+  const talk = social.talks[1] ?? throw Error { message: "Thrall's conversation made" }
   Test::expect(social.whispersUnread == 1 && talk.lines[1]?.whole == linked("see https://a.io/x"))
   // A player reported: their lines go from the conversations too.
   const rude = whisper("Grub", "rude")
   rude.guid = "Player-1-0001"
   Game::chat.heard.emit(rude)
   Game::chat.playerReported.emit("Player-1-0001")
-  Test::expect((social.talks[1] ?? panic("Grub's conversation made")).lines.length == 0)
+  Test::expect((social.talks[1] ?? throw Error { message: "Grub's conversation made" }).lines.length == 0)
 }
 
 test "a name's menu whispers them in Ordaen Social's window" {
@@ -617,7 +617,7 @@ test "a quest's link shows it in Ordaen Quests' log; on the map, never in a figh
   said.clickLink("quest:101:10", .Right)
   Test::page().text("Show in quest log").click()
   Test::flush()
-  Test::expect((Quests ?? panic("Quests is on")).picked == 101)
+  Test::expect((Quests ?? throw Error { message: "Quests is on" }).picked == 101)
   Test::combat(true)
   said.clickLink("quest:101:10", .Right)
   Test::page().text("Show on map").click()
@@ -629,7 +629,7 @@ test "with Quests off, a quest's link has no Quests' entries" {
   Test::questLog([{ id: 101, title: "One", header: "Westfall" }])
   Game::chat.windows = gameWindows()
   const shown = chat()
-  const quests = Runtime::Addon::of(Quests) ?? panic("Quests is installed")
+  const quests = Runtime::Addon::of(Quests) ?? throw Error { message: "Quests is installed" }
   quests.disable()
   Test::pass(0.02)
   Game::chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
@@ -1087,9 +1087,9 @@ test "a line kept with its time in its text comes back with its time drawn apart
     { whole: "|cff9d9d9d[3:30 PM]|r Later", color: WHITE, time: 15 * 3600 + 30 * 60, repeat: "", count: 1, marked: false, secret: false },
     { whole: "untimed", color: WHITE, time: 15 * 3600 + 31 * 60, repeat: "", count: 1, marked: false, secret: false }
   ])
-  const first = tab.lines[1] ?? panic("kept")
-  const later = tab.lines[2] ?? panic("kept")
-  const untimed = tab.lines[3] ?? panic("kept")
+  const first = tab.lines[1] ?? throw Error { message: "kept" }
+  const later = tab.lines[2] ?? throw Error { message: "kept" }
+  const untimed = tab.lines[3] ?? throw Error { message: "kept" }
   Test::expect(first.stamped && first.whole == "Hello" && later.stamped && later.whole == "Later")
   Test::expect(!untimed.stamped && untimed.whole == "untimed")
   const entries = tab.slice(0, 3)

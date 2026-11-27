@@ -68,7 +68,7 @@ test "a set's name and its bonuses in effect, a flat one and a chance; one not y
     { text: "Комплект: Повышает вероятность попадания на 2,0%.", kind: 0 },
     { text: "(3) Комплект: +40 к силе атаки.", kind: 42 }
   ]
-  const set = bonusesOf(lines, RUSSIAN).set ?? panic("the item is a set's")
+  const set = bonusesOf(lines, RUSSIAN).set ?? throw Error { message: "the item is a set's" }
   Test::expect(set.name == "Соучастники")
   Test::expect(told(set.gives) == "Strength 22, MeleeHit 2, RangedHit 2")
 }

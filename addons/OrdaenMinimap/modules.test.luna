@@ -14,11 +14,11 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 const ZONE = "Elwynn Forest"
 
 function minimapAddon(): Runtime::Addon {
-  const ordaen = Runtime::Addon::of(Ordaen) ?? panic("Ordaen is installed")
+  const ordaen = Runtime::Addon::of(Ordaen) ?? throw Error { message: "Ordaen is installed" }
   for (addon of ordaen.dependents()) {
     if (addon.name == "OrdaenMinimap") { return addon }
   }
-  panic("OrdaenMinimap needs Ordaen")
+  throw Error { message: "OrdaenMinimap needs Ordaen" }
 }
 
 // Whether the client has loaded the module's files.
@@ -34,7 +34,7 @@ function drawn(): boolean {
 
 // The minimap's switch in the settings' list of modules, clicked: `/ordaen`, the switch as it stands (on or off).
 function flip(from: Art) {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("")
   Test::page().window("Move mode").button(from).click()
 }
 

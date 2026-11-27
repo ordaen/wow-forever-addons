@@ -131,7 +131,7 @@ function firstSource(text: string): string | nil {
   if (found == nil) {
     return nil
   }
-  const addon = found[1] ?? panic("ADDON_PATH captures the folder")
+  const addon = found[1] ?? throw Error { message: "ADDON_PATH captures the folder" }
   const (blizzard, _) = addon.find("^Blizzard_")
   if (blizzard != nil) {
     return "Blizzard"
@@ -261,13 +261,13 @@ public class Errors {
     if (n > ERRORS_MAX) {
       const drop = n - ERRORS_MAX
       for (i of 1..drop) {
-        const dropped = self.db.errors[i] ?? panic("an error among the dropped")
+        const dropped = self.db.errors[i] ?? throw Error { message: "an error among the dropped" }
         if (self.index[dropped.message] == dropped) {
           self.index[dropped.message] = nil
         }
       }
       for (i of 1..ERRORS_MAX) {
-        self.db.errors[i] = self.db.errors[i + drop] ?? panic("a kept error past the dropped ones")
+        self.db.errors[i] = self.db.errors[i + drop] ?? throw Error { message: "a kept error past the dropped ones" }
       }
       for (i of 1..drop) {
         _ = self.db.errors.pop()

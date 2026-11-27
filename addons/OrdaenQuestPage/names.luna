@@ -132,16 +132,16 @@ public function markNames(text: string, names: array<Named>): string {
     for (i of 1..words.length - parts.length + 1) {
       let fits = true
       for (k of 1..parts.length) {
-        const word = words[i + k - 1] ?? panic("a word within the text's")
-        const part = parts[k] ?? panic("a word within the name's")
+        const word = words[i + k - 1] ?? throw Error { message: "a word within the text's" }
+        const part = parts[k] ?? throw Error { message: "a word within the name's" }
         if (!bends(text, word, named.name, part) || (k > 1 && !joined(text, words[i + k - 2] ?? word, word))) {
           fits = false
           break
         }
       }
       if (!fits) { continue }
-      const from = (words[i] ?? panic("a word within the text's")).from
-      const to = (words[i + parts.length - 1] ?? panic("a word within the text's")).to
+      const from = (words[i] ?? throw Error { message: "a word within the text's" }).from
+      const to = (words[i + parts.length - 1] ?? throw Error { message: "a word within the text's" }).to
       if (found.any(other => other.from <= to && from <= other.to)) { continue }
       found.push({ from: from, to: to, named: named })
     }

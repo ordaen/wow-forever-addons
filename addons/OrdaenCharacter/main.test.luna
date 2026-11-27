@@ -1062,7 +1062,7 @@ test "a spec's trees stand on the class's art, out to the window's sides, betwee
   Test::expect(band.left - body.left <= reach.left + 2)
   // In its own proportions (2046 by 1177): the part of it drawn, read within the atlas's region as the client reads
   // it, is the box's shape, cut at its longer sides.
-  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? throw Error { message: "the class's art" }
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
   Test::expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }
@@ -1308,7 +1308,7 @@ test "with no points staged, Apply and Cancel aren't shown" {
 // The game's spells window, opened on its talents page by the game's talent button, as the game's side reports it.
 function talentButtonPressed(): any Client::Frame {
   Runtime::press(Client::TalentMicroButton, .Left)
-  const game = Runtime::frame("PlayerSpellsFrame") ?? panic("the client made its spells window")
+  const game = Runtime::frame("PlayerSpellsFrame") ?? throw Error { message: "the client made its spells window" }
   Game::frames.PlayerSpells = game
   // Ours hooks the window as the game's side reports it, on the next update.
   Test::flush()
@@ -1612,7 +1612,7 @@ test "the client's sheet reads health's and mana's regeneration a second, and sp
   Client::GetHealthRegen = (): (number, number) => { return (4, 1) }
   Client::GetHealthRegenFromSpirit = (): (number, number) => { return (2, 0) }
   Client::GetManaRegenFromSpirit = (): (number, number) => { return (6, 0) }
-  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
+  const stats = new ClientSheet().stats() ?? throw Error { message: "the stand-in gives plain statistics" }
   // Spirit's health counted standing, as the game's sheet takes it: three quarters.
   Test::expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
   Test::expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
@@ -1635,7 +1635,7 @@ test "the client's sheet reads the three hastes, the ranged with its ammo's" {
   Client::GetMeleeHaste = (): number => 4
   Client::GetRangedHaste = (): (number, number) => { return (3, 2) }
   Client::UnitSpellHaste = (unit: string): number => 6
-  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
+  const stats = new ClientSheet().stats() ?? throw Error { message: "the stand-in gives plain statistics" }
   Test::expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
 }
 
@@ -1644,7 +1644,7 @@ test "the client's sheet reads the glancing blows against a raid boss's 315 of d
   Client::UnitLevel = (unit: string): number => 60
   Client::GetGlancingBlowChance = (skill: number | nil, defense: number): number => defense == 315 ? 0.4 : 0.1
   Client::GetGlancingBlowPenalty = (skill: number | nil, defense: number): number => defense == 315 ? 0.35 : 0.05
-  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
+  const stats = new ClientSheet().stats() ?? throw Error { message: "the stand-in gives plain statistics" }
   Test::expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
   Test::expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
   Test::expect(stats.bossDefensePast == 15)
@@ -2003,7 +2003,7 @@ test "the class's art keeps its proportions after another tab showed and the tal
   window.button("Progression").click()
   window.button("Talents").click()
   const art = Test::edges("talent-background-warrior", 0)
-  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? throw Error { message: "the class's art" }
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
   Test::expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }

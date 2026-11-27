@@ -532,7 +532,7 @@ test "a reward the player can't wear says so in red" {
   Test::talk(innkeeper())
   Test::quest(pie())
   Events::QUEST_COMPLETE.emit()
-  const quest = Dialogue.quest ?? panic("the reward page shows a quest")
+  const quest = Dialogue.quest ?? throw Error { message: "the reward page shows a quest" }
   Test::expect(quest.choices[2]?.unusable == true && quest.choices[1]?.unusable == false)
 }
 
@@ -915,7 +915,7 @@ test "with Quests off, a quest's page shows without reputations, nothing broken"
   Test::questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
   Test::factions({ [72]: "Stormwind" })
   Test::mount(nil, SCREEN)
-  const quests = Runtime::Addon::of(Quests) ?? panic("Quests is installed")
+  const quests = Runtime::Addon::of(Quests) ?? throw Error { message: "Quests is installed" }
   quests.disable()
   Test::pass(0.02)
   Test::talk(innkeeper())

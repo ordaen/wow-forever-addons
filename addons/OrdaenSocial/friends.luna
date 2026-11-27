@@ -372,7 +372,7 @@ public class FriendCard implements Component {
   derived favorite: boolean = self.friend.account?.favorite == true
   derived status: string = self.statusOf()
   derived plays: string = self.friend.account != nil && online(self.friend) ? gameName(self.friend.account?.program ?? "") : ""
-  derived hero: string = self.friend.hero != nil ? heroText(self.friend.hero ?? panic("tested")) : ""
+  derived hero: string = self.friend.hero != nil ? heroText(self.friend.hero ?? throw Error { message: "tested" }) : ""
   derived heroLabel: string = self.friend.account != nil && !online(self.friend) ? Locale::LAST_SEEN_AS : Locale::CHARACTER
   derived where: string = online(self.friend) ? orDash(self.friend.hero?.area ?? "") : Locale::DASH
   derived broadcast: string = self.friend.account?.broadcast ?? ""

@@ -181,7 +181,7 @@ public class House {
 function rolled(points: mut array<Quote>, now: Hour) {
   let kept = 0
   for (at of 1..points.length) {
-    const point = points[at] ?? panic("a point of the history")
+    const point = points[at] ?? throw Error { message: "a point of the history" }
     let seen: integer = point.seen()
     if (now - seen >= DAY) { seen -= seen % DAY }
     if (now - seen < HISTORY_DAYS * DAY) {

@@ -218,7 +218,7 @@ public class Dialogue implements Module, App {
       }
     }
     if (choices.skipSingle && self.onlyOption(lines)) {
-      const only = lines[1] ?? panic("one line")
+      const only = lines[1] ?? throw Error { message: "one line" }
       pickOption(only)
       return true
     }

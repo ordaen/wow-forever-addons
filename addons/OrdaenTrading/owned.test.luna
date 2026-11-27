@@ -36,7 +36,7 @@ function window(): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -44,7 +44,7 @@ function reads(part: Test::Part, expected: string): boolean {
 function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 

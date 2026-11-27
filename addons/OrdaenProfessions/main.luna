@@ -845,8 +845,8 @@ public class Professions implements Module, App {
   // note is empty where its run starts at once (nothing waits, so nothing was queued since a recipe was picked).
   mut onMake(id: integer) {
     self.menuFor = 0
-    const open = (peek Game::tradeSkill.open) ?? panic("the menu stands in the open profession's window")
-    const recipe = (peek Game::tradeSkill.recipes).find(r => r.id == id) ?? panic("the menu stands on a listed recipe")
+    const open = (peek Game::tradeSkill.open) ?? throw Error { message: "the menu stands in the open profession's window" }
+    const recipe = (peek Game::tradeSkill.recipes).find(r => r.id == id) ?? throw Error { message: "the menu stands on a listed recipe" }
     if (self.crafting.add(open, id, recipe.name, recipe.craftable)) { self.note = Locale::QUEUED_AFTER }
   }
 

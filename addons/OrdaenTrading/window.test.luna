@@ -32,7 +32,7 @@ function window(): Test::Part {
 function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -50,7 +50,7 @@ function back(own: any Client::Frame): boolean {
 
 // Ordaen's settings window at the module's page, as `/ordaen trading` opens it.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("trading")
   return Test::page().window(SETTINGS)
 }
 

@@ -76,7 +76,7 @@ function window(): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -105,7 +105,7 @@ function sectionReads(title: string, expected: string): boolean {
     if (inside) { read.push(shown) }
   }
   const said = read.join(" | ")
-  if (said != expected) { panic(`the section reads «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the section reads «${said}», not «${expected}»` } }
   return true
 }
 

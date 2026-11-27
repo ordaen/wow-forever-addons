@@ -30,7 +30,7 @@ const TABS = "Characters | Items | Cooldowns | Professions"
 
 // The window at its «Professions» tab: `/alts`, the tab.
 function grid(): Test::Part {
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
   const window = Test::page().window(Locale::TAB_CHARACTERS)
   // From «Items», where no heading says «Professions» as the characters' table does.
   window.button(Locale::TAB_ITEMS).click()
@@ -42,7 +42,7 @@ function grid(): Test::Part {
 // else, the test stops and says what.
 function shows(expected: string): boolean {
   const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
-  if (said != expected) { panic(`the window shows «${said}»`) }
+  if (said != expected) { throw Error { message: `the window shows «${said}»` } }
   return true
 }
 
@@ -104,7 +104,7 @@ test "two characters of one name on different realms each have their own skills"
     recorded(pair)
     _ = grid()
     Test::expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
-    (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+    (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
   }
 }
 

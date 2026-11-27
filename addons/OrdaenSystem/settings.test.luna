@@ -30,7 +30,7 @@ test "the pages are the client's game groups and their pages in its order, a pag
 test "the first page shows as the tab opens, each line read as its kind with the client's value" {
   const settings = read()
   Test::expect(settings.lines.length > 0)
-  const first = settings.lines.find(line => line.variable != "") ?? panic("a setting on the first page")
+  const first = settings.lines.find(line => line.variable != "") ?? throw Error { message: "a setting on the first page" }
   Test::expect(settings.values[first.variable] != nil)
 }
 
@@ -70,8 +70,8 @@ test "a line of two controls is its checkbox and, set in under it, its slider or
   const settings = read()
   Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
   Test::page().text("Mouse").click()
-  const box = settings.lines.find(line => line.variable == "enableMouseSpeed") ?? panic("the checkbox's line")
-  const slider = settings.lines.find(line => line.variable == "mouseSpeed") ?? panic("the slider's line")
+  const box = settings.lines.find(line => line.variable == "enableMouseSpeed") ?? throw Error { message: "the checkbox's line" }
+  const slider = settings.lines.find(line => line.variable == "mouseSpeed") ?? throw Error { message: "the slider's line" }
   Test::expect(box.kind == .Check && slider.kind == .Slider && slider.under == "enableMouseSpeed")
   Test::expect((settings.lines.find(line => line.variable == "cameraSmoothTrackingStyle")?.under ?? "") == "autoInteract")
   Test::expect(!Test::page().button("Open in the game's window").shown())
@@ -123,7 +123,7 @@ function lineFor(settings: mut SystemSettings, variable: string): SettingLine {
       }
     }
   }
-  return panic(`the line of ${variable}`)
+  return throw Error { message: `the line of ${variable}` }
 }
 
 test "a line's tooltip is Blizzard's: its text, a dropdown's choices that say more, the one recommended" {
@@ -138,6 +138,6 @@ test "a line's tooltip is Blizzard's: its text, a dropdown's choices that say mo
 test "a slider writes its value as Blizzard's window does: 72% for 0.72" {
   const settings = read()
   const distance = lineFor(settings, "cameraDistanceMaxZoomFactor")
-  const format = distance.format ?? panic("its format")
+  const format = distance.format ?? throw Error { message: "its format" }
   Test::expect(format(0.72) == "72%")
 }

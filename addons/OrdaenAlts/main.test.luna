@@ -16,12 +16,12 @@ function window(): Test::Part {
 
 // `/alts`, as the player types it.
 function alts() {
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
 }
 
 // The settings window, opened by `/ordaen`.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("")
   return Test::page().window(SETTINGS)
 }
 

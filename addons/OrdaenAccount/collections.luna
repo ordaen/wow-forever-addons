@@ -258,7 +258,7 @@ public class Collections {
   derived narrowed: boolean = self.owned[Owned::Collected] != true || self.owned[Owned::Missing] != true
   derived shown: array<Entry> = self.filtered()
   derived picked: Entry | nil = self.toys || self.chosen == "" ? nil : self.entries.find(entry => entry.key == self.chosen)
-  derived card: Card = self.picked != nil ? cardOf(self.kind, self.picked ?? panic("tested")) : NO_CARD
+  derived card: Card = self.picked != nil ? cardOf(self.kind, self.picked ?? throw Error { message: "tested" }) : NO_CARD
   derived counts: array<FooterCount> = [
     { label: Locale::COUNT_COLLECTED, value: "%d / %d".format(self.entries.count(entry => entry.owned), self.entries.length) }
   ]

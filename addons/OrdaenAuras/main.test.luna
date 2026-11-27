@@ -18,8 +18,8 @@ test "each aura's changes are the client's points for its effect, times its stac
     { spell: HEALTH, stacks: 2, harmful: false, points: [120] }
   ]
   Auras.refresh()
-  const shout = Auras.active[1] ?? panic("the shout")
-  const health = Auras.active[2] ?? panic("the health")
+  const shout = Auras.active[1] ?? throw Error { message: "the shout" }
+  const health = Auras.active[2] ?? throw Error { message: "the health" }
   Test::expect(shout.spell == SHOUT && shout.changes.length == 1)
   Test::expect(shout.changes[1]?.kind == Kind::AttackPower && shout.changes[1]?.amount == 55)
   Test::expect(health.changes[1]?.kind == Kind::Health && health.changes[1]?.amount == 240)
@@ -29,7 +29,7 @@ test "without the client's points, an aura's change is the spell data's, grown t
   Game::player.level = 10
   Game::auras.player = (): array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [] }]
   Auras.refresh()
-  const shout = Auras.active[1] ?? panic("the shout")
+  const shout = Auras.active[1] ?? throw Error { message: "the shout" }
   Test::expect(shout.changes[1]?.amount == 12)
 }
 
@@ -40,7 +40,7 @@ test "a percentage of every stat keeps its misc value, all of them; an aura that
   ]
   Auras.refresh()
   Test::expect(Auras.active.length == 1)
-  const kings = (Auras.active[1] ?? panic("kings")).changes[1] ?? panic("its change")
+  const kings = (Auras.active[1] ?? throw Error { message: "kings" }).changes[1] ?? throw Error { message: "its change" }
   Test::expect(kings.kind == Kind::StatPercent && kings.misc == -1 && kings.amount == 10)
 }
 

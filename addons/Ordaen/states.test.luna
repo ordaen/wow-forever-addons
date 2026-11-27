@@ -34,7 +34,7 @@ function frameAt(at: Test::Point): any Client::Frame {
   Test::moveTo(at)
   const found = Client::GetMouseFoci()[1]
   if (found is Client::Frame) { return found }
-  panic("no frame takes the mouse there")
+  throw Error { message: "no frame takes the mouse there" }
 }
 
 // Where a frame stands and how large it is, as the client says it now.
@@ -138,14 +138,14 @@ function same(page: any Client::Frame, first: array<string>, state: string, crop
   for (index of 1..first.length.max(now.length)) {
     const was = first[index] ?? "(nothing)"
     const seen = now[index] ?? "(nothing)"
-    if (was != seen) { panic(`${state}, line ${index} of what is drawn differs but for its colours:\n  at first: ${was}\n  now:      ${seen}`) }
+    if (was != seen) { throw Error { message: `${state}, line ${index} of what is drawn differs but for its colours:\n  at first: ${was}\n  now:      ${seen}` } }
   }
 }
 
 // The frame stands as it stood at first, or the test stops and says in which state it doesn't.
 function sameBox(frame: any Client::Frame, first: string, state: string) {
   const now = rectOf(frame)
-  if (now != first) { panic(`the box stood at ${first} at first, at ${now} ${state}`) }
+  if (now != first) { throw Error { message: `the box stood at ${first} at first, at ${now} ${state}` } }
 }
 
 // The component that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go

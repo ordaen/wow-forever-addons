@@ -309,7 +309,7 @@ test "three rewards to choose stand in one column" {
 
 test "the parchment marks who gives the quest where its words name him, and his tip says who he is and where" {
   const log = standing()
-  log[1] = { task: "Report to Gryan Stoutmantle's camp at Sentinel Hill.", ..log[1] ?? panic("a quest") }
+  log[1] = { task: "Report to Gryan Stoutmantle's camp at Sentinel Hill.", ..log[1] ?? throw Error { message: "a quest" } }
   opened(log)
   const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
@@ -355,7 +355,7 @@ test "a quest's scroll fills its page's height: its corners at its top and its f
 
 test "a quest under the cursor has its tooltip" {
   const log = standing()
-  log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? panic("a quest") }
+  log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? throw Error { message: "a quest" } }
   opened(log)
   const row = Test::page().window("World").text("The Defias Brotherhood")
   row.hover()
@@ -390,7 +390,7 @@ test "in the tracker a quest to do says where, and its title opens its page in t
   opened(log)
   Quests.flip()
   Test::flush()
-  const tracker = Tracker ?? panic("Ordaen Tracker")
+  const tracker = Tracker ?? throw Error { message: "Ordaen Tracker" }
   tracker.refresh()
   Test::flush()
   // QuestieDB places its giver alone: as a target it knows none, so the line is the turn-in's once done.
@@ -424,7 +424,7 @@ test "the list's rows have no tracking box: a quest is tracked by the page's swi
 
 test "Abandon is the page's accent button and stands outermost left, the others at the right" {
   const log = standing()
-  log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
+  log[1] = { pushable: true, ..log[1] ?? throw Error { message: "the standing log has a first quest" } }
   Test::grouped(true)
   opened(log)
   const window = Test::page().window("World")
@@ -584,7 +584,7 @@ test "in a fight «Show on map» is greyed, opens nothing, and its tip says the 
 
 test "Share shows only while the quest can be shared: alone, or a quest the client keeps, there is none" {
   const log = standing()
-  log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
+  log[1] = { pushable: true, ..log[1] ?? throw Error { message: "the standing log has a first quest" } }
   opened(log)
   const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
@@ -1023,5 +1023,5 @@ function bandHolding(window: Test::Part, inner: Test::Rect): Test::Rect {
       return band
     }
   }
-  return panic("no band holds it")
+  return throw Error { message: "no band holds it" }
 }

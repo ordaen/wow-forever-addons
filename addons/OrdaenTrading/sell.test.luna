@@ -52,14 +52,14 @@ function panel(): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
 function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -72,11 +72,11 @@ function says(part: Test::Part, label: string, expected: string): boolean {
       let read: array<string> = mut []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
-      if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
+      if (said != expected) { throw Error { message: `after «${label}» it reads «${said}», not «${expected}»` } }
       return true
     }
   }
-  panic(`«${label}» isn't in «${shown.join(" | ")}»`)
+  throw Error { message: `«${label}» isn't in «${shown.join(" | ")}»` }
 }
 
 // Whether `first` is drawn before `second` in the window.
@@ -86,7 +86,7 @@ function before(first: string, second: string): boolean {
     if (text == first && at == 0) { at = index }
     if (text == second) { return at > 0 }
   }
-  panic(`«${second}» isn't shown`)
+  throw Error { message: `«${second}» isn't shown` }
 }
 
 // The list

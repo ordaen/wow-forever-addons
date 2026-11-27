@@ -126,7 +126,7 @@ public class Bindings {
     if (step == nil) { return nil }
     if (Client::InCombatLockdown()) { return .Fight }
     for (i of step.before.length..1 step -1) {
-      const was = step.before[i] ?? panic("a command the step touched")
+      const was = step.before[i] ?? throw Error { message: "a command the step touched" }
       _ = self.put(was.action, was.keys)
     }
     Client::SaveBindings(self.set)

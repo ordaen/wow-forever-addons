@@ -59,7 +59,7 @@ function window(): Test::Part {
 function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -77,11 +77,11 @@ function says(part: Test::Part, label: string, expected: string): boolean {
       let read: array<string> = mut []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
-      if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
+      if (said != expected) { throw Error { message: `after «${label}» it reads «${said}», not «${expected}»` } }
       return true
     }
   }
-  panic(`«${label}» isn't in «${shown.join(" | ")}»`)
+  throw Error { message: `«${label}» isn't in «${shown.join(" | ")}»` }
 }
 
 // A full scan asked from «Scan» and answered with these auctions, read through.
@@ -195,7 +195,7 @@ test "a scan shows its progress as it reads, and the house shut on it drops it: 
   let reads = 0
   Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
     reads += 1
-    const auction = auctions[index] ?? panic("an auction of the answer")
+    const auction = auctions[index] ?? throw Error { message: "an auction of the answer" }
     return (auction.key, auction.unit, auction.many)
   }
   Client::debugprofilestop = (): number => reads * 0.02
@@ -302,7 +302,7 @@ test "auctions whose item's data came late are read as it comes, and counted" {
   // The blade's data hasn't loaded: the client says nothing of it until it comes.
   let loaded = false
   Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
-    const auction = auctions[index] ?? panic("an auction of the answer")
+    const auction = auctions[index] ?? throw Error { message: "an auction of the answer" }
     if (!loaded && index == 3) { return (0, 0, 0) }
     return (auction.key, auction.unit, auction.many)
   }
@@ -403,8 +403,8 @@ test "what one is listed for is the lesser of the market and a fresh lowest, the
   Test::mount(nil, SCREEN)
   Game::auctionQuery.results.emit([{ key: ORE, copper: 100, quantity: 2 }, { key: ORE, copper: 300, quantity: 10 }])
   const key = PriceKey::of(ORE)
-  const listed = Trading.prices.listed(key) ?? panic("the ore is priced")
-  const sold = Trading.prices.sell(key) ?? panic("the ore brings something")
+  const listed = Trading.prices.listed(key) ?? throw Error { message: "the ore is priced" }
+  const sold = Trading.prices.sell(key) ?? throw Error { message: "the ore brings something" }
   Test::expect(Trading.prices.cut() == 5)
   Test::expect(listed.copper() == 100 && sold.copper() == 95)
   Test::expect(Trading.prices.listed(PriceKey::of(LINEN)) == nil)

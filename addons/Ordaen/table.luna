@@ -49,7 +49,7 @@ function headsOf(columns: array<Column>, from: integer, to: integer, depth: inte
   let next = from
   for (at of from..to) {
     if (at < next) { continue }
-    const column = columns[at] ?? panic("a column of the table")
+    const column = columns[at] ?? throw Error { message: "a column of the table" }
     const title = (column.group ?? [])[depth]
     let last = at
     if (title != nil) {
@@ -76,7 +76,7 @@ function sameGroup(next: Column | nil, column: Column, depth: integer): boolean 
 
 // Every heading of a table, as one group over all its columns that has no title.
 function headOf(columns: array<Column>): Head {
-  const first = columns[1] ?? panic("a table has a column")
+  const first = columns[1] ?? throw Error { message: "a table has a column" }
   return { title: "", column: first, index: 1, count: columns.length, under: headsOf(columns, 1, columns.length, 1) }
 }
 

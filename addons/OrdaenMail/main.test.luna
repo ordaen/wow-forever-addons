@@ -326,7 +326,7 @@ test "«Take all» writes the house's sale into Ordaen Trading's ledger once, fr
     return (nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil)
   }
   Test::mount(nil, PAGE)
-  const auction = Trading ?? panic("Ordaen Trading is on")
+  const auction = Trading ?? throw Error { message: "Ordaen Trading is on" }
   const (before, copperBefore) = auction.ledger.total(.Sold)
   Game::mailbox.letters = letters
   Game::mailbox.waiting = (): integer => 4
@@ -599,7 +599,7 @@ test "«To» completes against every recipient in a popover: each name in its cl
   window.input().nth(2).type("re")
   const popover = Test::page().window("Regron")
   Test::expect(popover.text("Friend").shown() && popover.text("Recent").shown() && !popover.text("Dorn").shown())
-  Test::expect(drawnIn(popover.text("Regy"), classColor("WARRIOR") ?? panic("a class's colour")))
+  Test::expect(drawnIn(popover.text("Regy"), classColor("WARRIOR") ?? throw Error { message: "a class's colour" }))
   popover.text("Regy").click()
   Test::expect(window.input().nth(2).value() == "Regy")
   Test::expect(!Test::page().text("Recent").shown())

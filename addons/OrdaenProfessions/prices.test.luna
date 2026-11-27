@@ -85,7 +85,7 @@ function window(): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -98,13 +98,13 @@ function totals(expected: string): boolean {
     if (read.length > 0 || shown == "Cost") { read.push(shown) }
   }
   const said = read.join(" | ")
-  if (said != expected) { panic(`the totals read «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the totals read «${said}», not «${expected}»` } }
   return true
 }
 
 // Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("professions")
   return Test::page().window(SETTINGS)
 }
 
@@ -126,7 +126,7 @@ function shoppingList(expected: string): boolean {
     if (shown == "Total") { inside = true }
   }
   const said = read.join(" | ")
-  if (said != expected) { panic(`the shopping list reads «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the shopping list reads «${said}», not «${expected}»` } }
   return true
 }
 
@@ -135,7 +135,7 @@ function follows(first: string, next: string): boolean {
   for (index, text of shown) {
     if (text == first && shown[index + 1] == next) { return true }
   }
-  panic(`«${next}» doesn't follow «${first}» in «${shown.join(" | ")}»`)
+  throw Error { message: `«${next}» doesn't follow «${first}» in «${shown.join(" | ")}»` }
 }
 
 // The card

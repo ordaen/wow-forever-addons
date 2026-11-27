@@ -30,7 +30,7 @@ class Stand implements Component {
 function alone() {
   const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Panel")
   if (running != nil) {
-    const addon = Runtime::Addon::of(running) ?? panic("Ordaen's module is an addon's root")
+    const addon = Runtime::Addon::of(running) ?? throw Error { message: "Ordaen's module is an addon's root" }
     Ordaen.turn(addon, false)
     Test::flush()
   }
@@ -38,7 +38,7 @@ function alone() {
 
 // A bar's settings as the settings hold them.
 function chosen(stand: Stand, id: string): BarChoice {
-  const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
+  const spec = SPECS.find(spec => spec.id == id) ?? throw Error { message: "a bar of the panel's" }
   return stand.settings.values.bars[id] ?? stand.defaults[id] ?? defaultChoice(spec, false)
 }
 
@@ -59,7 +59,7 @@ function lastNamed(name: string, at: any Client::Frame | nil, found: any Client:
 
 function button(id: string, index: integer): any Client::Frame {
   const name = buttonName(id, index)
-  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
+  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? throw Error { message: `the panel made ${name}` }
 }
 
 // The «…» menu's copy, from the bar the submenu names so: the last such name drawn, the list's drawn before it.

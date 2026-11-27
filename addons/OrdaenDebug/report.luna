@@ -46,7 +46,7 @@ public function report(errors: Errors): string {
     const shown = kept.length.min(REPORT_ERRORS)
     lines.push(Locale::REPORT_ERRORS.format(shown, kept.length))
     for (n of 1..shown) {
-      const entry = kept[kept.length - n + 1] ?? panic("an error among the newest")
+      const entry = kept[kept.length - n + 1] ?? throw Error { message: "an error among the newest" }
       lines.push("")
       lines.push(errors.format(entry))
     }

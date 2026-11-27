@@ -81,13 +81,13 @@ function sword(): Game::TooltipData {
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
 // Whether a number is this one, to a hundredth: where it isn't, the test fails with what it is.
 function near(value: number, expected: number): boolean {
-  if ((value - expected).abs() > 0.01) { panic(`it is ${value}, not ${expected}`) }
+  if ((value - expected).abs() > 0.01) { throw Error { message: `it is ${value}, not ${expected}` } }
   return true
 }
 
@@ -153,7 +153,7 @@ test "the module turned off draws nothing and leaves the game's tooltip seen" {
   Test::pass(SHOWS)
   Test::flush()
   _ = Test::requests()
-  (Runtime::Addon::of(Tooltips) ?? panic("the tooltips are installed")).disable()
+  (Runtime::Addon::of(Tooltips) ?? throw Error { message: "the tooltips are installed" }).disable()
   Test::expect(Test::surfaces().length == 0)
   Test::expect(Test::requests().join(", ") == "Tooltip.hide false, Tooltip.hidePinned false")
 }
@@ -766,7 +766,7 @@ test "each kind's switch off greys the rest of its tab" {
     const settings = tab(title)
     settings.button("On").click()
     const rest = title == "Buttons and text" ? "More on buttons" : "Tooltips in tooltips"
-    if (settings.button(rest).opacity() >= 1) { panic(`${title}: «${rest}» isn't greyed`) }
+    if (settings.button(rest).opacity() >= 1) { throw Error { message: `${title}: «${rest}» isn't greyed` } }
     settings.button("On").click()
     Test::key(Key::Escape)
   }

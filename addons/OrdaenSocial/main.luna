@@ -181,7 +181,7 @@ public class Social implements Module, App {
   derived whispersDesc: string = self.whispersUnread > 0 ? Locale::UNREAD_COUNT.format(self.whispersUnread) : Locale::TALKS_COUNT.format(self.talks.length)
   derived subTabs: array<string> = [Locale::SUB_STATUS, self.requestsTitle(), Locale::SUB_IGNORE]
   derived side: WindowSide | nil = self.sideOf()
-  derived removeText: string = Locale::REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
+  derived removeText: string = Locale::REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? throw Error { message: "tested" }) : "")
   derived removeDetail: string = self.removing?.account != nil ? Locale::REMOVE_BATTLE_NET : Locale::REMOVE_CHARACTER
   derived addRule: string = namesAccount(self.addText) ? Locale::ADD_RULE_BATTLE_NET : Locale::ADD_RULE_CHARACTER
   derived broadcastCount: string = Locale::BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
@@ -798,7 +798,7 @@ public class Social implements Module, App {
     return {
       width: Style::CARD,
       content: $ltml {
-        <FriendCard $if={self.pickedFriend != nil} friend={self.pickedFriend ?? panic("tested")} @whisper={self.onWhisper}
+        <FriendCard $if={self.pickedFriend != nil} friend={self.pickedFriend ?? throw Error { message: "tested" }} @whisper={self.onWhisper}
                     @invite={self.onInvite} @remove={self.onRemove} @menu={self.onCardMenu} />
         <MyCard $else me={self.me} @presence={self.onPresence} @edit={self.onEditBroadcast} @copy={self.onCopyTag} />
       }
@@ -809,10 +809,10 @@ public class Social implements Module, App {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
-        <MemberCard $if={self.pickedMember != nil} member={self.pickedMember ?? panic("tested")} rights={self.rights}
+        <MemberCard $if={self.pickedMember != nil} member={self.pickedMember ?? throw Error { message: "tested" }} rights={self.rights}
                     rankTitle={Locale::COLUMN_RANK} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
                     @promote={self.onPromote} @demote={self.onDemote} @menu={self.onMemberCardMenu} />
-        <GuildCard $else guild={self.guild ?? panic("tested")} @invite={self.onGuildInvite} @leave={self.onLeave}
+        <GuildCard $else guild={self.guild ?? throw Error { message: "tested" }} @invite={self.onGuildInvite} @leave={self.onLeave}
                    @gameWindow={self.onGameGuild} />
       }
     }
@@ -822,10 +822,10 @@ public class Social implements Module, App {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
-        <MemberCard $if={self.pickedClubMember != nil} member={self.pickedClubMember ?? panic("tested")} rights={NO_RIGHTS}
+        <MemberCard $if={self.pickedClubMember != nil} member={self.pickedClubMember ?? throw Error { message: "tested" }} rights={NO_RIGHTS}
                     rankTitle={Locale::COLUMN_ROLE} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
                     @menu={self.onMemberCardMenu} />
-        <ClubCard $else club={self.chosenClub ?? panic("tested")} streams={self.streams} />
+        <ClubCard $else club={self.chosenClub ?? throw Error { message: "tested" }} streams={self.streams} />
       }
     }
   }
@@ -834,7 +834,7 @@ public class Social implements Module, App {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
-        <AllyCard ally={self.pickedAlly ?? panic("tested")} now={Game::clock.server} @whisper={self.onAllyWhisper}
+        <AllyCard ally={self.pickedAlly ?? throw Error { message: "tested" }} now={Game::clock.server} @whisper={self.onAllyWhisper}
                   @invite={self.onAllyInvite} @pin={self.onAllyPin} @befriend={self.onAllyBefriend} @note={self.onAllyNote}
                   @menu={self.onAllyCardMenu} />
       }

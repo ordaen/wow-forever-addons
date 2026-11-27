@@ -97,7 +97,7 @@ function elsewhere() {
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -768,7 +768,7 @@ test "a locked tooltip opens no term before the cursor comes onto a part" {
 
 // Whether a text is this one: where it isn't, the test fails with what it is.
 function same(said: string, expected: string): boolean {
-  if (said != expected) { panic(`it says «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `it says «${said}», not «${expected}»` } }
   return true
 }
 

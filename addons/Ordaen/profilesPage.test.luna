@@ -56,7 +56,7 @@ function has(name: string, key: string): boolean {
 function ghost(): string {
   const settings: map<string, number> = mut {}
   settings["scale"] = 3
-  return Game::encoding.serialize(settings) ?? panic("the client packs")
+  return Game::encoding.serialize(settings) ?? throw Error { message: "the client packs" }
 }
 
 test "the page shows the profile in use and why, with Delete off while there is one profile only" {
@@ -181,7 +181,7 @@ test "a profile in use is renamed in every pick of it, and deleted with the char
   const page = new ProfilesPage()
   Test::mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
-  const me = profiles.who().character ?? panic("the stand-in's player has a GUID")
+  const me = profiles.who().character ?? throw Error { message: "the stand-in's player has a GUID" }
   // The account's default is renamed before anything is kept in it.
   typeName("Main")
   click(Test::holding("Rename", nil))
@@ -335,7 +335,7 @@ test "a text that isn't a profile is refused with its sentence and changes nothi
   cases["ORDAEN:2:abcd"] = Locale::PROFILES_REFUSED_VERSION.format("2")
   cases["ORDAEN:1:***"] = Locale::PROFILES_REFUSED_DAMAGED
   cases["ORDAEN:1:" + "A".rep(70000)] = Locale::PROFILES_REFUSED_TOO_LONG
-  cases[write(shared) ?? panic("written")] = Locale::PROFILES_REFUSED_DAMAGED
+  cases[write(shared) ?? throw Error { message: "written" }] = Locale::PROFILES_REFUSED_DAMAGED
   for (text, sentence of cases) {
     page.text = text
     Test::flush()

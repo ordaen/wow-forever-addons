@@ -220,7 +220,7 @@ public class Legacy {
   state first = 1
   state config: mut any Game::TalentConfig | nil = nil
   derived open: boolean = self.readOpen()
-  derived treeKind: TreeKind = TREES[self.treeIndex] ?? panic("three trees")
+  derived treeKind: TreeKind = TREES[self.treeIndex] ?? throw Error { message: "three trees" }
   derived tree: Game::TalentTree | nil = self.readTree()
   derived points: integer = self.readPoints()
   derived staged: boolean = self.readStaged()
@@ -240,7 +240,7 @@ public class Legacy {
         <TreeChoice $for={index, tree of TREES} tree={tree} index={index} chosen={self.treeIndex} @pick={self.onTree} />
       </box>
       <box padding={6sp} xAlign={Align::Center} yAlign={Align::Center}>
-        <TalentTreeView $if={self.tree != nil} tree={self.tree ?? panic("tested")} titled={false} fraction={true} @spend={self.onBuy}
+        <TalentTreeView $if={self.tree != nil} tree={self.tree ?? throw Error { message: "tested" }} titled={false} fraction={true} @spend={self.onBuy}
                         @refund={self.onRefund} />
       </box>
     </box>
@@ -310,7 +310,7 @@ public class Legacy {
     watch {
       if (!self.visible) { return }
       _ = self.touched
-      self.config = Game::talentTrees.of((TREES[self.treeIndex] ?? panic("three trees")).id)
+      self.config = Game::talentTrees.of((TREES[self.treeIndex] ?? throw Error { message: "three trees" }).id)
     }
   }
 

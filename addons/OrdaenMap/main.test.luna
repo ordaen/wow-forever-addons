@@ -47,7 +47,7 @@ test "docked, the map's side panel is given while the map shows, its size the cl
   Test::flush()
   Client::C_Map::OpenWorldMap(1436)
   Test::flush()
-  const side = Maps.side ?? panic("the side panel")
+  const side = Maps.side ?? throw Error { message: "the side panel" }
   Test::expect(side.width == 330 && side.height == 668)
   Maps.settings.values.docked = false
   Test::flush()
@@ -158,7 +158,7 @@ test "pins on one spot are drawn as one, its tooltip saying each; a lit pin is d
   Maps.layers.add(new CrowdLayer())
   Test::flush()
   Test::expect(host.drawn.length == 2)
-  Test::expect((host.drawn[1] ?? panic("a pin")).pin.of == 3)
+  Test::expect((host.drawn[1] ?? throw Error { message: "a pin" }).pin.of == 3)
   Test::expect((host.said[2] ?? []).join(",") == "Pin 1,Pin 2")
 }
 
@@ -260,8 +260,8 @@ test "without OpenMap the client doesn't load Map, and says OpenMap is missing" 
 
 test "how far a place is from the player is said in the world's yards on one continent, and not where the client can't say" {
   // The stand-in's player stands at 0.421, 0.655 of Elwynn Forest (area 12); Westfall (area 40) is its neighbour.
-  Test::expect((Maps.distanceTo(12, 0.421, 0.655) ?? panic("yards")) < 0.001)
-  const westfall = Maps.distanceTo(40, 0.5, 0.5) ?? panic("Westfall's yards")
+  Test::expect((Maps.distanceTo(12, 0.421, 0.655) ?? throw Error { message: "yards" }) < 0.001)
+  const westfall = Maps.distanceTo(40, 0.5, 0.5) ?? throw Error { message: "Westfall's yards" }
   Test::expect(westfall > 1000 && westfall < 10000)
   Test::expect(Maps.distanceTo(999999, 0.5, 0.5) == nil)
   Client::C_Map::GetPlayerMapPosition = (map: number, unit: string): Client::vector2 | nil => nil

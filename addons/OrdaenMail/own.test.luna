@@ -49,13 +49,13 @@ test "each other character something goes to has a row, its items in a section p
   Client::C_Item::GetItemNameByID = names
   const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: string, skillLine: integer): SendRule => ruleOf(ANY, who, skillLine))
   Test::expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Regron 2, Aria 1")
-  const regron = rows[1] ?? panic("Regron's row")
-  const smithing = regron.sections[1] ?? panic("his Blacksmithing")
+  const regron = rows[1] ?? throw Error { message: "Regron's row" }
+  const smithing = regron.sections[1] ?? throw Error { message: "his Blacksmithing" }
   Test::expect(smithing.profession == "Blacksmithing" && smithing.offers.map(offer => `${offer.name} ${offer.count}`).join(", ") == "Bronze Bar 20, Rough Stone 5")
-  const bar = smithing.offers[1] ?? panic("the bars")
+  const bar = smithing.offers[1] ?? throw Error { message: "the bars" }
   Test::expect(bar.color.equal(ORANGE) && bar.recipes.map(recipe => recipe.name).join(", ") == "Bronze Axe")
   const color = regron.color
-  Test::expect(color != nil && color.equal(classColor("WARRIOR") ?? panic("the client colours a warrior")))
+  Test::expect(color != nil && color.equal(classColor("WARRIOR") ?? throw Error { message: "the client colours a warrior" }))
 }
 
 test "a profession switched off sends nothing, nor one whose best recipe is worse than its rule's least" {

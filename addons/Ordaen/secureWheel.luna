@@ -340,7 +340,7 @@ public class SecureWheel {
   ) {
     self.header = Client::CreateFrame("Frame", nil, Client::UIParent, "SecureHandlerBaseTemplate")
     const made = Client::CreateFrame("Button", name, Client::UIParent, "SecureActionButtonTemplate")
-    self.button = made is Client::Button ? made : panic("the client makes a Button")
+    self.button = made is Client::Button ? made : throw Error { message: "the client makes a Button" }
     self.follower = Client::CreateFrame("Frame", nil, Client::UIParent, nil)
     self.bands = BANDS.map(band => Client::CreateFrame("Frame", nil, self.button, "SecureHandlerBaseTemplate"))
     self.dial = Client::CreateFrame("Frame", nil, Client::UIParent, "SecureHandlerBaseTemplate")
@@ -447,7 +447,7 @@ public class SecureWheel {
     self.held.clear()
     for (key of keys) { self.held.push(key.match("^.+%-(.+)$") ?? key) }
     const header = self.header
-    const name = self.button.GetName() ?? panic("the button is named")
+    const name = self.button.GetName() ?? throw Error { message: "the button is named" }
     Ordaen.afterCombat(() => {
       Client::ClearOverrideBindings(header)
       for (key of keys) { Client::SetOverrideBindingClick(header, true, key, name, "Key") }
@@ -486,8 +486,8 @@ public class SecureWheel {
   placeBands(reach: number) {
     const far = Client::UIParent.GetWidth().max(Client::UIParent.GetHeight()) * 2
     for (i of 1..BANDS.length) {
-      const band = BANDS[i] ?? panic("a band for each frame")
-      const frame = self.bands[i] ?? panic("a frame for each band")
+      const band = BANDS[i] ?? throw Error { message: "a band for each frame" }
+      const frame = self.bands[i] ?? throw Error { message: "a frame for each band" }
       frame.ClearAllPoints()
       frame.SetPoint(band.point, self.button, "CENTER", band.x * reach, band.y * reach)
       frame.SetSize(band.across ? 2 * far : far, band.across ? far : 2 * reach)

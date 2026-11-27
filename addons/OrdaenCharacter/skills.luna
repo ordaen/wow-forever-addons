@@ -167,7 +167,7 @@ public class SkillsPage implements Component {
 
   derived picked: Skill | nil = self.skills.find(skill => !skill.header && skill.id == self.chosen)
   derived hasPick: boolean = self.picked != nil
-  derived shownPick: Skill = self.picked ?? self.skills[1] ?? panic("a skill is picked from the list")
+  derived shownPick: Skill = self.picked ?? self.skills[1] ?? throw Error { message: "a skill is picked from the list" }
   derived pickedHeading: string = headingOf(self.skills, self.chosen)
   derived listed: array<Skill> = listedSkills(self.skills, self.search)
   derived none: boolean = self.listed.length == 0

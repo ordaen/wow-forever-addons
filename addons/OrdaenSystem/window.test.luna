@@ -267,7 +267,7 @@ function reads(part: Test::Part, expected: string): boolean {
 
 // Whether a text is exactly this: where it isn't, the test fails with what it is.
 function same(read: string, expected: string): boolean {
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -361,7 +361,7 @@ function menu(title: string): Test::Part {
 
 // Ordaen's settings window, opened by `/ordaen`.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("")
   return Test::page().window(SETTINGS)
 }
 
@@ -384,7 +384,7 @@ test "the menu's «Options» opens the window at its settings, Blizzard's shut; 
   Test::page().button("Open in the game's window").click()
   Test::expect((Client::SettingsPanel?.IsShown() ?? false) && !Test::page().text("Auto Loot").shown())
   // Shut, the game's window is ours again the next time it is asked for.
-  Client::HideUIPanel(Client::SettingsPanel ?? panic("the game's settings window"))
+  Client::HideUIPanel(Client::SettingsPanel ?? throw Error { message: "the game's settings window" })
   gameMenu()
   Test::page().text(Client::GAMEMENU_OPTIONS).click()
   // Ours, at the page it was left on.
@@ -2609,7 +2609,7 @@ test "while the window shows, an addon loaded by another is read at once" {
 // Ordaen's modules and Ordaen's settings
 
 test "every Ordaen module stands under Ordaen in the client's list, in its category" {
-  const own = Runtime::Addon::of(Ordaen) ?? panic("Ordaen is an addon")
+  const own = Runtime::Addon::of(Ordaen) ?? throw Error { message: "Ordaen is an addon" }
   const category = Client::C_AddOns::GetAddOnMetadata(own.name, "Category") ?? ""
   Test::expect(category == "User Interface")
   let modules = 0
@@ -2635,9 +2635,9 @@ test "a module the player turned off in Ordaen says so, after a reload too" {
     name: "OrdaenBank", title: "Ordaen Bank", needs: ["LunaType", "Ordaen"], group: "Ordaen", category: "User Interface",
     onDemand: true
   })
-  const own = Runtime::Addon::of(Ordaen) ?? panic("Ordaen is an addon")
+  const own = Runtime::Addon::of(Ordaen) ?? throw Error { message: "Ordaen is an addon" }
   // Ordaen's settings turn it off: the module has no root here to show on, so its switch is turned as they turn it.
-  Ordaen.turn(own.dependents().find(addon => addon.name == "OrdaenBank") ?? panic("Ordaen Bank needs Ordaen"), false)
+  Ordaen.turn(own.dependents().find(addon => addon.name == "OrdaenBank") ?? throw Error { message: "Ordaen Bank needs Ordaen" }, false)
   Test::reload()
   Test::mount(nil, SCREEN)
   open()

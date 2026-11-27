@@ -103,7 +103,7 @@ function glyphPieces(): array<Piece> {
   return list
 }
 const GLYPHS: array<Piece> = glyphPieces()
-function glyph(row: integer): Piece { return GLYPHS[row] ?? panic("fourteen glyphs") }
+function glyph(row: integer): Piece { return GLYPHS[row] ?? throw Error { message: "fourteen glyphs" } }
 const HEAL_GLYPH = 7
 const POWER_GLYPH = 8
 const DAMAGE_GLYPH = 9
@@ -114,10 +114,10 @@ const BLOCKED_GLYPH = 13
 const TIME_GLYPH = 14
 // The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
 const SCHOOL_COLORS: array<color> = [Style::HOLY, Style::FIRE, Style::NATURE, Style::FROST, Style::SHADOW, Style::ARCANE]
-function schoolColor(school: integer): color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
+function schoolColor(school: integer): color { return SCHOOL_COLORS[school - 1] ?? throw Error { message: "six schools" } }
 // The schools' names, holy to arcane: a spell card's title.
 const SCHOOL_NAMES: array<string> = [Locale::SCHOOL_HOLY, Locale::SCHOOL_FIRE, Locale::SCHOOL_NATURE, Locale::SCHOOL_FROST, Locale::SCHOOL_SHADOW, Locale::SCHOOL_ARCANE]
-function schoolName(school: integer): string { return SCHOOL_NAMES[school - 1] ?? panic("six schools") }
+function schoolName(school: integer): string { return SCHOOL_NAMES[school - 1] ?? throw Error { message: "six schools" } }
 const HOLY = 2
 const FIRE = 3
 const NATURE = 4
@@ -170,14 +170,14 @@ public function mainsOf(stats: Stats, weights: Weights | nil): array<Main> {
   if (most > 0) {
     let order: array<integer> = mut [1, 2, 3, 4, 5]
     order.sort((a: integer, b: integer): boolean => (worth[a] ?? 0) > (worth[b] ?? 0) || ((worth[a] ?? 0) == (worth[b] ?? 0) && a < b))
-    return order.map(index => all[index] ?? panic("five main stats"))
+    return order.map(index => all[index] ?? throw Error { message: "five main stats" })
   }
   const lead = stats.intellect > stats.strength.max(stats.agility) ? 4 : stats.agility > stats.strength ? 2 : 1
   const order: array<integer> = mut [lead, 3]
   for (index of 1..5) {
     if (index != lead && index != 3) { order.push(index) }
   }
-  return order.map(index => all[index] ?? panic("five main stats"))
+  return order.map(index => all[index] ?? throw Error { message: "five main stats" })
 }
 
 // The defence section's cards: the armor's cut of the damage and what of an enemy's blows lands on the player, side by

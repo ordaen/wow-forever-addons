@@ -34,7 +34,7 @@ function window(): Test::Part {
 
 // `/alts`, as the player types it.
 function alts() {
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
 }
 
 // A character's row, read whole.

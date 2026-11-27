@@ -1246,10 +1246,10 @@ test "the characters last seen are capped, go when not seen for long or no longe
   kept["Gone#2"] = { name: "Gone", level: 5, className: "", classFile: "", realm: "", at: now }
   kept["Drake#2145"] = { name: "Torgrim", level: 25, className: "Warrior", classFile: "WARRIOR", realm: "Flamegor", at: now }
   // Battle.net off: no account in the list, nobody dropped (but the one too old).
-  const off = seenAfter(kept, [], now) ?? panic("the old one goes")
+  const off = seenAfter(kept, [], now) ?? throw Error { message: "the old one goes" }
   Test::expect(off["Gone#2"] != nil && off["Old#1"] == nil)
   // The list read: Irina isn't seen playing, Alexei is as before; Gone and Old aren't friends.
-  const read = seenAfter(kept, friends(), now) ?? panic("the others go")
+  const read = seenAfter(kept, friends(), now) ?? throw Error { message: "the others go" }
   Test::expect(read["Drake#2145"] != nil && read["Gone#2"] == nil && read["Old#1"] == nil && read["Iris#5512"] == nil)
   // Nothing changed: nothing to write.
   Test::expect(seenAfter(read, friends(), now) == nil)
@@ -1261,7 +1261,7 @@ test "the characters last seen are capped, go when not seen for long or no longe
     many[tag] = { name: "A", level: 1, className: "", classFile: "", realm: "", at: now - at }
     list.push({ index: at, presence: .Offline, note: "", hero: nil, account: { id: at, name: "A", battleTag: tag, program: "", broadcast: "", favorite: false, lastOnline: 0, gameAccount: 0 } })
   }
-  const capped = seenAfter(many, list, now) ?? panic("capped")
+  const capped = seenAfter(many, list, now) ?? throw Error { message: "capped" }
   Test::expect(capped["Friend#1"] != nil && capped["Friend#200"] != nil && capped["Friend#201"] == nil)
 }
 
@@ -1403,7 +1403,7 @@ test "a conversation names a character in its class colour with its level; a Bat
   told.kind = "BN_WHISPER"
   _ = Social.heard(told, "ready?")
   Social.whisperTo("Eliana", false)
-  const warrior = classColor("WARRIOR") ?? panic("a warrior's colour")
+  const warrior = classColor("WARRIOR") ?? throw Error { message: "a warrior's colour" }
   Test::expect(window.text("24lvl").shown() && sameColor(window.text("Eliana").textColor(), warrior))
   Test::expect(window.text("Alexei").shown() && sameColor(window.text("Torgrim").textColor(), warrior) && window.text("25lvl").shown())
   // The character under the account's name, a little room between them, never a body line's.

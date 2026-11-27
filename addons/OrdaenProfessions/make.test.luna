@@ -61,13 +61,13 @@ function row(): string {
 // Whether the make row reads exactly this: where it doesn't, the test fails with what it reads.
 function reads(expected: string): boolean {
   const read = row()
-  if (read != expected) { panic(`the make row reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `the make row reads «${read}», not «${expected}»` } }
   return true
 }
 
 function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -82,7 +82,7 @@ function off(label: string): boolean {
 // The mode picked from the row's dropdown, which shows `from`: its list holds the other two.
 function mode(from: string, to: string) {
   window().button(from).click()
-  const other = MODES.find(name => name != from) ?? panic("three modes")
+  const other = MODES.find(name => name != from) ?? throw Error { message: "three modes" }
   Test::page().window(other).button(to).click()
 }
 

@@ -63,7 +63,7 @@ function row(name: string): string {
 }
 
 function reads(said: string, expected: string): boolean {
-  if (said != expected) { panic(`it reads «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `it reads «${said}», not «${expected}»` } }
   return true
 }
 

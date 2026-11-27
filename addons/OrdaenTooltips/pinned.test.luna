@@ -29,7 +29,7 @@ function pin() {
 // What the game was asked, joined: where it isn't this, the test fails with what it was.
 function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 

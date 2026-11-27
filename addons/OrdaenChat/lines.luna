@@ -184,7 +184,7 @@ public class ChatTab {
     const shown: array<Entry> = mut []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) {
-      const line = self.lines[at] ?? panic("inside the lines")
+      const line = self.lines[at] ?? throw Error { message: "inside the lines" }
       const before = self.lines[at - 1]
       const opens = before != nil ? before.session != line.session : line.session != THIS_SESSION
       shown.push({ line: line, opens: opens, stamp: stampOf(line, before, opens, self.stamps) })

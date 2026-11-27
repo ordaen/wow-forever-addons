@@ -33,7 +33,7 @@ function meatObjective(text: string, have: integer): Game::QuestObjective {
 test "a creature that drops what a quest to do asks for is wanted for its objective, with the log's count" {
   const by = wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 2/4", 2)])], { [86]: { drops: [meat(boars([113, 119]))], ..BARE } })
   for (creature of [113, 119]) {
-    const want = (by[creature] ?? panic("wanted"))[1] ?? panic("a want")
+    const want = (by[creature] ?? throw Error { message: "wanted" })[1] ?? throw Error { message: "a want" }
     Test::expect(want.quest == 86 && want.title == "Pie for Billy" && want.objective == "Chunk of Boar Meat")
     Test::expect(want.have == 2 && want.need == 4 && !want.done)
   }
@@ -42,7 +42,7 @@ test "a creature that drops what a quest to do asks for is wanted for its object
 
 test "the count first, as Forever writes it, names the same objective" {
   const by = wantsOf([pie(false, [meatObjective("2/4 Chunk of Boar Meat", 2)])], { [86]: { drops: [meat(boars([113]))], ..BARE } })
-  Test::expect(((by[113] ?? panic("wanted"))[1] ?? panic("a want")).objective == "Chunk of Boar Meat")
+  Test::expect(((by[113] ?? throw Error { message: "wanted" })[1] ?? throw Error { message: "a want" }).objective == "Chunk of Boar Meat")
 }
 
 test "the log's item objectives stand in QuestieDB's order: the one at the item's place, whatever its words" {
@@ -54,8 +54,8 @@ test "the log's item objectives stand in QuestieDB's order: the one at the item'
     { text: "Wolf Fang: 3/6", done: false, kind: .Item, have: 3, need: 6 }
   ])
   const by = wantsOf([quest], { [86]: { drops: [large, fang], ..BARE } })
-  Test::expect(((by[69] ?? panic("fang"))[1] ?? panic("a want")).objective == "Wolf Fang")
-  Test::expect(((by[70] ?? panic("large"))[1] ?? panic("a want")).objective == "Large Wolf Fang")
+  Test::expect(((by[69] ?? throw Error { message: "fang" })[1] ?? throw Error { message: "a want" }).objective == "Wolf Fang")
+  Test::expect(((by[70] ?? throw Error { message: "large" })[1] ?? throw Error { message: "a want" }).objective == "Large Wolf Fang")
 }
 
 test "where the log has another count of item objectives, the one named whole is found, never one that holds the name" {
@@ -133,17 +133,17 @@ test "an NPC offers the log's done quests it takes back, then those it gives tha
   const factsOf = (id: integer): QuestFacts | nil => id == 60 ? { name: "Kobold Camp Cleanup", level: 6, ..BARE } : id == 61 ? { name: "Too High", minLevel: 30, ..BARE } : nil
   const offers = offersOf(npc, quests, factsOf, HUMAN_MAGE, never)
   Test::expect(offers.length == 2)
-  const first = offers[1] ?? panic("a turn-in")
+  const first = offers[1] ?? throw Error { message: "a turn-in" }
   Test::expect(first.title == "Pie for Billy" && first.turnIn)
-  const second = offers[2] ?? panic("a quest to take")
+  const second = offers[2] ?? throw Error { message: "a quest to take" }
   Test::expect(second.title == "Kobold Camp Cleanup" && second.level == 6 && !second.turnIn)
 }
 
 test "an objective the client counts whole before it is done counts one short of its need, until done" {
   const said: Game::QuestObjective = { text: "Chunk of Boar Meat: 4/4", done: false, kind: .Item, have: 4, need: 4 }
   const facts: map<integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
-  const short = (wantsOf([pie(false, [said])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
+  const short = (wantsOf([pie(false, [said])], facts)[113] ?? throw Error { message: "wanted" })[1] ?? throw Error { message: "a want" }
   Test::expect(short.have == 3 && short.need == 4 && !short.done)
-  const whole = (wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
+  const whole = (wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] ?? throw Error { message: "wanted" })[1] ?? throw Error { message: "a want" }
   Test::expect(whole.have == 4 && whole.done)
 }

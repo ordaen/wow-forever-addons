@@ -65,7 +65,7 @@ test "a module picked in the list shows its tabs and its first tab's controls" {
 
 test "/ordaen with a module's name opens its page; a word that names none opens Ordaen's own" {
   Test::mount(nil, SCREEN)
-  const slash = Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command")
+  const slash = Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" }
   slash(" Minimap")
   Test::expect(Test::page().window(SETTINGS).button("Button drawer").shown())
   slash("nothing")

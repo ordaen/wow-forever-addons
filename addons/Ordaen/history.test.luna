@@ -177,7 +177,7 @@ test "«Откатить» goes back to the session's start and to a savepoint, 
 
   // The savepoint: its row opens its own entries.
   Test::page().button(Locale::ROLLBACK).click()
-  const at = (Ordaen.keeper.pointList()[1] ?? panic("one made")).at
+  const at = (Ordaen.keeper.pointList()[1] ?? throw Error { message: "one made" }).at
   const point = Locale::HISTORY_POINT_ROW.format(Locale::HISTORY_POINT_NAME.format(1), at, ordaens(2))
   Test::page().text(point).click()
   Test::page().text(Locale::HISTORY_TO_POINT).click()
@@ -198,7 +198,7 @@ test "a savepoint is kept for the session alone, ten at most, and made a profile
   Ordaen.globals.values.density = Density::Compact
   Test::flush()
   const points = Ordaen.keeper.pointList()
-  const last = points[points.length] ?? panic("ten made, one let go")
+  const last = points[points.length] ?? throw Error { message: "ten made, one let go" }
   Test::expect(Ordaen.keeper.profiles.makeOf("Before", last.sections))
   Ordaen.keeper.profiles.use("Before")
   Test::flush()

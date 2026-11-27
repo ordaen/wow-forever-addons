@@ -106,7 +106,7 @@ test "typing writes the cell as the text parses, the field's edge red while it d
 
 test "the field's edge is red while its text names no amount and plain once it does" {
   let bare = new Bare()
-  const field = bare.field ?? panic("the field is made")
+  const field = bare.field ?? throw Error { message: "the field is made" }
   Test::expect(!field.bad)
   Test::note("5 copper: " + field.text + ", bad " + string::of(field.bad))
 

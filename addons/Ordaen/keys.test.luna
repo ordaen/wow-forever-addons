@@ -87,7 +87,7 @@ function tabTo(said: string) {
     Test::key(Move::Next)
     if (Test::focused().contains(said)) { return }
   }
-  panic(`the focus never came to ${said}`)
+  throw Error { message: `the focus never came to ${said}` }
 }
 
 test "every kind of control works from the keyboard alone" {

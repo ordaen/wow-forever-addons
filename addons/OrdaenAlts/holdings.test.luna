@@ -20,7 +20,7 @@ const LINEN_ICON: Asset = "Interface/Icons/INV_Fabric_Linen_01"
 
 // The window at its «Items» tab: `/alts`, the tab.
 function items(): Test::Part {
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
   const window = Test::page().window(Locale::TAB_CHARACTERS)
   window.button(Locale::TAB_ITEMS).click()
   return window
@@ -30,7 +30,7 @@ function items(): Test::Part {
 // else, the test stops and says what.
 function shows(expected: string): boolean {
   const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
-  if (said != expected) { panic(`the window shows «${said}»`) }
+  if (said != expected) { throw Error { message: `the window shows «${said}»` } }
   return true
 }
 

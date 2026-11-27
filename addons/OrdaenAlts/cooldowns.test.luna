@@ -44,7 +44,7 @@ function spellName(id: integer): string | nil {
 
 // The window at its «Cooldowns» tab: `/alts`, the tab.
 function cooldowns(): Test::Part {
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is the module's command" })("")
   const window = Test::page().window(Locale::TAB_CHARACTERS)
   window.button(Locale::TAB_COOLDOWNS).click()
   return window
@@ -54,7 +54,7 @@ function cooldowns(): Test::Part {
 // else, the test stops and says what.
 function shows(expected: string): boolean {
   const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
-  if (said != expected) { panic(`the window shows «${said}»`) }
+  if (said != expected) { throw Error { message: `the window shows «${said}»` } }
   return true
 }
 

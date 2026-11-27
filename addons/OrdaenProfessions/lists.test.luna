@@ -164,7 +164,7 @@ function chosen(): string {
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -176,14 +176,14 @@ function near(a: color, b: color): boolean {
 // Whether the lists read exactly this: where they don't, the test fails with what they read.
 function lists(expected: string): boolean {
   const read = listed()
-  if (read != expected) { panic(`the lists read «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `the lists read «${read}», not «${expected}»` } }
   return true
 }
 
 // Whether the game was asked exactly this since it was last asked, joined by «, ».
 function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
-  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  if (said != expected) { throw Error { message: `the game was asked «${said}», not «${expected}»` } }
   return true
 }
 
@@ -200,7 +200,7 @@ function view(choice: string) {
       return
     }
   }
-  panic("the view's picker isn't shown")
+  throw Error { message: "the view's picker isn't shown" }
 }
 
 function sort(choice: string) {
@@ -220,7 +220,7 @@ function choose(label: string) {
 
 // Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
 function settings(): Test::Part {
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("professions")
   return Test::page().window(SETTINGS)
 }
 

@@ -30,8 +30,8 @@ test "a letter of thirteen stacks is queued as two; the money goes with the firs
   sender.put("Regron", "Cloth", "", stacks(13), 500, 900)
   const queue = sender.memory.values.queue
   Test::expect(queue.length == 2)
-  Test::expect((queue[1] ?? panic("first")).subject == "Cloth (1/2)" && (queue[1] ?? panic("first")).copper == 500)
-  Test::expect((queue[2] ?? panic("second")).items.length == 1 && (queue[2] ?? panic("second")).cod == 0)
+  Test::expect((queue[1] ?? throw Error { message: "first" }).subject == "Cloth (1/2)" && (queue[1] ?? throw Error { message: "first" }).copper == 500)
+  Test::expect((queue[2] ?? throw Error { message: "second" }).items.length == 1 && (queue[2] ?? throw Error { message: "second" }).cod == 0)
   Test::expect(sender.recent.values.names[1] == "Regron")
 }
 
@@ -57,5 +57,5 @@ test "nothing goes while the mailbox is shut; a letter the game didn't answer st
   sender.resume()
   Test::expect(sender.busy())
   Test::pass(11)
-  Test::expect(!sender.busy() && (sender.memory.values.queue[1] ?? panic("one")).why == "the game didn't answer")
+  Test::expect(!sender.busy() && (sender.memory.values.queue[1] ?? throw Error { message: "one" }).why == "the game didn't answer")
 }

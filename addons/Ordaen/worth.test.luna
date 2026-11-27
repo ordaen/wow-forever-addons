@@ -21,7 +21,7 @@ test "before its first talent point a class weighs by the build the profile pref
 
 test "an item's worth is each stat by its weight, a rating by the percentage it gives, a weapon's damage by where it fires" {
   Client::GetCombatRatingBonusForCombatRatingValue = (rating: integer, value: number): number | nil => value / 14
-  const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? panic("arms")
+  const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? throw Error { message: "arms" }
   const w = arms.leveling
   let stats: map<string, number> = mut {}
   stats["ITEM_MOD_STRENGTH_SHORT"] = 10
@@ -53,7 +53,7 @@ test "a one-hander for one who can't wield two takes the main hand alone; an off
 }
 
 function slotsOf(places: Places | nil): string {
-  return (places ?? panic("the item is worn")).slots.map(slot => string::of(slot)).join(",")
+  return (places ?? throw Error { message: "the item is worn" }).slots.map(slot => string::of(slot)).join(",")
 }
 
 // An upgrade's answer as a window holds it: worked out once, and again only as what it reads changes.

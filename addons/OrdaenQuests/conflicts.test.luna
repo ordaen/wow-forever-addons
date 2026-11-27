@@ -41,7 +41,7 @@ test "«Ordaen» turns Questie off for this character and offers the reload" {
   Test::page().button("Ordaen").click()
   Test::flush()
   // A character's addon list is asked by its GUID: the client ignores a name.
-  const player = Client::UnitGUID("player") ?? panic("the player's GUID")
+  const player = Client::UnitGUID("player") ?? throw Error { message: "the player's GUID" }
   Test::expect(Client::C_AddOns::GetAddOnEnableState("Questie", player) == Client::AddOnEnableState::None)
   Test::expect(Test::page().text("Questie is off from the next reload.").shown())
   Test::expect(Ordaen.isChosen("OrdaenQuests"))

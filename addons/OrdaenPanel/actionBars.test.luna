@@ -59,7 +59,7 @@ function lastNamed(name: string, at: any Client::Frame | nil, found: any Client:
 // The client's button of a bar, by its name.
 function button(id: string, index: integer): any Client::Frame {
   const name = buttonName(id, index)
-  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
+  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? throw Error { message: `the panel made ${name}` }
 }
 
 // The panel Ordaen started at login is turned off: the test's own bars are the only ones, made after what the test
@@ -67,7 +67,7 @@ function button(id: string, index: integer): any Client::Frame {
 function alone() {
   const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Panel")
   if (running != nil) {
-    const addon = Runtime::Addon::of(running) ?? panic("Ordaen's module is an addon's root")
+    const addon = Runtime::Addon::of(running) ?? throw Error { message: "Ordaen's module is an addon's root" }
     Ordaen.turn(addon, false)
     Test::flush()
   }
@@ -80,7 +80,7 @@ function drawn(bars: array<Shown>): string {
 
 // A bar's settings with one change.
 function changed(values: BarsChoices, id: string, change: (choice: mut BarChoice) => nil): BarChoice {
-  const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
+  const spec = SPECS.find(spec => spec.id == id) ?? throw Error { message: "a bar of the panel's" }
   const choice = (values.bars[id] ?? defaultChoice(spec, true)).clone()
   change(choice)
   return choice
@@ -310,7 +310,7 @@ test "the client's stance and pet buttons are unseen under ours, which stand as 
 // The client's button of a bar as an action button: what the client's own code keeps on it.
 function actionButton(id: string, index: integer): any Client::ActionButton {
   const frame = button(id, index)
-  return frame is Client::ActionButton ? frame : panic("a bar's button is an action button")
+  return frame is Client::ActionButton ? frame : throw Error { message: "a bar's button is an action button" }
 }
 
 test "a stance's button takes its form by its spell, clicked and by the game's stance key" {
@@ -406,7 +406,7 @@ test "the pet's buttons draw their icons, its commands' by the client's globals,
   Events::PET_BAR_UPDATE.emit()
   Test::flush()
   const path = Client::PET_ATTACK_TEXTURE
-  const attack = Test::page().box(path is Asset ? path : panic("the command's icon is a file's path"))
+  const attack = Test::page().box(path is Asset ? path : throw Error { message: "the command's icon is a file's path" })
   Test::expect(attack.shown() && near(attack, button("pet", 1)))
   Test::expect(near(Test::page().box(PET_SPELL), button("pet", 4)))
   // Defensive, the stance the pet is in.

@@ -306,7 +306,7 @@ test "a table on the wood rules its columns apart: a line down each gap of a row
   let page = new Grouped()
   Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
   Test::page().text("Copper Bar").hover()
-  const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
+  const row = page.row ?? throw Error { message: "the row hands its frame as the cursor comes onto it" }
   // Six columns: a rule in each of the five gaps.
   Test::expect(upright(Test::dump(row)) == 5)
   destroy page
@@ -364,7 +364,7 @@ test "a row on the wood is ruled under, the last too" {
   let page = new Nested()
   Test::mount(page, { left: 0, top: 0, width: 500, height: 200 })
   Test::page().text("Ore").hover()
-  const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
+  const row = page.row ?? throw Error { message: "the row hands its frame as the cursor comes onto it" }
   const box = Test::page().text("Ore").rect()
   let under = false
   for (line of Test::dump(row).split("\n")) {

@@ -121,7 +121,7 @@ test "the money told just after its window closed is a line; money gained later 
   Test::pass(0.5)
   Game::money.amount = 150
   Test::flush()
-  const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
+  const line = Inventory.lootLines.shown.find(line => line.coins) ?? throw Error { message: "the money's line" }
   Test::expect(line.count == 50)
   Test::pass(5)
   Game::money.amount = 300
@@ -140,7 +140,7 @@ test "the money of a window still to come is counted on as the next opens" {
   Test::pass(0.2)
   Game::money.amount = 140
   Test::pass(0.5)
-  const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
+  const line = Inventory.lootLines.shown.find(line => line.coins) ?? throw Error { message: "the money's line" }
   Test::expect(line.count == 40)
 }
 

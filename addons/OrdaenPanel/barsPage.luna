@@ -244,7 +244,7 @@ public class BarsPage implements Component {
   // Another bar's settings copied into the picked one, at once.
   mut onCopy(entry: integer, at: integer) {
     const spec = peek self.spec
-    const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
+    const from = (peek self.others)[at] ?? throw Error { message: "the submenu lists the other bars" }
     const values = peek self.settings.values
     const defaults = peek self.defaults
     put(self.settings, spec, copied(choiceIn(values, defaults, from), choiceIn(values, defaults, spec), spec))

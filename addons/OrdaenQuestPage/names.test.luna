@@ -49,7 +49,7 @@ class Page {
 test "under the cursor an NPC's name shows a tip of its lines, and it goes as the cursor leaves the name" {
   const page = new Page()
   Test::mount(page, { left: 0, top: 0, width: 600, height: 400 })
-  const words = Test::page().texts().find(one => one.contains("Gryan")) ?? panic("the text is drawn")
+  const words = Test::page().texts().find(one => one.contains("Gryan")) ?? throw Error { message: "the text is drawn" }
   Test::page().text(words).hoverLink("ordaen:npc:2")
   Test::expect(Test::page().text("Gryan Stoutmantle").shown())
   Test::expect(Test::page().text("Objective\nElwynn Forest").shown())

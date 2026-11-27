@@ -38,7 +38,7 @@ function blizzardsAddOns(): any Client::Button {
   for (button of buttonsOf(...Client::GameMenuFrame.GetChildren())) {
     if (button.GetText() == Client::ADDONS) { return button }
   }
-  panic("the menu has no «AddOns»")
+  throw Error { message: "the menu has no «AddOns»" }
 }
 
 // Escape, as the player shows the menu; the client lays it out on the frame after.
@@ -60,7 +60,7 @@ function lit(): string {
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -183,7 +183,7 @@ test "first thing after a reload, the menu's «AddOns» opens Ordaen's window by
 
 test "once the module is off, Blizzard's «AddOns» opens Blizzard's list" {
   Test::mount(nil, SCREEN)
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("")
   Test::page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
   Test::page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
   _ = Test::key(Key::Escape)
@@ -222,7 +222,7 @@ test "turned off in Ordaen's settings, the module puts the menu back as Blizzard
   Test::mount(nil, SCREEN)
   escape()
   Test::page().text("Return to Game").click()
-  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  (Client::SlashCmdList["ORDAEN"] ?? throw Error { message: "/ordaen is Ordaen's command" })("")
   Test::page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
   Test::page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
   escape()

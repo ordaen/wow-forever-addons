@@ -150,7 +150,7 @@ public class Pane implements Component {
   derived clickThrough: boolean = self.open?.uninteractable == true
   // The open link menu's actions, read as it opens; a name's `More` and a link's `Copy` a group of their own.
   derived linkActions: array<LinkAction> = actionsFor(self.menuLink)
-  derived menuTitle: string = self.menuLink != nil ? shownName(self.menuLink ?? panic("titled while open")) : ""
+  derived menuTitle: string = self.menuLink != nil ? shownName(self.menuLink ?? throw Error { message: "titled while open" }) : ""
   // The map isn't opened in a fight: the client lets no addon open it there.
   derived linkEntries: array<MenuEntry> = self.linkActions.map(action => MenuEntry {
     label: linkLabel(action), on: nil, disabled: action == LinkAction::ShowOnMap && Game::situation.combat,
@@ -338,7 +338,7 @@ public class Pane implements Component {
               <SizeGrip corner={GripCorner::TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />
             </box>
             <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align::Stretch}>
-              <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
+              <embed $if={self.logFrame != nil} frame={self.logFrame ?? throw Error { message: "shown with the frame" }} />
               // The newest line stands at the bottom; older ones go up past the top, which cuts them.
               <box $else overflow={Overflow::Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
                 <box position={Position::Absolute} left={0ui} right={0ui} bottom={self.linesFoot} columns={1} leading={.Row}
@@ -369,7 +369,7 @@ public class Pane implements Component {
               <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} height={FIELD_EDGE.width} background={INPUT_LIT} />
               <box position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={FIELD_EDGE.width} background={INPUT_LIT} />
               <box position={Position::Absolute} right={0ui} top={0ui} bottom={0ui} width={FIELD_EDGE.width} background={INPUT_LIT} />
-              <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+              <embed frame={self.input ?? throw Error { message: "shown with the input" }} height={GAME_INPUT} />
             </surface>
             <box height={GAME_INPUT} />
           </box>

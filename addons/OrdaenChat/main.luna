@@ -73,7 +73,7 @@ public class Chat implements Module, App {
   // The quest link whose quest the player is asked to abandon, and the items abandoning it destroys.
   state abandoning: Event::Link | nil = nil
   state abandonItems: array<string> = []
-  derived abandonAsk: string = Locale::QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
+  derived abandonAsk: string = Locale::QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? throw Error { message: "asked while set" }) : "")
   derived abandonLoses: string = Locale::QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil

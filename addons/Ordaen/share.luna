@@ -26,7 +26,7 @@ public enum Refusal {
   Damaged = "damaged"
 }
 
-public struct Refused implements Error {
+public struct Refused implements ErrorResult {
   public mut reason: Refusal
   // The version the text names, where that is the reason.
   public mut version: string | nil

@@ -169,7 +169,7 @@ public class Talk {
   public slice(back: integer, count: integer): array<TalkLine> {
     const shown: array<TalkLine> = mut []
     const last = self.lines.length - back
-    for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
+    for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? throw Error { message: "inside the lines" }) }
     return shown
   }
 }

@@ -214,8 +214,8 @@ public class ReputationPage implements Component {
 
   derived picked: Faction | nil = self.factions.find(f => f.id == self.chosen && (!f.header || f.ranked))
   derived hasPick: boolean = self.picked != nil
-  derived pickedGain: integer = self.picked == nil ? 0 : gainOf(self.picked ?? panic("picked"), self.starts)
-  derived shownPick: Faction = self.picked ?? self.factions[1] ?? panic("a faction is picked from the list")
+  derived pickedGain: integer = self.picked == nil ? 0 : gainOf(self.picked ?? throw Error { message: "picked" }, self.starts)
+  derived shownPick: Faction = self.picked ?? self.factions[1] ?? throw Error { message: "a faction is picked from the list" }
   derived listed: array<Faction> = listedOf(self.factions, self.search, self.show)
   derived none: boolean = self.listed.length == 0
   derived narrowed: boolean = self.show != .All

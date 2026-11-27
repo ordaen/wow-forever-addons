@@ -167,7 +167,7 @@ public class KeysPage implements Component {
           lines.push({ caption: true, name: section, count: 0, folded: self.folded[section] == true })
           caption = lines.length
         }
-        const head = lines[caption] ?? panic("the command's caption stands above it")
+        const head = lines[caption] ?? throw Error { message: "the command's caption stands above it" }
         head.count += 1
         if (!head.folded) { lines.push({ caption: false, name: command.action, count: 0, folded: false }) }
       }

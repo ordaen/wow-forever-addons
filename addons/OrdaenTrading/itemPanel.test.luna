@@ -25,7 +25,7 @@ function window(): Test::Part {
 
 function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
-  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  if (read != expected) { throw Error { message: `it reads «${read}», not «${expected}»` } }
   return true
 }
 
@@ -36,11 +36,11 @@ function ends(expected: string): boolean {
   for (index, text of shown) {
     if (text == "Month") {
       const said = `${shown[index + 1] ?? ""} | ${shown[index + 2] ?? ""}`
-      if (said != expected) { panic(`the chart's ends read «${said}», not «${expected}»`) }
+      if (said != expected) { throw Error { message: `the chart's ends read «${said}», not «${expected}»` } }
       return true
     }
   }
-  panic("no chart")
+  throw Error { message: "no chart" }
 }
 
 test "an item with no price seen says it has no history" {
@@ -196,11 +196,11 @@ function says(label: string, expected: string): boolean {
   for (index, text of shown) {
     if (text == label) {
       const said = `${shown[index + 1] ?? ""} | ${shown[index + 2] ?? ""}`
-      if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
+      if (said != expected) { throw Error { message: `after «${label}» it reads «${said}», not «${expected}»` } }
       return true
     }
   }
-  panic(`no «${label}»`)
+  throw Error { message: `no «${label}»` }
 }
 
 test "the day has a bar for each of its 24 hours, the week one a day for 7, the month for 30" {

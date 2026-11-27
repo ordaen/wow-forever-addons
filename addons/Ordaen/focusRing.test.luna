@@ -45,7 +45,7 @@ function rings(frame: any Frame, into: mut array<any Frame>) {
 function ringDrawn(): string {
   let found: array<any Frame> = mut []
   rings(UIParent, found)
-  const shown = found[1] ?? panic("a ring stands round the focused box")
+  const shown = found[1] ?? throw Error { message: "a ring stands round the focused box" }
   return Test::dump(shown)
 }
 

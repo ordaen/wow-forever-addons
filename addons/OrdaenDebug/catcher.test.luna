@@ -8,7 +8,7 @@ test "keeps an error once, its stack from the first time, and counts what comes 
   let catcher = new Catcher(errors)
   catcher.error("Interface/AddOns/Details/x.lua:1: boom", "the stack", "x = 1")
   catcher.error("Interface/AddOns/Details/x.lua:1: boom", nil, nil)
-  const entry = errors.db.errors[1] ?? panic("the error is kept")
+  const entry = errors.db.errors[1] ?? throw Error { message: "the error is kept" }
   Test::expect(errors.db.errors.length == 1)
   Test::expect(entry.count == 2)
   Test::expect(entry.source == "Details")

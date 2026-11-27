@@ -243,7 +243,7 @@ public class Records {
 
   // An item the character being played held in a place taken out of the holders' index, where it is.
   mut drop(place: Place, item: ItemId) {
-    const list = self.holding[item] ?? panic("an item a place held is in the holders' index")
+    const list = self.holding[item] ?? throw Error { message: "an item a place held is in the holders' index" }
     let at = 0
     for (index, held of list) {
       if (held.who == self.who && held.place == place) { at = index }

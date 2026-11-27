@@ -160,7 +160,7 @@ public class Compose implements Component {
     for (number of 1..count) {
       const stacks: array<Game::MailStack> = mut []
       for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(total)) {
-        stacks.push(self.stacks[index] ?? panic("a place within the stacks"))
+        stacks.push(self.stacks[index] ?? throw Error { message: "a place within the stacks" })
       }
       list.push({
         number: number, title: count > 1 ? Locale::LETTER_NUMBER.format(number) : "", stacks: stacks,

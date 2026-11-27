@@ -80,7 +80,7 @@ public class Looter {
   async mut lootAll() {
     const threshold = Game::loot.threshold()
     for (index of self.slots.length..1 step -1) {
-      const slot = self.slots[index] ?? panic("a slot of the window")
+      const slot = self.slots[index] ?? throw Error { message: "a slot of the window" }
       if (takes(slot, threshold) && Game::loot.fits(slot.slot)) {
         Game::loot.take(slot.slot)
       } else {

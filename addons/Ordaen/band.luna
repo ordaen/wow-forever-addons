@@ -22,7 +22,7 @@ function glyphPieces(): array<Piece> {
   return list
 }
 const GLYPH_ART: array<Piece> = glyphPieces()
-const DOT_LIGHT: Piece = GLYPH_ART[14] ?? panic("the dot's light is the last row")
+const DOT_LIGHT: Piece = GLYPH_ART[14] ?? throw Error { message: "the dot's light is the last row" }
 
 // The glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text (the cost's is
 // the design's dot, in its resource's colour).
@@ -38,7 +38,7 @@ public function glyphArt(glyph: Glyph): Piece {
     .Dmg => 1, .Spd => 2, .Arm => 3, .Blk => 4, .Alliance => 5, .Horde => 6, .Elite => 7, .Time => 8, .Cost => 9
     .CastNow => 10, .CastTime => 11, .CastChan => 12, .CastNext => 13
   }
-  return GLYPH_ART[row] ?? panic("a row for every glyph")
+  return GLYPH_ART[row] ?? throw Error { message: "a row for every glyph" }
 }
 
 // What a cell of a spell's band says: its cost, its range (or melee), its cast of each kind, its cooldown; `Other`

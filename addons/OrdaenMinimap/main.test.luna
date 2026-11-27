@@ -847,7 +847,7 @@ test "the minimap turned off gives the game its map back, square no more" {
   Game::minimap.frame = map
   Test::mount(nil, SCREEN)
   _ = Test::requests()
-  (Runtime::Addon::of(Minimap) ?? panic("the minimap is installed")).disable()
+  (Runtime::Addon::of(Minimap) ?? throw Error { message: "the minimap is installed" }).disable()
   Test::expect(Test::blank() && !minimap().shown())
   Test::expect(map.GetParent() == Client::C_UI::GetUIParent())
   Test::expect(Test::requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")

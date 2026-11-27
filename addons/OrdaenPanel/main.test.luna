@@ -100,7 +100,7 @@ function frame(name: string): any Client::Frame {
 
 // One of the client's own frames, by its name.
 function client(name: string): any Client::Frame {
-  const found = Runtime::frame(name) ?? panic("the client has the frame")
+  const found = Runtime::frame(name) ?? throw Error { message: "the client has the frame" }
   const held: any Client::Frame = found
   return held
 }
@@ -939,7 +939,7 @@ test "the panel turned off in the game's list of addons leaves the game's menu a
   const bags = frame("BagsBar")
   Game::frames.BagsBar = bags
   Test::mount(nil, SCREEN)
-  (Runtime::Addon::of(Panel) ?? panic("the panel is installed")).disable()
+  (Runtime::Addon::of(Panel) ?? throw Error { message: "the panel is installed" }).disable()
   Test::expect(Test::blank() && !Test::page().text(MONEY).shown())
   Test::expect(menu.GetAlpha() == 1 && bags.IsShown())
 }

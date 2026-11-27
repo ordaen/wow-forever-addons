@@ -14,7 +14,7 @@ function window(): Test::Part {
 }
 
 function account() {
-  (Client::SlashCmdList["ACCOUNT"] ?? panic("/account is the module's command"))("")
+  (Client::SlashCmdList["ACCOUNT"] ?? throw Error { message: "/account is the module's command" })("")
 }
 
 // The names among `names` the window shows, in the order drawn.
@@ -223,7 +223,7 @@ test "the filter leaves the completed alone; the list's view, sorted by points, 
 
 test "Alts' pages are a tab of the window, and /alts opens it there; Alts draws no window of its own" {
   Test::mount(nil, SCREEN)
-  (Client::SlashCmdList["ALTS"] ?? panic("/alts is Alts' command"))("")
+  (Client::SlashCmdList["ALTS"] ?? throw Error { message: "/alts is Alts' command" })("")
   Test::expect(window().text("Characters").shown() && window().text("Gold").shown())
   Test::expect(Test::page().window("Gold").count() == 1)
 }

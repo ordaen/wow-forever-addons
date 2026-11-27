@@ -35,7 +35,7 @@ public class RecipeMenu implements Component {
   }
 
   onPick(index: integer) {
-    self.act.emit(ACTS[index] ?? panic("a menu line the recipe's menu doesn't have"), self.recipe.id)
+    self.act.emit(ACTS[index] ?? throw Error { message: "a menu line the recipe's menu doesn't have" }, self.recipe.id)
   }
 
   onClose() { self.act.emit(Act::Close, self.recipe.id) }

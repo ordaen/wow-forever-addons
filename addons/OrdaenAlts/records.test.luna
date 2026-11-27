@@ -264,7 +264,7 @@ test "the saved size of twenty characters with three hundred recipes and a hundr
     character.read[Place::Bank] = Hour::now()
     kept.characters[CharacterId::of("Player-6946-" + string::of(100000 + i))] = character
   }
-  const packed = Game::encoding.serialize(kept) ?? panic("plain data packs")
+  const packed = Game::encoding.serialize(kept) ?? throw Error { message: "plain data packs" }
   Test::expect(packed.length < 40000)
 }
 

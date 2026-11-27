@@ -67,7 +67,7 @@ public class Mail implements Module, App {
 
   // «To my characters»' reads: the characters a letter reaches (none while Ordaen Alts is off), whose recipes take an
   // item.
-  derived kin: array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? panic("tested"))
+  derived kin: array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? throw Error { message: "tested" })
   const crafting: CraftingRead = (item: integer): array<Crafting> => Professions.craftingWith(item)
   // «To my characters»: its columns and its footer.
   public own: mut OwnTab
@@ -337,7 +337,7 @@ public class Mail implements Module, App {
   mut onReturnTicked() {
     const ticked = peek self.ticked
     const letters = (peek self.letters).filter(l => ticked.any(i => i == l.index) && l.kind == Game::MailKind::Player && !l.deletable)
-    for (index of letters.length..1 step -1) { Game::mailbox.giveBack((letters[index] ?? panic("within")).index) }
+    for (index of letters.length..1 step -1) { Game::mailbox.giveBack((letters[index] ?? throw Error { message: "within" }).index) }
     self.ticked = []
   }
 
@@ -405,7 +405,7 @@ public class Mail implements Module, App {
       if (letter == nil) { return nil }
       return {
         width: Style::SIDE,
-        content: $ltml { <LetterView letter={self.current ?? panic("tested")} text={self.text} busy={self.busy} upgrade={self.upgrade} @act={self.onLetterAct} /> }
+        content: $ltml { <LetterView letter={self.current ?? throw Error { message: "tested" }} text={self.text} busy={self.busy} upgrade={self.upgrade} @act={self.onLetterAct} /> }
       }
     }
     if (self.tab != TAB_OUTBOX) { return nil }
@@ -420,7 +420,7 @@ public class Mail implements Module, App {
     if (self.sentCurrent == nil) { return nil }
     return {
       width: Style::SIDE,
-      content: $ltml { <SentView letter={self.sentCurrent ?? panic("tested")} @remove={self.onRemoveSent} @again={self.onWriteAgain} /> }
+      content: $ltml { <SentView letter={self.sentCurrent ?? throw Error { message: "tested" }} @remove={self.onRemoveSent} @again={self.onWriteAgain} /> }
     }
   }
 
