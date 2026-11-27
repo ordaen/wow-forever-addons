@@ -31,9 +31,9 @@ class Pointing implements Component {
     self.side = side
   }
 
-  onClose(mut self) { self.shown = false }
+  mut onClose() { self.shown = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Callout $if={self.shown} by={self.by} title={TITLE} text={"Open the character window."} side={self.side}
                @close={self.onClose} />
@@ -104,7 +104,7 @@ class Counted implements Component {
   by: any Client::Frame
   constructor(by: any Client::Frame) { self.by = by }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Callout by={self.by} title={"3"} look={CalloutLook.Speech { tone: VIOLET }} pulse={self.unread} />
     }
@@ -152,7 +152,7 @@ class Framed implements Component {
   by: any Client::Frame
   constructor(by: any Client::Frame) { self.by = by }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Callout by={self.by} title={TITLE} look={CalloutLook.Framed { closable: false }} />
     }

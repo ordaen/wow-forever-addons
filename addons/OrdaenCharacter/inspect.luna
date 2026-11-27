@@ -39,28 +39,28 @@ public struct Inspected {
 // What the window asks of the client about the player inspected.
 public trait Inspector {
   // Whether the unit may be inspected (a player, near enough).
-  public canInspect(self, unit: string): boolean
+  public canInspect(unit: string): boolean
   // The server asked about the unit; `INSPECT_READY` with its guid says it answered.
-  public ask(mut self, unit: string)
-  public guidOf(self, unit: string): string | nil
-  public read(self, unit: string): Inspected
-  public honor(self, unit: string): Honor
+  public mut ask(unit: string)
+  public guidOf(unit: string): string | nil
+  public read(unit: string): Inspected
+  public honor(unit: string): Honor
   // Ctrl+Left-click on a slot: the item tried on in the dressing room.
-  public tryOn(mut self, unit: string, slot: integer)
+  public mut tryOn(unit: string, slot: integer)
   // The window closed: the server's answer let go.
-  public clear(mut self)
+  public mut clear()
 }
 
 public class ClientInspector implements Inspector {
   const words: LineWords = clientWords()
 
-  public canInspect(self, unit: string): boolean { return Client::CanInspect(unit) }
+  public canInspect(unit: string): boolean { return Client::CanInspect(unit) }
 
-  public ask(mut self, unit: string) { Client::NotifyInspect(unit) }
+  public mut ask(unit: string) { Client::NotifyInspect(unit) }
 
-  public guidOf(self, unit: string): string | nil { return Client::UnitGUID(unit) }
+  public guidOf(unit: string): string | nil { return Client::UnitGUID(unit) }
 
-  public read(self, unit: string): Inspected {
+  public read(unit: string): Inspected {
     let race, scene, _ = Client::UnitRace(unit)
     let className, classTag, _ = Client::UnitClass(unit)
     let guild, _, _ = Client::GetGuildInfo(unit)
@@ -75,7 +75,7 @@ public class ClientInspector implements Inspector {
     }
   }
 
-  public honor(self, unit: string): Honor {
+  public honor(unit: string): Honor {
     let today, _, _, _, lifetime, _, rank, current, next = Client::GetInspectHonorData()
     const level = (rank ?? 0).floor()
     let faction, _ = Client::UnitFactionGroup(unit, nil)
@@ -89,12 +89,12 @@ public class ClientInspector implements Inspector {
     }
   }
 
-  public tryOn(mut self, unit: string, slot: integer) {
+  public mut tryOn(unit: string, slot: integer) {
     const link = Client::GetInventoryItemLink(unit, slot)
     if (link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
-  public clear(mut self) { Client::ClearInspectPlayer() }
+  public mut clear() { Client::ClearInspectPlayer() }
 }
 
 // «Таланты»: the inspected player's trees side by side, only shown.
@@ -106,7 +106,7 @@ public class InspectTalents implements Component {
     self.trees = trees
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
         <text value={Locale::INSPECT_NO_TALENTS} textColor={Style::DIM} />
@@ -130,7 +130,7 @@ public class InspectHonor implements Component {
     self.honor = honor
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={4sp} padding={Style::SECTION_PAD}>
         <box gap={1sp}>

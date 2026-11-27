@@ -65,11 +65,11 @@ public class DropdownItem<T: unknown> implements Component {
     self.compact = compact
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (self.choice.soon != true) { self.pick.emit(self.choice.value) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position::Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
@@ -111,18 +111,18 @@ public class Dropdown<T: unknown> implements Component {
     self.disabled = disabled
   }
 
-  toggle(mut self) {
+  mut toggle() {
     if (!self.disabled) { self.open = !self.open }
   }
 
-  close(mut self) { self.open = false }
+  mut close() { self.open = false }
 
-  onPick(mut self, value: T) {
+  mut onPick(value: T) {
     self.value = value
     self.open = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
@@ -176,18 +176,18 @@ public class CompactDropdown<T: unknown> implements Component {
     }
   }
 
-  toggle(mut self) {
+  mut toggle() {
     if (!self.disabled) { self.open = !self.open }
   }
-  close(mut self) { self.open = false }
+  mut close() { self.open = false }
 
-  onPick(mut self, value: T) {
+  mut onPick(value: T) {
     self.value = value
     self.open = false
     self.pick.emit(value)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.width} height={HEIGHT}>
         <box position={Position::Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
@@ -222,9 +222,9 @@ class ManyItem<T: unknown> implements Component {
     self.value = value
   }
 
-  onClick(mut self) { self.flip.emit(self.choice.value) }
+  mut onClick() { self.flip.emit(self.choice.value) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={LIGHT} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position::Absolute} left={9.375dp} top={8.203125dp} width={TICK} height={TICK}
@@ -282,14 +282,14 @@ public class ManyDropdown<T: unknown> implements Component {
     self.disabled = disabled
   }
 
-  toggle(mut self) {
+  mut toggle() {
     if (!self.disabled) { self.open = !self.open }
   }
 
-  close(mut self) { self.open = false }
+  mut close() { self.open = false }
 
   // The choice flipped: the list keeps the choices' order.
-  onFlip(mut self, flipped: T) {
+  mut onFlip(flipped: T) {
     const was = peek self.value
     const next: array<T> = []
     for (choice of self.choices) {
@@ -299,7 +299,7 @@ public class ManyDropdown<T: unknown> implements Component {
     self.value = next
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>

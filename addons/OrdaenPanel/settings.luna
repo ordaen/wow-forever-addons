@@ -65,7 +65,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_MICROMENU}>
         <Switch label={Locale::PANEL_MICROON} hint={Locale::PANEL_MICROON_TIP}
@@ -91,7 +91,7 @@ public class MicroPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={Locale::PANEL_MICROICONS} hint={Locale::PANEL_MICROICONS_TIP}
                 value={mut self.settings.values.microIcons} choices={ICONS} disabled={self.off} />
@@ -113,7 +113,7 @@ public class StatusPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={Locale::PANEL_OUTLINE} hint={Locale::PANEL_OUTLINE_TIP}
                 value={mut self.settings.values.outline} choices={OUTLINES} />
@@ -140,7 +140,7 @@ class PlacesRows implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_ITEMS}>
         <Dropdown label={Locale::PANEL_MICROMENU} hint={Locale::PANEL_MICROMENU_TIP} value={mut self.value.micromenu}
@@ -176,7 +176,7 @@ public class BottomPage implements Component {
     self.least = least
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={Locale::PANEL_EDGE} hint={Locale::PANEL_EDGE_TIP} value={mut self.settings.values.edge}
                 choices={EDGES} disabled={self.off} />

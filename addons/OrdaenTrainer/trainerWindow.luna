@@ -271,7 +271,7 @@ class Rows {
   }
 
   // A service's tooltip while the cursor is on its row: the trainer's own at a trainer, its spell's in a book.
-  public showTip(self, frame: any Frame, service: Game::TrainerService) {
+  public showTip(frame: any Frame, service: Game::TrainerService) {
     const spell = service.spell
     if (self.atTrainer) {
       Game::items.showService(frame, service.index)
@@ -281,10 +281,10 @@ class Rows {
   }
 
   // What a service's line says it asks for: its note where it has one (the quest that teaches it), else its needs.
-  public needsOf(self, service: Game::TrainerService): string { return self.notes[service.index] ?? needsOf(service) }
+  public needsOf(service: Game::TrainerService): string { return self.notes[service.index] ?? needsOf(service) }
 
   // A press on a service's row: the left picks it, the right asks for its menu.
-  public press(self, index: integer, button: MouseButton) {
+  public press(index: integer, button: MouseButton) {
     if (button == MouseButton::Left) {
       self.pick.emit(index)
     } else if (button == MouseButton::Right) {
@@ -296,7 +296,7 @@ class Rows {
 // An ignored service's plate: over its whole row, opaque, its status in its middle. Its row still takes the cursor,
 // so its menu stops ignoring it.
 class IgnoredPlate implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={PLATE} zLevel={2}
            xAlign={Align::Center} yAlign={Align::Center}>
@@ -336,15 +336,15 @@ class ServiceTableRow implements Component {
     self.rows = rows
   }
 
-  onPick(self, button: MouseButton) { self.rows.press(self.service.index, button) }
-  onDouble(self) { self.rows.double.emit(self.service.index) }
-  onChose(self, place: integer) { self.rows.chose.emit(place) }
-  onClosed(self) { self.rows.closed.emit() }
+  onPick(button: MouseButton) { self.rows.press(self.service.index, button) }
+  onDouble() { self.rows.double.emit(self.service.index) }
+  onChose(place: integer) { self.rows.chose.emit(place) }
+  onClosed() { self.rows.closed.emit() }
 
   // The game's tooltip of the service, as its own trainer window shows it, while the cursor is anywhere on the row.
-  onEnter(self, frame: any Frame) { self.rows.showTip(frame, self.service) }
+  onEnter(frame: any Frame) { self.rows.showTip(frame, self.service) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @double={self.onDouble} @enter={self.onEnter}>
         <TableCell>
@@ -390,14 +390,14 @@ class ServiceLine implements Component {
     self.rows = rows
   }
 
-  onPress(self, press: Event::Press) { self.rows.press(self.service.index, press.button) }
-  onKey(self) { self.rows.pick.emit(self.service.index) }
-  onDouble(self) { self.rows.double.emit(self.service.index) }
-  onChose(self, place: integer) { self.rows.chose.emit(place) }
-  onClosed(self) { self.rows.closed.emit() }
-  onEnter(self, frame: any Frame) { self.rows.showTip(frame, self.service) }
+  onPress(press: Event::Press) { self.rows.press(self.service.index, press.button) }
+  onKey() { self.rows.pick.emit(self.service.index) }
+  onDouble() { self.rows.double.emit(self.service.index) }
+  onChose(place: integer) { self.rows.chose.emit(place) }
+  onClosed() { self.rows.closed.emit() }
+  onEnter(frame: any Frame) { self.rows.showTip(frame, self.service) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={LINE} gap={3sp} yAlign={Align::Center} background={self.background}
            padding={{ top: 2sp, bottom: 2sp, left: 3sp, right: 3sp }}
@@ -470,10 +470,10 @@ class PriceLine implements Component {
     self.line = line
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={PRICE_LINE} gap={3sp} yAlign={Align::Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.line.place} textColor={INK} textSize={SECONDARY_TEXT} wrap={.Cut} />
@@ -589,9 +589,9 @@ class CategoryCaption implements Component {
     self.folded = folded
   }
 
-  onToggle(self) { self.toggled.emit(self.category) }
+  onToggle() { self.toggled.emit(self.category) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <FoldCaption title={self.title} folded={self.folded} @toggled={self.onToggle} />
     }
@@ -732,9 +732,9 @@ public class TrainerPage {
   }
 
   // How many services the footer counts as this: what the filter would show of them.
-  count(self, show: TrainerShow): integer { return self.services.count(service => showOf(service, self.ignoredNames) == show) }
+  count(show: TrainerShow): integer { return self.services.count(service => showOf(service, self.ignoredNames) == show) }
 
-  countsOf(self): array<FooterCount> {
+  countsOf(): array<FooterCount> {
     const counts: array<FooterCount> = [
       { label: Locale::TRAINER_AVAILABLE, value: string::of(self.count(.Available)), color: GREEN },
       { label: Locale::TRAINER_UNAVAILABLE, value: string::of(self.count(.Unavailable)), color: RED },
@@ -747,7 +747,7 @@ public class TrainerPage {
 
   // What a service's menu offers, each only where it can be done: learn it (where it can be learned now), ignore it or
   // stop ignoring it (where it isn't known), its link in the chat (where it has one).
-  actsOf(self, service: Game::TrainerService | nil): array<MenuAct> {
+  actsOf(service: Game::TrainerService | nil): array<MenuAct> {
     const acts: array<MenuAct> = []
     if (service == nil) { return acts }
     if (self.atTrainer && learnable(service, self.ignoredNames)) { acts.push(.Learn) }
@@ -757,14 +757,14 @@ public class TrainerPage {
   }
 
   // The menu's lines, a rule above each after the first.
-  entriesOf(self, acts: array<MenuAct>, service: Game::TrainerService | nil): array<MenuEntry> {
+  entriesOf(acts: array<MenuAct>, service: Game::TrainerService | nil): array<MenuEntry> {
     const entries: array<MenuEntry> = []
     if (service == nil) { return entries }
     for (at, act of acts) { entries.push({ label: self.labelOf(act, service), group: at > 1 }) }
     return entries
   }
 
-  labelOf(self, act: MenuAct, service: Game::TrainerService): string {
+  labelOf(act: MenuAct, service: Game::TrainerService): string {
     return match (act) {
       .Learn => Locale::TRAINER_TRAIN
       .Ignore => isIgnored(service, self.ignoredNames) ? Locale::TRAINER_UNIGNORE : Locale::TRAINER_IGNORE
@@ -772,23 +772,23 @@ public class TrainerPage {
     }
   }
 
-  greetingOf(self): string {
+  greetingOf(): string {
     _ = self.services.length
     return self.atTrainer ? Game::trainer.greeting() : ""
   }
 
   // The reason on «Learn»'s Tip while it can't be pressed; none while it can.
-  reasonOf(self): TipText | nil {
+  reasonOf(): TipText | nil {
     if (self.canTrain) { return nil }
     return { title: Locale::TRAINER_TRAIN, text: self.reasonText(), rows: [] }
   }
 
-  allTipOf(self): TipText {
+  allTipOf(): TipText {
     const text = self.batch.length == 0 ? Locale::TRAINER_LEARN_ALL_NONE : self.canLearnAll ? "" : Locale::TRAINER_LEARN_ALL_DEAR
     return { title: Locale::TRAINER_LEARN_AVAILABLE_TITLE, text: text, rows: self.batch.map(batchRowOf) }
   }
 
-  reasonText(self): string {
+  reasonText(): string {
     const current = self.current
     if (current == nil) { return Locale::TRAINER_PICK_FIRST }
     if (current.status == Game::ServiceStatus::Learned) { return Locale::TRAINER_KNOWN }
@@ -799,7 +799,7 @@ public class TrainerPage {
     return Locale::TRAINER_UNAVAILABLE
   }
 
-  shownOf(self): array<Game::TrainerService> {
+  shownOf(): array<Game::TrainerService> {
     const view = self.list.values
     const key = self.keys[view.sorted]
     const ignored = self.ignoredNames
@@ -808,7 +808,7 @@ public class TrainerPage {
     return services
   }
 
-  categoriesOf(self): array<string> {
+  categoriesOf(): array<string> {
     let categories: array<string> = []
     for (service of self.shown) {
       const category = service.category
@@ -817,20 +817,20 @@ public class TrainerPage {
     return categories
   }
 
-  skillOf(self): Game::TrainerSkill | nil {
+  skillOf(): Game::TrainerSkill | nil {
     _ = self.services.length
     return self.atTrainer ? Game::trainer.skill() : nil
   }
 
   // The services of a category as the list shows them: none while it is folded.
-  inCategory(self, category: string): array<Game::TrainerService> {
+  inCategory(category: string): array<Game::TrainerService> {
     if (self.folded[category] == true) { return [] }
     return self.shown.filter(service => service.category == category)
   }
 
-  countIn(self, category: string): integer { return self.shown.count(service => service.category == category) }
+  countIn(category: string): integer { return self.shown.count(service => service.category == category) }
 
-  onToggle(mut self, category: string) {
+  mut onToggle(category: string) {
     let folded: map<string, boolean> = {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[category] = folded[category] == true ? nil : true
@@ -838,11 +838,11 @@ public class TrainerPage {
   }
 
   // A click on the picked service lets it go: the card is the trainer's again.
-  onPick(mut self, index: integer) { self.picked = (peek self.picked) == index ? 0 : index }
+  mut onPick(index: integer) { self.picked = (peek self.picked) == index ? 0 : index }
 
   // A service learned, in the player's click: the client buys it where it can be learned now; a new profession is
   // picked and asked first.
-  learn(mut self, service: Game::TrainerService) {
+  mut learn(service: Game::TrainerService) {
     if (!self.atTrainer || !learnable(service, peek self.ignoredNames)) { return }
     if (service.profession) {
       self.picked = service.index
@@ -853,7 +853,7 @@ public class TrainerPage {
   }
 
   // The services as the list shows them, top to bottom: by category where it groups them, a folded one's left out.
-  inOrder(self): array<Game::TrainerService> {
+  inOrder(): array<Game::TrainerService> {
     if ((peek self.tabled) || !(peek self.grouped)) { return peek self.shown }
     const all: array<Game::TrainerService> = []
     for (category of peek self.categories) {
@@ -864,7 +864,7 @@ public class TrainerPage {
 
   // What is picked once the service at `index` is learned: the next the list shows that can be learned now, from its
   // top again past its end; where no other can, the one learned stays, its card saying it is known.
-  nextAfter(self, index: integer): integer {
+  nextAfter(index: integer): integer {
     const ignored = peek self.ignoredNames
     let passed = false
     let first = index
@@ -881,7 +881,7 @@ public class TrainerPage {
 
   // «Learn»: the picked service; the card goes on to the next that can be learned (a new profession once it is
   // confirmed).
-  onTrain(mut self) {
+  mut onTrain() {
     const current = peek self.current
     if (current == nil || !learnable(current, peek self.ignoredNames)) { return }
     self.learn(current)
@@ -889,17 +889,17 @@ public class TrainerPage {
   }
 
   // A double press on a service: it stays picked, and is learned.
-  onDouble(mut self, index: integer) {
+  mut onDouble(index: integer) {
     self.picked = index
     const service = (peek self.services).find(each => each.index == index)
     if (service != nil) { self.learn(service) }
   }
 
-  onMenu(mut self, index: integer) { self.menuAt = index }
-  onMenuClosed(mut self) { self.menuAt = 0 }
+  mut onMenu(index: integer) { self.menuAt = index }
+  mut onMenuClosed() { self.menuAt = 0 }
 
   // An entry of a service's menu chosen: the menu closes, and the entry acts on its service.
-  onChose(mut self, place: integer) {
+  mut onChose(place: integer) {
     const service = peek self.menuService
     const act = (peek self.menuActs)[place]
     self.menuAt = 0
@@ -920,14 +920,14 @@ public class TrainerPage {
   }
 
   // A service ignored, or no longer: every rank of it, kept for the character.
-  flipIgnored(mut self, name: string) {
+  mut flipIgnored(name: string) {
     let names: map<string, boolean> = {}
     for (each, on of peek self.ignoredNames) { names[each] = on }
     names[name] = names[name] == true ? nil : true
     self.ignored.write({ names: names })
   }
 
-  onConfirmed(mut self) {
+  mut onConfirmed() {
     self.confirming = false
     const current = peek self.current
     if (current != nil && learnable(current, peek self.ignoredNames)) {
@@ -936,10 +936,10 @@ public class TrainerPage {
     }
   }
 
-  onConfirmCancel(mut self) { self.confirming = false }
+  mut onConfirmCancel() { self.confirming = false }
 
   // «Learn available»: the batch as it stands is asked about first.
-  onLearnAll(mut self) {
+  mut onLearnAll() {
     if (!(peek self.canLearnAll)) { return }
     self.quoted = peek self.batch
     self.confirmingAll = true
@@ -948,7 +948,7 @@ public class TrainerPage {
   // The batch confirmed is learned in the player's click, from the bottom of the list up (a service learned may leave
   // the list at once, and the places above it keep theirs); nothing, where the trainer's list or the money changed
   // since it was asked about.
-  onLearnAllConfirmed(mut self) {
+  mut onLearnAllConfirmed() {
     self.confirmingAll = false
     const now = batchOf(peek self.services, peek self.ignoredNames)
     if (!sameBatch(now, peek self.quoted) || costOf(now) > Game::money.amount) { return }
@@ -958,10 +958,10 @@ public class TrainerPage {
     }
   }
 
-  onLearnAllCancel(mut self) { self.confirmingAll = false }
+  mut onLearnAllCancel() { self.confirmingAll = false }
 
   // The picked service's own action, away from a trainer.
-  onAct(self) {
+  onAct() {
     const current = peek self.current
     if (current != nil) { self.acted.emit(current.index) }
   }
@@ -1106,10 +1106,10 @@ public class TrainerWindow implements Component {
     self.page = new TrainerPage(services, list, ignored, tabSpec, noun, trade)
   }
 
-  onClose(self) { Client::CloseTrainer() }
-  onSettings(self) { self.settings.emit() }
+  onClose() { Client::CloseTrainer() }
+  onSettings() { self.settings.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.page.side} footer={self.page.footer}
               padding={EDGE_TO_EDGE} withSettings={true} @close={self.onClose} @settings={self.onSettings}>

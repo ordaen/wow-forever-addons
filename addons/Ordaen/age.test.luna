@@ -5,7 +5,7 @@ import { Age, ageText } from "@/age"
 class Priced {
   state seconds: number | nil = 7200
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <text value={"price"} />

@@ -349,7 +349,7 @@ public class SecureWheel {
 
   // The button laid out and its click wrapped in the client's restricted code, then heard: the wrap sets the click's
   // script anew (`SetScript`), which drops every hook told before it, so the hook comes after.
-  setUp(mut self) {
+  mut setUp() {
     const header = self.header
     const button = self.button
     button.Hide()
@@ -385,11 +385,11 @@ public class SecureWheel {
   }
 
   // The rings and their items and how the wheel is laid out, written out of a fight (in one, at its end).
-  public apply(mut self, rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
+  public mut apply(rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
     Ordaen.afterCombat(() => self.write(rings, entries, setup))
   }
 
-  write(mut self, rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
+  mut write(rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
     for (name of self.written) { self.button.SetAttribute(name, nil) }
     for (name of self.writtenOnHeader) { self.header.SetAttribute(name, nil) }
     self.written.clear()
@@ -425,25 +425,25 @@ public class SecureWheel {
     }
   }
 
-  onHeader(mut self, name: string, value: string | integer | boolean) {
+  mut onHeader(name: string, value: string | integer | boolean) {
     self.header.SetAttribute(name, value)
     self.writtenOnHeader.push(name)
   }
 
   // The item of a submenu or a slot of several the mouse wheel stepped to, by its place: 0 for none, the ring itself.
-  public step(self, path: string): integer {
+  public step(path: string): integer {
     const kept = self.header.GetAttribute(`step-${path}`)
     return kept is integer ? kept : 0
   }
 
   // The child a slot of several does now, by the slot's place: the client's restricted code keeps it.
-  public current(self, path: string): integer {
+  public current(path: string): integer {
     const kept = self.header.GetAttribute(`current-${path}`)
     return kept is integer ? kept : 1
   }
 
   // The keys that hold the wheel, by the client's names (`"CTRL-Q"`), bound over the player's own out of a fight.
-  public bind(mut self, keys: array<string>) {
+  public mut bind(keys: array<string>) {
     self.held.clear()
     for (key of keys) { self.held.push(key.match("^.+%-(.+)$") ?? key) }
     const header = self.header
@@ -456,7 +456,7 @@ public class SecureWheel {
 
   // After each click the client did: an item used, told while the wheel still reads as up (its owner knows which
   // ring it was), then the wheel's state as its restricted code left it.
-  heard(mut self) {
+  mut heard() {
     const picks = self.header.GetAttribute("picks")
     if (picks is integer && picks != self.picks) {
       self.picks = picks
@@ -475,7 +475,7 @@ public class SecureWheel {
   }
 
   // Closed as its restricted code closes it: out of a fight alone, as the button is protected.
-  close(mut self) {
+  mut close() {
     self.button.Hide()
     Client::ClearOverrideBindings(self.button)
     self.header.SetAttribute("level", ROOT)
@@ -483,7 +483,7 @@ public class SecureWheel {
   }
 
   // The bands round the square of the aim's middle, `reach` from it each way.
-  placeBands(self, reach: number) {
+  placeBands(reach: number) {
     const far = Client::UIParent.GetWidth().max(Client::UIParent.GetHeight()) * 2
     for (i of 1..BANDS.length) {
       const band = BANDS[i] ?? panic("a band for each frame")
@@ -495,7 +495,7 @@ public class SecureWheel {
   }
 
   // The cursor followed while the wheel is up, and not at all once it closes; it opens over `OPENING_TIME`.
-  follow(mut self, on: boolean) {
+  mut follow(on: boolean) {
     if (!on) {
       self.follower.SetScript("OnUpdate", nil)
       return
@@ -511,7 +511,7 @@ public class SecureWheel {
   // While it is up: its key let go closes it, a release the client dropped (a mouse press on a frame while a bound
   // key is held loses that key's release) as well as one it told. Out of a fight alone: in one the restricted code
   // has no `IsKeyDown` and addon code may not hide the button, so there Escape or a right click closes it.
-  aim(mut self) {
+  mut aim() {
     if (!self.held.any(key => Client::IsKeyDown(key) == true) && !Client::InCombatLockdown()) {
       self.close()
       return
@@ -552,7 +552,7 @@ public class SecureWheel {
 
   // The aim gone to another item (the middle is none): the mouse wheel's step on the item it left is taken back, out
   // of a fight (in one, the header is the client's alone, and the restricted code takes a step back as another is made).
-  forgetStep(mut self) {
+  mut forgetStep() {
     const count = self.header.GetAttribute(`count-${self.level}`)
     const dead = self.header.GetAttribute("dead")
     if (!(count is integer) || !(dead is number)) { return }

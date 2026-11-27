@@ -65,7 +65,7 @@ public class ShownRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <Checkbox label={self.label} value={mut self.on} /> }
   }
 }
@@ -80,9 +80,9 @@ public class WindowEntry implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(self.window.index) }
+  mut onPick() { self.pick.emit(self.window.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <ListTab label={self.window.name} selected={self.picked} @pick={self.onPick} /> }
   }
 }
@@ -143,12 +143,12 @@ public class TabsPage implements Component {
   }
 
   // A window's own settings: the player's, else its defaults.
-  choicesOf(self, window: Game::ChatWindow): TabChoices {
+  choicesOf(window: Game::ChatWindow): TabChoices {
     return (peek self.settings.values).tabs[tabKey(window.index)] ?? tabDefaults(window)
   }
 
   // The picked window's own settings written where they changed.
-  writeTab(mut self) {
+  mut writeTab() {
     const chosen = peek self.chosen
     if (chosen == nil) { return }
     const choices: TabChoices = {
@@ -159,15 +159,15 @@ public class TabsPage implements Component {
     self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(chosen.index), choices) })
   }
 
-  onPick(mut self, window: integer) { self.window = window }
+  mut onPick(window: integer) { self.window = window }
 
-  onRename(mut self) {
+  mut onRename() {
     const name = peek self.name
     if (name != "") { Game::chat.rename(peek self.window, name) }
   }
 
   // A row: each of its groups the client has, shown or not for what of it is picked.
-  onRow(mut self, pick: RowPick) {
+  mut onRow(pick: RowPick) {
     const window = peek self.window
     const known = peek self.groups
     for (group of rowGroups(pick.key, pick.pair)) {
@@ -176,13 +176,13 @@ public class TabsPage implements Component {
     self.version = (peek self.version) + 1
   }
 
-  onChannel(mut self, channel: Game::ChatShown) {
+  mut onChannel(channel: Game::ChatShown) {
     Game::chat.showChannel(peek self.window, channel.name, channel.shown)
     self.version = (peek self.version) + 1
   }
 
   // A community shown in the tab or not; the group that carries the communities' lines is shown while any is.
-  onCommunity(mut self, row: Game::ChatShown) {
+  mut onCommunity(row: Game::ChatShown) {
     const window = peek self.window
     const community = (peek self.communities).find(each => streamKey(each.stream) == row.name)
     if (community != nil) { Game::chat.showCommunity(window, community.stream, row.shown) }
@@ -190,13 +190,13 @@ public class TabsPage implements Component {
     self.version = (peek self.version) + 1
   }
 
-  onNew(mut self) {
+  mut onNew() {
     const made = Game::chat.open(Locale::TAB_NEW_NAME)
     if (made != nil) { self.window = made }
   }
 
   // A window closed: its own settings go with it, so a window opened later in its place starts from the defaults.
-  onClose(mut self) {
+  mut onClose() {
     const window = peek self.window
     Game::chat.close(window)
     if ((peek self.settings.values).tabs[tabKey(window)] != nil) {
@@ -205,7 +205,7 @@ public class TabsPage implements Component {
     self.window = 1
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[SIDEBAR, { fr: 1 }]} gap={6sp}>
         <box columns={1} gap={3sp} yAlignSelf={Align::Start}>

@@ -160,11 +160,11 @@ public class QuestCreatures implements CreatureQuests {
     self.factsOf = factsOf
   }
 
-  public wants(self, creature: integer): array<Wanted> {
+  public wants(creature: integer): array<Wanted> {
     return self.by[creature] ?? NO_WANTS
   }
 
-  public offers(self, creature: integer): array<Offered> {
+  public offers(creature: integer): array<Offered> {
     return offersOf(
       self.npcQuests(creature), self.quests, self.factsOf, self.seeker, (id: integer): boolean => Game::questLog.completed(id)
     )

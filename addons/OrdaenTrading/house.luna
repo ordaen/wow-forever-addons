@@ -91,7 +91,7 @@ public class House {
   }
 
   // A key's history from `from` to `to`, both ends kept, oldest first, as it is kept (`PriceHistory.hours`).
-  public hours(self, key: PriceKey, from: Hour, to: Hour): array<HourPrice> {
+  public hours(key: PriceKey, from: Hour, to: Hour): array<HourPrice> {
     let points: array<HourPrice> = []
     const all = self.history[key]
     if (all == nil) { return points }
@@ -103,7 +103,7 @@ public class House {
   }
 
   // A key's name from the index, asked of the game the first time: a variant's with its suffix.
-  public named(mut self, key: PriceKey): Named {
+  public mut named(key: PriceKey): Named {
     const kept = self.names[key]
     if (kept != nil) { return kept }
     const known = keyName(key)
@@ -112,12 +112,12 @@ public class House {
     return known
   }
 
-  public quote(self, key: PriceKey): Quote | nil { return self.market[key] }
-  public listed(self, key: PriceKey): Listing | nil { return self.listing[key] }
+  public quote(key: PriceKey): Quote | nil { return self.market[key] }
+  public listed(key: PriceKey): Listing | nil { return self.listing[key] }
 
   // One look at an item: its unit price (the cheapest fifth's, or a browse's lowest), its lowest, and how many were
   // listed. The first is the market; after it each moves the market by its decay; the listing is the last one's.
-  public observe(mut self, key: PriceKey, unit: integer, low: integer, quantity: integer, at: Hour) {
+  public mut observe(key: PriceKey, unit: integer, low: integer, quantity: integer, at: Hour) {
     const before = self.market[key]
     let value: number = unit
     if (before == nil) {
@@ -133,7 +133,7 @@ public class House {
 
   // The lowest seen at an hour into the key's history: the hour's lowest so far, or a new point, the older ones
   // rolled up into their days and those past 30 days dropped.
-  record(mut self, key: PriceKey, low: integer, at: Hour) {
+  mut record(key: PriceKey, low: integer, at: Hour) {
     const points = self.history[key]
     if (points == nil) {
       if (self.histories >= HISTORY_MOST) { return }
@@ -151,7 +151,7 @@ public class House {
   }
 
   // Drops every key unseen for 30 days; says how many went.
-  public prune(mut self, now: Hour): integer {
+  public mut prune(now: Hour): integer {
     let gone: array<PriceKey> = []
     for (key, quote of self.market) {
       if (now - quote.seen() > KEPT_HOURS) { gone.push(key) }
@@ -169,7 +169,7 @@ public class House {
   }
 
   // The house at rest: none where the client refused to pack it (the game's side says why).
-  public pack(self): string | nil {
+  public pack(): string | nil {
     const raw = Game::encoding.serialize(Packed { market: self.market, listing: self.listing, history: self.history })
     if (raw == nil) { return nil }
     return Game::encoding.compress(raw)

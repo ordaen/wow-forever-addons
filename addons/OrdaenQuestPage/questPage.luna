@@ -203,9 +203,9 @@ public class Scroll implements Component {
     self.grows = grows
   }
 
-  unfold(mut self) { self.folded = false }
+  mut unfold() { self.folded = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.folded} columns={OFF_EDGES} rows={FOLDED_DOWN} @pointerPress={self.unfold}
            @keyPress(.Enter)={self.unfold} @keyPress(.Space)={self.unfold}>
@@ -244,7 +244,7 @@ public class Scroll implements Component {
 // The sheet, filling the box it is drawn in: its corners, its torn edges repeating between them and its paper
 // repeating both ways, and the scroll's shading stretched over all of it once, multiplied in.
 class Sheet implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={0dp} top={0dp} width={CORNER} height={CORNER}
            background={SHEET_ART.topLeft} zLevel={OVER_GRAIN} />
@@ -275,7 +275,7 @@ class ScrollTitle implements Component {
   title: Signal<string>
   constructor(title: Signal<string>) { self.title = title }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} leading={.Tight} textFont={.Book}
             textWeight={.Bold} />
@@ -288,7 +288,7 @@ public class ScrollHeading implements Component {
   title: Signal<string>
   constructor(title: Signal<string>) { self.title = title }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align::Center}>
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
@@ -387,7 +387,7 @@ public class Keycap implements Component {
     self.size = size
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.shown} width={self.size} height={self.size} background={KEYCAP} border={KEYCAP_EDGE}
            xAlign={Align::Center} yAlign={Align::Center}>
@@ -475,9 +475,9 @@ public class Rewards implements Component {
     self.upgradeColumn = upgradeColumn
   }
 
-  onChoose(mut self, index: integer) { self.choose.emit(index) }
+  mut onChoose(index: integer) { self.choose.emit(index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.hasChoices} gap={SECTION_GAP} padding={SECTION}>
         <Cut title={self.chooseTitle} />
@@ -531,7 +531,7 @@ public class Experience implements Component {
     self.color = color
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align::Center}>
         <text value={self.text} textColor={self.color} wrap={.None} />
@@ -594,7 +594,7 @@ public class RewardRow implements Component {
   }
 
   // A plain click picks; one with Shift or Ctrl is the slot's (a link, a try-on), never a pick.
-  onPick(mut self) {
+  mut onPick() {
     if (peek self.pickable && !Game::input.shiftDown() && !Game::input.controlDown()) {
       self.choose.emit((peek self.reward).index)
     }
@@ -602,16 +602,16 @@ public class RewardRow implements Component {
 
   // Ctrl+click on the slot tries the item on, as the game's own reward does; Shift's link the slot puts in the chat
   // itself.
-  onSlot(mut self, press: Event::Press) {
+  mut onSlot(press: Event::Press) {
     const link = (peek self.reward).link
     if (press.button == MouseButton::Left && Game::input.controlDown() && link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
-  onUpgradeEnter(mut self) { self.upgradeHovered = true }
-  onUpgradeLeave(mut self) { self.upgradeHovered = false }
+  mut onUpgradeEnter() { self.upgradeHovered = true }
+  mut onUpgradeLeave() { self.upgradeHovered = false }
 
   // The reward's tooltip is the row's: it stands beside the whole row, as tooltips stand by what they explain.
-  onRowEnter(self, frame: any Frame) {
+  onRowEnter(frame: any Frame) {
     const reward = self.reward
     const currency = reward.currency
     const item = reward.item
@@ -622,7 +622,7 @@ public class RewardRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow $if={self.pickable} columns={self.columns} picked={self.picked} @pick={self.onPick}
                @entered={self.onRowEnter}>
@@ -687,11 +687,11 @@ class RewardCells implements Component {
     self.priceColor = priceColor
   }
 
-  onSlot(mut self, press: Event::Press) { self.slot.emit(press) }
-  onUpgradeEnter(mut self) { self.upgradeEnter.emit() }
-  onUpgradeLeave(mut self) { self.upgradeLeave.emit() }
+  mut onSlot(press: Event::Press) { self.slot.emit(press) }
+  mut onUpgradeEnter() { self.upgradeEnter.emit() }
+  mut onUpgradeLeave() { self.upgradeLeave.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Keycap $if={self.keyed} key={self.key} size={REWARD_ICON} />
       <box $else />

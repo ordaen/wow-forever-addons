@@ -11,10 +11,10 @@ class Cost {
   state picked = ""
   state seen: number | nil = 5 * 86400
 
-  onAxe(mut self) { self.picked = "Bronze Axe" }
-  onTin(mut self) { self.picked = "Tin Ore" }
+  mut onAxe() { self.picked = "Bronze Axe" }
+  mut onTin() { self.picked = "Tin Ore" }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} width={400ui}>
         <TreeRow label={"Bronze Axe"} depth={0} open={mut self.axe} selected={self.picked == "Bronze Axe"}

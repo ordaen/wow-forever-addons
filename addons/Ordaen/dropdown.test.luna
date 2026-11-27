@@ -17,9 +17,9 @@ class Tools {
   // Clicks that reached the box beside the plate.
   public state beside = 0
 
-  onBeside(mut self) { self.beside += 1 }
+  mut onBeside() { self.beside += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={14sp}>
         <CompactDropdown value={mut self.order} choices={ORDERS} width={170ui} />
@@ -61,7 +61,7 @@ class Lifted {
   public state order: Order = Order::Difficulty
   public state lift = 0
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box zLevel={self.lift}>
         <CompactDropdown value={mut self.order} choices={ORDERS} width={170ui} />
@@ -90,7 +90,7 @@ const LONG: array<Choice<Order>> = [
 class Narrow {
   public state order: Order = Order::Difficulty
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content"]}>
         <CompactDropdown value={mut self.order} choices={LONG} width={164ui} />
@@ -112,7 +112,7 @@ test "a label longer than the plate is cut inside it, and the arrow stays on the
 
 class Long {
   public state picked = 1
-  public render(self): Template {
+  public render(): Template {
     const many: array<Choice<integer>> = []
     for (n of 1..40) { many.push({ value: n, label: `Choice ${n}` }) }
     return $ltml {

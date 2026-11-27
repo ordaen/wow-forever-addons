@@ -42,16 +42,10 @@ public class TooltipGroup implements Component {
     self.leftwards = leftwards
   }
 
-  autos(count: integer): array<Track> {
-    let list: array<Track> = []
-    for (i of 1..count) { list.push("max-content") }
-    return list
-  }
+  mut onEnter() { self.enter.emit() }
+  mut onLeave() { self.leave.emit() }
 
-  onEnter(mut self) { self.enter.emit() }
-  onLeave(mut self) { self.leave.emit() }
-
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface leading={.Tight} shown={self.shown} layer={Layer::Tooltip} place={self.place}>
         <box columns={self.columns} gap={GAP} yAlign={self.across} ownsGaps={true}
@@ -67,5 +61,11 @@ public class TooltipGroup implements Component {
         </box>
       </surface>
     }
+  }
+} static {
+  autos(count: integer): array<Track> {
+    let list: array<Track> = []
+    for (i of 1..count) { list.push("max-content") }
+    return list
   }
 }

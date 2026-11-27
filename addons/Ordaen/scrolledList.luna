@@ -85,7 +85,7 @@ public class ScrolledList implements Component {
     self.rowsPadded = rowsPadded
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.tracks} rows={PARTS} padding={self.tableSides} width={self.width} height={self.height} border={self.rim} background={self.floor}>
         <box columns={self.parts} padding={self.headSides}>

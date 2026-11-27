@@ -19,7 +19,7 @@ public class DoneQuestsXp implements XpSource {
   quests: Signal<array<LogQuest>>
   constructor(quests: Signal<array<LogQuest>>) { self.quests = quests }
 
-  public part(self): XpPart | nil {
+  public part(): XpPart | nil {
     const done = self.quests.filter(quest => quest.done && quest.xp > 0)
     if (done.length == 0) { return nil }
     let amount = 0

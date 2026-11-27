@@ -9,7 +9,7 @@ import { Density } from "@/globals"
 import { ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
 
 class Buttons {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", "max-content", "max-content", "max-content"]} gap={3sp} xAlign={Align::Start}>
         <PushButton label={"Run the benchmarks"} width={90ui} />
@@ -22,7 +22,7 @@ class Buttons {
 }
 
 class Cell {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[98.4375dp]} rows={[35ui]} height={35ui} xAlign={Align::End}>
         <PushButton label={"Forget"} width={93.75dp} />
@@ -65,7 +65,7 @@ test "every push button's label stands inside its caps, a long one widening the 
 
 // A row of buttons as a quest's page has them, in ruRU: each as wide as its label, the row as wide as its buttons.
 class ButtonRow {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
         <PushButton label={"Показать на карте"} width={131.25dp} />
@@ -79,14 +79,14 @@ class ButtonRow {
 
 // The row in a box of a fixed width it doesn't fit in.
 class Fixed {
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box width={300ui}> <ButtonRow /> </box> }
   }
 }
 
 // The row in a window sized by what it holds, given less room than the row needs.
 class Grown {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 20ui, y: 20ui }} width={300ui} padding={3.5sp}>
         <box rows={["max-content", "max-content"]}>
@@ -137,9 +137,9 @@ test "a window given less room than a row of buttons needs grows to hold it" {
 class Asking {
   public pressed = 0
 
-  onPress(mut self) { self.pressed += 1 }
+  mut onPress() { self.pressed += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 100ui, y: 50ui }} width={300ui} padding={3.5sp}>
         <PushButton label={"Remove friend"} width={140.625dp} plate={ButtonPlate::Danger} @click={self.onPress} />
@@ -164,7 +164,7 @@ test "a danger button is the red plate, and Enter never presses it: Space and th
 }
 
 class Keyed {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // As narrow as its label lets it: the label stands right at its room's start.
       <box columns={["max-content"]} xAlign={Align::Start}>
@@ -206,7 +206,7 @@ const SQUARE_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
 class Glyphs {
   public state count = 3
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", "max-content"]} gap={3sp} xAlign={Align::Start}>
         <CountInput value={mut self.count} least={1} most={9} />

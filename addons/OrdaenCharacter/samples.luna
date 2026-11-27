@@ -9,7 +9,7 @@ import Style from "@/style"
 
 // The line every sample tab starts with.
 public class SampleNote implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text value={Locale::SAMPLE} textSize={SECONDARY_TEXT} textColor={Style::YELLOW} />
     }
@@ -70,7 +70,7 @@ public class StatisticsPage implements Component {
     self.view = view
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", "max-content", { fr: 1 }]} gap={6sp}>
         <SampleNote />

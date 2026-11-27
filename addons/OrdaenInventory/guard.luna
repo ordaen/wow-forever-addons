@@ -36,7 +36,7 @@ public class GuardLine implements ItemLines {
   const hovered: Hovered
   constructor(hovered: Hovered) { self.hovered = hovered }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     const slot = self.hovered.slot
     if (slot == nil || slot.id != item) { return NONE }
     const why = slot.why
@@ -61,7 +61,7 @@ public class GuardKey implements ItemKeys {
     self.guildOpen = guildOpen
   }
 
-  public keys(self, item: integer, link: string): array<string> {
+  public keys(item: integer, link: string): array<string> {
     const slot = self.hovered.slot
     if (slot == nil || slot.id != item) { return NO_KEYS }
     let keys: array<string> = []

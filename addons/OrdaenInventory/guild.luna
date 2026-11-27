@@ -82,15 +82,15 @@ public class GuildBank {
     }
   }
 
-  onInteraction(mut self, kind: Client::PlayerInteractionType) {
+  mut onInteraction(kind: Client::PlayerInteractionType) {
     if (kind == .GuildBanker) { self.onOpened() }
   }
 
-  onInteractionEnd(mut self, kind: Client::PlayerInteractionType) {
+  mut onInteractionEnd(kind: Client::PlayerInteractionType) {
     if (kind == .GuildBanker) { self.onClosed() }
   }
 
-  onOpened(mut self) {
+  mut onOpened() {
     if (peek self.open) { return }
     self.open = true
     self.readTabs()
@@ -99,10 +99,10 @@ public class GuildBank {
     self.show(first?.index ?? 1)
   }
 
-  onClosed(mut self) { self.open = false }
+  mut onClosed() { self.open = false }
 
   // A tab shown: the client told which, and asked for its slots (and its log, on the log's page).
-  public show(mut self, tab: integer) {
+  public mut show(tab: integer) {
     self.tab = tab
     Client::SetCurrentGuildBankTab(tab)
     if (peek self.page == GuildPage::Items) {
@@ -113,7 +113,7 @@ public class GuildBank {
     }
   }
 
-  public showPage(mut self, page: GuildPage) {
+  public mut showPage(page: GuildPage) {
     self.page = page
     if (page == .Items) {
       self.show(peek self.tab)
@@ -123,16 +123,16 @@ public class GuildBank {
     }
   }
 
-  ask(self, page: GuildPage) {
+  ask(page: GuildPage) {
     Client::QueryGuildBankLog(page == .MoneyLog ? MONEY_LOG : peek self.tab)
   }
 
-  onSlots(mut self) {
+  mut onSlots() {
     self.loading = false
     self.slots.emit()
   }
 
-  readTabs(mut self) {
+  mut readTabs() {
     let tabs: array<GuildTab> = []
     for (index of 1..Client::GetNumGuildBankTabs().floor()) {
       let name, icon, viewable, canDeposit, withdrawals = Client::GetGuildBankTabInfo(index)
@@ -144,13 +144,13 @@ public class GuildBank {
     self.tabs = tabs
   }
 
-  readMoney(mut self) {
+  mut readMoney() {
     self.money = Client::GetGuildBankMoney().floor()
     self.withdrawLeft = Client::GetGuildBankWithdrawMoney().floor()
     self.canWithdraw = Client::CanWithdrawGuildBankMoney()
   }
 
-  readLog(mut self) {
+  mut readLog() {
     let lines: array<string> = []
     if (peek self.page == GuildPage::MoneyLog) {
       for (index of 1..Client::GetNumGuildBankMoneyTransactions().floor()) {
@@ -169,14 +169,14 @@ public class GuildBank {
   }
 
   // The guild's money moved in the player's click on the dialog's button.
-  public deposit(self, copper: integer) { Client::DepositGuildBankMoney(copper) }
-  public withdraw(self, copper: integer) { Client::WithdrawGuildBankMoney(copper) }
+  public deposit(copper: integer) { Client::DepositGuildBankMoney(copper) }
+  public withdraw(copper: integer) { Client::WithdrawGuildBankMoney(copper) }
 
   // The player's use of a slot of the guild bank: its stack into the bags, as the game's right click does.
-  public take(self, tab: integer, slot: integer) { Client::AutoStoreGuildBankItem(tab, slot) }
+  public take(tab: integer, slot: integer) { Client::AutoStoreGuildBankItem(tab, slot) }
 
   // The window's close leaves the guild bank.
-  public close(self) {
+  public close() {
     if (peek self.open) { Client::CloseGuildBankFrame() }
   }
 }

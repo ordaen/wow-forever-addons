@@ -33,9 +33,9 @@ class LayerRow implements Component {
     self.on = on
   }
 
-  onFlip(mut self) { self.flip.emit(self.id) }
+  mut onFlip() { self.flip.emit(self.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.title} hint={self.hint}>
         <ShownToggle state={self.state} @flip={self.onFlip} />
@@ -59,9 +59,9 @@ public class GeneralPage implements Component {
     self.hidden = hidden
   }
 
-  onFlip(mut self, id: string) { self.flip.emit(id) }
+  mut onFlip(id: string) { self.flip.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_MAP}>
         <text $if={!self.openMap} value={Locale::NO_OPENMAP} textColor={RED} />

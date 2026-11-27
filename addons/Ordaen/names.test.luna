@@ -19,8 +19,8 @@ test "a text is trimmed of the spaces before and after, never of those inside" {
 class Holder {
   state text = ""
   state said = 0
-  onSubmit(mut self) { self.said += 1 }
-  public render(self): Template {
+  mut onSubmit() { self.said += 1 }
+  public render(): Template {
     return $ltml { <box width={300dp}> <Field value={mut self.text} placeholder={"Name"} @submit={self.onSubmit} /> </box> }
   }
 }

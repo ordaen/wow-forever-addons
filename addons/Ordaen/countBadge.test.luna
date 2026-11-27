@@ -9,7 +9,7 @@ const WHISPER: Color = Color::hex("#ff80ff")
 class Badges {
   public state count = 3
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={6sp} padding={3sp}>
         <CountBadge count={self.count} />

@@ -30,7 +30,7 @@ public class Recorder {
   // the game's side has read them (no recipe is asked of the client again), one client call per known recipe for
   // the cooldown, once a profession is opened and each time its list's length changes. Nothing while none is open
   // or its list hasn't come.
-  readRecipes(mut self, open: integer | nil, count: integer) {
+  mut readRecipes(open: integer | nil, count: integer) {
     if (open == nil || count == 0) { return }
     const recipes: array<RecipeId> = []
     const ready: map<RecipeId, Hour> = {}
@@ -47,14 +47,14 @@ public class Recorder {
 
   // A recipe learned while a profession is open belongs to it; one learned from a trainer is read the next time the
   // profession is opened.
-  onLearned(mut self, recipe: integer) {
+  mut onLearned(recipe: integer) {
     const open = peek Game::tradeSkill.open
     if (open != nil) { self.records.learn(open, RecipeId::of(recipe)) }
   }
 
   // The bags' room and what they hold, by item, each time they change; where the game gave no count (the part says
   // why), what was kept stays.
-  onBags(mut self) {
+  mut onBags() {
     const room = Game::bags.roomOfAll()
     self.records.setBags(room.free, room.slots)
     const held = Game::bags.holdings()
@@ -63,14 +63,14 @@ public class Recorder {
   }
 
   // What the bank holds, by item, while its window is open; where the seam gave nothing, what was kept stays.
-  onBank(mut self) {
+  mut onBank() {
     const held = Game::bankObserver.holdings()
     if (held == nil) { return }
     self.records.setPlace(Place::Bank, itemsOf(held), Hour::now())
   }
 
   // What the inbox carries, and when its first mail with something expires.
-  onMail(mut self) {
+  mut onMail() {
     const held = Game::mailObserver.holdings()
     if (held == nil) { return }
     const now = Hour::now()
@@ -81,7 +81,7 @@ public class Recorder {
 
   // The player's auctions by item. The list is empty before the house first answers, so an empty one counts only while
   // the house is open.
-  readAuctions(mut self, list: array<Game::Owned>) {
+  mut readAuctions(list: array<Game::Owned>) {
     if (list.length == 0 && !peek Game::auctionHouse.open) { return }
     const items: map<ItemId, integer> = {}
     for (owned of list) {

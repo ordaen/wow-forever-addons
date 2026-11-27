@@ -14,10 +14,10 @@ class Owner implements Component {
   const first: IconPickerFirst
   constructor(first: IconPickerFirst) { self.first = first }
 
-  onPicked(mut self, icon: IconChoice) { self.value = icon }
-  onCancelled(mut self) { self.cancelled = true }
+  mut onPicked(icon: IconChoice) { self.value = icon }
+  mut onCancelled() { self.cancelled = true }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <IconPicker value={self.value} title={"Icon"} first={self.first} @picked={self.onPicked} @cancelled={self.onCancelled} />
     }

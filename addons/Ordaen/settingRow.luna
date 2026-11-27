@@ -27,10 +27,10 @@ public class SettingRow implements Component {
     self.disabled = disabled
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={5.5sp} yAlign={Align::Center} opacity={self.opacity}>
         <box columns={1} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>

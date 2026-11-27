@@ -136,22 +136,22 @@ public class TermText implements Component {
     watch { self.forgetCursor() }
   }
 
-  opensSomething(self): boolean { return opensSomething(self.opens) }
+  opensSomething(): boolean { return opensSomething(self.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
-  forgetCursor(mut self) {
+  mut forgetCursor() {
     if (!self.lit) {
       self.over = false
       self.onOpened = false
     }
   }
 
-  onEnter(mut self) { self.over = true }
-  onLeave(mut self) { self.over = false }
-  onEnterOpened(mut self) { self.onOpened = true }
-  onLeaveOpened(mut self) { self.onOpened = false }
+  mut onEnter() { self.over = true }
+  mut onLeave() { self.over = false }
+  mut onEnterOpened() { self.onOpened = true }
+  mut onLeaveOpened() { self.onOpened = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={.None}
@@ -194,7 +194,7 @@ public class PartText implements Component {
     self.locked = locked
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // In the numbers' font: the client's own for texts has no middle dot.
       <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={SECONDARY_TEXT} wrap={.None}
@@ -235,7 +235,7 @@ public class Row implements Component {
     self.locked = locked
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.paired} columns={self.tracks} gap={3sp} padding={self.line.padding}>
         <box $if={self.hasIcon} width={LINE_ICON} height={LINE_ICON} icon={self.line.icon} />
@@ -398,21 +398,21 @@ public class TipFrame implements Component {
     watch { self.keepMore() }
   }
 
-  onClose(mut self) { self.close.emit() }
+  mut onClose() { self.close.emit() }
 
-  keepBody(mut self) {
+  mut keepBody() {
     const lines = self.model.body
     self.body = rows(lines, peek self.body, self.bodyOf)
     self.bodyOf = lines
   }
 
-  keepMore(mut self) {
+  mut keepMore() {
     const lines = self.model.more
     self.more = rows(lines, peek self.more, self.moreOf)
     self.moreOf = lines
   }
 
-  pictured(self): boolean {
+  pictured(): boolean {
     let picture = self.model.picture
     match (picture) {
       Picture::None => return false
@@ -420,7 +420,7 @@ public class TipFrame implements Component {
     }
   }
 
-  iconArt(self): Art | nil {
+  iconArt(): Art | nil {
     let picture = self.model.picture
     match (picture) {
       Picture::Icon => return picture.art
@@ -428,7 +428,7 @@ public class TipFrame implements Component {
     }
   }
 
-  faceUnit(self): string | nil {
+  faceUnit(): string | nil {
     let picture = self.model.picture
     match (picture) {
       Picture::Face => return picture.unit
@@ -437,7 +437,7 @@ public class TipFrame implements Component {
   }
 
   // One column as wide as each piece and each « · » between two, and the rest of the row empty.
-  tracks(self, pieces: integer): array<Track> {
+  tracks(pieces: integer): array<Track> {
     let list: array<Track> = []
     for (i of 1..pieces) {
       if (i > 1) { list.push("max-content") }
@@ -447,7 +447,7 @@ public class TipFrame implements Component {
     return list
   }
 
-  notes(self): array<Drawn> {
+  notes(): array<Drawn> {
     let list: array<Drawn> = []
     for (note of self.model.foot) {
       let alone = note.right == nil
@@ -460,7 +460,7 @@ public class TipFrame implements Component {
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // A header («Equipped») is a tab on the frame's top, in its middle, as high as `HEADER` takes: the main tooltip
       // beside it stands as much lower, so the titles are level.

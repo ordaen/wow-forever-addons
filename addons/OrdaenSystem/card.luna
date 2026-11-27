@@ -43,9 +43,9 @@ public class NamedLink implements Component {
   named: Signal<Named>
   constructor(named: Signal<Named>) { self.named = named }
 
-  onClick(mut self) { self.pick.emit(self.named.name) }
+  mut onClick() { self.pick.emit(self.named.name) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={PAIR} gap={3sp} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <text value={self.named.title} textColor={LINK} wrap={.None} />
@@ -99,7 +99,7 @@ public class Card implements Component {
     self.module = module
   }
 
-  bylineOf(self): string {
+  bylineOf(): string {
     const addon = self.addon
     if (addon == nil) { return "" }
     if (addon.version == "") { return addon.author }
@@ -107,7 +107,7 @@ public class Card implements Component {
     return "%s · %s".format(addon.version, addon.author)
   }
 
-  iconOf(self): Art {
+  iconOf(): Art {
     const given = self.addon?.icon ?? ""
     if (given != "" && given is Asset) { return given }
     return "Interface/Icons/INV_Misc_QuestionMark"
@@ -116,7 +116,7 @@ public class Card implements Component {
   // Loaded, loaded on demand, waiting to be asked for or for a reload, off, or why it can't load: for a
   // dependency's reason, which dependency.
   // A status is the catalog's for each addon it lists: there is one where there is an addon.
-  stateTextOf(self): string {
+  stateTextOf(): string {
     const status = self.status
     if (status == nil) { return "" }
     if (status.enabled == .Off) { return Locale::OFF }
@@ -137,7 +137,7 @@ public class Card implements Component {
     return demand ? Locale::WAITING_DEMAND : Locale::WAITING_RELOAD
   }
 
-  namedOf(self, names: array<string>): array<Named> {
+  namedOf(names: array<string>): array<Named> {
     const list: array<Named> = []
     for (name of names) {
       const status = self.catalog.statuses[name]
@@ -156,7 +156,7 @@ public class Card implements Component {
     return list
   }
 
-  loadsOf(self): array<Pair> {
+  loadsOf(): array<Pair> {
     const load = self.load
     const kb = self.profiler.memory[self.name] ?? 0
     const weight = self.status?.loaded == true ? memory(kb) : DASH
@@ -182,19 +182,19 @@ public class Card implements Component {
     ]
   }
 
-  onPick(mut self, name: string) { self.pick.emit(name) }
-  onSwitch(mut self) { self.toggle.emit(self.name) }
-  onSettings(mut self) { self.settings.emit(self.name) }
+  mut onPick(name: string) { self.pick.emit(name) }
+  mut onSwitch() { self.toggle.emit(self.name) }
+  mut onSettings() { self.settings.emit(self.name) }
 
   // Loaded now, out of a fight alone: the client's refusal shows on the card.
-  onLoad(mut self) {
+  mut onLoad() {
     if (self.fighting) { return }
     const refused = self.catalog.load(self.name)
     self.failedFor = self.name
     self.failed = refused == nil ? "" : Client::ADDON_LOAD_FAILED.format(self.catalog.titleOf(self.name), refused)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={CARD_ROWS} gap={3sp}>
         <box overflow={Overflow::Scroll}>

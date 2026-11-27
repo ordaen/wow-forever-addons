@@ -45,16 +45,16 @@ public class PickRow implements Component {
     self.tabStop = tabStop
   }
 
-  onPick(mut self) { self.pick.emit() }
-  onShift(mut self) { self.modified.emit(.Shift) }
-  onCtrl(mut self) { self.modified.emit(.Ctrl) }
+  mut onPick() { self.pick.emit() }
+  mut onShift() { self.modified.emit(.Shift) }
+  mut onCtrl() { self.modified.emit(.Ctrl) }
   // A list's row: the tooltips of what it holds stand beside it, never over the rows round it.
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     Game::tooltip.rowAt(frame)
     self.entered.emit(frame)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} gap={2sp} yAlign={Align::Center} padding={self.padding}
            background={self.background} tabStop={self.tabStop} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}

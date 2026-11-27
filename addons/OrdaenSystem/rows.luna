@@ -156,7 +156,7 @@ public class LineRow implements Component {
   }
 
   // A caption's switch: on where every addon of its group is on, off where none is, on for some between.
-  groupShown(self): Shown {
+  groupShown(): Shown {
     let on = 0
     let off = 0
     for (name of self.line.names) {
@@ -168,23 +168,23 @@ public class LineRow implements Component {
     return on == count ? Shown::On : off == count ? Shown::Off : Shown::Some
   }
 
-  sayOf(self): string {
+  sayOf(): string {
     const addon = self.addon
     const status = self.status
     if (addon == nil || status == nil) { return "" }
     return stateOf(addon, status, self.module)
   }
 
-  badOf(self): boolean {
+  badOf(): boolean {
     const reason = self.status?.reason
     return reason != nil && reason != "DISABLED" && (self.status?.enabled != .Off || self.module)
   }
 
-  onPick(mut self, click: Event::Press) { self.choose(click.button) }
+  mut onPick(click: Event::Press) { self.choose(click.button) }
   // Enter or Space picks the row as a left-click does.
-  onKey(mut self) { self.choose(.Left) }
+  mut onKey() { self.choose(.Left) }
 
-  choose(mut self, button: MouseButton) {
+  mut choose(button: MouseButton) {
     if (self.line.caption) {
       self.fold.emit(self.line.name)
     } else if (button == MouseButton::Right) {
@@ -196,7 +196,7 @@ public class LineRow implements Component {
 
   // The row's quick actions: its switch (but a module's, whose switch is Ordaen's), «Load» where it can be loaded
   // now, a module's page in Ordaen's settings, and its card.
-  actionsOf(self): array<RowAction> {
+  actionsOf(): array<RowAction> {
     const list: array<RowAction> = []
     if (!self.module) { list.push(.Switch) }
     const status = self.status
@@ -208,7 +208,7 @@ public class LineRow implements Component {
     return list
   }
 
-  entryOf(self, action: RowAction): MenuEntry {
+  entryOf(action: RowAction): MenuEntry {
     return match (action) {
       .Switch => { label: self.switched == .Off ? Locale::ENABLE : Locale::DISABLE }
       .Load => { label: Locale::LOAD_NOW, disabled: Game::situation.combat }
@@ -217,7 +217,7 @@ public class LineRow implements Component {
     }
   }
 
-  onMenu(mut self, index: integer) {
+  mut onMenu(index: integer) {
     self.menuOpen = false
     const action = self.actions[index]
     if (action == nil) { return }
@@ -229,17 +229,17 @@ public class LineRow implements Component {
     }
   }
 
-  closeMenu(mut self) { self.menuOpen = false }
+  mut closeMenu() { self.menuOpen = false }
 
   // Ctrl is read here, in the click's own handler.
-  onCheck(mut self) { self.toggle.emit(self.line.name, Game::input.controlDown()) }
-  onGroup(mut self) { self.toggleGroup.emit(self.line.names) }
-  onFoldGroup(mut self) { self.foldGroup.emit(self.line.name) }
-  onSettings(mut self) { self.settings.emit(self.line.name) }
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onCheck() { self.toggle.emit(self.line.name, Game::input.controlDown()) }
+  mut onGroup() { self.toggleGroup.emit(self.line.names) }
+  mut onFoldGroup() { self.foldGroup.emit(self.line.name) }
+  mut onSettings() { self.settings.emit(self.line.name) }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.line.caption} height={Style::ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align::Center}
            @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>

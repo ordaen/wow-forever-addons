@@ -144,18 +144,18 @@ class SpellSlot implements Component {
     watch (shown of self.spell) { self.read(shown) }
   }
 
-  read(mut self, spell: Game::SpellEntry) {
+  mut read(spell: Game::SpellEntry) {
     self.run = Game::spellbook.cooldown(spell)
     self.auto = Game::spellbook.autoCast(spell)
   }
 
-  onCooled(mut self) { self.read(peek self.spell) }
-  onGrab(self) { pickUp(self.spell) }
+  mut onCooled() { self.read(peek self.spell) }
+  onGrab() { pickUp(self.spell) }
 
   // The game's book's modified clicks, as the player binds them: the link's (Shift) puts the spell into the chat's line
   // or the macro being written, the pick-up's (Shift too, so a link wins unless rebound) takes it onto the cursor; the
   // right button turns a pet's spell's autocast, in the player's click.
-  onPressed(mut self, press: Event::Press) {
+  mut onPressed(press: Event::Press) {
     if (press.button == MouseButton::Left && Game::input.modifiedClick(.ChatLink)) {
       Game::spellbook.link(peek self.spell)
     } else if (press.button == MouseButton::Left && Game::input.modifiedClick(.PickupAction)) {
@@ -166,7 +166,7 @@ class SpellSlot implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed} linkOnShift={false}
                   markers={self.marks} tipped={false} @dragged={self.onGrab} @pressed={self.onPressed}>
@@ -226,10 +226,10 @@ public class SpellRow implements Component {
     self.detail = detail
   }
 
-  onGrab(self) { pickUp(self.spell) }
-  onEnter(self, frame: any Frame) { showSpellRow(frame, peek self.spell) }
+  onGrab() { pickUp(self.spell) }
+  onEnter(frame: any Frame) { showSpellRow(frame, peek self.spell) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={2.5sp} yAlign={Align::Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
            background={GROUND} @dragStart={self.onGrab} @pointerEnter={self.onEnter}>
@@ -259,10 +259,10 @@ public class SpellTableRow implements Component {
     self.line = line
   }
 
-  onGrab(self) { pickUp(self.spell) }
-  onEnter(self, frame: any Frame) { showSpellRow(frame, peek self.spell) }
+  onGrab() { pickUp(self.spell) }
+  onEnter(frame: any Frame) { showSpellRow(frame, peek self.spell) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow @enter={self.onEnter}>
         <TableCell>
@@ -333,14 +333,14 @@ public class SpellbookPage {
   }
 
   // The skill line a spell stands on, by its name; a pet's spell's, the pet's book.
-  lineOf(self, spell: Game::SpellEntry): string {
+  lineOf(spell: Game::SpellEntry): string {
     return spell.pet ? (self.petBook ?? "") : lineName(self.lines, spell.line)
   }
 
   // What a spell's row says under its name that its group doesn't: by type its skill line, by spec that it is passive
   // (an active one says nothing of it); its rank where it has one. A pet's spell stands under its
   // book, which says both.
-  detailOf(self, spell: Game::SpellEntry): string {
+  detailOf(spell: Game::SpellEntry): string {
     const parts: array<string> = []
     if (!spell.pet && self.byType) { parts.push(self.lineOf(spell)) }
     if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale::PASSIVE) }
@@ -350,7 +350,7 @@ public class SpellbookPage {
   }
 
   // The player's spells and the pet's that the search and the filter keep, in the sort's order.
-  shownOf(self): array<Game::SpellEntry> {
+  shownOf(): array<Game::SpellEntry> {
     const list: array<Game::SpellEntry> = []
     const sought = self.search.lower()
     for (from of [self.spells, self.pets]) {
@@ -374,7 +374,7 @@ public class SpellbookPage {
 
   // The columns' groups, each in the sort's order, one with no spell left out: by type the active spells, then the
   // passive ones; by spec a group for each skill line, in the book's order. The pet's spells last, under its book.
-  groupsOf(self): array<SpellGroup> {
+  groupsOf(): array<SpellGroup> {
     const groups: array<SpellGroup> = []
     const add = (title: string, spells: array<Game::SpellEntry>) => {
       if (spells.length > 0) { groups.push({ title: title, spells: spells }) }

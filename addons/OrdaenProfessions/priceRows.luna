@@ -57,12 +57,12 @@ public class PricedReagentRow implements Component {
   constructor(price: Signal<PartPrice>) { self.price = price }
 
   // Anywhere on the row, its item's tooltip beside it.
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     const item = self.item
     if (item != nil) { Game::items.show(frame, item) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow ground={Ground::Wood} @enter={self.onEnter}>
         <TableCell padding={ICON_ROOM}> <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} /> </TableCell>
@@ -105,10 +105,10 @@ class TotalCell implements Component {
     self.tip = tip
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableCell align={Align::End} padding={LINE_ROOM}>
         // The amount alone hears the mouse: its tip under the cursor.
@@ -149,7 +149,7 @@ class TotalRow implements Component {
     self.rule = rule
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={"subgrid"} border={self.rule} yAlign={Align::Center}>
         <TableCell padding={LINE_ROOM} />
@@ -201,13 +201,13 @@ public class PriceTable implements Component {
   }
 
   // The house's price before its cut, and the cut.
-  saleTipOf(self): string {
+  saleTipOf(): string {
     const sale = self.auction.sale
     if (sale == nil) { return "" }
     return Locale::SALE_TIP.format(Game::money.format(self.totals.listed ?? 0), self.totals.cut, Game::money.format(sale))
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={PRICED}>
         <box columns={"subgrid"}>
@@ -257,12 +257,12 @@ public class PricesAge implements Component {
   totals: Signal<Totals>
   constructor(totals: Signal<Totals>) { self.totals = totals }
 
-  colorOf(self): Color {
+  colorOf(): Color {
     const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
     return color ?? Style::DIM
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text $if={self.aged} value={self.age} textSize={SECONDARY_TEXT} textColor={self.color} />
     }

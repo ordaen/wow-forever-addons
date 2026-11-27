@@ -56,9 +56,9 @@ public class Toolbar implements Component {
     self.placeholder = placeholder
   }
 
-  onSubmit(mut self) { self.submit.emit() }
+  mut onSubmit() { self.submit.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} yAlign={Align::Center}>
         <box height={SIZE} rows={FILL}>
@@ -107,11 +107,11 @@ public class ToolButton implements Component {
     self.tinted = tinted
   }
 
-  toggle(mut self) { self.open = !self.open }
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut toggle() { self.open = !self.open }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
@@ -150,13 +150,13 @@ public class ToolAct implements Component {
     self.disabled = disabled
   }
 
-  onClick(self) {
+  onClick() {
     if (!self.disabled) { self.pressed.emit() }
   }
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE} xAlign={Align::Center} yAlign={Align::Center} background={Ordaen.art.ctl.button}
@@ -199,14 +199,14 @@ public class ToolPick<T: unknown> implements Component {
     self.listBounds = { min: listWidth, max: nil }
   }
 
-  close(mut self) { self.open = false }
+  mut close() { self.open = false }
 
-  onPick(mut self, value: T) {
+  mut onPick(value: T) {
     self.value = value
     self.open = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
         <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
@@ -240,7 +240,7 @@ public class ToolSort implements Component {
     self.choices = sortChoices(columns, more)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ToolPick value={mut self.sorted} choices={self.choices} icon={Ordaen.art.ctl.tool.sort} title={self.title} />
     }

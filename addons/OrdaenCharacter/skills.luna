@@ -85,7 +85,7 @@ public class SkillRow implements Component {
     self.picked = picked
   }
 
-  onClick(self) {
+  onClick() {
     const skill = peek self.skill
     if (skill.header) {
       self.fold.emit(skill)
@@ -94,7 +94,7 @@ public class SkillRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[MARK, { fr: 1 }, BAR_WIDTH, BONUS_WIDTH]} gap={3sp} yAlign={Align::Center}
            background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
@@ -129,14 +129,14 @@ public class SkillDetail implements Component {
     self.heading = heading
   }
 
-  onAsk(mut self) { self.asking = true }
-  onCancel(mut self) { self.asking = false }
-  onUnlearn(mut self) {
+  mut onAsk() { self.asking = true }
+  mut onCancel() { self.asking = false }
+  mut onUnlearn() {
     self.asking = false
     self.unlearn.emit(peek self.skill)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={3sp}>
         <box gap={2sp}>
@@ -181,11 +181,11 @@ public class SkillsPage implements Component {
     self.search = search
   }
 
-  onPick(self, skill: Skill) { self.pick.emit(skill) }
-  onFold(self, skill: Skill) { self.fold.emit(skill) }
-  onUnlearn(self, skill: Skill) { self.unlearn.emit(skill) }
+  onPick(skill: Skill) { self.pick.emit(skill) }
+  onFold(skill: Skill) { self.fold.emit(skill) }
+  onUnlearn(skill: Skill) { self.unlearn.emit(skill) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, Style::SIDE]} yAlign={Align::Stretch}>
         <box rows={["max-content", { fr: 1 }]} gap={3sp}>

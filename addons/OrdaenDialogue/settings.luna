@@ -45,7 +45,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={Locale::SETTING_KEYBOARD} hint={Locale::SETTING_KEYBOARD_TIP} value={mut self.settings.values.keyboard} />
       <Checkbox label={Locale::SETTING_KEY_HINTS} hint={Locale::SETTING_KEY_HINTS_TIP}
@@ -71,7 +71,7 @@ public class ConveniencePage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::SETTING_AUTO_EQUIP} hint={Locale::SETTING_AUTO_EQUIP_TIP} value={mut self.settings.values.autoEquip} />
       <NumberInput label={Locale::SETTING_EQUIP_FROM} hint={Locale::SETTING_EQUIP_FROM_TIP}

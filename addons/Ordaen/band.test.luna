@@ -50,7 +50,7 @@ const CELLS: array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color::hex("#2
 class Cells {
   public state lit = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]}>
         <BandCell $for={index, fact of CELLS} fact={fact} index={index} last={true} lit={self.lit && index == 2}>

@@ -9,7 +9,7 @@ class Asking {
   public window: mut KeptWindow = new KeptWindow("asking", "asking", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window}>
         <text value={"the page"} />

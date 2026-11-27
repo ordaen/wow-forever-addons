@@ -144,45 +144,45 @@ public class Trading implements Module, App {
 
   // The shopping list as another window's tab (the professions window's): the house's items and the merchants', the
   // sellers found as `sellers` says.
-  public shoppingTab(mut self, sellers: Sellers): Template {
+  public mut shoppingTab(sellers: Sellers): Template {
     return $ltml { <ShoppingTab prices={self.prices} list={mut self.shopping} sellers={sellers} atMerchant={self.vendor.open} /> }
   }
 
-  onOpened(mut self) {
+  mut onOpened() {
     if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
   }
 
-  merchantFramesOf(self): array<any Frame> {
+  merchantFramesOf(): array<any Frame> {
     if (!self.vendor.open) { return [] }
     const frame = Runtime::frame("MerchantFrame")
     return frame == nil ? [] : [frame]
   }
 
   // «Sell junk» in the merchant's window: Ordaen Inventory knows the junk, and sells it.
-  onSellJunk(self) { Inventory?.sellJunk() }
+  onSellJunk() { Inventory?.sellJunk() }
 
-  onMerchant(mut self) {
+  mut onMerchant() {
     const given = Game::merchant.prices()
     if (given != nil) { takeMerchant(self.kept.vendor, given) }
   }
 
   // The window closed (its button, Escape): the player leaves the house, as the game's own window's close does.
-  onClose(self) { Game::auctionHouse.close() }
+  onClose() { Game::auctionHouse.close() }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   // «Shopping list» on «Buy», «My auctions» on «Sell»: each opens its window, or closes it.
-  onShopping(mut self) { self.shoppingOpen = !self.shoppingOpen }
-  onOwned(mut self) { self.ownedOpen = !self.ownedOpen }
-  closeShopping(mut self) { self.shoppingOpen = false }
-  closeOwned(mut self) { self.ownedOpen = false }
+  mut onShopping() { self.shoppingOpen = !self.shoppingOpen }
+  mut onOwned() { self.ownedOpen = !self.ownedOpen }
+  mut closeShopping() { self.shoppingOpen = false }
+  mut closeOwned() { self.ownedOpen = false }
 
-  sideOf(self): WindowSide | nil {
+  sideOf(): WindowSide | nil {
     const picked = self.page == BUY ? self.buyChosen.length > 0 : self.sellChosen.length > 0
     return picked ? { width: Style::PANEL, content: self.chosenPanel } : nil
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <$if={self.vendor.open}>
         // The game's merchant window stays open, unseen and off the screen: hiding it would close the merchant.

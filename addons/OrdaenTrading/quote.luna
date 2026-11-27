@@ -56,13 +56,13 @@ public trait PriceSource {
   // Moves whenever a price may have: a reader that follows prices reads it.
   public revision: Signal<integer>
   // What one costs now: the lowest listed where it is 48 hours old or less, the market otherwise.
-  public buy(self, key: PriceKey): Quote | nil
+  public buy(key: PriceKey): Quote | nil
   // What one is listed for: the lesser of the market and a fresh lowest.
-  public listed(self, key: PriceKey): Quote | nil
+  public listed(key: PriceKey): Quote | nil
   // What one brings: what it is listed for, less the house's cut.
-  public sell(self, key: PriceKey): Quote | nil
+  public sell(key: PriceKey): Quote | nil
   // The house's cut of a sale, in percent.
-  public cut(self): integer
+  public cut(): integer
   // What a merchant asks for one; merchants don't change prices, so it has no age.
-  public vendor(self, item: ItemId): Copper | nil
+  public vendor(item: ItemId): Copper | nil
 }

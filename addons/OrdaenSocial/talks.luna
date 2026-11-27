@@ -129,14 +129,14 @@ public class Talk {
   }
 
   // A line added; the oldest let go past `HELD`.
-  public add(mut self, line: TalkLine) {
+  public mut add(line: TalkLine) {
     self.lines.push(line)
     if (self.lines.length > HELD) { _ = self.lines.remove(1) }
     self.version = (peek self.version) + 1
   }
 
   // The lines of the last session, before this one's.
-  public recall(mut self, lines: array<TalkLine>) {
+  public mut recall(lines: array<TalkLine>) {
     const now: array<TalkLine> = lines.clone()
     for (line of self.lines) { now.push(line) }
     self.lines = now
@@ -144,21 +144,21 @@ public class Talk {
   }
 
   // The last `KEPT` that can be kept.
-  public kept(self): array<TalkLine> {
+  public kept(): array<TalkLine> {
     const keep = self.lines.filter(line => !line.secret)
     for (at of KEPT + 1..keep.length) { _ = keep.remove(1) }
     return keep
   }
 
   // Its lines cleared, nothing of it waiting.
-  public clear(mut self) {
+  public mut clear() {
     self.lines = []
     self.unread = 0
     self.version = (peek self.version) + 1
   }
 
   // A sender's lines taken away (a player reported).
-  public forgetSender(mut self, guid: string) {
+  public mut forgetSender(guid: string) {
     const kept = self.lines.filter(line => line.sender != guid)
     if (kept.length == self.lines.length) { return }
     self.lines = kept
@@ -166,7 +166,7 @@ public class Talk {
   }
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
-  public slice(self, back: integer, count: integer): array<TalkLine> {
+  public slice(back: integer, count: integer): array<TalkLine> {
     const shown: array<TalkLine> = []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }

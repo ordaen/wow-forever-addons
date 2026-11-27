@@ -82,7 +82,7 @@ class FakeSheet implements Sheet {
   // A shield in the off hand, its block's line read as 39 of the block's damage.
   shielded = false
 
-  public worn(self, slot: integer): Worn {
+  public worn(slot: integer): Worn {
     if (slot == 1) {
       return {
         slot: slot, item: HELM, quality: Quality::Epic, level: 63, durability: 0.2, locked: self.helmLocked,
@@ -105,16 +105,16 @@ class FakeSheet implements Sheet {
     return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil }
   }
 
-  public usesAmmo(self): boolean { return true }
+  public usesAmmo(): boolean { return true }
 
-  public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" } }
+  public who(): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" } }
 
   // What the sheet says of the stats, made anew at each read as the client's sheet makes them: a test may put
   // others in.
   figures: () => Stats = warrior
-  public stats(self): Stats | nil { return self.figures() }
+  public stats(): Stats | nil { return self.figures() }
 
-  public factions(self): array<Faction> {
+  public factions(): array<Faction> {
     const rows: array<Faction> = [
       heading(1, 100, "Alliance", false),
       faction(2, 72, "Stormwind", 5, self.stand),
@@ -124,11 +124,11 @@ class FakeSheet implements Sheet {
     return rows
   }
 
-  public inactive(self, index: integer): boolean { return false }
+  public inactive(index: integer): boolean { return false }
 
   // The professions' heading folded.
   craftsFolded = false
-  public skills(self): array<Skill> {
+  public skills(): array<Skill> {
     const rows: array<Skill> = [
       { index: 1, name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
       { id: MACES, index: 2, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
@@ -145,41 +145,41 @@ class FakeSheet implements Sheet {
     return rows
   }
 
-  public foldSkills(mut self, index: integer, open: boolean) {
+  public mut foldSkills(index: integer, open: boolean) {
     self.heard.push(`fold skills ${index} ${open}`)
     if (index == 5) { self.craftsFolded = !open }
   }
 
-  public unlearn(mut self, skill: integer) { self.heard.push(`unlearn ${skill}`) }
+  public mut unlearn(skill: integer) { self.heard.push(`unlearn ${skill}`) }
 
-  public pickup(mut self, slot: integer) { self.heard.push(`pickup ${slot}`) }
+  public mut pickup(slot: integer) { self.heard.push(`pickup ${slot}`) }
 
-  public fold(mut self, index: integer, open: boolean) {
+  public mut fold(index: integer, open: boolean) {
     self.heard.push(`fold ${index} ${open}`)
     if (index == 3) { self.folded = !open }
   }
 
-  public watchFaction(mut self, index: integer, on: boolean) { self.heard.push(`watch ${index} ${on}`) }
-  public toggleAtWar(mut self, index: integer) { self.heard.push(`war ${index}`) }
-  public setInactive(mut self, index: integer, inactive: boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
+  public mut watchFaction(index: integer, on: boolean) { self.heard.push(`watch ${index} ${on}`) }
+  public mut toggleAtWar(index: integer) { self.heard.push(`war ${index}`) }
+  public mut setInactive(index: integer, inactive: boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
 
   // The slot what the cursor holds goes in (none: 0), and the helm locked (picked up, on its way).
   cursorSlot = 0
   helmLocked = false
-  public fits(self, slot: integer): boolean { return slot == self.cursorSlot }
-  public tryOn(mut self, slot: integer) { self.heard.push(`try ${slot}`) }
+  public fits(slot: integer): boolean { return slot == self.cursorSlot }
+  public mut tryOn(slot: integer) { self.heard.push(`try ${slot}`) }
   // The bags hold another helm.
-  public fitting(self, slot: integer): array<integer> { return slot == 1 ? [OTHER_HELM] : [] }
-  public equip(mut self, item: integer, slot: integer) { self.heard.push(`equip ${item} ${slot}`) }
+  public fitting(slot: integer): array<integer> { return slot == 1 ? [OTHER_HELM] : [] }
+  public mut equip(item: integer, slot: integer) { self.heard.push(`equip ${item} ${slot}`) }
   // The set worn whole, by its number; -1 for none.
   wornSet = 0
-  public sets(self): array<GearSet> {
+  public sets(): array<GearSet> {
     return [
       { id: 0, name: "Tank", worn: self.wornSet == 0, missing: 0 }, { id: 1, name: "Fury", worn: self.wornSet == 1, missing: 2 }
     ]
   }
-  public useSet(mut self, id: integer) { self.heard.push(`set ${id}`) }
-  public saveSet(mut self, name: string) { self.heard.push(`save ${name}`) }
+  public mut useSet(id: integer) { self.heard.push(`set ${id}`) }
+  public mut saveSet(name: string) { self.heard.push(`save ${name}`) }
 }
 
 // The worn items' icons, as the game gives them.
@@ -1899,10 +1899,10 @@ function centred(inner: Test::Rect, outer: Test::Rect): boolean {
 class FakeInspector implements Inspector {
   heard: mut array<string> = []
 
-  public canInspect(self, unit: string): boolean { return unit == "target" }
-  public ask(mut self, unit: string) { self.heard.push(`ask ${unit}`) }
-  public guidOf(self, unit: string): string | nil { return GROM }
-  public read(self, unit: string): Inspected {
+  public canInspect(unit: string): boolean { return unit == "target" }
+  public mut ask(unit: string) { self.heard.push(`ask ${unit}`) }
+  public guidOf(unit: string): string | nil { return GROM }
+  public read(unit: string): Inspected {
     return {
       who: { name: "Grom", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" }, classTag: "WARRIOR",
       worn: [{
@@ -1911,11 +1911,11 @@ class FakeInspector implements Inspector {
       }]
     }
   }
-  public honor(self, unit: string): Honor {
+  public honor(unit: string): Honor {
     return { rank: 8, title: "Knight", current: 300, next: 1000, today: 14, lifetime: 3870 }
   }
-  public tryOn(mut self, unit: string, slot: integer) { self.heard.push(`try ${slot}`) }
-  public clear(mut self) { self.heard.push("clear") }
+  public mut tryOn(unit: string, slot: integer) { self.heard.push(`try ${slot}`) }
+  public mut clear() { self.heard.push("clear") }
 }
 
 const GROM = "Player-1-0002"

@@ -29,7 +29,7 @@ public class DebugModule implements Module, App {
     Ordaen.modules.add(self)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box /> }
   }
 }

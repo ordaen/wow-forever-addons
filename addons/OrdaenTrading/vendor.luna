@@ -130,16 +130,16 @@ public class Vendor {
     }
   }
 
-  readCurrencies(mut self) { self.currencies = currenciesOf() }
+  mut readCurrencies() { self.currencies = currenciesOf() }
 
-  onShow(mut self) {
+  mut onShow() {
     const name, _ = Client::UnitName("npc")
     self.name = name
     self.open = true
     self.read()
   }
 
-  onClosed(mut self) {
+  mut onClosed() {
     self.open = false
     self.wares = []
     self.sold = []
@@ -148,7 +148,7 @@ public class Vendor {
   }
 
   // Everything the merchant's window shows, read again.
-  public read(mut self) {
+  public mut read() {
     let wares: array<Ware> = []
     for (index of 1..Client::GetMerchantNumItems()) {
       const ware = wareAt(index)
@@ -168,7 +168,7 @@ public class Vendor {
     self.readRepairs()
   }
 
-  readRepairs(mut self) {
+  mut readRepairs() {
     self.repairing = Client::InRepairMode()
     self.repairs = Client::CanMerchantRepair()
     if (!(peek self.repairs)) { return }
@@ -180,11 +180,11 @@ public class Vendor {
 
   // The player's own click: one purchase of the item (`count` items of a stack the merchant sells by one; nil: the
   // merchant's own stack), bought back, mended.
-  public buy(self, ware: Ware, count: integer | nil) { Client::BuyMerchantItem(ware.index, count) }
-  public buyBack(self, sold: Sold) { Client::BuybackItem(sold.place) }
-  public repairAll(self, guild: boolean) { Client::RepairAllItems(guild) }
+  public buy(ware: Ware, count: integer | nil) { Client::BuyMerchantItem(ware.index, count) }
+  public buyBack(sold: Sold) { Client::BuybackItem(sold.place) }
+  public repairAll(guild: boolean) { Client::RepairAllItems(guild) }
   // The client's repair cursor: the next item clicked, worn or carried, is mended; again, the cursor is back.
-  public repairOne(mut self) {
+  public mut repairOne() {
     if (Client::InRepairMode()) {
       Client::HideRepairCursor()
     } else {
@@ -193,18 +193,18 @@ public class Vendor {
     self.repairing = Client::InRepairMode()
   }
   // The item onto the client's cursor, bought as it is put into a bag.
-  public pickUp(self, ware: Ware) { Client::PickupMerchantItem(ware.index) }
+  public pickUp(ware: Ware) { Client::PickupMerchantItem(ware.index) }
   // The item tried on in the dressing room (Ctrl+click), and any other modified click as the client's own buttons take
   // it (the player's bindings).
-  public dressUp(self, ware: Ware) {
+  public dressUp(ware: Ware) {
     if (ware.link != nil) { _ = Client::DressUpItemLink(ware.link) }
   }
-  public modifiedClick(self, ware: Ware) {
+  public modifiedClick(ware: Ware) {
     if (ware.link != nil) { _ = Client::HandleModifiedItemClick(ware.link) }
   }
 
   // The window's close leaves the merchant.
-  public close(self) {
+  public close() {
     if (peek self.open) { Client::CloseMerchant() }
   }
 }

@@ -96,22 +96,22 @@ public class Alts implements Module, App {
 
   // Who of the characters knows a recipe: whether the character being played can send to them, and the hour they can
   // make it again where it has a cooldown.
-  public knowers(self, recipe: RecipeId): array<Knower> { return self.records.knowers(recipe) }
+  public knowers(recipe: RecipeId): array<Knower> { return self.records.knowers(recipe) }
 
   // Who holds an item, how many, and where.
-  public holders(self, item: ItemId): array<Held> { return self.records.holders(item) }
+  public holders(item: ItemId): array<Held> { return self.records.holders(item) }
 
   // Whether the character being played can send to another: the same realm and side.
-  public reaches(self, who: CharacterId): boolean { return self.records.reaches(who) }
+  public reaches(who: CharacterId): boolean { return self.records.reaches(who) }
 
   // A character's record removed, the indexes without it; never the character being played. Whether it was removed.
   @discardable
-  public forget(mut self, who: CharacterId): boolean { return self.records.forget(who) }
+  public mut forget(who: CharacterId): boolean { return self.records.forget(who) }
 
-  public toggle(mut self) { self.open = !self.open }
-  onClose(mut self) { self.open = false }
+  public mut toggle() { self.open = !self.open }
+  mut onClose() { self.open = false }
 
-  onCommand(mut self) {
+  mut onCommand() {
     if (peek self.hosted) {
       self.asked.emit()
     } else {
@@ -119,9 +119,9 @@ public class Alts implements Module, App {
     }
   }
 
-  onForget(mut self, who: CharacterId) { _ = self.forget(who) }
+  mut onForget(who: CharacterId) { _ = self.forget(who) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window $if={self.open && !self.hosted} tabs={TABS} selected={mut self.tab} declared={mut self.window} @close={self.onClose}>
         {self.page}

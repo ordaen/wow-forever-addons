@@ -39,12 +39,12 @@ public class BandBar implements Component {
     self.most = most
   }
 
-  shareOf(self): number {
+  shareOf(): number {
     if (self.most <= 0) { return 0 }
     return (1).min(self.rank / self.most)
   }
 
-  labelOf(self): string {
+  labelOf(): string {
     if (self.rank <= 0 && self.most <= 0) { return "" }
     const skill = "%d / %d".format(self.rank, self.most)
     const rank = rankOf(self.most)
@@ -52,7 +52,7 @@ public class BandBar implements Component {
     return rank + " · " + skill
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={HEIGHT} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} rows={FILL}>
         <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts} rows={FILL}>

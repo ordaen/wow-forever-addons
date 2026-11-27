@@ -228,17 +228,17 @@ public class Profiles {
   }
 
   // Every `Settings`' values packed into their profile.
-  public pack(mut self) {
+  public mut pack() {
     self.finishing.emit()
     self.packing.emit()
   }
 
   // Who the character is as the picks ask: its GUID, its specialisation's place where it has one, its class.
-  public who(self): Profiles::Player {
+  public who(): Profiles::Player {
     return { character: Game::player.guid, spec: Game::player.spec?.index, classTag: Game::player.classTag }
   }
 
-  namesOf(self): array<string> {
+  namesOf(): array<string> {
     const kept = self.kept
     const list: array<string> = []
     for (name, _ of kept.profiles) { list.push(name) }
@@ -248,29 +248,29 @@ public class Profiles {
   }
 
   // The kept profiles and picks as a copy to change and hand to `apply`, every `Settings`' values packed first.
-  public edit(mut self): mut SavedProfiles {
+  public mut edit(): mut SavedProfiles {
     self.pack()
     return self.copy()
   }
 
-  copy(self): mut SavedProfiles {
+  copy(): mut SavedProfiles {
     return (peek self.kept).clone()
   }
 
   // Whether keeping `next` would make this character use another profile than it does.
-  public switches(self, next: SavedProfiles): boolean {
+  public switches(next: SavedProfiles): boolean {
     return picked(next.picks, self.who()) != peek self.active
   }
 
   // What the player chose, kept: a `Settings` follows a change of the active profile.
-  public apply(mut self, next: SavedProfiles) {
+  public mut apply(next: SavedProfiles) {
     self.kept = next
     Game::saved.store(.Account, "profiles", next)
   }
 
   // A `Settings`' section in a profile, unpacked for its `decode`; nil where the profile has none. A `Settings` kept
   // before profiles were (`Game.saved` under its key) is moved into «Default» as it is first read.
-  public section(mut self, name: ProfileName, key: string): unknown {
+  public mut section(name: ProfileName, key: string): unknown {
     const before = Game::saved.stored(.Account, key)
     if (before != nil) {
       const packed = Game::encoding.serialize(before)
@@ -288,14 +288,14 @@ public class Profiles {
   }
 
   // A `Settings`' values kept in a profile.
-  public write(mut self, name: ProfileName, key: string, values: unknown) {
+  public mut write(name: ProfileName, key: string, values: unknown) {
     const packed = Game::encoding.serialize(values)
     if (packed != nil) { self.put(name, key, packed) }
   }
 
   // What was kept on the account under `old` before profiles held it (`values`, read as its section's shape) is moved
   // into «Default», where that has no section of the key yet, as it is first read.
-  public adopt(mut self, old: string, key: string, values: unknown) {
+  public mut adopt(old: string, key: string, values: unknown) {
     const packed = Game::encoding.serialize(values)
     // A client that can't pack it: it stays where it was, read again at the next start.
     if (packed == nil) { return }
@@ -306,7 +306,7 @@ public class Profiles {
   }
 
   // A `ModuleMemory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
-  public recalled(self, name: ProfileName, key: string): unknown {
+  public recalled(name: ProfileName, key: string): unknown {
     const profile = (peek self.kept).profiles[name]
     if (profile == nil) { return nil }
     const raw = profile.memory[key]
@@ -316,7 +316,7 @@ public class Profiles {
 
   // A `ModuleMemory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
   // changes.
-  public remember(mut self, key: string, values: unknown | nil) {
+  public mut remember(key: string, values: unknown | nil) {
     const packed = values == nil ? nil : Game::encoding.serialize(values)
     if (values != nil && packed == nil) { return }
     if (packed != nil && packed.length > MEMORY_BOUND) {
@@ -333,7 +333,7 @@ public class Profiles {
     self.apply(next)
   }
 
-  put(mut self, name: ProfileName, key: string, packed: string) {
+  mut put(name: ProfileName, key: string, packed: string) {
     const next = self.copy()
     const profile = next.profiles[name] ?? Profile {}
     profile.sections[key] = packed
@@ -343,7 +343,7 @@ public class Profiles {
 
   // A new profile, a copy of the profile `from` or, where that is nil, with no section (every module's defaults):
   // false where the name is empty or taken.
-  public make(mut self, name: ProfileName, from: string | nil): boolean {
+  public mut make(name: ProfileName, from: string | nil): boolean {
     if (!self.free(name)) { return false }
     const next = self.edit()
     const source = from == nil ? nil : next.profiles[from]
@@ -354,7 +354,7 @@ public class Profiles {
 
   // A new profile of a savepoint's sections (each a snapshot of a module's values): false where the name is empty or
   // taken, or a section can't be packed.
-  public makeOf(mut self, name: ProfileName, sections: map<string, unknown>): boolean {
+  public mut makeOf(name: ProfileName, sections: map<string, unknown>): boolean {
     if (!self.free(name)) { return false }
     const profile = Profile {}
     for (key, values of sections) {
@@ -368,12 +368,12 @@ public class Profiles {
     return true
   }
 
-  free(self, name: ProfileName): boolean {
+  free(name: ProfileName): boolean {
     return name != "" && !self.namesOf().any(known => known == name)
   }
 
   // The account's default pick: every character that has no pick of its own switches to it at once.
-  public use(mut self, name: ProfileName) {
+  public mut use(name: ProfileName) {
     const next = self.edit()
     next.picks.account = name
     self.apply(next)

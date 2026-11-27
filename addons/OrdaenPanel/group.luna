@@ -56,12 +56,12 @@ public class CellGroup implements Component {
     self.leading = leading
   }
 
-  across(self): array<Track> {
+  across(): array<Track> {
     return self.cells.map((cell: Cell): Track => "max-content")
   }
 
   // A cell told anew (another icon on a bag) is another cell: it is drawn anew.
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns}>
         <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1 && !(peek self.leading)}
@@ -118,7 +118,7 @@ class GroupCell implements Component {
     self.rise = rise
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} rows={self.rows} xAlign={Align::Center} yAlign={Align::Center}>
         <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight}>
@@ -159,7 +159,7 @@ class CellOf implements Component {
   }
 
   // What a template draws reads `self`: the cell is told by its own field.
-  public render(self): Template {
+  public render(): Template {
     match (self.cell) {
       .Face => return $ltml { <FaceCell size={self.size} face={self.face} icon={self.icon} after={self.after} /> }
       .Menu => {

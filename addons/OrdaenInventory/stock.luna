@@ -27,7 +27,7 @@ public class Stock {
 
   // Every container read: one whose size changed, or another container in its place (the guild bank's tab), gets its
   // slots made again. What changed, each a bit.
-  public read(mut self, infos: array<Game::BagInfo>, lists: JunkLists, rules: JunkRules): integer {
+  public mut read(infos: array<Game::BagInfo>, lists: JunkLists, rules: JunkRules): integer {
     let sized = infos.length != self.bags.length
     for (index, info of infos) {
       const had = self.bags[index]
@@ -59,7 +59,7 @@ public class Stock {
   }
 
   // One container read again, by its place: nil where its size isn't the one kept (then every one is read).
-  public update(mut self, place: integer, size: integer, lists: JunkLists, rules: JunkRules): integer | nil {
+  public mut update(place: integer, size: integer, lists: JunkLists, rules: JunkRules): integer | nil {
     const slots = self.bags[place]
     if (slots == nil || slots.length != size) { return nil }
     self.arrived.clear()
@@ -70,7 +70,7 @@ public class Stock {
   }
 
   // The verdict on every item worked out again: a mark, a score or a rule changed.
-  public judge(mut self, lists: JunkLists, rules: JunkRules): integer {
+  public mut judge(lists: JunkLists, rules: JunkRules): integer {
     let changed = 0
     for (slot of self.all) { changed = Client::bit::bor(changed, slot.judge(lists, rules)) }
     return changed
@@ -78,14 +78,14 @@ public class Stock {
 
   // The sections are worked out again where an update changed where items lie, what is new or what is junk, or a count
   // where the sort is by count.
-  public regroup(mut self, changed: integer, byCount: boolean) {
+  public mut regroup(changed: integer, byCount: boolean) {
     const regroup = Client::bit::band(changed, MOVED + MARKED + JUDGED) != 0 ||
       (Client::bit::band(changed, COUNTED) != 0 && byCount)
     if (regroup) { self.revision += 1 }
   }
 
   // A container's place among the kept ones (1 on), by its number; none for one not kept.
-  public placeOf(self, bag: integer): integer | nil {
+  public placeOf(bag: integer): integer | nil {
     for (index, info of self.infos) {
       if (info.bag == bag) { return index }
     }
@@ -93,13 +93,13 @@ public class Stock {
   }
 
   // Whether a container takes any item, by its number; false for one not kept.
-  public general(self, bag: integer): boolean {
+  public general(bag: integer): boolean {
     const place = self.placeOf(bag)
     return place != nil && self.infos[place]?.general == true
   }
 
   // The slot at a container's number and its slot, where it is kept.
-  public slotAt(self, bag: integer, index: integer): Slot | nil {
+  public slotAt(bag: integer, index: integer): Slot | nil {
     for (slots of self.bags) {
       const first = slots[1]
       if (first != nil && first.bag == bag) { return slots[index] }
@@ -107,14 +107,14 @@ public class Stock {
     return nil
   }
 
-  refreshSlot(mut self, slot: mut Slot, lists: JunkLists, rules: JunkRules): integer {
+  mut refreshSlot(slot: mut Slot, lists: JunkLists, rules: JunkRules): integer {
     const changed = slot.refresh(lists, rules)
     if (Client::bit::band(changed, MOVED) != 0 && peek slot.id != 0) { self.arrived.push(slot) }
     return changed
   }
 
   // Each container's fill and the free slots: the fills' texts made again only where a container's count changed.
-  count(mut self) {
+  mut count() {
     let free = 0
     let total = 0
     let same = self.used.length == self.bags.length

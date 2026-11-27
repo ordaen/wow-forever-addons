@@ -26,11 +26,11 @@ public trait Layer {
   public const title: string
   // What it shows, on Map's settings page under its switch.
   public const hint: string
-  public pins(self): array<Pin>
+  public pins(): array<Pin>
   // What the pin's tooltip says, its first line its title.
-  public lines(self, pin: Pin): array<string>
+  public lines(pin: Pin): array<string>
   // The player clicked the pin, with Shift held or not.
-  public press(self, pin: Pin, shift: boolean)
+  public press(pin: Pin, shift: boolean)
 }
 
 // The map's side panel while it shows, docked (Blizzard's quest log, `WorldMapFrame.QuestLog`): the frame and its size
@@ -45,5 +45,5 @@ public struct SidePanel {
 // `dungeons`, added as a layer is. Map's section of the card holds every entry's lines, under its title.
 public trait DungeonSection {
   // Its lines for a dungeon of these instances (their names, the client's); none where it has nothing to say.
-  public lines(self, names: array<string>): array<string>
+  public lines(names: array<string>): array<string>
 }

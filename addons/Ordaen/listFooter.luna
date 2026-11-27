@@ -13,7 +13,7 @@ public class ListFooter implements Component {
     self.counts = counts
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <FooterBand>
         <box columns={SPREAD} gap={6sp} yAlign={Align::Center}>

@@ -27,7 +27,7 @@ public class Resting<T> {
     watch (due of self.due) { self.rested(due) }
   }
 
-  rested(mut self, due: boolean) {
+  mut rested(due: boolean) {
     if (!due) { return }
     if (self.endsAtRest) {
       self.end()
@@ -40,10 +40,10 @@ public class Resting<T> {
   destructor() { self.end() }
 
   // Whether an input is under way: the control shows its own value, not the one it is bound to.
-  public busy(self): boolean { return self.under }
+  public busy(): boolean { return self.under }
 
   // The input moved to `value`: written once it rests.
-  public move(mut self, value: T) {
+  public mut move(value: T) {
     self.pending = value
     if (!self.under) {
       self.under = true
@@ -52,7 +52,7 @@ public class Resting<T> {
     self.deadline = (peek Game::clock.time) + REST
   }
 
-  flush(mut self) {
+  mut flush() {
     self.deadline = nil
     const value = self.pending
     if (value == nil) { return }
@@ -62,7 +62,7 @@ public class Resting<T> {
   }
 
   // The input ended: what it holds is written now, the last part of its step.
-  public end(mut self) {
+  public mut end() {
     if (!self.under) { return }
     self.flush()
     self.under = false

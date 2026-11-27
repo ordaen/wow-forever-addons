@@ -212,10 +212,10 @@ class OfferRow implements Component {
     watch { self.toggled.emit(self.offer.item, self.checked ? self.count : 0) }
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box columns={OFFER} gap={2sp} yAlign={Align::Center}>
@@ -240,10 +240,10 @@ class SectionBlock implements Component {
   section: Signal<Section>
   constructor(section: Signal<Section>) { self.section = section }
 
-  onSend(mut self) { self.send.emit(self.section) }
-  onToggle(mut self, item: integer, count: integer) { self.toggled.emit(item, count) }
+  mut onSend() { self.send.emit(self.section) }
+  mut onToggle(item: integer, count: integer) { self.toggled.emit(item, count) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
         <text value={self.section.profession} textSize={TITLE_TEXT} leading={.Title} textColor={Style::GOLD} />
@@ -303,25 +303,25 @@ public class OwnTab {
   }
 
   // The bags changed: what they hold is read again; where the game gave no count, what was read stays.
-  onBags(mut self) {
+  mut onBags() {
     const held = Game::bags.holdings()
     if (held != nil) { self.held = held }
   }
 
-  rowsOf(self): array<OwnRow> {
+  rowsOf(): array<OwnRow> {
     const rules = self.rules
     return ownRows(self.kin, self.held, self.crafting, (who: string, skillLine: integer): SendRule => ruleOf(rules, who, skillLine))
   }
 
   // How many letters «Send all» takes: none where nothing is ticked.
-  lettersNow(self): integer {
+  lettersNow(): integer {
     const row = self.current
     if (row == nil) { return 0 }
     const stacks = stacksOf(wantedOf(row.who, offersOf(row), self.chosen)).length
     return stacks == 0 ? 0 : lettersFor(stacks)
   }
 
-  onToggle(mut self, item: integer, count: integer) {
+  mut onToggle(item: integer, count: integer) {
     const key = `${peek self.currentWho}:${item}`
     const before = peek self.chosen
     if (before[key] == count) { return }
@@ -331,7 +331,7 @@ public class OwnTab {
   }
 
   // What the offers come to goes to the chosen character, as letters of twelve stacks.
-  sendOffers(mut self, offers: array<Offer>) {
+  mut sendOffers(offers: array<Offer>) {
     const row = peek self.current
     if (row == nil) { return }
     const stacks = stacksOf(wantedOf(row.who, offers, peek self.chosen))
@@ -339,14 +339,14 @@ public class OwnTab {
     self.sender.put(row.name, Locale::OWN_SUBJECT, "", stacks, 0, 0)
   }
 
-  onSendSection(mut self, section: Section) { self.sendOffers(section.offers) }
+  mut onSendSection(section: Section) { self.sendOffers(section.offers) }
 
-  onSendAll(mut self) {
+  mut onSendAll() {
     const row = peek self.current
     if (row != nil) { self.sendOffers(offersOf(row)) }
   }
 
-  onConfigure(mut self) { self.configure.emit() }
+  mut onConfigure() { self.configure.emit() }
 
   public const body: Template = $ltml {
     <box $if={self.noAlts} xAlign={Align::Center} yAlign={Align::Center} padding={PAGE_ROOM}>

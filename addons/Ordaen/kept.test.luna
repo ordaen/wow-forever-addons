@@ -148,7 +148,7 @@ class Crowded {
     </box>
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
         <box width={500ui} height={400ui} background={Ordaen.art.window.wood} />
@@ -163,7 +163,7 @@ class Held {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("held", "held", { x: 0ui, y: 0ui, width: 600ui, height: 500ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <box width={100ui} height={100ui} />
@@ -203,7 +203,7 @@ class Padded {
     self.room = room
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} padding={self.room}>
         <box background={Ordaen.art.panel.xpTrough} />

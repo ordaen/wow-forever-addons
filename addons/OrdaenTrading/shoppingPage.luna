@@ -100,27 +100,27 @@ class ShoppingRow implements Component {
     self.quotedTotal = quotedTotal
   }
 
-  nameText(self): string {
+  nameText(): string {
     const name, _ = nameOf(self.row.item)
     return name
   }
 
-  nameColor(self): Color {
+  nameColor(): Color {
     const _, color = nameOf(self.row.item)
     return color
   }
 
-  onPick(self) { self.pick.emit(self.row.item) }
+  onPick() { self.pick.emit(self.row.item) }
 
   // From the player's click alone: the page buys with it.
-  onBuy(self) { self.buy.emit(self.row.item) }
+  onBuy() { self.buy.emit(self.row.item) }
 
   // The item's tooltip beside its whole row.
-  onRowEnter(self, frame: any Frame) {
+  onRowEnter(frame: any Frame) {
     Game::items.show(frame, self.row.item)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
@@ -195,38 +195,38 @@ public class ShoppingPage implements Component {
   }
 
   // The row picked, while it is on the list.
-  chosenOf(self): boolean {
+  chosenOf(): boolean {
     const picked = self.picked
     return picked != nil && self.list.needed[picked] != nil
   }
 
-  quotedItemOf(self): ItemId | nil {
+  quotedItemOf(): ItemId | nil {
     const purchase = self.purchase
     if (purchase == nil || purchase.quotedCount == 0) { return nil }
     return purchase.key.item()
   }
 
-  totalOf(self): integer {
+  totalOf(): integer {
     let copper = 0
     for (row of self.rows) { copper += (quoteOf(self.prices, row.item)?.copper() ?? 0) * row.toBuy }
     return copper
   }
 
   // The row's listings asked, unless they are its purchase's already.
-  pickPurchase(mut self, item: ItemId) {
+  mut pickPurchase(item: ItemId) {
     const held = self.purchase
     if (held != nil && held.key == PriceKey::of(item)) { return }
     destroy self.purchase
     self.purchase = new Purchase(PriceKey::of(item))
   }
 
-  onPick(mut self, item: ItemId) {
+  mut onPick(item: ItemId) {
     self.picked = item
     self.pickPurchase(item)
   }
 
   // From the player's click alone: the row's purchase bought from, or its listings asked first.
-  onBuy(mut self, item: ItemId) {
+  mut onBuy(item: ItemId) {
     self.picked = item
     const toBuy = (peek self.rows).find(row => row.item == item)?.toBuy ?? 0
     const held = self.purchase
@@ -237,9 +237,9 @@ public class ShoppingPage implements Component {
     self.pickPurchase(item)
   }
 
-  onSearch(self) { _ = self.list.searchAll() }
+  onSearch() { _ = self.list.searchAll() }
 
-  onRemove(mut self) {
+  mut onRemove() {
     const picked = self.picked
     if (picked == nil) { return }
     self.list.remove(picked)
@@ -247,9 +247,9 @@ public class ShoppingPage implements Component {
     destroy self.purchase
   }
 
-  onClear(mut self) { self.list.clearBought() }
+  mut onClear() { self.list.clearBought() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
         <box columns={HEAD} gap={3sp} yAlign={Align::Center}>

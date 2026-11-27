@@ -135,7 +135,7 @@ public class Mail implements Module, App {
 
   // A letter of the auction house's taken from: written into Ordaen Trading's sales ledger once (its invoice, a sale or
   // a purchase; an auction back unsold where it has none), while Ordaen Trading is on.
-  noteTaken(mut self, letter: Game::MailLetter) {
+  mut noteTaken(letter: Game::MailLetter) {
     if (letter.kind != Game::MailKind::Auction) { return }
     const auction = Trading
     const key = keyOf(letter)
@@ -149,11 +149,11 @@ public class Mail implements Module, App {
     for (attached of letter.items) { auction.ledger.expired(attached.name, attached.count) }
   }
 
-  outboxDesc(self): string {
+  outboxDesc(): string {
     return self.waiting > 0 ? Locale::WAITING_COUNT.format(self.waiting) : Locale::SENT_COUNT.format(self.history.length)
   }
 
-  countsOf(self): array<FooterCount> {
+  countsOf(): array<FooterCount> {
     if (self.tab == TAB_OUTBOX) {
       return [
         { label: Locale::COUNT_WAITING, value: string::of(self.waiting) },
@@ -168,7 +168,7 @@ public class Mail implements Module, App {
   }
 
   // The mailbox opened: the window shows on «Outbox» where letters wait to go, else on «Inbox»; the game's window held.
-  onOpened(mut self) {
+  mut onOpened() {
     self.closed = false
     self.ledgered = []
     self.collector.reset()
@@ -181,7 +181,7 @@ public class Mail implements Module, App {
     self.refresh()
   }
 
-  onMailClosed(mut self) {
+  mut onMailClosed() {
     self.collector.stop(.Closed)
     self.sender.closed()
     self.held = []
@@ -192,7 +192,7 @@ public class Mail implements Module, App {
   }
 
   // «Don't accept trades at the mailbox»: the game's own setting, put back as the mailbox closes.
-  blockTrades(mut self, on: boolean) {
+  mut blockTrades(on: boolean) {
     if (on && (peek self.settings.values).blockTrades) {
       self.tradesBefore = Client::C_CVar::GetCVar("blockTrades")
       _ = Client::C_CVar::SetCVar("blockTrades", "1")
@@ -202,7 +202,7 @@ public class Mail implements Module, App {
     }
   }
 
-  public refresh(mut self) {
+  public mut refresh() {
     self.letters = Game::mailbox.letters()
     self.total = Game::mailbox.waiting()
     const letters = peek self.letters
@@ -217,20 +217,20 @@ public class Mail implements Module, App {
   }
 
   // More letters wait than the server shows: asked for again a little later, where the game lets it.
-  async checkLater(mut self) {
+  async mut checkLater() {
     await Game::delay(RECHECK)
     self.recheck = nil
     if (peek Game::mailObserver.open && peek self.total > (peek self.letters).length) { _ = Game::mailbox.check() }
   }
 
-  onSent(mut self) { play("IG_ABILITY_PAGE_TURN") }
+  mut onSent() { play("IG_ABILITY_PAGE_TURN") }
 
   // Everything taken from these letters, one thing at a time, the bag slots the setting keeps left free.
-  takeFrom(mut self, letters: array<Game::MailLetter>) {
+  mut takeFrom(letters: array<Game::MailLetter>) {
     self.collector.start(letters, (peek self.settings.values).keepFree.floor())
   }
 
-  onRowClicked(mut self, index: integer, click: RowClick) {
+  mut onRowClicked(index: integer, click: RowClick) {
     const letter = (peek self.letters).find(l => l.index == index)
     if (letter == nil) { return }
     match (click) {
@@ -244,7 +244,7 @@ public class Mail implements Module, App {
     }
   }
 
-  openLetter(mut self, index: integer) {
+  mut openLetter(index: integer) {
     if (peek self.picked == index) {
       self.picked = 0
       play("IG_SPELLBOOK_CLOSE")
@@ -255,7 +255,7 @@ public class Mail implements Module, App {
     play("IG_SPELLBOOK_OPEN")
   }
 
-  onLetterAct(mut self, act: LetterAct) {
+  mut onLetterAct(act: LetterAct) {
     const letter = peek self.current
     if (letter == nil) { return }
     match (act) {
@@ -283,7 +283,7 @@ public class Mail implements Module, App {
   }
 
   // An attachment taken; with cash on delivery the player is asked to pay first (or told the money is short).
-  take(mut self, letter: Game::MailLetter, place: integer) {
+  mut take(letter: Game::MailLetter, place: integer) {
     play("IG_MAINMENU_OPTION_CHECKBOX_ON")
     if (letter.cod == 0) {
       self.noteTaken(letter)
@@ -297,7 +297,7 @@ public class Mail implements Module, App {
     self.asking = .Pay { index: letter.index, place: place, copper: letter.cod }
   }
 
-  onPayYes(mut self) {
+  mut onPayYes() {
     const ask = peek self.asking
     self.asking = nil
     if (!(ask is Ask::Pay)) { return }
@@ -307,11 +307,11 @@ public class Mail implements Module, App {
     self.paid = keyOf(letter)
   }
 
-  onAskNo(mut self) { self.asking = nil }
+  mut onAskNo() { self.asking = nil }
 
   // A letter that holds nothing more goes: only where the inbox still has it at its place (letters shift as mail
   // arrives).
-  delete(mut self, letter: Game::MailLetter) {
+  mut delete(letter: Game::MailLetter) {
     const now = Game::mailbox.letters().find(l => l.index == letter.index)
     if (now == nil || keyOf(now) != keyOf(letter) || now.copper > 0 || now.items.length > 0) { return }
     Game::mailbox.delete(letter.index)
@@ -319,55 +319,55 @@ public class Mail implements Module, App {
   }
 
   // «Reply»: the form, to the sender.
-  reply(mut self, letter: Game::MailLetter) {
+  mut reply(letter: Game::MailLetter) {
     self.writeTo = letter.sender
     self.writing = true
     self.window.ask(TAB_OUTBOX)
   }
 
-  onTakeAll(mut self, letters: array<Game::MailLetter>) { self.takeFrom(letters) }
+  mut onTakeAll(letters: array<Game::MailLetter>) { self.takeFrom(letters) }
 
-  onTakeTicked(mut self) {
+  mut onTakeTicked() {
     const ticked = peek self.ticked
     self.takeFrom((peek self.letters).filter(l => ticked.any(i => i == l.index)))
     self.ticked = []
   }
 
   // The ticked players' letters go back to their senders, from the last up (the places before stay as they are).
-  onReturnTicked(mut self) {
+  mut onReturnTicked() {
     const ticked = peek self.ticked
     const letters = (peek self.letters).filter(l => ticked.any(i => i == l.index) && l.kind == Game::MailKind::Player && !l.deletable)
     for (index of letters.length..1 step -1) { Game::mailbox.giveBack((letters[index] ?? panic("within")).index) }
     self.ticked = []
   }
 
-  onSentPick(mut self, number: integer) {
+  mut onSentPick(number: integer) {
     self.sentPicked = number
     self.writing = false
   }
 
-  onWrite(mut self) {
+  mut onWrite() {
     self.writeTo = ""
     self.writing = true
   }
 
-  onWriteAgain(mut self, to: string) {
+  mut onWriteAgain(to: string) {
     self.writeTo = to
     self.writing = true
   }
 
-  onComposeClosed(mut self) { self.writing = false }
+  mut onComposeClosed() { self.writing = false }
 
-  onRemoveSent(mut self, number: integer) {
+  mut onRemoveSent(number: integer) {
     self.sender.remove(number)
     self.sentPicked = 0
   }
 
-  onStop(mut self) { self.sender.pause() }
-  onResume(mut self) { self.sender.resume() }
+  mut onStop() { self.sender.pause() }
+  mut onResume() { self.sender.resume() }
 
   // Ours closed by the player: with letters waiting to go, asked first. The game's mailbox closes with it.
-  onClose(mut self) {
+  mut onClose() {
     const waiting = peek self.waiting
     if (waiting > 0) {
       self.asking = .Close { waiting: waiting }
@@ -376,20 +376,20 @@ public class Mail implements Module, App {
     self.closeMail()
   }
 
-  onCloseYes(mut self) {
+  mut onCloseYes() {
     self.asking = nil
     self.closeMail()
   }
 
-  closeMail(mut self) {
+  mut closeMail() {
     self.closed = true
     play("IG_CHARACTER_INFO_CLOSE")
     Client::CloseMail()
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  askTextOf(self): string {
+  askTextOf(): string {
     const ask = self.asking
     return match (ask) {
       nil => ""
@@ -399,7 +399,7 @@ public class Mail implements Module, App {
     }
   }
 
-  sideOf(self): WindowSide | nil {
+  sideOf(): WindowSide | nil {
     if (self.tab == TAB_INBOX) {
       const letter = self.current
       if (letter == nil) { return nil }
@@ -424,7 +424,7 @@ public class Mail implements Module, App {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}

@@ -142,7 +142,7 @@ public class CraftersLines implements ItemLines {
     self.taught = taught
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     const found = self.crafters()[item]
     if (found == nil || found.length == 0) { return NONE }
     const me = Game::player.guid
@@ -169,7 +169,7 @@ public class CraftersLines implements ItemLines {
   }
 
   // A crafter's line: its name in its best recipe's colour, opening the recipes; its profession at the right.
-  lineOf(self, crafter: Crafter, item: integer, book: Book, table: Thresholds): Line {
+  lineOf(crafter: Crafter, item: integer, book: Book, table: Thresholds): Line {
     const crafting = craftingOf(crafter, book, table)
     const rows: array<Listed> = []
     const taught = self.taught()

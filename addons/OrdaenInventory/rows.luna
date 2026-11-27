@@ -143,13 +143,13 @@ class BagSlot implements Component {
     self.shelf = shelf
   }
 
-  upgradeNow(self): boolean {
+  upgradeNow(): boolean {
     const slot = self.slot
     if (slot.id == 0 || (slot.read.kind != WEAPON && slot.read.kind != ARMOR) || !usableItem(slot.id)) { return false }
     return (Ordaen.worth.upgradeOf(slot.read.link) ?? 0) > 0
   }
 
-  dimmedOf(self): boolean {
+  dimmedOf(): boolean {
     const slot = self.slot
     const filter = self.shelf.filter
     if (filter.lit >= 0 && slot.bag != filter.lit) { return true }
@@ -159,15 +159,15 @@ class BagSlot implements Component {
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Event::Press) { self.shelf.pressed.emit(self.slot, click) }
+  onPressed(click: Event::Press) { self.shelf.pressed.emit(self.slot, click) }
 
-  onPickup(self) { self.shelf.pickup.emit(self.slot) }
-  onEnter(self) { self.shelf.entered.emit(self.slot) }
-  onLeave(self) { self.shelf.left.emit(self.slot) }
-  onPicked(self, index: integer) { self.shelf.picked.emit(index) }
-  onClosed(self) { self.shelf.closed.emit() }
+  onPickup() { self.shelf.pickup.emit(self.slot) }
+  onEnter() { self.shelf.entered.emit(self.slot) }
+  onLeave() { self.shelf.left.emit(self.slot) }
+  onPicked(index: integer) { self.shelf.picked.emit(index) }
+  onClosed() { self.shelf.closed.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell::Crested}
                   action={self.action} linkOnShift={false} cursor={self.cursor} bag={self.place} @pressed={self.onPressed} @dragged={self.onPickup}
@@ -201,7 +201,7 @@ class Caption implements Component {
     self.shelf = shelf
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={CAPTION_TRACKS} gap={3sp} leading={.Tight} yAlign={Align::Center}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
@@ -226,7 +226,7 @@ class SectionCard implements Component {
     self.shelf = shelf
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={self.shelf.gap} padding={CARD_PAD}>
         <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
@@ -251,7 +251,7 @@ public class CardLine implements Component {
     self.shelf = shelf
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.tracks} gap={CARD_GAP} yAlign={Align::Start}>
         <SectionCard $for={card of self.cards} $key={card.section.key} card={card} shelf={self.shelf} />

@@ -23,11 +23,11 @@ public class GuildCard implements Component {
     self.guild = guild
   }
 
-  onInvite(self) { self.invite.emit() }
-  onLeave(self) { self.leave.emit() }
-  onGameWindow(self) { self.gameWindow.emit() }
+  onInvite() { self.invite.emit() }
+  onLeave() { self.leave.emit() }
+  onGameWindow() { self.gameWindow.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <text value={self.guild.name} textColor={Style::GOLD} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
@@ -75,10 +75,10 @@ class NewsRow implements Component {
     self.news = news
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", { fr: 1 }]} gap={3sp} padding={{ top: ROW_PAD, bottom: ROW_PAD }}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -136,14 +136,14 @@ public class NewsList implements Component {
   }
 
   // What the player switched, asked of the game: each kind whose switch isn't what the game keeps.
-  onPicked(mut self, chosen: map<integer, boolean>) {
+  mut onPicked(chosen: map<integer, boolean>) {
     for (filter of peek self.filters) {
       const on = chosen[filter.kind] ?? false
       if (on != filter.shown) { self.filter.emit(filter.kind, on) }
     }
   }
 
-  ordered(self): array<GuildNews> {
+  ordered(): array<GuildNews> {
     const list = self.news.filter(line => line.sticky)
     for (line of self.news) {
       if (!line.sticky) { list.push(line) }
@@ -151,7 +151,7 @@ public class NewsList implements Component {
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center}>

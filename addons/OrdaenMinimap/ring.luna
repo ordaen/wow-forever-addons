@@ -66,7 +66,7 @@ public class RingButton implements Component {
     self.map = map
   }
 
-  frameOf(self): any Frame | nil {
+  frameOf(): any Frame | nil {
     return match (self.spec.id) {
       RingId::Tracking => Game::frames.MinimapTrackingButton
       RingId::Mail => Game::frames.MinimapMail
@@ -79,7 +79,7 @@ public class RingButton implements Component {
   // The game's buttons show only while theirs would, the mail while there is mail (the client says so by its event:
   // its frame's showing is told nothing); the drawer only while it is on
   // and holds something.
-  shownNow(self): boolean {
+  shownNow(): boolean {
     let frame = self.theirs
     return match (self.spec.id) {
       RingId::Ordaen, RingId::Tracking => true
@@ -89,7 +89,7 @@ public class RingButton implements Component {
     }
   }
 
-  hintNow(self): boolean {
+  hintNow(): boolean {
     return match (self.spec.id) {
       RingId::Ordaen => self.map.hinting(Hint::Ordaen)
       RingId::Drawer => self.map.hinting(Hint::Drawer)
@@ -97,7 +97,7 @@ public class RingButton implements Component {
     }
   }
 
-  onClick(mut self, click: Event::Press) {
+  mut onClick(click: Event::Press) {
     let frame = self.theirs
     match (self.spec.id) {
       RingId::Ordaen => { if (click.button == MouseButton::Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
@@ -106,11 +106,11 @@ public class RingButton implements Component {
     }
   }
 
-  onEnter(mut self) { self.hover(true) }
-  onLeave(mut self) { self.hover(false) }
+  mut onEnter() { self.hover(true) }
+  mut onLeave() { self.hover(false) }
 
   // Ours show their tooltip; the game's own button under ours hears the cursor, where there is one.
-  hover(mut self, on: boolean) {
+  mut hover(on: boolean) {
     let frame = self.theirs
     if (frame != nil) {
       Game::minimap.hover(frame, on)
@@ -123,11 +123,11 @@ public class RingButton implements Component {
     }
   }
 
-  onDragStart(mut self, drag: Event::Drag) { self.map.startDrag(self.spec, drag.dx, drag.dy) }
-  onDrag(mut self, drag: Event::Drag) { self.map.dragTo(drag.dx, drag.dy) }
-  onDragStop(mut self) { self.map.stopDrag(self.spec) }
+  mut onDragStart(drag: Event::Drag) { self.map.startDrag(self.spec, drag.dx, drag.dy) }
+  mut onDrag(drag: Event::Drag) { self.map.dragTo(drag.dx, drag.dy) }
+  mut onDragStop() { self.map.stopDrag(self.spec) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <$if={self.visible}>
         <embed $if={self.theirs != nil} frame={self.theirs} position={Position::Absolute} left={self.left}

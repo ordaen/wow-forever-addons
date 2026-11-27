@@ -106,9 +106,9 @@ class IconCell implements Component {
     self.chosen = chosen
   }
 
-  onPick(self) { self.pick.emit((peek self.offered).icon) }
+  onPick() { self.pick.emit((peek self.offered).icon) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={CELL} height={CELL} border={self.rim} columns={ONE} rows={ONE} @pointerPress={self.onPick}
            @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
@@ -132,9 +132,9 @@ class IconRow implements Component {
     self.chosen = chosen
   }
 
-  onPick(self, icon: IconChoice) { self.pick.emit(icon) }
+  onPick(icon: IconChoice) { self.pick.emit(icon) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={PER_ROW} gap={1sp}>
         <IconCell $for={offered of self.icons} offered={offered} chosen={self.chosen} @pick={self.onPick} />
@@ -169,17 +169,17 @@ public class IconPicker implements Component {
   }
 
   // Those whose words hold the search, every one while it is empty.
-  shownOf(self): array<Offered> {
+  shownOf(): array<Offered> {
     const needle = self.search.lower()
     if (needle == "") { return self.all }
     return self.all.filter(each => each.words.contains(needle))
   }
 
-  onPick(mut self, icon: IconChoice) { self.chosen = icon }
-  onDone(self) { self.picked.emit(peek self.chosen) }
-  onCancel(self) { self.cancelled.emit() }
+  mut onPick(icon: IconChoice) { self.chosen = icon }
+  onDone() { self.picked.emit(peek self.chosen) }
+  onCancel() { self.cancelled.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dialog width={WIDTH} title={self.title}>
         <Toolbar search={mut self.search} placeholder={Locale::ICON_SEARCH} />

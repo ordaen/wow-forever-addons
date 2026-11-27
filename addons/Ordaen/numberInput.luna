@@ -189,7 +189,7 @@ public class NumberInput implements Component {
   }
 
   // What was typed is a number: the value is it, on its steps and held to the bounds.
-  take(mut self, typed: string) {
+  mut take(typed: string) {
     const number = numberOf(typed)
     if (number == nil) { return }
     const kept = stepped(number / self.scale, self.least, self.most, self.step)
@@ -201,76 +201,76 @@ public class NumberInput implements Component {
   }
 
   // The value beside the slider: as its format writes it, else in its unit.
-  saying(self, value: number): string {
+  saying(value: number): string {
     const format = self.format
     return format == nil ? said(value, self.unit, self.step) : format(value)
   }
 
   // A value as the field writes it: in its scale, to its step's decimals.
-  written(self, value: number): string { return decimal(value * self.scale, placesOf(self.step * self.scale)) }
+  written(value: number): string { return decimal(value * self.scale, placesOf(self.step * self.scale)) }
 
   // The value changed: the field says it, unless it already does.
-  show(mut self, value: number) {
+  mut show(value: number) {
     if (numberOf(peek self.text) != value * self.scale) { self.text = self.written(value) }
   }
 
   // What a drag or a held − or + rested at, or ended at: the value takes it, and the control shows the value again.
-  write(mut self, to: number) {
+  mut write(to: number) {
     self.value = to
     self.moving = nil
   }
 
   // `steps` down or up from what the control shows, held to the range.
-  steppedBy(self, steps: number): number {
+  steppedBy(steps: number): number {
     return stepped(self.held + steps * self.step, self.least, self.most, self.step)
   }
 
   // Some steps down or up, written at once (a key).
-  nudge(mut self, steps: number) {
+  mut nudge(steps: number) {
     if (self.disabled) { return }
     self.value = self.steppedBy(steps)
   }
 
   // A drag or a held − or + moved to `to`: shown at once, written as it rests.
-  move(mut self, to: number) {
+  mut move(to: number) {
     self.moving = to
     self.rest.move(to)
   }
 
   // − and + by a key: what is typed and not yet taken is taken first, then stepped from.
-  less(mut self) {
+  mut less() {
     self.settle()
     self.nudge(-stride())
   }
 
-  raise(mut self) {
+  mut raise() {
     self.settle()
     self.nudge(stride())
   }
 
   // − and + pressed and held by the pointer: each step shown, written as the steps rest and as the button is let go.
   // The left button with any modifier held: Shift and Ctrl size the step (`stride`).
-  lessHeld(mut self, pointer: Event::Press) {
+  mut lessHeld(pointer: Event::Press) {
     if (pointer.button != MouseButton::Left) { return }
     self.settle()
     if (self.fewer) { self.move(self.steppedBy(-stride())) }
   }
 
-  raiseHeld(mut self, pointer: Event::Press) {
+  mut raiseHeld(pointer: Event::Press) {
     if (pointer.button != MouseButton::Left) { return }
     self.settle()
     if (self.more) { self.move(self.steppedBy(stride())) }
   }
 
   // A held − or + let go, or a drag: the value is where it went.
-  onUp(mut self) { self.rest.end() }
+  mut onUp() { self.rest.end() }
 
-  onFewerEnter(mut self) { self.hovered = -1 }
-  onMoreEnter(mut self) { self.hovered = 1 }
-  onLeave(mut self) { self.hovered = 0 }
+  mut onFewerEnter() { self.hovered = -1 }
+  mut onMoreEnter() { self.hovered = 1 }
+  mut onLeave() { self.hovered = 0 }
 
   // What − or + says under the cursor: each key and how far it steps, signed, in the value's unit.
-  stepsTip(self, title: string, sign: string): TipText {
+  stepsTip(title: string, sign: string): TipText {
     return stepTip(title, steps => sign + said(steps * self.step, self.unit, self.step))
   }
 
@@ -278,7 +278,7 @@ public class NumberInput implements Component {
   // bound that more digits only take further (a positive number over the most, a negative one under the least): held
   // to that bound. What reads the value next (Save, Post) sees what was typed. Only a number on its way into the range
   // («1» of «150», the least 100) or between steps waits: for the typing to pause (`SETTLE`), Enter or a step.
-  typed(mut self, typed: string) {
+  mut typed(typed: string) {
     if (self.pending != nil) {
       destroy self.pending
       Ordaen.keeper.end()
@@ -299,44 +299,44 @@ public class NumberInput implements Component {
     self.pending = self.later()
   }
 
-  async later(mut self) {
+  async mut later() {
     await Game::delay(SETTLE)
     self.pending = nil
     self.taken()
   }
 
   // What is typed and still waiting is taken now: Enter, a step from it, or the settings read whole.
-  settle(mut self) {
+  mut settle() {
     if (self.pending == nil) { return }
     destroy self.pending
     self.taken()
   }
 
-  taken(mut self) {
+  mut taken() {
     self.take(peek self.text)
     Ordaen.keeper.end()
   }
 
-  onSubmit(mut self) { self.settle() }
+  mut onSubmit() { self.settle() }
 
   // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
-  valueAt(self, x: number<Length>): number {
+  valueAt(x: number<Length>): number {
     const t = (0).max((1).min((x - INSET) / LENGTH))
     return stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
   }
 
   // A click is written at once; a drag moves the knob and is written as it rests and as it is let go.
-  onClick(mut self, click: Event::Press) {
+  mut onClick(click: Event::Press) {
     if (self.disabled || self.rest.busy()) { return }
     self.value = self.valueAt(click.x)
   }
 
-  onDrag(mut self, drag: Event::Drag) {
+  mut onDrag(drag: Event::Drag) {
     if (!self.disabled) { self.move(self.valueAt(drag.x)) }
   }
 
   // Focused: Left and Right a step, Home the least, End the most.
-  onKey(mut self, stroke: Event::Keystroke) {
+  mut onKey(stroke: Event::Keystroke) {
     match (stroke.key) {
       .Left => self.nudge(-1)
       .Right => self.nudge(1)
@@ -346,7 +346,7 @@ public class NumberInput implements Component {
   }
 
   // The slider or the field: which is fixed as the control is made, so it is no `$if` that would follow a cell.
-  middle(self): Template {
+  middle(): Template {
     if (self.sliding) {
       return $ltml {
         <box width={LENGTH + KNOB_W} height={BAND}
@@ -367,7 +367,7 @@ public class NumberInput implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     const middle = self.middle()
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>

@@ -84,7 +84,7 @@ function isLocked(): boolean {
 
 // A place on the screen with nothing of the tooltips' on it: where the cursor goes when it goes elsewhere.
 class Elsewhere {
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <text value={"Elsewhere"} /> }
   }
 }
@@ -146,7 +146,7 @@ test "a tooltip charged in full locks: its hint in the bar's place, and its clos
 
 // A hotkey another module has for every item.
 class Keyed implements ItemKeys {
-  public keys(self, item: integer, link: string): array<string> { return ["Alt+Left-click: hold"] }
+  public keys(item: integer, link: string): array<string> { return ["Alt+Left-click: hold"] }
 }
 
 test "a locked tooltip's hint stands a section under its hotkeys, as under any section" {
@@ -171,13 +171,13 @@ class OnSlot {
 class SlotKey implements ItemKeys {
   const slot: OnSlot
   constructor(slot: OnSlot) { self.slot = slot }
-  public keys(self, item: integer, link: string): array<string> { return self.slot.hovered ? ["Alt+Left-click: protect"] : [] }
+  public keys(item: integer, link: string): array<string> { return self.slot.hovered ? ["Alt+Left-click: protect"] : [] }
 }
 
 class SlotNote implements ItemLines {
   const slot: OnSlot
   constructor(slot: OnSlot) { self.slot = slot }
-  public lines(self, item: integer, link: string): array<Line> { return self.slot.hovered ? [{ left: "Protected from sorting" }] : [] }
+  public lines(item: integer, link: string): array<Line> { return self.slot.hovered ? [{ left: "Protected from sorting" }] : [] }
 }
 
 test "the cursor gone from the slot onto the locked tooltip keeps the hotkeys and notes said of the slot" {
@@ -310,9 +310,9 @@ test "the cursor off the locked tooltip for longer than the grace takes it away"
 class Pressed {
   public state presses = 0
 
-  onPress(mut self) { self.presses += 1 }
+  mut onPress() { self.presses += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @pointerPress={self.onPress}>
         <text value={"Elsewhere"} />
@@ -874,7 +874,7 @@ test "a new tooltip locked waits for the cursor, though the cursor was on the on
 
 // Another module's line that opens a list: a crafter, the recipes it knows taking the item, each opening what it makes.
 class Crafters implements ItemLines {
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     return [{
       left: "Ann", right: "Tailoring",
       opens: {

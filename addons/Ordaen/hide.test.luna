@@ -15,17 +15,17 @@ class Hiding {
   public window: mut KeptWindow = new KeptWindow("hiding", "hiding", { x: 0ui, y: 0ui, width: 300ui, height: 200ui })
 
   // It hides and shows again as these say, drawn.
-  public chose(mut self, hide: array<Occasion>, show: array<Occasion>) {
+  public mut chose(hide: array<Occasion>, show: array<Occasion>) {
     self.window.memory.write({ hideDuring: hide, showAfter: show, ..self.window.defaults })
     Test::mount(self, { left: 0, top: 0, width: 200, height: 100 })
   }
 
-  onClose(mut self) {
+  mut onClose() {
     self.closes += 1
     self.open = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.window} shown={self.open}
               @close={self.onClose}>

@@ -266,10 +266,10 @@ class TalentNodeView implements Component {
     self.fraction = fraction
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  onClick(mut self, click: Event::Press) {
+  mut onClick(click: Event::Press) {
     if (click.button == MouseButton::Right) {
       self.refund.emit(self.node.id)
     } else {
@@ -277,7 +277,7 @@ class TalentNodeView implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
            zLevel={2} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -328,10 +328,10 @@ class TreeCellView implements Component {
     self.fraction = fraction
   }
 
-  onSpend(mut self, id: integer) { self.spend.emit(id) }
-  onRefund(mut self, id: integer) { self.refund.emit(id) }
+  mut onSpend(id: integer) { self.spend.emit(id) }
+  mut onRefund(id: integer) { self.refund.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // Each row's box as high as its row: what it holds is placed by offsets, and the client draws nothing of a box
       // with no height.
@@ -395,10 +395,10 @@ public class TalentTreeView implements Component {
     self.fraction = fraction
   }
 
-  onSpend(mut self, id: integer) { self.spend.emit(id) }
-  onRefund(mut self, id: integer) { self.refund.emit(id) }
+  mut onSpend(id: integer) { self.spend.emit(id) }
+  mut onRefund(id: integer) { self.refund.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={self.parts} gap={3sp} xAlign={Align::Center}>
         <text $if={self.titled} value={self.title} textColor={GOLD} wrap={.None} />

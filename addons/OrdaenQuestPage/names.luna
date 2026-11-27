@@ -178,7 +178,7 @@ public class ScrollText implements Component {
     self.names = names
   }
 
-  onLinkEnter(mut self, hover: Event::LinkHover) {
+  mut onLinkEnter(hover: Event::LinkHover) {
     const named = (peek self.names).find(one => one.link == hover.link)
     if (named == nil) { return }
     if (named.kind == NamedKind::Item) {
@@ -189,14 +189,14 @@ public class ScrollText implements Component {
     }
   }
 
-  onLinkLeave(mut self) {
+  mut onLinkLeave() {
     const by = self.shownBy
     if (by != nil) { Game::items.hideAt(by) }
     self.shownBy = nil
     self.hovered = nil
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @linkEnter={self.onLinkEnter} @linkLeave={self.onLinkLeave}>
         <text value={self.marked} textColor={SCROLL_INK} leading={SCROLL_LEADING} />

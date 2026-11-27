@@ -5,7 +5,7 @@ import { ListTab } from "@/listTab"
 // A list of entries in a column as narrow as a window's list of tabs, one name longer than the column: the Russian
 // «Предметы для профессий» of the bags' tabs is.
 class Narrow {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[160ui, { fr: 1 }]} width={400ui}>
         <box columns={1}>

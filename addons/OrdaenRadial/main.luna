@@ -162,7 +162,7 @@ public class Radial implements Module, App {
   }
 
   // Each ring an older build saved, upgraded (`upgraded`); the settings changed only where one was.
-  upgrade(mut self, choices: Choices) {
+  mut upgrade(choices: Choices) {
     let changed = false
     const rings: array<Ring> = []
     for (ring of choices.rings) {
@@ -174,24 +174,24 @@ public class Radial implements Module, App {
   }
 
   // How an item is drawn now: another module's kind as it offers, an emote by its command.
-  drawnOf(self, item: Item): WheelItem {
+  drawnOf(item: Item): WheelItem {
     return shown(item, item is Item::Kind ? self.offers[item.kind] : nil, self.emotes)
   }
 
-  offersOf(self): map<string, RadialOffer> {
+  offersOf(): map<string, RadialOffer> {
     const offers: map<string, RadialOffer> = {}
     for (kind of self.kinds) { offers[kind.id] = kind.offer() }
     return offers
   }
 
-  upOf(self): integer {
+  upOf(): integer {
     for (index, wheel of self.wheels) {
       if (wheel.open) { return index }
     }
     return 0
   }
 
-  chosenOf(self): integer {
+  chosenOf(): integer {
     const wheel = self.wheel
     if (wheel == nil) { return 0 }
     return slotAt(wheel.aimX, wheel.aimY, self.shownItems.length, DEAD_ZONE / 1ui * self.scale)
@@ -199,7 +199,7 @@ public class Radial implements Module, App {
 
   // What the middle says: the item aimed at and what a click does to it; with none, the submenu's name and that a
   // right click goes back, or on the first ring that letting go closes.
-  middleOf(self): WheelMiddle {
+  middleOf(): WheelMiddle {
     const ring = self.laids[self.up]
     const wheel = self.wheel
     if (ring == nil || wheel == nil) { return { name: "", hints: [], dim: true } }
@@ -227,7 +227,7 @@ public class Radial implements Module, App {
     return { name: name, hints: [Locale::HINT_USE], dim: false }
   }
 
-  categoryOf(self): Art | nil {
+  categoryOf(): Art | nil {
     const ring = self.laids[self.up]
     if (ring == nil || self.level == ROOT) { return nil }
     const item = ring.items[placeOf(self.level)]
@@ -236,7 +236,7 @@ public class Radial implements Module, App {
   }
 
   // The items of the ring shown, with their state now: read again as the wheel's count moves while it is up.
-  itemsOf(self): array<WheelItem> {
+  itemsOf(): array<WheelItem> {
     const ring = self.laids[self.up]
     const wheel = self.wheel
     if (ring == nil || wheel == nil) { return [] }
@@ -270,7 +270,7 @@ public class Radial implements Module, App {
     return items
   }
 
-  apply(mut self, laids: array<Laid>) {
+  mut apply(laids: array<Laid>) {
     for (index, wheel of self.wheels) {
       const laid = laids[index]
       const ring = self.settings.values.rings[index]
@@ -283,7 +283,7 @@ public class Radial implements Module, App {
   }
 
   // The keys the player gave each ring, bound to its wheel (out of a fight: in one, as it ends).
-  bind(mut self) {
+  mut bind() {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
       const first, second = Client::GetBindingKey(command)
@@ -295,7 +295,7 @@ public class Radial implements Module, App {
   }
 
   // An item used: one of ours is done here (the client did the rest).
-  onPick(self, path: string) {
+  onPick(path: string) {
     const ring = self.laids[self.up]
     if (ring == nil) { return }
     const item = ring.items[placeOf(path)]
@@ -306,9 +306,9 @@ public class Radial implements Module, App {
   }
 
   // A key heard by its binding's body: only before the wheels' own bindings stand (they take the key from it).
-  heard(self) {}
+  heard() {}
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
            @keyDown.globalScope(RING_3)={self.heard} />

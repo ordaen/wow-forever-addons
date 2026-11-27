@@ -30,12 +30,12 @@ class AddedLine implements Component {
     self.options = options
   }
 
-  opensOf(self): Opens {
+  opensOf(): Opens {
     const listing = self.line.opens
     return listing == nil ? Opens::None : Opens.Listing { listing: listing }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
@@ -66,7 +66,7 @@ class AddedLines implements Component {
     self.options = options
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.some} gap={0.5sp} padding={SECTION_PAD} border={RULE}>
         <AddedLine $for={line of self.lines} line={line} locked={self.locked} options={self.options} />
@@ -107,7 +107,7 @@ public class AddedToItem implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <AddedLines lines={self.lines} locked={self.locked} options={self.options} /> }
   }
 }
@@ -128,7 +128,7 @@ public class AddedToObject implements Component {
     self.options = options
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <AddedLines lines={self.lines} locked={self.locked} options={self.options} /> }
   }
 }

@@ -76,9 +76,9 @@ public class Tab implements Component {
     self.vertical = vertical
   }
 
-  pick(mut self) { self.selected = self.index }
+  mut pick() { self.selected = self.index }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={TAB_PAD} border={self.border} background={self.background} columns={self.tracks} gap={2sp}
            yAlign={Align::Center} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}>
@@ -128,14 +128,14 @@ public class Tabs implements Component {
     self.vertical = vertical
   }
 
-  tracks(self): array<Track> {
+  tracks(): array<Track> {
     let list: array<Track> = [Ordaen.lengthOf(WINDOW_ROOM)]
     for (name of self.tabs) { list.push("max-content") }
     list.push({ fr: 1 })
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.vertical} rows={self.rows} padding={COLUMN_PAD} background={Ordaen.art.window.marble}>
         <box border={EDGE} />

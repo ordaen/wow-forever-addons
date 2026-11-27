@@ -84,20 +84,20 @@ public class CountInput implements Component {
   }
 
   // A bound moved past the value, or another wrote one outside them: the value is the bound.
-  hold(mut self, value: integer, least: integer, most: integer) {
+  mut hold(value: integer, least: integer, most: integer) {
     const kept = held(value, least, most)
     if (kept != value) { self.value = kept }
   }
 
-  less(mut self) {
+  mut less() {
     if (self.fewer) { self.value = held(self.value - stride(), self.least, self.most) }
   }
 
-  raise(mut self) {
+  mut raise() {
     if (self.more) { self.value = held(self.value + stride(), self.least, self.most) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={STEPS} gap={2sp} yAlign={Align::Center}>
         <PushButton label={"-"} width={self.step} glyph={true} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}

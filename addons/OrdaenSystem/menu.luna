@@ -96,7 +96,7 @@ public class GameMenu {
   started = false
 
   // The menu shows for the first time: its hooks set, its buttons matched now, inside that show's own call.
-  public start(mut self) {
+  public mut start() {
     if (self.started) { return }
     self.started = true
     const menu = Client::GameMenuFrame
@@ -122,23 +122,23 @@ public class GameMenu {
   }
 
   // The menu shows (its `OnShow`, after Blizzard built its buttons).
-  public onShow(mut self) {
+  public mut onShow() {
     self.shown = true
     self.match()
   }
 
-  onHide(mut self) {
+  mut onHide() {
     self.shown = false
     self.hovered = nil
     self.held = nil
   }
 
-  onInit(mut self) {
+  mut onInit() {
     if (peek self.shown) { self.match() }
   }
 
   // Blizzard's buttons by their text against the client's own strings, in every language; Blizzard's art at alpha 0.
-  match(mut self) {
+  mut match() {
     const menu = Client::GameMenuFrame
     const options = menu.NewOptionsFrame.IsShown()
     const event = menu.NewExternalEventFrame.IsShown()
@@ -182,7 +182,7 @@ public class GameMenu {
   }
 
   // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
-  hook(mut self, button: any Client::Button) {
+  mut hook(button: any Client::Button) {
     if (self.hooked[button] == true) { return }
     self.hooked[button] = true
     const live = self.live
@@ -200,12 +200,12 @@ public class GameMenu {
     })
   }
 
-  onLeave(mut self, button: any Client::Button) {
+  mut onLeave(button: any Client::Button) {
     if (peek self.hovered == button) { self.hovered = nil }
   }
 
   // Every widget as Blizzard had it.
-  restore(self) {
+  restore() {
     const menu = Client::GameMenuFrame
     fade(1, ...menu.GetRegions())
     menu.EnableMouse(true)
@@ -218,7 +218,7 @@ public class GameMenu {
     }
   }
 
-  public close(self) { Client::HideUIPanel(Client::GameMenuFrame) }
+  public close() { Client::HideUIPanel(Client::GameMenuFrame) }
 }
 
 // A plate of ours where one of Blizzard's buttons stands, half the gap shorter above and below. Blizzard's button
@@ -251,11 +251,11 @@ public class Plate implements Component {
     self.menu = menu
   }
 
-  onClick(self) { self.pick.emit() }
-  onEnter(mut self) { self.ownOver = true }
-  onLeave(mut self) { self.ownOver = false }
+  onClick() { self.pick.emit() }
+  mut onEnter() { self.ownOver = true }
+  mut onLeave() { self.ownOver = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface leading={.Tight} layer={Layer::Dialog} place={self.place} width={self.dressed.width} height={self.high}>
         <box $if={self.dressed.addons} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
@@ -299,12 +299,12 @@ public class MenuDress implements Component {
   const menu: GameMenu
   constructor(menu: GameMenu) { self.menu = menu }
 
-  onAddons(mut self) {
+  mut onAddons() {
     self.addons.emit()
     self.menu.close()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <$if={self.menu.shown}>
         <surface leading={.Tight} layer={Layer::Dialog} place={{ point: Point::Bottom, to: Point::Bottom, by: Client::GameMenuFrame }}

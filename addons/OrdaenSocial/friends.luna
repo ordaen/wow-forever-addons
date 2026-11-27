@@ -214,10 +214,10 @@ class FriendRow implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(keyOf(self.friend)) }
-  onMenu(mut self) { self.menu.emit(keyOf(self.friend)) }
+  mut onPick() { self.pick.emit(keyOf(self.friend)) }
+  mut onMenu() { self.menu.emit(keyOf(self.friend)) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={2sp} yAlign={Align::Center} padding={PICK_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
@@ -251,7 +251,7 @@ class FriendTableRow implements Component {
     self.picked = picked
   }
 
-  onPick(mut self, button: MouseButton) {
+  mut onPick(button: MouseButton) {
     if (button == .Right) {
       self.menu.emit(keyOf(self.friend))
     } else {
@@ -259,7 +259,7 @@ class FriendTableRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell>
@@ -309,7 +309,7 @@ public class FriendList implements Component {
   }
 
   // The filter starts as the settings say where none is kept, and follows a change of them.
-  onOffline(mut self, shows: boolean) {
+  mut onOffline(shows: boolean) {
     const now = peek self.kept.values
     const first = self.offlineHeard == nil
     self.offlineHeard = shows
@@ -318,11 +318,11 @@ public class FriendList implements Component {
     self.kept.write({ filter: filter, ..now })
   }
 
-  onPick(mut self, key: string) { self.pick.emit(key) }
-  onMenu(mut self, key: string) { self.menu.emit(key) }
-  onAdd(mut self) { self.add.emit() }
+  mut onPick(key: string) { self.pick.emit(key) }
+  mut onMenu(key: string) { self.menu.emit(key) }
+  mut onAdd() { self.add.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center} padding={Style::SIDE_ROOM}>
@@ -384,7 +384,7 @@ public class FriendCard implements Component {
     self.friend = friend
   }
 
-  subOf(self): string {
+  subOf(): string {
     const account = self.friend.account
     if (account != nil) { return Locale::CARD_BATTLE_NET.format(account.battleTag) }
     const hero = self.friend.hero
@@ -392,19 +392,19 @@ public class FriendCard implements Component {
     return Locale::CARD_CHARACTER.format(hero.className, hero.level, hero.realm)
   }
 
-  statusOf(self): string {
+  statusOf(): string {
     const text = presenceText(self.friend.presence)
     const last = self.friend.account?.lastOnline ?? 0
     if (self.friend.presence == .Offline && last > 0) { return `${text} · ${agoText(last)}` }
     return text
   }
 
-  onWhisper(mut self) { self.whisper.emit() }
-  onInvite(mut self) { self.invite.emit() }
-  onRemove(mut self) { self.remove.emit() }
-  onMenu(mut self) { self.menu.emit() }
+  mut onWhisper() { self.whisper.emit() }
+  mut onInvite() { self.invite.emit() }
+  mut onRemove() { self.remove.emit() }
+  mut onMenu() { self.menu.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>
@@ -455,14 +455,14 @@ public class MyCard implements Component {
   }
 
   // A status picked, in the player's click: the client sets it from that click alone.
-  onPick(mut self, chosen: Presence) {
+  mut onPick(chosen: Presence) {
     if (chosen != (peek self.me).presence) { self.presence.emit(chosen) }
   }
 
-  onEdit(mut self) { self.edit.emit() }
-  onCopy(mut self) { self.copy.emit() }
+  mut onEdit() { self.edit.emit() }
+  mut onCopy() { self.copy.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>
@@ -500,10 +500,10 @@ class RequestRow implements Component {
     self.request = request
   }
 
-  onAccept(mut self) { self.answer.emit(self.request, true) }
-  onDecline(mut self) { self.answer.emit(self.request, false) }
+  mut onAccept() { self.answer.emit(self.request, true) }
+  mut onDecline() { self.answer.emit(self.request, false) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align::Center} padding={ROW_PAD}>
         <box columns={1}>
@@ -528,9 +528,9 @@ public class RequestList implements Component {
     self.requests = requests
   }
 
-  onAnswer(mut self, request: FriendRequest, accept: boolean) { self.answer.emit(request, accept) }
+  mut onAnswer(request: FriendRequest, accept: boolean) { self.answer.emit(request, accept) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ScrolledList columns={1} gap={2sp}>
         <text value={self.heading} textColor={Style::GOLD} wrap={.None} />
@@ -563,9 +563,9 @@ class IgnoredRow implements Component {
     self.entry = entry
   }
 
-  onUnignore(mut self) { self.unignore.emit(self.entry) }
+  mut onUnignore() { self.unignore.emit(self.entry) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center} padding={ROW_PAD}>
         <text value={ignoredName(self.entry)} textColor={Style::INK} wrap={.None} />
@@ -588,16 +588,16 @@ public class IgnoreList implements Component {
     self.ignored = ignored
   }
 
-  onIgnore(mut self) {
+  mut onIgnore() {
     const name = trimmed(peek self.name)
     if (name == "") { return }
     self.name = ""
     self.ignore.emit(name)
   }
 
-  onUnignore(mut self, entry: Ignored) { self.unignore.emit(entry) }
+  mut onUnignore(entry: Ignored) { self.unignore.emit(entry) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center} padding={Style::SIDE_ROOM}>

@@ -65,7 +65,7 @@ class RuleRow implements Component {
     watch { self.changed.emit(peek self.profession.skillLine, { on: self.on, least: self.least }) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
         <text value={self.profession.name} textSize={TITLE_TEXT} leading={.Title} textColor={Style::GOLD} />
@@ -90,9 +90,9 @@ class RuledEntry implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(self.ruled.who) }
+  mut onPick() { self.pick.emit(self.ruled.who) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={ONE} picked={self.on} @pick={self.onPick}>
         <text value={self.ruled.name} textColor={Style::INK} wrap={.Cut} />
@@ -116,16 +116,16 @@ public class RulesPage implements Component {
     self.rules = rules
   }
 
-  kinNow(self): array<RuledKin> {
+  kinNow(): array<RuledKin> {
     const alts = self.alts
     return alts == nil ? [] : ruledKinOf(alts)
   }
 
-  ruleNow(self, skillLine: integer): SendRule { return ruleOf(peek self.rules.values, peek self.currentWho, skillLine) }
+  ruleNow(skillLine: integer): SendRule { return ruleOf(peek self.rules.values, peek self.currentWho, skillLine) }
 
-  onPick(mut self, who: string) { self.picked = who }
+  mut onPick(who: string) { self.picked = who }
 
-  onChanged(mut self, skillLine: integer, rule: SendRule) {
+  mut onChanged(skillLine: integer, rule: SendRule) {
     const values = peek self.rules.values
     const key = ruleKey(peek self.currentWho, skillLine)
     const before = ruleOf(values, peek self.currentWho, skillLine)
@@ -135,7 +135,7 @@ public class RulesPage implements Component {
     self.rules.write({ rules: next })
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text $if={self.none} value={Locale::RULES_NONE} textColor={Style::DIM} />
       <box $else columns={SPLIT} gap={4sp}>

@@ -52,11 +52,11 @@ public class Segment<T: unknown> implements Component {
     self.disabled = disabled
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (!self.soon && !self.disabled) { self.pick.emit(self.choice.value) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={PADDING} background={self.fill} xAlign={Align::Center}
            border={self.edge} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
@@ -85,15 +85,15 @@ public class Segmented<T: unknown> implements Component {
     self.disabled = disabled
   }
 
-  tracks(self): array<Track> {
+  tracks(): array<Track> {
     let list: array<Track> = []
     for (choice of self.choices) { list.push("max-content") }
     return list
   }
 
-  onPick(mut self, value: T) { self.value = value }
+  mut onPick(value: T) { self.value = value }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} opacity={self.opacity}>
         <Segment $for={index, choice of self.choices} choice={choice} value={self.value} first={index == 1}

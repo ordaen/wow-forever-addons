@@ -18,5 +18,5 @@ public trait RadialKind {
   public const id: string
   // What the settings' catalogue calls it.
   public const title: string
-  public offer(self): RadialOffer
+  public offer(): RadialOffer
 }

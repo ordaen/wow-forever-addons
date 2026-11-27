@@ -34,7 +34,7 @@ public class ScalePage implements Component {
     self.globals = globals
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <NumberInput label={Locale::GLOBAL_SCALE} hint={Locale::GLOBAL_SCALE_TIP} value={mut self.globals.values.scale}
                    least={0.7} most={1.5} step={0.05} unit={Unit::Percent} />
@@ -54,7 +54,7 @@ public class NumbersPage implements Component {
     self.globals = globals
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={Locale::GLOBAL_NUMBERFORMAT} hint={Locale::GLOBAL_NUMBERFORMAT_TIP}
                 value={mut self.globals.values.numberFormat} choices={FORMATS} />
@@ -79,12 +79,12 @@ public class BehaviourPage implements Component {
     watch (picked of self.clock) { self.pick(picked) }
   }
 
-  pick(mut self, picked: Clock) {
+  mut pick(picked: Clock) {
     const on = picked == Clock::H24
     if (on != peek Game::clock.hours24) { Game::clock.useHours24(on) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={Locale::GLOBAL_SOUNDS} hint={Locale::GLOBAL_SOUNDS_TIP} value={mut self.globals.values.sounds} />
       <Dropdown label={Locale::GLOBAL_CLOCK} hint={Locale::GLOBAL_CLOCK_TIP} value={mut self.clock}

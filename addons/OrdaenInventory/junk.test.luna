@@ -56,13 +56,13 @@ class World {
   // The backpack's slots, then the bank's first tab's.
   constructor(items: mut array<mut Lies>) { self.items = items }
 
-  public size(self, bag: integer): integer { return bag == 0 ? 16 : bag == BANK ? 4 : 0 }
+  public size(bag: integer): integer { return bag == 0 ? 16 : bag == BANK ? 4 : 0 }
 
-  public bag(self, bag: integer): Game::BagInfo {
+  public bag(bag: integer): Game::BagInfo {
     return { bag: bag, item: nil, name: bag == 0 ? "Backpack" : "", icon: nil, slots: self.size(bag), general: true }
   }
 
-  public read(self, bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
+  public read(bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
     const item = self.items.find(lying => lying.bag == bag && lying.slot == slot)
     if (item == nil) {
       into.id = 0
@@ -88,10 +88,10 @@ class World {
     return true
   }
 
-  public icon(self, id: integer): Art | nil { return self.items.find(lying => lying.id == id)?.icon }
+  public icon(id: integer): Art | nil { return self.items.find(lying => lying.id == id)?.icon }
 
   // The stack taken out (sold).
-  public take(mut self, bag: integer, slot: integer) {
+  public mut take(bag: integer, slot: integer) {
     let at = 0
     for (index, item of self.items) {
       if (item.bag == bag && item.slot == slot) { at = index }

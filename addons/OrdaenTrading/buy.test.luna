@@ -56,7 +56,7 @@ function variants(id: integer, suffix: integer): Game::TooltipData | nil {
 class Tooltips {
   public count = 0
 
-  public of(mut self, id: integer): Game::TooltipData | nil {
+  public mut of(id: integer): Game::TooltipData | nil {
     self.count += 1
     return names(id)
   }

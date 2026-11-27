@@ -22,14 +22,14 @@ public class AutoEquip {
 
   // A reward taken, and how much more it is worth than what is worn: worn as it comes where that is at least `least`
   // (0.15: 15%).
-  public note(mut self, link: string | nil, share: number | nil, least: number) {
+  public mut note(link: string | nil, share: number | nil, least: number) {
     self.pending = nil
     if (link == nil || share == nil || share < least) { return }
     self.pending = link
     self.share = share
   }
 
-  tryEquip(mut self) {
+  mut tryEquip() {
     const link = self.pending
     if (link == nil || Client::InCombatLockdown()) { return }
     if (Client::C_Item::GetItemCount(link, false, nil, nil, nil) <= 0) { return }

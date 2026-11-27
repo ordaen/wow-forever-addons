@@ -210,7 +210,7 @@ public class GroupRowView implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown $if={self.item.words == PairWords::Speakers} label={self.item.label} value={mut self.pair} choices={SPEAKERS} />
       <Dropdown $if={self.item.words == PairWords::Achievements} label={self.item.label} value={mut self.pair}

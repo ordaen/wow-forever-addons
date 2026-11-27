@@ -114,7 +114,7 @@ public class ChatTab {
   }
 
   // The window's state as the game has it now.
-  public follow(mut self, window: Game::ChatWindow) {
+  public mut follow(window: Game::ChatWindow) {
     self.title = window.partner != "" ? window.partner : window.name
     self.partner = window.partner
     self.combatLog = window.combatLog
@@ -124,7 +124,7 @@ public class ChatTab {
   }
 
   // Its own settings, as the player chose them or its window's defaults.
-  public choose(mut self, choices: TabChoices) {
+  public mut choose(choices: TabChoices) {
     self.counted = choices.counter
     self.channelName = choices.channelName
     self.stamps = choices.stamps
@@ -137,7 +137,7 @@ public class ChatTab {
   }
 
   // A sender's lines taken away (a player reported).
-  public forgetSender(mut self, guid: string) {
+  public mut forgetSender(guid: string) {
     const kept = self.lines.filter(line => line.sender != guid)
     if (kept.length == self.lines.length) { return }
     self.lines = kept
@@ -146,7 +146,7 @@ public class ChatTab {
 
   // A line added, or the last one counted again where it repeats it (where it folds repeats); the oldest let go past
   // `held`.
-  public add(mut self, line: Shown) {
+  public mut add(line: Shown) {
     const last = self.lines[self.lines.length]
     if (peek self.repeats && !line.secret && last != nil && !last.secret && last.repeat == line.repeat) {
       const again = line.clone()
@@ -161,7 +161,7 @@ public class ChatTab {
   }
 
   // The lines kept for the next session: the last `count` that can be kept.
-  public keptLines(self, count: integer): array<Shown> {
+  public keptLines(count: integer): array<Shown> {
     const keep: array<Shown> = []
     for (line of self.lines) {
       if (!line.secret) { keep.push(line) }
@@ -172,7 +172,7 @@ public class ChatTab {
 
   // Lines of the last session, before this one's; a line kept with its time in its text has it drawn apart, as a line
   // heard now.
-  public recall(mut self, lines: array<Shown>) {
+  public mut recall(lines: array<Shown>) {
     const now: array<Shown> = lines.map(stampedApart)
     for (line of self.lines) { now.push(line) }
     self.lines = now
@@ -180,7 +180,7 @@ public class ChatTab {
   }
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
-  public slice(self, back: integer, count: integer): array<Entry> {
+  public slice(back: integer, count: integer): array<Entry> {
     const shown: array<Entry> = []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) {

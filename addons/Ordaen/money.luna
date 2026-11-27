@@ -22,7 +22,7 @@ public class Money implements Component {
     self.textSize = textSize
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
     }

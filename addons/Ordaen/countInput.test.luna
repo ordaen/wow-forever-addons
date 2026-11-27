@@ -9,7 +9,7 @@ class Pair {
   state least = 1
   state most = 5
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box xAlign={Align::Start}>
         <CountInput value={mut self.count} least={self.least} most={self.most} />
@@ -159,7 +159,7 @@ class Steps {
   state count = 98
   state most = 999
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box xAlign={Align::Start}>
         <CountInput value={mut self.count} least={1} most={self.most} />

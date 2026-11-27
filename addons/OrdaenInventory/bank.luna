@@ -52,11 +52,11 @@ class BankBagEntry implements Component {
   bag: Signal<BankBag>
   constructor(bag: Signal<BankBag>) { self.bag = bag }
 
-  onEnter(mut self, frame: any Frame) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-  onPress(self) { Game::bags.pickup(BAG_SLOTS, self.bag.place) }
+  mut onEnter(frame: any Frame) { self.hovered = true }
+  mut onLeave() { self.hovered = false }
+  onPress() { Game::bags.pickup(BAG_SLOTS, self.bag.place) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} yAlign={Align::Center} background={self.back} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @pointerPress={self.onPress}>
@@ -88,23 +88,23 @@ public class BankSlotsWindow implements Component {
     self.declared = declared
   }
 
-  nextOf(self): Client::PurchasableBankTabData | nil {
+  nextOf(): Client::PurchasableBankTabData | nil {
     _ = Game::money.amount
     _ = self.bags
     return Client::C_Bank::FetchNextPurchasableBankTabData(Client::BankType::Character)
   }
 
-  onClose(self) { self.close.emit() }
-  onBuy(mut self) { self.asking = true }
-  onNo(mut self) { self.asking = false }
+  onClose() { self.close.emit() }
+  mut onBuy() { self.asking = true }
+  mut onNo() { self.asking = false }
 
   // The client's own purchase, in the player's click on «Yes».
-  onYes(mut self) {
+  mut onYes() {
     self.asking = false
     Client::C_Bank::PurchaseBankTab(Client::BankType::Character)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>

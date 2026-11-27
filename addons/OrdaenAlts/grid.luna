@@ -32,7 +32,7 @@ class SkillCell implements Component {
   skill: Signal<Skill>
   constructor(skill: Signal<Skill>) { self.skill = skill }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableCell align={Align::Center}>
         <text value={self.skill.text} textColor={self.ink} wrap={.None} />
@@ -45,7 +45,7 @@ class SkillRow implements Component {
   line: Signal<SkillLine>
   constructor(line: Signal<SkillLine>) { self.line = line }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow>
         <TableCell> <text value={self.line.name} textColor={Style::INK} wrap={.Cut} /> </TableCell>
@@ -71,7 +71,7 @@ public class Grid implements Component {
   }
 
   // The professions any character has, by name.
-  namesOf(self): array<string> {
+  namesOf(): array<string> {
     // Read again when any record changed.
     _ = self.touched
     const seen: map<string, boolean> = {}
@@ -90,14 +90,14 @@ public class Grid implements Component {
   }
 
   // The name's column, then a profession's each, sharing the width beyond their least.
-  columnsOf(self): array<Column> {
+  columnsOf(): array<Column> {
     const list: array<Column> = [{ title: Locale::COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
     for (name of self.names) { list.push({ title: name, width: { fr: 1, min: SKILL_LEAST }, align: Align::Center, sortable: true }) }
     return list
   }
 
   // Each character a line, by name, then by realm where two share a name.
-  linesOf(self): array<SkillLine> {
+  linesOf(): array<SkillLine> {
     const characters: array<Character> = []
     for (_, character of self.records.characters) { characters.push(character) }
     characters.sort((a, b) => a.name < b.name || (a.name == b.name && a.realm < b.realm))
@@ -117,7 +117,7 @@ public class Grid implements Component {
   }
 
   // The lines by the column the table is sorted by: the name's, or a profession's skill (without it, last either way).
-  order(self): array<SkillLine> {
+  order(): array<SkillLine> {
     const list: array<SkillLine> = []
     for (line of self.lines) { list.push(line) }
     const column = self.sorted
@@ -135,7 +135,7 @@ public class Grid implements Component {
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
         <SkillRow $for={line of self.ordered} $key={line.key} line={line} />

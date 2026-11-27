@@ -24,7 +24,7 @@ public class RecipeMenu implements Component {
     self.kept = kept
   }
 
-  entriesOf(self): array<MenuEntry> {
+  entriesOf(): array<MenuEntry> {
     const schematic = Game::recipeReader.schematic(self.recipe.id)
     return [
       { label: Locale::MENU_LINK, disabled: schematic == nil || schematic.makes == nil },
@@ -34,13 +34,13 @@ public class RecipeMenu implements Component {
     ]
   }
 
-  onPick(self, index: integer) {
+  onPick(index: integer) {
     self.act.emit(ACTS[index] ?? panic("a menu line the recipe's menu doesn't have"), self.recipe.id)
   }
 
-  onClose(self) { self.act.emit(Act::Close, self.recipe.id) }
+  onClose() { self.act.emit(Act::Close, self.recipe.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Menu entries={self.entries} @pick={self.onPick} @close={self.onClose} />
     }

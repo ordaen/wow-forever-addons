@@ -21,7 +21,7 @@ class Fact implements Component {
     self.value = value
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={2.5sp}>
         <text value={self.label} textColor={Style::DIM} />
@@ -46,19 +46,19 @@ class DealtLine implements Component {
     self.ledger = ledger
   }
 
-  counted(self): integer {
+  counted(): integer {
     _ = self.ledger.revision
     const rows, _ = self.ledger.total(self.deal)
     return rows
   }
 
-  money(self): integer {
+  money(): integer {
     _ = self.ledger.revision
     const _, copper = self.ledger.total(self.deal)
     return copper
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={2.5sp}>
         <text value={self.text} textColor={Style::DIM} />
@@ -87,13 +87,13 @@ public class DataPage implements Component {
     self.items = items
   }
 
-  lastText(self): string {
+  lastText(): string {
     if (!self.scanned) { return Locale::NEVER }
     _ = Game::clock.seconds
     return agoText(serverSeconds() - self.lastFull)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content"]} gap={2.5sp}>
         <Section title={Locale::SECTION_SCANS}>

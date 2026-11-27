@@ -35,7 +35,7 @@ class Page {
     }
     self.tab = Trading.shoppingTab(sellers)
   }
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box position={Position::Absolute} left={3000ui} top={0ui} width={900ui} height={500ui}> {self.tab} </box> }
   }
 }

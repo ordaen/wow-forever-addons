@@ -22,7 +22,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={Locale::SETTING_PRICES} hint={self.pricesTip} value={mut self.settings.values.prices}
                 disabled={self.noAuction} />

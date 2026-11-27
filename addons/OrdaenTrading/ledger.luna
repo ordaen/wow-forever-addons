@@ -31,18 +31,18 @@ public class Ledger {
   }
 
   // An invoice of the house's, as the mailbox gives it.
-  public record(mut self, invoice: Game::Invoice) {
+  public mut record(invoice: Game::Invoice) {
     const deal: Deal = invoice.kind == "buyer" ? .Bought : .Sold
     self.add({ deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour::now() })
   }
 
   // An auction came back unsold.
-  public expired(mut self, item: string, count: integer) {
+  public mut expired(item: string, count: integer) {
     self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour::now() })
   }
 
   // The rows of one kind, and their money together.
-  public total(self, deal: Deal): (integer, integer) {
+  public total(deal: Deal): (integer, integer) {
     let rows = 0
     let copper = 0
     for (row of self.rows) {
@@ -54,7 +54,7 @@ public class Ledger {
     return rows, copper
   }
 
-  add(mut self, row: Dealt) {
+  mut add(row: Dealt) {
     const now = row.at
     self.drop(now)
     if (self.rows.length >= MOST) { _ = self.rows.remove(1) }
@@ -63,7 +63,7 @@ public class Ledger {
   }
 
   // The rows older than 90 days, which stand first.
-  drop(mut self, now: Hour) {
+  mut drop(now: Hour) {
     let old = 0
     for (row of self.rows) {
       if (now - row.at <= KEPT_HOURS) { break }

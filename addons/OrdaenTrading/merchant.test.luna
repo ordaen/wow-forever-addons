@@ -24,8 +24,8 @@ const MARK: FileId = 133784
 // What the test's merchant was asked to do.
 class Heard {
   public said: mut array<string> = []
-  public add(mut self, line: string) { self.said.push(line) }
-  public take(mut self): string {
+  public mut add(line: string) { self.said.push(line) }
+  public mut take(): string {
     const all = self.said.join(", ")
     self.said.clear()
     return all

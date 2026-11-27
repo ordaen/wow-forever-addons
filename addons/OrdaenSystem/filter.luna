@@ -86,7 +86,7 @@ public class FilterPick implements Component {
   }
 
   // What its Tip says it is set to: each kind that narrows the list, or «All».
-  shownOf(self): string {
+  shownOf(): string {
     const list: array<string> = []
     narrowing(HEATS, self.heat, Heat::All, list)
     narrowing(STANDINGS, self.standing, Standing::All, list)
@@ -96,14 +96,14 @@ public class FilterPick implements Component {
     return list.length == 0 ? Locale::FILTER_ALL : list.join(", ")
   }
 
-  close(mut self) { self.open = false }
-  onHeat(mut self, value: Heat) { self.heat = value }
-  onStanding(mut self, value: Standing) { self.standing = value }
-  onAge(mut self, value: Age) { self.age = value }
-  onLoading(mut self, value: Loading) { self.loading = value }
-  onWritten(mut self, value: Written) { self.written = value }
+  mut close() { self.open = false }
+  mut onHeat(value: Heat) { self.heat = value }
+  mut onStanding(value: Standing) { self.standing = value }
+  mut onAge(value: Age) { self.age = value }
+  mut onLoading(value: Loading) { self.loading = value }
+  mut onWritten(value: Written) { self.written = value }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} text={self.shown} open={mut self.open}
                   lit={self.lit}>

@@ -24,9 +24,9 @@ public class CopyBox implements Component {
     self.value = value
   }
 
-  onClose(mut self) { self.close.emit() }
+  mut onClose() { self.close.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dialog width={WIDTH} title={self.title}>
         <box height={ROOM} overflow={Overflow::Scroll} @keyPress.parentScope(.Escape)={self.onClose}>

@@ -18,7 +18,7 @@ class StreamRow implements Component {
     self.stream = stream
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <text value={self.stream.name} textColor={Style::INK} wrap={.None} />
@@ -37,7 +37,7 @@ public class ClubCard implements Component {
     self.streams = streams
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={6sp}>
         <box columns={1}>

@@ -29,11 +29,11 @@ public class Windowed implements Module {
     </box>
   }
 
-  onClose(mut self) { self.open = false }
-  onSettings(mut self) { self.settingsOpened += 1 }
-  onSave(mut self) { self.saved += 1 }
+  mut onClose() { self.open = false }
+  mut onSettings() { self.settingsOpened += 1 }
+  mut onSave() { self.saved += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={1.5sp}>
         <text value={"a page under the window"} />

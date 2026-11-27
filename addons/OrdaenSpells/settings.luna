@@ -24,7 +24,7 @@ public class TrainerSettingsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={Locale::SETTING_TRAINER} hint={Locale::SETTING_TRAINER_TIP} value={mut self.settings.values.trainer} />
       <Dropdown label={Locale::SETTING_TRAINER_VIEW} hint={Locale::SETTING_TRAINER_VIEW_TIP}

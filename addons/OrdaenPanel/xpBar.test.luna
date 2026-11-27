@@ -25,7 +25,7 @@ class Bars {
   state view: XpView = XpView::Numbers
   state sources: array<XpPart> = []
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <XpBar room={self.room} fill={self.fill} bezel={self.bezel} view={self.view} sources={self.sources} />
     }

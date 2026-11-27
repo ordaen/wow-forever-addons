@@ -234,7 +234,7 @@ public class Inventory implements Module, App {
   }
 
   // The bank's tab always (it says how to see it until the bank was read); the guild bank's once a tab of it was read.
-  vaultsOf(self): array<Vault> {
+  vaultsOf(): array<Vault> {
     let vaults: array<Vault> = [Vault::Bags]
     if (self.atVault) { return vaults }
     vaults.push(Vault::Bank)
@@ -243,7 +243,7 @@ public class Inventory implements Module, App {
   }
 
   // Whether the vault's slots are the game's as they are: the bags always, the bank and the guild bank while open.
-  liveIn(self, vault: Vault): boolean {
+  liveIn(vault: Vault): boolean {
     return match (vault) {
       .Bags => true
       .Bank => self.bankOpen
@@ -252,7 +252,7 @@ public class Inventory implements Module, App {
   }
 
   // What a pane tells: its slots' clicks and the cursor, its header's and its footer's buttons.
-  hear(mut self, pane: Pane) {
+  mut hear(pane: Pane) {
     pane.shelf.pressed.listen(self.onPressed)
     pane.shelf.pickup.listen(self.onPickup)
     pane.shelf.entered.listen(self.onEnter)
@@ -271,7 +271,7 @@ public class Inventory implements Module, App {
 
   // At the bank or the guild's vault the bags' window shows the bags, and the vault's window stands at its left,
   // level with its top, at the size it was left at.
-  onVault(mut self, open: boolean) {
+  mut onVault(open: boolean) {
     self.windowTab = 1
     if (!open) { return }
     const at = peek self.window.placing
@@ -281,7 +281,7 @@ public class Inventory implements Module, App {
     })
   }
 
-  tabSpec(self, vault: Vault): WindowTabSpec {
+  tabSpec(vault: Vault): WindowTabSpec {
     return match (vault) {
       .Bags => { title: Locale::TITLE, desc: nil, icon: BAGS_ICON }
       .Bank => { title: Locale::BANK, desc: nil, icon: BANK_ICON }
@@ -289,7 +289,7 @@ public class Inventory implements Module, App {
     }
   }
 
-  gameFramesOf(self): array<any Frame> {
+  gameFramesOf(): array<any Frame> {
     let frames: array<any Frame> = []
     for (window of Game::bags.windows) { frames.push(window) }
     if (self.bankOpen) {
@@ -304,10 +304,10 @@ public class Inventory implements Module, App {
     return frames
   }
 
-  byCount(self): boolean { return peek self.list.values.sort == SortBy::Count }
+  byCount(): boolean { return peek self.list.values.sort == SortBy::Count }
 
   // The bags opened: everything read anew and followed while they are; shut, nothing is heard.
-  onOpen(mut self, open: boolean) {
+  mut onOpen(open: boolean) {
     Game::bags.follow(open)
     if (!open) {
       self.arranger.stop()
@@ -321,7 +321,7 @@ public class Inventory implements Module, App {
   }
 
   // The bank opened: its window shows, read now and again after each batch of the client's updates while it is open.
-  onBank(mut self, open: boolean) {
+  mut onBank(open: boolean) {
     if (!open) {
       self.bankSlotsOpen = false
       return
@@ -331,20 +331,20 @@ public class Inventory implements Module, App {
     Events::BAG_UPDATE_DELAYED.listen(self.onBatch)
   }
 
-  onBankChanged(mut self) { self.bankDirty = true }
+  mut onBankChanged() { self.bankDirty = true }
 
-  onBatch(mut self) {
+  mut onBatch() {
     if (!self.bankDirty) { return }
     self.bankDirty = false
     self.readBank()
   }
 
-  readBank(mut self) {
+  mut readBank() {
     const changed = self.bank.read(bankInfos(), peek self.junkLists.values, peek self.settings.values.junk)
     self.bank.regroup(changed, self.byCount())
   }
 
-  onGuild(mut self, open: boolean) {
+  mut onGuild(open: boolean) {
     if (!open) {
       self.moving = nil
       return
@@ -353,7 +353,7 @@ public class Inventory implements Module, App {
   }
 
   // The guild bank's shown tab came: its slots read, in their own order.
-  readGuild(mut self) {
+  mut readGuild() {
     const tab = peek self.guild.tab
     const info: Game::BagInfo = { bag: tab, item: nil, name: "", icon: nil, slots: GUILD_SLOTS, general: true }
     const changed = self.vaultGuild.read([info], peek self.junkLists.values, peek self.settings.values.junk)
@@ -361,7 +361,7 @@ public class Inventory implements Module, App {
   }
 
   // Every bag read: a bag whose size changed gets its slots made again.
-  public readAll(mut self) {
+  public mut readAll() {
     let infos: array<Game::BagInfo> = []
     for (bag of Game::bags.containers) { infos.push(Game::bags.bag(bag)) }
     self.settle(self.carried.read(infos, peek self.junkLists.values, peek self.settings.values.junk))
@@ -369,14 +369,14 @@ public class Inventory implements Module, App {
 
   // A bag the game told changed: its slots read again; another size, every bag.
   // An item the client loaded: each bag holding it read before it was is read again, its verdict with it.
-  onLoaded(mut self, item: integer) {
+  mut onLoaded(item: integer) {
     for (place, slots of self.carried.bags) {
       const bag = self.carried.infos[place]?.bag
       if (bag != nil && slots.any(slot => peek slot.id == item && !slot.read.loaded)) { self.onUpdated(bag) }
     }
   }
 
-  onUpdated(mut self, bag: integer) {
+  mut onUpdated(bag: integer) {
     const place = self.carried.placeOf(bag)
     const changed = place == nil ? nil :
       self.carried.update(place, Game::bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
@@ -391,13 +391,13 @@ public class Inventory implements Module, App {
   }
 
   // What an update of the bags changed: the protections follow their items, and the sections are worked out again.
-  settle(mut self, changed: integer) {
+  mut settle(changed: integer) {
     if (Client::bit::band(changed, MOVED) != 0) { self.follow() }
     self.carried.regroup(changed, self.byCount())
   }
 
   // Every slot's verdict worked out again: a mark, a score or a rule changed.
-  judge(mut self, lists: JunkLists, rules: JunkRules) {
+  mut judge(lists: JunkLists, rules: JunkRules) {
     self.carried.regroup(self.carried.judge(lists, rules), false)
     self.bank.regroup(self.bank.judge(lists, rules), false)
     self.vaultGuild.regroup(self.vaultGuild.judge(lists, rules), false)
@@ -405,7 +405,7 @@ public class Inventory implements Module, App {
 
   // The protections where their items are: one whose slot holds its item stays; one whose item came into another slot
   // goes with it; one whose item is gone from the bags is dropped. A slot is drawn protected where one stays.
-  follow(mut self) {
+  mut follow() {
     const kept = peek self.memory.values
     let guards: array<Guard> = []
     let changed = false
@@ -423,15 +423,15 @@ public class Inventory implements Module, App {
     self.markGuards(guards)
   }
 
-  guardedIn(self, guards: array<Guard>, slot: Slot): boolean {
+  guardedIn(guards: array<Guard>, slot: Slot): boolean {
     return guards.any(guard => guard.bag == slot.bag && guard.slot == slot.index)
   }
 
-  markGuards(mut self, guards: array<Guard>) {
+  mut markGuards(guards: array<Guard>) {
     for (slot of self.carried.all) { slot.guarded = self.guardedIn(guards, slot) }
   }
 
-  bagLinesOf(self): array<BagLine> {
+  bagLinesOf(): array<BagLine> {
     _ = self.carried.revision
     let lines: array<BagLine> = []
     for (index, info of self.carried.infos) {
@@ -445,7 +445,7 @@ public class Inventory implements Module, App {
   }
 
   // The bank's bags: each container past the bank's own, at its place among the bank's bag slots.
-  bankBagsOf(self): array<BankBag> {
+  bankBagsOf(): array<BankBag> {
     _ = self.bank.revision
     let bags: array<BankBag> = []
     for (index, info of self.bank.infos) {
@@ -460,7 +460,7 @@ public class Inventory implements Module, App {
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
   // scheme. A container's use is the client's own secure click on its chord (`useClick`), done before this is told.
   // A copy's slot (its vault shut) takes no click: only its vault's own are the game's.
-  onPressed(mut self, slot: mut Slot, click: Event::Press) {
+  mut onPressed(slot: mut Slot, click: Event::Press) {
     self.menu = nil
     if (!self.liveIn(slot.vault)) { return }
     // The waiting spell took the item on the secure click.
@@ -477,7 +477,7 @@ public class Inventory implements Module, App {
 
   // Gold on the cursor let go on a slot, as the game's bags do: the player's back into the purse, the guild bank's
   // taken out of it. False where the cursor holds no gold.
-  dropMoney(self): boolean {
+  dropMoney(): boolean {
     const kind, money, _, _ = Client::GetCursorInfo()
     if (kind == "money") {
       Client::DropCursorMoney()
@@ -490,7 +490,7 @@ public class Inventory implements Module, App {
     return true
   }
 
-  act(mut self, slot: mut Slot, action: SlotAction) {
+  mut act(slot: mut Slot, action: SlotAction) {
     const id = peek slot.id
     match (action) {
       .Use => self.used(slot)
@@ -511,7 +511,7 @@ public class Inventory implements Module, App {
 
   // The slot's use: a guild bank's stack goes into the bags; a container's the client used itself, and at a merchant
   // the sale is noted, to be learned from once the bag's update says it sold.
-  used(mut self, slot: Slot) {
+  mut used(slot: Slot) {
     const id = peek slot.id
     if (id == 0) { return }
     if (slot.vault == Vault::Guild) {
@@ -541,7 +541,7 @@ public class Inventory implements Module, App {
   }
 
   // The bag of a noted sale updated: what left the slot was sold. It says so, and teaches the bags.
-  learnSale(mut self, bag: integer) {
+  mut learnSale(bag: integer) {
     const sale = self.sale
     if (sale == nil || sale.bag != bag) { return }
     self.sale = nil
@@ -559,11 +559,11 @@ public class Inventory implements Module, App {
   }
 
   // A bag of the bags used: put on, in an empty place or the smallest bag's; the chat says why where it can't be.
-  putOn(mut self, slot: Slot) { self.change(slot, nil) }
+  mut putOn(slot: Slot) { self.change(slot, nil) }
 
-  onBagStuck(self) { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, Locale::CHAT_BAG_STUCK) }
+  onBagStuck() { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, Locale::CHAT_BAG_STUCK) }
 
-  change(mut self, slot: Slot, into: integer | nil) {
+  mut change(slot: Slot, into: integer | nil) {
     const infos = peek self.carried.infos
     const change = self.changer.start(slot, self.carried.all, (bag: integer): boolean => self.carried.general(bag), into)
     const line = match (change) {
@@ -579,7 +579,7 @@ public class Inventory implements Module, App {
   // A bag held on the cursor let go on a bag's place. One from the bags (the client holds it locked in its slot) is
   // let go and put on as its use is, the bag there emptied first where it must be; one taken off a place is put on
   // there, the client swapping the two where the one there is empty.
-  onPutBag(mut self, into: integer) {
+  mut onPutBag(into: integer) {
     const bag = self.carried.all.find(slot => peek slot.locked && slot.read.kind == CONTAINER && slot.vault == Vault::Bags)
     if (bag != nil) {
       Client::ClearCursor()
@@ -590,21 +590,21 @@ public class Inventory implements Module, App {
   }
 
   // A line of the module's in the chat, where the player keeps them.
-  say(self, line: string) {
+  say(line: string) {
     if (peek self.settings.values.junk.chat) { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, line) }
   }
 
-  openMenu(mut self, slot: Slot) {
+  mut openMenu(slot: Slot) {
     const id = peek slot.id
     if (id == 0) { return }
     const marked = (peek self.junkLists.values).marks[id]
     self.menu = menuOf(slot, marked?.mark, peek Game::bags.place)
   }
 
-  onMenuClose(mut self) { self.menu = nil }
+  mut onMenuClose() { self.menu = nil }
 
   // A line of the menu: its action, in the click's own call.
-  onMenuPick(mut self, index: integer) {
+  mut onMenuPick(index: integer) {
     const menu = peek self.menu
     self.menu = nil
     if (menu == nil) { return }
@@ -626,7 +626,7 @@ public class Inventory implements Module, App {
   }
 
   // The player's mark on the slot's item: kept at once, every slot's verdict follows.
-  public mark(mut self, slot: Slot, mark: Mark | nil) {
+  public mut mark(slot: Slot, mark: Mark | nil) {
     const id = peek slot.id
     if (id == 0) { return }
     self.junkLists.write(withMark(peek self.junkLists.values, id, mark))
@@ -636,7 +636,7 @@ public class Inventory implements Module, App {
 
   // At a merchant, its junk sold once a visit where the player wants it so: as soon as the bags know their junk (the
   // merchant opens them with its window, and they read their slots then).
-  sellAtVisit(mut self) {
+  mut sellAtVisit() {
     if (!self.atMerchant) {
       self.soldThisVisit = false
       return
@@ -647,18 +647,18 @@ public class Inventory implements Module, App {
   }
 
   // Ordaen Trading's merchant window shows its buyback, or its goods again.
-  public showsBuyback(mut self, shown: boolean) { self.buyingBack = shown }
+  public mut showsBuyback(shown: boolean) { self.buyingBack = shown }
 
-  onMerchantShown(mut self) { self.atMerchant = true }
+  mut onMerchantShown() { self.atMerchant = true }
 
-  onMerchantClosed(mut self) {
+  mut onMerchantClosed() {
     self.atMerchant = false
     self.buyingBack = false
   }
 
   // «Sell junk» at a merchant (Ordaen Trading's window): the next junk items, `SAFE_SALE` at most so all can be bought
   // back, each the client's sale in the player's click. A locked slot and junk the merchant gives nothing for stay.
-  public sellJunk(mut self) {
+  public mut sellJunk() {
     let sold = 0
     let worth = 0
     // Why each junk slot passed over was: told where junk shows and none sold.
@@ -684,19 +684,19 @@ public class Inventory implements Module, App {
   }
 
   // «Forget what was learned» and «Forget my marks» on the junk's page.
-  onResetJunk(mut self, marks: boolean) {
+  mut onResetJunk(marks: boolean) {
     const lists = peek self.junkLists.values
     self.junkLists.write(marks ? { marks: {}, ..lists } : { learned: {}, ..lists })
   }
 
   // A slot's item dragged off it, or what is dragged let go on it: picked up or put down there, as a plain click
   // does. The client's cursor holds what is picked up: an action bar's button takes it where it is let go.
-  onPickup(self, slot: Slot) {
+  onPickup(slot: Slot) {
     if (self.liveIn(slot.vault)) { pickupIn(slot.vault, slot.bag, slot.index) }
   }
 
   // An item's slot protected, or no more: an empty slot has nothing to protect.
-  public guard(mut self, slot: Slot) {
+  public mut guard(slot: Slot) {
     if (peek slot.id == 0) { return }
     const kept = peek self.memory.values
     let guards: array<Guard> = []
@@ -711,7 +711,7 @@ public class Inventory implements Module, App {
 
   // The cursor on a slot: its item new no more (the tabs and the sections worked out again: «New» counts it no
   // more), and the tooltip's lines about it.
-  onEnter(mut self, slot: mut Slot) {
+  mut onEnter(slot: mut Slot) {
     if (peek slot.isNew) {
       slot.see()
       match (slot.vault) {
@@ -723,31 +723,31 @@ public class Inventory implements Module, App {
     self.hovered.slot = slot
   }
 
-  onLeave(mut self, slot: Slot) {
+  mut onLeave(slot: Slot) {
     if (peek self.hovered.slot == slot) { self.hovered.slot = nil }
   }
 
-  onGuildTab(mut self, tab: integer) {
+  mut onGuildTab(tab: integer) {
     self.guild.page = .Items
     self.guild.show(tab)
   }
 
-  onGuildLog(mut self) { self.guild.showPage(.Log) }
-  onMoneyLog(mut self) { self.guild.showPage(.MoneyLog) }
+  mut onGuildLog() { self.guild.showPage(.Log) }
+  mut onMoneyLog() { self.guild.showPage(.MoneyLog) }
 
-  onDeposit(mut self) {
+  mut onDeposit() {
     self.amount = 0
     self.moving = .Deposit
   }
 
-  onWithdraw(mut self) {
+  mut onWithdraw() {
     self.amount = 0
     self.moving = .Withdraw
   }
 
-  onMoneyCancel(mut self) { self.moving = nil }
+  mut onMoneyCancel() { self.moving = nil }
 
-  refundTextOf(self): string {
+  refundTextOf(): string {
     const slot = self.refunding
     const info = slot == nil ? nil : refundOf(slot)
     if (slot == nil || info == nil) { return "" }
@@ -756,16 +756,16 @@ public class Inventory implements Module, App {
   }
 
   // The refund asked about given, in the player's click.
-  onRefund(mut self) {
+  mut onRefund() {
     const slot = peek self.refunding
     self.refunding = nil
     if (slot != nil) { Client::C_Container::ContainerRefundItemPurchase(slot.bag, slot.index, false) }
   }
 
-  onRefundCancel(mut self) { self.refunding = nil }
+  mut onRefundCancel() { self.refunding = nil }
 
   // The guild's money moved, in the player's click on the dialog's button.
-  onMoneyMove(mut self) {
+  mut onMoneyMove() {
     const amount = peek self.amount
     if (amount > 0) {
       if (peek self.moving == MoneyMove::Withdraw) { self.guild.withdraw(amount) } else { self.guild.deposit(amount) }
@@ -774,23 +774,23 @@ public class Inventory implements Module, App {
   }
 
   // «Sort the bags»: the bags that take any item, their unprotected slots, into the sort's order.
-  arrange(mut self) {
+  mut arrange() {
     const infos = peek self.carried.infos
     self.arranger.start(self.carried.all, (bag: integer): boolean => self.carried.general(bag), peek self.list.values.sort)
   }
 
-  onLit(mut self, bag: integer) { self.lit = bag < 0 ? peek self.kept : bag }
+  mut onLit(bag: integer) { self.lit = bag < 0 ? peek self.kept : bag }
 
   // A bag's line clicked: that bag kept lit, or no more.
-  onKeepBag(mut self, bag: integer) {
+  mut onKeepBag(bag: integer) {
     self.kept = peek self.kept == bag ? -1 : bag
     self.lit = peek self.kept < 0 ? bag : peek self.kept
   }
 
   // A worn bag's line dragged: the bag onto the cursor.
-  onLiftBag(mut self, bag: integer) { _ = Game::bags.pickupBag(bag) }
+  mut onLiftBag(bag: integer) { _ = Game::bags.pickupBag(bag) }
 
-  hookBag(mut self, button: Game::BagButton) {
+  mut hookBag(button: Game::BagButton) {
     const frame: any Client::Frame = button.frame
     if (self.hooked[frame] == true) { return }
     self.hooked[frame] = true
@@ -798,12 +798,12 @@ public class Inventory implements Module, App {
     _ = frame.HookScript("OnEnter", (...args: unknown): nil => { self.lit = bag })
     _ = frame.HookScript("OnLeave", (...args: unknown): nil => { if (peek self.lit == bag) { self.lit = -1 } })
   }
-  onSlotsClosed(mut self) { self.slotsOpen = false }
-  onBankSlotsClosed(mut self) { self.bankSlotsOpen = false }
+  mut onSlotsClosed() { self.slotsOpen = false }
+  mut onBankSlotsClosed() { self.bankSlotsOpen = false }
 
   // A window of bag slots opens beside its window, level with its top, at the size it was left at: the bags' at the
   // bags' window's right, the bank's at the bank's window's left.
-  placeSlots(mut self, open: boolean, slots: mut KeptWindow, beside: KeptWindow, right: boolean) {
+  mut placeSlots(open: boolean, slots: mut KeptWindow, beside: KeptWindow, right: boolean) {
     if (!open) { return }
     const at = peek beside.placing
     const size = peek slots.memory.values
@@ -812,22 +812,22 @@ public class Inventory implements Module, App {
   }
 
   // The bags' window's close shuts the game's bags, and leaves the bank and the guild bank, which hides it.
-  onClose(mut self) {
+  mut onClose() {
     Game::bags.close()
     self.onVaultClose()
   }
 
   // The vault's window's close leaves the bank or the guild bank.
-  onVaultClose(mut self) {
+  mut onVaultClose() {
     if (peek self.bankOpen) { Client::C_Bank::CloseBankFrame() }
     self.guild.close()
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  onLooted(mut self, slot: Game::LootSlot) { self.lootLines.post(slot) }
+  mut onLooted(slot: Game::LootSlot) { self.lootLines.post(slot) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
       <LootToasts $if={self.toastsShown && self.lootLines.any} lines={mut self.lootLines} />

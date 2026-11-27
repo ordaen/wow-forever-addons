@@ -25,13 +25,13 @@ public class QuestieData {
   npcs: mut map<integer, NpcQuests> = {}
 
   // Why nothing can be read (QuestieDB of another contract, its own message); nil where it can be.
-  public fault(self): string | nil {
+  public fault(): string | nil {
     let fits, said = LibQuestieDB::RequireContract(CONTRACT)
     return fits ? nil : said ?? "QuestieDB's contract doesn't match"
   }
 
   // A quest's facts; nil for one QuestieDB doesn't know (Forever's newest).
-  public quest(mut self, id: integer): QuestFacts | nil {
+  public mut quest(id: integer): QuestFacts | nil {
     const kept = self.known[id]
     if (kept != nil || self.unknown[id] == true || self.fault() != nil) { return kept }
     const read = Questie::quest(id)
@@ -45,19 +45,19 @@ public class QuestieData {
 
   // The NPCs that sell an item who trade with `side`'s players; none where QuestieDB can't be read. Asked as a list
   // of things to buy opens, not kept.
-  public vendorsOf(self, item: integer, side: Game::Faction): array<integer> {
+  public vendorsOf(item: integer, side: Game::Faction): array<integer> {
     return self.fault() == nil ? sellingTo(Questie::vendors(item), side) : []
   }
 
   // An NPC's name and spawns; nil for one QuestieDB doesn't know, or where it can't be read. Asked on a click, not
   // kept.
-  public npc(self, id: integer): Figure | nil {
+  public npc(id: integer): Figure | nil {
     return self.fault() == nil ? Questie::npc(id) : nil
   }
 
   // The quests an NPC gives and takes back; none for one QuestieDB doesn't know. Asked as a creature's tooltip shows,
   // kept for the session.
-  public npcQuests(mut self, id: integer): NpcQuests {
+  public mut npcQuests(id: integer): NpcQuests {
     const kept = self.npcs[id]
     if (kept != nil) { return kept }
     const read = self.fault() == nil ? Questie::npcQuests(id) ?? NO_QUESTS : NO_QUESTS

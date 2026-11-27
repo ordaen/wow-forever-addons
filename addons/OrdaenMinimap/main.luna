@@ -146,7 +146,7 @@ public class Minimap implements Module, App {
     Game::minimap.takeRightClick(false)
   }
 
-  hiddenParts(self): array<any Frame> {
+  hiddenParts(): array<any Frame> {
     const parts: array<any Frame> = []
     Minimap::hide(parts, Game::frames.MinimapCluster)
     Minimap::hide(parts, Game::frames.MinimapBackdrop)
@@ -157,12 +157,8 @@ public class Minimap implements Module, App {
     return parts
   }
 
-  hide(parts: mut array<any Frame>, part: any Frame | nil) {
-    if (part != nil) { parts.push(part) }
-  }
-
   // The zone's colour by its PvP status: the game's own minimap colours.
-  colorOf(self): Color {
+  colorOf(): Color {
     return match (Game::location.pvp) {
       nil => GOLD
       Game::Pvp::Sanctuary => Color::hex("#69ccf0")
@@ -172,7 +168,7 @@ public class Minimap implements Module, App {
     }
   }
 
-  zoneLabel(self): string {
+  zoneLabel(): string {
     return match (Game::location.pvp) {
       nil => ""
       Game::Pvp::Sanctuary => Locale::ZONE_SANCTUARY
@@ -185,7 +181,7 @@ public class Minimap implements Module, App {
   // ---- the ring, for its buttons: its places in the frame's box from its line's top left corner, in ui
 
   // A ring button's angle: as dragged now, as the player left it, or its own.
-  public angle(self, spec: RingSpec): number {
+  public angle(spec: RingSpec): number {
     if (self.dragging == spec.id) { return self.dragAngle }
     return self.angles[spec.id] ?? spec.angle
   }
@@ -200,7 +196,7 @@ public class Minimap implements Module, App {
   // projection, not a circle's). Docked, the screen's edges stand on the frame's top and right: what would stand on
   // the right lies along the bottom, and what on top up the left, each as far from the screen's corner, clockwise
   // still, a button of `size` whole on the screen. Rounded to hundredths.
-  ringAt(self, angle: number, size: number<Length>): (number, number) {
+  ringAt(angle: number, size: number<Length>): (number, number) {
     let cornerEnd = self.side - size / 2 / 1ui
     let t = angle.rad()
     let dx = t.sin()
@@ -224,7 +220,7 @@ public class Minimap implements Module, App {
 
   // The angle a place points to from the frame's middle, to the whole degree; docked, its nearest place along the
   // bottom and the left, where the ring runs, for a button of `size`.
-  angleAt(self, x: number, y: number, size: number<Length>): number {
+  angleAt(x: number, y: number, size: number<Length>): number {
     let cornerEnd = self.side - size / 2 / 1ui
     let px = x
     let py = y
@@ -238,46 +234,34 @@ public class Minimap implements Module, App {
     return ((px - self.side / 2).atan2(self.side / 2 - py).deg() % 360 + 0.5).floor()
   }
 
-  hundredths(value: number): number { return (value * 100 + 0.5).floor() / 100 }
-  // How far apart two places are, squared.
-  apart(x: number, y: number): number { return x * x + y * y }
-
-  // The small frame's metal on the left and bottom alone: docked, the screen's edges are its others.
-  cornered(metal: ArtBorder): ArtBorder {
-    return {
-      reach: metal.reach, drawnFrom: metal.drawnFrom, art: metal.art, width: metal.width, scale: metal.scale,
-      inset: metal.inset, sides: [Side::Left, Side::Bottom], curves: metal.curves, lineStart: metal.lineStart
-    }
-  }
-
-  public ringLeft(self, spec: RingSpec): number<Length> {
+  public ringLeft(spec: RingSpec): number<Length> {
     let x, y = self.ringAt(self.angle(spec), spec.size)
     return x * 1ui - spec.size / 2
   }
 
-  public ringTop(self, spec: RingSpec): number<Length> {
+  public ringTop(spec: RingSpec): number<Length> {
     let x, y = self.ringAt(self.angle(spec), spec.size)
     return y * 1ui - spec.size / 2
   }
 
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
   // dragged or the drawer shows. The mail's shows whenever there is mail.
-  public ringOpacity(self, spec: RingSpec): number {
+  public ringOpacity(spec: RingSpec): number {
     if (spec.id == RingId::Mail) { return 1 }
     if (!self.settings.values.buttonsHover || self.hovered || self.drawerShown || self.dragging != nil) { return 1 }
     return 0
   }
 
-  public isDrawerOpen(self): boolean { return self.drawerOpen }
-  public isDrawerOn(self): boolean { return self.settings.values.drawerOn }
-  public holds(self): integer { return self.held }
-  public hasMail(self): boolean { return self.mail }
+  public isDrawerOpen(): boolean { return self.drawerOpen }
+  public isDrawerOn(): boolean { return self.settings.values.drawerOn }
+  public holds(): integer { return self.held }
+  public hasMail(): boolean { return self.mail }
 
-  onMail(mut self) { self.mail = Client::HasNewMail() }
+  mut onMail() { self.mail = Client::HasNewMail() }
 
   // The drag taken as it starts: the client starts it once the cursor has gone a few pixels from the press, and the
   // button is where those take it at once, never left behind until the cursor moves again.
-  public startDrag(mut self, spec: RingSpec, dx: number<Length>, dy: number<Length>) {
+  public mut startDrag(spec: RingSpec, dx: number<Length>, dy: number<Length>) {
     let x, y = self.ringAt(self.angle(spec), spec.size)
     self.dragX = x
     self.dragY = y
@@ -290,37 +274,37 @@ public class Minimap implements Module, App {
 
   // The cursor gone `dx`, `dy` since the press: the button's middle as it stood, moved as far, held by the cursor
   // where it took it.
-  public dragTo(mut self, dx: number<Length>, dy: number<Length>) {
+  public mut dragTo(dx: number<Length>, dy: number<Length>) {
     self.dragAngle = self.angleAt(self.dragX + dx / 1ui, self.dragY + dy / 1ui, self.dragSize)
   }
 
-  public stopDrag(mut self, spec: RingSpec) {
+  public mut stopDrag(spec: RingSpec) {
     self.angles[spec.id] = self.dragAngle
     self.dragging = nil
   }
 
-  public toggleDrawer(mut self) { self.drawerOpen = !self.drawerOpen }
-  public showHint(mut self, hint: Hint) { self.hint = hint }
+  public mut toggleDrawer() { self.drawerOpen = !self.drawerOpen }
+  public mut showHint(hint: Hint) { self.hint = hint }
 
   // ---- what the strips and the drawer report
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-  onZoneEnter(mut self) { self.hint = Hint::Zone }
-  onCoordsEnter(mut self) { self.hint = Hint::Coords }
-  onClockEnter(mut self) { self.hint = Hint::Clock }
-  onHintLeave(mut self) { self.hint = Hint::None }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
+  mut onZoneEnter() { self.hint = Hint::Zone }
+  mut onCoordsEnter() { self.hint = Hint::Coords }
+  mut onClockEnter() { self.hint = Hint::Clock }
+  mut onHintLeave() { self.hint = Hint::None }
 
-  onEntryHover(mut self, name: string) {
+  mut onEntryHover(name: string) {
     self.entryName = name
     self.hint = Hint::Entry
   }
 
-  onCoordsClick(mut self, click: Event::Press) {
+  mut onCoordsClick(click: Event::Press) {
     if (click.button == MouseButton::Left && Game::input.shiftDown()) { Game::minimap.sendCoords() }
   }
 
-  onClockClick(mut self, click: Event::Press) {
+  mut onClockClick(click: Event::Press) {
     if (click.button == MouseButton::Right) {
       Game::clock.toggleTimeManager()
     } else {
@@ -328,13 +312,13 @@ public class Minimap implements Module, App {
     }
   }
 
-  onMapRightClick(mut self) {
+  mut onMapRightClick() {
     Ordaen.toggleSettings(Runtime::Addon::of(self))
   }
 
   // ---- the tooltip of our own parts (the game's buttons show their own)
 
-  titleOf(self): string {
+  titleOf(): string {
     return match (self.hint) {
       Hint::Zone => Game::location.realZone
       Hint::Coords => Game::minimap.coords
@@ -346,14 +330,14 @@ public class Minimap implements Module, App {
     }
   }
 
-  textOf(self): string {
+  textOf(): string {
     return match (self.hint) {
       Hint::Zone => self.zoneLabel()
       Hint::Coords, Hint::Clock, Hint::Ordaen, Hint::Drawer, Hint::Entry, Hint::None => ""
     }
   }
 
-  keysOf(self): array<string> {
+  keysOf(): array<string> {
     return match (self.hint) {
       Hint::Coords => [Locale::COORDS_KEY]
       Hint::Clock => [Locale::CLOCK_KEY, Locale::CLOCK_KEY_RIGHT]
@@ -365,7 +349,7 @@ public class Minimap implements Module, App {
   }
 
   // The clock's: the computer's time and the realm's, whichever the clock shows.
-  rowsOf(self): array<TipRow> {
+  rowsOf(): array<TipRow> {
     return match (self.hint) {
       Hint::Clock => [
         { label: Locale::CLOCK_LOCAL, value: timeText(Game::clock.computer) },
@@ -376,9 +360,9 @@ public class Minimap implements Module, App {
   }
 
   // The tooltip shown is this part's.
-  public hinting(self, hint: Hint): boolean { return self.hint == hint }
+  public hinting(hint: Hint): boolean { return self.hint == hint }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // Each of the game's parts the minimap replaces: hidden and sent off the screen, so the game showing one again
       // (the zoom buttons as the cursor comes onto the map) puts nothing in sight and nothing under the cursor.
@@ -443,6 +427,23 @@ public class Minimap implements Module, App {
           </box>
         </box>
       </Placed>
+    }
+  }
+} static {
+  hide(parts: mut array<any Frame>, part: any Frame | nil) {
+    if (part != nil) { parts.push(part) }
+  }
+
+  hundredths(value: number): number { return (value * 100 + 0.5).floor() / 100 }
+
+  // How far apart two places are, squared.
+  apart(x: number, y: number): number { return x * x + y * y }
+
+  // The small frame's metal on the left and bottom alone: docked, the screen's edges are its others.
+  cornered(metal: ArtBorder): ArtBorder {
+    return {
+      reach: metal.reach, drawnFrom: metal.drawnFrom, art: metal.art, width: metal.width, scale: metal.scale,
+      inset: metal.inset, sides: [Side::Left, Side::Bottom], curves: metal.curves, lineStart: metal.lineStart
     }
   }
 }

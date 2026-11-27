@@ -14,17 +14,17 @@ class Sidebar {
   const green: Color | nil = GREEN
   const orange: Color | nil = ORANGE
 
-  onBags(mut self, button: MouseButton) { self.picked = "Bags" }
-  onCloak(mut self, button: MouseButton) {
+  mut onBags(button: MouseButton) { self.picked = "Bags" }
+  mut onCloak(button: MouseButton) {
     if (button == MouseButton::Right) {
       self.menus += 1
       return
     }
     self.picked = "Linen Cloak"
   }
-  onVest(mut self, button: MouseButton) { self.picked = "Brown Linen Vest" }
+  mut onVest(button: MouseButton) { self.picked = "Brown Linen Vest" }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} width={300ui}>
         <SelectItem selected={self.picked == "Bags"} first={true} columns={NAME_COUNT} @pick={self.onBags}>

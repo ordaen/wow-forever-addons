@@ -36,9 +36,9 @@ public class SlotLine implements Component {
     self.picked = picked
   }
 
-  onPick(self) { self.chosen.emit(self.row.place) }
+  onPick() { self.chosen.emit(self.row.place) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={[self.gutter, { fr: 1 }, "max-content"]} picked={self.picked} @pick={self.onPick}>
         <box width={self.gutter} height={MARK}>

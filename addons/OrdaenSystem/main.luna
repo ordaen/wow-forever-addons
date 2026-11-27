@@ -67,23 +67,23 @@ public class System implements Module, App {
   destructor() { self.live.on = false }
 
   // The menu shows for the first time: Blizzard's buttons matched now, the dress drawn round them.
-  dress(mut self) {
+  mut dress() {
     self.menu.start()
     self.dressed = true
   }
 
   // The window opened at its AddOns tab: made the first time.
-  public openWindow(mut self) {
+  public mut openWindow() {
     self.window.ask(ADDONS_TAB)
     self.made = true
     self.open = true
   }
 
-  public closeWindow(mut self) { self.open = false }
+  public mut closeWindow() { self.open = false }
 
   // Blizzard's settings window was shown: unless a page of ours let it through, shut again in the call that showed it,
   // and ours opened at its «Settings» tab, the game menu shut as Blizzard's «Options» shuts it.
-  replaceSettings(mut self) {
+  mut replaceSettings() {
     const panel = Client::SettingsPanel
     if (panel == nil || self.pass.passes(panel)) { return }
     Client::HideUIPanel(panel)
@@ -94,7 +94,7 @@ public class System implements Module, App {
   }
 
   // Blizzard's settings window at a page, as it is: ours shuts, the game's shows until it hides.
-  passSettings(mut self, page: integer) {
+  mut passSettings(page: integer) {
     const panel = Client::SettingsPanel
     const settings = Client::Settings
     if (panel == nil || settings == nil || Client::InCombatLockdown()) { return }
@@ -105,13 +105,13 @@ public class System implements Module, App {
 
   // Blizzard's list was shown: shut again in the call that showed it, before a frame draws it, and ours opened, the
   // game menu shut as our «AddOns» shuts it. The list's own hide resets what isn't saved; ours saves each switch.
-  replace(mut self) {
+  mut replace() {
     Client::HideUIPanel(Client::AddonList)
     if (Client::GameMenuFrame.IsShown()) { self.menu.close() }
     self.openWindow()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <MenuDress $if={self.dressed} menu={self.menu} @addons={self.openWindow} />
       <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}

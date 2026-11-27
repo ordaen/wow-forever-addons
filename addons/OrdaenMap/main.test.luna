@@ -19,26 +19,26 @@ class TestHost implements MapHost {
   public said: array<array<string>> = []
   public switches: mut array<string> = []
 
-  public start(mut self) {}
-  public stop(mut self) {}
-  public present(self): boolean { return true }
-  public shown(self): boolean { return true }
-  public docked(self): boolean { return self.isDocked }
-  public dock(mut self, on: boolean) { self.isDocked = on }
+  public mut start() {}
+  public mut stop() {}
+  public present(): boolean { return true }
+  public shown(): boolean { return true }
+  public docked(): boolean { return self.isDocked }
+  public mut dock(on: boolean) { self.isDocked = on }
   public opened: mut array<integer> = []
-  public open(mut self, area: integer) { self.opened.push(area) }
+  public mut open(area: integer) { self.opened.push(area) }
   public only = 0
-  public onlyQuest(mut self, quest: integer) { self.only = quest }
-  public place(mut self, pin: Pin): Placed | nil { return pin.area == 40 ? { pin: pin, x: pin.x, y: pin.y } : nil }
-  public draw(mut self, placed: array<Placed>, lines: array<array<string>>) {
+  public mut onlyQuest(quest: integer) { self.only = quest }
+  public mut place(pin: Pin): Placed | nil { return pin.area == 40 ? { pin: pin, x: pin.x, y: pin.y } : nil }
+  public mut draw(placed: array<Placed>, lines: array<array<string>>) {
     self.drawn = placed
     self.said = lines
   }
-  public menuSwitch(mut self, id: string, label: string, get: () => boolean, set: (on: boolean) => nil) {
+  public mut menuSwitch(id: string, label: string, get: () => boolean, set: (on: boolean) => nil) {
     self.switches.push(id)
   }
-  public dungeonSection(mut self, run: (map: integer, names: array<string>) => array<string>) {}
-  public sidePanel(self): SidePanel | nil { return nil }
+  public mut dungeonSection(run: (map: integer, names: array<string>) => array<string>) {}
+  public sidePanel(): SidePanel | nil { return nil }
 }
 
 test "docked, the map's side panel is given while the map shows, its size the client's; apart, none" {
@@ -84,7 +84,7 @@ test "the map shows every quest's pins; a module's «Show on map» shows its que
 
 // What a dungeon's card says: the instance's name, where one of the test's.
 class TestSection implements DungeonSection {
-  public lines(self, names: array<string>): array<string> {
+  public lines(names: array<string>): array<string> {
     return names.filter(name => name == "The Deadmines").map(name => `In ${name}`)
   }
 }
@@ -111,7 +111,7 @@ class TestLayer implements Layer {
   public const title: string = "Test pins"
   public const hint: string = "Pins of the test"
 
-  public pins(self): array<Pin> {
+  public pins(): array<Pin> {
     const icon: Asset = "Interface/GossipFrame/ActiveQuestIcon"
     return [
       { of: 1, area: 40, x: 0.5, y: 0.5, icon: icon },
@@ -120,10 +120,10 @@ class TestLayer implements Layer {
     ]
   }
 
-  public lines(self, pin: Pin): array<string> { return [`Pin ${pin.of}`] }
+  public lines(pin: Pin): array<string> { return [`Pin ${pin.of}`] }
 
   // A pin clicked has the client point the way to its quest; with Shift, stop watching it (as Quests' do).
-  public press(self, pin: Pin, shift: boolean) {
+  public press(pin: Pin, shift: boolean) {
     if (shift) {
       _ = Client::C_QuestLog::RemoveQuestWatch(pin.of)
     } else {
@@ -138,7 +138,7 @@ class CrowdLayer implements Layer {
   public const title: string = "Crowd"
   public const hint: string = "Pins on one spot"
 
-  public pins(self): array<Pin> {
+  public pins(): array<Pin> {
     const icon: Asset = "Interface/GossipFrame/ActiveQuestIcon"
     return [
       { of: 1, area: 40, x: 0.5, y: 0.5, icon: icon },
@@ -147,8 +147,8 @@ class CrowdLayer implements Layer {
     ]
   }
 
-  public lines(self, pin: Pin): array<string> { return [`Pin ${pin.of}`] }
-  public press(self, pin: Pin, shift: boolean) {}
+  public lines(pin: Pin): array<string> { return [`Pin ${pin.of}`] }
+  public press(pin: Pin, shift: boolean) {}
 }
 
 test "pins on one spot are drawn as one, its tooltip saying each; a lit pin is drawn first" {

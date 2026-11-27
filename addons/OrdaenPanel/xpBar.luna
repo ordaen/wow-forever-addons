@@ -81,7 +81,7 @@ class PartFill implements Component {
     self.fill = fill
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.filled} background={self.fill} tint={self.part.color} desaturate={true} />
       <box $else background={self.part.color} />
@@ -102,17 +102,17 @@ class PartSpot implements Component {
     self.part = part
   }
 
-  onEnter(mut self) {
+  mut onEnter() {
     self.hovered = true
     self.entered.emit()
   }
 
-  onLeave(mut self) {
+  mut onLeave() {
     self.hovered = false
     self.left.emit()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -255,16 +255,16 @@ public class Tube implements Component {
   }
 
   // The label's first part, or its dimmed one.
-  labelOf(self, part: integer): string {
+  labelOf(part: integer): string {
     const first, after = valuesOf(self.view, self.value, self.least, self.most, self.words)
     return part == 1 ? first : after
   }
 
-  onBar(mut self) { self.over = Over::Bar }
-  onPart(mut self) { self.over = Over::Part }
-  onOff(mut self) { self.over = Over::Off }
+  mut onBar() { self.over = Over::Bar }
+  mut onPart() { self.over = Over::Part }
+  mut onOff() { self.over = Over::Off }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={LABELLED} gap={LABEL_ROOM} xAlign={Align::Stretch} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
         <box columns={LABEL_PARTS} gap={LABEL_GAP} xAlign={Align::Center} yAlign={Align::Center}>
@@ -364,7 +364,7 @@ public class XpBar implements Component {
     self.sources = sources
   }
 
-  partsOf(self): array<XpPart> {
+  partsOf(): array<XpPart> {
     const parts = self.sources.map(part => part)
     if (Game::player.rested > 0) {
       parts.push({
@@ -376,13 +376,13 @@ public class XpBar implements Component {
   }
 
   // The rested bonus and its part of the level's whole.
-  restedRow(self): TipRow {
+  restedRow(): TipRow {
     return { label: Locale::XP_TIP_RESTED, value: countOf(Game::player.rested, Game::player.xpMax) }
   }
 
   // Where the experience is, what is left to the next level, each other module's part (quests done), and the rested
   // bonus where there is one: each with its part of the level's whole.
-  experienceRows(self): array<TipRow> {
+  experienceRows(): array<TipRow> {
     let whole = Game::player.xpMax
     let rows: array<TipRow> = [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::player.xp, whole) },
@@ -395,7 +395,7 @@ public class XpBar implements Component {
     return rows
   }
 
-  restRows(self): array<TipRow> {
+  restRows(): array<TipRow> {
     return [
       self.restedRow(),
       { label: Locale::RESTED_TIP_RESTING, value: Game::situation.resting ? Locale::YES : Locale::NO },
@@ -405,7 +405,7 @@ public class XpBar implements Component {
 
   // Where the reputation is in its standing and what is left to the next, named in its colour as the bar is drawn:
   // each with its part of the standing's whole.
-  standingRows(self): array<TipRow> {
+  standingRows(): array<TipRow> {
     let whole = Game::reputation.max - Game::reputation.min
     let rows: array<TipRow> = [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::reputation.value - Game::reputation.min, whole) }
@@ -420,7 +420,7 @@ public class XpBar implements Component {
     return rows
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.width} padding={MARGINS} columns={self.columns} yAlign={Align::Center} gap={GAP}>
         <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game::player.xp} least={0}

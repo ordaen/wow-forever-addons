@@ -122,20 +122,20 @@ public class QueueRow implements Component {
   }
 
   // The queue's count changed: the stepper shows it.
-  follow(mut self, queued: integer) {
+  mut follow(queued: integer) {
     if (queued != peek self.count) { self.count = queued }
   }
 
   // The stepper moved: the queue's count is its.
-  recount(self, count: integer) {
+  recount(count: integer) {
     const line = peek self.line
     if (count != line.count) { self.counted.emit(line.recipe, count) }
   }
 
-  onOpen(self) { self.act.emit(QueueAct::Open, self.line.recipe) }
-  onDrop(self) { self.act.emit(QueueAct::Drop, self.line.recipe) }
+  onOpen() { self.act.emit(QueueAct::Open, self.line.recipe) }
+  onDrop() { self.act.emit(QueueAct::Drop, self.line.recipe) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={LINE} gap={3sp} yAlign={Align::Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
@@ -203,13 +203,13 @@ public class NeedRow implements Component {
   }
 
   // The reagent's tooltip beside its whole row.
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     Game::tooltip.rowAt(frame)
     const item = self.item
     if (item != nil) { Game::items.show(frame, item) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} gap={3sp} yAlign={Align::Center} padding={NEED_PAD} border={Style::ROW_RULE}
            @pointerEnter={self.onEnter}>
@@ -280,22 +280,22 @@ public class QueuePage implements Component {
     self.ready = ready
   }
 
-  onNext(self) { self.next.emit() }
+  onNext() { self.next.emit() }
 
   // Read again when a price may have moved; without prices each need stands alone.
-  entriesOf(self): array<NeedPrice> {
+  entriesOf(): array<NeedPrice> {
     const prices = self.prices
     if (prices == nil) { return self.needs.map(need => ({ need: need, copper: nil, way: Way::None })) }
     _ = prices.revision
     return needPricesOf(prices, self.needs)
   }
 
-  onShop(self) { self.shop.emit(self.needs) }
+  onShop() { self.shop.emit(self.needs) }
 
-  onAct(self, act: QueueAct, id: integer) { self.act.emit(act, id) }
-  onCounted(self, recipe: integer, count: integer) { self.counted.emit(recipe, count) }
+  onAct(act: QueueAct, id: integer) { self.act.emit(act, id) }
+  onCounted(recipe: integer, count: integer) { self.counted.emit(recipe, count) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE}>
         <box $if={self.empty} padding={EMPTY_PAD}>

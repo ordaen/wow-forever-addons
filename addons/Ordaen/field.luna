@@ -36,9 +36,9 @@ public class Field implements Component {
     self.disabled = disabled
   }
 
-  onSubmit(mut self) { self.submit.emit() }
+  mut onSubmit() { self.submit.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={FIELD_HEIGHT} rows={[{ fr: 1 }]}>
         <input value={mut self.value} maxLength={self.maxLength} padding={PADDING} background={FIELD_FILL} border={FIELD_EDGE}

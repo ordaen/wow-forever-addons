@@ -47,13 +47,13 @@ public class ShoppingList {
   }
 
   // The lines as they stand.
-  public lines(self): array<Wanted> {
+  public lines(): array<Wanted> {
     _ = self.revision
     return self.kept.shopping
   }
 
   // So many of an item, and what asked for them.
-  public add(mut self, item: ItemId, count: integer, source: Source) {
+  public mut add(item: ItemId, count: integer, source: Source) {
     if (count <= 0) { return }
     if (self.kept.shopping.length >= MOST) { _ = self.kept.shopping.remove(1) }
     self.kept.shopping.push({ item: item, count: count, source: source })
@@ -61,12 +61,12 @@ public class ShoppingList {
   }
 
   // Every line of an item.
-  public remove(mut self, item: ItemId) {
+  public mut remove(item: ItemId) {
     self.keep(line => line.item != item)
   }
 
   // Every item there is no more to buy of.
-  public clearBought(mut self) {
+  public mut clearBought() {
     const done: map<ItemId, boolean> = {}
     for (row of peek self.rows) {
       if (row.toBuy == 0) { done[row.item] = true }
@@ -75,14 +75,14 @@ public class ShoppingList {
   }
 
   // Every item on the list browsed in one query: their prices come back as the house's results.
-  public searchAll(self): boolean {
+  public searchAll(): boolean {
     let items: array<integer> = []
     for (row of peek self.rows) { items.push(row.item) }
     if (items.length == 0) { return false }
     return Game::auctionQuery.browse(items)
   }
 
-  keep(mut self, kept: (line: Wanted) => boolean) {
+  mut keep(kept: (line: Wanted) => boolean) {
     let left: array<Wanted> = []
     for (line of self.kept.shopping) {
       if (kept(line)) { left.push(line) }
@@ -91,15 +91,15 @@ public class ShoppingList {
     self.revision += 1
   }
 
-  onBags(mut self) { self.bags += 1 }
+  mut onBags() { self.bags += 1 }
 
-  neededOf(self): map<ItemId, integer> {
+  neededOf(): map<ItemId, integer> {
     const made: map<ItemId, integer> = {}
     for (line of self.lines()) { made[line.item] = (made[line.item] ?? 0) + line.count }
     return made
   }
 
-  rowsOf(self): array<Row> {
+  rowsOf(): array<Row> {
     _ = self.bags
     // The items in the order they were first asked for, and each one's lines.
     let order: array<ItemId> = []

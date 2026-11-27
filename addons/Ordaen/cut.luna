@@ -35,7 +35,7 @@ class CutPiece implements Component {
     self.layers = layers
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box background={self.layers.dark} blend={Blend::Multiply}>
         <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.layers.light}
@@ -57,7 +57,7 @@ const SHORT_WALLS: array<number> = [0.7, 0.85, 0.85, 0.7]
 const SHORT_TOP_END: array<number> = [0.6, 0.35]
 
 public class ShortCut implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[TEXEL, TEXEL, TEXEL, TEXEL, TEXEL]} rows={[{ fr: 1 }]} yAlign={Align::Stretch}>
         <box $for={wall of SHORT_WALLS} background={SHORT_SHADOW} opacity={peek wall} />
@@ -82,7 +82,7 @@ public class Groove implements Component {
     self.title = title
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]} yAlign={Align::Stretch}>
         <CutPiece layers={Ordaen.art.ctl.cut.upright} />
@@ -115,7 +115,7 @@ public class Cut implements Component {
     self.title = title
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align::Center}>
         <text value={self.title} textColor={self.color} textWeight={TextWeight::Bold} wrap={.None} />

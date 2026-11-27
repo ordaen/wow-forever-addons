@@ -70,7 +70,7 @@ public class BagChanger {
 
   // The bag lying in `bag` put on: in the place `into` (where it was let go), else where it fits best. `slots` is
   // every slot of the bags in their order; `general` tells the bags that take any item.
-  public start(mut self, bag: Slot, slots: array<Slot>, general: (bag: integer) => boolean, into: integer | nil = nil): Change {
+  public mut start(bag: Slot, slots: array<Slot>, general: (bag: integer) => boolean, into: integer | nil = nil): Change {
     if (Client::CursorHasItem()) { return Change::Busy }
     const target = into ?? placeFor(bag)
     if (target == nil) { return Change::NoPlace }
@@ -90,7 +90,7 @@ public class BagChanger {
   }
 
   // One go: what is left in the place moved out to free slots; with nothing left and nothing locked, the bag put on.
-  public step(mut self) {
+  public mut step() {
     if (!peek self.running) { return }
     if (self.left <= 0) {
       self.running = false

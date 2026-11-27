@@ -4,7 +4,7 @@ import { Art } from "$ltml"
 
 // What draws. Its constructor sets it up, its destructor takes it down.
 public trait Component {
-  public render(self): Template
+  public render(): Template
 }
 
 // One tab of a module's page in the settings window: its name, and its rows.
@@ -24,7 +24,7 @@ public trait Entry {
   // Its tabs in the settings window; none while it is off.
   public pages: Signal<array<SettingsPage>>
   // Ask Ordaen to turn it on (it is made and drawn at once) or off (it is ended at once).
-  public enable(self, on: boolean)
+  public enable(on: boolean)
 }
 
 // A module's root (`implements Module, App`): a component the player turns on and off. It adds itself to Ordaen's

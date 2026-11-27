@@ -93,7 +93,7 @@ public class MicroLine implements Component {
     self.rise = rise
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} face={self.face}
                  icon={self.icon} rise={self.rise} />
@@ -126,7 +126,7 @@ public class SocialLine implements Component {
     self.rise = rise
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} rise={self.rise} />
     }
@@ -163,7 +163,7 @@ public class MoneyLine implements Component {
     self.vertical = vertical
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align::Center}>
         <text value={self.money} textColor={INK} textOutline={self.outline}
@@ -197,7 +197,7 @@ public class BagLine implements Component {
     self.rise = rise
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} rise={self.rise} leading={true} />
       <frame $for={keyring of self.keyrings} of={keyring} shown={false} />

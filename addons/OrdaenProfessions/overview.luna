@@ -82,11 +82,11 @@ public class OverviewLineRow implements Component {
     self.line = line
   }
 
-  onClick(self) {
+  onClick() {
     self.pick.emit(self.line.recipe)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.opens} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <text value={self.line.text} textColor={Style::INK} />
@@ -107,9 +107,9 @@ public class OverviewSection implements Component {
     self.lines = lines
   }
 
-  onPick(self, recipe: integer) { self.pick.emit(recipe) }
+  onPick(recipe: integer) { self.pick.emit(recipe) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={PAD} border={FRAME} background={BACK} gap={3sp}>
         <text value={self.title} textColor={Style::GOLD} />
@@ -155,13 +155,13 @@ public class OverviewPage implements Component {
     self.taught = taught
   }
 
-  nextTextOf(self): string {
+  nextTextOf(): string {
     const next = self.next
     if (next == nil) { return "" }
     return Locale::NEXT_RANK.format(next.name, next.skill, next.level)
   }
 
-  countsOf(self): array<OverviewLine> {
+  countsOf(): array<OverviewLine> {
     const recipes = Game::tradeSkill.recipes
     const learned = recipes.count(r => r.learned)
     return [
@@ -173,7 +173,7 @@ public class OverviewPage implements Component {
 
   // The recipes not learned, by the skill they are learned at, the nearest first: the one a trainer said, else the
   // one they turn yellow at (the client's table has no skill they are learned at). Each says where it is learned.
-  toLearnOf(self): array<OverviewLine> {
+  toLearnOf(): array<OverviewLine> {
     const yellow = self.thresholds.yellow
     const taught = self.taught
     let list: array<Game::Recipe> = Game::tradeSkill.recipes.filter(r => !r.learned)
@@ -196,7 +196,7 @@ public class OverviewPage implements Component {
   }
 
   // Each tool or place a learned recipe asks for, once, in the order met.
-  needsOf(self): array<OverviewLine> {
+  needsOf(): array<OverviewLine> {
     let lines: array<OverviewLine> = []
     for (recipe of Game::tradeSkill.recipes) {
       if (recipe.learned) {
@@ -210,7 +210,7 @@ public class OverviewPage implements Component {
   }
 
   // The tracked recipes of this profession, each with what its bags still lack for one making.
-  trackedOf(self): array<OverviewLine> {
+  trackedOf(): array<OverviewLine> {
     let lines: array<OverviewLine> = []
     for (recipe of Game::tradeSkill.recipes) {
       if (has(self.kept.tracked, recipe.id)) {
@@ -229,9 +229,9 @@ public class OverviewPage implements Component {
     return lines
   }
 
-  onPick(self, recipe: integer) { self.pick.emit(recipe) }
+  onPick(recipe: integer) { self.pick.emit(recipe) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box overflow={Overflow::Scroll} gap={6sp}>
         <box columns={CARD} gap={6sp} yAlign={Align::Center} padding={PAD} border={FRAME} background={BACK}>

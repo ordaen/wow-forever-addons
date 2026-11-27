@@ -99,13 +99,13 @@ public class FactionRow implements Component {
     self.picked = picked
   }
 
-  onClick(self) {
+  onClick() {
     const faction = peek self.faction
     if (faction.header) { self.fold.emit(faction) }
     if (!faction.header || faction.ranked) { self.pick.emit(faction) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[self.indent, MARK, { fr: 1 }, BAR_WIDTH, 46.875dp]} gap={3sp}
            yAlign={Align::Center} background={self.background} @pointerPress={self.onClick}
@@ -139,9 +139,9 @@ public class FactionSwitch implements Component {
     self.disabled = disabled
   }
 
-  onFlip(self) { self.flip.emit() }
+  onFlip() { self.flip.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
         <text value={self.label} textColor={self.ink} />
@@ -177,11 +177,11 @@ public class FactionDetail implements Component {
     self.isInactive = isInactive
   }
 
-  onAtWar(self) { self.atWar.emit(peek self.faction) }
-  onInactive(self) { self.inactive.emit(peek self.faction) }
-  onWatch(self) { self.watch.emit(peek self.faction) }
+  onAtWar() { self.atWar.emit(peek self.faction) }
+  onInactive() { self.inactive.emit(peek self.faction) }
+  onWatch() { self.watch.emit(peek self.faction) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={3sp}>
         <box gap={2sp}>
@@ -237,13 +237,13 @@ public class ReputationPage implements Component {
     self.show = show
   }
 
-  onPick(self, faction: Faction) { self.pick.emit(faction) }
-  onFold(self, faction: Faction) { self.fold.emit(faction) }
-  onAtWar(self, faction: Faction) { self.atWar.emit(faction) }
-  onInactive(self, faction: Faction) { self.inactive.emit(faction) }
-  onWatch(self, faction: Faction) { self.watch.emit(faction) }
+  onPick(faction: Faction) { self.pick.emit(faction) }
+  onFold(faction: Faction) { self.fold.emit(faction) }
+  onAtWar(faction: Faction) { self.atWar.emit(faction) }
+  onInactive(faction: Faction) { self.inactive.emit(faction) }
+  onWatch(faction: Faction) { self.watch.emit(faction) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, Style::SIDE]} yAlign={Align::Stretch}>
         <box rows={["max-content", { fr: 1 }]} gap={3sp}>

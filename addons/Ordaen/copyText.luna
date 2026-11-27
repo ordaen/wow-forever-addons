@@ -16,7 +16,7 @@ public class CopyText implements Component {
     self.value = value
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box overflow={Overflow::Hidden}>
         <text value={self.value} textColor={INK} />

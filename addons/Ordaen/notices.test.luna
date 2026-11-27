@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 class Badge {
   derived count: string = "%d".format(Ordaen.noticeOf("OrdaenSocial"))
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={3sp}> <text value={self.count} /> </box>
     }

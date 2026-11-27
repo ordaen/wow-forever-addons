@@ -17,7 +17,7 @@ class Pick {
   state mode: Mode = Mode::Auction
   state off = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Segmented value={mut self.mode} choices={MODES} disabled={self.off} />
     }

@@ -19,11 +19,11 @@ public class DrawerEntry implements Component {
     self.entry = entry
   }
 
-  onClick(mut self, click: Event::Press) { Game::minimap.runEntry(self.entry, click.button) }
-  onEnter(mut self) { self.hover.emit(self.entry.text) }
-  onLeave(mut self) { self.leave.emit() }
+  mut onClick(click: Event::Press) { Game::minimap.runEntry(self.entry, click.button) }
+  mut onEnter() { self.hover.emit(self.entry.text) }
+  mut onLeave() { self.leave.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={CELL} height={CELL} xAlign={Align::Center} yAlign={Align::Center}
            border={Ordaen.art.panel.slotEdge} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>

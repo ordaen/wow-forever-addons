@@ -70,14 +70,14 @@ class OfferedRow implements Component {
     self.selected = selected
   }
 
-  onPick(self) { self.pick.emit(self.offered.item) }
+  onPick() { self.pick.emit(self.offered.item) }
 
   // The item's tooltip beside its whole row.
-  onRowEnter(self, frame: any Frame) {
+  onRowEnter(frame: any Frame) {
     Game::items.show(frame, self.offered.item)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
@@ -138,9 +138,9 @@ public class SellPage implements Component {
     Game::bags.changed.listen(self.onBags)
   }
 
-  onBags(mut self) { self.bags += 1 }
+  mut onBags() { self.bags += 1 }
 
-  rowsOf(self): array<Offered> {
+  rowsOf(): array<Offered> {
     _ = self.bags
     _ = self.prices.revision
     const given = Game::auctionActions.sellable() ?? []
@@ -172,17 +172,17 @@ public class SellPage implements Component {
     return list
   }
 
-  chosenOf(self): array<Offered> {
+  chosenOf(): array<Offered> {
     const picked = self.picked
     const row = picked != nil ? self.rows.find(row => row.item == picked) : nil
     return row != nil ? [row] : []
   }
 
-  onPick(mut self, item: ItemId) { self.picked = item }
+  mut onPick(item: ItemId) { self.picked = item }
 
-  onOpenOwned(mut self) { self.openOwned.emit() }
+  mut onOpenOwned() { self.openOwned.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={FILL}>
         <box rows={SIDE} gap={3sp}>
@@ -245,7 +245,7 @@ public class Posting implements Component {
   }
 
   // From the player's click alone: one auction.
-  onPost(mut self) {
+  mut onPost() {
     const from = self.offered.from
     const count = peek self.count
     const unit = peek self.unit
@@ -258,13 +258,13 @@ public class Posting implements Component {
     }
   }
 
-  onAnswer(mut self, answer: Game::ActionAnswer) {
+  mut onAnswer(answer: Game::ActionAnswer) {
     if (!peek self.sending) { return }
     self.sending = false
     if (answer is Game::ActionAnswer::Refused) { self.refused = answer.reason }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ItemPanel key={self.key} name={self.offered.name} color={self.offered.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>

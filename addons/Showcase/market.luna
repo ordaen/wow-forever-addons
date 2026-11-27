@@ -61,7 +61,7 @@ public class Market implements Component {
   derived ordered: array<Sale> = self.order()
 
   // The sales by the column the table is sorted by, as the page keeps them when it is not.
-  order(self): array<Sale> {
+  order(): array<Sale> {
     let list: array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
@@ -75,7 +75,7 @@ public class Market implements Component {
     return list
   }
 
-  entriesOf(self): array<MenuEntry> {
+  entriesOf(): array<MenuEntry> {
     return [
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
@@ -83,21 +83,21 @@ public class Market implements Component {
     ]
   }
 
-  onMenuBox(mut self, click: Event::Press) {
+  mut onMenuBox(click: Event::Press) {
     if (click.button == MouseButton::Right) { self.menuOpen = true }
   }
 
-  onMenuPick(mut self, index: integer) {
+  mut onMenuPick(index: integer) {
     self.menuPicked = index
     if (index == 3) { self.menuOn = !self.menuOn } else { self.menuOpen = false }
   }
 
-  onMenuClose(mut self) { self.menuOpen = false }
+  mut onMenuClose() { self.menuOpen = false }
 
-  onItem(mut self, item: integer) { self.chosenItem = item }
-  onSale(mut self, button: MouseButton) { self.clicked = button == MouseButton::Right ? "right" : "left" }
+  mut onItem(item: integer) { self.chosenItem = item }
+  mut onSale(button: MouseButton) { self.clicked = button == MouseButton::Right ? "right" : "left" }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={6sp}>
         <Section title={"Market"}>

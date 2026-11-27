@@ -180,7 +180,7 @@ public class SystemSettings {
 
   // The list read anew, as the tab opens: the client's groups, each with its pages and the pages under them, and every
   // page's lines (a thousand lines, read once a tab's open, for the search). The first page is shown.
-  public read(mut self) {
+  public mut read() {
     const panel = Client::SettingsPanel
     if (panel == nil) { return }
     const groups: array<PageGroup> = []
@@ -203,7 +203,7 @@ public class SystemSettings {
   }
 
   // A page's lines, read from its layout: none for an addon's own frame.
-  public linesOf(self, id: integer): array<SettingLine> {
+  public linesOf(id: integer): array<SettingLine> {
     const panel = Client::SettingsPanel
     const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
@@ -234,14 +234,14 @@ public class SystemSettings {
   }
 
   // The page shown: its lines read, and their values.
-  public open(mut self, id: integer) {
+  public mut open(id: integer) {
     self.page = id
     self.lines = self.linesOf(id)
     self.refresh()
   }
 
   // Every value of the page shown read again (a console variable changed: `CVAR_UPDATE`, or another window).
-  public refresh(mut self) {
+  public mut refresh() {
     const values: map<string, boolean | number | string> = {}
     for (line of peek self.lines) {
       if (line.variable != "") {
@@ -254,7 +254,7 @@ public class SystemSettings {
 
   // A line's setting set to a value, as the line writes it (a console variable's Boolean as `1` or `0`), and the
   // page's values read again; one that waits for Apply is kept as waiting.
-  public write(mut self, line: SettingLine, value: boolean | number | string, byDefault: boolean = false) {
+  public mut write(line: SettingLine, value: boolean | number | string, byDefault: boolean = false) {
     if (line.writing != .None) {
       if (writeSetting(line.variable, value)) {
         const waiting = peek self.waiting
@@ -270,14 +270,14 @@ public class SystemSettings {
   }
 
   // What waits for Apply takes hold: the panel's own commit, as its Apply button does.
-  public apply(mut self) {
+  public mut apply() {
     Client::SettingsPanel?.Commit(nil)
     self.waiting = []
     self.refresh()
   }
 
   // Every setting of the page shown back to its default.
-  public defaults(mut self) {
+  public mut defaults() {
     for (line of peek self.lines) {
       const value = Client::Settings?.GetSetting(line.variable)?.GetDefaultValue()
       if (value != nil && line.writing != .None && value != (peek self.values)[line.variable]) { self.write(line, value, true) }
@@ -285,7 +285,7 @@ public class SystemSettings {
   }
 
   // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).
-  public choicesOf(self, id: integer, variable: string): array<Client::SettingsOption> {
+  public choicesOf(id: integer, variable: string): array<Client::SettingsOption> {
     const panel = Client::SettingsPanel
     const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
@@ -305,7 +305,7 @@ public class SystemSettings {
   // A line's tooltip as Blizzard's window writes it under the line's name: its text; a dropdown's choices that say
   // more of themselves, the one the game recommends and what the one picked warns of; and what the change asks, a
   // restart of the client or a reload.
-  public tipOf(self, line: SettingLine): string {
+  public tipOf(line: SettingLine): string {
     const parts: array<string> = line.tooltip == "" ? [] : [line.tooltip]
     const setting = line.variable == "" ? nil : Client::Settings?.GetSetting(line.variable)
     if (setting == nil) { return parts.join("\n") }
@@ -348,7 +348,7 @@ public class SystemSettings {
   }
 
   // The pages a search finds, by their ids: those whose name, or a line's name or tooltip, holds it.
-  public matching(self, query: string): map<integer, boolean> {
+  public matching(query: string): map<integer, boolean> {
     const found: map<integer, boolean> = {}
     if (query == "") { return found }
     for (group of self.groups) {

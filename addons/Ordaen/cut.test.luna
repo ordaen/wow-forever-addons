@@ -9,7 +9,7 @@ import { Look } from "@/look"
 const DEPTH = 9.375 * 768 / 1080
 
 class Cuts {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={400ui} columns={1} gap={6sp}>
         <Cut title={"Defense"} />
@@ -21,7 +21,7 @@ class Cuts {
 }
 
 class Upright {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={100ui} height={120ui} columns={["max-content", { fr: 1 }]} rows={[{ fr: 1 }]}>
         <Groove upright={true} />

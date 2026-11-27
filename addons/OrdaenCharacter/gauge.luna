@@ -37,17 +37,17 @@ class MarkView implements Component {
     self.mark = mark
   }
 
-  onEnter(mut self) {
+  mut onEnter() {
     self.hovered = true
     self.entered.emit()
   }
 
-  onLeave(mut self) {
+  mut onLeave() {
     self.hovered = false
     self.left.emit()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.columns} rows={ONE}>
         <box />
@@ -85,7 +85,7 @@ const ONE: array<Track> = [{ fr: 1 }]
 
 // The carve's floor, filling the box it stands in: the rim, the marble inside it.
 public class CarvedFloor implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}>
         <RoundedFill color={RIM} radius={ROUND} />
@@ -100,7 +100,7 @@ public class CarvedFloor implements Component {
 // The carve's light inside the rim, lit from the top left, kept off the round corners: the shade under its top edge
 // and down its left side, the lip along its bottom and up its right. Over what the well holds.
 public class CarveShade implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
         <box position={Position::Absolute} left={INNER} top={0ui} right={INNER} height={SHADE_HEIGHT} background={SHADE} />
@@ -128,7 +128,7 @@ public class WellSlice implements Component {
     self.corners = corners
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box>
         <RoundedFill color={self.color} radius={INNER} corners={self.corners} art={TEXTURE} />
@@ -186,10 +186,10 @@ public class GaugeBar implements Component {
     self.marks = marks
   }
 
-  onMarkEntered(self) { self.markEntered.emit() }
-  onMarkLeft(self) { self.markLeft.emit() }
+  onMarkEntered() { self.markEntered.emit() }
+  onMarkLeft() { self.markLeft.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={self.height}>
         <CarvedFloor />

@@ -36,7 +36,7 @@ test "a short name is found only whole, another word that begins as it does is l
 }
 
 class Page {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={400ui}>
         <ScrollText value={"Bring Linen Cloth to Gryan Stoutmantle."}

@@ -101,7 +101,7 @@ public class Maps implements Module, App {
   destructor() { self.host.stop() }
 
   // The map showed, hid, turned or moved: the pins are placed again, and the side panel read as it stands.
-  onChanged(mut self) {
+  mut onChanged() {
     self.side = self.host.sidePanel()
     self.showing = self.host.shown()
     if (!self.showing) { self.host.onlyQuest(0) }
@@ -111,7 +111,7 @@ public class Maps implements Module, App {
   // The world map opened where the area is, the game's marks of `quest` alone shown until it hides (its pins and its
   // shaded area): a module's «Show on map». Otherwise every quest's show, as the game has them. Out of a fight alone:
   // the client opens the map for an addon there only, and a module's «Show on map» is off in one.
-  public show(mut self, area: integer, quest: integer = 0) {
+  public mut show(area: integer, quest: integer = 0) {
     // The others' marks go before the map turns, so no frame draws them over the quest's.
     self.host.onlyQuest(quest)
     self.host.open(area)
@@ -119,11 +119,11 @@ public class Maps implements Module, App {
 
   // How far a place (an `AreaTable` area, 0 to 1 across and down it) is from the player, in yards: a module's
   // «nearest»; nil on another continent, or where the client can't say.
-  public distanceTo(self, area: integer, x: number, y: number): number | nil { return yardsFromPlayer(area, x, y) }
+  public distanceTo(area: integer, x: number, y: number): number | nil { return yardsFromPlayer(area, x, y) }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
   // A lit one goes first, so it is the one drawn.
-  place(mut self, marks: array<Mark>) {
+  mut place(marks: array<Mark>) {
     const placed: array<Placed> = []
     const lines: array<mut array<string>> = []
     const drawn: array<Mark> = []
@@ -147,7 +147,7 @@ public class Maps implements Module, App {
   }
 
   // Map's section of a dungeon's card: its title, then each entry's lines; none where no entry has any.
-  public cardOf(self, map: integer, names: array<string>): array<string> {
+  public cardOf(map: integer, names: array<string>): array<string> {
     const said: array<string> = []
     for (section of self.dungeons) {
       for (line of section.lines(names)) { said.push(line) }
@@ -158,23 +158,23 @@ public class Maps implements Module, App {
   }
 
   // A drawn pin clicked: its layer's.
-  onPressed(mut self, index: integer, shift: boolean) {
+  mut onPressed(index: integer, shift: boolean) {
     const mark = self.drawn[index]
     if (mark != nil) { mark.layer.press(mark.pin, shift) }
   }
 
   // The quest log docked on the map, or apart: the player's switch, as another module flips it.
-  public dock(mut self, on: boolean) { self.settings.values.docked = on }
+  public mut dock(on: boolean) { self.settings.values.docked = on }
 
   // A layer's switch on the settings page or in OpenMap's menu.
-  public flip(mut self, id: string) {
+  public mut flip(id: string) {
     self.settings.values.hidden[id] = self.settings.values.hidden[id] != true
   }
 
-  public shows(self, id: string): boolean { return self.settings.values.hidden[id] != true }
+  public shows(id: string): boolean { return self.settings.values.hidden[id] != true }
 
   // OpenMap's menu: the docked switch, and one for each layer.
-  addSwitches(mut self, list: array<any Layer>) {
+  mut addSwitches(list: array<any Layer>) {
     self.host.menuSwitch(DOCKED_SWITCH, Locale::SETTING_DOCKED, () => peek self.docked, (on: boolean): nil => {
       self.dock(on)
       return nil
@@ -188,7 +188,7 @@ public class Maps implements Module, App {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {}
   }
 }

@@ -30,7 +30,7 @@ public class SpeechBubble implements Component {
     self.tail = tail
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <box padding={PAD} background={BUBBLE} desaturate={true} tint={self.tone}>

@@ -130,7 +130,7 @@ public class Slot {
   // Read again from the game: what changed (`MOVED`: another item lies there, `COUNTED`: its count, `MARKED`: whether it
   // is new, `JUDGED`: its verdict), nought for nothing or a lock alone. The verdict is worked out for a new item, and
   // again once the client loaded an item read before it was (its price and level unknown till then).
-  public refresh(mut self, lists: JunkLists, rules: JunkRules): integer {
+  public mut refresh(lists: JunkLists, rules: JunkRules): integer {
     const was = peek self.id
     const wasCount = peek self.count
     const wasNew = peek self.isNew
@@ -162,7 +162,7 @@ public class Slot {
   }
 
   // The verdict on the item worked out again (a mark, a score or a rule changed): `JUDGED` where it changed.
-  public judge(mut self, lists: JunkLists, rules: JunkRules): integer {
+  public mut judge(lists: JunkLists, rules: JunkRules): integer {
     if (self.read.id == 0) { return 0 }
     const why = junkWhy(self.read, lists, rules)
     const tab = tabOf(self.read.kind, self.read.reagent, why)
@@ -174,13 +174,13 @@ public class Slot {
   }
 
   // A new item looked at: new no more, the client told.
-  public see(mut self) {
+  public mut see() {
     self.isNew = false
     Game::bags.seen(self.bag, self.index)
   }
 
   // What tells two stacks apart for sorting: the item and how many.
-  public key(self): integer {
+  public key(): integer {
     return (peek self.id) * 1000 + (peek self.count)
   }
 }

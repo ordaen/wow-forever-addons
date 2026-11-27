@@ -90,7 +90,7 @@ public class Opened implements Component {
     self.options = options
   }
 
-  readNow(self): Model | nil {
+  readNow(): Model | nil {
     let opens = self.opens
     match (opens) {
       Opens::Term => return term(opens.term, opens.amount)
@@ -108,7 +108,7 @@ public class Opened implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TipFrame $if={self.some} model={self.model} side={true} locked={true}>
         <Opened #opened={opens} opens={opens} options={self.options} />
@@ -179,10 +179,10 @@ public class TipGroup implements Component {
     self.draggable = draggable
   }
 
-  onDragStart(mut self) { self.drag.emit(true) }
-  onDragStop(mut self) { self.drag.emit(false) }
+  mut onDragStart() { self.drag.emit(true) }
+  mut onDragStop() { self.drag.emit(false) }
 
-  onClose(mut self) { self.close.emit() }
+  mut onClose() { self.close.emit() }
   // The main tooltip, with what opens from it and what other modules add after its body (the group's owner fills it).
   const main: Template = $ltml {
     <TipFrame model={self.model} locks={self.locks} charge={self.charge} locked={self.locked} @close={self.onClose}>
@@ -191,11 +191,11 @@ public class TipGroup implements Component {
     </TipFrame>
   }
   // The cursor on the group and off it, locked or not: a group that locks under a cursor already on it is told so.
-  onEnter(mut self) { self.enter.emit() }
-  onLeave(mut self) { self.leave.emit() }
+  mut onEnter() { self.enter.emit() }
+  mut onLeave() { self.leave.emit() }
 
   // The worn items from the screen's left to its right: away from the main tooltip, which stands at the frame.
-  inOrder(self): array<Model> {
+  inOrder(): array<Model> {
     if (!self.leftwards) { return self.compared }
     let leftwards: array<Model> = []
     for (i of self.compared.length..1 step -1) {
@@ -205,7 +205,7 @@ public class TipGroup implements Component {
     return leftwards
   }
 
-  at(self): Place {
+  at(): Place {
     let standing = self.standing
     const hang = standing.hang
     // Compared, the main tooltip stands lower by the worn one's header: the group goes as much higher, so the main
@@ -232,7 +232,7 @@ public class TipGroup implements Component {
       { point: Point::BottomLeft, to: Point::TopLeft, by: standing.by }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // The library's group: the cursor on any tooltip and on the gaps between them is on the group, the lock's.
       <TooltipGroup shown={self.shown} place={self.place} beside={self.besides} across={self.across}

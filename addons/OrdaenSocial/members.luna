@@ -165,7 +165,7 @@ class MemberRow implements Component {
     self.extra = extra
   }
 
-  onPick(self, button: MouseButton) {
+  onPick(button: MouseButton) {
     const key = (peek self.member).key
     if (button == .Right) {
       self.menu.emit(key)
@@ -174,7 +174,7 @@ class MemberRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell>
@@ -227,11 +227,11 @@ public class MemberTable implements Component {
     self.columns = guild ? GUILD_COLUMNS : CLUB_COLUMNS
   }
 
-  onPick(mut self, key: string) { self.pick.emit(key) }
-  onMenu(mut self, key: string) { self.menu.emit(key) }
+  mut onPick(key: string) { self.pick.emit(key) }
+  mut onMenu(key: string) { self.menu.emit(key) }
 
   // The table, of these columns: one for each choice of the extra column, each its headings' own.
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <box padding={Style::SIDE_ROOM}>
@@ -288,18 +288,18 @@ public class MemberCard implements Component {
     self.rankTitle = rankTitle
   }
 
-  statusOf(self): string {
+  statusOf(): string {
     const text = presenceText(self.member.presence)
     return self.member.away > 0 ? `${text} · ${hoursAgoText(self.member.away)}` : text
   }
 
-  onWhisper(self) { self.whisper.emit() }
-  onInvite(self) { self.invite.emit() }
-  onPromote(self) { self.promote.emit() }
-  onDemote(self) { self.demote.emit() }
-  onMenu(self) { self.menu.emit() }
+  onWhisper() { self.whisper.emit() }
+  onInvite() { self.invite.emit() }
+  onPromote() { self.promote.emit() }
+  onDemote() { self.demote.emit() }
+  onMenu() { self.menu.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>

@@ -35,7 +35,7 @@ class Sales {
   public state height: number<Length> | nil = nil
   public derived ordered: array<Sale> = self.order()
 
-  order(self): array<Sale> {
+  order(): array<Sale> {
     let list: array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
@@ -49,12 +49,12 @@ class Sales {
     return list
   }
 
-  onPick(mut self, button: MouseButton) {
+  mut onPick(button: MouseButton) {
     self.picked = button == MouseButton::Right ? "right" : "row"
     self.clicks += 1
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
         <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onPick}>
@@ -135,7 +135,7 @@ class Long {
   public state sorted = 0
   public state descending = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={200ui} rows={PAGE}>
         <text value={"head"} />
@@ -194,7 +194,7 @@ class Shared {
   public state sorted = 0
   public state descending = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={SHARED} sorted={mut self.sorted} descending={mut self.descending}>
         <TableRow>
@@ -249,9 +249,9 @@ class Grouped {
   // The row the cursor last came onto.
   public row: any Frame | nil = nil
 
-  onRow(mut self, frame: any Frame) { self.row = frame }
+  mut onRow(frame: any Frame) { self.row = frame }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground::Wood}>
         <TableRow $for={ware of WARES} ground={Ground::Wood} @enter={self.onRow}>
@@ -326,9 +326,9 @@ class Nested {
   public state descending = false
   public row: any Frame | nil = nil
 
-  onRow(mut self, frame: any Frame) { self.row = frame }
+  mut onRow(frame: any Frame) { self.row = frame }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={NESTED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground::Wood}>
         <TableRow ground={Ground::Wood} @enter={self.onRow}>

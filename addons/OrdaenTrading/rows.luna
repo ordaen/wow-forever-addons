@@ -24,7 +24,7 @@ public class PriceLine implements ItemLines {
     self.on = on
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     if (!self.on) { return NONE }
     _ = self.prices.revision
     const quote = self.prices.buy(PriceKey::ofLink(item, link))
@@ -61,7 +61,7 @@ public class ListedLine implements ItemLines {
     self.list = list
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     const needed = self.list.needed[ItemId::of(item)]
     if (needed == nil) { return NONE }
     const held = Game::items.owned(item).min(needed)

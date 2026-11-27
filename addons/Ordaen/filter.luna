@@ -68,9 +68,9 @@ class FilterLine<K: unknown> implements Component {
     self.on = on
   }
 
-  onFlip(self) { self.flip.emit(self.option.key) }
+  onFlip() { self.flip.emit(self.option.key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={LINE} gap={5sp} yAlign={Align::Center} @pointerPress={self.onFlip}
            @keyPress(.Enter)={self.onFlip} @keyPress(.Space)={self.onFlip}>
@@ -101,10 +101,10 @@ class FilterSection<K: unknown> implements Component {
     self.index = index
   }
 
-  onFlip(self, key: K) { self.flip.emit(key) }
-  onFlipAll(self) { self.flipAll.emit(self.index) }
+  onFlip(key: K) { self.flip.emit(key) }
+  onFlipAll() { self.flipAll.emit(self.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={3sp} padding={self.padding} border={self.rule}>
         <box $if={self.titled} columns={LINE} gap={5sp} yAlign={Align::Center} @pointerPress={self.onFlipAll}
@@ -141,7 +141,7 @@ public class FilterButton<K: unknown> implements Component {
   }
 
   // The Tip's text: the options on, in the menu's order.
-  namedOf(self): string {
+  namedOf(): string {
     const on: array<string> = []
     for (group of self.groups) {
       for (option of group.options) {
@@ -151,19 +151,19 @@ public class FilterButton<K: unknown> implements Component {
     return on.length == 0 ? Locale::FILTER_NONE : on.join(", ")
   }
 
-  close(mut self) { self.open = false }
+  mut close() { self.open = false }
 
-  onFlip(mut self, key: K) { self.values = switched(self.values, [key], self.values[key] != true) }
+  mut onFlip(key: K) { self.values = switched(self.values, [key], self.values[key] != true) }
 
-  onFlipAll(mut self, index: integer) {
+  mut onFlipAll(index: integer) {
     const group = self.groups[index] ?? panic("a section is one of the filter's groups")
     const keys = group.options.map(option => option.key)
     self.values = switched(self.values, keys, shownOf(group, self.values) != .On)
   }
 
-  onReset(mut self) { self.values = switched(self.start, [], true) }
+  mut onReset() { self.values = switched(self.start, [], true) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} text={self.named} open={mut self.open}
                   lit={self.narrowed}>

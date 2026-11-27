@@ -63,7 +63,7 @@ public class Looter {
     Game::loot.showWindow(true)
   }
 
-  onOpened(mut self, auto: boolean) {
+  mut onOpened(auto: boolean) {
     self.slots = Game::loot.slots()
     self.left = false
     self.sounded = false
@@ -77,7 +77,7 @@ public class Looter {
   }
 
   // From the last slot to the first, a step apart: a slot taken shifts none of those before it.
-  async lootAll(mut self) {
+  async mut lootAll() {
     const threshold = Game::loot.threshold()
     for (index of self.slots.length..1 step -1) {
       const slot = self.slots[index] ?? panic("a slot of the window")
@@ -92,20 +92,20 @@ public class Looter {
     self.looting = nil
   }
 
-  onCleared(self, cleared: integer) {
+  onCleared(cleared: integer) {
     for (slot of self.slots) {
       if (slot.slot == cleared) { self.took.emit(slot) }
     }
   }
 
-  onClosed(mut self) {
+  mut onClosed() {
     if (self.looting != nil) { destroy self.looting }
     self.looting = nil
     self.slots = []
     if (peek self.choices.fast) { Game::loot.showWindow(false) }
   }
 
-  onRefused(mut self, why: LootRefusal) {
+  mut onRefused(why: LootRefusal) {
     if (!peek self.choices.fast) { return }
     Game::loot.showWindow(true)
     if (why == .Full && peek self.choices.fullSound && !self.sounded) {

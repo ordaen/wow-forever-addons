@@ -66,17 +66,17 @@ public class ReportPage implements Component {
     self.count = self.counted()
   }
 
-  counted(self): string {
+  counted(): string {
     const session = self.errors.sessionCount()
     return Locale::REPORT_COUNT.format(session, self.errors.db.errors.length - session)
   }
 
-  make(mut self) {
+  mut make() {
     self.count = self.counted()
     self.text = report(self.errors)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::REPORT_SECTION}>
         <text value={Locale::REPORT_HINT} />

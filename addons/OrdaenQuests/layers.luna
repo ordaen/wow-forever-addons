@@ -12,7 +12,7 @@ public class DungeonQuests implements DungeonSection {
   quests: Signal<array<LogQuest>>
   constructor(quests: Signal<array<LogQuest>>) { self.quests = quests }
 
-  public lines(self, names: array<string>): array<string> {
+  public lines(names: array<string>): array<string> {
     const lines: array<string> = []
     for (quest of self.quests) {
       if (names.find(name => name == quest.header) != nil) { lines.push(`[${quest.level}] ${quest.title}`) }
@@ -64,7 +64,7 @@ public class ChainPins implements Layer {
     self.shown = shown
   }
 
-  public pins(self): array<Pin> {
+  public pins(): array<Pin> {
     const facts = self.facts
     const pins: array<Pin> = []
     if (facts == nil || self.shown == 0 || self.shown != self.chained) { return pins }
@@ -77,14 +77,14 @@ public class ChainPins implements Layer {
   }
 
   // The quest's title, then who gives it.
-  public lines(self, pin: Pin): array<string> {
+  public lines(pin: Pin): array<string> {
     const facts = self.facts
     if (facts == nil) { return [] }
     return [facts.name, Locale::GIVEN_BY.format(facts.givers.map(figure => figure.name).join(", "))]
   }
 
   // Not in the log: nothing to point the way to.
-  public press(self, pin: Pin, shift: boolean) {}
+  public press(pin: Pin, shift: boolean) {}
 }
 
 const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
@@ -110,7 +110,7 @@ public class TurnInPins implements Layer {
     self.shown = shown
   }
 
-  public pins(self): array<Pin> {
+  public pins(): array<Pin> {
     const pins: array<Pin> = []
     const quest = self.quests.find(quest => quest.id == self.shown)
     const facts = self.facts[self.shown]
@@ -124,13 +124,13 @@ public class TurnInPins implements Layer {
   }
 
   // The quest's title, then that it is turned in there.
-  public lines(self, pin: Pin): array<string> {
+  public lines(pin: Pin): array<string> {
     const quest = self.quests.find(quest => quest.id == pin.of)
     return quest == nil ? [] : [quest.title, Locale::TURN_IN]
   }
 
   // As the game's map has its quest pins: a click points the way to the quest, Shift+click stops tracking it.
-  public press(self, pin: Pin, shift: boolean) {
+  public press(pin: Pin, shift: boolean) {
     if (shift) {
       Game::questLog.track(pin.of, false)
     } else {
@@ -186,7 +186,7 @@ public class NpcPins implements Layer {
   shown: Signal<Figure | nil>
   constructor(shown: Signal<Figure | nil>) { self.shown = shown }
 
-  public pins(self): array<Pin> {
+  public pins(): array<Pin> {
     const figure = self.shown
     const pins: array<Pin> = []
     if (figure == nil) { return pins }
@@ -196,7 +196,7 @@ public class NpcPins implements Layer {
     return pins
   }
 
-  public lines(self, pin: Pin): array<string> { return [self.shown?.name ?? ""] }
+  public lines(pin: Pin): array<string> { return [self.shown?.name ?? ""] }
 
-  public press(self, pin: Pin, shift: boolean) {}
+  public press(pin: Pin, shift: boolean) {}
 }

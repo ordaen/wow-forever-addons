@@ -62,14 +62,14 @@ class OwnedRow implements Component {
     self.busy = busy
   }
 
-  onCancel(self) { self.cancel.emit(self.shown.auction) }
+  onCancel() { self.cancel.emit(self.shown.auction) }
 
   // The item's tooltip beside its whole row.
-  onRowEnter(self, frame: any Frame) {
+  onRowEnter(frame: any Frame) {
     Game::items.show(frame, self.shown.item)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow @enter={self.onRowEnter}>
         <TableCell>
@@ -123,7 +123,7 @@ public class OwnedPage implements Component {
     Game::auctionActions.answered.listen(self.onAnswer)
   }
 
-  shownOf(self): array<Shown> {
+  shownOf(): array<Shown> {
     _ = self.revision
     let list: array<Shown> = []
     for (owned of Game::ownedAuctions.list) {
@@ -142,7 +142,7 @@ public class OwnedPage implements Component {
   }
 
   // The auctions asked again, and their items browsed for the house's lowest.
-  onCheck(self) {
+  onCheck() {
     _ = Game::ownedAuctions.refresh()
     let items: array<integer> = []
     for (owned of peek Game::ownedAuctions.list) { items.push(owned.item) }
@@ -150,17 +150,17 @@ public class OwnedPage implements Component {
   }
 
   // From the player's click alone: one auction.
-  onCancel(mut self, auction: integer) {
+  mut onCancel(auction: integer) {
     if (Game::auctionActions.cancel(auction)) { self.sending = true }
   }
 
-  onAnswer(mut self, answer: Game::ActionAnswer) {
+  mut onAnswer(answer: Game::ActionAnswer) {
     if (!peek self.sending) { return }
     self.sending = false
     if (answer == .Cancelled) { _ = Game::ownedAuctions.refresh() }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
         <box rows={FILL}>

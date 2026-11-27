@@ -43,16 +43,16 @@ class Controls {
   state menu = false
   state picked = 0
 
-  close(mut self) { self.open = false }
-  pickRow(mut self) { self.row += 1 }
-  showMenu(mut self) { self.menu = true }
-  hideMenu(mut self) { self.menu = false }
-  onPick(mut self, at: integer) {
+  mut close() { self.open = false }
+  mut pickRow() { self.row += 1 }
+  mut showMenu() { self.menu = true }
+  mut hideMenu() { self.menu = false }
+  mut onPick(at: integer) {
     self.picked = at
     self.menu = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}
               @close={self.close}>

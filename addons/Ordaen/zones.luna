@@ -49,20 +49,20 @@ public class ZoneChip<K: unknown> implements Component {
     self.pooled = pooled
   }
 
-  onGrab(mut self) {
+  mut onGrab() {
     self.dragging = self.item.key
     self.hinted = nil
   }
 
-  onRelease(mut self) { self.dragging = nil }
+  mut onRelease() { self.dragging = nil }
 
-  onEnter(mut self) {
+  mut onEnter() {
     if (self.dragging == nil) { self.hinted = self.item.key }
   }
 
-  onLeave(mut self) { self.hinted = nil }
+  mut onLeave() { self.hinted = nil }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={CHIP_PAD} background={CHIP} border={CHIP_EDGE} desaturate={self.pooled} opacity={self.opacity}
            @dragStart={self.onGrab} @dragStop={self.onRelease} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -108,19 +108,19 @@ public class ZoneColumn<K: unknown, Z: unknown> implements Component {
     self.pool = pool
   }
 
-  alignOf(self): Align {
+  alignOf(): Align {
     if (self.pool) { return Align::Start }
     if (self.index == 2) { return Align::Center }
     if (self.index == 3) { return Align::End }
     return Align::Start
   }
 
-  onDrop(mut self) {
+  mut onDrop() {
     let key = self.dragging
     if (key != nil && self.value[key] != self.zone.value) { self.value[key] = self.zone.value }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={2sp} padding={2.5sp} xAlign={self.align} yAlign={Align::Start} border={self.divider}
            @drop={self.onDrop}>
@@ -159,7 +159,7 @@ public class Zones<K: unknown, Z: unknown> implements Component {
     self.value = value
   }
 
-  hintedItem(self): ZoneItem<K> | nil {
+  hintedItem(): ZoneItem<K> | nil {
     let key = self.hinted
     if (key == nil) { return nil }
     for (item of self.items) {
@@ -168,7 +168,7 @@ public class Zones<K: unknown, Z: unknown> implements Component {
     return nil
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={2.5sp}>
         <box columns={self.zones.length} background={BOX} border={BRONZE}>

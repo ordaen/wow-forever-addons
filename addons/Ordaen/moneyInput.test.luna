@@ -7,7 +7,7 @@ class Price {
   state copper: integer = 12503
   state off = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <MoneyInput label={"Price"} value={mut self.copper} disabled={self.off} />
     }

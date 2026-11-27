@@ -37,7 +37,7 @@ public class TrackerOpener implements QuestOpener {
     self.showing = showing
   }
 
-  public open(self, quest: integer): boolean { return self.opening(quest) }
+  public open(quest: integer): boolean { return self.opening(quest) }
 
-  public showOnMap(self, quest: integer): boolean { return self.showing(quest) }
+  public showOnMap(quest: integer): boolean { return self.showing(quest) }
 }

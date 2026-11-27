@@ -137,7 +137,7 @@ public class LetterRow implements Component {
     watch (value of self.checked) { self.tickChanged() }
   }
 
-  firstOf(self): array<Game::MailItem> {
+  firstOf(): array<Game::MailItem> {
     const list: array<Game::MailItem> = []
     for (item of self.letter.items) {
       if (list.length < FIRST_ITEMS) { list.push(item) }
@@ -145,32 +145,32 @@ public class LetterRow implements Component {
     return list
   }
 
-  onPick(mut self) {
+  mut onPick() {
     if (self.busy) { return }
     self.clicked.emit(self.letter.index, .Open)
   }
 
   // Shift takes everything from the letter; Ctrl returns it.
-  onModified(mut self, key: Modifier) {
+  mut onModified(key: Modifier) {
     if (self.busy) { return }
     self.clicked.emit(self.letter.index, key == .Shift ? .Take : .Return)
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
   // The list ticked a letter (or a range): the box follows.
-  syncChecked(mut self) {
+  mut syncChecked() {
     const on = (peek self.ticked).any(i => i == self.letter.index)
     if (on != peek self.checked) { self.checked = on }
   }
 
   // The player ticked the box: the list is told if it doesn't hold it so yet.
-  tickChanged(self) {
+  tickChanged() {
     if (self.checked != (peek self.ticked).any(i => i == self.letter.index)) { self.tick.emit(self.letter.index) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <PickRow columns={ROW} picked={self.on} @pick={self.onPick} @modified={self.onModified}>
@@ -212,12 +212,12 @@ public class LetterTableRow implements Component {
     self.busy = busy
   }
 
-  onPick(mut self) {
+  mut onPick() {
     if (self.busy) { return }
     self.clicked.emit(self.letter.index, clickOf())
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.on} @pick={self.onPick}>
         <TableCell> <text value={self.letter.subject} textColor={Style::INK} wrap={.Cut} /> </TableCell>
@@ -242,9 +242,9 @@ public class KindCaption implements Component {
     self.folded = folded
   }
 
-  onToggle(mut self) { self.fold.emit(self.group.kind) }
+  mut onToggle() { self.fold.emit(self.group.kind) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <FoldCaption title={self.group.title} folded={self.shut} @toggled={self.onToggle} /> }
   }
 }
@@ -285,7 +285,7 @@ public class Inbox implements Component {
   }
 
   // The letters the filter and the search keep, in the order sorted (the inbox's own where none is).
-  shownOf(self): array<Game::MailLetter> {
+  shownOf(): array<Game::MailLetter> {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.letters.filter(l => matches(l, filter, search))
@@ -300,7 +300,7 @@ public class Inbox implements Component {
     return list
   }
 
-  groupsOf(self): array<Group> {
+  groupsOf(): array<Group> {
     const list: array<Group> = []
     for (kind of KINDS) {
       const part = self.shown.filter(l => l.kind == kind)
@@ -316,14 +316,14 @@ public class Inbox implements Component {
     return list
   }
 
-  isTicked(self, index: integer): boolean { return self.ticked.any(i => i == index) }
+  isTicked(index: integer): boolean { return self.ticked.any(i => i == index) }
 
-  onClicked(mut self, index: integer, click: RowClick) { self.clicked.emit(index, click) }
+  mut onClicked(index: integer, click: RowClick) { self.clicked.emit(index, click) }
 
-  onFold(mut self, kind: Game::MailKind) { self.folded[kind] = !(self.folded[kind] == true) }
+  mut onFold(kind: Game::MailKind) { self.folded[kind] = !(self.folded[kind] == true) }
 
   // A tick turns one letter on or off; with Shift it ticks every letter shown from the last ticked to this one.
-  onTick(mut self, index: integer) {
+  mut onTick(index: integer) {
     if (self.isTicked(index)) {
       self.ticked = (peek self.ticked).filter(i => i != index)
       return
@@ -345,11 +345,11 @@ public class Inbox implements Component {
     self.ticked = next
   }
 
-  onTakeAll(mut self) { self.takeAll.emit(self.shown.filter(collectable)) }
-  onTakeTicked(mut self) { self.takeTicked.emit() }
-  onReturnTicked(mut self) { self.returnTicked.emit() }
+  mut onTakeAll() { self.takeAll.emit(self.shown.filter(collectable)) }
+  mut onTakeTicked() { self.takeTicked.emit() }
+  mut onReturnTicked() { self.returnTicked.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
         <box columns={TOP} gap={2sp} yAlign={Align::Center}>

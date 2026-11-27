@@ -24,30 +24,30 @@ public trait MapHost {
   public const changed: Event<nil>
   // A drawn pin clicked: its place in what `draw` was given (from 1), and whether Shift was held.
   public const pressed: Event<(integer, boolean)>
-  public start(mut self)
-  public stop(mut self)
+  public mut start()
+  public mut stop()
   // Whether OpenMap is there, of the API Map is written against.
-  public present(self): boolean
+  public present(): boolean
   // Whether the world map shows.
-  public shown(self): boolean
+  public shown(): boolean
   // Docked: the client's `questLogOpen`, which Blizzard's map opens its side panel by.
-  public docked(self): boolean
-  public dock(mut self, on: boolean)
+  public docked(): boolean
+  public mut dock(on: boolean)
   // The world map opened at the map that holds the area (an `AreaTable` area), as the game's «Show on map» turns it;
   // the map it shows where the area is none of a map's.
-  public open(mut self, area: integer)
+  public mut open(area: integer)
   // The game's quest marks (its pins, a quest's shaded area) of this quest alone, its area drawn; 0: every quest's.
-  public onlyQuest(mut self, quest: integer)
+  public mut onlyQuest(quest: integer)
   // Where the pin stands on the canvas, 0 to 1; nil where its zone isn't in view.
-  public place(mut self, pin: Pin): Placed | nil
+  public mut place(pin: Pin): Placed | nil
   // The pins on the canvas, each with its tooltip's lines.
-  public draw(mut self, placed: array<Placed>, lines: array<array<string>>)
+  public mut draw(placed: array<Placed>, lines: array<array<string>>)
   // A switch in OpenMap's menu.
-  public menuSwitch(mut self, id: string, label: string, get: () => boolean, set: (on: boolean) => nil)
+  public mut menuSwitch(id: string, label: string, get: () => boolean, set: (on: boolean) => nil)
   // Ordaen's section of a dungeon's card: `run` gives its title and lines for the dungeon's map and instances.
-  public dungeonSection(mut self, run: (map: integer, names: array<string>) => array<string>)
+  public mut dungeonSection(run: (map: integer, names: array<string>) => array<string>)
   // The map's side panel while it shows; nil while it doesn't.
-  public sidePanel(self): SidePanel | nil
+  public sidePanel(): SidePanel | nil
 }
 
 // How big a pin is on the screen, in UI units.
@@ -68,7 +68,7 @@ public class OpenMapHost implements MapHost {
   // Who OpenMap's callbacks are registered for (CallbackHandler keys them by a table).
   owner: Table = {}
 
-  public start(mut self) {
+  public mut start() {
     WorldMap::listen((): nil => {
       self.changed.emit()
       return nil
@@ -86,7 +86,7 @@ public class OpenMapHost implements MapHost {
     }
   }
 
-  public stop(mut self) {
+  public mut stop() {
     WorldMap::forget()
     WorldMap::onlyQuest(0)
     if (self.present()) {
@@ -97,17 +97,17 @@ public class OpenMapHost implements MapHost {
     self.draw([], [])
   }
 
-  public present(self): boolean { return OpenMapAPI::major == API_MAJOR && OpenMapAPI::version >= API_VERSION }
+  public present(): boolean { return OpenMapAPI::major == API_MAJOR && OpenMapAPI::version >= API_VERSION }
 
-  public shown(self): boolean { return WorldMap::shownMap() != 0 }
+  public shown(): boolean { return WorldMap::shownMap() != 0 }
 
-  public docked(self): boolean { return Client::C_CVar::GetCVarBool("questLogOpen") == true }
+  public docked(): boolean { return Client::C_CVar::GetCVarBool("questLogOpen") == true }
 
-  public dock(mut self, on: boolean) { _ = Client::C_CVar::SetCVar("questLogOpen", on ? "1" : "0") }
+  public mut dock(on: boolean) { _ = Client::C_CVar::SetCVar("questLogOpen", on ? "1" : "0") }
 
   // OpenMap's stitched map keeps its own view whatever map the client opens at: it is glided to the area's map, the
   // map filling most of it.
-  public open(mut self, area: integer) {
+  public mut open(area: integer) {
     const map = mapOfArea[area]
     // The map already open there isn't opened again: the game would make every pin anew.
     if (map == nil || WorldMap::shownMap() != map) { Client::C_Map::OpenWorldMap(map) }
@@ -119,9 +119,9 @@ public class OpenMapHost implements MapHost {
     _ = OpenMapAPI::ShowWorld((left + right) / 2, (top + bottom) / 2, span > 0 ? MAP_FILL / span : nil)
   }
 
-  public onlyQuest(mut self, quest: integer) { WorldMap::onlyQuest(quest) }
+  public mut onlyQuest(quest: integer) { WorldMap::onlyQuest(quest) }
 
-  public place(mut self, pin: Pin): Placed | nil {
+  public mut place(pin: Pin): Placed | nil {
     const shown = WorldMap::shownMap()
     const map = mapOfArea[pin.area] ?? 0
     if (shown == 0 || map == 0) { return nil }
@@ -137,12 +137,7 @@ public class OpenMapHost implements MapHost {
     return OpenMapHost::within(pin, left + pin.x * (right - left), top + pin.y * (bottom - top))
   }
 
-  within(pin: Pin, x: number, y: number): Placed | nil {
-    const near = x > -REACH && x < 1 + REACH && y > -REACH && y < 1 + REACH
-    return near ? { pin: pin, x: x, y: y } : nil
-  }
-
-  public draw(mut self, placed: array<Placed>, lines: array<array<string>>) {
+  public mut draw(placed: array<Placed>, lines: array<array<string>>) {
     const canvas = WorldMap::canvas()
     if (canvas == nil) { return }
     const width = canvas.GetWidth()
@@ -171,7 +166,7 @@ public class OpenMapHost implements MapHost {
     }
   }
 
-  pinFrame(mut self, index: integer, canvas: any Client::Frame): any Client::Button {
+  mut pinFrame(index: integer, canvas: any Client::Frame): any Client::Button {
     const kept = self.pins[index]
     if (kept != nil) { return kept }
     const made = new Client::Button(canvas)
@@ -188,17 +183,22 @@ public class OpenMapHost implements MapHost {
     return made
   }
 
-  public menuSwitch(mut self, id: string, label: string, get: () => boolean, set: (on: boolean) => nil) {
+  public mut menuSwitch(id: string, label: string, get: () => boolean, set: (on: boolean) => nil) {
     if (!self.present()) { return }
     OpenMapAPI::RegisterMenuToggle("OrdaenMap", { id: id, label: label, get: get, set: set, tab: "show", section: "Ordaen" })
   }
 
-  public dungeonSection(mut self, run: (map: integer, names: array<string>) => array<string>) {
+  public mut dungeonSection(run: (map: integer, names: array<string>) => array<string>) {
     if (self.present()) { WorldMap::dungeonSection(run) }
   }
 
-  public sidePanel(self): SidePanel | nil {
+  public sidePanel(): SidePanel | nil {
     let frame, width, height = WorldMap::sidePanel()
     return frame == nil ? nil : { frame: frame, width: width, height: height }
+  }
+} static {
+  within(pin: Pin, x: number, y: number): Placed | nil {
+    const near = x > -REACH && x < 1 + REACH && y > -REACH && y < 1 + REACH
+    return near ? { pin: pin, x: x, y: y } : nil
   }
 }

@@ -22,7 +22,7 @@ public class FooterCounts implements Component {
     self.counts = counts
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={{ each: "max-content" }} gap={6sp} yAlign={Align::Center}>
         <box $for={count of self.counts} columns={{ each: "max-content" }} gap={3sp} yAlign={Align::Center}>

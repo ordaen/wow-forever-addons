@@ -14,7 +14,7 @@ public class SettingsTab implements Component {
     self.shown = shown
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={4sp} shown={self.shown}>
         <slot />

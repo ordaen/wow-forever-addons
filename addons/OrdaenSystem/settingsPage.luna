@@ -52,12 +52,12 @@ public class SettingsTab implements Component {
     }
   }
 
-  pickedGroup(self): array<PageGroup> {
+  pickedGroup(): array<PageGroup> {
     const group = self.settings.groups[self.group]
     return group == nil ? [] : [group]
   }
 
-  pageOf(self): SettingsPage | nil {
+  pageOf(): SettingsPage | nil {
     for (group of self.settings.groups) {
       const page = group.pages.find(candidate => candidate.id == self.settings.page)
       if (page != nil) { return page }
@@ -65,12 +65,12 @@ public class SettingsTab implements Component {
     return nil
   }
 
-  titleOf(self): string { return self.pageOf()?.name ?? "" }
+  titleOf(): string { return self.pageOf()?.name ?? "" }
 
-  onPick(mut self, id: integer) { self.settings.open(id) }
-  onBlizzard(self) { self.blizzard.emit(self.settings.page) }
+  mut onPick(id: integer) { self.settings.open(id) }
+  onBlizzard() { self.blizzard.emit(self.settings.page) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }]} gap={3sp}>
         <Toolbar search={mut self.search} placeholder={Locale::SETTINGS_SEARCH} />
@@ -144,9 +144,9 @@ class PageGroupList implements Component {
     self.found = found
   }
 
-  onPick(self, id: integer) { self.pick.emit(id) }
+  onPick(id: integer) { self.pick.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.any} gap={1sp}>
         <box $if={self.captioned} padding={PAD}>
@@ -170,9 +170,9 @@ class PageEntry implements Component {
     self.picked = picked
   }
 
-  onPick(self) { self.pick.emit(self.page.id) }
+  onPick() { self.pick.emit(self.page.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={self.padding}>
         <ListTab label={self.page.name} selected={self.selected} oneLine={true} @pick={self.onPick} />
@@ -221,16 +221,16 @@ class LineRow implements Component {
   }
 
   // A control's value that isn't the client's: the player changed it, and the variable is written.
-  changed(mut self, value: boolean | number | string) {
+  mut changed(value: boolean | number | string) {
     const variable = peek self.line.variable
     const now = (peek self.settings.values)[variable]
     if (now == nil || now == value || peek self.locked) { return }
     self.settings.write(peek self.line, value)
   }
 
-  onBlizzard(self) { self.blizzard.emit() }
+  onBlizzard() { self.blizzard.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={!self.hidden} padding={self.inset}>
         <Checkbox $if={self.line.kind == LineKind::Check} label={self.line.name} value={mut self.checked}

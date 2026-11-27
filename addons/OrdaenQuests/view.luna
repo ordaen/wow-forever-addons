@@ -81,9 +81,9 @@ public class HeaderRow implements Component {
     self.quests = quests
   }
 
-  onFold(mut self) { self.fold.emit(self.header) }
+  mut onFold() { self.fold.emit(self.header) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={HEADER_PAD} background={HEADER_BAND} border={HEADER_LINE}>
         <FoldCaption title={self.header} folded={self.folded} @toggled={self.onFold}>
@@ -142,19 +142,19 @@ public class QuestRow implements Component {
     self.ruled = ruled
   }
 
-  onPick(mut self) { self.act.emit(self.quest.id, Act::Pick) }
-  onTrack(mut self) { self.act.emit(self.quest.id, Act::Track) }
-  onLink(mut self) { self.act.emit(self.quest.id, Act::Link) }
-  onMenu(mut self) { self.menuOpen = true }
-  onClose(mut self) { self.menuOpen = false }
-  onEnter(mut self) {
+  mut onPick() { self.act.emit(self.quest.id, Act::Pick) }
+  mut onTrack() { self.act.emit(self.quest.id, Act::Track) }
+  mut onLink() { self.act.emit(self.quest.id, Act::Link) }
+  mut onMenu() { self.menuOpen = true }
+  mut onClose() { self.menuOpen = false }
+  mut onEnter() {
     self.hovered = true
   }
-  onLeave(mut self) {
+  mut onLeave() {
     self.hovered = false
   }
 
-  onEntry(mut self, index: integer) {
+  mut onEntry(index: integer) {
     self.menuOpen = false
     const act = match (index) {
       1 => Act::Track
@@ -165,7 +165,7 @@ public class QuestRow implements Component {
     self.act.emit(self.quest.id, act)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={GOAL_GAP} padding={ROW_PAD} background={self.background} border={self.rule}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
@@ -202,7 +202,7 @@ class Gains implements Component {
     self.money = money
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align::Center}>
         <Experience $if={self.xp > 0} amount={self.xp} color={DIM} />
@@ -238,7 +238,7 @@ class GoalLine implements Component {
     self.small = small
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.small} columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
         <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} leading={.Tight} />
@@ -292,9 +292,9 @@ public class ChainLine implements Component {
     self.facts = facts
   }
 
-  onOpen(mut self) { self.open.emit(peek self.next) }
+  mut onOpen() { self.open.emit(peek self.next) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.name != ""} gap={SECTION_GAP}>
         <Cut title={Locale::NEXT_IN_CHAIN} />
@@ -331,10 +331,10 @@ public class ChainPage implements Component {
     watch (id of self.quest) { self.folded = peek self.foldFirst }
   }
 
-  onNext(mut self, next: integer) { self.act.emit(next, Act::ShowNext) }
-  onMap(mut self) { self.act.emit(self.quest, Act::ShowOnMap) }
+  mut onNext(next: integer) { self.act.emit(next, Act::ShowNext) }
+  mut onMap() { self.act.emit(self.quest, Act::ShowOnMap) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={self.rows} gap={PAGE_GAP}>
         <Scroll title={self.facts.name} folded={mut self.folded}>
@@ -401,13 +401,13 @@ public class QuestPage implements Component {
     watch (id of self.questId) { self.folded = peek self.foldFirst }
   }
 
-  onTrack(mut self) { self.act.emit(self.quest.id, Act::Track) }
-  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
-  onNext(mut self, next: integer) { self.act.emit(next, Act::ShowNext) }
+  mut onTrack() { self.act.emit(self.quest.id, Act::Track) }
+  mut onAct(id: integer, act: Act) { self.act.emit(id, act) }
+  mut onNext(next: integer) { self.act.emit(next, Act::ShowNext) }
 
   // Its scroll beside the rest, the page's whole height, where what it holds would overflow it at its least height;
   // over the rest otherwise.
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.wide} columns={WIDE_COLUMNS} rows={ONE_ROW} gap={PAGE_GAP}>
         {self.scroll()}
@@ -422,7 +422,7 @@ public class QuestPage implements Component {
     }
   }
 
-  scroll(self): Template {
+  scroll(): Template {
     return $ltml {
       <Scroll title={self.quest.title} folded={mut self.folded}>
         <ScrollText $if={self.text.story != ""} value={self.text.story} names={self.named} />
@@ -436,7 +436,7 @@ public class QuestPage implements Component {
   // switch, and the buttons where the window has no footer band for them.
   // Two parts, each always there: the sections from the top, and the foot (the tracking switch, and the buttons where
   // the window has no footer band for them) at the bottom of what is left.
-  details(self): Template {
+  details(): Template {
     return $ltml {
       <box gap={PAGE_GAP}>
         <box $if={self.goals.length > 0} gap={SECTION_GAP}>
@@ -490,11 +490,11 @@ public class QuestButtons implements Component {
     self.quest = quest
   }
 
-  onShare(mut self) { self.act.emit(self.quest.id, Act::Share) }
-  onAbandon(mut self) { self.act.emit(self.quest.id, Act::Abandon) }
-  onMap(mut self) { self.act.emit(self.quest.id, Act::ShowOnMap) }
+  mut onShare() { self.act.emit(self.quest.id, Act::Share) }
+  mut onAbandon() { self.act.emit(self.quest.id, Act::Abandon) }
+  mut onMap() { self.act.emit(self.quest.id, Act::ShowOnMap) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", { fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align::Center}>
         <PushButton label={Locale::ABANDON} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onAbandon} />

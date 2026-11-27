@@ -58,10 +58,10 @@ public class Scanner {
   }
 
   // Seconds until the client takes another full scan from this account; 0 when it would now.
-  public wait(self, now: integer): integer { return (FULL_EVERY - (now - self.lastFull)).max(0) }
+  public wait(now: integer): integer { return (FULL_EVERY - (now - self.lastFull)).max(0) }
 
   // A full scan is asked of the client, where the house is open, none runs, and the account's 15 minutes are past.
-  public full(mut self): boolean {
+  public mut full(): boolean {
     const now = serverSeconds()
     if (!peek Game::auctionHouse.open || self.wait(now) > 0 || peek Game::auctionScan.running || peek self.reading) {
       return false
@@ -72,12 +72,12 @@ public class Scanner {
     return true
   }
 
-  onFinished(mut self, count: integer) {
+  mut onFinished(count: integer) {
     if (self.reader != nil) { destroy self.reader }
     self.reader = self.read(count)
   }
 
-  async read(mut self, count: integer) {
+  async mut read(count: integer) {
     self.reading = true
     self.progress = 0
     const at = Hour::now()
@@ -145,10 +145,10 @@ public class Scanner {
   }
 
   // This frame's share of a scan's work is spent.
-  spent(self): boolean { return Client::debugprofilestop() - self.since > FRAME_MS }
+  spent(): boolean { return Client::debugprofilestop() - self.since > FRAME_MS }
 
   // A browse's lowest prices: each an observation of its item.
-  onResults(mut self, offers: array<Game::Offer>) {
+  mut onResults(offers: array<Game::Offer>) {
     self.offers = offers
     const at = Hour::now()
     let any = false
@@ -165,7 +165,7 @@ public class Scanner {
     }
   }
 
-  onClosed(mut self) {
+  mut onClosed() {
     if (self.reader != nil) {
       destroy self.reader
       self.reading = false
@@ -174,7 +174,7 @@ public class Scanner {
   }
 
   // The house put at rest; where the client refuses, what was kept stays (the game's side says why).
-  keep(mut self) {
+  mut keep() {
     const packed = self.house.pack()
     if (packed == nil) { return }
     self.kept.houses[self.house.name] = packed

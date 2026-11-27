@@ -64,29 +64,29 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // How many settings a snapshot or a section would change in the values.
-  public differs(self, raw: unknown): integer {
+  public differs(raw: unknown): integer {
     return S.decode(raw, self.defaults).changes(self.values)
   }
 
-  public snapshot(self): unknown {
+  public snapshot(): unknown {
     return (peek self.values).clone()
   }
 
-  public restore(mut self, raw: unknown) {
+  public mut restore(raw: unknown) {
     self.values = S.decode(raw, self.defaults)
   }
 
-  notice(mut self) {
+  mut notice() {
     const now = self.values.clone()
     if (!now.equal(self.recorded)) { self.record(now) }
   }
 
-  public settle(mut self) {
+  public mut settle() {
     const now = (peek self.values).clone()
     if (!now.equal(self.recorded)) { self.record(now) }
   }
 
-  record(mut self, now: S) {
+  mut record(now: S) {
     const key = self.key
     if (key != nil) { self.keeper.stepped(key, self.recorded) }
     self.recorded = now
@@ -94,7 +94,7 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // The values packed into their profile, where they changed since they last were.
-  pack(mut self) {
+  mut pack() {
     self.settle()
     const key = self.key
     const profile = self.profile
@@ -104,7 +104,7 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // A profile's section becomes the values: what follows them draws again. The profile left keeps its values first.
-  take(mut self, profile: ProfileName, key: string) {
+  mut take(profile: ProfileName, key: string) {
     self.keeper.finishInput()
     self.pack()
     const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
@@ -114,20 +114,20 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // Every entry at once (a preset): one change.
-  public choose(mut self, values: S) {
+  public mut choose(values: S) {
     self.values = values.clone()
   }
 
   // What the player chose outside the settings page (a part taken to another side in the placing mode): `apply`
   // changes the values, one change.
-  public change(mut self, apply: (values: mut S) => nil) {
+  public mut change(apply: (values: mut S) => nil) {
     const values = (peek self.values).clone()
     apply(values)
     self.values = values
   }
 
   // Every value back to its default.
-  public reset(mut self) {
+  public mut reset() {
     self.values = self.defaults.clone()
   }
 }
@@ -167,11 +167,11 @@ public class ModuleMemory<S: Plain> {
 
   // What the module remembers now, every entry at once: kept at once. The module's own way to write it, as
   // another addon's field is never assigned.
-  public write(mut self, values: S) {
+  public mut write(values: S) {
     self.values = values.clone()
   }
 
-  recall(mut self, profile: ProfileName, key: string) {
+  mut recall(profile: ProfileName, key: string) {
     const values = S.decode(Ordaen.keeper.profiles.recalled(profile, key), self.defaults)
     self.kept = values.clone()
     self.values = values
@@ -179,7 +179,7 @@ public class ModuleMemory<S: Plain> {
 
   // Every entry is read, so a change to any of them keeps the whole; a value equal to what is kept (a switch's)
   // keeps nothing.
-  keep(mut self) {
+  mut keep() {
     const values = self.values
     const key = self.key
     if (key == nil || values.equal(self.kept)) { return }

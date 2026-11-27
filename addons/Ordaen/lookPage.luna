@@ -92,9 +92,9 @@ public class PresetRow implements Component {
     self.look = look
   }
 
-  use(mut self) { self.look.choose(Looks::preset(self.preset)) }
+  mut use() { self.look.choose(Looks::preset(self.preset)) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={PRESET_ROW} gap={3.5sp} yAlign={Align::Center}>
         <box columns={1} gap={0.5sp}>
@@ -114,7 +114,7 @@ public class LookPage implements Component {
     self.look = look
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={5.5sp}>
         <Section title={Locale::LIST_THEMES}>

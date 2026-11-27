@@ -72,20 +72,20 @@ public class Records {
   }
 
   // The character's level, money and played hour change often and move no index.
-  public setLevel(mut self, level: integer) {
+  public mut setLevel(level: integer) {
     if (self.me.level == level) { return }
     self.me.level = level
     self.touched += 1
   }
 
-  public setMoney(mut self, copper: Copper, now: Hour) {
+  public mut setMoney(copper: Copper, now: Hour) {
     if (self.me.money == copper) { return }
     self.me.money = copper
     self.me.seen = now
     self.touched += 1
   }
 
-  public setBags(mut self, free: integer, slots: integer) {
+  public mut setBags(free: integer, slots: integer) {
     if (self.me.free == free && self.me.slots == slots) { return }
     self.me.free = free
     self.me.slots = slots
@@ -94,7 +94,7 @@ public class Records {
 
   // The professions the character has now, with their skill: one it has dropped goes, with its recipes. The game's list
   // is empty until the client has read the skills, which a character with none has too: an empty list changes nothing.
-  public setProfessions(mut self, professions: array<Game::Profession>) {
+  public mut setProfessions(professions: array<Game::Profession>) {
     if (professions.length == 0) { return }
     const kept: array<mut Known> = []
     let changed = professions.length != self.me.professions.length
@@ -119,7 +119,7 @@ public class Records {
   }
 
   // The character's profession by its skill line.
-  professionOf(mut self, skillLine: integer): mut Known | nil {
+  mut professionOf(skillLine: integer): mut Known | nil {
     for (known of self.me.professions) {
       if (known.skillLine == skillLine) { return known }
     }
@@ -127,7 +127,7 @@ public class Records {
   }
 
   // A profession of the character's that the game's list hasn't given yet.
-  added(mut self, skillLine: integer): mut Known {
+  mut added(skillLine: integer): mut Known {
     const made = Known { skillLine: skillLine }
     self.me.professions.push(made)
     return made
@@ -136,7 +136,7 @@ public class Records {
   // The recipes the character knows of a profession and the hour each of them with a cooldown is ready, as the open
   // profession gave them. A reading with more recipes than the most is refused. A profession the game's list hasn't
   // given yet is made, and takes its skill from the list when it comes.
-  public setRecipes(mut self, skillLine: integer, recipes: mut array<RecipeId>, ready: mut map<RecipeId, Hour>) {
+  public mut setRecipes(skillLine: integer, recipes: mut array<RecipeId>, ready: mut map<RecipeId, Hour>) {
     if (recipes.length > MOST_RECIPES) {
       Debug::fault("Alts", "a profession of " + string::of(recipes.length) + " recipes is more than the " + string::of(MOST_RECIPES) + " kept")
       return
@@ -152,7 +152,7 @@ public class Records {
 
   // One more recipe the character learned of a profession it has, up to the most. It has no cooldown yet, so no tab of
   // the window shows it: only the readers' revision moves.
-  public learn(mut self, skillLine: integer, recipe: RecipeId) {
+  public mut learn(skillLine: integer, recipe: RecipeId) {
     const known = self.professionOf(skillLine)
     if (known == nil || known.recipes.length >= MOST_RECIPES || known.recipes.any(have => have == recipe)) { return }
     known.recipes.push(recipe)
@@ -162,7 +162,7 @@ public class Records {
 
   // What the character holds in a place, by item, as it was read at `now` (a place that is read only while it is open
   // says when). A reading with more kinds of items than the most is refused.
-  public setPlace(mut self, place: Place, items: mut map<ItemId, integer>, now: Hour | nil) {
+  public mut setPlace(place: Place, items: mut map<ItemId, integer>, now: Hour | nil) {
     let kinds = 0
     for (item, _ of items) { kinds += 1 }
     if (kinds > MOST_ITEMS) {
@@ -187,13 +187,13 @@ public class Records {
   }
 
   // When the first mail that carries something expires: read with the inbox, whose reading moved the record.
-  public setMail(mut self, expires: Hour | nil) {
+  public mut setMail(expires: Hour | nil) {
     self.me.mailExpires = expires
   }
 
   // A character's record removed: its recipes and items go from the indexes. Never the one being played, whose record
   // is written again as it plays. Whether it was removed.
-  public forget(mut self, who: CharacterId): boolean {
+  public mut forget(who: CharacterId): boolean {
     if (who == self.who || self.characters[who] == nil) { return false }
     self.characters[who] = nil
     self.index()
@@ -203,29 +203,29 @@ public class Records {
   }
 
   // Who of the characters knows a recipe.
-  public knowers(self, recipe: RecipeId): array<Knower> {
+  public knowers(recipe: RecipeId): array<Knower> {
     return self.knowing[recipe] ?? NOBODY
   }
 
   // Who holds an item, how many, and where.
-  public holders(self, item: ItemId): array<Held> {
+  public holders(item: ItemId): array<Held> {
     return self.holding[item] ?? NOTHING
   }
 
   // Every item held by any character, with who holds it: what the window's search reads. Built on a change of the
   // records, not asked per item.
-  public everything(self): map<ItemId, array<Held>> {
+  public everything(): map<ItemId, array<Held>> {
     return self.holding
   }
 
   // Whether the character being played can send to another: the same realm and side.
-  public reaches(self, who: CharacterId): boolean {
+  public reaches(who: CharacterId): boolean {
     const found = self.characters[who]
     return found != nil && found.realm == self.realm && found.faction == self.faction
   }
 
   // The item's list in the holders' index, made where it isn't there.
-  holdingOf(mut self, item: ItemId): mut array<Held> {
+  mut holdingOf(item: ItemId): mut array<Held> {
     const list = self.holding[item]
     if (list != nil) { return list }
     const made: array<Held> = []
@@ -233,7 +233,7 @@ public class Records {
     return made
   }
 
-  knowingOf(mut self, recipe: RecipeId): mut array<Knower> {
+  mut knowingOf(recipe: RecipeId): mut array<Knower> {
     const list = self.knowing[recipe]
     if (list != nil) { return list }
     const made: array<Knower> = []
@@ -242,7 +242,7 @@ public class Records {
   }
 
   // An item the character being played held in a place taken out of the holders' index, where it is.
-  drop(mut self, place: Place, item: ItemId) {
+  mut drop(place: Place, item: ItemId) {
     const list = self.holding[item] ?? panic("an item a place held is in the holders' index")
     let at = 0
     for (index, held of list) {
@@ -253,7 +253,7 @@ public class Records {
   }
 
   // Both indexes, made again from the records.
-  index(mut self) {
+  mut index() {
     self.knowing = {}
     self.holding = {}
     for (who, character of self.characters) {

@@ -42,23 +42,23 @@ public class Showcase implements Module {
   derived onMarket: boolean = self.tab == 3
   derived summary: string = self.describe()
 
-  describe(self): string {
+  describe(): string {
     return self.choices.showZone ? "zone shown" : "zone hidden"
   }
 
   state asking = false
 
-  onSave(mut self) { self.saved += 1 }
-  onReset(mut self) { self.asking = true }
-  onKeep(mut self) { self.asking = false }
-  onDiscard(mut self) {
+  mut onSave() { self.saved += 1 }
+  mut onReset() { self.asking = true }
+  mut onKeep() { self.asking = false }
+  mut onDiscard() {
     self.saved = 0
     self.asking = false
   }
-  onEnter(mut self) { self.hint = true }
-  onLeave(mut self) { self.hint = false }
+  mut onEnter() { self.hint = true }
+  mut onLeave() { self.hint = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={3sp}>
         <Tabs tabs={TABS} selected={mut self.tab} />

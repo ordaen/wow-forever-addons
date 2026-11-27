@@ -33,17 +33,17 @@ public class Age implements Component {
     self.seconds = seconds
   }
 
-  textOf(self): string {
+  textOf(): string {
     const text, _ = ageText(self.seconds)
     return text
   }
 
-  colorOf(self): Color {
+  colorOf(): Color {
     const _, color = ageText(self.seconds)
     return color ?? DIM
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text $if={self.shown} value={self.text} textColor={self.color} wrap={.None} />
     }

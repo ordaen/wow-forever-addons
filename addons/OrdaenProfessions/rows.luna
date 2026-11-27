@@ -25,7 +25,7 @@ class SourceCell implements Component {
     self.rough = rough
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box xAlign={Align::End} columns={{ each: "max-content" }} gap={0.5sp}>
         <text $if={self.rough && self.has} value={"~"} textColor={Style::DIM} />
@@ -78,9 +78,9 @@ public class CategoryRow implements Component {
     self.chosen = chosen
   }
 
-  onClick(mut self, button: MouseButton) { self.pick.emit(self.group.id) }
+  mut onClick(button: MouseButton) { self.pick.emit(self.group.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TabItem selected={self.isChosen} into={Style::RECIPES} groove={true} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
@@ -145,14 +145,14 @@ public class RecipeRow implements Component {
     self.indent = indent
   }
 
-  onClick(self, button: MouseButton) {
+  onClick(button: MouseButton) {
     self.act.emit(button == MouseButton::Right ? Act::Menu : Act::Pick, self.recipe.id)
   }
 
-  onAct(self, act: Act, id: integer) { self.act.emit(act, id) }
-  onEnter(self, frame: any Frame) { showRecipe(frame, self.recipe.id) }
+  onAct(act: Act, id: integer) { self.act.emit(act, id) }
+  onEnter(frame: any Frame) { showRecipe(frame, self.recipe.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TabItem selected={self.isChosen} into={Style::RECIPE_LIT} first={self.first} columns={NAME_COUNT}
                padding={self.padding} @pick={self.onClick} @enter={self.onEnter}>
@@ -200,10 +200,10 @@ public class CategoryGroup implements Component {
     self.menuFor = menuFor
   }
 
-  fold(mut self) { self.folded = !self.folded }
-  onAct(self, act: Act, id: integer) { self.act.emit(act, id) }
+  mut fold() { self.folded = !self.folded }
+  onAct(act: Act, id: integer) { self.act.emit(act, id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <box columns={FOLD} gap={2.5sp} padding={CATEGORY_PAD} yAlign={Align::Center} border={Style::ROW_RULE}
@@ -277,14 +277,14 @@ public class RecipeTableRow implements Component {
   }
 
   // The library's row says which button picked it: the left one chooses the recipe, the right one opens its menu.
-  onPick(self, button: MouseButton) {
+  onPick(button: MouseButton) {
     self.act.emit(button == MouseButton::Right ? Act::Menu : Act::Pick, self.recipe.id)
   }
 
-  onAct(self, act: Act, id: integer) { self.act.emit(act, id) }
-  onEnter(self, frame: any Frame) { showRecipe(frame, self.recipe.id) }
+  onAct(act: Act, id: integer) { self.act.emit(act, id) }
+  onEnter(frame: any Frame) { showRecipe(frame, self.recipe.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={"subgrid"}>
         // The name, the class and the type wrap at their columns, their row as high as they come to: nothing is cut.
@@ -337,13 +337,13 @@ public class ReagentRow implements Component {
   }
 
   // The reagent's tooltip beside its whole row.
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     Game::tooltip.rowAt(frame)
     const item = self.item
     if (item != nil) { Game::items.show(frame, item) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={REAGENT} gap={2.5sp} yAlign={Align::Center} padding={REAGENT_PAD} border={self.rule}
            @pointerEnter={self.onEnter}>

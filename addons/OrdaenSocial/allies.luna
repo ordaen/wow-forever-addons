@@ -130,10 +130,10 @@ class AllyRow implements Component {
     self.chosen = chosen
   }
 
-  onPick(self) { self.pick.emit((peek self.ally).member.key) }
-  onMenu(self) { self.menu.emit((peek self.ally).member.key) }
+  onPick() { self.pick.emit((peek self.ally).member.key) }
+  onMenu() { self.menu.emit((peek self.ally).member.key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={2sp} yAlign={Align::Center} padding={PICK_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
@@ -182,10 +182,10 @@ public class AllyList implements Component {
     self.groups = filterGroups(categories)
   }
 
-  onPick(self, key: string) { self.pick.emit(key) }
-  onMenu(self, key: string) { self.menu.emit(key) }
+  onPick(key: string) { self.pick.emit(key) }
+  onMenu(key: string) { self.menu.emit(key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <box padding={Style::TOP_ROOM}>
@@ -214,7 +214,7 @@ class MeetingRow implements Component {
     self.meeting = meeting
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
         <text value={self.meeting.text} textColor={Style::INK} />
@@ -254,14 +254,14 @@ public class AllyCard implements Component {
     self.now = now
   }
 
-  onWhisper(self) { self.whisper.emit() }
-  onInvite(self) { self.invite.emit() }
-  onPin(self) { self.pin.emit() }
-  onBefriend(self) { self.befriend.emit() }
-  onNote(self) { self.note.emit() }
-  onMenu(self) { self.menu.emit() }
+  onWhisper() { self.whisper.emit() }
+  onInvite() { self.invite.emit() }
+  onPin() { self.pin.emit() }
+  onBefriend() { self.befriend.emit() }
+  onNote() { self.note.emit() }
+  onMenu() { self.menu.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>

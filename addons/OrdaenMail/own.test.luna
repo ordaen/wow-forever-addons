@@ -104,7 +104,7 @@ class OwnPage {
     self.own.configure.listen(self.onConfigure)
   }
 
-  public slotAt(self, bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
+  public slotAt(bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
     if (bag != 0 || slot > 2) { return false }
     const item = slot == 1 ? BAR : STONE
     const count = self.bagged[item] ?? 0
@@ -115,9 +115,9 @@ class OwnPage {
     return true
   }
 
-  onConfigure(mut self) { self.configured += 1 }
+  mut onConfigure() { self.configured += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={900ui} height={500ui} rows={[{ fr: 1 }, "max-content"]}>
         {self.own.body}

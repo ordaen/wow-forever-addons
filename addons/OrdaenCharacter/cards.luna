@@ -52,10 +52,10 @@ public class ListCard implements Component {
     self.card = card
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={2sp} padding={3sp} background={Style::BACK} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
@@ -73,7 +73,7 @@ public class StatGroup implements Component {
     self.group = group
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={3sp}>
         <text $if={self.group.title != ""} value={self.group.title} leading={.Title} textFont={TextFont::Title} textColor={Style::GOLD} />

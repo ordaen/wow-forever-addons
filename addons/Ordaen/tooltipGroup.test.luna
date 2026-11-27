@@ -17,16 +17,16 @@ class Pair {
     self.by = by
   }
 
-  onEnter(mut self) { self.heard.push("entered") }
-  onLeave(mut self) { self.heard.push("left") }
+  mut onEnter() { self.heard.push("entered") }
+  mut onLeave() { self.heard.push("left") }
   // What was heard since it was last asked, in order.
-  public told(mut self): string {
+  public mut told(): string {
     let said = self.heard.join(", ")
     self.heard.clear()
     return said
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TooltipGroup shown={true} place={self.place} beside={1} leftwards={self.leftwards} @enter={self.onEnter}
                     @leave={self.onLeave}>

@@ -285,10 +285,10 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onBindings(mut self) { self.bindings.read() }
-  onSetting(mut self, name: string, value: string) { self.settings.refresh() }
+  mut onBindings() { self.bindings.read() }
+  mut onSetting(name: string, value: string) { self.settings.refresh() }
   // A setting the player set: the profile's, or the game's again where it went back to its default.
-  onWritten(mut self, written: SettingWritten) {
+  mut onWritten(written: SettingWritten) {
     const keeping = self.keeping
     if (keeping == nil) { return }
     if (written.byDefault) {
@@ -298,7 +298,7 @@ public class AddOnsWindow implements Component {
     }
   }
   // The options' small tabs: each group's name, the key bindings' second.
-  sectionsOf(self): array<string> {
+  sectionsOf(): array<string> {
     const names = self.settings.groups.map(group => group.name)
     const keys = Runtime::text("SETTINGS_KEYBINDINGS_LABEL") ?? Client::KEY_BINDINGS
     const list: array<string> = []
@@ -309,23 +309,23 @@ public class AddOnsWindow implements Component {
     if (names.length < KEYS_SECTION) { list.push(keys) }
     return list
   }
-  onResetAsk(mut self) { self.resetAsked = true }
-  onDefaultsAsk(mut self) { self.defaultsAsked = true }
-  cancelDefaults(mut self) { self.defaultsAsked = false }
-  confirmDefaults(mut self) {
+  mut onResetAsk() { self.resetAsked = true }
+  mut onDefaultsAsk() { self.defaultsAsked = true }
+  mut cancelDefaults() { self.defaultsAsked = false }
+  mut confirmDefaults() {
     self.defaultsAsked = false
     self.settings.defaults()
   }
-  onApply(mut self) { self.settings.apply() }
-  cancelReset(mut self) { self.resetAsked = false }
-  confirmReset(mut self) {
+  mut onApply() { self.settings.apply() }
+  mut cancelReset() { self.resetAsked = false }
+  mut confirmReset() {
     self.resetAsked = false
     _ = self.bindings.resetAll()
   }
 
   // Each open reads the list in one pass and samples once a second, hearing `ADDON_LOADED` while it shows; a close
   // stops both.
-  follow(mut self, open: boolean) {
+  mut follow(open: boolean) {
     if (!open) {
       self.profiler.stop()
       return
@@ -340,9 +340,9 @@ public class AddOnsWindow implements Component {
     Events::ADDON_LOADED.listen(self.onLoaded)
   }
 
-  onLoaded(mut self, name: string, fromUser: boolean) { self.catalog.refresh() }
+  mut onLoaded(name: string, fromUser: boolean) { self.catalog.refresh() }
 
-  onText(self): string {
+  onText(): string {
     let on = 0
     for (addon of self.catalog.addons) {
       if (self.catalog.statuses[addon.name]?.enabled != .Off) { on += 1 }
@@ -351,7 +351,7 @@ public class AddOnsWindow implements Component {
   }
 
   // Whether an addon shows with the search and the filter as they are: it matches every kind.
-  matches(self, addon: AddOn, status: Status | nil): boolean {
+  matches(addon: AddOn, status: Status | nil): boolean {
     const query = self.search.lower()
     if (query != "" && !addon.words.contains(query)) { return false }
     const hot = match (self.list.values.heat) {
@@ -383,7 +383,7 @@ public class AddOnsWindow implements Component {
   }
 
   // The addons that show, in the order the sort says.
-  visibleOf(self): array<AddOn> {
+  visibleOf(): array<AddOn> {
     const list: array<AddOn> = []
     for (addon of self.catalog.addons) {
       if (self.matches(addon, self.catalog.statuses[addon.name])) { list.push(addon) }
@@ -407,7 +407,7 @@ public class AddOnsWindow implements Component {
 
   // The lines: in a table, every addon shown; by category, a caption for each category (by its exact text, «Other»
   // last) and its addons, each group's members right under their parent, indented.
-  linesOf(self): array<Line> {
+  linesOf(): array<Line> {
     const list: array<Line> = []
     if (self.list.values.view == .Table) {
       for (addon of self.visible) {
@@ -474,7 +474,7 @@ public class AddOnsWindow implements Component {
     return list
   }
 
-  hotOf(self): Hot {
+  hotOf(): Hot {
     const now: array<number> = []
     const peak: array<number> = []
     for (_, load of self.profiler.loads) {
@@ -486,19 +486,19 @@ public class AddOnsWindow implements Component {
     return { now: thirdOf(now), peak: thirdOf(peak), memory: thirdOf(weights) }
   }
 
-  dependentsText(self): string {
+  dependentsText(): string {
     const names: array<string> = []
     for (name of self.catalog.dependentsOf(self.asking)) { names.push(self.catalog.titleOf(name)) }
     return names.join(", ")
   }
 
-  setEntriesOf(self): array<MenuEntry> {
+  setEntriesOf(): array<MenuEntry> {
     const list: array<MenuEntry> = [{ label: Locale::SET_SAVE }]
     for (index, kept of self.sets.list) { list.push({ label: kept.name, group: index == 1 }) }
     return list
   }
 
-  waitRowsOf(self): array<TipRow> {
+  waitRowsOf(): array<TipRow> {
     const list: array<TipRow> = []
     for (addon of self.catalog.addons) {
       const status = self.catalog.statuses[addon.name]
@@ -513,21 +513,21 @@ public class AddOnsWindow implements Component {
     return list
   }
 
-  onPick(mut self, name: string) { self.list.values.picked = name }
+  mut onPick(name: string) { self.list.values.picked = name }
 
   // A caption clicked: folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
-  onFold(mut self, category: string) {
+  mut onFold(category: string) {
     self.folds.values.categories = flipped((peek self.folds.values).categories, category)
   }
 
   // A group's parent's mark clicked: its members folded under it, or shown again; as captions are, at most
   // `FOLDED_MOST`.
-  onFoldGroup(mut self, parent: string) {
+  mut onFoldGroup(parent: string) {
     self.folds.values.parents = flipped((peek self.folds.values).parents, parent)
   }
 
   // The folded categories and parents no addon has any more (each addon of one taken out of the folder) are let go.
-  dropGone(mut self) {
+  mut dropGone() {
     const categories: map<string, boolean> = {}
     const names: map<string, boolean> = {}
     for (addon of peek self.catalog.addons) {
@@ -543,11 +543,11 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onSettings(self, name: string) { Ordaen.toggleNamed(name) }
+  onSettings(name: string) { Ordaen.toggleNamed(name) }
 
   // The checkbox: on with what it needs; off alone, after asking where others need it. With Ctrl on a group's
   // parent, the parent and every addon of its group to the parent's new state together.
-  public onToggle(mut self, name: string, control: boolean) {
+  public mut onToggle(name: string, control: boolean) {
     const names: array<string> = [name]
     if (control) {
       for (member of (peek self.catalog.members)[name] ?? []) { names.push(member) }
@@ -560,7 +560,7 @@ public class AddOnsWindow implements Component {
   }
 
   // A caption's switch: its whole group on for all where any of it isn't, else off, after asking where others need it.
-  onToggleGroup(mut self, names: array<string>) {
+  mut onToggleGroup(names: array<string>) {
     if (names.length == 0) { return }
     const statuses = peek self.catalog.statuses
     if (!names.all(name => statuses[name]?.enabled == .On)) {
@@ -571,7 +571,7 @@ public class AddOnsWindow implements Component {
   }
 
   // Off alone, or after asking where others that stay on need what goes.
-  switchOff(mut self, names: array<string>) {
+  mut switchOff(names: array<string>) {
     if (self.catalog.dependentsOf(names).length == 0) {
       self.catalog.switchOff(names)
     } else {
@@ -579,32 +579,32 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onCardToggle(mut self, name: string) { self.onToggle(name, false) }
+  mut onCardToggle(name: string) { self.onToggle(name, false) }
 
   // «Load» from a row's menu: the addon loads now, its card opens to say how it went (the client's reason, where it
   // refused, is its row's and its card's state).
-  onLoadNow(mut self, name: string) {
+  mut onLoadNow(name: string) {
     self.list.values.picked = name
     _ = self.catalog.load(name)
   }
 
-  cancelAsk(mut self) { self.asking = [] }
+  mut cancelAsk() { self.asking = [] }
 
-  confirmAsk(mut self) {
+  mut confirmAsk() {
     const names = peek self.asking
     self.asking = []
     self.catalog.switchOff(names)
   }
 
-  onUndo(mut self) { self.catalog.undo() }
-  onReset(mut self) { self.catalog.reset() }
+  mut onUndo() { self.catalog.undo() }
+  mut onReset() { self.catalog.reset() }
   // This addon and what it needs stay on: the page is there after the reload to switch the rest on again.
-  onDisableAll(mut self) { self.catalog.disableAll(Runtime::Addon::of(self)?.name ?? "") }
-  onRefresh(mut self) { self.profiler.weigh() }
-  onSets(mut self) { self.setsOpen = !self.setsOpen }
-  closeSets(mut self) { self.setsOpen = false }
+  mut onDisableAll() { self.catalog.disableAll(Runtime::Addon::of(self)?.name ?? "") }
+  mut onRefresh() { self.profiler.weigh() }
+  mut onSets() { self.setsOpen = !self.setsOpen }
+  mut closeSets() { self.setsOpen = false }
 
-  onSet(mut self, index: integer) {
+  mut onSet(index: integer) {
     self.setsOpen = false
     self.setNote = ""
     if (index == 1) {
@@ -620,9 +620,9 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  closeSet(mut self) { self.editing = 0 }
+  mut closeSet() { self.editing = 0 }
 
-  saveSet(mut self) {
+  mut saveSet() {
     const name = peek self.setName
     if (name == "") { return }
     if (self.sets.save(name, self.catalog.onNames())) {
@@ -633,25 +633,25 @@ public class AddOnsWindow implements Component {
   }
 
   // From the click on «Apply», a secure box: the client reloads the interface right after it (`RELOAD`).
-  applySet(mut self) {
+  mut applySet() {
     const kept = (peek self.sets.list)[peek self.editing]
     if (kept == nil) { return }
     self.catalog.apply(kept.addons)
     self.editing = 0
   }
 
-  renameSet(mut self) {
+  mut renameSet() {
     self.sets.rename(peek self.editing, peek self.setName)
     self.editing = 0
   }
 
-  deleteSet(mut self) {
+  mut deleteSet() {
     self.sets.remove(peek self.editing)
     self.editing = 0
   }
 
   // A heading of a table sorts by its column, again the other way.
-  sortBy(mut self, order: Order) {
+  mut sortBy(order: Order) {
     if (self.list.values.view != .Table) { return }
     if (self.list.values.order == order) {
       self.list.values.descending = !self.list.values.descending
@@ -661,16 +661,16 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onHeadName(mut self) { self.sortBy(.Name) }
-  onHeadNow(mut self) { self.sortBy(.Now) }
-  onHeadPeak(mut self) { self.sortBy(.Peak) }
-  onHeadMemory(mut self) { self.sortBy(.Memory) }
-  onWaitEnter(mut self) { self.waitHovered = true }
-  onWaitLeave(mut self) { self.waitHovered = false }
-  onClose(mut self) { self.close.emit() }
-  onBlizzard(self, page: integer) { self.blizzard.emit(page) }
+  mut onHeadName() { self.sortBy(.Name) }
+  mut onHeadNow() { self.sortBy(.Now) }
+  mut onHeadPeak() { self.sortBy(.Peak) }
+  mut onHeadMemory() { self.sortBy(.Memory) }
+  mut onWaitEnter() { self.waitHovered = true }
+  mut onWaitLeave() { self.waitHovered = false }
+  mut onClose() { self.close.emit() }
+  onBlizzard(page: integer) { self.blizzard.emit(page) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>

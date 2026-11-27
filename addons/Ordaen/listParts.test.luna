@@ -30,9 +30,9 @@ class Line {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(self.index) }
+  mut onPick() { self.pick.emit(self.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={["max-content"]} picked={self.picked == self.index} @pick={self.onPick}>
         <text value={self.name} />
@@ -49,14 +49,14 @@ class Picking {
 
   state names: array<string> = ["Ally one", "Ally two"]
 
-  onPick(mut self, index: integer) {
+  mut onPick(index: integer) {
     self.picked = index
     self.picks += 1
   }
-  onFold(mut self) { self.folded = !self.folded }
-  onClick(mut self) { self.clicks += 1 }
+  mut onFold() { self.folded = !self.folded }
+  mut onClick() { self.clicks += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <Line $for={index, name of self.names} index={index} name={name} picked={self.picked} @pick={self.onPick} />
@@ -102,7 +102,7 @@ class Listing {
   state descending = false
   state query = ""
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]}>
         <Toolbar search={mut self.query} placeholder={"Search"}>

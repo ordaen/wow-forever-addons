@@ -36,11 +36,11 @@ public class Toggle implements Component {
     self.disabled = disabled
   }
 
-  flip(mut self) {
+  mut flip() {
     if (!self.disabled) { self.value = !self.value }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @pointerPress={self.flip} @keyPress(.Enter)={self.flip} @keyPress(.Space)={self.flip}>
         <box position={Position::Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
@@ -71,11 +71,11 @@ public class ShownToggle implements Component {
     self.disabled = disabled
   }
 
-  onClick(self) {
+  onClick() {
     if (!self.disabled) { self.flip.emit() }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <SwitchFace state={self.state} />
@@ -95,7 +95,7 @@ public class SwitchFace implements Component {
   state: Signal<Shown>
   constructor(state: Signal<Shown>) { self.state = state }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
         <box position={Position::Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
@@ -122,7 +122,7 @@ public class Switch implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <Toggle value={mut self.value} disabled={self.disabled} />

@@ -16,8 +16,8 @@ function yards(npc: integer): number | nil { return npc == 2 ? 120 : npc == 1 ? 
 
 class Page {
   public opened = ""
-  onOpen(mut self, place: LearnPlace) { self.opened = place.name }
-  public render(self): Template {
+  mut onOpen(place: LearnPlace) { self.opened = place.name }
+  public render(): Template {
     return $ltml { <LearnTable places={places()} distance={yards} @open={self.onOpen} /> }
   }
 }

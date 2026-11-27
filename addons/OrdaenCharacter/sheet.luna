@@ -317,36 +317,36 @@ public struct Skill {
 }
 
 public trait Sheet {
-  public worn(self, slot: integer): Worn
-  public usesAmmo(self): boolean
-  public who(self): Who
+  public worn(slot: integer): Worn
+  public usesAmmo(): boolean
+  public who(): Who
   // The player's statistics; none while the client holds them secret (in a fight where secrets apply).
-  public stats(self): Stats | nil
-  public factions(self): array<Faction>
+  public stats(): Stats | nil
+  public factions(): array<Faction>
   // Whether a faction of the list is inactive: asked of the one the player picks.
-  public inactive(self, index: integer): boolean
-  public skills(self): array<Skill>
+  public inactive(index: integer): boolean
+  public skills(): array<Skill>
   // A heading of the skills, by its place, unfolded (`open`) or folded, as the game keeps it; a skill unlearned.
-  public foldSkills(mut self, index: integer, open: boolean)
-  public unlearn(mut self, skill: integer)
+  public mut foldSkills(index: integer, open: boolean)
+  public mut unlearn(skill: integer)
   // The slot clicked as the game's own slot is: what the cursor holds is equipped there, or what is worn there is
   // taken onto the cursor (to the bags, the bars, another slot).
-  public pickup(mut self, slot: integer)
+  public mut pickup(slot: integer)
   // Whether what the cursor holds goes in the slot: the slot is lit, as the game's is.
-  public fits(self, slot: integer): boolean
+  public fits(slot: integer): boolean
   // What is worn there tried on in the dressing room, as Ctrl+Left-click does.
-  public tryOn(mut self, slot: integer)
+  public mut tryOn(slot: integer)
   // What the bags hold that the slot takes (the game's flyout, Alt), by the items' numbers, and one of them put on.
-  public fitting(self, slot: integer): array<integer>
-  public equip(mut self, item: integer, slot: integer)
+  public fitting(slot: integer): array<integer>
+  public mut equip(item: integer, slot: integer)
   // The equipment manager's sets, one put on, and what is worn saved as a new one.
-  public sets(self): array<GearSet>
-  public useSet(mut self, id: integer)
-  public saveSet(mut self, name: string)
-  public fold(mut self, index: integer, open: boolean)
-  public watchFaction(mut self, index: integer, on: boolean)
-  public toggleAtWar(mut self, index: integer)
-  public setInactive(mut self, index: integer, inactive: boolean)
+  public sets(): array<GearSet>
+  public mut useSet(id: integer)
+  public mut saveSet(name: string)
+  public mut fold(index: integer, open: boolean)
+  public mut watchFaction(index: integer, on: boolean)
+  public mut toggleAtWar(index: integer)
+  public mut setInactive(index: integer, inactive: boolean)
 }
 
 function levelCounts(slot: integer): boolean { return slot != SHIRT && slot != TABARD && slot != AMMO.id }
@@ -541,7 +541,7 @@ public class ClientSheet implements Sheet {
 
   // What anyone's slot says, and what only the player's own does: its wear, how many, whether it is locked, its
   // cooldown.
-  public worn(self, slot: integer): Worn {
+  public worn(slot: integer): Worn {
     const piece = wornBy("player", slot, self.words)
     if (piece.item == nil) { return piece }
     let left, most = Client::GetInventoryItemDurability(slot)
@@ -561,14 +561,14 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public fits(self, slot: integer): boolean { return Client::C_PaperDollInfo::CursorCanGoInSlot(slot) }
+  public fits(slot: integer): boolean { return Client::C_PaperDollInfo::CursorCanGoInSlot(slot) }
 
-  public tryOn(mut self, slot: integer) {
+  public mut tryOn(slot: integer) {
     const link = Client::GetInventoryItemLink("player", slot)
     if (link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
-  public fitting(self, slot: integer): array<integer> {
+  public fitting(slot: integer): array<integer> {
     const found: map<integer, integer> = {}
     _ = Client::GetInventoryItemsForSlot(slot, found)
     const items: array<integer> = []
@@ -579,9 +579,9 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone, as the game's flyout does it.
-  public equip(mut self, item: integer, slot: integer) { Client::C_Item::EquipItemByName(item, slot) }
+  public mut equip(item: integer, slot: integer) { Client::C_Item::EquipItemByName(item, slot) }
 
-  public sets(self): array<GearSet> {
+  public sets(): array<GearSet> {
     const sets: array<GearSet> = []
     for (id of Client::C_EquipmentSet::GetEquipmentSetIDs()) {
       let name, _, _, worn, _, _, _, lost, _ = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
@@ -598,13 +598,13 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone: the client refuses it in a fight, which the window says before.
-  public useSet(mut self, id: integer) { _ = Client::C_EquipmentSet::UseEquipmentSet(id) }
+  public mut useSet(id: integer) { _ = Client::C_EquipmentSet::UseEquipmentSet(id) }
 
-  public saveSet(mut self, name: string) { Client::C_EquipmentSet::CreateEquipmentSet(name, nil) }
+  public mut saveSet(name: string) { Client::C_EquipmentSet::CreateEquipmentSet(name, nil) }
 
-  public usesAmmo(self): boolean { return Client::UnitUsesAmmo("player") }
+  public usesAmmo(): boolean { return Client::UnitUsesAmmo("player") }
 
-  public who(self): Who {
+  public who(): Who {
     let race, scene, _ = Client::UnitRace("player")
     let className, _, _ = Client::UnitClass("player")
     return {
@@ -613,7 +613,7 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public stats(self): Stats | nil {
+  public stats(): Stats | nil {
     if (Client::C_Secrets::ShouldUnitStatsBeSecret()) { return nil }
     let base, positive, negative = Client::UnitAttackPower("player")
     let rangedBase, rangedPositive, rangedNegative = Client::UnitRangedAttackPower("player")
@@ -766,7 +766,7 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public factions(self): array<Faction> {
+  public factions(): array<Faction> {
     const rows: array<Faction> = []
     for (index of 1..Client::C_Reputation::GetNumFactions()) {
       const data = Client::C_Reputation::GetFactionDataByIndex(index)
@@ -794,9 +794,9 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public inactive(self, index: integer): boolean { return !Client::C_Reputation::IsFactionActive(index) }
+  public inactive(index: integer): boolean { return !Client::C_Reputation::IsFactionActive(index) }
 
-  public skills(self): array<Skill> {
+  public skills(): array<Skill> {
     const rows: array<Skill> = []
     for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
       const data = Client::C_SkillInfo::GetSkillLineInfo(index)
@@ -818,9 +818,9 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public pickup(mut self, slot: integer) { Client::PickupInventoryItem(slot) }
+  public mut pickup(slot: integer) { Client::PickupInventoryItem(slot) }
 
-  public foldSkills(mut self, index: integer, open: boolean) {
+  public mut foldSkills(index: integer, open: boolean) {
     if (open) {
       Client::C_SkillInfo::ExpandSkillHeader(index)
     } else {
@@ -828,9 +828,9 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public unlearn(mut self, skill: integer) { Client::C_SkillInfo::AbandonSkill(skill) }
+  public mut unlearn(skill: integer) { Client::C_SkillInfo::AbandonSkill(skill) }
 
-  public fold(mut self, index: integer, open: boolean) {
+  public mut fold(index: integer, open: boolean) {
     if (open) {
       Client::C_Reputation::ExpandFactionHeader(index)
     } else {
@@ -839,11 +839,11 @@ public class ClientSheet implements Sheet {
   }
 
   // The faction shown on the bar: none once the one shown is turned off (index 0, as the game's own switch does).
-  public watchFaction(mut self, index: integer, on: boolean) { Client::C_Reputation::SetWatchedFactionByIndex(on ? index : 0) }
+  public mut watchFaction(index: integer, on: boolean) { Client::C_Reputation::SetWatchedFactionByIndex(on ? index : 0) }
 
-  public toggleAtWar(mut self, index: integer) { Client::C_Reputation::ToggleFactionAtWar(index) }
+  public mut toggleAtWar(index: integer) { Client::C_Reputation::ToggleFactionAtWar(index) }
 
-  public setInactive(mut self, index: integer, inactive: boolean) { Client::C_Reputation::SetFactionActive(index, !inactive) }
+  public mut setInactive(index: integer, inactive: boolean) { Client::C_Reputation::SetFactionActive(index, !inactive) }
 }
 
 // A standing's name as the client writes it (`FACTION_STANDING_LABEL1`, hated, to `8`, exalted).

@@ -260,14 +260,14 @@ public class Social implements Module, App {
 
   destructor() { Ordaen.notice(FOLDER, 0) }
 
-  onAddonLoaded(mut self, name: string) {
+  mut onAddonLoaded(name: string) {
     if (name != COMMUNITIES_ADDON) { return }
     if (self.addonHeard != nil) { destroy self.addonHeard }
     self.hookCommunities(Runtime::frame(COMMUNITIES_WINDOW))
   }
 
   // The game's guild and communities window: ours opens on the guild's tab (the communities' outside a guild).
-  hookCommunities(mut self, frame: any Frame | nil) {
+  mut hookCommunities(frame: any Frame | nil) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     self.communities = window
@@ -276,7 +276,7 @@ public class Social implements Module, App {
 
   // A game's window ours stands for: ours opens and closes with it (on `tab`, where it names one). Hooked as the game
   // names it, on its show and hide, which are rare.
-  public hook(mut self, frame: any Frame | nil, tab: integer | nil) {
+  public mut hook(frame: any Frame | nil, tab: integer | nil) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     self.games.push(window)
@@ -295,7 +295,7 @@ public class Social implements Module, App {
 
   // A page of the game's window (the friends' list, the black list, the recent allies): shown, ours turns to its tab
   // (and the friends' page).
-  hookPage(mut self, name: string, tab: integer, sub: integer | nil) {
+  mut hookPage(name: string, tab: integer, sub: integer | nil) {
     const page = Runtime::frame(name)
     if (page == nil) { return }
     const shown: any Client::Frame = page
@@ -307,7 +307,7 @@ public class Social implements Module, App {
   }
 
   // The game's window shown: ours shows in its place, unless the player asked for the game's window as it is.
-  onGameShown(mut self, frame: any Frame, tab: integer | nil) {
+  mut onGameShown(frame: any Frame, tab: integer | nil) {
     if (self.pass.passes(frame)) { return }
     if (tab == TAB_GUILD) {
       // The guild's window opens on the guild, outside one on the communities.
@@ -325,13 +325,13 @@ public class Social implements Module, App {
     }
   }
 
-  onGameHidden(mut self, frame: any Frame) {
+  mut onGameHidden(frame: any Frame) {
     if (self.pass.hidden(frame)) { return }
     self.held = (peek self.held).filter(one => one != frame)
     if ((peek self.held).length == 0) { self.open = false }
   }
 
-  public refresh(mut self) {
+  public mut refresh() {
     self.readFriends()
     self.readRequests()
     self.readIgnored()
@@ -343,43 +343,43 @@ public class Social implements Module, App {
   }
 
   // The friends read, and the characters Battle.net friends play here written down.
-  readFriends(mut self) { self.read = Game::friends.list() }
+  mut readFriends() { self.read = Game::friends.list() }
 
-  readRequests(mut self) { self.requests = Game::friends.requests() }
-  readIgnored(mut self) { self.ignored = Game::friends.ignored() }
-  readMe(mut self) { self.me = Game::friends.battleNetSelf() }
-  readGuild(mut self) { self.guild = Game::guild.roster(peek self.motd) }
+  mut readRequests() { self.requests = Game::friends.requests() }
+  mut readIgnored() { self.ignored = Game::friends.ignored() }
+  mut readMe() { self.me = Game::friends.battleNetSelf() }
+  mut readGuild() { self.guild = Game::guild.roster(peek self.motd) }
 
-  onMotd(mut self, text: string) {
+  mut onMotd(text: string) {
     self.motd = text
     self.readGuild()
   }
 
-  readNews(mut self) {
+  mut readNews() {
     self.news = Game::guild.news()
     self.newsFilters = Game::guild.newsFilters()
   }
-  readClubs(mut self) { self.clubs = Game::communities.clubs() }
-  readAllies(mut self) { self.allies = Game::recentAllies.list(peek self.allyCategories) }
+  mut readClubs() { self.clubs = Game::communities.clubs() }
+  mut readAllies() { self.allies = Game::recentAllies.list(peek self.allyCategories) }
 
-  readClub(mut self, id: string) {
+  mut readClub(id: string) {
     self.clubMembers = id == "" ? [] : Game::communities.members(id)
     self.streams = id == "" ? [] : Game::communities.streams(id)
   }
 
   // A community's members or streams changed: read again where it is the one shown.
-  onClubChanged(mut self, club: string) {
+  mut onClubChanged(club: string) {
     const shown = peek self.clubId
     if (club == shown) { self.readClub(shown) }
   }
 
-  requestsTitle(self): string {
+  requestsTitle(): string {
     const waiting = self.requests.length
     return waiting > 0 ? Locale::SUB_REQUESTS_WAITING.format(waiting) : Locale::SUB_REQUESTS
   }
 
   // The footer's counts, of the tab shown.
-  countsOf(self): array<FooterCount> {
+  countsOf(): array<FooterCount> {
     return match (self.tab) {
       TAB_FRIENDS => counted(Locale::FOOT_FRIENDS, self.friends.length, self.onlineCount)
       TAB_GUILD => self.guild != nil ? counted(Locale::FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
@@ -395,15 +395,15 @@ public class Social implements Module, App {
 
   // A friend picked in the list: its card; picked again, the player's own. A guild's or a community's member, an ally:
   // the same.
-  onPick(mut self, key: string) { self.picked = (peek self.picked) == key ? "" : key }
-  onPickMember(mut self, key: string) { self.member = (peek self.member) == key ? "" : key }
-  onPickClubMember(mut self, key: string) { self.clubMember = (peek self.clubMember) == key ? "" : key }
-  onPickAlly(mut self, key: string) { self.ally = (peek self.ally) == key ? "" : key }
+  mut onPick(key: string) { self.picked = (peek self.picked) == key ? "" : key }
+  mut onPickMember(key: string) { self.member = (peek self.member) == key ? "" : key }
+  mut onPickClubMember(key: string) { self.clubMember = (peek self.clubMember) == key ? "" : key }
+  mut onPickAlly(key: string) { self.ally = (peek self.ally) == key ? "" : key }
 
   // What the card's buttons ask, in the click's own call.
   // A friend whispered in the whispers' tab: a Battle.net friend by the account's token, which the client's whisper
   // takes; a character by name.
-  onWhisper(mut self) {
+  mut onWhisper() {
     const friend = peek self.pickedFriend
     const account = friend?.account?.name
     const hero = friend?.hero?.name
@@ -414,25 +414,25 @@ public class Social implements Module, App {
     }
   }
 
-  onInvite(mut self) {
+  mut onInvite() {
     const friend = peek self.pickedFriend
     if (friend != nil) { Game::friends.invite(friend) }
   }
 
   // The game's own menu of a friend: a row's right click, the card's ⋮.
-  onFriendMenu(mut self, key: string) {
+  mut onFriendMenu(key: string) {
     const friend = (peek self.friends).find(one => keyOf(one) == key)
     if (friend != nil) { Game::friends.menu(friend) }
   }
 
-  onCardMenu(mut self) {
+  mut onCardMenu() {
     const friend = peek self.pickedFriend
     if (friend != nil) { Game::friends.menu(friend) }
   }
 
-  onRemove(mut self) { self.removing = peek self.pickedFriend }
+  mut onRemove() { self.removing = peek self.pickedFriend }
 
-  onRemoveYes(mut self) {
+  mut onRemoveYes() {
     const friend = peek self.removing
     self.removing = nil
     if (friend == nil) { return }
@@ -441,77 +441,77 @@ public class Social implements Module, App {
     self.readFriends()
   }
 
-  onRemoveNo(mut self) { self.removing = nil }
+  mut onRemoveNo() { self.removing = nil }
 
-  onPresence(mut self, presence: Presence) {
+  mut onPresence(presence: Presence) {
     Game::friends.setPresence(presence)
     self.readMe()
   }
 
-  onEditBroadcast(mut self) {
+  mut onEditBroadcast() {
     self.draft = (peek self.me).broadcast
     self.editing = true
   }
 
-  onBroadcastYes(mut self) {
+  mut onBroadcastYes() {
     self.editing = false
     Game::friends.setBroadcast(trimmed(peek self.draft))
     self.readMe()
   }
 
-  onBroadcastNo(mut self) { self.editing = false }
+  mut onBroadcastNo() { self.editing = false }
 
-  onCopyTag(mut self) { self.people.copy((peek self.me).battleTag) }
+  mut onCopyTag() { self.people.copy((peek self.me).battleTag) }
 
-  onAdd(mut self) {
+  mut onAdd() {
     self.addText = ""
     self.adding = true
   }
 
-  onAddYes(mut self) {
+  mut onAddYes() {
     const text = trimmed(peek self.addText)
     if (text == "") { return }
     self.adding = false
     Game::friends.add(text)
   }
 
-  onAddNo(mut self) { self.adding = false }
+  mut onAddNo() { self.adding = false }
 
-  onAnswer(mut self, request: FriendRequest, accept: boolean) {
+  mut onAnswer(request: FriendRequest, accept: boolean) {
     Game::friends.answer(request, accept)
     self.readRequests()
     self.readFriends()
   }
 
-  onIgnore(mut self, name: string) {
+  mut onIgnore(name: string) {
     Game::friends.ignore(name)
     self.readIgnored()
   }
 
-  onUnignore(mut self, entry: Ignored) {
+  mut onUnignore(entry: Ignored) {
     Game::friends.unignore(entry)
     self.readIgnored()
   }
 
   // A guild's or a community's member, whispered or invited by name.
-  onMemberWhisper(mut self) {
+  mut onMemberWhisper() {
     const one = peek self.pickedMember ?? peek self.pickedClubMember
     if (one != nil) { self.whisperTo(one.name, false) }
   }
 
-  onMemberInvite(mut self) {
+  mut onMemberInvite() {
     const one = peek self.pickedMember ?? peek self.pickedClubMember
     if (one != nil) { self.people.inviteTo(one.name) }
   }
 
-  onPromote(mut self) {
+  mut onPromote() {
     const one = peek self.pickedMember
     if (one == nil) { return }
     Game::guild.promote(one.name)
     self.readGuild()
   }
 
-  onDemote(mut self) {
+  mut onDemote() {
     const one = peek self.pickedMember
     if (one == nil) { return }
     Game::guild.demote(one.name)
@@ -520,14 +520,14 @@ public class Social implements Module, App {
 
   // The game's own menu of a guild member (its promote, demote, remove and notes among its entries) or of a
   // community's: a row's right click, the card's ⋮.
-  onGuildMenu(mut self, key: string) { Game::guild.menu(key) }
+  mut onGuildMenu(key: string) { Game::guild.menu(key) }
 
-  onClubMenu(mut self, key: string) {
+  mut onClubMenu(key: string) {
     const club = peek self.clubId
     if (club != "") { Game::communities.menu(club, key) }
   }
 
-  onMemberCardMenu(mut self) {
+  mut onMemberCardMenu() {
     const member = peek self.pickedMember
     if (member != nil) {
       self.onGuildMenu(member.key)
@@ -537,91 +537,91 @@ public class Social implements Module, App {
     if (one != nil) { self.onClubMenu(one.key) }
   }
 
-  onNewsFilter(mut self, kind: integer, shown: boolean) {
+  mut onNewsFilter(kind: integer, shown: boolean) {
     Game::guild.filterNews(kind, shown)
     self.newsFilters = Game::guild.newsFilters()
   }
 
-  onGuildInvite(mut self) {
+  mut onGuildInvite() {
     self.inviteText = ""
     self.inviting = true
   }
 
-  onGuildInviteYes(mut self) {
+  mut onGuildInviteYes() {
     const name = trimmed(peek self.inviteText)
     if (name == "") { return }
     self.inviting = false
     Game::guild.invite(name)
   }
 
-  onGuildInviteNo(mut self) { self.inviting = false }
-  onLeave(mut self) { self.leaving = true }
+  mut onGuildInviteNo() { self.inviting = false }
+  mut onLeave() { self.leaving = true }
 
-  onLeaveYes(mut self) {
+  mut onLeaveYes() {
     self.leaving = false
     Game::guild.leave()
     self.member = ""
     self.readGuild()
   }
 
-  onLeaveNo(mut self) { self.leaving = false }
+  mut onLeaveNo() { self.leaving = false }
 
   // The game's own guild window, as it is: ours closes, the game's shows until it closes (loading its addon first where
   // nothing has yet).
-  onGameGuild(mut self) {
+  mut onGameGuild() {
     if (self.communities == nil) { _ = Client::C_AddOns::LoadAddOn(COMMUNITIES_ADDON) }
     const communities = self.communities
     if (communities != nil) { self.showGame(communities) }
   }
 
   // The game's window as it is: ours closes, the game's shows until it closes.
-  showGame(mut self, frame: any Frame) {
+  mut showGame(frame: any Frame) {
     self.onClose()
     self.pass.pass(frame)
   }
 
-  onAllyWhisper(mut self) {
+  mut onAllyWhisper() {
     const one = peek self.pickedAlly
     if (one != nil) { self.whisperTo(one.fullName, false) }
   }
 
-  onAllyInvite(mut self) {
+  mut onAllyInvite() {
     const one = peek self.pickedAlly
     if (one != nil) { self.people.inviteTo(one.fullName) }
   }
 
-  onAllyPin(mut self) {
+  mut onAllyPin() {
     const one = peek self.pickedAlly
     if (one == nil) { return }
     Game::recentAllies.pin(one.member.key, !one.pinned)
     self.readAllies()
   }
 
-  onAllyBefriend(mut self) {
+  mut onAllyBefriend() {
     const one = peek self.pickedAlly
     if (one == nil) { return }
     Game::friends.add(one.fullName)
     self.readAllies()
   }
 
-  onAllyMenu(mut self, key: string) {
+  mut onAllyMenu(key: string) {
     const one = (peek self.allies).find(ally => ally.member.key == key)
     if (one != nil) { Game::recentAllies.menu(one) }
   }
 
-  onAllyCardMenu(mut self) {
+  mut onAllyCardMenu() {
     const one = peek self.pickedAlly
     if (one != nil) { Game::recentAllies.menu(one) }
   }
 
-  onAllyNote(mut self) {
+  mut onAllyNote() {
     const one = peek self.pickedAlly
     if (one == nil) { return }
     self.noteText = one.member.note
     self.noting = true
   }
 
-  onAllyNoteYes(mut self) {
+  mut onAllyNoteYes() {
     const one = peek self.pickedAlly
     self.noting = false
     if (one == nil) { return }
@@ -629,12 +629,12 @@ public class Social implements Module, App {
     self.readAllies()
   }
 
-  onAllyNoteNo(mut self) { self.noting = false }
+  mut onAllyNoteNo() { self.noting = false }
 
   // A line Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them; whether it was a
   // whisper, which is then the window's alone. A whisper is its conversation's, which goes first in the list; heard
   // while that conversation isn't the one shown, it waits unread.
-  public heard(mut self, line: Game::ChatLine, whole: string): boolean {
+  public mut heard(line: Game::ChatLine, whole: string): boolean {
     if (!isWhisper(line)) { return false }
     const told = isTold(line)
     const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
@@ -646,7 +646,7 @@ public class Social implements Module, App {
 
   // A whisper started anywhere (a card's, the chat's, another addon's): the window shown on the whispers' tab, the
   // person's conversation open, a new one where there is none.
-  public whisperTo(mut self, name: string, battleNet: boolean) {
+  public mut whisperTo(name: string, battleNet: boolean) {
     self.talkOpen = self.talkOf(talkKey(name, battleNet)).key
     if (!(peek self.open)) {
       const friends = Runtime::frame(FRIENDS_WINDOW)
@@ -656,18 +656,18 @@ public class Social implements Module, App {
   }
 
   // A player reported: their lines go from every conversation, as the game's windows take them away.
-  public reported(mut self, guid: string) {
+  public mut reported(guid: string) {
     if (guid == "") { return }
     for (_, talk of self.talkMade) { talk.forgetSender(guid) }
   }
 
   // The conversation the whispers' tab opens on: the first waiting unread, else the newest; none where there is none.
-  firstTalk(self): string {
+  firstTalk(): string {
     const talks = peek self.talks
     return (talks.find(talk => peek talk.unread > 0) ?? talks[1])?.key ?? ""
   }
 
-  talkWhoOf(self): map<string, TalkWho> {
+  talkWhoOf(): map<string, TalkWho> {
     const members: array<Member> = []
     for (member of self.guildMembers) { members.push(member) }
     for (member of self.clubMembers) { members.push(member) }
@@ -678,12 +678,12 @@ public class Social implements Module, App {
   }
 
   // Whether a conversation is the one the player looks at.
-  shows(self, key: string): boolean {
+  shows(key: string): boolean {
     return peek self.open && peek self.tab == TAB_WHISPERS && peek self.talkOpen == key
   }
 
   // A conversation, made where there is none, put first in the list.
-  talkOf(mut self, key: string): mut Talk {
+  mut talkOf(key: string): mut Talk {
     const talk = self.talkMade[key] ?? new Talk(key)
     self.talkMade[key] = talk
     const talks: array<Talk> = [talk]
@@ -695,25 +695,25 @@ public class Social implements Module, App {
   }
 
   // A conversation looked at: nothing of it waits.
-  readTalk(mut self, key: string) {
+  mut readTalk(key: string) {
     const talk = self.talkMade[key]
     if (talk == nil || peek talk.unread == 0) { return }
     talk.unread = 0
     self.countUnread()
   }
 
-  countUnread(mut self) {
+  mut countUnread() {
     let unread = 0
     for (_, talk of self.talkMade) { unread += peek talk.unread }
     self.whispersUnread = unread
   }
 
-  onTalkPick(mut self, talk: Talk) { self.talkOpen = talk.key }
+  mut onTalkPick(talk: Talk) { self.talkOpen = talk.key }
 
-  onTalkStart(mut self, name: string) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
+  mut onTalkStart(name: string) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
 
   // A conversation's menu picked: closed, or its lines cleared.
-  onTalkMenu(mut self, pick: TalkPick) {
+  mut onTalkMenu(pick: TalkPick) {
     const talk = self.talkMade[pick.talk.key]
     if (talk == nil) { return }
     match (pick.action) {
@@ -725,20 +725,20 @@ public class Social implements Module, App {
 
   // A conversation closed: it leaves the list, nothing of it waiting; its lines are kept, and a whisper of the same
   // person brings it back with them (`talkOf`).
-  closeTalk(mut self, talk: mut Talk) {
+  mut closeTalk(talk: mut Talk) {
     talk.unread = 0
     self.talks = (peek self.talks).filter(other => other.key != talk.key)
     if (peek self.talkOpen == talk.key) { self.talkOpen = (peek self.talks)[1]?.key ?? "" }
   }
 
   // The words typed in a conversation, sent in the key's own call.
-  onTalkSend(mut self, text: string) {
+  mut onTalkSend(text: string) {
     const talk = self.talkMade[peek self.talkOpen]
     if (talk != nil) { _ = Game::chat.whisper(talk.partner, text, talk.battleNet) }
   }
 
   // A link in a whisper: a web address shown to copy; any other is the game's.
-  onTalkLink(mut self, link: Event::Link) {
+  mut onTalkLink(link: Event::Link) {
     if (link.link.sub(1, WEB_LINK.length) == WEB_LINK) {
       self.copied = link.link.sub(WEB_LINK.length + 1)
       return
@@ -746,12 +746,12 @@ public class Social implements Module, App {
     Game::chat.click(link.link, link.text, link.button)
   }
 
-  onCopyClose(mut self) { self.copied = "" }
+  mut onCopyClose() { self.copied = "" }
 
   // The conversations' last lines and what of them waits unread, for the next session (a /reload among them): those in
   // the list in its order, then those closed, whose lines come back as their person whispers again. Written once, as
   // the player logs out.
-  keepTalks(mut self) {
+  mut keepTalks() {
     const listed = peek self.talks
     const talks: array<KeptTalk> = listed.map(talk => keptOf(talk, false))
     for (key, talk of self.talkMade) {
@@ -760,7 +760,7 @@ public class Social implements Module, App {
     Game::saved.store(Game::Scope::Character, TALKS_KEPT, KeptTalks { talks: talks })
   }
 
-  recallTalks(mut self) {
+  mut recallTalks() {
     const kept = KeptTalks::decode(Game::saved.stored(Game::Scope::Character, TALKS_KEPT), KeptTalks { talks: [] })
     const talks: array<Talk> = []
     for (one of kept.talks) {
@@ -775,18 +775,18 @@ public class Social implements Module, App {
   }
 
   // Ours closed: the game's closes with it.
-  onClose(mut self) {
+  mut onClose() {
     self.open = false
     for (game of self.games) {
       if (game.IsShown()) { Client::HideUIPanel(game) }
     }
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   // The card beside the list, of the tab shown: the picked friend's or the player's own; the picked member's, or the
   // guild's or the community's; the picked ally's. The whispers have none: the conversation is their tab's own.
-  sideOf(self): WindowSide | nil {
+  sideOf(): WindowSide | nil {
     if (self.tab == TAB_FRIENDS) { return self.sub == SUB_STATUS ? self.friendSide() : nil }
     if (self.tab == TAB_GUILD) { return self.guild != nil && self.guildSub == SUB_ROSTER ? self.guildSide() : nil }
     if (self.tab == TAB_COMMUNITIES) { return self.chosenClub != nil ? self.clubSide() : nil }
@@ -794,7 +794,7 @@ public class Social implements Module, App {
     return nil
   }
 
-  friendSide(self): WindowSide {
+  friendSide(): WindowSide {
     return {
       width: Style::CARD,
       content: $ltml {
@@ -805,7 +805,7 @@ public class Social implements Module, App {
     }
   }
 
-  guildSide(self): WindowSide {
+  guildSide(): WindowSide {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
@@ -818,7 +818,7 @@ public class Social implements Module, App {
     }
   }
 
-  clubSide(self): WindowSide {
+  clubSide(): WindowSide {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
@@ -830,7 +830,7 @@ public class Social implements Module, App {
     }
   }
 
-  allySide(self): WindowSide {
+  allySide(): WindowSide {
     return {
       width: Style::SIDE_CARD,
       content: $ltml {
@@ -841,7 +841,7 @@ public class Social implements Module, App {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}

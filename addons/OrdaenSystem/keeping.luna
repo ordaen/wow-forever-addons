@@ -94,7 +94,7 @@ public class GameKeeping {
   }
 
   // The first time in the world: the profile's applied as they are, or taken from the game.
-  onWorld(mut self) {
+  mut onWorld() {
     if (self.started) { return }
     self.started = true
     // A profile that never held the game's has nothing to apply: it takes them at its first change or switch.
@@ -103,7 +103,7 @@ public class GameKeeping {
 
   // Another profile: one that never held the game's takes them; one that holds others asks first. The same profile
   // worked out again (the player's specialisation read) is no switch.
-  switched(mut self, name: string) {
+  mut switched(name: string) {
     const before = self.profile
     self.profile = name
     if (!self.started || before == nil || before == name) { return }
@@ -116,7 +116,7 @@ public class GameKeeping {
 
   // The keys the player changed (anywhere: ours, Blizzard's window, another addon's): the profile's now.
   // A profile that doesn't hold the game's yet keeps nothing, and keys as the profile has them are no change.
-  onBindings(mut self) {
+  mut onBindings() {
     if (!self.started || self.applying || !(peek self.kept.values).taken) { return }
     const keys = self.keysNow()
     if (sameMaps(keys, (peek self.kept.values).keys)) { return }
@@ -125,7 +125,7 @@ public class GameKeeping {
 
   // A setting set through the window: the profile's now; one set back to its default: the game's again.
   // The first holds the game's as they are, with it.
-  public record(mut self, variable: string, value: boolean | number | string) {
+  public mut record(variable: string, value: boolean | number | string) {
     const text = settingText(value)
     const taken = (peek self.kept.values).taken
     const keys = taken ? nil : self.keysNow()
@@ -138,12 +138,12 @@ public class GameKeeping {
     })
   }
 
-  public forget(mut self, variable: string) {
+  public mut forget(variable: string) {
     self.kept.change((values: mut GameValues): nil => { values.settings[variable] = nil })
   }
 
   // The player's answer: the profile's applied, or the game's kept as they are, which the profile takes.
-  public answer(mut self, apply: boolean) {
+  public mut answer(apply: boolean) {
     self.asking = []
     if (apply) {
       self.apply()
@@ -153,7 +153,7 @@ public class GameKeeping {
   }
 
   // The game's settings as the profile holds them, and its keys; out of a fight, or once it ends.
-  apply(mut self) {
+  mut apply() {
     if (Game::situation.combat) {
       self.waiting = true
       return
@@ -181,7 +181,7 @@ public class GameKeeping {
   }
 
   // The game's as they are now: the profile's.
-  take(mut self) {
+  mut take() {
     const keys = self.keysNow()
     self.kept.change((values: mut GameValues): nil => {
       values.taken = true
@@ -190,7 +190,7 @@ public class GameKeeping {
   }
 
   // The game's kept as they are: each setting the profile holds takes the game's value, and the keys are the game's.
-  adopt(mut self) {
+  mut adopt() {
     const keys = self.keysNow()
     self.kept.change((values: mut GameValues): nil => {
       for (variable, _ of values.settings) {
@@ -202,7 +202,7 @@ public class GameKeeping {
   }
 
   // Every command's keys now, those with any.
-  keysNow(mut self): map<string, array<string>> {
+  mut keysNow(): map<string, array<string>> {
     self.bindings.read()
     const keys: map<string, array<string>> = {}
     for (command of self.bindings.commands) {
@@ -212,7 +212,7 @@ public class GameKeeping {
   }
 
   // What applying the profile would change: each setting it holds that the game has otherwise, then each command's keys.
-  changes(mut self): array<GameChange> {
+  mut changes(): array<GameChange> {
     const list: array<GameChange> = []
     const values = peek self.kept.values
     for (variable, text of values.settings) {

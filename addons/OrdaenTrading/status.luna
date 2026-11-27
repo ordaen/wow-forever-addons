@@ -45,16 +45,16 @@ public class Status implements Component {
     self.scanner = scanner
   }
 
-  pricesText(self): string {
+  pricesText(): string {
     if (!self.priced) { return Locale::NO_PRICES }
     const counted = itemsText(self.items)
     if (!self.scanned) { return counted }
     return Locale::PRICES_AGE.format(agoText(self.now - self.lastFull), counted)
   }
 
-  onScan(mut self) { _ = self.scanner.full() }
+  mut onScan() { _ = self.scanner.full() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COLUMNS} gap={6sp} yAlign={Align::Center}>
         <box $if={self.scanner.reading}>

@@ -135,9 +135,9 @@ public class WorthLine implements Component {
     self.chosen = chosen
   }
 
-  onPick(self, button: MouseButton) { self.pick.emit((peek self.worth).key) }
+  onPick(button: MouseButton) { self.pick.emit((peek self.worth).key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell> <text value={self.worth.name} textColor={BRIGHT_TEXT} wrap={.None} /> </TableCell>
@@ -201,7 +201,7 @@ public class WorthPage implements Component {
 
   // The characters whose rows the table has: the one being played, and each the book has a page of that Ordaen Alts
   // says it reaches (the same realm and side); the one being played alone while Ordaen Alts is off.
-  reachedOf(self): array<Reached> {
+  reachedOf(): array<Reached> {
     const book = self.book
     const own = Game::player.guid
     const list: array<Reached> = []
@@ -226,7 +226,7 @@ public class WorthPage implements Component {
   }
 
   // The first reached character Ordaen Alts knows a profession of that the book has no page of; "" for none.
-  unopenedOf(self): string {
+  unopenedOf(): string {
     const alts = Alts
     if (alts == nil) { return "" }
     _ = alts.revision
@@ -242,7 +242,7 @@ public class WorthPage implements Component {
   }
 
   // How many of an item the reached characters hold: Ordaen Alts' records, or this character's bags while it is off.
-  heldOf(self, item: integer): integer {
+  heldOf(item: integer): integer {
     const alts = Alts
     if (alts == nil) { return (Game::bags.holdings() ?? {})[item] ?? 0 }
     let count = 0
@@ -252,7 +252,7 @@ public class WorthPage implements Component {
     return count
   }
 
-  rowsOf(self): array<Worth> {
+  rowsOf(): array<Worth> {
     const prices = self.prices
     if (prices != nil) { _ = prices.revision }
     const book = self.book
@@ -281,8 +281,7 @@ public class WorthPage implements Component {
     return list
   }
 
-  worthOf(
-    self, prices: any PriceSource | nil, mode: Mode, character: Reached, profession: string, recipe: integer, entry: Entry,
+  worthOf(prices: any PriceSource | nil, mode: Mode, character: Reached, profession: string, recipe: integer, entry: Entry,
     held: mut map<integer, integer>
   ): Worth {
     let cost: integer | nil = prices == nil ? nil : 0
@@ -326,10 +325,10 @@ public class WorthPage implements Component {
     }
   }
 
-  onPick(mut self, key: string) { self.chosen = self.chosen == key ? "" : key }
+  mut onPick(key: string) { self.chosen = self.chosen == key ? "" : key }
 
   // «В список покупок»: what one making of the picked row lacks, onto Ordaen Trading's list.
-  onShop(self) {
+  onShop() {
     const auction = Trading
     const row = peek self.picked
     if (auction == nil || row == nil) { return }
@@ -338,7 +337,7 @@ public class WorthPage implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE}>
         <box padding={HEAD_PAD} gap={3sp}>

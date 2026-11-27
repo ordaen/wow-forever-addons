@@ -60,15 +60,15 @@ public class ListTab implements Component {
     self.oneLine = oneLine
   }
 
-  onClick(mut self) { self.pick.emit() }
+  mut onClick() { self.pick.emit() }
 
   // The left button picks, as a tab of the game's own takes its left button alone: the right is its owner's (the
   // chat's tab menu).
-  onPress(mut self, press: Event::Press) {
+  mut onPress(press: Event::Press) {
     if (press.button == .Left) { self.onClick() }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} gap={3sp} padding={self.padding} yAlign={Align::Center}
            background={self.background} @pointerPress={self.onPress} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>

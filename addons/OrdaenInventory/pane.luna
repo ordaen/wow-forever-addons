@@ -117,11 +117,11 @@ class GuildTabEntry implements Component {
     self.live = live
   }
 
-  onPick(self) {
+  onPick() {
     if (self.tab.viewable && self.live) { self.picked.emit(self.tab.index) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ListTab label={self.tab.name} icon={self.tab.icon} selected={self.selected} off={self.off} @pick={self.onPick}>
         <text value={self.limit} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
@@ -274,7 +274,7 @@ public class Pane {
     }
   }
 
-  stockOf(self): Stock {
+  stockOf(): Stock {
     return match (self.vault) {
       .Bags => self.carried
       .Bank => self.bank
@@ -282,14 +282,14 @@ public class Pane {
     }
   }
 
-  countsOf(self): map<Tab, integer> {
+  countsOf(): map<Tab, integer> {
     const stock = self.stock
     _ = stock.revision
     return countsOf(stock.all)
   }
 
   // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
-  tabsOf(self): array<Tab> {
+  tabsOf(): array<Tab> {
     const choices = self.choices
     let tabs: array<Tab> = [Tab::All]
     if ((self.counts[Tab::New] ?? 0) > 0) { tabs.push(Tab::New) }
@@ -301,7 +301,7 @@ public class Pane {
     return tabs
   }
 
-  sectionsOf(self): array<Section> {
+  sectionsOf(): array<Section> {
     const stock = self.stock
     _ = stock.revision
     if (self.isGuild) { return oneSection(stock.bags) }
@@ -312,22 +312,22 @@ public class Pane {
     }
   }
 
-  footCountsOf(self): array<FooterCount> {
+  footCountsOf(): array<FooterCount> {
     if (self.guildLive) { return [{ label: Locale::GUILD_LEFT, value: self.guildLeft }] }
     const free: FooterCount = { label: Locale::FOOT_FREE, value: Locale::FREE_OF.format(self.free, self.stock.total) }
     if (!self.junkShown) { return [free] }
     return [free, { label: Locale::FOOT_JUNK, value: Locale::JUNK_WORTH.format(self.junkCount, Game::money.format(self.junkWorth)) }]
   }
 
-  onGuildTab(self, tab: integer) { self.guildTab.emit(tab) }
-  onGuildLog(self) { self.guildLog.emit() }
-  onMoneyLog(self) { self.moneyLog.emit() }
-  onArrange(self) { self.arrange.emit() }
-  onSellJunk(self) { self.sellJunk.emit() }
-  onDeposit(self) { self.deposit.emit() }
-  onWithdraw(self) { self.withdraw.emit() }
-  onGoldEnter(mut self) { self.goldShown = true }
-  onGoldLeave(mut self) { self.goldShown = false }
+  onGuildTab(tab: integer) { self.guildTab.emit(tab) }
+  onGuildLog() { self.guildLog.emit() }
+  onMoneyLog() { self.moneyLog.emit() }
+  onArrange() { self.arrange.emit() }
+  onSellJunk() { self.sellJunk.emit() }
+  onDeposit() { self.deposit.emit() }
+  onWithdraw() { self.withdraw.emit() }
+  mut onGoldEnter() { self.goldShown = true }
+  mut onGoldLeave() { self.goldShown = false }
 
   // The footer band: the game's dark marble, the window's width, its line between it and the list.
   public const footer: Template = $ltml {

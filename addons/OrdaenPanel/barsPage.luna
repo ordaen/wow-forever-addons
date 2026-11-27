@@ -49,7 +49,7 @@ class FormRow implements Component {
   }
 
   // The switch as the settings hold it: written where it differs, so the page opening changes nothing.
-  write(mut self, on: boolean) {
+  mut write(on: boolean) {
     const key = string::of(self.form.bonusbar)
     if (((peek self.settings.values).unpaged[key] != true) == on) { return }
     const unpaged = (peek self.settings.values).unpaged.clone()
@@ -57,7 +57,7 @@ class FormRow implements Component {
     self.settings.values.unpaged = unpaged
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <Switch label={self.form.name} hint={Locale::FORM_TIP} value={mut self.on} /> }
   }
 }
@@ -97,10 +97,10 @@ class BarTab implements Component {
     self.settings = settings
   }
 
-  onPick(self) { self.pick.emit(self.spec) }
-  onFlip(self) { self.flip.emit(self.spec) }
+  onPick() { self.pick.emit(self.spec) }
+  onFlip() { self.flip.emit(self.spec) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ListTab label={self.title} selected={self.selected} off={self.off} @pick={self.onPick}>
         <ShownToggle state={self.shown} @flip={self.onFlip} />
@@ -138,7 +138,7 @@ class BarEditor implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_BUTTONS}>
         <NumberInput label={Locale::BUTTONS} hint={Locale::BUTTONS_TIP} value={mut self.choice.buttons} least={1}
@@ -210,26 +210,26 @@ public class BarsPage implements Component {
   }
 
   // A bar's name in the copy's submenu: an off one says so.
-  nameOf(self, spec: BarSpec): string {
+  nameOf(spec: BarSpec): string {
     const title = Bar::titleOf(spec)
     return choiceIn(self.settings.values, self.defaults, spec).on ? title : Locale::BAR_OFF.format(title)
   }
 
-  onPick(mut self, spec: BarSpec) {
+  mut onPick(spec: BarSpec) {
     self.memory.write({ picked: spec.id })
     self.copiedFrom = nil
   }
 
-  onFlip(mut self, spec: BarSpec) {
+  mut onFlip(spec: BarSpec) {
     const choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     choice.on = !choice.on
     put(self.settings, spec, choice)
   }
 
-  toggleMenu(mut self) { self.menuOpen = !self.menuOpen }
-  closeMenu(mut self) { self.menuOpen = false }
+  mut toggleMenu() { self.menuOpen = !self.menuOpen }
+  mut closeMenu() { self.menuOpen = false }
 
-  onMenu(mut self, index: integer) {
+  mut onMenu(index: integer) {
     const spec = peek self.spec
     if (index == RESET_ENTRY) {
       const now = choiceIn(peek self.settings.values, peek self.defaults, spec)
@@ -242,7 +242,7 @@ public class BarsPage implements Component {
   }
 
   // Another bar's settings copied into the picked one, at once.
-  onCopy(mut self, entry: integer, at: integer) {
+  mut onCopy(entry: integer, at: integer) {
     const spec = peek self.spec
     const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
     const values = peek self.settings.values
@@ -252,7 +252,7 @@ public class BarsPage implements Component {
     self.menuOpen = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text $if={self.conflict} value={Locale::CONFLICT} />
       <text $if={Game::situation.combat} value={Locale::AFTER_COMBAT} />

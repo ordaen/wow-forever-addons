@@ -79,7 +79,7 @@ public class MakeRow implements Component {
     self.queueing = queueing
   }
 
-  expectedOf(self): integer | nil {
+  expectedOf(): integer | nil {
     const profession = self.profession
     const yellow = self.yellow
     const grey = self.grey
@@ -87,14 +87,14 @@ public class MakeRow implements Component {
     return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
   }
 
-  mostOf(self): integer {
+  mostOf(): integer {
     if (self.mode != MakeMode::Skill) { return self.craftable }
     const profession = self.profession
     return profession == nil ? 0 : profession.max - profession.rank
   }
 
   // What «Create» makes: never more than the bags make now.
-  makingOf(self): integer {
+  makingOf(): integer {
     const craftable = self.craftable
     return match (self.mode) {
       MakeMode::Count => self.count.min(craftable)
@@ -102,14 +102,14 @@ public class MakeRow implements Component {
     }
   }
 
-  hintOf(self): string {
+  hintOf(): string {
     return match (self.mode) {
       MakeMode::Count => ""
       MakeMode::Skill => self.expected == nil ? Locale::MAKE_NO_SKILL : Locale::MAKE_ABOUT.format(self.expected ?? 0)
     }
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (self.queueing != Queueing::None) {
       self.drop.emit()
     } else if (!self.cannot) {
@@ -117,7 +117,7 @@ public class MakeRow implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={MAKE} gap={3sp} yAlign={Align::Center}>
         <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} disabled={self.making} />

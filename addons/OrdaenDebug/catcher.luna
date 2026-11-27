@@ -21,35 +21,35 @@ public class Catcher {
     Events::ADDON_ACTION_FORBIDDEN.listen(self.onForbidden)
   }
 
-  public onTaint(mut self, listener: TaintListener) {
+  public mut onTaint(listener: TaintListener) {
     self.taintListeners.push(listener)
   }
 
   // An error or a fault the runtime caught: the stack and the locals with a message's first time this session.
-  public error(mut self, message: string, stack: string | nil, locals: string | nil) {
+  public mut error(message: string, stack: string | nil, locals: string | nil) {
     if (self.errors.repeatOf(message) == nil) {
       _ = self.errors.add({ message: message, stack: stack, locals: locals, kind: nil, source: nil })
     }
   }
 
   // A failure that raised nothing, of the addon `source`.
-  public fault(mut self, message: string, source: string) {
+  public mut fault(message: string, source: string) {
     if (self.errors.repeatOf(message) == nil) {
       _ = self.errors.add({ message: message, stack: nil, locals: nil, kind: Kind::Error, source: source })
     }
   }
 
-  onBlocked(mut self, isTainted: string, function_: string) {
+  mut onBlocked(isTainted: string, function_: string) {
     self.taint("ADDON_ACTION_BLOCKED", isTainted, function_)
   }
 
-  onForbidden(mut self, isTainted: string, function_: string) {
+  mut onForbidden(isTainted: string, function_: string) {
     self.taint("ADDON_ACTION_FORBIDDEN", isTainted, function_)
   }
 
   // Records a blocked or forbidden protected action (ADDON_ACTION_BLOCKED / _FORBIDDEN), each one the client
   // reports: whatever made it, the player saw the client's dialog or message for it.
-  public taint(mut self, event: string, addon: string | nil, func: string | nil) {
+  public mut taint(event: string, addon: string | nil, func: string | nil) {
     let verb = event == "ADDON_ACTION_FORBIDDEN" ? "forbidden" : "blocked"
     // The client names the function with its parentheses or without ("UNKNOWN()", "Minimap:SetParent").
     let called = string::of(func)

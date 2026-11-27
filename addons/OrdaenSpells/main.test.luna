@@ -88,8 +88,8 @@ function pick(window: Test::Part, button: Art, among: string, choice: string) {
 // What another addon hears of the spellbook through the interface's registry of events.
 class Heard {
   said: mut array<string> = []
-  onShow(mut self) { self.said.push("shown") }
-  onHide(mut self) { self.said.push("hidden") }
+  mut onShow() { self.said.push("shown") }
+  mut onHide() { self.said.push("hidden") }
 }
 
 // The spellbook opened by its command.

@@ -105,9 +105,9 @@ public class Bubble implements Component {
     self.lineHeight = lineHeight
   }
 
-  onLink(mut self, link: Event::Link) { self.link.emit(link) }
+  mut onLink(link: Event::Link) { self.link.emit(link) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.item.opens} padding={NEW_GROUP}>
         <SessionRule began={self.began} />
@@ -159,11 +159,11 @@ public class TalkRow implements Component {
     self.open = open
   }
 
-  onPick(mut self) { self.pick.emit(peek self.talk) }
+  mut onPick() { self.pick.emit(peek self.talk) }
 
-  onMenu(mut self) { self.menu.emit(peek self.talk) }
+  mut onMenu() { self.menu.emit(peek self.talk) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, COUNT_ROOM]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align::Center}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
@@ -251,28 +251,28 @@ public class Whispers implements Component {
   }
 
   // Another conversation opened: what was typed in the last is kept, this one's brought back.
-  turnTo(mut self, key: string) {
+  mut turnTo(key: string) {
     self.back = 0
     self.draft = self.drafts[key] ?? ""
   }
 
-  shownOf(self): array<TalkLine> {
+  shownOf(): array<TalkLine> {
     const talk = self.open
     // The lines change in place: their version is what tells the view.
     if (talk == nil || talk.version < 0) { return [] }
     return talk.slice(self.back, ROWS)
   }
 
-  onPick(mut self, talk: Talk) {
+  mut onPick(talk: Talk) {
     self.drafts[peek self.openKey] = peek self.draft
     self.picked.emit(talk)
   }
 
-  onMenu(mut self, talk: Talk) { self.menuTalk = talk }
+  mut onMenu(talk: Talk) { self.menuTalk = talk }
 
-  onMenuClose(mut self) { self.menuTalk = nil }
+  mut onMenuClose() { self.menuTalk = nil }
 
-  onTalkPick(mut self, place: integer) {
+  mut onTalkPick(place: integer) {
     const talk = peek self.menuTalk
     const action = TALK_ACTIONS[place]
     self.menuTalk = nil
@@ -281,13 +281,13 @@ public class Whispers implements Component {
     self.talkPicked.emit({ talk: talk, action: action })
   }
 
-  onStart(mut self) {
+  mut onStart() {
     const name = (peek self.name).replace("^%s+", "").replace("%s+$", "")
     self.name = ""
     if (name != "") { self.start.emit(name) }
   }
 
-  onSend(mut self) {
+  mut onSend() {
     const text = peek self.draft
     if (text == "" || peek self.empty) { return }
     self.draft = ""
@@ -296,10 +296,10 @@ public class Whispers implements Component {
     self.send.emit(text)
   }
 
-  onLink(mut self, link: Event::Link) { self.link.emit(link) }
+  mut onLink(link: Event::Link) { self.link.emit(link) }
 
   // The wheel scrolls three lines; with Shift, to the oldest or the newest.
-  onWheel(mut self, wheel: Event::Wheel) {
+  mut onWheel(wheel: Event::Wheel) {
     const talk = peek self.open
     if (talk == nil) { return }
     const most = (0).max(talk.lines.length - 1)
@@ -311,7 +311,7 @@ public class Whispers implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={SIDEBAR_AND_TALK} rows={[{ fr: 1 }]} gap={3sp}>
         <box rows={[MAX, { fr: 1 }]} gap={2sp} width={SIDEBAR_LEAST}>

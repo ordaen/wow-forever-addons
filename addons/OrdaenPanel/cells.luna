@@ -82,7 +82,7 @@ public class MenuCell implements Component {
     self.after = after
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
         <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
@@ -129,7 +129,7 @@ public class FaceCell implements Component {
     self.after = after
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
         <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
@@ -165,7 +165,7 @@ public class BagCell implements Component {
     self.after = after
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
         <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>

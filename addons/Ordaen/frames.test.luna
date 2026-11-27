@@ -6,7 +6,7 @@ import root Ordaen from "Ordaen"
 const FILL: Color = Color::hex("#2a1d12")
 
 class Small {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={200ui} height={80ui} border={Ordaen.art.frame.small} background={FILL}>
         <text value={"a tooltip"} />

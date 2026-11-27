@@ -26,15 +26,15 @@ public function moduleName(title: string): string {
 // section is read as its type by the `Settings` that owns it.
 public trait Sectioned {
   // How many of its settings a snapshot or a section (read to plain data) would change in its values.
-  public differs(self, raw: unknown): integer
+  public differs(raw: unknown): integer
   // Its values as they are now, a copy.
-  public snapshot(self): unknown
+  public snapshot(): unknown
   // A snapshot or a section becomes its values: a change as any other.
-  public restore(mut self, raw: unknown)
+  public mut restore(raw: unknown)
   // A change written and not recorded yet (a watch records it at the next frame) is recorded now.
-  public settle(mut self)
+  public mut settle()
   // Every value back to its default.
-  public reset(mut self)
+  public mut reset()
 }
 
 // One step of the history: each section it changed, as it was before.
@@ -109,13 +109,13 @@ public class Keeper {
   }
 
   // A `Settings` that is kept is known by its key, and named by its module's title, until it is gone.
-  public enrol(mut self, key: string, id: integer, title: string, section: mut any Sectioned) {
+  public mut enrol(key: string, id: integer, title: string, section: mut any Sectioned) {
     self.sections[key] = section
     self.owners[key] = id
     self.titles[key] = moduleName(title)
   }
 
-  public withdraw(mut self, key: string, id: integer) {
+  public mut withdraw(key: string, id: integer) {
     if (self.owners[key] == id) {
       self.sections[key] = nil
       self.owners[key] = nil
@@ -123,25 +123,25 @@ public class Keeper {
   }
 
   // What a `Settings` is counted by.
-  public join(mut self): integer {
+  public mut join(): integer {
     self.last += 1
     return self.last
   }
 
   // Whether a `Settings` is made for the key: its module is loaded.
-  public loaded(self, key: string): boolean {
+  public loaded(key: string): boolean {
     return self.sections[key] != nil
   }
 
   // How many settings a section would change; nil where no `Settings` is made for the key.
-  public differs(self, key: string, raw: unknown): integer | nil {
+  public differs(key: string, raw: unknown): integer | nil {
     const section = self.sections[key]
     if (section == nil) { return nil }
     return section.differs(raw)
   }
 
   // The active profile's ways back, made as they are first needed.
-  shelf(mut self): mut Shelf {
+  mut shelf(): mut Shelf {
     const name = peek self.profiles.active
     const kept = self.shelves[name]
     if (kept != nil) { return kept }
@@ -150,7 +150,7 @@ public class Keeper {
     return made
   }
 
-  count(mut self, name: string) {
+  mut count(name: string) {
     const shelf = self.shelves[name]
     if (shelf == nil) {
       self.steps = 0
@@ -162,7 +162,7 @@ public class Keeper {
   }
 
   // A `Settings` changed: `before` is what its values were. One step, or a part of the step under way.
-  public stepped(mut self, key: string, before: unknown) {
+  public mut stepped(key: string, before: unknown) {
     if (self.quiet) { return }
     const shelf = self.shelf()
     if (shelf.start[key] == nil) { shelf.start[key] = before }
@@ -179,19 +179,19 @@ public class Keeper {
     self.count(peek self.profiles.active)
   }
 
-  settleAll(mut self) {
+  mut settleAll() {
     for (_, section of self.sections) { section.settle() }
   }
 
   // The input under way writes what it holds, before anything reads the values whole: going back, a savepoint, the
   // values packed (the game saving, a switch, an export), the window closed or another page shown.
-  public finishInput(mut self) {
+  public mut finishInput() {
     const finish = self.finish
     if (finish != nil) { finish() }
   }
 
   // An input starts: what it writes until it ends is one step. `finish` writes what it holds and ends it.
-  public begin(mut self, finish: () => nil) {
+  public mut begin(finish: () => nil) {
     self.finishInput()
     self.settleAll()
     self.finish = finish
@@ -200,7 +200,7 @@ public class Keeper {
   }
 
   // The input ends: its last write joins its step.
-  public end(mut self) {
+  public mut end() {
     self.settleAll()
     self.finish = nil
     self.joining = false
@@ -208,7 +208,7 @@ public class Keeper {
   }
 
   // What `run` changes, in every section, is one step (a profile's «Сбросить», a copy from another profile).
-  public together(mut self, run: () => nil) {
+  public mut together(run: () => nil) {
     self.finishInput()
     self.settleAll()
     self.joining = true
@@ -221,7 +221,7 @@ public class Keeper {
 
   // What `run` changes is no step: it is how the values are read, not the player's change (a preset Ordaen doesn't
   // offer, read from a profile).
-  public unrecorded(mut self, run: () => nil) {
+  public mut unrecorded(run: () => nil) {
     self.settleAll()
     self.quiet = true
     run()
@@ -230,14 +230,14 @@ public class Keeper {
   }
 
   // Every `Settings` back to its defaults, in the active profile: one step.
-  public resetAll(mut self) {
+  public mut resetAll() {
     self.together(() => {
       for (_, section of self.sections) { section.reset() }
     })
   }
 
   // A section of another profile becomes the values of its `Settings`: false where none is made for the key.
-  public copyIn(mut self, key: string, raw: unknown): boolean {
+  public mut copyIn(key: string, raw: unknown): boolean {
     const section = self.sections[key]
     if (section == nil) { return false }
     section.restore(raw)
@@ -246,7 +246,7 @@ public class Keeper {
 
   // «Последнее изменение»: every setting the last step changed back to how it was before it. It is taken off the
   // history, so pressed again it goes back through the step before.
-  public undo(mut self) {
+  public mut undo() {
     self.finishInput()
     self.settleAll()
     const shelf = self.shelf()
@@ -266,7 +266,7 @@ public class Keeper {
 
   // Every section of `place` the values are not, restored: one step, which «Последнее изменение» takes back. A
   // section whose module isn't loaded is left as it is.
-  goBack(mut self, place: map<string, unknown>) {
+  mut goBack(place: map<string, unknown>) {
     self.finishInput()
     self.settleAll()
     self.joining = true
@@ -283,18 +283,18 @@ public class Keeper {
   }
 
   // «Начало сессии»: every setting as it was at login or at the last `/reload`.
-  public toStart(mut self) {
+  public mut toStart() {
     self.goBack(self.shelf().start)
   }
 
   // A savepoint gone back to, by its place in the list.
-  public toPoint(mut self, index: integer) {
+  public mut toPoint(index: integer) {
     const point = self.shelf().points[index]
     if (point != nil) { self.goBack(point.sections) }
   }
 
   // «Точка»: every loaded section as it is now. False at the most a profile keeps.
-  public mark(mut self): boolean {
+  public mut mark(): boolean {
     self.finishInput()
     self.settleAll()
     const shelf = self.shelf()
@@ -309,7 +309,7 @@ public class Keeper {
   }
 
   // A savepoint let go.
-  public unmark(mut self, index: integer) {
+  public mut unmark(index: integer) {
     const shelf = self.shelf()
     if (index < 1 || index > shelf.points.length) { return }
     _ = shelf.points.remove(index)
@@ -317,12 +317,12 @@ public class Keeper {
   }
 
   // The active profile's savepoints, in the order made.
-  public pointList(mut self): array<Savepoint> {
+  public mut pointList(): array<Savepoint> {
     return self.shelf().points
   }
 
   // What going back to `place` would change now.
-  public changeTo(self, place: map<string, unknown>): Change {
+  public changeTo(place: map<string, unknown>): Change {
     let count = 0
     const modules: array<string> = []
     for (key, raw of place) {
@@ -337,7 +337,7 @@ public class Keeper {
   }
 
   // The modules the last step changed.
-  public lastModules(mut self): array<string> {
+  public mut lastModules(): array<string> {
     const modules: array<string> = []
     const shelf = self.shelf()
     const last = shelf.steps[shelf.steps.length]
@@ -347,25 +347,25 @@ public class Keeper {
   }
 
   // What going back to the session's start would change now.
-  public startChange(mut self): Change {
+  public mut startChange(): Change {
     self.settleAll()
     return self.changeTo(self.shelf().start)
   }
 
-  named(self, modules: mut array<string>, key: string) {
+  named(modules: mut array<string>, key: string) {
     const title = self.titles[key] ?? key
     if (!modules.any(each => each == title)) { modules.push(title) }
   }
 
   // A profile renamed keeps its ways back; deleted, they go with it.
-  public renamed(mut self, from: string, to: string) {
+  public mut renamed(from: string, to: string) {
     const shelf = self.shelves[from]
     self.shelves[from] = nil
     if (shelf != nil) { self.shelves[to] = shelf }
     self.count(peek self.profiles.active)
   }
 
-  public dropped(mut self, name: string) {
+  public mut dropped(name: string) {
     self.shelves[name] = nil
     self.count(peek self.profiles.active)
   }

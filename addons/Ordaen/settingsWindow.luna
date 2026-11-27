@@ -119,32 +119,32 @@ public class SettingsWindow implements Component {
   // Every module the player has, on or off: each addon that needs Ordaen, as the client lists them.
   const entries: array<ModuleEntry>
 
-  entryOf(self): any Entry | nil {
+  entryOf(): any Entry | nil {
     for (entry of self.entries) {
       if (entry.folder == self.page) { return entry }
     }
     return nil
   }
 
-  offNow(self): boolean {
+  offNow(): boolean {
     let entry = self.entry
     if (entry == nil) { return false }
     return !entry.on
   }
 
-  pagesOf(self): array<SettingsPage> {
+  pagesOf(): array<SettingsPage> {
     let entry = self.entry
     if (entry == nil) { return self.pages }
     return entry.pages
   }
 
-  namesOf(self): array<string> {
+  namesOf(): array<string> {
     let list: array<string> = []
     for (page of self.shown) { list.push(page.title) }
     return list
   }
 
-  contentOf(self): Template {
+  contentOf(): Template {
     let page = self.shown[self.tab]
     if (page == nil) { return self.nothing }
     return page.content
@@ -161,7 +161,7 @@ public class SettingsWindow implements Component {
 
   // `page` is Ordaen's own page (`""` or its name), or a module's folder; one that is neither (the player's
   // `/ordaen` with a name no module has) is Ordaen's own, so the list always marks the page shown.
-  public toggle(mut self, asked: string) {
+  public mut toggle(asked: string) {
     const page = self.known(asked) ? asked : GENERAL
     if (self.open && self.page == page) {
       self.onClose()
@@ -171,7 +171,7 @@ public class SettingsWindow implements Component {
     self.open = true
   }
 
-  known(self, page: string): boolean {
+  known(page: string): boolean {
     if (page == GENERAL || page == LOOK || page == PROFILES) { return true }
     for (entry of self.entries) {
       if (entry.folder == page) { return true }
@@ -179,7 +179,7 @@ public class SettingsWindow implements Component {
     return false
   }
 
-  show(mut self, page: string) {
+  mut show(page: string) {
     Ordaen.keeper.finishInput()
     if (self.page != page) {
       self.page = page
@@ -187,37 +187,37 @@ public class SettingsWindow implements Component {
     }
   }
 
-  pickGeneral(mut self) { self.show(GENERAL) }
-  pickLook(mut self) { self.show(LOOK) }
-  pickProfiles(mut self) { self.show(PROFILES) }
-  onPick(mut self, folder: string) { self.show(folder) }
+  mut pickGeneral() { self.show(GENERAL) }
+  mut pickLook() { self.show(LOOK) }
+  mut pickProfiles() { self.show(PROFILES) }
+  mut onPick(folder: string) { self.show(folder) }
 
   // Every change is kept as it is made: closing asks nothing.
-  onClose(mut self) {
+  mut onClose() {
     Ordaen.keeper.finishInput()
     self.menuOpen = false
     self.open = false
   }
 
-  placingMode(mut self) { Ordaen.togglePlacing() }
+  mut placingMode() { Ordaen.togglePlacing() }
 
   // «Точка»: every setting as it is now.
-  mark(mut self) { _ = Ordaen.keeper.mark() }
+  mut mark() { _ = Ordaen.keeper.mark() }
 
   // The menu's entries are worked out as it opens: what each place back would change now.
-  openMenu(mut self) {
+  mut openMenu() {
     self.pointShown = 0
     self.menuEntries = self.backEntries()
     self.menuOpen = true
   }
 
-  closeMenu(mut self) {
+  mut closeMenu() {
     self.menuOpen = false
     self.pointShown = 0
   }
 
   // «Последнее изменение», «Начало сессии», then a row per savepoint.
-  backEntries(mut self): array<MenuEntry> {
+  mut backEntries(): array<MenuEntry> {
     const list: array<MenuEntry> = []
     const last = Ordaen.keeper.lastModules()
     if (last.length == 0) {
@@ -245,7 +245,7 @@ public class SettingsWindow implements Component {
   }
 
   // A savepoint's own entries: back to it (greyed where it changes nothing), a profile of it, let it go.
-  pointEntries(mut self, index: integer): array<MenuEntry> {
+  mut pointEntries(index: integer): array<MenuEntry> {
     const point = Ordaen.keeper.pointList()[index]
     const same = point == nil || Ordaen.keeper.changeTo(point.sections).count == 0
     return [
@@ -255,7 +255,7 @@ public class SettingsWindow implements Component {
     ]
   }
 
-  onMenuPick(mut self, index: integer) {
+  mut onMenuPick(index: integer) {
     const point = self.pointShown
     if (point > 0) {
       self.closeMenu()
@@ -283,10 +283,10 @@ public class SettingsWindow implements Component {
     }
   }
 
-  stopNaming(mut self) { self.naming = 0 }
+  mut stopNaming() { self.naming = 0 }
 
   // The savepoint made a profile under the name typed: refused where it is empty, too long or taken.
-  saveProfile(mut self) {
+  mut saveProfile() {
     const name = named(self.profileName)
     if (name == nil) {
       self.nameFault = self.profileName == "" ? Locale::PROFILES_ERR_NAME_EMPTY : Locale::PROFILES_ERR_NAME_LONG.format(MAX_NAME)
@@ -304,7 +304,7 @@ public class SettingsWindow implements Component {
     self.naming = 0
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window shown={self.open} tabs={self.titles} selected={mut self.titleTab} declared={mut self.window}
               minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} footer={self.footer} @close={self.onClose}>

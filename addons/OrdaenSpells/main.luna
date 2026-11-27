@@ -114,7 +114,7 @@ public class Spells implements Module, App {
   derived holdsTrainer: boolean = self.settings.values.trainer && Game::frames.Trainer != nil && (!Game::trainer.open || self.classTrainer)
 
   // A trainer opened or closed: one of a class opens in the view and sort the settings give.
-  onTrainerOpen(mut self, opened: boolean) {
+  mut onTrainerOpen(opened: boolean) {
     self.classTrainer = opened && Game::trainer.teachesClass()
     if (!self.classTrainer) { return }
     const settings = peek self.settings.values
@@ -152,25 +152,25 @@ public class Spells implements Module, App {
   // Opened or closed by `/spellbook`, with the game's window not shown: what the game's window does as it shows and
   // hides is done in its stead, its sound and its word to other addons (the game's own window, shown away, does both
   // itself).
-  onOpened(self, opened: boolean) {
+  onOpened(opened: boolean) {
     if (!self.started || peek self.gameShown) { return }
     playSound(opened ? "UI_CLASS_TALENT_OPEN_WINDOW" : "UI_CLASS_TALENT_CLOSE_WINDOW")
     Client::EventRegistry.TriggerEvent(opened ? SHOWN_EVENT : HIDDEN_EVENT)
   }
 
-  public toggle(mut self) {
+  public mut toggle() {
     self.open = !self.open
     if (self.open) { self.refresh() }
   }
 
-  public refresh(mut self) { self.readSpells() }
+  public mut refresh() { self.readSpells() }
 
   // A spell learned or unlearned, a pet come or gone, while the window shows.
-  onSpells(mut self) {
+  mut onSpells() {
     if (peek self.open) { self.readSpells() }
   }
 
-  readSpells(mut self) {
+  mut readSpells() {
     self.spells = Game::spellbook.entries()
     self.lines = Game::spellbook.lines()
     self.pets = Game::spellbook.petEntries()
@@ -179,7 +179,7 @@ public class Spells implements Module, App {
 
   // The game's spells window's spellbook page: ours opens and closes with it. Its talents and specializations pages are
   // Ordaen Character's, one page showing at a time. Hooked as the game names it, on its show and hide, which are rare.
-  hook(mut self, frame: any Frame | nil) {
+  mut hook(frame: any Frame | nil) {
     const window = Client::PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
     const page: any Client::Frame = window.SpellBookFrame
@@ -203,24 +203,24 @@ public class Spells implements Module, App {
     if (page.IsVisible()) { self.onGameShown() }
   }
 
-  onGameShown(mut self) {
+  mut onGameShown() {
     self.gameShown = true
     self.open = true
     self.refresh()
   }
 
-  onGameHidden(mut self) {
+  mut onGameHidden() {
     self.gameShown = false
     self.open = false
   }
 
   // The class trainer's services, as it opens and as they change.
-  onTrainer(mut self) {
+  mut onTrainer() {
     if (!Game::trainer.teachesClass()) { return }
     self.services = Game::trainer.services()
   }
 
-  learnableOf(self): Learnable {
+  learnableOf(): Learnable {
     if (self.tab != LEARNABLE || !self.open) { return { services: [], notes: {}, actions: {}, quests: {}, prices: {} } }
     _ = self.spells.length
     const openLabel = Quests == nil ? nil : Locale::LEARN_OPEN_QUEST
@@ -228,21 +228,21 @@ public class Spells implements Module, App {
   }
 
   // A quest spell's action: its quest, opened on its chain page (with its way on the map).
-  onActed(self, index: integer) {
+  onActed(index: integer) {
     const quest = (peek self.learnable).quests[index]
     if (quest != nil) { _ = Quests?.openAt(quest) }
   }
 
-  onClose(mut self) { self.open = false }
+  mut onClose() { self.open = false }
 
   // The window's footer: the open tab's.
   const footer: Template = $ltml {
     <$if={self.tab == SPELLS}> {self.page.footer} </>
     <$else> {self.learnPage.footer} </>
   }
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $if={self.holdsGame} of={Game::frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}

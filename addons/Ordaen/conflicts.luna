@@ -55,7 +55,7 @@ public class ConflictQuestion implements Component {
 
   // «Ordaen»: the other addon is off for this character (named by its GUID, as the client names one) from the next
   // reload, which is offered now.
-  keepOrdaen(mut self) {
+  mut keepOrdaen() {
     Client::C_AddOns::DisableAddOn(self.conflict.other.name, Client::UnitGUID("player"))
     Client::C_AddOns::SaveAddOns()
     self.answered(true)
@@ -63,14 +63,14 @@ public class ConflictQuestion implements Component {
   }
 
   // The other addon: the modules that name it are turned off.
-  keepOther(mut self) {
+  mut keepOther() {
     self.answered(false)
     self.step = .Done
   }
 
-  later(mut self) { self.step = .Done }
+  mut later() { self.step = .Done }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dialog $if={self.asking} width={WIDTH} title={Locale::CONFLICT_TITLE}>
         <box columns={1} gap={2sp}>

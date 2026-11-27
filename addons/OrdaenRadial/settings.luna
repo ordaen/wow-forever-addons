@@ -257,7 +257,7 @@ public class RingsPage implements Component {
     watch (anchored of self.anchored) { self.change((r: mut Ring): nil => { r.anchored = anchored }) }
   }
 
-  load(mut self, index: integer) {
+  mut load(index: integer) {
     const ring = (peek self.settings.values).rings[index]
     if (ring == nil) { return }
     self.opensAt = ring.opensAt
@@ -270,7 +270,7 @@ public class RingsPage implements Component {
   }
 
   // The fields say what stands in the place chosen now.
-  loadPlace(mut self, place: string) {
+  mut loadPlace(place: string) {
     const ring = peek self.shownRing
     if (ring == nil) { return }
     const item = ring.items[place]
@@ -284,7 +284,7 @@ public class RingsPage implements Component {
   }
 
   // The chosen ring changed as `edit` changes it, unless it is already so.
-  change(mut self, edit: (ring: mut Ring) => nil) {
+  mut change(edit: (ring: mut Ring) => nil) {
     const rings = (peek self.settings.values).rings.clone()
     const index = peek self.ring
     const held = rings[index]
@@ -297,17 +297,17 @@ public class RingsPage implements Component {
   }
 
   // What stands in a place of the ring shown.
-  itemAt(self, place: string): Item | nil {
+  itemAt(place: string): Item | nil {
     const ring = self.shownRing
     return ring != nil ? ring.items[place] : nil
   }
 
-  chosenIconOf(self): PlaceIcon | nil {
+  chosenIconOf(): PlaceIcon | nil {
     const ring = self.shownRing
     return ring != nil ? ring.icons[self.place] : nil
   }
 
-  shownIconOf(self): Art | nil {
+  shownIconOf(): Art | nil {
     const chosen = self.chosenIcon
     if (chosen != nil) { return chosen.icon }
     const item = self.chosenItem
@@ -315,68 +315,68 @@ public class RingsPage implements Component {
   }
 
   // What the picker opens on: the icon shown, where it is a file the picker offers (an atlas or a piece: none).
-  iconValueOf(self): IconChoice {
+  iconValueOf(): IconChoice {
     const icon = self.shownIcon
     if (icon is FileId) { return icon }
     if (icon is Asset) { return icon }
     return nil
   }
 
-  openPicker(mut self) { self.picking = true }
-  onCancelled(mut self) { self.picking = false }
+  mut openPicker() { self.picking = true }
+  mut onCancelled() { self.picking = false }
 
   // An icon picked for the place chosen (none: its name in its wedge).
-  onPicked(mut self, icon: IconChoice) {
+  mut onPicked(icon: IconChoice) {
     self.picking = false
     const place = self.place
     self.change((r: mut Ring): nil => { r.icons[place] = { icon: icon } })
   }
 
   // The place chosen shows its item's own icon again.
-  ownIcon(mut self) {
+  mut ownIcon() {
     const place = self.place
     self.change((r: mut Ring): nil => { r.icons[place] = nil })
   }
 
   // Whether a place fits beside the one chosen (in the ring itself where none is chosen).
-  roomBesideOf(self): boolean {
+  roomBesideOf(): boolean {
     const ring = self.shownRing
     return ring != nil && hasRoom(ring, parentOf(self.place))
   }
 
   // Whether the place chosen holds items and one more fits in it.
-  roomInsideOf(self): boolean {
+  roomInsideOf(): boolean {
     const ring = self.shownRing
     const item = self.chosenItem
     return ring != nil && item != nil && holdsItems(item) && hasRoom(ring, self.place)
   }
 
-  keysOf(self): string {
+  keysOf(): string {
     const first, second = Client::GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
     if (first == nil) { return Locale::KEY_NONE }
     return second == nil ? first : `${first}, ${second}`
   }
 
   // A place's line: its number and what stands there.
-  labelOf(self, item: Item, place: string): string {
+  labelOf(item: Item, place: string): string {
     const name = item is Item::Empty ? Locale::KIND_EMPTY : shown(item, nil, self.emotes).name
     return `${numberOf(place)}. ${name}`
   }
 
-  kindLabel(self, item: Item): string {
+  kindLabel(item: Item): string {
     const key = kindOf(item)
     return self.catalogue.find(choice => choice.value == key)?.label ?? key
   }
 
   // The tree's lines: each place of the ring, and under one that holds items and is open, its own.
-  rowsOf(self): array<SlotRow> {
+  rowsOf(): array<SlotRow> {
     const rows: array<SlotRow> = []
     const ring = self.shownRing
     if (ring != nil) { self.addRows(ring, "", 0, rows) }
     return rows
   }
 
-  addRows(self, ring: Ring, parent: string, depth: integer, rows: mut array<SlotRow>) {
+  addRows(ring: Ring, parent: string, depth: integer, rows: mut array<SlotRow>) {
     for (number of 1..(ring.counts[parent] ?? 0)) {
       const place = within(parent, number)
       const item = ring.items[place] ?? Item::Empty
@@ -390,7 +390,7 @@ public class RingsPage implements Component {
   }
 
   // Where the place chosen stands: the titles of the submenus it is in, and its number.
-  pathOf(self): string {
+  pathOf(): string {
     const ring = self.shownRing
     if (ring == nil || self.place == "") { return Locale::SLOT_NONE }
     const labels: array<string> = []
@@ -403,7 +403,7 @@ public class RingsPage implements Component {
   }
 
   // A line clicked: its place chosen, and one that holds items opened or closed.
-  choose(mut self, place: string) {
+  mut choose(place: string) {
     const item = peek self.itemAt(place)
     if (item != nil && holdsItems(item)) {
       const opened = (peek self.opened).clone()
@@ -414,7 +414,7 @@ public class RingsPage implements Component {
   }
 
   // An empty place added beside the one chosen (at the end of its ring), and chosen.
-  addBeside(mut self) {
+  mut addBeside() {
     const parent = parentOf(self.place)
     let added: string | nil = nil
     self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
@@ -423,7 +423,7 @@ public class RingsPage implements Component {
   }
 
   // An empty place added at the end of the submenu or the slot chosen, shown and chosen.
-  addInside(mut self) {
+  mut addInside() {
     const parent = self.place
     let added: string | nil = nil
     self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
@@ -435,7 +435,7 @@ public class RingsPage implements Component {
     self.place = place
   }
 
-  shift(mut self, by: integer) {
+  mut shift(by: integer) {
     const place = self.place
     let moved: string | nil = nil
     self.change((r: mut Ring): nil => { moved = shiftPlace(r, place, by) })
@@ -443,17 +443,17 @@ public class RingsPage implements Component {
     if (next != nil) { self.place = next }
   }
 
-  earlier(mut self) { self.shift(-1) }
-  later(mut self) { self.shift(1) }
+  mut earlier() { self.shift(-1) }
+  mut later() { self.shift(1) }
 
-  remove(mut self) {
+  mut remove() {
     const place = self.place
     self.change((r: mut Ring): nil => { removePlace(r, place) })
     self.place = ""
   }
 
   // An item put in the place chosen, on the condition the fields say.
-  putItem(mut self, item: Item) {
+  mut putItem(item: Item) {
     const place = self.place
     if (place == "") { return }
     const condition = conditionOf(self.classTag, self.form, self.modifier)
@@ -473,18 +473,18 @@ public class RingsPage implements Component {
   }
 
   // The catalogue's item chosen put in the place chosen.
-  put(mut self) { self.putItem(itemOf(self.kind, self.text, self.emotes)) }
+  mut put() { self.putItem(itemOf(self.kind, self.text, self.emotes)) }
 
   // What the cursor holds (a spell from the spellbook, an item from the bags, a macro), let go here: put in the place
   // chosen, and the cursor emptied.
-  dropped(mut self) {
+  mut dropped() {
     const item = heldItem()
     if (item == nil || self.place == "") { return }
     self.putItem(item)
     Client::ClearCursor()
   }
 
-  resetRing(mut self) {
+  mut resetRing() {
     const fresh = presetRing(peek self.ring)
     self.change((r: mut Ring): nil => {
       r.opensAt = fresh.opensAt
@@ -500,12 +500,12 @@ public class RingsPage implements Component {
     self.load(peek self.ring)
   }
 
-  resetAll(mut self) {
+  mut resetAll() {
     self.settings.values.rings = preset().rings
     self.load(peek self.ring)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_RING}>
         <Dropdown label={Locale::RING} value={mut self.ring} choices={RINGS} />

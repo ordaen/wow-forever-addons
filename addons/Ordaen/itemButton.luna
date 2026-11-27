@@ -133,7 +133,7 @@ public class Pip implements Component {
     self.marker = marker
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={self.left} right={self.right} top={self.top} bottom={self.bottom}
            width={PIP} height={PIP} background={self.marker.color} border={PIP_EDGE} zLevel={2} />
@@ -271,7 +271,7 @@ public class ItemButton implements Component {
     watch { self.retip() }
   }
 
-  iconOf(self): Art | nil {
+  iconOf(): Art | nil {
     const art = self.art
     if (art != nil) { return art }
     const item = self.item
@@ -279,7 +279,7 @@ public class ItemButton implements Component {
     return Game::items.icon(item)
   }
 
-  usableOf(self): boolean {
+  usableOf(): boolean {
     const said = self.toldUsable
     if (said != nil) { return said }
     const item = self.item
@@ -287,7 +287,7 @@ public class ItemButton implements Component {
     return usableItem(item)
   }
 
-  edgeOf(self): Line {
+  edgeOf(): Line {
     if (self.item == nil) { return self.crested ? NO_EDGE : COMMON }
     return match (self.quality) {
       Quality::Poor => POOR
@@ -303,7 +303,7 @@ public class ItemButton implements Component {
 
   // The game's tooltip of the item beside the slot, of a worn one its slot's; the game hides it when the cursor
   // leaves.
-  onEnter(mut self, frame: any Frame) {
+  mut onEnter(frame: any Frame) {
     self.hoveredBy = frame
     if (self.tipped) { self.tip(frame) }
     self.entered.emit()
@@ -311,7 +311,7 @@ public class ItemButton implements Component {
 
   // What it holds changed while the cursor is on it: the tooltip shown again, of what it holds now; none where it
   // holds nothing.
-  retip(self) {
+  retip() {
     const item = self.item
     _ = self.worn
     _ = self.spell
@@ -328,7 +328,7 @@ public class ItemButton implements Component {
     self.tip(frame)
   }
 
-  tip(self, frame: any Frame) {
+  tip(frame: any Frame) {
     const item = self.item
     const worn = self.worn
     const spell = self.spell
@@ -350,12 +350,12 @@ public class ItemButton implements Component {
     }
   }
 
-  onLeave(mut self) {
+  mut onLeave() {
     self.hoveredBy = nil
     self.left.emit()
   }
 
-  onClick(self, click: Event::Press) {
+  onClick(click: Event::Press) {
     const item = self.item
     const spell = self.spell
     const linking = self.linkOnShift && click.button == MouseButton::Left && Game::input.shiftDown()
@@ -371,10 +371,10 @@ public class ItemButton implements Component {
     if (item != nil && click.button == MouseButton::Left) { self.pick.emit(item) }
   }
 
-  onDragStart(self) { self.dragged.emit() }
-  onDrop(self) { self.dropped.emit() }
+  onDragStart() { self.dragged.emit() }
+  onDrop() { self.dropped.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.size} height={self.size} background={self.floor} border={self.slotEdge} opacity={self.opacity}
            action={self.action} actsOnPress={self.actsOnPress} cursor={self.cursor} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}

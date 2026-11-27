@@ -32,7 +32,7 @@ public class SideList implements Component {
     self.groove = groove
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.width} background={self.surface?.art} tint={self.surface?.tint} rows={ONE}>
         <$if={self.groove}>

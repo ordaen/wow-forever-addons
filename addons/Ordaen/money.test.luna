@@ -6,7 +6,7 @@ import { Money } from "@/money"
 class Priced {
   state copper: integer = 12345
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Money amount={self.copper} />
     }

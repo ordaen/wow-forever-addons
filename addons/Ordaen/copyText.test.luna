@@ -9,7 +9,7 @@ const RED: Color = Color::hex("#d9534f")
 class Notice {
   state text = "Raid on Thursday at eight."
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={2.5sp}>
         <CopyText value={self.text} />
@@ -23,7 +23,7 @@ class Card {
   state long = "Raid on Thursday at eight, then the dungeon run, and the bank opens on Sunday."
   state short = "Be kind."
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} width={120ui} height={200ui}>
         <CopyText value={self.long} />
@@ -79,7 +79,7 @@ test "a copy text takes the keyboard when clicked, and what is typed into it is 
 class Footer {
   state counts: array<FooterCount> = [{ label: "Members", value: "42" }, { label: "Online", value: "7" }]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={3.5sp}>
         <FooterCounts counts={self.counts} />

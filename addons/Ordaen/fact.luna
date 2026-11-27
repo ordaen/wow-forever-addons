@@ -17,7 +17,7 @@ public class Fact implements Component {
     self.color = color
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COLUMNS} gap={2sp}>
         <text value={self.label} textColor={DIM} wrap={.None} />

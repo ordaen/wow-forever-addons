@@ -24,7 +24,7 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     self.houseCut = houseCut
   }
 
-  public buy(self, key: PriceKey): Quote | nil {
+  public buy(key: PriceKey): Quote | nil {
     const market = self.house.quote(key)
     if (market == nil) { return nil }
     const age = market.age()
@@ -34,7 +34,7 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     return market
   }
 
-  public listed(self, key: PriceKey): Quote | nil {
+  public listed(key: PriceKey): Quote | nil {
     const market = self.house.quote(key)
     if (market == nil) { return nil }
     const age = market.age()
@@ -44,20 +44,20 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     return Quote::of(market.copper().min(listing.low()), market.seen())
   }
 
-  public sell(self, key: PriceKey): Quote | nil {
+  public sell(key: PriceKey): Quote | nil {
     const listed = self.listed(key)
     if (listed == nil) { return nil }
     return Quote::of((listed.copper() * (100 - self.houseCut) / 100).floor(), listed.seen())
   }
 
-  public cut(self): integer { return self.houseCut }
+  public cut(): integer { return self.houseCut }
 
-  public vendor(self, item: ItemId): Copper | nil { return self.vendors[item] }
+  public vendor(item: ItemId): Copper | nil { return self.vendors[item] }
 
-  public hours(self, key: PriceKey, from: Hour, to: Hour): array<HourPrice> { return self.house.hours(key, from, to) }
+  public hours(key: PriceKey, from: Hour, to: Hour): array<HourPrice> { return self.house.hours(key, from, to) }
 
   // A price may have moved: whatever follows prices reads them again.
-  public moved(mut self) { self.revision += 1 }
+  public mut moved() { self.revision += 1 }
 }
 
 // What an open merchant sells for money, by item, into the kept prices: a price seen before is written again, a new

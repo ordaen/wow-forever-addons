@@ -51,14 +51,14 @@ public class TabItem implements Component {
     self.padding = padding
   }
 
-  onClick(mut self, click: Event::Press) { self.pick.emit(click.button) }
-  onKey(mut self) { self.pick.emit(.Left) }
-  onEnter(mut self, frame: any Frame) {
+  mut onClick(click: Event::Press) { self.pick.emit(click.button) }
+  mut onKey() { self.pick.emit(.Left) }
+  mut onEnter(frame: any Frame) {
     Game::tooltip.rowAt(frame)
     self.enter.emit(frame)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align::Center} border={self.rule}
            background={self.background} tint={self.tint} overflow={Overflow::Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}

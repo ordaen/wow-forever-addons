@@ -36,7 +36,7 @@ public class Purchase {
     }
   }
 
-  nextOf(self): integer {
+  nextOf(): integer {
     const listings = self.listings
     if (listings == nil || self.commodity) { return 0 }
     for (index, listing of listings) {
@@ -45,14 +45,14 @@ public class Purchase {
     return 0
   }
 
-  heldOf(self): integer {
+  heldOf(): integer {
     let count = 0
     for (listing of self.listings ?? []) { count += listing.quantity }
     return count
   }
 
   // What `count` of a commodity costs, the cheapest first; nil where the listings hold fewer.
-  public costOf(self, count: integer): integer | nil {
+  public costOf(count: integer): integer | nil {
     let left = count
     let copper = 0
     for (listing of self.listings ?? []) {
@@ -64,7 +64,7 @@ public class Purchase {
   }
 
   // How many of the listings, the cheapest first, a commodity's `count` takes from.
-  public coveredBy(self, count: integer): integer {
+  public coveredBy(count: integer): integer {
     let left = count
     let covered = 0
     for (listing of self.listings ?? []) {
@@ -77,7 +77,7 @@ public class Purchase {
 
   // From the player's click alone: a commodity's `count` priced, or bought where the client priced that many; an
   // item's cheapest auction with a buyout bought out. False where nothing was sent.
-  public buy(mut self, count: integer): boolean {
+  public mut buy(count: integer): boolean {
     const listings = peek self.listings
     if (listings == nil) { return false }
     let sent = false
@@ -98,11 +98,11 @@ public class Purchase {
     return sent
   }
 
-  onListed(mut self, key: integer, listings: array<Game::Listing>) {
+  mut onListed(key: integer, listings: array<Game::Listing>) {
     if (key == self.key) { self.listings = listings }
   }
 
-  onAnswer(mut self, answer: Game::ActionAnswer) {
+  mut onAnswer(answer: Game::ActionAnswer) {
     if (!peek self.sending) { return }
     self.sending = false
     match (answer) {

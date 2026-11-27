@@ -93,9 +93,9 @@ public class SentRow implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(self.letter.number) }
+  mut onPick() { self.pick.emit(self.letter.number) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={ROW} picked={self.on} @pick={self.onPick}>
         <text value={"%d"} arguments={[self.letter.number]} textColor={Style::DIM} wrap={.None} />
@@ -125,9 +125,9 @@ public class SentTableRow implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(self.letter.number) }
+  mut onPick() { self.pick.emit(self.letter.number) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.on} @pick={self.onPick}>
         <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style::DIM} wrap={.None} /> </TableCell>
@@ -159,9 +159,9 @@ public class ToCaption implements Component {
     self.folded = folded
   }
 
-  onToggle(mut self) { self.fold.emit(self.group.to) }
+  mut onToggle() { self.fold.emit(self.group.to) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <FoldCaption title={self.group.title} folded={self.shut} @toggled={self.onToggle} /> }
   }
 }
@@ -181,10 +181,10 @@ public class SentView implements Component {
     self.letter = letter
   }
 
-  onRemove(mut self) { self.remove.emit(self.letter.number) }
-  onAgain(mut self) { self.again.emit(self.letter.to) }
+  mut onRemove() { self.remove.emit(self.letter.number) }
+  mut onAgain() { self.again.emit(self.letter.to) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
         <box columns={1} gap={1sp}>
@@ -248,14 +248,14 @@ public class Outbox implements Component {
   }
 
   // The queue's letters then those gone, the newest first.
-  allOf(self): array<Sent> {
+  allOf(): array<Sent> {
     const list: array<Sent> = []
     for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? panic("within the queue")) }
     for (letter of self.history) { list.push(letter) }
     return list
   }
 
-  shownOf(self): array<Sent> {
+  shownOf(): array<Sent> {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.all.filter(l => passes(l, filter, search))
@@ -270,7 +270,7 @@ public class Outbox implements Component {
     return list
   }
 
-  groupsOf(self): array<ToGroup> {
+  groupsOf(): array<ToGroup> {
     const list: array<ToGroup> = []
     for (letter of self.shown) {
       if (!list.any(g => g.to == letter.to)) {
@@ -282,19 +282,19 @@ public class Outbox implements Component {
   }
 
   // What the letters not yet gone will cost.
-  postageOf(self): integer {
+  postageOf(): integer {
     let total = 0
     for (letter of self.queue) { total += Game::mailbox.postage(letter.items.length) }
     return total
   }
 
-  onPick(mut self, number: integer) { self.pick.emit(number) }
-  onFold(mut self, to: string) { self.folded[to] = !(self.folded[to] == true) }
-  onWrite(mut self) { self.write.emit() }
-  onStop(mut self) { self.stop.emit() }
-  onResume(mut self) { self.resume.emit() }
+  mut onPick(number: integer) { self.pick.emit(number) }
+  mut onFold(to: string) { self.folded[to] = !(self.folded[to] == true) }
+  mut onWrite() { self.write.emit() }
+  mut onStop() { self.stop.emit() }
+  mut onResume() { self.resume.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE} gap={2.5sp}>
         <box columns={TOP} gap={2sp} yAlign={Align::Center}>

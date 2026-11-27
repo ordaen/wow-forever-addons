@@ -120,29 +120,29 @@ public class PushButton implements Component {
   }
 
   // One that repeats is clicked as the button goes down and again while it is held; another as it is let go.
-  onClick(mut self) {
+  mut onClick() {
     if (!self.disabled && !self.repeats) { self.click.emit() }
   }
 
   // Enter presses any but a danger button.
-  onEnterKey(mut self) {
+  mut onEnterKey() {
     if (self.plate != .Danger) { self.onClick() }
   }
 
   // The left button with any modifier: Shift and Ctrl make the step larger (`stride`).
-  onHeld(mut self, pointer: Event::Press) {
+  mut onHeld(pointer: Event::Press) {
     if (self.repeating && pointer.button == MouseButton::Left) { self.click.emit() }
   }
 
-  nameOfKey(self): string {
+  nameOfKey(): string {
     const key = self.key
     return key is ButtonKey::Named ? key.name : ""
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.size} height={BUTTON_HEIGHT} columns={self.columns} gap={GAP} xAlign={Align::Center}
            yAlign={Align::Center}

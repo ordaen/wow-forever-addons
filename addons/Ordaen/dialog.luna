@@ -31,9 +31,9 @@ public class Dialog implements Component {
   }
 
   // The dimmed screen takes the clicks meant for what is under it.
-  swallow(mut self) {}
+  mut swallow() {}
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface leading={.Row} layer={Layer::Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align::Center}
                yAlign={Align::Center} @pointerPress={self.swallow} @keyPress(.Enter)={self.swallow} @keyPress(.Space)={self.swallow}>

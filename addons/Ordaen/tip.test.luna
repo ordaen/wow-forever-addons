@@ -14,10 +14,10 @@ class HoverRow implements Component {
   name: Signal<string>
   constructor(name: Signal<string>) { self.name = name }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={80ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.name} />
@@ -30,7 +30,7 @@ class HoverRow implements Component {
 class Rows {
   const names: array<string> = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={200ui} overflow={Overflow::Scroll} columns={1}>
         <HoverRow $for={name of self.names} $key={name} name={name} />
@@ -70,10 +70,10 @@ const GREEN: Color = Color::hex("#3fbf3f")
 class Effects implements Component {
   state hovered = false
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={40ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={"Strength"} />
@@ -90,10 +90,10 @@ const RED: Color = Color::hex("#bf3f3f")
 class Shares implements Component {
   state hovered = false
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={40ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={"Attacks"} />

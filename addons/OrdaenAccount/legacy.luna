@@ -160,9 +160,9 @@ public class TreeChoice implements Component {
     self.chosen = chosen
   }
 
-  onPick(mut self) { self.pick.emit(self.index) }
+  mut onPick() { self.pick.emit(self.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={TREE_ROW} gap={4sp} padding={TREE_PAD} yAlign={Align::Center} background={self.background}
            @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
@@ -185,7 +185,7 @@ public class RewardCard implements Component {
   level: Signal<Level>
   constructor(level: Signal<Level>) { self.level = level }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={CARD_WIDTH} height={CARD_HEIGHT} background={self.back} xAlign={Align::Center}>
         <box position={Position::Absolute} top={-18ui} left={(CARD_WIDTH - DIAMOND_SIZE) / 2} width={DIAMOND_SIZE} height={DIAMOND_SIZE}
@@ -314,65 +314,65 @@ public class Legacy {
     }
   }
 
-  onChanged(mut self) { self.touched += 1 }
+  mut onChanged() { self.touched += 1 }
 
-  readOpen(self): boolean {
+  readOpen(): boolean {
     _ = self.touched
     return legacyOpen()
   }
 
-  readTree(self): Game::TalentTree | nil {
+  readTree(): Game::TalentTree | nil {
     _ = self.touched
     const trees = self.config?.trees() ?? []
     return trees.find(tree => tree.id == self.treeKind.id) ?? trees[1]
   }
 
-  readPoints(self): integer {
+  readPoints(): integer {
     _ = self.touched
     return self.config?.unspent() ?? 0
   }
 
-  readStaged(self): boolean {
+  readStaged(): boolean {
     _ = self.touched
     return self.config?.staged() == true
   }
 
-  readLevels(self): array<Level> {
+  readLevels(): array<Level> {
     _ = self.touched
     return levelsOf()
   }
 
-  readRank(self): integer {
+  readRank(): integer {
     _ = self.touched
     return Client::C_MajorFactions::GetCurrentRenownLevel(TRACK).floor()
   }
 
-  readFilled(self): number {
+  readFilled(): number {
     const data = Client::C_MajorFactions::GetMajorFactionData(TRACK)
     if (data == nil) { return 0 }
     return filledOf(self.levels, self.rank, data.renownReputationEarned, data.renownLevelThreshold, self.first)
   }
 
-  onTree(mut self, index: integer) { self.treeIndex = index }
-  onBack(mut self) { self.first = (1).max(self.first - 1) }
-  onOn(mut self) { self.first = self.first + 1 }
+  mut onTree(index: integer) { self.treeIndex = index }
+  mut onBack() { self.first = (1).max(self.first - 1) }
+  mut onOn() { self.first = self.first + 1 }
 
-  onBuy(mut self, node: integer) {
+  mut onBuy(node: integer) {
     _ = self.config?.spend(node)
     self.touched += 1
   }
 
-  onRefund(mut self, node: integer) {
+  mut onRefund(node: integer) {
     _ = self.config?.refund(node)
     self.touched += 1
   }
 
-  onApply(mut self) {
+  mut onApply() {
     _ = self.config?.commit()
     self.touched += 1
   }
 
-  onUndo(mut self) {
+  mut onUndo() {
     _ = self.config?.rollback()
     self.touched += 1
   }

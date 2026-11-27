@@ -47,7 +47,7 @@ public class Cooldowns implements Component {
     self.touched = touched
   }
 
-  waitsOf(self): array<Wait> {
+  waitsOf(): array<Wait> {
     // Read again when any record changed.
     _ = self.touched
     const now = Hour::now()
@@ -62,7 +62,7 @@ public class Cooldowns implements Component {
     return list
   }
 
-  order(self): array<Wait> {
+  order(): array<Wait> {
     const list: array<Wait> = []
     for (wait of self.waits) { list.push(wait) }
     const column = self.sorted
@@ -75,7 +75,7 @@ public class Cooldowns implements Component {
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
         <box $if={self.empty} padding={Style::TOP_ROOM}>

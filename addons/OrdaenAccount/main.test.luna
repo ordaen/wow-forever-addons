@@ -76,7 +76,7 @@ function challenges() {
 // points left; what was bought and applied is written down.
 class LegacyTree implements Game::TalentConfig {
   asked: mut array<string> = []
-  public trees(self): array<Game::TalentTree> {
+  public trees(): array<Game::TalentTree> {
     return [{
       id: 1187, name: "Legacy",
       nodes: [
@@ -85,19 +85,19 @@ class LegacyTree implements Game::TalentConfig {
       ]
     }]
   }
-  public unspent(self): integer { return 3 }
-  public staged(self): boolean { return self.asked.length > 0 }
-  public spend(mut self, node: integer): boolean {
+  public unspent(): integer { return 3 }
+  public staged(): boolean { return self.asked.length > 0 }
+  public mut spend(node: integer): boolean {
     self.asked.push("spend %d".format(node))
     return true
   }
-  public refund(mut self, node: integer): boolean {
+  public mut refund(node: integer): boolean {
     self.asked.push("refund %d".format(node))
     return true
   }
-  public commit(mut self): boolean { return true }
-  public rollback(mut self): boolean { return true }
-  public reset(mut self): boolean { return true }
+  public mut commit(): boolean { return true }
+  public mut rollback(): boolean { return true }
+  public mut reset(): boolean { return true }
 }
 
 test "the window opens on Legacy, which is locked until the player's first Legacy rank; again it closes" {

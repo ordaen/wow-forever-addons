@@ -90,17 +90,17 @@ public class MoneyField implements Component {
   }
 
   // What was typed names an amount: it is the cell's.
-  take(mut self, typed: string) {
+  mut take(typed: string) {
     const copper = copperOf(typed)
     if (copper != nil && copper != peek self.value) { self.value = copper }
   }
 
   // Another wrote the amount: the text says it, unless it already does.
-  show(mut self, amount: integer) {
+  mut show(amount: integer) {
     if (copperOf(peek self.text) != amount) { self.text = copperText(amount) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <input value={mut self.text} width={210.9375dp} height={35.15625dp} padding={PADDING} background={FILL}
              border={self.edge} textColor={INK} maxLength={24} disabled={self.disabled} />
@@ -125,7 +125,7 @@ public class MoneyInput implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <MoneyField value={mut self.value} disabled={self.disabled} />

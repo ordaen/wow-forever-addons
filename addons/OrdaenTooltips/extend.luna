@@ -35,13 +35,13 @@ public struct Listed {
 // again when something it read changes; not while the item stays shown, however often the game fills its tooltip
 // anew. Budget: one map read where nothing changed. The lines it gives are drawn as they are.
 public trait ItemLines {
-  public lines(self, item: integer, link: string): array<Line>
+  public lines(item: integer, link: string): array<Line>
 }
 
 // What a module adds to an item tooltip's hotkeys («Alt+Left-click: protect the slot from sorting»): drawn after the
 // tooltip's own, as they are. Budget as for `ItemLines`.
 public trait ItemKeys {
-  public keys(self, item: integer, link: string): array<string>
+  public keys(item: integer, link: string): array<string>
 }
 
 // An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the quest by
@@ -68,12 +68,12 @@ public struct Offered {
 // an objective they already have left out), and the quests it gives or takes, before them while the NPCs' «Quests»
 // setting is on. Budget as for `ItemLines`.
 public trait CreatureQuests {
-  public wants(self, creature: integer): array<Wanted>
-  public offers(self, creature: integer): array<Offered>
+  public wants(creature: integer): array<Wanted>
+  public offers(creature: integer): array<Offered>
 }
 
 // What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for
 // `ItemLines`.
 public trait ObjectLines {
-  public lines(self, name: string): array<Line>
+  public lines(name: string): array<Line>
 }

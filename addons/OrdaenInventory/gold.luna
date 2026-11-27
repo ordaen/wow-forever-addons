@@ -31,7 +31,7 @@ public class Gold {
     watch (copper of Game::money.amount) { self.keep(copper) }
   }
 
-  keep(mut self, copper: integer) {
+  mut keep(copper: integer) {
     const own = Game::player.guid
     let characters: map<string, Purse> = {}
     let count = 1
@@ -57,7 +57,7 @@ public class Gold {
     self.memory.write({ characters: characters })
   }
 
-  rowsOf(self): array<TipRow> {
+  rowsOf(): array<TipRow> {
     const own = Game::player.guid
     const realm = Game::player.realm
     let others: array<Purse> = []

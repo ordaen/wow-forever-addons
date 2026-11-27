@@ -18,7 +18,7 @@ class Framed {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", start())
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />

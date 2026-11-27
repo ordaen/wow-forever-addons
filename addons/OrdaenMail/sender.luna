@@ -35,7 +35,7 @@ public class Sender {
 
   // A letter written put into the queue: as many letters as its stacks need, twelve each, «(n/N)» on their subjects;
   // the money with the first, cash on delivery only where it is one letter. The queue goes on at once.
-  public put(mut self, to: string, subject: string, body: string, stacks: array<Game::MailStack>, copper: integer, cod: integer) {
+  public mut put(to: string, subject: string, body: string, stacks: array<Game::MailStack>, copper: integer, cod: integer) {
     const count = lettersFor(stacks.length)
     const values = peek self.memory.values
     let next = values.next
@@ -61,10 +61,10 @@ public class Sender {
   }
 
   // Whether a letter is on its way: the game's letter is the queue's until it went.
-  public busy(self): boolean { return (peek self.memory.values).queue.any(l => l.state == SentState::Sending) }
+  public busy(): boolean { return (peek self.memory.values).queue.any(l => l.state == SentState::Sending) }
 
   // The first waiting letter sent, where the mailbox is open and none is on its way.
-  public go(mut self) {
+  public mut go() {
     if (!(peek Game::mailObserver.open)) { return }
     const queue = (peek self.memory.values).queue
     if (queue.any(l => l.state == SentState::Sending)) { return }
@@ -98,20 +98,20 @@ public class Sender {
     self.answer = self.waitAnswer()
   }
 
-  async waitAnswer(mut self) {
+  async mut waitAnswer() {
     await Game::delay(ANSWER)
     self.answer = nil
     self.failSending(Locale::NO_ANSWER)
   }
 
-  replace(mut self, letter: Sent) {
+  mut replace(letter: Sent) {
     const values = peek self.memory.values
     const queue = values.queue.map(l => l.number == letter.number ? letter : l)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
   }
 
   // The letter on its way went: into the history, the newest first, and the next one goes.
-  onSent(mut self) {
+  mut onSent() {
     if (self.answer != nil) { destroy self.answer }
     const values = peek self.memory.values
     const gone = values.queue.find(l => l.state == SentState::Sending)
@@ -127,18 +127,18 @@ public class Sender {
     self.go()
   }
 
-  onRefused(mut self, message: string) { self.said = message }
+  mut onRefused(message: string) { self.said = message }
 
-  onBags(mut self) {
+  mut onBags() {
     if (!self.splitting) { return }
     self.splitting = false
     self.go()
   }
 
-  onFailed(mut self) { self.failSending(self.said == "" ? Locale::NOT_SENT : self.said) }
+  mut onFailed() { self.failSending(self.said == "" ? Locale::NOT_SENT : self.said) }
 
   // The letter on its way didn't go: it stops, and so does the queue.
-  failSending(mut self, why: string) {
+  mut failSending(why: string) {
     if (self.answer != nil) { destroy self.answer }
     const queue = (peek self.memory.values).queue
     const at = queue.find(l => l.state == SentState::Sending)
@@ -150,15 +150,15 @@ public class Sender {
   }
 
   // The mailbox closed: the letter on its way and those waiting stop there, and wait for the next mailbox.
-  public closed(mut self) {
+  public mut closed() {
     if (self.answer != nil) { destroy self.answer }
     self.stopAll(Locale::MAIL_CLOSED)
   }
 
   // «Stop»: what waits stops.
-  public pause(mut self) { self.stopAll(Locale::STOPPED_BY_YOU) }
+  public mut pause() { self.stopAll(Locale::STOPPED_BY_YOU) }
 
-  stopAll(mut self, why: string) {
+  mut stopAll(why: string) {
     self.splitting = false
     const values = peek self.memory.values
     const queue = values.queue.map(l => waits(l) ? { state: SentState::Stopped, why: why, ..l } : l)
@@ -166,7 +166,7 @@ public class Sender {
   }
 
   // «Continue»: what stopped waits again, and the queue goes on.
-  public resume(mut self) {
+  public mut resume() {
     const values = peek self.memory.values
     const queue = values.queue.map(l => l.state == SentState::Stopped ? { state: SentState::Waiting, why: "", ..l } : l)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
@@ -174,7 +174,7 @@ public class Sender {
   }
 
   // A letter still waiting taken out of the queue.
-  public remove(mut self, number: integer) {
+  public mut remove(number: integer) {
     const values = peek self.memory.values
     const queue = values.queue.filter(l => l.number != number || l.state == SentState::Sending)
     self.memory.write({ queue: queue, history: values.history, next: values.next })

@@ -23,11 +23,11 @@ public class SizeGrip implements Component {
     self.corner = corner
   }
 
-  onGrab(mut self, drag: Event::Drag) { self.grab.emit(drag) }
-  onDrag(mut self, drag: Event::Drag) { self.drag.emit(drag) }
-  onDrop(mut self) { self.drop.emit() }
+  mut onGrab(drag: Event::Drag) { self.grab.emit(drag) }
+  mut onDrag(drag: Event::Drag) { self.drag.emit(drag) }
+  mut onDrop() { self.drop.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SIZE} height={SIZE} background={self.art} rotation={self.turn} @dragStart={self.onGrab} @drag={self.onDrag}
            @dragStop={self.onDrop} />

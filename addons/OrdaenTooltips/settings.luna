@@ -34,7 +34,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={Locale::TOOLTIPS_PLACE} hint={Locale::TOOLTIPS_PLACE_TIP} value={mut self.settings.values.place}
                 choices={PLACES} />
@@ -52,7 +52,7 @@ public class ItemsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_ITEMSON} hint={Locale::TOOLTIPS_ITEMSON_TIP}
               value={mut self.settings.values.itemsOn} />
@@ -86,7 +86,7 @@ public class SpellsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_SPELLSON} hint={Locale::TOOLTIPS_SPELLSON_TIP}
               value={mut self.settings.values.spellsOn} />
@@ -116,7 +116,7 @@ public class AurasPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_AURASON} hint={Locale::TOOLTIPS_AURASON_TIP}
               value={mut self.settings.values.aurasOn} />
@@ -146,7 +146,7 @@ public class PlayersPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_PLAYERSON} hint={Locale::TOOLTIPS_PLAYERSON_TIP}
               value={mut self.settings.values.playersOn} />
@@ -174,7 +174,7 @@ public class NpcsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_NPCSON} hint={Locale::TOOLTIPS_NPCSON_TIP}
               value={mut self.settings.values.npcsOn} />
@@ -206,7 +206,7 @@ public class ObjectsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_OBJECTSON} hint={Locale::TOOLTIPS_OBJECTSON_TIP}
               value={mut self.settings.values.objectsOn} />
@@ -228,7 +228,7 @@ public class TextsPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::TOOLTIPS_TEXTSON} hint={Locale::TOOLTIPS_TEXTSON_TIP}
               value={mut self.settings.values.textsOn} />

@@ -60,7 +60,7 @@ class Held {
     self.wheel.bind(["F"])
     self.wheel.picked.listen(self.onPick)
   }
-  onPick(mut self, path: string) { self.used.push(path) }
+  mut onPick(path: string) { self.used.push(path) }
 }
 
 // A wheel of slots and a submenu that remembers: up a slot that cycles (wave, bow), right one that remembers the
@@ -81,9 +81,11 @@ class Slotted {
     self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true, anchored: false })
     self.wheel.bind(["G"])
   }
+} static {
   entry(path: string, action: WheelAction): WheelEntry {
     return { path: path, action: action, refusesInFight: false, modifier: nil }
   }
+
   line(path: string, text: string): WheelEntry { return Slotted::entry(path, .MacroText { text: text }) }
 }
 
@@ -279,7 +281,7 @@ class Drawn {
   public state middle: WheelMiddle = { name: "Character", hints: ["Click to use"], dim: false }
   public state names: WheelNames = WheelNames::Chosen
   public state category: Art | nil = nil
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Wheel items={self.items} chosen={self.chosen} middle={self.middle} names={self.names} category={self.category} />
     }

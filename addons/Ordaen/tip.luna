@@ -78,7 +78,7 @@ class TipShares implements Component {
     self.shares = shares
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={{ top: 1sp }}>
         <box columns={self.columns} rows={ONE_ROW} height={SHARES_HEIGHT}>
@@ -108,7 +108,7 @@ class TipLine implements Component {
     self.row = row
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} yAlign={Align::Center}>
         <box columns={MARKED} gap={2sp} yAlign={Align::Center}>
@@ -151,7 +151,7 @@ public class Tip implements Component {
     self.place = place
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface leading={.Tight} layer={Layer::Tooltip} place={self.place} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}

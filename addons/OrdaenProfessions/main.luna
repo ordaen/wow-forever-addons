@@ -371,11 +371,11 @@ public class Professions implements Module, App {
   }
 
   // The recipes of every character's book that take an item: another module's read.
-  public uses(self, item: integer): array<Use> { return self.usedBy[item] ?? NO_USES }
+  public uses(item: integer): array<Use> { return self.usedBy[item] ?? NO_USES }
 
   // Each character's profession whose known recipes take an item, the recipes at its rank: another module's read
   // (Ordaen Mail's «To my characters»).
-  public craftingWith(self, item: integer): array<Crafting> {
+  public craftingWith(item: integer): array<Crafting> {
     const book = self.written
     const tables: map<integer, Thresholds> = {}
     const list: array<Crafting> = []
@@ -389,7 +389,7 @@ public class Professions implements Module, App {
 
   // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept,
   // and its window shows them.
-  onTrainer(mut self) {
+  mut onTrainer() {
     if (!Game::trainer.open || Game::trainer.teachesClass()) { return }
     const services = Game::trainer.services()
     const now = peek self.learning.values
@@ -400,14 +400,14 @@ public class Professions implements Module, App {
   }
 
   // The open profession's page of the book, as it opens and each time its list changes.
-  writeBook(mut self, open: integer | nil, recipes: array<Game::Recipe>) {
+  mut writeBook(open: integer | nil, recipes: array<Game::Recipe>) {
     if (open == nil) { return }
     const next = written(peek self.book.values, open, recipes)
     if (next != nil) { self.book.write(next) }
   }
 
   // Each profession the character has: its icon, its name and its skill (`31 / 75`).
-  tabsOf(self): array<WindowTabSpec> {
+  tabsOf(): array<WindowTabSpec> {
     let list: array<WindowTabSpec> = []
     for (profession of Game::professions.list) {
       list.push({
@@ -420,7 +420,7 @@ public class Professions implements Module, App {
 
   // «To the shopping list» on «Queue»: each missing reagent onto Ordaen Trading's list, as asked by the first line
   // that needs it (the list takes nothing of one that lacks none); one the game names no item of can't go on it.
-  onShop(self, needs: array<Need>) {
+  onShop(needs: array<Need>) {
     const auction = Trading
     if (auction == nil) { return }
     for (need of needs) {
@@ -433,7 +433,7 @@ public class Professions implements Module, App {
   }
 
   // The card's «To the shopping list»: what the count of the recipe lacks of each reagent, as asked by it.
-  onCardShop(self, recipe: integer, count: integer) {
+  onCardShop(recipe: integer, count: integer) {
     const auction = Trading
     if (auction == nil) { return }
     for (reagent of Game::tradeSkill.reagents(recipe)) {
@@ -446,7 +446,7 @@ public class Professions implements Module, App {
   }
 
   // A place a recipe is learned at, clicked on its card: a quest's page, a vendor on the map.
-  onPlace(self, place: LearnPlace) {
+  onPlace(place: LearnPlace) {
     if (place.quest != 0) {
       _ = Quests?.openAt(place.quest)
     } else if (place.npc != 0) {
@@ -454,34 +454,34 @@ public class Professions implements Module, App {
     }
   }
 
-  pricesOf(self): any PriceSource | nil {
+  pricesOf(): any PriceSource | nil {
     const auction = Trading
     if (auction == nil || !self.settings.values.prices) { return nil }
     return auction.prices
   }
 
-  openTabOf(self): integer {
+  openTabOf(): integer {
     for (index, profession of Game::professions.list) {
       if (profession.skillLine == Game::tradeSkill.open) { return index }
     }
     return 0
   }
 
-  professionOf(self): Game::Profession | nil {
+  professionOf(): Game::Profession | nil {
     for (profession of Game::professions.list) {
       if (profession.skillLine == Game::tradeSkill.open) { return profession }
     }
     return nil
   }
 
-  campOf(self): integer {
+  campOf(): integer {
     for (category of Game::tradeSkill.categories) {
       if (category.parentID != nil) { return category.id }
     }
     return 0
   }
 
-  hasRecipes(self, category: integer): boolean {
+  hasRecipes(category: integer): boolean {
     for (recipe of Game::tradeSkill.recipes) {
       if (recipe.categoryID == category) { return true }
     }
@@ -490,7 +490,7 @@ public class Professions implements Module, App {
 
   // The overview first, then the recipes (the page it opens at), the camp's, the ones not learned, the queue, the
   // worth.
-  pageKindsOf(self): array<Page> {
+  pageKindsOf(): array<Page> {
     let kinds: array<Page> = [Page::Overview, Page::Recipes]
     if (self.camp != 0 && self.hasRecipes(self.camp)) { kinds.push(Page::Camp) }
     kinds.push(Page::Unlearned)
@@ -501,7 +501,7 @@ public class Professions implements Module, App {
   }
 
   // A page's place among the tabs; the recipes' where it has none.
-  pageAt(self, kind: Page): integer {
+  pageAt(kind: Page): integer {
     const kinds = peek self.pageKinds
     for (i, each of kinds) {
       if (each == kind) { return i }
@@ -510,7 +510,7 @@ public class Professions implements Module, App {
   }
 
   // «Queue (2)» while two recipes of the open profession wait.
-  pageNamesOf(self): array<string> {
+  pageNamesOf(): array<string> {
     const waiting = self.queued.length
     let names: array<string> = []
     for (kind of self.pageKinds) {
@@ -528,7 +528,7 @@ public class Professions implements Module, App {
   }
 
   // What the search looks in for a recipe: its name and its reagents' names, one to a line.
-  textOf(mut self, recipe: Game::Recipe): string {
+  mut textOf(recipe: Game::Recipe): string {
     const cached = self.texts[recipe.id]
     if (cached != nil) { return cached }
     let text = recipe.name.lower()
@@ -537,7 +537,7 @@ public class Professions implements Module, App {
     return text
   }
 
-  passes(mut self, recipe: Game::Recipe, sought: string): boolean {
+  mut passes(recipe: Game::Recipe, sought: string): boolean {
     if (sought != "" && !self.textOf(recipe).contains(sought)) { return false }
     if (self.onlyMake && recipe.craftable < 1) { return false }
     if (self.onlySkill && recipe.difficulty == Game::Difficulty::Never) { return false }
@@ -550,14 +550,14 @@ public class Professions implements Module, App {
 
   // A recipe not learned is shown by where it is learned: a way that is on (where any is), no reputation where those
   // are left out, the other side's alone where those are shown.
-  learnedFromShown(self, source: RecipeSource): boolean {
+  learnedFromShown(source: RecipeSource): boolean {
     if (self.filter[RecipeFilter::NoReputation] == true && source.reputation.length > 0) { return false }
     if (self.filter[RecipeFilter::OtherSide] != true && otherSideOnly(source, sideOfPlayer())) { return false }
     const anyWay = WAY_FILTERS.any(key => self.filter[key] == true)
     return !anyWay || source.sources.any(way => self.filter[filterOf(wayOf(way))] == true)
   }
 
-  shownOf(mut self): array<Game::Recipe> {
+  mut shownOf(): array<Game::Recipe> {
     const sought = self.search.lower()
     const sort = self.list.values.sort
     const asked = `${sought}\n${sort}\n${self.filterKey}\n${self.unlearnedShown}\n${self.byReadiness}`
@@ -585,7 +585,7 @@ public class Professions implements Module, App {
     return list
   }
 
-  mainsOf(self): array<Game::Recipe> {
+  mainsOf(): array<Game::Recipe> {
     let list: array<Game::Recipe> = []
     for (recipe of self.shown) {
       if (recipe.categoryID != self.camp) { list.push(recipe) }
@@ -594,7 +594,7 @@ public class Professions implements Module, App {
   }
 
   // The categories with recipes the lists let through but the camp's, which has a tab of its own, the favorites first.
-  groupsOf(self): array<Group> {
+  groupsOf(): array<Group> {
     let list: array<Group> = []
     const starred = self.kept.favorites
     const byCategory = self.byCategory
@@ -617,7 +617,7 @@ public class Professions implements Module, App {
   }
 
   // The recipes shown by what waits for each, at the profession's skill.
-  readinessGroups(self): map<integer, array<Game::Recipe>> {
+  readinessGroups(): map<integer, array<Game::Recipe>> {
     const lists: map<integer, mut array<Game::Recipe>> = {}
     const skill = self.profession?.rank ?? 0
     const most = self.profession?.max ?? 0
@@ -629,7 +629,7 @@ public class Professions implements Module, App {
     return lists
   }
 
-  groupOf(self, id: integer, name: string, recipes: array<Game::Recipe>): Group {
+  groupOf(id: integer, name: string, recipes: array<Game::Recipe>): Group {
     let makeable = 0
     for (recipe of recipes) {
       if (recipe.craftable > 0) { makeable += 1 }
@@ -637,7 +637,7 @@ public class Professions implements Module, App {
     return { id: id, name: name, total: recipes.length, makeable: makeable }
   }
 
-  chosenCategoryOf(self): integer {
+  chosenCategoryOf(): integer {
     for (group of self.groups) {
       if (group.id == self.category) { return group.id }
     }
@@ -646,7 +646,7 @@ public class Professions implements Module, App {
     return first.id
   }
 
-  tableRowsOf(self): array<Game::Recipe> {
+  tableRowsOf(): array<Game::Recipe> {
     let list: array<Game::Recipe> = []
     for (recipe of self.mains) { list.push(recipe) }
     const column = self.list.values.tableColumn
@@ -659,7 +659,7 @@ public class Professions implements Module, App {
   // Each listed recipe's skill (the item's that teaches it, else what a trainer said), its made item's type, and one
   // making's totals at each source while prices show (read again when a price may have moved). Nothing while the
   // table doesn't show.
-  factsOf(self): map<integer, TableFacts> {
+  factsOf(): map<integer, TableFacts> {
     const facts: map<integer, TableFacts> = {}
     if (self.list.values.view != View::Table || self.onCamp) { return facts }
     const prices = self.prices
@@ -679,7 +679,7 @@ public class Professions implements Module, App {
     return facts
   }
 
-  listingOf(self): array<Game::Recipe> {
+  listingOf(): array<Game::Recipe> {
     if (self.onCamp) { return self.recipes }
     return match (self.list.values.view) {
       View::Columns => self.recipes
@@ -689,7 +689,7 @@ public class Professions implements Module, App {
   }
 
   // The recipes of every group, one group after another.
-  grouped(self): array<Game::Recipe> {
+  grouped(): array<Game::Recipe> {
     let list: array<Game::Recipe> = []
     for (group of self.groups) {
       for (recipe of members(self.mains, self.byCategory, group.id, self.kept.favorites)) { list.push(recipe) }
@@ -697,7 +697,7 @@ public class Professions implements Module, App {
     return list
   }
 
-  chosenRecipeOf(self): integer {
+  chosenRecipeOf(): integer {
     for (recipe of self.listing) {
       if (recipe.id == self.recipe) { return recipe.id }
     }
@@ -706,7 +706,7 @@ public class Professions implements Module, App {
     return first.id
   }
 
-  chosenOf(self): Game::Recipe | nil {
+  chosenOf(): Game::Recipe | nil {
     for (recipe of self.listing) {
       if (recipe.id == self.chosenRecipe) { return recipe }
     }
@@ -715,7 +715,7 @@ public class Professions implements Module, App {
 
   // The game opened another profession: what the player had chosen in it, if the window remembers that, is chosen
   // again.
-  followOpen(mut self) {
+  mut followOpen() {
     const open = Game::tradeSkill.open
     if (open != nil) {
       self.waiting = false
@@ -740,7 +740,7 @@ public class Professions implements Module, App {
 
   // A tab opens its profession through the game, in the click's own call: the client takes it from nothing
   // else. The tab shows picked once the game has opened it, with its lists.
-  onTab(mut self, index: integer) {
+  mut onTab(index: integer) {
     const picked = (peek Game::professions.list)[index]
     if (picked != nil && picked.skillLine != peek Game::tradeSkill.open) {
       Game::tradeSkill.show(picked.skillLine)
@@ -748,7 +748,7 @@ public class Professions implements Module, App {
   }
 
   // Another page of the profession: nothing in it is chosen yet, unless a recipe opened from elsewhere chose it.
-  onPage(mut self) {
+  mut onPage() {
     if (!self.opening) { self.recipe = 0 }
     self.note = ""
     self.opening = false
@@ -757,7 +757,7 @@ public class Professions implements Module, App {
   // The game's own window came up with no profession open, on the player's key: the profession last open is
   // asked for in its place. Where the client doesn't take that (the key wasn't the player's own), the window
   // waits with its tabs.
-  onShownEmpty(mut self) {
+  mut onShownEmpty() {
     if (peek Game::tradeSkill.open != nil) { return }
     self.waiting = true
     const last = (peek self.memory.values).last
@@ -770,7 +770,7 @@ public class Professions implements Module, App {
   }
 
   // What the player chose in this profession, kept for the next time it is open.
-  remember(mut self) {
+  mut remember() {
     const open = peek Game::tradeSkill.open
     if (open == nil || !(peek self.settings.values).remember) { return }
     const now = peek self.memory.values
@@ -779,7 +779,7 @@ public class Professions implements Module, App {
     self.memory.write({ seen: seen, ..now })
   }
 
-  pickCategory(mut self, id: integer) {
+  mut pickCategory(id: integer) {
     self.category = id
     self.recipe = 0
     self.menuFor = 0
@@ -787,7 +787,7 @@ public class Professions implements Module, App {
   }
 
   // A row of a list asked for something of a recipe.
-  onAct(mut self, act: Act, id: integer) {
+  mut onAct(act: Act, id: integer) {
     match (act) {
       Act::Pick => { self.pickRecipe(id) }
       Act::Menu => { self.menuFor = id }
@@ -799,19 +799,19 @@ public class Professions implements Module, App {
     }
   }
 
-  pickRecipe(mut self, id: integer) {
+  mut pickRecipe(id: integer) {
     self.recipe = id
     self.note = ""
     self.menuFor = 0
     self.remember()
   }
 
-  closeMenu(mut self, id: integer) {
+  mut closeMenu(id: integer) {
     if (peek self.menuFor == id) { self.menuFor = 0 }
   }
 
   // The recipe's number added to a list, or taken off it where it is there; the oldest goes where the list is full.
-  toggled(self, list: array<integer>, id: integer): array<integer> {
+  toggled(list: array<integer>, id: integer): array<integer> {
     let out: array<integer> = []
     for (entry of list) {
       if (entry != id) { out.push(entry) }
@@ -823,18 +823,18 @@ public class Professions implements Module, App {
     return out
   }
 
-  starFavorite(mut self, id: integer) {
+  mut starFavorite(id: integer) {
     const now = peek self.memory.values
     self.memory.write({ favorites: self.toggled(now.favorites, id), ..now })
   }
 
-  starTracked(mut self, id: integer) {
+  mut starTracked(id: integer) {
     const now = peek self.memory.values
     self.memory.write({ tracked: self.toggled(now.tracked, id), ..now })
   }
 
   // The item the recipe makes put into the chat's line; a recipe that makes none has no link.
-  onLink(mut self, id: integer) {
+  mut onLink(id: integer) {
     self.menuFor = 0
     const made = Game::recipeReader.schematic(id)?.makes
     if (made != nil) { Game::chat.link(made) }
@@ -843,7 +843,7 @@ public class Professions implements Module, App {
   // From the menu's click, as «Create» with all the bags make: the game takes making only from one. The menu's line
   // takes no click while the bags make none. The menu stands on a listed recipe of the open profession; the card's
   // note is empty where its run starts at once (nothing waits, so nothing was queued since a recipe was picked).
-  onMake(mut self, id: integer) {
+  mut onMake(id: integer) {
     self.menuFor = 0
     const open = (peek Game::tradeSkill.open) ?? panic("the menu stands in the open profession's window")
     const recipe = (peek Game::tradeSkill.recipes).find(r => r.id == id) ?? panic("the menu stands on a listed recipe")
@@ -852,7 +852,7 @@ public class Professions implements Module, App {
 
   // «Create», from the button's click, where the game takes making from: the recipe joins the queue, and its run
   // starts at once where nothing waits ahead of it; else the note says it waits.
-  onCreate(mut self, count: integer) {
+  mut onCreate(count: integer) {
     const recipe = self.chosen
     const open = peek Game::tradeSkill.open
     if (recipe == nil || open == nil) { return }
@@ -860,7 +860,7 @@ public class Professions implements Module, App {
   }
 
   // The card's «Stop» or «Remove from queue»: the recipe being made stops, one waiting leaves the queue.
-  onDrop(mut self, recipe: integer) {
+  mut onDrop(recipe: integer) {
     if (self.crafting.running && self.crafting.making == recipe) {
       self.crafting.stop()
     } else {
@@ -870,7 +870,7 @@ public class Professions implements Module, App {
   }
 
   // Where the chosen recipe stands in the queue.
-  queueingOf(self): Queueing {
+  queueingOf(): Queueing {
     const recipe = self.chosen
     if (recipe == nil) { return Queueing::None }
     if (self.crafting.running && self.crafting.making == recipe.id) { return Queueing::Making }
@@ -878,13 +878,13 @@ public class Professions implements Module, App {
   }
 
   // A line's stepper set its recipe's count.
-  onQueueCount(mut self, recipe: integer, count: integer) { self.crafting.recount(recipe, count) }
+  mut onQueueCount(recipe: integer, count: integer) { self.crafting.recount(recipe, count) }
 
   // «Create next», in the player's click: the client starts a craft from nothing else.
-  onNext(mut self) { self.onQueueAct(QueueAct::Next, 0) }
+  mut onNext() { self.onQueueAct(QueueAct::Next, 0) }
 
   // A line of the queue asked for something, or «Create next» the next run.
-  onQueueAct(mut self, act: QueueAct, id: integer) {
+  mut onQueueAct(act: QueueAct, id: integer) {
     match (act) {
       QueueAct::Drop => { self.crafting.recount(id, 0) }
       QueueAct::Open => { self.openRecipe(id) }
@@ -894,7 +894,7 @@ public class Professions implements Module, App {
 
   // What the open profession's queue is doing, or why it waits for the player's click; while a run goes, what it
   // makes (the client makes one run at a time).
-  queueStatusOf(self): string {
+  queueStatusOf(): string {
     const first = self.queued[1]
     if (first == nil) { return "" }
     if (self.crafting.running) {
@@ -913,13 +913,13 @@ public class Professions implements Module, App {
 
   // A run ended: where the window was closed during it, the profession closes now (and its closing shows the window
   // again for the next one opened).
-  runEnded(mut self, running: boolean) {
+  mut runEnded(running: boolean) {
     if (running || !peek self.hidden) { return }
     Game::tradeSkill.close()
   }
 
   // A recipe opened from elsewhere: the recipes' tab (the camp's for one of the camp), its category and it chosen.
-  openRecipe(mut self, id: integer) {
+  mut openRecipe(id: integer) {
     const recipe = (peek Game::tradeSkill.recipes).find(r => r.id == id)
     if (recipe == nil) { return }
     const hasCamp = (peek self.pageKinds).any(k => k == Page::Camp)
@@ -937,11 +937,11 @@ public class Professions implements Module, App {
   }
 
   // The settings window, at this module's page.
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   // Closing the window (the close button, Escape) closes the profession, which hides it; while a run goes it only
   // hides it, and the profession closes once the run ends.
-  onClose(mut self) {
+  mut onClose() {
     self.waiting = false
     if (peek self.crafting.running) {
       self.hidden = true
@@ -950,7 +950,7 @@ public class Professions implements Module, App {
     Game::tradeSkill.close()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // The game's windows stand away whenever they exist, out of the game's window manager (see `holdsTrainer`).
       <frame $if={Game::frames.Professions != nil} of={Game::frames.Professions} opacity={0} away={true} />

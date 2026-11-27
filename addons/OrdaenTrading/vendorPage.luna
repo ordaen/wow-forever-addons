@@ -78,21 +78,21 @@ class VendorRow implements Component {
     self.selected = selected
   }
 
-  nameText(self): string {
+  nameText(): string {
     const name, _ = nameOf(self.row.item)
     return name
   }
 
-  nameColor(self): Color {
+  nameColor(): Color {
     const _, color = nameOf(self.row.item)
     return color
   }
 
-  onPick(self) { self.pick.emit(self.row.item) }
+  onPick() { self.pick.emit(self.row.item) }
 
-  onRowEnter(self, frame: any Frame) { Game::items.show(frame, self.row.item) }
+  onRowEnter(frame: any Frame) { Game::items.show(frame, self.row.item) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
@@ -146,10 +146,10 @@ public class VendorPage implements Component {
     self.atMerchant = atMerchant
   }
 
-  onPick(mut self, item: ItemId) { self.picked = item }
+  mut onPick(item: ItemId) { self.picked = item }
 
   // From the player's click alone: what is left to buy, in purchases of at most what the merchant sells at once.
-  onBuy(self) {
+  onBuy() {
     const row = peek self.chosen
     if (row == nil) { return }
     const offer = offerOf(row.item)
@@ -162,19 +162,19 @@ public class VendorPage implements Component {
     }
   }
 
-  onNearest(self) {
+  onNearest() {
     const picked = peek self.picked
     if (picked != nil) { self.sellers.showNearest(self.sellers.of(picked)) }
   }
 
-  onRemove(mut self) {
+  mut onRemove() {
     const picked = peek self.picked
     if (picked == nil) { return }
     self.list.remove(picked)
     self.picked = nil
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE}>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>

@@ -12,7 +12,7 @@ class Shown {
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = true
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} shown={self.open}>
         <text value={"the page"} />
@@ -29,7 +29,7 @@ class WithButton {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("withButton", "withButton", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} shown={true}>
         <box>

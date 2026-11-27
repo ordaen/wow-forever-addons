@@ -23,7 +23,7 @@ public class LookPage implements Component {
     self.rowLeast = rowLeast
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_SLOTS}>
         <NumberInput label={Locale::SLOT_SIZE} hint={Locale::SLOT_SIZE_TIP} value={mut self.slotSize} least={SLOT_SIZE_LEAST}
@@ -41,7 +41,7 @@ public class ConveniencePage implements Component {
   sellJunk: mut Signal<boolean>
   constructor(sellJunk: mut Signal<boolean>) { self.sellJunk = sellJunk }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Switch label={Locale::SELL_JUNK_AUTO} hint={Locale::SELL_JUNK_AUTO_TIP} value={mut self.sellJunk} />
     }
@@ -53,7 +53,7 @@ public class LootPage implements Component {
   choices: mut Signal<LootChoices>
   constructor(choices: mut Signal<LootChoices>) { self.choices = choices }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_LOOT_FAST}>
         <Switch label={Locale::LOOT_FAST} hint={Locale::LOOT_FAST_TIP} value={mut self.choices.fast} />
@@ -77,10 +77,10 @@ public class JunkPage implements Component {
   rules: mut Signal<JunkRules>
   constructor(rules: mut Signal<JunkRules>) { self.rules = rules }
 
-  onForgetLearned(self) { self.reset.emit(false) }
-  onForgetMarks(self) { self.reset.emit(true) }
+  onForgetLearned() { self.reset.emit(false) }
+  onForgetMarks() { self.reset.emit(true) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_RULES}>
         <Switch label={Locale::RULE_GREY} hint={Locale::RULE_GREY_TIP} value={mut self.rules.grey} />
@@ -122,12 +122,12 @@ class ChordRow implements Component {
     watch (now of self.clicks) { self.picked = actionAt(now, self.chord) }
   }
 
-  take(mut self, action: SlotAction) {
+  mut take(action: SlotAction) {
     const now = peek self.clicks
     if (actionAt(now, self.chord) != action) { self.clicks = withAction(now, self.chord, action).clone() }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <Dropdown label={chordName(self.chord)} value={mut self.picked} choices={self.choices} /> }
   }
 }
@@ -138,15 +138,15 @@ public class ClicksPage implements Component {
   clicks: mut Signal<Clicks>
   constructor(clicks: mut Signal<Clicks>) { self.clicks = clicks }
 
-  specOf(self, chord: Chord): ChordSpec {
+  specOf(chord: Chord): ChordSpec {
     const choices = choicesFor(self.clicks, chord)
     return { chord: chord, choices: choices, key: `${chord}/${choices.length}` }
   }
 
-  onOurs(mut self) { self.clicks = OURS.clone() }
-  onGame(mut self) { self.clicks = AS_THE_GAME.clone() }
+  mut onOurs() { self.clicks = OURS.clone() }
+  mut onGame() { self.clicks = AS_THE_GAME.clone() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_CLICKS}>
         <text value={Locale::CLICKS_TIP} />

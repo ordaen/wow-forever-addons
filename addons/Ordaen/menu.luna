@@ -70,13 +70,13 @@ public class MenuItem implements Component {
     self.index = index
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (self.enabled && !self.opens) { self.pick.emit(self.index) }
   }
 
-  onEnter(mut self, frame: any Frame) { self.enter.emit(self.index, frame) }
+  mut onEnter(frame: any Frame) { self.enter.emit(self.index, frame) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} padding={self.padding} yAlign={Align::Center} border={self.rule}
            background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
@@ -119,18 +119,18 @@ public class Menu implements Component {
     self.width = width
   }
 
-  onPick(mut self, index: integer) { self.pick.emit(index) }
-  onPickMore(mut self, index: integer) { self.pickMore.emit(self.opened, index) }
-  onOutside(mut self) { self.close.emit() }
+  mut onPick(index: integer) { self.pick.emit(index) }
+  mut onPickMore(index: integer) { self.pickMore.emit(self.opened, index) }
+  mut onOutside() { self.close.emit() }
 
   // The cursor on an entry opens its submenu, and closes another's.
-  onEnter(mut self, index: integer, frame: any Frame) {
+  mut onEnter(index: integer, frame: any Frame) {
     const opens = (peek self.entries)[index]?.more != nil
     self.opened = opens ? index : 0
     if (opens) { self.beside = Anchored { point: Point::TopLeft, to: Point::TopRight, by: frame } }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface leading={.Row} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>

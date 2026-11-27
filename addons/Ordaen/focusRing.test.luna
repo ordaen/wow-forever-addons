@@ -10,9 +10,9 @@ import { Look } from "@/look"
 const PLATE: Color = Color::hex("#2a1d12")
 
 class Focusable {
-  pressed(self) {}
+  pressed() {}
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={3.5sp}>
         <box height={30ui} background={PLATE} @pointerPress={self.pressed} @keyPress(.Enter)={self.pressed}

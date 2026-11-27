@@ -472,17 +472,17 @@ public class StatSpot implements Component {
     self.tip = tip
   }
 
-  onEnter(mut self) {
+  mut onEnter() {
     self.hovered = true
     self.tipped.emit(peek self.stat)
   }
 
-  onLeave(mut self) {
+  mut onLeave() {
     self.hovered = false
     self.tipped.emit(nil)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <slot />
@@ -524,11 +524,11 @@ public class StatGauge implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
-  onMarkEntered(mut self) { self.onMark = true }
-  onMarkLeft(mut self) { self.onMark = false }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
+  mut onMarkEntered() { self.onMark = true }
+  mut onMarkLeft() { self.onMark = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} quiet={self.onMark} tip={self.place}
                 @tipped={self.onTipped}>
@@ -563,9 +563,9 @@ public class StatRow implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <StatSpot stat={self.row.stat} title={self.title} shown={self.shown} tip={self.tip} @tipped={self.onTipped}>
         <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={1sp} yAlign={Align::Center}>
@@ -601,9 +601,9 @@ public class StatCard implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} tip={self.place} @tipped={self.onTipped}>
         <box columns={[Style::SOCKET, { fr: 1 }, "max-content"]} gap={Style::CARD_GAP} padding={Style::CARD_PAD}
@@ -652,9 +652,9 @@ public class SectionView implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={2.5sp}>
         <Groove title={self.section.title} />
@@ -702,9 +702,9 @@ public class MainStat implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <StatSpot stat={self.main.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box gap={0.5sp} xAlign={Align::Center} padding={Style::MAIN_PAD}>
@@ -737,9 +737,9 @@ public class ResistBar implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[Style::GAUGE_LABEL, { fr: 1 }, Style::GAUGE_VALUE]} gap={2.5sp} yAlign={Align::Center}>
         <text value={Locale::RESISTANCE} textColor={BRIGHT_TEXT} wrap={.None} />
@@ -807,11 +807,11 @@ public class PoolBar implements Component {
     self.tip = tip
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(stat: Stat | nil) { self.tipped.emit(stat) }
 
   // Over one another by their levels: the trough, the fill, the shine, the ring, the texts; the regeneration's lines
   // under it.
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={1sp}>
         <StatSpot stat={self.stat} title={self.title} shown={self.shown} tip={self.tip} @tipped={self.onTipped}>

@@ -10,7 +10,7 @@ public class Kit implements Debug::Kit {
     self.catcher = catcher
   }
 
-  public error(mut self, message: string, stack: string | nil, locals: string | nil) {
+  public mut error(message: string, stack: string | nil, locals: string | nil) {
     self.catcher.error(message, stack, locals)
   }
 }

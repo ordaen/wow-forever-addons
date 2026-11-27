@@ -41,18 +41,18 @@ class BagEntry implements Component {
   line: Signal<BagLine>
   constructor(line: Signal<BagLine>) { self.line = line }
 
-  onEnter(mut self, frame: any Frame) {
+  mut onEnter(frame: any Frame) {
     self.hovered = true
     const item = self.line.info.item
     if (item != nil) { Game::items.show(frame, item) }
     self.lit.emit(self.line.info.bag)
   }
 
-  onDrop(self) {
+  onDrop() {
     if (self.place) { self.put.emit(self.line.info.bag) }
   }
 
-  onPress(self) {
+  onPress() {
     if (!Client::CursorHasItem()) {
       self.pick.emit(self.line.info.bag)
     } else if (self.place) {
@@ -60,16 +60,16 @@ class BagEntry implements Component {
     }
   }
 
-  onDragStart(self) {
+  onDragStart() {
     if (self.place && self.line.info.slots > 0) { self.lift.emit(self.line.info.bag) }
   }
 
-  onLeave(mut self) {
+  mut onLeave() {
     self.hovered = false
     self.lit.emit(-1)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} yAlign={Align::Center} padding={ROW_ROOM} background={self.back} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @drop={self.onDrop} @pointerPress={self.onPress} @dragStart={self.onDragStart}>
@@ -99,13 +99,13 @@ public class BagSlotsWindow implements Component {
     self.declared = declared
   }
 
-  onClose(self) { self.close.emit() }
-  onLit(self, bag: integer) { self.lit.emit(bag) }
-  onPut(self, bag: integer) { self.put.emit(bag) }
-  onPick(self, bag: integer) { self.pick.emit(bag) }
-  onLift(self, bag: integer) { self.lift.emit(bag) }
+  onClose() { self.close.emit() }
+  onLit(bag: integer) { self.lit.emit(bag) }
+  onPut(bag: integer) { self.put.emit(bag) }
+  onPick(bag: integer) { self.pick.emit(bag) }
+  onLift(bag: integer) { self.lift.emit(bag) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>

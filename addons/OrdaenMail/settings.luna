@@ -17,7 +17,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <NumberInput label={Locale::SETTING_KEEP_FREE} hint={Locale::SETTING_KEEP_FREE_TIP}
                    value={mut self.settings.values.keepFree} least={0} most={20} />

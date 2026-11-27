@@ -31,10 +31,10 @@ class GroupRows implements Component {
     self.player = player
   }
 
-  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
-  onFold(mut self, header: string) { self.fold.emit(header) }
+  mut onAct(id: integer, act: Act) { self.act.emit(id, act) }
+  mut onFold(header: string) { self.fold.emit(header) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <HeaderRow header={self.group.header} here={self.group.here} folded={!self.open} quests={self.group.quests}
@@ -88,7 +88,7 @@ public class QuestList implements Component {
     self.any = any
   }
 
-  noneText(self): string {
+  noneText(): string {
     return match (self.kind) {
       .World => Locale::EMPTY_WORLD
       .Dungeon => Locale::EMPTY_DUNGEONS
@@ -97,10 +97,10 @@ public class QuestList implements Component {
     }
   }
 
-  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
-  onFold(mut self, header: string) { self.fold.emit(header) }
+  mut onAct(id: integer, act: Act) { self.act.emit(id, act) }
+  mut onFold(header: string) { self.fold.emit(header) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ScrolledList columns={1} rowsPadded={true}>
         <box $if={self.empty} columns={1} padding={EMPTY_PAD}>

@@ -8,7 +8,7 @@ class Export {
   state text = "Ordaen:1:look\nscale=100"
   state open = true
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={3.5sp} shown={self.open}>
         <TextBox value={mut self.text} height={80ui} />

@@ -255,7 +255,7 @@ public class Character implements Module, App {
 
   // The game's spells window: its talents and specializations pages open ours on the active spec's tab, and its
   // closing closes ours. Hooked as the game names them, on their show and hide, which are rare.
-  hookSpells(mut self, frame: any Frame | nil) {
+  mut hookSpells(frame: any Frame | nil) {
     const window = Client::PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
     self.spells = window
@@ -274,7 +274,7 @@ public class Character implements Module, App {
     if (window.TalentsFrame.IsVisible() || window.SpecFrame.IsVisible()) { self.onSpellsShown(frame) }
   }
 
-  onSpellsShown(mut self, frame: any Frame) {
+  mut onSpellsShown(frame: any Frame) {
     self.spellsPaged = true
     self.spec = Game::talentTrees.activeGroup()
     self.window.ask(TAB_TALENTS)
@@ -284,7 +284,7 @@ public class Character implements Module, App {
     }
   }
 
-  onSpellsHidden(mut self) {
+  mut onSpellsHidden() {
     if (!self.spellsPaged) { return }
     self.spellsPaged = false
     self.open = false
@@ -294,7 +294,7 @@ public class Character implements Module, App {
 
   // The game's character window and its pages: ours opens and closes with it, on the tab its page is. Hooked as the
   // game names them, on their show and hide, which are rare.
-  public hook(mut self, frame: any Frame | nil) {
+  public mut hook(frame: any Frame | nil) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     self.game = window
@@ -315,7 +315,7 @@ public class Character implements Module, App {
 
   // A page of the game's window: shown, ours turns to its tab, and to its subtab where it is one (`progress`, 0 for
   // none).
-  hookPage(mut self, name: string, tab: integer, progress: integer) {
+  mut hookPage(name: string, tab: integer, progress: integer) {
     const page = Runtime::frame(`${GAME_WINDOW}.${name}`) ?? Runtime::frame(name)
     if (page == nil) { return }
     const shown: any Client::Frame = page
@@ -326,18 +326,18 @@ public class Character implements Module, App {
     })
   }
 
-  onGameShown(mut self, frame: any Frame) {
+  mut onGameShown(frame: any Frame) {
     if (!(peek self.open)) {
       self.open = true
       self.refresh()
     }
   }
 
-  onGameHidden(mut self) {
+  mut onGameHidden() {
     self.open = false
   }
 
-  public refresh(mut self) {
+  public mut refresh() {
     self.readGear()
     self.readStats()
     self.readFactions()
@@ -351,7 +351,7 @@ public class Character implements Module, App {
   }
 
   // The spec tab's talents, as the game has them; on another tab the game is asked for none.
-  public refreshTalents(mut self) {
+  public mut refreshTalents() {
     const group = peek self.group
     if (group < 1) { return }
     self.trees = Game::talentTrees.trees(group)
@@ -360,23 +360,23 @@ public class Character implements Module, App {
     self.staged = Game::talentTrees.staged()
   }
 
-  onSpend(mut self, node: integer) { _ = Game::talentTrees.spend(node) }
-  onRefund(mut self, node: integer) { _ = Game::talentTrees.refund(node) }
-  onApply(mut self) {
+  mut onSpend(node: integer) { _ = Game::talentTrees.spend(node) }
+  mut onRefund(node: integer) { _ = Game::talentTrees.refund(node) }
+  mut onApply() {
     if (Game::talentTrees.commit()) { playSound("UI_CLASS_TALENT_APPLY_COMPLETE") }
   }
-  onCancel(mut self) { _ = Game::talentTrees.rollback() }
+  mut onCancel() { _ = Game::talentTrees.rollback() }
   // The spec switch is the player's: it runs in the click of «Activate».
-  onActivate(mut self) { _ = Game::talentTrees.activate(peek self.group) }
+  mut onActivate() { _ = Game::talentTrees.activate(peek self.group) }
 
   // The game's inspect window, once its addon has loaded: held unseen while it shows; closed, ours closes.
-  onAddonLoaded(mut self, name: string) {
+  mut onAddonLoaded(name: string) {
     if (name != INSPECT_ADDON) { return }
     if (self.addonHeard != nil) { destroy self.addonHeard }
     self.hookInspect(Runtime::frame(GAME_INSPECT))
   }
 
-  hookInspect(mut self, frame: any Frame | nil) {
+  mut hookInspect(frame: any Frame | nil) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     self.inspectFrame = window
@@ -388,7 +388,7 @@ public class Character implements Module, App {
   }
 
   // The game inspected a unit: ours shows it, on its character, and asks the server.
-  onInspect(mut self, unit: string) {
+  mut onInspect(unit: string) {
     if (!self.inspector.canInspect(unit)) { return }
     self.inspectUnit = unit
     self.inspectTab = INSPECT_CHARACTER
@@ -400,14 +400,14 @@ public class Character implements Module, App {
   }
 
   // The server answered about a player: the one shown, its gear, talents and honor read again.
-  onInspectReady(mut self, guid: string) {
+  mut onInspectReady(guid: string) {
     if (guid != self.inspector.guidOf(peek self.inspectUnit)) { return }
     self.readInspected()
     self.inspectTrees = Game::talentTrees.inspected()
     self.readHonor()
   }
 
-  readInspected(mut self) {
+  mut readInspected() {
     const read = self.inspector.read(peek self.inspectUnit)
     const rates = self.rates.byKey[ratesKey(read.classTag, read.who.scene, read.who.level)]
     self.inspected = read
@@ -415,12 +415,12 @@ public class Character implements Module, App {
     self.inspectStats = estimate(rates ?? Rates {}, read.worn, read.classTag)
   }
 
-  readHonor(mut self) { self.honor = self.inspector.honor(peek self.inspectUnit) }
+  mut readHonor() { self.honor = self.inspector.honor(peek self.inspectUnit) }
 
-  onInspectTried(mut self, slot: integer) { self.inspector.tryOn(peek self.inspectUnit, slot) }
+  mut onInspectTried(slot: integer) { self.inspector.tryOn(peek self.inspectUnit, slot) }
 
   // Ours closed: the game's closes with it, and lets the answer go; without the game's, the answer is let go here.
-  onInspectClose(mut self) {
+  mut onInspectClose() {
     self.inspecting = false
     const game = self.inspectFrame
     if (game != nil && game.IsShown()) {
@@ -432,14 +432,14 @@ public class Character implements Module, App {
 
   // What the player's own character is without its items and auras, kept for estimating another of its class, race
   // and level.
-  keepRates(mut self) {
+  mut keepRates() {
     const who = peek self.who
     if (who.level == 0) { return }
     const facts: Facts = { stats: peek self.stats, worn: peek self.worn, auras: peek Auras.active, classTag: Game::player.classTag }
     self.rates.byKey[ratesKey(Game::player.classTag, who.scene, who.level)] = ratesOf(facts)
   }
 
-  countOf(self): string {
+  countOf(): string {
     if (self.tab == TAB_PROGRESSION) {
       return self.progress == PROGRESS_REPUTATION ? factionsCount(self.factions) : skillsCount(self.skills)
     }
@@ -447,10 +447,10 @@ public class Character implements Module, App {
     return ""
   }
 
-  readSets(mut self) { self.sets = self.sheet.sets() }
+  mut readSets() { self.sets = self.sheet.sets() }
 
   // The slots what the cursor holds goes in, as the game's slots light.
-  readFits(mut self) {
+  mut readFits() {
     const fits: array<integer> = []
     for (slot of 0..19) {
       if (self.sheet.fits(slot)) { fits.push(slot) }
@@ -459,33 +459,33 @@ public class Character implements Module, App {
   }
 
   // What the bags hold for the open flyout's slot.
-  readFitting(mut self) {
+  mut readFitting() {
     const slot = peek self.flyoutSlot
     self.fitting = slot == nil ? [] : self.sheet.fitting(slot)
   }
 
-  readGear(mut self) {
+  mut readGear() {
     const worn: array<Worn> = []
     for (slot of 0..19) { worn.push(self.sheet.worn(slot)) }
     self.worn = worn
     self.usesAmmo = self.sheet.usesAmmo()
   }
 
-  onUnitGear(mut self, unit: string) {
+  mut onUnitGear(unit: string) {
     if (unit == "player") { self.readGear() }
   }
 
   // The statistics as the client gives them; while it holds them secret, those it gave last stay.
-  readStats(mut self) {
+  mut readStats() {
     const read = self.sheet.stats()
     if (read != nil) { self.stats = read }
   }
 
-  onUnitStats(mut self, unit: string) {
+  mut onUnitStats(unit: string) {
     if (unit == "player") { self.readStats() }
   }
 
-  readFactions(mut self) {
+  mut readFactions() {
     const factions = self.sheet.factions()
     for (faction of factions) {
       if ((peek self.starts)[faction.id] == nil) { self.starts[faction.id] = faction.value }
@@ -494,100 +494,100 @@ public class Character implements Module, App {
     self.readChosen()
   }
 
-  readSkills(mut self) { self.skills = self.sheet.skills() }
+  mut readSkills() { self.skills = self.sheet.skills() }
 
-  onPickSkill(mut self, skill: Skill) { self.chosenSkill = skill.id }
+  mut onPickSkill(skill: Skill) { self.chosenSkill = skill.id }
 
   // A heading of the skills clicked: the game folds it or opens it, and keeps it so.
-  onFoldSkills(mut self, skill: Skill) {
+  mut onFoldSkills(skill: Skill) {
     self.sheet.foldSkills(skill.index, skill.collapsed)
     self.readSkills()
   }
 
-  onUnlearn(mut self, skill: Skill) {
+  mut onUnlearn(skill: Skill) {
     self.sheet.unlearn(skill.id)
     self.readSkills()
   }
 
   // Whether the picked faction is inactive: asked of it alone.
-  readChosen(mut self) {
+  mut readChosen() {
     const chosen = peek self.chosen
     const faction = (peek self.factions).find(f => f.id == chosen)
     self.chosenInactive = faction != nil && self.sheet.inactive(faction.index)
   }
 
-  onPick(mut self, faction: Faction) {
+  mut onPick(faction: Faction) {
     self.chosen = faction.id
     self.readChosen()
   }
 
   // A group's heading clicked: the game folds it or opens it, and keeps it so.
-  onFold(mut self, faction: Faction) {
+  mut onFold(faction: Faction) {
     self.sheet.fold(faction.index, faction.collapsed)
     self.readFactions()
   }
 
-  onAtWar(mut self, faction: Faction) {
+  mut onAtWar(faction: Faction) {
     self.sheet.toggleAtWar(faction.index)
     self.readFactions()
   }
 
-  onInactive(mut self, faction: Faction) {
+  mut onInactive(faction: Faction) {
     self.sheet.setInactive(faction.index, !(peek self.chosenInactive))
     self.readFactions()
   }
 
-  onWatch(mut self, faction: Faction) {
+  mut onWatch(faction: Faction) {
     self.sheet.watchFaction(faction.index, !faction.watched)
     self.readFactions()
   }
 
   // A slot clicked or dragged: in the click's own call, as the game's slot does it.
-  onPicked(mut self, slot: integer) { self.sheet.pickup(slot) }
+  mut onPicked(slot: integer) { self.sheet.pickup(slot) }
 
   // Ctrl+click: the game's dressing room tries on what the slot holds.
-  onTried(mut self, slot: integer) { self.sheet.tryOn(slot) }
+  mut onTried(slot: integer) { self.sheet.tryOn(slot) }
 
   // Alt+click: the slot's flyout opens, or closes where it was open.
-  onFlyout(mut self, slot: integer) {
+  mut onFlyout(slot: integer) {
     self.flyoutSlot = (peek self.flyoutSlot) == slot ? nil : slot
     self.readFitting()
   }
 
-  onCloseFlyout(mut self) { self.flyoutSlot = nil }
+  mut onCloseFlyout() { self.flyoutSlot = nil }
 
   // An item of the flyout chosen: worn in its slot, and the flyout closes, as the game's does.
-  onChose(mut self, item: integer) {
+  mut onChose(item: integer) {
     const slot = peek self.flyoutSlot
     if (slot == nil) { return }
     self.sheet.equip(item, slot)
     self.flyoutSlot = nil
   }
 
-  onUseSet(mut self, id: integer) { self.sheet.useSet(id) }
+  mut onUseSet(id: integer) { self.sheet.useSet(id) }
 
   // «+»: what is worn saved as a new set, named by its place among them.
-  onSaveSet(mut self) {
+  mut onSaveSet() {
     self.sheet.saveSet(Locale::SET_NAME.format((peek self.sets).length + 1))
     self.readSets()
   }
 
   // The class trainer offered a reset of the talents: its price, in copper, kept for the footer.
-  onWipeOffered(mut self, cost: number, kind: number) {
+  mut onWipeOffered(cost: number, kind: number) {
     self.wipe.cost = cost.floor()
     self.wipeCost = self.wipe.cost
   }
 
   // Ours closed: the game's closes with it.
-  onClose(mut self) {
+  mut onClose() {
     self.open = false
     self.game?.Hide()
     if (self.spellsPaged) { self.spells?.Hide() }
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $if={self.gameWindow != nil} of={self.gameWindow} opacity={0} away={true} />
       <frame $if={self.spellsGame != nil} of={self.spellsGame} opacity={0} away={true} />

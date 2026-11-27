@@ -163,9 +163,9 @@ public class ChallengeRow implements Component {
     self.chosen = chosen
   }
 
-  onPick(mut self) { self.pick.emit(self.challenge.id) }
+  mut onPick() { self.pick.emit(self.challenge.id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={CHALLENGE_ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style::ICON} height={Style::ICON} icon={self.challenge.icon} desaturate={!self.challenge.done} />
@@ -196,10 +196,10 @@ public class CategoryFold implements Component {
     self.chosen = chosen
   }
 
-  onToggle(mut self) { self.toggle.emit(self.category.id) }
-  onPick(mut self, id: integer) { self.pick.emit(id) }
+  mut onToggle() { self.toggle.emit(self.category.id) }
+  mut onPick(id: integer) { self.pick.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box>
         <FoldCaption title={self.title} folded={self.folded} @toggled={self.onToggle}>
@@ -222,7 +222,7 @@ public class CriterionRow implements Component {
   criterion: Signal<Criterion>
   constructor(criterion: Signal<Criterion>) { self.criterion = criterion }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={1sp}>
         <text value={self.criterion.text} textColor={self.ink} />
@@ -306,22 +306,22 @@ public class Challenges {
     Events::CRITERIA_UPDATE.listen(self.onChanged)
   }
 
-  onChanged(mut self) { self.touched += 1 }
+  mut onChanged() { self.touched += 1 }
 
   // The player's class's category open, as the game's window opens on it.
-  openOwn(mut self) {
+  mut openOwn() {
     self.opening = false
     const _, classFile, _ = Client::UnitClass("player")
     const own = CLASS_CATEGORIES[classFile ?? ""]
     if (own != nil) { self.opened = { [own]: true } }
   }
 
-  readCategories(self): array<Category> {
+  readCategories(): array<Category> {
     _ = self.touched
     return categoriesOf()
   }
 
-  everyOf(self): array<Challenge> {
+  everyOf(): array<Challenge> {
     const list: array<Challenge> = []
     for (category of self.categories) {
       for (one of category.challenges) { list.push(one) }
@@ -330,12 +330,12 @@ public class Challenges {
   }
 
   // Whether the filter leaves a challenge.
-  shown(self, one: Challenge): boolean {
+  shown(one: Challenge): boolean {
     return one.done ? self.shows[ChallengeShow::Done] == true : self.shows[ChallengeShow::Open] == true
   }
 
   // The categories with what the filter leaves of them; one the filter empties is left out.
-  foldsOf(self): array<Category> {
+  foldsOf(): array<Category> {
     const list: array<Category> = []
     for (category of self.categories) {
       const left = category.challenges.filter(one => self.shown(one))
@@ -344,7 +344,7 @@ public class Challenges {
     return list
   }
 
-  listedOf(self): array<Challenge> {
+  listedOf(): array<Challenge> {
     const words = self.search.lower()
     const list = self.everything.filter(one => self.shown(one) && (words == "" || one.name.lower().contains(words)))
     sortedBy(list, self.sort)
@@ -352,18 +352,18 @@ public class Challenges {
   }
 
   // A category folded is one not open.
-  closedOf(self): map<integer, boolean> {
+  closedOf(): map<integer, boolean> {
     const closed: map<integer, boolean> = {}
     for (category of self.categories) { closed[category.id] = self.opened[category.id] != true }
     return closed
   }
 
-  readCriteria(self): array<Criterion> {
+  readCriteria(): array<Criterion> {
     _ = self.touched
     return self.chosen == 0 ? [] : criteriaOf(self.chosen)
   }
 
-  countsOf(self): array<FooterCount> {
+  countsOf(): array<FooterCount> {
     let done = 0
     let points = 0
     for (one of self.everything) {
@@ -378,16 +378,16 @@ public class Challenges {
     ]
   }
 
-  onPick(mut self, id: integer) { self.chosen = id }
+  mut onPick(id: integer) { self.chosen = id }
 
-  onToggle(mut self, id: integer) {
+  mut onToggle(id: integer) {
     const next: map<integer, boolean> = {}
     for (key, value of self.opened) { next[key] = value }
     next[id] = self.opened[id] != true
     self.opened = next
   }
 
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     const link = Client::GetAchievementLink(peek self.chosen)
     if (link != nil) { Game::items.showLink(frame, link) }
   }

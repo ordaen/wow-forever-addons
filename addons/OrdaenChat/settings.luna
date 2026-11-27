@@ -10,7 +10,7 @@ public class ChatPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={6sp}>
         <Section title={Locale::SECTION_WINDOW}>

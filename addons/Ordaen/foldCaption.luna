@@ -25,9 +25,9 @@ public class FoldCaption implements Component {
     self.folded = folded
   }
 
-  onToggle(mut self) { self.toggled.emit() }
+  mut onToggle() { self.toggled.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COLUMNS} gap={2sp} yAlign={Align::Center} background={SHADE} @pointerPress={self.onToggle}
            @keyPress(.Enter)={self.onToggle} @keyPress(.Space)={self.onToggle}>

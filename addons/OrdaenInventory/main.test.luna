@@ -98,7 +98,7 @@ class World {
 
   constructor(items: mut array<mut Lies>) { self.items = items }
 
-  public bag(self, bag: integer): Game::BagInfo {
+  public bag(bag: integer): Game::BagInfo {
     const slots = self.sizes[bag + 1] ?? 0
     if (bag == 0) { return { bag: 0, item: nil, name: "Backpack", icon: BACKPACK, slots: slots, general: true } }
     if (bag == 1) { return { bag: 1, item: 4238, name: "Linen Bag", icon: self.linenIcon, slots: slots, general: self.general } }
@@ -106,9 +106,9 @@ class World {
     return { bag: bag, item: nil, name: slots > 0 ? `Bag ${bag}` : "", icon: nil, slots: slots, general: true }
   }
 
-  public size(self, bag: integer): integer { return self.sizes[bag + 1] ?? 0 }
+  public size(bag: integer): integer { return self.sizes[bag + 1] ?? 0 }
 
-  public read(self, bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
+  public read(bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
     const item = self.items.find(lying => lying.bag == bag && lying.slot == slot)
     if (item == nil) {
       into.id = 0
@@ -131,10 +131,10 @@ class World {
     return true
   }
 
-  public icon(self, id: integer): Art | nil { return self.items.find(lying => lying.id == id)?.icon }
+  public icon(id: integer): Art | nil { return self.items.find(lying => lying.id == id)?.icon }
 
   // The stack in a slot.
-  public at(mut self, bag: integer, slot: integer): mut Lies {
+  public mut at(bag: integer, slot: integer): mut Lies {
     for (item of self.items) {
       if (item.bag == bag && item.slot == slot) { return item }
     }
@@ -142,7 +142,7 @@ class World {
   }
 
   // The two slots' stacks change places, as the client does.
-  public swap(mut self, fromBag: integer, fromSlot: integer, toBag: integer, toSlot: integer): boolean {
+  public mut swap(fromBag: integer, fromSlot: integer, toBag: integer, toSlot: integer): boolean {
     if (!self.moves) { return true }
     for (item of self.items) {
       if (item.bag == fromBag && item.slot == fromSlot) {
@@ -157,7 +157,7 @@ class World {
   }
 
   // The stack taken out of the bags.
-  public take(mut self, bag: integer, slot: integer) {
+  public mut take(bag: integer, slot: integer) {
     let at = 0
     for (index, item of self.items) {
       if (item.bag == bag && item.slot == slot) { at = index }

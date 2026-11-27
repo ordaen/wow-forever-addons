@@ -69,9 +69,9 @@ public class NameRow implements Component {
     self.who = who
   }
 
-  onPick(mut self) { self.pick.emit(self.who.name) }
+  mut onPick() { self.pick.emit(self.who.name) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={NAME_ROW} @pick={self.onPick}>
         <box width={DOT} height={DOT} background={self.dot} />
@@ -97,11 +97,11 @@ public class FormSlot implements Component {
     self.stack = stack
   }
 
-  onPick(mut self) { self.remove.emit(self.stack) }
+  mut onPick() { self.remove.emit(self.stack) }
 
-  onDrop(mut self) { self.dropped.emit() }
+  mut onDrop() { self.dropped.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} size={SLOT} @pick={self.onPick} @dropped={self.onDrop}
                   @pressed={self.onDrop} />
@@ -153,7 +153,7 @@ public class Compose implements Component {
   }
 
   // The letters' slots: twelve stacks a letter, and the empty slot after the last stack.
-  slotsOf(self): array<LetterSlots> {
+  slotsOf(): array<LetterSlots> {
     const list: array<LetterSlots> = []
     const total = self.stacks.length
     const count = lettersFor(total + 1)
@@ -170,7 +170,7 @@ public class Compose implements Component {
     return list
   }
 
-  postageOf(self): integer {
+  postageOf(): integer {
     let total = 0
     for (number of 1..self.letters) {
       total += Game::mailbox.postage((self.stacks.length - (number - 1) * PLACES).min(PLACES).max(0))
@@ -178,14 +178,14 @@ public class Compose implements Component {
     return total
   }
 
-  onPickName(mut self, name: string) {
+  mut onPickName(name: string) {
     self.to = name
     self.picked = name
   }
 
   // The game's letter took items: each comes into the form as the stack it lies in (locked while in the letter), and
   // goes back from the game's letter to the bags.
-  absorb(mut self) {
+  mut absorb() {
     if (self.sender.busy()) { return }
     for (place of 1..PLACES) {
       const _, item, _, count, _ = Client::GetSendMailItem(place)
@@ -198,20 +198,20 @@ public class Compose implements Component {
   }
 
   // An item let go on a slot: into the game's letter, and from there into the form.
-  onDrop(mut self) {
+  mut onDrop() {
     if (!Client::CursorHasItem()) { return }
     Client::ClickSendMailItemButton(nil, nil)
     self.absorb()
   }
 
-  onRemove(mut self, stack: Game::MailStack) {
+  mut onRemove(stack: Game::MailStack) {
     self.stacks = (peek self.stacks).filter(s => s.bag != stack.bag || s.slot != stack.slot)
   }
 
-  onClose(mut self) { self.closed.emit() }
+  mut onClose() { self.closed.emit() }
 
   // «Send»: the letters into the queue, which sends them one after another; the form closes.
-  onSend(mut self) {
+  mut onSend() {
     if (!(peek self.ready)) { return }
     const stacks = peek self.stacks
     const subject = trimmed(peek self.subject)
@@ -224,7 +224,7 @@ public class Compose implements Component {
     self.closed.emit()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
         <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center}>

@@ -28,7 +28,7 @@ public class ProgressBar implements Component {
     self.width = width
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={1sp} width={self.width}>
         <text $if={self.hasLabel} value={self.label} textColor={LABEL} wrap={.None} />

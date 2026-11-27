@@ -21,5 +21,5 @@ public enum XpLook { Fill = "fill", Wash = "wash" }
 
 public trait XpSource {
   // What to draw now; none: nothing. Read in a derived: what it reads is followed.
-  public part(self): XpPart | nil
+  public part(): XpPart | nil
 }

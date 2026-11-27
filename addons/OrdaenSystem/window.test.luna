@@ -56,13 +56,13 @@ class World {
 
   constructor(fakes: mut array<mut Fake>) { self.fakes = fakes }
 
-  fake(self, name: string | integer): Fake | nil {
+  fake(name: string | integer): Fake | nil {
     if (name is integer) { return self.fakes[name] }
     return self.fakes.find(fake => fake.name == name)
   }
 
   // An addon taken out of the folder.
-  public remove(mut self, name: string) {
+  public mut remove(name: string) {
     let at = 0
     for (index, fake of self.fakes) {
       if (fake.name == name) { at = index }
@@ -70,11 +70,11 @@ class World {
     _ = self.fakes.remove(at)
   }
 
-  public count(self): integer { return self.fakes.length }
+  public count(): integer { return self.fakes.length }
 
-  public name(self, index: string | integer): string { return self.fake(index)?.name ?? "" }
+  public name(index: string | integer): string { return self.fake(index)?.name ?? "" }
 
-  public metadata(self, name: string | integer, field: string): string | nil {
+  public metadata(name: string | integer, field: string): string | nil {
     const fake = self.fake(name)
     if (fake == nil) { return nil }
     const value = match (field) {
@@ -90,18 +90,18 @@ class World {
     return value == "" ? nil : value
   }
 
-  public demand(self, name: string | integer): boolean { return self.fake(name)?.demand == true }
+  public demand(name: string | integer): boolean { return self.fake(name)?.demand == true }
 
-  public interface(self, name: string | integer): number { return self.fake(name)?.outdated == true ? OLDER : CURRENT }
+  public interface(name: string | integer): number { return self.fake(name)?.outdated == true ? OLDER : CURRENT }
 
-  public state(self, name: string | integer, character: string | nil): Client::AddOnEnableState {
+  public state(name: string | integer, character: string | nil): Client::AddOnEnableState {
     const fake = self.fake(name)
     if (fake == nil) { return .None }
     if (character == nil && self.split[fake.name] == true) { return .Some }
     return self.off[fake.name] == true ? .None : .All
   }
 
-  public turn(mut self, name: string | integer, character: string | nil, isOff: boolean) {
+  public mut turn(name: string | integer, character: string | nil, isOff: boolean) {
     const fake = self.fake(name)
     if (fake == nil) { return }
     const key = fake.name
@@ -113,22 +113,22 @@ class World {
     self.off[key] = isOff ? true : nil
   }
 
-  public save(mut self) {
+  public mut save() {
     self.savedOff = self.off.clone()
     self.savedSplit = self.split.clone()
   }
 
-  public reset(mut self) {
+  public mut reset() {
     self.off = self.savedOff.clone()
     self.split = self.savedSplit.clone()
   }
 
-  public loaded(self, name: string | integer): (boolean, boolean) {
+  public loaded(name: string | integer): (boolean, boolean) {
     const done = self.fake(name)?.loaded == true
     return done, done
   }
 
-  public loadable(self, name: string | integer, character: string | nil, demandLoaded: boolean | nil): (
+  public loadable(name: string | integer, character: string | nil, demandLoaded: boolean | nil): (
     boolean, Client::AddOnReason | nil
   ) {
     const fake = self.fake(name)
@@ -138,7 +138,7 @@ class World {
   }
 
   // Why the client doesn't load an addon: off, what it needs missing or not loading, its own reason, or on demand.
-  reason(self, fake: Fake, demandLoaded: boolean): Client::AddOnReason | nil {
+  reason(fake: Fake, demandLoaded: boolean): Client::AddOnReason | nil {
     if (self.off[fake.name] == true) { return "DISABLED" }
     for (need of needsOf(...Client::C_AddOns::GetAddOnDependencies(fake.name))) {
       const other = self.fake(need)
@@ -150,7 +150,7 @@ class World {
     return nil
   }
 
-  public load(mut self, name: string | integer): (boolean | nil, string | nil) {
+  public mut load(name: string | integer): (boolean | nil, string | nil) {
     const fake = self.fake(name)
     if (fake == nil) { return false, "MISSING" }
     const reason = self.reason(fake, true)
@@ -203,12 +203,12 @@ class Meter {
   public weighed = 0
   constructor() {}
 
-  public whole(mut self, metric: Client::AddOnProfilerMetric): number {
+  public mut whole(metric: Client::AddOnProfilerMetric): number {
     if (metric == .RecentAverageTime) { self.samples += 1 }
     return metric == .SessionAverageTime ? 20 : 10
   }
 
-  public of(self, name: string, metric: Client::AddOnProfilerMetric): number {
+  public of(name: string, metric: Client::AddOnProfilerMetric): number {
     return match (metric) {
       .RecentAverageTime => self.now[name] ?? 0
       .PeakTime => self.peak[name] ?? 0
@@ -221,10 +221,10 @@ class Meter {
   }
 
   // Every addon together, now: 1.4 of the client's 10.
-  public overall(self, metric: Client::AddOnProfilerMetric): number { return metric == .RecentAverageTime ? 1.4 : 0 }
+  public overall(metric: Client::AddOnProfilerMetric): number { return metric == .RecentAverageTime ? 1.4 : 0 }
 
   // The ten heaviest now, as the client names them: those over 1 % here.
-  public top(self, metric: Client::AddOnProfilerMetric, k: number): array<Client::AddOnProfilerResult> {
+  public top(metric: Client::AddOnProfilerMetric, k: number): array<Client::AddOnProfilerResult> {
     const list: array<Client::AddOnProfilerResult> = []
     if (metric != .RecentAverageTime || k != 10) { return list }
     for (name, now of self.now) {
@@ -233,9 +233,9 @@ class Meter {
     return list
   }
 
-  public weigh(mut self) { self.weighed += 1 }
+  public mut weigh() { self.weighed += 1 }
 
-  public kb(self, name: string | integer): number { return name is string ? self.memory[name] ?? 0 : 0 }
+  public kb(name: string | integer): number { return name is string ? self.memory[name] ?? 0 : 0 }
 }
 
 // The AddOns window: found by «Reset», which its footer always shows.

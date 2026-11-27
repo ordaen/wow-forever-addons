@@ -48,10 +48,10 @@ public class Said implements Component {
     self.revealed = revealed
   }
 
-  onGroupEnter(mut self) { self.groupHovered = true }
-  onGroupLeave(mut self) { self.groupHovered = false }
+  mut onGroupEnter() { self.groupHovered = true }
+  mut onGroupLeave() { self.groupHovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.grouped} columns={["max-content", { fr: 1 }]}>
         <box border={{ width: 1.171875dp, color: Style::GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
@@ -85,7 +85,7 @@ public class Needs implements Component {
   quest: Signal<Quest | nil>
   constructor(quest: Signal<Quest | nil>) { self.quest = quest }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text value={Locale::NEEDED} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
       <NeedRow $for={need of self.needs} need={need} />
@@ -104,7 +104,7 @@ class NeedRow implements Component {
   need: Signal<Need>
   constructor(need: Signal<Need>) { self.need = need }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align::Center} padding={1sp}>
         <box width={REWARD_ICON} height={REWARD_ICON} icon={self.need.icon} />

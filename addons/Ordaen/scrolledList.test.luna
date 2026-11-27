@@ -7,7 +7,7 @@ import { ScrolledList } from "@/scrolledList"
 class Rows {
   state names: array<string> = ["Row 1", "Row 2", "Row 3", "Row 4", "Row 5", "Row 6", "Row 7", "Row 8", "Row 9", "Row 10"]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={[{ fr: 1 }]} padding={3sp}>
         <ScrolledList columns={1} height={100dp}>
@@ -36,7 +36,7 @@ const OTHER_SHADE: Color = Color::hex("#305a40")
 
 // Two wells side by side, the same row in each: one whose rows bring their own padding, one whose rows don't.
 class Padded {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, { fr: 1 }]} gap={3sp}>
         <ScrolledList columns={1} height={100dp} rowsPadded={true}>

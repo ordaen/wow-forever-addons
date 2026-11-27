@@ -34,14 +34,14 @@ public class ModuleEntry implements Entry {
     self.icon = addon.icon ?? Ordaen.icon
   }
 
-  find(self): any Module | nil {
+  find(): any Module | nil {
     for (module of Ordaen.modules) {
       if (Runtime::Addon::of(module)?.name == self.folder) { return module }
     }
     return nil
   }
 
-  public enable(self, on: boolean) { Ordaen.turn(self.addon, on) }
+  public enable(on: boolean) { Ordaen.turn(self.addon, on) }
 }
 
 // A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
@@ -55,9 +55,9 @@ public class ModuleSwitch implements Component {
     self.entry = entry
   }
 
-  flip(mut self) { self.entry.enable(!self.entry.on) }
+  mut flip() { self.entry.enable(!self.entry.on) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={WIDTH} height={HEIGHT} background={self.track} @pointerPress={self.flip} @keyPress(.Enter)={self.flip} @keyPress(.Space)={self.flip}>
         <box position={Position::Absolute} left={KNOB_OFF} top={KNOB_TOP} width={KNOB} height={KNOB}
@@ -89,11 +89,11 @@ public class ModuleRow implements Component {
     self.shown = shown
   }
 
-  nameOf(self): string { return moduleName(self.entry.title) }
+  nameOf(): string { return moduleName(self.entry.title) }
 
-  onPick(mut self) { self.pick.emit(self.entry.folder) }
+  mut onPick() { self.pick.emit(self.entry.folder) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ListTab label={self.name} icon={self.entry.icon} selected={self.selected} off={self.off}
                @pick={self.onPick}>

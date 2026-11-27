@@ -175,9 +175,9 @@ public class EntryRow implements Component {
     self.chosen = chosen
   }
 
-  onPick(mut self) { self.pick.emit(self.entry.key) }
+  mut onPick() { self.pick.emit(self.entry.key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style::ICON} height={Style::ICON} icon={self.entry.icon} desaturate={!self.entry.owned} />
@@ -201,9 +201,9 @@ public class EntryTile implements Component {
     self.chosen = chosen
   }
 
-  onPick(mut self) { self.pick.emit(self.entry.key) }
+  mut onPick() { self.pick.emit(self.entry.key) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={TILE} height={TILE} icon={self.entry.icon} desaturate={!self.entry.owned} border={self.ring}
            @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick} />
@@ -224,7 +224,7 @@ public class ToyRow implements Component {
     self.icons = icons
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ItemButton $if={self.icons} item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={TILE} action={self.action}
                   usable={self.entry.usable} />
@@ -338,9 +338,9 @@ public class Collections {
     }
   }
 
-  read(mut self) { self.entries = entriesOf(peek self.kind) }
+  mut read() { self.entries = entriesOf(peek self.kind) }
 
-  filtered(self): array<Entry> {
+  filtered(): array<Entry> {
     const words = self.search.lower()
     const list = self.entries.filter(entry =>
       (entry.owned ? self.owned[Owned::Collected] == true : self.owned[Owned::Missing] == true) &&
@@ -354,15 +354,15 @@ public class Collections {
     return list
   }
 
-  onPick(mut self, key: string) { self.chosen = key }
+  mut onPick(key: string) { self.chosen = key }
 
-  onEnter(self, frame: any Frame) {
+  onEnter(frame: any Frame) {
     const spell = (peek self.picked)?.spell
     if (spell != nil) { Game::items.showSpell(frame, spell) }
   }
 
   // Ride the mount, summon the pet.
-  onUse(self) {
+  onUse() {
     const entry = peek self.picked
     if (entry == nil) { return }
     if (peek self.kind == .Mounts) {
@@ -372,5 +372,5 @@ public class Collections {
     }
   }
 
-  onTransmog(mut self) { self.asked.emit(JOURNAL_APPEARANCES) }
+  mut onTransmog() { self.asked.emit(JOURNAL_APPEARANCES) }
 }

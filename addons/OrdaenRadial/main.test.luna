@@ -198,7 +198,7 @@ function editRing(index: integer, edit: (ring: mut Ring) => nil) {
 class Junk implements RadialKind {
   public const id: string = "junk"
   public const title: string = "The next junk"
-  public offer(self): RadialOffer {
+  public offer(): RadialOffer {
     return { name: "Broken Fang", icon: "Interface/Icons/INV_Misc_QuestionMark", action: .Item { item: 4875 }, dim: false }
   }
 }

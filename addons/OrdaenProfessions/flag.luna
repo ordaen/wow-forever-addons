@@ -27,11 +27,11 @@ public class Flag implements Component {
   }
 
   // A click put the switch at `shown`: told, unless that is what the window already remembers.
-  flip(self, shown: boolean) {
+  flip(shown: boolean) {
     if (shown != peek self.on) { self.flipped.emit() }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
         <text value={self.label} textColor={Style::INK} wrap={.None} />

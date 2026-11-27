@@ -102,12 +102,12 @@ public class GearSlot implements Component {
     self.own = own
   }
 
-  fillOf(self): BarFill {
+  fillOf(): BarFill {
     const left = self.worn.durability ?? 1
     return { value: left, color: wearColor(left) }
   }
 
-  onPressed(self, press: Event::Press) {
+  onPressed(press: Event::Press) {
     if (press.button != MouseButton::Left) { return }
     if (!self.own) {
       if (Game::input.controlDown()) { self.tried.emit(peek self.spec.id) }
@@ -125,14 +125,14 @@ public class GearSlot implements Component {
     }
   }
 
-  onDragged(self) {
+  onDragged() {
     if (self.own) { self.picked.emit(peek self.spec.id) }
   }
 
-  onEntered(mut self) { self.hovered = true }
-  onLeft(mut self) { self.hovered = false }
+  mut onEntered() { self.hovered = true }
+  mut onLeft() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={2sp}>
         <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size} well={SlotWell::Framed}
@@ -178,9 +178,9 @@ public class Chip implements Component {
     self.label = label
   }
 
-  onClick(self) { self.click.emit() }
+  onClick() { self.click.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={CHIP_PAD} background={Style::CARD} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
            @keyPress(.Space)={self.onClick}>
@@ -220,7 +220,7 @@ public class GearSets implements Component {
     watch (place of self.chosen) { self.onChosen(place) }
   }
 
-  onChosen(mut self, place: integer) {
+  mut onChosen(place: integer) {
     const set = (peek self.sets)[place]
     if (set == nil || set.worn) { return }
     if (Game::situation.combat) {
@@ -230,20 +230,20 @@ public class GearSets implements Component {
     self.use.emit(set.id)
   }
 
-  namesOf(self): array<string> {
+  namesOf(): array<string> {
     const names = self.sets.map(set => set.name)
     names.push(Locale::NEW_SET)
     return names
   }
 
-  tipOf(self): TipText | nil {
+  tipOf(): TipText | nil {
     const same = self.same
     return same == nil ? nil : { title: Locale::SET_TAKEN, text: Locale::SET_TAKEN_TIP.format(same.name), rows: [] }
   }
 
-  onSave(self) { self.save.emit() }
+  onSave() { self.save.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box>
         <Tabs tabs={self.names} selected={mut self.chosen} />
@@ -277,10 +277,10 @@ public class Flyout implements Component {
     self.items = items
   }
 
-  onPick(self, item: integer) { self.chose.emit(item) }
-  onClose(self) { self.close.emit() }
+  onPick(item: integer) { self.chose.emit(item) }
+  onClose() { self.close.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={2sp} padding={3sp} background={Style::FLYOUT}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
@@ -393,7 +393,7 @@ public class GearPage implements Component {
     self.classTag = classTag
   }
 
-  shownOf(self): Breakdown {
+  shownOf(): Breakdown {
     const stat = self.tipped
     if (stat == nil) { return NO_BREAKDOWN }
     return breakdownOf(stat, wordsOf(stat, self.stats), {
@@ -402,25 +402,25 @@ public class GearPage implements Component {
   }
 
   // What the slot's item gives the stat whose tooltip is open; empty while it gives none.
-  shareOf(self, slot: integer): string { return self.shown.shares[slot] ?? "" }
+  shareOf(slot: integer): string { return self.shown.shares[slot] ?? "" }
 
-  onTipped(mut self, stat: Stat | nil) { self.tipped = stat }
+  mut onTipped(stat: Stat | nil) { self.tipped = stat }
 
-  wornOf(self, slot: integer): Worn {
+  wornOf(slot: integer): Worn {
     return self.worn.find(piece => piece.slot == slot) ?? NOTHING
   }
 
-  fitsIn(self, slot: integer): boolean { return self.fitsSlots.any(s => s == slot) }
+  fitsIn(slot: integer): boolean { return self.fitsSlots.any(s => s == slot) }
 
-  onPicked(self, slot: integer) { self.picked.emit(slot) }
-  onTried(self, slot: integer) { self.tried.emit(slot) }
-  onFlyout(self, slot: integer) { self.flyout.emit(slot) }
-  onChose(self, item: integer) { self.chose.emit(item) }
-  onCloseFlyout(self) { self.closeFlyout.emit() }
-  onUseSet(self, id: integer) { self.useSet.emit(id) }
-  onSaveSet(self) { self.saveSet.emit() }
+  onPicked(slot: integer) { self.picked.emit(slot) }
+  onTried(slot: integer) { self.tried.emit(slot) }
+  onFlyout(slot: integer) { self.flyout.emit(slot) }
+  onChose(item: integer) { self.chose.emit(item) }
+  onCloseFlyout() { self.closeFlyout.emit() }
+  onUseSet(id: integer) { self.useSet.emit(id) }
+  onSaveSet() { self.saveSet.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={self.rows}>
         <GearSets $if={self.own} sets={self.sets} @use={self.onUseSet} @save={self.onSaveSet} />

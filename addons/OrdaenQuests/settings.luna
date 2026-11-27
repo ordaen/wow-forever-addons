@@ -16,7 +16,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::SECTION_LOG}>
         <Switch label={Locale::SETTING_OWN_KEY} hint={Locale::SETTING_OWN_KEY_TIP} value={mut self.settings.values.ownKey} />

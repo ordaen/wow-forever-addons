@@ -173,10 +173,10 @@ public class Dialogue implements Module, App {
 
   // ——— The talk starting: the NPC's list, or what is done on its own first.
 
-  onGossip(mut self, kit: string | nil) { self.startList(.Gossip) }
-  onGreeting(mut self) { self.startList(.Greeting) }
+  mut onGossip(kit: string | nil) { self.startList(.Gossip) }
+  mut onGreeting() { self.startList(.Greeting) }
 
-  startList(mut self, source: Source) {
+  mut startList(source: Source) {
     const fresh = !(peek self.walking) && !(peek self.shown)
     if (fresh) {
       self.held = Game::input.shiftDown()
@@ -199,7 +199,7 @@ public class Dialogue implements Module, App {
 
   // What is done on its own as the talk starts, and as the list comes back while the NPC's quests are walked; true
   // where something was picked (the game answers with its next page).
-  actAlone(mut self, lines: array<Line>, fresh: boolean): boolean {
+  mut actAlone(lines: array<Line>, fresh: boolean): boolean {
     const choices = peek self.settings.values
     if (choices.autoComplete == Auto::All) {
       const turnIn = lines.find(line => isTurnIn(line) && !self.tried.any(id => id == line.id))
@@ -228,18 +228,18 @@ public class Dialogue implements Module, App {
   // The one-option skip: one option that leads somewhere (a vendor's goods, a trainer, a flight), no quests; a line
   // of talk always shows. `C_GossipInfo.ForceGossip()` isn't asked: Forever's client gives true for an ordinary
   // vendor, whose menu the skip is for.
-  onlyOption(self, lines: array<Line>): boolean {
+  onlyOption(lines: array<Line>): boolean {
     return (peek self.source) == Source::Gossip && lines.length == 1 && lines.all(line => line.leads)
   }
 
   // The game says how many quests the log holds and how many it takes.
-  logFull(self): boolean {
+  logFull(): boolean {
     const _, quests = Client::C_QuestLog::GetNumQuestLogEntries()
     return quests >= Client::C_QuestLog::GetMaxNumQuestsCanAccept()
   }
 
   // One quest of the walk: picked, and its pages answered on their own.
-  walk(mut self, line: Line, accepting: boolean): boolean {
+  mut walk(line: Line, accepting: boolean): boolean {
     self.tried.push(line.id)
     self.walking = true
     if (accepting) { self.acceptNext = true } else { self.completeNext = true }
@@ -249,7 +249,7 @@ public class Dialogue implements Module, App {
 
   // ——— The game's pages.
 
-  onDetail(mut self, startItem: number | nil) {
+  mut onDetail(startItem: number | nil) {
     if (peek self.acceptNext) {
       self.acceptNext = false
       const quest = questOf(Client::GetQuestText())
@@ -275,7 +275,7 @@ public class Dialogue implements Module, App {
     self.show(.Detail)
   }
 
-  onProgress(mut self) {
+  mut onProgress() {
     if (peek self.completeNext) {
       if (Client::IsQuestCompletable()) {
         self.acting = true
@@ -289,7 +289,7 @@ public class Dialogue implements Module, App {
     self.show(.Progress)
   }
 
-  onComplete(mut self) {
+  mut onComplete() {
     self.choice = 0
     const choices = Client::GetNumQuestChoices()
     if (peek self.completeNext) {
@@ -308,7 +308,7 @@ public class Dialogue implements Module, App {
     self.show(.Reward)
   }
 
-  onItemInfo(mut self, item: number, fine: boolean) {
+  mut onItemInfo(item: number, fine: boolean) {
     const page = peek self.page
     if (page == Page::Detail || page == Page::Reward) { self.quest = questOf((peek self.quest)?.text ?? "") }
     if (page == Page::Reward) { self.preselect() }
@@ -316,9 +316,9 @@ public class Dialogue implements Module, App {
 
   // ——— Books: every page read as it opens, then shown as one.
 
-  onBookBegin(mut self) { self.book = "" }
+  mut onBookBegin() { self.book = "" }
 
-  onBookPage(mut self) {
+  mut onBookPage() {
     const page = bookPage()
     const before = peek self.book
     self.book = before == "" ? page : `${before}\n\n${page}`
@@ -330,20 +330,20 @@ public class Dialogue implements Module, App {
     self.show(.Book)
   }
 
-  onBookClosed(mut self) {
+  mut onBookClosed() {
     if (peek self.page == Page::Book) { self.hide() }
   }
 
   // ——— The game closing its windows.
 
-  onGossipClosed(mut self, continuing: boolean) {
+  mut onGossipClosed(continuing: boolean) {
     if (continuing) { return }
     self.walking = false
     self.acting = false
     if (peek self.page == Page::List) { self.hide() }
   }
 
-  onQuestFinished(mut self) {
+  mut onQuestFinished() {
     // While the NPC's quests are walked the list comes back after each.
     if (peek self.walking) { return }
     self.acting = false
@@ -353,28 +353,28 @@ public class Dialogue implements Module, App {
 
   // ——— What is asked first.
 
-  onConfirm(mut self, option: number, text: string, cost: number) {
+  mut onConfirm(option: number, text: string, cost: number) {
     Client::StaticPopup_Hide("GOSSIP_CONFIRM")
     // An option that asks is never picked on its own again.
     self.unmark(option.floor())
     self.prompt = .Paid { option: option.floor(), text: text, cost: cost.floor() }
   }
 
-  onConfirmCancel(mut self) { self.prompt = nil }
+  mut onConfirmCancel() { self.prompt = nil }
 
   // The innkeeper asks whether the inn is to be home: the game's own question stands away, the window asks it.
-  onBinder(mut self, place: string) {
+  mut onBinder(place: string) {
     Client::StaticPopup_Hide("CONFIRM_BINDER")
     if (!(peek self.shown)) { sound(SOUND_OPEN) }
     self.prompt = .Binder { place: place }
   }
 
-  onEscort(mut self, who: string, quest: string, from: number) {
+  mut onEscort(who: string, quest: string, from: number) {
     Client::StaticPopup_Hide("QUEST_ACCEPT")
     self.prompt = .Escort { text: Locale::ESCORT.format(who, quest) }
   }
 
-  public confirmPrompt(mut self) {
+  public mut confirmPrompt() {
     const prompt = peek self.prompt
     self.prompt = nil
     if (prompt == nil) { return }
@@ -391,7 +391,7 @@ public class Dialogue implements Module, App {
   }
 
   // No: the question goes, and the game is told where it waits for an answer (the inn's, as its own window's Cancel).
-  public cancelPrompt(mut self) {
+  public mut cancelPrompt() {
     const prompt = peek self.prompt
     self.prompt = nil
     if (prompt is Prompt::Binder) { Client::C_PlayerInteractionManager::ClearInteraction(Client::PlayerInteractionType::Binder) }
@@ -400,7 +400,7 @@ public class Dialogue implements Module, App {
   // ——— The player's actions.
 
   // A line of the NPC's list, by its place.
-  public pickLine(mut self, index: integer) {
+  public mut pickLine(index: integer) {
     const line = (peek self.lines)[index]
     if (line == nil) { return }
     const shift = Game::input.shiftDown()
@@ -411,7 +411,7 @@ public class Dialogue implements Module, App {
     self.select(line)
   }
 
-  select(mut self, line: Line) {
+  mut select(line: Line) {
     if (line.kind == LineKind::Option) {
       pickOption(line)
       return
@@ -428,7 +428,7 @@ public class Dialogue implements Module, App {
   }
 
   // The page's main action (Space, the accent button): on the list its first line.
-  public main(mut self) {
+  public mut main() {
     if (peek self.prompted) {
       self.confirmPrompt()
       return
@@ -443,7 +443,7 @@ public class Dialogue implements Module, App {
   }
 
   // Back (Esc, the left button): from a quest picked in the list, the list; else the page is declined or closed.
-  public back(mut self) {
+  public mut back() {
     if (peek self.prompted) {
       sound(SOUND_CANCEL)
       self.cancelPrompt()
@@ -463,7 +463,7 @@ public class Dialogue implements Module, App {
     self.close()
   }
 
-  public accept(mut self) {
+  public mut accept() {
     const quest = peek self.quest
     if (quest == nil) { return }
     if (quest.pvp) {
@@ -473,18 +473,18 @@ public class Dialogue implements Module, App {
     self.acceptQuest()
   }
 
-  acceptQuest(mut self) {
+  mut acceptQuest() {
     const quest = peek self.quest
     if (quest != nil && quest.autoAccepted) { Client::AcknowledgeAutoAcceptQuest() } else { Client::AcceptQuest() }
   }
 
-  public proceed(mut self) {
+  public mut proceed() {
     if (!Client::IsQuestCompletable()) { return }
     Client::CompleteQuest()
     sound(SOUND_OPEN)
   }
 
-  public finish(mut self) {
+  public mut finish() {
     const quest = peek self.quest
     if (quest == nil) { return }
     const choice = peek self.choice
@@ -502,7 +502,7 @@ public class Dialogue implements Module, App {
   }
 
   // A reward to choose, by its place; on the reward page alone.
-  public choose(mut self, index: integer) {
+  public mut choose(index: integer) {
     const quest = peek self.quest
     if (peek self.page != Page::Reward || quest == nil || index > quest.choices.length) { return }
     self.choiceByPlayer = true
@@ -510,7 +510,7 @@ public class Dialogue implements Module, App {
   }
 
   // A key of 1–9: a line of the list's column the keys are on, an answer, or a reward to choose.
-  public pickNumber(mut self, number: integer) {
+  public mut pickNumber(number: integer) {
     if (peek self.prompted) {
       self.answer(number)
     } else if (peek self.page == Page::List) {
@@ -523,13 +523,13 @@ public class Dialogue implements Module, App {
   }
 
   // An answer to the question by its place: 1 is Yes, 2 No; another place is none.
-  public answer(mut self, place: integer) {
+  public mut answer(place: integer) {
     if (place == YES) { self.main() }
     if (place == NO) { self.back() }
   }
 
   // The window closed (its ✕, Escape on the list or a book): the game's window is told, as its own close does.
-  public close(mut self) {
+  public mut close() {
     const page = peek self.page
     self.hide()
     sound(SOUND_CLOSE)
@@ -542,7 +542,7 @@ public class Dialogue implements Module, App {
     }
   }
 
-  show(mut self, page: Page) {
+  mut show(page: Page) {
     if (!(peek self.shown)) {
       sound(SOUND_OPEN)
     }
@@ -554,7 +554,7 @@ public class Dialogue implements Module, App {
   }
 
   // A quest's page lets its text in at the game's pace, unless the game's option shows it at once.
-  fadeIn(mut self, page: Page) {
+  mut fadeIn(page: Page) {
     self.stopFading()
     const text = (peek self.quest)?.text ?? ""
     if (!isQuestPage(page) || text == "" || Client::C_CVar::GetCVar(INSTANT_TEXT) != "0") { return }
@@ -562,7 +562,7 @@ public class Dialogue implements Module, App {
     self.fading = self.fade(text)
   }
 
-  async fade(mut self, text: string) {
+  async mut fade(text: string) {
     let shown = 0
     // Each step lets in at least a letter: the text is in at most as many steps as it has.
     for (step of 1..text.length) {
@@ -575,7 +575,7 @@ public class Dialogue implements Module, App {
     self.fading = nil
   }
 
-  stopFading(mut self) {
+  mut stopFading() {
     if (self.fading != nil) {
       destroy self.fading
       self.fading = nil
@@ -583,7 +583,7 @@ public class Dialogue implements Module, App {
     self.revealed = -1
   }
 
-  hide(mut self) {
+  mut hide() {
     self.stopFading()
     self.page = .Closed
     self.acting = false
@@ -596,13 +596,13 @@ public class Dialogue implements Module, App {
 
   // ——— The marks.
 
-  public isMarked(self, option: integer): boolean {
+  public isMarked(option: integer): boolean {
     const npc = peek self.npc
     return (peek self.marks).any(mark => mark.npc == npc && mark.option == option)
   }
 
   // Right-click's «Always pick this option»: marked, or unmarked again.
-  public toggleMark(mut self, index: integer) {
+  public mut toggleMark(index: integer) {
     const line = (peek self.lines)[index]
     // An option the client gives no ID can't be told again at the next talk: it is never marked.
     if (line == nil || line.kind != LineKind::Option || line.id == 0) { return }
@@ -616,13 +616,13 @@ public class Dialogue implements Module, App {
     self.keepMarks(marks)
   }
 
-  unmark(mut self, option: integer) {
+  mut unmark(option: integer) {
     const npc = peek self.npc
     const marks = (peek self.marks).filter(mark => !(mark.npc == npc && mark.option == option))
     if (marks.length != (peek self.marks).length) { self.keepMarks(marks) }
   }
 
-  keepMarks(mut self, marks: array<Marked>) {
+  mut keepMarks(marks: array<Marked>) {
     self.marks = marks
     Game::saved.store(.Own, MARKS_KEY, marks)
   }
@@ -630,7 +630,7 @@ public class Dialogue implements Module, App {
   // ——— Rewards' worth.
 
   // The reward taken, by its place among the choices (0: what is given): noted to be put on where it is worth enough.
-  takeReward(mut self, index: integer) {
+  mut takeReward(index: integer) {
     const choices = peek self.settings.values
     if (choices.autoEquip && index > 0) {
       const link = Client::GetQuestItemLink("choice", index)
@@ -640,34 +640,34 @@ public class Dialogue implements Module, App {
   }
 
   // The reward picked for the player, while the player hasn't picked one: the only one, else `bestReward`.
-  preselect(mut self) {
+  mut preselect() {
     const quest = peek self.quest
     if (self.choiceByPlayer || quest == nil) { return }
     self.choice = quest.choices.length == 1 ? 1 : bestReward(quest.choices, self.upgradeOf)
   }
 
-  public upgrade(self, reward: Reward): number | nil {
+  public upgrade(reward: Reward): number | nil {
     const link = reward.link
     if (!(peek self.upgradesShown) || link == nil) { return nil }
     return self.upgradeOf(link)
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   // ——— Keys: heard in the whole game while the window shows and the keyboard is on, out of a fight (the client's
   // bindings wait for its end); every other key stays the game's.
 
-  onKey(mut self, stroke: Event::Keystroke) {
+  mut onKey(stroke: Event::Keystroke) {
     const place = placeOf(stroke.key)
     if (place > 0) { self.pickNumber(place) }
   }
 
-  onSpace(mut self) { self.main() }
+  mut onSpace() { self.main() }
 
   // Tab: the keys move to the list's next column, from the last back to the first.
   // A column took the keyboard's focus (Tab, Shift+Tab): the keys 1–9 are its lines'.
-  onColumn(mut self, number: integer) { self.column = number }
-  onEscape(mut self) { self.back() }
+  mut onColumn(number: integer) { self.column = number }
+  mut onEscape() { self.back() }
 
   // ——— What the window draws.
 
@@ -731,7 +731,7 @@ public class Dialogue implements Module, App {
   derived promptCost: integer = self.promptCostNow()
   state tab = 1
 
-  mainOffNow(self): boolean {
+  mainOffNow(): boolean {
     if (self.prompted) { return false }
     const quest = self.quest
     if (quest == nil) { return false }
@@ -740,7 +740,7 @@ public class Dialogue implements Module, App {
     return false
   }
 
-  promptTextNow(self): string {
+  promptTextNow(): string {
     const prompt = self.prompt
     if (prompt == nil) { return "" }
     return match (prompt) {
@@ -752,20 +752,20 @@ public class Dialogue implements Module, App {
     }
   }
 
-  promptCostNow(self): integer {
+  promptCostNow(): integer {
     const prompt = self.prompt
     if (prompt is Prompt::Paid) { return prompt.cost }
     if (prompt is Prompt::Expensive) { return prompt.cost }
     return 0
   }
 
-  upgrades(self): array<number> {
+  upgrades(): array<number> {
     const quest = self.quest
     if (quest == nil || !self.upgradesShown) { return [] }
     return quest.choices.map(reward => self.upgrade(reward) ?? 0)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // Every talk of the game's three windows is ours while Dialogue runs: they stand away, unseen, from its load to
       // its end, so the game's window manager, which gives a window one of its three places as it shows, never gives

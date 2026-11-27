@@ -75,7 +75,7 @@ class PriceChart implements Component {
     self.history = history
   }
 
-  lowsOf(self): array<integer> {
+  lowsOf(): array<integer> {
     const history = self.history
     if (history == nil) { return [] }
     _ = history.revision
@@ -83,7 +83,7 @@ class PriceChart implements Component {
   }
 
   // The span's highest price (`highest`) or its lowest; 0 where none was seen.
-  ends(self, highest: boolean): integer {
+  ends(highest: boolean): integer {
     let found = 0
     for (copper of self.lows) {
       if (copper > 0 && (found == 0 || (highest ? copper > found : copper < found))) { found = copper }
@@ -91,7 +91,7 @@ class PriceChart implements Component {
     return found
   }
 
-  barsOf(self): array<Bar> {
+  barsOf(): array<Bar> {
     let list: array<Bar> = []
     const high = self.high
     const last = self.lows.length
@@ -102,13 +102,13 @@ class PriceChart implements Component {
     return list
   }
 
-  columnsOf(self): array<Track> {
+  columnsOf(): array<Track> {
     let list: array<Track> = []
     for (bar of self.lows) { list.push({ fr: 1 }) }
     return list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box gap={3sp}>
         <Segmented value={mut self.span} choices={SPANS} />
@@ -169,23 +169,23 @@ public class ItemPanel implements Component {
     self.history = history
   }
 
-  marketOf(self): Copper | nil {
+  marketOf(): Copper | nil {
     _ = self.prices.revision
     return self.house.quote(self.key)?.copper()
   }
 
-  ageOf(self): number | nil {
+  ageOf(): number | nil {
     _ = self.prices.revision
     const quote = self.house.quote(self.key)
     return quote != nil ? quote.age() * 3600 : nil
   }
 
-  lowestOf(self): Copper | nil {
+  lowestOf(): Copper | nil {
     _ = self.prices.revision
     return self.house.listed(self.key)?.low()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PANEL} gap={6sp}>
         <box columns={HEAD} gap={3sp} yAlign={Align::Center}>

@@ -18,7 +18,7 @@ class Stand implements Component {
   public settings: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS)
   public state defaults: map<string, BarChoice> = barDefaults()
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ActionBars values={self.settings.values} defaults={self.defaults} />
       <BarsPage settings={mut self.settings} defaults={self.defaults} conflict={false} />

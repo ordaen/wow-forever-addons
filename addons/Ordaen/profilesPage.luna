@@ -66,7 +66,7 @@ class ProfileDropdown implements Component {
     self.none = none
   }
 
-  offer(self): Offer {
+  offer(): Offer {
     const choices: array<Choice<string>> = []
     let key = self.none ? "-" : ""
     if (self.none) { choices.push({ value: "", label: Locale::PROFILES_NO_PICK }) }
@@ -77,7 +77,7 @@ class ProfileDropdown implements Component {
     return { key: key, choices: choices }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown $for={each of self.offers} $key={each.key} label={self.label} value={mut self.value}
                 choices={peek each.choices} hint={self.hint} />
@@ -99,7 +99,7 @@ class TickRow implements Component {
     watch (value of self.on) { self.toggled.emit(self.key, value) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={self.label} value={mut self.on} />
     }
@@ -115,7 +115,7 @@ class Note implements Component {
     self.color = color
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <text value={self.text} textColor={self.color} />
     }
@@ -219,14 +219,14 @@ public class ProfilesPage implements Component {
   }
 
   // The first profile that isn't `name`: nothing to copy from where there is none.
-  otherThan(self, name: string): string {
+  otherThan(name: string): string {
     for (each of self.names) {
       if (each != name) { return each }
     }
     return ""
   }
 
-  othersOf(self): array<string> {
+  othersOf(): array<string> {
     const list: array<string> = []
     for (each of self.names) {
       if (each != self.profiles.active) { list.push(each) }
@@ -235,12 +235,12 @@ public class ProfilesPage implements Component {
   }
 
   // What was previewed is the text before it was changed.
-  textChanged(mut self, shown: string) {
+  mut textChanged(shown: string) {
     self.previewed = nil
   }
 
   // Followed: the profiles there are and the one in use. Read once: the profile copied from.
-  keepSource(mut self) {
+  mut keepSource() {
     const active = self.profiles.active
     const source = peek self.source
     const known = self.names.any(each => each == source)
@@ -249,7 +249,7 @@ public class ProfilesPage implements Component {
     }
   }
 
-  whyText(self): string {
+  whyText(): string {
     match (self.profiles.why) {
       Profiles::Reason::Spec => return Locale::PROFILES_WHY_SPEC.format(Game::player.spec?.name ?? "")
       Profiles::Reason::Character => return Locale::PROFILES_WHY_CHARACTER
@@ -259,14 +259,14 @@ public class ProfilesPage implements Component {
   }
 
   // A specialisation's row: its place, and its name where it is the one the character plays.
-  specLabelOf(self, index: integer): string {
+  specLabelOf(index: integer): string {
     const spec = Game::player.spec
     if (spec != nil && spec.index == index) { return Locale::PROFILES_USE_SPEC_NOW.format(index, spec.name) }
     return Locale::PROFILES_USE_SPEC.format(index)
   }
 
   // What the preview says of each module in the text: whether it is installed and how many of its settings differ.
-  linesOf(self): array<Line> {
+  linesOf(): array<Line> {
     const lines: array<Line> = []
     const shared = self.previewed
     if (shared == nil) { return lines }
@@ -288,13 +288,13 @@ public class ProfilesPage implements Component {
     return lines
   }
 
-  say(mut self, fault: string, note: string) {
+  mut say(fault: string, note: string) {
     self.fault = fault
     self.note = note
   }
 
   // The name typed, or why it can't be one.
-  typed(mut self): ProfileName | nil {
+  mut typed(): ProfileName | nil {
     const made = named(self.name)
     if (made == nil) {
       self.say(self.name == "" ? Locale::PROFILES_ERR_NAME_EMPTY : Locale::PROFILES_ERR_NAME_LONG.format(MAX_NAME), "")
@@ -308,7 +308,7 @@ public class ProfilesPage implements Component {
   }
 
   // The rows show the picks as they are kept.
-  sync(mut self, shown: integer) {
+  mut sync(shown: integer) {
     const picks = self.profiles.kept.picks
     const who = self.profiles.who()
     const guid = who.character ?? ""
@@ -322,14 +322,14 @@ public class ProfilesPage implements Component {
   }
 
   // The profile picked for a specialisation of a character; empty for none.
-  specOf(self, guid: string, index: integer): string {
+  specOf(guid: string, index: integer): string {
     const specs = self.profiles.kept.picks.bySpec[guid]
     if (specs == nil) { return "" }
     return specs[index] ?? ""
   }
 
   // Whether the profile the page is on is the one picked by the rule.
-  holds(self, use: Use): boolean {
+  holds(use: Use): boolean {
     const picks = self.profiles.kept.picks
     const who = self.profiles.who()
     if (use == Use::Character) { return picks.byCharacter[who.character ?? ""] == self.chosen }
@@ -340,7 +340,7 @@ public class ProfilesPage implements Component {
   // A change of what is kept, made at once: one that switches this character to another profile asks nothing, as
   // every change is kept as it is made (`edit` packs the values first). `note` is said once it is made (nothing
   // where it is empty).
-  request(mut self, change: (next: mut SavedProfiles) => nil, chosen: string, note: string) {
+  mut request(change: (next: mut SavedProfiles) => nil, chosen: string, note: string) {
     const next = self.profiles.edit()
     change(next)
     self.profiles.apply(next)
@@ -349,12 +349,12 @@ public class ProfilesPage implements Component {
     if (note != "") { self.say("", note) }
   }
 
-  onCancel(mut self) {
+  mut onCancel() {
     self.ask = Ask::None
     self.epoch += 1
   }
 
-  use(mut self, use: Use, on: boolean) {
+  mut use(use: Use, on: boolean) {
     const who = self.profiles.who()
     const guid = who.character ?? ""
     const chosen = self.chosen
@@ -377,7 +377,7 @@ public class ProfilesPage implements Component {
     }
   }
 
-  useSpec(mut self, index: integer, name: string) {
+  mut useSpec(index: integer, name: string) {
     const guid = self.profiles.who().character ?? ""
     if (name == self.specOf(guid, index)) { return }
     self.fault = ""
@@ -385,7 +385,7 @@ public class ProfilesPage implements Component {
     self.request((next: mut SavedProfiles) => next.picks.forSpec(guid, index, name == "" ? nil : name), self.chosen, "")
   }
 
-  onNew(mut self) {
+  mut onNew() {
     const made = self.typed()
     if (made == nil) { return }
     const from: string | nil = self.fromBlank ? nil : self.chosen
@@ -395,7 +395,7 @@ public class ProfilesPage implements Component {
     self.say("", Locale::PROFILES_NOTE_MADE.format(made))
   }
 
-  onRename(mut self) {
+  mut onRename() {
     const to = self.typed()
     if (to == nil) { return }
     const from = self.chosen
@@ -405,7 +405,7 @@ public class ProfilesPage implements Component {
     self.name = ""
   }
 
-  onDelete(mut self) {
+  mut onDelete() {
     if (self.profiles.kept.picks.account == self.chosen) {
       self.say(Locale::PROFILES_ERR_DEFAULT, "")
       return
@@ -414,7 +414,7 @@ public class ProfilesPage implements Component {
     self.ask = Ask::Delete
   }
 
-  doDelete(mut self) {
+  mut doDelete() {
     const gone = self.chosen
     self.ask = Ask::None
     const after = self.afterDelete(gone)
@@ -423,18 +423,18 @@ public class ProfilesPage implements Component {
   }
 
   // The profile this character would use once `gone` is.
-  afterDelete(self, gone: string): string {
+  afterDelete(gone: string): string {
     const next = (peek self.profiles.kept).clone()
     next.without(gone)
     return picked(next.picks, self.profiles.who())
   }
 
-  onReset(mut self) {
+  mut onReset() {
     self.say("", "")
     self.ask = Ask::Reset
   }
 
-  doReset(mut self) {
+  mut doReset() {
     const target = self.chosen
     self.ask = Ask::None
     const next = self.profiles.edit()
@@ -445,16 +445,16 @@ public class ProfilesPage implements Component {
     self.say("", Locale::PROFILES_NOTE_RESET.format(target))
   }
 
-  onCopyTick(mut self, key: string, on: boolean) {
+  mut onCopyTick(key: string, on: boolean) {
     self.copyOff = self.ticked(self.copyOff, key, on)
   }
 
-  onExportTick(mut self, key: string, on: boolean) {
+  mut onExportTick(key: string, on: boolean) {
     self.exportOff = self.ticked(self.exportOff, key, on)
   }
 
   // The keys not ticked, with `key` in them or not.
-  ticked(self, off: array<string>, key: string, on: boolean): array<string> {
+  ticked(off: array<string>, key: string, on: boolean): array<string> {
     const list: array<string> = []
     for (each of off) {
       if (each != key) { list.push(each) }
@@ -464,7 +464,7 @@ public class ProfilesPage implements Component {
   }
 
   // The sections ticked of a profile that has them.
-  chosenSections(self, profile: Profile | nil, off: array<string>): map<string, string> {
+  chosenSections(profile: Profile | nil, off: array<string>): map<string, string> {
     const sections: map<string, string> = {}
     if (profile == nil) { return sections }
     for (key, packed of profile.sections) {
@@ -475,7 +475,7 @@ public class ProfilesPage implements Component {
 
   // A module's section of another profile becomes its values, all of them one step «Откатить» takes back; a module
   // that isn't loaded has none, and the section goes into the profile as it is.
-  onCopy(mut self) {
+  mut onCopy() {
     const from = self.profiles.kept.profiles[self.source]
     const sections = self.chosenSections(from, self.copyOff)
     let copied = 0
@@ -503,7 +503,7 @@ public class ProfilesPage implements Component {
     self.say("", Locale::PROFILES_NOTE_COPIED.format(copied + kept.length))
   }
 
-  onExport(mut self) {
+  mut onExport() {
     // The values are packed when read packed, not at each change.
     self.profiles.pack()
     const profile = self.profiles.kept.profiles[self.profiles.active]
@@ -518,7 +518,7 @@ public class ProfilesPage implements Component {
   }
 
   // The text read and shown as it would make a profile, or refused with why.
-  onImport(mut self) {
+  mut onImport() {
     if (self.text == "") {
       self.say(Locale::PROFILES_ERR_NO_TEXT, "")
       return
@@ -532,7 +532,7 @@ public class ProfilesPage implements Component {
     self.previewed = result
   }
 
-  refusal(self, refused: Refused): string {
+  refusal(refused: Refused): string {
     match (refused.reason) {
       Refusal::NotProfile => return Locale::PROFILES_REFUSED_NOT_PROFILE
       Refusal::Version => return Locale::PROFILES_REFUSED_VERSION.format(refused.version ?? "?")
@@ -542,7 +542,7 @@ public class ProfilesPage implements Component {
   }
 
   // The previewed profile made new, under the name typed or the one it came with. Nothing is replaced.
-  onCreate(mut self) {
+  mut onCreate() {
     const result = read(self.text)
     if (result is Refused) {
       self.say(self.refusal(result), "")
@@ -560,7 +560,7 @@ public class ProfilesPage implements Component {
     self.say("", Locale::PROFILES_NOTE_MADE.format(made))
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={5.5sp}>
         <Section title={Locale::PROFILES_SECTION_PROFILE}>

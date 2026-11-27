@@ -20,12 +20,12 @@ class Priced implements ItemLines {
     self.asked = asked
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     self.asked()
     return [{ left: "Auction", right: `${self.copper / 100}g · ${item} · ${link}` }]
   }
 
-  public raise(mut self) { self.copper += 300 }
+  public mut raise() { self.copper += 300 }
 }
 
 // A row of the test's own for any item: its label, in a colour.
@@ -35,14 +35,14 @@ class Said implements ItemLines {
     self.label = label
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     return [{ left: self.label, color: Color::hex("#40ff40") }]
   }
 }
 
 // What a vein gives, by its name.
 class Mined implements ObjectLines {
-  public lines(self, name: string): array<Line> {
+  public lines(name: string): array<Line> {
     if (name != "Copper Vein") { return [] }
     return [{ left: "Copper Ore", right: "2–4", rightColor: Color::hex("#ffd100") }, { left: "Rough Stone", indent: true }]
   }
@@ -52,11 +52,11 @@ class Mined implements ObjectLines {
 class Keyed implements ItemKeys {
   public state held = false
 
-  public keys(self, item: integer, link: string): array<string> {
+  public keys(item: integer, link: string): array<string> {
     return [self.held ? `Alt+Left-click: let ${item} go` : `Alt+Left-click: hold ${item}`]
   }
 
-  public hold(mut self) { self.held = true }
+  public mut hold() { self.held = true }
 }
 
 function showing(data: Game::TooltipData): Game::ShownTip {
@@ -117,7 +117,7 @@ class Aged implements ItemLines {
     self.age = age
   }
 
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     return [{ left: "Seen", right: self.age() }]
   }
 }
@@ -215,7 +215,7 @@ test "a world object has none of an item's hotkeys" {
 
 // A row of the test's own in one colour, its value with none of its own.
 class Tinted implements ItemLines {
-  public lines(self, item: integer, link: string): array<Line> {
+  public lines(item: integer, link: string): array<Line> {
     return [{ left: "Sold for", right: "3g", color: Color::hex("#40ff40") }]
   }
 }
@@ -244,7 +244,7 @@ test "an item the game gives no number for asks the added rows nothing" {
 class Hunted implements CreatureQuests {
   public state have = 2
 
-  public wants(self, creature: integer): array<Wanted> {
+  public wants(creature: integer): array<Wanted> {
     if (creature != 113) { return [] }
     return [
       { quest: 86, title: "Pie for Billy", objective: "Chunk of Boar Meat", have: self.have, need: 4, done: self.have >= 4 },
@@ -253,14 +253,14 @@ class Hunted implements CreatureQuests {
     ]
   }
 
-  public offers(self, creature: integer): array<Offered> {
+  public offers(creature: integer): array<Offered> {
     if (creature != 113) { return [] }
     return [
       { title: "Princess Must Die!", level: 7, turnIn: true }, { title: "Report to Goldshire", level: 5, turnIn: false }
     ]
   }
 
-  public loot(mut self) { self.have = 4 }
+  public mut loot() { self.have = 4 }
 }
 
 function boar(creature: integer): Game::UnitInfo {

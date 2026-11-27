@@ -14,7 +14,7 @@ class Rows {
   public state beside = 0
   public derived entries: array<MenuEntry> = self.entriesOf()
 
-  entriesOf(self): array<MenuEntry> {
+  entriesOf(): array<MenuEntry> {
     return [
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
@@ -23,23 +23,23 @@ class Rows {
     ]
   }
 
-  onRow(mut self, click: Event::Press) {
+  mut onRow(click: Event::Press) {
     if (click.button == MouseButton::Right) { self.open = true }
   }
 
-  onBeside(mut self) { self.beside += 1 }
+  mut onBeside() { self.beside += 1 }
 
-  onPick(mut self, index: integer) {
+  mut onPick(index: integer) {
     self.picked = index
     if (index == 3) { self.favorite = !self.favorite } else { self.open = false }
   }
 
-  onClose(mut self) {
+  mut onClose() {
     self.closed += 1
     self.open = false
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={14sp}>
         <box padding={3sp} @pointerPress={self.onRow}>
@@ -104,20 +104,20 @@ class Copying {
     { label: "Reset", group: true }
   ]
 
-  onPick(mut self, index: integer) {
+  mut onPick(index: integer) {
     self.picked = index
     self.open = false
   }
 
-  onPickMore(mut self, index: integer, at: integer) {
+  mut onPickMore(index: integer, at: integer) {
     self.picked = index
     self.from = at
     self.open = false
   }
 
-  onClose(mut self) { self.open = false }
+  mut onClose() { self.open = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={3sp}>
         <text value={"Bar 1"} />

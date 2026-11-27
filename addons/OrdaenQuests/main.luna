@@ -283,13 +283,13 @@ public class Quests implements Module, App {
   }
 
   // The window opens or closes: the game's key and button, and the close button.
-  public flip(mut self) {
+  public mut flip() {
     self.open = !self.open
     playSound(self.open ? "IG_QUEST_LOG_OPEN" : "IG_QUEST_LOG_CLOSE")
   }
 
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
-  public refresh(mut self) {
+  public mut refresh() {
     const quests = logQuests()
     const facts: map<integer, QuestFacts> = {}
     for (id, known of peek self.facts) { facts[id] = known }
@@ -308,11 +308,11 @@ public class Quests implements Module, App {
     if (picked != 0 && quests.length > 0 && quests.find(quest => quest.id == picked) == nil) { self.pick(0) }
   }
 
-  rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
+  mut rebind() { Ordaen.afterCombat(() => self.bind()) }
 
   // The player's own keys of the game's quest log click Quests' button while it is the player's choice; out of a
   // fight alone, as the client takes no binding in one.
-  bind(self) {
+  bind() {
     Client::ClearOverrideBindings(self.toggle)
     if (!(peek self.ownKey)) { return }
     let first, second = Client::GetBindingKey(QUEST_LOG_BINDING)
@@ -321,7 +321,7 @@ public class Quests implements Module, App {
   }
 
   // What the player asked of a quest, from its row or its page; each in the click's own call.
-  onAct(mut self, id: integer, act: Act) {
+  mut onAct(id: integer, act: Act) {
     match (act) {
       .Pick => { self.pick(id) }
       .Track => {
@@ -348,35 +348,35 @@ public class Quests implements Module, App {
 
   // What QuestieDB says of a quest (its name, who gives it and where, ...), for another module: Spells' quest-taught
   // spells say where theirs starts. Nil for a quest it doesn't know, or without it.
-  public questFacts(mut self, id: integer): QuestFacts | nil { return self.data.quest(id) }
+  public mut questFacts(id: integer): QuestFacts | nil { return self.data.quest(id) }
 
   // An NPC's name and spawns by QuestieDB (its names are its own locale's), for another module: a trainer to point at.
-  public npc(self, id: integer): Figure | nil { return self.data.npc(id) }
+  public npc(id: integer): Figure | nil { return self.data.npc(id) }
 
   // The things a quest names (who gives it and takes it back, its objectives' NPCs, objects and items), by QuestieDB:
   // Dialogue's parchment marks them in the quest's words. None for a quest it doesn't know.
-  public questNames(mut self, id: integer): array<Named> { return namedOfFacts(self.data.quest(id)) }
+  public mut questNames(id: integer): array<Named> { return namedOfFacts(self.data.quest(id)) }
 
   // The reputations a quest changes once turned in, by QuestieDB: Dialogue's band at a quest giver says them.
-  public reputationOf(mut self, id: integer): array<Standing> {
+  public mut reputationOf(id: integer): array<Standing> {
     return standingsOf(self.data.quest(id)?.reputation ?? [])
   }
 
   // The chain window at a quest QuestieDB knows; nothing for one it doesn't.
-  openChained(mut self, id: integer) {
+  mut openChained(id: integer) {
     const facts = self.data.quest(id)
     if (facts == nil) { return }
     self.chainedFacts = facts
     self.chained = id
   }
 
-  onChainClose(mut self) { self.chained = 0 }
+  mut onChainClose() { self.chained = 0 }
 
   // The world map at where the quest leads (a quest of the log: its objectives while it is to do, whom to hand it to
   // once done; the chain window's: where it is given), its pins alone shown and lit until the map hides; without
   // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it. Out of a fight alone:
   // the client opens the map for an addon there only, and every «Show on map» is off in one.
-  public showOnMap(mut self, id: integer): boolean {
+  public mut showOnMap(id: integer): boolean {
     const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
       Client::C_Map::OpenWorldMap(nil)
@@ -390,7 +390,7 @@ public class Quests implements Module, App {
   // The world map at where an NPC stands by QuestieDB (its first spot), its pins lit with its name until the map hides:
   // another module's link to a trainer or a vendor. False, and the map as it was, without Ordaen Map, in a fight (the
   // client opens the map for an addon out of one alone), or for an NPC QuestieDB doesn't know or has no spot of.
-  public showNpc(mut self, npc: integer): boolean {
+  public mut showNpc(npc: integer): boolean {
     const figure = self.data.npc(npc)
     return figure != nil && self.showAt(figure, figure.spots[1])
   }
@@ -398,7 +398,7 @@ public class Quests implements Module, App {
   // The world map at the spot nearest the player of all the NPCs' (QuestieDB's), that NPC's pins lit with its name
   // until the map hides: another module's «show the nearest» of trainers or vendors. Where none is on the player's
   // continent, the first NPC's first spot. False as `showNpc` is, and where QuestieDB knows no spot of any.
-  public showNearest(mut self, npcs: array<integer>): boolean {
+  public mut showNearest(npcs: array<integer>): boolean {
     const figures: array<Figure> = []
     for (npc of npcs) {
       const figure = self.data.npc(npc)
@@ -410,20 +410,20 @@ public class Quests implements Module, App {
 
   // The NPCs that sell an item (QuestieDB's) and trade with the player's side: another module's sellers of a reagent,
   // for `distanceTo` and `showNearest`. None without QuestieDB.
-  public vendorsOf(self, item: integer): array<integer> {
+  public vendorsOf(item: integer): array<integer> {
     return self.data.vendorsOf(item, Game::player.faction)
   }
 
   // The world yards from the player to the NPC's nearest spot (QuestieDB's) on the player's continent, as
   // `showNearest` measures them: another module's distance column of trainers or vendors. Nil where QuestieDB has no
   // spot of it on this continent, or without Ordaen Map.
-  public distanceTo(mut self, npc: integer): number | nil {
+  public mut distanceTo(npc: integer): number | nil {
     const figure = self.data.npc(npc)
     return figure != nil ? nearestYards(figure, fromPlayer) : nil
   }
 
   // The map opened at a spot of an NPC's, its pins lit. Not without Ordaen Map, in a fight, or without a spot.
-  showAt(mut self, figure: Figure, spot: Spot | nil): boolean {
+  mut showAt(figure: Figure, spot: Spot | nil): boolean {
     if (Maps == nil || Game::situation.combat || spot == nil) { return false }
     self.shownOnMap = 0
     self.shownNpc = figure
@@ -432,7 +432,7 @@ public class Quests implements Module, App {
   }
 
   // Where a quest leads on the map: a quest of the log by its state, the chain window's where it starts.
-  areaOf(self, id: integer): integer | nil {
+  areaOf(id: integer): integer | nil {
     const quest = (peek self.quests).find(quest => quest.id == id)
     const facts = (peek self.facts)[id]
     if (quest != nil && facts != nil) { return leadsTo(quest, facts) }
@@ -440,20 +440,20 @@ public class Quests implements Module, App {
     return id == peek self.chained && chained != nil ? startsAt(chained) : nil
   }
 
-  onFold(mut self, header: string) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
+  mut onFold(header: string) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
 
-  onAbandonYes(mut self) {
+  mut onAbandonYes() {
     const id = peek self.abandoning
     self.abandoning = 0
     if (id != 0) { Game::questLog.abandon(id) }
   }
 
-  onAbandonNo(mut self) { self.abandoning = 0 }
+  mut onAbandonNo() { self.abandoning = 0 }
 
-  onClose(mut self) { self.open = false }
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  mut onClose() { self.open = false }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  pageOf(self, quest: LogQuest | nil): WindowSide | nil {
+  pageOf(quest: LogQuest | nil): WindowSide | nil {
     if (quest == nil) { return nil }
     return {
       width: Style::PAGE,
@@ -471,15 +471,15 @@ public class Quests implements Module, App {
     }
   }
 
-  onBack(mut self) { self.pick(0) }
+  mut onBack() { self.pick(0) }
 
   // The quest whose page shows, kept for the character.
-  pick(mut self, id: integer) { self.opened.write({ quest: id }) }
+  mut pick(id: integer) { self.opened.write({ quest: id }) }
 
   // The quest asked for from another module (the tracker, the chat's link): its page, in the window, or docked on the
   // map with its panel. In a fight, where the client opens no map for an addon, in the window. A quest not in the log
   // opens in the chain's window, as QuestieDB knows it; false where it knows nothing of it.
-  public openAt(mut self, id: integer): boolean {
+  public mut openAt(id: integer): boolean {
     if ((peek self.quests).find(quest => quest.id == id) == nil) {
       self.openChained(id)
       return peek self.chained == id
@@ -494,7 +494,7 @@ public class Quests implements Module, App {
   }
 
   // The log: the toolbar over the list. The window's body, and the docked panel's while no quest is picked.
-  logBody(self): Template {
+  logBody(): Template {
     return $ltml {
       <box rows={LOG_ROWS} gap={3sp}>
         <Tabs tabs={KIND_TITLES} selected={mut self.tab} counts={self.kindsCounted} />
@@ -514,7 +514,7 @@ public class Quests implements Module, App {
 
   // The window; and docked, the log over the map's side panel, in exactly its rectangle, where a quest picked shows
   // its page with the way back to the list, as Blizzard's panel does.
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.windowTab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>

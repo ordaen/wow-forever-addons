@@ -66,7 +66,7 @@ class Spells implements Module {
   public const title: string = "Ordaen Spells"
   public const pages: array<SettingsPage> = []
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box /> }
   }
 }
@@ -76,7 +76,7 @@ class Social implements Module {
   public const title: string = "Ordaen Social"
   public const pages: array<SettingsPage> = []
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box /> }
   }
 }
@@ -86,7 +86,7 @@ class Account implements Module {
   public const title: string = "Ordaen Account"
   public const pages: array<SettingsPage> = []
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <box /> }
   }
 }
@@ -232,7 +232,7 @@ test "the experience bar on the panel says the player's experience" {
 
 // A module's part of the next level's experience: quests done, worth a fifth of the level.
 class Done implements XpSource {
-  public part(self): XpPart | nil {
+  public part(): XpPart | nil {
     return { amount: 2000, color: DONE_GREEN, title: "Completed quests", text: "", rows: [] }
   }
 }

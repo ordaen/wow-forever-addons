@@ -28,9 +28,9 @@ class Window {
   public state narrowed = false
   public submitted = 0
 
-  onSubmit(mut self) { self.submitted += 1 }
+  mut onSubmit() { self.submitted += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={400ui}>
         <Toolbar search={mut self.search} placeholder={"Search by name"} @submit={self.onSubmit}>

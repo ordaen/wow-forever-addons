@@ -6,7 +6,7 @@ class Scan {
   state done: number = 0.25
   state label = "Scanning 25%"
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <ProgressBar fraction={self.done} label={self.label} width={200ui} />
     }

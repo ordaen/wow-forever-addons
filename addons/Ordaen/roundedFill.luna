@@ -40,7 +40,7 @@ public class RoundedFill implements Component {
     self.art = art
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} mouseThrough={true}>
         <box position={Position::Absolute} left={self.radius} right={self.radius} top={0ui} bottom={0ui} background={self.art}

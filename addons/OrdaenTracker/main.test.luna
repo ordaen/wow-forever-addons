@@ -22,12 +22,12 @@ function logged() {
 
 // A module's log and map: it opens quest 101 alone, and shows quest 101 alone on the map (at Westfall's).
 class Where implements QuestOpener {
-  public showOnMap(self, quest: integer): boolean {
+  public showOnMap(quest: integer): boolean {
     if (quest != 101) { return false }
     Client::C_Map::OpenWorldMap(1436)
     return true
   }
-  public open(self, quest: integer): boolean {
+  public open(quest: integer): boolean {
     if (quest != 101) { return false }
     Client::C_SuperTrack::SetSuperTrackedQuestID(quest)
     return true

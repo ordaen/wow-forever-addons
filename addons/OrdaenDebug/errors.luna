@@ -202,21 +202,21 @@ public class Errors {
     }
   }
 
-  public session(self): integer {
+  public session(): integer {
     return self.db.session
   }
 
   // The client's facts in this session.
-  public meta(self): Meta | nil {
+  public meta(): Meta | nil {
     return self.db.sessions[self.db.session]
   }
 
   // Calls `listener` whenever an error is added or repeated.
-  public onChange(mut self, listener: Listener) {
+  public mut onChange(listener: Listener) {
     self.listeners.push(listener)
   }
 
-  notify(self, entry: Entry, isNew: boolean, firstThisSession: boolean) {
+  notify(entry: Entry, isNew: boolean, firstThisSession: boolean) {
     for (listener of self.listeners) {
       listener(entry, isNew, firstThisSession)
     }
@@ -224,7 +224,7 @@ public class Errors {
 
   // If this message was recorded before, the repeat is counted and its entry given. Cheap enough to call first on
   // every error, before capturing the (expensive) stack.
-  public repeatOf(mut self, message: string): Entry | nil {
+  public mut repeatOf(message: string): Entry | nil {
     let entry = self.index[message]
     if (entry != nil) {
       let firstThisSession = (entry.lastSession ?? entry.session) != self.db.session
@@ -237,7 +237,7 @@ public class Errors {
   }
 
   // Records an error: the entry, and whether it is new.
-  public add(mut self, fields: Fields): (Entry, boolean) {
+  public mut add(fields: Fields): (Entry, boolean) {
     let message = fields.message
     let existing = self.repeatOf(message)
     if (existing != nil) {
@@ -279,7 +279,7 @@ public class Errors {
 
   // How many recorded errors (and blocked actions) happened in this session: new ones and older ones that came
   // back. Walks at most ERRORS_MAX entries.
-  public sessionCount(self): integer {
+  public sessionCount(): integer {
     let n = 0
     for (e of self.db.errors) {
       if ((e.lastSession ?? e.session) == self.db.session) {
@@ -290,7 +290,7 @@ public class Errors {
   }
 
   // Plain-text description of one error, for the companion and bug reports.
-  public format(self, e: Entry): string {
+  public format(e: Entry): string {
     let m = self.db.sessions[e.session]
     let lastTime = e.lastTime
     let lines: array<string> = [

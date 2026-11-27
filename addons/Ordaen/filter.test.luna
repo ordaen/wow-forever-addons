@@ -21,7 +21,7 @@ class List {
   public state values: map<Kind, boolean> = switched({}, COLOURS, true)
   const start: map<Kind, boolean> = switched({}, COLOURS, true)
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={400ui}>
         <FilterButton values={mut self.values} start={self.start} groups={GROUPS} />

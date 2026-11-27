@@ -164,7 +164,7 @@ class Heading implements Component {
     self.grouped = grouped
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (!self.sortable) { return }
     if (self.picked) {
       self.descending = !self.descending
@@ -174,7 +174,7 @@ class Heading implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box yAlignSelf={Align::Stretch} padding={self.padding} xAlign={self.column.align} yAlign={Align::Center} background={self.shade}
            @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
@@ -231,7 +231,7 @@ class HeadGroup implements Component {
     self.table = table
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={"subgrid"} columnSpan={self.head.count} background={self.background} border={self.border}
            lines={self.lines}>
@@ -282,17 +282,17 @@ public class TableRow implements Component {
     self.ground = ground
   }
 
-  onClick(mut self, click: Event::Press) { self.pick.emit(click.button) }
-  onKey(mut self) { self.pick.emit(.Left) }
-  onDouble(mut self) { self.double.emit() }
+  mut onClick(click: Event::Press) { self.pick.emit(click.button) }
+  mut onKey() { self.pick.emit(.Left) }
+  mut onDouble() { self.double.emit() }
   // A list's row: the tooltips of what it holds stand beside it, never over the rows round it.
-  onEnter(mut self, frame: any Frame) {
+  mut onEnter(frame: any Frame) {
     Game::tooltip.rowAt(frame)
     self.enter.emit(frame)
   }
-  onLeave(mut self) { self.leave.emit() }
+  mut onLeave() { self.leave.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={"subgrid"} height={self.height} yAlign={Align::Center} background={self.background}
            border={self.rule} lines={self.lines} @pointerPress.self={self.onClick} @pointerPress.self.double={self.onDouble}
@@ -333,7 +333,7 @@ public class TableCell implements Component {
     self.span = span
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columnSpan={self.span} padding={self.padding} background={self.background} xAlign={self.xAlign}
            textAlign={self.textAlign} yAlign={Align::Center}>
@@ -393,7 +393,7 @@ public class Table implements Component {
     self.rowsVary = rowsVary
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} rows={FILLED}>
         <ScrolledList tracks={self.tracks} height={self.height} virtual={!self.rowsVary} ground={self.ground}

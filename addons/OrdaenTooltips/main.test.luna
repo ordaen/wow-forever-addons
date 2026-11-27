@@ -397,7 +397,7 @@ test "a setting's box shows its tick before it is changed" {
 
 // The hotkeys a module gives one button of its own: its key, as the button shows it.
 class ButtonKeys implements OwnerKeys {
-  public keys(self, owner: string): array<string> { return owner == "ActionButton2" ? ["2: use"] : [] }
+  public keys(owner: string): array<string> { return owner == "ActionButton2" ? ["2: use"] : [] }
 }
 
 test "a menu button's key stands among the hotkeys, last, in their colour" {

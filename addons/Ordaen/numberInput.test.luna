@@ -13,7 +13,7 @@ class Numbers {
   state share: number = 0.5
   state place: number = 0
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit::Percent} />
@@ -69,7 +69,7 @@ test "the field's − and + step it too, and a number typed past a bound is the 
 class Sized {
   state size: number = 400
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <NumberInput label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit::Px} /> }
   }
 }
@@ -150,7 +150,7 @@ class Windowed {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("numbers", "numbers", { x: 0ui, y: 0ui, width: 760ui, height: 300ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window shown={true} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <box columns={1}>
@@ -193,7 +193,7 @@ class Kept {
   public window: mut KeptWindow = new KeptWindow("main", "Bank", { x: 10ui, y: -20ui, width: 400ui, height: 300ui })
   public const windows: mut array<mut KeptWindow> = [self.window]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <WindowsPage windows={mut self.windows} /> }
   }
 }
@@ -214,7 +214,7 @@ test "a window's place and size are InputNumbers: a field between − and +, in 
 class Floated {
   state scale: number = 0.71999996900558
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <NumberInput label={"Scale"} value={mut self.scale} least={0.65} most={1.15} step={0.01} /> }
   }
 }

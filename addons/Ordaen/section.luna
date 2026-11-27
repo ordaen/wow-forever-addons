@@ -9,7 +9,7 @@ public class Section implements Component {
     self.title = title
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={4sp}>
         <Cut title={self.title} />

@@ -173,7 +173,7 @@ class CostTag implements Component {
     self.amount = amount
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COST} gap={0.5sp} yAlign={Align::Center}>
         <text value={"%d"} arguments={[self.amount]} textColor={INK} textFont={.Numbers} wrap={.None} />
@@ -208,12 +208,12 @@ class WareCell implements Component {
     self.entries = entries
   }
 
-  onPressed(self, click: Event::Press) { self.pressed.emit(self.ware, click) }
-  onDragged(self) { self.dragged.emit(self.ware) }
-  onChose(self, place: integer) { self.chose.emit(place) }
-  onClosed(self) { self.closed.emit() }
+  onPressed(click: Event::Press) { self.pressed.emit(self.ware, click) }
+  onDragged() { self.dragged.emit(self.ware) }
+  onChose(place: integer) { self.chose.emit(place) }
+  onClosed() { self.closed.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align::Center}>
         <Menu $if={self.menuShown} entries={self.entries} title={self.ware.name} @pick={self.onChose} @close={self.onClosed} />
@@ -253,11 +253,11 @@ class SoldCell implements Component {
     self.menuShown = menuShown
   }
 
-  onPressed(self, click: Event::Press) { self.pressed.emit(self.sold, click.button) }
-  onChose(self, place: integer) { self.chose.emit(place) }
-  onClosed(self) { self.closed.emit() }
+  onPressed(click: Event::Press) { self.pressed.emit(self.sold, click.button) }
+  onChose(place: integer) { self.chose.emit(place) }
+  onClosed() { self.closed.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align::Center}>
         <Menu $if={self.menuShown} entries={SOLD_ENTRIES} title={self.sold.name} @pick={self.onChose} @close={self.onClosed} />
@@ -287,9 +287,9 @@ class WareCaption implements Component {
     self.folded = folded
   }
 
-  onToggle(self) { self.toggled.emit(self.tab) }
+  onToggle() { self.toggled.emit(self.tab) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columnSpan={2}>
         <FoldCaption title={self.title} folded={self.folded} @toggled={self.onToggle} />
@@ -318,17 +318,17 @@ class WareTableRow implements Component {
     self.entries = entries
   }
 
-  onPick(self, button: MouseButton) { self.pressed.emit(self.ware, button) }
-  onSlot(self, click: Event::Press) { self.pressed.emit(self.ware, click.button) }
-  onChose(self, place: integer) { self.chose.emit(place) }
-  onClosed(self) { self.closed.emit() }
+  onPick(button: MouseButton) { self.pressed.emit(self.ware, button) }
+  onSlot(click: Event::Press) { self.pressed.emit(self.ware, click.button) }
+  onChose(place: integer) { self.chose.emit(place) }
+  onClosed() { self.closed.emit() }
 
   // The item's tooltip beside its whole row.
-  onRowEnter(self, frame: any Frame) {
+  onRowEnter(frame: any Frame) {
     Game::items.show(frame, self.ware.id)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
@@ -424,7 +424,7 @@ public class MerchantWindow implements Component {
     watch { self.vendor.buyingBack = self.tab == BUYBACK_TAB }
   }
 
-  shownOf(self): array<Ware> {
+  shownOf(): array<Ware> {
     const view = self.list.values
     const money = Game::money.amount
     let wares = self.vendor.wares.filter(ware => kept(ware, view.filter, self.query, money))
@@ -436,13 +436,13 @@ public class MerchantWindow implements Component {
     return wares
   }
 
-  soldOf(self): array<Sold> {
+  soldOf(): array<Sold> {
     let sold: array<Sold> = []
     for (index of self.vendor.sold.length..1 step -1) { sold.push(self.vendor.sold[index] ?? panic("within the buyback")) }
     return sold
   }
 
-  countsOf(self): array<FooterCount> {
+  countsOf(): array<FooterCount> {
     if (!self.buying) { return [{ label: Locale::FOOT_SOLD, value: string::of(self.vendor.sold.length) }] }
     const all = self.vendor.wares.length
     const shown = self.shown.length
@@ -450,14 +450,14 @@ public class MerchantWindow implements Component {
   }
 
   // The items of a category, as the categories view shows them: none while it is folded.
-  inGroup(self, tab: ItemKind): array<Ware> {
+  inGroup(tab: ItemKind): array<Ware> {
     if (self.folded[tab] == true) { return [] }
     return self.shown.filter(ware => ware.tab == tab)
   }
 
-  countIn(self, tab: ItemKind): integer { return self.shown.count(ware => ware.tab == tab) }
+  countIn(tab: ItemKind): integer { return self.shown.count(ware => ware.tab == tab) }
 
-  askTitleOf(self): string {
+  askTitleOf(): string {
     const asking = self.asking
     if (asking == nil) { return "" }
     const count = asking.count ?? asking.ware.stack
@@ -466,12 +466,12 @@ public class MerchantWindow implements Component {
     return price > 0 ? Locale::ASK_BUY.format(named, Game::money.format(price)) : Locale::ASK_BUY_COSTS.format(named)
   }
 
-  askFinalOf(self): boolean {
+  askFinalOf(): boolean {
     const asking = self.asking
     return asking != nil && !asking.ware.refundable && asking.ware.costs.length > 0
   }
 
-  askCostsOf(self): string {
+  askCostsOf(): string {
     const asking = self.asking
     if (asking == nil) { return "" }
     return asking.ware.costs.map(cost => `${cost.amount} ${cost.name}`).join(", ")
@@ -480,7 +480,7 @@ public class MerchantWindow implements Component {
   // A click on an item, in the player's own call: Left buys one purchase (asked first where the game asks), Right opens
   // its menu (buy, how many, try on, link), Shift+Left asks how many, Ctrl tries it on, Alt is the client's modified
   // click; a drag puts it onto the cursor, bought as it is put into a bag.
-  onWare(mut self, ware: Ware, click: Event::Press) {
+  mut onWare(ware: Ware, click: Event::Press) {
     if (Game::input.controlDown()) {
       self.vendor.dressUp(ware)
     } else if (Game::input.altDown()) {
@@ -495,14 +495,14 @@ public class MerchantWindow implements Component {
   }
 
   // How many of an item to buy, asked where one purchase may take more than one.
-  askCount(mut self, ware: Ware) {
+  mut askCount(ware: Ware) {
     if (ware.most <= 1) { return }
     self.count = 1
     self.counting = ware
   }
 
   // An entry of an item's menu picked: the menu closes, and the entry acts on its item.
-  onChose(mut self, place: integer) {
+  mut onChose(place: integer) {
     const ware = peek self.menuWare
     const act = (peek self.menuActs)[place]
     self.menuAt = 0
@@ -515,10 +515,10 @@ public class MerchantWindow implements Component {
     }
   }
 
-  onMenuClosed(mut self) { self.menuAt = 0 }
+  mut onMenuClosed() { self.menuAt = 0 }
 
   // A buyback's item: a left click buys it back, a right click opens its menu.
-  onSold(mut self, sold: Sold, button: MouseButton) {
+  mut onSold(sold: Sold, button: MouseButton) {
     if (button == MouseButton::Right) {
       self.soldMenuAt = sold.place
     } else {
@@ -526,19 +526,19 @@ public class MerchantWindow implements Component {
     }
   }
 
-  onSoldChose(mut self, place: integer) {
+  mut onSoldChose(place: integer) {
     const sold = self.vendor.sold.find(each => each.place == peek self.soldMenuAt)
     self.soldMenuAt = 0
     if (sold != nil && place == 1) { self.vendor.buyBack(sold) }
   }
 
-  onSoldMenuClosed(mut self) { self.soldMenuAt = 0 }
+  mut onSoldMenuClosed() { self.soldMenuAt = 0 }
 
-  onDragged(mut self, ware: Ware) { self.pickUp(ware) }
+  mut onDragged(ware: Ware) { self.pickUp(ware) }
 
   // The item onto the cursor, bought as it lands in a bag; one the game asks about (a high price, a cost in items or
   // currencies) is asked about first, as a purchase.
-  pickUp(mut self, ware: Ware) {
+  mut pickUp(ware: Ware) {
     if (asks(ware, nil)) {
       self.purchase(ware, nil)
     } else {
@@ -547,7 +547,7 @@ public class MerchantWindow implements Component {
   }
 
   // A row of the table: a left click buys one purchase, a right click opens its menu.
-  onWareRow(mut self, ware: Ware, button: MouseButton) {
+  mut onWareRow(ware: Ware, button: MouseButton) {
     if (button == MouseButton::Right) {
       self.menuAt = ware.index
     } else if (button == MouseButton::Left) {
@@ -557,7 +557,7 @@ public class MerchantWindow implements Component {
 
   // A purchase: bought at once, or asked about first where its price reaches the game's asking price or it is paid
   // in items or currencies.
-  purchase(mut self, ware: Ware, count: integer | nil) {
+  mut purchase(ware: Ware, count: integer | nil) {
     if (asks(ware, count)) {
       self.asking = { ware: ware, count: count }
       return
@@ -565,34 +565,34 @@ public class MerchantWindow implements Component {
     self.vendor.buy(ware, count)
   }
 
-  onAsked(mut self) {
+  mut onAsked() {
     const asking = peek self.asking
     self.asking = nil
     if (asking != nil) { self.vendor.buy(asking.ware, asking.count) }
   }
 
-  onAskCancel(mut self) { self.asking = nil }
+  mut onAskCancel() { self.asking = nil }
 
-  onCounted(mut self) {
+  mut onCounted() {
     const ware = peek self.counting
     self.counting = nil
     if (ware != nil) { self.purchase(ware, peek self.count) }
   }
 
-  onCountCancel(mut self) { self.counting = nil }
+  mut onCountCancel() { self.counting = nil }
 
-  onToggle(mut self, tab: ItemKind) {
+  mut onToggle(tab: ItemKind) {
     let folded: map<ItemKind, boolean> = {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[tab] = folded[tab] == true ? nil : true
     self.folded = folded
   }
 
-  onSellJunk(self) { self.sellJunk.emit() }
-  onRepair(self) { self.vendor.repairAll(false) }
-  onGuildRepair(self) { self.vendor.repairAll(true) }
-  onRepairOne(mut self) { self.vendor.repairOne() }
-  onClose(self) { self.vendor.close() }
+  onSellJunk() { self.sellJunk.emit() }
+  onRepair() { self.vendor.repairAll(false) }
+  onGuildRepair() { self.vendor.repairAll(true) }
+  mut onRepairOne() { self.vendor.repairOne() }
+  onClose() { self.vendor.close() }
 
   // The right column: the money at the top, the buttons at the bottom, the repairs last.
   const column: Template = $ltml {
@@ -625,7 +625,7 @@ public class MerchantWindow implements Component {
     <ListFooter counts={self.counts} />
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.side} padding={NO_ROOM} footer={self.footer}
               @close={self.onClose}>

@@ -21,7 +21,7 @@ public class Arranged implements Component {
     [Part::Clock]: Where::Left, [Part::Money]: Where::Right, [Part::Friends]: Where::Off
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Zones items={PARTS} zones={ZONES} off={OFF} value={mut self.places} />
     }

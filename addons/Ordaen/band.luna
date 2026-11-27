@@ -251,20 +251,20 @@ public class BandCell implements Component {
     watch { self.forgetCursor() }
   }
 
-  glyphOf(self): Piece | nil {
+  glyphOf(): Piece | nil {
     const glyph = self.fact.glyph
     return glyph != nil ? glyphArt(glyph) : nil
   }
 
   // What takes the cursor goes as the cell stops explaining, and says nothing as it goes.
-  forgetCursor(mut self) {
+  mut forgetCursor() {
     if (!self.lit) { self.over = false }
   }
 
-  onEnter(mut self) { self.over = true }
-  onLeave(mut self) { self.over = false }
+  mut onEnter() { self.over = true }
+  mut onLeave() { self.over = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={self.padding} border={self.divider} xAlign={Align::Center}>
         <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align::Center}>

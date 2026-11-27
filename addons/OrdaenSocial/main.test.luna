@@ -160,8 +160,8 @@ function allyCategories(): array<AllyCategory> { return [.PvP, .Dungeons] }
 class FakePeople implements People {
   heard: mut array<string> = []
 
-  public copy(mut self, text: string) { self.heard.push(`copy ${text}`) }
-  public inviteTo(mut self, name: string) { self.heard.push(`invite ${name}`) }
+  public mut copy(text: string) { self.heard.push(`copy ${text}`) }
+  public mut inviteTo(name: string) { self.heard.push(`invite ${name}`) }
 }
 
 // The game's friends window, shown as its key or its micro button shows it, with the test's door: ours.

@@ -17,9 +17,9 @@ class Bag {
   state picked = 0
   state dimmed = false
 
-  onPick(mut self, item: integer) { self.picked = item }
+  mut onPick(item: integer) { self.picked = item }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]} gap={3sp}>
         <ItemButton item={nil} />
@@ -69,11 +69,11 @@ test "an item's slot draws its icon, its quality's border, its count and markers
 class Dragged {
   heard: mut array<string> = []
 
-  onDragged(mut self) { self.heard.push("dragged") }
-  onDropped(mut self) { self.heard.push("dropped") }
-  onPressed(mut self) { self.heard.push("pressed") }
+  mut onDragged() { self.heard.push("dragged") }
+  mut onDropped() { self.heard.push("dropped") }
+  mut onPressed() { self.heard.push("pressed") }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={3sp}>
         <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1, chord: .Left }} @dragged={self.onDragged}
@@ -113,7 +113,7 @@ class Slot {
     if (self.button != nil) { destroy self.button }
   }
 
-  look(self): string {
+  look(): string {
     const button = self.button
     if (button == nil) { return "" }
     const lit = button.lit ? ", lit" : ""
@@ -210,7 +210,7 @@ test "an icon is drawn for each slot that has one" {
 
 // A slot of what the player wears beside one of the bags.
 class Worn {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={3sp}>
         <ItemButton item={12640} worn={1} />
@@ -221,7 +221,7 @@ class Worn {
 }
 
 class Mailed {
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <ItemButton item={2589} mail={[2, 3]} /> }
   }
 }
@@ -249,7 +249,7 @@ test "a worn item's tooltip is its slot's, which the game compares with nothing;
 
 // Two empty slots, one sunk (the default) and one crested.
 class Wells {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={2} gap={4sp}>
         <ItemButton item={nil} />
@@ -272,7 +272,7 @@ test "a slot's well is sunk unless its user crests it: the client's slot art fro
 
 // The same icon in a sunk slot and in two crested ones: an uncommon item's in the first two, a common one's in the last.
 class Icons {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={3} gap={4sp}>
         <ItemButton item={2592} art={HAMMER} quality={Quality::Uncommon} />
@@ -303,7 +303,7 @@ test "a crested slot holds its icon inside the crest's rim, the rim taking an un
 
 // The same icon in two talent-framed slots: an uncommon item's, a common one's.
 class Framed {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={2} gap={4sp}>
         <ItemButton item={2592} art={HAMMER} quality={Quality::Uncommon} well={SlotWell::Framed} />
@@ -337,7 +337,7 @@ test "a slot's count is written in the numbers' font, outlined, so it reads on a
 // A slot whose item the test changes: an item equipped from it, the worn one landing in its place.
 class Swapped {
   state item: integer | nil = 6948
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <ItemButton item={self.item} /> }
   }
 }

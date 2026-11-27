@@ -20,7 +20,7 @@ public class Arranger {
 
   // A run over `slots` (every slot of the bags, in their order) into the order `by`; `general` tells the bags that
   // take part. A protected slot (`Slot.guarded`) keeps what it holds.
-  public start(mut self, slots: array<Slot>, general: (bag: integer) => boolean, by: SortBy) {
+  public mut start(slots: array<Slot>, general: (bag: integer) => boolean, by: SortBy) {
     let places: array<Slot> = []
     let items: array<Slot> = []
     for (slot of slots) {
@@ -44,11 +44,11 @@ public class Arranger {
     self.step()
   }
 
-  public stop(mut self) { self.running = false }
+  public mut stop() { self.running = false }
 
   // One go: each place that holds another stack than it should takes it from a later place that holds it, a slot
   // locked or taken from in this go left for the next. Nothing left to move ends the run.
-  public step(mut self) {
+  public mut step() {
     if (!peek self.running) { return }
     if (self.left <= 0) {
       self.stop()
@@ -79,7 +79,7 @@ public class Arranger {
   // A later place that holds the stack where it doesn't belong, not taken from in this go and not locked. The first
   // wrong place of a go always finds one: a place where the stack belongs is never emptied of it, and the rest wait for
   // a go.
-  holderOf(self, want: integer, after: integer, taken: map<Slot, boolean>): Slot | nil {
+  holderOf(want: integer, after: integer, taken: map<Slot, boolean>): Slot | nil {
     for (index, place of self.places) {
       if (index > after && taken[place] != true && !peek place.locked && place.key() == want && self.wanted[index] != want) {
         return place
@@ -88,7 +88,7 @@ public class Arranger {
     return nil
   }
 
-  anyLocked(self): boolean {
+  anyLocked(): boolean {
     return self.places.any(place => peek place.locked)
   }
 }

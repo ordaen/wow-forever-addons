@@ -54,12 +54,12 @@ public class TreeRow implements Component {
     self.selected = selected
   }
 
-  onClick(mut self) {
+  mut onClick() {
     if (!self.leaf) { self.open = !self.open }
     self.pick.emit()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={[self.gutter, { fr: 1 }, "max-content"]} gap={1sp} padding={1sp} yAlign={Align::Center}
            background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>

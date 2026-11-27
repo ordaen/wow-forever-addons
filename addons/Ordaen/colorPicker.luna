@@ -43,26 +43,26 @@ public class ColorPicker implements Component {
     Game::colorPicker.cancelled.listen(self.onCancelled)
   }
 
-  open(mut self) {
+  mut open() {
     if (self.disabled) { return }
     self.before = self.value
     self.ticket = Game::colorPicker.open(self.value)
   }
 
-  onPicked(mut self, ticket: integer, color: Color) {
+  mut onPicked(ticket: integer, color: Color) {
     if (ticket != self.ticket) { return }
     self.picking = color.clone()
     self.rest.move(color.clone())
   }
 
-  onCancelled(mut self, ticket: integer) {
+  mut onCancelled(ticket: integer) {
     const before = self.before
     if (ticket != self.ticket || before == nil) { return }
     self.rest.move(before.clone())
     self.rest.end()
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.shown} @pointerPress={self.open} @keyPress(.Enter)={self.open} @keyPress(.Space)={self.open} />

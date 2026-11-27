@@ -35,10 +35,10 @@ public class ProfileQuestion implements Component {
     self.keeping = keeping
   }
 
-  onApply(mut self) { self.keeping.answer(true) }
-  onKeep(mut self) { self.keeping.answer(false) }
+  mut onApply() { self.keeping.answer(true) }
+  mut onKeep() { self.keeping.answer(false) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dialog $if={self.asked} title={Locale::GAME_CHANGES_TITLE} width={WIDTH}>
         <box gap={2sp}>

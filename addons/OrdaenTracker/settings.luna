@@ -31,7 +31,7 @@ public class GeneralPage implements Component {
     self.settings = settings
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <NumberInput label={Locale::LISTED} hint={Locale::LISTED_TIP} value={mut self.settings.values.listed} least={1}
                    most={MOST_TRACKED} />

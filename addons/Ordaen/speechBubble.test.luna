@@ -12,7 +12,7 @@ const INK: Color = Color::hex("#e8dcc4")
 
 // Three bubbles one under another: the first with no tail, the second's under its start, the third's under its end.
 class Said implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} width={300ui}>
         <box xAlignSelf={Align::Start}>
@@ -48,7 +48,7 @@ test "a bubble is the client's chat bubble in its colour; its tail hangs under i
 }
 
 class Ruled implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <SessionRule began={12 * 3600 + 4 * 60} /> }
   }
 }

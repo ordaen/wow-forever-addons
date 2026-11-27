@@ -33,10 +33,10 @@ public class ItemLevel implements Component {
     self.worn = worn
   }
 
-  onEnter(mut self) { self.tipShown = true }
-  onLeave(mut self) { self.tipShown = false }
+  mut onEnter() { self.tipShown = true }
+  mut onLeave() { self.tipShown = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box xAlign={Align::Center}>
         <box $if={self.shown} xAlign={Align::Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>

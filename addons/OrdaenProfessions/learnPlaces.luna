@@ -65,11 +65,11 @@ class LearnPlaceRow implements Component {
   placed: Signal<Placed>
   constructor(placed: Signal<Placed>) { self.placed = placed }
 
-  onPick(mut self) {
+  mut onPick() {
     if (self.opens) { self.open.emit(self.placed.place) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <TableRow ground={Ground::Wood} @pick={self.onPick}>
         <TableCell>
@@ -110,7 +110,7 @@ public class LearnTable implements Component {
     self.distance = distance
   }
 
-  placedOf(self): array<Placed> {
+  placedOf(): array<Placed> {
     const list: array<Placed> = []
     for (place of self.places) {
       list.push({ place: place, yards: place.npc == 0 ? nil : self.distance(place.npc) })
@@ -121,9 +121,9 @@ public class LearnTable implements Component {
     return list
   }
 
-  onOpen(mut self, place: LearnPlace) { self.open.emit(place) }
+  mut onOpen(place: LearnPlace) { self.open.emit(place) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}
              rowsVary={true} ground={Ground::Wood}>

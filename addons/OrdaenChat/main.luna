@@ -132,7 +132,7 @@ public class Chat implements Module, App {
   }
 
   // The tabs made anew from the game's windows; a tab whose key stays keeps its lines.
-  sync(mut self) {
+  mut sync() {
     const tabs: array<ChatTab> = []
     const undocked: array<ChatTab> = []
     for (window of peek Game::chat.windows) {
@@ -150,14 +150,14 @@ public class Chat implements Module, App {
   }
 
   // Each window's tab takes its own settings: the player's, else its window's defaults.
-  chooseTabs(mut self, chosen: map<string, TabChoices>) {
+  mut chooseTabs(chosen: map<string, TabChoices>) {
     for (window of peek Game::chat.windows) {
       const tab = self.made[tabKey(window.index)]
       if (tab != nil) { tab.choose(chosen[tab.key] ?? tabDefaults(window)) }
     }
   }
 
-  tabOf(mut self, key: string, title: string): mut ChatTab {
+  mut tabOf(key: string, title: string): mut ChatTab {
     const known = self.made[key]
     if (known != nil) { return known }
     const tab = new ChatTab(key, title)
@@ -167,7 +167,7 @@ public class Chat implements Module, App {
 
   // A line heard: a whisper Ordaen Social's, its words alone (their web addresses links); any other added to each tab
   // that shows it, drawn as the tab chose (its channel's name, its keywords' mark): made once for the tabs that agree.
-  onLine(mut self, line: Game::ChatLine) {
+  mut onLine(line: Game::ChatLine) {
     if (Social?.heard(line, line.secret != "" ? line.body : linked(line.text)) == true) { return }
     const open = peek self.openKey
     // The line as drawn, by how a tab draws it: its channel's name, its keywords.
@@ -187,19 +187,19 @@ public class Chat implements Module, App {
   }
 
   // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
-  onReported(mut self, guid: string) {
+  mut onReported(guid: string) {
     if (guid == "") { return }
     for (_, tab of self.made) { tab.forgetSender(guid) }
     Social?.reported(guid)
   }
 
-  addTo(mut self, tab: mut ChatTab, shown: Shown, open: string) {
+  mut addTo(tab: mut ChatTab, shown: Shown, open: string) {
     tab.add(shown)
     // An undocked window's pane shows each line as it comes: nothing waits unread there.
     if (tab.key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
   }
 
-  shownLine(self, line: Game::ChatLine, channelName: ChannelName, words: array<string>): Shown {
+  shownLine(line: Game::ChatLine, channelName: ChannelName, words: array<string>): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, session: THIS_SESSION, secret: true,
@@ -217,7 +217,7 @@ public class Chat implements Module, App {
     }
   }
 
-  onPick(mut self, tab: ChatTab) {
+  mut onPick(tab: ChatTab) {
     self.openKey = tab.key
     const made = self.made[tab.key]
     if (made != nil) { made.unread = 0 }
@@ -227,17 +227,17 @@ public class Chat implements Module, App {
 
   // The input, opened, speaks where the open tab's window speaks: a whisper window's partner; another, where it last
   // spoke (the game keeps each window's own), else its first kind.
-  speakHere(mut self) {
+  mut speakHere() {
     const tab = peek self.open
     if (tab != nil) { self.speakTo(tab) }
   }
 
-  speakTo(mut self, tab: ChatTab) {
+  mut speakTo(tab: ChatTab) {
     if (tab.window > 0) { Game::chat.speak(tab.window) }
   }
 
   // A link clicked: a web address opens the copy box; any other is the game's.
-  onLink(mut self, link: Event::Link) {
+  mut onLink(link: Event::Link) {
     if (link.link.sub(1, PREFIX.length) == PREFIX) {
       self.copied = link.link.sub(PREFIX.length + 1)
       return
@@ -245,11 +245,11 @@ public class Chat implements Module, App {
     Game::chat.click(link.link, link.text, link.button)
   }
 
-  onCopyClose(mut self) { self.copied = "" }
+  mut onCopyClose() { self.copied = "" }
 
   // A tab's menu: rename (a box asks the name), its page of the settings, a new tab, lock, the mouse through its lines
   // or not, undock or dock, close.
-  onTab(mut self, pick: TabPick) {
+  mut onTab(pick: TabPick) {
     const window = pick.tab.window
     match (pick.action) {
       .Rename => {
@@ -269,19 +269,19 @@ public class Chat implements Module, App {
     }
   }
 
-  onRename(mut self) {
+  mut onRename() {
     const tab = peek self.renaming
     const name = peek self.newName
     if (tab != nil && name != "") { Game::chat.rename(tab.window, name) }
     self.renaming = nil
   }
 
-  onRenameCancel(mut self) { self.renaming = nil }
+  mut onRenameCancel() { self.renaming = nil }
 
   // A link's menu picked. A player's name: whisper them, invite them, ask who they are, befriend or ignore them, or the
   // game's own menu of them (its entries the client keeps to itself are reached there). A quest of the log: tracked
   // or not, shared, or abandoned once the player says so. Any link: its name (a web address whole) in the copy box.
-  onLinkPick(mut self, pick: LinkPick) {
+  mut onLinkPick(pick: LinkPick) {
     const name = nameOf(pick.link.link) ?? ""
     const quest = questOf(pick.link.link) ?? 0
     match (pick.action) {
@@ -312,26 +312,26 @@ public class Chat implements Module, App {
     }
   }
 
-  onAbandon(mut self) {
+  mut onAbandon() {
     const link = peek self.abandoning
     const quest = link != nil ? questOf(link.link) : nil
     if (quest != nil) { Game::questLog.abandon(quest) }
     self.abandoning = nil
   }
 
-  onAbandonCancel(mut self) { self.abandoning = nil }
+  mut onAbandonCancel() { self.abandoning = nil }
 
   // A character's first chat has the default tabs, docked after the game's own two. Asked after each time the game's
   // windows load, the player enters the world or the channels change (a tab of channels waits for the character's):
   // after, as the game's own handlers of the same event lay its saved windows over whatever was opened before them.
   // A tab is done for the character once a later ask finds a window past the game's two showing its lines, so one
   // closed then stays closed.
-  onWindowsLoaded(mut self) { self.defaultTabsLater() }
+  mut onWindowsLoaded() { self.defaultTabsLater() }
 
-  onEnterWorld(mut self, initial: boolean, reloaded: boolean) { self.defaultTabsLater() }
+  mut onEnterWorld(initial: boolean, reloaded: boolean) { self.defaultTabsLater() }
 
   // Once a frame, however many events ask.
-  defaultTabsLater(mut self) {
+  mut defaultTabsLater() {
     if (self.defaultTabsAsked) { return }
     self.defaultTabsAsked = true
     Client::C_Timer::After(0, (): nil => {
@@ -340,7 +340,7 @@ public class Chat implements Module, App {
     })
   }
 
-  defaultTab(mut self, tab: DefaultTab) {
+  mut defaultTab(tab: DefaultTab) {
     if (Game::saved.stored(Game::Scope::Character, tab.made) != nil) { return }
     if (showsAny(tab.groups)) {
       Game::saved.store(Game::Scope::Character, tab.made, true)
@@ -365,7 +365,7 @@ public class Chat implements Module, App {
   }
 
   // The last lines of each tab, as many as it keeps, for the next session: written once, as the player logs out.
-  keep(mut self) {
+  mut keep() {
     const tabs: array<KeptTab> = []
     for (_, tab of self.made) {
       const count = peek tab.kept
@@ -374,7 +374,7 @@ public class Chat implements Module, App {
     Game::saved.store(Game::Scope::Character, HISTORY, Kept { tabs: tabs })
   }
 
-  recall(mut self) {
+  mut recall() {
     const kept = Kept::decode(Game::saved.stored(Game::Scope::Character, HISTORY), Kept { tabs: [] })
     // A window's tab's alone: the conversations kept before they were Ordaen Social's are let go.
     for (tab of kept.tabs) {
@@ -386,11 +386,11 @@ public class Chat implements Module, App {
   // up, up to the screen's edges and down to the least the settings allow. The chat is drawn never narrower than its
   // tabs and its lines need, whatever width is chosen.
   // The drag starts from the width drawn (the room's least as it is taken), which may be more than the width chosen.
-  onSizeGrab(mut self, drag: Event::Drag) {
+  mut onSizeGrab(drag: Event::Drag) {
     self.sizedFrom = { width: drag.room.leastWidth / 1dp, height: (peek self.height) / 1dp }
   }
 
-  onSize(mut self, drag: Event::Drag) {
+  mut onSize(drag: Event::Drag) {
     const right = drag.dx.min(drag.room.right) / 1dp
     const up = -(drag.dy.max(-drag.room.up) / 1dp)
     self.sizing = ChatSize {
@@ -399,7 +399,7 @@ public class Chat implements Module, App {
     }
   }
 
-  onSizeDrop(mut self) {
+  mut onSizeDrop() {
     const sized = peek self.sizing
     if (sized != nil) {
       self.settings.change((values: mut Choices): nil => {
@@ -410,7 +410,7 @@ public class Chat implements Module, App {
     self.sizing = nil
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale::TITLE} home={self.home}>
         <Pane tabsLeast={self.tabsLeast} tabsFoot={self.tabsFoot} tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}

@@ -11,7 +11,7 @@ const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [
 // The hotkeys of a frame of the game's that another module draws or binds (a button of the action bars), by the
 // frame's name: what a tooltip shown for that frame adds to its own. None where the frame isn't the module's.
 public trait OwnerKeys {
-  public keys(self, owner: string): array<string>
+  public keys(owner: string): array<string>
 }
 
 // The hotkeys' section of a tooltip: drawn only with a line in it.
@@ -21,7 +21,7 @@ public class Hotkeys implements Component {
   keys: Signal<array<string>>
   constructor(keys: Signal<array<string>>) { self.keys = keys }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box $if={self.any} gap={2sp} padding={{ top: 3sp }} border={RULE}>
         <text $for={key of self.keys} value={key} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />

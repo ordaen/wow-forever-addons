@@ -106,7 +106,7 @@ public class GeneralPage implements Component {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Checkbox label={Locale::SETTING_DURABILITY} hint={Locale::SETTING_DURABILITY_TIP}
                 value={mut self.settings.values.durability} />
@@ -149,26 +149,26 @@ public class SpecNamesPage implements Component {
     watch { self.showTwo(self.settings.values.specTwo) }
   }
 
-  typedOne(mut self, typed: string) {
+  mut typedOne(typed: string) {
     if (typed != (peek self.settings.values).specOne) { self.oneRest.move(typed) }
   }
 
-  typedTwo(mut self, typed: string) {
+  mut typedTwo(typed: string) {
     if (typed != (peek self.settings.values).specTwo) { self.twoRest.move(typed) }
   }
 
-  showOne(mut self, name: string) {
+  mut showOne(name: string) {
     if (!self.oneRest.busy()) { self.one = name }
   }
 
-  showTwo(mut self, name: string) {
+  mut showTwo(name: string) {
     if (!self.twoRest.busy()) { self.two = name }
   }
 
-  enterOne(mut self) { self.oneRest.end() }
-  enterTwo(mut self) { self.twoRest.end() }
+  mut enterOne() { self.oneRest.end() }
+  mut enterTwo() { self.twoRest.end() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
         <text value={Locale::SETTING_SPEC_ONE} textColor={Style::INK} />

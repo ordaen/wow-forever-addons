@@ -86,7 +86,7 @@ public class ActionBars implements Component, OwnerKeys {
 
   // Out of a fight: the bars are made, the game's put away, the keys bound; from then on each change waits for a
   // fight's end.
-  start(mut self) {
+  mut start() {
     self.forms = Client::GetNumShapeshiftForms()
     self.applied = (peek self.values).clone()
     self.ready = true
@@ -99,7 +99,7 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // A button's tooltip: the key that presses it, as the button shows it («1: use»).
-  public keys(self, owner: string): array<string> {
+  public keys(owner: string): array<string> {
     const key = self.named[owner]
     return key == nil ? [] : [Locale::KEY_USE.format(key)]
   }
@@ -111,28 +111,22 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // A copy: the settings' values change in place, and in a fight the bars keep what applied before it.
-  apply(mut self, values: BarsChoices) {
+  mut apply(values: BarsChoices) {
     self.applied = values.clone()
     self.bind()
   }
 
-  rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
+  mut rebind() { Ordaen.afterCombat(() => self.bind()) }
 
-  reform(mut self) { Ordaen.afterCombat(() => self.countForms()) }
+  mut reform() { Ordaen.afterCombat(() => self.countForms()) }
 
-  countForms(mut self) { self.forms = Client::GetNumShapeshiftForms() }
+  mut countForms() { self.forms = Client::GetNumShapeshiftForms() }
 
   // A spell learned: a new rank takes its previous rank's slots.
-  learned(self, spell: number, _line: integer, _perk: boolean) { promote(spell.floor()) }
-
-  // The game's keys and bars go back as they were.
-  giveBack(owner: any Client::Frame, parents: map<any Client::Frame, any Client::Frame>) {
-    Client::ClearOverrideBindings(owner)
-    for (frame, parent of parents) { frame.SetParent(parent) }
-  }
+  learned(spell: number, _line: integer, _perk: boolean) { promote(spell.floor()) }
 
   // Each of the game's bars goes into the hider, its own parent kept to give back.
-  putAway(mut self, games: array<any Client::Frame>) {
+  mut putAway(games: array<any Client::Frame>) {
     for (frame of games) {
       if (self.parents[frame] == nil) {
         const parent = frame.GetParent()
@@ -143,17 +137,17 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // A bar's settings that apply.
-  choiceOf(self, spec: BarSpec): BarChoice {
+  choiceOf(spec: BarSpec): BarChoice {
     return self.applied.bars[spec.id] ?? self.defaults[spec.id] ?? defaultChoice(spec, false)
   }
 
   // How many buttons a bar shows: as many as chosen, and for the stances' bar no more than the player's forms.
-  countOf(self, spec: BarSpec, choice: BarChoice): integer {
+  countOf(spec: BarSpec, choice: BarChoice): integer {
     return spec.kind == BarKind::Stance ? choice.buttons.min(self.forms) : choice.buttons
   }
 
   // The bars on, each standing over those under it by their rows' height: none overlaps another.
-  barsOf(self): array<Shown> {
+  barsOf(): array<Shown> {
     const bars: array<Shown> = []
     if (!self.ready) { return bars }
     let below: number<Length> = 0ui
@@ -169,7 +163,7 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // Панель 1's paging: the page turned to, then each form's whose page the player keeps.
-  pagingOf(self): string {
+  pagingOf(): string {
     let options = TURNED
     for (bonusbar of 1..4) {
       if (self.applied.unpaged[string::of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
@@ -179,7 +173,7 @@ public class ActionBars implements Component, OwnerKeys {
 
   // Each key of the game's bindings of the bars drawn clicks our button in its place, and its text is kept. Out of a
   // fight alone: the client takes no binding in one.
-  bind(mut self) {
+  mut bind() {
     Client::ClearOverrideBindings(self.owner)
     const keys: map<string, string> = {}
     const named: map<string, string> = {}
@@ -200,13 +194,27 @@ public class ActionBars implements Component, OwnerKeys {
     self.named = named
   }
 
-  hiddenBars(self): array<any Client::Frame> {
+  hiddenBars(): array<any Client::Frame> {
     const parts: array<any Client::Frame> = []
     for (bar of self.bars) {
       const frame = ActionBars::gameBar(bar.spec)
       if (frame != nil) { parts.push(frame) }
     }
     return parts
+  }
+
+  public render(): Template {
+    return $ltml {
+      <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} below={bar.below}
+           choices={self.applied.bars} defaults={self.defaults}
+           keys={self.bound} paging={self.paging} forms={self.forms} />
+    }
+  }
+} static {
+  // The game's keys and bars go back as they were.
+  giveBack(owner: any Client::Frame, parents: map<any Client::Frame, any Client::Frame>) {
+    Client::ClearOverrideBindings(owner)
+    for (frame, parent of parents) { frame.SetParent(parent) }
   }
 
   // The game's own bar in a bar's place.
@@ -228,14 +236,6 @@ public class ActionBars implements Component, OwnerKeys {
       6 => Game::frames.MultiBar5
       7 => Game::frames.MultiBar6
       else => Game::frames.MultiBar7
-    }
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} below={bar.below}
-           choices={self.applied.bars} defaults={self.defaults}
-           keys={self.bound} paging={self.paging} forms={self.forms} />
     }
   }
 }

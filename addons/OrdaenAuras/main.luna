@@ -23,7 +23,7 @@ public class Auras implements Module, App {
   }
 
   // The character's auras as the client has them now.
-  public refresh(mut self) {
+  public mut refresh() {
     const level = Game::player.level
     const list: array<Active> = []
     for (aura of Game::auras.player()) {
@@ -35,7 +35,7 @@ public class Auras implements Module, App {
     self.active = list
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {}
   }
 }

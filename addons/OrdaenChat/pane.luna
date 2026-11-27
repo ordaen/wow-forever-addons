@@ -212,7 +212,7 @@ public class Pane implements Component {
 
   // The chat's keys scroll the game's chosen window: the pane whose open tab is it scrolls a line, a page (as many
   // lines as its height holds) or to an end.
-  onScrolled(mut self, window: integer, scroll: Game::ChatScroll) {
+  mut onScrolled(window: integer, scroll: Game::ChatScroll) {
     const tab = peek self.open
     if (tab == nil || tab.window != window) { return }
     const most = (0).max(tab.lines.length - 1)
@@ -228,20 +228,20 @@ public class Pane implements Component {
     }
   }
 
-  logOf(self): any Frame | nil {
+  logOf(): any Frame | nil {
     const tab = self.open
     if (tab == nil || !tab.combatLog) { return nil }
     return Game::chat.windows.find(window => window.index == tab.window)?.frame
   }
 
-  shownOf(self): array<Entry> {
+  shownOf(): array<Entry> {
     const tab = self.open
     // The lines change in place: their version is what tells the view.
     if (tab == nil || tab.version < 0) { return [] }
     return tab.slice(self.back, ROWS)
   }
 
-  tabEntriesOf(self): array<MenuEntry> {
+  tabEntriesOf(): array<MenuEntry> {
     const tab = self.menuTab
     return self.tabActions.map(action => MenuEntry {
       label: tabLabel(action, tab?.uninteractable == true), on: action == TabAction::Lock ? tab?.locked == true : nil,
@@ -249,34 +249,34 @@ public class Pane implements Component {
     })
   }
 
-  onPick(mut self, tab: ChatTab) {
+  mut onPick(tab: ChatTab) {
     self.back = 0
     self.picked.emit(tab)
   }
 
-  onMenu(mut self, tab: ChatTab) { self.menuTab = tab }
+  mut onMenu(tab: ChatTab) { self.menuTab = tab }
 
-  onTabPick(mut self, place: integer) {
+  mut onTabPick(place: integer) {
     const tab = peek self.menuTab
     const action = (peek self.tabActions)[place]
     self.menuTab = nil
     if (tab != nil && action != nil) { self.tabPicked.emit({ tab: tab, action: action }) }
   }
 
-  onTabMenuClose(mut self) { self.menuTab = nil }
+  mut onTabMenuClose() { self.menuTab = nil }
 
-  onLinkPick(mut self, place: integer) {
+  mut onLinkPick(place: integer) {
     const link = peek self.menuLink
     const action = (peek self.linkActions)[place]
     self.menuLink = nil
     if (link != nil && action != nil) { self.linkPicked.emit({ link: link, action: action }) }
   }
 
-  onLinkMenuClose(mut self) { self.menuLink = nil }
+  mut onLinkMenuClose() { self.menuLink = nil }
 
   // The right button opens a link's menu; Alt and the left button on a name invite the player; any other click goes
   // on.
-  onLink(mut self, link: Event::Link) {
+  mut onLink(link: Event::Link) {
     if (link.button == MouseButton::Right) {
       self.menuLink = link
       return
@@ -289,7 +289,7 @@ public class Pane implements Component {
   }
 
   // The wheel scrolls three lines; with Shift, to the oldest or the newest.
-  onWheel(mut self, wheel: Event::Wheel) {
+  mut onWheel(wheel: Event::Wheel) {
     const tab = peek self.open
     if (tab == nil) { return }
     const most = (0).max(tab.lines.length - 1)
@@ -301,18 +301,18 @@ public class Pane implements Component {
     }
   }
 
-  onLatest(mut self) { self.back = 0 }
+  mut onLatest() { self.back = 0 }
 
-  onSizeGrab(mut self, drag: Event::Drag) { self.sizeGrab.emit(drag) }
-  onSize(mut self, drag: Event::Drag) { self.size.emit(drag) }
-  onSizeDrop(mut self) { self.sizeDrop.emit() }
+  mut onSizeGrab(drag: Event::Drag) { self.sizeGrab.emit(drag) }
+  mut onSize(drag: Event::Drag) { self.size.emit(drag) }
+  mut onSizeDrop() { self.sizeDrop.emit() }
 
-  onTabsEnter(mut self) { self.onTabs = true }
-  onTabsLeave(mut self) { self.onTabs = false }
-  onLinesEnter(mut self) { self.onLines = true }
-  onLinesLeave(mut self) { self.onLines = false }
+  mut onTabsEnter() { self.onTabs = true }
+  mut onTabsLeave() { self.onTabs = false }
+  mut onLinesEnter() { self.onLines = true }
+  mut onLinesLeave() { self.onLines = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // The tabs a sidebar on the world at the lines' left, one a row, level with the lines' ground, the room kept under
       // them; the lines on a dark ground, at least the height the player chose and never lower than the tabs, the input

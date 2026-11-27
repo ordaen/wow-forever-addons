@@ -180,7 +180,7 @@ class PageTabs {
   state tabs: array<string> = ["Recipes", "Camp", "Queue"]
   state page = 1
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <Tabs tabs={self.tabs} selected={mut self.page} counts={[4, 2, 0]} /> }
   }
 }
@@ -199,7 +199,7 @@ class ColumnTabs {
   state page = 1
   state offs: array<boolean> = [false, false, true]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={200ui} height={240ui}>
         <Tabs tabs={self.tabs} selected={mut self.page} counts={[12, 3, 0]} offs={self.offs} vertical={true} />
@@ -240,7 +240,7 @@ class Tabbed {
 
   constructor(tabs: array<WindowTabSpec>) { self.tabs = tabs }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
@@ -275,7 +275,7 @@ class Buttons {
   state plate: ButtonPlate = .Bronze
   state disabled = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <PushButton label={"Make"} width={140.625dp} plate={self.plate} disabled={self.disabled} /> }
   }
 }
@@ -293,7 +293,7 @@ class Checks {
   state on = false
   state disabled = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1}>
         <Checkbox label={"Show the price"} value={mut self.on} hint={"In the tooltip"} disabled={self.disabled} />
@@ -324,7 +324,7 @@ class Modes {
   state mode: Mode = Mode::Auction
   state disabled = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Segmented value={mut self.mode} disabled={self.disabled} choices={[
         { value: Mode::Auction, label: "Auction" },
@@ -351,7 +351,7 @@ class Lists {
   state off = false
   state open = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} width={351.5625dp}>
         <ListTab label={"Bars"} selected={self.selected} icon={ICON} off={self.off} />
@@ -387,7 +387,7 @@ class Sorted {
   state descending = false
   state selected = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={585.9375dp}>
         <Table columns={COLUMNS} sorted={mut self.column} descending={mut self.descending}>
@@ -420,7 +420,7 @@ class Menus {
     { label: "Delete", group: true }
   ]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={234.375dp} height={35.15625dp}>
         <Menu entries={self.entries} />
@@ -450,14 +450,14 @@ class Listed implements Entry {
   public state on = false
   public state pages: array<SettingsPage> = []
 
-  public enable(self, on: boolean) {}
+  public enable(on: boolean) {}
 }
 
 class Modules {
   state shown = ""
   public const entry: mut Listed = new Listed()
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={351.5625dp}>
         <ModuleRow entry={self.entry} shown={self.shown} />
@@ -483,7 +483,7 @@ class Slots {
   state quality: Quality = Quality::Common
   state dimmed = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <ItemButton item={2589} count={5} quality={self.quality} dimmed={self.dimmed} /> }
   }
 }

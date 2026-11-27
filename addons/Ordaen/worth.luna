@@ -208,17 +208,17 @@ public class GearWorth {
     Events::PLAYER_EQUIPMENT_CHANGED.listen(self.readWorn)
   }
 
-  readWorn(mut self) {
+  mut readWorn() {
     const worn: array<string> = []
     for (slot of 1..LAST_WORN) { worn.push(Client::GetInventoryItemLink("player", slot) ?? "") }
     self.worn = worn
   }
 
   // The builds picked and preferred, by their keys; empty: none.
-  public pick(mut self, build: string) { self.picked = build == "" ? nil : build }
-  public prefer(mut self, build: string) { self.preferred = build == "" ? nil : build }
+  public mut pick(build: string) { self.picked = build == "" ? nil : build }
+  public mut prefer(build: string) { self.preferred = build == "" ? nil : build }
 
-  weightsNow(self): Weights | nil {
+  weightsNow(): Weights | nil {
     const spec = self.spec
     if (spec == nil) { return nil }
     return Game::player.level >= MAX_LEVEL ? spec.max : spec.leveling
@@ -226,7 +226,7 @@ public class GearWorth {
 
   // An item's worth to the spec, by its link: the sum of its stats, each by its weight; none where the spec weighs
   // nothing or the item isn't worn.
-  public scoreOf(self, link: string): number | nil {
+  public scoreOf(link: string): number | nil {
     const weights = self.weights
     if (weights == nil) { return nil }
     let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
@@ -244,7 +244,7 @@ public class GearWorth {
   // nought: worth less): against the least of the slots it can take (`placesFor`), a two-handed weapon against both
   // hands. Nothing worn there: 1. None where the item isn't worn, the class can never use it, or the spec weighs
   // nothing.
-  public upgradeOf(self, link: string): number | nil {
+  public upgradeOf(link: string): number | nil {
     let _, _, _, worn, _, itemClass, kind = Client::C_Item::GetItemInfoInstant(link)
     if (worn == nil || !classCanUse(Game::player.classTag, (itemClass ?? 0).floor(), (kind ?? 0).floor())) { return nil }
     const score = self.scoreOf(link)
@@ -266,7 +266,7 @@ public class GearWorth {
   }
 
   // A two-handed weapon is held.
-  twoHanded(self): boolean {
+  twoHanded(): boolean {
     const link = self.worn[MAIN_HAND] ?? ""
     if (link == "") { return false }
     let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
@@ -274,7 +274,7 @@ public class GearWorth {
   }
 
   // The worth of what the player wears in a slot; nought for nothing.
-  wornScore(self, slot: integer): number {
+  wornScore(slot: integer): number {
     const link = self.worn[slot] ?? ""
     return link != "" ? self.scoreOf(link) ?? 0 : 0
   }

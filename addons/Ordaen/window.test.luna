@@ -17,7 +17,7 @@ class Tabbed {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
@@ -37,10 +37,10 @@ class Gearbox {
 
   constructor(withSettings: boolean) { self.withSettings = withSettings }
 
-  onSettings(mut self) { self.opened += 1 }
-  onClose(mut self) { self.closed += 1 }
+  mut onSettings() { self.opened += 1 }
+  mut onClose() { self.closed += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} withSettings={self.withSettings}
               @settings={self.onSettings} @close={self.onClose}>
@@ -79,14 +79,14 @@ class Desk {
   // The window the last click on a body reached.
   public state hit: string = ""
 
-  onAlpha(mut self) { self.hit = "Alpha" }
-  onBeta(mut self) { self.hit = "Beta" }
-  onGamma(mut self) { self.hit = "Gamma" }
-  closeAlpha(mut self) { self.alphaOpen = false }
-  closeBeta(mut self) { self.betaOpen = false }
-  closeGamma(mut self) { self.gammaOpen = false }
+  mut onAlpha() { self.hit = "Alpha" }
+  mut onBeta() { self.hit = "Beta" }
+  mut onGamma() { self.hit = "Gamma" }
+  mut closeAlpha() { self.alphaOpen = false }
+  mut closeBeta() { self.betaOpen = false }
+  mut closeGamma() { self.gammaOpen = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box>
         <Window shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} declared={mut self.alpha}
@@ -176,7 +176,7 @@ class Crowded {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("crowded", "crowded", { x: 0ui, y: 0ui, width: 330ui, height: 200ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} withSettings={true}>
         <text value={"the page"} />
@@ -249,7 +249,7 @@ class Pinned {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("pinned", "pinned", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
@@ -458,9 +458,9 @@ class Footed {
     </box>
   }
 
-  onSave(mut self) { self.saved += 1 }
+  mut onSave() { self.saved += 1 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
         <box background={FACE}>
@@ -492,7 +492,7 @@ class Floored {
     </box>
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
         <box background={FACE}>
@@ -524,7 +524,7 @@ class Plain {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("plain", "plain", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <box background={FACE}>
@@ -566,7 +566,7 @@ class Sided {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}
               side={self.details}>
@@ -626,7 +626,7 @@ class Across {
     bottom: .OverFooter
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}
               side={self.details}>
@@ -667,7 +667,7 @@ class WideSide {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} side={self.details}>
         <text value={"the list"} />
@@ -711,7 +711,7 @@ class TwoFooters {
     }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}
               side={self.details}>

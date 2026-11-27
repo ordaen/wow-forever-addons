@@ -12,7 +12,7 @@ const LINE: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Top] }
 const ROOM: Edges = { top: 2sp, bottom: 2sp, ..FOOTER_ROOM }
 
 public class FooterBand implements Component {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box border={LINE} background={ARTWORK.window.marble} padding={ROOM}>
         <slot />

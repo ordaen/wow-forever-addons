@@ -120,9 +120,9 @@ public class Callout implements Component {
     self.pulse = pulse
   }
 
-  onClose(mut self) { self.close.emit() }
+  mut onClose() { self.close.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <surface $if={self.framed} layer={Layer::Dialog} place={self.bubblePlace} clamp={true} columns={1}>
         <box leading={.Tight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}

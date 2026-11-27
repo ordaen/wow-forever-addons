@@ -32,19 +32,19 @@ public class CraftQueue {
   }
 
   // A profession's lines, in the order they run.
-  public linesOf(self, skillLine: integer | nil): array<Queued> {
+  public linesOf(skillLine: integer | nil): array<Queued> {
     return self.lines.filter(line => line.skillLine == skillLine)
   }
 
   // Why a profession's queue waits.
-  public pauseOf(self, skillLine: integer | nil): Pause {
+  public pauseOf(skillLine: integer | nil): Pause {
     if (skillLine == nil) { return Pause::None }
     return self.paused[skillLine] ?? Pause::None
   }
 
   // «Create» in the open profession: the recipe joins its queue (its count grows where it is there); with nothing of
   // the profession ahead of it and no run going, its run starts now, in the click. Whether it waits.
-  public add(mut self, skillLine: integer, recipe: integer, name: string, count: integer): boolean {
+  public mut add(skillLine: integer, recipe: integer, name: string, count: integer): boolean {
     const before = peek self.lines
     const ahead = before.any(entry => entry.skillLine == skillLine)
     let queue: array<Queued> = []
@@ -68,7 +68,7 @@ public class CraftQueue {
   }
 
   // A recipe's count is `count`; at nought it leaves the queue.
-  public recount(mut self, recipe: integer, count: integer) {
+  public mut recount(recipe: integer, count: integer) {
     // The running line taken out: the queue no longer follows its run.
     if (count < 1 && recipe == peek self.making) { self.left = 0 }
     let queue: array<Queued> = []
@@ -80,7 +80,7 @@ public class CraftQueue {
   }
 
   // The player's «Stop»: the run ends with the craft under way, and its recipe leaves the queue.
-  public stop(mut self) {
+  public mut stop() {
     if (!peek self.running) { return }
     Game::tradeSkill.stop()
     self.recount(peek self.making, 0)
@@ -88,7 +88,7 @@ public class CraftQueue {
 
   // The player's click («Create next», or «Create» with nothing ahead): the open profession's first line's run
   // starts, as many as the bags make of what is left of it. Where it can't, that queue pauses and says why.
-  public next(mut self) {
+  public mut next() {
     const open = peek Game::tradeSkill.open
     if (open == nil || peek self.running) { return }
     const first = (peek self.lines).find(entry => entry.skillLine == open)
@@ -110,7 +110,7 @@ public class CraftQueue {
   }
 
   // One craft of the run made: its line has one fewer to make, and leaves the queue at nought.
-  onMade(mut self, recipe: integer) {
+  mut onMade(recipe: integer) {
     if (!peek self.running || recipe != peek self.making) { return }
     const line = (peek self.lines).find(entry => entry.recipe == recipe)
     self.left -= 1
@@ -118,7 +118,7 @@ public class CraftQueue {
   }
 
   // The run ended early: its profession's queue keeps what is left and waits.
-  onStopped(mut self, stop: Game::CraftStop) {
+  mut onStopped(stop: Game::CraftStop) {
     if (!peek self.running) { return }
     self.left = 0
     const making = peek self.making
@@ -129,14 +129,14 @@ public class CraftQueue {
 
   // A fight: nothing more starts in any profession until the player's click after it (a run already going is the
   // client's).
-  onCombat(mut self, fighting: boolean) {
+  mut onCombat(fighting: boolean) {
     if (!fighting) { return }
     let paused = (peek self.paused).clone()
     for (line of peek self.lines) { paused[line.skillLine] = Pause::Combat }
     self.write(peek self.lines, paused)
   }
 
-  pause(mut self, skillLine: integer, why: Pause) {
+  mut pause(skillLine: integer, why: Pause) {
     if (why == peek self.pauseOf(skillLine)) { return }
     let paused = (peek self.paused).clone()
     paused[skillLine] = why
@@ -145,7 +145,7 @@ public class CraftQueue {
 
   // The queue kept, each line's count held to the most a line takes, and a pause kept only for a profession that has
   // lines.
-  write(mut self, queue: array<Queued>, paused: map<integer, Pause>) {
+  mut write(queue: array<Queued>, paused: map<integer, Pause>) {
     const now = peek self.memory.values
     const held = queue.map((line: Queued): Queued => ({ count: line.count.min(MOST_COUNT), ..line }))
     let kept: map<integer, Pause> = {}

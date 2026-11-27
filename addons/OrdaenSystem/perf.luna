@@ -62,25 +62,25 @@ public class Profiler {
   names: array<string> = []
 
   // Sampling begins: now, then once a second until `stop`.
-  public start(mut self, names: array<string>) {
+  public mut start(names: array<string>) {
     self.names = names
     self.run += 1
     self.weigh()
     self.turn(self.run)
   }
 
-  public stop(mut self) {
+  public mut stop() {
     self.run += 1
   }
 
-  turn(mut self, run: integer) {
+  mut turn(run: integer) {
     if (run != self.run) { return }
     self.sample()
     Client::C_Timer::After(1, (): nil => self.turn(run))
   }
 
   // The four shares and the spikes of every addon sampled, and the whole's.
-  public sample(mut self) {
+  public mut sample() {
     self.measuring = Client::C_AddOnProfiler::IsEnabled()
     if (!(peek self.measuring)) { return }
     const map: map<string, Load> = {}
@@ -102,7 +102,7 @@ public class Profiler {
   }
 
   // Every addon's memory, read anew.
-  public weigh(mut self) {
+  public mut weigh() {
     Client::UpdateAddOnMemoryUsage()
     const map: map<string, number> = {}
     for (name of self.names) { map[name] = Client::GetAddOnMemoryUsage(name) }

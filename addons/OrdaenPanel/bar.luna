@@ -73,13 +73,13 @@ public class Slot {
 
   // The template's art fitted to the size the button gives the client's frame: told by the button itself, as the
   // client tells some of these frames no `OnSizeChanged` (two bars of 37 kept the art at 45's in the game).
-  public fit(self, size: number) { fitArt(self.art, size) }
+  public fit(size: number) { fitArt(self.art, size) }
 
-  onSlotChanged(mut self, slot: number) {
+  mut onSlotChanged(slot: number) {
     if (self.frame.action == slot) { self.readHolds() }
   }
 
-  public readHolds(mut self) {
+  public mut readHolds() {
     const action = self.frame.action
     // None yet (made, before its slot or place is told): it is taken to hold what it will show.
     self.holds = action == nil || action < 1 || Client::C_ActionBar::HasAction(action)
@@ -256,7 +256,7 @@ public class Button implements Component {
     watch (given of self.size) { self.slot.fit(given / 1ui) }
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.size} height={self.size}>
         <box $if={self.face.icon != nil && self.slot.shown} position={Position::Absolute} left={0ui} top={0ui}
@@ -408,11 +408,11 @@ public class Bar implements Component {
     }
   }
 
-  reform(mut self) { self.readForms(peek self.forms) }
+  mut reform() { self.readForms(peek self.forms) }
 
   // The forms learned again: a new rank of one (a paladin's aura) changes its spell and its icon, their count the same.
   // Each button does the form's spell as it is now, written after the fight where it comes in one.
-  relearn(mut self) {
+  mut relearn() {
     Ordaen.afterCombat(() => {
       self.readForms(peek self.forms)
       self.armForms(peek self.forms)
@@ -420,7 +420,7 @@ public class Bar implements Component {
   }
 
   // The stances' faces, each form's by its button's place: whether the player is in it, whether it can be taken.
-  readForms(mut self, count: integer) {
+  mut readForms(count: integer) {
     const faces: array<Face> = []
     for (index of 1..self.spec.most) {
       let icon, active, castable, _ = Client::GetShapeshiftFormInfo(index)
@@ -431,7 +431,7 @@ public class Bar implements Component {
 
   // Each form's button does its spell. Out of a fight alone, as the forms are counted: a button's attributes are
   // protected in one.
-  armForms(self, count: integer) {
+  armForms(count: integer) {
     for (index, slot of peek self.slots) {
       let _, _, _, spell = Client::GetShapeshiftFormInfo(index)
       slot.frame.SetAttribute("spell", index <= count ? spell : nil)
@@ -439,7 +439,7 @@ public class Bar implements Component {
   }
 
   // Each form's cooldown, on its button's sweep.
-  readCooldowns(self) {
+  readCooldowns() {
     for (index, slot of peek self.slots) {
       let start, duration, _ = Client::GetShapeshiftFormCooldown(index)
       slot.frame.cooldown.SetCooldown(start, duration)
@@ -447,16 +447,16 @@ public class Bar implements Component {
   }
 
   // The client's Quick Keybind mode opens (`true`) or closes: each button shows the mode's highlight while it runs.
-  keybinding(self, on: boolean) {
+  keybinding(on: boolean) {
     for (slot of peek self.slots) { slot.frame.DoModeChange(on) }
   }
 
-  petOf(mut self, unit: string) {
+  mut petOf(unit: string) {
     if (unit == "player") { self.readPet() }
   }
 
   // The pet's faces, each place's of its bar: a command's icon is named by a global of the client's.
-  readPet(mut self) {
+  mut readPet() {
     const faces: array<Face> = []
     for (index of 1..self.spec.most) {
       let _, texture, token, active, _, _, _ = Client::GetPetActionInfo(index)
@@ -477,6 +477,45 @@ public class Bar implements Component {
     Ordaen.afterCombat(() => Bar::putAway(frames, pet))
   }
 
+  // The buttons within its count (`within`), or those past it.
+  drawnOf(within: boolean): array<Slot> {
+    const drawn: array<Slot> = []
+    for (index, slot of self.slots) {
+      if ((index <= self.count) == within) { drawn.push(slot) }
+    }
+    return drawn
+  }
+
+  // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
+  showFirst(count: integer) {
+    if (self.spec.kind != BarKind::Pet) { return }
+    for (index, slot of peek self.slots) {
+      if (index <= count) {
+        Client::RegisterStateDriver(slot.frame, "visibility", WITH_PET)
+      } else {
+        Client::UnregisterStateDriver(slot.frame, "visibility")
+      }
+    }
+  }
+
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
+  mut onGrid() { self.dragging = true }
+  mut onGridGone() { self.dragging = false }
+
+  public render(): Template {
+    return $ltml {
+      <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
+      <Placed id={self.id} title={self.title} home={self.home}>
+        <box columns={self.columns} gap={self.spacing} opacity={self.opacity}
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind::Action} keys={self.keys} size={self.size}
+                  showKeys={self.showKeys} face={self.faces[index] ?? BLANK} hideEmpty={self.hideEmpty} dragging={self.dragging} />
+        </box>
+      </Placed>
+    }
+  }
+} static {
   putAway(frames: array<any Client::Frame>, pet: boolean) {
     for (frame of frames) {
       if (pet) { Client::UnregisterStateDriver(frame, "visibility") }
@@ -494,45 +533,6 @@ public class Bar implements Component {
       BarKind::Action => Locale::BAR_TITLE.format(spec.number)
       BarKind::Pet => Locale::BAR_PET
       BarKind::Stance => Locale::BAR_STANCE
-    }
-  }
-
-  // The buttons within its count (`within`), or those past it.
-  drawnOf(self, within: boolean): array<Slot> {
-    const drawn: array<Slot> = []
-    for (index, slot of self.slots) {
-      if ((index <= self.count) == within) { drawn.push(slot) }
-    }
-    return drawn
-  }
-
-  // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
-  showFirst(self, count: integer) {
-    if (self.spec.kind != BarKind::Pet) { return }
-    for (index, slot of peek self.slots) {
-      if (index <= count) {
-        Client::RegisterStateDriver(slot.frame, "visibility", WITH_PET)
-      } else {
-        Client::UnregisterStateDriver(slot.frame, "visibility")
-      }
-    }
-  }
-
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-  onGrid(mut self) { self.dragging = true }
-  onGridGone(mut self) { self.dragging = false }
-
-  public render(self): Template {
-    return $ltml {
-      <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
-      <Placed id={self.id} title={self.title} home={self.home}>
-        <box columns={self.columns} gap={self.spacing} opacity={self.opacity}
-             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind::Action} keys={self.keys} size={self.size}
-                  showKeys={self.showKeys} face={self.faces[index] ?? BLANK} hideEmpty={self.hideEmpty} dragging={self.dragging} />
-        </box>
-      </Placed>
     }
   }
 }

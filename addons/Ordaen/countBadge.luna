@@ -25,7 +25,7 @@ public class CountBadge implements Component {
     self.tone = tone
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={WIDE} padding={PAD} xAlign={Align::Center} yAlign={Align::Center}
            background={Ordaen.art.panel.countBadge} desaturate={self.toned} tint={self.tone}>

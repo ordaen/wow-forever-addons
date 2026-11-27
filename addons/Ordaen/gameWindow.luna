@@ -17,17 +17,17 @@ public class GamePass {
   passing: any Frame | nil = nil
 
   // Whether the game's window, shown, is the one let through: ours stays shut.
-  public passes(self, frame: any Frame): boolean { return self.passing == frame }
+  public passes(frame: any Frame): boolean { return self.passing == frame }
 
   // The game's window hidden: let through no more. Whether it was the one let through (its hide isn't ours to follow).
-  public hidden(mut self, frame: any Frame): boolean {
+  public mut hidden(frame: any Frame): boolean {
     if (self.passing != frame) { return false }
     self.passing = nil
     return true
   }
 
   // The game's window shown as it is; its owner closes its own first.
-  public pass(mut self, frame: any Frame) {
+  public mut pass(frame: any Frame) {
     const window: any Client::Frame = frame
     self.passing = frame
     Client::ShowUIPanel(window)
@@ -38,9 +38,9 @@ public class GamePass {
 public class GameWindowButton implements Component {
   public click: Event<nil> = new Event()
 
-  onClick(self) { self.click.emit() }
+  onClick() { self.click.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <PushButton $if={Build::dev} label={Locale::GAME_WINDOW} width={BUTTON_WIDTH} @click={self.onClick} /> }
   }
 }

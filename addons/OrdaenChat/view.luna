@@ -44,15 +44,15 @@ public class TabButton implements Component {
     self.ground = ground
   }
 
-  onPick(mut self) { self.pick.emit(peek self.tab) }
+  mut onPick() { self.pick.emit(peek self.tab) }
 
-  onMenu(mut self) { self.menu.emit(peek self.tab) }
+  mut onMenu() { self.menu.emit(peek self.tab) }
 
-  onEnter(mut self) { self.hovered = true }
+  mut onEnter() { self.hovered = true }
 
-  onLeave(mut self) { self.hovered = false }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={1} @pointerPress(.Right)={self.onMenu} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         // The shade behind it out of the flow (every tab one size), up to the lines' ground.
@@ -101,9 +101,9 @@ public class Row implements Component {
     self.lineHeight = lineHeight
   }
 
-  onLink(mut self, link: Event::Link) { self.link.emit(link) }
+  mut onLink(link: Event::Link) { self.link.emit(link) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SessionRule $if={self.opens} began={self.began} />
       <box columns={1}>

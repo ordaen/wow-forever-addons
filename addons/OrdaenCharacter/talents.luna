@@ -61,10 +61,10 @@ class TreeColumn implements Component {
     self.search = search
   }
 
-  onSpend(mut self, id: integer) { self.spend.emit(id) }
-  onRefund(mut self, id: integer) { self.refund.emit(id) }
+  mut onSpend(id: integer) { self.spend.emit(id) }
+  mut onRefund(id: integer) { self.refund.emit(id) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box xAlign={Align::Center} yAlign={Align::Stretch} padding={{ top: 3sp, bottom: 3sp }}>
         <box $if={self.after} position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={LINE} background={LINE_COLOR} />
@@ -84,7 +84,7 @@ class PointsLeft implements Component {
     self.unspent = unspent
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align::Center}>
         <text value={Locale::TALENT_POINTS} textColor={Style::INK} wrap={.None} />
@@ -107,10 +107,10 @@ class WipePrice implements Component {
     self.wipeCost = wipeCost
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align::Center} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
@@ -162,13 +162,13 @@ public class TalentsPage implements Component {
     self.classTag = classTag
   }
 
-  onSpend(mut self, id: integer) { self.spend.emit(id) }
-  onRefund(mut self, id: integer) { self.refund.emit(id) }
-  onApply(mut self) { self.apply.emit() }
-  onCancel(mut self) { self.cancel.emit() }
-  onActivate(mut self) { self.activate.emit() }
+  mut onSpend(id: integer) { self.spend.emit(id) }
+  mut onRefund(id: integer) { self.refund.emit(id) }
+  mut onApply() { self.apply.emit() }
+  mut onCancel() { self.cancel.emit() }
+  mut onActivate() { self.activate.emit() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PAGE}>
         <box columns={TOP} gap={2.5sp} yAlign={Align::Center} padding={BAND_ROOM} border={rimAt(Side::Bottom)}>

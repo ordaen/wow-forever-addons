@@ -44,12 +44,12 @@ public class SkillBar implements Component {
     self.most = most
   }
 
-  shareOf(self): number {
+  shareOf(): number {
     if (self.most <= 0) { return 0 }
     return (1).min(self.rank / self.most)
   }
 
-  labelOf(self): string {
+  labelOf(): string {
     if (self.rank <= 0 && self.most <= 0) { return "" }
     const skill = "%d / %d".format(self.rank, self.most)
     const rank = rankOf(self.most)
@@ -57,7 +57,7 @@ public class SkillBar implements Component {
     return rank + " · " + skill
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
         <box background={TROUGH} overflow={Overflow::Hidden}>

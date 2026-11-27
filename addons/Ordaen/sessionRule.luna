@@ -23,7 +23,7 @@ public class SessionRule implements Component {
     self.began = began
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COLUMNS} gap={2sp} yAlign={Align::Center}>
         <box height={1ui} background={RULE} />

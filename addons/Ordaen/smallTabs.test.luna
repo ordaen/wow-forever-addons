@@ -7,7 +7,7 @@ const LIGHT: Color = Color::hex("#ffffff14")
 class Page {
   public state picked = 1
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml { <SmallTabs tabs={["Where to learn", "Prices & costs"]} selected={mut self.picked} /> }
   }
 }

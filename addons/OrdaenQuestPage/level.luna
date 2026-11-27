@@ -22,7 +22,7 @@ public class QuestLevel implements Component {
     self.color = color
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={{ each: "max-content" }}>
         <text value={self.tens} textColor={self.tensColor} textFont={.Numbers} wrap={.None} />

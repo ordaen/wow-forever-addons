@@ -16,7 +16,7 @@ class Page {
   public state also: array<Reward> = [given("One"), given("Two"), given("Three"), given("Four")]
   public state standings: array<Standing> = [{ name: "Stormwind", amount: 250 }]
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={500dp}>
         <Rewards views={[]} also={self.also} xp={1200} money={0} standings={self.standings} />
@@ -31,7 +31,7 @@ const FOLDED_ROWS: array<Track> = ["max-content"]
 class Parchment {
   public state folded = true
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SCROLL_WIDTH} rows={self.folded ? FOLDED_ROWS : [SCROLL_ROW]}>
         <Scroll title={"The Defias Brotherhood"} folded={mut self.folded}>
@@ -58,7 +58,7 @@ test "a folded scroll holds its title alone on a sheet close round it, and a cli
 class WideParchment {
   public state folded = false
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SCROLL_WIDTH * 2} rows={[SCROLL_ROW]}>
         <Scroll title={"The Defias Brotherhood"} folded={mut self.folded}>
@@ -95,7 +95,7 @@ test "in a place twice its art's width the sheet fills it, its corners at their 
 }
 
 class Heading {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={400ui}>
         <ScrollHeading title={"Objectives"} />
@@ -134,7 +134,7 @@ test "experience and each reputation stand a row each, off the rewards: what it 
 }
 
 class ReadPage {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={SCROLL_WIDTH} rows={[{ fr: 0 }, SCROLL_ROW]}>
         <text value={"Find the Defias."} />

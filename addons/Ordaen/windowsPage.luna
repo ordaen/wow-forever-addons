@@ -50,9 +50,9 @@ class WindowItem implements Component {
     self.current = current
   }
 
-  onPick(self, button: MouseButton) { self.picked.emit(self.index) }
+  onPick(button: MouseButton) { self.picked.emit(self.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SelectItem selected={self.chosen} first={self.index == 1} @pick={self.onPick}>
         <text value={self.title} textColor={INK} />
@@ -89,13 +89,13 @@ public class WindowsPage implements Component {
   }
 
   // The picked window's memory, followed.
-  viewOf(self): WindowView {
+  viewOf(): WindowView {
     const window = self.windows[self.current]
     if (window == nil) { return {} }
     return window.memory.values
   }
 
-  tabChoicesOf(self): array<Choice<integer>> {
+  tabChoicesOf(): array<Choice<integer>> {
     const list: array<Choice<integer>> = [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
     const window = self.windows[self.current]
     if (window == nil) { return list }
@@ -103,7 +103,7 @@ public class WindowsPage implements Component {
     return list
   }
 
-  show(mut self, view: WindowView) {
+  mut show(view: WindowView) {
     self.remember = view.remember
     self.full = view.full
     self.x = (view.x / 1ui).round()
@@ -117,7 +117,7 @@ public class WindowsPage implements Component {
 
   // What the controls hold, written where it differs from the memory (a whole number differs from a place only where
   // the player typed it).
-  keep(mut self) {
+  mut keep() {
     const remember = self.remember
     const full = self.full
     const x = self.x
@@ -143,9 +143,9 @@ public class WindowsPage implements Component {
     if (!next.equal(was)) { window.memory.write(next) }
   }
 
-  onPick(mut self, index: integer) { self.current = index }
+  mut onPick(index: integer) { self.current = index }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={COLUMNS} gap={6sp}>
         <box columns={1}>

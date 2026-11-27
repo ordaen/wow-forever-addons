@@ -31,7 +31,7 @@ public class TextField implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <input value={mut self.value} width={351.5625dp} height={35.15625dp} padding={PADDING} background={FILL}

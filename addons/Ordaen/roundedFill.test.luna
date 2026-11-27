@@ -5,7 +5,7 @@ import { RoundedFill } from "@/roundedFill"
 const DARK: Color = Color::hex("#000000cc")
 
 class Filled {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={200ui} height={100ui}>
         <RoundedFill color={DARK} radius={10ui} />
@@ -27,7 +27,7 @@ test "a rounded fill covers its box: the middle top to bottom, a strip down each
 }
 
 class TopRight {
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={200ui} height={100ui}>
         <RoundedFill color={DARK} radius={10ui} corners={{ topLeft: false, topRight: true, bottomLeft: false, bottomRight: false }} />

@@ -31,9 +31,9 @@ class SmallTab implements Component {
     self.selected = selected
   }
 
-  onPick(mut self) { self.pick.emit(self.index) }
+  mut onPick() { self.pick.emit(self.index) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box padding={TAB_PAD} background={self.back} border={self.rule} interactionState={self.$interactionState}
            @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
@@ -55,9 +55,9 @@ public class SmallTabs implements Component {
     self.selected = selected
   }
 
-  onPick(mut self, index: integer) { self.selected = index }
+  mut onPick(index: integer) { self.selected = index }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={{ each: "max-content" }} gap={2sp} yAlign={Align::Center}>
         <SmallTab $for={index, label of self.tabs} label={label} index={index} selected={self.selected} @pick={self.onPick} />

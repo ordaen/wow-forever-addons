@@ -152,7 +152,7 @@ public class ZoneBox implements Component {
     self.panel = panel
   }
 
-  alignOf(self): Align {
+  alignOf(): Align {
     // With the experience bar in it nothing is aligned: an aligned item keeps its content's size, and the bar
     // takes the room the others leave.
     if (self.experience) { return Align::Stretch }
@@ -163,7 +163,7 @@ public class ZoneBox implements Component {
     }
   }
 
-  tracks(self): array<Track> {
+  tracks(): array<Track> {
     let list: array<Track> = []
     for (here of [self.micro, self.socialAlone]) {
       if (here) { list.push("max-content") }
@@ -176,9 +176,9 @@ public class ZoneBox implements Component {
     return list
   }
 
-  onClock(mut self) { Game::clock.toggleCalendar() }
+  mut onClock() { Game::clock.toggleCalendar() }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={self.columns} rows={self.rows} gap={3sp} xAlign={self.along}
            yAlign={self.across}>
@@ -346,7 +346,7 @@ public class Panel implements Module, App {
   // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.
   derived overflow: Overflow | nil = self.vertical ? Overflow::Scroll : nil
 
-  outlineOf(self): integer {
+  outlineOf(): integer {
     match (self.settings.values.outline) {
       Outline::None => return 0
       Outline::Thin => return 1
@@ -354,7 +354,7 @@ public class Panel implements Module, App {
     }
   }
 
-  xpFillOf(self): Art {
+  xpFillOf(): Art {
     match (self.settings.values.xpTexture) {
       XpTexture::Theme => return Ordaen.lookArt.bar
       XpTexture::Deep => return xpFillArt(XpFill::Deep)
@@ -367,7 +367,7 @@ public class Panel implements Module, App {
   }
 
   // Where an item sits.
-  at(self, item: Item): Zone {
+  at(item: Item): Zone {
     const places = self.settings.values.places
     match (item) {
       Item::Micromenu => return places.micromenu
@@ -380,26 +380,26 @@ public class Panel implements Module, App {
     }
   }
 
-  isFree(self, item: Item): boolean { return !self.settings.values.bottomOn || self.at(item) == Zone::Off }
+  isFree(item: Item): boolean { return !self.settings.values.bottomOn || self.at(item) == Zone::Off }
 
   // Whether an item sits in a zone of the panel.
-  public microIn(self, zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Micromenu) == zone }
-  public socialIn(self, zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Social) == zone }
-  public experienceIn(self, zone: Zone): boolean { return self.settings.values.statusOn && self.at(Item::Experience) == zone }
-  public zoneIn(self, zone: Zone): boolean { return self.at(Item::Zone) == zone }
-  public clockIn(self, zone: Zone): boolean { return self.at(Item::Clock) == zone }
-  public moneyIn(self, zone: Zone): boolean { return self.at(Item::Currencies) == zone }
-  public bagsIn(self, zone: Zone): boolean { return self.at(Item::Bags) == zone }
+  public microIn(zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Micromenu) == zone }
+  public socialIn(zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Social) == zone }
+  public experienceIn(zone: Zone): boolean { return self.settings.values.statusOn && self.at(Item::Experience) == zone }
+  public zoneIn(zone: Zone): boolean { return self.at(Item::Zone) == zone }
+  public clockIn(zone: Zone): boolean { return self.at(Item::Clock) == zone }
+  public moneyIn(zone: Zone): boolean { return self.at(Item::Currencies) == zone }
+  public bagsIn(zone: Zone): boolean { return self.at(Item::Bags) == zone }
 
   // How visible it is now, by its visibility in the state the player is in, the cursor on it or on its portrait. In
   // the placing mode it shows, to be taken to another side.
-  opacityOf(self): number {
+  opacityOf(): number {
     if (Ordaen.placing) { return 1 }
     return opacityNow(self.settings.values.visibility, self.hovered || self.portraitHovered)
   }
 
   // What the other modules' sources give now, none left out where one has nothing to show.
-  partsOf(self): array<XpPart> {
+  partsOf(): array<XpPart> {
     const parts: array<XpPart> = []
     for (source of self.xpSources) {
       const part = source.part()
@@ -408,36 +408,36 @@ public class Panel implements Module, App {
     return parts
   }
 
-  placeOf(self): Docked {
+  placeOf(): Docked {
     return { side: self.side, whole: self.settings.values.fit == Fit::Full }
   }
 
   // Dragged in the placing mode, it stands along the side nearest the cursor; let go, that side is its edge from
   // then, as if chosen on its page. Right-clicked, it goes back to the edge it starts at.
-  onDock(mut self, drag: Event::Drag) { self.docking = sideNear(drag) }
+  mut onDock(drag: Event::Drag) { self.docking = sideNear(drag) }
 
-  onDocked(mut self) {
+  mut onDocked() {
     const side = peek self.docking
     self.docking = nil
     if (side != nil) { self.putOn(edgeOf(side)) }
   }
 
-  onUndock(mut self) { self.putOn(self.settings.defaults.edge) }
+  mut onUndock() { self.putOn(self.settings.defaults.edge) }
 
-  putOn(mut self, edge: Edge) {
+  mut putOn(edge: Edge) {
     self.settings.change((values: mut Choices) => { values.edge = edge })
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-  readTalents(mut self) { self.unspentTalents = Game::talentTrees.unspent(Game::talentTrees.activeGroup()) }
-  onPoints(mut self, changed: number) { self.readTalents() }
-  onGroup(mut self, now: number, before: number) { self.readTalents() }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
+  mut readTalents() { self.unspentTalents = Game::talentTrees.unspent(Game::talentTrees.activeGroup()) }
+  mut onPoints(changed: number) { self.readTalents() }
+  mut onGroup(now: number, before: number) { self.readTalents() }
 
-  onPortraitEnter(mut self) { self.portraitHovered = true }
-  onPortraitLeave(mut self) { self.portraitHovered = false }
+  mut onPortraitEnter() { self.portraitHovered = true }
+  mut onPortraitLeave() { self.portraitHovered = false }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       // What the panel takes the place of, for as long as it runs. The menu's box is unseen, not hidden: the game
       // lays its buttons out by their places, which a hidden box doesn't have.

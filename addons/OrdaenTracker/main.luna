@@ -140,7 +140,7 @@ public class Tracker implements Module, App {
   }
 
   // The log's quests as the client has them now; an objective that moved on sounds as the game's tracker does.
-  public refresh(mut self) {
+  public mut refresh() {
     const tracked = Game::questLog.quests()
     const heard: map<integer, string> = {}
     let rolled = false
@@ -161,7 +161,7 @@ public class Tracker implements Module, App {
 
   // The cooldowns running on the tracked quests' items, as the client says one started or ended
   // (`BAG_UPDATE_COOLDOWN`, which every use of an item or a spell sends: nothing is read while no quest has an item).
-  readCooldowns(mut self) {
+  mut readCooldowns() {
     const quests = peek self.quests
     // A quest without its item draws no button: what is kept of it stays unread.
     if (!hasItem(quests)) { return }
@@ -173,10 +173,10 @@ public class Tracker implements Module, App {
     self.cooldowns = running
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  mut onEnter() { self.hovered = true }
+  mut onLeave() { self.hovered = false }
 
-  onAsk(mut self, id: integer, ask: Ask) {
+  mut onAsk(id: integer, ask: Ask) {
     match (ask) {
       .Open => { self.open(id) }
       // Shift+click, the game's order: a chat link where a chat line is open, else it stops tracking it.
@@ -190,7 +190,7 @@ public class Tracker implements Module, App {
   }
 
   // The quest in the log: the first module that opens it, else the game's map with its log.
-  open(self, id: integer) {
+  open(id: integer) {
     for (entry of self.openers) {
       if (entry.open(id)) { return }
     }
@@ -199,22 +199,22 @@ public class Tracker implements Module, App {
   }
 
   // The quest on the map: the first module that shows where it leads, else the game's map as it was.
-  showOnMap(self, id: integer) {
+  showOnMap(id: integer) {
     for (entry of self.openers) {
       if (entry.showOnMap(id)) { return }
     }
     Client::C_Map::OpenWorldMap(nil)
   }
 
-  onAbandonYes(mut self) {
+  mut onAbandonYes() {
     const id = peek self.abandoning
     self.abandoning = 0
     if (id != 0) { Game::questLog.abandon(id) }
   }
 
-  onAbandonNo(mut self) { self.abandoning = 0 }
+  mut onAbandonNo() { self.abandoning = 0 }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame of={Game::frames.ObjectiveTracker} opacity={0} away={true} />
       <Placed $if={self.drawn} id={PART} title={Locale::PLACE} home={self.home}>
@@ -283,12 +283,12 @@ class TrackedQuest implements Component {
     self.cooldown = cooldown
   }
 
-  onOpen(mut self) { self.ask.emit(self.quest.id, Ask::Open) }
-  onShift(mut self) { self.ask.emit(self.quest.id, Ask::Link) }
-  onMenu(mut self) { self.menuOpen = true }
-  onClose(mut self) { self.menuOpen = false }
+  mut onOpen() { self.ask.emit(self.quest.id, Ask::Open) }
+  mut onShift() { self.ask.emit(self.quest.id, Ask::Link) }
+  mut onMenu() { self.menuOpen = true }
+  mut onClose() { self.menuOpen = false }
 
-  onEntry(mut self, index: integer) {
+  mut onEntry(index: integer) {
     self.menuOpen = false
     const ask = match (index) {
       1 => Ask::SuperTrack
@@ -301,7 +301,7 @@ class TrackedQuest implements Component {
     self.ask.emit(self.quest.id, ask)
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box columns={QUEST} gap={LINES_GAP} yAlign={Align::Center} padding={ROW_PAD} background={SHADE}
            @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift} @pointerPress(.Right)={self.onMenu}>

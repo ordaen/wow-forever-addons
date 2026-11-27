@@ -22,7 +22,7 @@ public class TextBox implements Component {
     self.height = height
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <input value={mut self.value} height={self.height} padding={PADDING} background={FILL} border={EDGE}
              textColor={INK} overflow={Overflow::Hidden} multiline={true} selectOnShow={true} />

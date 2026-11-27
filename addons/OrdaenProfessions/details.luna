@@ -146,51 +146,51 @@ public class RecipeDetails implements Component {
     self.queueing = queueing
   }
 
-  onCreate(self, count: integer) { self.create.emit(count) }
-  onDrop(self) { self.drop.emit(self.shown.id) }
-  placesOf(self): array<LearnPlace> {
+  onCreate(count: integer) { self.create.emit(count) }
+  onDrop() { self.drop.emit(self.shown.id) }
+  placesOf(): array<LearnPlace> {
     const source = self.source
     return source == nil ? [] : placesOf(source, sideOfPlayer())
   }
 
-  asksOf(self): string {
+  asksOf(): string {
     const source = self.source
     return source == nil ? "" : asksOf(source).join("\n")
   }
 
-  onShop(self) { self.shop.emit(self.shown.id, self.pricedCount) }
+  onShop() { self.shop.emit(self.shown.id, self.pricedCount) }
 
   // «Show the nearest on the map»: the nearest of its vendors.
-  onNearest(self) { _ = Quests?.showNearest(peek self.npcs) }
+  onNearest() { _ = Quests?.showNearest(peek self.npcs) }
 
   // How far an NPC's nearest spot is, in yards (Ordaen Quests' reading of QuestieDB); none without it.
   const distance: (npc: integer) => number | nil = (npc: integer): number | nil => Quests?.distanceTo(npc)
-  onOpen(self, place: LearnPlace) { self.open.emit(place) }
+  onOpen(place: LearnPlace) { self.open.emit(place) }
 
   // Read again when a price may have moved (`revision`).
-  partsOf(self): array<PartPrice> {
+  partsOf(): array<PartPrice> {
     const prices = self.prices
     if (prices == nil) { return [] }
     _ = prices.revision
     return partsOf(prices, self.reagents, self.pricedCount)
   }
 
-  totalsOf(self): Totals {
+  totalsOf(): Totals {
     const prices = self.prices
     if (prices == nil) { return NO_TOTALS }
     return totalsOf(prices, self.parts, self.made, yieldOf(self.shown.id), self.pricedCount)
   }
 
-  madeOf(self): integer | nil {
+  madeOf(): integer | nil {
     const schematic = Game::recipeReader.schematic(self.shown.id)
     if (schematic == nil) { return nil }
     return schematic.makes
   }
 
-  onFavorite(self) { self.act.emit(Act::Favorite, self.shown.id) }
-  onTrack(self) { self.act.emit(Act::Track, self.shown.id) }
+  onFavorite() { self.act.emit(Act::Favorite, self.shown.id) }
+  onTrack() { self.act.emit(Act::Track, self.shown.id) }
 
-  skillOf(self): string {
+  skillOf(): string {
     if (!self.shown.learned) { return Locale::NOT_LEARNED }
     match (self.shown.difficulty) {
       Game::Difficulty::Always => return Locale::DIFFICULTY_0
@@ -202,7 +202,7 @@ public class RecipeDetails implements Component {
 
   // What the work needs, a line each, red while missing: «Needs: Blacksmith Hammer». Nothing for a recipe not learned,
   // which isn't made here.
-  needsOf(self): string {
+  needsOf(): string {
     if (!self.shown.learned) { return "" }
     const lines: array<string> = []
     for (need of Game::tradeSkill.requirements(self.shown.id)) {
@@ -212,7 +212,7 @@ public class RecipeDetails implements Component {
     return lines.join("\n")
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box rows={PANEL} padding={DETAILS_ROOM} border={Ordaen.art.frame.tabIconLine}>
         <$if={self.has}>

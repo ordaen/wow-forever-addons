@@ -67,7 +67,7 @@ class StateRows implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Dropdown label={self.label} value={mut self.value.visible} choices={VISIBLES} disabled={self.disabled} />
       <NumberInput $if={self.faded} label={Locale::VISIBLE_OPACITY} hint={Locale::VISIBLE_OPACITY_TIP}
@@ -86,7 +86,7 @@ public class VisibilityRows implements Component {
     self.disabled = disabled
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <Section title={Locale::VISIBILITY}>
         <StateRows label={Locale::VISIBLE_GENERAL} value={mut self.value.general} disabled={self.disabled} />

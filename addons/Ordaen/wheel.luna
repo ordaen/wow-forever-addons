@@ -235,7 +235,7 @@ public class Wheel implements Component {
   }
 
   // The hints the middle has room for under the name.
-  hintsOf(self): array<string> {
+  hintsOf(): array<string> {
     const room = MIDDLE_LINES - (self.named ? 1 : 0)
     const hints: array<string> = []
     for (index, hint of self.middle.hints) {
@@ -245,7 +245,7 @@ public class Wheel implements Component {
   }
 
   // Slice `index`'s two edges.
-  sides(self, index: integer): [number<Angle>, number<Angle>] {
+  sides(index: integer): [number<Angle>, number<Angle>] {
     const middle = itemTurn(index, self.count)
     const half = sliceTurn(self.count) / 2
     return [middle - half, middle + half]
@@ -253,7 +253,7 @@ public class Wheel implements Component {
 
   // The curved pieces, under to over: each slice's stone, its shade, its curved edges; each band's segments and its
   // inner edge (gold in the slice aimed at); the slice aimed at, lit, and its curved edges gold.
-  cutsOf(self): array<Cut> {
+  cutsOf(): array<Cut> {
     const count = self.count
     const cuts: array<Cut> = []
     for (index, item of self.items) {
@@ -292,7 +292,7 @@ public class Wheel implements Component {
   }
 
   // A thin box along the direction `turn`, between two radii.
-  edge(self, turn: number<Angle>, from: number<Length>, to: number<Length>, width: number<Length>, tint: Color, opacity: number): Edge {
+  edge(turn: number<Angle>, from: number<Length>, to: number<Length>, width: number<Length>, tint: Color, opacity: number): Edge {
     const r = turn / 1rad
     const scale = self.scale
     const out = (from + to) / 2 * scale
@@ -305,7 +305,7 @@ public class Wheel implements Component {
 
   // The straight edges: each slice's two, the lines between a band's segments (gold in the slice aimed at, as its
   // band's inner edge is), the slice aimed at's two gold.
-  edgesOf(self): array<Edge> {
+  edgesOf(): array<Edge> {
     const count = self.count
     const edges: array<Edge> = []
     if (count < 2) { return edges }
@@ -329,7 +329,7 @@ public class Wheel implements Component {
     return edges
   }
 
-  spotsOf(self): array<Spot> {
+  spotsOf(): array<Spot> {
     const count = self.count
     const spots: array<Spot> = []
     const out = ICON_AT * self.scale * (0.4 + 0.6 * self.opening)
@@ -346,7 +346,7 @@ public class Wheel implements Component {
     return spots
   }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <box width={self.size} height={self.size} mouseThrough={true}>
         <box $for={cut of self.cuts} position={Position::Absolute} left={0dp} top={0dp} width={self.size} height={self.size}

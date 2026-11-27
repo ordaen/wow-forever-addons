@@ -114,14 +114,14 @@ public class Account implements Module, App {
     }
   }
 
-  onAddonLoaded(mut self, name: string) {
+  mut onAddonLoaded(name: string) {
     for (game of GAME_WINDOWS) {
       if (game.addon == name) { self.hook(Runtime::frame(game.frame), game.tab) }
     }
   }
 
   // A game's window ours stands for: ours opens and closes with it, on its tab.
-  hook(mut self, frame: any Frame | nil, tab: integer) {
+  mut hook(frame: any Frame | nil, tab: integer) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     if (self.games.any(one => one == window)) { return }
@@ -137,7 +137,7 @@ public class Account implements Module, App {
     if (window.IsShown()) { self.onGameShown(frame, tab) }
   }
 
-  onGameShown(mut self, frame: any Frame, tab: integer) {
+  mut onGameShown(frame: any Frame, tab: integer) {
     if (self.pass.passes(frame)) { return }
     if (!self.fromButton) { self.window.ask(tab) }
     self.fromButton = false
@@ -145,13 +145,13 @@ public class Account implements Module, App {
     self.open = true
   }
 
-  onGameHidden(mut self, frame: any Frame) {
+  mut onGameHidden(frame: any Frame) {
     if (self.pass.hidden(frame)) { return }
     self.held = (peek self.held).filter(one => one != frame)
     if ((peek self.held).length == 0) { self.open = false }
   }
 
-  public toggle(mut self) {
+  public mut toggle() {
     if (peek self.open) {
       self.onClose()
     } else {
@@ -159,13 +159,13 @@ public class Account implements Module, App {
     }
   }
 
-  openAlts(mut self) {
+  mut openAlts() {
     self.window.ask(TAB_ALTS)
     self.open = true
   }
 
   // Ours closed: the game's close with it.
-  onClose(mut self) {
+  mut onClose() {
     self.open = false
     for (game of self.games) {
       if (game.IsShown()) { Client::HideUIPanel(game) }
@@ -173,7 +173,7 @@ public class Account implements Module, App {
   }
 
   // The appearances: the game's own journal on its tab, as it is; ours closes.
-  onTransmog(mut self, tab: integer) {
+  mut onTransmog(tab: integer) {
     self.onClose()
     // Its addon loaded first (and hooked, as it loads), so the journal shows let through, then turns to its tab.
     if (Runtime::frame(JOURNAL) == nil) { _ = Client::C_AddOns::LoadAddOn(JOURNAL_ADDON) }
@@ -183,9 +183,9 @@ public class Account implements Module, App {
     Client::SetCollectionsJournalShown(true, tab)
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
+  onSettings() { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  public render(self): Template {
+  public render(): Template {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true} minWidth={Style::LEAST_WIDTH}
