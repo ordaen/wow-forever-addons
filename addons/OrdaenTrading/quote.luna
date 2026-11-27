@@ -10,11 +10,21 @@ const HALF: integer = 1048576
 const MOST: integer = 8589934591
 
 // An item and, for a weapon or armour, its random suffix: `id + suffix × 2^20`. A plain item's key is its id.
-public type PriceKey = brand integer {
+public brand PriceKey for integer
+
+implement PriceKey {
+  public item(): ItemId { return ItemId::of(self % HALF) }
+
+  // Its random suffix: 0 for a plain item.
+  public suffix(): integer { return (self / HALF).floor() }
+} static {
   public of(item: integer): PriceKey { return item }
+
   // A key as the house's seams give one (`AuctionScan.read`, `Offer.key`), the same form.
   public given(key: integer): PriceKey { return key }
+
   public suffixed(item: integer, suffix: integer): PriceKey { return item + suffix.abs() * HALF }
+
   // The key of an item a link names: the suffix is the link's sixth number after the id
   // (`item:id:enchant:gems×4:suffix`), a negative one counted by its size; none for a plain item.
   public ofLink(item: integer, link: string): PriceKey {
@@ -22,9 +32,6 @@ public type PriceKey = brand integer {
     const by = (suffix ?? "").toNumber() ?? 0
     return item + by.abs().floor() * HALF
   }
-  public item(self): ItemId { return ItemId::of(self % HALF) }
-  // Its random suffix: 0 for a plain item.
-  public suffix(self): integer { return (self / HALF).floor() }
 }
 
 // The server's time, in seconds: the account's 15 minutes between full scans and a scan's age are counted in it (an
@@ -33,21 +40,30 @@ public type PriceKey = brand integer {
 public function serverSeconds(): integer { return peek Game::clock.server }
 
 // A price and the hour it was seen, in one number: a price is never read without its age.
-public type Quote = brand integer {
-  public of(copper: integer, seen: Hour): Quote { return copper.min(MOST).max(0) * HALF + seen }
-  public copper(self): Copper { return Copper::of((self / HALF).floor()) }
-  public seen(self): Hour { return Hour::of(self % HALF) }
+public brand Quote for integer
+
+implement Quote {
+  public copper(): Copper { return Copper::of((self / HALF).floor()) }
+
+  public seen(): Hour { return Hour::of(self % HALF) }
+
   // Hours since it was seen.
-  public age(self): integer { return Hour::now() - self.seen() }
+  public age(): integer { return Hour::now() - self.seen() }
+} static {
+  public of(copper: integer, seen: Hour): Quote { return copper.min(MOST).max(0) * HALF + seen }
 }
 
 // The lowest unit buyout of the last observation, and how many were listed (at most 2^20 − 1).
-public type Listing = brand integer {
+public brand Listing for integer
+
+implement Listing {
+  public low(): Copper { return Copper::of((self / HALF).floor()) }
+
+  public quantity(): integer { return self % HALF }
+} static {
   public of(low: integer, quantity: integer): Listing {
     return low.min(MOST).max(0) * HALF + quantity.min(HALF - 1).max(0)
   }
-  public low(self): Copper { return Copper::of((self / HALF).floor()) }
-  public quantity(self): integer { return self % HALF }
 }
 
 // Where every Ordaen addon reads a price. One class implements it per source; readers hold `any PriceSource`.

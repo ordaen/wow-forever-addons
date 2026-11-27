@@ -7,7 +7,7 @@ import Debug from "$debug"
 import Events from "$events"
 import Game from "$game"
 
-public type ProfileName = brand string
+public brand ProfileName for string
 
 // The profile every account has, made from what was kept before profiles were.
 public const DEFAULT_PROFILE: ProfileName = "Default"

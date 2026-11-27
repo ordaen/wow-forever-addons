@@ -7,11 +7,17 @@ import Game from "$game"
 import { Copper, Hour, ItemId } from "Ordaen"
 
 // A character by its GUID (`Player-6946-005FB73B`): the same across renames of its realm.
-public type CharacterId = brand string {
+public brand CharacterId for string
+
+implement CharacterId {
+} static {
   public of(guid: string): CharacterId { return guid }
 }
 
-public type RecipeId = brand integer {
+public brand RecipeId for integer
+
+implement RecipeId {
+} static {
   public of(id: integer): RecipeId { return id }
 }
 
