@@ -57,7 +57,7 @@ public const FILTER_START: map<QuestFilter, boolean> = switched({}, [
 ], true)
 
 // The option a quest's difficulty passes by.
-const function difficultyFilter(difficulty: Difficulty): QuestFilter {
+function difficultyFilter(difficulty: Difficulty): QuestFilter {
   return match (difficulty) {
     .Trivial => QuestFilter::Trivial
     .Easy => QuestFilter::Easy

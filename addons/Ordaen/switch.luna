@@ -17,7 +17,7 @@ public const KNOB_ON: number<Length> = 17.578125dp
 
 // The knob of a switch on and the knob of one off are both drawn, each where it stands, the one that isn't the
 // state at no opacity: a switch on and one off differ in their colours alone.
-public const function knobShown(shown: boolean): number {
+public function knobShown(shown: boolean): number {
   return shown ? 1 : 0
 }
 

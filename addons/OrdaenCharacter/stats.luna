@@ -97,7 +97,7 @@ const ARMOR_CAP = 17265
 // fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage, armor, percent, block
 // (a shield), blocked (a shield struck through) and time (an hourglass).
 const GLYPH_FILE: Asset = "@/media/character-glyphs.tga"
-const function glyphPieces(): array<Piece> {
+function glyphPieces(): array<Piece> {
   let list: array<Piece> = mut []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
   return list

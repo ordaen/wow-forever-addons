@@ -16,7 +16,7 @@ const TAG_RAID_25 = 89
 const TAG_PVP = 41
 
 // A quest's kind by its tag; an old quest carries none (nil), or `Group` (1), an elite outdoor quest: the World's.
-public const function kindOfTag(tag: integer | nil): QuestKind {
+public function kindOfTag(tag: integer | nil): QuestKind {
   if (tag == TAG_DUNGEON || tag == TAG_HEROIC) { return .Dungeon }
   if (tag == TAG_RAID || tag == TAG_RAID_10 || tag == TAG_RAID_25) { return .Raid }
   if (tag == TAG_PVP) { return .PvP }

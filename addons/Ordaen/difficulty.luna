@@ -12,14 +12,14 @@ public function questLevelColor(quest: integer, player: integer, plain: Color): 
 public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
 
 // The levels below the player's at which a quest is still green, as the client counts them.
-const function greenRange(level: integer): integer {
+function greenRange(level: integer): integer {
   if (level <= 5) { return 5 }
   if (level <= 39) { return (level / 10).floor() + 5 }
   if (level <= 59) { return (level / 5).floor() + 1 }
   return 12
 }
 
-public const function difficultyOf(quest: integer, player: integer): Difficulty {
+public function difficultyOf(quest: integer, player: integer): Difficulty {
   const above = quest - player
   if (above >= 5) { return .Impossible }
   if (above >= 3) { return .Hard }
@@ -28,7 +28,7 @@ public const function difficultyOf(quest: integer, player: integer): Difficulty 
   return .Trivial
 }
 
-public const function colorOf(difficulty: Difficulty): Color {
+public function colorOf(difficulty: Difficulty): Color {
   return match (difficulty) {
     .Trivial => Color::hex("#808080")
     .Easy => Color::hex("#40c040")

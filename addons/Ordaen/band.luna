@@ -16,7 +16,7 @@ const GLYPH_FILE: Asset = "@/media/tooltip-glyphs.tga"
 const GLYPH = 18.75dp
 const GLYPH_CELL = 23.4375dp
 const GLYPH_IN = -2.34375dp
-const function glyphPieces(): array<Piece> {
+function glyphPieces(): array<Piece> {
   let list: array<Piece> = mut []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
   return list

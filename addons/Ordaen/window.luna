@@ -189,17 +189,17 @@ const GLYPH_TOP: number<Length> = ABOVE + 7.6171875dp
 const GLYPH_LEFT_FIRST: number<Length> = RIM + 8.203125dp
 const GLYPH_LEFT = 8.7890625dp
 // The controls of a window's group, from its left.
-public const function cornerControls(withSettings: boolean): array<CornerControl> {
+public function cornerControls(withSettings: boolean): array<CornerControl> {
   return withSettings ? [.Settings, .Full, .Close] : [.Full, .Close]
 }
 // The width of the `index`th of `count` plates: the first and the last with the group's rim.
-const function plateWidth(index: integer, count: integer): number<Length> {
+function plateWidth(index: integer, count: integer): number<Length> {
   const left: number<Length> = index == 1 ? RIM : 0ui
   const right: number<Length> = index == count ? RIM : 0ui
   return left + PLATE + right
 }
 // How far the `index`th plate stands from the group's left.
-const function plateLeft(index: integer, count: integer): number<Length> {
+function plateLeft(index: integer, count: integer): number<Length> {
   let left: number<Length> = 0ui
   for (i of 1..index - 1) { left += plateWidth(i, count) }
   return left
