@@ -26,7 +26,7 @@ public class QuestieData {
 
   // Why nothing can be read (QuestieDB of another contract, its own message); nil where it can be.
   public fault(): string | nil {
-    let fits, said = LibQuestieDB::RequireContract(CONTRACT)
+    let (fits, said) = LibQuestieDB::RequireContract(CONTRACT)
     return fits ? nil : said ?? "QuestieDB's contract doesn't match"
   }
 

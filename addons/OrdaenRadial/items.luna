@@ -69,7 +69,7 @@ function markIcon(mark: integer): Asset {
 
 // The client's icon of a spell the player has, by its name; none where the spellbook hasn't it.
 function spellIcon(spell: string): FileId | nil {
-  const icon, _, _ = Client::C_Spell::GetSpellTexture(spell)
+  const (icon, _, _) = Client::C_Spell::GetSpellTexture(spell)
   return icon
 }
 
@@ -93,7 +93,7 @@ function running(start: number | nil, length: number | nil): FillDuration | nil 
 function spellShown(spell: string): WheelItem {
   const icon = spellIcon(spell)
   const charges = Client::C_Spell::GetSpellCharges(spell)
-  const usable, noPower = Client::C_Spell::IsSpellUsable(spell)
+  const (usable, noPower) = Client::C_Spell::IsSpellUsable(spell)
   const inRange = Client::C_Spell::IsSpellInRange(spell, "target")
   const cooldown = Client::C_Spell::GetSpellCooldown(spell)
   return {
@@ -109,7 +109,7 @@ function spellShown(spell: string): WheelItem {
 function bagShown(item: integer): WheelItem {
   const count = bagCount(item)
   const inRange = Client::C_Item::IsItemInRange(item, "target")
-  const start, length, _ = Client::C_Item::GetItemCooldown(item)
+  const (start, length, _) = Client::C_Item::GetItemCooldown(item)
   return {
     name: Client::C_Item::GetItemNameByID(item) ?? string::of(item), icon: Client::C_Item::GetItemIconByID(item) ?? QUESTION,
     dim: count < 1, count: count > 1 ? string::of(count.floor()) : "",
@@ -119,7 +119,7 @@ function bagShown(item: integer): WheelItem {
 
 // A macro of the player's: its own icon; dimmed where the player has none so named.
 function macroShown(macro: string): WheelItem {
-  const name, icon, _ = Client::GetMacroInfo(macro)
+  const (name, icon, _) = Client::GetMacroInfo(macro)
   return plainItem(macro, icon ?? QUESTION, name == nil)
 }
 

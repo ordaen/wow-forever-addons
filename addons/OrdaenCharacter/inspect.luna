@@ -61,10 +61,10 @@ public class ClientInspector implements Inspector {
   public guidOf(unit: string): string | nil { return Client::UnitGUID(unit) }
 
   public read(unit: string): Inspected {
-    let race, scene, _ = Client::UnitRace(unit)
-    let className, classTag, _ = Client::UnitClass(unit)
-    let guild, _, _ = Client::GetGuildInfo(unit)
-    let name, _ = Client::UnitName(unit)
+    let (race, scene, _) = Client::UnitRace(unit)
+    let (className, classTag, _) = Client::UnitClass(unit)
+    let (guild, _, _) = Client::GetGuildInfo(unit)
+    let (name, _) = Client::UnitName(unit)
     const worn: array<Worn> = []
     for (slot of 0..19) { worn.push(wornBy(unit, slot, self.words)) }
     return {
@@ -76,9 +76,9 @@ public class ClientInspector implements Inspector {
   }
 
   public honor(unit: string): Honor {
-    let today, _, _, _, lifetime, _, rank, current, next = Client::GetInspectHonorData()
+    let (today, _, _, _, lifetime, _, rank, current, next) = Client::GetInspectHonorData()
     const level = (rank ?? 0).floor()
-    let faction, _ = Client::UnitFactionGroup(unit, nil)
+    let (faction, _) = Client::UnitFactionGroup(unit, nil)
     const side = faction == "Alliance" ? 1 : 0
     const female = Client::UnitSex(unit) == FEMALE ? "_FEMALE" : ""
     const key = `PVP_RANK_${FIRST_RANK + level - 1}_${side}`

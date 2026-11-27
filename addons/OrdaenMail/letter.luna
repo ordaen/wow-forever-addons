@@ -65,7 +65,7 @@ public class Attachment implements Component {
   public render(): Template {
     return $ltml {
       <PickRow columns={REWARD} @pick={self.onPick} @modified={self.onModified} @entered={self.onEntered}>
-        <ItemButton item={self.item.item} count={self.item.count} size={SLOT} mail={[self.index, self.item.place]} tipped={false} />
+        <ItemButton item={self.item.item} count={self.item.count} size={SLOT} mail={(self.index, self.item.place)} tipped={false} />
         <box columns={1}>
           <text value={self.item.name} textColor={self.info.color} wrap={.None} />
           <text value={self.info.kind} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
@@ -86,10 +86,10 @@ public struct AttachmentInfo {
 }
 
 function infoOf(item: integer): AttachmentInfo {
-  const _, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+  const (_, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
   let color = Style::INK
   if (quality != nil) {
-    const r, g, b, _ = Client::C_Item::GetItemQualityColor(quality)
+    const (r, g, b, _) = Client::C_Item::GetItemQualityColor(quality)
     color = { r: r, g: g, b: b, a: 1 }
   }
   const worn = slot != nil && slot != "" ? Runtime::text(slot) : nil

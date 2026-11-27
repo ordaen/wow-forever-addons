@@ -228,7 +228,7 @@ test "turned off in Ordaen's settings, the module puts the menu back as Blizzard
   escape()
   Test::expect(!Test::page().text("Options").shown() && blizzards(1, false) && Client::GameMenuFrame.IsMouseEnabled())
   for (button of buttonsOf(...Client::GameMenuFrame.GetChildren())) {
-    const left, right, top, bottom = button.GetHitRectInsets()
+    const (left, right, top, bottom) = button.GetHitRectInsets()
     Test::expect(left == 0 && right == 0 && top == 0 && bottom == 0)
   }
 }

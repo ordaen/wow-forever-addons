@@ -525,7 +525,7 @@ function numbersOf(text: string): (array<string>, string) {
     numbers.push(number)
     return "#"
   })
-  return numbers, rest
+  return (numbers, rest)
 }
 
 // A number of the spell that changes: the player's rank's, and the service's.
@@ -546,8 +546,8 @@ function changesOf(service: Game::TrainerService | nil): array<Change> {
   const was = Game::spells.description(had)
   const next = Game::spells.description(spell)
   if (was == nil || next == nil) { return list }
-  const old, oldRest = numbersOf(was)
-  const now, nowRest = numbersOf(next)
+  const (old, oldRest) = numbersOf(was)
+  const (now, nowRest) = numbersOf(next)
   if (oldRest != nowRest || old.length != now.length) { return list }
   for (at, number of now) {
     const yours = old[at] ?? number
@@ -571,7 +571,7 @@ function rankHad(name: string, taught: integer): integer | nil {
 
 // Whether the player has a profession slot free: two main professions known fill both.
 function slotFree(): boolean {
-  const _, second, _, _, _, _ = Client::GetProfessions()
+  const (_, second, _, _, _, _) = Client::GetProfessions()
   return second == nil
 }
 

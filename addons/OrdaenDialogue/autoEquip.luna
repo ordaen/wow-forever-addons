@@ -47,6 +47,6 @@ public class AutoEquip {
 const BIND_ON_EQUIP = 2
 
 function bindsOnEquip(link: string): boolean {
-  const _, _, _, _, _, _, _, _, _, _, _, _, _, bind, _, _, _, _ = Client::C_Item::GetItemInfo(link)
+  const (_, _, _, _, _, _, _, _, _, _, _, _, _, bind, _, _, _, _) = Client::C_Item::GetItemInfo(link)
   return bind == BIND_ON_EQUIP
 }

@@ -258,7 +258,7 @@ public class PricesAge implements Component {
   constructor(totals: Signal<Totals>) { self.totals = totals }
 
   colorOf(): Color {
-    const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
+    const (_, color) = ageText((self.totals.oldest ?? 0) * HOUR)
     return color ?? Style::DIM
   }
 

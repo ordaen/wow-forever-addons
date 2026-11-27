@@ -278,7 +278,7 @@ test "a slot is as large as the screen draws its icon sharp, unless the settings
   // The icon's 53 whole pixels in the screen's pixels a dp is (its height at this scale against 1080), and the edge's
   // two.
   Client::UIParent.SetScale(0.9)
-  const wide, high = Client::GetPhysicalScreenSize()
+  const (wide, high) = Client::GetPhysicalScreenSize()
   const sharpWidth = 53 * 1080 / (high * 0.9) + 2 * 2.34375
   const window = opened(new FakeSheet())
   const helm = window.button(HELM_ICON).rect()
@@ -1609,9 +1609,9 @@ test "the client's sheet reads what is worn in a slot from the client" {
 
 test "the client's sheet reads health's and mana's regeneration a second, and spirit's share, as every five seconds" {
   Test::mount(nil, PAGE)
-  Client::GetHealthRegen = (): (number, number) => { return 4, 1 }
-  Client::GetHealthRegenFromSpirit = (): (number, number) => { return 2, 0 }
-  Client::GetManaRegenFromSpirit = (): (number, number) => { return 6, 0 }
+  Client::GetHealthRegen = (): (number, number) => { return (4, 1) }
+  Client::GetHealthRegenFromSpirit = (): (number, number) => { return (2, 0) }
+  Client::GetManaRegenFromSpirit = (): (number, number) => { return (6, 0) }
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   // Spirit's health counted standing, as the game's sheet takes it: three quarters.
   Test::expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
@@ -1633,7 +1633,7 @@ test "while the client holds the statistics secret the window keeps what it read
 test "the client's sheet reads the three hastes, the ranged with its ammo's" {
   Test::mount(nil, PAGE)
   Client::GetMeleeHaste = (): number => 4
-  Client::GetRangedHaste = (): (number, number) => { return 3, 2 }
+  Client::GetRangedHaste = (): (number, number) => { return (3, 2) }
   Client::UnitSpellHaste = (unit: string): number => 6
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   Test::expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
@@ -1768,7 +1768,7 @@ test "the character tab holds the window at its own height; the player's taller 
 
 // A texture the client draws of the dwarves' scene.
 function isScene(texture: Test::Drawn): boolean {
-  const at, _ = `${texture.file}`.find("backdrop%-dwarf")
+  const (at, _) = `${texture.file}`.find("backdrop%-dwarf")
   return at != nil
 }
 

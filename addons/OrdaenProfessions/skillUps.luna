@@ -39,7 +39,7 @@ public function thresholdsOf(skillLine: integer | nil): Thresholds {
   const text = skillLine == nil ? nil : Levels::lines[skillLine]
   if (text == nil) { return { yellow: yellow, grey: grey, learned: learned } }
   for (entry of text.split(";")) {
-    const spell, low, high, asks = entry.match("^(%d+),(%d+),(%d+),?(%d*)$")
+    const (spell, low, high, asks) = entry.match("^(%d+),(%d+),(%d+),?(%d*)$")
     const id = spell?.toNumber()
     const from = low?.toNumber()
     const to = high?.toNumber()

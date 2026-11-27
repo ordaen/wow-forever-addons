@@ -12,7 +12,7 @@ struct Yards {
 }
 
 function yardsOf(map: number, x: number, y: number): Yards | nil {
-  const continent, world = Client::C_Map::GetWorldPosFromMapPos(map, { x: x, y: y })
+  const (continent, world) = Client::C_Map::GetWorldPosFromMapPos(map, { x: x, y: y })
   if (continent == nil || world == nil) { return nil }
   return { continent: continent, x: world.x, y: world.y }
 }

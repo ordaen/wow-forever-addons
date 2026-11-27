@@ -154,7 +154,7 @@ public class SellPage implements Component {
         if (kept != nil) { list[index] = { count: kept.count + stack.count, ..kept } }
       } else {
         const key = PriceKey::of(item)
-        const name, color = nameOf(item)
+        const (name, color) = nameOf(item)
         const market = self.prices.buy(key)?.copper()
         const net = self.prices.sell(key)?.copper()
         const vendor = self.prices.vendor(item)

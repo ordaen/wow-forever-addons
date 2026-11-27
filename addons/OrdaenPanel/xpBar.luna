@@ -172,8 +172,8 @@ function valuesOf(view: XpView, value: integer, least: integer, most: integer, w
     XpView::NumbersOnly => { first = numbers }
     XpView::PercentOnly => { first = percent + " / 100%" }
   }
-  if (words != "") { return words + " " + first, "" }
-  return first, after
+  if (words != "") { return (words + " " + first, "") }
+  return (first, after)
 }
 
 // A count and its part of the whole: «900 (90%)».
@@ -256,7 +256,7 @@ public class Tube implements Component {
 
   // The label's first part, or its dimmed one.
   labelOf(part: integer): string {
-    const first, after = valuesOf(self.view, self.value, self.least, self.most, self.words)
+    const (first, after) = valuesOf(self.view, self.value, self.least, self.most, self.words)
     return part == 1 ? first : after
   }
 

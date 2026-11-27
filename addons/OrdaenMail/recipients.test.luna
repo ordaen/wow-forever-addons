@@ -28,7 +28,7 @@ test "friends come online first, each in its class's colour" {
   Client::C_FriendList::GetFriendInfoByIndex = (index: integer): Client::FriendInfo | nil =>
   index == 1 ? friend("Aria", "Player-1-2", false) : friend("Dorn", "Player-1-3", true)
   Client::GetPlayerInfoByGUID = (guid: string): (string | nil, string | nil, string | nil, string | nil, number | nil, string | nil, string | nil, number | nil) => {
-    return nil, guid == "Player-1-3" ? "WARRIOR" : "MAGE", nil, nil, nil, nil, nil, nil
+    return (nil, guid == "Player-1-3" ? "WARRIOR" : "MAGE", nil, nil, nil, nil, nil, nil)
   }
   const list = friends()
   Test::expect(list.map(who => who.name).join(", ") == "Dorn, Aria")
@@ -38,10 +38,10 @@ test "friends come online first, each in its class's colour" {
 
 test "the guild's members come in their classes' colours" {
   Client::GetNumGuildMembers = (): (integer, integer) => {
-    return 1, 1
+    return (1, 1)
   }
   Client::GetGuildRosterInfo = (index: integer): (string | nil, string | nil, number | nil, number | nil, string | nil, string | nil, string | nil, string | nil, boolean | nil, number | nil, string | nil) => {
-    return "Regy", nil, nil, 42, nil, nil, nil, nil, true, nil, "PRIEST"
+    return ("Regy", nil, nil, 42, nil, nil, nil, nil, true, nil, "PRIEST")
   }
   const list = guild()
   Test::expect(list.length == 1 && list[1]?.level == 42 && list[1]?.online == true)

@@ -1161,7 +1161,7 @@ test "the guild's news filter offers the game's kinds here and asks the game for
 
 test "a line of the guild's news has its tooltip: an achievement's name and description, an item's own button" {
   Client::GetAchievementInfo = (id: integer, index: integer | nil): (number | nil, string | nil, number | nil, boolean | nil, number | nil, number | nil, number | nil, string | nil, number | nil, FileId | nil, string | nil, boolean | nil, boolean | nil, string | nil) => {
-    return id, "Level 20", 10, true, 11, 10, 26, "Reach level 20.", 0, nil, nil, false, false, nil
+    return (id, "Level 20", 10, true, 11, 10, 26, "Reach level 20.", 0, nil, nil, false, false, nil)
   }
   Test::mount(nil, PAGE)
   Game::friends.list = friends

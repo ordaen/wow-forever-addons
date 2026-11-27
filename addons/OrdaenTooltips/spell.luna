@@ -38,7 +38,7 @@ function wordOf(label: string): string {
 
 // The list after `word:` in a line, its colour codes and line breaks taken out; nothing for a line of another label.
 function listAfter(text: string, word: string): string | nil {
-  let label, rest = text.match("^%s*([^:]-)%s*:(.*)$")
+  let (label, rest) = text.match("^%s*([^:]-)%s*:(.*)$")
   if (word == "" || label != word || rest == nil) { return nil }
   let bare = rest.replace("|n", " ").replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
   return bare.match("^%s*(.-)%s*$")
@@ -50,13 +50,13 @@ function reagents(text: string, foot: mut array<Note>): boolean {
   let list = listAfter(text, wordOf(Game::strings.spellReagents))
   if (list == nil) { return false }
   for (part of list.split(",")) {
-    let counted, count = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
+    let (counted, count) = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
     let name = counted ?? part.match("^%s*(.-)%s*$") ?? ""
     let need = ((count ?? "").toNumber() ?? 1).floor()
     if (name != "") {
       let have = Game::items.count(name)
       // The reagent by its name, as the client knows it: its icon, and its own tooltip from a locked one.
-      let id, _, _, _, icon, _, _ = Client::C_Item::GetItemInfoInstant(name)
+      let (id, _, _, _, icon, _, _) = Client::C_Item::GetItemInfoInstant(name)
       foot.push({
         left: name, right: Locale::COUNT.format(need), valueColor: have < need ? RED : nil, icon: icon,
         opens: id != nil ? Opens.Item { id: id.floor() } : Opens::None
@@ -102,9 +102,9 @@ public function madeBy(data: Game::TooltipData): Game::TooltipData | nil {
 // What a line of a finishing move's list gives: the range it names («46-66», «46 – 66») as «46–66», or its first
 // number.
 function comboValue(effect: string): string | nil {
-  let low, high = effect.match("(%d+)%s*%-%s*(%d+)")
+  let (low, high) = effect.match("(%d+)%s*%-%s*(%d+)")
   if (low != nil && high != nil) { return low + "–" + high }
-  let from, to = effect.match("(%d+)%s*–%s*(%d+)")
+  let (from, to) = effect.match("(%d+)%s*–%s*(%d+)")
   if (from != nil && to != nil) { return from + "–" + to }
   return effect.match("%d+")
 }
@@ -128,7 +128,7 @@ function describe(text: string, body: mut array<TextLine>) {
   let rest: string | nil = nil
   for (line of text.split("\n")) {
     if (line == "") { continue }
-    let points, effect = line.match("^%s*(%d)%s+[^%d:]-:%s*(.+)$")
+    let (points, effect) = line.match("^%s*(%d)%s+[^%d:]-:%s*(.+)$")
     let value = effect != nil ? comboValue(effect) : nil
     if (points != nil && value != nil) {
       rows.push({
@@ -185,7 +185,7 @@ public function spell(data: Game::TooltipData, options: Options): Model | nil {
       if (tab != nil) { desc.push({ text: tab }) }
     } else if (line.kind == REQUIREMENT) {
       if (left != nil) {
-        let label, value = labelled(left)
+        let (label, value) = labelled(left)
         foot.push({ left: label, right: value, valueColor: line.usable == false ? RED : nil })
       }
     } else if (line.kind == DESCRIPTION) {

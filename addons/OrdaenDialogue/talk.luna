@@ -43,7 +43,7 @@ const OBJECT_ICON: Asset = "Interface/Icons/INV_Scroll_03"
 // The NPC's number, out of its GUID (`Creature-0-1-2-3-<npc>-<spawn>`); 0 for what isn't a creature.
 public function npcOf(guid: string | nil): integer {
   if (guid == nil) { return 0 }
-  const kind, npc = guid.match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
+  const (kind, npc) = guid.match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
   if (kind != "Creature" || npc == nil) { return 0 }
   return (npc.toNumber() ?? 0).floor()
 }
@@ -52,7 +52,7 @@ public function npcOf(guid: string | nil): integer {
 // (`UnitPVPName` gives the name, the creature calls its type): it is the line of the unit's tooltip under its name,
 // a plain line (`TooltipDataLineType.None`), not the level's (`UnitLevel`) or the type's.
 public function speakerOf(): Speaker {
-  const name, _ = Client::UnitName("npc")
+  const (name, _) = Client::UnitName("npc")
   if (!Client::UnitExists("npc")) { return { name: name, icon: OBJECT_ICON } }
   return { name: name, subtitle: subtitleOf(), portrait: "npc" }
 }

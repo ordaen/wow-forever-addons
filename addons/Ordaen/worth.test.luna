@@ -65,7 +65,7 @@ class Held {
 
 test "an upgrade's answer follows the gear: a piece put on is what the next is weighed against" {
   Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
+    return (1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4)
   }
   Client::C_Item::GetItemStats = (link: string): unknown => {
     const stats: map<string, number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:new" ? 10 : 8 }

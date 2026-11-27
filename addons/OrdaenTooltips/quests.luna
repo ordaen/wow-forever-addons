@@ -35,7 +35,7 @@ public function labelOf(text: string): string {
 
 // A row of the game's objective: its text without its count, the count at the right, green once done.
 function objectiveRow(text: string, label: string, done: boolean, indent: boolean): TextLine {
-  let have, need = text.match("(%d+)%s*/%s*(%d+)")
+  let (have, need) = text.match("(%d+)%s*/%s*(%d+)")
   let counted = have != nil && need != nil && (have.toNumber() ?? 0) >= (need.toNumber() ?? 0)
   let value = have != nil && need != nil ? have + "/" + need : nil
   return {

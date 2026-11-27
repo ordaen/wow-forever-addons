@@ -125,16 +125,16 @@ class World {
 
   public loaded(name: string | integer): (boolean, boolean) {
     const done = self.fake(name)?.loaded == true
-    return done, done
+    return (done, done)
   }
 
   public loadable(name: string | integer, character: string | nil, demandLoaded: boolean | nil): (
     boolean, Client::AddOnReason | nil
   ) {
     const fake = self.fake(name)
-    if (fake == nil) { return false, "MISSING" }
+    if (fake == nil) { return (false, "MISSING") }
     const reason = self.reason(fake, demandLoaded == true)
-    return reason == nil, reason
+    return (reason == nil, reason)
   }
 
   // Why the client doesn't load an addon: off, what it needs missing or not loading, its own reason, or on demand.
@@ -152,15 +152,15 @@ class World {
 
   public mut load(name: string | integer): (boolean | nil, string | nil) {
     const fake = self.fake(name)
-    if (fake == nil) { return false, "MISSING" }
+    if (fake == nil) { return (false, "MISSING") }
     const reason = self.reason(fake, true)
-    if (reason != nil) { return false, reason }
-    if (!fake.demand) { return false, "NOT_DEMAND_LOADED" }
-    if (fake.refuses != nil) { return false, fake.refuses }
+    if (reason != nil) { return (false, reason) }
+    if (!fake.demand) { return (false, "NOT_DEMAND_LOADED") }
+    if (fake.refuses != nil) { return (false, fake.refuses) }
     for (held of self.fakes) {
       if (held.name == fake.name) { held.loaded = true }
     }
-    return true, nil
+    return (true, nil)
   }
 }
 
@@ -432,12 +432,12 @@ test "the list stands by category, a caption with its count over its addons, «O
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -460,12 +460,12 @@ test "a title keeps its colours on its row, and sorts as it reads without them" 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -483,12 +483,12 @@ test "the cursor on a row shows its title and notes, without their colour codes"
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -505,12 +505,12 @@ test "an addon with no notes shows no tip" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -527,12 +527,12 @@ test "the tab says how many addons are on, of all" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -555,12 +555,12 @@ test "a row says why the client doesn't load an addon, in red" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -579,12 +579,12 @@ test "an addon switched off says «disabled», dim; switched on, not loaded, it 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -609,12 +609,12 @@ test "an addon off and refused says it is off, dim, not why it is refused" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -631,12 +631,12 @@ test "a loaded addon switched off stays loaded until a reload, and the footer co
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -663,12 +663,12 @@ test "what waits for a reload is listed in the footer's tip: on and not loaded, 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -693,12 +693,12 @@ test "neither an addon on demand nor one the client refuses waits for a reload" 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -736,12 +736,12 @@ test "the question comes at every switching off that stops another addon, and ne
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -892,12 +892,12 @@ test "switching on what needs nothing that is off says nothing under the list" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -919,12 +919,12 @@ test "the next switch takes the strip away: «Undo» is for the last step alone"
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1045,12 +1045,12 @@ test "a caption's switch switches its whole group off where all of it is on, aft
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1073,12 +1073,12 @@ test "a caption's switch switches its whole group on where any of it is off, wit
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1101,12 +1101,12 @@ test "a caption's switch is off where none of its group is on, and switches it o
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1129,12 +1129,12 @@ test "a caption's switch is the whole group's, whatever the search shows of it" 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1169,12 +1169,12 @@ test "for this character, a switch leaves the others: for all it shows on for so
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1201,12 +1201,12 @@ test "an addon on for some characters is on: the tab counts it, «Enabled» show
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1245,12 +1245,12 @@ test "the search narrows the list to the addons whose title, folder, author or n
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1303,12 +1303,12 @@ test "the version's kinds: out of date shows what was built for an older client,
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1327,12 +1327,12 @@ test "the loading's kinds: on demand, and at login" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1351,12 +1351,12 @@ test "the runtime's kinds: written in LunaType (the runtime and what needs it), 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1375,12 +1375,12 @@ test "the state's kinds: enabled, disabled, and on but not loading for a reason 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1408,12 +1408,12 @@ test "«Not loading» leaves out what is off, though the client says why it does
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1430,12 +1430,12 @@ test "an addon shows where it matches every kind of the filter and the search" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1482,12 +1482,12 @@ test "a category folds at its caption, its caption and count left; clicked again
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1508,12 +1508,12 @@ test "folded, switched and unfolded again, every row keeps its line and its swit
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -1560,12 +1560,12 @@ test "the numbers: each addon's CPU now, at its peak and its memory, the heavies
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   meter.now["Bagger"] = 1
@@ -1700,12 +1700,12 @@ test "by category, the sort orders each category's addons: by load now, at its p
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   sorting(meter)
@@ -1737,12 +1737,12 @@ test "as a table: one list by title, no captions, the category in a column, the 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1765,12 +1765,12 @@ test "a table's heading sorts by its column, the heaviest first; clicked again, 
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   sorting(meter)
@@ -1807,12 +1807,12 @@ test "by category, a heading sorts nothing" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   sorting(meter)
@@ -1839,12 +1839,12 @@ test "«Heaviest» shows the addons the client names as the heaviest now" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   meter.now["Ordaen"] = 2
@@ -1908,16 +1908,16 @@ test "«Load» in the menu of an addon on demand loads it now, and opens its car
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
+    const (loaded, refused) = world.load(name)
+    return (loaded, refused)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1939,12 +1939,12 @@ test "«Load» isn't offered for what is loaded, off, refused or loaded at login
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -1989,12 +1989,12 @@ test "the card: the addon's title, version and author, notes, state, what it nee
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2015,12 +2015,12 @@ test "the card's byline is the version alone, or the author alone, where the oth
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2054,16 +2054,16 @@ test "the card's state of an addon on demand: waits to be asked for, then loaded
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
+    const (loaded, refused) = world.load(name)
+    return (loaded, refused)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2079,7 +2079,7 @@ test "the card says the client's refusal where «Load» fails, and nothing once 
   let asked = 0
   Client::C_AddOns::LoadAddOn = name => {
     asked += 1
-    return asked > 1, asked > 1 ? nil : "NOT_AVAILABLE"
+    return (asked > 1, asked > 1 ? nil : "NOT_AVAILABLE")
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2116,16 +2116,16 @@ test "a refusal of «Load» stays on the card of the addon it is about" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
+    const (loaded, refused) = world.load(name)
+    return (loaded, refused)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2160,12 +2160,12 @@ test "the card's state: waits for a reload in green, disabled dim, refused in re
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -2230,12 +2230,12 @@ test "«Reset» puts every addon back as the client last saved them, undoing wha
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -2394,12 +2394,12 @@ test "a set that names what isn't in the folder any more says so as it opens, be
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -2423,12 +2423,12 @@ test "a set saved under a name kept already takes its place" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -2590,12 +2590,12 @@ test "while the window shows, an addon loaded by another is read at once" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2663,12 +2663,12 @@ test "a module the client won't load says why, in red" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2688,12 +2688,12 @@ test "the card shows the addon's icon as its TOC names it, the question mark whe
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2712,12 +2712,12 @@ test "the card of an addon not loaded says no memory, and its links say what the
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2739,12 +2739,12 @@ test "the card offers «Load» only for an addon on demand that is on, not loade
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2833,12 +2833,12 @@ test "a column lights its heaviest third: one of a single value, two of four" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   const meter = new Meter()
   meter.memory["Ordaen"] = 500
@@ -2872,12 +2872,12 @@ test "two addons of one title both stand in the list" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Test::mount(nil, SCREEN)
   open()
@@ -2899,12 +2899,12 @@ test "the footer's tip goes as the cursor leaves «Reload needed»" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -2958,12 +2958,12 @@ test "a set applied switches on what it holds that is off, and off the last addo
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)
@@ -3007,12 +3007,12 @@ test "a set saved again under its name holds what is on now" {
   Client::C_AddOns::GetAddOnInterfaceVersion = name => world.interface(name)
   Client::C_AddOns::GetAddOnEnableState = (name, character) => world.state(name, character)
   Client::C_AddOns::IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
+    const (loading, loaded) = world.loaded(name)
+    return (loading, loaded)
   }
   Client::C_AddOns::IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
+    const (can, reason) = world.loadable(name, character, demandLoaded)
+    return (can, reason)
   }
   Client::C_AddOns::EnableAddOn = (name, character) => world.turn(name, character, false)
   Client::C_AddOns::DisableAddOn = (name, character) => world.turn(name, character, true)

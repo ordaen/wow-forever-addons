@@ -141,7 +141,7 @@ function optionProblems(line: integer, key: string, text: string, known: (name: 
   for (option of text.split(";")) {
     let rest = option
     for (step of 1..) {
-      const inner, after = rest.match("^%s*%[([^%]]*)%](.*)$")
+      const (inner, after) = rest.match("^%s*%[([^%]]*)%](.*)$")
       if (inner == nil || after == nil) { break }
       for (condition of inner.split(",")) {
         const fault = conditionFault(condition)
@@ -169,7 +169,7 @@ public function problemsOf(body: string, commands: map<string, string>, known: (
   for (line, written of body.split("\n")) {
     const text = written.replace("^%s+", "").replace("%s+$", "")
     if (text != "" && text.sub(1, 1) != "#") {
-      const word, rest = text.match("^(/%S+)%s*(.*)$")
+      const (word, rest) = text.match("^(/%S+)%s*(.*)$")
       if (word == nil || rest == nil) {
         found.push({ line: line, text: Locale::MACRO_NOT_COMMAND })
       } else {

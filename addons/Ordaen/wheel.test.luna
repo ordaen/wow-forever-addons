@@ -183,7 +183,7 @@ test "a centred wheel is drawn at the screen's middle and aims from where the cu
   Test::holdBound("F")
   Test::flush()
   Test::pass(0.05)
-  const screenX, screenY = Client::UIParent.GetCenter()
+  const (screenX, screenY) = Client::UIParent.GetCenter()
   Test::expect(held.wheel.middleX == screenX && held.wheel.middleY == screenY)
   // Up from the cursor, nowhere near the wheel drawn: its first item.
   Test::moveTo({ x: corner.x, y: corner.y - 100 })

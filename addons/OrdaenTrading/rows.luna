@@ -30,7 +30,7 @@ public class PriceLine implements ItemLines {
     const quote = self.prices.buy(PriceKey::ofLink(item, link))
     if (quote == nil) { return NONE }
     // The age as `Ordaen`'s `Age` says it; a `Line` has one colour a side, so the price takes the age's.
-    const age, color = ageText(quote.age() * HOUR)
+    const (age, color) = ageText(quote.age() * HOUR)
     const price = Game::money.format(quote.copper())
     return [{ left: Locale::AUCTION, right: age != "" ? price + " " + age : price, rightColor: color }]
   }

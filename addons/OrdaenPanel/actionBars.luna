@@ -23,14 +23,14 @@ function hiddenFrame(): any Client::Frame {
 
 // Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the panel's bars stay off.
 public function bartenderLoaded(): boolean {
-  let loaded, _ = Client::C_AddOns::IsAddOnLoaded("Bartender4")
+  let (loaded, _) = Client::C_AddOns::IsAddOnLoaded("Bartender4")
   return loaded
 }
 
 // Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the pet's
 // bar on, the stances' on for a class with forms).
 public function barDefaults(): map<string, BarChoice> {
-  let bottomLeft, bottomRight, right, left, six, seven, eight = Client::GetActionBarToggles()
+  let (bottomLeft, bottomRight, right, left, six, seven, eight) = Client::GetActionBarToggles()
   const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client::GetNumShapeshiftForms() > 0]
   const defaults: map<string, BarChoice> = {}
   for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
@@ -181,7 +181,7 @@ public class ActionBars implements Component, OwnerKeys {
       for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
         const name = buttonName(bar.spec.id, index)
-        let first, second = Client::GetBindingKey(command)
+        let (first, second) = Client::GetBindingKey(command)
         if (first != nil) {
           keys[command] = shortKey(first)
           named[name] = keys[command]

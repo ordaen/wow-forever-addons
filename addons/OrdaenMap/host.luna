@@ -81,7 +81,7 @@ public class OpenMapHost implements MapHost {
       OpenMapAPI::RegisterCallback(self.owner, "OpenMap_ViewChanged", heard)
       OpenMapAPI::RegisterCallback(self.owner, "OpenMap_StitchedChanged", heard)
       // Read as Quests reads it: contract 4.
-      let held, _ = LibQuestieDB::RequireContract(4)
+      let (held, _) = LibQuestieDB::RequireContract(4)
       if (held) { WorldMap::townsfolk(mapOfArea) }
     }
   }
@@ -112,8 +112,8 @@ public class OpenMapHost implements MapHost {
     // The map already open there isn't opened again: the game would make every pin anew.
     if (map == nil || WorldMap::shownMap() != map) { Client::C_Map::OpenWorldMap(map) }
     if (map == nil || !self.present() || !OpenMapAPI::IsStitched()) { return }
-    let left, top = OpenMapAPI::WorldFromMap(map, 0, 0)
-    let right, bottom = OpenMapAPI::WorldFromMap(map, 1, 1)
+    let (left, top) = OpenMapAPI::WorldFromMap(map, 0, 0)
+    let (right, bottom) = OpenMapAPI::WorldFromMap(map, 1, 1)
     if (left == nil || top == nil || right == nil || bottom == nil) { return }
     const span = (right - left).max(bottom - top)
     _ = OpenMapAPI::ShowWorld((left + right) / 2, (top + bottom) / 2, span > 0 ? MAP_FILL / span : nil)
@@ -126,13 +126,13 @@ public class OpenMapHost implements MapHost {
     const map = mapOfArea[pin.area] ?? 0
     if (shown == 0 || map == 0) { return nil }
     if (self.present() && OpenMapAPI::IsStitched()) {
-      let u, v = OpenMapAPI::WorldFromMap(map, pin.x, pin.y)
+      let (u, v) = OpenMapAPI::WorldFromMap(map, pin.x, pin.y)
       if (u == nil || v == nil) { return nil }
-      let x, y = OpenMapAPI::MapFromWorld(shown, u, v)
+      let (x, y) = OpenMapAPI::MapFromWorld(shown, u, v)
       return x != nil && y != nil ? OpenMapHost::within(pin, x, y) : nil
     }
     if (map == shown) { return { pin: pin, x: pin.x, y: pin.y } }
-    let left, right, top, bottom = Client::C_Map::GetMapRectOnMap(map, shown)
+    let (left, right, top, bottom) = Client::C_Map::GetMapRectOnMap(map, shown)
     if (left == nil || right == nil || top == nil || bottom == nil) { return nil }
     return OpenMapHost::within(pin, left + pin.x * (right - left), top + pin.y * (bottom - top))
   }
@@ -193,7 +193,7 @@ public class OpenMapHost implements MapHost {
   }
 
   public sidePanel(): SidePanel | nil {
-    let frame, width, height = WorldMap::sidePanel()
+    let (frame, width, height) = WorldMap::sidePanel()
     return frame == nil ? nil : { frame: frame, width: width, height: height }
   }
 } static {

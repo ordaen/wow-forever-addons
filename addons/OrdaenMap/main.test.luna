@@ -253,7 +253,7 @@ test "the game's map places a layer's pins of the zone it shows, the zone found 
 test "without OpenMap the client doesn't load Map, and says OpenMap is missing" {
   Test::uninstall("OpenMap")
   Test::reload()
-  let loads, why = Client::C_AddOns::LoadAddOn("OrdaenMap")
+  let (loads, why) = Client::C_AddOns::LoadAddOn("OrdaenMap")
   Test::expect(loads != true)
   Test::expect(why == "DEP_MISSING")
 }

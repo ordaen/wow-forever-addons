@@ -369,7 +369,7 @@ public function medianLevel(levelled: array<Worn>): number | nil {
 }
 
 function resistanceOf(school: Client::Damageclass): integer {
-  let _, value, _, _ = Client::UnitResistance("player", school)
+  let (_, value, _, _) = Client::UnitResistance("player", school)
   return value.floor()
 }
 
@@ -412,14 +412,14 @@ function skillValue(id: integer | nil): integer | nil {
 function shieldWorn(): boolean {
   const id = Client::GetInventoryItemID("player", 17)
   if (id == nil) { return false }
-  let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
+  let (_, _, _, _, _, kind, subclass) = Client::C_Item::GetItemInfoInstant(id.floor())
   return kind == ARMOR_CLASS && subclass == SHIELDS
 }
 
 function weaponSkill(slot: integer): integer | nil {
   const id = Client::GetInventoryItemID("player", slot)
   if (id == nil) { return nil }
-  let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
+  let (_, _, _, _, _, kind, subclass) = Client::C_Item::GetItemInfoInstant(id.floor())
   if (kind != WEAPON_CLASS || subclass == nil) { return nil }
   return WEAPON_SKILLS[subclass.floor()]
 }
@@ -507,7 +507,7 @@ public function wornBy(unit: string, slot: integer, words: LineWords): Worn {
   const id = Client::GetInventoryItemID(unit, slot)
   if (id == nil) { return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil } }
   const item = id.floor()
-  let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+  let (name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
   const bonuses = bonusesOf(linesOf(unit, slot), words)
   const gives: array<Given> = []
   for (given of givenBy(Client::GetInventoryItemLink(unit, slot))) { gives.push(given) }
@@ -544,8 +544,8 @@ public class ClientSheet implements Sheet {
   public worn(slot: integer): Worn {
     const piece = wornBy("player", slot, self.words)
     if (piece.item == nil) { return piece }
-    let left, most = Client::GetInventoryItemDurability(slot)
-    let start, length, _ = Client::GetInventoryItemCooldown("player", slot)
+    let (left, most) = Client::GetInventoryItemDurability(slot)
+    let (start, length, _) = Client::GetInventoryItemCooldown("player", slot)
     return {
       slot: slot,
       item: piece.item,
@@ -584,7 +584,7 @@ public class ClientSheet implements Sheet {
   public sets(): array<GearSet> {
     const sets: array<GearSet> = []
     for (id of Client::C_EquipmentSet::GetEquipmentSetIDs()) {
-      let name, _, _, worn, _, _, _, lost, _ = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
+      let (name, _, _, worn, _, _, _, lost, _) = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
       if (name != nil) {
         sets.push({
           id: id.floor(),
@@ -605,8 +605,8 @@ public class ClientSheet implements Sheet {
   public usesAmmo(): boolean { return Client::UnitUsesAmmo("player") }
 
   public who(): Who {
-    let race, scene, _ = Client::UnitRace("player")
-    let className, _, _ = Client::UnitClass("player")
+    let (race, scene, _) = Client::UnitRace("player")
+    let (className, _, _) = Client::UnitClass("player")
     return {
       name: Game::player.name, surname: Game::player.surname ?? "", level: peek Game::player.level, race: race ?? "",
       className: className ?? "", scene: scene ?? ""
@@ -615,13 +615,13 @@ public class ClientSheet implements Sheet {
 
   public stats(): Stats | nil {
     if (Client::C_Secrets::ShouldUnitStatsBeSecret()) { return nil }
-    let base, positive, negative = Client::UnitAttackPower("player")
-    let rangedBase, rangedPositive, rangedNegative = Client::UnitRangedAttackPower("player")
-    let _, armor, _, _ = Client::UnitArmor("player")
-    let minDamage, maxDamage, _, _, _, _, _ = Client::UnitDamage("player")
-    let speed, offSpeed, _ = Client::UnitAttackSpeed("player")
-    let resting, casting = Client::GetManaRegen()
-    let kind, token, _, _, _ = Client::UnitPowerType("player", nil)
+    let (base, positive, negative) = Client::UnitAttackPower("player")
+    let (rangedBase, rangedPositive, rangedNegative) = Client::UnitRangedAttackPower("player")
+    let (_, armor, _, _) = Client::UnitArmor("player")
+    let (minDamage, maxDamage, _, _, _, _, _) = Client::UnitDamage("player")
+    let (speed, offSpeed, _) = Client::UnitAttackSpeed("player")
+    let (resting, casting) = Client::GetManaRegen()
+    let (kind, token, _, _, _) = Client::UnitPowerType("player", nil)
     let spellDamage: number = 0
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client::GetSpellBonusDamage(school) ?? 0) }
     const attackPower = (base + positive + negative).floor()
@@ -633,25 +633,25 @@ public class ClientSheet implements Sheet {
     const bases: array<integer> = []
     const primaryTips: array<string> = []
     for (index of 1..5) {
-      let natural, effective, up, down = Client::UnitStat("player", index)
+      let (natural, effective, up, down) = Client::UnitStat("player", index)
       primary.push(effective.floor())
       bases.push(natural.floor())
       primaryTips.push(breakdown(natural.floor(), up.floor(), down.floor()))
     }
     const attackTip = Runtime::text(`${Game::player.classTag}_MELEE_ATTACK_POWER_TOOLTIP`) ?? said("MELEE_ATTACK_POWER_TOOLTIP")
     const reduction = Client::C_PaperDollInfo::GetArmorEffectiveness(armor, Client::UnitEffectiveLevel("player")) * 100
-    let _, _, offMin, offMax, _, _, _ = Client::UnitDamage("player")
-    let rangedSpeed, rangedMin, rangedMax, _, _, _ = Client::UnitRangedDamage("player")
-    let defenseBase, defenseBonus = Client::UnitDefenseSkill("player")
-    let expertise, _, _ = Client::GetExpertise()
-    let _, runSpeed, _, swimSpeed = Client::GetUnitSpeed("player")
-    let energyRegen, _ = Client::GetPowerRegenForPowerType(ENERGY_POWER)
+    let (_, _, offMin, offMax, _, _, _) = Client::UnitDamage("player")
+    let (rangedSpeed, rangedMin, rangedMax, _, _, _) = Client::UnitRangedDamage("player")
+    let (defenseBase, defenseBonus) = Client::UnitDefenseSkill("player")
+    let (expertise, _, _) = Client::GetExpertise()
+    let (_, runSpeed, _, swimSpeed) = Client::GetUnitSpeed("player")
+    let (energyRegen, _) = Client::GetPowerRegenForPowerType(ENERGY_POWER)
     const schoolDamage: array<integer> = []
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client::GetSpellBonusDamage(school) ?? 0).floor()) }
     const relic = Client::UnitHasRelicSlot("player")
-    let healthRegen, combatHealthRegen = Client::GetHealthRegen()
-    let healthFromSpirit, _ = Client::GetHealthRegenFromSpirit()
-    let manaFromSpirit, _ = Client::GetManaRegenFromSpirit()
+    let (healthRegen, combatHealthRegen) = Client::GetHealthRegen()
+    let (healthFromSpirit, _) = Client::GetHealthRegenFromSpirit()
+    let (manaFromSpirit, _) = Client::GetManaRegenFromSpirit()
     // What the game's sheet works out for its texts: the defense past the level's (each point takes 0.04% off a
     // blow's chances), and the resistance a point of spell penetration takes off, of the player's level.
     const level = Client::UnitLevel("player")
@@ -664,7 +664,7 @@ public class ClientSheet implements Sheet {
     const bossDefense = RAID_BOSS_LEVEL * DEFENSE_PER_LEVEL
     // Haste as the game's paper doll reads each: the melee's, the ranged weapon's with its ammo's, the spells'.
     const meleeHaste = Client::GetMeleeHaste()
-    let weaponHaste, ammoHaste = Client::GetRangedHaste()
+    let (weaponHaste, ammoHaste) = Client::GetRangedHaste()
     const rangedHaste = weaponHaste + ammoHaste
     const spellHaste = Client::UnitSpellHaste("player")
     return {

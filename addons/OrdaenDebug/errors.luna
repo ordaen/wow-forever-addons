@@ -104,7 +104,7 @@ function truncate(text: string | nil, max: integer): string | nil {
 
 // The client's facts in this session, and Ordaen's version.
 public function clientMeta(): Meta {
-  let client, build, buildDate, interface, _, _ = Client::GetBuildInfo()
+  let (client, build, buildDate, interface, _, _) = Client::GetBuildInfo()
   const core = Client::C_AddOns::GetAddOnMetadata("Ordaen", "Version")
   return { client: client, build: build, buildDate: buildDate, interface: interface, locale: Client::GetLocale(), core: core ?? "?" }
 }
@@ -117,8 +117,8 @@ const BLIZZARD_PATH: Pattern = "[Ii][Nn][Tt][Ee][Rr][Ff][Aa][Cc][Ee][/\\]%a*[Xx]
 // The source of the first code path in text: an addon folder, "Blizzard" (Blizzard_* addons,
 // Interface/FrameXML, SharedXML...), or nil when text names none.
 function firstSource(text: string): string | nil {
-  let addonAt, _ = text.find(ADDON_PATH)
-  let blizzardAt, _ = text.find(BLIZZARD_PATH)
+  let (addonAt, _) = text.find(ADDON_PATH)
+  let (blizzardAt, _) = text.find(BLIZZARD_PATH)
   if (blizzardAt != nil) {
     if (addonAt == nil) {
       return "Blizzard"
@@ -132,7 +132,7 @@ function firstSource(text: string): string | nil {
     return nil
   }
   const addon = found[1] ?? panic("ADDON_PATH captures the folder")
-  const blizzard, _ = addon.find("^Blizzard_")
+  const (blizzard, _) = addon.find("^Blizzard_")
   if (blizzard != nil) {
     return "Blizzard"
   }
@@ -241,7 +241,7 @@ public class Errors {
     let message = fields.message
     let existing = self.repeatOf(message)
     if (existing != nil) {
-      return existing, false
+      return (existing, false)
     }
     self.db.nextId += 1
     let entry = Entry {
@@ -274,7 +274,7 @@ public class Errors {
       }
     }
     self.notify(entry, true, true)
-    return entry, true
+    return (entry, true)
   }
 
   // How many recorded errors (and blocked actions) happened in this session: new ones and older ones that came

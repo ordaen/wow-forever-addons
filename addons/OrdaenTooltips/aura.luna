@@ -61,7 +61,7 @@ function campRows(text: string, body: mut array<TextLine>) {
       first = false
       continue
     }
-    let name, effect = line.match("^%s*([^:]+):%s*(.+)$")
+    let (name, effect) = line.match("^%s*([^:]+):%s*(.+)$")
     if (name != nil && effect != nil) {
       body.push({ left: name, right: campShort(name) ?? effect, opens: Opens.Text { name: name, text: effect } })
     }
@@ -71,20 +71,20 @@ function campRows(text: string, body: mut array<TextLine>) {
 // What an effect over time will still deal or heal: the amount and the period its description names, times the
 // ticks left, times the stacks. Its label and its value, or nothing where the description doesn't say so.
 function total(text: string, left: number | nil, stacks: integer): (string | nil, string | nil) {
-  if (left == nil) { return nil, nil }
+  if (left == nil) { return (nil, nil) }
   // A locale's text is a `String`: held to the pattern's grammar as it is read.
   const pattern = Locale::TOTAL_PATTERN
-  if (!(pattern is Pattern)) { return nil, nil }
+  if (!(pattern is Pattern)) { return (nil, nil) }
   let found = text.captures(pattern)
-  if (found == nil) { return nil, nil }
+  if (found == nil) { return (nil, nil) }
   let amount = (found[1] ?? "").toNumber()
   let period = (found[2] ?? "").toNumber()
-  if (amount == nil || period == nil || period <= 0) { return nil, nil }
+  if (amount == nil || period == nil || period <= 0) { return (nil, nil) }
   let sum = amount * (left / period).floor() * stacks.max(1)
-  if (sum <= 0) { return nil, nil }
+  if (sum <= 0) { return (nil, nil) }
   // The word in any case: an English description starts «Heals».
   let label = text.lower().contains(Locale::HEAL_WORD) ? Locale::TOTAL_HEAL : Locale::TOTAL_DAMAGE
-  return label, Locale::TOTAL_VALUE.format(sum.floor(), wait(left))
+  return (label, Locale::TOTAL_VALUE.format(sum.floor(), wait(left)))
 }
 
 public function aura(data: Game::TooltipData, options: Options): Model | nil {
@@ -154,7 +154,7 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
       })
     }
     if (options.aurasTotal && description != nil) {
-      let label, value = total(description, left, known.stacks)
+      let (label, value) = total(description, left, known.stacks)
       if (label != nil) { foot.push({ left: label, right: value, opens: named(Term::Total) }) }
     }
   }

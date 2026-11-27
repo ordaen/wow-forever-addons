@@ -63,8 +63,8 @@ function one(text: string, format: string): string | nil {
 
 function two(text: string, format: string): (string | nil, string | nil) {
   let parts = text.unformat(format)
-  if (parts == nil) { return nil, nil }
-  return parts[1], parts[2]
+  if (parts == nil) { return (nil, nil) }
+  return (parts[1], parts[2])
 }
 
 // Durability's colour: red when broken, yellow at a quarter or less, the footer's own otherwise.
@@ -168,7 +168,7 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
       }
     } else if (kind == REQUIREMENT) {
       if (left != nil) {
-        let skill, rank = two(left, Game::strings.itemMinSkill)
+        let (skill, rank) = two(left, Game::strings.itemMinSkill)
         let needed = one(left, Game::strings.itemMinLevel)
         if (skill != nil && rank != nil) {
           foot.push({ left: skill, right: rank, valueColor: unmet, opens: named(Term::Prof) })
@@ -218,8 +218,8 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
       desc.push({ text: left, opens: named(Term::Uni) })
     } else {
       // The band: damage and speed, damage per second, armour, block, a bag's slots; and the footer's lines.
-      let lowSchool, highSchool = two(left, Game::strings.damageSchool)
-      let lowPlain, highPlain = two(left, Game::strings.damage)
+      let (lowSchool, highSchool) = two(left, Game::strings.damageSchool)
+      let (lowPlain, highPlain) = two(left, Game::strings.damage)
       let low = lowSchool ?? lowPlain
       let high = highSchool ?? highPlain
       let single = one(left, Game::strings.singleDamageSchool) ?? one(left, Game::strings.singleDamage)
@@ -227,9 +227,9 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
       let armor = one(left, Game::strings.armor)
       let block = one(left, Game::strings.shieldBlock)
       // The line as the game wrote it: its plural code is part of the format.
-      let slotsA, slotsB = two(line.left ?? "", Game::strings.containerSlots)
+      let (slotsA, slotsB) = two(line.left ?? "", Game::strings.containerSlots)
       let room = number(slotsA ?? "") ?? number(slotsB ?? "")
-      let current, most = two(left, Game::strings.durability)
+      let (current, most) = two(left, Game::strings.durability)
       let classes = one(left, Game::strings.classesAllowed)
       let needs = one(left, Game::strings.spellReagents)
       if (low != nil && high != nil) {
@@ -371,7 +371,7 @@ function factRow(cell: BandFact): TextLine {
 
 // A title line's fact as a row: «Armor: +24» its label and its value; a line with no label, the label alone.
 function rowOf(text: string): TextLine {
-  let label, value = text.match("^(.-):%s+(.+)$")
+  let (label, value) = text.match("^(.-):%s+(.+)$")
   if (label == nil || value == nil) { return { left: text } }
   return { left: label, right: value }
 }

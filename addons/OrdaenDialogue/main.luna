@@ -234,7 +234,7 @@ public class Dialogue implements Module, App {
 
   // The game says how many quests the log holds and how many it takes.
   logFull(): boolean {
-    const _, quests = Client::C_QuestLog::GetNumQuestLogEntries()
+    const (_, quests) = Client::C_QuestLog::GetNumQuestLogEntries()
     return quests >= Client::C_QuestLog::GetMaxNumQuestsCanAccept()
   }
 

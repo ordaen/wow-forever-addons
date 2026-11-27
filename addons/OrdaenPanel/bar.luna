@@ -133,7 +133,7 @@ function templateArt(frame: any Client::Frame, ...regions: any Client::Region): 
 function pieceOf(region: any Client::MaskTexture): Piece {
   const pins: array<Pin> = []
   for (p of 1..region.GetNumPoints()) {
-    let point, to, toPoint, x, y = region.GetPoint(p, nil)
+    let (point, to, toPoint, x, y) = region.GetPoint(p, nil)
     const at = point ?? "CENTER"
     pins.push({ point: at, to: to, toPoint: toPoint ?? at, x: x ?? 0, y: y ?? 0 })
   }
@@ -423,7 +423,7 @@ public class Bar implements Component {
   mut readForms(count: integer) {
     const faces: array<Face> = []
     for (index of 1..self.spec.most) {
-      let icon, active, castable, _ = Client::GetShapeshiftFormInfo(index)
+      let (icon, active, castable, _) = Client::GetShapeshiftFormInfo(index)
       faces.push(index <= count ? { icon: icon, lit: active, usable: castable } : BLANK)
     }
     self.faces = faces
@@ -433,7 +433,7 @@ public class Bar implements Component {
   // protected in one.
   armForms(count: integer) {
     for (index, slot of peek self.slots) {
-      let _, _, _, spell = Client::GetShapeshiftFormInfo(index)
+      let (_, _, _, spell) = Client::GetShapeshiftFormInfo(index)
       slot.frame.SetAttribute("spell", index <= count ? spell : nil)
     }
   }
@@ -441,7 +441,7 @@ public class Bar implements Component {
   // Each form's cooldown, on its button's sweep.
   readCooldowns() {
     for (index, slot of peek self.slots) {
-      let start, duration, _ = Client::GetShapeshiftFormCooldown(index)
+      let (start, duration, _) = Client::GetShapeshiftFormCooldown(index)
       slot.frame.cooldown.SetCooldown(start, duration)
     }
   }
@@ -459,7 +459,7 @@ public class Bar implements Component {
   mut readPet() {
     const faces: array<Face> = []
     for (index of 1..self.spec.most) {
-      let _, texture, token, active, _, _, _ = Client::GetPetActionInfo(index)
+      let (_, texture, token, active, _, _, _) = Client::GetPetActionInfo(index)
       const icon: Art | nil = texture is string ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
       faces.push({ icon: icon, lit: active, usable: true })
     }

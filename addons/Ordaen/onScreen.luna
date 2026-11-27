@@ -13,7 +13,7 @@ public enum Hold { Move = "move", Size = "size" }
 public function kept(drag: Event::Drag, hold: Hold): (number<Length>, number<Length>) {
   const room = drag.room
   if (hold == Hold::Size) {
-    return drag.dx.min(room.right), drag.dy.min(room.down)
+    return (drag.dx.min(room.right), drag.dy.min(room.down))
   }
-  return drag.dx.max(-room.left).min(room.right), drag.dy.max(-room.up).min(room.down)
+  return (drag.dx.max(-room.left).min(room.right), drag.dy.max(-room.up).min(room.down))
 }

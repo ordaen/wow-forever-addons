@@ -82,7 +82,7 @@ public function friends(): array<Recipient> {
   for (index of 1..Client::C_FriendList::GetNumFriends()) {
     const info = Client::C_FriendList::GetFriendInfoByIndex(index)
     if (info != nil) {
-      const _, tag, _, _, _, _, _, _ = Client::GetPlayerInfoByGUID(info.guid)
+      const (_, tag, _, _, _, _, _, _) = Client::GetPlayerInfoByGUID(info.guid)
       list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: classColor(tag), source: .Friend, group: "" })
     }
   }
@@ -92,9 +92,9 @@ public function friends(): array<Recipient> {
 
 public function guild(): array<Recipient> {
   const list: array<Recipient> = []
-  const count, _ = Client::GetNumGuildMembers()
+  const (count, _) = Client::GetNumGuildMembers()
   for (index of 1..count) {
-    const name, _, _, level, _, _, _, _, online, _, tag = Client::GetGuildRosterInfo(index)
+    const (name, _, _, level, _, _, _, _, online, _, tag) = Client::GetGuildRosterInfo(index)
     if (name != nil) {
       list.push({ name: name, level: (level ?? 0).floor(), online: online == true, color: classColor(tag), source: .Guild, group: "" })
     }

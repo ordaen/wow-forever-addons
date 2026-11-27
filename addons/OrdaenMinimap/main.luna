@@ -215,7 +215,7 @@ public class Minimap implements Module, App {
       x = x.min(cornerEnd)
       y = y.max(self.side - cornerEnd)
     }
-    return Minimap::hundredths(x), Minimap::hundredths(y)
+    return (Minimap::hundredths(x), Minimap::hundredths(y))
   }
 
   // The angle a place points to from the frame's middle, to the whole degree; docked, its nearest place along the
@@ -235,12 +235,12 @@ public class Minimap implements Module, App {
   }
 
   public ringLeft(spec: RingSpec): number<Length> {
-    let x, y = self.ringAt(self.angle(spec), spec.size)
+    let (x, y) = self.ringAt(self.angle(spec), spec.size)
     return x * 1ui - spec.size / 2
   }
 
   public ringTop(spec: RingSpec): number<Length> {
-    let x, y = self.ringAt(self.angle(spec), spec.size)
+    let (x, y) = self.ringAt(self.angle(spec), spec.size)
     return y * 1ui - spec.size / 2
   }
 
@@ -262,7 +262,7 @@ public class Minimap implements Module, App {
   // The drag taken as it starts: the client starts it once the cursor has gone a few pixels from the press, and the
   // button is where those take it at once, never left behind until the cursor moves again.
   public mut startDrag(spec: RingSpec, dx: number<Length>, dy: number<Length>) {
-    let x, y = self.ringAt(self.angle(spec), spec.size)
+    let (x, y) = self.ringAt(self.angle(spec), spec.size)
     self.dragX = x
     self.dragY = y
     self.dragSize = spec.size

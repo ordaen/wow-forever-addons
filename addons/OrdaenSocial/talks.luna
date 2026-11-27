@@ -80,7 +80,7 @@ public function whoOf(talk: Talk, known: KnownPeople): TalkWho {
 // A character's class as the client tells it by its GUID: empty for none, or where the client doesn't know it.
 function classByGuid(guid: string): string {
   if (guid == "") { return "" }
-  let _, classFile, _, _, _, _, _, _ = Client::GetPlayerInfoByGUID(guid)
+  let (_, classFile, _, _, _, _, _, _) = Client::GetPlayerInfoByGUID(guid)
   return classFile ?? ""
 }
 

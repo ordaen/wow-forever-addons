@@ -358,7 +358,7 @@ public function itemReward(
   let detail = ""
   let sell = 0
   if (item != nil) {
-    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+    const (_, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
     quality = qualityFrom(itemQuality)
     detail = itemDetail(subType, slot)
     sell = (price ?? 0).floor() * count.max(1)
@@ -371,7 +371,7 @@ public function itemReward(
 
 // An item a quest in the log gives, all of it read from the item's own data.
 public function logReward(item: integer, count: integer, index: integer): Reward {
-  const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+  const (name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
   return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
 }
 

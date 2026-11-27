@@ -222,7 +222,7 @@ class Worn {
 
 class Mailed {
   public render(): Template {
-    return $ltml { <ItemButton item={2589} mail={[2, 3]} /> }
+    return $ltml { <ItemButton item={2589} mail={(2, 3)} /> }
   }
 }
 

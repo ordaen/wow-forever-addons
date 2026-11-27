@@ -13,7 +13,7 @@ public function form(n: integer): integer {
 
 // The word for `n` out of the game's `one:few:many`, or `one:many` where it gives two.
 public function pluralForm(n: integer, forms: string): string {
-  let one, few, many = forms.match("^([^:]*):([^:]*):?(.*)$")
+  let (one, few, many) = forms.match("^([^:]*):([^:]*):?(.*)$")
   if (one == nil || few == nil) { return forms }
   match (form(n)) {
     1 => return one
@@ -54,9 +54,9 @@ public function last(text: string): number | nil {
 
 // A line the game writes «Label: value», as its two parts; a line of another form as itself, with no value.
 public function labelled(line: string): (string, string | nil) {
-  let label, value = line.match("^([^:|]+):%s+(.+)$")
-  if (label == nil) { return line, nil }
-  return label, value
+  let (label, value) = line.match("^([^:|]+):%s+(.+)$")
+  if (label == nil) { return (line, nil) }
+  return (label, value)
 }
 
 // Seconds as a duration: whole hours from an hour on, whole minutes from a minute on, seconds below. Each of the

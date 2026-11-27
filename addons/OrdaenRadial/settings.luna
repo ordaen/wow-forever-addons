@@ -184,14 +184,14 @@ function modifierOf(condition: Condition | nil): string {
 // What the cursor holds, as an item of a ring: a spell (by its name), an item of the bags, a macro of the player's;
 // none for anything else.
 public function heldItem(): Item | nil {
-  const kind, first, _, spellId = Client::GetCursorInfo()
+  const (kind, first, _, spellId) = Client::GetCursorInfo()
   if (kind == "spell" && spellId is integer) {
     const name = Client::C_Spell::GetSpellName(spellId)
     return name != nil ? Item.Spell { spell: name } : nil
   }
   if (kind == "item" && first is integer) { return .Bag { item: first } }
   if (kind == "macro" && first is integer) {
-    const name, _, _ = Client::GetMacroInfo(first)
+    const (name, _, _) = Client::GetMacroInfo(first)
     return name != nil ? Item.Macro { macro: name } : nil
   }
   return nil
@@ -352,7 +352,7 @@ public class RingsPage implements Component {
   }
 
   keysOf(): string {
-    const first, second = Client::GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
+    const (first, second) = Client::GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
     if (first == nil) { return Locale::KEY_NONE }
     return second == nil ? first : `${first}, ${second}`
   }

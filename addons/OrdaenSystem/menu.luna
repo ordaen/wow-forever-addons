@@ -175,7 +175,7 @@ public class GameMenu {
     // The topmost of Blizzard's buttons, whichever its pool handed first: the least way down from the menu's top.
     let lead: number | nil = nil
     for (dressed of list) {
-      const point, relative, to, _, y = dressed.button.GetPoint(1, nil)
+      const (point, relative, to, _, y) = dressed.button.GetPoint(1, nil)
       if (relative == menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
     }
     self.lead = lead ?? 0

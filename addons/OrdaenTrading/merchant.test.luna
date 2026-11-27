@@ -53,17 +53,17 @@ function wareAt(index: integer): Client::MerchantItemInfo | nil {
 }
 
 function costItem(index: number, cost: number): (number | string | nil, number, string | nil, string | nil) {
-  return ORE, 2, "item:2770", "Copper Ore"
+  return (ORE, 2, "item:2770", "Copper Ore")
 }
 
 // Two items sold back to it, the boots last.
 function soldAt(slot: number): (string | nil, number | string | nil, number, number, number, boolean) {
-  if (slot == 1) { return "Copper Ore", ORE, 5, 4, -1, true }
-  return "Worn Boots", BOOTS, 12, 1, -1, true
+  if (slot == 1) { return ("Copper Ore", ORE, 5, 4, -1, true) }
+  return ("Worn Boots", BOOTS, 12, 1, -1, true)
 }
 
 function nameOf(unit: string): (string, string) {
-  return unit == "npc" ? VENDOR : "Regy", ""
+  return (unit == "npc" ? VENDOR : "Regy", "")
 }
 
 test "the merchant's window opens with the merchant, each item with its price, and leaves with it" {
@@ -184,9 +184,9 @@ test "a left click on a purchase the game asks about asks first; a cheap one is 
 function itemInfo(item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil,
   string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil,
   number | nil, number | nil, boolean | nil, string | nil) {
-  if (item == 101) { return "Coarse Thread", nil, .Common, 5, 0, "Trade Goods", nil, 20, nil, THREAD, 2, 7, 0, 0, 0, 0, true, nil }
-  if (item == 102) { return "Gladius", nil, .Uncommon, 20, 15, "Weapon", nil, 1, nil, DAGGER, 400, 2, 7, 1, 0, 0, false, nil }
-  return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+  if (item == 101) { return ("Coarse Thread", nil, .Common, 5, 0, "Trade Goods", nil, 20, nil, THREAD, 2, 7, 0, 0, 0, 0, true, nil) }
+  if (item == 102) { return ("Gladius", nil, .Uncommon, 20, 15, "Weapon", nil, 1, nil, DAGGER, 400, 2, 7, 1, 0, 0, false, nil) }
+  return (nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil)
 }
 
 test "by category each kind has its caption with its count, folded by a click; as a table, a row's left click buys" {
@@ -218,7 +218,7 @@ test "at a merchant who repairs, «Repair all» says the cost and mends everythi
   Client::CanMerchantRepair = (): boolean => true
   Client::CanGuildBankRepair = (): boolean => false
   Client::GetRepairAllCost = (): (number, boolean) => {
-    return 150, true
+    return (150, true)
   }
   const heard = new Heard()
   Client::RepairAllItems = (guild: boolean | nil): nil => heard.add(`repair ${guild == true}`)
@@ -306,7 +306,7 @@ test "the merchant's currencies show with the money, the last item sold under th
   Client::BuybackItem = (index: integer): nil => heard.add(`buyback ${index}`)
   Client::CanMerchantRepair = (): boolean => true
   Client::GetRepairAllCost = (): (number, boolean) => {
-    return 150, true
+    return (150, true)
   }
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()

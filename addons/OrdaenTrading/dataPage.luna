@@ -48,13 +48,13 @@ class DealtLine implements Component {
 
   counted(): integer {
     _ = self.ledger.revision
-    const rows, _ = self.ledger.total(self.deal)
+    const (rows, _) = self.ledger.total(self.deal)
     return rows
   }
 
   money(): integer {
     _ = self.ledger.revision
-    const _, copper = self.ledger.total(self.deal)
+    const (_, copper) = self.ledger.total(self.deal)
     return copper
   }
 

@@ -245,10 +245,10 @@ public class Wheel implements Component {
   }
 
   // Slice `index`'s two edges.
-  sides(index: integer): [number<Angle>, number<Angle>] {
+  sides(index: integer): (number<Angle>, number<Angle>) {
     const middle = itemTurn(index, self.count)
     const half = sliceTurn(self.count) / 2
-    return [middle - half, middle + half]
+    return (middle - half, middle + half)
   }
 
   // The curved pieces, under to over: each slice's stone, its shade, its curved edges; each band's segments and its

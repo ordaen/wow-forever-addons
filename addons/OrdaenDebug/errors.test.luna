@@ -55,7 +55,7 @@ test "de-duplicates against errors saved in earlier sessions" {
   let db = saved(1, 1)
   db.errors.push(old)
   let errors = new Errors(db, noMeta())
-  let entry, isNew = errors.add({ message: "old" })
+  let (entry, isNew) = errors.add({ message: "old" })
   Test::expect(!isNew)
   Test::expect(entry.count == 3)
   Test::expect(entry.lastSession == 2)
@@ -120,7 +120,7 @@ test "counts LunaType and the addons written in it as ours, by their TOC, not by
 
 test "counts repeats instead of storing them again" {
   let errors = new Errors(noErrors(), noMeta())
-  let first, isNew = errors.add({ message: "boom" })
+  let (first, isNew) = errors.add({ message: "boom" })
   Test::expect(isNew)
   Test::expect(errors.repeatOf("boom") == first)
   Test::expect(errors.repeatOf("other message") == nil)
@@ -136,13 +136,13 @@ test "keeps the newest ERRORS_MAX errors and forgets the dropped ones" {
   }
   Test::expect(errors.db.errors.length == ERRORS_MAX)
   Test::expect(errors.db.errors[1]?.message == "error 4")
-  let _, isNew = errors.add({ message: "error 1" })
+  let (_, isNew) = errors.add({ message: "error 1" })
   Test::expect(isNew)
 }
 
 test "truncates huge stacks and locals" {
   let errors = new Errors(noErrors(), noMeta())
-  let entry, _ = errors.add({ message: "big", stack: "s".rep(10000), locals: "l".rep(9000) })
+  let (entry, _) = errors.add({ message: "big", stack: "s".rep(10000), locals: "l".rep(9000) })
   Test::expect((entry.stack ?? "").length < 7000)
   Test::expect((entry.locals ?? "").length < 5000)
 }
@@ -176,7 +176,7 @@ test "tells listeners about new errors and repeats, and which are first this ses
 test "formats an error with versions, stack and locals" {
   Client::C_AddOns::GetAddOnMetadata = (name: string | integer, variable: string): string | nil => "1.2.3"
   let errors = new Errors(noErrors(), { client: "1.60.1", build: "70790", interface: 16001, locale: "ruRU", core: "0.1.0" })
-  let entry, _ = errors.add({ message: "Interface/AddOns/OrdaenMinimap/Map.lua:9: boom", stack: "the stack", locals: "x = 1" })
+  let (entry, _) = errors.add({ message: "Interface/AddOns/OrdaenMinimap/Map.lua:9: boom", stack: "the stack", locals: "x = 1" })
   let text = errors.format(entry)
   Test::expect(text.contains("Error in OrdaenMinimap: x1"))
   Test::expect(text.contains("Client 1.60.1 (build 70790"))

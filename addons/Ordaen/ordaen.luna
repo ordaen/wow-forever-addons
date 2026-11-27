@@ -334,7 +334,7 @@ public class OrdaenCore implements App {
     const running = modules.filter(module => self.chosen[module.name] != false)
     for (module of running) {
       for (other of module.conflicts()) {
-        let loaded, _ = Client::C_AddOns::IsAddOnLoaded(other.name)
+        let (loaded, _) = Client::C_AddOns::IsAddOnLoaded(other.name)
         if (!loaded) {
           answered[other.name] = nil
         } else if (answered[other.name] == nil) {

@@ -106,7 +106,7 @@ public function questWaysOf(classTag: string): map<integer, array<QuestWay>> {
   const text = Training::quests[classTag]
   if (text == nil) { return ways }
   for (entry of text.split(";")) {
-    const spell, rest = entry.match("^(%d+):(.*)$")
+    const (spell, rest) = entry.match("^(%d+):(.*)$")
     const id = spell?.toNumber()?.floor()
     if (id != nil && rest != nil) {
       const list: array<QuestWay> = []

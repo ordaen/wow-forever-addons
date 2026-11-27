@@ -302,7 +302,7 @@ public class Keeper {
     const sections: map<string, unknown> = {}
     for (key, section of self.sections) { sections[key] = section.snapshot() }
     shelf.made += 1
-    const hours, minutes = Client::GetGameTime()
+    const (hours, minutes) = Client::GetGameTime()
     shelf.points.push({ number: shelf.made, at: "%02d:%02d".format(hours.floor(), minutes.floor()), sections: sections })
     self.count(peek self.profiles.active)
     return true

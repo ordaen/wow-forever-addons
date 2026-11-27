@@ -56,7 +56,7 @@ function ofItem(kind: NewsKind): boolean {
 // where it fell. Nothing for an item's (the item's own button shows the game's) or for the rest.
 function tipOf(news: GuildNews): TipText | nil {
   if (news.kind == .Achievement || news.kind == .GuildAchievement) {
-    let _, name, _, _, _, _, _, description, _, _, _, _, _, _ = Client::GetAchievementInfo(news.subject)
+    let (_, name, _, _, _, _, _, description, _, _, _, _, _, _) = Client::GetAchievementInfo(news.subject)
     if (name == nil) { return nil }
     return { title: name, text: description ?? "", rows: [] }
   }

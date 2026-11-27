@@ -51,7 +51,7 @@ public class Ledger {
         copper += row.copper
       }
     }
-    return rows, copper
+    return (rows, copper)
   }
 
   mut add(row: Dealt) {

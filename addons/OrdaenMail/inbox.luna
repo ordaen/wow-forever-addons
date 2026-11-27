@@ -182,7 +182,7 @@ public class LetterRow implements Component {
           </box>
           <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align::Center}>
             <ItemButton $for={item of self.shownItems} $key={item.place} item={item.item} count={item.count} size={SMALL}
-                        mail={[self.letter.index, item.place]} />
+                        mail={(self.letter.index, item.place)} />
             <text $if={self.hasMore} value={"+%d"} arguments={[self.more]} textColor={Style::DIM} wrap={.None} />
             <Money $if={self.hasMoney} amount={self.letter.copper} />
             <text $if={self.hasCod} value={Locale::COD} textColor={Style::ORANGE} wrap={.None} />

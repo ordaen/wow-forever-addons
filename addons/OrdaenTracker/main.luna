@@ -304,7 +304,7 @@ class TrackedQuest implements Component {
   public render(): Template {
     return $ltml {
       <box columns={QUEST} gap={LINES_GAP} yAlign={Align::Center} padding={ROW_PAD} background={SHADE}
-           @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift} @pointerPress(.Right)={self.onMenu}>
+           @pointerPress(.Left)={self.onOpen} @pointerPress((.Shift, .Left))={self.onShift} @pointerPress(.Right)={self.onMenu}>
         <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
         <box columns={TITLE} gap={2sp} yAlign={Align::Center}>
           <text value={self.quest.title} textColor={BRIGHT_TEXT} textWeight={.Bold} wrap={.Cut} />

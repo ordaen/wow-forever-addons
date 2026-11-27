@@ -45,10 +45,10 @@ test "an age draws nothing under a day, amber to the third day, dimmed after, an
 test "the rule as text: what a tooltip's line says and its colour, as the control draws them" {
   const ages: array<number> = [7200, 86400, 3 * 86400 + 86399, 4 * 86400, 30 * 86400 + 5, 31 * 86400]
   for (seconds of ages) {
-    const text, color = ageText(seconds)
+    const (text, color) = ageText(seconds)
     const shade = color != nil ? "%.2f %.2f %.2f".format(color.r, color.g, color.b) : "none"
     Test::note(`${seconds}: «${text}» ${shade}`)
   }
-  const none, noColor = ageText(nil)
+  const (none, noColor) = ageText(nil)
   Test::expect(none == "" && noColor == nil)
 }

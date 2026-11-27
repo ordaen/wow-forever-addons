@@ -35,7 +35,7 @@ const LEARNABLE = 2
 // The player as a learner of their class: their race and side, their level, what they know and how they stand with a
 // faction, the client's.
 function learnerOf(level: integer): Learner {
-  const _, _, race = Client::UnitRace("player")
+  const (_, _, race) = Client::UnitRace("player")
   return {
     classTag: Game::player.classTag, race: race?.floor() ?? 0, side: Game::player.faction == Game::Faction::Horde ? 2 : 1, level: level,
     known: (spell: integer): boolean => Game::spells.known(spell),

@@ -559,7 +559,7 @@ test "a fact that speaks of an amount opens its term with the amount in it" {
 test "what a locked tooltip opens is locked itself: the cursor goes into it, and what it holds opens further" {
   // A spell whose reagent opens its item; the item is soulbound, which opens its term.
   Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    return item == "Linen Cloth" ? 2589 : nil, nil, nil, nil, nil, nil, nil
+    return (item == "Linen Cloth" ? 2589 : nil, nil, nil, nil, nil, nil, nil)
   }
   Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 2589 ? nil : {
     kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }, { left: "Soulbound", kind: 20 }]
@@ -798,8 +798,8 @@ const WOOD: FileId = 135435
 
 test "a recipe's reagent stands with its icon, and opens its own tooltip from the locked one" {
   Client::C_Item::GetItemInfoInstant = (itemInfo: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    if (itemInfo == "Simple Wood") { return 4470, nil, nil, nil, WOOD, nil, nil }
-    return nil, nil, nil, nil, nil, nil, nil
+    if (itemInfo == "Simple Wood") { return (4470, nil, nil, nil, WOOD, nil, nil) }
+    return (nil, nil, nil, nil, nil, nil, nil)
   }
   Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 4470 ? nil : {
     kind: 0, id: 4470, lines: [{ left: "Simple Wood", kind: 22 }, { left: "Used to craft wooden things.", kind: 0 }]

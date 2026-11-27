@@ -135,7 +135,7 @@ public class GuildBank {
   mut readTabs() {
     let tabs: array<GuildTab> = []
     for (index of 1..Client::GetNumGuildBankTabs().floor()) {
-      let name, icon, viewable, canDeposit, withdrawals = Client::GetGuildBankTabInfo(index)
+      let (name, icon, viewable, canDeposit, withdrawals) = Client::GetGuildBankTabInfo(index)
       tabs.push({
         index: index, name: tabTitle(index, name), icon: icon is Asset ? icon : NO_ICON, viewable: viewable,
         canDeposit: canDeposit, withdrawals: withdrawals.floor()
@@ -154,14 +154,14 @@ public class GuildBank {
     let lines: array<string> = []
     if (peek self.page == GuildPage::MoneyLog) {
       for (index of 1..Client::GetNumGuildBankMoneyTransactions().floor()) {
-        let kind, who, amount, _, _, _, _ = Client::GetGuildBankMoneyTransaction(index)
+        let (kind, who, amount, _, _, _, _) = Client::GetGuildBankMoneyTransaction(index)
         const said = Game::money.format(amount.floor())
         lines.push(kind == "deposit" ? Locale::LOG_MONEY_IN.format(who, said) : Locale::LOG_MONEY_OUT.format(who, said))
       }
     } else {
       const tab = peek self.tab
       for (index of 1..Client::GetNumGuildBankTransactions(tab).floor()) {
-        let kind, who, item, count, _, _, _, _, _, _ = Client::GetGuildBankTransaction(tab, index)
+        let (kind, who, item, count, _, _, _, _, _, _) = Client::GetGuildBankTransaction(tab, index)
         lines.push(logLine(kind, who, item, count.floor()))
       }
     }

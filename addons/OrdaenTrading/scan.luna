@@ -86,7 +86,7 @@ public class Scanner {
     const several: map<PriceKey, mut array<Listing>> = {}
     self.since = Client::debugprofilestop()
     for (index of 1..count) {
-      const key, unit, many = Game::auctionScan.read(index)
+      const (key, unit, many) = Game::auctionScan.read(index)
       take(key, unit, many, alone, several)
       if (index % CHECK == 0 && index < count && self.spent()) {
         self.progress = index / count * READ_SHARE
@@ -102,7 +102,7 @@ public class Scanner {
         const index = Game::auctionScan.again(turn)
         if (index == 0) { break }
         turn += 1
-        const key, unit, many = Game::auctionScan.read(index)
+        const (key, unit, many) = Game::auctionScan.read(index)
         take(key, unit, many, alone, several)
         if (step % CHECK == 0 && self.spent()) {
           await Game::frame()
@@ -125,7 +125,7 @@ public class Scanner {
     }
     for (key, list of several) {
       list.sort(cheaper)
-      const unit, low, total = fifth(list)
+      const (unit, low, total) = fifth(list)
       self.house.observe(key, unit, low, total, at)
       items += 1
       if (items % CHECK == 0 && self.spent()) {
@@ -211,7 +211,7 @@ public function fifth(sorted: array<Listing>): (integer, integer, integer) {
   let total = 0
   for (auction of sorted) { total += auction.quantity() }
   const first = sorted[1]
-  if (first == nil || total == 0) { return 0, 0, 0 }
+  if (first == nil || total == 0) { return (0, 0, 0) }
   const wanted = (total / 5).ceil().max(1)
   let left = wanted
   let cost = 0
@@ -221,5 +221,5 @@ public function fifth(sorted: array<Listing>): (integer, integer, integer) {
     left -= taken
     if (left == 0) { break }
   }
-  return (cost / wanted).round(), first.low(), total
+  return ((cost / wanted).round(), first.low(), total)
 }

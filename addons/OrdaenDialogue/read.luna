@@ -192,14 +192,14 @@ public function gossipLines(): array<Line> {
 public function greetingLines(): array<Line> {
   let lines: array<Line> = []
   for (index of 1..Client::GetNumActiveQuests().floor()) {
-    const title, complete = Client::GetActiveTitle(index)
+    const (title, complete) = Client::GetActiveTitle(index)
     const kind = activeKind(complete, false)
     const level = Client::GetActiveLevel(index).floor()
     lines.push(questLine(kind, title ?? "", level, Client::IsActiveQuestTrivial(index), index, .Greeting))
   }
   for (index of 1..Client::GetNumAvailableQuests().floor()) {
-    const title, _ = Client::GetAvailableTitle(index)
-    const trivial, frequency, repeatable, legendary, _, _, _, _ = Client::GetAvailableQuestInfo(index)
+    const (title, _) = Client::GetAvailableTitle(index)
+    const (trivial, frequency, repeatable, legendary, _, _, _, _) = Client::GetAvailableQuestInfo(index)
     const kind = repeatable ? LineKind::Daily : offerKind(frequency, legendary)
     lines.push(questLine(kind, title ?? "", Client::GetAvailableLevel(index).floor(), trivial, index, .Greeting))
   }
@@ -208,7 +208,7 @@ public function greetingLines(): array<Line> {
 
 // A quest's item of a kind (`choice`, `reward`) at its place.
 function questItem(kind: string, index: integer): Reward {
-  const name, texture, count, _, usable, itemID = Client::GetQuestItemInfo(kind, index)
+  const (name, texture, count, _, usable, itemID) = Client::GetQuestItemInfo(kind, index)
   const item = itemID != nil ? itemID.floor() : nil
   return itemReward(item, count.floor(), name ?? "", artOf(texture), usable, Client::GetQuestItemLink(kind, index),
     kind == "choice" ? index : 0)
@@ -259,7 +259,7 @@ function givenRewards(questID: integer): array<Reward> {
       detail: Locale::TITLE_REWARD, unusable: false, sell: 0, index: 0
     })
   }
-  const skill, skillIcon, points = Client::GetRewardSkillPoints()
+  const (skill, skillIcon, points) = Client::GetRewardSkillPoints()
   if (skill != nil && points != nil && points > 0) {
     given.push({
       kind: .Skill, name: Locale::SKILL_POINTS.format(points.floor(), skill), icon: skillIcon ?? UNKNOWN, count: 1,
@@ -276,7 +276,7 @@ function needsOf(): array<Need> {
   if (!Client::C_QuestOffer::GetHideRequiredItems()) {
     for (index of 1..Client::GetNumQuestItems()) {
       if (!Client::IsQuestItemHidden(index)) {
-        const name, texture, count, _, _, itemID = Client::GetQuestItemInfo("required", index)
+        const (name, texture, count, _, _, itemID) = Client::GetQuestItemInfo("required", index)
         const item = itemID != nil ? itemID.floor() : nil
         const have = item != nil ? Client::C_Item::GetItemCount(item, nil, nil, nil, nil).floor() : 0
         needs.push({ name: name ?? "", icon: artOf(texture), item: item, have: have, need: count.floor() })

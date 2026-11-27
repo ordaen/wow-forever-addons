@@ -58,7 +58,7 @@ public class PickRow implements Component {
     return $ltml {
       <box columns={self.columns} gap={2sp} yAlign={Align::Center} padding={self.padding}
            background={self.background} tabStop={self.tabStop} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
-           @pointerPress([.Shift, .Left])={self.onShift} @pointerPress([.Ctrl, .Left])={self.onCtrl}
+           @pointerPress((.Shift, .Left))={self.onShift} @pointerPress((.Ctrl, .Left))={self.onCtrl}
            @keyPress(.Space)={self.onPick} @pointerEnter={self.onEnter}>
         <slot />
       </box>

@@ -115,7 +115,7 @@ function ownUse(slot: Slot): string | nil {
   if (info != nil && info.isReadable) { return Locale::USE_READ }
   const quest = Client::C_Container::GetContainerItemQuestInfo(slot.bag, slot.index)
   if (quest.questID != nil && !quest.isActive) { return Locale::USE_QUEST }
-  const spell, _ = Client::C_Item::GetItemSpell(slot.id)
+  const (spell, _) = Client::C_Item::GetItemSpell(slot.id)
   return spell != nil ? Locale::ACT_USE : nil
 }
 

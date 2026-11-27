@@ -258,7 +258,7 @@ test "a new profession is asked first, and greyed while two are known" {
   asked.button(Locale::TRAIN).click()
   Test::expect(bought.join(", ") == "1")
   Client::GetProfessions = (): (integer | nil, integer | nil, integer | nil, integer | nil, integer | nil, integer | nil) => {
-    return 1, 2, nil, nil, nil, nil
+    return (1, 2, nil, nil, nil, nil)
   }
   Game::trainer.changed.emit()
   Test::expect(window.text(Locale::NO_PROFESSION_SLOT).shown())

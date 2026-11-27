@@ -47,8 +47,8 @@ function bags(): array<Game::Sellable> | nil {
 function reader(auctions: array<Sale>): (index: integer) => (integer, integer, integer) {
   return (index: integer): (integer, integer, integer) => {
     const auction = auctions[index]
-    if (auction == nil) { return 0, 0, 0 }
-    return auction.key, auction.unit, auction.many
+    if (auction == nil) { return (0, 0, 0) }
+    return (auction.key, auction.unit, auction.many)
   }
 }
 
@@ -196,7 +196,7 @@ test "a scan shows its progress as it reads, and the house shut on it drops it: 
   Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
     reads += 1
     const auction = auctions[index] ?? panic("an auction of the answer")
-    return auction.key, auction.unit, auction.many
+    return (auction.key, auction.unit, auction.many)
   }
   Client::debugprofilestop = (): number => reads * 0.02
   window().button("Scan").click()
@@ -303,8 +303,8 @@ test "auctions whose item's data came late are read as it comes, and counted" {
   let loaded = false
   Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
     const auction = auctions[index] ?? panic("an auction of the answer")
-    if (!loaded && index == 3) { return 0, 0, 0 }
-    return auction.key, auction.unit, auction.many
+    if (!loaded && index == 3) { return (0, 0, 0) }
+    return (auction.key, auction.unit, auction.many)
   }
   Game::auctionScan.waiting = 1
   window().button("Scan").click()

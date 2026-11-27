@@ -39,8 +39,8 @@ public function kindOf(data: Game::TooltipData): Kind | nil {
 // «Requires Lockpicking (75)» as the skill and the rank, read back through the game's own format for the line.
 function skillOf(text: string): (string | nil, string | nil) {
   let parts = text.unformat(Game::strings.itemMinSkill)
-  if (parts == nil) { return nil, nil }
-  return parts[1], parts[2]
+  if (parts == nil) { return (nil, nil) }
+  return (parts[1], parts[2])
 }
 
 // A tooltip that is only text (a micro menu's or a bag's button, any addon's lines): its first line the title, the
@@ -56,7 +56,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   let title = first.left
   if (title == nil) { return nil }
   let keys: array<string> = []
-  let name, key = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
+  let (name, key) = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
   if (name != nil && key != nil && name != "") {
     title = name
     keys.push(Locale::KEY_OPEN.format(key))
@@ -119,7 +119,7 @@ public function object(data: Game::TooltipData, options: Options): Model | nil {
       continue
     }
     let locked = line.usable == false
-    let skill, rank = skillOf(text)
+    let (skill, rank) = skillOf(text)
     if (skill != nil && rank != nil) {
       foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term::Lock) })
     } else {

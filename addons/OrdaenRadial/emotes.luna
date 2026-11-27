@@ -113,7 +113,7 @@ const UNNAMED: map<string, string> = {
 
 // Whether a command is in the client's own letters, not English ones (`/смех`, not `/laugh`).
 function native(command: string): boolean {
-  const at, _ = command.find("[\128-\255]")
+  const (at, _) = command.find("[\128-\255]")
   return at != nil
 }
 

@@ -569,7 +569,7 @@ test "a turn-in that takes money asks first, with the price" {
 
 test "the sell price: the dearest reward's in gold" {
   Client::C_Item::GetItemInfo = (item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil, string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, boolean | nil, string | nil) => {
-    return nil, nil, Client::ItemQuality::Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil
+    return (nil, nil, Client::ItemQuality::Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil)
   }
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
@@ -712,7 +712,7 @@ test "auto-accept «All»: every quest offered is accepted as the talk starts, t
 
 test "auto-accept «All» accepts nothing while the quest log is full" {
   Client::C_QuestLog::GetNumQuestLogEntries = (): (number, number) => {
-    return 25, 25
+    return (25, 25)
   }
   Test::mount(nil, SCREEN)
   Dialogue.settings.values.autoAccept = Auto::All
@@ -799,7 +799,7 @@ test "the window opens and closes with the game's own sounds" {
   const sounds: array<string> = []
   Client::C_Sound::PlaySound = (kit: number, kind: unknown, a: boolean | nil, b: boolean | nil, c: number | nil, d: number | nil): (boolean | nil, unknown) => {
     sounds.push(string::of(kit))
-    return true, nil
+    return (true, nil)
   }
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
@@ -814,7 +814,7 @@ test "a quest giver's greeting: its quests by their place, picked as the game's 
   Client::GetGreetingText = (): string => "Greetings, citizen."
   Client::GetNumAvailableQuests = (): number => 1
   Client::GetAvailableTitle = (index: number): (string | nil, boolean) => {
-    return "Wanted: Hogger", false
+    return ("Wanted: Hogger", false)
   }
   Client::GetAvailableLevel = (index: integer): number => 11
   Test::mount(nil, SCREEN)
@@ -1130,7 +1130,7 @@ test "the scroll stands at one size, 5:3, on every quest page" {
 
 // What the client knows of the reward: it binds as it is worn (its fourteenth value 2).
 function bindingReward(item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil, string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, boolean | nil, string | nil) {
-  return "Bread", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 2, nil, nil, nil, nil
+  return ("Bread", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 2, nil, nil, nil, nil)
 }
 
 test "a reward that binds as it is worn is left in the bags, and the chat says so: binding it is the player's choice" {

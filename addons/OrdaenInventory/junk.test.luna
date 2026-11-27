@@ -248,7 +248,7 @@ test "gear worth more to the player's spec than what it wears carries the game's
   Game::items.maxStack = (id: integer): integer | nil => 20
   // The priest wears nothing on its hands; the gloves give intellect.
   Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
+    return (25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1)
   }
   let given: map<string, number> = {}
   given["ITEM_MOD_INTELLECT_SHORT"] = 10
@@ -266,7 +266,7 @@ test "the green arrow follows the gear: better gloves put on take it from the ba
   Game::items.icon = (id: integer): Art | nil => world.icon(id)
   Game::items.maxStack = (id: integer): integer | nil => 20
   Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
+    return (25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1)
   }
   // The gloves worn give twice the bags' intellect.
   Client::C_Item::GetItemStats = (link: string): unknown => {
@@ -453,7 +453,7 @@ test "the client's secure use stands on the scheme's chord for Use: the left in 
   const game = useClickOf(AS_THE_GAME)
   Test::expect(game.chord == MouseButton::Right)
   const moved = useClickOf({ left: .Menu, shiftRight: .Use, ..OURS }).chord
-  Test::expect(moved is [Modifier, MouseButton] && moved[1] == Modifier::Shift && moved[2] == MouseButton::Right)
+  Test::expect(moved is (Modifier, MouseButton) && moved[1] == Modifier::Shift && moved[2] == MouseButton::Right)
   Test::expect(chordFor(OURS, .Protect) == nil && chordFor(AS_THE_GAME, .Protect) == Chord::AltLeft)
 }
 

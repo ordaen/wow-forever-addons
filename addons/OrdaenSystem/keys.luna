@@ -68,7 +68,7 @@ public class Bindings {
     const places: map<string, integer> = {}
     const count = Client::GetNumBindings().floor()
     for (i of 1..count) {
-      const action, category, first, second = Client::GetBinding(i)
+      const (action, category, first, second) = Client::GetBinding(i)
       if (isCommand(action)) {
         commands.push({ action: action, name: Client::GetBindingName(action), section: sectionOf(category), keys: keysOf(first, second) })
         places[action] = commands.length
@@ -182,7 +182,7 @@ public class Bindings {
   // first bound first). False where the client refuses a key.
   public put(action: string, keys: array<string>): boolean {
     const context = Client::C_KeyBindings::GetBindingContextForAction(action)
-    const first, second = Client::GetBindingKey(action, nil, context)
+    const (first, second) = Client::GetBindingKey(action, nil, context)
     for (held of keysOf(first, second)) { _ = Client::SetBinding(held, nil, context) }
     for (key of keys) {
       if (!Client::SetBinding(key, action, context)) { return false }

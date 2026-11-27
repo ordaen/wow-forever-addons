@@ -273,15 +273,15 @@ const LEASH: string = [
 
 // The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
 // has one (`shift-type-r_3`).
-function actionAttributes(entry: WheelEntry): array<[string, string]> {
+function actionAttributes(entry: WheelEntry): array<(string, string)> {
   const at = entry.path
   const held = entry.modifier
   const before = held == nil ? "" : `${held == WheelModifier::Shift ? "shift" : held == WheelModifier::Ctrl ? "ctrl" : "alt"}-`
   return match (entry.action) {
-    .Spell => [[`${before}type-${at}`, "spell"], [`${before}spell-${at}`, entry.action.spell]]
-    .Item => [[`${before}type-${at}`, "item"], [`${before}item-${at}`, `item:${entry.action.item}`]]
-    .Macro => [[`${before}type-${at}`, "macro"], [`${before}macro-${at}`, entry.action.macro]]
-    .MacroText => [[`${before}type-${at}`, "macro"], [`${before}macrotext-${at}`, entry.action.text]]
+    .Spell => [(`${before}type-${at}`, "spell"), (`${before}spell-${at}`, entry.action.spell)]
+    .Item => [(`${before}type-${at}`, "item"), (`${before}item-${at}`, `item:${entry.action.item}`)]
+    .Macro => [(`${before}type-${at}`, "macro"), (`${before}macro-${at}`, entry.action.macro)]
+    .MacroText => [(`${before}type-${at}`, "macro"), (`${before}macrotext-${at}`, entry.action.text)]
     .Menu, .Slot, .Ours => []
   }
 }
@@ -524,11 +524,11 @@ public class SecureWheel {
     }
     self.armed = self.header.GetAttribute("armed") != nil
     const scale = Client::UIParent.GetEffectiveScale()
-    const cursorX, cursorY = Client::GetCursorPosition()
-    const fromX, fromY = self.button.GetCenter()
+    const (cursorX, cursorY) = Client::GetCursorPosition()
+    const (fromX, fromY) = self.button.GetCenter()
     if (fromX == nil || fromY == nil) { return }
     // Drawn where its dial stands, which never moves while it is up: the screen's middle, or where the hand was.
-    const dialX, dialY = self.dial.GetCenter()
+    const (dialX, dialY) = self.dial.GetCenter()
     const middleX = dialX ?? fromX
     const middleY = dialY ?? fromY
     if (middleX != self.middleX || middleY != self.middleY) {

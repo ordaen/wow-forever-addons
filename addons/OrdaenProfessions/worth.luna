@@ -75,7 +75,7 @@ function ageText(hours: integer | nil): string {
 
 // What a merchant gives for one of an item; none where the client says nothing.
 function merchantPrice(item: integer): integer | nil {
-  const _, _, _, _, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+  const (_, _, _, _, _, _, _, _, _, _, price, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
   if (price == nil || price <= 0) { return nil }
   return price.floor()
 }

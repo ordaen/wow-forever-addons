@@ -106,7 +106,7 @@ function effectsOf(spell: integer): array<Effect> {
   if (block == nil) { return effects }
   let own: string | nil = nil
   for (entry of block.split(";")) {
-    const id, rest = entry.match("^(%d+):(.*)$")
+    const (id, rest) = entry.match("^(%d+):(.*)$")
     if (id?.toNumber() == spell) {
       own = rest
       break
@@ -114,7 +114,7 @@ function effectsOf(spell: integer): array<Effect> {
   }
   if (own == nil) { return effects }
   for (entry of own.split("/")) {
-    const index, name, misc, points, growth = entry.match("^(%d+),(%a+),(%-?%d+),([%-%d%.e]+),([%-%d%.e]+)$")
+    const (index, name, misc, points, growth) = entry.match("^(%d+),(%a+),(%-?%d+),([%-%d%.e]+),([%-%d%.e]+)$")
     const kind = name == nil ? nil : KIND_OF[name]
     const place = index?.toNumber()
     const value = misc?.toNumber()

@@ -15,9 +15,9 @@ function addonLines(): array<string> {
   let lines: array<string> = []
   const count = Client::C_AddOns::GetNumAddOns()
   for (i of 1..count) {
-    const loaded, _ = Client::C_AddOns::IsAddOnLoaded(i)
+    const (loaded, _) = Client::C_AddOns::IsAddOnLoaded(i)
     if (loaded) {
-      const name, _, _, _, _, _ = Client::C_AddOns::GetAddOnInfo(i)
+      const (name, _, _, _, _, _) = Client::C_AddOns::GetAddOnInfo(i)
       lines.push("%s %s".format(name, Client::C_AddOns::GetAddOnMetadata(i, "Version") ?? "?"))
     }
   }

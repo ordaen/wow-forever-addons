@@ -29,14 +29,14 @@ public function pickupIn(vault: Vault, bag: integer, slot: integer) {
 // A guild bank slot as a slot of the bags is read: the item by its link, its kind and level and price from the item's
 // own, its count and lock from the slot. Nothing of the guild's is new or bound to the player.
 function readGuild(tab: integer, slot: integer, into: mut Game::SlotItem): boolean {
-  let icon, count, locked, _, quality = Client::GetGuildBankItemInfo(tab, slot)
+  let (icon, count, locked, _, quality) = Client::GetGuildBankItemInfo(tab, slot)
   const link = Client::GetGuildBankItemLink(tab, slot)
   if (icon == nil || link == nil) {
     into.id = 0
     return false
   }
-  let id, _, subkindName, worn, _, kind, subkind = Client::C_Item::GetItemInfoInstant(link)
-  let name, _, _, level, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(link)
+  let (id, _, subkindName, worn, _, kind, subkind) = Client::C_Item::GetItemInfoInstant(link)
+  let (name, _, _, level, _, _, _, _, _, _, price, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(link)
   into.id = (id ?? 0).floor()
   into.count = count.floor()
   into.quality = quality.floor()

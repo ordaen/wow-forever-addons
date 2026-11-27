@@ -671,7 +671,7 @@ test "opened and closed by its command, the spellbook plays the game's sounds an
   const played: array<integer> = []
   Client::PlaySound = (kit: integer, channel: string | nil, once: boolean | nil): (boolean | nil, unknown) => {
     played.push(kit)
-    return true, nil
+    return (true, nil)
   }
   const heard = new Heard()
   Client::EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Show", (owner: unknown): nil => heard.onShow(), heard)

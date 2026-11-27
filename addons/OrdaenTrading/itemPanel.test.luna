@@ -181,7 +181,7 @@ test "the 8,000 are freed as a full scan drops what is 30 days old: a new item h
   ]
   window().button("Sell").click()
   Game::clock.server = START + 731 * HOUR
-  Game::auctionScan.read = (index: integer): (integer, integer, integer) => { return 18003, 50, 1 }
+  Game::auctionScan.read = (index: integer): (integer, integer, integer) => { return (18003, 50, 1) }
   window().button("Scan").click()
   Game::auctionScan.finished.emit(1)
   Test::pass(0.2)

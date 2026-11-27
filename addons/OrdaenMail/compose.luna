@@ -188,7 +188,7 @@ public class Compose implements Component {
   mut absorb() {
     if (self.sender.busy()) { return }
     for (place of 1..PLACES) {
-      const _, item, _, count, _ = Client::GetSendMailItem(place)
+      const (_, item, _, count, _) = Client::GetSendMailItem(place)
       if (item != nil) {
         const stack = stackOf(item.floor(), (count ?? 1).floor(), true, peek self.stacks)
         if (stack != nil) { self.stacks.push(stack) }

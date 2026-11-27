@@ -315,7 +315,7 @@ public class Quests implements Module, App {
   bind() {
     Client::ClearOverrideBindings(self.toggle)
     if (!(peek self.ownKey)) { return }
-    let first, second = Client::GetBindingKey(QUEST_LOG_BINDING)
+    let (first, second) = Client::GetBindingKey(QUEST_LOG_BINDING)
     if (first != nil) { Client::SetOverrideBindingClick(self.toggle, false, first, TOGGLE, "LeftButton") }
     if (second != nil) { Client::SetOverrideBindingClick(self.toggle, false, second, TOGGLE, "LeftButton") }
   }

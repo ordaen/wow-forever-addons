@@ -21,16 +21,16 @@ function window(free: integer): array<integer> {
   Client::GetNumLootItems = (): integer => 3
   Client::GetLootSlotType = (slot: number): Client::LootSlotType => Client::LootSlotType::Item
   Client::GetLootSlotInfo = (slot: number): (number | string | nil, string | nil, number, number | nil, number, boolean, boolean, number | nil, boolean) => {
-    if (slot == 1) { return 135232, "Copper Ore", 5, nil, 1, false, false, nil, false }
-    if (slot == 2) { return 132408, "Flurry Axe", 1, nil, 4, true, false, nil, false }
-    return 134252, "Light Leather", 2, nil, 1, false, false, nil, false
+    if (slot == 1) { return (135232, "Copper Ore", 5, nil, 1, false, false, nil, false) }
+    if (slot == 2) { return (132408, "Flurry Axe", 1, nil, 4, true, false, nil, false) }
+    return (134252, "Light Leather", 2, nil, 1, false, false, nil, false)
   }
   Client::GetLootSlotLink = (slot: number): string | nil => slot == 1 ? ORE : slot == 2 ? BLADE : LEATHER
   Client::LootSlot = (slot: integer) => { taken.push(slot) }
   Client::C_Item::GetItemFamily = (item: string | integer): number | nil => 0
   Client::C_Item::GetItemCount = (item: string | integer, a: boolean | nil, b: boolean | nil, c: boolean | nil, d: boolean | nil): number => 0
   Client::C_Container::GetContainerNumFreeSlots = (bag: integer): (number, number | nil) => {
-    return bag == 0 ? free : 0, 0
+    return (bag == 0 ? free : 0, 0)
   }
   return taken
 }

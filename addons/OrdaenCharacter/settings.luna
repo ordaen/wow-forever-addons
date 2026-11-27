@@ -20,7 +20,7 @@ const SLOT_SIZES: array<Choice<SlotSize>> = [
 // (its texels less the rim the client cuts) in the screen's pixels, and the slot's edge round it; never under the
 // standard slot (a dense screen draws that sharp already), never past what the paper doll holds.
 function sharpestSlot(): number<Length> {
-  const wide, high = Client::GetPhysicalScreenSize()
+  const (wide, high) = Client::GetPhysicalScreenSize()
   const pixels = high * Client::UIParent.GetEffectiveScale() / 1080
   const sharp = Style::SLOT_EDGE * 2 + 1dp * Style::ICON_TEXELS.floor() / pixels
   return sharp.max(Style::SLOT).min(Style::SLOT_MOST)
@@ -58,7 +58,7 @@ public struct Picks implements Plain {
 function buildName(spec: SpecWeights): string {
   const index = spec.spec
   if (index != nil) {
-    let _, name, _, _, _, _, _, _, _, _ = Client::C_SpecializationInfo::GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
+    let (_, name, _, _, _, _, _, _, _, _) = Client::C_SpecializationInfo::GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
     if (name != nil) { return name }
   }
   if (spec.key == "shockadin") { return Locale::BUILD_SHOCKADIN }
@@ -76,7 +76,7 @@ function buildChoices(): array<Choice<string>> {
 
 // The class's build row, by the class's name as the client gives it.
 function classBuildLabel(): string {
-  let name, _, _ = Client::UnitClass("player")
+  let (name, _, _) = Client::UnitClass("player")
   return Locale::SETTING_CLASS_BUILD.format(name ?? Game::player.classTag)
 }
 

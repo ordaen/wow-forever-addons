@@ -66,7 +66,7 @@ function iconOf(texture: number | string | nil): Art | nil {
 function costsOf(index: integer): array<Cost> {
   let costs: array<Cost> = []
   for (part of 1..Client::GetMerchantItemCostInfo(index).floor()) {
-    const texture, value, link, name = Client::GetMerchantItemCostItem(index, part)
+    const (texture, value, link, name) = Client::GetMerchantItemCostItem(index, part)
     if (texture != nil) { costs.push({ icon: iconOf(texture), amount: value.floor(), name: name ?? link ?? "" }) }
   }
   return costs
@@ -77,7 +77,7 @@ function wareAt(index: integer): Ware | nil {
   const info = Client::C_MerchantFrame::GetItemInfo(index)
   const id = Client::GetMerchantItemID(index)
   if (info == nil || id == nil) { return nil }
-  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, crafting, _ = Client::C_Item::GetItemInfo(id.floor())
+  const (_, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, crafting, _) = Client::C_Item::GetItemInfo(id.floor())
   return {
     index: index, id: id.floor(), name: info.name ?? "", icon: info.texture, quality: qualityFrom(quality),
     price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
@@ -133,7 +133,7 @@ public class Vendor {
   mut readCurrencies() { self.currencies = currenciesOf() }
 
   mut onShow() {
-    const name, _ = Client::UnitName("npc")
+    const (name, _) = Client::UnitName("npc")
     self.name = name
     self.open = true
     self.read()
@@ -158,7 +158,7 @@ public class Vendor {
     self.wares = wares
     let sold: array<Sold> = []
     for (place of 1..Client::GetNumBuybackItems()) {
-      const name, texture, price, count, _, usable = Client::GetBuybackItemInfo(place)
+      const (name, texture, price, count, _, usable) = Client::GetBuybackItemInfo(place)
       if (name != nil) {
         sold.push({ place: place, name: name, icon: iconOf(texture), price: price.floor(), count: count.floor(), usable: usable })
       }
@@ -172,7 +172,7 @@ public class Vendor {
     self.repairing = Client::InRepairMode()
     self.repairs = Client::CanMerchantRepair()
     if (!(peek self.repairs)) { return }
-    const cost, worn = Client::GetRepairAllCost()
+    const (cost, worn) = Client::GetRepairAllCost()
     self.repairCost = cost.floor()
     self.worn = worn
     self.guildRepairs = Client::CanGuildBankRepair()

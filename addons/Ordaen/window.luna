@@ -841,7 +841,7 @@ public class Window implements Component {
   // right of them passes a click on to what shows there.
   mut onMove(drag: Event::Drag) {
     if (self.full || self.docked != nil) { return }
-    const dx, dy = kept(drag, Hold::Move)
+    const (dx, dy) = kept(drag, Hold::Move)
     self.declared.placing.x = self.x0 + dx
     self.declared.placing.y = self.y0 + dy
   }
@@ -866,7 +866,7 @@ public class Window implements Component {
   // The grip follows the cursor up to the screen's edges, and down to the content's least size. The window is placed
   // by its centre, so the centre moves half as far.
   mut onSize(drag: Event::Drag) {
-    const dx, dy = kept(drag, Hold::Size)
+    const (dx, dy) = kept(drag, Hold::Size)
     let width = self.minWidth.max(self.leastW).max(self.w0 + dx)
     let height = self.minHeight.max(self.leastH).max(self.h0 + dy)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }

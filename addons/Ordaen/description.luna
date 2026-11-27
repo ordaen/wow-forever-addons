@@ -25,9 +25,9 @@ const RANGE_FROM: array<string> = ["от", "from"]
 const RANGE_TO: array<string> = ["до", "to"]
 
 // A word without the punctuation after it, and that punctuation.
-function bareOf(word: string): [string, string] {
-  const bare, tail = word.match("^(.-)([,;:!%?%)%.]*)$")
-  return [bare ?? word, tail ?? ""]
+function bareOf(word: string): (string, string) {
+  const (bare, tail) = word.match("^(.-)([,;:!%?%)%.]*)$")
+  return (bare ?? word, tail ?? "")
 }
 
 // A number as a word is: «20», «1,5», «10%», a range in one word («19-20», «19–20»).

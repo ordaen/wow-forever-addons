@@ -141,7 +141,7 @@ public class Mail implements Module, App {
     const key = keyOf(letter)
     if (auction == nil || self.ledgered.any(k => k == key)) { return }
     self.ledgered.push(key)
-    const kind, item, other, bid, _, _, _, _, _, _, many = Client::GetInboxInvoiceInfo(letter.index)
+    const (kind, item, other, bid, _, _, _, _, _, _, many) = Client::GetInboxInvoiceInfo(letter.index)
     if (kind != nil) {
       auction.ledger.record({ kind: kind, item: item ?? "", other: other, copper: (bid ?? 0).floor(), count: (many ?? 1).floor() })
       return

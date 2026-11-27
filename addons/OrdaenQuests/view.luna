@@ -168,7 +168,7 @@ public class QuestRow implements Component {
   public render(): Template {
     return $ltml {
       <box columns={1} gap={GOAL_GAP} padding={ROW_PAD} background={self.background} border={self.rule}
-           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
+           @pointerPress(.Left)={self.onPick} @pointerPress((.Shift, .Left))={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
@@ -216,9 +216,9 @@ class Gains implements Component {
 // An objective's text as the client gives it («Defias slain: 3/10»): what is to be done, and its count; a text
 // without a count is all what.
 public function goalParts(text: string): (string, string) {
-  const what, count = text.match("^(.-):%s*(%d+%s*/%s*%d+)$")
-  if (what == nil || count == nil) { return text, "" }
-  return what, count
+  const (what, count) = text.match("^(.-):%s*(%d+%s*/%s*%d+)$")
+  if (what == nil || count == nil) { return (text, "") }
+  return (what, count)
 }
 
 // One objective: what is to be done, wrapped, in `color`, and at its right its count, or the client's green check once
@@ -261,12 +261,12 @@ const CHECK_SIZE = 18.75dp
 const CHECK_SMALL = 16.40625dp
 
 function whatOf(text: string): string {
-  const what, _ = goalParts(text)
+  const (what, _) = goalParts(text)
   return what
 }
 
 function countOf(text: string): string {
-  const _, count = goalParts(text)
+  const (_, count) = goalParts(text)
   return count
 }
 

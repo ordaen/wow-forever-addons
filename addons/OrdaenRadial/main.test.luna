@@ -230,7 +230,7 @@ test "a kind another module adds offers its item on the wheel, in a fight too" {
 
 test "an item of another class is dimmed and does nothing; one held to a modifier needs it" {
   start()
-  Client::UnitClass = (unit: string): (string | nil, string | nil, number | nil) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: string): (string | nil, string | nil, number | nil) => { return ("Warrior", "WARRIOR", 1) }
   editRing(3, (ring: mut Ring): nil => {
     ring.conditions["1"] = { classTag: "MAGE", form: nil, modifier: nil }
     ring.conditions["2"] = { classTag: nil, form: nil, modifier: .Shift }
@@ -250,14 +250,14 @@ test "an item of another class is dimmed and does nothing; one held to a modifie
 
 test "a spell shows its charges and its cooldown's sweep; a macro its own icon" {
   start()
-  Client::C_Spell::GetSpellTexture = (spell: string | integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
+  Client::C_Spell::GetSpellTexture = (spell: string | integer): (FileId | nil, FileId | nil, FileId | nil) => { return (136065, nil, nil) }
   Client::C_Spell::GetSpellCharges = (spell: string | integer): SpellChargeInfo | nil => {
     currentCharges: 2, maxCharges: 3, cooldownStartTime: 0, cooldownDuration: 0, chargeModRate: 1, isActive: true
   }
   Client::C_Spell::GetSpellCooldown = (spell: string | integer): SpellCooldownInfo | nil => {
     startTime: 5, duration: 30, isEnabled: true, isActive: true, modRate: 1, activeCategory: nil
   }
-  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return "Heal me", 134400, "/cast Heal" }
+  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return ("Heal me", 134400, "/cast Heal") }
   editRing(3, (ring: mut Ring): nil => {
     ring.items["1"] = .Spell { spell: "Charge" }
     ring.items["2"] = .Macro { macro: "Heal me" }
@@ -283,14 +283,14 @@ test "a ring's size and its submenus' memory are chosen on the tab" {
 
 test "an item from the bags and a macro dropped go in the place chosen" {
   start()
-  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return "item", 6948, "item:6948", nil }
-  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return "Heal me", 134400, "" }
+  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return ("item", 6948, "item:6948", nil) }
+  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return ("Heal me", 134400, "") }
   const settings = radialTab()
   clickDown(settings, settings.button("1. Windows"))
   const drop = settings.button("Drop a spell, an item or a macro here: it goes in the place")
   clickDown(settings, drop)
   Test::expect(firstRing().items["1"] is Item::Bag)
-  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return "macro", 3, nil, nil }
+  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return ("macro", 3, nil, nil) }
   clickDown(settings, drop)
   Test::expect(firstRing().items["1"] is Item::Macro)
 }
@@ -344,7 +344,7 @@ test "in a client in another language an emote is named by its command in it, el
   Client::GetLocale = (): string => "ruRU"
   const names = emoteNames()
   const beckon = names["BECKON"] ?? ""
-  const russian, _ = beckon.find("[\128-\255]")
+  const (russian, _) = beckon.find("[\128-\255]")
   Test::expect(beckon != "/beckon" && beckon.sub(1, 1) == "/" && russian != nil)
   Test::expect(names["CLAP"] == "Clap" && names["GREET"] == "/привет" && names["HELLO"] == "/при")
   Client::GetLocale = (): string => "enUS"

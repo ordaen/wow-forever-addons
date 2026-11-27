@@ -246,12 +246,12 @@ public function ageOf(quote: Quote | nil): number | nil {
 // The age column's text and colour: the hours under a day (a house's prices move by the hour), «< 1 h» for this
 // hour's; from a day the market's days (`ageText`: amber to the third day, dimmed after); nothing without a price.
 public function ageCell(quote: Quote | nil): (string, Color) {
-  if (quote == nil) { return "", Style::DIM }
+  if (quote == nil) { return ("", Style::DIM) }
   const hours = quote.age()
-  if (hours < 1) { return Locale::AGE_FRESH, Style::INK }
-  if (hours < 24) { return Locale::HOURS.format(hours), Style::INK }
-  const text, color = ageText(hours * 3600)
-  return text, color ?? Style::DIM
+  if (hours < 1) { return (Locale::AGE_FRESH, Style::INK) }
+  if (hours < 24) { return (Locale::HOURS.format(hours), Style::INK) }
+  const (text, color) = ageText(hours * 3600)
+  return (text, color ?? Style::DIM)
 }
 
 // The share's colour: green for a bargain, red where dear, the ink between.
@@ -363,12 +363,12 @@ class FoundRow implements Component {
   onAct(act: RowAct) { self.act.emit(act, self.found) }
 
   ageTextOf(): string {
-    const text, _ = ageCell(self.found.market)
+    const (text, _) = ageCell(self.found.market)
     return text
   }
 
   ageInkOf(): Color {
-    const _, color = ageCell(self.found.market)
+    const (_, color) = ageCell(self.found.market)
     return color
   }
 

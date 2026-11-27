@@ -54,11 +54,11 @@ public struct LineBonuses {
 // The amount a line says in a template's place for it («39 Блок» by «%d Блок», «Вероятность блока: 3» by Forever's
 // «Вероятность блока: %s»); none where the line isn't one.
 function amountBy(text: string, template: string): number | nil {
-  const start, end = template.match("^(.-)%%[ds](.*)$")
+  const (start, end) = template.match("^(.-)%%[ds](.*)$")
   if (start == nil || end == nil) { return nil }
   const rest = start == "" ? text : after(text, start)
   if (rest == nil) { return nil }
-  const amount, tail = rest.match("^(%d+)(.*)$")
+  const (amount, tail) = rest.match("^(%d+)(.*)$")
   return amount != nil && tail == end ? numberOf(amount) : nil
 }
 
@@ -95,7 +95,7 @@ public function givenOf(text: string, words: LineWords): array<Given> {
   const gives: array<Given> = []
   for (index, piece of text.split("+")) {
     if (index > 1) {
-      const amount, label = piece.match("^(%d+[,%.]?%d*) (.*)$")
+      const (amount, label) = piece.match("^(%d+[,%.]?%d*) (.*)$")
       const word = label != nil ? flatAt(label, words) : nil
       if (amount != nil && word != nil) {
         for (stat of word.stats) { gives.push({ stat: stat, amount: numberOf(amount) }) }
@@ -131,7 +131,7 @@ public function bonusesOf(lines: array<ItemLine>, words: LineWords): LineBonuses
       for (given of givenOf(after(line.text, words.enchant) ?? line.text, words)) { enchant.push(given) }
     } else if (index > 1) {
       // A set's name with the pieces worn of it, «Соучастники (1/2)».
-      const name, _, _ = line.text.match("^(.+) %((%d+)/(%d+)%)$")
+      const (name, _, _) = line.text.match("^(.+) %((%d+)/(%d+)%)$")
       if (setName == nil && name != nil) {
         setName = name
       } else {

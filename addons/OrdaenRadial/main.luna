@@ -40,7 +40,7 @@ public function placeOf(wheelPath: string): string { return wheelPath == ROOT ? 
 
 // The player's class, as the client tags it (`WARRIOR`).
 function playerClass(): string | nil {
-  const _, tag, _ = Client::UnitClass("player")
+  const (_, tag, _) = Client::UnitClass("player")
   return tag
 }
 
@@ -286,7 +286,7 @@ public class Radial implements Module, App {
   mut bind() {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
-      const first, second = Client::GetBindingKey(command)
+      const (first, second) = Client::GetBindingKey(command)
       const keys: array<string> = []
       if (first != nil) { keys.push(first) }
       if (second != nil) { keys.push(second) }

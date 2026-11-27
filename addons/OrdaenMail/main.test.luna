@@ -202,7 +202,7 @@ test "a click opens the letter beside the list: its text read, its items as rewa
   let played = 0
   Client::PlaySound = (kit: integer, channel: string | nil, once: boolean | nil): (boolean | nil, unknown) => {
     played += 1
-    return true, nil
+    return (true, nil)
   }
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
@@ -322,12 +322,12 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
 
 test "«Take all» writes the house's sale into Ordaen Trading's ledger once, from its invoice" {
   Client::GetInboxInvoiceInfo = (index: number): (string | nil, string | nil, string | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil) => {
-    if (index == 1) { return "seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20 }
-    return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+    if (index == 1) { return ("seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20) }
+    return (nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil)
   }
   Test::mount(nil, PAGE)
   const auction = Trading ?? panic("Ordaen Trading is on")
-  const before, copperBefore = auction.ledger.total(.Sold)
+  const (before, copperBefore) = auction.ledger.total(.Sold)
   Game::mailbox.letters = letters
   Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
@@ -336,7 +336,7 @@ test "«Take all» writes the house's sale into Ordaen Trading's ledger once, fr
   const window = Test::page().window(MAIL)
   window.button("Take all (2)").click()
   window.button("Take all (2)").click()
-  const after, copperAfter = auction.ledger.total(.Sold)
+  const (after, copperAfter) = auction.ledger.total(.Sold)
   Test::expect(after == before + 1 && copperAfter == copperBefore + 12500)
 }
 
@@ -525,13 +525,13 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
     return true
   }
   Client::GetSendMailItem = (place: integer): (string | nil, number | nil, number | nil, number | nil, number | nil) => {
-    if (place == 1) { return "Linen Cloth", 2589, 1, 20, 1 }
-    return nil, nil, nil, nil, nil
+    if (place == 1) { return ("Linen Cloth", 2589, 1, 20, 1) }
+    return (nil, nil, nil, nil, nil)
   }
   Client::C_Item::GetItemNameByID = (id: string | integer): string | nil => id == 2589 ? "Linen Cloth" : nil
   Events::MAIL_SEND_INFO_UPDATE.emit()
   Client::GetSendMailItem = (place: integer): (string | nil, number | nil, number | nil, number | nil, number | nil) => {
-    return nil, nil, nil, nil, nil
+    return (nil, nil, nil, nil, nil)
   }
   Test::expect(window.texts().join(" | ").contains("Attachments | 1 | Letters | 1"))
   inLetter = false
@@ -589,7 +589,7 @@ test "«To» completes against every recipient in a popover: each name in its cl
     }
   }
   Client::GetPlayerInfoByGUID = (guid: string): (string | nil, string | nil, string | nil, string | nil, number | nil, string | nil, string | nil, number | nil) => {
-    return nil, "WARRIOR", nil, nil, nil, nil, nil, nil
+    return (nil, "WARRIOR", nil, nil, nil, nil, nil, nil)
   }
   Mail.sender.recent.write({ names: ["Regron", "Dorn"] })
   const window = Test::page().window(MAIL)

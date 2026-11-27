@@ -26,12 +26,12 @@ function inOrder(names: array<string>): string {
 function mounts() {
   Client::C_MountJournal::GetMountIDs = (): array<number> => [3, 1, 2]
   Client::C_MountJournal::GetMountInfoByID = (id: number) => {
-    if (id == 1) { return "Zebra", 101, 132261, false, true, 0, false, false, nil, false, true, 1, false }
-    if (id == 2) { return "Alpaca", 102, 132261, false, true, 0, false, false, nil, false, false, 2, false }
-    return "Bear", 103, 132261, false, true, 0, false, false, nil, false, false, 3, false
+    if (id == 1) { return ("Zebra", 101, 132261, false, true, 0, false, false, nil, false, true, 1, false) }
+    if (id == 2) { return ("Alpaca", 102, 132261, false, true, 0, false, false, nil, false, false, 2, false) }
+    return ("Bear", 103, 132261, false, true, 0, false, false, nil, false, false, 3, false)
   }
   Client::C_MountJournal::GetMountInfoExtraByID = (id: number) => {
-    return 1234, "A striped horse of the plains.", "Vendor: Zeb", false, 230, 4, 0, 0, false
+    return (1234, "A striped horse of the plains.", "Vendor: Zeb", false, 230, 4, 0, 0, false)
   }
 }
 
@@ -40,8 +40,8 @@ function toys() {
   Client::C_ToyBox::GetNumFilteredToys = (): number => 2
   Client::C_ToyBox::GetToyFromIndex = (index: integer): number => index == 1 ? 1973 : 18984
   Client::C_ToyBox::GetToyInfo = (item: number) => {
-    if (item == 1973) { return 1973, "Orb of Deception", 134334, false, false }
-    return 18984, "Dimensional Ripper", 133870, false, false
+    if (item == 1973) { return (1973, "Orb of Deception", 134334, false, false) }
+    return (18984, "Dimensional Ripper", 133870, false, false)
   }
   Client::PlayerHasToy = (item: number): boolean => item == 1973
   Client::C_ToyBox::IsToyUsable = (item: number): boolean => true
@@ -51,25 +51,25 @@ function toys() {
 function challenges() {
   Client::GetCategoryList = (): array<integer> => [15585, 15580]
   Client::GetCategoryInfo = (id: integer) => {
-    if (id == 15585) { return "Warrior", -1, 0 }
-    return "Paladin", -1, 0
+    if (id == 15585) { return ("Warrior", -1, 0) }
+    return ("Paladin", -1, 0)
   }
   Client::GetCategoryNumAchievements = (id: number) => {
-    if (id == 15585) { return 2, 1, 1 }
-    return 0, 0, 0
+    if (id == 15585) { return (2, 1, 1) }
+    return (0, 0, 0)
   }
   Client::GetAchievementInfo = (category: integer, index: integer | nil) => {
     if (index == 1) {
-      return 501, "Shield Wall", 10, true, 6, 3, 26, "Block a hundred blows.", 0, 132341, "", false, true, ""
+      return (501, "Shield Wall", 10, true, 6, 3, 26, "Block a hundred blows.", 0, 132341, "", false, true, "")
     }
-    return 502, "Execute", 10, false, nil, nil, nil, "Finish twenty foes.", 0, 132342, "", false, false, ""
+    return (502, "Execute", 10, false, nil, nil, nil, "Finish twenty foes.", 0, 132342, "", false, false, "")
   }
   Client::C_Traits::GetTraitCurrencyForAchievement = (currency: number, id: number): number => id == 501 ? 5 : 10
   Client::GetAchievementNumCriteria = (id: number): number => id == 502 ? 1 : 0
   Client::GetAchievementCriteriaInfo = (id: integer, index: integer) => {
-    return "Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true
+    return ("Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true)
   }
-  Client::UnitClass = (unit: string) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: string) => { return ("Warrior", "WARRIOR", 1) }
 }
 
 // The Professions tree's configuration as the game gives it: two nodes, an arrow from the first to the second, three

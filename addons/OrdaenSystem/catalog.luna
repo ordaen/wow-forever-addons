@@ -115,7 +115,7 @@ public class Catalog {
   // The whole list read again: one pass over the client's addons.
   public mut read() {
     const locale = Game::client.locale
-    const _, _, _, interface, _, _ = Client::GetBuildInfo()
+    const (_, _, _, interface, _, _) = Client::GetBuildInfo()
     const count = Client::C_AddOns::GetNumAddOns()
     const list: array<AddOn> = []
     for (index of 1..count) {
@@ -155,8 +155,8 @@ public class Catalog {
     const map: map<string, Status> = {}
     for (addon of peek self.addons) {
       const state = Client::C_AddOns::GetAddOnEnableState(addon.name, character)
-      const _, loaded = Client::C_AddOns::IsAddOnLoaded(addon.name)
-      const _, reason = Client::C_AddOns::IsAddOnLoadable(addon.name, player, true)
+      const (_, loaded) = Client::C_AddOns::IsAddOnLoaded(addon.name)
+      const (_, reason) = Client::C_AddOns::IsAddOnLoadable(addon.name, player, true)
       map[addon.name] = {
         enabled: state == .All ? Switch::On : state == .Some ? Switch::Some : Switch::Off,
         mine: Client::C_AddOns::GetAddOnEnableState(addon.name, player) != .None,
@@ -363,7 +363,7 @@ public class Catalog {
 
   // An addon loaded on demand, loaded now: nil where it loaded, else the client's reason.
   public mut load(name: string): string | nil {
-    const loaded, reason = Client::C_AddOns::LoadAddOn(name)
+    const (loaded, reason) = Client::C_AddOns::LoadAddOn(name)
     self.refresh()
     return loaded == true ? nil : reason ?? ""
   }

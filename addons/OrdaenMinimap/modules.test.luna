@@ -23,7 +23,7 @@ function minimapAddon(): Runtime::Addon {
 
 // Whether the client has loaded the module's files.
 function loaded(): boolean {
-  let held, _ = Client::C_AddOns::IsAddOnLoaded("OrdaenMinimap")
+  let (held, _) = Client::C_AddOns::IsAddOnLoaded("OrdaenMinimap")
   return held
 }
 

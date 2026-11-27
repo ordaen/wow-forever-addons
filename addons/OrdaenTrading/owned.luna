@@ -127,7 +127,7 @@ public class OwnedPage implements Component {
     _ = self.revision
     let list: array<Shown> = []
     for (owned of Game::ownedAuctions.list) {
-      const name, color = nameOf(owned.item)
+      const (name, color) = nameOf(owned.item)
       const buyout = owned.buyout
       const unit = buyout != nil && owned.quantity > 0 ? (buyout / owned.quantity).floor() : nil
       const listing = self.house.listed(PriceKey::of(owned.item))

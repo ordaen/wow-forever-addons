@@ -768,7 +768,7 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
   Test::press(nil)
   Test::moveTo(Test::centre(bar))
   Test::release(nil)
-  const kind, id, _ = Client::GetActionInfo(61)
+  const (kind, id, _) = Client::GetActionInfo(61)
   Test::expect(kind == "item" && id == 118 && !Client::CursorHasItem())
 }
 
@@ -936,7 +936,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   Game::items.icon = (id: integer): Art | nil => world.icon(id)
   // The potion casts its spell.
   let spell: string | nil = "Minor Healing Potion"
-  Client::C_Item::GetItemSpell = (item: string | integer): (string | nil, number | nil) => { return spell, nil }
+  Client::C_Item::GetItemSpell = (item: string | integer): (string | nil, number | nil) => { return (spell, nil) }
   Test::mount(nil, SCREEN)
   Game::bags.open = true
   // Protected: its tooltip says so first.
@@ -2045,7 +2045,7 @@ test "gold on the cursor let go on a slot goes back into the purse; the guild ba
   let dropped = 0
   let withdrawn = 0
   Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => {
-    return gold, 500, nil, nil
+    return (gold, 500, nil, nil)
   }
   Client::DropCursorMoney = (): nil => {
     dropped += 1

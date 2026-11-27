@@ -46,7 +46,7 @@ public function number(n: number): string {
   let value = n.abs()
   let text = `%.${decimalsFor(value, chosen.numberPrecision, chosen.numberRound)}f`.format(value)
   if (text.contains(".")) { text = (text.replace("0+$", "")).replace("%.$", "") }
-  let whole, fraction = text.match("^(%d+)%.?(%d*)$")
+  let (whole, fraction) = text.match("^(%d+)%.?(%d*)$")
   if (whole == nil) { return text }
   let sign = n < 0 && text.toNumber() != 0 ? "-" : ""
   let out = sign + grouped(whole, thousands)

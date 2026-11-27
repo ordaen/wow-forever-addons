@@ -78,7 +78,7 @@ function framesOf(...given: any Client::Frame): array<any Client::Frame> {
 function fontsOf(frame: any Client::Frame, out: mut array<string>) {
   for (region of regionsOf(...frame.GetRegions())) {
     if (region is Client::FontString && region.IsShown()) {
-      let file, size, flags = region.GetFont()
+      let (file, size, flags) = region.GetFont()
       out.push(`font ${string::of(file)} ${string::of(size)} ${string::of(flags)} ${string::of(region.GetJustifyH())} ${string::of(region.GetSpacing())}`)
     }
   }
@@ -98,7 +98,7 @@ function drawnBut(page: any Client::Frame, crops: boolean): array<string> {
   // The indent of a popup's frame while its lines are passed over.
   let popup: integer | nil = nil
   for (line of Test::dump(page).split("\n")) {
-    let start, _ = line.find("[^ ]")
+    let (start, _) = line.find("[^ ]")
     const depth = (start ?? 1) - 1
     if (popup != nil && depth > popup) { continue }
     popup = nil
@@ -107,7 +107,7 @@ function drawnBut(page: any Client::Frame, crops: boolean): array<string> {
       continue
     }
     const plain = line.replace(" color=[^ ]+", "").replace(" vertex=[^ ]+", "").replace(" alpha=[^ ]+", "")
-    let indent, place = plain.match("^(%s*)Texture .-(%-?[%d%.]+,%-?[%d%.]+ [%d%.]+x[%d%.]+)")
+    let (indent, place) = plain.match("^(%s*)Texture .-(%-?[%d%.]+,%-?[%d%.]+ [%d%.]+x[%d%.]+)")
     if (indent == nil || place == nil) {
       lines.push(plain)
     } else if (laid[indent + place] != true) {

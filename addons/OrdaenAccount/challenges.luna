@@ -98,9 +98,9 @@ function challengeOf(id: number | nil, name: string | nil, done: boolean | nil, 
 // A category's challenges, as the game orders them.
 function challengesIn(category: integer): array<Challenge> {
   const list: array<Challenge> = []
-  const total, _, _ = Client::GetCategoryNumAchievements(category)
+  const (total, _, _) = Client::GetCategoryNumAchievements(category)
   for (index of 1..total.floor()) {
-    const id, name, _, done, month, day, year, description, _, icon, _, _, mine, _ = Client::GetAchievementInfo(category, index)
+    const (id, name, _, done, month, day, year, description, _, icon, _, _, mine, _) = Client::GetAchievementInfo(category, index)
     const one = challengeOf(id, name, done, month, day, year, description, icon, mine, index)
     if (one != nil) { list.push(one) }
   }
@@ -113,7 +113,7 @@ function categoriesOf(): array<Category> {
   const parents: map<integer, integer> = {}
   const names: map<integer, string> = {}
   for (id of ids) {
-    const name, parent, _ = Client::GetCategoryInfo(id)
+    const (name, parent, _) = Client::GetCategoryInfo(id)
     names[id] = name
     parents[id] = parent
   }
@@ -132,7 +132,7 @@ function categoriesOf(): array<Category> {
 function criteriaOf(challenge: integer): array<Criterion> {
   const list: array<Criterion> = []
   for (index of 1..Client::GetAchievementNumCriteria(challenge).floor()) {
-    const text, _, done, have, need, _, _, _, shown, _, _ = Client::GetAchievementCriteriaInfo(challenge, index)
+    const (text, _, done, have, need, _, _, _, shown, _, _) = Client::GetAchievementCriteriaInfo(challenge, index)
     const counted = need > 1 && !done
     list.push({
       text: text, done: done, count: counted ? (shown != "" ? shown : "%d / %d".format(have, need)) : "",
@@ -311,7 +311,7 @@ public class Challenges {
   // The player's class's category open, as the game's window opens on it.
   mut openOwn() {
     self.opening = false
-    const _, classFile, _ = Client::UnitClass("player")
+    const (_, classFile, _) = Client::UnitClass("player")
     const own = CLASS_CATEGORIES[classFile ?? ""]
     if (own != nil) { self.opened = { [own]: true } }
   }

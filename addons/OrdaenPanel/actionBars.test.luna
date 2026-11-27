@@ -161,13 +161,13 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
   Test::press(nil)
   Test::moveTo(Test::centre(button("2", 1)))
   Test::release(nil)
-  const kind, id, _ = Client::GetActionInfo(61)
+  const (kind, id, _) = Client::GetActionInfo(61)
   Test::expect(kind == "item" && id == 118 && !Client::CursorHasItem())
   // Picked up by a click and clicked onto the second button: no action done, the item placed.
   Client::C_Container::PickupContainerItem(0, 2)
   _ = Test::performed()
   Test::click(Test::centre(button("2", 2)), nil)
-  const secondKind, second, _ = Client::GetActionInfo(62)
+  const (secondKind, second, _) = Client::GetActionInfo(62)
   Test::expect(secondKind == "item" && second == 119 && !Client::CursorHasItem() && Test::performed().length == 0)
 }
 
@@ -191,11 +191,11 @@ test "a new rank learned takes the slots of the rank before it; a rank lower sti
   Client::PlaceAction(25)
   Test::event("LEARNED_SPELL_IN_SKILL_LINE", 145, 1, false)
   Test::flush()
-  const first, _, _ = Client::GetActionInfo(61)
-  const _, low, _ = Client::GetActionInfo(61)
-  const _, second, _ = Client::GetActionInfo(62)
-  const _, other, _ = Client::GetActionInfo(25)
-  const held, _, _, _ = Client::GetCursorInfo()
+  const (first, _, _) = Client::GetActionInfo(61)
+  const (_, low, _) = Client::GetActionInfo(61)
+  const (_, second, _) = Client::GetActionInfo(62)
+  const (_, other, _) = Client::GetActionInfo(25)
+  const (held, _, _, _) = Client::GetCursorInfo()
   Test::expect(first == "spell" && low == 133 && second == 145 && other == 145 && held == nil)
 }
 
@@ -275,7 +275,7 @@ test "a new rank of a form (a paladin's aura) changes the spell its button casts
   // Devotion Aura's second rank learned: the first form's spell is the new rank's (the others the stand-in's, their
   // place), and the client says the forms changed.
   Client::GetShapeshiftFormInfo = (index: integer): (FileId | nil, boolean, boolean, integer) => {
-    return index == 1 ? FIRST_FORM : SECOND_FORM, false, true, index == 1 ? 10290 : index
+    return (index == 1 ? FIRST_FORM : SECOND_FORM, false, true, index == 1 ? 10290 : index)
   }
   Test::event("UPDATE_SHAPESHIFT_FORMS")
   Test::flush()
@@ -341,7 +341,7 @@ test "a form's cooldown sweeps over its button, and a form that can't be taken i
   Events::UPDATE_SHAPESHIFT_COOLDOWN.emit()
   Test::flush()
   const first = actionButton("stance", 1)
-  let start, duration = first.cooldown.GetCooldownTimes()
+  let (start, duration) = first.cooldown.GetCooldownTimes()
   Test::expect(start == 10000 && duration == 30000)
   // Seen: drawn over the face, not in the client's unseen button.
   Test::expect(first.cooldown.GetParent() != first && first.cooldown.IsVisible())
@@ -638,7 +638,7 @@ test "a bar of smaller buttons keeps the client's art in the template's proporti
   Test::expect(frame != nil)
   if (frame != nil) {
     Test::expect(about(frame.GetWidth(), 34) && about(frame.GetHeight(), 34))
-    let point, to, toPoint, x, y = frame.GetPoint(1, nil)
+    let (point, to, toPoint, x, y) = frame.GetPoint(1, nil)
     Test::expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to == client && toPoint == "TOPLEFT" && x == 0 && y == 0)
   }
   const masks = maskWidths(...client.GetRegions())

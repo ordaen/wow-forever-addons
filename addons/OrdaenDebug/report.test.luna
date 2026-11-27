@@ -13,8 +13,8 @@ test "the report holds the game's build, the addons loaded with their versions, 
   Test::expect(text.contains("Game 1.60.1 (build 70959), interface 16001, locale enUS. Ordaen 1.4.0."))
   Test::expect(text.contains("Addons loaded ("))
   Test::expect(text.contains("Errors, newest first (2 of 2):"))
-  const second, _ = text.find("2: second")
-  const first, _ = text.find("1: first")
+  const (second, _) = text.find("2: second")
+  const (first, _) = text.find("1: first")
   Test::expect(second != nil && first != nil && second < first)
   Test::expect(text.contains("the stack"))
 }

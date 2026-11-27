@@ -478,7 +478,7 @@ public class Inventory implements Module, App {
   // Gold on the cursor let go on a slot, as the game's bags do: the player's back into the purse, the guild bank's
   // taken out of it. False where the cursor holds no gold.
   dropMoney(): boolean {
-    const kind, money, _, _ = Client::GetCursorInfo()
+    const (kind, money, _, _) = Client::GetCursorInfo()
     if (kind == "money") {
       Client::DropCursorMoney()
     } else if (kind == "guildbankmoney" && money is number) {

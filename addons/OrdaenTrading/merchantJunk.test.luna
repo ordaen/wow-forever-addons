@@ -50,7 +50,7 @@ function atMerchant() {
   // The merchant takes what the bags send it (the fake writes the ask).
   Game::bags.send = (bag: integer, slot: integer): boolean => true
   Client::UnitName = (unit: string): (string, string) => {
-    return "Tharynn", ""
+    return ("Tharynn", "")
   }
   Test::mount(nil, SCREEN)
   // The merchant opens the bags with its window, as the game's does: the two stand side by side.

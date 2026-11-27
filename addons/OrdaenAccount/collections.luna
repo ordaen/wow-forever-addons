@@ -90,7 +90,7 @@ function fileOf(icon: number | nil): FileId | nil {
 function mounts(): array<Entry> {
   const list: array<Entry> = []
   for (id of Client::C_MountJournal::GetMountIDs()) {
-    const name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _ = Client::C_MountJournal::GetMountInfoByID(id)
+    const (name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _) = Client::C_MountJournal::GetMountInfoByID(id)
     if (name != nil && hidden != true) {
       list.push({
         key: string::of(id), name: name, icon: icon, owned: owned == true, usable: usable == true, id: id.floor(), pet: nil,
@@ -105,9 +105,9 @@ function pets(): array<Entry> {
   // The journal's own search would leave pets out: every pet is read, the list searched here.
   Client::C_PetJournal::ClearSearchFilter()
   const list: array<Entry> = []
-  const count, _ = Client::C_PetJournal::GetNumPets()
+  const (count, _) = Client::C_PetJournal::GetNumPets()
   for (index of 1..count.floor()) {
-    const pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _ = Client::C_PetJournal::GetPetInfoByIndex(index)
+    const (pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _) = Client::C_PetJournal::GetPetInfoByIndex(index)
     if (!revoked) {
       list.push({
         key: pet ?? "species:" + string::of(species), name: custom ?? name, icon: icon, owned: owned, usable: owned,
@@ -124,7 +124,7 @@ function toys(): array<Entry> {
   for (index of 1..Client::C_ToyBox::GetNumFilteredToys().floor()) {
     const item = Client::C_ToyBox::GetToyFromIndex(index)
     if (item > 0) {
-      const _, name, icon, _, _ = Client::C_ToyBox::GetToyInfo(item)
+      const (_, name, icon, _, _) = Client::C_ToyBox::GetToyInfo(item)
       list.push({
         key: string::of(item), name: name, icon: fileOf(icon), owned: Client::PlayerHasToy(item),
         usable: Client::C_ToyBox::IsToyUsable(item), id: item.floor(), pet: nil, spell: nil
@@ -151,11 +151,11 @@ function mountModel(id: integer, display: number | nil): integer | nil {
 
 function cardOf(kind: Kind, entry: Entry): Card {
   if (kind == .Mounts) {
-    const display, description, source, _, _, _, _, _, _ = Client::C_MountJournal::GetMountInfoExtraByID(entry.id)
+    const (display, description, source, _, _, _, _, _, _) = Client::C_MountJournal::GetMountInfoExtraByID(entry.id)
     return { model: mountModel(entry.id, display), description: description ?? "", source: source ?? "" }
   }
   if (kind == .Pets) {
-    const _, _, _, _, source, description, _, _, _, _, _, display = Client::C_PetJournal::GetPetInfoBySpeciesID(entry.id)
+    const (_, _, _, _, source, description, _, _, _, _, _, display) = Client::C_PetJournal::GetPetInfoBySpeciesID(entry.id)
     return { model: display, description: description ?? "", source: source ?? "" }
   }
   return NO_CARD

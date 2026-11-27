@@ -816,7 +816,7 @@ test "straight from a button's tooltip to a slot's, the slot's shows at once bes
 
 test "an item's worth to the spec stands at its foot, and a weapon whose skill isn't trained says so" {
   Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
-    return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
+    return (1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4)
   }
   Client::C_Item::GetItemStats = (link: string): unknown => {
     const stats: map<string, number> = { ["ITEM_MOD_INTELLECT_SHORT"]: 5 }

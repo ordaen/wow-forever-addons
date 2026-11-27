@@ -20,8 +20,8 @@ public struct Named {
 // What the game says of an item: its name and its quality's colour, from its tooltip's first line.
 public function nameOf(item: integer): (string, Color) {
   const known = knownName(item)
-  if (known == nil) { return Locale::UNKNOWN_ITEM.format(item), Style::INK }
-  return known.name, known.color
+  if (known == nil) { return (Locale::UNKNOWN_ITEM.format(item), Style::INK) }
+  return (known.name, known.color)
 }
 
 // The same, none where the game doesn't know the item yet (its data not loaded).

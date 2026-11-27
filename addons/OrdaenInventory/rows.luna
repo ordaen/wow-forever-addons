@@ -115,7 +115,7 @@ class BagSlot implements Component {
   derived quality: Quality = self.slot.quality
   // At a merchant, the client's coin bag: red over what he gives nothing for.
   // Its place in the player's bags or bank while that is open: its tooltip that very item's (bound or not).
-  derived place: [integer, integer] | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
+  derived place: (integer, integer) | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil : (self.slot.bag, self.slot.index)
   derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game::BagPlace::Merchant ? nil :
     self.slot.read.price > 0 ? Cursor::Buy : Cursor::BuyError
   derived coin: boolean = self.slot.junk && self.slot.id != 0

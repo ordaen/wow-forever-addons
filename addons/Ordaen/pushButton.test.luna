@@ -117,7 +117,7 @@ test "a box of a fixed width narrower than what it holds needs is a fault that n
   Test::mount(page, { left: 0, top: 0, width: 800, height: 300 })
   Test::shot("the row past its box of 300")
   const said = Test::faults().join("\n")
-  const short, _ = said.find("300 wide is")
+  const (short, _) = said.find("300 wide is")
   Test::expect(short != nil)
   destroy page
 }

@@ -229,7 +229,7 @@ public class GearWorth {
   public scoreOf(link: string): number | nil {
     const weights = self.weights
     if (weights == nil) { return nil }
-    let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
+    let (_, _, _, worn, _, _, _) = Client::C_Item::GetItemInfoInstant(link)
     if (worn == nil || PLACES[worn] == nil) { return nil }
     const stats = Client::C_Item::GetItemStats(link)
     if (!(stats is Table)) { return nil }
@@ -245,7 +245,7 @@ public class GearWorth {
   // hands. Nothing worn there: 1. None where the item isn't worn, the class can never use it, or the spec weighs
   // nothing.
   public upgradeOf(link: string): number | nil {
-    let _, _, _, worn, _, itemClass, kind = Client::C_Item::GetItemInfoInstant(link)
+    let (_, _, _, worn, _, itemClass, kind) = Client::C_Item::GetItemInfoInstant(link)
     if (worn == nil || !classCanUse(Game::player.classTag, (itemClass ?? 0).floor(), (kind ?? 0).floor())) { return nil }
     const score = self.scoreOf(link)
     if (score == nil) { return nil }
@@ -269,7 +269,7 @@ public class GearWorth {
   twoHanded(): boolean {
     const link = self.worn[MAIN_HAND] ?? ""
     if (link == "") { return false }
-    let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
+    let (_, _, _, worn, _, _, _) = Client::C_Item::GetItemInfoInstant(link)
     return worn == "INVTYPE_2HWEAPON"
   }
 

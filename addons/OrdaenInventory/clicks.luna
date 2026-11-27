@@ -119,13 +119,13 @@ public function useClickOf(clicks: Clicks): UseClick {
 public function bindingOf(chord: Chord): KeyBinding<MouseButton> {
   return match (chord) {
     .Left => MouseButton::Left
-    .ShiftLeft => [Modifier::Shift, MouseButton::Left]
-    .CtrlLeft => [Modifier::Ctrl, MouseButton::Left]
-    .AltLeft => [Modifier::Alt, MouseButton::Left]
+    .ShiftLeft => (Modifier::Shift, MouseButton::Left)
+    .CtrlLeft => (Modifier::Ctrl, MouseButton::Left)
+    .AltLeft => (Modifier::Alt, MouseButton::Left)
     .Right => MouseButton::Right
-    .ShiftRight => [Modifier::Shift, MouseButton::Right]
-    .CtrlRight => [Modifier::Ctrl, MouseButton::Right]
-    .AltRight => [Modifier::Alt, MouseButton::Right]
+    .ShiftRight => (Modifier::Shift, MouseButton::Right)
+    .CtrlRight => (Modifier::Ctrl, MouseButton::Right)
+    .AltRight => (Modifier::Alt, MouseButton::Right)
   }
 }
 

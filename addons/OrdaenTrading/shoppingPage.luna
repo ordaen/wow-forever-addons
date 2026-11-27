@@ -101,12 +101,12 @@ class ShoppingRow implements Component {
   }
 
   nameText(): string {
-    const name, _ = nameOf(self.row.item)
+    const (name, _) = nameOf(self.row.item)
     return name
   }
 
   nameColor(): Color {
-    const _, color = nameOf(self.row.item)
+    const (_, color) = nameOf(self.row.item)
     return color
   }
 
