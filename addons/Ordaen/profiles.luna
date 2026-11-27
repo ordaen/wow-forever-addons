@@ -32,9 +32,11 @@ public struct ProfilePicks implements Plain {
   byCharacter: mut map<string, ProfileName> = {}
   // By the character's GUID, then the specialisation's index.
   bySpec: mut map<string, mut map<integer, ProfileName>> = {}
+}
 
+implement ProfilePicks {
   // The profile under another name, in every pick that names it.
-  public renamed(mut self, from: string, to: string) {
+  public mut renamed(from: string, to: string) {
     if (self.account == from) { self.account = to }
     for (tag, name of self.byClass) {
       if (name == from) { self.byClass[tag] = to }
@@ -50,7 +52,7 @@ public struct ProfilePicks implements Plain {
   }
 
   // Every pick of the profile is dropped: the next rule answers where it was. The account's stays: it always names one.
-  public without(mut self, gone: string) {
+  public mut without(gone: string) {
     for (tag, name of self.byClass) {
       if (name == gone) { self.byClass[tag] = nil }
     }
@@ -65,12 +67,12 @@ public struct ProfilePicks implements Plain {
   }
 
   // The account's default: every character with no pick of its own uses it.
-  public setAccount(mut self, name: string) {
+  public mut setAccount(name: string) {
     self.account = name
   }
 
   // The pick for a character, a class or a specialisation of a character, or none (`nil`).
-  public forCharacter(mut self, guid: string, name: string | nil) {
+  public mut forCharacter(guid: string, name: string | nil) {
     if (name == nil) {
       self.byCharacter[guid] = nil
     } else {
@@ -78,7 +80,7 @@ public struct ProfilePicks implements Plain {
     }
   }
 
-  public forClass(mut self, tag: string, name: string | nil) {
+  public mut forClass(tag: string, name: string | nil) {
     if (name == nil) {
       self.byClass[tag] = nil
     } else {
@@ -86,7 +88,7 @@ public struct ProfilePicks implements Plain {
     }
   }
 
-  public forSpec(mut self, guid: string, index: integer, name: string | nil) {
+  public mut forSpec(guid: string, index: integer, name: string | nil) {
     if (self.bySpec[guid] == nil) { self.bySpec[guid] = {} }
     const specs = self.bySpec[guid]
     if (specs == nil) { return }
@@ -101,9 +103,11 @@ public struct ProfilePicks implements Plain {
 public struct SavedProfiles implements Plain {
   profiles: mut map<string, mut Profile> = {}
   picks: mut ProfilePicks = ProfilePicks {}
+}
 
+implement SavedProfiles {
   // The profile under another name, in its picks too.
-  public renamed(mut self, from: string, to: string) {
+  public mut renamed(from: string, to: string) {
     // The account's default is there before anything is kept in it.
     if (self.profiles[from] == nil) { self.profiles[from] = Profile {} }
     const profile = self.profiles[from]
@@ -114,18 +118,18 @@ public struct SavedProfiles implements Plain {
   }
 
   // The profile with no section: every module reads its defaults.
-  public cleared(mut self, name: string) {
+  public mut cleared(name: string) {
     self.profiles[name] = Profile {}
   }
 
   // The profile gone, and every pick of it.
-  public without(mut self, gone: string) {
+  public mut without(gone: string) {
     self.profiles[gone] = nil
     self.picks.without(gone)
   }
 
   // A module's sections and memory under its former name moved to its current one, in every profile.
-  public moved(mut self, former: string, current: string) {
+  public mut moved(former: string, current: string) {
     for (_, profile of self.profiles) {
       movedKeys(profile.sections, former, current)
       movedKeys(profile.memory, former, current)
