@@ -36,7 +36,7 @@ function window(free: integer): array<integer> {
 }
 
 // Whether the game's own loot window stands on the screen.
-function windowShown(): boolean { return Client::LootFrame.GetParent() == Client::UIParent }
+function windowShown(): boolean { return Client::LootFrame.GetParent() === Client::UIParent }
 
 function choose(change: (values: mut Choices) => nil) { Inventory.settings.change(change) }
 

@@ -50,7 +50,7 @@ function pageOf(frame: any Client::Frame): any Client::Frame {
   let at = frame
   for (hop of 1..) {
     const up = at.GetParent()
-    if (up == nil || up == screen || up.GetFrameStrata() != frame.GetFrameStrata()) { break }
+    if (up == nil || up === screen || up.GetFrameStrata() != frame.GetFrameStrata()) { break }
     at = up
   }
   return at

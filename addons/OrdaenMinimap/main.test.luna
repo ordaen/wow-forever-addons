@@ -178,7 +178,7 @@ test "the game's map is held in the minimap's frame" {
   Game::minimap.frame = map
   Test::mount(nil, SCREEN)
   Test::pass(0.02)
-  Test::expect(map.GetParent() != Client::C_UI::GetUIParent())
+  Test::expect(map.GetParent() !== Client::C_UI::GetUIParent())
 }
 
 test "the game's parts the minimap replaces stay out of sight when the game shows them again" {
@@ -569,7 +569,7 @@ test "the game's tracking button lies unseen under ours" {
   Game::frames.MinimapTrackingButton = tracking
   Test::mount(nil, SCREEN)
   Test::pass(0.02)
-  Test::expect(tracking.GetParent() != Client::C_UI::GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
+  Test::expect(tracking.GetParent() !== Client::C_UI::GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
 }
 
 test "the zone's tooltip is the one tooltip shown, the ring's buttons showing none" {
@@ -673,7 +673,7 @@ test "another addon's button shows in the open drawer, and is held unseen while 
   Test::pass(0.02)
   Test::expect(other.GetEffectiveAlpha() == 0)
   minimap().button("3").click()
-  Test::expect(other.GetParent() != Client::C_UI::GetUIParent() && other.IsVisible() && other.GetEffectiveAlpha() == 1)
+  Test::expect(other.GetParent() !== Client::C_UI::GetUIParent() && other.IsVisible() && other.GetEffectiveAlpha() == 1)
 }
 
 test "another addon's button that takes the place of one in the closed drawer is held unseen, and the one it replaced is given back" {
@@ -683,7 +683,7 @@ test "another addon's button that takes the place of one in the closed drawer is
   Test::mount(nil, SCREEN)
   Game::minimap.buttons = [second]
   Test::pass(0.02)
-  Test::expect(second.GetEffectiveAlpha() == 0 && first.GetParent() == Client::C_UI::GetUIParent())
+  Test::expect(second.GetEffectiveAlpha() == 0 && first.GetParent() === Client::C_UI::GetUIParent())
 }
 
 test "the drawer's switch says what it gathers, and nothing of a reload" {
@@ -703,7 +703,7 @@ test "the drawer turned off gives other addons' buttons back where they stood" {
   const settings = tab("Button drawer")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
   Test::pass(0.02)
-  Test::expect(other.GetParent() == Client::C_UI::GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
+  Test::expect(other.GetParent() === Client::C_UI::GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
 }
 
 test "the cursor on an entry of the drawer names it" {
@@ -849,6 +849,6 @@ test "the minimap turned off gives the game its map back, square no more" {
   _ = Test::requests()
   (Runtime::Addon::of(Minimap) ?? throw Error { message: "the minimap is installed" }).disable()
   Test::expect(Test::blank() && !minimap().shown())
-  Test::expect(map.GetParent() == Client::C_UI::GetUIParent())
+  Test::expect(map.GetParent() === Client::C_UI::GetUIParent())
   Test::expect(Test::requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")
 }

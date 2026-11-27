@@ -88,7 +88,7 @@ public class Alts implements Module, App {
     // A command can't be taken back: once the module is turned off it does nothing.
     Runtime::command("/alts", (text: string): nil => {
       for (module of Ordaen.modules) {
-        if (module == self) { self.onCommand() }
+        if (module === self) { self.onCommand() }
       }
       return nil
     })

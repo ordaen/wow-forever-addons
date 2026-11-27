@@ -176,7 +176,7 @@ public class GameMenu {
     let lead: number | nil = nil
     for (dressed of list) {
       const (point, relative, to, _, y) = dressed.button.GetPoint(1, nil)
-      if (relative == menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
+      if (relative === menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
     }
     self.lead = lead ?? 0
   }
@@ -201,7 +201,7 @@ public class GameMenu {
   }
 
   mut onLeave(button: any Client::Button) {
-    if (peek self.hovered == button) { self.hovered = nil }
+    if (peek self.hovered === button) { self.hovered = nil }
   }
 
   // Every widget as Blizzard had it.
@@ -228,8 +228,8 @@ public class Plate implements Component {
   // «AddOns» was clicked.
   public pick: Event<nil> = new Event()
 
-  derived over: boolean = self.menu.hovered == self.dressed.button
-  derived down: boolean = self.menu.held == self.dressed.button
+  derived over: boolean = self.menu.hovered === self.dressed.button
+  derived down: boolean = self.menu.held === self.dressed.button
   derived art: Art = self.dressed.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
   // The plate's interaction state is the button's of Blizzard's under it, as the menu hears it.
   derived looks: InteractionState = { hover: self.over, pressed: self.down }

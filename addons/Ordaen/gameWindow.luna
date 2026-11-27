@@ -17,11 +17,11 @@ public class GamePass {
   passing: any Frame | nil = nil
 
   // Whether the game's window, shown, is the one let through: ours stays shut.
-  public passes(frame: any Frame): boolean { return self.passing == frame }
+  public passes(frame: any Frame): boolean { return self.passing === frame }
 
   // The game's window hidden: let through no more. Whether it was the one let through (its hide isn't ours to follow).
   public mut hidden(frame: any Frame): boolean {
-    if (self.passing != frame) { return false }
+    if (self.passing !== frame) { return false }
     self.passing = nil
     return true
   }

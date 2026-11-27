@@ -725,7 +725,7 @@ public class Inventory implements Module, App {
   }
 
   mut onLeave(slot: Slot) {
-    if (peek self.hovered.slot == slot) { self.hovered.slot = nil }
+    if (peek self.hovered.slot === slot) { self.hovered.slot = nil }
   }
 
   mut onGuildTab(tab: integer) {

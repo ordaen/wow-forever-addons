@@ -122,7 +122,7 @@ test "counts repeats instead of storing them again" {
   let errors = new Errors(noErrors(), noMeta())
   let (first, isNew) = errors.add({ message: "boom" })
   Test::expect(isNew)
-  Test::expect(errors.repeatOf("boom") == first)
+  Test::expect(errors.repeatOf("boom") === first)
   Test::expect(errors.repeatOf("other message") == nil)
   Test::expect(first.count == 2)
   Test::expect(errors.db.errors.length == 1)

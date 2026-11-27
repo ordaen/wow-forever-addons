@@ -310,7 +310,7 @@ function rows(lines: array<TextLine>, was: array<Drawn>, from: array<TextLine>):
     pairedBefore = paired
     underHead = line.heads == true
     let old = was[index]
-    if (old != nil && from[index] == line && old.padding == padding) {
+    if (old != nil && from[index] === line && old.padding === padding) {
       list.push(old)
       continue
     }

@@ -87,7 +87,7 @@ public class Account implements Module, App {
     Ordaen.modules.add(self)
     Runtime::command("/account", (text: string): nil => {
       for (module of Ordaen.modules) {
-        if (module == self) { self.toggle() }
+        if (module === self) { self.toggle() }
       }
       return nil
     })
@@ -124,7 +124,7 @@ public class Account implements Module, App {
   mut hook(frame: any Frame | nil, tab: integer) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
-    if (self.games.any(one => one == window)) { return }
+    if (self.games.any(one => one === window)) { return }
     self.games.push(window)
     _ = window.HookScript("OnShow", (): nil => {
       self.onGameShown(frame, tab)
@@ -141,13 +141,13 @@ public class Account implements Module, App {
     if (self.pass.passes(frame)) { return }
     if (!self.fromButton) { self.window.ask(tab) }
     self.fromButton = false
-    if (!(peek self.held).any(one => one == frame)) { self.held.push(frame) }
+    if (!(peek self.held).any(one => one === frame)) { self.held.push(frame) }
     self.open = true
   }
 
   mut onGameHidden(frame: any Frame) {
     if (self.pass.hidden(frame)) { return }
-    self.held = (peek self.held).filter(one => one != frame)
+    self.held = (peek self.held).filter(one => one !== frame)
     if ((peek self.held).length == 0) { self.open = false }
   }
 

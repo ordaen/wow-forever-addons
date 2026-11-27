@@ -142,7 +142,7 @@ public class Spells implements Module, App {
     watch (frame of Game::frames.PlayerSpells) { self.hook(frame) }
     Runtime::command("/spellbook", (text: string): nil => {
       for (module of Ordaen.modules) {
-        if (module == self) { self.toggle() }
+        if (module === self) { self.toggle() }
       }
       return nil
     })

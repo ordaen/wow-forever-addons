@@ -1664,8 +1664,8 @@ test "the game's skills page shown opens ours on «Progression»'s skills" {
 }
 
 test "a slot's durability bar is red below a quarter, green from there" {
-  Test::expect(wearColor(0.2) == Style::RED)
-  Test::expect(wearColor(0.25) == Style::GREEN)
+  Test::expect(wearColor(0.2) === Style::RED)
+  Test::expect(wearColor(0.25) === Style::GREEN)
 }
 
 // The sample tabs

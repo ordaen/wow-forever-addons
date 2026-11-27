@@ -344,7 +344,7 @@ test "a form's cooldown sweeps over its button, and a form that can't be taken i
   let (start, duration) = first.cooldown.GetCooldownTimes()
   Test::expect(start == 10000 && duration == 30000)
   // Seen: drawn over the face, not in the client's unseen button.
-  Test::expect(first.cooldown.GetParent() != first && first.cooldown.IsVisible())
+  Test::expect(first.cooldown.GetParent() !== first && first.cooldown.IsVisible())
   Test::expect(Test::page().box(SECOND_FORM).opacity() == 1)
   Test::formCastable(2, false)
   Events::UPDATE_SHAPESHIFT_USABLE.emit()
@@ -639,7 +639,7 @@ test "a bar of smaller buttons keeps the client's art in the template's proporti
   if (frame != nil) {
     Test::expect(about(frame.GetWidth(), 34) && about(frame.GetHeight(), 34))
     let (point, to, toPoint, x, y) = frame.GetPoint(1, nil)
-    Test::expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to == client && toPoint == "TOPLEFT" && x == 0 && y == 0)
+    Test::expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to === client && toPoint == "TOPLEFT" && x == 0 && y == 0)
   }
   const masks = maskWidths(...client.GetRegions())
   Test::expect(masks.length == 1 && about(masks[1] ?? 0, 64 * 30 / 45))

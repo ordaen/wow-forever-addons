@@ -71,7 +71,7 @@ test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, 
   Test::expect(difficultyAt(table, 7, 60) == Game::Difficulty::Rarely)
   Test::expect(difficultyAt(table, 7, 70) == Game::Difficulty::Never)
   Test::expect(difficultyAt(table, 8, 1) == Game::Difficulty::Never)
-  Test::expect(Style::difficultyColor(difficultyAt(table, 7, 1)) != Style::difficultyColor(difficultyAt(table, 7, 69)))
+  Test::expect(Style::difficultyColor(difficultyAt(table, 7, 1)) !== Style::difficultyColor(difficultyAt(table, 7, 69)))
 }
 
 test "a recipe an item teaches says the skill the item asks; a trainer's recipe says none here" {

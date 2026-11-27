@@ -316,7 +316,7 @@ public class Social implements Module, App {
     } else if (tab != nil) {
       self.window.ask(tab)
     }
-    if (!(peek self.held).any(one => one == frame)) { self.held.push(frame) }
+    if (!(peek self.held).any(one => one === frame)) { self.held.push(frame) }
     if (!(peek self.open)) {
       self.open = true
       // In the key's or the click's own call, as the client's restricted calls want.
@@ -327,7 +327,7 @@ public class Social implements Module, App {
 
   mut onGameHidden(frame: any Frame) {
     if (self.pass.hidden(frame)) { return }
-    self.held = (peek self.held).filter(one => one != frame)
+    self.held = (peek self.held).filter(one => one !== frame)
     if ((peek self.held).length == 0) { self.open = false }
   }
 

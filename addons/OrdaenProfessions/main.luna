@@ -568,7 +568,7 @@ public class Professions implements Module, App {
     const all = Game::tradeSkill.recipes
     const open = Game::tradeSkill.open
     const kept = open == nil ? nil : self.sortedOf[open]
-    if (kept != nil && kept.of == all) { return kept.list }
+    if (kept != nil && kept.of === all) { return kept.list }
     let list: array<Game::Recipe> = mut []
     const thresholds = self.thresholds
     const rank = self.profession?.rank ?? 0

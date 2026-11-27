@@ -379,7 +379,7 @@ test "the bag buttons and the menu's buttons of the game's are the panel's while
   Test::mount(nil, SCREEN)
   Test::expect(panel().shown())
   const ui = Client::C_UI::GetUIParent()
-  Test::expect(professions.GetParent() != ui && client("MainMenuBarBackpackButton").GetParent() != ui)
+  Test::expect(professions.GetParent() !== ui && client("MainMenuBarBackpackButton").GetParent() !== ui)
 }
 
 test "the game's own menu is unseen and its bag bar and status bars hidden while the panel stands in for them" {
@@ -507,7 +507,7 @@ test "the bags opened, each bag button of the game's stays unseen in its cell" {
       Test::expect(!held.IsShown())
       continue
     }
-    Test::expect(held.GetParent() != Client::C_UI::GetUIParent() && held.GetAlpha() == 0)
+    Test::expect(held.GetParent() !== Client::C_UI::GetUIParent() && held.GetAlpha() == 0)
   }
 }
 
@@ -702,7 +702,7 @@ test "a panel set never to show is not drawn, and the game's buttons go back to 
   Game::frames.ProfessionMicroButton = professions
   Test::mount(nil, SCREEN)
   hide("Show", 1, "Hide")
-  Test::expect(!panel().shown() && professions.GetParent() == Client::C_UI::GetUIParent())
+  Test::expect(!panel().shown() && professions.GetParent() === Client::C_UI::GetUIParent())
 }
 
 test "a panel shown on mouseover is all but unseen while the cursor is away, and shows under it" {

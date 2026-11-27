@@ -132,7 +132,7 @@ class BagSlot implements Component {
     Game::player.targeting ? Action::UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton::Left } :
     handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
     Action::UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
-  derived menuShown: boolean = self.shelf.menu?.slot == self.slot
+  derived menuShown: boolean = self.shelf.menu?.slot === self.slot
   derived menuEntries: array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: string = self.shelf.menu?.title ?? ""
 

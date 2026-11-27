@@ -262,7 +262,7 @@ public class Errors {
       const drop = n - ERRORS_MAX
       for (i of 1..drop) {
         const dropped = self.db.errors[i] ?? throw Error { message: "an error among the dropped" }
-        if (self.index[dropped.message] == dropped) {
+        if (self.index[dropped.message] === dropped) {
           self.index[dropped.message] = nil
         }
       }

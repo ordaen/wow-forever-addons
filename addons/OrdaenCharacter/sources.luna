@@ -394,7 +394,7 @@ function dualOf(stats: Stats): boolean { return (stats.offSpeed ?? 0) > 0 }
 function hitChancesOf(stat: Stat, stats: Stats): array<TipSection> {
   const hit = hitOf(stat, stats)
   const caps = capsOf(stat, dualOf(stats))
-  return caps.map(c => TipSection { title: c == DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : Locale::HIT_CHANCE, rows: hitRows(hit, c) })
+  return caps.map(c => TipSection { title: c === DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : Locale::HIT_CHANCE, rows: hitRows(hit, c) })
 }
 
 // A cap a gauge marks: where it stands in the stat's own unit, and its tooltip's title and text.
@@ -408,7 +408,7 @@ public struct Cap {
 public function hitCaps(stat: Stat, stats: Stats): array<Cap> {
   const caps: array<Cap> = mut []
   for (c of capsOf(stat, dualOf(stats))) {
-    const title = c == DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : ""
+    const title = c === DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : ""
     caps.push({ at: c.boss, title: title != "" ? `${title}: ${Locale::HIT_CAP_BOSS}` : Locale::HIT_CAP_BOSS, text: Locale::HIT_MARK.format(amountText(c.boss, true)) })
     caps.push({ at: c.level, title: title != "" ? `${title}: ${Locale::HIT_CAP_LEVEL}` : Locale::HIT_CAP_LEVEL, text: Locale::HIT_MARK.format(amountText(c.level, true)) })
   }
