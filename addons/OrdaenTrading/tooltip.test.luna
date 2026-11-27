@@ -13,156 +13,156 @@ import root Trading from "OrdaenTrading"
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
 const HOUR = 3600
 const ORE: Integer = 2770
 const BLADE: Integer = 15211
 const SUFFIXED: Integer = 1048576
-const AMBER: Color = Color.hex("#ffb02e")
-const DIM: Color = Color.hex("#a3977f")
+const AMBER: Color = Color::hex("#ffb02e")
+const DIM: Color = Color::hex("#a3977f")
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 
-function showing(data: Game.TooltipData): Game.ShownTip {
-  const corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
+function showing(data: Game::TooltipData): Game::ShownTip {
+  const corner = Client::CreateFrame("Frame", "GameTooltip", Client::C_UI::GetUIParent(), nil)
   corner.SetSize(200, 80)
-  corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
+  corner.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", 1300, -720)
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
     right: true, home: corner, homeBelow: false, homeRight: true
   }
 }
 
-function hidden(): Game.ShownTip {
+function hidden(): Game::ShownTip {
   return { shown: false, ..showing({ lines: [] }) }
 }
 
-function ore(): Game.TooltipData {
+function ore(): Game::TooltipData {
   return { kind: 0, id: ORE, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] }
 }
 
 // The item tooltip that names this.
-function tip(name: String): Test.Part {
-  return Test.page().window(name)
+function tip(name: String): Test::Part {
+  return Test::page().window(name)
 }
 
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 test "an item the house priced this hour has the «Auction» line: what one costs, no age" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
 }
 
 test "an item the house never priced has no «Auction» line" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore"))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore"))
 }
 
 test "each show asks the line anew: the price's age, amber from a day, dim past three" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
-  Game.clock.server = START + 50 * HOUR
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
+  Game::clock.server = START + 50 * HOUR
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
   const day = tip("Copper Ore")
-  Test.expect(reads(day, "Copper Ore | Auction | 0g 1s 25c (2 d.)") && day.text("0g 1s 25c (2 d.)").textColor().equal(AMBER))
-  Game.clock.server = START + 100 * HOUR
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
+  Test::expect(reads(day, "Copper Ore | Auction | 0g 1s 25c (2 d.)") && day.text("0g 1s 25c (2 d.)").textColor().equal(AMBER))
+  Game::clock.server = START + 100 * HOUR
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
   const old = tip("Copper Ore")
-  Test.expect(reads(old, "Copper Ore | Auction | 0g 1s 25c (4 d.)") && old.text("0g 1s 25c (4 d.)").textColor().equal(DIM))
+  Test::expect(reads(old, "Copper Ore | Auction | 0g 1s 25c (4 d.)") && old.text("0g 1s 25c (4 d.)").textColor().equal(DIM))
 }
 
 test "a weapon's random suffix, which its link names, has its own price" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
-  Game.auctionQuery.results.emit([{ key: BLADE + 1018 * SUFFIXED, copper: 9000, quantity: 1 }, { key: BLADE, copper: 4000, quantity: 1 }])
-  Game.tooltip.main = showing({
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
+  Game::auctionQuery.results.emit([{ key: BLADE + 1018 * SUFFIXED, copper: 9000, quantity: 1 }, { key: BLADE, copper: 4000, quantity: 1 }])
+  Game::tooltip.main = showing({
     kind: 0, id: BLADE, about: "item:15211:0:0:0:0:0:-1018:0", lines: [{ left: "Glimmering Blade of the Eagle", kind: 22 }]
   })
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Glimmering Blade of the Eagle"), "Glimmering Blade of the Eagle | Auction | 0g 90s 0c"))
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Glimmering Blade of the Eagle"), "Glimmering Blade of the Eagle | Auction | 0g 90s 0c"))
 }
 
 test "the price line off in the settings: the tooltip has none" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
-  const page = Test.page().window(SETTINGS)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
+  const page = Test::page().window(SETTINGS)
   page.button("Price in item tooltips").click()
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore"))
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore"))
 }
 
 test "an item on the shopping list says how many are wanted, and how many of them this character holds" {
-  Test.mount(nil, SCREEN)
-  Game.items.owned = (id: Integer): Integer => 4
-  Trading.shopping.add(ItemId.of(ORE), 12, .ByHand)
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 4 | On the shopping list | 12 (bought 4)"))
-  Game.items.owned = (id: Integer): Integer => 30
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 30 | On the shopping list | 12 (bought 12)"))
+  Test::mount(nil, SCREEN)
+  Game::items.owned = (id: Integer): Integer => 4
+  Trading.shopping.add(ItemId::of(ORE), 12, .ByHand)
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 4 | On the shopping list | 12 (bought 4)"))
+  Game::items.owned = (id: Integer): Integer => 30
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 30 | On the shopping list | 12 (bought 12)"))
 }
 
 test "the lines go with Tooltips turned off, and are back with it on" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  Trading.shopping.add(ItemId.of(ORE), 12, .ByHand)
-  const tooltips = Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Trading.shopping.add(ItemId::of(ORE), 12, .ByHand)
+  const tooltips = Runtime::Addon::of(Tooltips) ?? panic("the tooltips are installed")
   tooltips.disable()
-  Test.pass(0.02)
-  Test.expect(Tooltips == nil && Test.errors().length == 0)
-  Test.expect(tooltips.enable() == nil)
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c | On the shopping list | 12 (bought 0)"))
+  Test::pass(0.02)
+  Test::expect(Tooltips == nil && Test::errors().length == 0)
+  Test::expect(tooltips.enable() == nil)
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c | On the shopping list | 12 (bought 0)"))
 }
 
 test "without Tooltips installed the module runs, its list kept, and nothing breaks" {
-  Test.uninstall("OrdaenTooltips")
-  Test.reload()
-  Test.mount(nil, SCREEN)
-  Trading.shopping.add(ItemId.of(ORE), 3, .ByHand)
-  Game.auctionHouse.open = true
-  Test.page().window("Sell").button("Shopping list").click()
-  Test.expect(Test.page().window("Search all").text("3").shown() && Test.errors().length == 0)
+  Test::uninstall("OrdaenTooltips")
+  Test::reload()
+  Test::mount(nil, SCREEN)
+  Trading.shopping.add(ItemId::of(ORE), 3, .ByHand)
+  Game::auctionHouse.open = true
+  Test::page().window("Sell").button("Shopping list").click()
+  Test::expect(Test::page().window("Search all").text("3").shown() && Test::errors().length == 0)
 }

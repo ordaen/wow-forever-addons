@@ -102,7 +102,7 @@ struct Effect {
 
 function effectsOf(spell: Integer): Array<Effect> {
   const effects: Array<Effect> = []
-  const block = Effects.blocks[(spell / BLOCK).floor()]
+  const block = Effects::blocks[(spell / BLOCK).floor()]
   if (block == nil) { return effects }
   let own: String | nil = nil
   for (entry of block.split(";")) {

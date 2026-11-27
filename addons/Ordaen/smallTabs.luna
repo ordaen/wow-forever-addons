@@ -6,13 +6,13 @@ import { Align, ByInteractionState, Edges, Line, Side } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH } from "@/units"
 
-const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: Color = Color.hex("#ffffff14")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
-const ALL: Array<Side> = [Side.Top, Side.Right, Side.Bottom, Side.Left]
+const CLEAR: Color = Color::hex("#00000000")
+const LIGHT: Color = Color::hex("#ffffff14")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000033"), focus: Color::hex("#00000033") }
+const ALL: Array<Side> = [Side::Top, Side::Right, Side::Bottom, Side::Left]
 const RULED: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: ALL }
 const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: ALL }
-const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
 const TAB_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 4sp }
 
 class SmallTab implements Component {
@@ -59,7 +59,7 @@ public class SmallTabs implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={{ each: "max-content" }} gap={2sp} yAlign={Align.Center}>
+      <box columns={{ each: "max-content" }} gap={2sp} yAlign={Align::Center}>
         <SmallTab $for={index, label of self.tabs} label={label} index={index} selected={self.selected} @pick={self.onPick} />
       </box>
     }

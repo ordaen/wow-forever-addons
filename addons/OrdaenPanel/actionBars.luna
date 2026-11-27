@@ -15,23 +15,23 @@ import { promote } from "@/ranks"
 const TURNED = "[actionbar:2] 2; [actionbar:3] 3; [actionbar:4] 4; [actionbar:5] 5; [actionbar:6] 6; "
 
 // A frame never shown: what is put in it draws nothing, whatever shows it.
-function hiddenFrame(): any Client.Frame {
-  const made = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+function hiddenFrame(): any Client::Frame {
+  const made = Client::CreateFrame("Frame", nil, Client::UIParent, nil)
   made.Hide()
   return made
 }
 
 // Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the panel's bars stay off.
 public function bartenderLoaded(): Boolean {
-  let loaded, _ = Client.C_AddOns.IsAddOnLoaded("Bartender4")
+  let loaded, _ = Client::C_AddOns::IsAddOnLoaded("Bartender4")
   return loaded
 }
 
 // Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the pet's
 // bar on, the stances' on for a class with forms).
 public function barDefaults(): Map<String, BarChoice> {
-  let bottomLeft, bottomRight, right, left, six, seven, eight = Client.GetActionBarToggles()
-  const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client.GetNumShapeshiftForms() > 0]
+  let bottomLeft, bottomRight, right, left, six, seven, eight = Client::GetActionBarToggles()
+  const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client::GetNumShapeshiftForms() > 0]
   const defaults: Map<String, BarChoice> = {}
   for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
   return defaults
@@ -55,19 +55,19 @@ public class ActionBars implements Component, OwnerKeys {
   public derived bars: Array<Shown> = self.barsOf()
   derived paging: String = self.pagingOf()
   // The game's bars drawn in their place, kept unseen while the bars run: their slots stay as they are.
-  derived hidden: Array<any Client.Frame> = self.hiddenBars()
+  derived hidden: Array<any Client::Frame> = self.hiddenBars()
   // Where the game's bars are kept while the bars run: a frame never shown. A bar hidden by itself doesn't stay so:
   // the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead, and
   // whatever shows it, it draws nothing.
-  const hider: any Client.Frame = hiddenFrame()
+  const hider: any Client::Frame = hiddenFrame()
   // Each bar put in the hider, by the parent the game gave it: given back as the bars end.
-  parents: mut Map<any Client.Frame, any Client.Frame> = {}
+  parents: mut Map<any Client::Frame, any Client::Frame> = {}
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
   state bound: Map<String, String> = {}
   // The same keys by the name of the button they click: what its tooltip says it is pressed by.
   state named: Map<String, String> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
-  const owner: any Client.Frame = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+  const owner: any Client::Frame = Client::CreateFrame("Frame", nil, Client::UIParent, nil)
 
   values: Signal<BarsChoices>
   defaults: Signal<Map<String, BarChoice>>
@@ -87,13 +87,13 @@ public class ActionBars implements Component, OwnerKeys {
   // Out of a fight: the bars are made, the game's put away, the keys bound; from then on each change waits for a
   // fight's end.
   start(mut self) {
-    self.forms = Client.GetNumShapeshiftForms()
+    self.forms = Client::GetNumShapeshiftForms()
     self.applied = (peek self.values).clone()
     self.ready = true
     self.bind()
-    Events.UPDATE_BINDINGS.listen(self.rebind)
-    Events.UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
-    Events.LEARNED_SPELL_IN_SKILL_LINE.listen(self.learned)
+    Events::UPDATE_BINDINGS.listen(self.rebind)
+    Events::UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
+    Events::LEARNED_SPELL_IN_SKILL_LINE.listen(self.learned)
     watch (values of self.values) { Ordaen.afterCombat(() => self.apply(values)) }
     watch (games of self.hidden) { Ordaen.afterCombat(() => self.putAway(games)) }
   }
@@ -101,13 +101,13 @@ public class ActionBars implements Component, OwnerKeys {
   // A button's tooltip: the key that presses it, as the button shows it («1: use»).
   public keys(self, owner: String): Array<String> {
     const key = self.named[owner]
-    return key == nil ? [] : [Locale.KEY_USE.format(key)]
+    return key == nil ? [] : [Locale::KEY_USE.format(key)]
   }
 
   destructor() {
     const owner = self.owner
     const parents = self.parents
-    Ordaen.afterCombat(() => ActionBars.giveBack(owner, parents))
+    Ordaen.afterCombat(() => ActionBars::giveBack(owner, parents))
   }
 
   // A copy: the settings' values change in place, and in a fight the bars keep what applied before it.
@@ -120,19 +120,19 @@ public class ActionBars implements Component, OwnerKeys {
 
   reform(mut self) { Ordaen.afterCombat(() => self.countForms()) }
 
-  countForms(mut self) { self.forms = Client.GetNumShapeshiftForms() }
+  countForms(mut self) { self.forms = Client::GetNumShapeshiftForms() }
 
   // A spell learned: a new rank takes its previous rank's slots.
   learned(self, spell: Number, _line: Integer, _perk: Boolean) { promote(spell.floor()) }
 
   // The game's keys and bars go back as they were.
-  giveBack(owner: any Client.Frame, parents: Map<any Client.Frame, any Client.Frame>) {
-    Client.ClearOverrideBindings(owner)
+  giveBack(owner: any Client::Frame, parents: Map<any Client::Frame, any Client::Frame>) {
+    Client::ClearOverrideBindings(owner)
     for (frame, parent of parents) { frame.SetParent(parent) }
   }
 
   // Each of the game's bars goes into the hider, its own parent kept to give back.
-  putAway(mut self, games: Array<any Client.Frame>) {
+  putAway(mut self, games: Array<any Client::Frame>) {
     for (frame of games) {
       if (self.parents[frame] == nil) {
         const parent = frame.GetParent()
@@ -149,7 +149,7 @@ public class ActionBars implements Component, OwnerKeys {
 
   // How many buttons a bar shows: as many as chosen, and for the stances' bar no more than the player's forms.
   countOf(self, spec: BarSpec, choice: BarChoice): Integer {
-    return spec.kind == BarKind.Stance ? choice.buttons.min(self.forms) : choice.buttons
+    return spec.kind == BarKind::Stance ? choice.buttons.min(self.forms) : choice.buttons
   }
 
   // The bars on, each standing over those under it by their rows' height: none overlaps another.
@@ -172,7 +172,7 @@ public class ActionBars implements Component, OwnerKeys {
   pagingOf(self): String {
     let options = TURNED
     for (bonusbar of 1..4) {
-      if (self.applied.unpaged[String.of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
+      if (self.applied.unpaged[String::of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
     }
     return `${options}1`
   }
@@ -180,54 +180,54 @@ public class ActionBars implements Component, OwnerKeys {
   // Each key of the game's bindings of the bars drawn clicks our button in its place, and its text is kept. Out of a
   // fight alone: the client takes no binding in one.
   bind(mut self) {
-    Client.ClearOverrideBindings(self.owner)
+    Client::ClearOverrideBindings(self.owner)
     const keys: Map<String, String> = {}
     const named: Map<String, String> = {}
     for (bar of peek self.bars) {
       for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
         const name = buttonName(bar.spec.id, index)
-        let first, second = Client.GetBindingKey(command)
+        let first, second = Client::GetBindingKey(command)
         if (first != nil) {
           keys[command] = shortKey(first)
           named[name] = keys[command]
-          Client.SetOverrideBindingClick(self.owner, false, first, name, "LeftButton")
+          Client::SetOverrideBindingClick(self.owner, false, first, name, "LeftButton")
         }
-        if (second != nil) { Client.SetOverrideBindingClick(self.owner, false, second, name, "LeftButton") }
+        if (second != nil) { Client::SetOverrideBindingClick(self.owner, false, second, name, "LeftButton") }
       }
     }
     self.bound = keys
     self.named = named
   }
 
-  hiddenBars(self): Array<any Client.Frame> {
-    const parts: Array<any Client.Frame> = []
+  hiddenBars(self): Array<any Client::Frame> {
+    const parts: Array<any Client::Frame> = []
     for (bar of self.bars) {
-      const frame = ActionBars.gameBar(bar.spec)
+      const frame = ActionBars::gameBar(bar.spec)
       if (frame != nil) { parts.push(frame) }
     }
     return parts
   }
 
   // The game's own bar in a bar's place.
-  gameBar(spec: BarSpec): any Client.Frame | nil {
+  gameBar(spec: BarSpec): any Client::Frame | nil {
     return match (spec.kind) {
-      BarKind.Pet => Game.frames.PetActionBar
-      BarKind.Stance => Game.frames.StanceBar
-      BarKind.Action => ActionBars.actionBar(spec.number)
+      BarKind::Pet => Game::frames.PetActionBar
+      BarKind::Stance => Game::frames.StanceBar
+      BarKind::Action => ActionBars::actionBar(spec.number)
     }
   }
 
-  actionBar(number: Integer): any Client.Frame | nil {
+  actionBar(number: Integer): any Client::Frame | nil {
     return match (number) {
-      1 => Game.frames.MainActionBar
-      2 => Game.frames.MultiBarBottomLeft
-      3 => Game.frames.MultiBarBottomRight
-      4 => Game.frames.MultiBarRight
-      5 => Game.frames.MultiBarLeft
-      6 => Game.frames.MultiBar5
-      7 => Game.frames.MultiBar6
-      else => Game.frames.MultiBar7
+      1 => Game::frames.MainActionBar
+      2 => Game::frames.MultiBarBottomLeft
+      3 => Game::frames.MultiBarBottomRight
+      4 => Game::frames.MultiBarRight
+      5 => Game::frames.MultiBarLeft
+      6 => Game::frames.MultiBar5
+      7 => Game::frames.MultiBar6
+      else => Game::frames.MultiBar7
     }
   }
 

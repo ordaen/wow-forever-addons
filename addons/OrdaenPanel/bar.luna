@@ -13,10 +13,10 @@ import Locale from "@/locales"
 const ABOVE: Number<Length> = 12dp
 public const BETWEEN: Number<Length> = 8dp
 const INK: Color = BRIGHT_TEXT
-const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+const KEY_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
 // An action out of range: its key in the client's red, its icon darkened.
-const OUT_OF_RANGE: Color = Color.hex("#ff2020")
-const RANGE_VEIL: Color = Color.hex("#000000")
+const OUT_OF_RANGE: Color = Color::hex("#ff2020")
+const RANGE_VEIL: Color = Color::hex("#000000")
 const RANGE_DARK = 0.6
 
 // The pet's buttons show while the player has a pet with its bar: the client's own condition, read in a fight too.
@@ -27,7 +27,7 @@ const WITH_PET = "[pet] show; hide"
 // told when its action is out of range (`ActionButton_UpdateRangeIndicator`); the template's own key text (its key, or
 // with none its range dot) is unseen: the button draws its key itself.
 public class Slot {
-  public const frame: any Client.ActionButton
+  public const frame: any Client::ActionButton
   public const name: String
   public const command: String
   public state shown: Boolean = false
@@ -41,7 +41,7 @@ public class Slot {
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
-  constructor(frame: any Client.ActionButton, name: String, command: String) {
+  constructor(frame: any Client::ActionButton, name: String, command: String) {
     self.frame = frame
     self.name = name
     self.command = command
@@ -50,12 +50,12 @@ public class Slot {
     const life = self.life
     self.art = templateArt(frame, ...frame.GetRegions())
     self.readHolds()
-    self.slotHeard = Events.ACTIONBAR_SLOT_CHANGED.listen(self.onSlotChanged)
+    self.slotHeard = Events::ACTIONBAR_SLOT_CHANGED.listen(self.onSlotChanged)
     _ = frame.HookScript("OnAttributeChanged", (): nil => {
       if (life.on) { self.readHolds() }
     })
     // The template tells each button by one global function: the hook's body one comparison for another's.
-    Client.hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
+    Client::hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
       if (life.on && args[1] == frame) { self.outOfRange = args[2] == true && args[3] != true }
     })
     _ = frame.HookScript("OnShow", (): nil => {
@@ -82,14 +82,14 @@ public class Slot {
   public readHolds(mut self) {
     const action = self.frame.action
     // None yet (made, before its slot or place is told): it is taken to hold what it will show.
-    self.holds = action == nil || action < 1 || Client.C_ActionBar.HasAction(action)
+    self.holds = action == nil || action < 1 || Client::C_ActionBar::HasAction(action)
   }
 }
 
 // One point a piece of the template's art is placed by.
 struct Pin {
   point: String
-  to: any Client.Region | nil
+  to: any Client::Region | nil
   toPoint: String
   x: Number
   y: Number
@@ -98,7 +98,7 @@ struct Pin {
 // A piece of the client's template's art (a texture or a mask) as the template lays it out: its points, and its size
 // where they don't give it one.
 struct Piece {
-  region: any Client.MaskTexture
+  region: any Client::MaskTexture
   pins: Array<Pin>
   width: Number
   height: Number
@@ -108,20 +108,20 @@ struct Piece {
 // from the button as it is made): the frame larger than the button and anchored at its top left, the icon's mask
 // centred on the icon and larger than it, the icon filling the button.
 struct TemplateArt {
-  frame: any Client.Frame
+  frame: any Client::Frame
   width: Number
   height: Number
   pieces: Array<Piece>
 }
 
-function templateArt(frame: any Client.Frame, ...regions: any Client.Region): TemplateArt {
+function templateArt(frame: any Client::Frame, ...regions: any Client::Region): TemplateArt {
   const pieces: Array<Piece> = []
   for (i of 1..regions.length) {
     const region = regions[i]
     // The template's art: its textures and its masks, each its own kind to the client (a texture is no mask texture).
-    if (region is Client.Texture) {
+    if (region is Client::Texture) {
       pieces.push(pieceOf(region))
-    } else if (region is Client.MaskTexture) {
+    } else if (region is Client::MaskTexture) {
       pieces.push(pieceOf(region))
     }
   }
@@ -130,7 +130,7 @@ function templateArt(frame: any Client.Frame, ...regions: any Client.Region): Te
 
 // A piece of the art as the template lays it out: its points, and its size, or its atlas's where the client hasn't
 // sized it yet (the icon's mask, sized by its atlas only once drawn).
-function pieceOf(region: any Client.MaskTexture): Piece {
+function pieceOf(region: any Client::MaskTexture): Piece {
   const pins: Array<Pin> = []
   for (p of 1..region.GetNumPoints()) {
     let point, to, toPoint, x, y = region.GetPoint(p, nil)
@@ -141,7 +141,7 @@ function pieceOf(region: any Client.MaskTexture): Piece {
   let height = region.GetHeight()
   // Only a piece placed by one point is sized (`fitArt`); the client names no atlas for a piece without one.
   const name: String | nil = pins.length == 1 && (width <= 0 || height <= 0) ? region.GetAtlas() : nil
-  const atlas = name != nil ? Client.C_Texture.GetAtlasInfo(name) : nil
+  const atlas = name != nil ? Client::C_Texture::GetAtlasInfo(name) : nil
   if (atlas != nil) {
     width = atlas.width
     height = atlas.height
@@ -206,16 +206,16 @@ const DIMMED = 0.4
 // A pet's command names its icon by one of the client's globals (`isToken`).
 function commandIcon(token: String): Art | nil {
   const path: String | nil = match (token) {
-    "PET_ATTACK_TEXTURE" => Client.PET_ATTACK_TEXTURE
-    "PET_FOLLOW_TEXTURE" => Client.PET_FOLLOW_TEXTURE
-    "PET_MOVE_TO_TEXTURE" => Client.PET_MOVE_TO_TEXTURE
-    "PET_WAIT_TEXTURE" => Client.PET_WAIT_TEXTURE
-    "PET_ASSIST_TEXTURE" => Client.PET_ASSIST_TEXTURE
-    "PET_DEFENSIVE_TEXTURE" => Client.PET_DEFENSIVE_TEXTURE
-    "PET_DEFENSIVEASSIST_TEXTURE" => Client.PET_DEFENSIVEASSIST_TEXTURE
-    "PET_AGGRESSIVE_TEXTURE" => Client.PET_AGGRESSIVE_TEXTURE
-    "PET_PASSIVE_TEXTURE" => Client.PET_PASSIVE_TEXTURE
-    "PET_DISMISS_TEXTURE" => Client.PET_DISMISS_TEXTURE
+    "PET_ATTACK_TEXTURE" => Client::PET_ATTACK_TEXTURE
+    "PET_FOLLOW_TEXTURE" => Client::PET_FOLLOW_TEXTURE
+    "PET_MOVE_TO_TEXTURE" => Client::PET_MOVE_TO_TEXTURE
+    "PET_WAIT_TEXTURE" => Client::PET_WAIT_TEXTURE
+    "PET_ASSIST_TEXTURE" => Client::PET_ASSIST_TEXTURE
+    "PET_DEFENSIVE_TEXTURE" => Client::PET_DEFENSIVE_TEXTURE
+    "PET_DEFENSIVEASSIST_TEXTURE" => Client::PET_DEFENSIVEASSIST_TEXTURE
+    "PET_AGGRESSIVE_TEXTURE" => Client::PET_AGGRESSIVE_TEXTURE
+    "PET_PASSIVE_TEXTURE" => Client::PET_PASSIVE_TEXTURE
+    "PET_DISMISS_TEXTURE" => Client::PET_DISMISS_TEXTURE
     else => nil
   }
   return path is Asset ? path : nil
@@ -259,20 +259,20 @@ public class Button implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size}>
-        <box $if={self.face.icon != nil && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
+        <box $if={self.face.icon != nil && self.slot.shown} position={Position::Absolute} left={0ui} top={0ui}
              width={self.size} height={self.size} background={self.face.icon}
              opacity={self.face.usable ? 1 : DIMMED} />
         // The client's own cooldown sweep of the button, over its face: the client's button is unseen.
-        <embed $if={self.faced} frame={self.slot.frame.cooldown} position={Position.Absolute} left={0ui} top={0ui}
+        <embed $if={self.faced} frame={self.slot.frame.cooldown} position={Position::Absolute} left={0ui} top={0ui}
                width={self.size} height={self.size} />
-        <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
+        <embed frame={self.slot.frame} position={Position::Absolute} left={0ui} top={0ui} width={self.size}
                height={self.size} opacity={self.clientOpacity} />
-        <box $if={self.darkened} position={Position.Absolute} left={0ui} top={0ui} width={self.size} height={self.size}
+        <box $if={self.darkened} position={Position::Absolute} left={0ui} top={0ui} width={self.size} height={self.size}
              background={RANGE_VEIL} opacity={RANGE_DARK} zLevel={1} />
-        <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
+        <box $if={self.face.lit && self.slot.shown} position={Position::Absolute} left={0ui} top={0ui}
              width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
              tint={Ordaen.look.values.accent} zLevel={2} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={0.5sp} zLevel={2}>
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align::End} padding={0.5sp} zLevel={2}>
           <text value={self.key} textColor={self.keyColor} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={.None} />
         </box>
       </box>
@@ -290,12 +290,12 @@ public class Button implements Component {
 public class Bar implements Component {
   slots: Array<Slot> = []
   state hovered = false
-  derived home: Anchored = { point: Point.Bottom, y: -(Ordaen.bottomTaken + ABOVE + self.below) }
+  derived home: Anchored = { point: Point::Bottom, y: -(Ordaen.bottomTaken + ABOVE + self.below) }
   derived choice: BarChoice = self.choices[self.spec.id] ?? self.defaults[self.spec.id] ?? defaultChoice(self.spec, false)
   derived visibility: Visibility = self.choice.visibility
   derived opacity: Number = opacityNow(self.visibility, self.hovered)
   // How many of its buttons show: as many as chosen, and for the stances' bar no more than the player's forms.
-  derived count: Integer = self.spec.kind == BarKind.Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
+  derived count: Integer = self.spec.kind == BarKind::Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
   derived drawn: Array<Slot> = self.drawnOf(true)
   // The buttons past its count: kept unseen while it is drawn (the renderer shows an embedded frame let go again).
   derived unseen: Array<Slot> = self.drawnOf(false)
@@ -345,25 +345,25 @@ public class Bar implements Component {
     self.keys = keys
     self.paging = paging
     self.forms = forms
-    self.id = Bar.idOf(spec)
-    self.title = Bar.titleOf(spec)
+    self.id = Bar::idOf(spec)
+    self.title = Bar::titleOf(spec)
     const buttons: Array<Slot> = []
     for (index of 1..spec.most) {
       const name = buttonName(spec.id, index)
-      const frame = Client.CreateFrame("CheckButton", name, Client.UIParent, spec.template)
-      if (!(frame is Client.ActionButton)) { panic("the client's action button templates make check buttons") }
+      const frame = Client::CreateFrame("CheckButton", name, Client::UIParent, spec.template)
+      if (!(frame is Client::ActionButton)) { panic("the client's action button templates make check buttons") }
       const command = `${spec.command}${index}`
       // The binding the client's Quick Keybind mode binds while the cursor is on the button, as the game's bars give
       // their buttons theirs.
       frame.commandName = command
-      if (spec.kind == BarKind.Action && spec.number != 1) {
+      if (spec.kind == BarKind::Action && spec.number != 1) {
         frame.SetAttribute("type", "action")
         frame.SetAttribute("action", spec.first + index - 1)
       } else {
         // Панель 1's, the pet's and the stances' buttons are told by their place, as the game's own are.
         frame.SetID(index)
       }
-      if (spec.kind == BarKind.Stance) {
+      if (spec.kind == BarKind::Stance) {
         // A form is taken by its spell (`armForms`); its tooltip asks the client by its place.
         frame.SetAttribute("type", "spell")
         frame.index = index
@@ -374,37 +374,37 @@ public class Bar implements Component {
       buttons.push(new Slot(frame, name, command))
     }
     self.slots = buttons
-    Events.ACTIONBAR_SHOWGRID.listen(self.onGrid)
-    Events.ACTIONBAR_HIDEGRID.listen(self.onGridGone)
+    Events::ACTIONBAR_SHOWGRID.listen(self.onGrid)
+    Events::ACTIONBAR_HIDEGRID.listen(self.onGridGone)
     // The client's Quick Keybind mode shows its highlight on the game's own buttons alone: ours are told as it opens
     // and closes.
     const life = self.life
-    _ = Client.QuickKeybindFrame.HookScript("OnShow", (): nil => {
+    _ = Client::QuickKeybindFrame.HookScript("OnShow", (): nil => {
       if (life.on) { self.keybinding(true) }
     })
-    _ = Client.QuickKeybindFrame.HookScript("OnHide", (): nil => {
+    _ = Client::QuickKeybindFrame.HookScript("OnHide", (): nil => {
       if (life.on) { self.keybinding(false) }
     })
-    if (spec.kind == BarKind.Action && spec.number == 1) {
+    if (spec.kind == BarKind::Action && spec.number == 1) {
       watch (options of self.paging) {
-        for (slot of peek self.slots) { Client.RegisterAttributeDriver(slot.frame, "actionpage", options) }
+        for (slot of peek self.slots) { Client::RegisterAttributeDriver(slot.frame, "actionpage", options) }
       }
     }
     watch (count of self.count) { self.showFirst(count) }
-    if (spec.kind == BarKind.Stance) {
+    if (spec.kind == BarKind::Stance) {
       watch (count of self.forms) {
         self.readForms(count)
         self.armForms(count)
         self.readCooldowns()
       }
-      Events.UPDATE_SHAPESHIFT_FORMS.listen(self.relearn)
-      Events.UPDATE_SHAPESHIFT_FORM.listen(self.reform)
-      Events.UPDATE_SHAPESHIFT_USABLE.listen(self.reform)
-      Events.UPDATE_SHAPESHIFT_COOLDOWN.listen(self.readCooldowns)
-    } else if (spec.kind == BarKind.Pet) {
+      Events::UPDATE_SHAPESHIFT_FORMS.listen(self.relearn)
+      Events::UPDATE_SHAPESHIFT_FORM.listen(self.reform)
+      Events::UPDATE_SHAPESHIFT_USABLE.listen(self.reform)
+      Events::UPDATE_SHAPESHIFT_COOLDOWN.listen(self.readCooldowns)
+    } else if (spec.kind == BarKind::Pet) {
       self.readPet()
-      Events.PET_BAR_UPDATE.listen(self.readPet)
-      Events.UNIT_PET.listen(self.petOf)
+      Events::PET_BAR_UPDATE.listen(self.readPet)
+      Events::UNIT_PET.listen(self.petOf)
     }
   }
 
@@ -423,7 +423,7 @@ public class Bar implements Component {
   readForms(mut self, count: Integer) {
     const faces: Array<Face> = []
     for (index of 1..self.spec.most) {
-      let icon, active, castable, _ = Client.GetShapeshiftFormInfo(index)
+      let icon, active, castable, _ = Client::GetShapeshiftFormInfo(index)
       faces.push(index <= count ? { icon: icon, lit: active, usable: castable } : BLANK)
     }
     self.faces = faces
@@ -433,7 +433,7 @@ public class Bar implements Component {
   // protected in one.
   armForms(self, count: Integer) {
     for (index, slot of peek self.slots) {
-      let _, _, _, spell = Client.GetShapeshiftFormInfo(index)
+      let _, _, _, spell = Client::GetShapeshiftFormInfo(index)
       slot.frame.SetAttribute("spell", index <= count ? spell : nil)
     }
   }
@@ -441,7 +441,7 @@ public class Bar implements Component {
   // Each form's cooldown, on its button's sweep.
   readCooldowns(self) {
     for (index, slot of peek self.slots) {
-      let start, duration, _ = Client.GetShapeshiftFormCooldown(index)
+      let start, duration, _ = Client::GetShapeshiftFormCooldown(index)
       slot.frame.cooldown.SetCooldown(start, duration)
     }
   }
@@ -459,7 +459,7 @@ public class Bar implements Component {
   readPet(mut self) {
     const faces: Array<Face> = []
     for (index of 1..self.spec.most) {
-      let _, texture, token, active, _, _, _ = Client.GetPetActionInfo(index)
+      let _, texture, token, active, _, _, _ = Client::GetPetActionInfo(index)
       const icon: Art | nil = texture is String ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
       faces.push({ icon: icon, lit: active, usable: true })
     }
@@ -472,14 +472,14 @@ public class Bar implements Component {
     self.life.on = false
     // The frames outlive their slots, which end with the bar.
     const frames = self.slots.map(slot => slot.frame)
-    const pet = self.spec.kind == BarKind.Pet
+    const pet = self.spec.kind == BarKind::Pet
     for (frame of frames) { frame.SetAlpha(0) }
-    Ordaen.afterCombat(() => Bar.putAway(frames, pet))
+    Ordaen.afterCombat(() => Bar::putAway(frames, pet))
   }
 
-  putAway(frames: Array<any Client.Frame>, pet: Boolean) {
+  putAway(frames: Array<any Client::Frame>, pet: Boolean) {
     for (frame of frames) {
-      if (pet) { Client.UnregisterStateDriver(frame, "visibility") }
+      if (pet) { Client::UnregisterStateDriver(frame, "visibility") }
       frame.Hide()
       frame.SetAlpha(1)
     }
@@ -491,9 +491,9 @@ public class Bar implements Component {
   // Its name in the placing mode and on the module's page.
   public titleOf(spec: BarSpec): String {
     return match (spec.kind) {
-      BarKind.Action => Locale.BAR_TITLE.format(spec.number)
-      BarKind.Pet => Locale.BAR_PET
-      BarKind.Stance => Locale.BAR_STANCE
+      BarKind::Action => Locale::BAR_TITLE.format(spec.number)
+      BarKind::Pet => Locale::BAR_PET
+      BarKind::Stance => Locale::BAR_STANCE
     }
   }
 
@@ -508,12 +508,12 @@ public class Bar implements Component {
 
   // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
   showFirst(self, count: Integer) {
-    if (self.spec.kind != BarKind.Pet) { return }
+    if (self.spec.kind != BarKind::Pet) { return }
     for (index, slot of peek self.slots) {
       if (index <= count) {
-        Client.RegisterStateDriver(slot.frame, "visibility", WITH_PET)
+        Client::RegisterStateDriver(slot.frame, "visibility", WITH_PET)
       } else {
-        Client.UnregisterStateDriver(slot.frame, "visibility")
+        Client::UnregisterStateDriver(slot.frame, "visibility")
       }
     }
   }
@@ -529,7 +529,7 @@ public class Bar implements Component {
       <Placed id={self.id} title={self.title} home={self.home}>
         <box columns={self.columns} gap={self.spacing} opacity={self.opacity}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind.Action} keys={self.keys} size={self.size}
+          <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind::Action} keys={self.keys} size={self.size}
                   showKeys={self.showKeys} face={self.faces[index] ?? BLANK} hideEmpty={self.hideEmpty} dragging={self.dragging} />
         </box>
       </Placed>

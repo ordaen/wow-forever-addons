@@ -15,10 +15,10 @@ import { COMMUNITIES, GroupRowView, NOTICES, RowPick, RowShown, SectionShown, TA
 import Locale from "@/locales"
 
 // What the input's history keeps while a tab is open.
-const HISTORY: Array<Choice<Game.ChatHistory>> = [
-  { value: Game.ChatHistory.All, label: Locale.HISTORY_ALL },
-  { value: Game.ChatHistory.Commands, label: Locale.HISTORY_COMMANDS },
-  { value: Game.ChatHistory.None, label: Locale.HISTORY_NONE }
+const HISTORY: Array<Choice<Game::ChatHistory>> = [
+  { value: Game::ChatHistory::All, label: Locale::HISTORY_ALL },
+  { value: Game::ChatHistory::Commands, label: Locale::HISTORY_COMMANDS },
+  { value: Game::ChatHistory::None, label: Locale::HISTORY_NONE }
 ]
 
 const MAX: "max-content" = "max-content"
@@ -26,17 +26,17 @@ const SIDEBAR = 180dp
 const BUTTON = 130dp
 
 const NAMES: Array<Choice<ChannelName>> = [
-  { value: ChannelName.Name, label: Locale.CHANNEL_NAME },
-  { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
-  { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
+  { value: ChannelName::Name, label: Locale::CHANNEL_NAME },
+  { value: ChannelName::Number, label: Locale::CHANNEL_NUMBER },
+  { value: ChannelName::Both, label: Locale::CHANNEL_BOTH }
 ]
 const STAMPS: Array<Choice<StampPlace>> = [
-  { value: StampPlace.Inline, label: Locale.STAMPS_INLINE },
-  { value: StampPlace.Above, label: Locale.STAMPS_ABOVE }
+  { value: StampPlace::Inline, label: Locale::STAMPS_INLINE },
+  { value: StampPlace::Above, label: Locale::STAMPS_ABOVE }
 ]
 
 // A community's stream's key among the rows.
-function streamKey(stream: Game.ChatStream): String {
+function streamKey(stream: Game::ChatStream): String {
   return `${stream.club}:${stream.stream}`
 }
 
@@ -51,11 +51,11 @@ function withTab(tabs: Map<String, TabChoices>, key: String, choices: TabChoices
 // A message group's or a channel's row: its check turns it on or off in the window. It shows what each read of the
 // game says (a new value each time, so a change the game refused goes back), and the window picked.
 public class ShownRow implements Component {
-  public toggled: Event<Game.ChatShown> = new Event()
+  public toggled: Event<Game::ChatShown> = new Event()
   state on = false
-  item: Signal<Game.ChatShown>
+  item: Signal<Game::ChatShown>
   label: Signal<String>
-  constructor(item: Signal<Game.ChatShown>, label: Signal<String>) {
+  constructor(item: Signal<Game::ChatShown>, label: Signal<String>) {
     self.item = item
     self.label = label
     watch (read of self.item) { self.on = read.shown }
@@ -73,9 +73,9 @@ public class ShownRow implements Component {
 // One window's entry in the sidebar.
 public class WindowEntry implements Component {
   public pick: Event<Integer> = new Event()
-  const window: Game.ChatWindow
+  const window: Game::ChatWindow
   picked: Signal<Boolean>
-  constructor(window: Game.ChatWindow, picked: Signal<Boolean>) {
+  constructor(window: Game::ChatWindow, picked: Signal<Boolean>) {
     self.window = window
     self.picked = picked
   }
@@ -88,15 +88,15 @@ public class WindowEntry implements Component {
 }
 
 public class TabsPage implements Component {
-  derived chosen: Game.ChatWindow | nil = Game.chat.windows.find(window => window.index == self.window)
+  derived chosen: Game::ChatWindow | nil = Game::chat.windows.find(window => window.index == self.window)
   // Moved by each change of what the window shows, so what it shows is read anew.
   state version = 0
-  derived groups: Array<Game.ChatGroup> = self.version >= 0 ? Game.chat.groups(self.window) : []
+  derived groups: Array<Game::ChatGroup> = self.version >= 0 ? Game::chat.groups(self.window) : []
   derived talks: Array<RowShown> = rowsOf(TALKS, self.groups)
   derived notices: Array<RowShown> = rowsOf([NOTICES], self.groups)
   derived systems: Array<SectionShown> = systemsOf(self.groups)
-  derived channels: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.channels(self.window) : []
-  derived communities: Array<Game.ChatCommunity> = self.version >= 0 ? Game.chat.communities(self.window) : []
+  derived channels: Array<Game::ChatShown> = self.version >= 0 ? Game::chat.channels(self.window) : []
+  derived communities: Array<Game::ChatCommunity> = self.version >= 0 ? Game::chat.communities(self.window) : []
   derived closable: Boolean = self.window > 2
   state name = ""
   state locked = false
@@ -107,7 +107,7 @@ public class TabsPage implements Component {
   state repeats = true
   state held: Number = 500
   state kept: Number = 200
-  state history: Game.ChatHistory = .All
+  state history: Game::ChatHistory = .All
 
   window: mut Signal<Integer>
   settings: mut Settings<Choices>
@@ -130,7 +130,7 @@ public class TabsPage implements Component {
     }
     watch (locked of self.locked) {
       const chosen = peek self.chosen
-      if (chosen != nil && chosen.locked != locked) { Game.chat.lock(chosen.index, locked) }
+      if (chosen != nil && chosen.locked != locked) { Game::chat.lock(chosen.index, locked) }
     }
     watch (counter of self.counter) { self.writeTab() }
     watch (channelName of self.channelName) { self.writeTab() }
@@ -143,7 +143,7 @@ public class TabsPage implements Component {
   }
 
   // A window's own settings: the player's, else its defaults.
-  choicesOf(self, window: Game.ChatWindow): TabChoices {
+  choicesOf(self, window: Game::ChatWindow): TabChoices {
     return (peek self.settings.values).tabs[tabKey(window.index)] ?? tabDefaults(window)
   }
 
@@ -163,7 +163,7 @@ public class TabsPage implements Component {
 
   onRename(mut self) {
     const name = peek self.name
-    if (name != "") { Game.chat.rename(peek self.window, name) }
+    if (name != "") { Game::chat.rename(peek self.window, name) }
   }
 
   // A row: each of its groups the client has, shown or not for what of it is picked.
@@ -171,34 +171,34 @@ public class TabsPage implements Component {
     const window = peek self.window
     const known = peek self.groups
     for (group of rowGroups(pick.key, pick.pair)) {
-      if (known.any(each => each.name == group.name)) { Game.chat.showGroup(window, group.name, group.shown) }
+      if (known.any(each => each.name == group.name)) { Game::chat.showGroup(window, group.name, group.shown) }
     }
     self.version = (peek self.version) + 1
   }
 
-  onChannel(mut self, channel: Game.ChatShown) {
-    Game.chat.showChannel(peek self.window, channel.name, channel.shown)
+  onChannel(mut self, channel: Game::ChatShown) {
+    Game::chat.showChannel(peek self.window, channel.name, channel.shown)
     self.version = (peek self.version) + 1
   }
 
   // A community shown in the tab or not; the group that carries the communities' lines is shown while any is.
-  onCommunity(mut self, row: Game.ChatShown) {
+  onCommunity(mut self, row: Game::ChatShown) {
     const window = peek self.window
     const community = (peek self.communities).find(each => streamKey(each.stream) == row.name)
-    if (community != nil) { Game.chat.showCommunity(window, community.stream, row.shown) }
-    Game.chat.showGroup(window, COMMUNITIES, Game.chat.communities(window).any(each => each.shown))
+    if (community != nil) { Game::chat.showCommunity(window, community.stream, row.shown) }
+    Game::chat.showGroup(window, COMMUNITIES, Game::chat.communities(window).any(each => each.shown))
     self.version = (peek self.version) + 1
   }
 
   onNew(mut self) {
-    const made = Game.chat.open(Locale.TAB_NEW_NAME)
+    const made = Game::chat.open(Locale::TAB_NEW_NAME)
     if (made != nil) { self.window = made }
   }
 
   // A window closed: its own settings go with it, so a window opened later in its place starts from the defaults.
   onClose(mut self) {
     const window = peek self.window
-    Game.chat.close(window)
+    Game::chat.close(window)
     if ((peek self.settings.values).tabs[tabKey(window)] != nil) {
       self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(window), nil) })
     }
@@ -208,56 +208,56 @@ public class TabsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[SIDEBAR, { fr: 1 }]} gap={6sp}>
-        <box columns={1} gap={3sp} yAlignSelf={Align.Start}>
+        <box columns={1} gap={3sp} yAlignSelf={Align::Start}>
           <box columns={1}>
-            <WindowEntry $for={window of Game.chat.windows} window={peek window} picked={window.index == self.window}
+            <WindowEntry $for={window of Game::chat.windows} window={peek window} picked={window.index == self.window}
                          @pick={self.onPick} />
           </box>
-          <PushButton label={Locale.TAB_NEW} width={BUTTON} @click={self.onNew} />
+          <PushButton label={Locale::TAB_NEW} width={BUTTON} @click={self.onNew} />
         </box>
         <box columns={1} gap={6sp}>
-          <Section title={Locale.TAB_ITSELF}>
-            <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
-              <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />
-              <PushButton label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
+          <Section title={Locale::TAB_ITSELF}>
+            <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align::Center}>
+              <Field value={mut self.name} maxLength={40} placeholder={Locale::TAB_NAME} />
+              <PushButton label={Locale::TAB_RENAME} width={BUTTON} @click={self.onRename} />
             </box>
-            <Switch label={Locale.TAB_LOCK} value={mut self.locked} />
-            <Switch label={Locale.TAB_COUNTER} hint={Locale.TAB_COUNTER_TIP} value={mut self.counter} />
-            <SettingRow label={Locale.TAB_CHANNEL_NAMES} hint={Locale.TAB_CHANNEL_NAMES_TIP}>
+            <Switch label={Locale::TAB_LOCK} value={mut self.locked} />
+            <Switch label={Locale::TAB_COUNTER} hint={Locale::TAB_COUNTER_TIP} value={mut self.counter} />
+            <SettingRow label={Locale::TAB_CHANNEL_NAMES} hint={Locale::TAB_CHANNEL_NAMES_TIP}>
               <Segmented value={mut self.channelName} choices={NAMES} />
             </SettingRow>
-            <SettingRow label={Locale.TAB_STAMPS} hint={Locale.TAB_STAMPS_TIP}>
+            <SettingRow label={Locale::TAB_STAMPS} hint={Locale::TAB_STAMPS_TIP}>
               <Segmented value={mut self.stamps} choices={STAMPS} />
             </SettingRow>
-            <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
+            <PushButton label={Locale::TAB_CLOSE} width={BUTTON} plate={ButtonPlate::Accent} disabled={!self.closable}
                         @click={self.onClose} />
           </Section>
-          <Section title={Locale.TAB_TALKS}>
+          <Section title={Locale::TAB_TALKS}>
             <GroupRowView $for={row of self.talks} item={row} @picked={self.onRow} />
           </Section>
-          <Section title={Locale.TAB_CHANNELS}>
+          <Section title={Locale::TAB_CHANNELS}>
             <GroupRowView $for={row of self.notices} item={row} @picked={self.onRow} />
             <ShownRow $for={channel of self.channels} item={channel} label={channel.name} @toggled={self.onChannel} />
           </Section>
-          <Section title={Locale.TAB_COMMUNITIES}>
+          <Section title={Locale::TAB_COMMUNITIES}>
             <ShownRow $for={community of self.communities} item={{ name: streamKey(community.stream), shown: community.shown }}
                       label={community.stream.name} @toggled={self.onCommunity} />
           </Section>
-          <Section title={Locale.TAB_SYSTEMS}>
+          <Section title={Locale::TAB_SYSTEMS}>
             <Section $for={section of self.systems} title={section.title}>
               <GroupRowView $for={row of section.rows} item={row} @picked={self.onRow} />
             </Section>
           </Section>
-          <Section title={Locale.SECTION_LINES}>
-            <SettingRow label={Locale.KEYWORDS} hint={Locale.KEYWORDS_TIP}>
-              <Field value={mut self.keywords} maxLength={200} placeholder={Locale.KEYWORDS_EXAMPLE} />
+          <Section title={Locale::SECTION_LINES}>
+            <SettingRow label={Locale::KEYWORDS} hint={Locale::KEYWORDS_TIP}>
+              <Field value={mut self.keywords} maxLength={200} placeholder={Locale::KEYWORDS_EXAMPLE} />
             </SettingRow>
-            <Switch label={Locale.REPEATS} hint={Locale.REPEATS_TIP} value={mut self.repeats} />
-            <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.held} least={100} most={2000} step={100}
-                         unit={Unit.None} />
-            <NumberInput label={Locale.KEPT} hint={Locale.KEPT_TIP} value={mut self.kept} least={0} most={500} step={50}
-                         unit={Unit.None} />
-            <SettingRow label={Locale.HISTORY} hint={Locale.HISTORY_TIP}>
+            <Switch label={Locale::REPEATS} hint={Locale::REPEATS_TIP} value={mut self.repeats} />
+            <NumberInput label={Locale::HELD} hint={Locale::HELD_TIP} value={mut self.held} least={100} most={2000} step={100}
+                         unit={Unit::None} />
+            <NumberInput label={Locale::KEPT} hint={Locale::KEPT_TIP} value={mut self.kept} least={0} most={500} step={50}
+                         unit={Unit::None} />
+            <SettingRow label={Locale::HISTORY} hint={Locale::HISTORY_TIP}>
               <Segmented value={mut self.history} choices={HISTORY} />
             </SettingRow>
           </Section>

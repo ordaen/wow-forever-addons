@@ -46,29 +46,29 @@ function mirrored(hang: Hang): Hang {
 
 function acrossOf(point: Point): Point {
   return match (point) {
-    .TopLeft => Point.TopRight
-    .TopRight => Point.TopLeft
-    .BottomLeft => Point.BottomRight
-    .BottomRight => Point.BottomLeft
-    .Left => Point.Right
-    .Right => Point.Left
+    .TopLeft => Point::TopRight
+    .TopRight => Point::TopLeft
+    .BottomLeft => Point::BottomRight
+    .BottomRight => Point::BottomLeft
+    .Left => Point::Right
+    .Right => Point::Left
     else => point
   }
 }
 
 // What stands in an opened tooltip's place while it opens nothing.
 const NOTHING: Model = {
-  kind: Kind.Text, name: "", nameColor: BRIGHT_TEXT,
+  kind: Kind::Text, name: "", nameColor: BRIGHT_TEXT,
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 
 // A list as a tooltip: its rows the body, each opening its item; its notes the footer.
 function listed(listing: Listing): Model {
   return {
-    kind: Kind.Text, name: listing.name, nameColor: GOLD, desc: [], info: [], facts: [],
+    kind: Kind::Text, name: listing.name, nameColor: GOLD, desc: [], info: [], facts: [],
     body: listing.rows.map(row => TextLine {
       left: row.left, right: row.right, color: row.color, rightColor: nil, desc: nil, indent: nil, stat: nil,
-      compared: nil, opens: row.item != nil ? Opens.Item { id: row.item } : Opens.None
+      compared: nil, opens: row.item != nil ? Opens.Item { id: row.item } : Opens::None
     }),
     more: [], foot: listing.foot.map(line => Note { left: line.left, right: line.right, valueColor: line.rightColor }),
     keys: []
@@ -93,18 +93,18 @@ public class Opened implements Component {
   readNow(self): Model | nil {
     let opens = self.opens
     match (opens) {
-      Opens.Term => return term(opens.term, opens.amount)
-      Opens.Text => return {
-        kind: Kind.Text, name: opens.name, nameColor: GOLD,
+      Opens::Term => return term(opens.term, opens.amount)
+      Opens::Text => return {
+        kind: Kind::Text, name: opens.name, nameColor: GOLD,
         desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: []
       }
-      Opens.Unit => return unitOf(opens.unit, self.options)
-      Opens.Item => {
-        let data = Game.items.tooltip(opens.id)
+      Opens::Unit => return unitOf(opens.unit, self.options)
+      Opens::Item => {
+        let data = Game::items.tooltip(opens.id)
         return data != nil ? item(data, self.options)?.model : nil
       }
-      Opens.Listing => return listed(opens.listing)
-      Opens.None => return nil
+      Opens::Listing => return listed(opens.listing)
+      Opens::None => return nil
     }
   }
 
@@ -128,7 +128,7 @@ public class TipGroup implements Component {
   derived besides: Integer = (self.hasSides ? 1 : 0) + self.compared.length
   derived place: Place = self.at()
   // Every tooltip's edge on the frame's side lined up; compared, their titles are, at the top.
-  derived across: Align = self.standing.below || self.comparing ? Align.Start : Align.End
+  derived across: Align = self.standing.below || self.comparing ? Align::Start : Align::End
   derived lowered: Edges = self.comparing ? LOWERED : LEVEL
 
   // A locked group's close button was clicked; the cursor came onto the group, and left it.
@@ -218,18 +218,18 @@ public class TipGroup implements Component {
     }
     if (standing.inPlace) {
       let point = standing.below ?
-        (standing.right ? Point.TopRight : Point.TopLeft) :
-        (standing.right ? Point.BottomRight : Point.BottomLeft)
+        (standing.right ? Point::TopRight : Point::TopLeft) :
+        (standing.right ? Point::BottomRight : Point::BottomLeft)
       return { point: point, to: point, by: standing.by }
     }
     if (standing.below) {
       return standing.right ?
-        { point: Point.TopRight, to: Point.BottomRight, by: standing.by } :
-        { point: Point.TopLeft, to: Point.BottomLeft, by: standing.by }
+        { point: Point::TopRight, to: Point::BottomRight, by: standing.by } :
+        { point: Point::TopLeft, to: Point::BottomLeft, by: standing.by }
     }
     return standing.right ?
-      { point: Point.BottomRight, to: Point.TopRight, by: standing.by } :
-      { point: Point.BottomLeft, to: Point.TopLeft, by: standing.by }
+      { point: Point::BottomRight, to: Point::TopRight, by: standing.by } :
+      { point: Point::BottomLeft, to: Point::TopLeft, by: standing.by }
   }
 
   public render(self): Template {

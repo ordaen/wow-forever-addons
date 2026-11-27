@@ -28,11 +28,11 @@ public class Tick implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.disabled} width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} opacity={0.45}>
-        <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
+        <box position={Position::Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
       <box $else width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-        <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
+        <box position={Position::Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
     }
@@ -68,7 +68,7 @@ public class Checkbox implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
       </SettingRow>

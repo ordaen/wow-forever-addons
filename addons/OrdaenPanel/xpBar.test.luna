@@ -13,16 +13,16 @@ import { XpView } from "@/choices"
 import { XpPart } from "@/extend"
 import { XpBar, leftOf, partOf } from "@/xpBar"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 500, height: 60 }
+const PAGE: Test::Page = { left: 20, top: 20, width: 500, height: 60 }
 // The rested part's pale blue.
-const RESTED: Color = Color.hex("#6e96d129")
+const RESTED: Color = Color::hex("#6e96d129")
 
 // The bars as the panel draws them: in its inside, with its choices.
 class Bars {
   state room: Number<Length> = 53ui
-  state fill: Art = xpFillArt(XpFill.Brushed)
+  state fill: Art = xpFillArt(XpFill::Brushed)
   state bezel = true
-  state view: XpView = XpView.Numbers
+  state view: XpView = XpView::Numbers
   state sources: Array<XpPart> = []
 
   public render(self): Template {
@@ -33,7 +33,7 @@ class Bars {
 }
 
 // Quests done, not turned in, as Ordaen Quests gives them.
-const DONE: Color = Color.hex("#3fbf3f")
+const DONE: Color = Color::hex("#3fbf3f")
 const QUESTS: XpPart = {
   amount: 2000, color: DONE, title: "Completed quests", text: "Experience the log's completed quests give once turned in.",
   rows: [{ label: "Quests", value: "3" }]
@@ -41,420 +41,420 @@ const QUESTS: XpPart = {
 
 // A text as it is shown: each `~` the space that parts a number's thousands.
 function shown(text: String): String {
-  return text.replace("~", String.char(194) + String.char(160))
+  return text.replace("~", String::char(194) + String::char(160))
 }
 
 // The bars drawn alone: the panel's own turned off.
 function alone() {
-  (Runtime.Addon.of(Panel) ?? panic("the panel is installed")).disable()
+  (Runtime::Addon::of(Panel) ?? panic("the panel is installed")).disable()
 }
 
 // The texts of the tooltip that holds this text, joined.
 function tip(holding: String): String {
-  return Test.page().window(holding).texts().join(" | ")
+  return Test::page().window(holding).texts().join(" | ")
 }
 
 test "a part is of the whole, whole from ten percent, with one decimal under it" {
   // The game's: 264 rested of a level of 29 000 is 0.9 %, not 4 % and not 0 %.
-  Test.expect(partOf(264, 29000) == "0.9%")
-  Test.expect(partOf(100, 1000) == "10%")
-  Test.expect(partOf(900, 1000) == "90%")
-  Test.expect(partOf(250, 10000) == "2.5%")
-  Test.expect(partOf(500, 10000) == "5%")
+  Test::expect(partOf(264, 29000) == "0.9%")
+  Test::expect(partOf(100, 1000) == "10%")
+  Test::expect(partOf(900, 1000) == "90%")
+  Test::expect(partOf(250, 10000) == "2.5%")
+  Test::expect(partOf(500, 10000) == "5%")
   // Cut, never rounded up: 99.9 % is not yet the whole.
-  Test.expect(partOf(9999, 10000) == "99%")
-  Test.expect(partOf(0, 1000) == "0%")
-  Test.expect(partOf(10, 0) == "0%" && partOf(1, 1) == "100%")
-  Test.expect(partOf(1050, 10000) == "10%" && partOf(990, 10000) == "9.9%")
+  Test::expect(partOf(9999, 10000) == "99%")
+  Test::expect(partOf(0, 1000) == "0%")
+  Test::expect(partOf(10, 0) == "0%" && partOf(1, 1) == "100%")
+  Test::expect(partOf(1050, 10000) == "10%" && partOf(990, 10000) == "9.9%")
   // Never below nothing.
-  Test.expect(partOf(-5, 1000) == "0%")
+  Test::expect(partOf(-5, 1000) == "0%")
 }
 
 test "what is left reads 100% with the part done, the shown part's complement" {
   // 426 of 1 000 is 42%; the 574 left is 58%, not a cut 57%.
-  Test.expect(partOf(426, 1000) == "42%" && leftOf(574, 1000) == "58%")
-  Test.expect(partOf(95, 1000) == "9.5%" && leftOf(905, 1000) == "90.5%")
-  Test.expect(leftOf(1000, 1000) == "100%" && leftOf(0, 1000) == "0%")
+  Test::expect(partOf(426, 1000) == "42%" && leftOf(574, 1000) == "58%")
+  Test::expect(partOf(95, 1000) == "9.5%" && leftOf(905, 1000) == "90.5%")
+  Test::expect(leftOf(1000, 1000) == "100%" && leftOf(0, 1000) == "0%")
 }
 
 // Experience
 
 test "the experience tube says how far into the level the player is, and its part" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().join(" | ") == shown("2~500 / 10~000 | (25%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().join(" | ") == shown("2~500 / 10~000 | (25%)"))
 }
 
 test "the bars say the percent first, the numbers beside it in the same colour; or the numbers alone; or the percent of the whole 100%" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
   const bars = new Bars()
-  Test.mount(bars, PAGE)
-  Test.expect(Test.page().text("(25%)").textColor().equal(Test.page().text(shown("2~500 / 10~000")).textColor()))
-  bars.view = XpView.Percent
-  Test.expect(Test.page().texts().join(" | ") == shown("25% | (2~500 / 10~000)"))
-  bars.view = XpView.NumbersOnly
-  Test.expect(Test.page().texts().join(" | ") == shown("2~500 / 10~000"))
-  bars.view = XpView.PercentOnly
-  Test.expect(Test.page().texts().join(" | ") == "25% / 100%")
+  Test::mount(bars, PAGE)
+  Test::expect(Test::page().text("(25%)").textColor().equal(Test::page().text(shown("2~500 / 10~000")).textColor()))
+  bars.view = XpView::Percent
+  Test::expect(Test::page().texts().join(" | ") == shown("25% | (2~500 / 10~000)"))
+  bars.view = XpView::NumbersOnly
+  Test::expect(Test::page().texts().join(" | ") == shown("2~500 / 10~000"))
+  bars.view = XpView::PercentOnly
+  Test::expect(Test::page().texts().join(" | ") == "25% / 100%")
 }
 
 test "the experience tube takes the fill and the edge chosen: the look's bar texture, a carved groove" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
   const bars = new Bars()
-  Test.mount(bars, PAGE)
+  Test::mount(bars, PAGE)
   bars.fill = Ordaen.lookArt.bar
   bars.bezel = false
-  Test.expect(Test.page().box(Ordaen.lookArt.bar).shown() && !Test.page().box(Ordaen.art.panel.xpTube).shown())
+  Test::expect(Test::page().box(Ordaen.lookArt.bar).shown() && !Test::page().box(Ordaen.art.panel.xpTube).shown())
 }
 
 test "a tube's values are drawn in the label's light ink" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().text(shown("2~500 / 10~000")).textColor().equal(Color.hex("#f3e7cc")))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().text(shown("2~500 / 10~000")).textColor().equal(Color::hex("#f3e7cc")))
 }
 
 test "a faction's tube with no standing named says its part of the standing" {
-  Game.reputation.name = "Stormwind"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::reputation.name = "Stormwind"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().join(" | ") == shown("4~800 / 12~000 | (40%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().join(" | ") == shown("4~800 / 12~000 | (40%)"))
 }
 
 test "a faction's span of nothing is whole, and a reputation under its standing's start is none of it" {
-  Game.reputation.name = "Stormwind"
-  Game.reputation.min = 9000
-  Game.reputation.max = 9000
-  Game.reputation.value = 9000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.min = 9000
+  Game::reputation.max = 9000
+  Game::reputation.value = 9000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().join(" | ") == "0 / 0 | (100%)")
-  Game.reputation.max = 21000
-  Game.reputation.value = 8000
-  Test.expect(Test.page().texts().join(" | ") == shown("-1~000 / 12~000 | (0%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().join(" | ") == "0 / 0 | (100%)")
+  Game::reputation.max = 21000
+  Game::reputation.value = 8000
+  Test::expect(Test::page().texts().join(" | ") == shown("-1~000 / 12~000 | (0%)"))
 }
 
 test "a tube stands in its trough, under its shine and its glass" {
-  Game.player.xpMax = 10000
+  Game::player.xpMax = 10000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().box(Ordaen.art.panel.xpTrough).shown() && Test.page().box(Ordaen.art.panel.xpShine).shown())
-  Test.expect(Test.page().box(Ordaen.art.panel.xpTube).shown())
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().box(Ordaen.art.panel.xpTrough).shown() && Test::page().box(Ordaen.art.panel.xpShine).shown())
+  Test::expect(Test::page().box(Ordaen.art.panel.xpTube).shown())
 }
 
 test "the experience tube is filled with the brushed fill at first" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().box(xpFillArt(XpFill.Brushed)).shown())
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().box(xpFillArt(XpFill::Brushed)).shown())
 }
 
 test "over the experience tube a tooltip names the level, where the player is, what is left and the rested bonus" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
-  Game.player.rested = 1500
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
+  Game::player.rested = 1500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("2~500 / 10~000")).hover()
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("2~500 / 10~000")).hover()
   const wanted = "Level 10 | Current | 2~500 (25%) / 10~000 | To level 11 | 7~500 (75%) | Rested bonus | 1~500 (15%)"
-  Test.expect(tip("Level 10") == shown(wanted))
+  Test::expect(tip("Level 10") == shown(wanted))
 }
 
 test "with no rested bonus the experience tooltip has no row for it" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("2~500 / 10~000")).hover()
-  Test.expect(tip("Level 10") == shown("Level 10 | Current | 2~500 (25%) / 10~000 | To level 11 | 7~500 (75%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("2~500 / 10~000")).hover()
+  Test::expect(tip("Level 10") == shown("Level 10 | Current | 2~500 (25%) / 10~000 | To level 11 | 7~500 (75%)"))
 }
 
 test "a rested bonus of one point has its row" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
-  Game.player.rested = 1
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
+  Game::player.rested = 1
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("2~500 / 10~000")).hover()
-  Test.expect(tip("Level 10").contains("Rested bonus | 1 (0%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("2~500 / 10~000")).hover()
+  Test::expect(tip("Level 10").contains("Rested bonus | 1 (0%)"))
 }
 
 test "264 rested of 29 000 is 0.9 % of the level" {
-  Game.player.level = 31
-  Game.player.xpMax = 29000
-  Game.player.xp = 7250
-  Game.player.rested = 264
+  Game::player.level = 31
+  Game::player.xpMax = 29000
+  Game::player.xp = 7250
+  Game::player.rested = 264
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("7~250 / 29~000")).hover()
-  Test.expect(tip("Level 31").contains("Rested bonus | 264 (0.9%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("7~250 / 29~000")).hover()
+  Test::expect(tip("Level 31").contains("Rested bonus | 264 (0.9%)"))
 }
 
 test "a tube's tooltip goes as the cursor leaves it for the other tube" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("2~500 / 10~000")).hover()
-  Test.expect(Test.page().window("Level 10").shown() && !Test.page().window("Stormwind").shown())
-  Test.page().text(shown("Honored 4~800 / 12~000")).hover()
-  Test.expect(!Test.page().window("Level 10").shown() && Test.page().window("Stormwind").shown())
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("2~500 / 10~000")).hover()
+  Test::expect(Test::page().window("Level 10").shown() && !Test::page().window("Stormwind").shown())
+  Test::page().text(shown("Honored 4~800 / 12~000")).hover()
+  Test::expect(!Test::page().window("Level 10").shown() && Test::page().window("Stormwind").shown())
 }
 
 test "over the rested part past the fill a tooltip says what rested means, the bonus, resting now and the room for more" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 100
-  Game.player.rested = 3000
-  Game.situation.resting = true
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 100
+  Game::player.rested = 3000
+  Game::situation.resting = true
   alone()
-  Test.mount(new Bars(), PAGE)
+  Test::mount(new Bars(), PAGE)
   // The rested part reaches from the start to 31 %; past the fill at 1 % its middle is the rested part's.
-  Test.page().box(RESTED).hover()
+  Test::page().box(RESTED).hover()
   const said = "Rested | Kills give double experience until the bar reaches the end of the blue part. Log out in an inn " +
     "or a city to rest up to a level and a half. | Rested bonus | 3~000 (30%) | Resting now | Yes | Room for more | 12~000"
-  Test.expect(tip("Rested") == shown(said))
-  Test.expect(!Test.page().window("Level 10").shown())
+  Test::expect(tip("Rested") == shown(said))
+  Test::expect(!Test::page().window("Level 10").shown())
 }
 
 test "away from an inn the rested tooltip says the player isn't resting" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 100
-  Game.player.rested = 3000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 100
+  Game::player.rested = 3000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().box(RESTED).hover()
-  Test.expect(tip("Rested").contains("Resting now | No"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().box(RESTED).hover()
+  Test::expect(tip("Rested").contains("Resting now | No"))
 }
 
 test "the rested tooltip follows the player into an inn and out of it" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 100
-  Game.player.rested = 3000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 100
+  Game::player.rested = 3000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().box(RESTED).hover()
-  Test.expect(tip("Rested").contains("Resting now | No"))
-  Game.situation.resting = true
-  Test.expect(tip("Rested").contains("Resting now | Yes"))
-  Game.situation.resting = false
-  Test.expect(tip("Rested").contains("Resting now | No"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().box(RESTED).hover()
+  Test::expect(tip("Rested").contains("Resting now | No"))
+  Game::situation.resting = true
+  Test::expect(tip("Rested").contains("Resting now | Yes"))
+  Game::situation.resting = false
+  Test::expect(tip("Rested").contains("Resting now | No"))
 }
 
 test "rested to a level and a half, there is no room for more" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 100
-  Game.player.rested = 16000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 100
+  Game::player.rested = 16000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().box(RESTED).hover()
-  Test.expect(tip("Rested").contains("Room for more | 0"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().box(RESTED).hover()
+  Test::expect(tip("Rested").contains("Room for more | 0"))
 }
 
 test "the cursor moved from the rested part on along the tube finds the experience's tooltip" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 100
-  Game.player.rested = 3000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 100
+  Game::player.rested = 3000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().box(RESTED).hover()
-  Test.expect(Test.page().window("Rested").shown())
-  Test.page().text(shown("100 / 10~000")).hover()
-  Test.expect(!Test.page().window("Rested").shown() && Test.page().window("Level 10").shown())
+  Test::mount(new Bars(), PAGE)
+  Test::page().box(RESTED).hover()
+  Test::expect(Test::page().window("Rested").shown())
+  Test::page().text(shown("100 / 10~000")).hover()
+  Test::expect(!Test::page().window("Rested").shown() && Test::page().window("Level 10").shown())
 }
 
 test "past the rested part the tube's tooltip is the experience's" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 2500
-  Game.player.rested = 1500
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 2500
+  Game::player.rested = 1500
   alone()
-  Test.mount(new Bars(), PAGE)
+  Test::mount(new Bars(), PAGE)
   // The values stand in the tube's middle, past the rested part's end at 40 %.
-  Test.page().text(shown("2~500 / 10~000")).hover()
-  Test.expect(Test.page().window("Level 10").shown() && !Test.page().window("Rested").shown())
+  Test::page().text(shown("2~500 / 10~000")).hover()
+  Test::expect(Test::page().window("Level 10").shown() && !Test::page().window("Rested").shown())
 }
 
 test "another module's part stands past the fill in its colour, the rested part after it; each its own tooltip" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 1000
-  Game.player.rested = 3000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 1000
+  Game::player.rested = 3000
   alone()
   const bars = new Bars()
   bars.sources = [QUESTS]
-  Test.mount(bars, PAGE)
+  Test::mount(bars, PAGE)
   // The fill to 10 %, the quests' 20 % after it, the rested 30 % after them.
-  const done = Test.page().box(DONE).rect()
-  const rested = Test.page().box(RESTED).rect()
-  Test.expect(rested.left >= done.right - 0.5)
+  const done = Test::page().box(DONE).rect()
+  const rested = Test::page().box(RESTED).rect()
+  Test::expect(rested.left >= done.right - 0.5)
   // The quests' part the fill's own art tinted green; the rested part its pale wash alone.
-  Test.expect(Test.page().box(DONE).paintedWith(xpFillArt(XpFill.Brushed)))
-  Test.expect(!Test.page().box(RESTED).paintedWith(xpFillArt(XpFill.Brushed)))
+  Test::expect(Test::page().box(DONE).paintedWith(xpFillArt(XpFill::Brushed)))
+  Test::expect(!Test::page().box(RESTED).paintedWith(xpFillArt(XpFill::Brushed)))
   // Three tenths to two, within the pixels the edges snap to.
-  Test.expect(((rested.right - rested.left) / (done.right - done.left) - 1.5).abs() < 0.075)
-  Test.page().box(DONE).hover()
-  Test.expect(tip("Completed quests") == "Completed quests | Experience the log's completed quests give once turned in. | Quests | 3")
-  Test.expect(!Test.page().window("Rested").shown() && !Test.page().window("Level 10").shown())
+  Test::expect(((rested.right - rested.left) / (done.right - done.left) - 1.5).abs() < 0.075)
+  Test::page().box(DONE).hover()
+  Test::expect(tip("Completed quests") == "Completed quests | Experience the log's completed quests give once turned in. | Quests | 3")
+  Test::expect(!Test::page().window("Rested").shown() && !Test::page().window("Level 10").shown())
   // The experience's own tooltip lists it, with its share of the level.
-  Test.page().text(shown("1~000 / 10~000")).hover()
-  Test.expect(tip("Level 10").contains(shown("Completed quests | 2~000 (20%)")))
+  Test::page().text(shown("1~000 / 10~000")).hover()
+  Test::expect(tip("Level 10").contains(shown("Completed quests | 2~000 (20%)")))
 }
 
 test "with no part from another module the tube is as it was: the fill, then the rested part" {
-  Game.player.level = 10
-  Game.player.xpMax = 10000
-  Game.player.xp = 1000
-  Game.player.rested = 3000
+  Game::player.level = 10
+  Game::player.xpMax = 10000
+  Game::player.xp = 1000
+  Game::player.rested = 3000
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().box(DONE).count() == 0 && Test.page().box(RESTED).shown())
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().box(DONE).count() == 0 && Test::page().box(RESTED).shown())
 }
 
 // Reputation
 
 test "a watched faction's tube stands under the experience's, its standing and values on it" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 6000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::player.xpMax = 10000
+  Game::player.xp = 6000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().join(" | ") == shown("6~000 / 10~000 | (60%) | Honored 4~800 / 12~000"))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().join(" | ") == shown("6~000 / 10~000 | (60%) | Honored 4~800 / 12~000"))
 }
 
 test "over the faction's tube a tooltip says where the reputation is and what is left to the next standing" {
-  Game.player.xpMax = 10000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.next = "Revered"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::player.xpMax = 10000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.next = "Revered"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("Honored 4~800 / 12~000")).hover()
-  Test.expect(tip("Stormwind") == shown("Stormwind | Current | 4~800 (40%) / 12~000 | To | Revered | 7~200 (60%)"))
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("Honored 4~800 / 12~000")).hover()
+  Test::expect(tip("Stormwind") == shown("Stormwind | Current | 4~800 (40%) / 12~000 | To | Revered | 7~200 (60%)"))
 }
 
 test "the next standing is named in its own colour" {
-  Game.player.xpMax = 10000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.next = "Revered"
-  Game.reputation.nextColor = Color.hex("#00991a")
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::player.xpMax = 10000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.next = "Revered"
+  Game::reputation.nextColor = Color::hex("#00991a")
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text(shown("Honored 4~800 / 12~000")).hover()
-  Test.expect(Test.page().window("Stormwind").text("Revered").textColor().equal(Color.hex("#00991a")))
+  Test::mount(new Bars(), PAGE)
+  Test::page().text(shown("Honored 4~800 / 12~000")).hover()
+  Test::expect(Test::page().window("Stormwind").text("Revered").textColor().equal(Color::hex("#00991a")))
 }
 
 test "the faction's fill takes its standing's colour" {
-  Game.player.xpMax = 10000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Hostile"
-  Game.reputation.color = Color.hex("#cc4d38")
-  Game.reputation.min = 0
-  Game.reputation.max = 3000
-  Game.reputation.value = 1500
+  Game::player.xpMax = 10000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Hostile"
+  Game::reputation.color = Color::hex("#cc4d38")
+  Game::reputation.min = 0
+  Game::reputation.max = 3000
+  Game::reputation.value = 1500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().box(Ordaen.art.panel.xpSteel).paintedWith(Color.hex("#cc4d38")))
-  Game.reputation.color = Color.hex("#00991a")
-  Test.expect(Test.page().box(Ordaen.art.panel.xpSteel).paintedWith(Color.hex("#00991a")))
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().box(Ordaen.art.panel.xpSteel).paintedWith(Color::hex("#cc4d38")))
+  Game::reputation.color = Color::hex("#00991a")
+  Test::expect(Test::page().box(Ordaen.art.panel.xpSteel).paintedWith(Color::hex("#00991a")))
 }
 
 test "the experience and the faction stand side by side, half the bars each, and one alone takes them whole" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 6000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
+  Game::player.xpMax = 10000
+  Game::player.xp = 6000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
   alone()
-  Test.mount(new Bars(), PAGE)
-  const brushed = xpFillArt(XpFill.Brushed)
-  const xp = Test.page().box(brushed).rect()
-  const faction = Test.page().box(Ordaen.art.panel.xpSteel).rect()
+  Test::mount(new Bars(), PAGE)
+  const brushed = xpFillArt(XpFill::Brushed)
+  const xp = Test::page().box(brushed).rect()
+  const faction = Test::page().box(Ordaen.art.panel.xpSteel).rect()
   // On one line, as wide as each other: each fill is its share of its tube (60% and 40%).
   const xpTube = (xp.right - xp.left) / 0.6
   const factionTube = (faction.right - faction.left) / 0.4
-  Test.expect((xp.top - faction.top).abs() < 0.5 && xp.right < faction.left)
-  Test.expect((xpTube - factionTube).abs() < 2)
+  Test::expect((xp.top - faction.top).abs() < 0.5 && xp.right < faction.left)
+  Test::expect((xpTube - factionTube).abs() < 2)
   // The faction gone: the experience takes the whole width.
-  Game.reputation.name = ""
-  const whole = Test.page().box(brushed).rect()
-  Test.expect((whole.right - whole.left) / 0.6 > xpTube * 1.8)
+  Game::reputation.name = ""
+  const whole = Test::page().box(brushed).rect()
+  Test::expect((whole.right - whole.left) / 0.6 > xpTube * 1.8)
 }
 
 test "at the level's cap the watched faction's tube is alone" {
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Exalted"
-  Game.reputation.min = 42000
-  Game.reputation.max = 42999
-  Game.reputation.value = 42500
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Exalted"
+  Game::reputation.min = 42000
+  Game::reputation.max = 42999
+  Game::reputation.value = 42500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().join(" | ") == "Exalted 500 / 999")
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().join(" | ") == "Exalted 500 / 999")
 }
 
 test "exalted, the faction's tooltip says where the reputation is, and no standing after it" {
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Exalted"
-  Game.reputation.min = 42000
-  Game.reputation.max = 42999
-  Game.reputation.value = 42500
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Exalted"
+  Game::reputation.min = 42000
+  Game::reputation.max = 42999
+  Game::reputation.value = 42500
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.page().text("Exalted 500 / 999").hover()
-  Test.expect(tip("Stormwind") == "Stormwind | Current | 500 (50%) / 999")
+  Test::mount(new Bars(), PAGE)
+  Test::page().text("Exalted 500 / 999").hover()
+  Test::expect(tip("Stormwind") == "Stormwind | Current | 500 (50%) / 999")
 }
 
 test "at the cap with no faction watched the bars show nothing" {
   alone()
-  Test.mount(new Bars(), PAGE)
-  Test.expect(Test.page().texts().length == 0 && !Test.page().box(Ordaen.art.panel.xpTrough).shown())
+  Test::mount(new Bars(), PAGE)
+  Test::expect(Test::page().texts().length == 0 && !Test::page().box(Ordaen.art.panel.xpTrough).shown())
 }
 
 test "a tube's label stands over it, and the tube is 20 high, its ring 3 wide" {
-  Game.player.xpMax = 10000
-  Game.player.xp = 6000
-  Game.reputation.name = ""
+  Game::player.xpMax = 10000
+  Game::player.xp = 6000
+  Game::reputation.name = ""
   alone()
-  Test.mount(new Bars(), PAGE)
-  const tube = Test.page().box(Ordaen.art.panel.xpTrough).rect()
-  const label = Test.page().text(shown("6~000 / 10~000")).rect()
-  Test.expect(label.bottom <= tube.top + 0.5)
-  Test.expect((tube.bottom - tube.top - 20).abs() < 0.5)
+  Test::mount(new Bars(), PAGE)
+  const tube = Test::page().box(Ordaen.art.panel.xpTrough).rect()
+  const label = Test::page().text(shown("6~000 / 10~000")).rect()
+  Test::expect(label.bottom <= tube.top + 0.5)
+  Test::expect((tube.bottom - tube.top - 20).abs() < 0.5)
 }

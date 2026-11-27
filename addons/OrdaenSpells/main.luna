@@ -24,10 +24,10 @@ const HIDDEN_EVENT = "PlayerSpellsFrame.SpellBookFrame.Hide"
 // portrait on the spellbook's page.
 const BOOK: Asset = "Interface/Icons/INV_Misc_Book_09"
 // The trainer's tab: the class trainer's book.
-const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: BOOK }
+const TRAINER_TAB: WindowTabSpec = { title: Locale::TAB_TRAINER, desc: nil, icon: BOOK }
 // The «Learnable» tab: a trainer's book.
 const LEARNABLE_ICON: Asset = "Interface/Icons/INV_Misc_Book_11"
-const LEARNABLE_TAB: WindowTabSpec = { title: Locale.TAB_LEARNABLE, desc: nil, icon: LEARNABLE_ICON, padding: EDGE_TO_EDGE }
+const LEARNABLE_TAB: WindowTabSpec = { title: Locale::TAB_LEARNABLE, desc: nil, icon: LEARNABLE_ICON, padding: EDGE_TO_EDGE }
 // The window's tabs, by their place.
 const SPELLS = 1
 const LEARNABLE = 2
@@ -35,18 +35,18 @@ const LEARNABLE = 2
 // The player as a learner of their class: their race and side, their level, what they know and how they stand with a
 // faction, the client's.
 function learnerOf(level: Integer): Learner {
-  const _, _, race = Client.UnitRace("player")
+  const _, _, race = Client::UnitRace("player")
   return {
-    classTag: Game.player.classTag, race: race?.floor() ?? 0, side: Game.player.faction == Game.Faction.Horde ? 2 : 1, level: level,
-    known: (spell: Integer): Boolean => Game.spells.known(spell),
-    petKnown: (spell: Integer): Boolean => Client.C_SpellBook.IsSpellKnown(spell, Client.SpellBookSpellBank.Pet),
-    standing: (faction: Integer): Integer | nil => Client.C_Reputation.GetFactionDataByID(faction)?.reaction
+    classTag: Game::player.classTag, race: race?.floor() ?? 0, side: Game::player.faction == Game::Faction::Horde ? 2 : 1, level: level,
+    known: (spell: Integer): Boolean => Game::spells.known(spell),
+    petKnown: (spell: Integer): Boolean => Client::C_SpellBook::IsSpellKnown(spell, Client::SpellBookSpellBank::Pet),
+    standing: (faction: Integer): Integer | nil => Client::C_Reputation::GetFactionDataByID(faction)?.reaction
   }
 }
 
 // A quest's name in the player's language, the client's where it has the quest, else Questie's.
 function questNameOf(quest: Integer): String | nil {
-  return Client.C_QuestLog.GetTitleForQuestID(quest) ?? Quests?.questFacts(quest)?.name
+  return Client::C_QuestLog::GetTitleForQuestID(quest) ?? Quests?.questFacts(quest)?.name
 }
 
 // An NPC's name, Questie's.
@@ -55,23 +55,23 @@ function npcNameOf(npc: Integer): String | nil { return Quests?.npc(npc)?.name }
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("book", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
-  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0ui, y: 0ui, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("book", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
+  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale::TAB_TRAINER, { x: 0ui, y: 0ui, width: Style::TRAINER_WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_TRAINER, content: $ltml { <TrainerSettingsPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_TRAINER, content: $ltml { <TrainerSettingsPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({
-    trainer: true, trainerView: TrainerView.List, trainerSort: 0
+    trainer: true, trainerView: TrainerView::List, trainerSort: 0
   })
 
   state open = false
   state tab = 1
-  state spells: Array<Game.SpellEntry> = []
-  state lines: Array<Game.SpellLine> = []
-  state pets: Array<Game.SpellEntry> = []
+  state spells: Array<Game::SpellEntry> = []
+  state lines: Array<Game::SpellLine> = []
+  state pets: Array<Game::SpellEntry> = []
   state petBook: String | nil = nil
   // The game's own window's spellbook page shows (the micro menu's button opened it), and the window shows at all (a
   // page of another's, the talents, may show alone).
@@ -80,12 +80,12 @@ public class Spells implements Module, App {
   // The game's window stands away whenever it exists, so the game's window manager never counts it among the windows
   // it shows (it holds three): it is away already as the game shows it. While the game shows another page alone, it is
   // let be (that page's own addon holds it where it draws that page).
-  derived holdsGame: Boolean = Game.frames.PlayerSpells != nil && (!self.windowShown || self.gameShown)
-  state services: Array<Game.TrainerService> = []
-  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS, icon: BOOK }, { title: Locale.TAB_LEARNABLE, icon: LEARNABLE_ICON }]
+  derived holdsGame: Boolean = Game::frames.PlayerSpells != nil && (!self.windowShown || self.gameShown)
+  state services: Array<Game::TrainerService> = []
+  const tabs: Array<WindowTabSpec> = [{ title: Locale::TAB_SPELLS, icon: BOOK }, { title: Locale::TAB_LEARNABLE, icon: LEARNABLE_ICON }]
   // What the player can learn, worked out again as their spells and level change while its tab shows.
   derived learnable: Learnable = self.learnableOf()
-  derived learnServices: Array<Game.TrainerService> = self.learnable.services
+  derived learnServices: Array<Game::TrainerService> = self.learnable.services
   derived learnNotes: Map<Integer, String> = self.learnable.notes
   derived learnActions: Map<Integer, String> = self.learnable.actions
   derived learnPrices: Map<Integer, Array<PlacePrice>> = self.learnable.prices
@@ -95,14 +95,14 @@ public class Spells implements Module, App {
   // The «Learnable» tab's page: the trainer's, away from a trainer.
   learnPage: TrainerPage
   // How the player left the «Learnable» list, the profile's.
-  public learnList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "learnable")
+  public learnList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView::List }, .Profile, "learnable")
   // The spellbook's page: its body in the window, its counts in the window's footer.
   page: SpellbookPage
   // The constructor has run: what changes after it is the player's doing, and sounds.
   started = false
   // How the player left the class trainer's list, the profile's: its filter is kept, its view and sort are the
   // settings' each time it opens.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "trainer")
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView::List }, .Profile, "trainer")
   // The spells the player ignored, the character's.
   public ignored: mut ModuleMemory<TrainerIgnored> = new ModuleMemory<TrainerIgnored>({}, .Character, "ignored")
   // The trainer that is open teaches a class's skills: asked as it opens.
@@ -111,11 +111,11 @@ public class Spells implements Module, App {
   // The game's own trainer window (`Game.frames.Trainer`, there from its load) stands away, unseen, while ours shows,
   // and while no trainer is open, so the game's window manager never counts it; a trainer of another kind open (a
   // profession's, Ordaen Professions'), it is let be.
-  derived holdsTrainer: Boolean = self.settings.values.trainer && Game.frames.Trainer != nil && (!Game.trainer.open || self.classTrainer)
+  derived holdsTrainer: Boolean = self.settings.values.trainer && Game::frames.Trainer != nil && (!Game::trainer.open || self.classTrainer)
 
   // A trainer opened or closed: one of a class opens in the view and sort the settings give.
   onTrainerOpen(mut self, opened: Boolean) {
-    self.classTrainer = opened && Game.trainer.teachesClass()
+    self.classTrainer = opened && Game::trainer.teachesClass()
     if (!self.classTrainer) { return }
     const settings = peek self.settings.values
     self.trainerList.write({
@@ -126,21 +126,21 @@ public class Spells implements Module, App {
   constructor() {
     self.page = new SpellbookPage(self.spells, self.lines, self.pets, self.petBook)
     self.learnPage = new TrainerPage(
-      self.learnServices, self.learnList, self.ignored, self.learnTab, Locale.COL_SKILL, false, false,
+      self.learnServices, self.learnList, self.ignored, self.learnTab, Locale::COL_SKILL, false, false,
       self.learnNotes, self.learnActions, self.learnPrices
     )
     self.learnPage.acted.listen(self.onActed)
     Ordaen.modules.add(self)
-    Game.trainer.changed.listen(self.onTrainer)
-    Game.spellbook.changed.listen(self.onSpells)
-    watch (opened of Game.trainer.open) { self.onTrainerOpen(opened) }
+    Game::trainer.changed.listen(self.onTrainer)
+    Game::spellbook.changed.listen(self.onSpells)
+    watch (opened of Game::trainer.open) { self.onTrainerOpen(opened) }
     // The game's words about spells are heard while the spellbook shows.
     watch (opened of self.open) {
-      Game.spellbook.watch(opened)
+      Game::spellbook.watch(opened)
       self.onOpened(opened)
     }
-    watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
-    Runtime.command("/spellbook", (text: String): nil => {
+    watch (frame of Game::frames.PlayerSpells) { self.hook(frame) }
+    Runtime::command("/spellbook", (text: String): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.toggle() }
       }
@@ -155,7 +155,7 @@ public class Spells implements Module, App {
   onOpened(self, opened: Boolean) {
     if (!self.started || peek self.gameShown) { return }
     playSound(opened ? "UI_CLASS_TALENT_OPEN_WINDOW" : "UI_CLASS_TALENT_CLOSE_WINDOW")
-    Client.EventRegistry.TriggerEvent(opened ? SHOWN_EVENT : HIDDEN_EVENT)
+    Client::EventRegistry.TriggerEvent(opened ? SHOWN_EVENT : HIDDEN_EVENT)
   }
 
   public toggle(mut self) {
@@ -171,18 +171,18 @@ public class Spells implements Module, App {
   }
 
   readSpells(mut self) {
-    self.spells = Game.spellbook.entries()
-    self.lines = Game.spellbook.lines()
-    self.pets = Game.spellbook.petEntries()
-    self.petBook = Game.spellbook.petBook()
+    self.spells = Game::spellbook.entries()
+    self.lines = Game::spellbook.lines()
+    self.pets = Game::spellbook.petEntries()
+    self.petBook = Game::spellbook.petBook()
   }
 
   // The game's spells window's spellbook page: ours opens and closes with it. Its talents and specializations pages are
   // Ordaen Character's, one page showing at a time. Hooked as the game names it, on its show and hide, which are rare.
   hook(mut self, frame: any Frame | nil) {
-    const window = Client.PlayerSpellsFrame
+    const window = Client::PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
-    const page: any Client.Frame = window.SpellBookFrame
+    const page: any Client::Frame = window.SpellBookFrame
     _ = window.HookScript("OnShow", (): nil => {
       self.windowShown = true
       return nil
@@ -216,15 +216,15 @@ public class Spells implements Module, App {
 
   // The class trainer's services, as it opens and as they change.
   onTrainer(mut self) {
-    if (!Game.trainer.teachesClass()) { return }
-    self.services = Game.trainer.services()
+    if (!Game::trainer.teachesClass()) { return }
+    self.services = Game::trainer.services()
   }
 
   learnableOf(self): Learnable {
     if (self.tab != LEARNABLE || !self.open) { return { services: [], notes: {}, actions: {}, quests: {}, prices: {} } }
     _ = self.spells.length
-    const openLabel = Quests == nil ? nil : Locale.LEARN_OPEN_QUEST
-    return learnableOf(learnerOf(Game.player.level), questNameOf, npcNameOf, openLabel)
+    const openLabel = Quests == nil ? nil : Locale::LEARN_OPEN_QUEST
+    return learnableOf(learnerOf(Game::player.level), questNameOf, npcNameOf, openLabel)
   }
 
   // A quest spell's action: its quest, opened on its chain page (with its way on the map).
@@ -240,19 +240,19 @@ public class Spells implements Module, App {
     <$if={self.tab == SPELLS}> {self.page.footer} </>
     <$else> {self.learnPage.footer} </>
   }
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   public render(self): Template {
     return $ltml {
-      <frame $if={self.holdsGame} of={Game.frames.PlayerSpells} opacity={0} away={true} />
+      <frame $if={self.holdsGame} of={Game::frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <$if={self.tab == SPELLS}> {self.page.body} </>
         <$else> {self.learnPage.body} </>
       </Window>
-      <frame $if={self.holdsTrainer} of={Game.frames.Trainer} opacity={0} away={true} />
+      <frame $if={self.holdsTrainer} of={Game::frames.Trainer} opacity={0} away={true} />
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
-                     tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} trade={false} @settings={self.onSettings} />
+                     tabSpec={TRAINER_TAB} noun={Locale::COL_SKILL} trade={false} @settings={self.onSettings} />
     }
   }
 }

@@ -52,7 +52,7 @@ public struct BandFact {
   color: Color | nil
   glyph: Glyph | nil
   tint: Color | nil
-  kind: BandKind = BandKind.Other
+  kind: BandKind = BandKind::Other
 }
 
 // A spell's band: its cells, and the places of the tooltip's lines they were read from (no other reader takes them).
@@ -73,12 +73,12 @@ const NESTED = 19
 const BAND_LINES = 4
 
 // The resources' colours, the design's (TooltipColumns' `.res`).
-const MANA: Color = Color.hex("#2f6fe0")
-const RAGE: Color = Color.hex("#c7281c")
-const ENERGY: Color = Color.hex("#e8d040")
+const MANA: Color = Color::hex("#2f6fe0")
+const RAGE: Color = Color::hex("#c7281c")
+const ENERGY: Color = Color::hex("#e8d040")
 
 // A cost's dot: the design's colour of its resource; the client's own for one it has none of.
-function resourceColorOf(cost: Game.SpellCost): Color | nil {
+function resourceColorOf(cost: Game::SpellCost): Color | nil {
   return match (cost.resource) {
     .Mana => MANA
     .Rage => RAGE
@@ -104,7 +104,7 @@ function wordOf(label: String): String {
 function isList(text: String): Boolean {
   const label = text.match("^%s*([^:]-)%s*:")
   if (label == nil) { return false }
-  return label == wordOf(Game.strings.spellReagents) || label == wordOf(Runtime.text("SPELL_TOTEMS") ?? "")
+  return label == wordOf(Game::strings.spellReagents) || label == wordOf(Runtime::text("SPELL_TOTEMS") ?? "")
 }
 
 // How long a channelled spell lasts, as its description says it («over 5 sec.», «в течение 5 сек.»), else its first
@@ -112,7 +112,7 @@ function isList(text: String): Boolean {
 function channelOf(description: String): String | nil {
   const seconds = description.match("в течение (%d+[,%.]?%d*)%s*сек") ?? description.match("over (%d+[,%.]?%d*)%s*sec") ??
     description.match("(%d+[,%.]?%d*)%s*сек") ?? description.match("(%d+[,%.]?%d*)%s*sec")
-  return seconds == nil ? nil : Locale.CAST_SECONDS.format(seconds)
+  return seconds == nil ? nil : Locale::CAST_SECONDS.format(seconds)
 }
 
 function isCast(kind: BandKind): Boolean {
@@ -123,25 +123,25 @@ function isCast(kind: BandKind): Boolean {
 // the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the cooldown;
 // `channel`: how long the spell is channelled, where it is.
 function cellOf(
-  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, channel: String | nil
+  text: String, first: Boolean, right: Boolean, cost: Game::SpellCost | nil, cast: Boolean, channel: String | nil
 ): BandFact {
   const digits = text.match("%d[%d%s\194\160]*")
-  if (text == Game.strings.castInstant || text == Game.strings.castInstantNoMana) {
-    return { text: Locale.CAST_INSTANT, glyph: .CastNow, kind: .CastNow }
+  if (text == Game::strings.castInstant || text == Game::strings.castInstantNoMana) {
+    return { text: Locale::CAST_INSTANT, glyph: .CastNow, kind: .CastNow }
   }
-  if (text.contains(Game.strings.castChanneled)) {
+  if (text.contains(Game::strings.castChanneled)) {
     // The glyph says it is channelled; the cell says for how long, as the description has it (the game's word where
     // it says no time).
     return { text: channel ?? text, glyph: .CastChan, kind: .CastChan }
   }
-  if (text.unformat(Game.strings.castTimeSec) != nil) {
-    return { text: Locale.CAST_SECONDS.format(digitsOf(text)), glyph: .CastTime, kind: .CastTime }
+  if (text.unformat(Game::strings.castTimeSec) != nil) {
+    return { text: Locale::CAST_SECONDS.format(digitsOf(text)), glyph: .CastTime, kind: .CastTime }
   }
-  if (text.unformat(Game.strings.castTimeMin) != nil) {
-    return { text: Locale.CAST_MINUTES.format(digitsOf(text)), glyph: .CastTime, kind: .CastTime }
+  if (text.unformat(Game::strings.castTimeMin) != nil) {
+    return { text: Locale::CAST_MINUTES.format(digitsOf(text)), glyph: .CastTime, kind: .CastTime }
   }
-  if (text == Game.strings.onNextSwing || text == Game.strings.onNextRanged) {
-    return { text: Locale.CAST_NEXT, glyph: .CastNext, kind: .CastNext }
+  if (text == Game::strings.onNextSwing || text == Game::strings.onNextRanged) {
+    return { text: Locale::CAST_NEXT, glyph: .CastNext, kind: .CastNext }
   }
   if (!right && first && cost != nil && digits != nil && (digits.replace("%D", "")).toNumber() == cost.amount) {
     // The cost: a dot in its resource's colour and the number.
@@ -153,15 +153,15 @@ function cellOf(
   if (first) {
     // The range, beside the cost or alone: its value only, the closing full stop dropped. A line that says no range
     // (an armour kit's «Armor: +24») is a cell as it reads.
-    if (text == Game.strings.meleeRange || text == Locale.MELEE_RANGE_TEXT) {
-      return { text: Locale.MELEE_RANGE_SHORT, kind: .Melee }
+    if (text == Game::strings.meleeRange || text == Locale::MELEE_RANGE_TEXT) {
+      return { text: Locale::MELEE_RANGE_SHORT, kind: .Melee }
     }
-    if (text == Game.strings.unlimitedRange) { return { text: text, kind: .Range } }
-    const distance = text.unformat(Game.strings.spellRange)
+    if (text == Game::strings.unlimitedRange) { return { text: text, kind: .Range } }
+    const distance = text.unformat(Game::strings.spellRange)
     if (distance != nil) {
       // The distance and the unit after it in the client's line («30 yd», «30 м»), the rest of the line left out.
-      const unit = Game.strings.spellRange.match("%%s(%s*[^%s]*)") ?? ""
-      return { text: (String.of(distance[1]) + unit).replace("%.$", ""), kind: .Range }
+      const unit = Game::strings.spellRange.match("%%s(%s*[^%s]*)") ?? ""
+      return { text: (String::of(distance[1]) + unit).replace("%.$", ""), kind: .Range }
     }
   }
   return { text: text }
@@ -172,7 +172,7 @@ function textOf(text: String | nil): String | nil { return text == "" ? nil : te
 // A spell's band, from the game's tooltip lines for it and what it costs: the cells of its two-sided lines (cost and
 // range, cast and cooldown) and of its one-sided ones among its first lines before any other, reagents and tools
 // left out.
-public function bandOf(lines: Array<Game.TooltipLine>, cost: Game.SpellCost | nil): Band {
+public function bandOf(lines: Array<Game::TooltipLine>, cost: Game::SpellCost | nil): Band {
   const facts: Array<BandFact> = []
   const taken: Map<Integer, Boolean> = {}
   let description = ""
@@ -212,16 +212,16 @@ public function bandOf(lines: Array<Game.TooltipLine>, cost: Game.SpellCost | ni
 
 // A term's underline under its text, while the tooltip that shows it is locked: dashed and dim, half the gap between
 // the lines below its text (the gap moves it).
-public const TERM_DASH: Piece = { file: "@/media/dash.tga", width: 8, height: 1, tile: Tile.Across }
-public const TERM_UNDERLINE: Color = Color.hex("#ffd10080")
+public const TERM_DASH: Piece = { file: "@/media/dash.tga", width: 8, height: 1, tile: Tile::Across }
+public const TERM_UNDERLINE: Color = Color::hex("#ffd10080")
 public const TERM_UNDERLINE_HEIGHT: Number<Length> = 1.171875dp
 const LINE_GAP: Number<Spacing> = 2sp
 public function termUnderlineAt(): Number<Length> {
   return -(Ordaen.lengthOf(LINE_GAP) / 2 + TERM_UNDERLINE_HEIGHT)
 }
 
-const TEXT: Color = Color.hex("#f3e7cc")
-const DIVIDER: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Left] }
+const TEXT: Color = Color::hex("#f3e7cc")
+const DIVIDER: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Left] }
 const CELL_PAD: Edges = { top: 2.5sp, right: 3sp, bottom: 2.5sp, left: 3sp }
 // The band ends what holds it: no room under it.
 const CELL_PAD_LAST: Edges = { top: 2.5sp, right: 3sp, left: 3sp }
@@ -266,27 +266,27 @@ public class BandCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={self.padding} border={self.divider} xAlign={Align.Center}>
-        <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align.Center}>
+      <box padding={self.padding} border={self.divider} xAlign={Align::Center}>
+        <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align::Center}>
           // The glyph, in its tint (a cost's dot in its resource's colour): its cell reaches past its room to hold
           // its shadow.
           <box $if={self.glyph != nil} width={GLYPH} height={GLYPH}>
-            <box position={Position.Absolute} left={GLYPH_IN} top={GLYPH_IN} width={GLYPH_CELL} height={GLYPH_CELL}
+            <box position={Position::Absolute} left={GLYPH_IN} top={GLYPH_IN} width={GLYPH_CELL} height={GLYPH_CELL}
                  background={self.glyph} tint={self.fact.tint}>
               // The cost's dot keeps the design's light: its light and shade, untinted, over the tinted dot.
-              <box $if={self.dot} position={Position.Absolute} left={0ui} top={0ui} width={GLYPH_CELL}
+              <box $if={self.dot} position={Position::Absolute} left={0ui} top={0ui} width={GLYPH_CELL}
                    height={GLYPH_CELL} background={DOT_LIGHT} />
             </box>
           </box>
           <box>
             <text value={self.fact.text} textColor={self.color} wrap={.None} />
-            <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={termUnderlineAt()}
+            <box $if={self.lit} position={Position::Absolute} left={0ui} right={0ui} bottom={termUnderlineAt()}
                  height={TERM_UNDERLINE_HEIGHT} background={TERM_DASH} tint={TERM_UNDERLINE} />
           </box>
         </box>
-        <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface leading={.Tight} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <box $if={self.lit} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             cursor={Cursor::Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
+        <surface leading={.Tight} $if={self.open} layer={Layer::Tooltip} place={BY_ITS_TEXT}>
           <slot #opened />
         </surface>
       </box>

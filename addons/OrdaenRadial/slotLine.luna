@@ -20,8 +20,8 @@ public struct SlotRow {
 
 const INDENT = 18.75dp
 const MARK = 18.75dp
-const MARK_TINT: Color = Color.hex("#d6a56b")
-const KIND: Color = Color.hex("#a89a80")
+const MARK_TINT: Color = Color::hex("#d6a56b")
+const KIND: Color = Color::hex("#a89a80")
 
 public class SlotLine implements Component {
   public chosen: Event<String> = new Event()
@@ -42,11 +42,11 @@ public class SlotLine implements Component {
     return $ltml {
       <PickRow columns={[self.gutter, { fr: 1 }, "max-content"]} picked={self.picked} @pick={self.onPick}>
         <box width={self.gutter} height={MARK}>
-          <box $if={self.row.holds} position={Position.Absolute} left={self.gutter - MARK} top={0dp} width={MARK}
+          <box $if={self.row.holds} position={Position::Absolute} left={self.gutter - MARK} top={0dp} width={MARK}
                height={MARK} background={self.mark} tint={MARK_TINT} />
         </box>
         <text value={self.row.label} wrap={.Cut} />
-        <text value={self.row.kind} textSize={SECONDARY_TEXT} textColor={KIND} textAlign={TextAlign.End} wrap={.None} />
+        <text value={self.row.kind} textSize={SECONDARY_TEXT} textColor={KIND} textAlign={TextAlign::End} wrap={.None} />
       </PickRow>
     }
   }

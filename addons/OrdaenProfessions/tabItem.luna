@@ -12,9 +12,9 @@ import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton,
 import { Component } from "Ordaen"
 import Style from "@/style"
 
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
-const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
+const CLEAR: Color = Color::hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
+const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [Side::Top] }
 const ONE: Array<Track> = [{ fr: 1 }]
 
 public class TabItem implements Component {
@@ -27,7 +27,7 @@ public class TabItem implements Component {
   derived grooved: Boolean = self.selected && self.groove
 
   selected: Signal<Boolean>
-  into: Signal<Style.Surface>
+  into: Signal<Style::Surface>
   groove: Signal<Boolean>
   first: Signal<Boolean>
   columns: Signal<Array<Track>>
@@ -35,7 +35,7 @@ public class TabItem implements Component {
   constructor(
     selected: Signal<Boolean>,
     // The surface of the section the item selects for: the selected one's.
-    into: Signal<Style.Surface>,
+    into: Signal<Style::Surface>,
     // Its list is parted from the section by a groove.
     groove: Signal<Boolean> = false,
     // The list's first item: no rule above it.
@@ -51,26 +51,26 @@ public class TabItem implements Component {
     self.padding = padding
   }
 
-  onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
+  onClick(mut self, click: Event::Press) { self.pick.emit(click.button) }
   onKey(mut self) { self.pick.emit(.Left) }
   onEnter(mut self, frame: any Frame) {
-    Game.tooltip.rowAt(frame)
+    Game::tooltip.rowAt(frame)
     self.enter.emit(frame)
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
-           background={self.background} tint={self.tint} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
+      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align::Center} border={self.rule}
+           background={self.background} tint={self.tint} overflow={Overflow::Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter}>
         <$if={self.grooved}>
-          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={Style.GROOVE} background={Style.GROOVE_DARK} />
-          <box position={Position.Absolute} left={0ui} right={0ui} top={Style.GROOVE} height={Style.GROOVE}
-               background={Style.GROOVE_LIGHT} />
-          <box position={Position.Absolute} left={0ui} right={0ui} bottom={Style.GROOVE} height={Style.GROOVE}
-               background={Style.GROOVE_DARK} />
-          <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={Style.GROOVE}
-               background={Style.GROOVE_LIGHT} />
+          <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} height={Style::GROOVE} background={Style::GROOVE_DARK} />
+          <box position={Position::Absolute} left={0ui} right={0ui} top={Style::GROOVE} height={Style::GROOVE}
+               background={Style::GROOVE_LIGHT} />
+          <box position={Position::Absolute} left={0ui} right={0ui} bottom={Style::GROOVE} height={Style::GROOVE}
+               background={Style::GROOVE_DARK} />
+          <box position={Position::Absolute} left={0ui} right={0ui} bottom={0ui} height={Style::GROOVE}
+               background={Style::GROOVE_LIGHT} />
         </>
         <slot />
       </box>

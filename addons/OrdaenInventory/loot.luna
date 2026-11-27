@@ -48,29 +48,29 @@ public class Looter {
 
   constructor(choices: Signal<LootChoices>) {
     self.choices = choices
-    Game.loot.opened.listen(self.onOpened)
-    Game.loot.cleared.listen(self.onCleared)
-    Game.loot.closed.listen(self.onClosed)
-    Game.loot.refused.listen(self.onRefused)
-    watch (fast of self.fast) { Game.loot.showWindow(!fast) }
+    Game::loot.opened.listen(self.onOpened)
+    Game::loot.cleared.listen(self.onCleared)
+    Game::loot.closed.listen(self.onClosed)
+    Game::loot.refused.listen(self.onRefused)
+    watch (fast of self.fast) { Game::loot.showWindow(!fast) }
     watch (every of self.everyCharacter) {
-      if (every && !Game.loot.autoLoot()) { Game.loot.setAutoLoot(true) }
+      if (every && !Game::loot.autoLoot()) { Game::loot.setAutoLoot(true) }
     }
   }
 
   destructor() {
     if (self.looting != nil) { destroy self.looting }
-    Game.loot.showWindow(true)
+    Game::loot.showWindow(true)
   }
 
   onOpened(mut self, auto: Boolean) {
-    self.slots = Game.loot.slots()
+    self.slots = Game::loot.slots()
     self.left = false
     self.sounded = false
-    if (Game.loot.fishing() && peek self.choices.reelSound) { _ = Client.PlaySound(Client.SOUNDKIT[REEL] ?? 0, CHANNEL, nil) }
+    if (Game::loot.fishing() && peek self.choices.reelSound) { _ = Client::PlaySound(Client::SOUNDKIT[REEL] ?? 0, CHANNEL, nil) }
     if (!peek self.choices.fast) { return }
     if (!auto) {
-      Game.loot.showWindow(true)
+      Game::loot.showWindow(true)
       return
     }
     self.looting = self.lootAll()
@@ -78,17 +78,17 @@ public class Looter {
 
   // From the last slot to the first, a step apart: a slot taken shifts none of those before it.
   async lootAll(mut self) {
-    const threshold = Game.loot.threshold()
+    const threshold = Game::loot.threshold()
     for (index of self.slots.length..1 step -1) {
       const slot = self.slots[index] ?? panic("a slot of the window")
-      if (takes(slot, threshold) && Game.loot.fits(slot.slot)) {
-        Game.loot.take(slot.slot)
+      if (takes(slot, threshold) && Game::loot.fits(slot.slot)) {
+        Game::loot.take(slot.slot)
       } else {
         self.left = true
       }
-      await Game.delay(STEP)
+      await Game::delay(STEP)
     }
-    if (self.left) { Game.loot.showWindow(true) }
+    if (self.left) { Game::loot.showWindow(true) }
     self.looting = nil
   }
 
@@ -102,15 +102,15 @@ public class Looter {
     if (self.looting != nil) { destroy self.looting }
     self.looting = nil
     self.slots = []
-    if (peek self.choices.fast) { Game.loot.showWindow(false) }
+    if (peek self.choices.fast) { Game::loot.showWindow(false) }
   }
 
   onRefused(mut self, why: LootRefusal) {
     if (!peek self.choices.fast) { return }
-    Game.loot.showWindow(true)
+    Game::loot.showWindow(true)
     if (why == .Full && peek self.choices.fullSound && !self.sounded) {
       self.sounded = true
-      _ = Client.PlaySound(FULL_SOUND, CHANNEL, nil)
+      _ = Client::PlaySound(FULL_SOUND, CHANNEL, nil)
     }
   }
 }

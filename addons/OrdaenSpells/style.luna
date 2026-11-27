@@ -4,9 +4,9 @@ public const WIDTH: Number<Length> = 1054.6875dp
 public const HEIGHT: Number<Length> = 726.5625dp
 public const TRAINER_WIDTH: Number<Length> = 960.9375dp
 
-public const INK: Color = Color.hex("#e8dcc4")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
-public const RED: Color = Color.hex("#ff4040")
-public const GREEN: Color = Color.hex("#40d060")
-public const LINE: Color = Color.hex("#4a3a24")
+public const INK: Color = Color::hex("#e8dcc4")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
+public const RED: Color = Color::hex("#ff4040")
+public const GREEN: Color = Color::hex("#40d060")
+public const LINE: Color = Color::hex("#4a3a24")

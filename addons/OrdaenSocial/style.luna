@@ -29,16 +29,16 @@ public const ASK_BUTTON: Number<Length> = 175.78125dp
 // The card beside a roster or the recent allies: a member's, the guild's, a community's, an ally's.
 public const SIDE_CARD: Number<Length> = 351.5625dp
 
-public const INK: Color = Color.hex("#e8dcc4")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
+public const INK: Color = Color::hex("#e8dcc4")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
 // The game's colours of a Battle.net friend's name and of one offline (`FRIENDS_BNET_NAME_COLOR`,
 // `FRIENDS_GRAY_COLOR`).
-public const BATTLE_NET: Color = Color.hex("#82c5ff")
-public const OFFLINE: Color = Color.hex("#7c848a")
-public const RED: Color = Color.hex("#ff4040")
-public const CARD_BACK: Color = Color.hex("#00000040")
-public const BADGE: Color = Color.hex("#b3261e")
+public const BATTLE_NET: Color = Color::hex("#82c5ff")
+public const OFFLINE: Color = Color::hex("#7c848a")
+public const RED: Color = Color::hex("#ff4040")
+public const CARD_BACK: Color = Color::hex("#00000040")
+public const BADGE: Color = Color::hex("#b3261e")
 
 // The game's own marks of a friend's status.
 public const ONLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Online"

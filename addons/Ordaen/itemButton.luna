@@ -34,7 +34,7 @@ public enum Quality {
 }
 
 // The client's quality of an item as the slot draws it; common where the client gave none.
-public function qualityFrom(quality: Client.ItemQuality | nil): Quality {
+public function qualityFrom(quality: Client::ItemQuality | nil): Quality {
   return match (quality) {
     .Poor => .Poor
     .Uncommon => .Uncommon
@@ -50,14 +50,14 @@ public function qualityFrom(quality: Client.ItemQuality | nil): Quality {
 // An item's name in its quality's colour, the game's (common: the light text of a dark well).
 public function qualityColor(quality: Quality): Color {
   return match (quality) {
-    .Poor => Color.hex("#9d9d9d")
-    .Common => Color.hex("#f0e6d0")
-    .Uncommon => Color.hex("#1eff00")
-    .Rare => Color.hex("#0070dd")
-    .Epic => Color.hex("#a335ee")
-    .Legendary => Color.hex("#ff8000")
-    .Artifact => Color.hex("#e6cc80")
-    .Heirloom => Color.hex("#00ccff")
+    .Poor => Color::hex("#9d9d9d")
+    .Common => Color::hex("#f0e6d0")
+    .Uncommon => Color::hex("#1eff00")
+    .Rare => Color::hex("#0070dd")
+    .Epic => Color::hex("#a335ee")
+    .Legendary => Color::hex("#ff8000")
+    .Artifact => Color::hex("#e6cc80")
+    .Heirloom => Color::hex("#00ccff")
   }
 }
 
@@ -89,7 +89,7 @@ public struct Marker {
 // shape, and an item's quality from uncommon up the rim's own colour: the theme's white copy of the rim over it, laid
 // out as the crest is, tinted. The art is the file's top left 41 of its 64 texels (as its templates cut it): the
 // whole file drawn that much larger, in a box that cuts it at the slot's edge.
-const WELL: Color = Color.hex("#0d0a08")
+const WELL: Color = Color::hex("#0d0a08")
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const CREST_WHOLE = 64 / 41
 const CREST_RIM = 3 / 41
@@ -99,34 +99,34 @@ const ICON_MASK: Asset = "Interface/Common/Common-IconMask"
 // darkened to sit with the client's empty-slot pictures (a common or poor item's, an empty slot's).
 const TALENT_FRAME: Atlas = "talents-node-square-gray"
 const TALENT_FRAME_RIM = 0.1
-const FRAME_UNLIT: Color = Color.hex("#5a5a5a")
-const NO_EDGE: Line = { width: 0dp, color: Color.hex("#00000000") }
-const CLEAR: Color = Color.hex("#00000000")
-const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
-const UNTINTED: Color = Color.hex("#ffffff")
+const FRAME_UNLIT: Color = Color::hex("#5a5a5a")
+const NO_EDGE: Line = { width: 0dp, color: Color::hex("#00000000") }
+const CLEAR: Color = Color::hex("#00000000")
+const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#ffffff26"), focus: Color::hex("#ffffff26") }
+const UNTINTED: Color = Color::hex("#ffffff")
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
-public const UNUSABLE: Color = Color.hex("#ff1a1a")
-const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+public const UNUSABLE: Color = Color::hex("#ff1a1a")
+const COUNT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const COUNT_PAD: Edges = { right: 1sp, bottom: 0.5sp }
 const EDGE = 2.34375dp
-const POOR: Line = { width: EDGE, color: Color.hex("#9d9d9d") }
-const COMMON: Line = { width: EDGE, color: Color.hex("#6c5535") }
-const UNCOMMON: Line = { width: EDGE, color: Color.hex("#1eff00") }
-const RARE: Line = { width: EDGE, color: Color.hex("#0070dd") }
-const EPIC: Line = { width: EDGE, color: Color.hex("#a335ee") }
-const LEGENDARY: Line = { width: EDGE, color: Color.hex("#ff8000") }
-const ARTIFACT: Line = { width: EDGE, color: Color.hex("#e6cc80") }
-const HEIRLOOM: Line = { width: EDGE, color: Color.hex("#00ccff") }
+const POOR: Line = { width: EDGE, color: Color::hex("#9d9d9d") }
+const COMMON: Line = { width: EDGE, color: Color::hex("#6c5535") }
+const UNCOMMON: Line = { width: EDGE, color: Color::hex("#1eff00") }
+const RARE: Line = { width: EDGE, color: Color::hex("#0070dd") }
+const EPIC: Line = { width: EDGE, color: Color::hex("#a335ee") }
+const LEGENDARY: Line = { width: EDGE, color: Color::hex("#ff8000") }
+const ARTIFACT: Line = { width: EDGE, color: Color::hex("#e6cc80") }
+const HEIRLOOM: Line = { width: EDGE, color: Color::hex("#00ccff") }
 const PIP = 8.203125dp
-const PIP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#000000") }
+const PIP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
 const NONE: Array<Marker> = []
 
 // One pip.
 public class Pip implements Component {
-  derived left: Number<Length> | nil = self.marker.corner == Corner.TopRight ? nil : 0ui
-  derived right: Number<Length> | nil = self.marker.corner == Corner.TopRight ? 0ui : nil
-  derived top: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? nil : 0ui
-  derived bottom: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? 0ui : nil
+  derived left: Number<Length> | nil = self.marker.corner == Corner::TopRight ? nil : 0ui
+  derived right: Number<Length> | nil = self.marker.corner == Corner::TopRight ? 0ui : nil
+  derived top: Number<Length> | nil = self.marker.corner == Corner::BottomLeft ? nil : 0ui
+  derived bottom: Number<Length> | nil = self.marker.corner == Corner::BottomLeft ? 0ui : nil
 
   const marker: Marker
   constructor(marker: Marker) {
@@ -135,7 +135,7 @@ public class Pip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={self.left} right={self.right} top={self.top} bottom={self.bottom}
+      <box position={Position::Absolute} left={self.left} right={self.right} top={self.top} bottom={self.bottom}
            width={PIP} height={PIP} background={self.marker.color} border={PIP_EDGE} zLevel={2} />
     }
   }
@@ -143,7 +143,7 @@ public class Pip implements Component {
 
 public class ItemButton implements Component {
   public pick: Event<Integer> = new Event()
-  public pressed: Event<Event.Press> = new Event()
+  public pressed: Event<Event::Press> = new Event()
   public entered: Event<nil> = new Event()
   public left: Event<nil> = new Event()
   public dragged: Event<nil> = new Event()
@@ -158,15 +158,15 @@ public class ItemButton implements Component {
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
-  public derived lit: Boolean = self.item != nil && self.quality != Quality.Poor && self.quality != Quality.Common
+  public derived lit: Boolean = self.item != nil && self.quality != Quality::Poor && self.quality != Quality::Common
   // Always drawn, at no opacity when not lit (or in a crest or a talent frame, which takes the colour): the slot keeps
   // its boxes whatever it holds.
   derived rim: Number = self.lit && self.sunk ? 1 : 0
   derived opacity: Number = self.dimmed ? 0.35 : 1
   derived counted: Boolean = self.count > 1
-  derived sunk: Boolean = self.well == SlotWell.Sunk
-  derived crested: Boolean = self.well == SlotWell.Crested
-  derived talentFramed: Boolean = self.well == SlotWell.Framed
+  derived sunk: Boolean = self.well == SlotWell::Sunk
+  derived crested: Boolean = self.well == SlotWell::Crested
+  derived talentFramed: Boolean = self.well == SlotWell::Framed
   // The well's dark under the whole slot when sunk; inside the talent frame when framed; none in a crest.
   derived floor: Color = self.sunk ? WELL : CLEAR
   derived crestSize: Number<Length> = self.size * CREST_WHOLE
@@ -205,7 +205,7 @@ public class ItemButton implements Component {
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
     count: Signal<Integer> = 1,
-    quality: Signal<Quality> = Quality.Common,
+    quality: Signal<Quality> = Quality::Common,
     dimmed: Signal<Boolean> = false,
     markers: Signal<Array<Marker>> = NONE,
     size: Signal<Number<Length>> = 46.875dp,
@@ -237,7 +237,7 @@ public class ItemButton implements Component {
     // The cooldown running on what it shows: the client's sweep over the icon. None: no sweep.
     cooldown: Signal<FillDuration | nil> = nil,
     // How its well stands on what holds it.
-    well: Signal<SlotWell> = SlotWell.Sunk,
+    well: Signal<SlotWell> = SlotWell::Sunk,
     // The cursor's look while it is on the slot (the coin bag at a merchant).
     cursor: Signal<Cursor | nil> = nil,
     // Whether it shows its tooltip itself; off where what holds it shows one for all of it (a reward's row).
@@ -276,7 +276,7 @@ public class ItemButton implements Component {
     if (art != nil) { return art }
     const item = self.item
     if (item == nil) { return nil }
-    return Game.items.icon(item)
+    return Game::items.icon(item)
   }
 
   usableOf(self): Boolean {
@@ -290,14 +290,14 @@ public class ItemButton implements Component {
   edgeOf(self): Line {
     if (self.item == nil) { return self.crested ? NO_EDGE : COMMON }
     return match (self.quality) {
-      Quality.Poor => POOR
-      Quality.Common => COMMON
-      Quality.Uncommon => UNCOMMON
-      Quality.Rare => RARE
-      Quality.Epic => EPIC
-      Quality.Legendary => LEGENDARY
-      Quality.Artifact => ARTIFACT
-      Quality.Heirloom => HEIRLOOM
+      Quality::Poor => POOR
+      Quality::Common => COMMON
+      Quality::Uncommon => UNCOMMON
+      Quality::Rare => RARE
+      Quality::Epic => EPIC
+      Quality::Legendary => LEGENDARY
+      Quality::Artifact => ARTIFACT
+      Quality::Heirloom => HEIRLOOM
     }
   }
 
@@ -322,7 +322,7 @@ public class ItemButton implements Component {
     const frame = peek self.hoveredBy
     if (frame == nil || !(peek self.tipped)) { return }
     if (item == nil && peek self.spell == nil && peek self.currency == nil) {
-      Game.items.hideAt(frame)
+      Game::items.hideAt(frame)
       return
     }
     self.tip(frame)
@@ -336,17 +336,17 @@ public class ItemButton implements Component {
     const bag = self.bag
     const currency = self.currency
     if (spell != nil) {
-      Game.items.showSpell(frame, spell)
+      Game::items.showSpell(frame, spell)
     } else if (currency != nil) {
-      Game.items.showCurrency(frame, currency, self.count)
+      Game::items.showCurrency(frame, currency, self.count)
     } else if (item != nil && mail != nil) {
-      Game.items.showMail(frame, mail[1], mail[2])
+      Game::items.showMail(frame, mail[1], mail[2])
     } else if (item != nil && worn != nil) {
-      Game.items.showWorn(frame, worn)
+      Game::items.showWorn(frame, worn)
     } else if (item != nil && bag != nil) {
-      Game.items.showBag(frame, bag[1], bag[2])
+      Game::items.showBag(frame, bag[1], bag[2])
     } else if (item != nil) {
-      Game.items.show(frame, item)
+      Game::items.show(frame, item)
     }
   }
 
@@ -355,20 +355,20 @@ public class ItemButton implements Component {
     self.left.emit()
   }
 
-  onClick(self, click: Event.Press) {
+  onClick(self, click: Event::Press) {
     const item = self.item
     const spell = self.spell
-    const linking = self.linkOnShift && click.button == MouseButton.Left && Game.input.shiftDown()
+    const linking = self.linkOnShift && click.button == MouseButton::Left && Game::input.shiftDown()
     if (linking && spell != nil) {
-      Game.chat.linkSpell(spell)
+      Game::chat.linkSpell(spell)
       return
     }
     if (linking && item != nil) {
-      Game.chat.link(item)
+      Game::chat.link(item)
       return
     }
     self.pressed.emit(click)
-    if (item != nil && click.button == MouseButton.Left) { self.pick.emit(item) }
+    if (item != nil && click.button == MouseButton::Left) { self.pick.emit(item) }
   }
 
   onDragStart(self) { self.dragged.emit() }
@@ -379,33 +379,33 @@ public class ItemButton implements Component {
       <box width={self.size} height={self.size} background={self.floor} border={self.slotEdge} opacity={self.opacity}
            action={self.action} actsOnPress={self.actsOnPress} cursor={self.cursor} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}
            @dragStart={self.onDragStart} @drop={self.onDrop}>
-        <box $if={self.crested} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+        <box $if={self.crested} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              overflow={.Hidden}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
                background={CREST} />
         </box>
-        <box $if={self.talentFramed} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
+        <box $if={self.talentFramed} position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset}
              bottom={self.inset} background={WELL} />
-        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+        <box position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              icon={self.icon} tint={self.tint} mask={self.iconMask} cooldown={self.cooldown} />
-        <box $if={self.talentFramed} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+        <box $if={self.talentFramed} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={TALENT_FRAME} tint={self.frameTint} zLevel={1} />
-        <box $if={self.framed} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+        <box $if={self.framed} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              overflow={.Hidden}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={self.crestSize} height={self.crestSize}
                background={Ordaen.art.ctl.crestRim} tint={self.edge.color} />
         </box>
-        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+        <box position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim} zLevel={1} />
         // The light under the cursor over the icon alone: inside a crest's rim or a talent frame, never over its curves.
-        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+        <box position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              background={SHINE} />
         <Pip $for={marker of self.markers} marker={peek marker} />
         <slot />
-        <box $if={self.counted} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
-             bottom={self.inset} xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
+        <box $if={self.counted} position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset}
+             bottom={self.inset} xAlign={Align::End} yAlign={Align::End} padding={COUNT_PAD}>
           <text value={self.count} textColor={BRIGHT_TEXT} textSize={SECONDARY_TEXT} leading={.Tight}
-                textFont={TextFont.Numbers} textOutline={1} textShadow={COUNT_SHADOW} wrap={.None} />
+                textFont={TextFont::Numbers} textOutline={1} textShadow={COUNT_SHADOW} wrap={.None} />
         </box>
       </box>
     }

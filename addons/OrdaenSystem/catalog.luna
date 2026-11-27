@@ -49,7 +49,7 @@ public struct Status {
   mine: Boolean
   loaded: Boolean
   // Why the client doesn't load it for this character, where it doesn't; never «on demand».
-  reason: Client.AddOnReason | nil
+  reason: Client::AddOnReason | nil
 }
 
 // One addon a step changed, and how it was before.
@@ -114,16 +114,16 @@ public class Catalog {
 
   // The whole list read again: one pass over the client's addons.
   public read(mut self) {
-    const locale = Game.client.locale
-    const _, _, _, interface, _, _ = Client.GetBuildInfo()
-    const count = Client.C_AddOns.GetNumAddOns()
+    const locale = Game::client.locale
+    const _, _, _, interface, _, _ = Client::GetBuildInfo()
+    const count = Client::C_AddOns::GetNumAddOns()
     const list: Array<AddOn> = []
     for (index of 1..count) {
-      const name = Client.C_AddOns.GetAddOnName(index)
-      const needs = listOf(...Client.C_AddOns.GetAddOnDependencies(name))
-      const title = Client.C_AddOns.GetAddOnMetadata(name, "Title") ?? name
-      const notes = Client.C_AddOns.GetAddOnMetadata(name, "Notes") ?? ""
-      const author = Client.C_AddOns.GetAddOnMetadata(name, "Author") ?? ""
+      const name = Client::C_AddOns::GetAddOnName(index)
+      const needs = listOf(...Client::C_AddOns::GetAddOnDependencies(name))
+      const title = Client::C_AddOns::GetAddOnMetadata(name, "Title") ?? name
+      const notes = Client::C_AddOns::GetAddOnMetadata(name, "Notes") ?? ""
+      const author = Client::C_AddOns::GetAddOnMetadata(name, "Author") ?? ""
       list.push({
         name: name,
         title: title,
@@ -131,15 +131,15 @@ public class Catalog {
         words: "%s %s %s %s".format(plain(title), name, author, plain(notes)).lower(),
         notes: notes,
         author: author,
-        version: Client.C_AddOns.GetAddOnMetadata(name, "Version") ?? "",
-        icon: Client.C_AddOns.GetAddOnMetadata(name, "IconTexture") ?? "",
-        category: Client.C_AddOns.GetAddOnMetadata(name, "Category-" + locale) ??
-          Client.C_AddOns.GetAddOnMetadata(name, "Category") ?? "",
-        group: Client.C_AddOns.GetAddOnMetadata(name, "Group") ?? "",
+        version: Client::C_AddOns::GetAddOnMetadata(name, "Version") ?? "",
+        icon: Client::C_AddOns::GetAddOnMetadata(name, "IconTexture") ?? "",
+        category: Client::C_AddOns::GetAddOnMetadata(name, "Category-" + locale) ??
+          Client::C_AddOns::GetAddOnMetadata(name, "Category") ?? "",
+        group: Client::C_AddOns::GetAddOnMetadata(name, "Group") ?? "",
         needs: needs,
-        wants: listOf(...Client.C_AddOns.GetAddOnOptionalDependencies(name)),
-        demand: Client.C_AddOns.IsAddOnLoadOnDemand(name),
-        outdated: Client.C_AddOns.GetAddOnInterfaceVersion(name) < interface,
+        wants: listOf(...Client::C_AddOns::GetAddOnOptionalDependencies(name)),
+        demand: Client::C_AddOns::IsAddOnLoadOnDemand(name),
+        outdated: Client::C_AddOns::GetAddOnInterfaceVersion(name) < interface,
         lunatype: name == RUNTIME || needsRuntime(needs)
       })
     }
@@ -150,35 +150,35 @@ public class Catalog {
 
   // What the client says of every addon now.
   public refresh(mut self) {
-    const player = Game.player.guid
+    const player = Game::player.guid
     const character = self.character()
     const map: Map<String, Status> = {}
     for (addon of peek self.addons) {
-      const state = Client.C_AddOns.GetAddOnEnableState(addon.name, character)
-      const _, loaded = Client.C_AddOns.IsAddOnLoaded(addon.name)
-      const _, reason = Client.C_AddOns.IsAddOnLoadable(addon.name, player, true)
+      const state = Client::C_AddOns::GetAddOnEnableState(addon.name, character)
+      const _, loaded = Client::C_AddOns::IsAddOnLoaded(addon.name)
+      const _, reason = Client::C_AddOns::IsAddOnLoadable(addon.name, player, true)
       map[addon.name] = {
-        enabled: state == .All ? Switch.On : state == .Some ? Switch.Some : Switch.Off,
-        mine: Client.C_AddOns.GetAddOnEnableState(addon.name, player) != .None,
+        enabled: state == .All ? Switch::On : state == .Some ? Switch::Some : Switch::Off,
+        mine: Client::C_AddOns::GetAddOnEnableState(addon.name, player) != .None,
         loaded: loaded,
         reason: reason
       }
     }
     self.statuses = map
-    @if (Build.dev) {
+    @if (Build::dev) {
       // What waits for a reload, and what the client said of it: the count the footer shows, said whole.
       for (addon of peek self.addons) {
         const status = map[addon.name]
         if (status != nil && waits(addon, status)) {
-          Debug.log("waits for a reload: %s (on for this character %s, loaded %s, on demand %s, reason %s)", addon.name,
-            String.of(status.mine), String.of(status.loaded), String.of(addon.demand), String.of(status.reason))
+          Debug::log("waits for a reload: %s (on for this character %s, loaded %s, on demand %s, reason %s)", addon.name,
+            String::of(status.mine), String::of(status.loaded), String::of(addon.demand), String::of(status.reason))
         }
       }
     }
   }
 
   // The character the header's choice switches for: nil for all of them.
-  public character(self): String | nil { return (peek self.everyone) ? nil : Game.player.guid }
+  public character(self): String | nil { return (peek self.everyone) ? nil : Game::player.guid }
 
   indexOf(self): Map<String, AddOn> {
     const map: Map<String, AddOn> = {}
@@ -298,7 +298,7 @@ public class Catalog {
       const status = statuses[name]
       if (status != nil && status.enabled != .On) {
         changes.push({ name: name, before: status.enabled, mine: status.mine })
-        Client.C_AddOns.EnableAddOn(name, character)
+        Client::C_AddOns::EnableAddOn(name, character)
         if (asked[name] != true) { also.push(self.titleOf(name)) }
       }
     }
@@ -308,13 +308,13 @@ public class Catalog {
   // `names` switched off for whom the header says, alone: what needs them stays on and reads the client's reason.
   public switchOff(mut self, names: Array<String>) {
     const character = self.character()
-    for (name of names) { Client.C_AddOns.DisableAddOn(name, character) }
+    for (name of names) { Client::C_AddOns::DisableAddOn(name, character) }
     self.finish([], [])
   }
 
   // A step saved once; the strip shows it where others came with what was asked.
   finish(mut self, changes: Array<Change>, also: Array<String>) {
-    Client.C_AddOns.SaveAddOns()
+    Client::C_AddOns::SaveAddOns()
     self.step = also.length > 0 ? { changes: changes, also: also } : nil
     self.refresh()
   }
@@ -324,32 +324,32 @@ public class Catalog {
     const step = peek self.step
     if (step == nil) { return }
     const character = self.character()
-    const player = Game.player.guid
+    const player = Game::player.guid
     for (index of step.changes.length..1 step -1) {
       const change = step.changes[index] ?? panic("an index of the list")
       match (change.before) {
-        .On => Client.C_AddOns.EnableAddOn(change.name, character)
-        .Off => Client.C_AddOns.DisableAddOn(change.name, character)
+        .On => Client::C_AddOns::EnableAddOn(change.name, character)
+        .Off => Client::C_AddOns::DisableAddOn(change.name, character)
         // On for some characters, a state of «All characters» alone, whose step switched it on for all: this one as
         // it was, the others the other way (the client names no other).
         .Some => {
           if (change.mine) {
-            Client.C_AddOns.DisableAddOn(change.name, nil)
-            Client.C_AddOns.EnableAddOn(change.name, player)
+            Client::C_AddOns::DisableAddOn(change.name, nil)
+            Client::C_AddOns::EnableAddOn(change.name, player)
           } else {
-            Client.C_AddOns.DisableAddOn(change.name, player)
+            Client::C_AddOns::DisableAddOn(change.name, player)
           }
         }
       }
     }
-    Client.C_AddOns.SaveAddOns()
+    Client::C_AddOns::SaveAddOns()
     self.step = nil
     self.refresh()
   }
 
   // Every addon back as the client last saved them.
   public reset(mut self) {
-    Client.C_AddOns.ResetAddOns()
+    Client::C_AddOns::ResetAddOns()
     self.step = nil
     self.refresh()
   }
@@ -363,7 +363,7 @@ public class Catalog {
 
   // An addon loaded on demand, loaded now: nil where it loaded, else the client's reason.
   public load(mut self, name: String): String | nil {
-    const loaded, reason = Client.C_AddOns.LoadAddOn(name)
+    const loaded, reason = Client::C_AddOns::LoadAddOn(name)
     self.refresh()
     return loaded == true ? nil : reason ?? ""
   }
@@ -376,7 +376,7 @@ public class Catalog {
     const keep: Map<String, Boolean> = {}
     for (name of self.withNeeds(kept)) { keep[name] = true }
     for (addon of peek self.addons) {
-      if (keep[addon.name] != true && self.isOn(addon.name)) { Client.C_AddOns.DisableAddOn(addon.name, character) }
+      if (keep[addon.name] != true && self.isOn(addon.name)) { Client::C_AddOns::DisableAddOn(addon.name, character) }
     }
     self.finish([], [])
   }
@@ -393,12 +393,12 @@ public class Catalog {
     for (name of names) { wanted[name] = true }
     for (addon of peek self.addons) {
       if (wanted[addon.name] == true) {
-        Client.C_AddOns.EnableAddOn(addon.name, character)
+        Client::C_AddOns::EnableAddOn(addon.name, character)
       } else {
-        Client.C_AddOns.DisableAddOn(addon.name, character)
+        Client::C_AddOns::DisableAddOn(addon.name, character)
       }
     }
-    Client.C_AddOns.SaveAddOns()
+    Client::C_AddOns::SaveAddOns()
     self.step = nil
     self.refresh()
   }

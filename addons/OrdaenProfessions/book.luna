@@ -54,24 +54,24 @@ public function yieldOfEntry(entry: Entry): Number { return (entry.least + entry
 // The character being played as Forever names it: its name and its surname («Regy Ironsight»), its name alone where it
 // has none.
 public function playerName(): String {
-  const surname = Game.player.surname ?? ""
-  return surname == "" ? Game.player.name : Game.player.name + " " + surname
+  const surname = Game::player.surname ?? ""
+  return surname == "" ? Game::player.name : Game::player.name + " " + surname
 }
 
 // The book with the open profession's page of the character being played written in: the recipes learned of the
 // list the game holds for it (`Game.tradeSkill.recipes`, never another profession's); none where nothing changed or
 // no list came yet.
-public function written(book: Book, skillLine: Integer, recipes: Array<Game.Recipe>): Book | nil {
+public function written(book: Book, skillLine: Integer, recipes: Array<Game::Recipe>): Book | nil {
   if (recipes.length == 0) { return nil }
   const known = recipes.filter(recipe => recipe.learned).map(recipe => recipe.id)
-  const guid = Game.player.guid
+  const guid = Game::player.guid
   const next = book.clone()
   const shelf = next.characters[guid]
   if (shelf == nil) {
     let count = 0
     for (key, _ of next.characters) { count += 1 }
     if (count >= MOST_CHARACTERS) {
-      Debug.fault("Professions", "the recipe book keeps " + String.of(MOST_CHARACTERS) + " characters at most")
+      Debug::fault("Professions", "the recipe book keeps " + String::of(MOST_CHARACTERS) + " characters at most")
       return nil
     }
   }
@@ -81,7 +81,7 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
   for (recipe of recipes) { names[recipe.id] = recipe.name }
   for (id of known) {
     if (next.recipes[id] == nil) {
-      const schematic = Game.recipeReader.schematic(id)
+      const schematic = Game::recipeReader.schematic(id)
       if (schematic != nil && entries < MOST_RECIPES) {
         next.recipes[id] = {
           name: names[id] ?? "", makes: schematic.makes, least: schematic.least, most: schematic.most,
@@ -89,13 +89,13 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
         }
         entries += 1
       } else if (schematic != nil) {
-        Debug.fault("Professions", "the recipe book keeps " + String.of(MOST_RECIPES) + " recipes at most")
+        Debug::fault("Professions", "the recipe book keeps " + String::of(MOST_RECIPES) + " recipes at most")
       }
     }
   }
   let name = ""
   let rank = 0
-  for (profession of Game.professions.list) {
+  for (profession of Game::professions.list) {
     if (profession.skillLine == skillLine) {
       name = profession.name
       rank = profession.rank
@@ -103,7 +103,7 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
   }
   const professions: Map<Integer, Learned> = shelf == nil ? {} : shelf.professions.clone()
   professions[skillLine] = { name: name, recipes: known.filter(id => next.recipes[id] != nil), rank: rank }
-  next.characters[guid] = { name: playerName(), realm: Game.player.realm, professions: professions }
+  next.characters[guid] = { name: playerName(), realm: Game::player.realm, professions: professions }
   if (next.equal(book)) { return nil }
   return next
 }

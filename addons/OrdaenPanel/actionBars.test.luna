@@ -9,7 +9,7 @@ import { ActionBars, Shown, barDefaults } from "@/actionBars"
 import { Bar, buttonName } from "@/bar"
 import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900 }
 // The stand-in's icon of the player's first form.
 const FIRST_FORM: FileId = 130001
 const SECOND_FORM: FileId = 130002
@@ -17,15 +17,15 @@ const SECOND_FORM: FileId = 130002
 const PET_SPELL: FileId = 131004
 
 // Whether a part stands where the client's button does.
-function near(part: Test.Part, frame: any Client.Frame): Boolean {
+function near(part: Test::Part, frame: any Client::Frame): Boolean {
   const rect = part.rect()
-  const at = Test.centre(frame)
+  const at = Test::centre(frame)
   return ((rect.left + rect.right) / 2 - at.x).abs() < 0.001 && ((rect.top + rect.bottom) / 2 - at.y).abs() < 0.001
 }
 
 // Whether the button is the one lit.
-function lit(frame: any Client.Frame): Boolean {
-  return near(Test.page().box(Ordaen.art.ctl.qualityRim), frame)
+function lit(frame: any Client::Frame): Boolean {
+  return near(Test::page().box(Ordaen.art.ctl.qualityRim), frame)
 }
 
 // What the bars are handed by the panel: their settings (a test's own, kept nowhere) and their defaults as the
@@ -41,25 +41,25 @@ class Holder {
 }
 
 // Shown out of a fight, hidden in one.
-const PEACEFUL: Visibility = { combat: { visible: Visible.Hide, opacity: 0 }, ..ALWAYS }
+const PEACEFUL: Visibility = { combat: { visible: Visible::Hide, opacity: 0 }, ..ALWAYS }
 
 // One of the game's bars, shown or hidden.
-function gameBar(name: String, shown: Boolean): any Client.Frame {
-  const made = Client.CreateFrame("Frame", name, Client.UIParent, nil)
+function gameBar(name: String, shown: Boolean): any Client::Frame {
+  const made = Client::CreateFrame("Frame", name, Client::UIParent, nil)
   if (!shown) { made.Hide() }
   return made
 }
 
 // The client's frame of that name made last, from `at` on.
-function lastNamed(name: String, at: any Client.Frame | nil, found: any Client.Frame | nil): any Client.Frame | nil {
+function lastNamed(name: String, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
   if (at == nil) { return found }
-  return lastNamed(name, Client.EnumerateFrames(at), at.GetName() == name ? at : found)
+  return lastNamed(name, Client::EnumerateFrames(at), at.GetName() == name ? at : found)
 }
 
 // The client's button of a bar, by its name.
-function button(id: String, index: Integer): any Client.Frame {
+function button(id: String, index: Integer): any Client::Frame {
   const name = buttonName(id, index)
-  return lastNamed(name, Client.EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
+  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
 }
 
 // The panel Ordaen started at login is turned off: the test's own bars are the only ones, made after what the test
@@ -67,9 +67,9 @@ function button(id: String, index: Integer): any Client.Frame {
 function alone() {
   const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Panel")
   if (running != nil) {
-    const addon = Runtime.Addon.of(running) ?? panic("Ordaen's module is an addon's root")
+    const addon = Runtime::Addon::of(running) ?? panic("Ordaen's module is an addon's root")
     Ordaen.turn(addon, false)
-    Test.flush()
+    Test::flush()
   }
 }
 
@@ -91,84 +91,84 @@ test "the bars drawn are Панель 1, those the character's settings show and
   const holder = new Holder()
   const main = gameBar("MainActionBar", true)
   const bottomLeft = gameBar("MultiBarBottomLeft", true)
-  Game.frames.MainActionBar = main
-  Game.frames.MultiBarBottomLeft = bottomLeft
+  Game::frames.MainActionBar = main
+  Game::frames.MultiBarBottomLeft = bottomLeft
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
+  Test::mount(bars, SCREEN)
+  Test::flush()
   // The stand-in's new character shows the two bottom bars, and has no forms.
-  Test.expect(drawn(bars.bars) == "1,2,3,pet")
-  Test.expect(!main.IsVisible())
+  Test::expect(drawn(bars.bars) == "1,2,3,pet")
+  Test::expect(!main.IsVisible())
   // The client shows its bars again (entering the world, their toggles): they stay unseen.
   bottomLeft.Show()
-  Test.flush()
-  Test.expect(!bottomLeft.IsVisible())
+  Test::flush()
+  Test::expect(!bottomLeft.IsVisible())
 }
 
 test "made in a fight, the bars are drawn as the fight ends" {
   alone()
   const holder = new Holder()
-  Test.combat(true)
+  Test::combat(true)
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
-  Test.expect(drawn(bars.bars) == "")
-  Test.combat(false)
-  Test.flush()
-  Test.expect(bars.ready)
-  Test.expect(drawn(bars.bars) == "1,2,3,pet")
+  Test::mount(bars, SCREEN)
+  Test::flush()
+  Test::expect(drawn(bars.bars) == "")
+  Test::combat(false)
+  Test::flush()
+  Test::expect(bars.ready)
+  Test::expect(drawn(bars.bars) == "1,2,3,pet")
 }
 
 test "a key of the game's bindings presses our button in its place, and the button shows its key" {
   alone()
   // Every slot holds something: an empty button is unseen.
-  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => true
+  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => true
   const holder = new Holder()
-  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  Test.expect(Test.page().text("S2").shown())
+  _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  Test::expect(Test::page().text("S2").shown())
   // Each bar's buttons stand on its own slots: Панель 2's second is slot 62.
-  Test.expect(Test.keyBound("SHIFT-2"))
-  Test.expect(Test.performed().join(", ") == "action 62")
+  Test::expect(Test::keyBound("SHIFT-2"))
+  Test::expect(Test::performed().join(", ") == "action 62")
   // The player binds another key: the buttons follow.
-  _ = Client.SetBinding("Q", "MULTIACTIONBAR1BUTTON3", nil)
-  Events.UPDATE_BINDINGS.emit()
-  Test.expect(Test.keyBound("Q"))
-  Test.expect(Test.page().text("Q").shown())
-  Test.expect(Test.performed().join(", ") == "action 63")
+  _ = Client::SetBinding("Q", "MULTIACTIONBAR1BUTTON3", nil)
+  Events::UPDATE_BINDINGS.emit()
+  Test::expect(Test::keyBound("Q"))
+  Test::expect(Test::page().text("Q").shown())
+  Test::expect(Test::performed().join(", ") == "action 63")
 }
 
 test "an item the cursor holds goes onto the bar's button it is let go on, or clicked on, as on the game's bars" {
   alone()
   const holder = new Holder()
-  Client.C_Container.GetContainerItemInfo = (bag: Integer, slot: Integer): Client.ContainerItemInfo | nil => bag == 0 ?
+  Client::C_Container::GetContainerItemInfo = (bag: Integer, slot: Integer): Client::ContainerItemInfo | nil => bag == 0 ?
     Client.ContainerItemInfo {
       iconFileID: 134829, stackCount: 5, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: `item:${117 + slot}`, isFiltered: false, hasNoValue: false, itemID: 117 + slot, isBound: false,
       itemName: "Minor Healing Potion"
     } :
     nil
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   // A slot of a bag dragged: the item on the cursor, let go on Панель 2's first button (slot 61).
-  const bag = Client.CreateFrame("Button", nil, Client.UIParent, nil)
+  const bag = Client::CreateFrame("Button", nil, Client::UIParent, nil)
   bag.SetSize(40, 40)
-  bag.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 20, -20)
+  bag.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 20, -20)
   bag.RegisterForDrag("LeftButton")
-  _ = bag.HookScript("OnDragStart", (): nil => Client.C_Container.PickupContainerItem(0, 1))
-  Test.moveTo(Test.centre(bag))
-  Test.press(nil)
-  Test.moveTo(Test.centre(button("2", 1)))
-  Test.release(nil)
-  const kind, id, _ = Client.GetActionInfo(61)
-  Test.expect(kind == "item" && id == 118 && !Client.CursorHasItem())
+  _ = bag.HookScript("OnDragStart", (): nil => Client::C_Container::PickupContainerItem(0, 1))
+  Test::moveTo(Test::centre(bag))
+  Test::press(nil)
+  Test::moveTo(Test::centre(button("2", 1)))
+  Test::release(nil)
+  const kind, id, _ = Client::GetActionInfo(61)
+  Test::expect(kind == "item" && id == 118 && !Client::CursorHasItem())
   // Picked up by a click and clicked onto the second button: no action done, the item placed.
-  Client.C_Container.PickupContainerItem(0, 2)
-  _ = Test.performed()
-  Test.click(Test.centre(button("2", 2)), nil)
-  const secondKind, second, _ = Client.GetActionInfo(62)
-  Test.expect(secondKind == "item" && second == 119 && !Client.CursorHasItem() && Test.performed().length == 0)
+  Client::C_Container::PickupContainerItem(0, 2)
+  _ = Test::performed()
+  Test::click(Test::centre(button("2", 2)), nil)
+  const secondKind, second, _ = Client::GetActionInfo(62)
+  Test::expect(secondKind == "item" && second == 119 && !Client::CursorHasItem() && Test::performed().length == 0)
 }
 
 // Fireball's ranks 1 to 3, as the client names them.
@@ -178,112 +178,112 @@ function fireballRank(id: String | Integer): String | nil { return id is Integer
 test "a new rank learned takes the slots of the rank before it; a rank lower still stays, the cursor left empty" {
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => fireballRank(id) != nil ? "Fireball" : nil
-  Client.C_Spell.GetSpellSubtext = fireballRank
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => fireballRank(id) != nil ? "Fireball" : nil
+  Client::C_Spell::GetSpellSubtext = fireballRank
   // Rank 1 kept for a small cast, rank 2 on two bars.
-  Client.C_Spell.PickupSpell(133)
-  Client.PlaceAction(61)
-  Client.C_Spell.PickupSpell(143)
-  Client.PlaceAction(62)
-  Client.C_Spell.PickupSpell(143)
-  Client.PlaceAction(25)
-  Test.event("LEARNED_SPELL_IN_SKILL_LINE", 145, 1, false)
-  Test.flush()
-  const first, _, _ = Client.GetActionInfo(61)
-  const _, low, _ = Client.GetActionInfo(61)
-  const _, second, _ = Client.GetActionInfo(62)
-  const _, other, _ = Client.GetActionInfo(25)
-  const held, _, _, _ = Client.GetCursorInfo()
-  Test.expect(first == "spell" && low == 133 && second == 145 && other == 145 && held == nil)
+  Client::C_Spell::PickupSpell(133)
+  Client::PlaceAction(61)
+  Client::C_Spell::PickupSpell(143)
+  Client::PlaceAction(62)
+  Client::C_Spell::PickupSpell(143)
+  Client::PlaceAction(25)
+  Test::event("LEARNED_SPELL_IN_SKILL_LINE", 145, 1, false)
+  Test::flush()
+  const first, _, _ = Client::GetActionInfo(61)
+  const _, low, _ = Client::GetActionInfo(61)
+  const _, second, _ = Client::GetActionInfo(62)
+  const _, other, _ = Client::GetActionInfo(25)
+  const held, _, _, _ = Client::GetCursorInfo()
+  Test::expect(first == "spell" && low == 133 && second == 145 && other == 145 && held == nil)
 }
 
 test "an action out of range has its icon darkened and its key in red" {
   alone()
-  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => slot == 62
+  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => slot == 62
   const holder = new Holder()
-  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  Test.expect(Test.page().text("S2").textColor().equal(BRIGHT_TEXT))
+  _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  Test::expect(Test::page().text("S2").textColor().equal(BRIGHT_TEXT))
   // Panel 2's second button shows slot 62: it goes out of range, and comes back.
-  Test.event("ACTION_RANGE_CHECK_UPDATE", 62, false, true)
-  Test.flush()
-  Test.expect(Test.page().text("S2").textColor().equal(Color.hex("#ff2020")))
-  Test.expect(Test.page().box(Color.hex("#000000")).opacity() == 0.6)
-  Test.event("ACTION_RANGE_CHECK_UPDATE", 62, true, true)
-  Test.flush()
-  Test.expect(Test.page().text("S2").textColor().equal(BRIGHT_TEXT))
-  Test.expect(!Test.page().box(Color.hex("#000000")).shown())
+  Test::event("ACTION_RANGE_CHECK_UPDATE", 62, false, true)
+  Test::flush()
+  Test::expect(Test::page().text("S2").textColor().equal(Color::hex("#ff2020")))
+  Test::expect(Test::page().box(Color::hex("#000000")).opacity() == 0.6)
+  Test::event("ACTION_RANGE_CHECK_UPDATE", 62, true, true)
+  Test::flush()
+  Test::expect(Test::page().text("S2").textColor().equal(BRIGHT_TEXT))
+  Test::expect(!Test::page().box(Color::hex("#000000")).shown())
 }
 
 test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   const given: Array<String> = []
   for (row of Ordaen.hotkeys) {
     for (key of row.keys(buttonName("2", 2))) { given.push(key) }
   }
-  Test.expect(given.join(" | ") == "S2: use")
+  Test::expect(given.join(" | ") == "S2: use")
 }
 
 test "a button the client hides has its key hidden with it, and shown again with it" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("F9", "ACTIONBUTTON3", nil)
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  _ = Client::SetBinding("F9", "ACTIONBUTTON3", nil)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   const third = button("1", 3)
-  Test.expect(Test.page().text("F9").shown())
+  Test::expect(Test::page().text("F9").shown())
   third.Hide()
-  Test.flush()
-  Test.expect(!Test.page().text("F9").shown())
+  Test::flush()
+  Test::expect(!Test::page().text("F9").shown())
   third.Show()
-  Test.flush()
-  Test.expect(Test.page().text("F9").shown())
+  Test::flush()
+  Test::expect(Test::page().text("F9").shown())
 }
 
 test "a stance's button draws its form's icon, and no more buttons than the player's forms" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
-  Test.expect(drawn(bars.bars) == "1,2,3,pet,stance")
-  const icon = Test.page().box(FIRST_FORM)
-  Test.expect(icon.shown())
-  const at = Test.centre(button("stance", 1))
+  Test::mount(bars, SCREEN)
+  Test::flush()
+  Test::expect(drawn(bars.bars) == "1,2,3,pet,stance")
+  const icon = Test::page().box(FIRST_FORM)
+  Test::expect(icon.shown())
+  const at = Test::centre(button("stance", 1))
   const rect = icon.rect()
-  Test.expect((rect.left + rect.right) / 2 == at.x && (rect.top + rect.bottom) / 2 == at.y)
-  Test.expect(button("stance", 2).IsVisible() && !button("stance", 3).IsVisible())
-  Test.forms(0)
+  Test::expect((rect.left + rect.right) / 2 == at.x && (rect.top + rect.bottom) / 2 == at.y)
+  Test::expect(button("stance", 2).IsVisible() && !button("stance", 3).IsVisible())
+  Test::forms(0)
 }
 
 test "a new rank of a form (a paladin's aura) changes the spell its button casts, the forms' count the same" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
-  Test.expect(button("stance", 1).GetAttribute("spell") == 1)
+  Test::mount(bars, SCREEN)
+  Test::flush()
+  Test::expect(button("stance", 1).GetAttribute("spell") == 1)
   // Devotion Aura's second rank learned: the first form's spell is the new rank's (the others the stand-in's, their
   // place), and the client says the forms changed.
-  Client.GetShapeshiftFormInfo = (index: Integer): (FileId | nil, Boolean, Boolean, Integer) => {
+  Client::GetShapeshiftFormInfo = (index: Integer): (FileId | nil, Boolean, Boolean, Integer) => {
     return index == 1 ? FIRST_FORM : SECOND_FORM, false, true, index == 1 ? 10290 : index
   }
-  Test.event("UPDATE_SHAPESHIFT_FORMS")
-  Test.flush()
-  Test.expect(button("stance", 1).GetAttribute("spell") == 10290 && button("stance", 2).GetAttribute("spell") == 2)
+  Test::event("UPDATE_SHAPESHIFT_FORMS")
+  Test::flush()
+  Test::expect(button("stance", 1).GetAttribute("spell") == 10290 && button("stance", 2).GetAttribute("spell") == 2)
 }
 
 test "the client's stance and pet buttons are unseen under ours, which stand as close as the gap says; an action's seen" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
   holder.settings.change((values: mut BarsChoices): nil => {
@@ -292,129 +292,129 @@ test "the client's stance and pet buttons are unseen under ours, which stand as 
       choice.size = 35
     })
   })
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.pet(true)
-  Events.PET_BAR_UPDATE.emit()
-  Test.flush()
-  Test.expect(button("stance", 1).GetAlpha() == 0 && button("stance", 2).GetAlpha() == 0)
-  Test.expect(button("pet", 1).GetAlpha() == 0)
-  Test.expect(button("1", 1).GetAlpha() == 1)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::pet(true)
+  Events::PET_BAR_UPDATE.emit()
+  Test::flush()
+  Test::expect(button("stance", 1).GetAlpha() == 0 && button("stance", 2).GetAlpha() == 0)
+  Test::expect(button("pet", 1).GetAlpha() == 0)
+  Test::expect(button("1", 1).GetAlpha() == 1)
   // Gap 0: the second form's icon begins where the first's ends.
-  const first = Test.page().box(FIRST_FORM).rect()
-  const second = Test.page().box(SECOND_FORM).rect()
-  Test.expect(second.left - first.right == 0 && first.right - first.left == 35)
-  Test.pet(false)
-  Test.forms(0)
+  const first = Test::page().box(FIRST_FORM).rect()
+  const second = Test::page().box(SECOND_FORM).rect()
+  Test::expect(second.left - first.right == 0 && first.right - first.left == 35)
+  Test::pet(false)
+  Test::forms(0)
 }
 
 // The client's button of a bar as an action button: what the client's own code keeps on it.
-function actionButton(id: String, index: Integer): any Client.ActionButton {
+function actionButton(id: String, index: Integer): any Client::ActionButton {
   const frame = button(id, index)
-  return frame is Client.ActionButton ? frame : panic("a bar's button is an action button")
+  return frame is Client::ActionButton ? frame : panic("a bar's button is an action button")
 }
 
 test "a stance's button takes its form by its spell, clicked and by the game's stance key" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
-  _ = Client.SetBinding("F1", "SHAPESHIFTBUTTON2", nil)
+  _ = Client::SetBinding("F1", "SHAPESHIFTBUTTON2", nil)
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  _ = Test.performed()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  _ = Test::performed()
   // Clicked as a key does, on the press's down half: the client's default (ActionButtonUseKeyDown).
   actionButton("stance", 1).Click("LeftButton", true)
   // The stand-in's form at a place casts the spell of that number.
-  Test.expect(Test.performed().join(", ") == "spell 1")
-  Test.expect(Test.keyBound("F1"))
-  Test.expect(Test.performed().join(", ") == "spell 2")
-  Test.expect(Test.page().text("F1").shown())
-  Test.forms(0)
+  Test::expect(Test::performed().join(", ") == "spell 1")
+  Test::expect(Test::keyBound("F1"))
+  Test::expect(Test::performed().join(", ") == "spell 2")
+  Test::expect(Test::page().text("F1").shown())
+  Test::forms(0)
 }
 
 test "a form's cooldown sweeps over its button, and a form that can't be taken is dimmed" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  Test.formCooldown(1, 10, 30)
-  Events.UPDATE_SHAPESHIFT_COOLDOWN.emit()
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  Test::formCooldown(1, 10, 30)
+  Events::UPDATE_SHAPESHIFT_COOLDOWN.emit()
+  Test::flush()
   const first = actionButton("stance", 1)
   let start, duration = first.cooldown.GetCooldownTimes()
-  Test.expect(start == 10000 && duration == 30000)
+  Test::expect(start == 10000 && duration == 30000)
   // Seen: drawn over the face, not in the client's unseen button.
-  Test.expect(first.cooldown.GetParent() != first && first.cooldown.IsVisible())
-  Test.expect(Test.page().box(SECOND_FORM).opacity() == 1)
-  Test.formCastable(2, false)
-  Events.UPDATE_SHAPESHIFT_USABLE.emit()
-  Test.flush()
-  Test.expect(Test.page().box(SECOND_FORM).opacity() < 1)
-  Test.formCastable(2, true)
-  Test.formCooldown(1, 0, 0)
-  Test.forms(0)
+  Test::expect(first.cooldown.GetParent() != first && first.cooldown.IsVisible())
+  Test::expect(Test::page().box(SECOND_FORM).opacity() == 1)
+  Test::formCastable(2, false)
+  Events::UPDATE_SHAPESHIFT_USABLE.emit()
+  Test::flush()
+  Test::expect(Test::page().box(SECOND_FORM).opacity() < 1)
+  Test::formCastable(2, true)
+  Test::formCooldown(1, 0, 0)
+  Test::forms(0)
 }
 
 test "the client's Quick Keybind mode binds our buttons' commands, and lights them while it runs" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   const stance = actionButton("stance", 1)
   const action = actionButton("1", 3)
   const second = actionButton("2", 1)
-  Test.expect(stance.commandName == "SHAPESHIFTBUTTON1" && stance.index == 1)
-  Test.expect(action.commandName == "ACTIONBUTTON3" && second.commandName == "MULTIACTIONBAR1BUTTON1")
-  Test.expect(!action.QuickKeybindHighlightTexture.IsShown())
-  Client.QuickKeybindFrame.Show()
-  Test.expect(action.QuickKeybindHighlightTexture.IsShown() && stance.QuickKeybindHighlightTexture.IsShown())
-  Client.QuickKeybindFrame.Hide()
-  Test.expect(!action.QuickKeybindHighlightTexture.IsShown())
-  Test.forms(0)
+  Test::expect(stance.commandName == "SHAPESHIFTBUTTON1" && stance.index == 1)
+  Test::expect(action.commandName == "ACTIONBUTTON3" && second.commandName == "MULTIACTIONBAR1BUTTON1")
+  Test::expect(!action.QuickKeybindHighlightTexture.IsShown())
+  Client::QuickKeybindFrame.Show()
+  Test::expect(action.QuickKeybindHighlightTexture.IsShown() && stance.QuickKeybindHighlightTexture.IsShown())
+  Client::QuickKeybindFrame.Hide()
+  Test::expect(!action.QuickKeybindHighlightTexture.IsShown())
+  Test::forms(0)
 }
 
 test "the form the player is in is lit on its stance's button, and no other" {
-  Test.forms(2)
+  Test::forms(2)
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  Test.expect(!Test.page().box(Ordaen.art.ctl.qualityRim).shown())
-  Test.stance(2)
-  Events.UPDATE_SHAPESHIFT_FORM.emit()
-  Test.flush()
-  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 2)))
-  Test.stance(1)
-  Events.UPDATE_SHAPESHIFT_FORM.emit()
-  Test.flush()
-  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 1)))
-  Test.stance(0)
-  Events.UPDATE_SHAPESHIFT_FORM.emit()
-  Test.flush()
-  Test.expect(!Test.page().box(Ordaen.art.ctl.qualityRim).shown())
-  Test.forms(0)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  Test::expect(!Test::page().box(Ordaen.art.ctl.qualityRim).shown())
+  Test::stance(2)
+  Events::UPDATE_SHAPESHIFT_FORM.emit()
+  Test::flush()
+  Test::expect(Test::page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 2)))
+  Test::stance(1)
+  Events::UPDATE_SHAPESHIFT_FORM.emit()
+  Test::flush()
+  Test::expect(Test::page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 1)))
+  Test::stance(0)
+  Events::UPDATE_SHAPESHIFT_FORM.emit()
+  Test::flush()
+  Test::expect(!Test::page().box(Ordaen.art.ctl.qualityRim).shown())
+  Test::forms(0)
 }
 
 test "the pet's buttons draw their icons, its commands' by the client's globals, and its stance lit" {
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   // The client's word as the pet comes: the stand-in's events reach no listener of a test's.
-  Test.pet(true)
-  Events.PET_BAR_UPDATE.emit()
-  Test.flush()
-  const path = Client.PET_ATTACK_TEXTURE
-  const attack = Test.page().box(path is Asset ? path : panic("the command's icon is a file's path"))
-  Test.expect(attack.shown() && near(attack, button("pet", 1)))
-  Test.expect(near(Test.page().box(PET_SPELL), button("pet", 4)))
+  Test::pet(true)
+  Events::PET_BAR_UPDATE.emit()
+  Test::flush()
+  const path = Client::PET_ATTACK_TEXTURE
+  const attack = Test::page().box(path is Asset ? path : panic("the command's icon is a file's path"))
+  Test::expect(attack.shown() && near(attack, button("pet", 1)))
+  Test::expect(near(Test::page().box(PET_SPELL), button("pet", 4)))
   // Defensive, the stance the pet is in.
-  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("pet", 9)))
-  Test.pet(false)
-  Events.PET_BAR_UPDATE.emit()
-  Test.flush()
-  Test.expect(!Test.page().box(PET_SPELL).shown())
+  Test::expect(Test::page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("pet", 9)))
+  Test::pet(false)
+  Events::PET_BAR_UPDATE.emit()
+  Test::flush()
+  Test::expect(!Test::page().box(PET_SPELL).shown())
 }
 
 test "a bar of two rows stands under the next one: no bar's buttons overlap another's" {
@@ -425,75 +425,75 @@ test "a bar of two rows stands under the next one: no bar's buttons overlap anot
       choice.perRow = 6
     })
   })
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   // Панель 1's top row, and Панель 2 over it.
-  const top = Test.centre(button("1", 1)).y
-  const over = Test.centre(button("2", 1)).y
-  Test.expect(Test.centre(button("1", 7)).y > top)
-  Test.expect(top - over >= 45)
+  const top = Test::centre(button("1", 1)).y
+  const over = Test::centre(button("2", 1)).y
+  Test::expect(Test::centre(button("1", 7)).y > top)
+  Test::expect(top - over >= 45)
 }
 
 test "Панель 1 shows a form's page while the player is in it, in a fight too, unless the player keeps it as it is" {
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   const first = button("1", 1)
-  Test.expect(first.GetAttribute("actionpage") == "1")
-  Test.stance(1)
-  Test.expect(first.GetAttribute("actionpage") == "7")
-  Test.combat(true)
-  Test.stance(3)
-  Test.expect(first.GetAttribute("actionpage") == "9")
-  Test.combat(false)
+  Test::expect(first.GetAttribute("actionpage") == "1")
+  Test::stance(1)
+  Test::expect(first.GetAttribute("actionpage") == "7")
+  Test::combat(true)
+  Test::stance(3)
+  Test::expect(first.GetAttribute("actionpage") == "9")
+  Test::combat(false)
   holder.settings.change((values: mut BarsChoices): nil => {
     values.unpaged["3"] = true
   })
-  Test.flush()
-  Test.expect(first.GetAttribute("actionpage") == "1")
-  Test.stance(0)
+  Test::flush()
+  Test::expect(first.GetAttribute("actionpage") == "1")
+  Test::stance(0)
 }
 
 test "the pet's buttons show while there is a pet, in a fight too" {
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   const first = button("pet", 1)
-  Test.expect(!first.IsShown())
-  Test.combat(true)
-  Test.pet(true)
-  Test.expect(first.IsShown())
-  Test.combat(false)
+  Test::expect(!first.IsShown())
+  Test::combat(true)
+  Test::pet(true)
+  Test::expect(first.IsShown())
+  Test::combat(false)
 }
 
 test "a bar's buttons, rows and look change as chosen, and in a fight only as it ends" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("F6", "MULTIACTIONBAR1BUTTON6", nil)
+  _ = Client::SetBinding("F6", "MULTIACTIONBAR1BUTTON6", nil)
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
-  Test.combat(true)
+  Test::mount(bars, SCREEN)
+  Test::flush()
+  Test::combat(true)
   holder.settings.change((values: mut BarsChoices): nil => {
     values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
       choice.buttons = 5
     })
   })
-  Test.flush()
-  Test.expect(button("2", 6).IsShown())
-  Test.combat(false)
-  Test.flush()
-  Test.expect(!button("2", 6).IsShown())
-  Test.expect(!Test.page().text("F6").shown())
+  Test::flush()
+  Test::expect(button("2", 6).IsShown())
+  Test::combat(false)
+  Test::flush()
+  Test::expect(!button("2", 6).IsShown())
+  Test::expect(!Test::page().text("F6").shown())
   holder.settings.change((values: mut BarsChoices): nil => {
     values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
       choice.on = false
     })
   })
-  Test.flush()
-  Test.expect(drawn(bars.bars) == "1,3,pet")
+  Test::flush()
+  Test::expect(drawn(bars.bars) == "1,3,pet")
 }
 
 test "a bar the player never moved stands above what keeps the bottom edge, the highest of them" {
@@ -504,48 +504,48 @@ test "a bar the player never moved stands above what keeps the bottom edge, the 
   Ordaen.keepBottom("Ledge", 1000ui)
   const above = bar.home.y ?? 0ui
   Ordaen.keepBottom("Shelf", 1100ui)
-  Test.expect(((bar.home.y ?? 0ui) - (above - 100ui)).abs() < 0.001ui)
+  Test::expect(((bar.home.y ?? 0ui) - (above - 100ui)).abs() < 0.001ui)
   Ordaen.keepBottom("Shelf", 0ui)
   Ordaen.keepBottom("Ledge", 0ui)
-  Test.expect((bar.home.y ?? 0ui) > above + 900ui)
+  Test::expect((bar.home.y ?? 0ui) > above + 900ui)
 }
 
 test "a bar fades as its visibility says: hidden in a fight, its buttons keep their keys" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("F7", "ACTIONBUTTON1", nil)
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  _ = Client::SetBinding("F7", "ACTIONBUTTON1", nil)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   holder.settings.change((values: mut BarsChoices): nil => {
     values.bars["1"] = changed(values, "1", (choice: mut BarChoice): nil => {
       choice.visibility = PEACEFUL
     })
   })
-  Test.flush()
-  Test.expect(Test.page().text("F7").opacity() == 1)
-  Test.combat(true)
-  Test.expect(Test.page().text("F7").opacity() == 0)
-  Test.expect(Test.keyBound("F7"))
-  Test.combat(false)
-  Test.expect(Test.page().text("F7").opacity() == 1)
+  Test::flush()
+  Test::expect(Test::page().text("F7").opacity() == 1)
+  Test::combat(true)
+  Test::expect(Test::page().text("F7").opacity() == 0)
+  Test::expect(Test::keyBound("F7"))
+  Test::combat(false)
+  Test::expect(Test::page().text("F7").opacity() == 1)
 }
 
 test "ended in a fight, the buttons fade at once, and are put away with the keys as it ends" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("F8", "ACTIONBUTTON2", nil)
+  _ = Client::SetBinding("F8", "ACTIONBUTTON2", nil)
   const bars = new ActionBars(holder.settings.values, holder.defaults)
-  Test.mount(bars, SCREEN)
-  Test.flush()
+  Test::mount(bars, SCREEN)
+  Test::flush()
   const second = button("1", 2)
-  Test.combat(true)
+  Test::combat(true)
   destroy bars
-  Test.flush()
-  Test.expect(second.GetAlpha() == 0 && second.IsShown())
-  Test.combat(false)
-  Test.flush()
-  Test.expect(!second.IsShown())
-  Test.expect(Client.GetBindingAction("F8", true) == "ACTIONBUTTON2")
+  Test::flush()
+  Test::expect(second.GetAlpha() == 0 && second.IsShown())
+  Test::combat(false)
+  Test::flush()
+  Test::expect(!second.IsShown())
+  Test::expect(Client::GetBindingAction("F8", true) == "ACTIONBUTTON2")
 }
 
 test "a bar of smaller buttons fits the client's art to them: the icon fills the button, as large as it" {
@@ -556,65 +556,65 @@ test "a bar of smaller buttons fits the client's art to them: the icon fills the
       choice.size = 30
     })
   })
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  const client: any Client.Frame = button("2", 1)
-  Test.expect(client is Client.ActionButton)
-  if (client is Client.ActionButton) {
-    Test.expect((client.icon.GetWidth() - 30).abs() < 0.01 && (client.icon.GetHeight() - 30).abs() < 0.01)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  const client: any Client::Frame = button("2", 1)
+  Test::expect(client is Client::ActionButton)
+  if (client is Client::ActionButton) {
+    Test::expect((client.icon.GetWidth() - 30).abs() < 0.01 && (client.icon.GetHeight() - 30).abs() < 0.01)
   }
 }
 
 test "a bar that hides empty buttons shows them while something is dragged, and a button once its slot holds something" {
   alone()
   const holder = new Holder()
-  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   holder.settings.change((values: mut BarsChoices): nil => {
     values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
       choice.hideEmpty = true
     })
   })
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   // Панель 2's second button shows slot 62, empty: unseen, its key with it.
-  Test.expect(!Test.page().text("S2").shown())
-  Events.ACTIONBAR_SHOWGRID.emit()
-  Test.flush()
-  Test.expect(Test.page().text("S2").shown())
-  Events.ACTIONBAR_HIDEGRID.emit()
-  Test.flush()
-  Test.expect(!Test.page().text("S2").shown())
-  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => slot == 62
-  Test.event("ACTIONBAR_SLOT_CHANGED", 62)
-  Test.flush()
-  Test.expect(Test.page().text("S2").shown())
+  Test::expect(!Test::page().text("S2").shown())
+  Events::ACTIONBAR_SHOWGRID.emit()
+  Test::flush()
+  Test::expect(Test::page().text("S2").shown())
+  Events::ACTIONBAR_HIDEGRID.emit()
+  Test::flush()
+  Test::expect(!Test::page().text("S2").shown())
+  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => slot == 62
+  Test::event("ACTIONBAR_SLOT_CHANGED", 62)
+  Test::flush()
+  Test::expect(Test::page().text("S2").shown())
 }
 
 test "a bar's size changed while it shows keeps the client's art in proportion: the frame round the icon" {
   alone()
   const holder = new Holder()
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
   holder.settings.change((values: mut BarsChoices): nil => {
     values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
       choice.size = 54
     })
   })
-  Test.flush()
-  const client: any Client.Frame = button("2", 1)
-  const frame = client is Client.Button ? client.GetNormalTexture() : nil
-  Test.expect(about(client.GetWidth(), 54))
-  Test.expect(frame != nil && about(frame.GetWidth(), 54 * 51 / 45))
-  if (client is Client.ActionButton) { Test.expect(about(client.icon.GetWidth(), 54)) }
+  Test::flush()
+  const client: any Client::Frame = button("2", 1)
+  const frame = client is Client::Button ? client.GetNormalTexture() : nil
+  Test::expect(about(client.GetWidth(), 54))
+  Test::expect(frame != nil && about(frame.GetWidth(), 54 * 51 / 45))
+  if (client is Client::ActionButton) { Test::expect(about(client.icon.GetWidth(), 54)) }
 }
 
 // The masks among a button's regions (a texture is a kind of mask texture: a mask is told by its own word): each
 // one's width.
-function maskWidths(...regions: any Client.Region): Array<Number> {
+function maskWidths(...regions: any Client::Region): Array<Number> {
   const widths: Array<Number> = []
   for (i of 1..regions.length) {
     const region = regions[i]
-    if (region is Client.MaskTexture && region.GetObjectType() == "MaskTexture") { widths.push(region.GetWidth()) }
+    if (region is Client::MaskTexture && region.GetObjectType() == "MaskTexture") { widths.push(region.GetWidth()) }
   }
   return widths
 }
@@ -629,18 +629,18 @@ test "a bar of smaller buttons keeps the client's art in the template's proporti
       choice.size = 30
     })
   })
-  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
-  Test.flush()
-  const client: any Client.Frame = button("2", 1)
+  Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test::flush()
+  const client: any Client::Frame = button("2", 1)
   // The template's 45 made 30: its frame (51, at the top left, the icon's opening in its top left 45) 34, the icon's
   // mask (64, centred on the icon) 42.67.
-  const frame = client is Client.Button ? client.GetNormalTexture() : nil
-  Test.expect(frame != nil)
+  const frame = client is Client::Button ? client.GetNormalTexture() : nil
+  Test::expect(frame != nil)
   if (frame != nil) {
-    Test.expect(about(frame.GetWidth(), 34) && about(frame.GetHeight(), 34))
+    Test::expect(about(frame.GetWidth(), 34) && about(frame.GetHeight(), 34))
     let point, to, toPoint, x, y = frame.GetPoint(1, nil)
-    Test.expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to == client && toPoint == "TOPLEFT" && x == 0 && y == 0)
+    Test::expect(frame.GetNumPoints() == 1 && point == "TOPLEFT" && to == client && toPoint == "TOPLEFT" && x == 0 && y == 0)
   }
   const masks = maskWidths(...client.GetRegions())
-  Test.expect(masks.length == 1 && about(masks[1] ?? 0, 64 * 30 / 45))
+  Test::expect(masks.length == 1 && about(masks[1] ?? 0, 64 * 30 / 45))
 }

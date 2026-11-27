@@ -6,9 +6,9 @@
 import { Overflow, Position } from "$ltml"
 import { Component } from "@/module"
 
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 // The field's letters: there to be selected and copied, drawn by the text under them.
-const CLEAR: Color = Color.hex("#00000000")
+const CLEAR: Color = Color::hex("#00000000")
 
 public class CopyText implements Component {
   value: Signal<String>
@@ -18,9 +18,9 @@ public class CopyText implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box overflow={Overflow.Hidden}>
+      <box overflow={Overflow::Hidden}>
         <text value={self.value} textColor={INK} />
-        <input value={self.value} readOnly={true} multiline={true} textColor={CLEAR} position={Position.Absolute}
+        <input value={self.value} readOnly={true} multiline={true} textColor={CLEAR} position={Position::Absolute}
                left={0dp} top={0dp} right={0dp} bottom={0dp} />
       </box>
     }

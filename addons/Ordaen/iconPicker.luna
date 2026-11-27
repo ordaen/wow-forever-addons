@@ -26,11 +26,11 @@ const CELL = 37.5dp
 const SHOWN_ROWS = 7
 const WIDTH = 468.75dp
 const BUTTON_WIDTH = 140.625dp
-const RIM: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
-const PICKED_RIM: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
-const NONE_FILL: Color = Color.hex("#0d0a08")
+const RIM: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
+const PICKED_RIM: Line = { width: 2.34375dp, color: Color::hex("#ffd100") }
+const NONE_FILL: Color = Color::hex("#0d0a08")
 // «No icon»: a dark cell with a short bar across its middle, which reads in every language.
-public const NO_ICON_MARK: Color = Color.hex("#a89878")
+public const NO_ICON_MARK: Color = Color::hex("#a89878")
 const MARK_WIDTH = 14.0625dp
 const MARK_HEIGHT = 2.34375dp
 const ONE: Array<Track> = [{ fr: 1 }]
@@ -44,10 +44,10 @@ struct Offered {
 // The client's icon lists in the macro window's order, each a file's number or a name under Interface/Icons/.
 function clientIcons(): Array<Offered> {
   const raw: Array<FileId | String> = []
-  Client.GetLooseMacroIcons(raw)
-  Client.GetMacroIcons(raw)
-  Client.GetLooseMacroItemIcons(raw)
-  Client.GetMacroItemIcons(raw)
+  Client::GetLooseMacroIcons(raw)
+  Client::GetMacroIcons(raw)
+  Client::GetLooseMacroItemIcons(raw)
+  Client::GetMacroItemIcons(raw)
   const offered: Array<Offered> = []
   for (each of raw) {
     if (each is FileId) {
@@ -63,13 +63,13 @@ function clientIcons(): Array<Offered> {
 // The player's spells, each by its name: what a search by a spell's name finds.
 function spellIcons(): Array<Offered> {
   const offered: Array<Offered> = []
-  const lines = Client.C_SpellBook.GetNumSpellBookSkillLines().floor()
+  const lines = Client::C_SpellBook::GetNumSpellBookSkillLines().floor()
   for (line of 1..lines) {
-    const info = Client.C_SpellBook.GetSpellBookSkillLineInfo(line)
+    const info = Client::C_SpellBook::GetSpellBookSkillLineInfo(line)
     if (info != nil) {
       const first = info.itemIndexOffset.floor() + 1
       for (slot of first..(first - 1 + info.numSpellBookItems.floor())) {
-        const item = Client.C_SpellBook.GetSpellBookItemInfo(slot, Client.SpellBookSpellBank.Player)
+        const item = Client::C_SpellBook::GetSpellBookItemInfo(slot, Client::SpellBookSpellBank::Player)
         if (item != nil) { offered.push({ icon: item.iconID, words: item.name.lower() }) }
       }
     }
@@ -112,7 +112,7 @@ class IconCell implements Component {
     return $ltml {
       <box width={CELL} height={CELL} border={self.rim} columns={ONE} rows={ONE} @pointerPress={self.onPick}
            @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
-        <box $if={self.none} background={NONE_FILL} xAlign={Align.Center} yAlign={Align.Center}>
+        <box $if={self.none} background={NONE_FILL} xAlign={Align::Center} yAlign={Align::Center}>
           <box width={MARK_WIDTH} height={MARK_HEIGHT} background={NO_ICON_MARK} />
         </box>
         <box $else icon={self.offered.icon} />
@@ -156,13 +156,13 @@ public class IconPicker implements Component {
 
   title: Signal<String>
   const first: IconPickerFirst
-  constructor(value: Signal<IconChoice>, title: Signal<String>, first: IconPickerFirst = IconPickerFirst.Nothing) {
+  constructor(value: Signal<IconChoice>, title: Signal<String>, first: IconPickerFirst = IconPickerFirst::Nothing) {
     self.title = title
     self.first = first
     self.chosen = peek value
     const all: Array<Offered> = []
-    if (first == IconPickerFirst.NoIcon) { all.push({ icon: nil, words: "" }) }
-    if (first == IconPickerFirst.GameChooses) { all.push({ icon: QUESTION_MARK, words: "" }) }
+    if (first == IconPickerFirst::NoIcon) { all.push({ icon: nil, words: "" }) }
+    if (first == IconPickerFirst::GameChooses) { all.push({ icon: QUESTION_MARK, words: "" }) }
     for (each of spellIcons()) { all.push(each) }
     for (each of clientIcons()) { all.push(each) }
     self.all = all
@@ -182,12 +182,12 @@ public class IconPicker implements Component {
   public render(self): Template {
     return $ltml {
       <Dialog width={WIDTH} title={self.title}>
-        <Toolbar search={mut self.search} placeholder={Locale.ICON_SEARCH} />
+        <Toolbar search={mut self.search} placeholder={Locale::ICON_SEARCH} />
         <ScrolledList virtual={true} height={CELL * SHOWN_ROWS + 30dp}>
           <IconRow $for={row of self.rows} icons={row} chosen={self.chosen} @pick={self.onPick} />
         </ScrolledList>
-        <PushButton #buttons label={Locale.CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
-        <PushButton #buttons label={Locale.ICON_PICK} width={BUTTON_WIDTH} plate={ButtonPlate.Accent} @click={self.onDone} />
+        <PushButton #buttons label={Locale::CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
+        <PushButton #buttons label={Locale::ICON_PICK} width={BUTTON_WIDTH} plate={ButtonPlate::Accent} @click={self.onDone} />
       </Dialog>
     }
   }

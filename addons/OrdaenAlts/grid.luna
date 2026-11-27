@@ -27,14 +27,14 @@ const NAME_LEAST = 200dp
 const SKILL_LEAST = 170dp
 
 class SkillCell implements Component {
-  derived ink: Color = self.skill.rank < 0 ? Style.DIM : Style.INK
+  derived ink: Color = self.skill.rank < 0 ? Style::DIM : Style::INK
 
   skill: Signal<Skill>
   constructor(skill: Signal<Skill>) { self.skill = skill }
 
   public render(self): Template {
     return $ltml {
-      <TableCell align={Align.Center}>
+      <TableCell align={Align::Center}>
         <text value={self.skill.text} textColor={self.ink} wrap={.None} />
       </TableCell>
     }
@@ -48,7 +48,7 @@ class SkillRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow>
-        <TableCell> <text value={self.line.name} textColor={Style.INK} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={self.line.name} textColor={Style::INK} wrap={.Cut} /> </TableCell>
         <SkillCell $for={skill of self.line.skills} skill={skill} />
       </TableRow>
     }
@@ -91,8 +91,8 @@ public class Grid implements Component {
 
   // The name's column, then a profession's each, sharing the width beyond their least.
   columnsOf(self): Array<Column> {
-    const list: Array<Column> = [{ title: Locale.COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
-    for (name of self.names) { list.push({ title: name, width: { fr: 1, min: SKILL_LEAST }, align: Align.Center, sortable: true }) }
+    const list: Array<Column> = [{ title: Locale::COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
+    for (name of self.names) { list.push({ title: name, width: { fr: 1, min: SKILL_LEAST }, align: Align::Center, sortable: true }) }
     return list
   }
 

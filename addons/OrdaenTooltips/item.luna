@@ -33,9 +33,9 @@ const CHANCE = 46
 // поднятии» for the game's «Становится персональным при поднятии»), opening the term; another binding as the game
 // wrote it.
 function binding(text: String): Part {
-  if (text == Game.strings.soulbound) { return { text: Locale.TERM_BOUND, color: nil, opens: named(Term.Bound) } }
-  if (text == Game.strings.bindOnEquip) { return { text: Locale.TERM_BOE, color: nil, opens: named(Term.Boe) } }
-  if (text == Game.strings.bindOnPickup) { return { text: Locale.TERM_BOP, color: nil, opens: named(Term.Bop) } }
+  if (text == Game::strings.soulbound) { return { text: Locale::TERM_BOUND, color: nil, opens: named(Term::Bound) } }
+  if (text == Game::strings.bindOnEquip) { return { text: Locale::TERM_BOE, color: nil, opens: named(Term::Boe) } }
+  if (text == Game::strings.bindOnPickup) { return { text: Locale::TERM_BOP, color: nil, opens: named(Term::Bop) } }
   return { text: text, color: nil }
 }
 
@@ -44,14 +44,14 @@ public struct ItemRead {
   // The tooltips beside it: what using it does, its set.
   sides: Array<Model>
   // What a recipe makes: the game's data for it, read as an item of its own.
-  makes: Array<Game.TooltipData>
+  makes: Array<Game::TooltipData>
   // Its level and its stats by the game's key for each: what a comparison sets against the other item's rows.
   stats: Map<String, Number>
 }
 
 // A number as Ordaen writes it, by Ordaen's number settings.
 function shown(n: Number): String {
-  return Ordaen.number(n)
+  return Ordaen::number(n)
 }
 
 // What stood where a format of the game's has its first value, and its first two.
@@ -76,11 +76,11 @@ function durabilityColor(current: Number, most: Number): Color | nil {
 
 // «%d slots», in the form the number takes.
 function slots(count: Integer): String {
-  let which = Game.client.locale == "ruRU" ? form(count) : (count == 1 ? 1 : 3)
+  let which = Game::client.locale == "ruRU" ? form(count) : (count == 1 ? 1 : 3)
   match (which) {
-    1 => return Locale.COL_SLOTS_ONE.format(count)
-    2 => return Locale.COL_SLOTS_FEW.format(count)
-    else => return Locale.COL_SLOTS_MANY.format(count)
+    1 => return Locale::COL_SLOTS_ONE.format(count)
+    2 => return Locale::COL_SLOTS_FEW.format(count)
+    else => return Locale::COL_SLOTS_MANY.format(count)
   }
 }
 
@@ -92,7 +92,7 @@ function reagents(text: String, body: mut Array<TextLine>): Boolean {
     const count = (part.match("%((%d+)%)%s*$") ?? "").toNumber()
     const name = part.match("^%s*(.-)%s*%(%d+%)%s*$") ?? ""
     if (count != nil && name != "") {
-      body.push({ left: name, right: Locale.COUNT.format(count.floor()) })
+      body.push({ left: name, right: Locale::COUNT.format(count.floor()) })
       any = true
     }
   }
@@ -107,7 +107,7 @@ function withNote(model: Model, note: Note): Model {
   return { foot: foot, ..model }
 }
 
-public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
+public function item(data: Game::TooltipData, options: Options): ItemRead | nil {
   let id = data.id
   let name: String | nil = nil
   let nameColor = BRIGHT_TEXT
@@ -117,18 +117,18 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
   let body: Array<TextLine> = []
   let foot: Array<Note> = []
   let sides: Array<Model> = []
-  let makes: Array<Game.TooltipData> = []
+  let makes: Array<Game::TooltipData> = []
   let stats: Map<String, Number> = {}
   let timer = false
 
-  let level = id != nil ? Game.items.level(id) : nil
+  let level = id != nil ? Game::items.level(id) : nil
   if (options.itemsIlvl && level != nil && level > 1) {
-    body.push({ left: Locale.ITEM_LEVEL_ROW, right: shown(level), stat: "ilvl" })
+    body.push({ left: Locale::ITEM_LEVEL_ROW, right: shown(level), stat: "ilvl" })
     stats["ilvl"] = level
   }
   // The item's stats as rows; the stat lines among the game's are then left out.
   let hasStats = false
-  for (stat of Game.items.stats(data)) {
+  for (stat of Game::items.stats(data)) {
     stats[stat.key] = stat.value
     body.push({ left: stat.name, right: "%+d".format(stat.value.round()), stat: stat.key })
     hasStats = true
@@ -149,7 +149,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
     if (kind == NESTED) {
       recipe = true
       let makes_id = line.made
-      let made = makes_id != nil ? Game.items.tooltip(makes_id) : nil
+      let made = makes_id != nil ? Game::items.tooltip(makes_id) : nil
       if (made != nil) { makes.push(made) }
       nested = true
     } else if (kind == ITEM_NAME) {
@@ -164,30 +164,30 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
     } else if (kind == SELL_PRICE) {
       let price = line.price
       if (price != nil && price > 0) {
-        foot.push({ left: Game.strings.sellPrice, right: Game.money.format(price) })
+        foot.push({ left: Game::strings.sellPrice, right: Game::money.format(price) })
       }
     } else if (kind == REQUIREMENT) {
       if (left != nil) {
-        let skill, rank = two(left, Game.strings.itemMinSkill)
-        let needed = one(left, Game.strings.itemMinLevel)
+        let skill, rank = two(left, Game::strings.itemMinSkill)
+        let needed = one(left, Game::strings.itemMinLevel)
         if (skill != nil && rank != nil) {
-          foot.push({ left: skill, right: rank, valueColor: unmet, opens: named(Term.Prof) })
+          foot.push({ left: skill, right: rank, valueColor: unmet, opens: named(Term::Prof) })
         } else if (needed != nil) {
-          foot.push({ left: Locale.REQ_LEVEL, right: needed, valueColor: unmet, opens: named(Term.Req) })
+          foot.push({ left: Locale::REQ_LEVEL, right: needed, valueColor: unmet, opens: named(Term::Req) })
         } else {
-          foot.push({ left: left, valueColor: unmet, opens: named(Term.Req) })
+          foot.push({ left: left, valueColor: unmet, opens: named(Term::Req) })
         }
       }
     } else if (kind == USE) {
       // What using it does is a tooltip of its own beside the item: the spell with its cast and its cooldown.
       let cast = line.spell
-      let used = cast != nil ? Game.spells.tooltip(cast) : nil
+      let used = cast != nil ? Game::spells.tooltip(cast) : nil
       let side = used != nil ? useSide(spell(used, options)) : nil
       if (side != nil) {
-        let wait = options.itemsCooldown && id != nil ? Game.items.cooldown(id) : nil
+        let wait = options.itemsCooldown && id != nil ? Game::items.cooldown(id) : nil
         if (wait != nil) {
-          let ready = duration(wait, Game.strings.hours, Game.strings.minutes, Game.strings.seconds)
-          sides.push(withNote(side, { left: Locale.READY_IN, right: ready, valueColor: YELLOW }))
+          let ready = duration(wait, Game::strings.hours, Game::strings.minutes, Game::strings.seconds)
+          sides.push(withNote(side, { left: Locale::READY_IN, right: ready, valueColor: YELLOW }))
           timer = true
         } else {
           sides.push(side)
@@ -200,7 +200,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       if (left != nil && !recipe) { body.push({ left: left, color: colorOf(line.leftColor) }) }
     } else if (kind == EQUIP || kind == CHANCE) {
       if (left != nil) { body.push({ left: left, color: GREEN }) }
-    } else if (left != nil && left == Game.strings.itemSpellKnown) {
+    } else if (left != nil && left == Game::strings.itemSpellKnown) {
       learned = true
     } else if (kind == SET_LINE) {
       // The set is named only in its own tooltip beside the item: its first line the name, the rest its pieces
@@ -214,56 +214,56 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       }
     } else if (kind == BLANK || left == nil) {
       // Nothing to draw.
-    } else if (left == Game.strings.itemUnique || left == Game.strings.itemUniqueEquippable) {
-      desc.push({ text: left, opens: named(Term.Uni) })
+    } else if (left == Game::strings.itemUnique || left == Game::strings.itemUniqueEquippable) {
+      desc.push({ text: left, opens: named(Term::Uni) })
     } else {
       // The band: damage and speed, damage per second, armour, block, a bag's slots; and the footer's lines.
-      let lowSchool, highSchool = two(left, Game.strings.damageSchool)
-      let lowPlain, highPlain = two(left, Game.strings.damage)
+      let lowSchool, highSchool = two(left, Game::strings.damageSchool)
+      let lowPlain, highPlain = two(left, Game::strings.damage)
       let low = lowSchool ?? lowPlain
       let high = highSchool ?? highPlain
-      let single = one(left, Game.strings.singleDamageSchool) ?? one(left, Game.strings.singleDamage)
-      let dps = one(left, Game.strings.dps)
-      let armor = one(left, Game.strings.armor)
-      let block = one(left, Game.strings.shieldBlock)
+      let single = one(left, Game::strings.singleDamageSchool) ?? one(left, Game::strings.singleDamage)
+      let dps = one(left, Game::strings.dps)
+      let armor = one(left, Game::strings.armor)
+      let block = one(left, Game::strings.shieldBlock)
       // The line as the game wrote it: its plural code is part of the format.
-      let slotsA, slotsB = two(line.left ?? "", Game.strings.containerSlots)
+      let slotsA, slotsB = two(line.left ?? "", Game::strings.containerSlots)
       let room = number(slotsA ?? "") ?? number(slotsB ?? "")
-      let current, most = two(left, Game.strings.durability)
-      let classes = one(left, Game.strings.classesAllowed)
-      let needs = one(left, Game.strings.spellReagents)
+      let current, most = two(left, Game::strings.durability)
+      let classes = one(left, Game::strings.classesAllowed)
+      let needs = one(left, Game::strings.spellReagents)
       if (low != nil && high != nil) {
         let from = number(low) ?? 0
         let to = number(high) ?? 0
-        facts.push({ cell: { text: Locale.COL_DAMAGE.format(shown(from), shown(to)), glyph: .Dmg }, opens: named(Term.Dmg) })
+        facts.push({ cell: { text: Locale::COL_DAMAGE.format(shown(from), shown(to)), glyph: .Dmg }, opens: named(Term::Dmg) })
         let speed = last(clean(line.right) ?? "")
         if (speed != nil) {
-          facts.push({ cell: { text: Locale.COL_SPEED.format(shown(speed)), glyph: .Spd }, opens: named(Term.Spd) })
+          facts.push({ cell: { text: Locale::COL_SPEED.format(shown(speed)), glyph: .Spd }, opens: named(Term::Spd) })
         }
       } else if (single != nil) {
-        facts.push({ cell: { text: shown(number(single) ?? 0), glyph: .Dmg }, opens: named(Term.Dmg) })
+        facts.push({ cell: { text: shown(number(single) ?? 0), glyph: .Dmg }, opens: named(Term::Dmg) })
       } else if (dps != nil) {
         let perSecond = number(dps) ?? 0
-        facts.push({ cell: { text: Locale.COL_DPS.format(shown(perSecond)) }, opens: named(Term.Dps) })
+        facts.push({ cell: { text: Locale::COL_DPS.format(shown(perSecond)) }, opens: named(Term::Dps) })
       } else if (armor != nil) {
         // Armour beyond the item's own is in green.
         let worn = number(armor) ?? 0
-        facts.push({ cell: { text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm }, opens: namedWith(Term.Arm, shown(worn)) })
+        facts.push({ cell: { text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm }, opens: namedWith(Term::Arm, shown(worn)) })
       } else if (block != nil) {
         let blocked = number(block) ?? 0
-        facts.push({ cell: { text: shown(blocked), glyph: .Blk }, opens: namedWith(Term.Blk, shown(blocked)) })
+        facts.push({ cell: { text: shown(blocked), glyph: .Blk }, opens: namedWith(Term::Blk, shown(blocked)) })
       } else if (room != nil) {
-        facts.push({ cell: { text: slots(room.floor()) }, opens: namedWith(Term.Bag, `${room.floor()}`) })
+        facts.push({ cell: { text: slots(room.floor()) }, opens: namedWith(Term::Bag, `${room.floor()}`) })
       } else if (current != nil && most != nil) {
         let now = number(current) ?? 0
         let whole = number(most) ?? 1
         foot.push({
-          left: Locale.DURABILITY, right: "%d / %d".format(now.floor(), whole.floor()),
-          valueColor: durabilityColor(now, whole), opens: named(Term.Dur)
+          left: Locale::DURABILITY, right: "%d / %d".format(now.floor(), whole.floor()),
+          valueColor: durabilityColor(now, whole), opens: named(Term::Dur)
         })
       } else if (classes != nil) {
         foot.push({
-          left: Locale.CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term.Cls)
+          left: Locale::CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term::Cls)
         })
       } else if (needs != nil && reagents(needs, body)) {
         // A recipe's reagents: rows.
@@ -277,31 +277,31 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
   if (name == nil) { return nil }
 
   // «Known» or «Not known» joins a recipe's description.
-  if (recipe) { desc.push({ text: learned ? Locale.KNOWN : Locale.NOT_KNOWN, color: learned ? GREY : nil }) }
+  if (recipe) { desc.push({ text: learned ? Locale::KNOWN : Locale::NOT_KNOWN, color: learned ? GREY : nil }) }
   if (id != nil && options.itemsId) { info.push({ text: `ID ${id}` }) }
   if (id != nil) {
-    let stack = Game.items.maxStack(id) ?? 1
-    let bags = Game.items.inBags(id)
-    let everywhere = Game.items.owned(id).max(bags)
+    let stack = Game::items.maxStack(id) ?? 1
+    let bags = Game::items.inBags(id)
+    let everywhere = Game::items.owned(id).max(bags)
     if (options.itemsCount && (stack > 1 || everywhere > 1)) {
-      if (bags > 0) { foot.push({ left: Locale.IN_BAGS, right: shown(bags), opens: named(Term.Own) }) }
+      if (bags > 0) { foot.push({ left: Locale::IN_BAGS, right: shown(bags), opens: named(Term::Own) }) }
       if (everywhere - bags > 0) {
-        foot.push({ left: Locale.IN_BANK, right: shown(everywhere - bags), opens: named(Term.Own) })
+        foot.push({ left: Locale::IN_BANK, right: shown(everywhere - bags), opens: named(Term::Own) })
       }
     }
     if (options.itemsStack && stack > 1) {
-      foot.push({ left: Locale.STACK, right: shown(stack), opens: named(Term.Stack) })
+      foot.push({ left: Locale::STACK, right: shown(stack), opens: named(Term::Stack) })
     }
   }
   if (setName != nil) {
     sides.push({
-      kind: Kind.Set, name: setName, nameColor: GOLD,
+      kind: Kind::Set, name: setName, nameColor: GOLD,
       desc: [], info: [], facts: [], body: setBody, more: [], foot: [], keys: []
     })
   }
   return {
     model: {
-      kind: Kind.Item, picture: iconOf(id != nil ? Game.items.icon(id) : nil), name: name, nameColor: nameColor,
+      kind: Kind::Item, picture: iconOf(id != nil ? Game::items.icon(id) : nil), name: name, nameColor: nameColor,
       desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
     },
     sides: sides, makes: makes, stats: stats
@@ -330,7 +330,7 @@ public function compare(
     for (key, value of worse) {
       if (better[key] == nil && key.match("^ITEM_MOD_") != nil) {
         body.push({
-          left: Game.items.statName(key) ?? key, right: "—", compared: { more: false, by: shown(value) }, color: GREY
+          left: Game::items.statName(key) ?? key, right: "—", compared: { more: false, by: shown(value) }, color: GREY
         })
       }
     }
@@ -349,20 +349,20 @@ function useSide(model: Model | nil): Model | nil {
   // The spell's own cells (its cost, range, cast, cooldown) stay its band; the rest (an armour kit's armour) are rows.
   let facts: Array<Fact> = []
   for (fact of model.facts) {
-    if (fact.cell.kind == BandKind.Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
+    if (fact.cell.kind == BandKind::Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
   }
   for (line of model.body) { body.push(line) }
-  return { header: Locale.USE_HEADER, picture: Picture.None, name: "", desc: [], info: [], facts: facts, body: body, ..model }
+  return { header: Locale::USE_HEADER, picture: Picture::None, name: "", desc: [], info: [], facts: facts, body: body, ..model }
 }
 
 // A band's cell as a row: what its glyph stands for, in the game's word, and its value.
 function factRow(cell: BandFact): TextLine {
   const glyph = cell.glyph
   const word = glyph == nil ? nil : match (glyph) {
-    .Arm => Runtime.text("ARMOR")
-    .Dmg => Runtime.text("DAMAGE")
-    .Spd => Runtime.text("SPEED")
-    .Blk => Runtime.text("BLOCK")
+    .Arm => Runtime::text("ARMOR")
+    .Dmg => Runtime::text("DAMAGE")
+    .Spd => Runtime::text("SPEED")
+    .Blk => Runtime::text("BLOCK")
     else => nil
   }
   if (word == nil) { return rowOf(cell.text) }

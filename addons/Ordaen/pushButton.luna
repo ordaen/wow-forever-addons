@@ -25,26 +25,26 @@ const PLATE: Columns = [RIM, { fr: 1 }, RIM]
 const GLYPH_PLATE: Columns = [{ fr: 1 }]
 // The gap between the rim, the key's segment and the label, at the spacing setting's measure.
 const GAP: Number<Spacing> = 1.25sp
-const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const GREY: Color = Color.hex("#808080")
+const LABEL: ByInteractionState<Color> = { default: Color::hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const GREY: Color = Color::hex("#808080")
 // The picture: inside the plate's carved line, as the label is.
 const ICON: Number<Length> = BUTTON_HEIGHT / 2
 const ICON_GAP: Number<Spacing> = 1.25sp
 const ICON_ROW: Columns = { each: "max-content" }
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 // The key's segment: at the plate's left end past its rim, a groove (a dark line) at its right; the label
 // stands in the plate's other column, past it, so the two can't meet at any spacing.
 const KEY_WIDTH = 53.90625dp
 const KEY_HEIGHT = BUTTON_HEIGHT * 3 / 4
 const KEYED_PLATE: Columns = [RIM, KEY_WIDTH, { fr: 1 }, RIM]
-const KEY_SHADE: Color = Color.hex("#00000038")
-const KEY_TEXT: Color = Color.hex("#c9a76a")
-const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000cc"), sides: [Side.Right] }
+const KEY_SHADE: Color = Color::hex("#00000038")
+const KEY_TEXT: Color = Color::hex("#c9a76a")
+const GROOVE: Line = { width: 1.171875dp, color: Color::hex("#000000cc"), sides: [Side::Right] }
 // The space bar's mark «⎵», drawn as its three strokes (no texture of it: general/art-needed).
 const SPACE_WIDTH = 18.75dp
 const SPACE_HEIGHT = 5.859375dp
-const SPACE_STROKES: Line = { width: 1.7578125dp, color: KEY_TEXT, sides: [Side.Left, Side.Bottom, Side.Right] }
+const SPACE_STROKES: Line = { width: 1.7578125dp, color: KEY_TEXT, sides: [Side::Left, Side::Bottom, Side::Right] }
 
 // The plate: bronze, or red for a button that matters or one that can't be undone.
 public enum ButtonPlate { Bronze, Accent, Danger }
@@ -71,9 +71,9 @@ public class PushButton implements Component {
   derived labelled: Boolean = self.label != ""
   derived iconed: Boolean = self.icon != nil
   derived iconTint: Color = self.disabled ? GREY : BRIGHT_TEXT
-  derived keyed: Boolean = self.key != ButtonKey.None
+  derived keyed: Boolean = self.key != ButtonKey::None
   derived keyName: String = self.nameOfKey()
-  derived spaceMarked: Boolean = self.key == ButtonKey.Space
+  derived spaceMarked: Boolean = self.key == ButtonKey::Space
   derived keyOpacity: Number = self.disabled ? 0.5 : 1
   derived glyphed: Boolean = self.glyph || self.iconed && !self.labelled
   derived columns: Columns = self.glyphed ? GLYPH_PLATE : self.keyed ? KEYED_PLATE : PLATE
@@ -93,7 +93,7 @@ public class PushButton implements Component {
   constructor(
     label: Signal<String>,
     width: Signal<Number<Length>>,
-    plate: Signal<ButtonPlate> = ButtonPlate.Bronze,
+    plate: Signal<ButtonPlate> = ButtonPlate::Bronze,
     disabled: Signal<Boolean> = false,
     action: Signal<Action | nil> = nil,
     // Held down, its click comes again until it is let go or disabled (a stepper's − and +).
@@ -103,7 +103,7 @@ public class PushButton implements Component {
     // A picture before the label, or alone where the label is `""`.
     icon: Signal<Art | nil> = nil,
     // The key that presses it, in its own segment at the plate's left end, cut off by a groove.
-    key: Signal<ButtonKey> = ButtonKey.None,
+    key: Signal<ButtonKey> = ButtonKey::None,
     // Its label one sign (a stepper's − and +): held at the width it was given, as a button with an icon alone is.
     glyph: Signal<Boolean> = false
   ) {
@@ -130,13 +130,13 @@ public class PushButton implements Component {
   }
 
   // The left button with any modifier: Shift and Ctrl make the step larger (`stride`).
-  onHeld(mut self, pointer: Event.Press) {
-    if (self.repeating && pointer.button == MouseButton.Left) { self.click.emit() }
+  onHeld(mut self, pointer: Event::Press) {
+    if (self.repeating && pointer.button == MouseButton::Left) { self.click.emit() }
   }
 
   nameOfKey(self): String {
     const key = self.key
-    return key is ButtonKey.Named ? key.name : ""
+    return key is ButtonKey::Named ? key.name : ""
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -144,18 +144,18 @@ public class PushButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size} height={BUTTON_HEIGHT} columns={self.columns} gap={GAP} xAlign={Align.Center}
-           yAlign={Align.Center}
+      <box width={self.size} height={BUTTON_HEIGHT} columns={self.columns} gap={GAP} xAlign={Align::Center}
+           yAlign={Align::Center}
            background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onEnterKey} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <box $if={self.rimmed} />
-        <box $if={self.keyed} width={KEY_WIDTH} height={KEY_HEIGHT} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align.Center}
-             yAlign={Align.Center}>
+        <box $if={self.keyed} width={KEY_WIDTH} height={KEY_HEIGHT} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align::Center}
+             yAlign={Align::Center}>
           <box $if={self.spaceMarked} width={SPACE_WIDTH} height={SPACE_HEIGHT} border={SPACE_STROKES} />
           <text $else value={self.keyName} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
-        <box $if={self.iconed} columns={ICON_ROW} gap={ICON_GAP} yAlign={Align.Center}>
+        <box $if={self.iconed} columns={ICON_ROW} gap={ICON_GAP} yAlign={Align::Center}>
           <box width={ICON} height={ICON} icon={self.icon} tint={self.iconTint} />
           <text $if={self.labelled} value={self.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
         </box>

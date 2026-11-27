@@ -15,14 +15,14 @@ import root Tracker from "OrdaenTracker"
 import { kindOfTag } from "@/kind"
 import { QuestSort } from "@/model"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const PAGE: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
-function quest(id: Integer, title: String, header: String): Test.LogQuest {
+function quest(id: Integer, title: String, header: String): Test::LogQuest {
   return { id: id, title: title, header: header, level: 14, objectives: [{ text: "Wolves slain: 5/10" }] }
 }
 
 // The player's log: two quests of the world, one of a dungeon.
-function standing(): mut Array<Test.LogQuest> {
+function standing(): mut Array<Test::LogQuest> {
   return [
     { story: "Gryan asks you to look into Westfall.", xp: 420, ..quest(101, "The Defias Brotherhood", "Westfall") },
     { tag: 81, ..quest(102, "Red Silk Bandanas", "The Deadmines") },
@@ -31,8 +31,8 @@ function standing(): mut Array<Test.LogQuest> {
 }
 
 // The module with this log, its window open; QuestieDB knows the first quest, given and taken back by Gryan.
-function opened(log: Array<Test.LogQuest>) {
-  Test.questieDB(
+function opened(log: Array<Test::LogQuest>) {
+  Test::questieDB(
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
         nextQuestInChain: 166, reputationReward: [[72, 250], [470, -25]] },
@@ -48,231 +48,231 @@ function opened(log: Array<Test.LogQuest>) {
     },
     {}
   )
-  Test.factions({ [72]: "Stormwind", [470]: "Ratchet" })
-  Test.questLog(log)
-  Test.mount(nil, PAGE)
+  Test::factions({ [72]: "Stormwind", [470]: "Ratchet" })
+  Test::questLog(log)
+  Test::mount(nil, PAGE)
   Quests.flip()
   Quests.refresh()
-  Test.flush()
-  _ = Test.talked()
+  Test::flush()
+  _ = Test::talked()
 }
 
 test "a quest's tab is the client's tag: dungeon, raid, battleground, else the world" {
-  Test.expect(kindOfTag(81) == .Dungeon)
-  Test.expect(kindOfTag(85) == .Dungeon)
-  Test.expect(kindOfTag(62) == .Raid)
-  Test.expect(kindOfTag(88) == .Raid)
-  Test.expect(kindOfTag(89) == .Raid)
-  Test.expect(kindOfTag(41) == .PvP)
-  Test.expect(kindOfTag(1) == .World)
-  Test.expect(kindOfTag(nil) == .World)
+  Test::expect(kindOfTag(81) == .Dungeon)
+  Test::expect(kindOfTag(85) == .Dungeon)
+  Test::expect(kindOfTag(62) == .Raid)
+  Test::expect(kindOfTag(88) == .Raid)
+  Test::expect(kindOfTag(89) == .Raid)
+  Test::expect(kindOfTag(41) == .PvP)
+  Test::expect(kindOfTag(1) == .World)
+  Test::expect(kindOfTag(nil) == .World)
 }
 
 test "the game's quest log key opens the window, and again closes it" {
-  Test.mount(nil, PAGE)
-  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
-  Events.UPDATE_BINDINGS.emit()
-  Test.flush()
-  Test.keyBound("L")
-  Test.expect(Test.page().window("World").shown())
-  Test.keyBound("L")
-  Test.expect(!Test.page().window("World").shown())
+  Test::mount(nil, PAGE)
+  _ = Client::SetBinding("L", "TOGGLEQUESTLOG")
+  Events::UPDATE_BINDINGS.emit()
+  Test::flush()
+  Test::keyBound("L")
+  Test::expect(Test::page().window("World").shown())
+  Test::keyBound("L")
+  Test::expect(!Test::page().window("World").shown())
 }
 
 test "the key stays the window's when Blizzard's map opens its own quest panel (the client's questLogOpen)" {
-  Test.mount(nil, PAGE)
-  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
-  Events.UPDATE_BINDINGS.emit()
-  Test.flush()
-  _ = Client.C_CVar.SetCVar("questLogOpen", "1")
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
-  Client.WorldMapFrame.Hide()
-  Test.flush()
-  Test.keyBound("L")
-  Test.expect(Test.page().window("World").shown() && !Client.WorldMapFrame.IsShown())
+  Test::mount(nil, PAGE)
+  _ = Client::SetBinding("L", "TOGGLEQUESTLOG")
+  Events::UPDATE_BINDINGS.emit()
+  Test::flush()
+  _ = Client::C_CVar::SetCVar("questLogOpen", "1")
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
+  Client::WorldMapFrame.Hide()
+  Test::flush()
+  Test::keyBound("L")
+  Test::expect(Test::page().window("World").shown() && !Client::WorldMapFrame.IsShown())
 }
 
 test "the quest whose page was open opens again after a /reload, the character's; one gone from the log, the list" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.flush()
-  Test.expect(Quests.picked == 101)
-  Test.reload()
-  Test.questLog(standing())
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  Test::flush()
+  Test::expect(Quests.picked == 101)
+  Test::reload()
+  Test::questLog(standing())
   Quests.refresh()
-  Test.flush()
-  Test.expect(Quests.picked == 101)
+  Test::flush()
+  Test::expect(Quests.picked == 101)
   // Turned in meanwhile: no page to open, the list.
-  Test.questLog(standing().filter(one => one.id != 101))
+  Test::questLog(standing().filter(one => one.id != 101))
   Quests.refresh()
-  Test.flush()
-  Test.expect(Quests.picked == 0)
+  Test::flush()
+  Test::expect(Quests.picked == 0)
 }
 
 test "another module opens a quest of the log at its page, and one not in it in the chain's window" {
   opened(standing())
   Quests.flip()
-  Test.flush()
-  Test.expect(Quests.openAt(101))
-  Test.flush()
-  Test.expect(Test.page().window("World").shown() && Quests.picked == 101)
-  Test.expect(Quests.openAt(166))
-  Test.flush()
-  Test.expect(Quests.chained == 166 && Test.page().window("Level 16, available from level 12").shown())
-  Test.expect(!Quests.openAt(99999))
+  Test::flush()
+  Test::expect(Quests.openAt(101))
+  Test::flush()
+  Test::expect(Test::page().window("World").shown() && Quests.picked == 101)
+  Test::expect(Quests.openAt(166))
+  Test::flush()
+  Test::expect(Quests.chained == 166 && Test::page().window("Level 16, available from level 12").shown())
+  Test::expect(!Quests.openAt(99999))
 }
 
 test "switched off, the key is the game's again" {
-  Test.mount(nil, PAGE)
-  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
+  Test::mount(nil, PAGE)
+  _ = Client::SetBinding("L", "TOGGLEQUESTLOG")
   Quests.settings.values.ownKey = false
-  Test.flush()
-  Test.keyBound("L")
-  Test.expect(!Test.page().window("World").shown())
-  Test.expect(Client.GetBindingAction("L", true) == "TOGGLEQUESTLOG")
+  Test::flush()
+  Test::keyBound("L")
+  Test::expect(!Test::page().window("World").shown())
+  Test::expect(Client::GetBindingAction("L", true) == "TOGGLEQUESTLOG")
 }
 
 test "the micro menu's quest log button opens the window, and has the game's click back as the module ends" {
-  Test.mount(nil, PAGE)
-  const button = Client.CreateFrame("Button", "QuestLogMicroButton", Client.UIParent, nil)
+  Test::mount(nil, PAGE)
+  const button = Client::CreateFrame("Button", "QuestLogMicroButton", Client::UIParent, nil)
   button.SetSize(30, 40)
   // Where the game's micro menu stands, clear of the window it opens.
-  button.SetPoint("BOTTOMRIGHT", Client.UIParent, "BOTTOMRIGHT", -160, 4)
+  button.SetPoint("BOTTOMRIGHT", Client::UIParent, "BOTTOMRIGHT", -160, 4)
   let gameClicks = 0
   button.SetScript("OnClick", (): nil => {
     gameClicks += 1
     return nil
   })
-  Game.frames.QuestLogMicroButton = button
-  Test.flush()
-  Test.click(Test.centre(button), nil)
-  Test.expect(Test.page().window("World").shown())
-  Test.expect(gameClicks == 0)
+  Game::frames.QuestLogMicroButton = button
+  Test::flush()
+  Test::click(Test::centre(button), nil)
+  Test::expect(Test::page().window("World").shown())
+  Test::expect(gameClicks == 0)
   Quests.settings.values.ownKey = false
-  Test.flush()
-  Test.click(Test.centre(button), nil)
-  Test.expect(gameClicks == 1)
+  Test::flush()
+  Test::click(Test::centre(button), nil)
+  Test::expect(gameClicks == 1)
 }
 
 test "each tab lists its own quests and counts them, the player's zone first" {
   opened(standing())
-  const window = Test.page().window("World")
-  Test.expect(window.text("Elwynn Wolves").shown())
-  Test.expect(window.text("The Defias Brotherhood").shown())
-  Test.expect(!window.text("Red Silk Bandanas").shown())
-  Test.expect(window.text("you are here").shown())
+  const window = Test::page().window("World")
+  Test::expect(window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("The Defias Brotherhood").shown())
+  Test::expect(!window.text("Red Silk Bandanas").shown())
+  Test::expect(window.text("you are here").shown())
   const texts = window.texts()
-  Test.expect(texts.find(text => text == "Elwynn Forest") != nil)
+  Test::expect(texts.find(text => text == "Elwynn Forest") != nil)
   window.text("Dungeons").click()
-  Test.expect(window.text("Red Silk Bandanas").shown())
-  Test.expect(!window.text("Elwynn Wolves").shown())
-  Test.expect(window.text("3/25").shown())
+  Test::expect(window.text("Red Silk Bandanas").shown())
+  Test::expect(!window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("3/25").shown())
 }
 
 test "a header folds its quests away and back" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Westfall").click()
-  Test.expect(!window.text("The Defias Brotherhood").shown())
+  Test::expect(!window.text("The Defias Brotherhood").shown())
   window.text("Westfall").click()
-  Test.expect(window.text("The Defias Brotherhood").shown())
+  Test::expect(window.text("The Defias Brotherhood").shown())
 }
 
 test "the toolbar's choices and the folded headers are there after a /reload; the search isn't" {
   opened(standing())
-  Test.page().window("World").text("Westfall").click()
-  Test.expect(Quests.folds.values.headers["Westfall"] == true)
-  Quests.list.values.sort = QuestSort.Title
+  Test::page().window("World").text("Westfall").click()
+  Test::expect(Quests.folds.values.headers["Westfall"] == true)
+  Quests.list.values.sort = QuestSort::Title
   Quests.search = "wolves"
-  Test.reload()
+  Test::reload()
   // The stand-in's log starts anew with the load; the player's is the same.
-  Test.questLog(standing())
+  Test::questLog(standing())
   Quests.flip()
   Quests.refresh()
-  Test.flush()
-  Test.expect(Quests.list.values.sort == QuestSort.Title && Quests.search == "")
-  Test.expect(Quests.folds.values.headers["Westfall"] == true)
-  const window = Test.page().window("World")
-  Test.expect(window.text("Westfall").shown())
-  Test.expect(!window.text("The Defias Brotherhood").shown())
-  Test.expect(window.text("Elwynn Wolves").shown())
+  Test::flush()
+  Test::expect(Quests.list.values.sort == QuestSort::Title && Quests.search == "")
+  Test::expect(Quests.folds.values.headers["Westfall"] == true)
+  const window = Test::page().window("World")
+  Test::expect(window.text("Westfall").shown())
+  Test::expect(!window.text("The Defias Brotherhood").shown())
+  Test::expect(window.text("Elwynn Wolves").shown())
 }
 
 test "Shift+Left-click on a quest tracks it" {
   opened(standing())
-  Test.hold([.Shift])
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.hold([])
-  Test.expect(Test.talked().join(",") == "watch 103")
+  Test::hold([.Shift])
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::hold([])
+  Test::expect(Test::talked().join(",") == "watch 103")
 }
 
 test "a quest picked shows its page and the next quest of its chain; who gives and completes it is the map's" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  const window = Test.page().window("World")
-  Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
-  Test.expect(window.text("420").shown())
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  const window = Test::page().window("World")
+  Test::expect(window.text("Gryan asks you to look into Westfall.").shown())
+  Test::expect(window.text("420").shown())
   // The reputations it changes, QuestieDB's (the client says none), a row each: the faction, then the amount.
-  Test.expect(window.text("Stormwind").rect().right < window.text("+250 Rep.").rect().left)
-  Test.expect(window.text("Ratchet").shown() && window.text("-25 Rep.").shown())
+  Test::expect(window.text("Stormwind").rect().right < window.text("+250 Rep.").rect().left)
+  Test::expect(window.text("Ratchet").shown() && window.text("-25 Rep.").shown())
   // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
-  Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#ffd100")))
-  Test.expect(next.rect().top > window.text("Objectives").rect().bottom)
+  Test::expect(window.text("Next quest").shown() && next.textColor().equal(Color::hex("#ffd100")))
+  Test::expect(next.rect().top > window.text("Objectives").rect().bottom)
   // The giver and the turn-in aren't named on the page.
-  Test.expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
+  Test::expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
 }
 
 test "the tracking switch stands at the page's right edge, over «Show on map»'s" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  const window = Test.page().window("World")
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  const window = Test::page().window("World")
   const face = window.box(Ordaen.art.ctl.switchOff).rect()
-  Test.expect((face.right - window.button("Show on map").rect().right).abs() < 1)
+  Test::expect((face.right - window.button("Show on map").rect().right).abs() < 1)
 }
 
 test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
   const log = standing()
   log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  Test.page().window("World").text("Elwynn Wolves").click()
-  const window = Test.page().window("World")
-  Test.expect(window.text("You will be able to choose").shown() && window.text("You will also receive").shown())
-  Test.expect(window.text("3").shown())
+  Test::page().window("World").text("Elwynn Wolves").click()
+  const window = Test::page().window("World")
+  Test::expect(window.text("You will be able to choose").shown() && window.text("You will also receive").shown())
+  Test::expect(window.text("3").shown())
   // Under the scroll: below the quest's objectives, above its buttons.
-  Test.expect(window.text("You will be able to choose").rect().top > window.text("Objectives").rect().bottom)
-  Test.expect(window.text("You will also receive").rect().bottom < window.button("Abandon").rect().top)
+  Test::expect(window.text("You will be able to choose").rect().top > window.text("Objectives").rect().bottom)
+  Test::expect(window.text("You will also receive").rect().bottom < window.button("Abandon").rect().top)
 }
 
 test "many rewards give way to the parchment, which keeps its least height" {
   const log = standing()
-  let choices: Array<Test.LogReward> = []
+  let choices: Array<Test::LogReward> = []
   for (index of 1..6) { choices.push({ item: 1001 + index % 3, count: index }) }
   log[3] = { rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   const paper = window.text("You will be able to choose").rect().top - window.text("Elwynn Wolves").nth(2).rect().top
   // Without its least height the rewards squeeze the parchment to a line or two (38 here).
-  Test.expect(paper > 100)
-  Test.expect(window.button("Abandon").rect().bottom <= window.rect().bottom)
+  Test::expect(paper > 100)
+  Test::expect(window.button("Abandon").rect().bottom <= window.rect().bottom)
 }
 
 test "past three rewards to choose they stand in two columns, each name whole, the side growing for them" {
   const log = standing()
   log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }, { item: 1004 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   // The slots two by two: the first and second side by side, the third under the first.
   const slots = window.box(Ordaen.art.ctl.qualityRim)
-  Test.expect(slots.count() == 4)
+  Test::expect(slots.count() == 4)
   const first = slots.nth(1).rect()
   const second = slots.nth(2).rect()
   const third = slots.nth(3).rect()
-  Test.expect((first.top - second.top).abs() < 0.5 && second.left > first.right)
-  Test.expect((first.left - third.left).abs() < 0.5 && third.top > first.bottom)
+  Test::expect((first.top - second.top).abs() < 0.5 && second.left > first.right)
+  Test::expect((first.left - third.left).abs() < 0.5 && third.top > first.bottom)
 }
 
 test "a quest whose words would overflow its scroll stands the scroll beside the rest, down to the footer band" {
@@ -285,102 +285,102 @@ test "a quest whose words would overflow its scroll stands the scroll beside the
     ..quest(103, "Elwynn Wolves", "Elwynn Forest")
   }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   const top = window.box(SHEET_ART.topRight).rect()
   const bottom = window.box(SHEET_ART.bottomLeft).rect()
   const progress = window.text("Progress").rect()
   const band = pageBand(window)
-  Test.expect(progress.left > top.right && progress.top < bottom.top)
-  Test.expect(bottom.bottom <= band.top && band.top - bottom.bottom < 40)
+  Test::expect(progress.left > top.right && progress.top < bottom.top)
+  Test::expect(bottom.bottom <= band.top && band.top - bottom.bottom < 40)
   // The tracking switch at the page's foot, over the band, however little stands above it.
-  Test.expect(band.top - window.text("Track").rect().bottom < 40)
+  Test::expect(band.top - window.text("Track").rect().bottom < 40)
 }
 
 test "three rewards to choose stand in one column" {
   const log = standing()
   log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   const slots = window.box(Ordaen.art.ctl.qualityRim)
-  Test.expect((slots.nth(1).rect().left - slots.nth(2).rect().left).abs() < 0.5)
+  Test::expect((slots.nth(1).rect().left - slots.nth(2).rect().left).abs() < 0.5)
 }
 
 test "the parchment marks who gives the quest where its words name him, and his tip says who he is and where" {
   const log = standing()
   log[1] = { task: "Report to Gryan Stoutmantle's camp at Sentinel Hill.", ..log[1] ?? panic("a quest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
   const marked = "Report to |Hordaen:npc:234|h|cff7a2200Gryan Stoutmantle's|r|h camp at Sentinel Hill."
   window.text(marked).hoverLink("ordaen:npc:234")
-  Test.expect(Test.page().text("Gives the quest\nTakes the quest back\nWestfall · 1 places").shown())
+  Test::expect(Test::page().text("Gives the quest\nTakes the quest back\nWestfall · 1 places").shown())
 }
 
 test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  const window = Test.page().window("World")
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  const window = Test::page().window("World")
   // The list's row, then the page's.
   const title = window.text("The Defias Brotherhood").nth(2)
-  Test.expect(title.shown() && title.rect().bottom - title.rect().top < 40)
-  Test.expect(!window.text("[14] The Defias Brotherhood").shown())
+  Test::expect(title.shown() && title.rect().bottom - title.rect().top < 40)
+  Test::expect(!window.text("[14] The Defias Brotherhood").shown())
 }
 
 test "a quest's scroll fills its page's height: its corners at its top and its foot, its edges repeated between them" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  const window = Test.page().window("World")
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  const window = Test::page().window("World")
   const top = window.box(SHEET_ART.topLeft).rect()
   const paper = window.box(SHEET_ART.left).rect()
   const bottom = window.box(SHEET_ART.bottomLeft).rect()
   // The left edge runs from the top corner to the bottom one.
-  Test.expect((paper.top - top.bottom).abs() < 0.5 && (paper.bottom - bottom.top).abs() < 0.5)
+  Test::expect((paper.top - top.bottom).abs() < 0.5 && (paper.bottom - bottom.top).abs() < 0.5)
   // The title on the paper, under the top edge, and clear of the paper's torn sides by a margin.
   const title = window.text("The Defias Brotherhood").nth(2).rect()
   const across = window.box(SHEET_ART.topRight).rect().right - top.left
-  Test.expect(title.top >= top.bottom - 10 && (title.left - top.left) / across > 0.05)
+  Test::expect(title.top >= top.bottom - 10 && (title.left - top.left) / across > 0.05)
   // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
   // under its foot (its progress' cut), and a quest of three lines (with no next quest under it, whose room it takes
   // too) has a scroll at least as tall, its foot well past its words.
   const under = window.text("Progress").rect()
-  Test.expect(under.top >= bottom.bottom && under.top - bottom.bottom < 40)
+  Test::expect(under.top >= bottom.bottom && under.top - bottom.bottom < 40)
   window.text("Elwynn Wolves").click()
   const short = window.box(SHEET_ART.bottomLeft).rect()
-  Test.expect(short.bottom >= bottom.bottom - 0.5)
+  Test::expect(short.bottom >= bottom.bottom - 0.5)
   // Its words: the title, the heading, one objective under it.
-  Test.expect(short.top > window.text("Objectives").rect().bottom + 30)
+  Test::expect(short.top > window.text("Objectives").rect().bottom + 30)
 }
 
 test "a quest under the cursor has its tooltip" {
   const log = standing()
   log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? panic("a quest") }
   opened(log)
-  const row = Test.page().window("World").text("The Defias Brotherhood")
+  const row = Test::page().window("World").text("The Defias Brotherhood")
   row.hover()
   // As the game's log's: its task, then what the clicks do.
-  Test.expect(Test.page().text("Find Gryan in Sentinel Hill.").shown())
-  Test.expect(Test.page().text("Left-click: open the quest").shown() && Test.page().text("Right-click: more").shown())
+  Test::expect(Test::page().text("Find Gryan in Sentinel Hill.").shown())
+  Test::expect(Test::page().text("Left-click: open the quest").shown() && Test::page().text("Right-click: more").shown())
 }
 
 test "docked, the map open, the log stands over the map's side panel; a quest picked there shows its page and the way back" {
   opened(standing())
   Quests.flip()
-  Test.flush()
+  Test::flush()
   // Docked by Map's switch.
   Maps?.dock(true)
-  Test.flush()
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
-  Test.expect(Test.page().text("Red Silk Bandanas").shown() || Test.page().text("The Defias Brotherhood").shown())
-  Test.page().text("The Defias Brotherhood").click()
-  Test.expect(Test.page().text("Back to the list").shown())
-  Test.page().text("Back to the list").click()
-  Test.expect(!Test.page().text("Back to the list").shown())
-  Client.WorldMapFrame.Hide()
-  Test.flush()
-  Test.expect(!Test.page().text("The Defias Brotherhood").shown())
+  Test::flush()
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
+  Test::expect(Test::page().text("Red Silk Bandanas").shown() || Test::page().text("The Defias Brotherhood").shown())
+  Test::page().text("The Defias Brotherhood").click()
+  Test::expect(Test::page().text("Back to the list").shown())
+  Test::page().text("Back to the list").click()
+  Test::expect(!Test::page().text("Back to the list").shown())
+  Client::WorldMapFrame.Hide()
+  Test::flush()
+  Test::expect(!Test::page().text("The Defias Brotherhood").shown())
 }
 
 test "in the tracker a quest to do says where, and its title opens its page in the window" {
@@ -389,63 +389,63 @@ test "in the tracker a quest to do says where, and its title opens its page in t
   log[1] = { watched: true, story: "Gryan asks you to look into Westfall.", ..quest(101, "The Defias Brotherhood", "Elwynn Forest") }
   opened(log)
   Quests.flip()
-  Test.flush()
+  Test::flush()
   const tracker = Tracker ?? panic("Ordaen Tracker")
   tracker.refresh()
-  Test.flush()
+  Test::flush()
   // QuestieDB places its giver alone: as a target it knows none, so the line is the turn-in's once done.
-  Test.expect(Test.page().text("The Defias Brotherhood").shown())
-  Test.page().text("The Defias Brotherhood").click()
-  Test.flush()
-  Test.expect(Quests.open && Quests.picked == 101)
+  Test::expect(Test::page().text("The Defias Brotherhood").shown())
+  Test::page().text("The Defias Brotherhood").click()
+  Test::flush()
+  Test::expect(Quests.open && Quests.picked == 101)
 }
 
 test "a quest's page draws no figure, as Dialogue's quest page, even where the client names its giver" {
   const log = standing()
   log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const drawn = Test.calls(() => {
-    Test.page().window("World").text("Elwynn Wolves").click()
-    Test.flush()
+  const drawn = Test::calls(() => {
+    Test::page().window("World").text("Elwynn Wolves").click()
+    Test::flush()
     return nil
   })
-  Test.expect(!drawn.contains("SetDisplayInfo"))
+  Test::expect(!drawn.contains("SetDisplayInfo"))
 }
 
 test "the list's rows have no tracking box: a quest is tracked by the page's switch" {
   opened(standing())
-  const window = Test.page().window("World")
-  Test.expect(!window.box(Ordaen.art.ctl.check).shown())
+  const window = Test::page().window("World")
+  Test::expect(!window.box(Ordaen.art.ctl.check).shown())
   window.text("Elwynn Wolves").click()
-  _ = Test.talked()
+  _ = Test::talked()
   window.text("Track").click()
-  Test.expect(Test.talked().join(",") == "watch 103")
+  Test::expect(Test::talked().join(",") == "watch 103")
 }
 
 test "Abandon is the page's accent button and stands outermost left, the others at the right" {
   const log = standing()
   log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
-  Test.grouped(true)
+  Test::grouped(true)
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
   const abandon = window.button("Abandon").rect()
   const share = window.button("Share").rect()
   const map = window.button("Show on map").rect()
-  Test.expect(share.left > abandon.right + 50 && abandon.top == share.top && map.left > share.right)
-  Test.expect(window.button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(share.left > abandon.right + 50 && abandon.top == share.top && map.left > share.right)
+  Test::expect(window.button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
 }
 
 test "the page's buttons stand in the window's footer band, across the side from its line to its edge" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
   const band = pageBand(window)
   const abandon = window.button("Abandon").rect()
   const track = window.text("Track").rect()
-  Test.expect(abandon.top > band.top && abandon.bottom < band.bottom && band.top > track.bottom)
-  Test.expect(band.right > abandon.right && band.left < window.button("Show on map").rect().left)
+  Test::expect(abandon.top > band.top && abandon.bottom < band.bottom && band.top > track.bottom)
+  Test::expect(band.right > abandon.right && band.left < window.button("Show on map").rect().left)
 }
 
 const WOLVES = "Gray forest wolves slain in the hills east of Goldshire, along the river and in the woods past the old mill"
@@ -454,166 +454,166 @@ test "a long objective wraps on the page, its count standing at the right of the
   const log = standing()
   log[3] = { objectives: [{ text: `${WOLVES}: 0/50` }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   const what = window.text(WOLVES)
   const count = window.text("0/50")
-  Test.expect(what.count() == 2 && count.count() == 2)
+  Test::expect(what.count() == 2 && count.count() == 2)
   // The list's line and the page's: both wrap (taller than the count's one line), the count after the words.
   for (n of 1..2) {
     const words = what.nth(n).rect()
     const line = count.nth(n).rect()
-    Test.expect(words.bottom - words.top > (line.bottom - line.top) * 1.5 && line.left > words.right)
+    Test::expect(words.bottom - words.top > (line.bottom - line.top) * 1.5 && line.left > words.right)
   }
 }
 
 test "the window opened as the player opens it lists the log's quests, Map on and OpenMap's art not built yet" {
-  Test.questLog(standing())
-  Test.mount(nil, PAGE)
-  Test.flush()
+  Test::questLog(standing())
+  Test::mount(nil, PAGE)
+  Test::flush()
   Quests.flip()
-  Test.flush()
-  Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
+  Test::flush()
+  Test::expect(Test::page().window("World").text("The Defias Brotherhood").shown())
 }
 
 test "a reputation gained has the player's Diplomat in it, 2% a rank; one lost doesn't" {
-  Test.legacyTalents([{ node: 110314, spell: 1225485, rank: 3, ranks: 5 }])
+  Test::legacyTalents([{ node: 110314, spell: 1225485, rank: 3, ranks: 5 }])
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  const window = Test.page().window("World")
-  Test.expect(window.text("+265 Rep.").shown() && window.text("-25 Rep.").shown())
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  const window = Test::page().window("World")
+  Test::expect(window.text("+265 Rep.").shown() && window.text("-25 Rep.").shown())
 }
 
 test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").text("The Defias Brotherhood, part two").click()
-  Test.flush()
-  const chain = Test.page().window("Level 16, available from level 12")
-  Test.expect(chain.text("The Defias Brotherhood, part two").shown())
-  Test.expect(chain.text("Take the note to the Scout. Then report back.").shown())
-  Test.shot("the next quest of a chain in its window")
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  Test::page().window("World").text("The Defias Brotherhood, part two").click()
+  Test::flush()
+  const chain = Test::page().window("Level 16, available from level 12")
+  Test::expect(chain.text("The Defias Brotherhood, part two").shown())
+  Test::expect(chain.text("Take the note to the Scout. Then report back.").shown())
+  Test::shot("the next quest of a chain in its window")
   chain.text("The Defias Brotherhood, part three").click()
-  Test.flush()
-  Test.expect(Test.page().window("Level 18, available from level 14").shown() && Quests.chained == 167)
+  Test::flush()
+  Test::expect(Test::page().window("Level 18, available from level 14").shown() && Quests.chained == 167)
   // The last of the chain QuestieDB knows: no line under it.
-  Test.expect(!Test.page().window("Level 18, available from level 14").text("Next quest").shown())
-  Test.key(Key.Escape)
-  Test.flush()
-  Test.expect(Quests.chained == 0 && Test.page().window("World").shown())
+  Test::expect(!Test::page().window("Level 18, available from level 14").text("Next quest").shown())
+  Test::key(Key::Escape)
+  Test::flush()
+  Test::expect(Quests.chained == 0 && Test::page().window("World").shown())
 }
 
 test "«Show on map» in the chain's window opens the map where its quest is given, the log's pins hidden" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").text("The Defias Brotherhood, part two").click()
-  Test.flush()
-  Test.page().window("Level 16, available from level 12").button("Show on map").click()
-  Test.flush()
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  Test::page().window("World").text("The Defias Brotherhood, part two").click()
+  Test::flush()
+  Test::page().window("Level 16, available from level 12").button("Show on map").click()
+  Test::flush()
   // Scout Riell stands in Elwynn Forest (area 12), on its map.
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1429 && Quests.shownOnMap == 166)
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1429 && Quests.shownOnMap == 166)
 }
 
 test "a quest QuestieDB knows no next quest of has no line under its parchment" {
   opened(standing())
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.expect(!Test.page().window("World").text("Next quest").shown())
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::expect(!Test::page().window("World").text("Next quest").shown())
 }
 
 test "the question to abandon a quest names the items abandoning it destroys" {
   const log = standing()
   log[3] = { abandonItems: [2041], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.page().window("World").button("Abandon").click()
-  Test.expect(Test.page().text("Items from this quest that will be destroyed: item 2041").shown())
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::page().window("World").button("Abandon").click()
+  Test::expect(Test::page().text("Items from this quest that will be destroyed: item 2041").shown())
 }
 
 test "abandoning asks first, and only «Abandon quest» in the question abandons" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").button("Abandon").click()
-  Test.expect(Test.talked().length == 0)
-  const asked = Test.page().window("Abandon «The Defias Brotherhood»?")
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  Test::page().window("World").button("Abandon").click()
+  Test::expect(Test::talked().length == 0)
+  const asked = Test::page().window("Abandon «The Defias Brotherhood»?")
   asked.button("Cancel").click()
-  Test.expect(Test.talked().length == 0)
-  Test.page().window("World").button("Abandon").click()
-  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon").click()
-  Test.expect(Test.talked().join(",") == "abandon 101")
+  Test::expect(Test::talked().length == 0)
+  Test::page().window("World").button("Abandon").click()
+  Test::page().window("Abandon «The Defias Brotherhood»?").button("Abandon").click()
+  Test::expect(Test::talked().join(",") == "abandon 101")
   // The client's log no longer has it, and the window follows.
-  Test.flush()
-  Test.expect(!Test.page().window("World").text("The Defias Brotherhood").shown())
+  Test::flush()
+  Test::expect(!Test::page().window("World").text("The Defias Brotherhood").shown())
 }
 
 test "«Show on map» opens the map where the quest leads, its pins shown until the map hides; unknown to QuestieDB, the map" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
   window.button("Show on map").click()
-  Test.flush()
+  Test::flush()
   // QuestieDB knows no objective of it: its zone, Westfall (area 40), on Westfall's map.
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Quests.shownOnMap == 101)
-  Client.WorldMapFrame.Hide()
-  Test.flush()
-  Test.expect(Quests.shownOnMap == 0)
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1436 && Quests.shownOnMap == 101)
+  Client::WorldMapFrame.Hide()
+  Test::flush()
+  Test::expect(Quests.shownOnMap == 0)
   window.text("Elwynn Wolves").click()
   window.button("Show on map").click()
-  Test.flush()
-  Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
+  Test::flush()
+  Test::expect(Client::WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
 }
 
 test "in a fight «Show on map» is greyed, opens nothing, and its tip says the map can't be opened in combat" {
   opened(standing())
   // The player keeps the log shown in a fight.
   Quests.window.memory.write({ hideDuring: [], ..Quests.window.memory.values })
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
-  Test.combat(true)
-  Test.flush()
+  Test::combat(true)
+  Test::flush()
   window.button("Show on map").click()
-  Test.flush()
-  Test.expect(!Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
+  Test::flush()
+  Test::expect(!Client::WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
   window.button("Show on map").hover()
-  Test.expect(Test.page().text("The map can't be opened in combat.").shown())
-  Test.combat(false)
-  Test.flush()
+  Test::expect(Test::page().text("The map can't be opened in combat.").shown())
+  Test::combat(false)
+  Test::flush()
   window.button("Show on map").click()
-  Test.flush()
-  Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 101)
+  Test::flush()
+  Test::expect(Client::WorldMapFrame.IsShown() && Quests.shownOnMap == 101)
 }
 
 test "Share shows only while the quest can be shared: alone, or a quest the client keeps, there is none" {
   const log = standing()
   log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
-  Test.expect(!window.button("Share").shown())
-  Test.grouped(true)
-  Test.flush()
-  Test.expect(window.button("Share").shown())
+  Test::expect(!window.button("Share").shown())
+  Test::grouped(true)
+  Test::flush()
+  Test::expect(window.button("Share").shown())
   window.button("Share").click()
-  Test.expect(Test.talked().join(", ").contains("share 101"))
+  Test::expect(Test::talked().join(", ").contains("share 101"))
 }
 
 test "Right-click on a quest opens its menu, and «Track» there tracks it" {
   opened(standing())
-  Test.page().window("World").text("Elwynn Wolves").rightClick()
-  Test.page().window("Abandon").button("Track").click()
-  Test.expect(Test.talked().join(",") == "watch 103")
+  Test::page().window("World").text("Elwynn Wolves").rightClick()
+  Test::page().window("Abandon").button("Track").click()
+  Test::expect(Test::talked().join(",") == "watch 103")
 }
 
 test "its layers stand on Ordaen Map's settings page while Map is on" {
-  Test.mount(nil, PAGE)
-  Test.open("Ordaen")
-  Test.page().window("Ordaen").text("Map").click()
-  Test.expect(!Test.page().text("Quest objectives").shown())
-  Test.expect(Test.page().text("Turn in").shown())
+  Test::mount(nil, PAGE)
+  Test::open("Ordaen")
+  Test::page().window("Ordaen").text("Map").click()
+  Test::expect(!Test::page().text("Quest objectives").shown())
+  Test::expect(Test::page().text("Turn in").shown())
 }
 
 // The quests of the world's tab, in the order their titles stand in the window.
 function before(first: String, second: String): Boolean {
-  const texts = Test.page().window("World").texts()
+  const texts = Test::page().window("World").texts()
   let at = 0
   let then = 0
   for (index, text of texts) {
@@ -624,9 +624,9 @@ function before(first: String, second: String): Boolean {
 }
 
 // The window's filter menu, opened from its funnel.
-function filter(): Test.Part {
-  if (!Test.page().window("Tracked only").shown()) { Test.page().window("World").button(Ordaen.art.ctl.tool.filter).click() }
-  return Test.page().window("Tracked only")
+function filter(): Test::Part {
+  if (!Test::page().window("Tracked only").shown()) { Test::page().window("World").button(Ordaen.art.ctl.tool.filter).click() }
+  return Test::page().window("Tracked only")
 }
 
 test "a quest's objectives still to do stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
@@ -637,154 +637,154 @@ test "a quest's objectives still to do stand under its title, one a line; its ro
   }
   log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
-  Test.expect(window.text("Wolves slain").shown() && window.text("5/10").shown() && window.text("Fangs").shown())
-  Test.expect(!window.text("Pelts").shown())
-  Test.expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Fangs"))
-  Test.expect(window.text("Complete").count() == 1)
-  Test.shot("the world's tab: a quest's objectives left to do under its title; the count in the footer")
+  const window = Test::page().window("World")
+  Test::expect(window.text("Wolves slain").shown() && window.text("5/10").shown() && window.text("Fangs").shown())
+  Test::expect(!window.text("Pelts").shown())
+  Test::expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Fangs"))
+  Test::expect(window.text("Complete").count() == 1)
+  Test::shot("the world's tab: a quest's objectives left to do under its title; the count in the footer")
 }
 
 test "the select beside the search shows the quests in progress, the completed ones, or all" {
   const log = standing()
   log[3] = { complete: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   // A select: only the picked choice shows until it is opened.
-  Test.expect(window.text("All").shown() && !window.text("Completed").shown())
+  Test::expect(window.text("All").shown() && !window.text("Completed").shown())
   window.text("All").click()
-  Test.page().text("Completed").click()
-  Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
+  Test::page().text("Completed").click()
+  Test::expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
   window.text("Completed").click()
-  Test.page().text("In progress").click()
-  Test.expect(!window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
+  Test::page().text("In progress").click()
+  Test::expect(!window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
 }
 
 test "the search field takes the toolbar's width but its tools, as the professions window's" {
   opened(standing())
-  const field = Test.page().window("World").input().rect()
-  Test.expect(field.right - field.left > 200)
+  const field = Test::page().window("World").input().rect()
+  Test::expect(field.right - field.left > 200)
 }
 
 test "the search finds a quest by its title or an objective" {
   const log = standing()
   log[1] = { objectives: [{ text: "Talk to Gryan Stoutmantle" }], ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.input().click()
-  Test.type("gryan")
-  Test.flush()
-  Test.expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
-  Test.erase(5)
-  Test.type("ELWYNN")
-  Test.flush()
-  Test.expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+  Test::type("gryan")
+  Test::flush()
+  Test::expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
+  Test::erase(5)
+  Test::type("ELWYNN")
+  Test::flush()
+  Test::expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
 }
 
 test "the filter keeps the tracked quests alone, or the difficulties switched on; a tab it empties says so" {
   const log = standing()
   log[3] = { watched: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   filter().button("Tracked only").click()
-  Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
+  Test::expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
   filter().button("Tracked only").click()
   // The quests are of the player's level: yellow. The group turns every colour off, and the list says why it's empty.
-  Game.player.level = 14
+  Game::player.level = 14
   filter().button("Difficulty").click()
-  Test.expect(!window.text("Elwynn Wolves").shown() && window.text("No quest fits the search and the filter.").shown())
+  Test::expect(!window.text("Elwynn Wolves").shown() && window.text("No quest fits the search and the filter.").shown())
   filter().button("Yellow").click()
-  Test.expect(window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("Elwynn Wolves").shown())
   filter().button("Reset").click()
-  Test.expect(window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
 }
 
 test "a group quest passes the filter by «Group», one played alone by «Solo»" {
   const log = standing()
   log[1] = { group: 3, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   filter().button("Group").click()
-  Test.expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+  Test::expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
   filter().button("Group").click()
   filter().button("Solo").click()
-  Test.expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
 }
 
 test "one list leaves the headers out; by title orders it" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.button(Ordaen.art.ctl.tool.categories).click()
-  Test.page().window("By zone").button("One list").click()
-  Test.expect(!window.text("Westfall").shown() && !window.text("you are here").shown())
-  Test.expect(before("The Defias Brotherhood", "Elwynn Wolves"))
+  Test::page().window("By zone").button("One list").click()
+  Test::expect(!window.text("Westfall").shown() && !window.text("you are here").shown())
+  Test::expect(before("The Defias Brotherhood", "Elwynn Wolves"))
   window.button(Ordaen.art.ctl.tool.sort).click()
-  Test.page().window("As in the log").button("By title").click()
-  Test.expect(before("Elwynn Wolves", "The Defias Brotherhood"))
+  Test::page().window("As in the log").button("By title").click()
+  Test::expect(before("Elwynn Wolves", "The Defias Brotherhood"))
 }
 
 test "the count stands in the footer under its dim label, and red once the log is full" {
   const log = standing()
   opened(log)
-  Test.expect(Test.page().window("World").text("In the log").textColor().equal(Color.hex("#a3977f")))
-  const counted = Test.page().window("World").text("3/25")
-  Test.expect(counted.textColor().equal(Color.hex("#e8dcc4")))
+  Test::expect(Test::page().window("World").text("In the log").textColor().equal(Color::hex("#a3977f")))
+  const counted = Test::page().window("World").text("3/25")
+  Test::expect(counted.textColor().equal(Color::hex("#e8dcc4")))
   for (id of 1..22) { log.push(quest(200 + id, `Quest ${id}`, "Westfall")) }
   // The client says its log changed.
-  Test.questLog(log)
-  Test.flush()
-  Test.expect(Test.page().window("World").text("25/25").textColor().equal(Color.hex("#ff4040")))
+  Test::questLog(log)
+  Test::flush()
+  Test::expect(Test::page().window("World").text("25/25").textColor().equal(Color::hex("#ff4040")))
 }
 
 test "the window's one tab is «Quests» with the game's quest log book; its kinds are sub-tabs, each with its count" {
   opened(standing())
-  const window = Test.page().window("World")
-  Test.expect(window.button("Interface/QuestFrame/UI-QuestLog-BookIcon").shown())
+  const window = Test::page().window("World")
+  Test::expect(window.button("Interface/QuestFrame/UI-QuestLog-BookIcon").shown())
   // Two quests of the world, one of a dungeon, none of a raid or PvP.
-  Test.expect(window.text("World").shown() && window.text("2").shown() && window.text("1").shown())
-  Test.expect(window.text("0").count() == 2)
+  Test::expect(window.text("World").shown() && window.text("2").shown() && window.text("1").shown())
+  Test::expect(window.text("0").count() == 2)
   // The professions window's inner tabs: on a marble band, the picked one the window's wood.
   const kinds = bandHolding(window, window.text("Dungeons").rect())
-  Test.expect(kinds.bottom < window.text("The Defias Brotherhood").rect().top)
+  Test::expect(kinds.bottom < window.text("The Defias Brotherhood").rect().top)
   window.text("Dungeons").click()
-  Test.expect(window.text("Red Silk Bandanas").shown() && !window.text("Elwynn Wolves").shown())
+  Test::expect(window.text("Red Silk Bandanas").shown() && !window.text("Elwynn Wolves").shown())
 }
 
 test "«Abandon quest» in the question is the danger plate" {
   opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").button("Abandon").click()
-  Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::page().window("World").text("The Defias Brotherhood").click()
+  Test::page().window("World").button("Abandon").click()
+  Test::expect(Test::page().window("Abandon «The Defias Brotherhood»?").button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
 }
 
 test "Shift+Left-click on a title puts its chat link where a chat line is open, and tracks nothing then" {
   opened(standing())
-  Game.chat.linkQuest = (id: Integer): Boolean => id == 103
-  Test.hold([.Shift])
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.hold([])
-  Test.expect(Test.talked().length == 0)
+  Game::chat.linkQuest = (id: Integer): Boolean => id == 103
+  Test::hold([.Shift])
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::hold([])
+  Test::expect(Test::talked().length == 0)
 }
 
 test "the window's opening and closing, and a quest tracked, sound as the game's log does" {
   opened(standing())
-  Test.expect(Test.sounds()[1] == 844)
-  Test.hold([.Shift])
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.hold([])
-  const tracked = Test.sounds()
-  Test.expect(tracked.length == 1 && tracked[1] == 856)
+  Test::expect(Test::sounds()[1] == 844)
+  Test::hold([.Shift])
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::hold([])
+  const tracked = Test::sounds()
+  Test::expect(tracked.length == 1 && tracked[1] == 856)
   Quests.flip()
-  Test.flush()
-  const closed = Test.sounds()
-  Test.expect(closed.length == 1 && closed[1] == 845)
+  Test::flush()
+  const closed = Test::sounds()
+  Test::expect(closed.length == 1 && closed[1] == 845)
 }
 
 test "«Show the way» in a quest's menu has the client point the way to it" {
   opened(standing())
-  Test.page().window("World").text("Elwynn Wolves").rightClick()
-  Test.page().window("Abandon").button("Show the way").click()
-  Test.expect(Test.talked().join(",") == "super-track 103")
+  Test::page().window("World").text("Elwynn Wolves").rightClick()
+  Test::page().window("Abandon").button("Show the way").click()
+  Test::expect(Test::talked().join(",") == "super-track 103")
 }
 
 test "a wrapped objective's lines sit at the text's own line; two objectives keep their gap" {
@@ -794,134 +794,134 @@ test "a wrapped objective's lines sit at the text's own line; two objectives kee
     { text: "Pelts: 1/4" }
   ], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   const long = window.text("Gray forest wolves slain in the hills east of Goldshire and the woods past it, down to the river").letters()
   const next = window.text("Pelts").letters()
   const line = next.bottom - next.top
   // Two lines or more, each no taller than a line of letters and a little; the next objective a gap further.
-  Test.expect(long.bottom - long.top > line * 1.5 && long.bottom - long.top < line * 2.6 * 1.3)
-  Test.expect(next.top - long.bottom > 1 && next.top - long.bottom < line)
+  Test::expect(long.bottom - long.top > line * 1.5 && long.bottom - long.top < line * 2.6 * 1.3)
+  Test::expect(next.top - long.bottom > 1 && next.top - long.bottom < line)
 }
 
 test "a header says how many of its quests are complete of all at its right" {
   const log = standing()
   log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
-  Test.expect(window.text("1/1").shown() && window.text("0/1").shown())
-  Test.expect(window.text("1/1").rect().left > window.text("Westfall").rect().right)
+  const window = Test::page().window("World")
+  Test::expect(window.text("1/1").shown() && window.text("0/1").shown())
+  Test::expect(window.text("1/1").rect().left > window.text("Westfall").rect().right)
 }
 
 test "a row is its level and its title, no bullet between; a level of one digit keeps two digits' room, so titles line up" {
   const log = standing()
   log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
-  Test.expect(!window.text("[").shown() && !window.text("]").shown())
+  const window = Test::page().window("World")
+  Test::expect(!window.text("[").shown() && !window.text("]").shown())
   // Level 14 is its «1» and «4», level 7 an unseen «0» and its «7», each in the level's colour.
   const said = window.text("The Defias Brotherhood").item().texts()
-  Test.expect(said[1] == "1" && said[2] == "4" && said[3] == "The Defias Brotherhood")
-  Test.expect(!window.text("7").textColor().equal(Color.hex("#a3977f")))
+  Test::expect(said[1] == "1" && said[2] == "4" && said[3] == "The Defias Brotherhood")
+  Test::expect(!window.text("7").textColor().equal(Color::hex("#a3977f")))
   const two = window.text("The Defias Brotherhood").rect()
   const one = window.text("Elwynn Wolves").rect()
-  Test.expect((two.left - one.left).abs() < 0.01)
+  Test::expect((two.left - one.left).abs() < 0.01)
   // The level is part of the title's line: the objectives under it start at the level's edge.
   const row = window.text("Elwynn Wolves").item()
-  Test.expect((row.text("Wolves slain").rect().left - row.text("7").rect().left).abs() < 11)
-  Test.expect(row.text("Wolves slain").rect().left < row.text("7").rect().left)
+  Test::expect((row.text("Wolves slain").rect().left - row.text("7").rect().left).abs() < 11)
+  Test::expect(row.text("Wolves slain").rect().left < row.text("7").rect().left)
 }
 
 test "a header and its quests take the list's whole width, a rule between one quest and the next" {
   const log = standing()
   log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   const header = window.text("Westfall").item()
-  Test.shot("a header's band over its quests, each quest's row the list's whole width")
+  Test::shot("a header's band over its quests, each quest's row the list's whole width")
   // Westfall's two quests, each a title and one objective: the first under its header with no rule, the second with
   // one above it, which takes its width (1.17dp) of the row.
   const first = window.text("The Defias Brotherhood").item().rect()
   const second = window.text("Elwynn Wolves").item().rect()
-  Test.expect(((second.bottom - second.top) - (first.bottom - first.top) - 0.83).abs() < 0.05)
+  Test::expect(((second.bottom - second.top) - (first.bottom - first.top) - 0.83).abs() < 0.05)
   const row = window.text("Elwynn Wolves").item().rect()
-  Test.expect((row.left - header.rect().left).abs() < 0.01)
-  Test.expect((row.right - header.rect().right).abs() < 0.01)
+  Test::expect((row.left - header.rect().left).abs() < 0.01)
+  Test::expect((row.right - header.rect().right).abs() < 0.01)
 }
 
 test "a quest's gains stand at its row's right in the body's size: one alone leaves no room after it" {
   const log = standing()
   log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Westfall") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   // Quest 101 gives experience alone (its number, then its mark), quest 103 experience and money: both end at the
   // same right edge.
   const alone = window.text("420").rect()
   const marks = window.box(XP_MARK)
   const first = marks.nth(1).rect()
   const mark = (first.top - alone.top).abs() < 10 ? first : marks.nth(2).rect()
-  const money = window.text(Game.money.format(150)).rect()
-  Test.expect(mark.left > alone.right && (mark.right - money.right).abs() < 0.01)
+  const money = window.text(Game::money.format(150)).rect()
+  Test::expect(mark.left > alone.right && (mark.right - money.right).abs() < 0.01)
   // The body's size: as high as a title's line.
   const title = window.text("Elwynn Wolves").rect()
-  Test.expect(((alone.bottom - alone.top) - (title.bottom - title.top)).abs() < 0.5)
-  Test.expect(window.text("Elwynn Wolves").item().texts().any(text => text == "•"))
+  Test::expect(((alone.bottom - alone.top) - (title.bottom - title.top)).abs() < 0.5)
+  Test::expect(window.text("Elwynn Wolves").item().texts().any(text => text == "•"))
 }
 
 test "with the game's difficulty colours off (the world map's filter), a level is in the title's colour, and back" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   // Level 14's «4».
   const coloured = window.text("4").nth(1).textColor()
-  Test.expect(!coloured.equal(Color.hex("#e8dcc4")))
-  Test.cvar("showQuestDifficultyColor", "0")
-  Test.flush()
-  Test.expect(window.text("4").nth(1).textColor().equal(Color.hex("#e8dcc4")))
-  Test.cvar("showQuestDifficultyColor", "1")
-  Test.flush()
-  Test.expect(window.text("4").nth(1).textColor().equal(coloured))
+  Test::expect(!coloured.equal(Color::hex("#e8dcc4")))
+  Test::cvar("showQuestDifficultyColor", "0")
+  Test::flush()
+  Test::expect(window.text("4").nth(1).textColor().equal(Color::hex("#e8dcc4")))
+  Test::cvar("showQuestDifficultyColor", "1")
+  Test::flush()
+  Test::expect(window.text("4").nth(1).textColor().equal(coloured))
 }
 
 test "a complete quest says so under its title, in place of its objectives" {
   const log = standing()
   log[3] = { complete: true, objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   const title = window.text("Elwynn Wolves").rect()
   const ready = window.text("Complete").rect()
-  Test.expect(ready.top >= title.bottom && ready.left <= title.left + 1)
-  Test.expect(!window.text("Pelts").shown())
+  Test::expect(ready.top >= title.bottom && ready.left <= title.left + 1)
+  Test::expect(!window.text("Pelts").shown())
 }
 
 test "a quest's experience and money stand at its title's right, a bullet between, the experience with its mark" {
   const log = standing()
   log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   const title = window.text("Elwynn Wolves").rect()
   // The one bullet of a row stands between its gains.
   const row = window.text("Elwynn Wolves").item()
-  Test.expect(window.text("735").rect().left > title.right && row.text("•").count() == 1)
-  Test.expect(row.text("•").rect().left > window.text("735").rect().right)
-  Test.expect(window.box(XP_MARK).shown())
+  Test::expect(window.text("735").rect().left > title.right && row.text("•").count() == 1)
+  Test::expect(row.text("•").rect().left > window.text("735").rect().right)
+  Test::expect(window.box(XP_MARK).shown())
 }
 
 test "the page's experience stands no smaller than the list's" {
   const log = standing()
   log[3] = { xp: 735, money: 150, rewards: [{ item: 1001 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   // The list's row has its own at a secondary text's size; the page's row at the body's.
   const row = window.text("735").nth(1).letters()
   const page = window.text("735").nth(2).letters()
-  Test.expect(page.bottom - page.top >= row.bottom - row.top - 0.01)
+  Test::expect(page.bottom - page.top >= row.bottom - row.top - 0.01)
 }
 
 test "the abandon button says only «Abandon»" {
   opened(standing())
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
-  Test.expect(window.button("Abandon").shown() && !window.text("Abandon quest").shown())
+  Test::expect(window.button("Abandon").shown() && !window.text("Abandon quest").shown())
 }
 
 test "an objective that says the task again stands once on the page, not dark then muted" {
@@ -929,10 +929,10 @@ test "an objective that says the task again stands once on the page, not dark th
   log[3] = { task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }],
     ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   // Once on the page: done, it has left the list's row.
-  Test.expect(window.text("Speak to Marshal Dughan.").count() == 1)
+  Test::expect(window.text("Speak to Marshal Dughan.").count() == 1)
 }
 
 test "the parchment holds the lore alone: the objectives and their counts stand under it, on the well" {
@@ -942,18 +942,18 @@ test "the parchment holds the lore alone: the objectives and their counts stand 
     ..quest(103, "Elwynn Wolves", "Elwynn Forest")
   }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   // The task on the parchment; the objectives past its bottom roll, in the well's text as the switch's label is.
   // The list's row says «Fangs» first; the page's is the second.
   const fangs = window.text("Fangs").nth(2)
-  Test.expect(fangs.rect().top > window.text("Bring pelts to Eagan.").rect().bottom + 40)
-  Test.expect(fangs.textColor().equal(window.text("Track").textColor()))
+  Test::expect(fangs.rect().top > window.text("Bring pelts to Eagan.").rect().bottom + 40)
+  Test::expect(fangs.textColor().equal(window.text("Track").textColor()))
   // Done: the same colour, and the client's green check at its right where its count was.
   const pelts = window.text("Pelts")
-  Test.expect(pelts.textColor().equal(window.text("Track").textColor()) && !window.text("4/4").shown())
+  Test::expect(pelts.textColor().equal(window.text("Track").textColor()) && !window.text("4/4").shown())
   const check = window.box("Interface/RaidFrame/ReadyCheck-Ready")
-  Test.expect(check.count() == 1 && check.rect().left > pelts.rect().right)
+  Test::expect(check.count() == 1 && check.rect().left > pelts.rect().right)
 }
 
 test "a long objective wraps under the parchment and pushes what follows down" {
@@ -963,14 +963,14 @@ test "a long objective wraps under the parchment and pushes what follows down" {
     objectives: [{ text: `${long}: 0/1` }], choices: [{ item: 1002 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest")
   }
   opened(log)
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
   const goal = window.text(long).nth(2)
   const next = window.text("You will be able to choose")
   // Two lines (taller than the count's one), and the rewards' title under the second.
   const line = window.text("0/1").nth(2).rect()
-  Test.expect(goal.rect().bottom - goal.rect().top > (line.bottom - line.top) * 1.5)
-  Test.expect(goal.rect().bottom <= next.rect().top)
+  Test::expect(goal.rect().bottom - goal.rect().top > (line.bottom - line.top) * 1.5)
+  Test::expect(goal.rect().bottom <= next.rect().top)
 }
 
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
@@ -978,44 +978,44 @@ test "with the setting on, a quest's parchment opens folded to its title, and a 
   log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   Quests.settings.values.foldedScroll = true
-  const window = Test.page().window("World")
+  const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
-  Test.expect(window.text("Elwynn Wolves").count() == 2 && !window.text("Bring pelts to Eagan.").shown())
-  Test.shot("a quest's page, its parchment folded to its title")
+  Test::expect(window.text("Elwynn Wolves").count() == 2 && !window.text("Bring pelts to Eagan.").shown())
+  Test::shot("a quest's page, its parchment folded to its title")
   window.text("Elwynn Wolves").nth(2).click()
-  Test.expect(window.text("Bring pelts to Eagan.").shown())
+  Test::expect(window.text("Bring pelts to Eagan.").shown())
   // Another quest opens folded again.
   window.text("The Defias Brotherhood").click()
-  Test.expect(!window.text("Bring pelts to Eagan.").shown())
+  Test::expect(!window.text("Bring pelts to Eagan.").shown())
 }
 
 test "the parchment opens unfolded by default" {
   const log = standing()
   log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
-  Test.page().window("World").text("Elwynn Wolves").click()
-  Test.expect(Test.page().window("World").text("Bring pelts to Eagan.").shown())
+  Test::page().window("World").text("Elwynn Wolves").click()
+  Test::expect(Test::page().window("World").text("Bring pelts to Eagan.").shown())
 }
 
 test "another module's NPC opens the map where QuestieDB puts it until the map hides; unknown or in a fight, nothing" {
   opened(standing())
-  Test.expect(!Quests.showNpc(999))
-  Test.combat(true)
-  Test.flush()
-  Test.expect(!Quests.showNpc(235) && !Client.WorldMapFrame.IsShown())
-  Test.combat(false)
-  Test.flush()
+  Test::expect(!Quests.showNpc(999))
+  Test::combat(true)
+  Test::flush()
+  Test::expect(!Quests.showNpc(235) && !Client::WorldMapFrame.IsShown())
+  Test::combat(false)
+  Test::flush()
   // Scout Riell stands in Elwynn Forest (area 12), on its map.
-  Test.expect(Quests.showNpc(235))
-  Test.flush()
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1429)
+  Test::expect(Quests.showNpc(235))
+  Test::flush()
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1429)
 }
 
 // The quest page's footer band (its buttons'), of the two the window has: the log's and the page's.
-function pageBand(window: Test.Part): Test.Rect { return bandHolding(window, window.button("Abandon").rect()) }
+function pageBand(window: Test::Part): Test::Rect { return bandHolding(window, window.button("Abandon").rect()) }
 
 // The marble band a rectangle stands in, of the window's bands (its kinds' tabs, the log's footer, the page's).
-function bandHolding(window: Test.Part, inner: Test.Rect): Test.Rect {
+function bandHolding(window: Test::Part, inner: Test::Rect): Test::Rect {
   const bands = window.box(Ordaen.art.window.marble)
   for (at of 1..bands.count()) {
     const band = bands.nth(at).rect()

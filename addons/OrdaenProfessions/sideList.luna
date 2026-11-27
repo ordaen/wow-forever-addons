@@ -13,14 +13,14 @@ const NO_ROOM: Edges = {}
 
 public class SideList implements Component {
   width: Signal<Size | nil>
-  surface: Signal<Style.Surface | nil>
+  surface: Signal<Style::Surface | nil>
   room: Signal<Edges>
   groove: Signal<Boolean>
   constructor(
     // The list's width. None: the width of its cell.
     width: Signal<Size | nil> = nil,
     // Its section's surface; none: what it stands on.
-    surface: Signal<Style.Surface | nil> = nil,
+    surface: Signal<Style::Surface | nil> = nil,
     // Room round its rows, on its surface.
     room: Signal<Edges> = NO_ROOM,
     // A groove down its right side.
@@ -36,12 +36,12 @@ public class SideList implements Component {
     return $ltml {
       <box width={self.width} background={self.surface?.art} tint={self.surface?.tint} rows={ONE}>
         <$if={self.groove}>
-          <box position={Position.Absolute} top={0ui} bottom={0ui} right={Style.GROOVE} width={Style.GROOVE}
-               background={Style.GROOVE_DARK} />
-          <box position={Position.Absolute} top={0ui} bottom={0ui} right={0ui} width={Style.GROOVE}
-               background={Style.GROOVE_LIGHT} />
+          <box position={Position::Absolute} top={0ui} bottom={0ui} right={Style::GROOVE} width={Style::GROOVE}
+               background={Style::GROOVE_DARK} />
+          <box position={Position::Absolute} top={0ui} bottom={0ui} right={0ui} width={Style::GROOVE}
+               background={Style::GROOVE_LIGHT} />
         </>
-        <box columns={1} padding={self.room} overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
+        <box columns={1} padding={self.room} overflow={Overflow::Scroll} scrollbar={Scrollbar::Hover}>
           <slot />
         </box>
       </box>

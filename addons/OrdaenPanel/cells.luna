@@ -14,12 +14,12 @@ public const CELL_HEIGHT = 53ui
 // The face on the character's cell.
 const FACE = 46.875dp
 const ICON = 35ui
-const GOLD: Color = Color.hex("#ffb847")
+const GOLD: Color = Color::hex("#ffb847")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
-const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
+const LIT: ByInteractionState<Color> = { default: Color::hex("#00000000"), hover: Color::hex("#ffd9a01f"), pressed: Color::hex("#00000040"), focus: Color::hex("#ffd9a01f") }
 // The keyring's button draws a sheet of two states: its cell shows the key ring's own icon.
 // An icon as its file draws it.
-const UNTINTED: Color = Color.hex("#ffffff")
+const UNTINTED: Color = Color::hex("#ffffff")
 
 // A cell's measures at its height and the room it reaches up through: its slot (as wide as it is high, room and all),
 // its icon's size and place in the slot.
@@ -85,15 +85,15 @@ public class MenuCell implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
-          <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+        <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
+          <box position={Position::Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
                height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
           />
-          <box $if={self.counted} position={Position.Absolute} right={self.badgeRight} bottom={self.badgeBottom}
+          <box $if={self.counted} position={Position::Absolute} right={self.badgeRight} bottom={self.badgeBottom}
                zLevel={1}>
             <CountBadge count={self.count} />
           </box>
-          <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
+          <embed frame={self.frame} position={Position::Absolute} left={0ui} top={0ui} width={self.size.width}
                  height={self.size.slot} opacity={0} />
         </box>
       </box>
@@ -132,10 +132,10 @@ public class FaceCell implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
-          <box position={Position.Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
+        <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
+          <box position={Position::Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
                height={self.size.face} portrait={self.face} icon={self.icon} mask={Ordaen.art.panel.faceRound} />
-          <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
+          <embed frame={Game::frames.CharacterMicroButton} position={Position::Absolute} left={0ui} top={0ui}
                  width={self.reach} height={self.size.slot} opacity={0} />
         </box>
       </box>
@@ -148,18 +148,18 @@ public class FaceCell implements Component {
 // the free slots of every bag in its lower right.
 public class BagCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived counted: Boolean = self.button.kind == Game.BagKind.Backpack && Game.bags.free > 0
+  derived counted: Boolean = self.button.kind == Game::BagKind::Backpack && Game::bags.free > 0
   derived countInset: Number<Length> = self.size.iconLeft - 3.515625dp
   derived countBottom: Number<Length> = self.size.iconLeft - 7.03125dp
   derived icon: Art | nil = self.button.icon
 
-  const button: Game.BagButton
+  const button: Game::BagButton
   size: Signal<CellSize>
   after: Signal<Number<Length>>
   // The slot is square with the cut after it: the cell takes the rest of it.
   derived reach: Number<Length> = self.size.width
   derived own: Number<Length> = self.size.width - self.after
-  constructor(button: Game.BagButton, size: Signal<CellSize>, after: Signal<Number<Length>> = 0ui) {
+  constructor(button: Game::BagButton, size: Signal<CellSize>, after: Signal<Number<Length>> = 0ui) {
     self.button = button
     self.size = size
     self.after = after
@@ -168,15 +168,15 @@ public class BagCell implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.own} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
-          <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+        <box position={Position::Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
+          <box position={Position::Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
                height={self.size.icon} icon={self.icon} />
-          <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
+          <box $if={self.counted} position={Position::Absolute} right={self.countInset} bottom={self.countBottom}
                zLevel={1}>
-            <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
+            <text value={"%d"} arguments={[Game::bags.free]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
                   textFont={.Numbers} textOutline={1} wrap={.None} />
           </box>
-          <embed frame={self.button.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
+          <embed frame={self.button.frame} position={Position::Absolute} left={0ui} top={0ui} width={self.size.width}
                  height={self.size.slot} opacity={0} />
         </box>
       </box>

@@ -19,28 +19,28 @@ class Export {
 
 test "a text box takes the keyboard with all its text selected when shown, and its lines follow what is typed" {
   let page = new Export()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
-  Test.shot("shown: many lines, the keyboard taken, all the text selected")
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test::shot("shown: many lines, the keyboard taken, all the text selected")
 
-  Test.type("pasted")
-  Test.flush()
-  Test.expect(page.text == "pasted")
-  Test.key(Key.Enter)
-  Test.type("more")
-  Test.flush()
-  Test.expect(page.text == "pasted\nmore")
-  Test.shot("pasted over the selection, then Enter and more: two lines, the keyboard kept")
+  Test::type("pasted")
+  Test::flush()
+  Test::expect(page.text == "pasted")
+  Test::key(Key::Enter)
+  Test::type("more")
+  Test::flush()
+  Test::expect(page.text == "pasted\nmore")
+  Test::shot("pasted over the selection, then Enter and more: two lines, the keyboard kept")
 
-  Test.key(Key.Escape)
+  Test::key(Key::Escape)
   page.open = false
-  Test.flush()
+  Test::flush()
   page.open = true
-  Test.shot("hidden and shown again: the keyboard taken, all selected")
+  Test::shot("hidden and shown again: the keyboard taken, all selected")
 
-  Test.key(Key.Escape)
+  Test::key(Key::Escape)
   page.text = "Ordaen:1:look\nscale=90"
-  Test.shot("its text written while it shows: all of the new text selected")
+  Test::shot("its text written while it shows: all of the new text selected")
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

@@ -23,11 +23,11 @@ const NESTED = 19
 
 // «%d points», in the form the number takes: the Russian rule on a Russian client, one and the rest elsewhere.
 function combo(points: Integer): String {
-  let which = Game.client.locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
+  let which = Game::client.locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
   match (which) {
-    1 => return Locale.COMBO_ONE.format(points)
-    2 => return Locale.COMBO_FEW.format(points)
-    else => return Locale.COMBO_MANY.format(points)
+    1 => return Locale::COMBO_ONE.format(points)
+    2 => return Locale::COMBO_FEW.format(points)
+    else => return Locale::COMBO_MANY.format(points)
   }
 }
 
@@ -47,19 +47,19 @@ function listAfter(text: String, word: String): String | nil {
 // The spell's reagents («Reagents: Rune of Teleportation, Powder (2)») as footer rows: the reagent, how many it
 // takes, red where the player carries fewer. Whether the line was the reagents'.
 function reagents(text: String, foot: mut Array<Note>): Boolean {
-  let list = listAfter(text, wordOf(Game.strings.spellReagents))
+  let list = listAfter(text, wordOf(Game::strings.spellReagents))
   if (list == nil) { return false }
   for (part of list.split(",")) {
     let counted, count = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
     let name = counted ?? part.match("^%s*(.-)%s*$") ?? ""
     let need = ((count ?? "").toNumber() ?? 1).floor()
     if (name != "") {
-      let have = Game.items.count(name)
+      let have = Game::items.count(name)
       // The reagent by its name, as the client knows it: its icon, and its own tooltip from a locked one.
-      let id, _, _, _, icon, _, _ = Client.C_Item.GetItemInfoInstant(name)
+      let id, _, _, _, icon, _, _ = Client::C_Item::GetItemInfoInstant(name)
       foot.push({
-        left: name, right: Locale.COUNT.format(need), valueColor: have < need ? RED : nil, icon: icon,
-        opens: id != nil ? Opens.Item { id: id.floor() } : Opens.None
+        left: name, right: Locale::COUNT.format(need), valueColor: have < need ? RED : nil, icon: icon,
+        opens: id != nil ? Opens.Item { id: id.floor() } : Opens::None
       })
     }
   }
@@ -69,17 +69,17 @@ function reagents(text: String, foot: mut Array<Note>): Boolean {
 // The tools a recipe needs («Tools: Runed Copper Rod») as one footer row, red where the player carries one of them
 // not. Whether the line was the tools'.
 function tools(text: String, foot: mut Array<Note>): Boolean {
-  let word = wordOf(Runtime.text("SPELL_TOTEMS") ?? "")
+  let word = wordOf(Runtime::text("SPELL_TOTEMS") ?? "")
   let list = listAfter(text, word)
   if (list == nil) { return false }
-  let missing = list.split(",").any(name => Game.items.count(name.match("^%s*(.-)%s*$") ?? name) == 0)
+  let missing = list.split(",").any(name => Game::items.count(name.match("^%s*(.-)%s*$") ?? name) == 0)
   foot.push({ left: word, right: list, valueColor: missing ? RED : nil })
   return true
 }
 
 // The item a recipe makes, as a tooltip of its own: the game's own for it where the line before its lines names it,
 // else its lines as the recipe's tooltip gives them (its name's line without the line break the game puts first).
-public function madeBy(data: Game.TooltipData): Game.TooltipData | nil {
+public function madeBy(data: Game::TooltipData): Game::TooltipData | nil {
   let at = 0
   for (i, line of data.lines) {
     if (line.kind == NESTED && at == 0) { at = i }
@@ -88,10 +88,10 @@ public function madeBy(data: Game.TooltipData): Game.TooltipData | nil {
   if (marker == nil) { return nil }
   let made = marker.made
   if (made != nil) {
-    let own = Game.items.tooltip(made)
+    let own = Game::items.tooltip(made)
     if (own != nil) { return own }
   }
-  let lines: Array<Game.TooltipLine> = []
+  let lines: Array<Game::TooltipLine> = []
   for (i, line of data.lines) {
     if (i > at) { lines.push(Game.TooltipLine { left: line.left?.match("^%s*(.-)$"), ..line }) }
   }
@@ -113,7 +113,7 @@ function comboValue(effect: String): String | nil {
 // hold no number.
 function rankText(rank: String): String {
   const number = rank.match("%d+")
-  return number == nil ? rank : Locale.RANK.format(number)
+  return number == nil ? rank : Locale::RANK.format(number)
 }
 
 // A description into the body. A finishing move's («1 point: 46-66 damage» on a line each) gives its sentence
@@ -132,7 +132,7 @@ function describe(text: String, body: mut Array<TextLine>) {
     let value = effect != nil ? comboValue(effect) : nil
     if (points != nil && value != nil) {
       rows.push({
-        left: combo((points.toNumber() ?? 0).floor()), right: value, opens: named(Term.Combo)
+        left: combo((points.toNumber() ?? 0).floor()), right: value, opens: named(Term::Combo)
       })
     } else if (first == nil) {
       first = line
@@ -147,20 +147,20 @@ function describe(text: String, body: mut Array<TextLine>) {
 // What a cell of the band explains in a locked tooltip: the term of what it says.
 function opensOf(kind: BandKind): Opens {
   return match (kind) {
-    .CastNow => named(Term.Castnow)
-    .CastTime => named(Term.Casttime)
-    .CastChan => named(Term.Castchan)
-    .CastNext => named(Term.Castnext)
-    .Cooldown => named(Term.Cd)
-    .Melee => named(Term.Melee)
-    .Range => named(Term.Range)
-    .Cost, .Other => Opens.None
+    .CastNow => named(Term::Castnow)
+    .CastTime => named(Term::Casttime)
+    .CastChan => named(Term::Castchan)
+    .CastNext => named(Term::Castnext)
+    .Cooldown => named(Term::Cd)
+    .Melee => named(Term::Melee)
+    .Range => named(Term::Range)
+    .Cost, .Other => Opens::None
   }
 }
 
-public function spell(data: Game.TooltipData, options: Options): Model | nil {
+public function spell(data: Game::TooltipData, options: Options): Model | nil {
   let id = data.id
-  let cost = id != nil ? Game.spells.cost(id) : nil
+  let cost = id != nil ? Game::spells.cost(id) : nil
   let name: String | nil = nil
   let desc: Array<Part> = []
   let info: Array<Part> = []
@@ -179,9 +179,9 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
     if (line.kind == SPELL_NAME && name == nil) {
       name = left
       // The rank, then the spellbook's tab.
-      const rank = right ?? (id != nil ? clean(Client.C_Spell.GetSpellSubtext(id)) : nil)
+      const rank = right ?? (id != nil ? clean(Client::C_Spell::GetSpellSubtext(id)) : nil)
       if (rank != nil) { desc.push({ text: rankText(rank) }) }
-      let tab = id != nil ? Game.spells.tab(id) : nil
+      let tab = id != nil ? Game::spells.tab(id) : nil
       if (tab != nil) { desc.push({ text: tab }) }
     } else if (line.kind == REQUIREMENT) {
       if (left != nil) {
@@ -198,17 +198,17 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
   }
   let timer = false
   if (id != nil && options.spellsCooldown) {
-    let left = Game.spells.cooldown(id)
+    let left = Game::spells.cooldown(id)
     if (left != nil) {
-      let wait = duration(left, Game.strings.hours, Game.strings.minutes, Game.strings.seconds)
-      foot.push({ left: Locale.READY_IN, right: wait, valueColor: YELLOW, opens: named(Term.Ready) })
+      let wait = duration(left, Game::strings.hours, Game::strings.minutes, Game::strings.seconds)
+      foot.push({ left: Locale::READY_IN, right: wait, valueColor: YELLOW, opens: named(Term::Ready) })
       timer = true
     }
   }
   if (id != nil && options.spellsId) { info.push({ text: `ID ${id}` }) }
   if (name == nil) { return nil }
   return {
-    kind: Kind.Spell, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: BRIGHT_TEXT,
+    kind: Kind::Spell, picture: iconOf(id != nil ? Game::spells.texture(id) : nil), name: name, nameColor: BRIGHT_TEXT,
     desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
   }
 }

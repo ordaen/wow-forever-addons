@@ -17,8 +17,8 @@ public struct Sale {
 
 const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "Price", width: 110ui, align: Align.End, sortable: true },
-  { title: "Age", width: 50ui, align: Align.End, sortable: true },
+  { title: "Price", width: 110ui, align: Align::End, sortable: true },
+  { title: "Age", width: 50ui, align: Align::End, sortable: true },
   { title: "Note", width: 60ui }
 ]
 
@@ -50,7 +50,7 @@ class Sales {
   }
 
   onPick(mut self, button: MouseButton) {
-    self.picked = button == MouseButton.Right ? "right" : "row"
+    self.picked = button == MouseButton::Right ? "right" : "row"
     self.clicks += 1
   }
 
@@ -59,8 +59,8 @@ class Sales {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
         <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onPick}>
           <TableCell> <text value={sale.name} /> </TableCell>
-          <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
-          <TableCell align={Align.End}> <Age seconds={sale.seen} /> </TableCell>
+          <TableCell align={Align::End}> <Money amount={sale.price} /> </TableCell>
+          <TableCell align={Align::End}> <Age seconds={sale.seen} /> </TableCell>
           <TableCell />
         </TableRow>
       </Table>
@@ -74,32 +74,32 @@ function names(page: Sales): String {
 
 test "a heading click sorts by its column and again reverses it, the rows' own cells follow, every row is drawn" {
   let page = new Sales()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  Test.shot("unsorted: the rows as given, no heading marked")
-  Test.expect(names(page) == "Copper Bar, Bronze Axe, Arcane Dust")
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test::shot("unsorted: the rows as given, no heading marked")
+  Test::expect(names(page) == "Copper Bar, Bronze Axe, Arcane Dust")
 
-  Test.click(Test.holding("Price", nil), nil)
-  Test.expect(page.sorted == 2 && !page.descending)
-  Test.expect(names(page) == "Arcane Dust, Copper Bar, Bronze Axe")
-  Test.shot("Price clicked: ordered by it, the cheapest first, its heading gold with the up mark and a light under it")
+  Test::click(Test::holding("Price", nil), nil)
+  Test::expect(page.sorted == 2 && !page.descending)
+  Test::expect(names(page) == "Arcane Dust, Copper Bar, Bronze Axe")
+  Test::shot("Price clicked: ordered by it, the cheapest first, its heading gold with the up mark and a light under it")
 
-  Test.click(Test.holding("Price", nil), nil)
-  Test.expect(page.descending)
-  Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
-  Test.shot("Price clicked again: reversed, the down mark")
+  Test::click(Test::holding("Price", nil), nil)
+  Test::expect(page.descending)
+  Test::expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
+  Test::shot("Price clicked again: reversed, the down mark")
 
-  Test.click(Test.holding("Item", nil), nil)
-  Test.expect(page.sorted == 1 && !page.descending)
-  Test.expect(names(page) == "Arcane Dust, Bronze Axe, Copper Bar")
-  Test.shot("Item clicked: by name, ascending again, the light moved")
+  Test::click(Test::holding("Item", nil), nil)
+  Test::expect(page.sorted == 1 && !page.descending)
+  Test::expect(names(page) == "Arcane Dust, Bronze Axe, Copper Bar")
+  Test::shot("Item clicked: by name, ascending again, the light moved")
 
-  Test.click(Test.holding("Age", nil), nil)
-  Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
-  Test.shot("Age clicked: the youngest first")
+  Test::click(Test::holding("Age", nil), nil)
+  Test::expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
+  Test::shot("Age clicked: the youngest first")
 
-  Test.click(Test.holding("Note", nil), nil)
-  Test.expect(page.sorted == 3)
-  Test.shot("Note clicked: it isn't sortable, nothing changes")
+  Test::click(Test::holding("Note", nil), nil)
+  Test::expect(page.sorted == 3)
+  Test::shot("Note clicked: it isn't sortable, nothing changes")
 
   page.sales = [
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
@@ -107,18 +107,18 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
     { name: "Tin Bar", price: 70, seen: 600 }
   ]
-  Test.expect(names(page) == "Tin Bar, Bronze Axe, Copper Bar, Arcane Dust")
-  Test.shot("the sales replaced while sorted by Age: four rows, the new one first, nothing was asked to sort")
+  Test::expect(names(page) == "Tin Bar, Bronze Axe, Copper Bar, Arcane Dust")
+  Test::shot("the sales replaced while sorted by Age: four rows, the new one first, nothing was asked to sort")
 
-  Test.click(Test.holding("Bronze Axe", nil), nil)
-  Test.expect(page.picked == "row")
+  Test::click(Test::holding("Bronze Axe", nil), nil)
+  Test::expect(page.picked == "row")
 
-  Test.click(Test.holding("Copper Bar", nil), MouseButton.Right)
-  Test.expect(page.picked == "right")
-  Test.expect(page.clicks == 2)
+  Test::click(Test::holding("Copper Bar", nil), MouseButton::Right)
+  Test::expect(page.picked == "right")
+  Test::expect(page.clicks == 2)
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
@@ -142,8 +142,8 @@ class Long {
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <TableRow $for={sale of self.sales} $key={sale}>
             <TableCell> <text value={sale.name} /> </TableCell>
-            <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
-            <TableCell align={Align.End}> <Age seconds={sale.seen} /> </TableCell>
+            <TableCell align={Align::End}> <Money amount={sale.price} /> </TableCell>
+            <TableCell align={Align::End}> <Age seconds={sale.seen} /> </TableCell>
             <TableCell />
           </TableRow>
         </Table>
@@ -154,33 +154,33 @@ class Long {
 }
 
 test "a table in a row that shares takes what is left, its body scrolls, and of six hundred rows builds those in view" {
-  const before = Wow.made()
+  const before = Wow::made()
   let page = new Long()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  const built = Wow.made() - before
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  const built = Wow::made() - before
   // Each row is a handful of boxes: those in view and a few past them, never six hundred rows' worth.
-  Test.expect(built < 200)
-  Test.shot("the headings, the body in the rest of the 200 down to the foot, its first rows built")
-  Test.moveTo(Test.holding("Ware 2", nil))
-  for (i of 1..50) { Test.wheel(-1) }
-  Test.expect(Wow.made() - before == built)
-  Test.shot("fifty notches down: the same boxes hold the wares now in view")
+  Test::expect(built < 200)
+  Test::shot("the headings, the body in the rest of the 200 down to the foot, its first rows built")
+  Test::moveTo(Test::holding("Ware 2", nil))
+  for (i of 1..50) { Test::wheel(-1) }
+  Test::expect(Wow::made() - before == built)
+  Test::shot("fifty notches down: the same boxes hold the wares now in view")
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 test "a table given a height scrolls its rows past it, the headings stay" {
   let page = new Sales()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
   page.height = 80ui
-  Test.shot("the table 80 high: the headings, the first row and part of the next under them")
+  Test::shot("the table 80 high: the headings, the first row and part of the next under them")
 
-  Test.moveTo(Test.holding("Copper Bar", nil))
-  Test.wheel(-3)
-  Test.shot("the wheel turned down over the rows: they have moved up under the headings")
+  Test::moveTo(Test::holding("Copper Bar", nil))
+  Test::wheel(-3)
+  Test::shot("the wheel turned down over the rows: they have moved up under the headings")
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 const SHARED: Array<Column> = [
@@ -226,19 +226,19 @@ class Shared {
 
 test "a long text in a cell is cut at its column, and every row's columns stand under the headings" {
   let page = new Shared()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  Test.shot("three shared columns: the long zone cut at its edge, «alt» under «Note» as «main» is")
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test::shot("three shared columns: the long zone cut at its edge, «alt» under «Note» as «main» is")
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 const GROUPED: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "House", width: 80ui, align: Align.End, sortable: true, group: ["Cost"] },
-  { title: "Vendor", width: 80ui, align: Align.End, sortable: true, group: ["Cost"] },
-  { title: "House", width: 80ui, align: Align.End, group: ["Price"] },
-  { title: "Vendor", width: 80ui, align: Align.End, group: ["Price"] },
-  { title: "Profit", width: 80ui, align: Align.End }
+  { title: "House", width: 80ui, align: Align::End, sortable: true, group: ["Cost"] },
+  { title: "Vendor", width: 80ui, align: Align::End, sortable: true, group: ["Cost"] },
+  { title: "House", width: 80ui, align: Align::End, group: ["Price"] },
+  { title: "Vendor", width: 80ui, align: Align::End, group: ["Price"] },
+  { title: "Profit", width: 80ui, align: Align::End }
 ]
 const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
 
@@ -253,14 +253,14 @@ class Grouped {
 
   public render(self): Template {
     return $ltml {
-      <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
-        <TableRow $for={ware of WARES} ground={Ground.Wood} @enter={self.onRow}>
+      <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground::Wood}>
+        <TableRow $for={ware of WARES} ground={Ground::Wood} @enter={self.onRow}>
           <TableCell> <text value={ware} /> </TableCell>
-          <TableCell align={Align.End}> <text value={"1"} /> </TableCell>
-          <TableCell align={Align.End}> <text value={"2"} /> </TableCell>
-          <TableCell align={Align.End}> <text value={"3"} /> </TableCell>
-          <TableCell align={Align.End}> <text value={"4"} /> </TableCell>
-          <TableCell align={Align.End}> <text value={"5"} /> </TableCell>
+          <TableCell align={Align::End}> <text value={"1"} /> </TableCell>
+          <TableCell align={Align::End}> <text value={"2"} /> </TableCell>
+          <TableCell align={Align::End}> <text value={"3"} /> </TableCell>
+          <TableCell align={Align::End}> <text value={"4"} /> </TableCell>
+          <TableCell align={Align::End}> <text value={"5"} /> </TableCell>
         </TableRow>
       </Table>
     }
@@ -269,22 +269,22 @@ class Grouped {
 
 test "neighbouring columns of one group share a heading over theirs; a table on the wood has no well, its rows ruled" {
   let page = new Grouped()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  const cost = Test.page().text("Cost").rect()
-  const price = Test.page().text("Price").rect()
-  const house = Test.page().text("House").nth(1).rect()
-  const vendor = Test.page().text("Vendor").nth(1).rect()
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  const cost = Test::page().text("Cost").rect()
+  const price = Test::page().text("Price").rect()
+  const house = Test::page().text("House").nth(1).rect()
+  const vendor = Test::page().text("Vendor").nth(1).rect()
   // «Cost» over its two columns' headings, within their outer edges; «Price» past them, over its own.
-  Test.expect(cost.bottom <= house.top && cost.left >= house.left - 80 && cost.right <= vendor.right)
-  Test.expect(price.left > vendor.right && price.bottom <= house.top)
+  Test::expect(cost.bottom <= house.top && cost.left >= house.left - 80 && cost.right <= vendor.right)
+  Test::expect(price.left > vendor.right && price.bottom <= house.top)
   // A column in no group has its heading over both rows, its title in their middle.
-  const item = Test.page().text("Item").rect()
-  Test.expect(item.top > cost.top && item.bottom < house.bottom)
-  Test.click(Test.holding("Vendor", nil), nil)
-  Test.expect(page.sorted == 3)
-  Test.shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
+  const item = Test::page().text("Item").rect()
+  Test::expect(item.top > cost.top && item.bottom < house.bottom)
+  Test::click(Test::holding("Vendor", nil), nil)
+  Test::expect(page.sorted == 3)
+  Test::shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 // How many lines down what the client describes: a texture of the border's layer narrower than 2 and higher than 5.
@@ -304,13 +304,13 @@ function upright(described: String): Integer {
 
 test "a table on the wood rules its columns apart: a line down each gap of a row" {
   let page = new Grouped()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  Test.page().text("Copper Bar").hover()
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test::page().text("Copper Bar").hover()
   const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
   // Six columns: a rule in each of the five gaps.
-  Test.expect(upright(Test.dump(row)) == 5)
+  Test::expect(upright(Test::dump(row)) == 5)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 const NESTED: Array<Column> = [
@@ -330,8 +330,8 @@ class Nested {
 
   public render(self): Template {
     return $ltml {
-      <Table columns={NESTED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
-        <TableRow ground={Ground.Wood} @enter={self.onRow}>
+      <Table columns={NESTED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground::Wood}>
+        <TableRow ground={Ground::Wood} @enter={self.onRow}>
           <TableCell> <text value={"Ore"} /> </TableCell>
           <TableCell> <text value={"one"} /> </TableCell>
           <TableCell> <text value={"two"} /> </TableCell>
@@ -344,30 +344,30 @@ class Nested {
 
 test "a group in a group has its title under its group's, over its own columns; every cell stands where its heading does" {
   let page = new Nested()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 200 })
-  const price = Test.page().text("Price").rect()
-  const house = Test.page().text("House").rect()
-  const buy = Test.page().text("Buy").rect()
-  const bid = Test.page().text("Bid").rect()
-  const vendor = Test.page().text("Vendor").rect()
-  Test.expect(price.bottom <= house.top && house.bottom <= buy.top && near(buy.top, bid.top))
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 200 })
+  const price = Test::page().text("Price").rect()
+  const house = Test::page().text("House").rect()
+  const buy = Test::page().text("Buy").rect()
+  const bid = Test::page().text("Bid").rect()
+  const vendor = Test::page().text("Vendor").rect()
+  Test::expect(price.bottom <= house.top && house.bottom <= buy.top && near(buy.top, bid.top))
   // «Vendor», beside «House» under «Price», takes both of its rows, its title in their middle.
-  Test.expect(vendor.top > house.top && vendor.bottom < buy.bottom)
+  Test::expect(vendor.top > house.top && vendor.bottom < buy.bottom)
   // Each cell's text starts where its heading's does: one room in the head and the rows.
-  Test.expect(near(Test.page().text("one").rect().left, buy.left) && near(Test.page().text("two").rect().left, bid.left))
-  Test.expect(near(Test.page().text("three").rect().left, vendor.left))
+  Test::expect(near(Test::page().text("one").rect().left, buy.left) && near(Test::page().text("two").rect().left, bid.left))
+  Test::expect(near(Test::page().text("three").rect().left, vendor.left))
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 test "a row on the wood is ruled under, the last too" {
   let page = new Nested()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 200 })
-  Test.page().text("Ore").hover()
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 200 })
+  Test::page().text("Ore").hover()
   const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
-  const box = Test.page().text("Ore").rect()
+  const box = Test::page().text("Ore").rect()
   let under = false
-  for (line of Test.dump(row).split("\n")) {
+  for (line of Test::dump(row).split("\n")) {
     const words = line.split(" ").filter(word => word != "")
     if (words[1] == "Texture" && words[2] == "BORDER") {
       const place = (words[3] ?? "").split(",")
@@ -377,9 +377,9 @@ test "a row on the wood is ruled under, the last too" {
       if (wide > 400 && top > box.bottom) { under = true }
     }
   }
-  Test.expect(under)
+  Test::expect(under)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 function near(a: Number, b: Number): Boolean {

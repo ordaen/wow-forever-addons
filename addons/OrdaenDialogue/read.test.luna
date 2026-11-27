@@ -12,11 +12,11 @@ function reward(index: Integer, sell: Integer, unusable: Boolean = false): Rewar
 test "the reward picked for the player is the one worth most more than what is worn, of those the player can use" {
   const shares: Map<String, Number> = { ["item:101"]: 0.1, ["item:102"]: 0.4, ["item:103"]: 0.9 }
   const choices = [reward(1, 5), reward(2, 1), reward(3, 50, true)]
-  Test.expect(bestReward(choices, (link: String): Number | nil => shares[link]) == 2)
+  Test::expect(bestReward(choices, (link: String): Number | nil => shares[link]) == 2)
 }
 
 test "with no upgrade among them the reward picked is the one that sells for most; none sells: none" {
   const none = (link: String): Number | nil => nil
-  Test.expect(bestReward([reward(1, 5), reward(2, 30), reward(3, 10)], none) == 2)
-  Test.expect(bestReward([reward(1, 0), reward(2, 0)], none) == 0)
+  Test::expect(bestReward([reward(1, 5), reward(2, 30), reward(3, 10)], none) == 2)
+  Test::expect(bestReward([reward(1, 0), reward(2, 0)], none) == 0)
 }

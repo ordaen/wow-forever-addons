@@ -11,10 +11,10 @@ function wolf(area: Integer): Figure {
 }
 
 test "figures say their first one's zone and how many places there" {
-  Test.expect(whereOf([wolf(40)]) == "Westfall · 2 places")
-  Test.expect(whereOf([]) == "")
+  Test::expect(whereOf([wolf(40)]) == "Westfall · 2 places")
+  Test::expect(whereOf([]) == "")
 }
 
 test "where the client doesn't know the zone, figures say nothing" {
-  Test.expect(whereOf([wolf(UNKNOWN_AREA)]) == "")
+  Test::expect(whereOf([wolf(UNKNOWN_AREA)]) == "")
 }

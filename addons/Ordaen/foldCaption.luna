@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { rowShade } from "@/pickRow"
 
-const GOLD: Color = Color.hex("#e8c35a")
+const GOLD: Color = Color::hex("#e8c35a")
 const MARK = 14.0625dp
 const COLUMNS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The whole row takes the click: it shades under the cursor and the keyboard's focus, as a list's row does.
@@ -29,11 +29,11 @@ public class FoldCaption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={2sp} yAlign={Align.Center} background={SHADE} @pointerPress={self.onToggle}
+      <box columns={COLUMNS} gap={2sp} yAlign={Align::Center} background={SHADE} @pointerPress={self.onToggle}
            @keyPress(.Enter)={self.onToggle} @keyPress(.Space)={self.onToggle}>
         <box width={MARK} height={MARK} background={self.mark} />
         <text value={self.title} textColor={GOLD} wrap={.None} />
-        <box yAlign={Align.Center}>
+        <box yAlign={Align::Center}>
           <slot />
         </box>
       </box>

@@ -11,21 +11,21 @@ import { Character, CharacterId, Kept, Known, RecipeId } from "@/character"
 import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
-function learned(ids: Array<Integer>): Array<Game.Recipe> {
+function learned(ids: Array<Integer>): Array<Game::Recipe> {
   return ids.map(id => Game.Recipe {
-    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game.Difficulty.Usually, craftable: 0
+    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
 }
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
 // of what is late, the green of what is ready, the darker ink of a character out of reach.
-const GOLD: Color = Color.hex("#ffd100")
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
-const RED: Color = Color.hex("#ff4040")
-const GREEN: Color = Color.hex("#40d060")
-const AWAY: Color = Color.hex("#7a7060")
+const GOLD: Color = Color::hex("#ffd100")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
+const RED: Color = Color::hex("#ff4040")
+const GREEN: Color = Color::hex("#40d060")
+const AWAY: Color = Color::hex("#7a7060")
 const TABS = "Characters | Items | Cooldowns | Professions"
 const HEADINGS = "Recipe | Character | Ready"
 // The server's clock at an hour's start: a number of hours from it is that many hours.
@@ -43,17 +43,17 @@ function spellName(id: Integer): String | nil {
 }
 
 // The window at its «Cooldowns» tab: `/alts`, the tab.
-function cooldowns(): Test.Part {
-  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
-  const window = Test.page().window(Locale.TAB_CHARACTERS)
-  window.button(Locale.TAB_COOLDOWNS).click()
+function cooldowns(): Test::Part {
+  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  const window = Test::page().window(Locale::TAB_CHARACTERS)
+  window.button(Locale::TAB_COOLDOWNS).click()
   return window
 }
 
 // Whether the tab shows this, read whole: the headings, each recipe's row, then the tabs. Where it shows something
 // else, the test stops and says what.
 function shows(expected: String): Boolean {
-  const said = Test.page().window(Locale.TAB_CHARACTERS).texts().join(" | ")
+  const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
   if (said != expected) { panic(`the window shows «${said}»`) }
   return true
 }
@@ -63,11 +63,11 @@ function shows(expected: String): Boolean {
 function crafter(name: String, skillLine: Integer, waits: Array<Integer>): mut Character {
   const known = Known { skillLine: skillLine, name: "Craft", rank: 300, max: 300 }
   for (i of 1..waits.length step 2) {
-    const recipe = RecipeId.of(waits[i] ?? 0)
+    const recipe = RecipeId::of(waits[i] ?? 0)
     known.recipes.push(recipe)
-    known.ready[recipe] = Hour.fromNow((waits[i + 1] ?? 0) * 3600)
+    known.ready[recipe] = Hour::fromNow((waits[i + 1] ?? 0) * 3600)
   }
-  const made = Character { name: name, realm: "Stand-in", faction: .Alliance, level: 60, seen: Hour.now(), mailExpires: nil }
+  const made = Character { name: name, realm: "Stand-in", faction: .Alliance, level: 60, seen: Hour::now(), mailExpires: nil }
   made.professions.push(known)
   return made
 }
@@ -75,78 +75,78 @@ function crafter(name: String, skillLine: Integer, waits: Array<Integer>): mut C
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
 function recorded(others: Array<Character>) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId.of("Player-1-" + String.of(index + 1))] = character.clone() }
-  Game.saved.store(.Own, "characters", kept)
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  Game::saved.store(.Own, "characters", kept)
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button(Ordaen.art.ctl.switchOn).click()
   settings.button(Ordaen.art.ctl.switchOff).click()
   settings.button(Ordaen.art.ctl.corner.close).click()
 }
 
 test "with no recipe with a cooldown the tab says how to record them" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   _ = cooldowns()
-  Test.expect(shows(`${Locale.NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
+  Test::expect(shows(`${Locale::NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
 }
 
 test "a profession opened records the cooldowns of its recipes, and only of those that have one" {
-  Game.clock.server = START
-  Game.spells.name = spellName
-  Game.tradeSkill.recipes = learned([STONE, 2662])
-  Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == STONE ? 5 * 3600 : nil
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Game::spells.name = spellName
+  Game::tradeSkill.recipes = learned([STONE, 2662])
+  Game::recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == STONE ? 5 * 3600 : nil
+  Test::mount(nil, SCREEN)
   _ = cooldowns()
-  Game.tradeSkill.open = SMITHING
-  Test.expect(shows(`${HEADINGS} | Elemental Sharpening Stone | Player | in 5 h | ${TABS}`))
+  Game::tradeSkill.open = SMITHING
+  Test::expect(shows(`${HEADINGS} | Elemental Sharpening Stone | Player | in 5 h | ${TABS}`))
 }
 
 test "nothing is recorded while no profession is open, or where the game gives no recipes" {
-  Game.tradeSkill.recipes = learned([STONE])
-  Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => 3600
-  Test.mount(nil, SCREEN)
+  Game::tradeSkill.recipes = learned([STONE])
+  Game::recipeReader.cooldown = (recipe: Integer): Integer | nil => 3600
+  Test::mount(nil, SCREEN)
   _ = cooldowns()
-  Game.tradeSkill.recipes = []
-  Game.tradeSkill.open = SMITHING
-  Test.expect(shows(`${Locale.NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
+  Game::tradeSkill.recipes = []
+  Game::tradeSkill.open = SMITHING
+  Test::expect(shows(`${Locale::NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
 }
 
 test "each recipe with a cooldown is listed per character, the soonest first, a ready one in green" {
-  Game.clock.server = START
-  Game.spells.name = spellName
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Game::spells.name = spellName
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", SMITHING, [STONE, 30]), crafter("Bram", ALCHEMY, [TRANSMUTE, -5, MOONCLOTH, 2])])
   const window = cooldowns()
-  Test.expect(shows(
+  Test::expect(shows(
     `${HEADINGS} | Transmute: Iron to Gold | Bram | Ready | Mooncloth | Bram | in 2 h | Elemental Sharpening Stone | Aria | in 1 d. | ${TABS}`
   ))
-  Test.expect(window.text("Transmute: Iron to Gold").item().text(Locale.READY_NOW).textColor().equal(GREEN))
-  Test.expect(window.text("in 2 h").textColor().equal(DIM))
+  Test::expect(window.text("Transmute: Iron to Gold").item().text(Locale::READY_NOW).textColor().equal(GREEN))
+  Test::expect(window.text("in 2 h").textColor().equal(DIM))
 }
 
 test "a recipe ready this very hour is ready, in green; one ready in an hour isn't yet" {
-  Game.clock.server = START
-  Game.spells.name = spellName
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Game::spells.name = spellName
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", SMITHING, [STONE, 0, TRANSMUTE, 1])])
   const window = cooldowns()
-  Test.expect(shows(`${HEADINGS} | Elemental Sharpening Stone | Aria | Ready | Transmute: Iron to Gold | Aria | in 1 h | ${TABS}`))
-  Test.expect(window.text("Elemental Sharpening Stone").item().text(Locale.READY_NOW).textColor().equal(GREEN))
-  Test.expect(window.text("in 1 h").textColor().equal(DIM))
+  Test::expect(shows(`${HEADINGS} | Elemental Sharpening Stone | Aria | Ready | Transmute: Iron to Gold | Aria | in 1 h | ${TABS}`))
+  Test::expect(window.text("Elemental Sharpening Stone").item().text(Locale::READY_NOW).textColor().equal(GREEN))
+  Test::expect(window.text("in 1 h").textColor().equal(DIM))
 }
 
 test "a recipe the game has no name for is listed by its number" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", SMITHING, [STONE, 3])])
   _ = cooldowns()
-  Test.expect(shows(`${HEADINGS} | #3320 | Aria | in 3 h | ${TABS}`))
+  Test::expect(shows(`${HEADINGS} | #3320 | Aria | in 3 h | ${TABS}`))
 }
 
 test "a heading sorts the cooldowns by its column, a second click the other way" {
-  Game.clock.server = START
-  Game.spells.name = spellName
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Game::spells.name = spellName
+  Test::mount(nil, SCREEN)
   recorded([
     crafter("Aria", SMITHING, [STONE, 30]), crafter("Bram", ALCHEMY, [TRANSMUTE, -5]), crafter("Cole", ALCHEMY, [MOONCLOTH, 2])
   ])
@@ -155,28 +155,28 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
   const stone = "Elemental Sharpening Stone | Aria | in 1 d."
   const transmute = "Transmute: Iron to Gold | Bram | Ready"
   const mooncloth = "Mooncloth | Cole | in 2 h"
-  Test.expect(shows(rows(transmute, mooncloth, stone)))
-  window.button(Locale.COL_READY).nth(1).click()
-  Test.expect(shows(rows(stone, mooncloth, transmute)))
-  window.button(Locale.COL_RECIPE).click()
-  Test.expect(shows(rows(stone, mooncloth, transmute)))
-  window.button(Locale.COL_RECIPE).click()
-  Test.expect(shows(rows(transmute, mooncloth, stone)))
-  window.button(Locale.COL_NAME).click()
-  Test.expect(shows(rows(stone, transmute, mooncloth)))
-  window.button(Locale.COL_NAME).click()
-  Test.expect(shows(rows(mooncloth, transmute, stone)))
+  Test::expect(shows(rows(transmute, mooncloth, stone)))
+  window.button(Locale::COL_READY).nth(1).click()
+  Test::expect(shows(rows(stone, mooncloth, transmute)))
+  window.button(Locale::COL_RECIPE).click()
+  Test::expect(shows(rows(stone, mooncloth, transmute)))
+  window.button(Locale::COL_RECIPE).click()
+  Test::expect(shows(rows(transmute, mooncloth, stone)))
+  window.button(Locale::COL_NAME).click()
+  Test::expect(shows(rows(stone, transmute, mooncloth)))
+  window.button(Locale::COL_NAME).click()
+  Test::expect(shows(rows(mooncloth, transmute, stone)))
 }
 
 test "forty cooldowns scroll inside the window" {
-  Game.clock.server = START
+  Game::clock.server = START
   const waits: Array<Integer> = []
   for (i of 1..40) {
     waits.push(5000 + i)
     waits.push(i)
   }
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", SMITHING, waits)])
   const window = cooldowns()
-  Test.expect(window.text("#5001").item().texts().join(" | ") == "#5001 | Aria | in 1 h")
+  Test::expect(window.text("#5001").item().texts().join(" | ") == "#5001 | Aria | in 1 h")
 }

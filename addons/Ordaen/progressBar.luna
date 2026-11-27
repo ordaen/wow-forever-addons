@@ -8,7 +8,7 @@ import { Component } from "@/module"
 const LENGTH = 281.25dp
 const GROOVE = 9.375dp
 const EDGE = 1.171875dp
-const LABEL: Color = Color.hex("#cbb994")
+const LABEL: Color = Color::hex("#cbb994")
 
 public class ProgressBar implements Component {
   // The fill's width: the fraction of the groove inside its edges.
@@ -33,7 +33,7 @@ public class ProgressBar implements Component {
       <box columns={1} gap={1sp} width={self.width}>
         <text $if={self.hasLabel} value={self.label} textColor={LABEL} wrap={.None} />
         <box height={GROOVE} background={Ordaen.art.ctl.groove}>
-          <box position={Position.Absolute} left={EDGE} top={EDGE} height={GROOVE - 2 * EDGE} width={self.fillWidth}
+          <box position={Position::Absolute} left={EDGE} top={EDGE} height={GROOVE - 2 * EDGE} width={self.fillWidth}
                background={Ordaen.art.ctl.sliderFill} />
         </box>
       </box>

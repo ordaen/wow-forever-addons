@@ -17,8 +17,8 @@ const BLANK = 1
 const UNIT_NAME = 2
 const UNIT_OWNER = 16
 
-const ORANGE: Color = Color.hex("#ff8040")
-const FRIENDLY: Color = Color.hex("#40bf40")
+const ORANGE: Color = Color::hex("#ff8040")
+const FRIENDLY: Color = Color::hex("#40bf40")
 
 // A standing's colour: hated to hostile red, unfriendly orange, neutral yellow, friendly and up green.
 function standingColor(rank: Integer): Color {
@@ -38,7 +38,7 @@ function titledName(name: String, titled: String | nil, color: Color): String {
   return `|c${hex(LABEL)}${before}|r|c${hex(color)}${name}|r|c${hex(LABEL)}${after}|r`
 }
 
-function player(token: String, who: Game.UnitInfo, options: Options): Model | nil {
+function player(token: String, who: Game::UnitInfo, options: Options): Model | nil {
   let name = who.name
   if (name == nil) { return nil }
   let color = (options.classNames ? who.classColor : nil) ?? BRIGHT_TEXT
@@ -48,33 +48,33 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
   let foot: Array<Note> = []
   let guild = who.guild
   if (guild != nil) {
-    desc.push({ text: guild, opens: named(Term.Guild) })
+    desc.push({ text: guild, opens: named(Term::Guild) })
     let rank = who.guildRank
-    if (rank != nil) { desc.push({ text: rank, opens: named(Term.Rank) }) }
+    if (rank != nil) { desc.push({ text: rank, opens: named(Term::Rank) }) }
   }
   let className = who.className
-  if (className != nil) { info.push({ text: className, opens: named(Term.Pclass) }) }
+  if (className != nil) { info.push({ text: className, opens: named(Term::Pclass) }) }
   if (who.dead || who.ghost) {
-    info.push({ text: who.ghost ? Locale.GHOST : Locale.CORPSE, opens: named(Term.Status) })
+    info.push({ text: who.ghost ? Locale::GHOST : Locale::CORPSE, opens: named(Term::Status) })
   } else if (who.afk) {
-    info.push({ text: Locale.AFK, opens: named(Term.Status) })
+    info.push({ text: Locale::AFK, opens: named(Term::Status) })
   } else if (who.dnd) {
-    info.push({ text: Locale.DND, opens: named(Term.Status) })
+    info.push({ text: Locale::DND, opens: named(Term::Status) })
   }
-  if (who.pvp) { info.push({ text: "PvP", opens: named(Term.Pvp) }) }
+  if (who.pvp) { info.push({ text: "PvP", opens: named(Term::Pvp) }) }
 
-  facts.push({ cell: { text: who.level > 0 ? Locale.LEVEL_CELL.format(who.level) : "??" }, opens: named(Term.Plvl) })
+  facts.push({ cell: { text: who.level > 0 ? Locale::LEVEL_CELL.format(who.level) : "??" }, opens: named(Term::Plvl) })
   let race = who.race
   if (race != nil) { facts.push({ cell: { text: race } }) }
   let faction = who.faction
   if (faction != nil) {
-    facts.push({ cell: { text: who.factionName ?? faction, color: who.sameFaction ? GREEN : RED, glyph: faction == "Alliance" ? Glyph.Alliance : (faction == "Horde" ? Glyph.Horde : nil) }, opens: side(faction) })
+    facts.push({ cell: { text: who.factionName ?? faction, color: who.sameFaction ? GREEN : RED, glyph: faction == "Alliance" ? Glyph::Alliance : (faction == "Horde" ? Glyph::Horde : nil) }, opens: side(faction) })
   }
 
   let target = who.target
   if (options.playersTarget && target != nil) {
     foot.push({
-      left: Locale.TARGET, right: target.name, valueColor: target.color, opens: named(Term.Ptarget),
+      left: Locale::TARGET, right: target.name, valueColor: target.color, opens: named(Term::Ptarget),
       valueOpens: Opens.Unit { unit: token + "target" }
     })
   }
@@ -82,25 +82,25 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
     let group = who.raidGroup
     if (group != nil) {
       foot.push({
-        left: Locale.RAID, right: Locale.RAID_GROUP.format(group), opens: named(Term.Relation)
+        left: Locale::RAID, right: Locale::RAID_GROUP.format(group), opens: named(Term::Relation)
       })
     } else if (who.inParty) {
-      foot.push({ left: Locale.PARTY, right: Locale.PARTY_YOURS, opens: named(Term.Relation) })
+      foot.push({ left: Locale::PARTY, right: Locale::PARTY_YOURS, opens: named(Term::Relation) })
     }
     if (who.friend) {
-      foot.push({ left: Locale.FRIEND, right: who.friendNote ?? "", opens: named(Term.Relation) })
+      foot.push({ left: Locale::FRIEND, right: who.friendNote ?? "", opens: named(Term::Relation) })
     }
     if (who.ignored) {
-      foot.push({ left: Locale.IGNORED, right: Locale.IGNORED_YES, valueColor: RED, opens: named(Term.Relation) })
+      foot.push({ left: Locale::IGNORED, right: Locale::IGNORED_YES, valueColor: RED, opens: named(Term::Relation) })
     }
   }
   return {
-    kind: Kind.Unit, name: titledName(name, who.titled, color), nameColor: color,
+    kind: Kind::Unit, name: titledName(name, who.titled, color), nameColor: color,
     desc: desc, info: info, facts: facts, body: [], more: [], foot: foot, keys: []
   }
 }
 
-function npc(who: Game.UnitInfo, name: String, data: Game.TooltipData, options: Options): Model {
+function npc(who: Game::UnitInfo, name: String, data: Game::TooltipData, options: Options): Model {
   let nameColor = BRIGHT_TEXT
   let reaction = who.reactionColor
   if (options.npcsLoot && who.tapped) {
@@ -123,9 +123,9 @@ function npc(who: Game.UnitInfo, name: String, data: Game.TooltipData, options: 
     // Quest lines are rows of their own.
     if (line.kind == QUEST_TITLE || line.kind == QUEST_OBJECTIVE || line.kind == QUEST_PLAYER) { continue }
     // «PvP» and the level's line go: the band has the level.
-    if (text == Game.strings.pvp) { continue }
+    if (text == Game::strings.pvp) { continue }
     let numbered = text.match("%d") != nil
-    if (i <= 3 && level > 0 && numbered && text.contains(String.of(level))) { continue }
+    if (i <= 3 && level > 0 && numbered && text.contains(String::of(level))) { continue }
     let role = text.match("^<(.+)>$")
     if (role != nil) {
       desc.push({ text: role })
@@ -140,45 +140,45 @@ function npc(who: Game.UnitInfo, name: String, data: Game.TooltipData, options: 
       body.push({ left: text, color: colorOf(line.leftColor) })
     }
   }
-  if (creature != nil) { info.push({ text: creature, opens: named(Term.Beast) }) }
-  if (who.dead) { info.push({ text: Locale.CORPSE, opens: named(Term.Npcdead) }) }
+  if (creature != nil) { info.push({ text: creature, opens: named(Term::Beast) }) }
+  if (who.dead) { info.push({ text: Locale::CORPSE, opens: named(Term::Npcdead) }) }
 
   // The level in its colour against the player's; «??» far above.
   if (level > 0) {
-    facts.push({ cell: { text: Locale.LEVEL_CELL.format(level), color: who.levelColor }, opens: named(Term.Lvlcolor) })
+    facts.push({ cell: { text: Locale::LEVEL_CELL.format(level), color: who.levelColor }, opens: named(Term::Lvlcolor) })
   } else {
-    facts.push({ cell: { text: "??", color: RED }, opens: named(Term.Lvlcolor) })
+    facts.push({ cell: { text: "??", color: RED }, opens: named(Term::Lvlcolor) })
   }
   let rank = who.classification
   if (rank == "elite" || rank == "worldboss" || rank == "rareelite") {
-    facts.push({ cell: { text: Locale.ELITE, color: GOLD, glyph: .Elite }, opens: named(Term.Elite) })
+    facts.push({ cell: { text: Locale::ELITE, color: GOLD, glyph: .Elite }, opens: named(Term::Elite) })
   }
-  if (rank == "rare" || rank == "rareelite") { facts.push({ cell: { text: Locale.RARE }, opens: named(Term.Rare) }) }
+  if (rank == "rare" || rank == "rareelite") { facts.push({ cell: { text: Locale::RARE }, opens: named(Term::Rare) }) }
   let faction = who.faction
   if (faction != nil) {
     facts.push({ cell: { text: factionName ?? faction, color: who.sameFaction ? GREEN : RED }, opens: side(faction) })
   }
 
   // The footer: someone else's loot, and the player's standing with its faction, where they have met it.
-  if (options.npcsLoot && who.tapped) { foot.push({ left: Locale.TAPPED, right: "", opens: named(Term.Tapped) }) }
+  if (options.npcsLoot && who.tapped) { foot.push({ left: Locale::TAPPED, right: "", opens: named(Term::Tapped) }) }
   if (options.npcsRep && factionName != nil) {
-    let standing = Game.reputation.with(factionName)
+    let standing = Game::reputation.with(factionName)
     if (standing != nil) {
       foot.push({ left: factionName, right: standing.label, valueColor: standingColor(standing.rank) })
     }
   }
   return {
-    kind: Kind.Unit, name: name, nameColor: nameColor, desc: desc, info: info, facts: facts, body: body,
+    kind: Kind::Unit, name: name, nameColor: nameColor, desc: desc, info: info, facts: facts, body: body,
     more: quests(data.lines, options.npcsParty), foot: foot, keys: []
   }
 }
 
-public function unit(data: Game.TooltipData, options: Options): Model | nil {
+public function unit(data: Game::TooltipData, options: Options): Model | nil {
   let first = data.lines[1]
   if (first == nil) { return nil }
   let name = clean(first.left)
   let token = first.kind == UNIT_NAME ? first.unit : nil
-  let who = token != nil ? Game.units.of(token) : nil
+  let who = token != nil ? Game::units.of(token) : nil
   if (token == nil || who == nil) {
     // A unit gone: what the game wrote.
     if (name == nil) { return nil }
@@ -189,7 +189,7 @@ public function unit(data: Game.TooltipData, options: Options): Model | nil {
       if (text != nil) { body.push({ left: text, color: colorOf(line.leftColor) }) }
     }
     return {
-      kind: Kind.Unit, name: name, nameColor: BRIGHT_TEXT,
+      kind: Kind::Unit, name: name, nameColor: BRIGHT_TEXT,
       desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: []
     }
   }
@@ -202,16 +202,16 @@ public function unit(data: Game.TooltipData, options: Options): Model | nil {
 }
 
 // The number of the NPC a unit's tooltip is of; 0 for a player, a unit gone, or a tooltip of anything else.
-public function creatureOf(data: Game.TooltipData): Integer {
+public function creatureOf(data: Game::TooltipData): Integer {
   let first = data.lines[1]
   let token = first != nil && first.kind == UNIT_NAME ? first.unit : nil
-  return token != nil ? Game.units.of(token)?.creature ?? 0 : 0
+  return token != nil ? Game::units.of(token)?.creature ?? 0 : 0
 }
 
 // A unit's tooltip by the game's name for it, as a part of another tooltip opens it: a player's whole; an NPC's
 // without the lines only the game's tooltip of it has (its role, its quests). Nothing once the unit is gone.
 public function unitOf(token: String, options: Options): Model | nil {
-  let who = Game.units.of(token)
+  let who = Game::units.of(token)
   if (who == nil) { return nil }
   if (who.player) {
     let read = player(token, who, options)

@@ -15,11 +15,11 @@ import { leftText } from "@/style"
 // «Cancel» is as wide as its column.
 const CANCEL_WIDTH: Number<Length> = 87.890625dp
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_COUNT, width: 63.28125dp, align: Align.End },
-  { title: Locale.COLUMN_UNIT, width: 93.75dp, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 70.3125dp, align: Align.End },
-  { title: "", width: CANCEL_WIDTH + 14.0625dp, align: Align.End }
+  { title: Locale::COLUMN_ITEM, width: { fr: 1 } },
+  { title: Locale::COLUMN_COUNT, width: 63.28125dp, align: Align::End },
+  { title: Locale::COLUMN_UNIT, width: 93.75dp, align: Align::End },
+  { title: Locale::COLUMN_LEFT, width: 70.3125dp, align: Align::End },
+  { title: "", width: CANCEL_WIDTH + 14.0625dp, align: Align::End }
 ]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
@@ -46,10 +46,10 @@ public struct Shown {
 class OwnedRow implements Component {
   public cancel: Event<Integer> = new Event()
 
-  derived lowest: String = self.shown.sold ? Locale.SOLD : self.shown.lowest == nil ? "—" :
-    self.shown.lowest == true ? Locale.LOWEST : Locale.UNDERCUT
-  derived lowestColor: Color = self.shown.sold ? Style.GOLD : self.shown.lowest == true ? Style.GREEN :
-    self.shown.lowest == false ? Style.RED : Style.DIM
+  derived lowest: String = self.shown.sold ? Locale::SOLD : self.shown.lowest == nil ? "—" :
+    self.shown.lowest == true ? Locale::LOWEST : Locale::UNDERCUT
+  derived lowestColor: Color = self.shown.sold ? Style::GOLD : self.shown.lowest == true ? Style::GREEN :
+    self.shown.lowest == false ? Style::RED : Style::DIM
   derived priced: Boolean = self.shown.unit != nil
   derived unit: Integer = self.shown.unit ?? 0
 
@@ -66,32 +66,32 @@ class OwnedRow implements Component {
 
   // The item's tooltip beside its whole row.
   onRowEnter(self, frame: any Frame) {
-    Game.items.show(frame, self.shown.item)
+    Game::items.show(frame, self.shown.item)
   }
 
   public render(self): Template {
     return $ltml {
       <TableRow @enter={self.onRowEnter}>
         <TableCell>
-          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-            <ItemButton item={self.shown.item} size={Style.SLOT} tipped={false} />
+          <box columns={ITEM} gap={2.5sp} yAlign={Align::Center}>
+            <ItemButton item={self.shown.item} size={Style::SLOT} tipped={false} />
             <box rows={LINES} overflow={.Hidden}>
               <text value={self.shown.name} textColor={self.shown.color} wrap={.None} />
               <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style::INK} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.priced} amount={self.unit} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.shown.left} textColor={Style.INK} />
+        <TableCell align={Align::End}>
+          <text value={self.shown.left} textColor={Style::INK} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={CANCEL_WIDTH} disabled={self.busy}
+        <TableCell align={Align::End}>
+          <PushButton $if={!self.shown.sold} label={Locale::CANCEL_AUCTION} width={CANCEL_WIDTH} disabled={self.busy}
                       @click={self.onCancel} />
         </TableCell>
       </TableRow>
@@ -119,18 +119,18 @@ public class OwnedPage implements Component {
     self.house = house
     self.revision = revision
     // The page shown: the client is asked for the auctions as they stand.
-    _ = Game.ownedAuctions.refresh()
-    Game.auctionActions.answered.listen(self.onAnswer)
+    _ = Game::ownedAuctions.refresh()
+    Game::auctionActions.answered.listen(self.onAnswer)
   }
 
   shownOf(self): Array<Shown> {
     _ = self.revision
     let list: Array<Shown> = []
-    for (owned of Game.ownedAuctions.list) {
+    for (owned of Game::ownedAuctions.list) {
       const name, color = nameOf(owned.item)
       const buyout = owned.buyout
       const unit = buyout != nil && owned.quantity > 0 ? (buyout / owned.quantity).floor() : nil
-      const listing = self.house.listed(PriceKey.of(owned.item))
+      const listing = self.house.listed(PriceKey::of(owned.item))
       const lowest = listing != nil && unit != nil ? unit <= listing.low() : nil
       const left = owned.left
       list.push({
@@ -143,21 +143,21 @@ public class OwnedPage implements Component {
 
   // The auctions asked again, and their items browsed for the house's lowest.
   onCheck(self) {
-    _ = Game.ownedAuctions.refresh()
+    _ = Game::ownedAuctions.refresh()
     let items: Array<Integer> = []
-    for (owned of peek Game.ownedAuctions.list) { items.push(owned.item) }
-    if (items.length > 0) { _ = Game.auctionQuery.browse(items) }
+    for (owned of peek Game::ownedAuctions.list) { items.push(owned.item) }
+    if (items.length > 0) { _ = Game::auctionQuery.browse(items) }
   }
 
   // From the player's click alone: one auction.
   onCancel(mut self, auction: Integer) {
-    if (Game.auctionActions.cancel(auction)) { self.sending = true }
+    if (Game::auctionActions.cancel(auction)) { self.sending = true }
   }
 
-  onAnswer(mut self, answer: Game.ActionAnswer) {
+  onAnswer(mut self, answer: Game::ActionAnswer) {
     if (!peek self.sending) { return }
     self.sending = false
-    if (answer == .Cancelled) { _ = Game.ownedAuctions.refresh() }
+    if (answer == .Cancelled) { _ = Game::ownedAuctions.refresh() }
   }
 
   public render(self): Template {
@@ -165,16 +165,16 @@ public class OwnedPage implements Component {
       <box rows={PAGE} gap={3sp}>
         <box rows={FILL}>
           <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
-            <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
+            <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game::auctionActions.busy}
                       @cancel={self.onCancel} />
-            <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-              <text value={Locale.NO_AUCTIONS} textColor={Style.DIM} />
+            <box $if={self.rows.length == 0} padding={Style::NOTE_PAD} yAlign={Align::Center}>
+              <text value={Locale::NO_AUCTIONS} textColor={Style::DIM} />
             </box>
           </Table>
         </box>
-        <box columns={BUTTONS} gap={6sp} yAlign={Align.Center}>
-          <PushButton label={Locale.CHECK} width={164.0625dp} @click={self.onCheck} />
-          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <box columns={BUTTONS} gap={6sp} yAlign={Align::Center}>
+          <PushButton label={Locale::CHECK} width={164.0625dp} @click={self.onCheck} />
+          <text value={Locale::CHECK_NOTE} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
       </box>
     }

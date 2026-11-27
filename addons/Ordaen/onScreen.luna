@@ -10,9 +10,9 @@ public enum Hold { Move = "move", Size = "size" }
 // How far right and down a drag takes the window, held to the screen. Moved, it goes no further than its surface
 // can and stay on the screen: at an edge it stops along that axis and goes on along the other. Sized, its right and
 // bottom edges stop at the screen's; it shrinks freely, and its top left never moves.
-public function kept(drag: Event.Drag, hold: Hold): (Number<Length>, Number<Length>) {
+public function kept(drag: Event::Drag, hold: Hold): (Number<Length>, Number<Length>) {
   const room = drag.room
-  if (hold == Hold.Size) {
+  if (hold == Hold::Size) {
     return drag.dx.min(room.right), drag.dy.min(room.down)
   }
   return drag.dx.max(-room.left).min(room.right), drag.dy.max(-room.up).min(room.down)

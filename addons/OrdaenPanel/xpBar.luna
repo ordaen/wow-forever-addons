@@ -14,7 +14,7 @@ import { XpLook, XpPart } from "@/extend"
 import Locale from "@/locales"
 
 // The experience's fill as it starts.
-const BRUSHED: Art = xpFillArt(XpFill.Brushed)
+const BRUSHED: Art = xpFillArt(XpFill::Brushed)
 
 // A tube's height and its label's size: both tubes stand side by side, each half the bars' width, each label over its
 // tube. The tube's ring is 10 of its art's 64 high, so at 20 the ring is 3 wide.
@@ -34,17 +34,17 @@ const ONE: Array<Track> = [{ fr: 1 }]
 // Half each, whatever their words: a track takes no more for its longer label.
 const TWO: Array<Track> = [{ fr: 1, min: 0ui }, { fr: 1, min: 0ui }]
 const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
-const RESTED: Color = Color.hex("#6e96d129")
-const LABEL: Color = Color.hex("#f3e7cc")
-const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+const RESTED: Color = Color::hex("#6e96d129")
+const LABEL: Color = Color::hex("#f3e7cc")
+const LABEL_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
 const LABEL_PARTS: Array<Track> = ["max-content", "max-content"]
 const LABEL_GAP = 1.5sp
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
-const GROOVE: Line = { width: 2ui, color: Color.hex("#0a0603d9"), sides: [Side.Top, Side.Right, Side.Bottom, Side.Left] }
+const GROOVE: Line = { width: 2ui, color: Color::hex("#0a0603d9"), sides: [Side::Top, Side::Right, Side::Bottom, Side::Left] }
 const FILL: Array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const MARK: Line = { width: 1ui, color: Color.hex("#00000080"), sides: [Side.Right] }
+const MARK: Line = { width: 1ui, color: Color::hex("#00000080"), sides: [Side::Right] }
 // Rested experience grows to a level and a half at most (the client's rule).
 const RESTED_MOST = 1.5
 // Under this many percent a part keeps a decimal, so a small one still reads: 264 of 29 000 is 0.9%, not 0%.
@@ -72,7 +72,7 @@ function tracksOf(value: Integer, least: Integer, most: Integer, parts: Array<Xp
 // One part past a tube's fill as its look says: the tube's fill art made grey and tinted the part's colour, or the
 // colour alone.
 class PartFill implements Component {
-  derived filled: Boolean = self.part.look == XpLook.Fill
+  derived filled: Boolean = self.part.look == XpLook::Fill
 
   part: Signal<XpPart>
   fill: Signal<Art>
@@ -161,16 +161,16 @@ function valuesOf(view: XpView, value: Integer, least: Integer, most: Integer, w
   let first = ""
   let after = ""
   match (view) {
-    XpView.Numbers => {
+    XpView::Numbers => {
       first = numbers
       after = "(" + percent + ")"
     }
-    XpView.Percent => {
+    XpView::Percent => {
       first = percent
       after = "(" + numbers + ")"
     }
-    XpView.NumbersOnly => { first = numbers }
-    XpView.PercentOnly => { first = percent + " / 100%" }
+    XpView::NumbersOnly => { first = numbers }
+    XpView::PercentOnly => { first = percent + " / 100%" }
   }
   if (words != "") { return words + " " + first, "" }
   return first, after
@@ -195,7 +195,7 @@ function currentOf(part: Integer, whole: Integer): String {
 // the same way; the parts past the value (quests done, the rested bonus), each its colour and its tooltip; a tooltip
 // over the bar.
 public class Tube implements Component {
-  state over: Over = Over.Off
+  state over: Over = Over::Off
   derived inset: Number<Length> = self.height * 10 / 64
   // How far the value has got, in hundredths of the tube; the tube in columns that share it: the fill, each part, the
   // rest (the fill's alone in the fill's layer).
@@ -205,7 +205,7 @@ public class Tube implements Component {
   derived label: String = self.labelOf(1)
   derived dimmed: String = self.labelOf(2)
   derived hasDimmed: Boolean = self.dimmed != ""
-  derived overBar: Boolean = self.over == Over.Bar
+  derived overBar: Boolean = self.over == Over::Bar
   derived tinted: Boolean = self.tint != nil
 
   // Ordaen's art: its root is there before this module loads.
@@ -260,50 +260,50 @@ public class Tube implements Component {
     return part == 1 ? first : after
   }
 
-  onBar(mut self) { self.over = Over.Bar }
-  onPart(mut self) { self.over = Over.Part }
-  onOff(mut self) { self.over = Over.Off }
+  onBar(mut self) { self.over = Over::Bar }
+  onPart(mut self) { self.over = Over::Part }
+  onOff(mut self) { self.over = Over::Off }
 
   public render(self): Template {
     return $ltml {
-      <box rows={LABELLED} gap={LABEL_ROOM} xAlign={Align.Stretch} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
-        <box columns={LABEL_PARTS} gap={LABEL_GAP} xAlign={Align.Center} yAlign={Align.Center}>
+      <box rows={LABELLED} gap={LABEL_ROOM} xAlign={Align::Stretch} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
+        <box columns={LABEL_PARTS} gap={LABEL_GAP} xAlign={Align::Center} yAlign={Align::Center}>
           <text value={self.label} textSize={LABEL_TEXT} textColor={LABEL} textOutline={1}
                 textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} textWeight={.Bold} />
           <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={LABEL}
                 textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
         </box>
         <box height={self.height}>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.panel.xpTrough} />
           // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
           // parts past the experience, the experience, the marks), the shine, the glass, the label. At one level the
           // client draws either on top.
-          <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+          <box position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
                zLevel={1}>
-            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.tracks}
+            <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.tracks}
                  rows={FILL}>
               <box />
               <PartFill $for={part of self.parts} part={part} fill={self.fill} />
               <box />
             </box>
-            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
+            <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
                  rows={FILL} zLevel={1}>
               <box background={self.fill} tint={self.tint} desaturate={self.tinted} />
               <box />
             </box>
-            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
+            <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
                  zLevel={2}>
               <box $for={cell of CELLS} border={MARK} />
               <box />
             </box>
           </box>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.panel.xpShine} zLevel={5} />
-          <box $if={self.bezel} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box $if={self.bezel} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.panel.xpTube} zLevel={6} />
-          <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
-          <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+          <box $else position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
+          <box position={Position::Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
                columns={self.tracks} rows={FILL}>
             <box />
             <PartSpot $for={part of self.parts} part={part} @entered={self.onPart} @left={self.onBar} />
@@ -319,24 +319,24 @@ public class Tube implements Component {
 public class XpBar implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
   // Below the level's cap there is experience to gain.
-  derived leveling: Boolean = Game.player.xpMax > 0
-  derived watched: Boolean = Game.reputation.name != ""
+  derived leveling: Boolean = Game::player.xpMax > 0
+  derived watched: Boolean = Game::reputation.name != ""
   // Both shown, they share the line, half each; one alone takes it whole.
   derived paired: Boolean = self.leveling && self.watched
   derived columns: Array<Track> = self.paired ? TWO : ONE
   derived width: Bounds = self.paired ? LEAST_PAIR : LEAST
   derived tubeHeight: Number<Length> = TUBE_HEIGHT.min(self.room)
-  derived toLevel: Integer = Game.player.xpMax - Game.player.xp
-  derived toNext: Integer = Game.reputation.max - Game.reputation.value
-  derived restedMost: Integer = (Game.player.xpMax * RESTED_MOST).floor()
-  derived xpTitle: String = Locale.XP_TIP_TITLE.format(Game.player.level)
+  derived toLevel: Integer = Game::player.xpMax - Game::player.xp
+  derived toNext: Integer = Game::reputation.max - Game::reputation.value
+  derived restedMost: Integer = (Game::player.xpMax * RESTED_MOST).floor()
+  derived xpTitle: String = Locale::XP_TIP_TITLE.format(Game::player.level)
   derived xpRows: Array<TipRow> = self.experienceRows()
   derived restedRows: Array<TipRow> = self.restRows()
   // Past the fill: what other modules know the player will get (quests done), then the rested bonus.
   derived xpParts: Array<XpPart> = self.partsOf()
   derived reputationRows: Array<TipRow> = self.standingRows()
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
-  derived standingTint: Color | nil = Game.reputation.color
+  derived standingTint: Color | nil = Game::reputation.color
 
   // The faction's fill, its standing's colour over it.
   const steel: Art = Ordaen.art.panel.xpSteel
@@ -353,7 +353,7 @@ public class XpBar implements Component {
     fill: Signal<Art> = BRUSHED,
     // The bronze ring round each tube; else a carved groove.
     bezel: Signal<Boolean> = true,
-    view: Signal<XpView> = XpView.Numbers,
+    view: Signal<XpView> = XpView::Numbers,
     // The parts other modules give (`Panel.xpSources`).
     sources: Signal<Array<XpPart>> = []
   ) {
@@ -366,10 +366,10 @@ public class XpBar implements Component {
 
   partsOf(self): Array<XpPart> {
     const parts = self.sources.map(part => part)
-    if (Game.player.rested > 0) {
+    if (Game::player.rested > 0) {
       parts.push({
-        amount: Game.player.rested, color: RESTED, title: Locale.RESTED_TIP_TITLE, text: Locale.RESTED_TIP,
-        rows: self.restedRows, look: XpLook.Wash
+        amount: Game::player.rested, color: RESTED, title: Locale::RESTED_TIP_TITLE, text: Locale::RESTED_TIP,
+        rows: self.restedRows, look: XpLook::Wash
       })
     }
     return parts
@@ -377,19 +377,19 @@ public class XpBar implements Component {
 
   // The rested bonus and its part of the level's whole.
   restedRow(self): TipRow {
-    return { label: Locale.XP_TIP_RESTED, value: countOf(Game.player.rested, Game.player.xpMax) }
+    return { label: Locale::XP_TIP_RESTED, value: countOf(Game::player.rested, Game::player.xpMax) }
   }
 
   // Where the experience is, what is left to the next level, each other module's part (quests done), and the rested
   // bonus where there is one: each with its part of the level's whole.
   experienceRows(self): Array<TipRow> {
-    let whole = Game.player.xpMax
+    let whole = Game::player.xpMax
     let rows: Array<TipRow> = [
-      { label: Locale.TIP_CURRENT, value: currentOf(Game.player.xp, whole) },
-      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: leftCount(self.toLevel, whole) }
+      { label: Locale::TIP_CURRENT, value: currentOf(Game::player.xp, whole) },
+      { label: Locale::XP_TIP_TO_LEVEL.format(Game::player.level + 1), value: leftCount(self.toLevel, whole) }
     ]
     for (part of self.sources) { rows.push({ label: part.title, value: countOf(part.amount, whole) }) }
-    if (Game.player.rested > 0) {
+    if (Game::player.rested > 0) {
       rows.push(self.restedRow())
     }
     return rows
@@ -398,22 +398,22 @@ public class XpBar implements Component {
   restRows(self): Array<TipRow> {
     return [
       self.restedRow(),
-      { label: Locale.RESTED_TIP_RESTING, value: Game.situation.resting ? Locale.YES : Locale.NO },
-      { label: Locale.RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game.player.rested)) }
+      { label: Locale::RESTED_TIP_RESTING, value: Game::situation.resting ? Locale::YES : Locale::NO },
+      { label: Locale::RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game::player.rested)) }
     ]
   }
 
   // Where the reputation is in its standing and what is left to the next, named in its colour as the bar is drawn:
   // each with its part of the standing's whole.
   standingRows(self): Array<TipRow> {
-    let whole = Game.reputation.max - Game.reputation.min
+    let whole = Game::reputation.max - Game::reputation.min
     let rows: Array<TipRow> = [
-      { label: Locale.TIP_CURRENT, value: currentOf(Game.reputation.value - Game.reputation.min, whole) }
+      { label: Locale::TIP_CURRENT, value: currentOf(Game::reputation.value - Game::reputation.min, whole) }
     ]
-    if (Game.reputation.next != "") {
+    if (Game::reputation.next != "") {
       rows.push({
-        label: Locale.REPUTATION_TIP_TO,
-        mark: { text: Game.reputation.next, color: Game.reputation.nextColor },
+        label: Locale::REPUTATION_TIP_TO,
+        mark: { text: Game::reputation.next, color: Game::reputation.nextColor },
         value: leftCount(self.toNext, whole)
       })
     }
@@ -422,14 +422,14 @@ public class XpBar implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} padding={MARGINS} columns={self.columns} yAlign={Align.Center} gap={GAP}>
-        <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game.player.xp} least={0}
-              most={Game.player.xpMax} parts={self.xpParts} height={self.tubeHeight} title={self.xpTitle}
+      <box width={self.width} padding={MARGINS} columns={self.columns} yAlign={Align::Center} gap={GAP}>
+        <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game::player.xp} least={0}
+              most={Game::player.xpMax} parts={self.xpParts} height={self.tubeHeight} title={self.xpTitle}
               rows={self.xpRows} />
         <Tube $if={self.watched} fill={self.steel} bezel={self.bezel} view={self.view}
-              value={Game.reputation.value}
-              least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}
-              height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows}
+              value={Game::reputation.value}
+              least={Game::reputation.min} most={Game::reputation.max} words={Game::reputation.standing}
+              height={self.tubeHeight} title={Game::reputation.name} rows={self.reputationRows}
               tint={self.standingTint} />
       </box>
     }

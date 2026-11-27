@@ -5,7 +5,7 @@
 public enum QuestKind { World, Dungeon, Raid, PvP }
 
 // The tabs in their order, World first.
-public const KINDS: Array<QuestKind> = [QuestKind.World, QuestKind.Dungeon, QuestKind.Raid, QuestKind.PvP]
+public const KINDS: Array<QuestKind> = [QuestKind::World, QuestKind::Dungeon, QuestKind::Raid, QuestKind::PvP]
 
 // `Enum.QuestTag`'s values that name an instance or a battleground.
 const TAG_DUNGEON = 81

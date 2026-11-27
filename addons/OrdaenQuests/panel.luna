@@ -6,7 +6,7 @@ import type { XpPart, XpSource } from "OrdaenPanel"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 
-const DONE_GREEN: Color = Color.hex("#6fa04f")
+const DONE_GREEN: Color = Color::hex("#6fa04f")
 
 // A part of the level's whole in percent, one decimal under ten, cut, never rounded up: as the bar says its own.
 function percentOf(part: Integer, whole: Integer): String {
@@ -24,15 +24,15 @@ public class DoneQuestsXp implements XpSource {
     if (done.length == 0) { return nil }
     let amount = 0
     for (quest of done) { amount = amount + quest.xp }
-    const whole = Game.player.xpMax
-    const reached = Game.player.xp + amount
+    const whole = Game::player.xpMax
+    const reached = Game::player.xp + amount
     // Past the level the next one's whole isn't known: the level reached is said alone.
-    const after = reached >= whole ? Locale.PANEL_XP_LEVEL_UP.format(Game.player.level + 1) : percentOf(reached, whole)
+    const after = reached >= whole ? Locale::PANEL_XP_LEVEL_UP.format(Game::player.level + 1) : percentOf(reached, whole)
     const rows: Array<TipRow> = [
-      { label: Locale.PANEL_XP_QUESTS, value: number(done.length) },
-      { label: Locale.PANEL_XP_AMOUNT, value: "%s (%s)".format(number(amount), percentOf(amount, whole)) },
-      { label: Locale.PANEL_XP_AFTER, value: after }
+      { label: Locale::PANEL_XP_QUESTS, value: number(done.length) },
+      { label: Locale::PANEL_XP_AMOUNT, value: "%s (%s)".format(number(amount), percentOf(amount, whole)) },
+      { label: Locale::PANEL_XP_AFTER, value: after }
     ]
-    return XpPart { amount: amount, color: DONE_GREEN, title: Locale.PANEL_XP_TITLE, text: Locale.PANEL_XP_TEXT, rows: rows }
+    return XpPart { amount: amount, color: DONE_GREEN, title: Locale::PANEL_XP_TITLE, text: Locale::PANEL_XP_TEXT, rows: rows }
   }
 }

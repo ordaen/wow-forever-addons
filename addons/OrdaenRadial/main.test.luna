@@ -13,121 +13,121 @@ import { Item, Ring } from "@/choices"
 import { emoteNames } from "@/emotes"
 import { RadialKind, RadialOffer } from "@/kinds"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
-const MIDDLE: Test.Point = { x: 800, y: 450 }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const MIDDLE: Test::Point = { x: 800, y: 450 }
 const FAR = 120
 
 // The first ring on F, the marks' on G; the screen drawn.
 function start() {
-  _ = Client.SetBinding("H", "ORDAEN_RADIAL_3")
-  _ = Client.SetBinding("F", "ORDAEN_RADIAL_1")
-  _ = Client.SetBinding("G", "ORDAEN_RADIAL_2")
-  Events.UPDATE_BINDINGS.emit()
-  Test.mount(nil, SCREEN)
-  Test.flush()
+  _ = Client::SetBinding("H", "ORDAEN_RADIAL_3")
+  _ = Client::SetBinding("F", "ORDAEN_RADIAL_1")
+  _ = Client::SetBinding("G", "ORDAEN_RADIAL_2")
+  Events::UPDATE_BINDINGS.emit()
+  Test::mount(nil, SCREEN)
+  Test::flush()
 }
 
 // A key held at the screen's middle and the cursor moved `x` right and `y` down.
 function hold(key: String, x: Number, y: Number) {
-  Test.moveTo(MIDDLE)
-  _ = Test.holdBound(key)
-  Test.flush()
-  Test.moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
-  Test.pass(0.05)
+  Test::moveTo(MIDDLE)
+  _ = Test::holdBound(key)
+  Test::flush()
+  Test::moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
+  Test::pass(0.05)
 }
 
 function clickAt(x: Number, y: Number) {
-  Test.moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
-  Test.pass(0.05)
-  Test.press(nil)
-  Test.release(nil)
-  Test.pass(0.05)
+  Test::moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
+  Test::pass(0.05)
+  Test::press(nil)
+  Test::release(nil)
+  Test::pass(0.05)
 }
 
 test "the key held opens the ring and names what the mouse goes towards, from where its aim has trailed to" {
   start()
   hold("F", 0, -2 * FAR)
-  Test.expect(Test.page().texts().join(", ") == "Windows, Click to open, Scroll to choose")
+  Test::expect(Test::page().texts().join(", ") == "Windows, Click to open, Scroll to choose")
   // Gone far up, the aim's middle trailed it, a reach behind: a way back about that far comes into it, which cancels.
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 2 * FAR + 90 })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Release to cancel")
+  Test::moveTo({ x: MIDDLE.x, y: MIDDLE.y - 2 * FAR + 90 })
+  Test::pass(0.05)
+  Test::expect(Test::page().texts().join(", ") == "Release to cancel")
   // A move right from there turns to the item on the right.
-  Test.moveTo({ x: MIDDLE.x + 3 * FAR, y: MIDDLE.y - 2 * FAR + 90 })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
-  _ = Test.releaseBound("F")
+  Test::moveTo({ x: MIDDLE.x + 3 * FAR, y: MIDDLE.y - 2 * FAR + 90 })
+  Test::pass(0.05)
+  Test::expect(Test::page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
+  _ = Test::releaseBound("F")
 }
 
 test "a ring's item opens its ring in place on a click, and a click there does its item, in a fight too" {
   start()
-  Test.combat(true)
+  Test::combat(true)
   hold("F", 0, -FAR)
   clickAt(0, -FAR)
   // On the wheel, its middle is the aim's: the item right of it is right of the middle.
-  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Talents, Click to use")
+  Test::moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
+  Test::pass(0.05)
+  Test::expect(Test::page().texts().join(", ") == "Talents, Click to use")
   clickAt(FAR, 0)
-  Test.expect(Test.performed().join(", ") == "macro /click TalentMicroButton")
-  Test.expect(Test.page().texts().length == 0)
-  _ = Test.releaseBound("F")
-  Test.combat(false)
+  Test::expect(Test::performed().join(", ") == "macro /click TalentMicroButton")
+  Test::expect(Test::page().texts().length == 0)
+  _ = Test::releaseBound("F")
+  Test::combat(false)
 }
 
 test "the key let go closes the wheel and does nothing" {
   start()
   hold("G", 0, -FAR)
-  _ = Test.releaseBound("G")
-  Test.pass(0.05)
-  Test.expect(Test.performed().length == 0 && Test.page().texts().length == 0)
+  _ = Test::releaseBound("G")
+  Test::pass(0.05)
+  Test::expect(Test::performed().length == 0 && Test::page().texts().length == 0)
 }
 
 test "the marks' ring on its own key marks the target with one click" {
   start()
-  Test.combat(true)
+  Test::combat(true)
   hold("G", 0, -FAR)
-  Test.expect(Test.page().texts().join(", ") == "Mark 8, Click to use")
+  Test::expect(Test::page().texts().join(", ") == "Mark 8, Click to use")
   clickAt(0, -FAR)
-  _ = Test.releaseBound("G")
-  Test.expect(Test.performed().join(", ") == "macro /tm 8")
-  Test.combat(false)
+  _ = Test::releaseBound("G")
+  Test::expect(Test::performed().join(", ") == "macro /tm 8")
+  Test::combat(false)
 }
 
 test "a window of ours is opened out of a fight, and is dimmed and does nothing in one" {
   start()
-  Test.combat(true)
+  Test::combat(true)
   hold("F", -FAR, -FAR)
   clickAt(-FAR, -FAR)
-  Test.moveTo({ x: MIDDLE.x + 104, y: MIDDLE.y + 60 })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Ordaen settings, Can't be used now")
+  Test::moveTo({ x: MIDDLE.x + 104, y: MIDDLE.y + 60 })
+  Test::pass(0.05)
+  Test::expect(Test::page().texts().join(", ") == "Ordaen settings, Can't be used now")
   clickAt(104, 60)
-  _ = Test.releaseBound("F")
-  Test.expect(Test.page().window("Move mode").count() == 0)
-  Test.combat(false)
+  _ = Test::releaseBound("F")
+  Test::expect(Test::page().window("Move mode").count() == 0)
+  Test::combat(false)
   hold("F", -FAR, -FAR)
   clickAt(-FAR, -FAR)
   clickAt(104, 60)
-  _ = Test.releaseBound("F")
-  Test.expect(Test.page().window("Move mode").shown())
+  _ = Test::releaseBound("F")
+  Test::expect(Test::page().window("Move mode").shown())
 }
 
 // The settings window on the wheels' tab: the surface that holds the tab's own «All rings back» (the catalogue's list,
 // open, says «Move mode» too).
-function radialTab(): Test.Part {
-  Test.open("/ordaen")
-  Test.page().window("Move mode").button("Radial").click()
-  return Test.page().window("All rings back")
+function radialTab(): Test::Part {
+  Test::open("/ordaen")
+  Test::page().window("Move mode").button("Radial").click()
+  return Test::page().window("All rings back")
 }
 
 // A part of the tab clicked as the player does: the tab scrolled from its top down until it is in view.
-function clickDown(settings: Test.Part, part: Test.Part) {
+function clickDown(settings: Test::Part, part: Test::Part) {
   settings.hover()
-  for (notch of 1..30) { Test.wheel(1) }
+  for (notch of 1..30) { Test::wheel(1) }
   for (notch of 1..60) {
-    if (Test.refused(() => part.click()) == nil) { return }
-    Test.wheel(-1)
+    if (Test::refused(() => part.click()) == nil) { return }
+    Test::wheel(-1)
   }
   panic("the part is never in view")
 }
@@ -141,13 +141,13 @@ test "the tab's tree opens a submenu, the place chosen shows its item and takes 
   clickDown(settings, settings.button("1. Attack"))
   // The catalogue's plate says what stands there: the second «Attack», after the line's own.
   clickDown(settings, settings.button("Attack").nth(2))
-  Test.page().button("Spell or mount").click()
+  Test::page().button("Spell or mount").click()
   clickDown(settings, settings.input().nth(1))
   settings.input().nth(1).type("Find Herbs")
   clickDown(settings, settings.button("Put it there"))
-  Test.expect(firstRing().items["3_1"] is Item.Spell)
+  Test::expect(firstRing().items["3_1"] is Item::Spell)
   clickDown(settings, settings.button("Back to the preset"))
-  Test.expect(firstRing().items["3_1"] is Item.Pinged)
+  Test::expect(firstRing().items["3_1"] is Item::Pinged)
 }
 
 test "the tab chooses a place's icon: «no icon» has its name stand in its wedge, and «The item's own» brings its icon back" {
@@ -155,17 +155,17 @@ test "the tab chooses a place's icon: «no icon» has its name stand in its wedg
   const settings = radialTab()
   clickDown(settings, settings.button("1. Windows"))
   clickDown(settings, settings.button("Choose an icon"))
-  Test.page().box(NO_ICON_MARK).click()
-  Test.page().button("Pick").click()
-  Test.expect(firstRing().icons["1"] != nil && firstRing().icons["1"]?.icon == nil)
+  Test::page().box(NO_ICON_MARK).click()
+  Test::page().button("Pick").click()
+  Test::expect(firstRing().icons["1"] != nil && firstRing().icons["1"]?.icon == nil)
   hold("F", 0, -FAR)
   // The windows' slice, straight up, written in its wedge; its book icon gone.
-  Test.expect(!Test.drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Book_09"))
-  _ = Test.releaseBound("F")
+  Test::expect(!Test::drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Book_09"))
+  _ = Test::releaseBound("F")
   const again = radialTab()
   clickDown(again, again.button("1. Windows"))
   clickDown(again, again.button("The item's own"))
-  Test.expect(firstRing().icons["1"] == nil)
+  Test::expect(firstRing().icons["1"] == nil)
 }
 
 test "a place added inside a submenu is moved earlier, and one taken away takes what stands under it, those after it moving up" {
@@ -173,15 +173,15 @@ test "a place added inside a submenu is moved earlier, and one taken away takes 
   const settings = radialTab()
   clickDown(settings, settings.button("2. Professions"))
   clickDown(settings, settings.button("Add inside"))
-  Test.expect(firstRing().counts["2"] == 2 && firstRing().items["2_2"] == Item.Empty)
+  Test::expect(firstRing().counts["2"] == 2 && firstRing().items["2_2"] == Item::Empty)
   clickDown(settings, settings.button("Move earlier"))
-  Test.expect(firstRing().items["2_1"] == Item.Empty && firstRing().items["2_2"] == Item.Professions)
+  Test::expect(firstRing().items["2_1"] == Item::Empty && firstRing().items["2_2"] == Item::Professions)
   clickDown(settings, settings.button("1. Windows"))
   clickDown(settings, settings.button("Remove"))
   // The professions moved up into the windows' place, their own items with them.
   const ring = firstRing()
-  Test.expect(ring.counts[""] == 7 && ring.counts["1"] == 2 && ring.items["1_2"] == Item.Professions)
-  Test.expect(ring.items["1_1_1"] == nil && ring.items["7"] is Item.Menu && ring.items["8"] == nil)
+  Test::expect(ring.counts[""] == 7 && ring.counts["1"] == 2 && ring.items["1_2"] == Item::Professions)
+  Test::expect(ring.items["1_1_1"] == nil && ring.items["7"] is Item::Menu && ring.items["8"] == nil)
 }
 
 // One ring of the player's changed as `edit` changes it.
@@ -191,7 +191,7 @@ function editRing(index: Integer, edit: (ring: mut Ring) => nil) {
   edit(ring)
   rings[index] = ring
   Radial.settings.values.rings = rings
-  Test.flush()
+  Test::flush()
 }
 
 // A kind of another module's: the next junk to sell, an item of the bags.
@@ -205,13 +205,13 @@ class Junk implements RadialKind {
 
 test "a spell dropped from the spellbook goes in the place chosen" {
   start()
-  Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
+  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
   const settings = radialTab()
   clickDown(settings, settings.button("6. Travel"))
-  Client.C_Spell.PickupSpell(2383)
+  Client::C_Spell::PickupSpell(2383)
   clickDown(settings, settings.button("Drop a spell, an item or a macro here: it goes in the place"))
-  Test.expect(firstRing().items["6"] is Item.Spell && firstRing().items["6_1"] == nil)
-  Test.expect(!Client.CursorHasSpell())
+  Test::expect(firstRing().items["6"] is Item::Spell && firstRing().items["6_1"] == nil)
+  Test::expect(!Client::CursorHasSpell())
 }
 
 test "a kind another module adds offers its item on the wheel, in a fight too" {
@@ -219,136 +219,136 @@ test "a kind another module adds offers its item on the wheel, in a fight too" {
   const junk = new Junk()
   _ = Radial.kinds.add(junk)
   editRing(2, (ring: mut Ring): nil => { ring.items["1"] = .Kind { kind: "junk" } })
-  Test.combat(true)
+  Test::combat(true)
   hold("G", 0, -FAR)
-  Test.expect(Test.page().texts().join(", ") == "Broken Fang, Click to use")
+  Test::expect(Test::page().texts().join(", ") == "Broken Fang, Click to use")
   clickAt(0, -FAR)
-  _ = Test.releaseBound("G")
-  Test.expect(Test.performed().join(", ") == "item item:4875")
-  Test.combat(false)
+  _ = Test::releaseBound("G")
+  Test::expect(Test::performed().join(", ") == "item item:4875")
+  Test::combat(false)
 }
 
 test "an item of another class is dimmed and does nothing; one held to a modifier needs it" {
   start()
-  Client.UnitClass = (unit: String): (String | nil, String | nil, Number | nil) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: String): (String | nil, String | nil, Number | nil) => { return "Warrior", "WARRIOR", 1 }
   editRing(3, (ring: mut Ring): nil => {
     ring.conditions["1"] = { classTag: "MAGE", form: nil, modifier: nil }
     ring.conditions["2"] = { classTag: nil, form: nil, modifier: .Shift }
   })
   hold("H", 0, -FAR)
-  Test.expect(Test.page().texts().join(", ") == "Attack, Can't be used now")
+  Test::expect(Test::page().texts().join(", ") == "Attack, Can't be used now")
   clickAt(0, -FAR)
-  _ = Test.releaseBound("H")
-  Test.expect(Test.performed().length == 0)
+  _ = Test::releaseBound("H")
+  Test::expect(Test::performed().length == 0)
   hold("H", FAR, 0)
-  Test.hold([.Shift])
+  Test::hold([.Shift])
   clickAt(FAR, 0)
-  Test.hold([])
-  _ = Test.releaseBound("H")
-  Test.expect(Test.performed().join(", ") == "macro /ping 4")
+  Test::hold([])
+  _ = Test::releaseBound("H")
+  Test::expect(Test::performed().join(", ") == "macro /ping 4")
 }
 
 test "a spell shows its charges and its cooldown's sweep; a macro its own icon" {
   start()
-  Client.C_Spell.GetSpellTexture = (spell: String | Integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
-  Client.C_Spell.GetSpellCharges = (spell: String | Integer): SpellChargeInfo | nil => {
+  Client::C_Spell::GetSpellTexture = (spell: String | Integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
+  Client::C_Spell::GetSpellCharges = (spell: String | Integer): SpellChargeInfo | nil => {
     currentCharges: 2, maxCharges: 3, cooldownStartTime: 0, cooldownDuration: 0, chargeModRate: 1, isActive: true
   }
-  Client.C_Spell.GetSpellCooldown = (spell: String | Integer): SpellCooldownInfo | nil => {
+  Client::C_Spell::GetSpellCooldown = (spell: String | Integer): SpellCooldownInfo | nil => {
     startTime: 5, duration: 30, isEnabled: true, isActive: true, modRate: 1, activeCategory: nil
   }
-  Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "/cast Heal" }
+  Client::GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "/cast Heal" }
   editRing(3, (ring: mut Ring): nil => {
     ring.items["1"] = .Spell { spell: "Charge" }
     ring.items["2"] = .Macro { macro: "Heal me" }
   })
-  const told = Test.calls(() => hold("H", 0, -FAR))
-  Test.expect(told.contains("SetCooldown=1"))
-  Test.expect(Test.page().text("2").shown())
-  Test.expect(Test.drawn().any(drawn => drawn.file == 134400))
-  _ = Test.releaseBound("H")
+  const told = Test::calls(() => hold("H", 0, -FAR))
+  Test::expect(told.contains("SetCooldown=1"))
+  Test::expect(Test::page().text("2").shown())
+  Test::expect(Test::drawn().any(drawn => drawn.file == 134400))
+  _ = Test::releaseBound("H")
 }
 
 test "a ring's size and its submenus' memory are chosen on the tab" {
   start()
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Radial").click()
   settings.button("+").click()
   settings.button("Submenus remember").click()
   const first = Radial.settings.values.rings[1] ?? panic("the first ring")
-  Test.expect(first.scale > 1)
-  Test.expect(first.remember)
+  Test::expect(first.scale > 1)
+  Test::expect(first.remember)
 }
 
 test "an item from the bags and a macro dropped go in the place chosen" {
   start()
-  Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
-  Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }
+  Client::GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
+  Client::GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }
   const settings = radialTab()
   clickDown(settings, settings.button("1. Windows"))
   const drop = settings.button("Drop a spell, an item or a macro here: it goes in the place")
   clickDown(settings, drop)
-  Test.expect(firstRing().items["1"] is Item.Bag)
-  Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
+  Test::expect(firstRing().items["1"] is Item::Bag)
+  Client::GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
   clickDown(settings, drop)
-  Test.expect(firstRing().items["1"] is Item.Macro)
+  Test::expect(firstRing().items["1"] is Item::Macro)
 }
 
 test "the mouse wheel over a submenu shows the item it steps to, and the middle says which of how many" {
   start()
   hold("F", 0, -FAR)
-  Test.wheel(-1)
-  Test.pass(0.05)
-  const texts = Test.page().texts()
-  Test.expect(texts.length == 3 && texts[2] == "Click to use" && (texts[3] ?? "").match("^1 of %d+$") != nil)
-  _ = Test.releaseBound("F")
+  Test::wheel(-1)
+  Test::pass(0.05)
+  const texts = Test::page().texts()
+  Test::expect(texts.length == 3 && texts[2] == "Click to use" && (texts[3] ?? "").match("^1 of %d+$") != nil)
+  _ = Test::releaseBound("F")
 }
 
 test "a ping taken by a press says to point and let go; the wheel is see-through only while the cursor is over it" {
   start()
   hold("H", 0, -FAR)
-  Test.press(nil)
-  Test.pass(0.05)
-  const hint = Test.page().text("Point and release LMB")
+  Test::press(nil)
+  Test::pass(0.05)
+  const hint = Test::page().text("Point and release LMB")
   // Still on the wheel: all but gone, so the spot under it shows.
-  Test.expect(hint.shown() && hint.opacity() < 0.2)
+  Test::expect(hint.shown() && hint.opacity() < 0.2)
   // Off the wheel: drawn as it was.
-  Test.moveTo({ x: MIDDLE.x + 4 * FAR, y: MIDDLE.y })
-  Test.pass(0.05)
-  Test.expect(hint.opacity() == 1)
-  Test.release(nil)
-  _ = Test.releaseBound("H")
-  Test.expect(Test.performed().join(", ") == "macro /ping 1")
+  Test::moveTo({ x: MIDDLE.x + 4 * FAR, y: MIDDLE.y })
+  Test::pass(0.05)
+  Test::expect(hint.opacity() == 1)
+  Test::release(nil)
+  _ = Test::releaseBound("H")
+  Test::expect(Test::performed().join(", ") == "macro /ping 1")
 }
 
 test "emotes stand in families of groups, each named by its command with no icon and done by its token" {
   start()
-  Test.combat(true)
+  Test::combat(true)
   hold("F", 0, FAR)
   clickAt(0, FAR)
   clickAt(0, -FAR)
   clickAt(0, -FAR)
   // «hello» and «greet» share `/привет`: the client takes it for «greet», the lower, and «hello» is named by its next.
-  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y - FAR })
-  Test.pass(0.05)
-  Test.expect(Test.page().text("/при").shown() && Test.page().text("/привет").shown())
-  Test.expect(!Test.drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Toy_10"))
+  Test::moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y - FAR })
+  Test::pass(0.05)
+  Test::expect(Test::page().text("/при").shown() && Test::page().text("/привет").shown())
+  Test::expect(!Test::drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Toy_10"))
   clickAt(FAR, -FAR)
-  _ = Test.releaseBound("F")
-  Test.expect(Test.performed().join(", ") == "macro /run DoEmote(\"GREET\")")
-  Test.combat(false)
+  _ = Test::releaseBound("F")
+  Test::expect(Test::performed().join(", ") == "macro /run DoEmote(\"GREET\")")
+  Test::combat(false)
 }
 
 test "in a client in another language an emote is named by its command in it, else by our word, never by an English command" {
-  Client.GetLocale = (): String => "ruRU"
+  Client::GetLocale = (): String => "ruRU"
   const names = emoteNames()
   const beckon = names["BECKON"] ?? ""
   const russian, _ = beckon.find("[\128-\255]")
-  Test.expect(beckon != "/beckon" && beckon.sub(1, 1) == "/" && russian != nil)
-  Test.expect(names["CLAP"] == "Clap" && names["GREET"] == "/привет" && names["HELLO"] == "/при")
-  Client.GetLocale = (): String => "enUS"
-  Test.expect(emoteNames()["BECKON"] == "/beckon")
+  Test::expect(beckon != "/beckon" && beckon.sub(1, 1) == "/" && russian != nil)
+  Test::expect(names["CLAP"] == "Clap" && names["GREET"] == "/привет" && names["HELLO"] == "/при")
+  Client::GetLocale = (): String => "enUS"
+  Test::expect(emoteNames()["BECKON"] == "/beckon")
 }
 
 // The first ring's Emotes submenu as an older build saved it: eight lines, the last one `last`.
@@ -368,8 +368,8 @@ function oldEmotes(last: String) {
 test "rings an older build saved take every emote where its Emotes submenu was left as it came" {
   start()
   oldEmotes("/cry")
-  Test.expect(firstRing().items["5_1"] is Item.Menu && firstRing().items["5_1_1_1"] is Item.Emote)
-  Test.expect(firstRing().counts["5"] == 8 && firstRing().items["5_8_3_1"] is Item.Emote)
+  Test::expect(firstRing().items["5_1"] is Item::Menu && firstRing().items["5_1_1_1"] is Item::Emote)
+  Test::expect(firstRing().counts["5"] == 8 && firstRing().items["5_8_3_1"] is Item::Emote)
 }
 
 test "an emote the server does nothing for leaves a saved ring, the emotes after it moving up" {
@@ -378,33 +378,33 @@ test "an emote the server does nothing for leaves a saved ring, the emotes after
   const second = firstRing().items["5_8_3_2"] ?? panic("the sounds' second emote")
   editRing(1, (ring: mut Ring): nil => { ring.items["5_8_3_1"] = .Emote { token: "QUACK" } })
   const first = firstRing().items["5_8_3_1"] ?? panic("the sounds' first emote")
-  Test.expect(firstRing().counts["5_8_3"] == count - 1 && first.equal(second))
-  Test.expect(firstRing().items[`5_8_3_${count}`] == nil)
+  Test::expect(firstRing().counts["5_8_3"] == count - 1 && first.equal(second))
+  Test::expect(firstRing().items[`5_8_3_${count}`] == nil)
 }
 
 test "an Emotes submenu the player changed stays as it is" {
   start()
   oldEmotes("/roar")
-  Test.expect(firstRing().items["5_8"] is Item.Line && firstRing().items["5_1_1"] == nil)
+  Test::expect(firstRing().items["5_8"] is Item::Line && firstRing().items["5_1_1"] == nil)
 }
 
 test "each kind of ping shows the client's own mark of it and sends its own number" {
   start()
   hold("H", 0, -FAR)
-  const drawn = Test.drawn()
+  const drawn = Test::drawn()
   for (kind of ["Attack", "Assist", "Warning", "OnMyWay"]) {
-    Test.expect(drawn.any(texture => texture.file == `Ping_Marker_Icon_${kind}`))
+    Test::expect(drawn.any(texture => texture.file == `Ping_Marker_Icon_${kind}`))
   }
   clickAt(0, -FAR)
-  _ = Test.releaseBound("H")
+  _ = Test::releaseBound("H")
   hold("H", FAR, 0)
   clickAt(FAR, 0)
-  _ = Test.releaseBound("H")
+  _ = Test::releaseBound("H")
   hold("H", 0, FAR)
   clickAt(0, FAR)
-  _ = Test.releaseBound("H")
+  _ = Test::releaseBound("H")
   hold("H", -FAR, 0)
   clickAt(-FAR, 0)
-  _ = Test.releaseBound("H")
-  Test.expect(Test.performed().join(", ") == "macro /ping 1, macro /ping 4, macro /ping 2, macro /ping 3")
+  _ = Test::releaseBound("H")
+  Test::expect(Test::performed().join(", ") == "macro /ping 1, macro /ping 4, macro /ping 2, macro /ping 3")
 }

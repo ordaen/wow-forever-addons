@@ -20,9 +20,9 @@ const EPOCH: Integer = 438288
 // followed: what reads an hour isn't run again each second.
 public type Hour = brand Integer {
   public of(hours: Integer): Hour { return hours }
-  public now(): Hour { return ((peek Game.clock.server) / 3600).floor() - EPOCH }
+  public now(): Hour { return ((peek Game::clock.server) / 3600).floor() - EPOCH }
   // The hour `seconds` from now ends in, rounded up: what a cooldown or a mail's expiry gives.
-  public fromNow(seconds: Integer): Hour { return (((peek Game.clock.server) + seconds) / 3600).ceil() - EPOCH }
+  public fromNow(seconds: Integer): Hour { return (((peek Game::clock.server) + seconds) / 3600).ceil() - EPOCH }
   // The hour so many hours after this one (before it, for a negative count).
   public after(self, hours: Integer): Hour { return self + hours }
 }

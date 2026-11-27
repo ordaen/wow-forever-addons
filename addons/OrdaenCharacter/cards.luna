@@ -57,9 +57,9 @@ public class ListCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={2sp} padding={3sp} background={Style.BACK} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <text value={self.card.value} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
+      <box gap={2sp} padding={3sp} background={Style::BACK} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
+        <text value={self.card.value} textFont={TextFont::Numbers} textColor={Style::INK} wrap={.None} />
         <Tip $if={self.tipShown} title={self.tipTitle} text={self.card.tip} />
       </box>
     }
@@ -76,7 +76,7 @@ public class StatGroup implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={3sp}>
-        <text $if={self.group.title != ""} value={self.group.title} leading={.Title} textFont={TextFont.Title} textColor={Style.GOLD} />
+        <text $if={self.group.title != ""} value={self.group.title} leading={.Title} textFont={TextFont::Title} textColor={Style::GOLD} />
         <box columns={4} gap={2sp}>
           <ListCard $for={card of self.group.cards} card={card} />
         </box>

@@ -21,9 +21,9 @@ test "an item's uses are every recipe of the book that takes it, with its profes
   const uses = usesOf(book())
   const bars = (uses[2841] ?? []).map(use => `${use.profession} ${use.recipe} x${use.count}`)
   bars.sort((a, b) => a < b)
-  Test.expect(bars.join(", ") == "Blacksmithing 2738 x2, Engineering 3926 x3")
-  Test.expect((uses[2836] ?? []).length == 1)
-  Test.expect(uses[9999] == nil)
+  Test::expect(bars.join(", ") == "Blacksmithing 2738 x2, Engineering 3926 x3")
+  Test::expect((uses[2836] ?? []).length == 1)
+  Test::expect(uses[9999] == nil)
 }
 
 test "the queue takes each reagent of its lines times their counts, together by item" {
@@ -31,5 +31,5 @@ test "the queue takes each reagent of its lines times their counts, together by 
     { skillLine: 164, recipe: 2738, name: "Copper Axe", count: 2 },
     { skillLine: 202, recipe: 3926, name: "Bronze Tube", count: 1 }
   ])
-  Test.expect(needs.map(need => `${need.item}x${need.count}`).join(", ") == "2841x7, 2836x2")
+  Test::expect(needs.map(need => `${need.item}x${need.count}`).join(", ") == "2841x7, 2836x2")
 }

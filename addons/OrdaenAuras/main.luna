@@ -13,20 +13,20 @@ public class Auras implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    Game.auras.watch(true)
-    Game.auras.changed.listen(self.refresh)
+    Game::auras.watch(true)
+    Game::auras.changed.listen(self.refresh)
     self.refresh()
   }
 
   destructor() {
-    Game.auras.watch(false)
+    Game::auras.watch(false)
   }
 
   // The character's auras as the client has them now.
   public refresh(mut self) {
-    const level = Game.player.level
+    const level = Game::player.level
     const list: Array<Active> = []
-    for (aura of Game.auras.player()) {
+    for (aura of Game::auras.player()) {
       const changes = changesOf(aura.spell, aura.stacks, aura.points, level)
       if (changes.length > 0) {
         list.push({ spell: aura.spell, harmful: aura.harmful, stacks: aura.stacks, changes: changes })

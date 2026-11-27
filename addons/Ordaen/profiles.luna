@@ -152,24 +152,24 @@ function movedKeys(keys: mut Map<String, String>, former: String, current: Strin
 
 // The profile a character uses and the rule that names it: the one picked for its specialisation, for it, for its
 // class, or the account's.
-public function pickOf(picks: ProfilePicks, who: Profiles.Player): Profiles.Pick {
+public function pickOf(picks: ProfilePicks, who: Profiles::Player): Profiles::Pick {
   const character = who.character
   if (character != nil) {
     const spec = who.spec
     const bySpec = picks.bySpec[character]
     if (spec != nil && bySpec != nil) {
       const forSpec = bySpec[spec]
-      if (forSpec != nil) { return { name: forSpec, why: Profiles.Reason.Spec } }
+      if (forSpec != nil) { return { name: forSpec, why: Profiles::Reason::Spec } }
     }
     const own = picks.byCharacter[character]
-    if (own != nil) { return { name: own, why: Profiles.Reason.Character } }
+    if (own != nil) { return { name: own, why: Profiles::Reason::Character } }
   }
   const forClass = picks.byClass[who.classTag]
-  if (forClass != nil) { return { name: forClass, why: Profiles.Reason.Class } }
-  return { name: picks.account, why: Profiles.Reason.Account }
+  if (forClass != nil) { return { name: forClass, why: Profiles::Reason::Class } }
+  return { name: picks.account, why: Profiles::Reason::Account }
 }
 
-public function picked(picks: ProfilePicks, who: Profiles.Player): ProfileName {
+public function picked(picks: ProfilePicks, who: Profiles::Player): ProfileName {
   return pickOf(picks, who).name
 }
 
@@ -202,7 +202,7 @@ public class Profiles {
   // The profile this character uses now: a `Settings` follows it, and takes its section anew when it changes.
   public derived active: ProfileName = picked(self.kept.picks, self.who())
   // The rule that names it, for the page to say why.
-  public derived why: Profiles.Reason = pickOf(self.kept.picks, self.who()).why
+  public derived why: Profiles::Reason = pickOf(self.kept.picks, self.who()).why
   // Every profile, by name: the ones kept and the account's, which is there before anything is kept in it.
   public derived names: Array<String> = self.namesOf()
   // Each `Settings` packs its values into its profile where they changed: as the game saves (`PLAYER_LOGOUT` comes
@@ -214,13 +214,13 @@ public class Profiles {
 
   constructor() {
     for (former, current of RENAMED) {
-      Game.saved.renamed(.Account, former, current)
-      Game.saved.renamed(.Character, former, current)
+      Game::saved.renamed(.Account, former, current)
+      Game::saved.renamed(.Character, former, current)
     }
     let kept = load(.Account, "profiles", SavedProfiles {})
     for (former, current of RENAMED) { kept.moved(former, current) }
     self.kept = kept
-    Events.PLAYER_LOGOUT.listen(self.pack)
+    Events::PLAYER_LOGOUT.listen(self.pack)
   }
 
   // Every `Settings`' values packed into their profile.
@@ -230,8 +230,8 @@ public class Profiles {
   }
 
   // Who the character is as the picks ask: its GUID, its specialisation's place where it has one, its class.
-  public who(self): Profiles.Player {
-    return { character: Game.player.guid, spec: Game.player.spec?.index, classTag: Game.player.classTag }
+  public who(self): Profiles::Player {
+    return { character: Game::player.guid, spec: Game::player.spec?.index, classTag: Game::player.classTag }
   }
 
   namesOf(self): Array<String> {
@@ -261,44 +261,44 @@ public class Profiles {
   // What the player chose, kept: a `Settings` follows a change of the active profile.
   public apply(mut self, next: SavedProfiles) {
     self.kept = next
-    Game.saved.store(.Account, "profiles", next)
+    Game::saved.store(.Account, "profiles", next)
   }
 
   // A `Settings`' section in a profile, unpacked for its `decode`; nil where the profile has none. A `Settings` kept
   // before profiles were (`Game.saved` under its key) is moved into «Default» as it is first read.
   public section(mut self, name: ProfileName, key: String): Unknown {
-    const before = Game.saved.stored(.Account, key)
+    const before = Game::saved.stored(.Account, key)
     if (before != nil) {
-      const packed = Game.encoding.serialize(before)
+      const packed = Game::encoding.serialize(before)
       // A client that can't pack it: it is read as it was kept, and stays there.
       if (packed == nil) { return before }
       // «Default» as it is named now: the account's default pick, which the player may have renamed.
       self.put((peek self.kept).picks.account, key, packed)
-      Game.saved.forget(.Account, key)
+      Game::saved.forget(.Account, key)
     }
     const profile = (peek self.kept).profiles[name]
     if (profile == nil) { return nil }
     const raw = profile.sections[key]
     if (raw == nil) { return nil }
-    return Game.encoding.deserialize(raw)
+    return Game::encoding.deserialize(raw)
   }
 
   // A `Settings`' values kept in a profile.
   public write(mut self, name: ProfileName, key: String, values: Unknown) {
-    const packed = Game.encoding.serialize(values)
+    const packed = Game::encoding.serialize(values)
     if (packed != nil) { self.put(name, key, packed) }
   }
 
   // What was kept on the account under `old` before profiles held it (`values`, read as its section's shape) is moved
   // into «Default», where that has no section of the key yet, as it is first read.
   public adopt(mut self, old: String, key: String, values: Unknown) {
-    const packed = Game.encoding.serialize(values)
+    const packed = Game::encoding.serialize(values)
     // A client that can't pack it: it stays where it was, read again at the next start.
     if (packed == nil) { return }
     const into = (peek self.kept).picks.account
     const profile = (peek self.kept).profiles[into]
     if (profile == nil || profile.sections[key] == nil) { self.put(into, key, packed) }
-    Game.saved.forget(.Account, old)
+    Game::saved.forget(.Account, old)
   }
 
   // A `ModuleMemory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
@@ -307,16 +307,16 @@ public class Profiles {
     if (profile == nil) { return nil }
     const raw = profile.memory[key]
     if (raw == nil) { return nil }
-    return Game.encoding.deserialize(raw)
+    return Game::encoding.deserialize(raw)
   }
 
   // A `ModuleMemory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
   // changes.
   public remember(mut self, key: String, values: Unknown | nil) {
-    const packed = values == nil ? nil : Game.encoding.serialize(values)
+    const packed = values == nil ? nil : Game::encoding.serialize(values)
     if (values != nil && packed == nil) { return }
     if (packed != nil && packed.length > MEMORY_BOUND) {
-      Debug.log("memory %s: %d bytes packed, past the bound of %d: not kept", key, packed.length, MEMORY_BOUND)
+      Debug::log("memory %s: %d bytes packed, past the bound of %d: not kept", key, packed.length, MEMORY_BOUND)
       return
     }
     const name = peek self.active
@@ -354,7 +354,7 @@ public class Profiles {
     if (!self.free(name)) { return false }
     const profile = Profile {}
     for (key, values of sections) {
-      const packed = Game.encoding.serialize(values)
+      const packed = Game::encoding.serialize(values)
       if (packed == nil) { return false }
       profile.sections[key] = packed
     }

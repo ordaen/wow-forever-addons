@@ -16,7 +16,7 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SETTING_OFFLINE} hint={Locale.SETTING_OFFLINE_TIP} value={mut self.settings.values.offline} />
+      <Switch label={Locale::SETTING_OFFLINE} hint={Locale::SETTING_OFFLINE_TIP} value={mut self.settings.values.offline} />
     }
   }
 }

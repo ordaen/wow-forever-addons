@@ -12,7 +12,7 @@ public const REST = 0.25
 public class Resting<T> {
   // When what the input holds is written, while it moves.
   state deadline: Number | nil = nil
-  derived due: Boolean = self.deadline != nil && Game.clock.time >= (self.deadline ?? 0)
+  derived due: Boolean = self.deadline != nil && Game::clock.time >= (self.deadline ?? 0)
   // What the input holds and hasn't written yet.
   pending: T | nil = nil
   under = false
@@ -49,7 +49,7 @@ public class Resting<T> {
       self.under = true
       Ordaen.keeper.begin(() => self.end())
     }
-    self.deadline = (peek Game.clock.time) + REST
+    self.deadline = (peek Game::clock.time) + REST
   }
 
   flush(mut self) {

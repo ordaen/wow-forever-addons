@@ -58,30 +58,30 @@ const FISHING_POLE = 20
 const KEEP_WORN: Array<String> = ["INVTYPE_TABARD", "INVTYPE_BODY"]
 
 // Why the item is junk, or nil where it isn't.
-public function junkWhy(item: Game.SlotItem, lists: JunkLists, rules: JunkRules): Why | nil {
+public function junkWhy(item: Game::SlotItem, lists: JunkLists, rules: JunkRules): Why | nil {
   const marked = lists.marks[item.id]
-  if (marked != nil) { return marked.mark == .Junk ? Why.Marked : nil }
+  if (marked != nil) { return marked.mark == .Junk ? Why::Marked : nil }
   if ((lists.learned[item.id] ?? 0) > LEARNED) { return .Learned }
   return ruleWhy(item, rules)
 }
 
 // Why the rules alone make the item junk.
-public function ruleWhy(item: Game.SlotItem, rules: JunkRules): Why | nil {
+public function ruleWhy(item: Game::SlotItem, rules: JunkRules): Why | nil {
   if (keptByRule(item)) { return nil }
   if (rules.grey && item.quality == 0 && item.price > 0 && !lowGear(item, rules)) { return .Grey }
   return nil
 }
 
-function keptByRule(item: Game.SlotItem): Boolean {
+function keptByRule(item: Game::SlotItem): Boolean {
   return KEEP_WORN.any(worn => worn == item.worn) || (item.kind == WEAPON && item.subkind == FISHING_POLE)
 }
 
-function lowGear(item: Game.SlotItem, rules: JunkRules): Boolean {
+function lowGear(item: Game::SlotItem, rules: JunkRules): Boolean {
   return (item.kind == WEAPON || item.kind == ARMOR) && item.level <= rules.greyGearLevel
 }
 
 // Whether a sale or a buyback of the item teaches: only what neither the player's mark nor the rules decide.
-public function teaches(item: Game.SlotItem, lists: JunkLists, rules: JunkRules): Boolean {
+public function teaches(item: Game::SlotItem, lists: JunkLists, rules: JunkRules): Boolean {
   return lists.marks[item.id] == nil && ruleWhy(item, rules) == nil
 }
 

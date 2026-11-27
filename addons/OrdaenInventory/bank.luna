@@ -15,24 +15,24 @@ import Locale from "@/locales"
 const BAG_SLOTS = -2
 const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
 const ICON = 37.5dp
-const INK: Color = Color.hex("#e8dcc4")
-const LABEL: Color = Color.hex("#a3977f")
-const WELL: Color = Color.hex("#0d0a08")
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Color = Color.hex("#00000059")
-const RED: Color = Color.hex("#ff4040")
+const INK: Color = Color::hex("#e8dcc4")
+const LABEL: Color = Color::hex("#a3977f")
+const WELL: Color = Color::hex("#0d0a08")
+const CLEAR: Color = Color::hex("#00000000")
+const SHADE: Color = Color::hex("#00000059")
+const RED: Color = Color::hex("#ff4040")
 // The room the list takes inside the window: the window is that and its sides (the frame, its inset, its room).
 const LIST = 260dp
 const DIALOG = 375dp
 const BUTTON = 117.1875dp
 
 // The bank's containers as the bags' window reads them: a tab with no name of its own is named by its place.
-public function bankInfos(): Array<Game.BagInfo> {
-  let infos: Array<Game.BagInfo> = []
-  for (index, tab of Client.C_Bank.FetchPurchasedBankTabData(Client.BankType.Character)) {
+public function bankInfos(): Array<Game::BagInfo> {
+  let infos: Array<Game::BagInfo> = []
+  for (index, tab of Client::C_Bank::FetchPurchasedBankTabData(Client::BankType::Character)) {
     const bag = tab.ID.floor()
-    const name = tab.name != "" ? tab.name : index == 1 ? Locale.BANK : Locale.BANK_BAG.format(index - 1)
-    infos.push({ bag: bag, item: nil, name: name, icon: tab.icon, slots: Game.bags.size(bag), general: true })
+    const name = tab.name != "" ? tab.name : index == 1 ? Locale::BANK : Locale::BANK_BAG.format(index - 1)
+    infos.push({ bag: bag, item: nil, name: name, icon: tab.icon, slots: Game::bags.size(bag), general: true })
   }
   return infos
 }
@@ -40,13 +40,13 @@ public function bankInfos(): Array<Game.BagInfo> {
 // A bank bag's line: its icon, name and fill; a click picks the bag up, or puts the one on the cursor there.
 public struct BankBag {
   const place: Integer
-  const info: Game.BagInfo
+  const info: Game::BagInfo
   const used: Integer
 }
 
 class BankBagEntry implements Component {
   state hovered = false
-  derived fill: String = Locale.FILL.format(self.bag.used, self.bag.info.slots)
+  derived fill: String = Locale::FILL.format(self.bag.used, self.bag.info.slots)
   derived back: Color = self.hovered ? SHADE : CLEAR
 
   bag: Signal<BankBag>
@@ -54,11 +54,11 @@ class BankBagEntry implements Component {
 
   onEnter(mut self, frame: any Frame) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
-  onPress(self) { Game.bags.pickup(BAG_SLOTS, self.bag.place) }
+  onPress(self) { Game::bags.pickup(BAG_SLOTS, self.bag.place) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={3sp} yAlign={Align.Center} background={self.back} @pointerEnter={self.onEnter}
+      <box columns={ROW} gap={3sp} yAlign={Align::Center} background={self.back} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @pointerPress={self.onPress}>
         <box width={ICON} height={ICON} background={WELL} icon={self.bag.info.icon} />
         <text value={self.bag.info.name} textColor={INK} />
@@ -73,10 +73,10 @@ public class BankSlotsWindow implements Component {
   public close: Event<nil> = new Event()
   state tab = 1
   state asking = false
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale.BANK_SLOTS, desc: nil, icon: BANK_ICON }]
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale::BANK_SLOTS, desc: nil, icon: BANK_ICON }]
   // What the next slot costs and whether the player can pay it, read as the window shows and when the money changes.
-  derived next: Client.PurchasableBankTabData | nil = self.nextOf()
-  derived buyable: Boolean = self.next != nil && Client.C_Bank.CanPurchaseBankTab(Client.BankType.Character)
+  derived next: Client::PurchasableBankTabData | nil = self.nextOf()
+  derived buyable: Boolean = self.next != nil && Client::C_Bank::CanPurchaseBankTab(Client::BankType::Character)
   derived cost: Integer = (self.next?.tabCost ?? 0).floor()
   derived afford: Boolean = self.next?.canAfford == true
   derived costColor: Color = self.afford ? INK : RED
@@ -88,10 +88,10 @@ public class BankSlotsWindow implements Component {
     self.declared = declared
   }
 
-  nextOf(self): Client.PurchasableBankTabData | nil {
-    _ = Game.money.amount
+  nextOf(self): Client::PurchasableBankTabData | nil {
+    _ = Game::money.amount
     _ = self.bags
-    return Client.C_Bank.FetchNextPurchasableBankTabData(Client.BankType.Character)
+    return Client::C_Bank::FetchNextPurchasableBankTabData(Client::BankType::Character)
   }
 
   onClose(self) { self.close.emit() }
@@ -101,7 +101,7 @@ public class BankSlotsWindow implements Component {
   // The client's own purchase, in the player's click on «Yes».
   onYes(mut self) {
     self.asking = false
-    Client.C_Bank.PurchaseBankTab(Client.BankType.Character)
+    Client::C_Bank::PurchaseBankTab(Client::BankType::Character)
   }
 
   public render(self): Template {
@@ -109,17 +109,17 @@ public class BankSlotsWindow implements Component {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>
           <BankBagEntry $for={bag of self.bags} bag={bag} />
-          <box $if={self.buyable} columns={ROW} gap={3sp} yAlign={Align.Center}>
+          <box $if={self.buyable} columns={ROW} gap={3sp} yAlign={Align::Center}>
             <box width={ICON} height={ICON} background={WELL} />
             <Money amount={self.cost} color={self.costColor} />
-            <PushButton label={Locale.BANK_BUY} width={BUTTON} disabled={!self.afford} @click={self.onBuy} />
+            <PushButton label={Locale::BANK_BUY} width={BUTTON} disabled={!self.afford} @click={self.onBuy} />
           </box>
         </box>
       </Window>
-      <Dialog $if={self.asking} width={DIALOG} title={Locale.BANK_BUY}>
+      <Dialog $if={self.asking} width={DIALOG} title={Locale::BANK_BUY}>
         <Money amount={self.cost} />
-        <PushButton #buttons label={Locale.NO} width={BUTTON} @click={self.onNo} />
-        <PushButton #buttons label={Locale.YES} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onYes} />
+        <PushButton #buttons label={Locale::NO} width={BUTTON} @click={self.onNo} />
+        <PushButton #buttons label={Locale::YES} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onYes} />
       </Dialog>
     }
   }

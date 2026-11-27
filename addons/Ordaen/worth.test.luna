@@ -3,24 +3,24 @@ import Test from "$test"
 import { GearWorth, Places, SPEC_WEIGHTS, classCanUse, defaultBuildOf, placesFor, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
 
 test "a class weighs by the build picked, else the tree with the most points" {
-  Test.expect(specOf("WARRIOR", 3, nil, nil)?.key == "protection")
-  Test.expect(specOf("PALADIN", 3, "shockadin", nil)?.key == "shockadin")
-  Test.expect(specOf("PALADIN", 1, "no such build", nil)?.key == "holy")
-  Test.expect(specOf("DRUID", 3, nil, nil)?.key == "bear" && specsOf("MAGE").length == 6)
-  Test.expect(specOf("NOT A CLASS", 1, nil, nil) == nil)
+  Test::expect(specOf("WARRIOR", 3, nil, nil)?.key == "protection")
+  Test::expect(specOf("PALADIN", 3, "shockadin", nil)?.key == "shockadin")
+  Test::expect(specOf("PALADIN", 1, "no such build", nil)?.key == "holy")
+  Test::expect(specOf("DRUID", 3, nil, nil)?.key == "bear" && specsOf("MAGE").length == 6)
+  Test::expect(specOf("NOT A CLASS", 1, nil, nil) == nil)
 }
 
 test "before its first talent point a class weighs by the build the profile prefers, else by its default" {
-  Test.expect(specOf("PALADIN", nil, nil, nil)?.key == "retribution")
-  Test.expect(specOf("WARRIOR", nil, nil, nil)?.key == "arms")
-  Test.expect(specOf("PALADIN", nil, nil, "holy")?.key == "holy")
-  Test.expect(specOf("PALADIN", 2, nil, "holy")?.key == "protection")
-  Test.expect(SPEC_WEIGHTS.all(spec => defaultBuildOf(spec.classTag) != "" &&
+  Test::expect(specOf("PALADIN", nil, nil, nil)?.key == "retribution")
+  Test::expect(specOf("WARRIOR", nil, nil, nil)?.key == "arms")
+  Test::expect(specOf("PALADIN", nil, nil, "holy")?.key == "holy")
+  Test::expect(specOf("PALADIN", 2, nil, "holy")?.key == "protection")
+  Test::expect(SPEC_WEIGHTS.all(spec => defaultBuildOf(spec.classTag) != "" &&
       specsOf(spec.classTag).any(build => build.key == defaultBuildOf(spec.classTag))))
 }
 
 test "an item's worth is each stat by its weight, a rating by the percentage it gives, a weapon's damage by where it fires" {
-  Client.GetCombatRatingBonusForCombatRatingValue = (rating: Integer, value: Number): Number | nil => value / 14
+  Client::GetCombatRatingBonusForCombatRatingValue = (rating: Integer, value: Number): Number | nil => value / 14
   const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? panic("arms")
   const w = arms.leveling
   let stats: Map<String, Number> = {}
@@ -29,31 +29,31 @@ test "an item's worth is each stat by its weight, a rating by the percentage it 
   stats["ITEM_MOD_DAMAGE_PER_SECOND_SHORT"] = 5
   stats["ITEM_MOD_NOT_A_STAT"] = 99
   const melee = scoreWith(w, stats, false)
-  Test.expect((melee - (10 * w.strength + w.critRating + 5 * w.meleeDps)).abs() < 0.0001)
+  Test::expect((melee - (10 * w.strength + w.critRating + 5 * w.meleeDps)).abs() < 0.0001)
   const far = scoreWith(w, stats, true)
-  Test.expect((far - (10 * w.strength + w.critRating + 5 * w.rangedDps)).abs() < 0.0001)
+  Test::expect((far - (10 * w.strength + w.critRating + 5 * w.rangedDps)).abs() < 0.0001)
 }
 
 test "an upgrade reads «+n%», and none for nothing or for less" {
-  Test.expect(upgradeText(0.153) == "+15%" && upgradeText(0) == "" && upgradeText(-0.2) == "" && upgradeText(nil) == "")
+  Test::expect(upgradeText(0.153) == "+15%" && upgradeText(0) == "" && upgradeText(-0.2) == "" && upgradeText(nil) == "")
 }
 
 test "a class weighs only what it can ever use: a Paladin a shield and a two-hander, never a dagger, cloth for a Priest" {
-  Test.expect(classCanUse("PALADIN", 4, 6) && classCanUse("PALADIN", 2, 1) && !classCanUse("PALADIN", 2, 15))
-  Test.expect(classCanUse("PRIEST", 4, 1) && !classCanUse("PRIEST", 4, 2) && classCanUse("PRIEST", 4, 0))
-  Test.expect(classCanUse("MAGE", 2, 20) && classCanUse("ROGUE", 0, 0))
+  Test::expect(classCanUse("PALADIN", 4, 6) && classCanUse("PALADIN", 2, 1) && !classCanUse("PALADIN", 2, 15))
+  Test::expect(classCanUse("PRIEST", 4, 1) && !classCanUse("PRIEST", 4, 2) && classCanUse("PRIEST", 4, 0))
+  Test::expect(classCanUse("MAGE", 2, 20) && classCanUse("ROGUE", 0, 0))
 }
 
 test "a one-hander for one who can't wield two takes the main hand alone; an off-hand item, under a two-hander, both" {
-  Test.expect(slotsOf(placesFor("INVTYPE_WEAPON", false, false)) == "16")
-  Test.expect(slotsOf(placesFor("INVTYPE_WEAPON", true, false)) == "16,17")
+  Test::expect(slotsOf(placesFor("INVTYPE_WEAPON", false, false)) == "16")
+  Test::expect(slotsOf(placesFor("INVTYPE_WEAPON", true, false)) == "16,17")
   const shield = placesFor("INVTYPE_SHIELD", false, true)
-  Test.expect(slotsOf(shield) == "16,17" && shield?.both == true)
-  Test.expect(placesFor("INVTYPE_SHIELD", false, false)?.both == false)
+  Test::expect(slotsOf(shield) == "16,17" && shield?.both == true)
+  Test::expect(placesFor("INVTYPE_SHIELD", false, false)?.both == false)
 }
 
 function slotsOf(places: Places | nil): String {
-  return (places ?? panic("the item is worn")).slots.map(slot => String.of(slot)).join(",")
+  return (places ?? panic("the item is worn")).slots.map(slot => String::of(slot)).join(",")
 }
 
 // An upgrade's answer as a window holds it: worked out once, and again only as what it reads changes.
@@ -64,19 +64,19 @@ class Held {
 }
 
 test "an upgrade's answer follows the gear: a piece put on is what the next is weighed against" {
-  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
     return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
   }
-  Client.C_Item.GetItemStats = (link: String): Unknown => {
+  Client::C_Item::GetItemStats = (link: String): Unknown => {
     const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:new" ? 10 : 8 }
     return stats
   }
-  Client.CanDualWield = (): Boolean => false
+  Client::CanDualWield = (): Boolean => false
   let wearing = false
-  Client.GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == 16 ? "item:old" : nil
+  Client::GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == 16 ? "item:old" : nil
   const held = new Held(new GearWorth())
-  Test.expect(held.up == 1)
+  Test::expect(held.up == 1)
   wearing = true
-  Test.event("PLAYER_EQUIPMENT_CHANGED", 16, true)
-  Test.expect(held.up != nil && ((held.up ?? 0) - 0.25).abs() < 0.0001)
+  Test::event("PLAYER_EQUIPMENT_CHANGED", 16, true)
+  Test::expect(held.up != nil && ((held.up ?? 0) - 0.25).abs() < 0.0001)
 }

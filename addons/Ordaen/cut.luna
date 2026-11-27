@@ -30,16 +30,16 @@ function paintFor(seen: Color): Color {
 
 // One piece of the cut filling its box: its shade multiplied into the wood, its lip added over it.
 class CutPiece implements Component {
-  layers: OrdaenArt.CutLayers
-  constructor(layers: OrdaenArt.CutLayers) {
+  layers: OrdaenArt::CutLayers
+  constructor(layers: OrdaenArt::CutLayers) {
     self.layers = layers
   }
 
   public render(self): Template {
     return $ltml {
-      <box background={self.layers.dark} blend={Blend.Multiply}>
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.layers.light}
-             blend={Blend.Add} />
+      <box background={self.layers.dark} blend={Blend::Multiply}>
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.layers.light}
+             blend={Blend::Add} />
       </box>
     }
   }
@@ -51,18 +51,18 @@ class CutPiece implements Component {
 // top end in shadow where light from above can't reach. As high as its box; `SHORT_CUT` wide.
 const TEXEL: Number<Length> = 1.171875dp
 public const SHORT_CUT: Number<Length> = TEXEL * 5
-const SHORT_SHADOW: Color = Color.hex("#000000")
-const SHORT_LIP: Color = Color.hex("#1e1e1e")
+const SHORT_SHADOW: Color = Color::hex("#000000")
+const SHORT_LIP: Color = Color::hex("#1e1e1e")
 const SHORT_WALLS: Array<Number> = [0.7, 0.85, 0.85, 0.7]
 const SHORT_TOP_END: Array<Number> = [0.6, 0.35]
 
 public class ShortCut implements Component {
   public render(self): Template {
     return $ltml {
-      <box columns={[TEXEL, TEXEL, TEXEL, TEXEL, TEXEL]} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+      <box columns={[TEXEL, TEXEL, TEXEL, TEXEL, TEXEL]} rows={[{ fr: 1 }]} yAlign={Align::Stretch}>
         <box $for={wall of SHORT_WALLS} background={SHORT_SHADOW} opacity={peek wall} />
-        <box background={SHORT_LIP} blend={Blend.Add} />
-        <box $for={row, end of SHORT_TOP_END} position={Position.Absolute} left={0ui} right={0ui} top={TEXEL * (row - 1)}
+        <box background={SHORT_LIP} blend={Blend::Add} />
+        <box $for={row, end of SHORT_TOP_END} position={Position::Absolute} left={0ui} right={0ui} top={TEXEL * (row - 1)}
              height={TEXEL} background={SHORT_SHADOW} opacity={peek end} />
       </box>
     }
@@ -84,19 +84,19 @@ public class Groove implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+      <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]} yAlign={Align::Stretch}>
         <CutPiece layers={Ordaen.art.ctl.cut.upright} />
       </box>
-      <box $elseif={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
-        <box rows={[CUT]} yAlign={Align.Stretch}>
+      <box $elseif={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={3sp} yAlign={Align::Center}>
+        <box rows={[CUT]} yAlign={Align::Stretch}>
           <CutPiece layers={Ordaen.art.ctl.cut.across} />
         </box>
-        <text value={self.title} textColor={self.color} textWeight={TextWeight.Bold} wrap={.None} />
-        <box rows={[CUT]} yAlign={Align.Stretch}>
+        <text value={self.title} textColor={self.color} textWeight={TextWeight::Bold} wrap={.None} />
+        <box rows={[CUT]} yAlign={Align::Stretch}>
           <CutPiece layers={Ordaen.art.ctl.cut.across} />
         </box>
       </box>
-      <box $else rows={[CUT]} yAlign={Align.Stretch}>
+      <box $else rows={[CUT]} yAlign={Align::Stretch}>
         <CutPiece layers={Ordaen.art.ctl.cut.across} />
       </box>
     }
@@ -117,9 +117,9 @@ public class Cut implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
-        <text value={self.title} textColor={self.color} textWeight={TextWeight.Bold} wrap={.None} />
-        <box columns={[ENTRY, { fr: 1 }]} rows={[CUT]} yAlign={Align.Stretch}>
+      <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align::Center}>
+        <text value={self.title} textColor={self.color} textWeight={TextWeight::Bold} wrap={.None} />
+        <box columns={[ENTRY, { fr: 1 }]} rows={[CUT]} yAlign={Align::Stretch}>
           <box background={Ordaen.art.ctl.heading.entry} tint={self.paint} />
           <box background={Ordaen.art.ctl.heading.tip} tint={self.paint} />
         </box>

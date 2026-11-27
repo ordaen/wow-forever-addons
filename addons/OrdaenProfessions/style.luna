@@ -17,15 +17,15 @@ public const CATEGORIES_BOUNDS: Bounds = { min: CATEGORIES_LEAST, max: nil }
 public const RECIPES_BOUNDS: Bounds = { min: RECIPES_LEAST, max: nil }
 public const LISTS_BOUNDS: Bounds = { min: LISTS_LEAST, max: nil }
 
-public const INK: Color = Color.hex("#e8dcc4")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
-public const RED: Color = Color.hex("#ff4040")
+public const INK: Color = Color::hex("#e8dcc4")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
+public const RED: Color = Color::hex("#ff4040")
 // An unlearned recipe.
-public const OFF: Color = Color.hex("#7a7060")
+public const OFF: Color = Color::hex("#7a7060")
 // A card's frame (the overview's, the queue's).
-public const LINE: Color = Color.hex("#3e2f1d")
-public const CLEAR: Color = Color.hex("#00000000")
+public const LINE: Color = Color::hex("#3e2f1d")
+public const CLEAR: Color = Color::hex("#00000000")
 // What a chosen row stands on: art, multiplied by a colour where one is given; or a colour alone.
 public struct Surface {
   art: Art | Color
@@ -35,29 +35,29 @@ public struct Surface {
 // The recipes page's sections: the categories on the window's wood, the recipes on the wood stained a dark brown, the
 // recipe on the window's wood behind a divider (`RecipeDetails`). A chosen category takes the recipes' surface, a tab into them;
 // a chosen recipe a plain light, short of the paper's torn edge.
-public const RECIPES: Surface = { art: ARTWORK.window.wood, tint: Color.hex("#86684e") }
-public const RECIPE_LIT: Surface = { art: Color.hex("#e8c89629"), tint: nil }
+public const RECIPES: Surface = { art: ARTWORK.window.wood, tint: Color::hex("#86684e") }
+public const RECIPE_LIT: Surface = { art: Color::hex("#e8c89629"), tint: nil }
 // The recipes' room on their left, twice their rows' padding: the chosen category's surface shows there.
 public const RECIPES_ROOM: Edges = { left: 2sp }
 public const RECIPE_PAD: Number<Spacing> = 3sp
 // The groove between the categories and the recipes, at 40%: a dark line and a light one beside it, 1 unit each.
-public const GROOVE_DARK: Color = Color.hex("#0000003d")
-public const GROOVE_LIGHT: Color = Color.hex("#d6a56b16")
+public const GROOVE_DARK: Color = Color::hex("#0000003d")
+public const GROOVE_LIGHT: Color = Color::hex("#d6a56b16")
 public const GROOVE: Number<Length> = 1ui
 
 // A heading under the cursor (a row that selects is a `TabItem`).
-public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
-public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
+public const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Between rows, and round an item's slot.
-public const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
-public const BRONZE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+public const ROW_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [Side::Top] }
+public const BRONZE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 
 // A recipe's name in its difficulty's colour.
-public function difficultyColor(difficulty: Game.Difficulty): Color {
+public function difficultyColor(difficulty: Game::Difficulty): Color {
   match (difficulty) {
-    Game.Difficulty.Always => return Color.hex("#ff8040")
-    Game.Difficulty.Usually => return Color.hex("#ffd100")
-    Game.Difficulty.Rarely => return Color.hex("#40c040")
-    Game.Difficulty.Never => return Color.hex("#9a9a9a")
+    Game::Difficulty::Always => return Color::hex("#ff8040")
+    Game::Difficulty::Usually => return Color::hex("#ffd100")
+    Game::Difficulty::Rarely => return Color::hex("#40c040")
+    Game::Difficulty::Never => return Color::hex("#9a9a9a")
   }
 }

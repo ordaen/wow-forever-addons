@@ -25,19 +25,19 @@ const RING_OUT = 18.75dp
 const CELL = 39.84375dp
 const CELL_GAP = 1sp
 const DRAWER_PAD = 2sp
-const GOLD: Color = Color.hex("#ffd100")
-const INK: Color = Color.hex("#f3e1b8")
+const GOLD: Color = Color::hex("#ffd100")
+const INK: Color = Color::hex("#f3e1b8")
 // The clock while calendar invites wait.
-const PENDING: Color = Color.hex("#ff9a2e")
+const PENDING: Color = Color::hex("#ff9a2e")
 // Dark up-left, as the windows' titles.
-const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1ui, y: 1ui }
-const RULE: Color = Color.hex("#120c06")
+const ENGRAVED: Shadow = { color: Color::hex("#000000e6"), x: -1ui, y: 1ui }
+const RULE: Color = Color::hex("#120c06")
 // A strip's rule towards the map.
 const RULE_BELOW: Line = { width: 2.34375dp, color: RULE, sides: ["bottom"] }
 const RULE_ABOVE: Line = { width: 2.34375dp, color: RULE, sides: ["top"] }
 
 // Where the map stands until the player moves it: the screen's top right corner.
-const HOME: Anchored = { point: Point.TopRight }
+const HOME: Anchored = { point: Point::TopRight }
 const FOLDER = "OrdaenMinimap"
 // The map's part, as the placing mode keeps where the player put it.
 const PART = "OrdaenMinimap.map"
@@ -50,8 +50,8 @@ public class Minimap implements Module, App {
     drawerOn: true, drawerColumns: 4
   })
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_MAP, content: $ltml { <MapPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } }
+    { title: Locale::TAB_MAP, content: $ltml { <MapPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } }
   ]
   // The ring buttons' angles as the player left them: degrees from the top, clockwise.
   state angles: mut Map<RingId, Number> = {}
@@ -63,15 +63,15 @@ public class Minimap implements Module, App {
   dragX: Number = 0
   dragY: Number = 0
   dragSize: Number<Length> = BUTTON
-  state hint: Hint = Hint.None
+  state hint: Hint = Hint::None
   state entryName = ""
   // Whether the player has mail waiting (the client's `HasNewMail`, told anew with `UPDATE_PENDING_MAIL`).
-  state mail: Boolean = Client.HasNewMail()
+  state mail: Boolean = Client::HasNewMail()
 
   // At home it stands in the screen's top right corner with nothing round it there: the frame's line on the screen's
   // edges, its metal on its left and bottom alone (the bottom left corner the one rounded), the ring along those two.
   derived docked: Boolean = Ordaen.moved(PART) == nil
-  derived metal: ArtBorder = self.docked ? Minimap.cornered(Ordaen.art.frame.small) : Ordaen.art.frame.small
+  derived metal: ArtBorder = self.docked ? Minimap::cornered(Ordaen.art.frame.small) : Ordaen.art.frame.small
   // The frame is square at every setting: the map fills it, inside the metal's wood, and the zone's strip and the
   // coordinates' and clock's lie over the map's top and bottom.
   derived out: Number<Length> = (Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset) * 1ui
@@ -89,9 +89,9 @@ public class Minimap implements Module, App {
   derived frameBoxWidth: Number<Length> = self.frameSide + reachAcross(self.metal)
   derived frameBoxHeight: Number<Length> = self.frameSide + reachDown(self.metal)
 
-  derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
+  derived showsCoords: Boolean = self.settings.values.showCoords && Game::minimap.coords != ""
   derived zoneColor: Color = self.colorOf()
-  derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
+  derived clockColor: Color = Game::clock.invites > 0 ? PENDING : INK
   // How visible the map is, by its visibility in the state the player is in; hidden with nothing to see, it goes back
   // into the game's hidden cluster.
   derived opacity: Number = opacityNow(self.settings.values.visibility, self.hovered || self.drawerShown)
@@ -103,7 +103,7 @@ public class Minimap implements Module, App {
 
   // The drawer: its cells, and where it hangs from its button. Open, it shows while it holds something: its button
   // goes with the last thing it held.
-  derived held: Integer = Game.minimap.buttons.length + Game.minimap.entries.length
+  derived held: Integer = Game::minimap.buttons.length + Game::minimap.entries.length
   derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen && self.held > 0
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
@@ -126,12 +126,12 @@ public class Minimap implements Module, App {
   // Ordaen's art: its root is there before this module loads.
 
   constructor() {
-    Game.minimap.square(true)
-    Game.minimap.wheelZoom()
+    Game::minimap.square(true)
+    Game::minimap.wheelZoom()
     // A right click on the map opens the minimap's settings, never a ping.
-    Game.minimap.takeRightClick(true)
-    Game.minimap.rightClicked.listen(self.onMapRightClick)
-    Events.UPDATE_PENDING_MAIL.listen(self.onMail)
+    Game::minimap.takeRightClick(true)
+    Game::minimap.rightClicked.listen(self.onMapRightClick)
+    Events::UPDATE_PENDING_MAIL.listen(self.onMail)
     Ordaen.modules.add(self)
     // The room it keeps down from the screen's top right corner while it stands at home there: what stands along the
     // right edge (the tracker) starts under it.
@@ -142,18 +142,18 @@ public class Minimap implements Module, App {
 
   destructor() {
     Ordaen.keepTopRight(FOLDER, 0ui)
-    Game.minimap.square(false)
-    Game.minimap.takeRightClick(false)
+    Game::minimap.square(false)
+    Game::minimap.takeRightClick(false)
   }
 
   hiddenParts(self): Array<any Frame> {
     const parts: Array<any Frame> = []
-    Minimap.hide(parts, Game.frames.MinimapCluster)
-    Minimap.hide(parts, Game.frames.MinimapBackdrop)
-    Minimap.hide(parts, Game.frames.MinimapZoomIn)
-    Minimap.hide(parts, Game.frames.MinimapZoomOut)
-    Minimap.hide(parts, Game.frames.MinimapZoomHitArea)
-    Minimap.hide(parts, Game.frames.OrdaenDevButton)
+    Minimap::hide(parts, Game::frames.MinimapCluster)
+    Minimap::hide(parts, Game::frames.MinimapBackdrop)
+    Minimap::hide(parts, Game::frames.MinimapZoomIn)
+    Minimap::hide(parts, Game::frames.MinimapZoomOut)
+    Minimap::hide(parts, Game::frames.MinimapZoomHitArea)
+    Minimap::hide(parts, Game::frames.OrdaenDevButton)
     return parts
   }
 
@@ -163,22 +163,22 @@ public class Minimap implements Module, App {
 
   // The zone's colour by its PvP status: the game's own minimap colours.
   colorOf(self): Color {
-    return match (Game.location.pvp) {
+    return match (Game::location.pvp) {
       nil => GOLD
-      Game.Pvp.Sanctuary => Color.hex("#69ccf0")
-      Game.Pvp.Friendly => Color.hex("#1aff1a")
-      Game.Pvp.Hostile, Game.Pvp.Combat => Color.hex("#ff1a1a")
-      Game.Pvp.Contested => Color.hex("#ffb300")
+      Game::Pvp::Sanctuary => Color::hex("#69ccf0")
+      Game::Pvp::Friendly => Color::hex("#1aff1a")
+      Game::Pvp::Hostile, Game::Pvp::Combat => Color::hex("#ff1a1a")
+      Game::Pvp::Contested => Color::hex("#ffb300")
     }
   }
 
   zoneLabel(self): String {
-    return match (Game.location.pvp) {
+    return match (Game::location.pvp) {
       nil => ""
-      Game.Pvp.Sanctuary => Locale.ZONE_SANCTUARY
-      Game.Pvp.Friendly, Game.Pvp.Hostile => Locale.ZONE_FACTION
-      Game.Pvp.Contested => Locale.ZONE_CONTESTED
-      Game.Pvp.Combat => Locale.ZONE_COMBAT
+      Game::Pvp::Sanctuary => Locale::ZONE_SANCTUARY
+      Game::Pvp::Friendly, Game::Pvp::Hostile => Locale::ZONE_FACTION
+      Game::Pvp::Contested => Locale::ZONE_CONTESTED
+      Game::Pvp::Combat => Locale::ZONE_COMBAT
     }
   }
 
@@ -219,7 +219,7 @@ public class Minimap implements Module, App {
       x = x.min(cornerEnd)
       y = y.max(self.side - cornerEnd)
     }
-    return Minimap.hundredths(x), Minimap.hundredths(y)
+    return Minimap::hundredths(x), Minimap::hundredths(y)
   }
 
   // The angle a place points to from the frame's middle, to the whole degree; docked, its nearest place along the
@@ -231,7 +231,7 @@ public class Minimap implements Module, App {
     if (self.docked) {
       let bottomX = x.max(-self.ringOut).min(cornerEnd)
       let leftY = y.max(self.side - cornerEnd).min(self.ringFar)
-      let onBottom = Minimap.apart(x - bottomX, y - self.ringFar) <= Minimap.apart(x + self.ringOut, y - leftY)
+      let onBottom = Minimap::apart(x - bottomX, y - self.ringFar) <= Minimap::apart(x + self.ringOut, y - leftY)
       px = onBottom ? bottomX : -self.ringOut
       py = onBottom ? self.ringFar : leftY
     }
@@ -246,7 +246,7 @@ public class Minimap implements Module, App {
   cornered(metal: ArtBorder): ArtBorder {
     return {
       reach: metal.reach, drawnFrom: metal.drawnFrom, art: metal.art, width: metal.width, scale: metal.scale,
-      inset: metal.inset, sides: [Side.Left, Side.Bottom], curves: metal.curves, lineStart: metal.lineStart
+      inset: metal.inset, sides: [Side::Left, Side::Bottom], curves: metal.curves, lineStart: metal.lineStart
     }
   }
 
@@ -263,7 +263,7 @@ public class Minimap implements Module, App {
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
   // dragged or the drawer shows. The mail's shows whenever there is mail.
   public ringOpacity(self, spec: RingSpec): Number {
-    if (spec.id == RingId.Mail) { return 1 }
+    if (spec.id == RingId::Mail) { return 1 }
     if (!self.settings.values.buttonsHover || self.hovered || self.drawerShown || self.dragging != nil) { return 1 }
     return 0
   }
@@ -273,7 +273,7 @@ public class Minimap implements Module, App {
   public holds(self): Integer { return self.held }
   public hasMail(self): Boolean { return self.mail }
 
-  onMail(mut self) { self.mail = Client.HasNewMail() }
+  onMail(mut self) { self.mail = Client::HasNewMail() }
 
   // The drag taken as it starts: the client starts it once the cursor has gone a few pixels from the press, and the
   // button is where those take it at once, never left behind until the cursor moves again.
@@ -284,7 +284,7 @@ public class Minimap implements Module, App {
     self.dragSize = spec.size
     self.dragAngle = self.angle(spec)
     self.dragging = spec.id
-    self.hint = Hint.None
+    self.hint = Hint::None
     self.dragTo(dx, dy)
   }
 
@@ -306,72 +306,72 @@ public class Minimap implements Module, App {
 
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
-  onZoneEnter(mut self) { self.hint = Hint.Zone }
-  onCoordsEnter(mut self) { self.hint = Hint.Coords }
-  onClockEnter(mut self) { self.hint = Hint.Clock }
-  onHintLeave(mut self) { self.hint = Hint.None }
+  onZoneEnter(mut self) { self.hint = Hint::Zone }
+  onCoordsEnter(mut self) { self.hint = Hint::Coords }
+  onClockEnter(mut self) { self.hint = Hint::Clock }
+  onHintLeave(mut self) { self.hint = Hint::None }
 
   onEntryHover(mut self, name: String) {
     self.entryName = name
-    self.hint = Hint.Entry
+    self.hint = Hint::Entry
   }
 
-  onCoordsClick(mut self, click: Event.Press) {
-    if (click.button == MouseButton.Left && Game.input.shiftDown()) { Game.minimap.sendCoords() }
+  onCoordsClick(mut self, click: Event::Press) {
+    if (click.button == MouseButton::Left && Game::input.shiftDown()) { Game::minimap.sendCoords() }
   }
 
-  onClockClick(mut self, click: Event.Press) {
-    if (click.button == MouseButton.Right) {
-      Game.clock.toggleTimeManager()
+  onClockClick(mut self, click: Event::Press) {
+    if (click.button == MouseButton::Right) {
+      Game::clock.toggleTimeManager()
     } else {
-      Game.clock.toggleCalendar()
+      Game::clock.toggleCalendar()
     }
   }
 
   onMapRightClick(mut self) {
-    Ordaen.toggleSettings(Runtime.Addon.of(self))
+    Ordaen.toggleSettings(Runtime::Addon::of(self))
   }
 
   // ---- the tooltip of our own parts (the game's buttons show their own)
 
   titleOf(self): String {
     return match (self.hint) {
-      Hint.Zone => Game.location.realZone
-      Hint.Coords => Game.minimap.coords
-      Hint.Clock => Locale.CLOCK_TITLE
-      Hint.Ordaen => Ordaen.title
-      Hint.Drawer => Locale.DRAWER_TITLE
-      Hint.Entry => self.entryName
-      Hint.None => ""
+      Hint::Zone => Game::location.realZone
+      Hint::Coords => Game::minimap.coords
+      Hint::Clock => Locale::CLOCK_TITLE
+      Hint::Ordaen => Ordaen.title
+      Hint::Drawer => Locale::DRAWER_TITLE
+      Hint::Entry => self.entryName
+      Hint::None => ""
     }
   }
 
   textOf(self): String {
     return match (self.hint) {
-      Hint.Zone => self.zoneLabel()
-      Hint.Coords, Hint.Clock, Hint.Ordaen, Hint.Drawer, Hint.Entry, Hint.None => ""
+      Hint::Zone => self.zoneLabel()
+      Hint::Coords, Hint::Clock, Hint::Ordaen, Hint::Drawer, Hint::Entry, Hint::None => ""
     }
   }
 
   keysOf(self): Array<String> {
     return match (self.hint) {
-      Hint.Coords => [Locale.COORDS_KEY]
-      Hint.Clock => [Locale.CLOCK_KEY, Locale.CLOCK_KEY_RIGHT]
+      Hint::Coords => [Locale::COORDS_KEY]
+      Hint::Clock => [Locale::CLOCK_KEY, Locale::CLOCK_KEY_RIGHT]
       // The right click opens the dev tools, which a development build alone has.
-      Hint.Ordaen => Build.dev ? [Locale.ORDAEN_KEY, Locale.ORDAEN_KEY_DEV] : [Locale.ORDAEN_KEY]
-      Hint.Drawer => [Locale.DRAWER_KEY, Locale.DRAWER_KEY_DRAG]
-      Hint.Zone, Hint.Entry, Hint.None => []
+      Hint::Ordaen => Build::dev ? [Locale::ORDAEN_KEY, Locale::ORDAEN_KEY_DEV] : [Locale::ORDAEN_KEY]
+      Hint::Drawer => [Locale::DRAWER_KEY, Locale::DRAWER_KEY_DRAG]
+      Hint::Zone, Hint::Entry, Hint::None => []
     }
   }
 
   // The clock's: the computer's time and the realm's, whichever the clock shows.
   rowsOf(self): Array<TipRow> {
     return match (self.hint) {
-      Hint.Clock => [
-        { label: Locale.CLOCK_LOCAL, value: timeText(Game.clock.computer) },
-        { label: Locale.CLOCK_REALM, value: timeText(Game.clock.realm) }
+      Hint::Clock => [
+        { label: Locale::CLOCK_LOCAL, value: timeText(Game::clock.computer) },
+        { label: Locale::CLOCK_REALM, value: timeText(Game::clock.realm) }
       ]
-      Hint.Zone, Hint.Coords, Hint.Ordaen, Hint.Drawer, Hint.Entry, Hint.None => []
+      Hint::Zone, Hint::Coords, Hint::Ordaen, Hint::Drawer, Hint::Entry, Hint::None => []
     }
   }
 
@@ -384,41 +384,41 @@ public class Minimap implements Module, App {
       // (the zoom buttons as the cursor comes onto the map) puts nothing in sight and nothing under the cursor.
       <frame $for={part of self.hidden} of={part} shown={false} away={true} />
 
-      <Placed $if={self.shown} id={PART} title={Locale.MINIMAP_TITLE} home={HOME}>
+      <Placed $if={self.shown} id={PART} title={Locale::MINIMAP_TITLE} home={HOME}>
         // The room round the frame holds the ring and takes no mouse: a click there reaches the world. The cursor
         // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
         <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>
-          <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameBoxWidth}
+          <box position={Position::Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameBoxWidth}
                height={self.frameBoxHeight} border={self.metal} background={Ordaen.art.window.wood}
                artOrigin={true} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-            <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.out}
+            <embed frame={Game::minimap.frame} position={Position::Absolute} left={self.out} top={self.out}
                    width={self.size} height={self.size} />
 
-            <box $if={self.settings.values.showZone} position={Position.Absolute} left={self.out} top={self.out}
+            <box $if={self.settings.values.showZone} position={Position::Absolute} left={self.out} top={self.out}
                  width={self.size} height={STRIP} zLevel={1} background={Ordaen.art.window.wood} border={RULE_BELOW}
-                 xAlign={Align.Center} yAlign={Align.Center}>
+                 xAlign={Align::Center} yAlign={Align::Center}>
               <box @pointerEnter={self.onZoneEnter} @pointerLeave={self.onHintLeave}>
-                <text value={Game.location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
+                <text value={Game::location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
                       wrap={.None} />
-                <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
+                <Tip $if={self.hint == Hint::Zone} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
             </box>
 
-            <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
+            <box $if={self.hasFoot} position={Position::Absolute} left={self.out} bottom={self.out} width={self.size}
                  height={STRIP} zLevel={1} background={Ordaen.art.window.wood} border={RULE_ABOVE}
-                 columns={[{ fr: 1 }, "max-content"]} padding={{ left: 3sp, right: 3sp }} yAlign={Align.Center}>
+                 columns={[{ fr: 1 }, "max-content"]} padding={{ left: 3sp, right: 3sp }} yAlign={Align::Center}>
               <box $if={self.showsCoords} @pointerPress={self.onCoordsClick} @pointerEnter={self.onCoordsEnter}
                    @pointerLeave={self.onHintLeave}>
-                <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
+                <text value={Game::minimap.coords} textColor={INK} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={.None} />
-                <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
+                <Tip $if={self.hint == Hint::Coords} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
               <box $else width={1ui} />
               <box $if={self.settings.values.showClock} @pointerPress={self.onClockClick} @pointerEnter={self.onClockEnter}
                    @pointerLeave={self.onHintLeave}>
-                <text value={timeText(Game.clock.now)} textColor={self.clockColor} textShadow={ENGRAVED}
+                <text value={timeText(Game::clock.now)} textColor={self.clockColor} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={.None} />
-                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} rows={self.hintRows}
+                <Tip $if={self.hint == Hint::Clock} title={self.hintTitle} text={self.hintText} rows={self.hintRows}
                      keys={self.hintKeys} />
               </box>
             </box>
@@ -426,20 +426,20 @@ public class Minimap implements Module, App {
             <RingButton $for={spec of RING} spec={spec} map={mut self} />
           </box>
 
-          <box $if={self.drawerShown} position={Position.Absolute} left={self.drawerLeft} top={self.drawerTop}
+          <box $if={self.drawerShown} position={Position::Absolute} left={self.drawerLeft} top={self.drawerTop}
                width={self.drawerBoxWidth} height={self.drawerBoxHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
                padding={DRAWER_PAD} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true} zLevel={20}>
-            <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
-                   look={EmbedLook.Icon} />
-            <DrawerEntry $for={entry of Game.minimap.entries} entry={entry} @hover={self.onEntryHover}
+            <embed $for={button of Game::minimap.buttons} frame={button} width={CELL} height={CELL}
+                   look={EmbedLook::Icon} />
+            <DrawerEntry $for={entry of Game::minimap.entries} entry={entry} @hover={self.onEntryHover}
                          @leave={self.onHintLeave} />
-            <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
+            <Tip $if={self.hint == Hint::Entry} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
           </box>
-          <box $elseif={self.drawerParked} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
-               opacity={0} overflow={Overflow.Hidden}>
-            <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
-                   look={EmbedLook.Icon} />
+          <box $elseif={self.drawerParked} position={Position::Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
+               opacity={0} overflow={Overflow::Hidden}>
+            <embed $for={button of Game::minimap.buttons} frame={button} width={CELL} height={CELL}
+                   look={EmbedLook::Icon} />
           </box>
         </box>
       </Placed>

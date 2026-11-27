@@ -24,7 +24,7 @@ public const DEAD_ZONE = 30dp
 // item 1 straight up and the rest clockwise, each slice centred on its item. `dx` right and `dy` up from the middle.
 public function slotAt(dx: Number, dy: Number, count: Integer, dead: Number): Integer {
   if (count < 1 || dx * dx + dy * dy < dead * dead) { return 0 }
-  const share = (dx.atan2(dy) / (2 * Number.pi) + 1 + 0.5 / count) % 1
+  const share = (dx.atan2(dy) / (2 * Number::pi) + 1 + 0.5 / count) % 1
   return ((share * count).floor() + 1).min(count)
 }
 
@@ -125,7 +125,7 @@ const RIM = 2dp
 const OUTLINE_WIDTH = 1.5dp
 const LIT_WIDTH = 2dp
 // The icon aimed at, outlined.
-const ICON_LIT: Line = { width: LIT_WIDTH, color: Color.hex("#ffd100") }
+const ICON_LIT: Line = { width: LIT_WIDTH, color: Color::hex("#ffd100") }
 const SEPARATOR = 2dp
 const MIDDLE_TEXT = 140dp
 
@@ -134,7 +134,7 @@ const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
 // The client's bank stone, tiled at its size across the wheel, a little darker.
 const STONE: Piece = { file: "Interface/BankFrame/Bank-Background", width: 256, height: 256, repeatSize: 256 }
-const STONE_TINT: Color = Color.hex("#e6e6e6")
+const STONE_TINT: Color = Color::hex("#e6e6e6")
 // The masks: the right half of the wheel (turned, what lies clockwise of a direction for half a turn), the slices'
 // ring, a band's ring, the slices' curved edges, a band's inner edge.
 const HALF: Asset = "@/media/radial-half.tga"
@@ -149,16 +149,16 @@ const WARM: Asset = "@/media/radial-warm.tga"
 const CARVED: Asset = "@/media/radial-carve.tga"
 const MIDDLE_ART: Asset = "@/media/radial-middle.tga"
 
-const OUTLINE: Color = Color.hex("#3e2f1d")
-const GOLD: Color = Color.hex("#ffd100")
-const SHADOW: Color = Color.hex("#000000")
-const BRONZE: Color = Color.hex("#8c6a3f")
+const OUTLINE: Color = Color::hex("#3e2f1d")
+const GOLD: Color = Color::hex("#ffd100")
+const SHADOW: Color = Color::hex("#000000")
+const BRONZE: Color = Color::hex("#8c6a3f")
 // An icon in its hollow, a little darker than itself; aimed at, as it is.
-const HOLLOW: Color = Color.hex("#e0e0e0")
-const NAME: Color = Color.hex("#f3e1b8")
-const NAME_DIM: Color = Color.hex("#a3977f")
-const HINT: Color = Color.hex("#8a7d66")
-const WHITE: Color = Color.hex("#ffffff")
+const HOLLOW: Color = Color::hex("#e0e0e0")
+const NAME: Color = Color::hex("#f3e1b8")
+const NAME_DIM: Color = Color::hex("#a3977f")
+const HINT: Color = Color::hex("#8a7d66")
+const WHITE: Color = Color::hex("#ffffff")
 const DIM_OPACITY = 0.55
 // A band's segment not shown, over a slice not aimed at and over the one aimed at.
 const SEGMENT_OFF = 0.38
@@ -173,7 +173,7 @@ public function itemTurn(index: Integer, count: Integer): Number<Angle> {
 // How wide an item's name may stand in its wedge, at a scale of 1: the wedge's width at the band, its widest, less a
 // margin each side (a long word reaches into the wedge's outer part); a ring of one or two, no wider than this.
 function wordsWidthOf(count: Integer): Number<Length> {
-  const across = 2 * BAND * (Number.pi / count.max(1)).sin()
+  const across = 2 * BAND * (Number::pi / count.max(1)).sin()
   return (across - 2 * WORDS_INSET).min(WORDS_MOST)
 }
 
@@ -202,7 +202,7 @@ public class Wheel implements Component {
   derived wordsHeight: Number<Length> = (BAND - INNER - 2 * WORDS_INSET) * self.scale
   derived middleSize: Number<Length> = MIDDLE * self.scale
   derived categorySize: Number<Length> = CATEGORY * self.scale
-  derived named: Boolean = self.middle.name != "" && self.names != WheelNames.Off
+  derived named: Boolean = self.middle.name != "" && self.names != WheelNames::Off
   derived hints: Array<String> = self.hintsOf()
 
   items: Signal<Array<WheelItem>>
@@ -349,48 +349,48 @@ public class Wheel implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} mouseThrough={true}>
-        <box $for={cut of self.cuts} position={Position.Absolute} left={0dp} top={0dp} width={self.size} height={self.size}
+        <box $for={cut of self.cuts} position={Position::Absolute} left={0dp} top={0dp} width={self.size} height={self.size}
              background={cut.art} tint={cut.tint} opacity={cut.opacity} mask={cut.masks} zLevel={1} />
-        <box $for={edge of self.edges} position={Position.Absolute} left={edge.left} top={edge.top} width={edge.width}
+        <box $for={edge of self.edges} position={Position::Absolute} left={edge.left} top={edge.top} width={edge.width}
              height={edge.height} background={PLAIN} tint={edge.tint} opacity={edge.opacity} rotation={edge.turn} zLevel={2} />
-        <box $for={spot of self.pictured} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
+        <box $for={spot of self.pictured} position={Position::Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
              height={CARVE * self.scale} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
           // The hollow under the icon: its lip shows round the icon, its shade inside is under it, so the icon is whole.
-          <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
+          <box position={Position::Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
                background={CARVED} />
           // The icon whole, its own thin rim and all: `icon` cuts every side's rim off, and an icon whose picture
           // reaches its edges (a skull, an anvil) loses part of it.
-          <box position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
+          <box position={Position::Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
                width={ICON * self.scale} height={ICON * self.scale} background={spot.item.icon} desaturate={spot.item.dim}
-               tint={spot.item.tone ?? (spot.chosen ? nil : HOLLOW)} cooldown={spot.item.cooldown} xAlign={Align.End}
-               yAlign={Align.End} zLevel={1}>
+               tint={spot.item.tone ?? (spot.chosen ? nil : HOLLOW)} cooldown={spot.item.cooldown} xAlign={Align::End}
+               yAlign={Align::End} zLevel={1}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
           </box>
-          <box $if={spot.chosen} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
+          <box $if={spot.chosen} position={Position::Absolute} left={(CARVE - ICON) / 2 * self.scale}
                top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale} border={ICON_LIT}
                zLevel={2} />
         </box>
         // An item with no picture: its name right in its wedge, centred where an icon would stand, wrapped as the wedge's
         // width needs; gold while aimed at.
-        <box $for={spot of self.worded} position={Position.Absolute} left={spot.left + (CARVE * self.scale - self.wordsWidth) / 2}
+        <box $for={spot of self.worded} position={Position::Absolute} left={spot.left + (CARVE * self.scale - self.wordsWidth) / 2}
              top={spot.top + (CARVE * self.scale - self.wordsHeight) / 2} width={self.wordsWidth} height={self.wordsHeight}
-             yAlign={Align.Center} textAlign={TextAlign.Center} opacity={spot.item.dim ? DIM_OPACITY : 1}
+             yAlign={Align::Center} textAlign={TextAlign::Center} opacity={spot.item.dim ? DIM_OPACITY : 1}
              zLevel={4}>
           <text value={spot.item.name} textSize={SECONDARY_TEXT * self.scale} textColor={spot.chosen ? GOLD : NAME} leading={.Tight} />
         </box>
-        <$if={self.names == WheelNames.Always}>
-          <box $for={spot of self.pictured} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
-               width={CARVE * self.scale + 60dp} xAlign={Align.Center} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
+        <$if={self.names == WheelNames::Always}>
+          <box $for={spot of self.pictured} position={Position::Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
+               width={CARVE * self.scale + 60dp} xAlign={Align::Center} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
             <text value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
           </box>
         </>
-        <box position={Position.Absolute} left={(self.size - self.middleSize) / 2} top={(self.size - self.middleSize) / 2}
-             width={self.middleSize} height={self.middleSize} background={MIDDLE_ART} xAlign={Align.Center}
-             yAlign={Align.Center} zLevel={5}>
-          <box width={MIDDLE_TEXT * self.scale} columns={1} xAlign={Align.Center} gap={1sp}>
+        <box position={Position::Absolute} left={(self.size - self.middleSize) / 2} top={(self.size - self.middleSize) / 2}
+             width={self.middleSize} height={self.middleSize} background={MIDDLE_ART} xAlign={Align::Center}
+             yAlign={Align::Center} zLevel={5}>
+          <box width={MIDDLE_TEXT * self.scale} columns={1} xAlign={Align::Center} gap={1sp}>
             <box $if={self.category != nil} width={self.categorySize + 2 * RIM} height={self.categorySize + 2 * RIM}
                  background={PLAIN} tint={BRONZE} mask={ROUND}>
-              <box position={Position.Absolute} left={RIM} top={RIM} width={self.categorySize} height={self.categorySize}
+              <box position={Position::Absolute} left={RIM} top={RIM} width={self.categorySize} height={self.categorySize}
                    icon={self.category} mask={ROUND} />
             </box>
             <text $if={self.named} value={self.middle.name} textSize={1rem * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME}

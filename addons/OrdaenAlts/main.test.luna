@@ -5,67 +5,67 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 
 // The window: found by its first tab, which it always shows.
-function window(): Test.Part {
-  return Test.page().window(Locale.TAB_CHARACTERS)
+function window(): Test::Part {
+  return Test::page().window(Locale::TAB_CHARACTERS)
 }
 
 // `/alts`, as the player types it.
 function alts() {
-  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
 }
 
 // The settings window, opened by `/ordaen`.
-function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
-  return Test.page().window(SETTINGS)
+function settings(): Test::Part {
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  return Test::page().window(SETTINGS)
 }
 
 // Whether the window shows this tab's content: each tab by a text only it shows.
-function onCharacters(): Boolean { return window().text(Locale.COL_GOLD).shown() }
+function onCharacters(): Boolean { return window().text(Locale::COL_GOLD).shown() }
 function onItems(): Boolean { return window().input().shown() }
-function onCooldowns(): Boolean { return window().text(Locale.NO_COOLDOWNS).shown() }
+function onCooldowns(): Boolean { return window().text(Locale::NO_COOLDOWNS).shown() }
 
 test "Alts is among the modules in Ordaen's settings, and its page has the window's settings" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const page = settings()
   page.button("Alts").click()
-  Test.expect(page.text("Ordaen Alts").shown() && page.text("Opens on").shown())
+  Test::expect(page.text("Ordaen Alts").shown() && page.text("Opens on").shown())
 }
 
 test "turned off in the settings the window goes and /alts opens nothing; turned on, /alts opens it again" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   alts()
   const page = settings()
   page.button(Ordaen.art.ctl.switchOn).click()
-  Test.expect(!window().shown())
+  Test::expect(!window().shown())
   alts()
-  Test.expect(!window().shown())
+  Test::expect(!window().shown())
   page.button(Ordaen.art.ctl.switchOff).click()
   alts()
-  Test.expect(window().shown() && onCharacters())
+  Test::expect(window().shown() && onCharacters())
 }
 
 test "the window opens on the tab last open, after a reload too" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  window().button(Locale.TAB_COOLDOWNS).click()
-  Test.open("/alts")
-  Test.open("/alts")
-  Test.expect(onCooldowns())
-  Test.reload()
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  window().button(Locale::TAB_COOLDOWNS).click()
+  Test::open("/alts")
+  Test::open("/alts")
+  Test::expect(onCooldowns())
+  Test::reload()
   alts()
-  Test.expect(onCooldowns())
+  Test::expect(onCooldowns())
 }
 
 test "the tab last open is the profile's: the open window turns to the first tab as a new profile is used" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  window().button(Locale.TAB_COOLDOWNS).click()
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  window().button(Locale::TAB_COOLDOWNS).click()
   const page = settings()
   page.button("Profiles").click()
   // «Raid» made from the defaults, then used for this character: the page's first box and its second.
@@ -73,26 +73,26 @@ test "the tab last open is the profile's: the open window turns to the first tab
   page.button(Ordaen.art.ctl.check).nth(1).click()
   page.button("New").click()
   page.button(Ordaen.art.ctl.check).nth(2).click()
-  Test.expect(page.text("In use: Raid, for this character").shown())
-  Test.expect(onCharacters())
+  Test::expect(page.text("In use: Raid, for this character").shown())
+  Test::expect(onCharacters())
 }
 
 test "a window set to open on a tab opens on it, whichever tab was open last, after a reload too" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   // The window shown once, so the settings know its tabs.
-  Test.open("/alts")
-  Test.open("/alts")
+  Test::open("/alts")
+  Test::open("/alts")
   const page = settings()
   page.button("Alts").click()
   page.button("The tab last open").click()
-  Test.page().window(Locale.TAB_ITEMS).button(Locale.TAB_COOLDOWNS).click()
+  Test::page().window(Locale::TAB_ITEMS).button(Locale::TAB_COOLDOWNS).click()
   page.button(Ordaen.art.ctl.corner.close).click()
   alts()
-  Test.expect(onCooldowns())
-  window().button(Locale.TAB_ITEMS).click()
-  Test.reload()
+  Test::expect(onCooldowns())
+  window().button(Locale::TAB_ITEMS).click()
+  Test::reload()
   alts()
-  Test.expect(onCooldowns())
-  window().button(Locale.TAB_ITEMS).click()
-  Test.expect(onItems())
+  Test::expect(onCooldowns())
+  window().button(Locale::TAB_ITEMS).click()
+  Test::expect(onItems())
 }

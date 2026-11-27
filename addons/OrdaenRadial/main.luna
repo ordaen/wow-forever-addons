@@ -40,7 +40,7 @@ public function placeOf(wheelPath: String): String { return wheelPath == ROOT ? 
 
 // The player's class, as the client tags it (`WARRIOR`).
 function playerClass(): String | nil {
-  const _, tag, _ = Client.UnitClass("player")
+  const _, tag, _ = Client::UnitClass("player")
   return tag
 }
 
@@ -50,12 +50,12 @@ function holdsNow(condition: Condition | nil): Boolean {
   const classTag = condition.classTag
   if (classTag != nil && classTag != playerClass()) { return false }
   const form = condition.form
-  if (form != nil && form != Client.GetShapeshiftForm()) { return false }
+  if (form != nil && form != Client::GetShapeshiftForm()) { return false }
   return match (condition.modifier) {
     nil => true
-    .Shift => Game.input.shiftDown()
-    .Ctrl => Game.input.controlDown()
-    .Alt => Game.input.altDown()
+    .Shift => Game::input.shiftDown()
+    .Ctrl => Game::input.controlDown()
+    .Alt => Game::input.altDown()
   }
 }
 
@@ -81,10 +81,10 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
   const items: Map<String, Item> = {}
   for (place, count of ring.counts) { counts[place] = count }
   for (place, item of ring.items) {
-    if (item == Item.Professions) {
+    if (item == Item::Professions) {
       // The ring this stands in holds the player's professions in its place.
       const cut = parentOf(place)
-      const known = Game.professions.list
+      const known = Game::professions.list
       counts[cut] = known.length
       for (index, one of known) { items[within(cut, index)] = .Spell { spell: one.name } }
     } else if (items[place] == nil) {
@@ -97,12 +97,12 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
   const mine = playerClass()
   for (place, item of items) {
     const condition = ring.conditions[place]
-    let action = actionOf(item, item is Item.Kind ? offers[item.kind] : nil)
+    let action = actionOf(item, item is Item::Kind ? offers[item.kind] : nil)
     let modifier: WheelModifier | nil = nil
     if (condition != nil) {
       const classTag = condition.classTag
       const form = condition.form
-      if (classTag != nil && classTag != mine) { action = WheelAction.Ours }
+      if (classTag != nil && classTag != mine) { action = WheelAction::Ours }
       if (form != nil) { action = inForm(action, form) }
       modifier = condition.modifier
     }
@@ -118,7 +118,7 @@ public class Radial implements Module, App {
 
   public settings: mut Settings<Choices> = new Settings<Choices>(preset())
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} kinds={self.kinds} emotes={self.emotes} /> } }
+    { title: Locale::TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} kinds={self.kinds} emotes={self.emotes} /> } }
   ]
   // A secure wheel for each ring's key.
   public const wheels: mut Array<mut SecureWheel> = [
@@ -144,11 +144,11 @@ public class Radial implements Module, App {
   // spot its release does it at (where a ping lands) shows.
   derived armed: Boolean = self.wheel?.armed ?? false
   derived seeThrough: Boolean = self.armed && (self.wheel?.over ?? false)
-  derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
+  derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames::Chosen
   // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
   derived category: Art | nil = self.categoryOf()
   derived place: Anchored = {
-    point: Point.Center, to: Point.BottomLeft, x: (self.wheel?.middleX ?? 0) * 1ui, y: -(self.wheel?.middleY ?? 0) * 1ui
+    point: Point::Center, to: Point::BottomLeft, x: (self.wheel?.middleX ?? 0) * 1ui, y: -(self.wheel?.middleY ?? 0) * 1ui
   }
 
   constructor() {
@@ -158,7 +158,7 @@ public class Radial implements Module, App {
     watch (choices of self.settings.values) { self.upgrade(choices) }
     watch (laids of self.laids) { self.apply(laids) }
     self.bind()
-    Events.UPDATE_BINDINGS.listen(self.bind)
+    Events::UPDATE_BINDINGS.listen(self.bind)
   }
 
   // Each ring an older build saved, upgraded (`upgraded`); the settings changed only where one was.
@@ -175,7 +175,7 @@ public class Radial implements Module, App {
 
   // How an item is drawn now: another module's kind as it offers, an emote by its command.
   drawnOf(self, item: Item): WheelItem {
-    return shown(item, item is Item.Kind ? self.offers[item.kind] : nil, self.emotes)
+    return shown(item, item is Item::Kind ? self.offers[item.kind] : nil, self.emotes)
   }
 
   offersOf(self): Map<String, RadialOffer> {
@@ -207,24 +207,24 @@ public class Radial implements Module, App {
     const chosen = self.chosen
     if (chosen == 0) {
       const own = ring.items[place]
-      if (own == nil) { return { name: "", hints: [Locale.HINT_CANCEL], dim: true } }
-      return { name: self.drawnOf(own).name, hints: [Locale.HINT_BACK], dim: true }
+      if (own == nil) { return { name: "", hints: [Locale::HINT_CANCEL], dim: true } }
+      return { name: self.drawnOf(own).name, hints: [Locale::HINT_BACK], dim: true }
     }
     const at = within(place, chosen)
-    const item = ring.items[at] ?? Item.Empty
+    const item = ring.items[at] ?? Item::Empty
     const drawn = self.shownItems[chosen]
     const name = drawn?.name ?? ""
-    if (item is Item.Menu || item is Item.Slot) {
+    if (item is Item::Menu || item is Item::Slot) {
       const step = wheel.step(wheelPlace(at))
       if (step == 0) {
-        return { name: self.drawnOf(item).name, hints: [Locale.HINT_OPEN, Locale.HINT_SCROLL], dim: false }
+        return { name: self.drawnOf(item).name, hints: [Locale::HINT_OPEN, Locale::HINT_SCROLL], dim: false }
       }
-      return { name: name, hints: [Locale.HINT_USE, Locale.HINT_STEP.format(step, drawn?.segments ?? 0)], dim: false }
+      return { name: name, hints: [Locale::HINT_USE, Locale::HINT_STEP.format(step, drawn?.segments ?? 0)], dim: false }
     }
-    if (drawn?.dim ?? false) { return { name: name, hints: [Locale.HINT_OFF], dim: true } }
+    if (drawn?.dim ?? false) { return { name: name, hints: [Locale::HINT_OFF], dim: true } }
     // A ping taken by a press: where its release is, it lands.
-    if (item is Item.Pinged && self.armed) { return { name: name, hints: [Locale.HINT_PING], dim: false } }
-    return { name: name, hints: [Locale.HINT_USE], dim: false }
+    if (item is Item::Pinged && self.armed) { return { name: name, hints: [Locale::HINT_PING], dim: false } }
+    return { name: name, hints: [Locale::HINT_USE], dim: false }
   }
 
   categoryOf(self): Art | nil {
@@ -244,20 +244,20 @@ public class Radial implements Module, App {
     _ = wheel.steps
     const place = placeOf(self.level)
     const count = ring.counts[place] ?? 0
-    const fighting = Game.situation.combat
+    const fighting = Game::situation.combat
     const items: Array<WheelItem> = []
     for (index of 1..count) {
       const at = within(place, index)
-      const item = ring.items[at] ?? Item.Empty
+      const item = ring.items[at] ?? Item::Empty
       // A submenu or a slot of several has a band of its items; it shows the one the mouse wheel stepped to, or a
       // slot its current child.
       let drawn = withChosenIcon(self.drawnOf(item), ring.icons[at])
       let segments = 0
       let segment = 0
-      if (item is Item.Menu || item is Item.Slot) {
+      if (item is Item::Menu || item is Item::Slot) {
         segments = (ring.counts[at] ?? 0).min(WHEEL_MOST)
         const step = wheel.step(wheelPlace(at))
-        segment = step > 0 || item is Item.Menu ? step : wheel.current(wheelPlace(at))
+        segment = step > 0 || item is Item::Menu ? step : wheel.current(wheelPlace(at))
         const child = segment > 0 ? ring.items[within(at, segment)] : nil
         if (child != nil) { drawn = withChosenIcon(self.drawnOf(child), ring.icons[within(at, segment)]) }
       }
@@ -286,7 +286,7 @@ public class Radial implements Module, App {
   bind(mut self) {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
-      const first, second = Client.GetBindingKey(command)
+      const first, second = Client::GetBindingKey(command)
       const keys: Array<String> = []
       if (first != nil) { keys.push(first) }
       if (second != nil) { keys.push(second) }
@@ -299,9 +299,9 @@ public class Radial implements Module, App {
     const ring = self.laids[self.up]
     if (ring == nil) { return }
     const item = ring.items[placeOf(path)]
-    if (item is Item.Open) {
-      if (item.window == Window.Settings) { Ordaen.toggleSettings(nil) }
-      if (item.window == Window.Placing) { Ordaen.togglePlacing() }
+    if (item is Item::Open) {
+      if (item.window == Window::Settings) { Ordaen.toggleSettings(nil) }
+      if (item.window == Window::Placing) { Ordaen.togglePlacing() }
     }
   }
 
@@ -312,7 +312,7 @@ public class Radial implements Module, App {
     return $ltml {
       <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
            @keyDown.globalScope(RING_3)={self.heard} />
-      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place} opacity={self.seeThrough ? ARMED_OPACITY : 1}>
+      <surface $if={self.up > 0} layer={Layer::Dialog} place={self.place} opacity={self.seeThrough ? ARMED_OPACITY : 1}>
         <Wheel items={self.shownItems} chosen={self.chosen} middle={self.middle} names={self.names} scale={self.scale}
                opening={self.opening} category={self.category} />
       </surface>

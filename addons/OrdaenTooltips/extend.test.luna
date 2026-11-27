@@ -10,7 +10,7 @@ import { CreatureQuests, ItemKeys, ItemLines, Line, ObjectLines, Offered, Wanted
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // A price another module keeps: its row follows its own cell. Each time it is asked it says so.
 class Priced implements ItemLines {
@@ -36,7 +36,7 @@ class Said implements ItemLines {
   }
 
   public lines(self, item: Integer, link: String): Array<Line> {
-    return [{ left: self.label, color: Color.hex("#40ff40") }]
+    return [{ left: self.label, color: Color::hex("#40ff40") }]
   }
 }
 
@@ -44,7 +44,7 @@ class Said implements ItemLines {
 class Mined implements ObjectLines {
   public lines(self, name: String): Array<Line> {
     if (name != "Copper Vein") { return [] }
-    return [{ left: "Copper Ore", right: "2–4", rightColor: Color.hex("#ffd100") }, { left: "Rough Stone", indent: true }]
+    return [{ left: "Copper Ore", right: "2–4", rightColor: Color::hex("#ffd100") }, { left: "Rough Stone", indent: true }]
   }
 }
 
@@ -59,54 +59,54 @@ class Keyed implements ItemKeys {
   public hold(mut self) { self.held = true }
 }
 
-function showing(data: Game.TooltipData): Game.ShownTip {
-  const corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
+function showing(data: Game::TooltipData): Game::ShownTip {
+  const corner = Client::CreateFrame("Frame", "GameTooltip", Client::C_UI::GetUIParent(), nil)
   corner.SetSize(200, 80)
-  corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
+  corner.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", 1300, -720)
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
     right: true, home: corner, homeBelow: false, homeRight: true
   }
 }
 
-function hidden(): Game.ShownTip {
+function hidden(): Game::ShownTip {
   return { shown: false, ..showing({ lines: [] }) }
 }
 
-function ore(): Game.TooltipData {
+function ore(): Game::TooltipData {
   return {
     kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }, { left: "Requires Level 5", kind: 43 }]
   }
 }
 
-function vein(name: String): Game.TooltipData {
+function vein(name: String): Game::TooltipData {
   return { kind: 4, lines: [{ left: name, kind: 0 }] }
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 test "a row another module adds to an item stands after the tooltip's own footer" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction | 12g · 2770 · item:2770"))
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction | 12g · 2770 · item:2770"))
   destroy added
 }
 
 test "an added row follows what it read" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const priced = new Priced()
   const added = Tooltips.worth.add(priced)
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
   priced.raise()
-  Test.expect(Test.page().window("Copper Ore").text("15g · 2770 · item:2770").shown())
+  Test::expect(Test::page().window("Copper Ore").text("15g · 2770 · item:2770").shown())
   destroy added
 }
 
@@ -123,119 +123,119 @@ class Aged implements ItemLines {
 }
 
 test "an added row is asked anew each time the same item shows, and drawn as it stands then" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   let age = "now"
   const added = Tooltips.worth.add(new Aged((): String => age))
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Copper Ore").text("now").shown())
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Copper Ore").text("now").shown())
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
   age = "a day ago"
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Seen | a day ago"))
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Seen | a day ago"))
   destroy added
 }
 
 test "an added row goes with its handle" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
   destroy added
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5"))
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5"))
 }
 
 test "what is worth, what an item is for and where it is stand in that order, whatever order they were added in" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const held = Tooltips.held.add(new Said("Held by Ann"))
   const uses = Tooltips.uses.add(new Said("Used in Bronze Bar"))
   const worth = Tooltips.worth.add(new Said("Auction 12g"))
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction 12g | Used in Bronze Bar | Held by Ann"))
-  Test.expect(Test.page().text("Held by Ann").textColor().equal(Color.hex("#40ff40")))
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction 12g | Used in Bronze Bar | Held by Ann"))
+  Test::expect(Test::page().text("Held by Ann").textColor().equal(Color::hex("#40ff40")))
   destroy held
   destroy uses
   destroy worth
 }
 
 test "an item's rows aren't asked for a world object, and its rows stand in the object's tooltip" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   let asked = 0
   const worth = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
   const gives = Tooltips.gives.add(new Mined())
-  Game.tooltip.main = showing(vein("Copper Vein"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein | Copper Ore | 2–4 | Rough Stone"))
-  Test.expect(Test.page().text("2–4").textColor().equal(Color.hex("#ffd100")))
-  Test.expect(asked == 0)
+  Game::tooltip.main = showing(vein("Copper Vein"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Vein"), "Copper Vein | Copper Ore | 2–4 | Rough Stone"))
+  Test::expect(Test::page().text("2–4").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(asked == 0)
   destroy worth
   destroy gives
 }
 
 test "an object's rows are for the object they name, and go with their handle" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const gives = Tooltips.gives.add(new Mined())
-  Game.tooltip.main = showing(vein("Tin Vein"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Tin Vein"), "Tin Vein"))
-  Game.tooltip.main = showing(vein("Copper Vein"))
-  Test.pass(SHOWS)
+  Game::tooltip.main = showing(vein("Tin Vein"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Tin Vein"), "Tin Vein"))
+  Game::tooltip.main = showing(vein("Copper Vein"))
+  Test::pass(SHOWS)
   destroy gives
-  Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein"))
+  Test::expect(reads(Test::page().window("Copper Vein"), "Copper Vein"))
 }
 
 test "a hotkey another module adds stands after the tooltip's own, and follows what it read" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const keyed = new Keyed()
   const added = Tooltips.keys.add(keyed)
-  Game.tooltip.main = showing({ plain: true, lines: [{ left: "Bag |cffffd200(B)|r", kind: 0 }] })
-  Test.pass(SHOWS)
+  Game::tooltip.main = showing({ plain: true, lines: [{ left: "Bag |cffffd200(B)|r", kind: 0 }] })
+  Test::pass(SHOWS)
   // A text is no item: none of the item's hotkeys.
-  Test.expect(reads(Test.page().window("Bag"), "Bag | B: open"))
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Alt+Left-click: hold 2770"))
+  Test::expect(reads(Test::page().window("Bag"), "Bag | B: open"))
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Alt+Left-click: hold 2770"))
   keyed.hold()
-  Test.expect(Test.page().window("Copper Ore").text("Alt+Left-click: let 2770 go").shown())
+  Test::expect(Test::page().window("Copper Ore").text("Alt+Left-click: let 2770 go").shown())
   destroy added
-  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5"))
+  Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5"))
 }
 
 test "a world object has none of an item's hotkeys" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.keys.add(new Keyed())
-  Game.tooltip.main = showing(vein("Copper Vein"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein"))
+  Game::tooltip.main = showing(vein("Copper Vein"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Copper Vein"), "Copper Vein"))
   destroy added
 }
 
 // A row of the test's own in one colour, its value with none of its own.
 class Tinted implements ItemLines {
   public lines(self, item: Integer, link: String): Array<Line> {
-    return [{ left: "Sold for", right: "3g", color: Color.hex("#40ff40") }]
+    return [{ left: "Sold for", right: "3g", color: Color::hex("#40ff40") }]
   }
 }
 
 test "an added row's value with no colour of its own is in its line's" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Tinted())
-  Game.tooltip.main = showing(ore())
-  Test.pass(SHOWS)
-  Test.expect(Test.page().text("3g").textColor().equal(Color.hex("#40ff40")))
+  Game::tooltip.main = showing(ore())
+  Test::pass(SHOWS)
+  Test::expect(Test::page().text("3g").textColor().equal(Color::hex("#40ff40")))
   destroy added
 }
 
 test "an item the game gives no number for asks the added rows nothing" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   let asked = 0
   const added = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
-  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Mystery", kind: 22 }] })
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Mystery"), "Mystery") && asked == 0)
+  Game::tooltip.main = showing({ kind: 0, lines: [{ left: "Mystery", kind: 22 }] })
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Mystery"), "Mystery") && asked == 0)
   destroy added
 }
 
@@ -263,7 +263,7 @@ class Hunted implements CreatureQuests {
   public loot(mut self) { self.have = 4 }
 }
 
-function boar(creature: Integer): Game.UnitInfo {
+function boar(creature: Integer): Game::UnitInfo {
   return {
     name: "Stonetusk Boar", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 5,
     sameFaction: false, inParty: false, friend: false, ignored: false, tapped: false, creatureType: "Beast",
@@ -272,7 +272,7 @@ function boar(creature: Integer): Game.UnitInfo {
 }
 
 // The boar's tooltip; the client's own rows name one objective of one quest, the count first as Forever writes it.
-function boarTip(): Game.TooltipData {
+function boarTip(): Game::TooltipData {
   return {
     kind: 2,
     lines: [
@@ -286,46 +286,46 @@ function boarTip(): Game.TooltipData {
 
 test "a creature's quests: what it gives and takes first, then each objective it serves under its quest's title, the game's own once" {
   let creature = 113
-  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(creature)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(creature)
+  Test::mount(nil, SCREEN)
   const hunted = new Hunted()
   const added = Tooltips.creatures.add(hunted)
-  Game.tooltip.main = showing(boarTip())
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | [7] Princess Must Die! | [5] Report to Goldshire | The Fargodeep Mine | Boar Tusk | 1/3 | Boar Hide | 0/2 | Pie for Billy | Chunk of Boar Meat | 2/4"))
-  Test.expect(Test.page().box("Interface/GossipFrame/ActiveQuestIcon").shown())
-  Test.expect(Test.page().box("Interface/GossipFrame/AvailableQuestIcon").shown())
-  Test.expect(Test.page().text("Pie for Billy").textColor().equal(Color.hex("#ffd100")))
+  Game::tooltip.main = showing(boarTip())
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | [7] Princess Must Die! | [5] Report to Goldshire | The Fargodeep Mine | Boar Tusk | 1/3 | Boar Hide | 0/2 | Pie for Billy | Chunk of Boar Meat | 2/4"))
+  Test::expect(Test::page().box("Interface/GossipFrame/ActiveQuestIcon").shown())
+  Test::expect(Test::page().box("Interface/GossipFrame/AvailableQuestIcon").shown())
+  Test::expect(Test::page().text("Pie for Billy").textColor().equal(Color::hex("#ffd100")))
   hunted.loot()
-  Test.pass(SHOWS)
-  Test.expect(Test.page().text("4/4").textColor().equal(Color.hex("#1eff00")))
+  Test::pass(SHOWS)
+  Test::expect(Test::page().text("4/4").textColor().equal(Color::hex("#1eff00")))
   creature = 114
-  Game.tooltip.main = showing(boarTip())
-  Test.pass(SHOWS)
-  Test.expect(!Test.page().text("Pie for Billy").shown() && !Test.page().text("[5] Report to Goldshire").shown())
+  Game::tooltip.main = showing(boarTip())
+  Test::pass(SHOWS)
+  Test::expect(!Test::page().text("Pie for Billy").shown() && !Test::page().text("[5] Report to Goldshire").shown())
   destroy added
 }
 
 test "a quest's objectives stand close under its title, and the next quest's title stands apart from them" {
-  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(113)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(113)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.creatures.add(new Hunted())
-  Game.tooltip.main = showing(boarTip())
-  Test.pass(SHOWS)
-  const under = Test.page().text("Chunk of Boar Meat").letters().top - Test.page().text("Pie for Billy").letters().bottom
-  const between = Test.page().text("Pie for Billy").letters().top - Test.page().text("Boar Hide").letters().bottom
-  Test.expect(under < between)
+  Game::tooltip.main = showing(boarTip())
+  Test::pass(SHOWS)
+  const under = Test::page().text("Chunk of Boar Meat").letters().top - Test::page().text("Pie for Billy").letters().bottom
+  const between = Test::page().text("Pie for Billy").letters().top - Test::page().text("Boar Hide").letters().bottom
+  Test::expect(under < between)
   destroy added
 }
 
 test "with the NPCs' «Quests» unticked a creature names no quest it gives or takes, its objectives still" {
-  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(113)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(113)
+  Test::mount(nil, SCREEN)
   const added = Tooltips.creatures.add(new Hunted())
   Tooltips.settings.values.npcsQuests = false
-  Game.tooltip.main = showing(boarTip())
-  Test.pass(SHOWS)
-  Test.expect(!Test.page().text("[5] Report to Goldshire").shown() && Test.page().text("Pie for Billy").shown())
+  Game::tooltip.main = showing(boarTip())
+  Test::pass(SHOWS)
+  Test::expect(!Test::page().text("[5] Report to Goldshire").shown() && Test::page().text("Pie for Billy").shown())
   Tooltips.settings.values.npcsQuests = true
   destroy added
 }

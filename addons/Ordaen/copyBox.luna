@@ -29,10 +29,10 @@ public class CopyBox implements Component {
   public render(self): Template {
     return $ltml {
       <Dialog width={WIDTH} title={self.title}>
-        <box height={ROOM} overflow={Overflow.Scroll} @keyPress.parentScope(.Escape)={self.onClose}>
+        <box height={ROOM} overflow={Overflow::Scroll} @keyPress.parentScope(.Escape)={self.onClose}>
           <CopyText value={self.value} />
         </box>
-        <PushButton #buttons label={Locale.CLOSE} width={BUTTON} @click={self.onClose} />
+        <PushButton #buttons label={Locale::CLOSE} width={BUTTON} @click={self.onClose} />
       </Dialog>
     }
   }

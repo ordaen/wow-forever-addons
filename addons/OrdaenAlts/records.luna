@@ -16,12 +16,12 @@ function written(
     found.name = name
     found.realm = realm
     found.faction = faction
-    found.classTag = Game.player.classTag
+    found.classTag = Game::player.classTag
     found.seen = now
     return found
   }
   makeRoom(characters, who)
-  const made = Character { name: name, realm: realm, faction: faction, classTag: Game.player.classTag, seen: now, mailExpires: nil }
+  const made = Character { name: name, realm: realm, faction: faction, classTag: Game::player.classTag, seen: now, mailExpires: nil }
   characters[who] = made
   return made
 }
@@ -94,7 +94,7 @@ public class Records {
 
   // The professions the character has now, with their skill: one it has dropped goes, with its recipes. The game's list
   // is empty until the client has read the skills, which a character with none has too: an empty list changes nothing.
-  public setProfessions(mut self, professions: Array<Game.Profession>) {
+  public setProfessions(mut self, professions: Array<Game::Profession>) {
     if (professions.length == 0) { return }
     const kept: Array<mut Known> = []
     let changed = professions.length != self.me.professions.length
@@ -138,7 +138,7 @@ public class Records {
   // given yet is made, and takes its skill from the list when it comes.
   public setRecipes(mut self, skillLine: Integer, recipes: mut Array<RecipeId>, ready: mut Map<RecipeId, Hour>) {
     if (recipes.length > MOST_RECIPES) {
-      Debug.fault("Alts", "a profession of " + String.of(recipes.length) + " recipes is more than the " + String.of(MOST_RECIPES) + " kept")
+      Debug::fault("Alts", "a profession of " + String::of(recipes.length) + " recipes is more than the " + String::of(MOST_RECIPES) + " kept")
       return
     }
     const known = self.professionOf(skillLine) ?? self.added(skillLine)
@@ -166,7 +166,7 @@ public class Records {
     let kinds = 0
     for (item, _ of items) { kinds += 1 }
     if (kinds > MOST_ITEMS) {
-      Debug.fault("Alts", "a place of " + String.of(kinds) + " kinds of items is more than the " + String.of(MOST_ITEMS) + " kept")
+      Debug::fault("Alts", "a place of " + String::of(kinds) + " kinds of items is more than the " + String::of(MOST_ITEMS) + " kept")
       return
     }
     // The hour a place was read moves the record; the bags, read on every change of theirs, move it only with what

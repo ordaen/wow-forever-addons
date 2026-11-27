@@ -7,40 +7,40 @@ import { OpenMapHost } from "@/host"
 test "the map opens at the area's map; OpenMap's stitched view glides to that map, which fills most of it" {
   const host = new OpenMapHost()
   host.open(40)
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Test.openMapView() == nil)
-  Client.WorldMapFrame.Hide()
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1436 && Test::openMapView() == nil)
+  Client::WorldMapFrame.Hide()
   // Westfall's map on the stitched world: a tenth across, a fifth down.
-  Test.openMapStitched({ [1436]: { left: 0.4, top: 0.5, right: 0.5, bottom: 0.7 } })
+  Test::openMapStitched({ [1436]: { left: 0.4, top: 0.5, right: 0.5, bottom: 0.7 } })
   host.open(40)
-  const view = Test.openMapView() ?? panic("the view moved")
-  Test.expect((view.u - 0.45).abs() < 0.0001 && (view.v - 0.6).abs() < 0.0001 && (view.zoom - 4).abs() < 0.0001)
+  const view = Test::openMapView() ?? panic("the view moved")
+  Test::expect((view.u - 0.45).abs() < 0.0001 && (view.v - 0.6).abs() < 0.0001 && (view.zoom - 4).abs() < 0.0001)
 }
 
 // The quests of the game's pins that show, «101,102».
 function pinsShown(): String {
-  return Test.questPins().map(id => String.of(id)).join(",")
+  return Test::questPins().map(id => String::of(id)).join(",")
 }
 
 test "the game's quest pins are every quest's, but the quest shown's alone while one is shown, as the map turns too" {
-  Test.questLog([
+  Test::questLog([
     { id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" },
     { id: 103, title: "Three", header: "Westfall" }
   ])
   const host = new OpenMapHost()
   host.start()
   host.open(40)
-  Test.expect(pinsShown() == "101,102,103")
+  Test::expect(pinsShown() == "101,102,103")
   host.onlyQuest(102)
-  Test.expect(pinsShown() == "102")
+  Test::expect(pinsShown() == "102")
   // The game makes its pins again as the map turns: the others stay hidden.
-  Client.WorldMapFrame.SetMapID(1429)
-  Test.expect(pinsShown() == "102")
+  Client::WorldMapFrame.SetMapID(1429)
+  Test::expect(pinsShown() == "102")
   host.onlyQuest(103)
-  Test.expect(pinsShown() == "103")
+  Test::expect(pinsShown() == "103")
   host.onlyQuest(0)
-  Test.expect(pinsShown() == "101,102,103")
+  Test::expect(pinsShown() == "101,102,103")
   host.onlyQuest(101)
   host.stop()
-  Client.WorldMapFrame.SetMapID(1436)
-  Test.expect(pinsShown() == "101,102,103")
+  Client::WorldMapFrame.SetMapID(1436)
+  Test::expect(pinsShown() == "101,102,103")
 }

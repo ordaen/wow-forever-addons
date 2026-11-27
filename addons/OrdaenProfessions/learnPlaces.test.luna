@@ -23,22 +23,22 @@ class Page {
 }
 
 function names(): String {
-  return Test.page().texts().filter(text => text == "Alys Vol'tyr" || text == "Borya" || text.contains("trainer")).join(", ")
+  return Test::page().texts().filter(text => text == "Alys Vol'tyr" || text == "Borya" || text.contains("trainer")).join(", ")
 }
 
 test "the places nearest first, one with no distance last; the name and the price sort, a click opens a vendor" {
   let page = new Page()
-  Test.mount(page, { left: 0, top: 0, width: 700, height: 400 })
-  Test.expect(names() == "Borya, Alys Vol'tyr, Profession trainer, from skill 40")
-  Test.expect(Test.page().text("Borya").item().texts().join(" | ") == "Borya | Booty Bay | Vendor | 120 yd | —")
-  Test.page().button("Name").click()
-  Test.expect(names() == "Alys Vol'tyr, Borya, Profession trainer, from skill 40")
-  Test.page().button("Cost").click()
-  Test.page().button("Cost").click()
+  Test::mount(page, { left: 0, top: 0, width: 700, height: 400 })
+  Test::expect(names() == "Borya, Alys Vol'tyr, Profession trainer, from skill 40")
+  Test::expect(Test::page().text("Borya").item().texts().join(" | ") == "Borya | Booty Bay | Vendor | 120 yd | —")
+  Test::page().button("Name").click()
+  Test::expect(names() == "Alys Vol'tyr, Borya, Profession trainer, from skill 40")
+  Test::page().button("Cost").click()
+  Test::page().button("Cost").click()
   // The dearest first: the trainer's price before the vendors' none.
-  Test.expect(names() == "Profession trainer, from skill 40, Borya, Alys Vol'tyr")
-  Test.page().text("Borya").click()
-  Test.expect(page.opened == "Borya")
+  Test::expect(names() == "Profession trainer, from skill 40, Borya, Alys Vol'tyr")
+  Test::page().text("Borya").click()
+  Test::expect(page.opened == "Borya")
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

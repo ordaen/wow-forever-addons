@@ -32,7 +32,7 @@ class Rows {
 
   public render(self): Template {
     return $ltml {
-      <box height={200ui} overflow={Overflow.Scroll} columns={1}>
+      <box height={200ui} overflow={Overflow::Scroll} columns={1}>
         <HoverRow $for={name of self.names} $key={name} name={name} />
       </box>
     }
@@ -41,7 +41,7 @@ class Rows {
 
 // The title of the Tip shown, or "" while none is.
 function tipShown(): String {
-  for (shown of Test.surfaces()) {
+  for (shown of Test::surfaces()) {
     for (text of shown.texts) {
       if (text.contains("About")) { return text }
     }
@@ -51,20 +51,20 @@ function tipShown(): String {
 
 test "a tip goes when the list scrolls its box under the cursor, and comes back when the cursor comes onto a box" {
   let page = new Rows()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
-  Test.moveTo(Test.holding("Second", nil))
-  Test.pass(0.1)
-  Test.expect(tipShown() == "About Second")
-  Test.wheel(-1)
-  Test.pass(0.1)
-  Test.expect(tipShown() == "")
-  Test.moveTo(Test.holding("Third", nil))
-  Test.pass(0.1)
-  Test.expect(tipShown() == "About Third")
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test::moveTo(Test::holding("Second", nil))
+  Test::pass(0.1)
+  Test::expect(tipShown() == "About Second")
+  Test::wheel(-1)
+  Test::pass(0.1)
+  Test::expect(tipShown() == "")
+  Test::moveTo(Test::holding("Third", nil))
+  Test::pass(0.1)
+  Test::expect(tipShown() == "About Third")
   destroy page
 }
 
-const GREEN: Color = Color.hex("#3fbf3f")
+const GREEN: Color = Color::hex("#3fbf3f")
 
 // A box whose Tip lists effects: a buff's value in its own colour, a plain row's in the names'.
 class Effects implements Component {
@@ -84,7 +84,7 @@ class Effects implements Component {
   }
 }
 
-const RED: Color = Color.hex("#bf3f3f")
+const RED: Color = Color::hex("#bf3f3f")
 
 // A box whose Tip has a section with a bar of shares: three parts red, one green.
 class Shares implements Component {
@@ -106,24 +106,24 @@ class Shares implements Component {
 
 test "a section's shares are a bar under its rows, each as wide as its part of their sum" {
   const page = new Shares()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
-  Test.moveTo(Test.holding("Attacks", nil))
-  Test.pass(0.1)
-  const red = Test.page().box(RED).rect()
-  const green = Test.page().box(GREEN).rect()
-  Test.expect(red.top > Test.page().text("Miss").rect().bottom)
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test::moveTo(Test::holding("Attacks", nil))
+  Test::pass(0.1)
+  const red = Test::page().box(RED).rect()
+  const green = Test::page().box(GREEN).rect()
+  Test::expect(red.top > Test::page().text("Miss").rect().bottom)
   // As tall as the bar: its slices hold nothing that gives them a height.
-  Test.expect(red.bottom - red.top >= 4 && green.bottom - green.top == red.bottom - red.top)
-  Test.expect(green.left >= red.right - 0.5 && ((red.right - red.left) - 3 * (green.right - green.left)).abs() < 1)
+  Test::expect(red.bottom - red.top >= 4 && green.bottom - green.top == red.bottom - red.top)
+  Test::expect(green.left >= red.right - 0.5 && ((red.right - red.left) - 3 * (green.right - green.left)).abs() < 1)
   destroy page
 }
 
 test "a row's value is drawn in its own colour where it has one, else in the names'" {
   const page = new Effects()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
-  Test.moveTo(Test.holding("Strength", nil))
-  Test.pass(0.1)
-  Test.expect(Test.page().text("+100").textColor().equal(GREEN))
-  Test.expect(!Test.page().text("20").textColor().equal(GREEN))
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test::moveTo(Test::holding("Strength", nil))
+  Test::pass(0.1)
+  Test::expect(Test::page().text("+100").textColor().equal(GREEN))
+  Test::expect(!Test::page().text("20").textColor().equal(GREEN))
   destroy page
 }

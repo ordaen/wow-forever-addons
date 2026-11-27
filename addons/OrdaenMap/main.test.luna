@@ -8,7 +8,7 @@ import root Maps from "OrdaenMap"
 import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, Placed } from "@/host"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const PAGE: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // The world map as a test sets it: shown, every zone in view, each pin where its zone has it; what was drawn.
 class TestHost implements MapHost {
@@ -42,44 +42,44 @@ class TestHost implements MapHost {
 }
 
 test "docked, the map's side panel is given while the map shows, its size the client's; apart, none" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Maps.settings.values.docked = true
-  Test.flush()
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
+  Test::flush()
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
   const side = Maps.side ?? panic("the side panel")
-  Test.expect(side.width == 330 && side.height == 668)
+  Test::expect(side.width == 330 && side.height == 668)
   Maps.settings.values.docked = false
-  Test.flush()
-  Test.expect(Maps.side == nil)
+  Test::flush()
+  Test::expect(Maps.side == nil)
 }
 
 test "«Show on map» with the map already open there neither opens it again nor makes its pins anew" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
-  Test.mount(nil, PAGE)
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
+  Test::questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
+  Test::mount(nil, PAGE)
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
   // The game's pins made anew show each before the others are hidden again: no frame is shown.
-  const called = Test.calls(() => Maps.show(40, 102))
-  Test.expect(!called.contains("Show="))
-  Test.expect(Test.questPins().length == 1 && Test.questPins()[1] == 102)
+  const called = Test::calls(() => Maps.show(40, 102))
+  Test::expect(!called.contains("Show="))
+  Test::expect(Test::questPins().length == 1 && Test::questPins()[1] == 102)
 }
 
 test "the map shows every quest's pins; a module's «Show on map» shows its quest's alone, until the map hides" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
-  Test.mount(nil, PAGE)
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
-  Test.expect(Test.questPins().length == 2)
-  Client.WorldMapFrame.Hide()
+  Test::questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
+  Test::mount(nil, PAGE)
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
+  Test::expect(Test::questPins().length == 2)
+  Client::WorldMapFrame.Hide()
   Maps.show(40, 102)
-  Test.flush()
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Test.questPins().length == 1 && Test.questPins()[1] == 102)
-  Client.WorldMapFrame.Hide()
-  Test.flush()
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
-  Test.expect(Test.questPins().length == 2)
+  Test::flush()
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1436 && Test::questPins().length == 1 && Test::questPins()[1] == 102)
+  Client::WorldMapFrame.Hide()
+  Test::flush()
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
+  Test::expect(Test::questPins().length == 2)
 }
 
 // What a dungeon's card says: the instance's name, where one of the test's.
@@ -90,19 +90,19 @@ class TestSection implements DungeonSection {
 }
 
 test "a dungeon's card on OpenMap's map has Map's section: its title, then each entry's lines; none where none has any" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Maps.dungeons.add(new TestSection())
-  Test.flush()
-  Test.expect(Test.dungeonCard(1581, ["The Deadmines"]).join(",") == "Ordaen,In The Deadmines")
-  Test.expect(Test.dungeonCard(1, ["Ragefire Chasm"]).length == 0)
+  Test::flush()
+  Test::expect(Test::dungeonCard(1581, ["The Deadmines"]).join(",") == "Ordaen,In The Deadmines")
+  Test::expect(Test::dungeonCard(1, ["Ragefire Chasm"]).length == 0)
 }
 
 test "OpenMap's townsfolk come from QuestieDB's NPCs, each on its area's map" {
-  Test.questieDB({}, { [1430]: { name: "Kurran Steele", zoneID: 40, npcFlags: 16 } }, {})
-  Test.reload()
-  Test.mount(nil, PAGE)
-  Test.expect(Test.townsfolkMap(1430) == 1436)
-  Test.expect(Test.townsfolkMap(99) == 0)
+  Test::questieDB({}, { [1430]: { name: "Kurran Steele", zoneID: 40, npcFlags: 16 } }, {})
+  Test::reload()
+  Test::mount(nil, PAGE)
+  Test::expect(Test::townsfolkMap(1430) == 1436)
+  Test::expect(Test::townsfolkMap(99) == 0)
 }
 
 // A layer of two pins in Westfall (area 40) and one in a zone not in view.
@@ -125,9 +125,9 @@ class TestLayer implements Layer {
   // A pin clicked has the client point the way to its quest; with Shift, stop watching it (as Quests' do).
   public press(self, pin: Pin, shift: Boolean) {
     if (shift) {
-      _ = Client.C_QuestLog.RemoveQuestWatch(pin.of)
+      _ = Client::C_QuestLog::RemoveQuestWatch(pin.of)
     } else {
-      Client.C_SuperTrack.SetSuperTrackedQuestID(pin.of)
+      Client::C_SuperTrack::SetSuperTrackedQuestID(pin.of)
     }
   }
 }
@@ -152,118 +152,118 @@ class CrowdLayer implements Layer {
 }
 
 test "pins on one spot are drawn as one, its tooltip saying each; a lit pin is drawn first" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
   Maps.layers.add(new CrowdLayer())
-  Test.flush()
-  Test.expect(host.drawn.length == 2)
-  Test.expect((host.drawn[1] ?? panic("a pin")).pin.of == 3)
-  Test.expect((host.said[2] ?? []).join(",") == "Pin 1,Pin 2")
+  Test::flush()
+  Test::expect(host.drawn.length == 2)
+  Test::expect((host.drawn[1] ?? panic("a pin")).pin.of == 3)
+  Test::expect((host.said[2] ?? []).join(",") == "Pin 1,Pin 2")
 }
 
 test "a pin clicked is its layer's, with Shift or without" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
   const layer = new TestLayer()
   Maps.layers.add(layer)
-  Test.questLog([
+  Test::questLog([
     { id: 1, title: "First", header: "Westfall", watched: true },
     { id: 2, title: "Second", header: "Westfall", watched: true }
   ])
-  Test.flush()
-  _ = Test.talked()
+  Test::flush()
+  _ = Test::talked()
   host.pressed.emit(2, false)
   host.pressed.emit(1, true)
-  Test.expect(Test.talked().join(",") == "super-track 2,unwatch 1")
+  Test::expect(Test::talked().join(",") == "super-track 2,unwatch 1")
 }
 
 test "a layer's pins in view are drawn, each with its tooltip, and a switch is put in OpenMap's menu for it" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
   const layer = new TestLayer()
   Maps.layers.add(layer)
-  Test.flush()
-  Test.expect(host.drawn.length == 2)
-  Test.expect((host.said[2] ?? [])[1] == "Pin 2")
-  Test.expect(host.switches.find(id => id == "test.pins") != nil)
+  Test::flush()
+  Test::expect(host.drawn.length == 2)
+  Test::expect((host.said[2] ?? [])[1] == "Pin 2")
+  Test::expect(host.switches.find(id => id == "test.pins") != nil)
 }
 
 test "a layer switched off draws nothing, and on again draws its pins" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
   const layer = new TestLayer()
   Maps.layers.add(layer)
-  Test.flush()
+  Test::flush()
   Maps.flip("test.pins")
-  Test.flush()
-  Test.expect(host.drawn.length == 0)
-  Test.expect(!Maps.shows("test.pins"))
+  Test::flush()
+  Test::expect(host.drawn.length == 0)
+  Test::expect(!Maps.shows("test.pins"))
   Maps.flip("test.pins")
-  Test.flush()
-  Test.expect(host.drawn.length == 2)
+  Test::flush()
+  Test::expect(host.drawn.length == 2)
 }
 
 test "the docked switch writes the client's setting; the client's own change leaves the switch as it is" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
   Maps.settings.values.docked = true
-  Test.flush()
-  Test.expect(host.isDocked)
+  Test::flush()
+  Test::expect(host.isDocked)
   Maps.settings.values.docked = false
-  Test.flush()
-  Test.expect(!host.isDocked)
+  Test::flush()
+  Test::expect(!host.isDocked)
   // Blizzard's map opens its side panel by itself (its own button, a quest's details): the switch stays apart.
   host.isDocked = true
   host.changed.emit()
-  Test.flush()
-  Test.expect(!Maps.docked)
+  Test::flush()
+  Test::expect(!Maps.docked)
 }
 
 test "the log stands apart by default, whatever the client's setting was" {
-  Test.expect(!Maps.settings.values.docked && !Maps.docked)
+  Test::expect(!Maps.settings.values.docked && !Maps.docked)
 }
 
 test "the settings page lists each layer with its switch" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const layer = new TestLayer()
   Maps.layers.add(layer)
-  Test.open("Ordaen")
-  Test.page().window("Ordaen").text("Map").click()
-  Test.expect(Test.page().text("Test pins").shown())
-  Test.expect(Test.page().text("Quest log beside the map").shown())
+  Test::open("Ordaen")
+  Test::page().window("Ordaen").text("Map").click()
+  Test::expect(Test::page().text("Test pins").shown())
+  Test::expect(Test::page().text("Quest log beside the map").shown())
   // OpenMap is installed, of the API Map reads.
-  Test.expect(!Test.page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
+  Test::expect(!Test::page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
 }
 
 test "the game's map places a layer's pins of the zone it shows, the zone found by the area's own map" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Maps.layers.add(new TestLayer())
   // Westfall: area 40's map. The pin of area 12 stands on Elwynn Forest's, off this one.
-  Client.C_Map.OpenWorldMap(1436)
-  Test.flush()
+  Client::C_Map::OpenWorldMap(1436)
+  Test::flush()
   // A frame a pin placed: the two of Westfall, none of the other.
-  Test.expect(Client.WorldMapFrame.GetCanvas().GetNumChildren() == 2)
+  Test::expect(Client::WorldMapFrame.GetCanvas().GetNumChildren() == 2)
 }
 
 test "without OpenMap the client doesn't load Map, and says OpenMap is missing" {
-  Test.uninstall("OpenMap")
-  Test.reload()
-  let loads, why = Client.C_AddOns.LoadAddOn("OrdaenMap")
-  Test.expect(loads != true)
-  Test.expect(why == "DEP_MISSING")
+  Test::uninstall("OpenMap")
+  Test::reload()
+  let loads, why = Client::C_AddOns::LoadAddOn("OrdaenMap")
+  Test::expect(loads != true)
+  Test::expect(why == "DEP_MISSING")
 }
 
 test "how far a place is from the player is said in the world's yards on one continent, and not where the client can't say" {
   // The stand-in's player stands at 0.421, 0.655 of Elwynn Forest (area 12); Westfall (area 40) is its neighbour.
-  Test.expect((Maps.distanceTo(12, 0.421, 0.655) ?? panic("yards")) < 0.001)
+  Test::expect((Maps.distanceTo(12, 0.421, 0.655) ?? panic("yards")) < 0.001)
   const westfall = Maps.distanceTo(40, 0.5, 0.5) ?? panic("Westfall's yards")
-  Test.expect(westfall > 1000 && westfall < 10000)
-  Test.expect(Maps.distanceTo(999999, 0.5, 0.5) == nil)
-  Client.C_Map.GetPlayerMapPosition = (map: Number, unit: String): Client.vector2 | nil => nil
-  Test.expect(Maps.distanceTo(12, 0.8, 0.9) == nil)
+  Test::expect(westfall > 1000 && westfall < 10000)
+  Test::expect(Maps.distanceTo(999999, 0.5, 0.5) == nil)
+  Client::C_Map::GetPlayerMapPosition = (map: Number, unit: String): Client::vector2 | nil => nil
+  Test::expect(Maps.distanceTo(12, 0.8, 0.9) == nil)
 }

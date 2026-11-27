@@ -12,17 +12,17 @@ import Locale from "@/locales"
 
 const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
 const ICON = 37.5dp
-const INK: Color = Color.hex("#e8dcc4")
-const LABEL: Color = Color.hex("#a3977f")
-const WELL: Color = Color.hex("#0d0a08")
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Color = Color.hex("#00000059")
+const INK: Color = Color::hex("#e8dcc4")
+const LABEL: Color = Color::hex("#a3977f")
+const WELL: Color = Color::hex("#0d0a08")
+const CLEAR: Color = Color::hex("#00000000")
+const SHADE: Color = Color::hex("#00000059")
 // The room the list takes inside the window: the window is that and its sides (the frame, its inset, its room).
 const LIST = 260dp
 
 // A bag as the window lists it: what the game says of it, and how many of its slots hold something.
 public struct BagLine {
-  const info: Game.BagInfo
+  const info: Game::BagInfo
   const used: Integer
 }
 
@@ -33,9 +33,9 @@ class BagEntry implements Component {
   public lift: Event<Integer> = new Event()
   // The backpack is no place: it is never taken off, nor anything put on there.
   derived place: Boolean = self.line.info.bag > 0
-  derived name: String = self.line.info.slots > 0 ? self.line.info.name : Locale.EMPTY_BAG_PLACE
+  derived name: String = self.line.info.slots > 0 ? self.line.info.name : Locale::EMPTY_BAG_PLACE
   state hovered = false
-  derived fill: String = self.line.info.slots > 0 ? Locale.FILL.format(self.line.used, self.line.info.slots) : ""
+  derived fill: String = self.line.info.slots > 0 ? Locale::FILL.format(self.line.used, self.line.info.slots) : ""
   derived back: Color = self.hovered ? SHADE : CLEAR
 
   line: Signal<BagLine>
@@ -44,7 +44,7 @@ class BagEntry implements Component {
   onEnter(mut self, frame: any Frame) {
     self.hovered = true
     const item = self.line.info.item
-    if (item != nil) { Game.items.show(frame, item) }
+    if (item != nil) { Game::items.show(frame, item) }
     self.lit.emit(self.line.info.bag)
   }
 
@@ -53,7 +53,7 @@ class BagEntry implements Component {
   }
 
   onPress(self) {
-    if (!Client.CursorHasItem()) {
+    if (!Client::CursorHasItem()) {
       self.pick.emit(self.line.info.bag)
     } else if (self.place) {
       self.put.emit(self.line.info.bag)
@@ -71,7 +71,7 @@ class BagEntry implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={3sp} yAlign={Align.Center} padding={ROW_ROOM} background={self.back} @pointerEnter={self.onEnter}
+      <box columns={ROW} gap={3sp} yAlign={Align::Center} padding={ROW_ROOM} background={self.back} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @drop={self.onDrop} @pointerPress={self.onPress} @dragStart={self.onDragStart}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.name} textColor={INK} />
@@ -90,7 +90,7 @@ public class BagSlotsWindow implements Component {
   public pick: Event<Integer> = new Event()
   public lift: Event<Integer> = new Event()
   state tab = 1
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale::BAG_SLOTS }]
 
   lines: Signal<Array<BagLine>>
   declared: mut KeptWindow

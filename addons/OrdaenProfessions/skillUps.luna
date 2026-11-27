@@ -6,18 +6,18 @@ import Levels from "@/levels"
 
 // How hard a recipe is at a skill, as the client colours it: orange below yellow, yellow up to halfway to grey, green
 // up to grey, grey from there; grey for one the table hasn't.
-public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Integer): Game.Difficulty {
+public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Integer): Game::Difficulty {
   const yellow = thresholds.yellow[recipe]
   const grey = thresholds.grey[recipe]
-  if (yellow == nil || grey == nil || skill >= grey) { return Game.Difficulty.Never }
-  if (skill < yellow) { return Game.Difficulty.Always }
-  if (skill < (yellow + grey) / 2) { return Game.Difficulty.Usually }
-  return Game.Difficulty.Rarely
+  if (yellow == nil || grey == nil || skill >= grey) { return Game::Difficulty::Never }
+  if (skill < yellow) { return Game::Difficulty::Always }
+  if (skill < (yellow + grey) / 2) { return Game::Difficulty::Usually }
+  return Game::Difficulty::Rarely
 }
 
 // A recipe as the lists show it: one not learned says what it would do for the skill now (the client says nothing of
 // it), so its name takes that colour as a learned one's does; a learned one is the client's.
-public function learnable(recipe: Game.Recipe, thresholds: Thresholds, rank: Integer): Game.Recipe {
+public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: Integer): Game::Recipe {
   if (recipe.learned) { return recipe }
   return { difficulty: difficultyAt(thresholds, recipe.id, rank), ..recipe }
 }
@@ -36,7 +36,7 @@ public function thresholdsOf(skillLine: Integer | nil): Thresholds {
   const yellow: Map<Integer, Integer> = {}
   const grey: Map<Integer, Integer> = {}
   const learned: Map<Integer, Integer> = {}
-  const text = skillLine == nil ? nil : Levels.lines[skillLine]
+  const text = skillLine == nil ? nil : Levels::lines[skillLine]
   if (text == nil) { return { yellow: yellow, grey: grey, learned: learned } }
   for (entry of text.split(";")) {
     const spell, low, high, asks = entry.match("^(%d+),(%d+),(%d+),?(%d*)$")

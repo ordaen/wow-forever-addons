@@ -25,47 +25,47 @@ public enum Grouping implements Plain { Type = "type", Spec = "spec" }
 // How the player left the spellbook's list: its sort, the spells it shows, its view and its grouping; the table's sort is its
 // headings' (the column, from 1, and whether turned round).
 public struct BookView implements Plain {
-  sort: SortBy = SortBy.Name
-  kinds: Kinds = Kinds.All
-  layout: BookLayout = BookLayout.Columns
+  sort: SortBy = SortBy::Name
+  kinds: Kinds = Kinds::All
+  layout: BookLayout = BookLayout::Columns
   heading: Integer = 1
   descending: Boolean = false
-  grouping: Grouping = Grouping.Type
+  grouping: Grouping = Grouping::Type
 }
 const BOOK_VIEW: BookView = {}
 
 const SORTS: Array<Choice<SortBy>> = [
-  { value: SortBy.Name, label: Locale.SORT_NAME },
-  { value: SortBy.Level, label: Locale.SORT_LEVEL }
+  { value: SortBy::Name, label: Locale::SORT_NAME },
+  { value: SortBy::Level, label: Locale::SORT_LEVEL }
 ]
 // By type the spells sort by skill line too; by spec the line is the group's.
 const TYPE_SORTS: Array<Choice<SortBy>> = [
-  { value: SortBy.Name, label: Locale.SORT_NAME },
-  { value: SortBy.Level, label: Locale.SORT_LEVEL },
-  { value: SortBy.Line, label: Locale.SORT_LINE }
+  { value: SortBy::Name, label: Locale::SORT_NAME },
+  { value: SortBy::Level, label: Locale::SORT_LEVEL },
+  { value: SortBy::Line, label: Locale::SORT_LINE }
 ]
 const KINDS: Array<Choice<Kinds>> = [
-  { value: Kinds.All, label: Locale.SHOW_ALL },
-  { value: Kinds.Active, label: Locale.SHOW_ACTIVE },
-  { value: Kinds.Passive, label: Locale.SHOW_PASSIVE }
+  { value: Kinds::All, label: Locale::SHOW_ALL },
+  { value: Kinds::Active, label: Locale::SHOW_ACTIVE },
+  { value: Kinds::Passive, label: Locale::SHOW_PASSIVE }
 ]
 const GROUPINGS: Array<Choice<Grouping>> = [
-  { value: Grouping.Type, label: Locale.BY_TYPE },
-  { value: Grouping.Spec, label: Locale.BY_SPEC }
+  { value: Grouping::Type, label: Locale::BY_TYPE },
+  { value: Grouping::Spec, label: Locale::BY_SPEC }
 ]
 const LAYOUTS: Array<Choice<BookLayout>> = [
-  { value: BookLayout.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
-  { value: BookLayout.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
+  { value: BookLayout::Columns, label: Locale::VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
+  { value: BookLayout::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The table's columns (each row lays its cells out alone: widths that don't follow the cells keep the columns
 // in line), and the order each heading sorts by.
 const COLUMNS: Array<Column> = [
-  { title: Locale.COL_SPELL, width: { fr: 1 }, sortable: true },
-  { title: Locale.COL_LINE, width: 164.0625dp, sortable: true },
-  { title: Locale.COL_KIND, width: 112.5dp, sortable: true },
-  { title: Locale.COL_LEVEL, width: 70.3125dp, align: Align.End, sortable: true }
+  { title: Locale::COL_SPELL, width: { fr: 1 }, sortable: true },
+  { title: Locale::COL_LINE, width: 164.0625dp, sortable: true },
+  { title: Locale::COL_KIND, width: 112.5dp, sortable: true },
+  { title: Locale::COL_LEVEL, width: 70.3125dp, align: Align::End, sortable: true }
 ]
-const HEADINGS: Array<SortBy> = [SortBy.Name, SortBy.Line, SortBy.Active, SortBy.Level]
+const HEADINGS: Array<SortBy> = [SortBy::Name, SortBy::Line, SortBy::Active, SortBy::Level]
 // A column of spells, as wide wherever it stands: an icon and a name with its rank, generous so that a long name wraps
 // rather than is cut; and the room between columns and rows.
 const COLUMN: Number<Length> = 337.5dp
@@ -81,38 +81,38 @@ const LINES_APART: Number<Spacing> = 1sp
 const SLOT = 46.875dp
 const ROW: Array<Track> = [SLOT, { fr: 1 }]
 const CELL: Array<Track> = [23.4375dp, { fr: 1 }]
-const CLEAR: Color = Color.hex("#00000000")
-const HOVER: Color = Color.hex("#ffffff0d")
+const CLEAR: Color = Color::hex("#00000000")
+const HOVER: Color = Color::hex("#ffffff0d")
 // A spell's row: lit under the cursor.
 const GROUND: ByInteractionState<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
 // The shade a cooldown lets fall over a spell's icon, and the mark of a pet's spell it casts by itself.
-const COOLING: Color = Color.hex("#000000a6")
+const COOLING: Color = Color::hex("#000000a6")
 // A spell cooling down is dimmed under the shade, as the game's buttons are.
-const DIMMED: Color = Color.hex("#0000004d")
-const AUTOCAST: Array<Marker> = [{ corner: Corner.TopRight, color: Color.hex("#ffd100") }]
+const DIMMED: Color = Color::hex("#0000004d")
+const AUTOCAST: Array<Marker> = [{ corner: Corner::TopRight, color: Color::hex("#ffd100") }]
 // What stands between the parts of what a spell's row says under its name.
 const BULLET = " • "
 const PAGE: Array<Track> = ["max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
-function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
-  if (by == SortBy.Level && a.level != b.level) { return a.level < b.level }
-  if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
-  if (by == SortBy.Line && a.line != b.line) { return a.line < b.line }
+function before(a: Game::SpellEntry, b: Game::SpellEntry, by: SortBy): Boolean {
+  if (by == SortBy::Level && a.level != b.level) { return a.level < b.level }
+  if (by == SortBy::Active && a.passive != b.passive) { return !a.passive }
+  if (by == SortBy::Line && a.line != b.line) { return a.line < b.line }
   return a.name < b.name || (a.name == b.name && a.level < b.level)
 }
 
 // Whether the spell is one the filter keeps.
-function kept(spell: Game.SpellEntry, kinds: Kinds): Boolean {
+function kept(spell: Game::SpellEntry, kinds: Kinds): Boolean {
   return match (kinds) {
-    Kinds.All => true
-    Kinds.Active => !spell.passive
-    Kinds.Passive => spell.passive
+    Kinds::All => true
+    Kinds::Active => !spell.passive
+    Kinds::Passive => spell.passive
   }
 }
 
 // The name of the skill line a spell stands on.
-function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
+function lineName(lines: Array<Game::SpellLine>, index: Integer): String {
   for (line of lines) {
     if (line.index == index) { return line.name }
   }
@@ -128,25 +128,25 @@ class SpellSlot implements Component {
   derived cast: Action | nil = castable(self.spell) ? Action.CastSpell { spell: castName(self.spell), chord: .Left, selfCast: true } : nil
   derived dimmed: Boolean = !self.spell.learned
   derived cooling: Boolean = self.run != nil
-  derived shade: BarFill = { duration: runOf(self.run), color: COOLING, from: FillFrom.Top }
+  derived shade: BarFill = { duration: runOf(self.run), color: COOLING, from: FillFrom::Top }
   derived marks: Array<Marker> = self.auto == true ? AUTOCAST : []
   // The cooldown running, and the pet's autocast: read as the spell comes and as the client says they changed.
-  state run: Game.SpellRun | nil = nil
+  state run: Game::SpellRun | nil = nil
   state auto: Boolean | nil = nil
 
-  spell: Signal<Game.SpellEntry>
+  spell: Signal<Game::SpellEntry>
   const size: Number<Length>
-  constructor(spell: Signal<Game.SpellEntry>, size: Number<Length>) {
+  constructor(spell: Signal<Game::SpellEntry>, size: Number<Length>) {
     self.spell = spell
     self.size = size
-    Game.spellbook.cooldownsChanged.listen(self.onCooled)
-    Game.spellbook.changed.listen(self.onCooled)
+    Game::spellbook.cooldownsChanged.listen(self.onCooled)
+    Game::spellbook.changed.listen(self.onCooled)
     watch (shown of self.spell) { self.read(shown) }
   }
 
-  read(mut self, spell: Game.SpellEntry) {
-    self.run = Game.spellbook.cooldown(spell)
-    self.auto = Game.spellbook.autoCast(spell)
+  read(mut self, spell: Game::SpellEntry) {
+    self.run = Game::spellbook.cooldown(spell)
+    self.auto = Game::spellbook.autoCast(spell)
   }
 
   onCooled(mut self) { self.read(peek self.spell) }
@@ -155,13 +155,13 @@ class SpellSlot implements Component {
   // The game's book's modified clicks, as the player binds them: the link's (Shift) puts the spell into the chat's line
   // or the macro being written, the pick-up's (Shift too, so a link wins unless rebound) takes it onto the cursor; the
   // right button turns a pet's spell's autocast, in the player's click.
-  onPressed(mut self, press: Event.Press) {
-    if (press.button == MouseButton.Left && Game.input.modifiedClick(.ChatLink)) {
-      Game.spellbook.link(peek self.spell)
-    } else if (press.button == MouseButton.Left && Game.input.modifiedClick(.PickupAction)) {
+  onPressed(mut self, press: Event::Press) {
+    if (press.button == MouseButton::Left && Game::input.modifiedClick(.ChatLink)) {
+      Game::spellbook.link(peek self.spell)
+    } else if (press.button == MouseButton::Left && Game::input.modifiedClick(.PickupAction)) {
       pickUp(peek self.spell)
-    } else if (press.button == MouseButton.Right && self.spell.pet) {
-      Game.spellbook.toggleAutoCast(peek self.spell)
+    } else if (press.button == MouseButton::Right && self.spell.pet) {
+      Game::spellbook.toggleAutoCast(peek self.spell)
       self.read(peek self.spell)
     }
   }
@@ -170,7 +170,7 @@ class SpellSlot implements Component {
     return $ltml {
       <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed} linkOnShift={false}
                   markers={self.marks} tipped={false} @dragged={self.onGrab} @pressed={self.onPressed}>
-        <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={DIMMED}
+        <box $if={self.cooling} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={DIMMED}
              fill={self.shade} zLevel={1} />
       </ItemButton>
     }
@@ -178,50 +178,50 @@ class SpellSlot implements Component {
 }
 
 // A cooldown as the fill that runs by the clock.
-function runOf(run: Game.SpellRun | nil): FillDuration | nil {
+function runOf(run: Game::SpellRun | nil): FillDuration | nil {
   return run == nil ? nil : { start: run.start, length: run.length }
 }
 
 // Whether a click casts the spell, and a drag puts it on a bar: a spell learned that isn't passive.
-function castable(spell: Game.SpellEntry): Boolean {
+function castable(spell: Game::SpellEntry): Boolean {
   return spell.learned && !spell.passive
 }
 
 // A spell dragged (by its slot or anywhere on its row) onto the client's cursor, for the bars; one that can't be cast
 // goes on no bar.
-function pickUp(spell: Game.SpellEntry) {
-  if (castable(spell)) { Client.C_Spell.PickupSpell(spell.id) }
+function pickUp(spell: Game::SpellEntry) {
+  if (castable(spell)) { Client::C_Spell::PickupSpell(spell.id) }
 }
 
 // The name the client casts a spell by: a rank's own, «Charge(Rank 2)», so a click casts the rank clicked.
-function castName(spell: Game.SpellEntry): String {
+function castName(spell: Game::SpellEntry): String {
   return spell.rank == "" ? spell.name : "%s(%s)".format(spell.name, spell.rank)
 }
 
 // A spell's rank as the book says it, where it says one: «Rank 2» for a rank by its number (the client's ruRU says
 // «Уровень 2», which reads as a level beside it), a word as the client gives it («Racial»); none where the client's word
 // is «Passive», which the spell's kind already says.
-function rankOf(spell: Game.SpellEntry): String | nil {
-  if (spell.rank == "" || spell.rank == Runtime.text("SPELL_PASSIVE")) { return nil }
+function rankOf(spell: Game::SpellEntry): String | nil {
+  if (spell.rank == "" || spell.rank == Runtime::text("SPELL_PASSIVE")) { return nil }
   // A racial passive's word («Рас. пассивная») says passive too: the race's part alone.
-  if (spell.rank == Locale.RANK_RACIAL_PASSIVE) { return Locale.RANK_RACIAL }
+  if (spell.rank == Locale::RANK_RACIAL_PASSIVE) { return Locale::RANK_RACIAL }
   const number = spell.rank.match("(%d+)")?.toNumber()
-  return number == nil ? spell.rank : Locale.SPELL_RANK.format(number.floor())
+  return number == nil ? spell.rank : Locale::SPELL_RANK.format(number.floor())
 }
 
 // A spell's tooltip beside its whole row, as the game's spellbook shows it.
-function showSpellRow(frame: any Frame, spell: Game.SpellEntry) {
-  Game.tooltip.rowAt(frame)
-  Game.items.showSpell(frame, spell.id)
+function showSpellRow(frame: any Frame, spell: Game::SpellEntry) {
+  Game::tooltip.rowAt(frame)
+  Game::items.showSpell(frame, spell.id)
 }
 
 // A spell's row: its slot, its name, and under it what its group doesn't say, a bullet between each.
 public class SpellRow implements Component {
-  derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
+  derived ink: Color = self.spell.learned ? Style::INK : Style::DIM
 
-  spell: Signal<Game.SpellEntry>
+  spell: Signal<Game::SpellEntry>
   detail: Signal<String>
-  constructor(spell: Signal<Game.SpellEntry>, detail: Signal<String>) {
+  constructor(spell: Signal<Game::SpellEntry>, detail: Signal<String>) {
     self.spell = spell
     self.detail = detail
   }
@@ -231,12 +231,12 @@ public class SpellRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={2.5sp} yAlign={Align.Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
+      <box columns={ROW} gap={2.5sp} yAlign={Align::Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
            background={GROUND} @dragStart={self.onGrab} @pointerEnter={self.onEnter}>
         <SpellSlot spell={self.spell} size={SLOT} />
         <box columns={1} gap={LINES_APART}>
           <text value={self.spell.name} textColor={self.ink} leading={.Tight} />
-          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} leading={.Tight} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style::DIM} leading={.Tight} />
         </box>
       </box>
     }
@@ -248,13 +248,13 @@ public class SpellRow implements Component {
 public class SpellTableRow implements Component {
   derived rank: String | nil = rankOf(self.spell)
   derived title: String = self.rank == nil ? self.spell.name : "%s (%s)".format(self.spell.name, self.rank ?? "")
-  derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
-  derived level: String = String.of(self.spell.level)
-  derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
+  derived kind: String = self.spell.passive ? Locale::PASSIVE : Locale::ACTIVE
+  derived level: String = String::of(self.spell.level)
+  derived ink: Color = self.spell.learned ? Style::INK : Style::DIM
 
-  spell: Signal<Game.SpellEntry>
+  spell: Signal<Game::SpellEntry>
   line: Signal<String>
-  constructor(spell: Signal<Game.SpellEntry>, line: Signal<String>) {
+  constructor(spell: Signal<Game::SpellEntry>, line: Signal<String>) {
     self.spell = spell
     self.line = line
   }
@@ -266,15 +266,15 @@ public class SpellTableRow implements Component {
     return $ltml {
       <TableRow @enter={self.onEnter}>
         <TableCell>
-          <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
+          <box columns={CELL} gap={2sp} yAlign={Align::Center} @dragStart={self.onGrab}>
             <SpellSlot spell={self.spell} size={23.4375dp} />
             <text value={self.title} textColor={self.ink} wrap={.None} />
           </box>
         </TableCell>
-        <TableCell> <text value={self.line} textColor={Style.DIM} wrap={.None} /> </TableCell>
-        <TableCell> <text value={self.kind} textColor={Style.DIM} wrap={.None} /> </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+        <TableCell> <text value={self.line} textColor={Style::DIM} wrap={.None} /> </TableCell>
+        <TableCell> <text value={self.kind} textColor={Style::DIM} wrap={.None} /> </TableCell>
+        <TableCell align={Align::End}>
+          <text value={self.level} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
         </TableCell>
       </TableRow>
     }
@@ -284,13 +284,13 @@ public class SpellTableRow implements Component {
 // The spells under one heading in the columns.
 struct SpellGroup {
   title: String
-  spells: Array<Game.SpellEntry>
+  spells: Array<Game::SpellEntry>
 }
 
 // The columns' sort: by name where the one kept orders nothing there (the kind is the groups' by type; the skill line
 // is the groups' by spec), as a sort kept from before may be.
 function columnSort(sort: SortBy, grouping: Grouping): SortBy {
-  return sort == SortBy.Active || (sort == SortBy.Line && grouping == Grouping.Spec) ? SortBy.Name : sort
+  return sort == SortBy::Active || (sort == SortBy::Line && grouping == Grouping::Spec) ? SortBy::Name : sort
 }
 
 // The spellbook's page: its body (the toolbar and the spells, under the headings of the grouping picked, or as a
@@ -299,31 +299,31 @@ public class SpellbookPage {
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<BookView> = new ModuleMemory<BookView>(BOOK_VIEW, .Profile, "book")
-  derived shown: Array<Game.SpellEntry> = self.shownOf()
+  derived shown: Array<Game::SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
   derived grouping: Grouping = self.list.values.grouping
   derived groups: Array<SpellGroup> = self.groupsOf()
-  derived tabled: Boolean = self.list.values.layout == BookLayout.Table
-  derived byType: Boolean = self.grouping == Grouping.Type
-  derived narrowed: Boolean = self.list.values.kinds != Kinds.All
+  derived tabled: Boolean = self.list.values.layout == BookLayout::Table
+  derived byType: Boolean = self.grouping == Grouping::Type
+  derived narrowed: Boolean = self.list.values.kinds != Kinds::All
   // The columns' least width: three of them and the room between, which the window can't be narrowed past.
   derived columnsWidth: Bounds = { min: LEAST_COLUMNS * COLUMN + Ordaen.lengthOf((LEAST_COLUMNS - 1) * ACROSS), max: nil }
   // The footer: how many spells the list shows, and of them how many are active and passive.
   derived counts: Array<FooterCount> = [
-    { label: Locale.COUNT_SHOWN, value: String.of(self.shown.length) },
-    { label: Locale.COUNT_ACTIVE, value: String.of(self.shown.count(spell => !spell.passive)) },
-    { label: Locale.COUNT_PASSIVE, value: String.of(self.shown.count(spell => spell.passive)) }
+    { label: Locale::COUNT_SHOWN, value: String::of(self.shown.length) },
+    { label: Locale::COUNT_ACTIVE, value: String::of(self.shown.count(spell => !spell.passive)) },
+    { label: Locale::COUNT_PASSIVE, value: String::of(self.shown.count(spell => spell.passive)) }
   ]
 
-  spells: Signal<Array<Game.SpellEntry>>
-  lines: Signal<Array<Game.SpellLine>>
-  pets: Signal<Array<Game.SpellEntry>>
+  spells: Signal<Array<Game::SpellEntry>>
+  lines: Signal<Array<Game::SpellLine>>
+  pets: Signal<Array<Game::SpellEntry>>
   // The pet's book, named by the pet's kind, while the player has a pet with spells.
   petBook: Signal<String | nil>
   constructor(
-    spells: Signal<Array<Game.SpellEntry>>,
-    lines: Signal<Array<Game.SpellLine>>,
-    pets: Signal<Array<Game.SpellEntry>> = [],
+    spells: Signal<Array<Game::SpellEntry>>,
+    lines: Signal<Array<Game::SpellLine>>,
+    pets: Signal<Array<Game::SpellEntry>> = [],
     petBook: Signal<String | nil> = nil
   ) {
     self.spells = spells
@@ -333,25 +333,25 @@ public class SpellbookPage {
   }
 
   // The skill line a spell stands on, by its name; a pet's spell's, the pet's book.
-  lineOf(self, spell: Game.SpellEntry): String {
+  lineOf(self, spell: Game::SpellEntry): String {
     return spell.pet ? (self.petBook ?? "") : lineName(self.lines, spell.line)
   }
 
   // What a spell's row says under its name that its group doesn't: by type its skill line, by spec that it is passive
   // (an active one says nothing of it); its rank where it has one. A pet's spell stands under its
   // book, which says both.
-  detailOf(self, spell: Game.SpellEntry): String {
+  detailOf(self, spell: Game::SpellEntry): String {
     const parts: Array<String> = []
     if (!spell.pet && self.byType) { parts.push(self.lineOf(spell)) }
-    if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale.PASSIVE) }
+    if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale::PASSIVE) }
     const rank = rankOf(spell)
     if (rank != nil) { parts.push(rank) }
     return parts.join(BULLET)
   }
 
   // The player's spells and the pet's that the search and the filter keep, in the sort's order.
-  shownOf(self): Array<Game.SpellEntry> {
-    const list: Array<Game.SpellEntry> = []
+  shownOf(self): Array<Game::SpellEntry> {
+    const list: Array<Game::SpellEntry> = []
     const sought = self.search.lower()
     for (from of [self.spells, self.pets]) {
       for (spell of from) {
@@ -361,8 +361,8 @@ public class SpellbookPage {
       }
     }
     const view = self.list.values
-    if (view.layout == BookLayout.Table) {
-      const heading = HEADINGS[view.heading] ?? SortBy.Name
+    if (view.layout == BookLayout::Table) {
+      const heading = HEADINGS[view.heading] ?? SortBy::Name
       const descending = view.descending
       list.sort((a, b) => descending ? before(b, a, heading) : before(a, b, heading))
       return list
@@ -376,13 +376,13 @@ public class SpellbookPage {
   // passive ones; by spec a group for each skill line, in the book's order. The pet's spells last, under its book.
   groupsOf(self): Array<SpellGroup> {
     const groups: Array<SpellGroup> = []
-    const add = (title: String, spells: Array<Game.SpellEntry>) => {
+    const add = (title: String, spells: Array<Game::SpellEntry>) => {
       if (spells.length > 0) { groups.push({ title: title, spells: spells }) }
     }
     const own = self.shown.filter(spell => !spell.pet)
     if (self.byType) {
-      add(Locale.GROUP_ACTIVE, own.filter(spell => !spell.passive))
-      add(Locale.GROUP_PASSIVE, own.filter(spell => spell.passive))
+      add(Locale::GROUP_ACTIVE, own.filter(spell => !spell.passive))
+      add(Locale::GROUP_PASSIVE, own.filter(spell => spell.passive))
     } else {
       for (line of self.lines) { add(line.name, own.filter(spell => spell.line == line.index)) }
     }
@@ -392,23 +392,23 @@ public class SpellbookPage {
 
   public const body: Template = $ltml {
     <box rows={PAGE} width={self.columnsWidth} gap={2.5sp}>
-      <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+      <Toolbar search={mut self.search} placeholder={Locale::SEARCH}>
         <ToolPick $if={!self.tabled} value={mut self.list.values.grouping} choices={GROUPINGS} icon={Ordaen.art.ctl.tool.categories}
-                  title={Locale.GROUPING} />
+                  title={Locale::GROUPING} />
         <ToolPick $if={!self.tabled && self.byType} value={mut self.list.values.sort} choices={TYPE_SORTS} icon={Ordaen.art.ctl.tool.sort}
-                  title={Locale.SORT} />
-        <ToolPick $elseif={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-        <ToolPick value={mut self.list.values.kinds} choices={KINDS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
+                  title={Locale::SORT} />
+        <ToolPick $elseif={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale::SORT} />
+        <ToolPick value={mut self.list.values.kinds} choices={KINDS} icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER}
                   lit={self.narrowed} />
-        <ToolPick value={mut self.list.values.layout} choices={LAYOUTS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+        <ToolPick value={mut self.list.values.layout} choices={LAYOUTS} icon={Ordaen.art.ctl.tool.columns} title={Locale::VIEW} />
       </Toolbar>
-      <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
+      <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
+        <text value={Locale::NOTHING_FOUND} textColor={Style::DIM} />
       </box>
       <Table $elseif={self.tabled} columns={COLUMNS} sorted={mut self.list.values.heading} descending={mut self.list.values.descending}>
         <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} line={self.lineOf(spell)} />
       </Table>
-      <box $else overflow={Overflow.Scroll} columns={1} gap={GROUPS_APART}>
+      <box $else overflow={Overflow::Scroll} columns={1} gap={GROUPS_APART}>
         <Section $for={group of self.groups} $key={group.title} title={group.title}>
           <box columns={SPELL_COLUMNS} gap={{ columns: ACROSS, rows: DOWN }}>
             <SpellRow $for={spell of group.spells} $key={spell.id} spell={spell} detail={self.detailOf(spell)} />

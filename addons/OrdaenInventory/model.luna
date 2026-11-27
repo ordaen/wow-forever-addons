@@ -99,7 +99,7 @@ public class Slot {
   public const vault: Vault
   public const bag: Integer
   public const index: Integer
-  public const read: mut Game.SlotItem
+  public const read: mut Game::SlotItem
   public state id = 0
   public state count = 0
   public state quality: Quality = .Common
@@ -155,7 +155,7 @@ public class Slot {
     }
     self.questItem = self.read.id != 0 && self.read.questItem
     self.startsQuest = self.read.id != 0 && self.read.startsQuest
-    if (peek self.id != was) { changed = Client.bit.bor(changed, MOVED) }
+    if (peek self.id != was) { changed = Client::bit::bor(changed, MOVED) }
     if (peek self.count != wasCount) { changed += COUNTED }
     if (peek self.isNew != wasNew) { changed += MARKED }
     return changed
@@ -176,7 +176,7 @@ public class Slot {
   // A new item looked at: new no more, the client told.
   public see(mut self) {
     self.isNew = false
-    Game.bags.seen(self.bag, self.index)
+    Game::bags.seen(self.bag, self.index)
   }
 
   // What tells two stacks apart for sorting: the item and how many.
@@ -187,6 +187,6 @@ public class Slot {
 
 // Whether Use hands the item over where the player stands, as the client's own bags do: sells it, or puts it in the
 // trade or the letter.
-public function handsOver(place: Game.BagPlace): Boolean {
+public function handsOver(place: Game::BagPlace): Boolean {
   return place == .Merchant || place == .Trade || place == .Mail
 }

@@ -24,10 +24,10 @@ public const TAB_COLLECTIONS = 4
 
 // Each tab runs to the frame's line (its `padding` none): its sections keep their own room.
 const TABS: Array<WindowTabSpec> = [
-  { title: Locale.TAB_LEGACY, icon: "UI-Legacy-Tree-Adventure", padding: Style.NO_ROOM },
-  { title: Locale.TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08", padding: Style.NO_ROOM },
-  { title: Locale.TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male", padding: Style.NO_ROOM },
-  { title: Locale.TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse", padding: Style.NO_ROOM }
+  { title: Locale::TAB_LEGACY, icon: "UI-Legacy-Tree-Adventure", padding: Style::NO_ROOM },
+  { title: Locale::TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08", padding: Style::NO_ROOM },
+  { title: Locale::TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male", padding: Style::NO_ROOM },
+  { title: Locale::TAB_COLLECTIONS, icon: "Interface/Icons/Ability_Mount_RidingHorse", padding: Style::NO_ROOM }
 ]
 
 // A window of the game's ours stands for: its addon, its frame's name, and the tab ours opens on.
@@ -47,7 +47,7 @@ const JOURNAL_ADDON = "Blizzard_Collections"
 
 public class Account implements Module, App {
   public const title: String = "Ordaen Account"
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -70,13 +70,13 @@ public class Account implements Module, App {
   }
   // «Alts»: Ordaen Alts' pages while it runs, else how to turn it on.
   const altsOff: Template = $ltml {
-    <box xAlign={Align.Center} yAlign={Align.Center}>
-      <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+    <box xAlign={Align::Center} yAlign={Align::Center}>
+      <text value={Locale::ALTS_OFF} textColor={Style::DIM} />
     </box>
   }
   derived alts: Template = Alts?.content ?? self.altsOff
   // The game's windows ours stands for, and those of them showing: held unseen and off the screen.
-  games: mut Array<any Client.Frame> = []
+  games: mut Array<any Client::Frame> = []
   state held: mut Array<any Frame> = []
   pass: mut GamePass = new GamePass()
   // The micro menu's button pressed: the journal it shows opens ours on the tab last open, not on «Collections».
@@ -85,7 +85,7 @@ public class Account implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    Runtime.command("/account", (text: String): nil => {
+    Runtime::command("/account", (text: String): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.toggle() }
       }
@@ -102,11 +102,11 @@ public class Account implements Module, App {
       self.challenges.visible = self.open && self.tab == TAB_ACHIEVEMENTS
       self.collections.visible = self.open && self.tab == TAB_COLLECTIONS
     }
-    for (game of GAME_WINDOWS) { self.hook(Runtime.frame(game.frame), game.tab) }
-    self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
-    const button = Runtime.frame(OPENER)
+    for (game of GAME_WINDOWS) { self.hook(Runtime::frame(game.frame), game.tab) }
+    self.addonHeard = Events::ADDON_LOADED.listen(self.onAddonLoaded)
+    const button = Runtime::frame(OPENER)
     if (button != nil) {
-      const opener: any Client.Frame = button
+      const opener: any Client::Frame = button
       _ = opener.HookScript("OnMouseDown", (): nil => {
         self.fromButton = true
         return nil
@@ -116,14 +116,14 @@ public class Account implements Module, App {
 
   onAddonLoaded(mut self, name: String) {
     for (game of GAME_WINDOWS) {
-      if (game.addon == name) { self.hook(Runtime.frame(game.frame), game.tab) }
+      if (game.addon == name) { self.hook(Runtime::frame(game.frame), game.tab) }
     }
   }
 
   // A game's window ours stands for: ours opens and closes with it, on its tab.
   hook(mut self, frame: any Frame | nil, tab: Integer) {
     if (frame == nil) { return }
-    const window: any Client.Frame = frame
+    const window: any Client::Frame = frame
     if (self.games.any(one => one == window)) { return }
     self.games.push(window)
     _ = window.HookScript("OnShow", (): nil => {
@@ -168,7 +168,7 @@ public class Account implements Module, App {
   onClose(mut self) {
     self.open = false
     for (game of self.games) {
-      if (game.IsShown()) { Client.HideUIPanel(game) }
+      if (game.IsShown()) { Client::HideUIPanel(game) }
     }
   }
 
@@ -176,19 +176,19 @@ public class Account implements Module, App {
   onTransmog(mut self, tab: Integer) {
     self.onClose()
     // Its addon loaded first (and hooked, as it loads), so the journal shows let through, then turns to its tab.
-    if (Runtime.frame(JOURNAL) == nil) { _ = Client.C_AddOns.LoadAddOn(JOURNAL_ADDON) }
-    const journal = Runtime.frame(JOURNAL)
+    if (Runtime::frame(JOURNAL) == nil) { _ = Client::C_AddOns::LoadAddOn(JOURNAL_ADDON) }
+    const journal = Runtime::frame(JOURNAL)
     if (journal == nil) { return }
     self.pass.pass(journal)
-    Client.SetCollectionsJournalShown(true, tab)
+    Client::SetCollectionsJournalShown(true, tab)
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   public render(self): Template {
     return $ltml {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
-      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true} minWidth={Style.LEAST_WIDTH}
+      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} withSettings={true} minWidth={Style::LEAST_WIDTH}
               footer={self.footer} side={self.side} @close={self.onClose} @settings={self.onSettings}>
         <box $if={self.tab == TAB_LEGACY} rows={[{ fr: 1 }]}> {self.legacy.content} </box>
         <box $elseif={self.tab == TAB_ACHIEVEMENTS} rows={[{ fr: 1 }]}> {self.challenges.content} </box>

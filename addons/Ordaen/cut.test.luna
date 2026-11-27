@@ -33,74 +33,74 @@ class Upright {
 
 test "a heading stands its title at its left, the paint rising after it and running to the row's end" {
   const page = new Cuts()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  const title = Test.page().text("Defense").rect()
-  Test.expect(title.left < 1)
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const title = Test::page().text("Defense").rect()
+  Test::expect(title.left < 1)
   const heading = Ordaen.art.ctl.heading
-  const entry = Test.page().box(heading.entry).rect()
-  const tip = Test.page().box(heading.tip).rect()
-  Test.expect(entry.left > title.right && (entry.right - entry.left - DEPTH).abs() < 0.01)
-  Test.expect((entry.bottom - entry.top - DEPTH).abs() < 0.01 && entry.top == tip.top)
-  Test.expect((tip.left - entry.right).abs() < 0.01 && (tip.right - 400).abs() < 0.01)
+  const entry = Test::page().box(heading.entry).rect()
+  const tip = Test::page().box(heading.tip).rect()
+  Test::expect(entry.left > title.right && (entry.right - entry.left - DEPTH).abs() < 0.01)
+  Test::expect((entry.bottom - entry.top - DEPTH).abs() < 0.01 && entry.top == tip.top)
+  Test::expect((tip.left - entry.right).abs() < 0.01 && (tip.right - 400).abs() < 0.01)
   destroy page
 }
 
 test "a cut without a title runs whole from border to border, its lip over its shade" {
   const page = new Cuts()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const cut = Ordaen.art.ctl.cut
-  const shade = Test.page().box(cut.across.dark).nth(1).rect()
-  const lip = Test.page().box(cut.across.light).nth(1).rect()
-  Test.expect(shade.left < 0.01 && (shade.right - 400).abs() < 0.01 && (shade.bottom - shade.top - DEPTH).abs() < 0.01)
-  Test.expect(lip.left == shade.left && lip.right == shade.right && lip.top == shade.top && lip.bottom == shade.bottom)
+  const shade = Test::page().box(cut.across.dark).nth(1).rect()
+  const lip = Test::page().box(cut.across.light).nth(1).rect()
+  Test::expect(shade.left < 0.01 && (shade.right - 400).abs() < 0.01 && (shade.bottom - shade.top - DEPTH).abs() < 0.01)
+  Test::expect(lip.left == shade.left && lip.right == shade.right && lip.top == shade.top && lip.bottom == shade.bottom)
   destroy page
 }
 
 test "a title on a cut stands in its middle, the cut running from each border to short of it" {
   const page = new Cuts()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  const title = Test.page().text("Speed").rect()
-  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1)
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const title = Test::page().text("Speed").rect()
+  Test::expect(((title.left + title.right) / 2 - 200).abs() < 1)
   const cut = Ordaen.art.ctl.cut
-  const before = Test.page().box(cut.across.dark).nth(2).rect()
-  const after = Test.page().box(cut.across.dark).nth(3).rect()
-  Test.expect(before.left < 0.01 && before.right < title.left && after.left > title.right && (after.right - 400).abs() < 0.01)
-  Test.expect(((before.top + before.bottom) / 2 - (title.top + title.bottom) / 2).abs() < 1)
+  const before = Test::page().box(cut.across.dark).nth(2).rect()
+  const after = Test::page().box(cut.across.dark).nth(3).rect()
+  Test::expect(before.left < 0.01 && before.right < title.left && after.left > title.right && (after.right - 400).abs() < 0.01)
+  Test::expect(((before.top + before.bottom) / 2 - (title.top + title.bottom) / 2).abs() < 1)
   destroy page
 }
 
 test "an upright cut runs down its column, as deep across as a cut across is high" {
   const page = new Upright()
-  Test.mount(page, { left: 0, top: 0, width: 100, height: 120 })
+  Test::mount(page, { left: 0, top: 0, width: 100, height: 120 })
   const cut = Ordaen.art.ctl.cut
-  const shade = Test.page().box(cut.upright.dark).rect()
-  Test.expect(shade.top < 0.01 && (shade.bottom - 120).abs() < 0.01 && (shade.right - shade.left - DEPTH).abs() < 0.01)
-  Test.expect(Test.page().box(cut.upright.light).rect().left == shade.left)
+  const shade = Test::page().box(cut.upright.dark).rect()
+  Test::expect(shade.top < 0.01 && (shade.bottom - 120).abs() < 0.01 && (shade.right - shade.left - DEPTH).abs() < 0.01)
+  Test::expect(Test::page().box(cut.upright.light).rect().left == shade.left)
   destroy page
 }
 
 test "a heading's title and a title on a cut take the look's colour for them, and follow it" {
   const page = new Cuts()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const gold = Ordaen.look.values.heading
-  Test.expect(Test.page().text("Defense").textColor().g == gold.g && Test.page().text("Speed").textColor().g == gold.g)
-  Ordaen.look.change((values: mut Look): nil => { values.heading = Color.hex("#3366cc") })
-  Test.flush()
-  Test.expect(Test.page().text("Defense").textColor().b == Color.hex("#3366cc").b)
-  Test.expect(Test.page().text("Speed").textColor().b == Color.hex("#3366cc").b)
+  Test::expect(Test::page().text("Defense").textColor().g == gold.g && Test::page().text("Speed").textColor().g == gold.g)
+  Ordaen.look.change((values: mut Look): nil => { values.heading = Color::hex("#3366cc") })
+  Test::flush()
+  Test::expect(Test::page().text("Defense").textColor().b == Color::hex("#3366cc").b)
+  Test::expect(Test::page().text("Speed").textColor().b == Color::hex("#3366cc").b)
   Ordaen.look.change((values: mut Look): nil => { values.heading = gold })
   destroy page
 }
 
 test "a heading's paint is tinted to show the look's paint colour on the wood, and follows it" {
   const page = new Cuts()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const paint = Ordaen.look.values.headingPaint
   // A green the wood can show at the paint's strength: its tint is worked back from it, drawn below.
-  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = Color.hex("#3c8a40") })
-  Test.flush()
-  Test.note("the paint picked: #3c8a40")
-  Test.shot("the heading's paint tinted for #3c8a40")
+  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = Color::hex("#3c8a40") })
+  Test::flush()
+  Test::note("the paint picked: #3c8a40")
+  Test::shot("the heading's paint tinted for #3c8a40")
   Ordaen.look.change((values: mut Look): nil => { values.headingPaint = paint })
   destroy page
 }

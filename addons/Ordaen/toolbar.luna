@@ -23,20 +23,20 @@ import { Tip } from "@/tip"
 const SIZE = 39.84375dp
 const GLYPH = 18.75dp
 const GAP = 2sp
-const INK: Color = Color.hex("#e8dcc4")
-const GOLD: Color = Color.hex("#f0c860")
-const DIM: Color = Color.hex("#a3977f")
-const WHITE: Color = Color.hex("#ffffff")
-const FIELD_BACK: Color = Color.hex("#00000080")
-const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const INK: Color = Color::hex("#e8dcc4")
+const GOLD: Color = Color::hex("#f0c860")
+const DIM: Color = Color::hex("#a3977f")
+const WHITE: Color = Color::hex("#ffffff")
+const FIELD_BACK: Color = Color::hex("#00000080")
+const FIELD_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const FIELD_PAD: Edges = { right: 3sp, left: 3sp }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 // Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
 const TOOLS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
 const AFTER: Edges = { left: GAP }
-const LIST_BACK: Color = Color.hex("#0a0806f7")
-const LIST_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const LIST_BACK: Color = Color::hex("#0a0806f7")
+const LIST_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const LIST_PAD: Edges = { top: 2sp, bottom: 2sp }
 const LIST_WIDTH = 246.09375dp
 
@@ -60,16 +60,16 @@ public class Toolbar implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} yAlign={Align.Center}>
+      <box columns={ROW} yAlign={Align::Center}>
         <box height={SIZE} rows={FILL}>
           <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
                  border={FIELD_EDGE} @submit={self.onSubmit} />
-          <box $if={!self.searching} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-               padding={FIELD_PAD} yAlign={Align.Center} mouseThrough={true}>
+          <box $if={!self.searching} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               padding={FIELD_PAD} yAlign={Align::Center} mouseThrough={true}>
             <text value={self.placeholder} textColor={DIM} wrap={.Cut} />
           </box>
         </box>
-        <box columns={TOOLS} yAlign={Align.Center}>
+        <box columns={TOOLS} yAlign={Align::Center}>
           <slot />
         </box>
       </box>
@@ -115,8 +115,8 @@ public class ToolButton implements Component {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE} xAlign={Align.Center}
-               yAlign={Align.Center} background={self.plate} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle} @pointerEnter={self.onEnter}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE} xAlign={Align::Center}
+               yAlign={Align::Center} background={self.plate} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle} @pointerEnter={self.onEnter}
                @pointerLeave={self.onLeave}>
             <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
             <Tip $if={self.tipShown} title={self.title} text={self.text} />
@@ -159,7 +159,7 @@ public class ToolAct implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={AFTER}>
-        <box width={SIZE} height={SIZE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
+        <box width={SIZE} height={SIZE} xAlign={Align::Center} yAlign={Align::Center} background={Ordaen.art.ctl.button}
              @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyph} />
           <Tip $if={self.hovered} title={self.title} text={self.text} />
@@ -209,7 +209,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+        <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

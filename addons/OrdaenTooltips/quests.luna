@@ -39,12 +39,12 @@ function objectiveRow(text: String, label: String, done: Boolean, indent: Boolea
   let counted = have != nil && need != nil && (have.toNumber() ?? 0) >= (need.toNumber() ?? 0)
   let value = have != nil && need != nil ? have + "/" + need : nil
   return {
-    left: label, right: value, rightColor: done || counted ? GREEN : nil, indent: indent, opens: named(Term.Quest)
+    left: label, right: value, rightColor: done || counted ? GREEN : nil, indent: indent, opens: named(Term::Quest)
   }
 }
 
 // The game's quest rows as blocks, in its order. `party`: the party's objectives are kept too.
-function blocksOf(lines: Array<Game.TooltipLine>, party: Boolean): Array<Block> {
+function blocksOf(lines: Array<Game::TooltipLine>, party: Boolean): Array<Block> {
   const blocks: Array<Block> = []
   let started = false
   let title = ""
@@ -88,14 +88,14 @@ function blockOf(blocks: Array<Block>, title: String): Integer | nil {
 function wantedRow(want: Wanted): TextLine {
   return {
     left: want.objective, right: `${want.have}/${want.need}`, rightColor: want.done ? GREEN : nil,
-    opens: named(Term.Quest)
+    opens: named(Term::Quest)
   }
 }
 
 // A quest a creature gives or takes: the game's mark, then «[level] title» in the level's colour.
 function offeredRow(offer: Offered): TextLine {
   return {
-    left: `[${offer.level}] ${offer.title}`, color: questLevelColor(offer.level, Game.player.level, GOLD),
+    left: `[${offer.level}] ${offer.title}`, color: questLevelColor(offer.level, Game::player.level, GOLD),
     icon: offer.turnIn ? TO_HAND_IN : TO_TAKE
   }
 }
@@ -104,7 +104,7 @@ function offeredRow(offer: Offered): TextLine {
 // the game's block of its quest's title, unless that block already has its objective; else its quest's own block,
 // after the game's.
 public function questRows(
-  lines: Array<Game.TooltipLine>, party: Boolean, wants: Array<Wanted>, offers: Array<Offered>
+  lines: Array<Game::TooltipLine>, party: Boolean, wants: Array<Wanted>, offers: Array<Offered>
 ): mut Array<TextLine> {
   const blocks = blocksOf(lines, party)
   // The rows added to each of the game's blocks, by its place; and the quests the game names none of, in order.
@@ -142,6 +142,6 @@ public function questRows(
 }
 
 // The game's quest rows alone (an object's tooltip). `party`: the party's objectives are shown too.
-public function quests(lines: Array<Game.TooltipLine>, party: Boolean): mut Array<TextLine> {
+public function quests(lines: Array<Game::TooltipLine>, party: Boolean): mut Array<TextLine> {
   return questRows(lines, party, [], [])
 }

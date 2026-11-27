@@ -6,15 +6,15 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // The window: found by its first tab, which it always shows.
-function window(): Test.Part {
-  return Test.page().window(Locale.TAB_LEGACY)
+function window(): Test::Part {
+  return Test::page().window(Locale::TAB_LEGACY)
 }
 
 function account() {
-  (Client.SlashCmdList["ACCOUNT"] ?? panic("/account is the module's command"))("")
+  (Client::SlashCmdList["ACCOUNT"] ?? panic("/account is the module's command"))("")
 }
 
 // The names among `names` the window shows, in the order drawn.
@@ -24,59 +24,59 @@ function inOrder(names: Array<String>): String {
 
 // Three mounts: one collected, two not, given out of order.
 function mounts() {
-  Client.C_MountJournal.GetMountIDs = (): Array<Number> => [3, 1, 2]
-  Client.C_MountJournal.GetMountInfoByID = (id: Number) => {
+  Client::C_MountJournal::GetMountIDs = (): Array<Number> => [3, 1, 2]
+  Client::C_MountJournal::GetMountInfoByID = (id: Number) => {
     if (id == 1) { return "Zebra", 101, 132261, false, true, 0, false, false, nil, false, true, 1, false }
     if (id == 2) { return "Alpaca", 102, 132261, false, true, 0, false, false, nil, false, false, 2, false }
     return "Bear", 103, 132261, false, true, 0, false, false, nil, false, false, 3, false
   }
-  Client.C_MountJournal.GetMountInfoExtraByID = (id: Number) => {
+  Client::C_MountJournal::GetMountInfoExtraByID = (id: Number) => {
     return 1234, "A striped horse of the plains.", "Vendor: Zeb", false, 230, 4, 0, 0, false
   }
 }
 
 // Two toys: one the player has, one not.
 function toys() {
-  Client.C_ToyBox.GetNumFilteredToys = (): Number => 2
-  Client.C_ToyBox.GetToyFromIndex = (index: Integer): Number => index == 1 ? 1973 : 18984
-  Client.C_ToyBox.GetToyInfo = (item: Number) => {
+  Client::C_ToyBox::GetNumFilteredToys = (): Number => 2
+  Client::C_ToyBox::GetToyFromIndex = (index: Integer): Number => index == 1 ? 1973 : 18984
+  Client::C_ToyBox::GetToyInfo = (item: Number) => {
     if (item == 1973) { return 1973, "Orb of Deception", 134334, false, false }
     return 18984, "Dimensional Ripper", 133870, false, false
   }
-  Client.PlayerHasToy = (item: Number): Boolean => item == 1973
-  Client.C_ToyBox.IsToyUsable = (item: Number): Boolean => true
+  Client::PlayerHasToy = (item: Number): Boolean => item == 1973
+  Client::C_ToyBox::IsToyUsable = (item: Number): Boolean => true
 }
 
 // The Warrior's category of challenges, one completed and one not, and the Paladin's, empty.
 function challenges() {
-  Client.GetCategoryList = (): Array<Integer> => [15585, 15580]
-  Client.GetCategoryInfo = (id: Integer) => {
+  Client::GetCategoryList = (): Array<Integer> => [15585, 15580]
+  Client::GetCategoryInfo = (id: Integer) => {
     if (id == 15585) { return "Warrior", -1, 0 }
     return "Paladin", -1, 0
   }
-  Client.GetCategoryNumAchievements = (id: Number) => {
+  Client::GetCategoryNumAchievements = (id: Number) => {
     if (id == 15585) { return 2, 1, 1 }
     return 0, 0, 0
   }
-  Client.GetAchievementInfo = (category: Integer, index: Integer | nil) => {
+  Client::GetAchievementInfo = (category: Integer, index: Integer | nil) => {
     if (index == 1) {
       return 501, "Shield Wall", 10, true, 6, 3, 26, "Block a hundred blows.", 0, 132341, "", false, true, ""
     }
     return 502, "Execute", 10, false, nil, nil, nil, "Finish twenty foes.", 0, 132342, "", false, false, ""
   }
-  Client.C_Traits.GetTraitCurrencyForAchievement = (currency: Number, id: Number): Number => id == 501 ? 5 : 10
-  Client.GetAchievementNumCriteria = (id: Number): Number => id == 502 ? 1 : 0
-  Client.GetAchievementCriteriaInfo = (id: Integer, index: Integer) => {
+  Client::C_Traits::GetTraitCurrencyForAchievement = (currency: Number, id: Number): Number => id == 501 ? 5 : 10
+  Client::GetAchievementNumCriteria = (id: Number): Number => id == 502 ? 1 : 0
+  Client::GetAchievementCriteriaInfo = (id: Integer, index: Integer) => {
     return "Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true
   }
-  Client.UnitClass = (unit: String) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: String) => { return "Warrior", "WARRIOR", 1 }
 }
 
 // The Professions tree's configuration as the game gives it: two nodes, an arrow from the first to the second, three
 // points left; what was bought and applied is written down.
-class LegacyTree implements Game.TalentConfig {
+class LegacyTree implements Game::TalentConfig {
   asked: mut Array<String> = []
-  public trees(self): Array<Game.TalentTree> {
+  public trees(self): Array<Game::TalentTree> {
     return [{
       id: 1187, name: "Legacy",
       nodes: [
@@ -101,129 +101,129 @@ class LegacyTree implements Game.TalentConfig {
 }
 
 test "the window opens on Legacy, which is locked until the player's first Legacy rank; again it closes" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  Test.expect(window().text(Locale.LEGACY_LOCKED).shown())
+  Test::expect(window().text(Locale::LEGACY_LOCKED).shown())
   account()
-  Test.expect(!window().shown())
+  Test::expect(!window().shown())
 }
 
 test "Legacy's tree is drawn as the talents are, its points in the footer; a node clicked is bought, and Undo and Apply come with it" {
-  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 4
+  Client::C_MajorFactions::GetCurrentRenownLevel = (id: Number): Number => 4
   const tree = new LegacyTree()
-  Game.talentTrees.of = (id: Integer): mut any Game.TalentConfig | nil => id == 1187 ? tree : nil
-  Test.mount(nil, SCREEN)
+  Game::talentTrees.of = (id: Integer): mut any Game::TalentConfig | nil => id == 1187 ? tree : nil
+  Test::mount(nil, SCREEN)
   account()
   // Each node says its rank of its ranks, as the game's Legacy tree does.
-  Test.expect(window().text(Locale.TREE_PROFESSIONS).shown() && window().text("3/5").shown() && window().text("0/1").shown())
-  Test.expect(window().text(Locale.POINTS_LEFT).shown() && window().text("3").shown())
+  Test::expect(window().text(Locale::TREE_PROFESSIONS).shown() && window().text("3/5").shown() && window().text("0/1").shown())
+  Test::expect(window().text(Locale::POINTS_LEFT).shown() && window().text("3").shown())
   // Nothing changed yet: no Undo, no Apply, and never a Reset (a tree is reset at the game's NPC).
-  Test.expect(!window().button(Locale.UNDO).shown() && !window().button(Locale.APPLY).shown())
-  Test.shot("tree")
+  Test::expect(!window().button(Locale::UNDO).shown() && !window().button(Locale::APPLY).shown())
+  Test::shot("tree")
   window().text("3/5").click()
-  Test.expect(tree.asked.join(", ") == "spend 1" && window().button(Locale.UNDO).shown() && window().button(Locale.APPLY).shown())
+  Test::expect(tree.asked.join(", ") == "spend 1" && window().button(Locale::UNDO).shown() && window().button(Locale::APPLY).shown())
 }
 
 test "Legacy's rewards are the game's track: the rank in its emblem, four cards a time, the arrows turning it" {
-  Client.C_MajorFactions.GetCurrentRenownLevel = (id: Number): Number => 2
-  Client.C_MajorFactions.GetRenownLevels = (id: Number): Array<Client.MajorFactionRenownLevelInfo> => {
-    const levels: Array<Client.MajorFactionRenownLevelInfo> = []
+  Client::C_MajorFactions::GetCurrentRenownLevel = (id: Number): Number => 2
+  Client::C_MajorFactions::GetRenownLevels = (id: Number): Array<Client::MajorFactionRenownLevelInfo> => {
+    const levels: Array<Client::MajorFactionRenownLevelInfo> = []
     for (level of 1..6) { levels.push({ factionID: 2802, level: level, locked: level > 2, isMilestone: false, isCapstone: false }) }
     return levels
   }
-  Client.C_MajorFactions.GetRenownRewardsForLevel = (id: Number, level: Number): Array<Client.MajorFactionRenownRewardInfo> => {
+  Client::C_MajorFactions::GetRenownRewardsForLevel = (id: Number, level: Number): Array<Client::MajorFactionRenownRewardInfo> => {
     return [{ renownRewardID: level, uiOrder: 1, isAccountUnlock: true, name: "Reward %d".format(level.floor()), icon: 134400 }]
   }
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.SUB_REWARDS).click()
-  Test.expect(window().text(Locale.TRACK_POINTS).shown())
-  Test.expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 1, Reward 2, Reward 3, Reward 4")
-  Test.shot("rewards")
+  window().button(Locale::SUB_REWARDS).click()
+  Test::expect(window().text(Locale::TRACK_POINTS).shown())
+  Test::expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 1, Reward 2, Reward 3, Reward 4")
+  Test::shot("rewards")
   // The left arrow is greyed at the track's start: the right one alone has the arrow's art.
   window().box("Legacy-Rewards-Tracker-Arrow-Big-Left").click()
-  Test.expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 2, Reward 3, Reward 4, Reward 5")
+  Test::expect(inOrder(["Reward 1", "Reward 2", "Reward 3", "Reward 4", "Reward 5"]) == "Reward 2, Reward 3, Reward 4, Reward 5")
 }
 
 test "the mounts list collected ones first, then by name; one picked has its card beside the list; the search narrows" {
   mounts()
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.TAB_COLLECTIONS).click()
-  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra, Alpaca, Bear")
-  Test.expect(window().text(Locale.COUNT_COLLECTED).item().texts().join(" ") == `${Locale.COUNT_COLLECTED} 1 / 3`)
+  window().button(Locale::TAB_COLLECTIONS).click()
+  Test::expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra, Alpaca, Bear")
+  Test::expect(window().text(Locale::COUNT_COLLECTED).item().texts().join(" ") == `${Locale::COUNT_COLLECTED} 1 / 3`)
   window().text("Zebra").click()
-  Test.expect(window().text("A striped horse of the plains.").shown() && window().text("Vendor: Zeb").shown())
-  Test.shot("mounts")
+  Test::expect(window().text("A striped horse of the plains.").shown() && window().text("Vendor: Zeb").shown())
+  Test::shot("mounts")
   window().input().type("alp")
   // The list, then the card of the one picked, which stays.
-  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Zebra")
+  Test::expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Zebra")
 }
 
 test "the filter leaves out what isn't collected, and the sort by name mixes them" {
   mounts()
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.TAB_COLLECTIONS).click()
+  window().button(Locale::TAB_COLLECTIONS).click()
   window().button(Ordaen.art.ctl.tool.sort).click()
-  Test.page().text(Locale.SORT_NAME).click()
-  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Bear, Zebra")
+  Test::page().text(Locale::SORT_NAME).click()
+  Test::expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Alpaca, Bear, Zebra")
   window().button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().text(Locale.SHOW_MISSING).click()
-  Test.expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra")
+  Test::page().text(Locale::SHOW_MISSING).click()
+  Test::expect(inOrder(["Zebra", "Alpaca", "Bear"]) == "Zebra")
 }
 
 test "toys are a list with no card: the game's tooltip on one, the player's toys first, red only where the toy box says no" {
   toys()
   // A toy collected says «Already known» in red in its tooltip: the toy box, not the tooltip, says whether it is usable.
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
     return { lines: [{ left: "Orb of Deception", kind: 0 }, { left: "Already known", kind: 0, usable: false }] }
   }
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.TAB_COLLECTIONS).click()
-  window().button(Locale.SUB_TOYS).click()
-  Test.expect(inOrder(["Orb of Deception", "Dimensional Ripper"]) == "Orb of Deception, Dimensional Ripper")
+  window().button(Locale::TAB_COLLECTIONS).click()
+  window().button(Locale::SUB_TOYS).click()
+  Test::expect(inOrder(["Orb of Deception", "Dimensional Ripper"]) == "Orb of Deception, Dimensional Ripper")
   window().text("Orb of Deception").click()
-  Test.expect(!window().text(Locale.MOUNT).shown() && !window().text(Locale.SUMMON).shown())
-  _ = Test.requests()
+  Test::expect(!window().text(Locale::MOUNT).shown() && !window().text(Locale::SUMMON).shown())
+  _ = Test::requests()
   window().box(134334).hover()
-  Test.expect(Test.requests().any(r => r == "Items.show 1973"))
-  Test.expect(!window().box(134334).paintedWith(Color.hex("#ff1a1a")))
+  Test::expect(Test::requests().any(r => r == "Items.show 1973"))
+  Test::expect(!window().box(134334).paintedWith(Color::hex("#ff1a1a")))
 }
 
 test "the challenges open on the class's category; one picked has its points and its criteria in the card" {
   challenges()
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.TAB_ACHIEVEMENTS).click()
-  Test.expect(window().text("Shield Wall").shown() && window().text("Execute").shown())
-  Test.expect(window().text(Locale.COUNT_DONE).item().texts().join(" ") == `${Locale.COUNT_DONE} 1 / 2`)
+  window().button(Locale::TAB_ACHIEVEMENTS).click()
+  Test::expect(window().text("Shield Wall").shown() && window().text("Execute").shown())
+  Test::expect(window().text(Locale::COUNT_DONE).item().texts().join(" ") == `${Locale::COUNT_DONE} 1 / 2`)
   window().text("Execute").click()
-  Test.expect(window().text(Locale.POINTS.format(10)).shown() && window().text("7 / 20").shown())
-  Test.shot("challenges")
+  Test::expect(window().text(Locale::POINTS.format(10)).shown() && window().text("7 / 20").shown())
+  Test::shot("challenges")
 }
 
 test "the filter leaves the completed alone; the list's view, sorted by points, has every challenge in one list" {
   challenges()
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   account()
-  window().button(Locale.TAB_ACHIEVEMENTS).click()
+  window().button(Locale::TAB_ACHIEVEMENTS).click()
   window().button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().text(Locale.SHOW_OPEN).click()
-  Test.expect(window().text("Shield Wall").shown() && !window().text("Execute").shown())
-  Test.page().text(Locale.SHOW_OPEN).click()
+  Test::page().text(Locale::SHOW_OPEN).click()
+  Test::expect(window().text("Shield Wall").shown() && !window().text("Execute").shown())
+  Test::page().text(Locale::SHOW_OPEN).click()
   window().button(Ordaen.art.ctl.tool.filter).click()
   window().button(Ordaen.art.ctl.tool.categories).click()
-  Test.page().text(Locale.VIEW_LIST).click()
+  Test::page().text(Locale::VIEW_LIST).click()
   window().button(Ordaen.art.ctl.tool.sort).click()
-  Test.page().text(Locale.SORT_POINTS).click()
-  Test.expect(inOrder(["Shield Wall", "Execute", "Warrior"]) == "Execute, Shield Wall")
+  Test::page().text(Locale::SORT_POINTS).click()
+  Test::expect(inOrder(["Shield Wall", "Execute", "Warrior"]) == "Execute, Shield Wall")
 }
 
 test "Alts' pages are a tab of the window, and /alts opens it there; Alts draws no window of its own" {
-  Test.mount(nil, SCREEN)
-  (Client.SlashCmdList["ALTS"] ?? panic("/alts is Alts' command"))("")
-  Test.expect(window().text("Characters").shown() && window().text("Gold").shown())
-  Test.expect(Test.page().window("Gold").count() == 1)
+  Test::mount(nil, SCREEN)
+  (Client::SlashCmdList["ALTS"] ?? panic("/alts is Alts' command"))("")
+  Test::expect(window().text("Characters").shown() && window().text("Gold").shown())
+  Test::expect(Test::page().window("Gold").count() == 1)
 }

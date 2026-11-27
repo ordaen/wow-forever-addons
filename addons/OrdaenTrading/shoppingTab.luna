@@ -27,15 +27,15 @@ public class ShoppingTab implements Component {
 
   // «Auction (3)», «Vendors (2)».
   namesOf(self): Array<String> {
-    const vendors = self.list.rows.count(row => marketOf(self.prices, row.item) == Market.Vendor)
-    return [Locale.TAB_HOUSE.format(self.list.rows.length - vendors), Locale.TAB_VENDORS.format(vendors)]
+    const vendors = self.list.rows.count(row => marketOf(self.prices, row.item) == Market::Vendor)
+    return [Locale::TAB_HOUSE.format(self.list.rows.length - vendors), Locale::TAB_VENDORS.format(vendors)]
   }
 
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
         <SmallTabs tabs={self.names} selected={mut self.tab} />
-        <ShoppingPage $if={self.tab == 1} prices={self.prices} list={mut self.list} market={Market.House} />
+        <ShoppingPage $if={self.tab == 1} prices={self.prices} list={mut self.list} market={Market::House} />
         <VendorPage $else prices={self.prices} list={mut self.list} sellers={self.sellers} atMerchant={self.atMerchant} />
       </box>
     }

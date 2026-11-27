@@ -66,7 +66,7 @@ public class Arranger {
         pending = true
         if (taken[place] != true && !peek place.locked) {
           const from = self.holderOf(want, index, taken)
-          if (from != nil && Game.bags.swap(from.bag, from.index, place.bag, place.index)) {
+          if (from != nil && Game::bags.swap(from.bag, from.index, place.bag, place.index)) {
             taken[from] = true
             moved = true
           }

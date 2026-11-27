@@ -17,7 +17,7 @@ public struct Choices implements Plain {
 // window's own buttons change lasts until it closes.
 public class TrainerSettingsPage implements Component {
   // The class trainer's sorts, as its sort button lists them.
-  const sorts: Array<Choice<Integer>> = trainerSorts(Locale.COL_SKILL, false)
+  const sorts: Array<Choice<Integer>> = trainerSorts(Locale::COL_SKILL, false)
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -26,10 +26,10 @@ public class TrainerSettingsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.SETTING_TRAINER} hint={Locale.SETTING_TRAINER_TIP} value={mut self.settings.values.trainer} />
-      <Dropdown label={Locale.SETTING_TRAINER_VIEW} hint={Locale.SETTING_TRAINER_VIEW_TIP}
+      <Checkbox label={Locale::SETTING_TRAINER} hint={Locale::SETTING_TRAINER_TIP} value={mut self.settings.values.trainer} />
+      <Dropdown label={Locale::SETTING_TRAINER_VIEW} hint={Locale::SETTING_TRAINER_VIEW_TIP}
                 value={mut self.settings.values.trainerView} choices={TRAINER_VIEWS} />
-      <Dropdown label={Locale.SETTING_TRAINER_SORT} hint={Locale.SETTING_TRAINER_SORT_TIP}
+      <Dropdown label={Locale::SETTING_TRAINER_SORT} hint={Locale::SETTING_TRAINER_SORT_TIP}
                 value={mut self.settings.values.trainerSort} choices={self.sorts} />
     }
   }

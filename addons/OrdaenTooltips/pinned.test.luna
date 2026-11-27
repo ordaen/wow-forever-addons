@@ -4,66 +4,66 @@ import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What a locked tooltip says in its bar's place, and its close button, the game's red X.
 const LOCKED = "Locked — hover the underlined parts"
 const CLOSE: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
 
 // Where the game's pinned tooltip stands: at the screen's left, a third of the way down.
-function corner(): any Client.Frame {
-  const made = Client.CreateFrame("Frame", "PinnedCorner", Client.C_UI.GetUIParent(), nil)
+function corner(): any Client::Frame {
+  const made = Client::CreateFrame("Frame", "PinnedCorner", Client::C_UI::GetUIParent(), nil)
   made.SetSize(200, 100)
-  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 100, -300)
+  made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", 100, -300)
   return made
 }
 
-function sword(): Game.TooltipData {
+function sword(): Game::TooltipData {
   return { kind: 0, id: 9010, about: "item:9010", lines: [{ left: "Sword", kind: 22 }] }
 }
 
 // A link of the sword pinned.
 function pin() {
-  Game.tooltip.pinned = { shown: true, data: sword(), corner: corner() }
+  Game::tooltip.pinned = { shown: true, data: sword(), corner: corner() }
 }
 
 // What the game was asked, joined: where it isn't this, the test fails with what it was.
 function asked(expected: String): Boolean {
-  const said = Test.requests().join(", ")
+  const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 test "a pinned link shows as Ordaen's, locked, where the game's stands, the game's kept unseen" {
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
   pin()
-  const window = Test.page().window("Sword")
-  Test.expect(window.shown() && window.text(LOCKED).shown() && window.button(CLOSE).shown())
+  const window = Test::page().window("Sword")
+  Test::expect(window.shown() && window.text(LOCKED).shown() && window.button(CLOSE).shown())
   const at = window.rect()
-  Test.expect(at.left >= 99 && at.left <= 120 && at.top >= 299 && at.top <= 320)
-  Test.expect(asked("Tooltip.hidePinned true"))
+  Test::expect(at.left >= 99 && at.left <= 120 && at.top >= 299 && at.top <= 320)
+  Test::expect(asked("Tooltip.hidePinned true"))
 }
 
 test "its close button closes the game's, and it goes" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pin()
-  Test.flush()
-  _ = Test.requests()
-  Test.page().window("Sword").button(CLOSE).click()
-  Test.expect(asked("Tooltip.unpin, Tooltip.hidePinned false"))
-  Test.expect(!Test.page().window("Sword").shown())
+  Test::flush()
+  _ = Test::requests()
+  Test::page().window("Sword").button(CLOSE).click()
+  Test::expect(asked("Tooltip.unpin, Tooltip.hidePinned false"))
+  Test::expect(!Test::page().window("Sword").shown())
 }
 
 test "a drag on it moves the game's: the drag begins and ends there" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pin()
-  Test.flush()
-  _ = Test.requests()
-  const at = Test.page().window("Sword").text("Sword").rect()
-  Test.moveTo({ x: at.left + 2, y: at.top + 2 })
-  Test.press(nil)
-  Test.moveTo({ x: at.left + 60, y: at.top + 40 })
-  Test.pass(0.05)
-  Test.release(nil)
-  Test.expect(asked("Tooltip.dragPinned true, Tooltip.dragPinned false"))
+  Test::flush()
+  _ = Test::requests()
+  const at = Test::page().window("Sword").text("Sword").rect()
+  Test::moveTo({ x: at.left + 2, y: at.top + 2 })
+  Test::press(nil)
+  Test::moveTo({ x: at.left + 60, y: at.top + 40 })
+  Test::pass(0.05)
+  Test::release(nil)
+  Test::expect(asked("Tooltip.dragPinned true, Tooltip.dragPinned false"))
 }

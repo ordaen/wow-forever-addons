@@ -38,7 +38,7 @@ public struct Kept implements Plain {
 }
 
 // When this session began: the session of every line it hears.
-public const THIS_SESSION: Number = peek Game.clock.server
+public const THIS_SESSION: Number = peek Game::clock.server
 
 // A line's time before it: in brackets, a muted grey. Lines were once kept with it at the start of their text.
 public const STAMP = "|cff9d9d9d[%s]|r "
@@ -101,11 +101,11 @@ public class ChatTab {
   // The words that mark someone else's line in it, the player's name with them; whether it folds repeats; how many
   // lines it holds and keeps after a reload; what the input's history keeps while it is open.
   public state keywords = ""
-  public derived words: Array<String> = wordsOf(self.keywords, Game.player.name)
+  public derived words: Array<String> = wordsOf(self.keywords, Game::player.name)
   public state repeats = true
   public state held = 500
   public state kept = 200
-  public state history: Game.ChatHistory = .All
+  public state history: Game::ChatHistory = .All
 
   constructor(key: String, title: String) {
     self.key = key
@@ -114,7 +114,7 @@ public class ChatTab {
   }
 
   // The window's state as the game has it now.
-  public follow(mut self, window: Game.ChatWindow) {
+  public follow(mut self, window: Game::ChatWindow) {
     self.title = window.partner != "" ? window.partner : window.name
     self.partner = window.partner
     self.combatLog = window.combatLog
@@ -194,10 +194,10 @@ public class ChatTab {
 }
 
 // The channel's name as the player chose it, as a link that opens the channel: «[2. Trade]».
-public function channelOf(line: Game.ChatLine, style: ChannelName): String {
+public function channelOf(line: Game::ChatLine, style: ChannelName): String {
   const name = line.channelName.match("^([^%-]-)%s*%-") ?? line.channelName
   const shown = match (style) {
-    .Number => String.of(line.channel)
+    .Number => String::of(line.channel)
     .Name => name
     .Both => `${line.channel}. ${name}`
   }
@@ -208,7 +208,7 @@ public function channelOf(line: Game.ChatLine, style: ChannelName): String {
 // red, a say's white): «Ragnaros: BY FIRE BE PURGED!». The game names a creature plainly, with no link.
 const CREATURE_NAME = "|cffffd100%s|r"
 
-public function creatureNamed(line: Game.ChatLine): String {
+public function creatureNamed(line: Game::ChatLine): String {
   const creature = line.kind.sub(1, 7) == "MONSTER" || line.kind.sub(1, 9) == "RAID_BOSS"
   const head = `${line.sender}: `
   if (!creature || line.sender == "" || line.plain.sub(1, head.length) != head) { return line.plain }

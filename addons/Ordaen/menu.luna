@@ -27,19 +27,19 @@ public struct MenuEntry {
 
 // A submenu's mark at its entry's right.
 const MORE_MARK = "›"
-const TITLE: Color = Color.hex("#ffd100")
+const TITLE: Color = Color::hex("#ffd100")
 
 const WIDTH = 257.8125dp
-const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const BACK: Color = Color::hex("#0a0806f7")
+const EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const GROUP_PAD: Edges = { top: 3.5sp, right: 4sp, bottom: 2sp, left: 4sp }
-const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
-const NAME: ByInteractionState<Color> = { default: Color.hex("#e8dcc4"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const DIM: Color = Color.hex("#6f6552")
-const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
+const RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
+const NAME: ByInteractionState<Color> = { default: Color::hex("#e8dcc4"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const DIM: Color = Color::hex("#6f6552")
+const CLEAR: Color = Color::hex("#00000000")
+const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b2e"), focus: Color::hex("#d6a56b2e") }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // One line of the open menu.
@@ -78,15 +78,15 @@ public class MenuItem implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={3sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
+      <box columns={ROW} gap={3sp} padding={self.padding} yAlign={Align::Center} border={self.rule}
            background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
            @pointerEnter={self.onEnter}>
         <text value={self.entry.label} textColor={self.color} />
         <text $if={self.opens} value={MORE_MARK} textColor={self.color} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
-          <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+          <box position={Position::Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
                background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
-          <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+          <box position={Position::Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
                background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} zLevel={1} />
         </box>
       </box>
@@ -127,19 +127,19 @@ public class Menu implements Component {
   onEnter(mut self, index: Integer, frame: any Frame) {
     const opens = (peek self.entries)[index]?.more != nil
     self.opened = opens ? index : 0
-    if (opens) { self.beside = Anchored { point: Point.TopLeft, to: Point.TopRight, by: frame } }
+    if (opens) { self.beside = Anchored { point: Point::TopLeft, to: Point::TopRight, by: frame } }
   }
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Row} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
+      <surface leading={.Row} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
         <box $if={self.titled} padding={ITEM_PAD}>
           <text value={self.title} textColor={TITLE} />
         </box>
         <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
                   @pick={self.onPick} @enter={self.onEnter} />
-        <surface leading={.Row} $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
+        <surface leading={.Row} $if={self.opened > 0} layer={Layer::Tooltip} place={self.beside} clamp={true} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1}>
           <MenuItem $for={index, entry of self.more} $key={index} entry={entry} index={index} @pick={self.onPickMore} />
         </surface>

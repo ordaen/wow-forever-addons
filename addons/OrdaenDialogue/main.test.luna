@@ -13,21 +13,21 @@ import { SHEET_ART } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import { Auto } from "@/settings"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const WORDS = "Welcome to the Goldshire inn, traveller!"
 const INN: FileId = 132052
 const TALK: FileId = 132053
 // The flight master's icon: an option that leads somewhere.
 const TAXI: FileId = 132057
 
-function option(id: Integer, name: String, order: Integer, icon: FileId): Client.GossipOptionUIInfo {
+function option(id: Integer, name: String, order: Integer, icon: FileId): Client::GossipOptionUIInfo {
   return {
-    gossipOptionID: id, name: name, icon: icon, rewards: [], status: Client.GossipOptionStatus.Available, flags: 0,
+    gossipOptionID: id, name: name, icon: icon, rewards: [], status: Client::GossipOptionStatus::Available, flags: 0,
     selectOptionWhenOnlyOption: false, orderIndex: order
   }
 }
 
-function gossipQuest(id: Integer, title: String, level: Integer, complete: Boolean): Client.GossipQuestUIInfo {
+function gossipQuest(id: Integer, title: String, level: Integer, complete: Boolean): Client::GossipQuestUIInfo {
   return {
     title: title, questLevel: level, isTrivial: false, isComplete: complete, isLegendary: false, isIgnored: false,
     questID: id, isImportant: false, isMeta: false, questInfoID: 0
@@ -35,7 +35,7 @@ function gossipQuest(id: Integer, title: String, level: Integer, complete: Boole
 }
 
 // The innkeeper: her words, a quest to hand in, a new one, one in progress, and two plain options.
-function innkeeper(): Test.Npc {
+function innkeeper(): Test::Npc {
   return {
     name: "Innkeeper Farley", id: 295, text: WORDS,
     active: [gossipQuest(10, "Lost Necklaces", 12, false), gossipQuest(11, "A Parcel for Farley", 8, true)],
@@ -45,12 +45,12 @@ function innkeeper(): Test.Npc {
 }
 
 // A flight master with one plain option.
-function flightMaster(): Test.Npc {
+function flightMaster(): Test::Npc {
   return { name: "Thor", id: 523, text: "The gryphons are ready.", options: [option(400, "Show me where I can fly.", 1, TAXI)] }
 }
 
 // A quest's page: two rewards to choose (the second not the player's to wear), money and experience.
-function pie(): Test.QuestPage {
+function pie(): Test::QuestPage {
   return {
     id: 20, title: "A Pie for Maggie", text: "Maggie bakes the best pies in Elwynn.",
     objectives: "Bring Maggie 6 chunks of boar meat.", progress: "Have you got the meat?",
@@ -64,42 +64,42 @@ function pie(): Test.QuestPage {
   }
 }
 
-function window(): Test.Part { return Test.page().window("Innkeeper Farley") }
+function window(): Test::Part { return Test::page().window("Innkeeper Farley") }
 
-function asked(): String { return Test.talked().join(", ") }
+function asked(): String { return Test::talked().join(", ") }
 
 // The list
 
 test "the NPC's list: her words, then the quests to hand in, the new ones, those in progress, then her options" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.expect(window().text(WORDS).shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::expect(window().text(WORDS).shown())
   const titles = ["A Parcel for Farley", "Rats in the Cellar", "Lost Necklaces", "Make this inn your home.", "Tell me about Goldshire."]
   const drawn = window().texts().filter(text => titles.any(title => title == text))
-  Test.expect(drawn.join(" | ") == titles.join(" | "))
+  Test::expect(drawn.join(" | ") == titles.join(" | "))
 }
 
 test "a new quest's level is in the quest log's difficulty colour, grey where the client calls the quest trivial" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const far = gossipQuest(21, "The Dragon's Lair", 70, false)
-  Test.talk({ available: [far, { isTrivial: true, ..gossipQuest(22, "Old Bones", 71, false) }], ..innkeeper() })
+  Test::talk({ available: [far, { isTrivial: true, ..gossipQuest(22, "Old Bones", 71, false) }], ..innkeeper() })
   // Far above the player: the game's red, as Ordaen's quest log and tracker draw it; trivial by the client: its grey.
-  Test.expect(window().text("(70)").textColor().equal(Color.hex("#ff2020")))
-  Test.expect(window().text("(71)").textColor().equal(Color.hex("#808080")))
+  Test::expect(window().text("(70)").textColor().equal(Color::hex("#ff2020")))
+  Test::expect(window().text("(71)").textColor().equal(Color::hex("#808080")))
 }
 
 test "each line has its key, and a quest its level after its title" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.expect(window().text("A Parcel for Farley").item().texts().join(" ") == "1 A Parcel for Farley (8)")
-  Test.expect(window().text("Make this inn your home.").item().texts().join(" ") == "4 Make this inn your home.")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::expect(window().text("A Parcel for Farley").item().texts().join(" ") == "1 A Parcel for Farley (8)")
+  Test::expect(window().text("Make this inn your home.").item().texts().join(" ") == "4 Make this inn your home.")
 }
 
 // A window of the game's that its window manager places on the left, one of its three.
-function panel(name: String): any Client.Frame {
-  const own = Client.CreateFrame("Frame", name, Client.UIParent, nil)
+function panel(name: String): any Client::Frame {
+  const own = Client::CreateFrame("Frame", name, Client::UIParent, nil)
   own.SetSize(300, 400)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
   own.Hide()
   own.SetAttribute("UIPanelLayout-defined", true)
   own.SetAttribute("UIPanelLayout-area", "left")
@@ -108,747 +108,747 @@ function panel(name: String): any Client.Frame {
 
 test "the game's own gossip window stands away from the start, unseen, so the game's three windows close none of ours" {
   const own = panel("GossipFrame")
-  Game.frames.Gossip = own
-  Test.mount(nil, SCREEN)
-  Test.flush()
+  Game::frames.Gossip = own
+  Test::mount(nil, SCREEN)
+  Test::flush()
   // Already away as the game shows it for a talk: it takes none of the window manager's three places.
-  Client.ShowUIPanel(own)
-  Test.talk(innkeeper())
-  Test.flush()
-  Test.expect(own.GetAlpha() == 0 && window().shown())
+  Client::ShowUIPanel(own)
+  Test::talk(innkeeper())
+  Test::flush()
+  Test::expect(own.GetAlpha() == 0 && window().shown())
   const others = [panel("FirstPanel"), panel("SecondPanel"), panel("ThirdPanel")]
-  for (other of others) { Client.ShowUIPanel(other) }
-  Test.expect(own.IsShown() && others.all(other => other.IsShown()))
+  for (other of others) { Client::ShowUIPanel(other) }
+  Test::expect(own.IsShown() && others.all(other => other.IsShown()))
 }
 
 test "the game's own gossip window stays away while the one option skips on" {
-  const own = Client.CreateFrame("Frame", "GossipFrame", Client.UIParent, nil)
+  const own = Client::CreateFrame("Frame", "GossipFrame", Client::UIParent, nil)
   own.SetSize(300, 400)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
-  Game.frames.Gossip = own
-  Test.mount(nil, SCREEN)
-  Test.talk(flightMaster())
-  Test.flush()
+  own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
+  Game::frames.Gossip = own
+  Test::mount(nil, SCREEN)
+  Test::talk(flightMaster())
+  Test::flush()
   // Ours never showed: the option was picked, and the game opens what it leads to (a trainer, the flight map).
-  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
-  Test.expect(own.GetAlpha() == 0)
+  Test::expect(asked() == "option 400" && !Test::page().window("Thor").shown())
+  Test::expect(own.GetAlpha() == 0)
 }
 
 test "a click on an option picks it by the game's own call" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Make this inn your home.").click()
-  Test.expect(asked() == "option 300")
+  Test::expect(asked() == "option 300")
 }
 
 test "a click on a quest picks it: one to hand in as active, a new one as available" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
   window().text("Rats in the Cellar").click()
-  Test.expect(asked() == "active 11, available 20")
+  Test::expect(asked() == "active 11, available 20")
 }
 
 test "the keys: 1–9 pick a line, Space the first" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.flush()
-  _ = Test.keyBound("4")
-  _ = Test.keyBound("SPACE")
-  Test.expect(asked() == "option 300, active 11")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::flush()
+  _ = Test::keyBound("4")
+  _ = Test::keyBound("SPACE")
+  Test::expect(asked() == "option 300, active 11")
 }
 
 test "the keys are the game's again once the window closes" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.flush()
-  _ = Test.keyBound("4")
-  Test.expect(asked() == "")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::flush()
+  _ = Test::keyBound("4")
+  Test::expect(asked() == "")
 }
 
 test "in a fight the keys are the game's, and the window says so" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.combat(true)
-  Test.flush()
-  _ = Test.keyBound("4")
-  Test.expect(asked() == "" && window().text("In a fight the keys are the game's: use the mouse.").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::combat(true)
+  Test::flush()
+  _ = Test::keyBound("4")
+  Test::expect(asked() == "" && window().text("In a fight the keys are the game's: use the mouse.").shown())
 }
 
 test "with the keyboard off no key is the window's, and no keycap shows" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   Dialogue.settings.values.keyboard = false
-  Test.talk(innkeeper())
-  Test.flush()
-  _ = Test.keyBound("4")
-  Test.expect(asked() == "" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
+  Test::talk(innkeeper())
+  Test::flush()
+  _ = Test::keyBound("4")
+  Test::expect(asked() == "" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
 }
 
 test "with the key hints off the keys still work, unseen" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   Dialogue.settings.values.keyHints = false
-  Test.talk(innkeeper())
-  Test.flush()
-  _ = Test.keyBound("4")
-  Test.expect(asked() == "option 300" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
+  Test::talk(innkeeper())
+  Test::flush()
+  _ = Test::keyBound("4")
+  Test::expect(asked() == "option 300" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
 }
 
 test "Escape on the list closes the window and the talk" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.flush()
-  _ = Test.keyBound("ESCAPE")
-  Test.expect(!window().shown() && asked() == "close gossip")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::flush()
+  _ = Test::keyBound("ESCAPE")
+  Test::expect(!window().shown() && asked() == "close gossip")
 }
 
 test "the window's ✕ closes the talk too" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!window().shown() && asked() == "close gossip")
+  Test::expect(!window().shown() && asked() == "close gossip")
 }
 
 test "walking away closes the window: the game's close" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.expect(!window().shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::expect(!window().shown())
 }
 
 test "a quest picked from the list keeps the talk: the gossip's close that goes on leaves the window up" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CLOSED.emit(true)
-  Test.expect(window().shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CLOSED.emit(true)
+  Test::expect(window().shown())
 }
 
 // The one-option skip
 
 test "an NPC whose one option is a line of talk shows it: only an option that leads somewhere is skipped" {
-  Test.mount(nil, SCREEN)
-  Test.talk({ name: "Daniel", id: 247229, text: "What does Brother Paxton need now?", options: [option(134486, "What are professions?", 0, TALK)] })
-  Test.expect(asked() == "" && Test.page().window("Daniel").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk({ name: "Daniel", id: 247229, text: "What does Brother Paxton need now?", options: [option(134486, "What are professions?", 0, TALK)] })
+  Test::expect(asked() == "" && Test::page().window("Daniel").shown())
 }
 
 test "an NPC with one plain option doesn't open the window: the option is picked" {
-  Test.mount(nil, SCREEN)
-  Test.talk(flightMaster())
-  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(flightMaster())
+  Test::expect(asked() == "option 400" && !Test::page().window("Thor").shown())
 }
 
 test "a vendor whose one option has no ID doesn't open the window: it is picked by its place, the skip on by default" {
-  Test.mount(nil, SCREEN)
-  Test.expect(Dialogue.settings.values.skipSingle)
-  Test.talk({
+  Test::mount(nil, SCREEN)
+  Test::expect(Dialogue.settings.values.skipSingle)
+  Test::talk({
     name: "Brog Hamfist", id: 151, text: "Need supplies?",
     options: [{
       gossipOptionID: nil, name: "I want to browse your goods.", icon: 132060, rewards: [],
-      status: Client.GossipOptionStatus.Available, flags: 0, selectOptionWhenOnlyOption: true, orderIndex: 0
+      status: Client::GossipOptionStatus::Available, flags: 0, selectOptionWhenOnlyOption: true, orderIndex: 0
     }]
   })
-  Test.expect(asked() == "option at 0" && !Test.page().window("Brog Hamfist").shown())
+  Test::expect(asked() == "option at 0" && !Test::page().window("Brog Hamfist").shown())
 }
 
 test "an option's text never wraps: the window widens to hold the longest" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const long = "Tell me everything about the old roads from Goldshire to the Westfall farms, and who keeps them now."
-  Test.talk({ name: "Innkeeper Farley", id: 295, text: WORDS, options: [option(301, long, 1, TALK), option(302, "Bye.", 2, TALK)] })
+  Test::talk({ name: "Innkeeper Farley", id: 295, text: WORDS, options: [option(301, long, 1, TALK), option(302, "Bye.", 2, TALK)] })
   const line = window().text(long).letters()
-  Test.expect(line.bottom - line.top < 30 && window().text(long).shown())
+  Test::expect(line.bottom - line.top < 30 && window().text(long).shown())
 }
 
 test "Shift held while talking shows the window all the same" {
-  Test.mount(nil, SCREEN)
-  Test.hold([.Shift])
-  Test.talk(flightMaster())
-  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+  Test::mount(nil, SCREEN)
+  Test::hold([.Shift])
+  Test::talk(flightMaster())
+  Test::expect(asked() == "" && Test::page().window("Thor").shown())
 }
 
 test "a vendor the client says ForceGossip of, as Forever's says of every vendor, is skipped all the same" {
-  Test.mount(nil, SCREEN)
-  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 0, TAXI)], forceGossip: true })
-  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 0, TAXI)], forceGossip: true })
+  Test::expect(asked() == "option 400" && !Test::page().window("Thor").shown())
 }
 
 test "with the skip off the window shows" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   Dialogue.settings.values.skipSingle = false
-  Test.talk(flightMaster())
-  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+  Test::talk(flightMaster())
+  Test::expect(asked() == "" && Test::page().window("Thor").shown())
 }
 
 // Options picked on their own
 
 test "right-click an option to always pick it: «auto» shows, and the next talk picks it" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Test.expect(window().text("Tell me about Goldshire.").item().texts().join(" ") == "5 Tell me about Goldshire. auto")
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.talk(innkeeper())
-  Test.expect(asked() == "option 301" && !window().shown())
+  Test::page().text("Always pick this option").click()
+  Test::expect(window().text("Tell me about Goldshire.").item().texts().join(" ") == "5 Tell me about Goldshire. auto")
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::talk(innkeeper())
+  Test::expect(asked() == "option 301" && !window().shown())
 }
 
 test "Shift shows the list over a marked option, and a mark is taken away the same way" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.hold([.Shift])
-  Test.talk(innkeeper())
-  Test.hold([])
-  Test.hold([])
-  Test.expect(asked() == "" && window().shown())
+  Test::page().text("Always pick this option").click()
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::hold([.Shift])
+  Test::talk(innkeeper())
+  Test::hold([])
+  Test::hold([])
+  Test::expect(asked() == "" && window().shown())
   window().text("Tell me about Goldshire.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Test.expect(Dialogue.marks.length == 0)
+  Test::page().text("Always pick this option").click()
+  Test::expect(Dialogue.marks.length == 0)
 }
 
 test "the marks are kept for the account" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Test.reload()
-  Test.expect(Dialogue.marks.length == 1 && (Dialogue.marks[1]?.option ?? 0) == 301 && (Dialogue.marks[1]?.npc ?? 0) == 295)
+  Test::page().text("Always pick this option").click()
+  Test::reload()
+  Test::expect(Dialogue.marks.length == 1 && (Dialogue.marks[1]?.option ?? 0) == 301 && (Dialogue.marks[1]?.npc ?? 0) == 295)
 }
 
 test "with marked options off the list shows" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Events.GOSSIP_CLOSED.emit(false)
+  Test::page().text("Always pick this option").click()
+  Events::GOSSIP_CLOSED.emit(false)
   Dialogue.settings.values.alwaysPick = false
-  Test.talk(innkeeper())
-  Test.expect(asked() == "" && window().shown())
+  Test::talk(innkeeper())
+  Test::expect(asked() == "" && window().shown())
 }
 
 test "a quest can't be marked: its right-click opens nothing" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Rats in the Cellar").rightClick()
-  Test.expect(!Test.page().text("Always pick this option").shown())
+  Test::expect(!Test::page().text("Always pick this option").shown())
 }
 
 test "an option that asks to confirm is never picked on its own again" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Make this inn your home.").rightClick()
-  Test.page().text("Always pick this option").click()
-  Events.GOSSIP_CONFIRM.emit(300, "Make this inn your home?", 0)
-  Test.expect(Dialogue.marks.length == 0)
+  Test::page().text("Always pick this option").click()
+  Events::GOSSIP_CONFIRM.emit(300, "Make this inn your home?", 0)
+  Test::expect(Dialogue.marks.length == 0)
 }
 
 // A quest's pages
 
 test "the details: title, text, objectives, the rewards to choose, money and experience; Accept accepts" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("A Pie for Maggie").shown() && window().text("Bring Maggie 6 chunks of boar meat.").shown())
-  Test.expect(window().text("You will be able to choose").shown() && window().text("Cook's Gloves").shown())
-  Test.expect(window().text("450").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("A Pie for Maggie").shown() && window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  Test::expect(window().text("You will be able to choose").shown() && window().text("Cook's Gloves").shown())
+  Test::expect(window().text("450").shown())
   window().button("Accept").click()
-  Test.expect(asked() == "accept")
+  Test::expect(asked() == "accept")
 }
 
 test "a quest whose words would overflow the scroll stands it beside the rewards, the window's whole height" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({
     text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
       "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
     ..pie()
   })
-  Events.QUEST_DETAIL.emit(nil)
+  Events::QUEST_DETAIL.emit(nil)
   const top = window().box(SHEET_ART.topRight).rect()
   const bottom = window().box(SHEET_ART.bottomRight).rect()
   const choose = window().text("You will be able to choose").rect()
-  Test.expect(choose.left > top.right && choose.top < bottom.top)
+  Test::expect(choose.left > top.right && choose.top < bottom.top)
   const accept = window().button("Accept").rect()
-  Test.expect(accept.left > top.right && bottom.bottom >= accept.top)
+  Test::expect(accept.left > top.right && bottom.bottom >= accept.top)
   // The rewards at the top of their column, the buttons at its foot.
-  Test.expect(choose.top - top.top < 60 && accept.top - choose.bottom > 100)
+  Test::expect(choose.top - top.top < 60 && accept.top - choose.bottom > 100)
 }
 
 test "a window no higher than 60% of the screen keeps a long quest's rewards under the scroll, its words scrolled" {
-  Test.mount(nil, { left: 0, top: 0, width: 1600, height: 1200, screen: true })
-  Test.talk(innkeeper())
-  Test.quest({
+  Test::mount(nil, { left: 0, top: 0, width: 1600, height: 1200, screen: true })
+  Test::talk(innkeeper())
+  Test::quest({
     text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
       "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
     ..pie()
   })
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
 }
 
 test "a quest that fits the scroll keeps the rewards under it" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
 }
 
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
   Dialogue.settings.values.foldedScroll = true
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("A Pie for Maggie").shown() && !window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("A Pie for Maggie").shown() && !window().text("Bring Maggie 6 chunks of boar meat.").shown())
   // What it gives stands under the folded parchment as ever.
-  Test.expect(window().text("Cook's Gloves").shown())
-  Test.shot("a quest's details, the parchment folded to its title")
+  Test::expect(window().text("Cook's Gloves").shown())
+  Test::shot("a quest's details, the parchment folded to its title")
   window().text("A Pie for Maggie").click()
-  Test.expect(window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  Test::expect(window().text("Bring Maggie 6 chunks of boar meat.").shown())
 }
 
 test "the parchment opens unfolded by default, the quest's title drawn by the scroll" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("A Pie for Maggie").count() == 1 && window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("A Pie for Maggie").count() == 1 && window().text("Bring Maggie 6 chunks of boar meat.").shown())
 }
 
 test "a quest opened from the list goes back to the list with Back and Escape" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
   window().text("Rats in the Cellar").click()
-  Events.GOSSIP_CLOSED.emit(true)
-  Events.QUEST_DETAIL.emit(nil)
+  Events::GOSSIP_CLOSED.emit(true)
+  Events::QUEST_DETAIL.emit(nil)
   window().button("Back").click()
-  Test.expect(window().text(WORDS).shown())
+  Test::expect(window().text(WORDS).shown())
   window().text("Rats in the Cellar").click()
-  Events.QUEST_DETAIL.emit(nil)
-  Test.flush()
-  _ = Test.keyBound("ESCAPE")
-  Test.expect(window().text(WORDS).shown() && asked() == "available 20, available 20")
+  Events::QUEST_DETAIL.emit(nil)
+  Test::flush()
+  _ = Test::keyBound("ESCAPE")
+  Test::expect(window().text(WORDS).shown() && asked() == "available 20, available 20")
 }
 
 test "a quest with no list is declined: the window closes" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
   window().button("Decline").click()
-  Test.expect(asked() == "decline, close quest" && !window().shown())
+  Test::expect(asked() == "decline, close quest" && !window().shown())
 }
 
 test "a quest that flags for PvP asks first" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 21, title: "Battle!", pvp: true })
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 21, title: "Battle!", pvp: true })
+  Events::QUEST_DETAIL.emit(nil)
   window().button("Accept").click()
-  Test.expect(asked() == "" && window().text("Accepting this quest flags you for PvP.").shown())
+  Test::expect(asked() == "" && window().text("Accepting this quest flags you for PvP.").shown())
   // The answers are the list's: Yes first, its key 1.
-  _ = Test.keyBound("1")
-  Test.expect(asked() == "accept")
+  _ = Test::keyBound("1")
+  Test::expect(asked() == "accept")
 }
 
 test "the game's own accepted quest is acknowledged" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 22, title: "Given", autoAccepted: true })
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 22, title: "Given", autoAccepted: true })
+  Events::QUEST_DETAIL.emit(nil)
   window().button("Accept").click()
-  Test.expect(asked() == "acknowledge")
+  Test::expect(asked() == "acknowledge")
 }
 
 test "progress: what's needed, red until there's enough; Continue only once it can be done" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_PROGRESS.emit()
-  Test.expect(window().text("0/6").shown() && window().text("Boar Meat").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_PROGRESS.emit()
+  Test::expect(window().text("0/6").shown() && window().text("Boar Meat").shown())
   window().button("Continue").click()
-  Test.expect(asked() == "")
-  Test.quest({ id: 20, title: "A Pie for Maggie", completable: true })
-  Events.QUEST_PROGRESS.emit()
+  Test::expect(asked() == "")
+  Test::quest({ id: 20, title: "A Pie for Maggie", completable: true })
+  Events::QUEST_PROGRESS.emit()
   window().button("Continue").click()
-  Test.expect(asked() == "complete")
+  Test::expect(asked() == "complete")
 }
 
 test "a turn-in that takes money lists it with what's needed" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
-  Events.QUEST_PROGRESS.emit()
-  Test.expect(window().text("Money").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 23, title: "Dues", moneyNeeded: 500 })
+  Events::QUEST_PROGRESS.emit()
+  Test::expect(window().text("Money").shown())
 }
 
 test "the reward: Complete waits for a choice; 2 picks the second, Complete takes it" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(window().text("Choose your reward").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  Test::expect(window().text("Choose your reward").shown())
   window().button("Complete").click()
-  Test.expect(asked() == "")
-  Test.flush()
-  _ = Test.keyBound("2")
+  Test::expect(asked() == "")
+  Test::flush()
+  _ = Test::keyBound("2")
   window().button("Complete").click()
-  Test.expect(asked() == "reward 2")
+  Test::expect(asked() == "reward 2")
 }
 
 test "a click on a reward picks it" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
   window().text("Cook's Gloves").click()
-  Test.expect(Dialogue.choice == 1)
+  Test::expect(Dialogue.choice == 1)
 }
 
 test "Ctrl+click on a reward's slot tries it on and picks nothing" {
   let tried = ""
-  Client.DressUpItemLink = (link: String): Boolean => {
+  Client::DressUpItemLink = (link: String): Boolean => {
     tried = link
     return true
   }
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  Test.hold([.Ctrl])
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  Test::hold([.Ctrl])
   window().button("Interface/Icons/INV_Boots_01").click()
-  Test.hold([])
-  Test.hold([])
-  Test.expect(tried == "item:1002" && Dialogue.choice == 0)
+  Test::hold([])
+  Test::hold([])
+  Test::expect(tried == "item:1002" && Dialogue.choice == 0)
 }
 
 test "a reward the player can't wear says so in red" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
   const quest = Dialogue.quest ?? panic("the reward page shows a quest")
-  Test.expect(quest.choices[2]?.unusable == true && quest.choices[1]?.unusable == false)
+  Test::expect(quest.choices[2]?.unusable == true && quest.choices[1]?.unusable == false)
 }
 
 test "one reward to choose is picked already" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 24, title: "One", choices: [{ name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 }] })
-  Events.QUEST_COMPLETE.emit()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 24, title: "One", choices: [{ name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 }] })
+  Events::QUEST_COMPLETE.emit()
   window().button("Complete").click()
-  Test.expect(asked() == "reward 1")
+  Test::expect(asked() == "reward 1")
 }
 
 test "a reward's tooltip shows over all of its row, standing by the row's top right corner" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  _ = Test::requests()
   window().text("Courier Boots").hover()
-  Test.expect(Test.requests().join(", ").contains("Items.show 1002"))
+  Test::expect(Test::requests().join(", ").contains("Items.show 1002"))
 }
 
 test "a turn-in that takes money asks first, with the price" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
-  Events.QUEST_COMPLETE.emit()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 23, title: "Dues", moneyNeeded: 500 })
+  Events::QUEST_COMPLETE.emit()
   window().button("Complete").click()
-  Test.expect(asked() == "")
+  Test::expect(asked() == "")
   // Space is the page's Yes, as it is its main button on every page.
-  _ = Test.keyBound("SPACE")
-  Test.expect(asked() == "reward 0")
+  _ = Test::keyBound("SPACE")
+  Test::expect(asked() == "reward 0")
 }
 
 test "the sell price: the dearest reward's in gold" {
-  Client.C_Item.GetItemInfo = (item: String | Integer): (String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) => {
-    return nil, nil, Client.ItemQuality.Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil
+  Client::C_Item::GetItemInfo = (item: String | Integer): (String | nil, String | nil, Client::ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) => {
+    return nil, nil, Client::ItemQuality::Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil
   }
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  Test.expect((Dialogue.rewardViews[2]?.dearest ?? false) && !(Dialogue.rewardViews[1]?.dearest ?? true))
-  Test.expect(window().text("Courier Boots").item().texts().any(text => text.contains("Leather")))
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  Test::expect((Dialogue.rewardViews[2]?.dearest ?? false) && !(Dialogue.rewardViews[1]?.dearest ?? true))
+  Test::expect(window().text("Courier Boots").item().texts().any(text => text.contains("Leather")))
 }
 
 test "the upgrade column, by what each reward is worth to the player's spec: the best with its arrow" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   Dialogue.upgradeOf = (link: String): Number | nil => link == "item:1001" ? 0.08 : 0.03
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(Dialogue.upgradesShown && window().text("+8%").shown() && window().text("+3%").shown())
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  Test::expect(Dialogue.upgradesShown && window().text("+8%").shown() && window().text("+3%").shown())
 }
 
 test "a group quest says its group's size" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 25, title: "Hogger", group: 3 })
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("Group: 3").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 25, title: "Hogger", group: 3 })
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("Group: 3").shown())
 }
 
 test "a quest an item starts: the tab is the item, and declining closes" {
-  Client.C_Item.GetItemNameByID = (item: String | Integer): String | nil => "Bloodstained Note"
-  Test.mount(nil, SCREEN)
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(1327)
-  Test.expect(Test.page().window("Bloodstained Note").shown())
-  Test.page().window("Bloodstained Note").button("Decline").click()
-  Test.expect(asked() == "decline, close quest" && !Test.page().window("Bloodstained Note").shown())
+  Client::C_Item::GetItemNameByID = (item: String | Integer): String | nil => "Bloodstained Note"
+  Test::mount(nil, SCREEN)
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(1327)
+  Test::expect(Test::page().window("Bloodstained Note").shown())
+  Test::page().window("Bloodstained Note").button("Decline").click()
+  Test::expect(asked() == "decline, close quest" && !Test::page().window("Bloodstained Note").shown())
 }
 
 test "the quest window's close from the game closes ours" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CLOSED.emit(true)
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Events.QUEST_FINISHED.emit()
-  Test.expect(!window().shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CLOSED.emit(true)
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Events::QUEST_FINISHED.emit()
+  Test::expect(!window().shown())
 }
 
 // Questions asked first
 
 test "a paid option asks on the window's page with its price, Yes and No its answers, and Yes picks it confirmed" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
   // The question on the parchment, the NPC's options gone; the answers in the list, Yes over No.
-  Test.expect(window().text("Rent the best room?").shown() && !window().text("Make this inn your home.").shown())
-  Test.expect(window().text("No").shown() && window().button("Yes").count() == 2)
-  Test.shot("a paid option's question as the window's page")
+  Test::expect(window().text("Rent the best room?").shown() && !window().text("Make this inn your home.").shown())
+  Test::expect(window().text("No").shown() && window().button("Yes").count() == 2)
+  Test::shot("a paid option's question as the window's page")
   window().button("Yes").nth(1).click()
-  Test.expect(asked() == "option 300 confirmed")
+  Test::expect(asked() == "option 300 confirmed")
 }
 
 test "No, Escape or the Cancel button answers a question no, and the NPC's list is back" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Events::GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
   window().button("No").click()
-  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
-  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
-  _ = Test.keyBound("ESCAPE")
-  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
-  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  Test::expect(asked() == "" && window().text("Make this inn your home.").shown())
+  Events::GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  _ = Test::keyBound("ESCAPE")
+  Test::expect(asked() == "" && window().text("Make this inn your home.").shown())
+  Events::GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
   window().button("Cancel").click()
-  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
+  Test::expect(asked() == "" && window().text("Make this inn your home.").shown())
 }
 
 test "a party member's escort quest asks, and Yes accepts it" {
-  Test.mount(nil, SCREEN)
-  Events.QUEST_ACCEPT_CONFIRM.emit("Reggie", "Guard the Caravan", 0)
-  Test.expect(Test.page().text("Reggie offers to start the quest «Guard the Caravan».").shown())
-  Test.page().button("Yes").nth(2).click()
-  Test.expect(asked() == "confirm accept")
+  Test::mount(nil, SCREEN)
+  Events::QUEST_ACCEPT_CONFIRM.emit("Reggie", "Guard the Caravan", 0)
+  Test::expect(Test::page().text("Reggie offers to start the quest «Guard the Caravan».").shown())
+  Test::page().button("Yes").nth(2).click()
+  Test::expect(asked() == "confirm accept")
 }
 
 // The innkeeper whose «Make this inn your home.» asks, as the client's does (`CONFIRM_BINDER`).
-function binder(): Test.Npc { return { binds: { option: 300, area: "Goldshire" }, ..innkeeper() } }
+function binder(): Test::Npc { return { binds: { option: 300, area: "Goldshire" }, ..innkeeper() } }
 
 // Talking to the innkeeper who binds, the window drawn and hearing its keys; «Make this inn your home.» picked (the
 // list's fourth line), and the server asks to confirm the inn.
 function bindHome() {
-  Test.mount(nil, SCREEN)
-  Test.talk(binder())
-  Test.flush()
-  _ = Test.keyBound("4")
-  Test.flush()
+  Test::mount(nil, SCREEN)
+  Test::talk(binder())
+  Test::flush()
+  _ = Test::keyBound("4")
+  Test::flush()
 }
 
 test "the innkeeper's «make this inn your home» asks on the window's page, and stays while the talk ends" {
   bindHome()
-  Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
+  Test::expect(window().text("Goldshire will be your new home. Agree?").shown())
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::expect(window().text("Goldshire will be your new home. Agree?").shown())
 }
 
 test "Yes to the inn makes it home, as the game's own dialog's Accept does" {
   bindHome()
-  _ = Test.keyBound("1")
-  Test.expect(asked() == "option 300, confirm binder, clear binder")
-  Test.expect(!window().text("Goldshire will be your new home. Agree?").shown())
+  _ = Test::keyBound("1")
+  Test::expect(asked() == "option 300, confirm binder, clear binder")
+  Test::expect(!window().text("Goldshire will be your new home. Agree?").shown())
 }
 
 test "No to the inn tells the game, as its own dialog's Cancel does" {
   bindHome()
   window().button("No").click()
-  Test.expect(asked() == "option 300, clear binder")
+  Test::expect(asked() == "option 300, clear binder")
 }
 
 // Quests accepted and handed in on their own
 
 test "auto-accept «Picked»: the quest picked is accepted without its page" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoAccept = Auto.Picked
-  Test.talk(innkeeper())
-  Test.quest(pie())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto::Picked
+  Test::talk(innkeeper())
+  Test::quest(pie())
   window().text("Rats in the Cellar").click()
-  Events.GOSSIP_CLOSED.emit(true)
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(asked() == "available 20, accept" && !window().text("A Pie for Maggie").shown())
+  Events::GOSSIP_CLOSED.emit(true)
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(asked() == "available 20, accept" && !window().text("A Pie for Maggie").shown())
 }
 
 test "auto-accept «All»: every quest offered is accepted as the talk starts, then the list shows" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoAccept = Auto.All
-  Test.quest(pie())
-  Test.talk(innkeeper())
-  Test.expect(!window().shown())
-  Events.QUEST_DETAIL.emit(nil)
-  Events.QUEST_FINISHED.emit()
-  Test.talk(innkeeper())
-  Test.expect(asked() == "available 20, accept" && window().shown())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto::All
+  Test::quest(pie())
+  Test::talk(innkeeper())
+  Test::expect(!window().shown())
+  Events::QUEST_DETAIL.emit(nil)
+  Events::QUEST_FINISHED.emit()
+  Test::talk(innkeeper())
+  Test::expect(asked() == "available 20, accept" && window().shown())
 }
 
 test "auto-accept «All» accepts nothing while the quest log is full" {
-  Client.C_QuestLog.GetNumQuestLogEntries = (): (Number, Number) => {
+  Client::C_QuestLog::GetNumQuestLogEntries = (): (Number, Number) => {
     return 25, 25
   }
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoAccept = Auto.All
-  Test.talk(innkeeper())
-  Test.expect(asked() == "" && window().shown())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto::All
+  Test::talk(innkeeper())
+  Test::expect(asked() == "" && window().shown())
 }
 
 test "auto-complete «All» hands in what is done, but stops on a reward to choose" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoComplete = Auto.All
-  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: pie().choices })
-  Test.talk(innkeeper())
-  Events.QUEST_PROGRESS.emit()
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(asked() == "active 11, complete" && window().text("Choose your reward").shown())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto::All
+  Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: pie().choices })
+  Test::talk(innkeeper())
+  Events::QUEST_PROGRESS.emit()
+  Events::QUEST_COMPLETE.emit()
+  Test::expect(asked() == "active 11, complete" && window().text("Choose your reward").shown())
 }
 
 test "auto-complete «Picked» hands in the quest picked, its single reward taken" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoComplete = Auto.Picked
-  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto::Picked
+  Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
-  Events.QUEST_PROGRESS.emit()
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(asked() == "active 11, complete, reward 1")
+  Events::QUEST_PROGRESS.emit()
+  Events::QUEST_COMPLETE.emit()
+  Test::expect(asked() == "active 11, complete, reward 1")
 }
 
 test "a reward worth at least the setting's share more than what is worn is put on as it lands in the bags; a lesser one isn't" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoComplete = Auto.Picked
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto::Picked
   let equipped: Array<String> = []
   let landed = 0
-  Client.GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
-  Client.C_Item.GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => landed
-  Client.C_Item.EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String.of(item)) }
+  Client::GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
+  Client::C_Item::GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => landed
+  Client::C_Item::EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String::of(item)) }
   Dialogue.upgradeOf = (link: String): Number | nil => 0.3
-  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
-  Test.talk(innkeeper())
+  Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
-  Events.QUEST_PROGRESS.emit()
-  Events.QUEST_COMPLETE.emit()
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(equipped.length == 0)
+  Events::QUEST_PROGRESS.emit()
+  Events::QUEST_COMPLETE.emit()
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(equipped.length == 0)
   landed = 1
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(equipped.join(", ") == "item:4540" && Test.printed().join(" ").contains("(+30%)"))
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(equipped.length == 1)
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(equipped.join(", ") == "item:4540" && Test::printed().join(" ").contains("(+30%)"))
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(equipped.length == 1)
   Dialogue.upgradeOf = (link: String): Number | nil => 0.1
   landed = 2
-  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
-  Test.talk(innkeeper())
+  Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
-  Events.QUEST_PROGRESS.emit()
-  Events.QUEST_COMPLETE.emit()
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(equipped.length == 1)
+  Events::QUEST_PROGRESS.emit()
+  Events::QUEST_COMPLETE.emit()
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(equipped.length == 1)
 }
 
 test "Shift held while talking accepts and hands in nothing on its own" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoAccept = Auto.All
-  Dialogue.settings.values.autoComplete = Auto.All
-  Test.hold([.Shift])
-  Test.talk(innkeeper())
-  Test.expect(asked() == "" && window().shown())
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto::All
+  Dialogue.settings.values.autoComplete = Auto::All
+  Test::hold([.Shift])
+  Test::talk(innkeeper())
+  Test::expect(asked() == "" && window().shown())
 }
 
 // Books
 
 test "a book: every page read as it opens and shown at once; Escape closes it" {
-  Test.mount(nil, SCREEN)
-  Test.book("Mary's Diary", ["Page one.", "Page two.", "Page three."])
-  Test.expect(Test.page().window("Mary's Diary").text("Page one.\n\nPage two.\n\nPage three.").shown())
-  Test.flush()
-  _ = Test.keyBound("ESCAPE")
-  Test.expect(asked() == "close book" && !Test.page().window("Mary's Diary").shown())
+  Test::mount(nil, SCREEN)
+  Test::book("Mary's Diary", ["Page one.", "Page two.", "Page three."])
+  Test::expect(Test::page().window("Mary's Diary").text("Page one.\n\nPage two.\n\nPage three.").shown())
+  Test::flush()
+  _ = Test::keyBound("ESCAPE")
+  Test::expect(asked() == "close book" && !Test::page().window("Mary's Diary").shown())
 }
 
 // Sounds
 
 test "the window opens and closes with the game's own sounds" {
   const sounds: Array<String> = []
-  Client.C_Sound.PlaySound = (kit: Number, kind: Unknown, a: Boolean | nil, b: Boolean | nil, c: Number | nil, d: Number | nil): (Boolean | nil, Unknown) => {
-    sounds.push(String.of(kit))
+  Client::C_Sound::PlaySound = (kit: Number, kind: Unknown, a: Boolean | nil, b: Boolean | nil, c: Number | nil, d: Number | nil): (Boolean | nil, Unknown) => {
+    sounds.push(String::of(kit))
     return true, nil
   }
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.flush()
-  _ = Test.keyBound("ESCAPE")
-  Test.expect(sounds.join(" ") == "875 876")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::flush()
+  _ = Test::keyBound("ESCAPE")
+  Test::expect(sounds.join(" ") == "875 876")
 }
 
 // A quest giver's greeting
 
 test "a quest giver's greeting: its quests by their place, picked as the game's own greeting picks them" {
-  Client.GetGreetingText = (): String => "Greetings, citizen."
-  Client.GetNumAvailableQuests = (): Number => 1
-  Client.GetAvailableTitle = (index: Number): (String | nil, Boolean) => {
+  Client::GetGreetingText = (): String => "Greetings, citizen."
+  Client::GetNumAvailableQuests = (): Number => 1
+  Client::GetAvailableTitle = (index: Number): (String | nil, Boolean) => {
     return "Wanted: Hogger", false
   }
-  Client.GetAvailableLevel = (index: Integer): Number => 11
-  Test.mount(nil, SCREEN)
-  Test.talk({ name: "Marshal Dughan", id: 240 })
-  Events.GOSSIP_CLOSED.emit(true)
-  Events.QUEST_GREETING.emit()
-  const marshal = Test.page().window("Marshal Dughan")
-  Test.expect(marshal.text("Greetings, citizen.").shown())
+  Client::GetAvailableLevel = (index: Integer): Number => 11
+  Test::mount(nil, SCREEN)
+  Test::talk({ name: "Marshal Dughan", id: 240 })
+  Events::GOSSIP_CLOSED.emit(true)
+  Events::QUEST_GREETING.emit()
+  const marshal = Test::page().window("Marshal Dughan")
+  Test::expect(marshal.text("Greetings, citizen.").shown())
   marshal.text("Wanted: Hogger").click()
-  Test.expect(asked() == "available 1")
+  Test::expect(asked() == "available 1")
 }
 
 // A reward's slot
 
 test "a reward's slot shows the item's tooltip, and Shift+click puts its link in the chat" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
+  _ = Test::requests()
   window().button("Interface/Icons/INV_Gauntlets_04").hover()
-  Test.expect(Test.requests().join(", ").contains("1001"))
-  Test.hold([.Shift])
+  Test::expect(Test::requests().join(", ").contains("1001"))
+  Test::hold([.Shift])
   window().button("Interface/Icons/INV_Gauntlets_04").click()
-  Test.hold([])
-  Test.expect(Test.requests().join(", ").contains("1001") && Dialogue.choice == 0)
+  Test::hold([])
+  Test::expect(Test::requests().join(", ").contains("1001") && Dialogue.choice == 0)
 }
 
 // Currencies, reputation, the giver's figure, the text's fade-in, the NPC's title
 
 test "a currency to choose and one given are rewards; one needed has how much the player has" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({
     id: 30, title: "Tokens", completable: true,
     choices: [
       { name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 },
@@ -857,297 +857,297 @@ test "a currency to choose and one given are rewards; one needed has how much th
     currencies: [{ id: 62, name: "Stormwind Seal", icon: "Interface/Icons/INV_Misc_Coin_02", amount: 2 }],
     needCurrencies: [{ id: 63, name: "Marks of Honor", icon: "Interface/Icons/INV_Misc_Coin_03", amount: 5, held: 2 }]
   })
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(window().text("Honor Token").shown() && window().text("Stormwind Seal").shown())
+  Events::QUEST_COMPLETE.emit()
+  Test::expect(window().text("Honor Token").shown() && window().text("Stormwind Seal").shown())
   // Under the cursor, a currency's slot has the game's tooltip of the currency, with how much is given.
   window().button("Interface/Icons/INV_Misc_Coin_01").hover()
-  Test.expect(Test.requests().any(r => r == "Items.showCurrency 61 3"))
+  Test::expect(Test::requests().any(r => r == "Items.showCurrency 61 3"))
   window().button("Interface/Icons/INV_Misc_Coin_02").hover()
-  Test.expect(Test.requests().any(r => r == "Items.showCurrency 62 2"))
+  Test::expect(Test::requests().any(r => r == "Items.showCurrency 62 2"))
   window().text("Honor Token").click()
   window().button("Complete").click()
-  Test.expect(asked() == "reward 2")
-  Events.QUEST_PROGRESS.emit()
-  Test.expect(window().text("Marks of Honor").shown() && window().text("2/5").shown())
+  Test::expect(asked() == "reward 2")
+  Events::QUEST_PROGRESS.emit()
+  Test::expect(window().text("Marks of Honor").shown() && window().text("2/5").shown())
 }
 
 test "a required item the quest hides isn't listed, nor any where the quest hides them all" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({
     id: 31, title: "Hidden",
     required: [
       { name: "Secret Note", icon: "Interface/Icons/INV_Misc_Note_01", item: 770, hidden: true },
       { name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }
     ]
   })
-  Events.QUEST_PROGRESS.emit()
-  Test.expect(!window().text("Secret Note").shown() && window().text("Boar Meat").shown())
-  Test.quest({ id: 31, title: "Hidden", hideRequired: true, required: [{ name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }] })
-  Events.QUEST_PROGRESS.emit()
-  Test.expect(!window().text("Boar Meat").shown())
+  Events::QUEST_PROGRESS.emit()
+  Test::expect(!window().text("Secret Note").shown() && window().text("Boar Meat").shown())
+  Test::quest({ id: 31, title: "Hidden", hideRequired: true, required: [{ name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }] })
+  Events::QUEST_PROGRESS.emit()
+  Test::expect(!window().text("Boar Meat").shown())
 }
 
 test "the reputation a quest offers stands in a row: the faction's name, then the amount, QuestieDB's while Quests is on" {
-  Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
-  Test.factions({ [72]: "Stormwind" })
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 32, title: "Friends" })
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("Stormwind").rect().right < window().text("+250 Rep.").rect().left)
+  Test::questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
+  Test::factions({ [72]: "Stormwind" })
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 32, title: "Friends" })
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("Stormwind").rect().right < window().text("+250 Rep.").rect().left)
 }
 
 test "several reputations a quest offers stand a row each" {
-  Test.questieDB(
+  Test::questieDB(
     { [32]: { name: "Friends", reputationReward: [[72, 25], [47, 25], [54, 25], [69, 25], [930, 100]] } }, {}, {}
   )
-  Test.factions({ [72]: "Stormwind", [47]: "Ironforge", [54]: "Gnomeregan", [69]: "Darnassus", [930]: "Exodar" })
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ id: 32, title: "Friends" })
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("Exodar").shown() && window().text("+100 Rep.").shown())
-  Test.expect(window().text("Darnassus").rect().top < window().text("Exodar").rect().top)
+  Test::factions({ [72]: "Stormwind", [47]: "Ironforge", [54]: "Gnomeregan", [69]: "Darnassus", [930]: "Exodar" })
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ id: 32, title: "Friends" })
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text("Exodar").shown() && window().text("+100 Rep.").shown())
+  Test::expect(window().text("Darnassus").rect().top < window().text("Exodar").rect().top)
 }
 
 test "with Quests off, a quest's page shows without reputations, nothing broken" {
-  Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
-  Test.factions({ [72]: "Stormwind" })
-  Test.mount(nil, SCREEN)
-  const quests = Runtime.Addon.of(Quests) ?? panic("Quests is installed")
+  Test::questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
+  Test::factions({ [72]: "Stormwind" })
+  Test::mount(nil, SCREEN)
+  const quests = Runtime::Addon::of(Quests) ?? panic("Quests is installed")
   quests.disable()
-  Test.pass(0.02)
-  Test.talk(innkeeper())
-  Test.quest({ id: 32, title: "Friends", text: "Be friends." })
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(Quests == nil && Test.errors().length == 0)
-  Test.expect(window().text("Be friends.").shown() && !window().texts().join("|").contains("Stormwind"))
+  Test::pass(0.02)
+  Test::talk(innkeeper())
+  Test::quest({ id: 32, title: "Friends", text: "Be friends." })
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(Quests == nil && Test::errors().length == 0)
+  Test::expect(window().text("Be friends.").shown() && !window().texts().join("|").contains("Stormwind"))
 }
 
 test "a quest's page draws no figure on the parchment: neither the NPC's nor the giver's the client names" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ portraitGiver: 1491, ..pie() })
-  const drawn = Test.calls(() => {
-    Events.QUEST_DETAIL.emit(nil)
-    Test.flush()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ portraitGiver: 1491, ..pie() })
+  const drawn = Test::calls(() => {
+    Events::QUEST_DETAIL.emit(nil)
+    Test::flush()
     return nil
   })
-  Test.expect(!drawn.contains("SetDisplayInfo") && !drawn.contains("SetUnit"))
+  Test::expect(!drawn.contains("SetDisplayInfo") && !drawn.contains("SetUnit"))
 }
 
 test "a quest's title stands on its font's own line, not the titles' tall one" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
   const title = window().text("A Pie for Maggie")
-  Test.expect(title.rect().bottom - title.rect().top <= (title.letters().bottom - title.letters().top) + 0.5)
+  Test::expect(title.rect().bottom - title.rect().top <= (title.letters().bottom - title.letters().top) + 0.5)
 }
 
 test "a quest's rewards stand at the well's foot, right over the buttons" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_COMPLETE.emit()
   // The rewards, then the rows of experience and money, the last right over the buttons.
   const last = window().text("Money").rect()
   const button = window().button("Complete").rect()
-  Test.expect(last.top > window().text("Courier Boots").rect().bottom && button.top - last.bottom < 40)
+  Test::expect(last.top > window().text("Courier Boots").rect().bottom && button.top - last.bottom < 40)
 }
 
 test "an option under the cursor is shaded light, plain to see on the dark wood" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
   window().text("Make this inn your home.").hover()
-  Test.expect(window().text("Make this inn your home.").item().paintedWith(ROW_HOVER))
+  Test::expect(window().text("Make this inn your home.").item().paintedWith(ROW_HOVER))
 }
 
 test "the main button's key is the space bar's mark, never its name" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(!window().texts().any(text => text == "Space" || text == "Пробел") && window().text("Esc").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(!window().texts().any(text => text == "Space" || text == "Пробел") && window().text("Esc").shown())
 }
 
 test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {
   // The game shows it at once unless the player turned that off.
-  Test.cvar("instantQuestText", "0")
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
+  Test::cvar("instantQuestText", "0")
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
   const whole = "Maggie bakes the best pies in Elwynn."
-  Test.expect(window().text(whole).opacity() == 0)
-  Test.pass(0.1)
-  Test.expect(window().text("Maggie bakes").shown())
-  Test.pass(1)
-  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+  Test::expect(window().text(whole).opacity() == 0)
+  Test::pass(0.1)
+  Test::expect(window().text("Maggie bakes").shown())
+  Test::pass(1)
+  Test::expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
   window().button("Accept").click()
-  Events.QUEST_FINISHED.emit()
-  Test.cvar("instantQuestText", "1")
-  Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+  Events::QUEST_FINISHED.emit()
+  Test::cvar("instantQuestText", "1")
+  Events::QUEST_DETAIL.emit(nil)
+  Test::expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
 }
 
 test "the NPC's title under its name is the plain line of its tooltip, never its level's" {
-  Test.mount(nil, SCREEN)
-  Test.talk({ name: "Innkeeper Farley", id: 295, text: WORDS, title: "Innkeeper", level: 30 })
-  Test.expect(window().text("Innkeeper").shown())
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
-  Test.expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
+  Test::mount(nil, SCREEN)
+  Test::talk({ name: "Innkeeper Farley", id: 295, text: WORDS, title: "Innkeeper", level: 30 })
+  Test::expect(window().text("Innkeeper").shown())
+  Events::GOSSIP_CLOSED.emit(false)
+  Test::talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
+  Test::expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
 }
 
 // Many options: a Stormwind guard's
 
 // A guard's directions: seventeen places.
-function guard(): Test.Npc {
-  let options: Array<Client.GossipOptionUIInfo> = []
+function guard(): Test::Npc {
+  let options: Array<Client::GossipOptionUIInfo> = []
   for (index of 1..17) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
   return { name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options }
 }
 
 test "many options flow into columns of nine, the window wider and never past the screen's foot" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  const page = Test.page().window("Stormwind City Guard")
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  const page = Test::page().window("Stormwind City Guard")
   const first = page.text("Place 1").rect()
   const ninth = page.text("Place 9").rect()
   const tenth = page.text("Place 10").rect()
-  Test.expect(tenth.left > first.right && (tenth.top - first.top).abs() < 1 && ninth.top > first.top)
-  Test.expect(page.text("Place 17").rect().bottom < 900)
+  Test::expect(tenth.left > first.right && (tenth.top - first.top).abs() < 1 && ninth.top > first.top)
+  Test::expect(page.text("Place 17").rect().bottom < 900)
 }
 
 test "the window widens for the columns: the last one stands inside it" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  const page = Test.page().window("Stormwind City Guard")
-  Test.expect(page.text("Place 17").rect().right <= page.rect().right)
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  const page = Test::page().window("Stormwind City Guard")
+  Test::expect(page.text("Place 17").rect().right <= page.rect().right)
 }
 
 test "the keys 1–9 are the first column's as the list shows" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  Test.flush()
-  const page = Test.page().window("Stormwind City Guard")
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  Test::flush()
+  const page = Test::page().window("Stormwind City Guard")
   // One keycap a line of the first column: «1» to «9» once each.
-  Test.expect(page.text("9").count() == 1 && page.text("Tab: the keys move to the next column").shown())
-  Test.shot("a guard's seventeen places in two columns, the keys on the first")
-  _ = Test.keyBound("2")
-  Test.expect(asked() == "option 502")
+  Test::expect(page.text("9").count() == 1 && page.text("Tab: the keys move to the next column").shown())
+  Test::shot("a guard's seventeen places in two columns, the keys on the first")
+  _ = Test::keyBound("2")
+  Test::expect(asked() == "option 502")
 }
 
 test "Tab gives the keys to the next column" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  Test.flush()
-  _ = Test.key(Test.Move.Next)
-  Test.flush()
-  _ = Test.keyBound("2")
-  Test.expect(asked() == "option 511")
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  Test::flush()
+  _ = Test::key(Test::Move::Next)
+  Test::flush()
+  _ = Test::keyBound("2")
+  Test::expect(asked() == "option 511")
 }
 
 test "Shift+Tab gives them back to the column before" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  Test.flush()
-  _ = Test.key(Test.Move.Next)
-  Test.flush()
-  _ = Test.key(Test.Move.Back)
-  Test.flush()
-  _ = Test.keyBound("3")
-  Test.expect(asked() == "option 503")
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  Test::flush()
+  _ = Test::key(Test::Move::Next)
+  Test::flush()
+  _ = Test::key(Test::Move::Back)
+  Test::flush()
+  _ = Test::keyBound("3")
+  Test::expect(asked() == "option 503")
 }
 
 test "past nine lines no key but 1–9 is the window's" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  Test.flush()
-  Test.expect(!Test.keyBound("0") && !Test.keyBound("Q"))
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  Test::flush()
+  Test::expect(!Test::keyBound("0") && !Test::keyBound("Q"))
 }
 
 test "a list the digits reach has one column and no word of Tab" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.flush()
-  Test.expect(!window().text("Tab: the keys move to the next column").shown())
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::flush()
+  Test::expect(!window().text("Tab: the keys move to the next column").shown())
 }
 
 // The scroll from its sheet's top left corner to its bottom right.
-function scrollOf(page: Test.Part): Test.Rect {
+function scrollOf(page: Test::Part): Test::Rect {
   const top = page.box(SHEET_ART.topLeft).rect()
   const bottom = page.box(SHEET_ART.bottomRight).rect()
   return { left: top.left, right: bottom.right, top: top.top, bottom: bottom.bottom }
 }
 
 test "the NPC's words stand on the window, no parchment: it holds the lore alone" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
-  const page = Test.page().window("Stormwind City Guard")
-  Test.expect(page.text("Where would you like to go?").shown())
-  Test.expect(!page.box(SHEET_ART.topLeft).shown())
-  Test.shot("the guard's words and list on the window, without the parchment")
+  Test::mount(nil, SCREEN)
+  Test::talk(guard())
+  const page = Test::page().window("Stormwind City Guard")
+  Test::expect(page.text("Where would you like to go?").shown())
+  Test::expect(!page.box(SHEET_ART.topLeft).shown())
+  Test::shot("the guard's words and list on the window, without the parchment")
 }
 
 test "over the well the scroll is as high as its words, from its least height up" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ text: "Short.", ..pie() })
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ text: "Short.", ..pie() })
+  Events::QUEST_DETAIL.emit(nil)
   const short = scrollOf(window())
-  Test.quest({ text: "Maggie bakes a pie each morning.\n\nShe needs apples.\n\nAnd flour.\n\nAnd a good oven.\n\nBring them.", ..pie() })
-  Events.QUEST_DETAIL.emit(nil)
+  Test::quest({ text: "Maggie bakes a pie each morning.\n\nShe needs apples.\n\nAnd flour.\n\nAnd a good oven.\n\nBring them.", ..pie() })
+  Events::QUEST_DETAIL.emit(nil)
   const longer = scrollOf(window())
   // Its words all shown, none scrolled away: the scroll grows, the window with it, and it stays on the screen.
-  Test.expect(longer.bottom - longer.top > short.bottom - short.top + 200)
-  Test.expect(window().rect().bottom <= 900)
+  Test::expect(longer.bottom - longer.top > short.bottom - short.top + 200)
+  Test::expect(window().rect().bottom <= 900)
 }
 
 test "the scroll stands at one size, 5:3, on every quest page" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest({ text: "Short.", ..pie() })
-  Events.QUEST_DETAIL.emit(nil)
+  Test::mount(nil, SCREEN)
+  Test::talk(innkeeper())
+  Test::quest({ text: "Short.", ..pie() })
+  Events::QUEST_DETAIL.emit(nil)
   const page = window()
   const listed = scrollOf(page)
   const height = listed.bottom - listed.top
-  Test.expect(height > 150)
-  Test.expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
+  Test::expect(height > 150)
+  Test::expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
   // The words stand on the paper, inside its torn edges.
   const paper = page.box(SHEET_ART.middle).rect()
   const words = page.text("A Pie for Maggie").rect()
-  Test.expect(words.top >= paper.top && words.bottom <= paper.bottom)
-  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.05 && words.right - words.left > 50)
+  Test::expect(words.top >= paper.top && words.bottom <= paper.bottom)
+  Test::expect(words.left >= listed.left + (listed.right - listed.left) * 0.05 && words.right - words.left > 50)
   // A long quest's page keeps the same size (its text scrolls).
-  Test.quest(pie())
-  Events.QUEST_DETAIL.emit(nil)
+  Test::quest(pie())
+  Events::QUEST_DETAIL.emit(nil)
   const quest = scrollOf(window())
-  Test.expect((listed.bottom - listed.top - (quest.bottom - quest.top)).abs() < 0.5)
+  Test::expect((listed.bottom - listed.top - (quest.bottom - quest.top)).abs() < 0.5)
 }
 
 // What the client knows of the reward: it binds as it is worn (its fourteenth value 2).
-function bindingReward(item: String | Integer): (String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) {
+function bindingReward(item: String | Integer): (String | nil, String | nil, Client::ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) {
   return "Bread", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 2, nil, nil, nil, nil
 }
 
 test "a reward that binds as it is worn is left in the bags, and the chat says so: binding it is the player's choice" {
-  Test.mount(nil, SCREEN)
-  Dialogue.settings.values.autoComplete = Auto.Picked
+  Test::mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto::Picked
   let equipped: Array<String> = []
-  Client.GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
-  Client.C_Item.GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => 1
-  Client.C_Item.EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String.of(item)) }
-  Client.C_Item.GetItemInfo = bindingReward
+  Client::GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
+  Client::C_Item::GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => 1
+  Client::C_Item::EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String::of(item)) }
+  Client::C_Item::GetItemInfo = bindingReward
   Dialogue.upgradeOf = (link: String): Number | nil => 0.3
-  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
-  Test.talk(innkeeper())
+  Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
-  Events.QUEST_PROGRESS.emit()
-  Events.QUEST_COMPLETE.emit()
-  _ = Test.printed()
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(equipped.length == 0 && Test.printed().join(" ").contains("binds when worn"))
+  Events::QUEST_PROGRESS.emit()
+  Events::QUEST_COMPLETE.emit()
+  _ = Test::printed()
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(equipped.length == 0 && Test::printed().join(" ").contains("binds when worn"))
 }

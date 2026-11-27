@@ -25,11 +25,11 @@ public class LookPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_SLOTS}>
-        <NumberInput label={Locale.SLOT_SIZE} hint={Locale.SLOT_SIZE_TIP} value={mut self.slotSize} least={SLOT_SIZE_LEAST}
+      <Section title={Locale::SECTION_SLOTS}>
+        <NumberInput label={Locale::SLOT_SIZE} hint={Locale::SLOT_SIZE_TIP} value={mut self.slotSize} least={SLOT_SIZE_LEAST}
                      most={SLOT_SIZE_MOST} />
-        <NumberInput label={Locale.SLOT_GAP} hint={Locale.SLOT_GAP_TIP} value={mut self.slotGap} least={0} most={SLOT_GAP_MOST} />
-        <NumberInput label={Locale.ROW_LEAST} hint={Locale.ROW_LEAST_TIP} value={mut self.rowLeast} least={ROW_LEAST}
+        <NumberInput label={Locale::SLOT_GAP} hint={Locale::SLOT_GAP_TIP} value={mut self.slotGap} least={0} most={SLOT_GAP_MOST} />
+        <NumberInput label={Locale::ROW_LEAST} hint={Locale::ROW_LEAST_TIP} value={mut self.rowLeast} least={ROW_LEAST}
                      most={ROW_LEAST_MOST} />
       </Section>
     }
@@ -43,7 +43,7 @@ public class ConveniencePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SELL_JUNK_AUTO} hint={Locale.SELL_JUNK_AUTO_TIP} value={mut self.sellJunk} />
+      <Switch label={Locale::SELL_JUNK_AUTO} hint={Locale::SELL_JUNK_AUTO_TIP} value={mut self.sellJunk} />
     }
   }
 }
@@ -55,16 +55,16 @@ public class LootPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_LOOT_FAST}>
-        <Switch label={Locale.LOOT_FAST} hint={Locale.LOOT_FAST_TIP} value={mut self.choices.fast} />
-        <Switch label={Locale.LOOT_EVERY} hint={Locale.LOOT_EVERY_TIP} value={mut self.choices.everyCharacter} />
+      <Section title={Locale::SECTION_LOOT_FAST}>
+        <Switch label={Locale::LOOT_FAST} hint={Locale::LOOT_FAST_TIP} value={mut self.choices.fast} />
+        <Switch label={Locale::LOOT_EVERY} hint={Locale::LOOT_EVERY_TIP} value={mut self.choices.everyCharacter} />
       </Section>
-      <Section title={Locale.SECTION_LOOT_SOUNDS}>
-        <Switch label={Locale.LOOT_FULL_SOUND} hint={Locale.LOOT_FULL_SOUND_TIP} value={mut self.choices.fullSound} />
-        <Switch label={Locale.LOOT_REEL_SOUND} hint={Locale.LOOT_REEL_SOUND_TIP} value={mut self.choices.reelSound} />
+      <Section title={Locale::SECTION_LOOT_SOUNDS}>
+        <Switch label={Locale::LOOT_FULL_SOUND} hint={Locale::LOOT_FULL_SOUND_TIP} value={mut self.choices.fullSound} />
+        <Switch label={Locale::LOOT_REEL_SOUND} hint={Locale::LOOT_REEL_SOUND_TIP} value={mut self.choices.reelSound} />
       </Section>
-      <Section title={Locale.SECTION_LOOT_SHOWN}>
-        <Switch label={Locale.LOOT_TOASTS_ON} hint={Locale.LOOT_TOASTS_ON_TIP} value={mut self.choices.toasts} />
+      <Section title={Locale::SECTION_LOOT_SHOWN}>
+        <Switch label={Locale::LOOT_TOASTS_ON} hint={Locale::LOOT_TOASTS_ON_TIP} value={mut self.choices.toasts} />
       </Section>
     }
   }
@@ -82,17 +82,17 @@ public class JunkPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_RULES}>
-        <Switch label={Locale.RULE_GREY} hint={Locale.RULE_GREY_TIP} value={mut self.rules.grey} />
-        <NumberInput label={Locale.RULE_GREY_LEVEL} hint={Locale.RULE_GREY_LEVEL_TIP} value={mut self.rules.greyGearLevel}
+      <Section title={Locale::SECTION_RULES}>
+        <Switch label={Locale::RULE_GREY} hint={Locale::RULE_GREY_TIP} value={mut self.rules.grey} />
+        <NumberInput label={Locale::RULE_GREY_LEVEL} hint={Locale::RULE_GREY_LEVEL_TIP} value={mut self.rules.greyGearLevel}
                      least={0} most={100} disabled={!self.rules.grey} />
       </Section>
-      <Section title={Locale.SECTION_LEARNING}>
-        <Switch label={Locale.RULE_LEARN} hint={Locale.RULE_LEARN_TIP} value={mut self.rules.learn} />
-        <Switch label={Locale.RULE_CHAT} hint={Locale.RULE_CHAT_TIP} value={mut self.rules.chat} />
+      <Section title={Locale::SECTION_LEARNING}>
+        <Switch label={Locale::RULE_LEARN} hint={Locale::RULE_LEARN_TIP} value={mut self.rules.learn} />
+        <Switch label={Locale::RULE_CHAT} hint={Locale::RULE_CHAT_TIP} value={mut self.rules.chat} />
         <box columns={2} gap={3sp}>
-          <PushButton label={Locale.FORGET_LEARNED} width={BUTTON} @click={self.onForgetLearned} />
-          <PushButton label={Locale.FORGET_MARKS} width={BUTTON} @click={self.onForgetMarks} />
+          <PushButton label={Locale::FORGET_LEARNED} width={BUTTON} @click={self.onForgetLearned} />
+          <PushButton label={Locale::FORGET_MARKS} width={BUTTON} @click={self.onForgetMarks} />
         </box>
       </Section>
     }
@@ -148,13 +148,13 @@ public class ClicksPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_CLICKS}>
-        <text value={Locale.CLICKS_TIP} />
+      <Section title={Locale::SECTION_CLICKS}>
+        <text value={Locale::CLICKS_TIP} />
         <ChordRow $for={row of self.rows} $key={row.key} chord={peek row.chord} choices={peek row.choices}
                   clicks={mut self.clicks} />
         <box columns={2} gap={3sp}>
-          <PushButton label={Locale.PRESET_OURS} width={BUTTON} @click={self.onOurs} />
-          <PushButton label={Locale.PRESET_GAME} width={BUTTON} @click={self.onGame} />
+          <PushButton label={Locale::PRESET_OURS} width={BUTTON} @click={self.onOurs} />
+          <PushButton label={Locale::PRESET_GAME} width={BUTTON} @click={self.onGame} />
         </box>
       </Section>
     }

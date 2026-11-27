@@ -1,12 +1,12 @@
 // The colours Ordaen Tooltips writes in, and a colour of the game's as a line's own.
 
-public const RED: Color = Color.hex("#ff4040")
-public const GOLD: Color = Color.hex("#ffd100")
-public const YELLOW: Color = Color.hex("#ffd100")
-public const GREEN: Color = Color.hex("#1eff00")
-public const GREY: Color = Color.hex("#808080")
+public const RED: Color = Color::hex("#ff4040")
+public const GOLD: Color = Color::hex("#ffd100")
+public const YELLOW: Color = Color::hex("#ffd100")
+public const GREEN: Color = Color::hex("#1eff00")
+public const GREY: Color = Color::hex("#808080")
 // A label: quieter than the body.
-public const LABEL: Color = Color.hex("#cbb994")
+public const LABEL: Color = Color::hex("#cbb994")
 
 // A colour as the game's markup takes it: `|c<this>text|r`.
 public function hex(color: Color): String {

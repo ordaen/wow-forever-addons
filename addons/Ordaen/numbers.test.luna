@@ -9,17 +9,17 @@ const SAMPLES: Array<Number> = [0, 1795, 2.5, 1234567.089, 0.25, 0.004, -3.14159
 function written(title: String) {
   let parts: Array<String> = []
   for (n of SAMPLES) { parts.push(number(n).replace("\194\160", "_")) }
-  Test.note(`${title}:`)
-  for (part of parts) { Test.note(`  ${part}`) }
+  Test::note(`${title}:`)
+  for (part of parts) { Test::note(`  ${part}`) }
 }
 
 test "a number is written by Ordaen's number settings" {
   written("as it starts (a space between thousands, shown _; two decimals)")
 
-  Ordaen.globals.values.numberFormat = NumberFormat.Comma
+  Ordaen.globals.values.numberFormat = NumberFormat::Comma
   written("commas between thousands")
 
-  Ordaen.globals.values.numberFormat = NumberFormat.Dot
+  Ordaen.globals.values.numberFormat = NumberFormat::Dot
   Ordaen.globals.values.numberPrecision = 1
   written("dots between thousands, a comma before the decimals, one decimal")
 

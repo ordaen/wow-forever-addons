@@ -16,10 +16,10 @@ import { BRIGHT_TEXT, TITLE_TEXT } from "@/units"
 // As wide as what it says, up to its most at the frame's line: a long text wraps there.
 const MOST = 468.75dp
 const NAME: Color = BRIGHT_TEXT
-const LABEL: Color = Color.hex("#cbb994")
-const HEADING: Color = Color.hex("#ffd100")
+const LABEL: Color = Color::hex("#cbb994")
+const HEADING: Color = Color::hex("#ffd100")
 // How a row's value is worked out, dimmed before it.
-const WORKING: Color = Color.hex("#8c8270")
+const WORKING: Color = Color::hex("#8c8270")
 const BY_ITS_BOX: Beside = { beside: "parent" }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 // A row's picture, its label and the word after it, side by side at the row's start.
@@ -110,13 +110,13 @@ class TipLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={3sp} yAlign={Align.Center}>
-        <box columns={MARKED} gap={2sp} yAlign={Align.Center}>
+      <box columns={ROW} gap={3sp} yAlign={Align::Center}>
+        <box columns={MARKED} gap={2sp} yAlign={Align::Center}>
           <box $if={self.iconed} width={ICON} height={ICON} icon={self.row.icon} />
           <text value={self.row.label} textColor={self.ink} />
           <text $if={self.row.mark.text != ""} value={self.row.mark.text} textColor={self.row.mark.color} />
         </box>
-        <box $if={self.worked} columns={MARKED} gap={1sp} yAlign={Align.Center}>
+        <box $if={self.worked} columns={MARKED} gap={1sp} yAlign={Align::Center}>
           <text value={self.row.working} textColor={WORKING} wrap={.None} textFont={.Numbers} />
           <text value={self.row.value} textColor={self.valueInk} wrap={.None} textFont={.Numbers} />
         </box>
@@ -153,7 +153,7 @@ public class Tip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Tight} layer={Layer.Tooltip} place={self.place} clamp={true} width={self.width}
+      <surface leading={.Tight} layer={Layer::Tooltip} place={self.place} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={5sp} columns={1} gap={2sp}>
         <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} leading={.Title} />

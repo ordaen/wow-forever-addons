@@ -14,21 +14,21 @@ import { KeptWindow, Occasion, WindowView } from "@/window"
 
 const SIDEBAR = 234.375dp
 const COLUMNS: Array<Track> = [SIDEBAR, { fr: 1 }]
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 // How far the numbers go: a place from the screen's centre, a size of the body.
 const FAR = 4000
 const LEAST_SIZE = 100
 const MOST_SIZE = 4000
 // What can hide a window, and show it again.
 const OCCASIONS: Array<Choice<Occasion>> = [
-  { value: Occasion.Combat, label: Locale.OCCASION_COMBAT },
-  { value: Occasion.Travel, label: Locale.OCCASION_TRAVEL },
-  { value: Occasion.Moving, label: Locale.OCCASION_MOVING }
+  { value: Occasion::Combat, label: Locale::OCCASION_COMBAT },
+  { value: Occasion::Travel, label: Locale::OCCASION_TRAVEL },
+  { value: Occasion::Moving, label: Locale::OCCASION_MOVING }
 ]
 
 // The title of a module's page of its windows, in its `pages`:
 // `{ title: windowsTitle(), content: $ltml { <WindowsPage windows={[self.window]} /> } }`.
-public function windowsTitle(): String { return Locale.WINDOWS_TAB }
+public function windowsTitle(): String { return Locale::WINDOWS_TAB }
 
 // The tabs a window opens on, offered, and what tells one offer from the next.
 struct Offer {
@@ -96,7 +96,7 @@ public class WindowsPage implements Component {
   }
 
   tabChoicesOf(self): Array<Choice<Integer>> {
-    const list: Array<Choice<Integer>> = [{ value: 0, label: Locale.WINDOW_LAST_TAB }]
+    const list: Array<Choice<Integer>> = [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
     const window = self.windows[self.current]
     if (window == nil) { return list }
     for (index, title of window.tabs) { list.push({ value: index, label: title }) }
@@ -153,22 +153,22 @@ public class WindowsPage implements Component {
                       @picked={self.onPick} />
         </box>
         <box columns={1} gap={3sp}>
-          <Checkbox label={Locale.WINDOW_REMEMBER} hint={Locale.WINDOW_REMEMBER_TIP} value={mut self.remember} />
-          <Checkbox label={Locale.WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
-          <NumberInput label={Locale.WINDOW_X} value={mut self.x} least={-FAR} most={FAR} unit={Unit.Px}
+          <Checkbox label={Locale::WINDOW_REMEMBER} hint={Locale::WINDOW_REMEMBER_TIP} value={mut self.remember} />
+          <Checkbox label={Locale::WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
+          <NumberInput label={Locale::WINDOW_X} value={mut self.x} least={-FAR} most={FAR} unit={Unit::Px}
                        disabled={self.fixed} />
-          <NumberInput label={Locale.WINDOW_Y} value={mut self.y} least={-FAR} most={FAR} unit={Unit.Px}
+          <NumberInput label={Locale::WINDOW_Y} value={mut self.y} least={-FAR} most={FAR} unit={Unit::Px}
                        disabled={self.fixed} />
-          <NumberInput label={Locale.WINDOW_WIDTH} value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE}
-                       unit={Unit.Px} disabled={self.fixed} />
-          <NumberInput label={Locale.WINDOW_HEIGHT} value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE}
-                       unit={Unit.Px} disabled={self.fixed} />
-          <Dropdown $for={each of self.offers} $key={each.key} label={Locale.WINDOW_OPEN_ON}
+          <NumberInput label={Locale::WINDOW_WIDTH} value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE}
+                       unit={Unit::Px} disabled={self.fixed} />
+          <NumberInput label={Locale::WINDOW_HEIGHT} value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE}
+                       unit={Unit::Px} disabled={self.fixed} />
+          <Dropdown $for={each of self.offers} $key={each.key} label={Locale::WINDOW_OPEN_ON}
                     value={mut self.openOn} choices={peek each.choices} />
-          <ManyDropdown label={Locale.WINDOW_HIDE_DURING} hint={Locale.WINDOW_HIDE_DURING_TIP}
-                        value={mut self.hideDuring} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
-          <ManyDropdown label={Locale.WINDOW_SHOW_AFTER} hint={Locale.WINDOW_SHOW_AFTER_TIP}
-                        value={mut self.showAfter} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
+          <ManyDropdown label={Locale::WINDOW_HIDE_DURING} hint={Locale::WINDOW_HIDE_DURING_TIP}
+                        value={mut self.hideDuring} choices={OCCASIONS} none={Locale::WINDOW_NEVER} />
+          <ManyDropdown label={Locale::WINDOW_SHOW_AFTER} hint={Locale::WINDOW_SHOW_AFTER_TIP}
+                        value={mut self.showAfter} choices={OCCASIONS} none={Locale::WINDOW_NEVER} />
         </box>
       </box>
     }

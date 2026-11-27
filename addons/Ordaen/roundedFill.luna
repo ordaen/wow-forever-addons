@@ -7,7 +7,7 @@ import { Art, Position } from "$ltml"
 import { Component } from "@/module"
 
 // The dark ground on the world: black, the world a little through it; and how round its corners are.
-public const GROUND: Color = Color.hex("#000000cc")
+public const GROUND: Color = Color::hex("#000000cc")
 public const GROUND_ROUND = 7.03125dp
 
 // Which corners of a rounded fill are round; a corner that isn't is square.
@@ -42,27 +42,27 @@ public class RoundedFill implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} mouseThrough={true}>
-        <box position={Position.Absolute} left={self.radius} right={self.radius} top={0ui} bottom={0ui} background={self.art}
+      <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} mouseThrough={true}>
+        <box position={Position::Absolute} left={self.radius} right={self.radius} top={0ui} bottom={0ui} background={self.art}
              tint={self.color} />
-        <box position={Position.Absolute} left={0ui} width={self.radius} top={self.radius} bottom={self.radius}
+        <box position={Position::Absolute} left={0ui} width={self.radius} top={self.radius} bottom={self.radius}
              background={self.art} tint={self.color} />
-        <box position={Position.Absolute} right={0ui} width={self.radius} top={self.radius} bottom={self.radius}
+        <box position={Position::Absolute} right={0ui} width={self.radius} top={self.radius} bottom={self.radius}
              background={self.art} tint={self.color} />
-        <box position={Position.Absolute} left={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={self.across} height={self.across} background={self.art}
+        <box position={Position::Absolute} left={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
+          <box position={Position::Absolute} left={0ui} top={0ui} width={self.across} height={self.across} background={self.art}
                tint={self.color} mask={self.corners.topLeft ? ROUND : nil} />
         </box>
-        <box position={Position.Absolute} right={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
-          <box position={Position.Absolute} left={-self.radius} top={0ui} width={self.across} height={self.across}
+        <box position={Position::Absolute} right={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
+          <box position={Position::Absolute} left={-self.radius} top={0ui} width={self.across} height={self.across}
                background={self.art} tint={self.color} mask={self.corners.topRight ? ROUND : nil} />
         </box>
-        <box position={Position.Absolute} left={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
-          <box position={Position.Absolute} left={0ui} top={-self.radius} width={self.across} height={self.across}
+        <box position={Position::Absolute} left={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
+          <box position={Position::Absolute} left={0ui} top={-self.radius} width={self.across} height={self.across}
                background={self.art} tint={self.color} mask={self.corners.bottomLeft ? ROUND : nil} />
         </box>
-        <box position={Position.Absolute} right={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
-          <box position={Position.Absolute} left={-self.radius} top={-self.radius} width={self.across} height={self.across}
+        <box position={Position::Absolute} right={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
+          <box position={Position::Absolute} left={-self.radius} top={-self.radius} width={self.across} height={self.across}
                background={self.art} tint={self.color} mask={self.corners.bottomRight ? ROUND : nil} />
         </box>
       </box>

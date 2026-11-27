@@ -70,30 +70,30 @@ class Picking {
 
 test "a row picked is gold, the other shaded only under the cursor; a click picks" {
   let page = new Picking()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
-  Test.page().text("Ally two").click()
-  Test.expect(page.picked == 2 && page.picks == 1)
-  Test.expect(Test.page().text("Ally two").item().paintedWith(PICKED_ROW))
-  Test.expect(!Test.page().text("Ally one").item().paintedWith(PICKED_ROW))
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test::page().text("Ally two").click()
+  Test::expect(page.picked == 2 && page.picks == 1)
+  Test::expect(Test::page().text("Ally two").item().paintedWith(PICKED_ROW))
+  Test::expect(!Test::page().text("Ally one").item().paintedWith(PICKED_ROW))
 }
 
 test "a card's line says its label and its value; a caption folds; a button with a picture is pressed" {
   let page = new Picking()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
-  Test.expect(Test.page().text("Where").shown() && Test.page().text("Ironforge").shown())
-  Test.page().text("Trade goods").click()
-  Test.expect(page.folded)
-  Test.expect(Test.page().button("Repair an item").paintedWith(HAMMER))
-  Test.page().button("Repair an item").click()
-  Test.expect(page.clicks == 1)
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test::expect(Test::page().text("Where").shown() && Test::page().text("Ironforge").shown())
+  Test::page().text("Trade goods").click()
+  Test::expect(page.folded)
+  Test::expect(Test::page().button("Repair an item").paintedWith(HAMMER))
+  Test::page().button("Repair an item").click()
+  Test::expect(page.clicks == 1)
 }
 
 test "how long ago: never under a minute, then hours, then days" {
-  Game.clock.server = 1000000
-  Test.expect(agoText(1000000 - 10) == "1 min ago")
-  Test.expect(agoText(1000000 - 7200) == "2 h ago")
-  Test.expect(agoText(1000000 - 3 * 86400) == "3 d ago")
-  Test.expect(hoursAgoText(5) == "5 h ago" && hoursAgoText(50) == "2 d ago")
+  Game::clock.server = 1000000
+  Test::expect(agoText(1000000 - 10) == "1 min ago")
+  Test::expect(agoText(1000000 - 7200) == "2 h ago")
+  Test::expect(agoText(1000000 - 3 * 86400) == "3 d ago")
+  Test::expect(hoursAgoText(5) == "5 h ago" && hoursAgoText(50) == "2 d ago")
 }
 
 class Listing {
@@ -127,20 +127,20 @@ class Listing {
 
 test "a table with no rows says what its owner gives, and nothing once it has rows" {
   let page = new Listing()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 400 })
-  Test.expect(Test.page().text("Nothing found").shown())
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 400 })
+  Test::expect(Test::page().text("Nothing found").shown())
   page.names = ["Thrall"]
-  Test.expect(!Test.page().text("Nothing found").shown() && Test.page().text("Thrall").shown())
+  Test::expect(!Test::page().text("Nothing found").shown() && Test::page().text("Thrall").shown())
 }
 
 test "the toolbar's sort offers the sortable columns with a heading, then the sorts no column shows, and sorts the table" {
   const choices = sortChoices(COLUMNS, ["Class"])
-  Test.expect(choices.length == 2 && choices[1]?.value == 1 && choices[2]?.value == 4 && choices[2]?.label == "Class")
+  Test::expect(choices.length == 2 && choices[1]?.value == 1 && choices[2]?.value == 4 && choices[2]?.label == "Class")
   let page = new Listing()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 400 })
-  Test.page().button(Ordaen.art.ctl.tool.sort).click()
-  Test.page().text("Class").click()
-  Test.expect(page.sorted == 4)
-  Test.page().text("Name").click()
-  Test.expect(page.sorted == 1)
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 400 })
+  Test::page().button(Ordaen.art.ctl.tool.sort).click()
+  Test::page().text("Class").click()
+  Test::expect(page.sorted == 4)
+  Test::page().text("Name").click()
+  Test::expect(page.sorted == 1)
 }

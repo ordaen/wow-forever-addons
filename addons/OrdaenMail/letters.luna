@@ -18,14 +18,14 @@ public enum Filter implements Plain { All = "all", Players = "players", Auction 
 public enum View implements Plain { List = "list", Categories = "categories", Table = "table" }
 
 // Whether a letter passes the filter and the search (a part of its subject, its sender or an item's name).
-public function matches(letter: Game.MailLetter, filter: Filter, search: String): Boolean {
+public function matches(letter: Game::MailLetter, filter: Filter, search: String): Boolean {
   const kept = match (filter) {
-    Filter.All => true
-    Filter.Players => letter.kind == Game.MailKind.Player
-    Filter.Auction => letter.kind == Game.MailKind.Auction
-    Filter.System => letter.kind == Game.MailKind.System
-    Filter.Money => letter.copper > 0
-    Filter.Items => letter.items.length > 0
+    Filter::All => true
+    Filter::Players => letter.kind == Game::MailKind::Player
+    Filter::Auction => letter.kind == Game::MailKind::Auction
+    Filter::System => letter.kind == Game::MailKind::System
+    Filter::Money => letter.copper > 0
+    Filter::Items => letter.items.length > 0
   }
   if (!kept) { return false }
   if (search == "") { return true }
@@ -36,13 +36,13 @@ public function matches(letter: Game.MailLetter, filter: Filter, search: String)
 
 // Whether «Take all» opens the letter: it holds money or items, asks nothing to be paid, and isn't a game master's
 // (those are opened by hand, as the game's own «Open all» leaves them).
-public function collectable(letter: Game.MailLetter): Boolean {
+public function collectable(letter: Game::MailLetter): Boolean {
   return letter.cod == 0 && !letter.gm && (letter.copper > 0 || letter.items.length > 0)
 }
 
 // A letter's name among the others while the inbox shifts under it (taken letters go, new ones come): its sender and
 // subject.
-public function keyOf(letter: Game.MailLetter): String { return `${letter.sender}\n${letter.subject}` }
+public function keyOf(letter: Game::MailLetter): String { return `${letter.sender}\n${letter.subject}` }
 
 public enum SentState implements Plain { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
 
@@ -61,7 +61,7 @@ public struct Sent implements Plain {
   items: Array<SentItem> = []
   copper: Integer = 0
   cod: Integer = 0
-  state: SentState = SentState.Waiting
+  state: SentState = SentState::Waiting
   // Why it stopped; empty otherwise.
   why: String = ""
   // When it was put into the queue, and when it went: the realm's seconds.
@@ -69,7 +69,7 @@ public struct Sent implements Plain {
 }
 
 // A letter not yet gone and not stopped: waiting, or on its way.
-public function waits(letter: Sent): Boolean { return letter.state == SentState.Waiting || letter.state == SentState.Sending }
+public function waits(letter: Sent): Boolean { return letter.state == SentState::Waiting || letter.state == SentState::Sending }
 
 // What is kept of the outbox, per character: the letters waiting (to survive a closed mailbox and a reload) and the
 // last letters gone, each capped; the next letter's number.

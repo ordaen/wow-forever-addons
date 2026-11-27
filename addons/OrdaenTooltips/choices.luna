@@ -29,11 +29,11 @@ public function delaySeconds(delay: Delay): Number {
 // A kind's `Lock`: held under the cursor, a tooltip of that kind locks, and stays for the cursor to come onto it.
 public struct Choices implements Plain {
   place: Place
-  delay: Delay = Delay.Short
+  delay: Delay = Delay::Short
   itemsOn: Boolean
   itemsLock: Boolean
   itemsPlace: KindPlace
-  itemsDelay: KindDelay = KindDelay.Default
+  itemsDelay: KindDelay = KindDelay::Default
   itemsIlvl: Boolean
   itemsId: Boolean
   itemsCount: Boolean
@@ -42,27 +42,27 @@ public struct Choices implements Plain {
   spellsOn: Boolean
   spellsLock: Boolean
   spellsPlace: KindPlace
-  spellsDelay: KindDelay = KindDelay.Default
+  spellsDelay: KindDelay = KindDelay::Default
   spellsId: Boolean
   spellsNext: Boolean
   spellsCooldown: Boolean
   aurasOn: Boolean
   aurasLock: Boolean
   aurasPlace: KindPlace
-  aurasDelay: KindDelay = KindDelay.Default
+  aurasDelay: KindDelay = KindDelay::Default
   aurasId: Boolean
   aurasCaster: Boolean
   aurasTotal: Boolean
   playersOn: Boolean
   playersLock: Boolean
   playersPlace: KindPlace
-  playersDelay: KindDelay = KindDelay.Default
+  playersDelay: KindDelay = KindDelay::Default
   playersTarget: Boolean
   playersRelation: Boolean
   npcsOn: Boolean
   npcsLock: Boolean
   npcsPlace: KindPlace
-  npcsDelay: KindDelay = KindDelay.Default
+  npcsDelay: KindDelay = KindDelay::Default
   npcsParty: Boolean
   npcsLoot: Boolean
   npcsRep: Boolean
@@ -71,9 +71,9 @@ public struct Choices implements Plain {
   objectsOn: Boolean
   objectsLock: Boolean
   objectsPlace: KindPlace
-  objectsDelay: KindDelay = KindDelay.Default
+  objectsDelay: KindDelay = KindDelay::Default
   textsOn: Boolean
   textsPlace: KindPlace
-  textsDelay: KindDelay = KindDelay.Default
+  textsDelay: KindDelay = KindDelay::Default
   textsExtra: Boolean
 }

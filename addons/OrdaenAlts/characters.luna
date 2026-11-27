@@ -8,13 +8,13 @@ import { Records } from "@/records"
 import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
-  { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_LEVEL, width: 75dp, align: Align.End, sortable: true },
-  { title: Locale.COL_GOLD, width: 140.625dp, align: Align.End, sortable: true },
-  { title: Locale.COL_BAGS, width: 175dp, align: Align.End, sortable: true },
-  { title: Locale.COL_SEEN, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COL_BANK, width: 138.28125dp },
-  { title: Locale.COL_MAIL, width: 150dp },
+  { title: Locale::COL_NAME, width: { fr: 2 }, sortable: true },
+  { title: Locale::COL_LEVEL, width: 75dp, align: Align::End, sortable: true },
+  { title: Locale::COL_GOLD, width: 140.625dp, align: Align::End, sortable: true },
+  { title: Locale::COL_BAGS, width: 175dp, align: Align::End, sortable: true },
+  { title: Locale::COL_SEEN, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COL_BANK, width: 138.28125dp },
+  { title: Locale::COL_MAIL, width: 150dp },
   { title: " ", width: 107.8125dp }
 ]
 const CONFIRM_WIDTH = 539.0625dp
@@ -44,11 +44,11 @@ public struct Line {
 public class CharacterRow implements Component {
   public forget: Event<CharacterId> = new Event()
 
-  derived name: Color = self.line.apart ? Style.AWAY : self.line.current ? Style.GOLD : Style.INK
-  derived seen: Color = self.line.stale ? Style.RED : Style.DIM
-  derived seenText: String = self.line.current ? Locale.NOW : Style.ago(self.line.away)
-  derived bags: String = self.line.free < 0 ? "—" : String.of(self.line.free)
-  derived mail: Color = self.line.urgent ? Style.RED : Style.DIM
+  derived name: Color = self.line.apart ? Style::AWAY : self.line.current ? Style::GOLD : Style::INK
+  derived seen: Color = self.line.stale ? Style::RED : Style::DIM
+  derived seenText: String = self.line.current ? Locale::NOW : Style::ago(self.line.away)
+  derived bags: String = self.line.free < 0 ? "—" : String::of(self.line.free)
+  derived mail: Color = self.line.urgent ? Style::RED : Style::DIM
 
   line: Signal<Line>
   constructor(line: Signal<Line>) {
@@ -61,24 +61,24 @@ public class CharacterRow implements Component {
     return $ltml {
       <TableRow>
         <TableCell> <text value={self.line.name} textColor={self.name} /> </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.line.level]} textColor={Style.INK} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.line.level]} textColor={Style::INK} wrap={.None} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money amount={self.line.money} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.bags} textColor={Style.INK} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={self.bags} textColor={Style::INK} wrap={.None} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={self.seenText} textColor={self.seen} wrap={.None} />
         </TableCell>
-        <TableCell> <text value={self.line.bank} textColor={Style.DIM} /> </TableCell>
+        <TableCell> <text value={self.line.bank} textColor={Style::DIM} /> </TableCell>
         <TableCell> <text value={self.line.mail} textColor={self.mail} /> </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           // The button's room on every row, the played character's too: the rows are of one height.
           <box height={BUTTON_HEIGHT}>
-            <PushButton $if={!self.line.current} label={Locale.FORGET} width={93.75dp} @click={self.onForget} />
+            <PushButton $if={!self.line.current} label={Locale::FORGET} width={93.75dp} @click={self.onForget} />
           </box>
         </TableCell>
       </TableRow>
@@ -109,19 +109,19 @@ public class Characters implements Component {
   linesOf(self): Array<Line> {
     // Read again when any record changed.
     _ = self.touched
-    const now = Hour.now()
+    const now = Hour::now()
     const list: Array<Line> = []
     for (who, character of self.records.characters) {
-      const bank = character.read[Place.Bank]
-      const mail = character.read[Place.Mail]
+      const bank = character.read[Place::Bank]
+      const mail = character.read[Place::Mail]
       const expires = character.mailExpires
-      let mailText = mail == nil ? Locale.NEVER_OPENED : "—"
-      if (expires != nil) { mailText = Style.until(expires - now) }
+      let mailText = mail == nil ? Locale::NEVER_OPENED : "—"
+      if (expires != nil) { mailText = Style::until(expires - now) }
       list.push({
         who: who, name: character.name, level: character.level, money: character.money,
         free: character.slots == 0 ? -1 : character.free,
         away: now - character.seen,
-        bank: bank == nil ? Locale.NEVER_OPENED : Style.ago(now - bank),
+        bank: bank == nil ? Locale::NEVER_OPENED : Style::ago(now - bank),
         mail: mailText,
         urgent: expires != nil && expires - now < 72,
         current: who == self.records.who,
@@ -153,7 +153,7 @@ public class Characters implements Component {
   questionOf(self): String {
     const who = self.asking
     if (who == nil) { return "" }
-    return Locale.FORGET_ASK.format(self.records.characters[who]?.name ?? "")
+    return Locale::FORGET_ASK.format(self.records.characters[who]?.name ?? "")
   }
 
   ask(mut self, who: CharacterId) { self.asking = who }
@@ -173,13 +173,13 @@ public class Characters implements Component {
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <CharacterRow $for={line of self.ordered} $key={line.who} line={line} @forget={self.ask} />
         </Table>
-        <box $if={self.alone} padding={Style.NOTE_ROOM}>
-          <text value={Locale.ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <box $if={self.alone} padding={Style::NOTE_ROOM}>
+          <text value={Locale::ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         </box>
-        <Dialog $if={self.asking != nil} title={Locale.FORGET_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.question} textColor={Style.INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancel} />
-          <PushButton #buttons label={Locale.FORGET} width={164.0625dp} @click={self.confirm} />
+        <Dialog $if={self.asking != nil} title={Locale::FORGET_TITLE} width={CONFIRM_WIDTH}>
+          <text value={self.question} textColor={Style::INK} />
+          <PushButton #buttons label={Locale::CANCEL} width={140.625dp} @click={self.cancel} />
+          <PushButton #buttons label={Locale::FORGET} width={164.0625dp} @click={self.confirm} />
         </Dialog>
       </box>
     }

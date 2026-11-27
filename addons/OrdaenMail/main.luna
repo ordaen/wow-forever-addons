@@ -49,11 +49,11 @@ public enum Ask {
 public class Mail implements Module, App {
   public const title: String = "Ordaen Mail"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_RULES, content: $ltml { <RulesPage alts={Alts} rules={mut self.sendRules} /> } },
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_RULES, content: $ltml { <RulesPage alts={Alts} rules={mut self.sendRules} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
@@ -73,7 +73,7 @@ public class Mail implements Module, App {
   public own: mut OwnTab
 
   state tab = TAB_INBOX
-  state letters: Array<Game.MailLetter> = []
+  state letters: Array<Game::MailLetter> = []
   state total = 0
   // The letter opened (its place in the inbox; 0 none), its text, and the letters ticked.
   state picked = 0
@@ -96,16 +96,16 @@ public class Mail implements Module, App {
   // `blockTrades` as the player had it, while ours is set.
   tradesBefore: String | nil = nil
 
-  derived open: Boolean = Game.mailObserver.open && !self.closed
+  derived open: Boolean = Game::mailObserver.open && !self.closed
   derived queue: Array<Sent> = self.sender.memory.values.queue
   derived history: Array<Sent> = self.sender.memory.values.history
   derived waiting: Integer = self.queue.count(waits)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_INBOX, desc: Locale.LETTERS_COUNT.format(self.total), icon: nil },
-    { title: Locale.TAB_SENT, desc: self.outboxDesc(), icon: nil },
-    { title: Locale.TAB_OWN, desc: nil, icon: nil, padding: NO_ROOM }
+    { title: Locale::TAB_INBOX, desc: Locale::LETTERS_COUNT.format(self.total), icon: nil },
+    { title: Locale::TAB_SENT, desc: self.outboxDesc(), icon: nil },
+    { title: Locale::TAB_OWN, desc: nil, icon: nil, padding: NO_ROOM }
   ]
-  derived current: Game.MailLetter | nil = self.letters.find(l => l.index == self.picked)
+  derived current: Game::MailLetter | nil = self.letters.find(l => l.index == self.picked)
   derived sentCurrent: Sent | nil = self.queue.find(l => l.number == self.sentPicked) ?? self.history.find(l => l.number == self.sentPicked)
   derived side: WindowSide | nil = self.sideOf()
   derived counts: Array<FooterCount> = self.countsOf()
@@ -114,7 +114,7 @@ public class Mail implements Module, App {
   // The footer: «To my characters»' own on that tab, the counts on the others.
   const footer: Template = $ltml {
     <$if={self.tab == TAB_OWN}> {self.own.footer} </>
-    <box $else padding={FOOTER_ROOM} yAlign={Align.Center}>
+    <box $else padding={FOOTER_ROOM} yAlign={Align::Center}>
       <FooterCounts counts={self.counts} />
     </box>
   }
@@ -123,25 +123,25 @@ public class Mail implements Module, App {
     self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, self.sender)
     self.own.configure.listen(self.onSettings)
     Ordaen.modules.add(self)
-    Game.mailObserver.opened.listen(self.onOpened)
-    Game.mailObserver.changed.listen(self.refresh)
-    Game.mailObserver.sent.listen(self.onSent)
+    Game::mailObserver.opened.listen(self.onOpened)
+    Game::mailObserver.changed.listen(self.refresh)
+    Game::mailObserver.sent.listen(self.onSent)
     self.collector.taking.listen(self.noteTaken)
-    watch (open of Game.mailObserver.open) {
+    watch (open of Game::mailObserver.open) {
       if (!open) { self.onMailClosed() }
     }
-    if (peek Game.mailObserver.open) { self.onOpened() }
+    if (peek Game::mailObserver.open) { self.onOpened() }
   }
 
   // A letter of the auction house's taken from: written into Ordaen Trading's sales ledger once (its invoice, a sale or
   // a purchase; an auction back unsold where it has none), while Ordaen Trading is on.
-  noteTaken(mut self, letter: Game.MailLetter) {
-    if (letter.kind != Game.MailKind.Auction) { return }
+  noteTaken(mut self, letter: Game::MailLetter) {
+    if (letter.kind != Game::MailKind::Auction) { return }
     const auction = Trading
     const key = keyOf(letter)
     if (auction == nil || self.ledgered.any(k => k == key)) { return }
     self.ledgered.push(key)
-    const kind, item, other, bid, _, _, _, _, _, _, many = Client.GetInboxInvoiceInfo(letter.index)
+    const kind, item, other, bid, _, _, _, _, _, _, many = Client::GetInboxInvoiceInfo(letter.index)
     if (kind != nil) {
       auction.ledger.record({ kind: kind, item: item ?? "", other: other, copper: (bid ?? 0).floor(), count: (many ?? 1).floor() })
       return
@@ -150,20 +150,20 @@ public class Mail implements Module, App {
   }
 
   outboxDesc(self): String {
-    return self.waiting > 0 ? Locale.WAITING_COUNT.format(self.waiting) : Locale.SENT_COUNT.format(self.history.length)
+    return self.waiting > 0 ? Locale::WAITING_COUNT.format(self.waiting) : Locale::SENT_COUNT.format(self.history.length)
   }
 
   countsOf(self): Array<FooterCount> {
     if (self.tab == TAB_OUTBOX) {
       return [
-        { label: Locale.COUNT_WAITING, value: String.of(self.waiting) },
-        { label: Locale.COUNT_SENT, value: String.of(self.history.length) }
+        { label: Locale::COUNT_WAITING, value: String::of(self.waiting) },
+        { label: Locale::COUNT_SENT, value: String::of(self.history.length) }
       ]
     }
-    const list: Array<FooterCount> = [{ label: Locale.COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
-    if (self.collector.money > 0) { list.push({ label: Locale.COUNT_TAKEN_MONEY, value: Game.money.format(self.collector.money) }) }
-    if (self.collector.stacks > 0) { list.push({ label: Locale.COUNT_TAKEN_ITEMS, value: String.of(self.collector.stacks) }) }
-    if (self.collector.stopped == .Full) { list.push({ label: Locale.BAGS_FULL, value: "", color: Style.RED }) }
+    const list: Array<FooterCount> = [{ label: Locale::COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
+    if (self.collector.money > 0) { list.push({ label: Locale::COUNT_TAKEN_MONEY, value: Game::money.format(self.collector.money) }) }
+    if (self.collector.stacks > 0) { list.push({ label: Locale::COUNT_TAKEN_ITEMS, value: String::of(self.collector.stacks) }) }
+    if (self.collector.stopped == .Full) { list.push({ label: Locale::BAGS_FULL, value: "", color: Style::RED }) }
     return list
   }
 
@@ -174,9 +174,9 @@ public class Mail implements Module, App {
     self.collector.reset()
     self.picked = 0
     self.ticked = []
-    const game = Runtime.frame(GAME_WINDOW)
+    const game = Runtime::frame(GAME_WINDOW)
     if (game != nil) { self.held = [game] }
-    if ((peek self.queue).any(l => l.state != SentState.Sent)) { self.window.ask(TAB_OUTBOX) }
+    if ((peek self.queue).any(l => l.state != SentState::Sent)) { self.window.ask(TAB_OUTBOX) }
     self.blockTrades(true)
     self.refresh()
   }
@@ -194,17 +194,17 @@ public class Mail implements Module, App {
   // «Don't accept trades at the mailbox»: the game's own setting, put back as the mailbox closes.
   blockTrades(mut self, on: Boolean) {
     if (on && (peek self.settings.values).blockTrades) {
-      self.tradesBefore = Client.C_CVar.GetCVar("blockTrades")
-      _ = Client.C_CVar.SetCVar("blockTrades", "1")
+      self.tradesBefore = Client::C_CVar::GetCVar("blockTrades")
+      _ = Client::C_CVar::SetCVar("blockTrades", "1")
     } else if (!on && self.tradesBefore != nil) {
-      _ = Client.C_CVar.SetCVar("blockTrades", self.tradesBefore)
+      _ = Client::C_CVar::SetCVar("blockTrades", self.tradesBefore)
       self.tradesBefore = nil
     }
   }
 
   public refresh(mut self) {
-    self.letters = Game.mailbox.letters()
-    self.total = Game.mailbox.waiting()
+    self.letters = Game::mailbox.letters()
+    self.total = Game::mailbox.waiting()
     const letters = peek self.letters
     self.ticked = (peek self.ticked).filter(i => letters.any(l => l.index == i))
     if (self.paid != "") {
@@ -218,15 +218,15 @@ public class Mail implements Module, App {
 
   // More letters wait than the server shows: asked for again a little later, where the game lets it.
   async checkLater(mut self) {
-    await Game.delay(RECHECK)
+    await Game::delay(RECHECK)
     self.recheck = nil
-    if (peek Game.mailObserver.open && peek self.total > (peek self.letters).length) { _ = Game.mailbox.check() }
+    if (peek Game::mailObserver.open && peek self.total > (peek self.letters).length) { _ = Game::mailbox.check() }
   }
 
   onSent(mut self) { play("IG_ABILITY_PAGE_TURN") }
 
   // Everything taken from these letters, one thing at a time, the bag slots the setting keeps left free.
-  takeFrom(mut self, letters: Array<Game.MailLetter>) {
+  takeFrom(mut self, letters: Array<Game::MailLetter>) {
     self.collector.start(letters, (peek self.settings.values).keepFree.floor())
   }
 
@@ -239,7 +239,7 @@ public class Mail implements Module, App {
         if (letter.cod == 0) { self.takeFrom([letter]) }
       }
       .Return => {
-        if (letter.kind == Game.MailKind.Player && !letter.deletable) { Game.mailbox.giveBack(index) }
+        if (letter.kind == Game::MailKind::Player && !letter.deletable) { Game::mailbox.giveBack(index) }
       }
     }
   }
@@ -251,7 +251,7 @@ public class Mail implements Module, App {
       return
     }
     self.picked = index
-    self.text = Game.mailbox.text(index)
+    self.text = Game::mailbox.text(index)
     play("IG_SPELLBOOK_OPEN")
   }
 
@@ -260,10 +260,10 @@ public class Mail implements Module, App {
     if (letter == nil) { return }
     match (act) {
       .TakeItem => self.take(letter, act.place)
-      .TryOn => { _ = Client.DressUpItemLink(act.link) }
+      .TryOn => { _ = Client::DressUpItemLink(act.link) }
       .TakeMoney => {
         self.noteTaken(letter)
-        Game.mailbox.takeMoney(letter.index)
+        Game::mailbox.takeMoney(letter.index)
       }
       .TakeAll => {
         const first = letter.items[1]
@@ -274,7 +274,7 @@ public class Mail implements Module, App {
         }
       }
       .GiveBack => {
-        Game.mailbox.giveBack(letter.index)
+        Game::mailbox.giveBack(letter.index)
         self.picked = 0
       }
       .Reply => self.reply(letter)
@@ -283,14 +283,14 @@ public class Mail implements Module, App {
   }
 
   // An attachment taken; with cash on delivery the player is asked to pay first (or told the money is short).
-  take(mut self, letter: Game.MailLetter, place: Integer) {
+  take(mut self, letter: Game::MailLetter, place: Integer) {
     play("IG_MAINMENU_OPTION_CHECKBOX_ON")
     if (letter.cod == 0) {
       self.noteTaken(letter)
-      Game.mailbox.takeItem(letter.index, place)
+      Game::mailbox.takeItem(letter.index, place)
       return
     }
-    if (letter.cod > Client.GetMoney()) {
+    if (letter.cod > Client::GetMoney()) {
       self.asking = .Short { copper: letter.cod }
       return
     }
@@ -300,10 +300,10 @@ public class Mail implements Module, App {
   onPayYes(mut self) {
     const ask = peek self.asking
     self.asking = nil
-    if (!(ask is Ask.Pay)) { return }
+    if (!(ask is Ask::Pay)) { return }
     const letter = (peek self.letters).find(l => l.index == ask.index)
     if (letter == nil) { return }
-    Game.mailbox.takeItem(ask.index, ask.place)
+    Game::mailbox.takeItem(ask.index, ask.place)
     self.paid = keyOf(letter)
   }
 
@@ -311,21 +311,21 @@ public class Mail implements Module, App {
 
   // A letter that holds nothing more goes: only where the inbox still has it at its place (letters shift as mail
   // arrives).
-  delete(mut self, letter: Game.MailLetter) {
-    const now = Game.mailbox.letters().find(l => l.index == letter.index)
+  delete(mut self, letter: Game::MailLetter) {
+    const now = Game::mailbox.letters().find(l => l.index == letter.index)
     if (now == nil || keyOf(now) != keyOf(letter) || now.copper > 0 || now.items.length > 0) { return }
-    Game.mailbox.delete(letter.index)
+    Game::mailbox.delete(letter.index)
     self.picked = 0
   }
 
   // «Reply»: the form, to the sender.
-  reply(mut self, letter: Game.MailLetter) {
+  reply(mut self, letter: Game::MailLetter) {
     self.writeTo = letter.sender
     self.writing = true
     self.window.ask(TAB_OUTBOX)
   }
 
-  onTakeAll(mut self, letters: Array<Game.MailLetter>) { self.takeFrom(letters) }
+  onTakeAll(mut self, letters: Array<Game::MailLetter>) { self.takeFrom(letters) }
 
   onTakeTicked(mut self) {
     const ticked = peek self.ticked
@@ -336,8 +336,8 @@ public class Mail implements Module, App {
   // The ticked players' letters go back to their senders, from the last up (the places before stay as they are).
   onReturnTicked(mut self) {
     const ticked = peek self.ticked
-    const letters = (peek self.letters).filter(l => ticked.any(i => i == l.index) && l.kind == Game.MailKind.Player && !l.deletable)
-    for (index of letters.length..1 step -1) { Game.mailbox.giveBack((letters[index] ?? panic("within")).index) }
+    const letters = (peek self.letters).filter(l => ticked.any(i => i == l.index) && l.kind == Game::MailKind::Player && !l.deletable)
+    for (index of letters.length..1 step -1) { Game::mailbox.giveBack((letters[index] ?? panic("within")).index) }
     self.ticked = []
   }
 
@@ -384,18 +384,18 @@ public class Mail implements Module, App {
   closeMail(mut self) {
     self.closed = true
     play("IG_CHARACTER_INFO_CLOSE")
-    Client.CloseMail()
+    Client::CloseMail()
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   askTextOf(self): String {
     const ask = self.asking
     return match (ask) {
       nil => ""
-      Ask.Pay => Locale.PAY_ASK.format(Game.money.format(ask.copper))
-      Ask.Short => Locale.PAY_SHORT.format(Game.money.format(ask.copper))
-      Ask.Close => Locale.CLOSE_ASK.format(ask.waiting)
+      Ask::Pay => Locale::PAY_ASK.format(Game::money.format(ask.copper))
+      Ask::Short => Locale::PAY_SHORT.format(Game::money.format(ask.copper))
+      Ask::Close => Locale::CLOSE_ASK.format(ask.waiting)
     }
   }
 
@@ -404,14 +404,14 @@ public class Mail implements Module, App {
       const letter = self.current
       if (letter == nil) { return nil }
       return {
-        width: Style.SIDE,
+        width: Style::SIDE,
         content: $ltml { <LetterView letter={self.current ?? panic("tested")} text={self.text} busy={self.busy} upgrade={self.upgrade} @act={self.onLetterAct} /> }
       }
     }
     if (self.tab != TAB_OUTBOX) { return nil }
     if (self.writing) {
       return {
-        width: Style.SIDE,
+        width: Style::SIDE,
         content: $ltml {
           <Compose sender={mut self.sender} alts={Alts} to={peek self.writeTo} @closed={self.onComposeClosed} />
         }
@@ -419,7 +419,7 @@ public class Mail implements Module, App {
     }
     if (self.sentCurrent == nil) { return nil }
     return {
-      width: Style.SIDE,
+      width: Style::SIDE,
       content: $ltml { <SentView letter={self.sentCurrent ?? panic("tested")} @remove={self.onRemoveSent} @again={self.onWriteAgain} /> }
     }
   }
@@ -436,19 +436,19 @@ public class Mail implements Module, App {
                 @pick={self.onSentPick} @write={self.onWrite} @stop={self.onStop} @resume={self.onResume} />
         <$else> {self.own.body} </>
       </Window>
-      <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
-        <text value={self.askText} textColor={Style.INK} />
-        <PushButton #buttons label={Locale.PAY} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onPayYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
+      <Dialog $if={self.asking is Ask::Pay} width={Style::ASK} title={Locale::COD_TITLE}>
+        <text value={self.askText} textColor={Style::INK} />
+        <PushButton #buttons label={Locale::PAY} width={Style::BUTTON} plate={ButtonPlate::Accent} @click={self.onPayYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::BUTTON} @click={self.onAskNo} />
       </Dialog>
-      <Dialog $if={self.asking is Ask.Short} width={Style.ASK} title={Locale.COD_TITLE}>
-        <text value={self.askText} textColor={Style.INK} />
-        <PushButton #buttons label={Locale.OKAY} width={Style.BUTTON} @click={self.onAskNo} />
+      <Dialog $if={self.asking is Ask::Short} width={Style::ASK} title={Locale::COD_TITLE}>
+        <text value={self.askText} textColor={Style::INK} />
+        <PushButton #buttons label={Locale::OKAY} width={Style::BUTTON} @click={self.onAskNo} />
       </Dialog>
-      <Dialog $if={self.asking is Ask.Close} width={Style.ASK} title={Locale.CLOSE_TITLE}>
-        <text value={self.askText} textColor={Style.INK} />
-        <PushButton #buttons label={Locale.CLOSE} width={Style.BUTTON} plate={ButtonPlate.Danger} @click={self.onCloseYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
+      <Dialog $if={self.asking is Ask::Close} width={Style::ASK} title={Locale::CLOSE_TITLE}>
+        <text value={self.askText} textColor={Style::INK} />
+        <PushButton #buttons label={Locale::CLOSE} width={Style::BUTTON} plate={ButtonPlate::Danger} @click={self.onCloseYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::BUTTON} @click={self.onAskNo} />
       </Dialog>
     }
   }
@@ -456,6 +456,6 @@ public class Mail implements Module, App {
 
 // One of the game's interface sounds, by its kit's name, as the game's mailbox window plays it.
 function play(kit: String) {
-  const id = Client.SOUNDKIT[kit]
-  if (id != nil) { _ = Client.PlaySound(id, nil, nil) }
+  const id = Client::SOUNDKIT[kit]
+  if (id != nil) { _ = Client::PlaySound(id, nil, nil) }
 }

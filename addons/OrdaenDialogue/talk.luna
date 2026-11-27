@@ -52,8 +52,8 @@ public function npcOf(guid: String | nil): Integer {
 // (`UnitPVPName` gives the name, the creature calls its type): it is the line of the unit's tooltip under its name,
 // a plain line (`TooltipDataLineType.None`), not the level's (`UnitLevel`) or the type's.
 public function speakerOf(): Speaker {
-  const name, _ = Client.UnitName("npc")
-  if (!Client.UnitExists("npc")) { return { name: name, icon: OBJECT_ICON } }
+  const name, _ = Client::UnitName("npc")
+  if (!Client::UnitExists("npc")) { return { name: name, icon: OBJECT_ICON } }
   return { name: name, subtitle: subtitleOf(), portrait: "npc" }
 }
 
@@ -61,7 +61,7 @@ public function speakerOf(): Speaker {
 const PLAIN_LINE = 0
 
 function subtitleOf(): String | nil {
-  const data = Client.C_TooltipInfo.GetUnit("npc", nil)
+  const data = Client::C_TooltipInfo::GetUnit("npc", nil)
   if (!(data is Table)) { return nil }
   const lines = data["lines"]
   if (!(lines is Table)) { return nil }
@@ -72,17 +72,17 @@ function subtitleOf(): String | nil {
   const kind = second["type"]
   if (kind is Number) { return kind == PLAIN_LINE ? text : nil }
   // A line the client gives no type: the level's has the level in it.
-  const level = String.of(Client.UnitLevel("npc").floor())
+  const level = String::of(Client::UnitLevel("npc").floor())
   if (text.contains(level)) { return nil }
   return text
 }
 
 // A quest an item in the bags starts: the item's name and icon.
 public function itemSpeaker(name: String, icon: Art | nil): Speaker {
-  return { name: name, subtitle: Locale.STARTS_QUEST, icon: icon ?? OBJECT_ICON }
+  return { name: name, subtitle: Locale::STARTS_QUEST, icon: icon ?? OBJECT_ICON }
 }
 
 // A book or a plaque read: its name.
 public function bookSpeaker(): Speaker {
-  return { name: Client.ItemTextGetItem(), subtitle: Locale.BOOK, icon: BOOK_ICON }
+  return { name: Client::ItemTextGetItem(), subtitle: Locale::BOOK, icon: BOOK_ICON }
 }

@@ -18,9 +18,9 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_LOG}>
-        <Switch label={Locale.SETTING_OWN_KEY} hint={Locale.SETTING_OWN_KEY_TIP} value={mut self.settings.values.ownKey} />
-        <Switch label={Locale.SETTING_FOLDED_SCROLL} hint={Locale.SETTING_FOLDED_SCROLL_TIP}
+      <Section title={Locale::SECTION_LOG}>
+        <Switch label={Locale::SETTING_OWN_KEY} hint={Locale::SETTING_OWN_KEY_TIP} value={mut self.settings.values.ownKey} />
+        <Switch label={Locale::SETTING_FOLDED_SCROLL} hint={Locale::SETTING_FOLDED_SCROLL_TIP}
                 value={mut self.settings.values.foldedScroll} />
       </Section>
     }

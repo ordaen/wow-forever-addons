@@ -28,8 +28,8 @@ const WIDTH = 200ui
 const ROW: Array<Track> = [ICON, { fr: 1 }]
 // The money's line is its coins alone, with no icon.
 const COINS_ROW: Array<Track> = [{ fr: 1 }]
-const BACK: Color = Color.hex("#000000aa")
-const COUNT: Color = Color.hex("#ffffff")
+const BACK: Color = Color::hex("#000000aa")
+const COUNT: Color = Color::hex("#ffffff")
 // Where the lines stand while the player never moved them: right of the screen's middle, a little up.
 const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
 
@@ -59,14 +59,14 @@ const SAMPLES: Array<Toast> = [
 // The quality of a slot's item by the client's number for it.
 function qualityOf(quality: Integer): Quality {
   return match (quality) {
-    0 => Quality.Poor
-    2 => Quality.Uncommon
-    3 => Quality.Rare
-    4 => Quality.Epic
-    5 => Quality.Legendary
-    6 => Quality.Artifact
-    7 => Quality.Heirloom
-    else => Quality.Common
+    0 => Quality::Poor
+    2 => Quality::Uncommon
+    3 => Quality::Rare
+    4 => Quality::Epic
+    5 => Quality::Legendary
+    6 => Quality::Artifact
+    7 => Quality::Heirloom
+    else => Quality::Common
   }
 }
 
@@ -74,7 +74,7 @@ function qualityOf(quality: Integer): Quality {
 class ToastLine implements Component {
   derived color: Color = qualityColor(self.toast.quality)
   derived edge: Line = { width: 1ui, color: self.color }
-  derived text: String = self.toast.coins ? Game.money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
+  derived text: String = self.toast.coins ? Game::money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
   derived age: Number = self.now - self.toast.came
   derived left: Number<Length> = self.age >= SLIDE ? 0ui : FROM * (self.age / SLIDE - 1)
   derived opacity: Number = self.age < SLIDE ? self.age / SLIDE : (self.toast.until - self.now).min(FADE).max(0) / FADE
@@ -89,16 +89,16 @@ class ToastLine implements Component {
 
   onEnter(self, frame: any Frame) {
     const link = self.toast.link
-    if (link != nil) { Game.items.showLink(frame, link) }
+    if (link != nil) { Game::items.showLink(frame, link) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.toast.coins ? COINS_ROW : ROW} gap={2sp} width={WIDTH} height={ICON} yAlign={Align.Center} background={BACK} opacity={self.opacity} left={self.left}
+      <box columns={self.toast.coins ? COINS_ROW : ROW} gap={2sp} width={WIDTH} height={ICON} yAlign={Align::Center} background={BACK} opacity={self.opacity} left={self.left}
            @pointerEnter={self.onEnter}>
         <box $if={!self.toast.coins} width={ICON} height={ICON} background={self.toast.icon} border={self.edge} />
-        <text value={self.text} textColor={self.color} wrap={TextWrap.Cut} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.color}
+        <text value={self.text} textColor={self.color} wrap={TextWrap::Cut} />
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.color}
              opacity={self.flash * 0.5} />
       </box>
     }
@@ -115,7 +115,7 @@ public class LootLines {
   purse: Integer | nil = nil
   ending: Task<nil> | nil = nil
   // The game's time, read only while a line shows: nothing is run each frame otherwise.
-  derived now: Number = self.toasts.length > 0 ? Game.clock.time : 0
+  derived now: Number = self.toasts.length > 0 ? Game::clock.time : 0
   public derived shown: Array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
   // Whether a line is shown: the lines stand in no frame otherwise.
   public derived any: Boolean = self.shown.length > 0
@@ -125,16 +125,16 @@ public class LootLines {
   constructor(on: Signal<Boolean>) {
     self.on = on
     watch (now of self.now) { self.forget(now) }
-    Game.loot.opened.listen(self.onOpened)
-    Game.loot.closed.listen(self.onClosed)
-    watch (copper of Game.money.amount) { self.onMoney(copper) }
+    Game::loot.opened.listen(self.onOpened)
+    Game::loot.closed.listen(self.onClosed)
+    watch (copper of Game::money.amount) { self.onMoney(copper) }
   }
 
   destructor() { self.stopEnding() }
 
   // A line for an item or a currency looted: one of it shown already counts up. The money is the purse's gain.
   public post(mut self, slot: LootSlot) {
-    if (!peek self.on || slot.kind == LootKind.Money) { return }
+    if (!peek self.on || slot.kind == LootKind::Money) { return }
     self.add(slot.link ?? slot.name, slot.name, slot.icon, qualityOf(slot.quality), slot.count.max(1), slot.link, slot.quest,
       false)
   }
@@ -142,7 +142,7 @@ public class LootLines {
   // A window opened: the purse counts from here, unless a window before it still waits for its money.
   onOpened(mut self, auto: Boolean) {
     self.stopEnding()
-    if (self.purse == nil) { self.purse = peek Game.money.amount }
+    if (self.purse == nil) { self.purse = peek Game::money.amount }
   }
 
   onClosed(mut self) {
@@ -151,7 +151,7 @@ public class LootLines {
   }
 
   async endPurse(mut self) {
-    await Game.delay(MONEY_AFTER)
+    await Game::delay(MONEY_AFTER)
     self.purse = nil
     self.ending = nil
   }
@@ -170,7 +170,7 @@ public class LootLines {
 
   add(mut self, key: String, name: String, icon: Art | nil, quality: Quality, count: Integer, link: String | nil, quest: Boolean,
     coins: Boolean) {
-    const now = peek Game.clock.time
+    const now = peek Game::clock.time
     const flashed = quality == .Epic || quality == .Legendary || quality == .Artifact ? now : 0
     let list: Array<Toast> = []
     let found = false
@@ -204,7 +204,7 @@ public class LootLines {
 
   // The cursor on a line keeps every line up.
   public keep(mut self) {
-    const now = peek Game.clock.time
+    const now = peek Game::clock.time
     self.toasts = (peek self.toasts).map(toast => ({ until: now + LIFE, ..toast }))
   }
 }
@@ -218,7 +218,7 @@ public class LootToasts implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Placed id={"OrdaenInventory.loot"} title={Locale.LOOT_TOASTS} home={HOME}>
+      <Placed id={"OrdaenInventory.loot"} title={Locale::LOOT_TOASTS} home={HOME}>
         <box gap={1sp} width={WIDTH} @pointerEnter={self.onHover}>
           <ToastLine $for={toast of self.lines.shown} $key={toast.key} toast={toast} now={self.lines.clock} />
         </box>

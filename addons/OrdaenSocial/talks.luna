@@ -22,7 +22,7 @@ public struct TalkLine implements Plain {
 }
 
 // When this session began: the session of every line it hears.
-public const THIS_SESSION: Number = peek Game.clock.server
+public const THIS_SESSION: Number = peek Game::clock.server
 
 // What one conversation keeps between sessions: its lines, how many of them wait unread, and whether it was closed
 // (out of the list until its person whispers again).
@@ -80,7 +80,7 @@ public function whoOf(talk: Talk, known: KnownPeople): TalkWho {
 // A character's class as the client tells it by its GUID: empty for none, or where the client doesn't know it.
 function classByGuid(guid: String): String {
   if (guid == "") { return "" }
-  let _, classFile, _, _, _, _, _, _ = Client.GetPlayerInfoByGUID(guid)
+  let _, classFile, _, _, _, _, _, _ = Client::GetPlayerInfoByGUID(guid)
   return classFile ?? ""
 }
 
@@ -99,13 +99,13 @@ public const HELD = 500
 public const KEPT = 200
 
 // Whether a chat line is a whisper: told or heard, from someone.
-public function isWhisper(line: Game.ChatLine): Boolean {
+public function isWhisper(line: Game::ChatLine): Boolean {
   return line.sender != "" && (isTold(line) || HEARD.any(kind => kind == line.kind))
 }
 
-public function isTold(line: Game.ChatLine): Boolean { return TOLD.any(kind => kind == line.kind) }
+public function isTold(line: Game::ChatLine): Boolean { return TOLD.any(kind => kind == line.kind) }
 
-public function isBattleNet(line: Game.ChatLine): Boolean { return BATTLE_NET.any(kind => kind == line.kind) }
+public function isBattleNet(line: Game::ChatLine): Boolean { return BATTLE_NET.any(kind => kind == line.kind) }
 
 // A conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
 public function talkKey(name: String, battleNet: Boolean): String {

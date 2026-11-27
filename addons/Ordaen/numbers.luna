@@ -39,10 +39,10 @@ function grouped(digits: String, group: String): String {
 }
 
 public function number(n: Number): String {
-  if (!n.finite()) { return String.of(n) }
+  if (!n.finite()) { return String::of(n) }
   let chosen = Ordaen.globals.values
-  let thousands = chosen.numberFormat == NumberFormat.Space ? NBSP : chosen.numberFormat == NumberFormat.Comma ? "," : "."
-  let point = chosen.numberFormat == NumberFormat.Dot ? "," : "."
+  let thousands = chosen.numberFormat == NumberFormat::Space ? NBSP : chosen.numberFormat == NumberFormat::Comma ? "," : "."
+  let point = chosen.numberFormat == NumberFormat::Dot ? "," : "."
   let value = n.abs()
   let text = `%.${decimalsFor(value, chosen.numberPrecision, chosen.numberRound)}f`.format(value)
   if (text.contains(".")) { text = (text.replace("0+$", "")).replace("%.$", "") }

@@ -15,30 +15,30 @@ public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent
 
 // How the player left the outbox's list: its filter, its view and its sort.
 public struct OutboxView implements Plain {
-  filter: SentFilter = SentFilter.All
-  view: View = View.List
+  filter: SentFilter = SentFilter::All
+  view: View = View::List
   sorted: Integer = 0
   descending: Boolean = false
 }
 const OUTBOX_VIEW: OutboxView = {}
 
 const FILTERS: Array<Choice<SentFilter>> = [
-  { value: SentFilter.All, label: Locale.SENT_ALL },
-  { value: SentFilter.Waiting, label: Locale.SENT_WAITING },
-  { value: SentFilter.Sent, label: Locale.SENT_SENT },
-  { value: SentFilter.Stopped, label: Locale.SENT_STOPPED }
+  { value: SentFilter::All, label: Locale::SENT_ALL },
+  { value: SentFilter::Waiting, label: Locale::SENT_WAITING },
+  { value: SentFilter::Sent, label: Locale::SENT_SENT },
+  { value: SentFilter::Stopped, label: Locale::SENT_STOPPED }
 ]
 const VIEWS: Array<Choice<View>> = [
-  { value: View.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
-  { value: View.Categories, label: Locale.VIEW_BY_RECIPIENT, icon: ARTWORK.ctl.tool.categories },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
+  { value: View::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
+  { value: View::Categories, label: Locale::VIEW_BY_RECIPIENT, icon: ARTWORK.ctl.tool.categories },
+  { value: View::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 const COLUMNS: Array<Column> = [
-  { title: Locale.COL_NUMBER, width: 46.875dp, sortable: true },
-  { title: Locale.COL_SUBJECT, width: { fr: 3 } },
-  { title: Locale.COL_TO, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_ATTACHED, width: 152.34375dp },
-  { title: Locale.COL_STATE, width: 164.0625dp, sortable: true }
+  { title: Locale::COL_NUMBER, width: 46.875dp, sortable: true },
+  { title: Locale::COL_SUBJECT, width: { fr: 3 } },
+  { title: Locale::COL_TO, width: { fr: 2 }, sortable: true },
+  { title: Locale::COL_ATTACHED, width: 152.34375dp },
+  { title: Locale::COL_STATE, width: 164.0625dp, sortable: true }
 ]
 const ROW: Array<Track> = [35.15625dp, { fr: 1 }, "max-content", "max-content"]
 const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -47,32 +47,32 @@ const BAR: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content
 
 public function stateColor(state: SentState): Color {
   return match (state) {
-    SentState.Waiting => Style.DIM
-    SentState.Sending => Style.GOLD
-    SentState.Sent => Style.GREEN
-    SentState.Stopped => Style.RED
+    SentState::Waiting => Style::DIM
+    SentState::Sending => Style::GOLD
+    SentState::Sent => Style::GREEN
+    SentState::Stopped => Style::RED
   }
 }
 
 public function stateText(letter: Sent): String {
   return match (letter.state) {
-    SentState.Waiting => Locale.STATE_WAITING
-    SentState.Sending => Locale.STATE_SENDING
-    SentState.Sent => Locale.STATE_SENT
-    SentState.Stopped => letter.why == "" ? Locale.STATE_STOPPED : Locale.STATE_STOPPED_WHY.format(letter.why)
+    SentState::Waiting => Locale::STATE_WAITING
+    SentState::Sending => Locale::STATE_SENDING
+    SentState::Sent => Locale::STATE_SENT
+    SentState::Stopped => letter.why == "" ? Locale::STATE_STOPPED : Locale::STATE_STOPPED_WHY.format(letter.why)
   }
 }
 
 public function itemsText(letter: Sent): String {
-  return letter.items.length == 0 ? "" : Locale.ITEMS_COUNT.format(letter.items.length)
+  return letter.items.length == 0 ? "" : Locale::ITEMS_COUNT.format(letter.items.length)
 }
 
 function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
   const kept = match (filter) {
-    SentFilter.All => true
-    SentFilter.Waiting => waits(letter)
-    SentFilter.Sent => letter.state == SentState.Sent
-    SentFilter.Stopped => letter.state == SentState.Stopped
+    SentFilter::All => true
+    SentFilter::Waiting => waits(letter)
+    SentFilter::Sent => letter.state == SentState::Sent
+    SentFilter::Stopped => letter.state == SentState::Stopped
   }
   if (!kept) { return false }
   if (search == "") { return true }
@@ -98,13 +98,13 @@ public class SentRow implements Component {
   public render(self): Template {
     return $ltml {
       <PickRow columns={ROW} picked={self.on} @pick={self.onPick}>
-        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={.None} />
+        <text value={"%d"} arguments={[self.letter.number]} textColor={Style::DIM} wrap={.None} />
         <box columns={1}>
-          <text value={self.letter.subject} textColor={Style.INK} wrap={.None} />
-          <text value={self.letter.to} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.letter.subject} textColor={Style::INK} wrap={.None} />
+          <text value={self.letter.to} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
         </box>
-        <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
-          <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={.None} />
+        <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align::Center}>
+          <text value={itemsText(self.letter)} textColor={Style::DIM} wrap={.None} />
           <Money $if={self.hasMoney} amount={self.letter.copper} />
         </box>
         <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={.None} />
@@ -130,10 +130,10 @@ public class SentTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow selected={self.on} @pick={self.onPick}>
-        <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={.None} /> </TableCell>
-        <TableCell> <text value={self.letter.subject} textColor={Style.INK} wrap={.Cut} /> </TableCell>
-        <TableCell> <text value={self.letter.to} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
-        <TableCell> <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style::DIM} wrap={.None} /> </TableCell>
+        <TableCell> <text value={self.letter.subject} textColor={Style::INK} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={self.letter.to} textColor={Style::DIM} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={itemsText(self.letter)} textColor={Style::DIM} wrap={.Cut} /> </TableCell>
         <TableCell> <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={.Cut} /> </TableCell>
       </TableRow>
     }
@@ -172,7 +172,7 @@ public class SentView implements Component {
   public remove: Event<Integer> = new Event()
   public again: Event<String> = new Event()
 
-  derived removable: Boolean = self.letter.state == SentState.Waiting || self.letter.state == SentState.Stopped
+  derived removable: Boolean = self.letter.state == SentState::Waiting || self.letter.state == SentState::Stopped
   derived hasMoney: Boolean = self.letter.copper > 0
   derived hasCod: Boolean = self.letter.cod > 0
 
@@ -188,28 +188,28 @@ public class SentView implements Component {
     return $ltml {
       <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
         <box columns={1} gap={1sp}>
-          <text value={self.letter.subject} textColor={Style.GOLD} />
-          <text value={Locale.TO_NAME.format(self.letter.to)} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={self.letter.subject} textColor={Style::GOLD} />
+          <text value={Locale::TO_NAME.format(self.letter.to)} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
           <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} />
         </box>
-        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+        <box columns={1} gap={2sp} overflow={Overflow::Scroll}>
           <box columns={[46.875dp, 46.875dp, 46.875dp, 46.875dp, 46.875dp, 46.875dp]} gap={1sp}>
             <ItemButton $for={index, item of self.letter.items} $key={index} item={item.item} count={item.count} />
           </box>
           <box $if={self.hasMoney} columns={[{ fr: 1 }, "max-content"]}>
-            <text value={Locale.MONEY} textColor={Style.DIM} />
+            <text value={Locale::MONEY} textColor={Style::DIM} />
             <Money amount={self.letter.copper} />
           </box>
           <box $if={self.hasCod} columns={[{ fr: 1 }, "max-content"]}>
-            <text value={Locale.COD_AMOUNT} textColor={Style.ORANGE} />
-            <Money amount={self.letter.cod} color={Style.ORANGE} />
+            <text value={Locale::COD_AMOUNT} textColor={Style::ORANGE} />
+            <Money amount={self.letter.cod} color={Style::ORANGE} />
           </box>
         </box>
-        <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} border={Style.RULE} padding={{ top: 2sp }}>
-          <PushButton $if={self.removable} label={Locale.REMOVE} width={Style.BUTTON} @click={self.onRemove} />
+        <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} border={Style::RULE} padding={{ top: 2sp }}>
+          <PushButton $if={self.removable} label={Locale::REMOVE} width={Style::BUTTON} @click={self.onRemove} />
           <box $else />
           <box />
-          <PushButton label={Locale.WRITE_AGAIN} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onAgain} />
+          <PushButton label={Locale::WRITE_AGAIN} width={Style::BUTTON} plate={ButtonPlate::Accent} @click={self.onAgain} />
         </box>
       </box>
     }
@@ -231,12 +231,12 @@ public class Outbox implements Component {
   derived groups: Array<ToGroup> = self.groupsOf()
   derived empty: Boolean = self.shown.length == 0
   derived waiting: Integer = self.queue.count(waits)
-  derived stopped: Integer = self.queue.count(l => l.state == SentState.Stopped)
+  derived stopped: Integer = self.queue.count(l => l.state == SentState::Stopped)
   derived hasQueue: Boolean = self.queue.length > 0
   derived postage: Integer = self.postageOf()
-  derived inList: Boolean = self.list.values.view == View.List
-  derived inGroups: Boolean = self.list.values.view == View.Categories
-  derived narrowed: Boolean = self.list.values.filter != SentFilter.All
+  derived inList: Boolean = self.list.values.view == View::List
+  derived inGroups: Boolean = self.list.values.view == View::Categories
+  derived narrowed: Boolean = self.list.values.filter != SentFilter::All
 
   queue: Signal<Array<Sent>>
   history: Signal<Array<Sent>>
@@ -284,7 +284,7 @@ public class Outbox implements Component {
   // What the letters not yet gone will cost.
   postageOf(self): Integer {
     let total = 0
-    for (letter of self.queue) { total += Game.mailbox.postage(letter.items.length) }
+    for (letter of self.queue) { total += Game::mailbox.postage(letter.items.length) }
     return total
   }
 
@@ -297,17 +297,17 @@ public class Outbox implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={2.5sp}>
-        <box columns={TOP} gap={2sp} yAlign={Align.Center}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_SENT}>
+        <box columns={TOP} gap={2sp} yAlign={Align::Center}>
+          <Toolbar search={mut self.search} placeholder={Locale::SEARCH_SENT}>
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
-                      title={Locale.FILTER} lit={self.narrowed} />
-            <ToolSort sorted={mut self.list.values.sorted} columns={COLUMNS} title={Locale.SORT} />
-            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+                      title={Locale::FILTER} lit={self.narrowed} />
+            <ToolSort sorted={mut self.list.values.sorted} columns={COLUMNS} title={Locale::SORT} />
+            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale::VIEW} />
           </Toolbar>
-          <PushButton label={Locale.WRITE} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onWrite} />
+          <PushButton label={Locale::WRITE} width={Style::BUTTON} plate={ButtonPlate::Accent} @click={self.onWrite} />
         </box>
-        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
+        <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
+          <text value={Locale::NOTHING_SENT} textColor={Style::DIM} />
         </box>
         <ScrolledList $elseif={self.inList} columns={1}>
           <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
@@ -321,11 +321,11 @@ public class Outbox implements Component {
         <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
           <SentTableRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
         </Table>
-        <box $if={self.hasQueue} columns={BAR} gap={2sp} yAlign={Align.Center}>
-          <PushButton label={Locale.STOP} width={Style.BUTTON} disabled={self.waiting == 0} @click={self.onStop} />
+        <box $if={self.hasQueue} columns={BAR} gap={2sp} yAlign={Align::Center}>
+          <PushButton label={Locale::STOP} width={Style::BUTTON} disabled={self.waiting == 0} @click={self.onStop} />
           <box />
           <Money amount={self.postage} />
-          <PushButton label={Locale.CONTINUE} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={self.stopped == 0}
+          <PushButton label={Locale::CONTINUE} width={Style::BUTTON} plate={ButtonPlate::Accent} disabled={self.stopped == 0}
                       @click={self.onResume} />
         </box>
         <box $else />

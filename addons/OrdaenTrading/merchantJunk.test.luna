@@ -7,12 +7,12 @@ import { Art } from "$ltml"
 import Test from "$test"
 import Locale from "@/locales"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
 const FOOT: FileId = 133854
 const CLOTH: FileId = 132889
 
 // Three grey rabbit's feet (10 copper each) and some linen in the backpack.
-function read(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+function read(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
   if (bag != 0 || slot > 2) {
     into.id = 0
     return false
@@ -39,45 +39,45 @@ function read(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
 }
 
 function atMerchant() {
-  Game.bags.bag = (bag: Integer): Game.BagInfo => {
+  Game::bags.bag = (bag: Integer): Game::BagInfo => {
     return { bag: bag, item: nil, name: bag == 0 ? "Backpack" : "", icon: nil, slots: bag == 0 ? 16 : 0, general: true }
   }
-  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 16 : 0
-  Game.bags.readSlot = read
-  Game.items.icon = (id: Integer): Art | nil => id == 3300 ? FOOT : CLOTH
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Client.CanGuildBankRepair = (): Boolean => false
+  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 16 : 0
+  Game::bags.readSlot = read
+  Game::items.icon = (id: Integer): Art | nil => id == 3300 ? FOOT : CLOTH
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Client::CanGuildBankRepair = (): Boolean => false
   // The merchant takes what the bags send it (the fake writes the ask).
-  Game.bags.send = (bag: Integer, slot: Integer): Boolean => true
-  Client.UnitName = (unit: String): (String, String) => {
+  Game::bags.send = (bag: Integer, slot: Integer): Boolean => true
+  Client::UnitName = (unit: String): (String, String) => {
     return "Tharynn", ""
   }
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   // The merchant opens the bags with its window, as the game's does: the two stand side by side.
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  Events.MERCHANT_SHOW.emit()
-  Test.flush()
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  Events::MERCHANT_SHOW.emit()
+  Test::flush()
 }
 
 test "the merchant's window sells the bags' junk from its right column, saying what it brings" {
   atMerchant()
-  Test.expect(Test.page().window("Inventory").rect().left > Test.page().window("Tharynn").rect().right)
-  _ = Test.requests()
-  Test.page().window("Tharynn").button(`${Locale.SELL_JUNK} ${Game.money.format(30)}`).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
-  Events.MERCHANT_CLOSED.emit()
+  Test::expect(Test::page().window("Inventory").rect().left > Test::page().window("Tharynn").rect().right)
+  _ = Test::requests()
+  Test::page().window("Tharynn").button(`${Locale::SELL_JUNK} ${Game::money.format(30)}`).click()
+  Test::expect(Test::requests().join(", ").contains("Bags.send 0 1"))
+  Events::MERCHANT_CLOSED.emit()
 }
 
 test "while the merchant's window shows the buyback, a slot's use in the bags sells nothing" {
   atMerchant()
-  Test.page().button(Locale.BUYBACK).click()
-  _ = Test.requests()
-  Test.page().window("Inventory").button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Test::page().button(Locale::BUYBACK).click()
+  _ = Test::requests()
+  Test::page().window("Inventory").button(CLOTH).click()
+  Test::expect(!Test::requests().join(", ").contains("Bags.send"))
   // The goods again: the cloth sells.
-  Test.page().button("Tharynn").click()
-  Test.page().window("Inventory").button(CLOTH).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 2"))
-  Events.MERCHANT_CLOSED.emit()
+  Test::page().button("Tharynn").click()
+  Test::page().window("Inventory").button(CLOTH).click()
+  Test::expect(Test::requests().join(", ").contains("Bags.send 0 2"))
+  Events::MERCHANT_CLOSED.emit()
 }

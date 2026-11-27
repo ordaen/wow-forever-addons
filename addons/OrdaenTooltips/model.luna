@@ -36,22 +36,22 @@ public function namedWith(term: Term, amount: String): Opens {
 
 // The term for a unit's side.
 public function side(faction: String): Opens {
-  if (faction == "Alliance") { return named(Term.Alliance) }
-  if (faction == "Horde") { return named(Term.Horde) }
-  return Opens.None
+  if (faction == "Alliance") { return named(Term::Alliance) }
+  if (faction == "Horde") { return named(Term::Horde) }
+  return Opens::None
 }
 
 // A piece of a title's line: the pieces are joined with « · », each in its colour.
 public struct Part {
   text: String
   color: Color | nil
-  opens: Opens = Opens.None
+  opens: Opens = Opens::None
 }
 
 // A fact of the band: its cell (Ordaen's band: its glyph before its text), and what it opens in a locked tooltip.
 public struct Fact {
   cell: BandFact
-  opens: Opens = Opens.None
+  opens: Opens = Opens::None
 }
 
 // A line of the body: a name and its value on the right, or free text that wraps.
@@ -73,7 +73,7 @@ public struct TextLine {
   // An item's stat against the one it is compared with: after its value, in brackets.
   compared: Compared | nil
   // What its name opens.
-  opens: Opens = Opens.None
+  opens: Opens = Opens::None
 }
 
 // A stat's difference from the compared item's: more or less, and by how much as shown (never signed: the mark says
@@ -91,8 +91,8 @@ public struct Note {
   // The icon before its label: a reagent's.
   icon: Art | nil = nil
   // What its label opens, and what its value does (the unit it names).
-  opens: Opens = Opens.None
-  valueOpens: Opens = Opens.None
+  opens: Opens = Opens::None
+  valueOpens: Opens = Opens::None
 }
 
 // The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.
@@ -104,7 +104,7 @@ public enum Picture {
 
 // An icon where the game has one for the thing.
 public function iconOf(art: Art | nil): Picture {
-  if (art == nil) { return Picture.None }
+  if (art == nil) { return Picture::None }
   return Picture.Icon { art: art }
 }
 
@@ -112,7 +112,7 @@ public struct Model {
   kind: Kind
   // Above the title: «Equipped» on the worn item of a comparison.
   header: String | nil
-  picture: Picture = Picture.None
+  picture: Picture = Picture::None
   name: String
   nameColor: Color
   desc: Array<Part>

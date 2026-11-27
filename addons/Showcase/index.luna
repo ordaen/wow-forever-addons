@@ -10,9 +10,9 @@ const TABS: Array<String> = ["Map", "Drawer", "Market"]
 public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 
 const HIDES: Array<Choice<Hide>> = [
-  { value: Hide.Never, label: "Never" },
-  { value: Hide.Combat, label: "In combat" },
-  { value: Hide.Transport, label: "On a mount", soon: true }
+  { value: Hide::Never, label: "Never" },
+  { value: Hide::Combat, label: "In combat" },
+  { value: Hide::Transport, label: "On a mount", soon: true }
 ]
 
 public struct Choices {
@@ -32,7 +32,7 @@ public class Showcase implements Module {
   public const title: String = "Showcase"
   public const pages: Array<SettingsPage> = []
 
-  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide.Never, name: "",
+  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "",
     exported: "Ordaen:1:drawer\nhide=never" }
   state saved = 0
   state hint = false
@@ -66,7 +66,7 @@ public class Showcase implements Module {
           <Section title={"Map"}>
             <Checkbox label={"Show the zone"} value={mut self.choices.showZone} />
             <Tick value={mut self.choices.showZone} />
-            <NumberInput label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit.Percent} />
+            <NumberInput label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit::Percent} />
             <NumberInput label={"Columns"} value={mut self.choices.columns} least={2} most={12} disabled={!self.choices.showZone} />
           </Section>
         </SettingsTab>
@@ -92,10 +92,10 @@ public class Showcase implements Module {
           <text value={self.summary} />
         </box>
         <PushButton label={"Save"} width={120ui} @click={self.onSave} />
-        <PushButton label={"Reset"} width={120ui} plate={ButtonPlate.Accent} disabled={self.saved == 0} @click={self.onReset} />
+        <PushButton label={"Reset"} width={120ui} plate={ButtonPlate::Accent} disabled={self.saved == 0} @click={self.onReset} />
         <Dialog $if={self.asking} width={360ui} title={"Reset"}>
           <text value={"Forget what was saved?"} />
-          <PushButton #buttons label={"Forget"} width={100ui} plate={ButtonPlate.Accent} @click={self.onDiscard} />
+          <PushButton #buttons label={"Forget"} width={100ui} plate={ButtonPlate::Accent} @click={self.onDiscard} />
           <PushButton #buttons label={"Keep"} width={100ui} @click={self.onKeep} />
         </Dialog>
         <Tip $if={self.hint} title={"Showcase"} text={self.summary} />

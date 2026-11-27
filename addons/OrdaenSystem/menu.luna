@@ -23,21 +23,21 @@ const GROOVE_SIDE = 46.875dp
 const HEAD: Number<Length> = GROOVE_TOP + GROOVE + 24dp
 // Half the gap between two plates: taken off each plate above and below.
 const HALF_GAP: Number<Length> = 12dp / 2
-const TITLE: Color = Color.hex("#ffd100")
-const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
-const LABEL: Color = Color.hex("#ffd100")
+const TITLE: Color = Color::hex("#ffd100")
+const ENGRAVED: Shadow = { color: Color::hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
+const LABEL: Color = Color::hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
 const OWN_DROP: ByInteractionState<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
-const OWN_LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const OWN_LABEL: ByInteractionState<Color> = { default: Color::hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const LABEL_HOVER: Color = BRIGHT_TEXT
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const GEM = 18.75dp
 const GEM_LEFT = 14.0625dp
 const DOWN = 2.34375dp
 
 // One of Blizzard's buttons as the dress draws it.
 public struct Dressed {
-  button: any Client.Button
+  button: any Client::Button
   label: String
   // One of the exits: in red.
   accent: Boolean
@@ -50,8 +50,8 @@ public struct Dressed {
 }
 
 // The values a client's call gives, one after another, as a list.
-function framesOf(...frames: any Client.Frame): Array<any Client.Frame> {
-  const list: Array<any Client.Frame> = []
+function framesOf(...frames: any Client::Frame): Array<any Client::Frame> {
+  const list: Array<any Client::Frame> = []
   for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame != nil) { list.push(frame) }
@@ -60,11 +60,11 @@ function framesOf(...frames: any Client.Frame): Array<any Client.Frame> {
 }
 
 // A frame's own textures and texts at an alpha: its art.
-function fade(alpha: Number, ...regions: any Client.Region) {
+function fade(alpha: Number, ...regions: any Client::Region) {
   for (i of 1..regions.length) {
     const region = regions[i]
-    if (region is Client.Texture) { region.SetAlpha(alpha) }
-    if (region is Client.FontString) { region.SetAlpha(alpha) }
+    if (region is Client::Texture) { region.SetAlpha(alpha) }
+    if (region is Client::FontString) { region.SetAlpha(alpha) }
   }
 }
 
@@ -85,10 +85,10 @@ public class GameMenu {
   // something else.
   public state lead: Number = 0
   // The button under the cursor and the one held down: Blizzard's, which keep the mouse.
-  public state hovered: any Client.Button | nil = nil
-  public state held: any Client.Button | nil = nil
+  public state hovered: any Client::Button | nil = nil
+  public state held: any Client::Button | nil = nil
   // The buttons already hooked: a pooled button is hooked once, whatever it holds later.
-  hooked: mut WeakMap<any Client.Button, Boolean> = {}
+  hooked: mut WeakMap<any Client::Button, Boolean> = {}
   // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
   // and calls nothing of it.
   const live: mut Live = { on: true }
@@ -99,7 +99,7 @@ public class GameMenu {
   public start(mut self) {
     if (self.started) { return }
     self.started = true
-    const menu = Client.GameMenuFrame
+    const menu = Client::GameMenuFrame
     const live = self.live
     _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
       if (live.on) { self.onShow() }
@@ -110,7 +110,7 @@ public class GameMenu {
     // Blizzard's menu is a layout frame: its buttons get their places and the menu its size on the next frame's
     // update, a pooled button standing where its last entry stood till then. Matched again once laid out, which
     // follows every time Blizzard builds them anew (`InitButtons` marks the menu for it) before that frame is drawn.
-    Client.hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
+    Client::hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
       if (live.on) { self.onInit() }
     })
     self.onShow()
@@ -139,17 +139,17 @@ public class GameMenu {
 
   // Blizzard's buttons by their text against the client's own strings, in every language; Blizzard's art at alpha 0.
   match(mut self) {
-    const menu = Client.GameMenuFrame
+    const menu = Client::GameMenuFrame
     const options = menu.NewOptionsFrame.IsShown()
     const event = menu.NewExternalEventFrame.IsShown()
     fade(0, ...menu.GetRegions())
     menu.EnableMouse(false)
     const list: Array<Dressed> = []
     for (child of framesOf(...menu.GetChildren())) {
-      if (child is Client.Button) {
+      if (child is Client::Button) {
         if (child.IsShown()) {
           const label = child.GetText()
-          const addons = label == Client.ADDONS
+          const addons = label == Client::ADDONS
           child.SetAlpha(0)
           child.EnableMouse(!addons)
           child.SetHitRectInsets(0, 0, HALF_GAP / 1ui, HALF_GAP / 1ui)
@@ -157,8 +157,8 @@ public class GameMenu {
           list.push({
             button: child,
             label: label,
-            accent: label == Client.LOG_OUT || label == Client.EXIT_GAME,
-            gem: (options && label == Client.GAMEMENU_OPTIONS) || (event && label == Client.GAMEMENU_EXTERNALEVENT),
+            accent: label == Client::LOG_OUT || label == Client::EXIT_GAME,
+            gem: (options && label == Client::GAMEMENU_OPTIONS) || (event && label == Client::GAMEMENU_EXTERNALEVENT),
             addons: addons,
             width: child.GetWidth() * 1ui,
             height: child.GetHeight() * 1ui
@@ -182,7 +182,7 @@ public class GameMenu {
   }
 
   // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
-  hook(mut self, button: any Client.Button) {
+  hook(mut self, button: any Client::Button) {
     if (self.hooked[button] == true) { return }
     self.hooked[button] = true
     const live = self.live
@@ -200,25 +200,25 @@ public class GameMenu {
     })
   }
 
-  onLeave(mut self, button: any Client.Button) {
+  onLeave(mut self, button: any Client::Button) {
     if (peek self.hovered == button) { self.hovered = nil }
   }
 
   // Every widget as Blizzard had it.
   restore(self) {
-    const menu = Client.GameMenuFrame
+    const menu = Client::GameMenuFrame
     fade(1, ...menu.GetRegions())
     menu.EnableMouse(true)
     for (child of framesOf(...menu.GetChildren())) {
       child.SetAlpha(1)
-      if (child is Client.Button) {
+      if (child is Client::Button) {
         child.EnableMouse(true)
         child.SetHitRectInsets(0, 0, 0, 0)
       }
     }
   }
 
-  public close(self) { Client.HideUIPanel(Client.GameMenuFrame) }
+  public close(self) { Client::HideUIPanel(Client::GameMenuFrame) }
 }
 
 // A plate of ours where one of Blizzard's buttons stands, half the gap shorter above and below. Blizzard's button
@@ -239,7 +239,7 @@ public class Plate implements Component {
   derived gem: Number = self.dressed.gem ? 1 : 0
   derived high: Number<Length> = self.dressed.height - 2 * HALF_GAP
   derived gemTop: Number<Length> = (self.high - GEM) / 2
-  derived place: Anchored = { point: Point.TopLeft, to: Point.TopLeft, y: HALF_GAP, by: self.dressed.button }
+  derived place: Anchored = { point: Point::TopLeft, to: Point::TopLeft, y: HALF_GAP, by: self.dressed.button }
   // «AddOns», ours: lit while the cursor is on it.
   derived ownLight: Number = self.ownOver ? 1 : 0
   state ownOver = false
@@ -257,25 +257,25 @@ public class Plate implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Tight} layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
-        <box $if={self.dressed.addons} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+      <surface leading={.Tight} layer={Layer::Dialog} place={self.place} width={self.dressed.width} height={self.high}>
+        <box $if={self.dressed.addons} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.button} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
+          <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
                opacity={self.ownLight} />
-          <box position={Position.Absolute} left={0ui} right={0ui} top={OWN_DROP} height={self.high}
-               xAlign={Align.Center} yAlign={Align.Center}>
+          <box position={Position::Absolute} left={0ui} right={0ui} top={OWN_DROP} height={self.high}
+               xAlign={Align::Center} yAlign={Align::Center}>
             <text value={self.dressed.label} textColor={OWN_LABEL} textShadow={SHADOW} wrap={.None}
             />
           </box>
         </box>
-        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}
+        <box $else position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}
              interactionState={self.looks} mouseThrough={true}>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.ctl.buttonLight} opacity={self.light} />
-          <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
+          <box position={Position::Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
                background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
-          <box position={Position.Absolute} left={0ui} right={0ui} top={self.drop} height={self.high}
-               xAlign={Align.Center} yAlign={Align.Center}>
+          <box position={Position::Absolute} left={0ui} right={0ui} top={self.drop} height={self.high}
+               xAlign={Align::Center} yAlign={Align::Center}>
             <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
           </box>
         </box>
@@ -307,15 +307,15 @@ public class MenuDress implements Component {
   public render(self): Template {
     return $ltml {
       <$if={self.menu.shown}>
-        <surface leading={.Tight} layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
+        <surface leading={.Tight} layer={Layer::Dialog} place={{ point: Point::Bottom, to: Point::Bottom, by: Client::GameMenuFrame }}
                  width={self.wide} height={self.high} border={Ordaen.art.frame.small}
                  background={Ordaen.art.window.wood} artOrigin={true} ownsGaps={true}>
           // The client sizes its menu on the frame after its first show: the title waits for the room.
-          <box $if={self.menu.width > 0ui} position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE}
-               top={TITLE_TOP} xAlign={Align.Center}>
-            <text value={Client.MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={.None} />
+          <box $if={self.menu.width > 0ui} position={Position::Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE}
+               top={TITLE_TOP} xAlign={Align::Center}>
+            <text value={Client::MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={.None} />
           </box>
-          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={GROOVE}
+          <box position={Position::Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={GROOVE}
                background={Ordaen.art.ctl.carved} />
         </surface>
         <Plate $for={dressed of self.menu.buttons} dressed={dressed} menu={self.menu} @pick={self.onAddons} />

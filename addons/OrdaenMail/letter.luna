@@ -15,7 +15,7 @@ import Style from "@/style"
 
 const SLOT = 42.1875dp
 // The green the game's tooltips give a gain.
-const RAISE: Color = Color.hex("#1eff00")
+const RAISE: Color = Color::hex("#1eff00")
 const REWARD: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
 const MONEY: Array<Track> = [{ fr: 1 }, "max-content"]
 const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
@@ -42,10 +42,10 @@ public class Attachment implements Component {
   // How much more it is worth to the player's spec than what is worn, as «+n%»; empty where it is none.
   derived raise: String = upgradeText(self.upgrade(self.item.link))
 
-  item: Signal<Game.MailItem>
+  item: Signal<Game::MailItem>
   index: Signal<Integer>
   upgrade: (link: String) => Number | nil
-  constructor(item: Signal<Game.MailItem>, index: Signal<Integer>, upgrade: (link: String) => Number | nil) {
+  constructor(item: Signal<Game::MailItem>, index: Signal<Integer>, upgrade: (link: String) => Number | nil) {
     self.item = item
     self.index = index
     self.upgrade = upgrade
@@ -60,7 +60,7 @@ public class Attachment implements Component {
   }
 
   // The attachment's tooltip beside its whole row, as the game's open letter shows it.
-  onEntered(self, frame: any Frame) { Game.items.showMail(frame, peek self.index, peek self.item.place) }
+  onEntered(self, frame: any Frame) { Game::items.showMail(frame, peek self.index, peek self.item.place) }
 
   public render(self): Template {
     return $ltml {
@@ -68,8 +68,8 @@ public class Attachment implements Component {
         <ItemButton item={self.item.item} count={self.item.count} size={SLOT} mail={[self.index, self.item.place]} tipped={false} />
         <box columns={1}>
           <text value={self.item.name} textColor={self.info.color} wrap={.None} />
-          <text value={self.info.kind} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <text $if={!self.usable} value={Locale.CANT_USE} textColor={UNUSABLE} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={self.info.kind} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text $if={!self.usable} value={Locale::CANT_USE} textColor={UNUSABLE} textSize={SECONDARY_TEXT} wrap={.None} />
           <text $if={self.raise != ""} value={self.raise} textColor={RAISE} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <Money $if={self.info.price > 0} amount={self.info.price * self.item.count} />
@@ -86,13 +86,13 @@ public struct AttachmentInfo {
 }
 
 function infoOf(item: Integer): AttachmentInfo {
-  const _, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
-  let color = Style.INK
+  const _, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
+  let color = Style::INK
   if (quality != nil) {
-    const r, g, b, _ = Client.C_Item.GetItemQualityColor(quality)
+    const r, g, b, _ = Client::C_Item::GetItemQualityColor(quality)
     color = { r: r, g: g, b: b, a: 1 }
   }
-  const worn = slot != nil && slot != "" ? Runtime.text(slot) : nil
+  const worn = slot != nil && slot != "" ? Runtime::text(slot) : nil
   const parts: Array<String> = []
   if (worn != nil) { parts.push(worn) }
   if (subkind != nil && subkind != "") { parts.push(subkind) } else if (kind != nil) { parts.push(kind) }
@@ -105,18 +105,18 @@ public class LetterView implements Component {
   derived hasMoney: Boolean = self.letter.copper > 0
   derived hasCod: Boolean = self.letter.cod > 0
   derived holds: Boolean = self.hasMoney || self.letter.items.length > 0
-  derived takeLabel: String = self.hasCod ? Locale.PAY_AND_TAKE : Locale.TAKE
-  derived returnable: Boolean = self.letter.kind == Game.MailKind.Player && !self.letter.deletable && !self.letter.returned
-  derived replies: Boolean = self.letter.kind == Game.MailKind.Player
-  derived from: String = Locale.FROM_DAYS.format(senderOf(self.letter), daysText(self.letter))
+  derived takeLabel: String = self.hasCod ? Locale::PAY_AND_TAKE : Locale::TAKE
+  derived returnable: Boolean = self.letter.kind == Game::MailKind::Player && !self.letter.deletable && !self.letter.returned
+  derived replies: Boolean = self.letter.kind == Game::MailKind::Player
+  derived from: String = Locale::FROM_DAYS.format(senderOf(self.letter), daysText(self.letter))
   derived hasText: Boolean = self.text != ""
 
-  letter: Signal<Game.MailLetter>
+  letter: Signal<Game::MailLetter>
   text: Signal<String>
   busy: Signal<Boolean>
   upgrade: (link: String) => Number | nil
   constructor(
-    letter: Signal<Game.MailLetter>,
+    letter: Signal<Game::MailLetter>,
     text: Signal<String>,
     busy: Signal<Boolean>,
     upgrade: (link: String) => Number | nil
@@ -138,31 +138,31 @@ public class LetterView implements Component {
     return $ltml {
       <box rows={PARTS} gap={2sp}>
         <box columns={1} gap={1sp}>
-          <text value={self.letter.subject} textSize={TITLE_TEXT} textColor={Style.GOLD} />
-          <text value={self.from} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={self.letter.subject} textSize={TITLE_TEXT} textColor={Style::GOLD} />
+          <text value={self.from} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         </box>
-        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+        <box columns={1} gap={2sp} overflow={Overflow::Scroll}>
           <CopyText $if={self.hasText} value={self.text} />
           <Attachment $for={item of self.letter.items} $key={item.place} item={item} index={self.letter.index}
                       upgrade={self.upgrade} @act={self.onAct} />
           <PickRow $if={self.hasMoney} columns={MONEY} @pick={self.onTakeMoney}>
-            <text value={Locale.MONEY} textColor={Style.DIM} wrap={.None} />
+            <text value={Locale::MONEY} textColor={Style::DIM} wrap={.None} />
             <Money amount={self.letter.copper} />
           </PickRow>
           <box $if={self.hasCod} columns={MONEY} padding={{ left: 1sp, right: 1sp }}>
-            <text value={Locale.COD_AMOUNT} textColor={Style.ORANGE} wrap={.None} />
-            <Money amount={self.letter.cod} color={Style.ORANGE} />
+            <text value={Locale::COD_AMOUNT} textColor={Style::ORANGE} wrap={.None} />
+            <Money amount={self.letter.cod} color={Style::ORANGE} />
           </box>
         </box>
-        <box columns={FOOT} gap={2sp} yAlign={Align.Center} border={Style.RULE} padding={{ top: 2sp }}>
-          <PushButton $if={self.returnable} label={Locale.RETURN} width={Style.BUTTON} disabled={self.busy} @click={self.onGiveBack} />
+        <box columns={FOOT} gap={2sp} yAlign={Align::Center} border={Style::RULE} padding={{ top: 2sp }}>
+          <PushButton $if={self.returnable} label={Locale::RETURN} width={Style::BUTTON} disabled={self.busy} @click={self.onGiveBack} />
           <box $else />
-          <PushButton $if={self.replies} label={Locale.REPLY} width={Style.BUTTON} @click={self.onReply} />
+          <PushButton $if={self.replies} label={Locale::REPLY} width={Style::BUTTON} @click={self.onReply} />
           <box $else />
           <box />
-          <PushButton $if={self.holds} label={self.takeLabel} width={Style.WIDE_BUTTON} plate={ButtonPlate.Accent} disabled={self.busy}
+          <PushButton $if={self.holds} label={self.takeLabel} width={Style::WIDE_BUTTON} plate={ButtonPlate::Accent} disabled={self.busy}
                       @click={self.onTakeAll} />
-          <PushButton $else label={Locale.DELETE} width={Style.BUTTON} disabled={self.busy} @click={self.onDelete} />
+          <PushButton $else label={Locale::DELETE} width={Style::BUTTON} disabled={self.busy} @click={self.onDelete} />
         </box>
       </box>
     }

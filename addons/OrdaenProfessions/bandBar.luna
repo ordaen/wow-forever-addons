@@ -8,19 +8,19 @@ import { BRIGHT_TEXT, Component, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 
 const HEIGHT = 39.84375dp
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const NOTCH: Line = { width: 1.171875dp, color: Color.hex("#00000080"), sides: [Side.Right] }
+const NOTCH: Line = { width: 1.171875dp, color: Color::hex("#00000080"), sides: [Side::Right] }
 const FILL: Array<Track> = [{ fr: 1 }]
 
 // The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.
 function rankOf(most: Integer): String {
   match (most) {
-    75 => return Locale.RANK_75
-    150 => return Locale.RANK_150
-    225 => return Locale.RANK_225
-    300 => return Locale.RANK_300
+    75 => return Locale::RANK_75
+    150 => return Locale::RANK_150
+    225 => return Locale::RANK_225
+    300 => return Locale::RANK_300
     else => return ""
   }
 }
@@ -29,7 +29,7 @@ public class BandBar implements Component {
   // The bar in two columns: the filled part, and the rest.
   derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
   derived label: String = self.labelOf()
-  const fill: Art = xpFillArt(XpFill.Brushed)
+  const fill: Art = xpFillArt(XpFill::Brushed)
 
   // The player's skill and the most it goes to now.
   rank: Signal<Integer>
@@ -55,18 +55,18 @@ public class BandBar implements Component {
   public render(self): Template {
     return $ltml {
       <box height={HEIGHT} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} rows={FILL}>
-        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts} rows={FILL}>
+        <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts} rows={FILL}>
           <box background={self.fill} />
           <box />
         </box>
-        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
+        <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
           <box $for={cell of CELLS} border={NOTCH} />
           <box />
         </box>
-        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
-             yAlign={Align.Center}>
+        <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align::Center}
+             yAlign={Align::Center}>
           <text value={self.label} textColor={BRIGHT_TEXT} textShadow={SHADOW}
-                textFont={TextFont.Numbers} wrap={.None} />
+                textFont={TextFont::Numbers} wrap={.None} />
         </box>
       </box>
     }

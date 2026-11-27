@@ -10,21 +10,21 @@ public enum GripCorner { BottomRight, TopRight }
 const SIZE = 18.75dp
 
 public class SizeGrip implements Component {
-  public grab: Event<Event.Drag> = new Event()
-  public drag: Event<Event.Drag> = new Event()
+  public grab: Event<Event::Drag> = new Event()
+  public drag: Event<Event::Drag> = new Event()
   public drop: Event<nil> = new Event()
 
   derived art: ByInteractionState<Art> = { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
   // The client's grabber points at the bottom right.
-  derived turn: Number<Angle> = self.corner == GripCorner.TopRight ? -90deg : 0deg
+  derived turn: Number<Angle> = self.corner == GripCorner::TopRight ? -90deg : 0deg
 
   corner: Signal<GripCorner>
-  constructor(corner: Signal<GripCorner> = GripCorner.BottomRight) {
+  constructor(corner: Signal<GripCorner> = GripCorner::BottomRight) {
     self.corner = corner
   }
 
-  onGrab(mut self, drag: Event.Drag) { self.grab.emit(drag) }
-  onDrag(mut self, drag: Event.Drag) { self.drag.emit(drag) }
+  onGrab(mut self, drag: Event::Drag) { self.grab.emit(drag) }
+  onDrag(mut self, drag: Event::Drag) { self.drag.emit(drag) }
   onDrop(mut self) { self.drop.emit() }
 
   public render(self): Template {

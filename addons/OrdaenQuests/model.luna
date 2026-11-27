@@ -52,18 +52,18 @@ public enum QuestFilter implements Plain {
 
 // The filter as the window starts: every quest shown, tracked or not.
 public const FILTER_START: Map<QuestFilter, Boolean> = switched({}, [
-  QuestFilter.Trivial, QuestFilter.Easy, QuestFilter.Even, QuestFilter.Hard, QuestFilter.Impossible, QuestFilter.Solo,
-  QuestFilter.Group
+  QuestFilter::Trivial, QuestFilter::Easy, QuestFilter::Even, QuestFilter::Hard, QuestFilter::Impossible, QuestFilter::Solo,
+  QuestFilter::Group
 ], true)
 
 // The option a quest's difficulty passes by.
 const function difficultyFilter(difficulty: Difficulty): QuestFilter {
   return match (difficulty) {
-    .Trivial => QuestFilter.Trivial
-    .Easy => QuestFilter.Easy
-    .Even => QuestFilter.Even
-    .Hard => QuestFilter.Hard
-    .Impossible => QuestFilter.Impossible
+    .Trivial => QuestFilter::Trivial
+    .Easy => QuestFilter::Easy
+    .Even => QuestFilter::Even
+    .Hard => QuestFilter::Hard
+    .Impossible => QuestFilter::Impossible
   }
 }
 
@@ -77,10 +77,10 @@ public enum QuestView implements Plain { Zones = "zones", List = "list" }
 // How the player left the list's toolbar, the profile's: the status switch, the filter, the order and the view. The
 // search isn't kept.
 public struct ListChoices implements Plain {
-  status: QuestStatus = QuestStatus.All
+  status: QuestStatus = QuestStatus::All
   filter: Map<QuestFilter, Boolean> = FILTER_START
-  sort: QuestSort = QuestSort.Log
-  view: QuestView = QuestView.Zones
+  sort: QuestSort = QuestSort::Log
+  view: QuestView = QuestView::Zones
 }
 
 // The headers the player folded, by their text, the character's (whose log they are): only those its log has, so
@@ -129,9 +129,9 @@ function statusPasses(quest: LogQuest, status: QuestStatus): Boolean {
 }
 
 public function passes(quest: LogQuest, asked: Asked): Boolean {
-  if (asked.filter[QuestFilter.Tracked] == true && !quest.tracked) { return false }
+  if (asked.filter[QuestFilter::Tracked] == true && !quest.tracked) { return false }
   if (asked.filter[difficultyFilter(difficultyOf(quest.level, asked.player))] != true) { return false }
-  if (asked.filter[quest.group > 1 ? QuestFilter.Group : QuestFilter.Solo] != true) { return false }
+  if (asked.filter[quest.group > 1 ? QuestFilter::Group : QuestFilter::Solo] != true) { return false }
   return statusPasses(quest, asked.status) && holds(quest, asked.sought)
 }
 

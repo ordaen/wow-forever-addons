@@ -18,20 +18,20 @@ import Style from "@/style"
 public enum Mode { Auction = "auction", Vendor = "vendor", Held = "held", Cooldowns = "cooldowns" }
 
 const MODES: Array<Choice<Mode>> = [
-  { value: Mode.Auction, label: Locale.WORTH_MODE_AUCTION },
-  { value: Mode.Vendor, label: Locale.WORTH_MODE_VENDOR },
-  { value: Mode.Held, label: Locale.WORTH_MODE_HELD },
-  { value: Mode.Cooldowns, label: Locale.WORTH_MODE_COOLDOWNS }
+  { value: Mode::Auction, label: Locale::WORTH_MODE_AUCTION },
+  { value: Mode::Vendor, label: Locale::WORTH_MODE_VENDOR },
+  { value: Mode::Held, label: Locale::WORTH_MODE_HELD },
+  { value: Mode::Cooldowns, label: Locale::WORTH_MODE_COOLDOWNS }
 ]
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.WORTH_WHO, width: 175.78125dp, sortable: true },
-  { title: Locale.COLUMN_COST, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.WORTH_SALE, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PROFIT, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: "%", width: 58.59375dp, align: Align.End, sortable: true },
-  { title: Locale.WORTH_AGE, width: 70.3125dp, align: Align.End, sortable: true },
-  { title: Locale.WORTH_CAN, width: 105.46875dp, align: Align.End, sortable: true }
+  { title: Locale::COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
+  { title: Locale::WORTH_WHO, width: 175.78125dp, sortable: true },
+  { title: Locale::COLUMN_COST, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::WORTH_SALE, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_PROFIT, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: "%", width: 58.59375dp, align: Align::End, sortable: true },
+  { title: Locale::WORTH_AGE, width: 70.3125dp, align: Align::End, sortable: true },
+  { title: Locale::WORTH_CAN, width: 105.46875dp, align: Align::End, sortable: true }
 ]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The mode and the notes over the table keep the window's room; the table runs to the page's edges.
@@ -69,13 +69,13 @@ struct Reached {
 // The page's text for an age in hours.
 function ageText(hours: Integer | nil): String {
   if (hours == nil) { return NONE }
-  if (hours < 2 * DAY) { return Locale.WORTH_AGE_HOURS.format(hours) }
-  return Locale.WORTH_AGE_DAYS.format((hours / DAY).floor())
+  if (hours < 2 * DAY) { return Locale::WORTH_AGE_HOURS.format(hours) }
+  return Locale::WORTH_AGE_DAYS.format((hours / DAY).floor())
 }
 
 // What a merchant gives for one of an item; none where the client says nothing.
 function merchantPrice(item: Integer): Integer | nil {
-  const _, _, _, _, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  const _, _, _, _, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   if (price == nil || price <= 0) { return nil }
   return price.floor()
 }
@@ -84,9 +84,9 @@ function merchantPrice(item: Integer): Integer | nil {
 // Ordaen Alts records ready by now.
 function wanted(mode: Mode, entry: Entry, ready: Integer | nil, now: Integer): Boolean {
   return match (mode) {
-    Mode.Auction, Mode.Vendor => entry.makes != nil
-    Mode.Held => true
-    Mode.Cooldowns => ready != nil && ready <= now
+    Mode::Auction, Mode::Vendor => entry.makes != nil
+    Mode::Held => true
+    Mode::Cooldowns => ready != nil && ready <= now
   }
 }
 
@@ -123,10 +123,10 @@ public class WorthLine implements Component {
   derived sale: Integer = self.worth.sale ?? 0
   derived hasProfit: Boolean = self.worth.profit != nil
   derived profit: Integer = self.worth.profit ?? 0
-  derived profitColor: Color = self.profit < 0 ? Style.RED : BRIGHT_TEXT
-  derived percent: String = self.worth.percent == nil ? NONE : String.of(self.worth.percent)
+  derived profitColor: Color = self.profit < 0 ? Style::RED : BRIGHT_TEXT
+  derived percent: String = self.worth.percent == nil ? NONE : String::of(self.worth.percent)
   derived age: String = ageText(self.worth.age)
-  derived can: String = String.of(self.worth.can)
+  derived can: String = String::of(self.worth.can)
 
   worth: Signal<Worth>
   chosen: Signal<String>
@@ -144,29 +144,29 @@ public class WorthLine implements Component {
         // Who knows it over its profession: a full name («Regy Ironsight») wraps rather than being cut.
         <TableCell>
           <box>
-            <text value={self.worth.who} textColor={Style.INK} />
-            <text value={self.worth.profession} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <text value={self.worth.who} textColor={Style::INK} />
+            <text value={self.worth.profession} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.hasCost} amount={self.cost} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.hasSale} amount={self.sale} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={self.percent} textColor={BRIGHT_TEXT} textFont={.Numbers} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.age} textColor={Style.DIM} textFont={.Numbers} />
+        <TableCell align={Align::End}>
+          <text value={self.age} textColor={Style::DIM} textFont={.Numbers} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={self.can} textColor={BRIGHT_TEXT} textFont={.Numbers} />
         </TableCell>
       </TableRow>
@@ -175,7 +175,7 @@ public class WorthLine implements Component {
 }
 
 public class WorthPage implements Component {
-  state mode: Mode = Mode.Auction
+  state mode: Mode = Mode::Auction
   state sorted = 5
   state descending = true
   // The picked row's key; "" for none.
@@ -186,8 +186,8 @@ public class WorthPage implements Component {
   derived noPrices: Boolean = self.prices == nil
   derived unopened: String = self.unopenedOf()
   derived hasUnopened: Boolean = self.unopened != ""
-  derived unopenedLine: String = Locale.WORTH_UNOPENED.format(self.unopened)
-  derived emptyLine: String = self.empty ? Locale.WORTH_EMPTY : ""
+  derived unopenedLine: String = Locale::WORTH_UNOPENED.format(self.unopened)
+  derived emptyLine: String = self.empty ? Locale::WORTH_EMPTY : ""
   derived picked: Worth | nil = self.rows.find(row => row.key == self.chosen)
   derived canShop: Boolean = Trading != nil && self.picked != nil && (self.picked?.missing?.length ?? 0) > 0
   derived empty: Boolean = self.rows.length == 0
@@ -203,7 +203,7 @@ public class WorthPage implements Component {
   // says it reaches (the same realm and side); the one being played alone while Ordaen Alts is off.
   reachedOf(self): Array<Reached> {
     const book = self.book
-    const own = Game.player.guid
+    const own = Game::player.guid
     const list: Array<Reached> = []
     const alts = Alts
     if (alts == nil) {
@@ -231,7 +231,7 @@ public class WorthPage implements Component {
     if (alts == nil) { return "" }
     _ = alts.revision
     for (id, character of alts.characters) {
-      if (id != Game.player.guid && alts.reaches(id)) {
+      if (id != Game::player.guid && alts.reaches(id)) {
         const shelf = self.book.characters[id]
         for (known of character.professions) {
           if (known.name != "" && (shelf == nil || shelf.professions[known.skillLine] == nil)) { return character.name }
@@ -244,10 +244,10 @@ public class WorthPage implements Component {
   // How many of an item the reached characters hold: Ordaen Alts' records, or this character's bags while it is off.
   heldOf(self, item: Integer): Integer {
     const alts = Alts
-    if (alts == nil) { return (Game.bags.holdings() ?? {})[item] ?? 0 }
+    if (alts == nil) { return (Game::bags.holdings() ?? {})[item] ?? 0 }
     let count = 0
-    for (held of alts.holders(ItemId.of(item))) {
-      if (held.who == Game.player.guid || alts.reaches(held.who)) { count += held.count }
+    for (held of alts.holders(ItemId::of(item))) {
+      if (held.who == Game::player.guid || alts.reaches(held.who)) { count += held.count }
     }
     return count
   }
@@ -257,7 +257,7 @@ public class WorthPage implements Component {
     if (prices != nil) { _ = prices.revision }
     const book = self.book
     const mode = self.mode
-    const now: Integer = Hour.now()
+    const now: Integer = Hour::now()
     const held: Map<Integer, Integer> = {}
     const list: Array<Worth> = []
     for (character of self.reached) {
@@ -269,7 +269,7 @@ public class WorthPage implements Component {
             const ready = character.ready[recipe]
             if (entry != nil && wanted(mode, entry, ready, now)) {
               const row = self.worthOf(prices, mode, character, learned.name, recipe, entry, held)
-              if (mode != Mode.Held || row.can > 0 || row.missing.length == 1) { list.push(row) }
+              if (mode != Mode::Held || row.can > 0 || row.missing.length == 1) { list.push(row) }
             }
           }
         }
@@ -287,7 +287,7 @@ public class WorthPage implements Component {
   ): Worth {
     let cost: Integer | nil = prices == nil ? nil : 0
     let age: Integer | nil = nil
-    let can = Number.huge
+    let can = Number::huge
     const missing: Array<Reagent> = []
     for (part of entry.parts) {
       const have: Integer = held[part.item] ?? self.heldOf(part.item)
@@ -305,11 +305,11 @@ public class WorthPage implements Component {
     let sale: Integer | nil = nil
     const makes = entry.makes
     if (makes != nil) {
-      if (mode == Mode.Vendor) {
+      if (mode == Mode::Vendor) {
         const one = merchantPrice(makes)
         if (one != nil) { sale = (one * yieldOfEntry(entry)).floor() }
       } else if (prices != nil) {
-        const quote = prices.sell(PriceKey.of(makes))
+        const quote = prices.sell(PriceKey::of(makes))
         if (quote != nil) {
           sale = (quote.copper() * yieldOfEntry(entry)).floor()
           const old: Integer = quote.age()
@@ -334,7 +334,7 @@ public class WorthPage implements Component {
     const row = peek self.picked
     if (auction == nil || row == nil) { return }
     for (part of row.missing) {
-      auction.shopping.add(ItemId.of(part.item), part.count, .Queue { recipe: row.recipe, crafts: 1, character: row.who })
+      auction.shopping.add(ItemId::of(part.item), part.count, .Queue { recipe: row.recipe, crafts: 1, character: row.who })
     }
   }
 
@@ -343,9 +343,9 @@ public class WorthPage implements Component {
       <box rows={PAGE}>
         <box padding={HEAD_PAD} gap={3sp}>
           <Segmented value={mut self.mode} choices={MODES} />
-          <text $if={self.alone} value={Locale.WORTH_ALONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text $if={self.alone} value={Locale::WORTH_ALONE} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
+          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
+          <text $if={self.noPrices} value={Locale::NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         </box>
         <box rows={[{ fr: 1 }]}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
@@ -353,9 +353,9 @@ public class WorthPage implements Component {
           </Table>
         </box>
         <FooterBand>
-          <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
-            <text value={self.emptyLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-            <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.canShop} @click={self.onShop} />
+          <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center}>
+            <text value={self.emptyLine} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
+            <PushButton label={Locale::TO_SHOPPING} width={210.9375dp} disabled={!self.canShop} @click={self.onShop} />
           </box>
         </FooterBand>
       </box>

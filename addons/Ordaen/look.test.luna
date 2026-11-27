@@ -16,7 +16,7 @@ function text(key: String, value: String): String {
   return `"${key}": "${value}"`
 }
 
-function hue(key: String, value: Ordaen.Hue): String {
+function hue(key: String, value: Ordaen::Hue): String {
   return text(key, `${value}`)
 }
 
@@ -24,8 +24,8 @@ function paint(key: String, value: Color): String {
   return `"${key}": ${color(value)}`
 }
 
-function json(name: Ordaen.Preset): String {
-  let l = Ordaen.preset(name)
+function json(name: Ordaen::Preset): String {
+  let l = Ordaen::preset(name)
   let entries = [
     text("font", `${l.font}`), text("fontHeader", `${l.fontHeader}`), text("fontNumbers", `${l.fontNumbers}`),
     paint("accent", l.accent), text("barTexture", `${l.barTexture}`),
@@ -51,7 +51,7 @@ function json(name: Ordaen.Preset): String {
 }
 
 test "the presets, as the design site reads them" {
-  for (name of Ordaen.PRESETS) { Test.note(json(name)) }
+  for (name of Ordaen::PRESETS) { Test::note(json(name)) }
 }
 
 function file(font: FontFiles | nil): String {
@@ -61,9 +61,9 @@ function file(font: FontFiles | nil): String {
 }
 
 test "the files each preset draws its text, titles, numbers and pages of sentences in, regular and bold" {
-  for (name of Ordaen.PRESETS) {
-    let fonts = artOf(Ordaen.preset(name)).fonts
-    Test.note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}; ${file(fonts.book)}`)
+  for (name of Ordaen::PRESETS) {
+    let fonts = artOf(Ordaen::preset(name)).fonts
+    Test::note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}; ${file(fonts.book)}`)
   }
 }
 
@@ -73,38 +73,38 @@ test "a look saved with numbers in a font of unequal digits loads them in the de
   const saved: Map<String, Unknown> = {}
   saved["fontNumbers"] = "firaCondensed"
   saved["font"] = "philosopher"
-  const look = Ordaen.Look.decode(saved, Ordaen.preset(Ordaen.Preset.Ordaen))
-  Test.expect(look.fontNumbers == Ordaen.NumbersFont.PtSansNarrow)
-  Test.expect(look.font == Ordaen.Font.Philosopher)
+  const look = Ordaen::Look::decode(saved, Ordaen::preset(Ordaen::Preset::Ordaen))
+  Test::expect(look.fontNumbers == Ordaen::NumbersFont::PtSansNarrow)
+  Test::expect(look.font == Ordaen::Font::Philosopher)
 }
 
 // The Blizzard preset isn't offered: a player who chose it has its look saved, and it loads as Ordaen's.
 test "a look saved as the Blizzard preset loads as Ordaen's" {
-  let blizzard: Ordaen.Look = {
-    accent: Color.hex("#ffd100"), barTexture: Ordaen.BarTexture.Blizzard, animation: Ordaen.Animation.Fast,
-    ..Ordaen.preset(Ordaen.Preset.Ordaen)
+  let blizzard: Ordaen::Look = {
+    accent: Color::hex("#ffd100"), barTexture: Ordaen::BarTexture::Blizzard, animation: Ordaen::Animation::Fast,
+    ..Ordaen::preset(Ordaen::Preset::Ordaen)
   }
   Core.look.choose(blizzard)
-  Test.expect(Core.look.values.barTexture == Ordaen.BarTexture.Blizzard)
+  Test::expect(Core.look.values.barTexture == Ordaen::BarTexture::Blizzard)
   // The game saves: the values are packed.
-  Events.PLAYER_LOGOUT.emit()
-  Test.reload()
-  Test.expect(presetOf(Core.look.values) == Ordaen.Preset.Ordaen)
+  Events::PLAYER_LOGOUT.emit()
+  Test::reload()
+  Test::expect(presetOf(Core.look.values) == Ordaen::Preset::Ordaen)
   // A look of the player's own that differs from it in anything is kept.
-  blizzard.animation = Ordaen.Animation.Smooth
+  blizzard.animation = Ordaen::Animation::Smooth
   Core.look.choose(blizzard)
   // The test's `Events` is the first load's: the root's own `pack` is what `PLAYER_LOGOUT` runs.
   Core.keeper.profiles.pack()
-  Test.reload()
-  Test.expect(Core.look.values.barTexture == Ordaen.BarTexture.Blizzard && Core.look.values.animation == Ordaen.Animation.Smooth)
+  Test::reload()
+  Test::expect(Core.look.values.barTexture == Ordaen::BarTexture::Blizzard && Core.look.values.animation == Ordaen::Animation::Smooth)
 }
 
 test "a book font chosen changes the files of a page of sentences alone: the text's, the titles' and the numbers' stay" {
-  const ordaen = Ordaen.preset(Ordaen.Preset.Ordaen)
+  const ordaen = Ordaen::preset(Ordaen::Preset::Ordaen)
   const before = artOf(ordaen).fonts
-  const after = artOf({ fontBook: Ordaen.BookFont.Lora, ..ordaen }).fonts
-  Test.expect(file(before.book).contains("PTSerif-Regular.ttf, bold ") && file(before.book).contains("PTSerif-Bold.ttf"))
-  Test.expect(file(after.book).contains("Lora-Regular.ttf, bold ") && file(after.book).contains("Lora-Bold.ttf"))
-  Test.expect(file(after.body) == file(before.body) && file(after.title) == file(before.title))
-  Test.expect(file(after.numbers) == file(before.numbers))
+  const after = artOf({ fontBook: Ordaen::BookFont::Lora, ..ordaen }).fonts
+  Test::expect(file(before.book).contains("PTSerif-Regular.ttf, bold ") && file(before.book).contains("PTSerif-Bold.ttf"))
+  Test::expect(file(after.book).contains("Lora-Regular.ttf, bold ") && file(after.book).contains("Lora-Bold.ttf"))
+  Test::expect(file(after.body) == file(before.body) && file(after.title) == file(before.title))
+  Test::expect(file(after.numbers) == file(before.numbers))
 }

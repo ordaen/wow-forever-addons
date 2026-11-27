@@ -21,7 +21,7 @@ import Style from "@/style"
 const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The characters' column as wide as its longest name, never narrower than `Style.OWN_LIST`; the sections the rest.
 const SPLIT: Array<Track> = ["max-content", { fr: 1 }]
-const TABS_BOUNDS: Bounds = { min: Style.OWN_LIST }
+const TABS_BOUNDS: Bounds = { min: Style::OWN_LIST }
 // Each column's room: the window keeps none on this tab.
 const PAGE_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -33,7 +33,7 @@ public enum Least implements Plain { Any = "any", Green = "green", Yellow = "yel
 // What goes to one character for one of its professions.
 public struct SendRule implements Plain {
   on: Boolean = true
-  least: Least = Least.Any
+  least: Least = Least::Any
 }
 
 // The rules, the account's, by «who:skillLine»: one never set is on, for any recipe.
@@ -52,10 +52,10 @@ public function ruleOf(rules: SendRules, who: String, skillLine: Integer): SendR
 // The worst difficulty a rule lets through, as `skillUpRank` orders them (orange 0, grey 3).
 function worstOf(least: Least): Integer {
   return match (least) {
-    Least.Any => 3
-    Least.Green => 2
-    Least.Yellow => 1
-    Least.Orange => 0
+    Least::Any => 3
+    Least::Green => 2
+    Least::Yellow => 1
+    Least::Orange => 0
   }
 }
 
@@ -100,7 +100,7 @@ public struct Kin {
   classTag: String
 }
 
-function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(item) ?? String.of(item) }
+function itemName(item: Integer): String { return Client::C_Item::GetItemNameByID(item) ?? String::of(item) }
 
 // The characters the one being played can send to.
 public function kinOf(alts: Alts): Array<Kin> {
@@ -154,17 +154,17 @@ public function ownRows(
 // The stacks a letter takes for each item and count wanted: the bags' whole stacks while they fit in what is left,
 // and the rest as one part, which the queue splits off a bigger stack as the letter goes. The queue cuts them into
 // letters of twelve.
-public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
-  const stacks: Array<Game.MailStack> = []
+public function stacksOf(wanted: Array<Game::MailStack>): Array<Game::MailStack> {
+  const stacks: Array<Game::MailStack> = []
   let slot = Game.SlotItem {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
   }
   for (want of wanted) {
     let left = want.count
-    for (bag of 0..Game.bags.last) {
-      for (place of 1..Game.bags.size(bag)) {
-        if (left > 0 && Game.bags.readSlot(bag, place, slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
+    for (bag of 0..Game::bags.last) {
+      for (place of 1..Game::bags.size(bag)) {
+        if (left > 0 && Game::bags.readSlot(bag, place, slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
           stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
           left -= slot.count
         }
@@ -177,8 +177,8 @@ public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
 
 // What goes of the offers, by the counts chosen (`chosen` by «who:item»: 0 for one unticked, all where unset); an item
 // in two of them once, at the most chosen.
-function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer>): Array<Game.MailStack> {
-  const wanted: Array<mut Game.MailStack> = []
+function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer>): Array<Game::MailStack> {
+  const wanted: Array<mut Game::MailStack> = []
   for (offer of offers) {
     const count = chosen[`${who}:${offer.item}`] ?? offer.count
     if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
@@ -202,7 +202,7 @@ class OfferRow implements Component {
   state checked = true
   state count = 0
   state hovered = false
-  derived recipes: String = Locale.OWN_RECIPES.format(self.offer.recipes.length)
+  derived recipes: String = Locale::OWN_RECIPES.format(self.offer.recipes.length)
   derived rows: Array<TipRow> = self.offer.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
 
   offer: Signal<Offer>
@@ -218,10 +218,10 @@ class OfferRow implements Component {
   public render(self): Template {
     return $ltml {
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box columns={OFFER} gap={2sp} yAlign={Align.Center}>
+        <box columns={OFFER} gap={2sp} yAlign={Align::Center}>
           <Tick value={mut self.checked} />
           <box columns={1}>
-            <text value={self.offer.name} textColor={Style.INK} wrap={.Cut} />
+            <text value={self.offer.name} textColor={Style::INK} wrap={.Cut} />
             <text value={self.recipes} textColor={self.offer.color} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
@@ -246,10 +246,10 @@ class SectionBlock implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
-        <text value={self.section.profession} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
+        <text value={self.section.profession} textSize={TITLE_TEXT} leading={.Title} textColor={Style::GOLD} />
         <OfferRow $for={offer of self.section.offers} $key={offer.item} offer={offer} @toggled={self.onToggle} />
-        <box xAlign={Align.End}>
-          <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
+        <box xAlign={Align::End}>
+          <PushButton label={Locale::SEND} width={Style::BUTTON} @click={self.onSend} />
         </box>
       </box>
     }
@@ -280,7 +280,7 @@ public class OwnTab {
   derived currentWho: String = self.current?.who ?? ""
   derived sections: Array<Section> = self.current?.sections ?? []
   derived letters: Integer = self.lettersNow()
-  derived counts: Array<FooterCount> = [{ label: Locale.LETTERS, value: String.of(self.letters) }]
+  derived counts: Array<FooterCount> = [{ label: Locale::LETTERS, value: String::of(self.letters) }]
 
   reached: Signal<Array<Kin> | nil>
   const crafting: CraftingRead
@@ -299,12 +299,12 @@ public class OwnTab {
     self.rules = rules
     self.sender = sender
     self.onBags()
-    Game.bags.changed.listen(self.onBags)
+    Game::bags.changed.listen(self.onBags)
   }
 
   // The bags changed: what they hold is read again; where the game gave no count, what was read stays.
   onBags(mut self) {
-    const held = Game.bags.holdings()
+    const held = Game::bags.holdings()
     if (held != nil) { self.held = held }
   }
 
@@ -336,7 +336,7 @@ public class OwnTab {
     if (row == nil) { return }
     const stacks = stacksOf(wantedOf(row.who, offers, peek self.chosen))
     if (stacks.length == 0) { return }
-    self.sender.put(row.name, Locale.OWN_SUBJECT, "", stacks, 0, 0)
+    self.sender.put(row.name, Locale::OWN_SUBJECT, "", stacks, 0, 0)
   }
 
   onSendSection(mut self, section: Section) { self.sendOffers(section.offers) }
@@ -349,22 +349,22 @@ public class OwnTab {
   onConfigure(mut self) { self.configure.emit() }
 
   public const body: Template = $ltml {
-    <box $if={self.noAlts} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
-      <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+    <box $if={self.noAlts} xAlign={Align::Center} yAlign={Align::Center} padding={PAGE_ROOM}>
+      <text value={Locale::ALTS_OFF} textColor={Style::DIM} />
     </box>
-    <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
-      <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
+    <box $elseif={self.alone} xAlign={Align::Center} yAlign={Align::Center} padding={PAGE_ROOM}>
+      <text value={Locale::ALTS_ALONE} textColor={Style::DIM} />
     </box>
-    <box $elseif={self.nothing} columns={1} gap={4sp} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
-      <text value={Locale.OWN_NOTHING} textColor={Style.DIM} />
-      <PushButton label={Locale.OWN_RULES} width={Style.WIDE_BUTTON} @click={self.onConfigure} />
+    <box $elseif={self.nothing} columns={1} gap={4sp} xAlign={Align::Center} yAlign={Align::Center} padding={PAGE_ROOM}>
+      <text value={Locale::OWN_NOTHING} textColor={Style::DIM} />
+      <PushButton label={Locale::OWN_RULES} width={Style::WIDE_BUTTON} @click={self.onConfigure} />
     </box>
     <box $else columns={SPLIT} rows={FILL}>
       <box columns={1} rows={FILL} width={TABS_BOUNDS}>
         <Tabs tabs={self.names} selected={mut self.picked} counts={self.items} vertical={true} />
       </box>
       <box rows={FILL} padding={PAGE_ROOM}>
-        <ScrolledList columns={1} gap={6sp} ground={Ground.Wood}>
+        <ScrolledList columns={1} gap={6sp} ground={Ground::Wood}>
           <SectionBlock $for={section of self.sections} $key={section.skillLine} section={section}
                         @send={self.onSendSection} @toggled={self.onToggle} />
         </ScrolledList>
@@ -374,7 +374,7 @@ public class OwnTab {
 
   public const footer: Template = $ltml {
     <ListFooter counts={self.counts}>
-      <PushButton label={Locale.OWN_SEND_ALL} width={Style.WIDE_BUTTON} disabled={self.letters == 0} @click={self.onSendAll} />
+      <PushButton label={Locale::OWN_SEND_ALL} width={Style::WIDE_BUTTON} disabled={self.letters == 0} @click={self.onSendAll} />
     </ListFooter>
   }
 }

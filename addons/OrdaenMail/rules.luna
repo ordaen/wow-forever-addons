@@ -9,15 +9,15 @@ import Locale from "@/locales"
 import { Least, SendRule, SendRules, ruleKey, ruleOf } from "@/own"
 import Style from "@/style"
 
-const SPLIT: Array<Track> = [Style.OWN_LIST, { fr: 1 }]
+const SPLIT: Array<Track> = [Style::OWN_LIST, { fr: 1 }]
 const ONE: Array<Track> = [{ fr: 1 }]
 const RULE: Array<Track> = [{ fr: 1 }, "max-content"]
 const LEAST_WIDTH = 210.9375dp
 const LEASTS: Array<Choice<Least>> = [
-  { value: Least.Any, label: Locale.LEAST_ANY },
-  { value: Least.Green, label: Locale.LEAST_GREEN },
-  { value: Least.Yellow, label: Locale.LEAST_YELLOW },
-  { value: Least.Orange, label: Locale.LEAST_ORANGE }
+  { value: Least::Any, label: Locale::LEAST_ANY },
+  { value: Least::Green, label: Locale::LEAST_GREEN },
+  { value: Least::Yellow, label: Locale::LEAST_YELLOW },
+  { value: Least::Orange, label: Locale::LEAST_ORANGE }
 ]
 
 // A profession of a character, as the rules see it.
@@ -53,7 +53,7 @@ class RuleRow implements Component {
   // Its skill line, and the rule as it now stands.
   public changed: Event<(Integer, SendRule)> = new Event()
   state on = true
-  state least = Least.Any
+  state least = Least::Any
 
   profession: Signal<RuledProfession>
   constructor(profession: Signal<RuledProfession>, rule: Signal<SendRule>) {
@@ -68,9 +68,9 @@ class RuleRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
-        <text value={self.profession.name} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
-        <box columns={RULE} gap={4sp} yAlign={Align.Center}>
-          <Checkbox label={Locale.RULE_ON} value={mut self.on} />
+        <text value={self.profession.name} textSize={TITLE_TEXT} leading={.Title} textColor={Style::GOLD} />
+        <box columns={RULE} gap={4sp} yAlign={Align::Center}>
+          <Checkbox label={Locale::RULE_ON} value={mut self.on} />
           <CompactDropdown value={mut self.least} choices={LEASTS} width={LEAST_WIDTH} disabled={!self.on} />
         </box>
       </box>
@@ -95,7 +95,7 @@ class RuledEntry implements Component {
   public render(self): Template {
     return $ltml {
       <PickRow columns={ONE} picked={self.on} @pick={self.onPick}>
-        <text value={self.ruled.name} textColor={Style.INK} wrap={.Cut} />
+        <text value={self.ruled.name} textColor={Style::INK} wrap={.Cut} />
       </PickRow>
     }
   }
@@ -137,7 +137,7 @@ public class RulesPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text $if={self.none} value={Locale.RULES_NONE} textColor={Style.DIM} />
+      <text $if={self.none} value={Locale::RULES_NONE} textColor={Style::DIM} />
       <box $else columns={SPLIT} gap={4sp}>
         <ScrolledList columns={1}>
           <RuledEntry $for={one of self.kin} $key={one.who} ruled={one} picked={self.currentWho} @pick={self.onPick} />

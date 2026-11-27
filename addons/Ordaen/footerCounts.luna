@@ -5,8 +5,8 @@ import { Align, TextFont } from "$ltml"
 import { Component } from "@/module"
 import { SECONDARY_TEXT } from "@/units"
 
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
 
 // One count: what it counts, and how many, written as the window says it («12», «3 / 25»).
 public struct FooterCount {
@@ -24,10 +24,10 @@ public class FooterCounts implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={{ each: "max-content" }} gap={6sp} yAlign={Align.Center}>
-        <box $for={count of self.counts} columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
+      <box columns={{ each: "max-content" }} gap={6sp} yAlign={Align::Center}>
+        <box $for={count of self.counts} columns={{ each: "max-content" }} gap={3sp} yAlign={Align::Center}>
           <text value={count.label} textSize={SECONDARY_TEXT} textColor={DIM} wrap={.None} />
-          <text value={count.value} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={count.color ?? INK}
+          <text value={count.value} textSize={SECONDARY_TEXT} textFont={TextFont::Numbers} textColor={count.color ?? INK}
                 wrap={.None} />
         </box>
       </box>

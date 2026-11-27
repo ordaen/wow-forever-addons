@@ -10,8 +10,8 @@ import { Grouping, Slot, SortBy, Tab, rankOf } from "@/model"
 // A tab's name: a kind's is Ordaen's (`kindName`).
 public function tabName(tab: Tab): String {
   return match (tab) {
-    .All => Locale.TAB_ALL
-    .New => Locale.TAB_NEW
+    .All => Locale::TAB_ALL
+    .New => Locale::TAB_NEW
     .Quest => kindName(.Quest)
     .Consumables => kindName(.Consumables)
     .Equipment => kindName(.Equipment)
@@ -19,7 +19,7 @@ public function tabName(tab: Tab): String {
     .Recipes => kindName(.Recipes)
     .Keys => kindName(.Keys)
     .Other => kindName(.Other)
-    .Junk => Locale.TAB_JUNK
+    .Junk => Locale::TAB_JUNK
   }
 }
 
@@ -56,7 +56,7 @@ function splitOf(tab: Tab, grouping: Grouping): Split {
   if (tab == .New) { return .One }
   return match (grouping) {
     .None => .One
-    .Type => tab == .All ? Split.Category : Split.Subclass
+    .Type => tab == .All ? Split::Category : Split::Subclass
     .Worn => .Worn
   }
 }
@@ -103,7 +103,7 @@ public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by
     group.slots.sort((a: Slot, b: Slot): Boolean => before(a, b, by))
     sections.push({ key: group.key, title: group.title, bag: -1, slots: group.slots, free: false })
   }
-  sections.push({ key: "free", title: Locale.FREE, bag: -1, slots: [], free: true })
+  sections.push({ key: "free", title: Locale::FREE, bag: -1, slots: [], free: true })
   return sections
 }
 
@@ -129,7 +129,7 @@ function titleOf(slot: Slot, split: Split): String {
     .One => ""
     .Category => tabName(slot.tab)
     .Subclass => subclassName(slot)
-    .Worn => slot.read.worn != "" ? Runtime.text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab)
+    .Worn => slot.read.worn != "" ? Runtime::text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab)
   }
 }
 
@@ -164,9 +164,9 @@ public function countsOf(slots: Array<Slot>): Map<Tab, Integer> {
   let counts: Map<Tab, Integer> = {}
   for (slot of slots) {
     if (peek slot.id != 0) {
-      counts[Tab.All] = (counts[Tab.All] ?? 0) + 1
+      counts[Tab::All] = (counts[Tab::All] ?? 0) + 1
       counts[slot.tab] = (counts[slot.tab] ?? 0) + 1
-      if (peek slot.isNew) { counts[Tab.New] = (counts[Tab.New] ?? 0) + 1 }
+      if (peek slot.isNew) { counts[Tab::New] = (counts[Tab::New] ?? 0) + 1 }
     }
   }
   return counts

@@ -19,13 +19,13 @@ const TAIL_ROOM: Number<Length> = TAIL_SIZE - TAIL_MEET
 const PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 
 public class SpeechBubble implements Component {
-  derived tailed: Boolean = self.tail != BubbleTail.None
-  derived tailLeft: Number<Length> | nil = self.tail == BubbleTail.Start ? TAIL_IN : nil
-  derived tailRight: Number<Length> | nil = self.tail == BubbleTail.End ? TAIL_IN : nil
+  derived tailed: Boolean = self.tail != BubbleTail::None
+  derived tailLeft: Number<Length> | nil = self.tail == BubbleTail::Start ? TAIL_IN : nil
+  derived tailRight: Number<Length> | nil = self.tail == BubbleTail::End ? TAIL_IN : nil
 
   tone: Signal<Color>
   tail: Signal<BubbleTail>
-  constructor(tone: Signal<Color>, tail: Signal<BubbleTail> = BubbleTail.None) {
+  constructor(tone: Signal<Color>, tail: Signal<BubbleTail> = BubbleTail::None) {
     self.tone = tone
     self.tail = tail
   }
@@ -35,7 +35,7 @@ public class SpeechBubble implements Component {
       <box columns={1}>
         <box padding={PAD} background={BUBBLE} desaturate={true} tint={self.tone}>
           <slot />
-          <box $if={self.tailed} position={Position.Absolute} left={self.tailLeft} right={self.tailRight}
+          <box $if={self.tailed} position={Position::Absolute} left={self.tailLeft} right={self.tailRight}
                bottom={-TAIL_ROOM} width={TAIL_SIZE} height={TAIL_SIZE} background={TAIL} desaturate={true}
                tint={self.tone} />
         </box>

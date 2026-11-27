@@ -30,9 +30,9 @@ public struct KeyLine {
 }
 
 const FILTERS: Array<Choice<KeyFilter>> = [
-  { value: .All, label: Locale.FILTER_ALL },
-  { value: .Bound, label: Locale.KEYS_BOUND },
-  { value: .Unbound, label: Locale.KEYS_UNBOUND }
+  { value: .All, label: Locale::FILTER_ALL },
+  { value: .Bound, label: Locale::KEYS_BOUND },
+  { value: .Unbound, label: Locale::KEYS_UNBOUND }
 ]
 // The command's name, then its first key and its second, each in a column of its own so that they line up.
 const KEY_COLUMN: Number<Length> = 234.375dp
@@ -42,11 +42,11 @@ const MARK = 18.75dp
 const BUTTON = 140.625dp
 const PAD: Edges = { left: 3sp, right: 3sp }
 const CAP_PAD: Edges = { left: 2sp, right: 2sp, top: 0.5sp, bottom: 0.5sp }
-const CAP: Color = Color.hex("#ffffff14")
+const CAP: Color = Color::hex("#ffffff14")
 // The capture dialog, and its well: where the keys pressed show, and a mouse button or the wheel is taken.
 const CAPTURE_WIDTH = 539.0625dp
 const WELL = 58.59375dp
-const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Style.PICKED }
+const LIGHT: ByInteractionState<Color> = { default: Style::CLEAR, hover: Style::PICKED }
 const DASH = "—"
 // The modifiers a key's name starts with, in the client's order.
 const MODIFIERS: Array<String> = ["ALT", "CTRL", "SHIFT", "META"]
@@ -58,16 +58,16 @@ public function capsOf(key: String): Array<String> {
   let rest = key
   for (modifier of MODIFIERS) {
     if (rest.length > modifier.length + 1 && rest.sub(1, modifier.length + 1) == `${modifier}-`) {
-      parts.push(Client.GetBindingText(modifier, "KEY_", false))
+      parts.push(Client::GetBindingText(modifier, "KEY_", false))
       rest = rest.sub(modifier.length + 2)
     }
   }
-  parts.push(Client.GetBindingText(rest, "KEY_", false))
+  parts.push(Client::GetBindingText(rest, "KEY_", false))
   return parts
 }
 
 // A key as one text, for the search and the strip: «Ctrl-Shift-F».
-public function keyText(key: String): String { return Client.GetBindingText(key, "KEY_", false) }
+public function keyText(key: String): String { return Client::GetBindingText(key, "KEY_", false) }
 
 // Whether a command shows with the search and the filter as they are.
 function matches(command: Command, query: String, filter: KeyFilter): Boolean {
@@ -84,7 +84,7 @@ function matches(command: Command, query: String, filter: KeyFilter): Boolean {
 
 public class KeysPage implements Component {
   state search = ""
-  state filter: KeyFilter = KeyFilter.All
+  state filter: KeyFilter = KeyFilter::All
   state folded: mut Map<String, Boolean> = {}
   // What the last change the client refused says, until the next change.
   state refused = ""
@@ -117,7 +117,7 @@ public class KeysPage implements Component {
     if (capture == nil || self.chord == "") { return "" }
     const holder = self.bindings.holder(capture.action, self.chord)
     if (holder == "" || holder == capture.action) { return "" }
-    return Locale.KEYS_NOW.format(self.bindings.command(holder)?.name ?? Client.GetBindingName(holder))
+    return Locale::KEYS_NOW.format(self.bindings.command(holder)?.name ?? Client::GetBindingName(holder))
   }
 
   onCapture(mut self, action: String, slot: Integer) {
@@ -127,23 +127,23 @@ public class KeysPage implements Component {
 
   // A key pressed in the capture. Escape cancels; Enter sets the chord pressed so far, and is the chord where none
   // is yet (Enter, then Enter, binds Enter). A modifier alone waits for its key.
-  onCaptureKey(mut self, stroke: Event.Keystroke) {
+  onCaptureKey(mut self, stroke: Event::Keystroke) {
     if (stroke.key == .Escape) {
       self.capture = nil
     } else if (stroke.key == .Enter && self.chord != "") {
       self.onCaptureSet()
     } else {
-      self.take(Client.GetConvertedKeyOrButton(stroke.key))
+      self.take(Client::GetConvertedKeyOrButton(stroke.key))
     }
   }
 
   // A mouse button on the capture's well: the left and right buttons are the client's own (refused), the others
   // are keys.
-  onCapturePress(mut self, press: Event.Press) { self.take(Client.GetConvertedKeyOrButton(press.button)) }
-  onCaptureWheel(mut self, wheel: Event.Wheel) { self.take(wheel.direction == .Up ? "MOUSEWHEELUP" : "MOUSEWHEELDOWN") }
+  onCapturePress(mut self, press: Event::Press) { self.take(Client::GetConvertedKeyOrButton(press.button)) }
+  onCaptureWheel(mut self, wheel: Event::Wheel) { self.take(wheel.direction == .Up ? "MOUSEWHEELUP" : "MOUSEWHEELDOWN") }
 
   take(mut self, key: String) {
-    if (!Client.IsKeyPressIgnoredForBinding(key)) { self.chord = Client.CreateKeyChordStringUsingMetaKeyState(key) }
+    if (!Client::IsKeyPressIgnoredForBinding(key)) { self.chord = Client::CreateKeyChordStringUsingMetaKeyState(key) }
   }
 
   onCaptureSet(mut self) {
@@ -181,7 +181,7 @@ public class KeysPage implements Component {
       if (line.caption) { shown += line.count }
     }
     const all = self.bindings.commands.length
-    return shown == all ? "%d".format(all) : Locale.COUNT_OF.format(shown, all)
+    return shown == all ? "%d".format(all) : Locale::COUNT_OF.format(shown, all)
   }
 
   stepOf(self): String {
@@ -189,14 +189,14 @@ public class KeysPage implements Component {
     const step = self.bindings.step
     if (step == nil || step.taken == "") { return "" }
     const from = self.bindings.command(step.taken)?.name ?? step.taken
-    return Locale.KEYS_TAKEN.format(keyText(step.key), from)
+    return Locale::KEYS_TAKEN.format(keyText(step.key), from)
   }
 
   said(mut self, refusal: Refusal | nil) {
     self.refused = match (refusal) {
       nil => ""
-      .Fight => Locale.KEYS_FIGHT
-      .Client => Locale.KEYS_REFUSED
+      .Fight => Locale::KEYS_FIGHT
+      .Client => Locale::KEYS_REFUSED
     }
   }
 
@@ -211,42 +211,42 @@ public class KeysPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
-        <Toolbar search={mut self.search} placeholder={Locale.KEYS_SEARCH}>
+        <Toolbar search={mut self.search} placeholder={Locale::KEYS_SEARCH}>
           <box padding={PAD}>
-            <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+            <text value={self.countText} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
           </box>
-          <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} />
+          <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} />
         </Toolbar>
-        <box columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align.Center}>
-          <text value={Locale.KEYS_COMMAND} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <text value={Locale.KEYS_FIRST} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <text value={Locale.KEYS_SECOND} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <box columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align::Center}>
+          <text value={Locale::KEYS_COMMAND} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={Locale::KEYS_FIRST} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={Locale::KEYS_SECOND} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <ScrolledList virtual={true}>
           <KeyRow $for={line of self.lines} line={line} bindings={self.bindings} fighting={self.fighting}
                   @fold={self.onFold} @unbind={self.onUnbind} @same={self.onSame} @capture={self.onCapture} />
         </ScrolledList>
-        <box $if={self.stepShown} columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
-          <box xAlign={Align.End}>
-            <text value={self.stepText} textColor={Style.INK} textSize={SECONDARY_TEXT} />
+        <box $if={self.stepShown} columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
+          <box xAlign={Align::End}>
+            <text value={self.stepText} textColor={Style::INK} textSize={SECONDARY_TEXT} />
           </box>
-          <PushButton $if={self.refused == ""} label={Locale.UNDO} width={BUTTON} disabled={self.fighting} @click={self.onUndo} />
+          <PushButton $if={self.refused == ""} label={Locale::UNDO} width={BUTTON} disabled={self.fighting} @click={self.onUndo} />
           <box $else />
         </box>
         <box $else />
         <Dialog $if={self.capturing} title={self.captureTitle} width={CAPTURE_WIDTH}>
-          <text value={Locale.KEYS_PRESS} textColor={Style.INK} />
-          <box height={WELL} padding={PAD} background={CAP} xAlign={Align.Center} yAlign={Align.Center}
+          <text value={Locale::KEYS_PRESS} textColor={Style::INK} />
+          <box height={WELL} padding={PAD} background={CAP} xAlign={Align::Center} yAlign={Align::Center}
                @keyDown.parentScope={self.onCaptureKey} @pointerDown={self.onCapturePress} @wheel={self.onCaptureWheel}>
-            <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+            <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align::Center}>
               <box $for={cap of self.chordCaps} padding={CAP_PAD} background={CAP}>
-                <text value={cap} textColor={Style.GOLD} wrap={.None} />
+                <text value={cap} textColor={Style::GOLD} wrap={.None} />
               </box>
             </box>
           </box>
-          <text value={self.holderText} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onCaptureCancel} />
-          <PushButton #buttons label={Locale.KEYS_SET} width={BUTTON} disabled={self.chord == ""} @click={self.onCaptureSet} />
+          <text value={self.holderText} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.onCaptureCancel} />
+          <PushButton #buttons label={Locale::KEYS_SET} width={BUTTON} disabled={self.chord == ""} @click={self.onCaptureSet} />
         </Dialog>
       </box>
     }
@@ -301,17 +301,17 @@ class KeyRow implements Component {
 
   entryOf(self, entry: RowEntry): MenuEntry {
     return match (entry.act) {
-      .Change => { label: Locale.KEYS_CHANGE, disabled: self.fighting }
-      .Add => { label: Locale.KEYS_ADD, disabled: self.fighting }
-      .Unbind => { label: Locale.KEYS_REMOVE.format(keyText(entry.key)), disabled: self.fighting, group: entry.key == (self.keys[1] ?? "") }
-      .Same => { label: Locale.KEYS_SAME.format(keyText(entry.key)), group: entry.key == (self.keys[1] ?? "") }
+      .Change => { label: Locale::KEYS_CHANGE, disabled: self.fighting }
+      .Add => { label: Locale::KEYS_ADD, disabled: self.fighting }
+      .Unbind => { label: Locale::KEYS_REMOVE.format(keyText(entry.key)), disabled: self.fighting, group: entry.key == (self.keys[1] ?? "") }
+      .Same => { label: Locale::KEYS_SAME.format(keyText(entry.key)), group: entry.key == (self.keys[1] ?? "") }
     }
   }
 
-  onPress(mut self, press: Event.Press) {
+  onPress(mut self, press: Event::Press) {
     if (self.line.caption) {
       self.fold.emit(self.line.name)
-    } else if (press.button == MouseButton.Right) {
+    } else if (press.button == MouseButton::Right) {
       self.menuOpen = true
     }
   }
@@ -346,28 +346,28 @@ class KeyRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align.Center}
+      <box $if={self.line.caption} height={Style::ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align::Center}
            @pointerPress={self.onPress} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
-        <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
-        <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
-        <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+        <box width={MARK} height={MARK} background={self.mark} tint={Style::GOLD} />
+        <text value={self.title} textColor={Style::GOLD} textFont={.Title} wrap={.None} />
+        <text value={self.countText} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
       </box>
-      <box $else height={Style.ROW} columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align.Center}
+      <box $else height={Style::ROW} columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align::Center}
            background={LIGHT} @pointerPress={self.onPress} @pointerPress.double={self.onDouble} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey}>
-        <text value={self.title} textColor={Style.INK} wrap={.Cut} />
-        <box $if={self.hasFirst} columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+        <text value={self.title} textColor={Style::INK} wrap={.Cut} />
+        <box $if={self.hasFirst} columns={{ each: "max-content" }} gap={1sp} yAlign={Align::Center}>
           <box $for={cap of self.first} padding={CAP_PAD} background={CAP}>
-            <text value={cap} textColor={Style.INK} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={cap} textColor={Style::INK} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </box>
-        <text $else value={DASH} textColor={Style.DIM} wrap={.None} />
-        <box $if={self.hasSecond} columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+        <text $else value={DASH} textColor={Style::DIM} wrap={.None} />
+        <box $if={self.hasSecond} columns={{ each: "max-content" }} gap={1sp} yAlign={Align::Center}>
           <box $for={cap of self.second} padding={CAP_PAD} background={CAP}>
-            <text value={cap} textColor={Style.INK} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={cap} textColor={Style::INK} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </box>
-        <text $else value={DASH} textColor={Style.DIM} wrap={.None} />
+        <text $else value={DASH} textColor={Style::DIM} wrap={.None} />
         <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.closeMenu} />
       </box>
     }

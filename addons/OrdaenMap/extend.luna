@@ -36,7 +36,7 @@ public trait Layer {
 // The map's side panel while it shows, docked (Blizzard's quest log, `WorldMapFrame.QuestLog`): the frame and its size
 // in UI units. Quests draws its log over exactly that rectangle, a level above it, taking its clicks.
 public struct SidePanel {
-  const frame: any Client.Frame
+  const frame: any Client::Frame
   const width: Number
   const height: Number
 }

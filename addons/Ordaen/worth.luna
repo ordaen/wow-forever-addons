@@ -158,7 +158,7 @@ public function scoreWith(weights: Weights, stats: Map<String, Number>, far: Boo
   for (key, value of stats) {
     const weighing = WEIGHINGS[key]
     if (weighing == nil) { continue }
-    const amount = weighing.rating == 0 ? value : Client.GetCombatRatingBonusForCombatRatingValue(weighing.rating, value) ?? value
+    const amount = weighing.rating == 0 ? value : Client::GetCombatRatingBonusForCombatRatingValue(weighing.rating, value) ?? value
     score += amount * weighing.weight(weights, far)
   }
   return score
@@ -196,7 +196,7 @@ public class GearWorth {
   // talent point, by their keys (a Shockadin); none: by its talents, and the class's default.
   public state picked: String | nil = nil
   public state preferred: String | nil = nil
-  public derived spec: SpecWeights | nil = specOf(Game.player.classTag, Game.player.leadingTree, self.picked, self.preferred)
+  public derived spec: SpecWeights | nil = specOf(Game::player.classTag, Game::player.leadingTree, self.picked, self.preferred)
   public derived weights: Weights | nil = self.weightsNow()
   // What the player wears, each slot's link (`""`: nothing), read anew as the game says a piece was put on or taken
   // off: what an upgrade is weighed against, so every answer follows the gear.
@@ -204,13 +204,13 @@ public class GearWorth {
 
   constructor() {
     self.readWorn()
-    Events.PLAYER_ENTERING_WORLD.listen(self.readWorn)
-    Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readWorn)
+    Events::PLAYER_ENTERING_WORLD.listen(self.readWorn)
+    Events::PLAYER_EQUIPMENT_CHANGED.listen(self.readWorn)
   }
 
   readWorn(mut self) {
     const worn: Array<String> = []
-    for (slot of 1..LAST_WORN) { worn.push(Client.GetInventoryItemLink("player", slot) ?? "") }
+    for (slot of 1..LAST_WORN) { worn.push(Client::GetInventoryItemLink("player", slot) ?? "") }
     self.worn = worn
   }
 
@@ -221,7 +221,7 @@ public class GearWorth {
   weightsNow(self): Weights | nil {
     const spec = self.spec
     if (spec == nil) { return nil }
-    return Game.player.level >= MAX_LEVEL ? spec.max : spec.leveling
+    return Game::player.level >= MAX_LEVEL ? spec.max : spec.leveling
   }
 
   // An item's worth to the spec, by its link: the sum of its stats, each by its weight; none where the spec weighs
@@ -229,9 +229,9 @@ public class GearWorth {
   public scoreOf(self, link: String): Number | nil {
     const weights = self.weights
     if (weights == nil) { return nil }
-    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
+    let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
     if (worn == nil || PLACES[worn] == nil) { return nil }
-    const stats = Client.C_Item.GetItemStats(link)
+    const stats = Client::C_Item::GetItemStats(link)
     if (!(stats is Table)) { return nil }
     let given: Map<String, Number> = {}
     for (key, value of stats) {
@@ -245,11 +245,11 @@ public class GearWorth {
   // hands. Nothing worn there: 1. None where the item isn't worn, the class can never use it, or the spec weighs
   // nothing.
   public upgradeOf(self, link: String): Number | nil {
-    let _, _, _, worn, _, itemClass, kind = Client.C_Item.GetItemInfoInstant(link)
-    if (worn == nil || !classCanUse(Game.player.classTag, (itemClass ?? 0).floor(), (kind ?? 0).floor())) { return nil }
+    let _, _, _, worn, _, itemClass, kind = Client::C_Item::GetItemInfoInstant(link)
+    if (worn == nil || !classCanUse(Game::player.classTag, (itemClass ?? 0).floor(), (kind ?? 0).floor())) { return nil }
     const score = self.scoreOf(link)
     if (score == nil) { return nil }
-    const places = placesFor(worn, Client.CanDualWield(), self.twoHanded())
+    const places = placesFor(worn, Client::CanDualWield(), self.twoHanded())
     if (places == nil) { return nil }
     let held: Number | nil = nil
     if (places.both) {
@@ -269,7 +269,7 @@ public class GearWorth {
   twoHanded(self): Boolean {
     const link = self.worn[MAIN_HAND] ?? ""
     if (link == "") { return false }
-    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
+    let _, _, _, worn, _, _, _ = Client::C_Item::GetItemInfoInstant(link)
     return worn == "INVTYPE_2HWEAPON"
   }
 

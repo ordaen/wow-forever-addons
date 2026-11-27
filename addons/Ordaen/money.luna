@@ -3,10 +3,10 @@
 import Game from "$game"
 import { Component } from "@/module"
 
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 
 public class Money implements Component {
-  derived text: String = Game.money.format(self.amount)
+  derived text: String = Game::money.format(self.amount)
 
   amount: Signal<Integer>
   color: Signal<Color>

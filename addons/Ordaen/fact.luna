@@ -3,8 +3,8 @@
 import { Track } from "$ltml"
 import { Component } from "@/module"
 
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
 const COLUMNS: Array<Track> = [117.1875dp, { fr: 1 }]
 
 public class Fact implements Component {

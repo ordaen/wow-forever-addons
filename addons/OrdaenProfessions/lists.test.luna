@@ -10,28 +10,28 @@ import root Ordaen from "Ordaen"
 import { Thresholds, learnable } from "@/skillUps"
 import { Kept } from "@/view"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const BLACKSMITHING = 164
 const NOTE: Art = "Interface/Icons/INV_Misc_Note_01"
 const CLOTH_ICON: Art = "Interface/Icons/INV_Chest_Cloth_01"
 const WOOL_ICON: Art = "Interface/Icons/INV_Fabric_Wool_01"
 // A recipe's name: in its difficulty's colour, dim while not learned.
-const ORANGE: Color = Color.hex("#ff8040")
-const YELLOW: Color = Color.hex("#ffd100")
-const GREEN: Color = Color.hex("#40c040")
-const GREY: Color = Color.hex("#9a9a9a")
-const UNLEARNED: Color = Color.hex("#7a7060")
-const RED: Color = Color.hex("#ff4040")
-const WHITE: Color = Color.hex("#ffffff")
-const DIM: Color = Color.hex("#a3977f")
+const ORANGE: Color = Color::hex("#ff8040")
+const YELLOW: Color = Color::hex("#ffd100")
+const GREEN: Color = Color::hex("#40c040")
+const GREY: Color = Color::hex("#9a9a9a")
+const UNLEARNED: Color = Color::hex("#7a7060")
+const RED: Color = Color::hex("#ff4040")
+const WHITE: Color = Color::hex("#ffffff")
+const DIM: Color = Color::hex("#a3977f")
 // The funnel's glyph while a filter is on; a menu's line that takes no click.
-const LIT: Color = Color.hex("#f0c860")
-const MENU_DIM: Color = Color.hex("#6f6552")
+const LIT: Color = Color::hex("#f0c860")
+const MENU_DIM: Color = Color::hex("#6f6552")
 // The card's text.
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 // The groove's dark line between the categories and the recipes.
-const GROOVE: Color = Color.hex("#0000003d")
+const GROOVE: Color = Color::hex("#0000003d")
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 // The card's note that a recipe waits in the queue.
@@ -42,18 +42,18 @@ const NAMES: Array<String> = [
 ]
 
 function recipe(
-  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean
-): Game.Recipe {
+  id: Integer, name: String, category: Integer, difficulty: Game::Difficulty, craftable: Integer, learned: Boolean
+): Game::Recipe {
   return {
     id: id, name: name, icon: NOTE, categoryID: category, learned: learned, difficulty: difficulty, craftable: craftable
   }
 }
 
-function reagent(name: String, item: Integer, have: Integer, need: Integer): Game.Reagent {
+function reagent(name: String, item: Integer, have: Integer, need: Integer): Game::Reagent {
   return { itemID: item, name: name, icon: "Interface/Icons/INV_Fabric_Linen_01", have: have, need: need }
 }
 
-function reagents(id: Integer): Array<Game.Reagent> {
+function reagents(id: Integer): Array<Game::Reagent> {
   if (id == 110) { return [reagent("Bolt of Linen Cloth", 2589, 3, 1), reagent("Coarse Thread", 2320, 0, 1)] }
   if (id == 111) { return [reagent("Coarse Thread", 2320, 0, 2)] }
   if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 6, 3)] }
@@ -62,19 +62,19 @@ function reagents(id: Integer): Array<Game.Reagent> {
 }
 
 // Every recipe makes an item but Woolen Bag, which makes none (as an enchant makes none).
-function schematic(id: Integer): Game.Schematic | nil {
+function schematic(id: Integer): Game::Schematic | nil {
   if (id == 121) { return nil }
   return { recipe: id, makes: 1000 + id, least: 1, most: 1, parts: [] }
 }
 
-function professions(): Array<Game.Profession> {
+function professions(): Array<Game::Profession> {
   return [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 12, max: 75, kind: Game.ProfessionKind.Crafting }
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 12, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
-function categories(): Array<Game.Category> {
+function categories(): Array<Game::Category> {
   return [
     { id: 1, name: "Tailoring" },
     { id: 10, name: "Resting at camp", parentID: 1 },
@@ -84,29 +84,29 @@ function categories(): Array<Game.Category> {
   ]
 }
 
-function recipes(): Array<Game.Recipe> {
+function recipes(): Array<Game::Recipe> {
   return [
-    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true),
-    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
-    recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
-    recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
-    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
-    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true)
+    recipe(100, "Linen Bandage", 10, Game::Difficulty::Rarely, 4, true),
+    recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true),
+    recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true),
+    recipe(112, "Woolen Cape", 11, Game::Difficulty::Never, 0, false),
+    recipe(120, "Linen Bag", 12, Game::Difficulty::Usually, 2, true),
+    recipe(121, "Woolen Bag", 12, Game::Difficulty::Always, 0, true)
   ]
 }
 
-function smithingCategories(): Array<Game.Category> {
+function smithingCategories(): Array<Game::Category> {
   return [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Weapons", parentID: 2 }]
 }
 
 // Blacksmithing: one recipe.
-function smithingRecipes(): Array<Game.Recipe> {
-  return [recipe(200, "Copper Mace", 21, Game.Difficulty.Always, 1, true)]
+function smithingRecipes(): Array<Game::Recipe> {
+  return [recipe(200, "Copper Mace", 21, Game::Difficulty::Always, 1, true)]
 }
 
 // The professions window: the surface that holds the profession's «Overview» tab.
-function window(): Test.Part {
-  return Test.page().window("Overview")
+function window(): Test::Part {
+  return Test::page().window("Overview")
 }
 
 // A recipe's name where the window shows it.
@@ -162,7 +162,7 @@ function chosen(): String {
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -182,7 +182,7 @@ function lists(expected: String): Boolean {
 
 // Whether the game was asked exactly this since it was last asked, joined by «, ».
 function asked(expected: String): Boolean {
-  const said = Test.requests().join(", ")
+  const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
@@ -190,7 +190,7 @@ function asked(expected: String): Boolean {
 // A choice of one of the toolbar's pickers: the picker by its glyph, then the choice in its list, which holds `first`.
 function pick(glyph: Art, first: String, choice: String) {
   window().button(glyph).click()
-  Test.page().window(first).button(choice).click()
+  Test::page().window(first).button(choice).click()
 }
 
 function view(choice: String) {
@@ -208,20 +208,20 @@ function sort(choice: String) {
 }
 
 // The filter's menu, opened from the funnel.
-function filter(): Test.Part {
-  if (!Test.page().window("Raises the skill").shown()) { window().button(Ordaen.art.ctl.tool.filter).click() }
-  return Test.page().window("Raises the skill")
+function filter(): Test::Part {
+  if (!Test::page().window("Raises the skill").shown()) { window().button(Ordaen.art.ctl.tool.filter).click() }
+  return Test::page().window("Raises the skill")
 }
 
 // A line of the open right-click menu clicked: the menu is found by its «Link in chat», which it always shows.
 function choose(label: String) {
-  Test.page().window("Link in chat").button(label).click()
+  Test::page().window("Link in chat").button(label).click()
 }
 
 // Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
-function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
-  return Test.page().window(SETTINGS)
+function settings(): Test::Part {
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  return Test::page().window(SETTINGS)
 }
 
 // A setting's checkbox clicked and saved, the settings window closed.
@@ -235,1008 +235,1008 @@ function setting(label: String) {
 // The views
 
 test "in columns: the categories with recipes, each counted, beside the first one's recipes by difficulty" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   // The camp's has a tab of its own; a category with nothing in it has no row.
-  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 1 | /2"))
-  Test.expect(reads(window().text("Bags").item(), "Bags | 1 | /2"))
-  Test.expect(!window().text("Resting at camp").shown() && !window().text("Nothing known here").shown())
-  Test.expect(lists("Linen Cloak, Brown Linen Vest") && chosen() == "Linen Cloak")
+  Test::expect(reads(window().text("Cloth armour").item(), "Cloth armour | 1 | /2"))
+  Test::expect(reads(window().text("Bags").item(), "Bags | 1 | /2"))
+  Test::expect(!window().text("Resting at camp").shown() && !window().text("Nothing known here").shown())
+  Test::expect(lists("Linen Cloak, Brown Linen Vest") && chosen() == "Linen Cloak")
 }
 
 test "with no spell of its own and off the queue, the recipe runs down to the window's frame: no empty footer under it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   // The body is the lowest of the wood (the tabs are wood too); the lists run to the page's bottom, the groove down the
   // categories with them; the frame's band alone stands between them: its 16 texels at the window's 0.45.
-  Test.expect(lowest(window().box(Ordaen.art.window.wood)) - lowest(window().box(GROOVE)) <= 16 * 0.45 + 0.01)
+  Test::expect(lowest(window().box(Ordaen.art.window.wood)) - lowest(window().box(GROOVE)) <= 16 * 0.45 + 0.01)
 }
 
 test "the chosen recipe a light, the chosen category cut into the groove" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   // One light, the chosen recipe's; the groove's dark line down the categories and along the chosen one's top and
   // bottom.
-  Test.expect(window().box(Color.hex("#e8c89629")).count() == 1)
-  Test.expect(window().box(Color.hex("#0000003d")).count() == 3)
+  Test::expect(window().box(Color::hex("#e8c89629")).count() == 1)
+  Test::expect(window().box(Color::hex("#0000003d")).count() == 3)
 }
 
 // The bottom of the lowest of the boxes found.
-function lowest(boxes: Test.Part): Number {
+function lowest(boxes: Test::Part): Number {
   let bottom: Number = 0
   for (n of 1..boxes.count()) { bottom = bottom.max(boxes.nth(n).rect().bottom) }
   return bottom
 }
 
 test "in columns, a category clicked lists its recipes, the first of them chosen" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
-  Test.expect(lists("Woolen Bag, Linen Bag") && chosen() == "Woolen Bag")
+  Test::expect(lists("Woolen Bag, Linen Bag") && chosen() == "Woolen Bag")
   window().text("Linen Bag").nth(1).click()
-  Test.expect(chosen() == "Linen Bag")
+  Test::expect(chosen() == "Linen Bag")
 }
 
 test "a category's count of what the bags make now is white while any, dim at none" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [
-    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 0, true), recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true)
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [
+    recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 0, true), recipe(120, "Linen Bag", 12, Game::Difficulty::Usually, 2, true)
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 0 | /1"))
-  Test.expect(window().text("Cloth armour").item().text("0").textColor().equal(DIM))
-  Test.expect(window().text("Bags").item().text("1").textColor().equal(WHITE))
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(reads(window().text("Cloth armour").item(), "Cloth armour | 0 | /1"))
+  Test::expect(window().text("Cloth armour").item().text("0").textColor().equal(DIM))
+  Test::expect(window().text("Bags").item().text("1").textColor().equal(WHITE))
 }
 
 test "by category: one list under the categories' headings, a heading clicked folds its recipes away" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
-  Test.expect(reads(window().button("Bags"), "- | Bags | 1 | /2"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test::expect(reads(window().button("Bags"), "- | Bags | 1 | /2"))
   window().button("Cloth armour").click()
-  Test.expect(reads(window().button("Cloth armour"), "+ | Cloth armour | 1 | /2") && lists("Woolen Bag, Linen Bag"))
+  Test::expect(reads(window().button("Cloth armour"), "+ | Cloth armour | 1 | /2") && lists("Woolen Bag, Linen Bag"))
   window().button("Cloth armour").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
   window().text("Woolen Bag").nth(1).click()
-  Test.expect(chosen() == "Woolen Bag")
+  Test::expect(chosen() == "Woolen Bag")
   // The last of a category too.
   window().text("Linen Bag").nth(1).click()
-  Test.expect(chosen() == "Linen Bag")
+  Test::expect(chosen() == "Linen Bag")
 }
 
 test "by category, a heading's name is gold, «Favorites» white, and its counts follow the bags" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().button("Favorite").click()
   const bags = window().button("Bags")
-  Test.expect(near(bags.text("Bags").textColor(), YELLOW) && near(window().button("Favorites").text("Favorites").textColor(), WHITE))
-  Test.expect(near(bags.text("1").textColor(), WHITE))
+  Test::expect(near(bags.text("Bags").textColor(), YELLOW) && near(window().button("Favorites").text("Favorites").textColor(), WHITE))
+  Test::expect(near(bags.text("1").textColor(), WHITE))
   // Starred again: «Favorites» goes, and the first heading is gold; starred once more for what follows.
   window().button("Favorite").click()
-  Test.expect(!window().text("Favorites").shown() && near(window().button("Cloth armour").text("Cloth armour").textColor(), YELLOW))
+  Test::expect(!window().text("Favorites").shown() && near(window().button("Cloth armour").text("Cloth armour").textColor(), YELLOW))
   window().button("Favorite").click()
   // The bags make no bag now, and one more recipe of them is learned.
-  Game.tradeSkill.recipes = [
-    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true), recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
-    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 0, true), recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
-    recipe(122, "Red Linen Bag", 12, Game.Difficulty.Always, 0, true)
+  Game::tradeSkill.recipes = [
+    recipe(100, "Linen Bandage", 10, Game::Difficulty::Rarely, 4, true), recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true),
+    recipe(120, "Linen Bag", 12, Game::Difficulty::Usually, 0, true), recipe(121, "Woolen Bag", 12, Game::Difficulty::Always, 0, true),
+    recipe(122, "Red Linen Bag", 12, Game::Difficulty::Always, 0, true)
   ]
-  Test.expect(reads(window().button("Bags"), "- | Bags | 0 | /3") && near(window().button("Bags").text("0").textColor(), DIM))
+  Test::expect(reads(window().button("Bags"), "- | Bags | 0 | /3") && near(window().button("Bags").text("0").textColor(), DIM))
 }
 
 test "a table: by name, its headings sort it and the same one again turns it round; the sort's picker goes" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().button(Ordaen.art.ctl.tool.sort).shown())
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().button(Ordaen.art.ctl.tool.sort).shown())
   view("Table")
-  Test.expect(!window().button(Ordaen.art.ctl.tool.sort).shown())
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
+  Test::expect(!window().button(Ordaen.art.ctl.tool.sort).shown())
+  Test::expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   // The name, the skill (none known here), how many; with no reagents the costs are nothing, nothing is bought back.
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test::expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   window().button("Available").click()
-  Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
+  Test::expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Available").click()
-  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
+  Test::expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   window().button("Recipe").click()
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
+  Test::expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   window().button("Recipe").click()
-  Test.expect(lists("Woolen Bag, Linen Cloak, Linen Bag, Brown Linen Vest"))
+  Test::expect(lists("Woolen Bag, Linen Cloak, Linen Bag, Brown Linen Vest"))
   window().text("Linen Cloak").nth(1).click()
-  Test.expect(chosen() == "Linen Cloak")
+  Test::expect(chosen() == "Linen Cloak")
 }
 
 test "a table's row says its made item's class and where it is worn, else its kind; «Class» sorts by it, one with none last" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
   // The cloak (1110) and the vest (1111) are cloth, worn on the back and the chest; the bag (1120) a bag, not worn, a
   // container; the woolen bag makes nothing.
-  Game.items.subtype = (id: Integer): String | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
-  Game.items.equipSlot = (id: Integer): String | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
-  Game.items.category = (id: Integer): String | nil => id == 1120 ? "Container" : id == 1110 || id == 1111 ? "Armor" : nil
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::items.subtype = (id: Integer): String | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
+  Game::items.equipSlot = (id: Integer): String | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
+  Game::items.category = (id: Integer): String | nil => id == 1120 ? "Container" : id == 1110 || id == 1111 ? "Armor" : nil
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("Table")
-  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test::expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test::expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   window().button("Class").click()
-  Test.expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
+  Test::expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
   window().button("Class").click()
   // The other way round, two of one class by name the other way too; still last, the one with none.
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
 }
 
 test "a table's class and type wrap onto lines of their own, their row as high as they come to" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Game.items.subtype = (id: Integer): String | nil => id == 1111 ? "Cloth Woven Of Many Long Threads" : "Cloth"
-  Game.items.category = (id: Integer): String | nil => id == 1111 ? "Armor Of Every Kind There Is" : "Armor"
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Game::items.subtype = (id: Integer): String | nil => id == 1111 ? "Cloth Woven Of Many Long Threads" : "Cloth"
+  Game::items.category = (id: Integer): String | nil => id == 1111 ? "Armor Of Every Kind There Is" : "Armor"
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("Table")
   const one = heightOf(window().text("Linen Cloak").nth(1))
-  Test.expect(heightOf(window().text("Cloth Woven Of Many Long Threads")) > one * 1.5)
-  Test.expect(heightOf(window().text("Armor Of Every Kind There Is")) > one * 1.5)
-  Test.expect(heightOf(window().text("Brown Linen Vest").nth(1).item()) > heightOf(window().text("Linen Cloak").nth(1).item()))
+  Test::expect(heightOf(window().text("Cloth Woven Of Many Long Threads")) > one * 1.5)
+  Test::expect(heightOf(window().text("Armor Of Every Kind There Is")) > one * 1.5)
+  Test::expect(heightOf(window().text("Brown Linen Vest").nth(1).item()) > heightOf(window().text("Linen Cloak").nth(1).item()))
 }
 
-function heightOf(part: Test.Part): Number {
+function heightOf(part: Test::Part): Number {
   const rect = part.rect()
   return rect.bottom - rect.top
 }
 
 test "the camp's tab lists its recipes in one list whatever the view, with no view to pick" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("Table")
   window().button("Camp").click()
-  Test.expect(lists("Linen Bandage") && chosen() == "Linen Bandage")
-  Test.expect(!window().button(Ordaen.art.ctl.tool.table).shown() && !window().button("Cloth armour").shown())
+  Test::expect(lists("Linen Bandage") && chosen() == "Linen Bandage")
+  Test::expect(!window().button(Ordaen.art.ctl.tool.table).shown() && !window().button("Cloth armour").shown())
   window().button("Recipes").click()
-  Test.expect(chosen() == "Brown Linen Vest")
+  Test::expect(chosen() == "Brown Linen Vest")
 }
 
 // The sort
 
 test "by difficulty the hardest to raise the skill last, a tie by name" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [
-    recipe(113, "Grey Cape", 11, Game.Difficulty.Never, 0, true),
-    recipe(114, "Green Cape", 11, Game.Difficulty.Rarely, 0, true),
-    recipe(115, "Yellow Cape", 11, Game.Difficulty.Usually, 0, true),
-    recipe(116, "Brown Cape", 11, Game.Difficulty.Always, 0, true),
-    recipe(117, "Amber Cape", 11, Game.Difficulty.Always, 0, true)
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [
+    recipe(113, "Grey Cape", 11, Game::Difficulty::Never, 0, true),
+    recipe(114, "Green Cape", 11, Game::Difficulty::Rarely, 0, true),
+    recipe(115, "Yellow Cape", 11, Game::Difficulty::Usually, 0, true),
+    recipe(116, "Brown Cape", 11, Game::Difficulty::Always, 0, true),
+    recipe(117, "Amber Cape", 11, Game::Difficulty::Always, 0, true)
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   const order = window().texts().filter(shown => shown.contains("Cape")).join(", ")
-  Test.expect(order == "Amber Cape, Brown Cape, Yellow Cape, Green Cape, Grey Cape, Amber Cape")
+  Test::expect(order == "Amber Cape, Brown Cape, Yellow Cape, Green Cape, Grey Cape, Amber Cape")
 }
 
 test "by name the recipes of a category stand in the alphabet's order" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   sort("By name")
-  Test.expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
+  Test::expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
 }
 
 test "by «Can make» the most the bags make stands first in its category, a tie by name" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   sort("Can make")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
 }
 
 test "two recipes of one name stand by their numbers, whichever way they came" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(121, "Linen Bag", 12, Game.Difficulty.Always, 3, true), recipe(120, "Linen Bag", 12, Game.Difficulty.Always, 2, true)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(121, "Linen Bag", 12, Game::Difficulty::Always, 3, true), recipe(120, "Linen Bag", 12, Game::Difficulty::Always, 2, true)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   // The first, by its number, is chosen: its count on its row.
-  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | [2]"))
+  Test::expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | [2]"))
   view("Table")
-  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test::expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
 }
 
 // The filter
 
 test "the filter's «Can make» leaves what the bags make now, «Raises the skill» what still raises it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [
-    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
-    recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
-    recipe(120, "Linen Bag", 12, Game.Difficulty.Never, 2, true)
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [
+    recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true),
+    recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true),
+    recipe(120, "Linen Bag", 12, Game::Difficulty::Never, 2, true)
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   filter().button("Can make").click()
-  Test.expect(lists("Linen Cloak, Linen Bag"))
+  Test::expect(lists("Linen Cloak, Linen Bag"))
   filter().button("Raises the skill").click()
-  Test.expect(lists("Linen Cloak"))
+  Test::expect(lists("Linen Cloak"))
   filter().button("Can make").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest"))
 }
 
 test "the recipes not learned have a tab of their own, after the recipes'; the overview's tab stands first" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   const tabs = window().button("Overview").rect().left < window().button("Recipes").rect().left
-  Test.expect(tabs && window().button("Recipes").rect().left < window().button("Not learned").rect().left)
+  Test::expect(tabs && window().button("Recipes").rect().left < window().button("Not learned").rect().left)
   window().button("Not learned").click()
-  Test.expect(lists("Woolen Cape") && chosen() == "Woolen Cape")
+  Test::expect(lists("Woolen Cape") && chosen() == "Woolen Cape")
   window().button("Recipes").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
   // The filter has no switch for them any more.
-  Test.expect(!filter().button("Not learned").shown() && !filter().button("Learned").shown())
+  Test::expect(!filter().button("Not learned").shown() && !filter().button("Learned").shown())
 }
 
 test "an option of the filter has its switch on while it is on; «Reset» turns every one back, and only then can be clicked" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
-  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
-  Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test::expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
-  Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
-  Test.expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test::expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Reset").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
-  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test::expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "the filter starts as What's Training's: a trainer's, a vendor's or a quest's, none asking a standing" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
   // What's Training's: a recipe its trainer teaches, and one a vendor sells to those Friendly with its faction.
-  const all: Array<Game.Recipe> = []
+  const all: Array<Game::Recipe> = []
   for (each of recipes()) { all.push(each) }
-  all.push(recipe(2393, "Trainer's Shirt", 11, Game.Difficulty.Usually, 0, false))
-  all.push(recipe(1301440, "Vendor's Robe", 11, Game.Difficulty.Usually, 0, false))
-  Game.tradeSkill.recipes = all
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  all.push(recipe(2393, "Trainer's Shirt", 11, Game::Difficulty::Usually, 0, false))
+  all.push(recipe(1301440, "Vendor's Robe", 11, Game::Difficulty::Usually, 0, false))
+  Game::tradeSkill.recipes = all
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().button("Not learned").click()
   // The robe asks a standing: left out at first.
-  Test.expect(listed().contains("Trainer's Shirt") && !listed().contains("Vendor's Robe"))
+  Test::expect(listed().contains("Trainer's Shirt") && !listed().contains("Vendor's Robe"))
   filter().button("No reputation asked").click()
-  Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+  Test::expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
   filter().button("From a trainer").click()
-  Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+  Test::expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
 }
 
 test "the recipes not learned group as What's Training files them, or by the game's categories, as the picker says" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   // The recipes' page has no grouping to pick.
-  Test.expect(!window().button(Ordaen.art.ctl.tool.list).shown())
+  Test::expect(!window().button(Ordaen.art.ctl.tool.list).shown())
   window().button("Not learned").click()
   // The cape isn't in What's Training's table: nothing is known of the skill it asks.
-  Test.expect(reads(window().text("Missing requirements").item(), "Missing requirements | 0 | /1"))
-  Test.expect(!window().text("Cloth armour").shown() && lists("Woolen Cape"))
+  Test::expect(reads(window().text("Missing requirements").item(), "Missing requirements | 0 | /1"))
+  Test::expect(!window().text("Cloth armour").shown() && lists("Woolen Cape"))
   pick(Ordaen.art.ctl.tool.list, "What you can learn", "Recipe type")
-  Test.expect(window().text("Cloth armour").shown() && !window().text("Missing requirements").shown())
+  Test::expect(window().text("Cloth armour").shown() && !window().text("Missing requirements").shown())
 }
 
 test "a click anywhere but the filter's menu closes it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(filter().shown())
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(filter().shown())
   window().button("Recipes").click()
-  Test.expect(!Test.page().window("Raises the skill").shown())
+  Test::expect(!Test::page().window("Raises the skill").shown())
 }
 
 test "the funnel's tip names the options on, or that none is" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | From a trainer, From a vendor, From a quest, No reputation asked"))
+  Test::expect(reads(Test::page().window("Filter"), "Filter | From a trainer, From a vendor, From a quest, No reputation asked"))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill, From a trainer, From a vendor, From a quest, No reputation asked"))
+  Test::expect(reads(Test::page().window("Filter"), "Filter | Can make, Raises the skill, From a trainer, From a vendor, From a quest, No reputation asked"))
   for (label of ["Can make", "Raises the skill", "From a trainer", "From a vendor", "From a quest", "No reputation asked"]) {
     filter().button(label).click()
   }
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
+  Test::expect(reads(Test::page().window("Filter"), "Filter | Nothing switched on"))
 }
 
 test "the funnel is lit while a filter is on" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   const unlit = window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT)
   filter().button("Raises the skill").click()
   window().button("Recipes").click()
-  Test.expect(!unlit && window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT))
+  Test::expect(!unlit && window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT))
 }
 
 // The search
 
 test "the search finds a recipe by its name or by a reagent's, in any case" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.reagents = reagents
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.reagents = reagents
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().input().type("BAG")
-  Test.expect(lists("Woolen Bag, Linen Bag"))
-  Test.erase(3)
-  Test.type("woolen cloth")
-  Test.expect(lists("Woolen Bag"))
-  Test.erase(12)
-  Test.type("coarse")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest"))
-  Test.erase(6)
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test::expect(lists("Woolen Bag, Linen Bag"))
+  Test::erase(3)
+  Test::type("woolen cloth")
+  Test::expect(lists("Woolen Bag"))
+  Test::erase(12)
+  Test::type("coarse")
+  Test::expect(lists("Linen Cloak, Brown Linen Vest"))
+  Test::erase(6)
+  Test::expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
 }
 
 test "the search reads a recipe's reagents once, not again at each letter typed" {
   let readings = 0
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
     readings += 1
     return reagents(id)
   }
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().input().type("c")
   const once = readings
-  Test.type("oarse")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest") && readings - once <= 1)
+  Test::type("oarse")
+  Test::expect(lists("Linen Cloak, Brown Linen Vest") && readings - once <= 1)
 }
 
 test "reagents the game told late are searched once the profession is opened again" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().input().type("coarse")
-  Test.expect(lists("") && !window().text("Linen Cloak").shown())
-  Game.tradeSkill.reagents = reagents
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(lists(""))
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(lists("Linen Cloak, Brown Linen Vest"))
+  Test::expect(lists("") && !window().text("Linen Cloak").shown())
+  Game::tradeSkill.reagents = reagents
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(lists(""))
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(lists("Linen Cloak, Brown Linen Vest"))
 }
 
 // A recipe's row
 
 test "a recipe's name is in its difficulty's colour, one not learned in what it would be now; what the bags make stands at its right" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
-  Test.expect(window().text("Woolen Bag").textColor().equal(ORANGE) && window().text("Brown Linen Vest").textColor().equal(YELLOW))
+  Test::expect(window().text("Woolen Bag").textColor().equal(ORANGE) && window().text("Brown Linen Vest").textColor().equal(YELLOW))
   window().button("Camp").click()
-  Test.expect(window().text("Linen Bandage").nth(1).textColor().equal(GREEN))
+  Test::expect(window().text("Linen Bandage").nth(1).textColor().equal(GREEN))
   window().button("Recipes").click()
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | [2]") && reads(window().text("Woolen Bag").item(), "Woolen Bag"))
+  Test::expect(reads(window().text("Linen Bag").item(), "Linen Bag | [2]") && reads(window().text("Woolen Bag").item(), "Woolen Bag"))
   window().button("Not learned").click()
   // The cape, which the skill table doesn't know, in what it would be now (grey), not the old dim.
-  Test.expect(!window().text("Woolen Cape").nth(1).textColor().equal(UNLEARNED))
+  Test::expect(!window().text("Woolen Cape").nth(1).textColor().equal(UNLEARNED))
 }
 
 test "a recipe not learned takes what it would do for the skill now; a learned one keeps the client's" {
   const table: Thresholds = { yellow: { [112]: 50, [113]: 20 }, grey: { [112]: 70, [113]: 30 } }
-  const cape = learnable(recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false), table, 31)
-  const shirt = learnable(recipe(113, "Linen Shirt", 11, Game.Difficulty.Never, 0, false), table, 31)
-  const vest = learnable(recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true), table, 31)
-  Test.expect(cape.difficulty == Game.Difficulty.Always && shirt.difficulty == Game.Difficulty.Never)
-  Test.expect(vest.difficulty == Game.Difficulty.Usually)
+  const cape = learnable(recipe(112, "Woolen Cape", 11, Game::Difficulty::Never, 0, false), table, 31)
+  const shirt = learnable(recipe(113, "Linen Shirt", 11, Game::Difficulty::Never, 0, false), table, 31)
+  const vest = learnable(recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true), table, 31)
+  Test::expect(cape.difficulty == Game::Difficulty::Always && shirt.difficulty == Game::Difficulty::Never)
+  Test::expect(vest.difficulty == Game::Difficulty::Usually)
 }
 
 test "a recipe that no longer raises the skill is grey" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Never, 0, true)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Brown Linen Vest").textColor().equal(GREY))
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Never, 0, true)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Brown Linen Vest").textColor().equal(GREY))
 }
 
 // The chosen recipe's card
 
 test "the card: the recipe's name, what making it does for the skill, its description and what the work needs" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.description = (id: Integer): String => id == 110 ? "A plain cloak of linen." : ""
-  Game.tradeSkill.requirements = (id: Integer): Array<Game.Requirement> => id == 110 ? [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] : []
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Always raises the skill").textColor().equal(ORANGE) && window().text("A plain cloak of linen.").shown())
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.description = (id: Integer): String => id == 110 ? "A plain cloak of linen." : ""
+  Game::tradeSkill.requirements = (id: Integer): Array<Game::Requirement> => id == 110 ? [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] : []
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Always raises the skill").textColor().equal(ORANGE) && window().text("A plain cloak of linen.").shown())
   // A need missing is red.
-  Test.expect(window().text("Needs: Sewing kit\n|cffff4040Needs: Loom|r").shown())
+  Test::expect(window().text("Needs: Sewing kit\n|cffff4040Needs: Loom|r").shown())
   window().text("Brown Linen Vest").click()
-  Test.expect(window().text("Usually raises the skill").textColor().equal(YELLOW) && !window().text("A plain cloak of linen.").shown())
+  Test::expect(window().text("Usually raises the skill").textColor().equal(YELLOW) && !window().text("A plain cloak of linen.").shown())
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
-  Test.expect(window().text("Usually raises the skill").shown())
+  Test::expect(window().text("Usually raises the skill").shown())
   window().button("Camp").click()
-  Test.expect(window().text("Rarely raises the skill").textColor().equal(GREEN))
+  Test::expect(window().text("Rarely raises the skill").textColor().equal(GREEN))
 }
 
 test "the card of a recipe not learned says so in red, and has nothing of making it: no tools, no switches, no make row" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.requirements = (id: Integer): Array<Game.Requirement> => [{ name: "Loom", met: false }]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().button("Create").shown() && window().text("Track").shown() && window().text("|cffff4040Needs: Loom|r").shown())
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.requirements = (id: Integer): Array<Game::Requirement> => [{ name: "Loom", met: false }]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().button("Create").shown() && window().text("Track").shown() && window().text("|cffff4040Needs: Loom|r").shown())
   window().button("Not learned").click()
-  Test.expect(window().text("Not learned").nth(2).textColor().equal(RED) && window().text("Doesn't raise the skill").count() == 0)
-  Test.expect(!window().button("Create").shown() && !window().text("Track").shown() && !window().text("Favorite").shown())
-  Test.expect(!window().text("|cffff4040Needs: Loom|r").shown())
+  Test::expect(window().text("Not learned").nth(2).textColor().equal(RED) && window().text("Doesn't raise the skill").count() == 0)
+  Test::expect(!window().button("Create").shown() && !window().text("Track").shown() && !window().text("Favorite").shown())
+  Test::expect(!window().text("|cffff4040Needs: Loom|r").shown())
 }
 
 test "the card of a recipe not learned has two tabs: where to learn it, a table row a place, and its prices, each with its footer" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
   // What's Training's: a recipe the trainer teaches.
-  Game.tradeSkill.recipes = [recipe(2393, "Trainer's Shirt", 11, Game.Difficulty.Usually, 0, false)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::tradeSkill.recipes = [recipe(2393, "Trainer's Shirt", 11, Game::Difficulty::Usually, 0, false)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Not learned").click()
   // «Where to learn» first: its table, the trainer's row (the place, its way, no distance known, its price), and in
   // its footer the map's button, off with no vendor to show.
-  Test.expect(window().button("Where to learn").shown() && window().button("Name").shown() && window().button("Distance").shown())
+  Test::expect(window().button("Where to learn").shown() && window().button("Name").shown() && window().button("Distance").shown())
   const row = window().text("Trainer").item().texts()
-  Test.expect(row[1]?.contains("Profession trainer, from skill") == true && row[2] == "Trainer" && row[3] == "—")
-  Test.expect(window().button("Show the nearest on the map").shown())
+  Test::expect(row[1]?.contains("Profession trainer, from skill") == true && row[2] == "Trainer" && row[3] == "—")
+  Test::expect(window().button("Show the nearest on the map").shown())
   // «Prices & costs»: the prices' footer in its place.
   window().button("Prices & costs").click()
-  Test.expect(!window().text("Trainer").shown() && !window().button("Show the nearest on the map").shown())
+  Test::expect(!window().text("Trainer").shown() && !window().button("Show the nearest on the map").shown())
 }
 
 test "a recipe grey for the skill says it doesn't raise it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(110, "Linen Cloak", 11, Game.Difficulty.Never, 1, true)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Doesn't raise the skill").textColor().equal(GREY))
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(110, "Linen Cloak", 11, Game::Difficulty::Never, 1, true)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Doesn't raise the skill").textColor().equal(GREY))
 }
 
 test "a long description is shown whole in the card" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
   const long = "Teaches the tailor to sew a cloak of linen. Sewing it asks for a needle, thread, and a bolt of linen cloth, as the trainer says."
-  Game.tradeSkill.description = (id: Integer): String => long
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text(long).shown())
+  Game::tradeSkill.description = (id: Integer): String => long
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text(long).shown())
 }
 
 test "the card's icon is the item it makes, the item's tooltip under the cursor; a recipe making none shows its own" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Game.items.icon = (id: Integer): Art | nil => CLOTH_ICON
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Game::items.icon = (id: Integer): Art | nil => CLOTH_ICON
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
   window().button(CLOTH_ICON).hover()
-  Test.expect(asked("Items.show 1110"))
+  Test::expect(asked("Items.show 1110"))
   window().button("Bags").click()
-  Test.expect(!window().button(CLOTH_ICON).shown() && window().box(NOTE).shown() && chosen() == "Woolen Bag")
+  Test::expect(!window().button(CLOTH_ICON).shown() && window().box(NOTE).shown() && chosen() == "Woolen Bag")
 }
 
 test "the card's item of a recipe not learned is dimmed" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Game.items.icon = (id: Integer): Art | nil => CLOTH_ICON
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().button(CLOTH_ICON).opacity() == 1)
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Game::items.icon = (id: Integer): Art | nil => CLOTH_ICON
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().button(CLOTH_ICON).opacity() == 1)
   window().button("Not learned").click()
-  Test.expect(window().button(CLOTH_ICON).opacity() < 1)
+  Test::expect(window().button(CLOTH_ICON).opacity() < 1)
 }
 
 test "the reagents with prices off: each with have / need, red where the bags hold too few" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
   // The woolen bag's wool has an icon of its own.
-  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
     if (id == 121) { return [{ itemID: 2997, name: "Bolt of Woolen Cloth", icon: WOOL_ICON, have: 0, need: 3 }] }
     if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 3, 3)] }
     return reagents(id)
   }
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   setting("Prices")
-  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1"))
-  Test.expect(window().text("3 / 1").textColor().equal(INK) && window().text("0 / 1").textColor().equal(RED))
-  Test.expect(!window().text("Auction").shown())
+  Test::expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1"))
+  Test::expect(window().text("3 / 1").textColor().equal(INK) && window().text("0 / 1").textColor().equal(RED))
+  Test::expect(!window().text("Auction").shown())
   // Another recipe chosen: its reagents in the rows.
   window().button("Bags").click()
-  Test.expect(chosen() == "Woolen Bag" && reads(window().text("Bolt of Woolen Cloth").item(), "Bolt of Woolen Cloth | 0 / 3"))
-  Test.expect(window().text("0 / 3").textColor().equal(RED) && window().box(WOOL_ICON).shown())
+  Test::expect(chosen() == "Woolen Bag" && reads(window().text("Bolt of Woolen Cloth").item(), "Bolt of Woolen Cloth | 0 / 3"))
+  Test::expect(window().text("0 / 3").textColor().equal(RED) && window().box(WOOL_ICON).shown())
   // Just as many as it takes: not short.
   window().text("Linen Bag").click()
-  Test.expect(window().text("3 / 3").textColor().equal(INK))
+  Test::expect(window().text("3 / 3").textColor().equal(INK))
 }
 
 // Favorites and tracked
 
 test "a recipe starred stands in «Favorites», first among the categories, with a pip; starred again it is taken off" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(!window().text("Favorites").shown())
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(!window().text("Favorites").shown())
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 1 | /1") && window().text("Favorites").textColor().equal(WHITE))
+  Test::expect(reads(window().text("Favorites").item(), "Favorites | 1 | /1") && window().text("Favorites").textColor().equal(WHITE))
   window().button("Favorites").click()
-  Test.expect(lists("Linen Cloak") && window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(lists("Linen Cloak") && window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
   window().button("Favorite").click()
-  Test.expect(!window().text("Favorites").shown() && window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOff))
+  Test::expect(!window().text("Favorites").shown() && window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOff))
 }
 
 test "a starred recipe's row has a gold pip" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   const before = window().text("Woolen Bag").item().box(YELLOW).shown()
   window().text("Woolen Bag").click()
   window().button("Favorite").click()
-  Test.expect(!before && window().text("Woolen Bag").nth(1).item().box(YELLOW).shown())
+  Test::expect(!before && window().text("Woolen Bag").nth(1).item().box(YELLOW).shown())
 }
 
 test "starred and tracked recipes are there after a reload" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Favorite").click()
   window().button("Track").click()
-  Test.reload()
-  Test.expect(window().text("Favorites").shown() && window().button("Track").paintedWith(Ordaen.art.ctl.switchOn))
-  Test.expect(window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::reload()
+  Test::expect(window().text("Favorites").shown() && window().button("Track").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "a hundred starred is the most: one more takes off the one starred first" {
   // Kept from an earlier session: the cloak starred first, then ninety-eight recipes of other professions.
   let favorites: Array<Integer> = [110]
   for (id of 1..98) { favorites.push(5000 + id) }
-  Game.saved.store(.Character, "OrdaenProfessions:memory", Kept { last: 0, seen: {}, favorites: favorites, tracked: [], queue: [], paused: {} })
-  Test.reload()
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
+  Game::saved.store(.Character, "OrdaenProfessions:memory", Kept { last: 0, seen: {}, favorites: favorites, tracked: [], queue: [], paused: {} })
+  Test::reload()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
   // The hundredth: every one stays.
   window().button("Cloth armour").click()
   window().text("Brown Linen Vest").click()
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 1 | /2"))
+  Test::expect(reads(window().text("Favorites").item(), "Favorites | 1 | /2"))
   // The hundred and first: the cloak goes.
   window().button("Bags").click()
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 0 | /2"))
+  Test::expect(reads(window().text("Favorites").item(), "Favorites | 0 | /2"))
   window().button("Favorites").click()
-  Test.expect(lists("Woolen Bag, Brown Linen Vest"))
+  Test::expect(lists("Woolen Bag, Brown Linen Vest"))
 }
 
 // The right-click menu
 
 test "a recipe's right-click menu: its link, «Create [N]» and its two switches; it doesn't choose the recipe" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Brown Linen Vest").rightClick()
-  const menu = Test.page().window("Link in chat")
-  Test.expect(reads(menu, "Link in chat | Create [0] | Favorite | Track") && chosen() == "Linen Cloak")
-  Test.expect(menu.text("Create [0]").textColor().equal(MENU_DIM) && !menu.text("Link in chat").textColor().equal(MENU_DIM))
+  const menu = Test::page().window("Link in chat")
+  Test::expect(reads(menu, "Link in chat | Create [0] | Favorite | Track") && chosen() == "Linen Cloak")
+  Test::expect(menu.text("Create [0]").textColor().equal(MENU_DIM) && !menu.text("Link in chat").textColor().equal(MENU_DIM))
 }
 
 test "a click elsewhere closes the menu and goes no further" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Brown Linen Vest").rightClick()
-  _ = Test.requests()
+  _ = Test::requests()
   window().text("Brown Linen Vest").click()
-  Test.expect(!Test.page().window("Link in chat").shown() && chosen() == "Linen Cloak" && asked(""))
+  Test::expect(!Test::page().window("Link in chat").shown() && chosen() == "Linen Cloak" && asked(""))
   window().text("Brown Linen Vest").click()
-  Test.expect(chosen() == "Brown Linen Vest")
+  Test::expect(chosen() == "Brown Linen Vest")
 }
 
 test "a recipe's row shows the tooltip of the item it makes, and one that makes none its spell's" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(1, "Linen Cloak", 11, Game.Difficulty.Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true)]
-  Game.recipeReader.schematic = schematic
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(1, "Linen Cloak", 11, Game::Difficulty::Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true)]
+  Game::recipeReader.schematic = schematic
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
   window().text("Brown Linen Vest").hover()
-  Test.expect(asked("Items.show 1111"))
+  Test::expect(asked("Items.show 1111"))
 }
 
 test "«Link in chat» puts the item the recipe makes into the chat and closes the menu" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
   // The cloak's number is the first: no menu is open, not the cloak's.
-  Game.tradeSkill.recipes = [recipe(1, "Linen Cloak", 11, Game.Difficulty.Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true)]
-  Game.recipeReader.schematic = schematic
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::tradeSkill.recipes = [recipe(1, "Linen Cloak", 11, Game::Difficulty::Always, 1, true), recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true)]
+  Game::recipeReader.schematic = schematic
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Brown Linen Vest").rightClick()
-  _ = Test.requests()
+  _ = Test::requests()
   choose("Link in chat")
-  Test.expect(asked("Chat.link 1111") && !Test.page().window("Link in chat").shown())
+  Test::expect(asked("Chat.link 1111") && !Test::page().window("Link in chat").shown())
 }
 
 test "a recipe that makes no item has its link dim, and a click on it does nothing" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.recipeReader.schematic = schematic
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::recipeReader.schematic = schematic
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
   window().text("Woolen Bag").nth(1).rightClick()
-  _ = Test.requests()
-  const menu = Test.page().window("Link in chat")
-  Test.expect(menu.text("Link in chat").textColor().equal(MENU_DIM))
+  _ = Test::requests()
+  const menu = Test::page().window("Link in chat")
+  Test::expect(menu.text("Link in chat").textColor().equal(MENU_DIM))
   choose("Link in chat")
-  Test.expect(asked("") && Test.page().window("Link in chat").shown())
+  Test::expect(asked("") && Test::page().window("Link in chat").shown())
 }
 
 test "the menu's «Create [N]» makes all the bags allow, in the click" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
   // The cloak's number is the first: no menu is open, not the cloak's.
-  Game.tradeSkill.recipes = [
-    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true), recipe(1, "Linen Cloak", 12, Game.Difficulty.Always, 1, true),
-    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true)
+  Game::tradeSkill.recipes = [
+    recipe(100, "Linen Bandage", 10, Game::Difficulty::Rarely, 4, true), recipe(1, "Linen Cloak", 12, Game::Difficulty::Always, 1, true),
+    recipe(120, "Linen Bag", 12, Game::Difficulty::Usually, 2, true)
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Linen Bag").rightClick()
-  _ = Test.requests()
+  _ = Test::requests()
   choose("Create [2]")
-  Test.expect(asked("TradeSkill.craft 120 2") && !Test.page().window("Link in chat").shown())
+  Test::expect(asked("TradeSkill.craft 120 2") && !Test::page().window("Link in chat").shown())
   window().button("Queue (1)").click()
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | - | 2 | + | x"))
+  Test::expect(reads(window().text("Linen Bag").item(), "Linen Bag | - | 2 | + | x"))
 }
 
 test "the menu's «Create [N]» while a run goes queues the recipe, and the card says it waits" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Create").click()
   window().button("Bags").click()
   window().text("Linen Bag").rightClick()
-  _ = Test.requests()
+  _ = Test::requests()
   choose("Create [2]")
-  Test.expect(asked("") && window().text(QUEUED).shown() && window().button("Queue (2)").shown())
+  Test::expect(asked("") && window().text(QUEUED).shown() && window().button("Queue (2)").shown())
 }
 
 test "the menu's «Favorite» stars the recipe and the menu stays; its «Track» is off for one not learned" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Not learned").click()
   window().text("Woolen Cape").nth(1).rightClick()
-  const menu = Test.page().window("Link in chat")
-  Test.expect(menu.text("Track").textColor().equal(MENU_DIM) && !menu.text("Favorite").textColor().equal(MENU_DIM))
+  const menu = Test::page().window("Link in chat")
+  Test::expect(menu.text("Track").textColor().equal(MENU_DIM) && !menu.text("Favorite").textColor().equal(MENU_DIM))
   choose("Favorite")
-  Test.expect(menu.shown() && window().text("Favorites").shown())
+  Test::expect(menu.shown() && window().text("Favorites").shown())
   choose("Favorite")
-  Test.expect(!window().text("Favorites").shown())
+  Test::expect(!window().text("Favorites").shown())
 }
 
 test "the menu's «Track» tracks the recipe" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Linen Cloak").nth(1).rightClick()
   choose("Track")
-  Test.expect(window().button("Track").paintedWith(Ordaen.art.ctl.switchOn))
+  Test::expect(window().button("Track").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "the table's rows have the menu too" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("Table")
   window().text("Linen Bag").rightClick()
-  Test.expect(Test.page().window("Link in chat").button("Create [2]").shown() && chosen() == "Brown Linen Vest")
+  Test::expect(Test::page().window("Link in chat").button("Create [2]").shown() && chosen() == "Brown Linen Vest")
   window().text("Linen Bag").click()
   window().text("Linen Bag").click()
-  Test.expect(chosen() == "Linen Bag")
+  Test::expect(chosen() == "Linen Bag")
 }
 
 test "the menu shows in the view by category" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   window().text("Linen Bag").rightClick()
-  Test.expect(Test.page().window("Link in chat").button("Create [2]").shown())
+  Test::expect(Test::page().window("Link in chat").button("Create [2]").shown())
 }
 
 // What the window remembers
 
 test "each profession opens at the category and recipe it was left at" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(chosen() == "Copper Mace")
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(chosen() == "Linen Bag" && lists("Woolen Bag, Linen Bag"))
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(chosen() == "Copper Mace")
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(chosen() == "Linen Bag" && lists("Woolen Bag, Linen Bag"))
 }
 
 test "the category and recipe left are there after a reload" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   // The profession closes with the session.
-  Game.tradeSkill.open = nil
-  Test.reload()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(chosen() == "Linen Bag")
+  Game::tradeSkill.open = nil
+  Test::reload()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(chosen() == "Linen Bag")
 }
 
 test "the category and recipe left are chosen when the module is turned on with the profession open" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   const page = settings()
   // Professions' own switch, by its name: the list holds every module of the modules loaded.
   page.text("Professions").item().button(Ordaen.art.ctl.switchOn).click()
-  Test.expect(!window().shown())
+  Test::expect(!window().shown())
   page.button(Ordaen.art.ctl.switchOff).click()
-  Test.expect(chosen() == "Linen Bag")
+  Test::expect(chosen() == "Linen Bag")
 }
 
 test "with «Remember the last recipe» off a profession opens at its first category" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   setting("Remember the last recipe")
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(chosen() == "Copper Mace")
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(chosen() == "Linen Cloak")
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(chosen() == "Copper Mace")
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(chosen() == "Linen Cloak")
 }
 
 test "with «Remember the last recipe» off nothing chosen is kept for the next time" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   setting("Remember the last recipe")
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   setting("Remember the last recipe")
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(chosen() == "Copper Mace")
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(chosen() == "Linen Cloak")
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(chosen() == "Copper Mace")
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(chosen() == "Linen Cloak")
 }
 
 test "the view, the sort and the table's order are there after a reload" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   sort("By name")
   view("Table")
   window().button("Available").click()
-  Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
+  Test::expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Available").click()
-  Test.reload()
-  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
+  Test::reload()
+  Test::expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   view("By category")
-  Test.expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
+  Test::expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
 }
 
 test "a new profile used: the lists in columns by difficulty, as at first" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions()
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   view("By category")
   sort("By name")
   const page = settings()
@@ -1247,5 +1247,5 @@ test "a new profile used: the lists in columns by difficulty, as at first" {
   page.button(Ordaen.art.ctl.check).nth(2).click()
   page.text("Profiles").hover()
   page.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(window().button("Cloth armour").shown() && lists("Linen Cloak, Brown Linen Vest"))
+  Test::expect(window().button("Cloth armour").shown() && lists("Linen Cloak, Brown Linen Vest"))
 }

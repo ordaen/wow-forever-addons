@@ -30,7 +30,7 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     const age = market.age()
     if (age > KEPT_HOURS) { return nil }
     const listing = self.house.listed(key)
-    if (listing != nil && age <= FRESH) { return Quote.of(listing.low(), market.seen()) }
+    if (listing != nil && age <= FRESH) { return Quote::of(listing.low(), market.seen()) }
     return market
   }
 
@@ -41,13 +41,13 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     if (age > KEPT_HOURS) { return nil }
     const listing = self.house.listed(key)
     if (listing == nil || age > FRESH) { return market }
-    return Quote.of(market.copper().min(listing.low()), market.seen())
+    return Quote::of(market.copper().min(listing.low()), market.seen())
   }
 
   public sell(self, key: PriceKey): Quote | nil {
     const listed = self.listed(key)
     if (listed == nil) { return nil }
-    return Quote.of((listed.copper() * (100 - self.houseCut) / 100).floor(), listed.seen())
+    return Quote::of((listed.copper() * (100 - self.houseCut) / 100).floor(), listed.seen())
   }
 
   public cut(self): Integer { return self.houseCut }
@@ -66,10 +66,10 @@ public function takeMerchant(vendor: mut Map<ItemId, Copper>, given: Map<Integer
   let count = 0
   for (_, kept of vendor) { count += 1 }
   for (id, copper of given) {
-    const item = ItemId.of(id)
+    const item = ItemId::of(id)
     if (vendor[item] != nil || count < VENDOR_MOST) {
       if (vendor[item] == nil) { count += 1 }
-      vendor[item] = Copper.of(copper)
+      vendor[item] = Copper::of(copper)
     }
   }
 }

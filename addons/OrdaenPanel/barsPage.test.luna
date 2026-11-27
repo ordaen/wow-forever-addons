@@ -11,7 +11,7 @@ import { Bar, buttonName } from "@/bar"
 import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900 }
 
 // The page and the bars it sets, on the test's own settings (kept nowhere).
 class Stand implements Component {
@@ -30,9 +30,9 @@ class Stand implements Component {
 function alone() {
   const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Panel")
   if (running != nil) {
-    const addon = Runtime.Addon.of(running) ?? panic("Ordaen's module is an addon's root")
+    const addon = Runtime::Addon::of(running) ?? panic("Ordaen's module is an addon's root")
     Ordaen.turn(addon, false)
-    Test.flush()
+    Test::flush()
   }
 }
 
@@ -52,45 +52,45 @@ function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => ni
 }
 
 // The client's button of a bar made last, by its name.
-function lastNamed(name: String, at: any Client.Frame | nil, found: any Client.Frame | nil): any Client.Frame | nil {
+function lastNamed(name: String, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
   if (at == nil) { return found }
-  return lastNamed(name, Client.EnumerateFrames(at), at.GetName() == name ? at : found)
+  return lastNamed(name, Client::EnumerateFrames(at), at.GetName() == name ? at : found)
 }
 
-function button(id: String, index: Integer): any Client.Frame {
+function button(id: String, index: Integer): any Client::Frame {
   const name = buttonName(id, index)
-  return lastNamed(name, Client.EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
+  return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
 }
 
 // The «…» menu's copy, from the bar the submenu names so: the last such name drawn, the list's drawn before it.
 function copyFrom(named: String) {
-  Test.page().button("…").click()
-  Test.page().text("Copy settings from").hover()
-  const found = Test.page().text(named)
+  Test::page().button("…").click()
+  Test::page().text("Copy settings from").hover()
+  const found = Test::page().text(named)
   found.nth(found.count()).click()
 }
 
 test "a bar picked in the list has its settings beside it, and its switch there turns it off" {
   alone()
   const stand = new Stand()
-  Test.mount(stand, SCREEN)
+  Test::mount(stand, SCREEN)
   // Every bar is listed; the page opens on Action Bar 1.
-  for (spec of SPECS) { Test.expect(Test.page().text(Bar.titleOf(spec)).count() >= 1) }
-  Test.expect(Test.page().text("Action Bar 1").count() == 2)
-  Test.page().button("Action Bar 3").click()
-  Test.expect(Test.page().text("Action Bar 3").count() == 2)
-  Test.expect(Test.page().text("Action Bar 1").count() == 1)
+  for (spec of SPECS) { Test::expect(Test::page().text(Bar::titleOf(spec)).count() >= 1) }
+  Test::expect(Test::page().text("Action Bar 1").count() == 2)
+  Test::page().button("Action Bar 3").click()
+  Test::expect(Test::page().text("Action Bar 3").count() == 2)
+  Test::expect(Test::page().text("Action Bar 1").count() == 1)
   // The stand-in's character shows Action Bars 1 to 3 and the pet's: the second switch on is Action Bar 2's.
-  Test.page().box(Ordaen.art.ctl.switchOn).nth(2).click()
-  Test.expect(!chosen(stand, "2").on)
-  Test.expect(chosen(stand, "3").on)
+  Test::page().box(Ordaen.art.ctl.switchOn).nth(2).click()
+  Test::expect(!chosen(stand, "2").on)
+  Test::expect(chosen(stand, "3").on)
   destroy stand
 }
 
 test "a copy takes every setting but the place, the switch and Панель 1's forms, held to the bar's most" {
   alone()
   const stand = new Stand()
-  Test.mount(stand, SCREEN)
+  Test::mount(stand, SCREEN)
   set(stand, "3", (choice: mut BarChoice): nil => {
     choice.on = false
     choice.buttons = 12
@@ -99,22 +99,22 @@ test "a copy takes every setting but the place, the switch and Панель 1's 
     choice.keys = false
   })
   stand.settings.change((values: mut BarsChoices): nil => { values.unpaged["1"] = true })
-  const place = Bar.idOf(SPECS[9])
+  const place = Bar::idOf(SPECS[9])
   Ordaen.putAt(place, { point: .Center, x: 10ui, y: 20ui })
-  Test.page().button("Pet Bar").click()
+  Test::page().button("Pet Bar").click()
   copyFrom("Action Bar 3 (off)")
   const pet = chosen(stand, "pet")
-  Test.expect(pet.on)
-  Test.expect(pet.buttons == 10)
-  Test.expect(pet.perRow == 10)
-  Test.expect(pet.size == 30)
-  Test.expect(!pet.keys)
-  Test.expect(stand.settings.values.unpaged["1"] == true)
-  Test.expect((Ordaen.moved(place)?.x ?? 0ui) == 10ui)
+  Test::expect(pet.on)
+  Test::expect(pet.buttons == 10)
+  Test::expect(pet.perRow == 10)
+  Test::expect(pet.size == 30)
+  Test::expect(!pet.keys)
+  Test::expect(stand.settings.values.unpaged["1"] == true)
+  Test::expect((Ordaen.moved(place)?.x ?? 0ui) == 10ui)
   // The head says where it came from until another bar is picked.
-  Test.expect(Test.page().text("Settings copied from Action Bar 3").shown())
-  Test.page().button("Action Bar 2").click()
-  Test.expect(!Test.page().text("Settings copied from Action Bar 3").shown())
+  Test::expect(Test::page().text("Settings copied from Action Bar 3").shown())
+  Test::page().button("Action Bar 2").click()
+  Test::expect(!Test::page().text("Settings copied from Action Bar 3").shown())
   Ordaen.putAt(place, nil)
   destroy stand
 }
@@ -122,56 +122,56 @@ test "a copy takes every setting but the place, the switch and Панель 1's 
 test "a copy made in a fight changes the bar only as the fight ends" {
   alone()
   const stand = new Stand()
-  Test.mount(stand, SCREEN)
+  Test::mount(stand, SCREEN)
   set(stand, "3", (choice: mut BarChoice): nil => { choice.buttons = 5 })
-  Test.page().button("Action Bar 2").click()
-  Test.combat(true)
+  Test::page().button("Action Bar 2").click()
+  Test::combat(true)
   copyFrom("Action Bar 3")
-  Test.flush()
-  Test.expect(Test.page().text("Changes apply after combat.").shown())
-  Test.expect(button("2", 6).IsShown())
-  Test.combat(false)
-  Test.flush()
-  Test.expect(!button("2", 6).IsShown())
+  Test::flush()
+  Test::expect(Test::page().text("Changes apply after combat.").shown())
+  Test::expect(button("2", 6).IsShown())
+  Test::combat(false)
+  Test::flush()
+  Test::expect(!button("2", 6).IsShown())
   destroy stand
 }
 
 test "the menu resets the bar's settings, its switch kept, and puts it back where the panel puts it" {
   alone()
   const stand = new Stand()
-  Test.mount(stand, SCREEN)
+  Test::mount(stand, SCREEN)
   set(stand, "3", (choice: mut BarChoice): nil => {
     choice.on = false
     choice.size = 30
     choice.keys = false
   })
-  const place = Bar.idOf(SPECS[3])
+  const place = Bar::idOf(SPECS[3])
   Ordaen.putAt(place, { point: .Center, x: 10ui, y: 20ui })
-  Test.page().button("Action Bar 3").click()
-  Test.page().button("…").click()
-  Test.page().text("Reset settings").click()
+  Test::page().button("Action Bar 3").click()
+  Test::page().button("…").click()
+  Test::page().text("Reset settings").click()
   const back = chosen(stand, "3")
-  Test.expect(!back.on)
-  Test.expect(back.size == 45)
-  Test.expect(back.keys)
-  Test.expect(Ordaen.moved(place) != nil)
-  Test.page().button("…").click()
-  Test.page().text("Move to default position").click()
-  Test.expect(Ordaen.moved(place) == nil)
-  Test.expect(!Test.page().text("Reset settings").shown())
+  Test::expect(!back.on)
+  Test::expect(back.size == 45)
+  Test::expect(back.keys)
+  Test::expect(Ordaen.moved(place) != nil)
+  Test::page().button("…").click()
+  Test::page().text("Move to default position").click()
+  Test::expect(Ordaen.moved(place) == nil)
+  Test::expect(!Test::page().text("Reset settings").shown())
   destroy stand
 }
 
 test "an action bar's visibility hides its empty buttons by default and may show them, which the pet's bar doesn't offer" {
   alone()
   const stand = new Stand()
-  Test.mount(stand, SCREEN)
-  Test.page().button("Action Bar 2").click()
+  Test::mount(stand, SCREEN)
+  Test::page().button("Action Bar 2").click()
   // Its look's keys first, then its visibility's empty buttons.
-  Test.expect(chosen(stand, "2").hideEmpty)
-  Test.page().button(Ordaen.art.ctl.check).nth(2).click()
-  Test.expect(!chosen(stand, "2").hideEmpty)
-  Test.page().button("Pet Bar").click()
-  Test.expect(!Test.page().text("Hide empty buttons").shown())
+  Test::expect(chosen(stand, "2").hideEmpty)
+  Test::page().button(Ordaen.art.ctl.check).nth(2).click()
+  Test::expect(!chosen(stand, "2").hideEmpty)
+  Test::page().button("Pet Bar").click()
+  Test::expect(!Test::page().text("Hide empty buttons").shown())
   destroy stand
 }

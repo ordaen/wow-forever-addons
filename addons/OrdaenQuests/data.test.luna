@@ -5,34 +5,34 @@ import { QuestieData, sellingTo } from "@/data"
 import { Seller } from "@/questie"
 
 test "a quest's facts say who gives it and where, 0 to 1; nil for a quest QuestieDB doesn't know" {
-  Test.questieDB(
+  Test::questieDB(
     { [1665]: { name: "Tome of Valor", startedBy: [[6089]], zoneOrSort: 1519 } },
     { [6089]: { name: "Harry Burlguard", spawns: { [1519]: [[57.0, 59.5]] } } },
     {}
   )
   const data = new QuestieData()
   const facts = data.quest(1665) ?? panic("QuestieDB knows the quest")
-  Test.expect(facts.name == "Tome of Valor")
+  Test::expect(facts.name == "Tome of Valor")
   const giver = facts.givers[1] ?? panic("the quest has its giver")
   const spot = giver.spots[1] ?? panic("the giver stands somewhere")
-  Test.expect(giver.name == "Harry Burlguard" && spot.area == 1519)
-  Test.expect((spot.x - 0.57).abs() < 0.001 && (spot.y - 0.595).abs() < 0.001)
-  Test.expect(data.quest(2) == nil)
+  Test::expect(giver.name == "Harry Burlguard" && spot.area == 1519)
+  Test::expect((spot.x - 0.57).abs() < 0.001 && (spot.y - 0.595).abs() < 0.001)
+  Test::expect(data.quest(2) == nil)
 }
 
 test "an NPC says its name and spawns; nil for one QuestieDB doesn't know" {
-  Test.questieDB({}, { [5479]: { name: "Wu Shen", spawns: { [1519]: [[78.5, 45.0], [79.0, 46.0]] } } }, {})
+  Test::questieDB({}, { [5479]: { name: "Wu Shen", spawns: { [1519]: [[78.5, 45.0], [79.0, 46.0]] } } }, {})
   const data = new QuestieData()
   const npc = data.npc(5479) ?? panic("QuestieDB knows the NPC")
-  Test.expect(npc.name == "Wu Shen" && npc.spots.length == 2)
+  Test::expect(npc.name == "Wu Shen" && npc.spots.length == 2)
   const spot = npc.spots[1] ?? panic("it stands somewhere")
-  Test.expect(spot.area == 1519 && (spot.x - 0.785).abs() < 0.001)
-  Test.expect(data.npc(1) == nil)
+  Test::expect(spot.area == 1519 && (spot.x - 0.785).abs() < 0.001)
+  Test::expect(data.npc(1) == nil)
 }
 
 test "an item's sellers are those who trade with the player's side; none for a player of neither" {
   const sellers: Array<Seller> = [{ npc: 1, sides: "A" }, { npc: 2, sides: "H" }, { npc: 3, sides: "AH" }, { npc: 4, sides: "" }]
-  Test.expect(sellingTo(sellers, Game.Faction.Alliance).map(npc => `${npc}`).join(",") == "1,3")
-  Test.expect(sellingTo(sellers, Game.Faction.Horde).map(npc => `${npc}`).join(",") == "2,3")
-  Test.expect(sellingTo(sellers, Game.Faction.Neutral).length == 0)
+  Test::expect(sellingTo(sellers, Game::Faction::Alliance).map(npc => `${npc}`).join(",") == "1,3")
+  Test::expect(sellingTo(sellers, Game::Faction::Horde).map(npc => `${npc}`).join(",") == "2,3")
+  Test::expect(sellingTo(sellers, Game::Faction::Neutral).length == 0)
 }

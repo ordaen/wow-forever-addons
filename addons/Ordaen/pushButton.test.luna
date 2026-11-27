@@ -11,9 +11,9 @@ import { ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
 class Buttons {
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", "max-content", "max-content", "max-content"]} gap={3sp} xAlign={Align.Start}>
+      <box rows={["max-content", "max-content", "max-content", "max-content"]} gap={3sp} xAlign={Align::Start}>
         <PushButton label={"Run the benchmarks"} width={90ui} />
-        <PushButton label={"Выйти из игры"} width={60ui} plate={ButtonPlate.Accent} />
+        <PushButton label={"Выйти из игры"} width={60ui} plate={ButtonPlate::Accent} />
         <PushButton label={"Перезагрузить интерфейс"} width={40ui} disabled={true} />
         <PushButton label={"OK"} width={120ui} />
       </box>
@@ -24,7 +24,7 @@ class Buttons {
 class Cell {
   public render(self): Template {
     return $ltml {
-      <box columns={[98.4375dp]} rows={[35ui]} height={35ui} xAlign={Align.End}>
+      <box columns={[98.4375dp]} rows={[35ui]} height={35ui} xAlign={Align::End}>
         <PushButton label={"Forget"} width={93.75dp} />
       </box>
     }
@@ -33,34 +33,34 @@ class Cell {
 
 test "a push button in a table's cell narrower than it holds its label in its content" {
   let page = new Cell()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
-  Test.expect(fits("Forget"))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test::expect(fits("Forget"))
   destroy page
 }
 
 // Whether the button's label stands inside its height and clear of the plate's rim by a gap at both ends.
 function fits(label: String): Boolean {
-  const plate = Test.page().button(label).rect()
-  const drawn = Test.page().text(label).letters()
+  const plate = Test::page().button(label).rect()
+  const drawn = Test::page().text(label).letters()
   return drawn.left > plate.left + rimOf(plate) + 1 && drawn.right < plate.right - rimOf(plate) - 1 &&
     drawn.top >= plate.top && drawn.bottom <= plate.bottom
 }
 
 // The plate's rim: the carved line round the face, 15 of the art's 64 px in from each end, the art as high as the plate.
-function rimOf(plate: Test.Rect): Number { return (plate.bottom - plate.top) * 15 / 64 }
+function rimOf(plate: Test::Rect): Number { return (plate.bottom - plate.top) * 15 / 64 }
 
 test "every push button's label stands inside its caps, a long one widening the button" {
   let page = new Buttons()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
-  Test.expect(fits("Run the benchmarks"))
-  Test.expect(fits("Выйти из игры"))
-  Test.expect(fits("Перезагрузить интерфейс"))
-  Test.expect(fits("OK"))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test::expect(fits("Run the benchmarks"))
+  Test::expect(fits("Выйти из игры"))
+  Test::expect(fits("Перезагрузить интерфейс"))
+  Test::expect(fits("OK"))
   // A short label keeps the width it was given.
-  const ok = Test.page().button("OK").rect()
-  Test.expect((ok.right - ok.left - 120).abs() < 1)
+  const ok = Test::page().button("OK").rect()
+  Test::expect((ok.right - ok.left - 120).abs() < 1)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 // A row of buttons as a quest's page has them, in ruRU: each as wide as its label, the row as wide as its buttons.
@@ -71,7 +71,7 @@ class ButtonRow {
         <PushButton label={"Показать на карте"} width={131.25dp} />
         <PushButton label={"Поделиться"} width={131.25dp} />
         <box />
-        <PushButton label={"Отказаться от задания"} width={131.25dp} plate={ButtonPlate.Accent} />
+        <PushButton label={"Отказаться от задания"} width={131.25dp} plate={ButtonPlate::Accent} />
       </box>
     }
   }
@@ -88,7 +88,7 @@ class Fixed {
 class Grown {
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 20ui, y: 20ui }} width={300ui} padding={3.5sp}>
+      <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 20ui, y: 20ui }} width={300ui} padding={3.5sp}>
         <box rows={["max-content", "max-content"]}>
           <text value={"Задание"} />
           <ButtonRow />
@@ -100,37 +100,37 @@ class Grown {
 
 test "a label longer than the button's width keeps a gap past the plate's rim at both ends, at every spacing" {
   let page = new ButtonRow()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 300 })
-  Test.expect(fits("Отказаться от задания"))
-  Ordaen.globals.values.density = Density.Compact
-  Test.flush()
-  Test.expect(fits("Отказаться от задания"))
-  Ordaen.globals.values.density = Density.Roomy
-  Test.flush()
-  Test.expect(fits("Отказаться от задания"))
-  Ordaen.globals.values.density = Density.Normal
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 300 })
+  Test::expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density::Compact
+  Test::flush()
+  Test::expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density::Roomy
+  Test::flush()
+  Test::expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density::Normal
   destroy page
 }
 
 test "a box of a fixed width narrower than what it holds needs is a fault that names it and how much it lacks" {
   let page = new Fixed()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 300 })
-  Test.shot("the row past its box of 300")
-  const said = Test.faults().join("\n")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 300 })
+  Test::shot("the row past its box of 300")
+  const said = Test::faults().join("\n")
   const short, _ = said.find("300 wide is")
-  Test.expect(short != nil)
+  Test::expect(short != nil)
   destroy page
 }
 
 test "a window given less room than a row of buttons needs grows to hold it" {
   let page = new Grown()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 300 })
-  Test.expect(fits("Показать на карте"))
-  Test.expect(fits("Поделиться"))
-  Test.expect(fits("Отказаться от задания"))
-  const window = Test.page().text("Задание")
-  Test.expect(Test.page().button("Отказаться от задания").rect().right > window.rect().left + 300)
-  Test.expect(Test.faults().length == 0)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 300 })
+  Test::expect(fits("Показать на карте"))
+  Test::expect(fits("Поделиться"))
+  Test::expect(fits("Отказаться от задания"))
+  const window = Test::page().text("Задание")
+  Test::expect(Test::page().button("Отказаться от задания").rect().right > window.rect().left + 300)
+  Test::expect(Test::faults().length == 0)
   destroy page
 }
 
@@ -141,8 +141,8 @@ class Asking {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={300ui} padding={3.5sp}>
-        <PushButton label={"Remove friend"} width={140.625dp} plate={ButtonPlate.Danger} @click={self.onPress} />
+      <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 100ui, y: 50ui }} width={300ui} padding={3.5sp}>
+        <PushButton label={"Remove friend"} width={140.625dp} plate={ButtonPlate::Danger} @click={self.onPress} />
       </surface>
     }
   }
@@ -150,16 +150,16 @@ class Asking {
 
 test "a danger button is the red plate, and Enter never presses it: Space and the mouse do" {
   let page = new Asking()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
-  Test.expect(Test.page().button("Remove friend").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test::expect(Test::page().button("Remove friend").paintedWith(Ordaen.art.ctl.buttonAccent))
   // The mouse presses it; the surface is the active one then, and Tab focuses it.
-  Test.page().button("Remove friend").click()
-  Test.key(Move.Next)
-  Test.expect(page.pressed == 1 && Test.focused().contains("«Remove friend»"))
-  Test.key(Key.Enter)
-  Test.expect(page.pressed == 1)
-  Test.key(Key.Space)
-  Test.expect(page.pressed == 2)
+  Test::page().button("Remove friend").click()
+  Test::key(Move::Next)
+  Test::expect(page.pressed == 1 && Test::focused().contains("«Remove friend»"))
+  Test::key(Key::Enter)
+  Test::expect(page.pressed == 1)
+  Test::key(Key::Space)
+  Test::expect(page.pressed == 2)
   destroy page
 }
 
@@ -167,7 +167,7 @@ class Keyed {
   public render(self): Template {
     return $ltml {
       // As narrow as its label lets it: the label stands right at its room's start.
-      <box columns={["max-content"]} xAlign={Align.Start}>
+      <box columns={["max-content"]} xAlign={Align::Start}>
         <PushButton label={"Decline"} width={1dp} key={ButtonKey.Named { name: "Esc" }} />
       </box>
     }
@@ -177,10 +177,10 @@ class Keyed {
 // Whether the key's segment stands inside the plate's rim, its key in it, and the label past its groove by a gap and
 // clear of the plate's rim at its other end.
 function keyedFits(): Boolean {
-  const plate = Test.page().button("Decline").rect()
-  const segment = Test.page().box(Color.hex("#00000038")).rect()
-  const key = Test.page().text("Esc").letters()
-  const label = Test.page().text("Decline").letters()
+  const plate = Test::page().button("Decline").rect()
+  const segment = Test::page().box(Color::hex("#00000038")).rect()
+  const key = Test::page().text("Esc").letters()
+  const label = Test::page().text("Decline").letters()
   return segment.left >= plate.left + rimOf(plate) - 0.5 && segment.top >= plate.top && segment.bottom <= plate.bottom &&
     key.left >= segment.left && key.right <= segment.right && label.left > segment.right + 1 &&
     label.right < plate.right - rimOf(plate) - 1
@@ -188,15 +188,15 @@ function keyedFits(): Boolean {
 
 test "a keyed button's label stands past the key's segment at every spacing" {
   let page = new Keyed()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
-  Test.expect(keyedFits())
-  Ordaen.globals.values.density = Density.Compact
-  Test.flush()
-  Test.expect(keyedFits())
-  Ordaen.globals.values.density = Density.Roomy
-  Test.flush()
-  Test.expect(keyedFits())
-  Ordaen.globals.values.density = Density.Normal
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test::expect(keyedFits())
+  Ordaen.globals.values.density = Density::Compact
+  Test::flush()
+  Test::expect(keyedFits())
+  Ordaen.globals.values.density = Density::Roomy
+  Test::flush()
+  Test::expect(keyedFits())
+  Ordaen.globals.values.density = Density::Normal
   destroy page
 }
 
@@ -208,7 +208,7 @@ class Glyphs {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", "max-content"]} gap={3sp} xAlign={Align.Start}>
+      <box rows={["max-content", "max-content"]} gap={3sp} xAlign={Align::Start}>
         <CountInput value={mut self.count} least={1} most={9} />
         <PushButton label={""} icon={SQUARE_ICON} width={39.84375dp} />
       </box>
@@ -218,9 +218,9 @@ class Glyphs {
 
 // Whether a glyph's button is as wide as it was made, and the icon's as high as it is wide.
 function glyphsHold(): Boolean {
-  const fewer = Test.page().button("-").rect()
-  const more = Test.page().button("+").rect()
-  const icon = Test.page().button(SQUARE_ICON).rect()
+  const fewer = Test::page().button("-").rect()
+  const more = Test::page().button("+").rect()
+  const icon = Test::page().button(SQUARE_ICON).rect()
   const step = STEP_WIDTH / 1ui
   return (fewer.right - fewer.left - step).abs() < 0.5 && (more.right - more.left - step).abs() < 0.5 &&
     (icon.right - icon.left - (icon.bottom - icon.top)).abs() < 0.5
@@ -228,14 +228,14 @@ function glyphsHold(): Boolean {
 
 test "a glyph's button keeps the width it was given at every spacing: the stepper's, and an icon alone square" {
   let page = new Glyphs()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
-  Test.expect(glyphsHold())
-  Ordaen.globals.values.density = Density.Compact
-  Test.flush()
-  Test.expect(glyphsHold())
-  Ordaen.globals.values.density = Density.Roomy
-  Test.flush()
-  Test.expect(glyphsHold())
-  Ordaen.globals.values.density = Density.Normal
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test::expect(glyphsHold())
+  Ordaen.globals.values.density = Density::Compact
+  Test::flush()
+  Test::expect(glyphsHold())
+  Ordaen.globals.values.density = Density::Roomy
+  Test::flush()
+  Test::expect(glyphsHold())
+  Ordaen.globals.values.density = Density::Normal
   destroy page
 }

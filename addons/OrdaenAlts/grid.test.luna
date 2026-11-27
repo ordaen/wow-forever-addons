@@ -11,44 +11,44 @@ import { Character, CharacterId, Kept, Known } from "@/character"
 import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
-function learned(ids: Array<Integer>): Array<Game.Recipe> {
+function learned(ids: Array<Integer>): Array<Game::Recipe> {
   return ids.map(id => Game.Recipe {
-    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game.Difficulty.Usually, craftable: 0
+    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
 }
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
 // of what is late, the green of what is ready, the darker ink of a character out of reach.
-const GOLD: Color = Color.hex("#ffd100")
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
-const RED: Color = Color.hex("#ff4040")
-const GREEN: Color = Color.hex("#40d060")
-const AWAY: Color = Color.hex("#7a7060")
+const GOLD: Color = Color::hex("#ffd100")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
+const RED: Color = Color::hex("#ff4040")
+const GREEN: Color = Color::hex("#40d060")
+const AWAY: Color = Color::hex("#7a7060")
 const TABS = "Characters | Items | Cooldowns | Professions"
 
 // The window at its «Professions» tab: `/alts`, the tab.
-function grid(): Test.Part {
-  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
-  const window = Test.page().window(Locale.TAB_CHARACTERS)
+function grid(): Test::Part {
+  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  const window = Test::page().window(Locale::TAB_CHARACTERS)
   // From «Items», where no heading says «Professions» as the characters' table does.
-  window.button(Locale.TAB_ITEMS).click()
-  window.button(Locale.TAB_PROFESSIONS).click()
+  window.button(Locale::TAB_ITEMS).click()
+  window.button(Locale::TAB_PROFESSIONS).click()
   return window
 }
 
 // Whether the tab shows this, read whole: the headings, each character's row, then the tabs. Where it shows something
 // else, the test stops and says what.
 function shows(expected: String): Boolean {
-  const said = Test.page().window(Locale.TAB_CHARACTERS).texts().join(" | ")
+  const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
   if (said != expected) { panic(`the window shows «${said}»`) }
   return true
 }
 
 // A character of a realm with professions: name, rank and most, each.
 function crafter(name: String, realm: String, skills: Array<Known>): mut Character {
-  const made = Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour.now(), mailExpires: nil }
+  const made = Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour::now(), mailExpires: nil }
   for (known of skills) { made.professions.push(known.clone()) }
   return made
 }
@@ -60,103 +60,103 @@ function skill(name: String, rank: Integer, max: Integer): Known {
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
 function recorded(others: Array<Character>) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId.of("Player-1-" + String.of(index + 1))] = character.clone() }
-  Game.saved.store(.Own, "characters", kept)
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  Game::saved.store(.Own, "characters", kept)
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button(Ordaen.art.ctl.switchOn).click()
   settings.button(Ordaen.art.ctl.switchOff).click()
   settings.button(Ordaen.art.ctl.corner.close).click()
 }
 
 test "each character's skill is shown in each profession by name, a dash where it has none" {
-  Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 150, kind: .Gathering }]
-  Test.mount(nil, SCREEN)
+  Game::professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 150, kind: .Gathering }]
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300), skill("Alchemy", 120, 225)])])
   const window = grid()
-  Test.expect(shows(
+  Test::expect(shows(
     `Character | Alchemy | Mining | Tailoring | Aria | 120 / 225 | — | 300 / 300 | Player | — | 75 / 150 | — | ${TABS}`
   ))
-  Test.expect(window.text("Aria").textColor().equal(INK) && window.text("75 / 150").textColor().equal(INK))
-  Test.expect(window.text("Player").item().texts().join(" | ") == "Player | — | 75 / 150 | —")
+  Test::expect(window.text("Aria").textColor().equal(INK) && window.text("75 / 150").textColor().equal(INK))
+  Test::expect(window.text("Player").item().texts().join(" | ") == "Player | — | 75 / 150 | —")
 }
 
 test "a dash for a profession a character lacks is dim" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300)]), crafter("Bram", "Stand-in", [skill("Mining", 1, 75)])])
   const window = grid()
-  Test.expect(shows(`Character | Mining | Tailoring | Aria | — | 300 / 300 | Bram | 1 / 75 | — | Player | — | — | ${TABS}`))
-  Test.expect(window.text("—").nth(1).textColor().equal(DIM))
+  Test::expect(shows(`Character | Mining | Tailoring | Aria | — | 300 / 300 | Bram | 1 / 75 | — | Player | — | — | ${TABS}`))
+  Test::expect(window.text("—").nth(1).textColor().equal(DIM))
 }
 
 test "a character with no profession is listed with only its name" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   _ = grid()
-  Test.expect(shows(`Character | Player | ${TABS}`))
+  Test::expect(shows(`Character | Player | ${TABS}`))
 }
 
 test "two characters of one name on different realms each have their own skills" {
   const here = crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300)])
   const there = crafter("Aria", "CAMWOW EU5 Realm 4 PvP", [skill("Mining", 50, 75)])
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   // Kept in either order, the two are shown by their realms: «CAMWOW...» before «Stand-in».
   for (pair of [[here, there], [there, here]]) {
     recorded(pair)
     _ = grid()
-    Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
-    (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+    Test::expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
+    (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
   }
 }
 
 test "forty characters' skills scroll inside the window" {
   const others: Array<Character> = []
-  for (i of 1..39) { others.push(crafter("Alt " + String.of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
-  Test.mount(nil, SCREEN)
+  for (i of 1..39) { others.push(crafter("Alt " + String::of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
+  Test::mount(nil, SCREEN)
   recorded(others)
   const window = grid()
-  Test.expect(window.text("Alt 101").shown() && window.text("1 / 75").shown() && window.text("Mining").count() == 1)
+  Test::expect(window.text("Alt 101").shown() && window.text("1 / 75").shown() && window.text("Mining").count() == 1)
 }
 
 test "the skills follow the game as it lists them, and a profession it hasn't named yet has no column" {
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.recipes = learned([2663])
-  Game.tradeSkill.open = 164
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.recipes = learned([2663])
+  Game::tradeSkill.open = 164
   const window = grid()
-  Test.expect(shows(`Character | Player | ${TABS}`))
-  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 75, max: 150, kind: .Crafting }]
-  Test.expect(shows(`Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
-  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 76, max: 225, kind: .Crafting }]
-  Test.expect(shows(`Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
+  Test::expect(shows(`Character | Player | ${TABS}`))
+  Game::professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 75, max: 150, kind: .Crafting }]
+  Test::expect(shows(`Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
+  Game::professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 76, max: 225, kind: .Crafting }]
+  Test::expect(shows(`Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
 }
 
 test "a profession's skill and name follow the game, one dropped leaves the table, and an empty list changes nothing" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   _ = grid()
-  Game.professions.list = [
+  Game::professions.list = [
     { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
     { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
   ]
-  Test.expect(shows(`Character | Blacksmithing | Mining | Player | 150 / 300 | 75 / 300 | ${TABS}`))
-  Game.professions.list = [
+  Test::expect(shows(`Character | Blacksmithing | Mining | Player | 150 / 300 | 75 / 300 | ${TABS}`))
+  Game::professions.list = [
     { skillLine: 164, name: "Schmiedekunst", icon: "x", rank: 151, max: 300, kind: .Crafting },
     { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
   ]
-  Test.expect(shows(`Character | Mining | Schmiedekunst | Player | 75 / 300 | 151 / 300 | ${TABS}`))
-  Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 80, max: 300, kind: .Gathering }]
-  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
-  Game.professions.list = []
-  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+  Test::expect(shows(`Character | Mining | Schmiedekunst | Player | 75 / 300 | 151 / 300 | ${TABS}`))
+  Game::professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 80, max: 300, kind: .Gathering }]
+  Test::expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+  Game::professions.list = []
+  Test::expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
 }
 
 test "a profession's heading sorts by its skill, the highest first, again the lowest, a character without it last" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([
     crafter("Aria", "Stand-in", [skill("Mining", 50, 75)]), crafter("Bram", "Stand-in", [skill("Mining", 200, 300)]),
     crafter("Cole", "Stand-in", [skill("Tailoring", 10, 75)])
   ])
   const window = grid()
   window.button("Mining").click()
-  Test.expect(shows(`Character | Mining | Tailoring | Bram | 200 / 300 | — | Aria | 50 / 75 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
+  Test::expect(shows(`Character | Mining | Tailoring | Bram | 200 / 300 | — | Aria | 50 / 75 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
   window.button("Mining").click()
-  Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Bram | 200 / 300 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
+  Test::expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Bram | 200 / 300 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
 }

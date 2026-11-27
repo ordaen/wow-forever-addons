@@ -17,55 +17,55 @@ import { preset, presetRing } from "@/preset"
 import { SlotLine, SlotRow } from "@/slotLine"
 
 const RINGS: Array<Choice<Integer>> = [
-  { value: 1, label: Locale.RING_FIRST },
-  { value: 2, label: Locale.RING_SECOND },
-  { value: 3, label: Locale.RING_THIRD }
+  { value: 1, label: Locale::RING_FIRST },
+  { value: 2, label: Locale::RING_SECOND },
+  { value: 3, label: Locale::RING_THIRD }
 ]
 const OPENS: Array<Choice<OpensAt>> = [
-  { value: OpensAt.Cursor, label: Locale.OPENS_CURSOR },
-  { value: OpensAt.Middle, label: Locale.OPENS_MIDDLE }
+  { value: OpensAt::Cursor, label: Locale::OPENS_CURSOR },
+  { value: OpensAt::Middle, label: Locale::OPENS_MIDDLE }
 ]
 const NAMES: Array<Choice<WheelNames>> = [
-  { value: WheelNames.Off, label: Locale.NAMES_OFF },
-  { value: WheelNames.Chosen, label: Locale.NAMES_CHOSEN },
-  { value: WheelNames.Always, label: Locale.NAMES_ALWAYS }
+  { value: WheelNames::Off, label: Locale::NAMES_OFF },
+  { value: WheelNames::Chosen, label: Locale::NAMES_CHOSEN },
+  { value: WheelNames::Always, label: Locale::NAMES_ALWAYS }
 ]
 
 // What can stand in a place: the catalogue, by a name of its own; a spell, an item, a macro, an emote and a submenu
 // take the text written beside it.
 public const CATALOGUE: Array<Choice<String>> = [
-  { value: "empty", label: Locale.KIND_EMPTY },
-  { value: "spell", label: Locale.KIND_SPELL },
-  { value: "item", label: Locale.KIND_ITEM },
-  { value: "macro", label: Locale.KIND_MACRO },
-  { value: "emote", label: Locale.KIND_EMOTE },
-  { value: "menu", label: Locale.KIND_MENU },
-  { value: "professions", label: Locale.RING_PROFESSIONS },
-  { value: "character", label: Locale.WINDOW_CHARACTER },
-  { value: "spellbook", label: Locale.WINDOW_SPELLBOOK },
-  { value: "talents", label: Locale.WINDOW_TALENTS },
-  { value: "quests", label: Locale.WINDOW_QUESTS },
-  { value: "map", label: Locale.WINDOW_MAP },
-  { value: "social", label: Locale.WINDOW_SOCIAL },
-  { value: "guild", label: Locale.WINDOW_GUILD },
-  { value: "groupFinder", label: Locale.WINDOW_GROUP_FINDER },
-  { value: "calendar", label: Locale.WINDOW_CALENDAR },
-  { value: "bags", label: Locale.WINDOW_BAGS },
-  { value: "settings", label: Locale.WINDOW_SETTINGS },
-  { value: "placing", label: Locale.WINDOW_PLACING },
-  { value: "attack", label: Locale.PING_ATTACK },
-  { value: "assist", label: Locale.PING_ASSIST },
-  { value: "warning", label: Locale.PING_WARNING },
-  { value: "onmyway", label: Locale.PING_ON_MY_WAY },
-  { value: "mark", label: Locale.KIND_MARK },
-  { value: "worldMark", label: Locale.KIND_WORLD_MARK },
-  { value: "line", label: Locale.KIND_LINE },
-  { value: "slotCycle", label: Locale.KIND_SLOT_CYCLE },
-  { value: "slotRemember", label: Locale.KIND_SLOT_REMEMBER },
-  { value: "slotFirst", label: Locale.KIND_SLOT_FIRST }
+  { value: "empty", label: Locale::KIND_EMPTY },
+  { value: "spell", label: Locale::KIND_SPELL },
+  { value: "item", label: Locale::KIND_ITEM },
+  { value: "macro", label: Locale::KIND_MACRO },
+  { value: "emote", label: Locale::KIND_EMOTE },
+  { value: "menu", label: Locale::KIND_MENU },
+  { value: "professions", label: Locale::RING_PROFESSIONS },
+  { value: "character", label: Locale::WINDOW_CHARACTER },
+  { value: "spellbook", label: Locale::WINDOW_SPELLBOOK },
+  { value: "talents", label: Locale::WINDOW_TALENTS },
+  { value: "quests", label: Locale::WINDOW_QUESTS },
+  { value: "map", label: Locale::WINDOW_MAP },
+  { value: "social", label: Locale::WINDOW_SOCIAL },
+  { value: "guild", label: Locale::WINDOW_GUILD },
+  { value: "groupFinder", label: Locale::WINDOW_GROUP_FINDER },
+  { value: "calendar", label: Locale::WINDOW_CALENDAR },
+  { value: "bags", label: Locale::WINDOW_BAGS },
+  { value: "settings", label: Locale::WINDOW_SETTINGS },
+  { value: "placing", label: Locale::WINDOW_PLACING },
+  { value: "attack", label: Locale::PING_ATTACK },
+  { value: "assist", label: Locale::PING_ASSIST },
+  { value: "warning", label: Locale::PING_WARNING },
+  { value: "onmyway", label: Locale::PING_ON_MY_WAY },
+  { value: "mark", label: Locale::KIND_MARK },
+  { value: "worldMark", label: Locale::KIND_WORLD_MARK },
+  { value: "line", label: Locale::KIND_LINE },
+  { value: "slotCycle", label: Locale::KIND_SLOT_CYCLE },
+  { value: "slotRemember", label: Locale::KIND_SLOT_REMEMBER },
+  { value: "slotFirst", label: Locale::KIND_SLOT_FIRST }
 ]
 
-const DROP_EDGE: Line = { width: 1dp, color: Color.hex("#6c5535") }
+const DROP_EDGE: Line = { width: 1dp, color: Color::hex("#6c5535") }
 const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
 const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const BUTTON_WIDTH = 160dp
@@ -92,30 +92,30 @@ public function itemOf(kind: String, text: String, emotes: Map<String, String>):
     "macro" => .Macro { macro: text }
     "emote" => .Emote { token: emoteToken(text, emotes) }
     "menu" => .Menu { title: text, icon: MENU_ICON }
-    "professions" => Item.Professions
+    "professions" => Item::Professions
     "mark" => .RaidMark { mark: whole }
     "worldMark" => .WorldMark { mark: whole }
     "line" => .Line { title: text, line: text, icon: LINE_ICON }
-    "attack" => .Pinged { ping: Ping.Attack }
-    "assist" => .Pinged { ping: Ping.Assist }
-    "warning" => .Pinged { ping: Ping.Warning }
-    "onmyway" => .Pinged { ping: Ping.OnMyWay }
-    "character" => .Open { window: Window.Character }
-    "spellbook" => .Open { window: Window.Spellbook }
-    "talents" => .Open { window: Window.Talents }
-    "quests" => .Open { window: Window.Quests }
-    "map" => .Open { window: Window.Map }
-    "social" => .Open { window: Window.Social }
-    "guild" => .Open { window: Window.Guild }
-    "groupFinder" => .Open { window: Window.GroupFinder }
-    "calendar" => .Open { window: Window.Calendar }
-    "bags" => .Open { window: Window.Bags }
-    "settings" => .Open { window: Window.Settings }
-    "placing" => .Open { window: Window.Placing }
-    "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Cycle }
-    "slotRemember" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Remember }
-    "slotFirst" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.First }
-    else => kind.sub(1, 5) == "kind:" ? Item.Kind { kind: kind.sub(6) } : Item.Empty
+    "attack" => .Pinged { ping: Ping::Attack }
+    "assist" => .Pinged { ping: Ping::Assist }
+    "warning" => .Pinged { ping: Ping::Warning }
+    "onmyway" => .Pinged { ping: Ping::OnMyWay }
+    "character" => .Open { window: Window::Character }
+    "spellbook" => .Open { window: Window::Spellbook }
+    "talents" => .Open { window: Window::Talents }
+    "quests" => .Open { window: Window::Quests }
+    "map" => .Open { window: Window::Map }
+    "social" => .Open { window: Window::Social }
+    "guild" => .Open { window: Window::Guild }
+    "groupFinder" => .Open { window: Window::GroupFinder }
+    "calendar" => .Open { window: Window::Calendar }
+    "bags" => .Open { window: Window::Bags }
+    "settings" => .Open { window: Window::Settings }
+    "placing" => .Open { window: Window::Placing }
+    "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::Cycle }
+    "slotRemember" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::Remember }
+    "slotFirst" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::First }
+    else => kind.sub(1, 5) == "kind:" ? Item.Kind { kind: kind.sub(6) } : Item::Empty
   }
 }
 
@@ -141,21 +141,21 @@ public function kindOf(item: Item): String {
 public function textOf(item: Item, emotes: Map<String, String>): String {
   return match (item) {
     .Spell => item.spell
-    .Bag => String.of(item.item)
+    .Bag => String::of(item.item)
     .Macro => item.macro
     .Emote => emotes[item.token] ?? item.token
     .Menu, .Slot => item.title
-    .RaidMark, .WorldMark => String.of(item.mark)
+    .RaidMark, .WorldMark => String::of(item.mark)
     .Line => item.line
     else => ""
   }
 }
 
 const MODIFIERS: Array<Choice<String>> = [
-  { value: "", label: Locale.MODIFIER_NONE },
-  { value: "shift", label: Locale.MODIFIER_SHIFT },
-  { value: "ctrl", label: Locale.MODIFIER_CTRL },
-  { value: "alt", label: Locale.MODIFIER_ALT }
+  { value: "", label: Locale::MODIFIER_NONE },
+  { value: "shift", label: Locale::MODIFIER_SHIFT },
+  { value: "ctrl", label: Locale::MODIFIER_CTRL },
+  { value: "alt", label: Locale::MODIFIER_ALT }
 ]
 
 // A condition from what the tab's fields say; none where they say nothing.
@@ -163,9 +163,9 @@ public function conditionOf(classTag: String, form: String, modifier: String): C
   const tag = classTag.upper()
   const number = form.toNumber()
   const held: WheelModifier | nil = match (modifier) {
-    "shift" => WheelModifier.Shift
-    "ctrl" => WheelModifier.Ctrl
-    "alt" => WheelModifier.Alt
+    "shift" => WheelModifier::Shift
+    "ctrl" => WheelModifier::Ctrl
+    "alt" => WheelModifier::Alt
     else => nil
   }
   if (tag == "" && number == nil && held == nil) { return nil }
@@ -184,14 +184,14 @@ function modifierOf(condition: Condition | nil): String {
 // What the cursor holds, as an item of a ring: a spell (by its name), an item of the bags, a macro of the player's;
 // none for anything else.
 public function heldItem(): Item | nil {
-  const kind, first, _, spellId = Client.GetCursorInfo()
+  const kind, first, _, spellId = Client::GetCursorInfo()
   if (kind == "spell" && spellId is Integer) {
-    const name = Client.C_Spell.GetSpellName(spellId)
+    const name = Client::C_Spell::GetSpellName(spellId)
     return name != nil ? Item.Spell { spell: name } : nil
   }
   if (kind == "item" && first is Integer) { return .Bag { item: first } }
   if (kind == "macro" && first is Integer) {
-    const name, _, _ = Client.GetMacroInfo(first)
+    const name, _, _ = Client::GetMacroInfo(first)
     return name != nil ? Item.Macro { macro: name } : nil
   }
   return nil
@@ -199,8 +199,8 @@ public function heldItem(): Item | nil {
 
 // A new item put where an old one stood: a submenu or a slot keeps its icon while it stays one.
 function kept(item: Item, old: Item | nil): Item {
-  if (item is Item.Menu && old is Item.Menu) { return .Menu { title: item.title, icon: old.icon } }
-  if (item is Item.Slot && old is Item.Slot) { return .Slot { title: item.title, icon: old.icon, mode: item.mode } }
+  if (item is Item::Menu && old is Item::Menu) { return .Menu { title: item.title, icon: old.icon } }
+  if (item is Item::Slot && old is Item::Slot) { return .Slot { title: item.title, icon: old.icon, mode: item.mode } }
   return item
 }
 
@@ -216,8 +216,8 @@ public class RingsPage implements Component {
   state classTag = ""
   state form = ""
   state modifier = ""
-  state opensAt: OpensAt = OpensAt.Middle
-  state names: WheelNames = WheelNames.Chosen
+  state opensAt: OpensAt = OpensAt::Middle
+  state names: WheelNames = WheelNames::Chosen
   state scale: Number = 1
   state remember = false
   state anchored = true
@@ -279,7 +279,7 @@ public class RingsPage implements Component {
     self.kind = kindOf(item)
     self.text = textOf(item, self.emotes)
     self.classTag = condition?.classTag ?? ""
-    self.form = condition?.form != nil ? String.of(condition?.form ?? 0) : ""
+    self.form = condition?.form != nil ? String::of(condition?.form ?? 0) : ""
     self.modifier = modifierOf(condition)
   }
 
@@ -352,14 +352,14 @@ public class RingsPage implements Component {
   }
 
   keysOf(self): String {
-    const first, second = Client.GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
-    if (first == nil) { return Locale.KEY_NONE }
+    const first, second = Client::GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
+    if (first == nil) { return Locale::KEY_NONE }
     return second == nil ? first : `${first}, ${second}`
   }
 
   // A place's line: its number and what stands there.
   labelOf(self, item: Item, place: String): String {
-    const name = item is Item.Empty ? Locale.KIND_EMPTY : shown(item, nil, self.emotes).name
+    const name = item is Item::Empty ? Locale::KIND_EMPTY : shown(item, nil, self.emotes).name
     return `${numberOf(place)}. ${name}`
   }
 
@@ -379,7 +379,7 @@ public class RingsPage implements Component {
   addRows(self, ring: Ring, parent: String, depth: Integer, rows: mut Array<SlotRow>) {
     for (number of 1..(ring.counts[parent] ?? 0)) {
       const place = within(parent, number)
-      const item = ring.items[place] ?? Item.Empty
+      const item = ring.items[place] ?? Item::Empty
       const holds = holdsItems(item)
       const open = holds && self.opened[place] == true
       rows.push({
@@ -392,12 +392,12 @@ public class RingsPage implements Component {
   // Where the place chosen stands: the titles of the submenus it is in, and its number.
   pathOf(self): String {
     const ring = self.shownRing
-    if (ring == nil || self.place == "") { return Locale.SLOT_NONE }
+    if (ring == nil || self.place == "") { return Locale::SLOT_NONE }
     const labels: Array<String> = []
     let at = ""
     for (number of self.place.split("_")) {
       at = at == "" ? number : `${at}_${number}`
-      labels.push(self.labelOf(ring.items[at] ?? Item.Empty, at))
+      labels.push(self.labelOf(ring.items[at] ?? Item::Empty, at))
     }
     return labels.join(" › ")
   }
@@ -481,7 +481,7 @@ public class RingsPage implements Component {
     const item = heldItem()
     if (item == nil || self.place == "") { return }
     self.putItem(item)
-    Client.ClearCursor()
+    Client::ClearCursor()
   }
 
   resetRing(mut self) {
@@ -507,54 +507,54 @@ public class RingsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_RING}>
-        <Dropdown label={Locale.RING} value={mut self.ring} choices={RINGS} />
-        <Fact label={Locale.RING_KEY} value={self.keys} />
-        <Dropdown label={Locale.OPENS_AT} value={mut self.opensAt} choices={OPENS} />
-        <Dropdown label={Locale.NAMES} value={mut self.names} choices={NAMES} />
-        <NumberInput label={Locale.SCALE} value={mut self.scale} least={0.6} most={2} step={0.05} unit={Unit.Percent} />
-        <Checkbox label={Locale.REMEMBER} hint={Locale.REMEMBER_TIP} value={mut self.remember} />
-        <Checkbox label={Locale.ANCHORED} hint={Locale.ANCHORED_TIP} value={mut self.anchored} />
+      <Section title={Locale::SECTION_RING}>
+        <Dropdown label={Locale::RING} value={mut self.ring} choices={RINGS} />
+        <Fact label={Locale::RING_KEY} value={self.keys} />
+        <Dropdown label={Locale::OPENS_AT} value={mut self.opensAt} choices={OPENS} />
+        <Dropdown label={Locale::NAMES} value={mut self.names} choices={NAMES} />
+        <NumberInput label={Locale::SCALE} value={mut self.scale} least={0.6} most={2} step={0.05} unit={Unit::Percent} />
+        <Checkbox label={Locale::REMEMBER} hint={Locale::REMEMBER_TIP} value={mut self.remember} />
+        <Checkbox label={Locale::ANCHORED} hint={Locale::ANCHORED_TIP} value={mut self.anchored} />
       </Section>
-      <Section title={Locale.SECTION_PLACES}>
-        <text value={Locale.PLACES_TIP} textSize={SECONDARY_TEXT} leading={.Prose} />
+      <Section title={Locale::SECTION_PLACES}>
+        <text value={Locale::PLACES_TIP} textSize={SECONDARY_TEXT} leading={.Prose} />
         <box columns={1}>
           <SlotLine $for={row of self.rows} $key={row.place} row={row} picked={row.place == self.place} @chosen={self.choose} />
         </box>
         <box columns={"wrap"} gap={2sp}>
-          <PushButton label={Locale.PLACE_ADD} width={BUTTON_WIDTH} disabled={!self.roomBeside} @click={self.addBeside} />
-          <PushButton label={Locale.PLACE_ADD_INSIDE} width={BUTTON_WIDTH} disabled={!self.roomInside} @click={self.addInside} />
-          <PushButton label={Locale.PLACE_EARLIER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.earlier} />
-          <PushButton label={Locale.PLACE_LATER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.later} />
-          <PushButton label={Locale.PLACE_REMOVE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.remove} />
+          <PushButton label={Locale::PLACE_ADD} width={BUTTON_WIDTH} disabled={!self.roomBeside} @click={self.addBeside} />
+          <PushButton label={Locale::PLACE_ADD_INSIDE} width={BUTTON_WIDTH} disabled={!self.roomInside} @click={self.addInside} />
+          <PushButton label={Locale::PLACE_EARLIER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.earlier} />
+          <PushButton label={Locale::PLACE_LATER} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.later} />
+          <PushButton label={Locale::PLACE_REMOVE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.remove} />
         </box>
       </Section>
-      <Section title={Locale.SECTION_ITEM}>
-        <Fact label={Locale.PLACE} value={self.path} />
-        <Dropdown label={Locale.KIND} value={mut self.kind} choices={self.catalogue} disabled={!self.hasChoice} />
-        <TextField label={Locale.ITEM_TEXT} hint={Locale.ITEM_TEXT_TIP} value={mut self.text} />
-        <SettingRow label={Locale.ICON} disabled={!self.hasChoice}>
-          <box columns={["max-content", "max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
+      <Section title={Locale::SECTION_ITEM}>
+        <Fact label={Locale::PLACE} value={self.path} />
+        <Dropdown label={Locale::KIND} value={mut self.kind} choices={self.catalogue} disabled={!self.hasChoice} />
+        <TextField label={Locale::ITEM_TEXT} hint={Locale::ITEM_TEXT_TIP} value={mut self.text} />
+        <SettingRow label={Locale::ICON} disabled={!self.hasChoice}>
+          <box columns={["max-content", "max-content", "max-content"]} gap={3sp} yAlign={Align::Center}>
             <box $if={self.shownIcon != nil} width={ICON_SIZE} height={ICON_SIZE} icon={self.shownIcon} />
-            <text $else value={Locale.ICON_NONE} textSize={SECONDARY_TEXT} wrap={.None} />
-            <PushButton label={Locale.ICON_CHOOSE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.openPicker} />
-            <PushButton label={Locale.ICON_OWN} width={BUTTON_WIDTH} disabled={self.chosenIcon == nil} @click={self.ownIcon} />
+            <text $else value={Locale::ICON_NONE} textSize={SECONDARY_TEXT} wrap={.None} />
+            <PushButton label={Locale::ICON_CHOOSE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.openPicker} />
+            <PushButton label={Locale::ICON_OWN} width={BUTTON_WIDTH} disabled={self.chosenIcon == nil} @click={self.ownIcon} />
           </box>
         </SettingRow>
-        <TextField label={Locale.CONDITION_CLASS} hint={Locale.CONDITION_CLASS_TIP} value={mut self.classTag} />
-        <TextField label={Locale.CONDITION_FORM} hint={Locale.CONDITION_FORM_TIP} value={mut self.form} />
-        <Dropdown label={Locale.CONDITION_MODIFIER} value={mut self.modifier} choices={MODIFIERS} />
-        <PushButton label={Locale.PUT} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.put} />
-        <box padding={{ top: 3sp, bottom: 3sp }} border={DROP_EDGE} xAlign={Align.Center} @drop={self.dropped}
+        <TextField label={Locale::CONDITION_CLASS} hint={Locale::CONDITION_CLASS_TIP} value={mut self.classTag} />
+        <TextField label={Locale::CONDITION_FORM} hint={Locale::CONDITION_FORM_TIP} value={mut self.form} />
+        <Dropdown label={Locale::CONDITION_MODIFIER} value={mut self.modifier} choices={MODIFIERS} />
+        <PushButton label={Locale::PUT} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.put} />
+        <box padding={{ top: 3sp, bottom: 3sp }} border={DROP_EDGE} xAlign={Align::Center} @drop={self.dropped}
              @pointerPress={self.dropped}>
-          <text value={Locale.DROP} />
+          <text value={Locale::DROP} />
         </box>
       </Section>
-      <IconPicker $if={self.picking} value={self.iconValue} title={Locale.ICON_TITLE} first={IconPickerFirst.NoIcon}
+      <IconPicker $if={self.picking} value={self.iconValue} title={Locale::ICON_TITLE} first={IconPickerFirst::NoIcon}
                   @picked={self.onPicked} @cancelled={self.onCancelled} />
-      <Section title={Locale.SECTION_PRESET}>
-        <PushButton label={Locale.RESET_RING} width={BUTTON_WIDTH} @click={self.resetRing} />
-        <PushButton label={Locale.RESET_ALL} width={BUTTON_WIDTH} @click={self.resetAll} />
+      <Section title={Locale::SECTION_PRESET}>
+        <PushButton label={Locale::RESET_RING} width={BUTTON_WIDTH} @click={self.resetRing} />
+        <PushButton label={Locale::RESET_ALL} width={BUTTON_WIDTH} @click={self.resetAll} />
       </Section>
     }
   }

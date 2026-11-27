@@ -14,24 +14,24 @@ public struct Sale {
   seen: Number
 }
 
-const FLAGS: Array<Marker> = [{ corner: Corner.TopLeft, color: Color.hex("#ffd100") }]
+const FLAGS: Array<Marker> = [{ corner: Corner::TopLeft, color: Color::hex("#ffd100") }]
 
 const WORTHS: Array<Choice<Worth>> = [
-  { value: Worth.Auction, label: "Auction" },
-  { value: Worth.Merchant, label: "Merchant" },
-  { value: Worth.Held, label: "Held", soon: true }
+  { value: Worth::Auction, label: "Auction" },
+  { value: Worth::Merchant, label: "Merchant" },
+  { value: Worth::Held, label: "Held", soon: true }
 ]
 
 const ORDERS: Array<Choice<Order>> = [
-  { value: Order.Difficulty, label: "By difficulty" },
-  { value: Order.Name, label: "By name" },
-  { value: Order.Price, label: "By price", soon: true }
+  { value: Order::Difficulty, label: "By difficulty" },
+  { value: Order::Name, label: "By name" },
+  { value: Order::Price, label: "By price", soon: true }
 ]
 
 const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "Each", width: 120ui, align: Align.End, sortable: true },
-  { title: "Age", width: 60ui, align: Align.End, sortable: true }
+  { title: "Each", width: 120ui, align: Align::End, sortable: true },
+  { title: "Age", width: 60ui, align: Align::End, sortable: true }
 ]
 
 public class Market implements Component {
@@ -39,7 +39,7 @@ public class Market implements Component {
   state price: Integer = 12345
   state seen: Number | nil = 2 * 86400
   state wanted: Integer = 12503
-  state worth: Worth = Worth.Auction
+  state worth: Worth = Worth::Auction
   state treeOpen = true
   state chosenItem = 0
   state sales: Array<Sale> = [
@@ -51,7 +51,7 @@ public class Market implements Component {
   state descending = false
   // The button of the last click on a row of the sales.
   state clicked = "none"
-  state sortBy: Order = Order.Difficulty
+  state sortBy: Order = Order::Difficulty
   state search = ""
   // The context menu: open under its box, the switch's state, the place of the last entry clicked.
   state menuOpen = false
@@ -83,8 +83,8 @@ public class Market implements Component {
     ]
   }
 
-  onMenuBox(mut self, click: Event.Press) {
-    if (click.button == MouseButton.Right) { self.menuOpen = true }
+  onMenuBox(mut self, click: Event::Press) {
+    if (click.button == MouseButton::Right) { self.menuOpen = true }
   }
 
   onMenuPick(mut self, index: Integer) {
@@ -95,7 +95,7 @@ public class Market implements Component {
   onMenuClose(mut self) { self.menuOpen = false }
 
   onItem(mut self, item: Integer) { self.chosenItem = item }
-  onSale(mut self, button: MouseButton) { self.clicked = button == MouseButton.Right ? "right" : "left" }
+  onSale(mut self, button: MouseButton) { self.clicked = button == MouseButton::Right ? "right" : "left" }
 
   public render(self): Template {
     return $ltml {
@@ -119,8 +119,8 @@ public class Market implements Component {
           </SettingRow>
           <SettingRow label={"Bought"}>
             <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
-              <ItemButton item={6948} count={5} quality={Quality.Rare} markers={FLAGS} @pick={self.onItem} />
-              <ItemButton item={2589} count={20} quality={Quality.Epic} @pick={self.onItem} />
+              <ItemButton item={6948} count={5} quality={Quality::Rare} markers={FLAGS} @pick={self.onItem} />
+              <ItemButton item={2589} count={20} quality={Quality::Epic} @pick={self.onItem} />
               <ItemButton item={nil} />
             </box>
           </SettingRow>
@@ -140,10 +140,10 @@ public class Market implements Component {
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onSale}>
               <TableCell> <text value={sale.name} /> </TableCell>
-              <TableCell align={Align.End}>
+              <TableCell align={Align::End}>
                 <Money amount={sale.price} />
               </TableCell>
-              <TableCell align={Align.End}>
+              <TableCell align={Align::End}>
                 <Age seconds={sale.seen} />
               </TableCell>
             </TableRow>

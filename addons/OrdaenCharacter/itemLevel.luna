@@ -10,14 +10,14 @@ import Style from "@/style"
 // An item's row in the tooltip: its picture, its name in its quality's colour, its level.
 function levelRow(piece: Worn): TipRow {
   return {
-    label: piece.name, value: String.of(piece.level ?? 0), icon: Game.items.icon(piece.item ?? 0),
+    label: piece.name, value: String::of(piece.level ?? 0), icon: Game::items.icon(piece.item ?? 0),
     tone: qualityColor(piece.quality)
   }
 }
 
 // A level as it reads: whole, or with the half the median of an even count may have.
 function levelText(level: Number): String {
-  return level == level.floor() ? String.of(level.floor()) : "%.1f".format(level)
+  return level == level.floor() ? String::of(level.floor()) : "%.1f".format(level)
 }
 
 public class ItemLevel implements Component {
@@ -38,13 +38,13 @@ public class ItemLevel implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box xAlign={Align.Center}>
-        <box $if={self.shown} xAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <text value={Locale.ITEM_LEVEL} textSize={SECONDARY_TEXT} textColor={Style.INK} textOutline={1}
-                textShadow={Style.TUBE_SHADOW} wrap={.None} />
-          <text value={self.value} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers} textColor={Style.GOLD}
-                textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
-          <Tip $if={self.tipShown} title={Locale.ITEM_LEVEL} text={Locale.ITEM_LEVEL_TIP} rows={self.rows} />
+      <box xAlign={Align::Center}>
+        <box $if={self.shown} xAlign={Align::Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <text value={Locale::ITEM_LEVEL} textSize={SECONDARY_TEXT} textColor={Style::INK} textOutline={1}
+                textShadow={Style::TUBE_SHADOW} wrap={.None} />
+          <text value={self.value} textSize={Style::MAIN_TEXT} textFont={TextFont::Numbers} textColor={Style::GOLD}
+                textOutline={1} textShadow={Style::TUBE_SHADOW} wrap={.None} />
+          <Tip $if={self.tipShown} title={Locale::ITEM_LEVEL} text={Locale::ITEM_LEVEL_TIP} rows={self.rows} />
         </box>
       </box>
     }

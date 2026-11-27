@@ -26,14 +26,14 @@ public struct Visibility implements Plain {
   transport: StateVisibility
 }
 
-const SHOWN: StateVisibility = { visible: Visible.Show, opacity: 0 }
+const SHOWN: StateVisibility = { visible: Visible::Show, opacity: 0 }
 // Shown in every state: what a module's setting starts at.
 public const ALWAYS: Visibility = { general: SHOWN, combat: SHOWN, transport: SHOWN }
 
 // The state the player is in now.
 public function stateOf(visibility: Visibility): StateVisibility {
-  if (Game.situation.combat) { return visibility.combat }
-  if (Game.situation.taxi || Game.situation.vehicle) { return visibility.transport }
+  if (Game::situation.combat) { return visibility.combat }
+  if (Game::situation.taxi || Game::situation.vehicle) { return visibility.transport }
   return visibility.general
 }
 
@@ -42,21 +42,21 @@ public function stateOf(visibility: Visibility): StateVisibility {
 public function opacityNow(visibility: Visibility, hovered: Boolean): Number {
   const state = stateOf(visibility)
   match (state.visible) {
-    Visible.Show => return 1
-    Visible.Hide => return state.opacity
-    Visible.Hover => return hovered ? 1 : state.opacity.max(HOVER_LEAST)
+    Visible::Show => return 1
+    Visible::Hide => return state.opacity
+    Visible::Hover => return hovered ? 1 : state.opacity.max(HOVER_LEAST)
   }
 }
 
 const VISIBLES: Array<Choice<Visible>> = [
-  { value: Visible.Show, label: Locale.VISIBLE_SHOW },
-  { value: Visible.Hover, label: Locale.VISIBLE_HOVER },
-  { value: Visible.Hide, label: Locale.VISIBLE_HIDE }
+  { value: Visible::Show, label: Locale::VISIBLE_SHOW },
+  { value: Visible::Hover, label: Locale::VISIBLE_HOVER },
+  { value: Visible::Hide, label: Locale::VISIBLE_HIDE }
 ]
 
 // One state's rows: its choice, and its opacity while it isn't «Show».
 class StateRows implements Component {
-  derived faded: Boolean = self.value.visible != Visible.Show
+  derived faded: Boolean = self.value.visible != Visible::Show
 
   label: Signal<String>
   value: mut Signal<StateVisibility>
@@ -70,8 +70,8 @@ class StateRows implements Component {
   public render(self): Template {
     return $ltml {
       <Dropdown label={self.label} value={mut self.value.visible} choices={VISIBLES} disabled={self.disabled} />
-      <NumberInput $if={self.faded} label={Locale.VISIBLE_OPACITY} hint={Locale.VISIBLE_OPACITY_TIP}
-                   value={mut self.value.opacity} least={0} most={1} step={0.05} unit={Unit.Percent}
+      <NumberInput $if={self.faded} label={Locale::VISIBLE_OPACITY} hint={Locale::VISIBLE_OPACITY_TIP}
+                   value={mut self.value.opacity} least={0} most={1} step={0.05} unit={Unit::Percent}
                    disabled={self.disabled} />
     }
   }
@@ -88,10 +88,10 @@ public class VisibilityRows implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.VISIBILITY}>
-        <StateRows label={Locale.VISIBLE_GENERAL} value={mut self.value.general} disabled={self.disabled} />
-        <StateRows label={Locale.VISIBLE_COMBAT} value={mut self.value.combat} disabled={self.disabled} />
-        <StateRows label={Locale.VISIBLE_TRANSPORT} value={mut self.value.transport} disabled={self.disabled} />
+      <Section title={Locale::VISIBILITY}>
+        <StateRows label={Locale::VISIBLE_GENERAL} value={mut self.value.general} disabled={self.disabled} />
+        <StateRows label={Locale::VISIBLE_COMBAT} value={mut self.value.combat} disabled={self.disabled} />
+        <StateRows label={Locale::VISIBLE_TRANSPORT} value={mut self.value.transport} disabled={self.disabled} />
         <slot />
       </Section>
     }

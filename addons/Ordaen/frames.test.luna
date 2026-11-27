@@ -3,7 +3,7 @@
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const FILL: Color = Color.hex("#2a1d12")
+const FILL: Color = Color::hex("#2a1d12")
 
 class Small {
   public render(self): Template {
@@ -17,7 +17,7 @@ class Small {
 
 test "a small surface is rounded at its four corners, its background cut by no mask" {
   let page = new Small()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
-  Test.shot("the four rounded corners; the fill starts at the line and nothing cuts it")
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test::shot("the four rounded corners; the fill starts at the line and nothing cuts it")
   destroy page
 }

@@ -48,7 +48,7 @@ public enum Hue implements Plain {
 
 public enum Preset { Ordaen = "ordaen", Minimal = "minimal" }
 // The presets, in the order the settings window lists them.
-public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Minimal]
+public const PRESETS: Array<Preset> = [Preset::Ordaen, Preset::Minimal]
 
 public struct Look implements Plain {
   // The text's, the titles', the numbers' and a page of sentences' fonts.
@@ -100,10 +100,10 @@ public struct Look implements Plain {
 
 // Ordaen's own look: bronze, dark wood, Ordaen's own fonts.
 const ORDAEN: Look = {
-  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: NumbersFont.PtSansNarrow, fontBook: BookFont.PtSerif,
+  font: Font::FiraSans, fontHeader: Font::AlegreyaSC, fontNumbers: NumbersFont::PtSansNarrow, fontBook: BookFont::PtSerif,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
-  heading: Color.hex("#e8c35a"), headingPaint: Color.hex("#a8853a"),
-  barTexture: BarTexture.Flat, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
+  heading: Color::hex("#e8c35a"), headingPaint: Color::hex("#a8853a"),
+  barTexture: BarTexture::Flat, barFrame: BarFrame::Bezel, animation: Animation::Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
   orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },
   yellow: { r: 0.779, g: 0.588, b: 0.032, a: 1 }, yellowText: { r: 1, g: 0.85, b: 0.535, a: 1 },
@@ -115,23 +115,23 @@ const ORDAEN: Look = {
   tan: { r: 0.494, g: 0.358, b: 0.21, a: 1 }, tanText: { r: 0.865, g: 0.713, b: 0.555, a: 1 },
   white: { r: 0.669, g: 0.669, b: 0.669, a: 1 }, whiteText: { r: 0.934, g: 0.934, b: 0.934, a: 1 },
   grey: { r: 0.389, g: 0.389, b: 0.389, a: 1 }, greyText: { r: 0.743, g: 0.743, b: 0.743, a: 1 },
-  warrior: Hue.Tan, paladin: Hue.Pink, hunter: Hue.Green, rogue: Hue.Yellow, priest: Hue.White,
-  shaman: Hue.Blue, mage: Hue.Cyan, warlock: Hue.Violet, druid: Hue.Orange
+  warrior: Hue::Tan, paladin: Hue::Pink, hunter: Hue::Green, rogue: Hue::Yellow, priest: Hue::White,
+  shaman: Hue::Blue, mage: Hue::Cyan, warlock: Hue::Violet, druid: Hue::Orange
 }
 
 // Flat, thin lines, almost no textures or animations.
 const MINIMAL: Look = {
-  fontHeader: Font.FiraSans,
+  fontHeader: Font::FiraSans,
   accent: { r: 0.62, g: 0.62, b: 0.62, a: 1 },
-  animation: Animation.Off,
+  animation: Animation::Off,
   ..ORDAEN
 }
 
 // A preset: a whole look.
 public function preset(name: Preset): Look {
   match (name) {
-    Preset.Ordaen => return ORDAEN
-    Preset.Minimal => return MINIMAL
+    Preset::Ordaen => return ORDAEN
+    Preset::Minimal => return MINIMAL
   }
 }
 
@@ -139,7 +139,7 @@ public function preset(name: Preset): Look {
 // are no longer offered and load as Ordaen's. Ordaen offers no such preset, and loads it as Ordaen's.
 const BLIZZARD: Look = {
   accent: { r: 1, g: 0.82, b: 0, a: 1 },
-  barTexture: BarTexture.Blizzard, animation: Animation.Fast,
+  barTexture: BarTexture::Blizzard, animation: Animation::Fast,
   ..ORDAEN
 }
 
@@ -159,17 +159,17 @@ public function presetOf(look: Look): Preset | nil {
 // A colour of the palette as a look has it.
 public function hueColor(look: Look, hue: Hue): Color {
   match (hue) {
-    Hue.Red => return look.red
-    Hue.Orange => return look.orange
-    Hue.Yellow => return look.yellow
-    Hue.Green => return look.green
-    Hue.Cyan => return look.cyan
-    Hue.Blue => return look.blue
-    Hue.Violet => return look.violet
-    Hue.Pink => return look.pink
-    Hue.Tan => return look.tan
-    Hue.White => return look.white
-    Hue.Grey => return look.grey
+    Hue::Red => return look.red
+    Hue::Orange => return look.orange
+    Hue::Yellow => return look.yellow
+    Hue::Green => return look.green
+    Hue::Cyan => return look.cyan
+    Hue::Blue => return look.blue
+    Hue::Violet => return look.violet
+    Hue::Pink => return look.pink
+    Hue::Tan => return look.tan
+    Hue::White => return look.white
+    Hue::Grey => return look.grey
   }
 }
 
@@ -184,22 +184,22 @@ public struct LookArt {
 // A font's files, regular and bold (its heavier face).
 function fontFiles(font: Font): FontFiles {
   match (font) {
-    Font.FiraSans => return { regular: "@/media/fonts/FiraSans-Regular.ttf", bold: "@/media/fonts/FiraSans-Medium.ttf" }
-    Font.AlegreyaSans => return {
+    Font::FiraSans => return { regular: "@/media/fonts/FiraSans-Regular.ttf", bold: "@/media/fonts/FiraSans-Medium.ttf" }
+    Font::AlegreyaSans => return {
       regular: "@/media/fonts/AlegreyaSans-Regular.ttf", bold: "@/media/fonts/AlegreyaSans-Medium.ttf"
     }
-    Font.PtSans => return { regular: "@/media/fonts/PTSans-Regular.ttf", bold: "@/media/fonts/PTSans-Bold.ttf" }
-    Font.Philosopher => return {
+    Font::PtSans => return { regular: "@/media/fonts/PTSans-Regular.ttf", bold: "@/media/fonts/PTSans-Bold.ttf" }
+    Font::Philosopher => return {
       regular: "@/media/fonts/Philosopher-Regular.ttf", bold: "@/media/fonts/Philosopher-Bold.ttf"
     }
-    Font.AlegreyaSC => return { regular: "@/media/fonts/AlegreyaSC-Medium.ttf", bold: "@/media/fonts/AlegreyaSC-Bold.ttf" }
-    Font.CormorantSC => return {
+    Font::AlegreyaSC => return { regular: "@/media/fonts/AlegreyaSC-Medium.ttf", bold: "@/media/fonts/AlegreyaSC-Bold.ttf" }
+    Font::CormorantSC => return {
       regular: "@/media/fonts/CormorantSC-SemiBold.ttf", bold: "@/media/fonts/CormorantSC-Bold.ttf"
     }
-    Font.FiraCondensed => return {
+    Font::FiraCondensed => return {
       regular: "@/media/fonts/FiraSansCondensed-Medium.ttf", bold: "@/media/fonts/FiraSansCondensed-Bold.ttf"
     }
-    Font.PtSansNarrow => return {
+    Font::PtSansNarrow => return {
       regular: "@/media/fonts/PTSansNarrow-Regular.ttf", bold: "@/media/fonts/PTSansNarrow-Bold.ttf"
     }
   }
@@ -208,48 +208,48 @@ function fontFiles(font: Font): FontFiles {
 // A book font's files, regular and bold.
 function bookFiles(font: BookFont): FontFiles {
   match (font) {
-    BookFont.PtSerif => return { regular: "@/media/fonts/PTSerif-Regular.ttf", bold: "@/media/fonts/PTSerif-Bold.ttf" }
-    BookFont.Alegreya => return { regular: "@/media/fonts/Alegreya-Regular.ttf", bold: "@/media/fonts/Alegreya-Bold.ttf" }
-    BookFont.Literata => return { regular: "@/media/fonts/Literata-Regular.ttf", bold: "@/media/fonts/Literata-Bold.ttf" }
-    BookFont.Lora => return { regular: "@/media/fonts/Lora-Regular.ttf", bold: "@/media/fonts/Lora-Bold.ttf" }
+    BookFont::PtSerif => return { regular: "@/media/fonts/PTSerif-Regular.ttf", bold: "@/media/fonts/PTSerif-Bold.ttf" }
+    BookFont::Alegreya => return { regular: "@/media/fonts/Alegreya-Regular.ttf", bold: "@/media/fonts/Alegreya-Bold.ttf" }
+    BookFont::Literata => return { regular: "@/media/fonts/Literata-Regular.ttf", bold: "@/media/fonts/Literata-Bold.ttf" }
+    BookFont::Lora => return { regular: "@/media/fonts/Lora-Regular.ttf", bold: "@/media/fonts/Lora-Bold.ttf" }
   }
 }
 
 // A numbers font's files: the regular one, its digits measured where it is written, and its bold face.
 function numbersFile(font: NumbersFont): TabularFont {
   match (font) {
-    NumbersFont.PtSans => return "@/media/fonts/PTSans-Regular.ttf"
-    NumbersFont.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf"
+    NumbersFont::PtSans => return "@/media/fonts/PTSans-Regular.ttf"
+    NumbersFont::PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf"
   }
 }
 
 function numbersBold(font: NumbersFont): Asset {
   match (font) {
-    NumbersFont.PtSans => return "@/media/fonts/PTSans-Bold.ttf"
-    NumbersFont.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Bold.ttf"
+    NumbersFont::PtSans => return "@/media/fonts/PTSans-Bold.ttf"
+    NumbersFont::PtSansNarrow => return "@/media/fonts/PTSansNarrow-Bold.ttf"
   }
 }
 
 function barFile(texture: BarTexture): Art {
   match (texture) {
-    BarTexture.Flat => return "Interface/Buttons/WHITE8X8"
-    BarTexture.Blizzard => return "Interface/TargetingFrame/UI-StatusBar"
+    BarTexture::Flat => return "Interface/Buttons/WHITE8X8"
+    BarTexture::Blizzard => return "Interface/TargetingFrame/UI-StatusBar"
   }
 }
 
 // An experience bar's fill: one tile, repeated along the bar.
 function xpPiece(file: Asset): Piece {
-  return { file: file, width: 1024, height: 32, tile: Tile.Across }
+  return { file: file, width: 1024, height: 32, tile: Tile::Across }
 }
 
 public function xpFillArt(fill: XpFill): Art {
   match (fill) {
-    XpFill.Deep => return xpPiece("@/media/xp-fill-deep.tga")
-    XpFill.Grain => return xpPiece("@/media/xp-fill-grain.tga")
-    XpFill.Brushed => return xpPiece("@/media/xp-fill-brushed.tga")
-    XpFill.Potion => return xpPiece("@/media/xp-fill-potion.tga")
-    XpFill.Clouds => return xpPiece("@/media/xp-fill-clouds.tga")
-    XpFill.Steel => return xpPiece("@/media/xp-fill-steel.tga")
+    XpFill::Deep => return xpPiece("@/media/xp-fill-deep.tga")
+    XpFill::Grain => return xpPiece("@/media/xp-fill-grain.tga")
+    XpFill::Brushed => return xpPiece("@/media/xp-fill-brushed.tga")
+    XpFill::Potion => return xpPiece("@/media/xp-fill-potion.tga")
+    XpFill::Clouds => return xpPiece("@/media/xp-fill-clouds.tga")
+    XpFill::Steel => return xpPiece("@/media/xp-fill-steel.tga")
   }
 }
 

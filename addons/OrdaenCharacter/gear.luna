@@ -22,9 +22,9 @@ import Style from "@/style"
 // Durability under a quarter is red, as the game's armour figure turns it.
 const WORN_OUT = 0.25
 // The cooldown's run over a slot's icon, and the line round a slot the cursor's item goes in (the game lights its slot).
-const COOLING: Color = Color.hex("#000000a6")
-const FITS: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
-public const FITS_GLOW: Color = Color.hex("#ffd10040")
+const COOLING: Color = Color::hex("#000000a6")
+const FITS: Line = { width: 2.34375dp, color: Color::hex("#ffd100") }
+public const FITS_GLOW: Color = Color::hex("#ffd10040")
 // A chip's room round its word; the sets' «Save».
 const SAVE_WIDTH = 140dp
 const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
@@ -47,12 +47,12 @@ const SCENES: Map<String, Asset> = {
 // The paper doll's width at a slot's size: its two side rules, its room at the sides, the slots' columns with the gaps beside
 // them, and the four weapons between (main hand, off hand, ranged, ammo) with theirs; at least the model's room.
 function dollWidthOf(slot: Number<Length>): Number<Length> {
-  const room = Ordaen.lengthOf(Style.DOLL_ROOM * 2 + Style.DOLL_GAP * 2 + Style.WEAPON_GAP * 3)
-  return (RULE_WIDTH * 2 + slot * 6 + room).max(Style.DOLL)
+  const room = Ordaen.lengthOf(Style::DOLL_ROOM * 2 + Style::DOLL_GAP * 2 + Style::WEAPON_GAP * 3)
+  return (RULE_WIDTH * 2 + slot * 6 + room).max(Style::DOLL)
 }
 
 // The durability bar's colour for what is left of an item.
-public function wearColor(left: Number): Color { return left < WORN_OUT ? Style.RED : Style.GREEN }
+public function wearColor(left: Number): Color { return left < WORN_OUT ? Style::RED : Style::GREEN }
 
 // A slot of the paper doll, as the game's own slot takes the mouse: Left-click and a drag pick up what is worn and let
 // go there what the cursor holds, Ctrl+Left-click tries it on, Alt+Left-click opens what the bags hold for the slot
@@ -71,14 +71,14 @@ public class GearSlot implements Component {
   derived wearShown: Boolean = self.wear && self.worn.durability != nil
   derived wearFill: BarFill = self.fillOf()
   derived use: Action | nil = self.own && self.worn.item != nil ?
-    Action.UseWornItem { slot: self.spec.id, chord: Game.player.targeting ? MouseButton.Left : MouseButton.Right } : nil
+    Action.UseWornItem { slot: self.spec.id, chord: Game::player.targeting ? MouseButton::Left : MouseButton::Right } : nil
   derived wornSlot: Integer | nil = self.own ? self.spec.id : nil
   derived cooling: Boolean = self.worn.cooldown != nil
-  derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom.Top }
+  derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom::Top }
   derived shared: Boolean = self.share != ""
   // An empty slot under the cursor says what goes in it, the client's own name for it, as the game's slot does.
   state hovered = false
-  derived slotName: String = Runtime.text(self.spec.name) ?? ""
+  derived slotName: String = Runtime::text(self.spec.name) ?? ""
   derived emptyTip: Boolean = self.hovered && self.worn.item == nil && self.slotName != ""
 
   spec: Signal<SlotSpec>
@@ -91,7 +91,7 @@ public class GearSlot implements Component {
   share: Signal<String>
   own: Signal<Boolean>
   constructor(spec: Signal<SlotSpec>, worn: Signal<Worn>, wear: Signal<Boolean>,
-    fits: Signal<Boolean> = false, size: Signal<Number<Length>> = Style.SLOT, share: Signal<String> = "",
+    fits: Signal<Boolean> = false, size: Signal<Number<Length>> = Style::SLOT, share: Signal<String> = "",
     own: Signal<Boolean> = true) {
     self.spec = spec
     self.worn = worn
@@ -107,18 +107,18 @@ public class GearSlot implements Component {
     return { value: left, color: wearColor(left) }
   }
 
-  onPressed(self, press: Event.Press) {
-    if (press.button != MouseButton.Left) { return }
+  onPressed(self, press: Event::Press) {
+    if (press.button != MouseButton::Left) { return }
     if (!self.own) {
-      if (Game.input.controlDown()) { self.tried.emit(peek self.spec.id) }
+      if (Game::input.controlDown()) { self.tried.emit(peek self.spec.id) }
       return
     }
     // The client applied the waiting spell to the item, on the secure click.
-    if (peek Game.player.targeting) { return }
+    if (peek Game::player.targeting) { return }
     const slot = peek self.spec.id
-    if (Game.input.controlDown()) {
+    if (Game::input.controlDown()) {
       self.tried.emit(slot)
-    } else if (Game.input.altDown()) {
+    } else if (Game::input.altDown()) {
       self.flyout.emit(slot)
     } else {
       self.picked.emit(slot)
@@ -135,23 +135,23 @@ public class GearSlot implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={2sp}>
-        <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size} well={SlotWell.Framed}
+        <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size} well={SlotWell::Framed}
                     count={self.worn.count} dimmed={self.worn.locked} worn={self.wornSlot} action={self.use}
                     @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged} @entered={self.onEntered}
                     @left={self.onLeft}>
           <Tip $if={self.emptyTip} title={self.slotName} text={""} />
-          <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box $if={self.cooling} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                fill={self.coolFill} />
-          <box $if={self.fits} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+          <box $if={self.fits} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                border={FITS} background={FITS_GLOW} zLevel={2} />
-          <box $if={self.shared} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-               border={Style.SOURCE_RIM} background={Style.SOURCE_GLOW} zLevel={2} />
+          <box $if={self.shared} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               border={Style::SOURCE_RIM} background={Style::SOURCE_GLOW} zLevel={2} />
         </ItemButton>
-        <box height={Style.WEAR} background={Style.TROUGH} fill={self.wearFill} opacity={self.wearShown ? 1 : 0} />
-        <box $if={self.shared} position={Position.Absolute} left={-self.size} right={-self.size} bottom={0ui}
-             xAlign={Align.Center} zLevel={4}>
-          <box background={Style.SHARE} padding={Style.SHARE_PAD}>
-            <text value={self.share} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.SHARE_INK}
+        <box height={Style::WEAR} background={Style::TROUGH} fill={self.wearFill} opacity={self.wearShown ? 1 : 0} />
+        <box $if={self.shared} position={Position::Absolute} left={-self.size} right={-self.size} bottom={0ui}
+             xAlign={Align::Center} zLevel={4}>
+          <box background={Style::SHARE} padding={Style::SHARE_PAD}>
+            <text value={self.share} textSize={SECONDARY_TEXT} textFont={TextFont::Numbers} textColor={Style::SHARE_INK}
                   wrap={.None} />
           </box>
         </box>
@@ -162,10 +162,10 @@ public class GearSlot implements Component {
 
 function resourceColor(resource: Resource): Color {
   return match (resource) {
-    .Mana => Style.MANA
-    .Rage => Style.RAGE
-    .Energy => Style.ENERGY
-    .Focus => Style.FOCUS
+    .Mana => Style::MANA
+    .Rage => Style::RAGE
+    .Energy => Style::ENERGY
+    .Focus => Style::FOCUS
   }
 }
 
@@ -182,9 +182,9 @@ public class Chip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={CHIP_PAD} background={Style.CARD} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
+      <box padding={CHIP_PAD} background={Style::CARD} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
            @keyPress(.Space)={self.onClick}>
-        <text value={self.label} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
+        <text value={self.label} textSize={SECONDARY_TEXT} textColor={Style::INK} wrap={.None} />
       </box>
     }
   }
@@ -223,7 +223,7 @@ public class GearSets implements Component {
   onChosen(mut self, place: Integer) {
     const set = (peek self.sets)[place]
     if (set == nil || set.worn) { return }
-    if (Game.situation.combat) {
+    if (Game::situation.combat) {
       self.chosen = wornPlace(peek self.sets)
       return
     }
@@ -232,13 +232,13 @@ public class GearSets implements Component {
 
   namesOf(self): Array<String> {
     const names = self.sets.map(set => set.name)
-    names.push(Locale.NEW_SET)
+    names.push(Locale::NEW_SET)
     return names
   }
 
   tipOf(self): TipText | nil {
     const same = self.same
-    return same == nil ? nil : { title: Locale.SET_TAKEN, text: Locale.SET_TAKEN_TIP.format(same.name), rows: [] }
+    return same == nil ? nil : { title: Locale::SET_TAKEN, text: Locale::SET_TAKEN_TIP.format(same.name), rows: [] }
   }
 
   onSave(self) { self.save.emit() }
@@ -247,8 +247,8 @@ public class GearSets implements Component {
     return $ltml {
       <box>
         <Tabs tabs={self.names} selected={mut self.chosen} />
-        <box $if={self.drafting} position={Position.Absolute} top={0ui} bottom={0ui} right={self.room} yAlign={Align.Center}>
-          <PushButton label={Locale.SAVE_SET} width={SAVE_WIDTH} plate={ButtonPlate.Accent} disabled={self.taken}
+        <box $if={self.drafting} position={Position::Absolute} top={0ui} bottom={0ui} right={self.room} yAlign={Align::Center}>
+          <PushButton label={Locale::SAVE_SET} width={SAVE_WIDTH} plate={ButtonPlate::Accent} disabled={self.taken}
                       tip={self.saveTip} @click={self.onSave} />
         </box>
       </box>
@@ -282,12 +282,12 @@ public class Flyout implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={2sp} padding={3sp} background={Style.FLYOUT}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
-          <text value={Locale.FLYOUT} textSize={SECONDARY_TEXT} textColor={Style.GOLD} />
-          <Chip label={Locale.CLOSE} @click={self.onClose} />
+      <box gap={2sp} padding={3sp} background={Style::FLYOUT}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
+          <text value={Locale::FLYOUT} textSize={SECONDARY_TEXT} textColor={Style::GOLD} />
+          <Chip label={Locale::CLOSE} @click={self.onClose} />
         </box>
-        <text $if={self.none} value={Locale.NOTHING_FITS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <text $if={self.none} value={Locale::NOTHING_FITS} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         <box columns={{ each: "max-content" }} gap={2sp}>
           <ItemButton $for={item of self.items} item={peek item} @pick={self.onPick} />
         </box>
@@ -310,9 +310,9 @@ public class GearPage implements Component {
   public saveSet: Event<nil> = new Event()
 
   derived fullName: String = self.who.surname != "" ? `${self.who.name} ${self.who.surname}` : self.who.name
-  derived whoText: String = Locale.LEVEL_RACE.format(self.who.level, self.who.race)
-  derived tag: String = self.classTag ?? Game.player.classTag
-  derived whoColor: Color = classColor(self.tag) ?? Style.GOLD
+  derived whoText: String = Locale::LEVEL_RACE.format(self.who.level, self.who.race)
+  derived tag: String = self.classTag ?? Game::player.classTag
+  derived whoColor: Color = classColor(self.tag) ?? Style::GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
   derived flyoutShown: Boolean = self.flyoutSlot != nil
   // The player's own by its spec's weights; another's (inspected) as the game orders them.
@@ -323,19 +323,19 @@ public class GearPage implements Component {
   derived speeds: Array<Row> = speedsOf(self.stats)
   derived sections: Array<Section> = sectionsOf(self.stats, self.skills, self.tag)
   // The bars: health, the resource with what it regains, and a druid's energy beside its mana.
-  derived health: String = String.of(self.stats.health)
-  derived power: String = self.stats.resource == Resource.Rage ? `0 / ${self.stats.power}` : String.of(self.stats.power)
-  derived powerFilled: Number = self.stats.resource == Resource.Rage ? 0 : 1
+  derived health: String = String::of(self.stats.health)
+  derived power: String = self.stats.resource == Resource::Rage ? `0 / ${self.stats.power}` : String::of(self.stats.power)
+  derived powerFilled: Number = self.stats.resource == Resource::Rage ? 0 : 1
   derived powerTint: Color = resourceColor(self.stats.resource)
   // The weapons' slots: a class that keeps a relic has the relic's well and name in the ranged slot.
   derived weapons: Array<SlotSpec> = self.stats.relic ? RELIC_WEAPONS : WEAPONS
   derived healthRegen: Array<Row> = healthRegenRows(self.stats)
   derived powerRegen: Array<Row> = powerRegenRows(self.stats)
   derived energyShown: Boolean = self.stats.energy > 0
-  derived energy: String = String.of(self.stats.energy)
+  derived energy: String = String::of(self.stats.energy)
   derived energyRegen: Array<Row> = energyRegenRows(self.stats)
   // Mana's sources; rage and energy have none of a stat's.
-  derived powerStat: Stat | nil = self.stats.resource == Resource.Mana ? .Power : nil
+  derived powerStat: Stat | nil = self.stats.resource == Resource::Mana ? .Power : nil
   // The stat whose tooltip is open (none while none is), what it says and what lights with it.
   state tipped: Stat | nil = nil
   derived shown: Breakdown = self.shownOf()
@@ -369,10 +369,10 @@ public class GearPage implements Component {
   // The paper doll as wide as its slots' columns and the four weapons' between them need, and never narrower than the
   // model's room; the bars' and the stats' columns share the rest. The scene centred in it.
   derived dollWidth: Number<Length> = dollWidthOf(self.slot)
-  derived columns: Array<Track> = [Style.SIDE_COLUMN, self.dollWidth, Style.SIDE_COLUMN]
+  derived columns: Array<Track> = [Style::SIDE_COLUMN, self.dollWidth, Style::SIDE_COLUMN]
   // The sets' strip along the page's top (the player's own character alone), the columns under it meeting its line.
   derived rows: Array<Track> = self.own ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
-  derived sceneWidth: Number<Length> = (self.own ? Style.SCENE_HEIGHT : Style.SCENE_HEIGHT_INSPECTED) * Style.SCENE_ASPECT
+  derived sceneWidth: Number<Length> = (self.own ? Style::SCENE_HEIGHT : Style::SCENE_HEIGHT_INSPECTED) * Style::SCENE_ASPECT
   derived sceneLeft: Number<Length> = (self.dollWidth - RULE_WIDTH * 2 - self.sceneWidth) / 2
   constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
     usesAmmo: Signal<Boolean>, choices: Signal<Choices>, fitsSlots: Signal<Array<Integer>> = NO_SLOTS,
@@ -426,17 +426,17 @@ public class GearPage implements Component {
         <GearSets $if={self.own} sets={self.sets} @use={self.onUseSet} @save={self.onSaveSet} />
         <box columns={self.columns} rows={[{ fr: 1 }]}>
           <box gap={2.5sp}>
-            <box gap={2sp} padding={Style.SECTION_PAD}>
+            <box gap={2sp} padding={Style::SECTION_PAD}>
               <box gap={0.5sp}>
-                <text value={self.fullName} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont.Title} textColor={self.whoColor} />
-                <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+                <text value={self.fullName} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont::Title} textColor={self.whoColor} />
+                <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
               </box>
               <box gap={2.5sp}>
-                <PoolBar amount={self.health} color={Style.HEALTH} regen={self.healthRegen} stat={Stat.Health} shown={self.shown}
+                <PoolBar amount={self.health} color={Style::HEALTH} regen={self.healthRegen} stat={Stat::Health} shown={self.shown}
                          boosts={self.boosts} tip={TIP_LEFT} @tipped={self.onTipped} />
                 <PoolBar amount={self.power} color={self.powerTint} regen={self.powerRegen} filled={self.powerFilled}
                          stat={self.powerStat} shown={self.shown} boosts={self.boosts} tip={TIP_LEFT} @tipped={self.onTipped} />
-                <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen}
+                <PoolBar $if={self.energyShown} amount={self.energy} color={Style::ENERGY} regen={self.energyRegen}
                          tip={TIP_LEFT} />
               </box>
             </box>
@@ -444,31 +444,31 @@ public class GearPage implements Component {
               <ResistBar $if={self.resisted} resists={self.resists} shown={self.shown} tip={TIP_LEFT} @tipped={self.onTipped} />
             </SectionView>
             <Cut />
-            <box gap={0.5sp} padding={Style.SECTION_PAD}>
+            <box gap={0.5sp} padding={Style::SECTION_PAD}>
               <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} tip={TIP_LEFT}
                        @tipped={self.onTipped} />
             </box>
           </box>
-          <box rows={[{ fr: 1 }]} border={Style.DOLL_SIDES}>
-            <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={Style.DOLL_GAP} padding={Style.DOLL_PAD}
-                 background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
-              <box $if={self.scene != nil} position={Position.Absolute} left={self.sceneLeft} top={0ui}
+          <box rows={[{ fr: 1 }]} border={Style::DOLL_SIDES}>
+            <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={Style::DOLL_GAP} padding={Style::DOLL_PAD}
+                 background={Style::MODEL_BACK} overflow={Overflow::Hidden}>
+              <box $if={self.scene != nil} position={Position::Absolute} left={self.sceneLeft} top={0ui}
                    width={self.sceneWidth} bottom={0ui} background={self.scene} desaturate={true} />
-              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL}
+              <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style::SCENE_VEIL}
                    zLevel={1} />
-              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={self.unit}
+              <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={self.unit}
                    zLevel={2} />
-              <box rows={Style.SLOT_ROWS} zLevel={3}>
+              <box rows={Style::SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)}
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
-              <box rows={Style.SLOT_ROWS} zLevel={3}>
+              <box rows={Style::SLOT_ROWS} zLevel={3}>
                 <ItemLevel worn={self.worn} />
-                <box rowSpan={6} yAlign={Align.End}>
+                <box rowSpan={6} yAlign={Align::End}>
                   <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
                 </box>
-                <box columns={{ each: "max-content" }} gap={Style.WEAPON_GAP} xAlign={Align.Center} yAlign={Align.Start}>
+                <box columns={{ each: "max-content" }} gap={Style::WEAPON_GAP} xAlign={Align::Center} yAlign={Align::Start}>
                   <GearSlot $for={spec of self.weapons} spec={spec} worn={self.wornOf(spec.id)}
                             wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                             @tried={self.onTried} @flyout={self.onFlyout} />
@@ -476,7 +476,7 @@ public class GearPage implements Component {
                             fits={self.fitsIn(AMMO.id)} size={self.slot} @picked={self.onPicked} />
                 </box>
               </box>
-              <box rows={Style.SLOT_ROWS} zLevel={3}>
+              <box rows={Style::SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)}
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
@@ -484,17 +484,17 @@ public class GearPage implements Component {
             </box>
           </box>
           <box>
-            <box columns={5} yAlign={Align.Stretch}>
+            <box columns={5} yAlign={Align::Stretch}>
               <box $for={index, main of self.mains}>
-                <box $if={index > 1} position={Position.Absolute} left={-SHORT_CUT / 2} top={0ui} bottom={0ui}
-                     width={SHORT_CUT} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+                <box $if={index > 1} position={Position::Absolute} left={-SHORT_CUT / 2} top={0ui} bottom={0ui}
+                     width={SHORT_CUT} rows={[{ fr: 1 }]} yAlign={Align::Stretch}>
                   <ShortCut />
                 </box>
                 <MainStat main={main} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
             </box>
             <Cut />
-            <box gap={2.5sp} padding={Style.AFTER_CUT}>
+            <box gap={2.5sp} padding={Style::AFTER_CUT}>
               <SectionView $for={section of self.sections} section={section} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>

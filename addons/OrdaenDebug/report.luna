@@ -13,12 +13,12 @@ const BUTTON = 140dp
 // Every addon the client has loaded: its folder and its version.
 function addonLines(): Array<String> {
   let lines: Array<String> = []
-  const count = Client.C_AddOns.GetNumAddOns()
+  const count = Client::C_AddOns::GetNumAddOns()
   for (i of 1..count) {
-    const loaded, _ = Client.C_AddOns.IsAddOnLoaded(i)
+    const loaded, _ = Client::C_AddOns::IsAddOnLoaded(i)
     if (loaded) {
-      const name, _, _, _, _, _ = Client.C_AddOns.GetAddOnInfo(i)
-      lines.push("%s %s".format(name, Client.C_AddOns.GetAddOnMetadata(i, "Version") ?? "?"))
+      const name, _, _, _, _, _ = Client::C_AddOns::GetAddOnInfo(i)
+      lines.push("%s %s".format(name, Client::C_AddOns::GetAddOnMetadata(i, "Version") ?? "?"))
     }
   }
   return lines
@@ -28,23 +28,23 @@ function addonLines(): Array<String> {
 public function report(errors: Errors): String {
   const meta = errors.meta()
   let lines = [
-    Locale.REPORT_HEAD,
-    Locale.REPORT_CLIENT.format(String.of(meta?.client), String.of(meta?.build), String.of(meta?.interface),
-      String.of(meta?.locale), String.of(meta?.core)),
+    Locale::REPORT_HEAD,
+    Locale::REPORT_CLIENT.format(String::of(meta?.client), String::of(meta?.build), String::of(meta?.interface),
+      String::of(meta?.locale), String::of(meta?.core)),
     ""
   ]
   const addons = addonLines()
-  lines.push(Locale.REPORT_ADDONS.format(addons.length))
+  lines.push(Locale::REPORT_ADDONS.format(addons.length))
   for (line of addons) {
     lines.push(line)
   }
   lines.push("")
   const kept = errors.db.errors
   if (kept.length == 0) {
-    lines.push(Locale.REPORT_NO_ERRORS)
+    lines.push(Locale::REPORT_NO_ERRORS)
   } else {
     const shown = kept.length.min(REPORT_ERRORS)
-    lines.push(Locale.REPORT_ERRORS.format(shown, kept.length))
+    lines.push(Locale::REPORT_ERRORS.format(shown, kept.length))
     for (n of 1..shown) {
       const entry = kept[kept.length - n + 1] ?? panic("an error among the newest")
       lines.push("")
@@ -68,7 +68,7 @@ public class ReportPage implements Component {
 
   counted(self): String {
     const session = self.errors.sessionCount()
-    return Locale.REPORT_COUNT.format(session, self.errors.db.errors.length - session)
+    return Locale::REPORT_COUNT.format(session, self.errors.db.errors.length - session)
   }
 
   make(mut self) {
@@ -78,10 +78,10 @@ public class ReportPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.REPORT_SECTION}>
-        <text value={Locale.REPORT_HINT} />
+      <Section title={Locale::REPORT_SECTION}>
+        <text value={Locale::REPORT_HINT} />
         <text value={self.count} />
-        <PushButton label={Locale.REPORT_MAKE} width={BUTTON} @click={self.make} />
+        <PushButton label={Locale::REPORT_MAKE} width={BUTTON} @click={self.make} />
         <CopyText $if={self.text != ""} value={self.text} />
       </Section>
     }

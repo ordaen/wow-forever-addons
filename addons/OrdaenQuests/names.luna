@@ -22,16 +22,16 @@ public function namedOf(facts: QuestFacts): Array<Named> {
     }
     return nil
   }
-  for (figure of facts.givers) { add(figure, Locale.NAMED_GIVER) }
-  for (figure of facts.takers) { add(figure, Locale.NAMED_TAKER) }
-  for (figure of facts.targets) { add(figure, Locale.NAMED_TARGET) }
+  for (figure of facts.givers) { add(figure, Locale::NAMED_GIVER) }
+  for (figure of facts.takers) { add(figure, Locale::NAMED_TAKER) }
+  for (figure of facts.targets) { add(figure, Locale::NAMED_TARGET) }
   const named: Array<Named> = []
   for (figure of figures) {
     const where = whereOf([figure])
     const said = roles[linkOf(figure)] ?? []
-    named.push({ name: figure.name, kind: NamedKind.Figure, link: linkOf(figure), lines: where == "" ? said : plus(said, where) })
+    named.push({ name: figure.name, kind: NamedKind::Figure, link: linkOf(figure), lines: where == "" ? said : plus(said, where) })
   }
-  for (item of facts.items) { named.push({ name: item.name, kind: NamedKind.Item, link: `item:${item.id}`, lines: [] }) }
+  for (item of facts.items) { named.push({ name: item.name, kind: NamedKind::Item, link: `item:${item.id}`, lines: [] }) }
   return named
 }
 

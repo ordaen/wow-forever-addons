@@ -45,9 +45,9 @@ import { TooltipCreatures } from "@/wants"
 const TOGGLE = "OrdaenQuestsToggle"
 // The game's binding of the quest log.
 const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
-const NO_TEXT: Game.QuestText = { story: "", task: "", experience: 0, money: 0, rewards: [], choices: [], giver: 0 }
-const DIM: Color = Color.hex("#a3977f")
-const RED: Color = Color.hex("#ff4040")
+const NO_TEXT: Game::QuestText = { story: "", task: "", experience: 0, money: 0, rewards: [], choices: [], giver: 0 }
+const DIM: Color = Color::hex("#a3977f")
+const RED: Color = Color::hex("#ff4040")
 // The toolbar over the list, and the list.
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -58,33 +58,33 @@ const AFTER_SEARCH: Edges = { left: 3sp }
 const STATUS_WIDTH = 164.0625dp
 
 const STATUSES: Array<Choice<QuestStatus>> = [
-  { value: QuestStatus.Progress, label: Locale.STATUS_PROGRESS },
-  { value: QuestStatus.Done, label: Locale.STATUS_DONE },
-  { value: QuestStatus.All, label: Locale.STATUS_ALL }
+  { value: QuestStatus::Progress, label: Locale::STATUS_PROGRESS },
+  { value: QuestStatus::Done, label: Locale::STATUS_DONE },
+  { value: QuestStatus::All, label: Locale::STATUS_ALL }
 ]
 const FILTERS: Array<FilterGroup<QuestFilter>> = [
-  { options: [{ key: QuestFilter.Tracked, label: Locale.FILTER_TRACKED }] },
+  { options: [{ key: QuestFilter::Tracked, label: Locale::FILTER_TRACKED }] },
   {
-    label: Locale.FILTER_DIFFICULTY,
+    label: Locale::FILTER_DIFFICULTY,
     options: [
-      { key: QuestFilter.Trivial, label: Locale.FILTER_GREY }, { key: QuestFilter.Easy, label: Locale.FILTER_GREEN },
-      { key: QuestFilter.Even, label: Locale.FILTER_YELLOW }, { key: QuestFilter.Hard, label: Locale.FILTER_ORANGE },
-      { key: QuestFilter.Impossible, label: Locale.FILTER_RED }
+      { key: QuestFilter::Trivial, label: Locale::FILTER_GREY }, { key: QuestFilter::Easy, label: Locale::FILTER_GREEN },
+      { key: QuestFilter::Even, label: Locale::FILTER_YELLOW }, { key: QuestFilter::Hard, label: Locale::FILTER_ORANGE },
+      { key: QuestFilter::Impossible, label: Locale::FILTER_RED }
     ]
   },
   {
-    label: Locale.FILTER_PARTY,
-    options: [{ key: QuestFilter.Solo, label: Locale.FILTER_SOLO }, { key: QuestFilter.Group, label: Locale.FILTER_GROUP }]
+    label: Locale::FILTER_PARTY,
+    options: [{ key: QuestFilter::Solo, label: Locale::FILTER_SOLO }, { key: QuestFilter::Group, label: Locale::FILTER_GROUP }]
   }
 ]
 const SORTS: Array<Choice<QuestSort>> = [
-  { value: QuestSort.Log, label: Locale.SORT_LOG },
-  { value: QuestSort.Level, label: Locale.SORT_LEVEL },
-  { value: QuestSort.Title, label: Locale.SORT_TITLE }
+  { value: QuestSort::Log, label: Locale::SORT_LOG },
+  { value: QuestSort::Level, label: Locale::SORT_LEVEL },
+  { value: QuestSort::Title, label: Locale::SORT_TITLE }
 ]
 const VIEWS: Array<Choice<QuestView>> = [
-  { value: QuestView.Zones, label: Locale.VIEW_ZONES, icon: ARTWORK.ctl.tool.categories },
-  { value: QuestView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+  { value: QuestView::Zones, label: Locale::VIEW_ZONES, icon: ARTWORK.ctl.tool.categories },
+  { value: QuestView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 
 // The window's one tab: the game's quest log book.
@@ -100,10 +100,10 @@ function kindCounts(quests: Array<LogQuest>): Array<Integer> {
 // A sub-tab's title by its kind.
 function tabTitle(kind: QuestKind): String {
   return match (kind) {
-    .World => Locale.TAB_WORLD
-    .Dungeon => Locale.TAB_DUNGEONS
-    .Raid => Locale.TAB_RAIDS
-    .PvP => Locale.TAB_PVP
+    .World => Locale::TAB_WORLD
+    .Dungeon => Locale::TAB_DUNGEONS
+    .Raid => Locale::TAB_RAIDS
+    .PvP => Locale::TAB_PVP
   }
 }
 
@@ -117,14 +117,14 @@ function fromPlayer(spot: Spot): Number | nil {
 
 public class Quests implements Module, App {
   public const title: String = "Ordaen Quests"
-  public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   // The next quest of a chain, beside the log at first.
   public chainWindow: mut KeptWindow = new KeptWindow(
-    "chain", Locale.CHAIN_WINDOW, { x: Style.CHAIN_X, y: 0ui, width: Style.CHAIN_WIDTH, height: Style.CHAIN_HEIGHT }
+    "chain", Locale::CHAIN_WINDOW, { x: Style::CHAIN_X, y: 0ui, width: Style::CHAIN_WIDTH, height: Style::CHAIN_HEIGHT }
   )
   public const windows: mut Array<mut KeptWindow> = [self.window, self.chainWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ ownKey: true })
@@ -132,7 +132,7 @@ public class Quests implements Module, App {
   // QuestieDB's absence at its right where it can't be read.
   const footer: Template = $ltml {
     <ListFooter counts={self.counted}>
-      <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
+      <text $if={!self.known} value={Locale::NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
     </ListFooter>
   }
 
@@ -160,7 +160,7 @@ public class Quests implements Module, App {
   public state chained = 0
   state chainedFacts: QuestFacts | nil = nil
   state chainTab = 1
-  state text: Game.QuestText = NO_TEXT
+  state text: Game::QuestText = NO_TEXT
   state abandoning = 0
   // The items abandoning it destroys, by name: the question says them, as the game's does.
   state abandonItems: Array<String> = []
@@ -179,11 +179,11 @@ public class Quests implements Module, App {
   derived reading: Boolean = self.open || Maps != nil || Tooltips != nil || Panel != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale::TAB_QUESTS, desc: String::of(self.quests.length), icon: TAB_ICON }]
   derived kindsCounted: Array<Integer> = kindCounts(self.quests)
   derived count: Integer = self.quests.length
   derived counted: Array<FooterCount> = [
-    { label: Locale.FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
+    { label: Locale::FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
   ]
   derived known: Boolean = self.data.fault() == nil
   derived asked: Asked = {
@@ -197,17 +197,17 @@ public class Quests implements Module, App {
   derived pickedList: Array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
   // Docked on the map while it shows: the side panel Quests' log stands over, where, and how big.
   derived dockedSide: SidePanel | nil = Maps?.side
-  derived dockedPlace: Place = { point: Point.TopLeft, to: Point.TopLeft, by: self.dockedSide?.frame }
+  derived dockedPlace: Place = { point: Point::TopLeft, to: Point::TopLeft, by: self.dockedSide?.frame }
   derived dockedWidth: Number<Length> = (self.dockedSide?.width ?? 0) * 1ui
   derived dockedHeight: Number<Length> = (self.dockedSide?.height ?? 0) * 1ui
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
-  derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
-  derived level: Integer = Game.player.level
-  derived chainTabs: Array<WindowTabSpec> = [{ title: Locale.CHAIN_WINDOW, icon: CHAIN_ICON }]
+  derived abandonText: String = Locale::ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
+  derived level: Integer = Game::player.level
+  derived chainTabs: Array<WindowTabSpec> = [{ title: Locale::CHAIN_WINDOW, icon: CHAIN_ICON }]
   // The chain's quest as a list of one, or none: the chain window's page.
   derived chainedList: Array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
 
-  const toggle: any Client.Frame
+  const toggle: any Client::Frame
   const turnIns: TurnInPins
   const chainPins: ChainPins
   const npcPins: NpcPins
@@ -227,7 +227,7 @@ public class Quests implements Module, App {
     self.npcPins = new NpcPins(self.shownNpc)
     self.dungeonQuests = new DungeonQuests(self.quests)
     self.trackerOpener = new TrackerOpener((id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
-    self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
+    self.toggle = Client::CreateFrame("Button", TOGGLE, Client::UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
       self.flip()
@@ -259,27 +259,27 @@ public class Quests implements Module, App {
     watch (on of self.reading) {
       if (!on) { return }
       self.refresh()
-      Events.QUEST_LOG_UPDATE.listen(self.refresh)
-      Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
-      Events.ZONE_CHANGED_NEW_AREA.listen(self.refresh)
+      Events::QUEST_LOG_UPDATE.listen(self.refresh)
+      Events::QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
+      Events::ZONE_CHANGED_NEW_AREA.listen(self.refresh)
       // Whether a quest can be shared follows the player's group.
-      Events.GROUP_ROSTER_UPDATE.listen(self.refresh)
+      Events::GROUP_ROSTER_UPDATE.listen(self.refresh)
     }
     watch (on of self.ownKey) { Ordaen.afterCombat(() => self.bind()) }
     // The micro menu's button opens the window while the key does.
     watch {
-      const frame = Game.frames.QuestLogMicroButton
+      const frame = Game::frames.QuestLogMicroButton
       if (frame == nil || !self.ownKey) { return }
-      const button: any Client.Frame = frame
+      const button: any Client::Frame = frame
       _ = new TakenClick(button, () => self.flip())
     }
-    Events.UPDATE_BINDINGS.listen(self.rebind)
-    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : Game.questLog.text(id) }
+    Events::UPDATE_BINDINGS.listen(self.rebind)
+    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : Game::questLog.text(id) }
   }
 
   destructor() {
     const toggle = self.toggle
-    Ordaen.afterCombat(() => Client.ClearOverrideBindings(toggle))
+    Ordaen.afterCombat(() => Client::ClearOverrideBindings(toggle))
   }
 
   // The window opens or closes: the game's key and button, and the close button.
@@ -301,8 +301,8 @@ public class Quests implements Module, App {
     }
     self.quests = quests
     self.facts = facts
-    self.most = Game.questLog.most()
-    self.zone = Game.questLog.zone()
+    self.most = Game::questLog.most()
+    self.zone = Game::questLog.zone()
     // A quest gone from the log is no longer opened; the log read before it has its quests (at a login) drops nothing.
     const picked = peek self.picked
     if (picked != 0 && quests.length > 0 && quests.find(quest => quest.id == picked) == nil) { self.pick(0) }
@@ -313,11 +313,11 @@ public class Quests implements Module, App {
   // The player's own keys of the game's quest log click Quests' button while it is the player's choice; out of a
   // fight alone, as the client takes no binding in one.
   bind(self) {
-    Client.ClearOverrideBindings(self.toggle)
+    Client::ClearOverrideBindings(self.toggle)
     if (!(peek self.ownKey)) { return }
-    let first, second = Client.GetBindingKey(QUEST_LOG_BINDING)
-    if (first != nil) { Client.SetOverrideBindingClick(self.toggle, false, first, TOGGLE, "LeftButton") }
-    if (second != nil) { Client.SetOverrideBindingClick(self.toggle, false, second, TOGGLE, "LeftButton") }
+    let first, second = Client::GetBindingKey(QUEST_LOG_BINDING)
+    if (first != nil) { Client::SetOverrideBindingClick(self.toggle, false, first, TOGGLE, "LeftButton") }
+    if (second != nil) { Client::SetOverrideBindingClick(self.toggle, false, second, TOGGLE, "LeftButton") }
   }
 
   // What the player asked of a quest, from its row or its page; each in the click's own call.
@@ -327,18 +327,18 @@ public class Quests implements Module, App {
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
         if (quest != nil) {
-          Game.questLog.track(id, !quest.tracked)
+          Game::questLog.track(id, !quest.tracked)
           // The checkbox's own sound, as the game's log plays it.
           playSound(quest.tracked ? "IG_MAINMENU_OPTION_CHECKBOX_OFF" : "IG_MAINMENU_OPTION_CHECKBOX_ON")
         }
         self.refresh()
       }
       // The game's order: a chat link where a chat line is open, else tracking.
-      .Link => { if (!Game.chat.linkQuest(id)) { self.onAct(id, .Track) } }
-      .SuperTrack => { Game.questLog.superTrack(id) }
-      .Share => { Game.questLog.share(id) }
+      .Link => { if (!Game::chat.linkQuest(id)) { self.onAct(id, .Track) } }
+      .SuperTrack => { Game::questLog.superTrack(id) }
+      .Share => { Game::questLog.share(id) }
       .Abandon => {
-        self.abandonItems = Game.questLog.abandonItems(id)
+        self.abandonItems = Game::questLog.abandonItems(id)
         self.abandoning = id
       }
       .ShowOnMap => { _ = self.showOnMap(id) }
@@ -379,7 +379,7 @@ public class Quests implements Module, App {
   public showOnMap(mut self, id: Integer): Boolean {
     const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
-      Client.C_Map.OpenWorldMap(nil)
+      Client::C_Map::OpenWorldMap(nil)
       return false
     }
     self.shownOnMap = id
@@ -411,7 +411,7 @@ public class Quests implements Module, App {
   // The NPCs that sell an item (QuestieDB's) and trade with the player's side: another module's sellers of a reagent,
   // for `distanceTo` and `showNearest`. None without QuestieDB.
   public vendorsOf(self, item: Integer): Array<Integer> {
-    return self.data.vendorsOf(item, Game.player.faction)
+    return self.data.vendorsOf(item, Game::player.faction)
   }
 
   // The world yards from the player to the NPC's nearest spot (QuestieDB's) on the player's continent, as
@@ -424,7 +424,7 @@ public class Quests implements Module, App {
 
   // The map opened at a spot of an NPC's, its pins lit. Not without Ordaen Map, in a fight, or without a spot.
   showAt(mut self, figure: Figure, spot: Spot | nil): Boolean {
-    if (Maps == nil || Game.situation.combat || spot == nil) { return false }
+    if (Maps == nil || Game::situation.combat || spot == nil) { return false }
     self.shownOnMap = 0
     self.shownNpc = figure
     Maps?.show(spot.area)
@@ -445,18 +445,18 @@ public class Quests implements Module, App {
   onAbandonYes(mut self) {
     const id = peek self.abandoning
     self.abandoning = 0
-    if (id != 0) { Game.questLog.abandon(id) }
+    if (id != 0) { Game::questLog.abandon(id) }
   }
 
   onAbandonNo(mut self) { self.abandoning = 0 }
 
   onClose(mut self) { self.open = false }
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   pageOf(self, quest: LogQuest | nil): WindowSide | nil {
     if (quest == nil) { return nil }
     return {
-      width: Style.PAGE,
+      width: Style::PAGE,
       content: $ltml {
         <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level}
                    foldFirst={self.settings.values.foldedScroll} footed={true} @act={self.onAct} />
@@ -485,8 +485,8 @@ public class Quests implements Module, App {
       return peek self.chained == id
     }
     self.pick(id)
-    if (peek self.docked && !Game.situation.combat) {
-      Client.C_Map.OpenWorldMap(nil)
+    if (peek self.docked && !Game::situation.combat) {
+      Client::C_Map::OpenWorldMap(nil)
     } else if (!(peek self.open)) {
       self.flip()
     }
@@ -498,13 +498,13 @@ public class Quests implements Module, App {
     return $ltml {
       <box rows={LOG_ROWS} gap={3sp}>
         <Tabs tabs={KIND_TITLES} selected={mut self.tab} counts={self.kindsCounted} />
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+        <Toolbar search={mut self.search} placeholder={Locale::SEARCH}>
           <box padding={AFTER_SEARCH}>
             <CompactDropdown value={mut self.list.values.status} choices={STATUSES} width={STATUS_WIDTH} />
           </box>
           <FilterButton values={mut self.list.values.filter} start={FILTER_START} groups={FILTERS} />
-          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
+          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale::SORT} />
+          <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale::VIEW} />
         </Toolbar>
         <QuestList quests={self.listed} kind={self.kind} view={self.list.values.view} zone={self.zone} picked={self.picked}
                    folded={self.folds.values.headers} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
@@ -525,23 +525,23 @@ public class Quests implements Module, App {
         <ChainPage $for={facts of self.chainedList} quest={self.chained} facts={facts}
                    foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
       </Window>
-      <surface $if={self.dockedSide != nil} layer={Layer.Panel} place={self.dockedPlace} raise={true}
-               width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}
-               padding={Style.DOCKED_PAD} columns={1}>
+      <surface $if={self.dockedSide != nil} layer={Layer::Panel} place={self.dockedPlace} raise={true}
+               width={self.dockedWidth} height={self.dockedHeight} background={Style::DOCKED_BACK}
+               padding={Style::DOCKED_PAD} columns={1}>
         <box $if={self.pickedQuest == nil} rows={FILL}>
           {self.logBody()}
         </box>
         <box $if={self.pickedQuest != nil} rows={BODY} gap={3sp}>
-          <PushButton label={Locale.BACK} width={Style.ASK_BUTTON} @click={self.onBack} />
+          <PushButton label={Locale::BACK} width={Style::ASK_BUTTON} @click={self.onBack} />
           <QuestPage $for={quest of self.pickedList} quest={quest} text={self.text} facts={self.pickedFacts} player={self.level}
                      foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
         </box>
       </surface>
-      <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
+      <Dialog $if={self.abandoning != 0} width={Style::ASK} title={Locale::ABANDON}>
         <text value={self.abandonText} />
-        <text $if={self.abandonItems.length > 0} value={Locale.ABANDON_ITEMS.format(self.abandonItems.join(", "))} />
-        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
+        <text $if={self.abandonItems.length > 0} value={Locale::ABANDON_ITEMS.format(self.abandonItems.join(", "))} />
+        <PushButton #buttons label={Locale::ABANDON} width={Style::ASK_BUTTON} plate={ButtonPlate::Danger} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>
     }
   }

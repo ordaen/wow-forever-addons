@@ -19,8 +19,8 @@ import { Refusal, Refused, Shared, read, write } from "@/share"
 import { TextBox } from "@/textBox"
 import { TextField } from "@/textField"
 
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
 const BUTTONS: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
 const CONFIRM_WIDTH = 567.1875dp
 // The specialisations a class has in the game: three trees.
@@ -69,7 +69,7 @@ class ProfileDropdown implements Component {
   offer(self): Offer {
     const choices: Array<Choice<String>> = []
     let key = self.none ? "-" : ""
-    if (self.none) { choices.push({ value: "", label: Locale.PROFILES_NO_PICK }) }
+    if (self.none) { choices.push({ value: "", label: Locale::PROFILES_NO_PICK }) }
     for (name of self.names) {
       choices.push({ value: name, label: name })
       key = key + "|" + name
@@ -124,8 +124,8 @@ class Note implements Component {
 
 // What the section of a key is called: Ordaen's own, its look, or the module's title.
 function labelOf(key: String, titles: Map<String, String>): String {
-  if (key == "Ordaen") { return Locale.LIST_GLOBAL }
-  if (key == "Ordaen:look") { return Locale.LIST_THEMES }
+  if (key == "Ordaen") { return Locale::LIST_GLOBAL }
+  if (key == "Ordaen:look") { return Locale::LIST_THEMES }
   const addon = key.match("^([^:]+)") ?? key
   return titles[addon] ?? key
 }
@@ -154,7 +154,7 @@ public class ProfilesPage implements Component {
   // What the last action said, in its colour: a refusal or a note.
   state fault = ""
   state note = ""
-  state ask = Ask.None
+  state ask = Ask::None
   // Raised when a pick is refused, so the rows show what is kept again.
   state epoch = 0
   // The picks as the rows show them.
@@ -174,8 +174,8 @@ public class ProfilesPage implements Component {
   derived names: Array<String> = self.profiles.names
   derived only: Boolean = self.names.length < 2
   derived others: Array<String> = self.othersOf()
-  derived activeLine: String = Locale.PROFILES_ACTIVE_NOW.format(self.profiles.active, self.whyText())
-  derived hasSpec: Boolean = Game.player.spec != nil
+  derived activeLine: String = Locale::PROFILES_ACTIVE_NOW.format(self.profiles.active, self.whyText())
+  derived hasSpec: Boolean = Game::player.spec != nil
   derived spec1Label: String = self.specLabelOf(1)
   derived spec2Label: String = self.specLabelOf(2)
   derived spec3Label: String = self.specLabelOf(3)
@@ -183,13 +183,13 @@ public class ProfilesPage implements Component {
   derived copyKeys: Array<String> = keysOf(self.profiles.kept.profiles[self.source])
   derived lines: Array<Line> = self.linesOf()
   derived red: Color = Ordaen.look.values.redText
-  derived asking: Boolean = self.ask != Ask.None
-  derived askingDelete: Boolean = self.ask == Ask.Delete
-  derived askingReset: Boolean = self.ask == Ask.Reset
+  derived asking: Boolean = self.ask != Ask::None
+  derived askingDelete: Boolean = self.ask == Ask::Delete
+  derived askingReset: Boolean = self.ask == Ask::Reset
   derived hasFault: Boolean = self.fault != ""
   derived hasNote: Boolean = self.note != ""
-  derived deleteAsk: String = Locale.PROFILES_DELETE_ASK.format(self.chosen)
-  derived resetAsk: String = Locale.PROFILES_RESET_ASK.format(self.chosen)
+  derived deleteAsk: String = Locale::PROFILES_DELETE_ASK.format(self.chosen)
+  derived resetAsk: String = Locale::PROFILES_RESET_ASK.format(self.chosen)
   derived canCreate: Boolean = self.previewed != nil
   derived hasOthers: Boolean = self.others.length > 0
 
@@ -206,9 +206,9 @@ public class ProfilesPage implements Component {
     self.chosen = self.profiles.active
     self.source = self.otherThan(self.profiles.active)
     watch { self.sync(self.epoch) }
-    watch (value of self.onCharacter) { self.use(Use.Character, value) }
-    watch (value of self.onClass) { self.use(Use.Class, value) }
-    watch (value of self.onAccount) { self.use(Use.Account, value) }
+    watch (value of self.onCharacter) { self.use(Use::Character, value) }
+    watch (value of self.onClass) { self.use(Use::Class, value) }
+    watch (value of self.onAccount) { self.use(Use::Account, value) }
     watch (value of self.spec1) { self.useSpec(1, value) }
     watch (value of self.spec2) { self.useSpec(2, value) }
     watch (value of self.spec3) { self.useSpec(3, value) }
@@ -251,18 +251,18 @@ public class ProfilesPage implements Component {
 
   whyText(self): String {
     match (self.profiles.why) {
-      Profiles.Reason.Spec => return Locale.PROFILES_WHY_SPEC.format(Game.player.spec?.name ?? "")
-      Profiles.Reason.Character => return Locale.PROFILES_WHY_CHARACTER
-      Profiles.Reason.Class => return Locale.PROFILES_WHY_CLASS
-      Profiles.Reason.Account => return Locale.PROFILES_WHY_ACCOUNT
+      Profiles::Reason::Spec => return Locale::PROFILES_WHY_SPEC.format(Game::player.spec?.name ?? "")
+      Profiles::Reason::Character => return Locale::PROFILES_WHY_CHARACTER
+      Profiles::Reason::Class => return Locale::PROFILES_WHY_CLASS
+      Profiles::Reason::Account => return Locale::PROFILES_WHY_ACCOUNT
     }
   }
 
   // A specialisation's row: its place, and its name where it is the one the character plays.
   specLabelOf(self, index: Integer): String {
-    const spec = Game.player.spec
-    if (spec != nil && spec.index == index) { return Locale.PROFILES_USE_SPEC_NOW.format(index, spec.name) }
-    return Locale.PROFILES_USE_SPEC.format(index)
+    const spec = Game::player.spec
+    if (spec != nil && spec.index == index) { return Locale::PROFILES_USE_SPEC_NOW.format(index, spec.name) }
+    return Locale::PROFILES_USE_SPEC.format(index)
   }
 
   // What the preview says of each module in the text: whether it is installed and how many of its settings differ.
@@ -274,14 +274,14 @@ public class ProfilesPage implements Component {
     for (key of keys) {
       const label = labelOf(key, self.titles)
       if (self.titles[addonOf(key)] == nil) {
-        lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_KEPT, color: DIM })
+        lines.push({ text: label + " — " + Locale::PROFILES_PREVIEW_KEPT, color: DIM })
       } else {
-        const raw = Game.encoding.deserialize(shared.sections[key] ?? "")
+        const raw = Game::encoding.deserialize(shared.sections[key] ?? "")
         const differs = Ordaen.keeper.differs(key, raw)
         if (differs == nil) {
-          lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_OFF, color: DIM })
+          lines.push({ text: label + " — " + Locale::PROFILES_PREVIEW_OFF, color: DIM })
         } else {
-          lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_CHANGES.format(differs), color: INK })
+          lines.push({ text: label + " — " + Locale::PROFILES_PREVIEW_CHANGES.format(differs), color: INK })
         }
       }
     }
@@ -297,11 +297,11 @@ public class ProfilesPage implements Component {
   typed(mut self): ProfileName | nil {
     const made = named(self.name)
     if (made == nil) {
-      self.say(self.name == "" ? Locale.PROFILES_ERR_NAME_EMPTY : Locale.PROFILES_ERR_NAME_LONG.format(MAX_NAME), "")
+      self.say(self.name == "" ? Locale::PROFILES_ERR_NAME_EMPTY : Locale::PROFILES_ERR_NAME_LONG.format(MAX_NAME), "")
       return nil
     }
     if (self.names.any(known => known == made)) {
-      self.say(Locale.PROFILES_ERR_NAME_TAKEN.format(self.name), "")
+      self.say(Locale::PROFILES_ERR_NAME_TAKEN.format(self.name), "")
       return nil
     }
     return made
@@ -332,8 +332,8 @@ public class ProfilesPage implements Component {
   holds(self, use: Use): Boolean {
     const picks = self.profiles.kept.picks
     const who = self.profiles.who()
-    if (use == Use.Character) { return picks.byCharacter[who.character ?? ""] == self.chosen }
-    if (use == Use.Class) { return picks.byClass[who.classTag] == self.chosen }
+    if (use == Use::Character) { return picks.byCharacter[who.character ?? ""] == self.chosen }
+    if (use == Use::Class) { return picks.byClass[who.classTag] == self.chosen }
     return picks.account == self.chosen
   }
 
@@ -350,7 +350,7 @@ public class ProfilesPage implements Component {
   }
 
   onCancel(mut self) {
-    self.ask = Ask.None
+    self.ask = Ask::None
     self.epoch += 1
   }
 
@@ -362,15 +362,15 @@ public class ProfilesPage implements Component {
     self.fault = ""
     self.note = ""
     // The account's default always names a profile: another is picked to change it.
-    if (use == Use.Account && !on) {
+    if (use == Use::Account && !on) {
       self.epoch += 1
       return
     }
     const tag = who.classTag
     const name: String | nil = on ? chosen : nil
-    if (use == Use.Character) {
+    if (use == Use::Character) {
       self.request((next: mut SavedProfiles) => next.picks.forCharacter(guid, name), chosen, "")
-    } else if (use == Use.Class) {
+    } else if (use == Use::Class) {
       self.request((next: mut SavedProfiles) => next.picks.forClass(tag, name), chosen, "")
     } else {
       self.request((next: mut SavedProfiles) => next.picks.setAccount(chosen), chosen, "")
@@ -392,14 +392,14 @@ public class ProfilesPage implements Component {
     if (!self.profiles.make(made, from)) { return }
     self.chosen = made
     self.name = ""
-    self.say("", Locale.PROFILES_NOTE_MADE.format(made))
+    self.say("", Locale::PROFILES_NOTE_MADE.format(made))
   }
 
   onRename(mut self) {
     const to = self.typed()
     if (to == nil) { return }
     const from = self.chosen
-    self.request((next: mut SavedProfiles) => next.renamed(from, to), to, Locale.PROFILES_NOTE_RENAMED.format(to))
+    self.request((next: mut SavedProfiles) => next.renamed(from, to), to, Locale::PROFILES_NOTE_RENAMED.format(to))
     // Its history and savepoints go with it.
     Ordaen.keeper.renamed(from, to)
     self.name = ""
@@ -407,18 +407,18 @@ public class ProfilesPage implements Component {
 
   onDelete(mut self) {
     if (self.profiles.kept.picks.account == self.chosen) {
-      self.say(Locale.PROFILES_ERR_DEFAULT, "")
+      self.say(Locale::PROFILES_ERR_DEFAULT, "")
       return
     }
     self.say("", "")
-    self.ask = Ask.Delete
+    self.ask = Ask::Delete
   }
 
   doDelete(mut self) {
     const gone = self.chosen
-    self.ask = Ask.None
+    self.ask = Ask::None
     const after = self.afterDelete(gone)
-    self.request((next: mut SavedProfiles) => next.without(gone), after, Locale.PROFILES_NOTE_DELETED.format(gone))
+    self.request((next: mut SavedProfiles) => next.without(gone), after, Locale::PROFILES_NOTE_DELETED.format(gone))
     Ordaen.keeper.dropped(gone)
   }
 
@@ -431,18 +431,18 @@ public class ProfilesPage implements Component {
 
   onReset(mut self) {
     self.say("", "")
-    self.ask = Ask.Reset
+    self.ask = Ask::Reset
   }
 
   doReset(mut self) {
     const target = self.chosen
-    self.ask = Ask.None
+    self.ask = Ask::None
     const next = self.profiles.edit()
     next.cleared(target)
     self.profiles.apply(next)
     // The active profile's modules hold values of their own: they go back too, and write their defaults.
     if (target == self.profiles.active) { Ordaen.keeper.resetAll() }
-    self.say("", Locale.PROFILES_NOTE_RESET.format(target))
+    self.say("", Locale::PROFILES_NOTE_RESET.format(target))
   }
 
   onCopyTick(mut self, key: String, on: Boolean) {
@@ -482,7 +482,7 @@ public class ProfilesPage implements Component {
     let kept: Array<String> = []
     Ordaen.keeper.together(() => {
       for (key, packed of sections) {
-        if (Ordaen.keeper.copyIn(key, Game.encoding.deserialize(packed))) {
+        if (Ordaen.keeper.copyIn(key, Game::encoding.deserialize(packed))) {
           copied += 1
         } else {
           kept.push(key)
@@ -490,7 +490,7 @@ public class ProfilesPage implements Component {
       }
     })
     if (copied == 0 && kept.length == 0) {
-      self.say(Locale.PROFILES_ERR_NOTHING, "")
+      self.say(Locale::PROFILES_ERR_NOTHING, "")
       return
     }
     if (kept.length > 0) {
@@ -500,7 +500,7 @@ public class ProfilesPage implements Component {
       next.profiles[self.profiles.active] = into
       self.profiles.apply(next)
     }
-    self.say("", Locale.PROFILES_NOTE_COPIED.format(copied + kept.length))
+    self.say("", Locale::PROFILES_NOTE_COPIED.format(copied + kept.length))
   }
 
   onExport(mut self) {
@@ -510,17 +510,17 @@ public class ProfilesPage implements Component {
     const shared = Shared { name: self.profiles.active, sections: self.chosenSections(profile, self.exportOff) }
     const made = write(shared)
     if (made == nil) {
-      self.say(Locale.PROFILES_ERR_EXPORT, "")
+      self.say(Locale::PROFILES_ERR_EXPORT, "")
       return
     }
     self.text = made
-    self.say("", Locale.PROFILES_NOTE_EXPORTED.format(made.length))
+    self.say("", Locale::PROFILES_NOTE_EXPORTED.format(made.length))
   }
 
   // The text read and shown as it would make a profile, or refused with why.
   onImport(mut self) {
     if (self.text == "") {
-      self.say(Locale.PROFILES_ERR_NO_TEXT, "")
+      self.say(Locale::PROFILES_ERR_NO_TEXT, "")
       return
     }
     const result = read(self.text)
@@ -528,16 +528,16 @@ public class ProfilesPage implements Component {
       self.say(self.refusal(result), "")
       return
     }
-    self.say("", Locale.PROFILES_NOTE_PREVIEW.format(result.name))
+    self.say("", Locale::PROFILES_NOTE_PREVIEW.format(result.name))
     self.previewed = result
   }
 
   refusal(self, refused: Refused): String {
     match (refused.reason) {
-      Refusal.NotProfile => return Locale.PROFILES_REFUSED_NOT_PROFILE
-      Refusal.Version => return Locale.PROFILES_REFUSED_VERSION.format(refused.version ?? "?")
-      Refusal.TooLong => return Locale.PROFILES_REFUSED_TOO_LONG
-      Refusal.Damaged => return Locale.PROFILES_REFUSED_DAMAGED
+      Refusal::NotProfile => return Locale::PROFILES_REFUSED_NOT_PROFILE
+      Refusal::Version => return Locale::PROFILES_REFUSED_VERSION.format(refused.version ?? "?")
+      Refusal::TooLong => return Locale::PROFILES_REFUSED_TOO_LONG
+      Refusal::Damaged => return Locale::PROFILES_REFUSED_DAMAGED
     }
   }
 
@@ -557,32 +557,32 @@ public class ProfilesPage implements Component {
     self.chosen = made
     self.name = ""
     self.text = ""
-    self.say("", Locale.PROFILES_NOTE_MADE.format(made))
+    self.say("", Locale::PROFILES_NOTE_MADE.format(made))
   }
 
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={5.5sp}>
-        <Section title={Locale.PROFILES_SECTION_PROFILE}>
+        <Section title={Locale::PROFILES_SECTION_PROFILE}>
           <Note text={self.activeLine} color={INK} />
-          <ProfileDropdown label={Locale.PROFILES_PICKED} hint={Locale.PROFILES_PICKED_TIP} value={mut self.chosen}
+          <ProfileDropdown label={Locale::PROFILES_PICKED} hint={Locale::PROFILES_PICKED_TIP} value={mut self.chosen}
                            names={self.names} />
-          <TextField label={Locale.PROFILES_NAME} hint={Locale.PROFILES_NAME_TIP} value={mut self.name}
+          <TextField label={Locale::PROFILES_NAME} hint={Locale::PROFILES_NAME_TIP} value={mut self.name}
                      maxLength={MAX_NAME} />
-          <Checkbox label={Locale.PROFILES_BLANK} hint={Locale.PROFILES_BLANK_TIP} value={mut self.fromBlank} />
+          <Checkbox label={Locale::PROFILES_BLANK} hint={Locale::PROFILES_BLANK_TIP} value={mut self.fromBlank} />
           <box columns={BUTTONS} gap={2.5sp}>
-            <PushButton label={Locale.PROFILES_NEW} width={175.78125dp} @click={self.onNew} />
-            <PushButton label={Locale.PROFILES_RENAME} width={175.78125dp} @click={self.onRename} />
-            <PushButton label={Locale.PROFILES_DELETE} width={175.78125dp} disabled={self.only} @click={self.onDelete} />
-            <PushButton label={Locale.PROFILES_RESET} width={175.78125dp} @click={self.onReset} />
+            <PushButton label={Locale::PROFILES_NEW} width={175.78125dp} @click={self.onNew} />
+            <PushButton label={Locale::PROFILES_RENAME} width={175.78125dp} @click={self.onRename} />
+            <PushButton label={Locale::PROFILES_DELETE} width={175.78125dp} disabled={self.only} @click={self.onDelete} />
+            <PushButton label={Locale::PROFILES_RESET} width={175.78125dp} @click={self.onReset} />
           </box>
           <Note $if={self.hasFault} text={self.fault} color={self.red} />
           <Note $elseif={self.hasNote} text={self.note} color={DIM} />
         </Section>
-        <Section title={Locale.PROFILES_USE_FOR}>
-          <Checkbox label={Locale.PROFILES_USE_CHARACTER} value={mut self.onCharacter} />
-          <Checkbox label={Locale.PROFILES_USE_CLASS} value={mut self.onClass} />
-          <Checkbox label={Locale.PROFILES_USE_ACCOUNT} hint={Locale.PROFILES_USE_ACCOUNT_TIP}
+        <Section title={Locale::PROFILES_USE_FOR}>
+          <Checkbox label={Locale::PROFILES_USE_CHARACTER} value={mut self.onCharacter} />
+          <Checkbox label={Locale::PROFILES_USE_CLASS} value={mut self.onClass} />
+          <Checkbox label={Locale::PROFILES_USE_ACCOUNT} hint={Locale::PROFILES_USE_ACCOUNT_TIP}
                     value={mut self.onAccount} />
           <box $if={self.hasSpec} columns={1} gap={4sp}>
             <ProfileDropdown label={self.spec1Label} value={mut self.spec1} names={self.names} none={true} />
@@ -590,39 +590,39 @@ public class ProfilesPage implements Component {
             <ProfileDropdown label={self.spec3Label} value={mut self.spec3} names={self.names} none={true} />
           </box>
         </Section>
-        <Section title={Locale.PROFILES_COPY_SECTION}>
-          <Note $if={!self.hasOthers} text={Locale.PROFILES_COPY_NONE} color={DIM} />
+        <Section title={Locale::PROFILES_COPY_SECTION}>
+          <Note $if={!self.hasOthers} text={Locale::PROFILES_COPY_NONE} color={DIM} />
           <box $else columns={1} gap={4sp}>
-            <ProfileDropdown label={Locale.PROFILES_COPY_FROM} value={mut self.source} names={self.others} />
+            <ProfileDropdown label={Locale::PROFILES_COPY_FROM} value={mut self.source} names={self.others} />
             <TickRow $for={key of self.copyKeys} $key={key} key={peek key} titles={self.titles} on={true}
                      @toggled={self.onCopyTick} />
             <box columns={["max-content"]}>
-              <PushButton label={Locale.PROFILES_COPY_DO} width={175.78125dp} @click={self.onCopy} />
+              <PushButton label={Locale::PROFILES_COPY_DO} width={175.78125dp} @click={self.onCopy} />
             </box>
           </box>
         </Section>
-        <Section title={Locale.PROFILES_SHARE}>
-          <Note text={Locale.PROFILES_TEXT_HINT} color={DIM} />
+        <Section title={Locale::PROFILES_SHARE}>
+          <Note text={Locale::PROFILES_TEXT_HINT} color={DIM} />
           <TickRow $for={key of self.exportKeys} $key={key} key={peek key} titles={self.titles} on={true}
                    @toggled={self.onExportTick} />
           <TextBox value={mut self.text} height={128.90625dp} />
           <box columns={BUTTONS} gap={2.5sp}>
-            <PushButton label={Locale.PROFILES_EXPORT} width={175.78125dp} @click={self.onExport} />
-            <PushButton label={Locale.PROFILES_IMPORT} width={175.78125dp} @click={self.onImport} />
-            <PushButton label={Locale.PROFILES_CREATE} width={175.78125dp} disabled={!self.canCreate}
+            <PushButton label={Locale::PROFILES_EXPORT} width={175.78125dp} @click={self.onExport} />
+            <PushButton label={Locale::PROFILES_IMPORT} width={175.78125dp} @click={self.onImport} />
+            <PushButton label={Locale::PROFILES_CREATE} width={175.78125dp} disabled={!self.canCreate}
                         @click={self.onCreate} />
           </box>
           <Note $for={line of self.lines} text={line.text} color={line.color} />
         </Section>
-        <Dialog $if={self.askingDelete} title={Locale.PROFILES_DELETE_TITLE} width={CONFIRM_WIDTH}>
+        <Dialog $if={self.askingDelete} title={Locale::PROFILES_DELETE_TITLE} width={CONFIRM_WIDTH}>
           <text value={self.deleteAsk} textColor={INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.onCancel} />
-          <PushButton #buttons label={Locale.PROFILES_DELETE} width={164.0625dp} @click={self.doDelete} />
+          <PushButton #buttons label={Locale::CANCEL} width={140.625dp} @click={self.onCancel} />
+          <PushButton #buttons label={Locale::PROFILES_DELETE} width={164.0625dp} @click={self.doDelete} />
         </Dialog>
-        <Dialog $if={self.askingReset} title={Locale.PROFILES_RESET_TITLE} width={CONFIRM_WIDTH}>
+        <Dialog $if={self.askingReset} title={Locale::PROFILES_RESET_TITLE} width={CONFIRM_WIDTH}>
           <text value={self.resetAsk} textColor={INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.onCancel} />
-          <PushButton #buttons label={Locale.PROFILES_RESET} width={164.0625dp} @click={self.doReset} />
+          <PushButton #buttons label={Locale::CANCEL} width={140.625dp} @click={self.onCancel} />
+          <PushButton #buttons label={Locale::PROFILES_RESET} width={164.0625dp} @click={self.doReset} />
         </Dialog>
       </box>
     }

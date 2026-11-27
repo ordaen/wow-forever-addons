@@ -31,14 +31,14 @@ public class Ledger {
   }
 
   // An invoice of the house's, as the mailbox gives it.
-  public record(mut self, invoice: Game.Invoice) {
+  public record(mut self, invoice: Game::Invoice) {
     const deal: Deal = invoice.kind == "buyer" ? .Bought : .Sold
-    self.add({ deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour.now() })
+    self.add({ deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour::now() })
   }
 
   // An auction came back unsold.
   public expired(mut self, item: String, count: Integer) {
-    self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour.now() })
+    self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour::now() })
   }
 
   // The rows of one kind, and their money together.

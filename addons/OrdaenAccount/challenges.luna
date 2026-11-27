@@ -33,18 +33,18 @@ public enum ChallengeShow { Done, Open }
 public enum ChallengeSort { Game, Name, Points }
 
 const VIEWS: Array<Choice<ChallengeView>> = [
-  { value: ChallengeView.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
-  { value: ChallengeView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+  { value: ChallengeView::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: ChallengeView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 const SORTS: Array<Choice<ChallengeSort>> = [
-  { value: ChallengeSort.Game, label: Locale.SORT_GAME },
-  { value: ChallengeSort.Name, label: Locale.SORT_NAME },
-  { value: ChallengeSort.Points, label: Locale.SORT_POINTS }
+  { value: ChallengeSort::Game, label: Locale::SORT_GAME },
+  { value: ChallengeSort::Name, label: Locale::SORT_NAME },
+  { value: ChallengeSort::Points, label: Locale::SORT_POINTS }
 ]
 const FILTERS: Array<FilterGroup<ChallengeShow>> = [
-  { label: nil, options: [{ key: ChallengeShow.Done, label: Locale.SHOW_DONE }, { key: ChallengeShow.Open, label: Locale.SHOW_OPEN }] }
+  { label: nil, options: [{ key: ChallengeShow::Done, label: Locale::SHOW_DONE }, { key: ChallengeShow::Open, label: Locale::SHOW_OPEN }] }
 ]
-const EVERY_SHOW: Map<ChallengeShow, Boolean> = { [ChallengeShow.Done]: true, [ChallengeShow.Open]: true }
+const EVERY_SHOW: Map<ChallengeShow, Boolean> = { [ChallengeShow::Done]: true, [ChallengeShow::Open]: true }
 
 // One challenge.
 public struct Challenge {
@@ -78,8 +78,8 @@ public struct Criterion {
   progress: Number
 }
 
-const CHALLENGE_ROW: Array<Track> = [Style.ICON, { fr: 1 }, "max-content"]
-const CARD_HEAD: Array<Track> = [Style.CARD_ICON, { fr: 1 }]
+const CHALLENGE_ROW: Array<Track> = [Style::ICON, { fr: 1 }, "max-content"]
+const CARD_HEAD: Array<Track> = [Style::CARD_ICON, { fr: 1 }]
 const CARD_PARTS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", { fr: 1 }]
 
 function challengeOf(id: Number | nil, name: String | nil, done: Boolean | nil, month: Number | nil, day: Number | nil,
@@ -91,16 +91,16 @@ function challengeOf(id: Number | nil, name: String | nil, done: Boolean | nil, 
   return {
     id: whole, name: name, description: description ?? "", icon: icon, done: earned,
     date: earned && month != nil && day != nil && year != nil ? "%02d.%02d.%02d".format(day.floor(), month.floor(), year.floor()) : "",
-    points: Client.C_Traits.GetTraitCurrencyForAchievement(LEGACY_POINTS, whole).floor(), place: place
+    points: Client::C_Traits::GetTraitCurrencyForAchievement(LEGACY_POINTS, whole).floor(), place: place
   }
 }
 
 // A category's challenges, as the game orders them.
 function challengesIn(category: Integer): Array<Challenge> {
   const list: Array<Challenge> = []
-  const total, _, _ = Client.GetCategoryNumAchievements(category)
+  const total, _, _ = Client::GetCategoryNumAchievements(category)
   for (index of 1..total.floor()) {
-    const id, name, _, done, month, day, year, description, _, icon, _, _, mine, _ = Client.GetAchievementInfo(category, index)
+    const id, name, _, done, month, day, year, description, _, icon, _, _, mine, _ = Client::GetAchievementInfo(category, index)
     const one = challengeOf(id, name, done, month, day, year, description, icon, mine, index)
     if (one != nil) { list.push(one) }
   }
@@ -109,11 +109,11 @@ function challengesIn(category: Integer): Array<Challenge> {
 
 // Every category with its challenges, each under its parent, in the game's order.
 function categoriesOf(): Array<Category> {
-  const ids = Client.GetCategoryList()
+  const ids = Client::GetCategoryList()
   const parents: Map<Integer, Integer> = {}
   const names: Map<Integer, String> = {}
   for (id of ids) {
-    const name, parent, _ = Client.GetCategoryInfo(id)
+    const name, parent, _ = Client::GetCategoryInfo(id)
     names[id] = name
     parents[id] = parent
   }
@@ -131,8 +131,8 @@ function categoriesOf(): Array<Category> {
 
 function criteriaOf(challenge: Integer): Array<Criterion> {
   const list: Array<Criterion> = []
-  for (index of 1..Client.GetAchievementNumCriteria(challenge).floor()) {
-    const text, _, done, have, need, _, _, _, shown, _, _ = Client.GetAchievementCriteriaInfo(challenge, index)
+  for (index of 1..Client::GetAchievementNumCriteria(challenge).floor()) {
+    const text, _, done, have, need, _, _, _, shown, _, _ = Client::GetAchievementCriteriaInfo(challenge, index)
     const counted = need > 1 && !done
     list.push({
       text: text, done: done, count: counted ? (shown != "" ? shown : "%d / %d".format(have, need)) : "",
@@ -153,7 +153,7 @@ function sortedBy(list: mut Array<Challenge>, sort: ChallengeSort) {
 public class ChallengeRow implements Component {
   public pick: Event<Integer> = new Event()
   derived picked: Boolean = self.challenge.id == self.chosen
-  derived ink: Color = self.challenge.done ? Style.INK : Style.MISSING
+  derived ink: Color = self.challenge.done ? Style::INK : Style::MISSING
   derived points: String = "%d".format(self.challenge.points)
 
   challenge: Signal<Challenge>
@@ -168,12 +168,12 @@ public class ChallengeRow implements Component {
   public render(self): Template {
     return $ltml {
       <PickRow columns={CHALLENGE_ROW} picked={self.picked} @pick={self.onPick}>
-        <box width={Style.ICON} height={Style.ICON} icon={self.challenge.icon} desaturate={!self.challenge.done} />
+        <box width={Style::ICON} height={Style::ICON} icon={self.challenge.icon} desaturate={!self.challenge.done} />
         <box rows={["max-content", "max-content"]}>
           <text value={self.challenge.name} textColor={self.ink} wrap={.Cut} />
-          <text value={self.challenge.description} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+          <text value={self.challenge.description} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
-        <text value={self.points} textColor={Style.GOLD} textFont={.Numbers} wrap={.None} />
+        <text value={self.points} textColor={Style::GOLD} textFont={.Numbers} wrap={.None} />
       </PickRow>
     }
   }
@@ -203,8 +203,8 @@ public class CategoryFold implements Component {
     return $ltml {
       <box>
         <FoldCaption title={self.title} folded={self.folded} @toggled={self.onToggle}>
-          <box xAlign={Align.End} padding={{ right: 3sp }}>
-            <text value={self.count} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+          <box xAlign={Align::End} padding={{ right: 3sp }}>
+            <text value={self.count} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
           </box>
         </FoldCaption>
         <box $if={!self.folded}>
@@ -216,7 +216,7 @@ public class CategoryFold implements Component {
 }
 
 public class CriterionRow implements Component {
-  derived ink: Color = self.criterion.done ? Style.GREEN : Style.INK
+  derived ink: Color = self.criterion.done ? Style::GREEN : Style::INK
   derived counted: Boolean = self.criterion.count != ""
 
   criterion: Signal<Criterion>
@@ -256,36 +256,36 @@ public class Challenges {
   derived closed: Map<Integer, Boolean> = self.closedOf()
   derived picked: Challenge | nil = self.chosen == 0 ? nil : self.everything.find(one => one.id == self.chosen)
   derived criteria: Array<Criterion> = self.readCriteria()
-  derived pickedPoints: String = Locale.POINTS.format(self.picked?.points ?? 0)
-  derived pickedDate: String = self.picked?.done == true ? Locale.DONE_ON.format(self.picked?.date ?? "") : Locale.NOT_DONE
+  derived pickedPoints: String = Locale::POINTS.format(self.picked?.points ?? 0)
+  derived pickedDate: String = self.picked?.done == true ? Locale::DONE_ON.format(self.picked?.date ?? "") : Locale::NOT_DONE
   derived counts: Array<FooterCount> = self.countsOf()
   const card: Template = $ltml {
     <box rows={CARD_PARTS} gap={3sp}>
-      <box columns={CARD_HEAD} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter}>
-        <box width={Style.CARD_ICON} height={Style.CARD_ICON} icon={self.picked?.icon} />
-        <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
+      <box columns={CARD_HEAD} gap={3sp} yAlign={Align::Center} @pointerEnter={self.onEnter}>
+        <box width={Style::CARD_ICON} height={Style::CARD_ICON} icon={self.picked?.icon} />
+        <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style::GOLD} />
       </box>
-      <text value={self.picked?.description ?? ""} textColor={Style.INK} leading={.Prose} />
-      <text value={self.pickedPoints} textColor={Style.GOLD} />
-      <text value={self.pickedDate} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-      <ScrolledList gap={3sp} ground={Ground.Wood}>
+      <text value={self.picked?.description ?? ""} textColor={Style::INK} leading={.Prose} />
+      <text value={self.pickedPoints} textColor={Style::GOLD} />
+      <text value={self.pickedDate} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+      <ScrolledList gap={3sp} ground={Ground::Wood}>
         <CriterionRow $for={criterion of self.criteria} criterion={criterion} />
       </ScrolledList>
     </box>
   }
-  public derived side: WindowSide | nil = self.picked == nil ? nil : { width: Style.CARD, content: self.card }
+  public derived side: WindowSide | nil = self.picked == nil ? nil : { width: Style::CARD, content: self.card }
 
   public const content: Template = $ltml {
     <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-      <box padding={Style.TOP_ROOM}>
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH_CHALLENGES}>
+      <box padding={Style::TOP_ROOM}>
+        <Toolbar search={mut self.search} placeholder={Locale::SEARCH_CHALLENGES}>
           <FilterButton values={mut self.shows} start={EVERY_SHOW} groups={FILTERS} />
-          <ToolPick $if={!self.grouped} value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+          <ToolPick $if={!self.grouped} value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale::SORT} />
+          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale::VIEW} />
         </Toolbar>
       </box>
-      <ScrolledList ground={Ground.Wood}>
-        <text $if={self.empty} value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
+      <ScrolledList ground={Ground::Wood}>
+        <text $if={self.empty} value={Locale::NOTHING_FOUND} textColor={Style::DIM} />
         <box $elseif={self.grouped}>
           <CategoryFold $for={category of self.folds} $key={category.id} category={category} closed={self.closed} chosen={self.chosen}
                         @pick={self.onPick} @toggle={self.onToggle} />
@@ -302,8 +302,8 @@ public class Challenges {
     watch (seen of self.visible) {
       if (seen && self.opening) { self.openOwn() }
     }
-    Events.ACHIEVEMENT_EARNED.listen(self.onChanged)
-    Events.CRITERIA_UPDATE.listen(self.onChanged)
+    Events::ACHIEVEMENT_EARNED.listen(self.onChanged)
+    Events::CRITERIA_UPDATE.listen(self.onChanged)
   }
 
   onChanged(mut self) { self.touched += 1 }
@@ -311,7 +311,7 @@ public class Challenges {
   // The player's class's category open, as the game's window opens on it.
   openOwn(mut self) {
     self.opening = false
-    const _, classFile, _ = Client.UnitClass("player")
+    const _, classFile, _ = Client::UnitClass("player")
     const own = CLASS_CATEGORIES[classFile ?? ""]
     if (own != nil) { self.opened = { [own]: true } }
   }
@@ -331,7 +331,7 @@ public class Challenges {
 
   // Whether the filter leaves a challenge.
   shown(self, one: Challenge): Boolean {
-    return one.done ? self.shows[ChallengeShow.Done] == true : self.shows[ChallengeShow.Open] == true
+    return one.done ? self.shows[ChallengeShow::Done] == true : self.shows[ChallengeShow::Open] == true
   }
 
   // The categories with what the filter leaves of them; one the filter empties is left out.
@@ -373,8 +373,8 @@ public class Challenges {
       }
     }
     return [
-      { label: Locale.COUNT_DONE, value: "%d / %d".format(done, self.everything.length) },
-      { label: Locale.COUNT_POINTS, value: String.of(points) }
+      { label: Locale::COUNT_DONE, value: "%d / %d".format(done, self.everything.length) },
+      { label: Locale::COUNT_POINTS, value: String::of(points) }
     ]
   }
 
@@ -388,7 +388,7 @@ public class Challenges {
   }
 
   onEnter(self, frame: any Frame) {
-    const link = Client.GetAchievementLink(peek self.chosen)
-    if (link != nil) { Game.items.showLink(frame, link) }
+    const link = Client::GetAchievementLink(peek self.chosen)
+    if (link != nil) { Game::items.showLink(frame, link) }
   }
 }

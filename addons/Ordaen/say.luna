@@ -16,5 +16,5 @@ function codeOf(color: Color): String {
 
 // The line in the chat after the addon's mark: `Inventory: [Rabbit's Foot]: not junk.`
 public function say(mark: ChatMark, line: String) {
-  Game.chat.print(`|c${codeOf(mark.color)}${mark.name}:|r ${line}`, BRIGHT_TEXT)
+  Game::chat.print(`|c${codeOf(mark.color)}${mark.name}:|r ${line}`, BRIGHT_TEXT)
 }

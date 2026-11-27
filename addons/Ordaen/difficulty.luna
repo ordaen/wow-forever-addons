@@ -30,10 +30,10 @@ public const function difficultyOf(quest: Integer, player: Integer): Difficulty 
 
 public const function colorOf(difficulty: Difficulty): Color {
   return match (difficulty) {
-    .Trivial => Color.hex("#808080")
-    .Easy => Color.hex("#40c040")
-    .Even => Color.hex("#ffff00")
-    .Hard => Color.hex("#ff8040")
-    .Impossible => Color.hex("#ff2020")
+    .Trivial => Color::hex("#808080")
+    .Easy => Color::hex("#40c040")
+    .Even => Color::hex("#ffff00")
+    .Hard => Color::hex("#ff8040")
+    .Impossible => Color::hex("#ff2020")
   }
 }

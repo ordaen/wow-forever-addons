@@ -7,7 +7,7 @@ import { ProfileName } from "@/profiles"
 
 // What a `Settings` or a `ModuleMemory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
 // of it where it has more than one (`Ordaen:look`); nothing for one no root owns (a test's own), which isn't kept.
-function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
+function keyOf(addon: Runtime::Addon | nil, part: String): String | nil {
   if (addon == nil) { return nil }
   return part == "" ? addon.name : addon.name + ":" + part
 }
@@ -45,7 +45,7 @@ public class Settings<S: Plain> implements Sectioned {
     self.recorded = defaults.clone()
     self.keeper = keeper ?? Ordaen.keeper
     self.id = self.keeper.join()
-    const addon = Runtime.Addon.of(self)
+    const addon = Runtime::Addon::of(self)
     const key = keyOf(addon, part)
     self.key = key
     if (key != nil) {
@@ -140,17 +140,17 @@ public class Settings<S: Plain> implements Sectioned {
 public class ModuleMemory<S: Plain> {
   public state values: mut S
   const defaults: S
-  const whose: Settings.Scope
+  const whose: Settings::Scope
   key: String | nil = nil
   // What is kept now, to tell a change from a value taken from the kept one.
   kept: S
 
-  constructor(defaults: S, whose: Settings.Scope = .Profile, part: String = "memory") {
+  constructor(defaults: S, whose: Settings::Scope = .Profile, part: String = "memory") {
     self.defaults = defaults
     self.whose = whose
     self.values = defaults.clone()
     self.kept = defaults.clone()
-    const key = keyOf(Runtime.Addon.of(self), part)
+    const key = keyOf(Runtime::Addon::of(self), part)
     self.key = key
     if (key == nil) { return }
     match (whose) {
@@ -186,8 +186,8 @@ public class ModuleMemory<S: Plain> {
     self.kept = values.clone()
     match (self.whose) {
       .Profile => { Ordaen.keeper.profiles.remember(key, values.equal(self.defaults) ? nil : values) }
-      .Account => { Game.saved.store(.Account, key, values) }
-      .Character => { Game.saved.store(.Character, key, values) }
+      .Account => { Game::saved.store(.Account, key, values) }
+      .Character => { Game::saved.store(.Character, key, values) }
     }
   }
 }

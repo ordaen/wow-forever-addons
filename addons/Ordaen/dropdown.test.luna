@@ -7,13 +7,13 @@ import { Choice, CompactDropdown } from "@/dropdown"
 enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 
 const ORDERS: Array<Choice<Order>> = [
-  { value: Order.Difficulty, label: "By difficulty" },
-  { value: Order.Name, label: "By name" },
-  { value: Order.Price, label: "By price", soon: true }
+  { value: Order::Difficulty, label: "By difficulty" },
+  { value: Order::Name, label: "By name" },
+  { value: Order::Price, label: "By price", soon: true }
 ]
 
 class Tools {
-  public state order: Order = Order.Difficulty
+  public state order: Order = Order::Difficulty
   // Clicks that reached the box beside the plate.
   public state beside = 0
 
@@ -33,32 +33,32 @@ class Tools {
 
 test "the compact dropdown opens its list, picks a choice and closes, a click outside closes it alone" {
   let page = new Tools()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  Test.shot("closed: the plate with the picked choice in gold")
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test::shot("closed: the plate with the picked choice in gold")
 
-  Test.click(Test.holding("By difficulty", nil), nil)
-  Test.shot("opened: the three choices under the plate, the picked one's mark lit, the third dim with its note")
+  Test::click(Test::holding("By difficulty", nil), nil)
+  Test::shot("opened: the three choices under the plate, the picked one's mark lit, the third dim with its note")
 
-  Test.click(Test.holding("By price — in development", nil), nil)
-  Test.expect(page.order == Order.Difficulty)
+  Test::click(Test::holding("By price — in development", nil), nil)
+  Test::expect(page.order == Order::Difficulty)
 
-  Test.click(Test.holding("By name", nil), nil)
-  Test.expect(page.order == Order.Name)
-  Test.shot("a choice clicked: it is the plate's now, the list closed")
+  Test::click(Test::holding("By name", nil), nil)
+  Test::expect(page.order == Order::Name)
+  Test::shot("a choice clicked: it is the plate's now, the list closed")
 
-  Test.click(Test.holding("By name", nil), nil)
-  Test.click(Test.holding("Beside", nil), nil)
-  Test.expect(page.beside == 0)
-  Test.expect(page.order == Order.Name)
-  Test.click(Test.holding("Beside", nil), nil)
-  Test.expect(page.beside == 1)
+  Test::click(Test::holding("By name", nil), nil)
+  Test::click(Test::holding("Beside", nil), nil)
+  Test::expect(page.beside == 0)
+  Test::expect(page.order == Order::Name)
+  Test::click(Test::holding("Beside", nil), nil)
+  Test::expect(page.beside == 1)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 // The row round the dropdown, painted again while its list is open (it stands over its neighbours by another level).
 class Lifted {
-  public state order: Order = Order.Difficulty
+  public state order: Order = Order::Difficulty
   public state lift = 0
 
   public render(self): Template {
@@ -72,23 +72,23 @@ class Lifted {
 
 test "the list keeps its own layer over the click catcher when the box round it is painted again" {
   let page = new Lifted()
-  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  Test.click(Test.holding("By difficulty", nil), nil)
+  Test::mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test::click(Test::holding("By difficulty", nil), nil)
   page.lift = 5
-  Test.flush()
-  Test.click(Test.holding("By name", nil), nil)
-  Test.expect(page.order == Order.Name)
+  Test::flush()
+  Test::click(Test::holding("By name", nil), nil)
+  Test::expect(page.order == Order::Name)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 const LONG: Array<Choice<Order>> = [
-  { value: Order.Difficulty, label: "Количество предметов для изготовления" },
-  { value: Order.Name, label: "By name" }
+  { value: Order::Difficulty, label: "Количество предметов для изготовления" },
+  { value: Order::Name, label: "By name" }
 ]
 
 class Narrow {
-  public state order: Order = Order.Difficulty
+  public state order: Order = Order::Difficulty
 
   public render(self): Template {
     return $ltml {
@@ -101,12 +101,12 @@ class Narrow {
 
 test "a label longer than the plate is cut inside it, and the arrow stays on the plate" {
   const page = new Narrow()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  const plate = Test.edges(Ordaen.art.ctl.button, 0)
-  const arrow = Test.edges(Ordaen.art.ctl.dropdownArrow, 0)
-  Test.expect(arrow.right <= plate.right && arrow.left >= plate.left)
-  const label = Test.page().text("Количество предметов для изготовления").rect()
-  Test.expect(label.right <= arrow.left && label.bottom <= plate.bottom && label.top >= plate.top)
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const plate = Test::edges(Ordaen.art.ctl.button, 0)
+  const arrow = Test::edges(Ordaen.art.ctl.dropdownArrow, 0)
+  Test::expect(arrow.right <= plate.right && arrow.left >= plate.left)
+  const label = Test::page().text("Количество предметов для изготовления").rect()
+  Test::expect(label.right <= arrow.left && label.bottom <= plate.bottom && label.top >= plate.top)
   destroy page
 }
 
@@ -125,15 +125,15 @@ class Long {
 
 test "a list longer than the screen stays on it and scrolls to its last choice, which a click picks" {
   let page = new Long()
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
-  Test.click(Test.holding("Choice 1", nil), nil)
-  Test.click(Test.holding("Choice 3", nil), nil)
-  Test.expect(page.picked == 3)
-  Test.click(Test.holding("Choice 3", nil), nil)
-  Test.moveTo(Test.holding("Choice 2", nil))
-  Test.wheel(-40)
-  Test.shot("scrolled to its end: the list held to the screen, its last choices in view")
-  Test.click(Test.holding("Choice 38", nil), nil)
-  Test.expect(page.picked == 38 && !Test.page().text("Choice 39").shown())
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Test::click(Test::holding("Choice 1", nil), nil)
+  Test::click(Test::holding("Choice 3", nil), nil)
+  Test::expect(page.picked == 3)
+  Test::click(Test::holding("Choice 3", nil), nil)
+  Test::moveTo(Test::holding("Choice 2", nil))
+  Test::wheel(-40)
+  Test::shot("scrolled to its end: the list held to the screen, its last choices in view")
+  Test::click(Test::holding("Choice 38", nil), nil)
+  Test::expect(page.picked == 38 && !Test::page().text("Choice 39").shown())
   destroy page
 }

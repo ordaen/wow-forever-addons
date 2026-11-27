@@ -20,7 +20,7 @@ const INDENT: Edges = { left: 5.5sp }
 const BUTTON = 234.375dp
 
 // A dropdown's choice from the client's option.
-function choiceOf(option: Client.SettingsOption): Choice<Boolean | Number | String> {
+function choiceOf(option: Client::SettingsOption): Choice<Boolean | Number | String> {
   return { value: option.value, label: option.label }
 }
 
@@ -73,7 +73,7 @@ public class SettingsTab implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <Toolbar search={mut self.search} placeholder={Locale.SETTINGS_SEARCH} />
+        <Toolbar search={mut self.search} placeholder={Locale::SETTINGS_SEARCH} />
         <box columns={COLUMNS} rows={FILL} gap={6sp}>
           <ScrolledList>
             <PageGroupList $for={group of self.listed} group={group} captioned={self.searching} picked={self.settings.page}
@@ -81,10 +81,10 @@ public class SettingsTab implements Component {
           </ScrolledList>
           <box rows={FILL}>
             <box $if={self.canvas} rows={["max-content", "max-content"]} gap={3sp}>
-              <text value={Locale.SETTINGS_ADDON_PAGE} textColor={Style.DIM} />
-              <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
+              <text value={Locale::SETTINGS_ADDON_PAGE} textColor={Style::DIM} />
+              <PushButton label={Locale::SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
             </box>
-            <ScrolledList $else ground={Ground.Wood} gap={8sp}>
+            <ScrolledList $else ground={Ground::Wood} gap={8sp}>
               <Section $for={section of self.sections} $key={section.title} title={section.title}>
                 <LineRow $for={line of section.lines} $key={`${line.variable}|${line.name}`} line={line} settings={mut self.settings}
                          @blizzard={self.onBlizzard} />
@@ -150,7 +150,7 @@ class PageGroupList implements Component {
     return $ltml {
       <box $if={self.any} gap={1sp}>
         <box $if={self.captioned} padding={PAD}>
-          <text value={self.group.name} textColor={Style.DIM} wrap={.None} />
+          <text value={self.group.name} textColor={Style::DIM} wrap={.None} />
         </box>
         <PageEntry $for={page of self.pages} page={page} picked={self.picked} @pick={self.onPick} />
       </box>
@@ -190,7 +190,7 @@ class LineRow implements Component {
   state chosen: Boolean | Number | String = ""
   derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
     self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
-  derived fighting: Boolean = Game.situation.combat
+  derived fighting: Boolean = Game::situation.combat
   derived locked: Boolean = self.line.writing == .None || self.fighting
   // A line under a checkbox that is off: hidden, as Blizzard's is.
   derived hidden: Boolean = self.settings.values[self.line.under] == false
@@ -233,15 +233,15 @@ class LineRow implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={!self.hidden} padding={self.inset}>
-        <Checkbox $if={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
+        <Checkbox $if={self.line.kind == LineKind::Check} label={self.line.name} value={mut self.checked}
                   hint={self.tip} disabled={self.locked} />
-        <NumberInput $elseif={self.line.kind == LineKind.Slider} label={self.line.name} value={mut self.number}
+        <NumberInput $elseif={self.line.kind == LineKind::Slider} label={self.line.name} value={mut self.number}
                      least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} format={peek self.line.format} hint={self.tip} disabled={self.locked} />
-        <Dropdown $elseif={self.line.kind == LineKind.Choice} label={self.line.name} value={mut self.chosen}
+        <Dropdown $elseif={self.line.kind == LineKind::Choice} label={self.line.name} value={mut self.chosen}
                   choices={peek self.choices} hint={self.tip} disabled={self.locked} />
         <SettingRow $else label={self.line.name} hint={self.tip}>
-          <box xAlign={Align.Start}>
-            <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} disabled={self.fighting} @click={self.onBlizzard} />
+          <box xAlign={Align::Start}>
+            <PushButton label={Locale::SETTINGS_OPEN_BLIZZARD} width={BUTTON} disabled={self.fighting} @click={self.onBlizzard} />
           </box>
         </SettingRow>
       </box>

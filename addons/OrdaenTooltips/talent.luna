@@ -39,10 +39,10 @@ function diff(current: String, after: String): String {
   return out
 }
 
-public function talent(data: Game.TooltipData, known: Game.TalentInfo, options: Options): Model | nil {
-  let name = Game.spells.name(known.spell)
+public function talent(data: Game::TooltipData, known: Game::TalentInfo, options: Options): Model | nil {
+  let name = Game::spells.name(known.spell)
   if (name == nil) { return nil }
-  let lines: Array<Game.TooltipLine> = [{ left: name, kind: SPELL_NAME }]
+  let lines: Array<Game::TooltipLine> = [{ left: name, kind: SPELL_NAME }]
   for (line of data.lines) { lines.push(line) }
   let read = spell({ id: known.spell, lines: lines, ..data }, options)
   if (read == nil) { return nil }
@@ -50,19 +50,19 @@ public function talent(data: Game.TooltipData, known: Game.TalentInfo, options: 
   // The second line: the spell's own «Passive» and rank give way.
   let maxed = known.rank >= known.ranks
   let desc: Array<Part> = [
-    { text: Locale.TALENT, opens: named(Term.Talent) },
-    { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term.Talent) }
+    { text: Locale::TALENT, opens: named(Term::Talent) },
+    { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term::Talent) }
   ]
   // Its tree, as the classic talent window names it.
-  let tab = Talents.tab[known.spell]
-  let tree = tab != nil ? Talents.name[tab] : nil
-  if (tree != nil) { desc.push({ text: Game.client.locale == "ruRU" ? tree.ruRU : tree.enUS }) }
+  let tab = Talents::tab[known.spell]
+  let tree = tab != nil ? Talents::name[tab] : nil
+  if (tree != nil) { desc.push({ text: Game::client.locale == "ruRU" ? tree.ruRU : tree.enUS }) }
 
   let more: Array<TextLine> = []
   let current = known.current
   let after = known.next
   if (options.spellsNext && known.rank > 0 && !maxed && current != nil && after != nil && after != "") {
-    more.push({ left: Locale.NEXT_RANK, color: GREY })
+    more.push({ left: Locale::NEXT_RANK, color: GREY })
     more.push({ left: diff(current, after), desc: true })
   }
 
@@ -72,15 +72,15 @@ public function talent(data: Game.TooltipData, known: Game.TalentInfo, options: 
     for (condition of known.conditions) {
       if (condition.points > 0) {
         foot.push({
-          left: Locale.TALENT_POINTS, right: String.of(condition.points), valueColor: condition.met ? nil : RED,
-          opens: named(Term.Talent)
+          left: Locale::TALENT_POINTS, right: String::of(condition.points), valueColor: condition.met ? nil : RED,
+          opens: named(Term::Talent)
         })
       }
     }
-    if (known.locked) { foot.push({ left: Locale.TALENT_LOCKED, valueColor: RED, opens: named(Term.Talent) }) }
+    if (known.locked) { foot.push({ left: Locale::TALENT_LOCKED, valueColor: RED, opens: named(Term::Talent) }) }
   }
   // The talent's own icon where the game has one; the spell's otherwise.
-  let art = Game.spells.texture(known.spell)
+  let art = Game::spells.texture(known.spell)
   if (art == nil) { return { desc: desc, more: more, foot: foot, ..read } }
   return { desc: desc, more: more, foot: foot, picture: Picture.Icon { art: art }, ..read }
 }

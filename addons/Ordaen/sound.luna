@@ -3,6 +3,6 @@
 import Client from "$client"
 
 public function playSound(kit: String) {
-  const id = Client.SOUNDKIT[kit]
-  if (id != nil) { _ = Client.PlaySound(id, nil, nil) }
+  const id = Client::SOUNDKIT[kit]
+  if (id != nil) { _ = Client::PlaySound(id, nil, nil) }
 }

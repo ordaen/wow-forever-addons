@@ -8,11 +8,11 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
 
-const INK: Color = Color.hex("#e8dcc4")
-const MARK: Color = Color.hex("#d6a56b")
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const SELECTED: Color = Color.hex("#00000040")
+const INK: Color = Color::hex("#e8dcc4")
+const MARK: Color = Color::hex("#d6a56b")
+const CLEAR: Color = Color::hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000059"), focus: Color::hex("#00000059") }
+const SELECTED: Color = Color::hex("#00000040")
 // How far each level stands in, and the room the mark has.
 const INDENT = 18.75dp
 const MARK_ROOM = 18.75dp
@@ -61,11 +61,11 @@ public class TreeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[self.gutter, { fr: 1 }, "max-content"]} gap={1sp} padding={1sp} yAlign={Align.Center}
+      <box columns={[self.gutter, { fr: 1 }, "max-content"]} gap={1sp} padding={1sp} yAlign={Align::Center}
            background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
+        <box position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box width={self.gutter} height={LINE}>
-          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}
+          <box $if={!self.leaf} position={Position::Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}
                height={MARK_CELL} background={self.mark} tint={MARK} />
         </box>
         <text value={self.label} textColor={self.color} wrap={.None} />

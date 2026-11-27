@@ -40,7 +40,7 @@ public struct TabChoices implements Plain {
   held: Integer = 500
   kept: Integer = 200
   // What the input's history keeps of what is sent while the tab is open (Alt and Up or Down bring it back).
-  history: Game.ChatHistory = .All
+  history: Game::ChatHistory = .All
 }
 
 // The game's message group of the guild's lines.
@@ -49,15 +49,15 @@ const GUILD = "GUILD"
 // A window's settings until the player sets them: no count on the combat log's tab or on a tab of channels alone,
 // whose lines come all the time; channels by their name; the times above the lines in the tabs of talk (the game's
 // General, the guild's, the channels'), before each line in any other.
-public function tabDefaults(window: Game.ChatWindow): TabChoices {
+public function tabDefaults(window: Game::ChatWindow): TabChoices {
   const channels = channelsOnly(window.index)
-  const talk = window.index == 1 || channels || Game.chat.groups(window.index).any(group => group.shown && group.name == GUILD)
+  const talk = window.index == 1 || channels || Game::chat.groups(window.index).any(group => group.shown && group.name == GUILD)
   return { counter: !window.combatLog && !channels, channelName: .Name, stamps: talk && !window.combatLog ? .Above : .Inline }
 }
 
 // A window that shows channels and no message group.
 function channelsOnly(window: Integer): Boolean {
-  return Game.chat.groups(window).all(group => !group.shown) && Game.chat.channels(window).any(channel => channel.shown)
+  return Game::chat.groups(window).all(group => !group.shown) && Game::chat.channels(window).any(channel => channel.shown)
 }
 
 // The key a window's own settings are kept under: its tab's.

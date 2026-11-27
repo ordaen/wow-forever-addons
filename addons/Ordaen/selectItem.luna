@@ -6,12 +6,12 @@
 import { Align, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import { Component } from "@/module"
 
-const CLEAR: Color = Color.hex("#00000000")
+const CLEAR: Color = Color::hex("#00000000")
 // The list's gold: an item without a colour of its own is selected in it.
-const GOLD: Color = Color.hex("#f0c860")
-const GOLD_FILL: Color = Color.hex("#d6a56b3d")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
-const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
+const GOLD: Color = Color::hex("#f0c860")
+const GOLD_FILL: Color = Color::hex("#d6a56b3d")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
+const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [Side::Top] }
 // How strong a colour's selected fill is.
 const FILL_ALPHA = 0.24
 const EDGE = 2.34375dp
@@ -53,15 +53,15 @@ public class SelectItem implements Component {
     self.padding = padding
   }
 
-  onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
+  onClick(mut self, click: Event::Press) { self.pick.emit(click.button) }
   onKey(mut self) { self.pick.emit(.Left) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
-           background={self.background} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
+      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align::Center} border={self.rule}
+           background={self.background} overflow={Overflow::Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey}>
-        <box $if={self.selected} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={EDGE}
+        <box $if={self.selected} position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={EDGE}
              background={self.edge} />
         <slot />
       </box>

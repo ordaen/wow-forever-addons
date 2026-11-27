@@ -25,9 +25,9 @@ public class ModuleEntry implements Entry {
   public derived running: any Module | nil = self.find()
   public derived on: Boolean = self.running != nil
   public derived pages: Array<SettingsPage> = self.running?.pages ?? []
-  const addon: Runtime.Addon
+  const addon: Runtime::Addon
 
-  constructor(addon: Runtime.Addon) {
+  constructor(addon: Runtime::Addon) {
     self.addon = addon
     self.folder = addon.name
     self.title = addon.title
@@ -36,7 +36,7 @@ public class ModuleEntry implements Entry {
 
   find(self): any Module | nil {
     for (module of Ordaen.modules) {
-      if (Runtime.Addon.of(module)?.name == self.folder) { return module }
+      if (Runtime::Addon::of(module)?.name == self.folder) { return module }
     }
     return nil
   }
@@ -60,9 +60,9 @@ public class ModuleSwitch implements Component {
   public render(self): Template {
     return $ltml {
       <box width={WIDTH} height={HEIGHT} background={self.track} @pointerPress={self.flip} @keyPress(.Enter)={self.flip} @keyPress(.Space)={self.flip}>
-        <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={KNOB} height={KNOB}
+        <box position={Position::Absolute} left={KNOB_OFF} top={KNOB_TOP} width={KNOB} height={KNOB}
              background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
-        <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={KNOB} height={KNOB}
+        <box position={Position::Absolute} left={KNOB_ON} top={KNOB_TOP} width={KNOB} height={KNOB}
              background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} zLevel={1} />
       </box>
     }

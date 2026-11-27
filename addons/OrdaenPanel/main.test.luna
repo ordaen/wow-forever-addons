@@ -13,7 +13,7 @@ import root Panel from "OrdaenPanel"
 import { Choices, DEFAULTS } from "@/choices"
 import { XpPart, XpSource } from "@/extend"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What the panel always shows: the player's money, none at first.
 const MONEY = "0g 0s 0c"
 // The experience bar's values, of 2 500 of 10 000, its thousands parted by a space that never breaks.
@@ -42,22 +42,22 @@ const REAGENT: FileId = 136511
 const KEYRING: FileId = 130980
 // The keyring's cell shows the key ring's icon, not the client's button sheet.
 // Every cell's ground while the cursor is away: what counts the cells in the order drawn.
-const CELL: Color = Color.hex("#00000000")
+const CELL: Color = Color::hex("#00000000")
 // The cut between two cells across the screen: its lip of light, added to the wood.
-const CUT_LIP: Color = Color.hex("#1e1e1e")
+const CUT_LIP: Color = Color::hex("#1e1e1e")
 function divider(): Color {
   return CUT_LIP
 }
 // The first cut's edges on the screen.
-function firstCut(): Test.Rect {
+function firstCut(): Test::Rect {
   return panel().box(CUT_LIP).nth(1).rect()
 }
 // The menu's icons as they are, and in one gold.
-const WHITE: Color = Color.hex("#ffffff")
-const GOLD: Color = Color.hex("#ffb847")
+const WHITE: Color = Color::hex("#ffffff")
+const GOLD: Color = Color::hex("#ffb847")
 // The panel's text, and the time while invites wait.
-const INK: Color = Color.hex("#e8dcc4")
-const PENDING: Color = Color.hex("#ff9933")
+const INK: Color = Color::hex("#e8dcc4")
+const PENDING: Color = Color::hex("#ff9933")
 // The reputation's tube of a faction watched, honored.
 const HONORED = "Honored 4 800 / 12 000"
 
@@ -92,42 +92,42 @@ class Account implements Module {
 }
 
 // One of the game's own frames the panel stands in for, hides or leaves unseen.
-function frame(name: String): any Client.Frame {
-  const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
+function frame(name: String): any Client::Frame {
+  const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 40)
   return made
 }
 
 // One of the client's own frames, by its name.
-function client(name: String): any Client.Frame {
-  const found = Runtime.frame(name) ?? panic("the client has the frame")
-  const held: any Client.Frame = found
+function client(name: String): any Client::Frame {
+  const found = Runtime::frame(name) ?? panic("the client has the frame")
+  const held: any Client::Frame = found
   return held
 }
 
 // The game's bag buttons, every one its constants say it has (the stand-in's are Forever's): the backpack, a slot for
 // each bag, one for each reagent bag, the keyring's; each of `make`'s frame of that name.
-function bagButtons(make: (name: String) => any Client.Frame): Array<Game.BagButton> {
-  let bags: Array<Game.BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
-  for (slot of 0..Client.NUM_BAG_SLOTS - 1) {
+function bagButtons(make: (name: String) => any Client::Frame): Array<Game::BagButton> {
+  let bags: Array<Game::BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
+  for (slot of 0..Client::NUM_BAG_SLOTS - 1) {
     bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG, bag: slot + 1 })
   }
-  for (slot of 0..Client.NUM_REAGENTBAG_SLOTS - 1) {
-    bags.push({ kind: .Reagent, frame: make(`CharacterReagentBag${slot}Slot`), icon: REAGENT, bag: Client.NUM_BAG_SLOTS + 1 + slot })
+  for (slot of 0..Client::NUM_REAGENTBAG_SLOTS - 1) {
+    bags.push({ kind: .Reagent, frame: make(`CharacterReagentBag${slot}Slot`), icon: REAGENT, bag: Client::NUM_BAG_SLOTS + 1 + slot })
   }
-  bags.push({ kind: .Keyring, frame: make("KeyRingButton"), icon: KEYRING, bag: Client.KEYRING_CONTAINER })
+  bags.push({ kind: .Keyring, frame: make("KeyRingButton"), icon: KEYRING, bag: Client::KEYRING_CONTAINER })
   return bags
 }
 
 // The panel: the surface that shows the money.
-function panel(): Test.Part {
-  return Test.page().window(MONEY)
+function panel(): Test::Part {
+  return Test::page().window(MONEY)
 }
 
 // The panel's page of the settings, at one of its tabs: `/ordaen`, «Panel» in the list of modules, the tab.
-function tab(title: String): Test.Part {
-  Test.open("/ordaen")
-  const settings = Test.page().window(SETTINGS)
+function tab(title: String): Test::Part {
+  Test::open("/ordaen")
+  const settings = Test::page().window(SETTINGS)
   settings.button("Panel").click()
   // «General» is Ordaen's own page too: the panel's tab is the second.
   const tabs = settings.button(title)
@@ -140,7 +140,7 @@ function tab(title: String): Test.Part {
 }
 
 // «Bottom panel»'s tab, scrolled down to its «Visibility»: what shows the panel when.
-function visibility(): Test.Part {
+function visibility(): Test::Part {
   const settings = tab("Bottom panel")
   settings.text("Screen edge").wheel(-10)
   return settings
@@ -155,29 +155,29 @@ function hide(face: String, nth: Integer, choice: String) {
 
 // A dropdown's choice: its face, which shows the choice made, clicked, then the choice in its list (a popup that holds
 // `among`, a choice no other surface shows).
-function choose(settings: Test.Part, face: String, among: String, choice: String) {
+function choose(settings: Test::Part, face: String, among: String, choice: String) {
   settings.button(face).click()
-  Test.page().window(among).button(choice).click()
+  Test::page().window(among).button(choice).click()
 }
 
 // The `nth` dropdown whose face shows `face`, set to `choice`: its list is the last surface that shows the choice (a
 // face may show it too).
-function pick(settings: Test.Part, face: String, nth: Integer, choice: String) {
+function pick(settings: Test::Part, face: String, nth: Integer, choice: String) {
   settings.button(face).nth(nth).click()
-  const holders = Test.page().window(choice)
+  const holders = Test::page().window(choice)
   holders.nth(holders.count()).button(choice).click()
 }
 
 // A part taken with the left button, carried over each part of `path` in turn (a frame each) and let go over the last.
-function drag(from: Test.Part, path: Array<Test.Part>) {
+function drag(from: Test::Part, path: Array<Test::Part>) {
   from.hover()
-  Test.press(nil)
+  Test::press(nil)
   for (over of path) {
     over.hover()
-    Test.pass(0.05)
+    Test::pass(0.05)
   }
-  Test.release(nil)
-  Test.pass(0.05)
+  Test::release(nil)
+  Test::pass(0.05)
 }
 
 // An item of the panel put in a zone on «Bottom panel»'s tab: the `nth` of the items' dropdowns that shows `face`
@@ -205,29 +205,29 @@ function flip(title: String, art: Art, nth: Integer) {
 // What the panel holds
 
 test "the panel shows the player's money, in ink" {
-  Game.money.amount = 1234567
-  Test.mount(nil, SCREEN)
-  Test.expect(Test.page().window("123g 45s 67c").text("123g 45s 67c").textColor().equal(INK))
+  Game::money.amount = 1234567
+  Test::mount(nil, SCREEN)
+  Test::expect(Test::page().window("123g 45s 67c").text("123g 45s 67c").textColor().equal(INK))
 }
 
 test "the money follows what the player has" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().shown())
-  Game.money.amount = 5
-  Test.expect(Test.page().window("0g 0s 5c").shown() && !panel().shown())
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().shown())
+  Game::money.amount = 5
+  Test::expect(Test::page().window("0g 0s 5c").shown() && !panel().shown())
 }
 
 test "a currency the player follows stands beside the money" {
-  Test.mount(nil, SCREEN)
-  Game.money.tracked = "12 Marks"
-  Test.expect(panel().texts().join(" | ") == "0g 0s 0c | 12 Marks")
+  Test::mount(nil, SCREEN)
+  Game::money.tracked = "12 Marks"
+  Test::expect(panel().texts().join(" | ") == "0g 0s 0c | 12 Marks")
 }
 
 test "the experience bar on the panel says the player's experience" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().text(XP).shown())
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().text(XP).shown())
 }
 
 // A module's part of the next level's experience: quests done, worth a fifth of the level.
@@ -236,806 +236,806 @@ class Done implements XpSource {
     return { amount: 2000, color: DONE_GREEN, title: "Completed quests", text: "", rows: [] }
   }
 }
-const DONE_GREEN: Color = Color.hex("#3fbf3f")
+const DONE_GREEN: Color = Color::hex("#3fbf3f")
 
 test "a part another module adds to the panel's sources is drawn in the experience bar, and goes with its entry" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(DONE_GREEN).count() == 0)
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(DONE_GREEN).count() == 0)
   const entry = Panel.xpSources.add(new Done())
-  Test.expect(panel().box(DONE_GREEN).shown())
+  Test::expect(panel().box(DONE_GREEN).shown())
   destroy entry
-  Test.expect(panel().box(DONE_GREEN).count() == 0)
+  Test::expect(panel().box(DONE_GREEN).count() == 0)
 }
 
 test "every button of the game's menu has its cell on the panel, with its icon, friends and guild before the game menu's" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const window = panel()
   const icons = [PROFESSIONS, SPELLBOOK, TALENTS, LEGACY, QUESTS, GROUPS, COLLECTIONS, FRIENDS, GUILD, GAME_MENU]
-  Test.expect(window.box(CELL).count() == icons.length)
-  for (at, icon of icons) { Test.expect(window.box(CELL).nth(at).paintedWith(icon)) }
+  Test::expect(window.box(CELL).count() == icons.length)
+  for (at, icon of icons) { Test::expect(window.box(CELL).nth(at).paintedWith(icon)) }
   // Each once: none stands free of the panel as well.
-  Test.expect(Test.page().box(FRIENDS).count() == 1 && Test.page().box(PROFESSIONS).count() == 1)
+  Test::expect(Test::page().box(FRIENDS).count() == 1 && Test::page().box(PROFESSIONS).count() == 1)
 }
 
 test "every bag button the game has stands in a cell after the menu, in its order, with its icon; the keyring has none" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   const window = panel()
   let icons: Array<Art> = [BACKPACK]
-  for (slot of 1..Client.NUM_BAG_SLOTS) { icons.push(BAG) }
-  for (slot of 1..Client.NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
-  Test.expect(window.box(CELL).count() == 10 + icons.length && !window.box(KEYRING).shown())
-  for (at, icon of icons) { Test.expect(window.box(CELL).nth(10 + at).paintedWith(icon)) }
+  for (slot of 1..Client::NUM_BAG_SLOTS) { icons.push(BAG) }
+  for (slot of 1..Client::NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
+  Test::expect(window.box(CELL).count() == 10 + icons.length && !window.box(KEYRING).shown())
+  for (at, icon of icons) { Test::expect(window.box(CELL).nth(10 + at).paintedWith(icon)) }
 }
 
 test "with Ordaen Spells on, one cell opens the spellbook and the talents" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const spells = Ordaen.modules.add(new Spells())
-  Test.expect(panel().box(SPELLBOOK).shown() && !panel().box(TALENTS).shown())
+  Test::expect(panel().box(SPELLBOOK).shown() && !panel().box(TALENTS).shown())
   destroy spells
-  Test.expect(panel().box(SPELLBOOK).shown() && panel().box(TALENTS).shown())
+  Test::expect(panel().box(SPELLBOOK).shown() && panel().box(TALENTS).shown())
 }
 
 test "with Ordaen Social on, the friends' cell alone opens the friends and the guild; off, the guild's comes back" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
   const social = Ordaen.modules.add(new Social())
-  Test.expect(panel().box(FRIENDS).shown() && !panel().box(GUILD).shown())
+  Test::expect(panel().box(FRIENDS).shown() && !panel().box(GUILD).shown())
   destroy social
-  Test.expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
+  Test::expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
 }
 
 test "with Ordaen Account on, one cell in the legacy's place opens the collections' button; the collections' cell goes" {
   let clicked: Array<String> = []
   const collections = frame("CollectionsMicroButton")
   collections.SetScript("OnClick", () => { clicked.push("collections") })
-  Game.frames.CollectionsMicroButton = collections
+  Game::frames.CollectionsMicroButton = collections
   const legacy = frame("LegacyMicroButton")
   legacy.SetScript("OnClick", () => { clicked.push("legacy") })
-  Game.frames.LegacyMicroButton = legacy
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
+  Game::frames.LegacyMicroButton = legacy
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
   const account = Ordaen.modules.add(new Account())
-  Test.expect(panel().box(LEGACY).count() == 1 && !panel().box(COLLECTIONS).shown())
+  Test::expect(panel().box(LEGACY).count() == 1 && !panel().box(COLLECTIONS).shown())
   panel().box(LEGACY).click()
-  Test.expect(clicked.join(", ") == "collections")
+  Test::expect(clicked.join(", ") == "collections")
   destroy account
-  Test.expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
+  Test::expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
   panel().box(LEGACY).click()
-  Test.expect(clicked.join(", ") == "collections, legacy")
+  Test::expect(clicked.join(", ") == "collections, legacy")
 }
 
 test "a bag's cell draws no edge round its icon" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
-  Test.expect(!panel().box(BACKPACK).paintedWith(Ordaen.art.panel.slotEdge.color))
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
+  Test::expect(!panel().box(BACKPACK).paintedWith(Ordaen.art.panel.slotEdge.color))
 }
 
 test "on a taller panel every cell and groove is as high as its inside, the icons as large in proportion" {
-  Game.bags.buttons = bagButtons(frame)
+  Game::bags.buttons = bagButtons(frame)
   // A screen wide enough for the whole panel at its tallest.
-  Test.screen(2400, 900)
-  Test.mount(nil, { left: 0, top: 0, width: 2400, height: 900, screen: true })
+  Test::screen(2400, 900)
+  Test::mount(nil, { left: 0, top: 0, width: 2400, height: 900, screen: true })
   const settings = tab("Bottom panel")
   drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("60 px")])
-  Test.shot("tall")
+  Test::shot("tall")
 }
 
 test "the character's button shows the class's icon once chosen" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   const icons: Array<Asset> = [
     "Interface/Icons/ClassIcon_Warrior", "Interface/Icons/ClassIcon_Paladin", "Interface/Icons/ClassIcon_Hunter",
     "Interface/Icons/ClassIcon_Rogue", "Interface/Icons/ClassIcon_Priest", "Interface/Icons/ClassIcon_Shaman",
     "Interface/Icons/ClassIcon_Mage", "Interface/Icons/ClassIcon_Warlock", "Interface/Icons/ClassIcon_Druid"
   ]
-  Test.expect(!icons.any(icon => Test.page().window("42").paintedWith(icon)))
+  Test::expect(!icons.any(icon => Test::page().window("42").paintedWith(icon)))
   const settings = tab("Micro menu")
   choose(settings, "Face", "Class icon", "Class icon")
-  Test.expect(icons.any(icon => Test.page().window("42").paintedWith(icon)))
+  Test::expect(icons.any(icon => Test::page().window("42").paintedWith(icon)))
 }
 
 test "one groove parts each two cells of a group, none before the menu's first, one before the bags' first after the money" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   const window = panel()
-  Test.expect(!window.box(PROFESSIONS).item().paintedWith(divider()))
-  Test.expect(window.box(SPELLBOOK).item().paintedWith(divider()) && window.box(GAME_MENU).item().paintedWith(divider()))
-  Test.expect(window.box(BACKPACK).item().paintedWith(divider()) && window.box(REAGENT).item().paintedWith(divider()))
+  Test::expect(!window.box(PROFESSIONS).item().paintedWith(divider()))
+  Test::expect(window.box(SPELLBOOK).item().paintedWith(divider()) && window.box(GAME_MENU).item().paintedWith(divider()))
+  Test::expect(window.box(BACKPACK).item().paintedWith(divider()) && window.box(REAGENT).item().paintedWith(divider()))
 }
 
 test "a groove runs up past the cells to the panel's metal, through the room under it" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   const cut = firstCut()
   const cell = panel().box(SPELLBOOK).rect()
   // A cell as high as the panel's inside (CELL_HEIGHT, 53 units) and the room under the metal over it (4 units), its
   // icon in the middle of that slot.
-  Test.expect((cut.bottom - cut.top - 57).abs() < 0.01 && ((cell.top + cell.bottom) / 2 - (cut.top + cut.bottom) / 2).abs() < 0.01)
+  Test::expect((cut.bottom - cut.top - 57).abs() < 0.01 && ((cell.top + cell.bottom) / 2 - (cut.top + cut.bottom) / 2).abs() < 0.01)
 }
 
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
   let clicked: Array<String> = []
   const professions = frame("ProfessionMicroButton")
   professions.SetScript("OnClick", () => { clicked.push("professions") })
-  Game.frames.ProfessionMicroButton = professions
+  Game::frames.ProfessionMicroButton = professions
   const bags = bagButtons(frame)
-  Game.bags.buttons = bags
+  Game::bags.buttons = bags
   const backpack = client("MainMenuBarBackpackButton")
   backpack.SetScript("OnClick", () => { clicked.push("backpack") })
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   panel().box(PROFESSIONS).click()
   panel().box(BACKPACK).click()
-  Test.expect(clicked.join(", ") == "professions, backpack")
+  Test::expect(clicked.join(", ") == "professions, backpack")
 }
 
 test "the bag buttons and the menu's buttons of the game's are the panel's while it shows them" {
   const professions = frame("ProfessionMicroButton")
-  Game.frames.ProfessionMicroButton = professions
+  Game::frames.ProfessionMicroButton = professions
   const bags = bagButtons(frame)
-  Game.bags.buttons = bags
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().shown())
-  const ui = Client.C_UI.GetUIParent()
-  Test.expect(professions.GetParent() != ui && client("MainMenuBarBackpackButton").GetParent() != ui)
+  Game::bags.buttons = bags
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().shown())
+  const ui = Client::C_UI::GetUIParent()
+  Test::expect(professions.GetParent() != ui && client("MainMenuBarBackpackButton").GetParent() != ui)
 }
 
 test "the game's own menu is unseen and its bag bar and status bars hidden while the panel stands in for them" {
   const menu = frame("MicroMenuContainer")
-  Game.frames.MicroMenuContainer = menu
+  Game::frames.MicroMenuContainer = menu
   const store = frame("StoreMicroButton")
-  Game.frames.StoreMicroButton = store
+  Game::frames.StoreMicroButton = store
   const help = frame("HelpMicroButton")
-  Game.frames.HelpMicroButton = help
+  Game::frames.HelpMicroButton = help
   const bags = frame("BagsBar")
-  Game.frames.BagsBar = bags
+  Game::frames.BagsBar = bags
   const free = frame("BackpackFreeSlots")
-  Game.frames.BackpackFreeSlots = free
+  Game::frames.BackpackFreeSlots = free
   const main = frame("MainStatusTrackingBarContainer")
-  Game.frames.MainStatusTrackingBarContainer = main
+  Game::frames.MainStatusTrackingBarContainer = main
   const secondary = frame("SecondaryStatusTrackingBarContainer")
-  Game.frames.SecondaryStatusTrackingBarContainer = secondary
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().shown())
-  Test.expect(menu.GetAlpha() == 0 && store.GetAlpha() == 0 && help.GetAlpha() == 0)
-  Test.expect(!bags.IsShown() && !free.IsShown() && !main.IsShown() && !secondary.IsShown())
+  Game::frames.SecondaryStatusTrackingBarContainer = secondary
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().shown())
+  Test::expect(menu.GetAlpha() == 0 && store.GetAlpha() == 0 && help.GetAlpha() == 0)
+  Test::expect(!bags.IsShown() && !free.IsShown() && !main.IsShown() && !secondary.IsShown())
 }
 
 test "the game's menu, bag bar and status bars made anew while the panel shows are kept out of sight too" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().shown())
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().shown())
   const menu = frame("MicroMenuContainer")
-  Game.frames.MicroMenuContainer = menu
+  Game::frames.MicroMenuContainer = menu
   const bags = frame("BagsBar")
-  Game.frames.BagsBar = bags
+  Game::frames.BagsBar = bags
   const free = frame("BackpackFreeSlots")
-  Game.frames.BackpackFreeSlots = free
+  Game::frames.BackpackFreeSlots = free
   const main = frame("MainStatusTrackingBarContainer")
-  Game.frames.MainStatusTrackingBarContainer = main
+  Game::frames.MainStatusTrackingBarContainer = main
   const secondary = frame("SecondaryStatusTrackingBarContainer")
-  Game.frames.SecondaryStatusTrackingBarContainer = secondary
-  Test.expect(panel().shown() && menu.GetAlpha() == 0)
-  Test.expect(!bags.IsShown() && !free.IsShown() && !main.IsShown() && !secondary.IsShown())
+  Game::frames.SecondaryStatusTrackingBarContainer = secondary
+  Test::expect(panel().shown() && menu.GetAlpha() == 0)
+  Test::expect(!bags.IsShown() && !free.IsShown() && !main.IsShown() && !secondary.IsShown())
 }
 
 test "the panel's length is chosen on its tab: the whole edge, or as long as its items" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   choose(settings, "Whole edge", "Fit the buttons", "Fit the buttons")
-  Test.expect(panel().shown() && settings.button("Fit the buttons").shown())
+  Test::expect(panel().shown() && settings.button("Fit the buttons").shown())
 }
 
 test "the friends online are counted on the friends' cell" {
-  Test.mount(nil, SCREEN)
-  Game.friends.online = 3
-  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
-  Game.friends.online = 12
-  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "12")
+  Test::mount(nil, SCREEN)
+  Game::friends.online = 3
+  Test::expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
+  Game::friends.online = 12
+  Test::expect(panel().box(FRIENDS).item().texts().join(" | ") == "12")
   // No other cell counts them.
   for (icon of [PROFESSIONS, SPELLBOOK, TALENTS, LEGACY, QUESTS, GROUPS, COLLECTIONS, GUILD, GAME_MENU]) {
-    Test.expect(panel().box(icon).item().texts().length == 0)
+    Test::expect(panel().box(icon).item().texts().length == 0)
   }
 }
 
 test "the cell under the cursor is lit, and shaded while it is pressed" {
-  Test.mount(nil, SCREEN)
-  Test.expect(!panel().box(PROFESSIONS).item().paintedWith(Color.hex("#ffd9a01f")))
+  Test::mount(nil, SCREEN)
+  Test::expect(!panel().box(PROFESSIONS).item().paintedWith(Color::hex("#ffd9a01f")))
   panel().box(PROFESSIONS).hover()
-  Test.expect(panel().box(PROFESSIONS).item().paintedWith(Color.hex("#ffd9a01f")))
-  Test.press(nil)
-  Test.expect(panel().box(PROFESSIONS).item().paintedWith(Color.hex("#00000040")))
-  Test.release(nil)
+  Test::expect(panel().box(PROFESSIONS).item().paintedWith(Color::hex("#ffd9a01f")))
+  Test::press(nil)
+  Test::expect(panel().box(PROFESSIONS).item().paintedWith(Color::hex("#00000040")))
+  Test::release(nil)
 }
 
-const WHISPER_VIOLET: Color = Color.hex("#8a4fd0")
+const WHISPER_VIOLET: Color = Color::hex("#8a4fd0")
 
 // Whether a surface shows this text.
 function surfaceSays(text: String): Boolean {
-  return Test.surfaces().any(s => s.texts.any(t => t == text))
+  return Test::surfaces().any(s => s.texts.any(t => t == text))
 }
 
 test "the whispers Ordaen Social says wait unread are a blinking violet chat bubble with their count over the friends' button" {
-  Game.frames.QuickJoinToastButton = frame("QuickJoinToastButton")
-  Test.mount(nil, SCREEN)
-  Game.friends.online = 3
-  const fading = Test.pulsing()
+  Game::frames.QuickJoinToastButton = frame("QuickJoinToastButton")
+  Test::mount(nil, SCREEN)
+  Game::friends.online = 3
+  const fading = Test::pulsing()
   Ordaen.notice("OrdaenSocial", 2)
-  Test.expect(surfaceSays("2"))
+  Test::expect(surfaceSays("2"))
   // The bubble and its tail fade in and out together.
-  Test.expect(Test.pulsing() - fading == 2)
-  const bubble = Test.page().window("2")
-  Test.expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.window.wood).shown())
+  Test::expect(Test::pulsing() - fading == 2)
+  const bubble = Test::page().window("2")
+  Test::expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.window.wood).shown())
   // The cell counts only the friends online; the bubble stands over the friends' button, the panel along the bottom.
-  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
-  Test.expect(Test.surfaceHolding("2").y < Test.edges(FRIENDS, 0).top)
+  Test::expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
+  Test::expect(Test::surfaceHolding("2").y < Test::edges(FRIENDS, 0).top)
   Ordaen.notice("OrdaenSocial", 5)
-  Test.expect(surfaceSays("5"))
+  Test::expect(surfaceSays("5"))
   Ordaen.notice("OrdaenSocial", 0)
-  Test.expect(!Test.page().text("5").shown() && !surfaceSays("0"))
+  Test::expect(!Test::page().text("5").shown() && !surfaceSays("0"))
 }
 
 test "with no friend online the friends' cell counts none" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(FRIENDS).item().texts().length == 0)
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(FRIENDS).item().texts().length == 0)
 }
 
 test "the backpack's cell counts the free slots of every bag, and no other cell does" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
-  Game.bags.free = 23
-  Test.expect(panel().box(BACKPACK).item().texts().join(" | ") == "23")
-  Test.expect(panel().box(REAGENT).item().texts().length == 0)
-  Game.bags.free = 0
-  Test.expect(panel().box(BACKPACK).item().texts().length == 0)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
+  Game::bags.free = 23
+  Test::expect(panel().box(BACKPACK).item().texts().join(" | ") == "23")
+  Test::expect(panel().box(REAGENT).item().texts().length == 0)
+  Game::bags.free = 0
+  Test::expect(panel().box(BACKPACK).item().texts().length == 0)
 }
 
 test "the bags opened, each bag button of the game's stays unseen in its cell" {
-  Test.clientFrames()
+  Test::clientFrames()
   const bags = bagButtons(client)
-  Game.bags.buttons = bags
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bags
+  Test::mount(nil, SCREEN)
   // The client's item buttons fade their icon alone through their own `SetAlpha`: the button itself, the slot's
   // frame, the light the open lights on it and the backpack's free slots are the frame's to hide.
-  Client.ToggleAllBags()
-  Test.expect(panel().box(REAGENT).shown())
+  Client::ToggleAllBags()
+  Test::expect(panel().box(REAGENT).shown())
   for (bag of bags) {
-    const held: any Client.Frame = bag.frame
+    const held: any Client::Frame = bag.frame
     // The keyring's has no cell: it is hidden.
     if (bag.kind == .Keyring) {
-      Test.expect(!held.IsShown())
+      Test::expect(!held.IsShown())
       continue
     }
-    Test.expect(held.GetParent() != Client.C_UI.GetUIParent() && held.GetAlpha() == 0)
+    Test::expect(held.GetParent() != Client::C_UI::GetUIParent() && held.GetAlpha() == 0)
   }
 }
 
 // The portrait
 
 test "the portrait in the corner shows the player's level on its badge" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
-  Test.expect(Test.page().window("42").shown())
-  Game.player.level = 43
-  Test.expect(Test.page().window("43").shown() && !Test.page().text("42").shown())
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
+  Test::expect(Test::page().window("42").shown())
+  Game::player.level = 43
+  Test::expect(Test::page().window("43").shown() && !Test::page().text("42").shown())
 }
 
 test "talent points to spend are a badge on the portrait's rim under the level, gone once spent" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
-  const portrait = Test.page().window("42")
-  Test.expect(!portrait.text("3").shown())
-  Game.talentTrees.unspent = (group: Integer): Integer => 3
-  Test.event("PLAYER_TALENT_UPDATE")
-  Test.expect(portrait.text("3").shown())
-  Test.expect(portrait.text("3").rect().top > portrait.text("42").rect().bottom)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
+  const portrait = Test::page().window("42")
+  Test::expect(!portrait.text("3").shown())
+  Game::talentTrees.unspent = (group: Integer): Integer => 3
+  Test::event("PLAYER_TALENT_UPDATE")
+  Test::expect(portrait.text("3").shown())
+  Test::expect(portrait.text("3").rect().top > portrait.text("42").rect().bottom)
   // On the rim's right side, which runs right of the level's badge, on the round badge art the level has.
   const points = portrait.text("3").rect()
   const level = portrait.text("42").rect()
-  Test.expect((points.left + points.right) / 2 > (level.left + level.right) / 2)
-  Test.expect(portrait.box(Ordaen.art.panel.badge).count() == 2)
+  Test::expect((points.left + points.right) / 2 > (level.left + level.right) / 2)
+  Test::expect(portrait.box(Ordaen.art.panel.badge).count() == 2)
   // Its middle on the frame down the portrait's right side, 3 in from its edge (the metal 6 wide).
   const edges = portrait.rect()
-  Test.expect(((points.left + points.right) / 2 - (edges.right - 3)).abs() <= 1.5)
-  Game.talentTrees.unspent = (group: Integer): Integer => 0
-  Test.event("CHARACTER_POINTS_CHANGED", -3)
-  Test.expect(!portrait.text("3").shown() && !portrait.text("0").shown())
+  Test::expect(((points.left + points.right) / 2 - (edges.right - 3)).abs() <= 1.5)
+  Game::talentTrees.unspent = (group: Integer): Integer => 0
+  Test::event("CHARACTER_POINTS_CHANGED", -3)
+  Test::expect(!portrait.text("3").shown() && !portrait.text("0").shown())
 }
 
 test "the level on the portrait's badge is in the look's accent" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
-  Test.expect(Test.page().text("42").textColor().equal(Ordaen.look.values.accent))
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
+  Test::expect(Test::page().text("42").textColor().equal(Ordaen.look.values.accent))
 }
 
 test "the character's button chosen as a cell: the menu's first cell, and no portrait" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   const settings = tab("Micro menu")
   choose(settings, "Portrait", "Button", "Button")
-  Test.expect(!Test.page().text("42").shown())
-  Test.expect(panel().box(CELL).count() == 11 && panel().box(CELL).nth(2).paintedWith(PROFESSIONS))
+  Test::expect(!Test::page().text("42").shown())
+  Test::expect(panel().box(CELL).count() == 11 && panel().box(CELL).nth(2).paintedWith(PROFESSIONS))
 }
 
 test "the portrait goes with the panel to another edge" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   bottom("Bottom", "Top", "Top")
-  Test.expect(panel().shown() && !Test.page().text("42").shown())
+  Test::expect(panel().shown() && !Test::page().text("42").shown())
 }
 
 test "the portrait goes with the menu to the panel's middle" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   place("Left", 1, "Centre")
-  Test.expect(panel().box(PROFESSIONS).shown() && !Test.page().text("42").shown())
+  Test::expect(panel().box(PROFESSIONS).shown() && !Test::page().text("42").shown())
 }
 
 // The menu's look and the zones
 
 test "the menu's icons chosen in gold are painted gold" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(PROFESSIONS).paintedWith(WHITE))
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(PROFESSIONS).paintedWith(WHITE))
   const settings = tab("Micro menu")
   choose(settings, "Normal", "Gold", "Gold")
-  Test.expect(panel().box(PROFESSIONS).paintedWith(GOLD) && panel().box(GAME_MENU).paintedWith(GOLD))
+  Test::expect(panel().box(PROFESSIONS).paintedWith(GOLD) && panel().box(GAME_MENU).paintedWith(GOLD))
 }
 
 test "friends and guild at the panel's end stand on their own, the game menu's button still the menu's last" {
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().box(FRIENDS).item().paintedWith(divider()))
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().box(FRIENDS).item().paintedWith(divider()))
   place("Left", 2, "Right")
   const window = panel()
   // First of their own group: no groove before the friends' cell.
-  Test.expect(!window.box(FRIENDS).item().paintedWith(divider()) && window.box(GUILD).item().paintedWith(divider()))
-  Test.expect(window.box(CELL).nth(8).paintedWith(GAME_MENU) && window.box(CELL).nth(9).paintedWith(FRIENDS))
+  Test::expect(!window.box(FRIENDS).item().paintedWith(divider()) && window.box(GUILD).item().paintedWith(divider()))
+  Test::expect(window.box(CELL).nth(8).paintedWith(GAME_MENU) && window.box(CELL).nth(9).paintedWith(FRIENDS))
 }
 
 test "the time placed on the panel shows the game's time, in ink" {
-  Test.mount(nil, SCREEN)
-  Test.expect(!Test.page().text("12:30").shown())
+  Test::mount(nil, SCREEN)
+  Test::expect(!Test::page().text("12:30").shown())
   place(POOL, 2, "Centre")
-  Test.expect(panel().text("12:30").textColor().equal(INK))
+  Test::expect(panel().text("12:30").textColor().equal(INK))
 }
 
 test "the time turns orange while calendar invites wait" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   place(POOL, 2, "Centre")
-  Game.clock.invites = 1
-  Test.expect(panel().text("12:30").textColor().equal(PENDING))
+  Game::clock.invites = 1
+  Test::expect(panel().text("12:30").textColor().equal(PENDING))
 }
 
 test "a click on the time opens the calendar" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   place(POOL, 2, "Centre")
-  _ = Test.requests()
+  _ = Test::requests()
   panel().text("12:30").click()
-  Test.expect(Test.requests().any(r => r == "Clock.toggleCalendar"))
+  Test::expect(Test::requests().any(r => r == "Clock.toggleCalendar"))
 }
 
 test "the zone's name placed on the panel shows the zone the player is in" {
-  Test.mount(nil, SCREEN)
-  Test.expect(!Test.page().text("Elwynn Forest").shown())
+  Test::mount(nil, SCREEN)
+  Test::expect(!Test::page().text("Elwynn Forest").shown())
   place(POOL, 1, "Left")
-  Test.expect(panel().text("Elwynn Forest").shown())
+  Test::expect(panel().text("Elwynn Forest").shown())
 }
 
 test "the experience bar off the panel stands on its own" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   place("Centre", 1, POOL)
-  Test.expect(!panel().text(XP).shown() && Test.page().window(XP).shown())
+  Test::expect(!panel().text(XP).shown() && Test::page().window(XP).shown())
 }
 
 test "the bags off the panel stand on their own" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   place("Right", 2, POOL)
-  Test.expect(!panel().box(BACKPACK).shown() && Test.page().box(BACKPACK).count() == 1)
+  Test::expect(!panel().box(BACKPACK).shown() && Test::page().box(BACKPACK).count() == 1)
 }
 
 test "the money off the panel stands on its own" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   place("Right", 1, POOL)
-  Test.expect(panel().texts().join(" | ") == MONEY && !panel().box(PROFESSIONS).shown())
+  Test::expect(panel().texts().join(" | ") == MONEY && !panel().box(PROFESSIONS).shown())
 }
 
 test "the menu off the panel stands on its own, and the portrait goes" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   place("Left", 1, POOL)
-  Test.expect(!panel().box(PROFESSIONS).shown() && Test.page().box(PROFESSIONS).count() == 1)
-  Test.expect(!Test.page().text("42").shown())
+  Test::expect(!panel().box(PROFESSIONS).shown() && Test::page().box(PROFESSIONS).count() == 1)
+  Test::expect(!Test::page().text("42").shown())
 }
 
 test "friends and guild off the panel stand on their own" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   place("Left", 2, POOL)
-  Test.expect(!panel().box(FRIENDS).shown() && Test.page().box(FRIENDS).count() == 1 && Test.page().box(GUILD).count() == 1)
+  Test::expect(!panel().box(FRIENDS).shown() && Test::page().box(FRIENDS).count() == 1 && Test::page().box(GUILD).count() == 1)
 }
 
 // Where the panel runs
 
 test "down the left side of the screen the panel has no experience bar" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   bottom("Bottom", "Top", "Left")
-  Test.expect(panel().shown() && !Test.page().text(XP).shown())
+  Test::expect(panel().shown() && !Test::page().text(XP).shown())
 }
 
 test "down the right side of the screen the panel has no experience bar" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   bottom("Bottom", "Top", "Right")
-  Test.expect(panel().shown() && !Test.page().text(XP).shown())
+  Test::expect(panel().shown() && !Test::page().text(XP).shown())
 }
 
 test "along the top the panel keeps its experience bar" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   bottom("Bottom", "Top", "Top")
-  Test.expect(panel().text(XP).shown())
+  Test::expect(panel().text(XP).shown())
 }
 
 test "a watched faction's tube stands under the experience's on the panel" {
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Game.reputation.name = "Stormwind"
-  Game.reputation.standing = "Honored"
-  Game.reputation.min = 9000
-  Game.reputation.max = 21000
-  Game.reputation.value = 13800
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().text(HONORED).shown())
-  Test.expect(panel().text(XP).shown())
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::reputation.name = "Stormwind"
+  Game::reputation.standing = "Honored"
+  Game::reputation.min = 9000
+  Game::reputation.max = 21000
+  Game::reputation.value = 13800
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().text(HONORED).shown())
+  Test::expect(panel().text(XP).shown())
 }
 
 // When the panel shows
 
 test "a panel set never to show is not drawn, and the game's buttons go back to the game" {
   const professions = frame("ProfessionMicroButton")
-  Game.frames.ProfessionMicroButton = professions
-  Test.mount(nil, SCREEN)
+  Game::frames.ProfessionMicroButton = professions
+  Test::mount(nil, SCREEN)
   hide("Show", 1, "Hide")
-  Test.expect(!panel().shown() && professions.GetParent() == Client.C_UI.GetUIParent())
+  Test::expect(!panel().shown() && professions.GetParent() == Client::C_UI::GetUIParent())
 }
 
 test "a panel shown on mouseover is all but unseen while the cursor is away, and shows under it" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   hide("Show", 1, "On mouseover")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(panel().opacity() > 0 && panel().opacity() < 0.01)
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(panel().opacity() > 0 && panel().opacity() < 0.01)
   panel().text(MONEY).hover()
-  Test.expect(panel().opacity() == 1)
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(panel().opacity() < 0.01)
+  Test::expect(panel().opacity() == 1)
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(panel().opacity() < 0.01)
 }
 
 test "a panel hidden in combat is not drawn in combat, and drawn out of it" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   hide("Show", 2, "Hide")
-  Test.expect(panel().shown())
-  Game.situation.combat = true
-  Test.expect(!panel().shown())
-  Game.situation.combat = false
-  Test.expect(panel().shown())
+  Test::expect(panel().shown())
+  Game::situation.combat = true
+  Test::expect(!panel().shown())
+  Game::situation.combat = false
+  Test::expect(panel().shown())
 }
 
 test "a panel hidden out of combat is drawn in combat alone" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   hide("Show", 1, "Hide")
-  Test.expect(!panel().shown())
-  Game.situation.combat = true
-  Test.expect(panel().shown())
+  Test::expect(!panel().shown())
+  Game::situation.combat = true
+  Test::expect(panel().shown())
 }
 
 test "a hidden panel is drawn as faint as its opacity says" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = visibility()
   pick(settings, "Show", 2, "Hide")
   // The hidden panel's opacity: the tab's second slider, clicked in its middle: half.
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
-  Game.situation.combat = true
-  Test.expect((panel().opacity() - 0.5).abs() < 0.01)
+  Game::situation.combat = true
+  Test::expect((panel().opacity() - 0.5).abs() < 0.01)
 }
 
 test "a hidden panel's every part is as faint as it: the portrait, its badge and the game's buttons in its cells" {
-  Game.player.level = 42
+  Game::player.level = 42
   const professions = frame("ProfessionMicroButton")
-  Game.frames.ProfessionMicroButton = professions
+  Game::frames.ProfessionMicroButton = professions
   const character = frame("CharacterMicroButton")
-  Game.frames.CharacterMicroButton = character
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::frames.CharacterMicroButton = character
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   const settings = visibility()
   pick(settings, "Show", 2, "Hide")
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
-  Game.situation.combat = true
-  Test.expect((panel().opacity() - 0.5).abs() < 0.01)
-  const portrait = Test.page().window("42")
-  Test.expect(portrait.opacity() <= 0.51 && Test.page().text("42").opacity() <= 0.51)
-  Test.expect(Test.page().box(Ordaen.art.panel.badge).opacity() <= 0.51)
+  Game::situation.combat = true
+  Test::expect((panel().opacity() - 0.5).abs() < 0.01)
+  const portrait = Test::page().window("42")
+  Test::expect(portrait.opacity() <= 0.51 && Test::page().text("42").opacity() <= 0.51)
+  Test::expect(Test::page().box(Ordaen.art.panel.badge).opacity() <= 0.51)
   for (game of [professions, character, client("MainMenuBarBackpackButton")]) {
-    Test.expect(game.GetEffectiveAlpha() <= 0.51)
+    Test::expect(game.GetEffectiveAlpha() <= 0.51)
   }
 }
 
 test "a panel shown on mouseover shows with its portrait under the cursor, and the portrait with it" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   hide("Show", 1, "On mouseover")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(Test.page().text("42").opacity() < 0.01)
-  Test.page().text("42").hover()
-  Test.expect(panel().opacity() == 1 && Test.page().text("42").opacity() == 1)
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(Test::page().text("42").opacity() < 0.01)
+  Test::page().text("42").hover()
+  Test::expect(panel().opacity() == 1 && Test::page().text("42").opacity() == 1)
   panel().text(MONEY).hover()
-  Test.expect(panel().opacity() == 1 && Test.page().text("42").opacity() == 1)
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(panel().opacity() < 0.01 && Test.page().text("42").opacity() < 0.01)
+  Test::expect(panel().opacity() == 1 && Test::page().text("42").opacity() == 1)
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(panel().opacity() < 0.01 && Test::page().text("42").opacity() < 0.01)
 }
 
 test "the panel shows on transport, and hides there once the player sets it to hide" {
-  Test.mount(nil, SCREEN)
-  Game.situation.vehicle = true
-  Test.expect(panel().shown())
-  Game.situation.vehicle = false
-  Game.situation.taxi = true
-  Test.expect(panel().shown())
+  Test::mount(nil, SCREEN)
+  Game::situation.vehicle = true
+  Test::expect(panel().shown())
+  Game::situation.vehicle = false
+  Game::situation.taxi = true
+  Test::expect(panel().shown())
   hide("Show", 3, "Hide")
-  Test.expect(!panel().shown())
-  Game.situation.taxi = false
-  Test.expect(panel().shown())
+  Test::expect(!panel().shown())
+  Game::situation.taxi = false
+  Test::expect(panel().shown())
 }
 
 test "a state set to show has no opacity to choose; hidden or on mouseover, it has" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = visibility()
   // The height's slider alone: every state shows.
-  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
+  Test::expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
   pick(settings, "Show", 1, "On mouseover")
-  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
+  Test::expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
   pick(settings, "On mouseover", 1, "Show")
-  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
+  Test::expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
 }
 
 test "the portrait stands over the panel shown again on mouseover" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   hide("Show", 1, "On mouseover")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
   panel().text(MONEY).hover()
   // The portrait's badge, where it lies over the panel's wood, is the portrait's to the mouse.
-  Test.page().box(Ordaen.art.panel.badge).hover()
-  const order = Test.surfaces().map(s => s.texts.join(" "))
+  Test::page().box(Ordaen.art.panel.badge).hover()
+  const order = Test::surfaces().map(s => s.texts.join(" "))
   const portrait = order.find(t => t.contains("42"))
-  Test.expect(portrait != nil)
+  Test::expect(portrait != nil)
   let panelAt = 0
   let portraitAt = 0
   for (index, texts of order) {
     if (texts.contains(MONEY)) { panelAt = index }
     if (texts.contains("42")) { portraitAt = index }
   }
-  Test.expect(portraitAt > panelAt)
+  Test::expect(portraitAt > panelAt)
 }
 
 // The parts switched on and off
 
 test "the menu switched off: its cells gone, the game's own menu seen again" {
   const menu = frame("MicroMenuContainer")
-  Game.frames.MicroMenuContainer = menu
-  Test.mount(nil, SCREEN)
-  Test.expect(panel().shown() && menu.GetAlpha() == 0)
+  Game::frames.MicroMenuContainer = menu
+  Test::mount(nil, SCREEN)
+  Test::expect(panel().shown() && menu.GetAlpha() == 0)
   flip("General", Ordaen.art.ctl.switchOn, 2)
-  Test.expect(!Test.page().box(PROFESSIONS).shown() && !Test.page().box(FRIENDS).shown() && menu.GetAlpha() == 1)
+  Test::expect(!Test::page().box(PROFESSIONS).shown() && !Test::page().box(FRIENDS).shown() && menu.GetAlpha() == 1)
 }
 
 test "the bars switched off: no experience bar, the game's own status bars shown again" {
   const main = frame("MainStatusTrackingBarContainer")
-  Game.frames.MainStatusTrackingBarContainer = main
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::frames.MainStatusTrackingBarContainer = main
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   flip("General", Ordaen.art.ctl.switchOn, 3)
-  Test.expect(!Test.page().text(XP).shown() && main.IsShown())
+  Test::expect(!Test::page().text(XP).shown() && main.IsShown())
 }
 
 test "the panel switched off: each of its items a part of its own, and no portrait" {
-  Game.player.level = 42
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   flip("General", Ordaen.art.ctl.switchOn, 4)
-  Test.expect(!Test.page().text("42").shown() && panel().texts().join(" | ") == MONEY)
-  Test.expect(Test.page().window(XP).shown() && Test.page().box(BACKPACK).shown() && Test.page().box(GAME_MENU).shown())
+  Test::expect(!Test::page().text("42").shown() && panel().texts().join(" | ") == MONEY)
+  Test::expect(Test::page().window(XP).shown() && Test::page().box(BACKPACK).shown() && Test::page().box(GAME_MENU).shown())
   // Friends and guild on their own, and not in the menu too.
-  Test.expect(Test.page().box(FRIENDS).count() == 1 && Test.page().box(GUILD).count() == 1)
+  Test::expect(Test::page().box(FRIENDS).count() == 1 && Test::page().box(GUILD).count() == 1)
 }
 
 test "the menu's icons chosen in gold are gold off the panel too" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Micro menu")
   choose(settings, "Normal", "Gold", "Gold")
   settings.button("General").nth(2).click()
   settings.button(Ordaen.art.ctl.switchOn).nth(4).click()
-  Test.expect(Test.page().box(PROFESSIONS).paintedWith(GOLD) && Test.page().box(FRIENDS).paintedWith(GOLD))
+  Test::expect(Test::page().box(PROFESSIONS).paintedWith(GOLD) && Test::page().box(FRIENDS).paintedWith(GOLD))
 }
 
 test "the panel's height reaches from 60, where its cells still fit, to 96 on its slider" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Bottom panel")
-  Test.expect(settings.text("60 px").shown())
+  Test::expect(settings.text("60 px").shown())
   // The knob dragged past the slider's start, over its name; then past its end, over the value it shows.
   drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("Height")])
-  Test.expect(settings.text("60 px").shown())
+  Test::expect(settings.text("60 px").shown())
   drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("60 px")])
-  Test.expect(settings.text("96 px").shown())
+  Test::expect(settings.text("96 px").shown())
 }
 
 test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
   const low: Choices = { height: 24, ..DEFAULTS }
   // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
   const sections: Map<String, String> = {}
-  sections["OrdaenPanel"] = Game.encoding.serialize(low)
+  sections["OrdaenPanel"] = Game::encoding.serialize(low)
   const profile: Map<String, Map<String, String>> = {}
   profile["sections"] = sections
   const profiles: Map<String, Map<String, Map<String, String>>> = {}
   profiles["Default"] = profile
   const kept: Map<String, Map<String, Map<String, Map<String, String>>>> = {}
   kept["profiles"] = profiles
-  Game.saved.store(.Account, "profiles", kept)
-  Test.reload()
-  Test.mount(nil, SCREEN)
+  Game::saved.store(.Account, "profiles", kept)
+  Test::reload()
+  Test::mount(nil, SCREEN)
   // The menu's cells, of their one height, stand whole on the screen.
   const cell = panel().box(PROFESSIONS).rect()
-  Test.expect(cell.bottom <= SCREEN.height)
+  Test::expect(cell.bottom <= SCREEN.height)
   // Its slider says so too, before its knob is moved.
-  Test.expect(tab("Bottom panel").text("60 px").shown())
+  Test::expect(tab("Bottom panel").text("60 px").shown())
 }
 
 test "the action bars' tab opened changes nothing: no step of the settings' history" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const steps = Ordaen.keeper.steps
   const settings = tab("Action bars")
-  Test.flush()
-  Test.expect(settings.button("Action bars").shown() && Ordaen.keeper.steps == steps)
+  Test::flush()
+  Test::expect(settings.button("Action bars").shown() && Ordaen.keeper.steps == steps)
 }
 
 test "the panel's text outline is chosen on the bars' tab: none, thin or thick" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Bars")
   choose(settings, "None", "Thick", "Thick")
-  Test.expect(settings.button("Thick").shown())
+  Test::expect(settings.button("Thick").shown())
   choose(settings, "Thick", "Thin", "Thin")
-  Test.expect(settings.button("Thin").shown())
+  Test::expect(settings.button("Thin").shown())
 }
 
 test "with the menu off, its tab's choices take no click" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("General")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
   settings.button("Micro menu").click()
   settings.button("Normal").click()
-  Test.expect(!Test.page().window("Gold").shown())
+  Test::expect(!Test::page().window("Gold").shown())
 }
 
 test "with the panel off, its tab's choices take no click" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("General")
   settings.button(Ordaen.art.ctl.switchOn).nth(4).click()
   settings.button("Bottom panel").click()
   settings.button("Bottom").click()
-  Test.expect(!Test.page().window("Top").shown())
+  Test::expect(!Test::page().window("Top").shown())
 }
 
 test "the panel turned off in the game's list of addons leaves the game's menu and bags to the game" {
   const menu = frame("MicroMenuContainer")
-  Game.frames.MicroMenuContainer = menu
+  Game::frames.MicroMenuContainer = menu
   const bags = frame("BagsBar")
-  Game.frames.BagsBar = bags
-  Test.mount(nil, SCREEN)
-  (Runtime.Addon.of(Panel) ?? panic("the panel is installed")).disable()
-  Test.expect(Test.blank() && !Test.page().text(MONEY).shown())
-  Test.expect(menu.GetAlpha() == 1 && bags.IsShown())
+  Game::frames.BagsBar = bags
+  Test::mount(nil, SCREEN)
+  (Runtime::Addon::of(Panel) ?? panic("the panel is installed")).disable()
+  Test::expect(Test::blank() && !Test::page().text(MONEY).shown())
+  Test::expect(menu.GetAlpha() == 1 && bags.IsShown())
 }
 
 // The move mode
 
 test "the move mode shows a panel set never to show, and hides it again as it ends" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = visibility()
   pick(settings, "Show", 1, "Hide")
   settings.button(SETTINGS).click()
-  Test.expect(panel().text(MOVER).shown())
+  Test::expect(panel().text(MOVER).shown())
   settings.button(SETTINGS).click()
-  Test.expect(!panel().shown())
+  Test::expect(!panel().shown())
 }
 
 test "the panel dragged in the move mode to the screen's left runs down it from then, kept at once" {
-  Game.player.level = 42
-  Game.player.xp = 2500
-  Game.player.xpMax = 10000
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Game::player.xp = 2500
+  Game::player.xpMax = 10000
+  Test::mount(nil, SCREEN)
   const settings = visibility()
   const steps = Ordaen.keeper.steps
   settings.button(SETTINGS).click()
   // Carried over the portrait's badge, then let go over the portrait, in the screen's lower left corner: the left side
   // is nearest.
-  const portrait = Test.page().window("42")
+  const portrait = Test::page().window("42")
   drag(panel().text(MOVER), [portrait.text("42"), portrait.text(MOVER)])
   settings.button(SETTINGS).click()
   // Down the side, with no experience bar: the drag is one step of the settings' history.
-  Test.expect(panel().shown() && !Test.page().text(XP).shown() && Ordaen.keeper.steps == steps + 1)
-  Test.expect(settings.button("Left").shown())
+  Test::expect(panel().shown() && !Test::page().text(XP).shown() && Ordaen.keeper.steps == steps + 1)
+  Test::expect(settings.button("Left").shown())
 }
 
 test "the panel right-clicked in the move mode goes back to the bottom" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   choose(settings, "Bottom", "Top", "Top")
   settings.button(SETTINGS).click()
   panel().text(MOVER).rightClick()
   settings.button(SETTINGS).click()
-  Test.expect(Test.page().text("42").shown() && settings.button("Bottom").shown())
+  Test::expect(Test::page().text("42").shown() && settings.button("Bottom").shown())
 }
 
 test "the panel dragged to a side and then right-clicked goes back to the bottom" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   settings.button(SETTINGS).click()
-  const portrait = Test.page().window("42")
+  const portrait = Test::page().window("42")
   drag(panel().text(MOVER), [portrait.text("42"), portrait.text(MOVER)])
-  Test.expect(!Test.page().text("42").shown())
+  Test::expect(!Test::page().text("42").shown())
   panel().text(MOVER).rightClick()
-  Test.expect(Test.page().text("42").shown())
+  Test::expect(Test::page().text("42").shown())
 }
 
 test "the action bars' tab fits the settings window at its size: the list, the picked bar and its rows" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Action bars")
-  Test.flush()
-  Test.expect(settings.button("Pet Bar").shown())
-  Test.expect(settings.text("Buttons per row").shown())
+  Test::flush()
+  Test::expect(settings.button("Pet Bar").shown())
+  Test::expect(settings.text("Buttons per row").shown())
 }
 
 test "a cell's slot is square, from the panel's metal down, the cut after it its own" {
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
   const ground = panel().box(CELL).nth(2).rect()
   const cut = firstCut()
-  Test.expect((ground.right - ground.left - (ground.bottom - ground.top)).abs() < 0.5)
-  Test.expect((ground.top - cut.top).abs() < 0.5 && (ground.bottom - cut.bottom).abs() < 0.5)
+  Test::expect((ground.right - ground.left - (ground.bottom - ground.top)).abs() < 0.5)
+  Test::expect((ground.top - cut.top).abs() < 0.5 && (ground.bottom - cut.bottom).abs() < 0.5)
   // Panel 2's second cell: after the first cut, and over the second, which its light and its clicks take.
   const next = panel().box(CUT_LIP).nth(2).rect()
-  Test.expect((ground.left - cut.right).abs() < 0.5 && (ground.right - next.right).abs() < 0.5)
+  Test::expect((ground.left - cut.right).abs() < 0.5 && (ground.right - next.right).abs() < 0.5)
 }
 
 test "the menu's first cell starts where the portrait ends, no gap between them" {
-  Game.player.level = 42
-  Game.bags.buttons = bagButtons(frame)
-  Test.mount(nil, SCREEN)
-  const portrait = Test.page().window("42").rect()
+  Game::player.level = 42
+  Game::bags.buttons = bagButtons(frame)
+  Test::mount(nil, SCREEN)
+  const portrait = Test::page().window("42").rect()
   const cell = panel().box(CELL).nth(1).rect()
-  Test.expect((cell.left - portrait.right).abs() < 0.5)
+  Test::expect((cell.left - portrait.right).abs() < 0.5)
 }
 
 test "the level's badge stands over the frame's top right corner, centred where its lines meet the face" {
-  Game.player.level = 42
-  Test.mount(nil, SCREEN)
-  const portrait = Test.page().window("42").rect()
-  const badge = Test.page().window("42").box(Ordaen.art.panel.badge).nth(1).rect()
+  Game::player.level = 42
+  Test::mount(nil, SCREEN)
+  const portrait = Test::page().window("42").rect()
+  const badge = Test::page().window("42").box(Ordaen.art.panel.badge).nth(1).rect()
   // The frame's room on the portrait's top and right: the windows' metal, a third heavier.
   const metal = Ordaen.art.frame.window
   const weight = 6 / 4.5
   const right = metal.reach.right * metal.scale * weight
   const top = metal.reach.top * metal.scale * weight
-  Test.expect(((badge.left + badge.right) / 2 - (portrait.right - right)).abs() < 0.5)
-  Test.expect(((badge.top + badge.bottom) / 2 - (portrait.top + top)).abs() < 0.5)
+  Test::expect(((badge.left + badge.right) / 2 - (portrait.right - right)).abs() < 0.5)
+  Test::expect(((badge.top + badge.bottom) / 2 - (portrait.top + top)).abs() < 0.5)
 }

@@ -22,7 +22,7 @@ public enum Stop { Done = "done", Full = "full", Closed = "closed" }
 
 public class Collector {
   // A letter about to be taken from: its money or an attachment.
-  public taking: Event<Game.MailLetter> = new Event()
+  public taking: Event<Game::MailLetter> = new Event()
   // While it runs, the list takes no clicks.
   public state running = false
   // What it took this visit to the mailbox: the money, and the stacks.
@@ -40,13 +40,13 @@ public class Collector {
   keepFree = 0
 
   constructor() {
-    Game.mailObserver.taken.listen(self.onAnswer)
-    Game.mailObserver.refused.listen(self.onRefused)
-    Game.mailObserver.failed.listen(self.onFailed)
+    Game::mailObserver.taken.listen(self.onAnswer)
+    Game::mailObserver.refused.listen(self.onRefused)
+    Game::mailObserver.failed.listen(self.onFailed)
   }
 
   // Takes from these letters, as they now stand, leaving that many bag slots free.
-  public start(mut self, letters: Array<Game.MailLetter>, keepFree: Integer) {
+  public start(mut self, letters: Array<Game::MailLetter>, keepFree: Integer) {
     self.keepFree = keepFree
     self.targets = letters.map(keyOf)
     self.skipped = {}
@@ -71,23 +71,23 @@ public class Collector {
     self.stopped = nil
   }
 
-  wanted(self, letter: Game.MailLetter): Boolean {
+  wanted(self, letter: Game::MailLetter): Boolean {
     return collectable(letter) && self.targets.any(k => k == keyOf(letter))
   }
 
   // The next thing to take, asked of the game; stopped where nothing is left.
   step(mut self) {
     if (!(peek self.running)) { return }
-    for (letter of Game.mailbox.letters()) {
+    for (letter of Game::mailbox.letters()) {
       if (!self.wanted(letter)) { continue }
       if (letter.copper > 0) {
         self.ask(`${keyOf(letter)}/money`)
         self.taking.emit(letter)
-        Game.mailbox.takeMoney(letter.index)
+        Game::mailbox.takeMoney(letter.index)
         self.money += letter.copper
         return
       }
-      if (peek Game.bags.free <= self.keepFree) {
+      if (peek Game::bags.free <= self.keepFree) {
         self.stop(.Full)
         return
       }
@@ -96,7 +96,7 @@ public class Collector {
         if (self.skipped[name] == true) { continue }
         self.ask(name)
         self.taking.emit(letter)
-        Game.mailbox.takeItem(letter.index, item.place)
+        Game::mailbox.takeItem(letter.index, item.place)
         self.stacks += 1
         return
       }
@@ -117,13 +117,13 @@ public class Collector {
   }
 
   async ceiling(mut self) {
-    await Game.delay(CEILING)
+    await Game::delay(CEILING)
     self.waiting = nil
     self.step()
   }
 
   async pace(mut self) {
-    await Game.delay(PACE)
+    await Game::delay(PACE)
     self.waiting = nil
     self.step()
   }
@@ -137,11 +137,11 @@ public class Collector {
 
   onRefused(mut self, message: String) {
     if (!(peek self.running)) { return }
-    if (message == Game.strings.inventoryFull) {
+    if (message == Game::strings.inventoryFull) {
       self.stop(.Full)
       return
     }
-    if (message == Game.strings.itemMaxCount) { self.skipped[self.asked] = true }
+    if (message == Game::strings.itemMaxCount) { self.skipped[self.asked] = true }
     self.onAnswer()
   }
 

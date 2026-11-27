@@ -35,47 +35,47 @@ function book(): Book {
 test "an item's crafters: each character once per profession, with the recipes taking it" {
   const found = craftersOf(book())
   const feather = found[FEATHER] ?? []
-  Test.expect(feather.length == 3)
-  Test.expect(feather.filter(each => each.profession == "Tailoring").length == 2)
+  Test::expect(feather.length == 3)
+  Test::expect(feather.filter(each => each.profession == "Tailoring").length == 2)
   const ann = (found[CLOTH] ?? []).find(each => each.name == "Ann")
-  Test.expect((ann?.recipes ?? []).length == 2 && ann?.rank == 40)
-  Test.expect(found[1100] == nil)
+  Test::expect((ann?.recipes ?? []).length == 2 && ann?.rank == 40)
+  Test::expect(found[1100] == nil)
 }
 
 test "the tooltip says «Used in crafting», then a line per character, the one played first, each opening its recipes" {
-  Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
-  Test.expect(Game.player.guid == ME)
+  Test::mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
+  Test::expect(Game::player.guid == ME)
   const written = book()
   const found = craftersOf(written)
   // A trainer taught the cap at 30.
   const taught: Map<String, Taught> = { ["Feathered Cap"]: { skill: 30, cost: 100 } }
   const lines = new CraftersLines(() => found, () => written, () => taught).lines(FEATHER, "")
-  Test.expect(lines[1]?.left == "Used in crafting")
-  Test.expect(lines[2]?.left == "Player" && lines[2]?.right == "Tailoring")
-  Test.expect(lines[3]?.left == "Ann" && lines[3]?.right == "Tailoring")
-  Test.expect(lines[4]?.left == "Ann" && lines[4]?.right == "Leatherworking")
+  Test::expect(lines[1]?.left == "Used in crafting")
+  Test::expect(lines[2]?.left == "Player" && lines[2]?.right == "Tailoring")
+  Test::expect(lines[3]?.left == "Ann" && lines[3]?.right == "Tailoring")
+  Test::expect(lines[4]?.left == "Ann" && lines[4]?.right == "Leatherworking")
   const rows = lines[2]?.opens?.rows ?? []
   // Each recipe with the skill it is learned at: here what the trainer said.
-  Test.expect(rows.length == 1 && rows[1]?.left == "Feathered Cap" && rows[1]?.item == 1100 && rows[1]?.right == "30")
+  Test::expect(rows.length == 1 && rows[1]?.left == "Feathered Cap" && rows[1]?.item == 1100 && rows[1]?.right == "30")
   // The bags hold no feather in the stand-in.
   const foot = lines[2]?.opens?.foot ?? []
-  Test.expect(foot[1]?.left == "In bags and bank" && foot[1]?.right == "0")
-  Test.expect(lines[1]?.opens == nil)
-  Test.expect(new CraftersLines(() => found, () => written, () => taught).lines(1100, "").length == 0)
+  Test::expect(foot[1]?.left == "In bags and bank" && foot[1]?.right == "0")
+  Test::expect(lines[1]?.opens == nil)
+  Test::expect(new CraftersLines(() => found, () => written, () => taught).lines(1100, "").length == 0)
 }
 
 test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, green to grey, grey past; grey unknown" {
   const table: Thresholds = { yellow: { [7]: 50 }, grey: { [7]: 70 } }
-  Test.expect(difficultyAt(table, 7, 49) == Game.Difficulty.Always)
-  Test.expect(difficultyAt(table, 7, 50) == Game.Difficulty.Usually)
-  Test.expect(difficultyAt(table, 7, 60) == Game.Difficulty.Rarely)
-  Test.expect(difficultyAt(table, 7, 70) == Game.Difficulty.Never)
-  Test.expect(difficultyAt(table, 8, 1) == Game.Difficulty.Never)
-  Test.expect(Style.difficultyColor(difficultyAt(table, 7, 1)) != Style.difficultyColor(difficultyAt(table, 7, 69)))
+  Test::expect(difficultyAt(table, 7, 49) == Game::Difficulty::Always)
+  Test::expect(difficultyAt(table, 7, 50) == Game::Difficulty::Usually)
+  Test::expect(difficultyAt(table, 7, 60) == Game::Difficulty::Rarely)
+  Test::expect(difficultyAt(table, 7, 70) == Game::Difficulty::Never)
+  Test::expect(difficultyAt(table, 8, 1) == Game::Difficulty::Never)
+  Test::expect(Style::difficultyColor(difficultyAt(table, 7, 1)) != Style::difficultyColor(difficultyAt(table, 7, 69)))
 }
 
 test "a recipe an item teaches says the skill the item asks; a trainer's recipe says none here" {
   const smithing = thresholdsOf(164)
   // The plans for Mighty Iron Hammer ask 120; Copper Mace is a trainer's.
-  Test.expect(smithing.learned[3297] == 120 && smithing.yellow[3297] == 150 && smithing.learned[2737] == nil)
+  Test::expect(smithing.learned[3297] == 120 && smithing.yellow[3297] == 150 && smithing.learned[2737] == nil)
 }

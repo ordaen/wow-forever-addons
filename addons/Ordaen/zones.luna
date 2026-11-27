@@ -8,17 +8,17 @@ import { Component } from "@/module"
 import { Tip } from "@/tip"
 import { SECONDARY_TEXT } from "@/units"
 
-const DIM: Color = Color.hex("#a3977f")
-const CHIP_TEXT: Color = Color.hex("#f3e1b8")
-const BOX: Color = Color.hex("#2a1e10")
-const BRONZE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const DIM: Color = Color::hex("#a3977f")
+const CHIP_TEXT: Color = Color::hex("#f3e1b8")
+const BOX: Color = Color::hex("#2a1e10")
+const BRONZE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 // A zone after the first: a line on its left.
-const DIVIDER: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: ["left"] }
-const CHIP: Color = Color.hex("#5a4428")
-const CHIP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#1a1306") }
+const DIVIDER: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: ["left"] }
+const CHIP: Color = Color::hex("#5a4428")
+const CHIP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#1a1306") }
 const CHIP_PAD: Edges = { top: 1sp, right: 3sp, bottom: 1sp, left: 3sp }
-const POOL: Color = Color.hex("#00000040")
-const POOL_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const POOL: Color = Color::hex("#00000040")
+const POOL_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 
 // One of the items placed: what tells it from the others, its name on its chip, and what the cursor on it says.
 public struct ZoneItem<K: Unknown> {
@@ -109,10 +109,10 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
   }
 
   alignOf(self): Align {
-    if (self.pool) { return Align.Start }
-    if (self.index == 2) { return Align.Center }
-    if (self.index == 3) { return Align.End }
-    return Align.Start
+    if (self.pool) { return Align::Start }
+    if (self.index == 2) { return Align::Center }
+    if (self.index == 3) { return Align::End }
+    return Align::Start
   }
 
   onDrop(mut self) {
@@ -122,7 +122,7 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={2sp} padding={2.5sp} xAlign={self.align} yAlign={Align.Start} border={self.divider}
+      <box columns={1} gap={2sp} padding={2.5sp} xAlign={self.align} yAlign={Align::Start} border={self.divider}
            @drop={self.onDrop}>
         <text $if={self.named} value={self.zone.label} textColor={DIM} textSize={SECONDARY_TEXT} />
         <$for={item of self.items}>

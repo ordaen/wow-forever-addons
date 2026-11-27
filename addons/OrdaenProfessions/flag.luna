@@ -33,8 +33,8 @@ public class Flag implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
-        <text value={self.label} textColor={Style.INK} wrap={.None} />
+      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align::Center}>
+        <text value={self.label} textColor={Style::INK} wrap={.None} />
         <Toggle value={mut self.value} disabled={self.disabled} />
       </box>
     }

@@ -18,24 +18,24 @@ struct Opening {
 
 function opening(window: Window): Opening {
   return match (window) {
-    .Character => { title: Locale.WINDOW_CHARACTER, icon: "Interface/Icons/INV_Chest_Cloth_17", line: "/click CharacterMicroButton" }
-    .Spellbook => { title: Locale.WINDOW_SPELLBOOK, icon: "Interface/Icons/INV_Misc_Book_09", line: "/click SpellbookMicroButton" }
-    .Talents => { title: Locale.WINDOW_TALENTS, icon: "Interface/Icons/Ability_Marksmanship", line: "/click TalentMicroButton" }
-    .Quests => { title: Locale.WINDOW_QUESTS, icon: "Interface/Icons/INV_Misc_Book_08", line: "/click QuestLogMicroButton" }
-    .Map => { title: Locale.WINDOW_MAP, icon: "Interface/Icons/INV_Misc_Map_01", line: "/run ToggleWorldMap()" }
-    .Social => { title: Locale.WINDOW_SOCIAL, icon: "Interface/Icons/INV_Letter_15", line: "/run ToggleFriendsFrame()" }
-    .Guild => { title: Locale.WINDOW_GUILD, icon: "Interface/Icons/INV_Shirt_GuildTabard_01", line: "/click GuildMicroButton" }
-    .GroupFinder => { title: Locale.WINDOW_GROUP_FINDER, icon: "Interface/Icons/INV_Misc_GroupLooking", line: "/click LFDMicroButton" }
-    .Calendar => { title: Locale.WINDOW_CALENDAR, icon: "Interface/Icons/INV_Misc_Note_02", line: "/run ToggleCalendar()" }
-    .Bags => { title: Locale.WINDOW_BAGS, icon: "Interface/Icons/INV_Misc_Bag_08", line: "/run ToggleAllBags()" }
-    .Settings => { title: Locale.WINDOW_SETTINGS, icon: "Interface/Icons/Trade_Engineering", line: nil }
-    .Placing => { title: Locale.WINDOW_PLACING, icon: "Interface/Icons/Ability_Hunter_Pathfinding", line: nil }
+    .Character => { title: Locale::WINDOW_CHARACTER, icon: "Interface/Icons/INV_Chest_Cloth_17", line: "/click CharacterMicroButton" }
+    .Spellbook => { title: Locale::WINDOW_SPELLBOOK, icon: "Interface/Icons/INV_Misc_Book_09", line: "/click SpellbookMicroButton" }
+    .Talents => { title: Locale::WINDOW_TALENTS, icon: "Interface/Icons/Ability_Marksmanship", line: "/click TalentMicroButton" }
+    .Quests => { title: Locale::WINDOW_QUESTS, icon: "Interface/Icons/INV_Misc_Book_08", line: "/click QuestLogMicroButton" }
+    .Map => { title: Locale::WINDOW_MAP, icon: "Interface/Icons/INV_Misc_Map_01", line: "/run ToggleWorldMap()" }
+    .Social => { title: Locale::WINDOW_SOCIAL, icon: "Interface/Icons/INV_Letter_15", line: "/run ToggleFriendsFrame()" }
+    .Guild => { title: Locale::WINDOW_GUILD, icon: "Interface/Icons/INV_Shirt_GuildTabard_01", line: "/click GuildMicroButton" }
+    .GroupFinder => { title: Locale::WINDOW_GROUP_FINDER, icon: "Interface/Icons/INV_Misc_GroupLooking", line: "/click LFDMicroButton" }
+    .Calendar => { title: Locale::WINDOW_CALENDAR, icon: "Interface/Icons/INV_Misc_Note_02", line: "/run ToggleCalendar()" }
+    .Bags => { title: Locale::WINDOW_BAGS, icon: "Interface/Icons/INV_Misc_Bag_08", line: "/run ToggleAllBags()" }
+    .Settings => { title: Locale::WINDOW_SETTINGS, icon: "Interface/Icons/Trade_Engineering", line: nil }
+    .Placing => { title: Locale::WINDOW_PLACING, icon: "Interface/Icons/Ability_Hunter_Pathfinding", line: nil }
   }
 }
 
 function openAction(window: Window): WheelAction {
   const line = opening(window).line
-  return line != nil ? WheelAction.MacroText { text: line } : WheelAction.Ours
+  return line != nil ? WheelAction.MacroText { text: line } : WheelAction::Ours
 }
 
 // A kind of ping: its name, the client's mark of it, and its number for `/ping` (the client reads a kind's name only
@@ -48,10 +48,10 @@ struct Pinging {
 
 function pinging(ping: Ping): Pinging {
   return match (ping) {
-    .Attack => { title: Locale.PING_ATTACK, icon: "Ping_Marker_Icon_Attack", number: 1 }
-    .Warning => { title: Locale.PING_WARNING, icon: "Ping_Marker_Icon_Warning", number: 2 }
-    .OnMyWay => { title: Locale.PING_ON_MY_WAY, icon: "Ping_Marker_Icon_OnMyWay", number: 3 }
-    .Assist => { title: Locale.PING_ASSIST, icon: "Ping_Marker_Icon_Assist", number: 4 }
+    .Attack => { title: Locale::PING_ATTACK, icon: "Ping_Marker_Icon_Attack", number: 1 }
+    .Warning => { title: Locale::PING_WARNING, icon: "Ping_Marker_Icon_Warning", number: 2 }
+    .OnMyWay => { title: Locale::PING_ON_MY_WAY, icon: "Ping_Marker_Icon_OnMyWay", number: 3 }
+    .Assist => { title: Locale::PING_ASSIST, icon: "Ping_Marker_Icon_Assist", number: 4 }
   }
 }
 
@@ -69,16 +69,16 @@ function markIcon(mark: Integer): Asset {
 
 // The client's icon of a spell the player has, by its name; none where the spellbook hasn't it.
 function spellIcon(spell: String): FileId | nil {
-  const icon, _, _ = Client.C_Spell.GetSpellTexture(spell)
+  const icon, _, _ = Client::C_Spell::GetSpellTexture(spell)
   return icon
 }
 
 function bagCount(item: Integer): Number {
-  return Client.C_Item.GetItemCount(item, nil, nil, nil, nil)
+  return Client::C_Item::GetItemCount(item, nil, nil, nil, nil)
 }
 
-const OUT_OF_RANGE: Color = Color.hex("#ff4040")
-const NO_POWER: Color = Color.hex("#4060ff")
+const OUT_OF_RANGE: Color = Color::hex("#ff4040")
+const NO_POWER: Color = Color::hex("#4060ff")
 // A cooldown shorter than this is the global one: no sweep for it.
 const GLOBAL_COOLDOWN = 1.5
 
@@ -92,13 +92,13 @@ function running(start: Number | nil, length: Number | nil): FillDuration | nil 
 // cooldown; dimmed where the spellbook hasn't it.
 function spellShown(spell: String): WheelItem {
   const icon = spellIcon(spell)
-  const charges = Client.C_Spell.GetSpellCharges(spell)
-  const usable, noPower = Client.C_Spell.IsSpellUsable(spell)
-  const inRange = Client.C_Spell.IsSpellInRange(spell, "target")
-  const cooldown = Client.C_Spell.GetSpellCooldown(spell)
+  const charges = Client::C_Spell::GetSpellCharges(spell)
+  const usable, noPower = Client::C_Spell::IsSpellUsable(spell)
+  const inRange = Client::C_Spell::IsSpellInRange(spell, "target")
+  const cooldown = Client::C_Spell::GetSpellCooldown(spell)
   return {
     name: spell, icon: icon ?? QUESTION, dim: icon == nil || !usable && !noPower,
-    count: charges != nil && charges.maxCharges > 1 ? String.of(charges.currentCharges) : "",
+    count: charges != nil && charges.maxCharges > 1 ? String::of(charges.currentCharges) : "",
     tone: inRange == false ? OUT_OF_RANGE : noPower ? NO_POWER : nil,
     cooldown: running(cooldown?.startTime, cooldown?.duration), segments: 0, segment: 0
   }
@@ -108,18 +108,18 @@ function spellShown(spell: String): WheelItem {
 // player hasn't it.
 function bagShown(item: Integer): WheelItem {
   const count = bagCount(item)
-  const inRange = Client.C_Item.IsItemInRange(item, "target")
-  const start, length, _ = Client.C_Item.GetItemCooldown(item)
+  const inRange = Client::C_Item::IsItemInRange(item, "target")
+  const start, length, _ = Client::C_Item::GetItemCooldown(item)
   return {
-    name: Client.C_Item.GetItemNameByID(item) ?? String.of(item), icon: Client.C_Item.GetItemIconByID(item) ?? QUESTION,
-    dim: count < 1, count: count > 1 ? String.of(count.floor()) : "",
+    name: Client::C_Item::GetItemNameByID(item) ?? String::of(item), icon: Client::C_Item::GetItemIconByID(item) ?? QUESTION,
+    dim: count < 1, count: count > 1 ? String::of(count.floor()) : "",
     tone: inRange == false ? OUT_OF_RANGE : nil, cooldown: running(start, length), segments: 0, segment: 0
   }
 }
 
 // A macro of the player's: its own icon; dimmed where the player has none so named.
 function macroShown(macro: String): WheelItem {
-  const name, icon, _ = Client.GetMacroInfo(macro)
+  const name, icon, _ = Client::GetMacroInfo(macro)
   return plainItem(macro, icon ?? QUESTION, name == nil)
 }
 
@@ -132,15 +132,15 @@ public function shown(item: Item, offer: RadialOffer | nil, emotes: Map<String, 
     .Bag => bagShown(item.item)
     .Macro => macroShown(item.macro)
     .Open => plainItem(opening(item.window).title, opening(item.window).icon, false)
-    .RaidMark => plainItem(Locale.MARK.format(item.mark), markIcon(item.mark), false)
-    .WorldMark => plainItem(Locale.WORLD_MARK.format(item.mark), markIcon(item.mark), false)
+    .RaidMark => plainItem(Locale::MARK.format(item.mark), markIcon(item.mark), false)
+    .WorldMark => plainItem(Locale::WORLD_MARK.format(item.mark), markIcon(item.mark), false)
     .Pinged => plainItem(pinging(item.ping).title, pinging(item.ping).icon, false)
     .Line => plainItem(item.title, item.icon, false)
     // An emote the client hasn't: its token, dimmed.
     .Emote => plainItem(emotes[item.token] ?? item.token, nil, emotes[item.token] == nil)
     .Menu => plainItem(item.title, item.icon, false)
     .Slot => plainItem(item.title, item.icon, false)
-    .Professions => plainItem(Locale.RING_PROFESSIONS, QUESTION, true)
+    .Professions => plainItem(Locale::RING_PROFESSIONS, QUESTION, true)
     .Kind => offer != nil ? plainItem(offer.name, offer.icon, offer.dim) : plainItem(item.kind, QUESTION, true)
   }
 }
@@ -148,7 +148,7 @@ public function shown(item: Item, offer: RadialOffer | nil, emotes: Map<String, 
 // What an item does; a kind of another module's what it offers now (none: nothing).
 public function actionOf(item: Item, offer: RadialOffer | nil): WheelAction {
   return match (item) {
-    .Empty, .Professions => WheelAction.Ours
+    .Empty, .Professions => WheelAction::Ours
     .Spell => .Spell { spell: item.spell }
     .Bag => .Item { item: item.item }
     .Macro => .Macro { macro: item.macro }
@@ -159,9 +159,9 @@ public function actionOf(item: Item, offer: RadialOffer | nil): WheelAction {
     .Line => .MacroText { text: item.line }
     // By its token: two emotes may share a command, never a token.
     .Emote => .MacroText { text: `/run DoEmote("${item.token}")` }
-    .Menu => WheelAction.Menu
+    .Menu => WheelAction::Menu
     .Slot => .Slot { mode: item.mode }
-    .Kind => offer?.action ?? WheelAction.Ours
+    .Kind => offer?.action ?? WheelAction::Ours
   }
 }
 
@@ -189,5 +189,5 @@ public function inForm(action: WheelAction, form: Integer): WheelAction {
 // What the client refuses in a fight: the windows of ours that change what a fight locks (placing the frames, the
 // settings that bind keys).
 public function refusesInFight(item: Item): Boolean {
-  return item is Item.Open && (item.window == Window.Placing || item.window == Window.Settings)
+  return item is Item::Open && (item.window == Window::Placing || item.window == Window::Settings)
 }

@@ -24,9 +24,9 @@ const SIDEBAR_LEAST: Bounds = { min: 240dp }
 const WELL_ROOM: Number<Spacing> = 3sp
 // The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
 // copper; their words light on both.
-public const HEARD_FILL: Color = Color.hex("#3d2e24e6")
-public const TOLD_FILL: Color = Color.hex("#8c4d2ed6")
-const INK: Color = Color.hex("#e8dcc4")
+public const HEARD_FILL: Color = Color::hex("#3d2e24e6")
+public const TOLD_FILL: Color = Color::hex("#8c4d2ed6")
+const INK: Color = Color::hex("#e8dcc4")
 // Room above a bubble: little inside a group, more where a group starts.
 const IN_GROUP: Edges = { top: 1sp }
 const NEW_GROUP: Edges = { top: 3sp }
@@ -35,10 +35,10 @@ const GROUP_SECONDS = 120
 // A bubble's width against the rest of its row: three quarters.
 const HEARD_COLUMNS: Array<Track> = [{ fr: 3 }, { fr: 1 }]
 const TOLD_COLUMNS: Array<Track> = [{ fr: 1 }, { fr: 3 }]
-const WHISPER: Color = Color.hex("#ff80ff")
-const BATTLE_NET: Color = Color.hex("#00fff6")
-const PICKED: Color = Color.hex("#2a1c10e6")
-const HINT: Color = Color.hex("#857a66")
+const WHISPER: Color = Color::hex("#ff80ff")
+const BATTLE_NET: Color = Color::hex("#00fff6")
+const PICKED: Color = Color::hex("#2a1c10e6")
+const HINT: Color = Color::hex("#857a66")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A name whole, its level right after it; a Battle.net friend's character close under the account's name.
 const NAME_AND_LEVEL: Array<Track> = [MAX, MAX]
@@ -56,7 +56,7 @@ public struct Bubbled {
 }
 
 // A level after a name (`25lvl`); none where it isn't known.
-function levelText(level: Integer): String { return level > 0 ? Locale.ROW_LEVEL.format(level) : "" }
+function levelText(level: Integer): String { return level > 0 ? Locale::ROW_LEVEL.format(level) : "" }
 
 // A conversation's partner as its name alone says it.
 function unknownWho(talk: Talk): TalkWho { return { name: talk.partner, classFile: "", level: 0, hero: nil } }
@@ -85,18 +85,18 @@ function bubblesOf(lines: Array<TalkLine>): Array<Bubbled> {
 // secret line
 // stands one line high, so nothing of it is measured.
 public class Bubble implements Component {
-  public link: Event<Event.Link> = new Event()
+  public link: Event<Event::Link> = new Event()
 
   derived mine: Boolean = self.item.line.mine
   derived columns: Array<Track> = self.mine ? TOLD_COLUMNS : HEARD_COLUMNS
-  derived side: Align = self.mine ? Align.End : Align.Start
+  derived side: Align = self.mine ? Align::End : Align::Start
   derived fill: Color = self.mine ? TOLD_FILL : HEARD_FILL
   derived above: Edges = self.item.starts ? NEW_GROUP : IN_GROUP
-  derived time: String = timeText(Game.clock.timeAt(self.item.line.time.floor()))
+  derived time: String = timeText(Game::clock.timeAt(self.item.line.time.floor()))
   // A line kept from before sessions were told apart is named by its own time.
   derived began: Integer = (self.item.line.session != 0 ? self.item.line.session : self.item.line.time).floor()
   // The tail under the group's last bubble, at its side.
-  derived tail: BubbleTail = !self.item.ends ? BubbleTail.None : self.mine ? BubbleTail.End : BubbleTail.Start
+  derived tail: BubbleTail = !self.item.ends ? BubbleTail::None : self.mine ? BubbleTail::End : BubbleTail::Start
 
   item: Signal<Bubbled>
   lineHeight: Signal<Number<Length>>
@@ -105,7 +105,7 @@ public class Bubble implements Component {
     self.lineHeight = lineHeight
   }
 
-  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+  onLink(mut self, link: Event::Link) { self.link.emit(link) }
 
   public render(self): Template {
     return $ltml {
@@ -119,7 +119,7 @@ public class Bubble implements Component {
           <box xAlignSelf={self.side}>
             <SpeechBubble tone={self.fill} tail={self.tail}>
               <box @linkPress={self.onLink}>
-                <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow.Hidden}>
+                <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow::Hidden}>
                   <text value={self.item.line.whole} secret={true} textColor={INK} wrap={.None} />
                 </box>
                 <text $else value={self.item.line.whole} textColor={INK} />
@@ -165,22 +165,22 @@ public class TalkRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, COUNT_ROOM]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
+      <box columns={[{ fr: 1 }, COUNT_ROOM]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align::Center}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
         <box columns={1} leading={.Tight} gap={NAME_LINES_GAP}>
-          <box columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
+          <box columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align::Center}>
             <text value={self.who.name} textColor={self.color} wrap={.None} />
             <text $if={self.level != ""} value={self.level} textColor={HINT} textFont={.Numbers} wrap={.None} />
           </box>
-          <box $if={self.hero != nil} columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
+          <box $if={self.hero != nil} columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align::Center}>
             <text value={self.hero?.name ?? ""} textColor={self.heroColor} textSize={SECONDARY_TEXT} wrap={.None} />
             <text $if={self.heroLevel != ""} value={self.heroLevel} textColor={HINT} textFont={.Numbers} textSize={SECONDARY_TEXT}
                   wrap={.None} />
           </box>
         </box>
-        <box yAlign={Align.Center}>
-          <box $if={self.waiting} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} yAlign={Align.Center}>
+        <box yAlign={Align::Center}>
+          <box $if={self.waiting} position={Position::Absolute} top={0ui} right={0ui} bottom={0ui} yAlign={Align::Center}>
             <CountBadge count={self.talk.unread} tone={WHISPER} />
           </box>
         </box>
@@ -193,12 +193,12 @@ public class TalkRow implements Component {
 // brings it back with them) and clearing its lines.
 public enum TalkAction { Close = "close", Clear = "clear" }
 
-const TALK_ACTIONS: Array<TalkAction> = [TalkAction.Close, TalkAction.Clear]
+const TALK_ACTIONS: Array<TalkAction> = [TalkAction::Close, TalkAction::Clear]
 
 function talkLabel(action: TalkAction): String {
   return match (action) {
-    .Close => Locale.TALK_CLOSE
-    .Clear => Locale.TALK_CLEAR
+    .Close => Locale::TALK_CLOSE
+    .Clear => Locale::TALK_CLEAR
   }
 }
 
@@ -219,7 +219,7 @@ public class Whispers implements Component {
   public start: Event<String> = new Event()
   // The words typed in the open conversation, Enter pressed: in the key's own call, where the client sends them.
   public send: Event<String> = new Event()
-  public link: Event<Event.Link> = new Event()
+  public link: Event<Event::Link> = new Event()
 
   state name = ""
   state draft = ""
@@ -296,14 +296,14 @@ public class Whispers implements Component {
     self.send.emit(text)
   }
 
-  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+  onLink(mut self, link: Event::Link) { self.link.emit(link) }
 
   // The wheel scrolls three lines; with Shift, to the oldest or the newest.
-  onWheel(mut self, wheel: Event.Wheel) {
+  onWheel(mut self, wheel: Event::Wheel) {
     const talk = peek self.open
     if (talk == nil) { return }
     const most = (0).max(talk.lines.length - 1)
-    const shift = Game.input.shiftDown()
+    const shift = Game::input.shiftDown()
     if (wheel.direction == .Up) {
       self.back = shift ? most : most.min((peek self.back) + STEP)
     } else {
@@ -315,8 +315,8 @@ public class Whispers implements Component {
     return $ltml {
       <box columns={SIDEBAR_AND_TALK} rows={[{ fr: 1 }]} gap={3sp}>
         <box rows={[MAX, { fr: 1 }]} gap={2sp} width={SIDEBAR_LEAST}>
-          <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
-          <box columns={1} overflow={Overflow.Scroll}>
+          <Field value={mut self.name} maxLength={60} placeholder={Locale::WHISPER_TO} @submit={self.onStart} />
+          <box columns={1} overflow={Overflow::Scroll}>
             <TalkRow $for={talk of self.talks} $key={talk.key} talk={talk} who={self.who[talk.key] ?? unknownWho(talk)}
                      open={talk.key == self.openKey}
                      @pick={self.onPick} @menu={self.onMenu} />
@@ -328,16 +328,16 @@ public class Whispers implements Component {
           // The conversation sunk in a well, as the chat's lines stand in their frame: its rim the line between it and
           // the list, its floor its own. The newest line at the bottom; older ones go up past the top, which cuts them.
           <box border={Ordaen.art.ctl.well.rim} background={Ordaen.art.ctl.well.floor} padding={WELL_ROOM} rows={[{ fr: 1 }]}>
-            <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
-              <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+            <box overflow={Overflow::Hidden} @wheel={self.onWheel}>
+              <box position={Position::Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
                 <Bubble $for={item of self.bubbles} item={item} lineHeight={Ordaen.lengthOf(BODY_LINE)} @link={self.onLink} />
               </box>
-              <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-                <text value={Locale.WHISPER_NONE} textColor={HINT} wrap={.None} />
+              <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
+                <text value={Locale::WHISPER_NONE} textColor={HINT} wrap={.None} />
               </box>
             </box>
           </box>
-          <Field value={mut self.draft} maxLength={255} placeholder={Locale.WHISPER_TYPE} disabled={self.empty}
+          <Field value={mut self.draft} maxLength={255} placeholder={Locale::WHISPER_TYPE} disabled={self.empty}
                  @submit={self.onSend} />
         </box>
       </box>

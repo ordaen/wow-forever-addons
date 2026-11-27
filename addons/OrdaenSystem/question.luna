@@ -25,10 +25,10 @@ function firstOf(changes: Array<GameChange>): Array<GameChange> {
 
 public class ProfileQuestion implements Component {
   derived asked: Boolean = self.keeping.asking.length > 0
-  derived text: String = Locale.GAME_CHANGES_TEXT.format(self.keeping.asking.length)
+  derived text: String = Locale::GAME_CHANGES_TEXT.format(self.keeping.asking.length)
   derived listed: Array<GameChange> = firstOf(self.keeping.asking)
   derived more: Integer = self.keeping.asking.length - self.listed.length
-  derived moreText: String = Locale.GAME_CHANGES_MORE.format(self.more)
+  derived moreText: String = Locale::GAME_CHANGES_MORE.format(self.more)
 
   const keeping: mut GameKeeping
   constructor(keeping: mut GameKeeping) {
@@ -40,17 +40,17 @@ public class ProfileQuestion implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Dialog $if={self.asked} title={Locale.GAME_CHANGES_TITLE} width={WIDTH}>
+      <Dialog $if={self.asked} title={Locale::GAME_CHANGES_TITLE} width={WIDTH}>
         <box gap={2sp}>
-          <text value={self.text} textColor={Style.INK} />
-          <box $for={change of self.listed} columns={ROW} gap={6sp} yAlign={Align.Center}>
-            <text value={change.label} textColor={Style.INK} wrap={.Cut} />
-            <text value={`${change.from} → ${change.to}`} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={self.text} textColor={Style::INK} />
+          <box $for={change of self.listed} columns={ROW} gap={6sp} yAlign={Align::Center}>
+            <text value={change.label} textColor={Style::INK} wrap={.Cut} />
+            <text value={`${change.from} → ${change.to}`} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
-          <text $if={self.more > 0} value={self.moreText} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <text $if={self.more > 0} value={self.moreText} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <PushButton #buttons label={Locale.GAME_KEEP_GAME} width={BUTTON} @click={self.onKeep} />
-        <PushButton #buttons label={Client.APPLY} width={BUTTON} @click={self.onApply} />
+        <PushButton #buttons label={Locale::GAME_KEEP_GAME} width={BUTTON} @click={self.onKeep} />
+        <PushButton #buttons label={Client::APPLY} width={BUTTON} @click={self.onApply} />
       </Dialog>
     }
   }

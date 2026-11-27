@@ -17,7 +17,7 @@ import { Tab, tabOf } from "@/model"
 import { Choices } from "@/pane"
 
 // The player's screen: 2470 by 1054.
-const SCREEN: Test.Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
 const FOOT: FileId = 133854
 const SWORD: FileId = 135274
 const CLOTH: FileId = 132889
@@ -58,11 +58,11 @@ class World {
 
   public size(self, bag: Integer): Integer { return bag == 0 ? 16 : bag == BANK ? 4 : 0 }
 
-  public bag(self, bag: Integer): Game.BagInfo {
+  public bag(self, bag: Integer): Game::BagInfo {
     return { bag: bag, item: nil, name: bag == 0 ? "Backpack" : "", icon: nil, slots: self.size(bag), general: true }
   }
 
-  public read(self, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  public read(self, bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
     const item = self.items.find(lying => lying.bag == bag && lying.slot == slot)
     if (item == nil) {
       into.id = 0
@@ -109,17 +109,17 @@ function carried(): mut Array<mut Lies> {
   ]
 }
 
-function bags(): Test.Part {
-  return Test.page().window(Locale.TITLE)
+function bags(): Test::Part {
+  return Test::page().window(Locale::TITLE)
 }
 
 // The bank's window, at a banker.
-function bank(): Test.Part {
-  return Test.page().window(Locale.BANK)
+function bank(): Test::Part {
+  return Test::page().window(Locale::BANK)
 }
 
 // An item as a rule reads it.
-function goods(quality: Integer, kind: Integer, level: Integer, price: Integer, worn: String, subkind: Integer): Game.SlotItem {
+function goods(quality: Integer, kind: Integer, level: Integer, price: Integer, worn: String, subkind: Integer): Game::SlotItem {
   return {
     id: 7, count: 1, quality: quality, icon: nil, name: "", link: "", level: level, kind: kind, subkind: subkind,
     subkindName: "", worn: worn, bound: false, locked: false, isNew: false, price: price
@@ -129,49 +129,49 @@ function goods(quality: Integer, kind: Integer, level: Integer, price: Integer, 
 // The verdict
 
 test "a grey item a merchant buys is junk; one he gives nothing for, or the rule off, isn't" {
-  Test.expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == Why.Grey)
-  Test.expect(junkWhy(goods(0, 15, 1, 0, "", 0), NO_LISTS, JUNK_RULES) == nil)
-  Test.expect(junkWhy(goods(1, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == nil)
-  Test.expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, { grey: false, ..JUNK_RULES }) == nil)
+  Test::expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == Why::Grey)
+  Test::expect(junkWhy(goods(0, 15, 1, 0, "", 0), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(1, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, { grey: false, ..JUNK_RULES }) == nil)
 }
 
 test "grey gear is junk only above the level the setting says; a tabard, a shirt and a fishing pole never by a rule" {
-  Test.expect(junkWhy(goods(0, 2, 10, 10, "", 7), NO_LISTS, JUNK_RULES) == nil)
-  Test.expect(junkWhy(goods(0, 2, 11, 10, "", 7), NO_LISTS, JUNK_RULES) == Why.Grey)
-  Test.expect(junkWhy(goods(0, 4, 11, 10, "", 1), NO_LISTS, JUNK_RULES) == Why.Grey)
-  Test.expect(junkWhy(goods(0, 4, 30, 10, "INVTYPE_TABARD", 0), NO_LISTS, JUNK_RULES) == nil)
-  Test.expect(junkWhy(goods(0, 4, 30, 10, "INVTYPE_BODY", 0), NO_LISTS, JUNK_RULES) == nil)
-  Test.expect(junkWhy(goods(0, 2, 30, 10, "", 20), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(0, 2, 10, 10, "", 7), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(0, 2, 11, 10, "", 7), NO_LISTS, JUNK_RULES) == Why::Grey)
+  Test::expect(junkWhy(goods(0, 4, 11, 10, "", 1), NO_LISTS, JUNK_RULES) == Why::Grey)
+  Test::expect(junkWhy(goods(0, 4, 30, 10, "INVTYPE_TABARD", 0), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(0, 4, 30, 10, "INVTYPE_BODY", 0), NO_LISTS, JUNK_RULES) == nil)
+  Test::expect(junkWhy(goods(0, 2, 30, 10, "", 20), NO_LISTS, JUNK_RULES) == nil)
 }
 
 test "the player's mark decides first: «not junk» beats the rules, «junk» makes anything junk; then what was learned" {
   const grey = goods(0, 15, 1, 10, "", 0)
   const white = goods(1, 15, 1, 10, "", 0)
-  Test.expect(junkWhy(grey, withMark(NO_LISTS, 7, .Keep), JUNK_RULES) == nil)
-  Test.expect(junkWhy(white, withMark(NO_LISTS, 7, .Junk), JUNK_RULES) == Why.Marked)
-  Test.expect(junkWhy(white, withScore(NO_LISTS, 7, 0.6), JUNK_RULES) == Why.Learned)
-  Test.expect(junkWhy(white, withScore(NO_LISTS, 7, LEARNED), JUNK_RULES) == nil)
-  Test.expect(junkWhy(white, withScore(withMark(NO_LISTS, 7, .Keep), 7, 0.9), JUNK_RULES) == nil)
+  Test::expect(junkWhy(grey, withMark(NO_LISTS, 7, .Keep), JUNK_RULES) == nil)
+  Test::expect(junkWhy(white, withMark(NO_LISTS, 7, .Junk), JUNK_RULES) == Why::Marked)
+  Test::expect(junkWhy(white, withScore(NO_LISTS, 7, 0.6), JUNK_RULES) == Why::Learned)
+  Test::expect(junkWhy(white, withScore(NO_LISTS, 7, LEARNED), JUNK_RULES) == nil)
+  Test::expect(junkWhy(white, withScore(withMark(NO_LISTS, 7, .Keep), 7, 0.9), JUNK_RULES) == nil)
   // A mark taken away leaves the rules to decide.
-  Test.expect(junkWhy(grey, withMark(withMark(NO_LISTS, 7, .Keep), 7, nil), JUNK_RULES) == Why.Grey)
+  Test::expect(junkWhy(grey, withMark(withMark(NO_LISTS, 7, .Keep), 7, nil), JUNK_RULES) == Why::Grey)
 }
 
 // Learning
 
 test "a sale moves the score toward 1 by the share of a stack, a buyback twice as far back" {
-  Test.expect((afterSale(0, 1) - 0.382).abs() < 0.0001)
-  Test.expect((afterSale(0.382, 1) - 0.618076).abs() < 0.0001)
-  Test.expect((afterSale(0, shareOf(5, 20)) - 0.0955).abs() < 0.0001)
-  Test.expect((afterBuyback(0.6, 1) - 0.1416).abs() < 0.0001)
-  Test.expect(shareOf(40, 20) == 1 && shareOf(1, 0) == 1)
+  Test::expect((afterSale(0, 1) - 0.382).abs() < 0.0001)
+  Test::expect((afterSale(0.382, 1) - 0.618076).abs() < 0.0001)
+  Test::expect((afterSale(0, shareOf(5, 20)) - 0.0955).abs() < 0.0001)
+  Test::expect((afterBuyback(0.6, 1) - 0.1416).abs() < 0.0001)
+  Test::expect(shareOf(40, 20) == 1 && shareOf(1, 0) == 1)
 }
 
 test "a score below the tenth is forgotten, and past the cap the lowest leaves" {
-  Test.expect(withScore(NO_LISTS, 7, 0.09).learned[7] == nil)
+  Test::expect(withScore(NO_LISTS, 7, 0.09).learned[7] == nil)
   let lists: JunkLists = NO_LISTS
   for (id of 1..MOST_LEARNED) { lists = withScore(lists, id, 0.2 + id / 1000) }
   lists = withScore(lists, 5000, 0.9)
-  Test.expect(lists.learned[1] == nil && lists.learned[2] != nil && lists.learned[5000] != nil)
+  Test::expect(lists.learned[1] == nil && lists.learned[2] != nil && lists.learned[5000] != nil)
 }
 
 test "past the cap of marks the one given longest ago leaves" {
@@ -180,22 +180,22 @@ test "past the cap of marks the one given longest ago leaves" {
   // The first marked is marked again: the second is the oldest now.
   lists = withMark(lists, 1, .Keep)
   lists = withMark(lists, 5000, .Junk)
-  Test.expect(lists.marks[1]?.mark == Mark.Keep && lists.marks[2] == nil && lists.marks[5000] != nil)
+  Test::expect(lists.marks[1]?.mark == Mark::Keep && lists.marks[2] == nil && lists.marks[5000] != nil)
 }
 
 // The window
 
 test "a junk slot carries a coin, and the «Junk» tab counts it" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Test.expect(bags().button(FOOT).paintedWith(COIN) && !bags().button(SWORD).paintedWith(COIN))
-  Test.expect(bags().button("Junk").texts().join(" | ") == "Junk | 1")
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Test::expect(bags().button(FOOT).paintedWith(COIN) && !bags().button(SWORD).paintedWith(COIN))
+  Test::expect(bags().button("Junk").texts().join(" | ") == "Junk | 1")
 }
 
 test "a grey item read before the client loaded it is judged again once it is: the coin comes" {
@@ -203,17 +203,17 @@ test "a grey item read before the client loaded it is judged again once it is: t
   const foot = lying[1] ?? panic("the foot")
   foot.loaded = false
   const world = new World(lying)
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Test.expect(!bags().button(FOOT).paintedWith(COIN))
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Test::expect(!bags().button(FOOT).paintedWith(COIN))
   foot.loaded = true
-  Game.bags.loaded.emit(3300)
-  Test.expect(bags().button(FOOT).paintedWith(COIN))
+  Game::bags.loaded.emit(3300)
+  Test::expect(bags().button(FOOT).paintedWith(COIN))
 }
 
 test "a quest's item carries the game's quest border, one that starts a quest not yet taken its «!»" {
@@ -222,18 +222,18 @@ test "a quest's item carries the game's quest border, one that starts a quest no
     { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, questItem: true, startsQuest: true },
     { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, kind: 7 }
   ])
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
   const border: Asset = "Interface/ContainerFrame/UI-Icon-QuestBorder"
   const bang: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
-  Test.expect(bags().button(FOOT).paintedWith(border) && !bags().button(FOOT).paintedWith(bang))
-  Test.expect(bags().button(SWORD).paintedWith(bang) && !bags().button(SWORD).paintedWith(border))
-  Test.expect(!bags().button(CLOTH).paintedWith(border) && !bags().button(CLOTH).paintedWith(bang))
+  Test::expect(bags().button(FOOT).paintedWith(border) && !bags().button(FOOT).paintedWith(bang))
+  Test::expect(bags().button(SWORD).paintedWith(bang) && !bags().button(SWORD).paintedWith(border))
+  Test::expect(!bags().button(CLOTH).paintedWith(border) && !bags().button(CLOTH).paintedWith(bang))
 }
 
 test "gear worth more to the player's spec than what it wears carries the game's green arrow; the rest none" {
@@ -241,273 +241,273 @@ test "gear worth more to the player's spec than what it wears carries the game's
     { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
     { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 4, subkind: 1 }
   ])
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
   // The priest wears nothing on its hands; the gloves give intellect.
-  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
     return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
   }
   let given: Map<String, Number> = {}
   given["ITEM_MOD_INTELLECT_SHORT"] = 10
-  Client.C_Item.GetItemStats = (link: String): Unknown => given
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW) && !bags().button(FOOT).paintedWith(UPGRADE_ARROW))
+  Client::C_Item::GetItemStats = (link: String): Unknown => given
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Test::expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW) && !bags().button(FOOT).paintedWith(UPGRADE_ARROW))
 }
 
 test "the green arrow follows the gear: better gloves put on take it from the bags' gloves, taken off give it back" {
   const world = new World([{ bag: 0, slot: 1, id: 25, name: "Worn Gloves", icon: SWORD, kind: 4, subkind: 1 }])
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
     return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
   }
   // The gloves worn give twice the bags' intellect.
-  Client.C_Item.GetItemStats = (link: String): Unknown => {
+  Client::C_Item::GetItemStats = (link: String): Unknown => {
     const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:worn" ? 20 : 10 }
     return stats
   }
   let wearing = false
-  Client.GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == HANDS ? "item:worn" : nil
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
+  Client::GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == HANDS ? "item:worn" : nil
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Test::expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
   wearing = true
-  Test.event("PLAYER_EQUIPMENT_CHANGED", HANDS, false)
-  Test.expect(!bags().button(SWORD).paintedWith(UPGRADE_ARROW))
+  Test::event("PLAYER_EQUIPMENT_CHANGED", HANDS, false)
+  Test::expect(!bags().button(SWORD).paintedWith(UPGRADE_ARROW))
   wearing = false
-  Test.event("PLAYER_EQUIPMENT_CHANGED", HANDS, true)
-  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
+  Test::event("PLAYER_EQUIPMENT_CHANGED", HANDS, true)
+  Test::expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW))
 }
 
 test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  _ = Test.printed()
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  _ = Test::printed()
   bags().button(FOOT).rightClick()
-  Test.expect(Test.page().text("Junk: a grey item a merchant buys").shown())
-  Test.page().button("Not junk").click()
-  Test.expect(!bags().button(FOOT).paintedWith(COIN) && bags().text("Junk").item().texts().join(" | ") == "Junk | 0")
-  Test.expect(Test.printed().join("/") == "|cffe8c35aInventory:|r [Rabbit's Foot]: not junk.")
+  Test::expect(Test::page().text("Junk: a grey item a merchant buys").shown())
+  Test::page().button("Not junk").click()
+  Test::expect(!bags().button(FOOT).paintedWith(COIN) && bags().text("Junk").item().texts().join(" | ") == "Junk | 0")
+  Test::expect(Test::printed().join("/") == "|cffe8c35aInventory:|r [Rabbit's Foot]: not junk.")
 }
 
 test "«Mark as junk» makes any item junk, and «As the rules decide» takes the mark away" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
   bags().button(CLOTH).rightClick()
-  Test.page().button("Mark as junk").click()
-  Test.expect(bags().button(CLOTH).paintedWith(COIN))
+  Test::page().button("Mark as junk").click()
+  Test::expect(bags().button(CLOTH).paintedWith(COIN))
   bags().button(CLOTH).rightClick()
-  Test.page().button("As the rules decide").click()
-  Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+  Test::page().button("As the rules decide").click()
+  Test::expect(!bags().button(CLOTH).paintedWith(COIN))
 }
 
 test "a sale by hand at a merchant is said in the chat, and two of a full stack make the item junk" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  Game.bags.send = (bag: Integer, slot: Integer): Boolean => {
-    Test.asked("Bags.send", bag, slot)
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  Game::bags.send = (bag: Integer, slot: Integer): Boolean => {
+    Test::asked("Bags.send", bag, slot)
     return true
   }
-  _ = Test.printed()
-  _ = Test.requests()
+  _ = Test::printed()
+  _ = Test::requests()
   // The client's coin bag over a slot at a merchant, as the game's own bags show it.
   bags().button(CLOTH).hover()
-  Test.expect(Test.cursor() == "BUY_CURSOR")
+  Test::expect(Test::cursor() == "BUY_CURSOR")
   bags().button(CLOTH).click()
   // Sold by the bags themselves: the client's secure use would equip what can be worn.
-  Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.send 0 3"))
+  Test::expect(Test::performed().length == 0 && Test::requests().join(", ").contains("Bags.send 0 3"))
   world.take(0, 3)
-  Game.bags.updated.emit(0)
-  Test.expect(!bags().button(CLOTH).shown())
+  Game::bags.updated.emit(0)
+  Test::expect(!bags().button(CLOTH).shown())
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
-  Game.bags.updated.emit(0)
-  Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+  Game::bags.updated.emit(0)
+  Test::expect(!bags().button(CLOTH).paintedWith(COIN))
   bags().button(CLOTH).click()
   world.take(0, 3)
-  Game.bags.updated.emit(0)
+  Game::bags.updated.emit(0)
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
-  Game.bags.updated.emit(0)
-  Test.expect(bags().button(CLOTH).paintedWith(COIN))
+  Game::bags.updated.emit(0)
+  Test::expect(bags().button(CLOTH).paintedWith(COIN))
 }
 
 // The merchant takes what the bags send it (the fake writes the ask).
 function merchantSells() {
-  Game.bags.send = (bag: Integer, slot: Integer): Boolean => true
+  Game::bags.send = (bag: Integer, slot: Integer): Boolean => true
 }
 
 test "a click that sold nothing teaches nothing" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  _ = Test.printed()
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  _ = Test::printed()
   bags().button(CLOTH).click()
-  Game.bags.updated.emit(0)
-  Test.expect(Test.printed().length == 0)
+  Game::bags.updated.emit(0)
+  Test::expect(Test::printed().length == 0)
 }
 
 test "«Sell junk» shows at a merchant while there is junk, and sells it in the click" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
   merchantSells()
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Test.expect(!bags().button("Sell junk").shown())
-  Game.bags.place = Game.BagPlace.Merchant
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Test::expect(!bags().button("Sell junk").shown())
+  Game::bags.place = Game::BagPlace::Merchant
+  _ = Test::requests()
   bags().button("Sell junk").click()
-  Test.expect(Test.requests().join(", ") == "Bags.send 0 1")
-  Test.expect(Test.printed().join("\n").contains("sold junk: 1 for"))
+  Test::expect(Test::requests().join(", ") == "Bags.send 0 1")
+  Test::expect(Test::printed().join("\n").contains("sold junk: 1 for"))
 }
 
 test "«Sell junk» that sells nothing while junk shows says why for each slot: a fault the game's errors show" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Game.bags.send = (bag: Integer, slot: Integer): Boolean => false
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  _ = Test.printed()
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Game::bags.send = (bag: Integer, slot: Integer): Boolean => false
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  _ = Test::printed()
   bags().button("Sell junk").click()
-  Test.expect(Test.printed().length == 0)
-  const errors = Test.errors()
-  Test.expect(errors.length == 1 && (errors[1] ?? "").contains("«Sell junk» sold nothing: 0/1 refused at merchant"))
+  Test::expect(Test::printed().length == 0)
+  const errors = Test::errors()
+  Test::expect(errors.length == 1 && (errors[1] ?? "").contains("«Sell junk» sold nothing: 0/1 refused at merchant"))
 }
 
 test "the junk is sold as a merchant's window opens; with «Sell junk at merchants» off it stays" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Client.CanGuildBankRepair = (): Boolean => false
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Client::CanGuildBankRepair = (): Boolean => false
   merchantSells()
-  Test.mount(nil, SCREEN)
-  Game.bags.place = Game.BagPlace.Merchant
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Game::bags.place = Game::BagPlace::Merchant
+  _ = Test::requests()
   // The merchant opens the bags with its window, as the game's does.
-  Events.MERCHANT_SHOW.emit()
-  Game.bags.open = true
-  Test.flush()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
-  Events.MERCHANT_CLOSED.emit()
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Events::MERCHANT_SHOW.emit()
+  Game::bags.open = true
+  Test::flush()
+  Test::expect(Test::requests().join(", ").contains("Bags.send 0 1"))
+  Events::MERCHANT_CLOSED.emit()
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Inventory").click()
   settings.button("Convenience").click()
   settings.button("Sell junk at merchants").click()
-  Test.key(Key.Escape)
-  _ = Test.requests()
-  Events.MERCHANT_SHOW.emit()
-  Test.flush()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Test::key(Key::Escape)
+  _ = Test::requests()
+  Events::MERCHANT_SHOW.emit()
+  Test::flush()
+  Test::expect(!Test::requests().join(", ").contains("Bags.send"))
 }
 
 // The clicks
 
 test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
-  Test.expect(actionAt(OURS, .Left) == SlotAction.Use)
-  Test.expect(actionAt(OURS, .Right) == SlotAction.Menu)
+  Test::expect(actionAt(OURS, .Left) == SlotAction::Use)
+  Test::expect(actionAt(OURS, .Right) == SlotAction::Menu)
   const ours = useClickOf(OURS)
-  Test.expect(ours.chord == MouseButton.Left)
+  Test::expect(ours.chord == MouseButton::Left)
   const game = useClickOf(AS_THE_GAME)
-  Test.expect(game.chord == MouseButton.Right)
+  Test::expect(game.chord == MouseButton::Right)
   const moved = useClickOf({ left: .Menu, shiftRight: .Use, ..OURS }).chord
-  Test.expect(moved is [Modifier, MouseButton] && moved[1] == Modifier.Shift && moved[2] == MouseButton.Right)
-  Test.expect(chordFor(OURS, .Protect) == nil && chordFor(AS_THE_GAME, .Protect) == Chord.AltLeft)
+  Test::expect(moved is [Modifier, MouseButton] && moved[1] == Modifier::Shift && moved[2] == MouseButton::Right)
+  Test::expect(chordFor(OURS, .Protect) == nil && chordFor(AS_THE_GAME, .Protect) == Chord::AltLeft)
 }
 
 test "Shift+left set to Pick up picks the item up, and the right opens the menu, which offers no pick up: neither is the client's use" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
   Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
-  _ = Test.requests()
-  Test.hold([.Shift])
-  Test.hold([.Shift])
-  Test.hold([.Shift])
+  _ = Test::requests()
+  Test::hold([.Shift])
+  Test::hold([.Shift])
+  Test::hold([.Shift])
   bags().button(CLOTH).click()
-  Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.pickup 0 3"))
-  Test.hold([])
-  Test.hold([])
-  Test.hold([])
+  Test::expect(Test::performed().length == 0 && Test::requests().join(", ").contains("Bags.pickup 0 3"))
+  Test::hold([])
+  Test::hold([])
+  Test::hold([])
   bags().button(CLOTH).rightClick()
-  Test.expect(Test.performed().length == 0 && Test.page().text("Mark as junk").shown())
-  Test.expect(Test.page().text("Link in chat").shown() && !Test.page().text("Pick up").shown())
+  Test::expect(Test::performed().length == 0 && Test::page().text("Mark as junk").shown())
+  Test::expect(Test::page().text("Link in chat").shown() && !Test::page().text("Pick up").shown())
 }
 
 test "a chord's row holding the last Use or the last Menu offers nothing else" {
-  Test.expect(choicesFor(OURS, .Left).length == 1 && choicesFor(OURS, .Right).length == 1)
-  Test.expect(choicesFor(OURS, .ShiftLeft).length == 7)
+  Test::expect(choicesFor(OURS, .Left).length == 1 && choicesFor(OURS, .Right).length == 1)
+  Test::expect(choicesFor(OURS, .ShiftLeft).length == 7)
 }
 
 test "Alt+click and Ctrl+click do nothing in Ordaen's scheme: protecting is the slot menu's" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  _ = Test.requests()
-  Test.hold([.Ctrl])
-  Test.hold([.Ctrl])
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  _ = Test::requests()
+  Test::hold([.Ctrl])
+  Test::hold([.Ctrl])
   bags().button(CLOTH).click()
-  Test.hold([.Alt])
-  Test.hold([])
-  Test.hold([.Alt])
+  Test::hold([.Alt])
+  Test::hold([])
+  Test::hold([.Alt])
   bags().button(CLOTH).click()
-  Test.hold([])
-  Test.hold([])
-  Test.expect(!Test.requests().join(", ").contains("Bags.pickup") && Test.performed().length == 0)
+  Test::hold([])
+  Test::hold([])
+  Test::expect(!Test::requests().join(", ").contains("Bags.pickup") && Test::performed().length == 0)
   bags().button(CLOTH).rightClick()
-  Test.expect(Test.page().text(Locale.MENU_PROTECT).shown())
+  Test::expect(Test::page().text(Locale::MENU_PROTECT).shown())
 }
 
 // The bank
@@ -515,94 +515,94 @@ test "Alt+click and Ctrl+click do nothing in Ordaen's scheme: protecting is the 
 test "the bank opens in a window of its own beside the bags', its slots read and picked up as the bags' are" {
   const world = new World(carried())
   world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
-  Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => [{
+  Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): Array<Client::BankTabData> => [{
     ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
     tabNameEditBoxHeader: ""
   }]
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bankObserver.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bankObserver.open = true
   // Two windows: the bags' with the bags alone, and the bank's.
-  Test.expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale.BANK).shown())
-  Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
+  Test::expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale::BANK).shown())
+  Test::expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
   Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
-  _ = Test.requests()
-  Test.hold([.Shift])
-  Test.hold([.Shift])
+  _ = Test::requests()
+  Test::hold([.Shift])
+  Test::hold([.Shift])
   bank().button(GEM).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.pickup 6 2"))
+  Test::expect(Test::requests().join(", ").contains("Bags.pickup 6 2"))
 }
 
 test "away from the banker the bank is a tab of the bags' window: what it held, said to be a copy, not used" {
   const world = new World(carried())
   world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
-  Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => [{
+  Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): Array<Client::BankTabData> => [{
     ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
     tabNameEditBoxHeader: ""
   }]
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
   // Not seen yet: the tab says how it will be.
-  bags().text(Locale.BANK).click()
-  Test.expect(bags().text(Locale.BANK_UNSEEN).shown())
-  bags().text(Locale.TITLE).click()
-  Game.bankObserver.open = true
-  Test.flush()
-  Game.bankObserver.open = false
-  bags().text(Locale.BANK).click()
-  Test.expect(bags().button(GEM).shown() && bags().text(Locale.BANK_COPY).shown())
-  _ = Test.requests()
-  Test.hold([.Shift])
-  Test.hold([.Shift])
+  bags().text(Locale::BANK).click()
+  Test::expect(bags().text(Locale::BANK_UNSEEN).shown())
+  bags().text(Locale::TITLE).click()
+  Game::bankObserver.open = true
+  Test::flush()
+  Game::bankObserver.open = false
+  bags().text(Locale::BANK).click()
+  Test::expect(bags().button(GEM).shown() && bags().text(Locale::BANK_COPY).shown())
+  _ = Test::requests()
+  Test::hold([.Shift])
+  Test::hold([.Shift])
   bags().button(GEM).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.pickup"))
+  Test::expect(!Test::requests().join(", ").contains("Bags.pickup"))
 }
 
 test "what changes in the bank is read once the client's batch of updates ends" {
   const world = new World(carried())
-  Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => [{
+  Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): Array<Client::BankTabData> => [{
     ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
     tabNameEditBoxHeader: ""
   }]
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bankObserver.open = true
-  Test.expect(!bank().button(GEM).shown())
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bankObserver.open = true
+  Test::expect(!bank().button(GEM).shown())
   world.items.push({ bag: BANK, slot: 1, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
-  Game.bankObserver.changed.emit()
-  Test.expect(!bank().button(GEM).shown())
-  Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(bank().button(GEM).shown())
+  Game::bankObserver.changed.emit()
+  Test::expect(!bank().button(GEM).shown())
+  Events::BAG_UPDATE_DELAYED.emit()
+  Test::expect(bank().button(GEM).shown())
 }
 
 test "the bank shut, its window goes and the bags' window has the bank's tab again" {
-  Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => []
+  Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): Array<Client::BankTabData> => []
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bankObserver.open = true
-  Test.expect(!bags().text(Locale.BANK).shown() && Test.page().window(Locale.BANK).shown())
-  Game.bankObserver.open = false
-  Test.expect(bags().text(Locale.BANK).shown() && bags().button(SWORD).shown())
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bankObserver.open = true
+  Test::expect(!bags().text(Locale::BANK).shown() && Test::page().window(Locale::BANK).shown())
+  Game::bankObserver.open = false
+  Test::expect(bags().text(Locale::BANK).shown() && bags().button(SWORD).shown())
 }
 
 test "a scheme saved before the left click used is let go: Ordaen's own, with its left click's use, stands in its place" {
@@ -619,98 +619,98 @@ test "a scheme saved before the left click used is let go: Ordaen's own, with it
   settings["OrdaenInventory"] = kept
   const account: Map<String, Unknown> = {}
   account["settings"] = settings
-  Test.saved("LunaTypeDB", account)
-  Test.reload()
+  Test::saved("LunaTypeDB", account)
+  Test::reload()
   const clicks = Inventory.settings.values.slotPresses
-  Test.expect(clicks.left == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
-  Test.expect(useClickOf(clicks).chord == MouseButton.Left)
+  Test::expect(clicks.left == SlotAction::Use && clicks.shiftLeft == SlotAction::Nothing)
+  Test::expect(useClickOf(clicks).chord == MouseButton::Left)
 }
 
 test "a mark is the character's: there after a reload, not for another character" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Game.items.maxStack = (id: Integer): Integer | nil => 20
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::items.maxStack = (id: Integer): Integer | nil => 20
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
   bags().button(CLOTH).rightClick()
-  Test.page().button("Mark as junk").click()
-  Test.reload()
-  Test.expect(bags().button(CLOTH).paintedWith(COIN))
-  Test.login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
-  Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+  Test::page().button("Mark as junk").click()
+  Test::reload()
+  Test::expect(bags().button(CLOTH).paintedWith(COIN))
+  Test::login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
+  Test::expect(!bags().button(CLOTH).paintedWith(COIN))
 }
 
 test "an item crafting takes is a trade good whatever its class; junk stays junk" {
   // A feather: the client's miscellany (15), marked used for crafting.
-  Test.expect(tabOf(15, true, nil) == Tab.Trade && tabOf(15, false, nil) == Tab.Other)
-  Test.expect(tabOf(15, true, .Grey) == Tab.Junk)
+  Test::expect(tabOf(15, true, nil) == Tab::Trade && tabOf(15, false, nil) == Tab::Other)
+  Test::expect(tabOf(15, true, .Grey) == Tab::Junk)
 }
 
 test "a purchase still refundable is asked about at the merchant and refunded, never sold for coin" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Client.C_Container.GetContainerItemPurchaseInfo = (bag: Integer, slot: Integer, equipped: Boolean): Client.ItemPurchaseInfo | nil =>
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
+  Client::C_Container::GetContainerItemPurchaseInfo = (bag: Integer, slot: Integer, equipped: Boolean): Client::ItemPurchaseInfo | nil =>
   bag == 0 && slot == 3 ? { money: 5000, itemCount: 0, refundSeconds: 3600, currencyCount: 0, hasEnchants: false } : nil
   let refunded = ""
-  Client.C_Container.ContainerRefundItemPurchase = (bag: Integer, slot: Integer, equipped: Boolean | nil): nil => {
+  Client::C_Container::ContainerRefundItemPurchase = (bag: Integer, slot: Integer, equipped: Boolean | nil): nil => {
     refunded = `${bag}/${slot}`
   }
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  _ = Test::requests()
   bags().button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
-  const dialog = Test.page().window(Locale.REFUND)
-  Test.expect(dialog.shown())
-  dialog.button(Locale.REFUND).click()
-  Test.expect(refunded == "0/3" && !Test.page().window(Locale.REFUND).shown())
+  Test::expect(!Test::requests().join(", ").contains("Bags.send"))
+  const dialog = Test::page().window(Locale::REFUND)
+  Test::expect(dialog.shown())
+  dialog.button(Locale::REFUND).click()
+  Test::expect(refunded == "0/3" && !Test::page().window(Locale::REFUND).shown())
 }
 
 test "while the merchant's buyback shows (Ordaen Trading's window says so), a slot's use sells nothing" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
   merchantSells()
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  Events.MERCHANT_SHOW.emit()
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  Events::MERCHANT_SHOW.emit()
   Inventory.showsBuyback(true)
   // The junk sold as the merchant opened is past.
-  Test.flush()
-  _ = Test.requests()
+  Test::flush()
+  _ = Test::requests()
   bags().button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Test::expect(!Test::requests().join(", ").contains("Bags.send"))
   Inventory.showsBuyback(false)
   bags().button(CLOTH).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
-  Events.MERCHANT_CLOSED.emit()
+  Test::expect(Test::requests().join(", ").contains("Bags.send 0 3"))
+  Events::MERCHANT_CLOSED.emit()
 }
 
 test "«Sell junk» sells the junk the bags know, at a merchant" {
   const world = new World(carried())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game::bags.bag = (bag: Integer): Game::BagInfo => world.bag(bag)
+  Game::bags.size = (bag: Integer): Integer => world.size(bag)
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => world.read(bag, slot, into)
+  Game::items.icon = (id: Integer): Art | nil => world.icon(id)
   merchantSells()
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Game.bags.place = Game.BagPlace.Merchant
-  Events.MERCHANT_SHOW.emit()
-  Test.flush()
-  Test.expect(Inventory.carriedJunkCount == 1 && Inventory.carriedJunkWorth == 30)
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Game::bags.open = true
+  Game::bags.place = Game::BagPlace::Merchant
+  Events::MERCHANT_SHOW.emit()
+  Test::flush()
+  Test::expect(Inventory.carriedJunkCount == 1 && Inventory.carriedJunkWorth == 30)
+  _ = Test::requests()
   Inventory.sellJunk()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
-  Events.MERCHANT_CLOSED.emit()
+  Test::expect(Test::requests().join(", ").contains("Bags.send 0 1"))
+  Events::MERCHANT_CLOSED.emit()
 }

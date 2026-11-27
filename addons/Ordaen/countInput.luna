@@ -34,9 +34,9 @@ const SHIFTED = 10
 const CONTROLLED = 100
 
 public function stride(): Integer {
-  const down = Game.keyboard.activeModifiers
-  if (down.any(m => m == Modifier.Ctrl)) { return CONTROLLED }
-  if (down.any(m => m == Modifier.Shift)) { return SHIFTED }
+  const down = Game::keyboard.activeModifiers
+  if (down.any(m => m == Modifier::Ctrl)) { return CONTROLLED }
+  if (down.any(m => m == Modifier::Shift)) { return SHIFTED }
   return ONE
 }
 
@@ -45,17 +45,17 @@ public function stride(): Integer {
 public function stepTip(title: String, said: (steps: Integer) => String): TipText {
   return {
     title: title,
-    text: Locale.COUNT_HOLD,
+    text: Locale::COUNT_HOLD,
     rows: [
-      { label: Locale.COUNT_CLICK, value: said(ONE) },
-      { label: Locale.COUNT_SHIFT, value: said(SHIFTED) },
-      { label: Locale.COUNT_CTRL, value: said(CONTROLLED) }
+      { label: Locale::COUNT_CLICK, value: said(ONE) },
+      { label: Locale::COUNT_SHIFT, value: said(SHIFTED) },
+      { label: Locale::COUNT_CTRL, value: said(CONTROLLED) }
     ]
   }
 }
 
-const FEWER_TIP: TipText = stepTip(Locale.COUNT_FEWER, steps => "-" + String.of(steps))
-const MORE_TIP: TipText = stepTip(Locale.COUNT_MORE, steps => "+" + String.of(steps))
+const FEWER_TIP: TipText = stepTip(Locale::COUNT_FEWER, steps => "-" + String::of(steps))
+const MORE_TIP: TipText = stepTip(Locale::COUNT_MORE, steps => "+" + String::of(steps))
 
 public class CountInput implements Component {
   derived off: Boolean = self.disabled || self.most < self.least
@@ -99,10 +99,10 @@ public class CountInput implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={STEPS} gap={2sp} yAlign={Align.Center}>
+      <box columns={STEPS} gap={2sp} yAlign={Align::Center}>
         <PushButton label={"-"} width={self.step} glyph={true} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
-        <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
+        <box xAlign={Align::Center} width={NUMBER_BOUNDS}>
           <text value={"%d"} arguments={[self.value]} textColor={BRIGHT_TEXT}
                 textFont={.Numbers} wrap={.None} />
         </box>

@@ -20,6 +20,6 @@ public struct Globals implements Plain {
 }
 
 public const DEFAULTS: Globals = {
-  scale: 1, density: Density.Normal, pixel: true, numberFormat: NumberFormat.Space, numberRound: false,
-  numberPrecision: 2, numbers: LargeNumbers.Short, sounds: true
+  scale: 1, density: Density::Normal, pixel: true, numberFormat: NumberFormat::Space, numberRound: false,
+  numberPrecision: 2, numbers: LargeNumbers::Short, sounds: true
 }

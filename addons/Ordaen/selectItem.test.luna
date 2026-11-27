@@ -3,8 +3,8 @@ import { MouseButton, Track } from "$ltml"
 import Test from "$test"
 import { SelectItem, selectedFill } from "@/selectItem"
 
-const GREEN: Color = Color.hex("#40c040")
-const ORANGE: Color = Color.hex("#ff8040")
+const GREEN: Color = Color::hex("#40c040")
+const ORANGE: Color = Color::hex("#ff8040")
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 class Sidebar {
@@ -16,7 +16,7 @@ class Sidebar {
 
   onBags(mut self, button: MouseButton) { self.picked = "Bags" }
   onCloak(mut self, button: MouseButton) {
-    if (button == MouseButton.Right) {
+    if (button == MouseButton::Right) {
       self.menus += 1
       return
     }
@@ -44,26 +44,26 @@ class Sidebar {
 
 test "an item's selected fill is its own colour, faint; without one, the lists' gold" {
   const fill = selectedFill(GREEN)
-  Test.expect(fill.r == GREEN.r && fill.g == GREEN.g && fill.b == GREEN.b && fill.a < 0.5)
-  Test.expect(selectedFill(nil).a < 0.5)
+  Test::expect(fill.r == GREEN.r && fill.g == GREEN.g && fill.b == GREEN.b && fill.a < 0.5)
+  Test::expect(selectedFill(nil).a < 0.5)
 }
 
 test "a sidebar's items: the selected one filled in its colour with its edge, a light under the cursor, a right-click told" {
   let page = new Sidebar()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 120 })
-  Test.shot("«Bags» selected, without a colour: the gold fill and edge; no rule over the first")
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 120 })
+  Test::shot("«Bags» selected, without a colour: the gold fill and edge; no rule over the first")
 
-  Test.click(Test.holding("Linen Cloak", nil), nil)
-  Test.flush()
-  Test.expect(page.picked == "Linen Cloak")
-  Test.shot("the green «Linen Cloak» selected: a green fill and a green edge")
+  Test::click(Test::holding("Linen Cloak", nil), nil)
+  Test::flush()
+  Test::expect(page.picked == "Linen Cloak")
+  Test::shot("the green «Linen Cloak» selected: a green fill and a green edge")
 
-  Test.click(Test.holding("Linen Cloak", nil), MouseButton.Right)
-  Test.flush()
-  Test.expect(page.menus == 1 && page.picked == "Linen Cloak")
+  Test::click(Test::holding("Linen Cloak", nil), MouseButton::Right)
+  Test::flush()
+  Test::expect(page.menus == 1 && page.picked == "Linen Cloak")
 
-  Test.moveTo(Test.holding("Bags", nil))
-  Test.flush()
-  Test.shot("the cursor on «Bags»: its light")
+  Test::moveTo(Test::holding("Bags", nil))
+  Test::flush()
+  Test::shot("the cursor on «Bags»: its light")
   destroy page
 }

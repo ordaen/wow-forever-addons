@@ -16,8 +16,8 @@ class Numbers {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
-        <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+        <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit::Percent} />
+        <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit::Px} />
       </box>
     }
   }
@@ -27,41 +27,41 @@ function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.0001 }
 
 test "the slider's − and + step it: a step, ten with Shift, a hundred with Ctrl, held to its ends" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.expect(Test.page().input().count() == 1)
-  Test.page().button("+").nth(1).click()
-  Test.expect(near(page.share, 0.51))
-  Test.hold([.Shift])
-  Test.page().button("-").nth(1).click()
-  Test.expect(near(page.share, 0.41))
-  Test.hold([.Ctrl])
-  Test.page().button("+").nth(1).click()
-  Test.expect(near(page.share, 1))
-  Test.shot("the share at its most: 100%, + disabled")
-  Test.page().button("-").nth(1).click()
-  Test.expect(near(page.share, 0))
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::expect(Test::page().input().count() == 1)
+  Test::page().button("+").nth(1).click()
+  Test::expect(near(page.share, 0.51))
+  Test::hold([.Shift])
+  Test::page().button("-").nth(1).click()
+  Test::expect(near(page.share, 0.41))
+  Test::hold([.Ctrl])
+  Test::page().button("+").nth(1).click()
+  Test::expect(near(page.share, 1))
+  Test::shot("the share at its most: 100%, + disabled")
+  Test::page().button("-").nth(1).click()
+  Test::expect(near(page.share, 0))
   destroy page
 }
 
 test "the field's − and + step it too, and a number typed past a bound is the bound" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.page().button("+").nth(2).click()
-  Test.expect(page.place == 1)
-  Test.hold([.Shift])
-  Test.page().button("+").nth(2).click()
-  Test.expect(page.place == 11)
-  Test.hold([.Ctrl])
-  Test.page().button("-").nth(2).click()
-  Test.expect(page.place == -89)
-  Test.expect(Test.page().input().value() == "-89")
-  Test.page().input().click()
-  Test.erase(6)
-  Test.type("9999")
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::page().button("+").nth(2).click()
+  Test::expect(page.place == 1)
+  Test::hold([.Shift])
+  Test::page().button("+").nth(2).click()
+  Test::expect(page.place == 11)
+  Test::hold([.Ctrl])
+  Test::page().button("-").nth(2).click()
+  Test::expect(page.place == -89)
+  Test::expect(Test::page().input().value() == "-89")
+  Test::page().input().click()
+  Test::erase(6)
+  Test::type("9999")
   // Past the most, more digits only take it further: the most at once.
-  Test.flush()
-  Test.expect(page.place == 4000)
-  Test.shot("9999 typed: the most, 4000")
+  Test::flush()
+  Test::expect(page.place == 4000)
+  Test::shot("9999 typed: the most, 4000")
   destroy page
 }
 
@@ -70,75 +70,75 @@ class Sized {
   state size: Number = 400
 
   public render(self): Template {
-    return $ltml { <NumberInput label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit.Px} /> }
+    return $ltml { <NumberInput label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit::Px} /> }
   }
 }
 
 test "a number typed is the value with each key, for whatever reads it next" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.page().input().click()
-  Test.erase(6)
-  Test.type("120")
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::page().input().click()
+  Test::erase(6)
+  Test::type("120")
   // No pause, no Enter: a frame on, what acts next (a Save, a Post) reads the value typed.
-  Test.flush()
-  Test.expect(page.place == 120)
-  Test.type("5")
-  Test.flush()
-  Test.expect(page.place == 1205)
+  Test::flush()
+  Test::expect(page.place == 120)
+  Test::type("5")
+  Test::flush()
+  Test::expect(page.place == 1205)
   destroy page
 }
 
 test "a number on its way into the range waits for the typing to pause, and is then held to the bound" {
   let page = new Sized()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.page().input().click()
-  Test.erase(6)
-  Test.type("1")
-  Test.flush()
-  Test.expect(page.size == 400 && Test.page().input().value() == "1")
-  Test.type("5")
-  Test.flush()
-  Test.expect(page.size == 400 && Test.page().input().value() == "15")
-  Test.type("0")
-  Test.flush()
-  Test.expect(page.size == 150)
-  Test.erase(3)
-  Test.type("2")
-  Test.pass(0.3)
-  Test.expect(page.size == 150)
-  Test.pass(0.4)
-  Test.expect(page.size == 100 && Test.page().input().value() == "100")
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::page().input().click()
+  Test::erase(6)
+  Test::type("1")
+  Test::flush()
+  Test::expect(page.size == 400 && Test::page().input().value() == "1")
+  Test::type("5")
+  Test::flush()
+  Test::expect(page.size == 400 && Test::page().input().value() == "15")
+  Test::type("0")
+  Test::flush()
+  Test::expect(page.size == 150)
+  Test::erase(3)
+  Test::type("2")
+  Test::pass(0.3)
+  Test::expect(page.size == 150)
+  Test::pass(0.4)
+  Test::expect(page.size == 100 && Test::page().input().value() == "100")
   destroy page
 }
 
 test "Enter takes what is typed at once, and − steps from what was typed" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.page().input().click()
-  Test.erase(6)
-  Test.type("120")
-  Test.key(Key.Enter)
-  Test.expect(page.place == 120)
-  Test.page().input().click()
-  Test.erase(6)
-  Test.type("50")
-  Test.page().button("-").nth(2).click()
-  Test.expect(page.place == 49)
-  Test.expect(Test.page().input().value() == "49")
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::page().input().click()
+  Test::erase(6)
+  Test::type("120")
+  Test::key(Key::Enter)
+  Test::expect(page.place == 120)
+  Test::page().input().click()
+  Test::erase(6)
+  Test::type("50")
+  Test::page().button("-").nth(2).click()
+  Test::expect(page.place == 49)
+  Test::expect(Test::page().input().value() == "49")
   destroy page
 }
 
 test "under the cursor − and + say their steps in the value's unit, and the tip goes as the cursor leaves" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.page().button("+").nth(1).hover()
-  Test.expect(Test.page().text("+10%").shown())
-  Test.shot("the cursor on the slider's +: its label white, its steps in a tip")
-  Test.page().text("Place").hover()
-  Test.expect(!Test.page().text("+10%").shown())
-  Test.page().button("-").nth(2).hover()
-  Test.expect(Test.page().text("-100 px").shown())
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::page().button("+").nth(1).hover()
+  Test::expect(Test::page().text("+10%").shown())
+  Test::shot("the cursor on the slider's +: its label white, its steps in a tip")
+  Test::page().text("Place").hover()
+  Test::expect(!Test::page().text("+10%").shown())
+  Test::page().button("-").nth(2).hover()
+  Test::expect(Test::page().text("-100 px").shown())
   destroy page
 }
 
@@ -154,8 +154,8 @@ class Windowed {
     return $ltml {
       <Window shown={true} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <box columns={1}>
-          <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
-          <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+          <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit::Percent} />
+          <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit::Px} />
         </box>
       </Window>
     }
@@ -164,27 +164,27 @@ class Windowed {
 
 test "− and + are pressed from the keyboard, and each is greyed and does nothing at its bound" {
   let page = new Windowed()
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
-  Test.expect(Test.page().button("+").nth(1).paintedWith(Ordaen.art.ctl.buttonDisabled))
-  Test.page().button("+").nth(1).click()
-  Test.expect(near(page.share, 1))
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Test::expect(Test::page().button("+").nth(1).paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test::page().button("+").nth(1).click()
+  Test::expect(near(page.share, 1))
   // The place's field has the keyboard; Shift+Tab goes back to its −.
-  Test.page().input().click()
-  Test.key(Move.Back)
-  Test.expect(Test.focused().contains("«-»"))
-  Test.shot("the place's − focused: its ring, its label white; the share's + at its bound, grey")
-  Test.key(Key.Enter)
-  Test.expect(page.place == -1)
-  Test.key(Key.Space)
-  Test.expect(page.place == -2)
+  Test::page().input().click()
+  Test::key(Move::Back)
+  Test::expect(Test::focused().contains("«-»"))
+  Test::shot("the place's − focused: its ring, its label white; the share's + at its bound, grey")
+  Test::key(Key::Enter)
+  Test::expect(page.place == -1)
+  Test::key(Key::Space)
+  Test::expect(page.place == -2)
   destroy page
 }
 
 test "the unit shows: the slider's value in it, the field's name after it" {
   let page = new Numbers()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
-  Test.expect(Test.page().text("50%").shown())
-  Test.expect(Test.page().text("px").shown())
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test::expect(Test::page().text("50%").shown())
+  Test::expect(Test::page().text("px").shown())
   destroy page
 }
 
@@ -200,13 +200,13 @@ class Kept {
 
 test "a window's place and size are InputNumbers: a field between − and +, in px" {
   let page = new Kept()
-  Test.mount(page, { left: 0, top: 0, width: 1000, height: 600 })
-  Test.expect(Test.page().input().count() == 4)
-  Test.expect(Test.page().text("px").count() == 4)
-  Test.expect(Test.page().button("+").count() == 4)
-  Test.page().button("+").nth(1).click()
-  Test.expect(near((peek page.window.memory.values).x / 1ui, 11))
-  Test.shot("the window's place and size")
+  Test::mount(page, { left: 0, top: 0, width: 1000, height: 600 })
+  Test::expect(Test::page().input().count() == 4)
+  Test::expect(Test::page().text("px").count() == 4)
+  Test::expect(Test::page().button("+").count() == 4)
+  Test::page().button("+").nth(1).click()
+  Test::expect(near((peek page.window.memory.values).x / 1ui, 11))
+  Test::shot("the window's place and size")
   destroy page
 }
 
@@ -220,6 +220,6 @@ class Floated {
 }
 
 test "a value is written to its step's decimals, whatever the client kept it as" {
-  Test.mount(new Floated(), { left: 0, top: 0, width: 800, height: 200 })
-  Test.expect(Test.page().text("0.72").shown())
+  Test::mount(new Floated(), { left: 0, top: 0, width: 800, height: 200 })
+  Test::expect(Test::page().text("0.72").shown())
 }

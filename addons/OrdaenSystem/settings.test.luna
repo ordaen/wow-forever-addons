@@ -24,92 +24,92 @@ function names(settings: SystemSettings): String {
 
 test "the pages are the client's game groups and their pages in its order, a page under another marked so" {
   const settings = read()
-  Test.expect(names(settings) == "Game | Controls |   Mouse | Interface | System | Audio")
+  Test::expect(names(settings) == "Game | Controls |   Mouse | Interface | System | Audio")
 }
 
 test "the first page shows as the tab opens, each line read as its kind with the client's value" {
   const settings = read()
-  Test.expect(settings.lines.length > 0)
+  Test::expect(settings.lines.length > 0)
   const first = settings.lines.find(line => line.variable != "") ?? panic("a setting on the first page")
-  Test.expect(settings.values[first.variable] != nil)
+  Test::expect(settings.values[first.variable] != nil)
 }
 
 test "the search finds a page by a setting's name, and the tab shows only the settings that match" {
   const settings = read()
-  Test.expect(settings.matching("auto loot")[(settings.groups[1]?.pages ?? [])[1]?.id ?? 0] == true)
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.expect(Test.page().text("Auto Loot").shown() && Test.page().text("Interact on Left Click").shown())
-  Test.page().input().type("auto loot")
-  Test.expect(Test.page().text("Auto Loot").shown() && !Test.page().text("Interact on Left Click").shown())
-  Test.expect(!Test.page().text("Audio").shown())
+  Test::expect(settings.matching("auto loot")[(settings.groups[1]?.pages ?? [])[1]?.id ?? 0] == true)
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test::expect(Test::page().text("Auto Loot").shown() && Test::page().text("Interact on Left Click").shown())
+  Test::page().input().type("auto loot")
+  Test::expect(Test::page().text("Auto Loot").shown() && !Test::page().text("Interact on Left Click").shown())
+  Test::expect(!Test::page().text("Audio").shown())
 }
 
 test "a setting is written as it is changed: a console variable itself, any other through its setter; nothing in a fight" {
   const settings = read()
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") != "1")
-  Test.expect(settings.lines.find(line => line.variable == "autoLootDefault")?.writing == .Variable)
-  Test.expect(settings.values["autoLootDefault"] == false)
-  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
-  Test.page().text("Interface").click()
-  const tutorials = Test.page().text("Tutorials")
-  Test.expect(tutorials.shown())
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test::expect(Client::C_CVar::GetCVar("autoLootDefault") != "1")
+  Test::expect(settings.lines.find(line => line.variable == "autoLootDefault")?.writing == .Variable)
+  Test::expect(settings.values["autoLootDefault"] == false)
+  Test::page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test::expect(Client::C_CVar::GetCVar("autoLootDefault") == "1")
+  Test::page().text("Interface").click()
+  const tutorials = Test::page().text("Tutorials")
+  Test::expect(tutorials.shown())
   // Over no console variable: written through Blizzard's own setter.
   tutorials.item().button(Ordaen.art.ctl.check).click()
-  Test.expect(Client.Settings?.GetSetting("PROXY_TUTORIALS")?.GetValue() == false)
-  Test.page().text("Controls").click()
-  Game.situation.combat = true
-  Test.flush()
-  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
-  Game.situation.combat = false
+  Test::expect(Client::Settings?.GetSetting("PROXY_TUTORIALS")?.GetValue() == false)
+  Test::page().text("Controls").click()
+  Game::situation.combat = true
+  Test::flush()
+  Test::page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test::expect(Client::C_CVar::GetCVar("autoLootDefault") == "1")
+  Game::situation.combat = false
 }
 
 test "a line of two controls is its checkbox and, set in under it, its slider or dropdown, hidden while the box is off" {
   const settings = read()
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.page().text("Mouse").click()
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test::page().text("Mouse").click()
   const box = settings.lines.find(line => line.variable == "enableMouseSpeed") ?? panic("the checkbox's line")
   const slider = settings.lines.find(line => line.variable == "mouseSpeed") ?? panic("the slider's line")
-  Test.expect(box.kind == .Check && slider.kind == .Slider && slider.under == "enableMouseSpeed")
-  Test.expect((settings.lines.find(line => line.variable == "cameraSmoothTrackingStyle")?.under ?? "") == "autoInteract")
-  Test.expect(!Test.page().button("Open in the game's window").shown())
+  Test::expect(box.kind == .Check && slider.kind == .Slider && slider.under == "enableMouseSpeed")
+  Test::expect((settings.lines.find(line => line.variable == "cameraSmoothTrackingStyle")?.under ?? "") == "autoInteract")
+  Test::expect(!Test::page().button("Open in the game's window").shown())
   // Off, the slider isn't shown; on, it shows and writes its variable.
-  Test.expect(!Test.page().text("Sensitivity").shown())
-  const before = Client.C_CVar.GetCVar("mouseSpeed")
-  Test.page().text("Mouse Sensitivity").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(Client.C_CVar.GetCVar("enableMouseSpeed") == "1")
-  Test.page().text("Sensitivity").item().button("+").click()
-  Test.expect(Client.C_CVar.GetCVar("mouseSpeed") != before)
+  Test::expect(!Test::page().text("Sensitivity").shown())
+  const before = Client::C_CVar::GetCVar("mouseSpeed")
+  Test::page().text("Mouse Sensitivity").item().button(Ordaen.art.ctl.check).click()
+  Test::expect(Client::C_CVar::GetCVar("enableMouseSpeed") == "1")
+  Test::page().text("Sensitivity").item().button("+").click()
+  Test::expect(Client::C_CVar::GetCVar("mouseSpeed") != before)
 }
 
 test "the list names its group only while searching: the tabs name it otherwise" {
   const settings = read()
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.expect(Test.page().text("Controls").shown() && !Test.page().text("Game").shown())
-  Test.page().input().type("auto loot")
-  Test.expect(Test.page().text("Game").shown())
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test::expect(Test::page().text("Controls").shown() && !Test::page().text("Game").shown())
+  Test::page().input().type("auto loot")
+  Test::expect(Test::page().text("Game").shown())
 }
 
 test "a setting that waits for Apply holds its value until Apply, which commits it as Blizzard's button does" {
   const settings = read()
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  Test.page().text("Interface").click()
-  const before = Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor")
-  Test.page().text("Max Camera Distance").item().button("+").click()
-  Test.expect(Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor") == before && settings.waiting.length == 1)
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test::page().text("Interface").click()
+  const before = Client::C_CVar::GetCVar("cameraDistanceMaxZoomFactor")
+  Test::page().text("Max Camera Distance").item().button("+").click()
+  Test::expect(Client::C_CVar::GetCVar("cameraDistanceMaxZoomFactor") == before && settings.waiting.length == 1)
   settings.apply()
-  Test.expect(Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor") != before && settings.waiting.length == 0)
+  Test::expect(Client::C_CVar::GetCVar("cameraDistanceMaxZoomFactor") != before && settings.waiting.length == 0)
 }
 
 test "the page's defaults set each of its settings back to the game's" {
   const settings = read()
-  Test.mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
-  _ = Client.C_CVar.SetCVar("autoLootDefault", "1")
+  Test::mount(new SettingsTab(settings), { left: 0, top: 0, width: 1100, height: 600 })
+  _ = Client::C_CVar::SetCVar("autoLootDefault", "1")
   settings.refresh()
   settings.defaults()
-  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == Client.C_CVar.GetCVarDefault("autoLootDefault"))
+  Test::expect(Client::C_CVar::GetCVar("autoLootDefault") == Client::C_CVar::GetCVarDefault("autoLootDefault"))
 }
 
 // The line of a variable, its page opened.
@@ -130,14 +130,14 @@ test "a line's tooltip is Blizzard's: its text, a dropdown's choices that say mo
   const settings = read()
   const status = lineFor(settings, "statusText")
   const tip = settings.tipOf(status)
-  Test.expect(tip.contains("What the bars write on them."))
-  Test.expect(tip.contains("|cffffffffNumeric|r: |cffffd100Their numbers.|r"))
-  Test.expect(tip.contains("|cff19ff19None|r"))
+  Test::expect(tip.contains("What the bars write on them."))
+  Test::expect(tip.contains("|cffffffffNumeric|r: |cffffd100Their numbers.|r"))
+  Test::expect(tip.contains("|cff19ff19None|r"))
 }
 
 test "a slider writes its value as Blizzard's window does: 72% for 0.72" {
   const settings = read()
   const distance = lineFor(settings, "cameraDistanceMaxZoomFactor")
   const format = distance.format ?? panic("its format")
-  Test.expect(format(0.72) == "72%")
+  Test::expect(format(0.72) == "72%")
 }

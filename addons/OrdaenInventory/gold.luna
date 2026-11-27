@@ -28,11 +28,11 @@ public class Gold {
   public derived rows: Array<TipRow> = self.rowsOf()
 
   constructor() {
-    watch (copper of Game.money.amount) { self.keep(copper) }
+    watch (copper of Game::money.amount) { self.keep(copper) }
   }
 
   keep(mut self, copper: Integer) {
-    const own = Game.player.guid
+    const own = Game::player.guid
     let characters: Map<String, Purse> = {}
     let count = 1
     for (guid, purse of (peek self.memory.values).characters) {
@@ -41,7 +41,7 @@ public class Gold {
         count += 1
       }
     }
-    characters[own] = { name: Game.player.name, realm: Game.player.realm, copper: copper, seen: peek Game.clock.server }
+    characters[own] = { name: Game::player.name, realm: Game::player.realm, copper: copper, seen: peek Game::clock.server }
     // Past the most kept: the one seen longest ago goes.
     if (count > MOST) {
       let oldest = ""
@@ -58,8 +58,8 @@ public class Gold {
   }
 
   rowsOf(self): Array<TipRow> {
-    const own = Game.player.guid
-    const realm = Game.player.realm
+    const own = Game::player.guid
+    const realm = Game::player.realm
     let others: Array<Purse> = []
     let total = 0
     let mine: Purse | nil = nil
@@ -71,9 +71,9 @@ public class Gold {
     }
     others.sort((a: Purse, b: Purse): Boolean => a.copper > b.copper || (a.copper == b.copper && a.name < b.name))
     let rows: Array<TipRow> = []
-    if (mine != nil) { rows.push({ label: mine.name, value: Game.money.format(mine.copper) }) }
-    for (purse of others) { rows.push({ label: purse.name, value: Game.money.format(purse.copper) }) }
-    rows.push({ label: Locale.GOLD_TOTAL, value: Game.money.format(total) })
+    if (mine != nil) { rows.push({ label: mine.name, value: Game::money.format(mine.copper) }) }
+    for (purse of others) { rows.push({ label: purse.name, value: Game::money.format(purse.copper) }) }
+    rows.push({ label: Locale::GOLD_TOTAL, value: Game::money.format(total) })
     return rows
   }
 }

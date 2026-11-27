@@ -5,9 +5,9 @@
 import { Edges, Line, Overflow } from "$ltml"
 import { Component } from "@/module"
 
-const INK: Color = Color.hex("#e8dcc4")
-const FILL: Color = Color.hex("#0d0a08")
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const INK: Color = Color::hex("#e8dcc4")
+const FILL: Color = Color::hex("#0d0a08")
+const EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const PADDING: Edges = { top: 2.5sp, right: 3sp, bottom: 2.5sp, left: 3sp }
 
 public class TextBox implements Component {
@@ -25,7 +25,7 @@ public class TextBox implements Component {
   public render(self): Template {
     return $ltml {
       <input value={mut self.value} height={self.height} padding={PADDING} background={FILL} border={EDGE}
-             textColor={INK} overflow={Overflow.Hidden} multiline={true} selectOnShow={true} />
+             textColor={INK} overflow={Overflow::Hidden} multiline={true} selectOnShow={true} />
     }
   }
 }

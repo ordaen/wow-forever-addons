@@ -22,20 +22,20 @@ import Style from "@/style"
 const KEY = "characters"
 
 const TABS: Array<WindowTabSpec> = [
-  { title: Locale.TAB_CHARACTERS, padding: Style.NO_ROOM },
-  { title: Locale.TAB_ITEMS, padding: Style.NO_ROOM },
-  { title: Locale.TAB_COOLDOWNS, padding: Style.NO_ROOM },
-  { title: Locale.TAB_PROFESSIONS, padding: Style.NO_ROOM }
+  { title: Locale::TAB_CHARACTERS, padding: Style::NO_ROOM },
+  { title: Locale::TAB_ITEMS, padding: Style::NO_ROOM },
+  { title: Locale::TAB_COOLDOWNS, padding: Style::NO_ROOM },
+  { title: Locale::TAB_PROFESSIONS, padding: Style::NO_ROOM }
 ]
 // The same pages as the tabs of Account's «Alts» tab.
-const PAGES: Array<String> = [Locale.TAB_CHARACTERS, Locale.TAB_ITEMS, Locale.TAB_COOLDOWNS, Locale.TAB_PROFESSIONS]
+const PAGES: Array<String> = [Locale::TAB_CHARACTERS, Locale::TAB_ITEMS, Locale::TAB_COOLDOWNS, Locale::TAB_PROFESSIONS]
 // The module whose window shows the pages in place of this one's.
 const ACCOUNT = "Ordaen Account"
 
 public class Alts implements Module, App {
   public const title: String = "Ordaen Alts"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -75,18 +75,18 @@ public class Alts implements Module, App {
 
   constructor() {
     self.kept = load<Kept>(.Own, KEY, Kept {})
-    Game.saved.store(.Own, KEY, self.kept)
-    self.current = CharacterId.of(Game.player.guid)
-    const surname = Game.player.surname
+    Game::saved.store(.Own, KEY, self.kept)
+    self.current = CharacterId::of(Game::player.guid)
+    const surname = Game::player.surname
     self.records = new Records(
-      self.kept, self.current, Game.player.realm, factionOf(Game.player.faction),
-      surname == nil ? Game.player.name : Game.player.name + " " + surname, Hour.now()
+      self.kept, self.current, Game::player.realm, factionOf(Game::player.faction),
+      surname == nil ? Game::player.name : Game::player.name + " " + surname, Hour::now()
     )
     self.characters = self.records.characters
     self.recorder = new Recorder(self.records)
     Ordaen.modules.add(self)
     // A command can't be taken back: once the module is turned off it does nothing.
-    Runtime.command("/alts", (text: String): nil => {
+    Runtime::command("/alts", (text: String): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.onCommand() }
       }

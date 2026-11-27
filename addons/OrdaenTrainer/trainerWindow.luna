@@ -32,7 +32,7 @@ public enum TrainerShow implements Plain {
 public enum TrainerView implements Plain { Table = "table", List = "list" }
 
 // The filter as the window starts: every service shown but what is known.
-const FILTER_START: Map<TrainerShow, Boolean> = switched(switched({}, [TrainerShow.Available, TrainerShow.Unavailable, TrainerShow.Ignored], true), [TrainerShow.Known], false)
+const FILTER_START: Map<TrainerShow, Boolean> = switched(switched({}, [TrainerShow::Available, TrainerShow::Unavailable, TrainerShow::Ignored], true), [TrainerShow::Known], false)
 
 // The services the player ignored, by their name (every rank of a spell): the character's, kept by the
 // module that owns the trainer's kind.
@@ -48,7 +48,7 @@ enum MenuAct { Learn, Ignore, Link }
 // (`TrainerList { view: .List }` for a class trainer's categories).
 public struct TrainerList implements Plain {
   shows: Map<TrainerShow, Boolean> = FILTER_START
-  view: TrainerView = TrainerView.Table
+  view: TrainerView = TrainerView::Table
   sorted: Integer = 0
   descending: Boolean = false
 }
@@ -56,20 +56,20 @@ public struct TrainerList implements Plain {
 // What a sort orders by; a trainer's kind lays its columns out as one of these each.
 enum Key { Name, Rank, Level, Skill, Cost, Status }
 
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
-const GOLD: Color = Color.hex("#ffd100")
-const RED: Color = Color.hex("#ff4040")
-const CLEAR: Color = Color.hex("#00000000")
-const GREEN: Color = Color.hex("#40d060")
-const BLUE: Color = Color.hex("#4a9eff")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
+const GOLD: Color = Color::hex("#ffd100")
+const RED: Color = Color::hex("#ff4040")
+const CLEAR: Color = Color::hex("#00000000")
+const GREEN: Color = Color::hex("#40d060")
+const BLUE: Color = Color::hex("#4a9eff")
 // A service ignored: its icon greyed, and its row under an opaque plate.
-const GREY: Color = Color.hex("#7a7a7a")
+const GREY: Color = Color::hex("#7a7a7a")
 // An ignored row's plate: the row under it barely seen.
-const PLATE: Color = Color.hex("#16110cd9")
-const WHITE: Color = Color.hex("#ffffff")
+const PLATE: Color = Color::hex("#16110cd9")
+const WHITE: Color = Color::hex("#ffffff")
 // A picked line, as a picked table row is shaded.
-const PICKED: Color = Color.hex("#00000040")
+const PICKED: Color = Color::hex("#00000040")
 const ICON = 28.125dp
 const CARD_WIDTH = 281.25dp
 const TRAIN_WIDTH = 140.625dp
@@ -89,22 +89,22 @@ const FILTERS: Array<FilterGroup<TrainerShow>> = [
   {
     label: nil,
     options: [
-      { key: TrainerShow.Available, label: Locale.TRAINER_AVAILABLE }, { key: TrainerShow.Unavailable, label: Locale.TRAINER_UNAVAILABLE },
-      { key: TrainerShow.Known, label: Locale.TRAINER_KNOWN }, { key: TrainerShow.Ignored, label: Locale.TRAINER_IGNORED }
+      { key: TrainerShow::Available, label: Locale::TRAINER_AVAILABLE }, { key: TrainerShow::Unavailable, label: Locale::TRAINER_UNAVAILABLE },
+      { key: TrainerShow::Known, label: Locale::TRAINER_KNOWN }, { key: TrainerShow::Ignored, label: Locale::TRAINER_IGNORED }
     ]
   }
 ]
 // The trainer's views, as its view button and an owner's settings page offer them.
 public const TRAINER_VIEWS: Array<Choice<TrainerView>> = [
-  { value: TrainerView.Table, label: Locale.TRAINER_VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
-  { value: TrainerView.List, label: Locale.TRAINER_VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+  { value: TrainerView::Table, label: Locale::TRAINER_VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
+  { value: TrainerView::List, label: Locale::TRAINER_VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 // A sort no column shows: what can be learned now first, then what can't yet, then what is known.
-const MORE_SORTS: Array<String> = [Locale.TRAINER_AVAILABLE_FIRST]
+const MORE_SORTS: Array<String> = [Locale::TRAINER_AVAILABLE_FIRST]
 // The columns after the service's own: a class trainer's rank and level, a profession trainer's level and skill; the
 // price last.
-const CLASS_KEYS: Array<Key> = [Key.Name, Key.Rank, Key.Level, Key.Cost, Key.Status]
-const TRADE_KEYS: Array<Key> = [Key.Name, Key.Level, Key.Skill, Key.Cost, Key.Status]
+const CLASS_KEYS: Array<Key> = [Key::Name, Key::Rank, Key::Level, Key::Cost, Key::Status]
+const TRADE_KEYS: Array<Key> = [Key::Name, Key::Level, Key::Skill, Key::Cost, Key::Status]
 const NARROW = 70.3125dp
 const PRICE = 117.1875dp
 const TRACKS: Array<Track> = [{ fr: 1 }, NARROW, NARROW, PRICE]
@@ -112,7 +112,7 @@ const TRACKS: Array<Track> = [{ fr: 1 }, NARROW, NARROW, PRICE]
 // The sorts a kind of trainer's window offers, as its sort button and an owner's settings page list them: its trainer's
 // order (0), each column, «available first».
 public function trainerSorts(noun: String, trade: Boolean): Array<Choice<Integer>> {
-  const list: Array<Choice<Integer>> = [{ value: 0, label: Locale.TRAINER_ORDER }]
+  const list: Array<Choice<Integer>> = [{ value: 0, label: Locale::TRAINER_ORDER }]
   for (choice of sortChoices(columnsOf(noun, trade), MORE_SORTS)) { list.push(choice) }
   return list
 }
@@ -120,18 +120,18 @@ public function trainerSorts(noun: String, trade: Boolean): Array<Choice<Integer
 function columnsOf(noun: String, trade: Boolean): Array<Column> {
   return [
     { title: noun, width: { fr: 1 }, sortable: true },
-    { title: trade ? Locale.TRAINER_COLUMN_LEVEL : Locale.TRAINER_COLUMN_RANK, width: NARROW, align: Align.End, sortable: true },
-    { title: trade ? Locale.TRAINER_COLUMN_SKILL : Locale.TRAINER_COLUMN_LEVEL, width: NARROW, align: Align.End, sortable: true },
-    { title: Locale.TRAINER_COLUMN_COST, width: PRICE, align: Align.End, sortable: true }
+    { title: trade ? Locale::TRAINER_COLUMN_LEVEL : Locale::TRAINER_COLUMN_RANK, width: NARROW, align: Align::End, sortable: true },
+    { title: trade ? Locale::TRAINER_COLUMN_SKILL : Locale::TRAINER_COLUMN_LEVEL, width: NARROW, align: Align::End, sortable: true },
+    { title: Locale::TRAINER_COLUMN_COST, width: PRICE, align: Align::End, sortable: true }
   ]
 }
 
 // Whether the player ignores the service: a known one never is.
-function isIgnored(service: Game.TrainerService, ignored: Map<String, Boolean>): Boolean {
-  return service.status != Game.ServiceStatus.Learned && ignored[service.name] == true
+function isIgnored(service: Game::TrainerService, ignored: Map<String, Boolean>): Boolean {
+  return service.status != Game::ServiceStatus::Learned && ignored[service.name] == true
 }
 
-function showOf(service: Game.TrainerService, ignored: Map<String, Boolean>): TrainerShow {
+function showOf(service: Game::TrainerService, ignored: Map<String, Boolean>): TrainerShow {
   if (isIgnored(service, ignored)) { return .Ignored }
   return match (service.status) {
     .Available => .Available
@@ -141,32 +141,32 @@ function showOf(service: Game.TrainerService, ignored: Map<String, Boolean>): Tr
 }
 
 // A switch the kept filter doesn't name yet (one added since it was kept) shows its services.
-function passes(service: Game.TrainerService, filter: Map<TrainerShow, Boolean>, query: String, ignored: Map<String, Boolean>): Boolean {
+function passes(service: Game::TrainerService, filter: Map<TrainerShow, Boolean>, query: String, ignored: Map<String, Boolean>): Boolean {
   if (query != "" && !service.name.lower().contains(query)) { return false }
   return filter[showOf(service, ignored)] != false
 }
 
 // Whether the player can learn the service now: one the trainer offers, not ignored, paid for, and a
 // new profession with a slot free.
-function learnable(service: Game.TrainerService, ignored: Map<String, Boolean>): Boolean {
-  return service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored) && service.cost <= Game.money.amount &&
+function learnable(service: Game::TrainerService, ignored: Map<String, Boolean>): Boolean {
+  return service.status == Game::ServiceStatus::Available && !isIgnored(service, ignored) && service.cost <= Game::money.amount &&
     !(service.profession && !slotFree())
 }
 
 // The service's link, as the trainer gives it: a spell's, or the item a recipe makes.
-function linkOf(service: Game.TrainerService): String | nil {
-  return Client.GetTrainerServiceItemLink(service.index)
+function linkOf(service: Game::TrainerService): String | nil {
+  return Client::GetTrainerServiceItemLink(service.index)
 }
 
 // The order of a sort, the trainer's where two are alike or none is picked.
-function before(a: Game.TrainerService, b: Game.TrainerService, key: Key | nil, descending: Boolean): Boolean {
+function before(a: Game::TrainerService, b: Game::TrainerService, key: Key | nil, descending: Boolean): Boolean {
   const ka = key == nil ? "" : keyOf(a, key)
   const kb = key == nil ? "" : keyOf(b, key)
   if (ka != kb) { return descending ? kb < ka : ka < kb }
   return a.index < b.index
 }
 
-function statusRank(status: Game.ServiceStatus): Integer {
+function statusRank(status: Game::ServiceStatus): Integer {
   return match (status) {
     .Available => 1
     .Unavailable => 2
@@ -174,67 +174,67 @@ function statusRank(status: Game.ServiceStatus): Integer {
   }
 }
 
-function keyOf(service: Game.TrainerService, key: Key): String {
+function keyOf(service: Game::TrainerService, key: Key): String {
   return match (key) {
-    Key.Name => service.name.lower()
-    Key.Rank => service.rank.lower()
-    Key.Level => "%08d".format(service.level)
-    Key.Skill => "%08d".format(service.skill ?? 0)
-    Key.Cost => "%012d".format(service.cost)
-    Key.Status => String.of(statusRank(service.status))
+    Key::Name => service.name.lower()
+    Key::Rank => service.rank.lower()
+    Key::Level => "%08d".format(service.level)
+    Key::Skill => "%08d".format(service.skill ?? 0)
+    Key::Cost => "%012d".format(service.cost)
+    Key::Status => String::of(statusRank(service.status))
   }
 }
 
 // A name is never red: a learned service's is dim, any other's in ink.
-function inkOf(service: Game.TrainerService): Color {
-  return service.status == Game.ServiceStatus.Learned ? DIM : INK
+function inkOf(service: Game::TrainerService): Color {
+  return service.status == Game::ServiceStatus::Learned ? DIM : INK
 }
 
 // What the service asks for is red while it isn't met.
-function needsInkOf(service: Game.TrainerService): Color {
-  return service.status == Game.ServiceStatus.Unavailable ? RED : DIM
+function needsInkOf(service: Game::TrainerService): Color {
+  return service.status == Game::ServiceStatus::Unavailable ? RED : DIM
 }
 
 // The level a service needs, red while the player hasn't reached it.
-function levelInkOf(service: Game.TrainerService): Color {
-  return service.status != Game.ServiceStatus.Learned && service.level > Game.player.level ? RED : INK
+function levelInkOf(service: Game::TrainerService): Color {
+  return service.status != Game::ServiceStatus::Learned && service.level > Game::player.level ? RED : INK
 }
 
 // The skill a recipe needs, red while it can't be learned and the level isn't what holds it back.
-function skillInkOf(service: Game.TrainerService): Color {
-  return service.status == Game.ServiceStatus.Unavailable && service.level <= Game.player.level ? RED : INK
+function skillInkOf(service: Game::TrainerService): Color {
+  return service.status == Game::ServiceStatus::Unavailable && service.level <= Game::player.level ? RED : INK
 }
 
 // A service's rank as its number alone («1» of «Rank 1», «Уровень 1»); the client's words where they hold none.
-function rankNumberOf(service: Game.TrainerService): String { return service.rank.match("%d+") ?? service.rank }
+function rankNumberOf(service: Game::TrainerService): String { return service.rank.match("%d+") ?? service.rank }
 
 // A service's rank in Ordaen's words («Rank 1», «Ранг 1»), whatever the client calls it; "" for none.
-function rankOf(service: Game.TrainerService): String {
+function rankOf(service: Game::TrainerService): String {
   const number = service.rank.match("%d+")
-  return number == nil ? service.rank : Locale.TRAINER_RANK.format(number)
+  return number == nil ? service.rank : Locale::TRAINER_RANK.format(number)
 }
 
 // The line under a service's name: its spec («Огонь»), its rank, then what it asks for (a level from 2, a skill from 1), or that it is
 // known.
-function needsOf(service: Game.TrainerService): String {
+function needsOf(service: Game::TrainerService): String {
   const parts: Array<String> = []
   if (service.skillLine != "") { parts.push(service.skillLine) }
   const rank = rankOf(service)
   if (rank != "") { parts.push(rank) }
-  if (service.status == Game.ServiceStatus.Learned) {
-    parts.push(Locale.TRAINER_KNOWN)
+  if (service.status == Game::ServiceStatus::Learned) {
+    parts.push(Locale::TRAINER_KNOWN)
   } else {
     // The level only while the player is below it: one reached needs no saying.
-    if (service.level > Game.player.level) { parts.push(Locale.TRAINER_NEEDS_LEVEL.format(service.level)) }
+    if (service.level > Game::player.level) { parts.push(Locale::TRAINER_NEEDS_LEVEL.format(service.level)) }
     const skill = service.skill ?? 0
-    if (skill > 0) { parts.push(Locale.TRAINER_NEEDS_SKILL.format(skill)) }
+    if (skill > 0) { parts.push(Locale::TRAINER_NEEDS_SKILL.format(skill)) }
   }
   return parts.join(" · ")
 }
 
 // An icon of a service that can't be learned yet is tinted red, as the game's is.
-function tintOf(service: Game.TrainerService): Color {
-  return service.status == Game.ServiceStatus.Unavailable ? RED : WHITE
+function tintOf(service: Game::TrainerService): Color {
+  return service.status == Game::ServiceStatus::Unavailable ? RED : WHITE
 }
 
 // One service as a row of the table: a class trainer's rank and level, a profession trainer's level and skill.
@@ -271,23 +271,23 @@ class Rows {
   }
 
   // A service's tooltip while the cursor is on its row: the trainer's own at a trainer, its spell's in a book.
-  public showTip(self, frame: any Frame, service: Game.TrainerService) {
+  public showTip(self, frame: any Frame, service: Game::TrainerService) {
     const spell = service.spell
     if (self.atTrainer) {
-      Game.items.showService(frame, service.index)
+      Game::items.showService(frame, service.index)
     } else if (spell != nil) {
-      Game.items.showSpell(frame, spell)
+      Game::items.showSpell(frame, spell)
     }
   }
 
   // What a service's line says it asks for: its note where it has one (the quest that teaches it), else its needs.
-  public needsOf(self, service: Game.TrainerService): String { return self.notes[service.index] ?? needsOf(service) }
+  public needsOf(self, service: Game::TrainerService): String { return self.notes[service.index] ?? needsOf(service) }
 
   // A press on a service's row: the left picks it, the right asks for its menu.
   public press(self, index: Integer, button: MouseButton) {
-    if (button == MouseButton.Left) {
+    if (button == MouseButton::Left) {
       self.pick.emit(index)
-    } else if (button == MouseButton.Right) {
+    } else if (button == MouseButton::Right) {
       self.menu.emit(index)
     }
   }
@@ -298,17 +298,17 @@ class Rows {
 class IgnoredPlate implements Component {
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={PLATE} zLevel={2}
-           xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.TRAINER_IGNORED} textColor={DIM} wrap={.None} />
+      <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={PLATE} zLevel={2}
+           xAlign={Align::Center} yAlign={Align::Center}>
+        <text value={Locale::TRAINER_IGNORED} textColor={DIM} wrap={.None} />
       </box>
     }
   }
 }
 
 // What the price's cell says where there is no price: a known service, one given free.
-function noPriceOf(service: Game.TrainerService): String {
-  if (service.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
+function noPriceOf(service: Game::TrainerService): String {
+  if (service.status == Game::ServiceStatus::Learned) { return Locale::TRAINER_KNOWN }
   return "—"
 }
 
@@ -316,21 +316,21 @@ class ServiceTableRow implements Component {
   derived ignored: Boolean = isIgnored(self.service, self.rows.ignored)
   derived ink: Color = inkOf(self.service)
   derived tint: Color = tintOf(self.service)
-  derived second: String = self.trade ? String.of(self.service.level) : rankNumberOf(self.service)
-  derived third: String = self.trade ? (self.service.skill == nil ? "—" : String.of(self.service.skill)) : String.of(self.service.level)
+  derived second: String = self.trade ? String::of(self.service.level) : rankNumberOf(self.service)
+  derived third: String = self.trade ? (self.service.skill == nil ? "—" : String::of(self.service.skill)) : String::of(self.service.level)
   // The level's cell red while unmet (a class trainer's third column, a profession trainer's second); the skill's too.
   derived secondInk: Color = self.trade ? levelInkOf(self.service) : INK
   derived thirdInk: Color = self.trade ? skillInkOf(self.service) : levelInkOf(self.service)
-  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
-  derived costInk: Color = self.service.cost > Game.money.amount ? RED : INK
+  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game::ServiceStatus::Learned
+  derived costInk: Color = self.service.cost > Game::money.amount ? RED : INK
   derived noPrice: String = noPriceOf(self.service)
   derived selected: Boolean = self.rows.picked == self.service.index
   derived menuShown: Boolean = self.rows.menuAt == self.service.index
 
-  service: Signal<Game.TrainerService>
+  service: Signal<Game::TrainerService>
   trade: Signal<Boolean>
   const rows: Rows
-  constructor(service: Signal<Game.TrainerService>, trade: Signal<Boolean>, rows: Rows) {
+  constructor(service: Signal<Game::TrainerService>, trade: Signal<Boolean>, rows: Rows) {
     self.service = service
     self.trade = trade
     self.rows = rows
@@ -348,18 +348,18 @@ class ServiceTableRow implements Component {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @double={self.onDouble} @enter={self.onEnter}>
         <TableCell>
-          <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
+          <box columns={NAMED} gap={3sp} yAlign={Align::Center}>
             <box width={ICON} height={ICON} icon={self.service.icon} tint={self.tint} />
             <text value={self.service.name} textColor={self.ink} wrap={.Cut} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.second} textColor={self.secondInk} textFont={TextFont.Numbers} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={self.second} textColor={self.secondInk} textFont={TextFont::Numbers} wrap={.None} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.third} textColor={self.thirdInk} textFont={TextFont.Numbers} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={self.third} textColor={self.thirdInk} textFont={TextFont::Numbers} wrap={.None} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
           <text $else value={self.noPrice} textColor={DIM} wrap={.None} />
         </TableCell>
@@ -378,19 +378,19 @@ class ServiceLine implements Component {
   derived tint: Color = tintOf(self.service)
   derived needs: String = self.rows.needsOf(self.service)
   derived needsInk: Color = needsInkOf(self.service)
-  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
-  derived costInk: Color = self.service.cost > Game.money.amount ? RED : INK
+  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game::ServiceStatus::Learned
+  derived costInk: Color = self.service.cost > Game::money.amount ? RED : INK
   derived background: Color = self.rows.picked == self.service.index ? PICKED : CLEAR
   derived menuShown: Boolean = self.rows.menuAt == self.service.index
 
-  service: Signal<Game.TrainerService>
+  service: Signal<Game::TrainerService>
   const rows: Rows
-  constructor(service: Signal<Game.TrainerService>, rows: Rows) {
+  constructor(service: Signal<Game::TrainerService>, rows: Rows) {
     self.service = service
     self.rows = rows
   }
 
-  onPress(self, press: Event.Press) { self.rows.press(self.service.index, press.button) }
+  onPress(self, press: Event::Press) { self.rows.press(self.service.index, press.button) }
   onKey(self) { self.rows.pick.emit(self.service.index) }
   onDouble(self) { self.rows.double.emit(self.service.index) }
   onChose(self, place: Integer) { self.rows.chose.emit(place) }
@@ -399,7 +399,7 @@ class ServiceLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={3sp} yAlign={Align.Center} background={self.background}
+      <box columns={LINE} gap={3sp} yAlign={Align::Center} background={self.background}
            padding={{ top: 2sp, bottom: 2sp, left: 3sp, right: 3sp }}
            @pointerPress={self.onPress} @pointerPress.double={self.onDouble} @pointerEnter={self.onEnter}
            @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
@@ -419,31 +419,31 @@ class ServiceLine implements Component {
 
 // What «Learn available» learns, in the trainer's order: every service that can be learned now but what is ignored and what
 // starts a profession (each asked for on its own).
-function batchOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
-  return services.filter(service => service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored) && !service.profession)
+function batchOf(services: Array<Game::TrainerService>, ignored: Map<String, Boolean>): Array<Game::TrainerService> {
+  return services.filter(service => service.status == Game::ServiceStatus::Available && !isIgnored(service, ignored) && !service.profession)
 }
 
 // What learning everything left takes: every service not yet learned, whether it can be learned now or not, but what
 // is ignored.
-function dueOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
-  return services.filter(service => service.status != Game.ServiceStatus.Learned && !isIgnored(service, ignored))
+function dueOf(services: Array<Game::TrainerService>, ignored: Map<String, Boolean>): Array<Game::TrainerService> {
+  return services.filter(service => service.status != Game::ServiceStatus::Learned && !isIgnored(service, ignored))
 }
 
 // A service as a line of «Learn available»'s tip: its name and rank, its icon, its price.
-function batchRowOf(service: Game.TrainerService): TipRow {
+function batchRowOf(service: Game::TrainerService): TipRow {
   const rank = rankOf(service)
   const name = rank == "" ? service.name : `${service.name} (${rank})`
-  return { label: name, value: Game.money.format(service.cost), icon: service.icon }
+  return { label: name, value: Game::money.format(service.cost), icon: service.icon }
 }
 
-function costOf(services: Array<Game.TrainerService>): Integer {
+function costOf(services: Array<Game::TrainerService>): Integer {
   let total = 0
   for (service of services) { total += service.cost }
   return total
 }
 
 // The batch the player confirmed is the one there now: the same services at the same places for the same prices.
-function sameBatch(now: Array<Game.TrainerService>, quoted: Array<Game.TrainerService>): Boolean {
+function sameBatch(now: Array<Game::TrainerService>, quoted: Array<Game::TrainerService>): Boolean {
   if (now.length != quoted.length) { return false }
   for (at, service of now) {
     const was = quoted[at]
@@ -475,7 +475,7 @@ class PriceLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PRICE_LINE} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+      <box columns={PRICE_LINE} gap={3sp} yAlign={Align::Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.line.place} textColor={INK} textSize={SECONDARY_TEXT} wrap={.Cut} />
         <Money amount={self.line.price} />
         <Tip $if={self.noted} title={self.line.place} text={self.line.note} />
@@ -485,7 +485,7 @@ class PriceLine implements Component {
 }
 
 // The band's rules above and below it, as the tooltip has them.
-const BAND_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top, Side.Bottom] }
+const BAND_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Top, Side::Bottom] }
 // A line of prices: the place, the price after it.
 const PRICE_LINE: Array<Track> = [{ fr: 1 }, "max-content"]
 
@@ -500,12 +500,12 @@ struct SpellFacts {
 
 const NO_FACTS: SpellFacts = { band: [], lines: [] }
 
-function factsOf(service: Game.TrainerService | nil): SpellFacts {
+function factsOf(service: Game::TrainerService | nil): SpellFacts {
   const spell = service?.spell
   if (service == nil || spell == nil) { return NO_FACTS }
-  const tip = Game.spells.tooltip(spell)
+  const tip = Game::spells.tooltip(spell)
   if (tip == nil) { return NO_FACTS }
-  const band = bandOf(tip.lines, Game.spells.cost(spell))
+  const band = bandOf(tip.lines, Game::spells.cost(spell))
   const lines: Array<String> = []
   for (at, line of tip.lines) {
     const left = line.left ?? ""
@@ -537,14 +537,14 @@ struct Change {
 // What changes from the rank of the spell the player has to the service's: each of its numbers that differs, «yours →
 // the new one»; nothing where the player has no rank of it, or where the two don't read alike but for their numbers
 // (never a guess).
-function changesOf(service: Game.TrainerService | nil): Array<Change> {
+function changesOf(service: Game::TrainerService | nil): Array<Change> {
   const list: Array<Change> = []
   const spell = service?.spell
   if (service == nil || spell == nil) { return list }
   const had = rankHad(service.name, spell)
   if (had == nil) { return list }
-  const was = Game.spells.description(had)
-  const next = Game.spells.description(spell)
+  const was = Game::spells.description(had)
+  const next = Game::spells.description(spell)
   if (was == nil || next == nil) { return list }
   const old, oldRest = numbersOf(was)
   const now, nowRest = numbersOf(next)
@@ -560,7 +560,7 @@ function changesOf(service: Game.TrainerService | nil): Array<Change> {
 function rankHad(name: String, taught: Integer): Integer | nil {
   let best = 0
   let level = -1
-  for (entry of Game.spellbook.entries()) {
+  for (entry of Game::spellbook.entries()) {
     if (entry.name == name && entry.learned && entry.id != taught && entry.level > level) {
       best = entry.id
       level = entry.level
@@ -571,7 +571,7 @@ function rankHad(name: String, taught: Integer): Integer | nil {
 
 // Whether the player has a profession slot free: two main professions known fill both.
 function slotFree(): Boolean {
-  const _, second, _, _, _, _ = Client.GetProfessions()
+  const _, second, _, _, _, _ = Client::GetProfessions()
   return second == nil
 }
 
@@ -613,42 +613,42 @@ public class TrainerPage {
   state confirming = false
   // «Learn available», waiting for the player's word, and the services it was asked for.
   state confirmingAll = false
-  state quoted: Array<Game.TrainerService> = []
+  state quoted: Array<Game::TrainerService> = []
   // The service whose menu is open, by its place in the trainer's list; 0: none.
   state menuAt = 0
 
   derived ignoredNames: Map<String, Boolean> = self.ignored.values.names
-  derived menuService: Game.TrainerService | nil = self.services.find(service => service.index == self.menuAt)
+  derived menuService: Game::TrainerService | nil = self.services.find(service => service.index == self.menuAt)
   derived menuActs: Array<MenuAct> = self.actsOf(self.menuService)
   derived menuEntries: Array<MenuEntry> = self.entriesOf(self.menuActs, self.menuService)
   derived query: String = self.search.lower()
   // The trainer's skill, read again as its services change: a profession trainer's.
-  derived skill: Game.TrainerSkill | nil = self.skillOf()
+  derived skill: Game::TrainerSkill | nil = self.skillOf()
   derived skilled: Boolean = self.skill != nil
   derived rank: Integer = self.skill?.rank ?? 0
   derived most: Integer = self.skill?.most ?? 0
-  derived shown: Array<Game.TrainerService> = self.shownOf()
-  derived tabled: Boolean = self.list.values.view == TrainerView.Table
+  derived shown: Array<Game::TrainerService> = self.shownOf()
+  derived tabled: Boolean = self.list.values.view == TrainerView::Table
   derived empty: Boolean = self.shown.length == 0
   // The trainer's categories with a service shown, in the trainer's order; none where the trainer has none.
   derived categories: Array<String> = self.categoriesOf()
   derived grouped: Boolean = self.categories.length > 0
-  derived current: Game.TrainerService | nil = self.services.find(service => service.index == self.picked)
+  derived current: Game::TrainerService | nil = self.services.find(service => service.index == self.picked)
   derived has: Boolean = self.current != nil
-  derived learned: Boolean = self.current?.status == Game.ServiceStatus.Learned
+  derived learned: Boolean = self.current?.status == Game::ServiceStatus::Learned
   derived name: String = self.current?.name ?? ""
   // What it does, lit as a tooltip's description is: its numbers with their units, a damage school, a spell's name.
   derived text: String = richDescription(self.current?.description ?? "")
   derived currentIgnored: Boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
   // The card says an ignored service is ignored, where its row's plate does.
-  derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale.TRAINER_IGNORED : self.rows.needsOf(self.current ?? panic("current"))
+  derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale::TRAINER_IGNORED : self.rows.needsOf(self.current ?? panic("current"))
   derived price: Integer = self.current?.cost ?? 0
-  derived dear: Boolean = self.price > Game.money.amount
+  derived dear: Boolean = self.price > Game::money.amount
   derived priceInk: Color = self.dear ? RED : INK
   // A new profession needs a free slot, as the game's window greys «Learn» without one.
-  derived noSlot: Boolean = self.current?.profession == true && self.current?.status == Game.ServiceStatus.Available && !slotFree()
+  derived noSlot: Boolean = self.current?.profession == true && self.current?.status == Game::ServiceStatus::Available && !slotFree()
   derived canTrain: Boolean = self.current != nil && learnable(self.current ?? panic("current"), self.ignoredNames)
-  derived confirmText: String = Locale.TRAINER_CONFIRM_PROFESSION.format(self.current?.name ?? "")
+  derived confirmText: String = Locale::TRAINER_CONFIRM_PROFESSION.format(self.current?.name ?? "")
   // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
   // what is ignored, where anything is.
   derived counts: Array<FooterCount> = self.countsOf()
@@ -656,16 +656,16 @@ public class TrainerPage {
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
   derived greeting: String = self.greetingOf()
-  derived batch: Array<Game.TrainerService> = batchOf(self.services, self.ignoredNames)
+  derived batch: Array<Game::TrainerService> = batchOf(self.services, self.ignoredNames)
   derived together: Integer = costOf(self.batch)
   // What everything not yet learned costs, what can't be learned yet with it.
   derived due: Integer = costOf(dueOf(self.services, self.ignoredNames))
   // «Learn available» while nothing is picked: everything the batch holds, while the money pays for all of it; its
   // price on it, and its tip a line for each service it learns.
-  derived canLearnAll: Boolean = self.batch.length > 0 && self.together <= Game.money.amount
-  derived allLabel: String = Locale.TRAINER_LEARN_AVAILABLE.format(Game.money.format(self.together))
+  derived canLearnAll: Boolean = self.batch.length > 0 && self.together <= Game::money.amount
+  derived allLabel: String = Locale::TRAINER_LEARN_AVAILABLE.format(Game::money.format(self.together))
   derived allTip: TipText = self.allTipOf()
-  derived quotedCount: String = Locale.TRAINER_LEARN_ALL_CONFIRM.format(self.quoted.length)
+  derived quotedCount: String = Locale::TRAINER_LEARN_ALL_CONFIRM.format(self.quoted.length)
   derived quotedCost: Integer = costOf(self.quoted)
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
   // and what it does), and what changes against the rank the player has.
@@ -681,7 +681,7 @@ public class TrainerPage {
   derived priceLines: Array<PlacePrice> = self.current == nil ? [] : self.prices[(self.current ?? panic("current")).index] ?? []
   derived priced: Boolean = self.priceLines.length > 0
 
-  services: Signal<Array<Game.TrainerService>>
+  services: Signal<Array<Game::TrainerService>>
   list: mut ModuleMemory<TrainerList>
   // What the player ignored: the character's.
   ignored: mut ModuleMemory<TrainerIgnored>
@@ -700,7 +700,7 @@ public class TrainerPage {
   const columns: Array<Column>
   const keys: Array<Key>
   constructor(
-    services: Signal<Array<Game.TrainerService>>,
+    services: Signal<Array<Game::TrainerService>>,
     list: mut ModuleMemory<TrainerList>,
     ignored: mut ModuleMemory<TrainerIgnored>,
     tabSpec: Signal<WindowTabSpec>,
@@ -736,70 +736,70 @@ public class TrainerPage {
 
   countsOf(self): Array<FooterCount> {
     const counts: Array<FooterCount> = [
-      { label: Locale.TRAINER_AVAILABLE, value: String.of(self.count(.Available)), color: GREEN },
-      { label: Locale.TRAINER_UNAVAILABLE, value: String.of(self.count(.Unavailable)), color: RED },
-      { label: Locale.TRAINER_KNOWN, value: String.of(self.count(.Known)), color: BLUE }
+      { label: Locale::TRAINER_AVAILABLE, value: String::of(self.count(.Available)), color: GREEN },
+      { label: Locale::TRAINER_UNAVAILABLE, value: String::of(self.count(.Unavailable)), color: RED },
+      { label: Locale::TRAINER_KNOWN, value: String::of(self.count(.Known)), color: BLUE }
     ]
     const ignored = self.count(.Ignored)
-    if (ignored > 0) { counts.push({ label: Locale.TRAINER_IGNORED, value: String.of(ignored), color: GREY }) }
+    if (ignored > 0) { counts.push({ label: Locale::TRAINER_IGNORED, value: String::of(ignored), color: GREY }) }
     return counts
   }
 
   // What a service's menu offers, each only where it can be done: learn it (where it can be learned now), ignore it or
   // stop ignoring it (where it isn't known), its link in the chat (where it has one).
-  actsOf(self, service: Game.TrainerService | nil): Array<MenuAct> {
+  actsOf(self, service: Game::TrainerService | nil): Array<MenuAct> {
     const acts: Array<MenuAct> = []
     if (service == nil) { return acts }
     if (self.atTrainer && learnable(service, self.ignoredNames)) { acts.push(.Learn) }
-    if (service.status != Game.ServiceStatus.Learned) { acts.push(.Ignore) }
+    if (service.status != Game::ServiceStatus::Learned) { acts.push(.Ignore) }
     if (service.spell != nil || (self.atTrainer && linkOf(service) != nil)) { acts.push(.Link) }
     return acts
   }
 
   // The menu's lines, a rule above each after the first.
-  entriesOf(self, acts: Array<MenuAct>, service: Game.TrainerService | nil): Array<MenuEntry> {
+  entriesOf(self, acts: Array<MenuAct>, service: Game::TrainerService | nil): Array<MenuEntry> {
     const entries: Array<MenuEntry> = []
     if (service == nil) { return entries }
     for (at, act of acts) { entries.push({ label: self.labelOf(act, service), group: at > 1 }) }
     return entries
   }
 
-  labelOf(self, act: MenuAct, service: Game.TrainerService): String {
+  labelOf(self, act: MenuAct, service: Game::TrainerService): String {
     return match (act) {
-      .Learn => Locale.TRAINER_TRAIN
-      .Ignore => isIgnored(service, self.ignoredNames) ? Locale.TRAINER_UNIGNORE : Locale.TRAINER_IGNORE
-      .Link => Locale.TRAINER_LINK
+      .Learn => Locale::TRAINER_TRAIN
+      .Ignore => isIgnored(service, self.ignoredNames) ? Locale::TRAINER_UNIGNORE : Locale::TRAINER_IGNORE
+      .Link => Locale::TRAINER_LINK
     }
   }
 
   greetingOf(self): String {
     _ = self.services.length
-    return self.atTrainer ? Game.trainer.greeting() : ""
+    return self.atTrainer ? Game::trainer.greeting() : ""
   }
 
   // The reason on «Learn»'s Tip while it can't be pressed; none while it can.
   reasonOf(self): TipText | nil {
     if (self.canTrain) { return nil }
-    return { title: Locale.TRAINER_TRAIN, text: self.reasonText(), rows: [] }
+    return { title: Locale::TRAINER_TRAIN, text: self.reasonText(), rows: [] }
   }
 
   allTipOf(self): TipText {
-    const text = self.batch.length == 0 ? Locale.TRAINER_LEARN_ALL_NONE : self.canLearnAll ? "" : Locale.TRAINER_LEARN_ALL_DEAR
-    return { title: Locale.TRAINER_LEARN_AVAILABLE_TITLE, text: text, rows: self.batch.map(batchRowOf) }
+    const text = self.batch.length == 0 ? Locale::TRAINER_LEARN_ALL_NONE : self.canLearnAll ? "" : Locale::TRAINER_LEARN_ALL_DEAR
+    return { title: Locale::TRAINER_LEARN_AVAILABLE_TITLE, text: text, rows: self.batch.map(batchRowOf) }
   }
 
   reasonText(self): String {
     const current = self.current
-    if (current == nil) { return Locale.TRAINER_PICK_FIRST }
-    if (current.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
-    if (self.currentIgnored) { return Locale.TRAINER_IGNORED_TIP }
-    if (current.level > Game.player.level) { return Locale.TRAINER_NEEDS_LEVEL_SHORT.format(current.level) }
-    if (self.dear) { return Locale.TRAINER_TOO_DEAR }
-    if (self.noSlot) { return Locale.TRAINER_NO_SLOT }
-    return Locale.TRAINER_UNAVAILABLE
+    if (current == nil) { return Locale::TRAINER_PICK_FIRST }
+    if (current.status == Game::ServiceStatus::Learned) { return Locale::TRAINER_KNOWN }
+    if (self.currentIgnored) { return Locale::TRAINER_IGNORED_TIP }
+    if (current.level > Game::player.level) { return Locale::TRAINER_NEEDS_LEVEL_SHORT.format(current.level) }
+    if (self.dear) { return Locale::TRAINER_TOO_DEAR }
+    if (self.noSlot) { return Locale::TRAINER_NO_SLOT }
+    return Locale::TRAINER_UNAVAILABLE
   }
 
-  shownOf(self): Array<Game.TrainerService> {
+  shownOf(self): Array<Game::TrainerService> {
     const view = self.list.values
     const key = self.keys[view.sorted]
     const ignored = self.ignoredNames
@@ -817,13 +817,13 @@ public class TrainerPage {
     return categories
   }
 
-  skillOf(self): Game.TrainerSkill | nil {
+  skillOf(self): Game::TrainerSkill | nil {
     _ = self.services.length
-    return self.atTrainer ? Game.trainer.skill() : nil
+    return self.atTrainer ? Game::trainer.skill() : nil
   }
 
   // The services of a category as the list shows them: none while it is folded.
-  inCategory(self, category: String): Array<Game.TrainerService> {
+  inCategory(self, category: String): Array<Game::TrainerService> {
     if (self.folded[category] == true) { return [] }
     return self.shown.filter(service => service.category == category)
   }
@@ -842,20 +842,20 @@ public class TrainerPage {
 
   // A service learned, in the player's click: the client buys it where it can be learned now; a new profession is
   // picked and asked first.
-  learn(mut self, service: Game.TrainerService) {
+  learn(mut self, service: Game::TrainerService) {
     if (!self.atTrainer || !learnable(service, peek self.ignoredNames)) { return }
     if (service.profession) {
       self.picked = service.index
       self.confirming = true
       return
     }
-    Client.BuyTrainerService(service.index)
+    Client::BuyTrainerService(service.index)
   }
 
   // The services as the list shows them, top to bottom: by category where it groups them, a folded one's left out.
-  inOrder(self): Array<Game.TrainerService> {
+  inOrder(self): Array<Game::TrainerService> {
     if ((peek self.tabled) || !(peek self.grouped)) { return peek self.shown }
-    const all: Array<Game.TrainerService> = []
+    const all: Array<Game::TrainerService> = []
     for (category of peek self.categories) {
       for (service of self.inCategory(category)) { all.push(service) }
     }
@@ -911,9 +911,9 @@ public class TrainerPage {
         const spell = service.spell
         const item = self.atTrainer ? linkOf(service)?.match("item:(%d+)")?.toNumber()?.floor() : nil
         if (spell != nil) {
-          Game.chat.linkSpell(spell)
+          Game::chat.linkSpell(spell)
         } else if (item != nil) {
-          Game.chat.link(item)
+          Game::chat.link(item)
         }
       }
     }
@@ -931,7 +931,7 @@ public class TrainerPage {
     self.confirming = false
     const current = peek self.current
     if (current != nil && learnable(current, peek self.ignoredNames)) {
-      Client.BuyTrainerService(current.index)
+      Client::BuyTrainerService(current.index)
       self.picked = self.nextAfter(current.index)
     }
   }
@@ -951,10 +951,10 @@ public class TrainerPage {
   onLearnAllConfirmed(mut self) {
     self.confirmingAll = false
     const now = batchOf(peek self.services, peek self.ignoredNames)
-    if (!sameBatch(now, peek self.quoted) || costOf(now) > Game.money.amount) { return }
+    if (!sameBatch(now, peek self.quoted) || costOf(now) > Game::money.amount) { return }
     for (at of now.length..1 step -1) {
       const service = now[at]
-      if (service != nil) { Client.BuyTrainerService(service.index) }
+      if (service != nil) { Client::BuyTrainerService(service.index) }
     }
   }
 
@@ -973,46 +973,46 @@ public class TrainerPage {
         // A name on two lines or more keeps its font's own line.
         <text value={self.name} textSize={TITLE_TEXT} leading={.Tight} textColor={GOLD} />
         <text $if={self.needs != ""} value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
-        <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
+        <text $if={self.noSlot} value={Locale::TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={INK} leading={.Prose} />
-        <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
+        <text $if={self.changed} value={Locale::TRAINER_CHANGES} textColor={GOLD} />
         // The numbers in the numbers font, the arrow in the text's: a numbers font carries digits, not every sign.
         <box $for={change of self.changes} columns={{ each: "max-content" }} gap={1sp}>
-          <text value={change.yours} textColor={GREEN} textFont={TextFont.Numbers} />
+          <text value={change.yours} textColor={GREEN} textFont={TextFont::Numbers} />
           <text value={"→"} textColor={GREEN} />
-          <text value={change.next} textColor={GREEN} textFont={TextFont.Numbers} />
+          <text value={change.next} textColor={GREEN} textFont={TextFont::Numbers} />
         </box>
         // Its band, the tooltip's cells, then the rest of what its tooltip says.
         <box $if={self.banded} columns={self.facts.band.length} border={BAND_RULE}>
           <BandCell $for={index, fact of self.facts.band} fact={fact} index={index} last={false} />
         </box>
         <text $for={line of self.facts.lines} value={line} textColor={DIM} textSize={SECONDARY_TEXT} />
-        <text $if={self.priced} value={Locale.TRAINER_PRICES} textColor={GOLD} />
+        <text $if={self.priced} value={Locale::TRAINER_PRICES} textColor={GOLD} />
         <PriceLine $for={line of self.priceLines} line={line} />
       </box>
       <box $else columns={1} gap={2sp}>
         <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />
-        <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
-          <text value={Locale.TRAINER_DUE} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <box columns={PAIR} gap={3sp} yAlign={Align::Center}>
+          <text value={Locale::TRAINER_DUE} textColor={DIM} textSize={SECONDARY_TEXT} />
           <Money amount={self.due} />
         </box>
       </box>
       <box />
       // A known service: the word in place of its price and «Learn».
-      <box $if={self.learned} xAlign={Align.End}>
-        <text value={Locale.TRAINER_KNOWN} textColor={BLUE} />
+      <box $if={self.learned} xAlign={Align::End}>
+        <text value={Locale::TRAINER_KNOWN} textColor={BLUE} />
       </box>
       // Away from a trainer: the service's own action (its quest on the map), or where it is learned.
-      <box $elseif={!self.atTrainer} columns={PAIR} gap={3sp} yAlign={Align.Center}>
+      <box $elseif={!self.atTrainer} columns={PAIR} gap={3sp} yAlign={Align::Center}>
         <box>
           <Money $if={self.has && self.price > 0} amount={self.price} color={self.priceInk} />
         </box>
         <PushButton $if={self.acts} label={self.action ?? ""} width={TRAIN_WIDTH} @click={self.onAct} />
-        <text $else value={Locale.TRAINER_AT_TRAINER} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <text $else value={Locale::TRAINER_AT_TRAINER} textColor={DIM} textSize={SECONDARY_TEXT} />
       </box>
-      <box $elseif={self.has} columns={PAIR} gap={3sp} yAlign={Align.Center}>
+      <box $elseif={self.has} columns={PAIR} gap={3sp} yAlign={Align::Center}>
         <Money amount={self.price} color={self.priceInk} />
-        <PushButton label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain}
+        <PushButton label={Locale::TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate::Accent} disabled={!self.canTrain}
                     tip={self.reason} @click={self.onTrain} />
       </box>
     </box>
@@ -1022,9 +1022,9 @@ public class TrainerPage {
   // trainer «Learn available» after it.
   public const footer: Template = $ltml {
     <ListFooter counts={self.counts}>
-      <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-      <Money amount={Game.money.amount} />
-      <PushButton $if={self.atTrainer} label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate.Accent}
+      <text value={Locale::TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+      <Money amount={Game::money.amount} />
+      <PushButton $if={self.atTrainer} label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate::Accent}
                   disabled={!self.canLearnAll} tip={self.allTip} @click={self.onLearnAll} />
     </ListFooter>
   }
@@ -1033,14 +1033,14 @@ public class TrainerPage {
     <box rows={BODY}>
       <box padding={HEAD_ROOM} gap={6sp}>
         <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
-        <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
-          <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
+        <Toolbar search={mut self.search} placeholder={Locale::TRAINER_SEARCH}>
+          <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale::TRAINER_SORT} more={MORE_SORTS} />
           <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
-          <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
+          <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale::TRAINER_VIEW} />
         </Toolbar>
       </box>
-      <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
+      <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
+        <text value={Locale::TRAINER_NOTHING} textColor={DIM} />
       </box>
       <box $elseif={self.tabled} rows={FILL}>
         <Table columns={self.columns} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
@@ -1048,7 +1048,7 @@ public class TrainerPage {
                            rows={self.rows} />
         </Table>
       </box>
-      <box $elseif={self.grouped} columns={1} overflow={Overflow.Scroll}>
+      <box $elseif={self.grouped} columns={1} overflow={Overflow::Scroll}>
         <$for={category of self.categories}>
           <CategoryCaption category={peek category} count={self.countIn(category)} folded={self.folded[category] == true}
                            @toggled={self.onToggle} />
@@ -1056,7 +1056,7 @@ public class TrainerPage {
                        rows={self.rows} />
         </>
       </box>
-      <box $else columns={1} overflow={Overflow.Scroll}>
+      <box $else columns={1} overflow={Overflow::Scroll}>
         <ServiceLine $for={service of self.shown} $key={service.index} service={service} rows={self.rows} />
       </box>
     </box>
@@ -1065,16 +1065,16 @@ public class TrainerPage {
   public const dialogs: Template = $ltml {
     <Dialog $if={self.confirming} width={DIALOG} title={self.tabSpec.title}>
       <text value={self.confirmText} textColor={INK} />
-      <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onConfirmCancel} />
-      <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onConfirmed} />
+      <PushButton #buttons label={Locale::CANCEL} width={TRAIN_WIDTH} @click={self.onConfirmCancel} />
+      <PushButton #buttons label={Locale::TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate::Accent} @click={self.onConfirmed} />
     </Dialog>
     <Dialog $if={self.confirmingAll} width={DIALOG} title={self.tabSpec.title}>
-      <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
+      <box columns={FOOT} gap={2sp} yAlign={Align::Center}>
         <text value={self.quotedCount} textColor={INK} />
         <Money amount={self.quotedCost} />
       </box>
-      <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onLearnAllCancel} />
-      <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onLearnAllConfirmed} />
+      <PushButton #buttons label={Locale::CANCEL} width={TRAIN_WIDTH} @click={self.onLearnAllCancel} />
+      <PushButton #buttons label={Locale::TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate::Accent} @click={self.onLearnAllConfirmed} />
     </Dialog>
   }
 }
@@ -1092,7 +1092,7 @@ public class TrainerWindow implements Component {
   tabSpec: Signal<WindowTabSpec>
   const page: TrainerPage
   constructor(
-    services: Signal<Array<Game.TrainerService>>,
+    services: Signal<Array<Game::TrainerService>>,
     declared: mut KeptWindow,
     list: mut ModuleMemory<TrainerList>,
     ignored: mut ModuleMemory<TrainerIgnored>,
@@ -1106,7 +1106,7 @@ public class TrainerWindow implements Component {
     self.page = new TrainerPage(services, list, ignored, tabSpec, noun, trade)
   }
 
-  onClose(self) { Client.CloseTrainer() }
+  onClose(self) { Client::CloseTrainer() }
   onSettings(self) { self.settings.emit() }
 
   public render(self): Template {

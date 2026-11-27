@@ -24,11 +24,11 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SCAN_ON_OPEN} hint={Locale.SCAN_ON_OPEN_TIP} value={mut self.settings.values.scanOnOpen} />
-      <NumberInput label={Locale.CUT} hint={Locale.CUT_TIP} value={mut self.settings.values.cut} least={0} most={20}
-                   unit={Unit.None} />
-      <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.values.window} />
-      <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.values.priceLine} />
+      <Switch label={Locale::SCAN_ON_OPEN} hint={Locale::SCAN_ON_OPEN_TIP} value={mut self.settings.values.scanOnOpen} />
+      <NumberInput label={Locale::CUT} hint={Locale::CUT_TIP} value={mut self.settings.values.cut} least={0} most={20}
+                   unit={Unit::None} />
+      <Switch label={Locale::WINDOW} hint={Locale::WINDOW_TIP} value={mut self.settings.values.window} />
+      <Switch label={Locale::PRICE_LINE} hint={Locale::PRICE_LINE_TIP} value={mut self.settings.values.priceLine} />
     }
   }
 }

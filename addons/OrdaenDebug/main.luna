@@ -18,14 +18,14 @@ public class DebugModule implements Module, App {
   public kit: mut Kit
   // Its one tab: «Report a bug».
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_REPORT, content: $ltml { <ReportPage errors={self.errors} /> } }
+    { title: Locale::TAB_REPORT, content: $ltml { <ReportPage errors={self.errors} /> } }
   ]
 
   constructor() {
     self.errors = new Errors(takeSaved(), clientMeta())
     self.catcher = new Catcher(self.errors)
     self.kit = new Kit(self.catcher)
-    Debug.attach(self.kit)
+    Debug::attach(self.kit)
     Ordaen.modules.add(self)
   }
 

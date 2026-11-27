@@ -11,7 +11,7 @@ import Style from "@/style"
 public class SampleNote implements Component {
   public render(self): Template {
     return $ltml {
-      <text value={Locale.SAMPLE} textSize={SECONDARY_TEXT} textColor={Style.YELLOW} />
+      <text value={Locale::SAMPLE} textSize={SECONDARY_TEXT} textColor={Style::YELLOW} />
     }
   }
 }
@@ -36,8 +36,8 @@ const STATISTICS: Array<Statistic> = [
 public enum StatsView { Categories, List }
 
 const VIEWS: Array<Choice<StatsView>> = [
-  { value: StatsView.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
-  { value: StatsView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+  { value: StatsView::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: StatsView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 
 function found(search: String): Array<Statistic> {
@@ -56,7 +56,7 @@ function groupsFound(search: String, view: StatsView): Array<Group> {
 }
 
 // The footer's count: the statistics the search keeps.
-public function statisticsCount(search: String): String { return Locale.STATS_COUNT.format(found(search).length) }
+public function statisticsCount(search: String): String { return Locale::STATS_COUNT.format(found(search).length) }
 
 public class StatisticsPage implements Component {
   derived groups: Array<Group> = groupsFound(self.search, self.view)
@@ -74,12 +74,12 @@ public class StatisticsPage implements Component {
     return $ltml {
       <box rows={["max-content", "max-content", { fr: 1 }]} gap={6sp}>
         <SampleNote />
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH_STATS}>
-          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+        <Toolbar search={mut self.search} placeholder={Locale::SEARCH_STATS}>
+          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale::VIEW} />
         </Toolbar>
-        <box overflow={Overflow.Scroll}>
+        <box overflow={Overflow::Scroll}>
           <box gap={3sp}>
-            <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <text $if={self.empty} value={Locale::NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
             <StatGroup $for={group of self.groups} group={group} />
           </box>
         </box>

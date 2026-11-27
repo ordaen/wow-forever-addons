@@ -20,11 +20,11 @@ import { Source } from "@/wanted"
 // A window docked at the screen's right is narrow: what is held and needed stands under what is left to buy, the
 // price's age under the price.
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_TO_BUY, width: 131.25dp, align: Align.End },
-  { title: Locale.COLUMN_PRICE, width: 117.1875dp, align: Align.End },
-  { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
-  { title: "", width: 126.5625dp, align: Align.End }
+  { title: Locale::COLUMN_ITEM, width: { fr: 1 } },
+  { title: Locale::COLUMN_TO_BUY, width: 131.25dp, align: Align::End },
+  { title: Locale::COLUMN_PRICE, width: 117.1875dp, align: Align::End },
+  { title: Locale::COLUMN_TOTAL, width: 105.46875dp, align: Align::End },
+  { title: "", width: 126.5625dp, align: Align::End }
 ]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
@@ -39,9 +39,9 @@ const NO_COUNTS: Array<FooterCount> = []
 // What asked for a line, as the row says it: «Bronze Axe ×5 — Regron's queue», «by hand».
 function sourceText(source: Source): String {
   return match (source) {
-    .Queue => Locale.QUEUE_LINE.format(Game.spells.name(source.recipe) ?? Locale.UNKNOWN_RECIPE.format(source.recipe),
+    .Queue => Locale::QUEUE_LINE.format(Game::spells.name(source.recipe) ?? Locale::UNKNOWN_RECIPE.format(source.recipe),
       source.crafts, source.character)
-    .ByHand => Locale.BY_HAND
+    .ByHand => Locale::BY_HAND
   }
 }
 
@@ -57,7 +57,7 @@ function linesText(row: Row): String {
 // What one costs, and how old the price is; none where no price is known.
 function quoteOf(prices: any PriceSource, item: ItemId): Quote | nil {
   _ = prices.revision
-  return prices.buy(PriceKey.of(item))
+  return prices.buy(PriceKey::of(item))
 }
 
 class ShoppingRow implements Component {
@@ -70,14 +70,14 @@ class ShoppingRow implements Component {
   derived unit: Integer = self.quote?.copper() ?? 0
   derived sum: Integer = self.quoted > 0 ? self.quoted : self.unit * self.row.toBuy
   derived age: Number | nil = ageOf(self.quote)
-  derived ink: Color = self.row.toBuy == 0 ? Style.DIM : Style.INK
+  derived ink: Color = self.row.toBuy == 0 ? Style::DIM : Style::INK
   derived name: String = self.nameText()
-  derived color: Color = self.row.toBuy == 0 ? Style.DIM : self.nameColor()
+  derived color: Color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
   derived from: String = linesText(self.row)
   derived bought: Boolean = self.row.toBuy == 0
-  derived buyLabel: String = self.bought ? Locale.BOUGHT : self.quoted > 0 ? Locale.CONFIRM :
-    Locale.BUY_COUNT.format(self.row.toBuy)
-  derived canBuy: Boolean = self.priced && !self.bought && !Game.auctionActions.busy
+  derived buyLabel: String = self.bought ? Locale::BOUGHT : self.quoted > 0 ? Locale::CONFIRM :
+    Locale::BUY_COUNT.format(self.row.toBuy)
+  derived canBuy: Boolean = self.priced && !self.bought && !Game::auctionActions.busy
 
   // The row's line of the list: the table hands the row to another line as it scrolls.
   row: Signal<Row>
@@ -117,41 +117,41 @@ class ShoppingRow implements Component {
 
   // The item's tooltip beside its whole row.
   onRowEnter(self, frame: any Frame) {
-    Game.items.show(frame, self.row.item)
+    Game::items.show(frame, self.row.item)
   }
 
   public render(self): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
-          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-            <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} tipped={false} />
+          <box columns={ITEM} gap={2.5sp} yAlign={Align::Center}>
+            <ItemButton item={self.row.item} size={Style::SLOT} dimmed={self.bought} tipped={false} />
             // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
             <box rows={["max-content", "max-content"]}>
               <text value={self.name} textColor={self.color} wrap={.Cut} />
-              <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+              <text value={self.from} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
             </box>
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <box rows={LINES} xAlign={Align.End}>
+        <TableCell align={Align::End}>
+          <box rows={LINES} xAlign={Align::End}>
             <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
-            <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+            <text value={Locale::HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style::DIM}
                   textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <box $if={self.priced} rows={LINES} xAlign={Align.End}>
+        <TableCell align={Align::End}>
+          <box $if={self.priced} rows={LINES} xAlign={Align::End}>
             <Money amount={self.unit} />
             <Age seconds={self.age} />
           </box>
-          <text $else value={"—"} textColor={Style.DIM} />
+          <text $else value={"—"} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.priced} amount={self.sum} />
-          <text $else value={"—"} textColor={Style.DIM} />
+          <text $else value={"—"} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <PushButton label={self.buyLabel} width={112.5dp} disabled={!self.canBuy} @click={self.onBuy} />
         </TableCell>
       </TableRow>
@@ -183,7 +183,7 @@ public class ShoppingPage implements Component {
   derived total: Integer = self.totalOf()
   derived short: Boolean = self.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
   // Searched and bought from at the house alone.
-  derived away: Boolean = self.empty || !Game.auctionHouse.open
+  derived away: Boolean = self.empty || !Game::auctionHouse.open
 
   const prices: any PriceSource
   list: mut ShoppingList
@@ -215,9 +215,9 @@ public class ShoppingPage implements Component {
   // The row's listings asked, unless they are its purchase's already.
   pickPurchase(mut self, item: ItemId) {
     const held = self.purchase
-    if (held != nil && held.key == PriceKey.of(item)) { return }
+    if (held != nil && held.key == PriceKey::of(item)) { return }
     destroy self.purchase
-    self.purchase = new Purchase(PriceKey.of(item))
+    self.purchase = new Purchase(PriceKey::of(item))
   }
 
   onPick(mut self, item: ItemId) {
@@ -230,7 +230,7 @@ public class ShoppingPage implements Component {
     self.picked = item
     const toBuy = (peek self.rows).find(row => row.item == item)?.toBuy ?? 0
     const held = self.purchase
-    if (held != nil && held.key == PriceKey.of(item) && peek held.listed) {
+    if (held != nil && held.key == PriceKey::of(item) && peek held.listed) {
       _ = held.buy(toBuy)
       return
     }
@@ -252,11 +252,11 @@ public class ShoppingPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
-        <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
-          <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={.None} />
-          <box columns={PRICE} yAlign={Align.Center}>
-            <text $if={self.short} value={"~"} textColor={Style.INK} wrap={.None} />
+        <box columns={HEAD} gap={3sp} yAlign={Align::Center}>
+          <text value={Locale::HELD_HERE} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+          <text value={Locale::TOTAL_TO_BUY} textColor={Style::DIM} wrap={.None} />
+          <box columns={PRICE} yAlign={Align::Center}>
+            <text $if={self.short} value={"~"} textColor={Style::INK} wrap={.None} />
             <Money amount={self.total} />
           </box>
         </box>
@@ -266,16 +266,16 @@ public class ShoppingPage implements Component {
                          selected={self.picked == row.item}
                          quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
                          @buy={self.onBuy} />
-            <box $if={self.empty} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-              <text value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} />
+            <box $if={self.empty} padding={Style::NOTE_PAD} yAlign={Align::Center}>
+              <text value={Locale::SHOPPING_EMPTY} textColor={Style::DIM} />
             </box>
           </Table>
         </box>
         <ListFooter counts={NO_COUNTS}>
-          <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} plate={ButtonPlate.Accent} disabled={self.away}
+          <PushButton label={Locale::SEARCH_ALL} width={175.78125dp} plate={ButtonPlate::Accent} disabled={self.away}
                       @click={self.onSearch} />
-          <PushButton label={Locale.REMOVE_BOUGHT} width={199.21875dp} disabled={self.empty} @click={self.onClear} />
-          <PushButton label={Locale.REMOVE} width={152.34375dp} disabled={!self.chosen} @click={self.onRemove} />
+          <PushButton label={Locale::REMOVE_BOUGHT} width={199.21875dp} disabled={self.empty} @click={self.onClear} />
+          <PushButton label={Locale::REMOVE} width={152.34375dp} disabled={!self.chosen} @click={self.onRemove} />
         </ListFooter>
       </box>
     }

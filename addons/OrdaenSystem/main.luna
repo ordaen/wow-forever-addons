@@ -16,7 +16,7 @@ import { ProfileQuestion } from "@/question"
 public class System implements Module, App {
   public const title: String = "Ordaen System"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("addons", Client.ADDONS, WINDOW)
+  public window: mut KeptWindow = new KeptWindow("addons", Client::ADDONS, WINDOW)
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -40,23 +40,23 @@ public class System implements Module, App {
   const keeping: mut GameKeeping = new GameKeeping()
 
   constructor() {
-    self.framework = Runtime.Addon.of(Ordaen)?.name ?? "Ordaen"
+    self.framework = Runtime::Addon::of(Ordaen)?.name ?? "Ordaen"
     Ordaen.modules.add(self)
     const live = self.live
-    _ = Client.GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => {
+    _ = Client::GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => {
       if (live.on) { self.dress() }
     })
     // Blizzard's list asked for, whichever way (its own «AddOns» where that button takes a click): ours in its place.
     // A hook on a rarely called function, its body one comparison.
-    Client.hooksecurefunc("ShowUIPanel", (...args: Unknown): nil => {
+    Client::hooksecurefunc("ShowUIPanel", (...args: Unknown): nil => {
       if (!live.on) { return }
-      if (args[1] == Client.AddonList) {
+      if (args[1] == Client::AddonList) {
         self.replace()
-      } else if (args[1] == Client.SettingsPanel) {
+      } else if (args[1] == Client::SettingsPanel) {
         self.replaceSettings()
       }
     })
-    const panel = Client.SettingsPanel
+    const panel = Client::SettingsPanel
     if (panel != nil) {
       _ = panel.HookScript("OnHide", (...args: Unknown): nil => {
         _ = self.pass.hidden(panel)
@@ -84,10 +84,10 @@ public class System implements Module, App {
   // Blizzard's settings window was shown: unless a page of ours let it through, shut again in the call that showed it,
   // and ours opened at its «Settings» tab, the game menu shut as Blizzard's «Options» shuts it.
   replaceSettings(mut self) {
-    const panel = Client.SettingsPanel
+    const panel = Client::SettingsPanel
     if (panel == nil || self.pass.passes(panel)) { return }
-    Client.HideUIPanel(panel)
-    if (Client.GameMenuFrame.IsShown()) { self.menu.close() }
+    Client::HideUIPanel(panel)
+    if (Client::GameMenuFrame.IsShown()) { self.menu.close() }
     self.window.ask(SETTINGS_TAB)
     self.made = true
     self.open = true
@@ -95,9 +95,9 @@ public class System implements Module, App {
 
   // Blizzard's settings window at a page, as it is: ours shuts, the game's shows until it hides.
   passSettings(mut self, page: Integer) {
-    const panel = Client.SettingsPanel
-    const settings = Client.Settings
-    if (panel == nil || settings == nil || Client.InCombatLockdown()) { return }
+    const panel = Client::SettingsPanel
+    const settings = Client::Settings
+    if (panel == nil || settings == nil || Client::InCombatLockdown()) { return }
     self.open = false
     self.pass.pass(panel)
     settings.OpenToCategory(page, nil)
@@ -106,8 +106,8 @@ public class System implements Module, App {
   // Blizzard's list was shown: shut again in the call that showed it, before a frame draws it, and ours opened, the
   // game menu shut as our «AddOns» shuts it. The list's own hide resets what isn't saved; ours saves each switch.
   replace(mut self) {
-    Client.HideUIPanel(Client.AddonList)
-    if (Client.GameMenuFrame.IsShown()) { self.menu.close() }
+    Client::HideUIPanel(Client::AddonList)
+    if (Client::GameMenuFrame.IsShown()) { self.menu.close() }
     self.openWindow()
   }
 

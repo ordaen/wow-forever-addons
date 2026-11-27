@@ -16,9 +16,9 @@ public class ListFooter implements Component {
   public render(self): Template {
     return $ltml {
       <FooterBand>
-        <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
+        <box columns={SPREAD} gap={6sp} yAlign={Align::Center}>
           <FooterCounts counts={self.counts} />
-          <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
+          <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align::Center}>
             <slot />
           </box>
         </box>

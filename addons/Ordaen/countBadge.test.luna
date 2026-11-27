@@ -4,7 +4,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { CountBadge } from "@/countBadge"
 
-const WHISPER: Color = Color.hex("#ff80ff")
+const WHISPER: Color = Color::hex("#ff80ff")
 
 class Badges {
   public state count = 3
@@ -21,12 +21,12 @@ class Badges {
 
 test "one digit stands round on its pill with room round it, more widen it, and a tone tints it" {
   const page = new Badges()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
-  const pill = Test.edges(Ordaen.art.panel.countBadge, 0)
-  const digit = Test.page().text("3").rect()
-  Test.expect((pill.right - pill.left) - (pill.bottom - pill.top) < 1)
-  Test.expect(digit.left - pill.left >= 3 && pill.right - digit.right >= 3)
-  const toned = Test.drawn().filter(d => d.desaturated)
-  Test.expect(toned.length == 1)
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  const pill = Test::edges(Ordaen.art.panel.countBadge, 0)
+  const digit = Test::page().text("3").rect()
+  Test::expect((pill.right - pill.left) - (pill.bottom - pill.top) < 1)
+  Test::expect(digit.left - pill.left >= 3 && pill.right - digit.right >= 3)
+  const toned = Test::drawn().filter(d => d.desaturated)
+  Test::expect(toned.length == 1)
   destroy page
 }

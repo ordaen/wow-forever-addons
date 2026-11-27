@@ -21,7 +21,7 @@ public class Sets {
     self.list = load<Kept>(.Account, KEY, Kept {}).sets.clone()
   }
 
-  store(self) { Game.saved.store(.Account, KEY, Kept { sets: peek self.list }) }
+  store(self) { Game::saved.store(.Account, KEY, Kept { sets: peek self.list }) }
 
   // A set saved under a name, in place of one of that name: false where ten are kept already.
   public save(mut self, name: String, addons: Array<String>): Boolean {

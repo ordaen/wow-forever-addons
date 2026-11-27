@@ -24,22 +24,22 @@ public enum Owned { Collected, Missing }
 public enum EntrySort { Collected, Name }
 public enum EntryView { Rows, Icons }
 
-const SUBS: Array<String> = [Locale.SUB_MOUNTS, Locale.SUB_PETS, Locale.SUB_TOYS, Locale.SUB_TRANSMOG]
+const SUBS: Array<String> = [Locale::SUB_MOUNTS, Locale::SUB_PETS, Locale::SUB_TOYS, Locale::SUB_TRANSMOG]
 const SUB_TRANSMOG = 4
 // The game's journal's appearances tab.
 const JOURNAL_APPEARANCES = 5
 const SORTS: Array<Choice<EntrySort>> = [
-  { value: EntrySort.Collected, label: Locale.SORT_COLLECTED },
-  { value: EntrySort.Name, label: Locale.SORT_NAME }
+  { value: EntrySort::Collected, label: Locale::SORT_COLLECTED },
+  { value: EntrySort::Name, label: Locale::SORT_NAME }
 ]
 const VIEWS: Array<Choice<EntryView>> = [
-  { value: EntryView.Rows, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
-  { value: EntryView.Icons, label: Locale.VIEW_ICONS, icon: ARTWORK.ctl.tool.table }
+  { value: EntryView::Rows, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
+  { value: EntryView::Icons, label: Locale::VIEW_ICONS, icon: ARTWORK.ctl.tool.table }
 ]
 const FILTERS: Array<FilterGroup<Owned>> = [
-  { label: nil, options: [{ key: Owned.Collected, label: Locale.SHOW_COLLECTED }, { key: Owned.Missing, label: Locale.SHOW_MISSING }] }
+  { label: nil, options: [{ key: Owned::Collected, label: Locale::SHOW_COLLECTED }, { key: Owned::Missing, label: Locale::SHOW_MISSING }] }
 ]
-const EVERY_OWNED: Map<Owned, Boolean> = { [Owned.Collected]: true, [Owned.Missing]: true }
+const EVERY_OWNED: Map<Owned, Boolean> = { [Owned::Collected]: true, [Owned::Missing]: true }
 
 // One entry of a list.
 public struct Entry {
@@ -66,7 +66,7 @@ public struct Card {
 }
 
 const NO_CARD: Card = { model: nil, description: "", source: "" }
-const ROW: Array<Track> = [Style.ICON, { fr: 1 }]
+const ROW: Array<Track> = [Style::ICON, { fr: 1 }]
 // The least room the figure has.
 const PREVIEW: Number<Length> = 320dp
 const BUTTON: Number<Length> = 180dp
@@ -76,7 +76,7 @@ const TILES: Columns = { autoFit: TILE }
 // fit (`LIST_LEAST`).
 public const ROW_LEAST: Number<Length> = 240dp
 const ROWS: Columns = { autoFit: { min: ROW_LEAST, max: nil } }
-const CARD_HEAD: Array<Track> = [Style.CARD_ICON, { fr: 1 }]
+const CARD_HEAD: Array<Track> = [Style::CARD_ICON, { fr: 1 }]
 // The figure takes the card's height that its name, its words and its button leave.
 const CARD_PARTS: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
 
@@ -89,11 +89,11 @@ function fileOf(icon: Number | nil): FileId | nil {
 
 function mounts(): Array<Entry> {
   const list: Array<Entry> = []
-  for (id of Client.C_MountJournal.GetMountIDs()) {
-    const name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _ = Client.C_MountJournal.GetMountInfoByID(id)
+  for (id of Client::C_MountJournal::GetMountIDs()) {
+    const name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _ = Client::C_MountJournal::GetMountInfoByID(id)
     if (name != nil && hidden != true) {
       list.push({
-        key: String.of(id), name: name, icon: icon, owned: owned == true, usable: usable == true, id: id.floor(), pet: nil,
+        key: String::of(id), name: name, icon: icon, owned: owned == true, usable: usable == true, id: id.floor(), pet: nil,
         spell: spell?.floor()
       })
     }
@@ -103,14 +103,14 @@ function mounts(): Array<Entry> {
 
 function pets(): Array<Entry> {
   // The journal's own search would leave pets out: every pet is read, the list searched here.
-  Client.C_PetJournal.ClearSearchFilter()
+  Client::C_PetJournal::ClearSearchFilter()
   const list: Array<Entry> = []
-  const count, _ = Client.C_PetJournal.GetNumPets()
+  const count, _ = Client::C_PetJournal::GetNumPets()
   for (index of 1..count.floor()) {
-    const pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _ = Client.C_PetJournal.GetPetInfoByIndex(index)
+    const pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _ = Client::C_PetJournal::GetPetInfoByIndex(index)
     if (!revoked) {
       list.push({
-        key: pet ?? "species:" + String.of(species), name: custom ?? name, icon: icon, owned: owned, usable: owned,
+        key: pet ?? "species:" + String::of(species), name: custom ?? name, icon: icon, owned: owned, usable: owned,
         id: species, pet: pet, spell: nil
       })
     }
@@ -119,15 +119,15 @@ function pets(): Array<Entry> {
 }
 
 function toys(): Array<Entry> {
-  Client.C_ToyBox.SetFilterString("")
+  Client::C_ToyBox::SetFilterString("")
   const list: Array<Entry> = []
-  for (index of 1..Client.C_ToyBox.GetNumFilteredToys().floor()) {
-    const item = Client.C_ToyBox.GetToyFromIndex(index)
+  for (index of 1..Client::C_ToyBox::GetNumFilteredToys().floor()) {
+    const item = Client::C_ToyBox::GetToyFromIndex(index)
     if (item > 0) {
-      const _, name, icon, _, _ = Client.C_ToyBox.GetToyInfo(item)
+      const _, name, icon, _, _ = Client::C_ToyBox::GetToyInfo(item)
       list.push({
-        key: String.of(item), name: name, icon: fileOf(icon), owned: Client.PlayerHasToy(item),
-        usable: Client.C_ToyBox.IsToyUsable(item), id: item.floor(), pet: nil, spell: nil
+        key: String::of(item), name: name, icon: fileOf(icon), owned: Client::PlayerHasToy(item),
+        usable: Client::C_ToyBox::IsToyUsable(item), id: item.floor(), pet: nil, spell: nil
       })
     }
   }
@@ -145,17 +145,17 @@ function entriesOf(kind: Kind): Array<Entry> {
 // A mount's figure: its own display, else the first of its displays, as the game's journal falls back.
 function mountModel(id: Integer, display: Number | nil): Integer | nil {
   if (display != nil) { return display.floor() }
-  const first = (Client.C_MountJournal.GetMountAllCreatureDisplayInfoByID(id) ?? [])[1]
+  const first = (Client::C_MountJournal::GetMountAllCreatureDisplayInfoByID(id) ?? [])[1]
   return first?.creatureDisplayID?.floor()
 }
 
 function cardOf(kind: Kind, entry: Entry): Card {
   if (kind == .Mounts) {
-    const display, description, source, _, _, _, _, _, _ = Client.C_MountJournal.GetMountInfoExtraByID(entry.id)
+    const display, description, source, _, _, _, _, _, _ = Client::C_MountJournal::GetMountInfoExtraByID(entry.id)
     return { model: mountModel(entry.id, display), description: description ?? "", source: source ?? "" }
   }
   if (kind == .Pets) {
-    const _, _, _, _, source, description, _, _, _, _, _, display = Client.C_PetJournal.GetPetInfoBySpeciesID(entry.id)
+    const _, _, _, _, source, description, _, _, _, _, _, display = Client::C_PetJournal::GetPetInfoBySpeciesID(entry.id)
     return { model: display, description: description ?? "", source: source ?? "" }
   }
   return NO_CARD
@@ -166,7 +166,7 @@ public class EntryRow implements Component {
   public pick: Event<String> = new Event()
 
   derived picked: Boolean = self.entry.key == self.chosen
-  derived ink: Color = self.entry.owned ? Style.INK : Style.MISSING
+  derived ink: Color = self.entry.owned ? Style::INK : Style::MISSING
 
   entry: Signal<Entry>
   chosen: Signal<String>
@@ -180,7 +180,7 @@ public class EntryRow implements Component {
   public render(self): Template {
     return $ltml {
       <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
-        <box width={Style.ICON} height={Style.ICON} icon={self.entry.icon} desaturate={!self.entry.owned} />
+        <box width={Style::ICON} height={Style::ICON} icon={self.entry.icon} desaturate={!self.entry.owned} />
         <text value={self.entry.name} textColor={self.ink} wrap={.Cut} />
       </PickRow>
     }
@@ -214,7 +214,7 @@ public class EntryTile implements Component {
 // A toy: the game's item button, a click on it using the toy (where the player has it and may), its tooltip the game's;
 // its name beside it in the rows' view.
 public class ToyRow implements Component {
-  derived ink: Color = self.entry.owned ? Style.INK : Style.MISSING
+  derived ink: Color = self.entry.owned ? Style::INK : Style::MISSING
   derived action: Action | nil = self.entry.owned && self.entry.usable ? Action.UseItem { item: self.entry.id } : nil
 
   entry: Signal<Entry>
@@ -228,8 +228,8 @@ public class ToyRow implements Component {
     return $ltml {
       <ItemButton $if={self.icons} item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={TILE} action={self.action}
                   usable={self.entry.usable} />
-      <box $else columns={ROW} gap={2sp} padding={2sp} yAlign={Align.Center}>
-        <ItemButton item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={Style.ICON} action={self.action}
+      <box $else columns={ROW} gap={2sp} padding={2sp} yAlign={Align::Center}>
+        <ItemButton item={self.entry.id} art={self.entry.icon} dimmed={!self.entry.owned} size={Style::ICON} action={self.action}
                     usable={self.entry.usable} />
         <text value={self.entry.name} textColor={self.ink} wrap={.Cut} />
       </box>
@@ -255,53 +255,53 @@ public class Collections {
   derived transmog: Boolean = self.sub == SUB_TRANSMOG
   derived toys: Boolean = self.kind == .Toys
   derived icons: Boolean = self.view == .Icons
-  derived narrowed: Boolean = self.owned[Owned.Collected] != true || self.owned[Owned.Missing] != true
+  derived narrowed: Boolean = self.owned[Owned::Collected] != true || self.owned[Owned::Missing] != true
   derived shown: Array<Entry> = self.filtered()
   derived picked: Entry | nil = self.toys || self.chosen == "" ? nil : self.entries.find(entry => entry.key == self.chosen)
   derived card: Card = self.picked != nil ? cardOf(self.kind, self.picked ?? panic("tested")) : NO_CARD
   derived counts: Array<FooterCount> = [
-    { label: Locale.COUNT_COLLECTED, value: "%d / %d".format(self.entries.count(entry => entry.owned), self.entries.length) }
+    { label: Locale::COUNT_COLLECTED, value: "%d / %d".format(self.entries.count(entry => entry.owned), self.entries.length) }
   ]
-  derived action: String = self.kind == .Mounts ? Locale.MOUNT : Locale.SUMMON
+  derived action: String = self.kind == .Mounts ? Locale::MOUNT : Locale::SUMMON
   derived usable: Boolean = self.picked?.usable == true
   derived modelShown: Boolean = self.card.model != nil
   const cardView: Template = $ltml {
     <box rows={CARD_PARTS} gap={3sp}>
-      <box columns={CARD_HEAD} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter}>
-        <box width={Style.CARD_ICON} height={Style.CARD_ICON} icon={self.picked?.icon} />
-        <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
+      <box columns={CARD_HEAD} gap={3sp} yAlign={Align::Center} @pointerEnter={self.onEnter}>
+        <box width={Style::CARD_ICON} height={Style::CARD_ICON} icon={self.picked?.icon} />
+        <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style::GOLD} />
       </box>
       // On the card's wood, as high as its row: a box sizes to what it holds, and a figure holds nothing that gives it
       // a height.
-      <box height={{ stretch: true, min: PREVIEW }} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
-        <text $if={!self.modelShown} value={Locale.NO_PREVIEW} textColor={Style.DIM} />
+      <box height={{ stretch: true, min: PREVIEW }} model={self.card.model} xAlign={Align::Center} yAlign={Align::Center}>
+        <text $if={!self.modelShown} value={Locale::NO_PREVIEW} textColor={Style::DIM} />
       </box>
-      <text value={self.card.description} textColor={Style.INK} leading={.Prose} />
-      <text value={self.card.source} textColor={Style.DIM} textSize={SECONDARY_TEXT} leading={.Prose} />
+      <text value={self.card.description} textColor={Style::INK} leading={.Prose} />
+      <text value={self.card.source} textColor={Style::DIM} textSize={SECONDARY_TEXT} leading={.Prose} />
       <PushButton label={self.action} width={BUTTON} disabled={!self.usable} @click={self.onUse} />
     </box>
   }
-  public derived side: WindowSide | nil = self.picked == nil ? nil : { width: Style.CARD, content: self.cardView }
+  public derived side: WindowSide | nil = self.picked == nil ? nil : { width: Style::CARD, content: self.cardView }
 
   public const content: Template = $ltml {
     <box columns={1} rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
       // The sub tabs' band runs to the frame's line on every side.
       <Tabs tabs={SUBS} selected={mut self.sub} />
-      <box $if={self.transmog} padding={Style.SIDE_ROOM} gap={3sp}>
-        <text value={Locale.TRANSMOG_GAME} textColor={Style.DIM} />
-        <PushButton label={Locale.OPEN_APPEARANCES} width={220dp} @click={self.onTransmog} />
+      <box $if={self.transmog} padding={Style::SIDE_ROOM} gap={3sp}>
+        <text value={Locale::TRANSMOG_GAME} textColor={Style::DIM} />
+        <PushButton label={Locale::OPEN_APPEARANCES} width={220dp} @click={self.onTransmog} />
       </box>
-      <box $else padding={Style.SIDE_ROOM}>
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+      <box $else padding={Style::SIDE_ROOM}>
+        <Toolbar search={mut self.search} placeholder={Locale::SEARCH}>
           <FilterButton values={mut self.owned} start={EVERY_OWNED} groups={FILTERS} />
-          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale::SORT} />
+          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale::VIEW} />
         </Toolbar>
       </box>
       <box $if={self.transmog} />
       // The list in its well, the window's room at its sides and under it; its rows in as many columns as its width
       // fits, two at the least.
-      <box $else padding={Style.LIST_ROOM} rows={[{ fr: 1 }]}>
+      <box $else padding={Style::LIST_ROOM} rows={[{ fr: 1 }]}>
         <ScrolledList $if={self.icons} columns={TILES} gap={2sp}>
           <$if={self.toys}> <ToyRow $for={entry of self.shown} $key={entry.key} entry={entry} icons={true} /> </>
           <$else> <EntryTile $for={entry of self.shown} $key={entry.key} entry={entry} chosen={self.chosen} @pick={self.onPick} /> </>
@@ -325,14 +325,14 @@ public class Collections {
       self.read()
       match (kind) {
         .Mounts => {
-          Events.NEW_MOUNT_ADDED.listen(self.read)
-          Events.COMPANION_LEARNED.listen(self.read)
-          Events.MOUNT_JOURNAL_USABILITY_CHANGED.listen(self.read)
+          Events::NEW_MOUNT_ADDED.listen(self.read)
+          Events::COMPANION_LEARNED.listen(self.read)
+          Events::MOUNT_JOURNAL_USABILITY_CHANGED.listen(self.read)
         }
-        .Pets => Events.PET_JOURNAL_LIST_UPDATE.listen(self.read)
+        .Pets => Events::PET_JOURNAL_LIST_UPDATE.listen(self.read)
         .Toys => {
-          Events.TOYS_UPDATED.listen(self.read)
-          Events.NEW_TOY_ADDED.listen(self.read)
+          Events::TOYS_UPDATED.listen(self.read)
+          Events::NEW_TOY_ADDED.listen(self.read)
         }
       }
     }
@@ -343,7 +343,7 @@ public class Collections {
   filtered(self): Array<Entry> {
     const words = self.search.lower()
     const list = self.entries.filter(entry =>
-      (entry.owned ? self.owned[Owned.Collected] == true : self.owned[Owned.Missing] == true) &&
+      (entry.owned ? self.owned[Owned::Collected] == true : self.owned[Owned::Missing] == true) &&
         (words == "" || entry.name.lower().contains(words))
     )
     if (self.sort == .Collected) {
@@ -358,7 +358,7 @@ public class Collections {
 
   onEnter(self, frame: any Frame) {
     const spell = (peek self.picked)?.spell
-    if (spell != nil) { Game.items.showSpell(frame, spell) }
+    if (spell != nil) { Game::items.showSpell(frame, spell) }
   }
 
   // Ride the mount, summon the pet.
@@ -366,9 +366,9 @@ public class Collections {
     const entry = peek self.picked
     if (entry == nil) { return }
     if (peek self.kind == .Mounts) {
-      Client.C_MountJournal.SummonByID(entry.id)
+      Client::C_MountJournal::SummonByID(entry.id)
     } else if (entry.pet != nil) {
-      Client.C_PetJournal.SummonPetByGUID(entry.pet)
+      Client::C_PetJournal::SummonPetByGUID(entry.pet)
     }
   }
 

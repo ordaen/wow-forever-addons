@@ -7,11 +7,11 @@ import root Ordaen from "Ordaen"
 import root Tracker from "OrdaenTracker"
 import { QuestOpener } from "@/extend"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const PAGE: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // The player stands in Elwynn Forest (the stand-in's zone): its quests are listed, another zone's aren't.
 function logged() {
-  Test.questLog([
+  Test::questLog([
     { id: 101, title: "The Defias Brotherhood", header: "Elwynn Forest", level: 14, watched: true,
       objectives: [{ text: "Talk to Gryan Stoutmantle" }] },
     { id: 102, title: "Red Silk Bandanas", header: "Elwynn Forest", level: 17, tag: 81, watched: true, complete: true },
@@ -24,215 +24,215 @@ function logged() {
 class Where implements QuestOpener {
   public showOnMap(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
-    Client.C_Map.OpenWorldMap(1436)
+    Client::C_Map::OpenWorldMap(1436)
     return true
   }
   public open(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
-    Client.C_SuperTrack.SetSuperTrackedQuestID(quest)
+    Client::C_SuperTrack::SetSuperTrackedQuestID(quest)
     return true
   }
 }
 
 test "the zone's quests stand at the right with their level, tag and objectives, the game's tracker unseen" {
   logged()
-  const own = new Client.Frame(Client.UIParent)
-  Game.frames.ObjectiveTracker = own
-  Test.mount(nil, PAGE)
+  const own = new Client::Frame(Client::UIParent)
+  Game::frames.ObjectiveTracker = own
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
+  Test::flush()
   // Its level as the log's rows have it, two digits of the numbers' font, no brackets; its title whitish.
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("4").shown() && !Test.page().text("[14]").shown())
-  Test.expect(Test.page().text("The Defias Brotherhood").textColor().equal(Color.hex("#f0e6d2")))
+  Test::expect(Test::page().text("The Defias Brotherhood").shown() && Test::page().text("4").shown() && !Test::page().text("[14]").shown())
+  Test::expect(Test::page().text("The Defias Brotherhood").textColor().equal(Color::hex("#f0e6d2")))
   // Its objective at the body's size, standing where its title starts; a done quest's check at its title's right.
-  const goal = Test.page().text("Talk to Gryan Stoutmantle")
-  const title = Test.page().text("The Defias Brotherhood")
-  Test.expect(goal.rect().left == title.rect().left && goal.letters().bottom - goal.letters().top >= title.letters().bottom - title.letters().top - 0.5)
-  Test.expect(Test.page().text("(Dungeon)").shown() && !Test.page().text("Ready to turn in").shown())
-  Test.expect(Test.page().box("Interface/RaidFrame/ReadyCheck-Ready").rect().left > Test.page().text("Red Silk Bandanas").rect().right)
+  const goal = Test::page().text("Talk to Gryan Stoutmantle")
+  const title = Test::page().text("The Defias Brotherhood")
+  Test::expect(goal.rect().left == title.rect().left && goal.letters().bottom - goal.letters().top >= title.letters().bottom - title.letters().top - 0.5)
+  Test::expect(Test::page().text("(Dungeon)").shown() && !Test::page().text("Ready to turn in").shown())
+  Test::expect(Test::page().box("Interface/RaidFrame/ReadyCheck-Ready").rect().left > Test::page().text("Red Silk Bandanas").rect().right)
   // The level, the title and the check share one middle.
-  const check = Test.page().box("Interface/RaidFrame/ReadyCheck-Ready").rect()
-  const done = Test.page().text("Red Silk Bandanas").letters()
-  const level = Test.page().text("7").letters()
-  Test.expect(((check.top + check.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
-  Test.expect(((level.top + level.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
+  const check = Test::page().box("Interface/RaidFrame/ReadyCheck-Ready").rect()
+  const done = Test::page().text("Red Silk Bandanas").letters()
+  const level = Test::page().text("7").letters()
+  Test::expect(((check.top + check.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
+  Test::expect(((level.top + level.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
   // One zone's quests alone: no head over them, nor a count.
-  Test.expect(!Test.page().text("Quests").shown() && !Test.page().text("3/25").shown())
-  Test.expect(own.GetAlpha() == 0)
+  Test::expect(!Test::page().text("Quests").shown() && !Test::page().text("3/25").shown())
+  Test::expect(own.GetAlpha() == 0)
 }
 
 test "a quest's row has no box before its level, the quest pointed to or not" {
   logged()
-  Client.C_SuperTrack.SetSuperTrackedQuestID(101)
-  Test.mount(nil, PAGE)
+  Client::C_SuperTrack::SetSuperTrackedQuestID(101)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().box(Color.hex("#ffd100")).count() == 0)
-  Test.expect(Test.page().box(Color.hex("#a3977f")).count() == 0)
+  Test::flush()
+  Test::expect(Test::page().box(Color::hex("#ffd100")).count() == 0)
+  Test::expect(Test::page().box(Color::hex("#a3977f")).count() == 0)
 }
 
 test "a level is in its difficulty colour, or in the title's while the game's difficulty colours are off" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  const title = Color.hex("#f0e6d2")
-  Test.expect(!Test.page().text("4").textColor().equal(title))
-  Test.cvar("showQuestDifficultyColor", "0")
-  Test.flush()
-  Test.expect(Test.page().text("4").textColor().equal(title))
+  Test::flush()
+  const title = Color::hex("#f0e6d2")
+  Test::expect(!Test::page().text("4").textColor().equal(title))
+  Test::cvar("showQuestDifficultyColor", "0")
+  Test::flush()
+  Test::expect(Test::page().text("4").textColor().equal(title))
 }
 
 test "the zone's quests are listed, tracked or not (the client watches one only once it moves): another zone's stays out" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("Elwynn Wolves").shown())
-  Test.expect(!Test.page().text("The Westfall Stew").shown())
+  Test::flush()
+  Test::expect(Test::page().text("The Defias Brotherhood").shown() && Test::page().text("Elwynn Wolves").shown())
+  Test::expect(!Test::page().text("The Westfall Stew").shown())
 }
 
 test "entering another zone lists that zone's quests in place of the last one's" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.zone("Westfall")
-  Test.flush()
-  Test.expect(Test.page().text("The Westfall Stew").shown() && !Test.page().text("The Defias Brotherhood").shown())
-  Test.zone("Elwynn Forest")
+  Test::flush()
+  Test::zone("Westfall")
+  Test::flush()
+  Test::expect(Test::page().text("The Westfall Stew").shown() && !Test::page().text("The Defias Brotherhood").shown())
+  Test::zone("Elwynn Forest")
 }
 
 test "a quest's title is bold, and its row shades under the cursor and opens its menu on a right click anywhere in it" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").told().contains("textWeight=bold"))
-  Test.expect(!Test.page().text("Talk to Gryan Stoutmantle").told().contains("textWeight=bold"))
-  Test.expect(Test.page().box(Color.hex("#ffffff24")).count() == 0)
-  Test.page().text("Talk to Gryan Stoutmantle").hover()
-  Test.expect(Test.page().box(Color.hex("#ffffff24")).count() == 1)
-  Test.page().text("Talk to Gryan Stoutmantle").rightClick()
-  Test.expect(Test.page().window("Abandon quest").button("Show the way").shown())
+  Test::flush()
+  Test::expect(Test::page().text("The Defias Brotherhood").told().contains("textWeight=bold"))
+  Test::expect(!Test::page().text("Talk to Gryan Stoutmantle").told().contains("textWeight=bold"))
+  Test::expect(Test::page().box(Color::hex("#ffffff24")).count() == 0)
+  Test::page().text("Talk to Gryan Stoutmantle").hover()
+  Test::expect(Test::page().box(Color::hex("#ffffff24")).count() == 1)
+  Test::page().text("Talk to Gryan Stoutmantle").rightClick()
+  Test::expect(Test::page().window("Abandon quest").button("Show the way").shown())
 }
 
 test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.openers.add(new Where())
   Tracker.refresh()
-  Test.flush()
-  _ = Test.talked()
-  Test.page().text("The Defias Brotherhood").click()
-  Test.expect(Test.talked().join(",") == "super-track 101")
+  Test::flush()
+  _ = Test::talked()
+  Test::page().text("The Defias Brotherhood").click()
+  Test::expect(Test::talked().join(",") == "super-track 101")
   // No chat line open: Shift+click stops tracking it.
-  Test.hold([.Shift])
-  Test.page().text("Red Silk Bandanas").click()
-  Test.hold([])
-  Test.expect(Test.talked().join(",") == "unwatch 102")
+  Test::hold([.Shift])
+  Test::page().text("Red Silk Bandanas").click()
+  Test::hold([])
+  Test::expect(Test::talked().join(",") == "unwatch 102")
 }
 
 test "«Show on the map» is the module's that shows where the quest leads, else the game's map as it was" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.openers.add(new Where())
   Tracker.refresh()
-  Test.flush()
-  Test.page().text("The Defias Brotherhood").rightClick()
-  Test.page().window("Abandon quest").button("Show on the map").click()
-  Test.expect(Client.WorldMapFrame.GetMapID() == 1436)
+  Test::flush()
+  Test::page().text("The Defias Brotherhood").rightClick()
+  Test::page().window("Abandon quest").button("Show on the map").click()
+  Test::expect(Client::WorldMapFrame.GetMapID() == 1436)
 }
 
 test "in a fight «Show on the map» is greyed and opens nothing; a title's click opens no game map" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.combat(true)
-  Test.flush()
-  Test.page().text("Red Silk Bandanas").click()
-  Test.flush()
-  Test.expect(!Client.WorldMapFrame.IsShown())
-  Test.page().text("The Defias Brotherhood").rightClick()
-  Test.page().window("Abandon quest").button("Show on the map").click()
-  Test.flush()
-  Test.expect(!Client.WorldMapFrame.IsShown())
+  Test::combat(true)
+  Test::flush()
+  Test::page().text("Red Silk Bandanas").click()
+  Test::flush()
+  Test::expect(!Client::WorldMapFrame.IsShown())
+  Test::page().text("The Defias Brotherhood").rightClick()
+  Test::page().window("Abandon quest").button("Show on the map").click()
+  Test::flush()
+  Test::expect(!Client::WorldMapFrame.IsShown())
 }
 
 test "the menu points the way, and abandoning asks first" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  _ = Test.talked()
-  Test.page().text("The Defias Brotherhood").rightClick()
-  Test.page().window("Abandon quest").button("Show the way").click()
-  Test.expect(Test.talked().join(",") == "super-track 101")
-  Test.page().text("The Defias Brotherhood").rightClick()
-  Test.page().window("Abandon quest").button("Abandon quest").click()
-  Test.expect(Test.talked().length == 0)
-  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
-  Test.expect(Test.talked().join(",") == "abandon 101")
+  Test::flush()
+  _ = Test::talked()
+  Test::page().text("The Defias Brotherhood").rightClick()
+  Test::page().window("Abandon quest").button("Show the way").click()
+  Test::expect(Test::talked().join(",") == "super-track 101")
+  Test::page().text("The Defias Brotherhood").rightClick()
+  Test::page().window("Abandon quest").button("Abandon quest").click()
+  Test::expect(Test::talked().length == 0)
+  Test::page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
+  Test::expect(Test::talked().join(",") == "abandon 101")
 }
 
 test "a quest with an item has its button beside the title, which uses the item by the client's secure click" {
-  Test.questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
-  Test.mount(nil, PAGE)
+  Test::questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  _ = Test.performed()
+  Test::flush()
+  _ = Test::performed()
   // The stand-in knows no icon of the item: the button is clicked where it stands, at the title's end.
-  const title = Test.page().text("The Collector").rect()
-  const whole = Test.page().window("The Collector").rect()
-  Test.click({ x: whole.right - 16, y: (title.top + title.bottom) / 2 }, nil)
-  Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
+  const title = Test::page().text("The Collector").rect()
+  const whole = Test::page().window("The Collector").rect()
+  Test::click({ x: whole.right - 16, y: (title.top + title.bottom) / 2 }, nil)
+  Test::expect(Test::performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
 }
 
 test "a quest's item shows its cooldown's sweep while one runs, and none while none does" {
-  Test.questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
-  Test.mount(nil, PAGE)
+  Test::questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  const before = Test.calls(() => Test.flush())
-  Test.expect(!before.contains("SetCooldown=1"))
-  Test.questLog([
+  Test::flush()
+  const before = Test::calls(() => Test::flush())
+  Test::expect(!before.contains("SetCooldown=1"))
+  Test::questLog([
     { id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060,
       itemCooldown: { start: 100, length: 30 } }
   ])
-  const told = Test.calls(() => Test.flush())
-  Test.expect(told.contains("SetCooldown=1"))
+  const told = Test::calls(() => Test::flush())
+  Test::expect(told.contains("SetCooldown=1"))
 }
 
 // As many tracked quests of the zone as the client tracks, each with two objectives: more than the screen holds.
 function crowded() {
-  const log: Array<Test.LogQuest> = []
+  const log: Array<Test::LogQuest> = []
   for (n of 1..25) {
     log.push({ id: 200 + n, title: `Quest ${n}`, header: "Elwynn Forest", level: 10, watched: true,
       objectives: [{ text: "Wolves slain: 0/8" }, { text: "Bandanas: 0/6" }] })
   }
-  Test.questLog(log)
+  Test::questLog(log)
 }
 
 test "it is as high as its quests, and stands at the right under what keeps the top right corner and above the bottom's" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  const few = Test.page().window("The Defias Brotherhood").rect()
+  Test::flush()
+  const few = Test::page().window("The Defias Brotherhood").rect()
   // As wide as the design's tracker at the least, and as high as its two quests.
-  Test.expect(few.right - few.left >= 249 && few.bottom - few.top < 200)
+  Test::expect(few.right - few.left >= 249 && few.bottom - few.top < 200)
   // More than the screen holds: the screen's height but its gaps, its list scrolling past that.
   crowded()
   Tracker.refresh()
-  Test.flush()
-  const free = Test.page().window("Quest 1").rect()
-  Test.expect(free.bottom - free.top > 880)
+  Test::flush()
+  const free = Test::page().window("Quest 1").rect()
+  Test::expect(free.bottom - free.top > 880)
   // The minimap at home, the bottom panel: the room each keeps.
   Ordaen.keepTopRight("OrdaenMinimap", 300ui)
   Ordaen.keepBottom("OrdaenPanel", 100ui)
-  Test.flush()
-  const kept = Test.page().window("Quest 1").rect()
-  Test.expect(kept.top > free.top + 200 && kept.bottom < free.bottom - 60)
+  Test::flush()
+  const kept = Test::page().window("Quest 1").rect()
+  Test::expect(kept.top > free.top + 200 && kept.bottom < free.bottom - 60)
   Ordaen.keepTopRight("OrdaenMinimap", 0ui)
   Ordaen.keepBottom("OrdaenPanel", 0ui)
 }
@@ -242,113 +242,113 @@ test "it lists as many quests as the settings say, the first in the log's order,
   Tracker.settings.values.listed = 1
   Tracker.settings.values.groundShown = .Always
   Tracker.settings.values.ground = 0.25
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("Red Silk Bandanas").shown())
-  Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
+  Test::flush()
+  Test::expect(Test::page().text("The Defias Brotherhood").shown() && !Test::page().text("Red Silk Bandanas").shown())
+  Test::expect(Test::page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
   // The ground is the chat's: a plain fill with rounded corners (the round mask on each), at the setting's darkness.
-  Test.shot("one quest listed on a quarter-dark rounded ground")
+  Test::shot("one quest listed on a quarter-dark rounded ground")
 }
 
 const SHADE: Color = { r: 0, g: 0, b: 0, a: 0.55 }
 
 test "by default its ground shows only while the cursor is over it" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().box(SHADE).count() == 0)
-  const title = Test.page().text("The Defias Brotherhood").rect()
-  Test.moveTo({ x: title.left + 5, y: title.top + 5 })
-  Test.expect(Test.page().box(SHADE).count() > 0)
-  Test.moveTo({ x: 5, y: 5 })
-  Test.expect(Test.page().box(SHADE).count() == 0)
+  Test::flush()
+  Test::expect(Test::page().text("The Defias Brotherhood").shown() && Test::page().box(SHADE).count() == 0)
+  const title = Test::page().text("The Defias Brotherhood").rect()
+  Test::moveTo({ x: title.left + 5, y: title.top + 5 })
+  Test::expect(Test::page().box(SHADE).count() > 0)
+  Test::moveTo({ x: 5, y: 5 })
+  Test::expect(Test::page().box(SHADE).count() == 0)
 }
 
 test "with no quest of the zone in the log it draws nothing at all, no ground either" {
-  Test.questLog([{ id: 104, title: "The Westfall Stew", header: "Westfall", level: 12, watched: true }])
+  Test::questLog([{ id: 104, title: "The Westfall Stew", header: "Westfall", level: 12, watched: true }])
   Tracker.settings.values.groundShown = .Always
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(!Test.page().text("Quests").shown() && Test.page().box(SHADE).count() == 0)
+  Test::flush()
+  Test::expect(!Test::page().text("Quests").shown() && Test::page().box(SHADE).count() == 0)
 }
 
 test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {
-  Test.questLog([])
-  Test.mount(nil, PAGE)
+  Test::questLog([])
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(!Test.page().text("Quest tracker").shown() && !Test.page().text("Quests").shown())
+  Test::flush()
+  Test::expect(!Test::page().text("Quest tracker").shown() && !Test::page().text("Quests").shown())
   Ordaen.togglePlacing()
-  Test.flush()
-  const home = Test.surfaceHolding("Quest tracker")
-  Test.moveTo(home)
-  Test.press(nil)
-  Test.moveTo({ x: home.x - 1, y: home.y })
-  Test.pass(0.02)
-  Test.moveTo({ x: home.x - 600, y: home.y })
-  Test.pass(0.02)
-  Test.release(nil)
-  Test.pass(0.02)
-  const moved = Test.surfaceHolding("Quest tracker")
-  Test.expect(moved.x < home.x - 500 && Ordaen.moved("OrdaenTracker.quests") != nil)
-  Test.click(moved, .Right)
-  Test.flush()
-  Test.expect(Ordaen.moved("OrdaenTracker.quests") == nil && Test.surfaceHolding("Quest tracker").x == home.x)
+  Test::flush()
+  const home = Test::surfaceHolding("Quest tracker")
+  Test::moveTo(home)
+  Test::press(nil)
+  Test::moveTo({ x: home.x - 1, y: home.y })
+  Test::pass(0.02)
+  Test::moveTo({ x: home.x - 600, y: home.y })
+  Test::pass(0.02)
+  Test::release(nil)
+  Test::pass(0.02)
+  const moved = Test::surfaceHolding("Quest tracker")
+  Test::expect(moved.x < home.x - 500 && Ordaen.moved("OrdaenTracker.quests") != nil)
+  Test::click(moved, .Right)
+  Test::flush()
+  Test::expect(Ordaen.moved("OrdaenTracker.quests") == nil && Test::surfaceHolding("Quest tracker").x == home.x)
   Ordaen.togglePlacing()
 }
 
 test "an objective moving on sounds as the game's tracker does" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  _ = Test.sounds()
-  Test.questLog([
+  _ = Test::sounds()
+  Test::questLog([
     { id: 101, title: "The Defias Brotherhood", header: "Westfall", level: 14, watched: true,
       objectives: [{ text: "Talk to Gryan Stoutmantle", done: true }, { text: "Defias slain: 1/10" }] }
   ])
   Tracker.refresh()
-  const played = Test.sounds()
-  Test.expect(played.length == 1 && played[1] == 26905)
+  const played = Test::sounds()
+  Test::expect(played.length == 1 && played[1] == 26905)
 }
 
 test "a timed quest says its time left under its title, counting down, red in its last minute" {
-  Test.questLog([
+  Test::questLog([
     { id: 201, title: "Rescue the Princess", header: "Elwynn Forest", level: 8, watched: true, timer: 125,
       objectives: [{ text: "Princess saved: 0/1" }] }
   ])
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().text("Time left: 2:05").shown())
-  Test.expect(!Test.page().text("Time left: 2:05").textColor().equal(Color.hex("#ff2020")))
-  Test.pass(70)
-  Test.expect(Test.page().text("Time left: 0:55").textColor().equal(Color.hex("#ff2020")))
+  Test::flush()
+  Test::expect(Test::page().text("Time left: 2:05").shown())
+  Test::expect(!Test::page().text("Time left: 2:05").textColor().equal(Color::hex("#ff2020")))
+  Test::pass(70)
+  Test::expect(Test::page().text("Time left: 0:55").textColor().equal(Color::hex("#ff2020")))
 }
 
 test "a quest without a timer says no time" {
   logged()
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  Test.expect(Test.page().texts().all(text => !text.contains("Time left")))
+  Test::flush()
+  Test::expect(Test::page().texts().all(text => !text.contains("Time left")))
 }
 
 test "a long objective wraps within the tracker's width, its lines under where the title starts" {
   const long = "Arcane Reference: Magical Terms in Plain Words for the Young Wizard, Second Edition: 0/1"
-  Test.questLog([
+  Test::questLog([
     { id: 101, title: "Rare Books", header: "Elwynn Forest", level: 7, tag: 1, watched: true,
       objectives: [{ text: long }] }
   ])
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Tracker.refresh()
-  Test.flush()
-  const goal = Test.page().text(long)
-  const tag = Test.page().text("(Group)").rect()
+  Test::flush()
+  const goal = Test::page().text(long)
+  const tag = Test::page().text("(Group)").rect()
   // Wrapped onto more than one line, within the tracker as wide as ever.
-  Test.expect(goal.letters().bottom - goal.letters().top > 2 * (tag.bottom - tag.top))
-  const title = Test.page().text("Rare Books").rect()
-  Test.expect(goal.rect().left == title.left && goal.rect().right - goal.rect().left < 351)
+  Test::expect(goal.letters().bottom - goal.letters().top > 2 * (tag.bottom - tag.top))
+  const title = Test::page().text("Rare Books").rect()
+  Test::expect(goal.rect().left == title.left && goal.rect().right - goal.rect().left < 351)
 }

@@ -8,421 +8,421 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const BLACKSMITHING = 164
 const FIRST_AID = 129
 const MINING = 186
 const HERBALISM = 182
 // A tab's title: gold on the open one, dim on the others.
-const OPEN: Color = Color.hex("#ffd100")
-const CLOSED: Color = Color.hex("#a3977f")
+const OPEN: Color = Color::hex("#ffd100")
+const CLOSED: Color = Color::hex("#a3977f")
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 const REMEMBER = "Remember the last recipe"
 
-function recipe(id: Integer, name: String, category: Integer): Game.Recipe {
+function recipe(id: Integer, name: String, category: Integer): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: 1
+    difficulty: Game::Difficulty::Always, craftable: 1
   }
 }
 
 // Tailoring at 31 of 75, Blacksmithing at 120 of 150, First Aid at 40 of 75: the game gives an icon as its file's
 // number or as its path.
-function professions(): Array<Game.Profession> {
+function professions(): Array<Game::Profession> {
   return [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
     {
       skillLine: BLACKSMITHING, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 120, max: 150,
-      kind: Game.ProfessionKind.Crafting
+      kind: Game::ProfessionKind::Crafting
     },
     {
       skillLine: FIRST_AID, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75,
-      kind: Game.ProfessionKind.Crafting
+      kind: Game::ProfessionKind::Crafting
     }
   ]
 }
 
 // The game's own professions window, where it stands: ours shows in its place.
-function gameWindow(): any Client.Frame {
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+function gameWindow(): any Client::Frame {
+  let own = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
   return own
 }
 
 // Tailoring as the game opens it: its camp's recipe, and two in «Cloth armour».
-function tailoringCategories(): Array<Game.Category> {
+function tailoringCategories(): Array<Game::Category> {
   return [
     { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }
   ]
 }
 
-function tailoringRecipes(): Array<Game.Recipe> {
+function tailoringRecipes(): Array<Game::Recipe> {
   return [recipe(100, "Linen Bandage", 10), recipe(110, "Linen Cloak", 11), recipe(111, "Brown Linen Vest", 11)]
 }
 
 // Blacksmithing as the game opens it: no camp recipe.
-function smithingCategories(): Array<Game.Category> {
+function smithingCategories(): Array<Game::Category> {
   return [
     { id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Weapons", parentID: 2 }
   ]
 }
 
-function smithingRecipes(): Array<Game.Recipe> {
+function smithingRecipes(): Array<Game::Recipe> {
   return [recipe(200, "Copper Mace", 21)]
 }
 
 // The professions window: the surface that holds the profession's «Overview» tab.
-function window(): Test.Part {
-  return Test.page().window("Overview")
+function window(): Test::Part {
+  return Test::page().window("Overview")
 }
 
 // Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
 // what it was asked.
 function asked(expected: String): Boolean {
-  const said = Test.requests().join(", ")
+  const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 // The game's own window stands off the screen, unseen: it stays open, which keeps the profession open.
-function away(own: any Client.Frame): Boolean {
-  Test.flush()
+function away(own: any Client::Frame): Boolean {
+  Test::flush()
   return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
 }
 
 // The game's own window is where it stood, seen.
-function back(own: any Client.Frame): Boolean {
-  Test.flush()
+function back(own: any Client::Frame): Boolean {
+  Test::flush()
   return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }
 
 // Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
-function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
-  return Test.page().window(SETTINGS)
+function settings(): Test::Part {
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  return Test::page().window(SETTINGS)
 }
 
 // The window shown and shut
 
 test "with no profession open nothing shows, and the game's own window already stands away: the game's window manager never counts it" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Test.expect(!window().shown() && !Test.page().text("Tailoring").shown() && away(own))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Test::expect(!window().shown() && !Test::page().text("Tailoring").shown() && away(own))
 }
 
 test "the game opens a profession: the window shows in place of the game's own, which stands away unseen" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().shown() && away(own))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().shown() && away(own))
 }
 
 test "each profession has a tab with its skill, the open one's title gold" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Tailoring").item().texts().join(" | ") == "Tailoring | 31 / 75")
-  Test.expect(window().text("Blacksmithing").item().texts().join(" | ") == "Blacksmithing | 120 / 150")
-  Test.expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Tailoring").item().texts().join(" | ") == "Tailoring | 31 / 75")
+  Test::expect(window().text("Blacksmithing").item().texts().join(" | ") == "Blacksmithing | 120 / 150")
+  Test::expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
 }
 
 test "the skill bar says the open profession's rank and skill" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game.ProfessionKind.Crafting },
-    { skillLine: FIRST_AID, name: "First Aid", icon: 135966, rank: 200, max: 225, kind: Game.ProfessionKind.Crafting },
-    { skillLine: MINING, name: "Mining", icon: 136248, rank: 260, max: 300, kind: Game.ProfessionKind.Gathering },
-    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 5, max: 0, kind: Game.ProfessionKind.Gathering }
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game::ProfessionKind::Crafting },
+    { skillLine: FIRST_AID, name: "First Aid", icon: 135966, rank: 200, max: 225, kind: Game::ProfessionKind::Crafting },
+    { skillLine: MINING, name: "Mining", icon: 136248, rank: 260, max: 300, kind: Game::ProfessionKind::Gathering },
+    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 5, max: 0, kind: Game::ProfessionKind::Gathering }
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Apprentice · 31 / 75").shown())
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(window().text("Journeyman · 120 / 150").shown())
-  Game.tradeSkill.open = FIRST_AID
-  Test.expect(window().text("Expert · 200 / 225").shown())
-  Game.tradeSkill.open = MINING
-  Test.expect(window().text("Artisan · 260 / 300").shown())
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Apprentice · 31 / 75").shown())
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(window().text("Journeyman · 120 / 150").shown())
+  Game::tradeSkill.open = FIRST_AID
+  Test::expect(window().text("Expert · 200 / 225").shown())
+  Game::tradeSkill.open = MINING
+  Test::expect(window().text("Artisan · 260 / 300").shown())
   // A most the ranks don't name: the skill alone.
-  Game.tradeSkill.open = HERBALISM
+  Game::tradeSkill.open = HERBALISM
   // The tab's skill and the bar's.
-  Test.expect(window().text("5 / 0").count() == 2)
+  Test::expect(window().text("5 / 0").count() == 2)
 }
 
 test "a profession with camp recipes has a «Camp» tab; one without has none" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().button("Camp").shown())
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(!window().button("Camp").shown() && window().button("Recipes").shown())
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().button("Camp").shown())
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(!window().button("Camp").shown() && window().button("Recipes").shown())
 }
 
 test "another profession's tab asks the game to open it; its tab shows open once the game has" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
   window().button("Blacksmithing").click()
-  Test.expect(asked("TradeSkill.show 164") && window().text("Tailoring").textColor().equal(OPEN))
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(window().text("Blacksmithing").textColor().equal(OPEN) && window().text("Copper Mace").shown())
-  Test.expect(window().text("Tailoring").textColor().equal(CLOSED))
+  Test::expect(asked("TradeSkill.show 164") && window().text("Tailoring").textColor().equal(OPEN))
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(window().text("Blacksmithing").textColor().equal(OPEN) && window().text("Copper Mace").shown())
+  Test::expect(window().text("Tailoring").textColor().equal(CLOSED))
 }
 
 test "the open profession's own tab asks the game nothing" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
   window().button("Tailoring").click()
-  Test.expect(asked(""))
+  Test::expect(asked(""))
 }
 
 test "the profession the game opens picks its tab, after the window closed on another and while it is open" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.key(Key.Escape)
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::key(Key::Escape)
   own.Hide()
-  Game.tradeSkill.open = nil
+  Game::tradeSkill.open = nil
   own.Show()
   // The game opens First Aid from its spell on the action bar.
-  Game.tradeSkill.categories = []
-  Game.tradeSkill.recipes = []
-  Game.tradeSkill.open = FIRST_AID
-  Test.expect(window().text("First Aid").textColor().equal(OPEN) && window().text("Tailoring").textColor().equal(CLOSED))
+  Game::tradeSkill.categories = []
+  Game::tradeSkill.recipes = []
+  Game::tradeSkill.open = FIRST_AID
+  Test::expect(window().text("First Aid").textColor().equal(OPEN) && window().text("Tailoring").textColor().equal(CLOSED))
   // While the window is open, the game opens Tailoring from its spell.
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
 }
 
 test "Escape asks the game to close the profession; closed, the window goes and the game's own stays away, hidden" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
-  Test.key(Key.Escape)
-  Test.expect(asked("TradeSkill.close"))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
+  Test::key(Key::Escape)
+  Test::expect(asked("TradeSkill.close"))
   // The game hides its own window as the profession closes; it stays away for the next time the game shows it.
   own.Hide()
-  Game.tradeSkill.open = nil
-  Test.expect(!window().shown() && away(own) && !own.IsShown())
+  Game::tradeSkill.open = nil
+  Test::expect(!window().shown() && away(own) && !own.IsShown())
 }
 
 test "the window's close asks the game to close the profession" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
   window().text("Linen Cloak").hover()
-  _ = Test.requests()
+  _ = Test::requests()
   window().button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(asked("TradeSkill.close"))
+  Test::expect(asked("TradeSkill.close"))
 }
 
 test "the game's own window up with no profession open: ours stands in its place, its tabs to pick from" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.shownEmpty.emit()
-  const empty = Test.page().window("Choose a profession above")
-  Test.expect(empty.button("Tailoring").shown() && empty.button("First Aid").shown() && away(own))
-  Test.expect(!empty.text("Overview").shown() && asked(""))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.shownEmpty.emit()
+  const empty = Test::page().window("Choose a profession above")
+  Test::expect(empty.button("Tailoring").shown() && empty.button("First Aid").shown() && away(own))
+  Test::expect(!empty.text("Overview").shown() && asked(""))
   empty.button("Blacksmithing").click()
-  Test.expect(asked("TradeSkill.show 164"))
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(window().text("Copper Mace").shown() && !Test.page().text("Choose a profession above").shown())
+  Test::expect(asked("TradeSkill.show 164"))
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(window().text("Copper Mace").shown() && !Test::page().text("Choose a profession above").shown())
 }
 
 test "the game's own window up on the player's key asks for the profession last open" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(window().shown())
-  Test.key(Key.Escape)
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(window().shown())
+  Test::key(Key::Escape)
   own.Hide()
-  Game.tradeSkill.open = nil
-  _ = Test.requests()
+  Game::tradeSkill.open = nil
+  _ = Test::requests()
   own.Show()
-  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
-  Test.expect(asked("TradeSkill.show 164"))
+  Test::inKey((): nil => Game::tradeSkill.shownEmpty.emit())
+  Test::expect(asked("TradeSkill.show 164"))
 }
 
 test "the window waiting with no profession open goes with Escape, and asks nothing" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.shownEmpty.emit()
-  Test.expect(Test.page().window("Choose a profession above").shown())
-  Test.key(Key.Escape)
-  Test.expect(!Test.page().text("Choose a profession above").shown())
-  Test.expect(asked("TradeSkill.close"))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.shownEmpty.emit()
+  Test::expect(Test::page().window("Choose a profession above").shown())
+  Test::key(Key::Escape)
+  Test::expect(!Test::page().text("Choose a profession above").shown())
+  Test::expect(asked("TradeSkill.close"))
   _ = own
 }
 
 test "the game's own window up while a profession is open changes nothing" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  _ = Test.requests()
-  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
-  Test.expect(asked("") && window().text("Linen Cloak").shown())
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  _ = Test::requests()
+  Test::inKey((): nil => Game::tradeSkill.shownEmpty.emit())
+  Test::expect(asked("") && window().text("Linen Cloak").shown())
 }
 
 test "the profession last open is asked for after a reload" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.key(Key.Escape)
-  Game.tradeSkill.open = nil
-  Test.reload()
-  _ = Test.requests()
-  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
-  Test.expect(asked("TradeSkill.show 164"))
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = smithingCategories()
+  Game::tradeSkill.recipes = smithingRecipes()
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::key(Key::Escape)
+  Game::tradeSkill.open = nil
+  Test::reload()
+  _ = Test::requests()
+  Test::inKey((): nil => Game::tradeSkill.shownEmpty.emit())
+  Test::expect(asked("TradeSkill.show 164"))
   _ = own
 }
 
 // The profession's spell
 
 test "Mining has «Find Minerals» at the skill bar's right, which the client casts from the player's click" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
-  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = MINING
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game::ProfessionKind::Gathering }]
+  Game::spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: Integer): Boolean => true
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = MINING
   // In the band, on the bar's line, a gap between them.
   const bar = window().text("Apprentice · 70 / 75").rect()
   const button = window().button("Find Minerals").rect()
-  Test.expect(button.top < bar.bottom && button.bottom > bar.top && button.left > bar.right)
-  _ = Test.performed()
+  Test::expect(button.top < bar.bottom && button.bottom > bar.top && button.left > bar.right)
+  _ = Test::performed()
   window().button("Find Minerals").click()
-  Test.expect(Test.performed().join(", ") == "spell Find Minerals")
+  Test::expect(Test::performed().join(", ") == "spell Find Minerals")
 }
 
 test "Herbalism has «Find Herbs»; a crafting profession has no spell in the footer" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [
-    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = [
+    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 12, max: 75, kind: Game::ProfessionKind::Gathering },
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
-  Game.spells.name = (id: Integer): String | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = HERBALISM
-  Test.expect(window().button("Find Herbs").shown())
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
-  Test.expect(!window().button("Find Herbs").shown() && !window().button("Find Minerals").shown())
+  Game::spells.name = (id: Integer): String | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: Integer): Boolean => true
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = HERBALISM
+  Test::expect(window().button("Find Herbs").shown())
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
+  Test::expect(!window().button("Find Herbs").shown() && !window().button("Find Minerals").shown())
 }
 
 test "a profession's spell the character doesn't know has no button" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
-  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => false
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = MINING
-  Test.expect(window().shown() && !window().button("Find Minerals").shown())
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game::ProfessionKind::Gathering }]
+  Game::spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: Integer): Boolean => false
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = MINING
+  Test::expect(window().shown() && !window().button("Find Minerals").shown())
 }
 
 // The settings
 
 test "Ordaen lists the module, whose page has its settings" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const page = settings()
-  Test.expect(page.button("Professions").shown() && page.text("Prices").shown())
-  Test.expect(!page.text("Show recipes you haven't learned").shown())
+  Test::expect(page.button("Professions").shown() && page.text("Prices").shown())
+  Test::expect(!page.text("Show recipes you haven't learned").shown())
 }
 
 test "the window's gear opens the module's page of the settings, which stands over the window" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
   // The settings window, made and closed before the professions window is.
   const page = settings()
   page.text(REMEMBER).hover()
   page.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!page.shown())
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
+  Test::expect(!page.shown())
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
   window().text("Linen Cloak").hover()
   window().button(Ordaen.art.ctl.corner.gear).click()
   // The cursor on a setting's label: its hint shows, over the professions window.
-  Test.page().window(SETTINGS).text(REMEMBER).hover()
-  Test.expect(Test.page().window("Opens each profession at the recipe you left it at.").shown())
+  Test::page().window(SETTINGS).text(REMEMBER).hover()
+  Test::expect(Test::page().window("Opens each profession at the recipe you left it at.").shown())
 }
 
 test "the module turned off in the settings: the window goes, and the game's own is back" {
   const own = gameWindow()
-  Game.frames.Professions = own
-  Game.professions.list = professions()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = own
+  Game::professions.list = professions()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = tailoringCategories()
+  Game::tradeSkill.recipes = tailoringRecipes()
+  Game::tradeSkill.open = TAILORING
   const page = settings()
   // Professions' own switch, by its name: the list holds every module of the modules loaded.
   page.text("Professions").item().button(Ordaen.art.ctl.switchOn).click()
-  Test.expect(!window().shown() && back(own))
+  Test::expect(!window().shown() && back(own))
 }

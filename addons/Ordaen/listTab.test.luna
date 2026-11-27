@@ -23,7 +23,7 @@ class Narrow {
 }
 
 test "a name longer than its column wraps inside it, its count kept at the column's right, nothing past the column" {
-  Test.mount(new Narrow(), { left: 0, top: 0, width: 400, height: 120 })
-  Test.shot("the long name on two lines inside the column, its count at the column's right; «Beside» untouched")
-  Test.expect(Test.faults().length == 0)
+  Test::mount(new Narrow(), { left: 0, top: 0, width: 400, height: 120 })
+  Test::shot("the long name on two lines inside the column, its count at the column's right; «Beside» untouched")
+  Test::expect(Test::faults().length == 0)
 }

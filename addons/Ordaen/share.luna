@@ -34,11 +34,11 @@ public struct Refused implements Error {
 
 // A profile as a text; nil where the client can't pack it.
 public function write(shared: Shared): String | nil {
-  const raw = Game.encoding.serialize(shared)
+  const raw = Game::encoding.serialize(shared)
   if (raw == nil) { return nil }
-  const packed = Game.encoding.compress(raw)
+  const packed = Game::encoding.compress(raw)
   if (packed == nil) { return nil }
-  const text = Game.encoding.toBase64(packed)
+  const text = Game::encoding.toBase64(packed)
   if (text == nil) { return nil }
   return PREFIX + VERSION + ":" + text
 }
@@ -48,20 +48,20 @@ public function write(shared: Shared): String | nil {
 public function read(typed: String): Shared | Refused {
   const text = typed.replace("%s+", "")
   const version = text.match("^ORDAEN:(%d+):")
-  if (version == nil) { return Refused { reason: Refusal.NotProfile, version: nil } }
-  if (text.length > MAX_LENGTH) { return Refused { reason: Refusal.TooLong, version: nil } }
-  if (version != VERSION) { return Refused { reason: Refusal.Version, version: version } }
-  const packed = Game.encoding.fromBase64(text.sub(PREFIX.length + version.length + 2, text.length))
-  if (packed == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
-  const raw = Game.encoding.decompress(packed)
-  if (raw == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
-  const value = Game.encoding.deserialize(raw)
-  if (!(value is Table)) { return Refused { reason: Refusal.Damaged, version: nil } }
-  if (!(value["sections"] is Table)) { return Refused { reason: Refusal.NotProfile, version: nil } }
-  const shared = Shared.decode(value, Shared {})
+  if (version == nil) { return Refused { reason: Refusal::NotProfile, version: nil } }
+  if (text.length > MAX_LENGTH) { return Refused { reason: Refusal::TooLong, version: nil } }
+  if (version != VERSION) { return Refused { reason: Refusal::Version, version: version } }
+  const packed = Game::encoding.fromBase64(text.sub(PREFIX.length + version.length + 2, text.length))
+  if (packed == nil) { return Refused { reason: Refusal::Damaged, version: nil } }
+  const raw = Game::encoding.decompress(packed)
+  if (raw == nil) { return Refused { reason: Refusal::Damaged, version: nil } }
+  const value = Game::encoding.deserialize(raw)
+  if (!(value is Table)) { return Refused { reason: Refusal::Damaged, version: nil } }
+  if (!(value["sections"] is Table)) { return Refused { reason: Refusal::NotProfile, version: nil } }
+  const shared = Shared::decode(value, Shared {})
   // Each section must be CBOR too: one that isn't is a text that was cut or made by hand.
   for (_, section of shared.sections) {
-    if (Game.encoding.deserialize(section) == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
+    if (Game::encoding.deserialize(section) == nil) { return Refused { reason: Refusal::Damaged, version: nil } }
   }
   return shared
 }

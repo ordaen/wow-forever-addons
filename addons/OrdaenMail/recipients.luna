@@ -79,10 +79,10 @@ public function own(alts: Alts | nil): Array<Recipient> {
 
 public function friends(): Array<Recipient> {
   const list: Array<Recipient> = []
-  for (index of 1..Client.C_FriendList.GetNumFriends()) {
-    const info = Client.C_FriendList.GetFriendInfoByIndex(index)
+  for (index of 1..Client::C_FriendList::GetNumFriends()) {
+    const info = Client::C_FriendList::GetFriendInfoByIndex(index)
     if (info != nil) {
-      const _, tag, _, _, _, _, _, _ = Client.GetPlayerInfoByGUID(info.guid)
+      const _, tag, _, _, _, _, _, _ = Client::GetPlayerInfoByGUID(info.guid)
       list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: classColor(tag), source: .Friend, group: "" })
     }
   }
@@ -92,9 +92,9 @@ public function friends(): Array<Recipient> {
 
 public function guild(): Array<Recipient> {
   const list: Array<Recipient> = []
-  const count, _ = Client.GetNumGuildMembers()
+  const count, _ = Client::GetNumGuildMembers()
   for (index of 1..count) {
-    const name, _, _, level, _, _, _, _, online, _, tag = Client.GetGuildRosterInfo(index)
+    const name, _, _, level, _, _, _, _, online, _, tag = Client::GetGuildRosterInfo(index)
     if (name != nil) {
       list.push({ name: name, level: (level ?? 0).floor(), online: online == true, color: classColor(tag), source: .Guild, group: "" })
     }
@@ -106,15 +106,15 @@ public function guild(): Array<Recipient> {
 // The members of every character community the player is in (not Battle.net ones), each under its community's name.
 public function communities(): Array<Recipient> {
   const list: Array<Recipient> = []
-  for (club of Client.C_Club.GetSubscribedClubs()) {
-    if (club.clubType == Client.ClubType.Character) {
-      for (member of Client.C_Club.GetClubMembers(club.clubId, nil)) {
-        const info = Client.C_Club.GetMemberInfo(club.clubId, member)
+  for (club of Client::C_Club::GetSubscribedClubs()) {
+    if (club.clubType == Client::ClubType::Character) {
+      for (member of Client::C_Club::GetClubMembers(club.clubId, nil)) {
+        const info = Client::C_Club::GetMemberInfo(club.clubId, member)
         const name = info?.name
         if (info != nil && name != nil && !info.isSelf) {
-          const online = info.presence != Client.ClubMemberPresence.Offline && info.presence != Client.ClubMemberPresence.Unknown
+          const online = info.presence != Client::ClubMemberPresence::Offline && info.presence != Client::ClubMemberPresence::Unknown
           const classID = info.classID
-          const known = classID != nil ? Client.C_CreatureInfo.GetClassInfo(classID) : nil
+          const known = classID != nil ? Client::C_CreatureInfo::GetClassInfo(classID) : nil
           list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: classColor(known?.classFile), source: .Community, group: club.name })
         }
       }

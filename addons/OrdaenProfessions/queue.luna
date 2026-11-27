@@ -30,7 +30,7 @@ const NEED_PRICED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp,
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 const FOOT_PRICED: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const NEED_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
-const SHORT: Color = Color.hex("#ff6a5a")
+const SHORT: Color = Color::hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
 public struct QueueLine {
@@ -55,18 +55,18 @@ public struct Need {
 
 // The queue's lines: a recipe of the open profession as the game has it, another by its kept name and its
 // profession's icon.
-public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>, professions: Array<Game.Profession>): Array<QueueLine> {
+public function linesOf(queued: Array<Queued>, recipes: Array<Game::Recipe>, professions: Array<Game::Profession>): Array<QueueLine> {
   let list: Array<QueueLine> = []
   for (entry of queued) {
     const recipe = recipes.find(r => r.id == entry.recipe)
     if (recipe != nil) {
       list.push({
-        recipe: entry.recipe, name: recipe.name, icon: recipe.icon, color: Style.difficultyColor(recipe.difficulty),
+        recipe: entry.recipe, name: recipe.name, icon: recipe.icon, color: Style::difficultyColor(recipe.difficulty),
         count: entry.count
       })
     } else {
       const profession = professions.find(p => p.skillLine == entry.skillLine)
-      list.push({ recipe: entry.recipe, name: entry.name, icon: profession?.icon ?? NO_ICON, color: Style.DIM, count: entry.count })
+      list.push({ recipe: entry.recipe, name: entry.name, icon: profession?.icon ?? NO_ICON, color: Style::DIM, count: entry.count })
     }
   }
   return list
@@ -76,7 +76,7 @@ public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>, prof
 public function needsOf(lines: Array<QueueLine>): Array<Need> {
   let list: Array<mut Need> = []
   for (line of lines) {
-    for (reagent of Game.tradeSkill.reagents(line.recipe)) {
+    for (reagent of Game::tradeSkill.reagents(line.recipe)) {
       let found = false
       for (need of list) {
         if (need.name == reagent.name) {
@@ -104,7 +104,7 @@ public class QueueRow implements Component {
   // The stepper set the recipe's count; nought takes it out.
   public counted: Event<(Integer, Integer)> = new Event()
 
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived rule: Line | nil = self.index > 1 ? Style::ROW_RULE : nil
   derived color: Color = self.line.color
   derived icon: Art = self.line.icon
 
@@ -132,19 +132,19 @@ public class QueueRow implements Component {
     if (count != line.count) { self.counted.emit(line.recipe, count) }
   }
 
-  onOpen(self) { self.act.emit(QueueAct.Open, self.line.recipe) }
-  onDrop(self) { self.act.emit(QueueAct.Drop, self.line.recipe) }
+  onOpen(self) { self.act.emit(QueueAct::Open, self.line.recipe) }
+  onDrop(self) { self.act.emit(QueueAct::Drop, self.line.recipe) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={3sp} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
-        <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
+      <box columns={LINE} gap={3sp} yAlign={Align::Center} padding={LINE_PAD} border={self.rule}>
+        <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
         <box @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen} @keyPress(.Space)={self.onOpen}>
-          <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
+          <text value={self.line.name} textColor={self.color} textShadow={Style::SHADOW}
                 wrap={.None} />
         </box>
         <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
-        <PushButton label={"x"} width={STEP} plate={ButtonPlate.Accent} @click={self.onDrop} />
+        <PushButton label={"x"} width={STEP} plate={ButtonPlate::Accent} @click={self.onDrop} />
       </box>
     }
   }
@@ -161,7 +161,7 @@ public struct NeedPrice {
 // Each need's missing part priced: the cheaper of the house and a merchant.
 public function needPricesOf(prices: any PriceSource, needs: Array<Need>): Array<NeedPrice> {
   return needs.map((need: Need): NeedPrice => {
-    if (need.missing == 0) { return { need: need, copper: nil, way: Way.None } }
+    if (need.missing == 0) { return { need: need, copper: nil, way: Way::None } }
     const one = unitOf(prices, need.item)
     const unit = one.unit
     return { need: need, copper: unit == nil ? nil : unit * need.missing, way: one.way }
@@ -188,12 +188,12 @@ public class NeedRow implements Component {
   derived icon: Art | nil = self.need.icon
   derived lacks: Boolean = self.need.missing > 0
   derived missing: String = self.lacks ? "%d".format(self.need.missing) : "-"
-  derived missingColor: Color = self.lacks ? SHORT : Style.INK
+  derived missingColor: Color = self.lacks ? SHORT : Style::INK
   derived columns: Array<Track> = self.priced ? NEED_PRICED : NEED
   derived hasPrice: Boolean = self.entry.copper != nil
   derived copper: Integer = self.entry.copper ?? 0
   derived way: String = wayText(self.entry.way)
-  derived wayColor: Color = self.entry.way == Way.None ? SHORT : Style.INK
+  derived wayColor: Color = self.entry.way == Way::None ? SHORT : Style::INK
 
   entry: Signal<NeedPrice>
   priced: Signal<Boolean>
@@ -204,31 +204,31 @@ public class NeedRow implements Component {
 
   // The reagent's tooltip beside its whole row.
   onEnter(self, frame: any Frame) {
-    Game.tooltip.rowAt(frame)
+    Game::tooltip.rowAt(frame)
     const item = self.item
-    if (item != nil) { Game.items.show(frame, item) }
+    if (item != nil) { Game::items.show(frame, item) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={3sp} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}
+      <box columns={self.columns} gap={3sp} yAlign={Align::Center} padding={NEED_PAD} border={Style::ROW_RULE}
            @pointerEnter={self.onEnter}>
         <ItemButton item={self.item} art={self.icon} size={32.8125dp} tipped={false} />
-        <text value={self.need.name} textColor={Style.INK} wrap={.None} />
-        <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
+        <text value={self.need.name} textColor={Style::INK} wrap={.None} />
+        <box xAlign={Align::End}>
+          <text value={"%d"} arguments={[self.need.need]} textColor={Style::INK}
                 textFont={.Numbers} wrap={.None} />
         </box>
-        <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.have]} textColor={Style.INK}
+        <box xAlign={Align::End}>
+          <text value={"%d"} arguments={[self.need.have]} textColor={Style::INK}
                 textFont={.Numbers} wrap={.None} />
         </box>
-        <box xAlign={Align.End}>
+        <box xAlign={Align::End}>
           <text value={self.missing} textColor={self.missingColor}
                 textFont={.Numbers} wrap={.None} />
         </box>
         <$if={self.priced}>
-          <box xAlign={Align.End}>
+          <box xAlign={Align::End}>
             <Money $if={self.hasPrice} amount={self.copper} />
           </box>
           <text $if={self.lacks} value={self.way} textColor={self.wayColor} wrap={.None} />
@@ -249,7 +249,7 @@ public class QueuePage implements Component {
   // «Create next».
   public next: Event<nil> = new Event()
 
-  derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
+  derived lines: Array<QueueLine> = linesOf(self.queued, Game::tradeSkill.recipes, Game::professions.list)
   derived needs: Array<Need> = needsOf(self.lines)
   derived empty: Boolean = self.lines.length == 0
   derived priced: Boolean = self.prices != nil
@@ -285,7 +285,7 @@ public class QueuePage implements Component {
   // Read again when a price may have moved; without prices each need stands alone.
   entriesOf(self): Array<NeedPrice> {
     const prices = self.prices
-    if (prices == nil) { return self.needs.map(need => ({ need: need, copper: nil, way: Way.None })) }
+    if (prices == nil) { return self.needs.map(need => ({ need: need, copper: nil, way: Way::None })) }
     _ = prices.revision
     return needPricesOf(prices, self.needs)
   }
@@ -299,9 +299,9 @@ public class QueuePage implements Component {
     return $ltml {
       <box rows={PAGE}>
         <box $if={self.empty} padding={EMPTY_PAD}>
-          <text value={Locale.QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={Locale::QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         </box>
-        <box $else overflow={Overflow.Scroll} scrollbar={.Hover} gap={6sp}>
+        <box $else overflow={Overflow::Scroll} scrollbar={.Hover} gap={6sp}>
           <box columns={1}>
             <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
                       @act={self.onAct} @counted={self.onCounted} />
@@ -310,35 +310,35 @@ public class QueuePage implements Component {
             <box columns={self.headColumns} gap={3sp} padding={NEED_PAD}>
               <box />
               <box />
-              <box xAlign={Align.End}>
-                <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={.None} />
+              <box xAlign={Align::End}>
+                <text value={Locale::QUEUE_NEED} textColor={Style::DIM} wrap={.None} />
               </box>
-              <box xAlign={Align.End}>
-                <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={.None} />
+              <box xAlign={Align::End}>
+                <text value={Locale::QUEUE_HAVE} textColor={Style::DIM} wrap={.None} />
               </box>
-              <box xAlign={Align.End}>
-                <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={.None} />
+              <box xAlign={Align::End}>
+                <text value={Locale::QUEUE_MISSING} textColor={Style::DIM} wrap={.None} />
               </box>
               <$if={self.priced}>
-                <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={.None} />
+                <box xAlign={Align::End}>
+                  <text value={Locale::QUEUE_PRICE} textColor={Style::DIM} wrap={.None} />
                 </box>
-                <text value={Locale.QUEUE_WHERE} textColor={Style.DIM} wrap={.None} />
+                <text value={Locale::QUEUE_WHERE} textColor={Style::DIM} wrap={.None} />
               </>
             </box>
             <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />
           </box>
         </box>
         <FooterBand>
-          <box columns={self.footColumns} gap={4sp} yAlign={Align.Center}>
-            <text value={self.status} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <box columns={self.footColumns} gap={4sp} yAlign={Align::Center}>
+            <text value={self.status} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
             <$if={self.priced}>
-              <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
+              <text value={Locale::TOTAL_TO_BUY} textColor={Style::DIM} />
               <Money $if={self.hasToBuy} amount={self.toBuyCopper} />
-              <text $else value={"—"} textColor={Style.DIM} />
-              <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.lacking} @click={self.onShop} />
+              <text $else value={"—"} textColor={Style::DIM} />
+              <PushButton label={Locale::TO_SHOPPING} width={210.9375dp} disabled={!self.lacking} @click={self.onShop} />
             </>
-            <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.ready} @click={self.onNext} />
+            <PushButton label={Locale::QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.ready} @click={self.onNext} />
           </box>
         </FooterBand>
       </box>

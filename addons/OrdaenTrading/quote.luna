@@ -22,7 +22,7 @@ public type PriceKey = brand Integer {
     const by = (suffix ?? "").toNumber() ?? 0
     return item + by.abs().floor() * HALF
   }
-  public item(self): ItemId { return ItemId.of(self % HALF) }
+  public item(self): ItemId { return ItemId::of(self % HALF) }
   // Its random suffix: 0 for a plain item.
   public suffix(self): Integer { return (self / HALF).floor() }
 }
@@ -30,15 +30,15 @@ public type PriceKey = brand Integer {
 // The server's time, in seconds: the account's 15 minutes between full scans and a scan's age are counted in it (an
 // hour, `Hour.now()`, reads the same clock). Read once, never followed: a price read in a `derived` isn't read again
 // each second.
-public function serverSeconds(): Integer { return peek Game.clock.server }
+public function serverSeconds(): Integer { return peek Game::clock.server }
 
 // A price and the hour it was seen, in one number: a price is never read without its age.
 public type Quote = brand Integer {
   public of(copper: Integer, seen: Hour): Quote { return copper.min(MOST).max(0) * HALF + seen }
-  public copper(self): Copper { return Copper.of((self / HALF).floor()) }
-  public seen(self): Hour { return Hour.of(self % HALF) }
+  public copper(self): Copper { return Copper::of((self / HALF).floor()) }
+  public seen(self): Hour { return Hour::of(self % HALF) }
   // Hours since it was seen.
-  public age(self): Integer { return Hour.now() - self.seen() }
+  public age(self): Integer { return Hour::now() - self.seen() }
 }
 
 // The lowest unit buyout of the last observation, and how many were listed (at most 2^20 − 1).
@@ -46,7 +46,7 @@ public type Listing = brand Integer {
   public of(low: Integer, quantity: Integer): Listing {
     return low.min(MOST).max(0) * HALF + quantity.min(HALF - 1).max(0)
   }
-  public low(self): Copper { return Copper.of((self / HALF).floor()) }
+  public low(self): Copper { return Copper::of((self / HALF).floor()) }
   public quantity(self): Integer { return self % HALF }
 }
 

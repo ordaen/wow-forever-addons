@@ -66,21 +66,21 @@ const NO_ME: BattleNetSelf = { battleTag: "", presence: .Online, broadcast: "", 
 // The most a recent ally's note holds (`RecentAlliesNoteEditBox`'s letters).
 const NOTE_MOST = 48
 const NO_RIGHTS: GuildRights = { invite: false, promote: false, demote: false, manage: false }
-const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
+const GUILD_SUBS: Array<String> = [Locale::SUB_ROSTER, Locale::SUB_NEWS]
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
 
 // A list's counts in the footer: how many it has, under its own label, and how many of them are online.
 function counted(label: String, all: Integer, online: Integer): Array<FooterCount> {
-  return [{ label: label, value: String.of(all) }, { label: Locale.FOOT_ONLINE, value: String.of(online) }]
+  return [{ label: label, value: String::of(all) }, { label: Locale::FOOT_ONLINE, value: String::of(online) }]
 }
 
 public class Social implements Module, App {
   public const title: String = "Ordaen Social"
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ offline: true })
@@ -97,11 +97,11 @@ public class Social implements Module, App {
   public state sub: Integer = SUB_STATUS
   public state guildSub: Integer = SUB_ROSTER
   // The game's own windows ours stands for, and those of them showing: held unseen and off the screen.
-  games: mut Array<any Client.Frame> = []
+  games: mut Array<any Client::Frame> = []
   state held: mut Array<any Frame> = []
   // The game's guild and communities window once its addon has loaded, and the game's window the player asked for as
   // it is, until it closes.
-  communities: any Client.Frame | nil = nil
+  communities: any Client::Frame | nil = nil
   pass: mut GamePass = new GamePass()
   addonHeard: Handle | nil = nil
   // The friends as the client gives them; as the window shows them, an offline Battle.net friend with the character
@@ -169,23 +169,23 @@ public class Social implements Module, App {
   derived onlineCount: Integer = self.friends.count(friend => friend.presence != .Offline)
   derived guildOnline: Integer = onlineOf(self.guildMembers)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_FRIENDS, desc: Locale.ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS, padding: Style.NO_ROOM },
+    { title: Locale::TAB_FRIENDS, desc: Locale::ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS, padding: Style::NO_ROOM },
     {
-      title: Locale.TAB_GUILD, desc: self.guild != nil ? Locale.ONLINE_COUNT.format(self.guildOnline) : Locale.NO_GUILD_LOWER, icon: ICON_GUILD,
-      padding: Style.NO_ROOM
+      title: Locale::TAB_GUILD, desc: self.guild != nil ? Locale::ONLINE_COUNT.format(self.guildOnline) : Locale::NO_GUILD_LOWER, icon: ICON_GUILD,
+      padding: Style::NO_ROOM
     },
-    { title: Locale.TAB_COMMUNITIES, desc: Locale.COMMUNITIES_COUNT.format(self.clubs.length), icon: ICON_COMMUNITIES, padding: Style.NO_ROOM },
-    { title: Locale.TAB_ALLIES, desc: Locale.ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES, padding: Style.NO_ROOM },
-    { title: Locale.TAB_WHISPERS, desc: self.whispersDesc, icon: ICON_WHISPERS }
+    { title: Locale::TAB_COMMUNITIES, desc: Locale::COMMUNITIES_COUNT.format(self.clubs.length), icon: ICON_COMMUNITIES, padding: Style::NO_ROOM },
+    { title: Locale::TAB_ALLIES, desc: Locale::ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES, padding: Style::NO_ROOM },
+    { title: Locale::TAB_WHISPERS, desc: self.whispersDesc, icon: ICON_WHISPERS }
   ]
-  derived whispersDesc: String = self.whispersUnread > 0 ? Locale.UNREAD_COUNT.format(self.whispersUnread) : Locale.TALKS_COUNT.format(self.talks.length)
-  derived subTabs: Array<String> = [Locale.SUB_STATUS, self.requestsTitle(), Locale.SUB_IGNORE]
+  derived whispersDesc: String = self.whispersUnread > 0 ? Locale::UNREAD_COUNT.format(self.whispersUnread) : Locale::TALKS_COUNT.format(self.talks.length)
+  derived subTabs: Array<String> = [Locale::SUB_STATUS, self.requestsTitle(), Locale::SUB_IGNORE]
   derived side: WindowSide | nil = self.sideOf()
-  derived removeText: String = Locale.REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
-  derived removeDetail: String = self.removing?.account != nil ? Locale.REMOVE_BATTLE_NET : Locale.REMOVE_CHARACTER
-  derived addRule: String = namesAccount(self.addText) ? Locale.ADD_RULE_BATTLE_NET : Locale.ADD_RULE_CHARACTER
-  derived broadcastCount: String = Locale.BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
-  derived leaveText: String = Locale.LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
+  derived removeText: String = Locale::REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
+  derived removeDetail: String = self.removing?.account != nil ? Locale::REMOVE_BATTLE_NET : Locale::REMOVE_CHARACTER
+  derived addRule: String = namesAccount(self.addText) ? Locale::ADD_RULE_BATTLE_NET : Locale::ADD_RULE_CHARACTER
+  derived broadcastCount: String = Locale::BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
+  derived leaveText: String = Locale::LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
   derived counts: Array<FooterCount> = self.countsOf()
   // The footer, as every list window's: the counts as label and value pairs.
   const footer: Template = $ltml { <ListFooter counts={self.counts} /> }
@@ -193,7 +193,7 @@ public class Social implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     self.recallTalks()
-    Events.PLAYER_LOGOUT.listen(self.keepTalks)
+    Events::PLAYER_LOGOUT.listen(self.keepTalks)
     // The whispers waiting unread, for the panel's badge, which reads them by the folder.
     watch (unread of self.whispersUnread) { Ordaen.notice(FOLDER, unread) }
     // The whispers' tab shown with no conversation open opens one: the first waiting unread, else the newest. The open
@@ -204,57 +204,57 @@ public class Social implements Module, App {
       self.readTalk(self.talkOpen)
     }
     // The friends read: the characters Battle.net friends play here written down.
-    watch (friends of self.read) { noteSeen(self.seen, friends, Client.GetServerTime()) }
+    watch (friends of self.read) { noteSeen(self.seen, friends, Client::GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
     watch (opened of self.open) {
       if (!opened) { return }
       self.refresh()
-      Events.FRIENDLIST_UPDATE.listen(self.readFriends)
-      Events.BN_FRIEND_INFO_CHANGED.listen(self.readFriends)
-      Events.BN_FRIEND_LIST_SIZE_CHANGED.listen(self.readFriends)
-      Events.BN_FRIEND_ACCOUNT_ONLINE.listen(self.readFriends)
-      Events.BN_FRIEND_ACCOUNT_OFFLINE.listen(self.readFriends)
-      Events.BN_FRIEND_INVITE_ADDED.listen(self.readRequests)
-      Events.BN_FRIEND_INVITE_REMOVED.listen(self.readRequests)
-      Events.BN_FRIEND_INVITE_LIST_INITIALIZED.listen(self.readRequests)
-      Events.IGNORELIST_UPDATE.listen(self.readIgnored)
-      Events.BN_BLOCK_LIST_UPDATED.listen(self.readIgnored)
-      Events.BN_INFO_CHANGED.listen(self.readMe)
-      Events.BN_CUSTOM_MESSAGE_CHANGED.listen(self.readMe)
-      Events.GUILD_ROSTER_UPDATE.listen(self.readGuild)
-      Events.PLAYER_GUILD_UPDATE.listen(self.readGuild)
-      Events.GUILD_MOTD.listen(self.onMotd)
-      Events.GUILD_NEWS_UPDATE.listen(self.readNews)
-      Events.INITIAL_CLUBS_LOADED.listen(self.readClubs)
-      Events.CLUB_ADDED.listen(self.readClubs)
-      Events.CLUB_REMOVED.listen(self.readClubs)
-      Events.CLUB_UPDATED.listen(self.readClubs)
-      Events.CLUB_MEMBERS_UPDATED.listen(self.onClubChanged)
-      Events.CLUB_MEMBER_UPDATED.listen(self.onClubChanged)
-      Events.CLUB_MEMBER_PRESENCE_UPDATED.listen(self.onClubChanged)
-      Events.CLUB_STREAMS_LOADED.listen(self.onClubChanged)
-      Events.CLUB_STREAM_ADDED.listen(self.onClubChanged)
-      Events.CLUB_STREAM_REMOVED.listen(self.onClubChanged)
-      Events.CLUB_STREAM_UPDATED.listen(self.onClubChanged)
-      Events.RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
+      Events::FRIENDLIST_UPDATE.listen(self.readFriends)
+      Events::BN_FRIEND_INFO_CHANGED.listen(self.readFriends)
+      Events::BN_FRIEND_LIST_SIZE_CHANGED.listen(self.readFriends)
+      Events::BN_FRIEND_ACCOUNT_ONLINE.listen(self.readFriends)
+      Events::BN_FRIEND_ACCOUNT_OFFLINE.listen(self.readFriends)
+      Events::BN_FRIEND_INVITE_ADDED.listen(self.readRequests)
+      Events::BN_FRIEND_INVITE_REMOVED.listen(self.readRequests)
+      Events::BN_FRIEND_INVITE_LIST_INITIALIZED.listen(self.readRequests)
+      Events::IGNORELIST_UPDATE.listen(self.readIgnored)
+      Events::BN_BLOCK_LIST_UPDATED.listen(self.readIgnored)
+      Events::BN_INFO_CHANGED.listen(self.readMe)
+      Events::BN_CUSTOM_MESSAGE_CHANGED.listen(self.readMe)
+      Events::GUILD_ROSTER_UPDATE.listen(self.readGuild)
+      Events::PLAYER_GUILD_UPDATE.listen(self.readGuild)
+      Events::GUILD_MOTD.listen(self.onMotd)
+      Events::GUILD_NEWS_UPDATE.listen(self.readNews)
+      Events::INITIAL_CLUBS_LOADED.listen(self.readClubs)
+      Events::CLUB_ADDED.listen(self.readClubs)
+      Events::CLUB_REMOVED.listen(self.readClubs)
+      Events::CLUB_UPDATED.listen(self.readClubs)
+      Events::CLUB_MEMBERS_UPDATED.listen(self.onClubChanged)
+      Events::CLUB_MEMBER_UPDATED.listen(self.onClubChanged)
+      Events::CLUB_MEMBER_PRESENCE_UPDATED.listen(self.onClubChanged)
+      Events::CLUB_STREAMS_LOADED.listen(self.onClubChanged)
+      Events::CLUB_STREAM_ADDED.listen(self.onClubChanged)
+      Events::CLUB_STREAM_REMOVED.listen(self.onClubChanged)
+      Events::CLUB_STREAM_UPDATED.listen(self.onClubChanged)
+      Events::RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
       // The recent allies asked for again as the filter's categories change.
-      watch { self.allies = Game.recentAllies.list(self.allyCategories) }
+      watch { self.allies = Game::recentAllies.list(self.allyCategories) }
       // The picked community's members and streams, read as it is picked; its member's card goes.
       watch (id of self.clubId) {
         self.clubMember = ""
         self.readClub(id)
       }
     }
-    for (name of GAME_WINDOWS) { self.hook(Runtime.frame(name), nil) }
+    for (name of GAME_WINDOWS) { self.hook(Runtime::frame(name), nil) }
     self.hookPage("FriendsListFrame", TAB_FRIENDS, SUB_STATUS)
     self.hookPage("FriendsFrame.IgnoreListWindow", TAB_FRIENDS, SUB_IGNORE)
     self.hookPage("RecentAlliesFrame", TAB_ALLIES, nil)
     // The game's guild and communities window: hooked once its addon has loaded.
-    const communities = Runtime.frame(COMMUNITIES_WINDOW)
+    const communities = Runtime::frame(COMMUNITIES_WINDOW)
     if (communities != nil) {
       self.hookCommunities(communities)
     } else {
-      self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
+      self.addonHeard = Events::ADDON_LOADED.listen(self.onAddonLoaded)
     }
   }
 
@@ -263,13 +263,13 @@ public class Social implements Module, App {
   onAddonLoaded(mut self, name: String) {
     if (name != COMMUNITIES_ADDON) { return }
     if (self.addonHeard != nil) { destroy self.addonHeard }
-    self.hookCommunities(Runtime.frame(COMMUNITIES_WINDOW))
+    self.hookCommunities(Runtime::frame(COMMUNITIES_WINDOW))
   }
 
   // The game's guild and communities window: ours opens on the guild's tab (the communities' outside a guild).
   hookCommunities(mut self, frame: any Frame | nil) {
     if (frame == nil) { return }
-    const window: any Client.Frame = frame
+    const window: any Client::Frame = frame
     self.communities = window
     self.hook(frame, TAB_GUILD)
   }
@@ -278,11 +278,11 @@ public class Social implements Module, App {
   // names it, on its show and hide, which are rare.
   public hook(mut self, frame: any Frame | nil, tab: Integer | nil) {
     if (frame == nil) { return }
-    const window: any Client.Frame = frame
+    const window: any Client::Frame = frame
     self.games.push(window)
     _ = window.HookScript("OnShow", (): nil => {
       // In the key's or the click's own call: the message of the day, which the client gives then alone.
-      if (!(peek self.open) && !self.pass.passes(frame)) { self.motd = Game.guild.motd() }
+      if (!(peek self.open) && !self.pass.passes(frame)) { self.motd = Game::guild.motd() }
       self.onGameShown(frame, tab)
       return nil
     })
@@ -296,9 +296,9 @@ public class Social implements Module, App {
   // A page of the game's window (the friends' list, the black list, the recent allies): shown, ours turns to its tab
   // (and the friends' page).
   hookPage(mut self, name: String, tab: Integer, sub: Integer | nil) {
-    const page = Runtime.frame(name)
+    const page = Runtime::frame(name)
     if (page == nil) { return }
-    const shown: any Client.Frame = page
+    const shown: any Client::Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
       self.window.ask(tab)
       if (sub != nil) { self.sub = sub }
@@ -320,8 +320,8 @@ public class Social implements Module, App {
     if (!(peek self.open)) {
       self.open = true
       // In the key's or the click's own call, as the client's restricted calls want.
-      Game.guild.ask()
-      Game.recentAllies.ask()
+      Game::guild.ask()
+      Game::recentAllies.ask()
     }
   }
 
@@ -343,12 +343,12 @@ public class Social implements Module, App {
   }
 
   // The friends read, and the characters Battle.net friends play here written down.
-  readFriends(mut self) { self.read = Game.friends.list() }
+  readFriends(mut self) { self.read = Game::friends.list() }
 
-  readRequests(mut self) { self.requests = Game.friends.requests() }
-  readIgnored(mut self) { self.ignored = Game.friends.ignored() }
-  readMe(mut self) { self.me = Game.friends.battleNetSelf() }
-  readGuild(mut self) { self.guild = Game.guild.roster(peek self.motd) }
+  readRequests(mut self) { self.requests = Game::friends.requests() }
+  readIgnored(mut self) { self.ignored = Game::friends.ignored() }
+  readMe(mut self) { self.me = Game::friends.battleNetSelf() }
+  readGuild(mut self) { self.guild = Game::guild.roster(peek self.motd) }
 
   onMotd(mut self, text: String) {
     self.motd = text
@@ -356,15 +356,15 @@ public class Social implements Module, App {
   }
 
   readNews(mut self) {
-    self.news = Game.guild.news()
-    self.newsFilters = Game.guild.newsFilters()
+    self.news = Game::guild.news()
+    self.newsFilters = Game::guild.newsFilters()
   }
-  readClubs(mut self) { self.clubs = Game.communities.clubs() }
-  readAllies(mut self) { self.allies = Game.recentAllies.list(peek self.allyCategories) }
+  readClubs(mut self) { self.clubs = Game::communities.clubs() }
+  readAllies(mut self) { self.allies = Game::recentAllies.list(peek self.allyCategories) }
 
   readClub(mut self, id: String) {
-    self.clubMembers = id == "" ? [] : Game.communities.members(id)
-    self.streams = id == "" ? [] : Game.communities.streams(id)
+    self.clubMembers = id == "" ? [] : Game::communities.members(id)
+    self.streams = id == "" ? [] : Game::communities.streams(id)
   }
 
   // A community's members or streams changed: read again where it is the one shown.
@@ -375,19 +375,19 @@ public class Social implements Module, App {
 
   requestsTitle(self): String {
     const waiting = self.requests.length
-    return waiting > 0 ? Locale.SUB_REQUESTS_WAITING.format(waiting) : Locale.SUB_REQUESTS
+    return waiting > 0 ? Locale::SUB_REQUESTS_WAITING.format(waiting) : Locale::SUB_REQUESTS
   }
 
   // The footer's counts, of the tab shown.
   countsOf(self): Array<FooterCount> {
     return match (self.tab) {
-      TAB_FRIENDS => counted(Locale.FOOT_FRIENDS, self.friends.length, self.onlineCount)
-      TAB_GUILD => self.guild != nil ? counted(Locale.FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
-      TAB_COMMUNITIES => self.chosenClub != nil ? counted(Locale.FOOT_MEMBERS, self.clubMembers.length, onlineOf(self.clubMembers)) : []
-      TAB_ALLIES => [{ label: Locale.FOOT_ALLIES, value: String.of(self.allies.length) }]
+      TAB_FRIENDS => counted(Locale::FOOT_FRIENDS, self.friends.length, self.onlineCount)
+      TAB_GUILD => self.guild != nil ? counted(Locale::FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
+      TAB_COMMUNITIES => self.chosenClub != nil ? counted(Locale::FOOT_MEMBERS, self.clubMembers.length, onlineOf(self.clubMembers)) : []
+      TAB_ALLIES => [{ label: Locale::FOOT_ALLIES, value: String::of(self.allies.length) }]
       TAB_WHISPERS => [
-        { label: Locale.FOOT_TALKS, value: String.of(self.talks.length) },
-        { label: Locale.FOOT_UNREAD, value: String.of(self.whispersUnread) }
+        { label: Locale::FOOT_TALKS, value: String::of(self.talks.length) },
+        { label: Locale::FOOT_UNREAD, value: String::of(self.whispersUnread) }
       ]
       else => []
     }
@@ -416,18 +416,18 @@ public class Social implements Module, App {
 
   onInvite(mut self) {
     const friend = peek self.pickedFriend
-    if (friend != nil) { Game.friends.invite(friend) }
+    if (friend != nil) { Game::friends.invite(friend) }
   }
 
   // The game's own menu of a friend: a row's right click, the card's ⋮.
   onFriendMenu(mut self, key: String) {
     const friend = (peek self.friends).find(one => keyOf(one) == key)
-    if (friend != nil) { Game.friends.menu(friend) }
+    if (friend != nil) { Game::friends.menu(friend) }
   }
 
   onCardMenu(mut self) {
     const friend = peek self.pickedFriend
-    if (friend != nil) { Game.friends.menu(friend) }
+    if (friend != nil) { Game::friends.menu(friend) }
   }
 
   onRemove(mut self) { self.removing = peek self.pickedFriend }
@@ -436,7 +436,7 @@ public class Social implements Module, App {
     const friend = peek self.removing
     self.removing = nil
     if (friend == nil) { return }
-    Game.friends.remove(friend)
+    Game::friends.remove(friend)
     self.picked = ""
     self.readFriends()
   }
@@ -444,7 +444,7 @@ public class Social implements Module, App {
   onRemoveNo(mut self) { self.removing = nil }
 
   onPresence(mut self, presence: Presence) {
-    Game.friends.setPresence(presence)
+    Game::friends.setPresence(presence)
     self.readMe()
   }
 
@@ -455,7 +455,7 @@ public class Social implements Module, App {
 
   onBroadcastYes(mut self) {
     self.editing = false
-    Game.friends.setBroadcast(trimmed(peek self.draft))
+    Game::friends.setBroadcast(trimmed(peek self.draft))
     self.readMe()
   }
 
@@ -472,24 +472,24 @@ public class Social implements Module, App {
     const text = trimmed(peek self.addText)
     if (text == "") { return }
     self.adding = false
-    Game.friends.add(text)
+    Game::friends.add(text)
   }
 
   onAddNo(mut self) { self.adding = false }
 
   onAnswer(mut self, request: FriendRequest, accept: Boolean) {
-    Game.friends.answer(request, accept)
+    Game::friends.answer(request, accept)
     self.readRequests()
     self.readFriends()
   }
 
   onIgnore(mut self, name: String) {
-    Game.friends.ignore(name)
+    Game::friends.ignore(name)
     self.readIgnored()
   }
 
   onUnignore(mut self, entry: Ignored) {
-    Game.friends.unignore(entry)
+    Game::friends.unignore(entry)
     self.readIgnored()
   }
 
@@ -507,24 +507,24 @@ public class Social implements Module, App {
   onPromote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    Game.guild.promote(one.name)
+    Game::guild.promote(one.name)
     self.readGuild()
   }
 
   onDemote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    Game.guild.demote(one.name)
+    Game::guild.demote(one.name)
     self.readGuild()
   }
 
   // The game's own menu of a guild member (its promote, demote, remove and notes among its entries) or of a
   // community's: a row's right click, the card's ⋮.
-  onGuildMenu(mut self, key: String) { Game.guild.menu(key) }
+  onGuildMenu(mut self, key: String) { Game::guild.menu(key) }
 
   onClubMenu(mut self, key: String) {
     const club = peek self.clubId
-    if (club != "") { Game.communities.menu(club, key) }
+    if (club != "") { Game::communities.menu(club, key) }
   }
 
   onMemberCardMenu(mut self) {
@@ -538,8 +538,8 @@ public class Social implements Module, App {
   }
 
   onNewsFilter(mut self, kind: Integer, shown: Boolean) {
-    Game.guild.filterNews(kind, shown)
-    self.newsFilters = Game.guild.newsFilters()
+    Game::guild.filterNews(kind, shown)
+    self.newsFilters = Game::guild.newsFilters()
   }
 
   onGuildInvite(mut self) {
@@ -551,7 +551,7 @@ public class Social implements Module, App {
     const name = trimmed(peek self.inviteText)
     if (name == "") { return }
     self.inviting = false
-    Game.guild.invite(name)
+    Game::guild.invite(name)
   }
 
   onGuildInviteNo(mut self) { self.inviting = false }
@@ -559,7 +559,7 @@ public class Social implements Module, App {
 
   onLeaveYes(mut self) {
     self.leaving = false
-    Game.guild.leave()
+    Game::guild.leave()
     self.member = ""
     self.readGuild()
   }
@@ -569,7 +569,7 @@ public class Social implements Module, App {
   // The game's own guild window, as it is: ours closes, the game's shows until it closes (loading its addon first where
   // nothing has yet).
   onGameGuild(mut self) {
-    if (self.communities == nil) { _ = Client.C_AddOns.LoadAddOn(COMMUNITIES_ADDON) }
+    if (self.communities == nil) { _ = Client::C_AddOns::LoadAddOn(COMMUNITIES_ADDON) }
     const communities = self.communities
     if (communities != nil) { self.showGame(communities) }
   }
@@ -593,25 +593,25 @@ public class Social implements Module, App {
   onAllyPin(mut self) {
     const one = peek self.pickedAlly
     if (one == nil) { return }
-    Game.recentAllies.pin(one.member.key, !one.pinned)
+    Game::recentAllies.pin(one.member.key, !one.pinned)
     self.readAllies()
   }
 
   onAllyBefriend(mut self) {
     const one = peek self.pickedAlly
     if (one == nil) { return }
-    Game.friends.add(one.fullName)
+    Game::friends.add(one.fullName)
     self.readAllies()
   }
 
   onAllyMenu(mut self, key: String) {
     const one = (peek self.allies).find(ally => ally.member.key == key)
-    if (one != nil) { Game.recentAllies.menu(one) }
+    if (one != nil) { Game::recentAllies.menu(one) }
   }
 
   onAllyCardMenu(mut self) {
     const one = peek self.pickedAlly
-    if (one != nil) { Game.recentAllies.menu(one) }
+    if (one != nil) { Game::recentAllies.menu(one) }
   }
 
   onAllyNote(mut self) {
@@ -625,7 +625,7 @@ public class Social implements Module, App {
     const one = peek self.pickedAlly
     self.noting = false
     if (one == nil) { return }
-    Game.recentAllies.setNote(one.member.key, trimmed(peek self.noteText))
+    Game::recentAllies.setNote(one.member.key, trimmed(peek self.noteText))
     self.readAllies()
   }
 
@@ -634,7 +634,7 @@ public class Social implements Module, App {
   // A line Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them; whether it was a
   // whisper, which is then the window's alone. A whisper is its conversation's, which goes first in the list; heard
   // while that conversation isn't the one shown, it waits unread.
-  public heard(mut self, line: Game.ChatLine, whole: String): Boolean {
+  public heard(mut self, line: Game::ChatLine, whole: String): Boolean {
     if (!isWhisper(line)) { return false }
     const told = isTold(line)
     const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
@@ -649,8 +649,8 @@ public class Social implements Module, App {
   public whisperTo(mut self, name: String, battleNet: Boolean) {
     self.talkOpen = self.talkOf(talkKey(name, battleNet)).key
     if (!(peek self.open)) {
-      const friends = Runtime.frame(FRIENDS_WINDOW)
-      if (friends != nil) { Client.ShowUIPanel(friends) }
+      const friends = Runtime::frame(FRIENDS_WINDOW)
+      if (friends != nil) { Client::ShowUIPanel(friends) }
     }
     self.window.ask(TAB_WHISPERS)
   }
@@ -734,16 +734,16 @@ public class Social implements Module, App {
   // The words typed in a conversation, sent in the key's own call.
   onTalkSend(mut self, text: String) {
     const talk = self.talkMade[peek self.talkOpen]
-    if (talk != nil) { _ = Game.chat.whisper(talk.partner, text, talk.battleNet) }
+    if (talk != nil) { _ = Game::chat.whisper(talk.partner, text, talk.battleNet) }
   }
 
   // A link in a whisper: a web address shown to copy; any other is the game's.
-  onTalkLink(mut self, link: Event.Link) {
+  onTalkLink(mut self, link: Event::Link) {
     if (link.link.sub(1, WEB_LINK.length) == WEB_LINK) {
       self.copied = link.link.sub(WEB_LINK.length + 1)
       return
     }
-    Game.chat.click(link.link, link.text, link.button)
+    Game::chat.click(link.link, link.text, link.button)
   }
 
   onCopyClose(mut self) { self.copied = "" }
@@ -757,11 +757,11 @@ public class Social implements Module, App {
     for (key, talk of self.talkMade) {
       if (!listed.any(one => one.key == key)) { talks.push(keptOf(talk, true)) }
     }
-    Game.saved.store(Game.Scope.Character, TALKS_KEPT, KeptTalks { talks: talks })
+    Game::saved.store(Game::Scope::Character, TALKS_KEPT, KeptTalks { talks: talks })
   }
 
   recallTalks(mut self) {
-    const kept = KeptTalks.decode(Game.saved.stored(Game.Scope.Character, TALKS_KEPT), KeptTalks { talks: [] })
+    const kept = KeptTalks::decode(Game::saved.stored(Game::Scope::Character, TALKS_KEPT), KeptTalks { talks: [] })
     const talks: Array<Talk> = []
     for (one of kept.talks) {
       const talk = new Talk(one.key)
@@ -778,11 +778,11 @@ public class Social implements Module, App {
   onClose(mut self) {
     self.open = false
     for (game of self.games) {
-      if (game.IsShown()) { Client.HideUIPanel(game) }
+      if (game.IsShown()) { Client::HideUIPanel(game) }
     }
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   // The card beside the list, of the tab shown: the picked friend's or the player's own; the picked member's, or the
   // guild's or the community's; the picked ally's. The whispers have none: the conversation is their tab's own.
@@ -796,7 +796,7 @@ public class Social implements Module, App {
 
   friendSide(self): WindowSide {
     return {
-      width: Style.CARD,
+      width: Style::CARD,
       content: $ltml {
         <FriendCard $if={self.pickedFriend != nil} friend={self.pickedFriend ?? panic("tested")} @whisper={self.onWhisper}
                     @invite={self.onInvite} @remove={self.onRemove} @menu={self.onCardMenu} />
@@ -807,10 +807,10 @@ public class Social implements Module, App {
 
   guildSide(self): WindowSide {
     return {
-      width: Style.SIDE_CARD,
+      width: Style::SIDE_CARD,
       content: $ltml {
         <MemberCard $if={self.pickedMember != nil} member={self.pickedMember ?? panic("tested")} rights={self.rights}
-                    rankTitle={Locale.COLUMN_RANK} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
+                    rankTitle={Locale::COLUMN_RANK} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
                     @promote={self.onPromote} @demote={self.onDemote} @menu={self.onMemberCardMenu} />
         <GuildCard $else guild={self.guild ?? panic("tested")} @invite={self.onGuildInvite} @leave={self.onLeave}
                    @gameWindow={self.onGameGuild} />
@@ -820,10 +820,10 @@ public class Social implements Module, App {
 
   clubSide(self): WindowSide {
     return {
-      width: Style.SIDE_CARD,
+      width: Style::SIDE_CARD,
       content: $ltml {
         <MemberCard $if={self.pickedClubMember != nil} member={self.pickedClubMember ?? panic("tested")} rights={NO_RIGHTS}
-                    rankTitle={Locale.COLUMN_ROLE} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
+                    rankTitle={Locale::COLUMN_ROLE} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
                     @menu={self.onMemberCardMenu} />
         <ClubCard $else club={self.chosenClub ?? panic("tested")} streams={self.streams} />
       }
@@ -832,9 +832,9 @@ public class Social implements Module, App {
 
   allySide(self): WindowSide {
     return {
-      width: Style.SIDE_CARD,
+      width: Style::SIDE_CARD,
       content: $ltml {
-        <AllyCard ally={self.pickedAlly ?? panic("tested")} now={Game.clock.server} @whisper={self.onAllyWhisper}
+        <AllyCard ally={self.pickedAlly ?? panic("tested")} now={Game::clock.server} @whisper={self.onAllyWhisper}
                   @invite={self.onAllyInvite} @pin={self.onAllyPin} @befriend={self.onAllyBefriend} @note={self.onAllyNote}
                   @menu={self.onAllyCardMenu} />
       }
@@ -847,7 +847,7 @@ public class Social implements Module, App {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <box padding={Style.TOP_ROOM}> <Tabs tabs={self.subTabs} selected={mut self.sub} /> </box>
+          <box padding={Style::TOP_ROOM}> <Tabs tabs={self.subTabs} selected={mut self.sub} /> </box>
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
                       offline={self.settings.values.offline} kept={mut self.friendsList} @pick={self.onPick} @add={self.onAdd}
                       @menu={self.onFriendMenu} />
@@ -855,71 +855,71 @@ public class Social implements Module, App {
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
         <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <box padding={Style.TOP_ROOM}> <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} /> </box>
+          <box padding={Style::TOP_ROOM}> <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} /> </box>
           <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
                        @pick={self.onPickMember} @menu={self.onGuildMenu} />
           <NewsList $else news={self.news} filters={self.newsFilters} @filter={self.onNewsFilter} />
         </box>
-        <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={.None} />
+        <box $elseif={self.tab == TAB_GUILD} xAlign={Align::Center} yAlign={Align::Center}>
+          <text value={Locale::NO_GUILD} textColor={Style::DIM} wrap={.None} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <box padding={Style.TOP_ROOM}> <Tabs tabs={self.clubNames} selected={mut self.clubTab} /> </box>
+          <box padding={Style::TOP_ROOM}> <Tabs tabs={self.clubNames} selected={mut self.clubTab} /> </box>
           <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember}
                        @menu={self.onClubMenu} />
         </box>
-        <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={.None} />
+        <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align::Center} yAlign={Align::Center}>
+          <text value={Locale::NO_COMMUNITIES} textColor={Style::DIM} wrap={.None} />
         </box>
         <Whispers $elseif={self.tab == TAB_WHISPERS} talks={self.talks} who={self.talkWho} openKey={self.talkOpen} @picked={self.onTalkPick}
                   @talkPicked={self.onTalkMenu} @start={self.onTalkStart} @send={self.onTalkSend} @link={self.onTalkLink} />
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
-                  categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
+                  categories={peek Game::recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>
-      <CopyBox $if={self.copied != ""} title={Locale.COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
-      <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
+      <CopyBox $if={self.copied != ""} title={Locale::COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
+      <Dialog $if={self.removing != nil} width={Style::ASK} title={Locale::REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>
-          <text value={self.removeText} textColor={Style.INK} />
-          <text value={self.removeDetail} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <text value={self.removeText} textColor={Style::INK} />
+          <text value={self.removeDetail} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <PushButton #buttons label={Locale.REMOVE} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemoveYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onRemoveNo} />
+        <PushButton #buttons label={Locale::REMOVE} width={Style::ASK_BUTTON} plate={ButtonPlate::Danger} @click={self.onRemoveYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onRemoveNo} />
       </Dialog>
-      <Dialog $if={self.adding} width={Style.ASK} title={Locale.ADD_FRIEND}>
+      <Dialog $if={self.adding} width={Style::ASK} title={Locale::ADD_FRIEND}>
         <box columns={1} gap={2sp}>
           <Field value={mut self.addText} maxLength={64} @submit={self.onAddYes} />
-          <text value={self.addRule} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <text value={self.addRule} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <PushButton #buttons label={Locale.SEND_REQUEST} width={Style.ASK_BUTTON} disabled={trimmed(self.addText) == ""}
+        <PushButton #buttons label={Locale::SEND_REQUEST} width={Style::ASK_BUTTON} disabled={trimmed(self.addText) == ""}
                     @click={self.onAddYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAddNo} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onAddNo} />
       </Dialog>
-      <Dialog $if={self.editing} width={Style.ASK} title={Locale.BROADCAST}>
-        <box columns={1} gap={2sp} xAlign={Align.End}>
+      <Dialog $if={self.editing} width={Style::ASK} title={Locale::BROADCAST}>
+        <box columns={1} gap={2sp} xAlign={Align::End}>
           <Field value={mut self.draft} maxLength={BROADCAST_MOST} @submit={self.onBroadcastYes} />
-          <text value={self.broadcastCount} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={self.broadcastCount} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
-        <PushButton #buttons label={Locale.UPDATE} width={Style.ASK_BUTTON} @click={self.onBroadcastYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onBroadcastNo} />
+        <PushButton #buttons label={Locale::UPDATE} width={Style::ASK_BUTTON} @click={self.onBroadcastYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onBroadcastNo} />
       </Dialog>
-      <Dialog $if={self.inviting} width={Style.ASK} title={Locale.GUILD_INVITE}>
+      <Dialog $if={self.inviting} width={Style::ASK} title={Locale::GUILD_INVITE}>
         <box columns={1} gap={2sp}>
           <Field value={mut self.inviteText} maxLength={NAME_MOST} @submit={self.onGuildInviteYes} />
-          <text value={Locale.GUILD_INVITE_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <text value={Locale::GUILD_INVITE_RULE} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <PushButton #buttons label={Locale.INVITE} width={Style.ASK_BUTTON} disabled={trimmed(self.inviteText) == ""}
+        <PushButton #buttons label={Locale::INVITE} width={Style::ASK_BUTTON} disabled={trimmed(self.inviteText) == ""}
                     @click={self.onGuildInviteYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onGuildInviteNo} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onGuildInviteNo} />
       </Dialog>
-      <Dialog $if={self.noting} width={Style.ASK} title={Locale.SET_NOTE}>
+      <Dialog $if={self.noting} width={Style::ASK} title={Locale::SET_NOTE}>
         <Field value={mut self.noteText} maxLength={NOTE_MOST} @submit={self.onAllyNoteYes} />
-        <PushButton #buttons label={Locale.SAVE} width={Style.ASK_BUTTON} @click={self.onAllyNoteYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAllyNoteNo} />
+        <PushButton #buttons label={Locale::SAVE} width={Style::ASK_BUTTON} @click={self.onAllyNoteYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onAllyNoteNo} />
       </Dialog>
-      <Dialog $if={self.leaving} width={Style.ASK} title={Locale.LEAVE_GUILD}>
-        <text value={self.leaveText} textColor={Style.INK} />
-        <PushButton #buttons label={Locale.LEAVE_GUILD} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeaveYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onLeaveNo} />
+      <Dialog $if={self.leaving} width={Style::ASK} title={Locale::LEAVE_GUILD}>
+        <text value={self.leaveText} textColor={Style::INK} />
+        <PushButton #buttons label={Locale::LEAVE_GUILD} width={Style::ASK_BUTTON} plate={ButtonPlate::Danger} @click={self.onLeaveYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={Style::ASK_BUTTON} @click={self.onLeaveNo} />
       </Dialog>
     }
   }

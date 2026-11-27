@@ -20,11 +20,11 @@ const ALLY_CATEGORIES: Array<AllyCategory> = [.Professions, .PvP, .Raiding, .Dun
 public enum AllySort { Recent, Name, Level }
 
 const SORTS: Array<Choice<AllySort>> = [
-  { value: .Recent, label: Locale.SORT_RECENT },
-  { value: .Name, label: Locale.SORT_NAME },
-  { value: .Level, label: Locale.SORT_LEVEL }
+  { value: .Recent, label: Locale::SORT_RECENT },
+  { value: .Name, label: Locale::SORT_NAME },
+  { value: .Level, label: Locale::SORT_LEVEL }
 ]
-const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
+const ROW: Array<Track> = [Style::DOT, { fr: 1 }, "max-content"]
 // A pickable row's padding (`PickRow`'s).
 const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 const DAY = 86400
@@ -34,28 +34,28 @@ const PIN_WARNING_DAYS = 5
 public enum AllyFilter { Professions, PvP, Raiding, Dungeons, Delves, Questing, Online, Offline }
 
 const PRESENCE_FILTER: FilterGroup<AllyFilter> = {
-  options: [{ key: AllyFilter.Online, label: Locale.ONLINE }, { key: AllyFilter.Offline, label: Locale.OFFLINE }]
+  options: [{ key: AllyFilter::Online, label: Locale::ONLINE }, { key: AllyFilter::Offline, label: Locale::OFFLINE }]
 }
 
 function filterOf(category: AllyCategory): AllyFilter {
   return match (category) {
-    .Professions => AllyFilter.Professions
-    .PvP => AllyFilter.PvP
-    .Raiding => AllyFilter.Raiding
-    .Dungeons => AllyFilter.Dungeons
-    .Delves => AllyFilter.Delves
-    .Questing => AllyFilter.Questing
+    .Professions => AllyFilter::Professions
+    .PvP => AllyFilter::PvP
+    .Raiding => AllyFilter::Raiding
+    .Dungeons => AllyFilter::Dungeons
+    .Delves => AllyFilter::Delves
+    .Questing => AllyFilter::Questing
   }
 }
 
 function labelOf(category: AllyCategory): String {
   return match (category) {
-    .Professions => Locale.CATEGORY_PROFESSIONS
-    .PvP => Locale.CATEGORY_PVP
-    .Raiding => Locale.CATEGORY_RAIDING
-    .Dungeons => Locale.CATEGORY_DUNGEONS
-    .Delves => Locale.CATEGORY_DELVES
-    .Questing => Locale.CATEGORY_QUESTING
+    .Professions => Locale::CATEGORY_PROFESSIONS
+    .PvP => Locale::CATEGORY_PVP
+    .Raiding => Locale::CATEGORY_RAIDING
+    .Dungeons => Locale::CATEGORY_DUNGEONS
+    .Delves => Locale::CATEGORY_DELVES
+    .Questing => Locale::CATEGORY_QUESTING
   }
 }
 
@@ -67,7 +67,7 @@ function filterGroups(categories: Array<AllyCategory>): Array<FilterGroup<AllyFi
 
 // The filter as it starts: everything on.
 public function allyFilterStart(): mut Map<AllyFilter, Boolean> {
-  return switched(switched({}, ALLY_CATEGORIES.map(category => filterOf(category)), true), [AllyFilter.Online, AllyFilter.Offline], true)
+  return switched(switched({}, ALLY_CATEGORIES.map(category => filterOf(category)), true), [AllyFilter::Online, AllyFilter::Offline], true)
 }
 
 // The categories the game is asked for: those switched on, or nil (every ally) while all of them are.
@@ -80,7 +80,7 @@ function online(ally: RecentAlly): Boolean { return ally.member.presence != .Off
 
 // Whether the filter's presence lets an ally through (the categories are the game's to apply).
 function passes(ally: RecentAlly, filter: Map<AllyFilter, Boolean>): Boolean {
-  return filter[online(ally) ? AllyFilter.Online : AllyFilter.Offline] == true
+  return filter[online(ally) ? AllyFilter::Online : AllyFilter::Offline] == true
 }
 
 // When the newest thing done together was; 0 for none.
@@ -120,7 +120,7 @@ class AllyRow implements Component {
   public menu: Event<String> = new Event()
 
   derived picked: Boolean = self.chosen == self.ally.member.key
-  derived level: String = String.of(self.ally.member.level)
+  derived level: String = String::of(self.ally.member.level)
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
   ally: Signal<RecentAlly>
@@ -135,18 +135,18 @@ class AllyRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={2sp} yAlign={Align.Center} padding={PICK_PAD} background={self.background}
+      <box columns={ROW} gap={2sp} yAlign={Align::Center} padding={PICK_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
-        <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
+        <box width={Style::DOT} height={Style::DOT} background={markOf(self.ally.member.presence)} />
         <box columns={1}>
           <box columns={["max-content", "max-content"]} gap={2sp}>
             <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} wrap={.None} />
-            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+            <text value={self.level} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
           </box>
-          <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={metText(self.ally)} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
-        <box $if={self.ally.pinned} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+        <box $if={self.ally.pinned} width={Style::STAR} height={Style::STAR} background={Style::STAR_ICON} />
       </box>
     }
   }
@@ -188,18 +188,18 @@ public class AllyList implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box padding={Style.TOP_ROOM}>
-          <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
+        <box padding={Style::TOP_ROOM}>
+          <Toolbar search={mut self.query} placeholder={Locale::SEARCH}>
             <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
-            <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+            <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale::SORT} />
           </Toolbar>
         </box>
-        <ScrolledList columns={1} yAlign={Align.Start}>
-          <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} />
-          <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={.None} />
+        <ScrolledList columns={1} yAlign={Align::Start}>
+          <text $if={self.empty} value={self.allies.length == 0 ? Locale::NO_ALLIES : Locale::NOTHING_FOUND} textColor={Style::DIM} />
+          <text $if={self.pinned.length > 0} value={Locale::PINNED} textColor={Style::GOLD} wrap={.None} />
           <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
                    @menu={self.onMenu} />
-          <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={.None} />
+          <text $if={self.rest.length > 0} value={Locale::TAB_ALLIES} textColor={Style::GOLD} wrap={.None} />
           <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
                    @menu={self.onMenu} />
         </ScrolledList>
@@ -217,8 +217,8 @@ class MeetingRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
-        <text value={self.meeting.text} textColor={Style.INK} />
-        <text value={agoText(self.meeting.when)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <text value={self.meeting.text} textColor={Style::INK} />
+        <text value={agoText(self.meeting.when)} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }
@@ -241,11 +241,11 @@ public class AllyCard implements Component {
   public note: Event<nil> = new Event()
   public menu: Event<nil> = new Event()
 
-  derived sub: String = Locale.CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
+  derived sub: String = Locale::CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
   derived canAsk: Boolean = online(self.ally)
   derived daysLeft: Integer = pinDaysLeft(self.ally, self.now)
-  derived pinText: String = Locale.PIN_DAYS_LEFT.format(self.daysLeft)
-  derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style.RED : Style.INK
+  derived pinText: String = Locale::PIN_DAYS_LEFT.format(self.daysLeft)
+  derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style::RED : Style::INK
 
   ally: Signal<RecentAlly>
   now: Signal<Integer>
@@ -265,31 +265,31 @@ public class AllyCard implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.ally.member.presence)} />
+          <box columns={[Style::BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align::Center}>
+            <box width={Style::BIG_DOT} height={Style::BIG_DOT} background={markOf(self.ally.member.presence)} />
             <box columns={1}>
               <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT} leading={.Title}
                     textFont={.Title} wrap={.None} />
-              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+              <text value={self.sub} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
-          <Fact label={Locale.STATUS} value={presenceText(self.ally.member.presence)} />
-          <Fact label={Locale.WHERE} value={orDash(self.ally.member.zone)} />
-          <Fact $if={self.daysLeft > 0} label={Locale.PIN_LASTS} value={self.pinText} color={self.pinColor} />
-          <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
+          <Fact label={Locale::STATUS} value={presenceText(self.ally.member.presence)} />
+          <Fact label={Locale::WHERE} value={orDash(self.ally.member.zone)} />
+          <Fact $if={self.daysLeft > 0} label={Locale::PIN_LASTS} value={self.pinText} color={self.pinColor} />
+          <Fact label={Locale::NOTE} value={orDash(self.ally.member.note)} />
         </box>
-        <ScrolledList columns={1} gap={2sp} yAlign={Align.Start}>
-          <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={.None} />
+        <ScrolledList columns={1} gap={2sp} yAlign={Align::Start}>
+          <text value={Locale::MEETINGS} textColor={Style::DIM} wrap={.None} />
           <MeetingRow $for={meeting of self.ally.meetings} meeting={meeting} />
         </ScrolledList>
         <box columns={["max-content", "max-content"]} gap={3sp}>
-          <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
-          <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
-          <PushButton label={self.ally.pinned ? Locale.UNPIN : Locale.PIN} width={Style.SMALL_BUTTON} @click={self.onPin} />
-          <PushButton label={self.ally.requestSent ? Locale.REQUEST_SENT : Locale.BEFRIEND} width={Style.SMALL_BUTTON}
+          <PushButton label={Locale::WHISPER} width={Style::SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
+          <PushButton label={Locale::INVITE} width={Style::SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
+          <PushButton label={self.ally.pinned ? Locale::UNPIN : Locale::PIN} width={Style::SMALL_BUTTON} @click={self.onPin} />
+          <PushButton label={self.ally.requestSent ? Locale::REQUEST_SENT : Locale::BEFRIEND} width={Style::SMALL_BUTTON}
                       disabled={self.ally.requestSent} @click={self.onBefriend} />
-          <PushButton label={Locale.SET_NOTE} width={Style.SMALL_BUTTON} @click={self.onNote} />
-          <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
+          <PushButton label={Locale::SET_NOTE} width={Style::SMALL_BUTTON} @click={self.onNote} />
+          <PushButton label={Locale::MORE} width={Style::MENU_BUTTON} @click={self.onMenu} />
         </box>
       </box>
     }

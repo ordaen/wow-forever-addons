@@ -10,7 +10,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Minimap from "OrdaenMinimap"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What the fake game says at first: the zone, the coordinates and the time.
 const ZONE = "Elwynn Forest"
 const COORDS = "42.1, 63.0"
@@ -24,29 +24,29 @@ const MAIL: Atlas = "ui-hud-minimap-mail-up"
 const DETAILS: Asset = "Interface/Icons/Details"
 const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 // The zone's colours by its PvP status, and the strips' ink.
-const GOLD: Color = Color.hex("#ffd100")
-const INK: Color = Color.hex("#f3e1b8")
-const PENDING: Color = Color.hex("#ff9a2e")
+const GOLD: Color = Color::hex("#ffd100")
+const INK: Color = Color::hex("#f3e1b8")
+const PENDING: Color = Color::hex("#ff9a2e")
 // A tooltip's hotkeys' colour.
-const HOTKEY: Color = Color.hex("#857a66")
+const HOTKEY: Color = Color::hex("#857a66")
 
 // One of the game's own frames.
-function frame(name: String, shown: Boolean): any Client.Frame {
-  const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
+function frame(name: String, shown: Boolean): any Client::Frame {
+  const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 32)
   made.SetShown(shown)
   return made
 }
 
 // The minimap: the surface that shows the zone's name. Its middle is the map's.
-function minimap(): Test.Part {
-  return Test.page().window(ZONE)
+function minimap(): Test::Part {
+  return Test::page().window(ZONE)
 }
 
 // The minimap's page of the settings, at one of its tabs: `/ordaen`, «Minimap» in the list of modules, the tab.
-function tab(title: String): Test.Part {
-  Test.open("/ordaen")
-  const settings = Test.page().window(SETTINGS)
+function tab(title: String): Test::Part {
+  Test::open("/ordaen")
+  const settings = Test::page().window(SETTINGS)
   settings.button("Minimap").click()
   settings.button(title).click()
   return settings
@@ -69,25 +69,25 @@ function hideWhen(nth: Integer) {
   const settings = tab("Map")
   settings.text("Map size").wheel(-10)
   settings.button("Show").nth(nth).click()
-  const holders = Test.page().window("On mouseover")
+  const holders = Test::page().window("On mouseover")
   holders.nth(holders.count()).button("Hide").click()
 }
 
 // A slider's knob taken with the left button and let go over another part.
-function slide(knob: Test.Part, to: Test.Part) {
+function slide(knob: Test::Part, to: Test::Part) {
   knob.hover()
-  Test.press(nil)
+  Test::press(nil)
   to.hover()
-  Test.pass(0.05)
-  Test.release(nil)
+  Test::pass(0.05)
+  Test::release(nil)
 }
 
 // The middle of what a part stands in.
-function middleX(rect: Test.Rect): Number { return (rect.left + rect.right) / 2 }
-function middleY(rect: Test.Rect): Number { return (rect.top + rect.bottom) / 2 }
+function middleX(rect: Test::Rect): Number { return (rect.left + rect.right) / 2 }
+function middleY(rect: Test::Rect): Number { return (rect.top + rect.bottom) / 2 }
 
 // The angle of a part's middle round the minimap's middle: degrees from the top, clockwise.
-function angleOf(part: Test.Part): Number {
+function angleOf(part: Test::Part): Number {
   const whole = minimap().rect()
   const at = part.rect()
   const x = middleX(at) - middleX(whole)
@@ -97,12 +97,12 @@ function angleOf(part: Test.Part): Number {
 
 // The minimap moved off its home in the screen's corner, as the placing mode leaves it.
 function moveAway() {
-  Ordaen.putAt("OrdaenMinimap.map", { point: Point.TopRight, x: -200ui, y: 150ui })
+  Ordaen.putAt("OrdaenMinimap.map", { point: Point::TopRight, x: -200ui, y: 150ui })
 }
 
 // The frame: the first box in the wood of the minimap (the surface showing `text`), its metal round it.
-function frameRect(text: String = ZONE): Test.Rect {
-  return Test.page().window(text).box(Ordaen.art.window.wood).nth(1).rect()
+function frameRect(text: String = ZONE): Test::Rect {
+  return Test::page().window(text).box(Ordaen.art.window.wood).nth(1).rect()
 }
 
 // Two lengths alike to a hundredth of a unit.
@@ -111,13 +111,13 @@ function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 // What the minimap shows
 
 test "at home the frame stands in the screen's top right corner, square, its metal on its left and bottom alone" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const at = frameRect()
-  Test.expect(near(at.right, SCREEN.width) && near(at.top, 0) && near(at.right - at.left, at.bottom - at.top))
+  Test::expect(near(at.right, SCREEN.width) && near(at.top, 0) && near(at.right - at.left, at.bottom - at.top))
 }
 
 test "the frame is square with or without the zone's strip, the clock's and the coordinates'" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const side = frameRect().right - frameRect().left
   const square = (shown: String): Boolean => {
     const at = frameRect(shown)
@@ -125,60 +125,60 @@ test "the frame is square with or without the zone's strip, the clock's and the 
   }
   // The strips taken away one by one, each time by a text still shown.
   tick(ZONE_BOX)
-  Test.expect(square(CLOCK))
+  Test::expect(square(CLOCK))
   tick(CLOCK_BOX)
-  Test.expect(square(COORDS))
+  Test::expect(square(COORDS))
   tick(ZONE_BOX)
   tick(COORDS_BOX)
-  Test.expect(square(ZONE))
+  Test::expect(square(ZONE))
 }
 
 test "moved off its home the frame has its metal on every side, the ring round it" {
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   moveAway()
   minimap().hover()
   const at = frameRect()
   const mail = minimap().button(MAIL).rect()
-  Test.expect(at.right < SCREEN.width - 100)
-  Test.expect(at.top > 100)
-  Test.expect(near(at.right - at.left, at.bottom - at.top))
-  Test.expect(middleX(mail) > at.right)
+  Test::expect(at.right < SCREEN.width - 100)
+  Test::expect(at.top > 100)
+  Test::expect(near(at.right - at.left, at.bottom - at.top))
+  Test::expect(middleX(mail) > at.right)
 }
 
 test "docked, the ring runs along the frame's left and bottom, every button on the screen" {
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Game.frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
-  Game.frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
-  Test.mount(nil, SCREEN)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Game::frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
+  Game::frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
   const at = frameRect()
   const ring = minimap().box(Ordaen.art.minimap.ring)
   for (nth of 1..ring.count()) {
     const button = ring.nth(nth).rect()
-    Test.expect(button.top >= 0 && button.right <= SCREEN.width)
-    Test.expect(middleX(button) < at.left + 10 || middleY(button) > at.bottom - 10)
+    Test::expect(button.top >= 0 && button.right <= SCREEN.width)
+    Test::expect(middleX(button) < at.left + 10 || middleY(button) > at.bottom - 10)
   }
   // The mail, right of the top at home elsewhere, lies along the bottom.
-  Test.expect(middleY(minimap().button(MAIL).rect()) > at.bottom - 10)
+  Test::expect(middleY(minimap().button(MAIL).rect()) > at.bottom - 10)
 }
 
 test "the minimap shows the zone's name, the coordinates and the clock" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().texts().join(" | ") == `${ZONE} | ${COORDS} | ${CLOCK}`)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().texts().join(" | ") == `${ZONE} | ${COORDS} | ${CLOCK}`)
 }
 
 test "the game's map is held in the minimap's frame" {
   const map = frame("Minimap", true)
-  Game.minimap.frame = map
-  Test.mount(nil, SCREEN)
-  Test.pass(0.02)
-  Test.expect(map.GetParent() != Client.C_UI.GetUIParent())
+  Game::minimap.frame = map
+  Test::mount(nil, SCREEN)
+  Test::pass(0.02)
+  Test::expect(map.GetParent() != Client::C_UI::GetUIParent())
 }
 
 test "the game's parts the minimap replaces stay out of sight when the game shows them again" {
@@ -186,669 +186,669 @@ test "the game's parts the minimap replaces stay out of sight when the game show
     frame("MinimapCluster", true), frame("MinimapBackdrop", true), frame("MinimapZoomIn", true),
     frame("MinimapZoomOut", true), frame("MinimapZoomHitArea", true), frame("OrdaenDevButton", true)
   ]
-  Game.frames.MinimapCluster = parts[1]
-  Game.frames.MinimapBackdrop = parts[2]
-  Game.frames.MinimapZoomIn = parts[3]
-  Game.frames.MinimapZoomOut = parts[4]
-  Game.frames.MinimapZoomHitArea = parts[5]
-  Game.frames.OrdaenDevButton = parts[6]
-  Test.mount(nil, SCREEN)
-  Test.pass(0.02)
+  Game::frames.MinimapCluster = parts[1]
+  Game::frames.MinimapBackdrop = parts[2]
+  Game::frames.MinimapZoomIn = parts[3]
+  Game::frames.MinimapZoomOut = parts[4]
+  Game::frames.MinimapZoomHitArea = parts[5]
+  Game::frames.OrdaenDevButton = parts[6]
+  Test::mount(nil, SCREEN)
+  Test::pass(0.02)
   for (part of parts) {
-    Test.expect(!part.IsShown())
+    Test::expect(!part.IsShown())
     part.Show()
   }
-  Test.pass(0.02)
+  Test::pass(0.02)
   for (part of parts) {
-    Test.expect((part.GetRight() ?? 0) < 0)
+    Test::expect((part.GetRight() ?? 0) < 0)
   }
 }
 
 test "the zone's name is in the colour of its PvP status" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const zone = (): Color => minimap().text(ZONE).textColor()
-  Test.expect(zone().equal(Color.hex("#1aff1a")))
-  Game.location.pvp = Game.Pvp.Sanctuary
-  Test.expect(zone().equal(Color.hex("#69ccf0")))
-  Game.location.pvp = Game.Pvp.Hostile
-  Test.expect(zone().equal(Color.hex("#ff1a1a")))
-  Game.location.pvp = Game.Pvp.Combat
-  Test.expect(zone().equal(Color.hex("#ff1a1a")))
-  Game.location.pvp = Game.Pvp.Contested
-  Test.expect(zone().equal(Color.hex("#ffb300")))
-  Game.location.pvp = nil
-  Test.expect(zone().equal(GOLD))
+  Test::expect(zone().equal(Color::hex("#1aff1a")))
+  Game::location.pvp = Game::Pvp::Sanctuary
+  Test::expect(zone().equal(Color::hex("#69ccf0")))
+  Game::location.pvp = Game::Pvp::Hostile
+  Test::expect(zone().equal(Color::hex("#ff1a1a")))
+  Game::location.pvp = Game::Pvp::Combat
+  Test::expect(zone().equal(Color::hex("#ff1a1a")))
+  Game::location.pvp = Game::Pvp::Contested
+  Test::expect(zone().equal(Color::hex("#ffb300")))
+  Game::location.pvp = nil
+  Test::expect(zone().equal(GOLD))
 }
 
 test "the zone's name follows the zone the player is in" {
-  Test.mount(nil, SCREEN)
-  Game.location.zone = "Stranglethorn Vale"
-  Test.expect(Test.page().window(COORDS).texts().join(" | ") == `Stranglethorn Vale | ${COORDS} | ${CLOCK}`)
+  Test::mount(nil, SCREEN)
+  Game::location.zone = "Stranglethorn Vale"
+  Test::expect(Test::page().window(COORDS).texts().join(" | ") == `Stranglethorn Vale | ${COORDS} | ${CLOCK}`)
 }
 
 test "the cursor on the zone's name shows the whole zone and its PvP status" {
-  Game.location.zone = "Trade District"
-  Game.location.realZone = "Stormwind City"
-  Game.location.pvp = Game.Pvp.Sanctuary
-  Test.mount(nil, SCREEN)
-  Test.page().text("Trade District").hover()
-  Test.expect(Test.page().window("Sanctuary").texts().join(" | ") == "Stormwind City | Sanctuary")
+  Game::location.zone = "Trade District"
+  Game::location.realZone = "Stormwind City"
+  Game::location.pvp = Game::Pvp::Sanctuary
+  Test::mount(nil, SCREEN)
+  Test::page().text("Trade District").hover()
+  Test::expect(Test::page().window("Sanctuary").texts().join(" | ") == "Stormwind City | Sanctuary")
 }
 
 test "each PvP status is named on the zone's tooltip, and a zone with none names none" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().text(ZONE).hover()
-  Test.expect(Test.page().window("Faction territory").texts().join(" | ") == `${ZONE} | Faction territory`)
-  Game.location.pvp = Game.Pvp.Hostile
-  Test.expect(Test.page().window("Faction territory").shown())
-  Game.location.pvp = Game.Pvp.Contested
-  Test.expect(Test.page().window("Contested territory").shown())
-  Game.location.pvp = Game.Pvp.Combat
-  Test.expect(Test.page().window("Combat zone").shown())
-  Game.location.pvp = nil
-  Test.expect(Test.page().window(ZONE).count() == 2 && !Test.page().text("Combat zone").shown())
+  Test::expect(Test::page().window("Faction territory").texts().join(" | ") == `${ZONE} | Faction territory`)
+  Game::location.pvp = Game::Pvp::Hostile
+  Test::expect(Test::page().window("Faction territory").shown())
+  Game::location.pvp = Game::Pvp::Contested
+  Test::expect(Test::page().window("Contested territory").shown())
+  Game::location.pvp = Game::Pvp::Combat
+  Test::expect(Test::page().window("Combat zone").shown())
+  Game::location.pvp = nil
+  Test::expect(Test::page().window(ZONE).count() == 2 && !Test::page().text("Combat zone").shown())
 }
 
 test "the cursor leaving the zone's name takes its tooltip away" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().text(ZONE).hover()
-  Test.page().window(COORDS).hover()
-  Test.expect(!Test.page().text("Faction territory").shown())
+  Test::page().window(COORDS).hover()
+  Test::expect(!Test::page().text("Faction territory").shown())
 }
 
 test "the coordinates' tooltip says how to send them to the chat" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().text(COORDS).hover()
-  Test.expect(Test.page().window("Shift+Left-click: send to chat").texts().join(" | ") == `${COORDS} | Shift+Left-click: send to chat`)
+  Test::expect(Test::page().window("Shift+Left-click: send to chat").texts().join(" | ") == `${COORDS} | Shift+Left-click: send to chat`)
   minimap().hover()
-  Test.expect(!Test.page().text("Shift+Left-click: send to chat").shown())
+  Test::expect(!Test::page().text("Shift+Left-click: send to chat").shown())
 }
 
 test "the coordinates Shift+Left-clicked are sent to the chat" {
-  Test.mount(nil, SCREEN)
-  Test.hold([.Shift])
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  Test::hold([.Shift])
+  _ = Test::requests()
   minimap().text(COORDS).click()
-  Test.expect(Test.requests().any(r => r == "Minimap.sendCoords"))
+  Test::expect(Test::requests().any(r => r == "Minimap.sendCoords"))
 }
 
 test "the coordinates clicked without Shift, or with the right button, send nothing" {
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
   minimap().text(COORDS).click()
-  Test.hold([.Shift])
+  Test::hold([.Shift])
   minimap().text(COORDS).rightClick()
-  Test.expect(!Test.requests().any(r => r == "Minimap.sendCoords"))
+  Test::expect(!Test::requests().any(r => r == "Minimap.sendCoords"))
 }
 
 test "where the game gives no coordinates the strip shows the clock alone" {
-  Game.minimap.coords = ""
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().texts().join(" | ") == `${ZONE} | ${CLOCK}`)
+  Game::minimap.coords = ""
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().texts().join(" | ") == `${ZONE} | ${CLOCK}`)
 }
 
 test "the clock is in ink, and orange while calendar invites wait" {
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().text(CLOCK).textColor().equal(INK))
-  Game.clock.invites = 1
-  Test.expect(minimap().text(CLOCK).textColor().equal(PENDING))
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().text(CLOCK).textColor().equal(INK))
+  Game::clock.invites = 1
+  Test::expect(minimap().text(CLOCK).textColor().equal(PENDING))
 }
 
 test "the clock's tooltip gives the local time and the realm's, and says what its clicks do" {
-  Game.clock.realm = 12 * 60 + 30
-  Game.clock.computer = 14 * 60 + 5
-  Test.mount(nil, SCREEN)
+  Game::clock.realm = 12 * 60 + 30
+  Game::clock.computer = 14 * 60 + 5
+  Test::mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
-  const tip = Test.page().window("Left-click: calendar")
-  Test.expect(tip.texts().join(" | ") == "Time | Local time | 14:05 | Realm time | 12:30 | Left-click: calendar | Right-click: clock settings")
+  const tip = Test::page().window("Left-click: calendar")
+  Test::expect(tip.texts().join(" | ") == "Time | Local time | 14:05 | Realm time | 12:30 | Left-click: calendar | Right-click: clock settings")
   // In the hotkeys' place, as every tooltip draws them.
-  Test.expect(tip.text("Right-click: clock settings").textColor().equal(HOTKEY))
+  Test::expect(tip.text("Right-click: clock settings").textColor().equal(HOTKEY))
   minimap().hover()
-  Test.expect(!Test.page().text("Realm time").shown())
+  Test::expect(!Test::page().text("Realm time").shown())
 }
 
 test "the clock's tooltip follows the times as they change" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
-  Game.clock.computer = 23 * 60 + 59
-  Test.expect(Test.page().window("Local time").text("23:59").shown())
+  Game::clock.computer = 23 * 60 + 59
+  Test::expect(Test::page().window("Local time").text("23:59").shown())
 }
 
 test "a click on the clock opens the calendar" {
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
   minimap().text(CLOCK).click()
-  Test.expect(Test.requests().join(", ") == "Clock.toggleCalendar")
+  Test::expect(Test::requests().join(", ") == "Clock.toggleCalendar")
 }
 
 test "the clock right-clicked opens the client's clock window" {
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
   minimap().text(CLOCK).rightClick()
-  Test.expect(Test.requests().join(", ") == "Clock.toggleTimeManager")
+  Test::expect(Test::requests().join(", ") == "Clock.toggleTimeManager")
 }
 
 test "the map's right click is the minimap's: no ping, its settings open at the minimap's page, and again close" {
-  Test.mount(nil, SCREEN)
-  Game.minimap.rightClicked.emit()
-  Test.expect(Test.page().window(SETTINGS).button("Button drawer").shown())
-  Game.minimap.rightClicked.emit()
-  Test.expect(!Test.page().window(SETTINGS).shown())
+  Test::mount(nil, SCREEN)
+  Game::minimap.rightClicked.emit()
+  Test::expect(Test::page().window(SETTINGS).button("Button drawer").shown())
+  Game::minimap.rightClicked.emit()
+  Test::expect(!Test::page().window(SETTINGS).shown())
 }
 
 // The ring
 
 test "the ring shows only while the cursor is on the minimap" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().button(TRACKING).opacity() == 0)
   minimap().hover()
-  Test.expect(minimap().button(TRACKING).opacity() == 1)
-  Test.open("/ordaen")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  Test::expect(minimap().button(TRACKING).opacity() == 1)
+  Test::open("/ordaen")
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(minimap().button(TRACKING).opacity() == 0)
 }
 
 test "with «Buttons on mouseover» off the ring always shows" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
   tick(HOVER_BOX)
-  Test.expect(minimap().button(TRACKING).opacity() == 1)
+  Test::expect(minimap().button(TRACKING).opacity() == 1)
 }
 
 test "the cursor on the tracking button is on the game's own under it, and its clicks are the game's" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
-  _ = Test.requests()
+  _ = Test::requests()
   minimap().button(TRACKING).click()
   minimap().button(TRACKING).rightClick()
   minimap().hover()
-  Test.expect(Test.requests().join(", ") == "Minimap.hover MinimapTrackingButton true, Minimap.press MinimapTrackingButton LeftButton, Minimap.press MinimapTrackingButton RightButton, Minimap.hover MinimapTrackingButton false")
+  Test::expect(Test::requests().join(", ") == "Minimap.hover MinimapTrackingButton true, Minimap.press MinimapTrackingButton LeftButton, Minimap.press MinimapTrackingButton RightButton, Minimap.hover MinimapTrackingButton false")
 }
 
 test "the cursor on the tracking button with no game's button under it shows no tooltip" {
-  Game.minimap.frame = frame("Minimap", true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
   minimap().button(TRACKING).hover()
-  Test.expect(!Test.page().text("Ordaen").shown())
+  Test::expect(!Test::page().text("Ordaen").shown())
 }
 
 test "the mail button shows while the game shows its mail" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().button(MAIL).shown())
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().button(MAIL).shown())
 }
 
 test "with no mail the mail button doesn't show" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", false)
-  Test.mount(nil, SCREEN)
-  Test.expect(!minimap().button(MAIL).shown())
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", false)
+  Test::mount(nil, SCREEN)
+  Test::expect(!minimap().button(MAIL).shown())
 }
 
 test "the crafting orders' and the expansion page's buttons show while the game shows theirs" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
   const ring = minimap().box(Ordaen.art.minimap.ring).count()
-  Game.frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
-  Game.frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
-  Test.expect(minimap().box(Ordaen.art.minimap.ring).count() == ring + 2)
-  Game.frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", false)
-  Test.expect(minimap().box(Ordaen.art.minimap.ring).count() == ring + 1)
+  Game::frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
+  Game::frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
+  Test::expect(minimap().box(Ordaen.art.minimap.ring).count() == ring + 2)
+  Game::frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", false)
+  Test::expect(minimap().box(Ordaen.art.minimap.ring).count() == ring + 1)
 }
 
 test "the Ordaen button's tooltip says what its clicks do" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().button(Ordaen.icon).hover()
-  Test.expect(Test.page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings | Right-click: Ordaen Dev")
+  Test::expect(Test::page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings | Right-click: Ordaen Dev")
   minimap().hover()
-  Test.expect(!Test.page().text("Ordaen").shown())
+  Test::expect(!Test::page().text("Ordaen").shown())
 }
 
 test "the Ordaen button clicked opens Ordaen's settings, and again closes them" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().button(Ordaen.icon).click()
-  Test.expect(Test.page().window(SETTINGS).button("Numbers").shown())
+  Test::expect(Test::page().window(SETTINGS).button("Numbers").shown())
   minimap().button(Ordaen.icon).click()
-  Test.expect(!Test.page().window(SETTINGS).shown())
+  Test::expect(!Test::page().window(SETTINGS).shown())
 }
 
 test "the Ordaen button right-clicked opens Ordaen's dev tools, and again closes them" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   minimap().button(Ordaen.icon).rightClick()
-  Test.expect(Ordaen.dev)
+  Test::expect(Ordaen.dev)
   minimap().button(Ordaen.icon).rightClick()
-  Test.expect(!Ordaen.dev)
+  Test::expect(!Ordaen.dev)
 }
 
 test "a ring button dragged round the frame follows the cursor, frame after frame, and stays where it is let go" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   moveAway()
   minimap().hover()
   const before = angleOf(minimap().button(MAIL))
   minimap().button(MAIL).hover()
-  Test.press(nil)
+  Test::press(nil)
   // The client starts the drag once the cursor has moved a little: the button stands where it stood until the next
   // frame, and is held where the drag took it, a pixel off its middle.
   const middle = minimap().button(MAIL).rect()
-  Test.moveTo({ x: middleX(middle), y: middleY(middle) + 1 })
-  Test.pass(0.02)
-  Test.expect((angleOf(minimap().button(MAIL)) - before).abs() < 0.6)
+  Test::moveTo({ x: middleX(middle), y: middleY(middle) + 1 })
+  Test::pass(0.02)
+  Test::expect((angleOf(minimap().button(MAIL)) - before).abs() < 0.6)
   for (over of [CLOCK, COORDS, CLOCK]) {
     minimap().text(over).hover()
-    Test.pass(0.02)
-    Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(over))).abs() < 1.2)
+    Test::pass(0.02)
+    Test::expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(over))).abs() < 1.2)
   }
-  Test.release(nil)
+  Test::release(nil)
   minimap().hover()
-  Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(CLOCK))).abs() < 1.2)
+  Test::expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(CLOCK))).abs() < 1.2)
 }
 
 test "a ring button taken off its middle and dragged by a pixel moves by a pixel" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
   const at = minimap().button(MAIL).rect()
-  Test.moveTo({ x: at.left + 4, y: at.top + 4 })
-  Test.press(nil)
+  Test::moveTo({ x: at.left + 4, y: at.top + 4 })
+  Test::press(nil)
   // The client starts the drag once the cursor has moved; the motion after it is the drag's first.
-  Test.moveTo({ x: at.left + 4, y: at.top + 5 })
-  Test.pass(0.02)
-  Test.moveTo({ x: at.left + 4, y: at.top + 6 })
-  Test.pass(0.02)
+  Test::moveTo({ x: at.left + 4, y: at.top + 5 })
+  Test::pass(0.02)
+  Test::moveTo({ x: at.left + 4, y: at.top + 6 })
+  Test::pass(0.02)
   const now = minimap().button(MAIL).rect()
-  Test.release(nil)
+  Test::release(nil)
   // Two pixels down, to the ring's whole degree: no jump towards the cursor.
-  Test.expect((now.left - at.left).abs() <= 3 && (now.top - at.top).abs() <= 3)
+  Test::expect((now.left - at.left).abs() <= 3 && (now.top - at.top).abs() <= 3)
 }
 
 test "a ring button follows the cursor from the drag's start, the pixels the client waits for counted" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   moveAway()
   minimap().hover()
   const at = minimap().button(MAIL).rect()
-  Test.moveTo({ x: middleX(at), y: middleY(at) })
-  Test.press(nil)
+  Test::moveTo({ x: middleX(at), y: middleY(at) })
+  Test::press(nil)
   // The client starts the drag here, six pixels on: no motion after it.
-  Test.moveTo({ x: middleX(at), y: middleY(at) + 6 })
-  Test.pass(0.02)
+  Test::moveTo({ x: middleX(at), y: middleY(at) + 6 })
+  Test::pass(0.02)
   const now = minimap().button(MAIL).rect()
-  Test.release(nil)
-  Test.expect((middleY(now) - middleY(at) - 6).abs() <= 2)
+  Test::release(nil)
+  Test::expect((middleY(now) - middleY(at) - 6).abs() <= 2)
 }
 
 test "docked, a ring button dragged along the bottom follows the cursor along it" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
   const at = minimap().button(MAIL).rect()
-  Test.moveTo({ x: middleX(at), y: middleY(at) })
-  Test.press(nil)
-  Test.moveTo({ x: middleX(at) - 30, y: middleY(at) })
-  Test.pass(0.02)
-  Test.moveTo({ x: middleX(at) - 60, y: middleY(at) + 3 })
-  Test.pass(0.02)
+  Test::moveTo({ x: middleX(at), y: middleY(at) })
+  Test::press(nil)
+  Test::moveTo({ x: middleX(at) - 30, y: middleY(at) })
+  Test::pass(0.02)
+  Test::moveTo({ x: middleX(at) - 60, y: middleY(at) + 3 })
+  Test::pass(0.02)
   const now = minimap().button(MAIL).rect()
-  Test.release(nil)
-  Test.expect((middleY(now) - middleY(at)).abs() <= 1 && (middleX(now) - middleX(at) + 60).abs() <= 4)
+  Test::release(nil)
+  Test::expect((middleY(now) - middleY(at)).abs() <= 1 && (middleX(now) - middleX(at) + 60).abs() <= 4)
 }
 
 test "a ring button let go hides with the ring once the cursor leaves the minimap" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Test::mount(nil, SCREEN)
   minimap().hover()
   minimap().button(TRACKING).hover()
-  Test.press(nil)
+  Test::press(nil)
   minimap().text(CLOCK).hover()
-  Test.pass(0.02)
+  Test::pass(0.02)
   minimap().text(COORDS).hover()
-  Test.pass(0.02)
-  Test.release(nil)
-  Test.open("/ordaen")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  Test::pass(0.02)
+  Test::release(nil)
+  Test::open("/ordaen")
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(minimap().button(TRACKING).opacity() == 0)
 }
 
 test "mail waiting shows its button with the ring hidden, a third larger than the others" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", false)
-  Test.mount(nil, SCREEN)
-  Test.expect(!minimap().button(MAIL).shown())
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", false)
+  Test::mount(nil, SCREEN)
+  Test::expect(!minimap().button(MAIL).shown())
   // Mail comes while the cursor is away: the client says so by its event alone.
-  Test.mail(true)
-  Test.flush()
-  Test.expect(minimap().button(MAIL).shown() && minimap().button(MAIL).opacity() == 1)
-  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  Test::mail(true)
+  Test::flush()
+  Test::expect(minimap().button(MAIL).shown() && minimap().button(MAIL).opacity() == 1)
+  Test::expect(minimap().button(TRACKING).opacity() == 0)
   minimap().hover()
   const mail = minimap().button(MAIL).rect()
   const tracking = minimap().button(TRACKING).rect()
-  Test.expect(((mail.right - mail.left) / (tracking.right - tracking.left) - 4 / 3).abs() < 0.02)
+  Test::expect(((mail.right - mail.left) / (tracking.right - tracking.left) - 4 / 3).abs() < 0.02)
   // Read, it goes.
-  Test.mail(false)
-  Test.flush()
-  Test.expect(!minimap().button(MAIL).shown())
+  Test::mail(false)
+  Test::flush()
+  Test::expect(!minimap().button(MAIL).shown())
 }
 
 test "the drawer's button taken to be dragged hides its tooltip" {
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test::mount(nil, SCREEN)
   minimap().hover()
   minimap().button("1").hover()
-  Test.expect(Test.page().window("Addons").shown())
-  Test.press(nil)
+  Test::expect(Test::page().window("Addons").shown())
+  Test::press(nil)
   minimap().text(CLOCK).hover()
-  Test.pass(0.02)
-  Test.expect(!Test.page().window("Addons").shown())
-  Test.release(nil)
+  Test::pass(0.02)
+  Test::expect(!Test::page().window("Addons").shown())
+  Test::release(nil)
 }
 
 test "the game's tracking button lies unseen under ours" {
   const tracking = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapTrackingButton = tracking
-  Test.mount(nil, SCREEN)
-  Test.pass(0.02)
-  Test.expect(tracking.GetParent() != Client.C_UI.GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
+  Game::frames.MinimapTrackingButton = tracking
+  Test::mount(nil, SCREEN)
+  Test::pass(0.02)
+  Test::expect(tracking.GetParent() != Client::C_UI::GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
 }
 
 test "the zone's tooltip is the one tooltip shown, the ring's buttons showing none" {
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Test.mount(nil, SCREEN)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Test::mount(nil, SCREEN)
   minimap().text(ZONE).hover()
-  Test.expect(Test.page().window("Faction territory").count() == 1 && Test.surfaces().length == 2)
+  Test::expect(Test::page().window("Faction territory").count() == 1 && Test::surfaces().length == 2)
 }
 
 test "no tooltip shows until the cursor comes onto a part that has one" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test::mount(nil, SCREEN)
   minimap().hover()
-  Test.expect(Test.surfaces().length == 1)
+  Test::expect(Test::surfaces().length == 1)
   minimap().button(TRACKING).hover()
-  Test.expect(Test.surfaces().length == 1)
+  Test::expect(Test::surfaces().length == 1)
 }
 
 // The drawer
 
 test "the drawer's button counts what the drawer holds" {
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().text("3").textColor().equal(GOLD))
-  Game.minimap.entries = []
-  Test.expect(minimap().text("1").shown())
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().text("3").textColor().equal(GOLD))
+  Game::minimap.entries = []
+  Test::expect(minimap().text("1").shown())
 }
 
 test "with nothing to hold the drawer has no button" {
-  Test.mount(nil, SCREEN)
-  Test.expect(minimap().texts().join(" | ") == `${ZONE} | ${COORDS} | ${CLOCK}`)
+  Test::mount(nil, SCREEN)
+  Test::expect(minimap().texts().join(" | ") == `${ZONE} | ${COORDS} | ${CLOCK}`)
 }
 
 test "the drawer's tooltip says what its button does, and no other button's says it" {
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
-  Test.mail(true)
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::frames.MinimapMail = frame("MinimapMail", true)
+  Test::mail(true)
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
   minimap().button("3").hover()
-  Test.expect(Test.page().window("Addons").texts().join(" | ") == "Addons | Left-click: open or close the drawer | Drag: move it round the map")
+  Test::expect(Test::page().window("Addons").texts().join(" | ") == "Addons | Left-click: open or close the drawer | Drag: move it round the map")
   minimap().hover()
-  Test.expect(!Test.page().text("Addons").shown())
+  Test::expect(!Test::page().text("Addons").shown())
 }
 
 test "the drawer's button clicked opens the drawer, lit, with the entries' icons; again, closes it" {
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
-  Test.expect(!Test.page().button(DETAILS).shown())
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
+  Test::expect(!Test::page().button(DETAILS).shown())
   minimap().button("3").click()
-  Test.expect(Test.page().button(DETAILS).shown() && Test.page().button(QUESTION).shown())
-  Test.expect(minimap().button("3").paintedWith(Ordaen.art.minimap.ringLit))
+  Test::expect(Test::page().button(DETAILS).shown() && Test::page().button(QUESTION).shown())
+  Test::expect(minimap().button("3").paintedWith(Ordaen.art.minimap.ringLit))
   minimap().button("3").click()
-  Test.expect(!Test.page().button(DETAILS).shown() && !minimap().button("3").paintedWith(Ordaen.art.minimap.ringLit))
+  Test::expect(!Test::page().button(DETAILS).shown() && !minimap().button("3").paintedWith(Ordaen.art.minimap.ringLit))
 }
 
 test "the ring stays shown while the drawer is open" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
   minimap().hover()
   minimap().button("3").click()
-  Test.open("/ordaen")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(minimap().button(TRACKING).opacity() == 1)
+  Test::open("/ordaen")
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(minimap().button(TRACKING).opacity() == 1)
 }
 
 test "the drawer left with nothing to hold goes with its button, and leaves the ring to the cursor" {
-  Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.frame = frame("Minimap", true)
+  Game::frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test::mount(nil, SCREEN)
   // The wood of the frame and its two strips.
   const wood = minimap().box(Ordaen.art.window.wood).count()
   minimap().hover()
   minimap().button("1").click()
-  Test.expect(minimap().box(Ordaen.art.window.wood).count() == wood + 1)
-  Game.minimap.entries = []
-  Test.expect(!minimap().text("1").shown() && minimap().box(Ordaen.art.window.wood).count() == wood)
-  Test.open("/ordaen")
-  Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  Test::expect(minimap().box(Ordaen.art.window.wood).count() == wood + 1)
+  Game::minimap.entries = []
+  Test::expect(!minimap().text("1").shown() && minimap().box(Ordaen.art.window.wood).count() == wood)
+  Test::open("/ordaen")
+  Test::page().window(SETTINGS).text(SETTINGS).hover()
+  Test::expect(minimap().button(TRACKING).opacity() == 0)
 }
 
 test "another addon's button shows in the open drawer, and is held unseen while it is closed" {
   const other = frame("OtherAddonButton", true)
-  Game.minimap.buttons = [other]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
-  Test.pass(0.02)
-  Test.expect(other.GetEffectiveAlpha() == 0)
+  Game::minimap.buttons = [other]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
+  Test::pass(0.02)
+  Test::expect(other.GetEffectiveAlpha() == 0)
   minimap().button("3").click()
-  Test.expect(other.GetParent() != Client.C_UI.GetUIParent() && other.IsVisible() && other.GetEffectiveAlpha() == 1)
+  Test::expect(other.GetParent() != Client::C_UI::GetUIParent() && other.IsVisible() && other.GetEffectiveAlpha() == 1)
 }
 
 test "another addon's button that takes the place of one in the closed drawer is held unseen, and the one it replaced is given back" {
   const first = frame("FirstAddonButton", true)
   const second = frame("SecondAddonButton", true)
-  Game.minimap.buttons = [first]
-  Test.mount(nil, SCREEN)
-  Game.minimap.buttons = [second]
-  Test.pass(0.02)
-  Test.expect(second.GetEffectiveAlpha() == 0 && first.GetParent() == Client.C_UI.GetUIParent())
+  Game::minimap.buttons = [first]
+  Test::mount(nil, SCREEN)
+  Game::minimap.buttons = [second]
+  Test::pass(0.02)
+  Test::expect(second.GetEffectiveAlpha() == 0 && first.GetParent() == Client::C_UI::GetUIParent())
 }
 
 test "the drawer's switch says what it gathers, and nothing of a reload" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Button drawer")
   // The tab, then the switch's label.
   settings.text("Button drawer").nth(2).hover()
   const said = "Gathers other addons' minimap buttons and the addon menu's entries behind one button on the ring."
-  Test.expect(Test.page().window(said).texts().join(" | ") == `Button drawer | ${said}`)
+  Test::expect(Test::page().window(said).texts().join(" | ") == `Button drawer | ${said}`)
 }
 
 test "the drawer turned off gives other addons' buttons back where they stood" {
   const other = frame("OtherAddonButton", true)
-  other.SetPoint("CENTER", Client.C_UI.GetUIParent(), "TOPLEFT", 100, -100)
-  Game.minimap.buttons = [other]
-  Test.mount(nil, SCREEN)
+  other.SetPoint("CENTER", Client::C_UI::GetUIParent(), "TOPLEFT", 100, -100)
+  Game::minimap.buttons = [other]
+  Test::mount(nil, SCREEN)
   const settings = tab("Button drawer")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  Test.pass(0.02)
-  Test.expect(other.GetParent() == Client.C_UI.GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
+  Test::pass(0.02)
+  Test::expect(other.GetParent() == Client::C_UI::GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
 }
 
 test "the cursor on an entry of the drawer names it" {
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
   minimap().button("3").click()
-  Test.page().button(QUESTION).hover()
-  Test.expect(Test.page().window("Plater").texts().join(" | ") == "Plater")
-  Test.page().button(DETAILS).hover()
-  Test.expect(Test.page().window("Details").shown() && !Test.page().text("Plater").shown())
+  Test::page().button(QUESTION).hover()
+  Test::expect(Test::page().window("Plater").texts().join(" | ") == "Plater")
+  Test::page().button(DETAILS).hover()
+  Test::expect(Test::page().window("Details").shown() && !Test::page().text("Plater").shown())
   minimap().hover()
-  Test.expect(!Test.page().text("Details").shown())
+  Test::expect(!Test::page().text("Details").shown())
 }
 
 test "an entry of the drawer clicked runs the addon menu's entry with the button clicked" {
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
   minimap().button("3").click()
-  _ = Test.requests()
-  Test.page().button(DETAILS).click()
-  Test.page().button(QUESTION).rightClick()
-  Test.expect(Test.requests().join(", ") == "Minimap.runEntry Details LeftButton, Minimap.runEntry Plater RightButton")
+  _ = Test::requests()
+  Test::page().button(DETAILS).click()
+  Test::page().button(QUESTION).rightClick()
+  Test::expect(Test::requests().join(", ") == "Minimap.runEntry Details LeftButton, Minimap.runEntry Plater RightButton")
 }
 
 test "the drawer turned off on its tab takes its button away" {
-  Game.minimap.buttons = [frame("OtherAddonButton", true)]
-  Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
-  Test.mount(nil, SCREEN)
+  Game::minimap.buttons = [frame("OtherAddonButton", true)]
+  Game::minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
+  Test::mount(nil, SCREEN)
   const settings = tab("Button drawer")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  Test.expect(!minimap().text("3").shown())
+  Test::expect(!minimap().text("3").shown())
 }
 
 test "the drawer has four columns at first, from two to twelve" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Button drawer")
-  Test.expect(settings.text("4").shown())
+  Test::expect(settings.text("4").shown())
   slide(settings.box(Ordaen.art.ctl.sliderKnob), settings.text("Columns"))
-  Test.expect(settings.text("2").shown())
+  Test::expect(settings.text("2").shown())
   slide(settings.box(Ordaen.art.ctl.sliderKnob), settings.text("2"))
-  Test.expect(settings.text("12").shown())
+  Test::expect(settings.text("12").shown())
 }
 
 test "the map's size goes from 80% to 160%, by 5%" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Map")
-  Test.expect(settings.text("100%").shown())
+  Test::expect(settings.text("100%").shown())
   slide(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), settings.text("Map size"))
-  Test.expect(settings.text("80%").shown())
+  Test::expect(settings.text("80%").shown())
   // The groove's middle: half way, a whole number of steps of 5%.
   settings.box(Ordaen.art.ctl.groove).nth(1).click()
-  Test.expect(settings.text("120%").shown())
+  Test::expect(settings.text("120%").shown())
   slide(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), settings.text("120%"))
-  Test.expect(settings.text("160%").shown())
+  Test::expect(settings.text("160%").shown())
 }
 
 test "with the drawer off its columns can't be chosen" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Button drawer")
-  Test.expect(settings.text("Columns").opacity() == 1)
+  Test::expect(settings.text("Columns").opacity() == 1)
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  Test.expect(settings.text("Columns").opacity() < 1)
+  Test::expect(settings.text("Columns").opacity() < 1)
 }
 
 // The map's tab
 
 test "the zone's name unticked takes the zone's strip away" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   tick(ZONE_BOX)
-  Test.expect(Test.page().window(COORDS).texts().join(" | ") == `${COORDS} | ${CLOCK}`)
+  Test::expect(Test::page().window(COORDS).texts().join(" | ") == `${COORDS} | ${CLOCK}`)
 }
 
 test "the clock unticked leaves the coordinates" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   tick(CLOCK_BOX)
-  Test.expect(Test.page().window(ZONE).texts().join(" | ") == `${ZONE} | ${COORDS}`)
+  Test::expect(Test::page().window(ZONE).texts().join(" | ") == `${ZONE} | ${COORDS}`)
 }
 
 test "the coordinates unticked leave the clock" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   tick(COORDS_BOX)
-  Test.expect(minimap().texts().join(" | ") == `${ZONE} | ${CLOCK}`)
+  Test::expect(minimap().texts().join(" | ") == `${ZONE} | ${CLOCK}`)
 }
 
 test "the clock and the coordinates both unticked take the lower strip away" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Map")
   settings.button(Ordaen.art.ctl.check).nth(CLOCK_BOX).click()
   settings.button(Ordaen.art.ctl.check).nth(COORDS_BOX).click()
-  Test.expect(Test.page().window(ZONE).texts().join(" | ") == ZONE)
+  Test::expect(Test::page().window(ZONE).texts().join(" | ") == ZONE)
 }
 
 test "a change on the map's tab applies at once" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Map")
-  Test.expect(minimap().text(ZONE).shown())
+  Test::expect(minimap().text(ZONE).shown())
   settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
-  Test.expect(!minimap().text(ZONE).shown())
+  Test::expect(!minimap().text(ZONE).shown())
 }
 
 test "the minimap set to hide in combat goes while the player fights" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   hideWhen(2)
-  Game.situation.taxi = true
-  Test.expect(minimap().shown())
-  Game.situation.combat = true
-  Test.expect(!minimap().shown())
-  Game.situation.combat = false
-  Test.expect(minimap().shown())
+  Game::situation.taxi = true
+  Test::expect(minimap().shown())
+  Game::situation.combat = true
+  Test::expect(!minimap().shown())
+  Game::situation.combat = false
+  Test::expect(minimap().shown())
 }
 
 test "the minimap set to hide on transport goes on a flight path and in a vehicle" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   hideWhen(3)
   // A fight is asked first: in combat the map is as «In combat» says, on transport or not.
-  Game.situation.combat = true
-  Game.situation.taxi = true
-  Test.expect(minimap().shown())
-  Game.situation.combat = false
-  Test.expect(!minimap().shown())
-  Game.situation.taxi = false
-  Game.situation.vehicle = true
-  Test.expect(!minimap().shown())
-  Game.situation.vehicle = false
-  Test.expect(minimap().shown())
+  Game::situation.combat = true
+  Game::situation.taxi = true
+  Test::expect(minimap().shown())
+  Game::situation.combat = false
+  Test::expect(!minimap().shown())
+  Game::situation.taxi = false
+  Game::situation.vehicle = true
+  Test::expect(!minimap().shown())
+  Game::situation.vehicle = false
+  Test::expect(minimap().shown())
 }
 
 test "the minimap set never to hide stays in combat and on transport" {
-  Test.mount(nil, SCREEN)
-  Game.situation.combat = true
-  Game.situation.taxi = true
-  Test.expect(minimap().shown())
+  Test::mount(nil, SCREEN)
+  Game::situation.combat = true
+  Game::situation.taxi = true
+  Test::expect(minimap().shown())
 }
 
 // Turned off
 
 test "the minimap turned off gives the game its map back, square no more" {
   const map = frame("Minimap", true)
-  Game.minimap.frame = map
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
-  (Runtime.Addon.of(Minimap) ?? panic("the minimap is installed")).disable()
-  Test.expect(Test.blank() && !minimap().shown())
-  Test.expect(map.GetParent() == Client.C_UI.GetUIParent())
-  Test.expect(Test.requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")
+  Game::minimap.frame = map
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
+  (Runtime::Addon::of(Minimap) ?? panic("the minimap is installed")).disable()
+  Test::expect(Test::blank() && !minimap().shown())
+  Test::expect(map.GetParent() == Client::C_UI::GetUIParent())
+  Test::expect(Test::requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")
 }

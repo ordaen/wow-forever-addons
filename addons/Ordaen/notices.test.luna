@@ -16,13 +16,13 @@ class Badge {
 
 test "a part shows the count a module asks the player to look at, by its folder, following it" {
   const badge = new Badge()
-  Test.mount(badge, { left: 0, top: 0, width: 100, height: 50 })
-  Test.expect(Test.page().text("0").shown())
+  Test::mount(badge, { left: 0, top: 0, width: 100, height: 50 })
+  Test::expect(Test::page().text("0").shown())
   Ordaen.notice("OrdaenSocial", 3)
-  Test.flush()
-  Test.expect(Test.page().text("3").shown())
+  Test::flush()
+  Test::expect(Test::page().text("3").shown())
   Ordaen.notice("OrdaenSocial", 0)
-  Test.flush()
-  Test.expect(Test.page().text("0").shown())
+  Test::flush()
+  Test::expect(Test::page().text("0").shown())
   destroy badge
 }

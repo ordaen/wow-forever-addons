@@ -24,29 +24,29 @@ import { Tabs } from "@/tabs"
 import { TreeRow } from "@/treeRow"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 900, height: 700 }
+const PAGE: Test::Page = { left: 0, top: 0, width: 900, height: 700 }
 // Where the cursor rests off every box.
-const AWAY: Test.Point = { x: 1590, y: 890 }
+const AWAY: Test::Point = { x: 1590, y: 890 }
 const ICON: Asset = "Interface/Icons/Trade_Tailoring"
 
 // The frame that takes the mouse at `at`.
-function frameAt(at: Test.Point): any Client.Frame {
-  Test.moveTo(at)
-  const found = Client.GetMouseFoci()[1]
-  if (found is Client.Frame) { return found }
+function frameAt(at: Test::Point): any Client::Frame {
+  Test::moveTo(at)
+  const found = Client::GetMouseFoci()[1]
+  if (found is Client::Frame) { return found }
   panic("no frame takes the mouse there")
 }
 
 // Where a frame stands and how large it is, as the client says it now.
-function rectOf(frame: any Client.Frame): String {
-  Test.flush()
-  return `${String.of(frame.GetLeft())}, ${String.of(frame.GetTop())} to ${String.of(frame.GetRight())}, ${String.of(frame.GetBottom())}`
+function rectOf(frame: any Client::Frame): String {
+  Test::flush()
+  return `${String::of(frame.GetLeft())}, ${String::of(frame.GetTop())} to ${String::of(frame.GetRight())}, ${String::of(frame.GetBottom())}`
 }
 
 // The frame the page or the surface is drawn in: the outermost under the screen's own that holds `frame` on its
 // strata.
-function pageOf(frame: any Client.Frame): any Client.Frame {
-  const screen = Client.C_UI.GetUIParent()
+function pageOf(frame: any Client::Frame): any Client::Frame {
+  const screen = Client::C_UI::GetUIParent()
   let at = frame
   for (hop of 1..) {
     const up = at.GetParent()
@@ -57,16 +57,16 @@ function pageOf(frame: any Client.Frame): any Client.Frame {
 }
 
 // The regions and the frames the client hands one after another, as lists.
-function regionsOf(...given: any Client.Region): Array<any Client.Region> {
-  let list: Array<any Client.Region> = []
+function regionsOf(...given: any Client::Region): Array<any Client::Region> {
+  let list: Array<any Client::Region> = []
   for (index of 1..given.length) {
     const region = given[index]
     if (region != nil) { list.push(region) }
   }
   return list
 }
-function framesOf(...given: any Client.Frame): Array<any Client.Frame> {
-  let list: Array<any Client.Frame> = []
+function framesOf(...given: any Client::Frame): Array<any Client::Frame> {
+  let list: Array<any Client::Frame> = []
   for (index of 1..given.length) {
     const frame = given[index]
     if (frame != nil) { list.push(frame) }
@@ -75,11 +75,11 @@ function framesOf(...given: any Client.Frame): Array<any Client.Frame> {
 }
 
 // Each text's font in a frame and what is in it, a line each.
-function fontsOf(frame: any Client.Frame, out: mut Array<String>) {
+function fontsOf(frame: any Client::Frame, out: mut Array<String>) {
   for (region of regionsOf(...frame.GetRegions())) {
-    if (region is Client.FontString && region.IsShown()) {
+    if (region is Client::FontString && region.IsShown()) {
       let file, size, flags = region.GetFont()
-      out.push(`font ${String.of(file)} ${String.of(size)} ${String.of(flags)} ${String.of(region.GetJustifyH())} ${String.of(region.GetSpacing())}`)
+      out.push(`font ${String::of(file)} ${String::of(size)} ${String::of(flags)} ${String::of(region.GetJustifyH())} ${String::of(region.GetSpacing())}`)
     }
   }
   for (child of framesOf(...frame.GetChildren())) {
@@ -90,14 +90,14 @@ function fontsOf(frame: any Client.Frame, out: mut Array<String>) {
 // What the page draws, a line each, its colours left out: its frames and regions as the client describes them, its
 // texts' fonts, and (with `crops`) each texture's file with the size of the part of it drawn. A popup it opens (a
 // tip under the cursor, on a strata of its own) is no part of its look.
-function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
-  Test.flush()
+function drawnBut(page: any Client::Frame, crops: Boolean): Array<String> {
+  Test::flush()
   let lines: Array<String> = []
   // A texture over another of the same place and size is a light on it (an art's glow, its pushed row): one line.
   let laid: Map<String, Boolean> = {}
   // The indent of a popup's frame while its lines are passed over.
   let popup: Integer | nil = nil
-  for (line of Test.dump(page).split("\n")) {
+  for (line of Test::dump(page).split("\n")) {
     let start, _ = line.find("[^ ]")
     const depth = (start ?? 1) - 1
     if (popup != nil && depth > popup) { continue }
@@ -120,8 +120,8 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
   // Each file drawn and the size of the part of it drawn, once.
   let parts: Array<String> = []
   let named: Map<String, Boolean> = {}
-  for (part of Test.drawn()) {
-    const line = `texture ${String.of(part.file)} ${String.of(part.right - part.left)} x ${String.of(part.bottom - part.top)}`
+  for (part of Test::drawn()) {
+    const line = `texture ${String::of(part.file)} ${String::of(part.right - part.left)} x ${String::of(part.bottom - part.top)}`
     if (named[line] != true) {
       named[line] = true
       parts.push(line)
@@ -133,7 +133,7 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
 }
 
 // What the page draws is what it drew at first, or the test stops and says the first line that isn't.
-function same(page: any Client.Frame, first: Array<String>, state: String, crops: Boolean) {
+function same(page: any Client::Frame, first: Array<String>, state: String, crops: Boolean) {
   const now = drawnBut(page, crops)
   for (index of 1..first.length.max(now.length)) {
     const was = first[index] ?? "(nothing)"
@@ -143,7 +143,7 @@ function same(page: any Client.Frame, first: Array<String>, state: String, crops
 }
 
 // The frame stands as it stood at first, or the test stops and says in which state it doesn't.
-function sameBox(frame: any Client.Frame, first: String, state: String) {
+function sameBox(frame: any Client::Frame, first: String, state: String) {
   const now = rectOf(frame)
   if (now != first) { panic(`the box stood at ${first} at first, at ${now} ${state}`) }
 }
@@ -152,10 +152,10 @@ function sameBox(frame: any Client.Frame, first: String, state: String) {
 // there (a click), and again after each of `steps` (each sets a state the owner holds). Away from the cursor the
 // textures' crops are compared too, unless `moves`: a state that moves art from one box to another of its own width (the
 // picked tab's wood).
-function holdsItsBox(at: Test.Point, steps: Array<() => nil>, moves: Boolean = false) {
+function holdsItsBox(at: Test::Point, steps: Array<() => nil>, moves: Boolean = false) {
   const frame = frameAt(at)
   const page = pageOf(frame)
-  Test.moveTo(AWAY)
+  Test::moveTo(AWAY)
   const box = rectOf(frame)
   // Under the cursor a light is an art's other row.
   const away = drawnBut(page, !moves)
@@ -164,16 +164,16 @@ function holdsItsBox(at: Test.Point, steps: Array<() => nil>, moves: Boolean = f
     const step = steps[index]
     if (step != nil) { step() }
     const state = index == 0 ? "as drawn" : `after step ${index}`
-    Test.moveTo(AWAY)
+    Test::moveTo(AWAY)
     same(page, away, state + ", away from the cursor", !moves)
-    Test.moveTo(at)
+    Test::moveTo(at)
     same(page, first, state + ", under the cursor", false)
-    Test.press(nil)
+    Test::press(nil)
     sameBox(frame, box, state + ", pressed")
-    Test.release(nil)
+    Test::release(nil)
     same(page, first, state + ", clicked", false)
   }
-  Test.moveTo(AWAY)
+  Test::moveTo(AWAY)
 }
 
 class PageTabs {
@@ -187,9 +187,9 @@ class PageTabs {
 
 test "a page's tab keeps its box picked or not" {
   let page = new PageTabs()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   for (name of ["Recipes", "Camp", "Queue"]) {
-    holdsItsBox(Test.holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.page = 1 }], true)
+    holdsItsBox(Test::holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.page = 1 }], true)
   }
   destroy page
 }
@@ -210,26 +210,26 @@ class ColumnTabs {
 
 test "a column's tab keeps its box picked or not, off or not" {
   let page = new ColumnTabs()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   for (name of ["All", "Gear", "Junk"]) {
-    holdsItsBox(Test.holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.offs = [true, true, false] }, () => { page.page = 1 }], true)
+    holdsItsBox(Test::holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.offs = [true, true, false] }, () => { page.page = 1 }], true)
   }
   destroy page
 }
 
 test "a column's tabs stand one under another as wide as the column, an off one still picked by a click" {
   let page = new ColumnTabs()
-  Test.mount(page, PAGE)
-  const all = Test.page().text("All").rect()
-  const gear = Test.page().text("Gear").rect()
-  const junk = Test.page().text("Junk").rect()
-  Test.expect(gear.top >= all.bottom && junk.top >= gear.bottom)
-  Test.expect((all.left - gear.left).abs() < 0.05 && (all.left - junk.left).abs() < 0.05)
+  Test::mount(page, PAGE)
+  const all = Test::page().text("All").rect()
+  const gear = Test::page().text("Gear").rect()
+  const junk = Test::page().text("Junk").rect()
+  Test::expect(gear.top >= all.bottom && junk.top >= gear.bottom)
+  Test::expect((all.left - gear.left).abs() < 0.05 && (all.left - junk.left).abs() < 0.05)
   // The picked tab, of the window's wood: as wide as the column, but for its left room.
-  const picked = Test.page().box(Ordaen.art.window.wood).rect()
-  Test.expect(picked.right - picked.left > 180)
-  Test.page().text("Junk").click()
-  Test.expect(page.page == 3)
+  const picked = Test::page().box(Ordaen.art.window.wood).rect()
+  Test::expect(picked.right - picked.left > 180)
+  Test::page().text("Junk").click()
+  Test::expect(page.page == 3)
   destroy page
 }
 
@@ -255,18 +255,18 @@ test "a window's tab with a picture keeps its box open or closed" {
     { title: "Mining", desc: "121 / 150", icon: "Interface/Icons/Trade_Mining" },
     { title: "First Aid", desc: "81 / 150", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice" }
   ])
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   for (name of ["Blacksmithing", "Mining", "First Aid"]) {
-    holdsItsBox(Test.holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 3 }, () => { page.tab = 1 }])
+    holdsItsBox(Test::holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 3 }, () => { page.tab = 1 }])
   }
   destroy page
 }
 
 test "a window's tab without a picture keeps its box open or closed" {
   let page = new Tabbed([{ title: "Recipes" }, { title: "Camp" }])
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   for (name of ["Recipes", "Camp"]) {
-    holdsItsBox(Test.holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 1 }])
+    holdsItsBox(Test::holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 1 }])
   }
   destroy page
 }
@@ -282,8 +282,8 @@ class Buttons {
 
 test "a push button keeps its box disabled or accented" {
   let page = new Buttons()
-  Test.mount(page, PAGE)
-  holdsItsBox(Test.holding("Make", nil), [
+  Test::mount(page, PAGE)
+  holdsItsBox(Test::holding("Make", nil), [
     () => { page.disabled = true }, () => { page.plate = .Accent }, () => { page.disabled = false }
   ])
   destroy page
@@ -305,31 +305,31 @@ class Checks {
 
 test "a checkbox and a switch keep their boxes on, off or disabled" {
   let page = new Checks()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.on = true }, () => { page.disabled = true }, () => { page.on = false }, () => { page.disabled = false }
   ]
   // Found before any is clicked: a click flips them.
-  const check = Test.painted(Ordaen.art.ctl.check, nil)
-  const toggle = Test.painted(Ordaen.art.ctl.switchOff, nil)
+  const check = Test::painted(Ordaen.art.ctl.check, nil)
+  const toggle = Test::painted(Ordaen.art.ctl.switchOff, nil)
   holdsItsBox(check, steps)
   holdsItsBox(toggle, steps)
-  holdsItsBox(Test.holding("Show the price", nil), steps)
+  holdsItsBox(Test::holding("Show the price", nil), steps)
   destroy page
 }
 
 enum Mode { Auction = "auction", Merchant = "merchant", Cooldowns = "cooldowns" }
 
 class Modes {
-  state mode: Mode = Mode.Auction
+  state mode: Mode = Mode::Auction
   state disabled = false
 
   public render(self): Template {
     return $ltml {
       <Segmented value={mut self.mode} disabled={self.disabled} choices={[
-        { value: Mode.Auction, label: "Auction" },
-        { value: Mode.Merchant, label: "Merchant" },
-        { value: Mode.Cooldowns, label: "Cooldowns", soon: true }
+        { value: Mode::Auction, label: "Auction" },
+        { value: Mode::Merchant, label: "Merchant" },
+        { value: Mode::Cooldowns, label: "Cooldowns", soon: true }
       ]} />
     }
   }
@@ -337,12 +337,12 @@ class Modes {
 
 test "a segment keeps its box picked, not or disabled" {
   let page = new Modes()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
-    () => { page.mode = Mode.Merchant }, () => { page.disabled = true }, () => { page.mode = Mode.Auction }
+    () => { page.mode = Mode::Merchant }, () => { page.disabled = true }, () => { page.mode = Mode::Auction }
   ]
-  holdsItsBox(Test.holding("Auction", nil), steps)
-  holdsItsBox(Test.holding("Merchant", nil), steps)
+  holdsItsBox(Test::holding("Auction", nil), steps)
+  holdsItsBox(Test::holding("Merchant", nil), steps)
   destroy page
 }
 
@@ -365,13 +365,13 @@ class Lists {
 
 test "a list's entry and a tree's row keep their boxes selected, off or open" {
   let page = new Lists()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.selected = true }, () => { page.off = true }, () => { page.open = true },
     () => { page.selected = false }, () => { page.off = false }, () => { page.open = false }
   ]
   for (name of ["Bars", "Plain", "Copper Bar", "Copper Ore"]) {
-    holdsItsBox(Test.holding(name, nil), steps)
+    holdsItsBox(Test::holding(name, nil), steps)
   }
   destroy page
 }
@@ -402,13 +402,13 @@ class Sorted {
 
 test "a table's heading and row keep their boxes sorted by or not, selected or not" {
   let page = new Sorted()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.column = 2 }, () => { page.descending = true }, () => { page.selected = true },
     () => { page.column = 1 }, () => { page.selected = false }
   ]
   for (name of ["Recipe", "Makeable", "Plain", "Linen Bandage"]) {
-    holdsItsBox(Test.holding(name, nil), steps)
+    holdsItsBox(Test::holding(name, nil), steps)
   }
   destroy page
 }
@@ -431,13 +431,13 @@ class Menus {
 
 test "a menu's entry keeps its box on, off or disabled" {
   let page = new Menus()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.entries = [{ label: "Sound", on: true }, { label: "Reset", disabled: true }, { label: "Delete", group: true, disabled: true }] },
     () => { page.entries = [{ label: "Sound", on: false, disabled: true }, { label: "Reset" }, { label: "Delete", group: true }] }
   ]
   for (name of ["Sound", "Reset", "Delete"]) {
-    holdsItsBox(Test.holding(name, nil), steps)
+    holdsItsBox(Test::holding(name, nil), steps)
   }
   destroy page
 }
@@ -468,19 +468,19 @@ class Modules {
 
 test "a module's entry and its switch keep their boxes on, off or shown" {
   let page = new Modules()
-  Test.mount(page, PAGE)
+  Test::mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.shown = "OrdaenPanel" }, () => { page.entry.on = true }, () => { page.shown = "" },
     () => { page.entry.on = false }
   ]
-  const toggle = Test.painted(Ordaen.art.ctl.switchOff, nil)
-  holdsItsBox(Test.holding("Panel", nil), steps)
+  const toggle = Test::painted(Ordaen.art.ctl.switchOff, nil)
+  holdsItsBox(Test::holding("Panel", nil), steps)
   holdsItsBox(toggle, steps)
   destroy page
 }
 
 class Slots {
-  state quality: Quality = Quality.Common
+  state quality: Quality = Quality::Common
   state dimmed = false
 
   public render(self): Template {
@@ -490,9 +490,9 @@ class Slots {
 
 test "an item's button keeps its box of any quality, dimmed or not" {
   let page = new Slots()
-  Test.mount(page, PAGE)
-  holdsItsBox(Test.holding("5", nil), [
-    () => { page.quality = Quality.Epic }, () => { page.dimmed = true }, () => { page.quality = Quality.Poor }
+  Test::mount(page, PAGE)
+  holdsItsBox(Test::holding("5", nil), [
+    () => { page.quality = Quality::Epic }, () => { page.dimmed = true }, () => { page.quality = Quality::Poor }
   ])
   destroy page
 }

@@ -13,152 +13,152 @@ const BLADE = "|cffa335ee|Hitem:871::::::::1:::::::::|h[Flurry Axe]|h|r"
 const FULL_SOUND = 139
 // The coin the money's line once showed.
 const COIN_ICON = "Interface/Icons/INV_Misc_Coin_01"
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // A window of ore (5), a locked axe and leather (2); the backpack has `free` free slots. What is taken, by slot.
 function window(free: Integer): Array<Integer> {
   const taken: Array<Integer> = []
-  Client.GetNumLootItems = (): Integer => 3
-  Client.GetLootSlotType = (slot: Number): Client.LootSlotType => Client.LootSlotType.Item
-  Client.GetLootSlotInfo = (slot: Number): (Number | String | nil, String | nil, Number, Number | nil, Number, Boolean, Boolean, Number | nil, Boolean) => {
+  Client::GetNumLootItems = (): Integer => 3
+  Client::GetLootSlotType = (slot: Number): Client::LootSlotType => Client::LootSlotType::Item
+  Client::GetLootSlotInfo = (slot: Number): (Number | String | nil, String | nil, Number, Number | nil, Number, Boolean, Boolean, Number | nil, Boolean) => {
     if (slot == 1) { return 135232, "Copper Ore", 5, nil, 1, false, false, nil, false }
     if (slot == 2) { return 132408, "Flurry Axe", 1, nil, 4, true, false, nil, false }
     return 134252, "Light Leather", 2, nil, 1, false, false, nil, false
   }
-  Client.GetLootSlotLink = (slot: Number): String | nil => slot == 1 ? ORE : slot == 2 ? BLADE : LEATHER
-  Client.LootSlot = (slot: Integer) => { taken.push(slot) }
-  Client.C_Item.GetItemFamily = (item: String | Integer): Number | nil => 0
-  Client.C_Item.GetItemCount = (item: String | Integer, a: Boolean | nil, b: Boolean | nil, c: Boolean | nil, d: Boolean | nil): Number => 0
-  Client.C_Container.GetContainerNumFreeSlots = (bag: Integer): (Number, Number | nil) => {
+  Client::GetLootSlotLink = (slot: Number): String | nil => slot == 1 ? ORE : slot == 2 ? BLADE : LEATHER
+  Client::LootSlot = (slot: Integer) => { taken.push(slot) }
+  Client::C_Item::GetItemFamily = (item: String | Integer): Number | nil => 0
+  Client::C_Item::GetItemCount = (item: String | Integer, a: Boolean | nil, b: Boolean | nil, c: Boolean | nil, d: Boolean | nil): Number => 0
+  Client::C_Container::GetContainerNumFreeSlots = (bag: Integer): (Number, Number | nil) => {
     return bag == 0 ? free : 0, 0
   }
   return taken
 }
 
 // Whether the game's own loot window stands on the screen.
-function windowShown(): Boolean { return Client.LootFrame.GetParent() == Client.UIParent }
+function windowShown(): Boolean { return Client::LootFrame.GetParent() == Client::UIParent }
 
 function choose(change: (values: mut Choices) => nil) { Inventory.settings.change(change) }
 
 test "a window auto loot takes is emptied last slot first, the locked axe left, and the game's window shows it" {
   const taken = window(4)
-  Test.expect(!windowShown())
-  Test.event("LOOT_READY", true)
-  Test.pass(0.2)
-  Test.expect(taken.length == 2 && taken[1] == 3 && taken[2] == 1)
-  Test.expect(windowShown())
-  Test.event("LOOT_CLOSED")
-  Test.expect(!windowShown())
+  Test::expect(!windowShown())
+  Test::event("LOOT_READY", true)
+  Test::pass(0.2)
+  Test::expect(taken.length == 2 && taken[1] == 3 && taken[2] == 1)
+  Test::expect(windowShown())
+  Test::event("LOOT_CLOSED")
+  Test::expect(!windowShown())
 }
 
 test "a window all taken never shows the game's window" {
   const taken = window(4)
-  Client.GetNumLootItems = (): Integer => 1
-  Test.event("LOOT_READY", true)
-  Test.pass(0.2)
-  Test.expect(taken.length == 1 && taken[1] == 1 && !windowShown())
+  Client::GetNumLootItems = (): Integer => 1
+  Test::event("LOOT_READY", true)
+  Test::pass(0.2)
+  Test::expect(taken.length == 1 && taken[1] == 1 && !windowShown())
 }
 
 test "a window looted by hand is the game's own: nothing is taken" {
   const taken = window(4)
-  Test.event("LOOT_READY", false)
-  Test.pass(0.2)
-  Test.expect(taken.length == 0 && windowShown())
+  Test::event("LOOT_READY", false)
+  Test::pass(0.2)
+  Test::expect(taken.length == 0 && windowShown())
 }
 
 test "with fast looting off, the game's window stands as it always does and nothing is taken" {
   const taken = window(4)
   choose((values: mut Choices): nil => { values.loot = { fast: false, ..values.loot } })
-  Test.flush()
-  Test.expect(windowShown())
-  Test.event("LOOT_READY", true)
-  Test.pass(0.2)
-  Test.event("LOOT_CLOSED")
-  Test.expect(taken.length == 0 && windowShown())
+  Test::flush()
+  Test::expect(windowShown())
+  Test::event("LOOT_READY", true)
+  Test::pass(0.2)
+  Test::event("LOOT_CLOSED")
+  Test::expect(taken.length == 0 && windowShown())
 }
 
 test "full bags leave every item, show the window and sound once where the player chose the sound" {
   const taken = window(0)
   choose((values: mut Choices): nil => { values.loot = { fullSound: true, ..values.loot } })
-  Test.event("LOOT_READY", true)
-  Test.pass(0.2)
-  Test.event("UI_ERROR_MESSAGE", Client.LE_GAME_ERR_INV_FULL, "Inventory is full.")
-  Test.event("UI_ERROR_MESSAGE", Client.LE_GAME_ERR_INV_FULL, "Inventory is full.")
-  Test.expect(taken.length == 0 && windowShown())
-  Test.expect(Test.sounds().filter(sound => sound == FULL_SOUND).length == 1)
+  Test::event("LOOT_READY", true)
+  Test::pass(0.2)
+  Test::event("UI_ERROR_MESSAGE", Client::LE_GAME_ERR_INV_FULL, "Inventory is full.")
+  Test::event("UI_ERROR_MESSAGE", Client::LE_GAME_ERR_INV_FULL, "Inventory is full.")
+  Test::expect(taken.length == 0 && windowShown())
+  Test::expect(Test::sounds().filter(sound => sound == FULL_SOUND).length == 1)
 }
 
 test "what was looted is a line each, as the player has it unless they chose otherwise, the money as the purse's gain" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   _ = window(4)
-  Game.money.amount = 100
-  Test.event("LOOT_READY", true)
-  Test.event("LOOT_SLOT_CLEARED", 3)
-  Test.event("LOOT_SLOT_CLEARED", 1)
-  Game.money.amount = 112
-  Test.pass(1)
+  Game::money.amount = 100
+  Test::event("LOOT_READY", true)
+  Test::event("LOOT_SLOT_CLEARED", 3)
+  Test::event("LOOT_SLOT_CLEARED", 1)
+  Game::money.amount = 112
+  Test::pass(1)
   const shown = Inventory.lootLines.shown
-  Test.expect(shown.length == 3)
-  Test.expect(shown.find(line => line.name == "Light Leather" && line.count == 2) != nil)
-  Test.expect(shown.find(line => line.name == "Copper Ore" && line.count == 5) != nil)
-  Test.expect(shown.find(line => line.coins && line.count == 12) != nil)
-  _ = Test.holding("+5 Copper Ore", nil)
-  _ = Test.holding("+2 Light Leather", nil)
-  _ = Test.holding(Game.money.format(12), nil)
+  Test::expect(shown.length == 3)
+  Test::expect(shown.find(line => line.name == "Light Leather" && line.count == 2) != nil)
+  Test::expect(shown.find(line => line.name == "Copper Ore" && line.count == 5) != nil)
+  Test::expect(shown.find(line => line.coins && line.count == 12) != nil)
+  _ = Test::holding("+5 Copper Ore", nil)
+  _ = Test::holding("+2 Light Leather", nil)
+  _ = Test::holding(Game::money.format(12), nil)
   // The money is its coins alone; the items keep their icons.
-  Test.expect(Test.drawn().find(drawn => drawn.file == COIN_ICON) == nil)
-  Test.expect(Test.drawn().find(drawn => drawn.file == 135232) != nil)
-  Test.pass(5)
-  Test.expect(Inventory.lootLines.shown.length == 0)
+  Test::expect(Test::drawn().find(drawn => drawn.file == COIN_ICON) == nil)
+  Test::expect(Test::drawn().find(drawn => drawn.file == 135232) != nil)
+  Test::pass(5)
+  Test::expect(Inventory.lootLines.shown.length == 0)
 }
 
 // As fast looting meets it: the window emptied at once closes, and the client tells the money after.
 test "the money told just after its window closed is a line; money gained later isn't" {
   _ = window(4)
-  Game.money.amount = 100
-  Test.event("LOOT_READY", true)
-  Test.event("LOOT_CLOSED")
-  Test.pass(0.5)
-  Game.money.amount = 150
-  Test.flush()
+  Game::money.amount = 100
+  Test::event("LOOT_READY", true)
+  Test::event("LOOT_CLOSED")
+  Test::pass(0.5)
+  Game::money.amount = 150
+  Test::flush()
   const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
-  Test.expect(line.count == 50)
-  Test.pass(5)
-  Game.money.amount = 300
-  Test.pass(0.5)
-  Test.expect(Inventory.lootLines.shown.length == 0)
+  Test::expect(line.count == 50)
+  Test::pass(5)
+  Game::money.amount = 300
+  Test::pass(0.5)
+  Test::expect(Inventory.lootLines.shown.length == 0)
 }
 
 test "the money of a window still to come is counted on as the next opens" {
   _ = window(4)
-  Game.money.amount = 100
-  Test.event("LOOT_READY", true)
-  Test.event("LOOT_CLOSED")
-  Test.event("LOOT_READY", true)
-  Game.money.amount = 130
-  Test.event("LOOT_CLOSED")
-  Test.pass(0.2)
-  Game.money.amount = 140
-  Test.pass(0.5)
+  Game::money.amount = 100
+  Test::event("LOOT_READY", true)
+  Test::event("LOOT_CLOSED")
+  Test::event("LOOT_READY", true)
+  Game::money.amount = 130
+  Test::event("LOOT_CLOSED")
+  Test::pass(0.2)
+  Game::money.amount = 140
+  Test::pass(0.5)
   const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
-  Test.expect(line.count == 40)
+  Test::expect(line.count == 40)
 }
 
 test "with the lines off, nothing looted is kept" {
   _ = window(4)
   choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
-  Game.money.amount = 100
-  Test.event("LOOT_READY", true)
-  Test.event("LOOT_SLOT_CLEARED", 3)
-  Game.money.amount = 112
-  Test.pass(1)
-  Test.expect(Inventory.lootLines.shown.length == 0)
+  Game::money.amount = 100
+  Test::event("LOOT_READY", true)
+  Test::event("LOOT_SLOT_CLEARED", 3)
+  Game::money.amount = 112
+  Test::pass(1)
+  Test::expect(Inventory.lootLines.shown.length == 0)
 }
 
 test "with no line to show, the lines stand in no frame on the screen" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
-  const without = Test.surfaces().length
+  const without = Test::surfaces().length
   choose((values: mut Choices): nil => { values.loot = { toasts: true, ..values.loot } })
-  Test.expect(Test.surfaces().length == without)
+  Test::expect(Test::surfaces().length == without)
 }

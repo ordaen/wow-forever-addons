@@ -26,18 +26,18 @@ const ICON_ROOM: Edges = { top: 1.5sp, bottom: 1.5sp }
 const LINE_ROOM: Edges = { top: 1sp, right: 1.5sp, bottom: 1sp, left: 1.5sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
-const TOTALS_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
-const CHEAPER: Color = Color.hex("#40c0402e")
-const CLEAR: Color = Color.hex("#00000000")
+const TOTALS_RULE: Line = { width: 1.171875dp, color: Style::LINE, sides: [Side::Top] }
+const CHEAPER: Color = Color::hex("#40c0402e")
+const CLEAR: Color = Color::hex("#00000000")
 const HOUR = 3600
 const DAY = 24
 
 // The text of a way.
 public function wayText(way: Way): String {
   return match (way) {
-    Way.Buy => Locale.WAY_BUY
-    Way.Vendor => Locale.WAY_VENDOR
-    Way.None => NONE
+    Way::Buy => Locale::WAY_BUY
+    Way::Vendor => Locale::WAY_VENDOR
+    Way::None => NONE
   }
 }
 
@@ -45,13 +45,13 @@ public function wayText(way: Way): String {
 public class PricedReagentRow implements Component {
   derived item: Integer | nil = self.price.item
   derived icon: Art | nil = self.price.icon
-  derived color: Color = self.price.have < self.price.need ? Style.RED : Style.INK
+  derived color: Color = self.price.have < self.price.need ? Style::RED : Style::INK
   derived hasAuction: Boolean = self.price.auction != nil
   derived hasVendor: Boolean = self.price.vendor != nil
   derived auction: Integer = self.price.auction ?? 0
   derived vendor: Integer = self.price.vendor ?? 0
-  derived auctionBack: Color = self.price.way == Way.Buy ? CHEAPER : CLEAR
-  derived vendorBack: Color = self.price.way == Way.Vendor ? CHEAPER : CLEAR
+  derived auctionBack: Color = self.price.way == Way::Buy ? CHEAPER : CLEAR
+  derived vendorBack: Color = self.price.way == Way::Vendor ? CHEAPER : CLEAR
 
   price: Signal<PartPrice>
   constructor(price: Signal<PartPrice>) { self.price = price }
@@ -59,27 +59,27 @@ public class PricedReagentRow implements Component {
   // Anywhere on the row, its item's tooltip beside it.
   onEnter(self, frame: any Frame) {
     const item = self.item
-    if (item != nil) { Game.items.show(frame, item) }
+    if (item != nil) { Game::items.show(frame, item) }
   }
 
   public render(self): Template {
     return $ltml {
-      <TableRow ground={Ground.Wood} @enter={self.onEnter}>
+      <TableRow ground={Ground::Wood} @enter={self.onEnter}>
         <TableCell padding={ICON_ROOM}> <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} /> </TableCell>
-        <TableCell> <text value={self.price.name} textColor={Style.INK} wrap={.Cut} /> </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.price.each]} wrap={.None} textColor={Style.INK} textFont={.Numbers} />
+        <TableCell> <text value={self.price.name} textColor={Style::INK} wrap={.Cut} /> </TableCell>
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.price.each]} wrap={.None} textColor={Style::INK} textFont={.Numbers} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={"%d"} arguments={[self.price.have]} wrap={.None} textColor={self.color} textFont={.Numbers} />
         </TableCell>
-        <TableCell align={Align.End} background={self.auctionBack}>
+        <TableCell align={Align::End} background={self.auctionBack}>
           <Money $if={self.hasAuction} amount={self.auction} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End} background={self.vendorBack}>
+        <TableCell align={Align::End} background={self.vendorBack}>
           <Money $if={self.hasVendor} amount={self.vendor} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
       </TableRow>
     }
@@ -93,7 +93,7 @@ class TotalCell implements Component {
   derived has: Boolean = self.amount != nil
   derived losing: Boolean = (self.amount ?? 0) < 0
   derived shown: Integer = (self.amount ?? 0).abs()
-  derived color: Color = self.losing ? Style.RED : BRIGHT_TEXT
+  derived color: Color = self.losing ? Style::RED : BRIGHT_TEXT
   derived tipped: Boolean = self.hovered && self.tip != ""
 
   amount: Signal<Integer | nil>
@@ -110,16 +110,16 @@ class TotalCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableCell align={Align.End} padding={LINE_ROOM}>
+      <TableCell align={Align::End} padding={LINE_ROOM}>
         // The amount alone hears the mouse: its tip under the cursor.
         <box $if={self.has} columns={{ each: "max-content" }} gap={0.5sp} @pointerEnter={self.onEnter}
              @pointerLeave={self.onLeave}>
-          <text $if={self.rough} value={"~"} textColor={Style.DIM} />
-          <text $if={self.losing} value={"-"} textColor={Style.RED} />
+          <text $if={self.rough} value={"~"} textColor={Style::DIM} />
+          <text $if={self.losing} value={"-"} textColor={Style::RED} />
           <Money amount={self.shown} color={self.color} />
           <Tip $if={self.tipped} title={""} text={self.tip} />
         </box>
-        <text $else value={NONE} textColor={Style.DIM} />
+        <text $else value={NONE} textColor={Style::DIM} />
       </TableCell>
     }
   }
@@ -151,9 +151,9 @@ class TotalRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={"subgrid"} border={self.rule} yAlign={Align.Center}>
+      <box columns={"subgrid"} border={self.rule} yAlign={Align::Center}>
         <TableCell padding={LINE_ROOM} />
-        <TableCell padding={LINE_ROOM}> <text value={self.label} textColor={Style.DIM} wrap={.None} /> </TableCell>
+        <TableCell padding={LINE_ROOM}> <text value={self.label} textColor={Style::DIM} wrap={.None} /> </TableCell>
         <TableCell padding={LINE_ROOM} />
         <TableCell padding={LINE_ROOM} />
         <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} />
@@ -165,15 +165,15 @@ class TotalRow implements Component {
 
 // What a cost's tip says: the parts it leaves out.
 function costTip(side: SourceTotals): String {
-  return side.cost != nil && side.missing.length > 0 ? Locale.TIP_COST_PARTIAL.format(side.missing.join(", ")) : ""
+  return side.cost != nil && side.missing.length > 0 ? Locale::TIP_COST_PARTIAL.format(side.missing.join(", ")) : ""
 }
 
 // What a profit's tip says: the item isn't bought here, the parts at the other source's price, the parts with none.
 function profitTip(side: SourceTotals): String {
   const lines: Array<String> = []
-  if (side.sale == nil) { lines.push(Locale.TIP_NOT_BOUGHT) }
-  if (side.filled.length > 0) { lines.push(Locale.TIP_PROFIT_FILLED.format(side.filled.join(", "))) }
-  if (side.unpriced.length > 0) { lines.push(Locale.TIP_PROFIT_UNPRICED.format(side.unpriced.join(", "))) }
+  if (side.sale == nil) { lines.push(Locale::TIP_NOT_BOUGHT) }
+  if (side.filled.length > 0) { lines.push(Locale::TIP_PROFIT_FILLED.format(side.filled.join(", "))) }
+  if (side.unpriced.length > 0) { lines.push(Locale::TIP_PROFIT_UNPRICED.format(side.unpriced.join(", "))) }
   return lines.join("\n")
 }
 
@@ -204,7 +204,7 @@ public class PriceTable implements Component {
   saleTipOf(self): String {
     const sale = self.auction.sale
     if (sale == nil) { return "" }
-    return Locale.SALE_TIP.format(Game.money.format(self.totals.listed ?? 0), self.totals.cut, Game.money.format(sale))
+    return Locale::SALE_TIP.format(Game::money.format(self.totals.listed ?? 0), self.totals.cut, Game::money.format(sale))
   }
 
   public render(self): Template {
@@ -212,28 +212,28 @@ public class PriceTable implements Component {
       <box columns={PRICED}>
         <box columns={"subgrid"}>
           <TableCell span={2}>
-            <text value={Locale.PRICE_REAGENT} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+            <text value={Locale::PRICE_REAGENT} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
           </TableCell>
-          <TableCell align={Align.End}>
-            <text value={Locale.PRICE_EACH} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <TableCell align={Align::End}>
+            <text value={Locale::PRICE_EACH} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
           </TableCell>
-          <TableCell align={Align.End}>
-            <text value={Locale.PRICE_HAVE} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <TableCell align={Align::End}>
+            <text value={Locale::PRICE_HAVE} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
           </TableCell>
-          <TableCell align={Align.End}>
-            <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <TableCell align={Align::End}>
+            <text value={Locale::PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
           </TableCell>
-          <TableCell align={Align.End}>
-            <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <TableCell align={Align::End}>
+            <text value={Locale::PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
           </TableCell>
         </box>
         <PricedReagentRow $for={part of self.parts} price={part} />
-        <TotalRow label={Locale.TOTAL_COST} auction={self.auction.cost} merchant={self.merchant.cost}
+        <TotalRow label={Locale::TOTAL_COST} auction={self.auction.cost} merchant={self.merchant.cost}
                   auctionRough={self.auctionRough} merchantRough={self.merchantRough} auctionTip={self.auctionCostTip}
                   merchantTip={self.merchantCostTip} rule={TOTALS_RULE} />
-        <TotalRow label={Locale.TOTAL_SALE} auction={self.auction.sale} merchant={self.merchant.sale} auctionRough={false}
+        <TotalRow label={Locale::TOTAL_SALE} auction={self.auction.sale} merchant={self.merchant.sale} auctionRough={false}
                   merchantRough={false} auctionTip={self.saleTip} merchantTip={""} />
-        <TotalRow label={Locale.TOTAL_PROFIT} auction={self.auction.profit} merchant={self.merchant.profit}
+        <TotalRow label={Locale::TOTAL_PROFIT} auction={self.auction.profit} merchant={self.merchant.profit}
                   auctionRough={self.auctionProfitRough} merchantRough={self.merchantProfitRough}
                   auctionTip={self.auctionProfitTip} merchantTip={self.merchantProfitTip} />
       </box>
@@ -244,8 +244,8 @@ public class PriceTable implements Component {
 // The text of how old the oldest price is: in hours under two days, then in days.
 function ageLine(hours: Integer | nil): String {
   if (hours == nil) { return "" }
-  if (hours < 2 * DAY) { return Locale.PRICES_AGE_HOURS.format(hours) }
-  return Locale.PRICES_AGE_DAYS.format((hours / DAY).floor())
+  if (hours < 2 * DAY) { return Locale::PRICES_AGE_HOURS.format(hours) }
+  return Locale::PRICES_AGE_DAYS.format((hours / DAY).floor())
 }
 
 // How old the oldest price the totals took is, in its age's colour.
@@ -259,7 +259,7 @@ public class PricesAge implements Component {
 
   colorOf(self): Color {
     const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
-    return color ?? Style.DIM
+    return color ?? Style::DIM
   }
 
   public render(self): Template {

@@ -8,14 +8,14 @@ import { Align, Art, ByInteractionState, Edges, Event, Position, TextWrap, Track
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
 
-const INK: Color = Color.hex("#e8dcc4")
-const OFF: Color = Color.hex("#7a705f")
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const SELECTED: Color = Color.hex("#00000040")
+const INK: Color = Color::hex("#e8dcc4")
+const OFF: Color = Color::hex("#7a705f")
+const CLEAR: Color = Color::hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000059"), focus: Color::hex("#00000059") }
+const SELECTED: Color = Color::hex("#00000040")
 // An icon that is off: darker.
-const DIM: Color = Color.hex("#999999")
-const LIGHT: Color = Color.hex("#d6a56b")
+const DIM: Color = Color::hex("#999999")
+const LIGHT: Color = Color::hex("#d6a56b")
 const PADDING: Edges = { top: 2sp, right: 3.5sp, bottom: 2sp, left: 4.5sp }
 // An entry of one line (`oneLine`): set closer, its name kept whole.
 const LINE_PADDING: Edges = { top: 1sp, right: 3.5sp, bottom: 1sp, left: 4.5sp }
@@ -64,15 +64,15 @@ public class ListTab implements Component {
 
   // The left button picks, as a tab of the game's own takes its left button alone: the right is its owner's (the
   // chat's tab menu).
-  onPress(mut self, press: Event.Press) {
+  onPress(mut self, press: Event::Press) {
     if (press.button == .Left) { self.onClick() }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={3sp} padding={self.padding} yAlign={Align.Center}
+      <box columns={self.columns} gap={3sp} padding={self.padding} yAlign={Align::Center}
            background={self.background} @pointerPress={self.onPress} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
+        <box position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box $if={self.hasIcon} width={25.78125dp} height={25.78125dp} icon={self.icon} tint={self.tint} />
         <text value={self.label} textColor={self.color} wrap={self.wrap} />
         <box>

@@ -13,24 +13,24 @@ import Runtime from "$runtime"
 public enum Writing { Variable, Setting, Apply, None }
 
 // How a setting is written, by what it is kept in and what its change asks.
-function writingOf(setting: any Client.Setting | nil): Writing {
+function writingOf(setting: any Client::Setting | nil): Writing {
   if (setting == nil) { return .None }
   if (setting.HasCommitFlag(.Apply)) { return .Apply }
-  return Client.C_CVar.GetCVar(setting.GetVariable()) != nil ? .Variable : .Setting
+  return Client::C_CVar::GetCVar(setting.GetVariable()) != nil ? .Variable : .Setting
 }
 
 // A setting's value now, by its variable; none where the client has no such setting.
 public function readSetting(variable: String): Boolean | Number | String | nil {
-  return Client.Settings?.GetSetting(variable)?.GetValue()
+  return Client::Settings?.GetSetting(variable)?.GetValue()
 }
 
 // A setting set, as its line would write it: its console variable itself (a Boolean as `1` or `0`), or through
 // Blizzard's setting. Whether it waits for Apply.
 public function writeSetting(variable: String, value: Boolean | Number | String): Boolean {
-  const setting = Client.Settings?.GetSetting(variable)
+  const setting = Client::Settings?.GetSetting(variable)
   const writing = writingOf(setting)
   if (writing == .Variable) {
-    _ = Client.C_CVar.SetCVar(variable, value is Boolean ? (value ? "1" : "0") : String.of(value))
+    _ = Client::C_CVar::SetCVar(variable, value is Boolean ? (value ? "1" : "0") : String::of(value))
   } else if (writing != .None) {
     setting?.SetValue(value)
   }
@@ -96,7 +96,7 @@ public struct PageGroup {
 }
 
 // A line's kind by its template's name.
-function kindOf(template: String, data: Client.SettingsData): LineKind {
+function kindOf(template: String, data: Client::SettingsData): LineKind {
   if (template.contains("SectionHeader")) { return .Header }
   if (data.setting == nil) { return .Blizzard }
   if (template.contains("Checkbox")) { return .Check }
@@ -109,9 +109,9 @@ function kindOf(template: String, data: Client.SettingsData): LineKind {
 // own «Key Bindings» has them), and what the client names `NoDisplayKB`, the key bindings' pages its list never shows.
 const HIDDEN = "NoDisplayKB"
 
-function shown(category: any Client.SettingsCategory): Boolean {
+function shown(category: any Client::SettingsCategory): Boolean {
   const name = category.GetName()
-  return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime.text("SETTINGS_KEYBINDINGS_LABEL")
+  return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime::text("SETTINGS_KEYBINDINGS_LABEL")
 }
 
 // A tooltip Blizzard gives as its text, or as the function that writes it.
@@ -124,7 +124,7 @@ function textOf(tooltip: String | (() => String) | nil): String {
 // What a slider's label beside it writes (`MinimalSliderWithSteppersMixin.Label.Right`).
 const SLIDER_RIGHT = 2
 
-function formatOf(range: Client.SettingsSliderOptions | nil): ((value: Number) => String) | nil {
+function formatOf(range: Client::SettingsSliderOptions | nil): ((value: Number) => String) | nil {
   const formatters = range?.formatters
   return formatters == nil ? nil : formatters[SLIDER_RIGHT]
 }
@@ -142,7 +142,7 @@ function colored(color: String, text: String): String { return "|c" + color + te
 // A line of a page: its kind, name and tooltip, its setting (none: a header or Blizzard's own), a slider's range, and
 // the checkbox it stands under.
 function lineOf(
-  kind: LineKind, name: String, tooltip: String | (() => String) | nil, setting: any Client.Setting | nil, range: Client.SettingsSliderOptions | nil,
+  kind: LineKind, name: String, tooltip: String | (() => String) | nil, setting: any Client::Setting | nil, range: Client::SettingsSliderOptions | nil,
   under: String
 ): SettingLine {
   const variable = setting?.GetVariable() ?? ""
@@ -160,7 +160,7 @@ function lineOf(
   }
 }
 
-function pageOf(panel: any Client.SettingsPanelFrame, category: any Client.SettingsCategory, child: Boolean): SettingsPage {
+function pageOf(panel: any Client::SettingsPanelFrame, category: any Client::SettingsCategory, child: Boolean): SettingsPage {
   const layout = panel.GetLayout(category)
   return { id: category.GetID(), name: category.GetName(), canvas: layout?.layoutType == .Canvas, child: child }
 }
@@ -181,7 +181,7 @@ public class SystemSettings {
   // The list read anew, as the tab opens: the client's groups, each with its pages and the pages under them, and every
   // page's lines (a thousand lines, read once a tab's open, for the search). The first page is shown.
   public read(mut self) {
-    const panel = Client.SettingsPanel
+    const panel = Client::SettingsPanel
     if (panel == nil) { return }
     const groups: Array<PageGroup> = []
     const everyLine: Map<Integer, Array<SettingLine>> = {}
@@ -204,8 +204,8 @@ public class SystemSettings {
 
   // A page's lines, read from its layout: none for an addon's own frame.
   public linesOf(self, id: Integer): Array<SettingLine> {
-    const panel = Client.SettingsPanel
-    const category = Client.Settings?.GetCategory(id)
+    const panel = Client::SettingsPanel
+    const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
     const lines: Array<SettingLine> = []
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
@@ -226,7 +226,7 @@ public class SystemSettings {
         continue
       }
       const options = data.options
-      const range = options is Client.SettingsSliderOptions ? options : nil
+      const range = options is Client::SettingsSliderOptions ? options : nil
       const kind = kindOf(initializer.GetTemplate(), data)
       lines.push(lineOf(kind, data.name ?? data.setting?.GetName() ?? "", data.tooltip, data.setting, range, ""))
     }
@@ -245,7 +245,7 @@ public class SystemSettings {
     const values: Map<String, Boolean | Number | String> = {}
     for (line of peek self.lines) {
       if (line.variable != "") {
-        const setting = Client.Settings?.GetSetting(line.variable)
+        const setting = Client::Settings?.GetSetting(line.variable)
         if (setting != nil) { values[line.variable] = setting.GetValue() }
       }
     }
@@ -271,7 +271,7 @@ public class SystemSettings {
 
   // What waits for Apply takes hold: the panel's own commit, as its Apply button does.
   public apply(mut self) {
-    Client.SettingsPanel?.Commit(nil)
+    Client::SettingsPanel?.Commit(nil)
     self.waiting = []
     self.refresh()
   }
@@ -279,21 +279,21 @@ public class SystemSettings {
   // Every setting of the page shown back to its default.
   public defaults(mut self) {
     for (line of peek self.lines) {
-      const value = Client.Settings?.GetSetting(line.variable)?.GetDefaultValue()
+      const value = Client::Settings?.GetSetting(line.variable)?.GetDefaultValue()
       if (value != nil && line.writing != .None && value != (peek self.values)[line.variable]) { self.write(line, value, true) }
     }
   }
 
   // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).
-  public choicesOf(self, id: Integer, variable: String): Array<Client.SettingsOption> {
-    const panel = Client.SettingsPanel
-    const category = Client.Settings?.GetCategory(id)
+  public choicesOf(self, id: Integer, variable: String): Array<Client::SettingsOption> {
+    const panel = Client::SettingsPanel
+    const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
       const data = initializer.data
       if (data == nil) { continue }
       const options = data.options
-      if (data.setting?.GetVariable() == variable && options != nil && !(options is Client.SettingsSliderOptions)) {
+      if (data.setting?.GetVariable() == variable && options != nil && !(options is Client::SettingsSliderOptions)) {
         return options()
       }
       const offered = data.dropdownOptions
@@ -307,7 +307,7 @@ public class SystemSettings {
   // restart of the client or a reload.
   public tipOf(self, line: SettingLine): String {
     const parts: Array<String> = line.tooltip == "" ? [] : [line.tooltip]
-    const setting = line.variable == "" ? nil : Client.Settings?.GetSetting(line.variable)
+    const setting = line.variable == "" ? nil : Client::Settings?.GetSetting(line.variable)
     if (setting == nil) { return parts.join("\n") }
     if (line.kind == .Choice) {
       const now = self.values[line.variable]
@@ -329,7 +329,7 @@ public class SystemSettings {
       }
       if (recommended != "") {
         parts.push("")
-        parts.push(colored(HIGHLIGHT, (Runtime.text("VIDEO_OPTIONS_RECOMMENDED") ?? "") + ": ") + colored(GREEN, recommended))
+        parts.push(colored(HIGHLIGHT, (Runtime::text("VIDEO_OPTIONS_RECOMMENDED") ?? "") + ": ") + colored(GREEN, recommended))
       }
       if (warning != "") {
         parts.push("")
@@ -338,11 +338,11 @@ public class SystemSettings {
     }
     if (setting.HasCommitFlag(.ClientRestart)) {
       parts.push("")
-      parts.push(colored(ERROR, Runtime.text("VIDEO_OPTIONS_NEED_CLIENTRESTART") ?? ""))
+      parts.push(colored(ERROR, Runtime::text("VIDEO_OPTIONS_NEED_CLIENTRESTART") ?? ""))
     }
     if (setting.HasCommitFlag(.UIReload)) {
       parts.push("")
-      parts.push(colored(ERROR, Runtime.text("VIDEO_OPTIONS_NEED_UIRELOAD") ?? ""))
+      parts.push(colored(ERROR, Runtime::text("VIDEO_OPTIONS_NEED_UIRELOAD") ?? ""))
     }
     return parts.join("\n")
   }

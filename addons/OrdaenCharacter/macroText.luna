@@ -95,10 +95,10 @@ public function commandsOf(): Map<String, String> {
   const names: Map<String, String> = {}
   const keys: Array<String> = []
   for (key of COMMAND_KEYS) { keys.push(key) }
-  for (key, _ of Client.SlashCmdList) { keys.push(key) }
+  for (key, _ of Client::SlashCmdList) { keys.push(key) }
   for (key of keys) {
     for (at of 1..) {
-      const spelled = Runtime.text(`SLASH_${key}${at}`)
+      const spelled = Runtime::text(`SLASH_${key}${at}`)
       if (spelled == nil) { break }
       names[spelled.lower()] = key
     }
@@ -118,7 +118,7 @@ function conditionFault(written: String): String | nil {
   const name = condition.match("^([%a]+)") ?? ""
   if (listed(CONDITIONS, name)) { return nil }
   if (name.sub(1, 2) == "no" && listed(CONDITIONS, name.sub(3))) { return nil }
-  return Locale.MACRO_UNKNOWN_CONDITION.format(condition)
+  return Locale::MACRO_UNKNOWN_CONDITION.format(condition)
 }
 
 // The names a command's option asks the client for: a spell's or an item's, never a slot's number or an item's link;
@@ -150,10 +150,10 @@ function optionProblems(line: Integer, key: String, text: String, known: (name: 
       rest = after
     }
     if (rest.contains("[")) {
-      found.push({ line: line, text: Locale.MACRO_UNCLOSED })
+      found.push({ line: line, text: Locale::MACRO_UNCLOSED })
     } else if (listed(NAMING_KEYS, key)) {
       for (name of namesOf(key, rest)) {
-        if (!known(name)) { found.push({ line: line, text: Locale.MACRO_UNKNOWN_NAME.format(name) }) }
+        if (!known(name)) { found.push({ line: line, text: Locale::MACRO_UNKNOWN_NAME.format(name) }) }
       }
     }
   }
@@ -165,17 +165,17 @@ function optionProblems(line: Integer, key: String, text: String, known: (name: 
 public function problemsOf(body: String, commands: Map<String, String>, known: (name: String) => Boolean): Array<Problem> {
   const found: Array<Problem> = []
   const letters = lettersOf(body)
-  if (letters > MOST_LETTERS) { found.push({ line: 0, text: Locale.MACRO_TOO_LONG.format(letters - MOST_LETTERS) }) }
+  if (letters > MOST_LETTERS) { found.push({ line: 0, text: Locale::MACRO_TOO_LONG.format(letters - MOST_LETTERS) }) }
   for (line, written of body.split("\n")) {
     const text = written.replace("^%s+", "").replace("%s+$", "")
     if (text != "" && text.sub(1, 1) != "#") {
       const word, rest = text.match("^(/%S+)%s*(.*)$")
       if (word == nil || rest == nil) {
-        found.push({ line: line, text: Locale.MACRO_NOT_COMMAND })
+        found.push({ line: line, text: Locale::MACRO_NOT_COMMAND })
       } else {
         const key = commands[word.lower()]
         if (key == nil) {
-          found.push({ line: line, text: Locale.MACRO_UNKNOWN_COMMAND.format(word) })
+          found.push({ line: line, text: Locale::MACRO_UNKNOWN_COMMAND.format(word) })
         } else if (listed(OPTION_KEYS, key)) {
           optionProblems(line, key, rest, known, found)
         }
@@ -187,8 +187,8 @@ public function problemsOf(body: String, commands: Map<String, String>, known: (
 
 // Whether the player has what a name names: a spell of theirs, or an item in their bags or worn.
 public function knownName(name: String): Boolean {
-  if (Client.C_Spell.GetSpellInfo(name) != nil) { return true }
-  return Client.C_Item.GetItemCount(name, true, nil, nil, nil) > 0
+  if (Client::C_Spell::GetSpellInfo(name) != nil) { return true }
+  return Client::C_Item::GetItemCount(name, true, nil, nil, nil) > 0
 }
 
 // The body made shorter, doing the same: `target=` as `@`, the conditions' long names as their short ones, no room

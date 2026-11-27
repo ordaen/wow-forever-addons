@@ -20,35 +20,35 @@ public enum Loading implements Plain { All = "all", Demand = "demand", Login = "
 public enum Written implements Plain { All = "all", LunaType = "lunatype", Other = "other" }
 
 const HEATS: Array<Choice<Heat>> = [
-  { value: Heat.All, label: Locale.FILTER_ALL },
-  { value: Heat.Heavy, label: Locale.FILTER_HEAVY }
+  { value: Heat::All, label: Locale::FILTER_ALL },
+  { value: Heat::Heavy, label: Locale::FILTER_HEAVY }
 ]
 const STANDINGS: Array<Choice<Standing>> = [
-  { value: Standing.All, label: Locale.FILTER_ALL },
-  { value: Standing.On, label: Locale.FILTER_ON },
-  { value: Standing.Off, label: Locale.FILTER_OFF },
-  { value: Standing.Failed, label: Locale.FILTER_FAILED }
+  { value: Standing::All, label: Locale::FILTER_ALL },
+  { value: Standing::On, label: Locale::FILTER_ON },
+  { value: Standing::Off, label: Locale::FILTER_OFF },
+  { value: Standing::Failed, label: Locale::FILTER_FAILED }
 ]
 const AGES: Array<Choice<Age>> = [
-  { value: Age.All, label: Locale.FILTER_ALL },
-  { value: Age.Outdated, label: Locale.FILTER_OUTDATED },
-  { value: Age.Current, label: Locale.FILTER_CURRENT }
+  { value: Age::All, label: Locale::FILTER_ALL },
+  { value: Age::Outdated, label: Locale::FILTER_OUTDATED },
+  { value: Age::Current, label: Locale::FILTER_CURRENT }
 ]
 const LOADINGS: Array<Choice<Loading>> = [
-  { value: Loading.All, label: Locale.FILTER_ALL },
-  { value: Loading.Demand, label: Locale.FILTER_DEMAND },
-  { value: Loading.Login, label: Locale.FILTER_LOGIN }
+  { value: Loading::All, label: Locale::FILTER_ALL },
+  { value: Loading::Demand, label: Locale::FILTER_DEMAND },
+  { value: Loading::Login, label: Locale::FILTER_LOGIN }
 ]
 const WRITTEN: Array<Choice<Written>> = [
-  { value: Written.All, label: Locale.FILTER_ALL },
-  { value: Written.LunaType, label: Locale.FILTER_LUNATYPE },
-  { value: Written.Other, label: Locale.FILTER_OTHER }
+  { value: Written::All, label: Locale::FILTER_ALL },
+  { value: Written::LunaType, label: Locale::FILTER_LUNATYPE },
+  { value: Written::Other, label: Locale::FILTER_OTHER }
 ]
 
 // As a ToolPick's list.
 const WIDTH = 269.53125dp
-const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const BACK: Color = Color::hex("#0a0806f7")
+const EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const PAD: Edges = { top: 2sp, bottom: 2sp }
 const HEADING: Edges = { top: 2sp, right: 4sp, bottom: 0.5sp, left: 4sp }
 
@@ -88,12 +88,12 @@ public class FilterPick implements Component {
   // What its Tip says it is set to: each kind that narrows the list, or «All».
   shownOf(self): String {
     const list: Array<String> = []
-    narrowing(HEATS, self.heat, Heat.All, list)
-    narrowing(STANDINGS, self.standing, Standing.All, list)
-    narrowing(AGES, self.age, Age.All, list)
-    narrowing(LOADINGS, self.loading, Loading.All, list)
-    narrowing(WRITTEN, self.written, Written.All, list)
-    return list.length == 0 ? Locale.FILTER_ALL : list.join(", ")
+    narrowing(HEATS, self.heat, Heat::All, list)
+    narrowing(STANDINGS, self.standing, Standing::All, list)
+    narrowing(AGES, self.age, Age::All, list)
+    narrowing(LOADINGS, self.loading, Loading::All, list)
+    narrowing(WRITTEN, self.written, Written::All, list)
+    return list.length == 0 ? Locale::FILTER_ALL : list.join(", ")
   }
 
   close(mut self) { self.open = false }
@@ -105,30 +105,30 @@ public class FilterPick implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.shown} open={mut self.open}
+      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} text={self.shown} open={mut self.open}
                   lit={self.lit}>
-        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
+        <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.close}>
           <box padding={HEADING}>
-            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={Locale::FILTER_PERFORMANCE} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of HEATS} choice={choice} value={self.heat} compact={true} @pick={self.onHeat} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={Locale::FILTER_STATE} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of STANDINGS} choice={choice} value={self.standing} compact={true}
                         @pick={self.onStanding} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={Locale::FILTER_VERSION} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of AGES} choice={choice} value={self.age} compact={true} @pick={self.onAge} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={Locale::FILTER_LOADING} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of LOADINGS} choice={choice} value={self.loading} compact={true}
                         @pick={self.onLoading} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={Locale::FILTER_RUNTIME} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of WRITTEN} choice={choice} value={self.written} compact={true}
                         @pick={self.onWritten} />

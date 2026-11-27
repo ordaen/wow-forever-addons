@@ -12,7 +12,7 @@ public function numberOf(place: String): Integer { return ((place.match("(%d+)$"
 
 // An item's place inside a ring's place.
 public function within(parent: String, number: Integer): String {
-  return parent == "" ? String.of(number) : `${parent}_${number}`
+  return parent == "" ? String::of(number) : `${parent}_${number}`
 }
 
 // Whether a key is the place or stands under it.
@@ -26,7 +26,7 @@ function movedKey(key: String, from: String, to: String): String {
 }
 
 // Whether a place holds items of its own: a submenu or a slot.
-public function holdsItems(item: Item): Boolean { return item is Item.Menu || item is Item.Slot }
+public function holdsItems(item: Item): Boolean { return item is Item::Menu || item is Item::Slot }
 
 // How many items a ring's place holds now.
 public function countOf(ring: Ring, parent: String): Integer { return ring.counts[parent] ?? 0 }
@@ -88,7 +88,7 @@ public function addPlace(ring: mut Ring, parent: String): String | nil {
   const number = countOf(ring, parent) + 1
   ring.counts[parent] = number
   const place = within(parent, number)
-  ring.items[place] = Item.Empty
+  ring.items[place] = Item::Empty
   return place
 }
 

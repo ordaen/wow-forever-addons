@@ -12,7 +12,7 @@ struct Yards {
 }
 
 function yardsOf(map: Number, x: Number, y: Number): Yards | nil {
-  const continent, world = Client.C_Map.GetWorldPosFromMapPos(map, { x: x, y: y })
+  const continent, world = Client::C_Map::GetWorldPosFromMapPos(map, { x: x, y: y })
   if (continent == nil || world == nil) { return nil }
   return { continent: continent, x: world.x, y: world.y }
 }
@@ -21,9 +21,9 @@ function yardsOf(map: Number, x: Number, y: Number): Yards | nil {
 // with no map, or where the client says nothing of where the player is (inside an instance).
 public function yardsFromPlayer(area: Integer, x: Number, y: Number): Number | nil {
   const map = mapOfArea[area]
-  const own = Client.C_Map.GetBestMapForUnit("player")
+  const own = Client::C_Map::GetBestMapForUnit("player")
   if (map == nil || own == nil) { return nil }
-  const at = Client.C_Map.GetPlayerMapPosition(own, "player")
+  const at = Client::C_Map::GetPlayerMapPosition(own, "player")
   if (at == nil) { return nil }
   const player = yardsOf(own, at.x, at.y)
   const place = yardsOf(map, x, y)

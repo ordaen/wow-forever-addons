@@ -38,7 +38,7 @@ public function droppersOf(drop: ItemDrops): Array<Integer> {
 
 // The log's objective a quest's item asks for: the log's item objectives stand in QuestieDB's order of its items, so
 // where they are as many, the one at the item's place; else the one whose text names the item, whole.
-function objectiveFor(quest: LogQuest, facts: QuestFacts, at: Integer): Game.QuestObjective | nil {
+function objectiveFor(quest: LogQuest, facts: QuestFacts, at: Integer): Game::QuestObjective | nil {
   const items = quest.objectives.filter(objective => objective.kind == .Item)
   if (items.length == facts.drops.length) { return items[at] }
   const drop = facts.drops[at]
@@ -86,12 +86,12 @@ public struct Seeker {
 
 // The player's standing with a faction: the client's value of it; 0 for one the player hasn't met.
 function standingWith(faction: Integer): Integer {
-  return (Client.C_Reputation.GetFactionDataByID(faction)?.currentStanding ?? 0).floor()
+  return (Client::C_Reputation::GetFactionDataByID(faction)?.currentStanding ?? 0).floor()
 }
 
 // The player's rank in a profession by its skill line; none where they haven't learned it.
 function skillIn(line: Integer): Integer | nil {
-  return Game.professions.list.find(profession => profession.skillLine == line)?.rank
+  return Game::professions.list.find(profession => profession.skillLine == line)?.rank
 }
 
 // Whether every one of `ids` is turned in, one of them is, or one is taken or turned in.
@@ -142,7 +142,7 @@ public function offersOf(
 public class QuestCreatures implements CreatureQuests {
   derived by: Map<Integer, Array<Wanted>> = wantsOf(self.quests, self.facts)
   derived seeker: Seeker = {
-    level: Game.player.level, race: Game.player.raceNumber, classNumber: Game.player.classNumber,
+    level: Game::player.level, race: Game::player.raceNumber, classNumber: Game::player.classNumber,
     standing: standingWith, skill: skillIn
   }
 
@@ -166,7 +166,7 @@ public class QuestCreatures implements CreatureQuests {
 
   public offers(self, creature: Integer): Array<Offered> {
     return offersOf(
-      self.npcQuests(creature), self.quests, self.factsOf, self.seeker, (id: Integer): Boolean => Game.questLog.completed(id)
+      self.npcQuests(creature), self.quests, self.factsOf, self.seeker, (id: Integer): Boolean => Game::questLog.completed(id)
     )
   }
 }

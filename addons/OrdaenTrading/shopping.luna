@@ -24,7 +24,7 @@ public enum Market { House, Vendor }
 public function marketOf(prices: any PriceSource, item: ItemId): Market {
   const vendor = prices.vendor(item)
   if (vendor == nil) { return .House }
-  const house = prices.buy(PriceKey.of(item))
+  const house = prices.buy(PriceKey::of(item))
   return house == nil || vendor <= house.copper() ? .Vendor : .House
 }
 
@@ -43,7 +43,7 @@ public class ShoppingList {
 
   constructor(kept: mut Kept) {
     self.kept = kept
-    Game.bags.changed.listen(self.onBags)
+    Game::bags.changed.listen(self.onBags)
   }
 
   // The lines as they stand.
@@ -79,7 +79,7 @@ public class ShoppingList {
     let items: Array<Integer> = []
     for (row of peek self.rows) { items.push(row.item) }
     if (items.length == 0) { return false }
-    return Game.auctionQuery.browse(items)
+    return Game::auctionQuery.browse(items)
   }
 
   keep(mut self, kept: (line: Wanted) => Boolean) {
@@ -116,7 +116,7 @@ public class ShoppingList {
     let list: Array<Row> = []
     for (item of order) {
       const needed = self.needed[item] ?? 0
-      const held = Game.items.owned(item)
+      const held = Game::items.owned(item)
       list.push({ item: item, needed: needed, held: held, toBuy: (needed - held).max(0), lines: byItem[item] ?? [] })
     }
     return list

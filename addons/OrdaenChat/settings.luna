@@ -13,28 +13,28 @@ public class ChatPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={6sp}>
-        <Section title={Locale.SECTION_WINDOW}>
-          <NumberInput label={Locale.WIDTH} value={mut self.settings.values.width} least={LEAST_WIDTH} most={1200} step={10}
-                       unit={Unit.None} />
-          <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={LEAST_HEIGHT} most={800} step={10}
-                       unit={Unit.None} />
+        <Section title={Locale::SECTION_WINDOW}>
+          <NumberInput label={Locale::WIDTH} value={mut self.settings.values.width} least={LEAST_WIDTH} most={1200} step={10}
+                       unit={Unit::None} />
+          <NumberInput label={Locale::HEIGHT} value={mut self.settings.values.height} least={LEAST_HEIGHT} most={800} step={10}
+                       unit={Unit::None} />
         </Section>
-        <Section title={Locale.SECTION_VISIBILITY}>
-          <NumberInput label={Locale.GROUND} hint={Locale.GROUND_TIP} value={mut self.settings.values.ground} least={0} most={1}
-                       step={0.05} unit={Unit.Percent} />
-          <Switch label={Locale.HIDE} hint={Locale.HIDE_TIP} value={mut self.settings.values.hide} />
-          <NumberInput $if={self.settings.values.hide} label={Locale.HIDDEN_OPACITY} hint={Locale.HIDDEN_OPACITY_TIP}
-                       value={mut self.settings.values.hiddenOpacity} least={0} most={1} step={0.05} unit={Unit.Percent} />
+        <Section title={Locale::SECTION_VISIBILITY}>
+          <NumberInput label={Locale::GROUND} hint={Locale::GROUND_TIP} value={mut self.settings.values.ground} least={0} most={1}
+                       step={0.05} unit={Unit::Percent} />
+          <Switch label={Locale::HIDE} hint={Locale::HIDE_TIP} value={mut self.settings.values.hide} />
+          <NumberInput $if={self.settings.values.hide} label={Locale::HIDDEN_OPACITY} hint={Locale::HIDDEN_OPACITY_TIP}
+                       value={mut self.settings.values.hiddenOpacity} least={0} most={1} step={0.05} unit={Unit::Percent} />
         </Section>
-        <Section title={Locale.SECTION_LINES}>
-          <NumberInput label={Locale.MESSAGE_GAP} hint={Locale.MESSAGE_GAP_TIP} value={mut self.settings.values.messageGap} least={0}
-                       most={MESSAGE_GAP_MOST} step={0.5} unit={Unit.None} />
-          <Switch label={Locale.OWN_TEXT_SIZE} hint={Locale.OWN_TEXT_SIZE_TIP} value={mut self.settings.values.ownTextSize} />
-          <NumberInput $if={self.settings.values.ownTextSize} label={Locale.TEXT_SIZE} value={mut self.settings.values.textSize}
-                       least={10} most={20} step={1} unit={Unit.None} />
+        <Section title={Locale::SECTION_LINES}>
+          <NumberInput label={Locale::MESSAGE_GAP} hint={Locale::MESSAGE_GAP_TIP} value={mut self.settings.values.messageGap} least={0}
+                       most={MESSAGE_GAP_MOST} step={0.5} unit={Unit::None} />
+          <Switch label={Locale::OWN_TEXT_SIZE} hint={Locale::OWN_TEXT_SIZE_TIP} value={mut self.settings.values.ownTextSize} />
+          <NumberInput $if={self.settings.values.ownTextSize} label={Locale::TEXT_SIZE} value={mut self.settings.values.textSize}
+                       least={10} most={20} step={1} unit={Unit::None} />
         </Section>
-        <Section title={Locale.SECTION_INPUT}>
-          <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
+        <Section title={Locale::SECTION_INPUT}>
+          <Switch label={Locale::INPUT_ALWAYS} hint={Locale::INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
         </Section>
       </box>
     }

@@ -4,35 +4,35 @@ import Test from "$test"
 import { Named, NamedKind, ScrollText, markNames } from "@/names"
 
 function figure(name: String, id: Integer): Named {
-  return { name: name, kind: NamedKind.Figure, link: `ordaen:npc:${id}`, lines: ["Objective", "Elwynn Forest"] }
+  return { name: name, kind: NamedKind::Figure, link: `ordaen:npc:${id}`, lines: ["Objective", "Elwynn Forest"] }
 }
 
 function item(name: String, id: Integer): Named {
-  return { name: name, kind: NamedKind.Item, link: `item:${id}`, lines: [] }
+  return { name: name, kind: NamedKind::Item, link: `item:${id}`, lines: [] }
 }
 
 test "a name is found where the language bends its words, a hyphened one too, and marked in its ink" {
   const text = "Убейте 8 кобольдов-геомантов в Яшмовой шахте, а затем вернитесь к Хэмишу Бергворту рядом с башней."
   const marked = markNames(text, [figure("Кобольд-геомант", 1), figure("Хэмиш Бергворт", 2)])
-  Test.expect(marked.contains("|Hordaen:npc:1|h|cff7a2200кобольдов-геомантов|r|h в Яшмовой"))
-  Test.expect(marked.contains("к |Hordaen:npc:2|h|cff7a2200Хэмишу Бергворту|r|h рядом"))
+  Test::expect(marked.contains("|Hordaen:npc:1|h|cff7a2200кобольдов-геомантов|r|h в Яшмовой"))
+  Test::expect(marked.contains("к |Hordaen:npc:2|h|cff7a2200Хэмишу Бергворту|r|h рядом"))
 }
 
 test "in English an item and an NPC are found as they stand and with an ending, a longer name first" {
   const text = "Bring 10 Linen Cloth to Gryan Stoutmantle. Gryan's men are waiting."
   const marked = markNames(text, [figure("Gryan", 3), figure("Gryan Stoutmantle", 2), item("Linen Cloth", 2589)])
-  Test.expect(marked.contains("10 |Hitem:2589|h|cff123c6eLinen Cloth|r|h to"))
-  Test.expect(marked.contains("|Hordaen:npc:2|h|cff7a2200Gryan Stoutmantle|r|h."))
+  Test::expect(marked.contains("10 |Hitem:2589|h|cff123c6eLinen Cloth|r|h to"))
+  Test::expect(marked.contains("|Hordaen:npc:2|h|cff7a2200Gryan Stoutmantle|r|h."))
   // The shorter name stands alone where the longer isn't: «Gryan's», its ending kept in the mark.
-  Test.expect(marked.contains("|Hordaen:npc:3|h|cff7a2200Gryan's|r|h men"))
+  Test::expect(marked.contains("|Hordaen:npc:3|h|cff7a2200Gryan's|r|h men"))
 }
 
 test "a short name is found only whole, another word that begins as it does is left, a text with codes left as is" {
-  Test.expect(markNames("The ox went to Oxford.", [figure("Ox", 4)]) == "The |Hordaen:npc:4|h|cff7a2200ox|r|h went to Oxford.")
-  Test.expect(markNames("Nobody here.", [figure("Hogger", 5)]) == "Nobody here.")
+  Test::expect(markNames("The ox went to Oxford.", [figure("Ox", 4)]) == "The |Hordaen:npc:4|h|cff7a2200ox|r|h went to Oxford.")
+  Test::expect(markNames("Nobody here.", [figure("Hogger", 5)]) == "Nobody here.")
   // The game's own colour round a word: marking a name inside it would break it.
   const coloured = "Find |cffffd100Hogger|r in Elwynn."
-  Test.expect(markNames(coloured, [figure("Hogger", 5)]) == coloured)
+  Test::expect(markNames(coloured, [figure("Hogger", 5)]) == coloured)
 }
 
 class Page {
@@ -48,12 +48,12 @@ class Page {
 
 test "under the cursor an NPC's name shows a tip of its lines, and it goes as the cursor leaves the name" {
   const page = new Page()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 400 })
-  const words = Test.page().texts().find(one => one.contains("Gryan")) ?? panic("the text is drawn")
-  Test.page().text(words).hoverLink("ordaen:npc:2")
-  Test.expect(Test.page().text("Gryan Stoutmantle").shown())
-  Test.expect(Test.page().text("Objective\nElwynn Forest").shown())
-  Test.moveTo({ x: 590, y: 390 })
-  Test.expect(!Test.page().text("Objective\nElwynn Forest").shown())
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 400 })
+  const words = Test::page().texts().find(one => one.contains("Gryan")) ?? panic("the text is drawn")
+  Test::page().text(words).hoverLink("ordaen:npc:2")
+  Test::expect(Test::page().text("Gryan Stoutmantle").shown())
+  Test::expect(Test::page().text("Objective\nElwynn Forest").shown())
+  Test::moveTo({ x: 590, y: 390 })
+  Test::expect(!Test::page().text("Objective\nElwynn Forest").shown())
   destroy page
 }

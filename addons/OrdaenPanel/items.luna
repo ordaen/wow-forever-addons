@@ -6,7 +6,7 @@ import { Component } from "Ordaen"
 import { CELL_HEIGHT } from "@/cells"
 import { Cell, CellGroup } from "@/group"
 
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 // The panel's whole width: what wraps in it.
 const WHOLE: Array<Track> = [{ fr: 1 }]
 const PAIR: Array<Track> = ["max-content", "max-content"]
@@ -17,30 +17,30 @@ const PAIR: Array<Track> = ["max-content", "max-content"]
 // the account's stands for.
 function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: Boolean, accountMerged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
-  if (faced) { cells.push(Cell.Face) }
-  cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game.frames.ProfessionMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game.frames.SpellbookMicroButton, friends: false })
+  if (faced) { cells.push(Cell::Face) }
+  cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game::frames.ProfessionMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game::frames.SpellbookMicroButton, friends: false })
   if (!merged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game.frames.TalentMicroButton, friends: false })
+    cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game::frames.TalentMicroButton, friends: false })
   }
-  const legacy = accountMerged ? Game.frames.CollectionsMicroButton : Game.frames.LegacyMicroButton
+  const legacy = accountMerged ? Game::frames.CollectionsMicroButton : Game::frames.LegacyMicroButton
   cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: legacy, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game.frames.QuestLogMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game.frames.LFDMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game::frames.QuestLogMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game::frames.LFDMicroButton, friends: false })
   if (!accountMerged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
+    cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game::frames.CollectionsMicroButton, friends: false })
   }
   if (social) { pushSocial(cells, guildMerged) }
   // The game menu's button is the menu's last, whatever stands before it.
-  cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game.frames.MainMenuMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game::frames.MainMenuMicroButton, friends: false })
   return cells
 }
 
 // Friends, with how many are online, and the guild (unless one window holds both).
 function pushSocial(cells: mut Array<Cell>, guildMerged: Boolean) {
-  cells.push(Cell.Menu { icon: "@/assets/micro-social.tga", frame: Game.frames.QuickJoinToastButton, friends: true })
+  cells.push(Cell.Menu { icon: "@/assets/micro-social.tga", frame: Game::frames.QuickJoinToastButton, friends: true })
   if (!guildMerged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game.frames.GuildMicroButton, friends: false })
+    cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game::frames.GuildMicroButton, friends: false })
   }
 }
 
@@ -141,13 +141,13 @@ function socialOf(guildMerged: Boolean): Array<Cell> {
 
 // The money, and the currency the player follows beside it.
 public class MoneyLine implements Component {
-  derived money: String = Game.money.format(Game.money.amount)
-  derived tracks: Boolean = Game.money.tracked != ""
+  derived money: String = Game::money.format(Game::money.amount)
+  derived tracks: Boolean = Game::money.tracked != ""
   // Down a side of the screen the two stand one under the other, in the panel's middle, the money wrapping in its
   // width.
   derived columns: Array<Track> = self.vertical ? WHOLE : PAIR
   derived gap: Number<Spacing> = self.vertical ? 1sp : 3.5sp
-  derived across: Align = self.vertical ? Align.Center : Align.Stretch
+  derived across: Align = self.vertical ? Align::Center : Align::Stretch
 
   outline: Signal<Integer>
   shadow: Signal<Shadow>
@@ -165,10 +165,10 @@ public class MoneyLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align.Center}>
+      <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align::Center}>
         <text value={self.money} textColor={INK} textOutline={self.outline}
-              textShadow={self.shadow} wrap={self.vertical ? TextWrap.Words : TextWrap.None} />
-        <text $if={self.tracks} value={Game.money.tracked} textColor={INK}
+              textShadow={self.shadow} wrap={self.vertical ? TextWrap::Words : TextWrap::None} />
+        <text $if={self.tracks} value={Game::money.tracked} textColor={INK}
               textOutline={self.outline} textShadow={self.shadow} wrap={.None} />
       </box>
     }
@@ -180,8 +180,8 @@ public class MoneyLine implements Component {
 public class BagLine implements Component {
   // The keyring has no cell: its keys are read with the bags, under their own tab. The game's keyring button is kept
   // unseen.
-  derived cells: Array<Cell> = Game.bags.buttons.filter(button => button.kind != Game.BagKind.Keyring).map(button => Cell.Bag { button: button })
-  derived keyrings: Array<any Frame> = Game.bags.buttons.filter(button => button.kind == Game.BagKind.Keyring).map(button => button.frame)
+  derived cells: Array<Cell> = Game::bags.buttons.filter(button => button.kind != Game::BagKind::Keyring).map(button => Cell.Bag { button: button })
+  derived keyrings: Array<any Frame> = Game::bags.buttons.filter(button => button.kind == Game::BagKind::Keyring).map(button => button.frame)
 
   vertical: Signal<Boolean>
   height: Signal<Number<Length>>

@@ -28,7 +28,7 @@ const ROW_LEAST = 82.03125dp
 const CELL_ROWS: Array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
 // An arrow's line and its edge, and its head (the client's is 14 by 12 px, here at the nodes' scale).
 const LINE = 4.6875dp
-const LINE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#000000") }
+const LINE_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
 const HEAD = 21.09375dp
 // Where a cell's vertical line and its node stand across it, and where its horizontal line stands down its node's row.
 const MIDDLE: Number<Length> = (STEP - LINE) / 2
@@ -43,16 +43,16 @@ const RANK_TEXT = 1.75rem
 const RANK_OUTLINE = 1
 // The rank of the ranks, small at a node's lower right (`TalentButtonLegacyMixin`), white.
 const FRACTION_TEXT = 0.85rem
-const WHITE: Color = Color.hex("#ffffff")
-const GOLD: Color = Color.hex("#ffd100")
-const GREEN: Color = Color.hex("#19ff19")
-const GREY: Color = Color.hex("#808080")
-const DIM: Color = Color.hex("#a3977f")
+const WHITE: Color = Color::hex("#ffffff")
+const GOLD: Color = Color::hex("#ffd100")
+const GREEN: Color = Color::hex("#19ff19")
+const GREY: Color = Color::hex("#808080")
+const DIM: Color = Color::hex("#a3977f")
 // The veil over a node that can't be learned: dark, darker where its tree lacks the points.
-const VEIL: Color = Color.hex("#000000")
+const VEIL: Color = Color::hex("#000000")
 // A tooltip's line for what isn't met yet, as the client writes it.
-const RED: Color = Color.hex("#ff2020")
-const EDGE: Color = Color.hex("#4a3a24")
+const RED: Color = Color::hex("#ff2020")
+const EDGE: Color = Color::hex("#4a3a24")
 // The client's talent frames and arrowheads, by what a node may do.
 const FRAME_FULL: Atlas = "talents-node-square-yellow"
 const FRAME_OPEN: Atlas = "talents-node-square-green"
@@ -70,7 +70,7 @@ public enum Way { Down, Right, Left }
 // (`west`, `east`), and its head (`head`, pointing `way`) where it ends at the cell's node. Each is the line's colour, or
 // nil where the cell has none of it.
 public struct TreeCell {
-  node: Game.TalentNode | nil = nil
+  node: Game::TalentNode | nil = nil
   up: Color | nil = nil
   through: Color | nil = nil
   lower: Color | nil = nil
@@ -78,7 +78,7 @@ public struct TreeCell {
   west: Color | nil = nil
   east: Color | nil = nil
   head: Atlas | nil = nil
-  way: Way = Way.Down
+  way: Way = Way::Down
 }
 
 // A tree's cells, row by row: how many columns and rows it has, and each cell.
@@ -89,16 +89,16 @@ public struct TreeGrid {
 }
 
 // Where a tree's nodes begin: the smallest x or y.
-function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
-  let least = Number.huge
+function leastOf(nodes: Array<Game::TalentNode>, vertical: Boolean): Number {
+  let least = Number::huge
   for (node of nodes) { least = least.min(vertical ? node.y : node.x) }
   return nodes.length == 0 ? 0 : least
 }
 
 // The client's grid of a tree: the least gap between two of its nodes across or down (a talent tree's `CELL`, a Legacy
 // tree's own), `CELL` where no two stand apart.
-function cellOf(nodes: Array<Game.TalentNode>): Number {
-  let cell = Number.huge
+function cellOf(nodes: Array<Game::TalentNode>): Number {
+  let cell = Number::huge
   for (node of nodes) {
     for (other of nodes) {
       const across = (node.x - other.x).abs()
@@ -107,7 +107,7 @@ function cellOf(nodes: Array<Game.TalentNode>): Number {
       if (down > 0) { cell = cell.min(down) }
     }
   }
-  return cell == Number.huge ? CELL : cell
+  return cell == Number::huge ? CELL : cell
 }
 
 // The column or row of the client's grid a node stands in, from the tree's first.
@@ -116,7 +116,7 @@ function stepOf(at: Number, least: Number, cell: Number): Integer {
 }
 
 // A tree laid out on its grid, its arrows drawn into the cells they cross.
-public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
+public function gridOf(nodes: Array<Game::TalentNode>): TreeGrid {
   const leastX = leastOf(nodes, false)
   const leastY = leastOf(nodes, true)
   const cell = cellOf(nodes)
@@ -151,7 +151,7 @@ public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
             }
             if (toRow == fromRow) {
               at(toColumn, toRow).head = head
-              at(toColumn, toRow).way = right ? Way.Right : Way.Left
+              at(toColumn, toRow).way = right ? Way::Right : Way::Left
             } else {
               at(toColumn, fromRow).lower = color
             }
@@ -166,7 +166,7 @@ public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
             }
             at(toColumn, toRow).up = color
             at(toColumn, toRow).head = head
-            at(toColumn, toRow).way = Way.Down
+            at(toColumn, toRow).way = Way::Down
           }
         }
       }
@@ -176,31 +176,31 @@ public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
 }
 
 // The points spent in a tree.
-public function spentIn(tree: Game.TalentTree): Integer {
+public function spentIn(tree: Game::TalentTree): Integer {
   let sum = 0
   for (node of tree.nodes) { sum += node.rank }
   return sum
 }
 
 // What a node's tooltip says under its name: what the rank held does, or the first rank where it holds none.
-function tipTextOf(node: Game.TalentNode): String {
+function tipTextOf(node: Game::TalentNode): String {
   return (node.rank > 0 ? node.current : node.next) ?? ""
 }
 
 // Its rows: its rank of its ranks, each point its tree still needs (red), and that a click learns it where one may.
-function tipRowsOf(node: Game.TalentNode): Array<TipRow> {
-  const rows: Array<TipRow> = [{ label: Locale.TALENT_RANK, value: "%d/%d".format(node.rank, node.ranks) }]
+function tipRowsOf(node: Game::TalentNode): Array<TipRow> {
+  const rows: Array<TipRow> = [{ label: Locale::TALENT_RANK, value: "%d/%d".format(node.rank, node.ranks) }]
   for (condition of node.conditions) {
-    if (!condition.met) { rows.push({ label: Locale.TALENT_TREE_POINTS.format(condition.points), value: "", tone: RED }) }
+    if (!condition.met) { rows.push({ label: Locale::TALENT_TREE_POINTS.format(condition.points), value: "", tone: RED }) }
   }
-  if (node.canSpend) { rows.push({ label: Locale.TALENT_LEARN, value: "", tone: GREEN }) }
+  if (node.canSpend) { rows.push({ label: Locale::TALENT_LEARN, value: "", tone: GREEN }) }
   return rows
 }
 
 // Its next rank, where it holds one and has another.
-function tipSectionsOf(node: Game.TalentNode): Array<TipSection> {
+function tipSectionsOf(node: Game::TalentNode): Array<TipSection> {
   const next = node.next
-  return node.rank > 0 && next != nil ? [{ title: Locale.TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
+  return node.rank > 0 && next != nil ? [{ title: Locale::TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
 }
 
 // A node's look, as the client's talent window finds it (`CalculateVisualState`), the first that holds: a rank that no
@@ -208,7 +208,7 @@ function tipSectionsOf(node: Game.TalentNode): Array<TipSection> {
 // unlearned, else nothing it may do now (no points left to spend, say).
 enum Look { Stranded, Maxed, Selectable, Progress, Gated, Locked, Disabled }
 
-function lookOf(node: Game.TalentNode): Look {
+function lookOf(node: Game::TalentNode): Look {
   if (node.stranded) { return .Stranded }
   if (node.rank > 0 && node.rank >= node.ranks) { return .Maxed }
   if (node.canSpend && !node.locked) { return .Selectable }
@@ -257,10 +257,10 @@ class TalentNodeView implements Component {
   derived ranks: String = "%d/%d".format(self.node.rank, self.node.ranks)
   derived veiled: Boolean = self.art.veil > 0
 
-  node: Signal<Game.TalentNode>
+  node: Signal<Game::TalentNode>
   search: Signal<String>
   const fraction: Boolean
-  constructor(node: Signal<Game.TalentNode>, search: Signal<String>, fraction: Boolean) {
+  constructor(node: Signal<Game::TalentNode>, search: Signal<String>, fraction: Boolean) {
     self.node = node
     self.search = search
     self.fraction = fraction
@@ -269,8 +269,8 @@ class TalentNodeView implements Component {
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
 
-  onClick(mut self, click: Event.Press) {
-    if (click.button == MouseButton.Right) {
+  onClick(mut self, click: Event::Press) {
+    if (click.button == MouseButton::Right) {
       self.refund.emit(self.node.id)
     } else {
       self.spend.emit(self.node.id)
@@ -279,19 +279,19 @@ class TalentNodeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
+      <box position={Position::Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
            zLevel={2} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET} bottom={ICON_INSET}
+        <box position={Position::Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET} bottom={ICON_INSET}
              icon={self.node.icon} desaturate={self.art.grey} />
-        <box $if={self.veiled} position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET}
+        <box $if={self.veiled} position={Position::Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET}
              bottom={ICON_INSET} background={VEIL} opacity={self.art.veil} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art.frame} />
-        <box $if={self.ranked} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Stretch}
-             yAlign={Align.Center}>
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art.frame} />
+        <box $if={self.ranked} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align::Stretch}
+             yAlign={Align::Center}>
           <text value={self.rank} textSize={RANK_TEXT} textColor={self.art.rank} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers}
                 leading={.Tight} textAlign={.Center} />
         </box>
-        <box $if={self.fraction} position={Position.Absolute} right={1ui} bottom={1ui}>
+        <box $if={self.fraction} position={Position::Absolute} right={1ui} bottom={1ui}>
           <text value={self.ranks} textSize={FRACTION_TEXT} textColor={WHITE} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers}
                 leading={.Tight} />
         </box>
@@ -302,7 +302,7 @@ class TalentNodeView implements Component {
 }
 
 // A cell's node as a list: none, or the one.
-function nodesOf(cell: TreeCell): Array<Game.TalentNode> {
+function nodesOf(cell: TreeCell): Array<Game::TalentNode> {
   const node = cell.node
   return node == nil ? [] : [node]
 }
@@ -312,12 +312,12 @@ class TreeCellView implements Component {
   public spend: Event<Integer> = new Event()
   public refund: Event<Integer> = new Event()
 
-  derived headTurn: Number<Angle> = self.cell.way == Way.Right ? -90deg : self.cell.way == Way.Left ? 90deg : 0deg
-  derived headDown: Boolean = self.cell.head != nil && self.cell.way == Way.Down
-  derived headAcross: Boolean = self.cell.head != nil && self.cell.way != Way.Down
-  derived headLeft: Number<Length> = self.cell.way == Way.Right ? NODE_LEFT - HEAD : NODE_LEFT + SIZE
+  derived headTurn: Number<Angle> = self.cell.way == Way::Right ? -90deg : self.cell.way == Way::Left ? 90deg : 0deg
+  derived headDown: Boolean = self.cell.head != nil && self.cell.way == Way::Down
+  derived headAcross: Boolean = self.cell.head != nil && self.cell.way != Way::Down
+  derived headLeft: Number<Length> = self.cell.way == Way::Right ? NODE_LEFT - HEAD : NODE_LEFT + SIZE
   // The cell's node, where it has one.
-  derived nodes: Array<Game.TalentNode> = nodesOf(self.cell)
+  derived nodes: Array<Game::TalentNode> = nodesOf(self.cell)
 
   cell: Signal<TreeCell>
   search: Signal<String>
@@ -335,29 +335,29 @@ class TreeCellView implements Component {
     return $ltml {
       // Each row's box as high as its row: what it holds is placed by offsets, and the client draws nothing of a box
       // with no height.
-      <box rows={CELL_ROWS} width={STEP} yAlign={Align.Stretch}>
+      <box rows={CELL_ROWS} width={STEP} yAlign={Align::Stretch}>
         <box>
-          <box $if={self.cell.up != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui} width={LINE}
+          <box $if={self.cell.up != nil} position={Position::Absolute} left={MIDDLE} top={0ui} bottom={0ui} width={LINE}
                background={self.cell.up} border={LINE_EDGE} />
-          <box $if={self.headDown} position={Position.Absolute} left={(STEP - HEAD) / 2} bottom={0ui} width={HEAD}
+          <box $if={self.headDown} position={Position::Absolute} left={(STEP - HEAD) / 2} bottom={0ui} width={HEAD}
                height={HEAD} background={self.cell.head} />
         </box>
         <box>
-          <box $if={self.cell.through != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui}
+          <box $if={self.cell.through != nil} position={Position::Absolute} left={MIDDLE} top={0ui} bottom={0ui}
                width={LINE} background={self.cell.through} border={LINE_EDGE} />
-          <box $if={self.cell.lower != nil} position={Position.Absolute} left={MIDDLE} top={ACROSS_TOP} bottom={0ui}
+          <box $if={self.cell.lower != nil} position={Position::Absolute} left={MIDDLE} top={ACROSS_TOP} bottom={0ui}
                width={LINE} background={self.cell.lower} border={LINE_EDGE} />
-          <box $if={self.cell.west != nil} position={Position.Absolute} left={0ui} top={ACROSS_TOP} width={HALF}
+          <box $if={self.cell.west != nil} position={Position::Absolute} left={0ui} top={ACROSS_TOP} width={HALF}
                height={LINE} background={self.cell.west} border={LINE_EDGE} />
-          <box $if={self.cell.east != nil} position={Position.Absolute} left={HALF} top={ACROSS_TOP} width={HALF}
+          <box $if={self.cell.east != nil} position={Position::Absolute} left={HALF} top={ACROSS_TOP} width={HALF}
                height={LINE} background={self.cell.east} border={LINE_EDGE} />
-          <box $if={self.headAcross} position={Position.Absolute} left={self.headLeft} top={(SIZE - HEAD) / 2}
+          <box $if={self.headAcross} position={Position::Absolute} left={self.headLeft} top={(SIZE - HEAD) / 2}
                width={HEAD} height={HEAD} background={self.cell.head} rotation={self.headTurn} zLevel={1} />
           <TalentNodeView $for={node of self.nodes} $key={node.id} node={node} search={self.search} fraction={self.fraction} @spend={self.onSpend}
                           @refund={self.onRefund} />
         </box>
         <box>
-          <box $if={self.cell.down != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui}
+          <box $if={self.cell.down != nil} position={Position::Absolute} left={MIDDLE} top={0ui} bottom={0ui}
                width={LINE} background={self.cell.down} border={LINE_EDGE} />
         </box>
       </box>
@@ -376,12 +376,12 @@ public class TalentTreeView implements Component {
   derived columns: Array<Track> = tracksOf(self.grid.columns, STEP)
   derived rows: Array<Track> = rowTracksOf(self.grid.rows)
 
-  tree: Signal<Game.TalentTree>
+  tree: Signal<Game::TalentTree>
   search: Signal<String>
   const titled: Boolean
   const fraction: Boolean
   constructor(
-    tree: Signal<Game.TalentTree>,
+    tree: Signal<Game::TalentTree>,
     search: Signal<String> = "",
     // The tree's name and points over it; none where its owner names the tree (Legacy's list of trees).
     titled: Boolean = true,
@@ -400,7 +400,7 @@ public class TalentTreeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={self.parts} gap={3sp} xAlign={Align.Center}>
+      <box rows={self.parts} gap={3sp} xAlign={Align::Center}>
         <text $if={self.titled} value={self.title} textColor={GOLD} wrap={.None} />
         <box columns={self.columns} rows={self.rows}>
           <TreeCellView $for={index, cell of self.grid.cells} $key={index} cell={cell} search={self.search} fraction={self.fraction}

@@ -12,7 +12,7 @@ import { EVERY_STAT, MAINS, Stat } from "@/stat"
 public struct Rates implements Plain {
   const bases: Map<String, Number> = {}
   const conversions: Conversions = {}
-  const resource: Resource = Resource.Mana
+  const resource: Resource = Resource::Mana
 }
 
 // The rates the account's characters showed, by `ratesKey`.

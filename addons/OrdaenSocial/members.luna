@@ -16,24 +16,24 @@ import Style from "@/style"
 public enum Show { Everyone, Online }
 
 const SHOWS: Array<Choice<Show>> = [
-  { value: .Everyone, label: Locale.SHOW_EVERYONE },
-  { value: .Online, label: Locale.SHOW_ONLINE }
+  { value: .Everyone, label: Locale::SHOW_EVERYONE },
+  { value: .Online, label: Locale::SHOW_ONLINE }
 ]
 // What the guild roster's last column shows, as the game's guild window's extra column: the note, the professions or
 // the achievement points.
 public enum Extra { Note, Professions, Achievements }
 
 const EXTRAS: Array<Choice<Extra>> = [
-  { value: .Note, label: Locale.COLUMN_NOTE },
-  { value: .Professions, label: Locale.COLUMN_PROFESSIONS },
-  { value: .Achievements, label: Locale.COLUMN_ACHIEVEMENTS }
+  { value: .Note, label: Locale::COLUMN_NOTE },
+  { value: .Professions, label: Locale::COLUMN_PROFESSIONS },
+  { value: .Achievements, label: Locale::COLUMN_ACHIEVEMENTS }
 ]
 
 function extraTitle(extra: Extra): String {
   return match (extra) {
-    .Note => Locale.COLUMN_NOTE
-    .Professions => Locale.COLUMN_PROFESSIONS
-    .Achievements => Locale.COLUMN_ACHIEVEMENTS
+    .Note => Locale::COLUMN_NOTE
+    .Professions => Locale::COLUMN_PROFESSIONS
+    .Achievements => Locale::COLUMN_ACHIEVEMENTS
   }
 }
 
@@ -42,7 +42,7 @@ function extraOf(member: Member, extra: Extra): String {
   return match (extra) {
     .Note => member.note
     .Professions => member.professions
-    .Achievements => member.achievementPoints > 0 ? String.of(member.achievementPoints) : ""
+    .Achievements => member.achievementPoints > 0 ? String::of(member.achievementPoints) : ""
   }
 }
 
@@ -55,10 +55,10 @@ const RANK_WIDTH = 140.625dp
 function guildColumns(extra: Extra): Array<Column> {
   return [
     { title: "", width: STATUS_WIDTH },
-    { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.Center, sortable: true },
-    { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
-    { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
-    { title: Locale.COLUMN_RANK, width: RANK_WIDTH, sortable: true },
+    { title: Locale::COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align::Center, sortable: true },
+    { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
+    { title: Locale::COLUMN_ZONE, width: { fr: 1 }, sortable: true },
+    { title: Locale::COLUMN_RANK, width: RANK_WIDTH, sortable: true },
     { title: extraTitle(extra), width: { fr: 1 }, sortable: true }
   ]
 }
@@ -71,14 +71,14 @@ const PROFESSION_COLUMNS: Array<Column> = guildColumns(.Professions)
 const ACHIEVEMENT_COLUMNS: Array<Column> = guildColumns(.Achievements)
 const CLUB_COLUMNS: Array<Column> = [
   { title: "", width: STATUS_WIDTH },
-  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.Center, sortable: true },
-  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_ROLE, width: RANK_WIDTH, sortable: true },
-  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
+  { title: Locale::COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align::Center, sortable: true },
+  { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_ZONE, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_ROLE, width: RANK_WIDTH, sortable: true },
+  { title: Locale::COLUMN_NOTE, width: { fr: 1 }, sortable: true }
 ]
 // The sorts no column shows, the toolbar's alone: `columns.length + 1` and on.
-const MORE_SORTS: Array<String> = [Locale.COLUMN_CLASS]
+const MORE_SORTS: Array<String> = [Locale::COLUMN_CLASS]
 // The columns as they are numbered from 1, then the toolbar's own sorts.
 const BY_LEVEL = 2
 const BY_NAME = 3
@@ -92,7 +92,7 @@ function online(member: Member): Boolean { return member.presence != .Offline }
 // Where a member is: the zone while online, when last online while offline.
 public function whereOf(member: Member): String {
   if (online(member)) { return member.zone }
-  return member.away > 0 ? hoursAgoText(member.away) : Locale.OFFLINE_LOWER
+  return member.away > 0 ? hoursAgoText(member.away) : Locale::OFFLINE_LOWER
 }
 
 // -1 where `a` comes first, 1 where `b` does, 0 where they stand alike.
@@ -140,8 +140,8 @@ public function shownOf(members: Array<Member>, query: String, show: Show, colum
 
 // The colour of a member's name: its class's, grey while offline.
 public function nameColorOf(member: Member): Color {
-  if (!online(member)) { return Style.OFFLINE }
-  return classColor(member.classFile) ?? Style.INK
+  if (!online(member)) { return Style::OFFLINE }
+  return classColor(member.classFile) ?? Style::INK
 }
 
 // A member as a row: a click picks it, a right click opens the game's menu of it.
@@ -150,8 +150,8 @@ class MemberRow implements Component {
   public menu: Event<String> = new Event()
 
   derived picked: Boolean = self.chosen == self.member.key
-  derived level: String = self.member.level > 0 ? String.of(self.member.level) : ""
-  derived ink: Color = online(self.member) ? Style.INK : Style.OFFLINE
+  derived level: String = self.member.level > 0 ? String::of(self.member.level) : ""
+  derived ink: Color = online(self.member) ? Style::INK : Style::OFFLINE
   derived last: String = extraOf(self.member, self.extra)
   // The note is cut at its column's edge; the professions and the points wrap.
   derived lastWrap: TextWrap = extraWrap(self.extra)
@@ -178,22 +178,22 @@ class MemberRow implements Component {
     return $ltml {
       <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell>
-          <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
+          <box width={Style::DOT} height={Style::DOT} background={markOf(self.member.presence)} />
         </TableCell>
-        <TableCell align={Align.Center}>
+        <TableCell align={Align::Center}>
           <text value={self.level} textColor={self.ink} textFont={.Numbers} />
         </TableCell>
         <TableCell>
           <text value={self.member.name} textColor={nameColorOf(self.member)} />
         </TableCell>
         <TableCell>
-          <text value={whereOf(self.member)} textColor={Style.DIM} />
+          <text value={whereOf(self.member)} textColor={Style::DIM} />
         </TableCell>
         <TableCell>
           <text value={self.member.rank} textColor={self.ink} />
         </TableCell>
         <TableCell>
-          <text value={self.last} textColor={Style.DIM} wrap={self.lastWrap} />
+          <text value={self.last} textColor={Style::DIM} wrap={self.lastWrap} />
         </TableCell>
       </TableRow>
     }
@@ -213,7 +213,7 @@ public class MemberTable implements Component {
   state extra: Extra = .Note
   derived shown: Array<Member> = shownOf(self.members, self.query, self.show, self.sorted, self.descending, self.extra)
   derived lit: Boolean = self.show != .Everyone
-  derived empty: String = self.shown.length == 0 ? Locale.NOTHING_FOUND : ""
+  derived empty: String = self.shown.length == 0 ? Locale::NOTHING_FOUND : ""
 
   members: Signal<Array<Member>>
   chosen: Signal<String>
@@ -234,11 +234,11 @@ public class MemberTable implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box padding={Style.SIDE_ROOM}>
-          <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
-            <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
-            <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
-            <ToolPick $if={self.guild} value={mut self.extra} choices={EXTRAS} icon={Ordaen.art.ctl.tool.columns} title={Locale.EXTRA_COLUMN} />
+        <box padding={Style::SIDE_ROOM}>
+          <Toolbar search={mut self.query} placeholder={Locale::SEARCH_MEMBERS}>
+            <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale::SHOW} lit={self.lit} />
+            <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale::SORT} more={MORE_SORTS} />
+            <ToolPick $if={self.guild} value={mut self.extra} choices={EXTRAS} icon={Ordaen.art.ctl.tool.columns} title={Locale::EXTRA_COLUMN} />
           </Toolbar>
         </box>
         <box $if={self.extra == .Professions} columns={1} rows={[{ fr: 1 }]}>
@@ -274,7 +274,7 @@ public class MemberCard implements Component {
   public demote: Event<nil> = new Event()
   public menu: Event<nil> = new Event()
 
-  derived sub: String = Locale.CARD_CHARACTER_LEVEL.format(self.member.className, self.member.level)
+  derived sub: String = Locale::CARD_CHARACTER_LEVEL.format(self.member.className, self.member.level)
   derived status: String = self.statusOf()
   derived canAsk: Boolean = online(self.member)
   derived ranks: Boolean = self.rights.promote || self.rights.demote
@@ -303,29 +303,29 @@ public class MemberCard implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1} gap={3sp}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.member.presence)} />
+          <box columns={[Style::BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align::Center}>
+            <box width={Style::BIG_DOT} height={Style::BIG_DOT} background={markOf(self.member.presence)} />
             <box columns={1}>
               <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
-              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+              <text value={self.sub} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
-          <Fact label={Locale.STATUS} value={self.status} />
-          <Fact label={Locale.WHERE} value={orDash(online(self.member) ? self.member.zone : "")} />
+          <Fact label={Locale::STATUS} value={self.status} />
+          <Fact label={Locale::WHERE} value={orDash(online(self.member) ? self.member.zone : "")} />
           <Fact $if={self.member.rank != ""} label={self.rankTitle} value={self.member.rank} />
-          <Fact label={Locale.NOTE} value={orDash(self.member.note)} />
-          <Fact $if={self.member.officerNote != ""} label={Locale.OFFICER_NOTE} value={self.member.officerNote} />
+          <Fact label={Locale::NOTE} value={orDash(self.member.note)} />
+          <Fact $if={self.member.officerNote != ""} label={Locale::OFFICER_NOTE} value={self.member.officerNote} />
         </box>
         <box />
         <box columns={1} gap={3sp}>
           <box columns={["max-content", "max-content"]} gap={3sp}>
-            <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
-            <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
+            <PushButton label={Locale::WHISPER} width={Style::SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
+            <PushButton label={Locale::INVITE} width={Style::SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
           </box>
-          <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
+          <PushButton label={Locale::MORE} width={Style::MENU_BUTTON} @click={self.onMenu} />
           <box $if={self.ranks} columns={["max-content", "max-content"]} gap={3sp}>
-            <PushButton label={Locale.PROMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.promote} @click={self.onPromote} />
-            <PushButton label={Locale.DEMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.demote} @click={self.onDemote} />
+            <PushButton label={Locale::PROMOTE} width={Style::SMALL_BUTTON} disabled={!self.rights.promote} @click={self.onPromote} />
+            <PushButton label={Locale::DEMOTE} width={Style::SMALL_BUTTON} disabled={!self.rights.demote} @click={self.onDemote} />
           </box>
         </box>
       </box>

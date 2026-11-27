@@ -3,10 +3,10 @@
 import Client from "$client"
 
 public class TakenClick {
-  const button: any Client.Frame
+  const button: any Client::Frame
   const game: Unknown
 
-  constructor(button: any Client.Frame, run: () => nil) {
+  constructor(button: any Client::Frame, run: () => nil) {
     self.button = button
     self.game = button.GetScript("OnClick", nil)
     button.SetScript("OnClick", run)

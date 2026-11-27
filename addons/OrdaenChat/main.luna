@@ -24,7 +24,7 @@ import { ChatPage } from "@/settings"
 import { TabsPage } from "@/tabsPage"
 
 // Where an undocked window's pane stands until the player moves it: over the chat.
-const UNDOCKED: Anchored = { point: Point.BottomLeft, x: 8dp, y: -300dp }
+const UNDOCKED: Anchored = { point: Point::BottomLeft, x: 8dp, y: -300dp }
 const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
@@ -39,8 +39,8 @@ struct DefaultTab {
 }
 
 const DEFAULT_TABS: Array<DefaultTab> = [
-  { made: "OrdaenChat:guildWindow", name: Locale.TAB_GUILD_NAME, groups: ["GUILD", "OFFICER"], channels: false },
-  { made: "OrdaenChat:channelsWindow", name: Locale.TAB_CHANNELS_NAME, groups: ["CHANNEL"], channels: true }
+  { made: "OrdaenChat:guildWindow", name: Locale::TAB_GUILD_NAME, groups: ["GUILD", "OFFICER"], channels: false },
+  { made: "OrdaenChat:channelsWindow", name: Locale::TAB_CHANNELS_NAME, groups: ["CHANNEL"], channels: true }
 ]
 // The game's General window, which the channels leave for their own tab.
 const GENERAL = 1
@@ -58,8 +58,8 @@ public class Chat implements Module, App {
   // The default tabs asked for on the next frame.
   defaultTabsAsked = false
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
+    { title: Locale::TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
   ]
 
   // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows), and
@@ -71,10 +71,10 @@ public class Chat implements Module, App {
   // A web address clicked: shown to copy.
   public state copied = ""
   // The quest link whose quest the player is asked to abandon, and the items abandoning it destroys.
-  state abandoning: Event.Link | nil = nil
+  state abandoning: Event::Link | nil = nil
   state abandonItems: Array<String> = []
-  derived abandonAsk: String = Locale.QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
-  derived abandonLoses: String = Locale.QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
+  derived abandonAsk: String = Locale::QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
+  derived abandonLoses: String = Locale::QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil
   state newName = ""
@@ -89,7 +89,7 @@ public class Chat implements Module, App {
   derived awayOpacity: Number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
   // Where the chat stands until the player moves it: on the bottom panel at the screen's left, its tabs over the
   // character's portrait (the panel's room, none where it isn't along the bottom).
-  derived home: Anchored = { point: Point.BottomLeft, x: 0dp, y: -Panel.bottomRoom }
+  derived home: Anchored = { point: Point::BottomLeft, x: 0dp, y: -Panel.bottomRoom }
   // While the portrait shows, the tabs are at least its width and keep room at their foot for what of it rises over
   // the panel, so they stand above it.
   derived tabsLeast: Number<Length> = Panel.portraitShown ? PORTRAIT_WIDTH : 0ui
@@ -104,23 +104,23 @@ public class Chat implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    Game.chat.read(true)
-    Game.chat.heard.listen(self.onLine)
-    Game.chat.playerReported.listen(self.onReported)
-    Events.PLAYER_LOGOUT.listen(self.keep)
+    Game::chat.read(true)
+    Game::chat.heard.listen(self.onLine)
+    Game::chat.playerReported.listen(self.onReported)
+    Events::PLAYER_LOGOUT.listen(self.keep)
     // The game's windows loaded, and the player in the world: the guild's tab made where it is due.
-    Events.UPDATE_CHAT_WINDOWS.listen(self.onWindowsLoaded)
-    Events.PLAYER_ENTERING_WORLD.listen(self.onEnterWorld)
-    Events.CHANNEL_UI_UPDATE.listen(self.onWindowsLoaded)
-    watch (windows of Game.chat.windows) { self.sync() }
+    Events::UPDATE_CHAT_WINDOWS.listen(self.onWindowsLoaded)
+    Events::PLAYER_ENTERING_WORLD.listen(self.onEnterWorld)
+    Events::CHANNEL_UI_UPDATE.listen(self.onWindowsLoaded)
+    watch (windows of Game::chat.windows) { self.sync() }
     // Whispers are Ordaen Social's: the game opens no window of its own for them.
-    if (Social != nil) { Game.chat.whisperWindows(false) }
+    if (Social != nil) { Game::chat.whisperWindows(false) }
     // The input's history kept as the open tab chose.
-    watch { Game.chat.inputHistory(self.open?.history ?? .All) }
-    watch { Game.chat.inputShown(self.settings.values.inputAlways) }
+    watch { Game::chat.inputHistory(self.open?.history ?? .All) }
+    watch { Game::chat.inputShown(self.settings.values.inputAlways) }
     watch { self.chooseTabs(self.settings.values.tabs) }
     // The input opened (Enter): it speaks where the open tab's window last spoke (a whisper window, to its partner).
-    watch (typing of Game.chat.typing) {
+    watch (typing of Game::chat.typing) {
       if (typing) { self.speakHere() }
     }
     self.recall()
@@ -128,14 +128,14 @@ public class Chat implements Module, App {
 
   destructor() {
     self.keep()
-    Game.chat.read(false)
+    Game::chat.read(false)
   }
 
   // The tabs made anew from the game's windows; a tab whose key stays keeps its lines.
   sync(mut self) {
     const tabs: Array<ChatTab> = []
     const undocked: Array<ChatTab> = []
-    for (window of peek Game.chat.windows) {
+    for (window of peek Game::chat.windows) {
       const tab = self.tabOf(`w${window.index}`, window.name)
       tab.follow(window)
       if (window.docked || window.index == 1) {
@@ -151,7 +151,7 @@ public class Chat implements Module, App {
 
   // Each window's tab takes its own settings: the player's, else its window's defaults.
   chooseTabs(mut self, chosen: Map<String, TabChoices>) {
-    for (window of peek Game.chat.windows) {
+    for (window of peek Game::chat.windows) {
       const tab = self.made[tabKey(window.index)]
       if (tab != nil) { tab.choose(chosen[tab.key] ?? tabDefaults(window)) }
     }
@@ -167,7 +167,7 @@ public class Chat implements Module, App {
 
   // A line heard: a whisper Ordaen Social's, its words alone (their web addresses links); any other added to each tab
   // that shows it, drawn as the tab chose (its channel's name, its keywords' mark): made once for the tabs that agree.
-  onLine(mut self, line: Game.ChatLine) {
+  onLine(mut self, line: Game::ChatLine) {
     if (Social?.heard(line, line.secret != "" ? line.body : linked(line.text)) == true) { return }
     const open = peek self.openKey
     // The line as drawn, by how a tab draws it: its channel's name, its keywords.
@@ -199,7 +199,7 @@ public class Chat implements Module, App {
     if (tab.key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
   }
 
-  shownLine(self, line: Game.ChatLine, channelName: ChannelName, words: Array<String>): Shown {
+  shownLine(self, line: Game::ChatLine, channelName: ChannelName, words: Array<String>): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, session: THIS_SESSION, secret: true,
@@ -207,7 +207,7 @@ public class Chat implements Module, App {
       }
     }
     const channel = line.channel > 0 ? channelOf(line, channelName) : ""
-    const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
+    const own = line.sender == Game::player.name || line.sender.match("^([^%-]+)") == Game::player.name
     return {
       // The time where the game shows the chat's times: drawn where the tab places it.
       whole: `${channel}${linked(creatureNamed(line))}`, color: line.color, time: line.time, stamped: line.stamp != "",
@@ -221,8 +221,8 @@ public class Chat implements Module, App {
     self.openKey = tab.key
     const made = self.made[tab.key]
     if (made != nil) { made.unread = 0 }
-    if (tab.window > 0) { Game.chat.choose(tab.window) }
-    if (peek Game.chat.typing) { self.speakTo(tab) }
+    if (tab.window > 0) { Game::chat.choose(tab.window) }
+    if (peek Game::chat.typing) { self.speakTo(tab) }
   }
 
   // The input, opened, speaks where the open tab's window speaks: a whisper window's partner; another, where it last
@@ -233,16 +233,16 @@ public class Chat implements Module, App {
   }
 
   speakTo(mut self, tab: ChatTab) {
-    if (tab.window > 0) { Game.chat.speak(tab.window) }
+    if (tab.window > 0) { Game::chat.speak(tab.window) }
   }
 
   // A link clicked: a web address opens the copy box; any other is the game's.
-  onLink(mut self, link: Event.Link) {
+  onLink(mut self, link: Event::Link) {
     if (link.link.sub(1, PREFIX.length) == PREFIX) {
       self.copied = link.link.sub(PREFIX.length + 1)
       return
     }
-    Game.chat.click(link.link, link.text, link.button)
+    Game::chat.click(link.link, link.text, link.button)
   }
 
   onCopyClose(mut self) { self.copied = "" }
@@ -258,21 +258,21 @@ public class Chat implements Module, App {
       }
       .Settings => {
         self.editing = window
-        Ordaen.toggleSettings(Runtime.Addon.of(self))
+        Ordaen.toggleSettings(Runtime::Addon::of(self))
       }
-      .New => { _ = Game.chat.open(Locale.TAB_NEW_NAME) }
-      .Lock => { Game.chat.lock(window, !pick.tab.locked) }
-      .Interactable => { Game.chat.interactable(window, pick.tab.uninteractable) }
-      .Undock => { Game.chat.undock(window) }
-      .Dock => { Game.chat.dock(window) }
-      .Close => { Game.chat.close(window) }
+      .New => { _ = Game::chat.open(Locale::TAB_NEW_NAME) }
+      .Lock => { Game::chat.lock(window, !pick.tab.locked) }
+      .Interactable => { Game::chat.interactable(window, pick.tab.uninteractable) }
+      .Undock => { Game::chat.undock(window) }
+      .Dock => { Game::chat.dock(window) }
+      .Close => { Game::chat.close(window) }
     }
   }
 
   onRename(mut self) {
     const tab = peek self.renaming
     const name = peek self.newName
-    if (tab != nil && name != "") { Game.chat.rename(tab.window, name) }
+    if (tab != nil && name != "") { Game::chat.rename(tab.window, name) }
     self.renaming = nil
   }
 
@@ -291,21 +291,21 @@ public class Chat implements Module, App {
         if (social != nil) {
           social.whisperTo(name, false)
         } else {
-          Game.chat.click(pick.link.link, pick.link.text, .Left)
+          Game::chat.click(pick.link.link, pick.link.text, .Left)
         }
       }
-      .Invite => { Client.C_PartyInfo.InviteUnit(name) }
-      .Who => { Client.C_FriendList.SendWho(`n-"${name}"`, nil, nil) }
-      .Befriend => { Game.friends.add(name) }
-      .Ignore => { _ = Client.C_FriendList.AddIgnore(name) }
-      .More => { Game.chat.click(pick.link.link, pick.link.text, .Right) }
+      .Invite => { Client::C_PartyInfo::InviteUnit(name) }
+      .Who => { Client::C_FriendList::SendWho(`n-"${name}"`, nil, nil) }
+      .Befriend => { Game::friends.add(name) }
+      .Ignore => { _ = Client::C_FriendList::AddIgnore(name) }
+      .More => { Game::chat.click(pick.link.link, pick.link.text, .Right) }
       .ShowInLog => { _ = Quests?.openAt(quest) }
       .ShowOnMap => { _ = Quests?.showOnMap(quest) }
-      .Track => { Game.questLog.track(quest, true) }
-      .Untrack => { Game.questLog.track(quest, false) }
-      .Share => { Game.questLog.share(quest) }
+      .Track => { Game::questLog.track(quest, true) }
+      .Untrack => { Game::questLog.track(quest, false) }
+      .Share => { Game::questLog.share(quest) }
       .Abandon => {
-        self.abandonItems = Game.questLog.abandonItems(quest)
+        self.abandonItems = Game::questLog.abandonItems(quest)
         self.abandoning = pick.link
       }
       .Copy => { self.copied = pick.link.link.sub(1, PREFIX.length) == PREFIX ? pick.link.link.sub(PREFIX.length + 1) : shownName(pick.link) }
@@ -315,7 +315,7 @@ public class Chat implements Module, App {
   onAbandon(mut self) {
     const link = peek self.abandoning
     const quest = link != nil ? questOf(link.link) : nil
-    if (quest != nil) { Game.questLog.abandon(quest) }
+    if (quest != nil) { Game::questLog.abandon(quest) }
     self.abandoning = nil
   }
 
@@ -334,32 +334,32 @@ public class Chat implements Module, App {
   defaultTabsLater(mut self) {
     if (self.defaultTabsAsked) { return }
     self.defaultTabsAsked = true
-    Client.C_Timer.After(0, (): nil => {
+    Client::C_Timer::After(0, (): nil => {
       self.defaultTabsAsked = false
       for (tab of DEFAULT_TABS) { self.defaultTab(tab) }
     })
   }
 
   defaultTab(mut self, tab: DefaultTab) {
-    if (Game.saved.stored(Game.Scope.Character, tab.made) != nil) { return }
+    if (Game::saved.stored(Game::Scope::Character, tab.made) != nil) { return }
     if (showsAny(tab.groups)) {
-      Game.saved.store(Game.Scope.Character, tab.made, true)
+      Game::saved.store(Game::Scope::Character, tab.made, true)
       return
     }
-    const joined = Game.chat.channels(GENERAL)
+    const joined = Game::chat.channels(GENERAL)
     if (tab.channels && joined.length == 0) { return }
-    const made = Game.chat.open(tab.name)
+    const made = Game::chat.open(tab.name)
     if (made == nil) { return }
-    for (group of Game.chat.groups(made)) {
-      if (group.shown) { Game.chat.showGroup(made, group.name, false) }
+    for (group of Game::chat.groups(made)) {
+      if (group.shown) { Game::chat.showGroup(made, group.name, false) }
     }
-    for (group of tab.groups) { Game.chat.showGroup(made, group, true) }
-    for (channel of Game.chat.channels(made)) {
-      if (channel.shown != tab.channels) { Game.chat.showChannel(made, channel.name, tab.channels) }
+    for (group of tab.groups) { Game::chat.showGroup(made, group, true) }
+    for (channel of Game::chat.channels(made)) {
+      if (channel.shown != tab.channels) { Game::chat.showChannel(made, channel.name, tab.channels) }
     }
     if (tab.channels) {
       for (channel of joined) {
-        if (channel.shown) { Game.chat.showChannel(GENERAL, channel.name, false) }
+        if (channel.shown) { Game::chat.showChannel(GENERAL, channel.name, false) }
       }
     }
   }
@@ -371,11 +371,11 @@ public class Chat implements Module, App {
       const count = peek tab.kept
       if (count > 0) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }
     }
-    Game.saved.store(Game.Scope.Character, HISTORY, Kept { tabs: tabs })
+    Game::saved.store(Game::Scope::Character, HISTORY, Kept { tabs: tabs })
   }
 
   recall(mut self) {
-    const kept = Kept.decode(Game.saved.stored(Game.Scope.Character, HISTORY), Kept { tabs: [] })
+    const kept = Kept::decode(Game::saved.stored(Game::Scope::Character, HISTORY), Kept { tabs: [] })
     // A window's tab's alone: the conversations kept before they were Ordaen Social's are let go.
     for (tab of kept.tabs) {
       if (tab.key.sub(1, 1) == "w") { self.tabOf(tab.key, "").recall(tab.lines) }
@@ -386,11 +386,11 @@ public class Chat implements Module, App {
   // up, up to the screen's edges and down to the least the settings allow. The chat is drawn never narrower than its
   // tabs and its lines need, whatever width is chosen.
   // The drag starts from the width drawn (the room's least as it is taken), which may be more than the width chosen.
-  onSizeGrab(mut self, drag: Event.Drag) {
+  onSizeGrab(mut self, drag: Event::Drag) {
     self.sizedFrom = { width: drag.room.leastWidth / 1dp, height: (peek self.height) / 1dp }
   }
 
-  onSize(mut self, drag: Event.Drag) {
+  onSize(mut self, drag: Event::Drag) {
     const right = drag.dx.min(drag.room.right) / 1dp
     const up = -(drag.dy.max(-drag.room.up) / 1dp)
     self.sizing = ChatSize {
@@ -412,30 +412,30 @@ public class Chat implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={self.home}>
+      <Placed id={"OrdaenChat.chat"} title={Locale::TITLE} home={self.home}>
         <Pane tabsLeast={self.tabsLeast} tabsFoot={self.tabsFoot} tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               ground={self.ground}
-              textSize={self.textSize} between={self.between} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways}
+              textSize={self.textSize} between={self.between} input={Game::chat.input} typing={Game::chat.typing} inputAlways={self.inputAlways}
               @picked={self.onPick} @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
-      <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
+      <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale::TITLE} home={UNDOCKED}>
         <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               ground={self.ground}
               textSize={self.textSize} between={self.between} @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
-      <CopyBox $if={self.copied != ""} title={Locale.COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
-      <Dialog $if={self.renaming != nil} width={300dp} title={Locale.TAB_RENAME}>
-        <Field value={mut self.newName} maxLength={40} placeholder={Locale.TAB_NAME} />
-        <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRenameCancel} />
-        <PushButton #buttons label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
+      <CopyBox $if={self.copied != ""} title={Locale::COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
+      <Dialog $if={self.renaming != nil} width={300dp} title={Locale::TAB_RENAME}>
+        <Field value={mut self.newName} maxLength={40} placeholder={Locale::TAB_NAME} />
+        <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.onRenameCancel} />
+        <PushButton #buttons label={Locale::TAB_RENAME} width={BUTTON} @click={self.onRename} />
       </Dialog>
-      <Dialog $if={self.abandoning != nil} width={300dp} title={Locale.QUEST_ABANDON}>
+      <Dialog $if={self.abandoning != nil} width={300dp} title={Locale::QUEST_ABANDON}>
         <text value={self.abandonAsk} />
         <text $if={self.abandonItems.length > 0} value={self.abandonLoses} />
-        <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onAbandonCancel} />
-        <PushButton #buttons label={Locale.QUEST_ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
+        <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.onAbandonCancel} />
+        <PushButton #buttons label={Locale::QUEST_ABANDON} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onAbandon} />
       </Dialog>
     }
   }
@@ -443,5 +443,5 @@ public class Chat implements Module, App {
 
 // Whether a window past the game's two shows any of the message groups.
 function showsAny(groups: Array<String>): Boolean {
-  return (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.shown && groups.any(name => name == group.name)))
+  return (peek Game::chat.windows).any(window => window.index > 2 && Game::chat.groups(window.index).any(group => group.shown && groups.any(name => name == group.name)))
 }

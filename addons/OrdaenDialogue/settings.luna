@@ -31,9 +31,9 @@ public const DEFAULTS: Choices = {
 }
 
 const AUTO_CHOICES: Array<Choice<Auto>> = [
-  { value: Auto.Off, label: Locale.AUTO_OFF },
-  { value: Auto.Picked, label: Locale.AUTO_PICKED },
-  { value: Auto.All, label: Locale.AUTO_ALL }
+  { value: Auto::Off, label: Locale::AUTO_OFF },
+  { value: Auto::Picked, label: Locale::AUTO_PICKED },
+  { value: Auto::All, label: Locale::AUTO_ALL }
 ]
 
 public class GeneralPage implements Component {
@@ -47,16 +47,16 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.SETTING_KEYBOARD} hint={Locale.SETTING_KEYBOARD_TIP} value={mut self.settings.values.keyboard} />
-      <Checkbox label={Locale.SETTING_KEY_HINTS} hint={Locale.SETTING_KEY_HINTS_TIP}
+      <Checkbox label={Locale::SETTING_KEYBOARD} hint={Locale::SETTING_KEYBOARD_TIP} value={mut self.settings.values.keyboard} />
+      <Checkbox label={Locale::SETTING_KEY_HINTS} hint={Locale::SETTING_KEY_HINTS_TIP}
                 value={mut self.settings.values.keyHints} disabled={self.hintsOff} />
-      <Checkbox label={Locale.SETTING_SKIP} hint={Locale.SETTING_SKIP_TIP} value={mut self.settings.values.skipSingle} />
-      <Checkbox label={Locale.SETTING_ALWAYS} hint={Locale.SETTING_ALWAYS_TIP} value={mut self.settings.values.alwaysPick} />
-      <Dropdown label={Locale.SETTING_ACCEPT} hint={Locale.SETTING_ACCEPT_TIP} value={mut self.settings.values.autoAccept}
+      <Checkbox label={Locale::SETTING_SKIP} hint={Locale::SETTING_SKIP_TIP} value={mut self.settings.values.skipSingle} />
+      <Checkbox label={Locale::SETTING_ALWAYS} hint={Locale::SETTING_ALWAYS_TIP} value={mut self.settings.values.alwaysPick} />
+      <Dropdown label={Locale::SETTING_ACCEPT} hint={Locale::SETTING_ACCEPT_TIP} value={mut self.settings.values.autoAccept}
                 choices={AUTO_CHOICES} />
-      <Dropdown label={Locale.SETTING_COMPLETE} hint={Locale.SETTING_COMPLETE_TIP}
+      <Dropdown label={Locale::SETTING_COMPLETE} hint={Locale::SETTING_COMPLETE_TIP}
                 value={mut self.settings.values.autoComplete} choices={AUTO_CHOICES} />
-      <Checkbox label={Locale.SETTING_FOLDED_SCROLL} hint={Locale.SETTING_FOLDED_SCROLL_TIP}
+      <Checkbox label={Locale::SETTING_FOLDED_SCROLL} hint={Locale::SETTING_FOLDED_SCROLL_TIP}
                 value={mut self.settings.values.foldedScroll} />
     }
   }
@@ -73,8 +73,8 @@ public class ConveniencePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SETTING_AUTO_EQUIP} hint={Locale.SETTING_AUTO_EQUIP_TIP} value={mut self.settings.values.autoEquip} />
-      <NumberInput label={Locale.SETTING_EQUIP_FROM} hint={Locale.SETTING_EQUIP_FROM_TIP}
+      <Switch label={Locale::SETTING_AUTO_EQUIP} hint={Locale::SETTING_AUTO_EQUIP_TIP} value={mut self.settings.values.autoEquip} />
+      <NumberInput label={Locale::SETTING_EQUIP_FROM} hint={Locale::SETTING_EQUIP_FROM_TIP}
                    value={mut self.settings.values.equipFrom} least={1} most={200} disabled={self.off} />
     }
   }

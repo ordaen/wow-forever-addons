@@ -14,18 +14,18 @@ public class DrawerEntry implements Component {
   // Ordaen's art: its root is there before this module loads.
   derived icon: Art = self.entry.icon ?? "Interface/Icons/INV_Misc_QuestionMark"
 
-  entry: Signal<Game.Entry>
-  constructor(entry: Signal<Game.Entry>) {
+  entry: Signal<Game::Entry>
+  constructor(entry: Signal<Game::Entry>) {
     self.entry = entry
   }
 
-  onClick(mut self, click: Event.Press) { Game.minimap.runEntry(self.entry, click.button) }
+  onClick(mut self, click: Event::Press) { Game::minimap.runEntry(self.entry, click.button) }
   onEnter(mut self) { self.hover.emit(self.entry.text) }
   onLeave(mut self) { self.leave.emit() }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL} height={CELL} xAlign={Align.Center} yAlign={Align.Center}
+      <box width={CELL} height={CELL} xAlign={Align::Center} yAlign={Align::Center}
            border={Ordaen.art.panel.slotEdge} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box width={ICON} height={ICON} background={self.icon} />
       </box>

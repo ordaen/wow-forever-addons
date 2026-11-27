@@ -15,7 +15,7 @@ import Style from "@/style"
 
 // One item of the bags, as its row draws it: every stack of it counted, the first one what a post names.
 public struct Offered {
-  from: Game.Sellable
+  from: Game::Sellable
   item: ItemId
   name: String
   color: Color
@@ -31,14 +31,14 @@ const MARKET_COLUMN = 3
 const VENDOR_COLUMN = 4
 
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_COUNT, width: 75dp, align: Align.End },
-  { title: Locale.COLUMN_MARKET, width: 112.5dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_VENDOR, width: 112.5dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_BETTER, width: 105.46875dp }
+  { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_COUNT, width: 75dp, align: Align::End },
+  { title: Locale::COLUMN_MARKET, width: 112.5dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_VENDOR, width: 112.5dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_BETTER, width: 105.46875dp }
 ]
 // The bags' side, and the picked item's panel at the right, the page's whole height.
-const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
+const PAGE: Array<Track> = [{ fr: 1 }, Style::PANEL]
 const FILL: Array<Track> = [{ fr: 1 }]
 const SIDE: Array<Track> = ["max-content", { fr: 1 }]
 const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -46,19 +46,19 @@ const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 // A label at the left, its value or control at the right.
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const STEP = 32.8125dp
-const DURATIONS: Array<Choice<Game.Duration>> = [
-  { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
-  { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
-  { value: Game.Duration.Long, label: Locale.HOURS.format(48) }
+const DURATIONS: Array<Choice<Game::Duration>> = [
+  { value: Game::Duration::Short, label: Locale::HOURS.format(12) },
+  { value: Game::Duration::Medium, label: Locale::HOURS.format(24) },
+  { value: Game::Duration::Long, label: Locale::HOURS.format(48) }
 ]
 
 class OfferedRow implements Component {
   public pick: Event<ItemId> = new Event()
 
-  derived better: String = self.offered.house == nil ? "—" : self.offered.house == true ? Locale.BETTER_HOUSE :
-    Locale.BETTER_VENDOR
-  derived betterInk: Color = self.offered.house == nil ? Style.DIM : self.offered.house == true ? Style.GREEN :
-    Style.GOLD
+  derived better: String = self.offered.house == nil ? "—" : self.offered.house == true ? Locale::BETTER_HOUSE :
+    Locale::BETTER_VENDOR
+  derived betterInk: Color = self.offered.house == nil ? Style::DIM : self.offered.house == true ? Style::GREEN :
+    Style::GOLD
   derived market: Integer = self.offered.market ?? 0
   derived vendor: Integer = self.offered.vendor ?? 0
 
@@ -74,30 +74,30 @@ class OfferedRow implements Component {
 
   // The item's tooltip beside its whole row.
   onRowEnter(self, frame: any Frame) {
-    Game.items.show(frame, self.offered.item)
+    Game::items.show(frame, self.offered.item)
   }
 
   public render(self): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
-          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-            <ItemButton item={self.offered.item} size={Style.SLOT} tipped={false} />
+          <box columns={ITEM} gap={2.5sp} yAlign={Align::Center}>
+            <ItemButton item={self.offered.item} size={Style::SLOT} tipped={false} />
             <box overflow={.Hidden}>
               <text value={self.offered.name} textColor={self.offered.color} wrap={.None} />
             </box>
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.offered.count]} textColor={Style::INK} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.offered.market != nil} amount={self.market} />
-          <text $else value={"—"} textColor={Style.DIM} />
+          <text $else value={"—"} textColor={Style::DIM} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.offered.vendor != nil} amount={self.vendor} />
-          <text $else value={"—"} textColor={Style.DIM} />
+          <text $else value={"—"} textColor={Style::DIM} />
         </TableCell>
         <TableCell> <text value={self.better} textColor={self.betterInk} wrap={.None} /> </TableCell>
       </TableRow>
@@ -135,7 +135,7 @@ public class SellPage implements Component {
     self.prices = prices
     self.chosen = chosen
     watch (picks of self.picks) { self.chosen = picks.map(offered => offered) }
-    Game.bags.changed.listen(self.onBags)
+    Game::bags.changed.listen(self.onBags)
   }
 
   onBags(mut self) { self.bags += 1 }
@@ -143,17 +143,17 @@ public class SellPage implements Component {
   rowsOf(self): Array<Offered> {
     _ = self.bags
     _ = self.prices.revision
-    const given = Game.auctionActions.sellable() ?? []
+    const given = Game::auctionActions.sellable() ?? []
     let list: Array<Offered> = []
     const at: Map<ItemId, Integer> = {}
     for (stack of given) {
-      const item = ItemId.of(stack.item)
+      const item = ItemId::of(stack.item)
       const index = at[item]
       if (index != nil) {
         const kept = list[index]
         if (kept != nil) { list[index] = { count: kept.count + stack.count, ..kept } }
       } else {
-        const key = PriceKey.of(item)
+        const key = PriceKey::of(item)
         const name, color = nameOf(item)
         const market = self.prices.buy(key)?.copper()
         const net = self.prices.sell(key)?.copper()
@@ -187,16 +187,16 @@ public class SellPage implements Component {
       <box rows={FILL}>
         <box rows={SIDE} gap={3sp}>
           // The row over the bags' items: «My auctions» at its right end.
-          <box columns={TOOLS} gap={3sp} yAlign={Align.Center}>
-            <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={.None} />
-            <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
+          <box columns={TOOLS} gap={3sp} yAlign={Align::Center}>
+            <text value={Locale::SELLABLE} textColor={Style::DIM} wrap={.None} />
+            <PushButton label={Locale::PAGE_OWNED} width={Style::OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL}>
             <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />
-              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-                <text value={Locale.NOTHING_TO_SELL} textColor={Style.DIM} />
+              <box $if={self.rows.length == 0} padding={Style::NOTE_PAD} yAlign={Align::Center}>
+                <text value={Locale::NOTHING_TO_SELL} textColor={Style::DIM} />
               </box>
             </Table>
           </box>
@@ -210,7 +210,7 @@ public class SellPage implements Component {
 public class Posting implements Component {
   state count = 1
   state unit: Integer
-  state duration: Game.Duration = Game.Duration.Medium
+  state duration: Game::Duration = Game::Duration::Medium
   // The client's refusal of the last post, in its words.
   state refused: String | nil = nil
   // A post sent from here waits for its answer.
@@ -219,9 +219,9 @@ public class Posting implements Component {
   derived refusedText: String = self.refused ?? ""
   // A commodity is posted from every stack at once; an item's auction from its first stack.
   derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
-  derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
+  derived canPost: Boolean = !Game::auctionActions.busy && self.count <= self.most && self.unit > 0
   // What the house holds back for this many for this long, as the client says it; «—» where it doesn't.
-  derived deposit: Integer | nil = Game.auctionActions.deposit(self.offered.from, self.count, self.duration)
+  derived deposit: Integer | nil = Game::auctionActions.deposit(self.offered.from, self.count, self.duration)
   derived depositAmount: Integer = self.deposit ?? 0
 
   const offered: Offered
@@ -233,15 +233,15 @@ public class Posting implements Component {
   const detail: String
   constructor(offered: Offered, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
     self.offered = offered
-    self.key = PriceKey.of(offered.item)
+    self.key = PriceKey::of(offered.item)
     self.house = house
     self.prices = prices
     self.history = history
-    self.detail = Locale.IN_BAGS.format(offered.count)
+    self.detail = Locale::IN_BAGS.format(offered.count)
     // The posting rule: a copper under the lowest listed; the market where nothing is listed.
     const listed = house.listed(self.key)
     self.unit = listed != nil ? (listed.low() - 1).max(1) : offered.market ?? 0
-    Game.auctionActions.answered.listen(self.onAnswer)
+    Game::auctionActions.answered.listen(self.onAnswer)
   }
 
   // From the player's click alone: one auction.
@@ -250,18 +250,18 @@ public class Posting implements Component {
     const count = peek self.count
     const unit = peek self.unit
     const duration = peek self.duration
-    const sent = from.commodity ? Game.auctionActions.postCommodity(from, count, duration, unit) :
-      Game.auctionActions.postItem(from, count, duration, nil, unit * count)
+    const sent = from.commodity ? Game::auctionActions.postCommodity(from, count, duration, unit) :
+      Game::auctionActions.postItem(from, count, duration, nil, unit * count)
     if (sent) {
       self.sending = true
       self.refused = nil
     }
   }
 
-  onAnswer(mut self, answer: Game.ActionAnswer) {
+  onAnswer(mut self, answer: Game::ActionAnswer) {
     if (!peek self.sending) { return }
     self.sending = false
-    if (answer is Game.ActionAnswer.Refused) { self.refused = answer.reason }
+    if (answer is Game::ActionAnswer::Refused) { self.refused = answer.reason }
   }
 
   public render(self): Template {
@@ -269,24 +269,24 @@ public class Posting implements Component {
       <ItemPanel key={self.key} name={self.offered.name} color={self.offered.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
         <box gap={3sp}>
-          <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
-            <text value={Locale.QUANTITY} textColor={Style.INK} />
+          <box columns={PAIR} gap={3sp} yAlign={Align::Center}>
+            <text value={Locale::QUANTITY} textColor={Style::INK} />
             <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
           </box>
-          <text value={Locale.UNIT_PRICE} textColor={Style.INK} />
+          <text value={Locale::UNIT_PRICE} textColor={Style::INK} />
           <MoneyField value={mut self.unit} />
-          <text value={Locale.DURATION} textColor={Style.INK} />
+          <text value={Locale::DURATION} textColor={Style::INK} />
           <Segmented value={mut self.duration} choices={DURATIONS} />
-          <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
-            <text value={Locale.DEPOSIT} textColor={Style.INK} />
+          <box columns={PAIR} gap={3sp} yAlign={Align::Center}>
+            <text value={Locale::DEPOSIT} textColor={Style::INK} />
             <Money $if={self.deposit != nil} amount={self.depositAmount} />
-            <text $else value={"—"} textColor={Style.DIM} />
+            <text $else value={"—"} textColor={Style::DIM} />
           </box>
-          <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <text value={Locale::POSTING_RULE} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
           <box>
-            <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+            <text $if={self.hasRefused} value={self.refusedText} textColor={Style::RED} textSize={SECONDARY_TEXT} />
           </box>
-          <PushButton label={Locale.POST} width={Style.PANEL_BUTTON} plate={ButtonPlate.Accent} disabled={!self.canPost}
+          <PushButton label={Locale::POST} width={Style::PANEL_BUTTON} plate={ButtonPlate::Accent} disabled={!self.canPost}
                       @click={self.onPost} />
         </box>
       </ItemPanel>

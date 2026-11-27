@@ -7,7 +7,7 @@ import { Figure, Spot } from "@/questie"
 
 // The zone's name of an `AreaTable` area, as the client names it; nil for one it doesn't know.
 function zoneOf(area: Integer): String | nil {
-  const name: String | nil = Client.C_Map.GetAreaInfo(area)
+  const name: String | nil = Client::C_Map::GetAreaInfo(area)
   return name
 }
 
@@ -26,7 +26,7 @@ public function whereOf(figures: Array<Figure>): String {
   if (zone == nil) { return "" }
   let places = 0
   for (figure of figures) { places = places + figure.spots.count(spot => spot.area == first.area) }
-  return Locale.ZONE_PLACES.format(zone, places)
+  return Locale::ZONE_PLACES.format(zone, places)
 }
 
 public class TrackerOpener implements QuestOpener {

@@ -10,7 +10,7 @@ const NAMES: Array<String> = ["Copper Ore", "Linen Cloth", "Silk Cloth"]
 
 // Four bags of six slots and the backpack's, three slots of four holding something: every part of the window runs, and
 // a run that checks the whole layout after each flush (`--full`) stays in a test's time.
-function bagOf(bag: Integer): Game.BagInfo {
+function bagOf(bag: Integer): Game::BagInfo {
   return { bag: bag, item: nil, name: `Bag ${bag}`, icon: nil, slots: bag <= 4 ? 6 : 0, general: true }
 }
 
@@ -18,7 +18,7 @@ function sizeOf(bag: Integer): Integer {
   return bag <= 4 ? 6 : 0
 }
 
-function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+function readSlot(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
   if (slot % 4 == 0) {
     into.id = 0
     return false
@@ -46,8 +46,8 @@ function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean
 // renderer's, charged to the module whose surface it is, and left out.
 function made(): Number {
   let kb: Number = 0
-  @if (Build.dev) {
-    for (span of Debug.spans()) {
+  @if (Build::dev) {
+    for (span of Debug::spans()) {
       if (span.addon == "OrdaenInventory" && span.label.sub(1, 7) != "layout ") { kb += span.kb }
     }
   }
@@ -55,41 +55,41 @@ function made(): Number {
 }
 
 test "the bags opened, shut and opened again: the garbage the module made" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Game.bags.size = sizeOf
-  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
-  Test.flush()
+  Game::bags.bag = bagOf
+  Game::bags.readSlot = readSlot
+  Game::bags.size = sizeOf
+  Test::mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Test::flush()
   _ = made()
-  Game.bags.open = true
-  Test.flush()
+  Game::bags.open = true
+  Test::flush()
   // The first open builds the window (about 885 KB on the stand-in in a dev build, the renderer's frames counted).
   _ = made()
-  Game.bags.open = false
-  Test.flush()
+  Game::bags.open = false
+  Test::flush()
   _ = made()
   for (round of 1..5) {
-    Game.bags.open = round > 0
-    Test.flush()
-    Game.bags.open = false
-    Test.flush()
+    Game::bags.open = round > 0
+    Test::flush()
+    Game::bags.open = false
+    Test::flush()
   }
   // Opened again: every bag read anew, each bag's description made (about 4 KB).
-  Test.expect(made() / 5 < 8)
+  Test::expect(made() / 5 < 8)
 }
 
 test "every bag updated with nothing moved: the module makes no garbage" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Game.bags.size = sizeOf
-  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
-  Game.bags.open = true
-  Test.flush()
+  Game::bags.bag = bagOf
+  Game::bags.readSlot = readSlot
+  Game::bags.size = sizeOf
+  Test::mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game::bags.open = true
+  Test::flush()
   _ = made()
   for (round of 1..10) {
-    for (bag of 0..4) { Game.bags.updated.emit(bag) }
-    Test.flush()
+    for (bag of 0..4) { Game::bags.updated.emit(bag) }
+    Test::flush()
   }
   // A full update with nothing moved makes nothing: ten of them under a kilobyte.
-  Test.expect(made() < 1)
+  Test::expect(made() < 1)
 }

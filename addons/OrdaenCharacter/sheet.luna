@@ -155,7 +155,7 @@ public struct Stats {
   spirit: Integer = 0
   health: Integer = 0
   power: Integer = 0
-  resource: Resource = Resource.Mana
+  resource: Resource = Resource::Mana
   armor: Integer = 0
   // Arcane, fire, frost, nature and shadow, in that order.
   resistances: Array<Integer> = [0, 0, 0, 0, 0]
@@ -368,12 +368,12 @@ public function medianLevel(levelled: Array<Worn>): Number | nil {
   return (upper + lower) / 2
 }
 
-function resistanceOf(school: Client.Damageclass): Integer {
-  let _, value, _, _ = Client.UnitResistance("player", school)
+function resistanceOf(school: Client::Damageclass): Integer {
+  let _, value, _, _ = Client::UnitResistance("player", school)
   return value.floor()
 }
 
-function resourceOf(kind: Client.PowerType | nil): Resource {
+function resourceOf(kind: Client::PowerType | nil): Resource {
   return match (kind) {
     .Rage => .Rage
     .Energy => .Energy
@@ -386,23 +386,23 @@ function resourceOf(kind: Client.PowerType | nil): Resource {
 // empty where nothing does.
 function breakdown(natural: Integer, up: Integer, down: Integer): String {
   if (up == 0 && down == 0) { return "" }
-  let text = String.of(natural)
+  let text = String::of(natural)
   if (up > 0) { text += `+${up}` }
-  if (down < 0) { text += String.of(down) }
+  if (down < 0) { text += String::of(down) }
   return text
 }
 
 // One of the client's own texts by its name; empty where it has none.
 function said(key: String): String {
-  return Runtime.text(key) ?? ""
+  return Runtime::text(key) ?? ""
 }
 
 // The skill line of the weapon a slot holds; none for an empty slot or what is no weapon (a shield, a book).
 // A skill line's rank with its bonus, none where the player hasn't it.
 function skillValue(id: Integer | nil): Integer | nil {
   if (id == nil) { return nil }
-  for (index of 1..Client.C_SkillInfo.GetNumSkillLines()) {
-    const data = Client.C_SkillInfo.GetSkillLineInfo(index)
+  for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
+    const data = Client::C_SkillInfo::GetSkillLineInfo(index)
     if (data != nil && data.skillID.floor() == id) { return (data.rank + data.modifier).floor() }
   }
   return nil
@@ -410,16 +410,16 @@ function skillValue(id: Integer | nil): Integer | nil {
 
 // Whether the off hand holds a shield.
 function shieldWorn(): Boolean {
-  const id = Client.GetInventoryItemID("player", 17)
+  const id = Client::GetInventoryItemID("player", 17)
   if (id == nil) { return false }
-  let _, _, _, _, _, kind, subclass = Client.C_Item.GetItemInfoInstant(id.floor())
+  let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
   return kind == ARMOR_CLASS && subclass == SHIELDS
 }
 
 function weaponSkill(slot: Integer): Integer | nil {
-  const id = Client.GetInventoryItemID("player", slot)
+  const id = Client::GetInventoryItemID("player", slot)
   if (id == nil) { return nil }
-  let _, _, _, _, _, kind, subclass = Client.C_Item.GetItemInfoInstant(id.floor())
+  let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
   if (kind != WEAPON_CLASS || subclass == nil) { return nil }
   return WEAPON_SKILLS[subclass.floor()]
 }
@@ -442,33 +442,33 @@ function startOf(format: String | nil): String {
 // addon's words for what the client names nowhere (armor and every stat as a bonus says them, a chance's stem).
 public function clientWords(): LineWords {
   const flat: Array<FlatWord> = [
-    { label: Locale.WORD_ARMOR, stats: [.Armor] },
-    { label: Locale.WORD_ALL_STATS, stats: MAINS }
+    { label: Locale::WORD_ARMOR, stats: [.Armor] },
+    { label: Locale::WORD_ALL_STATS, stats: MAINS }
   ]
   for (key, known of ITEM_KEYS) {
-    const label = Runtime.text(key)
+    const label = Runtime::text(key)
     if (known.rating == 0 && label != nil) { flat.push({ label: label, stats: known.stats }) }
   }
   return {
-    enchant: startOf(Runtime.text("ENCHANTED_TOOLTIP_LINE")),
-    setBonus: startOf(Runtime.text("ITEM_SET_BONUS")),
+    enchant: startOf(Runtime::text("ENCHANTED_TOOLTIP_LINE")),
+    setBonus: startOf(Runtime::text("ITEM_SET_BONUS")),
     flat: flat,
     chances: [
-      { stem: Locale.WORD_HIT, stats: [.MeleeHit, .RangedHit], spells: [.SpellHit] },
-      { stem: Locale.WORD_CRIT, stats: [.MeleeCrit, .RangedCrit], spells: [.SpellCrit] },
-      { stem: Locale.WORD_DODGE, stats: [.Dodge] },
-      { stem: Locale.WORD_PARRY, stats: [.Parry] },
-      { stem: Locale.WORD_BLOCK, stats: [.Block] }
+      { stem: Locale::WORD_HIT, stats: [.MeleeHit, .RangedHit], spells: [.SpellHit] },
+      { stem: Locale::WORD_CRIT, stats: [.MeleeCrit, .RangedCrit], spells: [.SpellCrit] },
+      { stem: Locale::WORD_DODGE, stats: [.Dodge] },
+      { stem: Locale::WORD_PARRY, stats: [.Parry] },
+      { stem: Locale::WORD_BLOCK, stats: [.Block] }
     ],
-    spells: Locale.WORD_SPELLS,
-    shieldBlock: Runtime.text("SHIELD_BLOCK_TEMPLATE") ?? ""
+    spells: Locale::WORD_SPELLS,
+    shieldBlock: Runtime::text("SHIELD_BLOCK_TEMPLATE") ?? ""
   }
 }
 
 // The lines of the tooltip of the item a unit wears in a slot, in order.
 function linesOf(unit: String, slot: Integer): Array<ItemLine> {
   const lines: Array<ItemLine> = []
-  const data = Client.C_TooltipInfo.GetInventoryItem(unit, slot, nil)
+  const data = Client::C_TooltipInfo::GetInventoryItem(unit, slot, nil)
   if (!(data is Table)) { return lines }
   const raw = data["lines"]
   if (!(raw is Table)) { return lines }
@@ -486,13 +486,13 @@ function linesOf(unit: String, slot: Integer): Array<ItemLine> {
 function givenBy(link: String | nil): Array<Given> {
   const gives: Array<Given> = []
   if (link == nil) { return gives }
-  const table = Client.C_Item.GetItemStats(link)
+  const table = Client::C_Item::GetItemStats(link)
   if (table is Table) {
     for (key, value of table) {
       if (key is String && value is Number) {
         const known = ITEM_KEYS[key]
         if (known != nil) {
-          const amount = known.rating == 0 ? value : Client.GetCombatRatingBonusForCombatRatingValue(known.rating, value) ?? value
+          const amount = known.rating == 0 ? value : Client::GetCombatRatingBonusForCombatRatingValue(known.rating, value) ?? value
           for (stat of known.stats) { gives.push({ stat: stat, amount: amount }) }
         }
       }
@@ -504,13 +504,13 @@ function givenBy(link: String | nil): Array<Given> {
 // What a unit wears in a slot, as any unit's can be read (the player's, or the player inspected once the server
 // answered): the item, its name, quality and level, and what it gives with its enchant and its set.
 public function wornBy(unit: String, slot: Integer, words: LineWords): Worn {
-  const id = Client.GetInventoryItemID(unit, slot)
-  if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
+  const id = Client::GetInventoryItemID(unit, slot)
+  if (id == nil) { return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil } }
   const item = id.floor()
-  let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   const bonuses = bonusesOf(linesOf(unit, slot), words)
   const gives: Array<Given> = []
-  for (given of givenBy(Client.GetInventoryItemLink(unit, slot))) { gives.push(given) }
+  for (given of givenBy(Client::GetInventoryItemLink(unit, slot))) { gives.push(given) }
   for (given of bonuses.base) { gives.push(given) }
   for (given of bonuses.enchant) { gives.push(given) }
   return {
@@ -544,16 +544,16 @@ public class ClientSheet implements Sheet {
   public worn(self, slot: Integer): Worn {
     const piece = wornBy("player", slot, self.words)
     if (piece.item == nil) { return piece }
-    let left, most = Client.GetInventoryItemDurability(slot)
-    let start, length, _ = Client.GetInventoryItemCooldown("player", slot)
+    let left, most = Client::GetInventoryItemDurability(slot)
+    let start, length, _ = Client::GetInventoryItemCooldown("player", slot)
     return {
       slot: slot,
       item: piece.item,
       quality: piece.quality,
       level: piece.level,
       durability: left != nil && most != nil && most > 0 ? left / most : nil,
-      count: Client.GetInventoryItemCount("player", slot).floor(),
-      locked: Client.IsInventoryItemLocked(slot),
+      count: Client::GetInventoryItemCount("player", slot).floor(),
+      locked: Client::IsInventoryItemLocked(slot),
       cooldown: length > 0 ? { start: start, length: length } : nil,
       name: piece.name,
       gives: piece.gives,
@@ -561,16 +561,16 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public fits(self, slot: Integer): Boolean { return Client.C_PaperDollInfo.CursorCanGoInSlot(slot) }
+  public fits(self, slot: Integer): Boolean { return Client::C_PaperDollInfo::CursorCanGoInSlot(slot) }
 
   public tryOn(mut self, slot: Integer) {
-    const link = Client.GetInventoryItemLink("player", slot)
-    if (link != nil) { _ = Client.DressUpItemLink(link) }
+    const link = Client::GetInventoryItemLink("player", slot)
+    if (link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
   public fitting(self, slot: Integer): Array<Integer> {
     const found: Map<Integer, Integer> = {}
-    _ = Client.GetInventoryItemsForSlot(slot, found)
+    _ = Client::GetInventoryItemsForSlot(slot, found)
     const items: Array<Integer> = []
     for (_, item of found) {
       if (!items.any(i => i == item)) { items.push(item) }
@@ -579,12 +579,12 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone, as the game's flyout does it.
-  public equip(mut self, item: Integer, slot: Integer) { Client.C_Item.EquipItemByName(item, slot) }
+  public equip(mut self, item: Integer, slot: Integer) { Client::C_Item::EquipItemByName(item, slot) }
 
   public sets(self): Array<GearSet> {
     const sets: Array<GearSet> = []
-    for (id of Client.C_EquipmentSet.GetEquipmentSetIDs()) {
-      let name, _, _, worn, _, _, _, lost, _ = Client.C_EquipmentSet.GetEquipmentSetInfo(id)
+    for (id of Client::C_EquipmentSet::GetEquipmentSetIDs()) {
+      let name, _, _, worn, _, _, _, lost, _ = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
       if (name != nil) {
         sets.push({
           id: id.floor(),
@@ -598,75 +598,75 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone: the client refuses it in a fight, which the window says before.
-  public useSet(mut self, id: Integer) { _ = Client.C_EquipmentSet.UseEquipmentSet(id) }
+  public useSet(mut self, id: Integer) { _ = Client::C_EquipmentSet::UseEquipmentSet(id) }
 
-  public saveSet(mut self, name: String) { Client.C_EquipmentSet.CreateEquipmentSet(name, nil) }
+  public saveSet(mut self, name: String) { Client::C_EquipmentSet::CreateEquipmentSet(name, nil) }
 
-  public usesAmmo(self): Boolean { return Client.UnitUsesAmmo("player") }
+  public usesAmmo(self): Boolean { return Client::UnitUsesAmmo("player") }
 
   public who(self): Who {
-    let race, scene, _ = Client.UnitRace("player")
-    let className, _, _ = Client.UnitClass("player")
+    let race, scene, _ = Client::UnitRace("player")
+    let className, _, _ = Client::UnitClass("player")
     return {
-      name: Game.player.name, surname: Game.player.surname ?? "", level: peek Game.player.level, race: race ?? "",
+      name: Game::player.name, surname: Game::player.surname ?? "", level: peek Game::player.level, race: race ?? "",
       className: className ?? "", scene: scene ?? ""
     }
   }
 
   public stats(self): Stats | nil {
-    if (Client.C_Secrets.ShouldUnitStatsBeSecret()) { return nil }
-    let base, positive, negative = Client.UnitAttackPower("player")
-    let rangedBase, rangedPositive, rangedNegative = Client.UnitRangedAttackPower("player")
-    let _, armor, _, _ = Client.UnitArmor("player")
-    let minDamage, maxDamage, _, _, _, _, _ = Client.UnitDamage("player")
-    let speed, offSpeed, _ = Client.UnitAttackSpeed("player")
-    let resting, casting = Client.GetManaRegen()
-    let kind, token, _, _, _ = Client.UnitPowerType("player", nil)
+    if (Client::C_Secrets::ShouldUnitStatsBeSecret()) { return nil }
+    let base, positive, negative = Client::UnitAttackPower("player")
+    let rangedBase, rangedPositive, rangedNegative = Client::UnitRangedAttackPower("player")
+    let _, armor, _, _ = Client::UnitArmor("player")
+    let minDamage, maxDamage, _, _, _, _, _ = Client::UnitDamage("player")
+    let speed, offSpeed, _ = Client::UnitAttackSpeed("player")
+    let resting, casting = Client::GetManaRegen()
+    let kind, token, _, _, _ = Client::UnitPowerType("player", nil)
     let spellDamage: Number = 0
-    for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client.GetSpellBonusDamage(school) ?? 0) }
+    for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client::GetSpellBonusDamage(school) ?? 0) }
     const attackPower = (base + positive + negative).floor()
     const rangedAttackPower = (rangedBase + rangedPositive + rangedNegative).floor()
-    const healing = Client.GetSpellBonusHealing().floor()
-    const block = Client.GetBlockChance()
-    const hit = Client.GetHitModifier()
+    const healing = Client::GetSpellBonusHealing().floor()
+    const block = Client::GetBlockChance()
+    const hit = Client::GetHitModifier()
     const primary: Array<Integer> = []
     const bases: Array<Integer> = []
     const primaryTips: Array<String> = []
     for (index of 1..5) {
-      let natural, effective, up, down = Client.UnitStat("player", index)
+      let natural, effective, up, down = Client::UnitStat("player", index)
       primary.push(effective.floor())
       bases.push(natural.floor())
       primaryTips.push(breakdown(natural.floor(), up.floor(), down.floor()))
     }
-    const attackTip = Runtime.text(`${Game.player.classTag}_MELEE_ATTACK_POWER_TOOLTIP`) ?? said("MELEE_ATTACK_POWER_TOOLTIP")
-    const reduction = Client.C_PaperDollInfo.GetArmorEffectiveness(armor, Client.UnitEffectiveLevel("player")) * 100
-    let _, _, offMin, offMax, _, _, _ = Client.UnitDamage("player")
-    let rangedSpeed, rangedMin, rangedMax, _, _, _ = Client.UnitRangedDamage("player")
-    let defenseBase, defenseBonus = Client.UnitDefenseSkill("player")
-    let expertise, _, _ = Client.GetExpertise()
-    let _, runSpeed, _, swimSpeed = Client.GetUnitSpeed("player")
-    let energyRegen, _ = Client.GetPowerRegenForPowerType(ENERGY_POWER)
+    const attackTip = Runtime::text(`${Game::player.classTag}_MELEE_ATTACK_POWER_TOOLTIP`) ?? said("MELEE_ATTACK_POWER_TOOLTIP")
+    const reduction = Client::C_PaperDollInfo::GetArmorEffectiveness(armor, Client::UnitEffectiveLevel("player")) * 100
+    let _, _, offMin, offMax, _, _, _ = Client::UnitDamage("player")
+    let rangedSpeed, rangedMin, rangedMax, _, _, _ = Client::UnitRangedDamage("player")
+    let defenseBase, defenseBonus = Client::UnitDefenseSkill("player")
+    let expertise, _, _ = Client::GetExpertise()
+    let _, runSpeed, _, swimSpeed = Client::GetUnitSpeed("player")
+    let energyRegen, _ = Client::GetPowerRegenForPowerType(ENERGY_POWER)
     const schoolDamage: Array<Integer> = []
-    for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client.GetSpellBonusDamage(school) ?? 0).floor()) }
-    const relic = Client.UnitHasRelicSlot("player")
-    let healthRegen, combatHealthRegen = Client.GetHealthRegen()
-    let healthFromSpirit, _ = Client.GetHealthRegenFromSpirit()
-    let manaFromSpirit, _ = Client.GetManaRegenFromSpirit()
+    for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client::GetSpellBonusDamage(school) ?? 0).floor()) }
+    const relic = Client::UnitHasRelicSlot("player")
+    let healthRegen, combatHealthRegen = Client::GetHealthRegen()
+    let healthFromSpirit, _ = Client::GetHealthRegenFromSpirit()
+    let manaFromSpirit, _ = Client::GetManaRegenFromSpirit()
     // What the game's sheet works out for its texts: the defense past the level's (each point takes 0.04% off a
     // blow's chances), and the resistance a point of spell penetration takes off, of the player's level.
-    const level = Client.UnitLevel("player")
+    const level = Client::UnitLevel("player")
     const beyondDefense = (defenseBase + defenseBonus - level * DEFENSE_PER_LEVEL).max(0)
-    const spellPenetration = Client.GetSpellPenetration().floor()
+    const spellPenetration = Client::GetSpellPenetration().floor()
     const penetrated = spellPenetration * 0.75 / (level * DEFENSE_PER_LEVEL)
     const mainSkill = weaponSkill(16)
     const rangedSkill = relic ? nil : weaponSkill(18)
     const levelDefense = level * DEFENSE_PER_LEVEL
     const bossDefense = RAID_BOSS_LEVEL * DEFENSE_PER_LEVEL
     // Haste as the game's paper doll reads each: the melee's, the ranged weapon's with its ammo's, the spells'.
-    const meleeHaste = Client.GetMeleeHaste()
-    let weaponHaste, ammoHaste = Client.GetRangedHaste()
+    const meleeHaste = Client::GetMeleeHaste()
+    let weaponHaste, ammoHaste = Client::GetRangedHaste()
     const rangedHaste = weaponHaste + ammoHaste
-    const spellHaste = Client.UnitSpellHaste("player")
+    const spellHaste = Client::UnitSpellHaste("player")
     return {
       restingRegen: resting * 5,
       healthRegen: healthRegen * 5,
@@ -674,15 +674,15 @@ public class ClientSheet implements Sheet {
       healthFromSpirit: healthFromSpirit * SPIRIT_STANDING * 5,
       manaFromSpirit: manaFromSpirit * 5,
       relic: relic,
-      atMaxLevel: level >= Client.GetMaxPlayerLevel(),
-      meleeHit: (Client.GetCombatRatingBonus(RATING_HIT_MELEE) ?? 0) + hit,
-      rangedHit: (Client.GetCombatRatingBonus(RATING_HIT_RANGED) ?? 0) + Client.GetRangedHitModifier(),
-      spellHit: (Client.GetCombatRatingBonus(RATING_HIT_SPELL) ?? 0) + Client.GetSpellHitModifier(),
+      atMaxLevel: level >= Client::GetMaxPlayerLevel(),
+      meleeHit: (Client::GetCombatRatingBonus(RATING_HIT_MELEE) ?? 0) + hit,
+      rangedHit: (Client::GetCombatRatingBonus(RATING_HIT_RANGED) ?? 0) + Client::GetRangedHitModifier(),
+      spellHit: (Client::GetCombatRatingBonus(RATING_HIT_SPELL) ?? 0) + Client::GetSpellHitModifier(),
       expertise: expertise,
-      armorPenetration: Client.GetArmorPenetration().floor(),
-      spellPenetration: Client.GetSpellPenetration().floor(),
+      armorPenetration: Client::GetArmorPenetration().floor(),
+      spellPenetration: Client::GetSpellPenetration().floor(),
       defense: (defenseBase + defenseBonus).floor(),
-      blockValue: Client.GetShieldBlock().floor(),
+      blockValue: Client::GetShieldBlock().floor(),
       armorReduction: reduction,
       schoolDamage: schoolDamage,
       offMinDamage: offMin,
@@ -690,7 +690,7 @@ public class ClientSheet implements Sheet {
       rangedMinDamage: rangedMin,
       rangedMaxDamage: rangedMax,
       rangedSpeed: rangedSpeed,
-      energy: Game.player.classTag == "DRUID" ? Client.UnitPowerMax("player", Client.PowerType.Energy, nil).floor() : 0,
+      energy: Game::player.classTag == "DRUID" ? Client::UnitPowerMax("player", Client::PowerType::Energy, nil).floor() : 0,
       energyRegen: energyRegen,
       runSpeed: runSpeed / RUN_BASE * 100,
       swimSpeed: swimSpeed / SWIM_BASE * 100,
@@ -701,19 +701,19 @@ public class ClientSheet implements Sheet {
       offSkillPast: (skillValue(weaponSkill(17)) ?? levelDefense) - levelDefense,
       rangedSkillPast: (skillValue(rangedSkill) ?? levelDefense) - levelDefense,
       bossDefensePast: bossDefense - levelDefense,
-      bossGlancing: Client.GetGlancingBlowChance(nil, bossDefense) * 100,
-      levelGlancing: Client.GetGlancingBlowChance(nil, levelDefense) * 100,
-      bossGlancingPenalty: Client.GetGlancingBlowPenalty(nil, bossDefense) * 100,
-      levelGlancingPenalty: Client.GetGlancingBlowPenalty(nil, levelDefense) * 100,
+      bossGlancing: Client::GetGlancingBlowChance(nil, bossDefense) * 100,
+      levelGlancing: Client::GetGlancingBlowChance(nil, levelDefense) * 100,
+      bossGlancingPenalty: Client::GetGlancingBlowPenalty(nil, bossDefense) * 100,
+      levelGlancingPenalty: Client::GetGlancingBlowPenalty(nil, levelDefense) * 100,
       shield: shieldWorn(),
-      bossArmorReduction: Client.C_PaperDollInfo.GetArmorEffectiveness(armor, RAID_BOSS_LEVEL) * 100,
+      bossArmorReduction: Client::C_PaperDollInfo::GetArmorEffectiveness(armor, RAID_BOSS_LEVEL) * 100,
       defensePast: defenseBase + defenseBonus - levelDefense,
       conversions: {
-        attackPerStrength: Client.GetAttackPowerForStat(STRENGTH, 1),
-        attackPerAgility: Client.GetAttackPowerForStat(AGILITY, 1),
-        rangedPerAgility: Client.GetRangedAttackPowerForStat(AGILITY, 1),
-        critPerAgility: Client.GetCritChanceFromStat(AGILITY, 1) * 100,
-        spellCritPerIntellect: Client.GetSpellCritChanceFromStat(INTELLECT, 1) * 100
+        attackPerStrength: Client::GetAttackPowerForStat(STRENGTH, 1),
+        attackPerAgility: Client::GetAttackPowerForStat(AGILITY, 1),
+        rangedPerAgility: Client::GetRangedAttackPowerForStat(AGILITY, 1),
+        critPerAgility: Client::GetCritChanceFromStat(AGILITY, 1) * 100,
+        spellCritPerIntellect: Client::GetSpellCritChanceFromStat(INTELLECT, 1) * 100
       },
       strength: primary[1] ?? 0,
       agility: primary[2] ?? 0,
@@ -721,8 +721,8 @@ public class ClientSheet implements Sheet {
       intellect: primary[4] ?? 0,
       spirit: primary[5] ?? 0,
       bases: bases,
-      health: Client.UnitHealthMax("player").floor(),
-      power: Client.UnitPowerMax("player", nil, nil).floor(),
+      health: Client::UnitHealthMax("player").floor(),
+      power: Client::UnitPowerMax("player", nil, nil).floor(),
       resource: resourceOf(kind),
       armor: armor.floor(),
       resistances: [
@@ -738,15 +738,15 @@ public class ClientSheet implements Sheet {
       maxDamage: maxDamage,
       speed: speed,
       offSpeed: offSpeed,
-      meleeCrit: Client.GetCritChance(),
-      rangedCrit: Client.GetRangedCritChance(),
-      spellCrit: Client.GetSpellCritChance(),
+      meleeCrit: Client::GetCritChance(),
+      rangedCrit: Client::GetRangedCritChance(),
+      spellCrit: Client::GetSpellCritChance(),
       hit: hit,
       meleeHaste: meleeHaste,
       rangedHaste: rangedHaste,
       spellHaste: spellHaste,
-      dodge: Client.GetDodgeChance(),
-      parry: Client.GetParryChance(),
+      dodge: Client::GetDodgeChance(),
+      parry: Client::GetParryChance(),
       block: block,
       spellDamage: spellDamage.floor(),
       healing: healing,
@@ -757,8 +757,8 @@ public class ClientSheet implements Sheet {
         attackPower: attackTip.format((attackPower / ATTACK_POWER_PER_DPS).max(0)),
         rangedAttackPower: said("RANGED_ATTACK_POWER_TOOLTIP").format((rangedAttackPower / ATTACK_POWER_PER_DPS).max(0)),
         defense: said("DEFAULT_STATDEFENSE_TOOLTIP").format(beyondDefense * DEFENSE_SHARE, beyondDefense * DEFENSE_SHARE),
-        block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client.GetShieldBlock()),
-        armorPenetration: said("ARMOR_PENETRATION_TOOLTIP").format(Client.GetArmorPenetration().floor()),
+        block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client::GetShieldBlock()),
+        armorPenetration: said("ARMOR_PENETRATION_TOOLTIP").format(Client::GetArmorPenetration().floor()),
         spellPenetration: said("SPELL_PENETRATION_TOOLTIP").format(spellPenetration, penetrated, penetrated / 2),
         spellDamage: said("STAT_SPELLPOWER_TOOLTIP").format(spellDamage.floor()),
         healing: said("STAT_SPELLHEALING_TOOLTIP").format(healing)
@@ -768,8 +768,8 @@ public class ClientSheet implements Sheet {
 
   public factions(self): Array<Faction> {
     const rows: Array<Faction> = []
-    for (index of 1..Client.C_Reputation.GetNumFactions()) {
-      const data = Client.C_Reputation.GetFactionDataByIndex(index)
+    for (index of 1..Client::C_Reputation::GetNumFactions()) {
+      const data = Client::C_Reputation::GetFactionDataByIndex(index)
       if (data != nil) {
         rows.push({
           index: index,
@@ -794,12 +794,12 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public inactive(self, index: Integer): Boolean { return !Client.C_Reputation.IsFactionActive(index) }
+  public inactive(self, index: Integer): Boolean { return !Client::C_Reputation::IsFactionActive(index) }
 
   public skills(self): Array<Skill> {
     const rows: Array<Skill> = []
-    for (index of 1..Client.C_SkillInfo.GetNumSkillLines()) {
-      const data = Client.C_SkillInfo.GetSkillLineInfo(index)
+    for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
+      const data = Client::C_SkillInfo::GetSkillLineInfo(index)
       if (data != nil) {
         rows.push({
           id: data.skillID.floor(),
@@ -818,43 +818,43 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public pickup(mut self, slot: Integer) { Client.PickupInventoryItem(slot) }
+  public pickup(mut self, slot: Integer) { Client::PickupInventoryItem(slot) }
 
   public foldSkills(mut self, index: Integer, open: Boolean) {
     if (open) {
-      Client.C_SkillInfo.ExpandSkillHeader(index)
+      Client::C_SkillInfo::ExpandSkillHeader(index)
     } else {
-      Client.C_SkillInfo.CollapseSkillHeader(index)
+      Client::C_SkillInfo::CollapseSkillHeader(index)
     }
   }
 
-  public unlearn(mut self, skill: Integer) { Client.C_SkillInfo.AbandonSkill(skill) }
+  public unlearn(mut self, skill: Integer) { Client::C_SkillInfo::AbandonSkill(skill) }
 
   public fold(mut self, index: Integer, open: Boolean) {
     if (open) {
-      Client.C_Reputation.ExpandFactionHeader(index)
+      Client::C_Reputation::ExpandFactionHeader(index)
     } else {
-      Client.C_Reputation.CollapseFactionHeader(index)
+      Client::C_Reputation::CollapseFactionHeader(index)
     }
   }
 
   // The faction shown on the bar: none once the one shown is turned off (index 0, as the game's own switch does).
-  public watchFaction(mut self, index: Integer, on: Boolean) { Client.C_Reputation.SetWatchedFactionByIndex(on ? index : 0) }
+  public watchFaction(mut self, index: Integer, on: Boolean) { Client::C_Reputation::SetWatchedFactionByIndex(on ? index : 0) }
 
-  public toggleAtWar(mut self, index: Integer) { Client.C_Reputation.ToggleFactionAtWar(index) }
+  public toggleAtWar(mut self, index: Integer) { Client::C_Reputation::ToggleFactionAtWar(index) }
 
-  public setInactive(mut self, index: Integer, inactive: Boolean) { Client.C_Reputation.SetFactionActive(index, !inactive) }
+  public setInactive(mut self, index: Integer, inactive: Boolean) { Client::C_Reputation::SetFactionActive(index, !inactive) }
 }
 
 // A standing's name as the client writes it (`FACTION_STANDING_LABEL1`, hated, to `8`, exalted).
 public function standingName(standing: Integer): String {
-  return Runtime.text(`FACTION_STANDING_LABEL${standing}`) ?? ""
+  return Runtime::text(`FACTION_STANDING_LABEL${standing}`) ?? ""
 }
 
 // A standing's colour as the client's reputation bar fills it (`FACTION_BAR_COLORS`); neutral's where it has none.
 const NEUTRAL: Color = { r: 0.9, g: 0.7, b: 0, a: 1 }
 public function standingColor(standing: Integer): Color {
-  const color = Client.FACTION_BAR_COLORS[standing]
+  const color = Client::FACTION_BAR_COLORS[standing]
   if (color == nil) { return NEUTRAL }
   return { r: color.r, g: color.g, b: color.b, a: 1 }
 }

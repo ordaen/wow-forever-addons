@@ -27,23 +27,23 @@ public const ROOM: Number<Length> = 38.671875dp
 const MAIL_BUTTON: Number<Length> = BUTTON * 4 / 3
 
 // Ours, which other parts of the minimap stand by: the tooltip beside the Ordaen button, the drawer under its own.
-public const ORDAEN_BUTTON: RingSpec = { id: RingId.Ordaen, angle: 250 }
-public const DRAWER_BUTTON: RingSpec = { id: RingId.Drawer, angle: 225 }
+public const ORDAEN_BUTTON: RingSpec = { id: RingId::Ordaen, angle: 250 }
+public const DRAWER_BUTTON: RingSpec = { id: RingId::Drawer, angle: 225 }
 
 public const RING: Array<RingSpec> = [
-  { id: RingId.Tracking, angle: 290, glyph: "ui-hud-minimap-tracking-up", glyphWidth: 18.75dp, glyphHeight: 17.578125dp },
+  { id: RingId::Tracking, angle: 290, glyph: "ui-hud-minimap-tracking-up", glyphWidth: 18.75dp, glyphHeight: 17.578125dp },
   ORDAEN_BUTTON,
   DRAWER_BUTTON,
   {
-    id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 21.09375dp * 4 / 3,
+    id: RingId::Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 21.09375dp * 4 / 3,
     glyphHeight: 15.8203125dp * 4 / 3, size: MAIL_BUTTON
   },
-  { id: RingId.CraftingOrder, angle: 85 },
-  { id: RingId.Landing, angle: 120 }
+  { id: RingId::CraftingOrder, angle: 85 },
+  { id: RingId::Landing, angle: 120 }
 ]
 
-const GOLD: Color = Color.hex("#ffd100")
-const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+const GOLD: Color = Color::hex("#ffd100")
+const COUNT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
 
 public class RingButton implements Component {
   // In the frame's box, whose places start at its line (`artOrigin`).
@@ -54,8 +54,8 @@ public class RingButton implements Component {
   derived theirs: any Frame | nil = self.frameOf()
   derived visible: Boolean = self.shownNow()
   // Ordaen's art: its root is there before this module loads.
-  derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? Ordaen.art.minimap.ringLit : Ordaen.art.minimap.ring
-  derived count: String = String.of(self.map.holds())
+  derived art: Art = self.spec.id == RingId::Drawer && self.map.isDrawerOpen() ? Ordaen.art.minimap.ringLit : Ordaen.art.minimap.ring
+  derived count: String = String::of(self.map.holds())
   // Ours shows its tooltip beside it (the game's buttons show their own).
   derived hinted: Boolean = self.hintNow()
 
@@ -68,11 +68,11 @@ public class RingButton implements Component {
 
   frameOf(self): any Frame | nil {
     return match (self.spec.id) {
-      RingId.Tracking => Game.frames.MinimapTrackingButton
-      RingId.Mail => Game.frames.MinimapMail
-      RingId.CraftingOrder => Game.frames.MinimapCraftingOrder
-      RingId.Landing => Game.frames.ExpansionLandingPageMinimapButton
-      RingId.Ordaen, RingId.Drawer => nil
+      RingId::Tracking => Game::frames.MinimapTrackingButton
+      RingId::Mail => Game::frames.MinimapMail
+      RingId::CraftingOrder => Game::frames.MinimapCraftingOrder
+      RingId::Landing => Game::frames.ExpansionLandingPageMinimapButton
+      RingId::Ordaen, RingId::Drawer => nil
     }
   }
 
@@ -82,27 +82,27 @@ public class RingButton implements Component {
   shownNow(self): Boolean {
     let frame = self.theirs
     return match (self.spec.id) {
-      RingId.Ordaen, RingId.Tracking => true
-      RingId.Mail => self.map.hasMail()
-      RingId.Drawer => self.map.isDrawerOn() && self.map.holds() > 0
+      RingId::Ordaen, RingId::Tracking => true
+      RingId::Mail => self.map.hasMail()
+      RingId::Drawer => self.map.isDrawerOn() && self.map.holds() > 0
       else => frame != nil && frame.IsShown()
     }
   }
 
   hintNow(self): Boolean {
     return match (self.spec.id) {
-      RingId.Ordaen => self.map.hinting(Hint.Ordaen)
-      RingId.Drawer => self.map.hinting(Hint.Drawer)
+      RingId::Ordaen => self.map.hinting(Hint::Ordaen)
+      RingId::Drawer => self.map.hinting(Hint::Drawer)
       else => false
     }
   }
 
-  onClick(mut self, click: Event.Press) {
+  onClick(mut self, click: Event::Press) {
     let frame = self.theirs
     match (self.spec.id) {
-      RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
-      RingId.Drawer => { self.map.toggleDrawer() }
-      else => { if (frame != nil) { Game.minimap.press(frame, click.button) } }
+      RingId::Ordaen => { if (click.button == MouseButton::Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
+      RingId::Drawer => { self.map.toggleDrawer() }
+      else => { if (frame != nil) { Game::minimap.press(frame, click.button) } }
     }
   }
 
@@ -113,33 +113,33 @@ public class RingButton implements Component {
   hover(mut self, on: Boolean) {
     let frame = self.theirs
     if (frame != nil) {
-      Game.minimap.hover(frame, on)
+      Game::minimap.hover(frame, on)
     } else if (!on) {
-      self.map.showHint(Hint.None)
-    } else if (self.spec.id == RingId.Drawer) {
-      self.map.showHint(Hint.Drawer)
-    } else if (self.spec.id == RingId.Ordaen) {
-      self.map.showHint(Hint.Ordaen)
+      self.map.showHint(Hint::None)
+    } else if (self.spec.id == RingId::Drawer) {
+      self.map.showHint(Hint::Drawer)
+    } else if (self.spec.id == RingId::Ordaen) {
+      self.map.showHint(Hint::Ordaen)
     }
   }
 
-  onDragStart(mut self, drag: Event.Drag) { self.map.startDrag(self.spec, drag.dx, drag.dy) }
-  onDrag(mut self, drag: Event.Drag) { self.map.dragTo(drag.dx, drag.dy) }
+  onDragStart(mut self, drag: Event::Drag) { self.map.startDrag(self.spec, drag.dx, drag.dy) }
+  onDrag(mut self, drag: Event::Drag) { self.map.dragTo(drag.dx, drag.dy) }
   onDragStop(mut self) { self.map.stopDrag(self.spec) }
 
   public render(self): Template {
     return $ltml {
       <$if={self.visible}>
-        <embed $if={self.theirs != nil} frame={self.theirs} position={Position.Absolute} left={self.left}
+        <embed $if={self.theirs != nil} frame={self.theirs} position={Position::Absolute} left={self.left}
                top={self.top} width={self.spec.size} height={self.spec.size} opacity={0} />
         // Over the game's own button, which lies under it unseen, and over the map: the mouse is this box's.
-        <box position={Position.Absolute} left={self.left} top={self.top} width={self.spec.size} height={self.spec.size}
-             zLevel={1} opacity={self.opacity} xAlign={Align.Center} yAlign={Align.Center} background={self.art}
+        <box position={Position::Absolute} left={self.left} top={self.top} width={self.spec.size} height={self.spec.size}
+             zLevel={1} opacity={self.opacity} xAlign={Align::Center} yAlign={Align::Center} background={self.art}
              @pointerPress={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <box $if={self.spec.id == RingId.Ordaen} width={25.78125dp} height={25.78125dp} icon={Ordaen.icon}
+          <box $if={self.spec.id == RingId::Ordaen} width={25.78125dp} height={25.78125dp} icon={Ordaen.icon}
                mask={Ordaen.art.panel.faceRound} />
-          <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD}
+          <text $elseif={self.spec.id == RingId::Drawer} value={self.count} textColor={GOLD}
                 textFont={.Numbers} textShadow={COUNT_SHADOW} wrap={.None} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />

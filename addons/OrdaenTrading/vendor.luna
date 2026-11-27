@@ -65,8 +65,8 @@ function iconOf(texture: Number | String | nil): Art | nil {
 // What an item costs besides money, as the merchant's list says it.
 function costsOf(index: Integer): Array<Cost> {
   let costs: Array<Cost> = []
-  for (part of 1..Client.GetMerchantItemCostInfo(index).floor()) {
-    const texture, value, link, name = Client.GetMerchantItemCostItem(index, part)
+  for (part of 1..Client::GetMerchantItemCostInfo(index).floor()) {
+    const texture, value, link, name = Client::GetMerchantItemCostItem(index, part)
     if (texture != nil) { costs.push({ icon: iconOf(texture), amount: value.floor(), name: name ?? link ?? "" }) }
   }
   return costs
@@ -74,17 +74,17 @@ function costsOf(index: Integer): Array<Cost> {
 
 // One item of the merchant's list; none where the client hasn't it (yet).
 function wareAt(index: Integer): Ware | nil {
-  const info = Client.C_MerchantFrame.GetItemInfo(index)
-  const id = Client.GetMerchantItemID(index)
+  const info = Client::C_MerchantFrame::GetItemInfo(index)
+  const id = Client::GetMerchantItemID(index)
   if (info == nil || id == nil) { return nil }
-  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, crafting, _ = Client.C_Item.GetItemInfo(id.floor())
+  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, crafting, _ = Client::C_Item::GetItemInfo(id.floor())
   return {
     index: index, id: id.floor(), name: info.name ?? "", icon: info.texture, quality: qualityFrom(quality),
     price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
     usable: info.isUsable, purchasable: info.isPurchasable, costs: info.hasExtendedCost ? costsOf(index) : [],
-    most: Client.GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
+    most: Client::GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
     tab: kindOf((classId ?? NO_CLASS).floor(), crafting == true), kind: kind ?? "", quest: info.isQuestStartItem,
-    refundable: Client.C_MerchantFrame.IsMerchantItemRefundable(index), link: Client.GetMerchantItemLink(index)
+    refundable: Client::C_MerchantFrame::IsMerchantItemRefundable(index), link: Client::GetMerchantItemLink(index)
   }
 }
 
@@ -92,8 +92,8 @@ function wareAt(index: Integer): Ware | nil {
 // many the player has.
 function currenciesOf(): Array<Cost> {
   let held: Array<Cost> = []
-  for (id of Client.C_MerchantFrame.GetMerchantCurrencies() ?? []) {
-    const info = Client.C_CurrencyInfo.GetCurrencyInfo(id)
+  for (id of Client::C_MerchantFrame::GetMerchantCurrencies() ?? []) {
+    const info = Client::C_CurrencyInfo::GetCurrencyInfo(id)
     if (info != nil) { held.push({ icon: info.iconFileID, amount: info.quantity.floor(), name: info.name }) }
   }
   return held
@@ -118,22 +118,22 @@ public class Vendor {
   public state currencies: Array<Cost> = []
 
   constructor() {
-    Events.MERCHANT_SHOW.listen(self.onShow)
-    Events.MERCHANT_CLOSED.listen(self.onClosed)
+    Events::MERCHANT_SHOW.listen(self.onShow)
+    Events::MERCHANT_CLOSED.listen(self.onClosed)
     watch (open of self.open) {
       if (!open) { return }
-      Events.MERCHANT_UPDATE.listen(self.read)
-      Events.UPDATE_INVENTORY_DURABILITY.listen(self.readRepairs)
-      Events.PLAYER_MONEY.listen(self.readRepairs)
-      Events.CURSOR_CHANGED.listen(self.readRepairs)
-      Events.CURRENCY_DISPLAY_UPDATE.listen(self.readCurrencies)
+      Events::MERCHANT_UPDATE.listen(self.read)
+      Events::UPDATE_INVENTORY_DURABILITY.listen(self.readRepairs)
+      Events::PLAYER_MONEY.listen(self.readRepairs)
+      Events::CURSOR_CHANGED.listen(self.readRepairs)
+      Events::CURRENCY_DISPLAY_UPDATE.listen(self.readCurrencies)
     }
   }
 
   readCurrencies(mut self) { self.currencies = currenciesOf() }
 
   onShow(mut self) {
-    const name, _ = Client.UnitName("npc")
+    const name, _ = Client::UnitName("npc")
     self.name = name
     self.open = true
     self.read()
@@ -150,15 +150,15 @@ public class Vendor {
   // Everything the merchant's window shows, read again.
   public read(mut self) {
     let wares: Array<Ware> = []
-    for (index of 1..Client.GetMerchantNumItems()) {
+    for (index of 1..Client::GetMerchantNumItems()) {
       const ware = wareAt(index)
       // A sold-out item leaves the list.
       if (ware != nil && ware.available != 0) { wares.push(ware) }
     }
     self.wares = wares
     let sold: Array<Sold> = []
-    for (place of 1..Client.GetNumBuybackItems()) {
-      const name, texture, price, count, _, usable = Client.GetBuybackItemInfo(place)
+    for (place of 1..Client::GetNumBuybackItems()) {
+      const name, texture, price, count, _, usable = Client::GetBuybackItemInfo(place)
       if (name != nil) {
         sold.push({ place: place, name: name, icon: iconOf(texture), price: price.floor(), count: count.floor(), usable: usable })
       }
@@ -169,42 +169,42 @@ public class Vendor {
   }
 
   readRepairs(mut self) {
-    self.repairing = Client.InRepairMode()
-    self.repairs = Client.CanMerchantRepair()
+    self.repairing = Client::InRepairMode()
+    self.repairs = Client::CanMerchantRepair()
     if (!(peek self.repairs)) { return }
-    const cost, worn = Client.GetRepairAllCost()
+    const cost, worn = Client::GetRepairAllCost()
     self.repairCost = cost.floor()
     self.worn = worn
-    self.guildRepairs = Client.CanGuildBankRepair()
+    self.guildRepairs = Client::CanGuildBankRepair()
   }
 
   // The player's own click: one purchase of the item (`count` items of a stack the merchant sells by one; nil: the
   // merchant's own stack), bought back, mended.
-  public buy(self, ware: Ware, count: Integer | nil) { Client.BuyMerchantItem(ware.index, count) }
-  public buyBack(self, sold: Sold) { Client.BuybackItem(sold.place) }
-  public repairAll(self, guild: Boolean) { Client.RepairAllItems(guild) }
+  public buy(self, ware: Ware, count: Integer | nil) { Client::BuyMerchantItem(ware.index, count) }
+  public buyBack(self, sold: Sold) { Client::BuybackItem(sold.place) }
+  public repairAll(self, guild: Boolean) { Client::RepairAllItems(guild) }
   // The client's repair cursor: the next item clicked, worn or carried, is mended; again, the cursor is back.
   public repairOne(mut self) {
-    if (Client.InRepairMode()) {
-      Client.HideRepairCursor()
+    if (Client::InRepairMode()) {
+      Client::HideRepairCursor()
     } else {
-      Client.ShowRepairCursor()
+      Client::ShowRepairCursor()
     }
-    self.repairing = Client.InRepairMode()
+    self.repairing = Client::InRepairMode()
   }
   // The item onto the client's cursor, bought as it is put into a bag.
-  public pickUp(self, ware: Ware) { Client.PickupMerchantItem(ware.index) }
+  public pickUp(self, ware: Ware) { Client::PickupMerchantItem(ware.index) }
   // The item tried on in the dressing room (Ctrl+click), and any other modified click as the client's own buttons take
   // it (the player's bindings).
   public dressUp(self, ware: Ware) {
-    if (ware.link != nil) { _ = Client.DressUpItemLink(ware.link) }
+    if (ware.link != nil) { _ = Client::DressUpItemLink(ware.link) }
   }
   public modifiedClick(self, ware: Ware) {
-    if (ware.link != nil) { _ = Client.HandleModifiedItemClick(ware.link) }
+    if (ware.link != nil) { _ = Client::HandleModifiedItemClick(ware.link) }
   }
 
   // The window's close leaves the merchant.
   public close(self) {
-    if (peek self.open) { Client.CloseMerchant() }
+    if (peek self.open) { Client::CloseMerchant() }
   }
 }

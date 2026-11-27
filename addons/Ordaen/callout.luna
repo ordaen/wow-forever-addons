@@ -24,8 +24,8 @@ public enum CalloutLook {
 
 // As wide as what it says, up to its most: a long text wraps there.
 const MOST = 468.75dp
-const LABEL: Color = Color.hex("#cbb994")
-const GOLD: Color = Color.hex("#f0c860")
+const LABEL: Color = Color::hex("#cbb994")
+const GOLD: Color = Color::hex("#f0c860")
 // The client's help-tip arrow (65 by 28 px), pointing down as drawn; the gap from its point to the frame; how far the
 // bubble comes over the arrow's base, so they meet.
 const ARROW: Atlas = "helptip-arrow"
@@ -48,19 +48,19 @@ const PAD: Number<Spacing> = 5sp
 
 // Where the arrow stands: its point on the frame's top middle, or on its bottom middle.
 function arrowPlaceOf(by: any Frame, side: CalloutSide): Anchored {
-  if (side == CalloutSide.Above) {
-    return { point: Point.Bottom, to: Point.Top, y: -GAP, by: by }
+  if (side == CalloutSide::Above) {
+    return { point: Point::Bottom, to: Point::Top, y: -GAP, by: by }
   }
-  return { point: Point.Top, to: Point.Bottom, y: GAP, by: by }
+  return { point: Point::Top, to: Point::Bottom, y: GAP, by: by }
 }
 
 // Where the bubble stands: centred past the arrow's base.
 function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: Number<Length>, meet: Number<Length>): Anchored {
   const past: Number<Length> = GAP + arrowHeight - meet
-  if (side == CalloutSide.Above) {
-    return { point: Point.Bottom, to: Point.Top, y: -past, by: by }
+  if (side == CalloutSide::Above) {
+    return { point: Point::Bottom, to: Point::Top, y: -past, by: by }
   }
-  return { point: Point.Top, to: Point.Bottom, y: past, by: by }
+  return { point: Point::Top, to: Point::Bottom, y: past, by: by }
 }
 
 // A speech bubble's colour; nil for a framed callout.
@@ -91,7 +91,7 @@ public class Callout implements Component {
   derived arrowHeight: Number<Length> = self.speech ? TAIL_SIZE : ARROW_HEIGHT
   derived arrowPlace: Anchored = arrowPlaceOf(self.by, self.side)
   derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight, self.speech ? TAIL_MEET : MEET)
-  derived turn: Number<Angle> = self.side == CalloutSide.Above ? 0deg : 180deg
+  derived turn: Number<Angle> = self.side == CalloutSide::Above ? 0deg : 180deg
   derived hasText: Boolean = self.text != ""
   derived arrowTint: Color = self.tone ?? GOLD
 
@@ -107,7 +107,7 @@ public class Callout implements Component {
     title: Signal<String>,
     // Under the title, in a framed callout.
     text: Signal<String> = "",
-    side: Signal<CalloutSide> = CalloutSide.Above,
+    side: Signal<CalloutSide> = CalloutSide::Above,
     look: Signal<CalloutLook> = CalloutLook.Framed { closable: true },
     // It fades and comes back, over and over, while this holds: something waits for a look (unread whispers).
     pulse: Signal<Boolean> = false
@@ -124,7 +124,7 @@ public class Callout implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface $if={self.framed} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
+      <surface $if={self.framed} layer={Layer::Dialog} place={self.bubblePlace} clamp={true} columns={1}>
         <box leading={.Tight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}
              columns={1} gap={2sp} width={{ min: nil, max: MOST }} pulse={self.pulse}>
           <box columns={HEAD} gap={3sp}>
@@ -135,14 +135,14 @@ public class Callout implements Component {
           <text $if={self.hasText} value={self.text} textColor={LABEL} />
         </box>
       </surface>
-      <surface $if={self.speech} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
+      <surface $if={self.speech} layer={Layer::Dialog} place={self.bubblePlace} clamp={true} columns={1}>
         <box width={{ min: BUBBLE_LEAST, max: nil }} height={BUBBLE_LEAST} padding={BUBBLE_PAD} background={BUBBLE}
-             desaturate={true} tint={self.tone} xAlign={Align.Center} yAlign={Align.Center} pulse={self.pulse}>
+             desaturate={true} tint={self.tone} xAlign={Align::Center} yAlign={Align::Center} pulse={self.pulse}>
           <text value={self.title} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
                 leading={.Tight} wrap={.None} />
         </box>
       </surface>
-      <surface layer={Layer.Dialog} place={self.arrowPlace} columns={1}>
+      <surface layer={Layer::Dialog} place={self.arrowPlace} columns={1}>
         <box width={self.arrowWidth} height={self.arrowHeight} background={self.arrow} desaturate={true}
              tint={self.arrowTint} rotation={self.turn} pulse={self.pulse} />
       </surface>

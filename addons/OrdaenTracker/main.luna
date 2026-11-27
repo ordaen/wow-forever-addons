@@ -23,8 +23,8 @@ const GAP = 7.03125dp
 // The tracker's part, as the placing mode keeps where the player put it.
 const PART = "OrdaenTracker.quests"
 const PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
-const DIM: Color = Color.hex("#a3977f")
-const RED: Color = Color.hex("#ff2020")
+const DIM: Color = Color::hex("#a3977f")
+const RED: Color = Color::hex("#ff2020")
 // Its quests, in all its height.
 const ROWS: Array<Track> = [{ fr: 1 }]
 // A quest: its level, and beside it its title line with its lines under, which start where the title starts and wrap
@@ -46,10 +46,10 @@ const ASK_BUTTON = 140.625dp
 // The client's quest tags as Forever writes them after a tracked quest's title (`GetQuestTagText`).
 function tagText(tag: Integer | nil): String {
   return match (tag ?? 0) {
-    1 => Locale.TAG_GROUP
-    41 => Locale.TAG_PVP
-    62 => Locale.TAG_RAID
-    81 => Locale.TAG_DUNGEON
+    1 => Locale::TAG_GROUP
+    41 => Locale::TAG_PVP
+    62 => Locale::TAG_RAID
+    81 => Locale::TAG_DUNGEON
     else => ""
   }
 }
@@ -68,8 +68,8 @@ public function clockText(seconds: Integer): String {
 }
 
 // The first `count` of the quests, or all of them where there are fewer.
-function firstOf(quests: Array<Game.LogQuest>, count: Integer): Array<Game.LogQuest> {
-  const first: Array<Game.LogQuest> = []
+function firstOf(quests: Array<Game::LogQuest>, count: Integer): Array<Game::LogQuest> {
+  const first: Array<Game::LogQuest> = []
   for (quest of quests) {
     if (first.length >= count) { break }
     first.push(quest)
@@ -78,7 +78,7 @@ function firstOf(quests: Array<Game.LogQuest>, count: Integer): Array<Game.LogQu
 }
 
 // Whether one of the quests has its special item.
-function hasItem(quests: Array<Game.LogQuest>): Boolean {
+function hasItem(quests: Array<Game::LogQuest>): Boolean {
   for (quest of quests) {
     if (quest.item > 0) { return true }
   }
@@ -92,13 +92,13 @@ public class Tracker implements Module, App {
   public const title: String = "Ordaen Tracker"
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } }
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } }
   ]
   // What opens a quest in a log of a module's, and shows it on the map.
   public const openers = new Registry<any QuestOpener>()
 
   // The log's quests, in its order; the one the client points the way to; the log's size.
-  public state quests: Array<Game.LogQuest> = []
+  public state quests: Array<Game::LogQuest> = []
   public state superTracked = 0
   // The zone the player is in, as the log's headers name it: only its quests are listed.
   state zone = ""
@@ -111,37 +111,37 @@ public class Tracker implements Module, App {
   // The cooldown running on each tracked quest's item, by the quest.
   state cooldowns: Map<Integer, FillDuration> = {}
 
-  derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
-  derived level: Integer = Game.player.level
+  derived abandonText: String = Locale::ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
+  derived level: Integer = Game::player.level
   // The quests of the zone the player is in, tracked or not (the client watches a quest only once its objectives
   // move; an instance's own in a dungeon, a raid or a battleground: the log heads them by its name), as many as the
   // settings list.
-  derived here: Array<Game.LogQuest> = self.quests.filter(quest => quest.header == self.zone)
-  derived listed: Array<Game.LogQuest> = firstOf(self.here, self.settings.values.listed)
+  derived here: Array<Game::LogQuest> = self.quests.filter(quest => quest.header == self.zone)
+  derived listed: Array<Game::LogQuest> = firstOf(self.here, self.settings.values.listed)
   derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
-  derived grounded: Boolean = self.settings.values.groundShown == GroundShown.Always || self.hovered
+  derived grounded: Boolean = self.settings.values.groundShown == GroundShown::Always || self.hovered
   // Shown while it lists a quest, and in the placing mode, to be moved.
   derived drawn: Boolean = self.here.length > 0 || Ordaen.placing
   // Its place while the player never moved it: along the right edge, from under what keeps the top right corner (the
   // minimap) down to above what keeps the bottom edge (the bottom panel, a damage meter there), all of that height; it
   // scrolls past it.
-  derived home: Anchored = { point: Point.TopRight, to: Point.TopRight, x: -EDGE, y: Ordaen.topRightTaken + GAP }
+  derived home: Anchored = { point: Point::TopRight, to: Point::TopRight, x: -EDGE, y: Ordaen.topRightTaken + GAP }
   // The most it is: as high as its quests up to that, its list scrolling past it.
-  derived height: Number<Length> = (Client.UIParent.GetHeight() * 1ui - Ordaen.topRightTaken - Ordaen.bottomTaken - 2 * GAP).max(0ui)
+  derived height: Number<Length> = (Client::UIParent.GetHeight() * 1ui - Ordaen.topRightTaken - Ordaen.bottomTaken - 2 * GAP).max(0ui)
 
   constructor() {
     Ordaen.modules.add(self)
     self.refresh()
-    Events.QUEST_LOG_UPDATE.listen(self.refresh)
-    Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
-    Events.SUPER_TRACKING_CHANGED.listen(self.refresh)
-    Events.BAG_UPDATE_COOLDOWN.listen(self.readCooldowns)
-    Events.ZONE_CHANGED_NEW_AREA.listen(self.refresh)
+    Events::QUEST_LOG_UPDATE.listen(self.refresh)
+    Events::QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
+    Events::SUPER_TRACKING_CHANGED.listen(self.refresh)
+    Events::BAG_UPDATE_COOLDOWN.listen(self.readCooldowns)
+    Events::ZONE_CHANGED_NEW_AREA.listen(self.refresh)
   }
 
   // The log's quests as the client has them now; an objective that moved on sounds as the game's tracker does.
   public refresh(mut self) {
-    const tracked = Game.questLog.quests()
+    const tracked = Game::questLog.quests()
     const heard: Map<Integer, String> = {}
     let rolled = false
     const before = peek self.heard
@@ -154,8 +154,8 @@ public class Tracker implements Module, App {
     if (rolled) { playSound("UI_QUEST_ROLLING_FORWARD_01") }
     self.heard = heard
     self.quests = tracked
-    self.superTracked = Game.questLog.superTracked()
-    self.zone = Game.questLog.zone()
+    self.superTracked = Game::questLog.superTracked()
+    self.zone = Game::questLog.zone()
     self.readCooldowns()
   }
 
@@ -167,7 +167,7 @@ public class Tracker implements Module, App {
     if (!hasItem(quests)) { return }
     const running: Map<Integer, FillDuration> = {}
     for (quest of quests) {
-      const cooldown = quest.item > 0 ? Game.questLog.itemCooldown(quest.id) : nil
+      const cooldown = quest.item > 0 ? Game::questLog.itemCooldown(quest.id) : nil
       if (cooldown != nil) { running[quest.id] = cooldown }
     }
     self.cooldowns = running
@@ -180,11 +180,11 @@ public class Tracker implements Module, App {
     match (ask) {
       .Open => { self.open(id) }
       // Shift+click, the game's order: a chat link where a chat line is open, else it stops tracking it.
-      .Link => { if (!Game.chat.linkQuest(id)) { Game.questLog.track(id, false) } }
-      .Untrack => { Game.questLog.track(id, false) }
-      .SuperTrack => { Game.questLog.superTrack(peek self.superTracked == id ? 0 : id) }
+      .Link => { if (!Game::chat.linkQuest(id)) { Game::questLog.track(id, false) } }
+      .Untrack => { Game::questLog.track(id, false) }
+      .SuperTrack => { Game::questLog.superTrack(peek self.superTracked == id ? 0 : id) }
       .ShowOnMap => { self.showOnMap(id) }
-      .Share => { Game.questLog.share(id) }
+      .Share => { Game::questLog.share(id) }
       .Abandon => { self.abandoning = id }
     }
   }
@@ -195,7 +195,7 @@ public class Tracker implements Module, App {
       if (entry.open(id)) { return }
     }
     // The client opens the map for an addon out of a fight alone.
-    if (!Game.situation.combat) { Client.C_Map.OpenWorldMap(nil) }
+    if (!Game::situation.combat) { Client::C_Map::OpenWorldMap(nil) }
   }
 
   // The quest on the map: the first module that shows where it leads, else the game's map as it was.
@@ -203,36 +203,36 @@ public class Tracker implements Module, App {
     for (entry of self.openers) {
       if (entry.showOnMap(id)) { return }
     }
-    Client.C_Map.OpenWorldMap(nil)
+    Client::C_Map::OpenWorldMap(nil)
   }
 
   onAbandonYes(mut self) {
     const id = peek self.abandoning
     self.abandoning = 0
-    if (id != 0) { Game.questLog.abandon(id) }
+    if (id != 0) { Game::questLog.abandon(id) }
   }
 
   onAbandonNo(mut self) { self.abandoning = 0 }
 
   public render(self): Template {
     return $ltml {
-      <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
-      <Placed $if={self.drawn} id={PART} title={Locale.PLACE} home={self.home}>
+      <frame of={Game::frames.ObjectiveTracker} opacity={0} away={true} />
+      <Placed $if={self.drawn} id={PART} title={Locale::PLACE} home={self.home}>
         <box width={WIDTH} height={{ max: self.height }} padding={PAD} rows={ROWS} gap={3sp} mouseThrough={true}
              @pointerEnter={self.onEnter}
              @pointerLeave={self.onLeave}>
           <RoundedFill $if={self.grounded} color={self.ground} />
-          <box columns={1} gap={3sp} overflow={Overflow.Scroll}>
+          <box columns={1} gap={3sp} overflow={Overflow::Scroll}>
             <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest}
                           pointed={quest.id == self.superTracked} player={self.level} cooldown={self.cooldowns[quest.id]}
                           @ask={self.onAsk} />
           </box>
         </box>
       </Placed>
-      <Dialog $if={self.abandoning != 0} width={ASK} title={Locale.ABANDON}>
+      <Dialog $if={self.abandoning != 0} width={ASK} title={Locale::ABANDON}>
         <text value={self.abandonText} />
-        <PushButton #buttons label={Locale.ABANDON} width={ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
-        <PushButton #buttons label={Locale.CANCEL} width={ASK_BUTTON} @click={self.onAbandonNo} />
+        <PushButton #buttons label={Locale::ABANDON} width={ASK_BUTTON} plate={ButtonPlate::Danger} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale::CANCEL} width={ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>
     }
   }
@@ -253,26 +253,26 @@ class TrackedQuest implements Component {
   // A timed quest's time left, said under its title while it runs, red in its last minute; read from the clock only
   // while there is one.
   derived timed: Boolean = self.quest.ends != nil && !self.quest.failed
-  derived left: Integer = self.timed ? secondsLeft(self.quest.ends ?? 0, Game.clock.seconds) : 0
-  derived timeText: String = Locale.TIME_LEFT.format(clockText(self.left))
+  derived left: Integer = self.timed ? secondsLeft(self.quest.ends ?? 0, Game::clock.seconds) : 0
+  derived timeText: String = Locale::TIME_LEFT.format(clockText(self.left))
   derived timeColor: Color = self.left < 60 ? RED : DIM
   derived entries: Array<MenuEntry> = [
-    { label: self.pointed ? Locale.UNSUPER_TRACK : Locale.SUPER_TRACK },
-    { label: Locale.OPEN_IN_LOG },
+    { label: self.pointed ? Locale::UNSUPER_TRACK : Locale::SUPER_TRACK },
+    { label: Locale::OPEN_IN_LOG },
     // The client opens the map for an addon out of a fight alone.
-    { label: Locale.SHOW_ON_MAP, disabled: Game.situation.combat },
-    { label: Locale.UNTRACK },
-    { label: Locale.SHARE, disabled: !self.quest.shareable },
-    { label: Locale.ABANDON, group: true }
+    { label: Locale::SHOW_ON_MAP, disabled: Game::situation.combat },
+    { label: Locale::UNTRACK },
+    { label: Locale::SHARE, disabled: !self.quest.shareable },
+    { label: Locale::ABANDON, group: true }
   ]
 
-  quest: Signal<Game.LogQuest>
+  quest: Signal<Game::LogQuest>
   pointed: Signal<Boolean>
   player: Signal<Integer>
   // The cooldown running on its item, its button's sweep.
   cooldown: Signal<FillDuration | nil>
   constructor(
-    quest: Signal<Game.LogQuest>,
+    quest: Signal<Game::LogQuest>,
     pointed: Signal<Boolean>,
     player: Signal<Integer>,
     cooldown: Signal<FillDuration | nil>
@@ -283,30 +283,30 @@ class TrackedQuest implements Component {
     self.cooldown = cooldown
   }
 
-  onOpen(mut self) { self.ask.emit(self.quest.id, Ask.Open) }
-  onShift(mut self) { self.ask.emit(self.quest.id, Ask.Link) }
+  onOpen(mut self) { self.ask.emit(self.quest.id, Ask::Open) }
+  onShift(mut self) { self.ask.emit(self.quest.id, Ask::Link) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
 
   onEntry(mut self, index: Integer) {
     self.menuOpen = false
     const ask = match (index) {
-      1 => Ask.SuperTrack
-      2 => Ask.Open
-      3 => Ask.ShowOnMap
-      4 => Ask.Untrack
-      5 => Ask.Share
-      else => Ask.Abandon
+      1 => Ask::SuperTrack
+      2 => Ask::Open
+      3 => Ask::ShowOnMap
+      4 => Ask::Untrack
+      5 => Ask::Share
+      else => Ask::Abandon
     }
     self.ask.emit(self.quest.id, ask)
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={QUEST} gap={LINES_GAP} yAlign={Align.Center} padding={ROW_PAD} background={SHADE}
+      <box columns={QUEST} gap={LINES_GAP} yAlign={Align::Center} padding={ROW_PAD} background={SHADE}
            @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift} @pointerPress(.Right)={self.onMenu}>
         <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
-        <box columns={TITLE} gap={2sp} yAlign={Align.Center}>
+        <box columns={TITLE} gap={2sp} yAlign={Align::Center}>
           <text value={self.quest.title} textColor={BRIGHT_TEXT} textWeight={.Bold} wrap={.Cut} />
           <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $if={self.checked} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
@@ -321,7 +321,7 @@ class TrackedQuest implements Component {
           <box $if={!self.quest.done && !self.quest.failed} columns={1} gap={1sp}>
             <text $for={objective of self.quest.objectives} value={objective.text} textColor={BRIGHT_TEXT} />
           </box>
-          <text $if={self.quest.failed} value={Locale.FAILED} textColor={RED} />
+          <text $if={self.quest.failed} value={Locale::FAILED} textColor={RED} />
           <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry} @close={self.onClose} />
         </box>
       </box>

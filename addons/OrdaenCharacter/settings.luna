@@ -11,26 +11,26 @@ import Style from "@/style"
 public enum SlotSize implements Plain { Standard = "standard", Large = "large", Sharpest = "sharpest" }
 
 const SLOT_SIZES: Array<Choice<SlotSize>> = [
-  { value: SlotSize.Standard, label: Locale.SLOT_STANDARD },
-  { value: SlotSize.Large, label: Locale.SLOT_LARGE },
-  { value: SlotSize.Sharpest, label: Locale.SLOT_SHARPEST }
+  { value: SlotSize::Standard, label: Locale::SLOT_STANDARD },
+  { value: SlotSize::Large, label: Locale::SLOT_LARGE },
+  { value: SlotSize::Sharpest, label: Locale::SLOT_SHARPEST }
 ]
 
 // The largest slot whose icon the screen draws with no texel spread over more than one pixel: the icon's picture
 // (its texels less the rim the client cuts) in the screen's pixels, and the slot's edge round it; never under the
 // standard slot (a dense screen draws that sharp already), never past what the paper doll holds.
 function sharpestSlot(): Number<Length> {
-  const wide, high = Client.GetPhysicalScreenSize()
-  const pixels = high * Client.UIParent.GetEffectiveScale() / 1080
-  const sharp = Style.SLOT_EDGE * 2 + 1dp * Style.ICON_TEXELS.floor() / pixels
-  return sharp.max(Style.SLOT).min(Style.SLOT_MOST)
+  const wide, high = Client::GetPhysicalScreenSize()
+  const pixels = high * Client::UIParent.GetEffectiveScale() / 1080
+  const sharp = Style::SLOT_EDGE * 2 + 1dp * Style::ICON_TEXELS.floor() / pixels
+  return sharp.max(Style::SLOT).min(Style::SLOT_MOST)
 }
 
 // A slot's size as the player chose it.
 public function slotSizeOf(size: SlotSize): Number<Length> {
   return match (size) {
-    .Standard => Style.SLOT
-    .Large => Style.SLOT_LARGE
+    .Standard => Style::SLOT
+    .Large => Style::SLOT_LARGE
     .Sharpest => sharpestSlot()
   }
 }
@@ -39,7 +39,7 @@ public function slotSizeOf(size: SlotSize): Number<Length> {
 public struct Choices implements Plain {
   // A thin bar under each slot shows its item's durability.
   durability: Boolean
-  slotSize: SlotSize = SlotSize.Sharpest
+  slotSize: SlotSize = SlotSize::Sharpest
   // The names of the spec tabs; empty for ours.
   specOne: String = ""
   specTwo: String = ""
@@ -58,31 +58,31 @@ public struct Picks implements Plain {
 function buildName(spec: SpecWeights): String {
   const index = spec.spec
   if (index != nil) {
-    let _, name, _, _, _, _, _, _, _, _ = Client.C_SpecializationInfo.GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
+    let _, name, _, _, _, _, _, _, _, _ = Client::C_SpecializationInfo::GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
     if (name != nil) { return name }
   }
-  if (spec.key == "shockadin") { return Locale.BUILD_SHOCKADIN }
-  if (spec.key == "enhancement_tank") { return Locale.BUILD_ENHANCEMENT_TANK }
-  if (spec.key == "battlemage_arcane") { return Locale.BUILD_BATTLEMAGE_ARCANE }
-  if (spec.key == "battlemage_fire") { return Locale.BUILD_BATTLEMAGE_FIRE }
-  if (spec.key == "battlemage_frost") { return Locale.BUILD_BATTLEMAGE_FROST }
+  if (spec.key == "shockadin") { return Locale::BUILD_SHOCKADIN }
+  if (spec.key == "enhancement_tank") { return Locale::BUILD_ENHANCEMENT_TANK }
+  if (spec.key == "battlemage_arcane") { return Locale::BUILD_BATTLEMAGE_ARCANE }
+  if (spec.key == "battlemage_fire") { return Locale::BUILD_BATTLEMAGE_FIRE }
+  if (spec.key == "battlemage_frost") { return Locale::BUILD_BATTLEMAGE_FROST }
   return spec.label
 }
 
 // The builds the player's class weighs gear for.
 function buildChoices(): Array<Choice<String>> {
-  return specsOf(Game.player.classTag).map((spec: SpecWeights): Choice<String> => ({ value: spec.key, label: buildName(spec) }))
+  return specsOf(Game::player.classTag).map((spec: SpecWeights): Choice<String> => ({ value: spec.key, label: buildName(spec) }))
 }
 
 // The class's build row, by the class's name as the client gives it.
 function classBuildLabel(): String {
-  let name, _, _ = Client.UnitClass("player")
-  return Locale.SETTING_CLASS_BUILD.format(name ?? Game.player.classTag)
+  let name, _, _ = Client::UnitClass("player")
+  return Locale::SETTING_CLASS_BUILD.format(name ?? Game::player.classTag)
 }
 
 // A talent group's build: by its talents, or one picked.
 function pickChoices(): Array<Choice<String>> {
-  let choices: Array<Choice<String>> = [{ value: "", label: Locale.BUILD_BY_TALENTS }]
+  let choices: Array<Choice<String>> = [{ value: "", label: Locale::BUILD_BY_TALENTS }]
   for (choice of buildChoices()) { choices.push(choice) }
   return choices
 }
@@ -91,7 +91,7 @@ public class GeneralPage implements Component {
   const builds: Array<Choice<String>> = buildChoices()
   const picks: Array<Choice<String>> = pickChoices()
   const classLabel: String = classBuildLabel()
-  const groups: Integer = Game.talentTrees.groups()
+  const groups: Integer = Game::talentTrees.groups()
   // The player's class's build before its first point, as the profile keeps it: written there as it is picked.
   state classBuild: String
   settings: mut Settings<Choices>
@@ -99,7 +99,7 @@ public class GeneralPage implements Component {
   constructor(settings: mut Settings<Choices>, memory: mut ModuleMemory<Picks>) {
     self.settings = settings
     self.memory = memory
-    const tag = Game.player.classTag
+    const tag = Game::player.classTag
     self.classBuild = (peek self.settings.values).classBuilds[tag] ?? defaultBuildOf(tag)
     watch (build of self.classBuild) {
       self.settings.change((choices: mut Choices): nil => { choices.classBuilds[tag] = build })
@@ -108,16 +108,16 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.SETTING_DURABILITY} hint={Locale.SETTING_DURABILITY_TIP}
+      <Checkbox label={Locale::SETTING_DURABILITY} hint={Locale::SETTING_DURABILITY_TIP}
                 value={mut self.settings.values.durability} />
-      <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>
+      <SettingRow label={Locale::SETTING_SLOT_SIZE} hint={Locale::SETTING_SLOT_SIZE_TIP}>
         <Segmented value={mut self.settings.values.slotSize} choices={SLOT_SIZES} />
       </SettingRow>
-      <Dropdown label={self.classLabel} hint={Locale.SETTING_CLASS_BUILD_TIP} value={mut self.classBuild}
+      <Dropdown label={self.classLabel} hint={Locale::SETTING_CLASS_BUILD_TIP} value={mut self.classBuild}
                 choices={self.builds} />
-      <Dropdown label={Locale.SETTING_PRIMARY_BUILD} hint={Locale.SETTING_PICKED_BUILD_TIP}
+      <Dropdown label={Locale::SETTING_PRIMARY_BUILD} hint={Locale::SETTING_PICKED_BUILD_TIP}
                 value={mut self.memory.values.primary} choices={self.picks} />
-      <Dropdown $if={self.groups > 1} label={Locale.SETTING_SECONDARY_BUILD} hint={Locale.SETTING_PICKED_BUILD_TIP}
+      <Dropdown $if={self.groups > 1} label={Locale::SETTING_SECONDARY_BUILD} hint={Locale::SETTING_PICKED_BUILD_TIP}
                 value={mut self.memory.values.secondary} choices={self.picks} />
     }
   }
@@ -171,15 +171,15 @@ public class SpecNamesPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
-        <text value={Locale.SETTING_SPEC_ONE} textColor={Style.INK} />
-        <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-          <input value={mut self.one} maxLength={24} padding={Style.FIELD_PAD} textColor={Style.INK}
-                 background={Style.FIELD_BACK} @submit={self.enterOne} />
+        <text value={Locale::SETTING_SPEC_ONE} textColor={Style::INK} />
+        <box height={Style::FIELD} rows={[{ fr: 1 }]}>
+          <input value={mut self.one} maxLength={24} padding={Style::FIELD_PAD} textColor={Style::INK}
+                 background={Style::FIELD_BACK} @submit={self.enterOne} />
         </box>
-        <text value={Locale.SETTING_SPEC_TWO} textColor={Style.INK} />
-        <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-          <input value={mut self.two} maxLength={24} padding={Style.FIELD_PAD} textColor={Style.INK}
-                 background={Style.FIELD_BACK} @submit={self.enterTwo} />
+        <text value={Locale::SETTING_SPEC_TWO} textColor={Style::INK} />
+        <box height={Style::FIELD} rows={[{ fr: 1 }]}>
+          <input value={mut self.two} maxLength={24} padding={Style::FIELD_PAD} textColor={Style::INK}
+                 background={Style::FIELD_BACK} @submit={self.enterTwo} />
         </box>
       </box>
     }

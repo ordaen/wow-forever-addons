@@ -5,7 +5,7 @@ import Client from "$client"
 // A class's colour by the client's tag of it (`WARRIOR`); none for a tag the client doesn't colour.
 public function classColor(tag: String | nil): Color | nil {
   if (tag == nil) { return nil }
-  const rgb = Client.RAID_CLASS_COLORS[tag]
+  const rgb = Client::RAID_CLASS_COLORS[tag]
   if (rgb == nil) { return nil }
   return { r: rgb.r, g: rgb.g, b: rgb.b, a: 1 }
 }

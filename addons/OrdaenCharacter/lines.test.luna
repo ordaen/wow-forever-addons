@@ -32,8 +32,8 @@ test "an enchant's line gives each of its flat bonuses" {
     { text: "Чары: +2 к выносливости и +16 к броне", kind: 15 }
   ]
   const found = bonusesOf(lines, RUSSIAN)
-  Test.expect(told(found.enchant) == "Stamina 2, Armor 16")
-  Test.expect(found.set == nil)
+  Test::expect(told(found.enchant) == "Stamina 2, Armor 16")
+  Test::expect(found.set == nil)
 }
 
 test "a shield's block line gives the block's damage as the item's own; a block chance's line is no such line" {
@@ -43,7 +43,7 @@ test "a shield's block line gives the block's damage as the item's own; a block 
     { text: "39 Блок", kind: 0 },
     { text: "Если на персонаже: повышает вероятность блокирования атак щитом на 1%.", kind: 0 }
   ]
-  Test.expect(told(bonusesOf(lines, RUSSIAN).base) == "BlockValue 39")
+  Test::expect(told(bonusesOf(lines, RUSSIAN).base) == "BlockValue 39")
 }
 
 test "Forever's shield line, its template's amount a string's place, gives the block's damage" {
@@ -57,7 +57,7 @@ test "Forever's shield line, its template's amount a string's place, gives the b
     { text: "Вероятность блока: 3", kind: 0 },
     { text: "Прочность: 45 / 45", kind: 0 }
   ]
-  Test.expect(told(bonusesOf(lines, forever).base) == "BlockValue 3")
+  Test::expect(told(bonusesOf(lines, forever).base) == "BlockValue 3")
 }
 
 test "a set's name and its bonuses in effect, a flat one and a chance; one not yet in effect is left out" {
@@ -69,14 +69,14 @@ test "a set's name and its bonuses in effect, a flat one and a chance; one not y
     { text: "(3) Комплект: +40 к силе атаки.", kind: 42 }
   ]
   const set = bonusesOf(lines, RUSSIAN).set ?? panic("the item is a set's")
-  Test.expect(set.name == "Соучастники")
-  Test.expect(told(set.gives) == "Strength 22, MeleeHit 2, RangedHit 2")
+  Test::expect(set.name == "Соучастники")
+  Test::expect(told(set.gives) == "Strength 22, MeleeHit 2, RangedHit 2")
 }
 
 test "a longer stat's words are read as that stat, not as the shorter one they start like" {
-  Test.expect(told(givenOf("+24 к силе атаки", RUSSIAN)) == "AttackPower 24")
+  Test::expect(told(givenOf("+24 к силе атаки", RUSSIAN)) == "AttackPower 24")
 }
 
 test "a chance of spells gives the spells' stat" {
-  Test.expect(told(givenOf("Повышает вероятность критического эффекта заклинаний на 1%.", RUSSIAN)) == "SpellCrit 1")
+  Test::expect(told(givenOf("Повышает вероятность критического эффекта заклинаний на 1%.", RUSSIAN)) == "SpellCrit 1")
 }

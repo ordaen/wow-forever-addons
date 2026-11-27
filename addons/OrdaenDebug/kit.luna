@@ -4,7 +4,7 @@
 import Debug from "$debug"
 import { Catcher } from "@/catcher"
 
-public class Kit implements Debug.Kit {
+public class Kit implements Debug::Kit {
   catcher: mut Catcher
   constructor(catcher: mut Catcher) {
     self.catcher = catcher

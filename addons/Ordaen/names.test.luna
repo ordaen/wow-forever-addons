@@ -5,15 +5,15 @@ import { Field } from "@/field"
 import { classColor, trimmed } from "@/names"
 
 test "a class's colour is the client's by its tag, whole; a tag it doesn't know has none" {
-  const rgb = Client.RAID_CLASS_COLORS["MAGE"]
+  const rgb = Client::RAID_CLASS_COLORS["MAGE"]
   const mage = classColor("MAGE")
-  Test.expect(rgb == nil ? mage == nil : mage?.r == rgb.r && mage?.a == 1)
-  Test.expect(classColor("NOT_A_CLASS") == nil && classColor(nil) == nil)
+  Test::expect(rgb == nil ? mage == nil : mage?.r == rgb.r && mage?.a == 1)
+  Test::expect(classColor("NOT_A_CLASS") == nil && classColor(nil) == nil)
 }
 
 test "a text is trimmed of the spaces before and after, never of those inside" {
-  Test.expect(trimmed("  Regy Ironsight ") == "Regy Ironsight")
-  Test.expect(trimmed("   ") == "")
+  Test::expect(trimmed("  Regy Ironsight ") == "Regy Ironsight")
+  Test::expect(trimmed("   ") == "")
 }
 
 class Holder {
@@ -27,8 +27,8 @@ class Holder {
 
 test "a field says what it asks for while it is empty, and takes what is typed" {
   const page = new Holder()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  Test.expect(Test.page().text("Name").shown())
-  Test.page().input().type("Regy")
-  Test.expect(page.text == "Regy" && !Test.page().text("Name").shown())
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  Test::expect(Test::page().text("Name").shown())
+  Test::page().input().type("Regy")
+  Test::expect(page.text == "Regy" && !Test::page().text("Name").shown())
 }

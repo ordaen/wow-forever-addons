@@ -7,12 +7,12 @@ test "the main stats by the player's spec: the most weighed first, those at leas
   const stats: Stats = { strength: 30, agility: 20, stamina: 25, intellect: 10, spirit: 12 }
   const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? panic("arms")
   const mains = mainsOf(stats, arms.leveling)
-  Test.expect(mains[1]?.stat == .Strength && mains[2]?.stat == .Stamina && mains[3]?.stat == .Agility)
-  Test.expect(mains[1]?.valued == true && mains[2]?.valued == true && mains[3]?.valued == false)
+  Test::expect(mains[1]?.stat == .Strength && mains[2]?.stat == .Stamina && mains[3]?.stat == .Agility)
+  Test::expect(mains[1]?.valued == true && mains[2]?.valued == true && mains[3]?.valued == false)
 }
 
 test "without a spec's weights the main stats stand as the game orders them, none valued" {
   const stats: Stats = { strength: 30, agility: 20, stamina: 25, intellect: 10, spirit: 12 }
   const mains = mainsOf(stats, nil)
-  Test.expect(mains[1]?.stat == .Strength && mains[2]?.stat == .Stamina && mains.all(main => !main.valued))
+  Test::expect(mains[1]?.stat == .Strength && mains[2]?.stat == .Stamina && mains.all(main => !main.valued))
 }

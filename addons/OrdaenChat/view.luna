@@ -5,14 +5,14 @@ import { BRIGHT_TEXT, Component, ListTab, SECONDARY_TEXT, SessionRule, timeText 
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
-const MARK: Color = Color.hex("#ff9a2e33")
+const MARK: Color = Color::hex("#ff9a2e33")
 // A time above a minute's lines: the time stamps' muted grey, at the secondary text's size, on its line's own lines.
-const STAMP_GREY: Color = Color.hex("#9d9d9d")
+const STAMP_GREY: Color = Color::hex("#9d9d9d")
 // The shade behind the tab under the cursor: a list tab's own under the cursor. The open one stands on the lines' own
 // ground, one piece with them.
-const SHADE: Color = Color.hex("#00000059")
+const SHADE: Color = Color::hex("#00000059")
 // The unread count: bright digits on a plain fill, no art; never narrower than it is high.
-const COUNT_FILL: Color = Color.hex("#9b2c1f")
+const COUNT_FILL: Color = Color::hex("#9b2c1f")
 const COUNT_WIDE: Bounds = { min: 18.75dp, max: nil }
 const COUNT_PAD: Edges = { right: 1sp, left: 1sp }
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
@@ -56,16 +56,16 @@ public class TabButton implements Component {
     return $ltml {
       <box columns={1} @pointerPress(.Right)={self.onMenu} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         // The shade behind it out of the flow (every tab one size), up to the lines' ground.
-        <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} background={self.shade} />
+        <box position={Position::Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} background={self.shade} />
         // The list tab draws no shade of its own (framed): this one reaches the ground.
         <box zLevel={1}>
           <ListTab label={self.tab.title} selected={self.open} framed={true} @pick={self.onPick}>
             <box $if={self.tab.counted} width={COUNT_ROOM} />
           </ListTab>
         </box>
-        <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={COUNT_SPOT}
-             yAlign={Align.Center} zLevel={2}>
-          <box width={COUNT_WIDE} padding={COUNT_PAD} background={COUNT_FILL} xAlign={Align.Center} yAlign={Align.Center}>
+        <box $if={self.unread} position={Position::Absolute} top={0ui} right={0ui} bottom={0ui} padding={COUNT_SPOT}
+             yAlign={Align::Center} zLevel={2}>
+          <box width={COUNT_WIDE} padding={COUNT_PAD} background={COUNT_FILL} xAlign={Align::Center} yAlign={Align::Center}>
             <text value={"%d"} arguments={[self.tab.unread]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
                   leading={.Tight} wrap={.None} />
           </box>
@@ -80,15 +80,15 @@ public class TabButton implements Component {
 // it alone, small and centred, close on its line. A secret line stands one line high, so nothing of it is measured.
 public class Row implements Component {
   // A link of the line clicked.
-  public link: Event<Event.Link> = new Event()
+  public link: Event<Event::Link> = new Event()
 
   derived band: Color | nil = self.line.marked ? MARK : nil
   // A line kept from before sessions were told apart is named by its own time.
   derived began: Integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
   // Its time, written as every time of Ordaen's is.
-  derived time: String = timeText(Game.clock.timeAt(self.line.time.floor()))
-  derived above: Boolean = self.stamp == StampShown.Above
-  derived text: String = self.stamp == StampShown.Before ? `${STAMP.format(self.time)}${self.line.whole}` : self.line.whole
+  derived time: String = timeText(Game::clock.timeAt(self.line.time.floor()))
+  derived above: Boolean = self.stamp == StampShown::Above
+  derived text: String = self.stamp == StampShown::Before ? `${STAMP.format(self.time)}${self.line.whole}` : self.line.whole
 
   line: Signal<Shown>
   opens: Signal<Boolean>
@@ -101,16 +101,16 @@ public class Row implements Component {
     self.lineHeight = lineHeight
   }
 
-  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+  onLink(mut self, link: Event::Link) { self.link.emit(link) }
 
   public render(self): Template {
     return $ltml {
       <SessionRule $if={self.opens} began={self.began} />
       <box columns={1}>
-        <box $if={self.above} xAlign={Align.Center}>
+        <box $if={self.above} xAlign={Align::Center}>
           <text value={self.time} textColor={STAMP_GREY} textSize={SECONDARY_TEXT} leading={.Tight} wrap={.None} />
         </box>
-        <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
+        <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow::Hidden}>
           <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
         </box>
         <box $else background={self.band} @linkPress={self.onLink}>

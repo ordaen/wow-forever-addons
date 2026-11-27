@@ -7,15 +7,15 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT } from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
 const PLATES = ["Options", "AddOns", "Log Out", "Exit Game", "Return to Game"]
 
 // Blizzard's buttons that show.
-function buttonsOf(...frames: any Client.Frame): Array<any Client.Button> {
-  const list: Array<any Client.Button> = []
+function buttonsOf(...frames: any Client::Frame): Array<any Client::Button> {
+  const list: Array<any Client::Button> = []
   for (i of 1..frames.length) {
     const frame = frames[i]
-    if (frame is Client.Button) {
+    if (frame is Client::Button) {
       if (frame.IsShown()) { list.push(frame) }
     }
   }
@@ -24,32 +24,32 @@ function buttonsOf(...frames: any Client.Frame): Array<any Client.Button> {
 
 // Whether Blizzard's own buttons show at this opacity, each taking the mouse but «AddOns» while dressed.
 function blizzards(alpha: Number, dressed: Boolean): Boolean {
-  const list = buttonsOf(...Client.GameMenuFrame.GetChildren())
+  const list = buttonsOf(...Client::GameMenuFrame.GetChildren())
   if (list.length == 0) { return false }
   for (button of list) {
     if (button.GetAlpha() != alpha) { return false }
-    if (button.IsMouseEnabled() != !(dressed && button.GetText() == Client.ADDONS)) { return false }
+    if (button.IsMouseEnabled() != !(dressed && button.GetText() == Client::ADDONS)) { return false }
   }
   return true
 }
 
 // Blizzard's own «AddOns», among its buttons that show.
-function blizzardsAddOns(): any Client.Button {
-  for (button of buttonsOf(...Client.GameMenuFrame.GetChildren())) {
-    if (button.GetText() == Client.ADDONS) { return button }
+function blizzardsAddOns(): any Client::Button {
+  for (button of buttonsOf(...Client::GameMenuFrame.GetChildren())) {
+    if (button.GetText() == Client::ADDONS) { return button }
   }
   panic("the menu has no «AddOns»")
 }
 
 // Escape, as the player shows the menu; the client lays it out on the frame after.
 function escape() {
-  _ = Test.key(Key.Escape)
-  Test.pass(0.02)
+  _ = Test::key(Key::Escape)
+  Test::pass(0.02)
 }
 
 // A plate, by its label: each is a surface of its own.
-function plate(label: String): Test.Part {
-  return Test.page().window(label)
+function plate(label: String): Test::Part {
+  return Test::page().window(label)
 }
 
 // The plates lit, by their labels.
@@ -58,64 +58,64 @@ function lit(): String {
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 test "at login nothing of the module is drawn: no dress, no window" {
-  Test.mount(nil, SCREEN)
-  Test.pass(0.1)
-  Test.expect(Test.surfaces().length == 0 && Test.page().texts().length == 0)
+  Test::mount(nil, SCREEN)
+  Test::pass(0.1)
+  Test::expect(Test::surfaces().length == 0 && Test::page().texts().length == 0)
 }
 
 test "Escape shows the menu dressed: its title, our plate for each of Blizzard's buttons, Blizzard's own unseen" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.expect(reads(Test.page(), "Game Menu | Options | AddOns | Log Out | Exit Game | Return to Game"))
-  Test.expect(blizzards(0, true))
+  Test::expect(reads(Test::page(), "Game Menu | Options | AddOns | Log Out | Exit Game | Return to Game"))
+  Test::expect(blizzards(0, true))
   // Shown, the client raises the menu over ours: it takes no mouse, or it would take «AddOns»' click.
-  Test.expect(!Client.GameMenuFrame.IsMouseEnabled())
+  Test::expect(!Client::GameMenuFrame.IsMouseEnabled())
 }
 
 test "the menu's first show is dressed in that show's own call, before a frame passes" {
-  Test.mount(nil, SCREEN)
-  _ = Test.key(Key.Escape)
-  Test.expect(blizzards(0, true) && !Client.GameMenuFrame.IsMouseEnabled())
+  Test::mount(nil, SCREEN)
+  _ = Test::key(Key::Escape)
+  Test::expect(blizzards(0, true) && !Client::GameMenuFrame.IsMouseEnabled())
   // The client sizes its menu on the next frame: till then the title has no room, and waits.
-  Test.expect(!Test.page().text(Client.MAINMENU_BUTTON).shown())
+  Test::expect(!Test::page().text(Client::MAINMENU_BUTTON).shown())
 }
 
 test "the exits are red plates, the others bronze" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.expect(plate("Log Out").paintedWith(Ordaen.art.ctl.buttonAccent) && plate("Exit Game").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(plate("Options").paintedWith(Ordaen.art.ctl.button) && !plate("Options").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(!plate("Return to Game").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(plate("Log Out").paintedWith(Ordaen.art.ctl.buttonAccent) && plate("Exit Game").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(plate("Options").paintedWith(Ordaen.art.ctl.button) && !plate("Options").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(!plate("Return to Game").paintedWith(Ordaen.art.ctl.buttonAccent))
 }
 
 test "the cursor on a plate lights it alone, and the light goes as it leaves" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.expect(lit() == "")
+  Test::expect(lit() == "")
   plate("Options").hover()
-  Test.expect(lit() == "Options")
+  Test::expect(lit() == "Options")
   plate("Log Out").hover()
-  Test.expect(lit() == "Log Out")
-  Test.page().text(Client.MAINMENU_BUTTON).hover()
-  Test.expect(lit() == "")
+  Test::expect(lit() == "Log Out")
+  Test::page().text(Client::MAINMENU_BUTTON).hover()
+  Test::expect(lit() == "")
 }
 
 // The push button's pushed rows drawn now, each once (a plate is drawn in three slices): the bronze plate's (1) and
 // the red one's (5).
 function pushed(): String {
-  Test.flush()
+  Test::flush()
   const rows: Array<String> = []
-  for (drawn of Test.drawn()) {
+  for (drawn of Test::drawn()) {
     const file = drawn.file
     if (file is String && file.match("[/\\]button$") != nil) {
-      const row = String.of((drawn.top * 8 + 0.5).floor())
+      const row = String::of((drawn.top * 8 + 0.5).floor())
       if ((row == "1" || row == "5") && !rows.any(seen => seen == row)) { rows.push(row) }
     }
   }
@@ -123,120 +123,120 @@ function pushed(): String {
 }
 
 test "a plate held down is pressed, its label lower; let go it is up again" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
   plate("Options").hover()
   const up = plate("Options").text("Options").rect().top
-  Test.press(nil)
-  Test.expect(pushed() == "1" && plate("Options").text("Options").rect().top > up)
-  Test.release(nil)
-  Test.expect(pushed() == "")
+  Test::press(nil)
+  Test::expect(pushed() == "1" && plate("Options").text("Options").rect().top > up)
+  Test::release(nil)
+  Test::expect(pushed() == "")
   // «Options» opened System's window in place of the game's, and shut the menu: Escape shuts the window, and the menu
   // opens again.
-  _ = Test.key(Key.Escape)
+  _ = Test::key(Key::Escape)
   escape()
   plate("Log Out").hover()
-  Test.press(nil)
-  Test.expect(pushed() == "5")
-  Test.release(nil)
+  Test::press(nil)
+  Test::expect(pushed() == "5")
+  Test::release(nil)
 }
 
 test "«AddOns» is lit under the cursor as a plate of ours" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
   plate("AddOns").hover()
-  Test.expect(lit() == "AddOns")
+  Test::expect(lit() == "AddOns")
   plate("Options").hover()
-  Test.expect(lit() == "Options")
+  Test::expect(lit() == "Options")
 }
 
 test "Blizzard's buttons keep their own clicks: «Return to Game» shuts the menu" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.page().text("Return to Game").click()
-  Test.expect(!Client.GameMenuFrame.IsShown() && !Test.page().text("Options").shown())
+  Test::page().text("Return to Game").click()
+  Test::expect(!Client::GameMenuFrame.IsShown() && !Test::page().text("Options").shown())
 }
 
 test "«AddOns» opens Ordaen's AddOns window and shuts the menu; Blizzard's list stays shut" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.page().text(Client.ADDONS).click()
-  Test.expect(!Client.GameMenuFrame.IsShown() && !Client.AddonList.IsShown())
-  Test.expect(Test.page().window("Reset").shown())
+  Test::page().text(Client::ADDONS).click()
+  Test::expect(!Client::GameMenuFrame.IsShown() && !Client::AddonList.IsShown())
+  Test::expect(Test::page().window("Reset").shown())
 }
 
 test "a click Blizzard's «AddOns» takes itself, first thing after a load, opens Ordaen's window, not Blizzard's list" {
-  Test.mount(nil, SCREEN)
-  _ = Test.key(Key.Escape)
+  Test::mount(nil, SCREEN)
+  _ = Test::key(Key::Escape)
   blizzardsAddOns().Click(nil, nil)
-  Test.expect(!Client.AddonList.IsShown() && !Client.GameMenuFrame.IsShown())
-  Test.expect(Test.page().window("Reset").shown())
+  Test::expect(!Client::AddonList.IsShown() && !Client::GameMenuFrame.IsShown())
+  Test::expect(Test::page().window("Reset").shown())
 }
 
 test "first thing after a reload, the menu's «AddOns» opens Ordaen's window by its plate" {
-  Test.mount(nil, SCREEN)
-  Test.reload()
+  Test::mount(nil, SCREEN)
+  Test::reload()
   escape()
-  Test.page().text(Client.ADDONS).click()
-  Test.expect(!Client.AddonList.IsShown() && !Client.GameMenuFrame.IsShown() && Test.page().window("Reset").shown())
+  Test::page().text(Client::ADDONS).click()
+  Test::expect(!Client::AddonList.IsShown() && !Client::GameMenuFrame.IsShown() && Test::page().window("Reset").shown())
 }
 
 test "once the module is off, Blizzard's «AddOns» opens Blizzard's list" {
-  Test.mount(nil, SCREEN)
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
-  Test.page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
-  Test.page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
-  _ = Test.key(Key.Escape)
+  Test::mount(nil, SCREEN)
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  Test::page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
+  Test::page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
+  _ = Test::key(Key::Escape)
   blizzardsAddOns().Click(nil, nil)
-  Test.expect(Client.AddonList.IsShown())
+  Test::expect(Client::AddonList.IsShown())
 }
 
 test "Blizzard's «new» on the options shows as the gem on its plate alone, and goes with it" {
-  Test.mount(nil, SCREEN)
-  Client.GameMenuFrame.NewOptionsFrame.Show()
+  Test::mount(nil, SCREEN)
+  Client::GameMenuFrame.NewOptionsFrame.Show()
   escape()
-  Test.expect(plate("Options").box(Ordaen.art.ctl.newGem).opacity() == 1)
-  Test.expect(plate("Log Out").box(Ordaen.art.ctl.newGem).opacity() == 0)
-  Test.page().text("Return to Game").click()
-  Client.GameMenuFrame.NewOptionsFrame.Hide()
+  Test::expect(plate("Options").box(Ordaen.art.ctl.newGem).opacity() == 1)
+  Test::expect(plate("Log Out").box(Ordaen.art.ctl.newGem).opacity() == 0)
+  Test::page().text("Return to Game").click()
+  Client::GameMenuFrame.NewOptionsFrame.Hide()
   escape()
-  Test.expect(plate("Options").box(Ordaen.art.ctl.newGem).opacity() == 0)
+  Test::expect(plate("Options").box(Ordaen.art.ctl.newGem).opacity() == 0)
 }
 
 test "shown again after «AddOns», each plate stands over its own button of Blizzard's" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.page().text(Client.ADDONS).click()
-  _ = Test.key(Key.Escape)
+  Test::page().text(Client::ADDONS).click()
+  _ = Test::key(Key::Escape)
   escape()
-  Test.expect(PLATES.all(label => plate(label).count() == 1))
+  Test::expect(PLATES.all(label => plate(label).count() == 1))
   // The cursor on a plate is on its own button of Blizzard's: that plate lights.
   for (label of ["Options", "Log Out", "Exit Game", "Return to Game"]) {
     plate(label).hover()
-    Test.expect(lit() == label)
+    Test::expect(lit() == label)
   }
-  Test.expect(blizzards(0, true))
+  Test::expect(blizzards(0, true))
 }
 
 test "turned off in Ordaen's settings, the module puts the menu back as Blizzard's" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.page().text("Return to Game").click()
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
-  Test.page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
-  Test.page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
+  Test::page().text("Return to Game").click()
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  Test::page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
+  Test::page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
   escape()
-  Test.expect(!Test.page().text("Options").shown() && blizzards(1, false) && Client.GameMenuFrame.IsMouseEnabled())
-  for (button of buttonsOf(...Client.GameMenuFrame.GetChildren())) {
+  Test::expect(!Test::page().text("Options").shown() && blizzards(1, false) && Client::GameMenuFrame.IsMouseEnabled())
+  for (button of buttonsOf(...Client::GameMenuFrame.GetChildren())) {
     const left, right, top, bottom = button.GetHitRectInsets()
-    Test.expect(left == 0 && right == 0 && top == 0 && bottom == 0)
+    Test::expect(left == 0 && right == 0 && top == 0 && bottom == 0)
   }
 }
 
 test "a plate's label is gold, and white under the cursor" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   escape()
-  Test.expect(plate("Options").text("Options").textColor().equal(Color.hex("#ffd100")))
+  Test::expect(plate("Options").text("Options").textColor().equal(Color::hex("#ffd100")))
   plate("Options").hover()
-  Test.expect(plate("Options").text("Options").textColor().equal(BRIGHT_TEXT))
+  Test::expect(plate("Options").text("Options").textColor().equal(BRIGHT_TEXT))
 }

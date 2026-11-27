@@ -45,8 +45,8 @@ public struct Choices implements Plain {
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
 // search isn't kept.
 public struct BagsView implements Plain {
-  view: View = View.Categories
-  sort: SortBy = SortBy.Bags
+  view: View = View::Categories
+  sort: SortBy = SortBy::Bags
 }
 
 // The list of tabs at the left, and the room between it and the cards: more than between two cards, so the list reads
@@ -71,17 +71,17 @@ const NOTED: Array<Track> = ["max-content", { fr: 1 }]
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 // The footer band's room over and under what it holds, and its line along the top (Ordaen's FooterBand).
 const FOOT_BAND: Number<Spacing> = 4sp
-const BAND_LINE: ArtBorder = { sides: [Side.Top], ..ARTWORK.frame.tabIconLine }
-const LABEL: Color = Color.hex("#a3977f")
-const COUNT: Color = Color.hex("#a3977f")
+const BAND_LINE: ArtBorder = { sides: [Side::Top], ..ARTWORK.frame.tabIconLine }
+const LABEL: Color = Color::hex("#a3977f")
+const COUNT: Color = Color::hex("#a3977f")
 const BUTTON = 140.625dp
 const SORTS: Array<Choice<SortBy>> = [
-  { value: SortBy.Bags, label: Locale.SORT_BAGS },
-  { value: SortBy.Quality, label: Locale.SORT_QUALITY },
-  { value: SortBy.Name, label: Locale.SORT_NAME },
-  { value: SortBy.Level, label: Locale.SORT_LEVEL },
-  { value: SortBy.Count, label: Locale.SORT_COUNT },
-  { value: SortBy.Type, label: Locale.SORT_TYPE }
+  { value: SortBy::Bags, label: Locale::SORT_BAGS },
+  { value: SortBy::Quality, label: Locale::SORT_QUALITY },
+  { value: SortBy::Name, label: Locale::SORT_NAME },
+  { value: SortBy::Level, label: Locale::SORT_LEVEL },
+  { value: SortBy::Count, label: Locale::SORT_COUNT },
+  { value: SortBy::Type, label: Locale::SORT_TYPE }
 ]
 // The backpack's icon of the game's, on the bag slots' button.
 const BACKPACK: FileId = 130716
@@ -102,7 +102,7 @@ public function worthIn(junk: Array<Slot>): Integer {
 // not see is dim, and away from the guild bank every tab but the one seen last.
 class GuildTabEntry implements Component {
   public picked: Event<Integer> = new Event()
-  derived selected: Boolean = self.page == GuildPage.Items && self.current == self.tab.index
+  derived selected: Boolean = self.page == GuildPage::Items && self.current == self.tab.index
   derived off: Boolean = !self.tab.viewable || (!self.live && !self.selected)
   derived limit: String = withdrawalsText(self.tab)
 
@@ -140,14 +140,14 @@ public class Pane {
   public deposit: Event<nil> = new Event()
   public withdraw: Event<nil> = new Event()
 
-  public state tab: Tab = Tab.All
+  public state tab: Tab = Tab::All
   public state search = ""
   state goldShown = false
 
-  derived isGuild: Boolean = self.vault == Vault.Guild
-  public derived isBags: Boolean = self.vault == Vault.Bags
-  derived isBank: Boolean = self.vault == Vault.Bank
-  public derived categories: Boolean = !self.isGuild && self.list.values.view == View.Categories
+  derived isGuild: Boolean = self.vault == Vault::Guild
+  public derived isBags: Boolean = self.vault == Vault::Bags
+  derived isBank: Boolean = self.vault == Vault::Bank
+  public derived categories: Boolean = !self.isGuild && self.list.values.view == View::Categories
   derived withList: Boolean = self.categories || self.isGuild
   derived query: String = self.search.lower()
   // The vault's slots, read once at least: the bank's are read at a banker alone.
@@ -155,12 +155,12 @@ public class Pane {
   derived seen: Boolean = self.stock.total > 0
   // Away from its vault, a copy: the window says so, and its slots are shown, not used.
   derived copy: Boolean = !self.live && self.seen
-  derived copyText: String = self.isGuild ? Locale.GUILD_COPY : Locale.BANK_COPY
+  derived copyText: String = self.isGuild ? Locale::GUILD_COPY : Locale::BANK_COPY
   // The copy's note over the list, which takes the rest.
   derived listRows: Array<Track> = self.copy ? NOTED : FILL
   public derived counts: Map<Tab, Integer> = self.countsOf()
   public derived tabs: Array<Tab> = self.tabsOf()
-  derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
+  derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab::All
   // The categories as Ordaen's column of tabs has them: each's name, its count, off where it holds nothing, and the
   // shown one's place, which a click writes.
   derived tabNames: Array<String> = self.tabs.map(tab => tabName(tab))
@@ -182,11 +182,11 @@ public class Pane {
   // As high as its cards, or as the screen lets it be.
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
   derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_BAND) + reachDown(BAND_LINE) + BAND_LINE.width * 1ui
-  derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
+  derived listHeight: Number<Length> = self.cardsHeight.min(Client::UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
   // It scrolls where the screen is too low for it, and clips otherwise: either way the cards, laid out for the width
   // it has, ask nothing of the window's least width, so the grip narrows it past the row it started from.
-  derived listOverflow: Overflow = self.listHeight < self.cardsHeight ? Overflow.Scroll : Overflow.Hidden
-  public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
+  derived listOverflow: Overflow = self.listHeight < self.cardsHeight ? Overflow::Scroll : Overflow::Hidden
+  public derived filter: Filter = { query: self.query, place: Game::bags.place, lit: self.isBags ? self.lit : -1 }
   derived free: Integer = self.stock.free
   derived fills: Map<Integer, String> = self.stock.fills
   // The footer's counts: the free slots of the bags or the bank, and its junk where the junk is shown; the guild
@@ -196,19 +196,19 @@ public class Pane {
   derived junk: Array<Slot> = junkIn(self.stock)
   derived junkCount: Integer = self.junk.count(slot => peek slot.id != 0)
   derived junkWorth: Integer = worthIn(self.junk)
-  derived junkShown: Boolean = self.categories && self.shownTab == Tab.Junk
-  derived selling: Boolean = self.isBags && Game.bags.place == Game.BagPlace.Merchant && self.junkCount > 0
+  derived junkShown: Boolean = self.categories && self.shownTab == Tab::Junk
+  derived selling: Boolean = self.isBags && Game::bags.place == Game::BagPlace::Merchant && self.junkCount > 0
   derived guildLive: Boolean = self.isGuild && self.live
-  derived gridShown: Boolean = !self.isGuild || !self.live || (self.guild.page == GuildPage.Items && !self.guild.loading)
-  derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale.GUILD_ANY : Game.money.format(self.guild.withdrawLeft)
+  derived gridShown: Boolean = !self.isGuild || !self.live || (self.guild.page == GuildPage::Items && !self.guild.loading)
+  derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale::GUILD_ANY : Game::money.format(self.guild.withdrawLeft)
   derived goldRows: Array<TipRow> = self.gold
   derived bankSlots: Boolean = self.isBank && self.live
   // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
   // made, as the module's is.
   views: Array<Choice<View>> = [
-    { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
-    { value: View.Bags, label: Locale.VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
-    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
+    { value: View::Categories, label: Locale::VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
+    { value: View::Bags, label: Locale::VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
+    { value: View::One, label: Locale::VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
   ]
   // What every card and slot of the list reads, and the events they tell.
   public shelf: Shelf
@@ -291,8 +291,8 @@ public class Pane {
   // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
   tabsOf(self): Array<Tab> {
     const choices = self.choices
-    let tabs: Array<Tab> = [Tab.All]
-    if ((self.counts[Tab.New] ?? 0) > 0) { tabs.push(Tab.New) }
+    let tabs: Array<Tab> = [Tab::All]
+    if ((self.counts[Tab::New] ?? 0) > 0) { tabs.push(Tab::New) }
     for (kind of KINDS) {
       const empty = (self.counts[kind] ?? 0) == 0
       const hidden = choices.hidden.any(tab => tab == kind)
@@ -313,10 +313,10 @@ public class Pane {
   }
 
   footCountsOf(self): Array<FooterCount> {
-    if (self.guildLive) { return [{ label: Locale.GUILD_LEFT, value: self.guildLeft }] }
-    const free: FooterCount = { label: Locale.FOOT_FREE, value: Locale.FREE_OF.format(self.free, self.stock.total) }
+    if (self.guildLive) { return [{ label: Locale::GUILD_LEFT, value: self.guildLeft }] }
+    const free: FooterCount = { label: Locale::FOOT_FREE, value: Locale::FREE_OF.format(self.free, self.stock.total) }
     if (!self.junkShown) { return [free] }
-    return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
+    return [free, { label: Locale::FOOT_JUNK, value: Locale::JUNK_WORTH.format(self.junkCount, Game::money.format(self.junkWorth)) }]
   }
 
   onGuildTab(self, tab: Integer) { self.guildTab.emit(tab) }
@@ -332,19 +332,19 @@ public class Pane {
   // The footer band: the game's dark marble, the window's width, its line between it and the list.
   public const footer: Template = $ltml {
     <FooterBand>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
         <FooterCounts counts={self.footCounts} />
         <box />
-        <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
+        <PushButton $if={self.selling} label={Locale::SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
         <box $elseif={self.guildLive} columns={2} gap={3sp}>
-          <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
-          <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
+          <PushButton label={Locale::GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
+          <PushButton label={Locale::GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
         </box>
-        <text $else value={Game.money.tracked} textFont={.Numbers} />
+        <text $else value={Game::money.tracked} textFont={.Numbers} />
         <Money $if={self.isGuild} amount={self.guild.money} />
         <box $else @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
-          <Money amount={Game.money.amount} />
-          <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
+          <Money amount={Game::money.amount} />
+          <Tip $if={self.goldShown} title={Locale::GOLD} text={""} rows={self.goldRows} />
         </box>
       </box>
     </FooterBand>
@@ -360,14 +360,14 @@ public class Pane {
   // The toolbar: the search, the sort, tidying, the view, the bag slots.
   const tools: Template = $ltml {
     <box padding={self.toolRoom}>
-      <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-        <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-        <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
+      <Toolbar search={mut self.search} placeholder={Locale::SEARCH}>
+        <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale::SORT} />
+        <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale::ARRANGE} text={Locale::ARRANGE_TIP}
                  disabled={self.running || !self.isBags} @pressed={self.onArrange} />
-        <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
-        <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
+        <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale::VIEW} />
+        <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale::BAG_SLOTS} text={Locale::BAG_SLOTS_TIP}
                     open={mut self.slotsOpen} tinted={false} />
-        <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
+        <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale::BANK_SLOTS} text={Locale::BANK_SLOTS_TIP}
                     open={mut self.bankSlotsOpen} tinted={false} />
       </Toolbar>
     </box>
@@ -377,11 +377,11 @@ public class Pane {
   const content: Template = $ltml {
     <box columns={1} rows={self.listRows} gap={3sp}>
       <box $if={self.copy} padding={ROW_ROOM}> <text value={self.copyText} textColor={LABEL} textSize={SECONDARY_TEXT} /> </box>
-      <box $if={!self.seen && !self.live} padding={ROW_ROOM}> <text value={Locale.BANK_UNSEEN} textColor={LABEL} /> </box>
+      <box $if={!self.seen && !self.live} padding={ROW_ROOM}> <text value={Locale::BANK_UNSEEN} textColor={LABEL} /> </box>
       <box $elseif={self.gridShown} columns={1}>
         {self.cards}
       </box>
-      <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
+      <text $elseif={self.guild.page == GuildPage::Items} value={Locale::GUILD_LOADING} textColor={LABEL} />
       <ScrolledList $else columns={1} gap={3sp}>
         <text $for={line of self.guild.log} value={line} />
       </ScrolledList>
@@ -395,8 +395,8 @@ public class Pane {
       <box $if={self.isGuild} columns={1} gap={0.5sp} padding={COLUMN_ROOM} width={TABS_BOUNDS} background={Ordaen.art.window.marble}>
         <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
                        @picked={self.onGuildTab} />
-        <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
-        <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
+        <ListTab $if={self.live} label={Locale::GUILD_LOG} selected={self.guild.page == GuildPage::Log} @pick={self.onGuildLog} />
+        <ListTab $if={self.live} label={Locale::GUILD_MONEY_LOG} selected={self.guild.page == GuildPage::MoneyLog}
                  @pick={self.onMoneyLog} />
       </box>
       <box $else columns={1} rows={FILL} width={TABS_BOUNDS}>

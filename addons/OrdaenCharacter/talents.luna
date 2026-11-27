@@ -23,11 +23,11 @@ const TOP: Array<Track> = [SEARCH_WIDTH, { fr: 1 }, "max-content"]
 const BUTTON_WIDTH: Number<Length> = 175.78125dp
 // The trees' lines: dark, a faint light beside each, as the game's own window draws them.
 const LINE: Number<Length> = 1.171875dp
-const LINE_COLOR: Color = Color.hex("#000000")
-const LINE_LIGHT: Color = Color.hex("#d6a56b2e")
+const LINE_COLOR: Color = Color::hex("#000000")
+const LINE_LIGHT: Color = Color::hex("#d6a56b2e")
 // The header (on the wood) and the footer (on the marble) reach the window's sides; what they hold stands in by the
 // window's room at the sides and a band above and below it, the frame's line between them and the trees.
-const BAND_ROOM: Edges = { top: 4sp, right: Style.SIDE_ROOM, bottom: 4sp, left: Style.SIDE_ROOM }
+const BAND_ROOM: Edges = { top: 4sp, right: Style::SIDE_ROOM, bottom: 4sp, left: Style::SIDE_ROOM }
 function rimAt(side: Side): ArtBorder {
   return { sides: [side], ..Ordaen.art.frame.tabIconLine }
 }
@@ -38,7 +38,7 @@ const ARTS: Map<String, Atlas> = {
   SHAMAN: "talent-background-shaman", WARLOCK: "talent-background-warlock", WARRIOR: "talent-background-warrior"
 }
 const POINTS_TEXT = 1.25rem
-const WHITE: Color = Color.hex("#ffffff")
+const WHITE: Color = Color::hex("#ffffff")
 
 // The class trainer's price for a reset of the talents, as it last offered one, in copper: 0 before the first.
 public struct KeptWipe implements Plain {
@@ -52,10 +52,10 @@ class TreeColumn implements Component {
 
   derived after: Boolean = self.place > 1
 
-  tree: Signal<Game.TalentTree>
+  tree: Signal<Game::TalentTree>
   place: Signal<Integer>
   search: Signal<String>
-  constructor(tree: Signal<Game.TalentTree>, place: Signal<Integer>, search: Signal<String>) {
+  constructor(tree: Signal<Game::TalentTree>, place: Signal<Integer>, search: Signal<String>) {
     self.tree = tree
     self.place = place
     self.search = search
@@ -66,9 +66,9 @@ class TreeColumn implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box xAlign={Align.Center} yAlign={Align.Stretch} padding={{ top: 3sp, bottom: 3sp }}>
-        <box $if={self.after} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={LINE} background={LINE_COLOR} />
-        <box $if={self.after} position={Position.Absolute} left={LINE} top={0ui} bottom={0ui} width={LINE} background={LINE_LIGHT} />
+      <box xAlign={Align::Center} yAlign={Align::Stretch} padding={{ top: 3sp, bottom: 3sp }}>
+        <box $if={self.after} position={Position::Absolute} left={0ui} top={0ui} bottom={0ui} width={LINE} background={LINE_COLOR} />
+        <box $if={self.after} position={Position::Absolute} left={LINE} top={0ui} bottom={0ui} width={LINE} background={LINE_LIGHT} />
         <TalentTreeView tree={self.tree} search={self.search} @spend={self.onSpend} @refund={self.onRefund} />
       </box>
     }
@@ -86,8 +86,8 @@ class PointsLeft implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align.Center}>
-        <text value={Locale.TALENT_POINTS} textColor={Style.INK} wrap={.None} />
+      <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align::Center}>
+        <text value={Locale::TALENT_POINTS} textColor={Style::INK} wrap={.None} />
         <text value={self.points} textSize={POINTS_TEXT} textColor={WHITE} wrap={.None} />
       </box>
     }
@@ -100,7 +100,7 @@ class WipePrice implements Component {
   state hovered = false
   derived priced: Boolean = self.wipeCost > 0
   derived unpriced: Boolean = !self.priced
-  derived tip: String = self.priced ? Locale.TRAINER_RESET_TIP : Locale.TRAINER_RESET_UNKNOWN_TIP
+  derived tip: String = self.priced ? Locale::TRAINER_RESET_TIP : Locale::TRAINER_RESET_UNKNOWN_TIP
 
   wipeCost: Signal<Integer>
   constructor(wipeCost: Signal<Integer>) {
@@ -112,12 +112,12 @@ class WipePrice implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center} @pointerEnter={self.onEnter}
+      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align::Center} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
-        <text value={Locale.TRAINER_RESET} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <text value={Locale::TRAINER_RESET} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
         <Money $if={self.priced} amount={self.wipeCost} color={WHITE} textSize={SECONDARY_TEXT} />
-        <text $if={self.unpriced} value={Locale.TRAINER_RESET_UNKNOWN} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <Tip $if={self.hovered} title={Locale.TRAINER_RESET_TITLE} text={self.tip} />
+        <text $if={self.unpriced} value={Locale::TRAINER_RESET_UNKNOWN} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.None} />
+        <Tip $if={self.hovered} title={Locale::TRAINER_RESET_TITLE} text={self.tip} />
       </box>
     }
   }
@@ -137,14 +137,14 @@ public class TalentsPage implements Component {
   derived inactive: Boolean = !self.active
   derived art: Atlas | nil = ARTS[self.classTag]
 
-  trees: Signal<Array<Game.TalentTree>>
+  trees: Signal<Array<Game::TalentTree>>
   unspent: Signal<Integer>
   staged: Signal<Boolean>
   active: Signal<Boolean>
   wipeCost: Signal<Integer>
   classTag: Signal<String>
   constructor(
-    trees: Signal<Array<Game.TalentTree>>,
+    trees: Signal<Array<Game::TalentTree>>,
     unspent: Signal<Integer>,
     staged: Signal<Boolean>,
     // The spec group shown is the one the player has active.
@@ -171,27 +171,27 @@ public class TalentsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE}>
-        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Bottom)}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_TALENTS} />
+        <box columns={TOP} gap={2.5sp} yAlign={Align::Center} padding={BAND_ROOM} border={rimAt(Side::Bottom)}>
+          <Toolbar search={mut self.search} placeholder={Locale::SEARCH_TALENTS} />
           <box />
-          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={BUTTON_WIDTH} @click={self.onActivate} />
+          <PushButton $if={self.inactive} label={Locale::ACTIVATE} width={BUTTON_WIDTH} @click={self.onActivate} />
           <PointsLeft $else unspent={self.unspent} />
         </box>
-        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
+        <box $if={self.empty} xAlign={Align::Center} yAlign={Align::Center}>
+          <text value={Locale::NO_TALENTS} textColor={Style::DIM} />
         </box>
-        <box $else columns={TREES} yAlign={Align.Stretch} background={self.art} cover={true}>
+        <box $else columns={TREES} yAlign={Align::Stretch} background={self.art} cover={true}>
           <TreeColumn $for={place, tree of self.trees} $key={tree.id} tree={tree} place={place} search={self.search}
                       @spend={self.onSpend} @refund={self.onRefund} />
         </box>
-        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Top)}
+        <box columns={FOOT} gap={2.5sp} yAlign={Align::Center} padding={BAND_ROOM} border={rimAt(Side::Top)}
              background={Ordaen.art.window.marble}>
-          <box xAlign={Align.Start}>
-            <PushButton $if={self.waiting} label={Locale.CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
+          <box xAlign={Align::Start}>
+            <PushButton $if={self.waiting} label={Locale::CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
           </box>
           <WipePrice wipeCost={self.wipeCost} />
-          <box xAlign={Align.End}>
-            <PushButton $if={self.waiting} label={Locale.APPLY} width={BUTTON_WIDTH} plate={ButtonPlate.Accent} @click={self.onApply} />
+          <box xAlign={Align::End}>
+            <PushButton $if={self.waiting} label={Locale::APPLY} width={BUTTON_WIDTH} plate={ButtonPlate::Accent} @click={self.onApply} />
           </box>
         </box>
       </box>

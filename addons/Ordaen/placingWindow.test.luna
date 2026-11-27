@@ -6,11 +6,11 @@ import Locale from "@/locales"
 
 test "closing the settings window ends the placing mode started from it" {
   Ordaen.toggleNamed("")
-  Test.flush()
-  Test.click(Test.holding(Locale.PLACING, nil), nil)
-  Test.flush()
-  Test.expect(Ordaen.placing)
+  Test::flush()
+  Test::click(Test::holding(Locale::PLACING, nil), nil)
+  Test::flush()
+  Test::expect(Ordaen.placing)
   Ordaen.toggleNamed("")
-  Test.flush()
-  Test.expect(!Ordaen.placing)
+  Test::flush()
+  Test::expect(!Ordaen.placing)
 }

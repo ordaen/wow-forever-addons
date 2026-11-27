@@ -7,7 +7,7 @@ import { Component } from "@/module"
 import { Tip } from "@/tip"
 
 const LABEL_WIDTH = 328.125dp
-const LABEL: Color = Color.hex("#cbb994")
+const LABEL: Color = Color::hex("#cbb994")
 
 public class SettingRow implements Component {
   state hovered = false
@@ -32,7 +32,7 @@ public class SettingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={5.5sp} yAlign={Align.Center} opacity={self.opacity}>
+      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={5.5sp} yAlign={Align::Center} opacity={self.opacity}>
         <box columns={1} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <text value={self.label} textColor={LABEL} />
           <Tip $if={self.tipShown} title={self.label} text={self.hint} />

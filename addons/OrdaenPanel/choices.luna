@@ -64,12 +64,12 @@ public struct Choices {
 }
 
 public const DEFAULTS: Choices = {
-  microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
-  charView: CharView.Face, outline: Outline.None, shadow: true, xpTexture: XpTexture.Brushed, xpBorder: XpBorder.Theme,
-  xpView: XpView.Numbers, edge: Edge.Bottom, fit: Fit.Full, height: 60,
+  microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons::Upscaled, charButton: CharButton::Portrait,
+  charView: CharView::Face, outline: Outline::None, shadow: true, xpTexture: XpTexture::Brushed, xpBorder: XpBorder::Theme,
+  xpView: XpView::Numbers, edge: Edge::Bottom, fit: Fit::Full, height: 60,
   places: {
-    micromenu: Zone.Left, social: Zone.Left, experience: Zone.Center, zone: Zone.Off, clock: Zone.Off,
-    currencies: Zone.Right, bags: Zone.Right
+    micromenu: Zone::Left, social: Zone::Left, experience: Zone::Center, zone: Zone::Off, clock: Zone::Off,
+    currencies: Zone::Right, bags: Zone::Right
   },
   // Shown in every state: on transport too, where the game's own bars are put away as anywhere.
   visibility: ALWAYS

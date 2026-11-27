@@ -13,8 +13,8 @@ import { Thresholds } from "@/skillUps"
 import Style from "@/style"
 import { Kept, has } from "@/view"
 
-const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
-const BACK: Color = Color.hex("#0000004d")
+const FRAME: Line = { width: 1.171875dp, color: Style::LINE }
+const BACK: Color = Color::hex("#0000004d")
 const PAD: Number<Spacing> = 5sp
 const CARD: Array<Track> = [{ fr: 1 }, "max-content"]
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
@@ -39,9 +39,9 @@ public struct NextRank {
 
 public function nextRankOf(most: Integer): NextRank | nil {
   return match (most) {
-    75 => { name: Locale.RANK_150, skill: 50, level: 10 }
-    150 => { name: Locale.RANK_225, skill: 125, level: 20 }
-    225 => { name: Locale.RANK_300, skill: 200, level: 35 }
+    75 => { name: Locale::RANK_150, skill: 50, level: 10 }
+    150 => { name: Locale::RANK_225, skill: 125, level: 20 }
+    225 => { name: Locale::RANK_300, skill: 200, level: 35 }
     else => nil
   }
 }
@@ -57,8 +57,8 @@ public function overviewSpellOf(skillLine: Integer): Integer | nil {
 
 // The spell's name as the client has it, where the player knows it; empty for none.
 public function knownSpellName(spell: Integer | nil): String {
-  if (spell == nil || !Game.spells.known(spell)) { return "" }
-  return Game.spells.name(spell) ?? ""
+  if (spell == nil || !Game::spells.known(spell)) { return "" }
+  return Game::spells.name(spell) ?? ""
 }
 
 function secondary(skillLine: Integer): Boolean {
@@ -89,9 +89,9 @@ public class OverviewLineRow implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.opens} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <text value={self.line.text} textColor={Style.INK} />
+        <text value={self.line.text} textColor={Style::INK} />
       </box>
-      <text $else value={self.line.text} textColor={Style.DIM} />
+      <text $else value={self.line.text} textColor={Style::DIM} />
     }
   }
 }
@@ -112,7 +112,7 @@ public class OverviewSection implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PAD} border={FRAME} background={BACK} gap={3sp}>
-        <text value={self.title} textColor={Style.GOLD} />
+        <text value={self.title} textColor={Style::GOLD} />
         <OverviewLineRow $for={line of self.lines} line={line} @pick={self.onPick} />
       </box>
     }
@@ -130,19 +130,19 @@ public class OverviewPage implements Component {
   derived spell: Integer | nil = overviewSpellOf(self.profession?.skillLine ?? 0)
   derived spellName: String = knownSpellName(self.spell)
   derived hasSpell: Boolean = self.spellName != ""
-  derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale.ACTION_FISH : Locale.ACTION_DISENCHANT
+  derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale::ACTION_FISH : Locale::ACTION_DISENCHANT
   derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
   derived counts: Array<OverviewLine> = self.countsOf()
   derived toLearn: Array<OverviewLine> = self.toLearnOf()
   derived needs: Array<OverviewLine> = self.needsOf()
   derived tracked: Array<OverviewLine> = self.trackedOf()
 
-  profession: Signal<Game.Profession | nil>
+  profession: Signal<Game::Profession | nil>
   thresholds: Signal<Thresholds>
   kept: Signal<Kept>
   taught: Signal<Map<String, Taught>>
   constructor(
-    profession: Signal<Game.Profession | nil>,
+    profession: Signal<Game::Profession | nil>,
     // Where the profession's recipes turn yellow and grey.
     thresholds: Signal<Thresholds>,
     kept: Signal<Kept>,
@@ -158,16 +158,16 @@ public class OverviewPage implements Component {
   nextTextOf(self): String {
     const next = self.next
     if (next == nil) { return "" }
-    return Locale.NEXT_RANK.format(next.name, next.skill, next.level)
+    return Locale::NEXT_RANK.format(next.name, next.skill, next.level)
   }
 
   countsOf(self): Array<OverviewLine> {
-    const recipes = Game.tradeSkill.recipes
+    const recipes = Game::tradeSkill.recipes
     const learned = recipes.count(r => r.learned)
     return [
-      { text: Locale.COUNT_LEARNED.format(learned, recipes.length - learned), recipe: 0 },
-      { text: Locale.COUNT_MAKEABLE.format(recipes.count(r => r.craftable > 0)), recipe: 0 },
-      { text: Locale.COUNT_SKILLUP.format(recipes.count(r => r.learned && r.difficulty != Game.Difficulty.Never)), recipe: 0 }
+      { text: Locale::COUNT_LEARNED.format(learned, recipes.length - learned), recipe: 0 },
+      { text: Locale::COUNT_MAKEABLE.format(recipes.count(r => r.craftable > 0)), recipe: 0 },
+      { text: Locale::COUNT_SKILLUP.format(recipes.count(r => r.learned && r.difficulty != Game::Difficulty::Never)), recipe: 0 }
     ]
   }
 
@@ -176,7 +176,7 @@ public class OverviewPage implements Component {
   toLearnOf(self): Array<OverviewLine> {
     const yellow = self.thresholds.yellow
     const taught = self.taught
-    let list: Array<Game.Recipe> = Game.tradeSkill.recipes.filter(r => !r.learned)
+    let list: Array<Game::Recipe> = Game::tradeSkill.recipes.filter(r => !r.learned)
     list.sort((a, b) => {
       const x = learnSkillOf(taught[a.name], yellow[a.id])
       const y = learnSkillOf(taught[b.name], yellow[b.id])
@@ -187,45 +187,45 @@ public class OverviewPage implements Component {
       if (lines.length >= NEXT_MOST) { break }
       const from = taught[recipe.name]
       const text = from == nil ?
-        Locale.LEARN_UNSEEN.format(recipe.name) :
-        Locale.LEARN_AT_TRAINER.format(recipe.name, from.skill, copperText(from.cost))
+        Locale::LEARN_UNSEEN.format(recipe.name) :
+        Locale::LEARN_AT_TRAINER.format(recipe.name, from.skill, copperText(from.cost))
       lines.push({ text: text, recipe: recipe.id })
     }
-    if (lines.length == 0) { lines.push({ text: Locale.NOTHING_TO_LEARN, recipe: 0 }) }
+    if (lines.length == 0) { lines.push({ text: Locale::NOTHING_TO_LEARN, recipe: 0 }) }
     return lines
   }
 
   // Each tool or place a learned recipe asks for, once, in the order met.
   needsOf(self): Array<OverviewLine> {
     let lines: Array<OverviewLine> = []
-    for (recipe of Game.tradeSkill.recipes) {
+    for (recipe of Game::tradeSkill.recipes) {
       if (recipe.learned) {
-        for (need of Game.tradeSkill.requirements(recipe.id)) {
+        for (need of Game::tradeSkill.requirements(recipe.id)) {
           if (!lines.any(l => l.text == need.name)) { lines.push({ text: need.name, recipe: 0 }) }
         }
       }
     }
-    if (lines.length == 0) { lines.push({ text: Locale.NOTHING_NEEDED, recipe: 0 }) }
+    if (lines.length == 0) { lines.push({ text: Locale::NOTHING_NEEDED, recipe: 0 }) }
     return lines
   }
 
   // The tracked recipes of this profession, each with what its bags still lack for one making.
   trackedOf(self): Array<OverviewLine> {
     let lines: Array<OverviewLine> = []
-    for (recipe of Game.tradeSkill.recipes) {
+    for (recipe of Game::tradeSkill.recipes) {
       if (has(self.kept.tracked, recipe.id)) {
         let missing = ""
-        for (reagent of Game.tradeSkill.reagents(recipe.id)) {
+        for (reagent of Game::tradeSkill.reagents(recipe.id)) {
           if (reagent.have < reagent.need) {
             const part = "%s ×%d".format(reagent.name, reagent.need - reagent.have)
             missing = missing == "" ? part : missing + ", " + part
           }
         }
-        const lacks = missing == "" ? Locale.TRACKED_ALL : Locale.TRACKED_MISSING.format(missing)
+        const lacks = missing == "" ? Locale::TRACKED_ALL : Locale::TRACKED_MISSING.format(missing)
         lines.push({ text: "%s — %s".format(recipe.name, lacks), recipe: recipe.id })
       }
     }
-    if (lines.length == 0) { lines.push({ text: Locale.TRACKED_NONE, recipe: 0 }) }
+    if (lines.length == 0) { lines.push({ text: Locale::TRACKED_NONE, recipe: 0 }) }
     return lines
   }
 
@@ -233,20 +233,20 @@ public class OverviewPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box overflow={Overflow.Scroll} gap={6sp}>
-        <box columns={CARD} gap={6sp} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
+      <box overflow={Overflow::Scroll} gap={6sp}>
+        <box columns={CARD} gap={6sp} yAlign={Align::Center} padding={PAD} border={FRAME} background={BACK}>
           <box gap={1.5sp}>
-            <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
-            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <text $if={self.hasNext} value={self.nextText} textColor={Style::INK} />
+            <text $if={self.isSecondary} value={Locale::SECONDARY} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
           </box>
           <PushButton $if={self.hasSpell} label={self.spellLabel} width={164.0625dp} action={self.spellAction} />
         </box>
         <box columns={GRID} gap={6sp}>
-          <OverviewSection title={Locale.TAB_RECIPES} lines={self.counts} />
-          <OverviewSection title={Locale.LEARN_NEXT} lines={self.toLearn} @pick={self.onPick} />
-          <OverviewSection title={Locale.WORK_NEEDS} lines={self.needs} />
+          <OverviewSection title={Locale::TAB_RECIPES} lines={self.counts} />
+          <OverviewSection title={Locale::LEARN_NEXT} lines={self.toLearn} @pick={self.onPick} />
+          <OverviewSection title={Locale::WORK_NEEDS} lines={self.needs} />
         </box>
-        <OverviewSection title={Locale.TRACKED} lines={self.tracked} @pick={self.onPick} />
+        <OverviewSection title={Locale::TRACKED} lines={self.tracked} @pick={self.onPick} />
       </box>
     }
   }

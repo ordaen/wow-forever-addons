@@ -22,12 +22,12 @@ public const SIDE_ROOM: Edges = { right: 8sp, left: 8sp }
 // A list under a toolbar: the window's room at its sides and under it.
 public const LIST_ROOM: Edges = { right: 8sp, bottom: 6sp, left: 8sp }
 
-public const INK: Color = Color.hex("#e8dcc4")
+public const INK: Color = Color::hex("#e8dcc4")
 // A picked entry's name.
-public const WHITE_INK: Color = Color.hex("#f0e6d2")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
-public const GREEN: Color = Color.hex("#40d060")
-public const RED: Color = Color.hex("#ff4040")
+public const WHITE_INK: Color = Color::hex("#f0e6d2")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
+public const GREEN: Color = Color::hex("#40d060")
+public const RED: Color = Color::hex("#ff4040")
 // What the player hasn't: an entry not collected, a challenge not done, a level not reached.
-public const MISSING: Color = Color.hex("#7a7060")
+public const MISSING: Color = Color::hex("#7a7060")

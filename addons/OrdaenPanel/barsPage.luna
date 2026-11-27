@@ -21,16 +21,16 @@ public struct Form {
 public function formsOf(classTag: String): Array<Form> {
   return match (classTag) {
     "WARRIOR" => [
-      { bonusbar: 1, name: Locale.FORM_BATTLE },
-      { bonusbar: 2, name: Locale.FORM_DEFENSIVE },
-      { bonusbar: 3, name: Locale.FORM_BERSERKER }
+      { bonusbar: 1, name: Locale::FORM_BATTLE },
+      { bonusbar: 2, name: Locale::FORM_DEFENSIVE },
+      { bonusbar: 3, name: Locale::FORM_BERSERKER }
     ]
     "DRUID" => [
-      { bonusbar: 1, name: Locale.FORM_CAT },
-      { bonusbar: 2, name: Locale.FORM_PROWL },
-      { bonusbar: 3, name: Locale.FORM_BEAR }
+      { bonusbar: 1, name: Locale::FORM_CAT },
+      { bonusbar: 2, name: Locale::FORM_PROWL },
+      { bonusbar: 3, name: Locale::FORM_BEAR }
     ]
-    "ROGUE" => [{ bonusbar: 1, name: Locale.FORM_STEALTH }]
+    "ROGUE" => [{ bonusbar: 1, name: Locale::FORM_STEALTH }]
     else => []
   }
 }
@@ -44,13 +44,13 @@ class FormRow implements Component {
   constructor(form: Form, settings: mut Settings<BarsChoices>) {
     self.form = form
     self.settings = settings
-    self.on = (peek self.settings.values).unpaged[String.of(form.bonusbar)] != true
+    self.on = (peek self.settings.values).unpaged[String::of(form.bonusbar)] != true
     watch (on of self.on) { self.write(on) }
   }
 
   // The switch as the settings hold it: written where it differs, so the page opening changes nothing.
   write(mut self, on: Boolean) {
-    const key = String.of(self.form.bonusbar)
+    const key = String::of(self.form.bonusbar)
     if (((peek self.settings.values).unpaged[key] != true) == on) { return }
     const unpaged = (peek self.settings.values).unpaged.clone()
     unpaged[key] = !on
@@ -58,7 +58,7 @@ class FormRow implements Component {
   }
 
   public render(self): Template {
-    return $ltml { <Switch label={self.form.name} hint={Locale.FORM_TIP} value={mut self.on} /> }
+    return $ltml { <Switch label={self.form.name} hint={Locale::FORM_TIP} value={mut self.on} /> }
   }
 }
 
@@ -91,7 +91,7 @@ class BarTab implements Component {
   settings: Settings<BarsChoices>
   constructor(spec: BarSpec, picked: Signal<String>, defaults: Signal<Map<String, BarChoice>>, settings: Settings<BarsChoices>) {
     self.spec = spec
-    self.title = Bar.titleOf(spec)
+    self.title = Bar::titleOf(spec)
     self.picked = picked
     self.defaults = defaults
     self.settings = settings
@@ -113,9 +113,9 @@ class BarTab implements Component {
 // taken again from them where something else writes it there (the «…» menu, a profile).
 class BarEditor implements Component {
   state choice: mut BarChoice
-  derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
+  derived paged: Boolean = self.spec.kind == BarKind::Action && self.spec.number == 1 && self.forms.length > 0
   // An action bar's buttons may be empty; a pet's or a stance's show what they hold.
-  derived actions: Boolean = self.spec.kind == BarKind.Action
+  derived actions: Boolean = self.spec.kind == BarKind::Action
 
   const spec: BarSpec
   const forms: Array<Form>
@@ -125,7 +125,7 @@ class BarEditor implements Component {
     self.spec = spec
     self.settings = settings
     self.defaults = defaults
-    self.forms = formsOf(peek Game.player.classTag)
+    self.forms = formsOf(peek Game::player.classTag)
     self.choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     watch (choice of self.choice) {
       if (!choiceIn(peek self.settings.values, peek self.defaults, self.spec).equal(choice)) {
@@ -140,23 +140,23 @@ class BarEditor implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Section title={Locale.SECTION_BUTTONS}>
-        <NumberInput label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
+      <Section title={Locale::SECTION_BUTTONS}>
+        <NumberInput label={Locale::BUTTONS} hint={Locale::BUTTONS_TIP} value={mut self.choice.buttons} least={1}
                      most={self.spec.most} />
-        <NumberInput label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
+        <NumberInput label={Locale::PER_ROW} hint={Locale::PER_ROW_TIP} value={mut self.choice.perRow} least={1}
                      most={self.spec.most} />
       </Section>
-      <Section title={Locale.SECTION_LOOK}>
-        <NumberInput label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64}
-                     unit={Unit.Px} />
-        <NumberInput label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0}
-                     most={16} unit={Unit.Px} />
-        <Checkbox label={Locale.KEYS} hint={Locale.KEYS_TIP} value={mut self.choice.keys} />
+      <Section title={Locale::SECTION_LOOK}>
+        <NumberInput label={Locale::SIZE} hint={Locale::SIZE_TIP} value={mut self.choice.size} least={24} most={64}
+                     unit={Unit::Px} />
+        <NumberInput label={Locale::SPACING} hint={Locale::SPACING_TIP} value={mut self.choice.spacing} least={0}
+                     most={16} unit={Unit::Px} />
+        <Checkbox label={Locale::KEYS} hint={Locale::KEYS_TIP} value={mut self.choice.keys} />
       </Section>
       <VisibilityRows value={mut self.choice.visibility}>
-        <Checkbox $if={self.actions} label={Locale.HIDE_EMPTY} hint={Locale.HIDE_EMPTY_TIP} value={mut self.choice.hideEmpty} />
+        <Checkbox $if={self.actions} label={Locale::HIDE_EMPTY} hint={Locale::HIDE_EMPTY_TIP} value={mut self.choice.hideEmpty} />
       </VisibilityRows>
-      <Section $if={self.paged} title={Locale.SECTION_FORMS}>
+      <Section $if={self.paged} title={Locale::SECTION_FORMS}>
         <FormRow $for={form of self.forms} form={peek form} settings={mut self.settings} />
       </Section>
     }
@@ -174,8 +174,8 @@ const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
 const MORE = 39.84375dp
 // The «…» glyph on the head's icon button.
 const MORE_GLYPH = "…"
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
 // The «…» menu's entries by their place: the copy's submenu first, then these.
 const RESET_ENTRY = 2
 const PLACE_ENTRY = 3
@@ -184,15 +184,15 @@ public class BarsPage implements Component {
   const memory: mut ModuleMemory<PageMemory> = new ModuleMemory<PageMemory>({ picked: "1" }, .Profile, "barsPage")
   derived picked: String = self.spec.id
   derived spec: BarSpec = SPECS.find(spec => spec.id == self.memory.values.picked) ?? SPECS[1]
-  derived title: String = Bar.titleOf(self.spec)
+  derived title: String = Bar::titleOf(self.spec)
   // The «…» menu: copying another bar's settings in (a submenu of every other bar, an off one marked), resetting
   // them, the bar back where the panel puts it.
   state menuOpen = false
   derived others: Array<BarSpec> = SPECS.filter(spec => spec.id != self.spec.id)
   derived entries: Array<MenuEntry> = [
-    { label: Locale.COPY_FROM, more: self.others.map(spec => ({ label: self.nameOf(spec) })) },
-    { label: Locale.RESET_BAR },
-    { label: Locale.DEFAULT_PLACE }
+    { label: Locale::COPY_FROM, more: self.others.map(spec => ({ label: self.nameOf(spec) })) },
+    { label: Locale::RESET_BAR },
+    { label: Locale::DEFAULT_PLACE }
   ]
   // The bar whose settings were copied into the picked one, until another is picked.
   state copiedFrom: String | nil = nil
@@ -211,8 +211,8 @@ public class BarsPage implements Component {
 
   // A bar's name in the copy's submenu: an off one says so.
   nameOf(self, spec: BarSpec): String {
-    const title = Bar.titleOf(spec)
-    return choiceIn(self.settings.values, self.defaults, spec).on ? title : Locale.BAR_OFF.format(title)
+    const title = Bar::titleOf(spec)
+    return choiceIn(self.settings.values, self.defaults, spec).on ? title : Locale::BAR_OFF.format(title)
   }
 
   onPick(mut self, spec: BarSpec) {
@@ -236,7 +236,7 @@ public class BarsPage implements Component {
       put(self.settings, spec, reset(now, (peek self.defaults)[spec.id] ?? defaultChoice(spec, now.on)))
       self.copiedFrom = nil
     } else if (index == PLACE_ENTRY) {
-      Ordaen.putAt(Bar.idOf(spec), nil)
+      Ordaen.putAt(Bar::idOf(spec), nil)
     }
     self.menuOpen = false
   }
@@ -248,30 +248,30 @@ public class BarsPage implements Component {
     const values = peek self.settings.values
     const defaults = peek self.defaults
     put(self.settings, spec, copied(choiceIn(values, defaults, from), choiceIn(values, defaults, spec), spec))
-    self.copiedFrom = Bar.titleOf(from)
+    self.copiedFrom = Bar::titleOf(from)
     self.menuOpen = false
   }
 
   public render(self): Template {
     return $ltml {
-      <text $if={self.conflict} value={Locale.CONFLICT} />
-      <text $if={Game.situation.combat} value={Locale.AFTER_COMBAT} />
+      <text $if={self.conflict} value={Locale::CONFLICT} />
+      <text $if={Game::situation.combat} value={Locale::AFTER_COMBAT} />
       <box columns={PAGE} gap={6sp}>
         <box columns={1}>
           <BarTab $for={spec of SPECS} $key={spec.id} spec={peek spec} picked={self.picked} defaults={self.defaults}
                   settings={self.settings} @pick={self.onPick} @flip={self.onFlip} />
         </box>
         <box columns={1} gap={3sp}>
-          <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
+          <box columns={HEAD} gap={3sp} yAlign={Align::Center}>
             <text value={self.title} textFont={.Title} textSize={TITLE_TEXT} leading={.Title} textColor={INK} />
-            <box width={MORE} height={MORE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
+            <box width={MORE} height={MORE} xAlign={Align::Center} yAlign={Align::Center} background={Ordaen.art.ctl.button}
                  @pointerPress={self.toggleMenu} @keyPress(.Enter)={self.toggleMenu} @keyPress(.Space)={self.toggleMenu}>
               <text value={MORE_GLYPH} textColor={INK} />
               <Menu $if={self.menuOpen} title={self.title} entries={self.entries} @pick={self.onMenu}
                     @pickMore={self.onCopy} @close={self.closeMenu} />
             </box>
           </box>
-          <text $if={self.fromShown} value={Locale.COPIED_FROM.format(self.copiedFrom ?? "")} textColor={DIM}
+          <text $if={self.fromShown} value={Locale::COPIED_FROM.format(self.copiedFrom ?? "")} textColor={DIM}
                 textSize={SECONDARY_TEXT} />
           <BarEditor $for={spec of [self.spec]} $key={spec.id} spec={peek spec} settings={mut self.settings}
                      defaults={self.defaults} />

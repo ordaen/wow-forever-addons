@@ -15,7 +15,7 @@ function presetNow(look: Look): String {
 }
 
 function state(): String {
-  Test.flush()
+  Test::flush()
   let files = Ordaen.lookArt.fonts.numbers
   let font = files != nil ? files.regular : "the client's own text font"
   return `steps ${Ordaen.keeper.steps}; the look's preset ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
@@ -23,37 +23,37 @@ function state(): String {
 
 test "a preset is chosen whole, a colour changed after it, and each gone back through" {
   let page = new LookPage(Ordaen.look)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 2600 })
-  Test.note(state())
-  Test.shot("Ordaen's preset in use")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 2600 })
+  Test::note(state())
+  Test::shot("Ordaen's preset in use")
 
   // The one «Use» is Minimal's: the presets are listed Ordaen, Minimal.
-  Test.click(Test.holding("Use", nil), nil)
-  Test.note(state())
+  Test::click(Test::holding("Use", nil), nil)
+  Test::note(state())
 
   // The colour the accent already has, picked again: nothing changes.
-  Test.page().button(Locale.THEME_ACCENT).click()
-  Game.colorPicker.picked.emit(1, { r: 0.62, g: 0.62, b: 0.62, a: 1 })
-  Test.pass(REST * 2)
-  Test.note(state())
+  Test::page().button(Locale::THEME_ACCENT).click()
+  Game::colorPicker.picked.emit(1, { r: 0.62, g: 0.62, b: 0.62, a: 1 })
+  Test::pass(REST * 2)
+  Test::note(state())
 
   // Another colour: the setting takes it as the picker rests.
-  Test.page().button(Locale.THEME_ACCENT).click()
-  Game.colorPicker.picked.emit(2, { r: 0, g: 0.5, b: 1, a: 1 })
-  Test.flush()
-  Test.expect(presetOf(Ordaen.look.values) != nil)
-  Test.pass(REST * 2)
-  Test.expect(Ordaen.look.values.accent.b == 1)
-  Test.note(state())
-  Test.shot("Minimal chosen, then its accent changed: no preset is the look")
+  Test::page().button(Locale::THEME_ACCENT).click()
+  Game::colorPicker.picked.emit(2, { r: 0, g: 0.5, b: 1, a: 1 })
+  Test::flush()
+  Test::expect(presetOf(Ordaen.look.values) != nil)
+  Test::pass(REST * 2)
+  Test::expect(Ordaen.look.values.accent.b == 1)
+  Test::note(state())
+  Test::shot("Minimal chosen, then its accent changed: no preset is the look")
 
   Ordaen.keeper.undo()
-  Test.note(state())
+  Test::note(state())
 
   Ordaen.keeper.undo()
-  Test.note(state())
-  Test.shot("gone back: Ordaen's again")
+  Test::note(state())
+  Test::shot("gone back: Ordaen's again")
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

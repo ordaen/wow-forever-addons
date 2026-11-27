@@ -58,15 +58,15 @@ public const AS_THE_GAME: Clicks = {
 
 // The chord of a press, by its button and the modifier held (Shift before Ctrl before Alt where several are).
 public function chordOf(button: MouseButton, shift: Boolean, ctrl: Boolean, alt: Boolean): Chord | nil {
-  if (button == MouseButton.Left) {
+  if (button == MouseButton::Left) {
     if (shift) { return .ShiftLeft }
     if (ctrl) { return .CtrlLeft }
-    return alt ? Chord.AltLeft : Chord.Left
+    return alt ? Chord::AltLeft : Chord::Left
   }
-  if (button == MouseButton.Right) {
+  if (button == MouseButton::Right) {
     if (shift) { return .ShiftRight }
     if (ctrl) { return .CtrlRight }
-    return alt ? Chord.AltRight : Chord.Right
+    return alt ? Chord::AltRight : Chord::Right
   }
   return nil
 }
@@ -118,14 +118,14 @@ public function useClickOf(clicks: Clicks): UseClick {
 // A chord as the renderer's binding of a button and its modifier.
 public function bindingOf(chord: Chord): KeyBinding<MouseButton> {
   return match (chord) {
-    .Left => MouseButton.Left
-    .ShiftLeft => [Modifier.Shift, MouseButton.Left]
-    .CtrlLeft => [Modifier.Ctrl, MouseButton.Left]
-    .AltLeft => [Modifier.Alt, MouseButton.Left]
-    .Right => MouseButton.Right
-    .ShiftRight => [Modifier.Shift, MouseButton.Right]
-    .CtrlRight => [Modifier.Ctrl, MouseButton.Right]
-    .AltRight => [Modifier.Alt, MouseButton.Right]
+    .Left => MouseButton::Left
+    .ShiftLeft => [Modifier::Shift, MouseButton::Left]
+    .CtrlLeft => [Modifier::Ctrl, MouseButton::Left]
+    .AltLeft => [Modifier::Alt, MouseButton::Left]
+    .Right => MouseButton::Right
+    .ShiftRight => [Modifier::Shift, MouseButton::Right]
+    .CtrlRight => [Modifier::Ctrl, MouseButton::Right]
+    .AltRight => [Modifier::Alt, MouseButton::Right]
   }
 }
 
@@ -149,25 +149,25 @@ const ACTIONS: Array<SlotAction> = [.Use, .Pickup, .Menu, .Link, .Protect, .Sock
 
 public function actionName(action: SlotAction): String {
   return match (action) {
-    .Use => Locale.ACT_USE
-    .Pickup => Locale.ACT_PICKUP
-    .Menu => Locale.ACT_MENU
-    .Link => Locale.ACT_LINK
-    .Protect => Locale.ACT_PROTECT
-    .Socket => Locale.ACT_SOCKET
-    .Nothing => Locale.ACT_NOTHING
+    .Use => Locale::ACT_USE
+    .Pickup => Locale::ACT_PICKUP
+    .Menu => Locale::ACT_MENU
+    .Link => Locale::ACT_LINK
+    .Protect => Locale::ACT_PROTECT
+    .Socket => Locale::ACT_SOCKET
+    .Nothing => Locale::ACT_NOTHING
   }
 }
 
 public function chordName(chord: Chord): String {
   return match (chord) {
-    .Left => Locale.CHORD_LEFT
-    .ShiftLeft => Locale.CHORD_SHIFT_LEFT
-    .CtrlLeft => Locale.CHORD_CTRL_LEFT
-    .AltLeft => Locale.CHORD_ALT_LEFT
-    .Right => Locale.CHORD_RIGHT
-    .ShiftRight => Locale.CHORD_SHIFT_RIGHT
-    .CtrlRight => Locale.CHORD_CTRL_RIGHT
-    .AltRight => Locale.CHORD_ALT_RIGHT
+    .Left => Locale::CHORD_LEFT
+    .ShiftLeft => Locale::CHORD_SHIFT_LEFT
+    .CtrlLeft => Locale::CHORD_CTRL_LEFT
+    .AltLeft => Locale::CHORD_ALT_LEFT
+    .Right => Locale::CHORD_RIGHT
+    .ShiftRight => Locale::CHORD_SHIFT_RIGHT
+    .CtrlRight => Locale::CHORD_CTRL_RIGHT
+    .AltRight => Locale::CHORD_ALT_RIGHT
   }
 }

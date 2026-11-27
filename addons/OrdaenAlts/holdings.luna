@@ -13,35 +13,35 @@ import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-const PLACES: Array<Place> = [Place.Bags, Place.Bank, Place.Mail, Place.Auctions]
+const PLACES: Array<Place> = [Place::Bags, Place::Bank, Place::Mail, Place::Auctions]
 const COUNT = 120dp
 const COLUMNS: Array<Column> = [
-  { title: Locale.COL_ITEM, width: { fr: 1, min: 280dp }, sortable: true },
-  { title: Locale.COL_BAGS_HELD, width: COUNT, align: Align.End, sortable: true },
-  { title: Locale.COL_BANK_HELD, width: COUNT, align: Align.End, sortable: true },
-  { title: Locale.COL_MAIL_HELD, width: COUNT, align: Align.End, sortable: true },
-  { title: Locale.COL_AUCTIONS_HELD, width: COUNT, align: Align.End, sortable: true },
-  { title: Locale.COL_TOTAL, width: COUNT, align: Align.End, sortable: true }
+  { title: Locale::COL_ITEM, width: { fr: 1, min: 280dp }, sortable: true },
+  { title: Locale::COL_BAGS_HELD, width: COUNT, align: Align::End, sortable: true },
+  { title: Locale::COL_BANK_HELD, width: COUNT, align: Align::End, sortable: true },
+  { title: Locale::COL_MAIL_HELD, width: COUNT, align: Align::End, sortable: true },
+  { title: Locale::COL_AUCTIONS_HELD, width: COUNT, align: Align::End, sortable: true },
+  { title: Locale::COL_TOTAL, width: COUNT, align: Align::End, sortable: true }
 ]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FILTERS: Array<FilterGroup<Place>> = [
   {
-    label: Locale.FILTER_PLACES,
+    label: Locale::FILTER_PLACES,
     options: [
-      { key: Place.Bags, label: Locale.PLACE_BAGS }, { key: Place.Bank, label: Locale.PLACE_BANK },
-      { key: Place.Mail, label: Locale.PLACE_MAIL }, { key: Place.Auctions, label: Locale.PLACE_AUCTIONS }
+      { key: Place::Bags, label: Locale::PLACE_BAGS }, { key: Place::Bank, label: Locale::PLACE_BANK },
+      { key: Place::Mail, label: Locale::PLACE_MAIL }, { key: Place::Auctions, label: Locale::PLACE_AUCTIONS }
     ]
   }
 ]
-const EVERY_PLACE: Map<Place, Boolean> = { [Place.Bags]: true, [Place.Bank]: true, [Place.Mail]: true, [Place.Auctions]: true }
+const EVERY_PLACE: Map<Place, Boolean> = { [Place::Bags]: true, [Place::Bank]: true, [Place::Mail]: true, [Place::Auctions]: true }
 
 function placeName(place: Place): String {
   return match (place) {
-    .Bags => Locale.PLACE_BAGS
-    .Bank => Locale.PLACE_BANK
-    .Mail => Locale.PLACE_MAIL
-    .Auctions => Locale.PLACE_AUCTIONS
+    .Bags => Locale::PLACE_BAGS
+    .Bank => Locale::PLACE_BANK
+    .Mail => Locale::PLACE_MAIL
+    .Auctions => Locale::PLACE_AUCTIONS
   }
 }
 
@@ -54,7 +54,7 @@ public struct Entry {
   holders: Array<TipRow>
 }
 
-function countText(count: Integer): String { return count == 0 ? "—" : String.of(count) }
+function countText(count: Integer): String { return count == 0 ? "—" : String::of(count) }
 
 // How many in all, of every item listed.
 function sumOf(entries: Array<Entry>): Integer {
@@ -65,14 +65,14 @@ function sumOf(entries: Array<Entry>): Integer {
 
 class HeldCell implements Component {
   derived text: String = countText(self.count)
-  derived ink: Color = self.count == 0 ? Style.DIM : Style.INK
+  derived ink: Color = self.count == 0 ? Style::DIM : Style::INK
 
   count: Signal<Integer>
   constructor(count: Signal<Integer>) { self.count = count }
 
   public render(self): Template {
     return $ltml {
-      <TableCell align={Align.End}>
+      <TableCell align={Align::End}>
         <text value={self.text} textColor={self.ink} textFont={.Numbers} wrap={.None} />
       </TableCell>
     }
@@ -93,17 +93,17 @@ public class ItemRow implements Component {
     return $ltml {
       <TableRow>
         <TableCell>
-          <box columns={ITEM} gap={3sp} yAlign={Align.Center}>
+          <box columns={ITEM} gap={3sp} yAlign={Align::Center}>
             <ItemButton item={self.entry.id} />
             <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-              <text value={self.entry.name} textColor={Style.INK} wrap={.Cut} />
+              <text value={self.entry.name} textColor={Style::INK} wrap={.Cut} />
               <Tip $if={self.hovered} title={self.entry.name} text={""} rows={self.entry.holders} />
             </box>
           </box>
         </TableCell>
         <HeldCell $for={count of self.entry.counts} count={count} />
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.entry.total]} textColor={Style.GOLD} textFont={.Numbers} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.entry.total]} textColor={Style::GOLD} textFont={.Numbers} wrap={.None} />
         </TableCell>
       </TableRow>
     }
@@ -118,8 +118,8 @@ public class Holdings implements Component {
   names: mut Map<ItemId, String> = {}
   derived entries: Array<Entry> = self.entriesOf()
   derived ordered: Array<Entry> = self.order()
-  derived empty: String = self.ordered.length == 0 ? Locale.NOTHING_FOUND : ""
-  derived totals: String = Locale.ITEMS_TOTAL.format(self.ordered.length, sumOf(self.ordered))
+  derived empty: String = self.ordered.length == 0 ? Locale::NOTHING_FOUND : ""
+  derived totals: String = Locale::ITEMS_TOTAL.format(self.ordered.length, sumOf(self.ordered))
 
   const records: Records
   touched: Signal<Integer>
@@ -135,7 +135,7 @@ public class Holdings implements Component {
     const tip = Ordaen.itemTip(id)
     const first = tip == nil ? nil : tip.lines[1]
     const name = first == nil ? nil : first.left
-    if (name == nil) { return "#" + String.of(id) }
+    if (name == nil) { return "#" + String::of(id) }
     self.names[id] = name
     return name
   }
@@ -146,7 +146,7 @@ public class Holdings implements Component {
     for (held of list) {
       if (self.places[held.place] == true) {
         const character = self.records.characters[held.who]
-        rows.push({ label: "%s (%s)".format(character == nil ? "?" : character.name, placeName(held.place)), value: String.of(held.count) })
+        rows.push({ label: "%s (%s)".format(character == nil ? "?" : character.name, placeName(held.place)), value: String::of(held.count) })
       }
     }
     return rows
@@ -173,7 +173,7 @@ public class Holdings implements Component {
       }
       if (total > 0) {
         const name = self.nameOf(id)
-        if (sought == "" || name.lower().contains(sought) || String.of(id) == sought) {
+        if (sought == "" || name.lower().contains(sought) || String::of(id) == sought) {
           found.push({ id: id, name: name, counts: counts, total: total, holders: self.holdersOf(list) })
         }
       }
@@ -200,16 +200,16 @@ public class Holdings implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
-        <box padding={Style.TOP_ROOM}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_ITEMS}>
+        <box padding={Style::TOP_ROOM}>
+          <Toolbar search={mut self.search} placeholder={Locale::SEARCH_ITEMS}>
             <FilterButton values={mut self.places} start={EVERY_PLACE} groups={FILTERS} />
           </Toolbar>
         </box>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} empty={self.empty}>
           <ItemRow $for={entry of self.ordered} $key={entry.id} entry={entry} />
         </Table>
-        <box padding={Style.NOTE_ROOM}>
-          <text value={self.totals} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <box padding={Style::NOTE_ROOM}>
+          <text value={self.totals} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
         </box>
       </box>
     }

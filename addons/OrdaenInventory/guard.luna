@@ -40,9 +40,9 @@ public class GuardLine implements ItemLines {
     const slot = self.hovered.slot
     if (slot == nil || slot.id != item) { return NONE }
     const why = slot.why
-    if (why != nil && slot.guarded) { return [{ left: Locale.JUNK_NOTE.format(whyText(why)) }, { left: Locale.PROTECTED }] }
-    if (why != nil) { return [{ left: Locale.JUNK_NOTE.format(whyText(why)) }] }
-    if (slot.guarded) { return [{ left: Locale.PROTECTED }] }
+    if (why != nil && slot.guarded) { return [{ left: Locale::JUNK_NOTE.format(whyText(why)) }, { left: Locale::PROTECTED }] }
+    if (why != nil) { return [{ left: Locale::JUNK_NOTE.format(whyText(why)) }] }
+    if (slot.guarded) { return [{ left: Locale::PROTECTED }] }
     return NONE
   }
 }
@@ -67,7 +67,7 @@ public class GuardKey implements ItemKeys {
     let keys: Array<String> = []
     for (chord of CHORDS) {
       const name = clickName(slot, actionAt(self.choices.slotPresses, chord), self.bankOpen, self.guildOpen)
-      if (name != nil) { keys.push(Locale.KEY_CLICK.format(chordName(chord), name)) }
+      if (name != nil) { keys.push(Locale::KEY_CLICK.format(chordName(chord), name)) }
     }
     return keys
   }
@@ -79,9 +79,9 @@ function clickName(slot: Slot, action: SlotAction, bankOpen: Boolean, guildOpen:
   return match (action) {
     .Nothing => nil
     .Use => useName(slot, bankOpen, guildOpen)
-    .Protect => slot.vault != Vault.Bags ? nil : slot.guarded ? Locale.MENU_UNPROTECT : Locale.MENU_PROTECT
+    .Protect => slot.vault != Vault::Bags ? nil : slot.guarded ? Locale::MENU_UNPROTECT : Locale::MENU_PROTECT
     .Socket => socketable(slot) ? actionName(action) : nil
-    .Link => Game.chat.typing ? actionName(action) : nil
+    .Link => Game::chat.typing ? actionName(action) : nil
     else => actionName(action)
   }
 }
@@ -93,15 +93,15 @@ function clickName(slot: Slot, action: SlotAction, bankOpen: Boolean, guildOpen:
 function useName(slot: Slot, bankOpen: Boolean, guildOpen: Boolean): String | nil {
   const read = slot.read
   if (slot.id == 0) { return nil }
-  if (slot.vault == Vault.Guild) { return Locale.USE_TO_BAGS }
-  if (slot.vault == Vault.Bank) { return bankOpen ? Locale.USE_TO_BAGS : nil }
-  if (guildOpen) { return read.bound ? nil : Locale.USE_TO_GUILD }
-  if (bankOpen) { return Locale.USE_TO_BANK }
-  return match (Game.bags.place) {
-    .Mail => read.bound ? nil : Locale.USE_ATTACH
-    .Trade => read.bound ? nil : Locale.USE_TRADE
-    .Merchant => read.price > 0 ? Locale.USE_SELL : nil
-    .AuctionHouse => read.bound ? nil : Locale.USE_AUCTION
+  if (slot.vault == Vault::Guild) { return Locale::USE_TO_BAGS }
+  if (slot.vault == Vault::Bank) { return bankOpen ? Locale::USE_TO_BAGS : nil }
+  if (guildOpen) { return read.bound ? nil : Locale::USE_TO_GUILD }
+  if (bankOpen) { return Locale::USE_TO_BANK }
+  return match (Game::bags.place) {
+    .Mail => read.bound ? nil : Locale::USE_ATTACH
+    .Trade => read.bound ? nil : Locale::USE_TRADE
+    .Merchant => read.price > 0 ? Locale::USE_SELL : nil
+    .AuctionHouse => read.bound ? nil : Locale::USE_AUCTION
     else => ownUse(slot)
   }
 }
@@ -109,14 +109,14 @@ function useName(slot: Slot, bankOpen: Boolean, guildOpen: Boolean): String | ni
 // The item's own use, as the client's right-click does it: gear put on, a container of loot opened, a page read, the
 // quest it starts begun, its spell cast (a potion, food, a recipe learned).
 function ownUse(slot: Slot): String | nil {
-  if (slot.read.worn != "") { return Locale.USE_EQUIP }
-  const info = Client.C_Container.GetContainerItemInfo(slot.bag, slot.index)
-  if (info != nil && info.hasLoot) { return Locale.USE_OPEN }
-  if (info != nil && info.isReadable) { return Locale.USE_READ }
-  const quest = Client.C_Container.GetContainerItemQuestInfo(slot.bag, slot.index)
-  if (quest.questID != nil && !quest.isActive) { return Locale.USE_QUEST }
-  const spell, _ = Client.C_Item.GetItemSpell(slot.id)
-  return spell != nil ? Locale.ACT_USE : nil
+  if (slot.read.worn != "") { return Locale::USE_EQUIP }
+  const info = Client::C_Container::GetContainerItemInfo(slot.bag, slot.index)
+  if (info != nil && info.hasLoot) { return Locale::USE_OPEN }
+  if (info != nil && info.isReadable) { return Locale::USE_READ }
+  const quest = Client::C_Container::GetContainerItemQuestInfo(slot.bag, slot.index)
+  if (quest.questID != nil && !quest.isActive) { return Locale::USE_QUEST }
+  const spell, _ = Client::C_Item::GetItemSpell(slot.id)
+  return spell != nil ? Locale::ACT_USE : nil
 }
 
 // Both added to Tooltips while it is on: the watch's run owns them, so they end when either module does.

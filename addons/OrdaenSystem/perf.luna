@@ -19,20 +19,20 @@ public struct Load {
 }
 
 // An addon's share of the client's time over a metric: 0 where the client's is 0.
-function share(name: String, metric: Client.AddOnProfilerMetric): Number {
-  const whole = Client.C_AddOnProfiler.GetApplicationMetric(metric)
+function share(name: String, metric: Client::AddOnProfilerMetric): Number {
+  const whole = Client::C_AddOnProfiler::GetApplicationMetric(metric)
   if (whole <= 0) { return 0 }
-  return Client.C_AddOnProfiler.GetAddOnMetric(name, metric) / whole * 100
+  return Client::C_AddOnProfiler::GetAddOnMetric(name, metric) / whole * 100
 }
 
 function spikesOf(name: String): Array<Integer> {
   return [
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver5Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver10Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver50Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver100Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver500Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver1000Ms).floor()
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver5Ms).floor(),
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver10Ms).floor(),
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver50Ms).floor(),
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver100Ms).floor(),
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver500Ms).floor(),
+    Client::C_AddOnProfiler::GetAddOnMetric(name, .CountTimeOver1000Ms).floor()
   ]
 }
 
@@ -76,12 +76,12 @@ public class Profiler {
   turn(mut self, run: Integer) {
     if (run != self.run) { return }
     self.sample()
-    Client.C_Timer.After(1, (): nil => self.turn(run))
+    Client::C_Timer::After(1, (): nil => self.turn(run))
   }
 
   // The four shares and the spikes of every addon sampled, and the whole's.
   public sample(mut self) {
-    self.measuring = Client.C_AddOnProfiler.IsEnabled()
+    self.measuring = Client::C_AddOnProfiler::IsEnabled()
     if (!(peek self.measuring)) { return }
     const map: Map<String, Load> = {}
     for (name of self.names) {
@@ -94,18 +94,18 @@ public class Profiler {
       }
     }
     self.loads = map
-    const whole = Client.C_AddOnProfiler.GetApplicationMetric(.RecentAverageTime)
-    self.overall = whole <= 0 ? 0 : Client.C_AddOnProfiler.GetOverallMetric(.RecentAverageTime) / whole * 100
+    const whole = Client::C_AddOnProfiler::GetApplicationMetric(.RecentAverageTime)
+    self.overall = whole <= 0 ? 0 : Client::C_AddOnProfiler::GetOverallMetric(.RecentAverageTime) / whole * 100
     const top: Map<String, Boolean> = {}
-    for (result of Client.C_AddOnProfiler.GetTopKAddOnsForMetric(.RecentAverageTime, 10)) { top[result.addOnName] = true }
+    for (result of Client::C_AddOnProfiler::GetTopKAddOnsForMetric(.RecentAverageTime, 10)) { top[result.addOnName] = true }
     self.heavy = top
   }
 
   // Every addon's memory, read anew.
   public weigh(mut self) {
-    Client.UpdateAddOnMemoryUsage()
+    Client::UpdateAddOnMemoryUsage()
     const map: Map<String, Number> = {}
-    for (name of self.names) { map[name] = Client.GetAddOnMemoryUsage(name) }
+    for (name of self.names) { map[name] = Client::GetAddOnMemoryUsage(name) }
     self.memory = map
   }
 }

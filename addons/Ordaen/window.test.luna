@@ -55,14 +55,14 @@ class Gearbox {
 // face that says which window a click reached. Where all three overlap, the click reaches the one in front.
 const SCREEN_W = 1600ui
 const SCREEN_H = 900ui
-const SHARED: Test.Point = { x: 800, y: 470 }
-const ALPHA_ONLY: Test.Point = { x: 500, y: 470 }
-const GAMMA_ONLY: Test.Point = { x: 1120, y: 470 }
-const BETA_ONLY: Test.Point = { x: 800, y: 720 }
+const SHARED: Test::Point = { x: 800, y: 470 }
+const ALPHA_ONLY: Test::Point = { x: 500, y: 470 }
+const GAMMA_ONLY: Test::Point = { x: 1120, y: 470 }
+const BETA_ONLY: Test::Point = { x: 800, y: 720 }
 // With Gamma 120 lower: its tab row's room right of its tab, over Beta's body.
-const ROOM_RIGHT_OF_TABS: Test.Point = { x: 950, y: 470 }
-const FACE: Color = Color.hex("#30302a")
-const FLOOR: Color = Color.hex("#202830")
+const ROOM_RIGHT_OF_TABS: Test::Point = { x: 950, y: 470 }
+const FACE: Color = Color::hex("#30302a")
+const FLOOR: Color = Color::hex("#202830")
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 class Desk {
@@ -109,8 +109,8 @@ class Desk {
 // The window a click where all three overlap reaches: the one in front. A frame passes first, as one always does
 // between two clicks of the player's.
 function front(desk: Desk): String {
-  Test.pass(0.02)
-  Test.click(SHARED, nil)
+  Test::pass(0.02)
+  Test::click(SHARED, nil)
   return desk.hit
 }
 
@@ -120,7 +120,7 @@ function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 // the row of its file it shows.
 function corner(): String {
   let parts: Array<String> = []
-  for (drawn of Test.drawn()) {
+  for (drawn of Test::drawn()) {
     let file = drawn.file
     if (file is String) {
       if (file.contains("ctl-corner-plate")) { parts.push(`plate ${(drawn.top * 16 + 0.5).floor()}`) }
@@ -132,38 +132,38 @@ function corner(): String {
 
 test "a window made with settings has a button in its corner that its owner hears" {
   let page = new Gearbox(true)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.moveTo(Test.holding("the page", nil))
-  Test.flush()
-  Test.shot("the cursor over the window: the group's plates, settings first, then full screen and close")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::moveTo(Test::holding("the page", nil))
+  Test::flush()
+  Test::shot("the cursor over the window: the group's plates, settings first, then full screen and close")
   // Settings is the first bronze plate with the gear, full screen one after it with the expand glyph, close the
   // red one, the group's last: each plate with its glyph.
-  Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
+  Test::expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
   // Under the cursor a plate shows its hover row, the settings plate as full screen's.
-  Test.moveTo(Test.painted(Ordaen.art.ctl.corner.gear, nil))
-  Test.flush()
-  Test.expect(corner() == "plate 1, glyph 1, plate 3, glyph 2, plate 9, glyph 6")
-  Test.moveTo(Test.painted(Ordaen.art.ctl.corner.expand, nil))
-  Test.flush()
-  Test.expect(corner() == "plate 0, glyph 0, plate 4, glyph 3, plate 9, glyph 6")
-  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
-  Test.expect(page.opened == 1)
-  Test.expect(page.closed == 0)
-  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
-  Test.expect(page.opened == 2)
-  Test.click(Test.painted(Ordaen.art.ctl.corner.close, nil), nil)
-  Test.expect(page.closed == 1)
+  Test::moveTo(Test::painted(Ordaen.art.ctl.corner.gear, nil))
+  Test::flush()
+  Test::expect(corner() == "plate 1, glyph 1, plate 3, glyph 2, plate 9, glyph 6")
+  Test::moveTo(Test::painted(Ordaen.art.ctl.corner.expand, nil))
+  Test::flush()
+  Test::expect(corner() == "plate 0, glyph 0, plate 4, glyph 3, plate 9, glyph 6")
+  Test::click(Test::painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test::expect(page.opened == 1)
+  Test::expect(page.closed == 0)
+  Test::click(Test::painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test::expect(page.opened == 2)
+  Test::click(Test::painted(Ordaen.art.ctl.corner.close, nil), nil)
+  Test::expect(page.closed == 1)
   destroy page
 }
 
 test "a window made without settings has no button" {
   let page = new Gearbox(false)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.moveTo(Test.holding("the page", nil))
-  Test.flush()
-  Test.shot("the cursor over the window: full screen and close alone")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::moveTo(Test::holding("the page", nil))
+  Test::flush()
+  Test::shot("the cursor over the window: full screen and close alone")
   // Full screen is then the group's first plate.
-  Test.expect(corner() == "plate 0, glyph 2, plate 9, glyph 6")
+  Test::expect(corner() == "plate 0, glyph 2, plate 9, glyph 6")
   destroy page
 }
 
@@ -187,59 +187,59 @@ class Crowded {
 
 test "the control group stands in the tab row: past the body's top right corner, its foot on the top band's rod" {
   let page = new Gearbox(true)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.flush()
-  const body = Test.edges(Ordaen.art.window.wood, 0)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::flush()
+  const body = Test::edges(Ordaen.art.window.wood, 0)
   // The close plate's cell: its art is wider, cut to it.
-  const close = Test.edges(Ordaen.art.ctl.corner.red, 1)
-  const tab = Test.holding("Recipes", nil)
+  const close = Test::edges(Ordaen.art.ctl.corner.red, 1)
+  const tab = Test::holding("Recipes", nil)
   const metal = Ordaen.art.frame.window
   // The body is placed by its art's top: the band's rod starts 5 texels below it, past its shadow (4) and outer black.
   const rod = body.top + 5 * metal.scale
   // The group ends where the body's top right corner piece starts (its corners are one width).
-  Test.expect(near(close.right, body.right - cornerArtWidth(metal) / 1ui))
-  Test.expect(Test.edges(Ordaen.art.ctl.corner.gear, 0).left > tab.x)
+  Test::expect(near(close.right, body.right - cornerArtWidth(metal) / 1ui))
+  Test::expect(Test::edges(Ordaen.art.ctl.corner.gear, 0).left > tab.x)
   // Every plate meets the rod, as the tabs' sides do: drawn over the band's shadow, its foot on the rod's top.
   for (art of [Ordaen.art.ctl.corner.bronze.first, Ordaen.art.ctl.corner.bronze.next, Ordaen.art.ctl.corner.red]) {
-    Test.expect(near(Test.edges(art, 0).bottom, rod))
+    Test::expect(near(Test::edges(art, 0).bottom, rod))
   }
   destroy page
 }
 
 test "the control group shows while the cursor is over the window, and goes as it leaves" {
   let page = new Gearbox(true)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.moveTo({ x: 5, y: 5 })
-  Test.flush()
-  Test.shot("the cursor outside the window: no control group")
-  Test.moveTo(Test.holding("the page", nil))
-  Test.flush()
-  Test.shot("the cursor over the page: the group shows")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::moveTo({ x: 5, y: 5 })
+  Test::flush()
+  Test::shot("the cursor outside the window: no control group")
+  Test::moveTo(Test::holding("the page", nil))
+  Test::flush()
+  Test::shot("the cursor over the page: the group shows")
   destroy page
 }
 
 test "the window is never narrower than its tabs and its control group" {
   let page = new Crowded()
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  Test.flush()
-  const last = Test.holding("The fourth long tab", nil)
-  const gear = Test.edges(Ordaen.art.ctl.corner.gear, 0)
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(last.x < gear.left && body.right - body.left > 330)
-  Test.shot("four long tabs on a body given 330: the window as wide as the tabs and the group, none over another")
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test::flush()
+  const last = Test::holding("The fourth long tab", nil)
+  const gear = Test::edges(Ordaen.art.ctl.corner.gear, 0)
+  const body = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(last.x < gear.left && body.right - body.left > 330)
+  Test::shot("four long tabs on a body given 330: the window as wide as the tabs and the group, none over another")
   // The grip dragged far left: the window stops where the row would overlap.
-  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
-  Test.moveTo(grip)
-  Test.press(nil)
-  Test.moveTo({ x: grip.x + 1, y: grip.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: grip.x - 2000, y: grip.y })
-  Test.pass(0.05)
-  Test.release(nil)
-  Test.flush()
-  const narrowed = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(near(narrowed.right - narrowed.left, body.right - body.left))
-  Test.expect(Test.holding("The fourth long tab", nil).x < Test.edges(Ordaen.art.ctl.corner.gear, 0).left)
+  const grip = Test::painted(Ordaen.art.ctl.grip, nil)
+  Test::moveTo(grip)
+  Test::press(nil)
+  Test::moveTo({ x: grip.x + 1, y: grip.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: grip.x - 2000, y: grip.y })
+  Test::pass(0.05)
+  Test::release(nil)
+  Test::flush()
+  const narrowed = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(near(narrowed.right - narrowed.left, body.right - body.left))
+  Test::expect(Test::holding("The fourth long tab", nil).x < Test::edges(Ordaen.art.ctl.corner.gear, 0).left)
   destroy page
 }
 
@@ -260,98 +260,98 @@ class Pinned {
 
 test "a tab that keeps the window's size draws no grip while open, and the others draw it again" {
   let page = new Pinned()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.flush()
-  Test.expect(Test.page().box(Ordaen.art.ctl.grip).shown())
-  Test.page().text("Kept").click()
-  Test.expect(!Test.page().box(Ordaen.art.ctl.grip).shown())
-  Test.page().text("Sized").click()
-  Test.expect(Test.page().box(Ordaen.art.ctl.grip).shown())
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::flush()
+  Test::expect(Test::page().box(Ordaen.art.ctl.grip).shown())
+  Test::page().text("Kept").click()
+  Test::expect(!Test::page().box(Ordaen.art.ctl.grip).shown())
+  Test::page().text("Sized").click()
+  Test::expect(Test::page().box(Ordaen.art.ctl.grip).shown())
   destroy page
 }
 
 test "each control in the tab row works: settings and close are heard, full screen goes and comes back" {
   let page = new Gearbox(true)
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.flush()
-  const before = Test.edges(Ordaen.art.window.wood, 0)
-  Test.click(Test.painted(Ordaen.art.ctl.corner.expand, nil), nil)
-  Test.flush()
-  const full = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(full.right - full.left > before.right - before.left + 100)
-  Test.click(Test.painted(Ordaen.art.ctl.corner.contract, nil), nil)
-  Test.flush()
-  const back = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(near(back.right - back.left, before.right - before.left))
-  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
-  Test.click(Test.painted(Ordaen.art.ctl.corner.close, nil), nil)
-  Test.expect(page.opened == 1 && page.closed == 1)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::flush()
+  const before = Test::edges(Ordaen.art.window.wood, 0)
+  Test::click(Test::painted(Ordaen.art.ctl.corner.expand, nil), nil)
+  Test::flush()
+  const full = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(full.right - full.left > before.right - before.left + 100)
+  Test::click(Test::painted(Ordaen.art.ctl.corner.contract, nil), nil)
+  Test::flush()
+  const back = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(near(back.right - back.left, before.right - before.left))
+  Test::click(Test::painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test::click(Test::painted(Ordaen.art.ctl.corner.close, nil), nil)
+  Test::expect(page.opened == 1 && page.closed == 1)
   destroy page
 }
 
 // A window that opens, or is clicked, comes in front of the others and is the one Escape closes: however often the
 // player went from one to another before.
 test "windows opened and clicked in turn each come to the front and take Escape" {
-  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
+  Test::screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
   let desk = new Desk()
-  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   desk.alphaOpen = true
-  Test.flush()
+  Test::flush()
   desk.betaOpen = true
-  Test.flush()
-  Test.expect(front(desk) == "Beta")
+  Test::flush()
+  Test::expect(front(desk) == "Beta")
   // Opened last, Beta is the one Escape closes; Alpha then.
-  Test.expect(Test.key(Key.Escape))
-  Test.expect(!desk.betaOpen)
-  Test.expect(front(desk) == "Alpha")
+  Test::expect(Test::key(Key::Escape))
+  Test::expect(!desk.betaOpen)
+  Test::expect(front(desk) == "Alpha")
   desk.betaOpen = true
-  Test.flush()
-  Test.expect(front(desk) == "Beta")
+  Test::flush()
+  Test::expect(front(desk) == "Beta")
   // Clicked where it shows alone, a window comes in front, again and again.
   for (turn of 1..12) {
-    Test.click(ALPHA_ONLY, nil)
-    Test.expect(desk.hit == "Alpha")
-    Test.expect(front(desk) == "Alpha")
-    Test.click(BETA_ONLY, nil)
-    Test.expect(desk.hit == "Beta")
-    Test.expect(front(desk) == "Beta")
+    Test::click(ALPHA_ONLY, nil)
+    Test::expect(desk.hit == "Alpha")
+    Test::expect(front(desk) == "Alpha")
+    Test::click(BETA_ONLY, nil)
+    Test::expect(desk.hit == "Beta")
+    Test::expect(front(desk) == "Beta")
   }
-  Test.click(ALPHA_ONLY, nil)
+  Test::click(ALPHA_ONLY, nil)
   // Opened after all that, Gamma stands over both and takes Escape first.
   desk.gammaOpen = true
-  Test.flush()
-  Test.shot("Gamma opened over Alpha and Beta")
-  Test.expect(front(desk) == "Gamma")
-  Test.expect(Test.key(Key.Escape))
-  Test.expect(!desk.gammaOpen)
-  Test.expect(front(desk) == "Alpha")
+  Test::flush()
+  Test::shot("Gamma opened over Alpha and Beta")
+  Test::expect(front(desk) == "Gamma")
+  Test::expect(Test::key(Key::Escape))
+  Test::expect(!desk.gammaOpen)
+  Test::expect(front(desk) == "Alpha")
   // Alpha hidden and shown again (kept drawn) comes in front as one opened does.
   desk.gammaOpen = true
-  Test.flush()
+  Test::flush()
   desk.alphaOpen = false
-  Test.flush()
+  Test::flush()
   desk.alphaOpen = true
-  Test.flush()
-  Test.expect(front(desk) == "Alpha")
-  Test.click(GAMMA_ONLY, nil)
-  Test.expect(front(desk) == "Gamma")
-  Test.expect(Test.key(Key.Escape))
-  Test.expect(!desk.gammaOpen)
-  Test.expect(Test.key(Key.Escape))
-  Test.expect(!desk.alphaOpen)
-  Test.expect(Test.key(Key.Escape))
-  Test.expect(!desk.betaOpen)
+  Test::flush()
+  Test::expect(front(desk) == "Alpha")
+  Test::click(GAMMA_ONLY, nil)
+  Test::expect(front(desk) == "Gamma")
+  Test::expect(Test::key(Key::Escape))
+  Test::expect(!desk.gammaOpen)
+  Test::expect(Test::key(Key::Escape))
+  Test::expect(!desk.alphaOpen)
+  Test::expect(Test::key(Key::Escape))
+  Test::expect(!desk.betaOpen)
   destroy desk
 }
 
 // A frame of the client's over the middle of the screen, on a layer, toplevel as the client's panels are, telling the
 // clicks it takes.
-function clientFrame(strata: String, clicked: mut Array<String>): any Client.Frame {
-  const made = Client.CreateFrame("Button", nil, Client.UIParent, nil)
+function clientFrame(strata: String, clicked: mut Array<String>): any Client::Frame {
+  const made = Client::CreateFrame("Button", nil, Client::UIParent, nil)
   made.SetFrameStrata(strata)
   made.SetToplevel(true)
   made.SetSize(300, 200)
-  made.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  made.SetPoint("CENTER", Client::UIParent, "CENTER", 0, 0)
   made.SetScript("OnClick", () => { clicked.push(strata) })
   made.Hide()
   return made
@@ -360,86 +360,86 @@ function clientFrame(strata: String, clicked: mut Array<String>): any Client.Fra
 // A window stands with the client's panels as they stand with each other (the character's, the spellbook: `MEDIUM`,
 // toplevel): the one opened or clicked last is in front. The world map stands over them all, as over the client's.
 test "a window stands with the client's panels, the last opened or clicked in front, and under the world map" {
-  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
+  Test::screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
   let clicked: Array<String> = []
   let desk = new Desk()
-  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   desk.betaOpen = true
-  Test.flush()
-  Test.expect(front(desk) == "Beta")
+  Test::flush()
+  Test::expect(front(desk) == "Beta")
   const panel = clientFrame("MEDIUM", clicked)
   panel.Show()
   desk.hit = ""
-  Test.expect(front(desk) == "" && clicked.length == 1)
-  Test.click(BETA_ONLY, nil)
-  Test.expect(front(desk) == "Beta" && clicked.length == 1)
+  Test::expect(front(desk) == "" && clicked.length == 1)
+  Test::click(BETA_ONLY, nil)
+  Test::expect(front(desk) == "Beta" && clicked.length == 1)
   panel.Hide()
   const map = clientFrame("HIGH", clicked)
   map.Show()
   desk.hit = ""
-  Test.click(BETA_ONLY, nil)
-  Test.expect(desk.hit == "Beta")
+  Test::click(BETA_ONLY, nil)
+  Test::expect(desk.hit == "Beta")
   desk.hit = ""
-  Test.expect(front(desk) == "" && clicked.join(", ") == "MEDIUM, HIGH")
+  Test::expect(front(desk) == "" && clicked.join(", ") == "MEDIUM, HIGH")
   destroy desk
 }
 
 // The tab row takes the mouse on its tabs alone: a click on its room right of them reaches the window under it, and
 // the tab still moves its window.
 test "a click right of a window's tabs reaches the window under them" {
-  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
+  Test::screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
   let desk = new Desk()
-  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   // Gamma lower, its tab row over Beta's body.
   desk.gamma.memory.write({ x: 150ui, y: 120ui, width: 400ui, height: 200ui, ..desk.gamma.defaults })
   desk.betaOpen = true
-  Test.flush()
+  Test::flush()
   desk.gammaOpen = true
-  Test.flush()
-  Test.click(ROOM_RIGHT_OF_TABS, nil)
-  Test.expect(desk.hit == "Beta")
-  Test.shot("Beta clicked through the room right of Gamma's tab")
+  Test::flush()
+  Test::click(ROOM_RIGHT_OF_TABS, nil)
+  Test::expect(desk.hit == "Beta")
+  Test::shot("Beta clicked through the room right of Gamma's tab")
   // Beta clicked came in front, over Gamma's tab; Gamma clicked comes back, and its tab moves it.
-  Test.click({ x: 1100, y: 600 }, nil)
-  Test.expect(desk.hit == "Gamma")
-  Test.pass(0.02)
+  Test::click({ x: 1100, y: 600 }, nil)
+  Test::expect(desk.hit == "Gamma")
+  Test::pass(0.02)
   const was = desk.gamma.placing.x
-  const tab = Test.holding("Gamma", nil)
-  Test.moveTo(tab)
-  Test.press(nil)
+  const tab = Test::holding("Gamma", nil)
+  Test::moveTo(tab)
+  Test::press(nil)
   // The client starts the drag once the cursor has moved: the window has followed it from the press.
-  Test.moveTo({ x: tab.x + 1, y: tab.y })
-  Test.pass(0.02)
-  Test.moveTo({ x: tab.x + 30, y: tab.y })
-  Test.pass(0.1)
-  Test.release(nil)
-  Test.expect((desk.gamma.placing.x - was - 30ui).abs() < 1ui)
+  Test::moveTo({ x: tab.x + 1, y: tab.y })
+  Test::pass(0.02)
+  Test::moveTo({ x: tab.x + 30, y: tab.y })
+  Test::pass(0.1)
+  Test::release(nil)
+  Test::expect((desk.gamma.placing.x - was - 30ui).abs() < 1ui)
   destroy desk
 }
 
 test "the open tab and the others are cut by their metal's corners" {
   let page = new Tabbed()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.shot("the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too")
-  Test.click(Test.holding("Recipes", nil), nil)
-  Test.shot("the second tab open: cut as the first was")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::shot("the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too")
+  Test::click(Test::holding("Recipes", nil), nil)
+  Test::shot("the second tab open: cut as the first was")
   destroy page
 }
 
 test "a tab stands on the body's rod, and nothing of it reaches below its foot" {
   let page = new Tabbed()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
   const metal = Ordaen.art.frame.window
   // The body is placed by its art's top: its rod starts 5 texels below it, past its shadow (4) and outer black.
-  const rod = Test.edges(Ordaen.art.window.wood, 0).top + 5 * metal.scale
+  const rod = Test::edges(Ordaen.art.window.wood, 0).top + 5 * metal.scale
   // The first tab's picture, and the tab that holds it (the box that takes its click).
-  const icon = Test.page().box("Interface/Icons/Trade_Tailoring").rect()
-  const tab = Test.page().button("Interface/Icons/Trade_Tailoring").rect()
-  Test.expect(near(tab.bottom, rod))
-  Test.expect(near(icon.bottom, tab.bottom))
+  const icon = Test::page().box("Interface/Icons/Trade_Tailoring").rect()
+  const tab = Test::page().button("Interface/Icons/Trade_Tailoring").rect()
+  Test::expect(near(tab.bottom, rod))
+  Test::expect(near(icon.bottom, tab.bottom))
   // Every tab's label keeps above the foot, the one with a picture and the one without.
   for (title of ["Professions", "Tailoring 75", "Recipes"]) {
-    Test.expect(Test.page().text(title).rect().bottom <= tab.bottom + 0.01)
+    Test::expect(Test::page().text(title).rect().bottom <= tab.bottom + 0.01)
   }
   destroy page
 }
@@ -451,7 +451,7 @@ class Footed {
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state saved = 0
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align::Center}>
       <PushButton label={"Reset"} width={100ui} />
       <text value={"2 waiting"} />
       <PushButton label={"Save"} width={100ui} @click={self.onSave} />
@@ -473,10 +473,10 @@ class Footed {
 
 test "a footer stands on the window's bottom line under the content, its groups at its ends" {
   let page = new Footed()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.shot("the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line")
-  Test.click(Test.holding("Save", nil), nil)
-  Test.expect(page.saved == 1)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::shot("the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line")
+  Test::click(Test::holding("Save", nil), nil)
+  Test::expect(page.saved == 1)
   destroy page
 }
 
@@ -505,16 +505,16 @@ class Floored {
 
 test "a footer is placed flush with the main section's sides and bottom: its own floor reaches them, its text kept in" {
   let page = new Floored()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const floor = Test.page().box(FLOOR).rect()
-  const content = Test.page().box(FACE).rect()
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const floor = Test::page().box(FLOOR).rect()
+  const content = Test::page().box(FACE).rect()
   // The content keeps the window's room (8sp) at its sides; the floor runs past it by that room on both, to the
   // section's edges, under the content.
   const room = Ordaen.lengthOf(8sp) / 1ui
-  Test.expect(floor.top > content.bottom)
-  Test.expect((content.left - floor.left - room).abs() < 0.05 && (floor.right - content.right - room).abs() < 0.05)
+  Test::expect(floor.top > content.bottom)
+  Test::expect((content.left - floor.left - room).abs() < 0.05 && (floor.right - content.right - room).abs() < 0.05)
   // The text stands in by the footer's room.
-  Test.expect(Test.page().text("13 of 22").rect().left - floor.left >= Ordaen.lengthOf(8sp) / 1ui - 0.01)
+  Test::expect(Test::page().text("13 of 22").rect().left - floor.left >= Ordaen.lengthOf(8sp) / 1ui - 0.01)
   destroy page
 }
 
@@ -537,9 +537,9 @@ class Plain {
 
 test "a window's page is as wide as the window less its sides: the frame, the inset and the room" {
   let page = new Plain()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const content = Test.page().box(FACE).rect()
-  Test.expect((content.right - content.left - (400ui - windowSides()) / 1ui).abs() < 0.05)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const content = Test::page().box(FACE).rect()
+  Test::expect((content.right - content.left - (400ui - windowSides()) / 1ui).abs() < 0.05)
   destroy page
 }
 
@@ -550,7 +550,7 @@ class Sided {
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {
     <FooterBand>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
         <text value={"5 items"} />
         <box />
         <PushButton label={"Scan"} width={100ui} />
@@ -580,25 +580,25 @@ class Sided {
 
 test "a side section runs the body's full height beside the main one, the frame's line between them" {
   let page = new Sided()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  Test.shot("the list over its footer at the left; the details from the top line to the bottom one at the right")
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test::shot("the list over its footer at the left; the details from the top line to the bottom one at the right")
   destroy page
 }
 
 test "a footer band runs from the frame's line to the side's line, its own line meeting both" {
   let page = new Sided()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  const band = Test.edges(ARTWORK.window.marble, 0)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const body = Test::edges(Ordaen.art.window.wood, 0)
+  const band = Test::edges(ARTWORK.window.marble, 0)
   // The frame's line on the body's left and bottom: its art and its line stand that far in.
   const frame = Ordaen.art.frame.window
-  Test.expect(near(band.left, body.left + frame.width + frame.reach.left * frame.scale))
-  Test.expect(near(band.bottom, body.bottom - frame.width - frame.reach.bottom * frame.scale))
+  Test::expect(near(band.left, body.left + frame.width + frame.reach.left * frame.scale))
+  Test::expect(near(band.bottom, body.bottom - frame.width - frame.reach.bottom * frame.scale))
   // The band ends at the edge between the sections, where the side's line has its middle: the side's content keeps
   // its room past the line's art.
-  const details = Test.page().text("the details").rect()
+  const details = Test::page().text("the details").rect()
   const line = Ordaen.art.frame.tabIconLine
-  Test.expect(details.left - band.right >= line.width + line.reach.left * line.scale - 0.01)
+  Test::expect(details.left - band.right >= line.width + line.reach.left * line.scale - 0.01)
   destroy page
 }
 
@@ -609,7 +609,7 @@ class Across {
   public placing: mut KeptWindow = new KeptWindow("across", "across", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {
     <FooterBand>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
         <text value={"5 items"} />
         <box />
         <PushButton label={"Learn all"} width={100ui} />
@@ -640,16 +640,16 @@ class Across {
 
 test "a footer under the side too is one band from the frame's line on the left to the one on the right, the side over it" {
   let page = new Across()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  const band = Test.edges(ARTWORK.window.marble, 0)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const body = Test::edges(Ordaen.art.window.wood, 0)
+  const band = Test::edges(ARTWORK.window.marble, 0)
   const frame = Ordaen.art.frame.window
-  Test.expect(near(band.left, body.left + frame.width + frame.reach.left * frame.scale))
-  Test.expect(near(band.right, body.right - frame.width - frame.reach.right * frame.scale))
+  Test::expect(near(band.left, body.left + frame.width + frame.reach.left * frame.scale))
+  Test::expect(near(band.right, body.right - frame.width - frame.reach.right * frame.scale))
   // The side ends where the band begins; its button stands under the side.
-  const details = Test.page().text("the details").rect()
-  const button = Test.page().button("Learn all").rect()
-  Test.expect(details.bottom <= band.top && button.left > details.left)
+  const details = Test::page().text("the details").rect()
+  const button = Test::page().button("Learn all").rect()
+  Test::expect(details.bottom <= band.top && button.left > details.left)
   destroy page
 }
 
@@ -678,11 +678,11 @@ class WideSide {
 
 test "a side section grows past its width for content that needs more, the main section giving way" {
   let page = new WideSide()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const window = Test.page().window("Market").rect()
-  const wide = Test.page().text("the wide details").rect()
-  const list = Test.page().text("the list").rect()
-  Test.expect(wide.right <= window.right && wide.left > list.left)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const window = Test::page().window("Market").rect()
+  const wide = Test::page().text("the wide details").rect()
+  const list = Test::page().text("the list").rect()
+  Test::expect(wide.right <= window.right && wide.left > list.left)
   destroy page
 }
 
@@ -723,10 +723,10 @@ class TwoFooters {
 
 test "two footers side by side are as high as the higher, top and bottom in line" {
   let page = new TwoFooters()
-  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
-  const main = Test.page().box(ARTWORK.window.marble).nth(1).rect()
-  const side = Test.page().box(ARTWORK.window.marble).nth(2).rect()
-  Test.expect(near(main.top, side.top) && near(main.bottom, side.bottom))
-  Test.expect(Test.page().text("5 items").rect().top >= main.top && Test.page().button("Bid").rect().bottom <= side.bottom)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const main = Test::page().box(ARTWORK.window.marble).nth(1).rect()
+  const side = Test::page().box(ARTWORK.window.marble).nth(2).rect()
+  Test::expect(near(main.top, side.top) && near(main.bottom, side.bottom))
+  Test::expect(Test::page().text("5 items").rect().top >= main.top && Test::page().button("Bid").rect().bottom <= side.bottom)
   destroy page
 }

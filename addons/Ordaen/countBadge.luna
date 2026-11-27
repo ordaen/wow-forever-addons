@@ -27,10 +27,10 @@ public class CountBadge implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={WIDE} padding={PAD} xAlign={Align.Center} yAlign={Align.Center}
+      <box width={WIDE} padding={PAD} xAlign={Align::Center} yAlign={Align::Center}
            background={Ordaen.art.panel.countBadge} desaturate={self.toned} tint={self.tone}>
         <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
-              textWeight={TextWeight.Bold} leading={.Tight} wrap={.None} />
+              textWeight={TextWeight::Bold} leading={.Tight} wrap={.None} />
       </box>
     }
   }

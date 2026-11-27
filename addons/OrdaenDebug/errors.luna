@@ -83,8 +83,8 @@ public function read(raw: Unknown): mut DB {
 
 // What the last session kept, read, and kept itself from now: the client writes it as the session ends.
 public function takeSaved(): mut DB {
-  const db = read(Game.saved.stored(Game.Scope.Own, SAVED))
-  Game.saved.store(Game.Scope.Own, SAVED, db)
+  const db = read(Game::saved.stored(Game::Scope::Own, SAVED))
+  Game::saved.store(Game::Scope::Own, SAVED, db)
   return db
 }
 
@@ -92,7 +92,7 @@ public function takeSaved(): mut DB {
 public const SAVED = "errors"
 
 public function now(): String {
-  return Client.date("%Y-%m-%d %H:%M:%S", nil)
+  return Client::date("%Y-%m-%d %H:%M:%S", nil)
 }
 
 function truncate(text: String | nil, max: Integer): String | nil {
@@ -104,9 +104,9 @@ function truncate(text: String | nil, max: Integer): String | nil {
 
 // The client's facts in this session, and Ordaen's version.
 public function clientMeta(): Meta {
-  let client, build, buildDate, interface, _, _ = Client.GetBuildInfo()
-  const core = Client.C_AddOns.GetAddOnMetadata("Ordaen", "Version")
-  return { client: client, build: build, buildDate: buildDate, interface: interface, locale: Client.GetLocale(), core: core ?? "?" }
+  let client, build, buildDate, interface, _, _ = Client::GetBuildInfo()
+  const core = Client::C_AddOns::GetAddOnMetadata("Ordaen", "Version")
+  return { client: client, build: build, buildDate: buildDate, interface: interface, locale: Client::GetLocale(), core: core ?? "?" }
 }
 
 const FAULT_PREFIX = "LunaType: "
@@ -158,10 +158,10 @@ public function isOurs(source: String | nil): Boolean {
   if (source == "LunaType") {
     return true
   }
-  if (!Client.C_AddOns.DoesAddOnExist(source)) {
+  if (!Client::C_AddOns::DoesAddOnExist(source)) {
     return false
   }
-  return Client.C_AddOns.GetAddOnMetadata(source, "X-LunaType-Source") != nil
+  return Client::C_AddOns::GetAddOnMetadata(source, "X-LunaType-Source") != nil
 }
 
 // The saved table, taken over as the module's root is made: a new session begins in it.
@@ -175,7 +175,7 @@ public class Errors {
     // Errors recorded before every addon's source was named say "other"; repeats keep the stored entry, so they
     // are named again here, once per load.
     for (e of self.db.errors) {
-      if (e.source == "other" && e.kind != Kind.Taint) {
+      if (e.source == "other" && e.kind != Kind::Taint) {
         e.source = sourceOf(e.message, e.stack)
       }
     }
@@ -246,7 +246,7 @@ public class Errors {
     self.db.nextId += 1
     let entry = Entry {
       id: self.db.nextId,
-      kind: fields.kind ?? Kind.Error,
+      kind: fields.kind ?? Kind::Error,
       source: fields.source ?? sourceOf(message, fields.stack),
       message: message,
       stack: truncate(fields.stack, STACK_MAX_CHARS),
@@ -294,14 +294,14 @@ public class Errors {
     let m = self.db.sessions[e.session]
     let lastTime = e.lastTime
     let lines: Array<String> = [
-      "%s in %s: x%d, first %s%s".format(e.kind == Kind.Taint ? "Blocked action" : "Error", e.source,
+      "%s in %s: x%d, first %s%s".format(e.kind == Kind::Taint ? "Blocked action" : "Error", e.source,
         e.count, e.time, lastTime != nil ? ", last " + lastTime : ""),
-      "Client %s (build %s, %s), interface %s, locale %s. Ordaen %s.".format(String.of(m?.client),
-        String.of(m?.build), String.of(m?.buildDate), String.of(m?.interface), String.of(m?.locale),
-        String.of(m?.core))
+      "Client %s (build %s, %s), interface %s, locale %s. Ordaen %s.".format(String::of(m?.client),
+        String::of(m?.build), String::of(m?.buildDate), String::of(m?.interface), String::of(m?.locale),
+        String::of(m?.core))
     ]
     if (e.source != "other" && e.source != "Blizzard") {
-      lines.push("%s %s".format(e.source, String.of(Client.C_AddOns.GetAddOnMetadata(e.source, "Version"))))
+      lines.push("%s %s".format(e.source, String::of(Client::C_AddOns::GetAddOnMetadata(e.source, "Version"))))
     }
     lines.push("")
     lines.push(e.message)

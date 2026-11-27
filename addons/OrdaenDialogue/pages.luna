@@ -12,16 +12,16 @@ import { Page } from "@/talk"
 
 // The upper zone: what is said.
 public class Said implements Component {
-  derived isQuest: Boolean = self.page == Page.Detail || self.page == Page.Progress || self.page == Page.Reward
-  derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page.Book ? self.book : self.said
-  derived objectives: String = self.page == Page.Detail ? self.quest?.objectives ?? "" : ""
+  derived isQuest: Boolean = self.page == Page::Detail || self.page == Page::Progress || self.page == Page::Reward
+  derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page::Book ? self.book : self.said
+  derived objectives: String = self.page == Page::Detail ? self.quest?.objectives ?? "" : ""
   derived hasObjectives: Boolean = self.objectives != ""
   // The things a quest's words name, marked on the parchment; none in what an NPC says or a book.
   derived names: Array<Named> = self.isQuest ? self.quest?.names ?? [] : []
   derived group: Integer = self.isQuest ? self.quest?.group ?? 0 : 0
   derived grouped: Boolean = self.group > 0
-  derived groupText: String = Locale.GROUP.format(self.group)
-  derived groupTip: String = Locale.GROUP_TIP.format(self.group)
+  derived groupText: String = Locale::GROUP.format(self.group)
+  derived groupTip: String = Locale::GROUP_TIP.format(self.group)
   state groupHovered = false
   derived revealing: Boolean = self.isQuest && self.revealed >= 0
   derived shownText: String = self.revealing ? self.text.sub(1, self.revealed) : ""
@@ -54,9 +54,9 @@ public class Said implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.grouped} columns={["max-content", { fr: 1 }]}>
-        <box border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
+        <box border={{ width: 1.171875dp, color: Style::GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
-          <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={self.groupText} textColor={Style::GROUP_TAG} textSize={SECONDARY_TEXT} wrap={.None} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
         <box />
@@ -65,11 +65,11 @@ public class Said implements Component {
         <box opacity={self.wholeOpacity}>
           <ScrollText value={self.text} names={self.names} />
         </box>
-        <box $if={self.revealing} position={Position.Absolute} left={0ui} top={0ui} right={0ui}>
-          <text value={self.shownText} textColor={Style.INK} leading={SCROLL_LEADING} />
+        <box $if={self.revealing} position={Position::Absolute} left={0ui} top={0ui} right={0ui}>
+          <text value={self.shownText} textColor={Style::INK} leading={SCROLL_LEADING} />
         </box>
       </box>
-      <ScrollHeading $if={self.hasObjectives} title={Locale.OBJECTIVES} />
+      <ScrollHeading $if={self.hasObjectives} title={Locale::OBJECTIVES} />
       <ScrollText $if={self.hasObjectives} value={self.objectives} names={self.names} />
     }
   }
@@ -80,17 +80,17 @@ public class Needs implements Component {
   derived needs: Array<Need> = self.quest?.needs ?? []
   derived money: Integer = self.quest?.moneyNeeded ?? 0
   derived paid: Boolean = self.money > 0
-  derived moneyColor: Color = self.money > Game.money.amount ? Style.RED : Style.TEXT
+  derived moneyColor: Color = self.money > Game::money.amount ? Style::RED : Style::TEXT
 
   quest: Signal<Quest | nil>
   constructor(quest: Signal<Quest | nil>) { self.quest = quest }
 
   public render(self): Template {
     return $ltml {
-      <text value={Locale.NEEDED} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+      <text value={Locale::NEEDED} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
       <NeedRow $for={need of self.needs} need={need} />
-      <box $if={self.paid} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center} padding={1sp}>
-        <text value={Locale.MONEY} textColor={Style.TEXT} />
+      <box $if={self.paid} columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center} padding={1sp}>
+        <text value={Locale::MONEY} textColor={Style::TEXT} />
         <Money amount={self.money} color={self.moneyColor} />
       </box>
     }
@@ -99,16 +99,16 @@ public class Needs implements Component {
 
 class NeedRow implements Component {
   derived count: String = `${self.need.have}/${self.need.need}`
-  derived color: Color = self.need.have < self.need.need ? Style.RED : Style.TEXT
+  derived color: Color = self.need.have < self.need.need ? Style::RED : Style::TEXT
 
   need: Signal<Need>
   constructor(need: Signal<Need>) { self.need = need }
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center} padding={1sp}>
+      <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align::Center} padding={1sp}>
         <box width={REWARD_ICON} height={REWARD_ICON} icon={self.need.icon} />
-        <text value={self.need.name} textColor={Style.TEXT} />
+        <text value={self.need.name} textColor={Style::TEXT} />
         <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={.None} />
       </box>
     }

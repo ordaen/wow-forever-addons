@@ -27,35 +27,35 @@ test "a character uses the profile picked for its spec, then for it, then for it
   const specs: Map<Integer, ProfileName> = {}
   specs[2] = "Frost"
   picks.bySpec["Player-1"] = specs
-  Test.expect(picked(picks, { character: "Player-1", spec: 2, classTag: "MAGE" }) == "Frost")
-  Test.expect(picked(picks, { character: "Player-1", spec: 1, classTag: "MAGE" }) == "Mine")
-  Test.expect(picked(picks, { character: "Player-2", spec: 2, classTag: "MAGE" }) == "Mages")
-  Test.expect(picked(picks, { character: nil, spec: nil, classTag: "PRIEST" }) == "Shared")
+  Test::expect(picked(picks, { character: "Player-1", spec: 2, classTag: "MAGE" }) == "Frost")
+  Test::expect(picked(picks, { character: "Player-1", spec: 1, classTag: "MAGE" }) == "Mine")
+  Test::expect(picked(picks, { character: "Player-2", spec: 2, classTag: "MAGE" }) == "Mages")
+  Test::expect(picked(picks, { character: nil, spec: nil, classTag: "PRIEST" }) == "Shared")
 }
 
 test "a switch to another profile takes effect at once, and is kept" {
-  Ordaen.globals.values.density = Density.Roomy
-  Test.expect(Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
-  Test.expect(!Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
-  Test.expect(!Ordaen.keeper.profiles.make("", nil))
+  Ordaen.globals.values.density = Density::Roomy
+  Test::expect(Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
+  Test::expect(!Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
+  Test::expect(!Ordaen.keeper.profiles.make("", nil))
   Ordaen.keeper.profiles.use("Second")
-  Test.flush()
-  Test.expect(Ordaen.globals.values.density == Density.Roomy)
-  Ordaen.globals.values.density = Density.Compact
+  Test::flush()
+  Test::expect(Ordaen.globals.values.density == Density::Roomy)
+  Ordaen.globals.values.density = Density::Compact
   Ordaen.keeper.profiles.use(DEFAULT_PROFILE)
-  Test.flush()
-  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+  Test::flush()
+  Test::expect(Ordaen.globals.values.density == Density::Roomy)
   Ordaen.keeper.profiles.use("Second")
-  Test.flush()
-  Test.expect(Ordaen.globals.values.density == Density.Compact)
-  Test.reload()
-  Test.expect(Ordaen.keeper.profiles.active == "Second")
-  Test.expect(Ordaen.globals.values.density == Density.Compact)
+  Test::flush()
+  Test::expect(Ordaen.globals.values.density == Density::Compact)
+  Test::reload()
+  Test::expect(Ordaen.keeper.profiles.active == "Second")
+  Test::expect(Ordaen.globals.values.density == Density::Compact)
 }
 
 test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
-  const globals: Globals = { scale: 1.25, density: Density.Compact, ..DEFAULTS }
-  const look = preset(Preset.Minimal)
+  const globals: Globals = { scale: 1.25, density: Density::Compact, ..DEFAULTS }
+  const look = preset(Preset::Minimal)
   const settings: Map<String, Unknown> = {}
   settings["Ordaen"] = globals
   settings["Ordaen:look"] = look
@@ -69,39 +69,39 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   account["settings"] = settings
   account["choices"] = choices
   account["places"] = places
-  Test.saved("LunaTypeDB", account)
+  Test::saved("LunaTypeDB", account)
   const own: Map<String, Unknown> = {}
   own["OrdaenPanel:memory"] = Remembered { last: "bags" }
   const character: Map<String, Unknown> = {}
   character["settings"] = own
-  Test.saved("LunaTypeCharDB", character)
-  Test.reload()
+  Test::saved("LunaTypeCharDB", character)
+  Test::reload()
   // Ordaen's settings: read through `Settings`, from the «Default» profile they moved into.
-  Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE)
-  Test.expect(Ordaen.globals.values.scale == 1.25 && Ordaen.globals.values.density == Density.Compact)
-  Test.expect(Ordaen.look.values.font == look.font && Ordaen.look.values.barFrame == look.barFrame)
-  Test.expect(Ordaen.look.values.accent.r == look.accent.r && Ordaen.look.values.red.g == look.red.g)
+  Test::expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE)
+  Test::expect(Ordaen.globals.values.scale == 1.25 && Ordaen.globals.values.density == Density::Compact)
+  Test::expect(Ordaen.look.values.font == look.font && Ordaen.look.values.barFrame == look.barFrame)
+  Test::expect(Ordaen.look.values.accent.r == look.accent.r && Ordaen.look.values.red.g == look.red.g)
   const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE]
-  Test.expect(kept != nil && kept.sections["Ordaen"] != nil && kept.sections["Ordaen:look"] != nil)
-  Test.expect(Game.saved.stored(.Account, "Ordaen") == nil && Game.saved.stored(.Account, "Ordaen:look") == nil)
+  Test::expect(kept != nil && kept.sections["Ordaen"] != nil && kept.sections["Ordaen:look"] != nil)
+  Test::expect(Game::saved.stored(.Account, "Ordaen") == nil && Game::saved.stored(.Account, "Ordaen:look") == nil)
   // A module's settings move as the module's `Settings` first reads them: until then they stand as kept.
-  Test.expect(load(.Account, "OrdaenMinimap", Probe {}).scale == 1.5)
+  Test::expect(load(.Account, "OrdaenMinimap", Probe {}).scale == 1.5)
   // What modules remember stays where it was: the account's and the character's.
-  Test.expect(load(.Account, "OrdaenProfessions:memory", Remembered {}).last == "Alchemy")
-  Test.expect(load(.Character, "OrdaenPanel:memory", Remembered {}).last == "bags")
+  Test::expect(load(.Account, "OrdaenProfessions:memory", Remembered {}).last == "Alchemy")
+  Test::expect(load(.Character, "OrdaenPanel:memory", Remembered {}).last == "bags")
   // Which modules the player turned off, and where the parts were put.
-  Test.expect(Ordaen.chosen["OrdaenPanel"] == false)
-  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
-  Test.expect(Ordaen.moved("minimap")?.to == .TopRight)
+  Test::expect(Ordaen.chosen["OrdaenPanel"] == false)
+  Test::expect(Ordaen.moved("minimap")?.x == -10ui)
+  Test::expect(Ordaen.moved("minimap")?.to == .TopRight)
   // The places moved into «Default» too, once: the account's are gone.
-  Test.expect(kept != nil && kept.sections["Ordaen:places"] != nil)
-  Test.expect(Game.saved.stored(.Account, "places") == nil)
+  Test::expect(kept != nil && kept.sections["Ordaen:places"] != nil)
+  Test::expect(Game::saved.stored(.Account, "places") == nil)
   // Saved again, the look is the profile's alone.
-  Ordaen.look.values.accent = Color.hex("#112233")
+  Ordaen.look.values.accent = Color::hex("#112233")
   Ordaen.keeper.profiles.pack()
-  Test.reload()
-  Test.expect(Ordaen.look.values.accent.b == Color.hex("#112233").b)
-  Test.expect(Game.saved.stored(.Account, "Ordaen:look") == nil)
+  Test::reload()
+  Test::expect(Ordaen.look.values.accent.b == Color::hex("#112233").b)
+  Test::expect(Game::saved.stored(.Account, "Ordaen:look") == nil)
 }
 
 test "what develop kept for a module that loads after «Default» was renamed moves into the profile that is the account's now" {
@@ -109,33 +109,33 @@ test "what develop kept for a module that loads after «Default» was renamed mo
   settings["OrdaenMinimap"] = Probe { scale: 1.5 }
   const account: Map<String, Unknown> = {}
   account["settings"] = settings
-  Test.saved("LunaTypeDB", account)
-  Test.reload()
+  Test::saved("LunaTypeDB", account)
+  Test::reload()
   const profiles = Ordaen.keeper.profiles
   const next = profiles.edit()
   next.renamed(DEFAULT_PROFILE, "Main")
   profiles.apply(next)
-  Test.expect(profiles.kept.picks.account == "Main")
+  Test::expect(profiles.kept.picks.account == "Main")
   const section = profiles.section("Main", "OrdaenMinimap")
-  Test.expect(Probe.decode(section, Probe {}).scale == 1.5)
+  Test::expect(Probe::decode(section, Probe {}).scale == 1.5)
   const main = profiles.kept.profiles["Main"]
-  Test.expect(main != nil && main.sections["OrdaenMinimap"] != nil)
-  Test.expect(profiles.kept.profiles[DEFAULT_PROFILE] == nil)
-  Test.expect(Game.saved.stored(.Account, "OrdaenMinimap") == nil)
+  Test::expect(main != nil && main.sections["OrdaenMinimap"] != nil)
+  Test::expect(profiles.kept.profiles[DEFAULT_PROFILE] == nil)
+  Test::expect(Game::saved.stored(.Account, "OrdaenMinimap") == nil)
 }
 
 test "a change applies at once with nothing to save, and is packed into its profile as the game saves, not before" {
   const profiles = Ordaen.keeper.profiles
   const packed = (): String | nil => (profiles.kept.profiles[profiles.active] ?? Profile {}).sections["Ordaen"]
   const before = packed()
-  Ordaen.globals.values.density = Density.Roomy
-  Test.flush()
+  Ordaen.globals.values.density = Density::Roomy
+  Test::flush()
   // The module reads it at once; nothing is packed yet.
-  Test.expect(Ordaen.globals.values.density == Density.Roomy && packed() == before)
-  Events.PLAYER_LOGOUT.emit()
-  Test.expect(packed() != before)
-  Test.reload()
-  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+  Test::expect(Ordaen.globals.values.density == Density::Roomy && packed() == before)
+  Events::PLAYER_LOGOUT.emit()
+  Test::expect(packed() != before)
+  Test::reload()
+  Test::expect(Ordaen.globals.values.density == Density::Roomy)
 }
 
 test "the parts' places are the active profile's, and the account's move into «Default» once" {
@@ -143,93 +143,93 @@ test "the parts' places are the active profile's, and the account's move into «
   places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
   const account: Map<String, Unknown> = {}
   account["places"] = places
-  Test.saved("LunaTypeDB", account)
-  Test.reload()
-  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
-  Test.expect(Game.saved.stored(.Account, "places") == nil)
+  Test::saved("LunaTypeDB", account)
+  Test::reload()
+  Test::expect(Ordaen.moved("minimap")?.x == -10ui)
+  Test::expect(Game::saved.stored(.Account, "places") == nil)
   // A profile made from the defaults has no places: a part put there is its own.
-  Test.expect(Ordaen.keeper.profiles.make("Raid", nil))
+  Test::expect(Ordaen.keeper.profiles.make("Raid", nil))
   Ordaen.keeper.profiles.use("Raid")
-  Test.flush()
-  Test.expect(Ordaen.moved("minimap") == nil)
+  Test::flush()
+  Test::expect(Ordaen.moved("minimap") == nil)
   Ordaen.putAt("minimap", { point: .Center, to: .Center, x: 5ui, y: 5ui, by: nil })
-  Test.flush()
+  Test::flush()
   Ordaen.keeper.profiles.use(DEFAULT_PROFILE)
-  Test.flush()
-  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
+  Test::flush()
+  Test::expect(Ordaen.moved("minimap")?.x == -10ui)
   // «Default»'s own place, kept: the account's places aren't moved in again.
   Ordaen.putAt("minimap", { point: .Center, to: .Center, x: 7ui, y: 7ui, by: nil })
   // The game saves (the test's `Events` is the first load's: the root's own `pack` is what `PLAYER_LOGOUT` runs).
   Ordaen.keeper.profiles.pack()
-  Test.reload()
-  Test.expect(Ordaen.moved("minimap")?.x == 7ui)
+  Test::reload()
+  Test::expect(Ordaen.moved("minimap")?.x == 7ui)
   Ordaen.keeper.profiles.use("Raid")
-  Test.flush()
-  Test.expect(Ordaen.moved("minimap")?.x == 5ui)
+  Test::flush()
+  Test::expect(Ordaen.moved("minimap")?.x == 5ui)
 }
 
 test "what a module remembers is written whole by its own method" {
   const memory = new ModuleMemory<Remembered>(Remembered {}, .Account)
   memory.write(Remembered { last: "Mining" })
-  Test.expect(memory.values.last == "Mining")
+  Test::expect(memory.values.last == "Mining")
 }
 
 test "picks name a profile for a spec, a character, a class and the account, each rule winning in turn, and say which" {
   const profiles = Ordaen.keeper.profiles
   const me = profiles.who().character ?? panic("the stand-in's player has a GUID")
-  Test.expect(profiles.make("Account", nil) && profiles.make("Priests", nil) && profiles.make("Mine", nil))
-  Test.expect(profiles.make("Tank", nil))
+  Test::expect(profiles.make("Account", nil) && profiles.make("Priests", nil) && profiles.make("Mine", nil))
+  Test::expect(profiles.make("Tank", nil))
   profiles.use("Account")
-  Test.expect(profiles.active == "Account" && profiles.why == Profiles.Reason.Account)
+  Test::expect(profiles.active == "Account" && profiles.why == Profiles::Reason::Account)
   let next = profiles.edit()
   next.picks.forClass("PRIEST", "Priests")
-  Test.expect(!profiles.switches(profiles.edit()) && profiles.switches(next))
+  Test::expect(!profiles.switches(profiles.edit()) && profiles.switches(next))
   profiles.apply(next)
-  Test.expect(profiles.active == "Priests" && profiles.why == Profiles.Reason.Class)
+  Test::expect(profiles.active == "Priests" && profiles.why == Profiles::Reason::Class)
   next = profiles.edit()
   next.picks.forCharacter(me, "Mine")
   profiles.apply(next)
-  Test.expect(profiles.active == "Mine" && profiles.why == Profiles.Reason.Character)
+  Test::expect(profiles.active == "Mine" && profiles.why == Profiles::Reason::Character)
   // A specialisation the character plays now; one it doesn't play changes nothing.
   next = profiles.edit()
   next.picks.forSpec(me, 2, "Tank")
   profiles.apply(next)
-  Test.expect(profiles.active == "Mine")
-  Game.player.spec = { index: 2, id: 100, name: "Protection" }
-  Test.flush()
-  Test.expect(profiles.active == "Tank" && profiles.why == Profiles.Reason.Spec)
-  Game.player.spec = nil
-  Test.flush()
-  Test.expect(profiles.active == "Mine")
+  Test::expect(profiles.active == "Mine")
+  Game::player.spec = { index: 2, id: 100, name: "Protection" }
+  Test::flush()
+  Test::expect(profiles.active == "Tank" && profiles.why == Profiles::Reason::Spec)
+  Game::player.spec = nil
+  Test::flush()
+  Test::expect(profiles.active == "Mine")
   // A profile taken away: every pick of it falls to the next rule.
   next = profiles.edit()
   next.without("Mine")
-  Test.expect(profiles.switches(next))
+  Test::expect(profiles.switches(next))
   profiles.apply(next)
-  Test.expect(profiles.active == "Priests" && profiles.why == Profiles.Reason.Class)
-  Test.expect(profiles.kept.profiles["Mine"] == nil && profiles.kept.picks.byCharacter[me] == nil)
+  Test::expect(profiles.active == "Priests" && profiles.why == Profiles::Reason::Class)
+  Test::expect(profiles.kept.profiles["Mine"] == nil && profiles.kept.picks.byCharacter[me] == nil)
   // A profile renamed: the name changes in every pick of it.
   next = profiles.edit()
   next.renamed("Priests", "Healers")
   profiles.apply(next)
-  Test.expect(profiles.active == "Healers" && profiles.kept.picks.byClass["PRIEST"] == "Healers")
-  Test.expect(profiles.kept.profiles["Priests"] == nil && profiles.kept.profiles["Healers"] != nil)
+  Test::expect(profiles.active == "Healers" && profiles.kept.picks.byClass["PRIEST"] == "Healers")
+  Test::expect(profiles.kept.profiles["Priests"] == nil && profiles.kept.profiles["Healers"] != nil)
   // Kept: a reload finds the same.
-  Test.reload()
-  Test.expect(Ordaen.keeper.profiles.active == "Healers")
+  Test::reload()
+  Test::expect(Ordaen.keeper.profiles.active == "Healers")
 }
 
 test "a second character of another class follows the class's pick or the account's, and goes back to its own" {
   const profiles = Ordaen.keeper.profiles
-  Test.expect(profiles.make("Mages", nil))
+  Test::expect(profiles.make("Mages", nil))
   const next = profiles.edit()
   next.picks.forClass("MAGE", "Mages")
   profiles.apply(next)
-  Test.expect(profiles.active == DEFAULT_PROFILE)
-  Test.login({ guid: "Player-2-00000002", name: "Mage", surname: nil, classTag: "MAGE" })
-  Test.expect(Ordaen.keeper.profiles.active == "Mages" && Ordaen.keeper.profiles.why == Profiles.Reason.Class)
-  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil })
-  Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE && Ordaen.keeper.profiles.why == Profiles.Reason.Account)
+  Test::expect(profiles.active == DEFAULT_PROFILE)
+  Test::login({ guid: "Player-2-00000002", name: "Mage", surname: nil, classTag: "MAGE" })
+  Test::expect(Ordaen.keeper.profiles.active == "Mages" && Ordaen.keeper.profiles.why == Profiles::Reason::Class)
+  Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil })
+  Test::expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE && Ordaen.keeper.profiles.why == Profiles::Reason::Account)
 }
 
 test "a renamed module keeps what was kept under its former name: its settings, its memory, its sections, on or off" {
@@ -247,12 +247,12 @@ test "a renamed module keeps what was kept under its former name: its settings, 
   settings["profiles"] = SavedProfiles { profiles: profiles }
   const account: Map<String, Unknown> = {}
   account["settings"] = settings
-  Test.saved("LunaTypeDB", account)
-  Test.reload()
-  Test.expect(load(.Account, "OrdaenTrading", Probe {}).scale == 2)
-  Test.expect(load(.Account, "OrdaenTrading:buy", Remembered {}).last == "Linen")
-  Test.expect(Game.saved.stored(.Account, "OrdaenAuction") == nil)
-  Test.expect(Ordaen.chosen["OrdaenTrading"] == false && Ordaen.chosen["OrdaenAuction"] == nil)
+  Test::saved("LunaTypeDB", account)
+  Test::reload()
+  Test::expect(load(.Account, "OrdaenTrading", Probe {}).scale == 2)
+  Test::expect(load(.Account, "OrdaenTrading:buy", Remembered {}).last == "Linen")
+  Test::expect(Game::saved.stored(.Account, "OrdaenAuction") == nil)
+  Test::expect(Ordaen.chosen["OrdaenTrading"] == false && Ordaen.chosen["OrdaenAuction"] == nil)
   const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE] ?? panic("the default profile")
-  Test.expect(kept.sections["OrdaenTrading:list"] == "packed" && kept.sections["OrdaenAuction:list"] == nil)
+  Test::expect(kept.sections["OrdaenTrading:list"] == "packed" && kept.sections["OrdaenAuction:list"] == nil)
 }

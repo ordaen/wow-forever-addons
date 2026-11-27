@@ -8,9 +8,9 @@ import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { TITLE_TEXT } from "@/units"
 
-const TITLE: Color = Color.hex("#ffd100")
-const SHADOW: Shadow = { color: Color.hex("#000000b3"), x: 1.171875dp, y: -1.171875dp }
-const SHADE: Color = Color.hex("#0000008c")
+const TITLE: Color = Color::hex("#ffd100")
+const SHADOW: Shadow = { color: Color::hex("#000000b3"), x: 1.171875dp, y: -1.171875dp }
+const SHADE: Color = Color::hex("#0000008c")
 const PLAIN: Edges = { top: 7sp, right: 7sp, bottom: 7sp, left: 7sp }
 const TITLED: Edges = { top: 13sp, right: 7sp, bottom: 7sp, left: 7sp }
 
@@ -35,8 +35,8 @@ public class Dialog implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Row} layer={Layer.Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align.Center}
-               yAlign={Align.Center} @pointerPress={self.swallow} @keyPress(.Enter)={self.swallow} @keyPress(.Space)={self.swallow}>
+      <surface leading={.Row} layer={Layer::Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align::Center}
+               yAlign={Align::Center} @pointerPress={self.swallow} @keyPress(.Enter)={self.swallow} @keyPress(.Space)={self.swallow}>
         <box width={self.framed} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
              artOrigin={true} columns={1} gap={4sp} padding={self.padding}>
           <slot />
@@ -46,8 +46,8 @@ public class Dialog implements Component {
               <slot #buttons />
             </box>
           </box>
-          <box $if={self.titled} position={Position.Absolute} left={0ui} right={0ui} top={16.40625dp}
-               xAlign={Align.Center}>
+          <box $if={self.titled} position={Position::Absolute} left={0ui} right={0ui} top={16.40625dp}
+               xAlign={Align::Center}>
             <text value={self.title} textColor={TITLE} textSize={TITLE_TEXT} leading={.Title} textShadow={SHADOW} wrap={.None} />
           </box>
         </box>

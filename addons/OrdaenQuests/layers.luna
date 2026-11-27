@@ -46,8 +46,8 @@ const AVAILABLE: Asset = "Interface/GossipFrame/AvailableQuestIcon"
 // spots, lit, under the game's mark of a quest to take.
 public class ChainPins implements Layer {
   public const id: String = "quests.givers"
-  public const title: String = Locale.LAYER_GIVERS
-  public const hint: String = Locale.LAYER_GIVERS_TIP
+  public const title: String = Locale::LAYER_GIVERS
+  public const hint: String = Locale::LAYER_GIVERS_TIP
 
   chained: Signal<Integer>
   facts: Signal<QuestFacts | nil>
@@ -80,7 +80,7 @@ public class ChainPins implements Layer {
   public lines(self, pin: Pin): Array<String> {
     const facts = self.facts
     if (facts == nil) { return [] }
-    return [facts.name, Locale.GIVEN_BY.format(facts.givers.map(figure => figure.name).join(", "))]
+    return [facts.name, Locale::GIVEN_BY.format(facts.givers.map(figure => figure.name).join(", "))]
   }
 
   // Not in the log: nothing to point the way to.
@@ -93,8 +93,8 @@ const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 // do, the game's own shaded area of its objectives shows (Map's), and nothing of this layer.
 public class TurnInPins implements Layer {
   public const id: String = "quests.turnIns"
-  public const title: String = Locale.LAYER_TURN_INS
-  public const hint: String = Locale.LAYER_TURN_INS_TIP
+  public const title: String = Locale::LAYER_TURN_INS
+  public const hint: String = Locale::LAYER_TURN_INS_TIP
 
   quests: Signal<Array<LogQuest>>
   facts: Signal<Map<Integer, QuestFacts>>
@@ -126,15 +126,15 @@ public class TurnInPins implements Layer {
   // The quest's title, then that it is turned in there.
   public lines(self, pin: Pin): Array<String> {
     const quest = self.quests.find(quest => quest.id == pin.of)
-    return quest == nil ? [] : [quest.title, Locale.TURN_IN]
+    return quest == nil ? [] : [quest.title, Locale::TURN_IN]
   }
 
   // As the game's map has its quest pins: a click points the way to the quest, Shift+click stops tracking it.
   public press(self, pin: Pin, shift: Boolean) {
     if (shift) {
-      Game.questLog.track(pin.of, false)
+      Game::questLog.track(pin.of, false)
     } else {
-      Game.questLog.superTrack(pin.of)
+      Game::questLog.superTrack(pin.of)
     }
   }
 }
@@ -180,8 +180,8 @@ public function nearestYards(figure: Figure, distance: (spot: Spot) => Number | 
 // tooltip, until the map hides.
 public class NpcPins implements Layer {
   public const id: String = "quests.npc"
-  public const title: String = Locale.LAYER_NPC
-  public const hint: String = Locale.LAYER_NPC_TIP
+  public const title: String = Locale::LAYER_NPC
+  public const hint: String = Locale::LAYER_NPC_TIP
 
   shown: Signal<Figure | nil>
   constructor(shown: Signal<Figure | nil>) { self.shown = shown }

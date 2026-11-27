@@ -22,9 +22,9 @@ import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@
 import Style from "@/style"
 import { KeptWipe } from "@/talents"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
+const PAGE: Test::Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
 // A screen with room beside the window on every side.
-const WIDE_PAGE: Test.Page = { left: 0, top: 0, width: 2600, height: 1800, screen: true }
+const WIDE_PAGE: Test::Page = { left: 0, top: 0, width: 2600, height: 1800, screen: true }
 // How far a tooltip's edge may stand from the one it meets.
 const EDGE = 12
 // A text the window always shows: its last tab.
@@ -85,24 +85,24 @@ class FakeSheet implements Sheet {
   public worn(self, slot: Integer): Worn {
     if (slot == 1) {
       return {
-        slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2, locked: self.helmLocked,
+        slot: slot, item: HELM, quality: Quality::Epic, level: 63, durability: 0.2, locked: self.helmLocked,
         name: "Lionheart Helm", gives: [{ stat: .Strength, amount: 12 }, { stat: .Armor, amount: 600 }],
         set: self.matched ? PRIDE : nil
       }
     }
     if (slot == 16) {
       return {
-        slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1, name: "Arcanite Reaper",
+        slot: slot, item: REAPER, quality: Quality::Epic, level: 58, durability: 1, name: "Arcanite Reaper",
         gives: [{ stat: .Strength, amount: 20 }, { stat: .MeleeCrit, amount: 1 }], set: self.matched ? PRIDE : nil
       }
     }
     if (slot == 17 && self.shielded) {
       return {
-        slot: slot, item: HELM, quality: Quality.Rare, level: 40, durability: 1, name: "Guardian's Shield",
+        slot: slot, item: HELM, quality: Quality::Rare, level: 40, durability: 1, name: "Guardian's Shield",
         gives: [{ stat: .Armor, amount: 1386 }, { stat: .BlockValue, amount: 39 }]
       }
     }
-    return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
+    return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil }
   }
 
   public usesAmmo(self): Boolean { return true }
@@ -187,247 +187,247 @@ function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : id == O
 
 // The game's character window, shown as its key or its micro button shows it, with the test's sheet (or the
 // client's): ours.
-function opened(sheet: mut any Sheet): Test.Part {
+function opened(sheet: mut any Sheet): Test::Part {
   Char.sheet = sheet
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
   game.Hide()
   Char.hook(game)
   game.Show()
-  return Test.page().window(WINDOW)
+  return Test::page().window(WINDOW)
 }
 
 // The window
 
 test "the game's character window shown shows ours, and closing ours closes the game's" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Char.sheet = new FakeSheet()
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
   game.Hide()
   Char.hook(game)
-  Test.expect(!Test.page().window(WINDOW).shown())
+  Test::expect(!Test::page().window(WINDOW).shown())
   game.Show()
-  const window = Test.page().window(WINDOW)
-  Test.expect(window.text("Regy").shown())
+  const window = Test::page().window(WINDOW)
+  Test::expect(window.text("Regy").shown())
   window.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!window.shown())
-  Test.expect(!game.IsShown())
+  Test::expect(!window.shown())
+  Test::expect(!game.IsShown())
 }
 
 test "the game's character window is held unseen from its making, before it first shows, and while hidden after" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Char.sheet = new FakeSheet()
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
   game.Hide()
   Char.hook(game)
-  Test.flush()
-  Test.expect(game.GetAlpha() == 0)
+  Test::flush()
+  Test::expect(game.GetAlpha() == 0)
   game.Show()
   game.Hide()
-  Test.flush()
-  Test.expect(game.GetAlpha() == 0)
+  Test::flush()
+  Test::expect(game.GetAlpha() == 0)
 }
 
 test "the game's reputation page shown opens ours on «Progression»'s reputation" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
-  const page = Client.CreateFrame("Frame", "ReputationFrame", game, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
+  const page = Client::CreateFrame("Frame", "ReputationFrame", game, nil)
   page.Hide()
   game.Hide()
   Char.sheet = sheet
   Char.hook(game)
   game.Show()
   page.Show()
-  Test.expect(Test.page().window(WINDOW).text("Stormwind").shown())
+  Test::expect(Test::page().window(WINDOW).text("Stormwind").shown())
 }
 
 // The slots
 
 test "a slot shows what is worn there, no level written on it, and an empty one its well" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.button(HELM_ICON).shown() && !window.text("63").shown())
-  Test.expect(window.button(REAPER_ICON).shown() && !window.text("58").shown())
-  Test.expect(window.button(EMPTY_FEET).shown())
+  Test::expect(window.button(HELM_ICON).shown() && !window.text("63").shown())
+  Test::expect(window.button(REAPER_ICON).shown() && !window.text("58").shown())
+  Test::expect(window.button(EMPTY_FEET).shown())
 }
 
 test "the items' level is the median of what is worn, its tooltip listing each item's level, the highest first" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   // The helm's 63 and the two-hander's 58: halfway between.
-  Test.expect(window.text("Item level").shown() && window.text("60.5").shown())
+  Test::expect(window.text("Item level").shown() && window.text("60.5").shown())
   window.text("60.5").hover()
-  const tip = Test.page().window(Locale.ITEM_LEVEL_TIP)
-  Test.expect(tip.texts().join(" | ") == `Item level | ${Locale.ITEM_LEVEL_TIP} | Lionheart Helm | 63 | Arcanite Reaper | 58`)
+  const tip = Test::page().window(Locale::ITEM_LEVEL_TIP)
+  Test::expect(tip.texts().join(" | ") == `Item level | ${Locale::ITEM_LEVEL_TIP} | Lionheart Helm | 63 | Arcanite Reaper | 58`)
 }
 
 // The helm's slot's width against the standard slot's, which the settings then pick.
-function slotWidthRatio(window: Test.Part): Number {
+function slotWidthRatio(window: Test::Part): Number {
   const picked = window.button(HELM_ICON).rect()
-  Char.settings.values.slotSize = SlotSize.Standard
-  Test.flush()
+  Char.settings.values.slotSize = SlotSize::Standard
+  Test::flush()
   const standard = window.button(HELM_ICON).rect()
   return (picked.right - picked.left) / (standard.right - standard.left)
 }
 
 test "a slot is as large as the screen draws its icon sharp, unless the settings pick a size" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   // The icon's 53 whole pixels in the screen's pixels a dp is (its height at this scale against 1080), and the edge's
   // two.
-  Client.UIParent.SetScale(0.9)
-  const wide, high = Client.GetPhysicalScreenSize()
+  Client::UIParent.SetScale(0.9)
+  const wide, high = Client::GetPhysicalScreenSize()
   const sharpWidth = 53 * 1080 / (high * 0.9) + 2 * 2.34375
   const window = opened(new FakeSheet())
   const helm = window.button(HELM_ICON).rect()
-  Test.expect(((helm.bottom - helm.top) - (helm.right - helm.left)).abs() < 0.5)
-  Test.expect((slotWidthRatio(window) - sharpWidth / 46.875).abs() < 0.01)
+  Test::expect(((helm.bottom - helm.top) - (helm.right - helm.left)).abs() < 0.5)
+  Test::expect((slotWidthRatio(window) - sharpWidth / 46.875).abs() < 0.01)
 }
 
 test "the weapons stand level with the last slots down the sides, all four between them at the largest slots" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Client.UIParent.SetScale(0.5)
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Client::UIParent.SetScale(0.5)
   const window = opened(new FakeSheet())
   const wrists = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Wrists").rect()
   const trinket = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Trinket").nth(2).rect()
   const main = window.button(REAPER_ICON).rect()
   const ammo = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Ammo").rect()
-  Test.expect((main.top - wrists.top).abs() < 0.5 && (ammo.top - trinket.top).abs() < 0.5)
-  Test.expect(main.left > wrists.right && ammo.right < trinket.left)
-  Test.expect(((ammo.right - ammo.left) - (main.right - main.left)).abs() < 0.5)
+  Test::expect((main.top - wrists.top).abs() < 0.5 && (ammo.top - trinket.top).abs() < 0.5)
+  Test::expect(main.left > wrists.right && ammo.right < trinket.left)
+  Test::expect(((ammo.right - ammo.left) - (main.right - main.left)).abs() < 0.5)
 }
 
 test "a slot the screen would draw sharp larger than the paper doll holds is as large as it holds" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Client.UIParent.SetScale(0.5)
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Client::UIParent.SetScale(0.5)
   const window = opened(new FakeSheet())
-  Test.expect((slotWidthRatio(window) - 67.96875 / 46.875).abs() < 0.01)
+  Test::expect((slotWidthRatio(window) - 67.96875 / 46.875).abs() < 0.01)
 }
 
 test "left-click on a slot picks up what is worn there, and on an empty one lets go there what the cursor holds" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button(HELM_ICON).click()
   window.button(EMPTY_FEET).click()
-  Test.expect(sheet.heard.join(", ") == "pickup 1, pickup 8")
+  Test::expect(sheet.heard.join(", ") == "pickup 1, pickup 8")
 }
 
 test "Shift+Left-click on a slot puts the item's link into the chat and picks nothing up" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  _ = Test.requests()
-  Test.hold([.Shift])
+  _ = Test::requests()
+  Test::hold([.Shift])
   window.button(REAPER_ICON).click()
-  Test.expect(sheet.heard.length == 0)
-  Test.expect(Test.requests().any(asked => asked.contains(String.of(REAPER))))
+  Test::expect(sheet.heard.length == 0)
+  Test::expect(Test::requests().any(asked => asked.contains(String::of(REAPER))))
 }
 
 test "right-click on a slot uses what is worn there, the client's own doing, and picks nothing up" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button(HELM_ICON).rightClick()
-  Test.expect(sheet.heard.length == 0)
-  Test.expect(Test.performed().join(", ") == "item 1")
+  Test::expect(sheet.heard.length == 0)
+  Test::expect(Test::performed().join(", ") == "item 1")
 }
 
 test "while a spell waits for its target (an armour kit), left-click applies it to the worn item, the client's secure doing" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Game.player.targeting = true
-  Test.flush()
+  Game::player.targeting = true
+  Test::flush()
   window.button(HELM_ICON).click()
-  Test.expect(sheet.heard.length == 0)
-  Test.expect(Test.performed().join(", ") == "item 1")
-  Game.player.targeting = false
+  Test::expect(sheet.heard.length == 0)
+  Test::expect(Test::performed().join(", ") == "item 1")
+  Game::player.targeting = false
 }
 
 test "a slot under the cursor shows the tooltip of the slot, never the item's (which the game compares with itself)" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  _ = Test.requests()
+  _ = Test::requests()
   window.button(HELM_ICON).hover()
-  const asked = Test.requests()
-  Test.expect(asked.any(a => a == "Items.showWorn 1"))
-  Test.expect(!asked.any(a => a.contains("Items.show ")))
+  const asked = Test::requests()
+  Test::expect(asked.any(a => a == "Items.showWorn 1"))
+  Test::expect(!asked.any(a => a.contains("Items.show ")))
 }
 
 test "Ctrl+Left-click on a slot tries what it holds on in the dressing room and picks nothing up" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.hold([.Ctrl])
+  Test::hold([.Ctrl])
   window.button(HELM_ICON).click()
-  Test.expect(sheet.heard.join(", ") == "try 1")
+  Test::expect(sheet.heard.join(", ") == "try 1")
 }
 
 test "Alt+Left-click on a slot opens what the bags hold for it; one clicked is worn there and the flyout closes" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.hold([.Alt])
+  Test::hold([.Alt])
   window.button(HELM_ICON).click()
-  Test.expect(window.text("From your bags").shown())
-  Test.hold([])
+  Test::expect(window.text("From your bags").shown())
+  Test::hold([])
   window.button(OTHER_ICON).click()
-  Test.expect(sheet.heard.join(", ") == `equip ${OTHER_HELM} 1`)
-  Test.expect(!window.text("From your bags").shown())
+  Test::expect(sheet.heard.join(", ") == `equip ${OTHER_HELM} 1`)
+  Test::expect(!window.text("From your bags").shown())
 }
 
 test "a slot's flyout with nothing for it says so, and Close shuts it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.hold([.Alt])
+  Test::hold([.Alt])
   window.button(EMPTY_FEET).click()
-  Test.hold([])
-  Test.expect(window.text("Nothing in your bags goes here.").shown())
+  Test::hold([])
+  Test::expect(window.text("Nothing in your bags goes here.").shown())
   window.button("Close").click()
-  Test.expect(!window.text("From your bags").shown())
+  Test::expect(!window.text("From your bags").shown())
 }
 
 test "the game's sets are tabs over the columns, the one worn picked: another picked is put on, the worn one not again" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
-  Test.expect(!window.text("Fury").textColor().equal(BRIGHT_TEXT))
+  Test::expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
+  Test::expect(!window.text("Fury").textColor().equal(BRIGHT_TEXT))
   window.button("Tank").click()
   window.button("Fury").click()
-  Test.expect(sheet.heard.join(", ") == "set 1")
-  Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
+  Test::expect(sheet.heard.join(", ") == "set 1")
+  Test::expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
 }
 
 // The stand-in gives the client's texts in ruRU alone (its dump's): a test in enUS has no slot names, which the game's
 // slots' tooltips are, so the relic's well is what a test sees.
 test "a class that keeps a relic has the relic's well in the ranged slot" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { relic: true }
   const window = opened(sheet)
-  Test.expect(window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Relic"))
-  Test.expect(!window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Ranged"))
+  Test::expect(window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Relic"))
+  Test::expect(!window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Ranged"))
 }
 
 test "the damage a second's card says the weapon's speed and damage, and how much less each target's glancing blows deal" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats {
     attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, mainSkill: MACES,
@@ -437,268 +437,268 @@ test "the damage a second's card says the weapon's speed and damage, and how muc
   window.text("50.0").hover()
   // Its title the name alone: the value stands on the card, no hand's heading for one weapon. The glancing blows' cut,
   // in percent and off the average hit of 125 (their chance is the chance to hit's).
-  const tip = Test.page().window("Glancing blows")
-  Test.expect(tip.texts().join(" | ") == "DPS | Attack speed | 2.50 | Damage | 100 - 150 | Glancing blows | Raid bosses | -35.00% (-44) | Targets of your level | -5.00% (-6)")
+  const tip = Test::page().window("Glancing blows")
+  Test::expect(tip.texts().join(" | ") == "DPS | Attack speed | 2.50 | Damage | 100 - 150 | Glancing blows | Raid bosses | -35.00% (-44) | Targets of your level | -5.00% (-6)")
   // The main hand's slot shows its share; attack power glows, as what feeds it.
-  Test.expect(window.text("50.0").count() >= 2)
+  Test::expect(window.text("50.0").count() >= 2)
 }
 
 test "the attack speed is a card beside what lands, its tooltip each hand's seconds and the melee haste, which lights" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   // A 2.30 weapon, hasted 15%: a swing every 2.00 seconds, as the client gives it.
   sheet.figures = (): Stats => Stats { speed: 2, meleeHaste: 15 }
   const window = opened(sheet)
   // The card's seconds, its hourglass the glyphs' fourteenth row.
-  Test.expect(window.text("2.00 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
+  Test::expect(window.text("2.00 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
   const sheetArt: Asset = "@/media/character-glyphs.tga"
   const hourglass: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 13 }
-  Test.expect(window.paintedWith(hourglass))
+  Test::expect(window.paintedWith(hourglass))
   window.text("Attack speed").hover()
-  const tip = Test.page().window(Locale.ATTACK_SPEED_TIP)
+  const tip = Test::page().window(Locale::ATTACK_SPEED_TIP)
   // The haste, then the weapon's own speed divided by it.
-  Test.expect(tip.texts().join(" | ").contains("Haste | +15.00% | Main Hand | 2.30 ÷ 1.15 = | 2.00 s"))
-  Test.expect(window.box(Style.SOURCE_GLOW).count() > 0)
+  Test::expect(tip.texts().join(" | ").contains("Haste | +15.00% | Main Hand | 2.30 ÷ 1.15 = | 2.00 s"))
+  Test::expect(window.box(Style::SOURCE_GLOW).count() > 0)
 }
 
 test "each section has its own haste, its tooltip what it speeds up; none is shared" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 6, rangedHaste: 4, rangedSkill: WANDS, rangedSpeed: 1.5 }
   const window = opened(sheet)
   // Melee's and the wand's, each its own; a warrior casts nothing, so there is no spells' haste.
-  Test.expect(window.text("6.00%").shown() && window.text("4.00%").shown())
-  Test.expect(window.text("6.00%").rect().top < window.text("4.00%").rect().top)
+  Test::expect(window.text("6.00%").shown() && window.text("4.00%").shown())
+  Test::expect(window.text("6.00%").rect().top < window.text("4.00%").rect().top)
   window.text("6.00%").hover()
-  Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).shown())
+  Test::expect(Test::page().window(Locale::HASTE_MELEE_TIP).shown())
 }
 
 test "a stat's tooltip stands beside the stat, out of the window on its column's side, level with its top" {
-  Test.mount(nil, WIDE_PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, WIDE_PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 6 }
   const window = opened(sheet)
   // The melee haste, in the right column: the tooltip's left edge on the gauge's right one, past the window's right.
   const haste = window.text("6.00%")
   haste.hover()
-  const right = Test.page().window(Locale.HASTE_MELEE_TIP).rect()
-  Test.expect((right.left - haste.rect().right).abs() < EDGE)
-  Test.expect(right.left > window.rect().right - EDGE * 3)
-  Test.expect((right.top - haste.rect().top).abs() < EDGE)
+  const right = Test::page().window(Locale::HASTE_MELEE_TIP).rect()
+  Test::expect((right.left - haste.rect().right).abs() < EDGE)
+  Test::expect(right.left > window.rect().right - EDGE * 3)
+  Test::expect((right.top - haste.rect().top).abs() < EDGE)
 }
 
 test "the cards and the armor that hide what their tooltips light have their own ways: over, right or left of them" {
-  Test.mount(nil, WIDE_PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, WIDE_PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { armor: 1200, meleeHit: 6, expertise: 2, atMaxLevel: true }
   const window = opened(sheet)
   // The damage reduction's over its card, their left edges together.
-  const reduction = window.text(Locale.DAMAGE_REDUCTION)
+  const reduction = window.text(Locale::DAMAGE_REDUCTION)
   reduction.hover()
-  const over = Test.page().window(Locale.DAMAGE_REDUCTION_TIP).rect()
-  Test.expect(over.bottom <= reduction.rect().top && over.bottom > reduction.rect().top - EDGE * 2)
-  Test.expect(over.left < reduction.rect().left && over.left > reduction.rect().left - EDGE * 4)
+  const over = Test::page().window(Locale::DAMAGE_REDUCTION_TIP).rect()
+  Test::expect(over.bottom <= reduction.rect().top && over.bottom > reduction.rect().top - EDGE * 2)
+  Test::expect(over.left < reduction.rect().left && over.left > reduction.rect().left - EDGE * 4)
   // The hit on you's right of its card, their bottoms level.
-  const taken = window.text(Locale.HIT_TAKEN)
+  const taken = window.text(Locale::HIT_TAKEN)
   taken.hover()
-  const right = Test.page().window(Locale.HIT_TAKEN_TIP).rect()
-  Test.expect(right.left > taken.rect().right && right.bottom >= taken.rect().bottom)
+  const right = Test::page().window(Locale::HIT_TAKEN_TIP).rect()
+  Test::expect(right.left > taken.rect().right && right.bottom >= taken.rect().bottom)
   // Melee's chance to hit's left of its card.
   const lands = window.text("93.50%")
   lands.hover()
-  const left = Test.page().window(Locale.LANDS_TIP).rect()
-  Test.expect(left.right < lands.rect().left && left.bottom >= lands.rect().bottom)
+  const left = Test::page().window(Locale::LANDS_TIP).rect()
+  Test::expect(left.right < lands.rect().left && left.bottom >= lands.rect().bottom)
 }
 
 test "the damage a second's tooltip lights what feeds it directly: attack power and attack speed, not the haste behind it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, meleeHaste: 5 }
   const window = opened(sheet)
   window.text("50.0").hover()
   // The attack power's card, the attack speed's and the main hand's slot (its share) glow; the haste's gauge, attack
   // speed's own source, doesn't.
-  Test.expect(window.box(Style.SOURCE_GLOW).count() == 3)
+  Test::expect(window.box(Style::SOURCE_GLOW).count() == 3)
 }
 
 test "with a weapon in each hand the damage a second's card says each hand's speed, damage and damage a second" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats {
     speed: 2.5, minDamage: 100, maxDamage: 150, offSpeed: 2, offMinDamage: 40, offMaxDamage: 60
   }
   const window = opened(sheet)
   window.text("75.0").hover()
-  const tip = Test.page().window("Off Hand")
-  Test.expect(tip.texts().join(" | ").contains("DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Off Hand | Attack speed | 2.00 | Damage | 40 - 60 | DPS | 25.0"))
+  const tip = Test::page().window("Off Hand")
+  Test::expect(tip.texts().join(" | ").contains("DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Off Hand | Attack speed | 2.00 | Damage | 40 - 60 | DPS | 25.0"))
 }
 
 test "the damage a block stops lights the shield, its share the block its tooltip line says" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.shielded = true
   sheet.figures = (): Stats => Stats { block: 5, blockValue: 41, shield: true }
   const window = opened(sheet)
   window.text("Damage Blocked").hover()
-  Test.expect(Test.page().text("Guardian's Shield").shown())
+  Test::expect(Test::page().text("Guardian's Shield").shown())
   // The off hand's slot, in the window, shows the shield's 39 of the 41, as its row in the tooltip says it.
-  Test.expect(window.text("+39").shown())
+  Test::expect(window.text("+39").shown())
 }
 
 test "what health and mana regain stands under their bars, out of a fight and in one, each with its own tooltip" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { spirit: 100, healthRegen: 40, combatHealthRegen: 0, healthFromSpirit: 30, restingRegen: 55, regen: 12 }
   const window = opened(sheet)
-  Test.expect(window.text(Locale.REGEN).count() == 2 && window.text(Locale.COMBAT_REGEN).count() == 2)
+  Test::expect(window.text(Locale::REGEN).count() == 2 && window.text(Locale::COMBAT_REGEN).count() == 2)
   // The spells' section keeps no line of its own for it.
-  Test.expect(window.text("55").shown() && window.text("12").shown())
+  Test::expect(window.text("55").shown() && window.text("12").shown())
   window.text("40").hover()
   // Spirit's share worked out before it, dimmed: its points, what a point gives.
-  const tip = Test.page().window("Spirit")
-  Test.expect(tip.texts().join(" | ") == "Regeneration | Stats | Spirit | 100 × 0.3 = | 30 | Base | 10")
+  const tip = Test::page().window("Spirit")
+  Test::expect(tip.texts().join(" | ") == "Regeneration | Stats | Spirit | 100 × 0.3 = | 30 | Base | 10")
 }
 
 test "a hit's tooltip says its section's chance to hit each target, green at no misses, yellow half way, red short of it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6, spellHit: 6, speed: 2.6, offSpeed: 1.8 }
   const window = opened(sheet)
   window.text("6.00%").nth(1).hover()
-  const tip = Test.page().window("Raid bosses")
+  const tip = Test::page().window("Raid bosses")
   // A boss's 8% of misses less 6 of hit, a target of the player's level's 5% gone; a weapon in each hand's 27 and 24.
-  Test.expect(tip.texts().join(" | ").contains("Chance to hit | Raid bosses | 98.00% | Targets of your level | 100.00% | A weapon in each hand, plain swings | Raid bosses | 79.00% | Targets of your level | 82.00%"))
-  Test.expect(tip.text("100.00%").textColor().equal(Style.GREEN) && tip.text("98.00%").textColor().equal(Style.YELLOW))
-  Test.expect(tip.text("79.00%").textColor().equal(Style.RED))
+  Test::expect(tip.texts().join(" | ").contains("Chance to hit | Raid bosses | 98.00% | Targets of your level | 100.00% | A weapon in each hand, plain swings | Raid bosses | 79.00% | Targets of your level | 82.00%"))
+  Test::expect(tip.text("100.00%").textColor().equal(Style::GREEN) && tip.text("98.00%").textColor().equal(Style::YELLOW))
+  Test::expect(tip.text("79.00%").textColor().equal(Style::RED))
 }
 
 test "a hit's caps are marks on its gauge, each a tooltip of its own, the gauge's shut meanwhile" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6 }
   const window = opened(sheet)
-  const marks = window.box(Color.hex("#ffd100d9"))
+  const marks = window.box(Color::hex("#ffd100d9"))
   // The melee's two (a boss's and a target of the player's level's), the spells' and ranged ones not on a warrior's.
-  Test.expect(marks.count() >= 2)
+  Test::expect(marks.count() >= 2)
   marks.nth(1).hover()
-  Test.expect(Test.page().window(Locale.HIT_MARK.format("8.00%")).shown())
-  Test.expect(!Test.page().text("Chance to hit").shown())
+  Test::expect(Test::page().window(Locale::HIT_MARK.format("8.00%")).shown())
+  Test::expect(!Test::page().text("Chance to hit").shown())
 }
 
 test "expertise's tooltip: each target's chance to dodge, then to parry past the dodge, green at none, red at most" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { expertise: 5.25 }
   const window = opened(sheet)
   window.text("5.25%").hover()
-  const tip = Test.page().window(Locale.EXPERTISE_TIP)
+  const tip = Test::page().window(Locale::EXPERTISE_TIP)
   // A boss: 6.5 - 5.25 of dodge, its parry whole; a target of the player's level: no dodge, 5 - 0.25 of parry.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Dodge | 1.25% | Parry | 16.50% | Targets of your level | Dodge | 0.00% | Parry | 4.75%"))
-  Test.expect(tip.text("0.00%").textColor().equal(Style.GREEN) && tip.text("1.25%").textColor().equal(Style.YELLOW))
-  Test.expect(tip.text("16.50%").textColor().equal(Style.RED))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Dodge | 1.25% | Parry | 16.50% | Targets of your level | Dodge | 0.00% | Parry | 4.75%"))
+  Test::expect(tip.text("0.00%").textColor().equal(Style::GREEN) && tip.text("1.25%").textColor().equal(Style::YELLOW))
+  Test::expect(tip.text("16.50%").textColor().equal(Style::RED))
 }
 
 test "what lands of a blow is a card of its own: at the greatest level a boss's, each target's misses, dodges and parries" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6, expertise: 2, meleeCrit: 20, bossGlancing: 40, levelGlancing: 10, atMaxLevel: true }
   const window = opened(sheet)
   // An ability from behind against a boss: 8 - 6 of misses and 6.5 - 2 of dodges fail.
-  Test.expect(window.text(Locale.LANDS).shown())
+  Test::expect(window.text(Locale::LANDS).shown())
   window.text("93.50%").hover()
-  const tip = Test.page().window(Locale.LANDS_TIP)
+  const tip = Test::page().window(Locale::LANDS_TIP)
   // A swing from the front: its 16.5 of parries, 40 of glancing blows and 5 of blocks too; the boss's 15 of defense
   // past the skill take 0.6 off the crit; ordinary hits the rest.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 2.00% | Dodge | 4.50% | Parry | 16.50% | Glancing blow | 40.00% | Block | 5.00% | Ordinary hit | 12.60% | Crit | 19.40%"))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 2.00% | Dodge | 4.50% | Parry | 16.50% | Glancing blow | 40.00% | Block | 5.00% | Ordinary hit | 12.60% | Crit | 19.40%"))
   // A target of the player's level: no misses, 5 - 2 of dodges, its parries and blocks whole, the crit whole.
-  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 0.00% | Dodge | 3.00% | Parry | 5.00% | Glancing blow | 10.00% | Block | 5.00% | Ordinary hit | 57.00% | Crit | 20.00%"))
-  Test.expect(tip.text("0.00%").textColor().equal(Style.GREEN) && tip.text("16.50%").textColor().equal(Style.RED))
+  Test::expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 0.00% | Dodge | 3.00% | Parry | 5.00% | Glancing blow | 10.00% | Block | 5.00% | Ordinary hit | 57.00% | Crit | 20.00%"))
+  Test::expect(tip.text("0.00%").textColor().equal(Style::GREEN) && tip.text("16.50%").textColor().equal(Style::RED))
   // Each name in its bar's colour, each section's bar under it.
-  Test.expect(tip.text("Glancing blow").nth(1).textColor().equal(Style.YELLOW) && tip.text("Ordinary hit").nth(1).textColor().equal(Style.ORDINARY))
-  Test.expect(tip.box(Style.ORDINARY).count() == 2 && tip.box(Style.YELLOW).count() == 4)
+  Test::expect(tip.text("Glancing blow").nth(1).textColor().equal(Style::YELLOW) && tip.text("Ordinary hit").nth(1).textColor().equal(Style::ORDINARY))
+  Test::expect(tip.box(Style::ORDINARY).count() == 2 && tip.box(Style::YELLOW).count() == 4)
   // A miss bright red, a dodge and a parry dimmed.
-  Test.expect(tip.text("Miss").nth(1).textColor().equal(Style.RED) && tip.text("Dodge").nth(1).textColor().equal(Style.AVOIDED))
+  Test::expect(tip.text("Miss").nth(1).textColor().equal(Style::RED) && tip.text("Dodge").nth(1).textColor().equal(Style::AVOIDED))
 }
 
 test "below the greatest level a target of the player's level counts; weapon skill moves every chance; a crit fits in what is left" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 1, expertise: 1, meleeCrit: 50, meleeSkillPast: 10, bossGlancing: 30, levelGlancing: 10 }
   const window = opened(sheet)
   // Ten points of skill past the level's take 0.4 off: 5 - 1 - 0.4 of misses, 5 - 0.4 - 1 of dodges.
   window.text("92.80%").hover()
-  const tip = Test.page().window(Locale.LANDS_TIP)
+  const tip = Test::page().window(Locale::LANDS_TIP)
   // The level's target first: a crit of 50 + 0.4 fits in what the rest leaves.
-  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 3.60% | Dodge | 3.60% | Parry | 4.60% | Glancing blow | 10.00% | Block | 4.60% | Ordinary hit | 23.20% | Crit | 50.40% | Raid bosses"))
+  Test::expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 3.60% | Dodge | 3.60% | Parry | 4.60% | Glancing blow | 10.00% | Block | 4.60% | Ordinary hit | 23.20% | Crit | 50.40% | Raid bosses"))
   // A boss leaves 37.6 for a crit of 50 - 0.2: it takes all of it, no ordinary hit.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 6.60% | Dodge | 5.10% | Parry | 16.10% | Glancing blow | 30.00% | Block | 4.60% | Ordinary hit | 0.00% | Crit | 37.60%"))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 6.60% | Dodge | 5.10% | Parry | 16.10% | Glancing blow | 30.00% | Block | 4.60% | Ordinary hit | 0.00% | Crit | 37.60%"))
 }
 
 test "what lands's card wears the percent glyph, the glyphs' eleventh row" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   const sheet: Asset = "@/media/character-glyphs.tga"
   const percent: Piece = { file: sheet, width: 64, height: 1024, rows: 16, normal: 10 }
-  Test.expect(window.paintedWith(percent))
+  Test::expect(window.paintedWith(percent))
 }
 
 test "a low character's weapon skill counts against a boss's 315 of defense, as the game's skills frame does" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   // Level 9 with 38 of 45 in the weapon: 7 short of its level, 277 short of a level 63 boss.
   sheet.figures = (): Stats => Stats { meleeCrit: 20, meleeSkillPast: -7, bossDefensePast: 270 }
   const window = opened(sheet)
   // A target of its level: 0.28 more misses and dodges, 0.28 less crit.
   window.text("89.44%").hover()
-  const tip = Test.page().window(Locale.LANDS_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.28% | Dodge | 5.28%"))
-  Test.expect(tip.texts().join(" | ").contains("Crit | 19.72%"))
+  const tip = Test::page().window(Locale::LANDS_TIP)
+  Test::expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.28% | Dodge | 5.28%"))
+  Test::expect(tip.texts().join(" | ").contains("Crit | 19.72%"))
   // A boss: its 8 of misses counted for the greatest level, then 262 points more short; the crit 11.08 less.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 18.48%"))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 18.48%"))
   // A block never past 5, however short the skill.
-  Test.expect(tip.texts().join(" | ").contains("Block | 5.00%"))
-  Test.expect(tip.texts().join(" | ").contains("Crit | 8.92%"))
+  Test::expect(tip.texts().join(" | ").contains("Block | 5.00%"))
+  Test::expect(tip.texts().join(" | ").contains("Crit | 8.92%"))
 }
 
 test "a spell's misses come first, its crits of what lands" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { spellHit: 2, spellCrit: 10, atMaxLevel: true }
   const window = opened(sheet)
   // A boss: 17 - 2 of misses; a tenth of the 85 that lands crits.
   window.text("85.00%").hover()
-  const tip = Test.page().window(Locale.LANDS_SPELL_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 15.00% | Ordinary hit | 76.50% | Crit | 8.50%"))
+  const tip = Test::page().window(Locale::LANDS_SPELL_TIP)
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 15.00% | Ordinary hit | 76.50% | Crit | 8.50%"))
 }
 
 test "a crit's tooltip says what a crit does in its own section alone" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.text("20.05%").hover()
-  const tip = Test.page().window("A critical strike deals 100% more damage.")
-  Test.expect(!tip.texts().join(" | ").contains("spell"))
+  const tip = Test::page().window("A critical strike deals 100% more damage.")
+  Test::expect(!tip.texts().join(" | ").contains("spell"))
 }
 
 test "defence: the defense skill over all; the damage reduction and the hit on you side by side, block's two under them; then dodge, parry, the armor and the resistances" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { defense: 300, dodge: 7, parry: 6, block: 5, blockValue: 42, shield: true, armor: 2000, armorReduction: 30, resistances: [0, 10, 0, 0, 0] }
   const window = opened(sheet)
@@ -711,142 +711,142 @@ test "defence: the defense skill over all; the damage reduction and the hit on y
   const parry = window.text("6.00%").rect()
   const armor = window.text("2000").rect()
   const resistance = window.text("Resistance").rect()
-  Test.expect(defense.bottom <= reduction.top && defense.bottom <= taken.top && taken.left >= reduction.right)
-  Test.expect(reduction.bottom <= block.top && taken.bottom <= blocked.top && blocked.left >= block.right)
+  Test::expect(defense.bottom <= reduction.top && defense.bottom <= taken.top && taken.left >= reduction.right)
+  Test::expect(reduction.bottom <= block.top && taken.bottom <= blocked.top && blocked.left >= block.right)
   // Each card's value whole beside its name: the armor's 30, and 100 less 5 of misses, 7 of dodges and 6 of parries.
-  Test.expect(window.text("30.00%").shown() && window.text("82.00%").shown() && window.text("42").shown())
-  Test.expect(block.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
+  Test::expect(window.text("30.00%").shown() && window.text("82.00%").shown() && window.text("42").shown())
+  Test::expect(block.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
   // Block's cards wear the shield, and the shield struck through: the glyphs' twelfth and thirteenth rows.
   const sheetArt: Asset = "@/media/character-glyphs.tga"
   const shield: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 11 }
   const struck: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 12 }
-  Test.expect(window.paintedWith(shield) && window.paintedWith(struck))
+  Test::expect(window.paintedWith(shield) && window.paintedWith(struck))
 }
 
 test "dodge's tooltip lists the defense past the level's among its sources, 0.04% a point, worked out from the level's" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { defense: 315, defensePast: 15, dodge: 7 }
   const window = opened(sheet)
   window.text("7.00%").hover()
-  const tip = Test.page().window("(315 − 300) × 0.04 =")
-  Test.expect(tip.texts().join(" | ").contains("Defense | (315 − 300) × 0.04 = | 0.60%"))
+  const tip = Test::page().window("(315 − 300) × 0.04 =")
+  Test::expect(tip.texts().join(" | ").contains("Defense | (315 − 300) × 0.04 = | 0.60%"))
 }
 
 test "a defense short of the level's takes off dodge, its working the defense less the level's" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   // Level 9: 44 of the level's 45.
   sheet.figures = (): Stats => Stats { defense: 44, defensePast: -1, dodge: 5 }
   const window = opened(sheet)
   window.text("5.00%").hover()
-  const tip = Test.page().window("(44 − 45) × 0.04 =")
-  Test.expect(tip.texts().join(" | ").contains("Defense | (44 − 45) × 0.04 = | -0.04%"))
+  const tip = Test::page().window("(44 − 45) × 0.04 =")
+  Test::expect(tip.texts().join(" | ").contains("Defense | (44 − 45) × 0.04 = | -0.04%"))
 }
 
 test "a weapon's skill stands over its section's cards, its tooltip what it does against each target" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   // 38 of 45 in the main hand's skill: 7 short of its level, 277 short of a boss's 315.
   sheet.figures = (): Stats => Stats {
     attackPower: 832, mainSkill: MACES, meleeSkillPast: -7, bossDefensePast: 270, bossGlancing: 100, bossGlancingPenalty: 89
   }
   const window = opened(sheet)
-  Test.expect(window.text("Maces").rect().bottom <= window.text("Attack power").rect().top)
+  Test::expect(window.text("Maces").rect().bottom <= window.text("Attack power").rect().top)
   window.text("Maces").hover()
-  const tip = Test.page().window(Locale.WEAPON_SKILL_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Hit, dodge and parry | -0.28% | Crit | -0.28% | Glancing blow"))
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Hit, dodge and parry | -11.08% | Crit | -11.08% | Glancing blow | 100.00% · 89.00% less damage"))
-  Test.expect(tip.text("-11.08%").nth(1).textColor().equal(Style.RED))
+  const tip = Test::page().window(Locale::WEAPON_SKILL_TIP)
+  Test::expect(tip.texts().join(" | ").contains("Targets of your level | Hit, dodge and parry | -0.28% | Crit | -0.28% | Glancing blow"))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Hit, dodge and parry | -11.08% | Crit | -11.08% | Glancing blow | 100.00% · 89.00% less damage"))
+  Test::expect(tip.text("-11.08%").nth(1).textColor().equal(Style::RED))
 }
 
 test "the paper doll's sides are the tabs' plain rule, no cut in the wood, the scene out to it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.box(Ordaen.art.ctl.cut.upright.dark).count() == 0)
+  Test::expect(window.box(Ordaen.art.ctl.cut.upright.dark).count() == 0)
   // The doll's dark (the scene's box's parent) inside the ruled box round it, a rule's width in at each side.
-  const dark = Test.edges("@/media/backdrop-dwarf.tga", 1)
-  const ruled = Test.edges("@/media/backdrop-dwarf.tga", 2)
-  const rule = Style.DOLL_SIDES.width / 1ui
-  Test.expect((dark.left - ruled.left - rule).abs() < 0.5 && (ruled.right - dark.right - rule).abs() < 0.5)
+  const dark = Test::edges("@/media/backdrop-dwarf.tga", 1)
+  const ruled = Test::edges("@/media/backdrop-dwarf.tga", 2)
+  const rule = Style::DOLL_SIDES.width / 1ui
+  Test::expect((dark.left - ruled.left - rule).abs() < 0.5 && (ruled.right - dark.right - rule).abs() < 0.5)
 }
 
 test "the paper doll's slots stand in the client's talent frame, as the talents' nodes do" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.box("talents-node-square-gray").count() >= 19)
+  Test::expect(window.box("talents-node-square-gray").count() >= 19)
 }
 
 test "the sets' tabs are the window's subtab band, its marble out to the frame at either side, «Save» on it" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  const band = Test.edges(Ordaen.art.window.marble, 0)
+  const body = Test::edges(Ordaen.art.window.wood, 0)
+  const band = Test::edges(Ordaen.art.window.marble, 0)
   const reach = Ordaen.art.frame.window.reach
-  Test.expect(band.left - body.left <= reach.left + 2 && body.right - band.right <= reach.right + 2)
+  Test::expect(band.left - body.left <= reach.left + 2 && body.right - band.right <= reach.right + 2)
   window.button("New Set").click()
   const save = window.button("Save").rect()
-  Test.expect(save.top >= band.top && save.bottom <= band.bottom && save.right < band.right)
+  Test::expect(save.top >= band.top && save.bottom <= band.bottom && save.right < band.right)
 }
 
 test "with no set worn whole, «New Set» is the picked tab, «Save» beside it" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
   sheet.wornSet = -1
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.expect(window.text("New Set").textColor().equal(BRIGHT_TEXT))
-  Test.expect(!window.text("Tank").textColor().equal(BRIGHT_TEXT))
-  Test.expect(window.text("Save").shown())
+  Test::expect(window.text("New Set").textColor().equal(BRIGHT_TEXT))
+  Test::expect(!window.text("Tank").textColor().equal(BRIGHT_TEXT))
+  Test::expect(window.text("Save").shown())
 }
 
 test "a set picked in a fight isn't put on, and the worn one stays picked" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.combat(true)
+  Test::combat(true)
   window.button("Fury").click()
-  Test.expect(sheet.heard.length == 0)
-  Test.expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
+  Test::expect(sheet.heard.length == 0)
+  Test::expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
 }
 
 test "«New Set» saves nothing until «Save», which saves what is worn as the next set, and is off while it is a set already" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.expect(!window.text("Save").shown())
+  Test::expect(!window.text("Save").shown())
   window.button("New Set").click()
-  Test.expect(sheet.heard.length == 0)
+  Test::expect(sheet.heard.length == 0)
   // What is worn is «Tank»: saving it again would make a second of it.
   window.button("Save").click()
-  Test.expect(sheet.heard.length == 0)
+  Test::expect(sheet.heard.length == 0)
   // A piece of it taken off: what is worn is no set now.
   sheet.wornSet = -1
-  Test.event("PLAYER_EQUIPMENT_CHANGED", 1, true)
+  Test::event("PLAYER_EQUIPMENT_CHANGED", 1, true)
   window.button("Save").click()
-  Test.expect(sheet.heard.join(", ") == "save Set 3")
+  Test::expect(sheet.heard.join(", ") == "save Set 3")
 }
 
 test "the slot what the cursor holds goes in is lit, the others not; a locked item is greyed" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
   sheet.cursorSlot = 16
   sheet.helmLocked = true
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
-  Test.expect(window.button(REAPER_ICON).paintedWith(FITS_GLOW))
-  Test.expect(!window.button(HELM_ICON).paintedWith(FITS_GLOW))
-  Test.expect(window.button(HELM_ICON).opacity() < 1)
-  Test.expect(window.button(REAPER_ICON).opacity() == 1)
+  Test::expect(window.button(REAPER_ICON).paintedWith(FITS_GLOW))
+  Test::expect(!window.button(HELM_ICON).paintedWith(FITS_GLOW))
+  Test::expect(window.button(HELM_ICON).opacity() < 1)
+  Test::expect(window.button(REAPER_ICON).opacity() == 1)
 }
 
 // The stats' tooltips
@@ -861,132 +861,132 @@ function spellNames(id: Integer): String | nil {
 }
 
 test "an aura's melee and ranged speed at once is each of the two's haste; its casting speed the spells'" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Game.spells.name = spellNames
-  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: WIND_BLESSED, stacks: 0, harmful: false, points: [2, 2] }]
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Game::spells.name = spellNames
+  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: WIND_BLESSED, stacks: 0, harmful: false, points: [2, 2] }]
   Auras.refresh()
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 7, rangedHaste: 6, rangedSkill: WANDS, rangedSpeed: 1.5 }
   const window = opened(sheet)
   window.text("7.00%").hover()
-  Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
+  Test::expect(Test::page().window(Locale::HASTE_MELEE_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
   window.text("6.00%").hover()
-  Test.expect(Test.page().window(Locale.HASTE_RANGED_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
+  Test::expect(Test::page().window(Locale::HASTE_RANGED_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
 }
 
 test "a main stat's tooltip: its name (its value stands on the window), the game's words, its base, then the items that give it, the most first" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.text("312").hover()
-  const tip = Test.page().window("Increases your attack power with melee weapons.")
-  Test.expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12")
+  const tip = Test::page().window("Increases your attack power with melee weapons.")
+  Test::expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12")
 }
 
 test "a stat's tooltip lists the stats that feed it and the auras that change it, its base the rest" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Game.spells.name = spellNames
-  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Game::spells.name = spellNames
+  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
   Auras.refresh()
   const window = opened(new FakeSheet())
   window.text("832").hover()
   // A feeding stat's share worked out before it: its points, what a point gives.
-  const tip = Test.page().window("Battle Shout")
-  Test.expect(tip.texts().join(" | ") == "Attack power | Stats | Strength | 312 × 2 = | 624 | Base | 108 | Effects | Battle Shout | +100")
+  const tip = Test::page().window("Battle Shout")
+  Test::expect(tip.texts().join(" | ") == "Attack power | Stats | Strength | 312 × 2 = | 624 | Base | 108 | Effects | Battle Shout | +100")
 }
 
 const DEMORALIZED = 1160
 
 test "a stat an aura raises reads green, one an aura lowers red whatever else raises it, any other as it is" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Game.spells.name = spellNames
-  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Game::spells.name = spellNames
+  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
   Auras.refresh()
   const window = opened(new FakeSheet())
-  Test.expect(window.text("832").textColor().equal(Style.GREEN))
-  Test.expect(!window.text("312").textColor().equal(Style.GREEN))
-  Game.auras.player = (): Array<Game.PlayerAura> => [
+  Test::expect(window.text("832").textColor().equal(Style::GREEN))
+  Test::expect(!window.text("312").textColor().equal(Style::GREEN))
+  Game::auras.player = (): Array<Game::PlayerAura> => [
     { spell: SHOUT, stacks: 0, harmful: false, points: [100] },
     { spell: DEMORALIZED, stacks: 0, harmful: true, points: [-35] }
   ]
   Auras.refresh()
-  Test.expect(window.text("832").textColor().equal(Style.RED))
+  Test::expect(window.text("832").textColor().equal(Style::RED))
   // Its tooltip's «Effects»: each aura's share in the colour of what it does to the stat.
   window.text("832").hover()
-  const tip = Test.page().window("Battle Shout")
-  Test.expect(tip.text("+100").textColor().equal(Style.GREEN))
-  Test.expect(tip.text("-35").textColor().equal(Style.RED))
+  const tip = Test::page().window("Battle Shout")
+  Test::expect(tip.text("+100").textColor().equal(Style::GREEN))
+  Test::expect(tip.text("-35").textColor().equal(Style::RED))
 }
 
 test "a set's bonus is one row under its name, however many of its pieces are worn" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.matched = true
   const window = opened(sheet)
   window.text("312").hover()
-  const tip = Test.page().window("Lion's Pride")
-  Test.expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
+  const tip = Test::page().window("Lion's Pride")
+  Test::expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
 }
 
 test "while a stat's tooltip is open, each item that gives it has its share under its slot, and leaving takes them off" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.text("312").hover()
-  Test.expect(window.text("+12").shown() && window.text("+20").shown())
+  Test::expect(window.text("+12").shown() && window.text("+20").shown())
   window.text("Regy").hover()
-  Test.expect(!window.text("+12").shown() && !Test.page().text("Lionheart Helm").shown())
+  Test::expect(!window.text("+12").shown() && !Test::page().text("Lionheart Helm").shown())
 }
 
 test "while a stat's tooltip is open, the stats that feed it glow gold, and the others don't" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(!window.box(Style.SOURCE_GLOW).shown())
+  Test::expect(!window.box(Style::SOURCE_GLOW).shown())
   window.text("832").hover()
   // Strength alone feeds a warrior's attack power, and no item gives it: one glow, strength's.
-  Test.expect(window.box(Style.SOURCE_GLOW).count() == 1)
+  Test::expect(window.box(Style::SOURCE_GLOW).count() == 1)
   window.text("Regy").hover()
-  Test.expect(!window.box(Style.SOURCE_GLOW).shown())
+  Test::expect(!window.box(Style::SOURCE_GLOW).shown())
 }
 
 test "a percentage's sources are percentages: the crit an item gives" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.text("20.05%").hover()
-  Test.expect(Test.page().window("Arcanite Reaper").text("+1.00%").shown())
+  Test::expect(Test::page().window("Arcanite Reaper").text("+1.00%").shown())
 }
 
 // The stats
 
 test "every stat stands in view: the main stats, defence, and the melee section's cards, gauges and lines" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.text("312").shown())
-  Test.expect(window.text("STR").shown())
-  Test.expect(window.text("4120").shown())
-  Test.expect(window.text("832").shown())
-  Test.expect(window.text("20.05%").shown())
-  Test.expect(window.text("Expertise").shown())
-  Test.expect(window.text("Attack speed").shown())
-  Test.expect(window.text("3.80 s").shown())
+  Test::expect(window.text("312").shown())
+  Test::expect(window.text("STR").shown())
+  Test::expect(window.text("4120").shown())
+  Test::expect(window.text("832").shown())
+  Test::expect(window.text("20.05%").shown())
+  Test::expect(window.text("Expertise").shown())
+  Test::expect(window.text("Attack speed").shown())
+  Test::expect(window.text("3.80 s").shown())
 }
 
 test "the weapon held has its skill as a gauge, its bonus counted in" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.text("Maces").shown())
-  Test.expect(window.text("305").shown())
+  Test::expect(window.text("Maces").shown())
+  Test::expect(window.text("305").shown())
 }
 
 // The talents
@@ -994,16 +994,16 @@ test "the weapon held has its skill as a gauge, its bonus counted in" {
 const TALENT_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const SWORD: Asset = "Interface/Icons/INV_Sword_04"
 // An arrow of a tree that leads to a talent with no rank.
-const ARROW_LINE: Color = Color.hex("#4a3a24")
+const ARROW_LINE: Color = Color::hex("#4a3a24")
 // The dark line between the trees, and the veil over a talent that can't be learned.
-const TREE_LINE: Color = Color.hex("#000000")
+const TREE_LINE: Color = Color::hex("#000000")
 // The client's talent frames, by a talent's look.
 const FRAME_GREY = "talents-node-square-gray"
 // The second spec's tab, by its name.
 const SECOND = "Secondary"
 
 // The trees of a spec: the first spec's two, the second's one.
-function trees(group: Integer): Array<Game.TalentTree> {
+function trees(group: Integer): Array<Game::TalentTree> {
   if (group == 2) {
     return [
       {
@@ -1028,8 +1028,8 @@ function trees(group: Integer): Array<Game.TalentTree> {
 }
 
 // The window opened on «Talents», on a spec's subtab, by its name.
-function onSpec(name: String): Test.Part {
-  Game.items.icon = icons
+function onSpec(name: String): Test::Part {
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Talents").click()
   window.button(name).click()
@@ -1037,39 +1037,39 @@ function onSpec(name: String): Test.Part {
 }
 
 test "a spec's tab shows its talent trees, each with the points spent in it" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(window.text("Arms: 2").shown() && window.text("Fury: 5").shown())
-  Test.expect(!window.text("Protection: 1").shown())
+  Test::expect(window.text("Arms: 2").shown() && window.text("Fury: 5").shown())
+  Test::expect(!window.text("Protection: 1").shown())
 }
 
 test "a spec's trees stand on the class's art, out to the window's sides, between the header's and the footer's marble" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  const art = Test.edges("talent-background-warrior", 0)
-  const body = Test.edges(Ordaen.art.window.wood, 0)
+  const art = Test::edges("talent-background-warrior", 0)
+  const body = Test::edges(Ordaen.art.window.wood, 0)
   // Under the frame's art at either side, as the client's window draws its trees.
   const reach = Ordaen.art.frame.window.reach
-  Test.expect(art.left - body.left <= reach.left + 2 && body.right - art.right <= reach.right + 2)
+  Test::expect(art.left - body.left <= reach.left + 2 && body.right - art.right <= reach.right + 2)
   // Under the spec subtabs' marble band, the header on the wood down to the trees; the footer's marble a rim under them.
-  const band = Test.edges(Ordaen.art.window.marble, 0)
-  const foot = Test.painted(Ordaen.art.window.marble, 2)
-  Test.expect(art.top - band.bottom > 30)
-  Test.expect(foot.y > art.bottom && foot.y - art.bottom < 40)
-  Test.expect(band.left - body.left <= reach.left + 2)
+  const band = Test::edges(Ordaen.art.window.marble, 0)
+  const foot = Test::painted(Ordaen.art.window.marble, 2)
+  Test::expect(art.top - band.bottom > 30)
+  Test::expect(foot.y > art.bottom && foot.y - art.bottom < 40)
+  Test::expect(band.left - body.left <= reach.left + 2)
   // In its own proportions (2046 by 1177): the part of it drawn, read within the atlas's region as the client reads
   // it, is the box's shape, cut at its longer sides.
-  const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
-  Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
+  Test::expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }
 
 test "a talent under the cursor says what the client's tooltip says: its rank, what it does, the next rank, a click to learn" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [
@@ -1086,31 +1086,31 @@ test "a talent under the cursor says what the client's tooltip says: its rank, w
   ]
   const window = onSpec("Primary")
   window.button("2").hover()
-  Test.expect(Test.page().text("Parry +2%").shown() && Test.page().text("Parry +3%").shown())
-  Test.expect(Test.page().text("2/5").shown() && Test.page().text("Click to learn.").shown())
+  Test::expect(Test::page().text("Parry +2%").shown() && Test::page().text("Parry +3%").shown())
+  Test::expect(Test::page().text("2/5").shown() && Test::page().text("Click to learn.").shown())
   window.button(FRAME_GREY).hover()
   // No rank held: the first rank's words as what it does, the points its tree still needs, nothing to click for.
-  Test.expect(Test.page().text("Keeps 5 rage").shown() && !Test.page().text("Parry +2%").shown())
-  Test.expect(Test.page().text("Requires 5 points in this tree").shown())
+  Test::expect(Test::page().text("Keeps 5 rage").shown() && !Test::page().text("Parry +2%").shown())
+  Test::expect(Test::page().text("Requires 5 points in this tree").shown())
 }
 
 test "the second spec's tab shows that spec's trees" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec(SECOND)
-  Test.expect(window.text("Protection: 1").shown())
-  Test.expect(!window.text("Arms: 2").shown())
+  Test::expect(window.text("Protection: 1").shown())
+  Test::expect(!window.text("Arms: 2").shown())
 }
 
 test "each talent looks as the client draws it: gold when full, green where a point may go or one is held, grey and veiled where none may, darker where its tree lacks the points, red where a rank no longer holds" {
-  Test.mount(nil, PAGE)
-  const node = (id: Integer, rank: Integer, canSpend: Boolean, gated: Boolean, stranded: Boolean): Game.TalentNode => {
+  Test::mount(nil, PAGE)
+  const node = (id: Integer, rank: Integer, canSpend: Boolean, gated: Boolean, stranded: Boolean): Game::TalentNode => {
     return {
       id: id, x: (id - 10) * 600, y: 0, name: "Talent %d".format(id), icon: TALENT_ICON, rank: rank, ranks: 5,
       canSpend: canSpend, canRefund: rank > 0, edges: [], gated: gated, locked: stranded, stranded: stranded
     }
   }
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [node(10, 5, false, false, false), node(11, 2, true, false, false), node(12, 3, false, false, false),
@@ -1120,34 +1120,34 @@ test "each talent looks as the client draws it: gold when full, green where a po
   ]
   const window = onSpec("Primary")
   // Full: the gold frame and its rank in gold.
-  Test.expect(window.button("5").paintedWith("talents-node-square-yellow"))
-  Test.expect(window.text("5").textColor().equal(Color.hex("#ffd100")))
+  Test::expect(window.button("5").paintedWith("talents-node-square-yellow"))
+  Test::expect(window.text("5").textColor().equal(Color::hex("#ffd100")))
   // A point may go, or one is held with none to spend: the green frame, the rank in green; a 0 where none is held yet.
-  Test.expect(window.button("2").paintedWith("talents-node-square-green") && window.button("3").paintedWith("talents-node-square-green"))
-  Test.expect(window.button("0").text("0").textColor().equal(Color.hex("#19ff19")) && window.text("3").textColor().equal(Color.hex("#19ff19")))
+  Test::expect(window.button("2").paintedWith("talents-node-square-green") && window.button("3").paintedWith("talents-node-square-green"))
+  Test::expect(window.button("0").text("0").textColor().equal(Color::hex("#19ff19")) && window.text("3").textColor().equal(Color::hex("#19ff19")))
   // None may go: grey, no rank said, the icon grey under a light veil; its tree short of points, the locked frame and a
   // darker veil.
-  Test.expect(window.button("0").count() == 1)
+  Test::expect(window.button("0").count() == 1)
   const grey = window.button(FRAME_GREY)
-  Test.expect(grey.box(TREE_LINE).opacity() == 0.25)
+  Test::expect(grey.box(TREE_LINE).opacity() == 0.25)
   const gated = window.button("talents-node-square-locked")
-  Test.expect(gated.box(TREE_LINE).opacity() == 0.7)
+  Test::expect(gated.box(TREE_LINE).opacity() == 0.7)
   // The two that none may go to are drawn grey, no other.
-  Test.expect(Test.drawn().filter(d => d.file == TALENT_ICON && d.desaturated).length == 2)
+  Test::expect(Test::drawn().filter(d => d.file == TALENT_ICON && d.desaturated).length == 2)
   // A rank that no longer holds: the red frame, its rank in red.
-  Test.expect(window.button("1").paintedWith("talents-node-square-red"))
-  Test.expect(window.text("1").textColor().equal(Color.hex("#ff2020")))
+  Test::expect(window.button("1").paintedWith("talents-node-square-red"))
+  Test::expect(window.text("1").textColor().equal(Color::hex("#ff2020")))
 }
 
 test "a tree's arrow runs across and then down, cell by cell, gold once the talent it comes from is full" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
   // Out of Deflection's cell, into the corner's, down out of it and into Tactical Mastery's: five pieces.
-  Test.expect(!window.box(Style.GOLD).shown())
-  Test.expect(window.box(ARROW_LINE).count() == 5)
-  Test.expect(Test.drawn().any(d => d.file == "talents-arrow-head-gray"))
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+  Test::expect(!window.box(Style::GOLD).shown())
+  Test::expect(window.box(ARROW_LINE).count() == 5)
+  Test::expect(Test::drawn().any(d => d.file == "talents-arrow-head-gray"))
+  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [
@@ -1156,373 +1156,373 @@ test "a tree's arrow runs across and then down, cell by cell, gold once the tale
       ]
     }
   ]
-  Game.talentTrees.changed.emit()
-  Test.expect(window.box(Style.GOLD).count() == 5)
-  Test.expect(Test.drawn().any(d => d.file == "talents-arrow-head-yellow"))
+  Game::talentTrees.changed.emit()
+  Test::expect(window.box(Style::GOLD).count() == 5)
+  Test::expect(Test::drawn().any(d => d.file == "talents-arrow-head-yellow"))
 }
 
 test "a talent stands in the client's frame for what it may do: gold when full, green while a point may go, grey where none may" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   _ = onSpec("Primary")
-  const drawn = Test.drawn()
-  Test.expect(drawn.any(d => d.file == "talents-node-square-yellow"))
-  Test.expect(drawn.any(d => d.file == "talents-node-square-green"))
-  Test.expect(drawn.any(d => d.file == "talents-node-square-gray"))
+  const drawn = Test::drawn()
+  Test::expect(drawn.any(d => d.file == "talents-node-square-yellow"))
+  Test::expect(drawn.any(d => d.file == "talents-node-square-green"))
+  Test::expect(drawn.any(d => d.file == "talents-node-square-gray"))
 }
 
 test "a talent's row in its cell is as high as the talent: the client draws nothing of a box with no height" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   _ = onSpec("Primary")
   // The frame's art, the talent's box round it, the row of the cell it stands in.
-  const node = Test.edges("talents-node-square-green", 1)
-  const row = Test.edges("talents-node-square-green", 2)
-  Test.expect((row.bottom - row.top - (node.bottom - node.top)).abs() < 0.01 && row.top == node.top)
+  const node = Test::edges("talents-node-square-green", 1)
+  const row = Test::edges("talents-node-square-green", 2)
+  Test::expect((row.bottom - row.top - (node.bottom - node.top)).abs() < 0.01 && row.top == node.top)
 }
 
 test "talents a step of the client's grid apart stand a gap apart, and an arrow's head stops short of the talent it leads to" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   _ = onSpec("Primary")
-  const deflection = Test.edges("talents-node-square-green", 0)
-  const tactical = Test.edges("talents-node-square-gray", 0)
-  Test.expect(tactical.left - deflection.right >= 10)
-  Test.expect(tactical.top - deflection.bottom >= 10)
-  const head = Test.edges("talents-arrow-head-gray", 0)
-  Test.expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom - 0.01)
+  const deflection = Test::edges("talents-node-square-green", 0)
+  const tactical = Test::edges("talents-node-square-gray", 0)
+  Test::expect(tactical.left - deflection.right >= 10)
+  Test::expect(tactical.top - deflection.bottom >= 10)
+  const head = Test::edges("talents-arrow-head-gray", 0)
+  Test::expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom - 0.01)
 }
 
 test "the header's right says the points left to spend in the active spec, and offers Activate for the other instead" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
+  Game::talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
   const window = onSpec("Primary")
-  Test.expect(window.text("Talent points:").shown() && window.text("3").shown() && !window.button("Activate").shown())
+  Test::expect(window.text("Talent points:").shown() && window.text("3").shown() && !window.button("Activate").shown())
   const points = window.text("3").rect()
   const search = window.text("Search talents").rect()
-  Test.expect((points.top + points.bottom - search.top - search.bottom).abs() < 30)
+  Test::expect((points.top + points.bottom - search.top - search.bottom).abs() < 30)
   window.button(SECOND).click()
-  Test.expect(window.button("Activate").shown() && !window.text("Talent points:").shown())
+  Test::expect(window.button("Activate").shown() && !window.text("Talent points:").shown())
 }
 
 test "the footer says the trainer's price for a reset once the trainer offered one, and keeps it; not known before, where it is learnt in its Tip" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(window.text("Reset at the trainer:").shown() && window.text("not known yet").shown())
+  Test::expect(window.text("Reset at the trainer:").shown() && window.text("not known yet").shown())
   window.text("not known yet").hover()
-  Test.expect(Test.page().text("The game says the price only at the class trainer: talk to one and it shows here, kept for this character. It grows with each reset and falls again over time.").shown())
-  Test.event("CONFIRM_TALENT_WIPE", 50000, 1)
-  Test.expect(window.text("Reset at the trainer:").shown() && !window.text("not known yet").shown())
-  Test.expect(window.text(Game.money.format(50000)).shown())
-  Test.expect(load<KeptWipe>(.Character, "talentWipe", KeptWipe {}).cost == 50000)
+  Test::expect(Test::page().text("The game says the price only at the class trainer: talk to one and it shows here, kept for this character. It grows with each reset and falls again over time.").shown())
+  Test::event("CONFIRM_TALENT_WIPE", 50000, 1)
+  Test::expect(window.text("Reset at the trainer:").shown() && !window.text("not known yet").shown())
+  Test::expect(window.text(Game::money.format(50000)).shown())
+  Test::expect(load<KeptWipe>(.Character, "talentWipe", KeptWipe {}).cost == 50000)
 }
 
 test "the trees stand edge to edge, a dark line between them" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
   // The line between the two trees, and the veil over the talent no point may go to.
-  Test.expect(window.box(TREE_LINE).count() == 2)
+  Test::expect(window.box(TREE_LINE).count() == 2)
   window.button(SECOND).click()
-  Test.expect(window.box(TREE_LINE).count() == 0)
+  Test::expect(window.box(TREE_LINE).count() == 0)
 }
 
 test "a spec with no trees says the talents are not available" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = onSpec("Primary")
-  Test.expect(window.text("The talents are not available.").shown())
+  Test::expect(window.text("The talents are not available.").shown())
 }
 
 test "the talents follow the trees the game reports while the window shows" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: SWORD, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
     }
   ]
-  Game.talentTrees.changed.emit()
-  Test.expect(window.text("Arms: 5").shown() && window.button("5").paintedWith(SWORD))
-  Test.expect(window.text("5").textColor().equal(Color.hex("#ffd100")))
+  Game::talentTrees.changed.emit()
+  Test::expect(window.text("Arms: 5").shown() && window.button("5").paintedWith(SWORD))
+  Test::expect(window.text("5").textColor().equal(Color::hex("#ffd100")))
 }
 
 test "the game is asked for the talents while the window shows, and for no tree on another tab" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   let asked = 0
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
+  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => {
     asked += 1
     return []
   }
-  _ = Test.requests()
-  Game.items.icon = icons
+  _ = Test::requests()
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.flush()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.watch true"))
-  Test.expect(asked == 0)
+  Test::flush()
+  Test::expect(Test::requests().any(r => r == "TalentTrees.watch true"))
+  Test::expect(asked == 0)
   window.button("Talents").click()
-  Test.expect(asked == 1)
+  Test::expect(asked == 1)
   window.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.watch false"))
+  Test::expect(Test::requests().any(r => r == "TalentTrees.watch false"))
 }
 
 test "a click on a talent spends a point in it, a right-click takes one back" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  _ = Test.requests()
+  _ = Test::requests()
   window.button("2").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.spend 10"))
+  Test::expect(Test::requests().any(r => r == "TalentTrees.spend 10"))
   window.button("2").rightClick()
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "TalentTrees.refund 10") && !asked.any(r => r == "TalentTrees.spend 10"))
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r == "TalentTrees.refund 10") && !asked.any(r => r == "TalentTrees.spend 10"))
 }
 
 test "with points staged, Apply stands out and applies them, Cancel takes them back, each its own width at the footer's ends" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.staged = (): Boolean => true
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
+  Game::talentTrees.staged = (): Boolean => true
   const window = onSpec("Primary")
-  Test.expect(window.button("Apply").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(!window.button("Cancel").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(window.button("Apply").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test::expect(!window.button("Cancel").paintedWith(Ordaen.art.ctl.buttonAccent))
   const apply = window.button("Apply").rect()
   const cancel = window.button("Cancel").rect()
-  Test.expect((apply.right - apply.left - (cancel.right - cancel.left)).abs() < 0.5 && cancel.right < apply.left - 200)
-  _ = Test.requests()
+  Test::expect((apply.right - apply.left - (cancel.right - cancel.left)).abs() < 0.5 && cancel.right < apply.left - 200)
+  _ = Test::requests()
   window.button("Apply").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.commit"))
+  Test::expect(Test::requests().any(r => r == "TalentTrees.commit"))
   window.button("Cancel").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
+  Test::expect(Test::requests().any(r => r == "TalentTrees.rollback"))
 }
 
 test "with no points staged, Apply and Cancel aren't shown" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(!window.button("Apply").shown() && !window.button("Cancel").shown())
+  Test::expect(!window.button("Apply").shown() && !window.button("Cancel").shown())
 }
 
 // The game's spells window, opened on its talents page by the game's talent button, as the game's side reports it.
-function talentButtonPressed(): any Client.Frame {
-  Runtime.press(Client.TalentMicroButton, .Left)
-  const game = Runtime.frame("PlayerSpellsFrame") ?? panic("the client made its spells window")
-  Game.frames.PlayerSpells = game
+function talentButtonPressed(): any Client::Frame {
+  Runtime::press(Client::TalentMicroButton, .Left)
+  const game = Runtime::frame("PlayerSpellsFrame") ?? panic("the client made its spells window")
+  Game::frames.PlayerSpells = game
   // Ours hooks the window as the game's side reports it, on the next update.
-  Test.flush()
-  const held: any Client.Frame = game
+  Test::flush()
+  const held: any Client::Frame = game
   return held
 }
 
 test "the game's talent button opens ours on the active spec's tab, the game's talents unseen; pressed again, it closes ours" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   Char.sheet = new FakeSheet()
   const game = talentButtonPressed()
-  const window = Test.page().window(WINDOW)
-  Test.expect(window.text("Arms: 2").shown())
-  Test.expect(game.IsShown())
-  Runtime.press(Client.TalentMicroButton, .Left)
-  Test.expect(!game.IsShown() && !Test.page().text(WINDOW).shown())
-  Game.talentTrees.activeGroup = (): Integer => 2
-  Runtime.press(Client.TalentMicroButton, .Left)
-  Test.expect(Test.page().window(WINDOW).text("Protection: 1").shown())
+  const window = Test::page().window(WINDOW)
+  Test::expect(window.text("Arms: 2").shown())
+  Test::expect(game.IsShown())
+  Runtime::press(Client::TalentMicroButton, .Left)
+  Test::expect(!game.IsShown() && !Test::page().text(WINDOW).shown())
+  Game::talentTrees.activeGroup = (): Integer => 2
+  Runtime::press(Client::TalentMicroButton, .Left)
+  Test::expect(Test::page().window(WINDOW).text("Protection: 1").shown())
 }
 
 test "closing ours closes the game's talents it opened on" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Char.sheet = new FakeSheet()
   const game = talentButtonPressed()
-  Test.expect(game.IsShown() && Test.page().text(WINDOW).shown())
+  Test::expect(game.IsShown() && Test::page().text(WINDOW).shown())
   Char.onClose()
-  Test.expect(!Test.page().text(WINDOW).shown())
-  Test.expect(!game.IsShown())
+  Test::expect(!Test::page().text(WINDOW).shown())
+  Test::expect(!game.IsShown())
 }
 
 test "the client's alert of unspent talent points goes as it shows: the panel's portrait counts them" {
-  Test.mount(nil, PAGE)
-  Test.unspentTalents()
-  Test.expect(Test.microAlert() == nil)
-  Test.expect(!Test.surfaces().any(s => s.texts.any(t => t.contains("talent"))))
+  Test::mount(nil, PAGE)
+  Test::unspentTalents()
+  Test::expect(Test::microAlert() == nil)
+  Test::expect(!Test::surfaces().any(s => s.texts.any(t => t.contains("talent"))))
 }
 
 test "the active spec's tab offers no Activate; the other's does, and asks the game to switch to it" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = onSpec("Primary")
-  Test.expect(!window.button("Activate").shown())
+  Test::expect(!window.button("Activate").shown())
   window.button(SECOND).click()
-  _ = Test.requests()
+  _ = Test::requests()
   window.button("Activate").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.activate 2"))
+  Test::expect(Test::requests().any(r => r == "TalentTrees.activate 2"))
 }
 
 test "the other spec's points staged can't be applied until it is active" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.staged = (): Boolean => true
+  Test::mount(nil, PAGE)
+  Game::talentTrees.staged = (): Boolean => true
   const window = onSpec(SECOND)
-  Test.expect(!window.button("Apply changes").shown())
+  Test::expect(!window.button("Apply changes").shown())
 }
 
 test "the second spec's tab is the active one when the game says the player has it active" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.activeGroup = (): Integer => 2
+  Test::mount(nil, PAGE)
+  Game::talentTrees.activeGroup = (): Integer => 2
   const window = onSpec(SECOND)
-  Test.expect(!window.button("Activate").shown())
+  Test::expect(!window.button("Activate").shown())
   window.button("Primary").click()
-  Test.expect(window.button("Activate").shown())
+  Test::expect(window.button("Activate").shown())
 }
 
 test "a second spec not had is not offered: «Talents» shows the first's trees" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.groups = (): Integer => 1
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.groups = (): Integer => 1
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(!window.button(SECOND).shown())
-  Test.expect(window.text("Arms: 2").shown())
+  Test::expect(!window.button(SECOND).shown())
+  Test::expect(window.text("Arms: 2").shown())
 }
 
 test "a name given to a spec in the settings stands on its tab" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Talents").click()
   Char.settings.change((choices: mut Choices): nil => {
     choices.specOne = "Arms"
     choices.specTwo = "Fury"
   })
-  Test.expect(window.button("Arms").shown() && window.button("Fury").shown())
-  Test.expect(!window.button("Primary").shown() && !window.button(SECOND).shown())
+  Test::expect(window.button("Arms").shown() && window.button("Fury").shown())
+  Test::expect(!window.button("Primary").shown() && !window.button(SECOND).shown())
 }
 
 test "the settings' talents page names the spec tabs as the player types, written as the typing rests" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Talents").click()
   window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.page().window("Durability under the slots").button("Talents").click()
-  const settings = Test.page().window("Name of the first spec tab")
+  Test::page().window("Durability under the slots").button("Talents").click()
+  const settings = Test::page().window("Name of the first spec tab")
   for (i of 1..30) {
-    if (Test.keyboard()) { break }
-    Test.key(Test.Move.Next)
+    if (Test::keyboard()) { break }
+    Test::key(Test::Move::Next)
   }
-  Test.type("Arms")
-  Test.expect(!window.button("Arms").shown())
-  Test.pass(0.3)
-  Test.expect(window.button("Arms").shown() && settings.shown())
+  Test::type("Arms")
+  Test::expect(!window.button("Arms").shown())
+  Test::pass(0.3)
+  Test::expect(window.button("Arms").shown() && settings.shown())
 }
 
 // Progression
 
 test "«Progression» opens on reputation; its skills subtab lists every skill under its heading, its rank on a bar" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Progression").click()
-  Test.expect(window.text("Stormwind").shown())
+  Test::expect(window.text("Stormwind").shown())
   window.button("Skills").click()
-  Test.expect(window.text("Weapon Skills").shown() && window.text("Professions").shown())
-  Test.expect(window.text("290 / 300").shown() && window.text("75 / 150").shown())
-  Test.expect(window.text("+5").shown())
-  Test.expect(window.text("4 skills").shown())
-  Test.expect(window.text("Pick a skill.").shown())
+  Test::expect(window.text("Weapon Skills").shown() && window.text("Professions").shown())
+  Test::expect(window.text("290 / 300").shown() && window.text("75 / 150").shown())
+  Test::expect(window.text("+5").shown())
+  Test::expect(window.text("4 skills").shown())
+  Test::expect(window.text("Pick a skill.").shown())
 }
 
 test "a skills heading folds it in the game, and the list shows what the game then lists" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
   window.button("Skills").click()
   window.button("Professions").click()
-  Test.expect(sheet.heard.join(", ") == "fold skills 5 false")
-  Test.expect(!window.text("Mining").shown())
+  Test::expect(sheet.heard.join(", ") == "fold skills 5 false")
+  Test::expect(!window.text("Mining").shown())
 }
 
 test "the skills' search keeps the skills whose name holds it, under their heading" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Progression").click()
   window.button("Skills").click()
   window.input().type("min")
-  Test.expect(window.text("Mining").shown() && window.text("Professions").shown())
-  Test.expect(!window.text("Maces").shown() && !window.text("Weapon Skills").shown())
+  Test::expect(window.text("Mining").shown() && window.text("Professions").shown())
+  Test::expect(!window.text("Maces").shown() && !window.text("Weapon Skills").shown())
 }
 
 test "a skill picked stands beside the list: its heading, its rank, its bonus and the game's description" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Progression").click()
   window.button("Skills").click()
   window.button("Maces").click()
-  Test.expect(window.text("+5 from items and effects").shown())
-  Test.expect(window.text("Weapon Skills").count() == 2)
-  Test.expect(!window.text("Unlearn").shown())
+  Test::expect(window.text("+5 from items and effects").shown())
+  Test::expect(window.text("Weapon Skills").count() == 2)
+  Test::expect(!window.text("Unlearn").shown())
   window.button("Mining").click()
-  Test.expect(window.text("Mining's description.").shown())
+  Test::expect(window.text("Mining's description.").shown())
 }
 
 test "«Unlearn» asks once more, and only its own button unlearns the skill" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
   window.button("Skills").click()
   window.button("Mining").click()
   window.button("Unlearn").click()
-  const asked = Test.page().text("Unlearn «Mining»? Its rank and recipes are lost.")
-  Test.expect(asked.shown())
-  Test.page().button("Cancel").click()
-  Test.expect(sheet.heard.length == 0 && !asked.shown())
+  const asked = Test::page().text("Unlearn «Mining»? Its rank and recipes are lost.")
+  Test::expect(asked.shown())
+  Test::page().button("Cancel").click()
+  Test::expect(sheet.heard.length == 0 && !asked.shown())
   window.button("Unlearn").click()
-  Test.page().window("Unlearn «Mining»? Its rank and recipes are lost.").button("Unlearn").click()
-  Test.expect(sheet.heard.join(", ") == "unlearn 186")
+  Test::page().window("Unlearn «Mining»? Its rank and recipes are lost.").button("Unlearn").click()
+  Test::expect(sheet.heard.join(", ") == "unlearn 186")
 }
 
 test "two hands swing together: the attack speed is both at once, and two of a kind share one skill's gauge" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { speed: 2.7, offSpeed: 1.8, mainSkill: SWORDS, offSkill: SWORDS }
   const window = opened(sheet)
   Char.readStats()
-  Test.expect(window.text("1.08 s").shown())
-  Test.expect(window.text("Swords").count() == 1)
+  Test::expect(window.text("1.08 s").shown())
+  Test::expect(window.text("Swords").count() == 1)
 }
 
 test "a shield worn adds block's card to defence; without one block shows nowhere, whatever its chance" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142 }
   const window = opened(sheet)
-  Test.expect(!window.text("21.50%").shown() && !window.text("Block").shown())
+  Test::expect(!window.text("21.50%").shown() && !window.text("Block").shown())
   sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142, shield: true }
   Char.readStats()
-  Test.expect(window.text("21.50%").shown() && window.text("Block").shown())
+  Test::expect(window.text("21.50%").shown() && window.text("Block").shown())
 }
 
 test "a wand's section is its skill and its damage a second, no attack power" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { intellect: 246, rangedSkill: WANDS, rangedSpeed: 1.5, rangedMinDamage: 92, rangedMaxDamage: 171 }
   const window = opened(sheet)
   Char.readStats()
-  Test.expect(window.text("Wands").shown())
-  Test.expect(window.text("87.7").shown())
-  Test.expect(window.text("Attack power").count() == 1)
+  Test::expect(window.text("Wands").shown())
+  Test::expect(window.text("87.7").shown())
+  Test::expect(window.text("Attack power").count() == 1)
 }
 
 test "a druid's energy stands under its mana, with what each regains on a line under its bar" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { power: 5240, restingRegen: 76, energy: 87, energyRegen: 13 }
   const window = opened(sheet)
@@ -1531,172 +1531,172 @@ test "a druid's energy stands under its mana, with what each regains on a line u
   const regen = window.text("76").rect()
   const energy = window.text("87").rect()
   const energyRegen = window.text("13").rect()
-  Test.expect(mana.bottom <= regen.top && regen.bottom <= energy.top && energy.bottom <= energyRegen.top)
-  Test.expect(window.text("/s").shown())
+  Test::expect(mana.bottom <= regen.top && regen.bottom <= energy.top && energy.bottom <= energyRegen.top)
+  Test::expect(window.text("/s").shown())
 }
 
 // Reputation
 
 test "a group's heading folds it in the game, and the list shows what the game then lists" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
-  Test.expect(window.text("Argent Dawn").shown())
+  Test::expect(window.text("Argent Dawn").shown())
   window.button("Other").click()
-  Test.expect(sheet.heard.join(", ") == "fold 3 false")
-  Test.expect(!window.text("Argent Dawn").shown())
+  Test::expect(sheet.heard.join(", ") == "fold 3 false")
+  Test::expect(!window.text("Argent Dawn").shown())
 }
 
 test "a faction picked shows its standing, what is left to the next and its switches" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
-  Test.expect(window.text("Pick a faction.").shown())
+  Test::expect(window.text("Pick a faction.").shown())
   window.button("Stormwind").click()
-  Test.expect(window.text("Stormwind's description.").shown())
-  Test.expect(window.text("1500 / 6000").shown())
+  Test::expect(window.text("Stormwind's description.").shown())
+  Test::expect(window.text("1500 / 6000").shown())
   window.button("Show on the bar").click()
-  Test.expect(sheet.heard.join(", ") == "watch 2 true")
+  Test::expect(sheet.heard.join(", ") == "watch 2 true")
 }
 
 test "a faction the game won't let the player war with has its switch off and takes no click" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
   window.button("Stormwind").click()
   window.button("At war").click()
-  Test.expect(sheet.heard.length == 0)
+  Test::expect(sheet.heard.length == 0)
 }
 
 test "what a faction rose since the window first read it shows beside it" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
-  Game.items.icon = icons
+  Game::items.icon = icons
   const window = opened(sheet)
   window.button("Progression").click()
   sheet.stand = 4650
-  Events.UPDATE_FACTION.emit()
-  Test.expect(window.text("+150").shown())
+  Events::UPDATE_FACTION.emit()
+  Test::expect(window.text("+150").shown())
 }
 
 // The client's sheet
 
 test "the character is named with its surname, as Forever gives it" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "Ironsight", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "Ironsight", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
   // The client's own sheet, as the character's window reads it after the login.
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
   game.Hide()
   Char.hook(game)
   game.Show()
-  Test.expect(Test.page().window(WINDOW).text("Regy Ironsight").shown())
+  Test::expect(Test::page().window(WINDOW).text("Regy Ironsight").shown())
 }
 
 test "the client's sheet reads what is worn in a slot from the client" {
-  Test.mount(nil, PAGE)
-  Client.GetInventoryItemID = (unit: String, slot: Number): Number | nil => slot == 1 ? HELM : nil
+  Test::mount(nil, PAGE)
+  Client::GetInventoryItemID = (unit: String, slot: Number): Number | nil => slot == 1 ? HELM : nil
   const sheet = new ClientSheet()
   const helm = sheet.worn(1)
-  Test.expect(helm.item == HELM)
-  Test.expect(sheet.worn(2).item == nil)
+  Test::expect(helm.item == HELM)
+  Test::expect(sheet.worn(2).item == nil)
 }
 
 test "the client's sheet reads health's and mana's regeneration a second, and spirit's share, as every five seconds" {
-  Test.mount(nil, PAGE)
-  Client.GetHealthRegen = (): (Number, Number) => { return 4, 1 }
-  Client.GetHealthRegenFromSpirit = (): (Number, Number) => { return 2, 0 }
-  Client.GetManaRegenFromSpirit = (): (Number, Number) => { return 6, 0 }
+  Test::mount(nil, PAGE)
+  Client::GetHealthRegen = (): (Number, Number) => { return 4, 1 }
+  Client::GetHealthRegenFromSpirit = (): (Number, Number) => { return 2, 0 }
+  Client::GetManaRegenFromSpirit = (): (Number, Number) => { return 6, 0 }
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   // Spirit's health counted standing, as the game's sheet takes it: three quarters.
-  Test.expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
-  Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
+  Test::expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
+  Test::expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
 }
 
 test "while the client holds the statistics secret the window keeps what it read, and reads them again once plain" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new ClientSheet())
   // A fight where secrets apply: the stats' changes are heard, and nothing is counted with a secret.
-  Test.secretStats(true)
-  Test.event("UNIT_STATS", "player")
-  Test.expect(window.text(Locale.SECTION_MELEE).shown())
-  Test.secretStats(false)
-  Test.expect(window.text(Locale.SECTION_MELEE).shown())
+  Test::secretStats(true)
+  Test::event("UNIT_STATS", "player")
+  Test::expect(window.text(Locale::SECTION_MELEE).shown())
+  Test::secretStats(false)
+  Test::expect(window.text(Locale::SECTION_MELEE).shown())
 }
 
 test "the client's sheet reads the three hastes, the ranged with its ammo's" {
-  Test.mount(nil, PAGE)
-  Client.GetMeleeHaste = (): Number => 4
-  Client.GetRangedHaste = (): (Number, Number) => { return 3, 2 }
-  Client.UnitSpellHaste = (unit: String): Number => 6
+  Test::mount(nil, PAGE)
+  Client::GetMeleeHaste = (): Number => 4
+  Client::GetRangedHaste = (): (Number, Number) => { return 3, 2 }
+  Client::UnitSpellHaste = (unit: String): Number => 6
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
-  Test.expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
+  Test::expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
 }
 
 test "the client's sheet reads the glancing blows against a raid boss's 315 of defense and the level's own" {
-  Test.mount(nil, PAGE)
-  Client.UnitLevel = (unit: String): Number => 60
-  Client.GetGlancingBlowChance = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.4 : 0.1
-  Client.GetGlancingBlowPenalty = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.35 : 0.05
+  Test::mount(nil, PAGE)
+  Client::UnitLevel = (unit: String): Number => 60
+  Client::GetGlancingBlowChance = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.4 : 0.1
+  Client::GetGlancingBlowPenalty = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.35 : 0.05
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
-  Test.expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
-  Test.expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
-  Test.expect(stats.bossDefensePast == 15)
+  Test::expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
+  Test::expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
+  Test::expect(stats.bossDefensePast == 15)
 }
 
 test "the game's skills page shown opens ours on «Progression»'s skills" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   Char.sheet = new FakeSheet()
-  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
-  const page = Client.CreateFrame("Frame", "SkillsFrame", game, nil)
+  const game = Client::CreateFrame("Frame", "CharacterFrame", Client::UIParent, nil)
+  const page = Client::CreateFrame("Frame", "SkillsFrame", game, nil)
   page.Hide()
   game.Hide()
   Char.hook(game)
   game.Show()
   page.Show()
-  Test.expect(Test.page().window(WINDOW).text("290 / 300").shown())
+  Test::expect(Test::page().window(WINDOW).text("290 / 300").shown())
 }
 
 test "a slot's durability bar is red below a quarter, green from there" {
-  Test.expect(wearColor(0.2) == Style.RED)
-  Test.expect(wearColor(0.25) == Style.GREEN)
+  Test::expect(wearColor(0.2) == Style::RED)
+  Test::expect(wearColor(0.25) == Style::GREEN)
 }
 
 // The sample tabs
 
 test "the statistics' search keeps the statistics whose name holds it, under their categories" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = opened(new FakeSheet())
   window.button("Statistics").click()
-  Test.expect(window.text("Total deaths").shown())
+  Test::expect(window.text("Total deaths").shown())
   window.input().type("gold")
-  Test.expect(window.text("Total gold acquired").shown())
-  Test.expect(!window.text("Total deaths").shown())
-  Test.expect(!window.text("Combat").shown())
-  Test.expect(window.text("1 statistics").shown())
+  Test::expect(window.text("Total gold acquired").shown())
+  Test::expect(!window.text("Total deaths").shown())
+  Test::expect(!window.text("Combat").shown())
+  Test::expect(window.text("1 statistics").shown())
 }
 
 test "the statistics as one list stand under no category" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = opened(new FakeSheet())
   window.button("Statistics").click()
   window.button(Ordaen.art.ctl.tool.categories).click()
-  Test.page().window("One list").text("One list").click()
-  Test.expect(window.text("Total deaths").shown())
-  Test.expect(!window.text("Combat").shown())
+  Test::page().window("One list").text("One list").click()
+  Test::expect(window.text("Total deaths").shown())
+  Test::expect(!window.text("Combat").shown())
 }
 
 // A gauge's fill: the client's status bar texture, tinted.
 const GAUGE_FILL: Art = "Interface/TargetingFrame/UI-StatusBar"
 // A gauge's fill, the nth on the page: a rounded fill's seven pieces (the middle, the left side, the right side, the
 // four corners), from its left side's left to its right side's right, as high as its middle.
-function gaugeFill(window: Test.Part, nth: Integer): Test.Rect {
+function gaugeFill(window: Test::Part, nth: Integer): Test::Rect {
   const pieces = window.box(GAUGE_FILL)
   const first = (nth - 1) * 7
   const middle = pieces.nth(first + 1).rect()
@@ -1704,7 +1704,7 @@ function gaugeFill(window: Test.Part, nth: Integer): Test.Rect {
 }
 
 test "each faction's gauge fills its own share, in its own row, as tall as the others" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const sheet = new FakeSheet()
   // Stormwind half way (6000 of 3000 to 9000), Argent Dawn a sixth (4000).
   sheet.stand = 6000
@@ -1713,183 +1713,183 @@ test "each faction's gauge fills its own share, in its own row, as tall as the o
   // The rows in order: Alliance, Stormwind, Other, Argent Dawn (a heading keeps its gauge's place, unseen).
   const stormwind = gaugeFill(window, 2)
   const argent = gaugeFill(window, 4)
-  Test.expect(((stormwind.bottom - stormwind.top) - (argent.bottom - argent.top)).abs() < 0.5)
-  Test.expect(((stormwind.right - stormwind.left) / (argent.right - argent.left) - 3).abs() < 0.1)
+  Test::expect(((stormwind.bottom - stormwind.top) - (argent.bottom - argent.top)).abs() < 0.5)
+  Test::expect(((stormwind.right - stormwind.left) / (argent.right - argent.left) - 3).abs() < 0.1)
   // Each in the row of its faction's name.
   const stormwindName = window.text("Stormwind").rect()
   const argentName = window.text("Argent Dawn").rect()
-  Test.expect(stormwind.top <= stormwindName.bottom && stormwind.bottom >= stormwindName.top)
-  Test.expect(argent.top <= argentName.bottom && argent.bottom >= argentName.top)
-  Test.expect(stormwind.bottom <= argentName.top)
+  Test::expect(stormwind.top <= stormwindName.bottom && stormwind.bottom >= stormwindName.top)
+  Test::expect(argent.top <= argentName.bottom && argent.bottom >= argentName.top)
+  Test::expect(stormwind.bottom <= argentName.top)
 }
 
 test "the reputation's search keeps the factions whose name holds it, under their heading; the footer counts them" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = opened(new FakeSheet())
   window.button("Progression").click()
-  Test.expect(window.text("2 factions").shown())
+  Test::expect(window.text("2 factions").shown())
   window.input().type("argent")
-  Test.expect(window.text("Argent Dawn").shown())
-  Test.expect(window.text("Other").shown())
-  Test.expect(!window.text("Stormwind").shown())
-  Test.expect(!window.text("Alliance").shown())
+  Test::expect(window.text("Argent Dawn").shown())
+  Test::expect(window.text("Other").shown())
+  Test::expect(!window.text("Stormwind").shown())
+  Test::expect(!window.text("Alliance").shown())
 }
 
 test "the reputation's filter keeps the factions at war alone, and says nothing found where none is" {
-  Test.mount(nil, PAGE)
+  Test::mount(nil, PAGE)
   const window = opened(new FakeSheet())
   window.button("Progression").click()
   window.button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().window("At war").text("At war").click()
-  Test.expect(!window.text("Stormwind").shown())
-  Test.expect(window.text("Nothing found.").shown())
+  Test::page().window("At war").text("At war").click()
+  Test::expect(!window.text("Stormwind").shown())
+  Test::expect(window.text("Nothing found.").shown())
 }
 
 test "a window kept narrower than the stats need, from an older save, is drawn wide enough for them" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   Char.window.memory.write({ width: 1054.6875dp, height: 726.5625dp, ..Char.window.defaults })
   const window = opened(new FakeSheet())
-  Test.expect(window.text("STR").shown())
-  Test.expect(window.text("Attack power").count() == 1)
+  Test::expect(window.text("STR").shown())
+  Test::expect(window.text("Attack power").count() == 1)
 }
 
 test "the character tab holds the window at its own height; the player's taller one comes back on the others" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Char.window.memory.write({ width: Style.WIDTH, height: Style.HEIGHT + 200dp, ..Char.window.defaults })
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Char.window.memory.write({ width: Style::WIDTH, height: Style::HEIGHT + 200dp, ..Char.window.defaults })
   const window = opened(new FakeSheet())
-  const held = Test.edges(Ordaen.art.window.wood, 0)
+  const held = Test::edges(Ordaen.art.window.wood, 0)
   window.button("Progression").click()
-  const tall = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect((held.top - tall.top).abs() < 0.5)
-  Test.expect((tall.bottom - tall.top) - (held.bottom - held.top) > 50dp / 1ui)
+  const tall = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect((held.top - tall.top).abs() < 0.5)
+  Test::expect((tall.bottom - tall.top) - (held.bottom - held.top) > 50dp / 1ui)
 }
 
 // A texture the client draws of the dwarves' scene.
-function isScene(texture: Test.Drawn): Boolean {
+function isScene(texture: Test::Drawn): Boolean {
   const at, _ = `${texture.file}`.find("backdrop%-dwarf")
   return at != nil
 }
 
 test "the model stands in its race's scene from the game's dressing room, enlarged, in grey" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
-  Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
-  const scenes = Test.drawn().filter(texture => isScene(texture))
-  Test.expect(scenes.length == 1 && scenes.all(texture => texture.desaturated))
+  Test::expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
+  Test::expect(!window.paintedWith("@/media/backdrop-human.tga"))
+  const scenes = Test::drawn().filter(texture => isScene(texture))
+  Test::expect(scenes.length == 1 && scenes.all(texture => texture.desaturated))
   // As tall as the model's column at the height the tab holds the window at, so it is drawn in its own proportions,
   // neither cut at the bottom nor short of it (the veil over it is the column's whole).
-  const column = window.box(Style.SCENE_VEIL).nth(1).rect()
-  const body = Test.edges(Ordaen.art.window.wood, 0)
+  const column = window.box(Style::SCENE_VEIL).nth(1).rect()
+  const body = Test::edges(Ordaen.art.window.wood, 0)
   // The tab is bare: the column runs from the sets' strip, under its tabs, to the frame's line at the bottom, no
   // window's room between (that room alone was more than the frame's art is wide).
   const sets = window.text("New Set").rect()
   // At the bottom, the frame's art past its line covers the wood's edge.
   const reach = Ordaen.art.frame.window.reach.bottom
-  Test.expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < reach + 2)
-  Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
+  Test::expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < reach + 2)
+  Test::expect(((column.bottom - column.top) / (Style::SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 test "health and the resource are slim bars of their own, a thin line round them, each filled in its colour" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 0 && window.box(xpFillArt(XpFill.Brushed)).count() == 0)
+  Test::expect(window.box(Ordaen.art.panel.xpTube).count() == 0 && window.box(xpFillArt(XpFill::Brushed)).count() == 0)
   // The line round each, its fill rounded in the pool's colour: no square fill over the line's round corners.
   // The health's fill in its colour laid deeper.
-  const deep: Color = { r: Style.HEALTH.r * Style.POOL_DEPTH, g: Style.HEALTH.g * Style.POOL_DEPTH, b: Style.HEALTH.b * Style.POOL_DEPTH, a: Style.HEALTH.a }
-  Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(deep).count() > 1)
+  const deep: Color = { r: Style::HEALTH.r * Style::POOL_DEPTH, g: Style::HEALTH.g * Style::POOL_DEPTH, b: Style::HEALTH.b * Style::POOL_DEPTH, a: Style::HEALTH.a }
+  Test::expect(window.box(Style::POOL_RIM).count() > 0 && window.box(deep).count() > 1)
 }
 
 test "the resistances are one bar, a slice a resistance the character has, as wide as its share, its value in it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   // Arcane, fire, frost, nature, shadow: fire 30 and shadow 10, the rest none.
   sheet.figures = (): Stats => Stats { resistances: [0, 30, 0, 0, 10] }
   const window = opened(sheet)
-  const fire = window.box(Style.FIRE).nth(1).item().rect()
-  const shadow = window.box(Style.SHADOW).nth(1).item().rect()
-  Test.expect(window.box(Style.FROST).count() == 0 && window.box(Style.NATURE).count() == 0)
-  Test.expect(((fire.right - fire.left) - 3 * (shadow.right - shadow.left)).abs() < 1 && shadow.left >= fire.right - 0.5)
+  const fire = window.box(Style::FIRE).nth(1).item().rect()
+  const shadow = window.box(Style::SHADOW).nth(1).item().rect()
+  Test::expect(window.box(Style::FROST).count() == 0 && window.box(Style::NATURE).count() == 0)
+  Test::expect(((fire.right - fire.left) - 3 * (shadow.right - shadow.left)).abs() < 1 && shadow.left >= fire.right - 0.5)
   const thirty = window.text("30").rect()
-  Test.expect(thirty.left >= fire.left && thirty.right <= fire.right)
+  Test::expect(thirty.left >= fire.left && thirty.right <= fire.right)
   // Each slice its own tooltip.
   window.text("10").hover()
-  Test.expect(Test.page().window("Shadow Resistance").shown())
+  Test::expect(Test::page().window("Shadow Resistance").shown())
 }
 
 test "the hit on you's card counts an enemy of the player's level below the greatest; its tooltip the table of each enemy's blows" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { dodge: 5, parry: 5, block: 10, shield: true }
   const window = opened(sheet)
   // An enemy of the level: 5 of misses, the player's 5 of dodges and 5 of parries; a block lands.
   window.text("85.00%").hover()
-  const tip = Test.page().window(Locale.HIT_TAKEN_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.00% | Dodge | 5.00% | Parry | 5.00% | Block | 10.00% | Crit | 5.00% | Crushing blow | 0.00% | Ordinary hit | 70.00%"))
+  const tip = Test::page().window(Locale::HIT_TAKEN_TIP)
+  Test::expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.00% | Dodge | 5.00% | Parry | 5.00% | Block | 10.00% | Crit | 5.00% | Crushing blow | 0.00% | Ordinary hit | 70.00%"))
   // A boss's 15 points of skill past the defense: 0.6 off the miss and the player's avoidance, onto its crit; a crushing
   // blow at 15 points, 2 a point less 15.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 4.40% | Dodge | 4.40% | Parry | 4.40% | Block | 9.40% | Crit | 5.60% | Crushing blow | 15.00% | Ordinary hit | 56.80%"))
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 4.40% | Dodge | 4.40% | Parry | 4.40% | Block | 9.40% | Crit | 5.60% | Crushing blow | 15.00% | Ordinary hit | 56.80%"))
 }
 
 test "the damage reduction's card counts a raid boss at the greatest level, its tooltip each enemy's" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { armorReduction: 30, bossArmorReduction: 25, atMaxLevel: true }
   const window = opened(sheet)
   window.text("25.00%").hover()
-  const tip = Test.page().window(Locale.DAMAGE_REDUCTION_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Damage reduction | 25.00% | Targets of your level | Damage reduction | 30.00%"))
+  const tip = Test::page().window(Locale::DAMAGE_REDUCTION_TIP)
+  Test::expect(tip.texts().join(" | ").contains("Raid bosses | Damage reduction | 25.00% | Targets of your level | Damage reduction | 30.00%"))
 }
 
 test "with no resistance the resistances' bar isn't drawn" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(!window.text("Resistance").shown())
+  Test::expect(!window.text("Resistance").shown())
 }
 
 test "a card's name and its value stand on one line" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   const name = window.text("Attack power").rect()
   const value = window.text("832").rect()
-  Test.expect(value.left > name.right && (value.top + value.bottom - name.top - name.bottom).abs() < 4)
+  Test::expect(value.left > name.right && (value.top + value.bottom - name.top - name.bottom).abs() < 4)
 }
 
 test "the gauges, the resistances and the cards are carved down to the marble" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = opened(new FakeSheet())
   // The gauges (the armor's among them), the defence's cards and the melee section's, each on the marble.
-  Test.expect(window.box(Ordaen.art.window.marble).count() > 12)
+  Test::expect(window.box(Ordaen.art.window.marble).count() > 12)
 }
 
 test "the bars' and the stats' columns share the room the model's leaves, which stays as wide in a wider window" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   _ = opened(new FakeSheet())
   // The model's box (the scene's), and the columns' grid two boxes out from it (past the grooves' row).
-  const model = Test.edges("@/media/backdrop-dwarf.tga", 1)
-  const columns = Test.edges("@/media/backdrop-dwarf.tga", 3)
-  Test.expect(centred(model, columns))
+  const model = Test::edges("@/media/backdrop-dwarf.tga", 1)
+  const columns = Test::edges("@/media/backdrop-dwarf.tga", 3)
+  Test::expect(centred(model, columns))
   Char.window.memory.write({ width: 1700dp, ..Char.window.defaults })
   _ = opened(new FakeSheet())
-  const wider = Test.edges("@/media/backdrop-dwarf.tga", 1)
-  const widerColumns = Test.edges("@/media/backdrop-dwarf.tga", 3)
-  Test.expect(widerColumns.right - widerColumns.left > columns.right - columns.left + 100)
-  Test.expect((wider.right - wider.left - (model.right - model.left)).abs() < 1)
-  Test.expect(centred(wider, widerColumns))
+  const wider = Test::edges("@/media/backdrop-dwarf.tga", 1)
+  const widerColumns = Test::edges("@/media/backdrop-dwarf.tga", 3)
+  Test::expect(widerColumns.right - widerColumns.left > columns.right - columns.left + 100)
+  Test::expect((wider.right - wider.left - (model.right - model.left)).abs() < 1)
+  Test::expect(centred(wider, widerColumns))
 }
 
 // A box stands in the middle of another, to a unit.
-function centred(inner: Test.Rect, outer: Test.Rect): Boolean {
+function centred(inner: Test::Rect, outer: Test::Rect): Boolean {
   return (inner.left - outer.left - (outer.right - inner.right)).abs() < 1
 }
 
@@ -1906,7 +1906,7 @@ class FakeInspector implements Inspector {
     return {
       who: { name: "Grom", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" }, classTag: "WARRIOR",
       worn: [{
-        slot: 16, item: REAPER, quality: Quality.Epic, level: 58, durability: nil, name: "Arcanite Reaper",
+        slot: 16, item: REAPER, quality: Quality::Epic, level: 58, durability: nil, name: "Arcanite Reaper",
         gives: [{ stat: .Strength, amount: 20 }]
       }]
     }
@@ -1922,97 +1922,97 @@ const GROM = "Player-1-0002"
 // A text the inspect window always shows: its last tab.
 const INSPECT = "PvP"
 
-function inspecting(inspector: mut FakeInspector): Test.Part {
+function inspecting(inspector: mut FakeInspector): Test::Part {
   Char.inspector = inspector
-  Client.InspectUnit("target")
-  return Test.page().window(INSPECT)
+  Client::InspectUnit("target")
+  return Test::page().window(INSPECT)
 }
 
 test "the game's inspect opens ours on the player's character and asks the server; closing it lets the answer go" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const inspector = new FakeInspector()
   const window = inspecting(inspector)
-  Test.expect(window.text("Grom").shown())
-  Test.expect(window.text("58").shown())
-  Test.expect(inspector.heard.join(",") == "ask target")
+  Test::expect(window.text("Grom").shown())
+  Test::expect(window.text("58").shown())
+  Test::expect(inspector.heard.join(",") == "ask target")
   window.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!Test.page().window(INSPECT).shown())
-  Test.expect(inspector.heard.join(",") == "ask target,clear")
+  Test::expect(!Test::page().window(INSPECT).shown())
+  Test::expect(inspector.heard.join(",") == "ask target,clear")
 }
 
 test "an inspected character's scene is as tall as its doll, with no sets' strip over it and the footer under it" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = inspecting(new FakeInspector())
-  const column = window.box(Style.SCENE_VEIL).nth(1).rect()
-  Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT_INSPECTED / 1ui) - 1).abs() < 0.01)
+  const column = window.box(Style::SCENE_VEIL).nth(1).rect()
+  Test::expect(((column.bottom - column.top) / (Style::SCENE_HEIGHT_INSPECTED / 1ui) - 1).abs() < 0.01)
 }
 
 test "with no character of the account of the inspected class, race and level, the stats are what the gear gives, and the footer says so" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   const window = inspecting(new FakeInspector())
-  Test.expect(window.text("20").shown())
-  Test.expect(window.text("≈ None of your characters has been this class, race and level: only what the gear gives").shown())
+  Test::expect(window.text("20").shown())
+  Test::expect(window.text("≈ None of your characters has been this class, race and level: only what the gear gives").shown())
 }
 
 test "the stats are estimated from what the player's own character of that class, race and level showed: its base, the gear, and what strength feeds" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
   // The player's own window read once: a dwarf warrior of level 60, strength's base 280, attack power's 208.
   opened(new FakeSheet()).button(Ordaen.art.ctl.corner.close).click()
   const window = inspecting(new FakeInspector())
-  Test.expect(window.text("300").shown())
-  Test.expect(window.text("808").shown())
-  Test.expect(window.text("≈ Estimated from the gear, the base as your own characters of this class, race and level showed it").shown())
+  Test::expect(window.text("300").shown())
+  Test::expect(window.text("808").shown())
+  Test::expect(window.text("≈ Estimated from the gear, the base as your own characters of this class, race and level showed it").shown())
 }
 
 test "the talents come with the server's answer, only shown; the honor tab says the rank and the kills" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  Game.talentTrees.inspected = (): Array<Game.TalentTree> => [{
+  Test::mount(nil, PAGE)
+  Game::items.icon = icons
+  Game::talentTrees.inspected = (): Array<Game::TalentTree> => [{
     id: 1, name: "Arms", nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: nil, rank: 5, ranks: 5, canSpend: false, canRefund: false, edges: [] }]
   }]
   const window = inspecting(new FakeInspector())
   window.button("Talents").click()
-  Test.expect(window.text("The talents haven't come yet.").shown())
-  Test.event("INSPECT_READY", GROM)
-  Test.expect(window.text("Arms: 5").shown())
+  Test::expect(window.text("The talents haven't come yet.").shown())
+  Test::event("INSPECT_READY", GROM)
+  Test::expect(window.text("Arms: 5").shown())
   window.button("PvP").click()
-  Test.expect(window.text("Rank 8: Knight").shown())
-  Test.expect(window.text("3870").shown())
+  Test::expect(window.text("Rank 8: Knight").shown())
+  Test::expect(window.text("3870").shown())
 }
 
 test "a talent's rank stands in its icon's middle, as wide as the node so the client centres its letters whatever their width" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
   const node = window.button("2").rect()
   const rank = window.button("2").text("2").rect()
-  Test.expect((rank.left - node.left).abs() < 0.5 && (rank.right - node.right).abs() < 0.5)
-  Test.expect((rank.top + rank.bottom - node.top - node.bottom).abs() < 0.5)
+  Test::expect((rank.left - node.left).abs() < 0.5 && (rank.right - node.right).abs() < 0.5)
+  Test::expect((rank.top + rank.bottom - node.top - node.bottom).abs() < 0.5)
 }
 
 test "the class's art keeps its proportions after another tab showed and the talents again" {
-  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
   window.button("Progression").click()
   window.button("Talents").click()
-  const art = Test.edges("talent-background-warrior", 0)
-  const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const art = Test::edges("talent-background-warrior", 0)
+  const drawn = Test::drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
-  Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
+  Test::expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }
 
 test "a spec's tab keeps the window's size: no grip while it is open, the grip again on another" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  Test::mount(nil, PAGE)
+  Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(!window.box(Ordaen.art.ctl.grip).shown())
+  Test::expect(!window.box(Ordaen.art.ctl.grip).shown())
   window.button("Statistics").click()
-  Test.expect(window.box(Ordaen.art.ctl.grip).shown())
+  Test::expect(window.box(Ordaen.art.ctl.grip).shown())
 }

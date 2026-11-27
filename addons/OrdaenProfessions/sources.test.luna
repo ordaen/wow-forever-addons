@@ -16,41 +16,41 @@ const FACTION = 2758
 test "a profession's recipes are read with where each is learned: its trainer's skill and price, its vendors, the standing it asks" {
   const potion = sourcesOf(ALCHEMY)[MINOR_HEALING]
   const sold = sourcesOf(BLACKSMITHING)[SOLD]
-  Test.expect(potion != nil && sold != nil)
-  if (potion != nil) { Test.expect(potion.skill == 15 && potion.cost == 50 && potion.sources.join("/") == "trainer") }
+  Test::expect(potion != nil && sold != nil)
+  if (potion != nil) { Test::expect(potion.skill == 15 && potion.cost == 50 && potion.sources.join("/") == "trainer") }
   if (sold != nil) {
-    Test.expect(sold.skill == 50 && sold.sources.join("/") == "vendor" && sold.vendors[1]?.id == VENDOR)
-    Test.expect(sold.reputation[1]?.faction == FACTION && sold.reputation[1]?.standing == 5)
+    Test::expect(sold.skill == 50 && sold.sources.join("/") == "vendor" && sold.vendors[1]?.id == VENDOR)
+    Test::expect(sold.reputation[1]?.faction == FACTION && sold.reputation[1]?.standing == 5)
   }
-  Test.expect(sourcesOf(nil)[MINOR_HEALING] == nil && sourcesOf(1)[MINOR_HEALING] == nil)
+  Test::expect(sourcesOf(nil)[MINOR_HEALING] == nil && sourcesOf(1)[MINOR_HEALING] == nil)
 }
 
 test "a recipe is the other side's alone where its every way is a vendor or a quest and none of them is the player's side's" {
   const horde: Array<Sided> = [{ id: VENDOR, area: 1, side: 2 }]
   const both: Array<Sided> = [{ id: VENDOR, area: 1, side: 2 }, { id: VENDOR, area: 1, side: 0 }]
   const sold: RecipeSource = { skill: 1, sources: ["vendor"], cost: 0, favor: 0, reputation: [], quests: [], vendors: horde }
-  Test.expect(otherSideOnly(sold, 1) && !otherSideOnly(sold, 2))
-  Test.expect(!otherSideOnly({ skill: 1, sources: ["vendor"], cost: 0, favor: 0, reputation: [], quests: [], vendors: both }, 1))
+  Test::expect(otherSideOnly(sold, 1) && !otherSideOnly(sold, 2))
+  Test::expect(!otherSideOnly({ skill: 1, sources: ["vendor"], cost: 0, favor: 0, reputation: [], quests: [], vendors: both }, 1))
   // A drop, a trainer or no way known: anyone's.
-  Test.expect(!otherSideOnly({ skill: 1, sources: ["vendor", "drop"], cost: 0, favor: 0, reputation: [], quests: [], vendors: horde }, 1))
-  Test.expect(!otherSideOnly({ skill: 1, sources: [], cost: 0, favor: 0, reputation: [], quests: [], vendors: [] }, 1))
-  Test.expect(wayOf("trainer") == Way.Trainer && wayOf("world_object") == Way.Other)
+  Test::expect(!otherSideOnly({ skill: 1, sources: ["vendor", "drop"], cost: 0, favor: 0, reputation: [], quests: [], vendors: horde }, 1))
+  Test::expect(!otherSideOnly({ skill: 1, sources: [], cost: 0, favor: 0, reputation: [], quests: [], vendors: [] }, 1))
+  Test::expect(wayOf("trainer") == Way::Trainer && wayOf("world_object") == Way::Other)
 }
 
 test "a recipe's card has a place for each way it is learned, a vendor its own, and a line for what it asks" {
-  Test.factions({ [FACTION]: "The Smiths" })
+  Test::factions({ [FACTION]: "The Smiths" })
   const potion = sourcesOf(ALCHEMY)[MINOR_HEALING]
   if (potion != nil) {
     const trainer = placesOf(potion, 1)[1]
-    Test.expect(trainer?.way == "Trainer" && trainer?.name == "Profession trainer, from skill 15" && trainer?.cost == 50)
+    Test::expect(trainer?.way == "Trainer" && trainer?.name == "Profession trainer, from skill 15" && trainer?.cost == 50)
   }
   const sold = sourcesOf(BLACKSMITHING)[SOLD]
   if (sold != nil) {
     const vendor = placesOf(sold, 1)[1]
-    Test.expect(vendor?.way == "Vendor" && vendor?.npc == VENDOR && vendor?.quest == 0)
-    Test.expect(asksOf(sold).length == 1 && asksOf(sold)[1]?.contains("with The Smiths") == true)
+    Test::expect(vendor?.way == "Vendor" && vendor?.npc == VENDOR && vendor?.quest == 0)
+    Test::expect(asksOf(sold).length == 1 && asksOf(sold)[1]?.contains("with The Smiths") == true)
   }
-  Test.expect(potion != nil && sold != nil)
+  Test::expect(potion != nil && sold != nil)
 }
 
 // A recipe learned at `skill`, a rank asking `level`.
@@ -59,13 +59,13 @@ function learnedAt(skill: Integer, level: Integer): RecipeSource {
 }
 
 test "a recipe not learned waits as What's Training files it: now, something else first, within 10 points, later" {
-  Game.player.level = 20
+  Game::player.level = 20
   // At skill 50 of 75.
-  Test.expect(readinessOf(learnedAt(50, 0), 50, 75) == READY_NOW && readinessOf(learnedAt(40, 0), 50, 75) == READY_NOW)
+  Test::expect(readinessOf(learnedAt(50, 0), 50, 75) == READY_NOW && readinessOf(learnedAt(40, 0), 50, 75) == READY_NOW)
   // A rank asking a level not reached, or nothing known of it.
-  Test.expect(readinessOf(learnedAt(50, 30), 50, 75) == READY_MISSING && readinessOf(nil, 50, 75) == READY_MISSING)
-  Test.expect(readinessOf(learnedAt(0, 0), 50, 75) == READY_MISSING)
-  Test.expect(readinessOf(learnedAt(60, 0), 50, 75) == READY_SOON && readinessOf(learnedAt(61, 0), 50, 75) == READY_LATER)
+  Test::expect(readinessOf(learnedAt(50, 30), 50, 75) == READY_MISSING && readinessOf(nil, 50, 75) == READY_MISSING)
+  Test::expect(readinessOf(learnedAt(0, 0), 50, 75) == READY_MISSING)
+  Test::expect(readinessOf(learnedAt(60, 0), 50, 75) == READY_SOON && readinessOf(learnedAt(61, 0), 50, 75) == READY_LATER)
   // Over the skill's most now: later, however near.
-  Test.expect(readinessOf(learnedAt(76, 0), 70, 75) == READY_LATER)
+  Test::expect(readinessOf(learnedAt(76, 0), 70, 75) == READY_LATER)
 }

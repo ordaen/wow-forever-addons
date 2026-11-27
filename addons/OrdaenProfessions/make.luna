@@ -16,8 +16,8 @@ const STEP = 32.8125dp
 const MODE_WIDTH = 164.0625dp
 const STOP_CASTING: Action = .RunMacro { macro: "/stopcasting" }
 const MODES: Array<Choice<MakeMode>> = [
-  { value: MakeMode.Count, label: Locale.MAKE_COUNT },
-  { value: MakeMode.Skill, label: Locale.MAKE_SKILL }
+  { value: MakeMode::Count, label: Locale::MAKE_COUNT },
+  { value: MakeMode::Skill, label: Locale::MAKE_SKILL }
 ]
 
 // Where the shown recipe stands in the queue: not in it, waiting in it, or being made.
@@ -29,13 +29,13 @@ public class MakeRow implements Component {
   // «Stop» or «Remove from queue» clicked: the recipe leaves the queue, its run ending with the craft under way.
   public drop: Event<nil> = new Event()
 
-  derived making: Boolean = self.queueing == Queueing.Making
+  derived making: Boolean = self.queueing == Queueing::Making
   derived button: String = match (self.queueing) {
-    Queueing.None => Locale.CREATE
-    Queueing.Waiting => Locale.UNQUEUE
-    Queueing.Making => Locale.STOP
+    Queueing::None => Locale::CREATE
+    Queueing::Waiting => Locale::UNQUEUE
+    Queueing::Making => Locale::STOP
   }
-  derived blocked: Boolean = self.queueing == Queueing.None && self.cannot
+  derived blocked: Boolean = self.queueing == Queueing::None && self.cannot
   // While a craft is being made, «Stop» interrupts it too: only a secure press may stop a cast (`/stopcasting`).
   derived stopping: Action | nil = self.making ? STOP_CASTING : nil
 
@@ -51,24 +51,24 @@ public class MakeRow implements Component {
   // What the bags make of the recipe now.
   derived craftable: Integer = self.recipe?.craftable ?? 0
 
-  recipe: Signal<Game.Recipe | nil>
+  recipe: Signal<Game::Recipe | nil>
   count: mut Signal<Integer>
   mode: mut Signal<MakeMode>
-  profession: Signal<Game.Profession | nil>
+  profession: Signal<Game::Profession | nil>
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
   queueing: Signal<Queueing>
   constructor(
-    recipe: Signal<Game.Recipe | nil>,
+    recipe: Signal<Game::Recipe | nil>,
     // How many to make, or skill points to gain.
     count: mut Signal<Integer>,
     mode: mut Signal<MakeMode>,
     // The profession open: its skill, and the most its rank allows.
-    profession: Signal<Game.Profession | nil>,
+    profession: Signal<Game::Profession | nil>,
     // The skill at which the recipe turns yellow and grey; none where the client's table hasn't it.
     yellow: Signal<Integer | nil>,
     grey: Signal<Integer | nil>,
-    queueing: Signal<Queueing> = Queueing.None
+    queueing: Signal<Queueing> = Queueing::None
   ) {
     self.recipe = recipe
     self.count = count
@@ -88,7 +88,7 @@ public class MakeRow implements Component {
   }
 
   mostOf(self): Integer {
-    if (self.mode != MakeMode.Skill) { return self.craftable }
+    if (self.mode != MakeMode::Skill) { return self.craftable }
     const profession = self.profession
     return profession == nil ? 0 : profession.max - profession.rank
   }
@@ -97,20 +97,20 @@ public class MakeRow implements Component {
   makingOf(self): Integer {
     const craftable = self.craftable
     return match (self.mode) {
-      MakeMode.Count => self.count.min(craftable)
-      MakeMode.Skill => (self.expected ?? 0).min(craftable)
+      MakeMode::Count => self.count.min(craftable)
+      MakeMode::Skill => (self.expected ?? 0).min(craftable)
     }
   }
 
   hintOf(self): String {
     return match (self.mode) {
-      MakeMode.Count => ""
-      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.expected ?? 0)
+      MakeMode::Count => ""
+      MakeMode::Skill => self.expected == nil ? Locale::MAKE_NO_SKILL : Locale::MAKE_ABOUT.format(self.expected ?? 0)
     }
   }
 
   onClick(mut self) {
-    if (self.queueing != Queueing.None) {
+    if (self.queueing != Queueing::None) {
       self.drop.emit()
     } else if (!self.cannot) {
       self.create.emit(self.makes)
@@ -119,12 +119,12 @@ public class MakeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={MAKE} gap={3sp} yAlign={Align.Center}>
+      <box columns={MAKE} gap={3sp} yAlign={Align::Center}>
         <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} disabled={self.making} />
         <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
         <box />
         <PushButton label={self.button} width={128.90625dp} disabled={self.blocked} action={self.stopping} @click={self.onClick} />
-        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} columnSpan={4} />
+        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style::DIM} columnSpan={4} />
       </box>
     }
   }

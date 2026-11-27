@@ -10,26 +10,26 @@ import Test from "$test"
 import Wow from "LunaTypeRenderer"
 import root Ordaen from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800
 const HOUR = 3600
 const ORE: Integer = 2770
 const LINEN: Integer = 2589
 const AXE: Integer = 2847
-const RED: Color = Color.hex("#ff4040")
-const GREEN: Color = Color.hex("#40c040")
-const INK: Color = Color.hex("#e8dcc4")
-const AMBER: Color = Color.hex("#ffb02e")
+const RED: Color = Color::hex("#ff4040")
+const GREEN: Color = Color::hex("#40c040")
+const INK: Color = Color::hex("#e8dcc4")
+const AMBER: Color = Color::hex("#ffb02e")
 // The pip of an item on the shopping list.
-const LISTED: Color = Color.hex("#40c0ff")
+const LISTED: Color = Color::hex("#40c0ff")
 // A listing the next click buys from: a row picked.
-const PICKED: Color = Color.hex("#00000040")
+const PICKED: Color = Color::hex("#00000040")
 // A list's ground; a line of a menu that takes no click.
-const LISTS: Color = Color.hex("#0000004d")
-const MENU_DIM: Color = Color.hex("#6f6552")
+const LISTS: Color = Color::hex("#0000004d")
+const MENU_DIM: Color = Color::hex("#6f6552")
 // A category picked.
-const CATEGORY: Color = Color.hex("#d6a56b3d")
+const CATEGORY: Color = Color::hex("#d6a56b3d")
 // The player's case: a warhammer whose random suffixes are variants of their own. A key is the item's id and its
 // suffix × 2^20.
 const WARHAMMER: Integer = 15216
@@ -38,14 +38,14 @@ const BEAR: Integer = 1017
 const EAGLE: Integer = 1018
 const MONKEY: Integer = 1019
 
-function names(id: Integer): Game.TooltipData | nil {
+function names(id: Integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == AXE ? "Bronze Axe" :
     id == WARHAMMER ? "Sergeant's Warhammer" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
 }
 
-function variants(id: Integer, suffix: Integer): Game.TooltipData | nil {
+function variants(id: Integer, suffix: Integer): Game::TooltipData | nil {
   if (id != WARHAMMER) { return nil }
   const of = suffix == BEAR ? "the Bear" : suffix == EAGLE ? "the Eagle" : suffix == MONKEY ? "the Monkey" : nil
   if (of == nil) { return nil }
@@ -56,22 +56,22 @@ function variants(id: Integer, suffix: Integer): Game.TooltipData | nil {
 class Tooltips {
   public count = 0
 
-  public of(mut self, id: Integer): Game.TooltipData | nil {
+  public of(mut self, id: Integer): Game::TooltipData | nil {
     self.count += 1
     return names(id)
   }
 }
 
-function window(): Test.Part {
-  return Test.page().window("Sell")
+function window(): Test::Part {
+  return Test::page().window("Sell")
 }
 
 // The picked row's panel at the window's right: the part that holds «Add to shopping list».
-function panel(): Test.Part {
+function panel(): Test::Part {
   return window().button("Add to shopping list").item()
 }
 
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -79,14 +79,14 @@ function reads(part: Test.Part, expected: String): Boolean {
 
 // What the game was asked, but the tooltips of the rows the cursor crossed.
 function asked(expected: String): Boolean {
-  Test.flush()
-  const said = Test.requests().filter(request => !request.contains("Items.show")).join(", ")
+  Test::flush()
+  const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 // Whether the texts after `label` in `part` read exactly `expected` (as many as it has, joined by « | »).
-function says(part: Test.Part, label: String, expected: String): Boolean {
+function says(part: Test::Part, label: String, expected: String): Boolean {
   const shown = part.texts()
   const count = expected.split(" | ").length
   for (index, text of shown) {
@@ -114,877 +114,877 @@ function before(first: String, second: String): Boolean {
 // The rows
 
 test "before any price the list says the first scan is under way" {
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Test.expect(window().text("No prices for this realm: the first scan is under way. Find an item by name.").shown())
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Test::expect(window().text("No prices for this realm: the first scan is under way. Find an item by name.").shown())
 }
 
 test "each item the house showed is a row: how many listed, its lowest, its market, the share, the age" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 30 | 0g 0s 36c | 0g 0s 36c | 100% | < 1 h"))
-  Test.expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 0s 90c | 0g 0s 90c | 100% | < 1 h"))
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Test::expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 30 | 0g 0s 36c | 0g 0s 36c | 100% | < 1 h"))
+  Test::expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 0s 90c | 0g 0s 90c | 100% | < 1 h"))
 }
 
 test "an item the game doesn't name yet is named by its number" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: 99999, copper: 10, quantity: 1 }])
-  Test.expect(window().text("Item 99999").shown())
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: 99999, copper: 10, quantity: 1 }])
+  Test::expect(window().text("Item 99999").shown())
 }
 
 test "the lowest's share of its market: green for a bargain under 90%, red over 100%, the ink between" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   // A day on, the market moved a fifth of the way: linen 36 → 40 by 21%, ore 90 → 60.
-  Game.clock.server = START + 24 * HOUR
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 30 }, { key: ORE, copper: 120, quantity: 40 }])
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 30 | 0g 0s 30c | 0g 0s 35c | 86% | < 1 h"))
-  Test.expect(window().text("86%").textColor().equal(GREEN))
-  Test.expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 1s 20c | 0g 0s 96c | 125% | < 1 h"))
-  Test.expect(window().text("125%").textColor().equal(RED))
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }])
-  Test.expect(window().text("Linen Cloth").item().text("100%").textColor().equal(INK))
+  Game::clock.server = START + 24 * HOUR
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 30 }, { key: ORE, copper: 120, quantity: 40 }])
+  Test::expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 30 | 0g 0s 30c | 0g 0s 35c | 86% | < 1 h"))
+  Test::expect(window().text("86%").textColor().equal(GREEN))
+  Test::expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 1s 20c | 0g 0s 96c | 125% | < 1 h"))
+  Test::expect(window().text("125%").textColor().equal(RED))
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }])
+  Test::expect(window().text("Linen Cloth").item().text("100%").textColor().equal(INK))
 }
 
 test "the age column: «< 1 h» this hour, the hours under a day, the market's days from one, amber to the third" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionHouse.open = false
-  Test.flush()
-  Game.clock.server = START + 5 * HOUR
-  Game.auctionHouse.open = true
-  Test.expect(window().text("Linen Cloth").item().text("5 h").textColor().equal(INK))
-  Game.auctionHouse.open = false
-  Test.flush()
-  Game.clock.server = START + 50 * HOUR
-  Game.auctionHouse.open = true
-  Test.expect(window().text("Linen Cloth").item().text("(2 d.)").textColor().equal(AMBER))
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionHouse.open = false
+  Test::flush()
+  Game::clock.server = START + 5 * HOUR
+  Game::auctionHouse.open = true
+  Test::expect(window().text("Linen Cloth").item().text("5 h").textColor().equal(INK))
+  Game::auctionHouse.open = false
+  Test::flush()
+  Game::clock.server = START + 50 * HOUR
+  Game::auctionHouse.open = true
+  Test::expect(window().text("Linen Cloth").item().text("(2 d.)").textColor().equal(AMBER))
 }
 
 test "five thousand items: the list builds the rows in view, and the wheel builds none" {
-  Game.clock.server = START
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  let offers: Array<Game.Offer> = []
+  Game::clock.server = START
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  let offers: Array<Game::Offer> = []
   for (id of 1..5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
-  const made = Wow.made()
-  Game.auctionQuery.results.emit(offers)
-  Test.expect(window().text("Ware 2").shown())
-  const built = Wow.made() - made
-  Test.expect(built < 1000)
+  const made = Wow::made()
+  Game::auctionQuery.results.emit(offers)
+  Test::expect(window().text("Ware 2").shown())
+  const built = Wow::made() - made
+  Test::expect(built < 1000)
   // The results' list: the second box on a list's ground, after the categories.
   for (i of 1..3) { window().box(LISTS).nth(2).wheel(-1) }
-  Test.expect(Test.refused((): nil => window().text("Ware 1").hover()) != nil && Wow.made() - made == built)
+  Test::expect(Test::refused((): nil => window().text("Ware 1").hover()) != nil && Wow::made() - made == built)
 }
 
 // Sorting and the views
 
 test "a column's title sorts the rows by it, and again the other way; the sort is kept between sessions" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 90, quantity: 40 }, { key: LINEN, copper: 36, quantity: 30 }])
-  _ = Test.requests()
-  Test.expect(before("Copper Ore", "Linen Cloth"))
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 90, quantity: 40 }, { key: LINEN, copper: 36, quantity: 30 }])
+  _ = Test::requests()
+  Test::expect(before("Copper Ore", "Linen Cloth"))
   window().button("Item").click()
-  Test.expect(before("Copper Ore", "Linen Cloth"))
+  Test::expect(before("Copper Ore", "Linen Cloth"))
   window().button("Item").click()
-  Test.expect(before("Linen Cloth", "Copper Ore"))
+  Test::expect(before("Linen Cloth", "Copper Ore"))
   window().button("Lowest").click()
-  Test.expect(before("Linen Cloth", "Copper Ore"))
+  Test::expect(before("Linen Cloth", "Copper Ore"))
   window().button("Listed").click()
-  Test.expect(before("Linen Cloth", "Copper Ore"))
+  Test::expect(before("Linen Cloth", "Copper Ore"))
   window().button("Listed").click()
-  Test.expect(before("Copper Ore", "Linen Cloth"))
-  Test.reload()
+  Test::expect(before("Copper Ore", "Linen Cloth"))
+  Test::reload()
   // The browse isn't kept; the column and the way are, marked on its title.
-  Test.expect(window().button("Listed").box(Ordaen.art.ctl.markDown).opacity() == 1)
+  Test::expect(window().button("Listed").box(Ordaen.art.ctl.markDown).opacity() == 1)
 }
 
 test "sorted by the market, the share or the age" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.clock.server = START + 2 * HOUR
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::clock.server = START + 2 * HOUR
   // Ore shown again with none listed: its price stays as it was seen two hours ago, half its market now.
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 0 }, { key: LINEN, copper: 36, quantity: 30 }])
+  Game::auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 0 }, { key: LINEN, copper: 36, quantity: 30 }])
   window().button("Market").click()
-  Test.expect(before("Linen Cloth", "Copper Ore"))
+  Test::expect(before("Linen Cloth", "Copper Ore"))
   window().button("%").click()
-  Test.expect(before("Copper Ore", "Linen Cloth"))
+  Test::expect(before("Copper Ore", "Linen Cloth"))
   window().button("Age").click()
-  Test.expect(before("Linen Cloth", "Copper Ore"))
+  Test::expect(before("Linen Cloth", "Copper Ore"))
 }
 
 test "variants: each a row named with its suffix, its own lowest and its own market's share" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.items.variant = variants
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::items.variant = variants
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 800, quantity: 1 },
     { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1500, quantity: 1 }
   ])
-  Game.clock.server = START + 24 * HOUR
-  Game.auctionQuery.results.emit([
+  Game::clock.server = START + 24 * HOUR
+  Game::auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 933, quantity: 3 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 },
     { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 2 }
   ])
-  Test.expect(reads(window().text("Sergeant's Warhammer of the Bear").item(),
+  Test::expect(reads(window().text("Sergeant's Warhammer of the Bear").item(),
     "Sergeant's Warhammer of the Bear | 3 | 0g 9s 33c | 0g 10s 66c | 88% | < 1 h"))
-  Test.expect(reads(window().text("Sergeant's Warhammer of the Eagle").item(),
+  Test::expect(reads(window().text("Sergeant's Warhammer of the Eagle").item(),
     "Sergeant's Warhammer of the Eagle | 1 | 0g 9s 33c | 0g 8s 27c | 113% | < 1 h"))
-  Test.expect(window().text("Sergeant's Warhammer of the Monkey").shown())
+  Test::expect(window().text("Sergeant's Warhammer of the Monkey").shown())
 }
 
 test "one row an item: the variants folded, their listings summed, their lowest prices a range" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.items.variant = variants
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::items.variant = variants
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 },
     { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 3 },
     { key: AXE, copper: 2100, quantity: 1 }
   ])
   window().button(Ordaen.art.ctl.tool.list).click()
-  Test.page().text("One row an item").click()
-  Test.expect(reads(window().text("Sergeant's Warhammer").item(),
+  Test::page().text("One row an item").click()
+  Test::expect(reads(window().text("Sergeant's Warhammer").item(),
     "Sergeant's Warhammer | 6 | 0g 9s 33c | – | 0g 12s 50c | 0g 9s 33c | 100% | < 1 h"))
-  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | 0g 21s 0c | 0g 21s 0c | 100% | < 1 h"))
-  Test.expect(!window().text("Sergeant's Warhammer of the Bear").shown())
+  Test::expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | 0g 21s 0c | 0g 21s 0c | 100% | < 1 h"))
+  Test::expect(!window().text("Sergeant's Warhammer of the Bear").shown())
 }
 
 // Searching
 
 test "typing: keys a tenth of a second apart are one search once the typing settles; names asked of the game once" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Test.flush()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Test::flush()
   let tooltips = new Tooltips()
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => tooltips.of(id)
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => tooltips.of(id)
   const field = window().input()
   field.type("")
   for (letter of ["c", "o", "p", "p", "e", "r"]) {
-    Test.type(letter)
-    Test.pass(0.1)
+    Test::type(letter)
+    Test::pass(0.1)
   }
-  Test.expect(asked(""))
-  Test.pass(0.3)
-  Test.expect(asked("AuctionQuery.search copper -1 -1 -1 -1 0") && tooltips.count == 0)
+  Test::expect(asked(""))
+  Test::pass(0.3)
+  Test::expect(asked("AuctionQuery.search copper -1 -1 -1 -1 0") && tooltips.count == 0)
 }
 
 test "the rows shown are those whose name holds what is typed" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().input().type("lin")
-  Test.pass(0.3)
-  Test.expect(window().text("Linen Cloth").shown() && !window().text("Copper Ore").shown())
+  Test::pass(0.3)
+  Test::expect(window().text("Linen Cloth").shown() && !window().text("Copper Ore").shown())
 }
 
 test "Enter searches at once, and the typing settling after it sends nothing more" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().input().type("ore")
-  Test.key(Key.Enter)
-  Test.expect(asked("AuctionQuery.search ore -1 -1 -1 -1 0"))
-  Test.pass(0.3)
-  Test.expect(asked(""))
+  Test::key(Key::Enter)
+  Test::expect(asked("AuctionQuery.search ore -1 -1 -1 -1 0"))
+  Test::pass(0.3)
+  Test::expect(asked(""))
 }
 
 test "a search waits for the house to take a query, and is sent whole once it does" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.ready = false
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.ready = false
   window().input().type("lin")
-  Test.pass(0.3)
-  Test.expect(asked(""))
-  Game.auctionQuery.ready = true
-  Test.expect(asked("AuctionQuery.search lin -1 -1 -1 -1 0"))
+  Test::pass(0.3)
+  Test::expect(asked(""))
+  Game::auctionQuery.ready = true
+  Test::expect(asked("AuctionQuery.search lin -1 -1 -1 -1 0"))
 }
 
 test "a category: a class picked shows its subclasses and searches it, a subclass searches itself, «All items» every one" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Test.expect(!window().text("Daggers").shown())
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Test::expect(!window().text("Daggers").shown())
   window().text("Weapon").click()
-  Test.expect(asked("AuctionQuery.search  2 -1 -1 -1 0") && window().text("Daggers").shown())
+  Test::expect(asked("AuctionQuery.search  2 -1 -1 -1 0") && window().text("Daggers").shown())
   window().text("Daggers").click()
-  Test.expect(asked("AuctionQuery.search  2 15 -1 -1 0"))
+  Test::expect(asked("AuctionQuery.search  2 15 -1 -1 0"))
   window().text("Trade Goods").click()
-  Test.expect(asked("AuctionQuery.search  7 -1 -1 -1 0") && !window().text("Daggers").shown())
+  Test::expect(asked("AuctionQuery.search  7 -1 -1 -1 0") && !window().text("Daggers").shown())
   window().text("All items").click()
-  Test.expect(asked("AuctionQuery.search  -1 -1 -1 -1 0"))
+  Test::expect(asked("AuctionQuery.search  -1 -1 -1 -1 0"))
 }
 
 test "the filter's menu under the funnel: a level band and a quality, searched with; the funnel's tip says them" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().button(Ordaen.art.ctl.tool.filter).click()
-  const menu = Test.page().window("Any quality")
-  Test.expect(reads(menu, "Any level | 1–10 | 11–20 | 21–30 | 31–40 | 41–50 | 51–60 | Any quality | Common | Uncommon | Rare | Epic"))
+  const menu = Test::page().window("Any quality")
+  Test::expect(reads(menu, "Any level | 1–10 | 11–20 | 21–30 | 31–40 | 41–50 | 51–60 | Any quality | Common | Uncommon | Rare | Epic"))
   menu.text("11–20").click()
-  Test.expect(asked("AuctionQuery.search  -1 -1 11 20 0"))
-  Test.page().window("Any quality").text("Uncommon").click()
-  Test.expect(asked("AuctionQuery.search  -1 -1 11 20 1"))
+  Test::expect(asked("AuctionQuery.search  -1 -1 11 20 0"))
+  Test::page().window("Any quality").text("Uncommon").click()
+  Test::expect(asked("AuctionQuery.search  -1 -1 11 20 1"))
   window().text("All items").click()
-  Test.expect(!Test.page().window("Any quality").shown())
+  Test::expect(!Test::page().window("Any quality").shown())
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(Test.page().window("Filter").texts().join(" | ") == "Filter | 11–20, Uncommon")
+  Test::expect(Test::page().window("Filter").texts().join(" | ") == "Filter | 11–20, Uncommon")
 }
 
 test "the filter is kept between sessions" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().window("Any quality").text("Rare").click()
-  Test.reload()
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Test::page().window("Any quality").text("Rare").click()
+  Test::reload()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(Test.page().window("Filter").texts().join(" | ") == "Filter | Any level, Rare")
+  Test::expect(Test::page().window("Filter").texts().join(" | ") == "Filter | Any level, Rare")
 }
 
 // A row picked
 
 test "a commodity picked: its listings asked and shown, a quantity, the total of the cheapest that hold it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Test.expect(asked("AuctionQuery.listings 2589"))
-  Game.auctionQuery.listed.emit(LINEN, [
+  Test::expect(asked("AuctionQuery.listings 2589"))
+  Game::auctionQuery.listed.emit(LINEN, [
     { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true }
   ])
-  Test.expect(reads(panel().text("10").item(), "0g 0s 36c | 10 | 2 h"))
-  Test.expect(panel().text("Listed: 30").shown() && says(panel(), "Total", "0g 0s 36c"))
+  Test::expect(reads(panel().text("10").item(), "0g 0s 36c | 10 | 2 h"))
+  Test::expect(panel().text("Listed: 30").shown() && says(panel(), "Total", "0g 0s 36c"))
   // Shift steps 10, then one a click.
-  Test.hold([.Shift])
+  Test::hold([.Shift])
   panel().button("+").click()
-  Test.hold([])
+  Test::hold([])
   for (i of 1..4) { panel().button("+").click() }
-  Test.expect(says(panel(), "Quantity", "- | 15 | +") && says(panel(), "Total", "0g 5s 60c"))
+  Test::expect(says(panel(), "Quantity", "- | 15 | +") && says(panel(), "Total", "0g 5s 60c"))
 }
 
 test "a commodity bought in two clicks: «Buy» asks the client's price, «Confirm» buys at it; then its listings again" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
   panel().button("+").click()
-  _ = Test.requests()
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("AuctionActions.startPurchase 2589 2"))
-  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 2, total: 80 })
-  Test.expect(says(panel(), "Total", "0g 0s 80c"))
+  Test::expect(asked("AuctionActions.startPurchase 2589 2"))
+  Game::auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 2, total: 80 })
+  Test::expect(says(panel(), "Total", "0g 0s 80c"))
   panel().button("Confirm").click()
-  Test.expect(asked("AuctionActions.confirmPurchase 2589 2"))
-  Game.auctionActions.answered.emit(.Bought)
-  Test.expect(asked("AuctionQuery.listings 2589") && panel().button("Buy").shown())
+  Test::expect(asked("AuctionActions.confirmPurchase 2589 2"))
+  Game::auctionActions.answered.emit(.Bought)
+  Test::expect(asked("AuctionQuery.listings 2589") && panel().button("Buy").shown())
 }
 
 test "a quantity the price was asked for, changed, is asked again" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
   panel().button("Buy").click()
-  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
+  Game::auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
   panel().button("+").click()
-  _ = Test.requests()
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("AuctionActions.startPurchase 2589 2"))
+  Test::expect(asked("AuctionActions.startPurchase 2589 2"))
 }
 
 test "more than the listings hold can't be bought" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 1, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 1, left: 7200, own: false, commodity: true }])
   panel().button("+").click()
-  _ = Test.requests()
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("") && says(panel(), "Total", "0g 0s 0c") && panel().button("Buy").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test::expect(asked("") && says(panel(), "Total", "0g 0s 0c") && panel().button("Buy").paintedWith(Ordaen.art.ctl.buttonDisabled))
 }
 
 test "an item picked: its cheapest auction with a buyout, not the player's own, bought out from the click" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
   window().text("Bronze Axe").click()
-  Game.auctionQuery.listed.emit(AXE, [
+  Game::auctionQuery.listed.emit(AXE, [
     { auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false },
     { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
     { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }
   ])
-  Test.expect(says(panel(), "Quantity", "1") && says(panel(), "Total", "0g 22s 0c"))
-  _ = Test.requests()
+  Test::expect(says(panel(), "Quantity", "1") && says(panel(), "Total", "0g 22s 0c"))
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("AuctionActions.bid 73 2200"))
+  Test::expect(asked("AuctionActions.bid 73 2200"))
 }
 
 test "an item with no auction to buy out can't be bought" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 1 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 1 }])
   window().text("Bronze Axe").click()
-  Game.auctionQuery.listed.emit(AXE, [{ auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false }])
-  _ = Test.requests()
+  Game::auctionQuery.listed.emit(AXE, [{ auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false }])
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("") && says(panel(), "Quantity", "0") && says(panel(), "Total", "0g 0s 0c"))
+  Test::expect(asked("") && says(panel(), "Quantity", "0") && says(panel(), "Total", "0g 0s 0c"))
 }
 
 test "a purchase the client refuses says its words in red under the total" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
   window().text("Bronze Axe").click()
-  Game.auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
+  Game::auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
   panel().button("Buy").click()
-  Game.auctionActions.answered.emit(.Refused { reason: "You don't have enough money" })
-  Test.expect(panel().text("You don't have enough money").textColor().equal(RED))
+  Game::auctionActions.answered.emit(.Refused { reason: "You don't have enough money" })
+  Test::expect(panel().text("You don't have enough money").textColor().equal(RED))
 }
 
 test "listings for another item, and an answer to what the panel didn't send, change nothing" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(ORE, [{ auction: 0, unit: 90, quantity: 10, own: false, commodity: true }])
-  Game.auctionActions.answered.emit(.Refused { reason: "Not yours" })
-  Test.expect(!panel().text("0g 0s 90c").shown() && !panel().text("Not yours").shown())
+  Game::auctionQuery.listed.emit(ORE, [{ auction: 0, unit: 90, quantity: 10, own: false, commodity: true }])
+  Game::auctionActions.answered.emit(.Refused { reason: "Not yours" })
+  Test::expect(!panel().text("0g 0s 90c").shown() && !panel().text("Not yours").shown())
 }
 
 test "«Buy» waits while the client answers another action" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
-  Game.auctionActions.busy = true
-  _ = Test.requests()
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionActions.busy = true
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked(""))
+  Test::expect(asked(""))
 }
 
 test "«Add to shopping list» puts the quantity on the list, and the row is marked" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
   panel().button("+").click()
-  Test.expect(!window().text("Linen Cloth").nth(1).item().paintedWith(LISTED))
+  Test::expect(!window().text("Linen Cloth").nth(1).item().paintedWith(LISTED))
   panel().button("Add to shopping list").click()
-  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(LISTED))
+  Test::expect(window().text("Linen Cloth").nth(1).item().paintedWith(LISTED))
   window().button("Shopping list").click()
-  Test.expect(Test.page().window("Search all").text("Linen Cloth").item().text("2").shown())
+  Test::expect(Test::page().window("Search all").text("Linen Cloth").item().text("2").shown())
 }
 
 test "a row searched away takes the panel with it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Copper Ore").click()
   window().input().type("lin")
-  Test.pass(0.3)
-  Test.expect(!window().button("Add to shopping list").shown())
+  Test::pass(0.3)
+  Test::expect(!window().button("Add to shopping list").shown())
 }
 
 test "a variant picked shows its own market and lowest in the panel" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.items.variant = variants
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::items.variant = variants
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
   window().text("Sergeant's Warhammer of the Bear").click()
-  Test.expect(says(panel(), "Market", "0g 11s 0c") && says(panel(), "Lowest", "0g 11s 0c"))
+  Test::expect(says(panel(), "Market", "0g 11s 0c") && says(panel(), "Lowest", "0g 11s 0c"))
 }
 
 // A row's menu
 
 test "a row right-clicked: its menu, «Buy at the best price» dim until its listings come" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
   window().text("Bronze Axe").rightClick()
-  Test.expect(asked("AuctionQuery.listings 2847, AuctionQuery.listings 2847"))
-  const menu = Test.page().window("Search for this item")
-  Test.expect(reads(menu, "Buy at the best price | Add to shopping list | Search for this item"))
-  Test.expect(menu.text("Buy at the best price").textColor().equal(MENU_DIM))
-  Game.auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
-  Test.expect(Test.page().window("Search for this item").text("Buy at the best price").textColor().equal(INK))
+  Test::expect(asked("AuctionQuery.listings 2847, AuctionQuery.listings 2847"))
+  const menu = Test::page().window("Search for this item")
+  Test::expect(reads(menu, "Buy at the best price | Add to shopping list | Search for this item"))
+  Test::expect(menu.text("Buy at the best price").textColor().equal(MENU_DIM))
+  Game::auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
+  Test::expect(Test::page().window("Search for this item").text("Buy at the best price").textColor().equal(INK))
 }
 
 test "«Buy at the best price» on an item buys its cheapest auction out from the click, and the menu goes" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
   window().text("Bronze Axe").rightClick()
-  Game.auctionQuery.listed.emit(AXE, [
+  Game::auctionQuery.listed.emit(AXE, [
     { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
     { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }
   ])
-  _ = Test.requests()
-  Test.page().window("Search for this item").text("Buy at the best price").click()
-  Test.expect(asked("AuctionActions.bid 73 2200") && !Test.page().window("Search for this item").shown())
+  _ = Test::requests()
+  Test::page().window("Search for this item").text("Buy at the best price").click()
+  Test::expect(asked("AuctionActions.bid 73 2200") && !Test::page().window("Search for this item").shown())
 }
 
 test "«Buy at the best price» on a commodity asks the price of one; «Confirm the price» buys it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").rightClick()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
-  _ = Test.requests()
-  Test.page().window("Search for this item").text("Buy at the best price").click()
-  Test.expect(asked("AuctionActions.startPurchase 2589 1"))
-  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
-  Test.page().window("Search for this item").text("Confirm the price").click()
-  Test.expect(asked("AuctionActions.confirmPurchase 2589 1") && !Test.page().window("Search for this item").shown())
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  _ = Test::requests()
+  Test::page().window("Search for this item").text("Buy at the best price").click()
+  Test::expect(asked("AuctionActions.startPurchase 2589 1"))
+  Game::auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
+  Test::page().window("Search for this item").text("Confirm the price").click()
+  Test::expect(asked("AuctionActions.confirmPurchase 2589 1") && !Test::page().window("Search for this item").shown())
 }
 
 test "the menu's «Add to shopping list» puts one on the list" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Copper Ore").rightClick()
-  Test.page().window("Search for this item").text("Add to shopping list").click()
+  Test::page().window("Search for this item").text("Add to shopping list").click()
   window().button("Shopping list").click()
-  Test.expect(Test.page().window("Search all").text("Copper Ore").item().text("1").shown())
+  Test::expect(Test::page().window("Search all").text("Copper Ore").item().text("1").shown())
 }
 
 test "the menu's «Search for this item» searches its name at once, a variant's by its item's" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.items.variant = variants
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::items.variant = variants
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
+  _ = Test::requests()
   window().text("Sergeant's Warhammer of the Bear").rightClick()
-  Test.page().window("Search for this item").text("Search for this item").click()
-  Test.expect(asked("AuctionQuery.listings 1066417008, AuctionQuery.listings 1066417008, AuctionQuery.search Sergeant's Warhammer -1 -1 -1 -1 0"))
-  Test.expect(window().input().value() == "Sergeant's Warhammer")
+  Test::page().window("Search for this item").text("Search for this item").click()
+  Test::expect(asked("AuctionQuery.listings 1066417008, AuctionQuery.listings 1066417008, AuctionQuery.search Sergeant's Warhammer -1 -1 -1 -1 0"))
+  Test::expect(window().input().value() == "Sergeant's Warhammer")
 }
 
 test "a click outside the menu closes it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Copper Ore").rightClick()
   window().text("All items").click()
-  Test.expect(!Test.page().window("Search for this item").shown())
+  Test::expect(!Test::page().window("Search for this item").shown())
 }
 
 // More of a row picked
 
 test "a row picked while the house takes no query asks its listings once it does" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.ready = false
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.ready = false
   window().text("Linen Cloth").click()
-  Test.expect(asked(""))
-  Game.auctionQuery.ready = true
-  Test.expect(asked("AuctionQuery.listings 2589"))
+  Test::expect(asked(""))
+  Game::auctionQuery.ready = true
+  Test::expect(asked("AuctionQuery.listings 2589"))
 }
 
 test "the listings the quantity buys from are marked: the cheapest that hold it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [
+  Game::auctionQuery.listed.emit(LINEN, [
     { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
     { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
   ])
-  Test.expect(panel().text("10").item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
-  Test.hold([.Shift])
+  Test::expect(panel().text("10").item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
+  Test::hold([.Shift])
   panel().button("+").click()
-  Test.hold([])
-  Test.expect(panel().text("20").item().paintedWith(PICKED) && !panel().text("5").item().paintedWith(PICKED))
-  Test.expect(says(panel(), "Total", "0g 4s 0c"))
+  Test::hold([])
+  Test::expect(panel().text("20").item().paintedWith(PICKED) && !panel().text("5").item().paintedWith(PICKED))
+  Test::expect(says(panel(), "Total", "0g 4s 0c"))
 }
 
 test "a refusal is taken away by the next purchase sent" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Game::auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
   window().text("Bronze Axe").click()
-  Game.auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
+  Game::auctionQuery.listed.emit(AXE, [{ auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }])
   panel().button("Buy").click()
-  Game.auctionActions.answered.emit(.Refused { reason: "You don't have enough money" })
+  Game::auctionActions.answered.emit(.Refused { reason: "You don't have enough money" })
   panel().button("Buy").click()
-  Test.expect(!panel().text("You don't have enough money").shown())
+  Test::expect(!panel().text("You don't have enough money").shown())
 }
 
 test "once its answer came, the panel hears no other" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
   panel().button("Buy").click()
-  Game.auctionActions.answered.emit(.Refused { reason: "Not now" })
-  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
-  Test.expect(panel().button("Buy").shown() && !panel().button("Confirm").shown())
+  Game::auctionActions.answered.emit(.Refused { reason: "Not now" })
+  Game::auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
+  Test::expect(panel().button("Buy").shown() && !panel().button("Confirm").shown())
 }
 
 test "a price confirmed and refused goes back to «Buy»" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
+  Game::auctionQuery.listed.emit(LINEN, [{ auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true }])
   panel().button("Buy").click()
-  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
+  Game::auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
   panel().button("Confirm").click()
-  Game.auctionActions.answered.emit(.Refused { reason: "The price moved" })
-  Test.expect(panel().button("Buy").shown() && panel().text("The price moved").shown())
+  Game::auctionActions.answered.emit(.Refused { reason: "The price moved" })
+  Test::expect(panel().button("Buy").shown() && panel().text("The price moved").shown())
 }
 
 // The names
 
 test "the house's names are asked of the game once: the same items shown again ask none" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
-  _ = Test.requests()
-  Test.flush()
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.ready = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  _ = Test::requests()
+  Test::flush()
   let tooltips = new Tooltips()
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => tooltips.of(id)
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }, { key: ORE, copper: 80, quantity: 40 }])
-  Test.expect(window().text("Linen Cloth").shown() && tooltips.count == 0)
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => tooltips.of(id)
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }, { key: ORE, copper: 80, quantity: 40 }])
+  Test::expect(window().text("Linen Cloth").shown() && tooltips.count == 0)
 }
 
 test "a name is drawn in its quality's colour, or the colour of its tooltip's first line" {
-  Game.clock.server = START
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+  Game::clock.server = START
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
     if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0, quality: GREEN }] } }
     if (id == ORE) { return { lines: [{ left: "Copper Ore", kind: 0, leftColor: AMBER }] } }
     return { lines: [{ left: "Bronze Axe", kind: 0 }] }
   }
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([
     { key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }, { key: AXE, copper: 2100, quantity: 1 }
   ])
-  Test.expect(window().text("Linen Cloth").textColor().equal(GREEN) && window().text("Copper Ore").textColor().equal(AMBER))
-  Test.expect(window().text("Bronze Axe").textColor().equal(INK))
+  Test::expect(window().text("Linen Cloth").textColor().equal(GREEN) && window().text("Copper Ore").textColor().equal(AMBER))
+  Test::expect(window().text("Bronze Axe").textColor().equal(INK))
 }
 
 // More of the list
 
 test "the age column says hours to the 23rd, then the market's days" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
-  Game.auctionHouse.open = false
-  Test.flush()
-  Game.clock.server = START + 23 * HOUR
-  Game.auctionHouse.open = true
-  Test.expect(window().text("Linen Cloth").item().text("23 h").shown())
-  Game.auctionHouse.open = false
-  Test.flush()
-  Game.clock.server = START + 24 * HOUR
-  Game.auctionHouse.open = true
-  Test.expect(window().text("Linen Cloth").item().text("(1 d.)").shown())
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game::auctionHouse.open = false
+  Test::flush()
+  Game::clock.server = START + 23 * HOUR
+  Game::auctionHouse.open = true
+  Test::expect(window().text("Linen Cloth").item().text("23 h").shown())
+  Game::auctionHouse.open = false
+  Test::flush()
+  Game::clock.server = START + 24 * HOUR
+  Game::auctionHouse.open = true
+  Test::expect(window().text("Linen Cloth").item().text("(1 d.)").shown())
 }
 
 test "with prices kept, a search that finds nothing says so" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
-  Game.auctionQuery.results.emit([])
-  Test.expect(window().text("Nothing found. Find an item by name.").shown())
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game::auctionQuery.results.emit([])
+  Test::expect(window().text("Nothing found. Find an item by name.").shown())
 }
 
 test "what is typed finds the last row as the first" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
   window().input().type("ore")
-  Test.pass(0.3)
-  Test.expect(window().text("Copper Ore").shown() && !window().text("Linen Cloth").shown())
+  Test::pass(0.3)
+  Test::expect(window().text("Copper Ore").shown() && !window().text("Linen Cloth").shown())
 }
 
 test "the row picked is marked, and the subclass picked" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
   window().text("Linen Cloth").click()
-  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(PICKED))
-  Test.expect(!window().text("Copper Ore").item().paintedWith(PICKED))
+  Test::expect(window().text("Linen Cloth").nth(1).item().paintedWith(PICKED))
+  Test::expect(!window().text("Copper Ore").item().paintedWith(PICKED))
   window().text("Weapon").click()
   window().text("Daggers").click()
-  Test.expect(window().text("Daggers").item().paintedWith(CATEGORY) && !window().text("One-Handed Axes").item().paintedWith(CATEGORY))
+  Test::expect(window().text("Daggers").item().paintedWith(CATEGORY) && !window().text("One-Handed Axes").item().paintedWith(CATEGORY))
 }
 
 test "the filter's last level band and last quality are said in its tip" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
   window().button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().window("Any quality").text("51–60").click()
-  Test.page().window("Any quality").text("Epic").click()
+  Test::page().window("Any quality").text("51–60").click()
+  Test::page().window("Any quality").text("Epic").click()
   window().text("All items").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(Test.page().window("Filter").texts().join(" | ") == "Filter | 51–60, Epic")
+  Test::expect(Test::page().window("Filter").texts().join(" | ") == "Filter | 51–60, Epic")
 }
 
 test "one row an item: picked, it is its cheapest variant, whose prices the panel shows; its menu opens under it" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Game.items.variant = variants
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Game::items.variant = variants
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
   window().button(Ordaen.art.ctl.tool.list).click()
-  Test.page().text("One row an item").click()
-  Test.expect(window().text("No prices for this realm: the first scan is under way. Find an item by name.").shown())
-  Game.auctionQuery.results.emit([
+  Test::page().text("One row an item").click()
+  Test::expect(window().text("No prices for this realm: the first scan is under way. Find an item by name.").shown())
+  Game::auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 }
   ])
   window().text("Sergeant's Warhammer").click()
-  Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(PICKED))
-  Test.expect(says(panel(), "Market", "0g 9s 33c"))
+  Test::expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(PICKED))
+  Test::expect(says(panel(), "Market", "0g 9s 33c"))
   window().text("Sergeant's Warhammer").nth(1).rightClick()
-  Test.expect(Test.page().window("Search for this item").shown())
-  Test.page().window("Search for this item").text("Add to shopping list").click()
-  Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(LISTED))
+  Test::expect(Test::page().window("Search for this item").shown())
+  Test::page().window("Search for this item").text("Add to shopping list").click()
+  Test::expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(LISTED))
 }
 
 test "a quantity the listings hold exactly can be bought; the quantity's listings marked, the next not" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().text("Linen Cloth").click()
-  Game.auctionQuery.listed.emit(LINEN, [
+  Game::auctionQuery.listed.emit(LINEN, [
     { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
     { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
   ])
-  Test.hold([.Shift])
+  Test::hold([.Shift])
   panel().button("+").click()
-  Test.hold([])
+  Test::hold([])
   panel().button("-").click()
-  Test.expect(says(panel(), "Quantity", "- | 10 | +"))
-  Test.expect(panel().text("10").nth(1).item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
-  Test.hold([.Shift])
+  Test::expect(says(panel(), "Quantity", "- | 10 | +"))
+  Test::expect(panel().text("10").nth(1).item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
+  Test::hold([.Shift])
   panel().button("+").click()
   panel().button("+").click()
-  Test.hold([])
+  Test::hold([])
   for (i of 1..5) { panel().button("+").click() }
-  Test.expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
-  _ = Test.requests()
+  Test::expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
+  _ = Test::requests()
   panel().button("Buy").click()
-  Test.expect(asked("AuctionActions.startPurchase 2589 35"))
+  Test::expect(asked("AuctionActions.startPurchase 2589 35"))
 }
 
 test "the picked row's panel charts its history" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().text("Linen Cloth").click()
-  Test.expect(!panel().text("No price history yet.").shown())
+  Test::expect(!panel().text("No price history yet.").shown())
 }
 
 test "a shopping list's item is marked in a row an item too" {
-  Game.clock.server = START
-  Game.items.tooltip = names
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  Game::clock.server = START
+  Game::items.tooltip = names
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
   window().text("Linen Cloth").rightClick()
-  Test.page().window("Search for this item").text("Add to shopping list").click()
+  Test::page().window("Search for this item").text("Add to shopping list").click()
   window().button(Ordaen.art.ctl.tool.list).click()
-  Test.page().text("One row an item").click()
-  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(LISTED) && !window().text("Copper Ore").item().paintedWith(LISTED))
+  Test::page().text("One row an item").click()
+  Test::expect(window().text("Linen Cloth").nth(1).item().paintedWith(LISTED) && !window().text("Copper Ore").item().paintedWith(LISTED))
 }

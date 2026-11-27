@@ -19,11 +19,11 @@ public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
 // table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
 // next opening says nothing of why.
 public struct ListView implements Plain {
-  view: View = View.Columns
-  sort: SortBy = SortBy.Difficulty
+  view: View = View::Columns
+  sort: SortBy = SortBy::Difficulty
   tableColumn: Integer = 1
   tableDescending: Boolean = false
-  grouping: Grouping = Grouping.Readiness
+  grouping: Grouping = Grouping::Readiness
 }
 public const LIST_VIEW: ListView = {}
 
@@ -55,22 +55,22 @@ public struct Group {
   makeable: Integer
 }
 
-function rank(difficulty: Game.Difficulty): Integer {
+function rank(difficulty: Game::Difficulty): Integer {
   return match (difficulty) {
-    Game.Difficulty.Always => 0
-    Game.Difficulty.Usually => 1
-    Game.Difficulty.Rarely => 2
-    Game.Difficulty.Never => 3
+    Game::Difficulty::Always => 0
+    Game::Difficulty::Usually => 1
+    Game::Difficulty::Rarely => 2
+    Game::Difficulty::Never => 3
   }
 }
 
 // Whether `a` stands before `b`: a total order (the name and then the number settle a tie), as Lua's sort asks.
-public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
-  if (sort == SortBy.Makeable) {
+public function before(sort: SortBy, a: Game::Recipe, b: Game::Recipe): Boolean {
+  if (sort == SortBy::Makeable) {
     if (a.craftable > b.craftable) { return true }
     if (a.craftable < b.craftable) { return false }
   }
-  if (sort == SortBy.Difficulty) {
+  if (sort == SortBy::Difficulty) {
     if (a.learned != b.learned) { return a.learned }
     const x = rank(a.difficulty)
     const y = rank(b.difficulty)
@@ -113,7 +113,7 @@ function textAt(column: Integer, facts: TableFacts | nil): String | nil {
 }
 
 // A recipe's number in a column; none where it has none (no price, no skill known).
-function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game.Recipe): Integer | nil {
+function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game::Recipe): Integer | nil {
   const both = facts?.both
   if (column == COLUMN_SKILL) { return facts?.skill }
   if (column == COLUMN_MAKEABLE) { return recipe.craftable }
@@ -150,7 +150,7 @@ function textBefore(x: String | nil, y: String | nil, descending: Boolean): Bool
 
 // The table's order by a column (`facts` by recipe); then by name, then by number, the column's way.
 public function tableBefore(
-  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game.Recipe, b: Game.Recipe
+  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game::Recipe, b: Game::Recipe
 ): Boolean {
   const x = facts[a.id]
   const y = facts[b.id]
@@ -173,16 +173,16 @@ public function has(list: Array<Integer>, id: Integer): Boolean {
 
 // A list of the game's (`of`) as the window shows it: filtered and in its order.
 public struct Sorted {
-  const of: Array<Game.Recipe>
-  const list: Array<Game.Recipe>
+  const of: Array<Game::Recipe>
+  const list: Array<Game::Recipe>
 }
 
-const NO_RECIPES: Array<Game.Recipe> = []
+const NO_RECIPES: Array<Game::Recipe> = []
 
 // The recipes by their category, each category's in the order they are given in: the list is read once for every
 // group there is.
-public function sorted(recipes: Array<Game.Recipe>): Map<Integer, Array<Game.Recipe>> {
-  let lists: Map<Integer, mut Array<Game.Recipe>> = {}
+public function sorted(recipes: Array<Game::Recipe>): Map<Integer, Array<Game::Recipe>> {
+  let lists: Map<Integer, mut Array<Game::Recipe>> = {}
   for (recipe of recipes) {
     let list = lists[recipe.categoryID]
     if (list == nil) {
@@ -197,10 +197,10 @@ public function sorted(recipes: Array<Game.Recipe>): Map<Integer, Array<Game.Rec
 // The recipes of a group, in the order they are given in: a category's as they were sorted (`sorted`, of the same
 // recipes), the favorites picked out of them all.
 public function members(
-  recipes: Array<Game.Recipe>, byCategory: Map<Integer, Array<Game.Recipe>>, group: Integer, starred: Array<Integer>
-): Array<Game.Recipe> {
+  recipes: Array<Game::Recipe>, byCategory: Map<Integer, Array<Game::Recipe>>, group: Integer, starred: Array<Integer>
+): Array<Game::Recipe> {
   if (group != FAVORITES) { return byCategory[group] ?? NO_RECIPES }
-  let list: Array<Game.Recipe> = []
+  let list: Array<Game::Recipe> = []
   for (recipe of recipes) {
     if (has(starred, recipe.id)) { list.push(recipe) }
   }

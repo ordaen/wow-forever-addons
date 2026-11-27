@@ -20,27 +20,27 @@ public struct Named {
 // What the game says of an item: its name and its quality's colour, from its tooltip's first line.
 public function nameOf(item: Integer): (String, Color) {
   const known = knownName(item)
-  if (known == nil) { return Locale.UNKNOWN_ITEM.format(item), Style.INK }
+  if (known == nil) { return Locale::UNKNOWN_ITEM.format(item), Style::INK }
   return known.name, known.color
 }
 
 // The same, none where the game doesn't know the item yet (its data not loaded).
 function knownName(item: Integer): Named | nil {
-  return namedBy(Game.items.tooltip(item))
+  return namedBy(Game::items.tooltip(item))
 }
 
 // A key's name: a variant of a weapon or armour by its own tooltip, its suffix in its name («… of the Bear»).
 function keyName(key: PriceKey): Named | nil {
   const suffix = key.suffix()
   if (suffix == 0) { return knownName(key.item()) }
-  return namedBy(Game.items.variant(key.item(), suffix))
+  return namedBy(Game::items.variant(key.item(), suffix))
 }
 
-function namedBy(data: Game.TooltipData | nil): Named | nil {
+function namedBy(data: Game::TooltipData | nil): Named | nil {
   const first = data != nil ? data.lines[1] : nil
   const name = first?.left
   if (first == nil || name == nil) { return nil }
-  return { name: name, lower: name.lower(), color: first.quality ?? first.leftColor ?? Style.INK }
+  return { name: name, lower: name.lower(), color: first.quality ?? first.leftColor ?? Style::INK }
 }
 
 // A house's maps, as they are packed.
@@ -107,7 +107,7 @@ public class House {
     const kept = self.names[key]
     if (kept != nil) { return kept }
     const known = keyName(key)
-    if (known == nil) { return { name: Locale.UNKNOWN_ITEM.format(key.item()), lower: "", color: Style.INK } }
+    if (known == nil) { return { name: Locale::UNKNOWN_ITEM.format(key.item()), lower: "", color: Style::INK } }
     self.names[key] = known
     return known
   }
@@ -126,8 +126,8 @@ public class House {
       const kept = 0.5 ** ((at - before.seen()) / HALF_LIFE)
       value = before.copper() * kept + unit * (1 - kept)
     }
-    self.market[key] = Quote.of(value.round(), at)
-    self.listing[key] = Listing.of(low, quantity)
+    self.market[key] = Quote::of(value.round(), at)
+    self.listing[key] = Listing::of(low, quantity)
     self.record(key, low, at)
   }
 
@@ -137,16 +137,16 @@ public class House {
     const points = self.history[key]
     if (points == nil) {
       if (self.histories >= HISTORY_MOST) { return }
-      self.history[key] = [Quote.of(low, at)]
+      self.history[key] = [Quote::of(low, at)]
       self.histories += 1
       return
     }
     const last = points[points.length]
     if (last != nil && last.seen() == at) {
-      if (low < last.copper()) { points[points.length] = Quote.of(low, at) }
+      if (low < last.copper()) { points[points.length] = Quote::of(low, at) }
       return
     }
-    points.push(Quote.of(low, at))
+    points.push(Quote::of(low, at))
     rolled(points, at)
   }
 
@@ -170,9 +170,9 @@ public class House {
 
   // The house at rest: none where the client refused to pack it (the game's side says why).
   public pack(self): String | nil {
-    const raw = Game.encoding.serialize(Packed { market: self.market, listing: self.listing, history: self.history })
+    const raw = Game::encoding.serialize(Packed { market: self.market, listing: self.listing, history: self.history })
     if (raw == nil) { return nil }
-    return Game.encoding.compress(raw)
+    return Game::encoding.compress(raw)
   }
 }
 
@@ -187,10 +187,10 @@ function rolled(points: mut Array<Quote>, now: Hour) {
     if (now - seen < HISTORY_DAYS * DAY) {
       const before = points[kept]
       if (kept > 0 && before != nil && before.seen() == seen) {
-        if (point.copper() < before.copper()) { points[kept] = Quote.of(point.copper(), Hour.of(seen)) }
+        if (point.copper() < before.copper()) { points[kept] = Quote::of(point.copper(), Hour::of(seen)) }
       } else {
         kept += 1
-        points[kept] = Quote.of(point.copper(), Hour.of(seen))
+        points[kept] = Quote::of(point.copper(), Hour::of(seen))
       }
     }
   }
@@ -199,7 +199,7 @@ function rolled(points: mut Array<Quote>, now: Hour) {
 
 function unpacked(packed: String | nil): mut Packed {
   if (packed == nil) { return Packed {} }
-  const raw = Game.encoding.decompress(packed)
+  const raw = Game::encoding.decompress(packed)
   if (raw == nil) { return Packed {} }
-  return Packed.decode(Game.encoding.deserialize(raw), Packed {})
+  return Packed::decode(Game::encoding.deserialize(raw), Packed {})
 }

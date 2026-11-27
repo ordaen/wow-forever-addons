@@ -10,7 +10,7 @@ import { emptyUnder, removePlace, within } from "@/places"
 function ring(counts: mut Map<String, Integer>, placed: Array<[String, Item]>): mut Ring {
   const items: Map<String, Item> = {}
   for (pair of placed) { items[pair[1]] = pair[2] }
-  return { opensAt: OpensAt.Middle, names: WheelNames.Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: {} }
+  return { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: {} }
 }
 
 function line(title: String, text: String, icon: Asset): Item {
@@ -45,7 +45,7 @@ function holdsOldEmotes(saved: Ring, at: String): Boolean {
   if ((saved.counts[at] ?? 0) != OLD_EMOTE_LINES.length) { return false }
   for (index, wanted of OLD_EMOTE_LINES) {
     const item = saved.items[within(at, index)]
-    if (!(item is Item.Line) || item.line != wanted) { return false }
+    if (!(item is Item::Line) || item.line != wanted) { return false }
   }
   return true
 }
@@ -53,7 +53,7 @@ function holdsOldEmotes(saved: Ring, at: String): Boolean {
 // A place of a ring that holds an emote the server does nothing for (`SILENT`); none where no place does.
 function silentPlace(shown: Ring): String | nil {
   for (place, item of shown.items) {
-    if (item is Item.Emote && SILENT.any(token => token == item.token)) { return place }
+    if (item is Item::Emote && SILENT.any(token => token == item.token)) { return place }
   }
   return nil
 }
@@ -64,7 +64,7 @@ function silentPlace(shown: Ring): String | nil {
 public function upgraded(saved: Ring): Ring | nil {
   const fresh = saved.clone()
   for (place, item of saved.items) {
-    if (item is Item.Menu && holdsOldEmotes(saved, place)) {
+    if (item is Item::Menu && holdsOldEmotes(saved, place)) {
       emptyUnder(fresh, place)
       addEmotes(fresh, place)
       break
@@ -87,23 +87,23 @@ function main(): Ring {
 
 function firstRing(): mut Ring {
   return ring({ [""]: 8, ["1"]: 8, ["2"]: 1, ["3"]: 4, ["4"]: 8, ["6"]: 2, ["7"]: 3, ["8"]: 3 }, [
-    ["1", .Menu { title: Locale.RING_WINDOWS, icon: "Interface/Icons/INV_Misc_Book_09" }],
-    ["1_1", .Open { window: Window.Character }],
-    ["1_2", .Open { window: Window.Spellbook }],
-    ["1_3", .Open { window: Window.Talents }],
-    ["1_4", .Open { window: Window.Quests }],
-    ["1_5", .Open { window: Window.Map }],
-    ["1_6", .Open { window: Window.Social }],
-    ["1_7", .Open { window: Window.Bags }],
-    ["1_8", .Open { window: Window.Settings }],
-    ["2", .Menu { title: Locale.RING_PROFESSIONS, icon: "Interface/Icons/Trade_BlackSmithing" }],
-    ["2_1", Item.Professions],
-    ["3", .Menu { title: Locale.RING_PINGS, icon: "Interface/Icons/Ability_Hunter_MarkedForDeath" }],
-    ["3_1", .Pinged { ping: Ping.Attack }],
-    ["3_2", .Pinged { ping: Ping.Assist }],
-    ["3_3", .Pinged { ping: Ping.Warning }],
-    ["3_4", .Pinged { ping: Ping.OnMyWay }],
-    ["4", .Menu { title: Locale.RING_MARKS, icon: "Interface/TargetingFrame/UI-RaidTargetingIcon_8" }],
+    ["1", .Menu { title: Locale::RING_WINDOWS, icon: "Interface/Icons/INV_Misc_Book_09" }],
+    ["1_1", .Open { window: Window::Character }],
+    ["1_2", .Open { window: Window::Spellbook }],
+    ["1_3", .Open { window: Window::Talents }],
+    ["1_4", .Open { window: Window::Quests }],
+    ["1_5", .Open { window: Window::Map }],
+    ["1_6", .Open { window: Window::Social }],
+    ["1_7", .Open { window: Window::Bags }],
+    ["1_8", .Open { window: Window::Settings }],
+    ["2", .Menu { title: Locale::RING_PROFESSIONS, icon: "Interface/Icons/Trade_BlackSmithing" }],
+    ["2_1", Item::Professions],
+    ["3", .Menu { title: Locale::RING_PINGS, icon: "Interface/Icons/Ability_Hunter_MarkedForDeath" }],
+    ["3_1", .Pinged { ping: Ping::Attack }],
+    ["3_2", .Pinged { ping: Ping::Assist }],
+    ["3_3", .Pinged { ping: Ping::Warning }],
+    ["3_4", .Pinged { ping: Ping::OnMyWay }],
+    ["4", .Menu { title: Locale::RING_MARKS, icon: "Interface/TargetingFrame/UI-RaidTargetingIcon_8" }],
     ["4_1", .RaidMark { mark: 8 }],
     ["4_2", .RaidMark { mark: 7 }],
     ["4_3", .RaidMark { mark: 6 }],
@@ -112,34 +112,34 @@ function firstRing(): mut Ring {
     ["4_6", .RaidMark { mark: 3 }],
     ["4_7", .RaidMark { mark: 2 }],
     ["4_8", .RaidMark { mark: 1 }],
-    ["5", .Menu { title: Locale.RING_EMOTES, icon: "Interface/Icons/Spell_Holy_Excorcism" }],
-    ["6", .Menu { title: Locale.RING_TRAVEL, icon: "Interface/Icons/INV_Misc_Rune_01" }],
+    ["5", .Menu { title: Locale::RING_EMOTES, icon: "Interface/Icons/Spell_Holy_Excorcism" }],
+    ["6", .Menu { title: Locale::RING_TRAVEL, icon: "Interface/Icons/INV_Misc_Rune_01" }],
     ["6_1", .Bag { item: 6948 }],
-    ["6_2", Item.Empty],
-    ["7", .Menu { title: Locale.RING_GROUP, icon: "Interface/Icons/INV_Misc_GroupNeedMore" }],
-    ["7_1", line(Locale.GROUP_READY, "/readycheck", "Interface/RaidFrame/ReadyCheck-Ready")],
-    ["7_2", line(Locale.GROUP_ROLL, "/roll", "Interface/Buttons/UI-GroupLoot-Dice-Up")],
-    ["7_3", line(Locale.GROUP_LEAVE, "/leave", "Interface/Icons/Ability_Rogue_Sprint")],
-    ["8", .Menu { title: Locale.RING_PLACING, icon: "Interface/Icons/Trade_Engineering" }],
-    ["8_1", .Open { window: Window.Placing }],
-    ["8_2", .Open { window: Window.Settings }],
-    ["8_3", line(Locale.PLACING_RELOAD, "/reload", "Interface/Icons/Spell_Holy_BorrowedTime")]
+    ["6_2", Item::Empty],
+    ["7", .Menu { title: Locale::RING_GROUP, icon: "Interface/Icons/INV_Misc_GroupNeedMore" }],
+    ["7_1", line(Locale::GROUP_READY, "/readycheck", "Interface/RaidFrame/ReadyCheck-Ready")],
+    ["7_2", line(Locale::GROUP_ROLL, "/roll", "Interface/Buttons/UI-GroupLoot-Dice-Up")],
+    ["7_3", line(Locale::GROUP_LEAVE, "/leave", "Interface/Icons/Ability_Rogue_Sprint")],
+    ["8", .Menu { title: Locale::RING_PLACING, icon: "Interface/Icons/Trade_Engineering" }],
+    ["8_1", .Open { window: Window::Placing }],
+    ["8_2", .Open { window: Window::Settings }],
+    ["8_3", line(Locale::PLACING_RELOAD, "/reload", "Interface/Icons/Spell_Holy_BorrowedTime")]
   ])
 }
 
 // The raid marks round a ring of their own: skull up, then clockwise.
 function marks(): Ring {
   const placed: Array<[String, Item]> = []
-  for (index of 1..8) { placed.push([String.of(index), .RaidMark { mark: 9 - index }]) }
+  for (index of 1..8) { placed.push([String::of(index), .RaidMark { mark: 9 - index }]) }
   return ring({ [""]: 8 }, placed)
 }
 
 function pings(): Ring {
   return ring({ [""]: 4 }, [
-    ["1", .Pinged { ping: Ping.Attack }],
-    ["2", .Pinged { ping: Ping.Assist }],
-    ["3", .Pinged { ping: Ping.Warning }],
-    ["4", .Pinged { ping: Ping.OnMyWay }]
+    ["1", .Pinged { ping: Ping::Attack }],
+    ["2", .Pinged { ping: Ping::Assist }],
+    ["3", .Pinged { ping: Ping::Warning }],
+    ["4", .Pinged { ping: Ping::OnMyWay }]
   ])
 }
 

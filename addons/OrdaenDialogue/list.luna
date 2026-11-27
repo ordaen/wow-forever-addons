@@ -22,9 +22,9 @@ public struct LineKey {
 // The keys the window hears: the digits 1–9, a line's place in the column the keys are on (and a quest's reward).
 // Past nine lines the list has columns, and Tab moves the keys to the next.
 public const LINE_KEYS: Array<LineKey> = [
-  { key: Key.Digit1, name: "1" }, { key: Key.Digit2, name: "2" }, { key: Key.Digit3, name: "3" },
-  { key: Key.Digit4, name: "4" }, { key: Key.Digit5, name: "5" }, { key: Key.Digit6, name: "6" },
-  { key: Key.Digit7, name: "7" }, { key: Key.Digit8, name: "8" }, { key: Key.Digit9, name: "9" }
+  { key: Key::Digit1, name: "1" }, { key: Key::Digit2, name: "2" }, { key: Key::Digit3, name: "3" },
+  { key: Key::Digit4, name: "4" }, { key: Key::Digit5, name: "5" }, { key: Key::Digit6, name: "6" },
+  { key: Key::Digit7, name: "7" }, { key: Key::Digit8, name: "8" }, { key: Key::Digit9, name: "9" }
 ]
 
 // The name of the key at that place in a column; "" past the keys.
@@ -65,14 +65,14 @@ public function columnsOf(lines: Array<Line>): Array<Array<Placed>> {
   return columns
 }
 
-const GREY: Color = Color.hex("#8c8c8c")
-const WHITE: Color = Color.hex("#ffffff")
+const GREY: Color = Color::hex("#8c8c8c")
+const WHITE: Color = Color::hex("#ffffff")
 
 // What a line's title is drawn in: a quest's gold, a quest in progress or a too-easy one dimmed, an option the ink.
 function titleColor(line: Line): Color {
-  if (line.kind == LineKind.Option) { return Style.TEXT }
-  if (line.kind == LineKind.InProgress || line.difficulty == .Trivial) { return Style.DIM }
-  return Style.NAME
+  if (line.kind == LineKind::Option) { return Style::TEXT }
+  if (line.kind == LineKind::InProgress || line.difficulty == .Trivial) { return Style::DIM }
+  return Style::NAME
 }
 
 // An answer to the question the window asks (Yes, No): its key, its word; a click, Enter or Space gives it.
@@ -97,7 +97,7 @@ public class AnswerRow implements Component {
       <PickRow columns={ANSWER_COLUMNS} @pick={self.onPick}>
         <Keycap $if={self.hints} key={self.key} />
         <box $else />
-        <text value={self.label} textColor={Style.TEXT} wrap={.None} />
+        <text value={self.label} textColor={Style::TEXT} wrap={.None} />
       </PickRow>
     }
   }
@@ -134,7 +134,7 @@ public class OptionColumn implements Component {
   }
 
   onFocus(mut self, frame: any Frame) { self.focus.emit(peek self.number) }
-  isMarked(self, line: Line): Boolean { return line.kind == LineKind.Option && self.marked.any(option => option == line.id) }
+  isMarked(self, line: Line): Boolean { return line.kind == LineKind::Option && self.marked.any(option => option == line.id) }
   onPick(mut self, index: Integer) { self.pick.emit(index) }
   onMark(mut self, index: Integer) { self.mark.emit(index) }
 
@@ -161,9 +161,9 @@ public class OptionRow implements Component {
   derived levelColor: Color = colorOf(self.line.difficulty)
   derived levelText: String = `(${self.line.level})`
   derived color: Color = titleColor(self.line)
-  derived iconTint: Color = self.line.kind == LineKind.InProgress ? GREY : WHITE
-  derived greyed: Boolean = self.line.kind == LineKind.InProgress
-  derived entries: Array<MenuEntry> = [{ label: Locale.ALWAYS_PICK, on: self.marked }]
+  derived iconTint: Color = self.line.kind == LineKind::InProgress ? GREY : WHITE
+  derived greyed: Boolean = self.line.kind == LineKind::InProgress
+  derived entries: Array<MenuEntry> = [{ label: Locale::ALWAYS_PICK, on: self.marked }]
   state menuOpen = false
 
   line: Signal<Line>
@@ -192,7 +192,7 @@ public class OptionRow implements Component {
 
   // Only a plain option is marked: quests have their own settings.
   onRight(mut self) {
-    if ((peek self.line).kind == LineKind.Option) { self.menuOpen = true }
+    if ((peek self.line).kind == LineKind::Option) { self.menuOpen = true }
   }
 
   onMenu(mut self, entry: Integer) {
@@ -208,13 +208,13 @@ public class OptionRow implements Component {
         <PickRow columns={COLUMNS} tabStop={false} @pick={self.onPick}>
           <Keycap $if={self.keyed} key={self.key} />
           <box $else />
-          <box width={Style.ICON} height={Style.ICON} icon={self.line.icon} tint={self.iconTint} desaturate={self.greyed} />
+          <box width={Style::ICON} height={Style::ICON} icon={self.line.icon} tint={self.iconTint} desaturate={self.greyed} />
           <text value={self.line.title} textColor={self.color} wrap={.None} />
           // A quest's level after its title, «(12)», in its difficulty's colour.
           <text $if={self.leveled} value={self.levelText} textColor={self.levelColor} textSize={SECONDARY_TEXT}
                 textFont={.Numbers} wrap={.None} />
           <box $else />
-          <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text $if={self.marked} value={Locale::AUTO_MARK} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $else />
         </PickRow>
         <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.onMenuClose} />

@@ -20,57 +20,57 @@ struct Spec {
 
 function specOf(stat: Stat): Spec {
   return match (stat) {
-    .Strength => { name: Locale.STRENGTH, percent: false, of: s => s.strength }
-    .Agility => { name: Locale.AGILITY, percent: false, of: s => s.agility }
-    .Stamina => { name: Locale.STAMINA, percent: false, of: s => s.stamina }
-    .Intellect => { name: Locale.INTELLECT, percent: false, of: s => s.intellect }
-    .Spirit => { name: Locale.SPIRIT, percent: false, of: s => s.spirit }
-    .Health => { name: Locale.HEALTH, percent: false, of: s => s.health }
-    .Power => { name: Locale.MANA, percent: false, of: s => s.power }
-    .Armor => { name: Locale.ARMOR, percent: false, of: s => s.armor }
-    .FireResistance => { name: Locale.FIRE_RESISTANCE, percent: false, of: s => s.resistances[2] ?? 0 }
-    .NatureResistance => { name: Locale.NATURE_RESISTANCE, percent: false, of: s => s.resistances[4] ?? 0 }
-    .FrostResistance => { name: Locale.FROST_RESISTANCE, percent: false, of: s => s.resistances[3] ?? 0 }
-    .ShadowResistance => { name: Locale.SHADOW_RESISTANCE, percent: false, of: s => s.resistances[5] ?? 0 }
-    .ArcaneResistance => { name: Locale.ARCANE_RESISTANCE, percent: false, of: s => s.resistances[1] ?? 0 }
-    .AttackPower => { name: Locale.ATTACK_POWER, percent: false, of: s => s.attackPower }
-    .RangedAttackPower => { name: Locale.ATTACK_POWER, percent: false, of: s => s.rangedAttackPower }
-    .MeleeHit => { name: Locale.HIT, percent: true, of: s => s.meleeHit }
-    .RangedHit => { name: Locale.HIT, percent: true, of: s => s.rangedHit }
-    .SpellHit => { name: Locale.HIT, percent: true, of: s => s.spellHit }
-    .MeleeCrit => { name: Locale.CRIT, percent: true, of: s => s.meleeCrit }
-    .RangedCrit => { name: Locale.CRIT, percent: true, of: s => s.rangedCrit }
-    .SpellCrit => { name: Locale.CRIT, percent: true, of: s => s.spellCrit }
-    .Expertise => { name: Locale.EXPERTISE, percent: true, of: s => s.expertise }
-    .MeleeHaste => { name: Locale.HASTE, percent: true, of: s => s.meleeHaste }
-    .RangedHaste => { name: Locale.HASTE, percent: true, of: s => s.rangedHaste }
-    .SpellHaste => { name: Locale.HASTE, percent: true, of: s => s.spellHaste }
-    .ArmorPenetration => { name: Locale.ARMOR_PENETRATION, percent: false, of: s => s.armorPenetration }
-    .SpellPenetration => { name: Locale.SPELL_PENETRATION, percent: false, of: s => s.spellPenetration }
-    .Dodge => { name: Locale.DODGE, percent: true, of: s => s.dodge }
-    .Parry => { name: Locale.PARRY, percent: true, of: s => s.parry }
-    .Block => { name: Locale.BLOCK, percent: true, of: s => s.block }
-    .BlockValue => { name: Locale.BLOCK_VALUE, percent: false, of: s => s.blockValue }
-    .Defense => { name: Locale.SECTION_DEFENSE, percent: false, of: s => s.defense }
-    .SpellDamage => { name: Locale.SPELL_DAMAGE, percent: false, of: s => s.spellDamage }
-    .Healing => { name: Locale.HEALING, percent: false, of: s => s.healing }
-    .Regen => { name: Locale.COMBAT_REGEN, percent: false, of: s => s.regen }
-    .ManaRegen => { name: Locale.REGEN, percent: false, of: s => s.restingRegen }
-    .HealthRegen => { name: Locale.REGEN, percent: false, of: s => s.healthRegen }
-    .CombatHealthRegen => { name: Locale.COMBAT_REGEN, percent: false, of: s => s.combatHealthRegen }
-    .RunSpeed => { name: Locale.RUN_SPEED, percent: true, of: s => s.runSpeed }
-    .MeleeDps => { name: Locale.DPS, percent: false, of: s => meleeDps(s) }
-    .RangedDps => { name: Locale.DPS, percent: false, of: s => rangedDps(s) }
-    .MeleeLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Melee, s) }
-    .RangedLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Ranged, s) }
-    .SpellLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Spell, s) }
-    .DamageReduction => { name: Locale.DAMAGE_REDUCTION, percent: true, of: s => s.atMaxLevel ? s.bossArmorReduction : s.armorReduction }
-    .HitTaken => { name: Locale.HIT_TAKEN, percent: true, of: s => hitTakenOf(s) }
-    .MainHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.meleeSkillPast }
-    .OffHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.offSkillPast }
-    .RangedSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.rangedSkillPast }
-    .AttackSpeed => { name: Locale.ATTACK_SPEED, percent: false, of: s => swingOf(s) }
-    .RangedAttackSpeed => { name: Locale.ATTACK_SPEED, percent: false, of: s => s.rangedSpeed }
+    .Strength => { name: Locale::STRENGTH, percent: false, of: s => s.strength }
+    .Agility => { name: Locale::AGILITY, percent: false, of: s => s.agility }
+    .Stamina => { name: Locale::STAMINA, percent: false, of: s => s.stamina }
+    .Intellect => { name: Locale::INTELLECT, percent: false, of: s => s.intellect }
+    .Spirit => { name: Locale::SPIRIT, percent: false, of: s => s.spirit }
+    .Health => { name: Locale::HEALTH, percent: false, of: s => s.health }
+    .Power => { name: Locale::MANA, percent: false, of: s => s.power }
+    .Armor => { name: Locale::ARMOR, percent: false, of: s => s.armor }
+    .FireResistance => { name: Locale::FIRE_RESISTANCE, percent: false, of: s => s.resistances[2] ?? 0 }
+    .NatureResistance => { name: Locale::NATURE_RESISTANCE, percent: false, of: s => s.resistances[4] ?? 0 }
+    .FrostResistance => { name: Locale::FROST_RESISTANCE, percent: false, of: s => s.resistances[3] ?? 0 }
+    .ShadowResistance => { name: Locale::SHADOW_RESISTANCE, percent: false, of: s => s.resistances[5] ?? 0 }
+    .ArcaneResistance => { name: Locale::ARCANE_RESISTANCE, percent: false, of: s => s.resistances[1] ?? 0 }
+    .AttackPower => { name: Locale::ATTACK_POWER, percent: false, of: s => s.attackPower }
+    .RangedAttackPower => { name: Locale::ATTACK_POWER, percent: false, of: s => s.rangedAttackPower }
+    .MeleeHit => { name: Locale::HIT, percent: true, of: s => s.meleeHit }
+    .RangedHit => { name: Locale::HIT, percent: true, of: s => s.rangedHit }
+    .SpellHit => { name: Locale::HIT, percent: true, of: s => s.spellHit }
+    .MeleeCrit => { name: Locale::CRIT, percent: true, of: s => s.meleeCrit }
+    .RangedCrit => { name: Locale::CRIT, percent: true, of: s => s.rangedCrit }
+    .SpellCrit => { name: Locale::CRIT, percent: true, of: s => s.spellCrit }
+    .Expertise => { name: Locale::EXPERTISE, percent: true, of: s => s.expertise }
+    .MeleeHaste => { name: Locale::HASTE, percent: true, of: s => s.meleeHaste }
+    .RangedHaste => { name: Locale::HASTE, percent: true, of: s => s.rangedHaste }
+    .SpellHaste => { name: Locale::HASTE, percent: true, of: s => s.spellHaste }
+    .ArmorPenetration => { name: Locale::ARMOR_PENETRATION, percent: false, of: s => s.armorPenetration }
+    .SpellPenetration => { name: Locale::SPELL_PENETRATION, percent: false, of: s => s.spellPenetration }
+    .Dodge => { name: Locale::DODGE, percent: true, of: s => s.dodge }
+    .Parry => { name: Locale::PARRY, percent: true, of: s => s.parry }
+    .Block => { name: Locale::BLOCK, percent: true, of: s => s.block }
+    .BlockValue => { name: Locale::BLOCK_VALUE, percent: false, of: s => s.blockValue }
+    .Defense => { name: Locale::SECTION_DEFENSE, percent: false, of: s => s.defense }
+    .SpellDamage => { name: Locale::SPELL_DAMAGE, percent: false, of: s => s.spellDamage }
+    .Healing => { name: Locale::HEALING, percent: false, of: s => s.healing }
+    .Regen => { name: Locale::COMBAT_REGEN, percent: false, of: s => s.regen }
+    .ManaRegen => { name: Locale::REGEN, percent: false, of: s => s.restingRegen }
+    .HealthRegen => { name: Locale::REGEN, percent: false, of: s => s.healthRegen }
+    .CombatHealthRegen => { name: Locale::COMBAT_REGEN, percent: false, of: s => s.combatHealthRegen }
+    .RunSpeed => { name: Locale::RUN_SPEED, percent: true, of: s => s.runSpeed }
+    .MeleeDps => { name: Locale::DPS, percent: false, of: s => meleeDps(s) }
+    .RangedDps => { name: Locale::DPS, percent: false, of: s => rangedDps(s) }
+    .MeleeLands => { name: Locale::LANDS, percent: true, of: s => landsOf(.Melee, s) }
+    .RangedLands => { name: Locale::LANDS, percent: true, of: s => landsOf(.Ranged, s) }
+    .SpellLands => { name: Locale::LANDS, percent: true, of: s => landsOf(.Spell, s) }
+    .DamageReduction => { name: Locale::DAMAGE_REDUCTION, percent: true, of: s => s.atMaxLevel ? s.bossArmorReduction : s.armorReduction }
+    .HitTaken => { name: Locale::HIT_TAKEN, percent: true, of: s => hitTakenOf(s) }
+    .MainHandSkill => { name: Locale::WEAPON_SKILL, percent: false, of: s => s.meleeSkillPast }
+    .OffHandSkill => { name: Locale::WEAPON_SKILL, percent: false, of: s => s.offSkillPast }
+    .RangedSkill => { name: Locale::WEAPON_SKILL, percent: false, of: s => s.rangedSkillPast }
+    .AttackSpeed => { name: Locale::ATTACK_SPEED, percent: false, of: s => swingOf(s) }
+    .RangedAttackSpeed => { name: Locale::ATTACK_SPEED, percent: false, of: s => s.rangedSpeed }
   }
 }
 
@@ -149,7 +149,7 @@ function changed(change: Change): Array<Stat> {
 
 // A change that multiplies its stat rather than adding to it.
 function multiplies(change: Change): Boolean {
-  return change.kind == Kind.StatPercent || change.kind == Kind.ResistPercent || change.kind == Kind.AttackPowerPercent
+  return change.kind == Kind::StatPercent || change.kind == Kind::ResistPercent || change.kind == Kind::AttackPowerPercent
 }
 
 // What the window knows of the character, all a stat's sources are read from.
@@ -180,7 +180,7 @@ public const NO_BREAKDOWN: Breakdown = { text: "", sections: [], fed: [], shares
 
 // An amount in the stat's unit: a percentage with two decimals, points whole.
 function amountText(amount: Number, percent: Boolean): String {
-  return percent ? "%.2f%%".format(amount) : String.of(amount.round())
+  return percent ? "%.2f%%".format(amount) : String::of(amount.round())
 }
 
 // An amount as a source adds it, signed.
@@ -190,7 +190,7 @@ function added(amount: Number, percent: Boolean): String {
 
 // What a point gives, as short as it reads: whole where it is whole, else to four figures.
 function perText(per: Number): String {
-  return per == per.floor() ? String.of(per) : "%.4g".format(per)
+  return per == per.floor() ? String::of(per) : "%.4g".format(per)
 }
 
 // How a stat's share of another is worked out, written before it in its tooltip: «20 × 15 =», or with the first points
@@ -238,11 +238,11 @@ function feedsOf(stats: Stats, classTag: String): Array<Feed> {
     { from: .Agility, to: .Armor, per: 2 },
     { from: .Stamina, to: .Health, per: 10, past: 20 }
   ]
-  if (stats.resource == Resource.Mana) { all.push({ from: .Intellect, to: .Power, per: 15, past: 20 }) }
+  if (stats.resource == Resource::Mana) { all.push({ from: .Intellect, to: .Power, per: 15, past: 20 }) }
   // Spirit's share of health's regeneration out of a fight, and of mana's outside casting, as the client says it.
   if (stats.spirit > 0) {
     all.push({ from: .Spirit, to: .HealthRegen, per: stats.healthFromSpirit / stats.spirit })
-    if (stats.resource == Resource.Mana) { all.push({ from: .Spirit, to: .ManaRegen, per: stats.manaFromSpirit / stats.spirit }) }
+    if (stats.resource == Resource::Mana) { all.push({ from: .Spirit, to: .ManaRegen, per: stats.manaFromSpirit / stats.spirit }) }
   }
   if (SHIELD_CLASSES.any(tag => tag == classTag)) { all.push({ from: .Strength, to: .BlockValue, per: 1 / 20 }) }
   // The defense past the level's: 0.04% of dodge, parry and block a point (the game's `DEFAULT_STATDEFENSE_TOOLTIP`).
@@ -265,18 +265,18 @@ public function wordsOf(stat: Stat, stats: Stats): String {
     .Armor => tips.armor
     .AttackPower => tips.attackPower
     .RangedAttackPower => tips.rangedAttackPower
-    .MeleeCrit, .RangedCrit => Locale.CRIT_WEAPON.format()
-    .SpellCrit => Locale.CRIT_SPELL.format()
-    .Expertise => Locale.EXPERTISE_TIP
+    .MeleeCrit, .RangedCrit => Locale::CRIT_WEAPON.format()
+    .SpellCrit => Locale::CRIT_SPELL.format()
+    .Expertise => Locale::EXPERTISE_TIP
     .Defense => tips.defense
     .BlockValue => tips.block
     .ArmorPenetration => tips.armorPenetration
     .SpellPenetration => tips.spellPenetration
     .SpellDamage => tips.spellDamage
     .Healing => tips.healing
-    .MeleeHaste => Locale.HASTE_MELEE_TIP
-    .RangedHaste => Locale.HASTE_RANGED_TIP
-    .SpellHaste => Locale.HASTE_SPELL_TIP
+    .MeleeHaste => Locale::HASTE_MELEE_TIP
+    .RangedHaste => Locale::HASTE_RANGED_TIP
+    .SpellHaste => Locale::HASTE_SPELL_TIP
     else => ""
   }
 }
@@ -302,10 +302,10 @@ function sum(parts: Array<Part>): Number {
 // hands').
 function handRows(min: Number, max: Number, speed: Number, ofTwo: Boolean): Array<TipRow> {
   const rows: Array<TipRow> = [
-    { label: Locale.ATTACK_SPEED, value: "%.2f".format(speed) },
-    { label: Locale.DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` }
+    { label: Locale::ATTACK_SPEED, value: "%.2f".format(speed) },
+    { label: Locale::DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` }
   ]
-  if (ofTwo) { rows.push({ label: Locale.DPS, value: "%.1f".format(handDps(min, max, speed)) }) }
+  if (ofTwo) { rows.push({ label: Locale::DPS, value: "%.1f".format(handDps(min, max, speed)) }) }
   return rows
 }
 
@@ -324,16 +324,16 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
   const off = stats.offSpeed ?? 0
   let rows: Array<TipRow> = []
   if (off > 0) {
-    sections.push({ title: Locale.MAIN_HAND, rows: handRows(stats.minDamage, stats.maxDamage, stats.speed, true) })
-    sections.push({ title: Locale.OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off, true) })
+    sections.push({ title: Locale::MAIN_HAND, rows: handRows(stats.minDamage, stats.maxDamage, stats.speed, true) })
+    sections.push({ title: Locale::OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off, true) })
     shares[OFF_HAND_SLOT] = "%.1f".format(handDps(stats.offMinDamage, stats.offMaxDamage, off))
   } else {
     rows = handRows(stats.minDamage, stats.maxDamage, stats.speed, false)
   }
   const hit = (stats.minDamage + stats.maxDamage) / 2
-  sections.push({ title: Locale.GLANCING_BLOWS, rows: [
-    glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancingPenalty, hit),
-    glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancingPenalty, hit)
+  sections.push({ title: Locale::GLANCING_BLOWS, rows: [
+    glancingRow(Locale::HIT_CAP_BOSS, stats.bossGlancingPenalty, hit),
+    glancingRow(Locale::HIT_CAP_LEVEL, stats.levelGlancingPenalty, hit)
   ] })
   return { text: "", rows: rows, sections: sections, fed: [.AttackPower, .AttackSpeed], shares: shares }
 }
@@ -362,8 +362,8 @@ const DUAL_HIT_CAPS: HitCaps = { boss: 27, level: 24 }
 // How a chance reads: green at its best, yellow while at least half the way there from where it starts, red short of
 // that. `left` is what is left of what the stat takes off (a miss, a dodge), `whole` all of it.
 function toneOf(left: Number, whole: Number): Color {
-  if (left <= 0) { return Style.GREEN }
-  return left * 2 <= whole ? Style.YELLOW : Style.RED
+  if (left <= 0) { return Style::GREEN }
+  return left * 2 <= whole ? Style::YELLOW : Style::RED
 }
 
 // The chance to hit a target, bigger better: what the hit leaves of the target's misses taken off the whole.
@@ -373,7 +373,7 @@ function hitRow(label: String, hit: Number, cap: Number): TipRow {
 }
 
 function hitRows(hit: Number, caps: HitCaps): Array<TipRow> {
-  return [hitRow(Locale.HIT_CAP_BOSS, hit, caps.boss), hitRow(Locale.HIT_CAP_LEVEL, hit, caps.level)]
+  return [hitRow(Locale::HIT_CAP_BOSS, hit, caps.boss), hitRow(Locale::HIT_CAP_LEVEL, hit, caps.level)]
 }
 
 // A hit's caps, its section's alone: the spells' for spell hit; for melee and ranged hit the weapons', and with a weapon
@@ -394,7 +394,7 @@ function dualOf(stats: Stats): Boolean { return (stats.offSpeed ?? 0) > 0 }
 function hitChancesOf(stat: Stat, stats: Stats): Array<TipSection> {
   const hit = hitOf(stat, stats)
   const caps = capsOf(stat, dualOf(stats))
-  return caps.map(c => TipSection { title: c == DUAL_HIT_CAPS ? Locale.HIT_CAP_DUAL : Locale.HIT_CHANCE, rows: hitRows(hit, c) })
+  return caps.map(c => TipSection { title: c == DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : Locale::HIT_CHANCE, rows: hitRows(hit, c) })
 }
 
 // A cap a gauge marks: where it stands in the stat's own unit, and its tooltip's title and text.
@@ -408,9 +408,9 @@ public struct Cap {
 public function hitCaps(stat: Stat, stats: Stats): Array<Cap> {
   const caps: Array<Cap> = []
   for (c of capsOf(stat, dualOf(stats))) {
-    const title = c == DUAL_HIT_CAPS ? Locale.HIT_CAP_DUAL : ""
-    caps.push({ at: c.boss, title: title != "" ? `${title}: ${Locale.HIT_CAP_BOSS}` : Locale.HIT_CAP_BOSS, text: Locale.HIT_MARK.format(amountText(c.boss, true)) })
-    caps.push({ at: c.level, title: title != "" ? `${title}: ${Locale.HIT_CAP_LEVEL}` : Locale.HIT_CAP_LEVEL, text: Locale.HIT_MARK.format(amountText(c.level, true)) })
+    const title = c == DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : ""
+    caps.push({ at: c.boss, title: title != "" ? `${title}: ${Locale::HIT_CAP_BOSS}` : Locale::HIT_CAP_BOSS, text: Locale::HIT_MARK.format(amountText(c.boss, true)) })
+    caps.push({ at: c.level, title: title != "" ? `${title}: ${Locale::HIT_CAP_LEVEL}` : Locale::HIT_CAP_LEVEL, text: Locale::HIT_MARK.format(amountText(c.level, true)) })
   }
   return caps
 }
@@ -439,19 +439,19 @@ function avoidanceRows(expertise: Number, of: Avoidance): Array<TipRow> {
   const dodge = (of.dodge - expertise).max(0)
   const parry = (of.parry - (expertise - of.dodge).max(0)).max(0)
   return [
-    { label: Locale.DODGE, value: amountText(dodge, true), valueTone: toneOf(dodge, of.dodge) },
-    { label: Locale.PARRY, value: amountText(parry, true), valueTone: toneOf(parry, of.parry) }
+    { label: Locale::DODGE, value: amountText(dodge, true), valueTone: toneOf(dodge, of.dodge) },
+    { label: Locale::PARRY, value: amountText(parry, true), valueTone: toneOf(parry, of.parry) }
   ]
 }
 
 // The expertise gauge's caps: where each target no longer dodges, and where it no longer parries (past its dodge).
 public function expertiseCaps(): Array<Cap> {
   const caps: Array<Cap> = []
-  const targets: Array<Target> = [{ name: Locale.HIT_CAP_BOSS, of: BOSS_AVOIDANCE }, { name: Locale.HIT_CAP_LEVEL, of: LEVEL_AVOIDANCE }]
+  const targets: Array<Target> = [{ name: Locale::HIT_CAP_BOSS, of: BOSS_AVOIDANCE }, { name: Locale::HIT_CAP_LEVEL, of: LEVEL_AVOIDANCE }]
   for (target of targets) {
     const parry = target.of.dodge + target.of.parry
-    caps.push({ at: target.of.dodge, title: target.name, text: Locale.DODGE_MARK.format(amountText(target.of.dodge, true)) })
-    caps.push({ at: parry, title: target.name, text: Locale.PARRY_MARK.format(amountText(parry, true)) })
+    caps.push({ at: target.of.dodge, title: target.name, text: Locale::DODGE_MARK.format(amountText(target.of.dodge, true)) })
+    caps.push({ at: parry, title: target.name, text: Locale::PARRY_MARK.format(amountText(parry, true)) })
   }
   return caps
 }
@@ -459,8 +459,8 @@ public function expertiseCaps(): Array<Cap> {
 // Expertise's sections: a raid's boss's, and a target of the player's level's.
 function avoidanceOf(expertise: Number): Array<TipSection> {
   return [
-    { title: Locale.HIT_CAP_BOSS, rows: avoidanceRows(expertise, BOSS_AVOIDANCE) },
-    { title: Locale.HIT_CAP_LEVEL, rows: avoidanceRows(expertise, LEVEL_AVOIDANCE) }
+    { title: Locale::HIT_CAP_BOSS, rows: avoidanceRows(expertise, BOSS_AVOIDANCE) },
+    { title: Locale::HIT_CAP_LEVEL, rows: avoidanceRows(expertise, LEVEL_AVOIDANCE) }
   ]
 }
 
@@ -557,24 +557,24 @@ function outcomesOf(strike: Strike, stats: Stats, boss: Boolean): Array<Outcome>
   const odds = oddsOf(strike, stats, boss, caps)
   const whole = oddsOf(strike, {}, boss, caps)
   const crit = critAt(strike, stats, boss)
-  const outcomes: Array<Outcome> = [{ label: Locale.MISS, share: odds.miss, color: Style.RED, whole: whole.miss }]
+  const outcomes: Array<Outcome> = [{ label: Locale::MISS, share: odds.miss, color: Style::RED, whole: whole.miss }]
   if (strike == .Spell) {
     const crits = (100 - odds.miss) * crit / 100
-    outcomes.push({ label: Locale.ORDINARY, share: 100 - odds.miss - crits, color: Style.ORDINARY })
-    outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
+    outcomes.push({ label: Locale::ORDINARY, share: 100 - odds.miss - crits, color: Style::ORDINARY })
+    outcomes.push({ label: Locale::CRIT, share: crits, color: Style::GREEN })
     return outcomes
   }
-  outcomes.push({ label: Locale.DODGE, share: odds.dodge, color: Style.AVOIDED, whole: whole.dodge })
+  outcomes.push({ label: Locale::DODGE, share: odds.dodge, color: Style::AVOIDED, whole: whole.dodge })
   if (strike == .Melee) {
-    outcomes.push({ label: Locale.PARRY, share: odds.parry, color: Style.AVOIDED, whole: whole.parry })
-    outcomes.push({ label: Locale.GLANCING, share: boss ? stats.bossGlancing : stats.levelGlancing, color: Style.YELLOW })
+    outcomes.push({ label: Locale::PARRY, share: odds.parry, color: Style::AVOIDED, whole: whole.parry })
+    outcomes.push({ label: Locale::GLANCING, share: boss ? stats.bossGlancing : stats.levelGlancing, color: Style::YELLOW })
   }
   const blocks = odds.block.min(roomOf(outcomes))
-  outcomes.push({ label: Locale.BLOCK, share: blocks, color: Style.YELLOW })
+  outcomes.push({ label: Locale::BLOCK, share: blocks, color: Style::YELLOW })
   const room = roomOf(outcomes)
   const crits = crit.min(room)
-  outcomes.push({ label: Locale.ORDINARY, share: room - crits, color: Style.ORDINARY })
-  outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
+  outcomes.push({ label: Locale::ORDINARY, share: room - crits, color: Style::ORDINARY })
+  outcomes.push({ label: Locale::CRIT, share: crits, color: Style::GREEN })
   return outcomes
 }
 
@@ -608,14 +608,14 @@ function outcomeSection(title: String, outcomes: Array<Outcome>): TipSection {
 function bothTargets(stats: Stats, sectionOf: (title: String, boss: Boolean) => TipSection): Array<TipSection> {
   const boss = stats.atMaxLevel
   return [
-    sectionOf(boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL, boss),
-    sectionOf(boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS, !boss)
+    sectionOf(boss ? Locale::HIT_CAP_BOSS : Locale::HIT_CAP_LEVEL, boss),
+    sectionOf(boss ? Locale::HIT_CAP_LEVEL : Locale::HIT_CAP_BOSS, !boss)
   ]
 }
 
 // What lands's tooltip: what the card counts, then what a strike comes to against each target, the card's first.
 function landsBreakdown(strike: Strike, stats: Stats): Breakdown {
-  const text = strike == .Melee ? Locale.LANDS_TIP : strike == .Ranged ? Locale.LANDS_RANGED_TIP : Locale.LANDS_SPELL_TIP
+  const text = strike == .Melee ? Locale::LANDS_TIP : strike == .Ranged ? Locale::LANDS_RANGED_TIP : Locale::LANDS_SPELL_TIP
   const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, outcomesOf(strike, stats, boss)))
   const fed: Array<Stat> = strike == .Melee ? [.MeleeHit, .Expertise] : strike == .Ranged ? [.RangedHit] : [.SpellHit]
   return { text: text, sections: sections, fed: fed, shares: {} }
@@ -636,13 +636,13 @@ function takenOf(stats: Stats, boss: Boolean): Array<Outcome> {
   const add = (label: String, chance: Number, color: Color) => {
     parts.push({ label: label, share: chance.max(0).min(roomOf(parts)), color: color })
   }
-  add(Locale.MISS, BASE_ENEMY_MISS + edge, Style.GREEN)
-  add(Locale.DODGE, stats.dodge - lose, Style.EVADED)
-  add(Locale.PARRY, stats.parry - lose, Style.EVADED)
-  if (stats.shield) { add(Locale.BLOCK, stats.block - lose, Style.YELLOW) }
-  add(Locale.CRIT, BASE_ENEMY_CRIT - edge, Style.RED)
-  add(Locale.CRUSHING, gap >= CRUSHING_GAP ? gap * 2 - CRUSHING_GAP : 0, Style.CRUSHED)
-  add(Locale.ORDINARY, 100, Style.TAKEN)
+  add(Locale::MISS, BASE_ENEMY_MISS + edge, Style::GREEN)
+  add(Locale::DODGE, stats.dodge - lose, Style::EVADED)
+  add(Locale::PARRY, stats.parry - lose, Style::EVADED)
+  if (stats.shield) { add(Locale::BLOCK, stats.block - lose, Style::YELLOW) }
+  add(Locale::CRIT, BASE_ENEMY_CRIT - edge, Style::RED)
+  add(Locale::CRUSHING, gap >= CRUSHING_GAP ? gap * 2 - CRUSHING_GAP : 0, Style::CRUSHED)
+  add(Locale::ORDINARY, 100, Style::TAKEN)
   return parts
 }
 const BASE_ENEMY_MISS = 5
@@ -660,7 +660,7 @@ function hitTakenOf(stats: Stats): Number {
 
 function takenBreakdown(stats: Stats): Breakdown {
   const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, takenOf(stats, boss)))
-  return { text: Locale.HIT_TAKEN_TIP, sections: sections, fed: [.Defense, .Dodge, .Parry, .Block], shares: {} }
+  return { text: Locale::HIT_TAKEN_TIP, sections: sections, fed: [.Defense, .Dodge, .Parry, .Block], shares: {} }
 }
 
 // What a weapon's skill does against each target, as the game's skills frame says it: past the target's defense (a
@@ -671,17 +671,17 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
   const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => {
     const edge = (past - (boss ? stats.bossDefensePast : 0)) * SKILL_STEP
     const rows: Array<TipRow> = [
-      { label: Locale.SKILL_HIT, value: signedPercent(edge), valueTone: edgeTone(edge) },
-      { label: Locale.CRIT, value: signedPercent(edge), valueTone: edgeTone(edge) }
+      { label: Locale::SKILL_HIT, value: signedPercent(edge), valueTone: edgeTone(edge) },
+      { label: Locale::CRIT, value: signedPercent(edge), valueTone: edgeTone(edge) }
     ]
     if (stat == .MainHandSkill) {
       const chance = boss ? stats.bossGlancing : stats.levelGlancing
       const penalty = boss ? stats.bossGlancingPenalty : stats.levelGlancingPenalty
-      rows.push({ label: Locale.GLANCING, value: Locale.GLANCING_PENALTY.format(amountText(chance, true), amountText(penalty, true)) })
+      rows.push({ label: Locale::GLANCING, value: Locale::GLANCING_PENALTY.format(amountText(chance, true), amountText(penalty, true)) })
     }
     return { title: title, rows: rows }
   })
-  return { text: Locale.WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
+  return { text: Locale::WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
 }
 
 // The seconds between swings (each hand's, with a weapon in each) or between shots: the haste first, then each weapon's
@@ -689,16 +689,16 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
 // seconds; the weapon's own are those times the haste. The haste lights with it.
 function speedBreakdown(ranged: Boolean, stats: Stats): Breakdown {
   const haste = ranged ? stats.rangedHaste : stats.meleeHaste
-  const rows: Array<TipRow> = [{ label: Locale.HASTE, value: added(haste, true) }]
+  const rows: Array<TipRow> = [{ label: Locale::HASTE, value: added(haste, true) }]
   if (ranged) {
-    rows.push(swingRow(Locale.SECTION_RANGED, stats.rangedSpeed, haste))
+    rows.push(swingRow(Locale::SECTION_RANGED, stats.rangedSpeed, haste))
   } else {
-    rows.push(swingRow(Locale.MAIN_HAND, stats.speed, haste))
+    rows.push(swingRow(Locale::MAIN_HAND, stats.speed, haste))
     const off = stats.offSpeed ?? 0
-    if (off > 0) { rows.push(swingRow(Locale.OFF_HAND, off, haste)) }
+    if (off > 0) { rows.push(swingRow(Locale::OFF_HAND, off, haste)) }
   }
   const fed: Array<Stat> = [ranged ? .RangedHaste : .MeleeHaste]
-  return { text: ranged ? Locale.RANGED_SPEED_TIP : Locale.ATTACK_SPEED_TIP, rows: rows, sections: [], fed: fed, shares: {} }
+  return { text: ranged ? Locale::RANGED_SPEED_TIP : Locale::ATTACK_SPEED_TIP, rows: rows, sections: [], fed: fed, shares: {} }
 }
 
 // A weapon's seconds between attacks: its own speed divided by the haste, worked out where there is haste.
@@ -708,24 +708,24 @@ function swingRow(label: String, hasted: Number, haste: Number): TipRow {
   return { label: label, working: `${"%.2f".format(hasted * by)} ÷ ${"%.2f".format(by)} =`, value: secondsText(hasted) }
 }
 
-function secondsText(seconds: Number): String { return `${"%.2f".format(seconds)} ${Locale.SECONDS}` }
+function secondsText(seconds: Number): String { return `${"%.2f".format(seconds)} ${Locale::SECONDS}` }
 
 // A change in percent with its sign: «+0.28%», «-11.08%».
 function signedPercent(value: Number): String { return "%+.2f%%".format(value) }
 
 // A change's colour: green in the player's favour, red against, plain at none.
 function edgeTone(edge: Number): Color | nil {
-  if (edge > 0) { return Style.GREEN }
-  return edge < 0 ? Style.RED : nil
+  if (edge > 0) { return Style::GREEN }
+  return edge < 0 ? Style::RED : nil
 }
 
 // The armor's cut of a raid boss's physical damage and of a target of the player's level's, the card's first.
 function reductionBreakdown(stats: Stats): Breakdown {
   const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => TipSection {
     title: title,
-    rows: [{ label: Locale.DAMAGE_REDUCTION, value: amountText(boss ? stats.bossArmorReduction : stats.armorReduction, true) }]
+    rows: [{ label: Locale::DAMAGE_REDUCTION, value: amountText(boss ? stats.bossArmorReduction : stats.armorReduction, true) }]
   })
-  return { text: Locale.DAMAGE_REDUCTION_TIP, sections: sections, fed: [.Armor], shares: {} }
+  return { text: Locale::DAMAGE_REDUCTION_TIP, sections: sections, fed: [.Armor], shares: {} }
 }
 
 // What a stat's tooltip lists, and what lights with it.
@@ -743,12 +743,12 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   // The base: a main stat's as the client says it, any other's the rest of its value (its level, its race, talents).
   const base = baseFor(stat, facts, parts)
   if (base.abs() >= (spec.percent ? 0.005 : 0.5)) {
-    fromStats.push({ row: { label: Locale.BASE, value: amountText(base, spec.percent) }, amount: base })
+    fromStats.push({ row: { label: Locale::BASE, value: amountText(base, spec.percent) }, amount: base })
   }
   const sections: Array<TipSection> = []
-  section(Locale.FROM_STATS, fromStats, sections)
-  section(Locale.FROM_ITEMS, parts.fromItems, sections)
-  section(Locale.FROM_EFFECTS, parts.fromEffects, sections)
+  section(Locale::FROM_STATS, fromStats, sections)
+  section(Locale::FROM_ITEMS, parts.fromItems, sections)
+  section(Locale::FROM_EFFECTS, parts.fromEffects, sections)
   if (stat == .MeleeHit || stat == .RangedHit || stat == .SpellHit) {
     for (chances of hitChancesOf(stat, facts.stats)) { sections.push(chances) }
   }
@@ -779,7 +779,7 @@ public enum Boost { Up = "up", Down = "down" }
 // An aura's share of a stat in its tooltip: green where it raises the stat, red where it lowers it, as the stat's
 // value reads.
 function boostTone(amount: Number): Color | nil {
-  return amount > 0 ? Style.GREEN : amount < 0 ? Style.RED : nil
+  return amount > 0 ? Style::GREEN : amount < 0 ? Style::RED : nil
 }
 
 // Each stat an aura changes, by its name, and how; a stat none changes isn't in it.
@@ -830,7 +830,7 @@ function partsOf(stat: Stat, facts: Facts): Parts {
         if (given.stat == stat) {
           const value = added(given.amount, spec.percent)
           fromItems.push({
-            row: { label: piece.name, value: value, icon: Game.items.icon(item), tone: qualityColor(piece.quality) },
+            row: { label: piece.name, value: value, icon: Game::items.icon(item), tone: qualityColor(piece.quality) },
             amount: given.amount
           })
           shares[piece.slot] = value
@@ -863,8 +863,8 @@ function partsOf(stat: Stat, facts: Facts): Parts {
   for (aura of facts.auras) {
     for (change of aura.changes) {
       if (changed(change).any(s => s == stat)) {
-        const name = Game.spells.name(aura.spell) ?? ""
-        const icon: Art | nil = Game.spells.texture(aura.spell)
+        const name = Game::spells.name(aura.spell) ?? ""
+        const icon: Art | nil = Game::spells.texture(aura.spell)
         const tone = boostTone(change.amount)
         if (multiplies(change)) {
           // What a share of the total it makes: the stat without it times the share.

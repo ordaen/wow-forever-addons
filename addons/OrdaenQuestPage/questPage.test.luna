@@ -7,7 +7,7 @@ import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scrol
 
 function given(name: String): Reward {
   return {
-    kind: .Title, name: name, icon: nil, count: 1, quality: Quality.Common, item: nil, link: nil, detail: "",
+    kind: .Title, name: name, icon: nil, count: 1, quality: Quality::Common, item: nil, link: nil, detail: "",
     unusable: false, sell: 0, index: 0
   }
 }
@@ -44,14 +44,14 @@ class Parchment {
 
 test "a folded scroll holds its title alone on a sheet close round it, and a click on it unfolds it" {
   const page = new Parchment()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  const title = Test.page().text("The Defias Brotherhood").rect()
-  Test.expect(Test.page().texts().filter(text => text == "Find the Defias hideout.").length == 0)
-  const bottom = Test.edges(SHEET_ART.bottomLeft, 0)
-  Test.expect(bottom.bottom - title.bottom < 70)
-  Test.page().text("The Defias Brotherhood").click()
-  Test.expect(!page.folded)
-  Test.expect(Test.page().text("Find the Defias hideout.").rect().top > Test.page().text("The Defias Brotherhood").rect().bottom)
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const title = Test::page().text("The Defias Brotherhood").rect()
+  Test::expect(Test::page().texts().filter(text => text == "Find the Defias hideout.").length == 0)
+  const bottom = Test::edges(SHEET_ART.bottomLeft, 0)
+  Test::expect(bottom.bottom - title.bottom < 70)
+  Test::page().text("The Defias Brotherhood").click()
+  Test::expect(!page.folded)
+  Test::expect(Test::page().text("Find the Defias hideout.").rect().top > Test::page().text("The Defias Brotherhood").rect().bottom)
   destroy page
 }
 
@@ -71,26 +71,26 @@ class WideParchment {
 
 test "in a place twice its art's width the sheet fills it, its corners at their own size, its edges between them" {
   const page = new WideParchment()
-  Test.mount(page, { left: 0, top: 0, width: 1400, height: 600 })
+  Test::mount(page, { left: 0, top: 0, width: 1400, height: 600 })
   const art = SCROLL_WIDTH / 1ui
-  const left = Test.edges(SHEET_ART.topLeft, 0)
-  const top = Test.edges(SHEET_ART.top, 0)
-  const right = Test.edges(SHEET_ART.topRight, 0)
+  const left = Test::edges(SHEET_ART.topLeft, 0)
+  const top = Test::edges(SHEET_ART.top, 0)
+  const right = Test::edges(SHEET_ART.topRight, 0)
   // A corner is 64 of the art's 1024 texels, square; the top edge runs from one corner to the other, as high.
-  Test.expect((left.right - left.left - art / 16).abs() < 0.5)
-  Test.expect((left.bottom - left.top - art / 16).abs() < 0.5)
-  Test.expect((right.right - left.left - art * 2).abs() < 0.5)
-  Test.expect((top.left - left.right).abs() < 0.5 && (right.left - top.right).abs() < 0.5)
-  Test.expect((top.top - left.top).abs() < 0.5 && (top.bottom - left.bottom).abs() < 0.5)
+  Test::expect((left.right - left.left - art / 16).abs() < 0.5)
+  Test::expect((left.bottom - left.top - art / 16).abs() < 0.5)
+  Test::expect((right.right - left.left - art * 2).abs() < 0.5)
+  Test::expect((top.left - left.right).abs() < 0.5 && (right.left - top.right).abs() < 0.5)
+  Test::expect((top.top - left.top).abs() < 0.5 && (top.bottom - left.bottom).abs() < 0.5)
   // The paper fills what the edges leave, from the left edge to the right.
-  const paper = Test.edges(SHEET_ART.middle, 0)
-  const edge = Test.edges(SHEET_ART.left, 0)
-  Test.expect((paper.left - edge.right).abs() < 0.5 && (paper.right - Test.edges(SHEET_ART.right, 0).left).abs() < 0.5)
+  const paper = Test::edges(SHEET_ART.middle, 0)
+  const edge = Test::edges(SHEET_ART.left, 0)
+  Test::expect((paper.left - edge.right).abs() < 0.5 && (paper.right - Test::edges(SHEET_ART.right, 0).left).abs() < 0.5)
   // The shading covers the whole sheet once, edges and all, over its paper.
-  const tone = Test.edges(SCROLL_ART.tone, 0)
-  Test.expect((tone.left - left.left).abs() < 0.5 && (tone.right - right.right).abs() < 0.5)
-  Test.expect((tone.top - left.top).abs() < 0.5 && (tone.bottom - Test.edges(SHEET_ART.bottomLeft, 0).bottom).abs() < 0.5)
-  Test.expect(Test.page().box(SCROLL_ART.tone).level() > Test.page().box(SHEET_ART.middle).level())
+  const tone = Test::edges(SCROLL_ART.tone, 0)
+  Test::expect((tone.left - left.left).abs() < 0.5 && (tone.right - right.right).abs() < 0.5)
+  Test::expect((tone.top - left.top).abs() < 0.5 && (tone.bottom - Test::edges(SHEET_ART.bottomLeft, 0).bottom).abs() < 0.5)
+  Test::expect(Test::page().box(SCROLL_ART.tone).level() > Test::page().box(SHEET_ART.middle).level())
   destroy page
 }
 
@@ -106,30 +106,30 @@ class Heading {
 
 test "a section's heading on the parchment stands in the middle of its rule, the rule each side of it" {
   const page = new Heading()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  const title = Test.page().text("Objectives").rect()
-  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1 && title.left > 50)
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const title = Test::page().text("Objectives").rect()
+  Test::expect(((title.left + title.right) / 2 - 200).abs() < 1 && title.left > 50)
   destroy page
 }
 
 test "experience and each reputation stand a row each, off the rewards: what it is in white, how much at the right" {
   const page = new Page()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  const label = Test.page().text(Locale.QUEST_EXPERIENCE)
-  const xp = Test.page().text("1200").rect()
-  const mark = Test.page().box(XP_MARK).rect()
-  const faction = Test.page().text("Stormwind").rect()
-  const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250)).rect()
-  Test.expect(label.textColor().equal(BRIGHT_TEXT) && Test.page().text("Stormwind").textColor().equal(BRIGHT_TEXT))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const label = Test::page().text(Locale::QUEST_EXPERIENCE)
+  const xp = Test::page().text("1200").rect()
+  const mark = Test::page().box(XP_MARK).rect()
+  const faction = Test::page().text("Stormwind").rect()
+  const standing = Test::page().text(Locale::QUEST_REPUTATION.format(250)).rect()
+  Test::expect(label.textColor().equal(BRIGHT_TEXT) && Test::page().text("Stormwind").textColor().equal(BRIGHT_TEXT))
   // The number, then its mark, both ending at the section's right end with the reputation's amount.
-  Test.expect(mark.left > xp.right && (mark.right - standing.right).abs() < 0.5)
+  Test::expect(mark.left > xp.right && (mark.right - standing.right).abs() < 0.5)
   // The mark as tall as the digits, within a line.
-  Test.expect(mark.bottom - mark.top > (xp.bottom - xp.top) * 0.75 && mark.bottom - mark.top <= xp.bottom - xp.top)
-  Test.expect((standing.top - faction.top).abs() < 1 && faction.top >= label.rect().bottom)
+  Test::expect(mark.bottom - mark.top > (xp.bottom - xp.top) * 0.75 && mark.bottom - mark.top <= xp.bottom - xp.top)
+  Test::expect((standing.top - faction.top).abs() < 1 && faction.top >= label.rect().bottom)
   // Off the last reward by far more than the rewards are off one another.
-  const four = Test.page().text("Four").item().rect()
-  const three = Test.page().text("Three").item().rect()
-  Test.expect(label.rect().top - four.bottom > (four.top - three.bottom) * 5)
+  const four = Test::page().text("Four").item().rect()
+  const three = Test::page().text("Three").item().rect()
+  Test::expect(label.rect().top - four.bottom > (four.top - three.bottom) * 5)
   destroy page
 }
 
@@ -148,26 +148,26 @@ class ReadPage {
 
 test "the parchment's sentences stand larger than the window's body text, as a page's do" {
   const page = new ReadPage()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 700 })
-  const words = Test.page().text("Find the Defias.")
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 700 })
+  const words = Test::page().text("Find the Defias.")
   const window = words.nth(1).letters()
   const parchment = words.nth(2).letters()
-  Test.expect(parchment.right - parchment.left > (window.right - window.left) * 1.05)
+  Test::expect(parchment.right - parchment.left > (window.right - window.left) * 1.05)
   destroy page
 }
 
 test "the parchment's title is in the book font, as its sentences are" {
   const page = new Parchment()
   page.folded = false
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  Test.expect(Test.page().text("The Defias Brotherhood").told().contains("textFont=book"))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  Test::expect(Test::page().text("The Defias Brotherhood").told().contains("textFont=book"))
   destroy page
 }
 
 test "a section's heading on the parchment is in the book font" {
   const heading = new Heading()
-  Test.mount(heading, { left: 0, top: 0, width: 600, height: 600 })
-  Test.expect(Test.page().texts().length > 0)
-  for (said of Test.page().texts()) { Test.expect(Test.page().text(said).told().contains("textFont=book")) }
+  Test::mount(heading, { left: 0, top: 0, width: 600, height: 600 })
+  Test::expect(Test::page().texts().length > 0)
+  for (said of Test::page().texts()) { Test::expect(Test::page().text(said).told().contains("textFont=book")) }
   destroy heading
 }

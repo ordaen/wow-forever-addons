@@ -3,7 +3,7 @@
 import { Align, Track } from "$ltml"
 import { FOOTER_ROOM, KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 
-const DIM: Color = Color.hex("#a3977f")
+const DIM: Color = Color::hex("#a3977f")
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Windowed implements Module {
@@ -23,7 +23,7 @@ public class Windowed implements Module {
   derived body: String = self.tab == 1 ? "the first tab's page" : "the second tab's page"
   derived note: String = "saved %d times".format(self.saved)
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align::Center}>
       <text value={self.note} textSize={SECONDARY_TEXT} textColor={DIM} />
       <PushButton label={"Save"} width={100ui} @click={self.onSave} />
     </box>

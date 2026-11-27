@@ -10,21 +10,21 @@ import { BRIGHT_TEXT } from "@/units"
 const HEIGHT = 35.15625dp
 const RIM = 1sp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
-const TROUGH: Color = Color.hex("#0b0805")
-const RIM_COLOR: Color = Color.hex("#3d2710")
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const TROUGH: Color = Color::hex("#0b0805")
+const RIM_COLOR: Color = Color::hex("#3d2710")
+const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const NOTCH: Line = { width: 1.171875dp, color: Color.hex("#000000bf"), sides: [Side.Right] }
+const NOTCH: Line = { width: 1.171875dp, color: Color::hex("#000000bf"), sides: [Side::Right] }
 const FILL: Array<Track> = [{ fr: 1 }]
 
 // The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.
 function rankOf(most: Integer): String {
   match (most) {
-    75 => return Locale.SKILL_RANK_75
-    150 => return Locale.SKILL_RANK_150
-    225 => return Locale.SKILL_RANK_225
-    300 => return Locale.SKILL_RANK_300
+    75 => return Locale::SKILL_RANK_75
+    150 => return Locale::SKILL_RANK_150
+    225 => return Locale::SKILL_RANK_225
+    300 => return Locale::SKILL_RANK_300
     else => return ""
   }
 }
@@ -34,7 +34,7 @@ public class SkillBar implements Component {
   derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
   derived label: String = self.labelOf()
   // The experience bar's fill as it starts.
-  const fill: Art = xpFillArt(XpFill.Brushed)
+  const fill: Art = xpFillArt(XpFill::Brushed)
 
   // The player's skill and the most it goes to now: the open profession's, a trainer's.
   rank: Signal<Integer>
@@ -60,19 +60,19 @@ public class SkillBar implements Component {
   public render(self): Template {
     return $ltml {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
-        <box background={TROUGH} overflow={Overflow.Hidden}>
-          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts}
+        <box background={TROUGH} overflow={Overflow::Hidden}>
+          <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts}
                rows={FILL}>
             <box background={self.fill} />
             <box />
           </box>
-          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
+          <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={NOTCH} />
             <box />
           </box>
-          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
-               yAlign={Align.Center}>
-            <text value={self.label} textColor={BRIGHT_TEXT} textShadow={SHADOW} textFont={TextFont.Numbers} wrap={.None} />
+          <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align::Center}
+               yAlign={Align::Center}>
+            <text value={self.label} textColor={BRIGHT_TEXT} textShadow={SHADOW} textFont={TextFont::Numbers} wrap={.None} />
           </box>
         </box>
       </box>

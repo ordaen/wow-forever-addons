@@ -19,14 +19,14 @@ function boars(creatures: Array<Integer>): Array<DropSource> {
   return creatures.map(creature => DropSource { creature: creature })
 }
 
-function pie(done: Boolean, objectives: Array<Game.QuestObjective>): LogQuest {
+function pie(done: Boolean, objectives: Array<Game::QuestObjective>): LogQuest {
   return {
     id: 86, title: "Pie for Billy", level: 5, header: "Elwynn Forest", kind: .World, done: done, failed: false,
     tracked: false, group: 0, shareable: false, objectives: objectives, xp: 0, money: 0
   }
 }
 
-function meatObjective(text: String, have: Integer): Game.QuestObjective {
+function meatObjective(text: String, have: Integer): Game::QuestObjective {
   return { text: text, done: have >= 4, kind: .Item, have: have, need: 4 }
 }
 
@@ -34,15 +34,15 @@ test "a creature that drops what a quest to do asks for is wanted for its object
   const by = wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 2/4", 2)])], { [86]: { drops: [meat(boars([113, 119]))], ..BARE } })
   for (creature of [113, 119]) {
     const want = (by[creature] ?? panic("wanted"))[1] ?? panic("a want")
-    Test.expect(want.quest == 86 && want.title == "Pie for Billy" && want.objective == "Chunk of Boar Meat")
-    Test.expect(want.have == 2 && want.need == 4 && !want.done)
+    Test::expect(want.quest == 86 && want.title == "Pie for Billy" && want.objective == "Chunk of Boar Meat")
+    Test::expect(want.have == 2 && want.need == 4 && !want.done)
   }
-  Test.expect(by[114] == nil)
+  Test::expect(by[114] == nil)
 }
 
 test "the count first, as Forever writes it, names the same objective" {
   const by = wantsOf([pie(false, [meatObjective("2/4 Chunk of Boar Meat", 2)])], { [86]: { drops: [meat(boars([113]))], ..BARE } })
-  Test.expect(((by[113] ?? panic("wanted"))[1] ?? panic("a want")).objective == "Chunk of Boar Meat")
+  Test::expect(((by[113] ?? panic("wanted"))[1] ?? panic("a want")).objective == "Chunk of Boar Meat")
 }
 
 test "the log's item objectives stand in QuestieDB's order: the one at the item's place, whatever its words" {
@@ -54,31 +54,31 @@ test "the log's item objectives stand in QuestieDB's order: the one at the item'
     { text: "Wolf Fang: 3/6", done: false, kind: .Item, have: 3, need: 6 }
   ])
   const by = wantsOf([quest], { [86]: { drops: [large, fang], ..BARE } })
-  Test.expect(((by[69] ?? panic("fang"))[1] ?? panic("a want")).objective == "Wolf Fang")
-  Test.expect(((by[70] ?? panic("large"))[1] ?? panic("a want")).objective == "Large Wolf Fang")
+  Test::expect(((by[69] ?? panic("fang"))[1] ?? panic("a want")).objective == "Wolf Fang")
+  Test::expect(((by[70] ?? panic("large"))[1] ?? panic("a want")).objective == "Large Wolf Fang")
 }
 
 test "where the log has another count of item objectives, the one named whole is found, never one that holds the name" {
   const fang: ItemDrops = { item: 1, name: "Wolf Fang", sources: boars([69]) }
   const quest = pie(false, [{ text: "Large Wolf Fang: 0/2", done: false, kind: .Item, have: 0, need: 2 }])
   const by = wantsOf([quest], { [86]: { drops: [fang, meat(boars([113]))], ..BARE } })
-  Test.expect(by[69] == nil)
+  Test::expect(by[69] == nil)
 }
 
 test "a quest done, one QuestieDB doesn't know, and an objective that isn't the item's want nothing" {
   const facts: Map<Integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
-  Test.expect(wantsOf([pie(true, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] == nil)
-  Test.expect(wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 2/4", 2)])], {})[113] == nil)
-  const tusk: Game.QuestObjective = { text: "Boar Tusk: 1/3", done: false, kind: .Item, have: 1, need: 3 }
+  Test::expect(wantsOf([pie(true, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] == nil)
+  Test::expect(wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 2/4", 2)])], {})[113] == nil)
+  const tusk: Game::QuestObjective = { text: "Boar Tusk: 1/3", done: false, kind: .Item, have: 1, need: 3 }
   const both: ItemDrops = { item: 3, name: "Boar Tusk", sources: boars([5]) }
-  Test.expect(wantsOf([pie(false, [tusk])], { [86]: { drops: [meat(boars([113])), both], ..BARE } })[113] == nil)
+  Test::expect(wantsOf([pie(false, [tusk])], { [86]: { drops: [meat(boars([113])), both], ..BARE } })[113] == nil)
 }
 
 test "an item dropped by more than a hundred creatures is everyday loot: it names none" {
   const many: Array<Integer> = []
   for (creature of 1..101) { many.push(creature) }
-  Test.expect(droppersOf(meat(boars(many))).length == 0)
-  Test.expect(droppersOf(meat(boars([113, 119]))).length == 2)
+  Test::expect(droppersOf(meat(boars(many))).length == 0)
+  Test::expect(droppersOf(meat(boars([113, 119]))).length == 2)
 }
 
 test "where QuestieDB has chances, a creature that drops the item under a tenth as often as the best is left out" {
@@ -87,7 +87,7 @@ test "where QuestieDB has chances, a creature that drops the item under a tenth 
     { creature: 900 }
   ]
   const named = droppersOf(meat(sources))
-  Test.expect(named.length == 2 && named.any(creature => creature == 113) && named.any(creature => creature == 119))
+  Test::expect(named.length == 2 && named.any(creature => creature == 113) && named.any(creature => creature == 119))
 }
 
 // Friendly (3500) with Stormwind (72), unmet elsewhere; Cooking (185) at 60, no other profession.
@@ -100,31 +100,31 @@ function never(id: Integer): Boolean { return false }
 
 test "a quest may be taken at its level, by its race and class, after the quests before it, and with none it excludes" {
   const done = (id: Integer): Boolean => id == 1 || id == 2
-  Test.expect(takeable(9, BARE, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { minLevel: 11, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { maxLevel: 9, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { races: [2, 5], ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(takeable(9, { classes: [8], ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(takeable(9, { after: [1, 2], ..BARE }, HUMAN_MAGE, never, done))
-  Test.expect(!takeable(9, { after: [1, 3], ..BARE }, HUMAN_MAGE, never, done))
-  Test.expect(takeable(9, { afterAny: [3, 2], ..BARE }, HUMAN_MAGE, never, done))
-  Test.expect(!takeable(9, { afterAny: [3, 4], ..BARE }, HUMAN_MAGE, never, done))
-  Test.expect(!takeable(9, { exclusive: [9, 1], ..BARE }, HUMAN_MAGE, never, done))
-  Test.expect(!takeable(9, BARE, HUMAN_MAGE, (id: Integer): Boolean => id == 9, never))
-  Test.expect(!takeable(9, BARE, HUMAN_MAGE, never, (id: Integer): Boolean => id == 9))
+  Test::expect(takeable(9, BARE, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { minLevel: 11, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { maxLevel: 9, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { races: [2, 5], ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { classes: [8], ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { after: [1, 2], ..BARE }, HUMAN_MAGE, never, done))
+  Test::expect(!takeable(9, { after: [1, 3], ..BARE }, HUMAN_MAGE, never, done))
+  Test::expect(takeable(9, { afterAny: [3, 2], ..BARE }, HUMAN_MAGE, never, done))
+  Test::expect(!takeable(9, { afterAny: [3, 4], ..BARE }, HUMAN_MAGE, never, done))
+  Test::expect(!takeable(9, { exclusive: [9, 1], ..BARE }, HUMAN_MAGE, never, done))
+  Test::expect(!takeable(9, BARE, HUMAN_MAGE, (id: Integer): Boolean => id == 9, never))
+  Test::expect(!takeable(9, BARE, HUMAN_MAGE, never, (id: Integer): Boolean => id == 9))
 }
 
 test "a quest may be taken with the standing it asks and under the one it caps, and with the skill it asks" {
-  Test.expect(takeable(9, { minStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { minStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { minStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { minStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
   // A faction not met counts as 0: a quest asking neutral (0) may be taken, one asking friendly may not.
-  Test.expect(takeable(9, { minStanding: { id: 69, amount: 0 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { minStanding: { id: 69, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { maxStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(takeable(9, { maxStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(takeable(9, { skill: { id: 185, amount: 50 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { skill: { id: 185, amount: 75 }, ..BARE }, HUMAN_MAGE, never, never))
-  Test.expect(!takeable(9, { skill: { id: 356, amount: 1 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { minStanding: { id: 69, amount: 0 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { minStanding: { id: 69, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { maxStanding: { id: 72, amount: 3000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { maxStanding: { id: 72, amount: 9000 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(takeable(9, { skill: { id: 185, amount: 50 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { skill: { id: 185, amount: 75 }, ..BARE }, HUMAN_MAGE, never, never))
+  Test::expect(!takeable(9, { skill: { id: 356, amount: 1 }, ..BARE }, HUMAN_MAGE, never, never))
 }
 
 test "an NPC offers the log's done quests it takes back, then those it gives that may be taken" {
@@ -132,18 +132,18 @@ test "an NPC offers the log's done quests it takes back, then those it gives tha
   const quests = [pie(true, []), { id: 87, ..pie(false, []) }]
   const factsOf = (id: Integer): QuestFacts | nil => id == 60 ? { name: "Kobold Camp Cleanup", level: 6, ..BARE } : id == 61 ? { name: "Too High", minLevel: 30, ..BARE } : nil
   const offers = offersOf(npc, quests, factsOf, HUMAN_MAGE, never)
-  Test.expect(offers.length == 2)
+  Test::expect(offers.length == 2)
   const first = offers[1] ?? panic("a turn-in")
-  Test.expect(first.title == "Pie for Billy" && first.turnIn)
+  Test::expect(first.title == "Pie for Billy" && first.turnIn)
   const second = offers[2] ?? panic("a quest to take")
-  Test.expect(second.title == "Kobold Camp Cleanup" && second.level == 6 && !second.turnIn)
+  Test::expect(second.title == "Kobold Camp Cleanup" && second.level == 6 && !second.turnIn)
 }
 
 test "an objective the client counts whole before it is done counts one short of its need, until done" {
-  const said: Game.QuestObjective = { text: "Chunk of Boar Meat: 4/4", done: false, kind: .Item, have: 4, need: 4 }
+  const said: Game::QuestObjective = { text: "Chunk of Boar Meat: 4/4", done: false, kind: .Item, have: 4, need: 4 }
   const facts: Map<Integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
   const short = (wantsOf([pie(false, [said])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
-  Test.expect(short.have == 3 && short.need == 4 && !short.done)
+  Test::expect(short.have == 3 && short.need == 4 && !short.done)
   const whole = (wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
-  Test.expect(whole.have == 4 && whole.done)
+  Test::expect(whole.have == 4 && whole.done)
 }

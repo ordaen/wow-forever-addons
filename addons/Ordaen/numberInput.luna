@@ -40,20 +40,20 @@ const KNOB_W = 18.75dp
 // The band reaches half a knob past each end of the groove: the knob at either end lies inside it, whole to grab.
 const INSET = KNOB_W / 2
 const KNOB_H = 37.5dp
-const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
+const KNOB_SHADOW: Shadow = { color: Color::hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
 // The field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 140.625dp
 const FIELD_HEIGHT = 30.46875dp
-const INK: Color = Color.hex("#e8dcc4")
-const FILL: Color = Color.hex("#00000080")
-const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
-const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
+const INK: Color = Color::hex("#e8dcc4")
+const FILL: Color = Color::hex("#00000080")
+const FIELD_EDGE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d") }
+const BAD: Line = { width: 1.171875dp, color: Color::hex("#c0463c") }
 const PADDING: Edges = { right: 3sp, left: 3sp }
 const DIGITS = 6
 // − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
 const STEP_HEIGHT = 39.84375dp
-const INK_STEP: ByInteractionState<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const INK_STEP: ByInteractionState<Color> = { default: Color::hex("#ffd100"), disabled: Color::hex("#808080"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const STEP_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // How long typing pauses before what is typed is taken.
 const SETTLE = 0.6
 
@@ -87,9 +87,9 @@ public function decimal(value: Number, places: Integer): String {
 // A value as the slider shows it, in its unit, to its step's decimals.
 public function said(value: Number, unit: Unit, step: Number): String {
   match (unit) {
-    Unit.Percent => return "%d%%".format((value * 100).round())
-    .Px => return Locale.UNIT_PX.format(value.round())
-    .Sec => return Locale.UNIT_SEC.format(value)
+    Unit::Percent => return "%d%%".format((value * 100).round())
+    .Px => return Locale::UNIT_PX.format(value.round())
+    .Sec => return Locale::UNIT_SEC.format(value)
     .None => return decimal(value, placesOf(step))
   }
 }
@@ -97,9 +97,9 @@ public function said(value: Number, unit: Unit, step: Number): String {
 // The unit's name after a field: none for a plain number.
 function nameOf(unit: Unit): String {
   match (unit) {
-    Unit.Percent => return "%"
-    .Px => return Locale.UNIT_PX_NAME
-    .Sec => return Locale.UNIT_SEC_NAME
+    Unit::Percent => return "%"
+    .Px => return Locale::UNIT_PX_NAME
+    .Sec => return Locale::UNIT_SEC_NAME
     .None => return ""
   }
 }
@@ -138,7 +138,7 @@ public class NumberInput implements Component {
   }
   // Which of − (-1) and + (1) is under the cursor, 0 neither; its tip is made only as it shows.
   state hovered = 0
-  derived tip: TipText = self.hovered < 0 ? self.stepsTip(Locale.COUNT_FEWER, "-") : self.stepsTip(Locale.COUNT_MORE, "+")
+  derived tip: TipText = self.hovered < 0 ? self.stepsTip(Locale::COUNT_FEWER, "-") : self.stepsTip(Locale::COUNT_MORE, "+")
   // What is typed, waiting for the typing to pause.
   pending: Task<nil> | nil = nil
 
@@ -162,7 +162,7 @@ public class NumberInput implements Component {
     least: Number,
     most: Number,
     step: Number = 1,
-    unit: Unit = Unit.None,
+    unit: Unit = Unit::None,
     hint: Signal<String> = "",
     disabled: Signal<Boolean> = false,
     format: ((value: Number) => String) | nil = nil
@@ -177,7 +177,7 @@ public class NumberInput implements Component {
     self.disabled = disabled
     self.format = format
     self.sliding = format != nil || (most - least) / step <= SLID
-    self.scale = unit == Unit.Percent ? 100 : 1
+    self.scale = unit == Unit::Percent ? 100 : 1
     self.text = ""
     self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
     // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
@@ -250,14 +250,14 @@ public class NumberInput implements Component {
 
   // − and + pressed and held by the pointer: each step shown, written as the steps rest and as the button is let go.
   // The left button with any modifier held: Shift and Ctrl size the step (`stride`).
-  lessHeld(mut self, pointer: Event.Press) {
-    if (pointer.button != MouseButton.Left) { return }
+  lessHeld(mut self, pointer: Event::Press) {
+    if (pointer.button != MouseButton::Left) { return }
     self.settle()
     if (self.fewer) { self.move(self.steppedBy(-stride())) }
   }
 
-  raiseHeld(mut self, pointer: Event.Press) {
-    if (pointer.button != MouseButton.Left) { return }
+  raiseHeld(mut self, pointer: Event::Press) {
+    if (pointer.button != MouseButton::Left) { return }
     self.settle()
     if (self.more) { self.move(self.steppedBy(stride())) }
   }
@@ -300,7 +300,7 @@ public class NumberInput implements Component {
   }
 
   async later(mut self) {
-    await Game.delay(SETTLE)
+    await Game::delay(SETTLE)
     self.pending = nil
     self.taken()
   }
@@ -326,17 +326,17 @@ public class NumberInput implements Component {
   }
 
   // A click is written at once; a drag moves the knob and is written as it rests and as it is let go.
-  onClick(mut self, click: Event.Press) {
+  onClick(mut self, click: Event::Press) {
     if (self.disabled || self.rest.busy()) { return }
     self.value = self.valueAt(click.x)
   }
 
-  onDrag(mut self, drag: Event.Drag) {
+  onDrag(mut self, drag: Event::Drag) {
     if (!self.disabled) { self.move(self.valueAt(drag.x)) }
   }
 
   // Focused: Left and Right a step, Home the least, End the most.
-  onKey(mut self, stroke: Event.Keystroke) {
+  onKey(mut self, stroke: Event::Keystroke) {
     match (stroke.key) {
       .Left => self.nudge(-1)
       .Right => self.nudge(1)
@@ -352,11 +352,11 @@ public class NumberInput implements Component {
         <box width={LENGTH + KNOB_W} height={BAND}
              @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
              @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag} @dragStop={self.onUp}>
-          <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+          <box position={Position::Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                background={Ordaen.art.ctl.groove} />
-          <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+          <box position={Position::Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
                width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
-          <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
+          <box position={Position::Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
                background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
         </box>
       }
@@ -371,8 +371,8 @@ public class NumberInput implements Component {
     const middle = self.middle()
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box columns={ROW} gap={2sp} yAlign={Align.Center}>
-          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+        <box columns={ROW} gap={2sp} yAlign={Align::Center}>
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align::Center} yAlign={Align::Center}
                background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat={self.lessHeld}
                @pointerUp={self.onUp}
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
@@ -381,7 +381,7 @@ public class NumberInput implements Component {
             <text value={"-"} textShadow={STEP_SHADOW} wrap={.None} />
           </box>
           {middle}
-          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align::Center} yAlign={Align::Center}
                background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat={self.raiseHeld}
                @pointerUp={self.onUp}
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}

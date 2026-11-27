@@ -9,13 +9,13 @@ const HOUR = 3600
 const DAY = 86400
 
 public function agoText(moment: Number): String {
-  const passed = (Game.clock.server - moment).max(0)
-  if (passed < HOUR) { return Locale.AGO_MINUTES.format((passed / MINUTE).floor().max(1)) }
-  if (passed < DAY) { return Locale.AGO_HOURS.format((passed / HOUR).floor()) }
-  return Locale.AGO_DAYS.format((passed / DAY).floor())
+  const passed = (Game::clock.server - moment).max(0)
+  if (passed < HOUR) { return Locale::AGO_MINUTES.format((passed / MINUTE).floor().max(1)) }
+  if (passed < DAY) { return Locale::AGO_HOURS.format((passed / HOUR).floor()) }
+  return Locale::AGO_DAYS.format((passed / DAY).floor())
 }
 
 public function hoursAgoText(hours: Integer): String {
-  if (hours < 24) { return Locale.AGO_HOURS.format(hours) }
-  return Locale.AGO_DAYS.format((hours / 24).floor())
+  if (hours < 24) { return Locale::AGO_HOURS.format(hours) }
+  return Locale::AGO_DAYS.format((hours / 24).floor())
 }

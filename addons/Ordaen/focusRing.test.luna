@@ -7,14 +7,14 @@ import { Move } from "$test"
 import root Ordaen from "Ordaen"
 import { Look } from "@/look"
 
-const PLATE: Color = Color.hex("#2a1d12")
+const PLATE: Color = Color::hex("#2a1d12")
 
 class Focusable {
   pressed(self) {}
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={3.5sp}>
+      <surface layer={Layer::Dialog} place={{ point: Point::TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={3.5sp}>
         <box height={30ui} background={PLATE} @pointerPress={self.pressed} @keyPress(.Enter)={self.pressed}
              @keyPress(.Space)={self.pressed} />
       </surface>
@@ -46,19 +46,19 @@ function ringDrawn(): String {
   let found: Array<any Frame> = []
   rings(UIParent, found)
   const shown = found[1] ?? panic("a ring stands round the focused box")
-  return Test.dump(shown)
+  return Test::dump(shown)
 }
 
 test "the focus ring is the look's accent, and follows it" {
   let page = new Focusable()
-  Test.mount(page, { left: 100, top: 50, width: 400, height: 300 })
-  Ordaen.look.change((values: mut Look): nil => { values.accent = Color.hex("#ff0000") })
+  Test::mount(page, { left: 100, top: 50, width: 400, height: 300 })
+  Ordaen.look.change((values: mut Look): nil => { values.accent = Color::hex("#ff0000") })
   // The surface is the active one once pressed; Tab then focuses its box.
-  Test.page().box(PLATE).click()
-  Test.key(Move.Next)
-  Test.expect(ringDrawn().contains("color=1,0,0,1"))
-  Ordaen.look.change((values: mut Look): nil => { values.accent = Color.hex("#0000ff") })
-  Test.flush()
-  Test.expect(ringDrawn().contains("color=0,0,1,1") && !ringDrawn().contains("color=1,0,0,1"))
+  Test::page().box(PLATE).click()
+  Test::key(Move::Next)
+  Test::expect(ringDrawn().contains("color=1,0,0,1"))
+  Ordaen.look.change((values: mut Look): nil => { values.accent = Color::hex("#0000ff") })
+  Test::flush()
+  Test::expect(ringDrawn().contains("color=0,0,1,1") && !ringDrawn().contains("color=1,0,0,1"))
   destroy page
 }

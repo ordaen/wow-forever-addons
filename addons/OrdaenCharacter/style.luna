@@ -31,7 +31,7 @@ public const SIDE: Number<Length> = 328.125dp
 // A field the player types in (a spec's name, the talents' search): its height, its room round the text, its well.
 public const FIELD: Number<Length> = 35.15625dp
 public const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
-public const FIELD_BACK: Color = Color.hex("#00000080")
+public const FIELD_BACK: Color = Color::hex("#00000080")
 
 // A health or power bar: slim, its corners softly rounded, a thin bronze line round its dark trough, a gloss over the
 // fill's upper part; the room its regeneration keeps from the bar's right end; its texts' shadow (the item level's too).
@@ -39,13 +39,13 @@ public const POOL: Number<Length> = 24dp
 public const POOL_LINE: Number<Length> = 1.171875dp
 public const POOL_ROUND: Number<Length> = 4.6875dp
 public const POOL_GLOSS: Number<Length> = POOL * 0.4
-public const POOL_RIM: Color = Color.hex("#8a6a3e")
-public const POOL_TROUGH: Color = Color.hex("#0b0805")
+public const POOL_RIM: Color = Color::hex("#8a6a3e")
+public const POOL_TROUGH: Color = Color::hex("#0b0805")
 // How much of its colour a pool's fill keeps.
 public const POOL_DEPTH: Number = 0.55
-public const GLOSS: Color = Color.hex("#ffffff1f")
+public const GLOSS: Color = Color::hex("#ffffff1f")
 public const TUBE_REGEN: Number<Length> = 10dp
-public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+public const TUBE_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
 public const ONE_ROW: Array<Track> = [{ fr: 1 }]
 // A gauge's channel (a skill's too) and its columns (the name, the value).
 public const CHANNEL: Number<Length> = 16.40625dp
@@ -56,7 +56,7 @@ public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
 public const SOCKET: Number<Length> = 36dp
 public const GLYPH: Number<Length> = 24dp
-public const SOCKET_FLOOR: Color = Color.hex("#00000073")
+public const SOCKET_FLOOR: Color = Color::hex("#00000073")
 // The socket's corners inside the card's rim; the card's room: the rim's at the socket, the text's at the right; its
 // value's size.
 public const SOCKET_ROUND: Number<Length> = 2.34375dp
@@ -74,7 +74,7 @@ public const LIST_TOOLBAR: Edges = { top: 8sp, right: 8sp, left: 8sp }
 public const DETAILS_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
 // The frame's line down the details column's left: a window's inner upright divider.
 public function detailsLine(): ArtBorder {
-  return { sides: [Side.Left], ..Ordaen.art.frame.tabIconLine }
+  return { sides: [Side::Left], ..Ordaen.art.frame.tabIconLine }
 }
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
 public const CARDS_PAD: Edges = { bottom: 2sp }
@@ -84,26 +84,26 @@ public const AFTER_CUT: Edges = { top: 2.5sp }
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const MAIN_TEXT: Number<TextSize> = 2rem
 
-public const INK: Color = Color.hex("#e8dcc4")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
-public const RED: Color = Color.hex("#ff4040")
-public const YELLOW: Color = Color.hex("#ffd040")
-public const GREEN: Color = Color.hex("#40d060")
+public const INK: Color = Color::hex("#e8dcc4")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
+public const RED: Color = Color::hex("#ff4040")
+public const YELLOW: Color = Color::hex("#ffd040")
+public const GREEN: Color = Color::hex("#40d060")
 // A dodge's and a parry's share of what a strike comes to: red, dimmed beside a miss's.
-public const AVOIDED: Color = Color.hex("#b0453c")
+public const AVOIDED: Color = Color::hex("#b0453c")
 // What blows on the player come to: a dodge's and a parry's green, muted beside a miss's; an ordinary hit's red, muted
 // beside a crit's; a crushing blow's deepest.
-public const EVADED: Color = Color.hex("#4f9a5c")
-public const TAKEN: Color = Color.hex("#a0503a")
-public const CRUSHED: Color = Color.hex("#c0181f")
+public const EVADED: Color = Color::hex("#4f9a5c")
+public const TAKEN: Color = Color::hex("#a0503a")
+public const CRUSHED: Color = Color::hex("#c0181f")
 // An ordinary hit's share of what a strike comes to: green, muted beside a crit's.
-public const ORDINARY: Color = Color.hex("#5f8a62")
-public const BACK: Color = Color.hex("#00000066")
+public const ORDINARY: Color = Color::hex("#5f8a62")
+public const BACK: Color = Color::hex("#00000066")
 // A card: a plain dark field, opaque.
-public const CARD: Color = Color.hex("#0d0907")
-public const PICKED: Color = Color.hex("#ffd10026")
-public const TROUGH: Color = Color.hex("#000000a6")
+public const CARD: Color = Color::hex("#0d0907")
+public const PICKED: Color = Color::hex("#ffd10026")
+public const TROUGH: Color = Color::hex("#000000a6")
 // The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it, its
 // width to its height), in grey, from the model's column's top to its bottom, as wide as its proportions make it at
 // the column's height while the character tab holds the window at `HEIGHT`: under the sets' strip on the player's
@@ -112,10 +112,10 @@ public const TROUGH: Color = Color.hex("#000000a6")
 public const SCENE_ASPECT: Number = 231 / 322
 public const SCENE_HEIGHT: Number<Length> = 780.55dp
 public const SCENE_HEIGHT_INSPECTED: Number<Length> = 801.24dp
-public const SCENE_VEIL: Color = Color.hex("#00000059")
+public const SCENE_VEIL: Color = Color::hex("#00000059")
 // The paper doll's sides: the tabs' plain rule down each, not a cut in the wood.
-public const DOLL_SIDES: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Left, Side.Right] }
-public const MODEL_BACK: Color = Color.hex("#0b0805")
+public const DOLL_SIDES: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Left, Side::Right] }
+public const MODEL_BACK: Color = Color::hex("#0b0805")
 public const DOLL_ROOM: Number<Spacing> = 6sp
 public const DOLL_PAD: Edges = { top: DOLL_ROOM, right: DOLL_ROOM, bottom: DOLL_ROOM, left: DOLL_ROOM }
 // The gap between a slots' column and the model's, and between two weapons.
@@ -123,30 +123,30 @@ public const DOLL_GAP: Number<Spacing> = 3sp
 public const WEAPON_GAP: Number<Spacing> = 2sp
 // The eight slots down each side of the model, spread from its top to its bottom.
 public const SLOT_ROWS: Array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
-public const GAUGE: Color = Color.hex("#a3864f")
-public const SKILL: Color = Color.hex("#3a68b8")
+public const GAUGE: Color = Color::hex("#a3864f")
+public const SKILL: Color = Color::hex("#3a68b8")
 // The schools' and the resistances' colours: armor, holy, fire, nature, frost, shadow and arcane; a stat's glyph
 // (attack power, damage a second).
-public const HOLY: Color = Color.hex("#e8d98a")
-public const STAT: Color = Color.hex("#c9a24e")
-public const ARMOR: Color = Color.hex("#b8b2a2")
-public const FIRE: Color = Color.hex("#c9692f")
-public const NATURE: Color = Color.hex("#59a84b")
-public const FROST: Color = Color.hex("#5f9fcf")
-public const SHADOW: Color = Color.hex("#8a6bc4")
-public const ARCANE: Color = Color.hex("#c27bc0")
+public const HOLY: Color = Color::hex("#e8d98a")
+public const STAT: Color = Color::hex("#c9a24e")
+public const ARMOR: Color = Color::hex("#b8b2a2")
+public const FIRE: Color = Color::hex("#c9692f")
+public const NATURE: Color = Color::hex("#59a84b")
+public const FROST: Color = Color::hex("#5f9fcf")
+public const SHADOW: Color = Color::hex("#8a6bc4")
+public const ARCANE: Color = Color::hex("#c27bc0")
 // A source of the stat whose tooltip is open: a gold rim and a gold light over it; an item's share in a gold badge
 // under its slot, its digits dark.
-public const SOURCE_RIM: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
-public const SOURCE_GLOW: Color = Color.hex("#ffd10026")
-public const SHARE: Color = Color.hex("#ffd100")
-public const SHARE_INK: Color = Color.hex("#1a1206")
+public const SOURCE_RIM: Line = { width: 2.34375dp, color: Color::hex("#ffd100") }
+public const SOURCE_GLOW: Color = Color::hex("#ffd10026")
+public const SHARE: Color = Color::hex("#ffd100")
+public const SHARE_INK: Color = Color::hex("#1a1206")
 public const SHARE_PAD: Edges = { right: 1sp, left: 1sp }
 // The flyout over the model.
-public const FLYOUT: Color = Color.hex("#000000d9")
-public const HEALTH: Color = Color.hex("#1d9a2a")
+public const FLYOUT: Color = Color::hex("#000000d9")
+public const HEALTH: Color = Color::hex("#1d9a2a")
 // The resources' colours, as the client's power bars fill them (`PowerBarColor`).
-public const MANA: Color = Color.hex("#0000ff")
-public const RAGE: Color = Color.hex("#ff0000")
-public const ENERGY: Color = Color.hex("#ffff00")
-public const FOCUS: Color = Color.hex("#ff8040")
+public const MANA: Color = Color::hex("#0000ff")
+public const RAGE: Color = Color::hex("#ff0000")
+public const ENERGY: Color = Color::hex("#ffff00")
+public const FOCUS: Color = Color::hex("#ff8040")

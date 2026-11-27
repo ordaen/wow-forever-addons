@@ -80,7 +80,7 @@ const BAGS_X = (WIDTH + APART) / 2
 const SAFE_SALE = 12
 
 // The module's mark in the chat.
-const CAPTION: Color = Color.hex("#e8c35a")
+const CAPTION: Color = Color::hex("#e8c35a")
 const BUTTON = 140.625dp
 const DIALOG = 375dp
 // The bags' tab of the window: the game's bag icon.
@@ -90,10 +90,10 @@ public class Inventory implements Module, App {
   public const title: String = "Ordaen Inventory"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: BAGS_X, y: 0ui, width: WIDTH, height: HEIGHT })
-  public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
-  public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale.BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
+  public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale::BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
+  public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale::BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   // The bank's or the guild bank's window while the game has it open.
-  public vaultWindow: mut KeptWindow = new KeptWindow("vault", Locale.BANK, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
+  public vaultWindow: mut KeptWindow = new KeptWindow("vault", Locale::BANK, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [
     self.window, self.vaultWindow, self.slotsWindow, self.bankSlotsWindow
   ]
@@ -106,12 +106,12 @@ public class Inventory implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
-    { title: Locale.PAGE_LOOK, content: $ltml { <LookPage slotSize={mut self.settings.values.slotSize} slotGap={mut self.settings.values.slotGap}
-                                                          rowLeast={mut self.settings.values.rowLeast} /> } },
-    { title: Locale.PAGE_CONVENIENCE, content: $ltml { <ConveniencePage sellJunk={mut self.settings.values.sellJunkAtVendor} /> } },
-    { title: Locale.PAGE_LOOT, content: $ltml { <LootPage choices={mut self.settings.values.loot} /> } },
-    { title: Locale.PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
-    { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotPresses} /> } }
+    { title: Locale::PAGE_LOOK, content: $ltml { <LookPage slotSize={mut self.settings.values.slotSize} slotGap={mut self.settings.values.slotGap}
+                                                           rowLeast={mut self.settings.values.rowLeast} /> } },
+    { title: Locale::PAGE_CONVENIENCE, content: $ltml { <ConveniencePage sellJunk={mut self.settings.values.sellJunkAtVendor} /> } },
+    { title: Locale::PAGE_LOOT, content: $ltml { <LootPage choices={mut self.settings.values.loot} /> } },
+    { title: Locale::PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
+    { title: Locale::PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotPresses} /> } }
   ]
   public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   // What the player marked and what the bags learned: the active profile's, kept at once as play makes it.
@@ -139,7 +139,7 @@ public class Inventory implements Module, App {
   // and gives it back.
   state kept = -1
   // The client's bag buttons hooked (the bottom panel shows them): the cursor on one lights its bag, as on ours.
-  hooked: mut Map<any Client.Frame, Boolean> = {}
+  hooked: mut Map<any Client::Frame, Boolean> = {}
   // The slot whose menu is open, with its lines.
   public state menu: SlotMenu | nil = nil
   // The guild's money dialog, and what it holds.
@@ -151,15 +151,15 @@ public class Inventory implements Module, App {
   // The window is built the first time it opens, and kept drawn, shown or hidden, from then on.
   state ever = false
 
-  public derived bankOpen: Boolean = Game.bankObserver.open
-  public derived shown: Boolean = Game.bags.open || self.bankOpen || self.guild.open
+  public derived bankOpen: Boolean = Game::bankObserver.open
+  public derived shown: Boolean = Game::bags.open || self.bankOpen || self.guild.open
   // At the bank or the guild's vault: it has a window of its own, and the bags' window shows the bags alone.
   public derived atVault: Boolean = self.bankOpen || self.guild.open
-  derived vaultOpen: Vault = self.bankOpen ? Vault.Bank : Vault.Guild
+  derived vaultOpen: Vault = self.bankOpen ? Vault::Bank : Vault::Guild
   // The bags' window's tabs: the bags; away from the vaults, the bank and the guild bank seen this session.
   public derived vaults: Array<Vault> = self.vaultsOf()
   public state windowTab = 1
-  public derived vault: Vault = self.vaults[self.windowTab] ?? Vault.Bags
+  public derived vault: Vault = self.vaults[self.windowTab] ?? Vault::Bags
   derived windowTabs: Array<WindowTabSpec> = self.vaults.map(vault => self.tabSpec(vault))
   derived live: Boolean = self.liveIn(self.vault)
   // The vault's window: its one tab, the bank's or the guild bank's.
@@ -181,7 +181,7 @@ public class Inventory implements Module, App {
   derived carriedJunk: Array<Slot> = junkIn(self.carried)
   public derived carriedJunkCount: Integer = self.carriedJunk.count(slot => peek slot.id != 0)
   public derived carriedJunkWorth: Integer = worthIn(self.carriedJunk)
-  derived moneyTitle: String = self.moving == MoneyMove.Withdraw ? Locale.GUILD_WITHDRAW : Locale.GUILD_DEPOSIT
+  derived moneyTitle: String = self.moving == MoneyMove::Withdraw ? Locale::GUILD_WITHDRAW : Locale::GUILD_DEPOSIT
   // The bags' window's body, and the vault's.
   public main: Pane
   public side: Pane
@@ -210,35 +210,35 @@ public class Inventory implements Module, App {
     self.looter.took.listen(self.onLooted)
     Ordaen.modules.add(self)
     self.changer.stuck.listen(self.onBagStuck)
-    Game.bags.updated.listen(self.onUpdated)
-    Game.bags.loaded.listen(self.onLoaded)
-    Events.MERCHANT_SHOW.listen(self.onMerchantShown)
-    Events.MERCHANT_CLOSED.listen(self.onMerchantClosed)
-    Game.bankObserver.changed.listen(self.onBankChanged)
+    Game::bags.updated.listen(self.onUpdated)
+    Game::bags.loaded.listen(self.onLoaded)
+    Events::MERCHANT_SHOW.listen(self.onMerchantShown)
+    Events::MERCHANT_CLOSED.listen(self.onMerchantClosed)
+    Game::bankObserver.changed.listen(self.onBankChanged)
     self.guild.slots.listen(self.readGuild)
     self.hear(self.main)
     self.hear(self.side)
     watch (open of self.atVault) { self.onVault(open) }
     watch (open of self.slotsOpen) { self.placeSlots(open, self.slotsWindow, self.window, true) }
     watch (open of self.bankSlotsOpen) { self.placeSlots(open, self.bankSlotsWindow, self.vaultWindow, false) }
-    watch (open of Game.bags.open) { self.onOpen(open) }
+    watch (open of Game::bags.open) { self.onOpen(open) }
     watch (open of self.bankOpen) { self.onBank(open) }
     watch (open of self.guild.open) { self.onGuild(open) }
-    watch (buttons of Game.bags.buttons) { for (button of buttons) { self.hookBag(button) } }
+    watch (buttons of Game::bags.buttons) { for (button of buttons) { self.hookBag(button) } }
     // A mark, a score or a rule changed: every slot's verdict is worked out again.
     watch { self.judge(self.junkLists.values, self.settings.values.junk) }
   }
 
   destructor() {
-    Game.bags.follow(false)
+    Game::bags.follow(false)
   }
 
   // The bank's tab always (it says how to see it until the bank was read); the guild bank's once a tab of it was read.
   vaultsOf(self): Array<Vault> {
-    let vaults: Array<Vault> = [Vault.Bags]
+    let vaults: Array<Vault> = [Vault::Bags]
     if (self.atVault) { return vaults }
-    vaults.push(Vault.Bank)
-    if (self.vaultGuild.total > 0) { vaults.push(Vault.Guild) }
+    vaults.push(Vault::Bank)
+    if (self.vaultGuild.total > 0) { vaults.push(Vault::Guild) }
     return vaults
   }
 
@@ -283,32 +283,32 @@ public class Inventory implements Module, App {
 
   tabSpec(self, vault: Vault): WindowTabSpec {
     return match (vault) {
-      .Bags => { title: Locale.TITLE, desc: nil, icon: BAGS_ICON }
-      .Bank => { title: Locale.BANK, desc: nil, icon: BANK_ICON }
-      .Guild => { title: Locale.GUILD_BANK, desc: nil, icon: GUILD_ICON }
+      .Bags => { title: Locale::TITLE, desc: nil, icon: BAGS_ICON }
+      .Bank => { title: Locale::BANK, desc: nil, icon: BANK_ICON }
+      .Guild => { title: Locale::GUILD_BANK, desc: nil, icon: GUILD_ICON }
     }
   }
 
   gameFramesOf(self): Array<any Frame> {
     let frames: Array<any Frame> = []
-    for (window of Game.bags.windows) { frames.push(window) }
+    for (window of Game::bags.windows) { frames.push(window) }
     if (self.bankOpen) {
-      const bank = Runtime.frame("BankFrame")
+      const bank = Runtime::frame("BankFrame")
       if (bank != nil) { frames.push(bank) }
     }
     // The guild bank's window is loaded as it opens: looked for again once its first slots came.
     if (self.guild.open && !self.guild.loading) {
-      const guild = Runtime.frame("GuildBankFrame")
+      const guild = Runtime::frame("GuildBankFrame")
       if (guild != nil) { frames.push(guild) }
     }
     return frames
   }
 
-  byCount(self): Boolean { return peek self.list.values.sort == SortBy.Count }
+  byCount(self): Boolean { return peek self.list.values.sort == SortBy::Count }
 
   // The bags opened: everything read anew and followed while they are; shut, nothing is heard.
   onOpen(mut self, open: Boolean) {
-    Game.bags.follow(open)
+    Game::bags.follow(open)
     if (!open) {
       self.arranger.stop()
       self.lit = -1
@@ -328,7 +328,7 @@ public class Inventory implements Module, App {
     }
     self.ever = true
     self.readBank()
-    Events.BAG_UPDATE_DELAYED.listen(self.onBatch)
+    Events::BAG_UPDATE_DELAYED.listen(self.onBatch)
   }
 
   onBankChanged(mut self) { self.bankDirty = true }
@@ -355,15 +355,15 @@ public class Inventory implements Module, App {
   // The guild bank's shown tab came: its slots read, in their own order.
   readGuild(mut self) {
     const tab = peek self.guild.tab
-    const info: Game.BagInfo = { bag: tab, item: nil, name: "", icon: nil, slots: GUILD_SLOTS, general: true }
+    const info: Game::BagInfo = { bag: tab, item: nil, name: "", icon: nil, slots: GUILD_SLOTS, general: true }
     const changed = self.vaultGuild.read([info], peek self.junkLists.values, peek self.settings.values.junk)
     self.vaultGuild.regroup(changed, self.byCount())
   }
 
   // Every bag read: a bag whose size changed gets its slots made again.
   public readAll(mut self) {
-    let infos: Array<Game.BagInfo> = []
-    for (bag of Game.bags.containers) { infos.push(Game.bags.bag(bag)) }
+    let infos: Array<Game::BagInfo> = []
+    for (bag of Game::bags.containers) { infos.push(Game::bags.bag(bag)) }
     self.settle(self.carried.read(infos, peek self.junkLists.values, peek self.settings.values.junk))
   }
 
@@ -379,7 +379,7 @@ public class Inventory implements Module, App {
   onUpdated(mut self, bag: Integer) {
     const place = self.carried.placeOf(bag)
     const changed = place == nil ? nil :
-      self.carried.update(place, Game.bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
+      self.carried.update(place, Game::bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
     if (changed == nil) {
       self.readAll()
     } else {
@@ -392,7 +392,7 @@ public class Inventory implements Module, App {
 
   // What an update of the bags changed: the protections follow their items, and the sections are worked out again.
   settle(mut self, changed: Integer) {
-    if (Client.bit.band(changed, MOVED) != 0) { self.follow() }
+    if (Client::bit::band(changed, MOVED) != 0) { self.follow() }
     self.carried.regroup(changed, self.byCount())
   }
 
@@ -460,17 +460,17 @@ public class Inventory implements Module, App {
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
   // scheme. A container's use is the client's own secure click on its chord (`useClick`), done before this is told.
   // A copy's slot (its vault shut) takes no click: only its vault's own are the game's.
-  onPressed(mut self, slot: mut Slot, click: Event.Press) {
+  onPressed(mut self, slot: mut Slot, click: Event::Press) {
     self.menu = nil
     if (!self.liveIn(slot.vault)) { return }
     // The waiting spell took the item on the secure click.
-    if (slot.vault != Vault.Guild && peek Game.player.targeting) { return }
-    if (click.button == MouseButton.Left && self.dropMoney()) { return }
-    if (click.button == MouseButton.Left && Client.CursorHasItem()) {
+    if (slot.vault != Vault::Guild && peek Game::player.targeting) { return }
+    if (click.button == MouseButton::Left && self.dropMoney()) { return }
+    if (click.button == MouseButton::Left && Client::CursorHasItem()) {
       pickupIn(slot.vault, slot.bag, slot.index)
       return
     }
-    const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
+    const chord = chordOf(click.button, Game::input.shiftDown(), Game::input.controlDown(), Game::input.altDown())
     if (chord == nil) { return }
     self.act(slot, actionAt(peek self.settings.values.slotPresses, chord))
   }
@@ -478,15 +478,15 @@ public class Inventory implements Module, App {
   // Gold on the cursor let go on a slot, as the game's bags do: the player's back into the purse, the guild bank's
   // taken out of it. False where the cursor holds no gold.
   dropMoney(self): Boolean {
-    const kind, money, _, _ = Client.GetCursorInfo()
+    const kind, money, _, _ = Client::GetCursorInfo()
     if (kind == "money") {
-      Client.DropCursorMoney()
+      Client::DropCursorMoney()
     } else if (kind == "guildbankmoney" && money is Number) {
-      Client.WithdrawGuildBankMoney(money)
+      Client::WithdrawGuildBankMoney(money)
     } else {
       return false
     }
-    Client.ClearCursor()
+    Client::ClearCursor()
     return true
   }
 
@@ -497,13 +497,13 @@ public class Inventory implements Module, App {
       .Pickup => pickupIn(slot.vault, slot.bag, slot.index)
       .Menu => self.openMenu(slot)
       .Link => {
-        if (id != 0) { Game.chat.link(id) }
+        if (id != 0) { Game::chat.link(id) }
       }
       .Protect => {
-        if (slot.vault == Vault.Bags) { self.guard(slot) }
+        if (slot.vault == Vault::Bags) { self.guard(slot) }
       }
       .Socket => {
-        if (id != 0 && slot.vault != Vault.Guild) { _ = Client.C_Container.SocketContainerItem(slot.bag, slot.index) }
+        if (id != 0 && slot.vault != Vault::Guild) { _ = Client::C_Container::SocketContainerItem(slot.bag, slot.index) }
       }
       .Nothing => {}
     }
@@ -514,12 +514,12 @@ public class Inventory implements Module, App {
   used(mut self, slot: Slot) {
     const id = peek slot.id
     if (id == 0) { return }
-    if (slot.vault == Vault.Guild) {
+    if (slot.vault == Vault::Guild) {
       self.guild.take(slot.bag, slot.index)
       return
     }
-    const place = peek Game.bags.place
-    if (place == Game.BagPlace.Merchant && slot.vault == Vault.Bags) {
+    const place = peek Game::bags.place
+    if (place == Game::BagPlace::Merchant && slot.vault == Vault::Bags) {
       // The buyback shown: nothing is sold. A purchase still refundable is asked about first, and refunded.
       if (peek self.buyingBack) { return }
       if (refundOf(slot) != nil) {
@@ -527,12 +527,12 @@ public class Inventory implements Module, App {
         return
       }
     }
-    if (slot.vault == Vault.Bags && !handsOver(place) && slot.read.kind == CONTAINER) {
+    if (slot.vault == Vault::Bags && !handsOver(place) && slot.read.kind == CONTAINER) {
       self.putOn(slot)
       return
     }
-    if (slot.vault != Vault.Bags || !handsOver(place) || !Game.bags.send(slot.bag, slot.index)) { return }
-    if (place != Game.BagPlace.Merchant) { return }
+    if (slot.vault != Vault::Bags || !handsOver(place) || !Game::bags.send(slot.bag, slot.index)) { return }
+    if (place != Game::BagPlace::Merchant) { return }
     const rules = peek self.settings.values.junk
     self.sale = {
       bag: slot.bag, index: slot.index, id: id, count: peek slot.count, price: slot.read.price, link: slot.read.link,
@@ -549,56 +549,56 @@ public class Inventory implements Module, App {
     const left = slot != nil && peek slot.id == sale.id ? peek slot.count : 0
     const sold = sale.count - left
     if (sold <= 0) { return }
-    self.say(Locale.CHAT_SOLD.format(sale.link, Game.money.format(sale.price * sold)))
+    self.say(Locale::CHAT_SOLD.format(sale.link, Game::money.format(sale.price * sold)))
     if (!sale.teaches) { return }
     const lists = peek self.junkLists.values
     const was = lists.learned[sale.id] ?? 0
-    const now = afterSale(was, shareOf(sold, Game.items.maxStack(sale.id) ?? 1))
+    const now = afterSale(was, shareOf(sold, Game::items.maxStack(sale.id) ?? 1))
     self.junkLists.write(withScore(lists, sale.id, now))
-    if (was <= LEARNED && now > LEARNED) { self.say(Locale.CHAT_LEARNED.format(sale.link)) }
+    if (was <= LEARNED && now > LEARNED) { self.say(Locale::CHAT_LEARNED.format(sale.link)) }
   }
 
   // A bag of the bags used: put on, in an empty place or the smallest bag's; the chat says why where it can't be.
   putOn(mut self, slot: Slot) { self.change(slot, nil) }
 
-  onBagStuck(self) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_BAG_STUCK) }
+  onBagStuck(self) { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, Locale::CHAT_BAG_STUCK) }
 
   change(mut self, slot: Slot, into: Integer | nil) {
     const infos = peek self.carried.infos
     const change = self.changer.start(slot, self.carried.all, (bag: Integer): Boolean => self.carried.general(bag), into)
     const line = match (change) {
-      Change.Started => ""
-      Change.NoPlace => Locale.CHAT_NO_BAG_PLACE
-      Change.NoRoom => Locale.CHAT_NO_BAG_ROOM
-      Change.Refused => Locale.CHAT_BAG_REFUSED
-      Change.Busy => Locale.CHAT_BAG_BUSY
+      Change::Started => ""
+      Change::NoPlace => Locale::CHAT_NO_BAG_PLACE
+      Change::NoRoom => Locale::CHAT_NO_BAG_ROOM
+      Change::Refused => Locale::CHAT_BAG_REFUSED
+      Change::Busy => Locale::CHAT_BAG_BUSY
     }
-    if (line != "") { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
+    if (line != "") { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, line) }
   }
 
   // A bag held on the cursor let go on a bag's place. One from the bags (the client holds it locked in its slot) is
   // let go and put on as its use is, the bag there emptied first where it must be; one taken off a place is put on
   // there, the client swapping the two where the one there is empty.
   onPutBag(mut self, into: Integer) {
-    const bag = self.carried.all.find(slot => peek slot.locked && slot.read.kind == CONTAINER && slot.vault == Vault.Bags)
+    const bag = self.carried.all.find(slot => peek slot.locked && slot.read.kind == CONTAINER && slot.vault == Vault::Bags)
     if (bag != nil) {
-      Client.ClearCursor()
+      Client::ClearCursor()
       self.change(bag, into)
       return
     }
-    if (Game.bags.wearHeld(into) == Game.Wear.Refused) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_BAG_REFUSED) }
+    if (Game::bags.wearHeld(into) == Game::Wear::Refused) { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, Locale::CHAT_BAG_REFUSED) }
   }
 
   // A line of the module's in the chat, where the player keeps them.
   say(self, line: String) {
-    if (peek self.settings.values.junk.chat) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
+    if (peek self.settings.values.junk.chat) { say({ name: Locale::CHAT_CAPTION, color: CAPTION }, line) }
   }
 
   openMenu(mut self, slot: Slot) {
     const id = peek slot.id
     if (id == 0) { return }
     const marked = (peek self.junkLists.values).marks[id]
-    self.menu = menuOf(slot, marked?.mark, peek Game.bags.place)
+    self.menu = menuOf(slot, marked?.mark, peek Game::bags.place)
   }
 
   onMenuClose(mut self) { self.menu = nil }
@@ -609,17 +609,17 @@ public class Inventory implements Module, App {
     self.menu = nil
     if (menu == nil) { return }
     const slot = menu.slot
-    match (menu.acts[index] ?? MenuAct.Heading) {
+    match (menu.acts[index] ?? MenuAct::Heading) {
       .Heading => {}
       .MarkJunk => self.mark(slot, .Junk)
       .MarkKeep => self.mark(slot, .Keep)
       .Unmark => self.mark(slot, nil)
-      .Link => Game.chat.link(peek slot.id)
+      .Link => Game::chat.link(peek slot.id)
       .Socket => {
-        _ = Client.C_Container.SocketContainerItem(slot.bag, slot.index)
+        _ = Client::C_Container::SocketContainerItem(slot.bag, slot.index)
       }
       .Sell => {
-        _ = Game.bags.send(slot.bag, slot.index)
+        _ = Game::bags.send(slot.bag, slot.index)
       }
       .Protect => self.guard(slot)
     }
@@ -630,7 +630,7 @@ public class Inventory implements Module, App {
     const id = peek slot.id
     if (id == 0) { return }
     self.junkLists.write(withMark(peek self.junkLists.values, id, mark))
-    const line = mark == nil ? Locale.CHAT_UNMARKED : mark == Mark.Junk ? Locale.CHAT_MARKED_JUNK : Locale.CHAT_MARKED_KEEP
+    const line = mark == nil ? Locale::CHAT_UNMARKED : mark == Mark::Junk ? Locale::CHAT_MARKED_JUNK : Locale::CHAT_MARKED_KEEP
     self.say(line.format(slot.read.link))
   }
 
@@ -668,18 +668,18 @@ public class Inventory implements Module, App {
         const why = unsellable(slot)
         if (why != nil) {
           passed.push(`${slot.bag}/${slot.index} ${why}`)
-        } else if (Game.bags.send(slot.bag, slot.index)) {
+        } else if (Game::bags.send(slot.bag, slot.index)) {
           sold += 1
           worth += slot.read.price * peek slot.count
         } else {
-          passed.push(`${slot.bag}/${slot.index} refused at ${peek Game.bags.place}`)
+          passed.push(`${slot.bag}/${slot.index} refused at ${peek Game::bags.place}`)
         }
       }
     }
     if (sold > 0) {
-      self.say(Locale.CHAT_SOLD_JUNK.format(sold, Game.money.format(worth)))
+      self.say(Locale::CHAT_SOLD_JUNK.format(sold, Game::money.format(worth)))
     } else if (passed.length > 0) {
-      Debug.fault("Inventory", `«Sell junk» sold nothing: ${passed.join(", ")}`)
+      Debug::fault("Inventory", `«Sell junk» sold nothing: ${passed.join(", ")}`)
     }
   }
 
@@ -751,15 +751,15 @@ public class Inventory implements Module, App {
     const slot = self.refunding
     const info = slot == nil ? nil : refundOf(slot)
     if (slot == nil || info == nil) { return "" }
-    return info.money > 0 ? Locale.REFUND_ASK_MONEY.format(slot.read.link, Game.money.format(info.money.floor())) :
-      Locale.REFUND_ASK.format(slot.read.link)
+    return info.money > 0 ? Locale::REFUND_ASK_MONEY.format(slot.read.link, Game::money.format(info.money.floor())) :
+      Locale::REFUND_ASK.format(slot.read.link)
   }
 
   // The refund asked about given, in the player's click.
   onRefund(mut self) {
     const slot = peek self.refunding
     self.refunding = nil
-    if (slot != nil) { Client.C_Container.ContainerRefundItemPurchase(slot.bag, slot.index, false) }
+    if (slot != nil) { Client::C_Container::ContainerRefundItemPurchase(slot.bag, slot.index, false) }
   }
 
   onRefundCancel(mut self) { self.refunding = nil }
@@ -768,7 +768,7 @@ public class Inventory implements Module, App {
   onMoneyMove(mut self) {
     const amount = peek self.amount
     if (amount > 0) {
-      if (peek self.moving == MoneyMove.Withdraw) { self.guild.withdraw(amount) } else { self.guild.deposit(amount) }
+      if (peek self.moving == MoneyMove::Withdraw) { self.guild.withdraw(amount) } else { self.guild.deposit(amount) }
     }
     self.moving = nil
   }
@@ -788,10 +788,10 @@ public class Inventory implements Module, App {
   }
 
   // A worn bag's line dragged: the bag onto the cursor.
-  onLiftBag(mut self, bag: Integer) { _ = Game.bags.pickupBag(bag) }
+  onLiftBag(mut self, bag: Integer) { _ = Game::bags.pickupBag(bag) }
 
-  hookBag(mut self, button: Game.BagButton) {
-    const frame: any Client.Frame = button.frame
+  hookBag(mut self, button: Game::BagButton) {
+    const frame: any Client::Frame = button.frame
     if (self.hooked[frame] == true) { return }
     self.hooked[frame] = true
     const bag = button.bag
@@ -813,19 +813,19 @@ public class Inventory implements Module, App {
 
   // The bags' window's close shuts the game's bags, and leaves the bank and the guild bank, which hides it.
   onClose(mut self) {
-    Game.bags.close()
+    Game::bags.close()
     self.onVaultClose()
   }
 
   // The vault's window's close leaves the bank or the guild bank.
   onVaultClose(mut self) {
-    if (peek self.bankOpen) { Client.C_Bank.CloseBankFrame() }
+    if (peek self.bankOpen) { Client::C_Bank::CloseBankFrame() }
     self.guild.close()
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  onLooted(mut self, slot: Game.LootSlot) { self.lootLines.post(slot) }
+  onLooted(mut self, slot: Game::LootSlot) { self.lootLines.post(slot) }
 
   public render(self): Template {
     return $ltml {
@@ -845,15 +845,15 @@ public class Inventory implements Module, App {
                         @pick={self.onKeepBag} @lift={self.onLiftBag} />
         <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
                          @close={self.onBankSlotsClosed} />
-        <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale.REFUND}>
+        <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale::REFUND}>
           <text value={self.refundText} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRefundCancel} />
-          <PushButton #buttons label={Locale.REFUND} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onRefund} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.onRefundCancel} />
+          <PushButton #buttons label={Locale::REFUND} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onRefund} />
         </Dialog>
         <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>
           <MoneyField value={mut self.amount} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
-          <PushButton #buttons label={self.moneyTitle} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onMoneyMove} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
+          <PushButton #buttons label={self.moneyTitle} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onMoneyMove} />
         </Dialog>
       </>
     }
@@ -872,8 +872,8 @@ function unsellable(slot: Slot): String | nil {
   return nil
 }
 
-function refundOf(slot: Slot): Client.ItemPurchaseInfo | nil {
-  const info = Client.C_Container.GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
+function refundOf(slot: Slot): Client::ItemPurchaseInfo | nil {
+  const info = Client::C_Container::GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
   if (info == nil || info.refundSeconds <= 0) { return nil }
   if (info.money <= 0 && info.itemCount <= 0 && info.currencyCount <= 0) { return nil }
   return info

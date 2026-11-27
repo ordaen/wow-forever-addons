@@ -22,7 +22,7 @@ const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 const SUBGRID: Columns = "subgrid"
 
 public class ScrolledList implements Component {
-  derived sunk: Boolean = self.ground == Ground.Well
+  derived sunk: Boolean = self.ground == Ground::Well
   // On the wood none: the list stands against its window's or its column's border, and its rows edge to edge.
   derived rim: Line | nil = self.sunk ? Ordaen.art.ctl.well.rim : nil
   derived floor = self.sunk ? Ordaen.art.ctl.well.floor : nil
@@ -67,7 +67,7 @@ public class ScrolledList implements Component {
     // Its rows bring their own padding (and their shade, their rules): they stand edge to edge inside the rim.
     rowsPadded: Boolean = false,
     // A well, or the wood.
-    ground: Signal<Ground> = Ground.Well,
+    ground: Signal<Ground> = Ground::Well,
     // The room at its sides, over what its ground and its rows give: a table's on the wood, the window's room less its
     // cells' own.
     sides: Signal<Number<Spacing> | nil> = nil
@@ -95,7 +95,7 @@ public class ScrolledList implements Component {
           <slot />
         </virtualList>
         <box $else columns={self.parts ?? self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={self.room}
-             overflow={Overflow.Scroll}>
+             overflow={Overflow::Scroll}>
           <slot />
         </box>
       </box>

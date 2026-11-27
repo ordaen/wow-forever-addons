@@ -22,16 +22,16 @@ public struct BarSpec {
 // actions in the same places, and the game's Key Bindings window names their keys), then the pet's and the
 // stances'.
 public const SPECS: Array<BarSpec> = [
-  { id: "1", kind: BarKind.Action, number: 1, first: 1, most: 12, command: "ACTIONBUTTON", template: ACTION },
-  { id: "2", kind: BarKind.Action, number: 2, first: 61, most: 12, command: "MULTIACTIONBAR1BUTTON", template: ACTION },
-  { id: "3", kind: BarKind.Action, number: 3, first: 49, most: 12, command: "MULTIACTIONBAR2BUTTON", template: ACTION },
-  { id: "4", kind: BarKind.Action, number: 4, first: 25, most: 12, command: "MULTIACTIONBAR3BUTTON", template: ACTION },
-  { id: "5", kind: BarKind.Action, number: 5, first: 37, most: 12, command: "MULTIACTIONBAR4BUTTON", template: ACTION },
-  { id: "6", kind: BarKind.Action, number: 6, first: 145, most: 12, command: "MULTIACTIONBAR5BUTTON", template: ACTION },
-  { id: "7", kind: BarKind.Action, number: 7, first: 157, most: 12, command: "MULTIACTIONBAR6BUTTON", template: ACTION },
-  { id: "8", kind: BarKind.Action, number: 8, first: 169, most: 12, command: "MULTIACTIONBAR7BUTTON", template: ACTION },
-  { id: "pet", kind: BarKind.Pet, number: 0, first: 0, most: 10, command: "BONUSACTIONBUTTON", template: PET },
-  { id: "stance", kind: BarKind.Stance, number: 0, first: 0, most: 10, command: "SHAPESHIFTBUTTON", template: STANCE }
+  { id: "1", kind: BarKind::Action, number: 1, first: 1, most: 12, command: "ACTIONBUTTON", template: ACTION },
+  { id: "2", kind: BarKind::Action, number: 2, first: 61, most: 12, command: "MULTIACTIONBAR1BUTTON", template: ACTION },
+  { id: "3", kind: BarKind::Action, number: 3, first: 49, most: 12, command: "MULTIACTIONBAR2BUTTON", template: ACTION },
+  { id: "4", kind: BarKind::Action, number: 4, first: 25, most: 12, command: "MULTIACTIONBAR3BUTTON", template: ACTION },
+  { id: "5", kind: BarKind::Action, number: 5, first: 37, most: 12, command: "MULTIACTIONBAR4BUTTON", template: ACTION },
+  { id: "6", kind: BarKind::Action, number: 6, first: 145, most: 12, command: "MULTIACTIONBAR5BUTTON", template: ACTION },
+  { id: "7", kind: BarKind::Action, number: 7, first: 157, most: 12, command: "MULTIACTIONBAR6BUTTON", template: ACTION },
+  { id: "8", kind: BarKind::Action, number: 8, first: 169, most: 12, command: "MULTIACTIONBAR7BUTTON", template: ACTION },
+  { id: "pet", kind: BarKind::Pet, number: 0, first: 0, most: 10, command: "BONUSACTIONBUTTON", template: PET },
+  { id: "stance", kind: BarKind::Stance, number: 0, first: 0, most: 10, command: "SHAPESHIFTBUTTON", template: STANCE }
 ]
 
 const ACTION = "ActionBarButtonTemplate"

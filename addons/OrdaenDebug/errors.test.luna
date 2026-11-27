@@ -18,14 +18,14 @@ function noMeta(): Meta {
 test "starts a new session with the client's facts" {
   let db = saved(4, 0)
   const errors = new Errors(db, { client: "1.60.1" })
-  Test.expect(errors.session() == 5)
-  Test.expect(errors.meta()?.client == "1.60.1")
+  Test::expect(errors.session() == 5)
+  Test::expect(errors.meta()?.client == "1.60.1")
 }
 
 test "makes a fresh table where none was kept" {
   const errors = new Errors(read(nil), noMeta())
-  Test.expect(errors.db.session == 1)
-  Test.expect(errors.db.errors.length == 0)
+  Test::expect(errors.db.session == 1)
+  Test::expect(errors.db.errors.length == 0)
 }
 
 test "reads what a session left and drops what doesn't fit" {
@@ -36,96 +36,96 @@ test "reads what a session left and drops what doesn't fit" {
   ]
   const raw: Map<String, Unknown> = { session: 4, nextId: 2, errors: left }
   const db = read(raw)
-  Test.expect(db.session == 4)
-  Test.expect(db.nextId == 2)
-  Test.expect(db.errors.length == 1)
-  Test.expect(db.errors[1]?.count == 2)
+  Test::expect(db.session == 4)
+  Test::expect(db.nextId == 2)
+  Test::expect(db.errors.length == 1)
+  Test::expect(db.errors[1]?.count == 2)
 }
 
 test "keeps what it read in its own saved variable" {
-  Game.saved.store(Game.Scope.Own, SAVED, saved(7, 0))
+  Game::saved.store(Game::Scope::Own, SAVED, saved(7, 0))
   const db = takeSaved()
-  Test.expect(db.session == 7)
-  Test.expect(Game.saved.stored(Game.Scope.Own, SAVED) == db)
+  Test::expect(db.session == 7)
+  Test::expect(Game::saved.stored(Game::Scope::Own, SAVED) == db)
 }
 
 test "de-duplicates against errors saved in earlier sessions" {
-  let old = kept(1, "old", "other", Kind.Error, 1)
+  let old = kept(1, "old", "other", Kind::Error, 1)
   old.count = 2
   let db = saved(1, 1)
   db.errors.push(old)
   let errors = new Errors(db, noMeta())
   let entry, isNew = errors.add({ message: "old" })
-  Test.expect(!isNew)
-  Test.expect(entry.count == 3)
-  Test.expect(entry.lastSession == 2)
+  Test::expect(!isNew)
+  Test::expect(entry.count == 3)
+  Test::expect(entry.lastSession == 2)
 }
 
 test "names the source of errors stored as other" {
   let db = saved(1, 3)
-  db.errors.push(kept(1, "Interface/AddOns/Details/w.lua:1: x", "other", Kind.Error, 1))
-  db.errors.push(kept(2, "boom", "other", Kind.Error, 1))
-  db.errors.push(kept(3, "Details: call to Show() was blocked", "other", Kind.Taint, 1))
+  db.errors.push(kept(1, "Interface/AddOns/Details/w.lua:1: x", "other", Kind::Error, 1))
+  db.errors.push(kept(2, "boom", "other", Kind::Error, 1))
+  db.errors.push(kept(3, "Details: call to Show() was blocked", "other", Kind::Taint, 1))
   const errors = new Errors(db, noMeta())
-  Test.expect(errors.db.errors[1]?.source == "Details")
-  Test.expect(errors.db.errors[2]?.source == "other")
-  Test.expect(errors.db.errors[3]?.source == "other")
+  Test::expect(errors.db.errors[1]?.source == "Details")
+  Test::expect(errors.db.errors[2]?.source == "other")
+  Test::expect(errors.db.errors[3]?.source == "other")
 }
 
 test "forgets sessions nothing refers to" {
   let db = saved(3, 1)
-  db.errors.push(kept(1, "x", "other", Kind.Error, 2))
+  db.errors.push(kept(1, "x", "other", Kind::Error, 2))
   db.sessions[1] = noMeta()
   db.sessions[2] = noMeta()
   db.sessions[3] = noMeta()
   const errors = new Errors(db, noMeta())
-  Test.expect(errors.db.sessions[1] == nil)
-  Test.expect(errors.db.sessions[2] != nil)
-  Test.expect(errors.db.sessions[3] == nil)
-  Test.expect(errors.db.sessions[4] != nil)
+  Test::expect(errors.db.sessions[1] == nil)
+  Test::expect(errors.db.sessions[2] != nil)
+  Test::expect(errors.db.sessions[3] == nil)
+  Test::expect(errors.db.sessions[4] != nil)
 }
 
 test "attributes errors to the addon in the message, else the stack" {
-  Test.expect(sourceOf("Interface/AddOns/OrdaenMinimap/Map.lua:3: x", nil) == "OrdaenMinimap")
-  Test.expect(sourceOf("boom", "[Interface\\AddOns\\OrdaenCore\\Core.lua]:1") == "OrdaenCore")
-  Test.expect(sourceOf("Interface/AddOns/Details/x.lua:1: y", "[C]: ?") == "Details")
-  Test.expect(sourceOf("Interface\\addons\\GatherLite\\Core.lua:9: z", nil) == "GatherLite")
-  Test.expect(sourceOf("boom", "[C]: ?\n[Interface/AddOns/BugSack/Sack.lua]:4: in x") == "BugSack")
+  Test::expect(sourceOf("Interface/AddOns/OrdaenMinimap/Map.lua:3: x", nil) == "OrdaenMinimap")
+  Test::expect(sourceOf("boom", "[Interface\\AddOns\\OrdaenCore\\Core.lua]:1") == "OrdaenCore")
+  Test::expect(sourceOf("Interface/AddOns/Details/x.lua:1: y", "[C]: ?") == "Details")
+  Test::expect(sourceOf("Interface\\addons\\GatherLite\\Core.lua:9: z", nil) == "GatherLite")
+  Test::expect(sourceOf("boom", "[C]: ?\n[Interface/AddOns/BugSack/Sack.lua]:4: in x") == "BugSack")
   // the message's own path wins over the stack
-  Test.expect(sourceOf("Interface/AddOns/Details/x.lua:1: y", "[Interface/AddOns/OrdaenCore/Core.lua]:1") == "Details")
+  Test::expect(sourceOf("Interface/AddOns/Details/x.lua:1: y", "[Interface/AddOns/OrdaenCore/Core.lua]:1") == "Details")
 }
 
 test "attributes Blizzard's own code to Blizzard, and nothing named to other" {
-  Test.expect(sourceOf("Interface/AddOns/Blizzard_Settings/Panel.lua:3: x", nil) == "Blizzard")
-  Test.expect(sourceOf("Interface\\FrameXML\\ChatFrame.lua:12: y", nil) == "Blizzard")
-  Test.expect(sourceOf("boom", "[Interface/SharedXML/Util.lua]:7: in f") == "Blizzard")
-  Test.expect(sourceOf("Interface/FrameXML/UIParent.lua:1: x", "[Interface/AddOns/Details/x.lua]:1") == "Blizzard")
-  Test.expect(sourceOf("boom", "[C]: ?") == "other")
-  Test.expect(sourceOf(nil, nil) == "other")
+  Test::expect(sourceOf("Interface/AddOns/Blizzard_Settings/Panel.lua:3: x", nil) == "Blizzard")
+  Test::expect(sourceOf("Interface\\FrameXML\\ChatFrame.lua:12: y", nil) == "Blizzard")
+  Test::expect(sourceOf("boom", "[Interface/SharedXML/Util.lua]:7: in f") == "Blizzard")
+  Test::expect(sourceOf("Interface/FrameXML/UIParent.lua:1: x", "[Interface/AddOns/Details/x.lua]:1") == "Blizzard")
+  Test::expect(sourceOf("boom", "[C]: ?") == "other")
+  Test::expect(sourceOf(nil, nil) == "other")
 }
 
 test "counts LunaType and the addons written in it as ours, by their TOC, not by a name" {
   // The client's list: a LunaType addon's TOC names its sources in a dev build; another addon's names none.
-  Client.C_AddOns.DoesAddOnExist = (name: String | Integer): Boolean => name == "OrdaenTrading" || name == "OrdaenElsewhere" || name == "Details"
-  Client.C_AddOns.GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => name == "OrdaenTrading" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenTrading" : nil
+  Client::C_AddOns::DoesAddOnExist = (name: String | Integer): Boolean => name == "OrdaenTrading" || name == "OrdaenElsewhere" || name == "Details"
+  Client::C_AddOns::GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => name == "OrdaenTrading" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenTrading" : nil
   // A seam's fault is LunaType's error.
-  Test.expect(isOurs("LunaType"))
-  Test.expect(isOurs("OrdaenTrading"))
-  Test.expect(!isOurs("Details"))
-  Test.expect(!isOurs("OrdaenElsewhere"))
-  Test.expect(!isOurs("OrdaenMissing"))
-  Test.expect(!isOurs("Blizzard"))
-  Test.expect(!isOurs(nil))
+  Test::expect(isOurs("LunaType"))
+  Test::expect(isOurs("OrdaenTrading"))
+  Test::expect(!isOurs("Details"))
+  Test::expect(!isOurs("OrdaenElsewhere"))
+  Test::expect(!isOurs("OrdaenMissing"))
+  Test::expect(!isOurs("Blizzard"))
+  Test::expect(!isOurs(nil))
 }
 
 test "counts repeats instead of storing them again" {
   let errors = new Errors(noErrors(), noMeta())
   let first, isNew = errors.add({ message: "boom" })
-  Test.expect(isNew)
-  Test.expect(errors.repeatOf("boom") == first)
-  Test.expect(errors.repeatOf("other message") == nil)
-  Test.expect(first.count == 2)
-  Test.expect(errors.db.errors.length == 1)
+  Test::expect(isNew)
+  Test::expect(errors.repeatOf("boom") == first)
+  Test::expect(errors.repeatOf("other message") == nil)
+  Test::expect(first.count == 2)
+  Test::expect(errors.db.errors.length == 1)
 }
 
 test "keeps the newest ERRORS_MAX errors and forgets the dropped ones" {
@@ -134,33 +134,33 @@ test "keeps the newest ERRORS_MAX errors and forgets the dropped ones" {
   for (i of 1..n) {
     _ = errors.add({ message: `error ${i}` })
   }
-  Test.expect(errors.db.errors.length == ERRORS_MAX)
-  Test.expect(errors.db.errors[1]?.message == "error 4")
+  Test::expect(errors.db.errors.length == ERRORS_MAX)
+  Test::expect(errors.db.errors[1]?.message == "error 4")
   let _, isNew = errors.add({ message: "error 1" })
-  Test.expect(isNew)
+  Test::expect(isNew)
 }
 
 test "truncates huge stacks and locals" {
   let errors = new Errors(noErrors(), noMeta())
   let entry, _ = errors.add({ message: "big", stack: "s".rep(10000), locals: "l".rep(9000) })
-  Test.expect((entry.stack ?? "").length < 7000)
-  Test.expect((entry.locals ?? "").length < 5000)
+  Test::expect((entry.stack ?? "").length < 7000)
+  Test::expect((entry.locals ?? "").length < 5000)
 }
 
 test "counts the errors of this session, including older ones that came back" {
   let db = saved(1, 2)
-  db.errors.push(kept(1, "old", "other", Kind.Error, 1))
-  db.errors.push(kept(2, "back", "other", Kind.Error, 1))
+  db.errors.push(kept(1, "old", "other", Kind::Error, 1))
+  db.errors.push(kept(2, "back", "other", Kind::Error, 1))
   let errors = new Errors(db, noMeta())
-  Test.expect(errors.sessionCount() == 0)
+  Test::expect(errors.sessionCount() == 0)
   _ = errors.add({ message: "new" })
   _ = errors.add({ message: "back" })
-  Test.expect(errors.sessionCount() == 2)
+  Test::expect(errors.sessionCount() == 2)
 }
 
 test "tells listeners about new errors and repeats, and which are first this session" {
   let db = saved(1, 1)
-  db.errors.push(kept(1, "old", "other", Kind.Error, 1))
+  db.errors.push(kept(1, "old", "other", Kind::Error, 1))
   let errors = new Errors(db, noMeta())
   let seen: Array<String> = []
   errors.onChange((entry: Entry, isNew: Boolean, firstThisSession: Boolean): nil => {
@@ -170,18 +170,18 @@ test "tells listeners about new errors and repeats, and which are first this ses
   _ = errors.add({ message: "x" })
   _ = errors.add({ message: "old" })
   _ = errors.add({ message: "old" })
-  Test.expect(seen.join(", ") == "x true true, x false false, old false true, old false false")
+  Test::expect(seen.join(", ") == "x true true, x false false, old false true, old false false")
 }
 
 test "formats an error with versions, stack and locals" {
-  Client.C_AddOns.GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => "1.2.3"
+  Client::C_AddOns::GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => "1.2.3"
   let errors = new Errors(noErrors(), { client: "1.60.1", build: "70790", interface: 16001, locale: "ruRU", core: "0.1.0" })
   let entry, _ = errors.add({ message: "Interface/AddOns/OrdaenMinimap/Map.lua:9: boom", stack: "the stack", locals: "x = 1" })
   let text = errors.format(entry)
-  Test.expect(text.contains("Error in OrdaenMinimap: x1"))
-  Test.expect(text.contains("Client 1.60.1 (build 70790"))
-  Test.expect(text.contains("Ordaen 0.1.0"))
-  Test.expect(text.contains("\nOrdaenMinimap 1.2.3\n"))
-  Test.expect(text.contains("the stack"))
-  Test.expect(text.contains("x = 1"))
+  Test::expect(text.contains("Error in OrdaenMinimap: x1"))
+  Test::expect(text.contains("Client 1.60.1 (build 70790"))
+  Test::expect(text.contains("Ordaen 0.1.0"))
+  Test::expect(text.contains("\nOrdaenMinimap 1.2.3\n"))
+  Test::expect(text.contains("the stack"))
+  Test::expect(text.contains("x = 1"))
 }

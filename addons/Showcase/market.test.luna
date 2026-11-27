@@ -9,10 +9,10 @@ test "the third tab of the page holds the market's controls" {
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
   const page = new Showcase()
   const added = Ordaen.modules.add(page)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 760, screen: true })
+  Test::mount(nil, { left: 100, top: 50, width: 700, height: 760, screen: true })
 
-  Test.click(Test.holding("Market", nil), nil)
-  Test.shot("the third tab clicked: the market's rows, the sales table under them")
+  Test::click(Test::holding("Market", nil), nil)
+  Test::shot("the third tab clicked: the market's rows, the sales table under them")
 
   destroy added
   destroy page
@@ -20,68 +20,68 @@ test "the third tab of the page holds the market's controls" {
 
 test "the market holds a row for each of the market's controls, each following its cell" {
   let page = new Market()
-  Test.mount(page, { left: 0, top: 0, width: 700, height: 700 })
-  Test.shot("the market as the page shows it: the scan at two fifths, the price with its age in amber")
+  Test::mount(page, { left: 0, top: 0, width: 700, height: 700 })
+  Test::shot("the market as the page shows it: the scan at two fifths, the price with its age in amber")
 
   page.scanned = 1
   page.price = 5
   page.seen = 12 * 86400
-  Test.shot("the scan done, a price of five copper seen twelve days ago: the age dimmed")
+  Test::shot("the scan done, a price of five copper seen twelve days ago: the age dimmed")
 
   page.seen = nil
-  Test.shot("no price: the age is gone")
+  Test::shot("no price: the age is gone")
 
-  Test.click(Test.field(nil), nil)
-  Test.erase(20)
-  Test.type("3g 4c")
-  Test.flush()
-  Test.expect(page.wanted == 30004)
-  Test.shot("3g 4c typed into the wanted price: the row under it writes it with its coins")
+  Test::click(Test::field(nil), nil)
+  Test::erase(20)
+  Test::type("3g 4c")
+  Test::flush()
+  Test::expect(page.wanted == 30004)
+  Test::shot("3g 4c typed into the wanted price: the row under it writes it with its coins")
 
-  Test.click(Test.holding("Merchant", nil), nil)
-  Test.expect(page.worth == Worth.Merchant)
-  Test.shot("the second segment clicked: the mode is the merchant's")
+  Test::click(Test::holding("Merchant", nil), nil)
+  Test::expect(page.worth == Worth::Merchant)
+  Test::shot("the second segment clicked: the mode is the merchant's")
 
-  Test.click(Test.holding("Held — in development", nil), nil)
-  Test.expect(page.worth == Worth.Merchant)
+  Test::click(Test::holding("Held — in development", nil), nil)
+  Test::expect(page.worth == Worth::Merchant)
 
-  Test.click(Test.holding("20", nil), nil)
-  Test.expect(page.chosenItem == 2589)
-  Test.shot("the epic item clicked: the page has its number")
+  Test::click(Test::holding("20", nil), nil)
+  Test::expect(page.chosenItem == 2589)
+  Test::shot("the epic item clicked: the page has its number")
 
-  Test.click(Test.holding("Bronze Bar", nil), nil)
-  Test.expect(page.treeOpen)
-  Test.click(Test.holding("Bronze Axe", nil), nil)
-  Test.expect(!page.treeOpen)
-  Test.shot("the tree's root clicked: closed, its child gone")
+  Test::click(Test::holding("Bronze Bar", nil), nil)
+  Test::expect(page.treeOpen)
+  Test::click(Test::holding("Bronze Axe", nil), nil)
+  Test::expect(!page.treeOpen)
+  Test::shot("the tree's root clicked: closed, its child gone")
 
-  Test.click(Test.holding("Each", nil), nil)
-  Test.expect(page.sorted == 2)
-  Test.shot("the table's Each heading clicked: the sales ordered by it, the cheapest first")
+  Test::click(Test::holding("Each", nil), nil)
+  Test::expect(page.sorted == 2)
+  Test::shot("the table's Each heading clicked: the sales ordered by it, the cheapest first")
 
-  Test.click(Test.holding("Each", nil), nil)
-  Test.expect(page.descending)
-  Test.shot("clicked again: reversed")
+  Test::click(Test::holding("Each", nil), nil)
+  Test::expect(page.descending)
+  Test::shot("clicked again: reversed")
 
-  Test.click(Test.holding("Copper Bar", nil), nil)
-  Test.expect(page.clicked == "left")
-  Test.click(Test.holding("Arcane Dust", nil), MouseButton.Right)
-  Test.expect(page.clicked == "right")
-  Test.shot("a row clicked with the left button, then another with the right: the page told them apart")
+  Test::click(Test::holding("Copper Bar", nil), nil)
+  Test::expect(page.clicked == "left")
+  Test::click(Test::holding("Arcane Dust", nil), MouseButton::Right)
+  Test::expect(page.clicked == "right")
+  Test::shot("a row clicked with the left button, then another with the right: the page told them apart")
 
-  Test.click(Test.painted(Ordaen.art.ctl.tool.sort, nil), nil)
-  Test.click(Test.holding("By name", nil), nil)
-  Test.expect(page.sortBy == Order.Name)
-  Test.shot("the toolbar's sort opened and a choice picked: the list closed, the search's row as it was")
+  Test::click(Test::painted(Ordaen.art.ctl.tool.sort, nil), nil)
+  Test::click(Test::holding("By name", nil), nil)
+  Test::expect(page.sortBy == Order::Name)
+  Test::shot("the toolbar's sort opened and a choice picked: the list closed, the search's row as it was")
 
-  Test.click(Test.holding("Right-click here", nil), MouseButton.Right)
-  Test.expect(page.menuOpen)
-  Test.click(Test.holding("Favorite", nil), nil)
-  Test.expect(page.menuOn && page.menuOpen && page.menuPicked == 3)
-  Test.shot("the context menu opened by a right-click, its switch clicked: it shows on, the menu stays open")
-  Test.click(Test.holding("Link in chat", nil), nil)
-  Test.expect(!page.menuOpen && page.menuPicked == 1)
+  Test::click(Test::holding("Right-click here", nil), MouseButton::Right)
+  Test::expect(page.menuOpen)
+  Test::click(Test::holding("Favorite", nil), nil)
+  Test::expect(page.menuOn && page.menuOpen && page.menuPicked == 3)
+  Test::shot("the context menu opened by a right-click, its switch clicked: it shows on, the menu stays open")
+  Test::click(Test::holding("Link in chat", nil), nil)
+  Test::expect(!page.menuOpen && page.menuPicked == 1)
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

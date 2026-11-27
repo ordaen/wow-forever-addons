@@ -23,14 +23,14 @@ const ICON = 70.3125dp
 const LINE: Number<Spacing> = 2sp
 const SECTION: Number<Spacing> = 3sp
 const INSIDE: Number<Spacing> = 5sp
-const LABEL: Color = Color.hex("#cbb994")
-const QUIET: Color = Color.hex("#857a66")
-const QUIET_VALUE: Color = Color.hex("#a39883")
-public const BODY: Color = Color.hex("#f3e7cc")
-const FREE: Color = Color.hex("#e6dcc6")
-const BLACK: Color = Color.hex("#000000")
-public const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
-const RIM: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const LABEL: Color = Color::hex("#cbb994")
+const QUIET: Color = Color::hex("#857a66")
+const QUIET_VALUE: Color = Color::hex("#a39883")
+public const BODY: Color = Color::hex("#f3e7cc")
+const FREE: Color = Color::hex("#e6dcc6")
+const BLACK: Color = Color::hex("#000000")
+public const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Top] }
+const RIM: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
 const ALONE: Array<Track> = [{ fr: 1 }]
@@ -57,8 +57,8 @@ const NO_KEYS_PAD: Edges = {}
 const BAR_PAD: Edges = { top: SECTION }
 const BAR_ROW = 22.5dp
 const BAR_HEIGHT = 3.515625dp
-const TRACK: Color = Color.hex("#00000073")
-const BAR_GOLD: Color = Color.hex("#d6a56b80")
+const TRACK: Color = Color::hex("#00000073")
+const BAR_GOLD: Color = Color::hex("#d6a56b80")
 // What opens something is underlined while the tooltip is locked (Ordaen's TERM_DASH), and its tooltip stands
 // beside it.
 // A compared tooltip's header («Equipped») over its title: the main tooltip beside it stands as much lower, so the
@@ -96,7 +96,7 @@ public struct Drawn {
 
 function opensSomething(opens: Opens): Boolean {
   match (opens) {
-    Opens.None => return false
+    Opens::None => return false
     else => return true
   }
 }
@@ -156,11 +156,11 @@ public class TermText implements Component {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={.None}
               textFont={self.font} />
-        <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={termUnderlineAt()} height={TERM_UNDERLINE_HEIGHT}
+        <box $if={self.lit} position={Position::Absolute} left={0ui} right={0ui} bottom={termUnderlineAt()} height={TERM_UNDERLINE_HEIGHT}
              background={TERM_DASH} tint={TERM_UNDERLINE} />
-        <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface leading={.Tight} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <box $if={self.lit} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             cursor={Cursor::Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
+        <surface leading={.Tight} $if={self.open} layer={Layer::Tooltip} place={BY_ITS_TEXT}>
           <box mouseThrough={true} @pointerEnter={self.onEnterOpened} @pointerLeave={self.onLeaveOpened}>
             <slot #opened opens={self.opens} />
           </box>
@@ -250,7 +250,7 @@ public class Row implements Component {
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
         // A value, in the numbers' font; a compared one (an item's stat: it opens nothing) with its difference after
         // it, the mark art (no font carries it) tinted as the difference's text.
-        <box $if={self.hasCompared} columns={COMPARED} gap={COMPARED_GAP} yAlign={Align.Center}>
+        <box $if={self.hasCompared} columns={COMPARED} gap={COMPARED_GAP} yAlign={Align::Center}>
           <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={.None}
                 textFont={.Numbers} />
           <text value={self.comparedBy} textColor={self.comparedColor} textSize={self.line.size} wrap={.None}
@@ -267,7 +267,7 @@ public class Row implements Component {
         <text $if={self.plainValue} value={self.right} textColor={self.line.rightColor} textSize={self.line.size}
               wrap={.None} textFont={.Numbers} />
       </box>
-      <box $elseif={self.hasIcon} columns={ICON_NAME} gap={3sp} yAlign={Align.Center} padding={self.line.padding}>
+      <box $elseif={self.hasIcon} columns={ICON_NAME} gap={3sp} yAlign={Align::Center} padding={self.line.padding}>
         <box width={LINE_ICON} height={LINE_ICON} icon={self.line.icon} />
         <text value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
       </box>
@@ -319,7 +319,7 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
     list.push({
       left: line.left, right: line.right, leftColor: line.color ?? plain,
       rightColor: line.rightColor ?? line.color ?? BODY, size: 1rem, padding: padding, opens: line.opens,
-      valueOpens: Opens.None, compared: line.compared, sentence: line.desc == true, icon: line.icon
+      valueOpens: Opens::None, compared: line.compared, sentence: line.desc == true, icon: line.icon
     })
   }
   return same ? was : list
@@ -415,7 +415,7 @@ public class TipFrame implements Component {
   pictured(self): Boolean {
     let picture = self.model.picture
     match (picture) {
-      Picture.None => return false
+      Picture::None => return false
       else => return true
     }
   }
@@ -423,7 +423,7 @@ public class TipFrame implements Component {
   iconArt(self): Art | nil {
     let picture = self.model.picture
     match (picture) {
-      Picture.Icon => return picture.art
+      Picture::Icon => return picture.art
       else => return nil
     }
   }
@@ -431,7 +431,7 @@ public class TipFrame implements Component {
   faceUnit(self): String | nil {
     let picture = self.model.picture
     match (picture) {
-      Picture.Face => return picture.unit
+      Picture::Face => return picture.unit
       else => return nil
     }
   }
@@ -465,21 +465,21 @@ public class TipFrame implements Component {
       // A header («Equipped») is a tab on the frame's top, in its middle, as high as `HEADER` takes: the main tooltip
       // beside it stands as much lower, so the titles are level.
       <box width={"min-content"}>
-        <box $if={self.hasHeader} height={self.headerHigh} xAlign={Align.Center} yAlign={Align.End}>
+        <box $if={self.hasHeader} height={self.headerHigh} xAlign={Align::Center} yAlign={Align::End}>
           <HeaderTab title={self.header} height={self.headerHigh} />
         </box>
         <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
              background={Ordaen.art.window.wood}>
           <box width={self.width} height={0ui} />
-          <box $if={self.titled} columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
+          <box $if={self.titled} columns={self.titleColumns} gap={3sp} yAlign={Align::Center} padding={self.titlePadding}>
             <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={0.5sp} background={BLACK}
                  rows={FILL}>
               <box icon={self.icon} portrait={self.face} />
             </box>
-            <box gap={LINE} yAlign={Align.Center}>
+            <box gap={LINE} yAlign={Align::Center}>
               <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} leading={.Tight} wrap={.None}
                     textFont={.Title} />
-              <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align.Center}>
+              <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align::Center}>
                 <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
                           locked={self.locked}>
                   <box #opened={opens}>
@@ -487,7 +487,7 @@ public class TipFrame implements Component {
                   </box>
                 </PartText>
               </box>
-              <box $if={self.hasInfo} columns={self.infoColumns} yAlign={Align.Center}>
+              <box $if={self.hasInfo} columns={self.infoColumns} yAlign={Align::Center}>
                 <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
                           locked={self.locked}>
                   <box #opened={opens}>
@@ -507,7 +507,7 @@ public class TipFrame implements Component {
           </box>
           // A long body (a cloth in thirty recipes) scrolls past its most height, its scrollbar shown on hover.
           <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule} height={BODY_MOST}
-               overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
+               overflow={Overflow::Scroll} scrollbar={Scrollbar::Hover}>
             <Row $for={line of self.body} line={line} locked={self.locked}>
               <box #opened={opens}>
                 <slot #opened opens={opens} />
@@ -534,12 +534,12 @@ public class TipFrame implements Component {
             <Hotkeys keys={self.model.keys} />
           </box>
           <box $if={self.locks} padding={BAR_PAD}>
-            <box height={BAR_ROW} yAlign={Align.Center}>
-              <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box height={BAR_ROW} yAlign={Align::Center}>
+              <text $if={self.locked} value={Locale::LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
               <box $else height={BAR_HEIGHT} background={self.track} fill={self.filled} />
             </box>
           </box>
-          <box $if={self.locked} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}
+          <box $if={self.locked} position={Position::Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}
                height={28.125dp} background={CLOSE_ART} @pointerPress={self.onClose} @keyPress(.Enter)={self.onClose} @keyPress(.Space)={self.onClose} />
         </box>
       </box>

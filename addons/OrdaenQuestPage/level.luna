@@ -4,10 +4,10 @@
 import { Component } from "Ordaen"
 
 // The tens of a level under 10: an unseen «0», so no title moves.
-const UNSEEN: Color = Color.hex("#00000000")
+const UNSEEN: Color = Color::hex("#00000000")
 
 public class QuestLevel implements Component {
-  derived tens: String = self.level >= 10 ? String.of((self.level / 10).floor() % 10) : "0"
+  derived tens: String = self.level >= 10 ? String::of((self.level / 10).floor() % 10) : "0"
   derived tensColor: Color = self.level >= 10 ? self.color : UNSEEN
   derived ones: String = `${self.level % 10}${self.group ? "+" : ""}`
 

@@ -42,74 +42,74 @@ class WithButton {
 }
 
 // The cursor pressed at `from`, dragged by `by`, and let go.
-function dragged(from: Test.Point, dx: Number, dy: Number) {
-  Test.moveTo(from)
-  Test.press(nil)
-  Test.moveTo({ x: from.x + 1, y: from.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: from.x + dx, y: from.y + dy })
-  Test.pass(0.05)
-  Test.release(nil)
+function dragged(from: Test::Point, dx: Number, dy: Number) {
+  Test::moveTo(from)
+  Test::press(nil)
+  Test::moveTo({ x: from.x + 1, y: from.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: from.x + dx, y: from.y + dy })
+  Test::pass(0.05)
+  Test::release(nil)
 }
 
 test "a window is moved by its body's own room as by its tab; a drag begun on a control in it moves nothing" {
   let page = new WithButton()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const body = Test.edges(Ordaen.art.window.wood, 1)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const body = Test::edges(Ordaen.art.window.wood, 1)
   // The wood beside the page's text: the body's own room.
-  const room = Test.holding("the page", nil)
+  const room = Test::holding("the page", nil)
   dragged({ x: room.x + 150, y: room.y }, 120, 60)
-  const moved = Test.edges(Ordaen.art.window.wood, 1)
-  Test.expect(near(moved.left, body.left + 120) && near(moved.top, body.top + 60))
-  dragged(Test.holding("Craft", nil), 80, 40)
-  const still = Test.edges(Ordaen.art.window.wood, 1)
-  Test.expect(near(still.left, moved.left) && near(still.top, moved.top))
+  const moved = Test::edges(Ordaen.art.window.wood, 1)
+  Test::expect(near(moved.left, body.left + 120) && near(moved.top, body.top + 60))
+  dragged(Test::holding("Craft", nil), 80, 40)
+  const still = Test::edges(Ordaen.art.window.wood, 1)
+  Test::expect(near(still.left, moved.left) && near(still.top, moved.top))
   destroy page
 }
 
 test "a window resized a fraction of a pixel at a time holds its tab and its body's top left still" {
   let page = new Shown()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  const tab = Test.holding("Recipes", nil)
-  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
-  Test.moveTo(grip)
-  Test.press(nil)
-  Test.moveTo({ x: grip.x + 1, y: grip.y })
-  Test.pass(0.05)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const body = Test::edges(Ordaen.art.window.wood, 0)
+  const tab = Test::holding("Recipes", nil)
+  const grip = Test::painted(Ordaen.art.ctl.grip, nil)
+  Test::moveTo(grip)
+  Test::press(nil)
+  Test::moveTo({ x: grip.x + 1, y: grip.y })
+  Test::pass(0.05)
   for (step of 1..12) {
-    Test.moveTo({ x: grip.x + step * 0.25, y: grip.y + step * 0.25 })
-    Test.pass(0.02)
-    const now = Test.edges(Ordaen.art.window.wood, 0)
-    const at = Test.holding("Recipes", nil)
-    Test.expect(near(now.left, body.left) && near(now.top, body.top))
-    Test.expect(near(at.x, tab.x) && near(at.y, tab.y))
+    Test::moveTo({ x: grip.x + step * 0.25, y: grip.y + step * 0.25 })
+    Test::pass(0.02)
+    const now = Test::edges(Ordaen.art.window.wood, 0)
+    const at = Test::holding("Recipes", nil)
+    Test::expect(near(now.left, body.left) && near(now.top, body.top))
+    Test::expect(near(at.x, tab.x) && near(at.y, tab.y))
   }
-  Test.release(nil)
-  const grown = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(near(grown.right, body.right + 3) && near(grown.bottom, body.bottom + 3))
+  Test::release(nil)
+  const grown = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(near(grown.right, body.right + 3) && near(grown.bottom, body.bottom + 3))
   destroy page
 }
 
 test "a window closed and opened again stands where its tab row left it, its corner's buttons in place" {
   let page = new Shown()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const tab = Test.holding("Recipes", nil)
-  Test.moveTo(tab)
-  Test.press(nil)
-  Test.moveTo({ x: tab.x + 1, y: tab.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: tab.x - 200, y: tab.y + 80 })
-  Test.pass(0.05)
-  Test.release(nil)
-  const moved = Test.edges(Ordaen.art.window.wood, 1)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const tab = Test::holding("Recipes", nil)
+  Test::moveTo(tab)
+  Test::press(nil)
+  Test::moveTo({ x: tab.x + 1, y: tab.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: tab.x - 200, y: tab.y + 80 })
+  Test::pass(0.05)
+  Test::release(nil)
+  const moved = Test::edges(Ordaen.art.window.wood, 1)
   page.open = false
-  Test.flush()
+  Test::flush()
   page.open = true
-  Test.flush()
-  const again = Test.edges(Ordaen.art.window.wood, 1)
-  Test.expect(near(again.left, moved.left) && near(again.top, moved.top))
-  Test.moveTo(Test.holding("the page", nil))
-  Test.shot("opened again where it was left, the cursor in its body: full screen and close at the body's top right")
+  Test::flush()
+  const again = Test::edges(Ordaen.art.window.wood, 1)
+  Test::expect(near(again.left, moved.left) && near(again.top, moved.top))
+  Test::moveTo(Test::holding("the page", nil))
+  Test::shot("opened again where it was left, the cursor in its body: full screen and close at the body's top right")
   destroy page
 }

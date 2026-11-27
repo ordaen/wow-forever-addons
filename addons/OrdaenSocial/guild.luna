@@ -30,17 +30,17 @@ public class GuildCard implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
-        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
-        <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp} overflow={Overflow.Scroll}>
-          <text value={Locale.MOTD} textColor={Style.DIM} wrap={.None} />
+        <text value={self.guild.name} textColor={Style::GOLD} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
+        <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp} overflow={Overflow::Scroll}>
+          <text value={Locale::MOTD} textColor={Style::DIM} wrap={.None} />
           <CopyText value={orDash(self.guild.motd)} />
-          <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={.None} />
+          <text value={Locale::GUILD_INFO} textColor={Style::DIM} wrap={.None} />
           <CopyText value={orDash(self.guild.info)} />
         </box>
         <box columns={1} gap={3sp}>
-          <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
-          <PushButton $if={self.guild.rights.manage} label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
-          <PushButton label={Locale.LEAVE_GUILD} width={Style.CARD_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeave} />
+          <PushButton $if={self.guild.rights.invite} label={Locale::GUILD_INVITE} width={Style::CARD_BUTTON} @click={self.onInvite} />
+          <PushButton $if={self.guild.rights.manage} label={Locale::GAME_GUILD_WINDOW} width={Style::CARD_BUTTON} @click={self.onGameWindow} />
+          <PushButton label={Locale::LEAVE_GUILD} width={Style::CARD_BUTTON} plate={ButtonPlate::Danger} @click={self.onLeave} />
         </box>
       </box>
     }
@@ -56,17 +56,17 @@ function ofItem(kind: NewsKind): Boolean {
 // where it fell. Nothing for an item's (the item's own button shows the game's) or for the rest.
 function tipOf(news: GuildNews): TipText | nil {
   if (news.kind == .Achievement || news.kind == .GuildAchievement) {
-    let _, name, _, _, _, _, _, description, _, _, _, _, _, _ = Client.GetAchievementInfo(news.subject)
+    let _, name, _, _, _, _, _, description, _, _, _, _, _, _ = Client::GetAchievementInfo(news.subject)
     if (name == nil) { return nil }
     return { title: name, text: description ?? "", rows: [] }
   }
-  if (news.kind == .Encounter) { return { title: news.what, text: Locale.NEWS_ENCOUNTER, rows: [] } }
+  if (news.kind == .Encounter) { return { title: news.what, text: Locale::NEWS_ENCOUNTER, rows: [] } }
   return nil
 }
 
 class NewsRow implements Component {
   state hovered = false
-  derived date: String = Locale.NEWS_DATE.format(self.news.day, self.news.month)
+  derived date: String = Locale::NEWS_DATE.format(self.news.day, self.news.month)
   derived item: Boolean = ofItem(self.news.kind)
   derived tip: TipText | nil = self.hovered ? tipOf(self.news) : nil
 
@@ -82,10 +82,10 @@ class NewsRow implements Component {
     return $ltml {
       <box columns={["max-content", { fr: 1 }]} gap={3sp} padding={{ top: ROW_PAD, bottom: ROW_PAD }}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
-        <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-          <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={.None} />
-          <ItemButton $if={self.item} item={self.news.subject} size={Style.NEWS_ITEM} />
+        <text value={self.date} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
+        <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align::Center}>
+          <text value={self.news.who} textColor={self.news.sticky ? Style::GOLD : Style::INK} wrap={.None} />
+          <ItemButton $if={self.item} item={self.news.subject} size={Style::NEWS_ITEM} />
           <box $else />
           <CopyText value={self.news.what} />
         </box>
@@ -154,12 +154,12 @@ public class NewsList implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center}>
           <box />
           <FilterButton values={mut self.picked} start={self.start} groups={self.groups} />
         </box>
-        <ScrolledList columns={1} yAlign={Align.Start}>
-          <text $if={self.shown.length == 0} value={Locale.NO_NEWS} textColor={Style.DIM} />
+        <ScrolledList columns={1} yAlign={Align::Start}>
+          <text $if={self.shown.length == 0} value={Locale::NO_NEWS} textColor={Style::DIM} />
           <NewsRow $for={line of self.shown} news={line} />
         </ScrolledList>
       </box>

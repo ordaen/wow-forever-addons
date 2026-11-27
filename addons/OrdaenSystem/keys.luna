@@ -43,7 +43,7 @@ function isCommand(action: String): Boolean {
 // none stands under «Other», as in Blizzard's window.
 function sectionOf(category: String | nil): String {
   const name = category ?? "BINDING_HEADER_OTHER"
-  const text = Client.getglobal(name)
+  const text = Client::getglobal(name)
   return text is String ? text : name
 }
 
@@ -57,7 +57,7 @@ function keysOf(first: String | nil, second: String | nil): Array<String> {
 public class Bindings {
   public state commands: Array<Command> = []
   // The set the keys are kept in: the account's or this character's.
-  public state set: Client.BindingSet = Client.BindingSet.Account
+  public state set: Client::BindingSet = Client::BindingSet::Account
   public state step: Step | nil = nil
   // Where each command stands in `commands`.
   state places: Map<String, Integer> = {}
@@ -66,17 +66,17 @@ public class Bindings {
   public read(mut self) {
     const commands: Array<Command> = []
     const places: Map<String, Integer> = {}
-    const count = Client.GetNumBindings().floor()
+    const count = Client::GetNumBindings().floor()
     for (i of 1..count) {
-      const action, category, first, second = Client.GetBinding(i)
+      const action, category, first, second = Client::GetBinding(i)
       if (isCommand(action)) {
-        commands.push({ action: action, name: Client.GetBindingName(action), section: sectionOf(category), keys: keysOf(first, second) })
+        commands.push({ action: action, name: Client::GetBindingName(action), section: sectionOf(category), keys: keysOf(first, second) })
         places[action] = commands.length
       }
     }
     self.commands = commands
     self.places = places
-    self.set = Client.GetCurrentBindingSet()
+    self.set = Client::GetCurrentBindingSet()
   }
 
   public command(self, action: String): Command | nil {
@@ -86,7 +86,7 @@ public class Bindings {
 
   // The command a key does now, in that command's context, or `""`.
   public holder(self, action: String, key: String): String {
-    return Client.GetBindingAction(key, false, Client.C_KeyBindings.GetBindingContextForAction(action))
+    return Client::GetBindingAction(key, false, Client::C_KeyBindings::GetBindingContextForAction(action))
   }
 
   // The command's key at `slot` (1 or 2) set to `key`: the key leaves its other slot, and whatever command held it
@@ -124,12 +124,12 @@ public class Bindings {
   public undo(mut self): Refusal | nil {
     const step = self.step
     if (step == nil) { return nil }
-    if (Client.InCombatLockdown()) { return .Fight }
+    if (Client::InCombatLockdown()) { return .Fight }
     for (i of step.before.length..1 step -1) {
       const was = step.before[i] ?? panic("a command the step touched")
       _ = self.put(was.action, was.keys)
     }
-    Client.SaveBindings(self.set)
+    Client::SaveBindings(self.set)
     self.step = nil
     self.read()
     return nil
@@ -137,9 +137,9 @@ public class Bindings {
 
   // Every key back to the client's defaults, kept in the current set (Blizzard's «Defaults»).
   public resetAll(mut self): Refusal | nil {
-    if (Client.InCombatLockdown()) { return .Fight }
-    Client.LoadBindings(.Default)
-    Client.SaveBindings(self.set)
+    if (Client::InCombatLockdown()) { return .Fight }
+    Client::LoadBindings(.Default)
+    Client::SaveBindings(self.set)
     self.step = nil
     self.read()
     return nil
@@ -148,14 +148,14 @@ public class Bindings {
   // The keys kept for this character alone, or for the account. Turning to the character's copies the account's
   // keys into it; turning back drops the character's (the window asks first), as Blizzard's checkbox does.
   public keepFor(mut self, character: Boolean): Refusal | nil {
-    if (Client.InCombatLockdown()) { return .Fight }
+    if (Client::InCombatLockdown()) { return .Fight }
     if (character) {
-      Client.SaveBindings(.Account)
-      Client.LoadBindings(.Character)
-      Client.SaveBindings(.Character)
+      Client::SaveBindings(.Account)
+      Client::LoadBindings(.Character)
+      Client::SaveBindings(.Character)
     } else {
-      Client.LoadBindings(.Account)
-      Client.SaveBindings(.Account)
+      Client::LoadBindings(.Account)
+      Client::SaveBindings(.Account)
     }
     self.step = nil
     self.read()
@@ -164,7 +164,7 @@ public class Bindings {
 
   // `after`'s commands given their keys; where the client refuses one, every command is put back as `before` says.
   change(mut self, before: Array<Before>, after: Array<Before>, taken: String, key: String): Refusal | nil {
-    if (Client.InCombatLockdown()) { return .Fight }
+    if (Client::InCombatLockdown()) { return .Fight }
     for (wanted of after) {
       if (!self.put(wanted.action, wanted.keys)) {
         for (was of before) { _ = self.put(was.action, was.keys) }
@@ -172,7 +172,7 @@ public class Bindings {
         return .Client
       }
     }
-    Client.SaveBindings(self.set)
+    Client::SaveBindings(self.set)
     self.step = { before: before, taken: taken, key: key }
     self.read()
     return nil
@@ -181,11 +181,11 @@ public class Bindings {
   // A command's keys made exactly `keys`: the ones it has unbound, then each bound in order (the client keeps the
   // first bound first). False where the client refuses a key.
   public put(self, action: String, keys: Array<String>): Boolean {
-    const context = Client.C_KeyBindings.GetBindingContextForAction(action)
-    const first, second = Client.GetBindingKey(action, nil, context)
-    for (held of keysOf(first, second)) { _ = Client.SetBinding(held, nil, context) }
+    const context = Client::C_KeyBindings::GetBindingContextForAction(action)
+    const first, second = Client::GetBindingKey(action, nil, context)
+    for (held of keysOf(first, second)) { _ = Client::SetBinding(held, nil, context) }
     for (key of keys) {
-      if (!Client.SetBinding(key, action, context)) { return false }
+      if (!Client::SetBinding(key, action, context)) { return false }
     }
     return true
   }

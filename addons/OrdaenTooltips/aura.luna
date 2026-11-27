@@ -12,11 +12,11 @@ import { clean, duration } from "@/text"
 const BLANK = 1
 // The camp's bonuses: an effect of Forever's own, its description a list.
 const CAMP = 1229741
-const REMOVE_COLOR: Color = Color.hex("#8fd2ff")
+const REMOVE_COLOR: Color = Color::hex("#8fd2ff")
 
 // What an effect is removed as, in its colour, lifted to read on the wood.
 const DISPEL: Map<String, Color> = {
-  Magic: Color.hex("#3c9cff"), Curse: Color.hex("#b45cff"), Poison: Color.hex("#2fbf3f"), Disease: Color.hex("#c89040")
+  Magic: Color::hex("#3c9cff"), Curse: Color::hex("#b45cff"), Poison: Color::hex("#2fbf3f"), Disease: Color::hex("#c89040")
 }
 
 // The spells that remove an effect, by the player's class and by what the effect is removed as; and the ones that
@@ -34,19 +34,19 @@ const PURGE: Map<String, Array<Integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 
 function remover(spells: Array<Integer> | nil): String | nil {
   if (spells == nil) { return nil }
   for (id of spells) {
-    if (Game.spells.known(id)) { return Game.spells.name(id) }
+    if (Game::spells.known(id)) { return Game::spells.name(id) }
   }
   return nil
 }
 
 function wait(seconds: Number): String {
-  return duration(seconds, Game.strings.hours, Game.strings.minutes, Game.strings.seconds)
+  return duration(seconds, Game::strings.hours, Game::strings.minutes, Game::strings.seconds)
 }
 
 // A camp building's bonus in short, by the building's name.
 function campShort(name: String): String | nil {
-  if (name == Locale.CAMP_WELL_NAME) { return Locale.CAMP_WELL }
-  if (name == Locale.CAMP_AQUA_NAME) { return Locale.CAMP_AQUA }
+  if (name == Locale::CAMP_WELL_NAME) { return Locale::CAMP_WELL }
+  if (name == Locale::CAMP_AQUA_NAME) { return Locale::CAMP_AQUA }
   return nil
 }
 
@@ -73,7 +73,7 @@ function campRows(text: String, body: mut Array<TextLine>) {
 function total(text: String, left: Number | nil, stacks: Integer): (String | nil, String | nil) {
   if (left == nil) { return nil, nil }
   // A locale's text is a `String`: held to the pattern's grammar as it is read.
-  const pattern = Locale.TOTAL_PATTERN
+  const pattern = Locale::TOTAL_PATTERN
   if (!(pattern is Pattern)) { return nil, nil }
   let found = text.captures(pattern)
   if (found == nil) { return nil, nil }
@@ -83,13 +83,13 @@ function total(text: String, left: Number | nil, stacks: Integer): (String | nil
   let sum = amount * (left / period).floor() * stacks.max(1)
   if (sum <= 0) { return nil, nil }
   // The word in any case: an English description starts «Heals».
-  let label = text.lower().contains(Locale.HEAL_WORD) ? Locale.TOTAL_HEAL : Locale.TOTAL_DAMAGE
-  return label, Locale.TOTAL_VALUE.format(sum.floor(), wait(left))
+  let label = text.lower().contains(Locale::HEAL_WORD) ? Locale::TOTAL_HEAL : Locale::TOTAL_DAMAGE
+  return label, Locale::TOTAL_VALUE.format(sum.floor(), wait(left))
 }
 
-public function aura(data: Game.TooltipData, options: Options): Model | nil {
+public function aura(data: Game::TooltipData, options: Options): Model | nil {
   let id = data.id
-  let known = Game.auras.shown(data)
+  let known = Game::auras.shown(data)
   let name: String | nil = nil
   let description: String | nil = nil
   let desc: Array<Part> = []
@@ -106,7 +106,7 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
     if (left == nil || line.kind == BLANK) { continue }
     // The game's own line with the spell's number and the time left go: the band has the time. The time left is
     // the line with the locale's word for it (the game's minutes, seconds and hours alike).
-    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD)) { continue }
+    if (left.match("^ID ") != nil || left.contains(Locale::REMAINING_WORD)) { continue }
     if (id == CAMP) { campRows(left, body) } else { body.push({ left: left, desc: true }) }
     description = description ?? left
   }
@@ -114,23 +114,23 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
 
   let harmful = known != nil && known.harmful
   if (id == CAMP) {
-    desc.push({ text: Locale.CAMP, opens: named(Term.Camp) })
+    desc.push({ text: Locale::CAMP, opens: named(Term::Camp) })
   } else {
-    desc.push({ text: harmful ? Locale.AURA_DEBUFF : Locale.AURA_BUFF })
+    desc.push({ text: harmful ? Locale::AURA_DEBUFF : Locale::AURA_BUFF })
   }
   let timer = false
   if (known != nil) {
     let dispel = known.dispel
     if (dispel != nil) { desc.push({ text: known.dispelName ?? dispel, color: DISPEL[dispel] }) }
-    if (known.source == "player" || known.source == "pet") { desc.push({ text: Locale.AURA_YOURS, color: GOLD, opens: named(Term.Mine) }) }
-    if (known.stacks > 1) { facts.push({ cell: { text: `×${known.stacks}` }, opens: named(Term.Stacks) }) }
+    if (known.source == "player" || known.source == "pet") { desc.push({ text: Locale::AURA_YOURS, color: GOLD, opens: named(Term::Mine) }) }
+    if (known.stacks > 1) { facts.push({ cell: { text: `×${known.stacks}` }, opens: named(Term::Stacks) }) }
     let left = known.left
     if (left != nil) {
-      facts.push({ cell: { text: wait((0.0).max(left)), glyph: .Time }, opens: named(Term.Time) })
+      facts.push({ cell: { text: wait((0.0).max(left)), glyph: .Time }, opens: named(Term::Time) })
       timer = true
     }
     // What the player can do about it.
-    let mine = Game.player.classTag
+    let mine = Game::player.classTag
     let by: String | nil = nil
     if (dispel != nil && harmful) {
       let spells = REMOVE[mine]
@@ -139,28 +139,28 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
       by = remover(PURGE[mine])
     }
     if (known.own && !harmful) {
-      facts.push({ cell: { text: Locale.CANCEL_KEY }, opens: named(Term.Cancel) })
+      facts.push({ cell: { text: Locale::CANCEL_KEY }, opens: named(Term::Cancel) })
     } else if (by != nil) {
-      facts.push({ cell: { text: by, color: REMOVE_COLOR }, opens: named(Term.Removeby) })
+      facts.push({ cell: { text: by, color: REMOVE_COLOR }, opens: named(Term::Removeby) })
     }
     let caster = known.sourceName
     if (options.aurasCaster && caster != nil) {
       // Someone else's name opens their own tooltip.
       let source = known.source
       foot.push({
-        left: Locale.CASTER, right: source == "player" ? Locale.YOU : caster,
-        valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term.Caster),
-        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens.None
+        left: Locale::CASTER, right: source == "player" ? Locale::YOU : caster,
+        valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term::Caster),
+        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens::None
       })
     }
     if (options.aurasTotal && description != nil) {
       let label, value = total(description, left, known.stacks)
-      if (label != nil) { foot.push({ left: label, right: value, opens: named(Term.Total) }) }
+      if (label != nil) { foot.push({ left: label, right: value, opens: named(Term::Total) }) }
     }
   }
   if (id != nil && options.aurasId) { info.push({ text: `ID ${id}` }) }
   return {
-    kind: Kind.Aura, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: harmful ? RED : GOLD,
+    kind: Kind::Aura, picture: iconOf(id != nil ? Game::spells.texture(id) : nil), name: name, nameColor: harmful ? RED : GOLD,
     desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
   }
 }

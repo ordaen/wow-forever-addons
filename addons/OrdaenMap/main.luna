@@ -51,7 +51,7 @@ public class Maps implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, docked: false })
   public const pages: Array<SettingsPage> = [
     {
-      title: Locale.TAB_GENERAL,
+      title: Locale::TAB_GENERAL,
       content: $ltml {
         <GeneralPage openMap={self.openMap} docked={mut self.settings.values.docked} layers={self.layers} hidden={self.settings.values.hidden}
                      @flip={self.flip} />
@@ -153,7 +153,7 @@ public class Maps implements Module, App {
       for (line of section.lines(names)) { said.push(line) }
     }
     if (said.length == 0) { return said }
-    said.insert(1, Locale.DUNGEON_CARD)
+    said.insert(1, Locale::DUNGEON_CARD)
     return said
   }
 
@@ -175,7 +175,7 @@ public class Maps implements Module, App {
 
   // OpenMap's menu: the docked switch, and one for each layer.
   addSwitches(mut self, list: Array<any Layer>) {
-    self.host.menuSwitch(DOCKED_SWITCH, Locale.SETTING_DOCKED, () => peek self.docked, (on: Boolean): nil => {
+    self.host.menuSwitch(DOCKED_SWITCH, Locale::SETTING_DOCKED, () => peek self.docked, (on: Boolean): nil => {
       self.dock(on)
       return nil
     })

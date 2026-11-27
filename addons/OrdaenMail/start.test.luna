@@ -7,22 +7,22 @@ import Test from "$test"
 test "a module the player turned off that another's load brings in has no root made" {
   const choices: Map<String, Boolean> = {}
   choices["OrdaenTrading"] = false
-  Game.saved.store(.Account, "choices", choices)
-  _ = Test.debugLog()
-  Test.reload()
-  const log = Test.debugLog()
-  Test.expect(log.any(line => line.contains("OrdaenTrading: first file")))
-  Test.expect(!log.any(line => line.contains("OrdaenTrading: root made")))
-  Test.expect(log.any(line => line.contains("OrdaenMail: root made")))
+  Game::saved.store(.Account, "choices", choices)
+  _ = Test::debugLog()
+  Test::reload()
+  const log = Test::debugLog()
+  Test::expect(log.any(line => line.contains("OrdaenTrading: first file")))
+  Test::expect(!log.any(line => line.contains("OrdaenTrading: root made")))
+  Test::expect(log.any(line => line.contains("OrdaenMail: root made")))
   choices["OrdaenTrading"] = nil
-  Game.saved.store(.Account, "choices", choices)
+  Game::saved.store(.Account, "choices", choices)
 }
 
 test "a start that loads a module another needs makes each root once, and never asks for Ordaen's while it is made" {
-  _ = Test.debugLog()
-  Test.reload()
-  const log = Test.debugLog()
-  Test.expect(!log.any(line => line.contains("Ordaen: turned on")))
-  Test.expect(!log.any(line => line.contains("Ordaen: held back behind Ordaen")))
-  Test.expect(log.count(line => line.contains("OrdaenTrading: root made")) == 1)
+  _ = Test::debugLog()
+  Test::reload()
+  const log = Test::debugLog()
+  Test::expect(!log.any(line => line.contains("Ordaen: turned on")))
+  Test::expect(!log.any(line => line.contains("Ordaen: held back behind Ordaen")))
+  Test::expect(log.count(line => line.contains("OrdaenTrading: root made")) == 1)
 }

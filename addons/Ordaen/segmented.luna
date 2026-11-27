@@ -8,19 +8,19 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
 
-const FILL: ByInteractionState<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610"), focus: Color.hex("#1c1610") }
-const PICKED: Color = Color.hex("#5a4428")
-const BLANK: Color = Color.hex("#0d0a08")
-const QUIET: Color = Color.hex("#a3977f")
-const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
-const DIM: Color = Color.hex("#ffffff73")
-const LIGHT: Color = Color.hex("#d6a56b")
-const CLEAR: Color = Color.hex("#00000000")
-const EDGE: Color = Color.hex("#4a3a24")
+const FILL: ByInteractionState<Color> = { default: Color::hex("#0d0a08"), hover: Color::hex("#1c1610"), focus: Color::hex("#1c1610") }
+const PICKED: Color = Color::hex("#5a4428")
+const BLANK: Color = Color::hex("#0d0a08")
+const QUIET: Color = Color::hex("#a3977f")
+const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
+const DIM: Color = Color::hex("#ffffff73")
+const LIGHT: Color = Color::hex("#d6a56b")
+const CLEAR: Color = Color::hex("#00000000")
+const EDGE: Color = Color::hex("#4a3a24")
 const PADDING: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const WHOLE: Line = { width: 1.171875dp, color: EDGE }
 // The segments after the first share the one before's right line.
-const AFTER: Line = { width: 1.171875dp, color: EDGE, sides: [Side.Top, Side.Right, Side.Bottom] }
+const AFTER: Line = { width: 1.171875dp, color: EDGE, sides: [Side::Top, Side::Right, Side::Bottom] }
 
 // One segment of the strip.
 public class Segment<T: Unknown> implements Component {
@@ -28,7 +28,7 @@ public class Segment<T: Unknown> implements Component {
 
   derived picked: Boolean = self.value == self.choice.value
   derived soon: Boolean = self.choice.soon == true
-  derived text: String = self.soon ? self.choice.label + " — " + Locale.SOON : self.choice.label
+  derived text: String = self.soon ? self.choice.label + " — " + Locale::SOON : self.choice.label
   derived still: Boolean = self.soon || self.disabled
   derived color: Color | ByInteractionState<Color> = self.soon ? DIM : self.picked ? BRIGHT_TEXT : self.still ? QUIET : NAME
   derived fill: Color | ByInteractionState<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
@@ -58,9 +58,9 @@ public class Segment<T: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PADDING} background={self.fill} xAlign={Align.Center}
+      <box padding={PADDING} background={self.fill} xAlign={Align::Center}
            border={self.edge} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
+        <box position={Position::Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
         <text value={self.text} textColor={self.color} wrap={.None} />
       </box>
     }

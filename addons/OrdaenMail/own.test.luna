@@ -14,8 +14,8 @@ const STONE = 2836
 const LINEN = 2589
 const BLACKSMITHING = 164
 const ENGINEERING = 202
-const ORANGE: Color = Color.hex("#ff8040")
-const GREY: Color = Color.hex("#808080")
+const ORANGE: Color = Color::hex("#ff8040")
+const GREY: Color = Color::hex("#808080")
 
 function kin(): Array<Kin> {
   return [{ who: "Player-1-3", name: "Regron", classTag: "WARRIOR" }, { who: "Player-1-2", name: "Aria", classTag: "MAGE" }]
@@ -26,13 +26,13 @@ function kin(): Array<Kin> {
 function crafting(item: Integer): Array<Crafting> {
   const axe: Crafting = {
     skillLine: BLACKSMITHING, profession: "Blacksmithing", guid: "Player-1-3", name: "Regron", rank: 50,
-    best: Game.Difficulty.Always, bestColor: ORANGE,
-    recipes: [{ name: "Bronze Axe", difficulty: Game.Difficulty.Always, color: ORANGE, makes: 2741 }]
+    best: Game::Difficulty::Always, bestColor: ORANGE,
+    recipes: [{ name: "Bronze Axe", difficulty: Game::Difficulty::Always, color: ORANGE, makes: 2741 }]
   }
   const tube: Crafting = {
     skillLine: ENGINEERING, profession: "Engineering", guid: "Player-1-2", name: "Aria", rank: 150,
-    best: Game.Difficulty.Never, bestColor: GREY,
-    recipes: [{ name: "Bronze Tube", difficulty: Game.Difficulty.Never, color: GREY, makes: 4371 }]
+    best: Game::Difficulty::Never, bestColor: GREY,
+    recipes: [{ name: "Bronze Tube", difficulty: Game::Difficulty::Never, color: GREY, makes: 4371 }]
   }
   if (item == BAR) { return [axe, tube] }
   if (item == STONE) { return [axe] }
@@ -46,37 +46,37 @@ function names(id: String | Integer): String | nil {
 const ANY: SendRules = {}
 
 test "each other character something goes to has a row, its items in a section per profession, in its class's colour" {
-  Client.C_Item.GetItemNameByID = names
+  Client::C_Item::GetItemNameByID = names
   const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine))
-  Test.expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Regron 2, Aria 1")
+  Test::expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Regron 2, Aria 1")
   const regron = rows[1] ?? panic("Regron's row")
   const smithing = regron.sections[1] ?? panic("his Blacksmithing")
-  Test.expect(smithing.profession == "Blacksmithing" && smithing.offers.map(offer => `${offer.name} ${offer.count}`).join(", ") == "Bronze Bar 20, Rough Stone 5")
+  Test::expect(smithing.profession == "Blacksmithing" && smithing.offers.map(offer => `${offer.name} ${offer.count}`).join(", ") == "Bronze Bar 20, Rough Stone 5")
   const bar = smithing.offers[1] ?? panic("the bars")
-  Test.expect(bar.color.equal(ORANGE) && bar.recipes.map(recipe => recipe.name).join(", ") == "Bronze Axe")
+  Test::expect(bar.color.equal(ORANGE) && bar.recipes.map(recipe => recipe.name).join(", ") == "Bronze Axe")
   const color = regron.color
-  Test.expect(color != nil && color.equal(classColor("WARRIOR") ?? panic("the client colours a warrior")))
+  Test::expect(color != nil && color.equal(classColor("WARRIOR") ?? panic("the client colours a warrior")))
 }
 
 test "a profession switched off sends nothing, nor one whose best recipe is worse than its rule's least" {
-  Client.C_Item.GetItemNameByID = names
+  Client::C_Item::GetItemNameByID = names
   const rules: SendRules = {
     rules: {
-      [ruleKey("Player-1-3", BLACKSMITHING)]: { on: false, least: Least.Any },
-      [ruleKey("Player-1-2", ENGINEERING)]: { on: true, least: Least.Green }
+      [ruleKey("Player-1-3", BLACKSMITHING)]: { on: false, least: Least::Any },
+      [ruleKey("Player-1-2", ENGINEERING)]: { on: true, least: Least::Green }
     }
   }
   const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
   // Regron's smithing is off; Aria's tube is grey, below «green and better»: nothing goes to anyone.
-  Test.expect(rows.length == 0)
-  const orange: SendRules = { rules: { [ruleKey("Player-1-3", BLACKSMITHING)]: { on: true, least: Least.Orange } } }
+  Test::expect(rows.length == 0)
+  const orange: SendRules = { rules: { [ruleKey("Player-1-3", BLACKSMITHING)]: { on: true, least: Least::Orange } } }
   const kept = ownRows(kin(), { [BAR]: 20 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(orange, who, skillLine))
-  Test.expect(kept.map(row => row.name).join(", ") == "Regron, Aria")
+  Test::expect(kept.map(row => row.name).join(", ") == "Regron, Aria")
 }
 
 test "a count sent takes whole stacks that fit and the rest as a part, which the queue splits off" {
-  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => {
     if (bag != 0 || (slot != 2 && slot != 3)) { return false }
     into.id = LINEN
     into.count = slot == 2 ? 20 : 5
@@ -84,9 +84,9 @@ test "a count sent takes whole stacks that fit and the rest as a part, which the
     return true
   }
   const stacks = stacksOf([{ bag: 0, slot: 0, item: LINEN, count: 12 }])
-  Test.expect(stacks.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/3 5, 0/0 7")
+  Test::expect(stacks.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/3 5, 0/0 7")
   const whole = stacksOf([{ bag: 0, slot: 0, item: LINEN, count: 25 }])
-  Test.expect(whole.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/2 20, 0/3 5")
+  Test::expect(whole.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/2 20, 0/3 5")
 }
 
 // The tab on a page, and the bags it reads: twenty bronze bars and five stones, each one stack, until the test takes
@@ -104,7 +104,7 @@ class OwnPage {
     self.own.configure.listen(self.onConfigure)
   }
 
-  public slotAt(self, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  public slotAt(self, bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
     if (bag != 0 || slot > 2) { return false }
     const item = slot == 1 ? BAR : STONE
     const count = self.bagged[item] ?? 0
@@ -129,43 +129,43 @@ class OwnPage {
 
 // The page made, the game's bags read from it, and the page mounted.
 function opened(): mut OwnPage {
-  Client.C_Item.GetItemNameByID = names
+  Client::C_Item::GetItemNameByID = names
   const page = new OwnPage()
-  Game.bags.holdings = (): Map<Integer, Integer> | nil => page.bagged
-  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => page.slotAt(bag, slot, into)
+  Game::bags.holdings = (): Map<Integer, Integer> | nil => page.bagged
+  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => page.slotAt(bag, slot, into)
   // The tab read the bags as the page was made, before they were answered: they change now.
-  Game.bags.changed.emit()
-  Test.mount(page, { left: 0, top: 0, width: 900, height: 500 })
+  Game::bags.changed.emit()
+  Test::mount(page, { left: 0, top: 0, width: 900, height: 500 })
   return page
 }
 
 test "the characters something goes to stand at the left with how many items; the chosen one's at the right by profession, «Send all» in the footer with its letters" {
   let page = opened()
-  const screen = Test.page()
-  Test.expect(screen.text("Regron").item().texts().join(" | ") == "Regron | 2" && screen.text("Aria").item().texts().join(" | ") == "Aria | 1")
+  const screen = Test::page()
+  Test::expect(screen.text("Regron").item().texts().join(" | ") == "Regron | 2" && screen.text("Aria").item().texts().join(" | ") == "Aria | 1")
   // Regron first: his smithing's bars and stones, each with its recipes' count; one letter for both.
-  Test.expect(screen.text("Blacksmithing").shown() && screen.text("Rough Stone").shown() && screen.text("Recipes: 1").shown())
-  Test.expect(screen.texts().join(" | ").contains("Letters | 1"))
+  Test::expect(screen.text("Blacksmithing").shown() && screen.text("Rough Stone").shown() && screen.text("Recipes: 1").shown())
+  Test::expect(screen.texts().join(" | ").contains("Letters | 1"))
   screen.text("Aria").click()
-  Test.expect(screen.text("Engineering").shown() && !screen.text("Rough Stone").shown())
+  Test::expect(screen.text("Engineering").shown() && !screen.text("Rough Stone").shown())
   screen.text("Regron").click()
   screen.button("Send all").click()
   const queued = (peek page.sender.memory.values).queue
-  Test.expect(queued.length == 1 && queued.any((letter: Sent): Boolean => letter.to == "Regron" && letter.items.length == 2))
+  Test::expect(queued.length == 1 && queued.any((letter: Sent): Boolean => letter.to == "Regron" && letter.items.length == 2))
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 test "a letter sent takes its items out of the bags, and the tab follows: nothing left, it says so and offers the rules" {
   let page = opened()
-  const screen = Test.page()
-  Test.expect(screen.text("Regron").shown())
+  const screen = Test::page()
+  Test::expect(screen.text("Regron").shown())
   page.bagged = {}
-  Game.bags.changed.emit()
-  Test.expect(!screen.text("Regron").shown() && screen.text("Nothing to send").shown())
+  Game::bags.changed.emit()
+  Test::expect(!screen.text("Regron").shown() && screen.text("Nothing to send").shown())
   screen.button("Set up the rules").click()
-  Test.expect(page.configured == 1)
+  Test::expect(page.configured == 1)
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

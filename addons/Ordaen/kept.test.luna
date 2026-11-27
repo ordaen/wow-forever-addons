@@ -16,108 +16,108 @@ function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 // The settings window opened on Ordaen's own page, drawn.
 function open() {
   Ordaen.toggleNamed("")
-  Test.flush()
+  Test::flush()
 }
 
-function tab(): Test.Point { return Test.holding(Ordaen.title, nil) }
-function save(): Test.Point { return Test.holding(Locale.ROLLBACK, nil) }
+function tab(): Test::Point { return Test::holding(Ordaen.title, nil) }
+function save(): Test::Point { return Test::holding(Locale::ROLLBACK, nil) }
 
 // A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
-function drag(from: Test.Point, dx: Number, dy: Number) {
-  Test.moveTo(from)
-  Test.press(nil)
-  Test.moveTo({ x: from.x + 1, y: from.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: from.x + dx, y: from.y + dy })
-  Test.pass(0.05)
-  Test.release(nil)
-  Test.flush()
+function drag(from: Test::Point, dx: Number, dy: Number) {
+  Test::moveTo(from)
+  Test::press(nil)
+  Test::moveTo({ x: from.x + 1, y: from.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: from.x + dx, y: from.y + dy })
+  Test::pass(0.05)
+  Test::release(nil)
+  Test::flush()
 }
 
 // The corner's control painted with `art` pressed, the cursor in the window's body first so the group shows.
 function press(art: Art) {
   const at = tab()
-  Test.moveTo({ x: at.x, y: at.y + 60 })
-  Test.flush()
-  Test.click(Test.painted(art, nil), nil)
-  Test.flush()
+  Test::moveTo({ x: at.x, y: at.y + 60 })
+  Test::flush()
+  Test::click(Test::painted(art, nil), nil)
+  Test::flush()
 }
 
 test "a window moved by its tab stands where it was left after a reload" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const before = tab()
   drag(before, -120, 40)
   const moved = tab()
-  Test.expect(moved.x < before.x - 100 && moved.y > before.y + 30)
-  Test.reload()
+  Test::expect(moved.x < before.x - 100 && moved.y > before.y + 30)
+  Test::reload()
   open()
   const again = tab()
-  Test.expect(near(again.x, moved.x) && near(again.y, moved.y))
+  Test::expect(near(again.x, moved.x) && near(again.y, moved.y))
 }
 
 test "a window sized by its grip keeps its size after a reload" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const before = save()
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), 60, 30)
+  drag(Test::painted(Ordaen.art.ctl.grip, nil), 60, 30)
   const grown = save()
-  Test.expect(grown.x > before.x + 50 && grown.y > before.y + 20)
+  Test::expect(grown.x > before.x + 50 && grown.y > before.y + 20)
   const at = tab()
-  Test.reload()
+  Test::reload()
   open()
   const again = save()
-  Test.expect(near(again.x, grown.x) && near(again.y, grown.y) && near(tab().x, at.x))
+  Test::expect(near(again.x, grown.x) && near(again.y, grown.y) && near(tab().x, at.x))
 }
 
 test "a window left full screen opens full screen after a reload, and back" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const normal = save()
   press(Ordaen.art.ctl.corner.expand)
   const full = save()
-  Test.expect(full.x > normal.x + 100)
-  Test.reload()
+  Test::expect(full.x > normal.x + 100)
+  Test::reload()
   open()
   const again = save()
-  Test.expect(near(again.x, full.x) && near(again.y, full.y))
+  Test::expect(near(again.x, full.x) && near(again.y, full.y))
   press(Ordaen.art.ctl.corner.contract)
   const back = save()
-  Test.expect(near(back.x, normal.x) && near(back.y, normal.y))
+  Test::expect(near(back.x, normal.x) && near(back.y, normal.y))
 }
 
 test "a switch of profile takes that profile's place at once, and back, without a reload" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const before = tab()
   const first = Ordaen.keeper.profiles.active
-  Test.expect(Ordaen.keeper.profiles.make("Elsewhere", nil))
+  Test::expect(Ordaen.keeper.profiles.make("Elsewhere", nil))
   drag(before, -100, 0)
   const moved = tab()
   Ordaen.keeper.profiles.use("Elsewhere")
-  Test.flush()
+  Test::flush()
   const other = tab()
-  Test.expect(near(other.x, before.x) && near(other.y, before.y))
+  Test::expect(near(other.x, before.x) && near(other.y, before.y))
   Ordaen.keeper.profiles.use(first)
-  Test.flush()
-  Test.expect(near(tab().x, moved.x))
+  Test::flush()
+  Test::expect(near(tab().x, moved.x))
 }
 
 test "a window never moved keeps nothing, and moving one is no step of the settings' history" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const name = Ordaen.keeper.profiles.active
-  Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") == nil)
+  Test::expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") == nil)
   const steps = Ordaen.keeper.steps
-  Ordaen.globals.values.density = Density.Roomy
-  Test.flush()
-  Test.expect(Ordaen.keeper.steps == steps + 1)
+  Ordaen.globals.values.density = Density::Roomy
+  Test::flush()
+  Test::expect(Ordaen.keeper.steps == steps + 1)
   drag(tab(), -50, 0)
-  Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") != nil)
-  Test.expect(Ordaen.globals.values.density == Density.Roomy && Ordaen.keeper.steps == steps + 1)
+  Test::expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") != nil)
+  Test::expect(Ordaen.globals.values.density == Density::Roomy && Ordaen.keeper.steps == steps + 1)
   Ordaen.keeper.undo()
-  Test.flush()
-  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.keeper.steps == steps)
+  Test::flush()
+  Test::expect(Ordaen.globals.values.density != Density::Roomy && Ordaen.keeper.steps == steps)
 }
 
 // What a module's mistake might keep: a list that grows with play.
@@ -129,13 +129,13 @@ test "a memory past its bound isn't kept" {
   const names: Array<String> = []
   for (i of 1..100) { names.push("name number %d".format(i)) }
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: names })
-  Test.expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
+  Test::expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: ["one"] })
-  Test.expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") != nil)
+  Test::expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") != nil)
 }
 
 // Where the window's wood is now: the body's edges.
-function body(): Test.Rect { return Test.edges(Ordaen.art.window.wood, 0) }
+function body(): Test::Rect { return Test::edges(Ordaen.art.window.wood, 0) }
 
 // A window whose content needs more than its least size says: a block of 500 by 400 over a footer.
 class Crowded {
@@ -174,22 +174,22 @@ class Held {
 
 test "a tab that holds the window's height draws it at that height, its grip changing only the width" {
   const page = new Held()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const free = Test.edges(Ordaen.art.window.wood, 0)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const free = Test::edges(Ordaen.art.window.wood, 0)
   page.tab = 2
-  Test.flush()
-  const held = Test.edges(Ordaen.art.window.wood, 0)
+  Test::flush()
+  const held = Test::edges(Ordaen.art.window.wood, 0)
   // Its top left where it was, and the body 200 shorter.
-  Test.expect(near(held.top, free.top) && near(held.left, free.left))
-  Test.expect(near((free.bottom - free.top) - (held.bottom - held.top), 200))
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), 30, 40)
-  const sized = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(sized.right > held.right + 20 && near(sized.bottom, held.bottom) && near(sized.top, held.top))
+  Test::expect(near(held.top, free.top) && near(held.left, free.left))
+  Test::expect(near((free.bottom - free.top) - (held.bottom - held.top), 200))
+  drag(Test::painted(Ordaen.art.ctl.grip, nil), 30, 40)
+  const sized = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(sized.right > held.right + 20 && near(sized.bottom, held.bottom) && near(sized.top, held.top))
   // The player's height comes back on the free tab.
   page.tab = 1
-  Test.flush()
-  const back = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(near(back.bottom - back.top, free.bottom - free.top) && near(back.top, free.top))
+  Test::flush()
+  const back = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(near(back.bottom - back.top, free.bottom - free.top) && near(back.top, free.top))
 }
 
 // A window of two tabs, the second's page with no room round it, the window's own room as given (none: its own):
@@ -214,113 +214,113 @@ class Padded {
 
 test "a tab's padding is the room between the frame's line and its page: none, and the page meets the line" {
   const page = new Padded(nil)
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const roomy = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const roomy = Test::edges(Ordaen.art.panel.xpTrough, 0)
   page.tab = 2
-  Test.flush()
-  const flush = Test.edges(Ordaen.art.panel.xpTrough, 0)
-  Test.expect(flush.left < roomy.left - 5 && flush.top < roomy.top - 5)
-  Test.expect(flush.right > roomy.right + 5 && flush.bottom > roomy.bottom + 5)
+  Test::flush()
+  const flush = Test::edges(Ordaen.art.panel.xpTrough, 0)
+  Test::expect(flush.left < roomy.left - 5 && flush.top < roomy.top - 5)
+  Test::expect(flush.right > roomy.right + 5 && flush.bottom > roomy.bottom + 5)
   // Out by the window's whole room, `WINDOW_ROOM`, none left of it.
   const room = Ordaen.lengthOf(WINDOW_ROOM) / 1ui
-  Test.expect(near(roomy.left - flush.left, room) && near(roomy.top - flush.top, room) && near(flush.right - roomy.right, room))
+  Test::expect(near(roomy.left - flush.left, room) && near(roomy.top - flush.top, room) && near(flush.right - roomy.right, room))
 }
 
 test "a window's padding is its tabs' room from the frame's line, a tab's own going over it" {
   const page = new Padded({ top: 2sp, right: 2sp, bottom: 2sp, left: 2sp })
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const given = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const given = Test::edges(Ordaen.art.panel.xpTrough, 0)
   page.tab = 2
-  Test.flush()
-  const flush = Test.edges(Ordaen.art.panel.xpTrough, 0)
-  Test.expect(near(given.left - flush.left, Ordaen.lengthOf(2sp) / 1ui) && near(given.top - flush.top, Ordaen.lengthOf(2sp) / 1ui))
+  Test::flush()
+  const flush = Test::edges(Ordaen.art.panel.xpTrough, 0)
+  Test::expect(near(given.left - flush.left, Ordaen.lengthOf(2sp) / 1ui) && near(given.top - flush.top, Ordaen.lengthOf(2sp) / 1ui))
 }
 
 test "the grip stops where the content would be cut, and the window grows again at once" {
   const page = new Crowded()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
-  const least = Test.edges(Ordaen.art.window.wood, 0)
-  const block = Test.edges(Ordaen.art.window.wood, 1)
-  const foot = Test.holding("the footer", nil)
-  Test.expect(least.right - least.left < 800 && least.right >= block.right && least.bottom > foot.y)
-  Test.expect(block.right - block.left > 499 && block.bottom - block.top > 399)
-  Test.shot("sized down past what it holds: held at its content's least size, the footer under the block")
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), 30, 20)
-  const grown = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  drag(Test::painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
+  const least = Test::edges(Ordaen.art.window.wood, 0)
+  const block = Test::edges(Ordaen.art.window.wood, 1)
+  const foot = Test::holding("the footer", nil)
+  Test::expect(least.right - least.left < 800 && least.right >= block.right && least.bottom > foot.y)
+  Test::expect(block.right - block.left > 499 && block.bottom - block.top > 399)
+  Test::shot("sized down past what it holds: held at its content's least size, the footer under the block")
+  drag(Test::painted(Ordaen.art.ctl.grip, nil), 30, 20)
+  const grown = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
   // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
   page.placing.placing = { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
-  Test.flush()
-  const handed = Test.edges(Ordaen.art.window.wood, 0)
-  Test.expect(near(handed.right - handed.left, least.right - least.left))
-  Test.expect(near(handed.bottom - handed.top, least.bottom - least.top))
+  Test::flush()
+  const handed = Test::edges(Ordaen.art.window.wood, 0)
+  Test::expect(near(handed.right - handed.left, least.right - least.left))
+  Test::expect(near(handed.bottom - handed.top, least.bottom - least.top))
   destroy page
 }
 
 test "a size kept below what the content needs is raised to it as the window opens" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
+  drag(Test::painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
   const least = body()
   const corner = tab()
   const kept = Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings")
-  const view = WindowView.decode(kept, WindowView {})
+  const view = WindowView::decode(kept, WindowView {})
   Ordaen.keeper.profiles.remember("Ordaen:window:settings", WindowView {
     x: view.x - (view.width - 40ui) / 2, y: view.y, width: 40ui, height: 30ui, full: false, tab: 1, side: 0ui
   })
-  Test.reload()
+  Test::reload()
   open()
   const raised = body()
-  Test.expect(near(raised.right - raised.left, least.right - least.left))
-  Test.expect(near(raised.bottom - raised.top, least.bottom - least.top))
-  Test.expect(near(tab().x, corner.x))
+  Test::expect(near(raised.right - raised.left, least.right - least.left))
+  Test::expect(near(raised.bottom - raised.top, least.bottom - least.top))
+  Test::expect(near(tab().x, corner.x))
 }
 
 test "a number typed on the «Windows» page moves the window, and is kept" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
-  Test.click(Test.holding(Locale.WINDOWS_TAB, nil), nil)
-  Test.flush()
+  Test::click(Test::holding(Locale::WINDOWS_TAB, nil), nil)
+  Test::flush()
   const before = tab()
   // The first field is the place across, from the screen's centre: 0 as the window starts.
-  Test.click(Test.field(nil), nil)
-  Test.erase(6)
-  Test.type("-100")
+  Test::click(Test::field(nil), nil)
+  Test::erase(6)
+  Test::type("-100")
   // Enter takes what is typed at once (else it is taken once the typing pauses).
-  Test.key(Key.Enter)
+  Test::key(Key::Enter)
   const moved = tab()
-  Test.expect(near(moved.x, before.x - 100) && near(moved.y, before.y))
-  Test.shot("the place across typed: -100, the window 100 to the left")
-  const kept = WindowView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings"),
+  Test::expect(near(moved.x, before.x - 100) && near(moved.y, before.y))
+  Test::shot("the place across typed: -100, the window 100 to the left")
+  const kept = WindowView::decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings"),
     WindowView {})
-  Test.expect(kept.x == -100ui)
+  Test::expect(kept.x == -100ui)
 }
 
 test "a window that keeps nothing opens where it is declared, whatever it was moved to" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const before = tab()
   drag(before, -80, 0)
   const settings = Ordaen.window ?? panic("the settings window is made as it opens")
   const view: WindowView = { remember: false, ..settings.window.memory.values }
   settings.window.memory.write(view)
-  Test.flush()
-  Test.expect(near(tab().x, before.x))
+  Test::flush()
+  Test::expect(near(tab().x, before.x))
 }
 
 test "the «Windows» page says «never» where nothing shows a window again, and a choice picked there is kept" {
-  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  Test::mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
-  Test.click(Test.holding(Locale.WINDOWS_TAB, nil), nil)
-  Test.flush()
-  Test.click(Test.holding(Locale.WINDOW_NEVER, nil), nil)
-  Test.flush()
+  Test::click(Test::holding(Locale::WINDOWS_TAB, nil), nil)
+  Test::flush()
+  Test::click(Test::holding(Locale::WINDOW_NEVER, nil), nil)
+  Test::flush()
   // The menu lists the occasions after the plate «Hide during» shows its own: the second «Combat» is this menu's.
-  Test.click(Test.holding(Locale.OCCASION_COMBAT, 2), nil)
-  Test.flush()
-  Test.shot("«Show again after» opened and «Combat» picked: the plate names it, the menu stays open")
+  Test::click(Test::holding(Locale::OCCASION_COMBAT, 2), nil)
+  Test::flush()
+  Test::shot("«Show again after» opened and «Combat» picked: the plate names it, the menu stays open")
   const settings = Ordaen.window ?? panic("the settings window is made as it opens")
-  Test.expect(settings.window.memory.values.showAfter.equal([Occasion.Combat]))
-  Test.expect(settings.window.memory.values.hideDuring.equal([Occasion.Combat]))
+  Test::expect(settings.window.memory.values.showAfter.equal([Occasion::Combat]))
+  Test::expect(settings.window.memory.values.hideDuring.equal([Occasion::Combat]))
 }

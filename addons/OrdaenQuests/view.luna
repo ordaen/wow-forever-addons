@@ -20,37 +20,37 @@ import { standingsOf } from "@/reputation"
 // in the chain's window.
 public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, ShowNext }
 
-const INK: Color = Color.hex("#e8dcc4")
+const INK: Color = Color::hex("#e8dcc4")
 // What the player's clicks on a quest's row do, in its tooltip.
-const ROW_KEYS: Array<String> = [Locale.ROW_KEY_PAGE, Locale.ROW_KEY_LINK, Locale.ROW_KEY_MENU]
-const GOLD: Color = Color.hex("#ffd100")
-const DIM: Color = Color.hex("#a3977f")
-const GREEN: Color = Color.hex("#40c040")
+const ROW_KEYS: Array<String> = [Locale::ROW_KEY_PAGE, Locale::ROW_KEY_LINK, Locale::ROW_KEY_MENU]
+const GOLD: Color = Color::hex("#ffd100")
+const DIM: Color = Color::hex("#a3977f")
+const GREEN: Color = Color::hex("#40c040")
 // Between the page's parts; the buttons stand further off the tracking switch.
 const PAGE_GAP = 4sp
 const BUTTONS_OFF = 3sp
-const RED: Color = Color.hex("#ff4040")
+const RED: Color = Color::hex("#ff4040")
 // A row starts at its header's left: the header's band, not an indent, says what it stands under.
 // Above and below its text alike: the rule above a row stands as far from its text as the next row's does.
 const ROW_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 // The rule between two quests of a list.
-const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b26"), sides: [Side.Top] }
+const ROW_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b26"), sides: [Side::Top] }
 const BUTTON = 131.25dp
 
 // The client opens the map for an addon out of a fight alone: «Show on map» is off in one, its tip says why.
 function mapTipOf(combat: Boolean): TipText | nil {
-  return combat ? { title: Locale.SHOW_ON_MAP, text: Locale.MAP_IN_COMBAT, rows: [] } : nil
+  return combat ? { title: Locale::SHOW_ON_MAP, text: Locale::MAP_IN_COMBAT, rows: [] } : nil
 }
 // The bullet between what a quest gives: dimmer than the dim text it parts.
 const BULLET = "•"
-const BULLET_COLOR: Color = Color.hex("#6b6352")
+const BULLET_COLOR: Color = Color::hex("#6b6352")
 // A row's title line: its level, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
 const TITLE_LINE: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const HEADER_PAD: Edges = { top: 3sp, right: 2sp, bottom: 3sp, left: 2sp }
 // A header's band: a gold wash over the well's floor, a brighter line under it, so it reads apart from its quests.
-const HEADER_BAND: Color = Color.hex("#d6a56b38")
-const HEADER_LINE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b66"), sides: [Side.Bottom] }
+const HEADER_BAND: Color = Color::hex("#d6a56b38")
+const HEADER_LINE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b66"), sides: [Side::Bottom] }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
 // What follows a header's caption: «вы здесь», then the count at the row's right.
@@ -58,8 +58,8 @@ const HEADER_REST: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A text a quest's row ends with: «Готово», «Провалено», or none while it is in progress (its objectives say how far).
 function stateOf(quest: LogQuest): String {
-  if (quest.failed) { return Locale.FAILED }
-  if (quest.done) { return Locale.DONE }
+  if (quest.failed) { return Locale::FAILED }
+  if (quest.done) { return Locale::DONE }
   return ""
 }
 
@@ -87,8 +87,8 @@ public class HeaderRow implements Component {
     return $ltml {
       <box padding={HEADER_PAD} background={HEADER_BAND} border={HEADER_LINE}>
         <FoldCaption title={self.header} folded={self.folded} @toggled={self.onFold}>
-          <box columns={HEADER_REST} gap={2sp} yAlign={Align.Center}>
-            <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <box columns={HEADER_REST} gap={2sp} yAlign={Align::Center}>
+            <text $if={self.here} value={Locale::HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             <box $else />
             <text value={self.counter} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
           </box>
@@ -106,21 +106,21 @@ public class QuestRow implements Component {
   // Its tooltip, as the game's log's: what is left to do (the quest's task), or that it is done or failed, and what the
   // player's clicks on it do. The task is asked of the client while the tooltip shows.
   derived tipShown: Boolean = self.hovered && !self.menuOpen
-  derived tipText: String = self.ended ? self.progress : Game.questLog.text(self.quest.id).task
+  derived tipText: String = self.ended ? self.progress : Game::questLog.text(self.quest.id).task
   // Complete or failed: said under the title in place of its objectives.
   derived ended: Boolean = self.progress != ""
   // Its objectives still to do: one done leaves the list (the page says them all).
-  derived goalsLeft: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
+  derived goalsLeft: Array<Game::QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
   derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
-  derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
+  derived group: String = self.quest.group > 1 ? Locale::GROUP.format(self.quest.group) : ""
   derived entries: Array<MenuEntry> = [
-    { label: self.quest.tracked ? Locale.UNTRACK : Locale.TRACK },
-    { label: Locale.SUPER_TRACK },
-    { label: Locale.SHARE, disabled: !self.quest.shareable },
-    { label: Locale.ABANDON, group: true }
+    { label: self.quest.tracked ? Locale::UNTRACK : Locale::TRACK },
+    { label: Locale::SUPER_TRACK },
+    { label: Locale::SHARE, disabled: !self.quest.shareable },
+    { label: Locale::ABANDON, group: true }
   ]
 
   derived rule: Line | nil = self.ruled ? ROW_RULE : nil
@@ -142,9 +142,9 @@ public class QuestRow implements Component {
     self.ruled = ruled
   }
 
-  onPick(mut self) { self.act.emit(self.quest.id, Act.Pick) }
-  onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
-  onLink(mut self) { self.act.emit(self.quest.id, Act.Link) }
+  onPick(mut self) { self.act.emit(self.quest.id, Act::Pick) }
+  onTrack(mut self) { self.act.emit(self.quest.id, Act::Track) }
+  onLink(mut self) { self.act.emit(self.quest.id, Act::Link) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
   onEnter(mut self) {
@@ -157,10 +157,10 @@ public class QuestRow implements Component {
   onEntry(mut self, index: Integer) {
     self.menuOpen = false
     const act = match (index) {
-      1 => Act.Track
-      2 => Act.SuperTrack
-      3 => Act.Share
-      else => Act.Abandon
+      1 => Act::Track
+      2 => Act::SuperTrack
+      3 => Act::Share
+      else => Act::Abandon
     }
     self.act.emit(self.quest.id, act)
   }
@@ -172,7 +172,7 @@ public class QuestRow implements Component {
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
-        <box columns={TITLE_LINE} gap={2sp} yAlign={Align.Center}>
+        <box columns={TITLE_LINE} gap={2sp} yAlign={Align::Center}>
           <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
           <text value={self.quest.title} textColor={INK} wrap={.None} />
           <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
@@ -204,7 +204,7 @@ class Gains implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
+      <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align::Center}>
         <Experience $if={self.xp > 0} amount={self.xp} color={DIM} />
         <text $if={self.both} value={BULLET} textColor={BULLET_COLOR} wrap={.None} />
         <Money $if={self.money > 0} amount={self.money} color={DIM} />
@@ -228,11 +228,11 @@ class GoalLine implements Component {
   derived count: String = countOf(self.objective.text)
   derived done: Boolean = self.objective.done
 
-  objective: Signal<Game.QuestObjective>
+  objective: Signal<Game::QuestObjective>
   color: Signal<Color>
   // The list's small lines; the page's are the body's size.
   small: Signal<Boolean>
-  constructor(objective: Signal<Game.QuestObjective>, color: Signal<Color> = DIM, small: Signal<Boolean> = true) {
+  constructor(objective: Signal<Game::QuestObjective>, color: Signal<Color> = DIM, small: Signal<Boolean> = true) {
     self.objective = objective
     self.color = color
     self.small = small
@@ -246,7 +246,7 @@ class GoalLine implements Component {
         <text $else value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers}
               leading={.Tight} wrap={.None} />
       </box>
-      <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Start}>
+      <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align::Start}>
         <text value={self.what} textColor={self.color} leading={.Tight} />
         <box $if={self.done} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
         <text $else value={self.count} textColor={self.color} textFont={.Numbers} leading={.Tight} wrap={.None} />
@@ -297,7 +297,7 @@ public class ChainLine implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.name != ""} gap={SECTION_GAP}>
-        <Cut title={Locale.NEXT_IN_CHAIN} />
+        <Cut title={Locale::NEXT_IN_CHAIN} />
         <box @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen} @keyPress(.Space)={self.onOpen}>
           <text value={self.name} textColor={GOLD} />
         </box>
@@ -313,10 +313,10 @@ public class ChainPage implements Component {
 
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
-  derived levels: String = Locale.CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
+  derived levels: String = Locale::CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
   // The things its task names, marked on the parchment.
   derived named: Array<Named> = namedOf(self.facts)
-  derived combat: Boolean = Game.situation.combat
+  derived combat: Boolean = Game::situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
   // Its scroll, the line of the quest after it, its button.
   derived rows: Array<Track> = [scrollRow(self.folded), "max-content", "max-content"]
@@ -331,20 +331,20 @@ public class ChainPage implements Component {
     watch (id of self.quest) { self.folded = peek self.foldFirst }
   }
 
-  onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
-  onMap(mut self) { self.act.emit(self.quest, Act.ShowOnMap) }
+  onNext(mut self, next: Integer) { self.act.emit(next, Act::ShowNext) }
+  onMap(mut self) { self.act.emit(self.quest, Act::ShowOnMap) }
 
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={PAGE_GAP}>
         <Scroll title={self.facts.name} folded={mut self.folded}>
           <text value={self.levels} textColor={SCROLL_DIM} />
-          <ScrollHeading $if={self.facts.task != ""} title={Locale.SECTION_TASKS} />
+          <ScrollHeading $if={self.facts.task != ""} title={Locale::SECTION_TASKS} />
           <ScrollText $if={self.facts.task != ""} value={self.facts.task} names={self.named} />
         </Scroll>
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box columns={BUTTON_ALONE}>
-          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
+          <PushButton label={Locale::SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
           <box />
         </box>
       </box>
@@ -361,10 +361,10 @@ const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 public class QuestPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
-  derived tracking: Shown = self.quest.tracked ? Shown.On : Shown.Off
+  derived tracking: Shown = self.quest.tracked ? Shown::On : Shown::Off
   // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
   // objective is the task's own text) isn't said twice.
-  derived goals: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
+  derived goals: Array<Game::QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
   derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
@@ -375,10 +375,10 @@ public class QuestPage implements Component {
   derived questId: Integer = self.quest.id
   // Stacked: the scroll takes the room left; folded, the room left stands over the tracking switch.
   derived rows: Array<Track> = [scrollRow(self.folded), "max-content", self.folded ? FILL_ROW : CONTENT_ROW]
-  derived wide: Boolean = !self.folded && scrollOverflows(self.quest.title, [self.text.story, Locale.SECTION_TASKS, self.text.task])
+  derived wide: Boolean = !self.folded && scrollOverflows(self.quest.title, [self.text.story, Locale::SECTION_TASKS, self.text.task])
 
   quest: Signal<LogQuest>
-  text: Signal<Game.QuestText>
+  text: Signal<Game::QuestText>
   facts: Signal<QuestFacts | nil>
   player: Signal<Integer>
   foldFirst: Signal<Boolean>
@@ -386,7 +386,7 @@ public class QuestPage implements Component {
   footed: Signal<Boolean>
   constructor(
     quest: Signal<LogQuest>,
-    text: Signal<Game.QuestText>,
+    text: Signal<Game::QuestText>,
     facts: Signal<QuestFacts | nil>,
     player: Signal<Integer>,
     foldFirst: Signal<Boolean> = false,
@@ -401,9 +401,9 @@ public class QuestPage implements Component {
     watch (id of self.questId) { self.folded = peek self.foldFirst }
   }
 
-  onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
+  onTrack(mut self) { self.act.emit(self.quest.id, Act::Track) }
   onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
-  onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
+  onNext(mut self, next: Integer) { self.act.emit(next, Act::ShowNext) }
 
   // Its scroll beside the rest, the page's whole height, where what it holds would overflow it at its least height;
   // over the rest otherwise.
@@ -426,7 +426,7 @@ public class QuestPage implements Component {
     return $ltml {
       <Scroll title={self.quest.title} folded={mut self.folded}>
         <ScrollText $if={self.text.story != ""} value={self.text.story} names={self.named} />
-        <ScrollHeading title={Locale.SECTION_TASKS} />
+        <ScrollHeading title={Locale::SECTION_TASKS} />
         <ScrollText $if={self.text.task != ""} value={self.text.task} names={self.named} />
       </Scroll>
     }
@@ -440,7 +440,7 @@ public class QuestPage implements Component {
     return $ltml {
       <box gap={PAGE_GAP}>
         <box $if={self.goals.length > 0} gap={SECTION_GAP}>
-          <Cut title={Locale.SECTION_PROGRESS} />
+          <Cut title={Locale::SECTION_PROGRESS} />
           <box gap={GOAL_GAP}>
             <GoalLine $for={objective of self.goals} objective={objective} color={WELL_TEXT}
                       small={false} />
@@ -452,10 +452,10 @@ public class QuestPage implements Component {
                    standings={self.standings} paired={true} />
         </box>
       </box>
-      <box yAlign={Align.End}>
-        <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
+      <box yAlign={Align::End}>
+        <box columns={LABEL_THEN_SWITCH} yAlign={Align::Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
              @keyPress(.Space)={self.onTrack}>
-          <text value={Locale.TRACK} textColor={WELL_TEXT} />
+          <text value={Locale::TRACK} textColor={WELL_TEXT} />
           <SwitchFace state={self.tracking} />
         </box>
         <box $if={!self.footed} padding={{ top: BUTTONS_OFF }}>
@@ -482,7 +482,7 @@ const DETAIL_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 public class QuestButtons implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
-  derived combat: Boolean = Game.situation.combat
+  derived combat: Boolean = Game::situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
 
   quest: Signal<LogQuest>
@@ -490,25 +490,25 @@ public class QuestButtons implements Component {
     self.quest = quest
   }
 
-  onShare(mut self) { self.act.emit(self.quest.id, Act.Share) }
-  onAbandon(mut self) { self.act.emit(self.quest.id, Act.Abandon) }
-  onMap(mut self) { self.act.emit(self.quest.id, Act.ShowOnMap) }
+  onShare(mut self) { self.act.emit(self.quest.id, Act::Share) }
+  onAbandon(mut self) { self.act.emit(self.quest.id, Act::Abandon) }
+  onMap(mut self) { self.act.emit(self.quest.id, Act::ShowOnMap) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
-        <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
+      <box columns={["max-content", { fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align::Center}>
+        <PushButton label={Locale::ABANDON} width={BUTTON} plate={ButtonPlate::Accent} @click={self.onAbandon} />
         <box />
-        <PushButton $if={self.quest.shareable} label={Locale.SHARE} width={BUTTON} @click={self.onShare} />
+        <PushButton $if={self.quest.shareable} label={Locale::SHARE} width={BUTTON} @click={self.onShare} />
         <box $else />
-        <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
+        <PushButton label={Locale::SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
       </box>
     }
   }
 }
 
 // A quest's items as the reward rows show them: the choices numbered by their place, what is given anyway 0.
-function rewardsOf(items: Array<Game.QuestItem>, chosen: Boolean): Array<Reward> {
+function rewardsOf(items: Array<Game::QuestItem>, chosen: Boolean): Array<Reward> {
   let rows: Array<Reward> = []
   for (index, item of items) { rows.push(logReward(item.item, item.count, chosen ? index : 0)) }
   return rows

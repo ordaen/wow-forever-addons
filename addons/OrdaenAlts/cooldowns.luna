@@ -7,9 +7,9 @@ import { Records } from "@/records"
 import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
-  { title: Locale.COL_RECIPE, width: { fr: 3 }, sortable: true },
-  { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_READY, width: 164.0625dp, align: Align.End, sortable: true }
+  { title: Locale::COL_RECIPE, width: { fr: 3 }, sortable: true },
+  { title: Locale::COL_NAME, width: { fr: 2 }, sortable: true },
+  { title: Locale::COL_READY, width: 164.0625dp, align: Align::End, sortable: true }
 ]
 
 // One recipe of one character with a cooldown.
@@ -25,8 +25,8 @@ public struct Wait {
 
 function waitOf(recipe: String, who: String, hours: Integer): Wait {
   return {
-    recipe: recipe, who: who, hours: hours, text: hours <= 0 ? Locale.READY_NOW : Style.until(hours),
-    color: hours <= 0 ? Style.GREEN : Style.DIM
+    recipe: recipe, who: who, hours: hours, text: hours <= 0 ? Locale::READY_NOW : Style::until(hours),
+    color: hours <= 0 ? Style::GREEN : Style::DIM
   }
 }
 
@@ -50,12 +50,12 @@ public class Cooldowns implements Component {
   waitsOf(self): Array<Wait> {
     // Read again when any record changed.
     _ = self.touched
-    const now = Hour.now()
+    const now = Hour::now()
     const list: Array<Wait> = []
     for (_, character of self.records.characters) {
       for (known of character.professions) {
         for (recipe, ready of known.ready) {
-          list.push(waitOf(Game.spells.name(recipe) ?? "#" + String.of(recipe), character.name, ready - now))
+          list.push(waitOf(Game::spells.name(recipe) ?? "#" + String::of(recipe), character.name, ready - now))
         }
       }
     }
@@ -78,14 +78,14 @@ public class Cooldowns implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
-        <box $if={self.empty} padding={Style.TOP_ROOM}>
-          <text value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <box $if={self.empty} padding={Style::TOP_ROOM}>
+          <text value={Locale::NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
         </box>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <TableRow $for={wait of self.ordered} $key={wait}>
-            <TableCell> <text value={wait.recipe} textColor={Style.INK} /> </TableCell>
-            <TableCell> <text value={wait.who} textColor={Style.INK} wrap={.None} /> </TableCell>
-            <TableCell align={Align.End}>
+            <TableCell> <text value={wait.recipe} textColor={Style::INK} /> </TableCell>
+            <TableCell> <text value={wait.who} textColor={Style::INK} wrap={.None} /> </TableCell>
+            <TableCell align={Align::End}>
               <text value={wait.text} textColor={wait.color} wrap={.None} />
             </TableCell>
           </TableRow>

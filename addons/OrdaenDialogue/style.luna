@@ -14,11 +14,11 @@ public const INK_HEAD: Color = SCROLL_HEAD
 public const INK_DIM: Color = SCROLL_DIM
 // In the well.
 public const TEXT: Color = WELL_TEXT
-public const NAME: Color = Color.hex("#ffd100")
+public const NAME: Color = Color::hex("#ffd100")
 public const DIM: Color = WELL_DIM
 public const RED: Color = WELL_RED
 public const GREEN: Color = WELL_GREEN
 public const GOLD: Color = WELL_GOLD
 public const RULE: Line = WELL_RULE
-public const GROUP_TAG: Color = Color.hex("#7a1e00")
+public const GROUP_TAG: Color = Color::hex("#7a1e00")
 public const ICON: Number<Length> = 18.75dp

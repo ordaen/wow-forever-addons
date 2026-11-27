@@ -2,7 +2,7 @@
 import Test from "$test"
 import { RoundedFill } from "@/roundedFill"
 
-const DARK: Color = Color.hex("#000000cc")
+const DARK: Color = Color::hex("#000000cc")
 
 class Filled {
   public render(self): Template {
@@ -15,15 +15,15 @@ class Filled {
 }
 
 test "a rounded fill covers its box: the middle top to bottom, a strip down each side, four corners cut round" {
-  Test.mount(new Filled(), { left: 0, top: 0, width: 300, height: 200 })
-  const parts = Test.page().box(DARK)
-  Test.expect(parts.count() == 7)
+  Test::mount(new Filled(), { left: 0, top: 0, width: 300, height: 200 })
+  const parts = Test::page().box(DARK)
+  Test::expect(parts.count() == 7)
   const middle = parts.nth(1).rect()
-  Test.expect(middle.left == 10 && middle.right == 190 && middle.top == 0 && middle.bottom == 100)
+  Test::expect(middle.left == 10 && middle.right == 190 && middle.top == 0 && middle.bottom == 100)
   const left = parts.nth(2).rect()
-  Test.expect(left.left == 0 && left.right == 10 && left.top == 10 && left.bottom == 90)
+  Test::expect(left.left == 0 && left.right == 10 && left.top == 10 && left.bottom == 90)
   // Each corner a circle twice the radius across, round by the client's mask, cut to the corner's quarter.
-  Test.shot("a rounded fill 200 by 100, its radius 10")
+  Test::shot("a rounded fill 200 by 100, its radius 10")
 }
 
 class TopRight {
@@ -37,7 +37,7 @@ class TopRight {
 }
 
 test "a rounded fill told its corners rounds those alone: the others stand square" {
-  Test.mount(new TopRight(), { left: 0, top: 0, width: 300, height: 200 })
-  Test.expect(Test.page().box(DARK).count() == 7)
-  Test.shot("its top right corner round, the other three square")
+  Test::mount(new TopRight(), { left: 0, top: 0, width: 300, height: 200 })
+  Test::expect(Test::page().box(DARK).count() == 7)
+  Test::shot("its top right corner round, the other three square")
 }

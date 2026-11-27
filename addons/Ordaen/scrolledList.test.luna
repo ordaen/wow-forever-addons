@@ -21,18 +21,18 @@ class Rows {
 }
 
 test "the well's rim stands round the list and its rows are cut at the rim's inner edge" {
-  Test.mount(new Rows(), { left: 100, top: 100, width: 300, height: 200 })
+  Test::mount(new Rows(), { left: 100, top: 100, width: 300, height: 200 })
   // The floor is the look's; the scrolling box stands inside the rim (in by its width on every side: the shot), so
   // what it cuts is cut at the rim's inner edge.
-  Test.expect(Test.page().paintedWith(Ordaen.art.ctl.well.floor))
-  Test.shot("at the top")
-  Test.page().text("Row 2").wheel(-1)
+  Test::expect(Test::page().paintedWith(Ordaen.art.ctl.well.floor))
+  Test::shot("at the top")
+  Test::page().text("Row 2").wheel(-1)
   // Scrolled: a row half out at the top is cut at the rim's inner edge, the rim drawn whole over nothing.
-  Test.shot("scrolled")
+  Test::shot("scrolled")
 }
 
-const SHADE: Color = Color.hex("#30405a")
-const OTHER_SHADE: Color = Color.hex("#305a40")
+const SHADE: Color = Color::hex("#30405a")
+const OTHER_SHADE: Color = Color::hex("#305a40")
 
 // Two wells side by side, the same row in each: one whose rows bring their own padding, one whose rows don't.
 class Padded {
@@ -51,9 +51,9 @@ class Padded {
 }
 
 test "rows that bring their own padding stand edge to edge inside the rim, the well's own room gone" {
-  Test.mount(new Padded(), { left: 0, top: 0, width: 400, height: 200 })
-  const own = Test.page().box(SHADE).rect()
-  const inset = Test.page().box(OTHER_SHADE).rect()
+  Test::mount(new Padded(), { left: 0, top: 0, width: 400, height: 200 })
+  const own = Test::page().box(SHADE).rect()
+  const inset = Test::page().box(OTHER_SHADE).rect()
   // The same well, the rows 3sp nearer its rim on each side.
-  Test.expect((own.right - own.left) - (inset.right - inset.left) > 5)
+  Test::expect((own.right - own.left) - (inset.right - inset.left) > 5)
 }

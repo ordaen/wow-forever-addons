@@ -5,7 +5,7 @@ import { IconChoice, IconPicker, IconPickerFirst, NO_ICON_MARK } from "@/iconPic
 import Locale from "@/locales"
 import { Component } from "@/module"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 900 }
+const PAGE: Test::Page = { left: 0, top: 0, width: 1200, height: 900 }
 
 // What an owner does with it: shows it, and keeps what it says.
 class Owner implements Component {
@@ -25,28 +25,28 @@ class Owner implements Component {
 }
 
 test "the client's icons stand in the picker; one clicked and «Pick» is the one picked" {
-  const owner = new Owner(IconPickerFirst.Nothing)
-  Test.mount(owner, PAGE)
-  Test.expect(Test.page().box(134400).shown() && Test.page().box(133784).shown())
-  Test.expect(!Test.page().box(NO_ICON_MARK).shown())
-  Test.page().box(136243).click()
-  Test.page().button(Locale.ICON_PICK).click()
-  Test.expect(owner.value == 136243)
+  const owner = new Owner(IconPickerFirst::Nothing)
+  Test::mount(owner, PAGE)
+  Test::expect(Test::page().box(134400).shown() && Test::page().box(133784).shown())
+  Test::expect(!Test::page().box(NO_ICON_MARK).shown())
+  Test::page().box(136243).click()
+  Test::page().button(Locale::ICON_PICK).click()
+  Test::expect(owner.value == 136243)
 }
 
 test "its first cell is «no icon» where its owner wants one: picked, the choice is none" {
-  const owner = new Owner(IconPickerFirst.NoIcon)
-  Test.mount(owner, PAGE)
-  Test.page().box(NO_ICON_MARK).click()
-  Test.page().button(Locale.ICON_PICK).click()
-  Test.expect(owner.value == nil)
+  const owner = new Owner(IconPickerFirst::NoIcon)
+  Test::mount(owner, PAGE)
+  Test::page().box(NO_ICON_MARK).click()
+  Test::page().button(Locale::ICON_PICK).click()
+  Test::expect(owner.value == nil)
 }
 
 test "a search by name narrows the icons to those it names; «Cancel» picks nothing" {
-  const owner = new Owner(IconPickerFirst.GameChooses)
-  Test.mount(owner, PAGE)
-  Test.page().input().type("ambush")
-  Test.expect(Test.page().box("Interface/Icons/Ability_Ambush").shown() && !Test.page().box(135812).shown())
-  Test.page().button(Locale.CANCEL).click()
-  Test.expect(owner.cancelled && owner.value == 135808)
+  const owner = new Owner(IconPickerFirst::GameChooses)
+  Test::mount(owner, PAGE)
+  Test::page().input().type("ambush")
+  Test::expect(Test::page().box("Interface/Icons/Ability_Ambush").shown() && !Test::page().box(135812).shown())
+  Test::page().button(Locale::CANCEL).click()
+  Test::expect(owner.cancelled && owner.value == 135808)
 }

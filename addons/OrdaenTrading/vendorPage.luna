@@ -21,11 +21,11 @@ public struct Sellers {
 }
 
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1, min: 175.78125dp } },
-  { title: Locale.COLUMN_TO_BUY, width: 105.46875dp, align: Align.End },
-  { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End },
-  { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
-  { title: Locale.COLUMN_NEAREST, width: 105.46875dp, align: Align.End }
+  { title: Locale::COLUMN_ITEM, width: { fr: 1, min: 175.78125dp } },
+  { title: Locale::COLUMN_TO_BUY, width: 105.46875dp, align: Align::End },
+  { title: Locale::COLUMN_PRICE, width: 105.46875dp, align: Align::End },
+  { title: Locale::COLUMN_TOTAL, width: 105.46875dp, align: Align::End },
+  { title: Locale::COLUMN_NEAREST, width: 105.46875dp, align: Align::End }
 ]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
@@ -50,9 +50,9 @@ struct Offer {
 }
 
 function offerOf(item: ItemId): Offer | nil {
-  for (index of 1..Client.GetMerchantNumItems()) {
-    if (Client.GetMerchantItemID(index) == item) {
-      return { index: index, most: Client.GetMerchantItemMaxStack(index).floor().max(1) }
+  for (index of 1..Client::GetMerchantNumItems()) {
+    if (Client::GetMerchantItemID(index) == item) {
+      return { index: index, most: Client::GetMerchantItemMaxStack(index).floor().max(1) }
     }
   }
   return nil
@@ -62,8 +62,8 @@ class VendorRow implements Component {
   public pick: Event<ItemId> = new Event()
 
   derived name: String = self.nameText()
-  derived color: Color = self.row.toBuy == 0 ? Style.DIM : self.nameColor()
-  derived ink: Color = self.row.toBuy == 0 ? Style.DIM : Style.INK
+  derived color: Color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
+  derived ink: Color = self.row.toBuy == 0 ? Style::DIM : Style::INK
   derived unit: Integer = self.prices.vendor(self.row.item) ?? 0
   derived nearest: Number | nil = nearestOf(self.sellers, self.row.item)
 
@@ -90,33 +90,33 @@ class VendorRow implements Component {
 
   onPick(self) { self.pick.emit(self.row.item) }
 
-  onRowEnter(self, frame: any Frame) { Game.items.show(frame, self.row.item) }
+  onRowEnter(self, frame: any Frame) { Game::items.show(frame, self.row.item) }
 
   public render(self): Template {
     return $ltml {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <TableCell>
-          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-            <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.row.toBuy == 0} tipped={false} />
+          <box columns={ITEM} gap={2.5sp} yAlign={Align::Center}>
+            <ItemButton item={self.row.item} size={Style::SLOT} dimmed={self.row.toBuy == 0} tipped={false} />
             <text value={self.name} textColor={self.color} wrap={.Cut} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <box rows={LINES} xAlign={Align.End}>
+        <TableCell align={Align::End}>
+          <box rows={LINES} xAlign={Align::End}>
             <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
-            <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+            <text value={Locale::HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style::DIM}
                   textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money amount={self.unit} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money amount={self.unit * self.row.toBuy} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text $if={self.nearest != nil} value={Locale.YARDS} arguments={[(self.nearest ?? 0).floor()]} textColor={self.ink} />
-          <text $else value={"—"} textColor={Style.DIM} />
+        <TableCell align={Align::End}>
+          <text $if={self.nearest != nil} value={Locale::YARDS} arguments={[(self.nearest ?? 0).floor()]} textColor={self.ink} />
+          <text $else value={"—"} textColor={Style::DIM} />
         </TableCell>
       </TableRow>
     }
@@ -128,7 +128,7 @@ public class VendorPage implements Component {
   // The rows stand as the list has them: the headings sort nothing.
   state sorted = 0
   state descending = false
-  derived rows: Array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market.Vendor)
+  derived rows: Array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market::Vendor)
   derived empty: Boolean = self.rows.length == 0
   derived chosen: Row | nil = self.rows.find(row => row.item == self.picked)
   // The open merchant sells the picked row, and some of it is left to buy.
@@ -157,7 +157,7 @@ public class VendorPage implements Component {
     let left = row.toBuy
     for (purchase of 1..((left + offer.most - 1) / offer.most).floor()) {
       const count = left.min(offer.most)
-      Client.BuyMerchantItem(offer.index, count)
+      Client::BuyMerchantItem(offer.index, count)
       left -= count
     }
   }
@@ -180,14 +180,14 @@ public class VendorPage implements Component {
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <VendorRow $for={row of self.rows} $key={row} row={row} prices={self.prices} sellers={self.sellers}
                      selected={self.picked == row.item} @pick={self.onPick} />
-          <box $if={self.empty} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-            <text value={Locale.VENDORS_EMPTY} textColor={Style.DIM} />
+          <box $if={self.empty} padding={Style::NOTE_PAD} yAlign={Align::Center}>
+            <text value={Locale::VENDORS_EMPTY} textColor={Style::DIM} />
           </box>
         </Table>
         <ListFooter counts={NO_COUNTS}>
-          <PushButton label={Locale.BUY} width={152.34375dp} disabled={!self.buyable} @click={self.onBuy} />
-          <PushButton label={Locale.SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
-          <PushButton label={Locale.REMOVE} width={152.34375dp} disabled={self.chosen == nil} @click={self.onRemove} />
+          <PushButton label={Locale::BUY} width={152.34375dp} disabled={!self.buyable} @click={self.onBuy} />
+          <PushButton label={Locale::SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
+          <PushButton label={Locale::REMOVE} width={152.34375dp} disabled={self.chosen == nil} @click={self.onRemove} />
         </ListFooter>
       </box>
     }

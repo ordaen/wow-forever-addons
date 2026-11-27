@@ -21,7 +21,7 @@ const NO_MARKS: Array<GaugeMark> = []
 // A mark's line, and the room round it that takes the cursor.
 const MARK_LINE = 1.7578125dp
 const MARK_ROOM = 7.03125dp
-const MARK: Color = Color.hex("#ffd100d9")
+const MARK: Color = Color::hex("#ffd100d9")
 
 // A mark: a thin bright line down the well at its share, its tooltip under the cursor; `entered` and `left` told, so
 // what holds the gauge keeps its own tooltip shut meanwhile.
@@ -49,11 +49,11 @@ class MarkView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.columns} rows={ONE}>
+      <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.columns} rows={ONE}>
         <box />
         <box>
-          <box position={Position.Absolute} left={-MARK_ROOM / 2} top={0ui} bottom={0ui} width={MARK_ROOM} xAlign={Align.Center}
-               yAlign={Align.Stretch} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <box position={Position::Absolute} left={-MARK_ROOM / 2} top={0ui} bottom={0ui} width={MARK_ROOM} xAlign={Align::Center}
+               yAlign={Align::Stretch} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
             <box width={MARK_LINE} background={MARK} />
             <Tip $if={self.hovered} title={self.mark.title} text={self.mark.text} />
           </box>
@@ -66,30 +66,30 @@ class MarkView implements Component {
 
 // The client's classic status bar, white to grey down its height: tinted, a lit and shaded bar in one colour.
 const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
-const RIM: Color = Color.hex("#000000")
-const UNTINTED: Color = Color.hex("#ffffff")
+const RIM: Color = Color::hex("#000000")
+const UNTINTED: Color = Color::hex("#ffffff")
 // The rim's width, and how round the well's corners are, outside the rim and inside it.
 const LINE: Number<Length> = 1.171875dp
 const ROUND: Number<Length> = 3.515625dp
 const INNER: Number<Length> = ROUND - LINE
-const SHADE: Color = Color.hex("#000000b3")
+const SHADE: Color = Color::hex("#000000b3")
 const SHADE_HEIGHT = 2.34375dp
-const SIDE_SHADE: Color = Color.hex("#00000066")
+const SIDE_SHADE: Color = Color::hex("#00000066")
 const SHADE_SIDE = 1.7578125dp
-const LIP: Color = Color.hex("#ffdeaa1f")
-const SIDE_LIP: Color = Color.hex("#ffdeaa12")
+const LIP: Color = Color::hex("#ffdeaa1f")
+const SIDE_LIP: Color = Color::hex("#ffdeaa12")
 const LIP_HEIGHT = 1.171875dp
-const GLOSS: Color = Color.hex("#ffffff1f")
-const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const GLOSS: Color = Color::hex("#ffffff1f")
+const TEXT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const ONE: Array<Track> = [{ fr: 1 }]
 
 // The carve's floor, filling the box it stands in: the rim, the marble inside it.
 public class CarvedFloor implements Component {
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}>
+      <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}>
         <RoundedFill color={RIM} radius={ROUND} />
-        <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
+        <box position={Position::Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
           <RoundedFill color={UNTINTED} radius={INNER} art={Ordaen.art.window.marble} />
         </box>
       </box>
@@ -102,11 +102,11 @@ public class CarvedFloor implements Component {
 public class CarveShade implements Component {
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
-        <box position={Position.Absolute} left={INNER} top={0ui} right={INNER} height={SHADE_HEIGHT} background={SHADE} />
-        <box position={Position.Absolute} left={0ui} top={INNER} bottom={INNER} width={SHADE_SIDE} background={SIDE_SHADE} />
-        <box position={Position.Absolute} left={INNER} right={INNER} bottom={0ui} height={LIP_HEIGHT} background={LIP} />
-        <box position={Position.Absolute} top={INNER} right={0ui} bottom={INNER} width={LIP_HEIGHT} background={SIDE_LIP} />
+      <box position={Position::Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
+        <box position={Position::Absolute} left={INNER} top={0ui} right={INNER} height={SHADE_HEIGHT} background={SHADE} />
+        <box position={Position::Absolute} left={0ui} top={INNER} bottom={INNER} width={SHADE_SIDE} background={SIDE_SHADE} />
+        <box position={Position::Absolute} left={INNER} right={INNER} bottom={0ui} height={LIP_HEIGHT} background={LIP} />
+        <box position={Position::Absolute} top={INNER} right={0ui} bottom={INNER} width={LIP_HEIGHT} background={SIDE_LIP} />
       </box>
     }
   }
@@ -132,12 +132,12 @@ public class WellSlice implements Component {
     return $ltml {
       <box>
         <RoundedFill color={self.color} radius={INNER} corners={self.corners} art={TEXTURE} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} rows={[{ fr: 1 }, { fr: 1 }]}>
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} rows={[{ fr: 1 }, { fr: 1 }]}>
           <box background={GLOSS} />
         </box>
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Center}
-             yAlign={Align.Center}>
-          <text value={self.text} textColor={BRIGHT_TEXT} leading={.Tight} textFont={TextFont.Numbers} textOutline={1}
+        <box position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align::Center}
+             yAlign={Align::Center}>
+          <text value={self.text} textColor={BRIGHT_TEXT} leading={.Tight} textFont={TextFont::Numbers} textOutline={1}
                 textShadow={TEXT_SHADOW} wrap={.None} />
         </box>
       </box>
@@ -175,7 +175,7 @@ public class GaugeBar implements Component {
     height: Signal<Number<Length>>,
     // In its middle; none: no text. In the numbers' font unless it is words (a standing's name).
     text: Signal<String> = "",
-    font: Signal<TextFont> = TextFont.Numbers,
+    font: Signal<TextFont> = TextFont::Numbers,
     marks: Signal<Array<GaugeMark>> = NO_MARKS
   ) {
     self.value = value
@@ -193,19 +193,19 @@ public class GaugeBar implements Component {
     return $ltml {
       <box height={self.height}>
         <CarvedFloor />
-        <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE} columns={self.shares}
+        <box position={Position::Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE} columns={self.shares}
              rows={ONE}>
           <box>
             <RoundedFill color={self.tone} radius={INNER} corners={self.fillCorners} art={TEXTURE} />
-            <box position={Position.Absolute} left={INNER} top={0ui} right={INNER} height={self.glossHeight}
+            <box position={Position::Absolute} left={INNER} top={0ui} right={INNER} height={self.glossHeight}
                  background={GLOSS} />
           </box>
           <box />
         </box>
         <CarveShade />
         <MarkView $for={mark of self.marks} mark={mark} @entered={self.onMarkEntered} @left={self.onMarkLeft} />
-        <box $if={self.hasText} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             xAlign={Align.Center} yAlign={Align.Center}>
+        <box $if={self.hasText} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             xAlign={Align::Center} yAlign={Align::Center}>
           <text value={self.text} textColor={BRIGHT_TEXT} leading={.Tight} textFont={self.font}
                 textOutline={1} textShadow={TEXT_SHADOW} wrap={.None} />
         </box>

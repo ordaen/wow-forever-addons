@@ -14,10 +14,10 @@ import { CONTAINER, Slot, handsOver } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
 
-const CAPTION: Color = Color.hex("#e8c35a")
-const LABEL: Color = Color.hex("#a3977f")
-const NEW_GLOW: Color = Color.hex("#ffd65a")
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const CAPTION: Color = Color::hex("#e8c35a")
+const LABEL: Color = Color::hex("#a3977f")
+const NEW_GLOW: Color = Color::hex("#ffd65a")
+const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
 // A caption: its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
@@ -47,14 +47,14 @@ const ARMOR = 4
 // slots' window (-1 for none).
 public struct Filter {
   const query: String
-  const place: Game.BagPlace
+  const place: Game::BagPlace
   const lit: Integer
 }
 
 // What every row, place and slot of the grid reads of the window, and the events they tell it: one object, made by the
 // window and handed down.
 public class Shelf {
-  public pressed: Event<(Slot, Event.Press)> = new Event()
+  public pressed: Event<(Slot, Event::Press)> = new Event()
   // A slot's item dragged off it, or something dragged let go on it: what a plain pick up does, as the game's own
   // slots take a drag.
   public pickup: Event<Slot> = new Event()
@@ -98,7 +98,7 @@ public class Shelf {
 
 // Whether the place keeps the slot's item lit: at the auction house and the mailbox what isn't bound (nor a quest's,
 // which the mail takes neither), at crafting the reagents, at a merchant what isn't a quest's.
-function fits(slot: Slot, place: Game.BagPlace): Boolean {
+function fits(slot: Slot, place: Game::BagPlace): Boolean {
   return match (place) {
     .AuctionHouse => !slot.read.bound
     .Mail => !slot.read.bound && slot.read.kind != QUEST
@@ -115,9 +115,9 @@ class BagSlot implements Component {
   derived quality: Quality = self.slot.quality
   // At a merchant, the client's coin bag: red over what he gives nothing for.
   // Its place in the player's bags or bank while that is open: its tooltip that very item's (bound or not).
-  derived place: [Integer, Integer] | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
-  derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game.BagPlace.Merchant ? nil :
-    self.slot.read.price > 0 ? Cursor.Buy : Cursor.BuyError
+  derived place: [Integer, Integer] | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
+  derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game::BagPlace::Merchant ? nil :
+    self.slot.read.price > 0 ? Cursor::Buy : Cursor::BuyError
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
   // Gear the player can use, worth more to its spec than what it wears (Ordaen's worth).
   derived upgrade: Boolean = self.upgradeNow()
@@ -128,8 +128,8 @@ class BagSlot implements Component {
   // over themselves. A bag's use is the bags' own too: the client's puts it on only where a place is empty. While a
   // spell waits for an item to land on (an enchant, a sharpening stone, lockpicking), the left click gives it this
   // one, as the game's bags do, whatever the scheme says.
-  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil :
-    Game.player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton.Left } :
+  derived action: Action | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil :
+    Game::player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton::Left } :
     handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
     Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
@@ -159,7 +159,7 @@ class BagSlot implements Component {
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Event.Press) { self.shelf.pressed.emit(self.slot, click) }
+  onPressed(self, click: Event::Press) { self.shelf.pressed.emit(self.slot, click) }
 
   onPickup(self) { self.shelf.pickup.emit(self.slot) }
   onEnter(self) { self.shelf.entered.emit(self.slot) }
@@ -169,18 +169,18 @@ class BagSlot implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell.Crested}
+      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell::Crested}
                   action={self.action} linkOnShift={false} cursor={self.cursor} bag={self.place} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
-        <box $if={self.questMark != nil} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+        <box $if={self.questMark != nil} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={self.questMark} zLevel={1} />
-        <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+        <box $if={self.slot.isNew} position={Position::Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
-        <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
+        <box $if={self.slot.guarded} position={Position::Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
              background={PADLOCK} zLevel={3} />
-        <box $if={self.upgrade} position={Position.Absolute} left={2.34375dp} bottom={2.34375dp} width={UPGRADE}
+        <box $if={self.upgrade} position={Position::Absolute} left={2.34375dp} bottom={2.34375dp} width={UPGRADE}
              height={UPGRADE} background={UPGRADE_ART} zLevel={3} />
-        <box $if={self.coin} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
+        <box $if={self.coin} position={Position::Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
              background={COIN_ART} zLevel={3} />
         <Menu $if={self.menuShown} entries={self.menuEntries} title={self.menuTitle} @pick={self.onPicked}
               @close={self.onClosed} />
@@ -203,7 +203,7 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={3sp} leading={.Tight} yAlign={Align.Center}>
+      <box columns={CAPTION_TRACKS} gap={3sp} leading={.Tight} yAlign={Align::Center}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
@@ -231,7 +231,7 @@ class SectionCard implements Component {
       <box columns={1} gap={self.shelf.gap} padding={CARD_PAD}>
         <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
         <box columns={self.span} gap={self.shelf.gap}>
-          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={self.shelf.slot} well={SlotWell.Crested} />
+          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={self.shelf.slot} well={SlotWell::Crested} />
           <BagSlot $for={slot of self.slots} $key={slot} slot={slot} shelf={self.shelf} />
         </box>
       </box>
@@ -253,7 +253,7 @@ public class CardLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} gap={CARD_GAP} yAlign={Align.Start}>
+      <box columns={self.tracks} gap={CARD_GAP} yAlign={Align::Start}>
         <SectionCard $for={card of self.cards} $key={card.section.key} card={card} shelf={self.shelf} />
       </box>
     }

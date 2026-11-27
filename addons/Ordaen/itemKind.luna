@@ -43,12 +43,12 @@ public function kindOf(itemClass: Integer, reagent: Boolean): ItemKind {
 
 public function kindName(kind: ItemKind): String {
   return match (kind) {
-    .Quest => Locale.KIND_QUEST
-    .Consumables => Locale.KIND_CONSUMABLES
-    .Equipment => Locale.KIND_EQUIPMENT
-    .Trade => Locale.KIND_TRADE
-    .Recipes => Locale.KIND_RECIPES
-    .Keys => Locale.KIND_KEYS
-    .Other => Locale.KIND_OTHER
+    .Quest => Locale::KIND_QUEST
+    .Consumables => Locale::KIND_CONSUMABLES
+    .Equipment => Locale::KIND_EQUIPMENT
+    .Trade => Locale::KIND_TRADE
+    .Recipes => Locale::KIND_RECIPES
+    .Keys => Locale::KIND_KEYS
+    .Other => Locale::KIND_OTHER
   }
 }

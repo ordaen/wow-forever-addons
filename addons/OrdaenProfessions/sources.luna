@@ -55,7 +55,7 @@ function sidedOf(text: String): Array<Sided> {
 // A profession's recipes' sources, by the recipe's spell; none for a profession the table hasn't.
 public function sourcesOf(skillLine: Integer | nil): Map<Integer, RecipeSource> {
   const sources: Map<Integer, RecipeSource> = {}
-  const text = skillLine == nil ? nil : Recipes.recipes[skillLine]
+  const text = skillLine == nil ? nil : Recipes::recipes[skillLine]
   if (text == nil) { return sources }
   for (entry of text.split(";")) {
     const parts = entry.split(",")
@@ -78,14 +78,14 @@ const SOON_SKILL = 10
 // Whether the player stands with a faction as a recipe asks, any of its standings will do; true for one asking none.
 function standingMet(source: RecipeSource): Boolean {
   if (source.reputation.length == 0) { return true }
-  return source.reputation.any(asked => (Client.C_Reputation.GetFactionDataByID(asked.faction)?.reaction ?? 0) >= asked.standing)
+  return source.reputation.any(asked => (Client::C_Reputation::GetFactionDataByID(asked.faction)?.reaction ?? 0) >= asked.standing)
 }
 
 // What waits for a recipe not learned, as What's Training files it, at the profession's skill and most.
 public function readinessOf(source: RecipeSource | nil, skill: Integer, most: Integer): Integer {
   if (source == nil || source.skill == 0) { return READY_MISSING }
   if (source.skill <= skill) {
-    return !standingMet(source) || source.level > Game.player.level ? READY_MISSING : READY_NOW
+    return !standingMet(source) || source.level > Game::player.level ? READY_MISSING : READY_NOW
   }
   if (source.skill <= skill + SOON_SKILL && source.skill <= most) { return READY_SOON }
   return READY_LATER
@@ -94,7 +94,7 @@ public function readinessOf(source: RecipeSource | nil, skill: Integer, most: In
 function forSide(place: Sided, side: Integer): Boolean { return place.side == 0 || place.side == side }
 
 // The player's side, as the table writes it: 1 the Alliance, 2 the Horde.
-public function sideOfPlayer(): Integer { return Game.player.faction == Game.Faction.Horde ? 2 : 1 }
+public function sideOfPlayer(): Integer { return Game::player.faction == Game::Faction::Horde ? 2 : 1 }
 
 // A way a recipe is learned, as the filter of the recipes' list tells them apart.
 public enum Way { Trainer, Vendor, Quest, Drop, Other }
@@ -111,16 +111,16 @@ public function wayOf(name: String): Way {
 // player's side's.
 public function otherSideOnly(source: RecipeSource, side: Integer): Boolean {
   const ways = source.sources.map(wayOf)
-  if (ways.length == 0 || ways.any(way => way != Way.Vendor && way != Way.Quest)) { return false }
+  if (ways.length == 0 || ways.any(way => way != Way::Vendor && way != Way::Quest)) { return false }
   return !source.vendors.any(place => forSide(place, side)) && !source.quests.any(place => forSide(place, side))
 }
 
-function areaName(area: Integer): String { return Client.C_Map.GetAreaInfo(area) ?? "" }
+function areaName(area: Integer): String { return Client::C_Map::GetAreaInfo(area) ?? "" }
 
-function vendorName(id: Integer): String { return Quests?.npc(id)?.name ?? Locale.LEARN_NPC.format(id) }
+function vendorName(id: Integer): String { return Quests?.npc(id)?.name ?? Locale::LEARN_NPC.format(id) }
 
 function questName(id: Integer): String {
-  return Client.C_QuestLog.GetTitleForQuestID(id) ?? Quests?.questFacts(id)?.name ?? Locale.LEARN_NPC.format(id)
+  return Client::C_QuestLog::GetTitleForQuestID(id) ?? Quests?.questFacts(id)?.name ?? Locale::LEARN_NPC.format(id)
 }
 
 // A place or a way a recipe is learned, a row of its card: how (`Trainer`, `Vendor`, ...), whom or what, the zone, the
@@ -142,25 +142,25 @@ public function placesOf(source: RecipeSource, side: Integer): Array<LearnPlace>
   const places: Array<LearnPlace> = []
   for (way of source.sources) {
     if (way == "trainer") {
-      places.push({ way: Locale.WAY_TRAINER, name: Locale.LEARN_TRAINER.format(source.skill), zone: "", cost: source.cost, quest: 0, npc: 0 })
+      places.push({ way: Locale::WAY_TRAINER, name: Locale::LEARN_TRAINER.format(source.skill), zone: "", cost: source.cost, quest: 0, npc: 0 })
     } else if (way == "vendor") {
       const vendors = source.vendors.filter(place => forSide(place, side))
-      if (vendors.length == 0) { places.push(placeOf(Locale.WAY_SELLER, Locale.LEARN_VENDOR_ANY)) }
+      if (vendors.length == 0) { places.push(placeOf(Locale::WAY_SELLER, Locale::LEARN_VENDOR_ANY)) }
       for (place of vendors) {
-        places.push({ way: Locale.WAY_SELLER, name: vendorName(place.id), zone: areaName(place.area), cost: 0, quest: 0, npc: place.id })
+        places.push({ way: Locale::WAY_SELLER, name: vendorName(place.id), zone: areaName(place.area), cost: 0, quest: 0, npc: place.id })
       }
     } else if (way == "quest") {
       const quests = source.quests.filter(place => forSide(place, side))
-      if (quests.length == 0) { places.push(placeOf(Locale.WAY_QUEST, Locale.LEARN_QUEST_ANY)) }
+      if (quests.length == 0) { places.push(placeOf(Locale::WAY_QUEST, Locale::LEARN_QUEST_ANY)) }
       for (place of quests) {
-        places.push({ way: Locale.WAY_QUEST, name: questName(place.id), zone: areaName(place.area), cost: 0, quest: place.id, npc: 0 })
+        places.push({ way: Locale::WAY_QUEST, name: questName(place.id), zone: areaName(place.area), cost: 0, quest: place.id, npc: 0 })
       }
     } else if (way == "drop") {
-      places.push(placeOf(Locale.WAY_DROP, Locale.LEARN_DROP))
+      places.push(placeOf(Locale::WAY_DROP, Locale::LEARN_DROP))
     } else if (way == "crafted") {
-      places.push(placeOf(Locale.WAY_CRAFTED, Locale.LEARN_CRAFTED))
+      places.push(placeOf(Locale::WAY_CRAFTED, Locale::LEARN_CRAFTED))
     } else if (way == "world_object") {
-      places.push(placeOf(Locale.WAY_OBJECT, Locale.LEARN_OBJECT))
+      places.push(placeOf(Locale::WAY_OBJECT, Locale::LEARN_OBJECT))
     }
   }
   return places
@@ -170,10 +170,10 @@ public function placesOf(source: RecipeSource, side: Integer): Array<LearnPlace>
 public function asksOf(source: RecipeSource): Array<String> {
   const lines: Array<String> = []
   for (asked of source.reputation) {
-    const faction = Client.C_Reputation.GetFactionDataByID(asked.faction)?.name ?? String.of(asked.faction)
-    const standing = Runtime.text(`FACTION_STANDING_LABEL${asked.standing}`) ?? String.of(asked.standing)
-    lines.push(Locale.LEARN_REPUTATION.format(standing, faction))
+    const faction = Client::C_Reputation::GetFactionDataByID(asked.faction)?.name ?? String::of(asked.faction)
+    const standing = Runtime::text(`FACTION_STANDING_LABEL${asked.standing}`) ?? String::of(asked.standing)
+    lines.push(Locale::LEARN_REPUTATION.format(standing, faction))
   }
-  if (source.favor > 0) { lines.push(Locale.LEARN_FAVOR.format(source.favor)) }
+  if (source.favor > 0) { lines.push(Locale::LEARN_FAVOR.format(source.favor)) }
   return lines
 }

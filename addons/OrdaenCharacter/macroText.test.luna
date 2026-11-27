@@ -20,42 +20,42 @@ function said(problems: Array<Problem>): String {
 
 test "a sound body has no problems: a tooltip line, conditions, a target, a sequence's reset, a slot's number" {
   const body = "#showtooltip\n/cast [@mouseover,help,nodead][] Flash Heal\n/castsequence reset=combat Flash Heal, Hearthstone\n/use 13\n/закл [nomod:shift,target=focus] Flash Heal\n/startattack [harm]"
-  Test.expect(problemsOf(body, COMMANDS, known).length == 0)
+  Test::expect(problemsOf(body, COMMANDS, known).length == 0)
 }
 
 test "a body's problems name their line: an unknown command, a wrong condition, a name not had, a line said in the chat" {
   const body = "/cats Flash Heal\n/cast [helpp] Flash Heal\n/cast Fireball\nhello\n/cast [help Flash Heal"
-  Test.expect(said(problemsOf(body, COMMANDS, known)) == [
-    `1: ${Locale.MACRO_UNKNOWN_COMMAND.format("/cats")}`,
-    `2: ${Locale.MACRO_UNKNOWN_CONDITION.format("helpp")}`,
-    `3: ${Locale.MACRO_UNKNOWN_NAME.format("Fireball")}`,
-    `4: ${Locale.MACRO_NOT_COMMAND}`,
-    `5: ${Locale.MACRO_UNCLOSED}`
+  Test::expect(said(problemsOf(body, COMMANDS, known)) == [
+    `1: ${Locale::MACRO_UNKNOWN_COMMAND.format("/cats")}`,
+    `2: ${Locale::MACRO_UNKNOWN_CONDITION.format("helpp")}`,
+    `3: ${Locale::MACRO_UNKNOWN_NAME.format("Fireball")}`,
+    `4: ${Locale::MACRO_NOT_COMMAND}`,
+    `5: ${Locale::MACRO_UNCLOSED}`
   ].join(" | "))
 }
 
 test "a body over the game's letters says by how many, a letter of several bytes counted once" {
-  Test.expect(lettersOf("щит") == 3)
+  Test::expect(lettersOf("щит") == 3)
   const long = "/cast Flash Heal\n" + "#".rep(MOST_LETTERS)
-  Test.expect(said(problemsOf(long, COMMANDS, known)) == `0: ${Locale.MACRO_TOO_LONG.format(17)}`)
+  Test::expect(said(problemsOf(long, COMMANDS, known)) == `0: ${Locale::MACRO_TOO_LONG.format(17)}`)
 }
 
 test "the condition picker's brackets: the unit first, then each condition with its no and its value; none is []" {
-  Test.expect(optionText("", []) == "[]")
+  Test::expect(optionText("", []) == "[]")
   const conditions: Array<PickedCondition> = [{ name: "help" }, { name: "dead", negated: true }, { name: "mod", value: "shift" }]
-  Test.expect(optionText("mouseover", conditions) == "[@mouseover,help,nodead,mod:shift]")
+  Test::expect(optionText("mouseover", conditions) == "[@mouseover,help,nodead,mod:shift]")
 }
 
 test "a class's templates name its spells as the client does; a spell it hasn't makes none; the trinkets' come last" {
-  Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => id == 2139 ? "Counterspell" : id == 133 ? "Fireball" : nil
+  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => id == 2139 ? "Counterspell" : id == 133 ? "Fireball" : nil
   const templates = templatesOf("MAGE")
-  Test.expect(templates.map(template => template.title).join(" | ") == [
-    Locale.TEMPLATE_FOCUS_INTERRUPT, Locale.TEMPLATE_START_ATTACK, Locale.TEMPLATE_TRINKET.format(1), Locale.TEMPLATE_TRINKET.format(2)
+  Test::expect(templates.map(template => template.title).join(" | ") == [
+    Locale::TEMPLATE_FOCUS_INTERRUPT, Locale::TEMPLATE_START_ATTACK, Locale::TEMPLATE_TRINKET.format(1), Locale::TEMPLATE_TRINKET.format(2)
   ].join(" | "))
-  Test.expect((templates[1]?.body ?? "") == "#showtooltip\n/stopcasting\n/cast [@focus,harm,nodead][] Counterspell")
+  Test::expect((templates[1]?.body ?? "") == "#showtooltip\n/stopcasting\n/cast [@focus,harm,nodead][] Counterspell")
 }
 
 test "a body made shorter does the same: @ for target=, short condition names, no room round signs, no empty lines" {
   const body = "  /cast  [ target=focus , modifier:shift ] Flash Heal ;  [] Hearthstone  \n\n/use [button:2, equipped:Shields] 13"
-  Test.expect(shortened(body) == "/cast [@focus,mod:shift]Flash Heal;[]Hearthstone\n/use [btn:2,worn:Shields]13")
+  Test::expect(shortened(body) == "/cast [@focus,mod:shift]Flash Heal;[]Hearthstone\n/use [btn:2,worn:Shields]13")
 }

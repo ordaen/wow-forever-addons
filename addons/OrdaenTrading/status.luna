@@ -17,18 +17,18 @@ const COLUMNS: Array<Track> = [{ fr: 1 }, "max-content"]
 public class Status implements Component {
   // The server's time, read again once a second while the line shows: what counts down follows it.
   derived now: Integer {
-    _ = Game.clock.seconds
+    _ = Game::clock.seconds
     return serverSeconds()
   }
   derived priced: Boolean = self.items > 0
   derived scanned: Boolean = self.lastFull > 0
   derived prices: String = self.pricesText()
-  derived waiting: Boolean = Game.auctionScan.running && !self.scanner.reading
+  derived waiting: Boolean = Game::auctionScan.running && !self.scanner.reading
   derived wait: Integer = self.scanned ? self.scanner.wait(self.now) : 0
-  derived next: String = Locale.NEXT_FULL.format(leftText(self.wait))
-  derived fault: String | nil = Debug.faultOf("AuctionScan")
-  derived faultText: String = Locale.FAULT.format(self.fault ?? "")
-  derived percent: String = Locale.SCANNING.format((self.scanner.progress * 100).floor())
+  derived next: String = Locale::NEXT_FULL.format(leftText(self.wait))
+  derived fault: String | nil = Debug::faultOf("AuctionScan")
+  derived faultText: String = Locale::FAULT.format(self.fault ?? "")
+  derived percent: String = Locale::SCANNING.format((self.scanner.progress * 100).floor())
 
   items: Signal<Integer>
   lastFull: Signal<Integer>
@@ -46,25 +46,25 @@ public class Status implements Component {
   }
 
   pricesText(self): String {
-    if (!self.priced) { return Locale.NO_PRICES }
+    if (!self.priced) { return Locale::NO_PRICES }
     const counted = itemsText(self.items)
     if (!self.scanned) { return counted }
-    return Locale.PRICES_AGE.format(agoText(self.now - self.lastFull), counted)
+    return Locale::PRICES_AGE.format(agoText(self.now - self.lastFull), counted)
   }
 
   onScan(mut self) { _ = self.scanner.full() }
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={6sp} yAlign={Align.Center}>
+      <box columns={COLUMNS} gap={6sp} yAlign={Align::Center}>
         <box $if={self.scanner.reading}>
           <ProgressBar fraction={self.scanner.progress} label={self.percent} />
         </box>
-        <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={SECONDARY_TEXT} />
-        <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
-        <text $else value={self.prices} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-        <PushButton $else label={Locale.SCAN} width={152.34375dp} disabled={self.scanner.reading || self.waiting}
+        <text $elseif={self.waiting} value={Locale::WAITING} textColor={Style::AMBER} textSize={SECONDARY_TEXT} />
+        <text $elseif={self.fault != nil} value={self.faultText} textColor={Style::RED} textSize={SECONDARY_TEXT} />
+        <text $else value={self.prices} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+        <text $if={self.wait > 0} value={self.next} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <PushButton $else label={Locale::SCAN} width={152.34375dp} disabled={self.scanner.reading || self.waiting}
                     @click={self.onScan} />
       </box>
     }

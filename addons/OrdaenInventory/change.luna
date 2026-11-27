@@ -30,8 +30,8 @@ const GOES = 8
 
 // What a bag put on came to: done, or the client asking the player (a bag that binds as it is worn: its own popup
 // puts it on), is a change started.
-function changeOf(wear: Game.Wear): Change {
-  return wear == Game.Wear.Refused ? Change.Refused : Change.Started
+function changeOf(wear: Game::Wear): Change {
+  return wear == Game::Wear::Refused ? Change::Refused : Change::Started
 }
 
 // Where a bag goes: an empty place of its kind, else the place of the smallest bag of its kind worn; none for no place.
@@ -41,10 +41,10 @@ function placeFor(bag: Slot): Integer | nil {
   const ordinary = bag.read.subkind == ORDINARY
   let target: Integer | nil = nil
   let least = 0
-  for (button of peek Game.bags.buttons) {
-    if (button.kind == (reagent ? Game.BagKind.Reagent : Game.BagKind.Bag)) {
-      const size = Game.bags.size(button.bag)
-      const kept = ordinary && size > 0 && !Game.bags.bag(button.bag).general
+  for (button of peek Game::bags.buttons) {
+    if (button.kind == (reagent ? Game::BagKind::Reagent : Game::BagKind::Bag)) {
+      const size = Game::bags.size(button.bag)
+      const kept = ordinary && size > 0 && !Game::bags.bag(button.bag).general
       if (!kept && (target == nil || size < least)) {
         target = button.bag
         least = size
@@ -71,13 +71,13 @@ public class BagChanger {
   // The bag lying in `bag` put on: in the place `into` (where it was let go), else where it fits best. `slots` is
   // every slot of the bags in their order; `general` tells the bags that take any item.
   public start(mut self, bag: Slot, slots: Array<Slot>, general: (bag: Integer) => Boolean, into: Integer | nil = nil): Change {
-    if (Client.CursorHasItem()) { return Change.Busy }
+    if (Client::CursorHasItem()) { return Change::Busy }
     const target = into ?? placeFor(bag)
-    if (target == nil) { return Change.NoPlace }
-    if (Game.bags.size(target) == 0) { return changeOf(Game.bags.wear(bag.bag, bag.index, target)) }
+    if (target == nil) { return Change::NoPlace }
+    if (Game::bags.size(target) == 0) { return changeOf(Game::bags.wear(bag.bag, bag.index, target)) }
     const held = slots.filter(slot => slot.bag == target && peek slot.id != 0)
     const free = slots.filter(slot => slot.bag != target && general(slot.bag) && peek slot.id == 0)
-    if (held.length > free.length) { return Change.NoRoom }
+    if (held.length > free.length) { return Change::NoRoom }
     self.item = peek bag.id
     self.into = target
     self.slots = slots
@@ -86,7 +86,7 @@ public class BagChanger {
     self.asked = {}
     self.running = true
     self.step()
-    return Change.Started
+    return Change::Started
   }
 
   // One go: what is left in the place moved out to free slots; with nothing left and nothing locked, the bag put on.
@@ -102,14 +102,14 @@ public class BagChanger {
     if (held.length == 0 && !self.slots.any(slot => peek slot.locked)) {
       self.running = false
       const bag = self.slots.find(slot => slot.bag != self.into && peek slot.id == self.item)
-      if (bag != nil) { _ = Game.bags.wear(bag.bag, bag.index, self.into) }
+      if (bag != nil) { _ = Game::bags.wear(bag.bag, bag.index, self.into) }
       return
     }
     for (slot of held) {
       const to = self.slots.find(free =>
         free.bag != self.into && self.general(free.bag) && peek free.id == 0 && !peek free.locked && self.asked[free] != true
       )
-      if (to != nil && self.asked[slot] != true && !peek slot.locked && Game.bags.swap(slot.bag, slot.index, to.bag, to.index)) {
+      if (to != nil && self.asked[slot] != true && !peek slot.locked && Game::bags.swap(slot.bag, slot.index, to.bag, to.index)) {
         self.asked[slot] = true
         self.asked[to] = true
       }

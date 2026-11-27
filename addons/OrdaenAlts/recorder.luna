@@ -13,17 +13,17 @@ public class Recorder {
   constructor(records: mut Records) {
     self.records = records
     self.onBags()
-    watch (level of Game.player.level) { self.records.setLevel(level) }
-    watch (amount of Game.money.amount) { self.records.setMoney(Copper.of(amount), Hour.now()) }
-    watch (list of Game.professions.list) { self.records.setProfessions(list) }
-    watch { self.readRecipes(Game.tradeSkill.open, Game.tradeSkill.recipes.length) }
-    watch (list of Game.ownedAuctions.list) { self.readAuctions(list) }
-    Game.tradeSkill.learned.listen(self.onLearned)
-    Game.bags.changed.listen(self.onBags)
-    Game.bankObserver.opened.listen(self.onBank)
-    Game.bankObserver.changed.listen(self.onBank)
-    Game.mailObserver.opened.listen(self.onMail)
-    Game.mailObserver.changed.listen(self.onMail)
+    watch (level of Game::player.level) { self.records.setLevel(level) }
+    watch (amount of Game::money.amount) { self.records.setMoney(Copper::of(amount), Hour::now()) }
+    watch (list of Game::professions.list) { self.records.setProfessions(list) }
+    watch { self.readRecipes(Game::tradeSkill.open, Game::tradeSkill.recipes.length) }
+    watch (list of Game::ownedAuctions.list) { self.readAuctions(list) }
+    Game::tradeSkill.learned.listen(self.onLearned)
+    Game::bags.changed.listen(self.onBags)
+    Game::bankObserver.opened.listen(self.onBank)
+    Game::bankObserver.changed.listen(self.onBank)
+    Game::mailObserver.opened.listen(self.onMail)
+    Game::mailObserver.changed.listen(self.onMail)
   }
 
   // The open profession's recipes the character knows, and the hour each with a cooldown is ready: the recipes as
@@ -34,12 +34,12 @@ public class Recorder {
     if (open == nil || count == 0) { return }
     const recipes: Array<RecipeId> = []
     const ready: Map<RecipeId, Hour> = {}
-    for (read of peek Game.tradeSkill.recipes) {
+    for (read of peek Game::tradeSkill.recipes) {
       if (read.learned) {
-        const recipe = RecipeId.of(read.id)
+        const recipe = RecipeId::of(read.id)
         recipes.push(recipe)
-        const left = Game.recipeReader.cooldown(read.id)
-        if (left != nil) { ready[recipe] = Hour.fromNow(left) }
+        const left = Game::recipeReader.cooldown(read.id)
+        if (left != nil) { ready[recipe] = Hour::fromNow(left) }
       }
     }
     self.records.setRecipes(open, recipes, ready)
@@ -48,55 +48,55 @@ public class Recorder {
   // A recipe learned while a profession is open belongs to it; one learned from a trainer is read the next time the
   // profession is opened.
   onLearned(mut self, recipe: Integer) {
-    const open = peek Game.tradeSkill.open
-    if (open != nil) { self.records.learn(open, RecipeId.of(recipe)) }
+    const open = peek Game::tradeSkill.open
+    if (open != nil) { self.records.learn(open, RecipeId::of(recipe)) }
   }
 
   // The bags' room and what they hold, by item, each time they change; where the game gave no count (the part says
   // why), what was kept stays.
   onBags(mut self) {
-    const room = Game.bags.roomOfAll()
+    const room = Game::bags.roomOfAll()
     self.records.setBags(room.free, room.slots)
-    const held = Game.bags.holdings()
+    const held = Game::bags.holdings()
     if (held == nil) { return }
-    self.records.setPlace(Place.Bags, itemsOf(held), nil)
+    self.records.setPlace(Place::Bags, itemsOf(held), nil)
   }
 
   // What the bank holds, by item, while its window is open; where the seam gave nothing, what was kept stays.
   onBank(mut self) {
-    const held = Game.bankObserver.holdings()
+    const held = Game::bankObserver.holdings()
     if (held == nil) { return }
-    self.records.setPlace(Place.Bank, itemsOf(held), Hour.now())
+    self.records.setPlace(Place::Bank, itemsOf(held), Hour::now())
   }
 
   // What the inbox carries, and when its first mail with something expires.
   onMail(mut self) {
-    const held = Game.mailObserver.holdings()
+    const held = Game::mailObserver.holdings()
     if (held == nil) { return }
-    const now = Hour.now()
-    self.records.setPlace(Place.Mail, itemsOf(held), now)
-    const soonest = Game.mailObserver.soonest()
-    self.records.setMail(soonest == nil ? nil : Hour.fromNow(soonest))
+    const now = Hour::now()
+    self.records.setPlace(Place::Mail, itemsOf(held), now)
+    const soonest = Game::mailObserver.soonest()
+    self.records.setMail(soonest == nil ? nil : Hour::fromNow(soonest))
   }
 
   // The player's auctions by item. The list is empty before the house first answers, so an empty one counts only while
   // the house is open.
-  readAuctions(mut self, list: Array<Game.Owned>) {
-    if (list.length == 0 && !peek Game.auctionHouse.open) { return }
+  readAuctions(mut self, list: Array<Game::Owned>) {
+    if (list.length == 0 && !peek Game::auctionHouse.open) { return }
     const items: Map<ItemId, Integer> = {}
     for (owned of list) {
       if (!owned.sold) {
-        const item = ItemId.of(owned.item)
+        const item = ItemId::of(owned.item)
         items[item] = (items[item] ?? 0) + owned.quantity
       }
     }
-    self.records.setPlace(Place.Auctions, items, nil)
+    self.records.setPlace(Place::Auctions, items, nil)
   }
 }
 
 // A holding as the game's seam gives it, as the records' brands.
 function itemsOf(held: Map<Integer, Integer>): mut Map<ItemId, Integer> {
   const items: Map<ItemId, Integer> = {}
-  for (id, count of held) { items[ItemId.of(id)] = count }
+  for (id, count of held) { items[ItemId::of(id)] = count }
   return items
 }

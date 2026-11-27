@@ -6,53 +6,53 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 
-function recipe(id: Integer, name: String, category: Integer): Game.Recipe {
+function recipe(id: Integer, name: String, category: Integer): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: 1
+    difficulty: Game::Difficulty::Always, craftable: 1
   }
 }
 
 // The window's grip: the middle of its own, never another surface's (the panel's).
-function grip(): Test.Point {
-  const at = Test.page().window("Overview").box(Ordaen.art.ctl.grip).rect()
+function grip(): Test::Point {
+  const at = Test::page().window("Overview").box(Ordaen.art.ctl.grip).rect()
   return { x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 }
 }
 
 // Take what is at `at` and let it go `dx`, `dy` further.
-function dragBy(at: Test.Point, dx: Number, dy: Number) {
-  Test.moveTo(at)
-  Test.press(nil)
-  Test.moveTo({ x: at.x + 1, y: at.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: at.x + dx, y: at.y + dy })
-  Test.pass(0.05)
-  Test.release(nil)
+function dragBy(at: Test::Point, dx: Number, dy: Number) {
+  Test::moveTo(at)
+  Test::press(nil)
+  Test::moveTo({ x: at.x + 1, y: at.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: at.x + dx, y: at.y + dy })
+  Test::pass(0.05)
+  Test::release(nil)
 }
 
 test "at the window's least only the longest names wrap; wider, the lists and the card share the room" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
-  Game.tradeSkill.categories = [
+  Game::tradeSkill.categories = [
     // The first category under the heading is the camp's, which has a tab of its own: here it has no recipes.
     { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 },
     { id: 12, name: "Bags, quivers and pouches", parentID: 1 }
   ]
-  Game.tradeSkill.recipes = [
+  Game::tradeSkill.recipes = [
     recipe(110, "Linen Cloak", 11), recipe(111, "Rich Purple Silk Shirt", 11),
     recipe(112, "Enchanted Runecloth Robe of Long Nights", 11), recipe(113, "Linen Bag", 12)
   ]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(Test.page().window("Overview").text("Enchanted Runecloth Robe of Long Nights").shown())
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(Test::page().window("Overview").text("Enchanted Runecloth Robe of Long Nights").shown())
   dragBy(grip(), -900, -500)
-  Test.shot("the window at its least: the longest category and recipe wrap, every other name on one line")
+  Test::shot("the window at its least: the longest category and recipe wrap, every other name on one line")
   dragBy(grip(), 1000, 0)
-  Test.shot("the window widened: no name wraps, the lists and the card wider alike")
-  Test.expect(Test.page().window("Overview").text("Rich Purple Silk Shirt").shown())
+  Test::shot("the window widened: no name wraps, the lists and the card wider alike")
+  Test::expect(Test::page().window("Overview").text("Rich Purple Silk Shirt").shown())
 }

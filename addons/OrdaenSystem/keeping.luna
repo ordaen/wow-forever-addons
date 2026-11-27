@@ -46,8 +46,8 @@ public function settingValue(text: String): Boolean | Number | String {
 // A value as the question shows it.
 function shown(value: Boolean | Number | String | nil): String {
   if (value == nil) { return "—" }
-  if (value is Boolean) { return Runtime.text(value ? "YES" : "NO") ?? (value ? "Yes" : "No") }
-  return String.of(value)
+  if (value is Boolean) { return Runtime::text(value ? "YES" : "NO") ?? (value ? "Yes" : "No") }
+  return String::of(value)
 }
 
 function sameKeys(a: Array<String>, b: Array<String>): Boolean {
@@ -83,14 +83,14 @@ public class GameKeeping {
   const bindings: mut Bindings = new Bindings()
 
   constructor() {
-    Events.PLAYER_ENTERING_WORLD.listen(self.onWorld)
-    Events.UPDATE_BINDINGS.listen(self.onBindings)
+    Events::PLAYER_ENTERING_WORLD.listen(self.onWorld)
+    Events::UPDATE_BINDINGS.listen(self.onBindings)
     watch (name of Ordaen.keeper.profiles.active) { self.switched(name) }
-    watch (fight of Game.situation.combat) {
+    watch (fight of Game::situation.combat) {
       if (!fight && peek self.waiting) { self.apply() }
     }
     // Made once the character is in the world already (the module turned on, a load on demand): now.
-    if (Client.IsLoggedIn()) { self.onWorld() }
+    if (Client::IsLoggedIn()) { self.onWorld() }
   }
 
   // The first time in the world: the profile's applied as they are, or taken from the game.
@@ -154,7 +154,7 @@ public class GameKeeping {
 
   // The game's settings as the profile holds them, and its keys; out of a fight, or once it ends.
   apply(mut self) {
-    if (Game.situation.combat) {
+    if (Game::situation.combat) {
       self.waiting = true
       return
     }
@@ -164,7 +164,7 @@ public class GameKeeping {
       const value = settingValue(text)
       if (readSetting(variable) != value) { commits = writeSetting(variable, value) || commits }
     }
-    if (commits) { Client.SettingsPanel?.Commit(true) }
+    if (commits) { Client::SettingsPanel?.Commit(true) }
     const keys = (peek self.kept.values).keys
     self.applying = true
     self.bindings.read()
@@ -176,7 +176,7 @@ public class GameKeeping {
         changed = true
       }
     }
-    if (changed) { Client.SaveBindings(Client.GetCurrentBindingSet()) }
+    if (changed) { Client::SaveBindings(Client::GetCurrentBindingSet()) }
     self.applying = false
   }
 
@@ -219,7 +219,7 @@ public class GameKeeping {
       const wanted = settingValue(text)
       const now = readSetting(variable)
       if (now != wanted) {
-        const name = Client.Settings?.GetSetting(variable)?.GetName() ?? variable
+        const name = Client::Settings?.GetSetting(variable)?.GetName() ?? variable
         list.push({ label: name, from: shown(now), to: shown(wanted) })
       }
     }

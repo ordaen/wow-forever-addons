@@ -4,7 +4,7 @@ import Test from "$test"
 import { CopyText } from "@/copyText"
 import { FooterCount, FooterCounts } from "@/footerCounts"
 
-const RED: Color = Color.hex("#d9534f")
+const RED: Color = Color::hex("#d9534f")
 
 class Notice {
   state text = "Raid on Thursday at eight."
@@ -35,44 +35,44 @@ class Card {
 
 test "a copy text is a text: its letters drawn as one, no field's art" {
   let page = new Notice()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
-  const screen = Test.page()
-  Test.expect(screen.text("Raid on Thursday at eight.").shown())
-  Test.expect(screen.input().shown())
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  const screen = Test::page()
+  Test::expect(screen.text("Raid on Thursday at eight.").shown())
+  Test::expect(screen.input().shown())
   // The field's own letters are clear: the text is drawn once, by the text.
-  Test.expect(!screen.input().paintedWith(Color.hex("#e8dcc4")))
-  Test.expect(screen.text("Raid on Thursday at eight.").count() == 1)
+  Test::expect(!screen.input().paintedWith(Color::hex("#e8dcc4")))
+  Test::expect(screen.text("Raid on Thursday at eight.").count() == 1)
   destroy page
 }
 
 test "a copy text is as high as its wrapped lines, and fills a track's share" {
   let page = new Card()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 300 })
-  const screen = Test.page()
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 300 })
+  const screen = Test::page()
   const long = screen.text("Raid on Thursday at eight, then the dungeon run, and the bank opens on Sunday.").rect()
   const short = screen.text("Be kind.").rect()
   // Wrapped at 120: several lines, as high as they are.
-  Test.expect(long.bottom - long.top > (short.bottom - short.top) * 2)
+  Test::expect(long.bottom - long.top > (short.bottom - short.top) * 2)
   // The second field stands over the rest of the column, down to its bottom.
   const second = screen.input().nth(2).rect()
-  Test.expect(second.top >= long.bottom)
-  Test.expect(second.bottom - second.top > 200 - (long.bottom - long.top) - 2)
+  Test::expect(second.top >= long.bottom)
+  Test::expect(second.bottom - second.top > 200 - (long.bottom - long.top) - 2)
   const first = screen.input().nth(1).rect()
-  Test.expect(first.bottom - first.top <= long.bottom - long.top + 1)
+  Test::expect(first.bottom - first.top <= long.bottom - long.top + 1)
   destroy page
 }
 
 test "a copy text takes the keyboard when clicked, and what is typed into it is put back" {
   let page = new Notice()
-  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
-  const field = Test.page().input()
+  Test::mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  const field = Test::page().input()
   field.click()
-  Test.expect(Test.keyboard())
-  Test.type("lost")
-  Test.expect(field.value() == "Raid on Thursday at eight.")
-  Test.expect(page.text == "Raid on Thursday at eight.")
+  Test::expect(Test::keyboard())
+  Test::type("lost")
+  Test::expect(field.value() == "Raid on Thursday at eight.")
+  Test::expect(page.text == "Raid on Thursday at eight.")
   page.text = "Raid moved to Friday."
-  Test.expect(field.value() == "Raid moved to Friday.")
+  Test::expect(field.value() == "Raid moved to Friday.")
   destroy page
 }
 
@@ -90,13 +90,13 @@ class Footer {
 
 test "footer counts stand as label and value pairs, in the order given, a value's colour its own" {
   let page = new Footer()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 60 })
-  const screen = Test.page()
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 60 })
+  const screen = Test::page()
   const said = screen.texts()
-  Test.expect(said.join("|") == "Members|42|Online|7")
-  Test.expect(screen.text("Members").rect().right < screen.text("42").rect().left)
-  Test.expect(screen.text("42").rect().right < screen.text("Online").rect().left)
+  Test::expect(said.join("|") == "Members|42|Online|7")
+  Test::expect(screen.text("Members").rect().right < screen.text("42").rect().left)
+  Test::expect(screen.text("42").rect().right < screen.text("Online").rect().left)
   page.counts = [{ label: "Quests", value: "25 / 25", color: RED }]
-  Test.shot("one count, its value red")
+  Test::shot("one count, its value red")
   destroy page
 }

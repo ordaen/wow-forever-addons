@@ -16,14 +16,14 @@ const DIPLOMAT_STEP = 0.02
 
 // The player's rank of Diplomat: 0 without the legacy tree or the talent.
 function diplomatRank(): Integer {
-  const config = Client.C_Traits.GetConfigIDBySystemID(LEGACY_TREE)
+  const config = Client::C_Traits::GetConfigIDBySystemID(LEGACY_TREE)
   if (config == nil) { return 0 }
-  for (tree of Client.C_Traits.GetConfigInfo(config)?.treeIDs ?? []) {
-    for (node of Client.C_Traits.GetTreeNodes(tree) ?? []) {
-      const info = Client.C_Traits.GetNodeInfo(config, node)
+  for (tree of Client::C_Traits::GetConfigInfo(config)?.treeIDs ?? []) {
+    for (node of Client::C_Traits::GetTreeNodes(tree) ?? []) {
+      const info = Client::C_Traits::GetNodeInfo(config, node)
       for (entry of info?.entryIDs ?? []) {
-        const definition = Client.C_Traits.GetEntryInfo(config, entry)?.definitionID
-        if (definition != nil && Client.C_Traits.GetDefinitionInfo(definition)?.spellID == DIPLOMAT) {
+        const definition = Client::C_Traits::GetEntryInfo(config, entry)?.definitionID
+        if (definition != nil && Client::C_Traits::GetDefinitionInfo(definition)?.spellID == DIPLOMAT) {
           return (info?.currentRank ?? 0).floor()
         }
       }
@@ -39,7 +39,7 @@ public function standingsOf(gains: Array<FactionGain>): Array<Standing> {
   if (gains.length == 0) { return standings }
   const bonus = 1 + diplomatRank() * DIPLOMAT_STEP
   for (gain of gains) {
-    const faction = Client.C_Reputation.GetFactionDataByID(gain.faction)
+    const faction = Client::C_Reputation::GetFactionDataByID(gain.faction)
     const amount = gain.amount > 0 ? (gain.amount * bonus).floor() : gain.amount
     if (faction != nil) { standings.push({ name: faction.name, amount: amount }) }
   }

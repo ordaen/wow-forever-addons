@@ -21,24 +21,24 @@ public struct Choice<T: Unknown> {
 
 const WIDTH = 281.25dp
 const HEIGHT = 39.84375dp
-const GOLD: Color = Color.hex("#f0c860")
-const DIM: Color = Color.hex("#ffffff73")
+const GOLD: Color = Color::hex("#f0c860")
+const DIM: Color = Color::hex("#ffffff73")
 const FACE_PAD: Edges = { right: 3.5sp, left: 5.5sp }
 const COMPACT_FACE_PAD: Edges = { right: 2.5sp, left: 3.5sp }
-const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
-const MENU_BACK: Color = Color.hex("#0a0806f7")
-const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const ARROW_SHADOW: Shadow = { color: Color::hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
+const MENU_BACK: Color = Color::hex("#0a0806f7")
+const MENU_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 9sp }
-const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
+const CLEAR: Color = Color::hex("#00000000")
+const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b2e"), focus: Color::hex("#d6a56b2e") }
 // What the open menu takes of the screen's height besides its choices: its padding and edges, and a margin.
 const SCREEN_MARGIN = 32dp
 
 // The open menu's choices: as high as they are, at most the screen's height, scrolling past it; the menu itself is
 // held on the screen (`clamp`).
 function listRoom(): Bounds {
-  return { max: Game.screen.height - SCREEN_MARGIN }
+  return { max: Game::screen.height - SCREEN_MARGIN }
 }
 
 // One choice in the open menu.
@@ -46,10 +46,10 @@ public class DropdownItem<T: Unknown> implements Component {
   public pick: Event<T> = new Event()
 
   derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
-  derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
+  derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : BRIGHT_TEXT
   derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
-  derived wrap: TextWrap = self.compact ? TextWrap.None : TextWrap.Words
+  derived wrap: TextWrap = self.compact ? TextWrap::None : TextWrap::Words
 
   choice: Signal<Choice<T>>
   value: Signal<T>
@@ -72,7 +72,7 @@ public class DropdownItem<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box position={Position.Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
+        <box position={Position::Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
              background={self.mark} />
         <text value={self.text} textColor={self.color} wrap={self.wrap} />
       </box>
@@ -126,16 +126,16 @@ public class Dropdown<T: Unknown> implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align::Center}
                background={Ordaen.art.ctl.button} disabled={self.disabled} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-            <text value={self.shown} textColor={GOLD} textWeight={TextWeight.Bold} wrap={.None} />
+            <text value={self.shown} textColor={GOLD} textWeight={TextWeight::Bold} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
+          <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true}
                    @pointerPressOutside={self.close}>
-            <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+            <box columns={1} height={listRoom()} overflow={Overflow::Scroll}>
               <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
             </box>
           </surface>
@@ -190,15 +190,15 @@ public class CompactDropdown<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.width} height={HEIGHT}>
-        <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
-             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={2sp} yAlign={Align.Center}
+        <box position={Position::Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
+             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={2sp} yAlign={Align::Center}
              background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
           <text value={self.shown} textColor={GOLD} wrap={.Cut} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
-        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+        <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true} @pointerPressOutside={self.close}>
-          <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+          <box columns={1} height={listRoom()} overflow={Overflow::Scroll}>
             <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                           @pick={self.onPick} />
           </box>
@@ -227,9 +227,9 @@ class ManyItem<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={LIGHT} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box position={Position.Absolute} left={9.375dp} top={8.203125dp} width={TICK} height={TICK}
+        <box position={Position::Absolute} left={9.375dp} top={8.203125dp} width={TICK} height={TICK}
              background={Ordaen.art.ctl.check}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={TICK} height={TICK}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={TICK} height={TICK}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
         <text value={self.choice.label} textColor={BRIGHT_TEXT} />
@@ -303,16 +303,16 @@ public class ManyDropdown<T: Unknown> implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
+          <box position={Position::Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align::Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={self.color} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
+          <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true}
                    @pointerPressOutside={self.close}>
-            <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+            <box columns={1} height={listRoom()} overflow={Overflow::Scroll}>
               <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />
             </box>
           </surface>

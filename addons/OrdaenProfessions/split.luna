@@ -72,7 +72,7 @@ public function roughProfit(side: SourceTotals | nil): Boolean { return side != 
 // made (or the client has no word of the item yet).
 public function merchantSaleOf(made: Integer | nil, recipe: Integer, count: Integer): Integer | nil {
   if (made == nil) { return nil }
-  const one = Game.items.sellPrice(made) ?? 0
+  const one = Game::items.sellPrice(made) ?? 0
   if (one <= 0) { return nil }
   return (one * yieldOf(recipe) * count).floor()
 }
@@ -84,11 +84,11 @@ public struct BothSources {
 }
 
 public function bothSourcesOf(prices: any PriceSource, recipe: Integer, made: Integer | nil, count: Integer): BothSources {
-  const parts = partsOf(prices, Game.tradeSkill.reagents(recipe), count)
+  const parts = partsOf(prices, Game::tradeSkill.reagents(recipe), count)
   const totals = totalsOf(prices, parts, made, yieldOf(recipe), count)
   return {
-    auction: sourceTotalsOf(parts, Source.Auction, totals.sale),
-    merchant: sourceTotalsOf(parts, Source.Merchant, merchantSaleOf(made, recipe, count))
+    auction: sourceTotalsOf(parts, Source::Auction, totals.sale),
+    merchant: sourceTotalsOf(parts, Source::Merchant, merchantSaleOf(made, recipe, count))
   }
 }
 

@@ -27,12 +27,12 @@ public class PriceLine implements ItemLines {
   public lines(self, item: Integer, link: String): Array<Line> {
     if (!self.on) { return NONE }
     _ = self.prices.revision
-    const quote = self.prices.buy(PriceKey.ofLink(item, link))
+    const quote = self.prices.buy(PriceKey::ofLink(item, link))
     if (quote == nil) { return NONE }
     // The age as `Ordaen`'s `Age` says it; a `Line` has one colour a side, so the price takes the age's.
     const age, color = ageText(quote.age() * HOUR)
-    const price = Game.money.format(quote.copper())
-    return [{ left: Locale.AUCTION, right: age != "" ? price + " " + age : price, rightColor: color }]
+    const price = Game::money.format(quote.copper())
+    return [{ left: Locale::AUCTION, right: age != "" ? price + " " + age : price, rightColor: color }]
   }
 }
 
@@ -62,9 +62,9 @@ public class ListedLine implements ItemLines {
   }
 
   public lines(self, item: Integer, link: String): Array<Line> {
-    const needed = self.list.needed[ItemId.of(item)]
+    const needed = self.list.needed[ItemId::of(item)]
     if (needed == nil) { return NONE }
-    const held = Game.items.owned(item).min(needed)
-    return [{ left: Locale.IN_LIST, right: Locale.IN_LIST_HELD.format(needed, held) }]
+    const held = Game::items.owned(item).min(needed)
+    return [{ left: Locale::IN_LIST, right: Locale::IN_LIST_HELD.format(needed, held) }]
   }
 }

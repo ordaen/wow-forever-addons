@@ -26,13 +26,13 @@ public const PANEL_BUTTON: Number<Length> = PANEL
 // A button that opens a docked window, at the search's row's right end.
 public const OPENER: Number<Length> = 175.78125dp
 
-public const INK: Color = Color.hex("#e8dcc4")
-public const DIM: Color = Color.hex("#a3977f")
-public const GOLD: Color = Color.hex("#ffd100")
-public const RED: Color = Color.hex("#ff4040")
-public const GREEN: Color = Color.hex("#40c040")
-public const AMBER: Color = Color.hex("#ffb02e")
-public const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
+public const INK: Color = Color::hex("#e8dcc4")
+public const DIM: Color = Color::hex("#a3977f")
+public const GOLD: Color = Color::hex("#ffd100")
+public const RED: Color = Color::hex("#ff4040")
+public const GREEN: Color = Color::hex("#40c040")
+public const AMBER: Color = Color::hex("#ffb02e")
+public const RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Bottom] }
 
 const MINUTE = 60
 const HOUR = 3600
@@ -40,24 +40,24 @@ const DAY = 86400
 
 // How long ago, in the largest whole unit: «12 min ago», «2 h ago», «3 d ago»; under a minute «just now».
 public function agoText(seconds: Integer): String {
-  if (seconds < MINUTE) { return Locale.AGO_NOW }
-  if (seconds < HOUR) { return Locale.AGO_MINUTES.format((seconds / MINUTE).floor()) }
-  if (seconds < DAY) { return Locale.AGO_HOURS.format((seconds / HOUR).floor()) }
-  return Locale.AGO_DAYS.format((seconds / DAY).floor())
+  if (seconds < MINUTE) { return Locale::AGO_NOW }
+  if (seconds < HOUR) { return Locale::AGO_MINUTES.format((seconds / MINUTE).floor()) }
+  if (seconds < DAY) { return Locale::AGO_HOURS.format((seconds / HOUR).floor()) }
+  return Locale::AGO_DAYS.format((seconds / DAY).floor())
 }
 
 // How many items, as the game's language says the number: «1 item», «6 412 items».
 public function itemsText(count: Integer): String {
-  return plural(count, Locale.ITEMS_ONE, Locale.ITEMS_FEW, Locale.ITEMS_MANY).format(number(count))
+  return plural(count, Locale::ITEMS_ONE, Locale::ITEMS_FEW, Locale::ITEMS_MANY).format(number(count))
 }
 
 // How many auctions: «1 auction», «31 870 auctions».
 public function auctionsText(count: Integer): String {
-  return plural(count, Locale.AUCTIONS_ONE, Locale.AUCTIONS_FEW, Locale.AUCTIONS_MANY).format(number(count))
+  return plural(count, Locale::AUCTIONS_ONE, Locale::AUCTIONS_FEW, Locale::AUCTIONS_MANY).format(number(count))
 }
 
 // How long is left, rounded up to a whole minute, or an hour past one: «9 min», «2 h».
 public function leftText(seconds: Integer): String {
-  if (seconds <= HOUR) { return Locale.LEFT_MINUTES.format((seconds / MINUTE).ceil()) }
-  return Locale.LEFT_HOURS.format((seconds / HOUR).ceil())
+  if (seconds <= HOUR) { return Locale::LEFT_MINUTES.format((seconds / MINUTE).ceil()) }
+  return Locale::LEFT_HOURS.format((seconds / HOUR).ceil())
 }

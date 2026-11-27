@@ -10,13 +10,13 @@ import Locale from "@/locales"
 import { LearnPlace } from "@/sources"
 import Style from "@/style"
 
-const LINK: Color = Color.hex("#d6b878")
+const LINK: Color = Color::hex("#d6b878")
 const NONE = "—"
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_WAY, width: 93.75dp, sortable: true },
-  { title: Locale.COLUMN_DISTANCE, width: 117.1875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End, sortable: true }
+  { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_WAY, width: 93.75dp, sortable: true },
+  { title: Locale::COLUMN_DISTANCE, width: 117.1875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_PRICE, width: 105.46875dp, align: Align::End, sortable: true }
 ]
 const BY_WAY = 2
 const BY_DISTANCE = 3
@@ -50,14 +50,14 @@ function placedBefore(column: Integer, descending: Boolean, a: Placed, b: Placed
 // How far a place is, as the table says it.
 function yardsText(yards: Number | nil): String {
   if (yards == nil) { return NONE }
-  return Locale.YARDS.format(yards.floor())
+  return Locale::YARDS.format(yards.floor())
 }
 
 class LearnPlaceRow implements Component {
   public open: Event<LearnPlace> = new Event()
 
-  derived opens: Boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game.situation.combat)
-  derived nameColor: Color = self.opens ? LINK : Style.INK
+  derived opens: Boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game::situation.combat)
+  derived nameColor: Color = self.opens ? LINK : Style::INK
   derived hasZone: Boolean = self.placed.place.zone != ""
   derived priced: Boolean = self.placed.place.cost > 0
   derived far: String = yardsText(self.placed.yards)
@@ -71,20 +71,20 @@ class LearnPlaceRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow ground={Ground.Wood} @pick={self.onPick}>
+      <TableRow ground={Ground::Wood} @pick={self.onPick}>
         <TableCell>
           <box gap={0.5sp}>
             <text value={self.placed.place.name} textColor={self.nameColor} wrap={.Cut} />
-            <text $if={self.hasZone} value={self.placed.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.Cut} />
+            <text $if={self.hasZone} value={self.placed.place.zone} textSize={SECONDARY_TEXT} textColor={Style::DIM} wrap={.Cut} />
           </box>
         </TableCell>
-        <TableCell> <text value={self.placed.place.way} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.far} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
+        <TableCell> <text value={self.placed.place.way} textColor={Style::DIM} wrap={.Cut} /> </TableCell>
+        <TableCell align={Align::End}>
+          <text value={self.far} textColor={Style::DIM} wrap={.None} textFont={.Numbers} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.priced} amount={self.placed.place.cost} />
-          <text $else value={NONE} textColor={Style.DIM} />
+          <text $else value={NONE} textColor={Style::DIM} />
         </TableCell>
       </TableRow>
     }
@@ -126,7 +126,7 @@ public class LearnTable implements Component {
   public render(self): Template {
     return $ltml {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}
-             rowsVary={true} ground={Ground.Wood}>
+             rowsVary={true} ground={Ground::Wood}>
         <LearnPlaceRow $for={one of self.placed} placed={one} @open={self.onOpen} />
       </Table>
     }

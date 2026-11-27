@@ -15,6 +15,6 @@ public trait People {
 public function namesAccount(text: String): Boolean { return text.contains("#") || text.contains("@") }
 
 public class ClientPeople implements People {
-  public copy(mut self, text: String) { _ = Client.CopyToClipboard(text, nil) }
-  public inviteTo(mut self, name: String) { Client.C_PartyInfo.InviteUnit(name) }
+  public copy(mut self, text: String) { _ = Client::CopyToClipboard(text, nil) }
+  public inviteTo(mut self, name: String) { Client::C_PartyInfo::InviteUnit(name) }
 }

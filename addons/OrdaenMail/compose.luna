@@ -31,7 +31,7 @@ const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 const DOT = 7.03125dp
 const POPOVER: Bounds = { min: 351.5625dp, max: nil }
 // «Send money» and «C.O.D.», the tabs' places.
-const PAID_TABS: Array<String> = [Locale.SEND_MONEY, Locale.COD_TAB]
+const PAID_TABS: Array<String> = [Locale::SEND_MONEY, Locale::COD_TAB]
 const COD_TAB = 2
 
 // One letter's slots of the form: its heading where there are several, its stacks, and whether the empty slot to fill
@@ -39,18 +39,18 @@ const COD_TAB = 2
 public struct LetterSlots {
   number: Integer
   title: String
-  stacks: Array<Game.MailStack>
+  stacks: Array<Game::MailStack>
   open: Boolean
 }
 
 // Who a recipient is to the player, as the popover names it: a community's member by the community's name.
 function whoOf(who: Recipient): String {
   return match (who.source) {
-    Source.Own => Locale.WHO_OWN
-    Source.Friend => Locale.WHO_FRIEND
-    Source.Guild => Locale.WHO_GUILD
-    Source.Community => who.group
-    Source.Recent => Locale.WHO_RECENT
+    Source::Own => Locale::WHO_OWN
+    Source::Friend => Locale::WHO_FRIEND
+    Source::Guild => Locale::WHO_GUILD
+    Source::Community => who.group
+    Source::Recent => Locale::WHO_RECENT
   }
 }
 
@@ -59,9 +59,9 @@ function whoOf(who: Recipient): String {
 public class NameRow implements Component {
   public pick: Event<String> = new Event()
 
-  derived dot: Color = self.who.online ? Style.GREEN : Style.FAINT
-  derived ink: Color = self.who.color ?? Style.INK
-  derived level: String = self.who.level > 0 ? String.of(self.who.level) : ""
+  derived dot: Color = self.who.online ? Style::GREEN : Style::FAINT
+  derived ink: Color = self.who.color ?? Style::INK
+  derived level: String = self.who.level > 0 ? String::of(self.who.level) : ""
   derived kind: String = whoOf(self.who)
 
   who: Signal<Recipient>
@@ -76,8 +76,8 @@ public class NameRow implements Component {
       <PickRow columns={NAME_ROW} @pick={self.onPick}>
         <box width={DOT} height={DOT} background={self.dot} />
         <text value={self.who.name} textColor={self.ink} wrap={.None} />
-        <text value={self.level} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-        <text value={self.kind} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <text value={self.level} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <text value={self.kind} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </PickRow>
     }
   }
@@ -85,15 +85,15 @@ public class NameRow implements Component {
 
 // One stack's slot of the form (the empty slot after the last is a bare `ItemButton`).
 public class FormSlot implements Component {
-  public remove: Event<Game.MailStack> = new Event()
+  public remove: Event<Game::MailStack> = new Event()
   public dropped: Event<nil> = new Event()
 
   // As the slot takes it: an item or none.
   derived item: Integer | nil = self.stack.item
   derived count: Integer = self.stack.count
 
-  stack: Signal<Game.MailStack>
-  constructor(stack: Signal<Game.MailStack>) {
+  stack: Signal<Game::MailStack>
+  constructor(stack: Signal<Game::MailStack>) {
     self.stack = stack
   }
 
@@ -120,7 +120,7 @@ public class Compose implements Component {
   state body = ""
   state paidTab = 1
   state copper = 0
-  state stacks: mut Array<Game.MailStack> = []
+  state stacks: mut Array<Game::MailStack> = []
   state names: Array<Recipient> = []
   derived typed: String = trimmed(self.to)
   derived shown: Array<Recipient> = matching(self.names, self.typed, SHOWN_NAMES)
@@ -130,7 +130,7 @@ public class Compose implements Component {
   derived slots: Array<LetterSlots> = self.slotsOf()
   derived postage: Integer = self.postageOf()
   // The footer's: what the letters cost to send.
-  derived counts: Array<FooterCount> = [{ label: Locale.POSTAGE, value: Game.money.format(self.postage) }]
+  derived counts: Array<FooterCount> = [{ label: Locale::POSTAGE, value: Game::money.format(self.postage) }]
   derived codTooHigh: Boolean = self.cod && self.copper > COD_MOST
   derived codSplit: Boolean = self.cod && self.copper > 0 && self.letters > 1
   derived ready: Boolean = self.typed != "" && !self.codTooHigh && !self.codSplit
@@ -144,12 +144,12 @@ public class Compose implements Component {
     self.picked = to
     watch (known of self.alts) { self.names = everyone(known, (peek self.sender.recent.values).names) }
     // What the game's letter takes (an item Right-clicked in the bags, one dropped on a slot) comes into the form.
-    Events.MAIL_SEND_INFO_UPDATE.listen(self.absorb)
-    Game.mailbox.writing(true)
+    Events::MAIL_SEND_INFO_UPDATE.listen(self.absorb)
+    Game::mailbox.writing(true)
   }
 
   destructor() {
-    Game.mailbox.writing(false)
+    Game::mailbox.writing(false)
   }
 
   // The letters' slots: twelve stacks a letter, and the empty slot after the last stack.
@@ -158,12 +158,12 @@ public class Compose implements Component {
     const total = self.stacks.length
     const count = lettersFor(total + 1)
     for (number of 1..count) {
-      const stacks: Array<Game.MailStack> = []
+      const stacks: Array<Game::MailStack> = []
       for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(total)) {
         stacks.push(self.stacks[index] ?? panic("a place within the stacks"))
       }
       list.push({
-        number: number, title: count > 1 ? Locale.LETTER_NUMBER.format(number) : "", stacks: stacks,
+        number: number, title: count > 1 ? Locale::LETTER_NUMBER.format(number) : "", stacks: stacks,
         open: number == count
       })
     }
@@ -173,7 +173,7 @@ public class Compose implements Component {
   postageOf(self): Integer {
     let total = 0
     for (number of 1..self.letters) {
-      total += Game.mailbox.postage((self.stacks.length - (number - 1) * PLACES).min(PLACES).max(0))
+      total += Game::mailbox.postage((self.stacks.length - (number - 1) * PLACES).min(PLACES).max(0))
     }
     return total
   }
@@ -188,23 +188,23 @@ public class Compose implements Component {
   absorb(mut self) {
     if (self.sender.busy()) { return }
     for (place of 1..PLACES) {
-      const _, item, _, count, _ = Client.GetSendMailItem(place)
+      const _, item, _, count, _ = Client::GetSendMailItem(place)
       if (item != nil) {
         const stack = stackOf(item.floor(), (count ?? 1).floor(), true, peek self.stacks)
         if (stack != nil) { self.stacks.push(stack) }
-        Client.ClickSendMailItemButton(place, true)
+        Client::ClickSendMailItemButton(place, true)
       }
     }
   }
 
   // An item let go on a slot: into the game's letter, and from there into the form.
   onDrop(mut self) {
-    if (!Client.CursorHasItem()) { return }
-    Client.ClickSendMailItemButton(nil, nil)
+    if (!Client::CursorHasItem()) { return }
+    Client::ClickSendMailItemButton(nil, nil)
     self.absorb()
   }
 
-  onRemove(mut self, stack: Game.MailStack) {
+  onRemove(mut self, stack: Game::MailStack) {
     self.stacks = (peek self.stacks).filter(s => s.bag != stack.bag || s.slot != stack.slot)
   }
 
@@ -216,7 +216,7 @@ public class Compose implements Component {
     const stacks = peek self.stacks
     const subject = trimmed(peek self.subject)
     const first = stacks[1]
-    const named = subject != "" ? subject : first != nil ? Client.C_Item.GetItemNameByID(first.item) ?? Locale.MONEY : Locale.MONEY
+    const named = subject != "" ? subject : first != nil ? Client::C_Item::GetItemNameByID(first.item) ?? Locale::MONEY : Locale::MONEY
     const amount = peek self.copper
     const cod = peek self.cod ? amount : 0
     const copper = peek self.cod ? 0 : amount
@@ -227,25 +227,25 @@ public class Compose implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
-        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
-          <text value={Locale.WRITE} textColor={Style.GOLD} />
-          <PushButton label={Locale.CLOSE} width={Style.BUTTON} @click={self.onClose} />
+        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align::Center}>
+          <text value={Locale::WRITE} textColor={Style::GOLD} />
+          <PushButton label={Locale::CLOSE} width={Style::BUTTON} @click={self.onClose} />
         </box>
-        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+        <box columns={1} gap={2sp} overflow={Overflow::Scroll}>
           <box columns={1}>
-            <Field value={mut self.to} maxLength={64} placeholder={Locale.TO} />
-            <surface $if={self.listing} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={POPOVER}
-                     background={Style.FIELD_BACK} border={Style.FIELD_EDGE} columns={1}>
+            <Field value={mut self.to} maxLength={64} placeholder={Locale::TO} />
+            <surface $if={self.listing} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={POPOVER}
+                     background={Style::FIELD_BACK} border={Style::FIELD_EDGE} columns={1}>
               <NameRow $for={who of self.shown} $key={who.name} who={who} @pick={self.onPickName} />
             </surface>
           </box>
-          <Field value={mut self.subject} maxLength={SUBJECT_MOST} placeholder={Locale.SUBJECT} />
+          <Field value={mut self.subject} maxLength={SUBJECT_MOST} placeholder={Locale::SUBJECT} />
           <box height={93.75dp} rows={[{ fr: 1 }]}>
-            <input value={mut self.body} multiline={true} maxLength={500} padding={Style.FIELD_PAD}
-                   background={Style.FIELD_BACK} border={Style.FIELD_EDGE} textColor={Style.INK} />
+            <input value={mut self.body} multiline={true} maxLength={500} padding={Style::FIELD_PAD}
+                   background={Style::FIELD_BACK} border={Style::FIELD_EDGE} textColor={Style::INK} />
           </box>
           <box $for={letter of self.slots} $key={letter.number} columns={1} gap={1sp}>
-            <text $if={letter.title != ""} value={letter.title} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <text $if={letter.title != ""} value={letter.title} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
             <box columns={SLOTS} gap={1sp}>
               <FormSlot $for={index, stack of letter.stacks} $key={index} stack={stack} @remove={self.onRemove}
                         @dropped={self.onDrop} />
@@ -258,17 +258,17 @@ public class Compose implements Component {
               <MoneyField value={mut self.copper} />
             </box>
           </box>
-          <text $if={self.codTooHigh} value={Locale.COD_TOO_HIGH} textColor={Style.RED} textSize={SECONDARY_TEXT} />
-          <text $if={self.codSplit} value={Locale.COD_ONE_LETTER} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+          <text $if={self.codTooHigh} value={Locale::COD_TOO_HIGH} textColor={Style::RED} textSize={SECONDARY_TEXT} />
+          <text $if={self.codSplit} value={Locale::COD_ONE_LETTER} textColor={Style::RED} textSize={SECONDARY_TEXT} />
           <box columns={FOOT} gap={2sp}>
-            <text value={Locale.ATTACHMENTS} textColor={Style.DIM} />
-            <text value={"%d"} arguments={[self.stacks.length]} textColor={Style.DIM} textFont={.Numbers} />
-            <text value={Locale.LETTERS} textColor={Style.DIM} />
-            <text value={"%d"} arguments={[self.letters]} textColor={Style.DIM} textFont={.Numbers} />
+            <text value={Locale::ATTACHMENTS} textColor={Style::DIM} />
+            <text value={"%d"} arguments={[self.stacks.length]} textColor={Style::DIM} textFont={.Numbers} />
+            <text value={Locale::LETTERS} textColor={Style::DIM} />
+            <text value={"%d"} arguments={[self.letters]} textColor={Style::DIM} textFont={.Numbers} />
           </box>
         </box>
         <ListFooter counts={self.counts}>
-          <PushButton label={Locale.SEND} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={!self.ready}
+          <PushButton label={Locale::SEND} width={Style::BUTTON} plate={ButtonPlate::Accent} disabled={!self.ready}
                       @click={self.onSend} />
         </ListFooter>
       </box>

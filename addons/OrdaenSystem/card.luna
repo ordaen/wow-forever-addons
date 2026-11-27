@@ -18,9 +18,9 @@ const PAIR: Array<Track> = ["max-content", { fr: 1 }]
 const SECTION: Edges = { top: 3sp }
 // What it says, scrolling in the room left; its buttons under it.
 const CARD_ROWS: Array<Track> = [{ fr: 1 }, "max-content"]
-const LINK: Color = Color.hex("#d6b878")
+const LINK: Color = Color::hex("#d6b878")
 const DASH = "—"
-const LOAD_TIP: TipText = { title: Locale.LOAD_NOW, text: Locale.IN_COMBAT, rows: [] }
+const LOAD_TIP: TipText = { title: Locale::LOAD_NOW, text: Locale::IN_COMBAT, rows: [] }
 
 // An addon the card names (one it needs, would like, or that needs it), with its state.
 public struct Named {
@@ -49,7 +49,7 @@ public class NamedLink implements Component {
     return $ltml {
       <box columns={PAIR} gap={3sp} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <text value={self.named.title} textColor={LINK} wrap={.None} />
-        <box xAlign={Align.End}>
+        <box xAlign={Align::End}>
           <text value={self.named.state} textColor={self.named.color} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
       </box>
@@ -75,16 +75,16 @@ public class Card implements Component {
   derived icon: Art = self.iconOf()
   derived stateText: String = self.stateTextOf()
   // Off, dim as its row says it; refused, red; loaded or waiting, green.
-  derived stateColor: Color = self.status?.enabled == .Off ? Style.DIM : self.status?.reason != nil ? Style.RED : Style.GREEN
+  derived stateColor: Color = self.status?.enabled == .Off ? Style::DIM : self.status?.reason != nil ? Style::RED : Style::GREEN
   derived needs: Array<Named> = self.namedOf(self.addon?.needs ?? [])
   derived wants: Array<Named> = self.namedOf(self.addon?.wants ?? [])
   derived neededBy: Array<Named> = self.namedOf(self.catalog.neededBy[self.name] ?? [])
   derived loads: Array<Pair> = self.loadsOf()
   derived on: Boolean = self.status?.enabled != .Off
-  derived switchLabel: String = self.on ? Locale.DISABLE : Locale.ENABLE
+  derived switchLabel: String = self.on ? Locale::DISABLE : Locale::ENABLE
   // Off for this character, the client's reason says so.
   derived loadable: Boolean = self.addon?.demand == true && self.status?.loaded != true && self.status?.reason == nil
-  derived fighting: Boolean = Game.situation.combat
+  derived fighting: Boolean = Game::situation.combat
   // In a fight «Load» says why it waits, under the cursor.
   derived loadTip: TipText | nil = self.fighting ? LOAD_TIP : nil
 
@@ -119,22 +119,22 @@ public class Card implements Component {
   stateTextOf(self): String {
     const status = self.status
     if (status == nil) { return "" }
-    if (status.enabled == .Off) { return Locale.OFF }
+    if (status.enabled == .Off) { return Locale::OFF }
     const demand = self.addon?.demand == true
     const reason = status.reason
     if (reason != nil) {
-      const text = Style.reasonText(reason)
-      if (!Style.ofDependency(reason)) { return text }
+      const text = Style::reasonText(reason)
+      if (!Style::ofDependency(reason)) { return text }
       for (need of self.addon?.needs ?? []) {
         const other = self.catalog.statuses[need]
         if (other == nil || other.reason != nil) {
-          return Locale.NOT_LOADING_BECAUSE.format(text, self.catalog.titleOf(need))
+          return Locale::NOT_LOADING_BECAUSE.format(text, self.catalog.titleOf(need))
         }
       }
       return text
     }
-    if (status.loaded) { return demand ? Locale.LOADED_DEMAND : Locale.LOADED }
-    return demand ? Locale.WAITING_DEMAND : Locale.WAITING_RELOAD
+    if (status.loaded) { return demand ? Locale::LOADED_DEMAND : Locale::LOADED }
+    return demand ? Locale::WAITING_DEMAND : Locale::WAITING_RELOAD
   }
 
   namedOf(self, names: Array<String>): Array<Named> {
@@ -142,14 +142,14 @@ public class Card implements Component {
     for (name of names) {
       const status = self.catalog.statuses[name]
       if (status == nil) {
-        list.push({ name: name, title: name, state: Locale.MISSING_HERE, color: Style.RED })
+        list.push({ name: name, title: name, state: Locale::MISSING_HERE, color: Style::RED })
       } else {
         const loaded = status.loaded
         list.push({
           name: name,
           title: self.catalog.titleOf(name),
-          state: loaded ? Locale.IS_LOADED : status.enabled == .Off ? Locale.IS_OFF : "",
-          color: loaded ? Style.GREEN : Style.DIM
+          state: loaded ? Locale::IS_LOADED : status.enabled == .Off ? Locale::IS_OFF : "",
+          color: loaded ? Style::GREEN : Style::DIM
         })
       }
     }
@@ -162,23 +162,23 @@ public class Card implements Component {
     const weight = self.status?.loaded == true ? memory(kb) : DASH
     if (load == nil) {
       return [
-        { label: Locale.CARD_NOW, value: DASH }, { label: Locale.CARD_AVERAGE, value: DASH },
-        { label: Locale.CARD_ENCOUNTER, value: DASH }, { label: Locale.CARD_PEAK, value: DASH },
-        { label: Locale.CARD_SPIKES, value: DASH }, { label: Locale.CARD_MEMORY, value: weight }
+        { label: Locale::CARD_NOW, value: DASH }, { label: Locale::CARD_AVERAGE, value: DASH },
+        { label: Locale::CARD_ENCOUNTER, value: DASH }, { label: Locale::CARD_PEAK, value: DASH },
+        { label: Locale::CARD_SPIKES, value: DASH }, { label: Locale::CARD_MEMORY, value: weight }
       ]
     }
     const spikes: Array<String> = []
     for (index, over of SPIKES) {
       const count = load.spikes[index] ?? 0
-      if (count > 0) { spikes.push(Locale.SPIKE.format(over, count)) }
+      if (count > 0) { spikes.push(Locale::SPIKE.format(over, count)) }
     }
     return [
-      { label: Locale.CARD_NOW, value: percent(load.now) },
-      { label: Locale.CARD_AVERAGE, value: percent(load.average) },
-      { label: Locale.CARD_ENCOUNTER, value: percent(load.encounter) },
-      { label: Locale.CARD_PEAK, value: percent(load.peak) },
-      { label: Locale.CARD_SPIKES, value: spikes.length == 0 ? DASH : spikes.join(" · ") },
-      { label: Locale.CARD_MEMORY, value: weight }
+      { label: Locale::CARD_NOW, value: percent(load.now) },
+      { label: Locale::CARD_AVERAGE, value: percent(load.average) },
+      { label: Locale::CARD_ENCOUNTER, value: percent(load.encounter) },
+      { label: Locale::CARD_PEAK, value: percent(load.peak) },
+      { label: Locale::CARD_SPIKES, value: spikes.length == 0 ? DASH : spikes.join(" · ") },
+      { label: Locale::CARD_MEMORY, value: weight }
     ]
   }
 
@@ -191,54 +191,54 @@ public class Card implements Component {
     if (self.fighting) { return }
     const refused = self.catalog.load(self.name)
     self.failedFor = self.name
-    self.failed = refused == nil ? "" : Client.ADDON_LOAD_FAILED.format(self.catalog.titleOf(self.name), refused)
+    self.failed = refused == nil ? "" : Client::ADDON_LOAD_FAILED.format(self.catalog.titleOf(self.name), refused)
   }
 
   public render(self): Template {
     return $ltml {
       <box rows={CARD_ROWS} gap={3sp}>
-        <box overflow={Overflow.Scroll}>
+        <box overflow={Overflow::Scroll}>
           <box columns={1} gap={3sp}>
-            <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
+            <box columns={HEAD} gap={3sp} yAlign={Align::Center}>
               <box width={ICON} height={ICON} icon={self.icon} />
               <box columns={1}>
-                <text value={self.title} textColor={Style.GOLD} textFont={.Title} />
-                <text value={self.byline} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+                <text value={self.title} textColor={Style::GOLD} textFont={.Title} />
+                <text value={self.byline} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
               </box>
             </box>
-            <text $if={self.notes != ""} value={self.notes} textColor={Style.INK} textSize={SECONDARY_TEXT} />
+            <text $if={self.notes != ""} value={self.notes} textColor={Style::INK} textSize={SECONDARY_TEXT} />
             <box columns={PAIR} gap={3sp}>
-              <text value={Locale.CARD_STATE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-              <box xAlign={Align.End}>
+              <text value={Locale::CARD_STATE} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+              <box xAlign={Align::End}>
                 <text value={self.stateText} textColor={self.stateColor} textSize={SECONDARY_TEXT} />
               </box>
             </box>
-            <text $if={self.failure != ""} value={self.failure} textColor={Style.RED} textSize={SECONDARY_TEXT} />
-            <text value={Locale.CARD_NEEDS} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <text $if={self.failure != ""} value={self.failure} textColor={Style::RED} textSize={SECONDARY_TEXT} />
+            <text value={Locale::CARD_NEEDS} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
             <NamedLink $for={named of self.needs} named={named} @pick={self.onPick} />
-            <text $if={self.needs.length == 0} value={DASH} textColor={Style.DIM} />
-            <text value={Locale.CARD_WANTS} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <text $if={self.needs.length == 0} value={DASH} textColor={Style::DIM} />
+            <text value={Locale::CARD_WANTS} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
             <NamedLink $for={named of self.wants} named={named} @pick={self.onPick} />
-            <text $if={self.wants.length == 0} value={DASH} textColor={Style.DIM} />
-            <text value={Locale.CARD_NEEDED_BY} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <text $if={self.wants.length == 0} value={DASH} textColor={Style::DIM} />
+            <text value={Locale::CARD_NEEDED_BY} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
             <NamedLink $for={named of self.neededBy} named={named} @pick={self.onPick} />
-            <text $if={self.neededBy.length == 0} value={DASH} textColor={Style.DIM} />
+            <text $if={self.neededBy.length == 0} value={DASH} textColor={Style::DIM} />
             <box padding={SECTION}>
-              <text value={Locale.CARD_LOAD} textColor={Style.GOLD} />
+              <text value={Locale::CARD_LOAD} textColor={Style::GOLD} />
             </box>
             <box $for={pair of self.loads} columns={PAIR} gap={3sp}>
-              <text value={pair.label} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-              <box xAlign={Align.End}>
-                <text value={pair.value} textColor={Style.INK} textFont={.Numbers} textSize={SECONDARY_TEXT} />
+              <text value={pair.label} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
+              <box xAlign={Align::End}>
+                <text value={pair.value} textColor={Style::INK} textFont={.Numbers} textSize={SECONDARY_TEXT} />
               </box>
             </box>
           </box>
         </box>
         // What the card does, under what it says, wherever that scrolls to.
         <box columns={["max-content", "max-content"]} gap={3sp}>
-          <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={199.21875dp} @click={self.onSettings} />
+          <PushButton $if={self.module} label={Locale::ORDAEN_SETTINGS} width={199.21875dp} @click={self.onSettings} />
           <PushButton $else label={self.switchLabel} width={140.625dp} @click={self.onSwitch} />
-          <PushButton $if={self.loadable} label={Locale.LOAD_NOW} width={140.625dp} disabled={self.fighting}
+          <PushButton $if={self.loadable} label={Locale::LOAD_NOW} width={140.625dp} disabled={self.fighting}
                       tip={self.loadTip} @click={self.onLoad} />
         </box>
       </box>

@@ -61,18 +61,18 @@ const SUBTAB_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
-  public inspectWindow: mut KeptWindow = new KeptWindow("inspect", Locale.TAB_INSPECT, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
+  public inspectWindow: mut KeptWindow = new KeptWindow("inspect", Locale::TAB_INSPECT, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.inspectWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} memory={mut self.builds} /> } },
-    { title: Locale.TAB_TALENTS, content: $ltml { <SpecNamesPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} memory={mut self.builds} /> } },
+    { title: Locale::TAB_TALENTS, content: $ltml { <SpecNamesPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ durability: true })
   // The builds this character picked for its talent groups.
-  builds: mut ModuleMemory<Picks> = new ModuleMemory<Picks>(Picks {}, Settings.Scope.Character, "builds")
+  builds: mut ModuleMemory<Picks> = new ModuleMemory<Picks>(Picks {}, Settings::Scope::Character, "builds")
   // Where the window reads the character and what its clicks ask of the game.
   public sheet: mut any Sheet = new ClientSheet()
   // Where the inspect window reads the player inspected.
@@ -88,7 +88,7 @@ public class Character implements Module, App {
   // The game's own window, once it is made: held away (unseen, off the screen, out of the game's own window manager,
   // which slots a window as it shows) from then on, shown or not.
   state gameWindow: any Frame | nil = nil
-  game: any Client.Frame | nil = nil
+  game: any Client::Frame | nil = nil
   state worn: Array<Worn> = []
   state usesAmmo = false
   state who: Who = { name: "", level: 0, race: "", className: "" }
@@ -108,16 +108,16 @@ public class Character implements Module, App {
   state fitting: Array<Integer> = []
   // The lists' toolbars: the reputation's search and filter, the statistics' search and view.
   state factionSearch = ""
-  state factionShow = FactionShow.All
+  state factionShow = FactionShow::All
   state statsSearch = ""
-  state statsView = StatsView.Categories
+  state statsView = StatsView::Categories
   // The footer's count, in dim text, of the list the tab shows; none on the other tabs.
   derived count: String = self.countOf()
   // On the marble with a thin line over it, as every window's footer; it takes no room while it has nothing to say
   // (the character tab).
   const footer: Template = $ltml {
     <FooterBand $if={self.count != ""}>
-      <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+      <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
     </FooterBand>
   }
   // Each tab's picture is the game's own for it.
@@ -129,31 +129,31 @@ public class Character implements Module, App {
   state inspectStats: Stats = {}
   // Whether the stats are estimated from a character of the account (or only what the gear gives).
   state estimated = false
-  state inspectTrees: Array<Game.TalentTree> = []
+  state inspectTrees: Array<Game::TalentTree> = []
   state honor: Honor = {}
   // The game's inspect window, while it shows: held unseen and off the screen.
   state inspectGame: any Frame | nil = nil
-  inspectFrame: any Client.Frame | nil = nil
+  inspectFrame: any Client::Frame | nil = nil
   addonHeard: Handle | nil = nil
-  derived estimateText: String = self.inspectTab != INSPECT_CHARACTER ? "" : self.estimated ? Locale.ESTIMATED : Locale.NOT_ESTIMATED
+  derived estimateText: String = self.inspectTab != INSPECT_CHARACTER ? "" : self.estimated ? Locale::ESTIMATED : Locale::NOT_ESTIMATED
   const inspectFooter: Template = $ltml {
     <FooterBand>
-      <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+      <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
     </FooterBand>
   }
   derived inspectTabs: Array<WindowTabSpec> = [
-    { title: self.inspected.who.name, icon: CHARACTER_ICON, height: Style.HEIGHT, padding: Style.PAGE_ROOM },
-    { title: Locale.TAB_TALENTS, icon: TALENTS_ICON, fixed: true },
-    { title: Locale.TAB_PVP, icon: PVP_ICON }
+    { title: self.inspected.who.name, icon: CHARACTER_ICON, height: Style::HEIGHT, padding: Style::PAGE_ROOM },
+    { title: Locale::TAB_TALENTS, icon: TALENTS_ICON, fixed: true },
+    { title: Locale::TAB_PVP, icon: PVP_ICON }
   ]
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON, height: Style.HEIGHT, padding: Style.PAGE_ROOM },
+    { title: Locale::TAB_CHARACTER, icon: CHARACTER_ICON, height: Style::HEIGHT, padding: Style::PAGE_ROOM },
     // A spec's trees run out to the window's sides: its page keeps its own room for its rows (talents.luna). The trees
     // stand on art laid out for the window's size: the tab keeps it.
-    { title: Locale.TAB_TALENTS, icon: TALENTS_ICON, padding: Style.PAGE_ROOM, fixed: true },
+    { title: Locale::TAB_TALENTS, icon: TALENTS_ICON, padding: Style::PAGE_ROOM, fixed: true },
     // Its lists run to the frame's line and the footer: the pages keep the room for what stands over them.
-    { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON, padding: Style.PAGE_ROOM },
-    { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
+    { title: Locale::TAB_PROGRESSION, icon: PROGRESSION_ICON, padding: Style::PAGE_ROOM },
+    { title: Locale::TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
   // The spec tab shown, as the game numbers its spec groups (1 or 2; 0 on another tab), its trees, the points left in
   // it, whether points wait to be applied, the group the player has active, and how many groups the player has: the
@@ -162,10 +162,10 @@ public class Character implements Module, App {
   // «Talents»' subtab: a spec, by the game's number; the second offered once the player has learned it.
   state spec = 1
   derived specTabs: Array<String> = self.specGroups < 2 ? [self.specOneTitle] : [self.specOneTitle, self.specTwoTitle]
-  derived specOneTitle: String = self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne
-  derived specTwoTitle: String = self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo
+  derived specOneTitle: String = self.settings.values.specOne == "" ? Locale::TAB_MAIN : self.settings.values.specOne
+  derived specTwoTitle: String = self.settings.values.specTwo == "" ? Locale::TAB_SECOND : self.settings.values.specTwo
   derived group: Integer = self.tab == TAB_TALENTS ? (self.specGroups < 2 ? 1 : self.spec) : 0
-  state trees: Array<Game.TalentTree> = []
+  state trees: Array<Game::TalentTree> = []
   state unspent = 0
   state staged = false
   state activeGroup = 1
@@ -176,9 +176,9 @@ public class Character implements Module, App {
   // page shows (Ordaen Spells takes its spellbook) ours opens on the active spec's tab.
   state spellsGame: any Frame | nil = nil
   spellsPaged = false
-  spells: any Client.Frame | nil = nil
+  spells: any Client::Frame | nil = nil
   state progress = PROGRESS_REPUTATION
-  const progressTabs: Array<String> = [Locale.TAB_REPUTATION, Locale.TAB_SKILLS]
+  const progressTabs: Array<String> = [Locale::TAB_REPUTATION, Locale::TAB_SKILLS]
   state chosenSkill = 0
   state skillSearch = ""
 
@@ -188,67 +188,67 @@ public class Character implements Module, App {
     // build the profile prefers.
     watch {
       const picks = self.builds.values
-      Ordaen.worth.pick(Game.player.talentGroup == 2 ? picks.secondary : picks.primary)
-      Ordaen.worth.prefer(self.settings.values.classBuilds[Game.player.classTag] ?? "")
+      Ordaen.worth.pick(Game::player.talentGroup == 2 ? picks.secondary : picks.primary)
+      Ordaen.worth.prefer(self.settings.values.classBuilds[Game::player.classTag] ?? "")
     }
-    Game.saved.store(.Account, RATES, self.rates)
-    Game.saved.store(.Character, WIPE, self.wipe)
+    Game::saved.store(.Account, RATES, self.rates)
+    Game::saved.store(.Character, WIPE, self.wipe)
     self.wipeCost = self.wipe.cost
     // The class trainer names the price only as it offers a reset.
-    Events.CONFIRM_TALENT_WIPE.listen(self.onWipeOffered)
+    Events::CONFIRM_TALENT_WIPE.listen(self.onWipeOffered)
     // The server's answers about the player inspected are heard while the inspect window shows.
     watch (shown of self.inspecting) {
       if (shown) {
-        Events.INSPECT_READY.listen(self.onInspectReady)
-        Events.INSPECT_HONOR_UPDATE.listen(self.readHonor)
+        Events::INSPECT_READY.listen(self.onInspectReady)
+        Events::INSPECT_HONOR_UPDATE.listen(self.readHonor)
         // An item the client didn't know yet: its name and level came.
-        Events.GET_ITEM_INFO_RECEIVED.listen(self.readInspected)
+        Events::GET_ITEM_INFO_RECEIVED.listen(self.readInspected)
       }
     }
-    Client.hooksecurefunc("InspectUnit", (unit: Unknown): nil => {
+    Client::hooksecurefunc("InspectUnit", (unit: Unknown): nil => {
       if (unit is String) { self.onInspect(unit) }
       return nil
     })
-    const inspect = Runtime.frame(GAME_INSPECT)
+    const inspect = Runtime::frame(GAME_INSPECT)
     if (inspect != nil) {
       self.hookInspect(inspect)
     } else {
-      self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
+      self.addonHeard = Events::ADDON_LOADED.listen(self.onAddonLoaded)
     }
     // The talents are read for the spec tab shown, and again when the game says they changed.
-    Game.talentTrees.changed.listen(self.refreshTalents)
+    Game::talentTrees.changed.listen(self.refreshTalents)
     watch (group of self.group) { self.refreshTalents() }
     // The game's words about the character are heard while the window shows.
     watch (opened of self.open) {
-      Game.talentTrees.watch(opened)
+      Game::talentTrees.watch(opened)
       if (opened) {
-        Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readGear)
+        Events::PLAYER_EQUIPMENT_CHANGED.listen(self.readGear)
         // Which set is worn whole follows each piece put on or taken off.
-        Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readSets)
-        Events.UPDATE_INVENTORY_DURABILITY.listen(self.readGear)
-        Events.UNIT_INVENTORY_CHANGED.listen(self.onUnitGear)
-        Events.UNIT_STATS.listen(self.onUnitStats)
-        Events.UNIT_ATTACK_POWER.listen(self.onUnitStats)
-        Events.UNIT_RESISTANCES.listen(self.onUnitStats)
+        Events::PLAYER_EQUIPMENT_CHANGED.listen(self.readSets)
+        Events::UPDATE_INVENTORY_DURABILITY.listen(self.readGear)
+        Events::UNIT_INVENTORY_CHANGED.listen(self.onUnitGear)
+        Events::UNIT_STATS.listen(self.onUnitStats)
+        Events::UNIT_ATTACK_POWER.listen(self.onUnitStats)
+        Events::UNIT_RESISTANCES.listen(self.onUnitStats)
         // The statistics read again as the client gives them plain once more.
-        Events.ADDON_RESTRICTION_STATE_CHANGED.listen(self.readStats)
-        Events.UPDATE_FACTION.listen(self.readFactions)
-        Events.SKILL_LINES_CHANGED.listen(self.readSkills)
-        Events.CURSOR_CHANGED.listen(self.readFits)
-        Events.ITEM_LOCK_CHANGED.listen(self.readGear)
-        Events.BAG_UPDATE_COOLDOWN.listen(self.readGear)
-        Events.EQUIPMENT_SETS_CHANGED.listen(self.readSets)
-        Events.EQUIPMENT_SWAP_FINISHED.listen(self.readSets)
-        Events.BAG_UPDATE.listen(self.readFitting)
+        Events::ADDON_RESTRICTION_STATE_CHANGED.listen(self.readStats)
+        Events::UPDATE_FACTION.listen(self.readFactions)
+        Events::SKILL_LINES_CHANGED.listen(self.readSkills)
+        Events::CURSOR_CHANGED.listen(self.readFits)
+        Events::ITEM_LOCK_CHANGED.listen(self.readGear)
+        Events::BAG_UPDATE_COOLDOWN.listen(self.readGear)
+        Events::EQUIPMENT_SETS_CHANGED.listen(self.readSets)
+        Events::EQUIPMENT_SWAP_FINISHED.listen(self.readSets)
+        Events::BAG_UPDATE.listen(self.readFitting)
       }
     }
-    self.hook(Runtime.frame(GAME_WINDOW))
+    self.hook(Runtime::frame(GAME_WINDOW))
     // The game's spells window comes with its addon, loaded on demand.
-    watch (frame of Game.frames.PlayerSpells) { self.hookSpells(frame) }
+    watch (frame of Game::frames.PlayerSpells) { self.hookSpells(frame) }
     // The client's alert of unspent points on its talent button goes as it shows: Ordaen Panel's portrait has a badge
     // of them on its rim.
-    Client.hooksecurefunc("MainMenuMicroButton_ShowAlert", (button: Unknown): nil => {
-      if (button == Client.TalentMicroButton) { Client.MainMenuMicroButton_HideAlert(Client.TalentMicroButton) }
+    Client::hooksecurefunc("MainMenuMicroButton_ShowAlert", (button: Unknown): nil => {
+      if (button == Client::TalentMicroButton) { Client::MainMenuMicroButton_HideAlert(Client::TalentMicroButton) }
       return nil
     })
   }
@@ -256,12 +256,12 @@ public class Character implements Module, App {
   // The game's spells window: its talents and specializations pages open ours on the active spec's tab, and its
   // closing closes ours. Hooked as the game names them, on their show and hide, which are rare.
   hookSpells(mut self, frame: any Frame | nil) {
-    const window = Client.PlayerSpellsFrame
+    const window = Client::PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
     self.spells = window
     self.spellsGame = frame
     for (page of [window.TalentsFrame, window.SpecFrame]) {
-      const shown: any Client.Frame = page
+      const shown: any Client::Frame = page
       _ = shown.HookScript("OnShow", (): nil => {
         self.onSpellsShown(frame)
         return nil
@@ -276,7 +276,7 @@ public class Character implements Module, App {
 
   onSpellsShown(mut self, frame: any Frame) {
     self.spellsPaged = true
-    self.spec = Game.talentTrees.activeGroup()
+    self.spec = Game::talentTrees.activeGroup()
     self.window.ask(TAB_TALENTS)
     if (!(peek self.open)) {
       self.open = true
@@ -296,7 +296,7 @@ public class Character implements Module, App {
   // game names them, on their show and hide, which are rare.
   public hook(mut self, frame: any Frame | nil) {
     if (frame == nil) { return }
-    const window: any Client.Frame = frame
+    const window: any Client::Frame = frame
     self.game = window
     self.gameWindow = frame
     _ = window.HookScript("OnShow", (): nil => {
@@ -316,9 +316,9 @@ public class Character implements Module, App {
   // A page of the game's window: shown, ours turns to its tab, and to its subtab where it is one (`progress`, 0 for
   // none).
   hookPage(mut self, name: String, tab: Integer, progress: Integer) {
-    const page = Runtime.frame(`${GAME_WINDOW}.${name}`) ?? Runtime.frame(name)
+    const page = Runtime::frame(`${GAME_WINDOW}.${name}`) ?? Runtime::frame(name)
     if (page == nil) { return }
-    const shown: any Client.Frame = page
+    const shown: any Client::Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
       if (progress > 0) { self.progress = progress }
       self.window.ask(tab)
@@ -346,7 +346,7 @@ public class Character implements Module, App {
     self.readFits()
     self.who = self.sheet.who()
     self.keepRates()
-    self.specGroups = Game.talentTrees.groups()
+    self.specGroups = Game::talentTrees.groups()
     self.refreshTalents()
   }
 
@@ -354,31 +354,31 @@ public class Character implements Module, App {
   public refreshTalents(mut self) {
     const group = peek self.group
     if (group < 1) { return }
-    self.trees = Game.talentTrees.trees(group)
-    self.unspent = Game.talentTrees.unspent(group)
-    self.activeGroup = Game.talentTrees.activeGroup()
-    self.staged = Game.talentTrees.staged()
+    self.trees = Game::talentTrees.trees(group)
+    self.unspent = Game::talentTrees.unspent(group)
+    self.activeGroup = Game::talentTrees.activeGroup()
+    self.staged = Game::talentTrees.staged()
   }
 
-  onSpend(mut self, node: Integer) { _ = Game.talentTrees.spend(node) }
-  onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
+  onSpend(mut self, node: Integer) { _ = Game::talentTrees.spend(node) }
+  onRefund(mut self, node: Integer) { _ = Game::talentTrees.refund(node) }
   onApply(mut self) {
-    if (Game.talentTrees.commit()) { playSound("UI_CLASS_TALENT_APPLY_COMPLETE") }
+    if (Game::talentTrees.commit()) { playSound("UI_CLASS_TALENT_APPLY_COMPLETE") }
   }
-  onCancel(mut self) { _ = Game.talentTrees.rollback() }
+  onCancel(mut self) { _ = Game::talentTrees.rollback() }
   // The spec switch is the player's: it runs in the click of «Activate».
-  onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
+  onActivate(mut self) { _ = Game::talentTrees.activate(peek self.group) }
 
   // The game's inspect window, once its addon has loaded: held unseen while it shows; closed, ours closes.
   onAddonLoaded(mut self, name: String) {
     if (name != INSPECT_ADDON) { return }
     if (self.addonHeard != nil) { destroy self.addonHeard }
-    self.hookInspect(Runtime.frame(GAME_INSPECT))
+    self.hookInspect(Runtime::frame(GAME_INSPECT))
   }
 
   hookInspect(mut self, frame: any Frame | nil) {
     if (frame == nil) { return }
-    const window: any Client.Frame = frame
+    const window: any Client::Frame = frame
     self.inspectFrame = window
     self.inspectGame = frame
     _ = window.HookScript("OnHide", (): nil => {
@@ -403,7 +403,7 @@ public class Character implements Module, App {
   onInspectReady(mut self, guid: String) {
     if (guid != self.inspector.guidOf(peek self.inspectUnit)) { return }
     self.readInspected()
-    self.inspectTrees = Game.talentTrees.inspected()
+    self.inspectTrees = Game::talentTrees.inspected()
     self.readHonor()
   }
 
@@ -435,8 +435,8 @@ public class Character implements Module, App {
   keepRates(mut self) {
     const who = peek self.who
     if (who.level == 0) { return }
-    const facts: Facts = { stats: peek self.stats, worn: peek self.worn, auras: peek Auras.active, classTag: Game.player.classTag }
-    self.rates.byKey[ratesKey(Game.player.classTag, who.scene, who.level)] = ratesOf(facts)
+    const facts: Facts = { stats: peek self.stats, worn: peek self.worn, auras: peek Auras.active, classTag: Game::player.classTag }
+    self.rates.byKey[ratesKey(Game::player.classTag, who.scene, who.level)] = ratesOf(facts)
   }
 
   countOf(self): String {
@@ -568,7 +568,7 @@ public class Character implements Module, App {
 
   // «+»: what is worn saved as a new set, named by its place among them.
   onSaveSet(mut self) {
-    self.sheet.saveSet(Locale.SET_NAME.format((peek self.sets).length + 1))
+    self.sheet.saveSet(Locale::SET_NAME.format((peek self.sets).length + 1))
     self.readSets()
   }
 
@@ -585,14 +585,14 @@ public class Character implements Module, App {
     if (self.spellsPaged) { self.spells?.Hide() }
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+  onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameWindow != nil} of={self.gameWindow} opacity={0} away={true} />
       <frame $if={self.spellsGame != nil} of={self.spellsGame} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              minWidth={Style.WIDTH} minHeight={Style.HEIGHT}
+              minWidth={Style::WIDTH} minHeight={Style::HEIGHT}
               footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <GearPage $if={self.tab == TAB_CHARACTER} worn={self.worn} who={self.who} stats={self.stats}
                   skills={self.skills} usesAmmo={self.usesAmmo} choices={self.settings.values}
@@ -603,7 +603,7 @@ public class Character implements Module, App {
         <box $elseif={self.tab == TAB_TALENTS} rows={SUBTAB_ROWS}>
           <Tabs tabs={self.specTabs} selected={mut self.spec} />
           <TalentsPage trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive}
-                       wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend}
+                       wipeCost={self.wipeCost} classTag={Game::player.classTag} @spend={self.onSpend}
                        @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
         </box>
         <box $elseif={self.tab == TAB_PROGRESSION} rows={SUBTAB_ROWS} gap={3sp}>
@@ -619,7 +619,7 @@ public class Character implements Module, App {
       </Window>
       <frame $if={self.inspectGame != nil} of={self.inspectGame} opacity={0} away={true} />
       <Window $if={self.inspecting} tabs={self.inspectTabs} selected={mut self.inspectTab} declared={mut self.inspectWindow}
-              minWidth={Style.WIDTH} minHeight={Style.HEIGHT} footer={self.inspectFooter} @close={self.onInspectClose}>
+              minWidth={Style::WIDTH} minHeight={Style::HEIGHT} footer={self.inspectFooter} @close={self.onInspectClose}>
         <GearPage $if={self.inspectTab == INSPECT_CHARACTER} worn={self.inspected.worn} who={self.inspected.who}
                   stats={self.inspectStats} skills={NO_SKILLS} usesAmmo={false} choices={self.settings.values}
                   unit={self.inspectUnit} classTag={self.inspected.classTag} @tried={self.onInspectTried} />

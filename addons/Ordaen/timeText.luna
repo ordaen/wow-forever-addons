@@ -5,6 +5,6 @@ import Game from "$game"
 // `minute`: minutes since midnight, as `Game.clock.now` and `Game.clock.timeAt` give them.
 public function timeText(minute: Integer): String {
   const hour = (minute / 60).floor()
-  if (Game.clock.hours24) { return "%02d:%02d".format(hour, minute % 60) }
+  if (Game::clock.hours24) { return "%02d:%02d".format(hour, minute % 60) }
   return "%d:%02d %s".format((hour + 11) % 12 + 1, minute % 60, hour < 12 ? "AM" : "PM")
 }

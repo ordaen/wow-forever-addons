@@ -25,15 +25,15 @@ import { Source, SourceTotals, merchantSaleOf, sourceTotalsOf } from "@/split"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
-const NOTE: Color = Color.hex("#c8b48a")
-const SWITCHES: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
+const NOTE: Color = Color::hex("#c8b48a")
+const SWITCHES: Line = { width: 1.171875dp, color: Style::LINE, sides: [Side::Top] }
 // From the band down to the window's bottom line: the room inside, the window's at the right.
 const DETAILS_ROOM: Edges = { top: 5sp, right: WINDOW_ROOM, bottom: 5sp, left: 5sp }
 const SWITCHES_PAD: Edges = { top: 3sp }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The scroll; a recipe not learned, its tab's footer under it.
 const PANEL: Array<Track> = [{ fr: 1 }, "max-content"]
-const UNLEARNED_TABS: Array<String> = [Locale.SECTION_LEARN, Locale.SECTION_PRICES]
+const UNLEARNED_TABS: Array<String> = [Locale::SECTION_LEARN, Locale::SECTION_PRICES]
 const NO_COUNTS: Array<FooterCount> = []
 const WIDE = 257.8125dp
 // When the prices were updated, «To the shopping list».
@@ -43,8 +43,8 @@ const NO_TOTALS: Totals = {
 }
 const SLOT = 60.9375dp
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
-const NOTHING: Game.Recipe = {
-  id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0
+const NOTHING: Game::Recipe = {
+  id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game::Difficulty::Never, craftable: 0
 }
 
 public class RecipeDetails implements Component {
@@ -64,14 +64,14 @@ public class RecipeDetails implements Component {
   derived learning: Boolean = self.unlearnedTab == 1
   // A place of it on the map: its vendors.
   derived npcs: Array<Integer> = self.places.filter(place => place.npc != 0).map(place => place.npc)
-  derived mapped: Boolean = self.npcs.length > 0 && !Game.situation.combat
+  derived mapped: Boolean = self.npcs.length > 0 && !Game::situation.combat
   derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
-  derived shown: Game.Recipe = self.recipe ?? NOTHING
+  derived shown: Game::Recipe = self.recipe ?? NOTHING
   derived icon: Art = self.shown.icon
   derived skill: String = self.skillOf()
-  derived skillColor: Color = self.shown.learned ? Style.difficultyColor(self.shown.difficulty) : Style.RED
-  derived description: String = Game.tradeSkill.description(self.shown.id)
+  derived skillColor: Color = self.shown.learned ? Style::difficultyColor(self.shown.difficulty) : Style::RED
+  derived description: String = Game::tradeSkill.description(self.shown.id)
   derived needs: String = self.needsOf()
   derived learned: Boolean = self.shown.learned
   derived source: RecipeSource | nil = self.learned ? nil : self.sources[self.shown.id]
@@ -81,7 +81,7 @@ public class RecipeDetails implements Component {
   derived lacking: Boolean = self.parts.any(part => part.have < part.need) || self.reagents.any(r => r.have < r.need * self.pricedCount)
   derived learnedPriced: Boolean = self.learned && self.priced
   derived unlearnedPriced: Boolean = !self.learned && self.priced
-  derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
+  derived reagents: Array<Game::Reagent> = Game::tradeSkill.reagents(self.shown.id)
   // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
   derived made: Integer | nil = self.madeOf()
   derived hasItem: Boolean = self.made != nil
@@ -97,26 +97,26 @@ public class RecipeDetails implements Component {
   derived totals: Totals = self.totalsOf()
   // The totals at each source, side by side: the house's and a merchant's.
   derived merchantSale: Integer | nil = merchantSaleOf(self.made, self.shown.id, self.pricedCount)
-  derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source.Auction, self.totals.sale)
-  derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source.Merchant, self.merchantSale)
+  derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source::Auction, self.totals.sale)
+  derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source::Merchant, self.merchantSale)
   // Ordaen Trading is on but has no price for any part: nothing was scanned, or (where the house prices what it
   // makes) none of the reagents.
   derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
-  derived noPricesText: String = self.totals.sale == nil ? Locale.NO_PRICES : Locale.NO_REAGENT_PRICES
+  derived noPricesText: String = self.totals.sale == nil ? Locale::NO_PRICES : Locale::NO_REAGENT_PRICES
 
-  recipe: Signal<Game.Recipe | nil>
+  recipe: Signal<Game::Recipe | nil>
   kept: Signal<Kept>
   note: Signal<String>
   prices: Signal<any PriceSource | nil>
   count: mut Signal<Integer>
   mode: mut Signal<MakeMode>
-  profession: Signal<Game.Profession | nil>
+  profession: Signal<Game::Profession | nil>
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
   sources: Signal<Map<Integer, RecipeSource>>
   queueing: Signal<Queueing>
   constructor(
-    recipe: Signal<Game.Recipe | nil>,
+    recipe: Signal<Game::Recipe | nil>,
     kept: Signal<Kept>,
     // What became of the last «Create» that waits in the queue; empty for none.
     note: Signal<String>,
@@ -125,13 +125,13 @@ public class RecipeDetails implements Component {
     // The make row's: how many, by which mode, of the profession open; where the recipe turns yellow and grey.
     count: mut Signal<Integer>,
     mode: mut Signal<MakeMode>,
-    profession: Signal<Game.Profession | nil>,
+    profession: Signal<Game::Profession | nil>,
     yellow: Signal<Integer | nil>,
     grey: Signal<Integer | nil>,
     // Where the recipes of the profession open are learned.
     sources: Signal<Map<Integer, RecipeSource>>,
     // Where the recipe stands in the queue.
-    queueing: Signal<Queueing> = Queueing.None
+    queueing: Signal<Queueing> = Queueing::None
   ) {
     self.recipe = recipe
     self.kept = kept
@@ -182,21 +182,21 @@ public class RecipeDetails implements Component {
   }
 
   madeOf(self): Integer | nil {
-    const schematic = Game.recipeReader.schematic(self.shown.id)
+    const schematic = Game::recipeReader.schematic(self.shown.id)
     if (schematic == nil) { return nil }
     return schematic.makes
   }
 
-  onFavorite(self) { self.act.emit(Act.Favorite, self.shown.id) }
-  onTrack(self) { self.act.emit(Act.Track, self.shown.id) }
+  onFavorite(self) { self.act.emit(Act::Favorite, self.shown.id) }
+  onTrack(self) { self.act.emit(Act::Track, self.shown.id) }
 
   skillOf(self): String {
-    if (!self.shown.learned) { return Locale.NOT_LEARNED }
+    if (!self.shown.learned) { return Locale::NOT_LEARNED }
     match (self.shown.difficulty) {
-      Game.Difficulty.Always => return Locale.DIFFICULTY_0
-      Game.Difficulty.Usually => return Locale.DIFFICULTY_1
-      Game.Difficulty.Rarely => return Locale.DIFFICULTY_2
-      Game.Difficulty.Never => return Locale.DIFFICULTY_3
+      Game::Difficulty::Always => return Locale::DIFFICULTY_0
+      Game::Difficulty::Usually => return Locale::DIFFICULTY_1
+      Game::Difficulty::Rarely => return Locale::DIFFICULTY_2
+      Game::Difficulty::Never => return Locale::DIFFICULTY_3
     }
   }
 
@@ -205,8 +205,8 @@ public class RecipeDetails implements Component {
   needsOf(self): String {
     if (!self.shown.learned) { return "" }
     const lines: Array<String> = []
-    for (need of Game.tradeSkill.requirements(self.shown.id)) {
-      const line = Locale.TOOLS + ": " + need.name
+    for (need of Game::tradeSkill.requirements(self.shown.id)) {
+      const line = Locale::TOOLS + ": " + need.name
       lines.push(need.met ? line : "|cffff4040" + line + "|r")
     }
     return lines.join("\n")
@@ -216,32 +216,32 @@ public class RecipeDetails implements Component {
     return $ltml {
       <box rows={PANEL} padding={DETAILS_ROOM} border={Ordaen.art.frame.tabIconLine}>
         <$if={self.has}>
-          <box overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover} gap={4sp}>
-            <box columns={HEAD} gap={5sp} yAlign={Align.Center}>
+          <box overflow={Overflow::Scroll} scrollbar={Scrollbar::Hover} gap={4sp}>
+            <box columns={HEAD} gap={5sp} yAlign={Align::Center}>
               <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.learned} />
-              <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
+              <box $else width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
               <box gap={0.5sp}>
                 <text value={self.shown.name} textSize={TITLE_TEXT} leading={.Title} textColor={BRIGHT_TEXT}
-                      textShadow={Style.SHADOW} />
+                      textShadow={Style::SHADOW} />
                 <text value={self.skill} textSize={SECONDARY_TEXT} textColor={self.skillColor} />
               </box>
             </box>
-            <text value={self.description} textSize={SECONDARY_TEXT} textColor={Style.INK} />
+            <text value={self.description} textSize={SECONDARY_TEXT} textColor={Style::INK} />
             <MakeRow $if={self.learned} recipe={self.recipe} count={mut self.count} mode={mut self.mode}
                      profession={self.profession} yellow={self.yellow} grey={self.grey} queueing={self.queueing}
                      @create={self.onCreate} @drop={self.onDrop} />
             <text $if={self.noted} value={self.note} textSize={SECONDARY_TEXT} textColor={NOTE} />
-            <text $if={self.learned} value={self.needs} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <text $if={self.learned} value={self.needs} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
             // A recipe not learned: «Where to learn» and «Prices & costs», a small tab each.
             <box $else columns={1} gap={3sp}>
               <SmallTabs tabs={UNLEARNED_TABS} selected={mut self.unlearnedTab} />
               <$if={self.learning}>
                 <LearnTable places={self.places} distance={self.distance} @open={self.onOpen} />
-                <text $if={self.asked} value={self.asks} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+                <text $if={self.asked} value={self.asks} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
               </>
               <$elseif={self.unlearnedPriced}>
                 <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
-                <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+                <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
               </>
               <box $else>
                 <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
@@ -249,27 +249,27 @@ public class RecipeDetails implements Component {
             </box>
             <box $if={self.learnedPriced} gap={3sp}>
               <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
-              <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-              <box columns={AGE_SHOP} gap={3sp} yAlign={Align.Center}>
+              <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style::DIM} />
+              <box columns={AGE_SHOP} gap={3sp} yAlign={Align::Center}>
                 <PricesAge totals={self.totals} />
-                <PushButton $if={self.lacking} label={Locale.TO_SHOPPING} width={210.9375dp} @click={self.onShop} />
+                <PushButton $if={self.lacking} label={Locale::TO_SHOPPING} width={210.9375dp} @click={self.onShop} />
               </box>
             </box>
             <box $elseif={self.learned}>
               <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
             </box>
             <box $if={self.learned} columns={FLAGS} gap={6sp} padding={SWITCHES_PAD} border={SWITCHES}>
-              <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
-              <Flag label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
+              <Flag label={Locale::FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
+              <Flag label={Locale::TRACK} on={self.tracked} @flipped={self.onTrack} />
             </box>
           </box>
           // A recipe not learned: each tab's marble footer.
           <ListFooter $if={self.learning && !self.learned} counts={NO_COUNTS}>
-            <PushButton label={Locale.SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
+            <PushButton label={Locale::SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
           </ListFooter>
           <ListFooter $elseif={!self.learned} counts={NO_COUNTS}>
             <PricesAge totals={self.totals} />
-            <PushButton $if={self.lacking && self.priced} label={Locale.TO_SHOPPING} width={WIDE} @click={self.onShop} />
+            <PushButton $if={self.lacking && self.priced} label={Locale::TO_SHOPPING} width={WIDE} @click={self.onShop} />
           </ListFooter>
         </>
       </box>

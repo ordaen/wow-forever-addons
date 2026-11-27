@@ -11,13 +11,13 @@ import root Trading from "OrdaenTrading"
 import type { Sellers } from "OrdaenTrading"
 
 // Wide enough that the merchant's window, about the middle, leaves the tab at the right clear.
-const SCREEN: Test.Page = { left: 0, top: 0, width: 4000, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 4000, height: 900, screen: true }
 const LINEN: Integer = 2589
 const THREAD: Integer = 2320
 // The thread's seller, 120 yards away.
 const SELLER = 7
 
-function names(id: Integer): Game.TooltipData | nil {
+function names(id: Integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == THREAD ? "Coarse Thread" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
@@ -36,40 +36,40 @@ class Page {
     self.tab = Trading.shoppingTab(sellers)
   }
   public render(self): Template {
-    return $ltml { <box position={Position.Absolute} left={3000ui} top={0ui} width={900ui} height={500ui}> {self.tab} </box> }
+    return $ltml { <box position={Position::Absolute} left={3000ui} top={0ui} width={900ui} height={500ui}> {self.tab} </box> }
   }
 }
 
 test "a merchant's item on «Vendors», the rest on «Auction»; the nearest seller shown, the rest bought at the merchant" {
-  Game.items.tooltip = names
-  Game.items.owned = (id: Integer): Integer => 0
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10 } }
-  Game.merchant.opened.emit()
-  Game.merchant.closed.emit()
-  Trading.shopping.add(ItemId.of(LINEN), 4, .ByHand)
-  Trading.shopping.add(ItemId.of(THREAD), 25, .ByHand)
+  Game::items.tooltip = names
+  Game::items.owned = (id: Integer): Integer => 0
+  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10 } }
+  Game::merchant.opened.emit()
+  Game::merchant.closed.emit()
+  Trading.shopping.add(ItemId::of(LINEN), 4, .ByHand)
+  Trading.shopping.add(ItemId::of(THREAD), 25, .ByHand)
   let page = new Page()
-  Test.mount(page, SCREEN)
-  Test.expect(Test.page().text("Auction (1)").shown() && Test.page().text("Vendors (1)").shown())
-  Test.expect(Test.page().text("Linen Cloth").shown() && !Test.page().text("Coarse Thread").shown())
-  Test.page().text("Vendors (1)").click()
-  const row = Test.page().text("Coarse Thread").item()
-  Test.expect(row.texts().join(" | ") == "Coarse Thread | 25 | 0 of 25 held | 0g 0s 10c | 0g 2s 50c | 120 yd")
+  Test::mount(page, SCREEN)
+  Test::expect(Test::page().text("Auction (1)").shown() && Test::page().text("Vendors (1)").shown())
+  Test::expect(Test::page().text("Linen Cloth").shown() && !Test::page().text("Coarse Thread").shown())
+  Test::page().text("Vendors (1)").click()
+  const row = Test::page().text("Coarse Thread").item()
+  Test::expect(row.texts().join(" | ") == "Coarse Thread | 25 | 0 of 25 held | 0g 0s 10c | 0g 2s 50c | 120 yd")
   row.click()
-  Test.page().button("Show the nearest on the map").click()
-  Test.expect(page.shown.length == 1 && page.shown[1] == SELLER)
+  Test::page().button("Show the nearest on the map").click()
+  Test::expect(page.shown.length == 1 && page.shown[1] == SELLER)
   // Away from a merchant «Buy» takes no click; at one that sells it, the 25 go in purchases of its 20 at most.
-  Test.page().button("Buy").click()
-  Test.expect(page.bought.length == 0)
-  Client.GetMerchantNumItems = (): Integer => 1
-  Client.GetMerchantItemID = (index: Number): Number | nil => THREAD
-  Client.GetMerchantItemMaxStack = (index: Number): Number => 20
-  Client.BuyMerchantItem = (index: Integer, count: Integer | nil) => { page.bought.push("%d×%d".format(index, count ?? 0)) }
-  Events.MERCHANT_SHOW.emit()
-  Test.page().button("Buy").click()
-  Test.expect(page.bought.join(", ") == "1×20, 1×5")
-  Events.MERCHANT_CLOSED.emit()
-  Trading.shopping.remove(ItemId.of(LINEN))
-  Trading.shopping.remove(ItemId.of(THREAD))
+  Test::page().button("Buy").click()
+  Test::expect(page.bought.length == 0)
+  Client::GetMerchantNumItems = (): Integer => 1
+  Client::GetMerchantItemID = (index: Number): Number | nil => THREAD
+  Client::GetMerchantItemMaxStack = (index: Number): Number => 20
+  Client::BuyMerchantItem = (index: Integer, count: Integer | nil) => { page.bought.push("%d×%d".format(index, count ?? 0)) }
+  Events::MERCHANT_SHOW.emit()
+  Test::page().button("Buy").click()
+  Test::expect(page.bought.join(", ") == "1×20, 1×5")
+  Events::MERCHANT_CLOSED.emit()
+  Trading.shopping.remove(ItemId::of(LINEN))
+  Trading.shopping.remove(ItemId::of(THREAD))
   destroy page
 }

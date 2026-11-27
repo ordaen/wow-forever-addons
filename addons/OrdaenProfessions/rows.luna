@@ -27,10 +27,10 @@ class SourceCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
-        <text $if={self.rough && self.has} value={"~"} textColor={Style.DIM} />
+      <box xAlign={Align::End} columns={{ each: "max-content" }} gap={0.5sp}>
+        <text $if={self.rough && self.has} value={"~"} textColor={Style::DIM} />
         <Money $if={self.has} amount={self.amount ?? 0} />
-        <text $else value={"—"} textColor={Style.DIM} />
+        <text $else value={"—"} textColor={Style::DIM} />
       </box>
     }
   }
@@ -40,9 +40,9 @@ const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 const MARKS: Array<Track> = ["max-content", "max-content"]
 // The categories stand at the window's left line: their names keep the window's room, as the toolbar over them does.
 const CATEGORY_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: WINDOW_ROOM }
-const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style.RECIPE_PAD }
+const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style::RECIPE_PAD }
 // A recipe under a heading stands in past the heading's fold mark.
-const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style.RECIPE_PAD + 5.5sp }
+const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style::RECIPE_PAD + 5.5sp }
 const FOLD: Array<Track> = [11.71875dp, { fr: 1 }, "max-content"]
 const SLOT = 37.5dp
 const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
@@ -60,8 +60,8 @@ public class CategoryRow implements Component {
 
   derived isChosen: Boolean = self.chosen == self.group.id
   derived first: Boolean = self.index == 1
-  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style.GOLD
-  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style.DIM
+  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
+  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style::DIM
 
   group: Signal<Group>
   index: Signal<Integer>
@@ -82,13 +82,13 @@ public class CategoryRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPES} groove={true} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
+      <TabItem selected={self.isChosen} into={Style::RECIPES} groove={true} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
-        <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
-        <box columns={MARKS} yAlign={Align.Center}>
+        <text value={self.group.name} textColor={self.nameColor} textShadow={Style::SHADOW} />
+        <box columns={MARKS} yAlign={Align::Center}>
           <text value={"%d"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                 textFont={.Numbers} />
-          <text value={"/%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
+          <text value={"/%d"} arguments={[self.group.total]} textColor={Style::DIM} wrap={.None}
                 textFont={.Numbers} />
         </box>
       </TabItem>
@@ -99,11 +99,11 @@ public class CategoryRow implements Component {
 // A recipe's tooltip beside its row: the item it makes, as the game's professions window shows it; the recipe's own
 // spell for one that makes none (an enchant).
 public function showRecipe(frame: any Frame, recipe: Integer) {
-  const made = Game.recipeReader.schematic(recipe)?.makes
+  const made = Game::recipeReader.schematic(recipe)?.makes
   if (made != nil) {
-    Game.items.show(frame, made)
+    Game::items.show(frame, made)
   } else {
-    Game.items.showSpell(frame, recipe)
+    Game::items.showSpell(frame, recipe)
   }
 }
 
@@ -114,20 +114,20 @@ public class RecipeRow implements Component {
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
   derived first: Boolean = self.index == 1
-  derived color: Color = Style.difficultyColor(self.recipe.difficulty)
+  derived color: Color = Style::difficultyColor(self.recipe.difficulty)
   derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
   derived starred: Boolean = has(self.kept.favorites, self.recipe.id)
   derived padding: Edges = self.indent ? INDENT_PAD : RECIPE_PAD
   derived menuOpen: Boolean = self.menuFor == self.recipe.id
 
-  recipe: Signal<Game.Recipe>
+  recipe: Signal<Game::Recipe>
   index: Signal<Integer>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
   const indent: Boolean
   constructor(
-    recipe: Signal<Game.Recipe>,
+    recipe: Signal<Game::Recipe>,
     index: Signal<Integer>,
     // The chosen recipe's id.
     chosen: Signal<Integer>,
@@ -146,7 +146,7 @@ public class RecipeRow implements Component {
   }
 
   onClick(self, button: MouseButton) {
-    self.act.emit(button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
+    self.act.emit(button == MouseButton::Right ? Act::Menu : Act::Pick, self.recipe.id)
   }
 
   onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
@@ -154,12 +154,12 @@ public class RecipeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPE_LIT} first={self.first} columns={NAME_COUNT}
+      <TabItem selected={self.isChosen} into={Style::RECIPE_LIT} first={self.first} columns={NAME_COUNT}
                padding={self.padding} @pick={self.onClick} @enter={self.onEnter}>
-        <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
+        <text value={self.recipe.name} textColor={self.color} textShadow={Style::SHADOW} />
         <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
-        <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
-             height={STAR} background={Style.GOLD} />
+        <box $if={self.starred} position={Position::Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
+             height={STAR} background={Style::GOLD} />
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
       </TabItem>
     }
@@ -172,22 +172,22 @@ public class CategoryGroup implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
   state folded = false
-  derived list: Array<Game.Recipe> = members(self.shown, self.byCategory, self.group.id, self.kept.favorites)
+  derived list: Array<Game::Recipe> = members(self.shown, self.byCategory, self.group.id, self.kept.favorites)
   derived mark: String = self.folded ? "+" : "-"
-  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style.GOLD
-  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style.DIM
+  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
+  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style::DIM
 
   group: Signal<Group>
-  shown: Signal<Array<Game.Recipe>>
-  byCategory: Signal<Map<Integer, Array<Game.Recipe>>>
+  shown: Signal<Array<Game::Recipe>>
+  byCategory: Signal<Map<Integer, Array<Game::Recipe>>>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
   constructor(
     group: Signal<Group>,
     // Every recipe the search and the filter let through, and the same by their category.
-    shown: Signal<Array<Game.Recipe>>,
-    byCategory: Signal<Map<Integer, Array<Game.Recipe>>>,
+    shown: Signal<Array<Game::Recipe>>,
+    byCategory: Signal<Map<Integer, Array<Game::Recipe>>>,
     chosen: Signal<Integer>,
     kept: Signal<Kept>,
     menuFor: Signal<Integer>
@@ -206,15 +206,15 @@ public class CategoryGroup implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <box columns={FOLD} gap={2.5sp} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
-             background={Style.ROW_LIGHT} @pointerPress={self.fold} @keyPress(.Enter)={self.fold} @keyPress(.Space)={self.fold}>
-          <text value={self.mark} textColor={Style.DIM} wrap={.None} />
+        <box columns={FOLD} gap={2.5sp} padding={CATEGORY_PAD} yAlign={Align::Center} border={Style::ROW_RULE}
+             background={Style::ROW_LIGHT} @pointerPress={self.fold} @keyPress(.Enter)={self.fold} @keyPress(.Space)={self.fold}>
+          <text value={self.mark} textColor={Style::DIM} wrap={.None} />
           <text value={self.group.name} textColor={self.nameColor}
-                textShadow={Style.SHADOW} />
-          <box columns={MARKS} yAlign={Align.Center}>
+                textShadow={Style::SHADOW} />
+          <box columns={MARKS} yAlign={Align::Center}>
             <text value={"%d"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                   textFont={.Numbers} />
-            <text value={"/%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
+            <text value={"/%d"} arguments={[self.group.total]} textColor={Style::DIM} wrap={.None}
                   textFont={.Numbers} />
           </box>
         </box>
@@ -235,7 +235,7 @@ public class RecipeTableRow implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
-  derived color: Color = Style.difficultyColor(self.recipe.difficulty)
+  derived color: Color = Style::difficultyColor(self.recipe.difficulty)
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived skill: String = self.facts?.skill == nil ? "—" : "%d".format(self.facts?.skill ?? 0)
   derived subtype: String = self.facts?.subtype ?? ""
@@ -250,16 +250,16 @@ public class RecipeTableRow implements Component {
   derived hasProfit: Boolean = self.better?.profit != nil
   derived profit: Integer = (self.better?.profit ?? 0).abs()
   derived losing: Boolean = (self.better?.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+  derived profitColor: Color = self.losing ? Style::RED : BRIGHT_TEXT
 
-  recipe: Signal<Game.Recipe>
+  recipe: Signal<Game::Recipe>
   facts: Signal<TableFacts | nil>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
   priced: Signal<Boolean>
   constructor(
-    recipe: Signal<Game.Recipe>,
+    recipe: Signal<Game::Recipe>,
     // What the table shows of it besides the game's.
     facts: Signal<TableFacts | nil>,
     chosen: Signal<Integer>,
@@ -278,7 +278,7 @@ public class RecipeTableRow implements Component {
 
   // The library's row says which button picked it: the left one chooses the recipe, the right one opens its menu.
   onPick(self, button: MouseButton) {
-    self.act.emit(button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
+    self.act.emit(button == MouseButton::Right ? Act::Menu : Act::Pick, self.recipe.id)
   }
 
   onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
@@ -288,14 +288,14 @@ public class RecipeTableRow implements Component {
     return $ltml {
       <box columns={"subgrid"}>
         // The name, the class and the type wrap at their columns, their row as high as they come to: nothing is cut.
-        <TableRow selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
-          <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} /> </TableCell>
-          <TableCell align={Align.End}>
-            <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
+        <TableRow selected={self.isChosen} ground={Ground::Wood} @pick={self.onPick} @enter={self.onEnter}>
+          <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style::SHADOW} /> </TableCell>
+          <TableCell align={Align::End}>
+            <text value={self.skill} textColor={Style::DIM} wrap={.None} textFont={.Numbers} />
           </TableCell>
-          <TableCell> <text value={self.subtype} textColor={Style.DIM} /> </TableCell>
-          <TableCell> <text value={self.kind} textColor={Style.DIM} /> </TableCell>
-          <TableCell align={Align.End}>
+          <TableCell> <text value={self.subtype} textColor={Style::DIM} /> </TableCell>
+          <TableCell> <text value={self.kind} textColor={Style::DIM} /> </TableCell>
+          <TableCell align={Align::End}>
             <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
           </TableCell>
           <$if={self.priced}>
@@ -303,12 +303,12 @@ public class RecipeTableRow implements Component {
             <TableCell> <SourceCell amount={self.merchant.cost} rough={roughCost(self.merchant)} /> </TableCell>
             <TableCell> <SourceCell amount={self.auction.sale} rough={false} /> </TableCell>
             <TableCell> <SourceCell amount={self.merchant.sale} rough={false} /> </TableCell>
-            <TableCell align={Align.End}>
-              <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
-                <text $if={self.profitRough && self.hasProfit} value={"~"} textColor={Style.DIM} />
-                <text $if={self.losing} value={"-"} textColor={Style.RED} />
+            <TableCell align={Align::End}>
+              <box xAlign={Align::End} columns={{ each: "max-content" }} gap={0.5sp}>
+                <text $if={self.profitRough && self.hasProfit} value={"~"} textColor={Style::DIM} />
+                <text $if={self.losing} value={"-"} textColor={Style::RED} />
                 <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
-                <text $else value={"—"} textColor={Style.DIM} />
+                <text $else value={"—"} textColor={Style::DIM} />
               </box>
             </TableCell>
           </>
@@ -321,15 +321,15 @@ public class RecipeTableRow implements Component {
 
 // A reagent of the chosen recipe: its icon in a slot, its name, have / need (red when short).
 public class ReagentRow implements Component {
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived rule: Line | nil = self.index > 1 ? Style::ROW_RULE : nil
   derived item: Integer | nil = self.reagent.itemID
   derived icon: Art | nil = self.reagent.icon
-  derived color: Color = self.reagent.have < self.reagent.need ? Style.RED : Style.INK
+  derived color: Color = self.reagent.have < self.reagent.need ? Style::RED : Style::INK
 
-  reagent: Signal<Game.Reagent>
+  reagent: Signal<Game::Reagent>
   index: Signal<Integer>
   constructor(
-    reagent: Signal<Game.Reagent>,
+    reagent: Signal<Game::Reagent>,
     index: Signal<Integer>
   ) {
     self.reagent = reagent
@@ -338,17 +338,17 @@ public class ReagentRow implements Component {
 
   // The reagent's tooltip beside its whole row.
   onEnter(self, frame: any Frame) {
-    Game.tooltip.rowAt(frame)
+    Game::tooltip.rowAt(frame)
     const item = self.item
-    if (item != nil) { Game.items.show(frame, item) }
+    if (item != nil) { Game::items.show(frame, item) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}
+      <box columns={REAGENT} gap={2.5sp} yAlign={Align::Center} padding={REAGENT_PAD} border={self.rule}
            @pointerEnter={self.onEnter}>
         <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} />
-        <text value={self.reagent.name} textColor={Style.INK} />
+        <text value={self.reagent.name} textColor={Style::INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={.None} textColor={self.color}
               textFont={.Numbers} />
       </box>

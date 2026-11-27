@@ -43,8 +43,8 @@ public struct Found {
 // The two views: a row a variant, or a row an item with its variants folded.
 public enum View implements Plain { Variants = "variants", Items = "items" }
 const VIEWS: Array<Choice<View>> = [
-  { value: View.Variants, label: Locale.VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
-  { value: View.Items, label: Locale.VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories }
+  { value: View::Variants, label: Locale::VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
+  { value: View::Items, label: Locale::VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories }
 ]
 
 const NAME_COLUMN = 1
@@ -54,23 +54,23 @@ const MARKET_COLUMN = 5
 const SHARE_COLUMN = 6
 
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: "", width: 51.5625dp },
-  { title: Locale.COLUMN_LISTED, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_LOW, width: 112.5dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_MARKET, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_SHARE, width: 65.625dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_AGE, width: 82.03125dp, align: Align.End, sortable: true }
+  { title: Locale::COLUMN_LISTED, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_LOW, width: 112.5dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_MARKET, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_SHARE, width: 65.625dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_AGE, width: 82.03125dp, align: Align::End, sortable: true }
 ]
 // A row an item: its range in the lowest's place, sorted by the lowest.
 const ITEM_COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: "", width: 51.5625dp },
-  { title: Locale.COLUMN_LISTED, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_RANGE, width: 222.65625dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_MARKET, width: 105.46875dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_SHARE, width: 65.625dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_AGE, width: 82.03125dp, align: Align.End, sortable: true }
+  { title: Locale::COLUMN_LISTED, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_RANGE, width: 222.65625dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_MARKET, width: 105.46875dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_SHARE, width: 65.625dp, align: Align::End, sortable: true },
+  { title: Locale::COLUMN_AGE, width: 82.03125dp, align: Align::End, sortable: true }
 ]
 const RANGE: Array<Track> = ["max-content", "max-content", "max-content"]
 // A category's name and nothing at its right; a subclass stands in under its class.
@@ -78,12 +78,12 @@ const CATEGORY: Array<Track> = [{ fr: 1 }]
 const CLASS_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const SUBCLASS_PAD: Edges = { top: 1.5sp, right: 5sp, bottom: 1.5sp, left: 5sp + 4sp }
 const LISTING_COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
-  { title: Locale.COLUMN_COUNT, width: 65.625dp, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End }
+  { title: Locale::COLUMN_UNIT, width: { fr: 1 }, align: Align::End },
+  { title: Locale::COLUMN_COUNT, width: 65.625dp, align: Align::End },
+  { title: Locale::COLUMN_LEFT, width: 65.625dp, align: Align::End }
 ]
 // The categories at the left, the results at the right.
-const PAGE: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
+const PAGE: Array<Track> = [Style::CATEGORIES, { fr: 1 }]
 // How long the typing settles before what is typed is searched for, in seconds.
 const SETTLE = 0.25
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -95,17 +95,17 @@ const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const PANEL: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const MENU_WIDTH = 246.09375dp
-const MENU_BACK: Color = Color.hex("#0a0806f7")
-const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const MENU_BACK: Color = Color::hex("#0a0806f7")
+const MENU_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
-const MENU_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: [Side.Top] }
+const MENU_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b33"), sides: [Side::Top] }
 const AFTER_RULE: Edges = { top: 2sp }
 // The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
 // it («Buy» asks that they hold it).
 const MOST_COUNT = 999999
 const STEP = 32.8125dp
 // The pip of an item on the shopping list.
-const LISTED_PIP: Color = Color.hex("#40c0ff")
+const LISTED_PIP: Color = Color::hex("#40c0ff")
 // The share's colours: a bargain under 90% of the market, dear over 100%.
 const CHEAP = 90
 const DEAR = 100
@@ -114,20 +114,20 @@ const DEAR = 100
 const ANY = -1
 // The level filter: any, or a band of ten levels by its first (1, 11, ... 51).
 const LEVELS: Array<Choice<Integer>> = [
-  { value: ANY, label: Locale.ANY_LEVEL },
-  { value: 1, label: Locale.LEVELS.format(1, 10) },
-  { value: 11, label: Locale.LEVELS.format(11, 20) },
-  { value: 21, label: Locale.LEVELS.format(21, 30) },
-  { value: 31, label: Locale.LEVELS.format(31, 40) },
-  { value: 41, label: Locale.LEVELS.format(41, 50) },
-  { value: 51, label: Locale.LEVELS.format(51, 60) }
+  { value: ANY, label: Locale::ANY_LEVEL },
+  { value: 1, label: Locale::LEVELS.format(1, 10) },
+  { value: 11, label: Locale::LEVELS.format(11, 20) },
+  { value: 21, label: Locale::LEVELS.format(21, 30) },
+  { value: 31, label: Locale::LEVELS.format(31, 40) },
+  { value: 41, label: Locale::LEVELS.format(41, 50) },
+  { value: 51, label: Locale::LEVELS.format(51, 60) }
 ]
 const QUALITIES: Array<Choice<Integer>> = [
-  { value: ANY, label: Locale.ANY_QUALITY },
-  { value: 1, label: Locale.QUALITY_COMMON },
-  { value: 2, label: Locale.QUALITY_UNCOMMON },
-  { value: 3, label: Locale.QUALITY_RARE },
-  { value: 4, label: Locale.QUALITY_EPIC }
+  { value: ANY, label: Locale::ANY_QUALITY },
+  { value: 1, label: Locale::QUALITY_COMMON },
+  { value: 2, label: Locale::QUALITY_UNCOMMON },
+  { value: 3, label: Locale::QUALITY_RARE },
+  { value: 4, label: Locale::QUALITY_EPIC }
 ]
 
 // The label of the choice a filter's value is.
@@ -145,7 +145,7 @@ public struct BuyView implements Plain {
   quality: Integer = ANY
   sorted: Integer = 0
   descending: Boolean = false
-  view: View = View.Variants
+  view: View = View::Variants
 }
 const BUY_VIEW: BuyView = {}
 
@@ -165,7 +165,7 @@ class FilterMenu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Row} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
+      <surface leading={.Row} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
                border={MENU_EDGE} padding={MENU_PAD} columns={1} @pointerPressOutside={self.onClose}>
         <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
                       @pick={self.onLevel} />
@@ -186,10 +186,10 @@ class CategoryEntry implements Component {
   derived open: Boolean = self.itemClass == self.category.itemClass
   derived whole: Boolean = self.open && self.itemSubclass == ANY
 
-  category: Signal<Game.ItemCategory>
+  category: Signal<Game::ItemCategory>
   itemClass: Signal<Integer>
   itemSubclass: Signal<Integer>
-  constructor(category: Signal<Game.ItemCategory>, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
+  constructor(category: Signal<Game::ItemCategory>, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
     self.category = category
     self.itemClass = itemClass
     self.itemSubclass = itemSubclass
@@ -202,7 +202,7 @@ class CategoryEntry implements Component {
     return $ltml {
       <box columns={1}>
         <SelectItem selected={self.whole} columns={CATEGORY} padding={CLASS_PAD} @pick={self.onClass}>
-          <text value={self.category.name} textColor={Style.GOLD} wrap={.None} />
+          <text value={self.category.name} textColor={Style::GOLD} wrap={.None} />
         </SelectItem>
         <box $if={self.open} columns={1}>
           <SubclassEntry $for={sub of self.category.subclasses} $key={sub.itemSubclass} subclass={sub}
@@ -219,9 +219,9 @@ class SubclassEntry implements Component {
 
   derived selected: Boolean = self.itemSubclass == self.subclass.itemSubclass
 
-  subclass: Signal<Game.ItemSubcategory>
+  subclass: Signal<Game::ItemSubcategory>
   itemSubclass: Signal<Integer>
-  constructor(subclass: Signal<Game.ItemSubcategory>, itemSubclass: Signal<Integer>) {
+  constructor(subclass: Signal<Game::ItemSubcategory>, itemSubclass: Signal<Integer>) {
     self.subclass = subclass
     self.itemSubclass = itemSubclass
   }
@@ -231,7 +231,7 @@ class SubclassEntry implements Component {
   public render(self): Template {
     return $ltml {
       <SelectItem selected={self.selected} columns={CATEGORY} padding={SUBCLASS_PAD} @pick={self.onPick}>
-        <text value={self.subclass.name} textColor={Style.INK} wrap={.None} />
+        <text value={self.subclass.name} textColor={Style::INK} wrap={.None} />
       </SelectItem>
     }
   }
@@ -246,20 +246,20 @@ public function ageOf(quote: Quote | nil): Number | nil {
 // The age column's text and colour: the hours under a day (a house's prices move by the hour), «< 1 h» for this
 // hour's; from a day the market's days (`ageText`: amber to the third day, dimmed after); nothing without a price.
 public function ageCell(quote: Quote | nil): (String, Color) {
-  if (quote == nil) { return "", Style.DIM }
+  if (quote == nil) { return "", Style::DIM }
   const hours = quote.age()
-  if (hours < 1) { return Locale.AGE_FRESH, Style.INK }
-  if (hours < 24) { return Locale.HOURS.format(hours), Style.INK }
+  if (hours < 1) { return Locale::AGE_FRESH, Style::INK }
+  if (hours < 24) { return Locale::HOURS.format(hours), Style::INK }
   const text, color = ageText(hours * 3600)
-  return text, color ?? Style.DIM
+  return text, color ?? Style::DIM
 }
 
 // The share's colour: green for a bargain, red where dear, the ink between.
 function shareColor(share: Integer | nil): Color {
-  if (share == nil) { return Style.DIM }
-  if (share < CHEAP) { return Style.GREEN }
-  if (share > DEAR) { return Style.RED }
-  return Style.INK
+  if (share == nil) { return Style::DIM }
+  if (share < CHEAP) { return Style::GREEN }
+  if (share > DEAR) { return Style::RED }
+  return Style::INK
 }
 
 // The lowest as a share of its own market, in percent; none without one.
@@ -295,10 +295,10 @@ class RowMenu implements Component {
     // A commodity's listings hold one at least; an item has an auction to buy out.
     const buyable = self.purchase.commodity || self.purchase.next > 0
     return [
-      { label: quoted ? Locale.MENU_QUICK_CONFIRM : Locale.MENU_QUICK_BUY,
-        disabled: !buyable || Game.auctionActions.busy },
-      { label: Locale.TO_LIST, group: true },
-      { label: Locale.MENU_SEARCH }
+      { label: quoted ? Locale::MENU_QUICK_CONFIRM : Locale::MENU_QUICK_BUY,
+        disabled: !buyable || Game::auctionActions.busy },
+      { label: Locale::TO_LIST, group: true },
+      { label: Locale::MENU_SEARCH }
     ]
   }
 
@@ -306,13 +306,13 @@ class RowMenu implements Component {
   onPick(mut self, index: Integer) {
     if (index == 1) {
       const last = peek self.purchase.quotedCount == 1 || !(peek self.purchase.commodity)
-      if (self.purchase.buy(1) && last) { self.act.emit(RowAct.Close) }
+      if (self.purchase.buy(1) && last) { self.act.emit(RowAct::Close) }
     } else {
-      self.act.emit(index == 2 ? RowAct.List : RowAct.Search)
+      self.act.emit(index == 2 ? RowAct::List : RowAct::Search)
     }
   }
 
-  onClose(self) { self.act.emit(RowAct.Close) }
+  onClose(self) { self.act.emit(RowAct::Close) }
 
   public render(self): Template {
     return $ltml {
@@ -357,7 +357,7 @@ class FoundRow implements Component {
 
   onPick(self, button: MouseButton) {
     self.pick.emit(self.found.key)
-    if (button == MouseButton.Right) { self.menu.emit(self.found.key) }
+    if (button == MouseButton::Right) { self.menu.emit(self.found.key) }
   }
 
   onAct(self, act: RowAct) { self.act.emit(act, self.found) }
@@ -374,7 +374,7 @@ class FoundRow implements Component {
 
   // The item's tooltip beside its whole row.
   onRowEnter(self, frame: any Frame) {
-    Game.items.show(frame, self.found.item)
+    Game::items.show(frame, self.found.item)
   }
 
   public render(self): Template {
@@ -382,36 +382,36 @@ class FoundRow implements Component {
       <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
         <TableCell>
-          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-            <ItemButton item={self.found.item} size={Style.SLOT} tipped={false} />
+          <box columns={ITEM} gap={2.5sp} yAlign={Align::Center}>
+            <ItemButton item={self.found.item} size={Style::SLOT} tipped={false} />
             <box overflow={.Hidden}>
               <text value={self.found.name} textColor={self.found.color} wrap={.Cut} />
             </box>
           </box>
         </TableCell>
         <TableCell>
-          <box yAlign={Align.Center}>
+          <box yAlign={Align::Center}>
             <box $if={self.wanted} width={9.375dp} height={9.375dp} background={LISTED_PIP} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.found.listed]} textColor={Style::INK} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <box $if={self.ranged} columns={RANGE} gap={1sp} yAlign={Align.Center}>
+        <TableCell align={Align::End}>
+          <box $if={self.ranged} columns={RANGE} gap={1sp} yAlign={Align::Center}>
             <Money amount={self.found.low} />
-            <text value={"–"} textColor={Style.DIM} />
+            <text value={"–"} textColor={Style::DIM} />
             <Money amount={self.found.high} />
           </box>
           <Money $else amount={self.found.low} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money $if={self.priced} amount={self.market} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={self.share} textColor={self.shareInk} />
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <text value={self.age} textColor={self.ageInk} wrap={.None} />
         </TableCell>
       </TableRow>
@@ -444,14 +444,14 @@ public class BuyPage implements Component {
   // shown are the view's whose lowercased name holds the search.
   derived variants: Array<Found> = self.variantsOf()
   derived folded: Array<Found> = self.foldedOf()
-  derived byItem: Boolean = self.list.values.view == View.Items
+  derived byItem: Boolean = self.list.values.view == View::Items
   derived rows: Array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Found> = self.chosenOf()
   derived filtered: Boolean = self.list.values.level != ANY || self.list.values.quality != ANY
   derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
     self.list.values.quality)
-  derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
+  derived empty: String = self.items > 0 ? Locale::NO_RESULTS : Locale::NO_PRICES_FIND
   // What the table says under its headings while it has no rows.
   derived emptySaid: String = self.rows.length == 0 ? self.empty : ""
   derived anyClass: Boolean = self.itemClass == ANY
@@ -459,10 +459,10 @@ public class BuyPage implements Component {
   turn = 0
 
   // The house's categories, as the client lists them.
-  const categories: Array<Game.ItemCategory>
+  const categories: Array<Game::ItemCategory>
   house: mut House
   const prices: any PriceSource
-  offers: Signal<Array<Game.Offer>>
+  offers: Signal<Array<Game::Offer>>
   items: Signal<Integer>
   // The shopping list: its items marked, the row picked added to it.
   shopping: mut ShoppingList
@@ -471,7 +471,7 @@ public class BuyPage implements Component {
     house: mut House,
     prices: any PriceSource,
     // What the house showed last.
-    offers: Signal<Array<Game.Offer>>,
+    offers: Signal<Array<Game::Offer>>,
     // How many items the house's prices cover.
     items: Signal<Integer>,
     shopping: mut ShoppingList,
@@ -484,7 +484,7 @@ public class BuyPage implements Component {
     self.items = items
     self.shopping = shopping
     self.chosen = chosen
-    self.categories = Game.auctionQuery.categories()
+    self.categories = Game::auctionQuery.categories()
     watch (picks of self.picks) { self.chosen = picks.map(found => found) }
     self.sent = peek self.wanted
     // A key typed: what is typed is searched for once no other key comes for `SETTLE` seconds.
@@ -496,22 +496,22 @@ public class BuyPage implements Component {
     // meanwhile is sent whole after.
     watch {
       const wanted = self.wanted
-      if (wanted != peek self.sent && Game.auctionQuery.ready) {
-        if (Game.auctionQuery.search(peek self.search, peek self.filters())) { self.sent = wanted }
+      if (wanted != peek self.sent && Game::auctionQuery.ready) {
+        if (Game::auctionQuery.search(peek self.search, peek self.filters())) { self.sent = wanted }
       }
     }
   }
 
   // The typing settled, unless a key or Enter came since.
   async settleLater(mut self, turn: Integer) {
-    await Game.delay(SETTLE)
+    await Game::delay(SETTLE)
     if (turn == self.turn) { self.search = peek self.typed }
   }
 
   // Enter in the search field: what is typed is searched for now (the typing's settle after it searches the same).
   searchNow(mut self) { self.search = peek self.typed }
 
-  filters(self): Game.SearchFilters {
+  filters(self): Game::SearchFilters {
     const level = self.list.values.level
     return {
       itemClass: self.itemClass != ANY ? self.itemClass : nil,
@@ -527,9 +527,9 @@ public class BuyPage implements Component {
     _ = self.prices.revision
     let list: Array<Found> = []
     for (offer of self.offers) {
-      const key = PriceKey.given(offer.key)
+      const key = PriceKey::given(offer.key)
       const named = self.house.named(key)
-      const low = Copper.of(offer.copper)
+      const low = Copper::of(offer.copper)
       const market = self.house.quote(key)
       list.push({
         key: key, item: key.item(), name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
@@ -546,13 +546,13 @@ public class BuyPage implements Component {
     let at: Map<ItemId, Integer> = {}
     let list: Array<Found> = []
     for (offer of self.offers) {
-      const key = PriceKey.given(offer.key)
+      const key = PriceKey::given(offer.key)
       const item = key.item()
-      const low = Copper.of(offer.copper)
+      const low = Copper::of(offer.copper)
       const place = at[item]
       const row = place != nil ? list[place] : nil
       if (row == nil) {
-        const named = self.house.named(PriceKey.of(item))
+        const named = self.house.named(PriceKey::of(item))
         const market = self.house.quote(key)
         at[item] = list.length + 1
         list.push({
@@ -603,7 +603,7 @@ public class BuyPage implements Component {
       .List => self.shopping.add(found.item, 1, .ByHand)
       .Search => {
         // The item's own name: a variant's suffix isn't what the house searches by.
-        self.typed = self.house.named(PriceKey.of(found.item)).name
+        self.typed = self.house.named(PriceKey::of(found.item)).name
         self.searchNow()
       }
       else => {}
@@ -629,23 +629,23 @@ public class BuyPage implements Component {
         <ScrolledList>
           <SelectItem selected={self.anyClass} first={true} columns={CATEGORY} padding={CLASS_PAD}
                       @pick={self.pickAll}>
-            <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={.None} />
+            <text value={Locale::ALL_CLASSES} textColor={Style::GOLD} wrap={.None} />
           </SelectItem>
           <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
                          itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
         </ScrolledList>
         <box rows={SIDE} gap={3sp}>
           // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
-          <box columns={TOOLS} gap={3sp} yAlign={Align.Center}>
-            <Toolbar search={mut self.typed} placeholder={Locale.SEARCH} @submit={self.searchNow}>
-              <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
+          <box columns={TOOLS} gap={3sp} yAlign={Align::Center}>
+            <Toolbar search={mut self.typed} placeholder={Locale::SEARCH} @submit={self.searchNow}>
+              <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
                 <FilterMenu $if={self.filterOpen} level={mut self.list.values.level} quality={mut self.list.values.quality}
                             @close={self.closeFilter} />
               </ToolButton>
-              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
+              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale::VIEW} />
             </Toolbar>
-            <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
+            <PushButton label={Locale::PAGE_SHOPPING} width={Style::OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL}>
             <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
@@ -680,11 +680,11 @@ class ListingRow implements Component {
   derived left: String = leftOf(self.listing.left)
   derived selected: Boolean = self.index >= self.first && self.index <= self.last
 
-  const listing: Game.Listing
+  const listing: Game::Listing
   const index: Integer
   first: Signal<Integer>
   last: Signal<Integer>
-  constructor(listing: Game.Listing, index: Integer, first: Signal<Integer>, last: Signal<Integer>) {
+  constructor(listing: Game::Listing, index: Integer, first: Signal<Integer>, last: Signal<Integer>) {
     self.listing = listing
     self.index = index
     self.first = first
@@ -694,14 +694,14 @@ class ListingRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow selected={self.selected}>
-        <TableCell align={Align.End}>
+        <TableCell align={Align::End}>
           <Money amount={self.listing.unit} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style::INK} wrap={.None} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <text value={self.left} textColor={Style.INK} wrap={.None} />
+        <TableCell align={Align::End}>
+          <text value={self.left} textColor={Style::INK} wrap={.None} />
         </TableCell>
       </TableRow>
     }
@@ -715,20 +715,20 @@ public class Chosen implements Component {
   state count = 1
   state listSorted = 0
   state listDescending = false
-  derived listings: Array<Game.Listing> = self.purchase.listings ?? []
+  derived listings: Array<Game::Listing> = self.purchase.listings ?? []
   derived commodity: Boolean = self.purchase.commodity
   // The listings the next click buys from: a commodity's first so many, an item's one auction.
   derived first: Integer = self.commodity ? 1 : self.purchase.next
   derived last: Integer = self.commodity ? self.purchase.coveredBy(self.count) : self.purchase.next
   derived refused: Boolean = self.purchase.refused != nil
   derived refusedText: String = self.purchase.refused ?? ""
-  derived auction: Game.Listing | nil = self.listings[self.purchase.next]
+  derived auction: Game::Listing | nil = self.listings[self.purchase.next]
   derived quoted: Boolean = self.purchase.quotedCount == self.count
   derived total: Integer = self.totalOf()
-  derived buyLabel: String = self.quoted ? Locale.CONFIRM : Locale.BUY
-  derived canBuy: Boolean = !Game.auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
+  derived buyLabel: String = self.quoted ? Locale::CONFIRM : Locale::BUY
+  derived canBuy: Boolean = !Game::auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
       self.auction != nil)
-  derived auctionCount: String = String.of(self.auction?.quantity ?? 0)
+  derived auctionCount: String = String::of(self.auction?.quantity ?? 0)
 
   // Under the item's name in its panel: how many are listed.
   const detail: String
@@ -750,7 +750,7 @@ public class Chosen implements Component {
     self.prices = prices
     self.history = history
     self.shopping = shopping
-    self.detail = Locale.LISTED_COUNT.format(found.listed)
+    self.detail = Locale::LISTED_COUNT.format(found.listed)
     self.purchase = new Purchase(found.key)
   }
 
@@ -777,21 +777,21 @@ public class Chosen implements Component {
                           index={index} first={self.first} last={self.last} />
             </Table>
           </box>
-          <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
-            <text value={Locale.QUANTITY} textColor={Style.INK} />
+          <box columns={PAIR} gap={3sp} yAlign={Align::Center}>
+            <text value={Locale::QUANTITY} textColor={Style::INK} />
             <CountInput $if={self.commodity} value={mut self.count} least={1} most={MOST_COUNT} step={STEP} />
-            <text $else value={self.auctionCount} textColor={Style.INK} />
-            <text value={Locale.TOTAL} textColor={Style.INK} />
-            <box xAlign={Align.End}>
+            <text $else value={self.auctionCount} textColor={Style::INK} />
+            <text value={Locale::TOTAL} textColor={Style::INK} />
+            <box xAlign={Align::End}>
               <Money amount={self.total} />
             </box>
           </box>
           <box>
-            <text $if={self.refused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+            <text $if={self.refused} value={self.refusedText} textColor={Style::RED} textSize={SECONDARY_TEXT} />
           </box>
-          <PushButton label={self.buyLabel} width={Style.PANEL_BUTTON} plate={ButtonPlate.Accent} disabled={!self.canBuy}
+          <PushButton label={self.buyLabel} width={Style::PANEL_BUTTON} plate={ButtonPlate::Accent} disabled={!self.canBuy}
                       @click={self.onBuy} />
-          <PushButton label={Locale.TO_LIST} width={Style.PANEL_BUTTON} @click={self.onList} />
+          <PushButton label={Locale::TO_LIST} width={Style::PANEL_BUTTON} @click={self.onList} />
         </box>
       </ItemPanel>
     }

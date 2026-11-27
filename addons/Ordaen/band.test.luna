@@ -7,7 +7,7 @@ import { Band, BandCell, BandFact, Glyph, bandOf, glyphArt } from "@/band"
 const NAME = 13
 const DESCRIPTION = 34
 
-function line(left: String, right: String | nil = nil, kind: Integer = 0): Game.TooltipLine {
+function line(left: String, right: String | nil = nil, kind: Integer = 0): Game::TooltipLine {
   return { left: left, right: right, kind: kind }
 }
 
@@ -19,32 +19,32 @@ test "a spell's band reads its cost and range, its cast and its cooldown, the co
     line("Frostbolt", "Rank 4", NAME), line("65 Mana", "30 yd range"), line("2.5 sec cast", "Cooldown: 10 sec"),
     line("Launches a bolt of frost.", nil, DESCRIPTION)
   ]
-  const band = bandOf(lines, { amount: 65, resource: .Mana, color: Color.hex("#0000ff") })
-  Test.expect(said(band) == "65 | 30 yd | 2.5 sec | CD 10 sec")
+  const band = bandOf(lines, { amount: 65, resource: .Mana, color: Color::hex("#0000ff") })
+  Test::expect(said(band) == "65 | 30 yd | 2.5 sec | CD 10 sec")
   const cost = band.facts[1]
-  Test.expect(cost?.glyph == Glyph.Cost && cost?.tint?.equal(Color.hex("#2f6fe0")) == true)
-  Test.expect(band.facts[3]?.kind == .CastTime && band.facts[4]?.kind == .Cooldown)
+  Test::expect(cost?.glyph == Glyph::Cost && cost?.tint?.equal(Color::hex("#2f6fe0")) == true)
+  Test::expect(band.facts[3]?.kind == .CastTime && band.facts[4]?.kind == .Cooldown)
   // The lines it took, and none other.
-  Test.expect(band.taken[2] == true && band.taken[3] == true && band.taken[1] == nil && band.taken[4] == nil)
+  Test::expect(band.taken[2] == true && band.taken[3] == true && band.taken[1] == nil && band.taken[4] == nil)
 }
 
 test "a channelled spell's cast says how long, from its description; an instant one says so; a lone line is the range" {
   const channelled = bandOf(
     [line("Arcane Missiles", nil, NAME), line("Channeled"), line("Launches missiles over 3 sec.", nil, DESCRIPTION)], nil
   )
-  Test.expect(said(channelled) == "3 sec" && channelled.facts[1]?.glyph == Glyph.CastChan)
+  Test::expect(said(channelled) == "3 sec" && channelled.facts[1]?.glyph == Glyph::CastChan)
   const instant = bandOf([line("Charge", nil, NAME), line("Melee Range"), line("Instant")], nil)
-  Test.expect(said(instant) == "5 yd | Instant" && instant.facts[1]?.kind == .Melee && instant.facts[2]?.kind == .CastNow)
+  Test::expect(said(instant) == "5 yd | Instant" && instant.facts[1]?.kind == .Melee && instant.facts[2]?.kind == .CastNow)
 }
 
 test "a line after the description is no cell, nor reagents among the first" {
   const band = bandOf(
     [line("Portal", nil, NAME), line("Reagents: Rune of Portals"), line("Opens a portal.", nil, DESCRIPTION), line("Instant")], nil
   )
-  Test.expect(band.facts.length == 0)
+  Test::expect(band.facts.length == 0)
 }
 
-const CELLS: Array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color.hex("#2f6fe0") }, { text: "2.5 sec", glyph: .CastTime }]
+const CELLS: Array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color::hex("#2f6fe0") }, { text: "2.5 sec", glyph: .CastTime }]
 
 // Two cells, the second one explaining while `lit`.
 class Cells {
@@ -65,13 +65,13 @@ class Cells {
 
 test "a cell draws its glyph before its text; one that explains shows what it explains under the cursor" {
   const page = new Cells()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  Test.expect(Test.page().text("65").item().box(glyphArt(.Cost)).shown())
-  Test.expect(Test.page().text("2.5 sec").item().box(glyphArt(.CastTime)).shown())
-  Test.page().text("2.5 sec").hover()
-  Test.expect(!Test.page().text("Cast time").shown())
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  Test::expect(Test::page().text("65").item().box(glyphArt(.Cost)).shown())
+  Test::expect(Test::page().text("2.5 sec").item().box(glyphArt(.CastTime)).shown())
+  Test::page().text("2.5 sec").hover()
+  Test::expect(!Test::page().text("Cast time").shown())
   page.lit = true
-  Test.page().text("2.5 sec").hover()
-  Test.expect(Test.page().text("Cast time").shown())
+  Test::page().text("2.5 sec").hover()
+  Test::expect(Test::page().text("Cast time").shown())
   destroy page
 }

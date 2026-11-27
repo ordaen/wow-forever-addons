@@ -12,15 +12,15 @@ import root Alts from "OrdaenAlts"
 import { Character, CharacterId, Kept } from "@/character"
 import Locale from "@/locales"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
 // of what is late, the green of what is ready, the darker ink of a character out of reach.
-const GOLD: Color = Color.hex("#ffd100")
-const INK: Color = Color.hex("#e8dcc4")
-const DIM: Color = Color.hex("#a3977f")
-const RED: Color = Color.hex("#ff4040")
-const GREEN: Color = Color.hex("#40d060")
-const AWAY: Color = Color.hex("#7a7060")
+const GOLD: Color = Color::hex("#ffd100")
+const INK: Color = Color::hex("#e8dcc4")
+const DIM: Color = Color::hex("#a3977f")
+const RED: Color = Color::hex("#ff4040")
+const GREEN: Color = Color::hex("#40d060")
+const AWAY: Color = Color::hex("#7a7060")
 // The character being played: its GUID, realm and side, as the stand-in gives them.
 const PLAYER = "Player-1-00000001"
 const REALM = "Stand-in"
@@ -28,13 +28,13 @@ const REALM = "Stand-in"
 const START = 1577836800 + 1000 * 3600
 
 // The window: found by its first tab, which it always shows.
-function window(): Test.Part {
-  return Test.page().window(Locale.TAB_CHARACTERS)
+function window(): Test::Part {
+  return Test::page().window(Locale::TAB_CHARACTERS)
 }
 
 // `/alts`, as the player types it.
 function alts() {
-  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  (Client::SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
 }
 
 // A character's row, read whole.
@@ -54,14 +54,14 @@ function order(names: Array<String>): String {
 // A character of the player's realm and side, last played `hours` ago.
 function alt(name: String, level: Integer, hours: Integer): mut Character {
   return Character {
-    name: name, realm: REALM, faction: .Alliance, level: level, seen: Hour.fromNow(-hours * 3600), mailExpires: nil
+    name: name, realm: REALM, faction: .Alliance, level: level, seen: Hour::fromNow(-hours * 3600), mailExpires: nil
   }
 }
 
 // The module turned off and on in Ordaen's settings, and the window opened: the module reads its saved records anew.
 function again() {
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button(Ordaen.art.ctl.switchOn).click()
   settings.button(Ordaen.art.ctl.switchOff).click()
   settings.button(Ordaen.art.ctl.corner.close).click()
@@ -72,267 +72,267 @@ function again() {
 // was, kept as the module's saved records and read by the module anew.
 function recorded(others: Array<Character>, me: Character | nil) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId.of("Player-1-" + String.of(index + 1))] = character.clone() }
-  if (me != nil) { kept.characters[CharacterId.of(PLAYER)] = me.clone() }
-  Game.saved.store(.Own, "characters", kept)
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  if (me != nil) { kept.characters[CharacterId::of(PLAYER)] = me.clone() }
+  Game::saved.store(.Own, "characters", kept)
   again()
 }
 
 test "/alts opens the window on the characters: the one played alone, in gold, and a note that only it is recorded" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
-  Test.expect(window().text("Player").textColor().equal(GOLD))
-  Test.expect(window().text(Locale.ONLY_ONE).shown())
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  Test::expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Test::expect(window().text("Player").textColor().equal(GOLD))
+  Test::expect(window().text(Locale::ONLY_ONE).shown())
 }
 
 test "the character being played has no Forget" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5)], nil)
-  Test.expect(window().text("Aria").item().button(Locale.FORGET).shown())
-  Test.expect(!window().text("Player").item().button(Locale.FORGET).shown())
-  Test.expect(!window().text(Locale.ONLY_ONE).shown())
+  Test::expect(window().text("Aria").item().button(Locale::FORGET).shown())
+  Test::expect(!window().text("Player").item().button(Locale::FORGET).shown())
+  Test::expect(!window().text(Locale::ONLY_ONE).shown())
 }
 
 test "/alts again closes the window, and so do its close button and Escape" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  Test.open("/alts")
-  Test.expect(!window().shown())
-  Test.open("/alts")
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  Test::open("/alts")
+  Test::expect(!window().shown())
+  Test::open("/alts")
   window().button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!window().shown())
-  Test.open("/alts")
-  Test.key(Key.Escape)
-  Test.expect(!window().shown())
+  Test::expect(!window().shown())
+  Test::open("/alts")
+  Test::key(Key::Escape)
+  Test::expect(!window().shown())
 }
 
 test "the row follows the character as it plays: its level and its gold" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  Game.player.level = 42
-  Test.expect(row("Player") == "Player | 42 | 0g 0s 0c | — | now | never opened | never opened")
-  Game.money.amount = 1234567
-  Test.expect(row("Player") == "Player | 42 | 123g 45s 67c | — | now | never opened | never opened")
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  Game::player.level = 42
+  Test::expect(row("Player") == "Player | 42 | 0g 0s 0c | — | now | never opened | never opened")
+  Game::money.amount = 1234567
+  Test::expect(row("Player") == "Player | 42 | 123g 45s 67c | — | now | never opened | never opened")
 }
 
 test "a character with a surname is listed by its name and surname" {
-  Test.login({ guid: PLAYER, name: "Regy", surname: "Ironsight" })
-  Test.mount(nil, SCREEN)
+  Test::login({ guid: PLAYER, name: "Regy", surname: "Ironsight" })
+  Test::mount(nil, SCREEN)
   alts()
-  Test.expect(row("Regy Ironsight") == "Regy Ironsight | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Test::expect(row("Regy Ironsight") == "Regy Ironsight | 1 | 0g 0s 0c | — | now | never opened | never opened")
 }
 
 test "characters played once are listed when another is played, apart where their realm or side differs" {
-  Test.login({ guid: "Player-6946-005FB73B", name: "Regy", surname: nil, realm: "CAMWOW EU5 Realm 4 PvP" })
-  Test.login({ guid: "Player-1-00000002", name: "Horda", surname: nil, faction: .Horde })
-  Test.login({ guid: "Player-1-00000003", name: "Panda", surname: nil, faction: .Neutral })
-  Test.login({ guid: "Player-1-00000004", name: "Allia", surname: nil, faction: .Alliance })
-  Test.login({ guid: PLAYER, name: "Player", surname: nil })
-  Test.mount(nil, SCREEN)
+  Test::login({ guid: "Player-6946-005FB73B", name: "Regy", surname: nil, realm: "CAMWOW EU5 Realm 4 PvP" })
+  Test::login({ guid: "Player-1-00000002", name: "Horda", surname: nil, faction: .Horde })
+  Test::login({ guid: "Player-1-00000003", name: "Panda", surname: nil, faction: .Neutral })
+  Test::login({ guid: "Player-1-00000004", name: "Allia", surname: nil, faction: .Alliance })
+  Test::login({ guid: PLAYER, name: "Player", surname: nil })
+  Test::mount(nil, SCREEN)
   alts()
-  Test.expect(row("Regy") == "Regy | 1 | 0g 0s 0c | — | 0 h ago | never opened | never opened | Forget")
-  Test.expect(window().text("Regy").textColor().equal(AWAY) && window().text("Horda").textColor().equal(AWAY))
-  Test.expect(window().text("Panda").textColor().equal(AWAY) && window().text("Allia").textColor().equal(INK))
+  Test::expect(row("Regy") == "Regy | 1 | 0g 0s 0c | — | 0 h ago | never opened | never opened | Forget")
+  Test::expect(window().text("Regy").textColor().equal(AWAY) && window().text("Horda").textColor().equal(AWAY))
+  Test::expect(window().text("Panda").textColor().equal(AWAY) && window().text("Allia").textColor().equal(INK))
 }
 
 test "the bags' free slots show once the bags are read, a dash before, and follow the bags" {
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
   // The bags' room as the game says it, read as the bags change.
   const room = (free: Integer, slots: Integer): String => {
-    Game.bags.roomOfAll = (): Game.BagRoom => { return { free: free, slots: slots } }
-    Game.bags.changed.emit()
+    Game::bags.roomOfAll = (): Game::BagRoom => { return { free: free, slots: slots } }
+    Game::bags.changed.emit()
     return row("Player")
   }
-  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
-  Test.expect(room(7, 20) == "Player | 1 | 0g 0s 0c | 7 | now | never opened | never opened")
-  Test.expect(room(0, 20) == "Player | 1 | 0g 0s 0c | 0 | now | never opened | never opened")
-  Test.expect(room(0, 0) == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Test::expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Test::expect(room(7, 20) == "Player | 1 | 0g 0s 0c | 7 | now | never opened | never opened")
+  Test::expect(room(0, 20) == "Player | 1 | 0g 0s 0c | 0 | now | never opened | never opened")
+  Test::expect(room(0, 0) == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
 }
 
 test "the bank says how long ago it was read: in hours under a day, then in whole days" {
-  Game.clock.server = START
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => {
+  Game::clock.server = START
+  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
     return held
   }
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
-  Game.bankObserver.opened.emit()
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
+  Game::bankObserver.opened.emit()
   // The window opened again a number of hours on: the row read as it is then.
   const later = (hours: Integer): String => {
-    Game.clock.server = START + hours * 3600
-    Test.open("/alts")
-    Test.open("/alts")
+    Game::clock.server = START + hours * 3600
+    Test::open("/alts")
+    Test::open("/alts")
     return row("Player")
   }
-  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | 0 h ago | never opened")
-  Test.expect(later(23) == "Player | 1 | 0g 0s 0c | — | now | 23 h ago | never opened")
-  Test.expect(later(24) == "Player | 1 | 0g 0s 0c | — | now | 1 d. ago | never opened")
-  Test.expect(later(71) == "Player | 1 | 0g 0s 0c | — | now | 2 d. ago | never opened")
+  Test::expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | 0 h ago | never opened")
+  Test::expect(later(23) == "Player | 1 | 0g 0s 0c | — | now | 23 h ago | never opened")
+  Test::expect(later(24) == "Player | 1 | 0g 0s 0c | — | now | 1 d. ago | never opened")
+  Test::expect(later(71) == "Player | 1 | 0g 0s 0c | — | now | 2 d. ago | never opened")
 }
 
 test "the mail says when its first mail with something expires, in red within three days, a dash for none" {
-  Game.clock.server = START
-  Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => {
+  Game::clock.server = START
+  Game::mailObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
     return held
   }
-  Test.mount(nil, SCREEN)
-  Test.open("/alts")
+  Test::mount(nil, SCREEN)
+  Test::open("/alts")
   // The inbox read with its first mail expiring in a number of hours, or none: the row, and the colour of its text.
   const mail = (hours: Integer | nil): String => {
-    Game.mailObserver.soonest = (): Integer | nil => hours == nil ? nil : hours * 3600
-    Game.mailObserver.changed.emit()
+    Game::mailObserver.soonest = (): Integer | nil => hours == nil ? nil : hours * 3600
+    Game::mailObserver.changed.emit()
     return row("Player")
   }
   const ink = (text: String): Color => window().text("Player").item().text(text).textColor()
-  Test.expect(mail(-2) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 0 h" && ink("in 0 h").equal(RED))
-  Test.expect(mail(5) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 5 h" && ink("in 5 h").equal(RED))
-  Test.expect(mail(23) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 23 h")
-  Test.expect(mail(24) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 1 d.")
-  Test.expect(mail(71) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 2 d." && ink("in 2 d.").equal(RED))
-  Test.expect(mail(72) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 3 d." && ink("in 3 d.").equal(DIM))
-  Test.expect(mail(nil) == "Player | 1 | 0g 0s 0c | — | now | never opened | —")
+  Test::expect(mail(-2) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 0 h" && ink("in 0 h").equal(RED))
+  Test::expect(mail(5) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 5 h" && ink("in 5 h").equal(RED))
+  Test::expect(mail(23) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 23 h")
+  Test::expect(mail(24) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 1 d.")
+  Test::expect(mail(71) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 2 d." && ink("in 2 d.").equal(RED))
+  Test::expect(mail(72) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 3 d." && ink("in 3 d.").equal(DIM))
+  Test::expect(mail(nil) == "Player | 1 | 0g 0s 0c | — | now | never opened | —")
 }
 
 test "another character of the realm and side is in plain ink, one of another realm or side darker" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const realm = alt("Regy", 42, 5)
   realm.realm = "CAMWOW EU5 Realm 4 PvP"
   const side = alt("Horda", 42, 5)
   side.faction = .Horde
   recorded([alt("Aria", 30, 5), realm, side], nil)
-  Test.expect(window().text("Aria").textColor().equal(INK))
-  Test.expect(window().text("Regy").textColor().equal(AWAY))
-  Test.expect(window().text("Horda").textColor().equal(AWAY))
+  Test::expect(window().text("Aria").textColor().equal(INK))
+  Test::expect(window().text("Regy").textColor().equal(AWAY))
+  Test::expect(window().text("Horda").textColor().equal(AWAY))
 }
 
 test "a character not played for over ninety days has the hours since in red" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
   recorded([alt("Ninety", 30, 90 * 24), alt("Older", 30, 90 * 24 + 1)], nil)
-  Test.expect(row("Ninety") == "Ninety | 30 | 0g 0s 0c | — | 90 d. ago | never opened | never opened | Forget")
-  Test.expect(window().text("Ninety").item().text("90 d. ago").textColor().equal(DIM))
-  Test.expect(window().text("Older").item().text("90 d. ago").textColor().equal(RED))
+  Test::expect(row("Ninety") == "Ninety | 30 | 0g 0s 0c | — | 90 d. ago | never opened | never opened | Forget")
+  Test::expect(window().text("Ninety").item().text("90 d. ago").textColor().equal(DIM))
+  Test::expect(window().text("Older").item().text("90 d. ago").textColor().equal(RED))
 }
 
 test "a character played again is written down anew: its name, level, realm and side, and played now" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
   const before = alt("Old Name", 50, 500)
   before.realm = "Elsewhere"
   before.faction = .Horde
   recorded([alt("Aria", 30, 10)], before)
-  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
-  Test.expect(window().text("Player").textColor().equal(GOLD))
-  window().button(Locale.COL_SEEN).click()
-  Test.expect(order(["Player", "Aria"]) == "Player, Aria")
+  Test::expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Test::expect(window().text("Player").textColor().equal(GOLD))
+  window().button(Locale::COL_SEEN).click()
+  Test::expect(order(["Player", "Aria"]) == "Player, Aria")
 }
 
 test "the character being played is written down with its class, for others to colour it by" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([alt("Aria", 30, 10)], alt("Player", 10, 5))
-  Test.expect(Game.player.classTag != "")
-  Test.expect(Alts.characters[CharacterId.of(PLAYER)]?.classTag == Game.player.classTag) }
+  Test::expect(Game::player.classTag != "")
+  Test::expect(Alts.characters[CharacterId::of(PLAYER)]?.classTag == Game::player.classTag) }
 
 test "the table is in the names' order, and a heading sorts by its column, a second click the other way" {
-  Game.clock.server = START
+  Game::clock.server = START
   // Each column orders the six otherwise.
   const holding = (name: String, level: Integer, money: Integer, free: Integer, hours: Integer): Character => {
     const made = alt(name, level, hours)
-    made.money = Copper.of(money)
+    made.money = Copper::of(money)
     made.slots = 40
     made.free = free
     return made
   }
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([
     holding("Aria", 30, 500, 2, 10), holding("Bram", 10, 9000, 15, 50), holding("Cole", 20, 100, 9, 1),
     holding("Dana", 50, 20, 30, 70), holding("Eli", 40, 3000, 5, 3)
   ], nil)
   const names = ["Aria", "Bram", "Cole", "Dana", "Eli", "Player"]
-  Test.expect(order(names) == "Aria, Bram, Cole, Dana, Eli, Player")
+  Test::expect(order(names) == "Aria, Bram, Cole, Dana, Eli, Player")
   const sorted = (heading: String): String => {
     window().button(heading).click()
     return order(names)
   }
-  Test.expect(sorted(Locale.COL_NAME) == "Aria, Bram, Cole, Dana, Eli, Player")
-  Test.expect(sorted(Locale.COL_NAME) == "Player, Eli, Dana, Cole, Bram, Aria")
-  Test.expect(sorted(Locale.COL_LEVEL) == "Player, Bram, Cole, Aria, Eli, Dana")
-  Test.expect(sorted(Locale.COL_LEVEL) == "Dana, Eli, Aria, Cole, Bram, Player")
-  Test.expect(sorted(Locale.COL_GOLD) == "Player, Dana, Cole, Aria, Eli, Bram")
-  Test.expect(sorted(Locale.COL_GOLD) == "Bram, Eli, Aria, Cole, Dana, Player")
-  Test.expect(sorted(Locale.COL_BAGS) == "Player, Aria, Eli, Cole, Bram, Dana")
-  Test.expect(sorted(Locale.COL_BAGS) == "Dana, Bram, Cole, Eli, Aria, Player")
-  Test.expect(sorted(Locale.COL_SEEN) == "Player, Cole, Eli, Aria, Bram, Dana")
-  Test.expect(sorted(Locale.COL_SEEN) == "Dana, Bram, Aria, Eli, Cole, Player")
+  Test::expect(sorted(Locale::COL_NAME) == "Aria, Bram, Cole, Dana, Eli, Player")
+  Test::expect(sorted(Locale::COL_NAME) == "Player, Eli, Dana, Cole, Bram, Aria")
+  Test::expect(sorted(Locale::COL_LEVEL) == "Player, Bram, Cole, Aria, Eli, Dana")
+  Test::expect(sorted(Locale::COL_LEVEL) == "Dana, Eli, Aria, Cole, Bram, Player")
+  Test::expect(sorted(Locale::COL_GOLD) == "Player, Dana, Cole, Aria, Eli, Bram")
+  Test::expect(sorted(Locale::COL_GOLD) == "Bram, Eli, Aria, Cole, Dana, Player")
+  Test::expect(sorted(Locale::COL_BAGS) == "Player, Aria, Eli, Cole, Bram, Dana")
+  Test::expect(sorted(Locale::COL_BAGS) == "Dana, Bram, Cole, Eli, Aria, Player")
+  Test::expect(sorted(Locale::COL_SEEN) == "Player, Cole, Eli, Aria, Bram, Dana")
+  Test::expect(sorted(Locale::COL_SEEN) == "Dana, Bram, Aria, Eli, Cole, Player")
 }
 
 test "the hour the character is played moves with its gold: sorted by when played, it is played now" {
-  Game.clock.server = START
-  Test.mount(nil, SCREEN)
+  Game::clock.server = START
+  Test::mount(nil, SCREEN)
   recorded([alt("Aria", 30, -3)], nil)
-  Game.clock.server = START + 5 * 3600
-  Game.money.amount = 100
-  window().button(Locale.COL_SEEN).click()
-  Test.expect(order(["Aria", "Player"]) == "Player, Aria")
+  Game::clock.server = START + 5 * 3600
+  Game::money.amount = 100
+  window().button(Locale::COL_SEEN).click()
+  Test::expect(order(["Aria", "Player"]) == "Player, Aria")
 }
 
 test "a character of the Horde sees another of its realm's Horde in plain ink" {
-  Test.login({ guid: "Player-1-00000002", name: "Horda", surname: nil, faction: .Horde })
-  Test.login({ guid: "Player-1-00000003", name: "Hordb", surname: nil, faction: .Horde })
-  Test.mount(nil, SCREEN)
+  Test::login({ guid: "Player-1-00000002", name: "Horda", surname: nil, faction: .Horde })
+  Test::login({ guid: "Player-1-00000003", name: "Hordb", surname: nil, faction: .Horde })
+  Test::mount(nil, SCREEN)
   alts()
-  Test.expect(window().text("Horda").textColor().equal(INK) && window().text("Player").textColor().equal(AWAY))
+  Test::expect(window().text("Horda").textColor().equal(INK) && window().text("Player").textColor().equal(AWAY))
 }
 
 test "Forget asks first, naming the character, and Cancel keeps it" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5)], nil)
-  window().text("Aria").item().button(Locale.FORGET).click()
-  const question = Test.page().window(Locale.FORGET_TITLE)
-  Test.expect(question.text(Locale.FORGET_ASK.format("Aria")).shown())
-  question.button(Locale.CANCEL).click()
-  Test.expect(!Test.page().window(Locale.FORGET_TITLE).shown())
-  Test.expect(row("Aria") == "Aria | 30 | 0g 0s 0c | — | 5 h ago | never opened | never opened | Forget")
+  window().text("Aria").item().button(Locale::FORGET).click()
+  const question = Test::page().window(Locale::FORGET_TITLE)
+  Test::expect(question.text(Locale::FORGET_ASK.format("Aria")).shown())
+  question.button(Locale::CANCEL).click()
+  Test::expect(!Test::page().window(Locale::FORGET_TITLE).shown())
+  Test::expect(row("Aria") == "Aria | 30 | 0g 0s 0c | — | 5 h ago | never opened | never opened | Forget")
 }
 
 test "a character forgotten leaves the table, and stays gone when the module reads its records again" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5), alt("Bram", 10, 5)], nil)
-  window().text("Aria").item().button(Locale.FORGET).click()
-  Test.page().window(Locale.FORGET_TITLE).button(Locale.FORGET).click()
-  Test.expect(!window().text("Aria").shown() && window().text("Bram").shown())
+  window().text("Aria").item().button(Locale::FORGET).click()
+  Test::page().window(Locale::FORGET_TITLE).button(Locale::FORGET).click()
+  Test::expect(!window().text("Aria").shown() && window().text("Bram").shown())
   again()
-  Test.expect(order(["Aria", "Bram", "Player"]) == "Bram, Player")
+  Test::expect(order(["Aria", "Bram", "Player"]) == "Bram, Player")
 }
 
 test "forty characters scroll inside the window" {
   const others: Array<Character> = []
-  for (i of 1..39) { others.push(alt("Alt " + String.of(100 + i), 10, i)) }
-  Test.mount(nil, SCREEN)
+  for (i of 1..39) { others.push(alt("Alt " + String::of(100 + i), 10, i)) }
+  Test::mount(nil, SCREEN)
   recorded(others, nil)
-  Test.expect(row("Alt 101") == "Alt 101 | 10 | 0g 0s 0c | — | 1 h ago | never opened | never opened | Forget")
+  Test::expect(row("Alt 101") == "Alt 101 | 10 | 0g 0s 0c | — | 1 h ago | never opened | never opened | Forget")
 }
 
 test "what was recorded is kept: after a reload the money, the bags and the bank read are as they were" {
   // The stand-in's own clock, which the new session's game has too.
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => {
+  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
     return held
   }
-  Test.mount(nil, SCREEN)
-  Game.money.amount = 1234567
-  Game.bags.roomOfAll = (): Game.BagRoom => { return { free: 7, slots: 20 } }
-  Game.bags.changed.emit()
-  Game.bankObserver.opened.emit()
-  Test.open("/alts")
+  Test::mount(nil, SCREEN)
+  Game::money.amount = 1234567
+  Game::bags.roomOfAll = (): Game::BagRoom => { return { free: 7, slots: 20 } }
+  Game::bags.changed.emit()
+  Game::bankObserver.opened.emit()
+  Test::open("/alts")
   const before = row("Player")
-  Test.reload()
+  Test::reload()
   alts()
-  Test.expect(before == "Player | 1 | 123g 45s 67c | 7 | now | 0 h ago | never opened")
+  Test::expect(before == "Player | 1 | 123g 45s 67c | 7 | now | 0 h ago | never opened")
   // The test's fakes hold over the reload: the new session's game says the same money and bags.
-  Test.expect(row("Player") == before)
+  Test::expect(row("Player") == before)
 }

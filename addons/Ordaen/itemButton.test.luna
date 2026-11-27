@@ -7,8 +7,8 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Corner, ItemButton, Marker, Quality, SlotWell } from "@/itemButton"
 
-const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }
-const REAGENT: Marker = { corner: Corner.BottomLeft, color: Color.hex("#4fd1ff") }
+const SHOPPING: Marker = { corner: Corner::TopLeft, color: Color::hex("#ffd100") }
+const REAGENT: Marker = { corner: Corner::BottomLeft, color: Color::hex("#4fd1ff") }
 const BOTH: Array<Marker> = [SHOPPING, REAGENT]
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
@@ -24,45 +24,45 @@ class Bag {
       <box columns={["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]} gap={3sp}>
         <ItemButton item={nil} />
         <ItemButton item={6948} @pick={self.onPick} />
-        <ItemButton item={2589} count={20} quality={Quality.Epic} dimmed={self.dimmed} />
-        <ItemButton item={2592} count={5} quality={Quality.Uncommon} markers={BOTH} />
-        <ItemButton item={774} quality={Quality.Poor} />
-        <ItemButton item={9999} quality={Quality.Legendary} />
+        <ItemButton item={2589} count={20} quality={Quality::Epic} dimmed={self.dimmed} />
+        <ItemButton item={2592} count={5} quality={Quality::Uncommon} markers={BOTH} />
+        <ItemButton item={774} quality={Quality::Poor} />
+        <ItemButton item={9999} quality={Quality::Legendary} />
       </box>
     }
   }
 }
 
 test "an item's slot draws its icon, its quality's border, its count and markers, shows the game's tooltip, and a click picks or a Shift+click links the item" {
-  Game.items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
+  Game::items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
   let page = new Bag()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  Test.shot("six slots: empty, common with an icon, an epic twenty, an uncommon five with two pips, a poor one, a legendary the game has no icon for")
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test::shot("six slots: empty, common with an icon, an epic twenty, an uncommon five with two pips, a poor one, a legendary the game has no icon for")
 
-  Test.moveTo({ x: 58, y: 16 })
-  Test.shot("the cursor on the common slot: the light over its icon, the game's tooltip of the item asked for")
+  Test::moveTo({ x: 58, y: 16 })
+  Test::shot("the cursor on the common slot: the light over its icon, the game's tooltip of the item asked for")
 
-  Test.moveTo({ x: 590, y: 190 })
-  Test.shot("the cursor away: the light gone, nothing asked (the game hides its tooltip)")
+  Test::moveTo({ x: 590, y: 190 })
+  Test::shot("the cursor away: the light gone, nothing asked (the game hides its tooltip)")
 
-  Test.moveTo({ x: 10, y: 16 })
-  Test.shot("the cursor on the empty slot: the light, no tooltip asked for")
+  Test::moveTo({ x: 10, y: 16 })
+  Test::shot("the cursor on the empty slot: the light, no tooltip asked for")
 
   page.dimmed = true
-  Test.shot("the epic dimmed by a search")
+  Test::shot("the epic dimmed by a search")
 
-  Test.click({ x: 58, y: 16 }, nil)
-  Test.expect(page.picked == 6948)
-  Test.shot("the common slot clicked: picked, nothing put into the chat")
+  Test::click({ x: 58, y: 16 }, nil)
+  Test::expect(page.picked == 6948)
+  Test::shot("the common slot clicked: picked, nothing put into the chat")
 
   page.picked = 0
-  Test.hold([.Shift])
-  Test.click({ x: 58, y: 16 }, nil)
-  Test.expect(page.picked == 0)
-  Test.shot("Shift+clicked: the item's link put into the chat, nothing picked")
+  Test::hold([.Shift])
+  Test::click({ x: 58, y: 16 }, nil)
+  Test::expect(page.picked == 0)
+  Test::shot("Shift+clicked: the item's link put into the chat, nothing picked")
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }
 
 // Two slots that say what they hear of a drag.
@@ -86,22 +86,22 @@ class Dragged {
 
 test "a slot dragged says so, and the slot it is let go on that it was dropped on; neither is a click" {
   let page = new Dragged()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  Test.moveTo({ x: 16, y: 16 })
-  Test.press(nil)
-  Test.moveTo({ x: 18, y: 16 })
-  Test.pass(0.02)
-  Test.moveTo({ x: 58, y: 16 })
-  Test.pass(0.02)
-  Test.release(nil)
-  Test.expect(page.heard.join(", ") == "dragged, dropped")
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test::moveTo({ x: 16, y: 16 })
+  Test::press(nil)
+  Test::moveTo({ x: 18, y: 16 })
+  Test::pass(0.02)
+  Test::moveTo({ x: 58, y: 16 })
+  Test::pass(0.02)
+  Test::release(nil)
+  Test::expect(page.heard.join(", ") == "dragged, dropped")
   destroy page
 }
 
 // The slot as cells a test changes, to read what the snapshot's tree leaves out (a line's colour).
 class Slot {
   state item: Integer | nil = 1
-  state quality: Quality = Quality.Poor
+  state quality: Quality = Quality::Poor
   state count = 1
   button: ItemButton | nil
 
@@ -123,28 +123,28 @@ class Slot {
 
 test "each quality has its own border colour, lit inside from uncommon up, a slot with no item the plain one" {
   let slot = new Slot()
-  const qualities = [Quality.Poor, Quality.Common, Quality.Uncommon, Quality.Rare, Quality.Epic, Quality.Legendary,
-    Quality.Artifact, Quality.Heirloom]
+  const qualities = [Quality::Poor, Quality::Common, Quality::Uncommon, Quality::Rare, Quality::Epic, Quality::Legendary,
+    Quality::Artifact, Quality::Heirloom]
   let seen: Array<String> = []
   for (quality of qualities) {
     slot.quality = quality
     const look = slot.look()
-    Test.expect(!seen.any(other => other == look))
+    Test::expect(!seen.any(other => other == look))
     seen.push(look)
-    Test.note("%s: %s".format(String.of(quality), look))
+    Test::note("%s: %s".format(String::of(quality), look))
   }
-  slot.quality = Quality.Epic
+  slot.quality = Quality::Epic
   slot.item = nil
-  Test.note("an empty slot of the epic quality: " + slot.look())
-  slot.quality = Quality.Common
-  Test.expect(slot.look() == seen[2])
-  Test.shot("the borders' colours")
+  Test::note("an empty slot of the epic quality: " + slot.look())
+  slot.quality = Quality::Common
+  Test::expect(slot.look() == seen[2])
+  Test::shot("the borders' colours")
   destroy slot
 }
 
 // The client's tooltip of three items: one with a requirement it marks unmet, one of a kind it marks the player's
 // class can't use, and one it marks as met.
-function tipOf(id: Integer): Game.TooltipData | nil {
+function tipOf(id: Integer): Game::TooltipData | nil {
   if (id == 774) { return { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } }
   if (id == 2592) { return { lines: [{ left: "Plate", kind: 0, validType: false }] } }
   if (id == 2589) { return { lines: [{ left: "Requires Level 5", kind: 0, usable: true }] } }
@@ -152,59 +152,59 @@ function tipOf(id: Integer): Game.TooltipData | nil {
 }
 
 test "an item the client says the player can't use is tinted red over its icon; the others are drawn as they are" {
-  Game.items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => tipOf(id)
+  Game::items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => tipOf(id)
   let slot = new Slot()
   const button = slot.button ?? panic("the slot makes its button")
   for (id of [774, 2592, 2589, 6948]) {
     slot.item = id
-    Test.note("%d: %s".format(id, button.usable ? "usable" : "not usable"))
+    Test::note("%d: %s".format(id, button.usable ? "usable" : "not usable"))
   }
   slot.item = 774
-  Test.expect(!button.usable)
+  Test::expect(!button.usable)
   slot.item = 2589
-  Test.expect(button.usable)
+  Test::expect(button.usable)
   slot.item = nil
-  Test.expect(button.usable)
+  Test::expect(button.usable)
   destroy slot
 
   let page = new Bag()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  Test.expect(Test.page().paintedWith(Color.hex("#ff1a1a")))
-  Test.shot("the poor one (a level it needs) and the uncommon one (plate) tinted red, the others as they are")
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test::expect(Test::page().paintedWith(Color::hex("#ff1a1a")))
+  Test::shot("the poor one (a level it needs) and the uncommon one (plate) tinted red, the others as they are")
   destroy page
 }
 
 test "a level-up has the client asked again whether the player can use the item" {
   let met = false
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
     return { lines: [{ left: "Requires Level 10", kind: 0, usable: met }] }
   }
   let slot = new Slot()
   const button = slot.button ?? panic("the slot makes its button")
   slot.item = 4242
-  Test.expect(!button.usable)
+  Test::expect(!button.usable)
   met = true
-  Test.expect(!button.usable)
-  Events.PLAYER_LEVEL_UP.emit(10, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-  Test.expect(button.usable)
+  Test::expect(!button.usable)
+  Events::PLAYER_LEVEL_UP.emit(10, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+  Test::expect(button.usable)
   met = false
-  Events.SKILL_LINES_CHANGED.emit()
-  Test.expect(!button.usable)
+  Events::SKILL_LINES_CHANGED.emit()
+  Test::expect(!button.usable)
   destroy slot
 }
 
 test "an icon is drawn for each slot that has one" {
-  Game.items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
+  Game::items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
   let page = new Bag()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
   let icons = 0
-  for (shown of Test.drawn()) {
+  for (shown of Test::drawn()) {
     if (shown.file == "Interface/Icons/INV_Misc_Bag_08") { icons += 1 }
   }
-  Test.expect(icons == 4)
-  Test.note("textures drawn with the icon's file: " + String.of(icons))
-  Test.shot("six slots, four of them with an icon (the empty one and the one with none to draw have no texture)")
+  Test::expect(icons == 4)
+  Test::note("textures drawn with the icon's file: " + String::of(icons))
+  Test::shot("six slots, four of them with an icon (the empty one and the one with none to draw have no texture)")
   destroy page
 }
 
@@ -228,22 +228,22 @@ class Mailed {
 
 test "a letter's attachment's tooltip is the game's of that attachment, not the item's by its number" {
   let page = new Mailed()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  _ = Test.requests()
-  Test.moveTo({ x: 16, y: 16 })
-  Test.expect(Test.requests().join(", ") == "Items.showMail 2 3")
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  _ = Test::requests()
+  Test::moveTo({ x: 16, y: 16 })
+  Test::expect(Test::requests().join(", ") == "Items.showMail 2 3")
 }
 
 test "a worn item's tooltip is its slot's, which the game compares with nothing; an item's elsewhere is the item's" {
   let page = new Worn()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  _ = Test.requests()
-  Test.moveTo({ x: 16, y: 16 })
-  const worn = Test.requests()
-  Test.expect(worn.length == 1 && (worn[1] ?? "").contains("Items.showWorn"))
-  Test.moveTo({ x: 58, y: 16 })
-  const bagged = Test.requests()
-  Test.expect(bagged.length == 1 && (bagged[1] ?? "").contains("Items.show") && !(bagged[1] ?? "").contains("showWorn"))
+  Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  _ = Test::requests()
+  Test::moveTo({ x: 16, y: 16 })
+  const worn = Test::requests()
+  Test::expect(worn.length == 1 && (worn[1] ?? "").contains("Items.showWorn"))
+  Test::moveTo({ x: 58, y: 16 })
+  const bagged = Test::requests()
+  Test::expect(bagged.length == 1 && (bagged[1] ?? "").contains("Items.show") && !(bagged[1] ?? "").contains("showWorn"))
   destroy page
 }
 
@@ -253,21 +253,21 @@ class Wells {
     return $ltml {
       <box columns={2} gap={4sp}>
         <ItemButton item={nil} />
-        <ItemButton item={nil} well={SlotWell.Crested} />
+        <ItemButton item={nil} well={SlotWell::Crested} />
       </box>
     }
   }
 }
 
 test "a slot's well is sunk unless its user crests it: the client's slot art from its top left corner, no rim of ours" {
-  Test.mount(new Wells(), { left: 0, top: 0, width: 300, height: 100 })
-  const sunk = Test.page().box(Color.hex("#0d0a08"))
-  const crest = Test.page().box(CREST)
-  Test.expect(sunk.count() == 1 && crest.count() == 1 && sunk.rect().left < crest.rect().left)
+  Test::mount(new Wells(), { left: 0, top: 0, width: 300, height: 100 })
+  const sunk = Test::page().box(Color::hex("#0d0a08"))
+  const crest = Test::page().box(CREST)
+  Test::expect(sunk.count() == 1 && crest.count() == 1 && sunk.rect().left < crest.rect().left)
   // The whole file drawn 64/41 of the slot (its frame is the top left 41 of its 64 texels), cut at the slot's edge.
   const art = crest.rect()
   const slot = sunk.rect()
-  Test.expect(art.top == slot.top && art.right - art.left > (slot.right - slot.left) * 1.5)
+  Test::expect(art.top == slot.top && art.right - art.left > (slot.right - slot.left) * 1.5)
 }
 
 // The same icon in a sunk slot and in two crested ones: an uncommon item's in the first two, a common one's in the last.
@@ -275,30 +275,30 @@ class Icons {
   public render(self): Template {
     return $ltml {
       <box columns={3} gap={4sp}>
-        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} />
-        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} well={SlotWell.Crested} />
-        <ItemButton item={2589} art={HAMMER} well={SlotWell.Crested} />
+        <ItemButton item={2592} art={HAMMER} quality={Quality::Uncommon} />
+        <ItemButton item={2592} art={HAMMER} quality={Quality::Uncommon} well={SlotWell::Crested} />
+        <ItemButton item={2589} art={HAMMER} well={SlotWell::Crested} />
       </box>
     }
   }
 }
 
 test "a crested slot holds its icon inside the crest's rim, the rim taking an uncommon item's colour; a sunk one edge to edge" {
-  Test.mount(new Icons(), { left: 0, top: 0, width: 400, height: 100 })
-  const sunk = Test.page().box(HAMMER).nth(1).rect()
-  const crested = Test.page().box(HAMMER).nth(2).rect()
-  const slot = Test.page().button(CREST).nth(1).rect()
+  Test::mount(new Icons(), { left: 0, top: 0, width: 400, height: 100 })
+  const sunk = Test::page().box(HAMMER).nth(1).rect()
+  const crested = Test::page().box(HAMMER).nth(2).rect()
+  const slot = Test::page().button(CREST).nth(1).rect()
   // The rim is 3 of the art's 41 texels on each side of the slot.
   const rim = (slot.right - slot.left) * 3 / 41
-  Test.expect(crested.left - slot.left >= rim - 0.01 && crested.left - slot.left < rim + 2)
-  Test.expect(slot.bottom - crested.bottom >= rim - 0.01 && slot.bottom - crested.bottom < rim + 2)
-  Test.expect(crested.right - crested.left < sunk.right - sunk.left)
+  Test::expect(crested.left - slot.left >= rim - 0.01 && crested.left - slot.left < rim + 2)
+  Test::expect(slot.bottom - crested.bottom >= rim - 0.01 && slot.bottom - crested.bottom < rim + 2)
+  Test::expect(crested.right - crested.left < sunk.right - sunk.left)
   // The rim's white copy over the uncommon item's crest, in its colour, laid out as the crest is (from the slot's top
   // left corner, as large); none on the common one.
-  const frame = Test.page().box(Ordaen.art.ctl.crestRim)
-  Test.expect(frame.count() == 1 && frame.paintedWith(Color.hex("#1eff00")))
-  const crest = Test.page().box(CREST).nth(1).rect()
-  Test.expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
+  const frame = Test::page().box(Ordaen.art.ctl.crestRim)
+  Test::expect(frame.count() == 1 && frame.paintedWith(Color::hex("#1eff00")))
+  const crest = Test::page().box(CREST).nth(1).rect()
+  Test::expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
 }
 
 // The same icon in two talent-framed slots: an uncommon item's, a common one's.
@@ -306,32 +306,32 @@ class Framed {
   public render(self): Template {
     return $ltml {
       <box columns={2} gap={4sp}>
-        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} well={SlotWell.Framed} />
-        <ItemButton item={2589} art={HAMMER} well={SlotWell.Framed} />
+        <ItemButton item={2592} art={HAMMER} quality={Quality::Uncommon} well={SlotWell::Framed} />
+        <ItemButton item={2589} art={HAMMER} well={SlotWell::Framed} />
       </box>
     }
   }
 }
 
 test "a framed slot has the client's talent frame over it, tinted in an uncommon item's colour, the icon a tenth in" {
-  Test.mount(new Framed(), { left: 0, top: 0, width: 400, height: 100 })
-  const frames = Test.page().box("talents-node-square-gray")
-  Test.expect(frames.count() == 2)
-  Test.expect(frames.nth(1).paintedWith(Color.hex("#1eff00")) && !frames.nth(2).paintedWith(Color.hex("#1eff00")))
+  Test::mount(new Framed(), { left: 0, top: 0, width: 400, height: 100 })
+  const frames = Test::page().box("talents-node-square-gray")
+  Test::expect(frames.count() == 2)
+  Test::expect(frames.nth(1).paintedWith(Color::hex("#1eff00")) && !frames.nth(2).paintedWith(Color::hex("#1eff00")))
   const slot = frames.nth(1).rect()
-  const icon = Test.page().box(HAMMER).nth(1).rect()
+  const icon = Test::page().box(HAMMER).nth(1).rect()
   const rim = (slot.right - slot.left) / 10
-  Test.expect((icon.left - slot.left - rim).abs() < 0.5 && (slot.bottom - icon.bottom - rim).abs() < 0.5)
+  Test::expect((icon.left - slot.left - rim).abs() < 0.5 && (slot.bottom - icon.bottom - rim).abs() < 0.5)
   // The light under the cursor inside the frame, as the icon is: never a square over the frame's curves.
-  Test.page().box(HAMMER).nth(1).hover()
-  const light = Test.page().box(Color.hex("#ffffff26")).nth(1).rect()
-  Test.expect(light.left == icon.left && light.top == icon.top && light.right == icon.right)
+  Test::page().box(HAMMER).nth(1).hover()
+  const light = Test::page().box(Color::hex("#ffffff26")).nth(1).rect()
+  Test::expect(light.left == icon.left && light.top == icon.top && light.right == icon.right)
 }
 
 test "a slot's count is written in the numbers' font, outlined, so it reads on any icon" {
-  Test.mount(new Bag(), { left: 0, top: 0, width: 600, height: 100 })
-  const told = Test.page().text("20").told()
-  Test.expect(told.contains("textFont=numbers") && told.contains("textOutline=1"))
+  Test::mount(new Bag(), { left: 0, top: 0, width: 600, height: 100 })
+  const told = Test::page().text("20").told()
+  Test::expect(told.contains("textFont=numbers") && told.contains("textOutline=1"))
 }
 
 // A slot whose item the test changes: an item equipped from it, the worn one landing in its place.
@@ -343,19 +343,19 @@ class Swapped {
 }
 
 test "the cursor on a slot whose item changes: the tooltip shown again of the new one, hidden once it holds nothing" {
-  Game.items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
+  Game::items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
   const page = new Swapped()
-  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  Test.moveTo({ x: 10, y: 10 })
-  Test.expect(Test.requests().join(", ").contains("Items.show 6948"))
+  Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  Test::moveTo({ x: 10, y: 10 })
+  Test::expect(Test::requests().join(", ").contains("Items.show 6948"))
   page.item = 2589
-  Test.flush()
-  Test.expect(Test.requests().join(", ").contains("Items.show 2589"))
+  Test::flush()
+  Test::expect(Test::requests().join(", ").contains("Items.show 2589"))
   page.item = nil
-  Test.flush()
-  Test.expect(Test.requests().join(", ").contains("Items.hideAt"))
-  Test.moveTo({ x: 190, y: 90 })
+  Test::flush()
+  Test::expect(Test::requests().join(", ").contains("Items.hideAt"))
+  Test::moveTo({ x: 190, y: 90 })
   page.item = 774
-  Test.flush()
-  Test.expect(!Test.requests().join(", ").contains("Items.show"))
+  Test::flush()
+  Test::expect(!Test::requests().join(", ").contains("Items.show"))
 }

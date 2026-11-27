@@ -22,23 +22,23 @@ const BLANK = 1
 const REQUIREMENT = 43
 
 // What a tooltip is about, or nothing for one Ordaen Tooltips leaves to the game.
-public function kindOf(data: Game.TooltipData): Kind | nil {
-  if (data.plain == true) { return Kind.Text }
+public function kindOf(data: Game::TooltipData): Kind | nil {
+  if (data.plain == true) { return Kind::Text }
   let about = data.kind
   if (about == nil) { return nil }
   match (about) {
-    0 => return Kind.Item
-    1 => return Kind.Spell
-    2 => return Kind.Unit
-    4 => return Kind.Object
-    7 => return Kind.Aura
+    0 => return Kind::Item
+    1 => return Kind::Spell
+    2 => return Kind::Unit
+    4 => return Kind::Object
+    7 => return Kind::Aura
     else => return nil
   }
 }
 
 // «Requires Lockpicking (75)» as the skill and the rank, read back through the game's own format for the line.
 function skillOf(text: String): (String | nil, String | nil) {
-  let parts = text.unformat(Game.strings.itemMinSkill)
+  let parts = text.unformat(Game::strings.itemMinSkill)
   if (parts == nil) { return nil, nil }
   return parts[1], parts[2]
 }
@@ -50,7 +50,7 @@ function skillOf(text: String): (String | nil, String | nil) {
 // The game fills some anew while they are held (the menu button's, each second, with the addons' memory): a line
 // that says what the line in its place said in `was`, the model drawn before, is that line again, and with every
 // line and the title so, `was` itself. What draws the model then draws anew only the lines that changed.
-public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
+public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   let first = data.lines[1]
   if (first == nil) { return nil }
   let title = first.left
@@ -59,9 +59,9 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
   let name, key = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
   if (name != nil && key != nil && name != "") {
     title = name
-    keys.push(Locale.KEY_OPEN.format(key))
+    keys.push(Locale::KEY_OPEN.format(key))
   }
-  let before = was != nil && was.kind == Kind.Text ? was.body : nil
+  let before = was != nil && was.kind == Kind::Text ? was.body : nil
   let same = true
   let body: Array<TextLine> = []
   for (i, line of data.lines) {
@@ -90,7 +90,7 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
     return was
   }
   return {
-    kind: Kind.Text, name: title, nameColor: nameColor,
+    kind: Kind::Text, name: title, nameColor: nameColor,
     desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: keys
   }
 }
@@ -103,7 +103,7 @@ function sameColor(a: Color | nil, b: Color | nil): Boolean {
 // An object's tooltip: its name in gold, what opening it needs in the footer (a skill with its rank, or a key,
 // red while it can't be opened), every other line a sentence in its own colour, the quests it is part of after
 // them.
-public function object(data: Game.TooltipData, options: Options): Model | nil {
+public function object(data: Game::TooltipData, options: Options): Model | nil {
   let name: String | nil = nil
   let body: Array<TextLine> = []
   let foot: Array<Note> = []
@@ -121,43 +121,43 @@ public function object(data: Game.TooltipData, options: Options): Model | nil {
     let locked = line.usable == false
     let skill, rank = skillOf(text)
     if (skill != nil && rank != nil) {
-      foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term.Lock) })
+      foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term::Lock) })
     } else {
       // A key: «Requires: Defias Chest Key», or «Requires Defias Chest Key».
       let key = text.match("^[^:]+:%s*(.+)$") ?? text.replace("^%S+%s+", "")
-      let missing = Game.items.count(key) == 0
+      let missing = Game::items.count(key) == 0
       foot.push({
-        left: Locale.KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term.Lock)
+        left: Locale::KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term::Lock)
       })
     }
   }
   if (name == nil) { return nil }
   return {
-    kind: Kind.Object, name: name, nameColor: GOLD,
+    kind: Kind::Object, name: name, nameColor: GOLD,
     desc: [], info: [], facts: [], body: body, more: quests(data.lines, options.npcsParty), foot: foot, keys: []
   }
 }
 
 // The tooltip's model from the game's data, or nothing where it can't be read.
 // `was` is the model drawn before, which a tooltip that is only text takes what stays the same from.
-public function fill(data: Game.TooltipData, options: Options, was: Model | nil): Model | nil {
+public function fill(data: Game::TooltipData, options: Options, was: Model | nil): Model | nil {
   let kind = kindOf(data)
   if (kind == nil) { return nil }
-  if (kind == Kind.Item) {
+  if (kind == Kind::Item) {
     let read = item(data, options)
     return read != nil ? read.model : nil
   }
-  if (kind == Kind.Spell) {
+  if (kind == Kind::Spell) {
     // A spell on the talent window's button is a talent.
-    let known = Game.talents.shown(data)
+    let known = Game::talents.shown(data)
     if (known != nil) { return talent(data, known, options) }
   }
   match (kind) {
-    Kind.Text => return plain(data, was)
-    Kind.Object => return object(data, options)
-    Kind.Spell => return spell(data, options)
-    Kind.Aura => return aura(data, options)
-    Kind.Unit => return unit(data, options)
+    Kind::Text => return plain(data, was)
+    Kind::Object => return object(data, options)
+    Kind::Spell => return spell(data, options)
+    Kind::Aura => return aura(data, options)
+    Kind::Unit => return unit(data, options)
     else => return nil
   }
 }
@@ -172,13 +172,13 @@ public struct Group {
 
 // The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a
 // recipe makes, which is read as an item of its own; a recipe's spell (a trainer's) has the item it makes beside it.
-public function group(data: Game.TooltipData, options: Options, was: Model | nil): Group | nil {
+public function group(data: Game::TooltipData, options: Options, was: Model | nil): Group | nil {
   let kind = kindOf(data)
-  if (kind != Kind.Item) {
+  if (kind != Kind::Item) {
     let model = fill(data, options, was)
     if (model == nil) { return nil }
     let sides: Array<Model> = []
-    let made = kind == Kind.Spell ? madeBy(data) : nil
+    let made = kind == Kind::Spell ? madeBy(data) : nil
     let inner = made != nil ? item(made, options) : nil
     if (inner != nil) { sides.push(inner.model) }
     return { model: model, sides: sides, stats: {} }

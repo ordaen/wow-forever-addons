@@ -33,14 +33,14 @@ public enum View implements Plain { Categories = "categories", Table = "table" }
 // list cut short by an old search at the next opening says nothing of why.
 public struct ListView implements Plain {
   everyone: Boolean = true
-  heat: Heat = Heat.All
-  standing: Standing = Standing.All
-  age: Age = Age.All
-  loading: Loading = Loading.All
-  written: Written = Written.All
-  order: Order = Order.Name
+  heat: Heat = Heat::All
+  standing: Standing = Standing::All
+  age: Age = Age::All
+  loading: Loading = Loading::All
+  written: Written = Written::All
+  order: Order = Order::Name
   descending: Boolean = false
-  view: View = View.Categories
+  view: View = View::Categories
   picked: String = ""
 }
 const LIST_VIEW: ListView = {}
@@ -57,14 +57,14 @@ const FOLDED: Folded = {}
 public const FOLDED_MOST = 8
 
 const ORDERS: Array<Choice<Order>> = [
-  { value: Order.Name, label: Locale.SORT_NAME },
-  { value: Order.Now, label: Locale.SORT_NOW },
-  { value: Order.Peak, label: Locale.SORT_PEAK },
-  { value: Order.Memory, label: Locale.SORT_MEMORY }
+  { value: Order::Name, label: Locale::SORT_NAME },
+  { value: Order::Now, label: Locale::SORT_NOW },
+  { value: Order::Peak, label: Locale::SORT_PEAK },
+  { value: Order::Memory, label: Locale::SORT_MEMORY }
 ]
 const VIEWS: Array<Choice<View>> = [
-  { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
+  { value: View::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: View::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
 const REFRESH = 18.75dp
@@ -82,7 +82,7 @@ const EDGE_TO_EDGE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const HALF: Number<Spacing> = 3sp / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
-const RELOAD_TIP: TipText = { title: Locale.RELOAD, text: Locale.IN_COMBAT, rows: [] }
+const RELOAD_TIP: TipText = { title: Locale::RELOAD, text: Locale::IN_COMBAT, rows: [] }
 const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
 const SET_WIDTH = 820.3125dp
@@ -127,13 +127,13 @@ function thirdOf(values: Array<Number>): Number {
   for (value of values) {
     if (value > 0) { list.push(value) }
   }
-  if (list.length == 0) { return Number.huge }
+  if (list.length == 0) { return Number::huge }
   list.sort((a, b) => a > b)
-  return list[(list.length / 3).ceil()] ?? Number.huge
+  return list[(list.length / 3).ceil()] ?? Number::huge
 }
 
 // Where the window opens until the player moves it.
-public const WINDOW: Placing = { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT }
+public const WINDOW: Placing = { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT }
 
 public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
@@ -159,10 +159,10 @@ public class AddOnsWindow implements Component {
   derived lines: Array<Line> = self.linesOf()
   derived hot: Hot = self.hotOf()
   derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
-    Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
+    Locale::COUNT_OF.format(self.visible.length, self.catalog.addons.length)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Client.SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01", padding: EDGE_TO_EDGE },
-    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01", padding: EDGE_TO_EDGE }
+    { title: Client::SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01", padding: EDGE_TO_EDGE },
+    { title: Client::ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01", padding: EDGE_TO_EDGE }
   ]
   // The options' small tab picked: the game's groups in the client's order, its key bindings second.
   state section = 1
@@ -174,7 +174,7 @@ public class AddOnsWindow implements Component {
   derived group: Integer = self.section < KEYS_SECTION ? self.section : self.section - 1
   derived onAddOns: Boolean = self.tab == ADDONS_TAB
   derived side: WindowSide | nil = self.onAddOns && self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
-    { width: Style.CARD, content: self.card } : nil
+    { width: Style::CARD, content: self.card } : nil
   // Asked before every key goes back to the client's defaults.
   state resetAsked = false
   // Asked before the page's settings go back to their defaults.
@@ -184,18 +184,18 @@ public class AddOnsWindow implements Component {
   derived pickedModule: Boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
   derived tabled: Boolean = self.list.values.view == .Table
   derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
-  derived overall: String = self.profiler.measuring ? Locale.ALL_ADDONS.format(percent(self.profiler.overall)) : ""
+  derived overall: String = self.profiler.measuring ? Locale::ALL_ADDONS.format(percent(self.profiler.overall)) : ""
   derived notMeasuring: Boolean = !self.profiler.measuring
-  derived also: String = Locale.ALSO.format((self.catalog.step?.also ?? []).join(", "))
+  derived also: String = Locale::ALSO.format((self.catalog.step?.also ?? []).join(", "))
   derived stepShown: Boolean = self.catalog.step != nil
-  derived question: String = Locale.DISABLE_ASK.format(self.dependentsText())
-  derived questionTitle: String = Locale.DISABLE_TITLE.format(self.catalog.titleOf(self.asking[1] ?? ""))
+  derived question: String = Locale::DISABLE_ASK.format(self.dependentsText())
+  derived questionTitle: String = Locale::DISABLE_TITLE.format(self.catalog.titleOf(self.asking[1] ?? ""))
   derived setEntries: Array<MenuEntry> = self.setEntriesOf()
-  derived setTitle: String = self.editing < 0 ? Locale.SET_NEW :
-    Locale.SET_TITLE.format(self.sets.list[self.editing]?.name ?? "")
-  derived waitText: String = self.catalog.waiting > 0 ? Locale.RELOAD_NEEDED.format(self.catalog.waiting) : ""
+  derived setTitle: String = self.editing < 0 ? Locale::SET_NEW :
+    Locale::SET_TITLE.format(self.sets.list[self.editing]?.name ?? "")
+  derived waitText: String = self.catalog.waiting > 0 ? Locale::RELOAD_NEEDED.format(self.catalog.waiting) : ""
   derived waitRows: Array<TipRow> = self.waitRowsOf()
-  derived fighting: Boolean = Game.situation.combat
+  derived fighting: Boolean = Game::situation.combat
   // In a fight «Reload» says why it waits, under the cursor.
   derived reloadTip: TipText | nil = self.fighting ? RELOAD_TIP : nil
   derived waitTip: Boolean = self.waitHovered && self.waitText != ""
@@ -207,37 +207,37 @@ public class AddOnsWindow implements Component {
   // The open tab's footer: none for the settings, the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
     <FooterBand $if={self.onGameSettings}>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-        <PushButton label={Client.SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.onDefaultsAsk} />
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
+        <PushButton label={Client::SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.onDefaultsAsk} />
         <box />
-        <PushButton label={Client.APPLY} width={BUTTON} plate={ButtonPlate.Accent} disabled={self.nothingWaits}
+        <PushButton label={Client::APPLY} width={BUTTON} plate={ButtonPlate::Accent} disabled={self.nothingWaits}
                     @click={self.onApply} />
       </box>
     </FooterBand>
     <FooterBand $elseif={self.onKeys}>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-        <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
+        <PushButton label={Locale::KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
         <box />
         <box />
       </box>
     </FooterBand>
     <FooterBand $else>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-        <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
-          <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
-          <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
+      <box columns={FOOT} gap={6sp} yAlign={Align::Center}>
+        <box columns={LEFT_GROUP} gap={3sp} yAlign={Align::Center}>
+          <PushButton label={Locale::RESET} width={BUTTON} @click={self.onReset} />
+          <PushButton label={Locale::DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
           <box>
-            <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
+            <PushButton label={Locale::SETS} width={BUTTON} @click={self.onSets} />
             <Menu $if={self.setsOpen} entries={self.setEntries} @pick={self.onSet} @close={self.closeSets} />
           </box>
         </box>
         <box />
-        <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
+        <box columns={GROUP} gap={3sp} yAlign={Align::Center}>
           <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
-            <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={self.waitText} textColor={Style::GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
             <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
           </box>
-          <PushButton label={Locale.RELOAD} width={187.5dp} plate={ButtonPlate.Accent} disabled={self.fighting} action={RELOAD}
+          <PushButton label={Locale::RELOAD} width={187.5dp} plate={ButtonPlate::Accent} disabled={self.fighting} action={RELOAD}
                       tip={self.reloadTip} />
         </box>
       </box>
@@ -260,10 +260,10 @@ public class AddOnsWindow implements Component {
     framework: String, shown: Signal<Boolean> = true, declared: mut KeptWindow | nil = nil, keeping: mut GameKeeping | nil = nil
   ) {
     self.keeping = keeping
-    self.declared = declared ?? new KeptWindow("addons", Client.ADDONS, WINDOW)
+    self.declared = declared ?? new KeptWindow("addons", Client::ADDONS, WINDOW)
     self.shown = shown
     self.framework = framework
-    self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
+    self.whom = [{ value: true, label: Locale::WHO_ALL }, { value: false, label: Game::player.name }]
     self.settings.written.listen(self.onWritten)
     watch (open of self.shown) { self.follow(open) }
     watch { self.catalog.setEveryone(self.list.values.everyone) }
@@ -272,7 +272,7 @@ public class AddOnsWindow implements Component {
     watch {
       if (self.shown && self.onKeys) {
         self.bindings.read()
-        Events.UPDATE_BINDINGS.listen(self.onBindings)
+        Events::UPDATE_BINDINGS.listen(self.onBindings)
       }
     }
     // Blizzard's settings are read as their tab shows, and the page's values again whenever a console variable
@@ -280,7 +280,7 @@ public class AddOnsWindow implements Component {
     watch {
       if (self.shown && self.onOptions) {
         self.settings.read()
-        Events.CVAR_UPDATE.listen(self.onSetting)
+        Events::CVAR_UPDATE.listen(self.onSetting)
       }
     }
   }
@@ -300,7 +300,7 @@ public class AddOnsWindow implements Component {
   // The options' small tabs: each group's name, the key bindings' second.
   sectionsOf(self): Array<String> {
     const names = self.settings.groups.map(group => group.name)
-    const keys = Runtime.text("SETTINGS_KEYBINDINGS_LABEL") ?? Client.KEY_BINDINGS
+    const keys = Runtime::text("SETTINGS_KEYBINDINGS_LABEL") ?? Client::KEY_BINDINGS
     const list: Array<String> = []
     for (index, name of names) {
       if (index == KEYS_SECTION) { list.push(keys) }
@@ -337,7 +337,7 @@ public class AddOnsWindow implements Component {
       if ((peek self.catalog.statuses)[addon.name]?.loaded == true) { loaded.push(addon.name) }
     }
     self.profiler.start(loaded)
-    Events.ADDON_LOADED.listen(self.onLoaded)
+    Events::ADDON_LOADED.listen(self.onLoaded)
   }
 
   onLoaded(mut self, name: String, fromUser: Boolean) { self.catalog.refresh() }
@@ -347,7 +347,7 @@ public class AddOnsWindow implements Component {
     for (addon of self.catalog.addons) {
       if (self.catalog.statuses[addon.name]?.enabled != .Off) { on += 1 }
     }
-    return Locale.COUNT_OF.format(on, self.catalog.addons.length)
+    return Locale::COUNT_OF.format(on, self.catalog.addons.length)
   }
 
   // Whether an addon shows with the search and the filter as they are: it matches every kind.
@@ -493,7 +493,7 @@ public class AddOnsWindow implements Component {
   }
 
   setEntriesOf(self): Array<MenuEntry> {
-    const list: Array<MenuEntry> = [{ label: Locale.SET_SAVE }]
+    const list: Array<MenuEntry> = [{ label: Locale::SET_SAVE }]
     for (index, kept of self.sets.list) { list.push({ label: kept.name, group: index == 1 }) }
     return list
   }
@@ -504,9 +504,9 @@ public class AddOnsWindow implements Component {
       const status = self.catalog.statuses[addon.name]
       if (status != nil) {
         if (status.mine && !status.loaded && !addon.demand && status.reason == nil) {
-          list.push({ label: plain(addon.title), value: Locale.STATE_WAITS })
+          list.push({ label: plain(addon.title), value: Locale::STATE_WAITS })
         } else if (!status.mine && status.loaded) {
-          list.push({ label: plain(addon.title), value: Locale.STATE_UNTIL })
+          list.push({ label: plain(addon.title), value: Locale::STATE_UNTIL })
         }
       }
     }
@@ -599,7 +599,7 @@ public class AddOnsWindow implements Component {
   onUndo(mut self) { self.catalog.undo() }
   onReset(mut self) { self.catalog.reset() }
   // This addon and what it needs stay on: the page is there after the reload to switch the rest on again.
-  onDisableAll(mut self) { self.catalog.disableAll(Runtime.Addon.of(self)?.name ?? "") }
+  onDisableAll(mut self) { self.catalog.disableAll(Runtime::Addon::of(self)?.name ?? "") }
   onRefresh(mut self) { self.profiler.weigh() }
   onSets(mut self) { self.setsOpen = !self.setsOpen }
   closeSets(mut self) { self.setsOpen = false }
@@ -616,7 +616,7 @@ public class AddOnsWindow implements Component {
       self.setName = kept?.name ?? ""
       // What «Apply» will skip is said before it: «Apply» reloads at once.
       const skipped = self.catalog.missing(kept?.addons ?? [])
-      if (skipped.length > 0) { self.setNote = Locale.SET_SKIPPED.format(skipped.join(", ")) }
+      if (skipped.length > 0) { self.setNote = Locale::SET_SKIPPED.format(skipped.join(", ")) }
     }
   }
 
@@ -628,7 +628,7 @@ public class AddOnsWindow implements Component {
     if (self.sets.save(name, self.catalog.onNames())) {
       self.editing = 0
     } else {
-      self.setNote = Locale.SETS_FULL.format(MOST)
+      self.setNote = Locale::SETS_FULL.format(MOST)
     }
   }
 
@@ -683,39 +683,39 @@ public class AddOnsWindow implements Component {
         </box>
         <box $else rows={BODY} gap={3sp}>
           <box padding={TOOLS}>
-            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <Toolbar search={mut self.search} placeholder={Locale::SEARCH}>
               <box padding={HEADING}>
-                <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+                <text value={self.countText} textColor={Style::DIM} textFont={.Numbers} wrap={.None} />
               </box>
-              <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
+              <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale::WHO} />
               <FilterPick heat={mut self.list.values.heat} standing={mut self.list.values.standing} age={mut self.list.values.age} loading={mut self.list.values.loading}
                           written={mut self.list.values.written} />
               <ToolPick $if={!self.tabled} value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
-                        title={Locale.SORT} />
+                        title={Locale::SORT} />
               <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
-                        title={Locale.VIEW} />
+                        title={Locale::VIEW} />
             </Toolbar>
           </box>
-          <box columns={self.columns} gap={3sp} padding={HEADING} yAlign={Align.Center}>
+          <box columns={self.columns} gap={3sp} padding={HEADING} yAlign={Align::Center}>
             <box @pointerPress={self.onHeadName} @keyPress(.Enter)={self.onHeadName} @keyPress(.Space)={self.onHeadName}>
-              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+              <text value={Locale::COL_ADDON} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
-            <box xAlign={Align.End}>
-              <text value={self.overall} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box xAlign={Align::End}>
+              <text value={self.overall} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
-            <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={SECONDARY_TEXT}
+            <text $if={self.tabled} value={Locale::COL_CATEGORY} textColor={Style::DIM} textSize={SECONDARY_TEXT}
                   wrap={.None} />
-            <box xAlign={Align.End} @pointerPress={self.onHeadNow} @keyPress(.Enter)={self.onHeadNow} @keyPress(.Space)={self.onHeadNow}>
-              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box xAlign={Align::End} @pointerPress={self.onHeadNow} @keyPress(.Enter)={self.onHeadNow} @keyPress(.Space)={self.onHeadNow}>
+              <text value={Locale::COL_NOW} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
-            <box xAlign={Align.End} @pointerPress={self.onHeadPeak} @keyPress(.Enter)={self.onHeadPeak} @keyPress(.Space)={self.onHeadPeak}>
-              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box xAlign={Align::End} @pointerPress={self.onHeadPeak} @keyPress(.Enter)={self.onHeadPeak} @keyPress(.Space)={self.onHeadPeak}>
+              <text value={Locale::COL_PEAK} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
-            <box columns={GROUP} gap={HALF} xAlign={Align.End}>
+            <box columns={GROUP} gap={HALF} xAlign={Align::End}>
               <box @pointerPress={self.onHeadMemory} @keyPress(.Enter)={self.onHeadMemory} @keyPress(.Space)={self.onHeadMemory}>
-                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+                <text value={Locale::COL_MEMORY} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
               </box>
-              <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
+              <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style::GOLD}
                    @pointerPress={self.onRefresh} @keyPress(.Enter)={self.onRefresh} @keyPress(.Space)={self.onRefresh} />
             </box>
             <box />
@@ -726,43 +726,43 @@ public class AddOnsWindow implements Component {
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold} @foldGroup={self.onFoldGroup}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </ScrolledList>
-          <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center} padding={HEADING}>
-            <box xAlign={Align.End}>
-              <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />
+          <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align::Center} padding={HEADING}>
+            <box xAlign={Align::End}>
+              <text value={self.also} textColor={Style::INK} textSize={SECONDARY_TEXT} />
             </box>
-            <PushButton label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
+            <PushButton label={Locale::UNDO} width={BUTTON} @click={self.onUndo} />
           </box>
           <box $else />
           <box $if={self.notMeasuring} padding={HEADING}>
-            <text value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <text value={Locale::NOT_MEASURING} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
           </box>
         </box>
         <Dialog $if={self.asking.length > 0} title={self.questionTitle} width={CONFIRM_WIDTH}>
-          <text value={self.question} textColor={Style.INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelAsk} />
-          <PushButton #buttons label={Locale.DISABLE} width={BUTTON} @click={self.confirmAsk} />
+          <text value={self.question} textColor={Style::INK} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.cancelAsk} />
+          <PushButton #buttons label={Locale::DISABLE} width={BUTTON} @click={self.confirmAsk} />
         </Dialog>
         <Dialog $if={self.editing != 0} title={self.setTitle} width={SET_WIDTH}>
-          <TextField label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
-          <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={SECONDARY_TEXT} />
-          <box $if={self.editing > 0} xAlign={Align.Start}>
-            <PushButton label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />
+          <TextField label={Locale::SET_NAME} value={mut self.setName} maxLength={40} />
+          <text $if={self.setNote != ""} value={self.setNote} textColor={Style::RED} textSize={SECONDARY_TEXT} />
+          <box $if={self.editing > 0} xAlign={Align::Start}>
+            <PushButton label={Locale::DELETE} width={BUTTON} @click={self.deleteSet} />
           </box>
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.closeSet} />
-          <PushButton #buttons $if={self.editing < 0} label={Locale.SAVE} width={BUTTON} @click={self.saveSet} />
-          <PushButton #buttons $if={self.editing > 0} label={Locale.RENAME} width={BUTTON} @click={self.renameSet} />
-          <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} disabled={self.fighting}
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.closeSet} />
+          <PushButton #buttons $if={self.editing < 0} label={Locale::SAVE} width={BUTTON} @click={self.saveSet} />
+          <PushButton #buttons $if={self.editing > 0} label={Locale::RENAME} width={BUTTON} @click={self.renameSet} />
+          <PushButton #buttons $if={self.editing > 0} label={Locale::APPLY} width={BUTTON} disabled={self.fighting}
                       action={RELOAD} @click={self.applySet} />
         </Dialog>
-        <Dialog $if={self.resetAsked} title={Client.KEY_BINDINGS} width={CONFIRM_WIDTH}>
-          <text value={Client.CONFIRM_RESET_KEYBINDINGS} textColor={Style.INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelReset} />
-          <PushButton #buttons label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.confirmReset} />
+        <Dialog $if={self.resetAsked} title={Client::KEY_BINDINGS} width={CONFIRM_WIDTH}>
+          <text value={Client::CONFIRM_RESET_KEYBINDINGS} textColor={Style::INK} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.cancelReset} />
+          <PushButton #buttons label={Locale::KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.confirmReset} />
         </Dialog>
-        <Dialog $if={self.defaultsAsked} title={Client.SETTINGS_DEFAULTS} width={CONFIRM_WIDTH}>
-          <text value={Locale.SETTINGS_DEFAULTS_ASK} textColor={Style.INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelDefaults} />
-          <PushButton #buttons label={Client.SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.confirmDefaults} />
+        <Dialog $if={self.defaultsAsked} title={Client::SETTINGS_DEFAULTS} width={CONFIRM_WIDTH}>
+          <text value={Locale::SETTINGS_DEFAULTS_ASK} textColor={Style::INK} />
+          <PushButton #buttons label={Locale::CANCEL} width={BUTTON} @click={self.cancelDefaults} />
+          <PushButton #buttons label={Client::SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.confirmDefaults} />
         </Dialog>
       </Window>
     }

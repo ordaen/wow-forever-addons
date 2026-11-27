@@ -19,11 +19,11 @@ import Locale from "@/locales"
 
 // On the parchment: the body's ink, a section heading's, and the quest's title's, darkest, each in the look's book font (its
 // bold face for the title and the headings), so the whole page follows that one choice.
-public const SCROLL_INK: Color = Color.hex("#160c03")
-public const SCROLL_HEAD: Color = Color.hex("#3a1000")
-const SCROLL_TITLE: Color = Color.hex("#200800")
+public const SCROLL_INK: Color = Color::hex("#160c03")
+public const SCROLL_HEAD: Color = Color::hex("#3a1000")
+const SCROLL_TITLE: Color = Color::hex("#200800")
 // The rule each side of a section's heading: the heading's ink, faded.
-const SCROLL_RULE: Color = Color.hex("#3a100080")
+const SCROLL_RULE: Color = Color::hex("#3a100080")
 const RULE_HEIGHT: Number<Length> = 1.171875dp
 const HEADING_ACROSS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The body's lines on the parchment: as tight as a title's, a written page's (the window's prose stands looser).
@@ -32,17 +32,17 @@ public const SCROLL_LEADING: Leading = .Title
 // larger than its labels.
 const SCROLL_TEXT: Number<TextSize> = (BODY_TEXT + 1ui) / BODY_TEXT * 1rem
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
-public const SCROLL_DIM: Color = Color.hex("#4a3520")
+public const SCROLL_DIM: Color = Color::hex("#4a3520")
 // In the well.
-public const WELL_TEXT: Color = Color.hex("#f0e6d0")
-public const WELL_DIM: Color = Color.hex("#a3977f")
-public const WELL_RED: Color = Color.hex("#e0301e")
-public const WELL_GREEN: Color = Color.hex("#40bf40")
-public const WELL_GOLD: Color = Color.hex("#ffd100")
-public const WELL_RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
+public const WELL_TEXT: Color = Color::hex("#f0e6d0")
+public const WELL_DIM: Color = Color::hex("#a3977f")
+public const WELL_RED: Color = Color::hex("#e0301e")
+public const WELL_GREEN: Color = Color::hex("#40bf40")
+public const WELL_GOLD: Color = Color::hex("#ffd100")
+public const WELL_RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
 public const REWARD_ICON: Number<Length> = 39.84375dp
 
-const BEST: Color = Color.hex("#40ff40")
+const BEST: Color = Color::hex("#40ff40")
 // A section of the rewards: the cut with its title, then its rows, off the section before.
 const SECTION: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const SECTION_GAP = 2sp
@@ -59,9 +59,9 @@ function columnsFor(paired: Boolean, rows: Integer): Columns { return paired && 
 const GAINS: Array<Track> = ["max-content", { fr: 1 }]
 const UNDER_REWARDS: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const ALONE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
-const KEYCAP: Color = Color.hex("#00000080")
-const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
-const KEY_TEXT: Color = Color.hex("#c9a76a")
+const KEYCAP: Color = Color::hex("#00000080")
+const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
+const KEY_TEXT: Color = Color::hex("#c9a76a")
 const KEYCAP_SMALL = 25.78125dp
 const UPGRADE_WIDTH = 70.3125dp
 const WITH_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
@@ -120,17 +120,17 @@ const TEXEL: Number<Length> = SCROLL_WIDTH / 1024
 public const SCROLL_ART: ScrollArt = {
   top: {
     left: "@/media/scroll-top-left.tga",
-    middle: { file: "@/media/scroll-top-middle.tga", width: 1, height: 128, tile: Tile.Across },
+    middle: { file: "@/media/scroll-top-middle.tga", width: 1, height: 128, tile: Tile::Across },
     right: "@/media/scroll-top-right.tga"
   },
   paper: {
-    left: { file: "@/media/scroll-paper-left.tga", width: 128, height: 256, tile: Tile.Down },
+    left: { file: "@/media/scroll-paper-left.tga", width: 128, height: 256, tile: Tile::Down },
     middle: { file: "@/media/scroll-paper-middle.tga", width: 256, height: 256, repeatSize: TEXEL * 256 / 1ui },
-    right: { file: "@/media/scroll-paper-right.tga", width: 128, height: 256, tile: Tile.Down }
+    right: { file: "@/media/scroll-paper-right.tga", width: 128, height: 256, tile: Tile::Down }
   },
   bottom: {
     left: "@/media/scroll-bottom-left.tga",
-    middle: { file: "@/media/scroll-bottom-middle.tga", width: 1, height: 128, tile: Tile.Across },
+    middle: { file: "@/media/scroll-bottom-middle.tga", width: 1, height: 128, tile: Tile::Across },
     right: "@/media/scroll-bottom-right.tga"
   },
   tone: "@/media/scroll-paper-tone.tga"
@@ -152,13 +152,13 @@ public struct SheetArt {
 }
 public const SHEET_ART: SheetArt = {
   topLeft: "@/media/sheet-top-left.tga",
-  top: { file: "@/media/sheet-top.tga", width: 512, height: 64, tile: Tile.Across },
+  top: { file: "@/media/sheet-top.tga", width: 512, height: 64, tile: Tile::Across },
   topRight: "@/media/sheet-top-right.tga",
-  left: { file: "@/media/sheet-left.tga", width: 64, height: 512, tile: Tile.Down },
+  left: { file: "@/media/sheet-left.tga", width: 64, height: 512, tile: Tile::Down },
   middle: { file: "@/media/sheet-paper.tga", width: 256, height: 256, repeatSize: TEXEL * 256 / 1ui },
-  right: { file: "@/media/sheet-right.tga", width: 64, height: 512, tile: Tile.Down },
+  right: { file: "@/media/sheet-right.tga", width: 64, height: 512, tile: Tile::Down },
   bottomLeft: "@/media/sheet-bottom-left.tga",
-  bottom: { file: "@/media/sheet-bottom.tga", width: 512, height: 64, tile: Tile.Across },
+  bottom: { file: "@/media/sheet-bottom.tga", width: 512, height: 64, tile: Tile::Across },
   bottomRight: "@/media/sheet-bottom-right.tga"
 }
 // A corner of the sheet and the width of its edges (64 texels): the corners at their own size, the rest between.
@@ -223,7 +223,7 @@ public class Scroll implements Component {
         <box />
         <box />
         <box />
-        <box overflow={Overflow.Hidden} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
+        <box overflow={Overflow::Hidden} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
           <ScrollTitle $if={self.titled} title={self.title} />
           <slot />
         </box>
@@ -231,8 +231,8 @@ public class Scroll implements Component {
       </box>
       <box $else>
         <Sheet />
-        <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ENDS} bottom={OFF_ENDS}
-             overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
+        <box position={Position::Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ENDS} bottom={OFF_ENDS}
+             overflow={Overflow::Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
           <ScrollTitle $if={self.titled} title={self.title} />
           <slot />
         </box>
@@ -246,26 +246,26 @@ public class Scroll implements Component {
 class Sheet implements Component {
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0dp} top={0dp} width={CORNER} height={CORNER}
+      <box position={Position::Absolute} left={0dp} top={0dp} width={CORNER} height={CORNER}
            background={SHEET_ART.topLeft} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={CORNER} right={CORNER} top={0dp} height={CORNER}
+      <box position={Position::Absolute} left={CORNER} right={CORNER} top={0dp} height={CORNER}
            background={SHEET_ART.top} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} right={0dp} top={0dp} width={CORNER} height={CORNER}
+      <box position={Position::Absolute} right={0dp} top={0dp} width={CORNER} height={CORNER}
            background={SHEET_ART.topRight} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={0dp} top={CORNER} bottom={CORNER} width={CORNER}
+      <box position={Position::Absolute} left={0dp} top={CORNER} bottom={CORNER} width={CORNER}
            background={SHEET_ART.left} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={CORNER} right={CORNER} top={CORNER} bottom={CORNER}
+      <box position={Position::Absolute} left={CORNER} right={CORNER} top={CORNER} bottom={CORNER}
            background={SHEET_ART.middle} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} right={0dp} top={CORNER} bottom={CORNER} width={CORNER}
+      <box position={Position::Absolute} right={0dp} top={CORNER} bottom={CORNER} width={CORNER}
            background={SHEET_ART.right} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={0dp} bottom={0dp} width={CORNER} height={CORNER}
+      <box position={Position::Absolute} left={0dp} bottom={0dp} width={CORNER} height={CORNER}
            background={SHEET_ART.bottomLeft} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={CORNER} right={CORNER} bottom={0dp} height={CORNER}
+      <box position={Position::Absolute} left={CORNER} right={CORNER} bottom={0dp} height={CORNER}
            background={SHEET_ART.bottom} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} right={0dp} bottom={0dp} width={CORNER} height={CORNER}
+      <box position={Position::Absolute} right={0dp} bottom={0dp} width={CORNER} height={CORNER}
            background={SHEET_ART.bottomRight} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={0dp} right={0dp} top={0dp} bottom={0dp} background={SCROLL_ART.tone}
-           blend={Blend.Multiply} zLevel={OVER_TONE} />
+      <box position={Position::Absolute} left={0dp} right={0dp} top={0dp} bottom={0dp} background={SCROLL_ART.tone}
+           blend={Blend::Multiply} zLevel={OVER_TONE} />
     }
   }
 }
@@ -290,7 +290,7 @@ public class ScrollHeading implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align.Center}>
+      <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align::Center}>
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
         <text value={self.title} textColor={SCROLL_HEAD} textFont={.Book} textWeight={.Bold} wrap={.None} />
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
@@ -343,7 +343,7 @@ public struct Standing {
 
 // An item's second line: its slot as the game names it and its type («Waist · Leather»).
 function itemDetail(subType: String | nil, slot: String | nil): String {
-  const slotName = slot != nil && slot != "" ? Runtime.text(slot) ?? "" : ""
+  const slotName = slot != nil && slot != "" ? Runtime::text(slot) ?? "" : ""
   const kind = subType ?? ""
   if (slotName != "" && kind != "") { return `${slotName} · ${kind}` }
   return slotName != "" ? slotName : kind
@@ -354,11 +354,11 @@ function itemDetail(subType: String | nil, slot: String | nil): String {
 public function itemReward(
   item: Integer | nil, count: Integer, name: String, icon: Art | nil, usable: Boolean, link: String | nil, index: Integer
 ): Reward {
-  let quality = Quality.Common
+  let quality = Quality::Common
   let detail = ""
   let sell = 0
   if (item != nil) {
-    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
     quality = qualityFrom(itemQuality)
     detail = itemDetail(subType, slot)
     sell = (price ?? 0).floor() * count.max(1)
@@ -371,7 +371,7 @@ public function itemReward(
 
 // An item a quest in the log gives, all of it read from the item's own data.
 public function logReward(item: Integer, count: Integer, index: Integer): Reward {
-  const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
 }
 
@@ -390,7 +390,7 @@ public class Keycap implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.shown} width={self.size} height={self.size} background={KEYCAP} border={KEYCAP_EDGE}
-           xAlign={Align.Center} yAlign={Align.Center}>
+           xAlign={Align::Center} yAlign={Align::Center}>
         <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} leading={.Tight}
               wrap={.None} />
       </box>
@@ -431,8 +431,8 @@ public class Rewards implements Component {
 
   derived hasChoices: Boolean = self.views.length > 0
   derived hasAlso: Boolean = self.also.length > 0
-  derived chooseTitle: String = self.pickable ? Locale.QUEST_CHOOSE_REWARD : Locale.QUEST_CAN_CHOOSE
-  derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
+  derived chooseTitle: String = self.pickable ? Locale::QUEST_CHOOSE_REWARD : Locale::QUEST_CAN_CHOOSE
+  derived alsoTitle: String = self.hasChoices ? Locale::QUEST_ALSO_GET : Locale::QUEST_REWARD
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   // What is given anyway, the rows of gains with it: one section under one cut.
   derived received: Boolean = self.hasAlso || self.banded
@@ -492,19 +492,19 @@ public class Rewards implements Component {
         <box columns={self.alsoColumns} gap={ROWS_GAP}>
           <RewardRow $for={reward of self.also} reward={reward} />
         </box>
-        <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} padding={self.gainsRoom} yAlign={Align.Center}>
-          <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={BRIGHT_TEXT} wrap={.None} />
-          <box $if={self.xp > 0} xAlign={Align.End}>
+        <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} padding={self.gainsRoom} yAlign={Align::Center}>
+          <text $if={self.xp > 0} value={Locale::QUEST_EXPERIENCE} textColor={BRIGHT_TEXT} wrap={.None} />
+          <box $if={self.xp > 0} xAlign={Align::End}>
             <Experience amount={self.xp} />
           </box>
           <$for={standing of self.standings}>
             <text value={standing.name} textColor={BRIGHT_TEXT} wrap={.None} />
-            <box xAlign={Align.End}>
-              <text value={Locale.QUEST_REPUTATION.format(standing.amount)} textColor={WELL_TEXT} wrap={.None} />
+            <box xAlign={Align::End}>
+              <text value={Locale::QUEST_REPUTATION.format(standing.amount)} textColor={WELL_TEXT} wrap={.None} />
             </box>
           </>
-          <text $if={self.money > 0} value={Locale.QUEST_MONEY} textColor={BRIGHT_TEXT} wrap={.None} />
-          <box $if={self.money > 0} xAlign={Align.End}>
+          <text $if={self.money > 0} value={Locale::QUEST_MONEY} textColor={BRIGHT_TEXT} wrap={.None} />
+          <box $if={self.money > 0} xAlign={Align::End}>
             <Money amount={self.money} />
           </box>
         </box>
@@ -522,7 +522,7 @@ const XP_MARK_WIDTH: Number<Length> = XP_MARK_HEIGHT * 2
 // An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
 // of it, in one line; the mark says what the number is.
 public class Experience implements Component {
-  derived text: String = String.of(self.amount)
+  derived text: String = String::of(self.amount)
 
   amount: Signal<Integer>
   color: Signal<Color>
@@ -533,7 +533,7 @@ public class Experience implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
+      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align::Center}>
         <text value={self.text} textColor={self.color} wrap={.None} />
         <box width={XP_MARK_WIDTH} height={XP_MARK_HEIGHT} background={XP_MARK} />
       </box>
@@ -552,7 +552,7 @@ public class RewardRow implements Component {
 
   derived columns: Array<Track> = self.upgradeColumn ? WITH_UPGRADE : NO_UPGRADE
   derived keyed: Boolean = self.hints && self.pickable
-  derived key: String = self.reward.index <= 9 ? String.of(self.reward.index) : ""
+  derived key: String = self.reward.index <= 9 ? String::of(self.reward.index) : ""
   derived nameColor: Color = qualityColor(self.reward.quality)
   derived detailColor: Color = self.reward.unusable ? WELL_RED : WELL_DIM
   derived hasDetail: Boolean = self.reward.detail != ""
@@ -562,7 +562,7 @@ public class RewardRow implements Component {
   derived priceColor: Color = self.dearest ? WELL_GOLD : WELL_DIM
   state upgradeHovered = false
   derived upgradeTipShown: Boolean = self.upgradeHovered && self.upgradeWord != ""
-  derived upgradeTip: String = Locale.QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
+  derived upgradeTip: String = Locale::QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
 
   reward: Signal<Reward>
   pickable: Signal<Boolean>
@@ -595,16 +595,16 @@ public class RewardRow implements Component {
 
   // A plain click picks; one with Shift or Ctrl is the slot's (a link, a try-on), never a pick.
   onPick(mut self) {
-    if (peek self.pickable && !Game.input.shiftDown() && !Game.input.controlDown()) {
+    if (peek self.pickable && !Game::input.shiftDown() && !Game::input.controlDown()) {
       self.choose.emit((peek self.reward).index)
     }
   }
 
   // Ctrl+click on the slot tries the item on, as the game's own reward does; Shift's link the slot puts in the chat
   // itself.
-  onSlot(mut self, press: Event.Press) {
+  onSlot(mut self, press: Event::Press) {
     const link = (peek self.reward).link
-    if (press.button == MouseButton.Left && Game.input.controlDown() && link != nil) { _ = Client.DressUpItemLink(link) }
+    if (press.button == MouseButton::Left && Game::input.controlDown() && link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
   onUpgradeEnter(mut self) { self.upgradeHovered = true }
@@ -616,9 +616,9 @@ public class RewardRow implements Component {
     const currency = reward.currency
     const item = reward.item
     if (currency != nil) {
-      Game.items.showCurrency(frame, currency, reward.count)
+      Game::items.showCurrency(frame, currency, reward.count)
     } else if (item != nil) {
-      Game.items.show(frame, item)
+      Game::items.show(frame, item)
     }
   }
 
@@ -632,7 +632,7 @@ public class RewardRow implements Component {
                      upgradeTip={self.upgradeTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
                      @slot={self.onSlot} @upgradeEnter={self.onUpgradeEnter} @upgradeLeave={self.onUpgradeLeave} />
       </PickRow>
-      <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp} @pointerEnter={self.onRowEnter}>
+      <box $else columns={self.columns} gap={1sp} yAlign={Align::Center} padding={1sp} @pointerEnter={self.onRowEnter}>
         <RewardCells reward={self.reward} keyed={false} key={""} nameColor={self.nameColor}
                      detailColor={self.detailColor} hasDetail={self.hasDetail} upgradeColumn={self.upgradeColumn}
                      upgradeWord={self.upgradeWord} upgradeColor={self.upgradeColor} upgradeTipShown={self.upgradeTipShown}
@@ -645,10 +645,10 @@ public class RewardRow implements Component {
 
 // A reward row's cells, the same in a row picked from and in one given.
 class RewardCells implements Component {
-  public slot: Event<Event.Press> = new Event()
+  public slot: Event<Event::Press> = new Event()
   public upgradeEnter: Event<nil> = new Event()
   // The spec the upgrade is weighed for: the one played, or the build chosen.
-  derived specName: String = Game.player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
+  derived specName: String = Game::player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
   public upgradeLeave: Event<nil> = new Event()
 
   reward: Signal<Reward>
@@ -687,7 +687,7 @@ class RewardCells implements Component {
     self.priceColor = priceColor
   }
 
-  onSlot(mut self, press: Event.Press) { self.slot.emit(press) }
+  onSlot(mut self, press: Event::Press) { self.slot.emit(press) }
   onUpgradeEnter(mut self) { self.upgradeEnter.emit() }
   onUpgradeLeave(mut self) { self.upgradeLeave.emit() }
 
@@ -702,14 +702,14 @@ class RewardCells implements Component {
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
               wrap={.None} />
       </box>
-      <box $if={self.upgradeColumn} columns={UPGRADE_CELLS} gap={1sp} yAlign={Align.Center}
+      <box $if={self.upgradeColumn} columns={UPGRADE_CELLS} gap={1sp} yAlign={Align::Center}
            @pointerEnter={self.onUpgradeEnter} @pointerLeave={self.onUpgradeLeave}>
         <box width={ARROW} height={ARROW} background={UPGRADE} opacity={self.best ? 1 : 0} />
         <text value={self.upgradeWord} textColor={self.upgradeColor} textSize={SECONDARY_TEXT} textFont={.Numbers}
-              textAlign={TextAlign.End} wrap={.None} />
+              textAlign={TextAlign::End} wrap={.None} />
         <Tip $if={self.upgradeTipShown} title={self.specName} text={self.upgradeTip} />
       </box>
-      <box xAlign={Align.End}>
+      <box xAlign={Align::End}>
         <Money $if={self.priced} amount={self.reward.sell} color={self.priceColor} />
       </box>
     }

@@ -21,12 +21,12 @@ public enum ConflictStep { Ask, Reload, Done }
 
 // One other addon and the modules of Ordaen that draw what it draws, each on now.
 public struct Conflict {
-  other: Runtime.Addon
-  modules: Array<Runtime.Addon>
+  other: Runtime::Addon
+  modules: Array<Runtime::Addon>
 }
 
 // The modules' titles in one text, as a sentence names them.
-function titlesOf(modules: Array<Runtime.Addon>): String {
+function titlesOf(modules: Array<Runtime::Addon>): String {
   return modules.map(module => module.title).join(", ")
 }
 
@@ -47,17 +47,17 @@ public class ConflictQuestion implements Component {
     self.answered = answered
     const other = conflict.other.title
     const modules = titlesOf(conflict.modules)
-    self.asked = Locale.CONFLICT_ASK.format(other, modules)
-    self.ordaenHint = Locale.CONFLICT_ORDAEN.format(other)
-    self.otherHint = Locale.CONFLICT_OTHER.format(other, modules)
-    self.reloadText = Locale.CONFLICT_RELOAD.format(other)
+    self.asked = Locale::CONFLICT_ASK.format(other, modules)
+    self.ordaenHint = Locale::CONFLICT_ORDAEN.format(other)
+    self.otherHint = Locale::CONFLICT_OTHER.format(other, modules)
+    self.reloadText = Locale::CONFLICT_RELOAD.format(other)
   }
 
   // «Ordaen»: the other addon is off for this character (named by its GUID, as the client names one) from the next
   // reload, which is offered now.
   keepOrdaen(mut self) {
-    Client.C_AddOns.DisableAddOn(self.conflict.other.name, Client.UnitGUID("player"))
-    Client.C_AddOns.SaveAddOns()
+    Client::C_AddOns::DisableAddOn(self.conflict.other.name, Client::UnitGUID("player"))
+    Client::C_AddOns::SaveAddOns()
     self.answered(true)
     self.step = .Reload
   }
@@ -72,19 +72,19 @@ public class ConflictQuestion implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Dialog $if={self.asking} width={WIDTH} title={Locale.CONFLICT_TITLE}>
+      <Dialog $if={self.asking} width={WIDTH} title={Locale::CONFLICT_TITLE}>
         <box columns={1} gap={2sp}>
           <text value={self.asked} wrap={.Words} />
           <text value={self.ordaenHint} wrap={.Words} />
           <text value={self.otherHint} wrap={.Words} />
         </box>
-        <PushButton #buttons label={"Ordaen"} width={BUTTON} plate={ButtonPlate.Accent} @click={self.keepOrdaen} />
+        <PushButton #buttons label={"Ordaen"} width={BUTTON} plate={ButtonPlate::Accent} @click={self.keepOrdaen} />
         <PushButton #buttons label={self.conflict.other.title} width={BUTTON} @click={self.keepOther} />
       </Dialog>
-      <Dialog $if={self.reloading} width={WIDTH} title={Locale.CONFLICT_TITLE}>
+      <Dialog $if={self.reloading} width={WIDTH} title={Locale::CONFLICT_TITLE}>
         <text value={self.reloadText} wrap={.Words} />
-        <PushButton #buttons label={Locale.CONFLICT_RELOAD_NOW} width={BUTTON} plate={ButtonPlate.Accent} action={RELOAD} />
-        <PushButton #buttons label={Locale.CONFLICT_LATER} width={BUTTON} @click={self.later} />
+        <PushButton #buttons label={Locale::CONFLICT_RELOAD_NOW} width={BUTTON} plate={ButtonPlate::Accent} action={RELOAD} />
+        <PushButton #buttons label={Locale::CONFLICT_LATER} width={BUTTON} @click={self.later} />
       </Dialog>
     }
   }

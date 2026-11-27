@@ -12,7 +12,7 @@ public function term(which: Term, amount: String | nil): Model {
   let entry = glossary(which)
   let spoken = amount ?? ""
   return {
-    kind: Kind.Term, name: with(entry.name, spoken), nameColor: GOLD,
+    kind: Kind::Term, name: with(entry.name, spoken), nameColor: GOLD,
     desc: [], info: [], facts: [], body: [{ left: with(entry.text, spoken) }], more: [], foot: [], keys: []
   }
 }

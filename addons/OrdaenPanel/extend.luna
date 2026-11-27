@@ -12,7 +12,7 @@ public struct XpPart {
   title: String
   text: String
   rows: Array<TipRow>
-  look: XpLook = XpLook.Fill
+  look: XpLook = XpLook::Fill
 }
 
 // How a part is drawn: the experience's own fill, made grey and tinted the part's colour (the same glass in another

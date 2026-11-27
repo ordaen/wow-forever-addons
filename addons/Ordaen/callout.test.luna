@@ -9,13 +9,13 @@ import { Component } from "@/module"
 const TITLE = "Talent points to spend"
 
 // A button of the game's, 32 by 40 px, its middle `fromBottom` px over the screen's bottom (negative: under its top).
-function button(name: String, fromBottom: Number): any Client.Frame {
-  const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
+function button(name: String, fromBottom: Number): any Client::Frame {
+  const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 40)
   if (fromBottom > 0) {
-    made.SetPoint("BOTTOM", Client.C_UI.GetUIParent(), "BOTTOM", 0, fromBottom)
+    made.SetPoint("BOTTOM", Client::C_UI::GetUIParent(), "BOTTOM", 0, fromBottom)
   } else {
-    made.SetPoint("TOP", Client.C_UI.GetUIParent(), "TOP", 0, fromBottom)
+    made.SetPoint("TOP", Client::C_UI::GetUIParent(), "TOP", 0, fromBottom)
   }
   return made
 }
@@ -24,9 +24,9 @@ function button(name: String, fromBottom: Number): any Client.Frame {
 class Pointing implements Component {
   public state shown = true
 
-  by: any Client.Frame
+  by: any Client::Frame
   side: CalloutSide
-  constructor(by: any Client.Frame, side: CalloutSide) {
+  constructor(by: any Client::Frame, side: CalloutSide) {
     self.by = by
     self.side = side
   }
@@ -43,66 +43,66 @@ class Pointing implements Component {
 
 test "over a button, its arrow points down at the button's top" {
   const by = button("CalloutAbove", 40)
-  const page = new Pointing(by, CalloutSide.Above)
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  const page = new Pointing(by, CalloutSide::Above)
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
   // The button's top: 40 px over the screen's bottom, and 40 px high.
   const top = 900 - 80
-  const arrow = Test.edges("helptip-arrow", 0)
-  Test.expect(arrow.bottom <= top && arrow.bottom >= top - 4)
-  Test.expect(Test.surfaceHolding(TITLE).y < arrow.top)
-  Test.expect(Test.drawn().any(d => d.file == "helptip-arrow" && d.rotation == 0))
+  const arrow = Test::edges("helptip-arrow", 0)
+  Test::expect(arrow.bottom <= top && arrow.bottom >= top - 4)
+  Test::expect(Test::surfaceHolding(TITLE).y < arrow.top)
+  Test::expect(Test::drawn().any(d => d.file == "helptip-arrow" && d.rotation == 0))
   destroy page
 }
 
 test "under a button, its arrow points up at the button's bottom" {
   const by = button("CalloutBelow", -40)
-  const page = new Pointing(by, CalloutSide.Below)
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  const page = new Pointing(by, CalloutSide::Below)
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
   const bottom = 80
-  const arrow = Test.edges("helptip-arrow", 0)
-  Test.expect(arrow.top >= bottom && arrow.top <= bottom + 4)
-  Test.expect(Test.surfaceHolding(TITLE).y > arrow.bottom)
-  Test.expect(Test.drawn().any(d => d.file == "helptip-arrow" && d.rotation.abs() > 3))
+  const arrow = Test::edges("helptip-arrow", 0)
+  Test::expect(arrow.top >= bottom && arrow.top <= bottom + 4)
+  Test::expect(Test::surfaceHolding(TITLE).y > arrow.bottom)
+  Test::expect(Test::drawn().any(d => d.file == "helptip-arrow" && d.rotation.abs() > 3))
   destroy page
 }
 
 test "its close glyph says it was read, and its owner hides it" {
   const by = button("CalloutClosed", 40)
-  const page = new Pointing(by, CalloutSide.Above)
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  Test.expect(Test.surfaces().any(s => s.texts.any(t => t == TITLE)))
-  const glyph = Test.edges(Ordaen.art.ctl.corner.close, 0)
-  Test.click({ x: (glyph.left + glyph.right) / 2, y: (glyph.top + glyph.bottom) / 2 }, nil)
-  Test.expect(!page.shown)
-  Test.expect(!Test.surfaces().any(s => s.texts.any(t => t == TITLE)))
+  const page = new Pointing(by, CalloutSide::Above)
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test::expect(Test::surfaces().any(s => s.texts.any(t => t == TITLE)))
+  const glyph = Test::edges(Ordaen.art.ctl.corner.close, 0)
+  Test::click({ x: (glyph.left + glyph.right) / 2, y: (glyph.top + glyph.bottom) / 2 }, nil)
+  Test::expect(!page.shown)
+  Test::expect(!Test::surfaces().any(s => s.texts.any(t => t == TITLE)))
   destroy page
 }
 
 // The character's portrait in the screen's lower left corner: a frame 120 px wide by the screen's edge.
-function cornerButton(): any Client.Frame {
-  const made = Client.CreateFrame("Button", "CalloutCorner", Client.C_UI.GetUIParent(), nil)
+function cornerButton(): any Client::Frame {
+  const made = Client::CreateFrame("Button", "CalloutCorner", Client::C_UI::GetUIParent(), nil)
   made.SetSize(120, 100)
-  made.SetPoint("BOTTOMLEFT", Client.C_UI.GetUIParent(), "BOTTOMLEFT", 0, 0)
+  made.SetPoint("BOTTOMLEFT", Client::C_UI::GetUIParent(), "BOTTOMLEFT", 0, 0)
   return made
 }
 
 test "by a button at the screen's edge, it reaches inward and its arrow stands over the button's middle" {
-  const page = new Pointing(cornerButton(), CalloutSide.Above)
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  const arrow = Test.edges("helptip-arrow", 0)
+  const page = new Pointing(cornerButton(), CalloutSide::Above)
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  const arrow = Test::edges("helptip-arrow", 0)
   // The button's middle: 60 px from the screen's left.
-  Test.expect(((arrow.left + arrow.right) / 2 - 60).abs() <= 4)
-  Test.expect(Test.surfaceHolding(TITLE).x > (arrow.left + arrow.right) / 2)
+  Test::expect(((arrow.left + arrow.right) / 2 - 60).abs() <= 4)
+  Test::expect(Test::surfaceHolding(TITLE).x > (arrow.left + arrow.right) / 2)
   destroy page
 }
 
-const VIOLET: Color = Color.hex("#8a4fd0")
+const VIOLET: Color = Color::hex("#8a4fd0")
 
 // A speech bubble: a count in the client's chat bubble made one colour.
 class Counted implements Component {
   public state unread = false
-  by: any Client.Frame
-  constructor(by: any Client.Frame) { self.by = by }
+  by: any Client::Frame
+  constructor(by: any Client::Frame) { self.by = by }
 
   public render(self): Template {
     return $ltml {
@@ -113,44 +113,44 @@ class Counted implements Component {
 
 test "a speech callout pulses, its bubble and its tail together, while its owner says so" {
   const page = new Counted(button("CalloutPulse", 40))
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  Test.expect(Test.pulsing() == 0)
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test::expect(Test::pulsing() == 0)
   page.unread = true
-  Test.flush()
-  Test.expect(Test.pulsing() == 2)
+  Test::flush()
+  Test::expect(Test::pulsing() == 2)
   page.unread = false
-  Test.flush()
-  Test.expect(Test.pulsing() == 0)
+  Test::flush()
+  Test::expect(Test::pulsing() == 0)
   destroy page
 }
 
 test "a speech callout is the client's chat bubble in its colour with its count and its tail: no frame, no close" {
   const page = new Counted(button("CalloutSpeech", 40))
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  Test.expect(Test.page().text("3").shown())
-  Test.expect(!Test.page().box(Ordaen.art.window.wood).shown() && !Test.page().box(Ordaen.art.ctl.corner.close).shown())
-  const pieces = Test.drawn().filter(d => d.file is String && String.of(d.file).contains("ChatBubble-NineSlice"))
-  Test.expect(pieces.length == 9 && pieces.filter(d => d.desaturated).length == 9)
-  const tail = Test.edges("ChatBubble-Tail", 0)
-  const count = Test.page().text("3").rect()
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test::expect(Test::page().text("3").shown())
+  Test::expect(!Test::page().box(Ordaen.art.window.wood).shown() && !Test::page().box(Ordaen.art.ctl.corner.close).shown())
+  const pieces = Test::drawn().filter(d => d.file is String && String::of(d.file).contains("ChatBubble-NineSlice"))
+  Test::expect(pieces.length == 9 && pieces.filter(d => d.desaturated).length == 9)
+  const tail = Test::edges("ChatBubble-Tail", 0)
+  const count = Test::page().text("3").rect()
   // The tail's point by the button's top middle (the screen's middle, 80 px over its bottom), the count over it.
-  Test.expect(((tail.left + tail.right) / 2 - 800).abs() <= 4 && tail.bottom <= 820 && tail.bottom >= 816)
-  Test.expect(count.bottom < tail.bottom)
-  Test.expect(Test.drawn().filter(d => d.file == "helptip-arrow").length == 0)
+  Test::expect(((tail.left + tail.right) / 2 - 800).abs() <= 4 && tail.bottom <= 820 && tail.bottom >= 816)
+  Test::expect(count.bottom < tail.bottom)
+  Test::expect(Test::drawn().filter(d => d.file == "helptip-arrow").length == 0)
   destroy page
 }
 
 test "a framed callout without its close has no close glyph" {
   const page = new Framed(button("CalloutFramed", 40))
-  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  Test.expect(Test.page().window(TITLE).box(Ordaen.art.window.wood).shown())
-  Test.expect(!Test.page().box(Ordaen.art.ctl.corner.close).shown())
+  Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test::expect(Test::page().window(TITLE).box(Ordaen.art.window.wood).shown())
+  Test::expect(!Test::page().box(Ordaen.art.ctl.corner.close).shown())
   destroy page
 }
 
 class Framed implements Component {
-  by: any Client.Frame
-  constructor(by: any Client.Frame) { self.by = by }
+  by: any Client::Frame
+  constructor(by: any Client::Frame) { self.by = by }
 
   public render(self): Template {
     return $ltml {

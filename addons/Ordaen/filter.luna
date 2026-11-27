@@ -18,13 +18,13 @@ import { SWITCH_WIDTH, Shown, SwitchFace } from "@/switch"
 import { ToolButton } from "@/toolbar"
 
 const WIDTH: Bounds = { min: 269.53125dp, max: nil }
-const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const BACK: Color = Color::hex("#0a0806f7")
+const EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 // What stands under a rule keeps an item's step from it.
 const AFTER_RULE: Edges = { top: 3sp }
-const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: ["top"] }
-const INK: Color = Color.hex("#e8dcc4")
-const GOLD: Color = Color.hex("#f0c860")
+const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b33"), sides: ["top"] }
+const INK: Color = Color::hex("#e8dcc4")
+const GOLD: Color = Color::hex("#f0c860")
 const LINE: Array<Track> = [{ fr: 1 }, SWITCH_WIDTH]
 const RESET_WIDTH = 140.625dp
 
@@ -72,7 +72,7 @@ class FilterLine<K: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlip}
+      <box columns={LINE} gap={5sp} yAlign={Align::Center} @pointerPress={self.onFlip}
            @keyPress(.Enter)={self.onFlip} @keyPress(.Space)={self.onFlip}>
         <text value={self.option.label} textColor={INK} wrap={.None} />
         <SwitchFace state={self.state} />
@@ -107,7 +107,7 @@ class FilterSection<K: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={3sp} padding={self.padding} border={self.rule}>
-        <box $if={self.titled} columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlipAll}
+        <box $if={self.titled} columns={LINE} gap={5sp} yAlign={Align::Center} @pointerPress={self.onFlipAll}
              @keyPress(.Enter)={self.onFlipAll} @keyPress(.Space)={self.onFlipAll}>
           <text value={self.title} textColor={GOLD} wrap={.None} />
           <SwitchFace state={self.state} />
@@ -148,7 +148,7 @@ public class FilterButton<K: Unknown> implements Component {
         if (self.values[option.key] == true) { on.push(option.label) }
       }
     }
-    return on.length == 0 ? Locale.FILTER_NONE : on.join(", ")
+    return on.length == 0 ? Locale::FILTER_NONE : on.join(", ")
   }
 
   close(mut self) { self.open = false }
@@ -165,14 +165,14 @@ public class FilterButton<K: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.named} open={mut self.open}
+      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale::FILTER} text={self.named} open={mut self.open}
                   lit={self.narrowed}>
-        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+        <surface leading={.Row} $if={self.open} layer={Layer::Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
                  border={EDGE} padding={5sp} columns={1} gap={3sp} @pointerPressOutside={self.close}>
           <FilterSection $for={index, group of self.groups} group={group} values={self.values} index={index}
                          @flip={self.onFlip} @flipAll={self.onFlipAll} />
           <box columns={1} padding={AFTER_RULE} border={RULE}>
-            <PushButton label={Locale.FILTER_RESET} width={RESET_WIDTH} disabled={!self.narrowed} @click={self.onReset} />
+            <PushButton label={Locale::FILTER_RESET} width={RESET_WIDTH} disabled={!self.narrowed} @click={self.onReset} />
           </box>
         </surface>
       </ToolButton>

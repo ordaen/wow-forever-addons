@@ -35,7 +35,7 @@ public class Scanner {
   // The server's time of the account's last full scan; 0 before the first.
   public state lastFull = 0
   // What the house's last browse showed.
-  public state offers: Array<Game.Offer> = []
+  public state offers: Array<Game::Offer> = []
   // A price moved since the house was last put at rest.
   dirty = false
   reader: Task<nil> | nil = nil
@@ -52,9 +52,9 @@ public class Scanner {
     self.size = (kept.houses[house.name] ?? "").length
     self.known = house.count
     self.lastFull = kept.lastFull
-    Game.auctionScan.finished.listen(self.onFinished)
-    Game.auctionQuery.results.listen(self.onResults)
-    Game.auctionHouse.closed.listen(self.onClosed)
+    Game::auctionScan.finished.listen(self.onFinished)
+    Game::auctionQuery.results.listen(self.onResults)
+    Game::auctionHouse.closed.listen(self.onClosed)
   }
 
   // Seconds until the client takes another full scan from this account; 0 when it would now.
@@ -63,10 +63,10 @@ public class Scanner {
   // A full scan is asked of the client, where the house is open, none runs, and the account's 15 minutes are past.
   public full(mut self): Boolean {
     const now = serverSeconds()
-    if (!peek Game.auctionHouse.open || self.wait(now) > 0 || peek Game.auctionScan.running || peek self.reading) {
+    if (!peek Game::auctionHouse.open || self.wait(now) > 0 || peek Game::auctionScan.running || peek self.reading) {
       return false
     }
-    if (!Game.auctionScan.start()) { return false }
+    if (!Game::auctionScan.start()) { return false }
     self.kept.lastFull = now
     self.lastFull = now
     return true
@@ -80,38 +80,38 @@ public class Scanner {
   async read(mut self, count: Integer) {
     self.reading = true
     self.progress = 0
-    const at = Hour.now()
+    const at = Hour::now()
     // An item listed once is its one auction; one listed more, its auctions: a list only where there are several.
     const alone: Map<PriceKey, Listing> = {}
     const several: Map<PriceKey, mut Array<Listing>> = {}
-    self.since = Client.debugprofilestop()
+    self.since = Client::debugprofilestop()
     for (index of 1..count) {
-      const key, unit, many = Game.auctionScan.read(index)
+      const key, unit, many = Game::auctionScan.read(index)
       take(key, unit, many, alone, several)
       if (index % CHECK == 0 && index < count && self.spent()) {
         self.progress = index / count * READ_SHARE
-        await Game.frame()
-        self.since = Client.debugprofilestop()
+        await Game::frame()
+        self.since = Client::debugprofilestop()
       }
     }
     // The auctions read before their item's data came, read again as it comes; a while at most.
-    const until = (peek Game.clock.time) + LOAD_WAIT
+    const until = (peek Game::clock.time) + LOAD_WAIT
     let turn = 1
     for (round of 1..) {
       for (step of 1..) {
-        const index = Game.auctionScan.again(turn)
+        const index = Game::auctionScan.again(turn)
         if (index == 0) { break }
         turn += 1
-        const key, unit, many = Game.auctionScan.read(index)
+        const key, unit, many = Game::auctionScan.read(index)
         take(key, unit, many, alone, several)
         if (step % CHECK == 0 && self.spent()) {
-          await Game.frame()
-          self.since = Client.debugprofilestop()
+          await Game::frame()
+          self.since = Client::debugprofilestop()
         }
       }
-      if (peek Game.auctionScan.waiting == 0 || peek Game.clock.time >= until) { break }
-      await Game.frame()
-      self.since = Client.debugprofilestop()
+      if (peek Game::auctionScan.waiting == 0 || peek Game::clock.time >= until) { break }
+      await Game::frame()
+      self.since = Client::debugprofilestop()
     }
     self.progress = READ_SHARE
     let items = 0
@@ -119,8 +119,8 @@ public class Scanner {
       self.house.observe(key, auction.low(), auction.low(), auction.quantity(), at)
       items += 1
       if (items % CHECK == 0 && self.spent()) {
-        await Game.frame()
-        self.since = Client.debugprofilestop()
+        await Game::frame()
+        self.since = Client::debugprofilestop()
       }
     }
     for (key, list of several) {
@@ -129,8 +129,8 @@ public class Scanner {
       self.house.observe(key, unit, low, total, at)
       items += 1
       if (items % CHECK == 0 && self.spent()) {
-        await Game.frame()
-        self.since = Client.debugprofilestop()
+        await Game::frame()
+        self.since = Client::debugprofilestop()
       }
     }
     _ = self.house.prune(at)
@@ -145,16 +145,16 @@ public class Scanner {
   }
 
   // This frame's share of a scan's work is spent.
-  spent(self): Boolean { return Client.debugprofilestop() - self.since > FRAME_MS }
+  spent(self): Boolean { return Client::debugprofilestop() - self.since > FRAME_MS }
 
   // A browse's lowest prices: each an observation of its item.
-  onResults(mut self, offers: Array<Game.Offer>) {
+  onResults(mut self, offers: Array<Game::Offer>) {
     self.offers = offers
-    const at = Hour.now()
+    const at = Hour::now()
     let any = false
     for (offer of offers) {
       if (offer.key != 0 && offer.copper > 0 && offer.quantity > 0) {
-        self.house.observe(PriceKey.given(offer.key), offer.copper, offer.copper, offer.quantity, at)
+        self.house.observe(PriceKey::given(offer.key), offer.copper, offer.copper, offer.quantity, at)
         any = true
       }
     }
@@ -187,8 +187,8 @@ public class Scanner {
 // later ones in a list with the first.
 function take(key: Integer, unit: Integer, many: Integer, alone: mut Map<PriceKey, Listing>, several: mut Map<PriceKey, mut Array<Listing>>) {
   if (key == 0 || unit <= 0 || many <= 0) { return }
-  const priced = PriceKey.given(key)
-  const auction = Listing.of(unit, many)
+  const priced = PriceKey::given(key)
+  const auction = Listing::of(unit, many)
   const list = several[priced]
   if (list != nil) {
     list.push(auction)

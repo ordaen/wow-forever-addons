@@ -9,185 +9,185 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 const WINDOW_SETTING = "Ordaen's auction house window"
 
 // The game's own auction house window, where it stands: ours shows in its place.
-function gameWindow(): any Client.Frame {
-  let own = Client.CreateFrame("Frame", "AuctionHouseFrame", Client.UIParent, nil)
+function gameWindow(): any Client::Frame {
+  let own = Client::CreateFrame("Frame", "AuctionHouseFrame", Client::UIParent, nil)
   own.SetSize(800, 500)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
   return own
 }
 
 // The house's window: the surface that holds its «Sell» tab.
-function window(): Test.Part {
-  return Test.page().window("Sell")
+function window(): Test::Part {
+  return Test::page().window("Sell")
 }
 
 // Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
 // what it was asked.
 function asked(expected: String): Boolean {
-  Test.flush()
-  const said = Test.requests().join(", ")
+  Test::flush()
+  const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 // The game's own window stands off the screen, unseen: it stays open, which keeps the house open.
-function away(own: any Client.Frame): Boolean {
-  Test.flush()
+function away(own: any Client::Frame): Boolean {
+  Test::flush()
   return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
 }
 
 // The game's own window is where it stood, seen.
-function back(own: any Client.Frame): Boolean {
-  Test.flush()
+function back(own: any Client::Frame): Boolean {
+  Test::flush()
   return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }
 
 // Ordaen's settings window at the module's page, as `/ordaen trading` opens it.
-function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
-  return Test.page().window(SETTINGS)
+function settings(): Test::Part {
+  (Client::SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
+  return Test::page().window(SETTINGS)
 }
 
 // Shown and shut
 
 test "with the house shut nothing of the window shows, and the game's own window stands where it is" {
   const own = gameWindow()
-  Game.frames.AuctionHouse = own
-  Test.mount(nil, SCREEN)
-  Test.expect(!window().shown() && back(own))
+  Game::frames.AuctionHouse = own
+  Test::mount(nil, SCREEN)
+  Test::expect(!window().shown() && back(own))
 }
 
 test "the house opening shows the window in place of the game's own, which stands away unseen" {
   const own = gameWindow()
-  Game.frames.AuctionHouse = own
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  Test.expect(window().shown() && away(own))
+  Game::frames.AuctionHouse = own
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  Test::expect(window().shown() && away(own))
 }
 
 test "the window's close leaves the house, and the game's own window is back" {
   const own = gameWindow()
-  Game.frames.AuctionHouse = own
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  _ = Test.requests()
+  Game::frames.AuctionHouse = own
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  _ = Test::requests()
   window().button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(asked("AuctionHouse.close") && !window().shown() && back(own))
+  Test::expect(asked("AuctionHouse.close") && !window().shown() && back(own))
 }
 
 test "Escape closes the window and leaves the house" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  _ = Test.requests()
-  Test.key(Key.Escape)
-  Test.expect(asked("AuctionHouse.close") && !window().shown())
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  _ = Test::requests()
+  Test::key(Key::Escape)
+  Test::expect(asked("AuctionHouse.close") && !window().shown())
 }
 
 test "the house shut by the game takes the window and its docked windows with it" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Shopping list").click()
-  Test.expect(Test.page().window("Search all").shown())
-  Game.auctionHouse.open = false
-  Game.auctionHouse.closed.emit()
-  Test.expect(!window().shown() && !Test.page().window("Search all").shown())
+  Test::expect(Test::page().window("Search all").shown())
+  Game::auctionHouse.open = false
+  Game::auctionHouse.closed.emit()
+  Test::expect(!window().shown() && !Test::page().window("Search all").shown())
 }
 
 // The pages
 
 test "the window opens at «Buy»: every item's category at the left" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  Test.expect(window().text("All items").shown() && !window().text("What your bags can put up").shown())
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  Test::expect(window().text("All items").shown() && !window().text("What your bags can put up").shown())
 }
 
 test "the «Sell» tab shows the bags' side, and «Buy» the house's again" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Sell").click()
-  Test.expect(window().text("What your bags can put up").shown() && !window().text("All items").shown())
+  Test::expect(window().text("What your bags can put up").shown() && !window().text("All items").shown())
   window().button("Buy").click()
-  Test.expect(window().text("All items").shown())
+  Test::expect(window().text("All items").shown())
 }
 
 test "the page shown is the one shown as the house opens again" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Sell").click()
-  Game.auctionHouse.open = false
-  Game.auctionHouse.closed.emit()
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  Test.expect(window().text("What your bags can put up").shown())
+  Game::auctionHouse.open = false
+  Game::auctionHouse.closed.emit()
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  Test::expect(window().text("What your bags can put up").shown())
 }
 
 // The docked windows
 
 test "«Shopping list» opens its window; clicked again it closes, the house left open" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Shopping list").click()
-  Test.expect(Test.page().window("Search all").shown())
-  _ = Test.requests()
+  Test::expect(Test::page().window("Search all").shown())
+  _ = Test::requests()
   window().button("Shopping list").click()
-  Test.expect(!Test.page().window("Search all").shown() && window().shown() && asked(""))
+  Test::expect(!Test::page().window("Search all").shown() && window().shown() && asked(""))
 }
 
 test "«My auctions» on «Sell» opens its window, whose close closes it alone" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Sell").click()
   window().button("My auctions").click()
-  const owned = Test.page().window("Check")
-  Test.expect(owned.shown())
-  _ = Test.requests()
+  const owned = Test::page().window("Check")
+  Test::expect(owned.shown())
+  _ = Test::requests()
   owned.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!Test.page().window("Check").shown() && window().shown() && asked(""))
+  Test::expect(!Test::page().window("Check").shown() && window().shown() && asked(""))
 }
 
 test "both docked windows open at once, each from its button" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().button("Shopping list").click()
   window().button("Sell").click()
   window().button("My auctions").click()
-  Test.expect(Test.page().window("Search all").shown() && Test.page().window("Check").shown())
+  Test::expect(Test::page().window("Search all").shown() && Test::page().window("Check").shown())
 }
 
 // The settings
 
 test "the window off in the settings: the house opens with none of it, the game's own window left where it is" {
   const own = gameWindow()
-  Game.frames.AuctionHouse = own
-  Test.mount(nil, SCREEN)
+  Game::frames.AuctionHouse = own
+  Test::mount(nil, SCREEN)
   const page = settings()
   page.button(WINDOW_SETTING).click()
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
-  Test.expect(!window().shown() && back(own))
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
+  Test::expect(!window().shown() && back(own))
 }
 
 test "the window's gear opens Ordaen's settings at Ordaen Trading's page" {
-  Test.mount(nil, SCREEN)
-  Game.auctionHouse.open = true
-  Game.auctionHouse.opened.emit()
+  Test::mount(nil, SCREEN)
+  Game::auctionHouse.open = true
+  Game::auctionHouse.opened.emit()
   window().text("All items").hover()
   window().button(Ordaen.art.ctl.corner.gear).click()
-  Test.expect(Test.page().window(SETTINGS).text(WINDOW_SETTING).shown())
+  Test::expect(Test::page().window(SETTINGS).text(WINDOW_SETTING).shown())
 }

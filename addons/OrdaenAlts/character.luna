@@ -18,8 +18,8 @@ public type RecipeId = brand Integer {
 // The side a character fights for, as the game's `Faction` is, kept as plain data.
 public enum Faction implements Plain { Alliance = "Alliance", Horde = "Horde", Neutral = "Neutral" }
 
-public function factionOf(side: Game.Faction): Faction {
-  return match (side) { Game.Faction.Alliance => Faction.Alliance, Game.Faction.Horde => Faction.Horde, else => Faction.Neutral }
+public function factionOf(side: Game::Faction): Faction {
+  return match (side) { Game::Faction::Alliance => Faction::Alliance, Game::Faction::Horde => Faction::Horde, else => Faction::Neutral }
 }
 
 // Where a character holds items.

@@ -11,8 +11,8 @@ const MOST_TRACKED = 25
 public enum GroundShown implements Plain { Hover = "hover", Always = "always" }
 
 const GROUND_SHOWN: Array<Choice<GroundShown>> = [
-  { value: GroundShown.Hover, label: Locale.GROUND_ON_HOVER },
-  { value: GroundShown.Always, label: Locale.GROUND_ALWAYS }
+  { value: GroundShown::Hover, label: Locale::GROUND_ON_HOVER },
+  { value: GroundShown::Always, label: Locale::GROUND_ALWAYS }
 ]
 
 public struct Choices implements Plain {
@@ -23,7 +23,7 @@ public struct Choices implements Plain {
   ground: Number
 }
 
-public const DEFAULTS: Choices = { listed: MOST_TRACKED, groundShown: GroundShown.Hover, ground: 0.55 }
+public const DEFAULTS: Choices = { listed: MOST_TRACKED, groundShown: GroundShown::Hover, ground: 0.55 }
 
 public class GeneralPage implements Component {
   settings: mut Settings<Choices>
@@ -33,12 +33,12 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <NumberInput label={Locale.LISTED} hint={Locale.LISTED_TIP} value={mut self.settings.values.listed} least={1}
+      <NumberInput label={Locale::LISTED} hint={Locale::LISTED_TIP} value={mut self.settings.values.listed} least={1}
                    most={MOST_TRACKED} />
-      <Dropdown label={Locale.GROUND_SHOWN} hint={Locale.GROUND_SHOWN_TIP} value={mut self.settings.values.groundShown}
+      <Dropdown label={Locale::GROUND_SHOWN} hint={Locale::GROUND_SHOWN_TIP} value={mut self.settings.values.groundShown}
                 choices={GROUND_SHOWN} />
-      <NumberInput label={Locale.GROUND} hint={Locale.GROUND_TIP} value={mut self.settings.values.ground} least={0}
-                   most={1} step={0.05} unit={Unit.Percent} />
+      <NumberInput label={Locale::GROUND} hint={Locale::GROUND_TIP} value={mut self.settings.values.ground} least={0}
+                   most={1} step={0.05} unit={Unit::Percent} />
     }
   }
 }

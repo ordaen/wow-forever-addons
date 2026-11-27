@@ -9,7 +9,7 @@ import Locale from "@/locales"
 import { Group, QuestView, groupsOf, ofKind } from "@/model"
 import { Act, HeaderRow, QuestRow } from "@/view"
 
-const DIM: Color = Color.hex("#a3977f")
+const DIM: Color = Color::hex("#a3977f")
 // The rows bring their own padding (the list's well has none): the text that stands for them takes the same.
 const EMPTY_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 
@@ -56,7 +56,7 @@ public class QuestList implements Component {
   derived groups: Array<Group> = groupsOf(self.quests, self.kind, self.zone)
   derived flat: Array<LogQuest> = ofKind(self.quests, self.kind)
   derived empty: Boolean = self.flat.length == 0
-  derived emptyText: String = !self.any ? self.noneText() : Locale.NOTHING_FOUND
+  derived emptyText: String = !self.any ? self.noneText() : Locale::NOTHING_FOUND
 
   quests: Signal<Array<LogQuest>>
   kind: Signal<QuestKind>
@@ -90,10 +90,10 @@ public class QuestList implements Component {
 
   noneText(self): String {
     return match (self.kind) {
-      .World => Locale.EMPTY_WORLD
-      .Dungeon => Locale.EMPTY_DUNGEONS
-      .Raid => Locale.EMPTY_RAIDS
-      .PvP => Locale.EMPTY_PVP
+      .World => Locale::EMPTY_WORLD
+      .Dungeon => Locale::EMPTY_DUNGEONS
+      .Raid => Locale::EMPTY_RAIDS
+      .PvP => Locale::EMPTY_PVP
     }
   }
 

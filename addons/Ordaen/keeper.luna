@@ -73,12 +73,12 @@ public function modulesText(modules: Array<String>): String {
   }
   const text = named.join(", ")
   if (modules.length <= NAMED_MOST) { return text }
-  return Locale.HISTORY_MORE.format(text, modules.length - NAMED_MOST)
+  return Locale::HISTORY_MORE.format(text, modules.length - NAMED_MOST)
 }
 
 // «4 настройки, Панель, Ordaen».
 public function changeText(change: Change): String {
-  const counted = plural(change.count, Locale.HISTORY_SETTINGS_ONE, Locale.HISTORY_SETTINGS_FEW, Locale.HISTORY_SETTINGS_MANY)
+  const counted = plural(change.count, Locale::HISTORY_SETTINGS_ONE, Locale::HISTORY_SETTINGS_FEW, Locale::HISTORY_SETTINGS_MANY)
   return counted.format(change.count) + ", " + modulesText(change.modules)
 }
 
@@ -302,7 +302,7 @@ public class Keeper {
     const sections: Map<String, Unknown> = {}
     for (key, section of self.sections) { sections[key] = section.snapshot() }
     shelf.made += 1
-    const hours, minutes = Client.GetGameTime()
+    const hours, minutes = Client::GetGameTime()
     shelf.points.push({ number: shelf.made, at: "%02d:%02d".format(hours.floor(), minutes.floor()), sections: sections })
     self.count(peek self.profiles.active)
     return true

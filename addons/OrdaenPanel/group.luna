@@ -15,7 +15,7 @@ const PAIR: Array<Track> = ["max-content", "max-content"]
 public enum Cell {
   Face
   Menu { icon: Art, frame: any Frame | nil, friends: Boolean }
-  Bag { button: Game.BagButton }
+  Bag { button: Game::BagButton }
 }
 
 // The group: its cells in their order, across the screen or down a side of it, each as high as the group is.
@@ -120,10 +120,10 @@ class GroupCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} xAlign={Align.Center} yAlign={Align.Center}>
+      <box columns={self.columns} rows={self.rows} xAlign={Align::Center} yAlign={Align::Center}>
         <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight}>
-          <box position={Position.Absolute} left={0ui} top={-self.rise} right={0ui} bottom={0ui} rows={[{ fr: 1 }]}
-               yAlign={Align.Stretch}>
+          <box position={Position::Absolute} left={0ui} top={-self.rise} right={0ui} bottom={0ui} rows={[{ fr: 1 }]}
+               yAlign={Align::Stretch}>
             <ShortCut $if={self.upright} />
             <Groove $else />
           </box>
@@ -166,7 +166,7 @@ class CellOf implements Component {
         if (self.cell.friends) {
           return $ltml {
             <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size}
-                      count={Game.friends.online} after={self.after} />
+                      count={Game::friends.online} after={self.after} />
           }
         }
         return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size} after={self.after} /> }

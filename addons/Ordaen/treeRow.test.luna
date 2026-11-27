@@ -36,28 +36,28 @@ class Cost {
 
 test "a row with children opens and closes under the mouse, a leaf draws no mark, the picked row is marked" {
   let page = new Cost()
-  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
-  Test.shot("the axe open, the bar closed: open on the axe, closed on the bar one step in, none on the leaf; the bar's age at its right")
+  Test::mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test::shot("the axe open, the bar closed: open on the axe, closed on the bar one step in, none on the leaf; the bar's age at its right")
   // The marks are art (no font the look ships carries ▶ or ▼): the axe's open one above the bar's closed one.
-  Test.expect(Test.painted(Ordaen.art.ctl.markOpen, nil).y < Test.painted(Ordaen.art.ctl.markClosed, nil).y)
+  Test::expect(Test::painted(Ordaen.art.ctl.markOpen, nil).y < Test::painted(Ordaen.art.ctl.markClosed, nil).y)
 
-  Test.moveTo(Test.holding("Hardwood Handle", nil))
-  Test.shot("the cursor on the leaf: its shade")
+  Test::moveTo(Test::holding("Hardwood Handle", nil))
+  Test::shot("the cursor on the leaf: its shade")
 
-  Test.click(Test.holding("Bronze Bar", nil), nil)
-  Test.expect(page.bar)
-  Test.shot("the bar clicked: open, its ore two steps in")
+  Test::click(Test::holding("Bronze Bar", nil), nil)
+  Test::expect(page.bar)
+  Test::shot("the bar clicked: open, its ore two steps in")
 
-  Test.click(Test.holding("Tin Ore", nil), nil)
-  Test.expect(page.picked == "Tin Ore")
-  Test.shot("the ore clicked: picked, white, its light along its left; a leaf does not close")
-  Test.expect(page.bar)
+  Test::click(Test::holding("Tin Ore", nil), nil)
+  Test::expect(page.picked == "Tin Ore")
+  Test::shot("the ore clicked: picked, white, its light along its left; a leaf does not close")
+  Test::expect(page.bar)
 
-  Test.click(Test.holding("Bronze Axe", nil), nil)
-  Test.expect(!page.axe)
-  Test.expect(page.picked == "Bronze Axe")
-  Test.shot("the axe clicked: closed, its children gone, it is the picked row")
+  Test::click(Test::holding("Bronze Axe", nil), nil)
+  Test::expect(!page.axe)
+  Test::expect(page.picked == "Bronze Axe")
+  Test::shot("the axe clicked: closed, its children gone, it is the picked row")
 
   destroy page
-  Test.expect(Test.blank())
+  Test::expect(Test::blank())
 }

@@ -17,8 +17,8 @@ public class Catcher {
   errors: mut Errors
   constructor(errors: mut Errors) {
     self.errors = errors
-    Events.ADDON_ACTION_BLOCKED.listen(self.onBlocked)
-    Events.ADDON_ACTION_FORBIDDEN.listen(self.onForbidden)
+    Events::ADDON_ACTION_BLOCKED.listen(self.onBlocked)
+    Events::ADDON_ACTION_FORBIDDEN.listen(self.onForbidden)
   }
 
   public onTaint(mut self, listener: TaintListener) {
@@ -35,7 +35,7 @@ public class Catcher {
   // A failure that raised nothing, of the addon `source`.
   public fault(mut self, message: String, source: String) {
     if (self.errors.repeatOf(message) == nil) {
-      _ = self.errors.add({ message: message, stack: nil, locals: nil, kind: Kind.Error, source: source })
+      _ = self.errors.add({ message: message, stack: nil, locals: nil, kind: Kind::Error, source: source })
     }
   }
 
@@ -52,14 +52,14 @@ public class Catcher {
   public taint(mut self, event: String, addon: String | nil, func: String | nil) {
     let verb = event == "ADDON_ACTION_FORBIDDEN" ? "forbidden" : "blocked"
     // The client names the function with its parentheses or without ("UNKNOWN()", "Minimap:SetParent").
-    let called = String.of(func)
+    let called = String::of(func)
     const closed, _ = called.find("%)$")
     if (closed == nil) {
       called = called + "()"
     }
-    let message = "%s: call to %s was %s".format(String.of(addon), called, verb)
+    let message = "%s: call to %s was %s".format(String::of(addon), called, verb)
     for (listener of self.taintListeners) {
-      listener(String.of(addon), called, verb)
+      listener(String::of(addon), called, verb)
     }
     if (self.errors.repeatOf(message) == nil) {
       // The addon WoW blames: its folder name, "Blizzard" for Blizzard_*, else "other".
@@ -74,7 +74,7 @@ public class Catcher {
       if (blizzard != nil) {
         source = "Blizzard"
       }
-      _ = self.errors.add({ message: message, stack: Client.debugstack(2), locals: nil, kind: Kind.Taint, source: source })
+      _ = self.errors.add({ message: message, stack: Client::debugstack(2), locals: nil, kind: Kind::Taint, source: source })
     }
   }
 }

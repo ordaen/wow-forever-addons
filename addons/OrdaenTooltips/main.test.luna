@@ -14,35 +14,35 @@ import root Tooltips from "OrdaenTooltips"
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const SETTINGS = "Move mode"
 // The colours a button's facts are in: a value, and a durability under a quarter.
-const VALUE: Color = Color.hex("#f3e7cc")
-const RED: Color = Color.hex("#ff4040")
+const VALUE: Color = Color::hex("#f3e7cc")
+const RED: Color = Color::hex("#ff4040")
 // A tooltip's hotkeys' colour.
-const HOTKEY: Color = Color.hex("#857a66")
+const HOTKEY: Color = Color::hex("#857a66")
 
 // A frame of the game's, by its name, at a place on the screen: in the screen's frame, as the game's are.
-function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client.Frame {
-  const made = Client.CreateFrame(kind, name, Client.UIParent, nil)
+function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client::Frame {
+  const made = Client::CreateFrame(kind, name, Client::UIParent, nil)
   made.SetSize(width, height)
-  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
+  made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", x, -y)
   return made
 }
 
 // The game's own tooltip, in the screen's bottom right corner: 200 wide, its top at 720, its bottom at 800.
-function corner(): any Client.Frame {
+function corner(): any Client::Frame {
   return frame("Frame", "GameTooltip", 1300, 720, 200, 80)
 }
 
 // The game's default anchor, moved in Edit Mode above the corner: its bottom right at 1500,750. A tooltip hangs there
 // by its bottom right corner.
-function home(): any Client.Frame {
+function home(): any Client::Frame {
   return frame("Frame", "GameTooltipDefaultContainer", 1250, 600, 250, 150)
 }
 
 // The game's tooltip showing `data`, which the game put in the corner.
-function showing(data: Game.TooltipData): Game.ShownTip {
+function showing(data: Game::TooltipData): Game::ShownTip {
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner(), below: false,
     right: true, home: home(), homeBelow: false, homeRight: true
@@ -50,12 +50,12 @@ function showing(data: Game.TooltipData): Game.ShownTip {
 }
 
 // The game's tooltip gone.
-function hidden(): Game.ShownTip {
+function hidden(): Game::ShownTip {
   return { shown: false, ..showing({ lines: [] }) }
 }
 
 // A button of the micro menu in the screen's lower half, its top left at 600,800, 30 wide: the game's tooltip for it.
-function atButton(name: String, data: Game.TooltipData): Game.ShownTip {
+function atButton(name: String, data: Game::TooltipData): Game::ShownTip {
   return {
     owner: frame("Button", name, 600, 800, 30, 40), ownerName: name, placeable: true, ..showing(data)
   }
@@ -63,23 +63,23 @@ function atButton(name: String, data: Game.TooltipData): Game.ShownTip {
 
 // A thing in a slot of the game's at the screen's top right, its top left at 1300,200, 40 wide: under it and on its
 // right edge, as the game asks.
-function inSlot(name: String, data: Game.TooltipData): Game.ShownTip {
+function inSlot(name: String, data: Game::TooltipData): Game::ShownTip {
   return {
     owner: frame("Button", name, 1300, 200, 40, 40), ownerName: name, placeable: true, ownerHigh: true,
     ownerRight: true, ..showing(data)
   }
 }
 
-function text(title: String): Game.TooltipData {
+function text(title: String): Game::TooltipData {
   return { plain: true, lines: [{ left: title, kind: 0 }] }
 }
 
-function sword(): Game.TooltipData {
+function sword(): Game::TooltipData {
   return { kind: 0, id: 9010, about: "item:9010", lines: [{ left: "Sword", kind: 22 }] }
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test.Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: String): Boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -92,9 +92,9 @@ function near(value: Number, expected: Number): Boolean {
 }
 
 // The module's tab in the settings: `/ordaen`, «Tooltips», the tab.
-function tab(title: String): Test.Part {
-  Test.open("/ordaen")
-  const settings = Test.page().window(SETTINGS)
+function tab(title: String): Test::Part {
+  Test::open("/ordaen")
+  const settings = Test::page().window(SETTINGS)
   settings.button("Tooltips").click()
   // «General» is Ordaen's own page too, the first.
   settings.button(title).nth(title == "General" ? 2 : 1).click()
@@ -105,229 +105,229 @@ function tab(title: String): Test.Part {
 function choose(title: String, control: String) {
   const settings = tab(title)
   settings.button(control).click()
-  Test.key(Key.Escape)
+  Test::key(Key::Escape)
 }
 
 // A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice.
 function pick(title: String, now: String, nth: Integer, choice: String) {
   const settings = tab(title)
   settings.button(now).nth(nth).click()
-  Test.page().window(choice).button(choice).click()
-  Test.key(Key.Escape)
+  Test::page().window(choice).button(choice).click()
+  Test::key(Key::Escape)
 }
 
 // Shown and unseen
 
 test "with the game showing no tooltip nothing is drawn, and the game's own isn't kept unseen" {
-  Test.mount(nil, SCREEN)
-  Test.expect(Test.surfaces().length == 0)
-  Test.expect(!Test.requests().any(asked => asked == "Tooltip.hide true"))
+  Test::mount(nil, SCREEN)
+  Test::expect(Test::surfaces().length == 0)
+  Test::expect(!Test::requests().any(asked => asked == "Tooltip.hide true"))
 }
 
 test "a tooltip drawn here keeps the game's own unseen; the game's tooltip gone, it is seen again" {
-  Test.mount(nil, SCREEN)
-  _ = Test.requests()
-  Game.tooltip.main = showing(sword())
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Sword").shown())
-  Test.expect(Test.requests().join(", ") == "Tooltip.hide true")
-  Game.tooltip.main = hidden()
-  Test.pass(0.3)
-  Test.expect(!Test.page().window("Sword").shown())
-  Test.expect(Test.requests().join(", ") == "Tooltip.hide false")
+  Test::mount(nil, SCREEN)
+  _ = Test::requests()
+  Game::tooltip.main = showing(sword())
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Sword").shown())
+  Test::expect(Test::requests().join(", ") == "Tooltip.hide true")
+  Game::tooltip.main = hidden()
+  Test::pass(0.3)
+  Test::expect(!Test::page().window("Sword").shown())
+  Test::expect(Test::requests().join(", ") == "Tooltip.hide false")
 }
 
 test "once the game's tooltip is gone nothing waits for a frame" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing(sword())
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Game.tooltip.main = hidden()
-  Test.pass(0.3)
-  Test.expect(Test.idle())
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing(sword())
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Game::tooltip.main = hidden()
+  Test::pass(0.3)
+  Test::expect(Test::idle())
 }
 
 test "the module turned off draws nothing and leaves the game's tooltip seen" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing(sword())
-  Test.pass(SHOWS)
-  Test.flush()
-  _ = Test.requests()
-  (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
-  Test.expect(Test.surfaces().length == 0)
-  Test.expect(Test.requests().join(", ") == "Tooltip.hide false, Tooltip.hidePinned false")
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing(sword())
+  Test::pass(SHOWS)
+  Test::flush()
+  _ = Test::requests()
+  (Runtime::Addon::of(Tooltips) ?? panic("the tooltips are installed")).disable()
+  Test::expect(Test::surfaces().length == 0)
+  Test::expect(Test::requests().join(", ") == "Tooltip.hide false, Tooltip.hidePinned false")
 }
 
 // Where it stands
 
 test "a button's tooltip stands to the right of the button, their tops level" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  const at = Test.page().window("Character Info").rect()
-  Test.expect(near(at.top, 800) && near(at.left, 630))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  const at = Test::page().window("Character Info").rect()
+  Test::expect(near(at.top, 800) && near(at.left, 630))
 }
 
 test "a tooltip with no room right of its owner stands to its left; with room on neither side, above or under it" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  Test.pass(SHOWS)
-  const left = Test.page().window("Sword").rect()
-  Test.expect(near(left.top, 200) && near(left.right, 1300))
-  Game.tooltip.main = hidden()
-  Test.pass(1)
-  Game.tooltip.main = { owner: frame("Button", "Wide", 0, 860, 1600, 40), ownerName: "Wide", placeable: true, ..showing(sword()) }
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Sword").rect().bottom, 860))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  Test::pass(SHOWS)
+  const left = Test::page().window("Sword").rect()
+  Test::expect(near(left.top, 200) && near(left.right, 1300))
+  Game::tooltip.main = hidden()
+  Test::pass(1)
+  Game::tooltip.main = { owner: frame("Button", "Wide", 0, 860, 1600, 40), ownerName: "Wide", placeable: true, ..showing(sword()) }
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Sword").rect().bottom, 860))
 }
 
 test "with «Buttons and text» on Blizzard's place a button's tooltip stands at the game's default anchor" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pick("Buttons and text", "Beside the object", 1, "Blizzard's place")
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  const at = Test.page().window("Character Info").rect()
-  Test.expect(near(at.bottom, 750) && near(at.right, 1500))
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  const at = Test::page().window("Character Info").rect()
+  Test::expect(near(at.bottom, 750) && near(at.right, 1500))
 }
 
 test "a kind on Default stands where the general position says: Blizzard's place, or beside the object" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pick("Buttons and text", "Beside the object", 1, "Default")
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Character Info").rect().bottom, 750))
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Character Info").rect().bottom, 750))
   // The cursor leaves the button for the settings: its tooltip goes, and stands over none of the window.
-  Game.tooltip.main = hidden()
-  Test.pass(0.3)
+  Game::tooltip.main = hidden()
+  Test::pass(0.3)
   pick("General", "Blizzard's place", 1, "Beside the object")
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Character Info").rect().left, 630))
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Character Info").rect().left, 630))
 }
 
 test "a kind on Beside the object stands beside its owner though the general position is Blizzard's place" {
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Test::mount(nil, SCREEN)
   pick("NPCs", "Default", 1, "Beside the object")
-  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
-  Test.pass(SHOWS)
+  Game::tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
+  Test::pass(SHOWS)
   // Too tall for the button's right or left side this low on the screen: above it, on its left edge.
-  Test.expect(near(Test.page().window("Wolf").rect().left, 600))
+  Test::expect(near(Test::page().window("Wolf").rect().left, 600))
 }
 
 test "each kind stands where Blizzard's own UI puts it: what a frame holds beside it, what is in the world in Blizzard's place" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   // Items, abilities, effects and buttons' texts beside the frame they belong to.
-  Game.tooltip.main = atButton("SomeAddonButton", sword())
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Sword").rect().left, 630))
-  Game.tooltip.main = atButton("SomeAddonButton", { kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Frostbolt").rect().left, 630))
-  Game.tooltip.main = atButton("SomeAddonButton", { kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Renew").rect().left, 630))
-  Game.tooltip.main = atButton("SomeAddonButton", text("Some Addon"))
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Some Addon").rect().left, 630))
+  Game::tooltip.main = atButton("SomeAddonButton", sword())
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Sword").rect().left, 630))
+  Game::tooltip.main = atButton("SomeAddonButton", { kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Frostbolt").rect().left, 630))
+  Game::tooltip.main = atButton("SomeAddonButton", { kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Renew").rect().left, 630))
+  Game::tooltip.main = atButton("SomeAddonButton", text("Some Addon"))
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Some Addon").rect().left, 630))
   // Players, NPCs and objects as the general position says, Blizzard's place, though a frame could hold them.
-  Game.tooltip.main = atButton("SomeAddonButton", { kind: 4, lines: [{ left: "Chest", kind: 0 }] })
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Chest").rect().bottom, 750))
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
-  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Wolf").rect().bottom, 750))
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
-  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Jaina"))
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Jaina").rect().bottom, 750))
+  Game::tooltip.main = atButton("SomeAddonButton", { kind: 4, lines: [{ left: "Chest", kind: 0 }] })
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Chest").rect().bottom, 750))
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Wolf").rect().bottom, 750))
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Game::tooltip.main = atButton("SomeAddonButton", unitTip("Jaina"))
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Jaina").rect().bottom, 750))
 }
 
 test "a tooltip the game can't place by its owner stands where the game put its own" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = { placeable: false, ..atButton("SomeAddonButton", text("Some Addon")) }
-  Test.pass(SHOWS)
-  const at = Test.page().window("Some Addon").rect()
-  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = { placeable: false, ..atButton("SomeAddonButton", text("Some Addon")) }
+  Test::pass(SHOWS)
+  const at = Test::page().window("Some Addon").rect()
+  Test::expect(near(at.bottom, 800) && near(at.right, 1500))
 }
 
 test "an item in the bank and a worn one stand beside their slots as one in the bags does" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = inSlot("BankFrameItem1", sword())
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Sword").rect().top, 200))
-  Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
-  Test.pass(SHOWS)
-  Test.expect(near(Test.page().window("Sword").rect().top, 200))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = inSlot("BankFrameItem1", sword())
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Sword").rect().top, 200))
+  Game::tooltip.main = inSlot("CharacterHeadSlot", sword())
+  Test::pass(SHOWS)
+  Test::expect(near(Test::page().window("Sword").rect().top, 200))
 }
 
 test "with items on Blizzard's place an item in the bags stands at the game's default anchor" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pick("Items", "Beside the object", 1, "Blizzard's place")
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  Test.pass(SHOWS)
-  const at = Test.page().window("Sword").rect()
-  Test.expect(near(at.bottom, 750) && near(at.right, 1500))
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  Test::pass(SHOWS)
+  const at = Test::page().window("Sword").rect()
+  Test::expect(near(at.bottom, 750) && near(at.right, 1500))
 }
 
 test "the tooltips beside an item stand in a column away from the corner, and the worn one beyond them" {
-  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
+  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => ({
     kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }]
   })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
-  Game.tooltip.main = showing({
+  Test::mount(nil, SCREEN)
+  Game::tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game::tooltip.main = showing({
     kind: 0, id: 9001,
     lines: [
       { left: "Axe", kind: 22 }, { left: "Use: Heals you.", kind: 44, spell: 7001 },
       { left: "Deep Woods (1/3)", kind: 42 }
     ]
   })
-  Test.pass(SHOWS)
-  const group = Test.page().window("Axe")
+  Test::pass(SHOWS)
+  const group = Test::page().window("Axe")
   const main = group.text("Axe").rect()
   const worn = group.text("Worn Axe").rect()
   // What using it does, under its «Use» tab, the set's tooltip under it in the same column.
   const use = group.text("Use").rect()
   const set = group.text("Deep Woods (1/3)").rect()
   // The group runs leftwards from the corner: the column beside the axe, the worn axe beyond it.
-  Test.expect(use.right < main.left && worn.right < use.left)
-  Test.expect(use.left > set.left && use.right < main.left && use.bottom < set.top)
+  Test::expect(use.right < main.left && worn.right < use.left)
+  Test::expect(use.left > set.left && use.right < main.left && use.bottom < set.top)
 }
 
 // What is drawn here and what is left to the game
 
 test "a kind turned off on its tab is the game's own" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   choose("Items", "On")
-  Game.tooltip.main = showing(sword())
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
+  Game::tooltip.main = showing(sword())
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
 }
 
 test "abilities, effects and objects turned off on their tabs are the game's own" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   choose("Abilities", "On")
   choose("Effects", "On")
   choose("Objects", "On")
-  Game.tooltip.main = showing({ kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
-  Game.tooltip.main = showing({ kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
-  Game.tooltip.main = showing({ kind: 4, lines: [{ left: "Chest", kind: 0 }] })
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
+  Game::tooltip.main = showing({ kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
+  Game::tooltip.main = showing({ kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
+  Game::tooltip.main = showing({ kind: 4, lines: [{ left: "Chest", kind: 0 }] })
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
 }
 
 // The unit under the cursor: a player or an NPC as the test says.
-function unitTip(name: String): Game.TooltipData {
+function unitTip(name: String): Game::TooltipData {
   return { kind: 2, lines: [{ left: name, kind: 2, unit: "mouseover" }] }
 }
 
-function aUnit(player: Boolean): Game.UnitInfo {
+function aUnit(player: Boolean): Game::UnitInfo {
   return {
     name: player ? "Jaina" : "Wolf", player: player, dead: false, ghost: false, afk: false, dnd: false, pvp: false,
     level: 10, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
@@ -336,61 +336,61 @@ function aUnit(player: Boolean): Game.UnitInfo {
 }
 
 test "players turned off are the game's own, and NPCs still drawn here" {
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Test::mount(nil, SCREEN)
   choose("Players", "On")
-  Game.tooltip.main = showing(unitTip("Jaina"))
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
-  Game.tooltip.main = showing(unitTip("Wolf"))
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Wolf").shown())
+  Game::tooltip.main = showing(unitTip("Jaina"))
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::tooltip.main = showing(unitTip("Wolf"))
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Wolf").shown())
 }
 
 test "NPCs turned off are the game's own, and players still drawn here" {
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
-  Test.mount(nil, SCREEN)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Test::mount(nil, SCREEN)
   choose("NPCs", "On")
-  Game.tooltip.main = showing(unitTip("Wolf"))
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
-  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
-  Game.tooltip.main = showing(unitTip("Jaina"))
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Jaina").shown())
+  Game::tooltip.main = showing(unitTip("Wolf"))
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
+  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Game::tooltip.main = showing(unitTip("Jaina"))
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Jaina").shown())
 }
 
 test "buttons and texts turned off are the game's own" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   choose("Buttons and text", "On")
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(Test.surfaces().length == 0)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(Test::surfaces().length == 0)
 }
 
 test "a kind's switch off greys the rest of its tab" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   const settings = tab("Items")
   settings.button("On").click()
-  Test.expect(settings.button("Item level").opacity() < 1)
+  Test::expect(settings.button("Item level").opacity() < 1)
 }
 
 test "a setting changed on its tab is kept after a reload" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   choose("Items", "Item level")
   pick("General", "Blizzard's place", 1, "Beside the object")
   Ordaen.keeper.profiles.pack()
-  Test.reload()
+  Test::reload()
   // Its box shows no tick; the dropdown says the choice.
-  Test.expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 0)
-  Test.key(Key.Escape)
-  Test.expect(tab("General").button("Beside the object").shown())
+  Test::expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 0)
+  Test::key(Key::Escape)
+  Test::expect(tab("General").button("Beside the object").shown())
 }
 
 test "a setting's box shows its tick before it is changed" {
-  Test.mount(nil, SCREEN)
-  Test.expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 1)
+  Test::mount(nil, SCREEN)
+  Test::expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 1)
 }
 
 // Hotkeys
@@ -401,162 +401,162 @@ class ButtonKeys implements OwnerKeys {
 }
 
 test "a menu button's key stands among the hotkeys, last, in their colour" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", {
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", {
     plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }]
   })
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Character Info").text("C: open").textColor().equal(HOTKEY))
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Character Info").text("C: open").textColor().equal(HOTKEY))
 }
 
 test "a button another module gives a key has it among the hotkeys of whatever its tooltip shows" {
   Ordaen.hotkeys.add(new ButtonKeys())
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("ActionButton2", text("Fireball"))
-  Test.pass(SHOWS)
-  const tip = Test.page().window("Fireball")
-  Test.expect(reads(tip, "Fireball | 2: use"))
-  Test.expect(tip.text("2: use").textColor().equal(HOTKEY))
-  Game.tooltip.main = atButton("ActionButton3", text("Frostbolt"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Frostbolt"), "Frostbolt"))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("ActionButton2", text("Fireball"))
+  Test::pass(SHOWS)
+  const tip = Test::page().window("Fireball")
+  Test::expect(reads(tip, "Fireball | 2: use"))
+  Test::expect(tip.text("2: use").textColor().equal(HOTKEY))
+  Game::tooltip.main = atButton("ActionButton3", text("Frostbolt"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Frostbolt"), "Frostbolt"))
 }
 
 // What buttons tell more
 
 test "the character's button tells the item level and the most worn piece's durability, red under a quarter" {
-  Game.character.itemLevel = (): Number | nil => 61.7
-  Game.character.durability = (): Number | nil => 0.2
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", {
+  Game::character.itemLevel = (): Number | nil => 61.7
+  Game::character.durability = (): Number | nil => 0.2
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", {
     plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }]
   })
-  Test.pass(SHOWS)
-  const tip = Test.page().window("Character Info")
-  Test.expect(reads(tip, "Character Info | Item level | 61 | Durability | 20% | C: open"))
-  Test.expect(tip.text("20%").textColor().equal(RED))
-  Game.character.durability = (): Number | nil => 0.25
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(Test.page().window("Character Info").text("25%").textColor().equal(VALUE))
+  Test::pass(SHOWS)
+  const tip = Test::page().window("Character Info")
+  Test::expect(reads(tip, "Character Info | Item level | 61 | Durability | 20% | C: open"))
+  Test::expect(tip.text("20%").textColor().equal(RED))
+  Game::character.durability = (): Number | nil => 0.25
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(Test::page().window("Character Info").text("25%").textColor().equal(VALUE))
 }
 
 test "the character's button with no item level says none" {
-  Game.character.itemLevel = (): Number | nil => 0
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Character Info"), "Character Info"))
+  Game::character.itemLevel = (): Number | nil => 0
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Character Info"), "Character Info"))
 }
 
 test "the backpack tells the free slots of every bag together, a bag's slot its own" {
-  Game.bags.roomOf = (bag: Integer): Game.BagRoom => bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
-  Game.bags.roomOfAll = (): Game.BagRoom => ({ free: 3, slots: 22 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("MainMenuBarBackpackButton", text("Backpack"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Backpack"), "Backpack | Free slots | 3 / 22"))
-  Game.tooltip.main = atButton("CharacterBag0Slot", text("Linen Bag"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Linen Bag"), "Linen Bag | Free slots | 0 / 6"))
-  Game.tooltip.main = atButton("CharacterBag1Slot", text("Empty Slot"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Empty Slot"), "Empty Slot"))
+  Game::bags.roomOf = (bag: Integer): Game::BagRoom => bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
+  Game::bags.roomOfAll = (): Game::BagRoom => ({ free: 3, slots: 22 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("MainMenuBarBackpackButton", text("Backpack"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Backpack"), "Backpack | Free slots | 3 / 22"))
+  Game::tooltip.main = atButton("CharacterBag0Slot", text("Linen Bag"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Linen Bag"), "Linen Bag | Free slots | 0 / 6"))
+  Game::tooltip.main = atButton("CharacterBag1Slot", text("Empty Slot"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Empty Slot"), "Empty Slot"))
 }
 
 test "the talents' button tells the points not spent, and nothing with none" {
-  Game.character.unspentTalents = (): Integer => 3
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("TalentMicroButton", text("Talents"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Talents"), "Talents | Unspent points | 3"))
-  Game.character.unspentTalents = (): Integer => 0
-  Game.tooltip.main = atButton("TalentMicroButton", text("Talents (N)"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Talents (N)"), "Talents (N)"))
+  Game::character.unspentTalents = (): Integer => 3
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("TalentMicroButton", text("Talents"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Talents"), "Talents | Unspent points | 3"))
+  Game::character.unspentTalents = (): Integer => 0
+  Game::tooltip.main = atButton("TalentMicroButton", text("Talents (N)"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Talents (N)"), "Talents (N)"))
 }
 
 test "the character's button tells the talent points not spent too, after the item level, its window holding the talents" {
-  Game.character.itemLevel = (): Number | nil => 12
-  Game.character.durability = (): Number | nil => nil
-  Game.character.unspentTalents = (): Integer => 2
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 12 | Unspent points | 2"))
+  Game::character.itemLevel = (): Number | nil => 12
+  Game::character.durability = (): Number | nil => nil
+  Game::character.unspentTalents = (): Integer => 2
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Character Info"), "Character Info | Item level | 12 | Unspent points | 2"))
 }
 
 test "the professions' button tells each profession's rank" {
-  Game.professions.list = [
+  Game::professions.list = [
     { skillLine: 186, name: "Mining", icon: 136248, rank: 75, max: 150, kind: .Gathering },
     { skillLine: 182, name: "Herbalism", icon: 136246, rank: 1, max: 75, kind: .Gathering }
   ]
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("ProfessionMicroButton", text("Professions"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Professions"), "Professions | Mining | 75 / 150 | Herbalism | 1 / 75"))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("ProfessionMicroButton", text("Professions"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Professions"), "Professions | Mining | 75 / 150 | Herbalism | 1 / 75"))
 }
 
 test "the achievements' button tells the points, and nothing with none" {
-  Game.character.achievementPoints = (): Integer => 450
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Achievements"), "Achievements | Achievement points | 450"))
-  Game.character.achievementPoints = (): Integer => 0
-  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements (Y)"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Achievements (Y)"), "Achievements (Y)"))
+  Game::character.achievementPoints = (): Integer => 450
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Achievements"), "Achievements | Achievement points | 450"))
+  Game::character.achievementPoints = (): Integer => 0
+  Game::tooltip.main = atButton("AchievementMicroButton", text("Achievements (Y)"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Achievements (Y)"), "Achievements (Y)"))
 }
 
 test "the quest log's button tells how many quests are taken of the most" {
-  Game.character.quests = (): Game.QuestCount => ({ have: 12, most: 25 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("QuestLogMicroButton", text("Quest Log"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Quest Log"), "Quest Log | Quests | 12 / 25"))
+  Game::character.quests = (): Game::QuestCount => ({ have: 12, most: 25 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("QuestLogMicroButton", text("Quest Log"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Quest Log"), "Quest Log | Quests | 12 / 25"))
 }
 
 test "the guild's button tells how many are online, and nothing out of a guild" {
-  Game.character.guild = (): Game.GuildCount | nil => ({ online: 4, members: 30 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("GuildMicroButton", text("Guild"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Guild"), "Guild | Online | 4 / 30"))
-  Game.character.guild = (): Game.GuildCount | nil => nil
-  Game.tooltip.main = atButton("GuildMicroButton", text("Guild (J)"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Guild (J)"), "Guild (J)"))
+  Game::character.guild = (): Game::GuildCount | nil => ({ online: 4, members: 30 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("GuildMicroButton", text("Guild"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Guild"), "Guild | Online | 4 / 30"))
+  Game::character.guild = (): Game::GuildCount | nil => nil
+  Game::tooltip.main = atButton("GuildMicroButton", text("Guild (J)"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Guild (J)"), "Guild (J)"))
 }
 
 test "with «More on buttons» unticked a button tells its own lines alone" {
-  Game.character.itemLevel = (): Number | nil => 61.7
-  Test.mount(nil, SCREEN)
+  Game::character.itemLevel = (): Number | nil => 61.7
+  Test::mount(nil, SCREEN)
   choose("Buttons and text", "More on buttons")
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Character Info"), "Character Info"))
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Character Info"), "Character Info"))
 }
 
 // Shown anew
 
 test "a tooltip shown again draws only what differs: nothing of the group is made anew" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Game.tooltip.main = hidden()
-  Test.pass(0.2)
-  const said = Test.calls((): nil => {
-    Game.tooltip.main = inSlot("ContainerFrame1Item3", { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
-    Test.pass(SHOWS)
-    Test.flush()
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Game::tooltip.main = hidden()
+  Test::pass(0.2)
+  const said = Test::calls((): nil => {
+    Game::tooltip.main = inSlot("ContainerFrame1Item3", { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
+    Test::pass(SHOWS)
+    Test::flush()
   })
-  Test.expect(!said.contains("SetParent") && !said.contains("SetAtlas") && !said.contains("SetScript"))
-  Test.expect(said.contains("SetText=1"))
+  Test::expect(!said.contains("SetParent") && !said.contains("SetAtlas") && !said.contains("SetScript"))
+  Test::expect(said.contains("SetText=1"))
 }
 
-function kragos(unit: String): Game.UnitInfo | nil {
+function kragos(unit: String): Game::UnitInfo | nil {
   if (unit != "mouseover") { return nil }
   return {
     name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
@@ -566,7 +566,7 @@ function kragos(unit: String): Game.UnitInfo | nil {
   }
 }
 
-function frostbolt(): Game.TooltipData {
+function frostbolt(): Game::TooltipData {
   return {
     kind: 1, id: 116, about: "spell:116",
     lines: [{ left: "Frostbolt", kind: 13 }, { left: "65 Mana", right: "30 yd range", kind: 0 }]
@@ -575,71 +575,71 @@ function frostbolt(): Game.TooltipData {
 
 // Whether anything shown says one of the unit's texts.
 function anyOfKragos(): Boolean {
-  const all = Test.page().texts()
+  const all = Test::page().texts()
   return ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"].any(said => all.any(shown => shown == said))
 }
 
 test "a spell's tooltip straight after a unit's holds nothing of the unit's, charging or locked" {
-  Game.units.of = kragos
-  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Test.expect(Test.page().window("Frostbolt").shown() && !anyOfKragos())
-  Test.pass(1.3)
-  Test.expect(!anyOfKragos())
+  Game::units.of = kragos
+  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Test::expect(Test::page().window("Frostbolt").shown() && !anyOfKragos())
+  Test::pass(1.3)
+  Test::expect(!anyOfKragos())
 }
 
 test "a spell's tooltip after a unit's, the game's gone between, holds nothing of the unit's, charging or locked" {
-  Game.units.of = kragos
-  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Game.tooltip.main = hidden()
-  Test.pass(0.1)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
-  Test.pass(SHOWS)
-  Test.pass(0.1)
-  Test.expect(Test.page().window("Frostbolt").shown() && !anyOfKragos())
-  Test.pass(1.3)
-  Test.expect(!anyOfKragos())
+  Game::units.of = kragos
+  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Game::tooltip.main = hidden()
+  Test::pass(0.1)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
+  Test::pass(SHOWS)
+  Test::pass(0.1)
+  Test::expect(Test::page().window("Frostbolt").shown() && !anyOfKragos())
+  Test::pass(1.3)
+  Test::expect(!anyOfKragos())
 }
 
 // The lock's room
 
 test "a button's tooltip, which never locks, ends at its last line; an item's keeps the lock's bar's room under it" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  const button = Test.page().window("Character Info")
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  const button = Test::page().window("Character Info")
   const under = button.rect().bottom - button.text("Character Info").rect().bottom
-  Game.tooltip.main = hidden()
-  Test.pass(0.3)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  Test.pass(SHOWS)
-  const item = Test.page().window("Sword")
+  Game::tooltip.main = hidden()
+  Test::pass(0.3)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  Test::pass(SHOWS)
+  const item = Test::page().window("Sword")
   // The bar's row and the room above it: more than 15 more.
-  Test.expect(item.rect().bottom - item.text("Sword").rect().bottom > under + 15)
+  Test::expect(item.rect().bottom - item.text("Sword").rect().bottom > under + 15)
 }
 
 // Where the group stands
 
 // An item that stands beside its slot of the bags on the screen's left, under it on its left edge: what using it
 // does and its set beside it, `worn` the items it is compared with.
-function leftSlot(data: Game.TooltipData): Game.ShownTip {
+function leftSlot(data: Game::TooltipData): Game::ShownTip {
   return {
     owner: frame("Button", "ContainerFrame2Item1", 100, 200, 40, 40), ownerName: "ContainerFrame2Item1", placeable: true,
     ownerHigh: true, ownerRight: false, ..showing(data)
   }
 }
 
-function axeWithSides(): Game.TooltipData {
+function axeWithSides(): Game::TooltipData {
   return {
     kind: 0, id: 9001,
     lines: [
@@ -648,195 +648,195 @@ function axeWithSides(): Game.TooltipData {
   }
 }
 
-function healingTouch(id: Integer): Game.TooltipData | nil {
+function healingTouch(id: Integer): Game::TooltipData | nil {
   return { kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }] }
 }
 
 test "right of its owner the group runs rightwards: the axe at the owner, the column beside it, the worn one beyond" {
-  Game.spells.tooltip = healingTouch
-  Test.mount(nil, SCREEN)
-  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
-  Game.tooltip.main = leftSlot(axeWithSides())
-  Test.pass(SHOWS)
-  const group = Test.page().window("Axe")
+  Game::spells.tooltip = healingTouch
+  Test::mount(nil, SCREEN)
+  Game::tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game::tooltip.main = leftSlot(axeWithSides())
+  Test::pass(SHOWS)
+  const group = Test::page().window("Axe")
   const main = group.text("Axe").rect()
   const use = group.text("Use").rect()
   const worn = group.text("Worn Axe").rect()
-  Test.expect(near(group.rect().left, 140) && main.right < use.left && use.right < worn.left)
+  Test::expect(near(group.rect().left, 140) && main.right < use.left && use.right < worn.left)
 }
 
 test "two worn items stand from the main tooltip outwards in the game's order, whichever way the group runs" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }, { kind: 0, lines: [{ left: "Old Axe", kind: 22 }] }]
-  Game.tooltip.main = leftSlot({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
-  Test.pass(SHOWS)
-  const right = Test.page().window("Axe")
-  Test.expect(right.text("Axe").rect().right < right.text("Worn Axe").rect().left)
-  Test.expect(right.text("Worn Axe").rect().right < right.text("Old Axe").rect().left)
-  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
-  Test.pass(SHOWS)
-  const left = Test.page().window("Axe")
-  Test.expect(left.text("Worn Axe").rect().right < left.text("Axe").rect().left)
-  Test.expect(left.text("Old Axe").rect().right < left.text("Worn Axe").rect().left)
+  Test::mount(nil, SCREEN)
+  Game::tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }, { kind: 0, lines: [{ left: "Old Axe", kind: 22 }] }]
+  Game::tooltip.main = leftSlot({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  Test::pass(SHOWS)
+  const right = Test::page().window("Axe")
+  Test::expect(right.text("Axe").rect().right < right.text("Worn Axe").rect().left)
+  Test::expect(right.text("Worn Axe").rect().right < right.text("Old Axe").rect().left)
+  Game::tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  Test::pass(SHOWS)
+  const left = Test::page().window("Axe")
+  Test::expect(left.text("Worn Axe").rect().right < left.text("Axe").rect().left)
+  Test::expect(left.text("Old Axe").rect().right < left.text("Worn Axe").rect().left)
 }
 
 test "under its owner the tooltips beside line up their tops with the main one's; above it, their bottoms" {
-  Game.spells.tooltip = healingTouch
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = leftSlot(axeWithSides())
-  Test.pass(SHOWS)
-  const below = Test.page().window("Axe")
+  Game::spells.tooltip = healingTouch
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = leftSlot(axeWithSides())
+  Test::pass(SHOWS)
+  const below = Test::page().window("Axe")
   // What using it does stands under its «Use» tab, the tab level with the axe's title or above it.
-  Test.expect(below.text("Use").rect().top <= below.text("Axe").rect().top)
-  Game.tooltip.main = showing(axeWithSides())
-  Test.pass(SHOWS)
-  const above = Test.page().window("Axe")
+  Test::expect(below.text("Use").rect().top <= below.text("Axe").rect().top)
+  Game::tooltip.main = showing(axeWithSides())
+  Test::pass(SHOWS)
+  const above = Test::page().window("Axe")
   // The set's tooltip is the column's last: its bottom on the axe's.
   const set = above.text("Deep Woods (1/3)").item().rect()
-  Test.expect(near(set.bottom, above.rect().bottom))
-  Test.expect(above.text("Axe").rect().top > above.text("Use").rect().top)
+  Test::expect(near(set.bottom, above.rect().bottom))
+  Test::expect(above.text("Axe").rect().top > above.text("Use").rect().top)
 }
 
 test "compared, the main tooltip's title stands level with the worn item's under its «Equipped»" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
-  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
-  Test.pass(SHOWS)
-  const group = Test.page().window("Axe")
-  Test.expect(near(group.text("Axe").rect().top, group.text("Worn Axe").rect().top))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game::tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  Test::pass(SHOWS)
+  const group = Test::page().window("Axe")
+  Test::expect(near(group.text("Axe").rect().top, group.text("Worn Axe").rect().top))
   // «Equipped» a tab on the worn item's frame: in its middle, over its title.
   const header = group.text("Equipped").rect()
   const worn = group.text("Equipped").item().rect()
-  Test.expect(header.bottom < group.text("Worn Axe").rect().top)
-  Test.expect(near((header.left + header.right) / 2, (worn.left + worn.right) / 2))
+  Test::expect(header.bottom < group.text("Worn Axe").rect().top)
+  Test::expect(near((header.left + header.right) / 2, (worn.left + worn.right) / 2))
 }
 
 // What buttons tell more: their edges
 
 test "each bag's slot tells its own free slots" {
-  Game.bags.roomOf = (bag: Integer): Game.BagRoom => ({ free: bag, slots: 10 * bag })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterBag1Slot", text("Bag 2"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Bag 2"), "Bag 2 | Free slots | 2 / 20"))
-  Game.tooltip.main = atButton("CharacterBag2Slot", text("Bag 3"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Bag 3"), "Bag 3 | Free slots | 3 / 30"))
-  Game.tooltip.main = atButton("CharacterBag3Slot", text("Bag 4"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Bag 4"), "Bag 4 | Free slots | 4 / 40"))
+  Game::bags.roomOf = (bag: Integer): Game::BagRoom => ({ free: bag, slots: 10 * bag })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterBag1Slot", text("Bag 2"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Bag 2"), "Bag 2 | Free slots | 2 / 20"))
+  Game::tooltip.main = atButton("CharacterBag2Slot", text("Bag 3"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Bag 3"), "Bag 3 | Free slots | 3 / 30"))
+  Game::tooltip.main = atButton("CharacterBag3Slot", text("Bag 4"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Bag 4"), "Bag 4 | Free slots | 4 / 40"))
 }
 
 test "a bag of one slot, an item level of one, a durability of a half and a single point are told" {
-  Game.bags.roomOf = (bag: Integer): Game.BagRoom => ({ free: 1, slots: 1 })
-  Game.character.itemLevel = (): Number | nil => 1
-  Game.character.durability = (): Number | nil => 0.5
-  Game.character.unspentTalents = (): Integer => 1
-  Game.character.achievementPoints = (): Integer => 1
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterBag0Slot", text("Pouch"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Pouch"), "Pouch | Free slots | 1 / 1"))
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 1 | Durability | 50% | Unspent points | 1"))
-  Game.tooltip.main = atButton("TalentMicroButton", text("Talents"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Talents"), "Talents | Unspent points | 1"))
-  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Achievements"), "Achievements | Achievement points | 1"))
+  Game::bags.roomOf = (bag: Integer): Game::BagRoom => ({ free: 1, slots: 1 })
+  Game::character.itemLevel = (): Number | nil => 1
+  Game::character.durability = (): Number | nil => 0.5
+  Game::character.unspentTalents = (): Integer => 1
+  Game::character.achievementPoints = (): Integer => 1
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterBag0Slot", text("Pouch"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Pouch"), "Pouch | Free slots | 1 / 1"))
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Character Info"), "Character Info | Item level | 1 | Durability | 50% | Unspent points | 1"))
+  Game::tooltip.main = atButton("TalentMicroButton", text("Talents"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Talents"), "Talents | Unspent points | 1"))
+  Game::tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Achievements"), "Achievements | Achievement points | 1"))
 }
 
 test "a button's facts come after its own lines" {
-  Game.character.quests = (): Game.QuestCount => ({ have: 3, most: 25 })
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("QuestLogMicroButton", {
+  Game::character.quests = (): Game::QuestCount => ({ have: 3, most: 25 })
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("QuestLogMicroButton", {
     plain: true, lines: [{ left: "Quest Log", kind: 0 }, { left: "See your quests.", kind: 0 }, { left: "Press L.", kind: 0 }]
   })
-  Test.pass(SHOWS)
-  Test.expect(reads(Test.page().window("Quest Log"), "Quest Log | See your quests. | Press L. | Quests | 3 / 25"))
+  Test::pass(SHOWS)
+  Test::expect(reads(Test::page().window("Quest Log"), "Quest Log | See your quests. | Press L. | Quests | 3 / 25"))
 }
 
 // The tabs
 
 test "each kind's switch off greys the rest of its tab" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   for (title of ["Abilities", "Effects", "Players", "NPCs", "Objects", "Buttons and text"]) {
     const settings = tab(title)
     settings.button("On").click()
     const rest = title == "Buttons and text" ? "More on buttons" : "Tooltips in tooltips"
     if (settings.button(rest).opacity() >= 1) { panic(`${title}: «${rest}» isn't greyed`) }
     settings.button("On").click()
-    Test.key(Key.Escape)
+    Test::key(Key::Escape)
   }
 }
 
 // The wait before it shows
 
 test "a tooltip shows once the cursor has stayed the delay, and straight from one shown to the next at once" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing(sword())
-  Test.pass(0.2)
-  Test.expect(Test.surfaces().length == 0)
-  Test.pass(0.14)
-  Test.expect(Test.page().window("Sword").shown())
-  Game.tooltip.main = showing({ kind: 0, id: 9003, about: "item:9003", lines: [{ left: "Mace", kind: 22 }] })
-  Test.flush()
-  Test.expect(Test.page().window("Mace").shown())
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing(sword())
+  Test::pass(0.2)
+  Test::expect(Test::surfaces().length == 0)
+  Test::pass(0.14)
+  Test::expect(Test::page().window("Sword").shown())
+  Game::tooltip.main = showing({ kind: 0, id: 9003, about: "item:9003", lines: [{ left: "Mace", kind: 22 }] })
+  Test::flush()
+  Test::expect(Test::page().window("Mace").shown())
 }
 
 test "a kind's own delay stands over the general one" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pick("Items", "As on General", 1, "Long (1 s)")
-  Game.tooltip.main = showing(sword())
-  Test.pass(0.6)
-  Test.expect(Test.surfaces().length == 0)
-  Test.pass(0.45)
-  Test.expect(Test.page().window("Sword").shown())
+  Game::tooltip.main = showing(sword())
+  Test::pass(0.6)
+  Test::expect(Test::surfaces().length == 0)
+  Test::pass(0.45)
+  Test::expect(Test::page().window("Sword").shown())
 }
 
 test "with the general delay at None a tooltip shows at once" {
-  Test.mount(nil, SCREEN)
+  Test::mount(nil, SCREEN)
   pick("General", "Short (0.3 s)", 1, "None")
-  Game.tooltip.main = showing(sword())
-  Test.flush()
-  Test.expect(Test.page().window("Sword").shown())
+  Game::tooltip.main = showing(sword())
+  Test::flush()
+  Test::expect(Test::page().window("Sword").shown())
 }
 
 test "straight from a button's tooltip to a slot's, the slot's shows at once beside the slot" {
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.pass(SHOWS)
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  Test.pass(0.02)
-  const at = Test.page().window("Sword").rect()
-  Test.expect(near(at.top, 200) && near(at.right, 1300))
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test::pass(SHOWS)
+  Game::tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  Test::pass(0.02)
+  const at = Test::page().window("Sword").rect()
+  Test::expect(near(at.top, 200) && near(at.right, 1300))
 }
 
 test "an item's worth to the spec stands at its foot, and a weapon whose skill isn't trained says so" {
-  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
     return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
   }
-  Client.C_Item.GetItemStats = (link: String): Unknown => {
+  Client::C_Item::GetItemStats = (link: String): Unknown => {
     const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: 5 }
     return stats
   }
-  Test.mount(nil, SCREEN)
-  Game.tooltip.main = showing({
+  Test::mount(nil, SCREEN)
+  Game::tooltip.main = showing({
     kind: 0, id: 1201, about: "item:1201",
     lines: [{ left: "Dull Mace", kind: 22 }, { left: "Mace", kind: 0, validType: false }]
   })
-  Test.pass(SHOWS)
-  const tip = Test.page().window("Dull Mace")
-  Test.expect(tip.text("+100%").shown() && tip.text("Needs the weapon skill: train it first").shown())
+  Test::pass(SHOWS)
+  const tip = Test::page().window("Dull Mace")
+  Test::expect(tip.text("+100%").shown() && tip.text("Needs the weapon skill: train it first").shown())
 }
 
 test "what is drawn here is claimed from the game's show itself: an item while items are drawn, nothing with their switch off" {
-  Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
-  const cloth: Game.TooltipData = { kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }] }
-  Test.expect(Tooltips.claims(cloth))
+  Test::mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
+  const cloth: Game::TooltipData = { kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }] }
+  Test::expect(Tooltips.claims(cloth))
   Tooltips.settings.values.itemsOn = false
-  Test.expect(!Tooltips.claims(cloth))
+  Test::expect(!Tooltips.claims(cloth))
   Tooltips.settings.values.itemsOn = true
 }

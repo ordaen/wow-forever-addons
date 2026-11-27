@@ -4,81 +4,81 @@ import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const BLACKSMITHING = 164
 
-function gameWindow(): any Client.Frame {
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+function gameWindow(): any Client::Frame {
+  let own = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
   return own
 }
 
-function categories(base: Integer, name: String): Array<Game.Category> {
-  let list: Array<Game.Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
-  for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + String.of(i), parentID: base }) }
+function categories(base: Integer, name: String): Array<Game::Category> {
+  let list: Array<Game::Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
+  for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + String::of(i), parentID: base }) }
   return list
 }
 
-function recipes(base: Integer, name: String, count: Integer): Array<Game.Recipe> {
-  let list: Array<Game.Recipe> = []
+function recipes(base: Integer, name: String, count: Integer): Array<Game::Recipe> {
+  let list: Array<Game::Recipe> = []
   for (i of 1..count) {
     list.push({
-      id: base * 1000 + i, name: name + " thing " + String.of(i), icon: "Interface/Icons/INV_Misc_Note_01",
-      categoryID: base * 100 + 1 + i % 12, learned: i % 5 != 0, difficulty: Game.Difficulty.Usually, craftable: i % 3
+      id: base * 1000 + i, name: name + " thing " + String::of(i), icon: "Interface/Icons/INV_Misc_Note_01",
+      categoryID: base * 100 + 1 + i % 12, learned: i % 5 != 0, difficulty: Game::Difficulty::Usually, craftable: i % 3
     })
   }
   return list
 }
 
-function known(): Array<Game.Profession> {
+function known(): Array<Game::Profession> {
   return [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game.ProfessionKind.Crafting }
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
 test "a profession opened again, its list the same, costs a part of what its first opening did" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = known()
-  Test.mount(nil, SCREEN)
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = known()
+  Test::mount(nil, SCREEN)
   const sewn = recipes(1, "Tailoring", 400)
   const forged = recipes(2, "Blacksmithing", 400)
   const sewnHeads = categories(1, "Tailoring")
   const forgedHeads = categories(2, "Blacksmithing")
-  Game.tradeSkill.categories = sewnHeads
-  Game.tradeSkill.recipes = sewn
-  Game.tradeSkill.open = TAILORING
-  Test.flush()
-  const first = Test.garbage((): nil => {
-    Game.tradeSkill.categories = forgedHeads
-    Game.tradeSkill.recipes = forged
-    Game.tradeSkill.open = BLACKSMITHING
+  Game::tradeSkill.categories = sewnHeads
+  Game::tradeSkill.recipes = sewn
+  Game::tradeSkill.open = TAILORING
+  Test::flush()
+  const first = Test::garbage((): nil => {
+    Game::tradeSkill.categories = forgedHeads
+    Game::tradeSkill.recipes = forged
+    Game::tradeSkill.open = BLACKSMITHING
   })
-  Game.tradeSkill.categories = sewnHeads
-  Game.tradeSkill.recipes = sewn
-  Game.tradeSkill.open = TAILORING
-  Test.flush()
-  const again = Test.garbage((): nil => {
-    Game.tradeSkill.categories = forgedHeads
-    Game.tradeSkill.recipes = forged
-    Game.tradeSkill.open = BLACKSMITHING
+  Game::tradeSkill.categories = sewnHeads
+  Game::tradeSkill.recipes = sewn
+  Game::tradeSkill.open = TAILORING
+  Test::flush()
+  const again = Test::garbage((): nil => {
+    Game::tradeSkill.categories = forgedHeads
+    Game::tradeSkill.recipes = forged
+    Game::tradeSkill.open = BLACKSMITHING
   })
-  Test.expect(again * 2 < first)
-  Test.expect(Test.page().text("Blacksmithing thing 12").shown())
+  Test::expect(again * 2 < first)
+  Test::expect(Test::page().text("Blacksmithing thing 12").shown())
 }
 
 test "a profession opened again with another list shows that list" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = known()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.categories = categories(1, "Tailoring")
-  Game.tradeSkill.recipes = recipes(1, "Tailoring", 24)
-  Game.tradeSkill.open = TAILORING
-  Test.flush()
-  Test.expect(Test.page().text("Tailoring thing 12").shown())
-  Game.tradeSkill.recipes = recipes(1, "Linen", 24)
-  Test.flush()
-  Test.expect(Test.page().text("Linen thing 12").shown() && !Test.page().text("Tailoring thing 12").shown())
+  Game::frames.Professions = gameWindow()
+  Game::professions.list = known()
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.categories = categories(1, "Tailoring")
+  Game::tradeSkill.recipes = recipes(1, "Tailoring", 24)
+  Game::tradeSkill.open = TAILORING
+  Test::flush()
+  Test::expect(Test::page().text("Tailoring thing 12").shown())
+  Game::tradeSkill.recipes = recipes(1, "Linen", 24)
+  Test::flush()
+  Test::expect(Test::page().text("Linen thing 12").shown() && !Test::page().text("Tailoring thing 12").shown())
 }

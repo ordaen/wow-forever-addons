@@ -7,7 +7,7 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const BLACKSMITHING = 164
 // Linen Cloak turns yellow at 35 and grey at 60; Bolt of Linen Cloth at 25 and 50. A recipe the table hasn't.
@@ -16,7 +16,7 @@ const BOLT = 2963
 const UNKNOWN = 9999999
 const MODES: Array<String> = ["Quantity", "Raise skill"]
 
-function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game.Difficulty = Game.Difficulty.Always): Game.Recipe {
+function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game::Difficulty = Game::Difficulty::Always): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
     difficulty: difficulty, craftable: craftable
@@ -24,24 +24,24 @@ function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game.
 }
 
 // Tailoring at `rank` of 75, and Blacksmithing.
-function professions(rank: Integer): Array<Game.Profession> {
+function professions(rank: Integer): Array<Game::Profession> {
   return [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: rank, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game.ProfessionKind.Crafting }
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: rank, max: 75, kind: Game::ProfessionKind::Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
-function categories(): Array<Game.Category> {
+function categories(): Array<Game::Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
 // The bags make `cloaks` cloaks (orange) and nine bolts (green).
-function recipes(cloaks: Integer): Array<Game.Recipe> {
-  return [recipe(CLOAK, "Linen Cloak", cloaks), recipe(BOLT, "Bolt of Linen Cloth", 9, Game.Difficulty.Rarely)]
+function recipes(cloaks: Integer): Array<Game::Recipe> {
+  return [recipe(CLOAK, "Linen Cloak", cloaks), recipe(BOLT, "Bolt of Linen Cloth", 9, Game::Difficulty::Rarely)]
 }
 
-function window(): Test.Part {
-  return Test.page().window("Overview")
+function window(): Test::Part {
+  return Test::page().window("Overview")
 }
 
 // The make row as it reads: the mode, the count with − and +, «Create», and under them what it comes
@@ -66,7 +66,7 @@ function reads(expected: String): Boolean {
 }
 
 function asked(expected: String): Boolean {
-  const said = Test.requests().join(", ")
+  const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
@@ -83,210 +83,210 @@ function off(label: String): Boolean {
 function mode(from: String, to: String) {
   window().button(from).click()
   const other = MODES.find(name => name != from) ?? panic("three modes")
-  Test.page().window(other).button(to).click()
+  Test::page().window(other).button(to).click()
 }
 
 // By «Quantity»
 
 test "the make row starts at one by «Quantity», with nothing said beside it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  Test.expect(reads("Quantity | - | 1 | + | Create") && off("-") && !off("+") && !off("Create"))
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
+  Test::expect(reads("Quantity | - | 1 | + | Create") && off("-") && !off("+") && !off("Create"))
 }
 
 test "+ counts up to what the bags make, − down to one, each off at its bound" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   times(4, "+")
-  Test.expect(reads("Quantity | - | 5 | + | Create") && off("+") && !off("-"))
+  Test::expect(reads("Quantity | - | 5 | + | Create") && off("+") && !off("-"))
   times(4, "-")
-  Test.expect(reads("Quantity | - | 1 | + | Create") && off("-"))
+  Test::expect(reads("Quantity | - | 1 | + | Create") && off("-"))
 }
 
 test "«Create» makes the count, in the click" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   times(2, "+")
-  _ = Test.requests()
+  _ = Test::requests()
   window().button("Create").click()
-  Test.expect(asked("TradeSkill.craft 2387 3"))
+  Test::expect(asked("TradeSkill.craft 2387 3"))
 }
 
 test "the bags making fewer bring the count down; with none, the count and «Create» are off and make nothing" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   times(4, "+")
-  Game.tradeSkill.recipes = recipes(2)
-  Test.expect(reads("Quantity | - | 2 | + | Create"))
-  Game.tradeSkill.recipes = recipes(0)
-  Test.expect(reads("Quantity | - | 1 | + | Create") && off("-") && off("+") && off("Create"))
-  _ = Test.requests()
+  Game::tradeSkill.recipes = recipes(2)
+  Test::expect(reads("Quantity | - | 2 | + | Create"))
+  Game::tradeSkill.recipes = recipes(0)
+  Test::expect(reads("Quantity | - | 1 | + | Create") && off("-") && off("+") && off("Create"))
+  _ = Test::requests()
   window().button("Create").click()
-  Test.expect(asked(""))
+  Test::expect(asked(""))
 }
 
 test "the count starts again at one for another recipe and for another profession" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   times(2, "+")
   window().text("Bolt of Linen Cloth").click()
-  Test.expect(reads("Quantity | - | 1 | + | Create"))
+  Test::expect(reads("Quantity | - | 1 | + | Create"))
   times(3, "+")
-  Test.expect(reads("Quantity | - | 4 | + | Create"))
-  Game.tradeSkill.categories = [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Stones", parentID: 2 }]
-  Game.tradeSkill.recipes = [{ id: 2660, name: "Rough Sharpening Stone", icon: "Interface/Icons/INV_Stone_01", categoryID: 21, learned: true, difficulty: Game.Difficulty.Always, craftable: 9 }]
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(reads("Quantity | - | 1 | + | Create"))
+  Test::expect(reads("Quantity | - | 4 | + | Create"))
+  Game::tradeSkill.categories = [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Stones", parentID: 2 }]
+  Game::tradeSkill.recipes = [{ id: 2660, name: "Rough Sharpening Stone", icon: "Interface/Icons/INV_Stone_01", categoryID: 21, learned: true, difficulty: Game::Difficulty::Always, craftable: 9 }]
+  Game::tradeSkill.open = BLACKSMITHING
+  Test::expect(reads("Quantity | - | 1 | + | Create"))
 }
 
 // By «Raise skill»
 
 test "«Raise skill»: the count is points, and beside it about how many makings take the skill that far" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  Test.expect(reads("Raise skill | - | 1 | + | Create | ≈ 1 pcs."))
+  Test::expect(reads("Raise skill | - | 1 | + | Create | ≈ 1 pcs."))
   // Ten points from 31: four while the cloak is orange, then (60 - 35) / (60 - skill) makings a point.
   times(9, "+")
-  Test.expect(reads("Raise skill | - | 10 | + | Create | ≈ 11 pcs."))
+  Test::expect(reads("Raise skill | - | 10 | + | Create | ≈ 11 pcs."))
   // The bolt is green at 31: ten points take 18 makings.
   window().text("Bolt of Linen Cloth").click()
   times(9, "+")
-  Test.expect(reads("Raise skill | - | 10 | + | Create | ≈ 18 pcs."))
+  Test::expect(reads("Raise skill | - | 10 | + | Create | ≈ 18 pcs."))
 }
 
 test "«Raise skill» makes what it takes" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   times(2, "+")
-  _ = Test.requests()
+  _ = Test::requests()
   window().button("Create").click()
-  Test.expect(asked("TradeSkill.craft 2387 3"))
+  Test::expect(asked("TradeSkill.craft 2387 3"))
 }
 
 test "«Raise skill» makes never more than the bags make" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   times(9, "+")
-  _ = Test.requests()
+  _ = Test::requests()
   window().button("Create").click()
-  Test.expect(asked("TradeSkill.craft 2387 5"))
+  Test::expect(asked("TradeSkill.craft 2387 5"))
 }
 
 test "«Raise skill» says the skill won't rise where the recipe turns grey first, and makes nothing" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().text("Bolt of Linen Cloth").click()
   mode("Quantity", "Raise skill")
   // Twenty-one points from 31 would reach the bolt's grey at 50; with Shift held, + steps ten.
-  Test.hold([.Shift])
+  Test::hold([.Shift])
   times(2, "+")
-  Test.hold([])
-  Test.expect(reads("Raise skill | - | 21 | + | Create | Skill won't rise") && off("Create"))
+  Test::hold([])
+  Test::expect(reads("Raise skill | - | 21 | + | Create | Skill won't rise") && off("Create"))
   times(2, "-")
-  Test.expect(reads("Raise skill | - | 19 | + | Create | ≈ 89 pcs.") && !off("Create"))
+  Test::expect(reads("Raise skill | - | 19 | + | Create | ≈ 89 pcs.") && !off("Create"))
 }
 
 test "«Raise skill» of a recipe the client's table hasn't says the skill won't rise" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(UNKNOWN, "Odd Cloak", 5)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(UNKNOWN, "Odd Cloak", 5)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  Test.expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise") && off("Create"))
+  Test::expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise") && off("Create"))
 }
 
 test "«Raise skill» counts up to the points left before the rank's most; the skill rising brings it down" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   // With Ctrl held, + steps a hundred: held to the most.
-  Test.hold([.Ctrl])
+  Test::hold([.Ctrl])
   times(1, "+")
-  Test.expect(row().contains("- | 44 | +") && off("+"))
-  Game.professions.list = professions(70)
-  Test.expect(row().contains("- | 5 | +"))
+  Test::expect(row().contains("- | 44 | +") && off("+"))
+  Game::professions.list = professions(70)
+  Test::expect(row().contains("- | 5 | +"))
 }
 
 test "the skill reaching the rank's most: the skill won't rise" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = [recipe(CLOAK, "Linen Cloak", 5)]
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = [recipe(CLOAK, "Linen Cloak", 5)]
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  Game.professions.list = professions(59)
-  Test.expect(reads("Raise skill | - | 1 | + | Create | ≈ 25 pcs."))
-  Game.professions.list = [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 50, max: 50, kind: Game.ProfessionKind.Crafting }]
-  Test.expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise"))
+  Game::professions.list = professions(59)
+  Test::expect(reads("Raise skill | - | 1 | + | Create | ≈ 25 pcs."))
+  Game::professions.list = [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 50, max: 50, kind: Game::ProfessionKind::Crafting }]
+  Test::expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise"))
 }
 
 test "the mode picked stays for another recipe" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   window().text("Bolt of Linen Cloth").click()
-  Test.expect(row().contains("Raise skill | - | 1 | + | Create"))
+  Test::expect(row().contains("Raise skill | - | 1 | + | Create"))
   mode("Raise skill", "Quantity")
-  Test.expect(reads("Quantity | - | 1 | + | Create"))
+  Test::expect(reads("Quantity | - | 1 | + | Create"))
 }
 
 test "the mode offers «Quantity» and «Raise skill» alone" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
+  Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
+  Game::professions.list = professions(31)
+  Game::tradeSkill.categories = categories()
+  Game::tradeSkill.recipes = recipes(5)
+  Test::mount(nil, SCREEN)
+  Game::tradeSkill.open = TAILORING
   window().button("Quantity").click()
-  Test.expect(Test.page().window("Raise skill").texts().join(" | ") == "Quantity | Raise skill")
+  Test::expect(Test::page().window("Raise skill").texts().join(" | ") == "Quantity | Raise skill")
 }

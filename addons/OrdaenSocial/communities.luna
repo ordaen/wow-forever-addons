@@ -9,7 +9,7 @@ import Style from "@/style"
 
 // What a community is: of Battle.net accounts or of characters, and how many are in it.
 function kindOf(club: Club): String {
-  return Locale.CLUB_KIND.format(club.battleNet ? Locale.CLUB_BATTLE_NET : Locale.CLUB_CHARACTERS, club.memberCount)
+  return Locale::CLUB_KIND.format(club.battleNet ? Locale::CLUB_BATTLE_NET : Locale::CLUB_CHARACTERS, club.memberCount)
 }
 
 class StreamRow implements Component {
@@ -21,8 +21,8 @@ class StreamRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <text value={self.stream.name} textColor={Style.INK} wrap={.None} />
-        <text $if={self.stream.subject != ""} value={self.stream.subject} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <text value={self.stream.name} textColor={Style::INK} wrap={.None} />
+        <text $if={self.stream.subject != ""} value={self.stream.subject} textColor={Style::DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }
@@ -41,15 +41,15 @@ public class ClubCard implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={6sp}>
         <box columns={1}>
-          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT} leading={.Title}
+          <text value={self.club.name} textColor={self.club.battleNet ? Style::BATTLE_NET : Style::GOLD} textSize={TITLE_TEXT} leading={.Title}
                 textFont={.Title} wrap={.None} />
-          <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={kindOf(self.club)} textColor={Style::DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
-        <box columns={1} gap={3sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
-          <text value={Locale.CLUB_DESCRIPTION} textColor={Style.DIM} wrap={.None} />
-          <text value={orDash(self.club.description)} textColor={Style.INK} />
-          <text $if={self.club.broadcast != ""} value={Locale.QUOTED.format(self.club.broadcast)} textColor={Style.INK} />
-          <text value={Locale.STREAMS.format(self.streams.length)} textColor={Style.DIM} wrap={.None} />
+        <box columns={1} gap={3sp} overflow={Overflow::Scroll} yAlign={Align::Start}>
+          <text value={Locale::CLUB_DESCRIPTION} textColor={Style::DIM} wrap={.None} />
+          <text value={orDash(self.club.description)} textColor={Style::INK} />
+          <text $if={self.club.broadcast != ""} value={Locale::QUOTED.format(self.club.broadcast)} textColor={Style::INK} />
+          <text value={Locale::STREAMS.format(self.streams.length)} textColor={Style::DIM} wrap={.None} />
           <StreamRow $for={stream of self.streams} $key={stream.id} stream={stream} />
         </box>
       </box>

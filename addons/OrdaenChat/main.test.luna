@@ -13,18 +13,18 @@ import root Social from "OrdaenSocial"
 import { LEAST_WIDTH, MESSAGE_GAP } from "@/choices"
 import { ChatTab, Kept, Shown, StampShown, THIS_SESSION, linked, marks, wordsOf } from "@/lines"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
-const WHITE: Color = Color.hex("#ffffff")
+const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const WHITE: Color = Color::hex("#ffffff")
 // The shade a tab stands on, open or under the cursor.
-const TAB_SHADE: Color = Color.hex("#00000059")
+const TAB_SHADE: Color = Color::hex("#00000059")
 // The unread count's plain fill.
-const COUNT_FILL: Color = Color.hex("#9b2c1f")
+const COUNT_FILL: Color = Color::hex("#9b2c1f")
 // The input's field's lit edges.
-const INPUT_LIT: Color = Color.hex("#8c6a3f")
+const INPUT_LIT: Color = Color::hex("#8c6a3f")
 
-function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game.ChatWindow {
+function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game::ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
-  const frame = Client.CreateFrame("Frame", `ChatFrame${index}`, Client.C_UI.GetUIParent(), nil)
+  const frame = Client::CreateFrame("Frame", `ChatFrame${index}`, Client::C_UI::GetUIParent(), nil)
   frame.Hide()
   return {
     index: index, name: name, fontSize: fontSize, partner: partner, combatLog: combatLog, docked: docked, shown: true,
@@ -33,78 +33,78 @@ function window(index: Integer, name: String, partner: String, docked: Boolean =
 }
 
 // A window's input, as the client's template makes it: never taking the keyboard by itself.
-function input(parent: any Client.Frame): any Client.EditBox {
-  const made = new Client.EditBox(parent)
+function input(parent: any Client::Frame): any Client::EditBox {
+  const made = new Client::EditBox(parent)
   made.SetAutoFocus(false)
   return made
 }
 
 // A line said by someone, shown in the windows given.
-function line(kind: String, body: String, sender: String, windows: Array<Integer>, channel: Integer = 0, channelName: String = ""): mut Game.ChatLine {
+function line(kind: String, body: String, sender: String, windows: Array<Integer>, channel: Integer = 0, channelName: String = ""): mut Game::ChatLine {
   return {
     kind: kind, event: `CHAT_MSG_${kind}`, body: body, plain: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
-    channelName: channelName, stream: "", color: WHITE, time: Game.clock.server, stamp: "", windows: windows, secret: ""
+    channelName: channelName, stream: "", color: WHITE, time: Game::clock.server, stamp: "", windows: windows, secret: ""
   }
 }
 
 // The game's General and a whisper window.
-function gameWindows(): Array<Game.ChatWindow> { return [window(1, "General", ""), window(3, "Whisper", "Jaina")] }
+function gameWindows(): Array<Game::ChatWindow> { return [window(1, "General", ""), window(3, "Whisper", "Jaina")] }
 
 // A whisper heard (or told, by the player): its words alone are what its bubble shows.
-function whisper(sender: String, words: String, told: Boolean = false): mut Game.ChatLine {
+function whisper(sender: String, words: String, told: Boolean = false): mut Game::ChatLine {
   const said = line(told ? "WHISPER_INFORM" : "WHISPER", `[${sender}] whispers: ${words}`, sender, [1])
   said.text = words
   return said
 }
 
 // The «Tabs» page opened in the settings window.
-function tabsPage(): Test.Part {
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+function tabsPage(): Test::Part {
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   settings.button("Tabs").click()
   return settings
 }
 
 // The chat mounted, found by its first tab.
-function chat(first: String = "General"): Test.Part {
-  Test.mount(nil, SCREEN)
-  return Test.page().window(first)
+function chat(first: String = "General"): Test::Part {
+  Test::mount(nil, SCREEN)
+  return Test::page().window(first)
 }
 
 test "the chat reads the game's lines and shows them in the window's tab, nothing under them until Enter" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
-  Test.expect(shown.text("[Thrall] says: Hello").shown())
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  Test::expect(shown.text("[Thrall] says: Hello").shown())
   // Its two tabs and the line: no hint, no button of the game's, no «Copy».
-  Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello")
+  Test::expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello")
 }
 
 test "the open tab stands on the lines' own ground, the one under the cursor on a shade, each touching the lines" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("General").rect()
-  Test.expect(shown.box(Ordaen.art.window.wood).count() == 0)
-  Test.expect(shown.box(TAB_SHADE).count() == 0 && standsOn(shown, "General", GROUND))
+  Test::expect(shown.box(Ordaen.art.window.wood).count() == 0)
+  Test::expect(shown.box(TAB_SHADE).count() == 0 && standsOn(shown, "General", GROUND))
   shown.text("Jaina").click()
-  Test.expect(standsOn(shown, "Jaina", GROUND) && !standsOn(shown, "General", GROUND))
+  Test::expect(standsOn(shown, "Jaina", GROUND) && !standsOn(shown, "General", GROUND))
   // A tab keeps its place, open or not.
-  Test.expect(shown.text("General").rect().left == name.left)
+  Test::expect(shown.text("General").rect().left == name.left)
   // Under the cursor, another tab stands on a shade.
   shown.text("General").hover()
-  Test.expect(standsOn(shown, "General", TAB_SHADE) && standsOn(shown, "Jaina", GROUND))
+  Test::expect(standsOn(shown, "General", TAB_SHADE) && standsOn(shown, "Jaina", GROUND))
   // The open tab's ground and the shade run up to the lines' ground: no gap.
   const lines = ground(shown)
-  Test.expect((under(shown, "Jaina", GROUND).right - lines.left).abs() < 0.5)
-  Test.expect((under(shown, "General", TAB_SHADE).right - lines.left).abs() < 0.5)
+  Test::expect((under(shown, "Jaina", GROUND).right - lines.left).abs() < 0.5)
+  Test::expect((under(shown, "General", TAB_SHADE).right - lines.left).abs() < 0.5)
   // No list's own shade or light of its own over a tab.
-  Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
+  Test::expect(shown.box(Color::hex("#00000040")).count() == 0 && shown.box(Color::hex("#d6a56b")).count() == 0)
 }
 
 // The lines' dark ground, whole: its middle part, the widest of the boxes of its colour (the open tab's ground is one
 // too), runs from top to bottom, a corner's round in from each side.
-function ground(shown: Test.Part): Test.Rect {
+function ground(shown: Test::Part): Test::Rect {
   const parts = shown.box(GROUND)
   let middle = parts.nth(1).rect()
   for (n of 2..parts.count()) {
@@ -115,12 +115,12 @@ function ground(shown: Test.Part): Test.Rect {
   return { left: middle.left - round, top: middle.top, right: middle.right + round, bottom: middle.bottom }
 }
 
-function inBox(box: Test.Rect, at: Test.Rect): Boolean {
+function inBox(box: Test::Rect, at: Test::Rect): Boolean {
   return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
 // The box of `color` a text stands on, where one is: a tab's ground or shade.
-function underOr(shown: Test.Part, text: String, color: Color): Test.Rect | nil {
+function underOr(shown: Test::Part, text: String, color: Color): Test::Rect | nil {
   const at = shown.text(text).rect()
   const boxes = shown.box(color)
   for (n of 1..boxes.count()) {
@@ -130,523 +130,523 @@ function underOr(shown: Test.Part, text: String, color: Color): Test.Rect | nil 
   return nil
 }
 
-function standsOn(shown: Test.Part, text: String, color: Color): Boolean { return underOr(shown, text, color) != nil }
+function standsOn(shown: Test::Part, text: String, color: Color): Boolean { return underOr(shown, text, color) != nil }
 
-function under(shown: Test.Part, text: String, color: Color): Test.Rect {
+function under(shown: Test::Part, text: String, color: Color): Test::Rect {
   return underOr(shown, text, color) ?? panic(`«${text}» stands on no box of that colour`)
 }
 
 test "a tab's count stands on a plain fill beside its name, never over it: nothing moves for it" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("Jaina").letters()
   const tab = shown.text("Jaina").rect()
   const lines = ground(shown)
-  Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
+  Game::chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
   const badge = shown.box(COUNT_FILL)
   const one = badge.rect()
-  Test.expect(one.left >= name.right && one.top < name.bottom && one.bottom > name.top)
-  for (at of 1..98) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
-  Test.expect(shown.text("99").shown())
+  Test::expect(one.left >= name.right && one.top < name.bottom && one.bottom > name.top)
+  for (at of 1..98) { Game::chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
+  Test::expect(shown.text("99").shown())
   // Wider, still clear of the name; the name, its tab and the lines where they stood.
   const now = shown.text("Jaina").letters()
-  Test.expect(badge.rect().left >= now.right)
-  Test.expect(now.left == name.left && now.right == name.right)
+  Test::expect(badge.rect().left >= now.right)
+  Test::expect(now.left == name.left && now.right == name.right)
   const after = shown.text("Jaina").rect()
-  Test.expect(after.left == tab.left && after.right == tab.right && after.top == tab.top && after.bottom == tab.bottom)
-  Test.expect(ground(shown).left == lines.left)
+  Test::expect(after.left == tab.left && after.right == tab.right && after.top == tab.top && after.bottom == tab.bottom)
+  Test::expect(ground(shown).left == lines.left)
 }
 
 test "messages stand further apart than a message's own lines" {
-  Game.chat.windows = playersWindows()
+  Game::chat.windows = playersWindows()
   const shown = chat("Общий")
   const long = "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again and again"
-  Game.chat.heard.emit(line("SAY", long, "Thrall", [1]))
-  Game.chat.heard.emit(line("SAY", "[Jaina] says: next", "Jaina", [1]))
+  Game::chat.heard.emit(line("SAY", long, "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Jaina] says: next", "Jaina", [1]))
   const first = shown.text(long).letters()
   const next = shown.text("[Jaina] says: next").letters()
   // The long one takes two lines at least; between it and the next, a gap of 1.5sp (6 dp, 4.3 of the screen's units
   // here) its own lines haven't.
-  Test.expect(first.bottom - first.top > (next.bottom - next.top) * 1.5)
-  Test.expect(next.top - first.bottom >= 4)
+  Test::expect(first.bottom - first.top > (next.bottom - next.top) * 1.5)
+  Test::expect(next.top - first.bottom >= 4)
 }
 
 test "the lines keep their least width, some sixty letters, however narrow the chat is chosen" {
-  Game.chat.windows = playersWindows()
+  Game::chat.windows = playersWindows()
   const shown = chat("Общий")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again", "Thrall", [1]))
   // 480 dp, 341 of the screen's units here (190 dp are 135).
   const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again").rect()
-  Test.expect(said.right - said.left >= 335)
+  Test::expect(said.right - said.left >= 335)
 }
 
 test "a line for another tab waits there, counted, until the tab is opened" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
-  Test.expect(!shown.text("[Jaina] says: psst").shown())
-  Test.expect(shown.text("1").shown())
+  Game::chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
+  Test::expect(!shown.text("[Jaina] says: psst").shown())
+  Test::expect(shown.text("1").shown())
   shown.text("Jaina").click()
-  Test.expect(shown.text("[Jaina] says: psst").shown())
-  Test.expect(Test.requests().any(r => r == "Chat.choose 3"))
+  Test::expect(shown.text("[Jaina] says: psst").shown())
+  Test::expect(Test::requests().any(r => r == "Chat.choose 3"))
 }
 
 // The game opens its input as `ChatFrameUtil.ActivateChat` does (shown, the keyboard's) and tells it typing: it
 // stands in the chat's foot, under the lines, as high as the game makes it.
 test "a tab clicked keeps no key: Enter goes on to the game's binding, which opens the input" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   shown.text("Jaina").click()
-  Test.expect(!Test.key(Key.Enter))
+  Test::expect(!Test::key(Key::Enter))
 }
 
 test "Enter shows the input line, on the screen, in the chat's frame" {
-  Game.chat.windows = gameWindows()
-  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  Game::chat.windows = gameWindows()
+  const box = input(Client::CreateFrame("Frame", nil, Client::C_UI::GetUIParent(), nil))
   box.Hide()
-  Game.chat.input = box
+  Game::chat.input = box
   _ = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
-  const shown = Test.page().window("[Thrall] says: here")
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  const shown = Test::page().window("[Thrall] says: here")
   box.Show()
   box.SetFocus()
-  Game.chat.typing = true
-  Test.pass(0.01)
+  Game::chat.typing = true
+  Test::pass(0.01)
   const frame = shown.rect()
-  const middle = Test.centre(box)
-  Test.expect(box.IsVisible() && box.GetHeight() >= 20)
-  Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
+  const middle = Test::centre(box)
+  Test::expect(box.IsVisible() && box.GetHeight() >= 20)
+  Test::expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
   // Over the newest line, at the lines' bottom, drawn over it.
   const newest = shown.text("[Thrall] says: here").rect()
-  Test.expect(middle.y > newest.top - 20 && middle.y < frame.bottom)
+  Test::expect(middle.y > newest.top - 20 && middle.y < frame.bottom)
   // It stands in a field's floor and edge, the chat's own look: a surface over its box, round it.
-  const field = Test.page().box(FIELD_FILL)
-  Test.expect(field.count() == 1)
+  const field = Test::page().box(FIELD_FILL)
+  Test::expect(field.count() == 1)
   const round = field.rect()
-  Test.expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
+  Test::expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
   // The field's floor is under the input, never over its text: the input takes the field's stratum, a level above it.
-  Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
+  Test::expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
 test "the input shows over the bottom of the lines' ground, lit on three sides, and the lines rise to stand above it" {
-  Game.chat.windows = gameWindows()
-  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  Game::chat.windows = gameWindows()
+  const box = input(Client::CreateFrame("Frame", nil, Client::C_UI::GetUIParent(), nil))
   box.Hide()
-  Game.chat.input = box
+  Game::chat.input = box
   _ = chat()
-  for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
-  const shown = Test.page().window("General")
+  for (at of 1..60) { Game::chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  const shown = Test::page().window("General")
   const chatBefore = shown.rect()
   const lines = ground(shown)
   const newest = shown.text("line 60").rect()
   // Scrolled back, the way back stands over the lines; scrolled to the newest again, it goes.
   shown.text("line 60").hover()
-  Test.wheel(1)
-  Test.expect(shown.text("To the latest").shown())
-  Test.expect(shown.rect().bottom == chatBefore.bottom)
+  Test::wheel(1)
+  Test::expect(shown.text("To the latest").shown())
+  Test::expect(shown.rect().bottom == chatBefore.bottom)
   shown.text("To the latest").click()
   box.Show()
   box.SetFocus()
-  Game.chat.typing = true
-  Test.pass(0.01)
+  Game::chat.typing = true
+  Test::pass(0.01)
   // The chat (what the placing mode outlines) stays where it was.
   const chatNow = shown.rect()
-  Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
+  Test::expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
   // The input stands over the bottom of the lines' ground, inside it, its field lit along its top and both sides; the
   // newest line rose to stand above the field.
-  const middle = Test.centre(box)
-  const field = Test.page().box(FIELD_FILL).rect()
-  Test.expect(Test.page().box(INPUT_LIT).count() == 3)
+  const middle = Test::centre(box)
+  const field = Test::page().box(FIELD_FILL).rect()
+  Test::expect(Test::page().box(INPUT_LIT).count() == 3)
   const risen = shown.text("line 60").rect()
-  Test.expect(risen.bottom < newest.bottom && risen.bottom <= field.top)
-  Test.expect(middle.y > (lines.top + lines.bottom) / 2 && middle.y < lines.bottom)
-  Test.expect(middle.x > lines.left && middle.x < lines.right)
+  Test::expect(risen.bottom < newest.bottom && risen.bottom <= field.top)
+  Test::expect(middle.y > (lines.top + lines.bottom) / 2 && middle.y < lines.bottom)
+  Test::expect(middle.x > lines.left && middle.x < lines.right)
   // The lines' ground starts at the chat's top: no room is kept over it.
-  Test.expect((lines.top - chatNow.top).abs() < 0.5)
+  Test::expect((lines.top - chatNow.top).abs() < 0.5)
 }
 
 test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {
-  Game.chat.windows = gameWindows()
-  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
-  Game.chat.input = box
-  Game.chat.typing = true
+  Game::chat.windows = gameWindows()
+  const box = input(Client::CreateFrame("Frame", nil, Client::C_UI::GetUIParent(), nil))
+  Game::chat.input = box
+  Game::chat.typing = true
   _ = chat()
-  const field = Test.page().box(FIELD_FILL).rect()
+  const field = Test::page().box(FIELD_FILL).rect()
   // A panel of the game's (the bags, the character) over the chat's foot, on the panels' layer.
-  const panel = Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil)
+  const panel = Client::CreateFrame("Frame", nil, Client::C_UI::GetUIParent(), nil)
   panel.SetFrameStrata("MEDIUM")
-  panel.SetPoint("BOTTOMLEFT", Client.C_UI.GetUIParent(), "BOTTOMLEFT", 0, 0)
+  panel.SetPoint("BOTTOMLEFT", Client::C_UI::GetUIParent(), "BOTTOMLEFT", 0, 0)
   panel.SetSize(field.right + 50, 900 - field.top + 50)
   panel.EnableMouse(true)
   let pressed = 0
   panel.SetScript("OnMouseDown", (...given: Unknown): nil => {
     pressed += 1
   })
-  Test.click({ x: (field.left + field.right) / 2, y: (field.top + field.bottom) / 2 }, nil)
-  Test.expect(pressed == 0)
+  Test::click({ x: (field.left + field.right) / 2, y: (field.top + field.bottom) / 2 }, nil)
+  Test::expect(pressed == 0)
   // Beside the field, the panel is over the chat.
-  Test.click({ x: field.left + 2, y: field.top - 30 }, nil)
-  Test.expect(pressed == 1)
+  Test::click({ x: field.left + 2, y: field.top - 30 }, nil)
+  Test::expect(pressed == 1)
 }
 
 test "a channel's line is named by its name, the zone left out, until its tab's settings say otherwise" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
-  Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [1], 2, "Trade - City"))
+  Game::chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [1], 2, "Trade - City"))
   // Found by its whisper window's tab, named by the partner: the «Tabs» page lists the windows too, by their names.
-  const shown = Test.page().window("Jaina")
-  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTS ore").shown())
+  const shown = Test::page().window("Jaina")
+  Test::expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTS ore").shown())
   const settings = tabsPage()
   settings.text("[2. Trade]").click()
-  Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTB ore", "Gazlowe", [1, 3], 2, "Trade - City"))
-  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[2. Trade]|h [Gazlowe]: WTB ore").shown())
+  Game::chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTB ore", "Gazlowe", [1, 3], 2, "Trade - City"))
+  Test::expect(shown.text("|Hchannel:CHANNEL:2|h[2. Trade]|h [Gazlowe]: WTB ore").shown())
   // Another tab keeps its own.
   shown.text("Jaina").click()
-  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTB ore").shown())
+  Test::expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTB ore").shown())
 }
 
 test "a tab's count goes off in its settings; the combat log's and a tab of channels alone have none until turned on" {
-  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "")]
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
+  Game::chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "")]
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => [
     { name: "SAY", label: "Say", shown: index != 4 }
   ]
-  Game.chat.channels = (index: Integer): Array<Game.ChatShown> => [{ name: "Trade", shown: index == 4 }]
+  Game::chat.channels = (index: Integer): Array<Game::ChatShown> => [{ name: "Trade", shown: index == 4 }]
   _ = chat()
-  const shown = Test.page().window("Jaina")
-  Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [4], 2, "Trade - City"))
-  Test.expect(!shown.text("1").shown())
+  const shown = Test::page().window("Jaina")
+  Game::chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [4], 2, "Trade - City"))
+  Test::expect(!shown.text("1").shown())
   const settings = tabsPage()
   settings.text("Whisper").click()
   // The switches on: the modules' in the sidebar, then the tab's count, then its lines' «Fold repeats», the page's last.
   const on = settings.button(Ordaen.art.ctl.switchOn)
   on.nth(on.count() - 1).click()
-  Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
-  Test.expect(!shown.text("1").shown())
+  Game::chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
+  Test::expect(!shown.text("1").shown())
 }
 
 test "a window the game tells as the combat log only once its addon loads loses its count then" {
-  Game.chat.windows = [window(1, "General", ""), window(2, "Combat Log", "")]
+  Game::chat.windows = [window(1, "General", ""), window(2, "Combat Log", "")]
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: hit", "Thrall", [2]))
-  Test.expect(shown.text("1").shown())
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: hit", "Thrall", [2]))
+  Test::expect(shown.text("1").shown())
   // Blizzard_CombatLog loaded: the game reads its windows again.
-  Game.chat.windows = [window(1, "General", ""), window(2, "Combat Log", "", true, 13, true)]
-  Test.flush()
-  Test.expect(!shown.text("1").shown())
+  Game::chat.windows = [window(1, "General", ""), window(2, "Combat Log", "", true, 13, true)]
+  Test::flush()
+  Test::expect(!shown.text("1").shown())
 }
 
 test "the same words said again one after another are one line, counted" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
-  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
-  Test.expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
+  Game::chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
+  Game::chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
+  Test::expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
 }
 
 test "a tab folds repeats as its own settings say: one turned off in the Tabs page, another still folds" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   // General picked: its «Fold repeats», the page's last switch, turned off; the whisper tab keeps its own.
   const settings = tabsPage()
   const on = settings.button(Ordaen.art.ctl.switchOn)
   on.nth(on.count() - 1).wheel(-30)
   on.nth(on.count()).click()
-  _ = Test.key(Key.Escape)
-  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
-  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
-  Test.expect(shown.text("[Gnoll] yells: spam").count() == 2)
+  _ = Test::key(Key::Escape)
+  Game::chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
+  Game::chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
+  Test::expect(shown.text("[Gnoll] yells: spam").count() == 2)
   shown.text("Jaina").click()
-  Test.expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
+  Test::expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
 }
 
 test "a web address in a line is a link of the chat's own" {
-  Test.expect(linked("see https://a.io/x?y=1 now") == "see |cff69ccf0|Hordaenurl:https://a.io/x?y=1|h[https://a.io/x?y=1]|h|r now")
+  Test::expect(linked("see https://a.io/x?y=1 now") == "see |cff69ccf0|Hordaenurl:https://a.io/x?y=1|h[https://a.io/x?y=1]|h|r now")
 }
 
 test "a web address clicked opens a box to copy it, closed by Escape" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "see https://a.io/x", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "see https://a.io/x", "Thrall", [1]))
   shown.text(linked("see https://a.io/x")).clickLink("ordaenurl:https://a.io/x", nil)
-  Test.expect(Test.page().window("Close").shown())
-  _ = Test.key(Key.Escape)
-  Test.expect(!Test.page().window("Close").shown())
+  Test::expect(Test::page().window("Close").shown())
+  _ = Test::key(Key::Escape)
+  Test::expect(!Test::page().window("Close").shown())
 }
 
 test "whispers are Ordaen Social's: no tab shows them, its conversation counts them unread, a web address a link" {
-  Game.chat.windows = [window(1, "General", "")]
+  Game::chat.windows = [window(1, "General", "")]
   const shown = chat()
-  Game.chat.heard.emit(whisper("Thrall", "see https://a.io/x"))
-  Test.expect(!shown.texts().any(text => text.contains("a.io")))
+  Game::chat.heard.emit(whisper("Thrall", "see https://a.io/x"))
+  Test::expect(!shown.texts().any(text => text.contains("a.io")))
   const social = Social ?? panic("Ordaen Social is on in the tests")
   const talk = social.talks[1] ?? panic("Thrall's conversation made")
-  Test.expect(social.whispersUnread == 1 && talk.lines[1]?.whole == linked("see https://a.io/x"))
+  Test::expect(social.whispersUnread == 1 && talk.lines[1]?.whole == linked("see https://a.io/x"))
   // A player reported: their lines go from the conversations too.
   const rude = whisper("Grub", "rude")
   rude.guid = "Player-1-0001"
-  Game.chat.heard.emit(rude)
-  Game.chat.playerReported.emit("Player-1-0001")
-  Test.expect((social.talks[1] ?? panic("Grub's conversation made")).lines.length == 0)
+  Game::chat.heard.emit(rude)
+  Game::chat.playerReported.emit("Player-1-0001")
+  Test::expect((social.talks[1] ?? panic("Grub's conversation made")).lines.length == 0)
 }
 
 test "a name's menu whispers them in Ordaen Social's window" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
   shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi").clickLink("player:Jaina:7", .Right)
-  Test.page().text("Whisper").click()
-  Test.expect(Social?.talkOpen == "t:Jaina")
+  Test::page().text("Whisper").click()
+  Test::expect(Social?.talkOpen == "t:Jaina")
 }
 
 test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
-  Game.chat.windows = playersWindows()
+  Game::chat.windows = playersWindows()
   const shown = chat("Общий")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
   // Each tab under the one before, from the same left edge, and the lines to the right of them all.
   const names = ["Общий", "Журнал", "Гильдия", "Каналы"]
   for (at of 2..names.length) {
     const above = shown.text(names[at - 1] ?? "").rect()
     const below = shown.text(names[at] ?? "").rect()
-    Test.expect(below.top >= above.bottom && below.left == above.left)
+    Test::expect(below.top >= above.bottom && below.left == above.left)
   }
-  Test.expect(shown.text("[Thrall] says: here").rect().left > shown.text("Каналы").rect().right)
-  Game.chat.windows = gameWindows()
-  Test.pass(0.1)
-  const now = Test.page().window("General")
+  Test::expect(shown.text("[Thrall] says: here").rect().left > shown.text("Каналы").rect().right)
+  Game::chat.windows = gameWindows()
+  Test::pass(0.1)
+  const now = Test::page().window("General")
   now.text("General").rightClick()
-  Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
-  Test.expect(Test.page().text("Rename").shown())
+  Test::expect(!Test::requests().any(r => r == "Chat.choose 1"))
+  Test::expect(Test::page().text("Rename").shown())
 }
 
 // A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
-function drag(from: Test.Point, dx: Number, dy: Number) {
-  Test.moveTo(from)
-  Test.press(nil)
-  Test.moveTo({ x: from.x + 1, y: from.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: from.x + dx, y: from.y + dy })
-  Test.pass(0.05)
-  Test.release(nil)
-  Test.flush()
+function drag(from: Test::Point, dx: Number, dy: Number) {
+  Test::moveTo(from)
+  Test::press(nil)
+  Test::moveTo({ x: from.x + 1, y: from.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: from.x + dx, y: from.y + dy })
+  Test::pass(0.05)
+  Test::release(nil)
+  Test::flush()
 }
 
 // Each size is measured after the grip is let go: the settings' size, kept.
 // The chat's own grip: the panel draws grips of its own.
-function gripOf(shown: Test.Part): Test.Point {
+function gripOf(shown: Test::Part): Test::Point {
   const at = shown.box(Ordaen.art.ctl.grip).rect()
   return { x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 }
 }
 
 test "the grip in the chat's top right corner grows it right and up, never below its least, and the size is kept" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const before = shown.rect()
   // Up more than right: the panel's action bars stack beside the portrait, and a grip pulled over them is under them.
   drag(gripOf(shown), 60, -200)
   const grown = shown.rect()
   // It stands by its bottom left: that stays, the other sides go out.
-  Test.expect(grown.left == before.left && (grown.bottom - before.bottom).abs() < 0.5)
-  Test.expect(grown.right > before.right + 50 && grown.top < before.top - 150)
+  Test::expect(grown.left == before.left && (grown.bottom - before.bottom).abs() < 0.5)
+  Test::expect(grown.right > before.right + 50 && grown.top < before.top - 150)
   // The grip followed the cursor: off it, it shows its plain art again.
-  Test.moveTo({ x: 1500, y: 100 })
-  Test.flush()
+  Test::moveTo({ x: 1500, y: 100 })
+  Test::flush()
   drag(gripOf(shown), -2000, 2000)
   const least = shown.rect()
   // The lines' least, 480 dp (341 of the screen's units here), and the tabs beside them.
-  Test.expect(least.right < grown.right && least.right - least.left >= 341)
+  Test::expect(least.right < grown.right && least.right - least.left >= 341)
 }
 
 test "the chat stands on the bottom panel at the screen's left, its tabs over the portrait and as wide as it" {
-  Game.chat.windows = gameWindows()
-  Game.player.level = 42
+  Game::chat.windows = gameWindows()
+  Game::player.level = 42
   const shown = chat()
   // The portrait: the panel's surface holding the player's level.
-  const portrait = Test.page().window("42").rect()
+  const portrait = Test::page().window("42").rect()
   const at = shown.rect()
   const tab = under(shown, "General", GROUND)
-  Test.expect(at.left == 0 && (tab.left - portrait.left).abs() < 0.5)
-  Test.expect((tab.right - tab.left - (portrait.right - portrait.left)).abs() < 0.5)
+  Test::expect(at.left == 0 && (tab.left - portrait.left).abs() < 0.5)
+  Test::expect((tab.right - tab.left - (portrait.right - portrait.left)).abs() < 0.5)
   // Its foot on the panel; the tabs' room ends where the portrait rises over it, the tabs above that.
-  Test.expect(at.bottom > portrait.top && at.bottom < portrait.bottom)
-  Test.expect(tab.bottom <= portrait.top)
+  Test::expect(at.bottom > portrait.top && at.bottom < portrait.bottom)
+  Test::expect(tab.bottom <= portrait.top)
 }
 
 test "the chat is never narrower than a window's least body, 375 dp" {
-  Test.expect(LEAST_WIDTH == 375)
-  Game.chat.windows = gameWindows()
+  Test::expect(LEAST_WIDTH == 375)
+  Game::chat.windows = gameWindows()
   // Found by a tab the settings window doesn't name.
   const shown = chat("Jaina")
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   // The width's «−», the page's first, pressed past its least: it stops there.
   for (at of 1..20) { settings.text("-").nth(1).click() }
   // 375 dp, 266 of the screen's units here (190 dp are 135).
   const drawn = shown.rect()
-  Test.expect(drawn.right - drawn.left >= 266)
+  Test::expect(drawn.right - drawn.left >= 266)
 }
 
 test "a link clicked is the game's" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hitem:6948|h[Hearthstone]|h", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hitem:6948|h[Hearthstone]|h", "Thrall", [1]))
   shown.text("|Hitem:6948|h[Hearthstone]|h").clickLink("item:6948", nil)
-  Test.expect(Test.requests().any(r => r == "Chat.click item:6948 LeftButton"))
+  Test::expect(Test::requests().any(r => r == "Chat.click item:6948 LeftButton"))
 }
 
 test "a tab's right-click opens its menu: renamed in a box, locked, a new tab, its settings" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   shown.text("General").rightClick()
-  Test.page().text("Rename").click()
-  Test.page().input().type("Main")
-  Test.page().window("Cancel").button("Rename").click()
+  Test::page().text("Rename").click()
+  Test::page().input().type("Main")
+  Test::page().window("Cancel").button("Rename").click()
   shown.text("General").rightClick()
-  Test.page().text("Lock").click()
+  Test::page().text("Lock").click()
   shown.text("General").rightClick()
-  Test.page().text("New tab").click()
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r.match("^Chat%.rename 1 (.*Main)$") != nil))
-  Test.expect(asked.any(r => r == "Chat.lock 1 true") && asked.any(r => r == "Chat.open New tab"))
+  Test::page().text("New tab").click()
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r.match("^Chat%.rename 1 (.*Main)$") != nil))
+  Test::expect(asked.any(r => r == "Chat.lock 1 true") && asked.any(r => r == "Chat.open New tab"))
 }
 
 test "a tab's menu makes its window uninteractable, undocks a docked one (never the first) and docks one apart" {
-  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "", false)]
+  Game::chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "", false)]
   const shown = chat()
   shown.text("General").rightClick()
-  Test.expect(!Test.page().text("Undock Window").shown())
-  Test.page().text("Make Uninteractable").click()
+  Test::expect(!Test::page().text("Undock Window").shown())
+  Test::page().text("Make Uninteractable").click()
   shown.text("Jaina").rightClick()
-  Test.page().text("Undock Window").click()
-  Test.page().window("Trade").text("Trade").rightClick()
-  Test.page().text("Dock with the chat").click()
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "Chat.interactable 1 false"))
-  Test.expect(asked.any(r => r == "Chat.undock 3") && asked.any(r => r == "Chat.dock 4"))
+  Test::page().text("Undock Window").click()
+  Test::page().window("Trade").text("Trade").rightClick()
+  Test::page().text("Dock with the chat").click()
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r == "Chat.interactable 1 false"))
+  Test::expect(asked.any(r => r == "Chat.undock 3") && asked.any(r => r == "Chat.dock 4"))
 }
 
 test "the chat's keys scroll the window the game has chosen: a line, a page, an end" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  for (at of 1..100) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  for (at of 1..100) { Game::chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
   // Another window's keys leave this one be.
-  Game.chat.scrolled.emit(3, .Top)
-  Test.expect(shown.text("line 100").shown())
-  Game.chat.scrolled.emit(1, .LineUp)
-  Test.expect(!shown.text("line 100").shown() && shown.text("line 99").shown())
-  Game.chat.scrolled.emit(1, .PageUp)
-  Test.expect(!shown.text("line 99").shown())
-  Game.chat.scrolled.emit(1, .Top)
-  Test.expect(shown.text("line 1").shown())
-  Game.chat.scrolled.emit(1, .Bottom)
-  Test.expect(shown.text("line 100").shown())
+  Game::chat.scrolled.emit(3, .Top)
+  Test::expect(shown.text("line 100").shown())
+  Game::chat.scrolled.emit(1, .LineUp)
+  Test::expect(!shown.text("line 100").shown() && shown.text("line 99").shown())
+  Game::chat.scrolled.emit(1, .PageUp)
+  Test::expect(!shown.text("line 99").shown())
+  Game::chat.scrolled.emit(1, .Top)
+  Test::expect(shown.text("line 1").shown())
+  Game::chat.scrolled.emit(1, .Bottom)
+  Test::expect(shown.text("line 100").shown())
 }
 
 test "a player reported has their lines taken away" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const rude = line("SAY", "[Grub] says: rude", "Grub", [1])
   rude.guid = "Player-1-0001"
-  Game.chat.heard.emit(rude)
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: fine", "Thrall", [1]))
-  Game.chat.playerReported.emit("Player-1-0001")
-  Test.expect(!shown.text("[Grub] says: rude").shown() && shown.text("[Thrall] says: fine").shown())
+  Game::chat.heard.emit(rude)
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: fine", "Thrall", [1]))
+  Game::chat.playerReported.emit("Player-1-0001")
+  Test::expect(!shown.text("[Grub] says: rude").shown() && shown.text("[Thrall] says: fine").shown())
 }
 
 test "a name's right-click opens its menu: whisper, invite, who, ignore, and the game's own" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
   shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi").clickLink("player:Jaina:7", .Right)
-  Test.page().text("More…").click()
-  Test.expect(Test.requests().any(r => r == "Chat.click player:Jaina:7 RightButton"))
+  Test::page().text("More…").click()
+  Test::expect(Test::requests().any(r => r == "Chat.click player:Jaina:7 RightButton"))
 }
 
 test "a name's menu befriends the player and copies the name" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
   const said = shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi")
   said.clickLink("player:Jaina:7", .Right)
-  Test.page().text("Add friend").click()
-  Test.expect(Test.requests().any(r => r == "Friends.add Jaina"))
+  Test::page().text("Add friend").click()
+  Test::expect(Test::requests().any(r => r == "Friends.add Jaina"))
   said.clickLink("player:Jaina:7", .Right)
-  Test.page().text("Copy").click()
-  Test.expect(Test.page().input().value() == "Jaina")
+  Test::page().text("Copy").click()
+  Test::expect(Test::page().input().value() == "Jaina")
 }
 
 test "any link's menu copies what it shows: an item's name" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hitem:6948|h[Hearthstone]|h", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hitem:6948|h[Hearthstone]|h", "Thrall", [1]))
   shown.text("|Hitem:6948|h[Hearthstone]|h").clickLink("item:6948", .Right)
   // Not a quest of the log: nothing of the log's.
-  Test.expect(!Test.page().text("Abandon").shown())
-  Test.page().text("Copy").click()
-  Test.expect(Test.page().input().value() == "Hearthstone")
+  Test::expect(!Test::page().text("Abandon").shown())
+  Test::page().text("Copy").click()
+  Test::expect(Test::page().input().value() == "Hearthstone")
 }
 
 test "a quest of the log's link has a menu: tracked or not, abandoned once the player says so" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
-  Game.chat.windows = gameWindows()
+  Test::questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
   const said = shown.text("|Hquest:101:10|h[One]|h")
   said.clickLink("quest:101:10", .Right)
   // Shared only while the player can share it: in a group.
-  Test.expect(Test.page().text("Track").shown() && !Test.page().text("Share").shown())
-  Test.page().text("Track").click()
+  Test::expect(Test::page().text("Track").shown() && !Test::page().text("Share").shown())
+  Test::page().text("Track").click()
   said.clickLink("quest:101:10", .Right)
-  Test.expect(Test.page().text("Stop tracking").shown())
-  Test.page().text("Abandon").click()
-  Test.expect(Test.page().text("Abandon «One»?").shown())
-  Test.page().button("Cancel").click()
-  Test.expect(Game.questLog.quests().any(quest => quest.id == 101))
+  Test::expect(Test::page().text("Stop tracking").shown())
+  Test::page().text("Abandon").click()
+  Test::expect(Test::page().text("Abandon «One»?").shown())
+  Test::page().button("Cancel").click()
+  Test::expect(Game::questLog.quests().any(quest => quest.id == 101))
   said.clickLink("quest:101:10", .Right)
-  Test.page().text("Abandon").click()
-  Test.page().window("Abandon «One»?").button("Abandon").click()
-  Test.expect(!Game.questLog.quests().any(quest => quest.id == 101))
+  Test::page().text("Abandon").click()
+  Test::page().window("Abandon «One»?").button("Abandon").click()
+  Test::expect(!Game::questLog.quests().any(quest => quest.id == 101))
 }
 
 test "a quest's link shows it in Ordaen Quests' log; on the map, never in a fight" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
-  Game.chat.windows = gameWindows()
+  Test::questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
   const said = shown.text("|Hquest:101:10|h[One]|h")
   said.clickLink("quest:101:10", .Right)
-  Test.page().text("Show in quest log").click()
-  Test.flush()
-  Test.expect((Quests ?? panic("Quests is on")).picked == 101)
-  Test.combat(true)
+  Test::page().text("Show in quest log").click()
+  Test::flush()
+  Test::expect((Quests ?? panic("Quests is on")).picked == 101)
+  Test::combat(true)
   said.clickLink("quest:101:10", .Right)
-  Test.page().text("Show on map").click()
+  Test::page().text("Show on map").click()
   // Greyed: nothing opens, the menu stays.
-  Test.expect(Test.page().text("Show on map").shown())
+  Test::expect(Test::page().text("Show on map").shown())
 }
 
 test "with Quests off, a quest's link has no Quests' entries" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
-  Game.chat.windows = gameWindows()
+  Test::questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  const quests = Runtime.Addon.of(Quests) ?? panic("Quests is installed")
+  const quests = Runtime::Addon::of(Quests) ?? panic("Quests is installed")
   quests.disable()
-  Test.pass(0.02)
-  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  Test::pass(0.02)
+  Game::chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
   shown.text("|Hquest:101:10|h[One]|h").clickLink("quest:101:10", .Right)
-  Test.expect(!Test.page().text("Show in quest log").shown() && Test.page().text("Track").shown())
+  Test::expect(!Test::page().text("Show in quest log").shown() && Test::page().text("Track").shown())
 }
 
 test "a window the player undocked is a pane of its own" {
-  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina", false)]
+  Game::chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina", false)]
   _ = chat()
-  Game.chat.heard.emit(line("SAY", "[Jaina] says: apart", "Jaina", [3]))
-  Test.expect(Test.page().window("[Jaina] says: apart").text("Jaina").shown())
-  Test.expect(!Test.page().window("General").text("Jaina").shown())
+  Game::chat.heard.emit(line("SAY", "[Jaina] says: apart", "Jaina", [3]))
+  Test::expect(Test::page().window("[Jaina] says: apart").text("Jaina").shown())
+  Test::expect(!Test::page().window("General").text("Jaina").shown())
 }
 
 // A window's groups as the game's side gives them, the ones a test names.
-function groupsOf(shown: Map<String, Boolean>): Array<Game.ChatGroup> {
+function groupsOf(shown: Map<String, Boolean>): Array<Game::ChatGroup> {
   const labels: Map<String, String> = {
     SAY: "Say", MONSTER_SAY: "Say", YELL: "Yell", PARTY: "Party", PARTY_LEADER: "Party Leader", RAID: "Raid",
     RAID_LEADER: "Raid Leader", RAID_WARNING: "Raid Warning", LOOT: "Item Loot", ACHIEVEMENT: "Achievement",
@@ -667,125 +667,125 @@ function guildOpening(refused: Integer) {
   const jaina = window(3, "Whisper", "Jaina")
   const guild = window(4, "Guild", "")
   let asked = 0
-  Game.chat.windows = [general, jaina]
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 4 ? [{ name: "SAY", label: "Say", shown: true }, { name: "GUILD", label: "Guild", shown: true }] : []
-  Game.chat.open = (name: String): Integer | nil => {
-    Test.asked("Chat.open", name)
+  Game::chat.windows = [general, jaina]
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 4 ? [{ name: "SAY", label: "Say", shown: true }, { name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.open = (name: String): Integer | nil => {
+    Test::asked("Chat.open", name)
     asked += 1
     if (asked <= refused) { return nil }
-    Game.chat.windows = [general, jaina, guild]
+    Game::chat.windows = [general, jaina, guild]
     return 4
   }
 }
 
 // The game's windows load, and the game's own handlers of the event have their turn.
 function windowsLoad() {
-  Events.UPDATE_CHAT_WINDOWS.emit()
-  Test.pass(0.01)
+  Events::UPDATE_CHAT_WINDOWS.emit()
+  Test::pass(0.01)
 }
 
-function guildAsked(): Boolean { return Test.requests().any(r => r == "Chat.open Guild") }
+function guildAsked(): Boolean { return Test::requests().any(r => r == "Chat.open Guild") }
 
 test "a character's chat gets a tab of the guild's lines once its windows load, after the game's own handlers" {
   guildOpening(0)
   _ = chat()
-  Events.UPDATE_CHAT_WINDOWS.emit()
+  Events::UPDATE_CHAT_WINDOWS.emit()
   // Not in the event itself: the game lays its saved windows over what was opened before its handler.
-  Test.expect(!guildAsked())
-  Test.pass(0.01)
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "Chat.open Guild"))
+  Test::expect(!guildAsked())
+  Test::pass(0.01)
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r == "Chat.open Guild"))
   // The new window shows the guild's and its officers' lines and nothing else.
-  Test.expect(asked.any(r => r == "Chat.showGroup 4 SAY false"))
-  Test.expect(asked.any(r => r == "Chat.showGroup 4 GUILD true") && asked.any(r => r == "Chat.showGroup 4 OFFICER true"))
+  Test::expect(asked.any(r => r == "Chat.showGroup 4 SAY false"))
+  Test::expect(asked.any(r => r == "Chat.showGroup 4 GUILD true") && asked.any(r => r == "Chat.showGroup 4 OFFICER true"))
 }
 
 test "a guild's tab the game's load closed is opened again; once a later load finds it, closed it stays closed" {
   guildOpening(0)
   _ = chat()
   windowsLoad()
-  Test.expect(guildAsked())
+  Test::expect(guildAsked())
   // The game's saved windows laid over it: gone.
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   windowsLoad()
-  Test.expect(guildAsked())
+  Test::expect(guildAsked())
   // Found by the next load: done.
   windowsLoad()
-  Test.expect(!guildAsked())
-  Game.chat.windows = gameWindows()
+  Test::expect(!guildAsked())
+  Game::chat.windows = gameWindows()
   windowsLoad()
-  Events.PLAYER_ENTERING_WORLD.emit(false, true)
-  Test.pass(0.01)
-  Test.expect(!guildAsked())
+  Events::PLAYER_ENTERING_WORLD.emit(false, true)
+  Test::pass(0.01)
+  Test::expect(!guildAsked())
 }
 
 test "a guild's tab the client refused while it loads its windows is asked for again as the player enters the world" {
   guildOpening(1)
   _ = chat()
   windowsLoad()
-  Test.expect(guildAsked())
-  Events.PLAYER_ENTERING_WORLD.emit(true, false)
-  Test.pass(0.01)
-  Test.expect(guildAsked())
-  Test.expect(Game.chat.windows.any(each => each.index == 4))
+  Test::expect(guildAsked())
+  Events::PLAYER_ENTERING_WORLD.emit(true, false)
+  Test::pass(0.01)
+  Test::expect(guildAsked())
+  Test::expect(Game::chat.windows.any(each => each.index == 4))
 }
 
 test "a character's chat gets a tab of its channels once it is in some, and General leaves them to it" {
   // The guild's tab is there already (window 3): only the channels' is asked for.
-  let joined: Array<Game.ChatShown> = []
-  Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
-  Game.chat.channels = (index: Integer): Array<Game.ChatShown> => index == 1 ? joined : index == 5 ? [{ name: "General", shown: false }] : []
-  Game.chat.open = (name: String): Integer | nil => {
-    Test.asked("Chat.open", name)
+  let joined: Array<Game::ChatShown> = []
+  Game::chat.windows = gameWindows()
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.channels = (index: Integer): Array<Game::ChatShown> => index == 1 ? joined : index == 5 ? [{ name: "General", shown: false }] : []
+  Game::chat.open = (name: String): Integer | nil => {
+    Test::asked("Chat.open", name)
     return 5
   }
   _ = chat()
   windowsLoad()
   // In no channel yet: the tab waits for them.
-  Test.expect(!Test.requests().any(r => r == "Chat.open Channels"))
+  Test::expect(!Test::requests().any(r => r == "Chat.open Channels"))
   joined = [{ name: "General", shown: true }, { name: "Trade", shown: true }]
-  Events.CHANNEL_UI_UPDATE.emit()
-  Test.pass(0.01)
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "Chat.open Channels") && asked.any(r => r == "Chat.showGroup 5 CHANNEL true"))
-  Test.expect(asked.any(r => r == "Chat.showChannel 5 General true"))
-  Test.expect(asked.any(r => r == "Chat.showChannel 1 General false") && asked.any(r => r == "Chat.showChannel 1 Trade false"))
+  Events::CHANNEL_UI_UPDATE.emit()
+  Test::pass(0.01)
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r == "Chat.open Channels") && asked.any(r => r == "Chat.showGroup 5 CHANNEL true"))
+  Test::expect(asked.any(r => r == "Chat.showChannel 5 General true"))
+  Test::expect(asked.any(r => r == "Chat.showChannel 1 General false") && asked.any(r => r == "Chat.showChannel 1 Trade false"))
 }
 
 test "no guild's tab is made where a window past the game's two shows the guild already" {
-  Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.windows = gameWindows()
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
   _ = chat()
   windowsLoad()
-  Test.expect(!guildAsked())
+  Test::expect(!guildAsked())
 }
 
 // A letter of the line's against a letter of the tab's name, Ordaen's body text.
-function lineToName(shown: Test.Part): Number {
+function lineToName(shown: Test::Part): Number {
   const said = shown.text("[Thrall] says: Hello").letters()
   const name = shown.text("General").letters()
   return ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
 }
 
 test "the lines are Ordaen's body text, as every module's, whatever font size the game's window has" {
-  Game.chat.windows = [window(1, "General", "", true, 18)]
+  Game::chat.windows = [window(1, "General", "", true, 18)]
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
-  Test.expect((lineToName(shown) - 1).abs() < 0.005)
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  Test::expect((lineToName(shown) - 1).abs() < 0.005)
 }
 
 test "the chat's own text size, where the player turns it on, is the lines' for the whole chat" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   // The page's switches that are off: hiding, the own text size, the input always shown; the page scrolled to them.
   settings.button(Ordaen.art.ctl.switchOff).nth(1).wheel(-3)
   settings.button(Ordaen.art.ctl.switchOff).nth(2).click()
-  Test.expect(settings.text("Text size").shown())
+  Test::expect(settings.text("Text size").shown())
   // The size's slider, at the body's size until changed, two steps down by its − (the page's last), the page scrolled to it.
   settings.button(Ordaen.art.ctl.switchOff).nth(1).wheel(-10)
   const less = settings.text("-")
@@ -793,118 +793,118 @@ test "the chat's own text size, where the player turns it on, is the lines' for 
   less.nth(less.count()).click()
   // Found by its line: the settings window names «General» too.
   const body = BODY_TEXT / 1ui
-  Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - (body - 2) / body).abs() < 0.005)
+  Test::expect((lineToName(Test::page().window("[Thrall] says: Hello")) - (body - 2) / body).abs() < 0.005)
 }
 
 test "the tabs begin level with the lines' ground, and the ground is dark, its top right corner round, no wood" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Test.expect((under(shown, "General", GROUND).top - ground(shown).top).abs() < 0.5)
+  Test::expect((under(shown, "General", GROUND).top - ground(shown).top).abs() < 0.5)
   // Its middle, a strip down each side, its four corners (the top right a circle cut to its quarter), and the open
   // tab's ground.
-  Test.expect(shown.box(GROUND).count() == 8 && shown.box(Ordaen.art.window.wood).count() == 0)
+  Test::expect(shown.box(GROUND).count() == 8 && shown.box(Ordaen.art.window.wood).count() == 0)
 }
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {
-  Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => groupsOf({ SAY: true, MONSTER_SAY: true, PARTY: true, PARTY_LEADER: true, LOOT: true })
+  Game::chat.windows = gameWindows()
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => groupsOf({ SAY: true, MONSTER_SAY: true, PARTY: true, PARTY_LEADER: true, LOOT: true })
   _ = chat()
   const settings = tabsPage()
-  Test.expect(["Speech", "Channels", "Communities", "System"].all(title => settings.text(title).shown()))
-  Test.expect(settings.text("Whisper").rect().left < settings.text("Speech").rect().left)
+  Test::expect(["Speech", "Channels", "Communities", "System"].all(title => settings.text(title).shown()))
+  Test::expect(settings.text("Whisper").rect().left < settings.text("Speech").rect().left)
   // A kind of speech is one row over its groups: a party's leader, a raid's warning go with it; NPCs' say with say.
-  Test.expect(!settings.text("Party Leader").shown() && !settings.text("Raid Warning").shown())
-  Test.expect(settings.text("Item Loot").rect().top > settings.text("Communities").rect().top)
+  Test::expect(!settings.text("Party Leader").shown() && !settings.text("Raid Warning").shown())
+  Test::expect(settings.text("Item Loot").rect().top > settings.text("Communities").rect().top)
   // Say: the players' and the NPCs' lines; Yell: neither.
-  Test.expect(settings.text("All").shown() && settings.text("None").shown())
+  Test::expect(settings.text("All").shown() && settings.text("None").shown())
   // The raid's check: the raid, its leader and its warnings.
   settings.button(Ordaen.art.ctl.check).nth(2).click()
-  const asked = Test.requests()
-  Test.expect(["RAID", "RAID_LEADER", "RAID_WARNING"].all(name => asked.any(r => r == `Chat.showGroup 1 ${name} true`)))
+  const asked = Test::requests()
+  Test::expect(["RAID", "RAID_LEADER", "RAID_WARNING"].all(name => asked.any(r => r == `Chat.showGroup 1 ${name} true`)))
   // Say's players alone: the NPCs' lines go.
   settings.text("All").click()
-  Test.page().text("Players").click()
-  const said = Test.requests()
-  Test.expect(said.any(r => r == "Chat.showGroup 1 SAY true") && said.any(r => r == "Chat.showGroup 1 MONSTER_SAY false"))
-  Test.expect(!said.any(r => r == "Chat.showGroup 1 MONSTER_WHISPER false"))
+  Test::page().text("Players").click()
+  const said = Test::requests()
+  Test::expect(said.any(r => r == "Chat.showGroup 1 SAY true") && said.any(r => r == "Chat.showGroup 1 MONSTER_SAY false"))
+  Test::expect(!said.any(r => r == "Chat.showGroup 1 MONSTER_WHISPER false"))
   // Another window picked: its own rows.
   settings.text("Whisper").click()
   settings.button(Ordaen.art.ctl.check).nth(2).click()
-  Test.expect(Test.requests().any(r => r == "Chat.showGroup 3 RAID true"))
+  Test::expect(Test::requests().any(r => r == "Chat.showGroup 3 RAID true"))
 }
 
 test "the system messages stand in sections, the rest of the client's groups under Game; the communities' group is no row" {
-  Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => groupsOf({ BG_HORDE: true, BG_ALLIANCE: true, AFK: true })
+  Game::chat.windows = gameWindows()
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => groupsOf({ BG_HORDE: true, BG_ALLIANCE: true, AFK: true })
   _ = chat()
   const settings = tabsPage()
-  Test.expect(["Progress", "Loot", "Battlegrounds", "Game"].all(title => settings.text(title).shown()))
+  Test::expect(["Progress", "Loot", "Battlegrounds", "Game"].all(title => settings.text(title).shown()))
   // The achievements' choice, the battlegrounds' one row, the channels' notices under Channels.
-  Test.expect(settings.text("Achievements").shown() && settings.text("Battleground announcements").shown())
-  Test.expect(!settings.text("Horde").shown() && !settings.text("COMMUNITIES_CHANNEL").shown())
-  Test.expect(settings.text("Channel notices").rect().top < settings.text("Communities").rect().top)
+  Test::expect(settings.text("Achievements").shown() && settings.text("Battleground announcements").shown())
+  Test::expect(!settings.text("Horde").shown() && !settings.text("COMMUNITIES_CHANNEL").shown())
+  Test::expect(settings.text("Channel notices").rect().top < settings.text("Communities").rect().top)
   // A group no row covers: under Game, in the game's words.
-  Test.expect(settings.text("AFK").rect().top > settings.text("Game").rect().top)
+  Test::expect(settings.text("AFK").rect().top > settings.text("Game").rect().top)
   // The guild's achievements alone.
   // Say's, Yell's and the achievements' choices each read None; the page scrolled down to the third.
   for (i of 1..6) { settings.text("Speech").wheel(-1) }
   settings.text("None").nth(3).click()
-  Test.page().text("Guild").click()
-  const picked = Test.requests()
-  Test.expect(picked.any(r => r == "Chat.showGroup 1 ACHIEVEMENT false") && picked.any(r => r == "Chat.showGroup 1 GUILD_ACHIEVEMENT true"))
+  Test::page().text("Guild").click()
+  const picked = Test::requests()
+  Test::expect(picked.any(r => r == "Chat.showGroup 1 ACHIEVEMENT false") && picked.any(r => r == "Chat.showGroup 1 GUILD_ACHIEVEMENT true"))
   // The battlegrounds' row turns each faction's group off: the fifth check (Party, Raid, the channels' notices, Loot).
   for (i of 1..6) { settings.text("Progress").wheel(-1) }
   settings.button(Ordaen.art.ctl.check).nth(5).click()
-  const news = Test.requests()
-  Test.expect(news.any(r => r == "Chat.showGroup 1 BG_HORDE false") && news.any(r => r == "Chat.showGroup 1 BG_ALLIANCE false"))
+  const news = Test::requests()
+  Test::expect(news.any(r => r == "Chat.showGroup 1 BG_HORDE false") && news.any(r => r == "Chat.showGroup 1 BG_ALLIANCE false"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   shown.text("Jaina").click()
-  Game.chat.typing = true
-  Test.pass(0.01)
-  Test.expect(Test.requests().any(r => r == "Chat.speak 3"))
+  Game::chat.typing = true
+  Test::pass(0.01)
+  Test::expect(Test::requests().any(r => r == "Chat.speak 3"))
 }
 
 test "lines never fade: the whole chat hides while the cursor is off it where the settings say, at once" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: old", "Thrall", [1]))
-  const shown = Test.page().window("[Thrall] says: old")
-  Game.clock.server = Game.clock.server + 600
-  Test.pass(0.01)
-  Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: old", "Thrall", [1]))
+  const shown = Test::page().window("[Thrall] says: old")
+  Game::clock.server = Game::clock.server + 600
+  Test::pass(0.01)
+  Test::expect(shown.text("[Thrall] says: old").opacity() == 1)
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   settings.button(Ordaen.art.ctl.switchOff).nth(1).click()
-  Test.expect(settings.text("Hidden chat's opacity").shown())
-  Test.expect(shown.text("[Thrall] says: old").opacity() == 0 && shown.text("General").opacity() == 0)
+  Test::expect(settings.text("Hidden chat's opacity").shown())
+  Test::expect(shown.text("[Thrall] says: old").opacity() == 0 && shown.text("General").opacity() == 0)
   shown.text("General").hover()
-  Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
+  Test::expect(shown.text("[Thrall] says: old").opacity() == 1)
   shown.text("[Thrall] says: old").hover()
-  Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
+  Test::expect(shown.text("[Thrall] says: old").opacity() == 1)
 }
 
 test "the wheel scrolls back, and «To the latest» brings the newest back" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  for (at of 1..100) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
-  Test.expect(!shown.text("line 10").shown())
+  for (at of 1..100) { Game::chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  Test::expect(!shown.text("line 10").shown())
   shown.text("line 100").hover()
-  for (at of 1..30) { Test.wheel(1) }
-  Test.expect(shown.text("line 10").shown() && !shown.text("line 100").shown())
+  for (at of 1..30) { Test::wheel(1) }
+  Test::expect(shown.text("line 10").shown() && !shown.text("line 100").shown())
   shown.text("To the latest").click()
-  Test.expect(!shown.text("To the latest").shown())
-  Test.expect(shown.text("line 100").rect().bottom > shown.text("line 99").rect().bottom)
+  Test::expect(!shown.text("To the latest").shown())
+  Test::expect(shown.text("line 100").rect().bottom > shown.text("line 99").rect().bottom)
 }
 
 test "an Ordaen addon writes into the chat with its mark and colour" {
-  const mark: ChatMark = { name: "Inventory", color: Color.hex("#e8c35a") }
+  const mark: ChatMark = { name: "Inventory", color: Color::hex("#e8c35a") }
   say(mark, "sorted.")
-  Test.expect(Test.printed().join("\n") == "|cffe8c35aInventory:|r sorted.")
+  Test::expect(Test::printed().join("\n") == "|cffe8c35aInventory:|r sorted.")
 }
 
 test "a line kept with no sender (kept before senders were) comes back, said by nobody" {
@@ -923,22 +923,22 @@ test "a line kept with no sender (kept before senders were) comes back, said by 
   tab["lines"] = [old]
   const kept: Map<String, Unknown> = {}
   kept["tabs"] = [tab]
-  const back = Kept.decode(kept, Kept { tabs: [] })
+  const back = Kept::decode(kept, Kept { tabs: [] })
   const lines = back.tabs[1]?.lines ?? []
-  Test.expect(lines[1]?.sender == "")
+  Test::expect(lines[1]?.sender == "")
 }
 
 test "a line the client keeps secret shows one line high, never kept for the next session" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const secret = line("SAY", "", "Boss", [1])
-  Game.chat.heard.emit({
-    kind: "SAY", event: "CHAT_MSG_SAY", body: Test.secretText(), plain: "", text: "", sender: "", guid: "", lineId: 1, channel: 0,
-    channelName: "", stream: "", color: WHITE, time: Game.clock.server, stamp: "", windows: [1], secret: "text"
+  Game::chat.heard.emit({
+    kind: "SAY", event: "CHAT_MSG_SAY", body: Test::secretText(), plain: "", text: "", sender: "", guid: "", lineId: 1, channel: 0,
+    channelName: "", stream: "", color: WHITE, time: Game::clock.server, stamp: "", windows: [1], secret: "text"
   })
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: after", "Thrall", [1]))
-  Test.expect(shown.text("[Thrall] says: after").shown() && secret.body == "")
-  Test.expect(Test.errors().length == 0)
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: after", "Thrall", [1]))
+  Test::expect(shown.text("[Thrall] says: after").shown() && secret.body == "")
+  Test::expect(Test::errors().length == 0)
 }
 
 test "a tab's last lines are kept for the next session and come back as they were, before the new ones" {
@@ -949,50 +949,50 @@ test "a tab's last lines are kept for the next session and come back as they wer
   const back = new ChatTab("w1", "General")
   back.add(plain("new"))
   back.recall(kept.keptLines(2))
-  Test.expect(back.lines.map(l => l.whole).join(",") == "two,three,new")
+  Test::expect(back.lines.map(l => l.whole).join(",") == "two,three,new")
   // A rule above each session's first line: the kept session's, and this one's after it.
-  Test.expect(back.slice(0, 80).map(e => `${e.opens ? "|" : ""}${e.line.whole}`).join(",") == "|two,three,|new")
+  Test::expect(back.slice(0, 80).map(e => `${e.opens ? "|" : ""}${e.line.whole}`).join(",") == "|two,three,|new")
 }
 
 test "each session's lines stand under a rule naming the session, in the lines' own colours" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: before", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: before", "Thrall", [1]))
   // In this session alone: no rule.
-  Test.expect(!Test.page().window("Jaina").texts().any(text => text.match("^Session · ") != nil))
+  Test::expect(!Test::page().window("Jaina").texts().any(text => text.match("^Session · ") != nil))
   // A later session: the line kept comes back under its session's rule, this session's rule over what it hears.
-  Game.clock.server = THIS_SESSION.floor() + 3600
-  Events.PLAYER_LOGOUT.emit()
-  Test.reload()
-  Game.chat.windows = gameWindows()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: now", "Thrall", [1]))
-  const shown = Test.page().window("Jaina")
+  Game::clock.server = THIS_SESSION.floor() + 3600
+  Events::PLAYER_LOGOUT.emit()
+  Test::reload()
+  Game::chat.windows = gameWindows()
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: now", "Thrall", [1]))
+  const shown = Test::page().window("Jaina")
   const rules = shown.texts().filter(text => text.match("^Session · ") != nil)
-  Test.expect(rules.length == 2)
+  Test::expect(rules.length == 2)
   // Not dimmed: drawn as it was.
-  Test.expect(shown.text("[Thrall] says: before").opacity() == 1)
-  Test.expect(shown.text(rules[1] ?? "").rect().bottom <= shown.text("[Thrall] says: before").rect().top)
+  Test::expect(shown.text("[Thrall] says: before").opacity() == 1)
+  Test::expect(shown.text(rules[1] ?? "").rect().bottom <= shown.text("[Thrall] says: before").rect().top)
 }
 
 test "a community is no tab of its own: a tab shows it where the Tabs page ticks it" {
-  Game.chat.windows = gameWindows()
-  const friends: Game.ChatStream = { club: "12", stream: "1", name: "Friends" }
-  const guild: Game.ChatStream = { club: "14", stream: "1", name: "Guildhall" }
-  Game.chat.streams = [friends, guild]
-  Game.chat.communities = (index: Integer): Array<Game.ChatCommunity> => [{ stream: friends, shown: false }, { stream: guild, shown: true }]
+  Game::chat.windows = gameWindows()
+  const friends: Game::ChatStream = { club: "12", stream: "1", name: "Friends" }
+  const guild: Game::ChatStream = { club: "14", stream: "1", name: "Guildhall" }
+  Game::chat.streams = [friends, guild]
+  Game::chat.communities = (index: Integer): Array<Game::ChatCommunity> => [{ stream: friends, shown: false }, { stream: guild, shown: true }]
   const shown = chat()
-  Test.expect(!shown.text("Friends").shown())
+  Test::expect(!shown.text("Friends").shown())
   const settings = tabsPage()
   settings.button(Ordaen.art.ctl.check).nth(1).click()
   // The group that carries the communities' lines follows: shown while any community is.
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "Chat.showCommunity 1 12:1 true") && asked.any(r => r == "Chat.showGroup 1 COMMUNITIES_CHANNEL true"))
+  const asked = Test::requests()
+  Test::expect(asked.any(r => r == "Chat.showCommunity 1 12:1 true") && asked.any(r => r == "Chat.showGroup 1 COMMUNITIES_CHANNEL true"))
 }
 
 test "someone's line naming a keyword is marked" {
-  Test.expect(marks("anyone selling ore?", wordsOf("Ore, cloth", "Thrall")))
-  Test.expect(!marks("hello", wordsOf("Ore, cloth", "Thrall")))
-  Test.expect(marks("thrall, come", wordsOf("", "Thrall")))
+  Test::expect(marks("anyone selling ore?", wordsOf("Ore, cloth", "Thrall")))
+  Test::expect(!marks("hello", wordsOf("Ore, cloth", "Thrall")))
+  Test::expect(marks("thrall, come", wordsOf("", "Thrall")))
 }
 
 // A line heard in a session: this one's where none is named.
@@ -1001,7 +1001,7 @@ function plain(words: String, session: Number = THIS_SESSION): Shown {
 }
 
 test "the chat is never lower than its tabs: the lines take the room they leave" {
-  Game.chat.windows = [
+  Game::chat.windows = [
     window(1, "General", ""), window(2, "Log", ""), window(3, "Guild", ""), window(4, "Trade", ""), window(5, "Officers", ""),
     window(6, "Party", ""), window(7, "Raid", ""), window(8, "Market", ""), window(9, "Friends", "")
   ]
@@ -1010,27 +1010,27 @@ test "the chat is never lower than its tabs: the lines take the room they leave"
   // tab's foot.
   const first = shown.text("General").rect()
   const last = shown.text("Friends").rect()
-  Test.expect(last.bottom - first.top > 135)
-  Test.expect(shown.rect().bottom >= last.bottom)
+  Test::expect(last.bottom - first.top > 135)
+  Test::expect(shown.rect().bottom >= last.bottom)
 }
 
 // The windows of the player's game: General, the combat log, Guild, Channels.
-function playersWindows(): Array<Game.ChatWindow> {
+function playersWindows(): Array<Game::ChatWindow> {
   return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
 }
 
 test "with the player's tabs, the lines keep their room, the newest at their foot" {
-  Game.chat.windows = playersWindows()
-  Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "2", stream: "1", name: "Test" }]
+  Game::chat.windows = playersWindows()
+  Game::chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "2", stream: "1", name: "Test" }]
   const shown = chat("Общий")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: still here", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: still here", "Thrall", [1]))
   const said = shown.text("[Thrall] says: still here").rect()
   // The lines keep the chat's height (190 dp, 135 of the screen's units here).
-  Test.expect(said.bottom - shown.rect().top >= 130)
+  Test::expect(said.bottom - shown.rect().top >= 130)
 }
 
 // A line said at `hour`:`minute` and `second`, where the game shows the chat's times.
-function stamped(body: String, hour: Integer, minute: Integer, second: Integer = 0): mut Game.ChatLine {
+function stamped(body: String, hour: Integer, minute: Integer, second: Integer = 0): mut Game::ChatLine {
   const said = line("SAY", body, "Thrall", [1])
   said.stamp = "%d:%02d ".format(hour, minute)
   said.time = hour * 3600 + minute * 60 + second
@@ -1039,45 +1039,45 @@ function stamped(body: String, hour: Integer, minute: Integer, second: Integer =
 
 // The game's line as it gives it: its body, and the same line plain.
 test "a line shows the name bare, no «says:»: the colour tells the kind, its time before it in brackets, muted, where its tab says" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
   // Found by its whisper window's tab: the «Tabs» page lists the windows too, by their names.
-  const shown = Test.page().window("Jaina")
-  Game.clock.hours24 = true
+  const shown = Test::page().window("Jaina")
+  Game::clock.hours24 = true
   tabsPage().text("Before each line").click()
   const said = stamped("|Hplayer:Thrall:7|h[Thrall]|h says: Hello", 12, 4)
   said.plain = "|Hplayer:Thrall:7|hThrall|h: Hello"
-  Game.chat.heard.emit(said)
-  Test.expect(shown.text("|cff9d9d9d[12:04]|r |Hplayer:Thrall:7|hThrall|h: Hello").shown())
+  Game::chat.heard.emit(said)
+  Test::expect(shown.text("|cff9d9d9d[12:04]|r |Hplayer:Thrall:7|hThrall|h: Hello").shown())
 }
 
 test "the chat's times are written by the clock's 24-hour mode, as every time of Ordaen's" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.clock.hours24 = false
-  Game.chat.heard.emit(stamped("Hello", 15, 30))
-  Test.expect(shown.text("3:30 PM").shown() && shown.text("Hello").shown())
+  Game::clock.hours24 = false
+  Game::chat.heard.emit(stamped("Hello", 15, 30))
+  Test::expect(shown.text("3:30 PM").shown() && shown.text("Hello").shown())
 }
 
 test "General's times stand above its lines, once for the lines of a minute, again as the next minute's first comes" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.clock.hours24 = true
-  Game.chat.heard.emit(stamped("first", 12, 4, 5))
-  Game.chat.heard.emit(stamped("second", 12, 4, 50))
-  Game.chat.heard.emit(stamped("third", 12, 5, 1))
-  Test.expect(shown.text("12:04").count() == 1 && shown.text("12:05").count() == 1)
+  Game::clock.hours24 = true
+  Game::chat.heard.emit(stamped("first", 12, 4, 5))
+  Game::chat.heard.emit(stamped("second", 12, 4, 50))
+  Game::chat.heard.emit(stamped("third", 12, 5, 1))
+  Test::expect(shown.text("12:04").count() == 1 && shown.text("12:05").count() == 1)
   const minute = shown.text("12:04").rect()
   const first = shown.text("first").rect()
   const second = shown.text("second").rect()
   const next = shown.text("12:05").rect()
   // The time close above its minute's first line, centred over the lines, smaller than them; the minute's lines one
   // under another, the next minute's time between them and its own line.
-  Test.expect(minute.bottom <= first.top + 0.01 && first.top - minute.bottom < 1)
-  Test.expect(minute.left > first.left + 50 && minute.bottom - minute.top < first.bottom - first.top)
-  Test.expect(second.top >= first.bottom && next.top >= second.bottom && shown.text("third").rect().top >= next.bottom)
+  Test::expect(minute.bottom <= first.top + 0.01 && first.top - minute.bottom < 1)
+  Test::expect(minute.left > first.left + 50 && minute.bottom - minute.top < first.bottom - first.top)
+  Test::expect(second.top >= first.bottom && next.top >= second.bottom && shown.text("third").rect().top >= next.bottom)
   // No line carries its time in brackets.
-  Test.expect(!shown.text("|cff9d9d9d[12:04]|r first").shown())
+  Test::expect(!shown.text("|cff9d9d9d[12:04]|r first").shown())
 }
 
 test "a line kept with its time in its text comes back with its time drawn apart, above its minute's lines" {
@@ -1090,95 +1090,95 @@ test "a line kept with its time in its text comes back with its time drawn apart
   const first = tab.lines[1] ?? panic("kept")
   const later = tab.lines[2] ?? panic("kept")
   const untimed = tab.lines[3] ?? panic("kept")
-  Test.expect(first.stamped && first.whole == "Hello" && later.stamped && later.whole == "Later")
-  Test.expect(!untimed.stamped && untimed.whole == "untimed")
+  Test::expect(first.stamped && first.whole == "Hello" && later.stamped && later.whole == "Later")
+  Test::expect(!untimed.stamped && untimed.whole == "untimed")
   const entries = tab.slice(0, 3)
-  Test.expect(entries.map(entry => entry.stamp).equal([StampShown.Above, StampShown.Above, StampShown.None]))
+  Test::expect(entries.map(entry => entry.stamp).equal([StampShown::Above, StampShown::Above, StampShown::None]))
 }
 
 test "messages stand apart by the chat's room between them, more than a message's own lines" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
   // Found by its whisper window's tab: the settings window names «General» too.
-  const shown = Test.page().window("Jaina")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: two", "Thrall", [1]))
+  const shown = Test::page().window("Jaina")
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
+  Game::chat.heard.emit(line("SAY", "[Thrall] says: two", "Thrall", [1]))
   const room = (): Number => shown.text("[Thrall] says: two").rect().top - shown.text("[Thrall] says: one").rect().bottom
-  Test.expect((room() - Ordaen.lengthOf(MESSAGE_GAP * 1sp) / 1ui).abs() < 0.05)
+  Test::expect((room() - Ordaen.lengthOf(MESSAGE_GAP * 1sp) / 1ui).abs() < 0.05)
   // The room's slider on the Chat page, two half-steps down by its − (the page's sixth: after the width, the height,
   // the background's opacity, the lines kept and the lines held).
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   settings.text("-").nth(4).click()
   settings.text("-").nth(4).click()
-  Test.expect((room() - Ordaen.lengthOf((MESSAGE_GAP - 1) * 1sp) / 1ui).abs() < 0.05)
+  Test::expect((room() - Ordaen.lengthOf((MESSAGE_GAP - 1) * 1sp) / 1ui).abs() < 0.05)
 }
 
 test "a line without the game's times has no time above it" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "untimed", "Thrall", [1]))
-  Test.expect(shown.text("untimed").shown() && shown.text(":").count() == 0)
+  Game::chat.heard.emit(line("SAY", "untimed", "Thrall", [1]))
+  Test::expect(shown.text("untimed").shown() && shown.text(":").count() == 0)
 }
 
 test "a tab of neither General, the guild nor the channels has its times before its lines, until its settings say above" {
-  Game.chat.windows = [window(1, "General", ""), window(4, "Drops", "Kel")]
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
+  Game::chat.windows = [window(1, "General", ""), window(4, "Drops", "Kel")]
+  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => [
     { name: "SAY", label: "Say", shown: index == 1 },
     { name: "LOOT", label: "Loot", shown: index == 4 }
   ]
   _ = chat()
   // Found by its tab, named by its partner: the «Tabs» page lists the windows by their names.
-  const shown = Test.page().window("Kel")
-  Game.clock.hours24 = true
+  const shown = Test::page().window("Kel")
+  Game::clock.hours24 = true
   shown.text("Kel").click()
   const looted = stamped("You receive loot", 12, 15)
   looted.windows = [4]
-  Game.chat.heard.emit(looted)
-  Test.expect(shown.text("|cff9d9d9d[12:15]|r You receive loot").shown())
+  Game::chat.heard.emit(looted)
+  Test::expect(shown.text("|cff9d9d9d[12:15]|r You receive loot").shown())
   const settings = tabsPage()
   settings.text("Drops").click()
   settings.text("Above, by minute").click()
-  Test.expect(shown.text("12:15").shown() && shown.text("You receive loot").shown())
+  Test::expect(shown.text("12:15").shown() && shown.text("You receive loot").shown())
 }
 
 test "a creature's name stands in the game's gold for names, not in its line's colour; a player's name stays the line's" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   const shown = chat()
   const yelled = line("MONSTER_YELL", "Ragnaros yells: BY FIRE BE PURGED!", "Ragnaros", [1])
   yelled.plain = "Ragnaros: BY FIRE BE PURGED!"
-  Game.chat.heard.emit(yelled)
-  Test.expect(shown.text("|cffffd100Ragnaros|r: BY FIRE BE PURGED!").shown())
+  Game::chat.heard.emit(yelled)
+  Test::expect(shown.text("|cffffd100Ragnaros|r: BY FIRE BE PURGED!").shown())
   const said = line("YELL", "|Hplayer:Thrall:7|h[Thrall]|h yells: For the Horde!", "Thrall", [1])
   said.plain = "|Hplayer:Thrall:7|hThrall|h: For the Horde!"
-  Game.chat.heard.emit(said)
-  Test.expect(shown.text("|Hplayer:Thrall:7|hThrall|h: For the Horde!").shown())
+  Game::chat.heard.emit(said)
+  Test::expect(shown.text("|Hplayer:Thrall:7|hThrall|h: For the Horde!").shown())
 }
 
 test "the input speaks where each tab's window last spoke: opened in General it speaks as General's, a tab picked while typing as its own" {
-  Game.chat.windows = [window(1, "General", ""), window(4, "Trade", "")]
+  Game::chat.windows = [window(1, "General", ""), window(4, "Trade", "")]
   const shown = chat()
-  Game.chat.typing = true
-  Test.pass(0.01)
-  Test.expect(Test.requests().any(r => r == "Chat.speak 1"))
+  Game::chat.typing = true
+  Test::pass(0.01)
+  Test::expect(Test::requests().any(r => r == "Chat.speak 1"))
   shown.text("Trade").click()
-  Test.expect(Test.requests().any(r => r == "Chat.speak 4"))
+  Test::expect(Test::requests().any(r => r == "Chat.speak 4"))
 }
 
 test "the lines' ground is as dark as the Chat page says, 80% where nothing is chosen" {
-  Game.chat.windows = gameWindows()
+  Game::chat.windows = gameWindows()
   _ = chat()
   // Found by its whisper window's tab: the settings window names «General» too.
-  const shown = Test.page().window("Jaina")
+  const shown = Test::page().window("Jaina")
   // The ground's seven parts and the open tab's ground.
-  Test.expect(shown.box(GROUND).count() == 8)
+  Test::expect(shown.box(GROUND).count() == 8)
   // The opacity's slider, two steps down by its − (the page's third: after the width and the height).
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
+  Test::open("/ordaen")
+  const settings = Test::page().window("Move mode")
   settings.button("Chat").click()
   settings.text("-").nth(3).click()
   settings.text("-").nth(3).click()
   // Lighter than the 80% it was: the ground follows the setting.
-  Test.expect(shown.box(GROUND).count() == 0)
+  Test::expect(shown.box(GROUND).count() == 0)
 }

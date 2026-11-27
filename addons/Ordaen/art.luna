@@ -177,14 +177,14 @@ function draws(metal: ArtBorder, side: Side): Boolean {
 // How far a frame of art stands past its line across a box (left and right) and down it (top and bottom), on the
 // sides it draws. A border takes room inside the size its box is given: a size measured at the line takes these on.
 public function reachAcross(metal: ArtBorder): Number<Length> {
-  const left = draws(metal, Side.Left) ? metal.reach.left : 0
-  const right = draws(metal, Side.Right) ? metal.reach.right : 0
+  const left = draws(metal, Side::Left) ? metal.reach.left : 0
+  const right = draws(metal, Side::Right) ? metal.reach.right : 0
   return (left + right) * metal.scale * 1ui
 }
 
 public function reachDown(metal: ArtBorder): Number<Length> {
-  const top = draws(metal, Side.Top) ? metal.reach.top : 0
-  const bottom = draws(metal, Side.Bottom) ? metal.reach.bottom : 0
+  const top = draws(metal, Side::Top) ? metal.reach.top : 0
+  const bottom = draws(metal, Side::Bottom) ? metal.reach.bottom : 0
   return (top + bottom) * metal.scale * 1ui
 }
 
@@ -219,7 +219,7 @@ public function toRod(metal: ArtBorder): Number<Length> {
 const WINDOW_SCALE = 0.45
 const DIVIDER_SCALE = 0.3
 const SMALL_SCALE = 0.3
-const BRONZE: Color = Color.hex("#f0b673")
+const BRONZE: Color = Color::hex("#f0b673")
 const FALL = 0.4
 // A divider is set into the wood: a shade darker than the frame round it.
 const INLAID = 0.88
@@ -242,10 +242,10 @@ const ROUNDED_TR: Piece = { file: "@/media/frame-corner-rounded-tr.tga", width: 
 const ROUNDED_BL: Piece = { file: "@/media/frame-corner-rounded-bl.tga", width: 32, height: 32 }
 const ROUNDED_BR: Piece = { file: "@/media/frame-corner-rounded-br.tga", width: 32, height: 32 }
 
-const EDGE_TOP: Piece = { file: "@/media/frame-edge-top.tga", width: 64, height: 16, tile: Tile.Across }
-const EDGE_BOTTOM: Piece = { file: "@/media/frame-edge-bottom.tga", width: 64, height: 16, tile: Tile.Across }
-const EDGE_LEFT: Piece = { file: "@/media/frame-edge-left.tga", width: 16, height: 64, tile: Tile.Down }
-const EDGE_RIGHT: Piece = { file: "@/media/frame-edge-right.tga", width: 16, height: 64, tile: Tile.Down }
+const EDGE_TOP: Piece = { file: "@/media/frame-edge-top.tga", width: 64, height: 16, tile: Tile::Across }
+const EDGE_BOTTOM: Piece = { file: "@/media/frame-edge-bottom.tga", width: 64, height: 16, tile: Tile::Across }
+const EDGE_LEFT: Piece = { file: "@/media/frame-edge-left.tga", width: 16, height: 64, tile: Tile::Down }
+const EDGE_RIGHT: Piece = { file: "@/media/frame-edge-right.tga", width: 16, height: 64, tile: Tile::Down }
 
 const BRACKET: FramePieces = {
   topLeft: BRACKET_TL, topRight: BRACKET_TR, bottomLeft: BRACKET_BL,
@@ -260,8 +260,8 @@ const ROUNDED: FramePieces = {
 
 // The divider: 12 texels of metal centred in 16, lit flat; its line at the metal's middle, 8 texels in. It draws one
 // side or two, never a corner.
-const DIVIDER_ACROSS: Piece = { file: "@/media/frame-divider-across.tga", width: 64, height: 16, tile: Tile.Across }
-const DIVIDER_DOWN: Piece = { file: "@/media/frame-divider-down.tga", width: 16, height: 64, tile: Tile.Down }
+const DIVIDER_ACROSS: Piece = { file: "@/media/frame-divider-across.tga", width: 64, height: 16, tile: Tile::Across }
+const DIVIDER_DOWN: Piece = { file: "@/media/frame-divider-down.tga", width: 16, height: 64, tile: Tile::Down }
 const DIVIDER: FramePieces = {
   topLeft: ROUNDED_TL, topRight: ROUNDED_TR, bottomLeft: ROUNDED_BL,
   bottomRight: ROUNDED_BR, top: DIVIDER_ACROSS, bottom: DIVIDER_ACROSS, left: DIVIDER_DOWN,
@@ -269,9 +269,9 @@ const DIVIDER: FramePieces = {
 }
 const DIVIDER_REACH: Reach = { top: 8, right: 8, bottom: 8, left: 8 }
 
-const TAB_CORNERS: Corners = { topLeft: Radius.Large, topRight: Radius.Large }
-const SIDE_TAB_CORNERS: Corners = { topLeft: Radius.Large, bottomLeft: Radius.Large }
-const ICON_CORNER: Corners = { topLeft: Radius.Large }
+const TAB_CORNERS: Corners = { topLeft: Radius::Large, topRight: Radius::Large }
+const SIDE_TAB_CORNERS: Corners = { topLeft: Radius::Large, bottomLeft: Radius::Large }
+const ICON_CORNER: Corners = { topLeft: Radius::Large }
 
 // The wood: one tile, repeated at the size the picture had in the design's window.
 const WOOD: Piece = { file: "@/media/window-wood.tga", width: 512, height: 512, repeatSize: 746 / 1.2 }
@@ -292,11 +292,11 @@ public const ARTWORK: OrdaenArt = {
     },
     tab: {
       drawnFrom: ROUNDED, art: EDGE_TOP, width: WINDOW_SCALE, scale: WINDOW_SCALE, inset: BAND_INSET * WINDOW_SCALE, reach: BAND,
-      sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
+      sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
     },
     sideTab: {
       drawnFrom: ROUNDED, art: EDGE_TOP, width: WINDOW_SCALE, scale: WINDOW_SCALE, inset: BAND_INSET * WINDOW_SCALE, reach: BAND,
-      sides: [Side.Top, Side.Left, Side.Bottom], radius: SIDE_TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
+      sides: [Side::Top, Side::Left, Side::Bottom], radius: SIDE_TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
     },
     tabIconClip: {
       drawnFrom: ROUNDED, art: EDGE_TOP, width: WINDOW_SCALE, scale: WINDOW_SCALE, inset: BAND_INSET * WINDOW_SCALE, reach: BAND,
@@ -304,12 +304,12 @@ public const ARTWORK: OrdaenArt = {
     },
     tabIconLine: {
       drawnFrom: DIVIDER, art: DIVIDER_DOWN, width: DIVIDER_SCALE, scale: DIVIDER_SCALE, inset: 0, reach: DIVIDER_REACH,
-      sides: [Side.Left], curves: STRAIGHT, lineStart: 8
+      sides: [Side::Left], curves: STRAIGHT, lineStart: 8
     }
   },
   window: { wood: WOOD, marble: MARBLE },
   ctl: {
-    well: { rim: { width: 1.171875dp, color: Color.hex("#3e2f1d") }, floor: Color.hex("#0000004d") },
+    well: { rim: { width: 1.171875dp, color: Color::hex("#3e2f1d") }, floor: Color::hex("#0000004d") },
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
     check: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
     tick: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 2 },
@@ -326,12 +326,12 @@ public const ARTWORK: OrdaenArt = {
     sliderKnob: "@/media/ctl-slider-knob.tga",
     cut: {
       across: {
-        dark: { file: "@/media/groove-dark.tga", width: 64, height: 8, tile: Tile.Across },
-        light: { file: "@/media/groove-light.tga", width: 64, height: 8, tile: Tile.Across }
+        dark: { file: "@/media/groove-dark.tga", width: 64, height: 8, tile: Tile::Across },
+        light: { file: "@/media/groove-light.tga", width: 64, height: 8, tile: Tile::Across }
       },
       upright: {
-        dark: { file: "@/media/groove-dark-upright.tga", width: 8, height: 64, tile: Tile.Down },
-        light: { file: "@/media/groove-light-upright.tga", width: 8, height: 64, tile: Tile.Down }
+        dark: { file: "@/media/groove-dark-upright.tga", width: 8, height: 64, tile: Tile::Down },
+        light: { file: "@/media/groove-light-upright.tga", width: 8, height: 64, tile: Tile::Down }
       }
     },
     heading: { entry: "@/media/heading-paint-entry.tga", tip: "@/media/heading-paint-tip.tga" },
@@ -391,12 +391,12 @@ public const ARTWORK: OrdaenArt = {
     // The shape a face is cut to: a circle.
     faceRound: "@/media/face-round-mask.tga",
     badge: "@/media/level-badge.tga",
-    slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
-    xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile.Across },
+    slotEdge: { width: 1ui, color: Color::hex("#6c5535") },
+    xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile::Across },
     wood: WOOD,
     edge: {
       drawnFrom: ROUNDED, art: EDGE_TOP, width: SMALL_SCALE, scale: SMALL_SCALE, inset: BAND_INSET * SMALL_SCALE, reach: BAND,
-      sides: [Side.Top], curves: STRAIGHT,
+      sides: [Side::Top], curves: STRAIGHT,
       lineStart: BAND_LINE
     },
     countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },

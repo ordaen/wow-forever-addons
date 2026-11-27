@@ -56,7 +56,7 @@ public struct Learner {
 
 // A spell's way to its quest, for the page's action: the quest the action opens.
 public struct Learnable {
-  services: Array<Game.TrainerService>
+  services: Array<Game::TrainerService>
   notes: Map<Integer, String>
   actions: Map<Integer, String>
   // The quest a service's action opens, by its place.
@@ -88,7 +88,7 @@ function numberAt(parts: Array<String>, at: Integer): Integer { return (parts[at
 // A class's trainer spells, by level.
 public function trainerSpellsOf(classTag: String): Array<TrainerSpell> {
   const list: Array<TrainerSpell> = []
-  const text = Training.spells[classTag]
+  const text = Training::spells[classTag]
   if (text == nil) { return list }
   for (entry of text.split(";")) {
     const parts = entry.split(",")
@@ -103,7 +103,7 @@ public function trainerSpellsOf(classTag: String): Array<TrainerSpell> {
 // A class's quest spells, by spell: the ways each is given.
 public function questWaysOf(classTag: String): Map<Integer, Array<QuestWay>> {
   const ways: Map<Integer, Array<QuestWay>> = {}
-  const text = Training.quests[classTag]
+  const text = Training::quests[classTag]
   if (text == nil) { return ways }
   for (entry of text.split(";")) {
     const spell, rest = entry.match("^(%d+):(.*)$")
@@ -136,7 +136,7 @@ public function discounted(cost: Integer, percent: Integer): Integer {
 // The factions whose trainers teach a role (the learner's class, or the pet trainers') on the learner's side.
 function factionsOf(learner: Learner, role: String): Array<Integer> {
   const sideName = learner.side == 1 ? "Alliance" : "Horde"
-  return Training.roles[`${role}/${sideName}`] ?? []
+  return Training::roles[`${role}/${sideName}`] ?? []
 }
 
 // What the learner pays at the trainers of a role on their side that cost least.
@@ -150,7 +150,7 @@ public function bestPrice(learner: Learner, cost: Integer, role: String): Intege
 public function cityPricesOf(learner: Learner, cost: Integer, role: String): Array<CityPrice> {
   const list: Array<CityPrice> = []
   for (faction of factionsOf(learner, role)) {
-    if (Training.factions[faction]?.city == true) {
+    if (Training::factions[faction]?.city == true) {
       list.push({ faction: faction, standing: learner.standing(faction) ?? 0, price: discounted(cost, discountAt(learner, faction)) })
     }
   }
@@ -160,10 +160,10 @@ public function cityPricesOf(learner: Learner, cost: Integer, role: String): Arr
 
 // A city's line on a spell's card: «Stormwind (Honored): 63s», the client's names.
 function cityLineOf(city: CityPrice): PlacePrice {
-  const name = Client.C_Reputation.GetFactionDataByID(city.faction)?.name ?? String.of(city.faction)
-  const standing = Runtime.text(`FACTION_STANDING_LABEL${city.standing}`) ?? String.of(city.standing)
+  const name = Client::C_Reputation::GetFactionDataByID(city.faction)?.name ?? String::of(city.faction)
+  const standing = Runtime::text(`FACTION_STANDING_LABEL${city.standing}`) ?? String::of(city.standing)
   const percent = city.standing >= HONORED ? DISCOUNT : 0
-  const note = percent > 0 ? Locale.CITY_DISCOUNT.format(standing, percent) : standing
+  const note = percent > 0 ? Locale::CITY_DISCOUNT.format(standing, percent) : standing
   return { place: name, price: city.price, note: note }
 }
 
@@ -195,14 +195,14 @@ public struct WeaponWay {
 // The weapon skills the learner's class may learn, in What's Training's order.
 public function weaponWaysOf(learner: Learner): Array<WeaponWay> {
   const list: Array<WeaponWay> = []
-  for (spell, skill of Training.weapons) {
+  for (spell, skill of Training::weapons) {
     if (skill.classes.split("/").any(each => each == learner.classTag)) {
       const masters: Array<WeaponMaster> = []
       for (entry of skill.masters.split("|")) {
         const parts = entry.split(",")
         const npc = numberAt(parts, 2)
         if (numberAt(parts, 1) == learner.side) {
-          const faction = Training.npcs[npc]
+          const faction = Training::npcs[npc]
           const percent = faction == nil ? 0 : discountAt(learner, faction)
           masters.push({
             npc: npc, zone: numberAt(parts, 3), x: (parts[4] ?? "").toNumber() ?? 0, y: (parts[5] ?? "").toNumber() ?? 0,
@@ -220,9 +220,9 @@ public function weaponWaysOf(learner: Learner): Array<WeaponWay> {
 
 // A master's line on a skill's card: «Bixiwobble, Ironforge (61.2, 89.5): 10s», the client's names.
 function masterLineOf(master: WeaponMaster, npcName: NpcName): PlacePrice {
-  const name = npcName(master.npc) ?? String.of(master.npc)
-  const zone = Client.C_Map.GetAreaInfo(master.zone) ?? ""
-  return { place: Locale.WEAPON_MASTER.format(name, zone, master.x, master.y), price: master.price, note: "" }
+  const name = npcName(master.npc) ?? String::of(master.npc)
+  const zone = Client::C_Map::GetAreaInfo(master.zone) ?? ""
+  return { place: Locale::WEAPON_MASTER.format(name, zone, master.x, master.y), price: master.price, note: "" }
 }
 
 // A grimoire the demon trainer sells: the spell it teaches a demon, its rank (by the grimoires of that spell before
@@ -239,10 +239,10 @@ public struct Grimoire {
 public function grimoiresOf(): Array<Grimoire> {
   const list: Array<Grimoire> = []
   const ranks: Map<String, Integer> = {}
-  for (entry of Training.tomes.split(";")) {
+  for (entry of Training::tomes.split(";")) {
     const parts = entry.split(",")
     const spell = numberAt(parts, 5)
-    const name = Game.spells.name(spell) ?? String.of(spell)
+    const name = Game::spells.name(spell) ?? String::of(spell)
     const rank = (ranks[name] ?? 0) + 1
     ranks[name] = rank
     list.push({ spell: spell, rank: rank, level: numberAt(parts, 2), cost: numberAt(parts, 3), family: parts[4] ?? "" })
@@ -255,16 +255,16 @@ enum Wait { Now, Needs, Soon, Later, Quest, Weapon, Grimoire, PetTrainer, Talent
 
 function headingOf(wait: Wait): String {
   return match (wait) {
-    .Now => Locale.LEARN_NOW
-    .Needs => Locale.LEARN_NEEDS
-    .Soon => Locale.LEARN_SOON
-    .Later => Locale.LEARN_LATER
-    .Quest => Locale.LEARN_QUESTS
-    .Weapon => Locale.LEARN_WEAPONS
-    .Grimoire => Locale.LEARN_GRIMOIRES
-    .PetTrainer => Locale.LEARN_PET_TRAINER
-    .Talent => Locale.LEARN_TALENT
-    .Known => Locale.LEARN_KNOWN
+    .Now => Locale::LEARN_NOW
+    .Needs => Locale::LEARN_NEEDS
+    .Soon => Locale::LEARN_SOON
+    .Later => Locale::LEARN_LATER
+    .Quest => Locale::LEARN_QUESTS
+    .Weapon => Locale::LEARN_WEAPONS
+    .Grimoire => Locale::LEARN_GRIMOIRES
+    .PetTrainer => Locale::LEARN_PET_TRAINER
+    .Talent => Locale::LEARN_TALENT
+    .Known => Locale::LEARN_KNOWN
   }
 }
 
@@ -294,7 +294,7 @@ function waitOf(spell: TrainerSpell, learner: Learner): Wait {
 // The headings read by name, as a list to look a spell up in; the rest by level, the next one first.
 function byName(wait: Wait): Boolean { return wait == .Known || wait == .Talent }
 
-function statusOf(wait: Wait): Game.ServiceStatus {
+function statusOf(wait: Wait): Game::ServiceStatus {
   return match (wait) {
     .Now => .Available
     .Known => .Learned
@@ -335,7 +335,7 @@ function withRanksBelow(learner: Learner): Learner {
   const ranked: Array<TrainerSpell> = []
   const names: Map<Integer, String> = {}
   for (spell of trainerSpellsOf(learner.classTag)) {
-    const name = Game.spells.name(spell.id)
+    const name = Game::spells.name(spell.id)
     if (spell.rank > 0 && name != nil) {
       ranked.push(spell)
       names[spell.id] = name
@@ -366,15 +366,15 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
   const rows: Array<Row> = []
   const quests = questWaysOf(learner.classTag)
   const pets: Map<Integer, Boolean> = {}
-  for (spell of Training.petAbilities) { pets[spell] = true }
+  for (spell of Training::petAbilities) { pets[spell] = true }
   for (spell of trainerSpellsOf(learner.classTag)) {
     const forSide = spell.side == 0 || spell.side == learner.side
     const forRace = spell.race == 0 || spell.race == learner.race
     if (forSide && forRace && quests[spell.id] == nil) {
       const pet = pets[spell.id] == true
       const role = pet ? PET_ROLE : learner.classTag
-      const wait = pet ? (learner.known(spell.id) || learner.petKnown(spell.id) ? Wait.Known : Wait.PetTrainer) : waitOf(spell, learner)
-      rows.push({ spell: spell.id, name: Game.spells.name(spell.id) ?? "", wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost, role), base: spell.cost, role: role, quest: nil, note: nil, masters: [] })
+      const wait = pet ? (learner.known(spell.id) || learner.petKnown(spell.id) ? Wait::Known : Wait::PetTrainer) : waitOf(spell, learner)
+      rows.push({ spell: spell.id, name: Game::spells.name(spell.id) ?? "", wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost, role), base: spell.cost, role: role, quest: nil, note: nil, masters: [] })
     }
   }
   for (spell, ways of quests) {
@@ -383,22 +383,22 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
       const known = learner.known(spell)
       const quest = way.quests[1]
       const name = quest == nil ? nil : questName(quest)
-      const note = name == nil ? Locale.LEARN_QUEST_LEVEL.format(way.level) : Locale.LEARN_QUEST.format(name, way.level)
-      rows.push({ spell: spell, name: Game.spells.name(spell) ?? "", wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, role: learner.classTag, quest: quest, note: known ? nil : note, masters: [] })
+      const note = name == nil ? Locale::LEARN_QUEST_LEVEL.format(way.level) : Locale::LEARN_QUEST.format(name, way.level)
+      rows.push({ spell: spell, name: Game::spells.name(spell) ?? "", wait: known ? Wait::Known : Wait::Quest, level: way.level, rank: 0, cost: 0, base: 0, role: learner.classTag, quest: quest, note: known ? nil : note, masters: [] })
     }
   }
   for (way of weaponWaysOf(learner)) {
     const known = learner.known(way.spell)
     const cost = way.masters[1]?.price ?? way.cost
-    const note = known || way.level <= learner.level ? nil : Locale.LEARN_WEAPON_LEVEL.format(way.level)
+    const note = known || way.level <= learner.level ? nil : Locale::LEARN_WEAPON_LEVEL.format(way.level)
     const lines = known ? [] : way.masters.map(master => masterLineOf(master, npcName))
-    rows.push({ spell: way.spell, name: Game.spells.name(way.spell) ?? "", wait: known ? Wait.Known : Wait.Weapon, level: way.level, rank: 0, cost: cost, base: 0, role: learner.classTag, quest: nil, note: note, masters: lines })
+    rows.push({ spell: way.spell, name: Game::spells.name(way.spell) ?? "", wait: known ? Wait::Known : Wait::Weapon, level: way.level, rank: 0, cost: cost, base: 0, role: learner.classTag, quest: nil, note: note, masters: lines })
   }
   if (learner.classTag == "WARLOCK") {
     for (grimoire of grimoiresOf()) {
       const known = learner.petKnown(grimoire.spell)
-      const note = known ? nil : Locale.LEARN_GRIMOIRE.format(grimoire.family)
-      rows.push({ spell: grimoire.spell, name: Game.spells.name(grimoire.spell) ?? "", wait: known ? Wait.Known : Wait.Grimoire, level: grimoire.level, rank: grimoire.rank, cost: bestPrice(learner, grimoire.cost, learner.classTag), base: grimoire.cost, role: learner.classTag, quest: nil, note: note, masters: [] })
+      const note = known ? nil : Locale::LEARN_GRIMOIRE.format(grimoire.family)
+      rows.push({ spell: grimoire.spell, name: Game::spells.name(grimoire.spell) ?? "", wait: known ? Wait::Known : Wait::Grimoire, level: grimoire.level, rank: grimoire.rank, cost: bestPrice(learner, grimoire.cost, learner.classTag), base: grimoire.cost, role: learner.classTag, quest: nil, note: note, masters: [] })
     }
   }
   rows.sort((a, b) => {
@@ -408,23 +408,23 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
     if (a.name != b.name) { return a.name < b.name }
     return a.spell < b.spell
   })
-  const services: Array<Game.TrainerService> = []
+  const services: Array<Game::TrainerService> = []
   const notes: Map<Integer, String> = {}
   const actions: Map<Integer, String> = {}
   const questOf: Map<Integer, Integer> = {}
   const prices: Map<Integer, Array<PlacePrice>> = {}
   for (at, row of rows) {
     services.push({
-      index: at, name: row.name, rank: row.rank == 0 ? "" : Locale.SPELL_RANK.format(row.rank),
-      icon: Game.spells.texture(row.spell), status: statusOf(row.wait), level: row.level, cost: row.cost,
-      description: Game.spells.description(row.spell) ?? "", skill: nil, category: headingOf(row.wait), spell: row.spell
+      index: at, name: row.name, rank: row.rank == 0 ? "" : Locale::SPELL_RANK.format(row.rank),
+      icon: Game::spells.texture(row.spell), status: statusOf(row.wait), level: row.level, cost: row.cost,
+      description: Game::spells.description(row.spell) ?? "", skill: nil, category: headingOf(row.wait), spell: row.spell
     })
     if (row.base > 0) { prices[at] = cityPricesOf(learner, row.base, row.role).map(cityLineOf) }
     if (row.masters.length > 0) { prices[at] = row.masters }
     const note = row.note
     if (note != nil) { notes[at] = note }
     const quest = row.quest
-    if (quest != nil && openLabel != nil && row.wait == Wait.Quest) {
+    if (quest != nil && openLabel != nil && row.wait == Wait::Quest) {
       actions[at] = openLabel
       questOf[at] = quest
     }

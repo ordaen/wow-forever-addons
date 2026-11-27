@@ -14,5 +14,5 @@ public const CHAIN_X: Number<Length> = 468.75dp
 public const ASK: Number<Length> = 468.75dp
 public const ASK_BUTTON: Number<Length> = 140.625dp
 // The docked panel: a window's dark body over Blizzard's log, nothing of it showing through.
-public const DOCKED_BACK: Color = Color.hex("#0a0806f7")
+public const DOCKED_BACK: Color = Color::hex("#0a0806f7")
 public const DOCKED_PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }

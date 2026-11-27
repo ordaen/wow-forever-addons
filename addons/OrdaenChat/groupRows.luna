@@ -59,20 +59,20 @@ public const TALKS: Array<GroupRow> = [
 // rows.
 public const SYSTEMS: Array<RowSection> = [
   {
-    title: Locale.SYSTEMS_PROGRESS,
+    title: Locale::SYSTEMS_PROGRESS,
     rows: [
       one(["COMBAT_XP_GAIN"]), one(["COMBAT_HONOR_GAIN"]), one(["COMBAT_FACTION_CHANGE"]), one(["SKILL"]),
       one(["TRADESKILLS"]),
-      { first: ["ACHIEVEMENT"], second: ["GUILD_ACHIEVEMENT"], label: Locale.ACHIEVEMENTS, words: .Achievements }
+      { first: ["ACHIEVEMENT"], second: ["GUILD_ACHIEVEMENT"], label: Locale::ACHIEVEMENTS, words: .Achievements }
     ]
   },
-  { title: Locale.SYSTEMS_LOOT, rows: [one(["LOOT"]), one(["MONEY"]), one(["CURRENCY"]), one(["OPENING"])] },
+  { title: Locale::SYSTEMS_LOOT, rows: [one(["LOOT"]), one(["MONEY"]), one(["CURRENCY"]), one(["OPENING"])] },
   {
-    title: Locale.SYSTEMS_BATTLEGROUND,
-    rows: [{ first: ["BG_HORDE", "BG_ALLIANCE", "BG_NEUTRAL"], second: [], label: Locale.BATTLEGROUND_NEWS, words: nil }]
+    title: Locale::SYSTEMS_BATTLEGROUND,
+    rows: [{ first: ["BG_HORDE", "BG_ALLIANCE", "BG_NEUTRAL"], second: [], label: Locale::BATTLEGROUND_NEWS, words: nil }]
   },
   {
-    title: Locale.SYSTEMS_GAME,
+    title: Locale::SYSTEMS_GAME,
     rows: [
       one(["SYSTEM"]), one(["ERRORS"]), one(["IGNORED"]), one(["TARGETICONS"]), one(["PING"]), one(["PET_INFO"]),
       one(["PET_BATTLE_INFO", "PET_BATTLE_COMBAT_LOG"]), one(["COMBAT_MISC_INFO"]), one(["BN_INLINE_TOAST_ALERT"])
@@ -81,7 +81,7 @@ public const SYSTEMS: Array<RowSection> = [
 ]
 
 // The channels' notices' row, on «Каналы».
-public const NOTICES: GroupRow = { first: [CHANNEL_NOTICES], second: [], label: Locale.CHANNEL_NOTICES, words: nil }
+public const NOTICES: GroupRow = { first: [CHANNEL_NOTICES], second: [], label: Locale::CHANNEL_NOTICES, words: nil }
 
 // A row as a window shows it: its first group's name (its key), its words, and what of it the window shows.
 public struct RowShown {
@@ -111,12 +111,12 @@ function pairOf(first: Boolean, second: Boolean): Pair {
 }
 
 // Whether a part's groups the client has are shown: the first of them speaks for them all.
-function partShown(names: Array<String>, groups: Array<Game.ChatGroup>): Boolean {
+function partShown(names: Array<String>, groups: Array<Game::ChatGroup>): Boolean {
   return groups.find(group => names.any(name => name == group.name))?.shown == true
 }
 
 // The rows the client has (one of its first part's groups), as the window's groups show them.
-public function rowsOf(rows: Array<GroupRow>, groups: Array<Game.ChatGroup>): Array<RowShown> {
+public function rowsOf(rows: Array<GroupRow>, groups: Array<Game::ChatGroup>): Array<RowShown> {
   const shown: Array<RowShown> = []
   for (row of rows) {
     const first = groups.find(group => row.first.any(name => name == group.name))
@@ -147,7 +147,7 @@ function covered(rows: Array<GroupRow>, name: String): Boolean {
 }
 
 // The systems' sections as the window shows them: the last takes every group no row covers, in the game's words.
-public function systemsOf(groups: Array<Game.ChatGroup>): Array<SectionShown> {
+public function systemsOf(groups: Array<Game::ChatGroup>): Array<SectionShown> {
   const every = allRows()
   const sections: Array<SectionShown> = []
   for (at, section of SYSTEMS) {
@@ -164,28 +164,28 @@ public function systemsOf(groups: Array<Game.ChatGroup>): Array<SectionShown> {
 }
 
 // Each group a row shows or not for what of it is picked; a group no row covers is its own row.
-public function rowGroups(key: String, pair: Pair): Array<Game.ChatShown> {
+public function rowGroups(key: String, pair: Pair): Array<Game::ChatShown> {
   const row = allRows().find(each => each.first[1] == key) ?? one([key])
   const first = pair == .First || pair == .Both
   const second = pair == .Second || pair == .Both
-  const groups: Array<Game.ChatShown> = []
+  const groups: Array<Game::ChatShown> = []
   for (name of row.first) { groups.push({ name: name, shown: first }) }
   for (name of row.second) { groups.push({ name: name, shown: second }) }
   return groups
 }
 
 const SPEAKERS: Array<Choice<Pair>> = [
-  { value: Pair.None, label: Locale.CHOICE_NONE },
-  { value: Pair.First, label: Locale.SPEAKERS_PLAYERS },
-  { value: Pair.Second, label: Locale.SPEAKERS_CREATURES },
-  { value: Pair.Both, label: Locale.CHOICE_ALL }
+  { value: Pair::None, label: Locale::CHOICE_NONE },
+  { value: Pair::First, label: Locale::SPEAKERS_PLAYERS },
+  { value: Pair::Second, label: Locale::SPEAKERS_CREATURES },
+  { value: Pair::Both, label: Locale::CHOICE_ALL }
 ]
 
 const ACHIEVEMENTS: Array<Choice<Pair>> = [
-  { value: Pair.None, label: Locale.CHOICE_NONE },
-  { value: Pair.First, label: Locale.ACHIEVEMENTS_NEARBY },
-  { value: Pair.Second, label: Locale.ACHIEVEMENTS_GUILD },
-  { value: Pair.Both, label: Locale.CHOICE_ALL }
+  { value: Pair::None, label: Locale::CHOICE_NONE },
+  { value: Pair::First, label: Locale::ACHIEVEMENTS_NEARBY },
+  { value: Pair::Second, label: Locale::ACHIEVEMENTS_GUILD },
+  { value: Pair::Both, label: Locale::CHOICE_ALL }
 ]
 
 // A row: a choice for a row of two, else a check. It shows what each read of the game says.
@@ -212,8 +212,8 @@ public class GroupRowView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Dropdown $if={self.item.words == PairWords.Speakers} label={self.item.label} value={mut self.pair} choices={SPEAKERS} />
-      <Dropdown $if={self.item.words == PairWords.Achievements} label={self.item.label} value={mut self.pair}
+      <Dropdown $if={self.item.words == PairWords::Speakers} label={self.item.label} value={mut self.pair} choices={SPEAKERS} />
+      <Dropdown $if={self.item.words == PairWords::Achievements} label={self.item.label} value={mut self.pair}
                 choices={ACHIEVEMENTS} />
       <Checkbox $if={self.item.words == nil} label={self.item.label} value={mut self.on} />
     }

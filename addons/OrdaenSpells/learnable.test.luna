@@ -4,7 +4,7 @@ import Game from "$game"
 import Test from "$test"
 import { Learnable, Learner, bestPrice, cityPricesOf, learnableOf } from "@/learnable"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
+const PAGE: Test::Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
 // A warrior's spells: Battle Shout, Heroic Strike and Rend at their first ranks; Charge; Rend's second rank, Heroic
 // Strike's second; Defensive Stance (a quest's); Overpower (level 12); Cleave (level 20).
 const BATTLE_SHOUT = 6673
@@ -53,7 +53,7 @@ function noQuest(quest: Integer): String | nil { return nil }
 
 function noNpc(npc: Integer): String | nil { return nil }
 
-function serviceOf(learnable: Learnable, spell: Integer): Game.TrainerService | nil {
+function serviceOf(learnable: Learnable, spell: Integer): Game::TrainerService | nil {
   return learnable.services.find(service => service.spell == spell)
 }
 
@@ -61,146 +61,146 @@ function headingOf(learnable: Learnable, spell: Integer): String { return servic
 
 test "each spell stands under what it waits for: learned now, an earlier rank first, the next levels, later, known" {
   const learnable = learnableOf(warrior([BATTLE_SHOUT, HEROIC_STRIKE]), noQuest, noNpc, nil)
-  Test.expect(headingOf(learnable, CHARGE) == "Available now" && headingOf(learnable, HEROIC_STRIKE_2) == "Available now")
-  Test.expect(headingOf(learnable, REND_2) == "Needs an earlier rank")
-  Test.expect(headingOf(learnable, OVERPOWER) == "Coming soon" && headingOf(learnable, CLEAVE) == "Later")
-  Test.expect(headingOf(learnable, BATTLE_SHOUT) == "Known")
-  Test.expect(serviceOf(learnable, CHARGE)?.status == Game.ServiceStatus.Available)
-  Test.expect(serviceOf(learnable, OVERPOWER)?.status == Game.ServiceStatus.Unavailable)
-  Test.expect(serviceOf(learnable, BATTLE_SHOUT)?.status == Game.ServiceStatus.Learned)
+  Test::expect(headingOf(learnable, CHARGE) == "Available now" && headingOf(learnable, HEROIC_STRIKE_2) == "Available now")
+  Test::expect(headingOf(learnable, REND_2) == "Needs an earlier rank")
+  Test::expect(headingOf(learnable, OVERPOWER) == "Coming soon" && headingOf(learnable, CLEAVE) == "Later")
+  Test::expect(headingOf(learnable, BATTLE_SHOUT) == "Known")
+  Test::expect(serviceOf(learnable, CHARGE)?.status == Game::ServiceStatus::Available)
+  Test::expect(serviceOf(learnable, OVERPOWER)?.status == Game::ServiceStatus::Unavailable)
+  Test::expect(serviceOf(learnable, BATTLE_SHOUT)?.status == Game::ServiceStatus::Learned)
   // In the headings' order, each service's index its place.
   const first = learnable.services[1]
-  Test.expect(first?.category == "Available now" && first?.index == 1)
-  Test.expect(learnable.services[learnable.services.length]?.category == "Known")
+  Test::expect(first?.category == "Available now" && first?.index == 1)
+  Test::expect(learnable.services[learnable.services.length]?.category == "Known")
 }
 
 test "a rank below one the spellbook holds is known: the client's book keeps a spell's highest rank alone" {
-  Game.spells.name = (id: Integer): String | nil => id == REND || id == REND_2 ? "Rend" : id == CHARGE ? "Charge" : nil
+  Game::spells.name = (id: Integer): String | nil => id == REND || id == REND_2 ? "Rend" : id == CHARGE ? "Charge" : nil
   const learnable = learnableOf(warrior([REND_2]), noQuest, noNpc, nil)
-  Test.expect(headingOf(learnable, REND) == "Known" && headingOf(learnable, REND_2) == "Known")
-  Test.expect(headingOf(learnable, CHARGE) == "Available now")
+  Test::expect(headingOf(learnable, REND) == "Known" && headingOf(learnable, REND_2) == "Known")
+  Test::expect(headingOf(learnable, CHARGE) == "Available now")
 }
 
 test "a talent's later rank waits for the talent whatever its level, as What's Training files it" {
   const learnable = learnableOf(warrior([]), noQuest, noNpc, nil)
-  Test.expect(headingOf(learnable, MORTAL_STRIKE_2) == "Needs a talent")
+  Test::expect(headingOf(learnable, MORTAL_STRIKE_2) == "Needs a talent")
   const taken = learnableOf(warrior([MORTAL_STRIKE]), noQuest, noNpc, nil)
-  Test.expect(headingOf(taken, MORTAL_STRIKE_2) == "Later")
+  Test::expect(headingOf(taken, MORTAL_STRIKE_2) == "Later")
 }
 
 test "the known and the talents' stand by name, the rest by level" {
-  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == BATTLE_SHOUT ? "Battle Shout" : nil
+  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == BATTLE_SHOUT ? "Battle Shout" : nil
   const learnable = learnableOf(warrior([CHARGE, BATTLE_SHOUT]), noQuest, noNpc, nil)
   const known = learnable.services.filter(service => service.category == "Known").map(service => service.name)
-  Test.expect(known.join(", ") == "Battle Shout, Charge")
+  Test::expect(known.join(", ") == "Battle Shout, Charge")
 }
 
 test "a spell's rank is the client's, and its price What's Training's, a tenth off where the player is Honored" {
   const friendly = learnableOf(warrior([REND]), noQuest, noNpc, nil)
-  Test.expect(serviceOf(friendly, REND_2)?.rank == "Rank 2" && serviceOf(friendly, CHARGE)?.rank == "Rank 1")
-  Test.expect(serviceOf(friendly, REND_2)?.cost == 700 && serviceOf(friendly, CHARGE)?.cost == 100)
+  Test::expect(serviceOf(friendly, REND_2)?.rank == "Rank 2" && serviceOf(friendly, CHARGE)?.rank == "Rank 1")
+  Test::expect(serviceOf(friendly, REND_2)?.cost == 700 && serviceOf(friendly, CHARGE)?.cost == 100)
   const honored = learnableOf(warrior([REND], HONORED), noQuest, noNpc, nil)
-  Test.expect(serviceOf(honored, REND_2)?.cost == 630 && serviceOf(honored, CHARGE)?.cost == 90)
-  Test.expect(bestPrice(warrior([], HONORED), 1000, "WARRIOR") == 900 && bestPrice(warrior([]), 1000, "WARRIOR") == 1000)
+  Test::expect(serviceOf(honored, REND_2)?.cost == 630 && serviceOf(honored, CHARGE)?.cost == 90)
+  Test::expect(bestPrice(warrior([], HONORED), 1000, "WARRIOR") == 900 && bestPrice(warrior([]), 1000, "WARRIOR") == 1000)
 }
 
 test "a price at each city whose trainers teach the class, cheapest first: a tenth off where the player is Honored" {
   const cities = cityPricesOf(warrior([], HONORED), 1000, "WARRIOR")
-  Test.expect(cities.length == 4 && cities[1]?.faction == STORMWIND && cities[1]?.price == 900 && cities[1]?.standing == HONORED)
-  Test.expect(cities[2]?.price == 1000 && cities[2]?.standing == FRIENDLY)
+  Test::expect(cities.length == 4 && cities[1]?.faction == STORMWIND && cities[1]?.price == 900 && cities[1]?.standing == HONORED)
+  Test::expect(cities[2]?.price == 1000 && cities[2]?.standing == FRIENDLY)
 }
 
 test "a quest's spell stands under the quests with the quest of the player's race, and its action opens it" {
   const named = (quest: Integer): String | nil => quest == 1665 ? "Defensive Stance" : nil
   const learnable = learnableOf(warrior([]), named, noNpc, "Show quest")
   const stance = serviceOf(learnable, DEFENSIVE_STANCE)
-  Test.expect(stance?.category == "From quests" && stance?.cost == 0)
+  Test::expect(stance?.category == "From quests" && stance?.cost == 0)
   const at = stance?.index ?? 0
-  Test.expect(learnable.notes[at] == "Quest: Defensive Stance (level 10)" && learnable.actions[at] == "Show quest")
-  Test.expect(learnable.quests[at] == 1665)
+  Test::expect(learnable.notes[at] == "Quest: Defensive Stance (level 10)" && learnable.actions[at] == "Show quest")
+  Test::expect(learnable.quests[at] == 1665)
   // Known, it stands with what is known, with no note or action.
   const known = learnableOf(warrior([DEFENSIVE_STANCE]), named, noNpc, "Show quest")
   const had = serviceOf(known, DEFENSIVE_STANCE)?.index ?? 0
-  Test.expect(serviceOf(known, DEFENSIVE_STANCE)?.category == "Known" && known.notes[had] == nil && known.actions[had] == nil)
+  Test::expect(serviceOf(known, DEFENSIVE_STANCE)?.category == "Known" && known.notes[had] == nil && known.actions[had] == nil)
 }
 
 test "a weapon skill of the class stands under the weapon masters with its masters on the player's side and their prices" {
   const masters = (npc: Integer): String | nil => npc == 11867 ? "Woo Ping" : nil
   const friendly = learnableOf(warrior([SWORDS]), noQuest, masters, nil)
   const polearms = serviceOf(friendly, POLEARMS)
-  Test.expect(polearms?.category == "Weapon masters" && polearms?.cost == 10000 && polearms?.level == 20)
+  Test::expect(polearms?.category == "Weapon masters" && polearms?.cost == 10000 && polearms?.level == 20)
   const at = polearms?.index ?? 0
-  Test.expect(friendly.notes[at] == "From level 20")
+  Test::expect(friendly.notes[at] == "From level 20")
   const lines = friendly.prices[at] ?? []
   const line = lines[1]
-  Test.expect(lines.length == 1 && (line?.place ?? "").contains("Woo Ping") && (line?.place ?? "").contains("(63.9, 69.1)"))
-  Test.expect(line?.price == 10000)
-  Test.expect(serviceOf(friendly, SWORDS)?.category == "Known")
+  Test::expect(lines.length == 1 && (line?.place ?? "").contains("Woo Ping") && (line?.place ?? "").contains("(63.9, 69.1)"))
+  Test::expect(line?.price == 10000)
+  Test::expect(serviceOf(friendly, SWORDS)?.category == "Known")
   // Honored with Stormwind, its master takes a tenth off.
-  Test.expect(serviceOf(learnableOf(warrior([], HONORED), noQuest, masters, nil), POLEARMS)?.cost == 9000)
+  Test::expect(serviceOf(learnableOf(warrior([], HONORED), noQuest, masters, nil), POLEARMS)?.cost == 9000)
 }
 
 test "a warlock's demon grimoires stand under the demon trainer, ranked by the grimoires of their spell, known where the demon knows them" {
-  Game.spells.name = (id: Integer): String | nil => id == BLOOD_PACT || id == BLOOD_PACT_2 ? "Blood Pact" : nil
+  Game::spells.name = (id: Integer): String | nil => id == BLOOD_PACT || id == BLOOD_PACT_2 ? "Blood Pact" : nil
   const warlock = classLearner("WARLOCK", [])
   const grimoires = learnableOf(warlock, noQuest, noNpc, nil)
   const pact = serviceOf(grimoires, BLOOD_PACT)
-  Test.expect(pact?.category == "Demon trainer" && pact?.rank == "Rank 1" && pact?.cost == 100 && pact?.level == 4)
-  Test.expect(serviceOf(grimoires, BLOOD_PACT_2)?.rank == "Rank 2")
-  Test.expect(grimoires.notes[pact?.index ?? 0] == "A grimoire for your Imp")
+  Test::expect(pact?.category == "Demon trainer" && pact?.rank == "Rank 1" && pact?.cost == 100 && pact?.level == 4)
+  Test::expect(serviceOf(grimoires, BLOOD_PACT_2)?.rank == "Rank 2")
+  Test::expect(grimoires.notes[pact?.index ?? 0] == "A grimoire for your Imp")
   const knowing = classLearner("WARLOCK", [BLOOD_PACT])
-  Test.expect(serviceOf(learnableOf(knowing, noQuest, noNpc, nil), BLOOD_PACT)?.category == "Known")
+  Test::expect(serviceOf(learnableOf(knowing, noQuest, noNpc, nil), BLOOD_PACT)?.category == "Known")
   // A warrior has no grimoires.
-  Test.expect(serviceOf(learnableOf(warrior([]), noQuest, noNpc, nil), BLOOD_PACT) == nil)
+  Test::expect(serviceOf(learnableOf(warrior([]), noQuest, noNpc, nil), BLOOD_PACT) == nil)
 }
 
 test "a hunter's pet trainer abilities stand under the pet trainer, at its price, known where the pet knows them" {
   const stamina = serviceOf(learnableOf(classLearner("HUNTER", []), noQuest, noNpc, nil), GREAT_STAMINA)
-  Test.expect(stamina?.category == "Pet trainer" && stamina?.rank == "Rank 1" && stamina?.cost == 10)
-  Test.expect(serviceOf(learnableOf(classLearner("HUNTER", [GREAT_STAMINA]), noQuest, noNpc, nil), GREAT_STAMINA)?.category == "Known")
+  Test::expect(stamina?.category == "Pet trainer" && stamina?.rank == "Rank 1" && stamina?.cost == 10)
+  Test::expect(serviceOf(learnableOf(classLearner("HUNTER", [GREAT_STAMINA]), noQuest, noNpc, nil), GREAT_STAMINA)?.category == "Known")
 }
 
 test "the spellbook's «Learnable» tab lists them under their headings, with a picked spell's card" {
-  Test.mount(nil, PAGE)
-  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
-  Game.player.level = 10
-  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == OVERPOWER ? "Overpower" : nil
-  Test.open("/spellbook")
-  const window = Test.page().window("Spells")
+  Test::mount(nil, PAGE)
+  Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
+  Game::player.level = 10
+  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == OVERPOWER ? "Overpower" : nil
+  Test::open("/spellbook")
+  const window = Test::page().window("Spells")
   window.button("Learnable").click()
-  Test.expect(window.texts().join(" | ").contains("Available now"))
-  Test.expect(window.text("Charge").shown())
+  Test::expect(window.texts().join(" | ").contains("Available now"))
+  Test::expect(window.text("Charge").shown())
   // A level reached isn't said (Charge at 4); one ahead is (Overpower at 12).
-  Test.expect(window.text("Rank 1").shown() && !window.text("Rank 1 · Requires level 4").shown())
-  Test.expect(window.text("Rank 1 · Requires level 12").shown())
+  Test::expect(window.text("Rank 1").shown() && !window.text("Rank 1 · Requires level 4").shown())
+  Test::expect(window.text("Rank 1 · Requires level 12").shown())
   window.text("Charge").click()
-  Test.expect(window.text("Learned at a trainer").shown())
+  Test::expect(window.text("Learned at a trainer").shown())
 }
 
 test "the «Learnable» list runs to the window's frame; the search over it keeps the window's room" {
-  Test.mount(nil, PAGE)
-  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
-  Game.player.level = 10
-  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
-  Test.open("/spellbook")
-  const window = Test.page().window("Spells")
+  Test::mount(nil, PAGE)
+  Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
+  Game::player.level = 10
+  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Test::open("/spellbook")
+  const window = Test::page().window("Spells")
   window.button("Learnable").click()
-  Test.expect(window.text("Charge").item().rect().left < window.input().rect().left)
+  Test::expect(window.text("Charge").item().rect().left < window.input().rect().left)
 }
 
 test "a picked spell's price at each city is a line of the city and the price; the standing is the line's tip" {
-  Test.mount(nil, PAGE)
-  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
-  Test.factions({ [STORMWIND]: "Stormwind" })
-  Game.player.level = 10
-  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
-  Test.open("/spellbook")
-  const window = Test.page().window("Spells")
+  Test::mount(nil, PAGE)
+  Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
+  Test::factions({ [STORMWIND]: "Stormwind" })
+  Game::player.level = 10
+  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Test::open("/spellbook")
+  const window = Test::page().window("Spells")
   window.button("Learnable").click()
   window.text("Charge").click()
   const line = window.text("Stormwind").item()
-  Test.expect(line.texts().join(" | ") == "Stormwind | 0g 1s 0c")
-  Test.expect(!Test.page().text("Neutral").shown())
+  Test::expect(line.texts().join(" | ") == "Stormwind | 0g 1s 0c")
+  Test::expect(!Test::page().text("Neutral").shown())
   line.hover()
-  Test.expect(Test.page().text("Neutral").shown())
+  Test::expect(Test::page().text("Neutral").shown())
 }
