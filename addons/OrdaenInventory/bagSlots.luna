@@ -22,8 +22,8 @@ const LIST = 260dp
 
 // A bag as the window lists it: what the game says of it, and how many of its slots hold something.
 public struct BagLine {
-  const info: Game::BagInfo
-  const used: integer
+  public info: Game::BagInfo
+  public used: integer
 }
 
 class BagEntry implements Component {

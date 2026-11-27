@@ -27,16 +27,16 @@ const LEVEL: Edges = {}
 
 // Where a group stands by a frame of the game's.
 public struct Standing {
-  by: any Frame
+  public mut by: any Frame
   // In the frame's place, hanging by the same corner (the game's own tooltip, where the game anchored it); beside
   // the frame otherwise.
-  inPlace: boolean
+  public mut inPlace: boolean
   // Under the frame (in its place: hanging by its top); above it otherwise.
-  below: boolean
+  public mut below: boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
-  right: boolean
+  public mut right: boolean
   // How the frame asked its tooltips to stand beside it, tried first where it keeps them on the screen.
-  hang: Hang | nil = nil
+  public mut hang: Hang | nil = nil
 }
 
 // A hang the other way across: by the left edge where it was by the right (a row's left where its right has no room).

@@ -44,20 +44,20 @@ public enum WheelNames implements Plain { Off = "off", Chosen = "chosen", Always
 
 // One item of a ring as it is drawn.
 public struct WheelItem {
-  name: string
+  public mut name: string
   // Its picture; none: its name, written in its hollow instead (an emote's command).
-  icon: Art | nil
+  public mut icon: Art | nil
   // Dimmed where it stands: it can't be used now.
-  dim: boolean
+  public mut dim: boolean
   // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
   // blue without the power it costs (none: as it is); its cooldown's run.
-  count: string
-  tone: color | nil
-  cooldown: FillDuration | nil
+  public mut count: string
+  public mut tone: color | nil
+  public mut cooldown: FillDuration | nil
   // A submenu or a slot of several: how many items it holds (its band's segments, eight at most; 0: no band), and
   // the one the slice shows (0: none).
-  segments: integer
-  segment: integer
+  public mut segments: integer
+  public mut segment: integer
 }
 
 // An item that is a plain picture and a name, with no state.
@@ -68,9 +68,9 @@ public function plainItem(name: string, icon: Art | nil, dim: boolean): WheelIte
 // What the middle says, one thing a line: the name of what is aimed at (or of the ring shown), dimmed where nothing
 // is aimed at, and what the hand can do now, each its own line under it; three lines at most, none wrapped.
 public struct WheelMiddle {
-  name: string
-  hints: array<string>
-  dim: boolean
+  public mut name: string
+  public mut hints: array<string>
+  public mut dim: boolean
 }
 
 // The lines the middle holds at most: the name and two hints.
@@ -78,29 +78,29 @@ const MIDDLE_LINES = 3
 
 // A piece of the ring as large as the wheel, cut by its masks.
 struct Cut {
-  art: Art
-  tint: color
-  opacity: number
-  masks: array<Mask>
+  mut art: Art
+  mut tint: color
+  mut opacity: number
+  mut masks: array<Mask>
 }
 
 // A straight edge: a thin box turned along a direction from the middle, between two radii.
 struct Edge {
-  left: number<Length>
-  top: number<Length>
-  width: number<Length>
-  height: number<Length>
-  turn: number<Angle>
-  tint: color
-  opacity: number
+  mut left: number<Length>
+  mut top: number<Length>
+  mut width: number<Length>
+  mut height: number<Length>
+  mut turn: number<Angle>
+  mut tint: color
+  mut opacity: number
 }
 
 // An item's icon where it stands.
 struct Spot {
-  item: WheelItem
-  left: number<Length>
-  top: number<Length>
-  chosen: boolean
+  mut item: WheelItem
+  mut left: number<Length>
+  mut top: number<Length>
+  mut chosen: boolean
 }
 
 // The wheel's lengths at a scale of 1: the ring between its inner and outer edge, a band of segments inside the outer

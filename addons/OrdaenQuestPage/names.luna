@@ -12,10 +12,10 @@ public enum NamedKind { Figure = "figure", Item = "item" }
 // A thing a quest names: its name in the player's language, what it is, the link its name is marked with
 // (`ordaen:npc:448`, `item:2589`), and the lines a tip of a figure says under its name.
 public struct Named {
-  name: string
-  kind: NamedKind
-  link: string
-  lines: array<string>
+  public mut name: string
+  public mut kind: NamedKind
+  public mut link: string
+  public mut lines: array<string>
 }
 
 // The inks a name is marked in on the parchment: a figure's rust, an item's deep blue; each 6:1 on the paper.
@@ -24,9 +24,9 @@ const ITEM_INK = "123c6e"
 
 // A word of a text: where it starts and ends (bytes), and how many letters it has.
 struct Word {
-  from: integer
-  to: integer
-  letters: integer
+  mut from: integer
+  mut to: integer
+  mut letters: integer
 }
 
 // How many bytes the letter at `at` takes; 0 where no letter starts there (a space, a sign, a quote, a dash). A
@@ -112,9 +112,9 @@ function joined(text: string, before: Word, after: Word): boolean {
 
 // Where a name stands in the text, as a span of bytes.
 struct Found {
-  from: integer
-  to: integer
-  named: Named
+  mut from: integer
+  mut to: integer
+  mut named: Named
 }
 
 // The text with each name it speaks of marked as its link, in its ink: the names with the most words first, a name

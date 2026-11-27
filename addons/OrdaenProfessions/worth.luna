@@ -42,28 +42,28 @@ const DAY = 24
 // A recipe a character knows, as the tab weighs it: its prices for one making, and how many the holdings make now.
 public struct Worth {
   // The character's GUID and the recipe: one row of the table.
-  key: string
-  recipe: integer
-  name: string
-  who: string
-  profession: string
-  cost: integer | nil
-  sale: integer | nil
-  profit: integer | nil
-  percent: integer | nil
+  public mut key: string
+  public mut recipe: integer
+  public mut name: string
+  public mut who: string
+  public mut profession: string
+  public mut cost: integer | nil
+  public mut sale: integer | nil
+  public mut profit: integer | nil
+  public mut percent: integer | nil
   // Hours the oldest house price it took is old; none where it took none.
-  age: integer | nil
-  can: integer
+  public mut age: integer | nil
+  public mut can: integer
   // What one making lacks of what the reached characters hold.
-  missing: array<Reagent>
+  public mut missing: array<Reagent>
 }
 
 // A character the book has a page of, reached by the one being played.
 struct Reached {
-  guid: string
-  name: string
+  mut guid: string
+  mut name: string
   // The hour each recipe with a cooldown is ready again, as Ordaen Alts recorded it.
-  ready: map<integer, integer>
+  mut ready: map<integer, integer>
 }
 
 // The page's text for an age in hours.

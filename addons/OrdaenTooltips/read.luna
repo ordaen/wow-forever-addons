@@ -164,10 +164,10 @@ public function fill(data: Game::TooltipData, options: Options, was: Model | nil
 
 // A tooltip with the ones that stand beside it from the start.
 public struct Group {
-  model: Model
-  sides: array<Model>
+  public mut model: Model
+  public mut sides: array<Model>
   // An item's stats by the game's key for each, for a comparison; empty for anything else.
-  stats: map<string, number>
+  public mut stats: map<string, number>
 }
 
 // The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a

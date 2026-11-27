@@ -6,22 +6,22 @@ import { Given, Stat } from "@/stat"
 
 // A line of an item's tooltip as the client gives it: its text and its type (`Enum.TooltipDataLineType`).
 public struct ItemLine {
-  const text: string
-  const kind: integer
+  public text: string
+  public kind: integer
 }
 
 // A flat bonus as a line says it after its amount («+16 к броне», «+7 Agility»): the words, and the stats it gives.
 public struct FlatWord {
-  const label: string
-  const stats: array<Stat>
+  public label: string
+  public stats: array<Stat>
 }
 
 // A chance as a line says it («Повышает вероятность попадания на 2,0%»): a word every such line holds (a stem, so
 // its endings don't matter), the stats it gives, and those it gives where the line is about spells.
 public struct ChanceWord {
-  const stem: string
-  const stats: array<Stat>
-  const spells: array<Stat> = []
+  public stem: string
+  public stats: array<Stat>
+  public spells: array<Stat> = []
 }
 
 // The client's words the reader tells lines by: the enchant's and an active set bonus's starts, the flat bonuses, the
@@ -29,26 +29,26 @@ public struct ChanceWord {
 // `SHIELD_BLOCK_TEMPLATE`: Forever's «Вероятность блока: %s», the amount the damage a block stops; none: no such line
 // is read).
 public struct LineWords {
-  const enchant: string
-  const setBonus: string
-  const flat: array<FlatWord>
-  const chances: array<ChanceWord>
-  const spells: string
-  const shieldBlock: string = ""
+  public enchant: string
+  public setBonus: string
+  public flat: array<FlatWord>
+  public chances: array<ChanceWord>
+  public spells: string
+  public shieldBlock: string = ""
 }
 
 // A set some of whose pieces are worn: its name and what its bonuses in effect give.
 public struct WornSet {
-  const name: string
-  const gives: array<Given>
+  public name: string
+  public gives: array<Given>
 }
 
 // What the reader found: the item's own stats its item stats leave out (a shield's block), the enchant's stats, and
 // the item's set (none for an item of none).
 public struct LineBonuses {
-  const base: array<Given>
-  const enchant: array<Given>
-  const set: WornSet | nil
+  public base: array<Given>
+  public enchant: array<Given>
+  public set: WornSet | nil
 }
 
 // The amount a line says in a template's place for it («39 Блок» by «%d Блок», «Вероятность блока: 3» by Forever's

@@ -101,9 +101,9 @@ public class JunkPage implements Component {
 
 // A chord's row as the page lists it: rebuilt when what it offers changes (its key says it).
 struct ChordSpec {
-  const chord: Chord
-  const choices: array<Choice<SlotAction>>
-  const key: string
+  chord: Chord
+  choices: array<Choice<SlotAction>>
+  key: string
 }
 
 // One chord's dropdown: the action picked written into the scheme, and the scheme's action shown.

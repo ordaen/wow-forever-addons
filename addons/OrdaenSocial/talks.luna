@@ -8,17 +8,17 @@ import { Friend, Hero, Member, RecentAlly } from "$game"
 // A whisper as its conversation shows it: the words (their web addresses links), when, whose, and whether the client
 // kept them secret (drawn as the client gives them, never measured, never kept).
 public struct TalkLine implements Plain {
-  whole: string
+  public mut whole: string
   // When it was said (seconds since 1970).
-  time: number
+  public mut time: number
   // The player's own (a whisper told): drawn on the right.
-  mine: boolean
-  secret: boolean
+  public mut mine: boolean
+  public mut secret: boolean
   // Who said it (their GUID; empty for none): a player reported has their lines taken away.
-  sender: string
+  public mut sender: string
   // When the session that heard it began (seconds since 1970): a conversation sets each session's lines apart under
   // a rule naming it. 0 for a line kept before sessions were told apart.
-  session: number = 0
+  public mut session: number = 0
 }
 
 // When this session began: the session of every line it hears.
@@ -27,10 +27,10 @@ public const THIS_SESSION: number = peek Game::clock.server
 // What one conversation keeps between sessions: its lines, how many of them wait unread, and whether it was closed
 // (out of the list until its person whispers again).
 public struct KeptTalk implements Plain {
-  key: string
-  lines: array<TalkLine>
-  unread: integer = 0
-  closed: boolean = false
+  public mut key: string
+  public mut lines: array<TalkLine>
+  public mut unread: integer = 0
+  public mut closed: boolean = false
 }
 
 // A conversation as the next session keeps it.
@@ -42,18 +42,18 @@ public function keptOf(talk: Talk, closed: boolean): KeptTalk {
 // Who a conversation is with, as its row names them: a character by its name, in its class's colour where it is
 // known, and its level where it is; a Battle.net friend by the account's name, the character it plays (if any) under it.
 public struct TalkWho {
-  name: string
-  classFile: string
-  level: integer
+  public mut name: string
+  public mut classFile: string
+  public mut level: integer
   // A Battle.net friend's character in this game: the row's second line.
-  hero: Hero | nil
+  public mut hero: Hero | nil
 }
 
 // The people a conversation's partner may be found among.
 public struct KnownPeople {
-  friends: array<Friend>
-  members: array<Member>
-  allies: array<RecentAlly>
+  public mut friends: array<Friend>
+  public mut members: array<Member>
+  public mut allies: array<RecentAlly>
 }
 
 // Two names of one character: the same, or one of them its name without the realm the other adds.
@@ -85,7 +85,7 @@ function classByGuid(guid: string): string {
 }
 
 public struct KeptTalks implements Plain {
-  talks: array<KeptTalk>
+  public mut talks: array<KeptTalk>
 }
 
 // The whispers' kinds (the client's `ChatTypeInfo` keys): what the player whispered; what was heard (a character's, a

@@ -68,11 +68,11 @@ const MISC_JUNK = 0
 
 // One section of a tab: its items, its caption, and where it stands among the others.
 struct Group {
-  key: string
-  title: string
-  rank: integer
-  subkind: integer
-  slots: mut array<Slot>
+  mut key: string
+  mut title: string
+  mut rank: integer
+  mut subkind: integer
+  mut slots: mut array<Slot>
 }
 
 // The categories view's sections for a tab: split as its setting says, each sorted, in the kinds' fixed order whatever

@@ -5,8 +5,8 @@ import Game from "$game"
 
 // What the text holds: a name, and each module's section as that module's settings were kept (CBOR).
 public struct Shared implements Plain {
-  name: string = ""
-  sections: mut map<string, string> = {}
+  public mut name: string = ""
+  public mut sections: mut map<string, string> = {}
 }
 
 // The text's first characters, up to the version.
@@ -27,9 +27,9 @@ public enum Refusal {
 }
 
 public struct Refused implements Error {
-  reason: Refusal
+  public mut reason: Refusal
   // The version the text names, where that is the reason.
-  version: string | nil
+  public mut version: string | nil
 }
 
 // A profile as a text; nil where the client can't pack it.

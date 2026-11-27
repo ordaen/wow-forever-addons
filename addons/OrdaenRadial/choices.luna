@@ -46,37 +46,37 @@ public enum Item implements Plain {
 public enum OpensAt implements Plain { Cursor = "cursor", Middle = "middle" }
 
 public struct Ring implements Plain {
-  opensAt: OpensAt
-  names: WheelNames
-  scale: number
+  public mut opensAt: OpensAt
+  public mut names: WheelNames
+  public mut scale: number
   // Letting go in the middle of a submenu does the item last used there.
-  remember: boolean
+  public mut remember: boolean
   // Anchored: the wheel's middle is the aim's while the cursor is on it, and follows the cursor once it goes off.
-  anchored: boolean = true
+  public mut anchored: boolean = true
   // How many items each of its rings holds, by the ring's place (`""` the ring itself, `"3"` the third's submenu),
   // and each item by its place (`"1"` to `"8"`, `"3_2"`).
-  counts: mut map<string, integer>
-  items: mut map<string, Item>
+  public mut counts: mut map<string, integer>
+  public mut items: mut map<string, Item>
   // When an item may be used, by its place: one with none always.
-  conditions: mut map<string, Condition>
+  public mut conditions: mut map<string, Condition>
   // The icon the player chose for a place, over the item's own; a place with none shows its item's.
-  icons: mut map<string, PlaceIcon> = {}
+  public mut icons: mut map<string, PlaceIcon> = {}
 }
 
 // An icon chosen for a place: the client's file by its number or path, or none (its name stands in its wedge).
 public struct PlaceIcon implements Plain {
-  icon: FileId | Asset | nil
+  public mut icon: FileId | Asset | nil
 }
 
 public struct Choices implements Plain {
   // The rings on the keys `ORDAEN_RADIAL_1` to `_3`, in order.
-  rings: array<Ring>
+  public mut rings: array<Ring>
 }
 
 // When an item may be used: a class's alone (the client's tag, `WARRIOR`), in a form alone (the stance bar's place,
 // 0 none), with a modifier held alone. An item whose condition doesn't hold is dimmed where it stands.
 public struct Condition implements Plain {
-  classTag: string | nil
-  form: integer | nil
-  modifier: WheelModifier | nil
+  public mut classTag: string | nil
+  public mut form: integer | nil
+  public mut modifier: WheelModifier | nil
 }

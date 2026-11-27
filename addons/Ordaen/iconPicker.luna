@@ -37,8 +37,8 @@ const ONE: array<Track> = [{ fr: 1 }]
 
 // An icon offered, and the words a search finds it by: the spell's name that wears it, or its own file's name.
 struct Offered {
-  const icon: IconChoice
-  const words: string
+  icon: IconChoice
+  words: string
 }
 
 // The client's icon lists in the macro window's order, each a file's number or a name under Interface/Icons/.

@@ -48,24 +48,24 @@ public enum SentState implements Plain { Waiting = "waiting", Sending = "sending
 
 // An item a letter going out carries, by its number and how many.
 public struct SentItem implements Plain {
-  item: integer = 0
-  count: integer = 0
+  public mut item: integer = 0
+  public mut count: integer = 0
 }
 
 // A letter of «Outbox»: waiting to go, or gone.
 public struct Sent implements Plain {
-  number: integer = 0
-  to: string = ""
-  subject: string = ""
-  body: string = ""
-  items: array<SentItem> = []
-  copper: integer = 0
-  cod: integer = 0
-  state: SentState = SentState::Waiting
+  public mut number: integer = 0
+  public mut to: string = ""
+  public mut subject: string = ""
+  public mut body: string = ""
+  public mut items: array<SentItem> = []
+  public mut copper: integer = 0
+  public mut cod: integer = 0
+  public mut state: SentState = SentState::Waiting
   // Why it stopped; empty otherwise.
-  why: string = ""
+  public mut why: string = ""
   // When it was put into the queue, and when it went: the realm's seconds.
-  at: integer = 0
+  public mut at: integer = 0
 }
 
 // A letter not yet gone and not stopped: waiting, or on its way.
@@ -74,14 +74,14 @@ public function waits(letter: Sent): boolean { return letter.state == SentState:
 // What is kept of the outbox, per character: the letters waiting (to survive a closed mailbox and a reload) and the
 // last letters gone, each capped; the next letter's number.
 public struct Kept implements Plain {
-  queue: array<Sent> = []
-  history: array<Sent> = []
-  next: integer = 1
+  public mut queue: array<Sent> = []
+  public mut history: array<Sent> = []
+  public mut next: integer = 1
 }
 
 // The recent recipients, account-wide: the newest first.
 public struct Recent implements Plain {
-  names: array<string> = []
+  public mut names: array<string> = []
 }
 
 // The subject with its letter's place among several, «(2/3)», kept within the game's length.

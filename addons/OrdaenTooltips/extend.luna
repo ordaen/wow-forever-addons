@@ -6,28 +6,28 @@
 
 // A line another module adds: a label at the left, a value at the right.
 public struct Line {
-  left: string
-  right: string | nil = nil
-  color: color | nil = nil
-  rightColor: color | nil = nil
-  indent: boolean = false
+  public mut left: string
+  public mut right: string | nil = nil
+  public mut color: color | nil = nil
+  public mut rightColor: color | nil = nil
+  public mut indent: boolean = false
   // What its label opens once the tooltip is locked and the cursor comes onto it: a list of its own.
-  opens: Listing | nil = nil
+  public mut opens: Listing | nil = nil
 }
 
 // A list a line opens, drawn as a tooltip beside it: its title, its rows, and the notes under them.
 public struct Listing {
-  name: string
-  rows: array<Listed>
-  foot: array<Line> = []
+  public mut name: string
+  public mut rows: array<Listed>
+  public mut foot: array<Line> = []
 }
 
 // A row of a list: a name with its value at the right; it may open an item's own tooltip (a recipe's product).
 public struct Listed {
-  left: string
-  right: string | nil = nil
-  color: color | nil = nil
-  item: integer | nil = nil
+  public mut left: string
+  public mut right: string | nil = nil
+  public mut color: color | nil = nil
+  public mut item: integer | nil = nil
 }
 
 // What a module adds to an item's tooltip. Asked each time an item is shown (the same item shown again after the
@@ -47,20 +47,20 @@ public trait ItemKeys {
 // An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the quest by
 // its number and its title, the objective's text without its count, the count, and whether it is done.
 public struct Wanted {
-  quest: integer
-  title: string
-  objective: string
-  have: integer
-  need: integer
-  done: boolean
+  public mut quest: integer
+  public mut title: string
+  public mut objective: string
+  public mut have: integer
+  public mut need: integer
+  public mut done: boolean
 }
 
 // A quest a creature gives the player now, or takes back from them (`turnIn`: one of the log's, done): its title and
 // its level.
 public struct Offered {
-  title: string
-  level: integer
-  turnIn: boolean
+  public mut title: string
+  public mut level: integer
+  public mut turnIn: boolean
 }
 
 // What a module says of a creature's quests, by the creature's number (`Game.UnitInfo.creature`): the objectives it

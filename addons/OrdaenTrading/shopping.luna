@@ -10,11 +10,11 @@ import { Source, Wanted } from "@/wanted"
 // One item of the list: what is needed in all, what this character holds, what is left to buy, and the lines that
 // asked for it.
 public struct Row {
-  item: ItemId
-  needed: integer
-  held: integer
-  toBuy: integer
-  lines: array<Wanted>
+  public mut item: ItemId
+  public mut needed: integer
+  public mut held: integer
+  public mut toBuy: integer
+  public mut lines: array<Wanted>
 }
 
 // Where an item of the list is bought: from a merchant that sells it for no more than the house asks (or the house

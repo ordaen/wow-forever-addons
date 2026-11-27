@@ -30,14 +30,14 @@ const RESET_WIDTH = 140.625dp
 
 // One option: what the window's map knows it by, and its name.
 public struct FilterOption<K: unknown> {
-  key: K
-  label: string
+  public mut key: K
+  public mut label: string
 }
 
 // Options that go together; with a `label`, a switch of its own turns them all.
 public struct FilterGroup<K: unknown> {
-  label: string | nil
-  options: array<FilterOption<K>>
+  public mut label: string | nil
+  public mut options: array<FilterOption<K>>
 }
 
 // What is on with each of `keys` switched to `on`, the rest as they were.

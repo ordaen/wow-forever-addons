@@ -26,21 +26,21 @@ const OLDER = 11507
 
 // An addon the test adds to the client's list, as its TOC says it and as the client has it.
 struct Fake {
-  const name: string
-  const title: string
-  const notes: string = ""
-  const author: string = ""
-  const version: string = ""
-  const category: string = ""
-  const group: string = ""
-  const demand: boolean = false
-  const outdated: boolean = false
+  name: string
+  title: string
+  notes: string = ""
+  author: string = ""
+  version: string = ""
+  category: string = ""
+  group: string = ""
+  demand: boolean = false
+  outdated: boolean = false
   // Why the client doesn't load it while it is on: nil where it does.
-  const reason: Client::AddOnReason | nil = nil
-  loaded: boolean = false
+  reason: Client::AddOnReason | nil = nil
+  mut loaded: boolean = false
   // What `LoadAddOn` answers where it refuses one on demand.
-  const refuses: string | nil = nil
-  const icon: string = ""
+  refuses: string | nil = nil
+  icon: string = ""
 }
 
 // The client's list of addons as the test makes it, and what the client keeps of them: off for this character, the

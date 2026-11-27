@@ -19,11 +19,11 @@ public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
 // table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
 // next opening says nothing of why.
 public struct ListView implements Plain {
-  view: View = View::Columns
-  sort: SortBy = SortBy::Difficulty
-  tableColumn: integer = 1
-  tableDescending: boolean = false
-  grouping: Grouping = Grouping::Readiness
+  public mut view: View = View::Columns
+  public mut sort: SortBy = SortBy::Difficulty
+  public mut tableColumn: integer = 1
+  public mut tableDescending: boolean = false
+  public mut grouping: Grouping = Grouping::Readiness
 }
 public const LIST_VIEW: ListView = {}
 
@@ -49,10 +49,10 @@ public const READINESS: array<integer> = [READY_NOW, READY_MISSING, READY_SOON, 
 // A category of the game's with the recipes of it the search and the filter let through, and how many of those the
 // bags can make now; or the favorites.
 public struct Group {
-  id: integer
-  name: string
-  total: integer
-  makeable: integer
+  public mut id: integer
+  public mut name: string
+  public mut total: integer
+  public mut makeable: integer
 }
 
 function rank(difficulty: Game::Difficulty): integer {
@@ -85,10 +85,10 @@ public function before(sort: SortBy, a: Game::Recipe, b: Game::Recipe): boolean 
 // subclass («Ткань») and where it is worn («Спина»), or its class where it isn't worn («Расходуемые»), its totals at the house and at a merchant (none while prices
 // aren't shown).
 public struct TableFacts {
-  skill: integer | nil
-  subtype: string | nil
-  kind: string | nil
-  both: BothSources | nil
+  public mut skill: integer | nil
+  public mut subtype: string | nil
+  public mut kind: string | nil
+  public mut both: BothSources | nil
 }
 
 // The table's columns by their place, which is what it sorts by: the name, the skill it is learned at, the made item's
@@ -173,8 +173,8 @@ public function has(list: array<integer>, id: integer): boolean {
 
 // A list of the game's (`of`) as the window shows it: filtered and in its order.
 public struct Sorted {
-  const of: array<Game::Recipe>
-  const list: array<Game::Recipe>
+  public of: array<Game::Recipe>
+  public list: array<Game::Recipe>
 }
 
 const NO_RECIPES: array<Game::Recipe> = []
@@ -213,10 +213,10 @@ public enum Page { Recipes = "recipes", Camp = "camp", Unlearned = "unlearned", 
 // A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession (whose
 // «Queue» tab shows it and runs it), and its name (the game names only the open profession's recipes).
 public struct Queued implements Plain {
-  skillLine: integer
-  recipe: integer
-  name: string
-  count: integer
+  public mut skillLine: integer
+  public mut recipe: integer
+  public mut name: string
+  public mut count: integer
 }
 
 // Why a profession's queue waits for the player's click to go on: for nothing (its next recipe is ready, or nothing
@@ -238,8 +238,8 @@ public enum QueueAct { Drop = 1, Open = 2, Next = 3 }
 
 // The last category and recipe the player had chosen in a profession.
 public struct Seen implements Plain {
-  category: integer
-  recipe: integer
+  public mut category: integer
+  public mut recipe: integer
 }
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
@@ -248,12 +248,12 @@ public struct Seen implements Plain {
 // profession's waits, by its skill line (none for one that waits for nothing). Where the window stands is the
 // window's own (`Window`, the profile's).
 public struct Kept implements Plain {
-  last: integer
-  seen: map<integer, Seen>
-  favorites: array<integer>
-  tracked: array<integer>
-  queue: array<Queued>
-  paused: map<integer, Pause>
+  public mut last: integer
+  public mut seen: map<integer, Seen>
+  public mut favorites: array<integer>
+  public mut tracked: array<integer>
+  public mut queue: array<Queued>
+  public mut paused: map<integer, Pause>
 }
 
 // The most recipes starred, or tracked.

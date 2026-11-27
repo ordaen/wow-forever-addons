@@ -12,10 +12,10 @@ public const GROUND_ROUND = 7.03125dp
 
 // Which corners of a rounded fill are round; a corner that isn't is square.
 public struct Corners {
-  topLeft: boolean
-  topRight: boolean
-  bottomLeft: boolean
-  bottomRight: boolean
+  public mut topLeft: boolean
+  public mut topRight: boolean
+  public mut bottomLeft: boolean
+  public mut bottomRight: boolean
 }
 public const EVERY_CORNER: Corners = { topLeft: true, topRight: true, bottomLeft: true, bottomRight: true }
 

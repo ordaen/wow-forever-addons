@@ -77,21 +77,21 @@ const APART: Edges = { top: 4sp }
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
-  left: string
-  right: string | nil
-  leftColor: color
-  rightColor: color
-  size: number<TextSize>
-  padding: Edges
+  public mut left: string
+  public mut right: string | nil
+  public mut leftColor: color
+  public mut rightColor: color
+  public mut size: number<TextSize>
+  public mut padding: Edges
   // A sentence (a description), its lines a little apart.
-  sentence: boolean = false
+  public mut sentence: boolean = false
   // What its name opens, and what its value does.
-  opens: Opens
-  valueOpens: Opens
+  public mut opens: Opens
+  public mut valueOpens: Opens
   // An item's stat against the compared item's, after the value.
-  compared: Compared | nil
+  public mut compared: Compared | nil
   // The icon before its name: a reagent's.
-  icon: Art | nil = nil
+  public mut icon: Art | nil = nil
 }
 
 function opensSomething(opens: Opens): boolean {

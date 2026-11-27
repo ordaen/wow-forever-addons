@@ -21,23 +21,23 @@ const CONFIRM_WIDTH = 539.0625dp
 
 // One character as a row shows it.
 public struct Line {
-  who: CharacterId
-  name: string
-  level: integer
-  money: integer
+  public mut who: CharacterId
+  public mut name: string
+  public mut level: integer
+  public mut money: integer
   // Free bag slots; -1 for bags never read.
-  free: integer
+  public mut free: integer
   // Hours since it was played.
-  away: integer
-  bank: string
-  mail: string
+  public mut away: integer
+  public mut bank: string
+  public mut mail: string
   // Mail that expires within three days.
-  urgent: boolean
-  current: boolean
+  public mut urgent: boolean
+  public mut current: boolean
   // Not the playing character's realm and side: in no plan.
-  apart: boolean
+  public mut apart: boolean
   // Not played for ninety days: the player may forget it.
-  stale: boolean
+  public mut stale: boolean
 }
 
 // One row of the table: the character's cells, and «Forget» where it may be forgotten.

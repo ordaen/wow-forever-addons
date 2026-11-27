@@ -14,9 +14,9 @@ const API_VERSION = 4
 
 // A pin placed: where it stands on the canvas, 0 to 1.
 public struct Placed {
-  pin: Pin
-  x: number
-  y: number
+  public mut pin: Pin
+  public mut x: number
+  public mut y: number
 }
 
 public trait MapHost {

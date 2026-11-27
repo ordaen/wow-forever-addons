@@ -48,17 +48,17 @@ public enum BandKind { Cost, Range, Melee, CastNow, CastTime, CastChan, CastNext
 // A cell of a band: its text, in its colour (the body's where it has none), its glyph before it in its tint (a
 // cost's dot in its resource's colour), and what it says.
 public struct BandFact {
-  text: string
-  color: color | nil
-  glyph: Glyph | nil
-  tint: color | nil
-  kind: BandKind = BandKind::Other
+  public mut text: string
+  public mut color: color | nil
+  public mut glyph: Glyph | nil
+  public mut tint: color | nil
+  public mut kind: BandKind = BandKind::Other
 }
 
 // A spell's band: its cells, and the places of the tooltip's lines they were read from (no other reader takes them).
 public struct Band {
-  facts: array<BandFact>
-  taken: map<integer, boolean>
+  public mut facts: array<BandFact>
+  public mut taken: map<integer, boolean>
 }
 
 // The game's numbers for what a line of a tooltip is.

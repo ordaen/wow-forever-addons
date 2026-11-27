@@ -111,9 +111,9 @@ function window(): Test::Part {
 
 // A recipe's name where the window shows it.
 struct Named {
-  name: string
-  top: number
-  left: number
+  mut name: string
+  mut top: number
+  mut left: number
 }
 
 // Every recipe name the window shows, top to bottom, left to right.

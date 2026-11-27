@@ -12,9 +12,9 @@ import Style from "@/style"
 
 // An item's name as the game shows it, its quality's colour, and the name lowercased: what a search matches.
 public struct Named {
-  name: string
-  lower: string
-  color: color
+  public mut name: string
+  public mut lower: string
+  public mut color: color
 }
 
 // What the game says of an item: its name and its quality's colour, from its tooltip's first line.
@@ -45,9 +45,9 @@ function namedBy(data: Game::TooltipData | nil): Named | nil {
 
 // A house's maps, as they are packed.
 public struct Packed implements Plain {
-  market: mut map<PriceKey, Quote> = {}
-  listing: mut map<PriceKey, Listing> = {}
-  history: mut map<PriceKey, mut array<Quote>> = {}
+  public mut market: mut map<PriceKey, Quote> = {}
+  public mut listing: mut map<PriceKey, Listing> = {}
+  public mut history: mut map<PriceKey, mut array<Quote>> = {}
 }
 
 const DAY = 24

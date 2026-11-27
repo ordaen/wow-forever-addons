@@ -122,15 +122,15 @@ public const MAINS: array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .S
 
 // What a worn item gives a stat, in the stat's own unit (a rating already made a percentage).
 public struct Given {
-  const stat: Stat
-  const amount: number
+  public stat: Stat
+  public amount: number
 }
 
 // The client's item stats (`C_Item.GetItemStats`' keys), each the stats it gives and the combat rating it is counted
 // in (none: 0), which the sheet turns into the stat's percentage.
 public struct ItemKey {
-  const stats: array<Stat>
-  const rating: integer = 0
+  public stats: array<Stat>
+  public rating: integer = 0
 }
 public const ITEM_KEYS: map<string, ItemKey> = {
   ITEM_MOD_STRENGTH_SHORT: { stats: [.Strength] },

@@ -38,8 +38,8 @@ const ENDS: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 // One bar of the chart: its height (none where no price was seen in its hour or day), and its colour: the latest gold.
 struct Bar {
-  height: number<Length>
-  color: color
+  mut height: number<Length>
+  mut color: color
 }
 
 // The lowest price of each hour (the day's span) or day (the week's and the month's), oldest first; 0 where none

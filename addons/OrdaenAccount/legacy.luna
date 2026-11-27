@@ -18,9 +18,9 @@ import Style from "@/style"
 public const TRACK = 2802
 // A Legacy tree: its trait tree, its name and its emblem (`LegacyTreeData`).
 public struct TreeKind {
-  id: integer
-  name: string
-  icon: Atlas
+  public mut id: integer
+  public mut name: string
+  public mut icon: Atlas
 }
 const TREES: array<TreeKind> = [
   { id: 1187, name: Locale::TREE_PROFESSIONS, icon: "UI-Legacy-Tree-Professions" },
@@ -82,12 +82,12 @@ public function legacyOpen(): boolean { return Client::C_MajorFactions::GetCurre
 
 // A level of the reward track and its first reward (and how many more it gives).
 public struct Level {
-  level: integer
-  reached: boolean
+  public mut level: integer
+  public mut reached: boolean
   // The level the player has now: its card is green.
-  last: boolean
-  name: string
-  icon: FileId | nil
+  public mut last: boolean
+  public mut name: string
+  public mut icon: FileId | nil
 }
 
 function levelsOf(): array<Level> {

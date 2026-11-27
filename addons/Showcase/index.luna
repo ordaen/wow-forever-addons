@@ -16,14 +16,14 @@ const HIDES: array<Choice<Hide>> = [
 ]
 
 public struct Choices {
-  showZone: boolean
-  scale: number
-  columns: integer
-  drawer: boolean
-  hide: Hide
-  name: string
+  public mut showZone: boolean
+  public mut scale: number
+  public mut columns: integer
+  public mut drawer: boolean
+  public mut hide: Hide
+  public mut name: string
   // What the drawer's export box holds.
-  exported: string
+  public mut exported: string
 }
 
 // A module's page, made by the tests and added to Ordaen's modules there: in the game nothing makes it (the

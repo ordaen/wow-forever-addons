@@ -29,18 +29,18 @@ class Framed {
 
 // Where the cursor is taken to: a point of the screen, an axis left out staying where the drag took it.
 struct Goal {
-  name: string
-  x: number | nil
-  y: number | nil
+  mut name: string
+  mut x: number | nil
+  mut y: number | nil
 }
 
 // A drag of `kept`'s and what it should give.
 struct Case {
-  dx: number<Length>
-  dy: number<Length>
-  hold: Hold
-  x: number<Length>
-  y: number<Length>
+  mut dx: number<Length>
+  mut dy: number<Length>
+  mut hold: Hold
+  mut x: number<Length>
+  mut y: number<Length>
 }
 
 // Take what is at `at` and let it go at `to`: the client starts the drag a pixel on, and it is measured from the press.

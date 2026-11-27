@@ -34,8 +34,8 @@ const ONE_ROW: array<Track> = [{ fr: 1 }]
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
 public struct TipMark {
-  const text: string
-  const color: color
+  public text: string
+  public color: color
 }
 
 // One row of a Tip: its picture where it has one, what it is (in the label colour, or its own `tone`: an item's name in
@@ -44,27 +44,27 @@ public struct TipMark {
 // where the row says (`working`: «20 × 15 =» before «300»). The defaults are written out, not constants of this file: a
 // default is made where the row is.
 public struct TipRow {
-  const label: string
-  const value: string
-  const working: string = ""
-  const mark: TipMark = { text: "", color: BRIGHT_TEXT }
-  const icon: Art | nil = nil
-  const tone: color | nil = nil
-  const valueTone: color | nil = nil
+  public label: string
+  public value: string
+  public working: string = ""
+  public mark: TipMark = { text: "", color: BRIGHT_TEXT }
+  public icon: Art | nil = nil
+  public tone: color | nil = nil
+  public valueTone: color | nil = nil
 }
 
 // A part of a whole a section's bar shows: its share of the whole and its colour.
 public struct TipSlice {
-  const share: number
-  const color: color
+  public share: number
+  public color: color
 }
 
 // A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects»; where it has
 // `shares`, a thin bar under its rows, the shares side by side across it, each as wide as its part of their sum.
 public struct TipSection {
-  const title: string
-  const rows: array<TipRow>
-  const shares: array<TipSlice> = []
+  public title: string
+  public rows: array<TipRow>
+  public shares: array<TipSlice> = []
 }
 
 function trackOf(slice: TipSlice): Track { return { fr: slice.share.max(0) } }
@@ -91,9 +91,9 @@ class TipShares implements Component {
 
 // What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.
 public struct TipText {
-  const title: string
-  const text: string
-  const rows: array<TipRow>
+  public title: string
+  public text: string
+  public rows: array<TipRow>
 }
 
 // A row of a Tip, as `Tip` draws each.

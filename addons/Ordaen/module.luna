@@ -9,8 +9,8 @@ public trait Component {
 
 // One tab of a module's page in the settings window: its name, and its rows.
 public struct SettingsPage {
-  title: string
-  content: Template
+  public mut title: string
+  public mut content: Template
 }
 
 // A module as the settings window lists it, running or not: an addon the player has that needs Ordaen.

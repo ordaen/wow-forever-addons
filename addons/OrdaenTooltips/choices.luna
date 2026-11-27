@@ -28,52 +28,52 @@ public function delaySeconds(delay: Delay): number {
 
 // A kind's `Lock`: held under the cursor, a tooltip of that kind locks, and stays for the cursor to come onto it.
 public struct Choices implements Plain {
-  place: Place
-  delay: Delay = Delay::Short
-  itemsOn: boolean
-  itemsLock: boolean
-  itemsPlace: KindPlace
-  itemsDelay: KindDelay = KindDelay::Default
-  itemsIlvl: boolean
-  itemsId: boolean
-  itemsCount: boolean
-  itemsStack: boolean
-  itemsCooldown: boolean
-  spellsOn: boolean
-  spellsLock: boolean
-  spellsPlace: KindPlace
-  spellsDelay: KindDelay = KindDelay::Default
-  spellsId: boolean
-  spellsNext: boolean
-  spellsCooldown: boolean
-  aurasOn: boolean
-  aurasLock: boolean
-  aurasPlace: KindPlace
-  aurasDelay: KindDelay = KindDelay::Default
-  aurasId: boolean
-  aurasCaster: boolean
-  aurasTotal: boolean
-  playersOn: boolean
-  playersLock: boolean
-  playersPlace: KindPlace
-  playersDelay: KindDelay = KindDelay::Default
-  playersTarget: boolean
-  playersRelation: boolean
-  npcsOn: boolean
-  npcsLock: boolean
-  npcsPlace: KindPlace
-  npcsDelay: KindDelay = KindDelay::Default
-  npcsParty: boolean
-  npcsLoot: boolean
-  npcsRep: boolean
+  public mut place: Place
+  public mut delay: Delay = Delay::Short
+  public mut itemsOn: boolean
+  public mut itemsLock: boolean
+  public mut itemsPlace: KindPlace
+  public mut itemsDelay: KindDelay = KindDelay::Default
+  public mut itemsIlvl: boolean
+  public mut itemsId: boolean
+  public mut itemsCount: boolean
+  public mut itemsStack: boolean
+  public mut itemsCooldown: boolean
+  public mut spellsOn: boolean
+  public mut spellsLock: boolean
+  public mut spellsPlace: KindPlace
+  public mut spellsDelay: KindDelay = KindDelay::Default
+  public mut spellsId: boolean
+  public mut spellsNext: boolean
+  public mut spellsCooldown: boolean
+  public mut aurasOn: boolean
+  public mut aurasLock: boolean
+  public mut aurasPlace: KindPlace
+  public mut aurasDelay: KindDelay = KindDelay::Default
+  public mut aurasId: boolean
+  public mut aurasCaster: boolean
+  public mut aurasTotal: boolean
+  public mut playersOn: boolean
+  public mut playersLock: boolean
+  public mut playersPlace: KindPlace
+  public mut playersDelay: KindDelay = KindDelay::Default
+  public mut playersTarget: boolean
+  public mut playersRelation: boolean
+  public mut npcsOn: boolean
+  public mut npcsLock: boolean
+  public mut npcsPlace: KindPlace
+  public mut npcsDelay: KindDelay = KindDelay::Default
+  public mut npcsParty: boolean
+  public mut npcsLoot: boolean
+  public mut npcsRep: boolean
   // The quests an NPC gives and takes back, in its tooltip.
-  npcsQuests: boolean = true
-  objectsOn: boolean
-  objectsLock: boolean
-  objectsPlace: KindPlace
-  objectsDelay: KindDelay = KindDelay::Default
-  textsOn: boolean
-  textsPlace: KindPlace
-  textsDelay: KindDelay = KindDelay::Default
-  textsExtra: boolean
+  public mut npcsQuests: boolean = true
+  public mut objectsOn: boolean
+  public mut objectsLock: boolean
+  public mut objectsPlace: KindPlace
+  public mut objectsDelay: KindDelay = KindDelay::Default
+  public mut textsOn: boolean
+  public mut textsPlace: KindPlace
+  public mut textsDelay: KindDelay = KindDelay::Default
+  public mut textsExtra: boolean
 }

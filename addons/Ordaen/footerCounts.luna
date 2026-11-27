@@ -10,10 +10,10 @@ const DIM: color = #a3977f
 
 // One count: what it counts, and how many, written as the window says it («12», «3 / 25»).
 public struct FooterCount {
-  label: string
-  value: string
+  public mut label: string
+  public mut value: string
   // The value's colour where it says something; the body's ink otherwise.
-  color: color | nil = nil
+  public mut color: color | nil = nil
 }
 
 public class FooterCounts implements Component {

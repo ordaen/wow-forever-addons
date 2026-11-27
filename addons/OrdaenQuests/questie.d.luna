@@ -3,9 +3,9 @@
 
 // A place in the world: an `AreaTable` area, and where in it, 0 to 1 across and down.
 public struct Spot {
-  area: integer
-  x: number
-  y: number
+  public mut area: integer
+  public mut x: number
+  public mut y: number
 }
 
 // Which of the world's things a figure is.
@@ -14,83 +14,83 @@ public enum FigureKind { Npc = "npc", Object = "object" }
 // An NPC or an object a quest names, by QuestieDB's number of it, its name in the client's language where QuestieDB
 // has that (else English), and where it stands.
 public struct Figure {
-  id: integer
-  kind: FigureKind
-  name: string
-  spots: array<Spot>
+  public mut id: integer
+  public mut kind: FigureKind
+  public mut name: string
+  public mut spots: array<Spot>
 }
 
 // An item a quest asks for: its number, and its name as QuestieDB has it in the client's language.
 public struct WantedItem {
-  id: integer
-  name: string
+  public mut id: integer
+  public mut name: string
 }
 
 // A creature that drops an item, by its number, and the chance it does in percent where QuestieDB has one.
 public struct DropSource {
-  creature: integer
-  chance: number | nil = nil
+  public mut creature: integer
+  public mut chance: number | nil = nil
 }
 
 // An item a quest asks for and every creature QuestieDB says drops it: a creature's tooltip says the quest's count
 // where the client's doesn't (an item that is ordinary loot, not a quest's own drop).
 public struct ItemDrops {
-  item: integer
-  name: string
-  sources: array<DropSource>
+  public mut item: integer
+  public mut name: string
+  public mut sources: array<DropSource>
 }
 
 // What a quest asks of the player before it is given: a faction and a standing with it, or a skill line and a rank.
 public struct Needed {
-  id: integer
-  amount: integer
+  public mut id: integer
+  public mut amount: integer
 }
 
 // A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
 public struct FactionGain {
-  faction: integer
-  amount: integer
+  public mut faction: integer
+  public mut amount: integer
 }
 
 // What QuestieDB says of a quest.
 public struct QuestFacts {
-  name: string
-  level: integer
+  public mut name: string
+  public mut level: integer
   // The level it may be taken at, and the last it may (0: no last).
-  minLevel: integer
-  maxLevel: integer = 0
+  public mut minLevel: integer
+  public mut maxLevel: integer = 0
   // The races and classes it is for, by the client's numbers (`UnitRace`'s, `UnitClass`'s); none: every one.
-  races: array<integer> = []
-  classes: array<integer> = []
+  public mut races: array<integer> = []
+  public mut classes: array<integer> = []
   // The quests turned in before it may be taken: every one of `after`, one of `afterAny`. None of `exclusive` may be
   // taken or turned in.
-  after: array<integer> = []
-  afterAny: array<integer> = []
-  exclusive: array<integer> = []
+  public mut after: array<integer> = []
+  public mut afterAny: array<integer> = []
+  public mut exclusive: array<integer> = []
   // The standing with a faction it asks at least, and the one it must be under (the client's standing values: 3000
   // friendly); the skill in a profession it asks (a skill line, a rank). None where it asks none.
-  minStanding: Needed | nil = nil
-  maxStanding: Needed | nil = nil
-  skill: Needed | nil = nil
+  public mut minStanding: Needed | nil = nil
+  public mut maxStanding: Needed | nil = nil
+  public mut skill: Needed | nil = nil
   // What it asks, in the quest's own words (its lines, one paragraph); "" where QuestieDB says nothing.
-  task: string
+  public mut task: string
   // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.
-  zone: integer
+  public mut zone: integer
   // Who gives it, who takes it back, and where its objectives are (the creatures and objects it names, and those
   // that drop the items it asks for).
-  givers: array<Figure>
-  takers: array<Figure>
-  targets: array<Figure>
+  public mut givers: array<Figure>
+  public mut takers: array<Figure>
+  public mut targets: array<Figure>
   // The items it asks for.
-  items: array<WantedItem>
+  public mut items: array<WantedItem>
   // Each of those items with every creature that drops it.
-  drops: array<ItemDrops> = []
+  public mut drops: array<ItemDrops> = []
   // The reputations it changes once turned in (the client's quest window doesn't say them).
-  reputation: array<FactionGain>
+  public mut reputation: array<FactionGain>
   // The quest after it in its chain; 0 for none.
-  next: integer
+  public mut next: integer
   // That quest's name; "" for none, or one QuestieDB doesn't name.
-  nextName: string
+  public mut nextName: string
 }
 
 // The quest's facts; nil for a quest QuestieDB doesn't know (Forever's newest). Asked only where its contract is the
@@ -102,8 +102,8 @@ public function npc(id: integer): Figure | nil
 
 // The quests an NPC gives and those it takes back, by their numbers.
 public struct NpcQuests {
-  starts: array<integer>
-  ends: array<integer>
+  public mut starts: array<integer>
+  public mut ends: array<integer>
 }
 
 // An NPC's quests; nil for one QuestieDB doesn't know. Asked as `quest` is.
@@ -111,8 +111,8 @@ public function npcQuests(id: integer): NpcQuests | nil
 
 // An NPC that sells an item, and the sides it is friendly to: "A", "H", "AH", "" for neither.
 public struct Seller {
-  npc: integer
-  sides: string
+  public mut npc: integer
+  public mut sides: string
 }
 
 // The NPCs that sell an item; none for an item QuestieDB doesn't know or no one sells. Asked as `quest` is.

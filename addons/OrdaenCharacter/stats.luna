@@ -13,17 +13,17 @@ import Style from "@/style"
 
 // A stat with a cap: its name, its value against the cap, the value as written and the fill's colour.
 public struct Gauge {
-  const label: string
-  const value: number
-  const cap: number
-  const text: string
-  const tone: color
+  public label: string
+  public value: number
+  public cap: number
+  public text: string
+  public tone: color
   // The stat its tooltip tells the sources of; none for one without.
-  const stat: Stat | nil = nil
+  public stat: Stat | nil = nil
   // Its caps, marked on it.
-  const caps: array<Cap> = []
+  public caps: array<Cap> = []
   // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the gauge's.
-  const tip: Hang | nil = nil
+  public tip: Hang | nil = nil
 }
 
 // A gauge whose caps are marked on it: it reaches a fifth past the greatest, so each mark stands inside it.
@@ -36,52 +36,52 @@ const CAPPED_ROOM = 1.2
 
 // A stat on a line of its own: its name, its value and a unit after it.
 public struct Row {
-  const label: string
-  const value: string
-  const unit: string = ""
-  const stat: Stat | nil = nil
+  public label: string
+  public value: string
+  public unit: string = ""
+  public stat: Stat | nil = nil
 }
 
 // One of a section's main numbers: its glyph in the socket in its colour, its name over its value; `lit` the
 // section's lead, its glyph bright.
 public struct Figure {
-  const label: string
-  const value: string
-  const glyph: Piece
-  const color: color
-  const lit: boolean = false
-  const stat: Stat | nil = nil
+  public label: string
+  public value: string
+  public glyph: Piece
+  public color: color
+  public lit: boolean = false
+  public stat: Stat | nil = nil
   // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the card's.
-  const tip: Hang | nil = nil
+  public tip: Hang | nil = nil
 }
 
 // A section of the right column: its title on the cut over it, its leading gauges (the skills it rests on: the
 // weapons', the defense), its cards (a row each, a row's cards sharing its width, a lone card half of it), its gauges
 // and its lines.
 public struct Section {
-  const title: string
-  const lead: array<Gauge> = []
-  const cards: array<array<Figure>>
-  const gauges: array<Gauge>
-  const rows: array<Row>
+  public title: string
+  public lead: array<Gauge> = []
+  public cards: array<array<Figure>>
+  public gauges: array<Gauge>
+  public rows: array<Row>
 }
 
 // A resistance on the resistances' bar: its value, its school's colour and its stat.
 public struct Resist {
-  const value: integer
-  const color: color
-  const stat: Stat
+  public value: integer
+  public color: color
+  public stat: Stat
 }
 
 // One of the five main stats: its value, its name in three letters, and what the game's sheet says of it; `valued`
 // where the player's spec weighs it among its most (`mainsOf`).
 public struct Main {
-  const value: integer
-  const short: string
-  const label: string
-  const tip: string
-  const stat: Stat
-  const valued: boolean = false
+  public value: integer
+  public short: string
+  public label: string
+  public tip: string
+  public stat: Stat
+  public valued: boolean = false
 }
 
 // The gauges' full: crit, defense (a level 63 boss can't crit), dodge, parry and block, haste; the armor and a
@@ -127,8 +127,8 @@ const ARCANE = 7
 
 // A class's damage schools and the school it heals with (none: 0), by its tag.
 struct Casting {
-  const schools: array<integer>
-  const heals: integer
+  schools: array<integer>
+  heals: integer
 }
 const CASTING: map<string, Casting> = {
   MAGE: { schools: [FIRE, FROST, ARCANE], heals: 0 },
@@ -276,8 +276,8 @@ public function resistsOf(stats: Stats): array<Resist> {
 
 // A weapon a section holds: its skill line (none where nothing is held) and the stat its skill's tooltip tells.
 struct Held {
-  const skill: integer | nil
-  const stat: Stat
+  skill: integer | nil
+  stat: Stat
 }
 
 // The skill gauges of the weapons a section holds, the main hand's and the other's where each holds one: one a skill

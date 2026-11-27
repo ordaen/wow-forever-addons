@@ -24,21 +24,21 @@ import { BRIGHT_TEXT, WINDOW_ROOM } from "@/units"
 // heading click sorts by it, the groups it is in, outermost first: neighbouring columns of one group share a heading
 // over theirs.
 public struct Column {
-  title: string
-  width: Track
-  align: Align | nil
-  sortable: boolean | nil
-  group: array<string> | nil
+  public mut title: string
+  public mut width: Track
+  public mut align: Align | nil
+  public mut sortable: boolean | nil
+  public mut group: array<string> | nil
 }
 
 // A heading: a column's (nothing `under` it), or a group's, its title over the headings `under` it. `index` (from 1) is
 // its first column, `count` how many it stands over, `column` its first.
 struct Head {
-  title: string
-  column: Column
-  index: integer
-  count: integer
-  under: array<Head>
+  mut title: string
+  mut column: Column
+  mut index: integer
+  mut count: integer
+  mut under: array<Head>
 }
 
 // The headings over columns `from` to `to`, `depth` groups in: a column in no further group its own, a run of

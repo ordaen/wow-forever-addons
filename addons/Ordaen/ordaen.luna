@@ -29,16 +29,16 @@ const QUEST_COLORS = "showQuestDifficultyColor"
 
 // Where the player put a part, as it is kept: a point of it, the screen's point it stands by, and how far from it.
 public struct KeptPlace implements Plain {
-  point: Point = Point::Center
-  to: Point | nil
-  x: number<Length> | nil
-  y: number<Length> | nil
+  public mut point: Point = Point::Center
+  public mut to: Point | nil
+  public mut x: number<Length> | nil
+  public mut y: number<Length> | nil
 }
 
 // Where the player put each part, by the part's name: Ordaen's section `Ordaen:places` of the active profile, so going
 // back, a savepoint and a profile hold where the parts stand.
 public struct Places implements Plain {
-  parts: mut map<string, KeptPlace> = {}
+  public mut parts: mut map<string, KeptPlace> = {}
 }
 
 // The most room any module's part keeps along one edge.

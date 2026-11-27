@@ -10,9 +10,9 @@ import { Ground } from "@/scrolledList"
 import { Column, Table, TableCell, TableRow } from "@/table"
 
 public struct Sale {
-  name: string
-  price: integer
-  seen: number
+  public mut name: string
+  public mut price: integer
+  public mut seen: number
 }
 
 const COLUMNS: array<Column> = [

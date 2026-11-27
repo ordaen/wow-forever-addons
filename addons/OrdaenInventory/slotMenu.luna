@@ -15,10 +15,10 @@ public enum MenuAct { Heading, MarkJunk, MarkKeep, Unmark, Link, Socket, Sell, P
 
 // The menu open on a slot: its lines and what each does, by place.
 public struct SlotMenu {
-  const slot: Slot
-  const title: string
-  const entries: array<MenuEntry>
-  const acts: array<MenuAct>
+  public slot: Slot
+  public title: string
+  public entries: array<MenuEntry>
+  public acts: array<MenuAct>
 }
 
 // The client's classes of what is worn (`Enum.ItemClass`): what may have sockets.

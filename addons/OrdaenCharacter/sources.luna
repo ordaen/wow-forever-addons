@@ -13,9 +13,9 @@ import Style from "@/style"
 
 // A stat's name, whether it is a percentage, and its value as the sheet has it.
 struct Spec {
-  const name: string
-  const percent: boolean
-  const of: (stats: Stats) => number
+  name: string
+  percent: boolean
+  of: (stats: Stats) => number
 }
 
 function specOf(stat: Stat): Spec {
@@ -84,11 +84,11 @@ public function statValue(stat: Stat, stats: Stats): number { return specOf(stat
 // twenty give a point of health each, the rest ten); its points counted from `from` (the defense's from the level's,
 // fewer than none below it).
 struct Feed {
-  const from: Stat
-  const to: Stat
-  const per: number
-  const past: integer = 0
-  const start: number = 0
+  from: Stat
+  to: Stat
+  per: number
+  past: integer = 0
+  start: number = 0
 }
 
 // What a feed gives of its stat at so many points (counted from its start).
@@ -105,8 +105,8 @@ const SHIELD_CLASSES: array<string> = ["WARRIOR", "PALADIN", "SHAMAN"]
 
 // The schools of an aura's resistance, by the bit of its mask (1 physical: armor; 2 holy has none of its own).
 struct School {
-  const bit: integer
-  const stat: Stat
+  bit: integer
+  stat: Stat
 }
 const SCHOOLS: array<School> = [
   { bit: 1, stat: .Armor }, { bit: 4, stat: .FireResistance }, { bit: 8, stat: .NatureResistance },
@@ -154,26 +154,26 @@ function multiplies(change: Change): boolean {
 
 // What the window knows of the character, all a stat's sources are read from.
 public struct Facts {
-  const stats: Stats
-  const worn: array<Worn>
-  const auras: array<Active>
-  const classTag: string
+  public stats: Stats
+  public worn: array<Worn>
+  public auras: array<Active>
+  public classTag: string
 }
 
 // One source: its row in the tooltip, and how much it adds in the stat's unit, which orders its section.
 struct Part {
-  const row: TipRow
-  const amount: number
+  row: TipRow
+  amount: number
 }
 
 // A stat's tooltip and what lights while it is open: the text under its title, its lines before any section, its
 // sections, the stats that feed it, and each item's share by its slot.
 public struct Breakdown {
-  const text: string
-  const rows: array<TipRow> = []
-  const sections: array<TipSection>
-  const fed: array<Stat>
-  const shares: map<integer, string>
+  public text: string
+  public rows: array<TipRow> = []
+  public sections: array<TipSection>
+  public fed: array<Stat>
+  public shares: map<integer, string>
 }
 
 public const NO_BREAKDOWN: Breakdown = { text: "", sections: [], fed: [], shares: {} }
@@ -284,11 +284,11 @@ public function wordsOf(stat: Stat, stats: Stats): string {
 // A stat's sources other than its base: the stats that feed it, the items and sets that give it, the auras that change
 // it; the stats that feed it and each item's share by its slot.
 struct Parts {
-  const fromStats: array<Part>
-  const fromItems: array<Part>
-  const fromEffects: array<Part>
-  const fed: array<Stat>
-  const shares: map<integer, string>
+  fromStats: array<Part>
+  fromItems: array<Part>
+  fromEffects: array<Part>
+  fed: array<Stat>
+  shares: map<integer, string>
 }
 
 function sum(parts: array<Part>): number {
@@ -352,8 +352,8 @@ const RANGED_SLOT = 18
 // The hit that misses nothing (the game's `CR_<CLASS>_HIT_CAP_TOOLTIP`), in percent: against a raid's boss and a target
 // of the player's level, for melee and ranged attacks, spells, and a weapon in each hand's own swings.
 struct HitCaps {
-  const boss: number
-  const level: number
+  boss: number
+  level: number
 }
 const WEAPON_HIT_CAPS: HitCaps = { boss: 8, level: 5 }
 const SPELL_HIT_CAPS: HitCaps = { boss: 17, level: 4 }
@@ -399,9 +399,9 @@ function hitChancesOf(stat: Stat, stats: Stats): array<TipSection> {
 
 // A cap a gauge marks: where it stands in the stat's own unit, and its tooltip's title and text.
 public struct Cap {
-  const at: number
-  const title: string
-  const text: string
+  public at: number
+  public title: string
+  public text: string
 }
 
 // A hit gauge's caps: each target's hit that misses nothing.
@@ -420,16 +420,16 @@ public function hitCaps(stat: Stat, stats: Stats): array<Cap> {
 // what is past the dodge takes off the parry (`GetEnemyParryChance`). A blow from the front may be blocked too, with or
 // without a shield: the client says no target's block, so it is the players' own measure, at most 5% at any level.
 struct Avoidance {
-  const dodge: number
-  const parry: number
-  const block: number
+  dodge: number
+  parry: number
+  block: number
 }
 const MOST_BLOCK = 5
 const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5, block: 5 }
 // A target by its name in a tooltip, and what it dodges and parries.
 struct Target {
-  const name: string
-  const of: Avoidance
+  name: string
+  of: Avoidance
 }
 const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5, block: 5 }
 
@@ -485,10 +485,10 @@ const SKILL_STEP = 0.04
 // a dodge (not a spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone); a
 // block (a blow's or a shot's from the front, which lands for less).
 struct Odds {
-  const miss: number
-  const dodge: number
-  const parry: number
-  const block: number
+  miss: number
+  dodge: number
+  parry: number
+  block: number
 }
 
 // The weapon skill a strike's weapon has past the level's; none for a spell.
@@ -542,10 +542,10 @@ function critAt(strike: Strike, stats: Stats, boss: boolean): number {
 // A part of what a strike comes to: its name, its share in percent, the colour the bar gives it, and for a part that
 // fails, all of it the target starts with (its value reads green to red by what is left of that).
 struct Outcome {
-  const label: string
-  const share: number
-  const color: color
-  const whole: number | nil = nil
+  label: string
+  share: number
+  color: color
+  whole: number | nil = nil
 }
 
 // What a strike comes to against a target, from the front, part by part in the order the game's roll takes them. A

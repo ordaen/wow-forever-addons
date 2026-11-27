@@ -44,35 +44,35 @@ const BY_THE_RIGHT: Hang = { point: Point::TopLeft, to: Point::TopRight }
 // What the game's tooltip is about, since when, and whether a tooltip of its kind locks; how long it waits before it
 // shows (its kind's delay), and whether it waited that long (`ripe`).
 struct Target {
-  kind: integer | nil
-  about: string | nil
-  since: number
-  locks: boolean
-  delay: number = 0
-  ripe: boolean = false
+  mut kind: integer | nil
+  mut about: string | nil
+  mut since: number
+  mut locks: boolean
+  mut delay: number = 0
+  mut ripe: boolean = false
 }
 
 // What is drawn for the tooltip the game shows now.
 struct Shown {
-  model: Model
+  mut model: Model
   // The tooltips beside it from the start, and the worn items it is compared with.
-  sides: array<Model>
-  compared: array<Model>
+  mut sides: array<Model>
+  mut compared: array<Model>
   // What other modules' sections are asked about: the item by its number and its link (0 and "" for anything
   // else), the world object by its name ("" for anything else).
-  item: integer
-  link: string
-  object: string
+  mut item: integer
+  mut link: string
+  mut object: string
   // It locks as the cursor stays: the main tooltip keeps the room of the lock's bar (a button's text never does).
-  locks: boolean
+  mut locks: boolean
   // Where its kind stands, the general place put in for the kind's «Default».
-  place: Place
+  mut place: Place
 }
 
 // A locked tooltip: what was shown when it locked, and where.
 struct Held {
-  shown: Shown
-  standing: Standing
+  mut shown: Shown
+  mut standing: Standing
 }
 
 // What the group shows while there is nothing to show: it isn't drawn then.

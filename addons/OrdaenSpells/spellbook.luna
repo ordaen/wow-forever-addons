@@ -25,12 +25,12 @@ public enum Grouping implements Plain { Type = "type", Spec = "spec" }
 // How the player left the spellbook's list: its sort, the spells it shows, its view and its grouping; the table's sort is its
 // headings' (the column, from 1, and whether turned round).
 public struct BookView implements Plain {
-  sort: SortBy = SortBy::Name
-  kinds: Kinds = Kinds::All
-  layout: BookLayout = BookLayout::Columns
-  heading: integer = 1
-  descending: boolean = false
-  grouping: Grouping = Grouping::Type
+  public mut sort: SortBy = SortBy::Name
+  public mut kinds: Kinds = Kinds::All
+  public mut layout: BookLayout = BookLayout::Columns
+  public mut heading: integer = 1
+  public mut descending: boolean = false
+  public mut grouping: Grouping = Grouping::Type
 }
 const BOOK_VIEW: BookView = {}
 
@@ -283,8 +283,8 @@ public class SpellTableRow implements Component {
 
 // The spells under one heading in the columns.
 struct SpellGroup {
-  title: string
-  spells: array<Game::SpellEntry>
+  mut title: string
+  mut spells: array<Game::SpellEntry>
 }
 
 // The columns' sort: by name where the one kept orders nothing there (the kind is the groups' by type; the skill line

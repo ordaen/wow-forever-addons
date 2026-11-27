@@ -6,15 +6,15 @@ import { Look, Preset, preset } from "@/look"
 
 // A colour that lost its fields.
 struct Partial implements Plain {
-  r: number
+  mut r: number
 }
 
 // What saved data may hold where the look was kept: the accent without its green, blue and alpha, the red a string,
 // the text's colour whole.
 struct Damaged implements Plain {
-  accent: Partial
-  red: string
-  redText: color
+  mut accent: Partial
+  mut red: string
+  mut redText: color
 }
 
 function color(c: color): string {

@@ -12,8 +12,8 @@ import Style from "@/style"
 
 // The command a key is being pressed for, and its slot (1 or 2).
 struct Capture {
-  action: string
-  slot: integer
+  mut action: string
+  mut slot: integer
 }
 
 // Which commands the table shows.
@@ -21,12 +21,12 @@ public enum KeyFilter implements Plain { All = "all", Bound = "bound", Unbound =
 
 // One line of the table: a section's caption, or a command.
 public struct KeyLine {
-  caption: boolean
+  public mut caption: boolean
   // The section's text, or the command's action.
-  name: string
+  public mut name: string
   // A caption's: how many commands it holds, and whether it is folded.
-  count: integer
-  folded: boolean
+  public mut count: integer
+  public mut folded: boolean
 }
 
 const FILTERS: array<Choice<KeyFilter>> = [
@@ -258,8 +258,8 @@ public class KeysPage implements Component {
 enum RowAct { Change, Add, Unbind, Same }
 
 struct RowEntry {
-  act: RowAct
-  key: string
+  mut act: RowAct
+  mut key: string
 }
 
 class KeyRow implements Component {

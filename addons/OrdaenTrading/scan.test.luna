@@ -27,9 +27,9 @@ const SETTINGS = "Move mode"
 
 // An auction as the scan reads it: its key, its buyout for one, how many.
 struct Sale {
-  key: integer
-  unit: integer
-  many: integer
+  mut key: integer
+  mut unit: integer
+  mut many: integer
 }
 
 function names(id: integer): Game::TooltipData | nil {

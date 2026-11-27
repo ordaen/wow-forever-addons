@@ -77,27 +77,27 @@ const BLOCK = 1000
 // 2 holy ... 64 arcane), the power or the ratings it changes, by the kind; and how much, its stacks counted in (a
 // percentage for a kind that is one).
 public struct Change {
-  const kind: Kind
-  const misc: integer
-  const amount: number
+  public kind: Kind
+  public misc: integer
+  public amount: number
 }
 
 // An aura on the character and what it changes; none for an aura that changes no stat the table knows.
 public struct Active {
-  const spell: integer
-  const harmful: boolean
-  const stacks: integer
-  const changes: array<Change>
+  public spell: integer
+  public harmful: boolean
+  public stacks: integer
+  public changes: array<Change>
 }
 
 // An effect of the table: its place among its spell's effects (from 0), its kind, its misc value, its points and
 // what they grow by a level.
 struct Effect {
-  const index: integer
-  const kind: Kind
-  const misc: integer
-  const points: number
-  const growth: number
+  index: integer
+  kind: Kind
+  misc: integer
+  points: number
+  growth: number
 }
 
 function effectsOf(spell: integer): array<Effect> {

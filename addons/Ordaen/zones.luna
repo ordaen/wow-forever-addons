@@ -22,9 +22,9 @@ const POOL_EDGE: Line = { width: 1.171875dp, color: #4a3a24 }
 
 // One of the items placed: what tells it from the others, its name on its chip, and what the cursor on it says.
 public struct ZoneItem<K: unknown> {
-  key: K
-  label: string
-  hint: string | nil
+  public mut key: K
+  public mut label: string
+  public mut hint: string | nil
 }
 
 // An item's chip: dragged from where it is, it is the one a zone takes when it is let go there.

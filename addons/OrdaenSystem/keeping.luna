@@ -14,18 +14,18 @@ import { readSetting, writeSetting } from "@/settings"
 
 public struct GameValues implements Plain {
   // Whether the profile holds the game's yet.
-  taken: boolean = false
+  public mut taken: boolean = false
   // Each setting set through the window, by its variable, as its text (`settingText`).
-  settings: mut map<string, string> = {}
+  public mut settings: mut map<string, string> = {}
   // The keys of every command bound, by the command.
-  keys: mut map<string, array<string>> = {}
+  public mut keys: mut map<string, array<string>> = {}
 }
 
 // What applying a profile would change: a setting's or a command's, from what the game has to what the profile holds.
 public struct GameChange {
-  label: string
-  from: string
-  to: string
+  public mut label: string
+  public mut from: string
+  public mut to: string
 }
 
 // A setting's value as a profile keeps it, its type first (`b:1`, `n:0.5`, `s:text`), and back.

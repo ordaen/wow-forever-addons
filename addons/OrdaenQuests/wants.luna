@@ -75,13 +75,13 @@ public function wantsOf(quests: array<LogQuest>, facts: map<integer, QuestFacts>
 
 // What the player is, for a quest's needs.
 public struct Seeker {
-  level: integer
-  race: integer
-  classNumber: integer
+  public mut level: integer
+  public mut race: integer
+  public mut classNumber: integer
   // The player's standing with a faction, the client's value (0 for a faction not met yet), and rank in a profession
   // by its skill line (none for one not learned).
-  standing: (faction: integer) => integer
-  skill: (line: integer) => integer | nil
+  public mut standing: (faction: integer) => integer
+  public mut skill: (line: integer) => integer | nil
 }
 
 // The player's standing with a faction: the client's value of it; 0 for one the player hasn't met.

@@ -37,10 +37,10 @@ const COD_TAB = 2
 // One letter's slots of the form: its heading where there are several, its stacks, and whether the empty slot to fill
 // stands after them (the last letter's, while it has room).
 public struct LetterSlots {
-  number: integer
-  title: string
-  stacks: array<Game::MailStack>
-  open: boolean
+  public mut number: integer
+  public mut title: string
+  public mut stacks: array<Game::MailStack>
+  public mut open: boolean
 }
 
 // Who a recipient is to the player, as the popover names it: a community's member by the community's name.

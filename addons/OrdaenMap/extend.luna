@@ -9,13 +9,13 @@ import Client from "$client"
 // A pin: where it stands (an `AreaTable` area, QuestieDB's and the client's zones alike, and where in it, 0 to 1
 // across and down), what it shows, and what it is a pin of (the layer's own number: a quest's id).
 public struct Pin {
-  const of: integer
-  const area: integer
-  const x: number
-  const y: number
-  const icon: Asset
+  public of: integer
+  public area: integer
+  public x: number
+  public y: number
+  public icon: Asset
   // Drawn larger, over the others: the pin of what the player points at elsewhere (a quest under the cursor in the log).
-  const lit: boolean = false
+  public lit: boolean = false
 }
 
 // A set of pins on the world map. Its pins are asked while the map shows, and again when what they read changes
@@ -36,9 +36,9 @@ public trait Layer {
 // The map's side panel while it shows, docked (Blizzard's quest log, `WorldMapFrame.QuestLog`): the frame and its size
 // in UI units. Quests draws its log over exactly that rectangle, a level above it, taking its clicks.
 public struct SidePanel {
-  const frame: any Client::Frame
-  const width: number
-  const height: number
+  public frame: any Client::Frame
+  public width: number
+  public height: number
 }
 
 // What a module says on a dungeon's card on OpenMap's map (Quests: the log's quests of that dungeon): an entry of Map's

@@ -44,25 +44,25 @@ const EVERY_OWNED: map<Owned, boolean> = { [Owned::Collected]: true, [Owned::Mis
 // One entry of a list.
 public struct Entry {
   // What tells it from the others of its list.
-  key: string
-  name: string
-  icon: FileId | nil
-  owned: boolean
+  public mut key: string
+  public mut name: string
+  public mut icon: FileId | nil
+  public mut owned: boolean
   // The player may use it now (a mount where it may be ridden, a toy of the player's class).
-  usable: boolean
+  public mut usable: boolean
   // A mount's number; a pet's species; a toy's item.
-  id: integer
+  public mut id: integer
   // An owned pet's own ID, what summons it.
-  pet: string | nil
+  public mut pet: string | nil
   // The spell a mount is ridden with: its tooltip.
-  spell: integer | nil
+  public mut spell: integer | nil
 }
 
 // The picked entry's card: its figure (a creature's look by its display ID) and its words, read as it is picked.
 public struct Card {
-  model: integer | nil
-  description: string
-  source: string
+  public mut model: integer | nil
+  public mut description: string
+  public mut source: string
 }
 
 const NO_CARD: Card = { model: nil, description: "", source: "" }

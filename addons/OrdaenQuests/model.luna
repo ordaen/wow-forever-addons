@@ -6,10 +6,10 @@ import { QuestKind } from "@/kind"
 
 // One header of a tab and its quests.
 public struct Group {
-  header: string
+  public mut header: string
   // The player is in that zone: it stands first, marked.
-  here: boolean
-  quests: array<LogQuest>
+  public mut here: boolean
+  public mut quests: array<LogQuest>
 }
 
 // The quests of a kind under their headers, in the client's order, the player's zone first.
@@ -77,21 +77,21 @@ public enum QuestView implements Plain { Zones = "zones", List = "list" }
 // How the player left the list's toolbar, the profile's: the status switch, the filter, the order and the view. The
 // search isn't kept.
 public struct ListChoices implements Plain {
-  status: QuestStatus = QuestStatus::All
-  filter: map<QuestFilter, boolean> = FILTER_START
-  sort: QuestSort = QuestSort::Log
-  view: QuestView = QuestView::Zones
+  public mut status: QuestStatus = QuestStatus::All
+  public mut filter: map<QuestFilter, boolean> = FILTER_START
+  public mut sort: QuestSort = QuestSort::Log
+  public mut view: QuestView = QuestView::Zones
 }
 
 // The headers the player folded, by their text, the character's (whose log they are): only those its log has, so
 // it holds no more than the log's headers.
 public struct Folds implements Plain {
-  headers: map<string, boolean> = {}
+  public mut headers: map<string, boolean> = {}
 }
 
 // The quest whose page the log showed last, the character's: the log opens on it again after a /reload (0: the list).
 public struct Opened implements Plain {
-  quest: integer = 0
+  public mut quest: integer = 0
 }
 
 // The folds after the player folds or opens `header`: the log's other headers as they were.
@@ -108,10 +108,10 @@ public function foldedOnce(folds: Folds, header: string, quests: array<LogQuest>
 // What the window asks of the log: the search (lower case), the status switch, the filter's options on, and the
 // player's level the difficulties are of.
 public struct Asked {
-  sought: string
-  status: QuestStatus
-  filter: map<QuestFilter, boolean>
-  player: integer
+  public mut sought: string
+  public mut status: QuestStatus
+  public mut filter: map<QuestFilter, boolean>
+  public mut player: integer
 }
 
 // Whether a quest's title or one of its objectives holds what is sought.

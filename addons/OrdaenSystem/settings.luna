@@ -40,9 +40,9 @@ public function writeSetting(variable: string, value: boolean | number | string)
 // A setting written through the window: its variable and its value, and whether that is its default (a page's
 // defaults), which the profile no longer holds.
 public struct SettingWritten {
-  variable: string
-  value: boolean | number | string
-  byDefault: boolean
+  public mut variable: string
+  public mut value: boolean | number | string
+  public mut byDefault: boolean
 }
 
 // What a line of a page is, by the template Blizzard draws it with.
@@ -62,37 +62,37 @@ public enum LineKind {
 
 // A line of a page.
 public struct SettingLine {
-  kind: LineKind
-  name: string
-  tooltip: string
+  public mut kind: LineKind
+  public mut name: string
+  public mut tooltip: string
   // The setting's variable (`""` for a header or Blizzard's own line).
-  variable: string
+  public mut variable: string
   // How the window writes it.
-  writing: Writing
+  public mut writing: Writing
   // The checkbox the line stands under, by its variable (`""`: none): a slider's or a dropdown's of a line of two
   // controls, hidden while the checkbox is off.
-  under: string
+  public mut under: string
   // A slider's range, and how Blizzard's window writes its value beside it (none: as a number).
-  least: number
-  most: number
-  step: number
-  format: ((value: number) => string) | nil
+  public mut least: number
+  public mut most: number
+  public mut step: number
+  public mut format: ((value: number) => string) | nil
 }
 
 // A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether Blizzard draws it as a
 // frame of its own (a canvas), which only Blizzard's window shows.
 public struct SettingsPage {
-  id: integer
-  name: string
-  canvas: boolean
+  public mut id: integer
+  public mut name: string
+  public mut canvas: boolean
   // A page under another: drawn under it, indented.
-  child: boolean
+  public mut child: boolean
 }
 
 // A group of the list (Game, Accessibility, System) and its pages, in order.
 public struct PageGroup {
-  name: string
-  pages: array<SettingsPage>
+  public mut name: string
+  public mut pages: array<SettingsPage>
 }
 
 // A line's kind by its template's name.

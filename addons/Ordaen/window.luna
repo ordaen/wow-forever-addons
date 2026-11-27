@@ -25,33 +25,33 @@ import { SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 // One of a window's tabs: its name, a second line under it, a picture at its left end: art, or a unit's face as the
 // game names the unit (`npc`), which follows the unit.
 public struct WindowTabSpec {
-  title: string
-  desc: string | nil
-  icon: Art | nil
-  portrait: string | nil
+  public mut title: string
+  public mut desc: string | nil
+  public mut icon: Art | nil
+  public mut portrait: string | nil
   // Why the tab can't be opened yet (a second spec not had: the client's words); a locked tab is dimmed, takes no
   // click, and says this in its Tip.
-  locked: string | nil = nil
+  public mut locked: string | nil = nil
   // The body's height while the tab is open, whatever the player sized the window to (a page laid out for one
   // height: a paper doll); the grip then changes only its width, and the player's height comes back on the other
   // tabs. None: the player's height.
-  height: number<Length> | nil = nil
+  public mut height: number<Length> | nil = nil
   // The window keeps the size it has while the tab is open: its grip isn't drawn (a page whose art is laid out for
   // one size: the talents' trees).
-  fixed: boolean = false
+  public mut fixed: boolean = false
   // The room between the frame's line and the tab's page, over the window's own (`padding`): none (zero edges) for a
   // page cut into sections by lines in the wood that run to the frame, each section keeping its own room. None said:
   // the window's.
-  padding: Edges | nil = nil
+  public mut padding: Edges | nil = nil
 }
 
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
 // keeps it in its memory.
 public struct Placing implements Plain {
-  x: number<Length>
-  y: number<Length>
-  width: number<Length>
-  height: number<Length>
+  public mut x: number<Length>
+  public mut y: number<Length>
+  public mut width: number<Length>
+  public mut height: number<Length>
 }
 
 // What the player is in the middle of that hides a window, and after which it shows again: a fight; travel (riding a
@@ -65,17 +65,17 @@ public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Mo
 // hides it (`hideDuring`) and, of that, after which it shows again (`showAfter`; a window hidden by anything else is
 // closed). The defaults are the window's declaration's (`KeptWindow`): hidden in a fight, never shown again by itself.
 public struct WindowView implements Plain {
-  x: number<Length> = 0ui
-  y: number<Length> = 0ui
-  width: number<Length> = 0ui
-  height: number<Length> = 0ui
-  full: boolean = false
-  tab: integer = 1
-  side: number<Length> = 0ui
-  remember: boolean = true
-  openOn: integer = 0
-  hideDuring: array<Occasion> = [Occasion::Combat]
-  showAfter: array<Occasion> = []
+  public mut x: number<Length> = 0ui
+  public mut y: number<Length> = 0ui
+  public mut width: number<Length> = 0ui
+  public mut height: number<Length> = 0ui
+  public mut full: boolean = false
+  public mut tab: integer = 1
+  public mut side: number<Length> = 0ui
+  public mut remember: boolean = true
+  public mut openOn: integer = 0
+  public mut hideDuring: array<Occasion> = [Occasion::Combat]
+  public mut showAfter: array<Occasion> = []
 }
 
 // One of a module's windows, declared once in its root: its name (what it is kept under), its title on the
@@ -217,9 +217,9 @@ const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 public struct WindowSide {
   // How wide its content is, at least: the section adds its room on both sides and the frame's line, and grows
   // where its content's least width is more.
-  width: number<Length>
-  content: Template
-  bottom: SideBottom = SideBottom::Line
+  public mut width: number<Length>
+  public mut content: Template
+  public mut bottom: SideBottom = SideBottom::Line
 }
 
 // Where a side section ends: at the body's bottom line; over a footer of its own, flush with its edges as the main

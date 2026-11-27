@@ -161,8 +161,8 @@ class ShoppingRow implements Component {
 
 // How the player left the shopping list: the column it is sorted by (0: as it comes) and which way.
 public struct ShoppingView implements Plain {
-  sorted: integer = 0
-  descending: boolean = false
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 const SHOPPING_VIEW: ShoppingView = {}
 

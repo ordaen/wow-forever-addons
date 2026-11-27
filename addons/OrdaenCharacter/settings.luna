@@ -38,20 +38,20 @@ public function slotSizeOf(size: SlotSize): number<Length> {
 // What the player chooses.
 public struct Choices implements Plain {
   // A thin bar under each slot shows its item's durability.
-  durability: boolean
-  slotSize: SlotSize = SlotSize::Sharpest
+  public mut durability: boolean
+  public mut slotSize: SlotSize = SlotSize::Sharpest
   // The names of the spec tabs; empty for ours.
-  specOne: string = ""
-  specTwo: string = ""
+  public mut specOne: string = ""
+  public mut specTwo: string = ""
   // The build gear is weighed for (Ordaen's worth) before a character's first talent point, by its class and the
   // build's key (a spec of the class or one of Forever's builds within one, a Shockadin); a class not here: its default.
-  classBuilds: mut map<string, string> = {}
+  public mut classBuilds: mut map<string, string> = {}
 }
 
 // The builds a character picked for its talent groups (Ordaen's worth), by their keys; empty: by its talents.
 public struct Picks implements Plain {
-  primary: string = ""
-  secondary: string = ""
+  public mut primary: string = ""
+  public mut secondary: string = ""
 }
 
 // A build's name as the player reads it: a spec's the client's own, Forever's builds ours.

@@ -13,9 +13,9 @@ import { BRIGHT_TEXT, Component, Corners, RoundedFill, Tip } from "Ordaen"
 // A mark on a gauge: where it stands, as a share of the gauge (a cap: the hit that misses nothing, the expertise that
 // takes a target's dodge off), and its tooltip's title and text.
 public struct GaugeMark {
-  const share: number
-  const title: string
-  const text: string
+  public share: number
+  public title: string
+  public text: string
 }
 const NO_MARKS: array<GaugeMark> = []
 // A mark's line, and the room round it that takes the cursor.

@@ -49,10 +49,10 @@ const COUNT_ROOM: number<Length> = 28dp
 // A line as a bubble: whether it opens a session (a rule naming it above), starts its group (room above it) and ends
 // it (its time under it).
 public struct Bubbled {
-  line: TalkLine
-  opens: boolean
-  starts: boolean
-  ends: boolean
+  public mut line: TalkLine
+  public mut opens: boolean
+  public mut starts: boolean
+  public mut ends: boolean
 }
 
 // A level after a name (`25lvl`); none where it isn't known.
@@ -208,8 +208,8 @@ const TALK_ENTRIES: array<MenuEntry> = TALK_ACTIONS.map(action => MenuEntry {
 
 // A conversation's menu picked: which, and what of it.
 public struct TalkPick {
-  talk: Talk
-  action: TalkAction
+  public mut talk: Talk
+  public mut action: TalkAction
 }
 
 public class Whispers implements Component {

@@ -5,16 +5,16 @@ import Locale from "@/locales"
 
 // A template ready to take: its title and its body.
 public struct MacroTemplate {
-  const title: string
-  const body: string
+  public title: string
+  public body: string
 }
 
 // A class's spells the templates name, by their first rank's number (a rank's name is every rank's).
 struct ClassSpells {
-  const heal: integer | nil = nil
-  const attack: integer | nil = nil
-  const interrupt: integer | nil = nil
-  const control: integer | nil = nil
+  heal: integer | nil = nil
+  attack: integer | nil = nil
+  interrupt: integer | nil = nil
+  control: integer | nil = nil
 }
 
 const SPELLS: map<string, ClassSpells> = {

@@ -9,10 +9,10 @@ const RED: color = #ff4040
 
 public struct Choices implements Plain {
   // The layers the player switched off, by their ids: one not named shows.
-  hidden: mut map<string, boolean>
+  public mut hidden: mut map<string, boolean>
   // Whether the quest log stands docked on the map; apart by default. The client's `questLogOpen` follows it, never
   // the other way: Blizzard's map opening its side panel by itself leaves the quest log key Quests'.
-  docked: boolean = false
+  public mut docked: boolean = false
 }
 
 // One layer's row: its title, its hint, and its switch, which the page flips through its owner.

@@ -15,15 +15,15 @@ public enum Visible implements Plain { Hide = "hide", Show = "show", Hover = "ho
 
 // One state's choice: hidden, shown or on hover, and how visible it is while it isn't shown.
 public struct StateVisibility implements Plain {
-  visible: Visible
-  opacity: number
+  public mut visible: Visible
+  public mut opacity: number
 }
 
 // The three states: out of combat and off transport, in combat, on transport (a flight path, a vehicle).
 public struct Visibility implements Plain {
-  general: StateVisibility
-  combat: StateVisibility
-  transport: StateVisibility
+  public mut general: StateVisibility
+  public mut combat: StateVisibility
+  public mut transport: StateVisibility
 }
 
 const SHOWN: StateVisibility = { visible: Visible::Show, opacity: 0 }

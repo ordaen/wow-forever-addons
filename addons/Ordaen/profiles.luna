@@ -14,10 +14,10 @@ public const DEFAULT_PROFILE: ProfileName = "Default"
 
 public struct Profile implements Plain {
   // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
-  sections: mut map<string, string> = {}
+  public mut sections: mut map<string, string> = {}
   // Each profile's `ModuleMemory`'s values, packed, by its key (`OrdaenTrading:window:main`): where the player left a
   // window or a list. Never in an export.
-  memory: mut map<string, string> = {}
+  public mut memory: mut map<string, string> = {}
 }
 
 // How long a memory kept in a profile may be, packed: a struct of a few numbers, flags and enum members is a tenth
@@ -25,13 +25,13 @@ public struct Profile implements Plain {
 public const MEMORY_BOUND = 512
 
 public struct ProfilePicks implements Plain {
-  account: ProfileName = DEFAULT_PROFILE
+  public mut account: ProfileName = DEFAULT_PROFILE
   // By the class's tag (`MAGE`).
-  byClass: mut map<string, ProfileName> = {}
+  public mut byClass: mut map<string, ProfileName> = {}
   // By the character's GUID.
-  byCharacter: mut map<string, ProfileName> = {}
+  public mut byCharacter: mut map<string, ProfileName> = {}
   // By the character's GUID, then the specialisation's index.
-  bySpec: mut map<string, mut map<integer, ProfileName>> = {}
+  public mut bySpec: mut map<string, mut map<integer, ProfileName>> = {}
 }
 
 implement ProfilePicks {
@@ -101,8 +101,8 @@ implement ProfilePicks {
 }
 
 public struct SavedProfiles implements Plain {
-  profiles: mut map<string, mut Profile> = {}
-  picks: mut ProfilePicks = ProfilePicks {}
+  public mut profiles: mut map<string, mut Profile> = {}
+  public mut picks: mut ProfilePicks = ProfilePicks {}
 }
 
 implement SavedProfiles {
@@ -188,9 +188,9 @@ public function named(text: string): ProfileName | nil {
 public class Profiles {
   // Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
   public struct Player {
-    character: string | nil
-    spec: integer | nil
-    classTag: string
+    public mut character: string | nil
+    public mut spec: integer | nil
+    public mut classTag: string
   }
 
   // Which rule named the profile a character uses, in the order they win.
@@ -198,8 +198,8 @@ public class Profiles {
 
   // The profile a character uses, and the rule that names it.
   public struct Pick {
-    name: ProfileName
-    why: Reason
+    public mut name: ProfileName
+    public mut why: Reason
   }
 
   public state kept: SavedProfiles

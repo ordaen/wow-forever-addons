@@ -5,55 +5,55 @@
 
 // A spec's weights, per point of each stat (per 1% of a rating): nought for one it doesn't weigh.
 public struct Weights {
-  agility: number = 0
-  allResist: number = 0
-  ap: number = 0
-  arcaneResist: number = 0
-  arcaneSpellDamage: number = 0
-  armor: number = 0
-  blockRating: number = 0
-  blockValue: number = 0
-  critRating: number = 0
-  defenseRating: number = 0
-  dodgeRating: number = 0
-  expertiseRating: number = 0
-  feralAp: number = 0
-  fireResist: number = 0
-  fireSpellDamage: number = 0
-  frostResist: number = 0
-  frostSpellDamage: number = 0
-  hasteRating: number = 0
-  healing: number = 0
-  health: number = 0
-  hitRating: number = 0
-  holySpellDamage: number = 0
-  hp5: number = 0
-  intellect: number = 0
-  mana: number = 0
-  meleeDps: number = 0
-  mp5: number = 0
-  natureResist: number = 0
-  natureSpellDamage: number = 0
-  parryRating: number = 0
-  rangedDps: number = 0
-  rap: number = 0
-  shadowResist: number = 0
-  shadowSpellDamage: number = 0
-  spellDamage: number = 0
-  spirit: number = 0
-  stamina: number = 0
-  strength: number = 0
+  public mut agility: number = 0
+  public mut allResist: number = 0
+  public mut ap: number = 0
+  public mut arcaneResist: number = 0
+  public mut arcaneSpellDamage: number = 0
+  public mut armor: number = 0
+  public mut blockRating: number = 0
+  public mut blockValue: number = 0
+  public mut critRating: number = 0
+  public mut defenseRating: number = 0
+  public mut dodgeRating: number = 0
+  public mut expertiseRating: number = 0
+  public mut feralAp: number = 0
+  public mut fireResist: number = 0
+  public mut fireSpellDamage: number = 0
+  public mut frostResist: number = 0
+  public mut frostSpellDamage: number = 0
+  public mut hasteRating: number = 0
+  public mut healing: number = 0
+  public mut health: number = 0
+  public mut hitRating: number = 0
+  public mut holySpellDamage: number = 0
+  public mut hp5: number = 0
+  public mut intellect: number = 0
+  public mut mana: number = 0
+  public mut meleeDps: number = 0
+  public mut mp5: number = 0
+  public mut natureResist: number = 0
+  public mut natureSpellDamage: number = 0
+  public mut parryRating: number = 0
+  public mut rangedDps: number = 0
+  public mut rap: number = 0
+  public mut shadowResist: number = 0
+  public mut shadowSpellDamage: number = 0
+  public mut spellDamage: number = 0
+  public mut spirit: number = 0
+  public mut stamina: number = 0
+  public mut strength: number = 0
 }
 
 // A spec of a class: the client's class (`WARRIOR`), the spec's place among the class's specialisations (none for a
 // build Forever plays within one, chosen in the settings: a Shockadin), its own key and English name, and its weights.
 public struct SpecWeights {
-  classTag: string
-  key: string
-  spec: integer | nil
-  label: string
-  leveling: Weights
-  max: Weights
+  public mut classTag: string
+  public mut key: string
+  public mut spec: integer | nil
+  public mut label: string
+  public mut leveling: Weights
+  public mut max: Weights
 }
 
 public const SPEC_WEIGHTS: array<SpecWeights> = [

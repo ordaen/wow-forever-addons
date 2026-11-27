@@ -143,8 +143,8 @@ const NPC: Asset = "Interface/GossipFrame/GossipGossipIcon"
 
 // An NPC and one of its spots.
 public struct FigureSpot {
-  figure: Figure
-  spot: Spot
+  public mut figure: Figure
+  public mut spot: Spot
 }
 
 // Of the figures' spots, the one nearest the player by `distance` (nil: not measurable, another continent); where

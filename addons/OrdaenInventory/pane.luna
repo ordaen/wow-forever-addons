@@ -29,24 +29,24 @@ import { Vault } from "@/vault"
 // grouping (by type where none is said); the junk's rules; the slot's clicks; the room between two slots, in steps of
 // the spacing; a slot's size, in the interface's pixels.
 public struct Choices implements Plain {
-  hidden: array<Tab>
-  hideEmpty: boolean
-  grouping: map<Tab, Grouping>
-  junk: JunkRules
-  slotPresses: Clicks
+  public mut hidden: array<Tab>
+  public mut hideEmpty: boolean
+  public mut grouping: map<Tab, Grouping>
+  public mut junk: JunkRules
+  public mut slotPresses: Clicks
   // The junk is sold as a merchant's window opens, as «Sell junk» sells it.
-  sellJunkAtVendor: boolean = true
-  slotGap: number = SLOT_GAP
-  slotSize: number = SLOT_SIZE
-  rowLeast: number = ROW_LEAST
-  loot: LootChoices = LOOT_CHOICES
+  public mut sellJunkAtVendor: boolean = true
+  public mut slotGap: number = SLOT_GAP
+  public mut slotSize: number = SLOT_SIZE
+  public mut rowLeast: number = ROW_LEAST
+  public mut loot: LootChoices = LOOT_CHOICES
 }
 
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
 // search isn't kept.
 public struct BagsView implements Plain {
-  view: View = View::Categories
-  sort: SortBy = SortBy::Bags
+  public mut view: View = View::Categories
+  public mut sort: SortBy = SortBy::Bags
 }
 
 // The list of tabs at the left, and the room between it and the cards: more than between two cards, so the list reads

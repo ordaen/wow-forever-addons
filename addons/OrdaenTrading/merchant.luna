@@ -23,18 +23,18 @@ public enum WareFilter implements Plain { All = "all", Usable = "usable", Afford
 // How the player left the merchant's window, the profile's: the view, the sort, the filter, the table's column (0: the
 // merchant's order) and its way. The search isn't kept.
 public struct MerchantView implements Plain {
-  view: WareView = WareView::List
-  sort: WareSort = WareSort::Merchant
-  filter: WareFilter = WareFilter::All
-  sorted: integer = 0
-  descending: boolean = false
+  public mut view: WareView = WareView::List
+  public mut sort: WareSort = WareSort::Merchant
+  public mut filter: WareFilter = WareFilter::All
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 public const MERCHANT_VIEW: MerchantView = {}
 
 // A purchase waiting for the player's word: the item, and how many (nil: one purchase of the merchant's stack).
 struct Purchase {
-  const ware: Ware
-  const count: integer | nil
+  ware: Ware
+  count: integer | nil
 }
 
 // The game's own price past which a purchase is asked first (`MERCHANT_HIGH_PRICE_COST`).

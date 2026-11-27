@@ -32,14 +32,14 @@ public const CHORDS: array<Chord> = [.Left, .ShiftLeft, .CtrlLeft, .AltLeft, .Ri
 
 // The scheme: one action for each chord.
 public struct Clicks implements Plain {
-  left: SlotAction
-  shiftLeft: SlotAction
-  ctrlLeft: SlotAction
-  altLeft: SlotAction
-  right: SlotAction
-  shiftRight: SlotAction
-  ctrlRight: SlotAction
-  altRight: SlotAction
+  public mut left: SlotAction
+  public mut shiftLeft: SlotAction
+  public mut ctrlLeft: SlotAction
+  public mut altLeft: SlotAction
+  public mut right: SlotAction
+  public mut shiftRight: SlotAction
+  public mut ctrlRight: SlotAction
+  public mut altRight: SlotAction
 }
 
 // A left click uses (what the client's use does where the player stands: sells at a merchant, puts into a letter or a
@@ -105,7 +105,7 @@ public function chordFor(clicks: Clicks, action: SlotAction): Chord | nil {
 // How a slot of the bags or the bank is used: the client's own secure click (`Action.UseBagItem`) on its chord's
 // button, as the button comes up.
 public struct UseClick {
-  chord: KeyBinding<MouseButton>
+  public mut chord: KeyBinding<MouseButton>
 }
 
 // The use on the first chord the scheme gives Use (a scheme always keeps one). A guild bank slot's use is no secure

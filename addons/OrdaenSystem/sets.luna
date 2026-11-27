@@ -6,12 +6,12 @@ public const MOST = 10
 const KEY = "systemSets"
 
 public struct AddOnSet implements Plain {
-  name: string = ""
-  addons: array<string> = []
+  public mut name: string = ""
+  public mut addons: array<string> = []
 }
 
 struct Kept implements Plain {
-  sets: array<AddOnSet> = []
+  mut sets: array<AddOnSet> = []
 }
 
 public class Sets {

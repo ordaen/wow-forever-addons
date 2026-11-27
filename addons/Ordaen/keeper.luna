@@ -39,30 +39,30 @@ public trait Sectioned {
 
 // One step of the history: each section it changed, as it was before.
 struct Step {
-  before: mut map<string, unknown>
+  mut before: mut map<string, unknown>
 }
 
 // Every loaded section as it was when the player pressed «Точка».
 public struct Savepoint {
   // «Точка N»: its number in the session, and the game's time it was made at.
-  number: integer
-  at: string
-  sections: map<string, unknown>
+  public mut number: integer
+  public mut at: string
+  public mut sections: map<string, unknown>
 }
 
 // A profile's ways back, for the session.
 struct Shelf {
-  steps: mut array<mut Step> = []
+  mut steps: mut array<mut Step> = []
   // Each section's values before its first change.
-  start: mut map<string, unknown> = {}
-  points: mut array<Savepoint> = []
-  made: integer = 0
+  mut start: mut map<string, unknown> = {}
+  mut points: mut array<Savepoint> = []
+  mut made: integer = 0
 }
 
 // What going back to a place would change: how many settings, and in which modules.
 public struct Change {
-  count: integer
-  modules: array<string>
+  public mut count: integer
+  public mut modules: array<string>
 }
 
 // The modules a menu's entry names: three at most, then how many more.

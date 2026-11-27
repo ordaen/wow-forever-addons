@@ -80,9 +80,9 @@ public class Attachment implements Component {
 
 // What the client says of an item: its quality's colour, its kind and slot, what a merchant gives for one.
 public struct AttachmentInfo {
-  color: color
-  kind: string
-  price: integer
+  public mut color: color
+  public mut kind: string
+  public mut price: integer
 }
 
 function infoOf(item: integer): AttachmentInfo {

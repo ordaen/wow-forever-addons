@@ -70,22 +70,22 @@ public enum Way { Down, Right, Left }
 // (`west`, `east`), and its head (`head`, pointing `way`) where it ends at the cell's node. Each is the line's colour, or
 // nil where the cell has none of it.
 public struct TreeCell {
-  node: Game::TalentNode | nil = nil
-  up: color | nil = nil
-  through: color | nil = nil
-  lower: color | nil = nil
-  down: color | nil = nil
-  west: color | nil = nil
-  east: color | nil = nil
-  head: Atlas | nil = nil
-  way: Way = Way::Down
+  public mut node: Game::TalentNode | nil = nil
+  public mut up: color | nil = nil
+  public mut through: color | nil = nil
+  public mut lower: color | nil = nil
+  public mut down: color | nil = nil
+  public mut west: color | nil = nil
+  public mut east: color | nil = nil
+  public mut head: Atlas | nil = nil
+  public mut way: Way = Way::Down
 }
 
 // A tree's cells, row by row: how many columns and rows it has, and each cell.
 public struct TreeGrid {
-  columns: integer
-  rows: integer
-  cells: array<TreeCell>
+  public mut columns: integer
+  public mut rows: integer
+  public mut cells: array<TreeCell>
 }
 
 // Where a tree's nodes begin: the smallest x or y.
@@ -220,10 +220,10 @@ function lookOf(node: Game::TalentNode): Look {
 
 // What each look draws: the frame, the rank's colour, whether the icon is grey and how dark the veil over it.
 struct LookArt {
-  frame: Atlas
-  rank: color
-  grey: boolean
-  veil: number
+  mut frame: Atlas
+  mut rank: color
+  mut grey: boolean
+  mut veil: number
 }
 
 function artOf(look: Look): LookArt {

@@ -18,9 +18,9 @@ import { Vault } from "@/vault"
 // A protected slot, kept for the character: where it is and the item it protects. The protection follows its item:
 // moved by hand, it goes with it; the item gone from the bags, it is dropped.
 public struct Guard implements Plain {
-  bag: integer
-  slot: integer
-  id: integer
+  public mut bag: integer
+  public mut slot: integer
+  public mut id: integer
 }
 
 const NONE: array<Line> = []

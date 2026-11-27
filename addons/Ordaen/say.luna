@@ -5,8 +5,8 @@ import { BRIGHT_TEXT } from "@/units"
 
 // What an addon's lines begin with: its name and its colour.
 public struct ChatMark {
-  const name: string
-  const color: color
+  public name: string
+  public color: color
 }
 
 // A colour as the chat's codes write it (`ffe8c35a`).

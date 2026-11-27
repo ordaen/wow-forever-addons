@@ -24,20 +24,20 @@ import { leftText } from "@/style"
 
 // One item the house showed, as its row draws it.
 public struct Found {
-  key: PriceKey
-  item: ItemId
-  name: string
+  public mut key: PriceKey
+  public mut item: ItemId
+  public mut name: string
   // The name lowercased, as a search matches it.
-  lower: string
-  color: color
-  listed: integer
+  public mut lower: string
+  public mut color: color
+  public mut listed: integer
   // The lowest price for one, and in a row of an item's folded variants the highest of their lowest (the lowest
   // itself in a variant's row).
-  low: Copper
-  high: Copper
-  market: Quote | nil
+  public mut low: Copper
+  public mut high: Copper
+  public mut market: Quote | nil
   // The lowest as a share of the market, in percent; none without a market.
-  share: integer | nil
+  public mut share: integer | nil
 }
 
 // The two views: a row a variant, or a row an item with its variants folded.
@@ -141,11 +141,11 @@ function labelOf(choices: array<Choice<integer>>, value: integer): string {
 // How the player left «Buy»'s list: the filter's level band and quality, the column it is sorted by (0: as the
 // house gives it) and which way, and whether it shows each variant or each item.
 public struct BuyView implements Plain {
-  level: integer = ANY
-  quality: integer = ANY
-  sorted: integer = 0
-  descending: boolean = false
-  view: View = View::Variants
+  public mut level: integer = ANY
+  public mut quality: integer = ANY
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
+  public mut view: View = View::Variants
 }
 const BUY_VIEW: BuyView = {}
 

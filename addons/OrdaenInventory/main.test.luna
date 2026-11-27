@@ -68,20 +68,20 @@ const SETTINGS = "Move mode"
 
 // One stack in the bags, as the game reads it.
 struct Lies {
-  bag: integer
-  slot: integer
-  const id: integer
-  const name: string
-  const icon: FileId
-  count: integer = 1
-  const quality: integer = 1
-  const kind: integer
-  const subkind: integer = 0
-  const subkindName: string = ""
-  const level: integer = 1
-  isNew: boolean = false
-  const bound: boolean = false
-  locked: boolean = false
+  mut bag: integer
+  mut slot: integer
+  id: integer
+  name: string
+  icon: FileId
+  mut count: integer = 1
+  quality: integer = 1
+  kind: integer
+  subkind: integer = 0
+  subkindName: string = ""
+  level: integer = 1
+  mut isNew: boolean = false
+  bound: boolean = false
+  mut locked: boolean = false
 }
 
 // What lies in the bags, the size of each, and what the game does with them: the test's fakes read it.

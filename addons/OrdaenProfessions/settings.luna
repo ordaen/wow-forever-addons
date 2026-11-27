@@ -8,9 +8,9 @@ import Locale from "@/locales"
 public struct Choices implements Plain {
   // The recipe's card and the lists show Ordaen Trading's prices: the cost, the sale and the profit. Greyed while
   // Ordaen Trading is off, which has them.
-  prices: boolean
+  public mut prices: boolean
   // The window opens a profession at the category and recipe the player left it at.
-  remember: boolean
+  public mut remember: boolean
 }
 
 public class GeneralPage implements Component {

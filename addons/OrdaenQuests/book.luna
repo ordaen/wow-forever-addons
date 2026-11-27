@@ -5,23 +5,23 @@ import { QuestKind, kindOfTag } from "@/kind"
 
 // A quest of the player's log, as the client says it, and its tab, worked out as it is read.
 public struct LogQuest {
-  id: integer
-  title: string
-  level: integer
+  public mut id: integer
+  public mut title: string
+  public mut level: integer
   // The client's header it stands under: a zone, an instance, a battleground.
-  header: string
-  kind: QuestKind
-  done: boolean
-  failed: boolean
-  tracked: boolean
+  public mut header: string
+  public mut kind: QuestKind
+  public mut done: boolean
+  public mut failed: boolean
+  public mut tracked: boolean
   // The group it is meant for (an elite quest, «Группа: 3»); 0 for one played alone.
-  group: integer
+  public mut group: integer
   // The player can share it now: the client lets it be shared, and the player is in a group.
-  shareable: boolean
-  objectives: array<Game::QuestObjective>
+  public mut shareable: boolean
+  public mut objectives: array<Game::QuestObjective>
   // The experience and the money (copper) it gives; 0 for none.
-  xp: integer
-  money: integer
+  public mut xp: integer
+  public mut money: integer
 }
 
 // The log's quests, in the client's order.

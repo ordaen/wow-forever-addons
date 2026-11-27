@@ -5,13 +5,13 @@ import Game from "$game"
 
 // A recipe a trainer teaches: from what skill, for how much.
 public struct Taught implements Plain {
-  skill: integer
-  cost: integer
+  public mut skill: integer
+  public mut cost: integer
 }
 
 // What the trainers met have taught, by the recipe's name.
 public struct Learning implements Plain {
-  recipes: map<string, Taught>
+  public mut recipes: map<string, Taught>
 }
 
 // `known` with the services of a profession's trainer laid over it: each asking for a skill.

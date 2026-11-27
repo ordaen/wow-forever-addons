@@ -47,11 +47,11 @@ function placeName(place: Place): string {
 
 // One item as a row shows it: its counts by place (in `PLACES`' order) and in all, and who holds them.
 public struct Entry {
-  id: ItemId
-  name: string
-  counts: array<integer>
-  total: integer
-  holders: array<TipRow>
+  public mut id: ItemId
+  public mut name: string
+  public mut counts: array<integer>
+  public mut total: integer
+  public mut holders: array<TipRow>
 }
 
 function countText(count: integer): string { return count == 0 ? "—" : string::of(count) }

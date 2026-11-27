@@ -57,14 +57,14 @@ const NAME_ACTIONS: array<LinkAction> = [.Whisper, .Invite, .Who, .Befriend, .Co
 
 // A tab's menu asked for: the tab, and what was picked.
 public struct TabPick {
-  tab: ChatTab
-  action: TabAction
+  public mut tab: ChatTab
+  public mut action: TabAction
 }
 
 // A link's menu asked for: the link, and what was picked.
 public struct LinkPick {
-  link: Event::Link
-  action: LinkAction
+  public mut link: Event::Link
+  public mut action: LinkAction
 }
 
 // What a link's menu offers: a name's actions; a quest's, shown in Ordaen Quests' log and on the map where it is on,

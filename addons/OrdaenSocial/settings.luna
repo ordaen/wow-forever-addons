@@ -5,7 +5,7 @@ import Locale from "@/locales"
 
 public struct Choices implements Plain {
   // Friends offline stand in the list; off, they are hidden (a search still finds them).
-  offline: boolean
+  public mut offline: boolean
 }
 
 public class GeneralPage implements Component {

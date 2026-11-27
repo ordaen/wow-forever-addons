@@ -3,9 +3,9 @@
 
 // A tree's name in the two languages, and its place among its class's three.
 public struct Tree {
-  ruRU: string
-  enUS: string
-  order: integer
+  public mut ruRU: string
+  public mut enUS: string
+  public mut order: integer
 }
 
 // A talent's spell, at any rank, to its tree.

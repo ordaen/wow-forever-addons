@@ -37,7 +37,7 @@ const FILTER_START: map<TrainerShow, boolean> = switched(switched({}, [TrainerSh
 // The services the player ignored, by their name (every rank of a spell): the character's, kept by the
 // module that owns the trainer's kind.
 public struct TrainerIgnored implements Plain {
-  names: map<string, boolean> = {}
+  public mut names: map<string, boolean> = {}
 }
 
 // What a service's menu does, in its order.
@@ -47,10 +47,10 @@ enum MenuAct { Learn, Ignore, Link }
 // sort it is ordered by (0: the trainer's order) and its way. The search isn't kept. Each kind opens in its own view
 // (`TrainerList { view: .List }` for a class trainer's categories).
 public struct TrainerList implements Plain {
-  shows: map<TrainerShow, boolean> = FILTER_START
-  view: TrainerView = TrainerView::Table
-  sorted: integer = 0
-  descending: boolean = false
+  public mut shows: map<TrainerShow, boolean> = FILTER_START
+  public mut view: TrainerView = TrainerView::Table
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 
 // What a sort orders by; a trainer's kind lays its columns out as one of these each.
@@ -455,9 +455,9 @@ function sameBatch(now: array<Game::TrainerService>, quoted: array<Game::Trainer
 // A place a service is learned at and its price there, a line of the card that never wraps; what makes the price
 // (the player's standing there, its discount) is its tip's, under the cursor. `note` "" for no tip.
 public struct PlacePrice {
-  place: string
-  price: integer
-  note: string
+  public mut place: string
+  public mut price: integer
+  public mut note: string
 }
 
 // One line of the card's «Price by place»: the place, the price at the line's end, the note on its tip.
@@ -494,8 +494,8 @@ const PRICE_LINE: array<Track> = [{ fr: 1 }, "max-content"]
 // What the picked service's spell is, as its tooltip says it: its band (cost and range, cast and cooldown, the
 // tooltip's own cells) and the rest of its lines but its name and its description (what it requires).
 struct SpellFacts {
-  band: array<BandFact>
-  lines: array<string>
+  mut band: array<BandFact>
+  mut lines: array<string>
 }
 
 const NO_FACTS: SpellFacts = { band: [], lines: [] }
@@ -530,8 +530,8 @@ function numbersOf(text: string): (array<string>, string) {
 
 // A number of the spell that changes: the player's rank's, and the service's.
 struct Change {
-  yours: string
-  next: string
+  mut yours: string
+  mut next: string
 }
 
 // What changes from the rank of the spell the player has to the service's: each of its numbers that differs, «yours →

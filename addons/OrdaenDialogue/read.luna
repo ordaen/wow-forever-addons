@@ -20,21 +20,21 @@ public enum LineKind { TurnIn, RepeatTurnIn, New, Daily, Legendary, InProgress, 
 
 // One line of the NPC's list.
 public struct Line {
-  const kind: LineKind
-  const title: string
+  public kind: LineKind
+  public title: string
   // A quest's level; 0 for a plain option.
-  const level: integer
-  const difficulty: Difficulty
-  const icon: Art
+  public level: integer
+  public difficulty: Difficulty
+  public icon: Art
   // Which it is: a gossip option's ID (what its mark keeps; 0 for an option the client gives none, a vendor's), a
   // gossip quest's ID, or a greeting quest's place.
-  const id: integer
+  public id: integer
   // An option's place, which picks it as the game's own window does (`SelectOptionByIndex`); 0 for a quest.
-  const order: integer = 0
+  public order: integer = 0
   // An option that leads somewhere (a vendor's goods, a trainer, a flight, the bank, an inn), not a line of talk:
   // what the one-option skip picks.
-  const leads: boolean = false
-  const source: Source
+  public leads: boolean = false
+  public source: Source
 }
 
 // The game's icon of a line of talk (`GossipGossipIcon`); a vendor's, a trainer's, a banker's, an inn's and the like
@@ -48,11 +48,11 @@ function leadsSomewhere(option: Client::GossipOptionUIInfo): boolean {
 
 // What a quest needs handed in: an item with how many the player has and how many it takes.
 public struct Need {
-  const name: string
-  const icon: Art | nil
-  const item: integer | nil
-  const have: integer
-  const need: integer
+  public name: string
+  public icon: Art | nil
+  public item: integer | nil
+  public have: integer
+  public need: integer
 }
 
 // What the client says of the quest a quest giver shows.
@@ -81,26 +81,26 @@ public function bestReward(choices: array<Reward>, upgradeOf: (link: string) => 
 }
 
 public struct Quest {
-  const id: integer
-  const title: string
+  public id: integer
+  public title: string
   // The page's text: the description (details), what the NPC says of it (progress), the thanks (reward).
-  const text: string
-  const objectives: string
-  const group: integer
-  const choices: array<Reward>
-  const also: array<Reward>
-  const money: integer
-  const xp: integer
-  const standings: array<Standing>
+  public text: string
+  public objectives: string
+  public group: integer
+  public choices: array<Reward>
+  public also: array<Reward>
+  public money: integer
+  public xp: integer
+  public standings: array<Standing>
   // The things its words name (QuestieDB's, while Quests is on), marked on the parchment.
-  const names: array<Named>
-  const needs: array<Need>
-  const moneyNeeded: integer
-  const completable: boolean
+  public names: array<Named>
+  public needs: array<Need>
+  public moneyNeeded: integer
+  public completable: boolean
   // Accepting it flags the player for PvP: asked first, as the game's own window asks.
-  const pvp: boolean
+  public pvp: boolean
   // The game accepts it itself (`QuestGetAutoAccept`): there is nothing to decline, its accept acknowledges.
-  const autoAccepted: boolean
+  public autoAccepted: boolean
 }
 
 // The game's quest icons.

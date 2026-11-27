@@ -52,50 +52,50 @@ public const PRESETS: array<Preset> = [Preset::Ordaen, Preset::Minimal]
 
 public struct Look implements Plain {
   // The text's, the titles', the numbers' and a page of sentences' fonts.
-  font: Font
-  fontHeader: Font
-  fontNumbers: NumbersFont
-  fontBook: BookFont
-  accent: color
+  public mut font: Font
+  public mut fontHeader: Font
+  public mut fontNumbers: NumbersFont
+  public mut fontBook: BookFont
+  public mut accent: color
   // A section's title (a heading's, or one standing on a cut), and the paint of a heading's rule as it shows on the wood.
-  heading: color
-  headingPaint: color
-  barTexture: BarTexture
-  barFrame: BarFrame
-  animation: Animation
+  public mut heading: color
+  public mut headingPaint: color
+  public mut barTexture: BarTexture
+  public mut barFrame: BarFrame
+  public mut animation: Animation
   // The palette every module colours with: each colour as a bar's fill, and as text.
-  red: color
-  redText: color
-  orange: color
-  orangeText: color
-  yellow: color
-  yellowText: color
-  green: color
-  greenText: color
-  cyan: color
-  cyanText: color
-  blue: color
-  blueText: color
-  violet: color
-  violetText: color
-  pink: color
-  pinkText: color
-  tan: color
-  tanText: color
-  white: color
-  whiteText: color
-  grey: color
-  greyText: color
+  public mut red: color
+  public mut redText: color
+  public mut orange: color
+  public mut orangeText: color
+  public mut yellow: color
+  public mut yellowText: color
+  public mut green: color
+  public mut greenText: color
+  public mut cyan: color
+  public mut cyanText: color
+  public mut blue: color
+  public mut blueText: color
+  public mut violet: color
+  public mut violetText: color
+  public mut pink: color
+  public mut pinkText: color
+  public mut tan: color
+  public mut tanText: color
+  public mut white: color
+  public mut whiteText: color
+  public mut grey: color
+  public mut greyText: color
   // Each class's colour of the palette.
-  warrior: Hue
-  paladin: Hue
-  hunter: Hue
-  rogue: Hue
-  priest: Hue
-  shaman: Hue
-  mage: Hue
-  warlock: Hue
-  druid: Hue
+  public mut warrior: Hue
+  public mut paladin: Hue
+  public mut hunter: Hue
+  public mut rogue: Hue
+  public mut priest: Hue
+  public mut shaman: Hue
+  public mut mage: Hue
+  public mut warlock: Hue
+  public mut druid: Hue
 }
 
 // Ordaen's own look: bronze, dark wood, Ordaen's own fonts.
@@ -177,8 +177,8 @@ public function hueColor(look: Look, hue: Hue): color {
 // Its fonts are the renderer's (`Runtime.fonts`, given by Ordaen's root): every text an addon draws takes the one
 // its `textFont` names, `Body` where it names none.
 public struct LookArt {
-  fonts: Fonts
-  bar: Art
+  public mut fonts: Fonts
+  public mut bar: Art
 }
 
 // A font's files, regular and bold (its heavier face).

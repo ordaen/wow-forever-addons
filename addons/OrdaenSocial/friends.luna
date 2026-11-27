@@ -51,10 +51,10 @@ const MORE_SORTS: array<string> = [Locale::SORT_STATUS]
 // How the player left the friends' list, the profile's (`ModuleMemory`): its view, its sort and which way, and the
 // filter (empty until the list first starts it from the settings). The search isn't kept.
 public struct FriendsKept implements Plain {
-  view: FriendView = FriendView::List
-  sorted: integer = BY_STATUS
-  descending: boolean = false
-  filter: map<FriendFilter, boolean> = {}
+  public mut view: FriendView = FriendView::List
+  public mut sorted: integer = BY_STATUS
+  public mut descending: boolean = false
+  public mut filter: map<FriendFilter, boolean> = {}
 }
 public const FRIENDS_KEPT: FriendsKept = {}
 

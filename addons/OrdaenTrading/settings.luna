@@ -5,13 +5,13 @@ import Locale from "@/locales"
 
 public struct Choices implements Plain {
   // A full scan as the house opens, where the account's 15 minutes are past.
-  scanOnOpen: boolean
+  public mut scanOnOpen: boolean
   // The house's cut of a sale, in percent: what `sell` takes off.
-  cut: integer
+  public mut cut: integer
   // Ordaen's window over the house; off, the game's own, with the prices still in tooltips.
-  window: boolean
+  public mut window: boolean
   // The «Auction» line in an item's tooltip.
-  priceLine: boolean
+  public mut priceLine: boolean
 }
 
 public const DEFAULTS: Choices = { scanOnOpen: true, cut: 5, window: true, priceLine: true }

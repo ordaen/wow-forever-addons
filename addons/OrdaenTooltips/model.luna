@@ -43,56 +43,56 @@ public function side(faction: string): Opens {
 
 // A piece of a title's line: the pieces are joined with « · », each in its colour.
 public struct Part {
-  text: string
-  color: color | nil
-  opens: Opens = Opens::None
+  public mut text: string
+  public mut color: color | nil
+  public mut opens: Opens = Opens::None
 }
 
 // A fact of the band: its cell (Ordaen's band: its glyph before its text), and what it opens in a locked tooltip.
 public struct Fact {
-  cell: BandFact
-  opens: Opens = Opens::None
+  public mut cell: BandFact
+  public mut opens: Opens = Opens::None
 }
 
 // A line of the body: a name and its value on the right, or free text that wraps.
 public struct TextLine {
-  left: string
-  right: string | nil
-  color: color | nil
-  rightColor: color | nil
+  public mut left: string
+  public mut right: string | nil
+  public mut color: color | nil
+  public mut rightColor: color | nil
   // A spell's or an aura's description: larger than a free line.
-  desc: boolean | nil
+  public mut desc: boolean | nil
   // A party member's progress under an objective: set in.
-  indent: boolean | nil
+  public mut indent: boolean | nil
   // A quest's title over its objectives: apart from the rows before it, its objectives close under it.
-  heads: boolean | nil
+  public mut heads: boolean | nil
   // The icon before its name: the game's mark of a quest to take or to hand in.
-  icon: Art | nil
+  public mut icon: Art | nil
   // On an item's stat: the game's key for it, which a comparison finds it by.
-  stat: string | nil
+  public mut stat: string | nil
   // An item's stat against the one it is compared with: after its value, in brackets.
-  compared: Compared | nil
+  public mut compared: Compared | nil
   // What its name opens.
-  opens: Opens = Opens::None
+  public mut opens: Opens = Opens::None
 }
 
 // A stat's difference from the compared item's: more or less, and by how much as shown (never signed: the mark says
 // which way).
 public struct Compared {
-  more: boolean
-  by: string
+  public mut more: boolean
+  public mut by: string
 }
 
 // A line of the footer: a label and its value, quiet.
 public struct Note {
-  left: string
-  right: string | nil
-  valueColor: color | nil
+  public mut left: string
+  public mut right: string | nil
+  public mut valueColor: color | nil
   // The icon before its label: a reagent's.
-  icon: Art | nil = nil
+  public mut icon: Art | nil = nil
   // What its label opens, and what its value does (the unit it names).
-  opens: Opens = Opens::None
-  valueOpens: Opens = Opens::None
+  public mut opens: Opens = Opens::None
+  public mut valueOpens: Opens = Opens::None
 }
 
 // The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.
@@ -109,19 +109,19 @@ public function iconOf(art: Art | nil): Picture {
 }
 
 public struct Model {
-  kind: Kind
+  public mut kind: Kind
   // Above the title: «Equipped» on the worn item of a comparison.
-  header: string | nil
-  picture: Picture = Picture::None
-  name: string
-  nameColor: color
-  desc: array<Part>
-  info: array<Part>
-  facts: array<Fact>
-  body: array<TextLine>
-  more: array<TextLine>
-  foot: array<Note>
-  keys: array<string>
+  public mut header: string | nil
+  public mut picture: Picture = Picture::None
+  public mut name: string
+  public mut nameColor: color
+  public mut desc: array<Part>
+  public mut info: array<Part>
+  public mut facts: array<Fact>
+  public mut body: array<TextLine>
+  public mut more: array<TextLine>
+  public mut foot: array<Note>
+  public mut keys: array<string>
   // Something in it counts down while it shows (a cooldown): it is read again once a second.
-  timer: boolean | nil
+  public mut timer: boolean | nil
 }

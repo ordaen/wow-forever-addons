@@ -11,12 +11,12 @@ public enum Source { Own, Friend, Guild, Community, Recent }
 // One who can be written to: a name as the game takes it, the level, whether online, the class's colour where known,
 // who it is to the player, and the community it stands in (a community's member alone).
 public struct Recipient {
-  name: string
-  level: integer
-  online: boolean
-  color: color | nil
-  source: Source
-  group: string
+  public mut name: string
+  public mut level: integer
+  public mut online: boolean
+  public mut color: color | nil
+  public mut source: Source
+  public mut group: string
 }
 
 // Every recipient the player knows, own characters first, then friends, the guild, the communities and the recent

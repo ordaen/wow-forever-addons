@@ -13,52 +13,52 @@ public enum Way { Buy = "buy", Vendor = "vendor", None = "none" }
 
 // A reagent with its prices, for the make row's count.
 public struct PartPrice {
-  name: string
+  public mut name: string
   // The game's number of the item; none for a reagent the game names no item of.
-  item: integer | nil
-  icon: Art
+  public mut item: integer | nil
+  public mut icon: Art
   // What one making needs, all the count needs, and what the bags hold.
-  each: integer
-  need: integer
-  have: integer
+  public mut each: integer
+  public mut need: integer
+  public mut have: integer
   // The house's and a merchant's price of all it needs; none where none is known.
-  auction: integer | nil
-  vendor: integer | nil
-  way: Way
+  public mut auction: integer | nil
+  public mut vendor: integer | nil
+  public mut way: Way
   // One part's price by its way; none for none.
-  unit: integer | nil
+  public mut unit: integer | nil
   // Hours the house's price it takes is old; none for a merchant's.
-  age: integer | nil
+  public mut age: integer | nil
 }
 
 public struct Totals {
   // Every part at its unit price.
-  cost: integer | nil
+  public mut cost: integer | nil
   // The parts the bags lack, at their unit prices.
-  toBuy: integer | nil
+  public mut toBuy: integer | nil
   // It makes an item, which sells.
-  sellable: boolean
+  public mut sellable: boolean
   // What it sells for, the house's cut taken; before the cut; the cut in percent.
-  sale: integer | nil
-  listed: integer | nil
-  cut: integer
-  profit: integer | nil
+  public mut sale: integer | nil
+  public mut listed: integer | nil
+  public mut cut: integer
+  public mut profit: integer | nil
   // The oldest house price the totals took, in hours; none where they took none.
-  oldest: integer | nil
+  public mut oldest: integer | nil
   // Some part has a price at all.
-  priced: boolean
+  public mut priced: boolean
 }
 
 // One of an item at the house and at a merchant, and how it is had: the cheaper of the two, a merchant's where they
 // are equal (it has no age).
 public struct UnitPrice {
-  bought: integer | nil
-  sold: integer | nil
-  way: Way
+  public mut bought: integer | nil
+  public mut sold: integer | nil
+  public mut way: Way
   // One by its way; none for none.
-  unit: integer | nil
+  public mut unit: integer | nil
   // Hours the house's price it takes is old; none for a merchant's.
-  age: integer | nil
+  public mut age: integer | nil
 }
 
 // One of an item's prices; none at all for a reagent the game names no item of.

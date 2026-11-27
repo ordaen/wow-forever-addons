@@ -28,8 +28,8 @@ public const LINE: color = #3e2f1d
 public const CLEAR: color = #00000000
 // What a chosen row stands on: art, multiplied by a colour where one is given; or a colour alone.
 public struct Surface {
-  art: Art | color
-  tint: color | nil
+  public mut art: Art | color
+  public mut tint: color | nil
 }
 
 // The recipes page's sections: the categories on the window's wood, the recipes on the wood stained a dark brown, the

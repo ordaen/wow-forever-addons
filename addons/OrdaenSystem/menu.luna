@@ -37,16 +37,16 @@ const DOWN = 2.34375dp
 
 // One of Blizzard's buttons as the dress draws it.
 public struct Dressed {
-  button: any Client::Button
-  label: string
+  public mut button: any Client::Button
+  public mut label: string
   // One of the exits: in red.
-  accent: boolean
+  public mut accent: boolean
   // Blizzard's «new» label hangs by it.
-  gem: boolean
+  public mut gem: boolean
   // «AddOns»: ours stands over it.
-  addons: boolean
-  width: number<Length>
-  height: number<Length>
+  public mut addons: boolean
+  public mut width: number<Length>
+  public mut height: number<Length>
 }
 
 // The values a client's call gives, one after another, as a list.
@@ -70,7 +70,7 @@ function fade(alpha: number, ...regions: any Client::Region) {
 
 // Whether what a hook of the client's calls still runs: the hook holds this, and calls nothing once it is off.
 public struct Live {
-  on: boolean
+  public mut on: boolean
 }
 
 // The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each

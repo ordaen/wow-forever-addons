@@ -10,16 +10,16 @@ import { PartPrice, partsOf, totalsOf, yieldOf } from "@/cost"
 // One source's totals.
 public struct SourceTotals {
   // The parts sold here, at their price; none where none is.
-  cost: integer | nil
+  public mut cost: integer | nil
   // The parts not sold here, by name.
-  missing: array<string>
+  public mut missing: array<string>
   // What the made item brings here; none where it isn't bought here (or nothing is made).
-  sale: integer | nil
-  profit: integer | nil
+  public mut sale: integer | nil
+  public mut profit: integer | nil
   // The parts not sold here that the other source sells, by name: their price is in the profit.
-  filled: array<string>
+  public mut filled: array<string>
   // The parts sold at neither: the profit leaves them out.
-  unpriced: array<string>
+  public mut unpriced: array<string>
 }
 
 // A part's price for its count at one source: the house's or a merchant's.
@@ -79,8 +79,8 @@ public function merchantSaleOf(made: integer | nil, recipe: integer, count: inte
 
 // A recipe's totals at the house and at a merchant, for `count` makings.
 public struct BothSources {
-  auction: SourceTotals
-  merchant: SourceTotals
+  public mut auction: SourceTotals
+  public mut merchant: SourceTotals
 }
 
 public function bothSourcesOf(prices: any PriceSource, recipe: integer, made: integer | nil, count: integer): BothSources {

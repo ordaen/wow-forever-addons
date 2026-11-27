@@ -210,8 +210,8 @@ function splitFor(items: array<SentItem>): boolean {
 }
 
 struct Place {
-  bag: integer
-  slot: integer
+  mut bag: integer
+  mut slot: integer
 }
 
 function biggerStack(item: integer, count: integer, except: array<Game::MailStack>): Place | nil {

@@ -24,16 +24,16 @@ const LOAD_TIP: TipText = { title: Locale::LOAD_NOW, text: Locale::IN_COMBAT, ro
 
 // An addon the card names (one it needs, would like, or that needs it), with its state.
 public struct Named {
-  name: string
-  title: string
-  state: string
-  color: color
+  public mut name: string
+  public mut title: string
+  public mut state: string
+  public mut color: color
 }
 
 // One label and its value on the card.
 public struct Pair {
-  label: string
-  value: string
+  public mut label: string
+  public mut value: string
 }
 
 // A link to another addon's row.

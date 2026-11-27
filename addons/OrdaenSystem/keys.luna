@@ -9,26 +9,26 @@ import Client from "$client"
 // A command of the list.
 public struct Command implements Plain {
   // The client's name for it (`MOVEFORWARD`), and the one the player reads (`GetBindingName`).
-  action: string
-  name: string
+  public mut action: string
+  public mut name: string
   // Its section's text: the header's (`BINDING_HEADER_MOVEMENT`) in the client's language.
-  section: string
+  public mut section: string
   // Its keys in the client's order: the first and the second.
-  keys: array<string>
+  public mut keys: array<string>
 }
 
 // What a change did to one command: its keys before it.
 public struct Before implements Plain {
-  action: string
-  keys: array<string>
+  public mut action: string
+  public mut keys: array<string>
 }
 
 // The last change, for «Undo»: each command it touched, with its keys before. `taken` names the command a key was
 // taken from (`""` where none was), with the key.
 public struct Step implements Plain {
-  before: array<Before>
-  taken: string
-  key: string
+  public mut before: array<Before>
+  public mut taken: string
+  public mut key: string
 }
 
 // Why a change wasn't made.

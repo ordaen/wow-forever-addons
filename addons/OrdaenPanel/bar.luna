@@ -88,30 +88,30 @@ public class Slot {
 
 // One point a piece of the template's art is placed by.
 struct Pin {
-  point: string
-  to: any Client::Region | nil
-  toPoint: string
-  x: number
-  y: number
+  mut point: string
+  mut to: any Client::Region | nil
+  mut toPoint: string
+  mut x: number
+  mut y: number
 }
 
 // A piece of the client's template's art (a texture or a mask) as the template lays it out: its points, and its size
 // where they don't give it one.
 struct Piece {
-  region: any Client::MaskTexture
-  pins: array<Pin>
-  width: number
-  height: number
+  mut region: any Client::MaskTexture
+  mut pins: array<Pin>
+  mut width: number
+  mut height: number
 }
 
 // The template's art as it is laid out for the template's own size (the action button's 45, the small one's 30, read
 // from the button as it is made): the frame larger than the button and anchored at its top left, the icon's mask
 // centred on the icon and larger than it, the icon filling the button.
 struct TemplateArt {
-  frame: any Client::Frame
-  width: number
-  height: number
-  pieces: array<Piece>
+  mut frame: any Client::Frame
+  mut width: number
+  mut height: number
+  mut pieces: array<Piece>
 }
 
 function templateArt(frame: any Client::Frame, ...regions: any Client::Region): TemplateArt {
@@ -171,7 +171,7 @@ function fitArt(art: TemplateArt, size: number) {
 }
 
 struct Life {
-  on: boolean
+  mut on: boolean
 }
 
 // A bar's height in the default stack: its rows of buttons and the room between them.
@@ -193,10 +193,10 @@ public function buttonName(id: string, index: integer): string { return `OrdaenP
 // template draws none: the game's own stance and pet bars set it), and whether it is on (the form the player is in,
 // the pet's stance or command), lit in the look's accent over it.
 public struct Face {
-  icon: Art | nil
-  lit: boolean
+  public mut icon: Art | nil
+  public mut lit: boolean
   // Whether it can be done now: dimmed where it can't, as the client's own buttons are.
-  usable: boolean
+  public mut usable: boolean
 }
 
 const BLANK: Face = { icon: nil, lit: false, usable: true }

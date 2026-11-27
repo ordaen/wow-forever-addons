@@ -9,16 +9,16 @@ import Style from "@/style"
 
 // A profession's cell: the skill, `150 / 300`, or a dash.
 public struct Skill {
-  text: string
+  public mut text: string
   // The rank it sorts by: -1 for a character without the profession.
-  rank: integer
+  public mut rank: integer
 }
 
 // One character as a row: its name and its skill in each profession, in the columns' order.
 public struct SkillLine {
-  key: string
-  name: string
-  skills: array<Skill>
+  public mut key: string
+  public mut name: string
+  public mut skills: array<Skill>
 }
 
 const NONE: Skill = { text: "—", rank: -1 }

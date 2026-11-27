@@ -28,10 +28,10 @@ public module OpenMapAPI {
 
 // A switch in OpenMap's menu: what it shows comes from `get`, a click calls `set`; `tab` and `section` say where.
 public struct MenuToggle {
-  id: string
-  label: string
-  get: () => boolean
-  set: (on: boolean) => nil
-  tab: string
-  section: string
+  public mut id: string
+  public mut label: string
+  public mut get: () => boolean
+  public mut set: (on: boolean) => nil
+  public mut tab: string
+  public mut section: string
 }

@@ -15,15 +15,15 @@ import Style from "@/style"
 
 // One item of the bags, as its row draws it: every stack of it counted, the first one what a post names.
 public struct Offered {
-  from: Game::Sellable
-  item: ItemId
-  name: string
-  color: color
-  count: integer
-  market: Copper | nil
-  vendor: Copper | nil
+  public mut from: Game::Sellable
+  public mut item: ItemId
+  public mut name: string
+  public mut color: color
+  public mut count: integer
+  public mut market: Copper | nil
+  public mut vendor: Copper | nil
   // The house pays more than the merchant, after its cut; none where neither price is known.
-  house: boolean | nil
+  public mut house: boolean | nil
 }
 
 const NAME_COLUMN = 1
@@ -107,8 +107,8 @@ class OfferedRow implements Component {
 
 // How the player left «Sell»'s list: the column it is sorted by (0: as it comes) and which way.
 public struct SellView implements Plain {
-  sorted: integer = 0
-  descending: boolean = false
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 const SELL_VIEW: SellView = {}
 

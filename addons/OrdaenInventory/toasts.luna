@@ -35,17 +35,17 @@ const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
 
 // A line: what it shows, and when it came, is kept up to and flashed.
 struct Toast {
-  key: string
-  name: string
-  icon: Art | nil
-  quality: Quality
-  count: integer
-  link: string | nil
-  quest: boolean
-  coins: boolean
-  came: number
-  until: number
-  flashed: number
+  mut key: string
+  public mut name: string
+  mut icon: Art | nil
+  mut quality: Quality
+  public mut count: integer
+  mut link: string | nil
+  mut quest: boolean
+  public mut coins: boolean
+  mut came: number
+  mut until: number
+  mut flashed: number
 }
 
 // The samples the placing mode shows, as at this moment of their lives: come, not fading.

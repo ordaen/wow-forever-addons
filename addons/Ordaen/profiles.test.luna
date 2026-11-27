@@ -12,11 +12,11 @@ import { ModuleMemory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.
 struct Probe implements Plain {
-  scale: number = 1
+  mut scale: number = 1
 }
 
 struct Remembered implements Plain {
-  last: string = ""
+  mut last: string = ""
 }
 
 test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {

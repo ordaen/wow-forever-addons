@@ -46,9 +46,9 @@ const ARMOR = 4
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).
 public struct Filter {
-  const query: string
-  const place: Game::BagPlace
-  const lit: integer
+  public query: string
+  public place: Game::BagPlace
+  public lit: integer
 }
 
 // What every row, place and slot of the grid reads of the window, and the events they tell it: one object, made by the

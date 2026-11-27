@@ -43,21 +43,21 @@ import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
 // What the module remembers for the character: the protected slots, one at most for each slot of the bags.
 // Where the window stands is the window's own (`Window`, the profile's).
 public struct Kept implements Plain {
-  guards: array<Guard>
+  public mut guards: array<Guard>
 }
 
 const BAGS_VIEW: BagsView = {}
 
 // A sale by hand at a merchant, noted as the player's click sells: the next update of its bag says whether it sold.
 struct Sale {
-  const bag: integer
-  const index: integer
-  const id: integer
-  const count: integer
-  const price: integer
-  const link: string
+  bag: integer
+  index: integer
+  id: integer
+  count: integer
+  price: integer
+  link: string
   // Whether it teaches the bags: learning is on and neither a mark nor a rule decides the item.
-  const teaches: boolean
+  teaches: boolean
 }
 
 // The guild's money the dialog moves: in, or out.

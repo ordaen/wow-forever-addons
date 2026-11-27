@@ -15,14 +15,14 @@ import { BRIGHT_TEXT } from "@/units"
 // One line of a menu.
 public struct MenuEntry {
   // What the player reads.
-  label: string
+  public mut label: string
   // A switch at the right showing this state; none: a plain entry.
-  on: boolean | nil
-  disabled: boolean | nil
+  public mut on: boolean | nil
+  public mut disabled: boolean | nil
   // It starts a group: a rule above it.
-  group: boolean | nil
+  public mut group: boolean | nil
   // Its submenu's entries: it opens them beside it, and is no pick of its own.
-  more: array<MenuEntry> | nil
+  public mut more: array<MenuEntry> | nil
 }
 
 // A submenu's mark at its entry's right.

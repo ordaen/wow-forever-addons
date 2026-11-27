@@ -39,9 +39,9 @@ public function bankInfos(): array<Game::BagInfo> {
 
 // A bank bag's line: its icon, name and fill; a click picks the bag up, or puts the one on the cursor there.
 public struct BankBag {
-  const place: integer
-  const info: Game::BagInfo
-  const used: integer
+  public place: integer
+  public info: Game::BagInfo
+  public used: integer
 }
 
 class BankBagEntry implements Component {

@@ -10,20 +10,20 @@ public enum Auto implements Plain { Off = "off", Picked = "picked", All = "all" 
 // What the player chooses.
 public struct Choices implements Plain {
   // 1–9, Space, Tab and Esc are the window's while it shows.
-  keyboard: boolean
+  public mut keyboard: boolean
   // The keycaps beside the options and rewards, and the key's segment on the buttons.
-  keyHints: boolean
+  public mut keyHints: boolean
   // An NPC with one plain option and no quests doesn't open the window: the option is picked.
-  skipSingle: boolean
+  public mut skipSingle: boolean
   // The options the player marked are picked as the talk starts.
-  alwaysPick: boolean
-  autoAccept: Auto
-  autoComplete: Auto
+  public mut alwaysPick: boolean
+  public mut autoAccept: Auto
+  public mut autoComplete: Auto
   // A quest's page opens with its parchment folded to its title; a click unfolds it.
-  foldedScroll: boolean = false
+  public mut foldedScroll: boolean = false
   // A quest's reward is put on as it comes where it is worth at least `equipFrom` percent more than what is worn.
-  autoEquip: boolean = true
-  equipFrom: number = 15
+  public mut autoEquip: boolean = true
+  public mut equipFrom: number = 15
 }
 
 public const DEFAULTS: Choices = {

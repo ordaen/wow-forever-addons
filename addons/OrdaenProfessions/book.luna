@@ -7,41 +7,41 @@ import Game from "$game"
 
 // One of a recipe's reagents: its item and how many one making takes.
 public struct Reagent implements Plain {
-  item: integer = 0
-  count: integer = 1
+  public mut item: integer = 0
+  public mut count: integer = 1
 }
 
 // What a recipe takes and makes, as the client gave it.
 public struct Entry implements Plain {
-  name: string = ""
+  public mut name: string = ""
   // The item it makes; none for one that makes no item (an enchant).
-  makes: integer | nil
+  public mut makes: integer | nil
   // How many one making gives: from the least to the most.
-  least: integer = 1
-  most: integer = 1
-  parts: array<Reagent> = []
+  public mut least: integer = 1
+  public mut most: integer = 1
+  public mut parts: array<Reagent> = []
 }
 
 // A profession of a character: its name in the player's language, and the recipes it knows.
 public struct Learned implements Plain {
-  name: string = ""
-  recipes: array<integer> = []
+  public mut name: string = ""
+  public mut recipes: array<integer> = []
   // The character's skill in it, when last opened.
-  rank: integer = 0
+  public mut rank: integer = 0
 }
 
 // A character's page of the book.
 public struct Shelf implements Plain {
-  name: string = ""
-  realm: string = ""
+  public mut name: string = ""
+  public mut realm: string = ""
   // By skill line.
-  professions: mut map<integer, Learned> = {}
+  public mut professions: mut map<integer, Learned> = {}
 }
 
 public struct Book implements Plain {
-  recipes: mut map<integer, Entry> = {}
+  public mut recipes: mut map<integer, Entry> = {}
   // By the character's GUID.
-  characters: mut map<string, Shelf> = {}
+  public mut characters: mut map<string, Shelf> = {}
 }
 
 // The most characters and recipes the book keeps: a character or a recipe past them isn't written, and the seam says so.

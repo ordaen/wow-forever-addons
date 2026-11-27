@@ -5,36 +5,36 @@ import { ChannelName, StampPlace, TabChoices } from "@/choices"
 
 // A line as a tab shows it. `whole` is what is drawn after its time: the channel, the words with their links and «×N».
 public struct Shown implements Plain {
-  whole: string
-  color: color
+  public mut whole: string
+  public mut color: color
   // Its time is drawn (the game shows the chat's times), where the tab places it. A line kept from before the times
   // were drawn apart has it in `whole`.
-  stamped: boolean = false
+  public mut stamped: boolean = false
   // When it was said (seconds since 1970).
-  time: number
+  public mut time: number
   // What tells a repeat: who said it, where, and the words.
-  repeat: string
-  count: integer
+  public mut repeat: string
+  public mut count: integer
   // Someone else's line naming the player or one of the keywords.
-  marked: boolean
+  public mut marked: boolean
   // When the session that heard it began (seconds since 1970): a view sets each session's lines apart under a rule
   // naming it. 0 for a line kept before sessions were told apart.
-  session: number = 0
+  public mut session: number = 0
   // The client kept its words secret: drawn as the client gives them, never measured, never kept.
-  secret: boolean
+  public mut secret: boolean
   // Who said it (their GUID; empty for none): a player reported has their lines taken away. A line kept without one
   // was said by nobody known.
-  sender: string = ""
+  public mut sender: string = ""
 }
 
 // What one tab keeps between sessions.
 public struct KeptTab implements Plain {
-  key: string
-  lines: array<Shown>
+  public mut key: string
+  public mut lines: array<Shown>
 }
 
 public struct Kept implements Plain {
-  tabs: array<KeptTab>
+  public mut tabs: array<KeptTab>
 }
 
 // When this session began: the session of every line it hears.
@@ -61,9 +61,9 @@ public enum StampShown implements Equal { None, Before, Above }
 // A line as a view lays it out: the line, whether a session's rule stands above it (its session isn't the line's
 // before; the first line, where it isn't this session's), and where its time is drawn.
 public struct Entry {
-  line: Shown
-  opens: boolean
-  stamp: StampShown
+  public mut line: Shown
+  public mut opens: boolean
+  public mut stamp: StampShown
 }
 
 // Where a line's time is drawn, given the line before it (nil: none) and the tab's place for times: above, a line

@@ -122,7 +122,7 @@ test "a window never moved keeps nothing, and moving one is no step of the setti
 
 // What a module's mistake might keep: a list that grows with play.
 struct Grown implements Plain {
-  names: array<string> = []
+  mut names: array<string> = []
 }
 
 test "a memory past its bound isn't kept" {

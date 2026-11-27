@@ -47,32 +47,32 @@ public enum WheelModifier implements Plain { Shift = "shift", Ctrl = "ctrl", Alt
 
 // One item of a wheel by its place: `r_3` the root ring's third, `r_3_2` the second of that one's submenu.
 public struct WheelEntry {
-  path: string
-  action: WheelAction
+  public mut path: string
+  public mut action: WheelAction
   // The client refuses it in a fight (a window it won't open then): dimmed, and nothing done.
-  refusesInFight: boolean
+  public mut refusesInFight: boolean
   // Done only with this held.
-  modifier: WheelModifier | nil
+  public mut modifier: WheelModifier | nil
 }
 
 // How many items a ring holds, by its place (`r`, `r_3`).
 public struct WheelRing {
-  path: string
-  count: integer
+  public mut path: string
+  public mut count: integer
 }
 
 // How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether it is anchored to
 // the cursor.
 public struct WheelSetup {
   // It is drawn at the screen's middle and not at the cursor. It never moves while it is up.
-  centred: boolean
-  scale: number
-  remember: boolean
+  public mut centred: boolean
+  public mut scale: number
+  public mut remember: boolean
   // Anchored: it aims two ways, and goes from one to the other as the cursor moves. On the wheel as drawn, or going
   // round it (`ROUND`), from the wheel's middle: the item under the cursor, or in its direction. Else from a point that
   // trails the cursor (`REACH`, `TRAIL`), starting where the hand was as the wheel opened: a short move turns to
   // another item whichever way the cursor went first. Not anchored, it aims from where the cursor was as it opened.
-  anchored: boolean
+  public mut anchored: boolean
 }
 
 // The place of the root ring, and of an item or a ring inside one.
@@ -95,10 +95,10 @@ const ROUND: number = 0.5 * number::pi
 // whether it runs across the screen (over or under the square) or beside the square, as tall as it. Together they
 // cover everything round the square, each reaching twice the screen away.
 struct Band {
-  point: string
-  x: number
-  y: number
-  across: boolean
+  mut point: string
+  mut x: number
+  mut y: number
+  mut across: boolean
 }
 const BANDS: array<Band> = [
   { point: "BOTTOM", x: 0, y: 1, across: true },

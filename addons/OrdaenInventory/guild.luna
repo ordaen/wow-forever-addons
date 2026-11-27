@@ -12,12 +12,12 @@ import Locale from "@/locales"
 // A tab of the guild's: its place, name and icon, whether the player may see it and put things in, and how many
 // withdrawals a day the guild allows the player there (-1: any).
 public struct GuildTab {
-  const index: integer
-  const name: string
-  const icon: Art
-  const viewable: boolean
-  const canDeposit: boolean
-  const withdrawals: integer
+  public index: integer
+  public name: string
+  public icon: Art
+  public viewable: boolean
+  public canDeposit: boolean
+  public withdrawals: integer
 }
 
 // What the guild bank's page shows: a tab's slots, the tab's log, or the money's log.

@@ -32,16 +32,16 @@ public enum View implements Plain { Categories = "categories", Table = "table" }
 // second click on a table's heading), the view, and the addon whose card stands beside it. The search isn't kept: a
 // list cut short by an old search at the next opening says nothing of why.
 public struct ListView implements Plain {
-  everyone: boolean = true
-  heat: Heat = Heat::All
-  standing: Standing = Standing::All
-  age: Age = Age::All
-  loading: Loading = Loading::All
-  written: Written = Written::All
-  order: Order = Order::Name
-  descending: boolean = false
-  view: View = View::Categories
-  picked: string = ""
+  public mut everyone: boolean = true
+  public mut heat: Heat = Heat::All
+  public mut standing: Standing = Standing::All
+  public mut age: Age = Age::All
+  public mut loading: Loading = Loading::All
+  public mut written: Written = Written::All
+  public mut order: Order = Order::Name
+  public mut descending: boolean = false
+  public mut view: View = View::Categories
+  public mut picked: string = ""
 }
 const LIST_VIEW: ListView = {}
 
@@ -50,8 +50,8 @@ const LIST_VIEW: ListView = {}
 // never take the filters past a memory's bound with it; at most `FOLDED_MOST` names of each, the earliest folded let
 // go first, and a category or a parent no addon has any more let go as the window opens.
 public struct Folded implements Plain {
-  categories: array<string> = []
-  parents: array<string> = []
+  public mut categories: array<string> = []
+  public mut parents: array<string> = []
 }
 const FOLDED: Folded = {}
 public const FOLDED_MOST = 8

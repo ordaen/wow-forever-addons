@@ -5,13 +5,13 @@ import Client from "$client"
 import Locale from "@/locales"
 
 public struct EmoteGroup {
-  title: string
-  tokens: array<string>
+  public mut title: string
+  public mut tokens: array<string>
 }
 
 public struct EmoteFamily {
-  title: string
-  groups: array<EmoteGroup>
+  public mut title: string
+  public mut groups: array<EmoteGroup>
 }
 
 public const EMOTES: array<EmoteFamily> = [

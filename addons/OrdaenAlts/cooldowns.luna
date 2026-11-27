@@ -14,13 +14,13 @@ const COLUMNS: array<Column> = [
 
 // One recipe of one character with a cooldown.
 public struct Wait {
-  recipe: string
-  who: string
+  public mut recipe: string
+  public mut who: string
   // Hours until it is ready: nought or less is now.
-  hours: integer
+  public mut hours: integer
   // What the cell says and in which colour.
-  text: string
-  color: color
+  public mut text: string
+  public mut color: color
 }
 
 function waitOf(recipe: string, who: string, hours: integer): Wait {

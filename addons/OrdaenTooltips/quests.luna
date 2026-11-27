@@ -22,9 +22,9 @@ const TO_HAND_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 // One quest's rows as the game says them: its title ("" for objectives under none), the player's objectives, then
 // the party's.
 struct Block {
-  title: string
-  own: array<TextLine>
-  party: array<TextLine>
+  mut title: string
+  mut own: array<TextLine>
+  mut party: array<TextLine>
 }
 
 // An objective's text without its count, wherever the client puts it («Wolf slain: 2/5», «2/5 Wolf slain», «- Wolf

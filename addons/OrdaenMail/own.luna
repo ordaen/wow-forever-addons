@@ -32,13 +32,13 @@ public enum Least implements Plain { Any = "any", Green = "green", Yellow = "yel
 
 // What goes to one character for one of its professions.
 public struct SendRule implements Plain {
-  on: boolean = true
-  least: Least = Least::Any
+  public mut on: boolean = true
+  public mut least: Least = Least::Any
 }
 
 // The rules, the account's, by «who:skillLine»: one never set is on, for any recipe.
 public struct SendRules implements Plain {
-  rules: map<string, SendRule> = {}
+  public mut rules: map<string, SendRule> = {}
 }
 
 public const DEFAULT_RULE: SendRule = {}
@@ -67,27 +67,27 @@ public function allows(rule: SendRule, crafting: Crafting): boolean {
 // One of the bags' items a character's profession uses: how many the bags hold, its recipes in that profession as the
 // character sees them, and the best one's colour.
 public struct Offer {
-  item: integer
-  name: string
-  count: integer
-  recipes: array<CraftRecipe>
-  color: color
+  public mut item: integer
+  public mut name: string
+  public mut count: integer
+  public mut recipes: array<CraftRecipe>
+  public mut color: color
 }
 
 // A profession of a character and what the bags hold for it.
 public struct Section {
-  skillLine: integer
-  profession: string
-  offers: array<Offer>
+  public mut skillLine: integer
+  public mut profession: string
+  public mut offers: array<Offer>
 }
 
 // A character something goes to: its sections, and how many items they hold (an item in two sections once).
 public struct OwnRow {
-  who: string
-  name: string
-  color: color | nil
-  sections: array<Section>
-  items: integer
+  public mut who: string
+  public mut name: string
+  public mut color: color | nil
+  public mut sections: array<Section>
+  public mut items: integer
 }
 
 // Whose recipes take an item, as Ordaen Professions answers it.
@@ -95,9 +95,9 @@ public type CraftingRead = (item: integer) => array<Crafting>
 
 // One of the player's other characters a letter reaches.
 public struct Kin {
-  who: string
-  name: string
-  classTag: string
+  public mut who: string
+  public mut name: string
+  public mut classTag: string
 }
 
 function itemName(item: integer): string { return Client::C_Item::GetItemNameByID(item) ?? string::of(item) }

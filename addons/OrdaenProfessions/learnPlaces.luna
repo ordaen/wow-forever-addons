@@ -27,9 +27,9 @@ const MOST_HEIGHT = 257.8125dp
 
 // A place with how far it is, as the table lists it.
 public struct Placed {
-  place: LearnPlace
+  public mut place: LearnPlace
   // In yards; none where no spot of it is known on the player's continent.
-  yards: number | nil
+  public mut yards: number | nil
 }
 
 // Whether `a` stands before `b` by a column, a place with no distance after every one with one, either way; then by

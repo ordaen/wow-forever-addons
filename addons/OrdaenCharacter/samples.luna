@@ -18,9 +18,9 @@ public class SampleNote implements Component {
 
 // A statistic of the game's: its category, its name and its value.
 struct Statistic {
-  const category: string
-  const name: string
-  const value: string
+  category: string
+  name: string
+  value: string
 }
 
 const STATISTICS: array<Statistic> = [

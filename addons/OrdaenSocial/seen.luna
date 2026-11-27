@@ -11,16 +11,16 @@ const DAY = 86400
 
 // A character a friend was seen on, and when (seconds since 1970).
 public struct SeenHero implements Plain {
-  name: string = ""
-  level: integer = 0
-  className: string = ""
-  classFile: string = ""
-  realm: string = ""
-  at: number = 0
+  public mut name: string = ""
+  public mut level: integer = 0
+  public mut className: string = ""
+  public mut classFile: string = ""
+  public mut realm: string = ""
+  public mut at: number = 0
 }
 
 public struct SeenHeroes implements Plain {
-  heroes: map<string, SeenHero> = {}
+  public mut heroes: map<string, SeenHero> = {}
 }
 public const SEEN_HEROES: SeenHeroes = {}
 

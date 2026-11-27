@@ -13,8 +13,8 @@ const MAX_LEVEL = 60
 // How a stat of the client's item stats (`C_Item.GetItemStats`' keys) is weighed: the weight it takes, and the
 // combat rating it counts in (none: 0), which the client turns into the percentage the weight is per.
 struct Weighing {
-  weight: (weights: Weights, ranged: boolean) => number
-  rating: integer = 0
+  mut weight: (weights: Weights, ranged: boolean) => number
+  mut rating: integer = 0
 }
 
 // The client's combat ratings (`CR_*`) the weights are per 1% of.
@@ -79,8 +79,8 @@ const WEIGHINGS: map<string, Weighing> = {
 // Where an item is worn (`INVTYPE_*`), by the slots of the player's it can take (`INVSLOT_*`): one of them, or with
 // `both` all at once (a two-handed weapon takes the off hand's place too).
 public struct Places {
-  slots: array<integer>
-  both: boolean = false
+  public mut slots: array<integer>
+  public mut both: boolean = false
 }
 
 const MAIN_HAND = 16

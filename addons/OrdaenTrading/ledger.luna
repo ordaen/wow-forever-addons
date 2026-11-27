@@ -8,11 +8,11 @@ public enum Deal implements Plain { Sold = "sold", Bought = "bought", Expired = 
 
 // One row: the item by its name (an invoice names it so), how many, for how much in all.
 public struct Dealt implements Plain {
-  deal: Deal = .Sold
-  item: string = ""
-  count: integer = 0
-  copper: integer = 0
-  at: Hour = 0
+  public mut deal: Deal = .Sold
+  public mut item: string = ""
+  public mut count: integer = 0
+  public mut copper: integer = 0
+  public mut at: Hour = 0
 }
 
 // How many rows are kept; the oldest goes first.

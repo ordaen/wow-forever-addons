@@ -32,22 +32,22 @@ const BANK = 6
 
 // One stack, as the game reads it.
 struct Lies {
-  bag: integer
-  slot: integer
-  const id: integer
-  const name: string
-  const icon: FileId
-  count: integer = 1
-  const quality: integer = 1
-  const kind: integer = 15
-  const subkind: integer = 0
-  const level: integer = 1
-  const price: integer = 10
-  const worn: string = ""
+  mut bag: integer
+  mut slot: integer
+  id: integer
+  name: string
+  icon: FileId
+  mut count: integer = 1
+  quality: integer = 1
+  kind: integer = 15
+  subkind: integer = 0
+  level: integer = 1
+  price: integer = 10
+  worn: string = ""
   // Whether the client has the item's own info yet: its level and price are 0 till then.
-  loaded: boolean = true
-  const questItem: boolean = false
-  const startsQuest: boolean = false
+  mut loaded: boolean = true
+  questItem: boolean = false
+  startsQuest: boolean = false
 }
 
 // What lies in the bags and the bank, as the test's fakes read it.

@@ -17,16 +17,16 @@ public enum PairWords { Speakers = "speakers", Achievements = "achievements" }
 // A row: the client's groups of its first part and of its second (none for a row of one), its words where they
 // aren't the game's name of its first group, and, for a row of two, the words of its choice.
 public struct GroupRow {
-  first: array<string>
-  second: array<string>
-  label: string | nil
-  words: PairWords | nil
+  public mut first: array<string>
+  public mut second: array<string>
+  public mut label: string | nil
+  public mut words: PairWords | nil
 }
 
 // A section of rows under its title.
 public struct RowSection {
-  title: string
-  rows: array<GroupRow>
+  public mut title: string
+  public mut rows: array<GroupRow>
 }
 
 // The group that carries the communities' lines into a window.
@@ -85,23 +85,23 @@ public const NOTICES: GroupRow = { first: [CHANNEL_NOTICES], second: [], label: 
 
 // A row as a window shows it: its first group's name (its key), its words, and what of it the window shows.
 public struct RowShown {
-  key: string
-  label: string
+  public mut key: string
+  public mut label: string
   // A row of two: its choice's words.
-  words: PairWords | nil
-  pair: Pair
+  public mut words: PairWords | nil
+  public mut pair: Pair
 }
 
 // A section's rows as a window shows them.
 public struct SectionShown {
-  title: string
-  rows: array<RowShown>
+  public mut title: string
+  public mut rows: array<RowShown>
 }
 
 // A row picked to show this much.
 public struct RowPick {
-  key: string
-  pair: Pair
+  public mut key: string
+  public mut pair: Pair
 }
 
 function pairOf(first: boolean, second: boolean): Pair {

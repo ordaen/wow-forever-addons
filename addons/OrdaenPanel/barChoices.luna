@@ -9,13 +9,13 @@ public enum BarKind implements Plain { Action = "action", Pet = "pet", Stance = 
 // and stances' buttons are told by their place), how many buttons it can have, the game's name of its buttons'
 // bindings (`ACTIONBUTTON` and a button's number) and the client's template of its buttons.
 public struct BarSpec {
-  id: string
-  kind: BarKind
-  number: integer
-  first: integer
-  most: integer
-  command: string
-  template: string
+  public mut id: string
+  public mut kind: BarKind
+  public mut number: integer
+  public mut first: integer
+  public mut most: integer
+  public mut command: string
+  public mut template: string
 }
 
 // The game's eight bars in Blizzard's own slots and bindings (without the panel, the game's bars show the same
@@ -44,22 +44,22 @@ const STANCE = "StanceButtonTemplate, SecureActionButtonTemplate"
 // One bar's settings. Its size is the buttons' side in UI units (the client's own is 45), its spacing the room
 // between them.
 public struct BarChoice implements Plain {
-  on: boolean
-  buttons: integer
-  perRow: integer
-  size: number
-  spacing: number
-  keys: boolean
-  visibility: Visibility
+  public mut on: boolean
+  public mut buttons: integer
+  public mut perRow: integer
+  public mut size: number
+  public mut spacing: number
+  public mut keys: boolean
+  public mut visibility: Visibility
   // Its empty buttons unseen, but while something is dragged that could go on one.
-  hideEmpty: boolean = true
+  public mut hideEmpty: boolean = true
 }
 
 public struct BarsChoices implements Plain {
   // Each bar's settings the player changed, by its id; a bar not here has its defaults (`defaultChoice`).
-  bars: mut map<string, BarChoice>
+  public mut bars: mut map<string, BarChoice>
   // The forms that don't page Панель 1, by their bonus bar (`"1"` to `"4"`): in them it stays as it is.
-  unpaged: mut map<string, boolean>
+  public mut unpaged: mut map<string, boolean>
 }
 
 public const BARS_DEFAULTS: BarsChoices = { bars: {}, unpaged: {} }

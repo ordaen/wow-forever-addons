@@ -48,34 +48,34 @@ const EVERY_SHOW: map<ChallengeShow, boolean> = { [ChallengeShow::Done]: true, [
 
 // One challenge.
 public struct Challenge {
-  id: integer
-  name: string
-  description: string
-  icon: FileId | nil
+  public mut id: integer
+  public mut name: string
+  public mut description: string
+  public mut icon: FileId | nil
   // Completed by this character.
-  done: boolean
+  public mut done: boolean
   // When, as the game writes a date; empty while not completed.
-  date: string
-  points: integer
+  public mut date: string
+  public mut points: integer
   // Its place in its category, as the game orders it (the completed first).
-  place: integer
+  public mut place: integer
 }
 
 // A category and its challenges, under its parent where it has one.
 public struct Category {
-  id: integer
-  name: string
-  depth: integer
-  challenges: array<Challenge>
+  public mut id: integer
+  public mut name: string
+  public mut depth: integer
+  public mut challenges: array<Challenge>
 }
 
 // One of a challenge's criteria: its words, whether it is met, and how far a counted one has got.
 public struct Criterion {
-  text: string
-  done: boolean
+  public mut text: string
+  public mut done: boolean
   // «3 / 10» for a counted one not met yet, empty for the others; how far, 0 to 1.
-  count: string
-  progress: number
+  public mut count: string
+  public mut progress: number
 }
 
 const CHALLENGE_ROW: array<Track> = [Style::ICON, { fr: 1 }, "max-content"]

@@ -15,8 +15,8 @@ import Style from "@/style"
 const COLUMNS: array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
 // A key that picks a line, and its name on the keycap.
 public struct LineKey {
-  const key: Key
-  const name: string
+  public key: Key
+  public name: string
 }
 
 // The keys the window hears: the digits 1–9, a line's place in the column the keys are on (and a quest's reward).
@@ -43,9 +43,9 @@ public const COLUMN_LINES: integer = LINE_KEYS.length
 
 // A line of the list: its place among the lines, which a pick goes by, and its place in its column, its key.
 public struct Placed {
-  const line: Line
-  const index: integer
-  const place: integer
+  public line: Line
+  public index: integer
+  public place: integer
 }
 
 // The lines in columns of as many as the most a column holds lets them be even, each column top to bottom.

@@ -13,29 +13,29 @@ public enum Switch implements Plain { Off = "off", Some = "some", On = "on" }
 // One addon as its TOC says it.
 public struct AddOn {
   // Its folder: what the client names it by.
-  name: string
+  public mut name: string
   // Its title as the TOC writes it, with its colour codes.
-  title: string
+  public mut title: string
   // Its title without colour codes, in lower case: what the list sorts by.
-  key: string
+  public mut key: string
   // What the search looks in: title, folder, author and notes, in lower case.
-  words: string
-  notes: string
-  author: string
-  version: string
-  icon: string
+  public mut words: string
+  public mut notes: string
+  public mut author: string
+  public mut version: string
+  public mut icon: string
   // The category the client groups it under (`## Category-<locale>` first), `""` for none.
-  category: string
+  public mut category: string
   // The addon it stands under (`## Group`), `""` for none.
-  group: string
+  public mut group: string
   // What it needs (`## Dependencies`) and what it would like (`## OptionalDeps`), by folder.
-  needs: array<string>
-  wants: array<string>
-  demand: boolean
+  public mut needs: array<string>
+  public mut wants: array<string>
+  public mut demand: boolean
   // Built for an older client than this one: its TOC's interface below the client's.
-  outdated: boolean
+  public mut outdated: boolean
   // Written in LunaType: the runtime itself, or an addon that needs it.
-  lunatype: boolean
+  public mut lunatype: boolean
 }
 
 // The runtime's folder: what an addon written in LunaType needs.
@@ -44,26 +44,26 @@ const RUNTIME = "LunaType"
 // What the client says of an addon now.
 public struct Status {
   // On or off for whom the header says.
-  enabled: Switch
+  public mut enabled: Switch
   // On for this character: what the next session loads.
-  mine: boolean
-  loaded: boolean
+  public mut mine: boolean
+  public mut loaded: boolean
   // Why the client doesn't load it for this character, where it doesn't; never «on demand».
-  reason: Client::AddOnReason | nil
+  public mut reason: Client::AddOnReason | nil
 }
 
 // One addon a step changed, and how it was before.
 public struct Change {
-  name: string
-  before: Switch
+  public mut name: string
+  public mut before: Switch
   // On for this character before: how «Some» is put back.
-  mine: boolean
+  public mut mine: boolean
 }
 
 // What one switch changed: «Undo» puts back each addon in it; `also` are the titles of those that came with it.
 public struct Step {
-  changes: array<Change>
-  also: array<string>
+  public mut changes: array<Change>
+  public mut also: array<string>
 }
 
 // The values a client's call gives, one after another, as a list.

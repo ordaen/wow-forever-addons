@@ -3,8 +3,8 @@
 import { ColorPicker, Component } from "Ordaen"
 
 public struct Tints {
-  frame: color
-  text: color
+  public mut frame: color
+  public mut text: color
 }
 
 public class Tinted implements Component {

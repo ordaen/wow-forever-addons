@@ -11,9 +11,9 @@ const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 
 // A window: its name, its icon, and how it is opened (a line of a macro the client runs, in a fight too; none: ours).
 struct Opening {
-  title: string
-  icon: Asset
-  line: string | nil
+  mut title: string
+  mut icon: Asset
+  mut line: string | nil
 }
 
 function opening(window: Window): Opening {
@@ -41,9 +41,9 @@ function openAction(window: Window): WheelAction {
 // A kind of ping: its name, the client's mark of it, and its number for `/ping` (the client reads a kind's name only
 // in its own language, a number in every one).
 struct Pinging {
-  title: string
-  icon: Atlas
-  number: integer
+  mut title: string
+  mut icon: Atlas
+  mut number: integer
 }
 
 function pinging(ping: Ping): Pinging {

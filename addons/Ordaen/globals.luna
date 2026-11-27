@@ -8,15 +8,15 @@ public enum Clock { H24 = "24", H12 = "12" }
 
 public struct Globals implements Plain {
   // Ordaen's windows, on top of the game's UI scale.
-  scale: number
-  density: Density
+  public mut scale: number
+  public mut density: Density
   // Borders and dividers exactly on the screen's pixels.
-  pixel: boolean
-  numberFormat: NumberFormat
-  numberRound: boolean
-  numberPrecision: integer
-  numbers: LargeNumbers
-  sounds: boolean
+  public mut pixel: boolean
+  public mut numberFormat: NumberFormat
+  public mut numberRound: boolean
+  public mut numberPrecision: integer
+  public mut numbers: LargeNumbers
+  public mut sounds: boolean
 }
 
 public const DEFAULTS: Globals = {

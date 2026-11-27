@@ -15,10 +15,10 @@ import Style from "@/style"
 
 // How the player left the inbox's list: its filter, its view and its sort.
 public struct InboxView implements Plain {
-  filter: Filter = Filter::All
-  view: View = View::List
-  sorted: integer = 0
-  descending: boolean = false
+  public mut filter: Filter = Filter::All
+  public mut view: View = View::List
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 const INBOX_VIEW: InboxView = {}
 
@@ -58,9 +58,9 @@ const KINDS: array<Game::MailKind> = [Game::MailKind::Auction, Game::MailKind::P
 
 // The letters of one kind, under their caption.
 public struct Group {
-  kind: Game::MailKind
-  title: string
-  letters: array<Game::MailLetter>
+  public mut kind: Game::MailKind
+  public mut title: string
+  public mut letters: array<Game::MailLetter>
 }
 
 // What the row's click asks: open it, take everything from it, return it.

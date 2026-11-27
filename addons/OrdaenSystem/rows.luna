@@ -18,27 +18,27 @@ import Style from "@/style"
 // One line of the list.
 public struct Line {
   // A category's caption, or an addon.
-  caption: boolean
+  public mut caption: boolean
   // The addon's folder, or the category as the client groups by it.
-  name: string
+  public mut name: string
   // A caption's: how many addons it holds. A caption's or a parent's: whether it is folded.
-  count: integer
-  folded: boolean
+  public mut count: integer
+  public mut folded: boolean
   // An addon under its group's parent, which stands right above it.
-  child: boolean
+  public mut child: boolean
   // A group's parent with members in the list: its mark folds them.
-  parent: boolean
+  public mut parent: boolean
   // A caption's: the addons its switch switches, every one of its group (none for an addon's row).
-  names: array<string>
+  public mut names: array<string>
   // An addon's row in the table, which shows its category in a column after its title.
-  tabled: boolean
+  public mut tabled: boolean
 }
 
 // From which value each numbers' column is lit: its heaviest third.
 public struct Hot {
-  now: number
-  peak: number
-  memory: number
+  public mut now: number
+  public mut peak: number
+  public mut memory: number
 }
 
 public const COLUMNS: array<Track> = [{ fr: 1 }, "max-content", Style::NUMBER, Style::NUMBER, Style::MEMORY, SWITCH_WIDTH]

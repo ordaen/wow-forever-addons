@@ -39,8 +39,8 @@ public function barDefaults(): map<string, BarChoice> {
 
 // A bar drawn: its spec, and how high the bars under it in the default stack stand, with the room above each.
 public struct Shown {
-  spec: BarSpec
-  below: number<Length>
+  public mut spec: BarSpec
+  public mut below: number<Length>
 }
 
 public class ActionBars implements Component, OwnerKeys {

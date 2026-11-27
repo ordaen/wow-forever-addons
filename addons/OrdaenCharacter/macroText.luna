@@ -56,9 +56,9 @@ public const UNITS: array<string> = [
 
 // One condition the picker built: its name, `no` before it or not, and what follows its `:` (none where empty).
 public struct PickedCondition {
-  const name: string
-  const negated: boolean = false
-  const value: string = ""
+  public name: string
+  public negated: boolean = false
+  public value: string = ""
 }
 
 // An option's brackets as the picker builds them: the unit aimed at first (`@focus`; none where empty), then each
@@ -75,8 +75,8 @@ public function optionText(unit: string, conditions: array<PickedCondition>): st
 
 // What the body's checker found on a line (from 1; 0 for the whole body).
 public struct Problem {
-  const line: integer
-  const text: string
+  public line: integer
+  public text: string
 }
 
 // The body's letters, as the client counts them: a letter of several bytes is one.

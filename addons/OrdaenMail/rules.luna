@@ -22,15 +22,15 @@ const LEASTS: array<Choice<Least>> = [
 
 // A profession of a character, as the rules see it.
 public struct RuledProfession {
-  skillLine: integer
-  name: string
+  public mut skillLine: integer
+  public mut name: string
 }
 
 // A character with professions a letter reaches.
 public struct RuledKin {
-  who: string
-  name: string
-  professions: array<RuledProfession>
+  public mut who: string
+  public mut name: string
+  public mut professions: array<RuledProfession>
 }
 
 // The characters a letter reaches that have a profession, with their professions, each by name.

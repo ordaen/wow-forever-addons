@@ -99,8 +99,8 @@ public class SettingsTab implements Component {
 
 // A section of a page: a heading's lines.
 struct LineSection {
-  title: string
-  lines: array<SettingLine>
+  mut title: string
+  mut lines: array<SettingLine>
 }
 
 // A page's lines cut at its headings: a section each, the lines before the first heading under `first`.

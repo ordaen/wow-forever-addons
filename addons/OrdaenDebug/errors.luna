@@ -20,43 +20,43 @@ public enum Kind implements Plain {
 
 // The client's facts in one session.
 public struct Meta implements Plain {
-  client: string | nil
-  build: string | nil
-  buildDate: string | nil
-  interface: number | nil
-  locale: string | nil
-  core: string | nil
+  public mut client: string | nil
+  public mut build: string | nil
+  public mut buildDate: string | nil
+  public mut interface: number | nil
+  public mut locale: string | nil
+  public mut core: string | nil
 }
 
 // One error (or blocked action), kept once by its message and counted when it comes back.
 public struct Entry implements Plain {
-  const id: integer
-  const kind: Kind
-  source: string
-  const message: string
-  const stack: string | nil
-  const locals: string | nil
-  count: integer
-  const time: string
-  lastTime: string | nil
-  const session: integer
-  lastSession: integer | nil
+  public id: integer
+  public kind: Kind
+  public mut source: string
+  public message: string
+  public stack: string | nil
+  public locals: string | nil
+  public mut count: integer
+  public time: string
+  public mut lastTime: string | nil
+  public session: integer
+  public mut lastSession: integer | nil
 }
 
 // What an error is recorded from: the source is found from the message and stack where none is given.
 public struct Fields {
-  message: string
-  stack: string | nil
-  locals: string | nil
-  kind: Kind | nil
-  source: string | nil
+  public mut message: string
+  public mut stack: string | nil
+  public mut locals: string | nil
+  public mut kind: Kind | nil
+  public mut source: string | nil
 }
 
 public struct DB implements Plain {
-  session: integer
-  nextId: integer
-  sessions: mut map<integer, Meta>
-  errors: mut array<mut Entry>
+  public mut session: integer
+  public mut nextId: integer
+  public mut sessions: mut map<integer, Meta>
+  public mut errors: mut array<mut Entry>
 }
 
 // Told of an error added (isNew) or repeated. firstThisSession: true for a new error and for the first repeat in

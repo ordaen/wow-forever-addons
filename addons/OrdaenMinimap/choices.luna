@@ -2,12 +2,12 @@
 import { Visibility } from "Ordaen"
 
 public struct Choices implements Plain {
-  scale: number
-  showZone: boolean
-  showClock: boolean
-  showCoords: boolean
-  buttonsHover: boolean
-  visibility: Visibility
-  drawerOn: boolean
-  drawerColumns: integer
+  public mut scale: number
+  public mut showZone: boolean
+  public mut showClock: boolean
+  public mut showCoords: boolean
+  public mut buttonsHover: boolean
+  public mut visibility: Visibility
+  public mut drawerOn: boolean
+  public mut drawerColumns: integer
 }

@@ -9,9 +9,9 @@ public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 public enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 
 public struct Sale {
-  name: string
-  price: integer
-  seen: number
+  public mut name: string
+  public mut price: integer
+  public mut seen: number
 }
 
 const FLAGS: array<Marker> = [{ corner: Corner::TopLeft, color: #ffd100 }]

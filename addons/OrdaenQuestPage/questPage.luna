@@ -105,16 +105,16 @@ public const WIDE_SCROLL: number<Length> = SCROLL_WIDTH * 1.5
 // each roll its two ends with a straight piece of roll repeating across between them, the paper its plain middle
 // repeating both ways under its torn edges, which repeat down. A texel of it is the 1024th of the scroll's width.
 public struct ScrollParts {
-  left: Art
-  middle: Art
-  right: Art
+  public mut left: Art
+  public mut middle: Art
+  public mut right: Art
 }
 public struct ScrollArt {
-  top: ScrollParts
-  paper: ScrollParts
-  bottom: ScrollParts
+  public mut top: ScrollParts
+  public mut paper: ScrollParts
+  public mut bottom: ScrollParts
   // The sheet's shading and spots, drawn once over the paper's repeating grain, stretched, multiplied into it.
-  tone: Art
+  public mut tone: Art
 }
 const TEXEL: number<Length> = SCROLL_WIDTH / 1024
 public const SCROLL_ART: ScrollArt = {
@@ -140,15 +140,15 @@ public const SCROLL_ART: ScrollArt = {
 // its corners at their own size, a torn edge along each side repeating between them, the plain paper of its middle
 // repeating both ways, and the scroll's shading stretched over all of it once. A texel is the scroll's.
 public struct SheetArt {
-  topLeft: Art
-  top: Art
-  topRight: Art
-  left: Art
-  middle: Art
-  right: Art
-  bottomLeft: Art
-  bottom: Art
-  bottomRight: Art
+  public mut topLeft: Art
+  public mut top: Art
+  public mut topRight: Art
+  public mut left: Art
+  public mut middle: Art
+  public mut right: Art
+  public mut bottomLeft: Art
+  public mut bottom: Art
+  public mut bottomRight: Art
 }
 public const SHEET_ART: SheetArt = {
   topLeft: "@/media/sheet-top-left.tga",
@@ -318,27 +318,27 @@ public enum RewardKind { Item, Currency, Spell, Title, Skill }
 // A reward, to choose or given: an item as the game names it (its slot and type under it, red where the player can't
 // wear it; its sell price), a spell learned, a title, a currency, a skill's points.
 public struct Reward {
-  const kind: RewardKind
-  const name: string
-  const icon: Art | nil
-  const count: integer
-  const quality: Quality
-  const item: integer | nil
-  const link: string | nil
-  const detail: string
-  const unusable: boolean
+  public kind: RewardKind
+  public name: string
+  public icon: Art | nil
+  public count: integer
+  public quality: Quality
+  public item: integer | nil
+  public link: string | nil
+  public detail: string
+  public unusable: boolean
   // The item's sell price at a vendor, all of the count; 0 where it sells for nothing.
-  const sell: integer
+  public sell: integer
   // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
-  const index: integer
+  public index: integer
   // A currency's number, whose tooltip its slot shows (with the count); none for anything else.
-  const currency: integer | nil = nil
+  public currency: integer | nil = nil
 }
 
 // A reputation a quest raises.
 public struct Standing {
-  const name: string
-  const amount: integer
+  public name: string
+  public amount: integer
 }
 
 // An item's second line: its slot as the game names it and its type («Waist · Leather»).
@@ -401,11 +401,11 @@ public class Keycap implements Component {
 
 // A reward as its row shows it: its upgrade, and whether it is the best upgrade and the dearest.
 public struct RewardView {
-  const reward: Reward
+  public reward: Reward
   // How much more it is worth than what is worn (Ordaen's worth), 0.15 for 15%; 0 for none.
-  const upgrade: number
-  const best: boolean
-  const dearest: boolean
+  public upgrade: number
+  public best: boolean
+  public dearest: boolean
 }
 
 // The rows of rewards to choose: the best upgrade marked, and the dearest at a vendor.

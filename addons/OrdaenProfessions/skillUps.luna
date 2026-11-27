@@ -26,9 +26,9 @@ public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: in
 // teaches, the skill the item asks to learn it (its orange point). A trainer's recipe says its own while the trainer
 // shows it (`Game.trainer.services`' `skill`).
 public struct Thresholds {
-  yellow: map<integer, integer>
-  grey: map<integer, integer>
-  learned: map<integer, integer> = {}
+  public mut yellow: map<integer, integer>
+  public mut grey: map<integer, integer>
+  public mut learned: map<integer, integer> = {}
 }
 
 // The profession's thresholds; none for one the table hasn't (a skill line of no recipes).

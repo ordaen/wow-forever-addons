@@ -9,10 +9,10 @@ public enum Page { Closed, List, Detail, Progress, Reward, Book }
 
 // Who the tab is: the NPC's face, or the item's or the object's icon where the quest or the book has no NPC.
 public struct Speaker {
-  const name: string
-  const subtitle: string | nil
-  const portrait: string | nil
-  const icon: Art | nil
+  public name: string
+  public subtitle: string | nil
+  public portrait: string | nil
+  public icon: Art | nil
 }
 
 // A question asked before the game is told: the window's page while it waits, Yes and No its answers.
@@ -31,8 +31,8 @@ public enum Prompt {
 
 // An option the player marked to be picked on its own: by the NPC and the option's ID.
 public struct Marked implements Plain {
-  npc: integer
-  option: integer
+  public mut npc: integer
+  public mut option: integer
 }
 
 // The most marks kept: the oldest go first.

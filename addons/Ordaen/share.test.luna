@@ -4,7 +4,7 @@ import Test from "$test"
 import { Refusal, Refused, Shared, read, write } from "@/share"
 
 struct Probe implements Plain {
-  scale: number = 1
+  mut scale: number = 1
 }
 
 function sample(): Shared {

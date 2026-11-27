@@ -23,54 +23,54 @@ const PET_ROLE = "PET"
 // A spell a class trainer teaches: the level and the price it is learned at, its rank (0 for none), the talent a later rank of a talent's own
 // needs (0 for none), the side and the race it is for (0 for both, or every race), the spells learned before it.
 public struct TrainerSpell {
-  id: integer
-  level: integer
-  rank: integer
-  cost: integer
-  talent: integer
-  side: integer
-  race: integer
-  required: array<integer>
+  public mut id: integer
+  public mut level: integer
+  public mut rank: integer
+  public mut cost: integer
+  public mut talent: integer
+  public mut side: integer
+  public mut race: integer
+  public mut required: array<integer>
 }
 
 // A way a quest gives a spell to some races: the level of its first quest, the areas it is given in, its quests.
 public struct QuestWay {
-  races: array<integer>
-  level: integer
-  areas: array<integer>
-  quests: array<integer>
+  public mut races: array<integer>
+  public mut level: integer
+  public mut areas: array<integer>
+  public mut quests: array<integer>
 }
 
 // Who learns: the class by its file name, the race by its ID, the side (1 the Alliance, 2 the Horde), the level, and
 // what they and their pet know and how they stand with a faction (the client's reaction; none where they haven't met it).
 public struct Learner {
-  classTag: string
-  race: integer
-  side: integer
-  level: integer
-  known: (spell: integer) => boolean
+  public mut classTag: string
+  public mut race: integer
+  public mut side: integer
+  public mut level: integer
+  public mut known: (spell: integer) => boolean
   // What the learner's demon or beast knows: the one out, where one is.
-  petKnown: (spell: integer) => boolean
-  standing: (faction: integer) => integer | nil
+  public mut petKnown: (spell: integer) => boolean
+  public mut standing: (faction: integer) => integer | nil
 }
 
 // A spell's way to its quest, for the page's action: the quest the action opens.
 public struct Learnable {
-  services: array<Game::TrainerService>
-  notes: map<integer, string>
-  actions: map<integer, string>
+  public mut services: array<Game::TrainerService>
+  public mut notes: map<integer, string>
+  public mut actions: map<integer, string>
   // The quest a service's action opens, by its place.
-  quests: map<integer, integer>
+  public mut quests: map<integer, integer>
   // What a service costs at each city whose trainers teach the class, by its place.
-  prices: map<integer, array<PlacePrice>>
+  public mut prices: map<integer, array<PlacePrice>>
 }
 
 // A city whose trainers teach the learner's class: its faction, how the learner stands with it, and what a price comes
 // to there.
 public struct CityPrice {
-  faction: integer
-  standing: integer
-  price: integer
+  public mut faction: integer
+  public mut standing: integer
+  public mut price: integer
 }
 
 function numbersOf(text: string, between: string): array<integer> {
@@ -175,21 +175,21 @@ function wayFor(ways: array<QuestWay>, race: integer): QuestWay | nil {
 // A weapon master on the learner's side: who, where (an area's ID, x and y on its map from 0 to 100), and what the
 // skill costs there.
 public struct WeaponMaster {
-  npc: integer
-  zone: integer
-  x: number
-  y: number
-  price: integer
+  public mut npc: integer
+  public mut zone: integer
+  public mut x: number
+  public mut y: number
+  public mut price: integer
 }
 
 // A weapon skill the learner's class may learn: its spell, the level and the full price, and its masters on the
 // learner's side, cheapest first.
 public struct WeaponWay {
-  spell: integer
-  order: integer
-  level: integer
-  cost: integer
-  masters: array<WeaponMaster>
+  public mut spell: integer
+  public mut order: integer
+  public mut level: integer
+  public mut cost: integer
+  public mut masters: array<WeaponMaster>
 }
 
 // The weapon skills the learner's class may learn, in What's Training's order.
@@ -228,11 +228,11 @@ function masterLineOf(master: WeaponMaster, npcName: NpcName): PlacePrice {
 // A grimoire the demon trainer sells: the spell it teaches a demon, its rank (by the grimoires of that spell before
 // it), the level and the full price, and the demon's family as What's Training names it.
 public struct Grimoire {
-  spell: integer
-  rank: integer
-  level: integer
-  cost: integer
-  family: string
+  public mut spell: integer
+  public mut rank: integer
+  public mut level: integer
+  public mut cost: integer
+  public mut family: string
 }
 
 // The demon trainer's grimoires, by level.
@@ -304,22 +304,22 @@ function statusOf(wait: Wait): Game::ServiceStatus {
 
 // One spell before it is placed: the service but its place, and its quest's.
 struct Row {
-  spell: integer
+  mut spell: integer
   // The client's name for it: the rows sort by it.
-  name: string
-  wait: Wait
-  level: integer
+  mut name: string
+  mut wait: Wait
+  mut level: integer
   // Its rank; 0 for none (a quest's spell).
-  rank: integer
-  cost: integer
+  mut rank: integer
+  mut cost: integer
   // The price before a faction takes its share off: 0 for a quest's spell.
-  base: integer
+  mut base: integer
   // Whose trainers teach it: the class's file name, or the pet trainers'.
-  role: string
-  quest: integer | nil
-  note: string | nil
+  mut role: string
+  mut quest: integer | nil
+  mut note: string | nil
   // Its masters' lines, for a weapon skill.
-  masters: array<PlacePrice>
+  mut masters: array<PlacePrice>
 }
 
 // The name a spell's quest says it by: the client's, in the player's language, where it has the quest.

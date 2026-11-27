@@ -31,36 +31,36 @@ public enum XpView { Numbers = "numbers", Percent = "percent", NumbersOnly = "nu
 
 // The zone each item sits in: one each, so no item stands in two.
 public struct Places {
-  micromenu: Zone
-  social: Zone
-  experience: Zone
-  zone: Zone
-  clock: Zone
-  currencies: Zone
-  bags: Zone
+  public mut micromenu: Zone
+  public mut social: Zone
+  public mut experience: Zone
+  public mut zone: Zone
+  public mut clock: Zone
+  public mut currencies: Zone
+  public mut bags: Zone
 }
 
 public struct Choices {
   // The parts, each on or off.
-  microOn: boolean
-  statusOn: boolean
-  bottomOn: boolean
-  microIcons: MicroIcons
-  charButton: CharButton
-  charView: CharView
+  public mut microOn: boolean
+  public mut statusOn: boolean
+  public mut bottomOn: boolean
+  public mut microIcons: MicroIcons
+  public mut charButton: CharButton
+  public mut charView: CharView
   // The panel's text.
-  outline: Outline
-  shadow: boolean
+  public mut outline: Outline
+  public mut shadow: boolean
   // The experience bar.
-  xpTexture: XpTexture
-  xpBorder: XpBorder
-  xpView: XpView
+  public mut xpTexture: XpTexture
+  public mut xpBorder: XpBorder
+  public mut xpView: XpView
   // The panel: where, how long, how high, what sits in which zone, when it shows.
-  edge: Edge
-  fit: Fit
-  height: number
-  places: Places
-  visibility: Visibility
+  public mut edge: Edge
+  public mut fit: Fit
+  public mut height: number
+  public mut places: Places
+  public mut visibility: Visibility
 }
 
 public const DEFAULTS: Choices = {

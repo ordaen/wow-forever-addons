@@ -32,9 +32,9 @@ const DISENCHANT_SPELL = 13262
 // The rank after the one whose most is `most`, the skill it is learned from and the level it needs; none after the
 // last.
 public struct NextRank {
-  name: string
-  skill: integer
-  level: integer
+  public mut name: string
+  public mut skill: integer
+  public mut level: integer
 }
 
 public function nextRankOf(most: integer): NextRank | nil {
@@ -67,8 +67,8 @@ function secondary(skillLine: integer): boolean {
 
 // A line of a section: a text, and the recipe a click on it opens (0: none).
 public struct OverviewLine {
-  text: string
-  recipe: integer
+  public mut text: string
+  public mut recipe: integer
 }
 
 public class OverviewLineRow implements Component {

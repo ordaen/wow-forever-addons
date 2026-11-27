@@ -7,12 +7,12 @@ import { TipRow } from "Ordaen"
 // the experience's tube after the fill, in its colour, each part after the one before it and the rested part after
 // them all, with its own tooltip; a line in the tube's tooltip too (its title, its amount and its share of the level).
 public struct XpPart {
-  amount: integer
-  color: color
-  title: string
-  text: string
-  rows: array<TipRow>
-  look: XpLook = XpLook::Fill
+  public mut amount: integer
+  public mut color: color
+  public mut title: string
+  public mut text: string
+  public mut rows: array<TipRow>
+  public mut look: XpLook = XpLook::Fill
 }
 
 // How a part is drawn: the experience's own fill, made grey and tinted the part's colour (the same glass in another

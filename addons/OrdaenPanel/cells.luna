@@ -24,16 +24,16 @@ const UNTINTED: color = #ffffff
 // A cell's measures at its height and the room it reaches up through: its slot (as wide as it is high, room and all),
 // its icon's size and place in the slot.
 public struct CellSize {
-  width: number<Length>
-  height: number<Length>
-  rise: number<Length>
-  slot: number<Length>
-  icon: number<Length>
-  iconLeft: number<Length>
+  public mut width: number<Length>
+  public mut height: number<Length>
+  public mut rise: number<Length>
+  public mut slot: number<Length>
+  public mut icon: number<Length>
+  public mut iconLeft: number<Length>
   // One place, pressed or not: the game's button over the icon takes the press, and an icon that followed the cursor
   // would take the mouse from that button.
-  iconTop: number<Length>
-  face: number<Length>
+  public mut iconTop: number<Length>
+  public mut face: number<Length>
 }
 
 public function cellSize(height: number<Length>, rise: number<Length> = 0ui): CellSize {

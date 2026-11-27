@@ -9,48 +9,48 @@ import { ItemKind, Quality, kindOf, qualityFrom } from "Ordaen"
 
 // A part of what an item costs besides money: an item or a currency, its icon, how many and its name.
 public struct Cost {
-  const icon: Art | nil
-  const amount: integer
-  const name: string
+  public icon: Art | nil
+  public amount: integer
+  public name: string
 }
 
 // One item the merchant sells, at its place in the merchant's list.
 public struct Ware {
-  const index: integer
-  const id: integer
-  const name: string
-  const icon: Art | nil
-  const quality: Quality
+  public index: integer
+  public id: integer
+  public name: string
+  public icon: Art | nil
+  public quality: Quality
   // The money one purchase costs (`stack` items at once), in copper: 0 for an item bought with its costs alone.
-  const price: integer
-  const stack: integer
+  public price: integer
+  public stack: integer
   // How many the merchant has left: -1 for no end.
-  const available: integer
+  public available: integer
   // The player can use it (the client's word: its class, its level), and can buy it at all.
-  const usable: boolean
-  const purchasable: boolean
-  const costs: array<Cost>
+  public usable: boolean
+  public purchasable: boolean
+  public costs: array<Cost>
   // The most bought in one purchase (`GetMerchantItemMaxStack`).
-  const most: integer
+  public most: integer
   // The level it needs, and the bags' tab its kind falls in: the categories view's caption.
-  const level: integer
-  const tab: ItemKind
-  const kind: string
+  public level: integer
+  public tab: ItemKind
+  public kind: string
   // It starts a quest (the game's «!» over its icon); the purchase can be refunded (one paid in items or currencies
   // that can't is said so as it is asked); its link (the dressing room's, the chat's).
-  const quest: boolean
-  const refundable: boolean
-  const link: string | nil
+  public quest: boolean
+  public refundable: boolean
+  public link: string | nil
 }
 
 // An item sold to the merchant this visit, at its place in the buyback list (the last the newest).
 public struct Sold {
-  const place: integer
-  const name: string
-  const icon: Art | nil
-  const price: integer
-  const count: integer
-  const usable: boolean
+  public place: integer
+  public name: string
+  public icon: Art | nil
+  public price: integer
+  public count: integer
+  public usable: boolean
 }
 
 // The client's class of items for a recipe (`Enum.ItemClass.Recipe`), for what has none.

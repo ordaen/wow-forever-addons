@@ -19,13 +19,13 @@ const HEAD: color = #ffd100
 
 // A character who knows recipes of a profession taking an item, and which.
 public struct Crafter {
-  profession: string
-  skillLine: integer
-  guid: string
-  name: string
+  public mut profession: string
+  public mut skillLine: integer
+  public mut guid: string
+  public mut name: string
   // The character's skill in the profession, when last opened.
-  rank: integer
-  recipes: array<integer>
+  public mut rank: integer
+  public mut recipes: array<integer>
 }
 
 // A list of an item's crafters, empty, for its first.
@@ -68,23 +68,23 @@ public function craftersOf(book: Book): map<integer, array<Crafter>> {
 // A recipe that takes an item, as a character who knows it sees it: its name, what making it does for the
 // character's skill and that difficulty's colour, the item it makes (none for an enchant).
 public struct CraftRecipe {
-  name: string
-  difficulty: Game::Difficulty
-  color: color
-  makes: integer | nil
+  public mut name: string
+  public mut difficulty: Game::Difficulty
+  public mut color: color
+  public mut makes: integer | nil
 }
 
 // A character's profession whose known recipes take an item: the recipes, and the best of them for skilling up with
 // its colour.
 public struct Crafting {
-  skillLine: integer
-  profession: string
-  guid: string
-  name: string
-  rank: integer
-  best: Game::Difficulty
-  bestColor: color
-  recipes: array<CraftRecipe>
+  public mut skillLine: integer
+  public mut profession: string
+  public mut guid: string
+  public mut name: string
+  public mut rank: integer
+  public mut best: Game::Difficulty
+  public mut bestColor: color
+  public mut recipes: array<CraftRecipe>
 }
 
 // The order a difficulty is better in for skilling up: orange first.

@@ -6,22 +6,22 @@ import Style from "@/style"
 
 // A stat as a card shows it: its name and its value.
 public struct Card {
-  const label: string
-  const value: string
+  public label: string
+  public value: string
   // What the game's paper doll says of it under its name and value: its tooltip's text.
-  const tip: string = ""
+  public tip: string = ""
 }
 
 // A group of cards under its heading.
 public struct Group {
-  const title: string
-  const cards: array<Card>
+  public title: string
+  public cards: array<Card>
 }
 
 // A card with the heading of the group it goes under.
 public struct Filed {
-  const title: string
-  const card: Card
+  public title: string
+  public card: Card
 }
 
 // Cards under their headings, in order: those that follow one another under one heading make one group.

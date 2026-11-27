@@ -9,15 +9,15 @@ import type { Hint, Minimap } from "@/main"
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
 
 public struct RingSpec {
-  id: RingId
+  public mut id: RingId
   // Where it stands unless the player moved it: degrees from the top, clockwise.
-  angle: number
+  public mut angle: number
   // The glyph drawn on ours: one of the game's own, in its own proportions.
-  glyph: Art | nil
-  glyphWidth: number<Length> = 0ui
-  glyphHeight: number<Length> = 0ui
+  public mut glyph: Art | nil
+  public mut glyphWidth: number<Length> = 0ui
+  public mut glyphHeight: number<Length> = 0ui
   // Its side: a ring button's, the mail's larger.
-  size: number<Length> = BUTTON
+  public mut size: number<Length> = BUTTON
 }
 
 public const BUTTON: number<Length> = 39.84375dp

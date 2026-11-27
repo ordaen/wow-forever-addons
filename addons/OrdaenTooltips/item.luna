@@ -40,13 +40,13 @@ function binding(text: string): Part {
 }
 
 public struct ItemRead {
-  model: Model
+  public mut model: Model
   // The tooltips beside it: what using it does, its set.
-  sides: array<Model>
+  public mut sides: array<Model>
   // What a recipe makes: the game's data for it, read as an item of its own.
-  makes: array<Game::TooltipData>
+  public mut makes: array<Game::TooltipData>
   // Its level and its stats by the game's key for each: what a comparison sets against the other item's rows.
-  stats: map<string, number>
+  public mut stats: map<string, number>
 }
 
 // A number as Ordaen writes it, by Ordaen's number settings.

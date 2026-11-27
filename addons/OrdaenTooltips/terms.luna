@@ -78,8 +78,8 @@ public enum Term {
 }
 
 public struct Entry {
-  name: string
-  text: string
+  public mut name: string
+  public mut text: string
 }
 
 public function glossary(term: Term): Entry {

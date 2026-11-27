@@ -9,15 +9,15 @@ const MOST = 50
 
 // One character's gold, and when it was last seen (the server's time).
 public struct Purse implements Plain {
-  name: string
-  realm: string
-  copper: integer
-  seen: integer
+  public mut name: string
+  public mut realm: string
+  public mut copper: integer
+  public mut seen: integer
 }
 
 public struct Purses implements Plain {
   // By the character's GUID.
-  characters: map<string, Purse>
+  public mut characters: map<string, Purse>
 }
 
 const NONE: Purses = { characters: {} }

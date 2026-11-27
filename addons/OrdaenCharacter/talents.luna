@@ -42,7 +42,7 @@ const WHITE: color = #ffffff
 
 // The class trainer's price for a reset of the talents, as it last offered one, in copper: 0 before the first.
 public struct KeptWipe implements Plain {
-  cost: integer = 0
+  public mut cost: integer = 0
 }
 
 // One tree in its column, as high as the trees' room: a dark line at its left after the first.

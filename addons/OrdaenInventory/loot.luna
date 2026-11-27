@@ -15,15 +15,15 @@ const CHANNEL = "master"
 // What the player chose of looting, the profile's.
 public struct LootChoices implements Plain {
   // Every slot taken at once where the client's auto loot takes the window.
-  fast: boolean = true
+  public mut fast: boolean = true
   // The client's auto loot on for every character of the account, kept on at each login.
-  everyCharacter: boolean = false
+  public mut everyCharacter: boolean = false
   // A sound as the bags are full while looting.
-  fullSound: boolean = false
+  public mut fullSound: boolean = false
   // The game's reel as a catch comes in.
-  reelSound: boolean = true
+  public mut reelSound: boolean = true
   // What was looted shown beside the screen's middle, a line each (`LootToasts`).
-  toasts: boolean = true
+  public mut toasts: boolean = true
 }
 
 // What looting is while the player chose nothing.

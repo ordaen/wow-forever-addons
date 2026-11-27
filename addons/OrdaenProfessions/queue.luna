@@ -34,23 +34,23 @@ const SHORT: color = #ff6a5a
 
 // A queued recipe as its line draws it, with its count still to make.
 public struct QueueLine {
-  recipe: integer
-  name: string
-  icon: Art
-  color: color
-  count: integer
+  public mut recipe: integer
+  public mut name: string
+  public mut icon: Art
+  public mut color: color
+  public mut count: integer
 }
 
 // A reagent the queue needs: all of it, what the bags hold, and what is missing; the first line that needs it.
 public struct Need {
-  item: integer | nil
-  recipe: integer
-  crafts: integer
-  name: string
-  icon: Art
-  need: integer
-  have: integer
-  missing: integer
+  public mut item: integer | nil
+  public mut recipe: integer
+  public mut crafts: integer
+  public mut name: string
+  public mut icon: Art
+  public mut need: integer
+  public mut have: integer
+  public mut missing: integer
 }
 
 // The queue's lines: a recipe of the open profession as the game has it, another by its kept name and its
@@ -152,10 +152,10 @@ public class QueueRow implements Component {
 
 // What the missing part of a need costs by its cheaper way; none where nothing is missing.
 public struct NeedPrice {
-  need: Need
+  public mut need: Need
   // The missing part's price; none where nothing is missing or no price is known.
-  copper: integer | nil
-  way: Way
+  public mut copper: integer | nil
+  public mut way: Way
 }
 
 // Each need's missing part priced: the cheaper of the house and a merchant.

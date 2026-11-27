@@ -10,17 +10,17 @@ public enum Mark implements Plain { Junk = "junk", Keep = "keep" }
 
 // A mark, and when it was last given (the lists' own count of marks given): the oldest leaves first at the cap.
 public struct Marked implements Plain {
-  mark: Mark
-  turn: integer
+  public mut mark: Mark
+  public mut turn: integer
 }
 
 // What the player marked and what the bags learned, by item: kept because they are the player's teaching, which
 // nothing can rebuild; `MOST_MARKS` and `MOST_LEARNED` at most (about 25 KB a character).
 public struct JunkLists implements Plain {
-  marks: map<integer, Marked>
+  public mut marks: map<integer, Marked>
   // How sure the bags are that the player sells the item, from `FORGOTTEN` to 1; junk above `LEARNED`.
-  learned: map<integer, number>
-  turn: integer
+  public mut learned: map<integer, number>
+  public mut turn: integer
 }
 
 public const NO_LISTS: JunkLists = { marks: {}, learned: {}, turn: 0 }
@@ -28,13 +28,13 @@ public const NO_LISTS: JunkLists = { marks: {}, learned: {}, turn: 0 }
 // The rules, each a setting of the «Junk» page.
 public struct JunkRules implements Plain {
   // A grey item a merchant buys is junk.
-  grey: boolean
+  public mut grey: boolean
   // Grey weapons and armour are junk by the grey rule only above this item level.
-  greyGearLevel: number
+  public mut greyGearLevel: number
   // The bags learn from what the player sells by hand.
-  learn: boolean
+  public mut learn: boolean
   // The module's lines about junk in the chat.
-  chat: boolean
+  public mut chat: boolean
 }
 
 public const JUNK_RULES: JunkRules = { grey: true, greyGearLevel: 10, learn: true, chat: true }

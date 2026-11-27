@@ -32,14 +32,14 @@ enum Use { Character = "character", Class = "class", Account = "account" }
 
 // What a dropdown of profiles offers, and what tells it from the offer before it.
 struct Offer {
-  key: string
-  choices: array<Choice<string>>
+  mut key: string
+  mut choices: array<Choice<string>>
 }
 
 // A line of the import's preview: a module in the text and what taking it would do.
 struct Line {
-  text: string
-  color: color
+  public mut text: string
+  mut color: color
 }
 
 // A profile's name chosen of the profiles there are now. A `Dropdown` keeps the choices it was made with, so this one is

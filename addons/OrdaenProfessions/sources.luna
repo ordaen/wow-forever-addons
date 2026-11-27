@@ -12,29 +12,29 @@ import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
 
 // A place a recipe is learned at, by its side (0 both, 1 the Alliance, 2 the Horde).
 public struct Sided {
-  id: integer
-  area: integer
-  side: integer
+  public mut id: integer
+  public mut area: integer
+  public mut side: integer
 }
 
 // A standing a recipe asks with a faction (the client's reaction, 1 hated to 8 exalted).
 public struct Asked {
-  faction: integer
-  standing: integer
+  public mut faction: integer
+  public mut standing: integer
 }
 
 // Where a recipe is learned.
 public struct RecipeSource {
-  skill: integer
+  public mut skill: integer
   // The player's level a rank asks (0 for none).
-  level: integer = 0
-  sources: array<string>
+  public mut level: integer = 0
+  public mut sources: array<string>
   // At its trainer, in copper; 0 for none.
-  cost: integer
-  favor: integer
-  reputation: array<Asked>
-  quests: array<Sided>
-  vendors: array<Sided>
+  public mut cost: integer
+  public mut favor: integer
+  public mut reputation: array<Asked>
+  public mut quests: array<Sided>
+  public mut vendors: array<Sided>
 }
 
 function numberAt(parts: array<string>, at: integer): integer { return (parts[at] ?? "").toNumber()?.floor() ?? 0 }
@@ -126,12 +126,12 @@ function questName(id: integer): string {
 // A place or a way a recipe is learned, a row of its card: how (`Trainer`, `Vendor`, ...), whom or what, the zone, the
 // trainer's price (0 for none), and what a click opens: the quest (0 for none) or the vendor on the map (0 for none).
 public struct LearnPlace {
-  way: string
-  name: string
-  zone: string
-  cost: integer
-  quest: integer
-  npc: integer
+  public mut way: string
+  public mut name: string
+  public mut zone: string
+  public mut cost: integer
+  public mut quest: integer
+  public mut npc: integer
 }
 
 function placeOf(way: string, name: string): LearnPlace { return { way: way, name: name, zone: "", cost: 0, quest: 0, npc: 0 } }

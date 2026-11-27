@@ -6,23 +6,23 @@ import { Art, ArtBorder, Corners, Curves, FramePieces, Line, Piece, Radius, Reac
 public struct OrdaenArt {
   public struct Frame {
     // A window's metal on all four sides, a bracket over each corner.
-    window: ArtBorder
+    public mut window: ArtBorder
     // A small surface's metal on all four sides, its corners rounded: dialogs, tooltips, the chat, the minimap.
-    small: ArtBorder
+    public mut small: ArtBorder
     // A window tab's: the metal on its top and sides, its top corners rounded, open or closed alike.
-    tab: ArtBorder
+    public mut tab: ArtBorder
     // A tab standing at a framed box's left (the chat's open tab): the metal on its top, left and bottom, its left
     // corners rounded; its right is open, where the box's own left line stands over it.
-    sideTab: ArtBorder
+    public mut sideTab: ArtBorder
     // A tab's icon: its picture cut by the tab's top-left curve, and the line on its right.
-    tabIconClip: ArtBorder
-    tabIconLine: ArtBorder
+    public mut tabIconClip: ArtBorder
+    public mut tabIconLine: ArtBorder
   }
 
   public struct Window {
-    wood: Art
+    public mut wood: Art
     // The game's dark marble, under a chosen thing's details.
-    marble: Art
+    public mut marble: Art
   }
 
   // The bronze plates of a window's control group, which stands at the tab row's right end, its foot under the body's
@@ -30,142 +30,142 @@ public struct OrdaenArt {
   // another, a divider on its left and the rim above it; the last, the rim on its right and top, its corner rounded.
   // Each with the rim's shadow beside it and above it.
   public struct Plates {
-    first: Art
-    next: Art
-    last: Art
+    public mut first: Art
+    public mut next: Art
+    public mut last: Art
   }
 
   // A window's control group: every control a plate with its glyph on it, bronze, or red for the close, which is
   // always the group's last.
   public struct ControlGroup {
-    bronze: Plates
-    red: Art
-    gear: Art
-    expand: Art
-    contract: Art
-    close: Art
+    public mut bronze: Plates
+    public mut red: Art
+    public mut gear: Art
+    public mut expand: Art
+    public mut contract: Art
+    public mut close: Art
   }
 
   // A window toolbar's glyphs, white for the box's `tint`: the filter, the sort, a view's by what it shows (one grid:
   // `one`), refresh (a circling arrow), whom (a figure: for whom a list is), and sorting now (`arrange`: arrows up
   // and down).
   public struct Toolbar {
-    filter: Art
-    sort: Art
-    columns: Art
-    categories: Art
-    list: Art
-    table: Art
-    refresh: Art
-    whom: Art
-    one: Art
-    arrange: Art
+    public mut filter: Art
+    public mut sort: Art
+    public mut columns: Art
+    public mut categories: Art
+    public mut list: Art
+    public mut table: Art
+    public mut refresh: Art
+    public mut whom: Art
+    public mut one: Art
+    public mut arrange: Art
   }
 
   // The well a scrolled list sits in: sunk into the wood, its rim the line round it and its floor darker than the
   // wood; the rows are cut at the rim's inner edge.
   public struct Well {
-    rim: Line
-    floor: color
+    public mut rim: Line
+    public mut floor: color
   }
 
   // A cut in the wood's two textures, laid over each other: `dark` multiplied into the wood (`Blend.Multiply`), its
   // shade; `light` added to it (`Blend.Add`), its lit lip.
   public struct CutLayers {
-    dark: Art
-    light: Art
+    public mut dark: Art
+    public mut light: Art
   }
 
   // A cut in the wood (`Groove`, `Cut` without a title), 8 texels deep: `across` a strip repeated along it, `upright`
   // the same down a column.
   public struct CutArt {
-    across: CutLayers
-    upright: CutLayers
+    public mut across: CutLayers
+    public mut upright: CutLayers
   }
 
   // A heading's rule of paint (`Cut` with a title, `Section`), 8 texels deep: `entry` where it rises, `tip` the rest of
   // it, stretched along it, narrowing to a point and fading.
   public struct HeadingArt {
-    entry: Art
-    tip: Art
+    public mut entry: Art
+    public mut tip: Art
   }
 
   public struct Controls {
     // A scrolled list's well (`ScrolledList`).
-    well: Well
-    tick: Art
-    check: Art
-    button: Art
-    buttonAccent: Art
-    buttonDisabled: Art
+    public mut well: Well
+    public mut tick: Art
+    public mut check: Art
+    public mut button: Art
+    public mut buttonAccent: Art
+    public mut buttonDisabled: Art
     // The push button's light by itself, for a plate dressed over a button of the client's, which keeps the mouse.
-    buttonLight: Art
+    public mut buttonLight: Art
     // The «new» gem at a push button's left end.
-    newGem: Art
-    groove: Art
-    sliderFill: Art
-    sliderKnob: Art
-    cut: CutArt
-    heading: HeadingArt
+    public mut newGem: Art
+    public mut groove: Art
+    public mut sliderFill: Art
+    public mut sliderKnob: Art
+    public mut cut: CutArt
+    public mut heading: HeadingArt
     // A dialog title's rule: a groove cut into the wood, 4 px tall, stretched along it.
-    carved: Art
-    switchOn: Art
-    switchOff: Art
-    knobOn: Art
-    knobOff: Art
-    dropdownArrow: Art
-    radio: Art
-    radioOn: Art
-    tool: Toolbar
+    public mut carved: Art
+    public mut switchOn: Art
+    public mut switchOff: Art
+    public mut knobOn: Art
+    public mut knobOff: Art
+    public mut dropdownArrow: Art
+    public mut radio: Art
+    public mut radioOn: Art
+    public mut tool: Toolbar
     // A window's corner group; its resize grip.
-    corner: ControlGroup
+    public mut corner: ControlGroup
     // The marks no font carries, white, tinted by their box: up and down (a sorted heading), closed
     // and open (a tree row's fold).
-    markUp: Art
-    markDown: Art
-    markClosed: Art
-    markOpen: Art
+    public mut markUp: Art
+    public mut markDown: Art
+    public mut markClosed: Art
+    public mut markOpen: Art
     // A compared stat's more and less: the triangle filling its cell, outlined black, white inside, tinted by its box.
-    compareUp: Art
-    compareDown: Art
+    public mut compareUp: Art
+    public mut compareDown: Art
     // The light inside an item slot's quality rim, white, stretched over the slot and tinted with the quality's colour.
-    qualityRim: Art
+    public mut qualityRim: Art
     // The client's crested item slot's rim alone, white, on the slot art's texels (its top left 41 of 64): tinted with
     // an item's quality's colour over the crest.
-    crestRim: Art
-    grip: Art
-    gripHover: Art
-    gripDown: Art
+    public mut crestRim: Art
+    public mut grip: Art
+    public mut gripHover: Art
+    public mut gripDown: Art
   }
 
   public struct Panel {
     // The panel's surface, and the metal along its inner side.
-    wood: Art
-    edge: ArtBorder
+    public mut wood: Art
+    public mut edge: ArtBorder
     // The pill a count stands on.
-    countBadge: Art
+    public mut countBadge: Art
     // The shape a face is cut to on a cell, round; and the badge the level stands on.
-    faceRound: Asset
-    badge: Art
+    public mut faceRound: Asset
+    public mut badge: Art
     // A bag button's edge on the wood: one line.
-    slotEdge: Line
+    public mut slotEdge: Line
     // The reputation bar's fill, and a status bar's glass: its trough, its shine, its bronze ring.
-    xpSteel: Art
-    xpTrough: Art
-    xpShine: Art
-    xpTube: Art
+    public mut xpSteel: Art
+    public mut xpTrough: Art
+    public mut xpShine: Art
+    public mut xpTube: Art
   }
 
   public struct Minimap {
-    ring: Art
-    ringLit: Art
+    public mut ring: Art
+    public mut ringLit: Art
   }
 
-  frame: Frame
-  window: Window
-  ctl: Controls
-  panel: Panel
-  minimap: Minimap
+  public mut frame: Frame
+  public mut window: Window
+  public mut ctl: Controls
+  public mut panel: Panel
+  public mut minimap: Minimap
 }
 
 // Whether a frame of art draws a side: every side where it names none.

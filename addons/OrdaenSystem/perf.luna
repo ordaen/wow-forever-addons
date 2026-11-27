@@ -10,12 +10,12 @@ public const SPIKES: array<integer> = [5, 10, 50, 100, 500, 1000]
 
 // One addon's load: its shares of the client's time, in per cent.
 public struct Load {
-  now: number
-  peak: number
-  average: number
-  encounter: number
+  public mut now: number
+  public mut peak: number
+  public mut average: number
+  public mut encounter: number
   // How many frames it took over each of `SPIKES`.
-  spikes: array<integer>
+  public mut spikes: array<integer>
 }
 
 // An addon's share of the client's time over a metric: 0 where the client's is 0.

@@ -9,7 +9,7 @@ public enum Source implements Plain {
 }
 
 public struct Wanted implements Plain {
-  item: ItemId = 0
-  count: integer = 0
-  source: Source = .ByHand
+  public mut item: ItemId = 0
+  public mut count: integer = 0
+  public mut source: Source = .ByHand
 }

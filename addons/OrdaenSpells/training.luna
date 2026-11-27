@@ -36,8 +36,8 @@ public const quests: map<string, string> = {
 // A faction a trainer's price follows (an Honored player pays a tenth less at its trainers): its side (0 none, 1 the
 // Alliance, 2 the Horde) and whether it is a city's.
 public struct TrainerFaction {
-  side: integer
-  city: boolean
+  public mut side: integer
+  public mut city: boolean
 }
 
 public const factions: map<integer, TrainerFaction> = {
@@ -103,11 +103,11 @@ public const petAbilities: array<integer> = [4187, 4188, 4189, 4190, 4191, 4192,
 // the classes that may learn it (their file names, `/` between) and its masters, `side,npc,zone,x,y` each and `|`
 // between them (the zone as an area's ID, x and y on its map from 0 to 100).
 public struct WeaponSkill {
-  order: integer
-  level: integer
-  cost: integer
-  classes: string
-  masters: string
+  public mut order: integer
+  public mut level: integer
+  public mut cost: integer
+  public mut classes: string
+  public mut masters: string
 }
 
 public const weapons: map<integer, WeaponSkill> = {

@@ -80,8 +80,8 @@ public enum SlotWell { Sunk, Crested, Framed }
 
 // A pip a module puts on an item's corner.
 public struct Marker {
-  corner: Corner
-  color: color
+  public mut corner: Corner
+  public mut color: color
 }
 
 // A slot's well: sunk, near-black, the border round the slot; crested, the client's slot art with its own rim, the

@@ -18,8 +18,8 @@ public const MESSAGE_GAP_MOST = 10
 
 // The chat's size as the settings keep it (in dp): its whole width, the lines' height.
 public struct ChatSize {
-  width: number
-  height: number
+  public mut width: number
+  public mut height: number
 }
 
 // Where a line's time stamp stands (where the game shows the chat's times): before each line («[12:04] …»), or above
@@ -29,18 +29,18 @@ public enum StampPlace implements Plain { Inline = "inline", Above = "above" }
 // A tab's own settings, as the «Tabs» page writes them.
 public struct TabChoices implements Plain {
   // The count of its lines waiting unread, shown on it.
-  counter: boolean
-  channelName: ChannelName
-  stamps: StampPlace = .Above
+  public mut counter: boolean
+  public mut channelName: ChannelName
+  public mut stamps: StampPlace = .Above
   // Words (comma-separated) that mark someone else's line in it, beside the player's own name.
-  keywords: string = ""
+  public mut keywords: string = ""
   // The same sender's same words one after another are one line with «×N».
-  repeats: boolean = true
+  public mut repeats: boolean = true
   // Lines it holds this session, and those kept after a reload (0 keeps none).
-  held: integer = 500
-  kept: integer = 200
+  public mut held: integer = 500
+  public mut kept: integer = 200
   // What the input's history keeps of what is sent while the tab is open (Alt and Up or Down bring it back).
-  history: Game::ChatHistory = .All
+  public mut history: Game::ChatHistory = .All
 }
 
 // The game's message group of the guild's lines.
@@ -67,21 +67,21 @@ public function tabKey(window: integer): string {
 
 public struct Choices implements Plain {
   // The chat's size.
-  width: number
-  height: number
+  public mut width: number
+  public mut height: number
   // The whole chat hidden while the cursor is off it (shown while on it, or while the player types), and how much of
   // it shows meanwhile (0: nothing).
-  hide: boolean
-  hiddenOpacity: number
+  public mut hide: boolean
+  public mut hiddenOpacity: number
   // How opaque the lines' dark ground is, from 0 to 1.
-  ground: number = 0.8
+  public mut ground: number = 0.8
   // Each window's own settings, by its tab's key (`tabKey`); a window without them takes `tabDefaults`.
-  tabs: map<string, TabChoices>
+  public mut tabs: map<string, TabChoices>
   // The lines at a size of the chat's own (in UI units), not Ordaen's body text.
-  ownTextSize: boolean
-  textSize: number
+  public mut ownTextSize: boolean
+  public mut textSize: number
   // The room between messages (in sp).
-  messageGap: number = MESSAGE_GAP
+  public mut messageGap: number = MESSAGE_GAP
   // The input always shown under the lines (off: from Enter to the line sent).
-  inputAlways: boolean
+  public mut inputAlways: boolean
 }

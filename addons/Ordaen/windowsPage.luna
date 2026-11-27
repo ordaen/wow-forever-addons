@@ -32,8 +32,8 @@ public function windowsTitle(): string { return Locale::WINDOWS_TAB }
 
 // The tabs a window opens on, offered, and what tells one offer from the next.
 struct Offer {
-  key: integer
-  choices: array<Choice<integer>>
+  mut key: integer
+  mut choices: array<Choice<integer>>
 }
 
 // One window in the sidebar: picked, the page shows its settings.

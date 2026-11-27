@@ -6,16 +6,16 @@ import { Queued } from "@/view"
 
 // A recipe that takes an item: the recipe, its profession (by skill line and name), and how many one making takes.
 public struct Use {
-  recipe: integer
-  skillLine: integer
-  profession: string
-  count: integer
+  public mut recipe: integer
+  public mut skillLine: integer
+  public mut profession: string
+  public mut count: integer
 }
 
 // An item the queue takes, and how many of it every line still to make takes together.
 public struct QueueItem {
-  item: integer
-  count: integer
+  public mut item: integer
+  public mut count: integer
 }
 
 // Every recipe of the book by the items it takes: made once as the book changes, a map read for each question.

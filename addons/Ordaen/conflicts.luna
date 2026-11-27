@@ -21,8 +21,8 @@ public enum ConflictStep { Ask, Reload, Done }
 
 // One other addon and the modules of Ordaen that draw what it draws, each on now.
 public struct Conflict {
-  other: Runtime::Addon
-  modules: array<Runtime::Addon>
+  public mut other: Runtime::Addon
+  public mut modules: array<Runtime::Addon>
 }
 
 // The modules' titles in one text, as a sentence names them.

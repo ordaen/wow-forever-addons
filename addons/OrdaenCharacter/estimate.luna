@@ -10,14 +10,14 @@ import { EVERY_STAT, MAINS, Stat } from "@/stat"
 // What a character of a class, race and level is without its items and its auras: each stat's base by the stat's
 // name, what a point of a main stat is worth, and its resource.
 public struct Rates implements Plain {
-  const bases: map<string, number> = {}
-  const conversions: Conversions = {}
-  const resource: Resource = Resource::Mana
+  public bases: map<string, number> = {}
+  public conversions: Conversions = {}
+  public resource: Resource = Resource::Mana
 }
 
 // The rates the account's characters showed, by `ratesKey`.
 public struct KeptRates implements Plain {
-  byKey: mut map<string, Rates> = {}
+  public mut byKey: mut map<string, Rates> = {}
 }
 
 // The key a class, a race (as the client names its files) and a level are kept under.

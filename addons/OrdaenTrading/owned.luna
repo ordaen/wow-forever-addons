@@ -30,17 +30,17 @@ const BUTTONS: array<Track> = ["max-content", { fr: 1 }]
 
 // One auction, as its row draws it.
 public struct Shown {
-  auction: integer
-  item: integer
-  name: string
-  color: color
-  quantity: integer
+  public mut auction: integer
+  public mut item: integer
+  public mut name: string
+  public mut color: color
+  public mut quantity: integer
   // The buyout for one; none for an auction with a bid alone.
-  unit: integer | nil
-  sold: boolean
+  public mut unit: integer | nil
+  public mut sold: boolean
   // Whether it is the house's lowest as last seen; none where the house has no listing of it.
-  lowest: boolean | nil
-  left: string
+  public mut lowest: boolean | nil
+  public mut left: string
 }
 
 class OwnedRow implements Component {
@@ -101,8 +101,8 @@ class OwnedRow implements Component {
 
 // How the player left the auctions' list: the column it is sorted by (0: as it comes) and which way.
 public struct OwnedView implements Plain {
-  sorted: integer = 0
-  descending: boolean = false
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 const OWNED_VIEW: OwnedView = {}
 

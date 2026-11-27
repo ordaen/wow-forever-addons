@@ -20,20 +20,20 @@ const FEMALE = 3
 // The inspected player's honor: the rank with its title, the honor in it and what the next needs, and the honorable
 // kills today and in all.
 public struct Honor {
-  const rank: integer = 0
-  const title: string = ""
-  const current: integer = 0
-  const next: integer = 0
-  const today: integer = 0
-  const lifetime: integer = 0
+  public rank: integer = 0
+  public title: string = ""
+  public current: integer = 0
+  public next: integer = 0
+  public today: integer = 0
+  public lifetime: integer = 0
 }
 
 // Who the inspected player is and what it wears.
 public struct Inspected {
-  const who: Who = { name: "", level: 0, race: "", className: "" }
-  const classTag: string = ""
-  const guild: string = ""
-  const worn: array<Worn> = []
+  public who: Who = { name: "", level: 0, race: "", className: "" }
+  public classTag: string = ""
+  public guild: string = ""
+  public worn: array<Worn> = []
 }
 
 // What the window asks of the client about the player inspected.

@@ -32,10 +32,10 @@ const HISTORY = "OrdaenChat:history"
 // whether it takes the character's channels, which the General window then leaves to it.
 struct DefaultTab {
   // Where the character's chat keeps that it was made.
-  made: string
-  name: string
-  groups: array<string>
-  channels: boolean
+  mut made: string
+  mut name: string
+  mut groups: array<string>
+  mut channels: boolean
 }
 
 const DEFAULT_TABS: array<DefaultTab> = [

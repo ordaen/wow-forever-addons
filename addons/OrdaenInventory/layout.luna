@@ -43,11 +43,11 @@ public const ROW_LEAST_MOST = 12
 // A slot's size and the rooms of the cards as lengths, as the density has them now, and the fewest slots in a card's
 // row: what the cards' widths and heights are worked out with.
 public struct CardRoom {
-  const least: integer
-  const slot: number<Length>
-  const gap: number<Length>
-  const pad: number<Length>
-  const between: number<Length>
+  public least: integer
+  public slot: number<Length>
+  public gap: number<Length>
+  public pad: number<Length>
+  public between: number<Length>
 }
 
 // The slots' size and the cards' rooms at the density the player chose, the slots' size and gap, and the fewest slots
@@ -65,24 +65,24 @@ public const CAPTION_HIGH: number<Length> = 23.625dp
 // A section: its caption (none where it has none: the one-bag view, a tab grouped in one), the bag it is (-1 for none),
 // its slots in their order; the «Free» section, one slot with the free count.
 public struct Section {
-  const key: string
-  const title: string
-  const bag: integer
-  const slots: array<Slot>
-  const free: boolean
+  public key: string
+  public title: string
+  public bag: integer
+  public slots: array<Slot>
+  public free: boolean
 }
 
 // A section as a card: how many slots wide it is.
 public struct Card {
-  const section: Section
-  const span: integer
+  public section: Section
+  public span: integer
 }
 
 // A line of cards side by side: each card's width, and the line's height (its tallest card's).
 public struct CardRow {
-  const cards: array<Card>
-  const tracks: array<Track>
-  const height: number<Length>
+  public cards: array<Card>
+  public tracks: array<Track>
+  public height: number<Length>
 }
 
 // How many slots a row of a card as wide as `width` holds.

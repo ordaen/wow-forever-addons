@@ -12,8 +12,8 @@ import Locale from "@/locales"
 
 // A form of the player's class that pages Панель 1: its bonus bar and its name.
 public struct Form {
-  bonusbar: integer
-  name: string
+  public mut bonusbar: integer
+  public mut name: string
 }
 
 // The forms that page Панель 1, by the client's own tables (`SpellShapeshiftForm.BonusActionBar`): a warrior's three
@@ -165,7 +165,7 @@ class BarEditor implements Component {
 
 // What the page remembers: the bar last picked, which it opens on.
 struct PageMemory implements Plain {
-  picked: string
+  mut picked: string
 }
 
 // The bars' list as wide as their names, the picked bar's rows the rest.

@@ -14,9 +14,9 @@ import { Given, ITEM_KEYS, MAINS } from "@/stat"
 // A slot of the paper doll: the client's number for it, the art of its well while nothing is worn there, and the
 // name of the client's text that names it (its tooltip while it is empty).
 public struct SlotSpec {
-  const id: integer
-  const empty: Asset
-  const name: string
+  public id: integer
+  public empty: Asset
+  public name: string
 }
 
 // The slots as the game's paper doll stands them: eight down the left, eight down the right, the weapons along the
@@ -78,69 +78,69 @@ const TABARD = 19
 
 // What is worn in a slot; `item` none for an empty one.
 public struct Worn {
-  const slot: integer
-  const item: integer | nil
-  const quality: Quality
-  const level: integer | nil
+  public slot: integer
+  public item: integer | nil
+  public quality: Quality
+  public level: integer | nil
   // What is left of it, from 0 to 1; none for what doesn't wear.
-  const durability: number | nil
+  public durability: number | nil
   // How many it holds (the ammo's), picked up or on its way somewhere (the client takes nothing of it), and the
   // cooldown it waits on since it was last used.
-  const count: integer = 1
-  const locked: boolean = false
-  const cooldown: FillDuration | nil = nil
+  public count: integer = 1
+  public locked: boolean = false
+  public cooldown: FillDuration | nil = nil
   // Its name, and the stats it gives (its stat tooltips' «Items»).
-  const name: string = ""
-  const gives: array<Given> = []
+  public name: string = ""
+  public gives: array<Given> = []
   // The set it is a piece of, with the bonuses in effect; none for an item of none.
-  const set: WornSet | nil = nil
+  public set: WornSet | nil = nil
 }
 
 // What a point of a main stat is worth to the character, as the client works it out for its class and level: attack
 // power a point of strength and of agility, ranged attack power a point of agility, and the crit a point of agility
 // and the spell crit a point of intellect give, in percent.
 public struct Conversions implements Plain {
-  attackPerStrength: number = 0
-  attackPerAgility: number = 0
-  rangedPerAgility: number = 0
-  critPerAgility: number = 0
-  spellCritPerIntellect: number = 0
+  public mut attackPerStrength: number = 0
+  public mut attackPerAgility: number = 0
+  public mut rangedPerAgility: number = 0
+  public mut critPerAgility: number = 0
+  public mut spellCritPerIntellect: number = 0
 }
 
 // One of the sets the game's equipment manager keeps: whether all of it is worn, and how many of its items are
 // nowhere the player has them.
 public struct GearSet {
-  const id: integer
-  const name: string
-  const worn: boolean
-  const missing: integer
+  public id: integer
+  public name: string
+  public worn: boolean
+  public missing: integer
 }
 
 // What the game's paper doll says of each stat as its tooltip's text, under the stat's name: the client's own words,
 // filled with the player's numbers, where they tell what the window doesn't already show (what defense takes off a
 // blow). Empty where the game says nothing more.
 public struct StatTips {
-  primary: array<string> = ["", "", "", "", ""]
-  armor: string = ""
-  attackPower: string = ""
-  rangedAttackPower: string = ""
-  defense: string = ""
-  block: string = ""
-  armorPenetration: string = ""
-  spellPenetration: string = ""
-  spellDamage: string = ""
-  healing: string = ""
+  public mut primary: array<string> = ["", "", "", "", ""]
+  public mut armor: string = ""
+  public mut attackPower: string = ""
+  public mut rangedAttackPower: string = ""
+  public mut defense: string = ""
+  public mut block: string = ""
+  public mut armorPenetration: string = ""
+  public mut spellPenetration: string = ""
+  public mut spellDamage: string = ""
+  public mut healing: string = ""
 }
 
 // Who the character is, as the paper doll's top says it: its name and its surname where Forever gives it one;
 // `scene` its race as the client names its files (`Dwarf`, `NightElf`, `Scourge`): the scene the model stands in.
 public struct Who {
-  const name: string
-  const surname: string = ""
-  const level: integer
-  const race: string
-  const className: string
-  const scene: string = ""
+  public name: string
+  public surname: string = ""
+  public level: integer
+  public race: string
+  public className: string
+  public scene: string = ""
 }
 
 // What the character's resource bar holds.
@@ -148,109 +148,109 @@ public enum Resource implements Plain { Mana = "Mana", Rage = "Rage", Energy = "
 
 // The character's stats as the client works them out, with every buff and item counted.
 public struct Stats {
-  strength: integer = 0
-  agility: integer = 0
-  stamina: integer = 0
-  intellect: integer = 0
-  spirit: integer = 0
-  health: integer = 0
-  power: integer = 0
-  resource: Resource = Resource::Mana
-  armor: integer = 0
+  public mut strength: integer = 0
+  public mut agility: integer = 0
+  public mut stamina: integer = 0
+  public mut intellect: integer = 0
+  public mut spirit: integer = 0
+  public mut health: integer = 0
+  public mut power: integer = 0
+  public mut resource: Resource = Resource::Mana
+  public mut armor: integer = 0
   // Arcane, fire, frost, nature and shadow, in that order.
-  resistances: array<integer> = [0, 0, 0, 0, 0]
-  attackPower: integer = 0
-  rangedAttackPower: integer = 0
+  public mut resistances: array<integer> = [0, 0, 0, 0, 0]
+  public mut attackPower: integer = 0
+  public mut rangedAttackPower: integer = 0
   // The main hand's damage per hit and its seconds between hits; the off hand's where one is held.
-  minDamage: number = 0
-  maxDamage: number = 0
-  speed: number = 0
-  offSpeed: number | nil = nil
+  public mut minDamage: number = 0
+  public mut maxDamage: number = 0
+  public mut speed: number = 0
+  public mut offSpeed: number | nil = nil
   // Chances in percent.
-  meleeCrit: number = 0
-  rangedCrit: number = 0
-  spellCrit: number = 0
-  hit: number = 0
-  dodge: number = 0
-  parry: number = 0
-  block: number = 0
-  spellDamage: integer = 0
-  healing: integer = 0
+  public mut meleeCrit: number = 0
+  public mut rangedCrit: number = 0
+  public mut spellCrit: number = 0
+  public mut hit: number = 0
+  public mut dodge: number = 0
+  public mut parry: number = 0
+  public mut block: number = 0
+  public mut spellDamage: integer = 0
+  public mut healing: integer = 0
   // Mana every five seconds while casting.
-  regen: number = 0
+  public mut regen: number = 0
   // Mana every five seconds outside casting: the mana bar's regeneration.
-  restingRegen: number = 0
+  public mut restingRegen: number = 0
   // Health every five seconds out of a fight and in one; what spirit gives of health's and of mana's (standing, as
   // the game's own sheet counts it).
-  healthRegen: number = 0
-  combatHealthRegen: number = 0
-  healthFromSpirit: number = 0
-  manaFromSpirit: number = 0
+  public mut healthRegen: number = 0
+  public mut combatHealthRegen: number = 0
+  public mut healthFromSpirit: number = 0
+  public mut manaFromSpirit: number = 0
   // The class keeps a relic where others keep a ranged weapon (a paladin's libram, a druid's idol, a shaman's totem).
-  relic: boolean = false
+  public mut relic: boolean = false
   // At the game's greatest level: what lands is counted against a raid's boss, else against a target of its level.
-  atMaxLevel: boolean = false
+  public mut atMaxLevel: boolean = false
   // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
-  bases: array<integer> = [0, 0, 0, 0, 0]
-  tips: StatTips = {}
+  public mut bases: array<integer> = [0, 0, 0, 0, 0]
+  public mut tips: StatTips = {}
   // Hit by kind, in percent: the one rating's share plus what talents and items give that kind, as the game's own
   // sheet adds them.
-  meleeHit: number = 0
-  rangedHit: number = 0
-  spellHit: number = 0
+  public mut meleeHit: number = 0
+  public mut rangedHit: number = 0
+  public mut spellHit: number = 0
   // The boss's dodge taken away, in percent; armor penetration and spell penetration as the client counts them.
-  expertise: number = 0
-  armorPenetration: integer = 0
-  spellPenetration: integer = 0
+  public mut expertise: number = 0
+  public mut armorPenetration: integer = 0
+  public mut spellPenetration: integer = 0
   // The defense skill with its bonus, the damage a block stops, and the share of a level 63 boss's blows armor stops.
-  defense: integer = 0
-  blockValue: integer = 0
-  armorReduction: number = 0
+  public mut defense: integer = 0
+  public mut blockValue: integer = 0
+  public mut armorReduction: number = 0
   // Each school's spell damage: holy, fire, nature, frost, shadow and arcane, the client's schools 2 to 7.
-  schoolDamage: array<integer> = [0, 0, 0, 0, 0, 0]
+  public mut schoolDamage: array<integer> = [0, 0, 0, 0, 0, 0]
   // The off hand's damage per hit, and the ranged weapon's with its seconds between shots.
-  offMinDamage: number = 0
-  offMaxDamage: number = 0
-  rangedMinDamage: number = 0
-  rangedMaxDamage: number = 0
-  rangedSpeed: number = 0
+  public mut offMinDamage: number = 0
+  public mut offMaxDamage: number = 0
+  public mut rangedMinDamage: number = 0
+  public mut rangedMaxDamage: number = 0
+  public mut rangedSpeed: number = 0
   // A druid's energy beside its mana (none for the others) and what it regains a second.
-  energy: integer = 0
-  energyRegen: number = 0
+  public mut energy: integer = 0
+  public mut energyRegen: number = 0
   // Running and swimming, in percent of the game's base speeds.
-  runSpeed: number = 100
-  swimSpeed: number = 100
+  public mut runSpeed: number = 100
+  public mut swimSpeed: number = 100
   // The skill line of what each hand and the ranged slot hold (`SkillLineAttributes.skillID`), none where nothing is
   // held or the ranged slot holds a relic.
-  mainSkill: integer | nil = nil
-  offSkill: integer | nil = nil
-  rangedSkill: integer | nil = nil
+  public mut mainSkill: integer | nil = nil
+  public mut offSkill: integer | nil = nil
+  public mut rangedSkill: integer | nil = nil
   // The main hand's and the ranged weapon's skill past the level's (five a level), and a raid boss's defense (its level
   // 63's) past the level's: each point of skill past a target's defense takes 0.04% off its misses, dodges and parries
   // and adds as much to crit, as the game's skills frame counts it.
-  meleeSkillPast: number = 0
-  offSkillPast: number = 0
-  rangedSkillPast: number = 0
-  bossDefensePast: number = 15
+  public mut meleeSkillPast: number = 0
+  public mut offSkillPast: number = 0
+  public mut rangedSkillPast: number = 0
+  public mut bossDefensePast: number = 15
   // The chance a swing of the main hand glances, and how much less a glancing blow deals, in percent: against a raid
   // boss, and against a target of the player's level.
-  bossGlancing: number = 0
-  levelGlancing: number = 0
-  bossGlancingPenalty: number = 0
-  levelGlancingPenalty: number = 0
+  public mut bossGlancing: number = 0
+  public mut levelGlancing: number = 0
+  public mut bossGlancingPenalty: number = 0
+  public mut levelGlancingPenalty: number = 0
   // Haste in percent, as the game's paper doll shows each: the melee swings', the ranged shots' (the ammo's with it),
   // the spells'.
-  meleeHaste: number = 0
-  rangedHaste: number = 0
-  spellHaste: number = 0
+  public mut meleeHaste: number = 0
+  public mut rangedHaste: number = 0
+  public mut spellHaste: number = 0
   // A shield in the off hand: what blocks.
-  shield: boolean = false
+  public mut shield: boolean = false
   // How much less physical damage the armor lets through from a raid boss, in percent (`armorReduction` a target's of
   // the player's level).
-  bossArmorReduction: number = 0
+  public mut bossArmorReduction: number = 0
   // The defense skill past the level's (five a level; below it, less than nothing).
-  defensePast: number = 0
-  conversions: Conversions = {}
+  public mut defensePast: number = 0
+  public mut conversions: Conversions = {}
 }
 
 // The client's skill line of each weapon kind, by the item's subclass (`WEAPON_SUBCLASS_TO_SKILL_ID`).
@@ -280,40 +280,40 @@ const SWIM_BASE = 4.722222
 // where it is between the standing's start and its end. `index` is the client's place of the row in its list as it
 // stands now: folding a group moves the rows after it.
 public struct Faction {
-  const index: integer
-  const id: integer
-  const name: string
-  const description: string
-  const standing: integer
-  const value: integer
-  const min: integer
-  const max: integer
-  const header: boolean
+  public index: integer
+  public id: integer
+  public name: string
+  public description: string
+  public standing: integer
+  public value: integer
+  public min: integer
+  public max: integer
+  public header: boolean
   // A heading that has a standing of its own.
-  const ranked: boolean
-  const child: boolean
-  const collapsed: boolean
-  const atWar: boolean
-  const canToggleAtWar: boolean
-  const canSetInactive: boolean
-  const watched: boolean
+  public ranked: boolean
+  public child: boolean
+  public collapsed: boolean
+  public atWar: boolean
+  public canToggleAtWar: boolean
+  public canSetInactive: boolean
+  public watched: boolean
 }
 
 // A row of the game's skill list: a heading, which folds, or a skill with its rank, the bonus on it and the cap for the
 // level, the game's description, and whether the player may unlearn it (a profession, a secondary skill).
 public struct Skill {
   // The client's skill line (`skillID`): what a weapon's kind names.
-  const id: integer = 0
+  public id: integer = 0
   // Its place in the game's list, which folds and unfolds by it.
-  const index: integer = 0
-  const name: string
-  const header: boolean
-  const collapsed: boolean = false
-  const rank: integer
-  const modifier: integer
-  const max: integer
-  const description: string = ""
-  const abandonable: boolean = false
+  public index: integer = 0
+  public name: string
+  public header: boolean
+  public collapsed: boolean = false
+  public rank: integer
+  public modifier: integer
+  public max: integer
+  public description: string = ""
+  public abandonable: boolean = false
 }
 
 public trait Sheet {

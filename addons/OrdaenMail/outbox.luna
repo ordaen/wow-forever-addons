@@ -15,10 +15,10 @@ public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent
 
 // How the player left the outbox's list: its filter, its view and its sort.
 public struct OutboxView implements Plain {
-  filter: SentFilter = SentFilter::All
-  view: View = View::List
-  sorted: integer = 0
-  descending: boolean = false
+  public mut filter: SentFilter = SentFilter::All
+  public mut view: View = View::List
+  public mut sorted: integer = 0
+  public mut descending: boolean = false
 }
 const OUTBOX_VIEW: OutboxView = {}
 
@@ -142,9 +142,9 @@ public class SentTableRow implements Component {
 
 // The letters to one recipient, under their caption.
 public struct ToGroup {
-  to: string
-  title: string
-  letters: array<Sent>
+  public mut to: string
+  public mut title: string
+  public mut letters: array<Sent>
 }
 
 public class ToCaption implements Component {

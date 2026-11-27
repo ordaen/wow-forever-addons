@@ -6,9 +6,9 @@ import { mapOfArea } from "@/areas"
 
 // A place in the world's yards, on its continent.
 struct Yards {
-  continent: number
-  x: number
-  y: number
+  mut continent: number
+  mut x: number
+  mut y: number
 }
 
 function yardsOf(map: number, x: number, y: number): Yards | nil {
