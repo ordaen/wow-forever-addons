@@ -161,14 +161,14 @@ public class Sender {
   mut stopAll(why: string) {
     self.splitting = false
     const values = peek self.memory.values
-    const queue = values.queue.map(l => waits(l) ? { state: SentState::Stopped, why: why, ..l } : l)
+    const queue = values.queue.map(l => waits(l) ? { ...l, state: SentState::Stopped, why: why } : l)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
   }
 
   // «Continue»: what stopped waits again, and the queue goes on.
   public mut resume() {
     const values = peek self.memory.values
-    const queue = values.queue.map(l => l.state == SentState::Stopped ? { state: SentState::Waiting, why: "", ..l } : l)
+    const queue = values.queue.map(l => l.state == SentState::Stopped ? { ...l, state: SentState::Waiting, why: "" } : l)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
     self.go()
   }

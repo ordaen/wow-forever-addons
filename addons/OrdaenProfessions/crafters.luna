@@ -56,7 +56,7 @@ public function craftersOf(book: Book): map<integer, array<Crafter>> {
             const recipes: array<integer> = mut []
             for (known of crafter.recipes) { recipes.push(known) }
             recipes.push(recipe)
-            list[index] = { recipes: recipes, ..crafter }
+            list[index] = { ...crafter, recipes: recipes }
           }
         }
       }

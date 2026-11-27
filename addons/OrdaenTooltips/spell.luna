@@ -93,7 +93,7 @@ public function madeBy(data: Game::TooltipData): Game::TooltipData | nil {
   }
   let lines: array<Game::TooltipLine> = mut []
   for (i, line of data.lines) {
-    if (i > at) { lines.push(Game::TooltipLine { left: line.left?.match("^%s*(.-)$"), ..line }) }
+    if (i > at) { lines.push(Game::TooltipLine { ...line, left: line.left?.match("^%s*(.-)$") }) }
   }
   if (lines.length == 0) { return nil }
   return { kind: 0, id: made, lines: lines }

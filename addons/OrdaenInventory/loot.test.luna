@@ -68,7 +68,7 @@ test "a window looted by hand is the game's own: nothing is taken" {
 
 test "with fast looting off, the game's window stands as it always does and nothing is taken" {
   const taken = window(4)
-  choose((values: mut Choices): nil => { values.loot = { fast: false, ..values.loot } })
+  choose((values: mut Choices): nil => { values.loot = { ...values.loot, fast: false } })
   Test::flush()
   Test::expect(windowShown())
   Test::event("LOOT_READY", true)
@@ -79,7 +79,7 @@ test "with fast looting off, the game's window stands as it always does and noth
 
 test "full bags leave every item, show the window and sound once where the player chose the sound" {
   const taken = window(0)
-  choose((values: mut Choices): nil => { values.loot = { fullSound: true, ..values.loot } })
+  choose((values: mut Choices): nil => { values.loot = { ...values.loot, fullSound: true } })
   Test::event("LOOT_READY", true)
   Test::pass(0.2)
   Test::event("UI_ERROR_MESSAGE", Client::LE_GAME_ERR_INV_FULL, "Inventory is full.")
@@ -146,7 +146,7 @@ test "the money of a window still to come is counted on as the next opens" {
 
 test "with the lines off, nothing looted is kept" {
   _ = window(4)
-  choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
+  choose((values: mut Choices): nil => { values.loot = { ...values.loot, toasts: false } })
   Game::money.amount = 100
   Test::event("LOOT_READY", true)
   Test::event("LOOT_SLOT_CLEARED", 3)
@@ -157,8 +157,8 @@ test "with the lines off, nothing looted is kept" {
 
 test "with no line to show, the lines stand in no frame on the screen" {
   Test::mount(nil, SCREEN)
-  choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
+  choose((values: mut Choices): nil => { values.loot = { ...values.loot, toasts: false } })
   const without = Test::surfaces().length
-  choose((values: mut Choices): nil => { values.loot = { toasts: true, ..values.loot } })
+  choose((values: mut Choices): nil => { values.loot = { ...values.loot, toasts: true } })
   Test::expect(Test::surfaces().length == without)
 }

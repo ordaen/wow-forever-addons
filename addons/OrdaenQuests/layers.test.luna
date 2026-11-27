@@ -47,18 +47,19 @@ test "the turn-ins' layer shows whom to hand the quest shown on the map, lit, on
 
 test "a quest leads to its first objective's area while to do, its turn-in's once done, else its zone" {
   const elsewhere: QuestFacts = {
-    targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 12, x: 0.3, y: 0.3 }] }], ..FACTS
+    ...FACTS,
+    targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 12, x: 0.3, y: 0.3 }] }]
   }
   Test::expect(leadsTo(quest(1, false, false), elsewhere) == 12)
   Test::expect(leadsTo(quest(1, false, true), elsewhere) == 40)
-  Test::expect(leadsTo(quest(1, false, false), { targets: [], zone: 44, ..FACTS }) == 44)
-  Test::expect(leadsTo(quest(1, false, false), { targets: [], zone: -21, ..FACTS }) == nil)
+  Test::expect(leadsTo(quest(1, false, false), { ...FACTS, targets: [], zone: 44 }) == 44)
+  Test::expect(leadsTo(quest(1, false, false), { ...FACTS, targets: [], zone: -21 }) == nil)
 }
 
 test "a quest not taken starts where its first giver stands, else in its zone" {
   Test::expect(startsAt(FACTS) == 40)
-  Test::expect(startsAt({ givers: [], zone: 44, ..FACTS }) == 44)
-  Test::expect(startsAt({ givers: [], zone: -21, ..FACTS }) == nil)
+  Test::expect(startsAt({ ...FACTS, givers: [], zone: 44 }) == 44)
+  Test::expect(startsAt({ ...FACTS, givers: [], zone: -21 }) == nil)
 }
 
 // The chain window's quest and its facts.
@@ -95,7 +96,7 @@ test "a pin clicked has the client point the way to its quest; Shift+click stops
 
 test "a dungeon's card lists the log's quests under its instance's header, each with its level" {
   const holder = new Holder()
-  const deadmines: LogQuest = { header: "The Deadmines", title: "Red Silk Bandanas", ..quest(2, false, false) }
+  const deadmines: LogQuest = { ...quest(2, false, false), header: "The Deadmines", title: "Red Silk Bandanas" }
   holder.quests = [quest(1, true, false), deadmines]
   const section = new DungeonQuests(holder.quests)
   Test::expect(section.lines(["The Deadmines"]).join(",") == "[10] Red Silk Bandanas")

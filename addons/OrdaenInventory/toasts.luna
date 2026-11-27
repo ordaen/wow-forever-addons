@@ -179,9 +179,9 @@ public class LootLines {
       last = last.max(toast.came)
       if (toast.key == key) {
         found = true
-        list.push({ count: toast.count + count, until: now + LIFE, flashed: flashed.max(toast.flashed), ..toast })
+        list.push({ ...toast, count: toast.count + count, until: now + LIFE, flashed: flashed.max(toast.flashed) })
       } else {
-        list.push({ until: now + LIFE, ..toast })
+        list.push({ ...toast, until: now + LIFE })
       }
     }
     if (!found && list.length < MOST) {
@@ -205,7 +205,7 @@ public class LootLines {
   // The cursor on a line keeps every line up.
   public mut keep() {
     const now = peek Game::clock.time
-    self.toasts = (peek self.toasts).map(toast => ({ until: now + LIFE, ..toast }))
+    self.toasts = (peek self.toasts).map(toast => ({ ...toast, until: now + LIFE }))
   }
 }
 

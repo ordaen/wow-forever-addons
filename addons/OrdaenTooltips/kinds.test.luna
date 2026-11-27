@@ -185,7 +185,7 @@ test "a text tooltip the game fills anew with the same lines draws nothing anew"
   Test::pass(SHOWS)
   Test::flush()
   const said = Test::calls((): nil => {
-    Game::tooltip.main = { data: menu(31, GAME_GREEN), ..shown }
+    Game::tooltip.main = { ...shown, data: menu(31, GAME_GREEN) }
     Test::pass(SHOWS)
     Test::flush()
   })
@@ -200,13 +200,13 @@ test "a text tooltip the game fills anew draws anew only the line that changed, 
   Test::pass(SHOWS)
   Test::flush()
   const said = Test::calls((): nil => {
-    Game::tooltip.main = { data: menu(32, GAME_GREEN), ..shown }
+    Game::tooltip.main = { ...shown, data: menu(32, GAME_GREEN) }
     Test::pass(SHOWS)
     Test::flush()
   })
   Test::expect(said.contains("SetText=1") || throw Error { message: said })
   const tinted = Test::calls((): nil => {
-    Game::tooltip.main = { data: menu(32, GAME_RED), ..shown }
+    Game::tooltip.main = { ...shown, data: menu(32, GAME_RED) }
     Test::pass(SHOWS)
     Test::flush()
   })
@@ -228,19 +228,19 @@ test "a text tooltip the game fills anew with the same lines makes no tooltip an
   Test::pass(SHOWS)
   Test::flush()
   // Filled anew once, as the game does each second, and the first measure (what is made once) made; then measured.
-  Game::tooltip.main = { data: memory("2 MB"), ..shown }
+  Game::tooltip.main = { ...shown, data: memory("2 MB") }
   Test::pass(SHOWS)
   _ = Test::garbage((): nil => Test::flush())
   const same = memory("2 MB")
   const kept = Test::garbage((): nil => {
-    Game::tooltip.main = { data: same, ..shown }
+    Game::tooltip.main = { ...shown, data: same }
     Test::pass(SHOWS)
     Test::flush()
   })
   // A line of another width: one that measures what it did lays nothing out, and costs little more than none.
   const other = memory("1024 MB")
   const changed = Test::garbage((): nil => {
-    Game::tooltip.main = { data: other, ..shown }
+    Game::tooltip.main = { ...shown, data: other }
     Test::pass(SHOWS)
     Test::flush()
   })
@@ -249,7 +249,7 @@ test "a text tooltip the game fills anew with the same lines makes no tooltip an
 
 // The game's tooltip at the same place showing other lines.
 function refilled(shown: Game::ShownTip, lines: array<Game::TooltipLine>): Game::ShownTip {
-  return { data: { plain: true, lines: lines }, ..shown }
+  return { ...shown, data: { plain: true, lines: lines } }
 }
 
 test "a text tooltip filled anew with the same lines under another title, key or title colour shows them" {
@@ -881,17 +881,17 @@ test "a player of the other side is in red with the Horde's glyph" {
 }
 
 test "a player's state reads dead, a ghost or not to be disturbed; a party member is the player's group, one ignored is red" {
-  let who: Game::UnitInfo = { dead: true, ..jaina() }
+  let who: Game::UnitInfo = { ...jaina(), dead: true }
   Game::units.of = (unit: string): Game::UnitInfo | nil => who
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   Test::expect(tip("Kirin Tor").text("Corpse").shown())
-  who = { ghost: true, ..jaina() }
+  who = { ...jaina(), ghost: true }
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   Test::expect(reads(tip("Kirin Tor"), "|cffcbb994|r|cff4d99ffJaina|r|cffcbb994 the Patient|r | Kirin Tor | · | Archmage | Mage | · | Ghost | · | PvP | Level 60 | Human | Alliance | Target | Thrall | Raid | Group 2 | Friend | met in Dalaran"))
-  who = { afk: false, dnd: true, raidGroup: nil, inParty: true, friend: false, ignored: true, ..jaina() }
+  who = { ...jaina(), afk: false, dnd: true, raidGroup: nil, inParty: true, friend: false, ignored: true }
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   const player = tip("Kirin Tor")
@@ -952,7 +952,7 @@ test "an NPC reads its role, its kind, its level in its colour, elite and rare, 
 }
 
 test "an NPC no one else has tapped is in its reaction's colour" {
-  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ tapped: false, ..pillager() })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ ...pillager(), tapped: false })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
@@ -994,7 +994,8 @@ test "an NPC's «Party quests», «Someone else's loot» and «Reputation» unti
 
 test "a dead NPC far above the player reads a corpse and ?? in red" {
   Game::units.of = (unit: string): Game::UnitInfo | nil => ({
-    level: 0, dead: true, faction: nil, classification: "worldboss", tapped: false, reactionColor: nil, ..pillager()
+    ...pillager(),
+    level: 0, dead: true, faction: nil, classification: "worldboss", tapped: false, reactionColor: nil
   })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Kazzak", kind: NAME_OF_UNIT, unit: "target" }] })
@@ -1792,7 +1793,7 @@ test "an NPC of the other side is in red" {
 }
 
 test "a player's title without their name in it stands whole; a player of the first level says so" {
-  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ titled: "Archmage of Dalaran", level: 1, ..jaina() })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ ...jaina(), titled: "Archmage of Dalaran", level: 1 })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
@@ -1801,8 +1802,9 @@ test "a player's title without their name in it stands whole; a player of the fi
 
 test "a player's state reads whole: not to be disturbed, in the player's group, ignored" {
   Game::units.of = (unit: string): Game::UnitInfo | nil => ({
+    ...jaina(),
     afk: false, dnd: true, pvp: false, raidGroup: nil, inParty: true, friend: false, ignored: true, guild: nil,
-    titled: nil, target: nil, ..jaina()
+    titled: nil, target: nil
   })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
@@ -1827,13 +1829,13 @@ test "an effect's own lines: a blank one and the time left gone, its description
 }
 
 test "what an effect will still deal counts the whole ticks left, its stacks as one at least, and nothing of no amount or period" {
-  let info: Game::AuraInfo = { stacks: 0, left: 10, ..burning() }
+  let info: Game::AuraInfo = { ...burning(), stacks: 0, left: 10 }
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => info
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
   Test::expect(tip("Holy Fire").text("36 over 10 s").shown())
-  info = { stacks: 1, left: 10, ..burning() }
+  info = { ...burning(), stacks: 1, left: 10 }
   Game::tooltip.main = showing({
     kind: 7, id: 1, lines: [{ left: "Ember", kind: 0 }, { left: "Burns for 0 damage every 3 sec.", kind: DESCRIBED }]
   })
@@ -1848,7 +1850,7 @@ test "what an effect will still deal counts the whole ticks left, its stacks as 
 
 test "an effect's time is read again as the seconds pass, and a time run out is nought" {
   let left: number = 9
-  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ left: left, ..burning() })
+  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ ...burning(), left: left })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
@@ -1859,7 +1861,7 @@ test "an effect's time is read again as the seconds pass, and a time run out is 
 }
 
 test "an effect that doesn't end waits for no second once it is locked" {
-  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ left: nil, ..burning() })
+  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ ...burning(), left: nil })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
@@ -1870,7 +1872,7 @@ test "an effect that doesn't end waits for no second once it is locked" {
 test "a disease on a priest names the first of the class's cures the priest knows, in the disease's colour" {
   Game::spells.known = (id: integer): boolean => id == 528
   Game::spells.name = (id: integer): string | nil => id == 528 ? "Cure Disease" : id == 552 ? "Abolish Disease" : nil
-  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ dispel: "Disease", dispelName: "Disease", ..burning() })
+  Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ ...burning(), dispel: "Disease", dispelName: "Disease" })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
@@ -1891,7 +1893,7 @@ test "a class other than a priest names its own cures: a mage's for a curse, a d
     const tag = cure[1] ?? ""
     const dispel = cure[2] ?? ""
     Test::login(Test::Character { name: tag, guid: `Player-1-000000${cure[4] ?? ""}`, classTag: tag })
-    Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ dispel: dispel, dispelName: dispel, ..burning() })
+    Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ ...burning(), dispel: dispel, dispelName: dispel })
     Game::tooltip.main = showing(holyFire())
     Test::pass(SHOWS)
     Test::expect(tip("Holy Fire").text(`Spell ${cure[3] ?? ""}`).shown() || throw Error { message: tag })

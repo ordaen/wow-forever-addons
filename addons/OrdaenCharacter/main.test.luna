@@ -1748,7 +1748,7 @@ test "the reputation's filter keeps the factions at war alone, and says nothing 
 test "a window kept narrower than the stats need, from an older save, is drawn wide enough for them" {
   Test::mount(nil, PAGE)
   Game::items.icon = icons
-  Char.window.memory.write({ width: 1054.6875dp, height: 726.5625dp, ..Char.window.defaults })
+  Char.window.memory.write({ ...Char.window.defaults, width: 1054.6875dp, height: 726.5625dp })
   const window = opened(new FakeSheet())
   Test::expect(window.text("STR").shown())
   Test::expect(window.text("Attack power").count() == 1)
@@ -1757,7 +1757,7 @@ test "a window kept narrower than the stats need, from an older save, is drawn w
 test "the character tab holds the window at its own height; the player's taller one comes back on the others" {
   Test::mount(nil, PAGE)
   Game::items.icon = icons
-  Char.window.memory.write({ width: Style::WIDTH, height: Style::HEIGHT + 200dp, ..Char.window.defaults })
+  Char.window.memory.write({ ...Char.window.defaults, width: Style::WIDTH, height: Style::HEIGHT + 200dp })
   const window = opened(new FakeSheet())
   const held = Test::edges(Ordaen.art.window.wood, 0)
   window.button("Progression").click()
@@ -1879,7 +1879,7 @@ test "the bars' and the stats' columns share the room the model's leaves, which 
   const model = Test::edges("@/media/backdrop-dwarf.tga", 1)
   const columns = Test::edges("@/media/backdrop-dwarf.tga", 3)
   Test::expect(centred(model, columns))
-  Char.window.memory.write({ width: 1700dp, ..Char.window.defaults })
+  Char.window.memory.write({ ...Char.window.defaults, width: 1700dp })
   _ = opened(new FakeSheet())
   const wider = Test::edges("@/media/backdrop-dwarf.tga", 1)
   const widerColumns = Test::edges("@/media/backdrop-dwarf.tga", 3)

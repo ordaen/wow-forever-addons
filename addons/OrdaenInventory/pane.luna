@@ -71,7 +71,7 @@ const NOTED: array<Track> = ["max-content", { fr: 1 }]
 const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 // The footer band's room over and under what it holds, and its line along the top (Ordaen's FooterBand).
 const FOOT_BAND: number<Spacing> = 4sp
-const BAND_LINE: ArtBorder = { sides: [Side::Top], ..ARTWORK.frame.tabIconLine }
+const BAND_LINE: ArtBorder = { ...ARTWORK.frame.tabIconLine, sides: [Side::Top] }
 const LABEL: color = #a3977f
 const COUNT: color = #a3977f
 const BUTTON = 140.625dp

@@ -51,13 +51,14 @@ function showing(data: Game::TooltipData): Game::ShownTip {
 
 // The game's tooltip gone.
 function hidden(): Game::ShownTip {
-  return { shown: false, ..showing({ lines: [] }) }
+  return { ...showing({ lines: [] }), shown: false }
 }
 
 // A button of the micro menu in the screen's lower half, its top left at 600,800, 30 wide: the game's tooltip for it.
 function atButton(name: string, data: Game::TooltipData): Game::ShownTip {
   return {
-    owner: frame("Button", name, 600, 800, 30, 40), ownerName: name, placeable: true, ..showing(data)
+    ...showing(data),
+    owner: frame("Button", name, 600, 800, 30, 40), ownerName: name, placeable: true
   }
 }
 
@@ -65,8 +66,9 @@ function atButton(name: string, data: Game::TooltipData): Game::ShownTip {
 // right edge, as the game asks.
 function inSlot(name: string, data: Game::TooltipData): Game::ShownTip {
   return {
+    ...showing(data),
     owner: frame("Button", name, 1300, 200, 40, 40), ownerName: name, placeable: true, ownerHigh: true,
-    ownerRight: true, ..showing(data)
+    ownerRight: true
   }
 }
 
@@ -176,7 +178,7 @@ test "a tooltip with no room right of its owner stands to its left; with room on
   Test::expect(near(left.top, 200) && near(left.right, 1300))
   Game::tooltip.main = hidden()
   Test::pass(1)
-  Game::tooltip.main = { owner: frame("Button", "Wide", 0, 860, 1600, 40), ownerName: "Wide", placeable: true, ..showing(sword()) }
+  Game::tooltip.main = { ...showing(sword()), owner: frame("Button", "Wide", 0, 860, 1600, 40), ownerName: "Wide", placeable: true }
   Test::pass(SHOWS)
   Test::expect(near(Test::page().window("Sword").rect().bottom, 860))
 }
@@ -246,7 +248,7 @@ test "each kind stands where Blizzard's own UI puts it: what a frame holds besid
 
 test "a tooltip the game can't place by its owner stands where the game put its own" {
   Test::mount(nil, SCREEN)
-  Game::tooltip.main = { placeable: false, ..atButton("SomeAddonButton", text("Some Addon")) }
+  Game::tooltip.main = { ...atButton("SomeAddonButton", text("Some Addon")), placeable: false }
   Test::pass(SHOWS)
   const at = Test::page().window("Some Addon").rect()
   Test::expect(near(at.bottom, 800) && near(at.right, 1500))
@@ -634,8 +636,9 @@ test "a button's tooltip, which never locks, ends at its last line; an item's ke
 // does and its set beside it, `worn` the items it is compared with.
 function leftSlot(data: Game::TooltipData): Game::ShownTip {
   return {
+    ...showing(data),
     owner: frame("Button", "ContainerFrame2Item1", 100, 200, 40, 40), ownerName: "ContainerFrame2Item1", placeable: true,
-    ownerHigh: true, ownerRight: false, ..showing(data)
+    ownerHigh: true, ownerRight: false
   }
 }
 

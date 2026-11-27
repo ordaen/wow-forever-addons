@@ -36,9 +36,9 @@ function memory(corner: any Frame, owner: any Frame, addons: integer): Game::Sho
 function refilled(tip: Game::ShownTip, at: integer, right: string): Game::ShownTip {
   let lines: array<Game::TooltipLine> = mut []
   for (i, line of tip.data.lines) {
-    lines.push(i == at ? { right: right, ..line } : line)
+    lines.push(i == at ? { ...line, right: right } : line)
   }
-  return { data: { lines: lines, ..tip.data }, ..tip }
+  return { ...tip, data: { ...tip.data, lines: lines } }
 }
 
 test "a held tooltip the game fills anew costs what changed in it: a refill of thirty lines makes what one of ten does" {

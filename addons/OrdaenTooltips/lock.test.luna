@@ -46,7 +46,7 @@ function inSlot(data: Game::TooltipData): Game::ShownTip {
 
 // The game's tooltip gone.
 function hidden(): Game::ShownTip {
-  return { shown: false, ..inSlot({ lines: [] }) }
+  return { ...inSlot({ lines: [] }), shown: false }
 }
 
 function sword(): Game::TooltipData {
@@ -234,8 +234,8 @@ test "a tooltip that locks keeps the game's own unseen while it stays" {
 test "a button's tooltip never charges" {
   Test::mount(new Elsewhere(), SCREEN)
   Game::tooltip.main = {
-    ownerName: "CharacterMicroButton",
-    ..inSlot({ plain: true, lines: [{ left: "Character Info", kind: 0 }] })
+    ...inSlot({ plain: true, lines: [{ left: "Character Info", kind: 0 }] }),
+    ownerName: "CharacterMicroButton"
   }
   Test::pass(SHOWS)
   Test::pass(2)

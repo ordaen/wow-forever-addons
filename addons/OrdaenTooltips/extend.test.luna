@@ -70,7 +70,7 @@ function showing(data: Game::TooltipData): Game::ShownTip {
 }
 
 function hidden(): Game::ShownTip {
-  return { shown: false, ..showing({ lines: [] }) }
+  return { ...showing({ lines: [] }), shown: false }
 }
 
 function ore(): Game::TooltipData {

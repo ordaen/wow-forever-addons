@@ -86,14 +86,14 @@ public function actionAt(clicks: Clicks, chord: Chord): SlotAction {
 
 public function withAction(clicks: Clicks, chord: Chord, action: SlotAction): Clicks {
   return match (chord) {
-    .Left => { left: action, ..clicks }
-    .ShiftLeft => { shiftLeft: action, ..clicks }
-    .CtrlLeft => { ctrlLeft: action, ..clicks }
-    .AltLeft => { altLeft: action, ..clicks }
-    .Right => { right: action, ..clicks }
-    .ShiftRight => { shiftRight: action, ..clicks }
-    .CtrlRight => { ctrlRight: action, ..clicks }
-    .AltRight => { altRight: action, ..clicks }
+    .Left => { ...clicks, left: action }
+    .ShiftLeft => { ...clicks, shiftLeft: action }
+    .CtrlLeft => { ...clicks, ctrlLeft: action }
+    .AltLeft => { ...clicks, altLeft: action }
+    .Right => { ...clicks, right: action }
+    .ShiftRight => { ...clicks, shiftRight: action }
+    .CtrlRight => { ...clicks, ctrlRight: action }
+    .AltRight => { ...clicks, altRight: action }
   }
 }
 

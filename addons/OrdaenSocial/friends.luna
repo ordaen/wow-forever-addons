@@ -315,7 +315,7 @@ public class FriendList implements Component {
     self.offlineHeard = shows
     if (first && now.filter[FriendFilter::Online] != nil) { return }
     const filter = first ? filterStart(shows) : switched(now.filter, [FriendFilter::Offline], shows)
-    self.kept.write({ filter: filter, ..now })
+    self.kept.write({ ...now, filter: filter })
   }
 
   mut onPick(key: string) { self.pick.emit(key) }

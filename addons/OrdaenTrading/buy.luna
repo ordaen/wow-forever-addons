@@ -563,9 +563,9 @@ public class BuyPage implements Component {
         const cheaper = low < row.low
         const market = cheaper ? self.house.quote(key) : row.market
         list[place ?? 0] = {
+          ...row,
           key: cheaper ? key : row.key, listed: row.listed + offer.quantity, low: cheaper ? low : row.low,
-          high: low > row.high ? low : row.high, market: market, share: cheaper ? shareOf(low, market) : row.share,
-          ..row
+          high: low > row.high ? low : row.high, market: market, share: cheaper ? shareOf(low, market) : row.share
         }
       }
     }

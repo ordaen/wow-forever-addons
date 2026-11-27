@@ -219,7 +219,7 @@ test "the filter's switches on the toolbar's right keep what is learned now, wha
 test "the trainer's skill bar shows its rank of the most; the list stands under the trainer's categories, folded by a click; a service's tooltip is the game's" {
   Game::trainer.teachesClass = (): boolean => false
   Client::IsTradeskillTrainer = (): boolean => true
-  Game::trainer.services = (): array<Game::TrainerService> => taught().map(service => Game::TrainerService { category: service.index == 3 ? "Cloth" : "Robes", ..service })
+  Game::trainer.services = (): array<Game::TrainerService> => taught().map(service => Game::TrainerService { ...service, category: service.index == 3 ? "Cloth" : "Robes" })
   Game::trainer.skill = (): Game::TrainerSkill | nil => Game::TrainerSkill { rank: 60, most: 75, added: 0 }
   Test::mount(nil, SCREEN)
   Game::trainer.open = true

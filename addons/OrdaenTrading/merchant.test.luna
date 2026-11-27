@@ -235,7 +235,7 @@ test "at a merchant who repairs, «Repair all» says the cost and mends everythi
 function questWareAt(index: integer): Client::MerchantItemInfo | nil {
   const info = wareAt(index)
   if (info == nil || index != 3) { return info }
-  return { isQuestStartItem: true, ..info }
+  return { ...info, isQuestStartItem: true }
 }
 
 test "an item that starts a quest has the game's mark; Left buys it, Ctrl tries it on, Alt is the client's click" {

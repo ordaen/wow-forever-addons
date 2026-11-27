@@ -41,7 +41,7 @@ class Holder {
 }
 
 // Shown out of a fight, hidden in one.
-const PEACEFUL: Visibility = { combat: { visible: Visible::Hide, opacity: 0 }, ..ALWAYS }
+const PEACEFUL: Visibility = { ...ALWAYS, combat: { visible: Visible::Hide, opacity: 0 } }
 
 // One of the game's bars, shown or hidden.
 function gameBar(name: string, shown: boolean): any Client::Frame {

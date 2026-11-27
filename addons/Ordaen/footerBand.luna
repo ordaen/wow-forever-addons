@@ -9,7 +9,7 @@ import { RULE_COLOR, RULE_WIDTH } from "@/units"
 import { FOOTER_ROOM } from "@/window"
 
 const LINE: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Top] }
-const ROOM: Edges = { top: 2sp, bottom: 2sp, ..FOOTER_ROOM }
+const ROOM: Edges = { ...FOOTER_ROOM, top: 2sp, bottom: 2sp }
 
 public class FooterBand implements Component {
   public render(): Template {

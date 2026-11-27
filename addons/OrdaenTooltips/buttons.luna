@@ -67,5 +67,5 @@ public function extras(owner: string | nil, model: Model): Model {
   let body: array<TextLine> = mut []
   for (line of model.body) { body.push(line) }
   for (row of added) { body.push(row) }
-  return { body: body, ..model }
+  return { ...model, body: body }
 }

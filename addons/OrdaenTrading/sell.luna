@@ -151,7 +151,7 @@ public class SellPage implements Component {
       const index = at[item]
       if (index != nil) {
         const kept = list[index]
-        if (kept != nil) { list[index] = { count: kept.count + stack.count, ..kept } }
+        if (kept != nil) { list[index] = { ...kept, count: kept.count + stack.count } }
       } else {
         const key = PriceKey::of(item)
         const (name, color) = nameOf(item)

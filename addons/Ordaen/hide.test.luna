@@ -16,7 +16,7 @@ class Hiding {
 
   // It hides and shows again as these say, drawn.
   public mut chose(hide: array<Occasion>, show: array<Occasion>) {
-    self.window.memory.write({ hideDuring: hide, showAfter: show, ..self.window.defaults })
+    self.window.memory.write({ ...self.window.defaults, hideDuring: hide, showAfter: show })
     Test::mount(self, { left: 0, top: 0, width: 200, height: 100 })
   }
 
@@ -134,7 +134,7 @@ test "a mount and moving are heard only while a shown window asks for them" {
   page.chose([.Combat], [.Combat])
   Test::flush()
   Test::expect(mounts == 0 && moves == 0)
-  page.window.memory.write({ hideDuring: [.Travel, .Moving], ..page.window.memory.values })
+  page.window.memory.write({ ...page.window.memory.values, hideDuring: [.Travel, .Moving] })
   Test::flush()
   Test::expect(mounts == 1 && moves == 1)
   page.open = false

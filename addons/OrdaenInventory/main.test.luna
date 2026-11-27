@@ -328,7 +328,7 @@ test "the corner's gear opens the module's page of the settings, with its two wi
     values.slotGap = 0
     values.slotSize = 37
   })
-  Inventory.window.memory.write({ x: 0ui, ..Inventory.window.memory.values })
+  Inventory.window.memory.write({ ...Inventory.window.memory.values, x: 0ui })
   Game::bags.open = true
   bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()
@@ -715,7 +715,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
   Test::mount(nil, SCREEN)
   Game::bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { ...values.slotPresses, shiftLeft: .Pickup } })
   _ = Test::requests()
   Test::hold([.Shift])
   Test::hold([.Shift])
@@ -1868,7 +1868,7 @@ test "the one-bag view keeps no room for the tabs it doesn't show: it may be the
   Game::bags.open = true
   Test::flush()
   const withTabs = Inventory.main.leastWidth
-  Inventory.list.write({ view: .One, ..Inventory.list.values })
+  Inventory.list.write({ ...Inventory.list.values, view: .One })
   Test::flush()
   Test::expect(Inventory.main.leastWidth < withTabs - 100ui)
 }
@@ -1906,8 +1906,8 @@ test "the grip narrows a wide window past the row it opened with, down to its le
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
   Test::mount(nil, SCREEN)
-  Inventory.list.write({ view: .One, ..Inventory.list.values })
-  Inventory.window.memory.write({ width: 1400ui, ..Inventory.window.memory.values })
+  Inventory.list.write({ ...Inventory.list.values, view: .One })
+  Inventory.window.memory.write({ ...Inventory.window.memory.values, width: 1400ui })
   Game::bags.open = true
   Test::flush()
   Test::expect(firstSpan() == 22)

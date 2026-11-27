@@ -104,7 +104,7 @@ function withNote(model: Model, note: Note): Model {
   let foot: array<Note> = mut []
   for (kept of model.foot) { foot.push(kept) }
   foot.push(note)
-  return { foot: foot, ..model }
+  return { ...model, foot: foot }
 }
 
 public function item(data: Game::TooltipData, options: Options): ItemRead | nil {
@@ -323,7 +323,7 @@ public function compare(
     if (right == nil || diff == 0) {
       body.push(row)
     } else {
-      body.push({ compared: { more: diff > 0, by: shown(diff > 0 ? diff : -diff) }, ..row })
+      body.push({ ...row, compared: { more: diff > 0, by: shown(diff > 0 ? diff : -diff) } })
     }
   }
   if (lacks) {
@@ -335,7 +335,7 @@ public function compare(
       }
     }
   }
-  return { body: body, ..target }
+  return { ...target, body: body }
 }
 
 // What using an item does, as the tooltip beside it: under its tab («Use»), no title (the spell's name is the item's
@@ -352,7 +352,7 @@ function useSide(model: Model | nil): Model | nil {
     if (fact.cell.kind == BandKind::Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
   }
   for (line of model.body) { body.push(line) }
-  return { header: Locale::USE_HEADER, picture: Picture::None, name: "", desc: [], info: [], facts: facts, body: body, ..model }
+  return { ...model, header: Locale::USE_HEADER, picture: Picture::None, name: "", desc: [], info: [], facts: facts, body: body }
 }
 
 // A band's cell as a row: what its glyph stands for, in the game's word, and its value.

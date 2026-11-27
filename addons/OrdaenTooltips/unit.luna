@@ -195,10 +195,10 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
   }
   if (who.player) {
     let read = player(token, who, options)
-    return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
+    return read != nil ? { ...read, picture: Picture::Face { unit: token } } : nil
   }
   if (name == nil) { return nil }
-  return { picture: Picture::Face { unit: token }, ..npc(who, name, data, options) }
+  return { ...npc(who, name, data, options), picture: Picture::Face { unit: token } }
 }
 
 // The number of the NPC a unit's tooltip is of; 0 for a player, a unit gone, or a tooltip of anything else.
@@ -215,9 +215,9 @@ public function unitOf(token: string, options: Options): Model | nil {
   if (who == nil) { return nil }
   if (who.player) {
     let read = player(token, who, options)
-    return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
+    return read != nil ? { ...read, picture: Picture::Face { unit: token } } : nil
   }
   let name = who.name
   if (name == nil) { return nil }
-  return { picture: Picture::Face { unit: token }, ..npc(who, name, { lines: [] }, options) }
+  return { ...npc(who, name, { lines: [] }, options), picture: Picture::Face { unit: token } }
 }

@@ -41,7 +41,7 @@ public struct Standing {
 
 // A hang the other way across: by the left edge where it was by the right (a row's left where its right has no room).
 function mirrored(hang: Hang): Hang {
-  return { point: acrossOf(hang.point), to: acrossOf(hang.to), ..hang }
+  return { ...hang, point: acrossOf(hang.point), to: acrossOf(hang.to) }
 }
 
 function acrossOf(point: Point): Point {
@@ -213,7 +213,7 @@ public class TipGroup implements Component {
     if (!standing.inPlace && hang != nil) {
       const lift: number<Length> = self.comparing ? Ordaen.lengthOf(HEADER) : 0ui
       const down: number<Length> = hang.y ?? 0ui
-      const lifted: Hang = { y: down - lift, ..hang }
+      const lifted: Hang = { ...hang, y: down - lift }
       return { beside: standing.by, prefer: [lifted, mirrored(lifted)] }
     }
     if (standing.inPlace) {

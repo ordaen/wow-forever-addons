@@ -132,7 +132,7 @@ test "a grey item a merchant buys is junk; one he gives nothing for, or the rule
   Test::expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == Why::Grey)
   Test::expect(junkWhy(goods(0, 15, 1, 0, "", 0), NO_LISTS, JUNK_RULES) == nil)
   Test::expect(junkWhy(goods(1, 15, 1, 10, "", 0), NO_LISTS, JUNK_RULES) == nil)
-  Test::expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, { grey: false, ..JUNK_RULES }) == nil)
+  Test::expect(junkWhy(goods(0, 15, 1, 10, "", 0), NO_LISTS, { ...JUNK_RULES, grey: false }) == nil)
 }
 
 test "grey gear is junk only above the level the setting says; a tabard, a shirt and a fishing pole never by a rule" {
@@ -452,7 +452,7 @@ test "the client's secure use stands on the scheme's chord for Use: the left in 
   Test::expect(ours.chord == MouseButton::Left)
   const game = useClickOf(AS_THE_GAME)
   Test::expect(game.chord == MouseButton::Right)
-  const moved = useClickOf({ left: .Menu, shiftRight: .Use, ..OURS }).chord
+  const moved = useClickOf({ ...OURS, left: .Menu, shiftRight: .Use }).chord
   Test::expect(moved is (Modifier, MouseButton) && moved[1] == Modifier::Shift && moved[2] == MouseButton::Right)
   Test::expect(chordFor(OURS, .Protect) == nil && chordFor(AS_THE_GAME, .Protect) == Chord::AltLeft)
 }
@@ -466,7 +466,7 @@ test "Shift+left set to Pick up picks the item up, and the right opens the menu,
   Game::items.maxStack = (id: integer): integer | nil => 20
   Test::mount(nil, SCREEN)
   Game::bags.open = true
-  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { ...values.slotPresses, shiftLeft: .Pickup } })
   _ = Test::requests()
   Test::hold([.Shift])
   Test::hold([.Shift])
@@ -530,7 +530,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   // Two windows: the bags' with the bags alone, and the bank's.
   Test::expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale::BANK).shown())
   Test::expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
-  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
+  Inventory.settings.change((values: mut Choices): nil => { values.slotPresses = { ...values.slotPresses, shiftLeft: .Pickup } })
   _ = Test::requests()
   Test::hold([.Shift])
   Test::hold([.Shift])

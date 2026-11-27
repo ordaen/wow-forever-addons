@@ -164,7 +164,7 @@ test "the book is the account's: another character played reads the first one's 
   Test::flush()
   Test::login({ guid: "Player-1-0000002", name: "Regron", surname: "", realm: "Stand-in", faction: "Alliance", classTag: "WARRIOR" })
   // Regron's tailoring: the same list, none of it learned.
-  Game::tradeSkill.recipes = recipes().map(one => ({ learned: false, ..one }))
+  Game::tradeSkill.recipes = recipes().map(one => ({ ...one, learned: false }))
   Game::tradeSkill.open = TAILORING
   Test::page().button("Worth it").click()
   // Player's recipes from the book, while Regron is played; Regron's bags and Player's hold four linen each.

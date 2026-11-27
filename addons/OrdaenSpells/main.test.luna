@@ -857,7 +857,7 @@ test "what a service needs turns dim once the trainer says it can be learned" {
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
-  Game::trainer.services = (): array<Game::TrainerService> => services().map(service => Game::TrainerService { status: .Available, ..service })
+  Game::trainer.services = (): array<Game::TrainerService> => services().map(service => Game::TrainerService { ...service, status: .Available })
   Game::trainer.changed.emit()
   Test::expect(drawnIn(window.text("Rank 2 · Requires level 50"), DIM))
 }

@@ -20,7 +20,7 @@ class Asking {
 
 test "a window opens on the tab its owner asks for, not the one kept" {
   let page = new Asking()
-  page.window.memory.write({ tab: 2, ..page.window.defaults })
+  page.window.memory.write({ ...page.window.defaults, tab: 2 })
   Test::mount(page, { left: 0, top: 0, width: 600, height: 500 })
   page.window.ask(3)
   page.open = true
@@ -31,7 +31,7 @@ test "a window opens on the tab its owner asks for, not the one kept" {
 
 test "a tab asked for holds over the one fixed on the settings page, and the next open is the fixed one's" {
   let page = new Asking()
-  page.window.memory.write({ openOn: 2, ..page.window.defaults })
+  page.window.memory.write({ ...page.window.defaults, openOn: 2 })
   Test::mount(page, { left: 0, top: 0, width: 600, height: 500 })
   page.window.ask(3)
   page.open = true

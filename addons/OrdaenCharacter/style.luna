@@ -74,7 +74,7 @@ public const LIST_TOOLBAR: Edges = { top: 8sp, right: 8sp, left: 8sp }
 public const DETAILS_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
 // The frame's line down the details column's left: a window's inner upright divider.
 public function detailsLine(): ArtBorder {
-  return { sides: [Side::Left], ..Ordaen.art.frame.tabIconLine }
+  return { ...Ordaen.art.frame.tabIconLine, sides: [Side::Left] }
 }
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
 public const CARDS_PAD: Edges = { bottom: 2sp }

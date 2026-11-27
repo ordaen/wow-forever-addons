@@ -69,7 +69,7 @@ function levelTop(): number<Length> {
 }
 function portraitFrame(): ArtBorder {
   const metal = Ordaen.art.frame.window
-  return { sides: [Side::Top, Side::Right], scale: metal.scale * PORTRAIT_FRAME_WEIGHT, width: metal.width * PORTRAIT_FRAME_WEIGHT, ..metal }
+  return { ...metal, sides: [Side::Top, Side::Right], scale: metal.scale * PORTRAIT_FRAME_WEIGHT, width: metal.width * PORTRAIT_FRAME_WEIGHT }
 }
 const PORTRAIT_ROOM: array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point::BottomLeft }

@@ -277,7 +277,8 @@ public class Inventory implements Module, App {
     const at = peek self.window.placing
     const size = peek self.vaultWindow.memory.values
     self.vaultWindow.memory.write({
-      x: at.x - at.width / 2 - Ordaen.lengthOf(BESIDE) - size.width / 2, y: at.y - at.height / 2 + size.height / 2, ..size
+      ...size,
+      x: at.x - at.width / 2 - Ordaen.lengthOf(BESIDE) - size.width / 2, y: at.y - at.height / 2 + size.height / 2
     })
   }
 
@@ -419,7 +420,7 @@ public class Inventory implements Module, App {
         if (moved != nil) { guards.push({ bag: moved.bag, slot: moved.index, id: guard.id }) }
       }
     }
-    if (changed) { self.memory.write({ guards: guards, ..kept }) }
+    if (changed) { self.memory.write({ ...kept, guards: guards }) }
     self.markGuards(guards)
   }
 
@@ -686,7 +687,7 @@ public class Inventory implements Module, App {
   // «Forget what was learned» and «Forget my marks» on the junk's page.
   mut onResetJunk(marks: boolean) {
     const lists = peek self.junkLists.values
-    self.junkLists.write(marks ? { marks: {}, ..lists } : { learned: {}, ..lists })
+    self.junkLists.write(marks ? { ...lists, marks: {} } : { ...lists, learned: {} })
   }
 
   // A slot's item dragged off it, or what is dragged let go on it: picked up or put down there, as a plain click
@@ -705,7 +706,7 @@ public class Inventory implements Module, App {
       if (guard.bag == slot.bag && guard.slot == slot.index) { was = true } else { guards.push(guard) }
     }
     if (!was) { guards.push({ bag: slot.bag, slot: slot.index, id: peek slot.id }) }
-    self.memory.write({ guards: guards, ..kept })
+    self.memory.write({ ...kept, guards: guards })
     self.markGuards(guards)
   }
 
@@ -808,7 +809,7 @@ public class Inventory implements Module, App {
     const at = peek beside.placing
     const size = peek slots.memory.values
     const away = at.width / 2 + Ordaen.lengthOf(BESIDE) + size.width / 2
-    slots.memory.write({ x: right ? at.x + away : at.x - away, y: at.y - at.height / 2 + size.height / 2, ..size })
+    slots.memory.write({ ...size, x: right ? at.x + away : at.x - away, y: at.y - at.height / 2 + size.height / 2 })
   }
 
   // The bags' window's close shuts the game's bags, and leaves the bank and the guild bank, which hides it.

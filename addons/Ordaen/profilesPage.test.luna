@@ -236,7 +236,7 @@ test "a section is copied from another profile at once, one step; a module that 
   const page = new ProfilesPage()
   Test::mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
-  const globals: Globals = { scale: 1.25, density: Density::Compact, ..Ordaen.globals.defaults }
+  const globals: Globals = { ...Ordaen.globals.defaults, scale: 1.25, density: Density::Compact }
   Ordaen.globals.choose(globals)
   const next = profiles.edit()
   const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}

@@ -29,7 +29,7 @@ const LINE_LIGHT: color = #d6a56b2e
 // window's room at the sides and a band above and below it, the frame's line between them and the trees.
 const BAND_ROOM: Edges = { top: 4sp, right: Style::SIDE_ROOM, bottom: 4sp, left: Style::SIDE_ROOM }
 function rimAt(side: Side): ArtBorder {
-  return { sides: [side], ..Ordaen.art.frame.tabIconLine }
+  return { ...Ordaen.art.frame.tabIconLine, sides: [side] }
 }
 // The class's art under its three trees, as the client's talents window draws it.
 const ARTS: map<string, Atlas> = {

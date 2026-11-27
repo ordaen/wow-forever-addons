@@ -24,8 +24,8 @@ function quest(id: integer, title: string, header: string): Test::LogQuest {
 // The player's log: two quests of the world, one of a dungeon.
 function standing(): mut array<Test::LogQuest> {
   return mut [
-    { story: "Gryan asks you to look into Westfall.", xp: 420, ..quest(101, "The Defias Brotherhood", "Westfall") },
-    { tag: 81, ..quest(102, "Red Silk Bandanas", "The Deadmines") },
+    { ...quest(101, "The Defias Brotherhood", "Westfall"), story: "Gryan asks you to look into Westfall.", xp: 420 },
+    { ...quest(102, "Red Silk Bandanas", "The Deadmines"), tag: 81 },
     quest(103, "Elwynn Wolves", "Elwynn Forest")
   ]
 }
@@ -234,7 +234,7 @@ test "the tracking switch stands at the page's right edge, over «Show on map»'
 
 test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
   const log = standing()
-  log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }] }
   opened(log)
   Test::page().window("World").text("Elwynn Wolves").click()
   const window = Test::page().window("World")
@@ -249,7 +249,7 @@ test "many rewards give way to the parchment, which keeps its least height" {
   const log = standing()
   let choices: array<Test::LogReward> = mut []
   for (index of 1..6) { choices.push({ item: 1001 + index % 3, count: index }) }
-  log[3] = { rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150 }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -261,7 +261,7 @@ test "many rewards give way to the parchment, which keeps its least height" {
 
 test "past three rewards to choose they stand in two columns, each name whole, the side growing for them" {
   const log = standing()
-  log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }, { item: 1004 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }, { item: 1004 }] }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -278,11 +278,11 @@ test "past three rewards to choose they stand in two columns, each name whole, t
 test "a quest whose words would overflow its scroll stands the scroll beside the rest, down to the footer band" {
   const log = standing()
   log[3] = {
+    ...quest(103, "Elwynn Wolves", "Elwynn Forest"),
     story: "The wolves of the forest grow bolder by the day. They have taken sheep from the Maclure vineyards, " +
       "and a farmer's boy was chased back to Goldshire.\nThe guards can't spare the men.",
     task: "Bring 8 Wolf Pelts to Eagan Peltskinner outside Goldshire.",
-    objectives: [{ text: "Pelts: 3/8" }],
-    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+    objectives: [{ text: "Pelts: 3/8" }]
   }
   opened(log)
   const window = Test::page().window("World")
@@ -299,7 +299,7 @@ test "a quest whose words would overflow its scroll stands the scroll beside the
 
 test "three rewards to choose stand in one column" {
   const log = standing()
-  log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }] }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -309,7 +309,7 @@ test "three rewards to choose stand in one column" {
 
 test "the parchment marks who gives the quest where its words name him, and his tip says who he is and where" {
   const log = standing()
-  log[1] = { task: "Report to Gryan Stoutmantle's camp at Sentinel Hill.", ..log[1] ?? throw Error { message: "a quest" } }
+  log[1] = { ...log[1] ?? throw Error { message: "a quest" }, task: "Report to Gryan Stoutmantle's camp at Sentinel Hill." }
   opened(log)
   const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
@@ -355,7 +355,7 @@ test "a quest's scroll fills its page's height: its corners at its top and its f
 
 test "a quest under the cursor has its tooltip" {
   const log = standing()
-  log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? throw Error { message: "a quest" } }
+  log[1] = { ...log[1] ?? throw Error { message: "a quest" }, task: "Find Gryan in Sentinel Hill." }
   opened(log)
   const row = Test::page().window("World").text("The Defias Brotherhood")
   row.hover()
@@ -386,7 +386,7 @@ test "docked, the map open, the log stands over the map's side panel; a quest pi
 test "in the tracker a quest to do says where, and its title opens its page in the window" {
   const log = standing()
   // In the player's zone (the stand-in's, Elwynn Forest): the tracker lists the zone's quests alone.
-  log[1] = { watched: true, story: "Gryan asks you to look into Westfall.", ..quest(101, "The Defias Brotherhood", "Elwynn Forest") }
+  log[1] = { ...quest(101, "The Defias Brotherhood", "Elwynn Forest"), watched: true, story: "Gryan asks you to look into Westfall." }
   opened(log)
   Quests.flip()
   Test::flush()
@@ -402,7 +402,7 @@ test "in the tracker a quest to do says where, and its title opens its page in t
 
 test "a quest's page draws no figure, as Dialogue's quest page, even where the client names its giver" {
   const log = standing()
-  log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), portraitGiver: 1491 }
   opened(log)
   const drawn = Test::calls(() => {
     Test::page().window("World").text("Elwynn Wolves").click()
@@ -424,7 +424,7 @@ test "the list's rows have no tracking box: a quest is tracked by the page's swi
 
 test "Abandon is the page's accent button and stands outermost left, the others at the right" {
   const log = standing()
-  log[1] = { pushable: true, ..log[1] ?? throw Error { message: "the standing log has a first quest" } }
+  log[1] = { ...log[1] ?? throw Error { message: "the standing log has a first quest" }, pushable: true }
   Test::grouped(true)
   opened(log)
   const window = Test::page().window("World")
@@ -452,7 +452,7 @@ const WOLVES = "Gray forest wolves slain in the hills east of Goldshire, along t
 
 test "a long objective wraps on the page, its count standing at the right of the line" {
   const log = standing()
-  log[3] = { objectives: [{ text: `${WOLVES}: 0/50` }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), objectives: [{ text: `${WOLVES}: 0/50` }] }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -522,7 +522,7 @@ test "a quest QuestieDB knows no next quest of has no line under its parchment" 
 
 test "the question to abandon a quest names the items abandoning it destroys" {
   const log = standing()
-  log[3] = { abandonItems: [2041], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), abandonItems: [2041] }
   opened(log)
   Test::page().window("World").text("Elwynn Wolves").click()
   Test::page().window("World").button("Abandon").click()
@@ -565,7 +565,7 @@ test "«Show on map» opens the map where the quest leads, its pins shown until 
 test "in a fight «Show on map» is greyed, opens nothing, and its tip says the map can't be opened in combat" {
   opened(standing())
   // The player keeps the log shown in a fight.
-  Quests.window.memory.write({ hideDuring: [], ..Quests.window.memory.values })
+  Quests.window.memory.write({ ...Quests.window.memory.values, hideDuring: [] })
   const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
   Test::combat(true)
@@ -584,7 +584,7 @@ test "in a fight «Show on map» is greyed, opens nothing, and its tip says the 
 
 test "Share shows only while the quest can be shared: alone, or a quest the client keeps, there is none" {
   const log = standing()
-  log[1] = { pushable: true, ..log[1] ?? throw Error { message: "the standing log has a first quest" } }
+  log[1] = { ...log[1] ?? throw Error { message: "the standing log has a first quest" }, pushable: true }
   opened(log)
   const window = Test::page().window("World")
   window.text("The Defias Brotherhood").click()
@@ -632,10 +632,10 @@ function filter(): Test::Part {
 test "a quest's objectives still to do stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
   const log = standing()
   log[3] = {
-    objectives: [{ text: "Wolves slain: 5/10" }, { text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }],
-    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+    ...quest(103, "Elwynn Wolves", "Elwynn Forest"),
+    objectives: [{ text: "Wolves slain: 5/10" }, { text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }]
   }
-  log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  log[1] = { ...quest(101, "The Defias Brotherhood", "Westfall"), complete: true }
   opened(log)
   const window = Test::page().window("World")
   Test::expect(window.text("Wolves slain").shown() && window.text("5/10").shown() && window.text("Fangs").shown())
@@ -647,7 +647,7 @@ test "a quest's objectives still to do stand under its title, one a line; its ro
 
 test "the select beside the search shows the quests in progress, the completed ones, or all" {
   const log = standing()
-  log[3] = { complete: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), complete: true }
   opened(log)
   const window = Test::page().window("World")
   // A select: only the picked choice shows until it is opened.
@@ -668,7 +668,7 @@ test "the search field takes the toolbar's width but its tools, as the professio
 
 test "the search finds a quest by its title or an objective" {
   const log = standing()
-  log[1] = { objectives: [{ text: "Talk to Gryan Stoutmantle" }], ..quest(101, "The Defias Brotherhood", "Westfall") }
+  log[1] = { ...quest(101, "The Defias Brotherhood", "Westfall"), objectives: [{ text: "Talk to Gryan Stoutmantle" }] }
   opened(log)
   const window = Test::page().window("World")
   window.input().click()
@@ -683,7 +683,7 @@ test "the search finds a quest by its title or an objective" {
 
 test "the filter keeps the tracked quests alone, or the difficulties switched on; a tab it empties says so" {
   const log = standing()
-  log[3] = { watched: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), watched: true }
   opened(log)
   const window = Test::page().window("World")
   filter().button("Tracked only").click()
@@ -701,7 +701,7 @@ test "the filter keeps the tracked quests alone, or the difficulties switched on
 
 test "a group quest passes the filter by «Group», one played alone by «Solo»" {
   const log = standing()
-  log[1] = { group: 3, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  log[1] = { ...quest(101, "The Defias Brotherhood", "Westfall"), group: 3 }
   opened(log)
   const window = Test::page().window("World")
   filter().button("Group").click()
@@ -789,10 +789,10 @@ test "«Show the way» in a quest's menu has the client point the way to it" {
 
 test "a wrapped objective's lines sit at the text's own line; two objectives keep their gap" {
   const log = standing()
-  log[3] = { objectives: [
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), objectives: [
     { text: "Gray forest wolves slain in the hills east of Goldshire and the woods past it, down to the river: 0/50" },
     { text: "Pelts: 1/4" }
-  ], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  ] }
   opened(log)
   const window = Test::page().window("World")
   const long = window.text("Gray forest wolves slain in the hills east of Goldshire and the woods past it, down to the river").letters()
@@ -805,7 +805,7 @@ test "a wrapped objective's lines sit at the text's own line; two objectives kee
 
 test "a header says how many of its quests are complete of all at its right" {
   const log = standing()
-  log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  log[1] = { ...quest(101, "The Defias Brotherhood", "Westfall"), complete: true }
   opened(log)
   const window = Test::page().window("World")
   Test::expect(window.text("1/1").shown() && window.text("0/1").shown())
@@ -814,7 +814,7 @@ test "a header says how many of its quests are complete of all at its right" {
 
 test "a row is its level and its title, no bullet between; a level of one digit keeps two digits' room, so titles line up" {
   const log = standing()
-  log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Westfall"), level: 7 }
   opened(log)
   const window = Test::page().window("World")
   Test::expect(!window.text("[").shown() && !window.text("]").shown())
@@ -833,7 +833,7 @@ test "a row is its level and its title, no bullet between; a level of one digit 
 
 test "a header and its quests take the list's whole width, a rule between one quest and the next" {
   const log = standing()
-  log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Westfall"), level: 7 }
   opened(log)
   const window = Test::page().window("World")
   const header = window.text("Westfall").item()
@@ -850,7 +850,7 @@ test "a header and its quests take the list's whole width, a rule between one qu
 
 test "a quest's gains stand at its row's right in the body's size: one alone leaves no room after it" {
   const log = standing()
-  log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Westfall") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Westfall"), xp: 735, money: 150 }
   opened(log)
   const window = Test::page().window("World")
   // Quest 101 gives experience alone (its number, then its mark), quest 103 experience and money: both end at the
@@ -883,7 +883,7 @@ test "with the game's difficulty colours off (the world map's filter), a level i
 
 test "a complete quest says so under its title, in place of its objectives" {
   const log = standing()
-  log[3] = { complete: true, objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), complete: true, objectives: [{ text: "Pelts: 4/4", done: true }] }
   opened(log)
   const window = Test::page().window("World")
   const title = window.text("Elwynn Wolves").rect()
@@ -894,7 +894,7 @@ test "a complete quest says so under its title, in place of its objectives" {
 
 test "a quest's experience and money stand at its title's right, a bullet between, the experience with its mark" {
   const log = standing()
-  log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), xp: 735, money: 150 }
   opened(log)
   const window = Test::page().window("World")
   const title = window.text("Elwynn Wolves").rect()
@@ -907,7 +907,7 @@ test "a quest's experience and money stand at its title's right, a bullet betwee
 
 test "the page's experience stands no smaller than the list's" {
   const log = standing()
-  log[3] = { xp: 735, money: 150, rewards: [{ item: 1001 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), xp: 735, money: 150, rewards: [{ item: 1001 }] }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -926,8 +926,7 @@ test "the abandon button says only «Abandon»" {
 
 test "an objective that says the task again stands once on the page, not dark then muted" {
   const log = standing()
-  log[3] = { task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }],
-    ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }] }
   opened(log)
   const window = Test::page().window("World")
   window.text("Elwynn Wolves").click()
@@ -938,8 +937,8 @@ test "an objective that says the task again stands once on the page, not dark th
 test "the parchment holds the lore alone: the objectives and their counts stand under it, on the well" {
   const log = standing()
   log[3] = {
-    task: "Bring pelts to Eagan.", objectives: [{ text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }],
-    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+    ...quest(103, "Elwynn Wolves", "Elwynn Forest"),
+    task: "Bring pelts to Eagan.", objectives: [{ text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }]
   }
   opened(log)
   const window = Test::page().window("World")
@@ -960,7 +959,8 @@ test "a long objective wraps under the parchment and pushes what follows down" {
   const log = standing()
   const long = "Чародейский справочник: магические термины простыми словами"
   log[3] = {
-    objectives: [{ text: `${long}: 0/1` }], choices: [{ item: 1002 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+    ...quest(103, "Elwynn Wolves", "Elwynn Forest"),
+    objectives: [{ text: `${long}: 0/1` }], choices: [{ item: 1002 }]
   }
   opened(log)
   const window = Test::page().window("World")
@@ -975,7 +975,7 @@ test "a long objective wraps under the parchment and pushes what follows down" {
 
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
   const log = standing()
-  log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), task: "Bring pelts to Eagan." }
   opened(log)
   Quests.settings.values.foldedScroll = true
   const window = Test::page().window("World")
@@ -991,7 +991,7 @@ test "with the setting on, a quest's parchment opens folded to its title, and a 
 
 test "the parchment opens unfolded by default" {
   const log = standing()
-  log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { ...quest(103, "Elwynn Wolves", "Elwynn Forest"), task: "Bring pelts to Eagan." }
   opened(log)
   Test::page().window("World").text("Elwynn Wolves").click()
   Test::expect(Test::page().window("World").text("Bring pelts to Eagan.").shown())

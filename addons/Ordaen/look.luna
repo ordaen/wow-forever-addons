@@ -121,10 +121,10 @@ const ORDAEN: Look = {
 
 // Flat, thin lines, almost no textures or animations.
 const MINIMAL: Look = {
+  ...ORDAEN,
   fontHeader: Font::FiraSans,
   accent: { r: 0.62, g: 0.62, b: 0.62, a: 1 },
-  animation: Animation::Off,
-  ..ORDAEN
+  animation: Animation::Off
 }
 
 // A preset: a whole look.
@@ -138,9 +138,9 @@ public function preset(name: Preset): Look {
 // The look a player who chose the Blizzard preset has saved, as it loads: its fonts (the client's, which have no bold)
 // are no longer offered and load as Ordaen's. Ordaen offers no such preset, and loads it as Ordaen's.
 const BLIZZARD: Look = {
+  ...ORDAEN,
   accent: { r: 1, g: 0.82, b: 0, a: 1 },
-  barTexture: BarTexture::Blizzard, animation: Animation::Fast,
-  ..ORDAEN
+  barTexture: BarTexture::Blizzard, animation: Animation::Fast
 }
 
 // Whether a look loaded is one of a preset Ordaen doesn't offer, to be loaded as Ordaen's.

@@ -73,7 +73,7 @@ public struct Laid {
 // An item as drawn, with the icon the player chose for its place over its own (`nil` chosen: its name in its wedge).
 function withChosenIcon(drawn: WheelItem, chosen: PlaceIcon | nil): WheelItem {
   if (chosen == nil) { return drawn }
-  return { icon: chosen.icon, ..drawn }
+  return { ...drawn, icon: chosen.icon }
 }
 
 public function laidOut(ring: Ring, offers: map<string, RadialOffer>): Laid {

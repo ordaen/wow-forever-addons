@@ -720,7 +720,7 @@ public class Professions implements Module, App {
     if (open != nil) {
       self.waiting = false
       const now = peek self.memory.values
-      self.memory.write({ last: open, ..now })
+      self.memory.write({ ...now, last: open })
     }
     if (open != nil && open != self.skillLine) {
       self.skillLine = open
@@ -776,7 +776,7 @@ public class Professions implements Module, App {
     const now = peek self.memory.values
     let seen = now.seen.clone()
     seen[open] = Seen { category: peek self.category, recipe: peek self.recipe }
-    self.memory.write({ seen: seen, ..now })
+    self.memory.write({ ...now, seen: seen })
   }
 
   mut pickCategory(id: integer) {
@@ -825,12 +825,12 @@ public class Professions implements Module, App {
 
   mut starFavorite(id: integer) {
     const now = peek self.memory.values
-    self.memory.write({ favorites: self.toggled(now.favorites, id), ..now })
+    self.memory.write({ ...now, favorites: self.toggled(now.favorites, id) })
   }
 
   mut starTracked(id: integer) {
     const now = peek self.memory.values
-    self.memory.write({ tracked: self.toggled(now.tracked, id), ..now })
+    self.memory.write({ ...now, tracked: self.toggled(now.tracked, id) })
   }
 
   // The item the recipe makes put into the chat's line; a recipe that makes none has no link.

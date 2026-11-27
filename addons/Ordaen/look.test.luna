@@ -81,8 +81,8 @@ test "a look saved with numbers in a font of unequal digits loads them in the de
 // The Blizzard preset isn't offered: a player who chose it has its look saved, and it loads as Ordaen's.
 test "a look saved as the Blizzard preset loads as Ordaen's" {
   let blizzard: Ordaen::Look = {
-    accent: #ffd100, barTexture: Ordaen::BarTexture::Blizzard, animation: Ordaen::Animation::Fast,
-    ..Ordaen::preset(Ordaen::Preset::Ordaen)
+    ...Ordaen::preset(Ordaen::Preset::Ordaen),
+    accent: #ffd100, barTexture: Ordaen::BarTexture::Blizzard, animation: Ordaen::Animation::Fast
   }
   Core.look.choose(blizzard)
   Test::expect(Core.look.values.barTexture == Ordaen::BarTexture::Blizzard)
@@ -102,7 +102,7 @@ test "a look saved as the Blizzard preset loads as Ordaen's" {
 test "a book font chosen changes the files of a page of sentences alone: the text's, the titles' and the numbers' stay" {
   const ordaen = Ordaen::preset(Ordaen::Preset::Ordaen)
   const before = artOf(ordaen).fonts
-  const after = artOf({ fontBook: Ordaen::BookFont::Lora, ..ordaen }).fonts
+  const after = artOf({ ...ordaen, fontBook: Ordaen::BookFont::Lora }).fonts
   Test::expect(file(before.book).contains("PTSerif-Regular.ttf, bold ") && file(before.book).contains("PTSerif-Bold.ttf"))
   Test::expect(file(after.book).contains("Lora-Regular.ttf, bold ") && file(after.book).contains("Lora-Bold.ttf"))
   Test::expect(file(after.body) == file(before.body) && file(after.title) == file(before.title))

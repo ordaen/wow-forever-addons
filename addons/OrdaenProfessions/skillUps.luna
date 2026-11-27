@@ -19,7 +19,7 @@ public function difficultyAt(thresholds: Thresholds, recipe: integer, skill: int
 // it), so its name takes that colour as a learned one's does; a learned one is the client's.
 public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: integer): Game::Recipe {
   if (recipe.learned) { return recipe }
-  return { difficulty: difficultyAt(thresholds, recipe.id, rank), ..recipe }
+  return { ...recipe, difficulty: difficultyAt(thresholds, recipe.id, rank) }
 }
 
 // The open profession's recipes by number: the skill each turns yellow at, and grey at; and for a recipe an item

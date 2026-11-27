@@ -54,7 +54,7 @@ test "a switch to another profile takes effect at once, and is kept" {
 }
 
 test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
-  const globals: Globals = { scale: 1.25, density: Density::Compact, ..DEFAULTS }
+  const globals: Globals = { ...DEFAULTS, scale: 1.25, density: Density::Compact }
   const look = preset(Preset::Minimal)
   const settings: map<string, unknown> = mut {}
   settings["Ordaen"] = globals

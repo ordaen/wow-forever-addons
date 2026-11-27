@@ -82,7 +82,7 @@ test "the NPC's list: her words, then the quests to hand in, the new ones, those
 test "a new quest's level is in the quest log's difficulty colour, grey where the client calls the quest trivial" {
   Test::mount(nil, SCREEN)
   const far = gossipQuest(21, "The Dragon's Lair", 70, false)
-  Test::talk({ available: [far, { isTrivial: true, ..gossipQuest(22, "Old Bones", 71, false) }], ..innkeeper() })
+  Test::talk({ ...innkeeper(), available: [far, { ...gossipQuest(22, "Old Bones", 71, false), isTrivial: true }] })
   // Far above the player: the game's red, as Ordaen's quest log and tracker draw it; trivial by the client: its grey.
   Test::expect(window().text("(70)").textColor().equal(#ff2020))
   Test::expect(window().text("(71)").textColor().equal(#808080))
@@ -361,9 +361,9 @@ test "a quest whose words would overflow the scroll stands it beside the rewards
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
   Test::quest({
+    ...pie(),
     text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
-      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
-    ..pie()
+      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it."
   })
   Events::QUEST_DETAIL.emit(nil)
   const top = window().box(SHEET_ART.topRight).rect()
@@ -380,9 +380,9 @@ test "a window no higher than 60% of the screen keeps a long quest's rewards und
   Test::mount(nil, { left: 0, top: 0, width: 1600, height: 1200, screen: true })
   Test::talk(innkeeper())
   Test::quest({
+    ...pie(),
     text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
-      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
-    ..pie()
+      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it."
   })
   Events::QUEST_DETAIL.emit(nil)
   Test::expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
@@ -653,7 +653,7 @@ test "a party member's escort quest asks, and Yes accepts it" {
 }
 
 // The innkeeper whose «Make this inn your home.» asks, as the client's does (`CONFIRM_BINDER`).
-function binder(): Test::Npc { return { binds: { option: 300, area: "Goldshire" }, ..innkeeper() } }
+function binder(): Test::Npc { return { ...innkeeper(), binds: { option: 300, area: "Goldshire" } } }
 
 // Talking to the innkeeper who binds, the window drawn and hearing its keys; «Make this inn your home.» picked (the
 // list's fourth line), and the server asks to confirm the inn.
@@ -928,7 +928,7 @@ test "with Quests off, a quest's page shows without reputations, nothing broken"
 test "a quest's page draws no figure on the parchment: neither the NPC's nor the giver's the client names" {
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
-  Test::quest({ portraitGiver: 1491, ..pie() })
+  Test::quest({ ...pie(), portraitGiver: 1491 })
   const drawn = Test::calls(() => {
     Events::QUEST_DETAIL.emit(nil)
     Test::flush()
@@ -1095,10 +1095,10 @@ test "the NPC's words stand on the window, no parchment: it holds the lore alone
 test "over the well the scroll is as high as its words, from its least height up" {
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
-  Test::quest({ text: "Short.", ..pie() })
+  Test::quest({ ...pie(), text: "Short." })
   Events::QUEST_DETAIL.emit(nil)
   const short = scrollOf(window())
-  Test::quest({ text: "Maggie bakes a pie each morning.\n\nShe needs apples.\n\nAnd flour.\n\nAnd a good oven.\n\nBring them.", ..pie() })
+  Test::quest({ ...pie(), text: "Maggie bakes a pie each morning.\n\nShe needs apples.\n\nAnd flour.\n\nAnd a good oven.\n\nBring them." })
   Events::QUEST_DETAIL.emit(nil)
   const longer = scrollOf(window())
   // Its words all shown, none scrolled away: the scroll grows, the window with it, and it stays on the screen.
@@ -1109,7 +1109,7 @@ test "over the well the scroll is as high as its words, from its least height up
 test "the scroll stands at one size, 5:3, on every quest page" {
   Test::mount(nil, SCREEN)
   Test::talk(innkeeper())
-  Test::quest({ text: "Short.", ..pie() })
+  Test::quest({ ...pie(), text: "Short." })
   Events::QUEST_DETAIL.emit(nil)
   const page = window()
   const listed = scrollOf(page)

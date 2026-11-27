@@ -391,7 +391,7 @@ test "a click right of a window's tabs reaches the window under them" {
   let desk = new Desk()
   Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   // Gamma lower, its tab row over Beta's body.
-  desk.gamma.memory.write({ x: 150ui, y: 120ui, width: 400ui, height: 200ui, ..desk.gamma.defaults })
+  desk.gamma.memory.write({ ...desk.gamma.defaults, x: 150ui, y: 120ui, width: 400ui, height: 200ui })
   desk.betaOpen = true
   Test::flush()
   desk.gammaOpen = true

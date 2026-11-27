@@ -239,7 +239,7 @@ public class Tooltips implements Module, App {
     let keys: array<string> = mut []
     for (key of model.keys) { keys.push(key) }
     for (key of added) { keys.push(key) }
-    return { keys: keys, ..model }
+    return { ...model, keys: keys }
   }
 
   mut keepLast() {
@@ -299,7 +299,7 @@ public class Tooltips implements Module, App {
   mut ripen() {
     const target = self.target
     if (target == nil || target.ripe) { return }
-    if (Game::clock.time >= target.since + target.delay) { self.target = { ripe: true, ..target } }
+    if (Game::clock.time >= target.since + target.delay) { self.target = { ...target, ripe: true } }
   }
 
   // Charged in full: what is shown stays.
@@ -517,9 +517,9 @@ public class Tooltips implements Module, App {
       if (other == nil) { continue }
       if (worn.length == 1) {
         model = compare(model, read.stats, other.stats, true)
-        compared.push({ header: Locale::EQUIPPED, ..other.model })
+        compared.push({ ...other.model, header: Locale::EQUIPPED })
       } else {
-        compared.push({ header: Locale::EQUIPPED, ..compare(other.model, read.stats, other.stats, false) })
+        compared.push({ ...compare(other.model, read.stats, other.stats, false), header: Locale::EQUIPPED })
       }
     }
     const link = data.about ?? ""
@@ -545,7 +545,7 @@ public class Tooltips implements Module, App {
       }
     }
     if (wants.length == 0 && offers.length == 0) { return model }
-    return { more: questRows(data.lines, self.chosen.npcsParty, wants, offers), ..model }
+    return { ...model, more: questRows(data.lines, self.chosen.npcsParty, wants, offers) }
   }
 
   // Beside its owner where its kind stands so and the owner is a frame it can stand by: by the list's row the owner
@@ -602,7 +602,7 @@ function withWorth(model: Model, link: string, untrained: boolean): Model {
   for (note of model.foot) { foot.push(note) }
   foot.push({ left: Locale::WORTH_FOR.format(spec), right: right, valueColor: color })
   if (untrained) { foot.push({ left: Locale::WORTH_UNTRAINED, valueColor: RED }) }
-  return { foot: foot, ..model }
+  return { ...model, foot: foot }
 }
 
 // Blizzard's place: the game's default anchor, where it puts a tooltip with no place of its own (the world, a unit's
@@ -621,5 +621,5 @@ function ownerKeys(owner: string | nil, model: Model): Model {
     for (key of row.keys(owner)) { keys.push(key) }
   }
   if (keys.length == model.keys.length) { return model }
-  return { keys: keys, ..model }
+  return { ...model, keys: keys }
 }
