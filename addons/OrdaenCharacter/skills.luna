@@ -14,7 +14,7 @@ import Style from "@/style"
 const BAR_WIDTH = 187.5dp
 const MARK = 18.75dp
 const BONUS_WIDTH = 46.875dp
-const CLEAR: Color = Color::hex("#00000000")
+const CLEAR: color = #00000000
 const ASK_WIDTH = 468.75dp
 const BUTTON_WIDTH = 164.0625dp
 
@@ -75,8 +75,8 @@ public class SkillRow implements Component {
   derived rank: string = self.skill.header ? "" : rankText(self.skill)
   derived bonus: string = bonusText(self.skill)
   derived mark: Art | nil = self.skill.header ? (self.skill.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
-  derived nameColor: Color = self.skill.header ? Style::GOLD : Style::INK
-  derived background: Color = self.picked ? Style::PICKED : CLEAR
+  derived nameColor: color = self.skill.header ? Style::GOLD : Style::INK
+  derived background: color = self.picked ? Style::PICKED : CLEAR
 
   skill: Signal<Skill>
   picked: Signal<boolean>

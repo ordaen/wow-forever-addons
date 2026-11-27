@@ -10,7 +10,7 @@ import Locale from "@/locales"
 import { LearnPlace } from "@/sources"
 import Style from "@/style"
 
-const LINK: Color = Color::hex("#d6b878")
+const LINK: color = #d6b878
 const NONE = "—"
 const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
@@ -57,7 +57,7 @@ class LearnPlaceRow implements Component {
   public open: Event<LearnPlace> = new Event()
 
   derived opens: boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game::situation.combat)
-  derived nameColor: Color = self.opens ? LINK : Style::INK
+  derived nameColor: color = self.opens ? LINK : Style::INK
   derived hasZone: boolean = self.placed.place.zone != ""
   derived priced: boolean = self.placed.place.cost > 0
   derived far: string = yardsText(self.placed.yards)

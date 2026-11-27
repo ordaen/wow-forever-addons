@@ -23,14 +23,14 @@ const ICON = 70.3125dp
 const LINE: number<Spacing> = 2sp
 const SECTION: number<Spacing> = 3sp
 const INSIDE: number<Spacing> = 5sp
-const LABEL: Color = Color::hex("#cbb994")
-const QUIET: Color = Color::hex("#857a66")
-const QUIET_VALUE: Color = Color::hex("#a39883")
-public const BODY: Color = Color::hex("#f3e7cc")
-const FREE: Color = Color::hex("#e6dcc6")
-const BLACK: Color = Color::hex("#000000")
-public const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Top] }
-const RIM: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
+const LABEL: color = #cbb994
+const QUIET: color = #857a66
+const QUIET_VALUE: color = #a39883
+public const BODY: color = #f3e7cc
+const FREE: color = #e6dcc6
+const BLACK: color = #000000
+public const RULE: Line = { width: 1.171875dp, color: #d6a56b2e, sides: [Side::Top] }
+const RIM: Line = { width: 1.171875dp, color: #6c5535 }
 const FILL: array<Track> = [{ fr: 1 }]
 const WITH_ICON: array<Track> = [ICON, { fr: 1 }]
 const ALONE: array<Track> = [{ fr: 1 }]
@@ -57,8 +57,8 @@ const NO_KEYS_PAD: Edges = {}
 const BAR_PAD: Edges = { top: SECTION }
 const BAR_ROW = 22.5dp
 const BAR_HEIGHT = 3.515625dp
-const TRACK: Color = Color::hex("#00000073")
-const BAR_GOLD: Color = Color::hex("#d6a56b80")
+const TRACK: color = #00000073
+const BAR_GOLD: color = #d6a56b80
 // What opens something is underlined while the tooltip is locked (Ordaen's TERM_DASH), and its tooltip stands
 // beside it.
 // A compared tooltip's header («Equipped») over its title: the main tooltip beside it stands as much lower, so the
@@ -79,8 +79,8 @@ const APART: Edges = { top: 4sp }
 public struct Drawn {
   left: string
   right: string | nil
-  leftColor: Color
-  rightColor: Color
+  leftColor: color
+  rightColor: color
   size: number<TextSize>
   padding: Edges
   // A sentence (a description), its lines a little apart.
@@ -113,14 +113,14 @@ public class TermText implements Component {
   derived open: boolean = self.lit && (self.over || self.onOpened)
 
   text: Signal<string>
-  color: Signal<Color>
+  color: Signal<color>
   size: Signal<number<TextSize>>
   opens: Signal<Opens>
   locked: Signal<boolean>
   const font: TextFont | nil
   constructor(
     text: Signal<string>,
-    color: Signal<Color>,
+    color: Signal<color>,
     size: Signal<number<TextSize>>,
     opens: Signal<Opens>,
     locked: Signal<boolean>,
@@ -175,17 +175,17 @@ public class PartText implements Component {
   public slot opened(opens: Opens)
 
   derived notFirst: boolean = self.index > 1
-  derived own: Color = self.part.color ?? self.color
+  derived own: color = self.part.color ?? self.color
 
   part: Signal<Part>
   index: Signal<integer>
-  const color: Color
+  const color: color
   locked: Signal<boolean>
   constructor(
     part: Signal<Part>,
     index: Signal<integer>,
     // The line's colour, for a piece without its own.
-    color: Color,
+    color: color,
     locked: Signal<boolean> = false
   ) {
     self.part = part
@@ -221,7 +221,7 @@ public class Row implements Component {
   derived hasCompared: boolean = self.line.compared != nil
   derived plainValue: boolean = !self.hasCompared && !self.valueOpening
   derived comparedMore: boolean = self.line.compared?.more == true
-  derived comparedColor: Color = self.comparedMore ? GREEN : RED
+  derived comparedColor: color = self.comparedMore ? GREEN : RED
   derived comparedMark: Art = self.comparedMore ? Ordaen.art.ctl.compareUp : Ordaen.art.ctl.compareDown
   derived comparedBy: string = `(${self.line.compared?.by ?? ""}`
   // A line with an icon (a reagent's) has it in a column before its name.
@@ -367,7 +367,7 @@ public class TipFrame implements Component {
   derived bodyRule: Line | nil = self.hasFacts ? RULE : nil
 
   // The track shows once the charge starts; its room is there from the start.
-  derived track: Color | nil = self.charge > 0 ? TRACK : nil
+  derived track: color | nil = self.charge > 0 ? TRACK : nil
   derived filled: BarFill = { value: self.charge / 100, color: BAR_GOLD }
 
   // The close button of a locked tooltip was clicked.

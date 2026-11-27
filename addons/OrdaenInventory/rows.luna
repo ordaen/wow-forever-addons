@@ -14,10 +14,10 @@ import { CONTAINER, Slot, handsOver } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
 
-const CAPTION: Color = Color::hex("#e8c35a")
-const LABEL: Color = Color::hex("#a3977f")
-const NEW_GLOW: Color = Color::hex("#ffd65a")
-const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const CAPTION: color = #e8c35a
+const LABEL: color = #a3977f
+const NEW_GLOW: color = #ffd65a
+const SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
 // A caption: its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
@@ -192,7 +192,7 @@ class BagSlot implements Component {
 // A section's caption: its name, a bag's fill after it. «Free»'s name is plain.
 class Caption implements Component {
   derived fill: string = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
-  derived titleColor: Color = self.section.free ? LABEL : CAPTION
+  derived titleColor: color = self.section.free ? LABEL : CAPTION
 
   section: Signal<Section>
   const shelf: Shelf

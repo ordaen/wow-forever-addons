@@ -72,8 +72,8 @@ const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-conten
 // The footer band's room over and under what it holds, and its line along the top (Ordaen's FooterBand).
 const FOOT_BAND: number<Spacing> = 4sp
 const BAND_LINE: ArtBorder = { sides: [Side::Top], ..ARTWORK.frame.tabIconLine }
-const LABEL: Color = Color::hex("#a3977f")
-const COUNT: Color = Color::hex("#a3977f")
+const LABEL: color = #a3977f
+const COUNT: color = #a3977f
 const BUTTON = 140.625dp
 const SORTS: array<Choice<SortBy>> = [
   { value: SortBy::Bags, label: Locale::SORT_BAGS },

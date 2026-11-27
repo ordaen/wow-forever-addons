@@ -19,11 +19,11 @@ import Locale from "@/locales"
 
 // On the parchment: the body's ink, a section heading's, and the quest's title's, darkest, each in the look's book font (its
 // bold face for the title and the headings), so the whole page follows that one choice.
-public const SCROLL_INK: Color = Color::hex("#160c03")
-public const SCROLL_HEAD: Color = Color::hex("#3a1000")
-const SCROLL_TITLE: Color = Color::hex("#200800")
+public const SCROLL_INK: color = #160c03
+public const SCROLL_HEAD: color = #3a1000
+const SCROLL_TITLE: color = #200800
 // The rule each side of a section's heading: the heading's ink, faded.
-const SCROLL_RULE: Color = Color::hex("#3a100080")
+const SCROLL_RULE: color = #3a100080
 const RULE_HEIGHT: number<Length> = 1.171875dp
 const HEADING_ACROSS: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The body's lines on the parchment: as tight as a title's, a written page's (the window's prose stands looser).
@@ -32,17 +32,17 @@ public const SCROLL_LEADING: Leading = .Title
 // larger than its labels.
 const SCROLL_TEXT: number<TextSize> = (BODY_TEXT + 1ui) / BODY_TEXT * 1rem
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
-public const SCROLL_DIM: Color = Color::hex("#4a3520")
+public const SCROLL_DIM: color = #4a3520
 // In the well.
-public const WELL_TEXT: Color = Color::hex("#f0e6d0")
-public const WELL_DIM: Color = Color::hex("#a3977f")
-public const WELL_RED: Color = Color::hex("#e0301e")
-public const WELL_GREEN: Color = Color::hex("#40bf40")
-public const WELL_GOLD: Color = Color::hex("#ffd100")
-public const WELL_RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
+public const WELL_TEXT: color = #f0e6d0
+public const WELL_DIM: color = #a3977f
+public const WELL_RED: color = #e0301e
+public const WELL_GREEN: color = #40bf40
+public const WELL_GOLD: color = #ffd100
+public const WELL_RULE: Line = { width: 1.171875dp, color: #3e2f1d, sides: [Side::Top] }
 public const REWARD_ICON: number<Length> = 39.84375dp
 
-const BEST: Color = Color::hex("#40ff40")
+const BEST: color = #40ff40
 // A section of the rewards: the cut with its title, then its rows, off the section before.
 const SECTION: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const SECTION_GAP = 2sp
@@ -59,9 +59,9 @@ function columnsFor(paired: boolean, rows: integer): Columns { return paired && 
 const GAINS: array<Track> = ["max-content", { fr: 1 }]
 const UNDER_REWARDS: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const ALONE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
-const KEYCAP: Color = Color::hex("#00000080")
-const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
-const KEY_TEXT: Color = Color::hex("#c9a76a")
+const KEYCAP: color = #00000080
+const KEYCAP_EDGE: Line = { width: 1.171875dp, color: #4a3a24 }
+const KEY_TEXT: color = #c9a76a
 const KEYCAP_SMALL = 25.78125dp
 const UPGRADE_WIDTH = 70.3125dp
 const WITH_UPGRADE: array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
@@ -525,8 +525,8 @@ public class Experience implements Component {
   derived text: string = string::of(self.amount)
 
   amount: Signal<integer>
-  color: Signal<Color>
-  constructor(amount: Signal<integer>, color: Signal<Color> = WELL_TEXT) {
+  color: Signal<color>
+  constructor(amount: Signal<integer>, color: Signal<color> = WELL_TEXT) {
     self.amount = amount
     self.color = color
   }
@@ -553,13 +553,13 @@ public class RewardRow implements Component {
   derived columns: array<Track> = self.upgradeColumn ? WITH_UPGRADE : NO_UPGRADE
   derived keyed: boolean = self.hints && self.pickable
   derived key: string = self.reward.index <= 9 ? string::of(self.reward.index) : ""
-  derived nameColor: Color = qualityColor(self.reward.quality)
-  derived detailColor: Color = self.reward.unusable ? WELL_RED : WELL_DIM
+  derived nameColor: color = qualityColor(self.reward.quality)
+  derived detailColor: color = self.reward.unusable ? WELL_RED : WELL_DIM
   derived hasDetail: boolean = self.reward.detail != ""
   derived upgradeWord: string = upgradeText(self.upgrade)
-  derived upgradeColor: Color = self.best ? BEST : WELL_GREEN
+  derived upgradeColor: color = self.best ? BEST : WELL_GREEN
   derived priced: boolean = self.reward.sell > 0
-  derived priceColor: Color = self.dearest ? WELL_GOLD : WELL_DIM
+  derived priceColor: color = self.dearest ? WELL_GOLD : WELL_DIM
   state upgradeHovered = false
   derived upgradeTipShown: boolean = self.upgradeHovered && self.upgradeWord != ""
   derived upgradeTip: string = Locale::QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
@@ -654,22 +654,22 @@ class RewardCells implements Component {
   reward: Signal<Reward>
   keyed: Signal<boolean>
   key: Signal<string>
-  nameColor: Signal<Color>
-  detailColor: Signal<Color>
+  nameColor: Signal<color>
+  detailColor: Signal<color>
   hasDetail: Signal<boolean>
   upgradeColumn: Signal<boolean>
   upgradeWord: Signal<string>
-  upgradeColor: Signal<Color>
+  upgradeColor: Signal<color>
   upgradeTipShown: Signal<boolean>
   upgradeTip: Signal<string>
   best: Signal<boolean>
   priced: Signal<boolean>
-  priceColor: Signal<Color>
+  priceColor: Signal<color>
   constructor(
-    reward: Signal<Reward>, keyed: Signal<boolean>, key: Signal<string>, nameColor: Signal<Color>,
-    detailColor: Signal<Color>, hasDetail: Signal<boolean>, upgradeColumn: Signal<boolean>, upgradeWord: Signal<string>,
-    upgradeColor: Signal<Color>, upgradeTipShown: Signal<boolean>, upgradeTip: Signal<string>, best: Signal<boolean>, priced: Signal<boolean>,
-    priceColor: Signal<Color>
+    reward: Signal<Reward>, keyed: Signal<boolean>, key: Signal<string>, nameColor: Signal<color>,
+    detailColor: Signal<color>, hasDetail: Signal<boolean>, upgradeColumn: Signal<boolean>, upgradeWord: Signal<string>,
+    upgradeColor: Signal<color>, upgradeTipShown: Signal<boolean>, upgradeTip: Signal<string>, best: Signal<boolean>, priced: Signal<boolean>,
+    priceColor: Signal<color>
   ) {
     self.reward = reward
     self.keyed = keyed

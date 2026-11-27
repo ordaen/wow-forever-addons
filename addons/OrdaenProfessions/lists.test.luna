@@ -17,21 +17,21 @@ const NOTE: Art = "Interface/Icons/INV_Misc_Note_01"
 const CLOTH_ICON: Art = "Interface/Icons/INV_Chest_Cloth_01"
 const WOOL_ICON: Art = "Interface/Icons/INV_Fabric_Wool_01"
 // A recipe's name: in its difficulty's colour, dim while not learned.
-const ORANGE: Color = Color::hex("#ff8040")
-const YELLOW: Color = Color::hex("#ffd100")
-const GREEN: Color = Color::hex("#40c040")
-const GREY: Color = Color::hex("#9a9a9a")
-const UNLEARNED: Color = Color::hex("#7a7060")
-const RED: Color = Color::hex("#ff4040")
-const WHITE: Color = Color::hex("#ffffff")
-const DIM: Color = Color::hex("#a3977f")
+const ORANGE: color = #ff8040
+const YELLOW: color = #ffd100
+const GREEN: color = #40c040
+const GREY: color = #9a9a9a
+const UNLEARNED: color = #7a7060
+const RED: color = #ff4040
+const WHITE: color = #ffffff
+const DIM: color = #a3977f
 // The funnel's glyph while a filter is on; a menu's line that takes no click.
-const LIT: Color = Color::hex("#f0c860")
-const MENU_DIM: Color = Color::hex("#6f6552")
+const LIT: color = #f0c860
+const MENU_DIM: color = #6f6552
 // The card's text.
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 // The groove's dark line between the categories and the recipes.
-const GROOVE: Color = Color::hex("#0000003d")
+const GROOVE: color = #0000003d
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 // The card's note that a recipe waits in the queue.
@@ -169,7 +169,7 @@ function reads(part: Test::Part, expected: string): boolean {
 }
 
 // Whether two colours are the same as the client keeps them (to three places).
-function near(a: Color, b: Color): boolean {
+function near(a: color, b: color): boolean {
   return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
 }
 
@@ -269,8 +269,8 @@ test "the chosen recipe a light, the chosen category cut into the groove" {
   Game::tradeSkill.open = TAILORING
   // One light, the chosen recipe's; the groove's dark line down the categories and along the chosen one's top and
   // bottom.
-  Test::expect(window().box(Color::hex("#e8c89629")).count() == 1)
-  Test::expect(window().box(Color::hex("#0000003d")).count() == 3)
+  Test::expect(window().box(#e8c89629).count() == 1)
+  Test::expect(window().box(#0000003d).count() == 3)
 }
 
 // The bottom of the lowest of the boxes found.

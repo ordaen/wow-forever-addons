@@ -14,7 +14,7 @@ public struct Sale {
   seen: number
 }
 
-const FLAGS: array<Marker> = [{ corner: Corner::TopLeft, color: Color::hex("#ffd100") }]
+const FLAGS: array<Marker> = [{ corner: Corner::TopLeft, color: #ffd100 }]
 
 const WORTHS: array<Choice<Worth>> = [
   { value: Worth::Auction, label: "Auction" },

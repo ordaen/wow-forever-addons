@@ -43,9 +43,9 @@ const NO_ROOM: Edges = {}
 const TOOL_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
 
 const HIGH_PRICE = 1500000
-const INK: Color = Color::hex("#e8dcc4")
-const DIM: Color = Color::hex("#a3977f")
-const RED: Color = Color::hex("#ff4040")
+const INK: color = #e8dcc4
+const DIM: color = #a3977f
+const RED: color = #ff4040
 // The tabs' icons, the client's own: a merchant's coins, and the game's buyback icon.
 const VENDOR_ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 const BUYBACK_ICON: Asset = "Interface/MerchantFrame/UI-BuyBack-Icon"
@@ -192,8 +192,8 @@ class WareCell implements Component {
   public closed: Event<nil> = new Event()
 
   derived dear: boolean = self.ware.price > Game::money.amount
-  derived priceColor: Color = self.dear ? RED : INK
-  derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
+  derived priceColor: color = self.dear ? RED : INK
+  derived nameColor: color = self.ware.usable && self.ware.purchasable ? INK : RED
   derived priced: boolean = self.ware.price > 0
   // The client's coin bag over a ware, red where the player can't afford it.
   derived cursor: Cursor = self.dear ? Cursor::BuyError : Cursor::Buy
@@ -244,7 +244,7 @@ class SoldCell implements Component {
   public chose: Event<integer> = new Event()
   public closed: Event<nil> = new Event()
 
-  derived nameColor: Color = self.sold.usable ? INK : RED
+  derived nameColor: color = self.sold.usable ? INK : RED
 
   sold: Signal<Sold>
   menuShown: Signal<boolean>
@@ -306,8 +306,8 @@ class WareTableRow implements Component {
 
   derived carried: integer = Game::items.inBags(self.ware.id)
   derived dear: boolean = self.ware.price > Game::money.amount
-  derived priceColor: Color = self.dear ? RED : INK
-  derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
+  derived priceColor: color = self.dear ? RED : INK
+  derived nameColor: color = self.ware.usable && self.ware.purchasable ? INK : RED
 
   ware: Signal<Ware>
   menuShown: Signal<boolean>

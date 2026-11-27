@@ -20,8 +20,8 @@ public struct SlotRow {
 
 const INDENT = 18.75dp
 const MARK = 18.75dp
-const MARK_TINT: Color = Color::hex("#d6a56b")
-const KIND: Color = Color::hex("#a89a80")
+const MARK_TINT: color = #d6a56b
+const KIND: color = #a89a80
 
 public class SlotLine implements Component {
   public chosen: Event<string> = new Event()

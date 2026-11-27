@@ -43,7 +43,7 @@ test "the zone's quests stand at the right with their level, tag and objectives,
   Test::flush()
   // Its level as the log's rows have it, two digits of the numbers' font, no brackets; its title whitish.
   Test::expect(Test::page().text("The Defias Brotherhood").shown() && Test::page().text("4").shown() && !Test::page().text("[14]").shown())
-  Test::expect(Test::page().text("The Defias Brotherhood").textColor().equal(Color::hex("#f0e6d2")))
+  Test::expect(Test::page().text("The Defias Brotherhood").textColor().equal(#f0e6d2))
   // Its objective at the body's size, standing where its title starts; a done quest's check at its title's right.
   const goal = Test::page().text("Talk to Gryan Stoutmantle")
   const title = Test::page().text("The Defias Brotherhood")
@@ -67,8 +67,8 @@ test "a quest's row has no box before its level, the quest pointed to or not" {
   Test::mount(nil, PAGE)
   Tracker.refresh()
   Test::flush()
-  Test::expect(Test::page().box(Color::hex("#ffd100")).count() == 0)
-  Test::expect(Test::page().box(Color::hex("#a3977f")).count() == 0)
+  Test::expect(Test::page().box(#ffd100).count() == 0)
+  Test::expect(Test::page().box(#a3977f).count() == 0)
 }
 
 test "a level is in its difficulty colour, or in the title's while the game's difficulty colours are off" {
@@ -76,7 +76,7 @@ test "a level is in its difficulty colour, or in the title's while the game's di
   Test::mount(nil, PAGE)
   Tracker.refresh()
   Test::flush()
-  const title = Color::hex("#f0e6d2")
+  const title = #f0e6d2
   Test::expect(!Test::page().text("4").textColor().equal(title))
   Test::cvar("showQuestDifficultyColor", "0")
   Test::flush()
@@ -110,9 +110,9 @@ test "a quest's title is bold, and its row shades under the cursor and opens its
   Test::flush()
   Test::expect(Test::page().text("The Defias Brotherhood").told().contains("textWeight=bold"))
   Test::expect(!Test::page().text("Talk to Gryan Stoutmantle").told().contains("textWeight=bold"))
-  Test::expect(Test::page().box(Color::hex("#ffffff24")).count() == 0)
+  Test::expect(Test::page().box(#ffffff24).count() == 0)
   Test::page().text("Talk to Gryan Stoutmantle").hover()
-  Test::expect(Test::page().box(Color::hex("#ffffff24")).count() == 1)
+  Test::expect(Test::page().box(#ffffff24).count() == 1)
   Test::page().text("Talk to Gryan Stoutmantle").rightClick()
   Test::expect(Test::page().window("Abandon quest").button("Show the way").shown())
 }
@@ -251,7 +251,7 @@ test "it lists as many quests as the settings say, the first in the log's order,
   Test::shot("one quest listed on a quarter-dark rounded ground")
 }
 
-const SHADE: Color = { r: 0, g: 0, b: 0, a: 0.55 }
+const SHADE: color = { r: 0, g: 0, b: 0, a: 0.55 }
 
 test "by default its ground shows only while the cursor is over it" {
   logged()
@@ -323,9 +323,9 @@ test "a timed quest says its time left under its title, counting down, red in it
   Tracker.refresh()
   Test::flush()
   Test::expect(Test::page().text("Time left: 2:05").shown())
-  Test::expect(!Test::page().text("Time left: 2:05").textColor().equal(Color::hex("#ff2020")))
+  Test::expect(!Test::page().text("Time left: 2:05").textColor().equal(#ff2020))
   Test::pass(70)
-  Test::expect(Test::page().text("Time left: 0:55").textColor().equal(Color::hex("#ff2020")))
+  Test::expect(Test::page().text("Time left: 0:55").textColor().equal(#ff2020))
 }
 
 test "a quest without a timer says no time" {

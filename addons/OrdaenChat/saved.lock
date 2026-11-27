@@ -1,6 +1,6 @@
 # The fields every saved copy of these structs holds (`Game::saved`, where nothing falls back for them): a field
 # without a default that isn't here is a finding. Written by `lunatype build`; `lunatype check <folder> --lock`
 # takes in the fields there are, for one no copy was ever saved without.
-$/lang.Color: a b g r
+$/lang.color: a b g r
 OrdaenChat/lines.KeptTab: key lines
 OrdaenChat/lines.Shown: color count marked repeat secret sender session time whole

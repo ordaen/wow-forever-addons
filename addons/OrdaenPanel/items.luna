@@ -6,7 +6,7 @@ import { Component } from "Ordaen"
 import { CELL_HEIGHT } from "@/cells"
 import { Cell, CellGroup } from "@/group"
 
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 // The panel's whole width: what wraps in it.
 const WHOLE: array<Track> = [{ fr: 1 }]
 const PAIR: array<Track> = ["max-content", "max-content"]

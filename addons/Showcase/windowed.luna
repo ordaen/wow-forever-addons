@@ -3,7 +3,7 @@
 import { Align, Track } from "$ltml"
 import { FOOTER_ROOM, KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 
-const DIM: Color = Color::hex("#a3977f")
+const DIM: color = #a3977f
 const FOOT: array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Windowed implements Module {

@@ -49,9 +49,9 @@ public enum BandKind { Cost, Range, Melee, CastNow, CastTime, CastChan, CastNext
 // cost's dot in its resource's colour), and what it says.
 public struct BandFact {
   text: string
-  color: Color | nil
+  color: color | nil
   glyph: Glyph | nil
-  tint: Color | nil
+  tint: color | nil
   kind: BandKind = BandKind::Other
 }
 
@@ -73,12 +73,12 @@ const NESTED = 19
 const BAND_LINES = 4
 
 // The resources' colours, the design's (TooltipColumns' `.res`).
-const MANA: Color = Color::hex("#2f6fe0")
-const RAGE: Color = Color::hex("#c7281c")
-const ENERGY: Color = Color::hex("#e8d040")
+const MANA: color = #2f6fe0
+const RAGE: color = #c7281c
+const ENERGY: color = #e8d040
 
 // A cost's dot: the design's colour of its resource; the client's own for one it has none of.
-function resourceColorOf(cost: Game::SpellCost): Color | nil {
+function resourceColorOf(cost: Game::SpellCost): color | nil {
   return match (cost.resource) {
     .Mana => MANA
     .Rage => RAGE
@@ -213,15 +213,15 @@ public function bandOf(lines: array<Game::TooltipLine>, cost: Game::SpellCost | 
 // A term's underline under its text, while the tooltip that shows it is locked: dashed and dim, half the gap between
 // the lines below its text (the gap moves it).
 public const TERM_DASH: Piece = { file: "@/media/dash.tga", width: 8, height: 1, tile: Tile::Across }
-public const TERM_UNDERLINE: Color = Color::hex("#ffd10080")
+public const TERM_UNDERLINE: color = #ffd10080
 public const TERM_UNDERLINE_HEIGHT: number<Length> = 1.171875dp
 const LINE_GAP: number<Spacing> = 2sp
 public function termUnderlineAt(): number<Length> {
   return -(Ordaen.lengthOf(LINE_GAP) / 2 + TERM_UNDERLINE_HEIGHT)
 }
 
-const TEXT: Color = Color::hex("#f3e7cc")
-const DIVIDER: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Left] }
+const TEXT: color = #f3e7cc
+const DIVIDER: Line = { width: 1.171875dp, color: #d6a56b2e, sides: [Side::Left] }
 const CELL_PAD: Edges = { top: 2.5sp, right: 3sp, bottom: 2.5sp, left: 3sp }
 // The band ends what holds it: no room under it.
 const CELL_PAD_LAST: Edges = { top: 2.5sp, right: 3sp, left: 3sp }
@@ -237,7 +237,7 @@ public class BandCell implements Component {
   derived padding: Edges = self.last ? CELL_PAD_LAST : CELL_PAD
   derived glyph: Piece | nil = self.glyphOf()
   derived dot: boolean = self.fact.glyph == .Cost
-  derived color: Color = self.fact.color ?? TEXT
+  derived color: color = self.fact.color ?? TEXT
 
   fact: Signal<BandFact>
   index: Signal<integer>

@@ -16,7 +16,7 @@ import { Row, TabButton } from "@/view"
 const ROWS = 80
 // Lines a turn of the wheel scrolls.
 const STEP = 3
-const LINK: Color = Color::hex("#69ccf0")
+const LINK: color = #69ccf0
 const MAX: "max-content" = "max-content"
 // The lines' least width: some sixty letters of the body's font, so a line doesn't break every few words. The chat
 // stands wider than the player chose where its tabs and this need it.
@@ -31,11 +31,11 @@ const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The input's field: its text in from the edge as a field's is.
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 // The room of the field's edge, which the field's surface draws over the input's box.
-const INPUT_EDGE: Line = { width: FIELD_EDGE.width, color: Color::hex("#00000000") }
+const INPUT_EDGE: Line = { width: FIELD_EDGE.width, color: #00000000 }
 // The lines' ground is round at its top right alone: its left meets the open tab, its bottom the panel under it.
 const GROUND_CORNERS: Corners = { topLeft: false, topRight: true, bottomLeft: false, bottomRight: false }
 // The field's top and side edges, lit: it stands out over the lines it covers.
-const INPUT_LIT: Color = Color::hex("#8c6a3f")
+const INPUT_LIT: color = #8c6a3f
 
 // What a tab's right-click menu offers: the mouse through its lines or not (the game's «Make uninteractable»), a docked
 // window undocked, an undocked one docked again.
@@ -165,7 +165,7 @@ public class Pane implements Component {
   width: Signal<number<Length>>
   height: Signal<number<Length>>
   awayOpacity: Signal<number>
-  ground: Signal<Color>
+  ground: Signal<color>
   textSize: Signal<number<TextSize>>
   // A message's line: a row's at the chat's text size; messages stand apart by the chat's setting, each read as one.
   derived line: number<Length> = Ordaen.lengthOf(BODY_LINE) * self.textSize / 1rem
@@ -182,7 +182,7 @@ public class Pane implements Component {
     // How much of it shows while the cursor is off it (1: all of it).
     awayOpacity: Signal<number>,
     // The lines' dark ground.
-    ground: Signal<Color>,
+    ground: Signal<color>,
     // The lines' text size.
     textSize: Signal<number<TextSize>>,
     // The room between messages.

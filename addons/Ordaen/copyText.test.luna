@@ -4,7 +4,7 @@ import Test from "$test"
 import { CopyText } from "@/copyText"
 import { FooterCount, FooterCounts } from "@/footerCounts"
 
-const RED: Color = Color::hex("#d9534f")
+const RED: color = #d9534f
 
 class Notice {
   state text = "Raid on Thursday at eight."
@@ -40,7 +40,7 @@ test "a copy text is a text: its letters drawn as one, no field's art" {
   Test::expect(screen.text("Raid on Thursday at eight.").shown())
   Test::expect(screen.input().shown())
   // The field's own letters are clear: the text is drawn once, by the text.
-  Test::expect(!screen.input().paintedWith(Color::hex("#e8dcc4")))
+  Test::expect(!screen.input().paintedWith(#e8dcc4))
   Test::expect(screen.text("Raid on Thursday at eight.").count() == 1)
   destroy page
 }

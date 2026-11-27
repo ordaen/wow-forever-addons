@@ -7,7 +7,7 @@ import { Component } from "@/module"
 import { Tip } from "@/tip"
 
 const LABEL_WIDTH = 328.125dp
-const LABEL: Color = Color::hex("#cbb994")
+const LABEL: color = #cbb994
 
 public class SettingRow implements Component {
   state hovered = false

@@ -65,7 +65,7 @@ function sumOf(entries: array<Entry>): integer {
 
 class HeldCell implements Component {
   derived text: string = countText(self.count)
-  derived ink: Color = self.count == 0 ? Style::DIM : Style::INK
+  derived ink: color = self.count == 0 ? Style::DIM : Style::INK
 
   count: Signal<integer>
   constructor(count: Signal<integer>) { self.count = count }

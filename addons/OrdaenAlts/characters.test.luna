@@ -15,12 +15,12 @@ import Locale from "@/locales"
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
 // of what is late, the green of what is ready, the darker ink of a character out of reach.
-const GOLD: Color = Color::hex("#ffd100")
-const INK: Color = Color::hex("#e8dcc4")
-const DIM: Color = Color::hex("#a3977f")
-const RED: Color = Color::hex("#ff4040")
-const GREEN: Color = Color::hex("#40d060")
-const AWAY: Color = Color::hex("#7a7060")
+const GOLD: color = #ffd100
+const INK: color = #e8dcc4
+const DIM: color = #a3977f
+const RED: color = #ff4040
+const GREEN: color = #40d060
+const AWAY: color = #7a7060
 // The character being played: its GUID, realm and side, as the stand-in gives them.
 const PLAYER = "Player-1-00000001"
 const REALM = "Stand-in"
@@ -187,7 +187,7 @@ test "the mail says when its first mail with something expires, in red within th
     Game::mailObserver.changed.emit()
     return row("Player")
   }
-  const ink = (text: string): Color => window().text("Player").item().text(text).textColor()
+  const ink = (text: string): color => window().text("Player").item().text(text).textColor()
   Test::expect(mail(-2) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 0 h" && ink("in 0 h").equal(RED))
   Test::expect(mail(5) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 5 h" && ink("in 5 h").equal(RED))
   Test::expect(mail(23) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 23 h")

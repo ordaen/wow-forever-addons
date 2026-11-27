@@ -174,8 +174,8 @@ const HEAD: array<Track> = [{ fr: 1 }, "max-content"]
 const MORE = 39.84375dp
 // The «…» glyph on the head's icon button.
 const MORE_GLYPH = "…"
-const INK: Color = Color::hex("#e8dcc4")
-const DIM: Color = Color::hex("#a3977f")
+const INK: color = #e8dcc4
+const DIM: color = #a3977f
 // The «…» menu's entries by their place: the copy's submenu first, then these.
 const RESET_ENTRY = 2
 const PLACE_ENTRY = 3

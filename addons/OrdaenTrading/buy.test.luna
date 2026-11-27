@@ -17,19 +17,19 @@ const HOUR = 3600
 const ORE: integer = 2770
 const LINEN: integer = 2589
 const AXE: integer = 2847
-const RED: Color = Color::hex("#ff4040")
-const GREEN: Color = Color::hex("#40c040")
-const INK: Color = Color::hex("#e8dcc4")
-const AMBER: Color = Color::hex("#ffb02e")
+const RED: color = #ff4040
+const GREEN: color = #40c040
+const INK: color = #e8dcc4
+const AMBER: color = #ffb02e
 // The pip of an item on the shopping list.
-const LISTED: Color = Color::hex("#40c0ff")
+const LISTED: color = #40c0ff
 // A listing the next click buys from: a row picked.
-const PICKED: Color = Color::hex("#00000040")
+const PICKED: color = #00000040
 // A list's ground; a line of a menu that takes no click.
-const LISTS: Color = Color::hex("#0000004d")
-const MENU_DIM: Color = Color::hex("#6f6552")
+const LISTS: color = #0000004d
+const MENU_DIM: color = #6f6552
 // A category picked.
-const CATEGORY: Color = Color::hex("#d6a56b3d")
+const CATEGORY: color = #d6a56b3d
 // The player's case: a warhammer whose random suffixes are variants of their own. A key is the item's id and its
 // suffix × 2^20.
 const WARHAMMER: integer = 15216

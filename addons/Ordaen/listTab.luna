@@ -8,14 +8,14 @@ import { Align, Art, ByInteractionState, Edges, Event, Position, TextWrap, Track
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
 
-const INK: Color = Color::hex("#e8dcc4")
-const OFF: Color = Color::hex("#7a705f")
-const CLEAR: Color = Color::hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000059"), focus: Color::hex("#00000059") }
-const SELECTED: Color = Color::hex("#00000040")
+const INK: color = #e8dcc4
+const OFF: color = #7a705f
+const CLEAR: color = #00000000
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: #00000059, focus: #00000059 }
+const SELECTED: color = #00000040
 // An icon that is off: darker.
-const DIM: Color = Color::hex("#999999")
-const LIGHT: Color = Color::hex("#d6a56b")
+const DIM: color = #999999
+const LIGHT: color = #d6a56b
 const PADDING: Edges = { top: 2sp, right: 3.5sp, bottom: 2sp, left: 4.5sp }
 // An entry of one line (`oneLine`): set closer, its name kept whole.
 const LINE_PADDING: Edges = { top: 1sp, right: 3.5sp, bottom: 1sp, left: 4.5sp }
@@ -28,11 +28,11 @@ public class ListTab implements Component {
 
   derived hasIcon: boolean = self.icon != nil
   derived columns: array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
-  derived background: Color | ByInteractionState<Color> = self.framed ? CLEAR : self.selected ? SELECTED : SHADE
-  derived color: Color = self.selected ? BRIGHT_TEXT : self.off ? OFF : INK
-  derived tint: Color = self.off ? DIM : BRIGHT_TEXT
+  derived background: color | ByInteractionState<color> = self.framed ? CLEAR : self.selected ? SELECTED : SHADE
+  derived color: color = self.selected ? BRIGHT_TEXT : self.off ? OFF : INK
+  derived tint: color = self.off ? DIM : BRIGHT_TEXT
   // The light along the left: on every entry, clear on the others, so only colours tell the selected one.
-  derived light: Color = self.selected && !self.framed ? LIGHT : CLEAR
+  derived light: color = self.selected && !self.framed ? LIGHT : CLEAR
   derived padding: Edges = self.oneLine ? LINE_PADDING : PADDING
   derived wrap: TextWrap = self.oneLine ? .None : .Words
 

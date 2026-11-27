@@ -97,10 +97,10 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   Test::expect(kept != nil && kept.sections["Ordaen:places"] != nil)
   Test::expect(Game::saved.stored(.Account, "places") == nil)
   // Saved again, the look is the profile's alone.
-  Ordaen.look.values.accent = Color::hex("#112233")
+  Ordaen.look.values.accent = #112233
   Ordaen.keeper.profiles.pack()
   Test::reload()
-  Test::expect(Ordaen.look.values.accent.b == Color::hex("#112233").b)
+  Test::expect(Ordaen.look.values.accent.b == #112233.b)
   Test::expect(Game::saved.stored(.Account, "Ordaen:look") == nil)
 }
 

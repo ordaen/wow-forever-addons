@@ -19,8 +19,8 @@ const HOUR = 3600
 const ORE: integer = 2770
 const BLADE: integer = 15211
 const SUFFIXED: integer = 1048576
-const AMBER: Color = Color::hex("#ffb02e")
-const DIM: Color = Color::hex("#a3977f")
+const AMBER: color = #ffb02e
+const DIM: color = #a3977f
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 

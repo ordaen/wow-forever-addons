@@ -65,11 +65,11 @@ public function columnsOf(lines: array<Line>): array<array<Placed>> {
   return columns
 }
 
-const GREY: Color = Color::hex("#8c8c8c")
-const WHITE: Color = Color::hex("#ffffff")
+const GREY: color = #8c8c8c
+const WHITE: color = #ffffff
 
 // What a line's title is drawn in: a quest's gold, a quest in progress or a too-easy one dimmed, an option the ink.
-function titleColor(line: Line): Color {
+function titleColor(line: Line): color {
   if (line.kind == LineKind::Option) { return Style::TEXT }
   if (line.kind == LineKind::InProgress || line.difficulty == .Trivial) { return Style::DIM }
   return Style::NAME
@@ -158,10 +158,10 @@ public class OptionRow implements Component {
   // Its key while the keys are on its column; else the keycap's room alone.
   derived key: string = self.keysHere ? keyName(self.place) : ""
   derived leveled: boolean = self.line.level > 0
-  derived levelColor: Color = colorOf(self.line.difficulty)
+  derived levelColor: color = colorOf(self.line.difficulty)
   derived levelText: string = `(${self.line.level})`
-  derived color: Color = titleColor(self.line)
-  derived iconTint: Color = self.line.kind == LineKind::InProgress ? GREY : WHITE
+  derived color: color = titleColor(self.line)
+  derived iconTint: color = self.line.kind == LineKind::InProgress ? GREY : WHITE
   derived greyed: boolean = self.line.kind == LineKind::InProgress
   derived entries: array<MenuEntry> = [{ label: Locale::ALWAYS_PICK, on: self.marked }]
   state menuOpen = false

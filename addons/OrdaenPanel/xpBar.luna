@@ -34,17 +34,17 @@ const ONE: array<Track> = [{ fr: 1 }]
 // Half each, whatever their words: a track takes no more for its longer label.
 const TWO: array<Track> = [{ fr: 1, min: 0ui }, { fr: 1, min: 0ui }]
 const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
-const RESTED: Color = Color::hex("#6e96d129")
-const LABEL: Color = Color::hex("#f3e7cc")
-const LABEL_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
+const RESTED: color = #6e96d129
+const LABEL: color = #f3e7cc
+const LABEL_SHADOW: Shadow = { color: #000000, x: 1ui, y: -1ui }
 const LABEL_PARTS: array<Track> = ["max-content", "max-content"]
 const LABEL_GAP = 1.5sp
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
-const GROOVE: Line = { width: 2ui, color: Color::hex("#0a0603d9"), sides: [Side::Top, Side::Right, Side::Bottom, Side::Left] }
+const GROOVE: Line = { width: 2ui, color: #0a0603d9, sides: [Side::Top, Side::Right, Side::Bottom, Side::Left] }
 const FILL: array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
 const CELLS: array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const MARK: Line = { width: 1ui, color: Color::hex("#00000080"), sides: [Side::Right] }
+const MARK: Line = { width: 1ui, color: #00000080, sides: [Side::Right] }
 // Rested experience grows to a level and a half at most (the client's rule).
 const RESTED_MOST = 1.5
 // Under this many percent a part keeps a decimal, so a small one still reads: 264 of 29 000 is 0.9%, not 0%.
@@ -218,7 +218,7 @@ public class Tube implements Component {
   words: Signal<string>
   parts: Signal<array<XpPart>>
   height: Signal<number<Length>>
-  tint: Signal<Color | nil>
+  tint: Signal<color | nil>
   title: Signal<string>
   rows: Signal<array<TipRow>>
   constructor(
@@ -238,7 +238,7 @@ public class Tube implements Component {
     parts: Signal<array<XpPart>> = [],
     height: Signal<number<Length>> = TUBE_HEIGHT,
     // A colour the fill takes, its art made grey under it: the standing's.
-    tint: Signal<Color | nil> = nil
+    tint: Signal<color | nil> = nil
   ) {
     self.tint = tint
     self.fill = fill
@@ -336,7 +336,7 @@ public class XpBar implements Component {
   derived xpParts: array<XpPart> = self.partsOf()
   derived reputationRows: array<TipRow> = self.standingRows()
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
-  derived standingTint: Color | nil = Game::reputation.color
+  derived standingTint: color | nil = Game::reputation.color
 
   // The faction's fill, its standing's colour over it.
   const steel: Art = Ordaen.art.panel.xpSteel

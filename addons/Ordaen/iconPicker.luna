@@ -26,11 +26,11 @@ const CELL = 37.5dp
 const SHOWN_ROWS = 7
 const WIDTH = 468.75dp
 const BUTTON_WIDTH = 140.625dp
-const RIM: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
-const PICKED_RIM: Line = { width: 2.34375dp, color: Color::hex("#ffd100") }
-const NONE_FILL: Color = Color::hex("#0d0a08")
+const RIM: Line = { width: 1.171875dp, color: #4a3a24 }
+const PICKED_RIM: Line = { width: 2.34375dp, color: #ffd100 }
+const NONE_FILL: color = #0d0a08
 // «No icon»: a dark cell with a short bar across its middle, which reads in every language.
-public const NO_ICON_MARK: Color = Color::hex("#a89878")
+public const NO_ICON_MARK: color = #a89878
 const MARK_WIDTH = 14.0625dp
 const MARK_HEIGHT = 2.34375dp
 const ONE: array<Track> = [{ fr: 1 }]

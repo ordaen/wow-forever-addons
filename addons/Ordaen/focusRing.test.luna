@@ -7,7 +7,7 @@ import { Move } from "$test"
 import root Ordaen from "Ordaen"
 import { Look } from "@/look"
 
-const PLATE: Color = Color::hex("#2a1d12")
+const PLATE: color = #2a1d12
 
 class Focusable {
   pressed() {}
@@ -52,12 +52,12 @@ function ringDrawn(): string {
 test "the focus ring is the look's accent, and follows it" {
   let page = new Focusable()
   Test::mount(page, { left: 100, top: 50, width: 400, height: 300 })
-  Ordaen.look.change((values: mut Look): nil => { values.accent = Color::hex("#ff0000") })
+  Ordaen.look.change((values: mut Look): nil => { values.accent = #ff0000 })
   // The surface is the active one once pressed; Tab then focuses its box.
   Test::page().box(PLATE).click()
   Test::key(Move::Next)
   Test::expect(ringDrawn().contains("color=1,0,0,1"))
-  Ordaen.look.change((values: mut Look): nil => { values.accent = Color::hex("#0000ff") })
+  Ordaen.look.change((values: mut Look): nil => { values.accent = #0000ff })
   Test::flush()
   Test::expect(ringDrawn().contains("color=0,0,1,1") && !ringDrawn().contains("color=1,0,0,1"))
   destroy page

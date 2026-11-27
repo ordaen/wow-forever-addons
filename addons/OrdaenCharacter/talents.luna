@@ -23,8 +23,8 @@ const TOP: array<Track> = [SEARCH_WIDTH, { fr: 1 }, "max-content"]
 const BUTTON_WIDTH: number<Length> = 175.78125dp
 // The trees' lines: dark, a faint light beside each, as the game's own window draws them.
 const LINE: number<Length> = 1.171875dp
-const LINE_COLOR: Color = Color::hex("#000000")
-const LINE_LIGHT: Color = Color::hex("#d6a56b2e")
+const LINE_COLOR: color = #000000
+const LINE_LIGHT: color = #d6a56b2e
 // The header (on the wood) and the footer (on the marble) reach the window's sides; what they hold stands in by the
 // window's room at the sides and a band above and below it, the frame's line between them and the trees.
 const BAND_ROOM: Edges = { top: 4sp, right: Style::SIDE_ROOM, bottom: 4sp, left: Style::SIDE_ROOM }
@@ -38,7 +38,7 @@ const ARTS: map<string, Atlas> = {
   SHAMAN: "talent-background-shaman", WARLOCK: "talent-background-warlock", WARRIOR: "talent-background-warrior"
 }
 const POINTS_TEXT = 1.25rem
-const WHITE: Color = Color::hex("#ffffff")
+const WHITE: color = #ffffff
 
 // The class trainer's price for a reset of the talents, as it last offered one, in copper: 0 before the first.
 public struct KeptWipe implements Plain {

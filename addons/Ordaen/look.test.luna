@@ -8,7 +8,7 @@ import root Core from "Ordaen"
 import Ordaen from "Ordaen"
 import { artOf, presetOf } from "@/look"
 
-function color(c: Color): string {
+function color(c: color): string {
   return "[%g, %g, %g]".format(c.r, c.g, c.b)
 }
 
@@ -20,7 +20,7 @@ function hue(key: string, value: Ordaen::Hue): string {
   return text(key, `${value}`)
 }
 
-function paint(key: string, value: Color): string {
+function paint(key: string, value: color): string {
   return `"${key}": ${color(value)}`
 }
 
@@ -81,7 +81,7 @@ test "a look saved with numbers in a font of unequal digits loads them in the de
 // The Blizzard preset isn't offered: a player who chose it has its look saved, and it loads as Ordaen's.
 test "a look saved as the Blizzard preset loads as Ordaen's" {
   let blizzard: Ordaen::Look = mut {
-    accent: Color::hex("#ffd100"), barTexture: Ordaen::BarTexture::Blizzard, animation: Ordaen::Animation::Fast,
+    accent: #ffd100, barTexture: Ordaen::BarTexture::Blizzard, animation: Ordaen::Animation::Fast,
     ..Ordaen::preset(Ordaen::Preset::Ordaen)
   }
   Core.look.choose(blizzard)

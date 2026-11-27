@@ -8,8 +8,8 @@ import { Component } from "@/module"
 import { timeText } from "@/timeText"
 import { SECONDARY_TEXT } from "@/units"
 
-const RULE: Color = Color::hex("#9d9d9d40")
-const RULE_TEXT: Color = Color::hex("#9d9d9d")
+const RULE: color = #9d9d9d40
+const RULE_TEXT: color = #9d9d9d
 const COLUMNS: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 
 public class SessionRule implements Component {

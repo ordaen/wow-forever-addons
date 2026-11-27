@@ -28,7 +28,7 @@ const ROW_LEAST = 82.03125dp
 const CELL_ROWS: array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
 // An arrow's line and its edge, and its head (the client's is 14 by 12 px, here at the nodes' scale).
 const LINE = 4.6875dp
-const LINE_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
+const LINE_EDGE: Line = { width: 1.171875dp, color: #000000 }
 const HEAD = 21.09375dp
 // Where a cell's vertical line and its node stand across it, and where its horizontal line stands down its node's row.
 const MIDDLE: number<Length> = (STEP - LINE) / 2
@@ -43,16 +43,16 @@ const RANK_TEXT = 1.75rem
 const RANK_OUTLINE = 1
 // The rank of the ranks, small at a node's lower right (`TalentButtonLegacyMixin`), white.
 const FRACTION_TEXT = 0.85rem
-const WHITE: Color = Color::hex("#ffffff")
-const GOLD: Color = Color::hex("#ffd100")
-const GREEN: Color = Color::hex("#19ff19")
-const GREY: Color = Color::hex("#808080")
-const DIM: Color = Color::hex("#a3977f")
+const WHITE: color = #ffffff
+const GOLD: color = #ffd100
+const GREEN: color = #19ff19
+const GREY: color = #808080
+const DIM: color = #a3977f
 // The veil over a node that can't be learned: dark, darker where its tree lacks the points.
-const VEIL: Color = Color::hex("#000000")
+const VEIL: color = #000000
 // A tooltip's line for what isn't met yet, as the client writes it.
-const RED: Color = Color::hex("#ff2020")
-const EDGE: Color = Color::hex("#4a3a24")
+const RED: color = #ff2020
+const EDGE: color = #4a3a24
 // The client's talent frames and arrowheads, by what a node may do.
 const FRAME_FULL: Atlas = "talents-node-square-yellow"
 const FRAME_OPEN: Atlas = "talents-node-square-green"
@@ -71,12 +71,12 @@ public enum Way { Down, Right, Left }
 // nil where the cell has none of it.
 public struct TreeCell {
   node: Game::TalentNode | nil = nil
-  up: Color | nil = nil
-  through: Color | nil = nil
-  lower: Color | nil = nil
-  down: Color | nil = nil
-  west: Color | nil = nil
-  east: Color | nil = nil
+  up: color | nil = nil
+  through: color | nil = nil
+  lower: color | nil = nil
+  down: color | nil = nil
+  west: color | nil = nil
+  east: color | nil = nil
   head: Atlas | nil = nil
   way: Way = Way::Down
 }
@@ -221,7 +221,7 @@ function lookOf(node: Game::TalentNode): Look {
 // What each look draws: the frame, the rank's colour, whether the icon is grey and how dark the veil over it.
 struct LookArt {
   frame: Atlas
-  rank: Color
+  rank: color
   grey: boolean
   veil: number
 }

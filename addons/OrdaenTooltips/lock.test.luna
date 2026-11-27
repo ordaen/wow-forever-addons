@@ -20,7 +20,7 @@ const SETTINGS = "Move mode"
 const LOCKED = "Locked — hover the underlined parts"
 const CLOSE: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
 // The lock's bar: its dark track, and the gold that fills it.
-const TRACK: Color = Color::hex("#00000073")
+const TRACK: color = #00000073
 // The cursor on a part that opens something.
 const HELP = "Interface/Cursor/QuestTurnIn"
 // What armour is, as its term says it.
@@ -628,7 +628,7 @@ function known(unit: string): Game::UnitInfo | nil {
     return {
       name: "Jaina", player: true, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 60,
       inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
-      target: { name: "Ann", color: Color::hex("#ffffff") }, sameFaction: true
+      target: { name: "Ann", color: #ffffff }, sameFaction: true
     }
   }
   if (unit == "mouseovertarget") {

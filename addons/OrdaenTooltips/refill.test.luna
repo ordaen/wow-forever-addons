@@ -8,8 +8,8 @@ import Test from "$test"
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
 
-const GOLD: Color = Color::hex("#ffd100")
-const WHITE: Color = Color::hex("#ffffff")
+const GOLD: color = #ffd100
+const WHITE: color = #ffffff
 
 // The game's tooltip showing the menu button's text: its title, the game's lines, and the memory of `addons` addons.
 function memory(corner: any Frame, owner: any Frame, addons: integer): Game::ShownTip {

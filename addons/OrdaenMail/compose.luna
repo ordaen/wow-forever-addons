@@ -59,8 +59,8 @@ function whoOf(who: Recipient): string {
 public class NameRow implements Component {
   public pick: Event<string> = new Event()
 
-  derived dot: Color = self.who.online ? Style::GREEN : Style::FAINT
-  derived ink: Color = self.who.color ?? Style::INK
+  derived dot: color = self.who.online ? Style::GREEN : Style::FAINT
+  derived ink: color = self.who.color ?? Style::INK
   derived level: string = self.who.level > 0 ? string::of(self.who.level) : ""
   derived kind: string = whoOf(self.who)
 

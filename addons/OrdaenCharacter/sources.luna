@@ -361,7 +361,7 @@ const DUAL_HIT_CAPS: HitCaps = { boss: 27, level: 24 }
 
 // How a chance reads: green at its best, yellow while at least half the way there from where it starts, red short of
 // that. `left` is what is left of what the stat takes off (a miss, a dodge), `whole` all of it.
-function toneOf(left: number, whole: number): Color {
+function toneOf(left: number, whole: number): color {
   if (left <= 0) { return Style::GREEN }
   return left * 2 <= whole ? Style::YELLOW : Style::RED
 }
@@ -544,7 +544,7 @@ function critAt(strike: Strike, stats: Stats, boss: boolean): number {
 struct Outcome {
   const label: string
   const share: number
-  const color: Color
+  const color: color
   const whole: number | nil = nil
 }
 
@@ -586,7 +586,7 @@ function roomOf(outcomes: array<Outcome>): number {
 }
 
 // How a part's value reads: a failing part's by what is left of it, any other's plain.
-function gradeOf(outcome: Outcome): Color | nil {
+function gradeOf(outcome: Outcome): color | nil {
   const whole = outcome.whole
   if (whole == nil) { return nil }
   return toneOf(outcome.share, whole)
@@ -633,7 +633,7 @@ function takenOf(stats: Stats, boss: boolean): array<Outcome> {
   const lose = past * SKILL_STEP
   const gap = past + (-stats.defensePast).max(0)
   const parts: array<Outcome> = mut []
-  const add = (label: string, chance: number, color: Color) => {
+  const add = (label: string, chance: number, color: color) => {
     parts.push({ label: label, share: chance.max(0).min(roomOf(parts)), color: color })
   }
   add(Locale::MISS, BASE_ENEMY_MISS + edge, Style::GREEN)
@@ -714,7 +714,7 @@ function secondsText(seconds: number): string { return `${"%.2f".format(seconds)
 function signedPercent(value: number): string { return "%+.2f%%".format(value) }
 
 // A change's colour: green in the player's favour, red against, plain at none.
-function edgeTone(edge: number): Color | nil {
+function edgeTone(edge: number): color | nil {
   if (edge > 0) { return Style::GREEN }
   return edge < 0 ? Style::RED : nil
 }
@@ -778,7 +778,7 @@ public enum Boost { Up = "up", Down = "down" }
 
 // An aura's share of a stat in its tooltip: green where it raises the stat, red where it lowers it, as the stat's
 // value reads.
-function boostTone(amount: number): Color | nil {
+function boostTone(amount: number): color | nil {
   return amount > 0 ? Style::GREEN : amount < 0 ? Style::RED : nil
 }
 

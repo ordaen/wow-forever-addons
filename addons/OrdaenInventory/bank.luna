@@ -15,12 +15,12 @@ import Locale from "@/locales"
 const BAG_SLOTS = -2
 const ROW: array<Track> = [37.5dp, { fr: 1 }, "max-content"]
 const ICON = 37.5dp
-const INK: Color = Color::hex("#e8dcc4")
-const LABEL: Color = Color::hex("#a3977f")
-const WELL: Color = Color::hex("#0d0a08")
-const CLEAR: Color = Color::hex("#00000000")
-const SHADE: Color = Color::hex("#00000059")
-const RED: Color = Color::hex("#ff4040")
+const INK: color = #e8dcc4
+const LABEL: color = #a3977f
+const WELL: color = #0d0a08
+const CLEAR: color = #00000000
+const SHADE: color = #00000059
+const RED: color = #ff4040
 // The room the list takes inside the window: the window is that and its sides (the frame, its inset, its room).
 const LIST = 260dp
 const DIALOG = 375dp
@@ -47,7 +47,7 @@ public struct BankBag {
 class BankBagEntry implements Component {
   state hovered = false
   derived fill: string = Locale::FILL.format(self.bag.used, self.bag.info.slots)
-  derived back: Color = self.hovered ? SHADE : CLEAR
+  derived back: color = self.hovered ? SHADE : CLEAR
 
   bag: Signal<BankBag>
   constructor(bag: Signal<BankBag>) { self.bag = bag }
@@ -79,7 +79,7 @@ public class BankSlotsWindow implements Component {
   derived buyable: boolean = self.next != nil && Client::C_Bank::CanPurchaseBankTab(Client::BankType::Character)
   derived cost: integer = (self.next?.tabCost ?? 0).floor()
   derived afford: boolean = self.next?.canAfford == true
-  derived costColor: Color = self.afford ? INK : RED
+  derived costColor: color = self.afford ? INK : RED
 
   bags: Signal<array<BankBag>>
   declared: mut KeptWindow

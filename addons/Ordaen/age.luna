@@ -8,12 +8,12 @@ import { Component } from "@/module"
 const DAY = 86400
 const AMBER_DAYS = 3
 const LAST_DAY = 30
-const AMBER: Color = Color::hex("#ffb02e")
-const DIM: Color = Color::hex("#a3977f")
+const AMBER: color = #ffb02e
+const DIM: color = #a3977f
 
 // An age as the market says it: its text («(2 d.)») and its colour; an empty text and no colour where none is said
 // (under a day, past thirty days, no price).
-public function ageText(seconds: number | nil): (string, Color | nil) {
+public function ageText(seconds: number | nil): (string, color | nil) {
   if (seconds == nil) { return ("", nil) }
   const days = (seconds / DAY).floor()
   if (days < 1 || days > LAST_DAY) { return ("", nil) }
@@ -22,7 +22,7 @@ public function ageText(seconds: number | nil): (string, Color | nil) {
 
 public class Age implements Component {
   derived text: string = self.textOf()
-  derived color: Color = self.colorOf()
+  derived color: color = self.colorOf()
   derived shown: boolean = self.text != ""
 
   seconds: Signal<number | nil>
@@ -38,7 +38,7 @@ public class Age implements Component {
     return text
   }
 
-  colorOf(): Color {
+  colorOf(): color {
     const (_, color) = ageText(self.seconds)
     return color ?? DIM
   }

@@ -18,7 +18,7 @@ public struct Offered {
   from: Game::Sellable
   item: ItemId
   name: string
-  color: Color
+  color: color
   count: integer
   market: Copper | nil
   vendor: Copper | nil
@@ -57,7 +57,7 @@ class OfferedRow implements Component {
 
   derived better: string = self.offered.house == nil ? "—" : self.offered.house == true ? Locale::BETTER_HOUSE :
     Locale::BETTER_VENDOR
-  derived betterInk: Color = self.offered.house == nil ? Style::DIM : self.offered.house == true ? Style::GREEN :
+  derived betterInk: color = self.offered.house == nil ? Style::DIM : self.offered.house == true ? Style::GREEN :
     Style::GOLD
   derived market: integer = self.offered.market ?? 0
   derived vendor: integer = self.offered.vendor ?? 0

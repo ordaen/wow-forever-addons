@@ -13,12 +13,12 @@ const START = 1790002800
 const LINEN: integer = 2589
 const AXE: integer = 2847
 const ORE: integer = 2770
-const RED: Color = Color::hex("#ff4040")
-const GREEN: Color = Color::hex("#40c040")
-const GOLD: Color = Color::hex("#ffd100")
-const DIM: Color = Color::hex("#a3977f")
+const RED: color = #ff4040
+const GREEN: color = #40c040
+const GOLD: color = #ffd100
+const DIM: color = #a3977f
 // A row picked.
-const PICKED: Color = Color::hex("#00000040")
+const PICKED: color = #00000040
 
 function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == AXE ? "Bronze Axe" : id == ORE ? "Copper Ore" : nil

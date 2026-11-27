@@ -11,8 +11,8 @@ const START = 1790002800
 const HOUR = 3600
 const DAY = 86400
 const LINEN: integer = 2589
-const LAST_BAR: Color = Color::hex("#f0c860")
-const BAR: Color = Color::hex("#d6a56b")
+const LAST_BAR: color = #f0c860
+const BAR: color = #d6a56b
 
 function names(id: integer): Game::TooltipData | nil {
   if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0 }] } }

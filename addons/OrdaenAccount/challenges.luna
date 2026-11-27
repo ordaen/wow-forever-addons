@@ -153,7 +153,7 @@ function sortedBy(list: mut array<Challenge>, sort: ChallengeSort) {
 public class ChallengeRow implements Component {
   public pick: Event<integer> = new Event()
   derived picked: boolean = self.challenge.id == self.chosen
-  derived ink: Color = self.challenge.done ? Style::INK : Style::MISSING
+  derived ink: color = self.challenge.done ? Style::INK : Style::MISSING
   derived points: string = "%d".format(self.challenge.points)
 
   challenge: Signal<Challenge>
@@ -216,7 +216,7 @@ public class CategoryFold implements Component {
 }
 
 public class CriterionRow implements Component {
-  derived ink: Color = self.criterion.done ? Style::GREEN : Style::INK
+  derived ink: color = self.criterion.done ? Style::GREEN : Style::INK
   derived counted: boolean = self.criterion.count != ""
 
   criterion: Signal<Criterion>

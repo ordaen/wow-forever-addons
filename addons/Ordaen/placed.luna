@@ -7,8 +7,8 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 
-const GOLD: Color = Color::hex("#ffd100")
-const SHADE: Color = Color::hex("#00000073")
+const GOLD: color = #ffd100
+const SHADE: color = #00000073
 const OUTLINE: Line = { width: 1ui, color: GOLD }
 
 // What the player takes a part by in the placing mode: an outline over the whole of the part's surface, shaded, with

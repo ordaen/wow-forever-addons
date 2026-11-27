@@ -14,8 +14,8 @@ const STONE = 2836
 const LINEN = 2589
 const BLACKSMITHING = 164
 const ENGINEERING = 202
-const ORANGE: Color = Color::hex("#ff8040")
-const GREY: Color = Color::hex("#808080")
+const ORANGE: color = #ff8040
+const GREY: color = #808080
 
 function kin(): array<Kin> {
   return [{ who: "Player-1-3", name: "Regron", classTag: "WARRIOR" }, { who: "Player-1-2", name: "Aria", classTag: "MAGE" }]

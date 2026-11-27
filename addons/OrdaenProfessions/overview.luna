@@ -14,7 +14,7 @@ import Style from "@/style"
 import { Kept, has } from "@/view"
 
 const FRAME: Line = { width: 1.171875dp, color: Style::LINE }
-const BACK: Color = Color::hex("#0000004d")
+const BACK: color = #0000004d
 const PAD: number<Spacing> = 5sp
 const CARD: array<Track> = [{ fr: 1 }, "max-content"]
 const GRID: array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]

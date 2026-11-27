@@ -14,13 +14,13 @@ import { LEAST_WIDTH, MESSAGE_GAP } from "@/choices"
 import { ChatTab, Kept, Shown, StampShown, THIS_SESSION, linked, marks, wordsOf } from "@/lines"
 
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
-const WHITE: Color = Color::hex("#ffffff")
+const WHITE: color = #ffffff
 // The shade a tab stands on, open or under the cursor.
-const TAB_SHADE: Color = Color::hex("#00000059")
+const TAB_SHADE: color = #00000059
 // The unread count's plain fill.
-const COUNT_FILL: Color = Color::hex("#9b2c1f")
+const COUNT_FILL: color = #9b2c1f
 // The input's field's lit edges.
-const INPUT_LIT: Color = Color::hex("#8c6a3f")
+const INPUT_LIT: color = #8c6a3f
 
 function window(index: integer, name: string, partner: string, docked: boolean = true, fontSize: number = 13, combatLog: boolean = false): Game::ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
@@ -99,7 +99,7 @@ test "the open tab stands on the lines' own ground, the one under the cursor on 
   Test::expect((under(shown, "Jaina", GROUND).right - lines.left).abs() < 0.5)
   Test::expect((under(shown, "General", TAB_SHADE).right - lines.left).abs() < 0.5)
   // No list's own shade or light of its own over a tab.
-  Test::expect(shown.box(Color::hex("#00000040")).count() == 0 && shown.box(Color::hex("#d6a56b")).count() == 0)
+  Test::expect(shown.box(#00000040).count() == 0 && shown.box(#d6a56b).count() == 0)
 }
 
 // The lines' dark ground, whole: its middle part, the widest of the boxes of its colour (the open tab's ground is one
@@ -120,7 +120,7 @@ function inBox(box: Test::Rect, at: Test::Rect): boolean {
 }
 
 // The box of `color` a text stands on, where one is: a tab's ground or shade.
-function underOr(shown: Test::Part, text: string, color: Color): Test::Rect | nil {
+function underOr(shown: Test::Part, text: string, color: color): Test::Rect | nil {
   const at = shown.text(text).rect()
   const boxes = shown.box(color)
   for (n of 1..boxes.count()) {
@@ -130,9 +130,9 @@ function underOr(shown: Test::Part, text: string, color: Color): Test::Rect | ni
   return nil
 }
 
-function standsOn(shown: Test::Part, text: string, color: Color): boolean { return underOr(shown, text, color) != nil }
+function standsOn(shown: Test::Part, text: string, color: color): boolean { return underOr(shown, text, color) != nil }
 
-function under(shown: Test::Part, text: string, color: Color): Test::Rect {
+function under(shown: Test::Part, text: string, color: color): Test::Rect {
   return underOr(shown, text, color) ?? panic(`«${text}» stands on no box of that colour`)
 }
 
@@ -902,7 +902,7 @@ test "the wheel scrolls back, and «To the latest» brings the newest back" {
 }
 
 test "an Ordaen addon writes into the chat with its mark and colour" {
-  const mark: ChatMark = { name: "Inventory", color: Color::hex("#e8c35a") }
+  const mark: ChatMark = { name: "Inventory", color: #e8c35a }
   say(mark, "sorted.")
   Test::expect(Test::printed().join("\n") == "|cffe8c35aInventory:|r sorted.")
 }

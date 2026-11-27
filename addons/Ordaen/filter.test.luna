@@ -15,7 +15,7 @@ const GROUPS: array<FilterGroup<Kind>> = [
     options: [{ key: Kind::Grey, label: "Grey" }, { key: Kind::Green, label: "Green" }, { key: Kind::Yellow, label: "Yellow" }]
   }
 ]
-const GOLD: Color = Color::hex("#f0c860")
+const GOLD: color = #f0c860
 
 class List {
   public state values: map<Kind, boolean> = switched({}, COLOURS, true)

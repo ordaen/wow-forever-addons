@@ -12,11 +12,11 @@ import Locale from "@/locales"
 // room between a bar and the one above it in the default stack.
 const ABOVE: number<Length> = 12dp
 public const BETWEEN: number<Length> = 8dp
-const INK: Color = BRIGHT_TEXT
-const KEY_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
+const INK: color = BRIGHT_TEXT
+const KEY_SHADOW: Shadow = { color: #000000, x: 1ui, y: -1ui }
 // An action out of range: its key in the client's red, its icon darkened.
-const OUT_OF_RANGE: Color = Color::hex("#ff2020")
-const RANGE_VEIL: Color = Color::hex("#000000")
+const OUT_OF_RANGE: color = #ff2020
+const RANGE_VEIL: color = #000000
 const RANGE_DARK = 0.6
 
 // The pet's buttons show while the player has a pet with its bar: the client's own condition, read in a fight too.
@@ -227,7 +227,7 @@ function commandIcon(token: string): Art | nil {
 // button and apart from the next; it still takes the click and the cursor.
 public class Button implements Component {
   derived key: string = self.showKeys && self.slot.shown && !self.empty ? self.keys[self.slot.command] ?? "" : ""
-  derived keyColor: Color = self.slot.outOfRange ? OUT_OF_RANGE : INK
+  derived keyColor: color = self.slot.outOfRange ? OUT_OF_RANGE : INK
   derived darkened: boolean = self.slot.outOfRange && self.slot.shown && !self.empty
   // Unseen where its bar hides empty buttons and nothing is dragged that could go on it.
   derived empty: boolean = self.hideEmpty && !self.slot.holds && !self.dragging

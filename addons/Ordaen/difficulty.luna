@@ -4,7 +4,7 @@ import root Ordaen from "Ordaen"
 
 // A quest's level in its difficulty's colour, or in `plain` while the player has the game's colours off
 // (`Ordaen.questColors`), as the game's own log and tracker draw it.
-public function questLevelColor(quest: integer, player: integer, plain: Color): Color {
+public function questLevelColor(quest: integer, player: integer, plain: color): color {
   return Ordaen.questColors ? colorOf(difficultyOf(quest, player)) : plain
 }
 
@@ -28,12 +28,12 @@ public function difficultyOf(quest: integer, player: integer): Difficulty {
   return .Trivial
 }
 
-public function colorOf(difficulty: Difficulty): Color {
+public function colorOf(difficulty: Difficulty): color {
   return match (difficulty) {
-    .Trivial => Color::hex("#808080")
-    .Easy => Color::hex("#40c040")
-    .Even => Color::hex("#ffff00")
-    .Hard => Color::hex("#ff8040")
-    .Impossible => Color::hex("#ff2020")
+    .Trivial => #808080
+    .Easy => #40c040
+    .Even => #ffff00
+    .Hard => #ff8040
+    .Impossible => #ff2020
   }
 }

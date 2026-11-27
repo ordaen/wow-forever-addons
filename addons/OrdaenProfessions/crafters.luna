@@ -15,7 +15,7 @@ import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 
 const NONE: array<Line> = []
-const HEAD: Color = Color::hex("#ffd100")
+const HEAD: color = #ffd100
 
 // A character who knows recipes of a profession taking an item, and which.
 public struct Crafter {
@@ -70,7 +70,7 @@ public function craftersOf(book: Book): map<integer, array<Crafter>> {
 public struct CraftRecipe {
   name: string
   difficulty: Game::Difficulty
-  color: Color
+  color: color
   makes: integer | nil
 }
 
@@ -83,7 +83,7 @@ public struct Crafting {
   name: string
   rank: integer
   best: Game::Difficulty
-  bestColor: Color
+  bestColor: color
   recipes: array<CraftRecipe>
 }
 

@@ -20,7 +20,7 @@ public struct Wait {
   hours: integer
   // What the cell says and in which colour.
   text: string
-  color: Color
+  color: color
 }
 
 function waitOf(recipe: string, who: string, hours: integer): Wait {

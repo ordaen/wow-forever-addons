@@ -107,7 +107,7 @@ public function gameName(program: string): string {
   }
 }
 
-function nameColorOf(friend: Friend): Color {
+function nameColorOf(friend: Friend): color {
   if (friend.presence == .Offline) { return Style::OFFLINE }
   const heroColor = classColor(friend.hero?.classFile)
   if (heroColor != nil) { return heroColor }
@@ -205,7 +205,7 @@ class FriendRow implements Component {
 
   derived level: string = self.friend.hero != nil ? Locale::ROW_LEVEL.format(levelOf(self.friend)) : ""
   derived favorite: boolean = self.friend.account?.favorite == true
-  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
+  derived background: color | ByInteractionState<color> = rowShade(self.picked)
 
   friend: Signal<Friend>
   picked: Signal<boolean>
@@ -367,7 +367,7 @@ public class FriendCard implements Component {
   public menu: Event<nil> = new Event()
 
   derived title: string = titleOf(self.friend)
-  derived color: Color = nameColorOf(self.friend)
+  derived color: color = nameColorOf(self.friend)
   derived sub: string = self.subOf()
   derived favorite: boolean = self.friend.account?.favorite == true
   derived status: string = self.statusOf()

@@ -7,7 +7,7 @@ import { Art, Position } from "$ltml"
 import { Component } from "@/module"
 
 // The dark ground on the world: black, the world a little through it; and how round its corners are.
-public const GROUND: Color = Color::hex("#000000cc")
+public const GROUND: color = #000000cc
 public const GROUND_ROUND = 7.03125dp
 
 // Which corners of a rounded fill are round; a corner that isn't is square.
@@ -26,11 +26,11 @@ const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
 public class RoundedFill implements Component {
   derived across: number<Length> = 2 * self.radius
 
-  color: Signal<Color>
+  color: Signal<color>
   radius: Signal<number<Length>>
   corners: Signal<Corners>
   art: Signal<Art>
-  constructor(color: Signal<Color> = GROUND, radius: Signal<number<Length>> = GROUND_ROUND, corners: Signal<Corners> = EVERY_CORNER,
+  constructor(color: Signal<color> = GROUND, radius: Signal<number<Length>> = GROUND_ROUND, corners: Signal<Corners> = EVERY_CORNER,
     // What fills it in place of the plain colour, tinted by `color` (white: as it is): the game's marble, a bar's
     // texture. Each piece draws it on its own.
     art: Signal<Art> = PLAIN) {

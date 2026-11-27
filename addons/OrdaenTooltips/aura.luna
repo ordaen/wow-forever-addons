@@ -12,11 +12,11 @@ import { clean, duration } from "@/text"
 const BLANK = 1
 // The camp's bonuses: an effect of Forever's own, its description a list.
 const CAMP = 1229741
-const REMOVE_COLOR: Color = Color::hex("#8fd2ff")
+const REMOVE_COLOR: color = #8fd2ff
 
 // What an effect is removed as, in its colour, lifted to read on the wood.
-const DISPEL: map<string, Color> = {
-  Magic: Color::hex("#3c9cff"), Curse: Color::hex("#b45cff"), Poison: Color::hex("#2fbf3f"), Disease: Color::hex("#c89040")
+const DISPEL: map<string, color> = {
+  Magic: #3c9cff, Curse: #b45cff, Poison: #2fbf3f, Disease: #c89040
 }
 
 // The spells that remove an effect, by the player's class and by what the effect is removed as; and the ones that

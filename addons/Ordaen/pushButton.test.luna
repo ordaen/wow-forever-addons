@@ -178,7 +178,7 @@ class Keyed {
 // clear of the plate's rim at its other end.
 function keyedFits(): boolean {
   const plate = Test::page().button("Decline").rect()
-  const segment = Test::page().box(Color::hex("#00000038")).rect()
+  const segment = Test::page().box(#00000038).rect()
   const key = Test::page().text("Esc").letters()
   const label = Test::page().text("Decline").letters()
   return segment.left >= plate.left + rimOf(plate) - 0.5 && segment.top >= plate.top && segment.bottom <= plate.bottom &&

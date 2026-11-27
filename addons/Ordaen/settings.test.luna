@@ -14,10 +14,10 @@ struct Partial implements Plain {
 struct Damaged implements Plain {
   accent: Partial
   red: string
-  redText: Color
+  redText: color
 }
 
-function color(c: Color): string {
+function color(c: color): string {
   return "%g, %g, %g, %g".format(c.r, c.g, c.b, c.a)
 }
 

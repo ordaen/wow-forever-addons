@@ -5,7 +5,7 @@ import { Frame, Place, Point } from "$ltml"
 import Test from "$test"
 import { TooltipGroup } from "@/tooltipGroup"
 
-const WOOD: Color = Color::hex("#2a1d12")
+const WOOD: color = #2a1d12
 
 class Pair {
   state leftwards = false

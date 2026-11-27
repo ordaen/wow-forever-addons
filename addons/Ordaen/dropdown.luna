@@ -21,17 +21,17 @@ public struct Choice<T: unknown> {
 
 const WIDTH = 281.25dp
 const HEIGHT = 39.84375dp
-const GOLD: Color = Color::hex("#f0c860")
-const DIM: Color = Color::hex("#ffffff73")
+const GOLD: color = #f0c860
+const DIM: color = #ffffff73
 const FACE_PAD: Edges = { right: 3.5sp, left: 5.5sp }
 const COMPACT_FACE_PAD: Edges = { right: 2.5sp, left: 3.5sp }
-const ARROW_SHADOW: Shadow = { color: Color::hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
-const MENU_BACK: Color = Color::hex("#0a0806f7")
-const MENU_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
+const ARROW_SHADOW: Shadow = { color: #14141fcc, x: 1.171875dp, y: 1.171875dp }
+const MENU_BACK: color = #0a0806f7
+const MENU_EDGE: Line = { width: 1.171875dp, color: #6c5535 }
 const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 9sp }
-const CLEAR: Color = Color::hex("#00000000")
-const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b2e"), focus: Color::hex("#d6a56b2e") }
+const CLEAR: color = #00000000
+const LIGHT: ByInteractionState<color> = { default: CLEAR, hover: #d6a56b2e, focus: #d6a56b2e }
 // What the open menu takes of the screen's height besides its choices: its padding and edges, and a margin.
 const SCREEN_MARGIN = 32dp
 
@@ -47,8 +47,8 @@ public class DropdownItem<T: unknown> implements Component {
 
   derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
   derived text: string = self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label
-  derived color: Color = self.choice.soon == true ? DIM : BRIGHT_TEXT
-  derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
+  derived color: color = self.choice.soon == true ? DIM : BRIGHT_TEXT
+  derived light: color | ByInteractionState<color> = self.choice.soon == true ? CLEAR : LIGHT
   derived wrap: TextWrap = self.compact ? TextWrap::None : TextWrap::Words
 
   choice: Signal<Choice<T>>
@@ -257,7 +257,7 @@ public class ManyDropdown<T: unknown> implements Component {
   derived picked: string = labelsOf(self.choices, self.value)
   derived empty: boolean = self.picked == ""
   derived shown: string = self.empty ? self.none : self.picked
-  derived color: Color = self.empty ? DIM : GOLD
+  derived color: color = self.empty ? DIM : GOLD
 
   label: Signal<string>
   value: mut Signal<array<T>>

@@ -66,7 +66,7 @@ public struct OrdaenArt {
   // wood; the rows are cut at the rim's inner edge.
   public struct Well {
     rim: Line
-    floor: Color
+    floor: color
   }
 
   // A cut in the wood's two textures, laid over each other: `dark` multiplied into the wood (`Blend.Multiply`), its
@@ -219,7 +219,7 @@ public function toRod(metal: ArtBorder): number<Length> {
 const WINDOW_SCALE = 0.45
 const DIVIDER_SCALE = 0.3
 const SMALL_SCALE = 0.3
-const BRONZE: Color = Color::hex("#f0b673")
+const BRONZE: color = #f0b673
 const FALL = 0.4
 // A divider is set into the wood: a shade darker than the frame round it.
 const INLAID = 0.88
@@ -309,7 +309,7 @@ public const ARTWORK: OrdaenArt = {
   },
   window: { wood: WOOD, marble: MARBLE },
   ctl: {
-    well: { rim: { width: 1.171875dp, color: Color::hex("#3e2f1d") }, floor: Color::hex("#0000004d") },
+    well: { rim: { width: 1.171875dp, color: #3e2f1d }, floor: #0000004d },
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
     check: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
     tick: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 2 },
@@ -391,7 +391,7 @@ public const ARTWORK: OrdaenArt = {
     // The shape a face is cut to: a circle.
     faceRound: "@/media/face-round-mask.tga",
     badge: "@/media/level-badge.tga",
-    slotEdge: { width: 1ui, color: Color::hex("#6c5535") },
+    slotEdge: { width: 1ui, color: #6c5535 },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile::Across },
     wood: WOOD,
     edge: {

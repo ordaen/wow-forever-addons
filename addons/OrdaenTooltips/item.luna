@@ -68,7 +68,7 @@ function two(text: string, format: string): (string | nil, string | nil) {
 }
 
 // Durability's colour: red when broken, yellow at a quarter or less, the footer's own otherwise.
-function durabilityColor(current: number, most: number): Color | nil {
+function durabilityColor(current: number, most: number): color | nil {
   if (current <= 0) { return RED }
   if (current <= most / 4) { return YELLOW }
   return nil

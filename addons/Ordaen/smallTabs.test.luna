@@ -2,7 +2,7 @@
 import Test from "$test"
 import { SmallTabs } from "@/smallTabs"
 
-const LIGHT: Color = Color::hex("#ffffff14")
+const LIGHT: color = #ffffff14
 
 class Page {
   public state picked = 1

@@ -33,7 +33,7 @@ public struct Shown {
   auction: integer
   item: integer
   name: string
-  color: Color
+  color: color
   quantity: integer
   // The buyout for one; none for an auction with a bid alone.
   unit: integer | nil
@@ -48,7 +48,7 @@ class OwnedRow implements Component {
 
   derived lowest: string = self.shown.sold ? Locale::SOLD : self.shown.lowest == nil ? "—" :
     self.shown.lowest == true ? Locale::LOWEST : Locale::UNDERCUT
-  derived lowestColor: Color = self.shown.sold ? Style::GOLD : self.shown.lowest == true ? Style::GREEN :
+  derived lowestColor: color = self.shown.sold ? Style::GOLD : self.shown.lowest == true ? Style::GREEN :
     self.shown.lowest == false ? Style::RED : Style::DIM
   derived priced: boolean = self.shown.unit != nil
   derived unit: integer = self.shown.unit ?? 0

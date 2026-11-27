@@ -123,7 +123,7 @@ public class WorthLine implements Component {
   derived sale: integer = self.worth.sale ?? 0
   derived hasProfit: boolean = self.worth.profit != nil
   derived profit: integer = self.worth.profit ?? 0
-  derived profitColor: Color = self.profit < 0 ? Style::RED : BRIGHT_TEXT
+  derived profitColor: color = self.profit < 0 ? Style::RED : BRIGHT_TEXT
   derived percent: string = self.worth.percent == nil ? NONE : string::of(self.worth.percent)
   derived age: string = ageText(self.worth.age)
   derived can: string = string::of(self.worth.can)

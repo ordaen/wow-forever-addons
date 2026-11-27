@@ -4,7 +4,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { CountBadge } from "@/countBadge"
 
-const WHISPER: Color = Color::hex("#ff80ff")
+const WHISPER: color = #ff80ff
 
 class Badges {
   public state count = 3

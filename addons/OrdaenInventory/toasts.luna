@@ -28,8 +28,8 @@ const WIDTH = 200ui
 const ROW: array<Track> = [ICON, { fr: 1 }]
 // The money's line is its coins alone, with no icon.
 const COINS_ROW: array<Track> = [{ fr: 1 }]
-const BACK: Color = Color::hex("#000000aa")
-const COUNT: Color = Color::hex("#ffffff")
+const BACK: color = #000000aa
+const COUNT: color = #ffffff
 // Where the lines stand while the player never moved them: right of the screen's middle, a little up.
 const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
 
@@ -72,7 +72,7 @@ function qualityOf(quality: integer): Quality {
 
 // One line.
 class ToastLine implements Component {
-  derived color: Color = qualityColor(self.toast.quality)
+  derived color: color = qualityColor(self.toast.quality)
   derived edge: Line = { width: 1ui, color: self.color }
   derived text: string = self.toast.coins ? Game::money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
   derived age: number = self.now - self.toast.came

@@ -6,7 +6,7 @@ import { ChannelName, StampPlace, TabChoices } from "@/choices"
 // A line as a tab shows it. `whole` is what is drawn after its time: the channel, the words with their links and «×N».
 public struct Shown implements Plain {
   whole: string
-  color: Color
+  color: color
   // Its time is drawn (the game shows the chat's times), where the tab places it. A line kept from before the times
   // were drawn apart has it in `whole`.
   stamped: boolean = false

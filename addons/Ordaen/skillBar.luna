@@ -10,12 +10,12 @@ import { BRIGHT_TEXT } from "@/units"
 const HEIGHT = 35.15625dp
 const RIM = 1sp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
-const TROUGH: Color = Color::hex("#0b0805")
-const RIM_COLOR: Color = Color::hex("#3d2710")
-const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const TROUGH: color = #0b0805
+const RIM_COLOR: color = #3d2710
+const SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const NOTCH: Line = { width: 1.171875dp, color: Color::hex("#000000bf"), sides: [Side::Right] }
+const NOTCH: Line = { width: 1.171875dp, color: #000000bf, sides: [Side::Right] }
 const FILL: array<Track> = [{ fr: 1 }]
 
 // The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.

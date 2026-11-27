@@ -17,25 +17,25 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 const SETTINGS = "Move mode"
 
 // The game's colours as its lines come.
-const WHITE: Color = Color::hex("#ffffff")
-const GAME_GOLD: Color = Color::hex("#ffd100")
-const GAME_RED: Color = Color::hex("#ff1a1a")
-const GAME_GREEN: Color = Color::hex("#1fff00")
-const BLUE: Color = Color::hex("#4d99ff")
-const ORANGE: Color = Color::hex("#ff8000")
-const EPIC: Color = Color::hex("#a336ed")
+const WHITE: color = #ffffff
+const GAME_GOLD: color = #ffd100
+const GAME_RED: color = #ff1a1a
+const GAME_GREEN: color = #1fff00
+const BLUE: color = #4d99ff
+const ORANGE: color = #ff8000
+const EPIC: color = #a336ed
 
 // The colours Ordaen's tooltip writes in: what can't be done or is lacking, what is done or more, a heading, what
 // is neither good nor bad yet, something put aside; and a free line's own, a footer's value.
-const RED: Color = Color::hex("#ff4040")
-const GREEN: Color = Color::hex("#1eff00")
-const GOLD: Color = Color::hex("#ffd100")
-const GREY: Color = Color::hex("#808080")
-const MAGIC: Color = Color::hex("#3c9cff")
-const REMOVER: Color = Color::hex("#8fd2ff")
-const QUIET_VALUE: Color = Color::hex("#a39883")
-const BODY: Color = Color::hex("#f3e7cc")
-const FRIENDLY: Color = Color::hex("#40bf40")
+const RED: color = #ff4040
+const GREEN: color = #1eff00
+const GOLD: color = #ffd100
+const GREY: color = #808080
+const MAGIC: color = #3c9cff
+const REMOVER: color = #8fd2ff
+const QUIET_VALUE: color = #a39883
+const BODY: color = #f3e7cc
+const FRIENDLY: color = #40bf40
 
 // The game's own tooltip, in the screen's bottom right corner: where its show is, and where ours stands.
 function corner(): any Client::Frame {
@@ -63,13 +63,13 @@ function reads(part: Test::Part, expected: string): boolean {
 }
 
 // Whether a text is drawn in this colour: where it isn't, the test fails with the colour it is in.
-function inColor(part: Test::Part, color: Color): boolean {
+function inColor(part: Test::Part, color: color): boolean {
   const drawn = part.textColor()
   if (!drawn.equal(color)) { panic(`it is drawn in ${code(drawn)}, not ${code(color)}`) }
   return true
 }
 
-function code(color: Color): string {
+function code(color: color): string {
   return "#%02x%02x%02x".format((color.r * 255).round(), (color.g * 255).round(), (color.b * 255).round())
 }
 
@@ -168,7 +168,7 @@ test "a button's line in a colour of its own keeps it; one in the game's gold or
 }
 
 // The game menu's button as the game fills it each second: its latency.
-function menu(latency: integer, color: Color): Game::TooltipData {
+function menu(latency: integer, color: color): Game::TooltipData {
   return {
     plain: true,
     lines: [
@@ -291,7 +291,7 @@ test "a text tooltip filled anew shows a line's colour changed in any of its par
   Game::tooltip.main = shown
   Test::pass(SHOWS)
   Test::flush()
-  for (color of [Color::hex("#801a1a"), Color::hex("#80401a"), Color::hex("#804040"), Color::hex("#80404080")]) {
+  for (color of [#801a1a, #80401a, #804040, #80404080]) {
     Game::tooltip.main = refilled(shown, [title, { left: "Durability is low", leftColor: color, kind: 0 }])
     Test::pass(SHOWS)
     Test::expect(tip("Game Menu").text("Durability is low").textColor().equal(color) || panic(code(color)))
@@ -451,7 +451,7 @@ test "a cost in mana, rage or energy is the design's colour of it, not the clien
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
-  Test::expect(tip("Frostbolt").text("65").item().box(glyphArt(.Cost)).paintedWith(Color::hex("#2f6fe0")))
+  Test::expect(tip("Frostbolt").text("65").item().box(glyphArt(.Cost)).paintedWith(#2f6fe0))
 }
 
 test "a finishing move reads instant, melee range, its cooldown, its points as rows and its reagents" {
@@ -631,7 +631,7 @@ test "a talent reads its tree and its rank, and the next rank with what changes 
   const talent = tip("Improved Fireball")
   Test::expect(reads(talent, "Improved Fireball | Talent | · | 2/5 | · | Fire | Reduces the cast time of Fireball by |cffffd1000.2 sec.|r | Next rank: | Reduces the cast time of Fireball by |cff40ff600.3|r sec."))
   Test::expect(talent.paintedWith("Interface/Icons/Spell_Fire_FlameBolt"))
-  Test::expect(inColor(talent.text("2/5"), Color::hex("#cbb994")))
+  Test::expect(inColor(talent.text("2/5"), #cbb994))
 }
 
 test "a talent's next rank whose first word changes starts with that word lit, nothing before it" {
@@ -967,7 +967,7 @@ test "a standing reads red to hostile, orange unfriendly, yellow neutral, green 
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
-  Test::expect(inColor(tip("Brotherhood Scout").text("Standing"), Color::hex("#ff8040")))
+  Test::expect(inColor(tip("Brotherhood Scout").text("Standing"), #ff8040))
   rank = 4
   Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Defias Pillager", kind: NAME_OF_UNIT, unit: "target" }, { left: "<Brotherhood Scout>", kind: 0 }, { left: "Defias Brotherhood", kind: 0 }] })
   Test::pass(SHOWS)
@@ -1072,7 +1072,7 @@ test "a weapon reads its band, its level and stats as rows, what it does, and it
   Test::expect(inColor(axe.text("Axe of the Deep Woods"), EPIC))
   Test::expect(axe.paintedWith("Interface/Icons/INV_Axe_01"))
   // What the player can't use it as, and what they lack, in red; the stats' bonuses and effects in green.
-  Test::expect(inColor(axe.text("Axe"), RED) && inColor(axe.text("Two-Hand"), Color::hex("#cbb994")))
+  Test::expect(inColor(axe.text("Axe"), RED) && inColor(axe.text("Two-Hand"), #cbb994))
   Test::expect(inColor(axe.text("57"), RED) && inColor(axe.text("250"), QUIET_VALUE))
   Test::expect(inColor(axe.text("Warrior, Paladin"), GAME_RED))
   Test::expect(inColor(axe.text("+5 Fire Resistance"), GAME_GREEN))
@@ -1471,8 +1471,8 @@ test "a requirement of the form «Label: value» is its label and its value; one
 
 // The edges of what the reader reads
 
-const QUIET: Color = Color::hex("#857a66")
-const FREE: Color = Color::hex("#e6dcc6")
+const QUIET: color = #857a66
+const FREE: color = #e6dcc6
 
 test "a hotkey and a footer's label are quiet, a value of the footer quieter than the body" {
   Test::mount(nil, SCREEN)
@@ -1494,9 +1494,9 @@ test "a hotkey and a footer's label are quiet, a value of the footer quieter tha
 }
 
 test "a button's lines in a blue, a magenta or a yellow of their own keep them" {
-  const blue = Color::hex("#3366ff")
-  const magenta = Color::hex("#ff33ff")
-  const yellow = Color::hex("#ffff33")
+  const blue = #3366ff
+  const magenta = #ff33ff
+  const yellow = #ffff33
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({
     plain: true,
@@ -1511,7 +1511,7 @@ test "a button's lines in a blue, a magenta or a yellow of their own keep them" 
 }
 
 test "a button's line with a value is in the body's colour, its value in its own or else in its line's" {
-  const green = Color::hex("#33ff33")
+  const green = #33ff33
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({
     plain: true,
@@ -1874,7 +1874,7 @@ test "a disease on a priest names the first of the class's cures the priest know
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
-  Test::expect(inColor(tip("Holy Fire").text("Disease"), Color::hex("#c89040")))
+  Test::expect(inColor(tip("Holy Fire").text("Disease"), #c89040))
   Test::expect(tip("Holy Fire").text("Cure Disease").shown())
 }
 

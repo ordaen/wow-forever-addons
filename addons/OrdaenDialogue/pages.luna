@@ -80,7 +80,7 @@ public class Needs implements Component {
   derived needs: array<Need> = self.quest?.needs ?? []
   derived money: integer = self.quest?.moneyNeeded ?? 0
   derived paid: boolean = self.money > 0
-  derived moneyColor: Color = self.money > Game::money.amount ? Style::RED : Style::TEXT
+  derived moneyColor: color = self.money > Game::money.amount ? Style::RED : Style::TEXT
 
   quest: Signal<Quest | nil>
   constructor(quest: Signal<Quest | nil>) { self.quest = quest }
@@ -99,7 +99,7 @@ public class Needs implements Component {
 
 class NeedRow implements Component {
   derived count: string = `${self.need.have}/${self.need.need}`
-  derived color: Color = self.need.have < self.need.need ? Style::RED : Style::TEXT
+  derived color: color = self.need.have < self.need.need ? Style::RED : Style::TEXT
 
   need: Signal<Need>
   constructor(need: Signal<Need>) { self.need = need }

@@ -77,8 +77,8 @@ function bagCount(item: integer): number {
   return Client::C_Item::GetItemCount(item, nil, nil, nil, nil)
 }
 
-const OUT_OF_RANGE: Color = Color::hex("#ff4040")
-const NO_POWER: Color = Color::hex("#4060ff")
+const OUT_OF_RANGE: color = #ff4040
+const NO_POWER: color = #4060ff
 // A cooldown shorter than this is the global one: no sweep for it.
 const GLOBAL_COOLDOWN = 1.5
 

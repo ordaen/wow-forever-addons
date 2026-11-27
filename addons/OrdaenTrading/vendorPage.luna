@@ -62,8 +62,8 @@ class VendorRow implements Component {
   public pick: Event<ItemId> = new Event()
 
   derived name: string = self.nameText()
-  derived color: Color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
-  derived ink: Color = self.row.toBuy == 0 ? Style::DIM : Style::INK
+  derived color: color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
+  derived ink: color = self.row.toBuy == 0 ? Style::DIM : Style::INK
   derived unit: integer = self.prices.vendor(self.row.item) ?? 0
   derived nearest: number | nil = nearestOf(self.sellers, self.row.item)
 
@@ -83,7 +83,7 @@ class VendorRow implements Component {
     return name
   }
 
-  nameColor(): Color {
+  nameColor(): color {
     const (_, color) = nameOf(self.row.item)
     return color
   }

@@ -61,8 +61,8 @@ const GAMMA_ONLY: Test::Point = { x: 1120, y: 470 }
 const BETA_ONLY: Test::Point = { x: 800, y: 720 }
 // With Gamma 120 lower: its tab row's room right of its tab, over Beta's body.
 const ROOM_RIGHT_OF_TABS: Test::Point = { x: 950, y: 470 }
-const FACE: Color = Color::hex("#30302a")
-const FLOOR: Color = Color::hex("#202830")
+const FACE: color = #30302a
+const FLOOR: color = #202830
 const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 class Desk {

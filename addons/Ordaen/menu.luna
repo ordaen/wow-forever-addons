@@ -27,19 +27,19 @@ public struct MenuEntry {
 
 // A submenu's mark at its entry's right.
 const MORE_MARK = "›"
-const TITLE: Color = Color::hex("#ffd100")
+const TITLE: color = #ffd100
 
 const WIDTH = 257.8125dp
-const BACK: Color = Color::hex("#0a0806f7")
-const EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
+const BACK: color = #0a0806f7
+const EDGE: Line = { width: 1.171875dp, color: #6c5535 }
 const PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const GROUP_PAD: Edges = { top: 3.5sp, right: 4sp, bottom: 2sp, left: 4sp }
-const RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
-const NAME: ByInteractionState<Color> = { default: Color::hex("#e8dcc4"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const DIM: Color = Color::hex("#6f6552")
-const CLEAR: Color = Color::hex("#00000000")
-const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b2e"), focus: Color::hex("#d6a56b2e") }
+const RULE: Line = { width: 1.171875dp, color: #3e2f1d, sides: [Side::Top] }
+const NAME: ByInteractionState<color> = { default: #e8dcc4, hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const DIM: color = #6f6552
+const CLEAR: color = #00000000
+const LIGHT: ByInteractionState<color> = { default: CLEAR, hover: #d6a56b2e, focus: #d6a56b2e }
 const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 
 // One line of the open menu.
@@ -49,8 +49,8 @@ public class MenuItem implements Component {
   public enter: Event<(integer, any Frame)> = new Event()
 
   derived enabled: boolean = self.entry.disabled != true
-  derived color: Color | ByInteractionState<Color> = self.enabled ? NAME : DIM
-  derived light: Color | ByInteractionState<Color> = self.enabled ? LIGHT : CLEAR
+  derived color: color | ByInteractionState<color> = self.enabled ? NAME : DIM
+  derived light: color | ByInteractionState<color> = self.enabled ? LIGHT : CLEAR
   derived padding: Edges = self.entry.group == true ? GROUP_PAD : ITEM_PAD
   derived rule: Line | nil = self.entry.group == true ? RULE : nil
   derived switched: boolean = self.entry.on != nil

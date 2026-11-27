@@ -16,9 +16,9 @@ const CLOAK = 2387
 const BOLT = 2963
 const STONE = 2660
 const NOTE = "Queued: made after the ones ahead."
-const ORANGE: Color = Color::hex("#ff8040")
-const DIM: Color = Color::hex("#a3977f")
-const SHORT: Color = Color::hex("#ff6a5a")
+const ORANGE: color = #ff8040
+const DIM: color = #a3977f
+const SHORT: color = #ff6a5a
 const SMITHING_ICON: FileId = 136241
 const BOLT_ICON: Art = "Interface/Icons/INV_Fabric_Linen_02"
 
@@ -584,7 +584,7 @@ test "the reagents the lines need: each once, summed, with what the bags hold an
   Test::expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 4 | 3 | 1 | —"))
   Test::expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 2 | 4 | -"))
   Test::expect(window().text("Coarse Thread").item().text("4").nth(2).textColor().equal(SHORT))
-  Test::expect(window().text("Linen Cloth").item().text("-").textColor().equal(Color::hex("#e8dcc4")))
+  Test::expect(window().text("Linen Cloth").item().text("-").textColor().equal(#e8dcc4))
 }
 
 test "a reagent two recipes need is summed on one line, and follows a line's count as it is set" {
@@ -631,7 +631,7 @@ test "a line taken out takes its reagents from the list; the next reagent stands
   window().text("Linen Cloak").item().button("x").click()
   Test::expect(!window().text("Coarse Thread").shown() && !window().box(BOLT_ICON).shown())
   Test::expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 2 | 4 | -"))
-  Test::expect(window().text("Linen Cloth").item().text("-").textColor().equal(Color::hex("#e8dcc4")))
+  Test::expect(window().text("Linen Cloth").item().text("-").textColor().equal(#e8dcc4))
 }
 
 // The window shut

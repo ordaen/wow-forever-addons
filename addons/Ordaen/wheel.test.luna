@@ -314,7 +314,7 @@ test "each item is a slice cut in the stone, a gap off each side, its icon whole
 }
 
 test "the slice aimed at draws its band's lines gold as it does its own edges: the band's inner edge and each separator" {
-  const gold = Color::hex("#ffd100")
+  const gold = #ffd100
   const page = new Drawn()
   Test::mount(page, { left: 0, top: 0, width: 400, height: 400 })
   // Aimed at, a slice with no band: its edges gold, and the third slice's shown segment.

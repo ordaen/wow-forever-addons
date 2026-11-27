@@ -42,8 +42,8 @@ public const RING: array<RingSpec> = [
   { id: RingId::Landing, angle: 120 }
 ]
 
-const GOLD: Color = Color::hex("#ffd100")
-const COUNT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
+const GOLD: color = #ffd100
+const COUNT_SHADOW: Shadow = { color: #000000, x: 1ui, y: -1ui }
 
 public class RingButton implements Component {
   // In the frame's box, whose places start at its line (`artOrigin`).

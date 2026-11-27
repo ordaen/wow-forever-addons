@@ -15,7 +15,7 @@ const EXALTED = 8
 const BAR_WIDTH = 187.5dp
 const INDENT = 18.75dp
 const MARK = 18.75dp
-const CLEAR: Color = Color::hex("#00000000")
+const CLEAR: color = #00000000
 
 // How far along its standing a faction is, from 0 to 1.
 function fractionOf(faction: Faction): number {
@@ -82,13 +82,13 @@ public class FactionRow implements Component {
 
   derived standing: string = standingName(self.faction.standing)
   derived share: number = fractionOf(self.faction)
-  derived tone: Color = standingColor(self.faction.standing)
+  derived tone: color = standingColor(self.faction.standing)
   derived barShown: boolean = !self.faction.header || self.faction.ranked
   derived mark: Art | nil = self.faction.header ? (self.faction.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
   derived indent: number<Length> = self.faction.child ? INDENT : 0ui
   derived gainText: string = self.gain > 0 ? `+${self.gain}` : ""
-  derived nameColor: Color = self.faction.header ? Style::GOLD : self.faction.atWar ? Style::RED : Style::INK
-  derived background: Color = self.picked ? Style::PICKED : CLEAR
+  derived nameColor: color = self.faction.header ? Style::GOLD : self.faction.atWar ? Style::RED : Style::INK
+  derived background: color = self.picked ? Style::PICKED : CLEAR
 
   faction: Signal<Faction>
   gain: Signal<integer>
@@ -128,7 +128,7 @@ public class FactionSwitch implements Component {
   public flip: Event<nil> = new Event()
 
   derived state: Shown = shownOf(self.on)
-  derived ink: Color = self.disabled ? Style::DIM : Style::INK
+  derived ink: color = self.disabled ? Style::DIM : Style::INK
 
   label: Signal<string>
   on: Signal<boolean>
@@ -159,7 +159,7 @@ public class FactionDetail implements Component {
 
   derived standing: string = standingName(self.faction.standing)
   derived share: number = fractionOf(self.faction)
-  derived tone: Color = standingColor(self.faction.standing)
+  derived tone: color = standingColor(self.faction.standing)
   derived numbers: string = `${self.faction.value - self.faction.min} / ${self.faction.max - self.faction.min}`
   derived toNext: string = self.faction.standing < EXALTED ?
     Locale::TO_NEXT.format(standingName(self.faction.standing + 1), string::of(self.faction.max - self.faction.value)) :

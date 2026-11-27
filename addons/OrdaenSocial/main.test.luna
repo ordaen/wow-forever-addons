@@ -1299,14 +1299,14 @@ test "an offline Battle.net friend shows the character last seen, after a reload
 // The whispers
 
 // Two colours of the same channels.
-function sameColor(a: Color, b: Color): boolean { return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a }
+function sameColor(a: color, b: color): boolean { return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a }
 
 // A whisper as Ordaen Chat hands it: heard (or told, by the player), its words what the bubble shows.
 function whisper(sender: string, words: string, told: boolean = false, time: number = Game::clock.server): mut Game::ChatLine {
   const kind = told ? "WHISPER_INFORM" : "WHISPER"
   return mut {
     kind: kind, event: `CHAT_MSG_${kind}`, body: words, plain: words, text: words, sender: sender, guid: "", lineId: 1,
-    channel: 0, channelName: "", stream: "", color: Color::hex("#ff80ff"), time: time, stamp: "", windows: [1], secret: ""
+    channel: 0, channelName: "", stream: "", color: #ff80ff, time: time, stamp: "", windows: [1], secret: ""
   }
 }
 

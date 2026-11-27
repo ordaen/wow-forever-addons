@@ -15,8 +15,8 @@ const FIRST_AID = 129
 const MINING = 186
 const HERBALISM = 182
 // A tab's title: gold on the open one, dim on the others.
-const OPEN: Color = Color::hex("#ffd100")
-const CLOSED: Color = Color::hex("#a3977f")
+const OPEN: color = #ffd100
+const CLOSED: color = #a3977f
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 const REMEMBER = "Remember the last recipe"

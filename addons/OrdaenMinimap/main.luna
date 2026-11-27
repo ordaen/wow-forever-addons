@@ -25,13 +25,13 @@ const RING_OUT = 18.75dp
 const CELL = 39.84375dp
 const CELL_GAP = 1sp
 const DRAWER_PAD = 2sp
-const GOLD: Color = Color::hex("#ffd100")
-const INK: Color = Color::hex("#f3e1b8")
+const GOLD: color = #ffd100
+const INK: color = #f3e1b8
 // The clock while calendar invites wait.
-const PENDING: Color = Color::hex("#ff9a2e")
+const PENDING: color = #ff9a2e
 // Dark up-left, as the windows' titles.
-const ENGRAVED: Shadow = { color: Color::hex("#000000e6"), x: -1ui, y: 1ui }
-const RULE: Color = Color::hex("#120c06")
+const ENGRAVED: Shadow = { color: #000000e6, x: -1ui, y: 1ui }
+const RULE: color = #120c06
 // A strip's rule towards the map.
 const RULE_BELOW: Line = { width: 2.34375dp, color: RULE, sides: ["bottom"] }
 const RULE_ABOVE: Line = { width: 2.34375dp, color: RULE, sides: ["top"] }
@@ -90,8 +90,8 @@ public class Minimap implements Module, App {
   derived frameBoxHeight: number<Length> = self.frameSide + reachDown(self.metal)
 
   derived showsCoords: boolean = self.settings.values.showCoords && Game::minimap.coords != ""
-  derived zoneColor: Color = self.colorOf()
-  derived clockColor: Color = Game::clock.invites > 0 ? PENDING : INK
+  derived zoneColor: color = self.colorOf()
+  derived clockColor: color = Game::clock.invites > 0 ? PENDING : INK
   // How visible the map is, by its visibility in the state the player is in; hidden with nothing to see, it goes back
   // into the game's hidden cluster.
   derived opacity: number = opacityNow(self.settings.values.visibility, self.hovered || self.drawerShown)
@@ -158,13 +158,13 @@ public class Minimap implements Module, App {
   }
 
   // The zone's colour by its PvP status: the game's own minimap colours.
-  colorOf(): Color {
+  colorOf(): color {
     return match (Game::location.pvp) {
       nil => GOLD
-      Game::Pvp::Sanctuary => Color::hex("#69ccf0")
-      Game::Pvp::Friendly => Color::hex("#1aff1a")
-      Game::Pvp::Hostile, Game::Pvp::Combat => Color::hex("#ff1a1a")
-      Game::Pvp::Contested => Color::hex("#ffb300")
+      Game::Pvp::Sanctuary => #69ccf0
+      Game::Pvp::Friendly => #1aff1a
+      Game::Pvp::Hostile, Game::Pvp::Combat => #ff1a1a
+      Game::Pvp::Contested => #ffb300
     }
   }
 

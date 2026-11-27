@@ -25,22 +25,22 @@ const PLATE: Columns = [RIM, { fr: 1 }, RIM]
 const GLYPH_PLATE: Columns = [{ fr: 1 }]
 // The gap between the rim, the key's segment and the label, at the spacing setting's measure.
 const GAP: number<Spacing> = 1.25sp
-const LABEL: ByInteractionState<Color> = { default: Color::hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const GREY: Color = Color::hex("#808080")
+const LABEL: ByInteractionState<color> = { default: #ffd100, hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const GREY: color = #808080
 // The picture: inside the plate's carved line, as the label is.
 const ICON: number<Length> = BUTTON_HEIGHT / 2
 const ICON_GAP: number<Spacing> = 1.25sp
 const ICON_ROW: Columns = { each: "max-content" }
-const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 // The key's segment: at the plate's left end past its rim, a groove (a dark line) at its right; the label
 // stands in the plate's other column, past it, so the two can't meet at any spacing.
 const KEY_WIDTH = 53.90625dp
 const KEY_HEIGHT = BUTTON_HEIGHT * 3 / 4
 const KEYED_PLATE: Columns = [RIM, KEY_WIDTH, { fr: 1 }, RIM]
-const KEY_SHADE: Color = Color::hex("#00000038")
-const KEY_TEXT: Color = Color::hex("#c9a76a")
-const GROOVE: Line = { width: 1.171875dp, color: Color::hex("#000000cc"), sides: [Side::Right] }
+const KEY_SHADE: color = #00000038
+const KEY_TEXT: color = #c9a76a
+const GROOVE: Line = { width: 1.171875dp, color: #000000cc, sides: [Side::Right] }
 // The space bar's mark «⎵», drawn as its three strokes (no texture of it: general/art-needed).
 const SPACE_WIDTH = 18.75dp
 const SPACE_HEIGHT = 5.859375dp
@@ -61,7 +61,7 @@ public class PushButton implements Component {
   public click: Event<nil> = new Event()
 
   derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.plate == .Bronze ? Ordaen.art.ctl.button : Ordaen.art.ctl.buttonAccent
-  derived color: Color | ByInteractionState<Color> = self.disabled ? GREY : LABEL
+  derived color: color | ByInteractionState<color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action
   derived repeating: boolean = self.repeats && !self.disabled
@@ -70,7 +70,7 @@ public class PushButton implements Component {
   derived tipText: TipText = self.tip ?? NO_TIP
   derived labelled: boolean = self.label != ""
   derived iconed: boolean = self.icon != nil
-  derived iconTint: Color = self.disabled ? GREY : BRIGHT_TEXT
+  derived iconTint: color = self.disabled ? GREY : BRIGHT_TEXT
   derived keyed: boolean = self.key != ButtonKey::None
   derived keyName: string = self.nameOfKey()
   derived spaceMarked: boolean = self.key == ButtonKey::Space

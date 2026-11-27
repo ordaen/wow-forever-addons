@@ -8,7 +8,7 @@ import { Component } from "@/module"
 const LENGTH = 281.25dp
 const GROOVE = 9.375dp
 const EDGE = 1.171875dp
-const LABEL: Color = Color::hex("#cbb994")
+const LABEL: color = #cbb994
 
 public class ProgressBar implements Component {
   // The fill's width: the fraction of the groove inside its edges.

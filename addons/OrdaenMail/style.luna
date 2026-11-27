@@ -12,16 +12,16 @@ public const WIDE_BUTTON: number<Length> = 234.375dp
 public const OWN_LIST: number<Length> = 222.65625dp
 public const ASK: number<Length> = 468.75dp
 
-public const INK: Color = Color::hex("#e8dcc4")
-public const DIM: Color = Color::hex("#a3977f")
-public const FAINT: Color = Color::hex("#5a5040")
-public const GOLD: Color = Color::hex("#ffd100")
-public const RED: Color = Color::hex("#ff4040")
-public const GREEN: Color = Color::hex("#40d060")
-public const ORANGE: Color = Color::hex("#ff9a30")
+public const INK: color = #e8dcc4
+public const DIM: color = #a3977f
+public const FAINT: color = #5a5040
+public const GOLD: color = #ffd100
+public const RED: color = #ff4040
+public const GREEN: color = #40d060
+public const ORANGE: color = #ff9a30
 
-public const FIELD_BACK: Color = Color::hex("#0d0a08")
-public const FIELD_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
+public const FIELD_BACK: color = #0d0a08
+public const FIELD_EDGE: Line = { width: 1.171875dp, color: #4a3a24 }
 public const FIELD_PAD: Edges = { top: 2sp, right: 2.5sp, bottom: 2sp, left: 2.5sp }
 // The rule over a side's footer.
-public const RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
+public const RULE: Line = { width: 1.171875dp, color: #3e2f1d, sides: [Side::Top] }

@@ -30,14 +30,14 @@ const NEED_PRICED: array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp,
 const FOOT: array<Track> = [{ fr: 1 }, "max-content"]
 const FOOT_PRICED: array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const NEED_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
-const SHORT: Color = Color::hex("#ff6a5a")
+const SHORT: color = #ff6a5a
 
 // A queued recipe as its line draws it, with its count still to make.
 public struct QueueLine {
   recipe: integer
   name: string
   icon: Art
-  color: Color
+  color: color
   count: integer
 }
 
@@ -105,7 +105,7 @@ public class QueueRow implements Component {
   public counted: Event<(integer, integer)> = new Event()
 
   derived rule: Line | nil = self.index > 1 ? Style::ROW_RULE : nil
-  derived color: Color = self.line.color
+  derived color: color = self.line.color
   derived icon: Art = self.line.icon
 
   // The count as the stepper sets it: nought takes the line out.
@@ -188,12 +188,12 @@ public class NeedRow implements Component {
   derived icon: Art | nil = self.need.icon
   derived lacks: boolean = self.need.missing > 0
   derived missing: string = self.lacks ? "%d".format(self.need.missing) : "-"
-  derived missingColor: Color = self.lacks ? SHORT : Style::INK
+  derived missingColor: color = self.lacks ? SHORT : Style::INK
   derived columns: array<Track> = self.priced ? NEED_PRICED : NEED
   derived hasPrice: boolean = self.entry.copper != nil
   derived copper: integer = self.entry.copper ?? 0
   derived way: string = wayText(self.entry.way)
-  derived wayColor: Color = self.entry.way == Way::None ? SHORT : Style::INK
+  derived wayColor: color = self.entry.way == Way::None ? SHORT : Style::INK
 
   entry: Signal<NeedPrice>
   priced: Signal<boolean>

@@ -6,17 +6,17 @@ import Game from "$game"
 import { Align, ByInteractionState, Edges, Frame, Modifier, Track } from "$ltml"
 import { Component } from "@/module"
 
-const CLEAR: Color = Color::hex("#00000000")
+const CLEAR: color = #00000000
 // A light shade: the rows stand on dark wood, where a dark one barely shows.
-public const ROW_HOVER: Color = Color::hex("#ffffff24")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: ROW_HOVER, focus: ROW_HOVER }
+public const ROW_HOVER: color = #ffffff24
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: ROW_HOVER, focus: ROW_HOVER }
 // The picked row's gold.
-public const PICKED_ROW: Color = Color::hex("#ffd10026")
+public const PICKED_ROW: color = #ffd10026
 const PADDING: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 
 // A pickable row's background, for a row that hears more than a pick and draws its own box (a quest's, which Shift
 // tracks and the right button opens a menu of): the gold while picked, else the shade under the cursor and the focus.
-public function rowShade(picked: boolean): Color | ByInteractionState<Color> { return picked ? PICKED_ROW : SHADE }
+public function rowShade(picked: boolean): color | ByInteractionState<color> { return picked ? PICKED_ROW : SHADE }
 
 public class PickRow implements Component {
   public pick: Event<nil> = new Event()
@@ -25,7 +25,7 @@ public class PickRow implements Component {
   // The cursor came onto the row: its frame, what a tooltip of the row stands by.
   public entered: Event<any Frame> = new Event()
 
-  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
+  derived background: color | ByInteractionState<color> = rowShade(self.picked)
 
   columns: Signal<array<Track>>
   picked: Signal<boolean>

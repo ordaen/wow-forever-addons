@@ -20,8 +20,8 @@ const ORE: integer = 2770
 const LINEN: integer = 2589
 const BLADE: integer = 15211
 const SUFFIXED: integer = 1048576
-const RED: Color = Color::hex("#ff4040")
-const AMBER: Color = Color::hex("#ffb02e")
+const RED: color = #ff4040
+const AMBER: color = #ffb02e
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 

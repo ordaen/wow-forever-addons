@@ -19,13 +19,13 @@ public enum CalloutSide { Above, Below }
 // How it looks: framed, with a close glyph or without; or a chat bubble of one colour.
 public enum CalloutLook {
   Framed { closable: boolean }
-  Speech { tone: Color }
+  Speech { tone: color }
 }
 
 // As wide as what it says, up to its most: a long text wraps there.
 const MOST = 468.75dp
-const LABEL: Color = Color::hex("#cbb994")
-const GOLD: Color = Color::hex("#f0c860")
+const LABEL: color = #cbb994
+const GOLD: color = #f0c860
 // The client's help-tip arrow (65 by 28 px), pointing down as drawn; the gap from its point to the frame; how far the
 // bubble comes over the arrow's base, so they meet.
 const ARROW: Atlas = "helptip-arrow"
@@ -64,7 +64,7 @@ function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: number<Len
 }
 
 // A speech bubble's colour; nil for a framed callout.
-function toneOf(look: CalloutLook): Color | nil {
+function toneOf(look: CalloutLook): color | nil {
   match (look) {
     .Framed => return nil
     .Speech => return look.tone
@@ -82,7 +82,7 @@ function closableOf(look: CalloutLook): boolean {
 public class Callout implements Component {
   public close: Event<nil> = new Event()
 
-  derived tone: Color | nil = toneOf(self.look)
+  derived tone: color | nil = toneOf(self.look)
   derived speech: boolean = self.tone != nil
   derived framed: boolean = !self.speech
   derived closable: boolean = closableOf(self.look)
@@ -93,7 +93,7 @@ public class Callout implements Component {
   derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight, self.speech ? TAIL_MEET : MEET)
   derived turn: number<Angle> = self.side == CalloutSide::Above ? 0deg : 180deg
   derived hasText: boolean = self.text != ""
-  derived arrowTint: Color = self.tone ?? GOLD
+  derived arrowTint: color = self.tone ?? GOLD
 
   by: Signal<any Frame>
   title: Signal<string>

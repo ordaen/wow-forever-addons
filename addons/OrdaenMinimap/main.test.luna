@@ -24,11 +24,11 @@ const MAIL: Atlas = "ui-hud-minimap-mail-up"
 const DETAILS: Asset = "Interface/Icons/Details"
 const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 // The zone's colours by its PvP status, and the strips' ink.
-const GOLD: Color = Color::hex("#ffd100")
-const INK: Color = Color::hex("#f3e1b8")
-const PENDING: Color = Color::hex("#ff9a2e")
+const GOLD: color = #ffd100
+const INK: color = #f3e1b8
+const PENDING: color = #ff9a2e
 // A tooltip's hotkeys' colour.
-const HOTKEY: Color = Color::hex("#857a66")
+const HOTKEY: color = #857a66
 
 // One of the game's own frames.
 function frame(name: string, shown: boolean): any Client::Frame {
@@ -206,16 +206,16 @@ test "the game's parts the minimap replaces stay out of sight when the game show
 
 test "the zone's name is in the colour of its PvP status" {
   Test::mount(nil, SCREEN)
-  const zone = (): Color => minimap().text(ZONE).textColor()
-  Test::expect(zone().equal(Color::hex("#1aff1a")))
+  const zone = (): color => minimap().text(ZONE).textColor()
+  Test::expect(zone().equal(#1aff1a))
   Game::location.pvp = Game::Pvp::Sanctuary
-  Test::expect(zone().equal(Color::hex("#69ccf0")))
+  Test::expect(zone().equal(#69ccf0))
   Game::location.pvp = Game::Pvp::Hostile
-  Test::expect(zone().equal(Color::hex("#ff1a1a")))
+  Test::expect(zone().equal(#ff1a1a))
   Game::location.pvp = Game::Pvp::Combat
-  Test::expect(zone().equal(Color::hex("#ff1a1a")))
+  Test::expect(zone().equal(#ff1a1a))
   Game::location.pvp = Game::Pvp::Contested
-  Test::expect(zone().equal(Color::hex("#ffb300")))
+  Test::expect(zone().equal(#ffb300))
   Game::location.pvp = nil
   Test::expect(zone().equal(GOLD))
 }

@@ -8,7 +8,7 @@ import Events from "$events"
 import { say, upgradeText } from "Ordaen"
 import Locale from "@/locales"
 
-const CAPTION: Color = Color::hex("#ffd100")
+const CAPTION: color = #ffd100
 
 public class AutoEquip {
   // The reward waiting to be put on, by its link, and how much better it is.

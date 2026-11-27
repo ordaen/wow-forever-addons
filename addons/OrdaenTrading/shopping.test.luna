@@ -16,10 +16,10 @@ const LINEN: integer = 2589
 const AXE: integer = 2847
 // The recipe, a spell's id, that makes a Bronze Axe.
 const BRONZE_AXE: integer = 2741
-const DIM: Color = Color::hex("#a3977f")
-const INK: Color = Color::hex("#e8dcc4")
+const DIM: color = #a3977f
+const INK: color = #e8dcc4
 // A row picked; a button that takes no click.
-const PICKED: Color = Color::hex("#00000040")
+const PICKED: color = #00000040
 
 function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == COPPER_BAR ? "Copper Bar" : id == AXE ? "Bronze Axe" : nil

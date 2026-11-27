@@ -48,16 +48,16 @@ public function qualityFrom(quality: Client::ItemQuality | nil): Quality {
 }
 
 // An item's name in its quality's colour, the game's (common: the light text of a dark well).
-public function qualityColor(quality: Quality): Color {
+public function qualityColor(quality: Quality): color {
   return match (quality) {
-    .Poor => Color::hex("#9d9d9d")
-    .Common => Color::hex("#f0e6d0")
-    .Uncommon => Color::hex("#1eff00")
-    .Rare => Color::hex("#0070dd")
-    .Epic => Color::hex("#a335ee")
-    .Legendary => Color::hex("#ff8000")
-    .Artifact => Color::hex("#e6cc80")
-    .Heirloom => Color::hex("#00ccff")
+    .Poor => #9d9d9d
+    .Common => #f0e6d0
+    .Uncommon => #1eff00
+    .Rare => #0070dd
+    .Epic => #a335ee
+    .Legendary => #ff8000
+    .Artifact => #e6cc80
+    .Heirloom => #00ccff
   }
 }
 
@@ -81,7 +81,7 @@ public enum SlotWell { Sunk, Crested, Framed }
 // A pip a module puts on an item's corner.
 public struct Marker {
   corner: Corner
-  color: Color
+  color: color
 }
 
 // A slot's well: sunk, near-black, the border round the slot; crested, the client's slot art with its own rim, the
@@ -89,7 +89,7 @@ public struct Marker {
 // shape, and an item's quality from uncommon up the rim's own colour: the theme's white copy of the rim over it, laid
 // out as the crest is, tinted. The art is the file's top left 41 of its 64 texels (as its templates cut it): the
 // whole file drawn that much larger, in a box that cuts it at the slot's edge.
-const WELL: Color = Color::hex("#0d0a08")
+const WELL: color = #0d0a08
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const CREST_WHOLE = 64 / 41
 const CREST_RIM = 3 / 41
@@ -99,26 +99,26 @@ const ICON_MASK: Asset = "Interface/Common/Common-IconMask"
 // darkened to sit with the client's empty-slot pictures (a common or poor item's, an empty slot's).
 const TALENT_FRAME: Atlas = "talents-node-square-gray"
 const TALENT_FRAME_RIM = 0.1
-const FRAME_UNLIT: Color = Color::hex("#5a5a5a")
-const NO_EDGE: Line = { width: 0dp, color: Color::hex("#00000000") }
-const CLEAR: Color = Color::hex("#00000000")
-const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#ffffff26"), focus: Color::hex("#ffffff26") }
-const UNTINTED: Color = Color::hex("#ffffff")
+const FRAME_UNLIT: color = #5a5a5a
+const NO_EDGE: Line = { width: 0dp, color: #00000000 }
+const CLEAR: color = #00000000
+const SHINE: ByInteractionState<color> = { default: CLEAR, hover: #ffffff26, focus: #ffffff26 }
+const UNTINTED: color = #ffffff
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
-public const UNUSABLE: Color = Color::hex("#ff1a1a")
-const COUNT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+public const UNUSABLE: color = #ff1a1a
+const COUNT_SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 const COUNT_PAD: Edges = { right: 1sp, bottom: 0.5sp }
 const EDGE = 2.34375dp
-const POOR: Line = { width: EDGE, color: Color::hex("#9d9d9d") }
-const COMMON: Line = { width: EDGE, color: Color::hex("#6c5535") }
-const UNCOMMON: Line = { width: EDGE, color: Color::hex("#1eff00") }
-const RARE: Line = { width: EDGE, color: Color::hex("#0070dd") }
-const EPIC: Line = { width: EDGE, color: Color::hex("#a335ee") }
-const LEGENDARY: Line = { width: EDGE, color: Color::hex("#ff8000") }
-const ARTIFACT: Line = { width: EDGE, color: Color::hex("#e6cc80") }
-const HEIRLOOM: Line = { width: EDGE, color: Color::hex("#00ccff") }
+const POOR: Line = { width: EDGE, color: #9d9d9d }
+const COMMON: Line = { width: EDGE, color: #6c5535 }
+const UNCOMMON: Line = { width: EDGE, color: #1eff00 }
+const RARE: Line = { width: EDGE, color: #0070dd }
+const EPIC: Line = { width: EDGE, color: #a335ee }
+const LEGENDARY: Line = { width: EDGE, color: #ff8000 }
+const ARTIFACT: Line = { width: EDGE, color: #e6cc80 }
+const HEIRLOOM: Line = { width: EDGE, color: #00ccff }
 const PIP = 8.203125dp
-const PIP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
+const PIP_EDGE: Line = { width: 1.171875dp, color: #000000 }
 const NONE: array<Marker> = []
 
 // One pip.
@@ -154,7 +154,7 @@ public class ItemButton implements Component {
   // class, skill, reputation) or a slot or kind it marks as not the player's. One the player can't use is tinted red
   // over its icon, as the game's own slots are.
   public derived usable: boolean = self.usableOf()
-  derived tint: Color = self.usable ? UNTINTED : UNUSABLE
+  derived tint: color = self.usable ? UNTINTED : UNUSABLE
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
@@ -168,14 +168,14 @@ public class ItemButton implements Component {
   derived crested: boolean = self.well == SlotWell::Crested
   derived talentFramed: boolean = self.well == SlotWell::Framed
   // The well's dark under the whole slot when sunk; inside the talent frame when framed; none in a crest.
-  derived floor: Color = self.sunk ? WELL : CLEAR
+  derived floor: color = self.sunk ? WELL : CLEAR
   derived crestSize: number<Length> = self.size * CREST_WHOLE
   // Where the icon stands inside the slot: inside the crest's rim or the talent frame, or edge to edge.
   derived inset: number<Length> = self.crested ? self.size * CREST_RIM : self.talentFramed ? self.size * TALENT_FRAME_RIM : 0dp
   // The border goes round the slot on a sunk well; a crest's rim and a talent frame are their own, coloured by an item's
   // quality.
   derived slotEdge: Line = self.sunk ? self.edge : NO_EDGE
-  derived frameTint: Color = self.lit ? self.edge.color : FRAME_UNLIT
+  derived frameTint: color = self.lit ? self.edge.color : FRAME_UNLIT
   derived framed: boolean = self.crested && self.lit
   derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 

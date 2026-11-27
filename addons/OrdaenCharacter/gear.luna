@@ -22,9 +22,9 @@ import Style from "@/style"
 // Durability under a quarter is red, as the game's armour figure turns it.
 const WORN_OUT = 0.25
 // The cooldown's run over a slot's icon, and the line round a slot the cursor's item goes in (the game lights its slot).
-const COOLING: Color = Color::hex("#000000a6")
-const FITS: Line = { width: 2.34375dp, color: Color::hex("#ffd100") }
-public const FITS_GLOW: Color = Color::hex("#ffd10040")
+const COOLING: color = #000000a6
+const FITS: Line = { width: 2.34375dp, color: #ffd100 }
+public const FITS_GLOW: color = #ffd10040
 // A chip's room round its word; the sets' «Save».
 const SAVE_WIDTH = 140dp
 const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
@@ -52,7 +52,7 @@ function dollWidthOf(slot: number<Length>): number<Length> {
 }
 
 // The durability bar's colour for what is left of an item.
-public function wearColor(left: number): Color { return left < WORN_OUT ? Style::RED : Style::GREEN }
+public function wearColor(left: number): color { return left < WORN_OUT ? Style::RED : Style::GREEN }
 
 // A slot of the paper doll, as the game's own slot takes the mouse: Left-click and a drag pick up what is worn and let
 // go there what the cursor holds, Ctrl+Left-click tries it on, Alt+Left-click opens what the bags hold for the slot
@@ -160,7 +160,7 @@ public class GearSlot implements Component {
   }
 }
 
-function resourceColor(resource: Resource): Color {
+function resourceColor(resource: Resource): color {
   return match (resource) {
     .Mana => Style::MANA
     .Rage => Style::RAGE
@@ -312,7 +312,7 @@ public class GearPage implements Component {
   derived fullName: string = self.who.surname != "" ? `${self.who.name} ${self.who.surname}` : self.who.name
   derived whoText: string = Locale::LEVEL_RACE.format(self.who.level, self.who.race)
   derived tag: string = self.classTag ?? Game::player.classTag
-  derived whoColor: Color = classColor(self.tag) ?? Style::GOLD
+  derived whoColor: color = classColor(self.tag) ?? Style::GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
   derived flyoutShown: boolean = self.flyoutSlot != nil
   // The player's own by its spec's weights; another's (inspected) as the game orders them.
@@ -326,7 +326,7 @@ public class GearPage implements Component {
   derived health: string = string::of(self.stats.health)
   derived power: string = self.stats.resource == Resource::Rage ? `0 / ${self.stats.power}` : string::of(self.stats.power)
   derived powerFilled: number = self.stats.resource == Resource::Rage ? 0 : 1
-  derived powerTint: Color = resourceColor(self.stats.resource)
+  derived powerTint: color = resourceColor(self.stats.resource)
   // The weapons' slots: a class that keeps a relic has the relic's well and name in the ranged slot.
   derived weapons: array<SlotSpec> = self.stats.relic ? RELIC_WEAPONS : WEAPONS
   derived healthRegen: array<Row> = healthRegenRows(self.stats)

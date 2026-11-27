@@ -31,8 +31,8 @@ test "the well's rim stands round the list and its rows are cut at the rim's inn
   Test::shot("scrolled")
 }
 
-const SHADE: Color = Color::hex("#30405a")
-const OTHER_SHADE: Color = Color::hex("#305a40")
+const SHADE: color = #30405a
+const OTHER_SHADE: color = #305a40
 
 // Two wells side by side, the same row in each: one whose rows bring their own padding, one whose rows don't.
 class Padded {

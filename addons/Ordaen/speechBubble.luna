@@ -23,9 +23,9 @@ public class SpeechBubble implements Component {
   derived tailLeft: number<Length> | nil = self.tail == BubbleTail::Start ? TAIL_IN : nil
   derived tailRight: number<Length> | nil = self.tail == BubbleTail::End ? TAIL_IN : nil
 
-  tone: Signal<Color>
+  tone: Signal<color>
   tail: Signal<BubbleTail>
-  constructor(tone: Signal<Color>, tail: Signal<BubbleTail> = BubbleTail::None) {
+  constructor(tone: Signal<color>, tail: Signal<BubbleTail> = BubbleTail::None) {
     self.tone = tone
     self.tail = tail
   }

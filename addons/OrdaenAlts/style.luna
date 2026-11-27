@@ -13,13 +13,13 @@ public const NO_ROOM: Edges = {}
 public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
 public const NOTE_ROOM: Edges = { right: 8sp, bottom: 4sp, left: 8sp }
 
-public const INK: Color = Color::hex("#e8dcc4")
-public const DIM: Color = Color::hex("#a3977f")
-public const GOLD: Color = Color::hex("#ffd100")
-public const RED: Color = Color::hex("#ff4040")
-public const GREEN: Color = Color::hex("#40d060")
+public const INK: color = #e8dcc4
+public const DIM: color = #a3977f
+public const GOLD: color = #ffd100
+public const RED: color = #ff4040
+public const GREEN: color = #40d060
 // The name of a character the playing one can't send to (one not played for a long time has its hours in red).
-public const AWAY: Color = Color::hex("#7a7060")
+public const AWAY: color = #7a7060
 
 // How long ago, from a number of hours: under a day in hours, then in days.
 public function ago(hours: integer): string {

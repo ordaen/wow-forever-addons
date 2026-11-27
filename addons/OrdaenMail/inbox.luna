@@ -67,7 +67,7 @@ public struct Group {
 public enum RowClick { Open = "open", Take = "take", Return = "return" }
 
 // By the days the row says: «3 d» is red whatever part of the fourth day is left.
-public function daysColor(letter: Game::MailLetter): Color { return letter.days.floor() <= URGENT_DAYS ? Style::RED : Style::DIM }
+public function daysColor(letter: Game::MailLetter): color { return letter.days.floor() <= URGENT_DAYS ? Style::RED : Style::DIM }
 
 public function daysText(letter: Game::MailLetter): string {
   return letter.days < 1 ? Locale::LESS_THAN_A_DAY : Locale::DAYS_LEFT.format(letter.days.floor())
@@ -122,7 +122,7 @@ public class LetterRow implements Component {
   derived hasMoney: boolean = self.letter.copper > 0
   derived hasCod: boolean = self.letter.cod > 0
   derived rows: array<TipRow> = tipRows(self.letter)
-  derived subjectInk: Color = self.letter.read ? Style::DIM : Style::INK
+  derived subjectInk: color = self.letter.read ? Style::DIM : Style::INK
 
   letter: Signal<Game::MailLetter>
   picked: Signal<integer>

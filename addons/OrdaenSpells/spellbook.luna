@@ -81,15 +81,15 @@ const LINES_APART: number<Spacing> = 1sp
 const SLOT = 46.875dp
 const ROW: array<Track> = [SLOT, { fr: 1 }]
 const CELL: array<Track> = [23.4375dp, { fr: 1 }]
-const CLEAR: Color = Color::hex("#00000000")
-const HOVER: Color = Color::hex("#ffffff0d")
+const CLEAR: color = #00000000
+const HOVER: color = #ffffff0d
 // A spell's row: lit under the cursor.
-const GROUND: ByInteractionState<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
+const GROUND: ByInteractionState<color> = { default: CLEAR, hover: HOVER, focus: HOVER }
 // The shade a cooldown lets fall over a spell's icon, and the mark of a pet's spell it casts by itself.
-const COOLING: Color = Color::hex("#000000a6")
+const COOLING: color = #000000a6
 // A spell cooling down is dimmed under the shade, as the game's buttons are.
-const DIMMED: Color = Color::hex("#0000004d")
-const AUTOCAST: array<Marker> = [{ corner: Corner::TopRight, color: Color::hex("#ffd100") }]
+const DIMMED: color = #0000004d
+const AUTOCAST: array<Marker> = [{ corner: Corner::TopRight, color: #ffd100 }]
 // What stands between the parts of what a spell's row says under its name.
 const BULLET = " • "
 const PAGE: array<Track> = ["max-content", { fr: 1 }]
@@ -217,7 +217,7 @@ function showSpellRow(frame: any Frame, spell: Game::SpellEntry) {
 
 // A spell's row: its slot, its name, and under it what its group doesn't say, a bullet between each.
 public class SpellRow implements Component {
-  derived ink: Color = self.spell.learned ? Style::INK : Style::DIM
+  derived ink: color = self.spell.learned ? Style::INK : Style::DIM
 
   spell: Signal<Game::SpellEntry>
   detail: Signal<string>
@@ -250,7 +250,7 @@ public class SpellTableRow implements Component {
   derived title: string = self.rank == nil ? self.spell.name : "%s (%s)".format(self.spell.name, self.rank ?? "")
   derived kind: string = self.spell.passive ? Locale::PASSIVE : Locale::ACTIVE
   derived level: string = string::of(self.spell.level)
-  derived ink: Color = self.spell.learned ? Style::INK : Style::DIM
+  derived ink: color = self.spell.learned ? Style::INK : Style::DIM
 
   spell: Signal<Game::SpellEntry>
   line: Signal<string>

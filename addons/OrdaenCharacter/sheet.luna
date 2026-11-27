@@ -852,8 +852,8 @@ public function standingName(standing: integer): string {
 }
 
 // A standing's colour as the client's reputation bar fills it (`FACTION_BAR_COLORS`); neutral's where it has none.
-const NEUTRAL: Color = { r: 0.9, g: 0.7, b: 0, a: 1 }
-public function standingColor(standing: integer): Color {
+const NEUTRAL: color = { r: 0.9, g: 0.7, b: 0, a: 1 }
+public function standingColor(standing: integer): color {
   const color = Client::FACTION_BAR_COLORS[standing]
   if (color == nil) { return NEUTRAL }
   return { r: color.r, g: color.g, b: color.b, a: 1 }

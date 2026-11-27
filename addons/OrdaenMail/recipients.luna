@@ -14,7 +14,7 @@ public struct Recipient {
   name: string
   level: integer
   online: boolean
-  color: Color | nil
+  color: color | nil
   source: Source
   group: string
 }

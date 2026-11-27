@@ -236,7 +236,7 @@ test "turned off in Ordaen's settings, the module puts the menu back as Blizzard
 test "a plate's label is gold, and white under the cursor" {
   Test::mount(nil, SCREEN)
   escape()
-  Test::expect(plate("Options").text("Options").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(plate("Options").text("Options").textColor().equal(#ffd100))
   plate("Options").hover()
   Test::expect(plate("Options").text("Options").textColor().equal(BRIGHT_TEXT))
 }

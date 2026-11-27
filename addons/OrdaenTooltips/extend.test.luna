@@ -36,7 +36,7 @@ class Said implements ItemLines {
   }
 
   public lines(item: integer, link: string): array<Line> {
-    return [{ left: self.label, color: Color::hex("#40ff40") }]
+    return [{ left: self.label, color: #40ff40 }]
   }
 }
 
@@ -44,7 +44,7 @@ class Said implements ItemLines {
 class Mined implements ObjectLines {
   public lines(name: string): array<Line> {
     if (name != "Copper Vein") { return [] }
-    return [{ left: "Copper Ore", right: "2–4", rightColor: Color::hex("#ffd100") }, { left: "Rough Stone", indent: true }]
+    return [{ left: "Copper Ore", right: "2–4", rightColor: #ffd100 }, { left: "Rough Stone", indent: true }]
   }
 }
 
@@ -155,7 +155,7 @@ test "what is worth, what an item is for and where it is stand in that order, wh
   Game::tooltip.main = showing(ore())
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction 12g | Used in Bronze Bar | Held by Ann"))
-  Test::expect(Test::page().text("Held by Ann").textColor().equal(Color::hex("#40ff40")))
+  Test::expect(Test::page().text("Held by Ann").textColor().equal(#40ff40))
   destroy held
   destroy uses
   destroy worth
@@ -169,7 +169,7 @@ test "an item's rows aren't asked for a world object, and its rows stand in the 
   Game::tooltip.main = showing(vein("Copper Vein"))
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Copper Vein"), "Copper Vein | Copper Ore | 2–4 | Rough Stone"))
-  Test::expect(Test::page().text("2–4").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(Test::page().text("2–4").textColor().equal(#ffd100))
   Test::expect(asked == 0)
   destroy worth
   destroy gives
@@ -216,7 +216,7 @@ test "a world object has none of an item's hotkeys" {
 // A row of the test's own in one colour, its value with none of its own.
 class Tinted implements ItemLines {
   public lines(item: integer, link: string): array<Line> {
-    return [{ left: "Sold for", right: "3g", color: Color::hex("#40ff40") }]
+    return [{ left: "Sold for", right: "3g", color: #40ff40 }]
   }
 }
 
@@ -225,7 +225,7 @@ test "an added row's value with no colour of its own is in its line's" {
   const added = Tooltips.worth.add(new Tinted())
   Game::tooltip.main = showing(ore())
   Test::pass(SHOWS)
-  Test::expect(Test::page().text("3g").textColor().equal(Color::hex("#40ff40")))
+  Test::expect(Test::page().text("3g").textColor().equal(#40ff40))
   destroy added
 }
 
@@ -295,10 +295,10 @@ test "a creature's quests: what it gives and takes first, then each objective it
   Test::expect(reads(Test::page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | [7] Princess Must Die! | [5] Report to Goldshire | The Fargodeep Mine | Boar Tusk | 1/3 | Boar Hide | 0/2 | Pie for Billy | Chunk of Boar Meat | 2/4"))
   Test::expect(Test::page().box("Interface/GossipFrame/ActiveQuestIcon").shown())
   Test::expect(Test::page().box("Interface/GossipFrame/AvailableQuestIcon").shown())
-  Test::expect(Test::page().text("Pie for Billy").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(Test::page().text("Pie for Billy").textColor().equal(#ffd100))
   hunted.loot()
   Test::pass(SHOWS)
-  Test::expect(Test::page().text("4/4").textColor().equal(Color::hex("#1eff00")))
+  Test::expect(Test::page().text("4/4").textColor().equal(#1eff00))
   creature = 114
   Game::tooltip.main = showing(boarTip())
   Test::pass(SHOWS)

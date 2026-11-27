@@ -15,7 +15,7 @@ import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH, SECONDARY_TEXT, WINDOW_ROOM } from
 // The picked tab: ruled on its top and sides, open at its foot. The others keep that room with a line that draws
 // nothing, so a tab's box is the same picked or not, and stand on the band's bottom line, drawn inside their foot. The
 // band's ends: that line.
-const CLEAR: Color = Color::hex("#00000000")
+const CLEAR: color = #00000000
 const OPEN: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Top, Side::Left, Side::Right] }
 const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: [Side::Top, Side::Left, Side::Right] }
 const FOOT: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Bottom] }
@@ -25,9 +25,9 @@ const UNRULED_RIGHT: Line = { width: RULE_WIDTH, color: CLEAR, sides: [Side::Top
 const EDGE: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Right] }
 const COLUMN_PAD: Edges = { left: 4sp }
 // A tab with nothing in it: its name dimmer, lighter under the cursor.
-const OFF: ByInteractionState<Color> = { default: Color::hex("#6b6150"), hover: Color::hex("#a3977f"), focus: Color::hex("#a3977f") }
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000033"), focus: Color::hex("#00000033") }
-const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
+const OFF: ByInteractionState<color> = { default: #6b6150, hover: #a3977f, focus: #a3977f }
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: #00000033, focus: #00000033 }
+const NAME: ByInteractionState<color> = { default: #a3977f, hover: #e8dcc4, focus: #e8dcc4 }
 const TAB_PAD: Edges = { top: 2.5sp, right: 6sp, bottom: 2.5sp, left: 6sp }
 // The band's room over what it holds, and at each side of what stands over the tabs (the window's own room).
 const BAND_PAD: Edges = { top: 4sp }
@@ -40,16 +40,16 @@ const NAME_ONLY: array<Track> = ["max-content"]
 // Vertical: the name takes the tab's width, the count at its right.
 const COUNTED_ACROSS: array<Track> = [{ fr: 1 }, "max-content"]
 const NAME_ACROSS: array<Track> = [{ fr: 1 }]
-const PILL: Color = Color::hex("#00000099")
+const PILL: color = #00000099
 const PILL_PAD: Edges = { right: 1sp, left: 1sp }
 
 // One tab of the band.
 public class Tab implements Component {
   derived picked: boolean = self.selected == self.index
   derived border: Line = self.picked ? self.vertical ? OPEN_RIGHT : OPEN : self.vertical ? UNRULED_RIGHT : UNRULED
-  derived foot: Color = self.picked ? CLEAR : RULE_COLOR
-  derived background: Art | ByInteractionState<Color> = self.picked ? Ordaen.art.window.wood : SHADE
-  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : self.off ? OFF : NAME
+  derived foot: color = self.picked ? CLEAR : RULE_COLOR
+  derived background: Art | ByInteractionState<color> = self.picked ? Ordaen.art.window.wood : SHADE
+  derived color: color | ByInteractionState<color> = self.picked ? BRIGHT_TEXT : self.off ? OFF : NAME
   derived counted: boolean = self.count != nil
   derived countText: string = string::of(self.count ?? 0)
   derived tracks: array<Track> = self.vertical ? self.counted ? COUNTED_ACROSS : NAME_ACROSS : self.counted ? COUNTED : NAME_ONLY

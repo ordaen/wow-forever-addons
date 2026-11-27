@@ -84,10 +84,10 @@ test "a heading's title and a title on a cut take the look's colour for them, an
   Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const gold = Ordaen.look.values.heading
   Test::expect(Test::page().text("Defense").textColor().g == gold.g && Test::page().text("Speed").textColor().g == gold.g)
-  Ordaen.look.change((values: mut Look): nil => { values.heading = Color::hex("#3366cc") })
+  Ordaen.look.change((values: mut Look): nil => { values.heading = #3366cc })
   Test::flush()
-  Test::expect(Test::page().text("Defense").textColor().b == Color::hex("#3366cc").b)
-  Test::expect(Test::page().text("Speed").textColor().b == Color::hex("#3366cc").b)
+  Test::expect(Test::page().text("Defense").textColor().b == #3366cc.b)
+  Test::expect(Test::page().text("Speed").textColor().b == #3366cc.b)
   Ordaen.look.change((values: mut Look): nil => { values.heading = gold })
   destroy page
 }
@@ -97,7 +97,7 @@ test "a heading's paint is tinted to show the look's paint colour on the wood, a
   Test::mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const paint = Ordaen.look.values.headingPaint
   // A green the wood can show at the paint's strength: its tint is worked back from it, drawn below.
-  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = Color::hex("#3c8a40") })
+  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = #3c8a40 })
   Test::flush()
   Test::note("the paint picked: #3c8a40")
   Test::shot("the heading's paint tinted for #3c8a40")

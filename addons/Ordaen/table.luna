@@ -80,20 +80,20 @@ function headOf(columns: array<Column>): Head {
   return { title: "", column: first, index: 1, count: columns.length, under: headsOf(columns, 1, columns.length, 1) }
 }
 
-const NAME: ByInteractionState<Color> = { default: Color::hex("#cbb994"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const PLAIN: Color = Color::hex("#a3977f")
-const GOLD: Color = Color::hex("#f0c860")
+const NAME: ByInteractionState<color> = { default: #cbb994, hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const PLAIN: color = #a3977f
+const GOLD: color = #f0c860
 // The lines of a table on the wood: between every two cells, collapsed onto their boundary; under each row.
-const LINE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: nil }
-const UNDER: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Bottom] }
+const LINE: Line = { width: 1.171875dp, color: #3e2f1d, sides: nil }
+const UNDER: Line = { width: 1.171875dp, color: #3e2f1d, sides: [Side::Bottom] }
 // The headings of a table on the wood: ruled over and under.
-const HEAD_RULES: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top, Side::Bottom] }
+const HEAD_RULES: Line = { width: 1.171875dp, color: #3e2f1d, sides: [Side::Top, Side::Bottom] }
 // A group's title in a well: a rule under it reaching across its columns.
-const GROUP_RULE: Line = { width: 1.171875dp, color: Color::hex("#5a4630"), sides: [Side::Bottom] }
-const LIGHT: Color = Color::hex("#d6a56b")
-const CLEAR: Color = Color::hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000033"), focus: Color::hex("#00000033") }
-const BACK: Color = Color::hex("#00000040")
+const GROUP_RULE: Line = { width: 1.171875dp, color: #5a4630, sides: [Side::Bottom] }
+const LIGHT: color = #d6a56b
+const CLEAR: color = #00000000
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: #00000033, focus: #00000033 }
+const BACK: color = #00000040
 // A cell's room: a row of one line of text is the line and half a line round it, a line and a half of the rhythm
 // whatever the density; at its sides half a row's step, so two texts side by side stand a step apart, the line between
 // them in the middle. A heading over the rows has a line's room over and under.
@@ -136,13 +136,13 @@ class Heading implements Component {
   derived padding: Edges = self.grouped ? CELL_PADDING : HEADING_PADDING
   // The light under it and the mark are always drawn, what isn't the state clear or at no opacity: only colours and
   // the mark's art tell the heading the rows are ordered by, and which way.
-  derived light: Color = self.picked ? LIGHT : CLEAR
+  derived light: color = self.picked ? LIGHT : CLEAR
   derived marked: number = self.picked ? 1 : 0
   derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: boolean = self.column.sortable == true
   derived markFirst: boolean = self.column.align == Align::End
-  derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
-  derived shade: Color | ByInteractionState<Color> = self.sortable ? SHADE : CLEAR
+  derived color: color | ByInteractionState<color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
+  derived shade: color | ByInteractionState<color> = self.sortable ? SHADE : CLEAR
 
   column: Signal<Column>
   const index: integer
@@ -208,7 +208,7 @@ class HeadGroup implements Component {
   derived wood: boolean = self.ground == Ground::Wood
   derived lines: Line | nil = self.wood ? LINE : nil
   derived titleRule: Line | nil = self.wood ? nil : GROUP_RULE
-  derived background: Color | nil = self.table && !self.wood ? BACK : nil
+  derived background: color | nil = self.table && !self.wood ? BACK : nil
   derived border: Line | nil = !self.table ? nil : self.wood ? HEAD_RULES : UNDER
 
   head: Signal<Head>
@@ -261,7 +261,7 @@ public class TableRow implements Component {
   public enter: Event<any Frame> = new Event()
   public leave: Event<nil> = new Event()
 
-  derived background: Color | ByInteractionState<Color> = self.selected ? BACK : SHADE
+  derived background: color | ByInteractionState<color> = self.selected ? BACK : SHADE
   derived wood: boolean = self.ground == Ground::Wood
   derived lines: Line | nil = self.wood ? LINE : nil
   derived rule: Line | nil = self.wood ? UNDER : nil
@@ -313,7 +313,7 @@ public class TableCell implements Component {
   column: Signal<Column | nil>
   align: Signal<Align | nil>
   padding: Signal<Edges>
-  background: Signal<Color | nil>
+  background: Signal<color | nil>
   const span: integer | nil
   constructor(
     // Its column: where what it holds stands.
@@ -322,7 +322,7 @@ public class TableCell implements Component {
     align: Signal<Align | nil> = nil,
     padding: Signal<Edges> = CELL_PADDING,
     // Its ground (a price the cheaper of two), under its room too.
-    background: Signal<Color | nil> = nil,
+    background: Signal<color | nil> = nil,
     // The columns it takes: one where none is said.
     span: integer | nil = nil
   ) {

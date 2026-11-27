@@ -7,8 +7,8 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Corner, ItemButton, Marker, Quality, SlotWell } from "@/itemButton"
 
-const SHOPPING: Marker = { corner: Corner::TopLeft, color: Color::hex("#ffd100") }
-const REAGENT: Marker = { corner: Corner::BottomLeft, color: Color::hex("#4fd1ff") }
+const SHOPPING: Marker = { corner: Corner::TopLeft, color: #ffd100 }
+const REAGENT: Marker = { corner: Corner::BottomLeft, color: #4fd1ff }
 const BOTH: array<Marker> = [SHOPPING, REAGENT]
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
@@ -170,7 +170,7 @@ test "an item the client says the player can't use is tinted red over its icon; 
 
   let page = new Bag()
   Test::mount(page, { left: 0, top: 0, width: 600, height: 200 })
-  Test::expect(Test::page().paintedWith(Color::hex("#ff1a1a")))
+  Test::expect(Test::page().paintedWith(#ff1a1a))
   Test::shot("the poor one (a level it needs) and the uncommon one (plate) tinted red, the others as they are")
   destroy page
 }
@@ -261,7 +261,7 @@ class Wells {
 
 test "a slot's well is sunk unless its user crests it: the client's slot art from its top left corner, no rim of ours" {
   Test::mount(new Wells(), { left: 0, top: 0, width: 300, height: 100 })
-  const sunk = Test::page().box(Color::hex("#0d0a08"))
+  const sunk = Test::page().box(#0d0a08)
   const crest = Test::page().box(CREST)
   Test::expect(sunk.count() == 1 && crest.count() == 1 && sunk.rect().left < crest.rect().left)
   // The whole file drawn 64/41 of the slot (its frame is the top left 41 of its 64 texels), cut at the slot's edge.
@@ -296,7 +296,7 @@ test "a crested slot holds its icon inside the crest's rim, the rim taking an un
   // The rim's white copy over the uncommon item's crest, in its colour, laid out as the crest is (from the slot's top
   // left corner, as large); none on the common one.
   const frame = Test::page().box(Ordaen.art.ctl.crestRim)
-  Test::expect(frame.count() == 1 && frame.paintedWith(Color::hex("#1eff00")))
+  Test::expect(frame.count() == 1 && frame.paintedWith(#1eff00))
   const crest = Test::page().box(CREST).nth(1).rect()
   Test::expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
 }
@@ -317,14 +317,14 @@ test "a framed slot has the client's talent frame over it, tinted in an uncommon
   Test::mount(new Framed(), { left: 0, top: 0, width: 400, height: 100 })
   const frames = Test::page().box("talents-node-square-gray")
   Test::expect(frames.count() == 2)
-  Test::expect(frames.nth(1).paintedWith(Color::hex("#1eff00")) && !frames.nth(2).paintedWith(Color::hex("#1eff00")))
+  Test::expect(frames.nth(1).paintedWith(#1eff00) && !frames.nth(2).paintedWith(#1eff00))
   const slot = frames.nth(1).rect()
   const icon = Test::page().box(HAMMER).nth(1).rect()
   const rim = (slot.right - slot.left) / 10
   Test::expect((icon.left - slot.left - rim).abs() < 0.5 && (slot.bottom - icon.bottom - rim).abs() < 0.5)
   // The light under the cursor inside the frame, as the icon is: never a square over the frame's curves.
   Test::page().box(HAMMER).nth(1).hover()
-  const light = Test::page().box(Color::hex("#ffffff26")).nth(1).rect()
+  const light = Test::page().box(#ffffff26).nth(1).rect()
   Test::expect(light.left == icon.left && light.top == icon.top && light.right == icon.right)
 }
 

@@ -210,12 +210,12 @@ test "an action out of range has its icon darkened and its key in red" {
   // Panel 2's second button shows slot 62: it goes out of range, and comes back.
   Test::event("ACTION_RANGE_CHECK_UPDATE", 62, false, true)
   Test::flush()
-  Test::expect(Test::page().text("S2").textColor().equal(Color::hex("#ff2020")))
-  Test::expect(Test::page().box(Color::hex("#000000")).opacity() == 0.6)
+  Test::expect(Test::page().text("S2").textColor().equal(#ff2020))
+  Test::expect(Test::page().box(#000000).opacity() == 0.6)
   Test::event("ACTION_RANGE_CHECK_UPDATE", 62, true, true)
   Test::flush()
   Test::expect(Test::page().text("S2").textColor().equal(BRIGHT_TEXT))
-  Test::expect(!Test::page().box(Color::hex("#000000")).shown())
+  Test::expect(!Test::page().box(#000000).shown())
 }
 
 test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {

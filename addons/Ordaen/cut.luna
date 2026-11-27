@@ -14,11 +14,11 @@ public const CUT: number<Length> = 9.375dp
 const ENTRY: number<Length> = 9.375dp
 // The paint's opacity over the wood where it is whole, and the wood's colour on average (window-wood.tga).
 const PAINT_OPACITY: number = 0.85
-const WOOD: Color = { r: 21 / 255, g: 13 / 255, b: 5 / 255, a: 1 }
+const WOOD: color = { r: 21 / 255, g: 13 / 255, b: 5 / 255, a: 1 }
 
 // What the white paint is tinted to show `seen` on the wood: worked back from it at the paint's opacity over the wood's
 // average, so a colour the grain shows through keeps its hue (a gold laid thin over brown would turn olive).
-function paintFor(seen: Color): Color {
+function paintFor(seen: color): color {
   const thin = 1 - PAINT_OPACITY
   return {
     r: ((seen.r - WOOD.r * thin) / PAINT_OPACITY).min(1).max(0),
@@ -51,8 +51,8 @@ class CutPiece implements Component {
 // top end in shadow where light from above can't reach. As high as its box; `SHORT_CUT` wide.
 const TEXEL: number<Length> = 1.171875dp
 public const SHORT_CUT: number<Length> = TEXEL * 5
-const SHORT_SHADOW: Color = Color::hex("#000000")
-const SHORT_LIP: Color = Color::hex("#1e1e1e")
+const SHORT_SHADOW: color = #000000
+const SHORT_LIP: color = #1e1e1e
 const SHORT_WALLS: array<number> = [0.7, 0.85, 0.85, 0.7]
 const SHORT_TOP_END: array<number> = [0.6, 0.35]
 
@@ -73,7 +73,7 @@ public class ShortCut implements Component {
 // `title` stands on it in the middle, the cut stopping short of it on each side.
 public class Groove implements Component {
   derived titled: boolean = self.title != ""
-  derived color: Color = Ordaen.look.values.heading
+  derived color: color = Ordaen.look.values.heading
 
   upright: Signal<boolean>
   title: Signal<string>
@@ -107,8 +107,8 @@ public class Groove implements Component {
 // column's end), else the divider.
 public class Cut implements Component {
   derived titled: boolean = self.title != ""
-  derived color: Color = Ordaen.look.values.heading
-  derived paint: Color = paintFor(Ordaen.look.values.headingPaint)
+  derived color: color = Ordaen.look.values.heading
+  derived paint: color = paintFor(Ordaen.look.values.headingPaint)
 
   title: Signal<string>
   constructor(title: Signal<string> = "") {

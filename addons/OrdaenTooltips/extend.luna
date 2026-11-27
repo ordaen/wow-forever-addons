@@ -8,8 +8,8 @@
 public struct Line {
   left: string
   right: string | nil = nil
-  color: Color | nil = nil
-  rightColor: Color | nil = nil
+  color: color | nil = nil
+  rightColor: color | nil = nil
   indent: boolean = false
   // What its label opens once the tooltip is locked and the cursor comes onto it: a list of its own.
   opens: Listing | nil = nil
@@ -26,7 +26,7 @@ public struct Listing {
 public struct Listed {
   left: string
   right: string | nil = nil
-  color: Color | nil = nil
+  color: color | nil = nil
   item: integer | nil = nil
 }
 

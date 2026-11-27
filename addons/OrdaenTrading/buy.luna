@@ -29,7 +29,7 @@ public struct Found {
   name: string
   // The name lowercased, as a search matches it.
   lower: string
-  color: Color
+  color: color
   listed: integer
   // The lowest price for one, and in a row of an item's folded variants the highest of their lowest (the lowest
   // itself in a variant's row).
@@ -95,17 +95,17 @@ const ITEM: array<Track> = ["max-content", { fr: 1 }]
 const PANEL: array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const PAIR: array<Track> = [{ fr: 1 }, "max-content"]
 const MENU_WIDTH = 246.09375dp
-const MENU_BACK: Color = Color::hex("#0a0806f7")
-const MENU_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
+const MENU_BACK: color = #0a0806f7
+const MENU_EDGE: Line = { width: 1.171875dp, color: #6c5535 }
 const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
-const MENU_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b33"), sides: [Side::Top] }
+const MENU_RULE: Line = { width: 1.171875dp, color: #d6a56b33, sides: [Side::Top] }
 const AFTER_RULE: Edges = { top: 2sp }
 // The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
 // it («Buy» asks that they hold it).
 const MOST_COUNT = 999999
 const STEP = 32.8125dp
 // The pip of an item on the shopping list.
-const LISTED_PIP: Color = Color::hex("#40c0ff")
+const LISTED_PIP: color = #40c0ff
 // The share's colours: a bargain under 90% of the market, dear over 100%.
 const CHEAP = 90
 const DEAR = 100
@@ -245,7 +245,7 @@ public function ageOf(quote: Quote | nil): number | nil {
 
 // The age column's text and colour: the hours under a day (a house's prices move by the hour), «< 1 h» for this
 // hour's; from a day the market's days (`ageText`: amber to the third day, dimmed after); nothing without a price.
-public function ageCell(quote: Quote | nil): (string, Color) {
+public function ageCell(quote: Quote | nil): (string, color) {
   if (quote == nil) { return ("", Style::DIM) }
   const hours = quote.age()
   if (hours < 1) { return (Locale::AGE_FRESH, Style::INK) }
@@ -255,7 +255,7 @@ public function ageCell(quote: Quote | nil): (string, Color) {
 }
 
 // The share's colour: green for a bargain, red where dear, the ink between.
-function shareColor(share: integer | nil): Color {
+function shareColor(share: integer | nil): color {
   if (share == nil) { return Style::DIM }
   if (share < CHEAP) { return Style::GREEN }
   if (share > DEAR) { return Style::RED }
@@ -330,11 +330,11 @@ class FoundRow implements Component {
   public act: Event<(RowAct, Found)> = new Event()
 
   derived age: string = self.ageTextOf()
-  derived ageInk: Color = self.ageInkOf()
+  derived ageInk: color = self.ageInkOf()
   derived priced: boolean = self.found.market != nil
   derived market: integer = self.found.market?.copper() ?? 0
   derived share: string = shareText(self.found.share)
-  derived shareInk: Color = shareColor(self.found.share)
+  derived shareInk: color = shareColor(self.found.share)
   derived ranged: boolean = self.found.high > self.found.low
 
   // The row's line: the table hands the row to another line as it scrolls.
@@ -367,7 +367,7 @@ class FoundRow implements Component {
     return text
   }
 
-  ageInkOf(): Color {
+  ageInkOf(): color {
     const (_, color) = ageCell(self.found.market)
     return color
   }

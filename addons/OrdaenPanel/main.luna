@@ -20,11 +20,11 @@ import Locale from "@/locales"
 import { BottomPage, GeneralPage, MicroPage, StatusPage } from "@/settings"
 import { XpBar } from "@/xpBar"
 
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 // The time while calendar invites wait.
-const PENDING: Color = Color::hex("#ff9933")
-const TEXT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
-const NO_SHADOW: Shadow = { color: Color::hex("#00000000"), x: 0ui, y: 0ui }
+const PENDING: color = #ff9933
+const TEXT_SHADOW: Shadow = { color: #000000, x: 1ui, y: -1ui }
+const NO_SHADOW: Shadow = { color: #00000000, x: 0ui, y: 0ui }
 // Under the metal along its inner side the content starts 4 further in.
 const EDGE_ROOM_TOP = 4ui
 // The metal's width along the inner side (Ordaen's `panel.edge`).
@@ -89,7 +89,7 @@ const ACCOUNT = "Ordaen Account"
 const SOCIAL_FOLDER = "OrdaenSocial"
 
 // The whispers' bubble: a plain round dot of Ordaen's violet, in the tone of the game's whisper pink.
-const WHISPERS_LOOK: CalloutLook = CalloutLook::Speech { tone: Color::hex("#8a4fd0") }
+const WHISPERS_LOOK: CalloutLook = CalloutLook::Speech { tone: #8a4fd0 }
 // The friends' button the whispers' bubble points at, while it shows.
 function bubbleBy(shown: boolean, button: any Frame | nil): array<any Frame> {
   return !shown || button == nil ? [] : [button]
@@ -274,7 +274,7 @@ public class Panel implements Module, App {
   public derived vertical: boolean = self.side == Side::Left || self.side == Side::Right
   public derived outline: integer = self.outlineOf()
   public derived shadow: Shadow = self.settings.values.shadow ? TEXT_SHADOW : NO_SHADOW
-  public derived clockColor: Color = Game::clock.invites > 0 ? PENDING : INK
+  public derived clockColor: color = Game::clock.invites > 0 ? PENDING : INK
 
   // The items off the panel, or all of them while the panel is off: each a free part of its own, which the
   // player places in Ordaen's placing mode. (The zone's name and the time aren't: off the panel they are the

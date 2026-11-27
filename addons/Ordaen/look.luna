@@ -56,36 +56,36 @@ public struct Look implements Plain {
   fontHeader: Font
   fontNumbers: NumbersFont
   fontBook: BookFont
-  accent: Color
+  accent: color
   // A section's title (a heading's, or one standing on a cut), and the paint of a heading's rule as it shows on the wood.
-  heading: Color
-  headingPaint: Color
+  heading: color
+  headingPaint: color
   barTexture: BarTexture
   barFrame: BarFrame
   animation: Animation
   // The palette every module colours with: each colour as a bar's fill, and as text.
-  red: Color
-  redText: Color
-  orange: Color
-  orangeText: Color
-  yellow: Color
-  yellowText: Color
-  green: Color
-  greenText: Color
-  cyan: Color
-  cyanText: Color
-  blue: Color
-  blueText: Color
-  violet: Color
-  violetText: Color
-  pink: Color
-  pinkText: Color
-  tan: Color
-  tanText: Color
-  white: Color
-  whiteText: Color
-  grey: Color
-  greyText: Color
+  red: color
+  redText: color
+  orange: color
+  orangeText: color
+  yellow: color
+  yellowText: color
+  green: color
+  greenText: color
+  cyan: color
+  cyanText: color
+  blue: color
+  blueText: color
+  violet: color
+  violetText: color
+  pink: color
+  pinkText: color
+  tan: color
+  tanText: color
+  white: color
+  whiteText: color
+  grey: color
+  greyText: color
   // Each class's colour of the palette.
   warrior: Hue
   paladin: Hue
@@ -102,7 +102,7 @@ public struct Look implements Plain {
 const ORDAEN: Look = {
   font: Font::FiraSans, fontHeader: Font::AlegreyaSC, fontNumbers: NumbersFont::PtSansNarrow, fontBook: BookFont::PtSerif,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
-  heading: Color::hex("#e8c35a"), headingPaint: Color::hex("#a8853a"),
+  heading: #e8c35a, headingPaint: #a8853a,
   barTexture: BarTexture::Flat, barFrame: BarFrame::Bezel, animation: Animation::Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
   orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },
@@ -157,7 +157,7 @@ public function presetOf(look: Look): Preset | nil {
 }
 
 // A colour of the palette as a look has it.
-public function hueColor(look: Look, hue: Hue): Color {
+public function hueColor(look: Look, hue: Hue): color {
   match (hue) {
     Hue::Red => return look.red
     Hue::Orange => return look.orange

@@ -65,7 +65,7 @@ public const CATALOGUE: array<Choice<string>> = [
   { value: "slotFirst", label: Locale::KIND_SLOT_FIRST }
 ]
 
-const DROP_EDGE: Line = { width: 1dp, color: Color::hex("#6c5535") }
+const DROP_EDGE: Line = { width: 1dp, color: #6c5535 }
 const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
 const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const BUTTON_WIDTH = 160dp

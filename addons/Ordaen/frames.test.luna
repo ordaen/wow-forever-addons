@@ -3,7 +3,7 @@
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
-const FILL: Color = Color::hex("#2a1d12")
+const FILL: color = #2a1d12
 
 class Small {
   public render(): Template {

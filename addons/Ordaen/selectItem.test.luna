@@ -3,16 +3,16 @@ import { MouseButton, Track } from "$ltml"
 import Test from "$test"
 import { SelectItem, selectedFill } from "@/selectItem"
 
-const GREEN: Color = Color::hex("#40c040")
-const ORANGE: Color = Color::hex("#ff8040")
+const GREEN: color = #40c040
+const ORANGE: color = #ff8040
 const NAME_COUNT: array<Track> = [{ fr: 1 }, "max-content"]
 
 class Sidebar {
   state picked = "Bags"
   state menus = 0
   // The items' own colours, as a list of recipes has them; the categories' are none.
-  const green: Color | nil = GREEN
-  const orange: Color | nil = ORANGE
+  const green: color | nil = GREEN
+  const orange: color | nil = ORANGE
 
   mut onBags(button: MouseButton) { self.picked = "Bags" }
   mut onCloak(button: MouseButton) {

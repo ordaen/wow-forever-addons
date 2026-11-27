@@ -5,7 +5,7 @@ import { Component, Section, SettingRow, Shown, ShownToggle, Switch } from "Orda
 import type { Layer } from "@/extend"
 import Locale from "@/locales"
 
-const RED: Color = Color::hex("#ff4040")
+const RED: color = #ff4040
 
 public struct Choices implements Plain {
   // The layers the player switched off, by their ids: one not named shows.

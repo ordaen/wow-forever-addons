@@ -7,11 +7,11 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { rowShade } from "@/pickRow"
 
-const GOLD: Color = Color::hex("#e8c35a")
+const GOLD: color = #e8c35a
 const MARK = 14.0625dp
 const COLUMNS: array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The whole row takes the click: it shades under the cursor and the keyboard's focus, as a list's row does.
-const SHADE: Color | ByInteractionState<Color> = rowShade(false)
+const SHADE: color | ByInteractionState<color> = rowShade(false)
 
 public class FoldCaption implements Component {
   public toggled: Event<nil> = new Event()

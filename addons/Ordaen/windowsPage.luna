@@ -14,7 +14,7 @@ import { KeptWindow, Occasion, WindowView } from "@/window"
 
 const SIDEBAR = 234.375dp
 const COLUMNS: array<Track> = [SIDEBAR, { fr: 1 }]
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 // How far the numbers go: a place from the screen's centre, a size of the body.
 const FAR = 4000
 const LEAST_SIZE = 100

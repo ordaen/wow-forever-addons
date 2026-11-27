@@ -44,11 +44,11 @@ public struct Line {
 public class CharacterRow implements Component {
   public forget: Event<CharacterId> = new Event()
 
-  derived name: Color = self.line.apart ? Style::AWAY : self.line.current ? Style::GOLD : Style::INK
-  derived seen: Color = self.line.stale ? Style::RED : Style::DIM
+  derived name: color = self.line.apart ? Style::AWAY : self.line.current ? Style::GOLD : Style::INK
+  derived seen: color = self.line.stale ? Style::RED : Style::DIM
   derived seenText: string = self.line.current ? Locale::NOW : Style::ago(self.line.away)
   derived bags: string = self.line.free < 0 ? "—" : string::of(self.line.free)
-  derived mail: Color = self.line.urgent ? Style::RED : Style::DIM
+  derived mail: color = self.line.urgent ? Style::RED : Style::DIM
 
   line: Signal<Line>
   constructor(line: Signal<Line>) {

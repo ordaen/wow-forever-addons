@@ -35,11 +35,11 @@ const FOOTER: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 const TREE_EMBLEM: number<Length> = 44dp
 const TREE_ROW: array<Track> = [TREE_EMBLEM, { fr: 1 }]
 const TREE_PAD: Edges = { top: 4sp, right: 4sp, bottom: 4sp, left: 6sp }
-const TREE_SHADE: ByInteractionState<Color> = { default: Color::hex("#00000000"), hover: Color::hex("#ffffff14") }
-const TREE_PICKED: Color = Color::hex("#00000059")
-const TREE_LIGHT: Color = Color::hex("#d6a56b")
-const CLEAR: Color = Color::hex("#00000000")
-const RULE: Color = Color::hex("#d6a56b33")
+const TREE_SHADE: ByInteractionState<color> = { default: #00000000, hover: #ffffff14 }
+const TREE_PICKED: color = #00000059
+const TREE_LIGHT: color = #d6a56b
+const CLEAR: color = #00000000
+const RULE: color = #d6a56b33
 
 // The reward track's art and sizes, the game's (`Blizzard_LegacyRewardTrack.xml`).
 const TRACK_BACK: Atlas = "Legacy-Rewards-Tracker-background"
@@ -74,8 +74,8 @@ const CHECK_WIDTH = 40ui
 const CHECK_HEIGHT = 35ui
 // Where each of the four cards stands along the bar, out of 100 (`STATIC_CARD_POSITION_TO_PROGRESS`).
 const CARD_AT: array<number> = [12, 38, 63, 88]
-const WHITE: Color = Color::hex("#ffffff")
-const DISABLED: Color = Color::hex("#7f7f7f")
+const WHITE: color = #ffffff
+const DISABLED: color = #7f7f7f
 
 // Whether the player has the reward track's first level: what opens every page.
 public function legacyOpen(): boolean { return Client::C_MajorFactions::GetCurrentRenownLevel(TRACK) > 0 }
@@ -147,9 +147,9 @@ function windowOf(levels: array<Level>, first: integer): array<Level> {
 public class TreeChoice implements Component {
   public pick: Event<integer> = new Event()
   derived picked: boolean = self.index == self.chosen
-  derived background: Color | ByInteractionState<Color> = self.picked ? TREE_PICKED : TREE_SHADE
-  derived light: Color = self.picked ? TREE_LIGHT : CLEAR
-  derived ink: Color = self.picked ? Style::WHITE_INK : Style::INK
+  derived background: color | ByInteractionState<color> = self.picked ? TREE_PICKED : TREE_SHADE
+  derived light: color = self.picked ? TREE_LIGHT : CLEAR
+  derived ink: color = self.picked ? Style::WHITE_INK : Style::INK
 
   tree: Signal<TreeKind>
   const index: integer
@@ -180,7 +180,7 @@ public class RewardCard implements Component {
   derived back: Atlas = self.level.last ? CARD_LAST : self.level.reached ? CARD_EARNED : CARD_LOCKED
   derived diamond: Atlas = self.level.reached ? DIAMOND : DIAMOND_LOCKED
   derived frame: Atlas = self.level.reached ? ICON_FRAME : ICON_FRAME_LOCKED
-  derived ink: Color = self.level.reached ? WHITE : DISABLED
+  derived ink: color = self.level.reached ? WHITE : DISABLED
 
   level: Signal<Level>
   constructor(level: Signal<Level>) { self.level = level }

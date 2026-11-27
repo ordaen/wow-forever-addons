@@ -7,8 +7,8 @@ import { Component } from "@/module"
 import { SessionRule } from "@/sessionRule"
 import { BubbleTail, SpeechBubble } from "@/speechBubble"
 
-const TONE: Color = Color::hex("#8c4d2ed6")
-const INK: Color = Color::hex("#e8dcc4")
+const TONE: color = #8c4d2ed6
+const INK: color = #e8dcc4
 
 // Three bubbles one under another: the first with no tail, the second's under its start, the third's under its end.
 class Said implements Component {

@@ -12,7 +12,7 @@ function friend(name: string, guid: string, online: boolean): Client::FriendInfo
   }
 }
 
-function sameColor(a: Color | nil, b: Color | nil): boolean {
+function sameColor(a: color | nil, b: color | nil): boolean {
   if (a == nil || b == nil) { return a == b }
   return a.equal(b)
 }

@@ -42,11 +42,11 @@ const MARK = 18.75dp
 const BUTTON = 140.625dp
 const PAD: Edges = { left: 3sp, right: 3sp }
 const CAP_PAD: Edges = { left: 2sp, right: 2sp, top: 0.5sp, bottom: 0.5sp }
-const CAP: Color = Color::hex("#ffffff14")
+const CAP: color = #ffffff14
 // The capture dialog, and its well: where the keys pressed show, and a mouse button or the wheel is taken.
 const CAPTURE_WIDTH = 539.0625dp
 const WELL = 58.59375dp
-const LIGHT: ByInteractionState<Color> = { default: Style::CLEAR, hover: Style::PICKED }
+const LIGHT: ByInteractionState<color> = { default: Style::CLEAR, hover: Style::PICKED }
 const DASH = "—"
 // The modifiers a key's name starts with, in the client's order.
 const MODIFIERS: array<string> = ["ALT", "CTRL", "SHIFT", "META"]

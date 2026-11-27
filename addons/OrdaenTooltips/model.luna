@@ -44,7 +44,7 @@ public function side(faction: string): Opens {
 // A piece of a title's line: the pieces are joined with « · », each in its colour.
 public struct Part {
   text: string
-  color: Color | nil
+  color: color | nil
   opens: Opens = Opens::None
 }
 
@@ -58,8 +58,8 @@ public struct Fact {
 public struct TextLine {
   left: string
   right: string | nil
-  color: Color | nil
-  rightColor: Color | nil
+  color: color | nil
+  rightColor: color | nil
   // A spell's or an aura's description: larger than a free line.
   desc: boolean | nil
   // A party member's progress under an objective: set in.
@@ -87,7 +87,7 @@ public struct Compared {
 public struct Note {
   left: string
   right: string | nil
-  valueColor: Color | nil
+  valueColor: color | nil
   // The icon before its label: a reagent's.
   icon: Art | nil = nil
   // What its label opens, and what its value does (the unit it names).
@@ -114,7 +114,7 @@ public struct Model {
   header: string | nil
   picture: Picture = Picture::None
   name: string
-  nameColor: Color
+  nameColor: color
   desc: array<Part>
   info: array<Part>
   facts: array<Fact>

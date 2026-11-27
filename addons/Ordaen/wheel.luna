@@ -52,7 +52,7 @@ public struct WheelItem {
   // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
   // blue without the power it costs (none: as it is); its cooldown's run.
   count: string
-  tone: Color | nil
+  tone: color | nil
   cooldown: FillDuration | nil
   // A submenu or a slot of several: how many items it holds (its band's segments, eight at most; 0: no band), and
   // the one the slice shows (0: none).
@@ -79,7 +79,7 @@ const MIDDLE_LINES = 3
 // A piece of the ring as large as the wheel, cut by its masks.
 struct Cut {
   art: Art
-  tint: Color
+  tint: color
   opacity: number
   masks: array<Mask>
 }
@@ -91,7 +91,7 @@ struct Edge {
   width: number<Length>
   height: number<Length>
   turn: number<Angle>
-  tint: Color
+  tint: color
   opacity: number
 }
 
@@ -125,7 +125,7 @@ const RIM = 2dp
 const OUTLINE_WIDTH = 1.5dp
 const LIT_WIDTH = 2dp
 // The icon aimed at, outlined.
-const ICON_LIT: Line = { width: LIT_WIDTH, color: Color::hex("#ffd100") }
+const ICON_LIT: Line = { width: LIT_WIDTH, color: #ffd100 }
 const SEPARATOR = 2dp
 const MIDDLE_TEXT = 140dp
 
@@ -134,7 +134,7 @@ const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
 // The client's bank stone, tiled at its size across the wheel, a little darker.
 const STONE: Piece = { file: "Interface/BankFrame/Bank-Background", width: 256, height: 256, repeatSize: 256 }
-const STONE_TINT: Color = Color::hex("#e6e6e6")
+const STONE_TINT: color = #e6e6e6
 // The masks: the right half of the wheel (turned, what lies clockwise of a direction for half a turn), the slices'
 // ring, a band's ring, the slices' curved edges, a band's inner edge.
 const HALF: Asset = "@/media/radial-half.tga"
@@ -149,16 +149,16 @@ const WARM: Asset = "@/media/radial-warm.tga"
 const CARVED: Asset = "@/media/radial-carve.tga"
 const MIDDLE_ART: Asset = "@/media/radial-middle.tga"
 
-const OUTLINE: Color = Color::hex("#3e2f1d")
-const GOLD: Color = Color::hex("#ffd100")
-const SHADOW: Color = Color::hex("#000000")
-const BRONZE: Color = Color::hex("#8c6a3f")
+const OUTLINE: color = #3e2f1d
+const GOLD: color = #ffd100
+const SHADOW: color = #000000
+const BRONZE: color = #8c6a3f
 // An icon in its hollow, a little darker than itself; aimed at, as it is.
-const HOLLOW: Color = Color::hex("#e0e0e0")
-const NAME: Color = Color::hex("#f3e1b8")
-const NAME_DIM: Color = Color::hex("#a3977f")
-const HINT: Color = Color::hex("#8a7d66")
-const WHITE: Color = Color::hex("#ffffff")
+const HOLLOW: color = #e0e0e0
+const NAME: color = #f3e1b8
+const NAME_DIM: color = #a3977f
+const HINT: color = #8a7d66
+const WHITE: color = #ffffff
 const DIM_OPACITY = 0.55
 // A band's segment not shown, over a slice not aimed at and over the one aimed at.
 const SEGMENT_OFF = 0.38
@@ -292,7 +292,7 @@ public class Wheel implements Component {
   }
 
   // A thin box along the direction `turn`, between two radii.
-  edge(turn: number<Angle>, from: number<Length>, to: number<Length>, width: number<Length>, tint: Color, opacity: number): Edge {
+  edge(turn: number<Angle>, from: number<Length>, to: number<Length>, width: number<Length>, tint: color, opacity: number): Edge {
     const r = turn / 1rad
     const scale = self.scale
     const out = (from + to) / 2 * scale

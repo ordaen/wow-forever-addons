@@ -8,9 +8,9 @@ import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { TITLE_TEXT } from "@/units"
 
-const TITLE: Color = Color::hex("#ffd100")
-const SHADOW: Shadow = { color: Color::hex("#000000b3"), x: 1.171875dp, y: -1.171875dp }
-const SHADE: Color = Color::hex("#0000008c")
+const TITLE: color = #ffd100
+const SHADOW: Shadow = { color: #000000b3, x: 1.171875dp, y: -1.171875dp }
+const SHADE: color = #0000008c
 const PLAIN: Edges = { top: 7sp, right: 7sp, bottom: 7sp, left: 7sp }
 const TITLED: Edges = { top: 13sp, right: 7sp, bottom: 7sp, left: 7sp }
 

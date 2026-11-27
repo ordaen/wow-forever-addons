@@ -60,8 +60,8 @@ public class CategoryRow implements Component {
 
   derived isChosen: boolean = self.chosen == self.group.id
   derived first: boolean = self.index == 1
-  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
-  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style::DIM
+  derived nameColor: color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
+  derived makeableColor: color | nil = self.group.makeable > 0 ? nil : Style::DIM
 
   group: Signal<Group>
   index: Signal<integer>
@@ -114,7 +114,7 @@ public class RecipeRow implements Component {
 
   derived isChosen: boolean = self.chosen == self.recipe.id
   derived first: boolean = self.index == 1
-  derived color: Color = Style::difficultyColor(self.recipe.difficulty)
+  derived color: color = Style::difficultyColor(self.recipe.difficulty)
   derived count: string = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
   derived starred: boolean = has(self.kept.favorites, self.recipe.id)
   derived padding: Edges = self.indent ? INDENT_PAD : RECIPE_PAD
@@ -174,8 +174,8 @@ public class CategoryGroup implements Component {
   state folded = false
   derived list: array<Game::Recipe> = members(self.shown, self.byCategory, self.group.id, self.kept.favorites)
   derived mark: string = self.folded ? "+" : "-"
-  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
-  derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style::DIM
+  derived nameColor: color | nil = self.group.id == FAVORITES ? nil : Style::GOLD
+  derived makeableColor: color | nil = self.group.makeable > 0 ? nil : Style::DIM
 
   group: Signal<Group>
   shown: Signal<array<Game::Recipe>>
@@ -235,7 +235,7 @@ public class RecipeTableRow implements Component {
   public act: Event<(Act, integer)> = new Event()
 
   derived isChosen: boolean = self.chosen == self.recipe.id
-  derived color: Color = Style::difficultyColor(self.recipe.difficulty)
+  derived color: color = Style::difficultyColor(self.recipe.difficulty)
   derived count: string = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived skill: string = self.facts?.skill == nil ? "—" : "%d".format(self.facts?.skill ?? 0)
   derived subtype: string = self.facts?.subtype ?? ""
@@ -250,7 +250,7 @@ public class RecipeTableRow implements Component {
   derived hasProfit: boolean = self.better?.profit != nil
   derived profit: integer = (self.better?.profit ?? 0).abs()
   derived losing: boolean = (self.better?.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style::RED : BRIGHT_TEXT
+  derived profitColor: color = self.losing ? Style::RED : BRIGHT_TEXT
 
   recipe: Signal<Game::Recipe>
   facts: Signal<TableFacts | nil>
@@ -324,7 +324,7 @@ public class ReagentRow implements Component {
   derived rule: Line | nil = self.index > 1 ? Style::ROW_RULE : nil
   derived item: integer | nil = self.reagent.itemID
   derived icon: Art | nil = self.reagent.icon
-  derived color: Color = self.reagent.have < self.reagent.need ? Style::RED : Style::INK
+  derived color: color = self.reagent.have < self.reagent.need ? Style::RED : Style::INK
 
   reagent: Signal<Game::Reagent>
   index: Signal<integer>

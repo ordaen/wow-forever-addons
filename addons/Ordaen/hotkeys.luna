@@ -5,8 +5,8 @@ import { Line, Side } from "$ltml"
 import { Component } from "@/module"
 import { SECONDARY_TEXT } from "@/units"
 
-const QUIET: Color = Color::hex("#857a66")
-const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Top] }
+const QUIET: color = #857a66
+const RULE: Line = { width: 1.171875dp, color: #d6a56b2e, sides: [Side::Top] }
 
 // The hotkeys of a frame of the game's that another module draws or binds (a button of the action bars), by the
 // frame's name: what a tooltip shown for that frame adds to its own. None where the frame isn't the module's.

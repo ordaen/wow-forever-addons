@@ -45,21 +45,21 @@ const BIG_BAG: FileId = 133644
 // A slot's crest (the client's slot art), every slot drawn on it, empty or not; a new item's glow; a protected slot's
 // padlock; a switched off tool's glyph.
 const WELL: Asset = "Interface/Buttons/UI-Slot-Background"
-const NEW_GLOW: Color = Color::hex("#ffd65a")
+const NEW_GLOW: color = #ffd65a
 const PADLOCK: Atlas = "QuestSharing-Padlock"
-const OFF: Color = Color::hex("#a3977f")
+const OFF: color = #a3977f
 // The text of a name and of a label, and a row under the cursor.
-const LABEL: Color = Color::hex("#a3977f")
-const INK: Color = Color::hex("#e8dcc4")
-const SHADE: Color = Color::hex("#00000059")
+const LABEL: color = #a3977f
+const INK: color = #e8dcc4
+const SHADE: color = #00000059
 // A tab: the one picked, and one with no item. A section's caption.
-const PICKED: Color = BRIGHT_TEXT
-const EMPTY: Color = Color::hex("#6b6150")
-const CAPTION: Color = Color::hex("#e8c35a")
+const PICKED: color = BRIGHT_TEXT
+const EMPTY: color = #6b6150
+const CAPTION: color = #e8c35a
 // The rims of the items' qualities, from poor to heirloom.
-const QUALITIES: array<Color> = [
-  Color::hex("#9d9d9d"), Color::hex("#6c5535"), Color::hex("#1eff00"), Color::hex("#0070dd"), Color::hex("#a335ee"),
-  Color::hex("#ff8000"), Color::hex("#e6cc80"), Color::hex("#00ccff")
+const QUALITIES: array<color> = [
+  #9d9d9d, #6c5535, #1eff00, #0070dd, #a335ee,
+  #ff8000, #e6cc80, #00ccff
 ]
 // How much of a dimmed slot shows.
 const DIMMED: number = 0.35

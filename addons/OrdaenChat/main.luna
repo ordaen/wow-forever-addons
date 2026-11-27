@@ -94,7 +94,7 @@ public class Chat implements Module, App {
   // the panel, so they stand above it.
   derived tabsLeast: number<Length> = Panel.portraitShown ? PORTRAIT_WIDTH : 0ui
   derived tabsFoot: number<Length> = Panel.portraitShown ? (PORTRAIT_HEIGHT - Panel.bottomRoom).max(0ui) : 0ui
-  derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
+  derived ground: color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
   derived inputAlways: boolean = self.settings.values.inputAlways
   derived between: number<Spacing> = self.settings.values.messageGap * 1sp
   // The lines' text: Ordaen's body text, as every module's, or the chat's own size (in UI units) where the player

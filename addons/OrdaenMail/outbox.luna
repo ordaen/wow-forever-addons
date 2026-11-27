@@ -45,7 +45,7 @@ const TOP: array<Track> = [{ fr: 1 }, "max-content"]
 const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const BAR: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 
-public function stateColor(state: SentState): Color {
+public function stateColor(state: SentState): color {
   return match (state) {
     SentState::Waiting => Style::DIM
     SentState::Sending => Style::GOLD

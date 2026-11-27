@@ -166,7 +166,7 @@ public class EntryRow implements Component {
   public pick: Event<string> = new Event()
 
   derived picked: boolean = self.entry.key == self.chosen
-  derived ink: Color = self.entry.owned ? Style::INK : Style::MISSING
+  derived ink: color = self.entry.owned ? Style::INK : Style::MISSING
 
   entry: Signal<Entry>
   chosen: Signal<string>
@@ -214,7 +214,7 @@ public class EntryTile implements Component {
 // A toy: the game's item button, a click on it using the toy (where the player has it and may), its tooltip the game's;
 // its name beside it in the rows' view.
 public class ToyRow implements Component {
-  derived ink: Color = self.entry.owned ? Style::INK : Style::MISSING
+  derived ink: color = self.entry.owned ? Style::INK : Style::MISSING
   derived action: Action | nil = self.entry.owned && self.entry.usable ? Action::UseItem { item: self.entry.id } : nil
 
   entry: Signal<Entry>

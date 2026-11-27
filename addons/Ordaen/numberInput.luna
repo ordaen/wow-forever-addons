@@ -40,20 +40,20 @@ const KNOB_W = 18.75dp
 // The band reaches half a knob past each end of the groove: the knob at either end lies inside it, whole to grab.
 const INSET = KNOB_W / 2
 const KNOB_H = 37.5dp
-const KNOB_SHADOW: Shadow = { color: Color::hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
+const KNOB_SHADOW: Shadow = { color: #0000008c, x: 0ui, y: 2.34375dp, size: 3.515625dp }
 // The field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 140.625dp
 const FIELD_HEIGHT = 30.46875dp
-const INK: Color = Color::hex("#e8dcc4")
-const FILL: Color = Color::hex("#00000080")
-const FIELD_EDGE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d") }
-const BAD: Line = { width: 1.171875dp, color: Color::hex("#c0463c") }
+const INK: color = #e8dcc4
+const FILL: color = #00000080
+const FIELD_EDGE: Line = { width: 1.171875dp, color: #3e2f1d }
+const BAD: Line = { width: 1.171875dp, color: #c0463c }
 const PADDING: Edges = { right: 3sp, left: 3sp }
 const DIGITS = 6
 // − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
 const STEP_HEIGHT = 39.84375dp
-const INK_STEP: ByInteractionState<Color> = { default: Color::hex("#ffd100"), disabled: Color::hex("#808080"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const STEP_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const INK_STEP: ByInteractionState<color> = { default: #ffd100, disabled: #808080, hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const STEP_SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 // How long typing pauses before what is typed is taken.
 const SETTLE = 0.6
 

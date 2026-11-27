@@ -71,7 +71,7 @@ public struct Offer {
   name: string
   count: integer
   recipes: array<CraftRecipe>
-  color: Color
+  color: color
 }
 
 // A profession of a character and what the bags hold for it.
@@ -85,7 +85,7 @@ public struct Section {
 public struct OwnRow {
   who: string
   name: string
-  color: Color | nil
+  color: color | nil
   sections: array<Section>
   items: integer
 }

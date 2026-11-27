@@ -6,12 +6,12 @@
 import { Align, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import { Component } from "@/module"
 
-const CLEAR: Color = Color::hex("#00000000")
+const CLEAR: color = #00000000
 // The list's gold: an item without a colour of its own is selected in it.
-const GOLD: Color = Color::hex("#f0c860")
-const GOLD_FILL: Color = Color::hex("#d6a56b3d")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
-const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [Side::Top] }
+const GOLD: color = #f0c860
+const GOLD_FILL: color = #d6a56b3d
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: #d6a56b1f, focus: #d6a56b1f }
+const RULE: Line = { width: 1.171875dp, color: #d6a56b14, sides: [Side::Top] }
 // How strong a colour's selected fill is.
 const FILL_ALPHA = 0.24
 const EDGE = 2.34375dp
@@ -19,7 +19,7 @@ const PADDING: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const ONE: array<Track> = [{ fr: 1 }]
 
 // The selected fill of an item of this colour.
-public function selectedFill(color: Color | nil): Color {
+public function selectedFill(color: color | nil): color {
   if (color == nil) { return GOLD_FILL }
   return { r: color.r, g: color.g, b: color.b, a: FILL_ALPHA }
 }
@@ -27,19 +27,19 @@ public function selectedFill(color: Color | nil): Color {
 public class SelectItem implements Component {
   public pick: Event<MouseButton> = new Event()
 
-  derived background: Color | ByInteractionState<Color> = self.selected ? selectedFill(self.color) : SHADE
-  derived edge: Color = self.color ?? GOLD
+  derived background: color | ByInteractionState<color> = self.selected ? selectedFill(self.color) : SHADE
+  derived edge: color = self.color ?? GOLD
   derived rule: Line | nil = self.first ? nil : RULE
 
   selected: Signal<boolean>
-  color: Signal<Color | nil>
+  color: Signal<color | nil>
   first: Signal<boolean>
   columns: Signal<array<Track>>
   padding: Signal<Edges>
   constructor(
     selected: Signal<boolean>,
     // The item's own colour (a recipe's difficulty): its selected fill and edge. None for the lists' gold.
-    color: Signal<Color | nil> = nil,
+    color: Signal<color | nil> = nil,
     // The list's first item: no rule above it.
     first: Signal<boolean> = false,
     // How what the slot holds is laid out: one column, or its own tracks (a name and a count).

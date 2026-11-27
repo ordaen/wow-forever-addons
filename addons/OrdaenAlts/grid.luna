@@ -27,7 +27,7 @@ const NAME_LEAST = 200dp
 const SKILL_LEAST = 170dp
 
 class SkillCell implements Component {
-  derived ink: Color = self.skill.rank < 0 ? Style::DIM : Style::INK
+  derived ink: color = self.skill.rank < 0 ? Style::DIM : Style::INK
 
   skill: Signal<Skill>
   constructor(skill: Signal<Skill>) { self.skill = skill }

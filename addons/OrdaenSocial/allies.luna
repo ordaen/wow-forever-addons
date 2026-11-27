@@ -121,7 +121,7 @@ class AllyRow implements Component {
 
   derived picked: boolean = self.chosen == self.ally.member.key
   derived level: string = string::of(self.ally.member.level)
-  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
+  derived background: color | ByInteractionState<color> = rowShade(self.picked)
 
   ally: Signal<RecentAlly>
   chosen: Signal<string>
@@ -245,7 +245,7 @@ public class AllyCard implements Component {
   derived canAsk: boolean = online(self.ally)
   derived daysLeft: integer = pinDaysLeft(self.ally, self.now)
   derived pinText: string = Locale::PIN_DAYS_LEFT.format(self.daysLeft)
-  derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style::RED : Style::INK
+  derived pinColor: color = self.daysLeft <= PIN_WARNING_DAYS ? Style::RED : Style::INK
 
   ally: Signal<RecentAlly>
   now: Signal<integer>

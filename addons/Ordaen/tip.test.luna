@@ -64,7 +64,7 @@ test "a tip goes when the list scrolls its box under the cursor, and comes back 
   destroy page
 }
 
-const GREEN: Color = Color::hex("#3fbf3f")
+const GREEN: color = #3fbf3f
 
 // A box whose Tip lists effects: a buff's value in its own colour, a plain row's in the names'.
 class Effects implements Component {
@@ -84,7 +84,7 @@ class Effects implements Component {
   }
 }
 
-const RED: Color = Color::hex("#bf3f3f")
+const RED: color = #bf3f3f
 
 // A box whose Tip has a section with a bar of shares: three parts red, one green.
 class Shares implements Component {

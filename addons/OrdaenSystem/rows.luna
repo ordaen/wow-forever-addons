@@ -53,7 +53,7 @@ const MARK = 18.75dp
 const TITLE: array<Track> = ["max-content", { fr: 1 }]
 // A row runs the list's full width, to the window's frame; what it says keeps the window's room.
 const PAD: Edges = { left: WINDOW_ROOM, right: WINDOW_ROOM }
-const LIGHT: ByInteractionState<Color> = { default: Style::CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
+const LIGHT: ByInteractionState<color> = { default: Style::CLEAR, hover: #d6a56b1f, focus: #d6a56b1f }
 const DASH = "—"
 
 // What a row's menu of quick actions offers.
@@ -112,7 +112,7 @@ public class LineRow implements Component {
   derived shown: Shown = self.line.caption ? self.groupShown() : shownOf(self.switched)
   derived said: string = self.sayOf()
   derived bad: boolean = self.badOf()
-  derived stateColor: Color = self.bad ? Style::RED : Style::DIM
+  derived stateColor: color = self.bad ? Style::RED : Style::DIM
   // A share, or -1 where the addon isn't measured.
   derived nowShare: number = self.load?.now ?? -1
   derived peakShare: number = self.load?.peak ?? -1
@@ -121,10 +121,10 @@ public class LineRow implements Component {
   derived kb: number = self.profiler.memory[self.line.name] ?? 0
   derived weight: string = self.loaded ? memory(self.kb) : DASH
   derived loaded: boolean = self.status?.loaded == true
-  derived nowColor: Color = self.nowShare > 0 && self.nowShare >= self.hot.now ? Style::HOT : Style::INK
-  derived peakColor: Color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style::HOT : Style::INK
-  derived weightColor: Color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style::HOT : Style::INK
-  derived background: Color | ByInteractionState<Color> = self.line.name == self.picked ? Style::PICKED : LIGHT
+  derived nowColor: color = self.nowShare > 0 && self.nowShare >= self.hot.now ? Style::HOT : Style::INK
+  derived peakColor: color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style::HOT : Style::INK
+  derived weightColor: color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style::HOT : Style::INK
+  derived background: color | ByInteractionState<color> = self.line.name == self.picked ? Style::PICKED : LIGHT
   derived indent: Edges = { left: self.line.child ? Style::INDENT : 0sp }
   derived notes: string = plain(self.addon?.notes ?? "")
   derived tipShown: boolean = self.hovered && self.notes != ""

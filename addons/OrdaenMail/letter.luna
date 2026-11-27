@@ -15,7 +15,7 @@ import Style from "@/style"
 
 const SLOT = 42.1875dp
 // The green the game's tooltips give a gain.
-const RAISE: Color = Color::hex("#1eff00")
+const RAISE: color = #1eff00
 const REWARD: array<Track> = [SLOT, { fr: 1 }, "max-content"]
 const MONEY: array<Track> = [{ fr: 1 }, "max-content"]
 const FOOT: array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
@@ -80,7 +80,7 @@ public class Attachment implements Component {
 
 // What the client says of an item: its quality's colour, its kind and slot, what a merchant gives for one.
 public struct AttachmentInfo {
-  color: Color
+  color: color
   kind: string
   price: integer
 }

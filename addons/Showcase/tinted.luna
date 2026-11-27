@@ -3,12 +3,12 @@
 import { ColorPicker, Component } from "Ordaen"
 
 public struct Tints {
-  frame: Color
-  text: Color
+  frame: color
+  text: color
 }
 
 public class Tinted implements Component {
-  state tints: mut Tints = mut { frame: Color::hex("#804020"), text: Color::hex("#f3e1b8") }
+  state tints: mut Tints = mut { frame: #804020, text: #f3e1b8 }
 
   public render(): Template {
     return $ltml {

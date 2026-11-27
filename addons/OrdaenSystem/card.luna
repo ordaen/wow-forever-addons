@@ -18,7 +18,7 @@ const PAIR: array<Track> = ["max-content", { fr: 1 }]
 const SECTION: Edges = { top: 3sp }
 // What it says, scrolling in the room left; its buttons under it.
 const CARD_ROWS: array<Track> = [{ fr: 1 }, "max-content"]
-const LINK: Color = Color::hex("#d6b878")
+const LINK: color = #d6b878
 const DASH = "—"
 const LOAD_TIP: TipText = { title: Locale::LOAD_NOW, text: Locale::IN_COMBAT, rows: [] }
 
@@ -27,7 +27,7 @@ public struct Named {
   name: string
   title: string
   state: string
-  color: Color
+  color: color
 }
 
 // One label and its value on the card.
@@ -75,7 +75,7 @@ public class Card implements Component {
   derived icon: Art = self.iconOf()
   derived stateText: string = self.stateTextOf()
   // Off, dim as its row says it; refused, red; loaded or waiting, green.
-  derived stateColor: Color = self.status?.enabled == .Off ? Style::DIM : self.status?.reason != nil ? Style::RED : Style::GREEN
+  derived stateColor: color = self.status?.enabled == .Off ? Style::DIM : self.status?.reason != nil ? Style::RED : Style::GREEN
   derived needs: array<Named> = self.namedOf(self.addon?.needs ?? [])
   derived wants: array<Named> = self.namedOf(self.addon?.wants ?? [])
   derived neededBy: array<Named> = self.namedOf(self.catalog.neededBy[self.name] ?? [])

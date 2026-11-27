@@ -15,11 +15,11 @@ public class CountBadge implements Component {
   derived toned: boolean = self.tone != nil
 
   count: Signal<integer>
-  tone: Signal<Color | nil>
+  tone: Signal<color | nil>
   constructor(
     count: Signal<integer>,
     // The pill's colour, the tone of what it counts; none: the art's own.
-    tone: Signal<Color | nil> = nil
+    tone: Signal<color | nil> = nil
   ) {
     self.count = count
     self.tone = tone

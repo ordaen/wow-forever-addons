@@ -10,10 +10,10 @@ const START = 1790002800
 const LINEN: integer = 2589
 const ORE: integer = 2770
 const BOLT: integer = 2996
-const GREEN: Color = Color::hex("#40c040")
-const RED: Color = Color::hex("#ff4040")
-const GOLD: Color = Color::hex("#ffd100")
-const DIM: Color = Color::hex("#a3977f")
+const GREEN: color = #40c040
+const RED: color = #ff4040
+const GOLD: color = #ffd100
+const DIM: color = #a3977f
 
 function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == BOLT ? "Bolt of Linen Cloth" : nil

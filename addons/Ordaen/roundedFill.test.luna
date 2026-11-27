@@ -2,7 +2,7 @@
 import Test from "$test"
 import { RoundedFill } from "@/roundedFill"
 
-const DARK: Color = Color::hex("#000000cc")
+const DARK: color = #000000cc
 
 class Filled {
   public render(): Template {

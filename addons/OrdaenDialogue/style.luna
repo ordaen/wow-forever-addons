@@ -9,16 +9,16 @@ public const WIDTH: number<Length> = 515.625dp + FRAME_ACROSS
 public const HEIGHT: number<Length> = 820.3125dp
 
 // On the parchment.
-public const INK: Color = SCROLL_INK
-public const INK_HEAD: Color = SCROLL_HEAD
-public const INK_DIM: Color = SCROLL_DIM
+public const INK: color = SCROLL_INK
+public const INK_HEAD: color = SCROLL_HEAD
+public const INK_DIM: color = SCROLL_DIM
 // In the well.
-public const TEXT: Color = WELL_TEXT
-public const NAME: Color = Color::hex("#ffd100")
-public const DIM: Color = WELL_DIM
-public const RED: Color = WELL_RED
-public const GREEN: Color = WELL_GREEN
-public const GOLD: Color = WELL_GOLD
+public const TEXT: color = WELL_TEXT
+public const NAME: color = #ffd100
+public const DIM: color = WELL_DIM
+public const RED: color = WELL_RED
+public const GREEN: color = WELL_GREEN
+public const GOLD: color = WELL_GOLD
 public const RULE: Line = WELL_RULE
-public const GROUP_TAG: Color = Color::hex("#7a1e00")
+public const GROUP_TAG: color = #7a1e00
 public const ICON: number<Length> = 18.75dp

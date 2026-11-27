@@ -19,8 +19,8 @@ import { Refusal, Refused, Shared, read, write } from "@/share"
 import { TextBox } from "@/textBox"
 import { TextField } from "@/textField"
 
-const INK: Color = Color::hex("#e8dcc4")
-const DIM: Color = Color::hex("#a3977f")
+const INK: color = #e8dcc4
+const DIM: color = #a3977f
 const BUTTONS: array<Track> = ["max-content", "max-content", "max-content", "max-content"]
 const CONFIRM_WIDTH = 567.1875dp
 // The specialisations a class has in the game: three trees.
@@ -39,7 +39,7 @@ struct Offer {
 // A line of the import's preview: a module in the text and what taking it would do.
 struct Line {
   text: string
-  color: Color
+  color: color
 }
 
 // A profile's name chosen of the profiles there are now. A `Dropdown` keeps the choices it was made with, so this one is
@@ -109,8 +109,8 @@ class TickRow implements Component {
 // A line of text.
 class Note implements Component {
   text: Signal<string>
-  color: Signal<Color>
-  constructor(text: Signal<string>, color: Signal<Color>) {
+  color: Signal<color>
+  constructor(text: Signal<string>, color: Signal<color>) {
     self.text = text
     self.color = color
   }
@@ -182,7 +182,7 @@ public class ProfilesPage implements Component {
   derived exportKeys: array<string> = keysOf(self.profiles.kept.profiles[self.profiles.active])
   derived copyKeys: array<string> = keysOf(self.profiles.kept.profiles[self.source])
   derived lines: array<Line> = self.linesOf()
-  derived red: Color = Ordaen.look.values.redText
+  derived red: color = Ordaen.look.values.redText
   derived asking: boolean = self.ask != Ask::None
   derived askingDelete: boolean = self.ask == Ask::Delete
   derived askingReset: boolean = self.ask == Ask::Reset

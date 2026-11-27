@@ -18,8 +18,8 @@ const TIN = 3304
 const BRONZE = 2659
 const SILVER = 2658
 const GOLD = 3308
-const INK: Color = Color::hex("#e8dcc4")
-const DIM: Color = Color::hex("#a3977f")
+const INK: color = #e8dcc4
+const DIM: color = #a3977f
 
 function recipe(id: integer, name: string, difficulty: Game::Difficulty, craftable: integer, learned: boolean): Game::Recipe {
   return {
@@ -86,7 +86,7 @@ const TITLES: array<string> = ["Recipes", "What to learn next", "Needed for the 
 const TABS: array<string> = ["Mining", "Fishing", "Enchanting", "Cooking", "First Aid"]
 
 // Whether two colours are the same as the client keeps them (to three places).
-function near(a: Color, b: Color): boolean {
+function near(a: color, b: color): boolean {
   return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
 }
 

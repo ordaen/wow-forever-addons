@@ -19,10 +19,10 @@ test "a spell's band reads its cost and range, its cast and its cooldown, the co
     line("Frostbolt", "Rank 4", NAME), line("65 Mana", "30 yd range"), line("2.5 sec cast", "Cooldown: 10 sec"),
     line("Launches a bolt of frost.", nil, DESCRIPTION)
   ]
-  const band = bandOf(lines, { amount: 65, resource: .Mana, color: Color::hex("#0000ff") })
+  const band = bandOf(lines, { amount: 65, resource: .Mana, color: #0000ff })
   Test::expect(said(band) == "65 | 30 yd | 2.5 sec | CD 10 sec")
   const cost = band.facts[1]
-  Test::expect(cost?.glyph == Glyph::Cost && cost?.tint?.equal(Color::hex("#2f6fe0")) == true)
+  Test::expect(cost?.glyph == Glyph::Cost && cost?.tint?.equal(#2f6fe0) == true)
   Test::expect(band.facts[3]?.kind == .CastTime && band.facts[4]?.kind == .Cooldown)
   // The lines it took, and none other.
   Test::expect(band.taken[2] == true && band.taken[3] == true && band.taken[1] == nil && band.taken[4] == nil)
@@ -44,7 +44,7 @@ test "a line after the description is no cell, nor reagents among the first" {
   Test::expect(band.facts.length == 0)
 }
 
-const CELLS: array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color::hex("#2f6fe0") }, { text: "2.5 sec", glyph: .CastTime }]
+const CELLS: array<BandFact> = [{ text: "65", glyph: .Cost, tint: #2f6fe0 }, { text: "2.5 sec", glyph: .CastTime }]
 
 // Two cells, the second one explaining while `lit`.
 class Cells {

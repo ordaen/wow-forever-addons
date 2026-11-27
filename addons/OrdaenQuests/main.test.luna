@@ -218,7 +218,7 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   Test::expect(window.text("Ratchet").shown() && window.text("-25 Rep.").shown())
   // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
-  Test::expect(window.text("Next quest").shown() && next.textColor().equal(Color::hex("#ffd100")))
+  Test::expect(window.text("Next quest").shown() && next.textColor().equal(#ffd100))
   Test::expect(next.rect().top > window.text("Objectives").rect().bottom)
   // The giver and the turn-in aren't named on the page.
   Test::expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
@@ -726,14 +726,14 @@ test "one list leaves the headers out; by title orders it" {
 test "the count stands in the footer under its dim label, and red once the log is full" {
   const log = standing()
   opened(log)
-  Test::expect(Test::page().window("World").text("In the log").textColor().equal(Color::hex("#a3977f")))
+  Test::expect(Test::page().window("World").text("In the log").textColor().equal(#a3977f))
   const counted = Test::page().window("World").text("3/25")
-  Test::expect(counted.textColor().equal(Color::hex("#e8dcc4")))
+  Test::expect(counted.textColor().equal(#e8dcc4))
   for (id of 1..22) { log.push(quest(200 + id, `Quest ${id}`, "Westfall")) }
   // The client says its log changed.
   Test::questLog(log)
   Test::flush()
-  Test::expect(Test::page().window("World").text("25/25").textColor().equal(Color::hex("#ff4040")))
+  Test::expect(Test::page().window("World").text("25/25").textColor().equal(#ff4040))
 }
 
 test "the window's one tab is «Quests» with the game's quest log book; its kinds are sub-tabs, each with its count" {
@@ -821,7 +821,7 @@ test "a row is its level and its title, no bullet between; a level of one digit 
   // Level 14 is its «1» and «4», level 7 an unseen «0» and its «7», each in the level's colour.
   const said = window.text("The Defias Brotherhood").item().texts()
   Test::expect(said[1] == "1" && said[2] == "4" && said[3] == "The Defias Brotherhood")
-  Test::expect(!window.text("7").textColor().equal(Color::hex("#a3977f")))
+  Test::expect(!window.text("7").textColor().equal(#a3977f))
   const two = window.text("The Defias Brotherhood").rect()
   const one = window.text("Elwynn Wolves").rect()
   Test::expect((two.left - one.left).abs() < 0.01)
@@ -872,10 +872,10 @@ test "with the game's difficulty colours off (the world map's filter), a level i
   const window = Test::page().window("World")
   // Level 14's «4».
   const coloured = window.text("4").nth(1).textColor()
-  Test::expect(!coloured.equal(Color::hex("#e8dcc4")))
+  Test::expect(!coloured.equal(#e8dcc4))
   Test::cvar("showQuestDifficultyColor", "0")
   Test::flush()
-  Test::expect(window.text("4").nth(1).textColor().equal(Color::hex("#e8dcc4")))
+  Test::expect(window.text("4").nth(1).textColor().equal(#e8dcc4))
   Test::cvar("showQuestDifficultyColor", "1")
   Test::flush()
   Test::expect(window.text("4").nth(1).textColor().equal(coloured))

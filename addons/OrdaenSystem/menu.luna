@@ -23,14 +23,14 @@ const GROOVE_SIDE = 46.875dp
 const HEAD: number<Length> = GROOVE_TOP + GROOVE + 24dp
 // Half the gap between two plates: taken off each plate above and below.
 const HALF_GAP: number<Length> = 12dp / 2
-const TITLE: Color = Color::hex("#ffd100")
-const ENGRAVED: Shadow = { color: Color::hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
-const LABEL: Color = Color::hex("#ffd100")
+const TITLE: color = #ffd100
+const ENGRAVED: Shadow = { color: #000000e6, x: -1.171875dp, y: 1.171875dp }
+const LABEL: color = #ffd100
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
 const OWN_DROP: ByInteractionState<number<Length>> = { default: 0ui, pressed: 2.34375dp }
-const OWN_LABEL: ByInteractionState<Color> = { default: Color::hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const LABEL_HOVER: Color = BRIGHT_TEXT
-const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const OWN_LABEL: ByInteractionState<color> = { default: #ffd100, hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
+const LABEL_HOVER: color = BRIGHT_TEXT
+const SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 const GEM = 18.75dp
 const GEM_LEFT = 14.0625dp
 const DOWN = 2.34375dp
@@ -234,7 +234,7 @@ public class Plate implements Component {
   // The plate's interaction state is the button's of Blizzard's under it, as the menu hears it.
   derived looks: InteractionState = { hover: self.over, pressed: self.down }
   derived light: number = self.over ? 1 : 0
-  derived color: Color = self.over ? LABEL_HOVER : LABEL
+  derived color: color = self.over ? LABEL_HOVER : LABEL
   derived drop: number<Length> = self.down ? DOWN : 0ui
   derived gem: number = self.dressed.gem ? 1 : 0
   derived high: number<Length> = self.dressed.height - 2 * HALF_GAP

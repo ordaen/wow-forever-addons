@@ -95,7 +95,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   }
 }
 
-function sameColor(a: Color | nil, b: Color | nil): boolean {
+function sameColor(a: color | nil, b: color | nil): boolean {
   if (a == nil || b == nil) { return a == b }
   return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a
 }

@@ -6,7 +6,7 @@ import type { XpPart, XpSource } from "OrdaenPanel"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 
-const DONE_GREEN: Color = Color::hex("#6fa04f")
+const DONE_GREEN: color = #6fa04f
 
 // A part of the level's whole in percent, one decimal under ten, cut, never rounded up: as the bar says its own.
 function percentOf(part: integer, whole: integer): string {

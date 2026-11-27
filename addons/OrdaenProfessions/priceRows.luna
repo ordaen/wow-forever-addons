@@ -27,8 +27,8 @@ const LINE_ROOM: Edges = { top: 1sp, right: 1.5sp, bottom: 1sp, left: 1.5sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
 const TOTALS_RULE: Line = { width: 1.171875dp, color: Style::LINE, sides: [Side::Top] }
-const CHEAPER: Color = Color::hex("#40c0402e")
-const CLEAR: Color = Color::hex("#00000000")
+const CHEAPER: color = #40c0402e
+const CLEAR: color = #00000000
 const HOUR = 3600
 const DAY = 24
 
@@ -45,13 +45,13 @@ public function wayText(way: Way): string {
 public class PricedReagentRow implements Component {
   derived item: integer | nil = self.price.item
   derived icon: Art | nil = self.price.icon
-  derived color: Color = self.price.have < self.price.need ? Style::RED : Style::INK
+  derived color: color = self.price.have < self.price.need ? Style::RED : Style::INK
   derived hasAuction: boolean = self.price.auction != nil
   derived hasVendor: boolean = self.price.vendor != nil
   derived auction: integer = self.price.auction ?? 0
   derived vendor: integer = self.price.vendor ?? 0
-  derived auctionBack: Color = self.price.way == Way::Buy ? CHEAPER : CLEAR
-  derived vendorBack: Color = self.price.way == Way::Vendor ? CHEAPER : CLEAR
+  derived auctionBack: color = self.price.way == Way::Buy ? CHEAPER : CLEAR
+  derived vendorBack: color = self.price.way == Way::Vendor ? CHEAPER : CLEAR
 
   price: Signal<PartPrice>
   constructor(price: Signal<PartPrice>) { self.price = price }
@@ -93,7 +93,7 @@ class TotalCell implements Component {
   derived has: boolean = self.amount != nil
   derived losing: boolean = (self.amount ?? 0) < 0
   derived shown: integer = (self.amount ?? 0).abs()
-  derived color: Color = self.losing ? Style::RED : BRIGHT_TEXT
+  derived color: color = self.losing ? Style::RED : BRIGHT_TEXT
   derived tipped: boolean = self.hovered && self.tip != ""
 
   amount: Signal<integer | nil>
@@ -252,12 +252,12 @@ function ageLine(hours: integer | nil): string {
 public class PricesAge implements Component {
   derived age: string = ageLine(self.totals.oldest)
   derived aged: boolean = self.age != ""
-  derived color: Color = self.colorOf()
+  derived color: color = self.colorOf()
 
   totals: Signal<Totals>
   constructor(totals: Signal<Totals>) { self.totals = totals }
 
-  colorOf(): Color {
+  colorOf(): color {
     const (_, color) = ageText((self.totals.oldest ?? 0) * HOUR)
     return color ?? Style::DIM
   }

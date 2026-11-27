@@ -11,10 +11,10 @@ import { SettingRow } from "@/settingRow"
 
 // The most it takes: 9,999,999 gold 99 silver 99 copper.
 const MOST = 99999999999
-const INK: Color = Color::hex("#e8dcc4")
-const FILL: Color = Color::hex("#0d0a08")
-const EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
-const BAD: Line = { width: 1.171875dp, color: Color::hex("#c0463c") }
+const INK: color = #e8dcc4
+const FILL: color = #0d0a08
+const EDGE: Line = { width: 1.171875dp, color: #4a3a24 }
+const BAD: Line = { width: 1.171875dp, color: #c0463c }
 const PADDING: Edges = { right: 3sp, left: 3sp }
 
 // The copper a text names, or nothing where it isn't an amount.

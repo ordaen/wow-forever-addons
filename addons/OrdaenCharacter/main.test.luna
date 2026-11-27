@@ -587,7 +587,7 @@ test "a hit's caps are marks on its gauge, each a tooltip of its own, the gauge'
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6 }
   const window = opened(sheet)
-  const marks = window.box(Color::hex("#ffd100d9"))
+  const marks = window.box(#ffd100d9)
   // The melee's two (a boss's and a target of the player's level's), the spells' and ranged ones not on a warrior's.
   Test::expect(marks.count() >= 2)
   marks.nth(1).hover()
@@ -994,9 +994,9 @@ test "the weapon held has its skill as a gauge, its bonus counted in" {
 const TALENT_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const SWORD: Asset = "Interface/Icons/INV_Sword_04"
 // An arrow of a tree that leads to a talent with no rank.
-const ARROW_LINE: Color = Color::hex("#4a3a24")
+const ARROW_LINE: color = #4a3a24
 // The dark line between the trees, and the veil over a talent that can't be learned.
-const TREE_LINE: Color = Color::hex("#000000")
+const TREE_LINE: color = #000000
 // The client's talent frames, by a talent's look.
 const FRAME_GREY = "talents-node-square-gray"
 // The second spec's tab, by its name.
@@ -1121,10 +1121,10 @@ test "each talent looks as the client draws it: gold when full, green where a po
   const window = onSpec("Primary")
   // Full: the gold frame and its rank in gold.
   Test::expect(window.button("5").paintedWith("talents-node-square-yellow"))
-  Test::expect(window.text("5").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(window.text("5").textColor().equal(#ffd100))
   // A point may go, or one is held with none to spend: the green frame, the rank in green; a 0 where none is held yet.
   Test::expect(window.button("2").paintedWith("talents-node-square-green") && window.button("3").paintedWith("talents-node-square-green"))
-  Test::expect(window.button("0").text("0").textColor().equal(Color::hex("#19ff19")) && window.text("3").textColor().equal(Color::hex("#19ff19")))
+  Test::expect(window.button("0").text("0").textColor().equal(#19ff19) && window.text("3").textColor().equal(#19ff19))
   // None may go: grey, no rank said, the icon grey under a light veil; its tree short of points, the locked frame and a
   // darker veil.
   Test::expect(window.button("0").count() == 1)
@@ -1136,7 +1136,7 @@ test "each talent looks as the client draws it: gold when full, green where a po
   Test::expect(Test::drawn().filter(d => d.file == TALENT_ICON && d.desaturated).length == 2)
   // A rank that no longer holds: the red frame, its rank in red.
   Test::expect(window.button("1").paintedWith("talents-node-square-red"))
-  Test::expect(window.text("1").textColor().equal(Color::hex("#ff2020")))
+  Test::expect(window.text("1").textColor().equal(#ff2020))
 }
 
 test "a tree's arrow runs across and then down, cell by cell, gold once the talent it comes from is full" {
@@ -1247,7 +1247,7 @@ test "the talents follow the trees the game reports while the window shows" {
   ]
   Game::talentTrees.changed.emit()
   Test::expect(window.text("Arms: 5").shown() && window.button("5").paintedWith(SWORD))
-  Test::expect(window.text("5").textColor().equal(Color::hex("#ffd100")))
+  Test::expect(window.text("5").textColor().equal(#ffd100))
 }
 
 test "the game is asked for the talents while the window shows, and for no tree on another tab" {
@@ -1799,7 +1799,7 @@ test "health and the resource are slim bars of their own, a thin line round them
   Test::expect(window.box(Ordaen.art.panel.xpTube).count() == 0 && window.box(xpFillArt(XpFill::Brushed)).count() == 0)
   // The line round each, its fill rounded in the pool's colour: no square fill over the line's round corners.
   // The health's fill in its colour laid deeper.
-  const deep: Color = { r: Style::HEALTH.r * Style::POOL_DEPTH, g: Style::HEALTH.g * Style::POOL_DEPTH, b: Style::HEALTH.b * Style::POOL_DEPTH, a: Style::HEALTH.a }
+  const deep: color = { r: Style::HEALTH.r * Style::POOL_DEPTH, g: Style::HEALTH.g * Style::POOL_DEPTH, b: Style::HEALTH.b * Style::POOL_DEPTH, a: Style::HEALTH.a }
   Test::expect(window.box(Style::POOL_RIM).count() > 0 && window.box(deep).count() > 1)
 }
 

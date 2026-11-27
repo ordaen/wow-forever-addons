@@ -21,7 +21,7 @@ const NO_MARKS: array<GaugeMark> = []
 // A mark's line, and the room round it that takes the cursor.
 const MARK_LINE = 1.7578125dp
 const MARK_ROOM = 7.03125dp
-const MARK: Color = Color::hex("#ffd100d9")
+const MARK: color = #ffd100d9
 
 // A mark: a thin bright line down the well at its share, its tooltip under the cursor; `entered` and `left` told, so
 // what holds the gauge keeps its own tooltip shut meanwhile.
@@ -66,21 +66,21 @@ class MarkView implements Component {
 
 // The client's classic status bar, white to grey down its height: tinted, a lit and shaded bar in one colour.
 const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
-const RIM: Color = Color::hex("#000000")
-const UNTINTED: Color = Color::hex("#ffffff")
+const RIM: color = #000000
+const UNTINTED: color = #ffffff
 // The rim's width, and how round the well's corners are, outside the rim and inside it.
 const LINE: number<Length> = 1.171875dp
 const ROUND: number<Length> = 3.515625dp
 const INNER: number<Length> = ROUND - LINE
-const SHADE: Color = Color::hex("#000000b3")
+const SHADE: color = #000000b3
 const SHADE_HEIGHT = 2.34375dp
-const SIDE_SHADE: Color = Color::hex("#00000066")
+const SIDE_SHADE: color = #00000066
 const SHADE_SIDE = 1.7578125dp
-const LIP: Color = Color::hex("#ffdeaa1f")
-const SIDE_LIP: Color = Color::hex("#ffdeaa12")
+const LIP: color = #ffdeaa1f
+const SIDE_LIP: color = #ffdeaa12
 const LIP_HEIGHT = 1.171875dp
-const GLOSS: Color = Color::hex("#ffffff1f")
-const TEXT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const GLOSS: color = #ffffff1f
+const TEXT_SHADOW: Shadow = { color: #000000, x: 1.171875dp, y: -1.171875dp }
 const ONE: array<Track> = [{ fr: 1 }]
 
 // The carve's floor, filling the box it stands in: the rim, the marble inside it.
@@ -119,10 +119,10 @@ public const WELL_INSET: number<Length> = LINE
 // is (`corners`: the first part's left, the last's right), the gloss over its upper half, its text in its middle,
 // outlined as a gauge's.
 public class WellSlice implements Component {
-  color: Signal<Color>
+  color: Signal<color>
   text: Signal<string>
   corners: Signal<Corners>
-  constructor(color: Signal<Color>, text: Signal<string>, corners: Signal<Corners>) {
+  constructor(color: Signal<color>, text: Signal<string>, corners: Signal<Corners>) {
     self.color = color
     self.text = text
     self.corners = corners
@@ -163,7 +163,7 @@ public class GaugeBar implements Component {
   derived hasText: boolean = self.text != ""
 
   value: Signal<number>
-  tone: Signal<Color>
+  tone: Signal<color>
   height: Signal<number<Length>>
   text: Signal<string>
   font: Signal<TextFont>
@@ -171,7 +171,7 @@ public class GaugeBar implements Component {
   constructor(
     // How full, from 0 to 1.
     value: Signal<number>,
-    tone: Signal<Color>,
+    tone: Signal<color>,
     height: Signal<number<Length>>,
     // In its middle; none: no text. In the numbers' font unless it is words (a standing's name).
     text: Signal<string> = "",

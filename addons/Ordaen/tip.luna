@@ -15,11 +15,11 @@ import { BRIGHT_TEXT, TITLE_TEXT } from "@/units"
 
 // As wide as what it says, up to its most at the frame's line: a long text wraps there.
 const MOST = 468.75dp
-const NAME: Color = BRIGHT_TEXT
-const LABEL: Color = Color::hex("#cbb994")
-const HEADING: Color = Color::hex("#ffd100")
+const NAME: color = BRIGHT_TEXT
+const LABEL: color = #cbb994
+const HEADING: color = #ffd100
 // How a row's value is worked out, dimmed before it.
-const WORKING: Color = Color::hex("#8c8270")
+const WORKING: color = #8c8270
 const BY_ITS_BOX: Beside = { beside: "parent" }
 const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 // A row's picture, its label and the word after it, side by side at the row's start.
@@ -35,7 +35,7 @@ const ONE_ROW: array<Track> = [{ fr: 1 }]
 // label stands alone.
 public struct TipMark {
   const text: string
-  const color: Color
+  const color: color
 }
 
 // One row of a Tip: its picture where it has one, what it is (in the label colour, or its own `tone`: an item's name in
@@ -49,14 +49,14 @@ public struct TipRow {
   const working: string = ""
   const mark: TipMark = { text: "", color: BRIGHT_TEXT }
   const icon: Art | nil = nil
-  const tone: Color | nil = nil
-  const valueTone: Color | nil = nil
+  const tone: color | nil = nil
+  const valueTone: color | nil = nil
 }
 
 // A part of a whole a section's bar shows: its share of the whole and its colour.
 public struct TipSlice {
   const share: number
-  const color: Color
+  const color: color
 }
 
 // A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects»; where it has
@@ -99,8 +99,8 @@ public struct TipText {
 // A row of a Tip, as `Tip` draws each.
 class TipLine implements Component {
   derived iconed: boolean = self.row.icon != nil
-  derived ink: Color = self.row.tone ?? LABEL
-  derived valueInk: Color = self.row.valueTone ?? NAME
+  derived ink: color = self.row.tone ?? LABEL
+  derived valueInk: color = self.row.valueTone ?? NAME
   derived worked: boolean = self.row.working != ""
 
   row: Signal<TipRow>

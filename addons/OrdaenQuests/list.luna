@@ -9,7 +9,7 @@ import Locale from "@/locales"
 import { Group, QuestView, groupsOf, ofKind } from "@/model"
 import { Act, HeaderRow, QuestRow } from "@/view"
 
-const DIM: Color = Color::hex("#a3977f")
+const DIM: color = #a3977f
 // The rows bring their own padding (the list's well has none): the text that stands for them takes the same.
 const EMPTY_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 

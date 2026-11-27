@@ -3,18 +3,18 @@
 import Game from "$game"
 import { Component } from "@/module"
 
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 
 public class Money implements Component {
   derived text: string = Game::money.format(self.amount)
 
   amount: Signal<integer>
-  color: Signal<Color>
+  color: Signal<color>
   textSize: Signal<number<TextSize>>
   constructor(
     // In copper.
     amount: Signal<integer>,
-    color: Signal<Color> = INK,
+    color: Signal<color> = INK,
     textSize: Signal<number<TextSize>> = 1rem
   ) {
     self.amount = amount

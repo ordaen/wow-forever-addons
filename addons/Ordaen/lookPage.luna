@@ -13,8 +13,8 @@ import { Section } from "@/section"
 import { Settings } from "@/settings"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
-const DIM: Color = Color::hex("#a3977f")
-const IN_USE: Color = Color::hex("#a6e39a")
+const DIM: color = #a3977f
+const IN_USE: color = #a6e39a
 const PRESET_ROW: array<Track> = [{ fr: 1 }, 175.78125dp]
 
 const FONTS: array<Choice<Font>> = [

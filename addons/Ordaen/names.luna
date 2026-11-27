@@ -3,7 +3,7 @@
 import Client from "$client"
 
 // A class's colour by the client's tag of it (`WARRIOR`); none for a tag the client doesn't colour.
-public function classColor(tag: string | nil): Color | nil {
+public function classColor(tag: string | nil): color | nil {
   if (tag == nil) { return nil }
   const rgb = Client::RAID_CLASS_COLORS[tag]
   if (rgb == nil) { return nil }

@@ -8,7 +8,7 @@ import { TipRow } from "Ordaen"
 // them all, with its own tooltip; a line in the tube's tooltip too (its title, its amount and its share of the level).
 public struct XpPart {
   amount: integer
-  color: Color
+  color: color
   title: string
   text: string
   rows: array<TipRow>

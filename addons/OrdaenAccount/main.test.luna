@@ -189,7 +189,7 @@ test "toys are a list with no card: the game's tooltip on one, the player's toys
   _ = Test::requests()
   window().box(134334).hover()
   Test::expect(Test::requests().any(r => r == "Items.show 1973"))
-  Test::expect(!window().box(134334).paintedWith(Color::hex("#ff1a1a")))
+  Test::expect(!window().box(134334).paintedWith(#ff1a1a))
 }
 
 test "the challenges open on the class's category; one picked has its points and its criteria in the card" {

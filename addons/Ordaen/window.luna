@@ -143,14 +143,14 @@ const SIDE_HANDLE = 9.375dp
 // The tab row above the body: taller when a tab has a second line.
 const TAB = 42.1875dp
 const TAB_DESC = 58.59375dp
-const TITLE_OPEN: Color = Color::hex("#ffd100")
+const TITLE_OPEN: color = #ffd100
 // A closed tab's title: the look's dim ink.
-const TITLE_CLOSED: Color = Color::hex("#a3977f")
-const DESC: Color = Color::hex("#8f8470")
+const TITLE_CLOSED: color = #a3977f
+const DESC: color = #8f8470
 // A closed tab's wood and picture: half as bright.
-const SHADE: Color = Color::hex("#808080")
-const WHITE: Color = Color::hex("#ffffff")
-const SHADOW: Shadow = { color: Color::hex("#000000cc"), x: 1.171875dp, y: -1.171875dp }
+const SHADE: color = #808080
+const WHITE: color = #ffffff
+const SHADOW: Shadow = { color: #000000cc, x: 1.171875dp, y: -1.171875dp }
 const LABEL_PAD = 3sp
 // The least a tab is wide at its line: its art reaches past that on both sides.
 const TAB_LEAST = 140.625dp
@@ -269,8 +269,8 @@ public class WindowTab implements Component {
   // box's size).
   derived bounds: Bounds = { min: TAB_LEAST + reachAcross(Ordaen.art.frame.tab), max: nil }
   // Open or closed only its colours differ: its wood and picture lighter, its title gold.
-  derived tint: Color = self.open ? WHITE : SHADE
-  derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
+  derived tint: color = self.open ? WHITE : SHADE
+  derived titleColor: color = self.open ? TITLE_OPEN : TITLE_CLOSED
   derived hasIcon: boolean = self.tab.icon != nil || self.tab.portrait != nil
   derived hasDesc: boolean = self.tab.desc != nil
   derived icon: Art | nil = self.tab.icon

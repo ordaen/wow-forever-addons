@@ -17,7 +17,7 @@ public struct Gauge {
   const value: number
   const cap: number
   const text: string
-  const tone: Color
+  const tone: color
   // The stat its tooltip tells the sources of; none for one without.
   const stat: Stat | nil = nil
   // Its caps, marked on it.
@@ -48,7 +48,7 @@ public struct Figure {
   const label: string
   const value: string
   const glyph: Piece
-  const color: Color
+  const color: color
   const lit: boolean = false
   const stat: Stat | nil = nil
   // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the card's.
@@ -69,7 +69,7 @@ public struct Section {
 // A resistance on the resistances' bar: its value, its school's colour and its stat.
 public struct Resist {
   const value: integer
-  const color: Color
+  const color: color
   const stat: Stat
 }
 
@@ -113,8 +113,8 @@ const BLOCK_GLYPH = 12
 const BLOCKED_GLYPH = 13
 const TIME_GLYPH = 14
 // The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
-const SCHOOL_COLORS: array<Color> = [Style::HOLY, Style::FIRE, Style::NATURE, Style::FROST, Style::SHADOW, Style::ARCANE]
-function schoolColor(school: integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
+const SCHOOL_COLORS: array<color> = [Style::HOLY, Style::FIRE, Style::NATURE, Style::FROST, Style::SHADOW, Style::ARCANE]
+function schoolColor(school: integer): color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
 // The schools' names, holy to arcane: a spell card's title.
 const SCHOOL_NAMES: array<string> = [Locale::SCHOOL_HOLY, Locale::SCHOOL_FIRE, Locale::SCHOOL_NATURE, Locale::SCHOOL_FROST, Locale::SCHOOL_SHADOW, Locale::SCHOOL_ARCANE]
 function schoolName(school: integer): string { return SCHOOL_NAMES[school - 1] ?? panic("six schools") }
@@ -412,7 +412,7 @@ const NO_BOOSTS: map<string, Boost> = {}
 const NO_ROWS: array<Row> = []
 
 // A stat's value's ink: green while an aura raises it, red while one lowers it, else its own.
-function inkOf(stat: Stat | nil, boosts: map<string, Boost>, plain: Color): Color {
+function inkOf(stat: Stat | nil, boosts: map<string, Boost>, plain: color): color {
   if (stat == nil) { return plain }
   const boost = boosts[`${stat}`]
   if (boost == .Up) { return Style::GREEN }
@@ -508,7 +508,7 @@ public class StatGauge implements Component {
   state onMark = false
   derived share: number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
   derived marks: array<GaugeMark> = marksOf(self.gauge)
-  derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style::DIM : BRIGHT_TEXT)
+  derived ink: color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style::DIM : BRIGHT_TEXT)
   derived title: string = self.gauge.label
   derived place: Beside = placeFor(self.tip, self.gauge.tip)
 
@@ -548,7 +548,7 @@ public class StatGauge implements Component {
 public class StatRow implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived ink: Color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style::DIM : BRIGHT_TEXT)
+  derived ink: color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style::DIM : BRIGHT_TEXT)
   derived title: string = self.row.label
 
   row: Signal<Row>
@@ -587,7 +587,7 @@ public class StatCard implements Component {
   derived glyphShade: number = self.figure.lit ? 1 : 0.7
   derived title: string = self.figure.label
   derived place: Beside = placeFor(self.tip, self.figure.tip)
-  derived ink: Color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
+  derived ink: color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
 
   figure: Signal<Figure>
   shown: Signal<Breakdown>
@@ -689,9 +689,9 @@ public class MainStat implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived title: string = self.main.label
-  derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
+  derived ink: color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
   // Its letters gold where the player's spec weighs it among its most.
-  derived shortInk: Color = self.main.valued ? Style::GOLD : Style::DIM
+  derived shortInk: color = self.main.valued ? Style::GOLD : Style::DIM
 
   main: Signal<Main>
   shown: Signal<Breakdown>
@@ -766,7 +766,7 @@ function sliceCorners(index: integer, count: integer): Corners {
 }
 
 // A pool's colour laid deeper, so the bar sits on the wood and the white text over it reads.
-function deeper(color: Color): Color {
+function deeper(color: color): color {
   return { r: color.r * Style::POOL_DEPTH, g: color.g * Style::POOL_DEPTH, b: color.b * Style::POOL_DEPTH, a: color.a }
 }
 
@@ -778,14 +778,14 @@ public class PoolBar implements Component {
 
   // The fill and the rest of the tube, inside its ring.
   derived parts: array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
-  derived deep: Color = deeper(self.color)
+  derived deep: color = deeper(self.color)
   // The fill rounded as the trough is at its left end, and at its right once the bar is full.
   derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.filled >= 1, bottomRight: self.filled >= 1 }
   derived title: string = self.stat != nil ? statName(self.stat ?? .Health) : ""
-  derived ink: Color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
+  derived ink: color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
 
   amount: Signal<string>
-  color: Signal<Color>
+  color: Signal<color>
   // What it regains, as lines under it, each with its own tooltip.
   regen: Signal<array<Row>>
   // How much of the bar is full: rage is empty out of a fight.
@@ -794,7 +794,7 @@ public class PoolBar implements Component {
   shown: Signal<Breakdown>
   boosts: Signal<map<string, Boost>>
   tip: Signal<Beside>
-  constructor(amount: Signal<string>, color: Signal<Color>, regen: Signal<array<Row>> = NO_ROWS, filled: Signal<number> = 1,
+  constructor(amount: Signal<string>, color: Signal<color>, regen: Signal<array<Row>> = NO_ROWS, filled: Signal<number> = 1,
     stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.amount = amount

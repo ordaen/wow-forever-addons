@@ -8,15 +8,15 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
 
-const FILL: ByInteractionState<Color> = { default: Color::hex("#0d0a08"), hover: Color::hex("#1c1610"), focus: Color::hex("#1c1610") }
-const PICKED: Color = Color::hex("#5a4428")
-const BLANK: Color = Color::hex("#0d0a08")
-const QUIET: Color = Color::hex("#a3977f")
-const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
-const DIM: Color = Color::hex("#ffffff73")
-const LIGHT: Color = Color::hex("#d6a56b")
-const CLEAR: Color = Color::hex("#00000000")
-const EDGE: Color = Color::hex("#4a3a24")
+const FILL: ByInteractionState<color> = { default: #0d0a08, hover: #1c1610, focus: #1c1610 }
+const PICKED: color = #5a4428
+const BLANK: color = #0d0a08
+const QUIET: color = #a3977f
+const NAME: ByInteractionState<color> = { default: #a3977f, hover: #e8dcc4, focus: #e8dcc4 }
+const DIM: color = #ffffff73
+const LIGHT: color = #d6a56b
+const CLEAR: color = #00000000
+const EDGE: color = #4a3a24
 const PADDING: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const WHOLE: Line = { width: 1.171875dp, color: EDGE }
 // The segments after the first share the one before's right line.
@@ -30,11 +30,11 @@ public class Segment<T: unknown> implements Component {
   derived soon: boolean = self.choice.soon == true
   derived text: string = self.soon ? self.choice.label + " — " + Locale::SOON : self.choice.label
   derived still: boolean = self.soon || self.disabled
-  derived color: Color | ByInteractionState<Color> = self.soon ? DIM : self.picked ? BRIGHT_TEXT : self.still ? QUIET : NAME
-  derived fill: Color | ByInteractionState<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
+  derived color: color | ByInteractionState<color> = self.soon ? DIM : self.picked ? BRIGHT_TEXT : self.still ? QUIET : NAME
+  derived fill: color | ByInteractionState<color> = self.picked ? PICKED : self.still ? BLANK : FILL
   derived edge: Line = self.first ? WHOLE : AFTER
   // The light along the top: on every segment, clear on the others, so only colours tell the picked one.
-  derived light: Color = self.picked ? LIGHT : CLEAR
+  derived light: color = self.picked ? LIGHT : CLEAR
 
   choice: Signal<Choice<T>>
   value: Signal<T>

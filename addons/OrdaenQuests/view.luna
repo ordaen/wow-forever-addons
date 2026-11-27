@@ -20,21 +20,21 @@ import { standingsOf } from "@/reputation"
 // in the chain's window.
 public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, ShowNext }
 
-const INK: Color = Color::hex("#e8dcc4")
+const INK: color = #e8dcc4
 // What the player's clicks on a quest's row do, in its tooltip.
 const ROW_KEYS: array<string> = [Locale::ROW_KEY_PAGE, Locale::ROW_KEY_LINK, Locale::ROW_KEY_MENU]
-const GOLD: Color = Color::hex("#ffd100")
-const DIM: Color = Color::hex("#a3977f")
-const GREEN: Color = Color::hex("#40c040")
+const GOLD: color = #ffd100
+const DIM: color = #a3977f
+const GREEN: color = #40c040
 // Between the page's parts; the buttons stand further off the tracking switch.
 const PAGE_GAP = 4sp
 const BUTTONS_OFF = 3sp
-const RED: Color = Color::hex("#ff4040")
+const RED: color = #ff4040
 // A row starts at its header's left: the header's band, not an indent, says what it stands under.
 // Above and below its text alike: the rule above a row stands as far from its text as the next row's does.
 const ROW_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 // The rule between two quests of a list.
-const ROW_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b26"), sides: [Side::Top] }
+const ROW_RULE: Line = { width: 1.171875dp, color: #d6a56b26, sides: [Side::Top] }
 const BUTTON = 131.25dp
 
 // The client opens the map for an addon out of a fight alone: «Show on map» is off in one, its tip says why.
@@ -43,14 +43,14 @@ function mapTipOf(combat: boolean): TipText | nil {
 }
 // The bullet between what a quest gives: dimmer than the dim text it parts.
 const BULLET = "•"
-const BULLET_COLOR: Color = Color::hex("#6b6352")
+const BULLET_COLOR: color = #6b6352
 // A row's title line: its level, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
 const TITLE_LINE: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const HEADER_PAD: Edges = { top: 3sp, right: 2sp, bottom: 3sp, left: 2sp }
 // A header's band: a gold wash over the well's floor, a brighter line under it, so it reads apart from its quests.
-const HEADER_BAND: Color = Color::hex("#d6a56b38")
-const HEADER_LINE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b66"), sides: [Side::Bottom] }
+const HEADER_BAND: color = #d6a56b38
+const HEADER_LINE: Line = { width: 1.171875dp, color: #d6a56b66, sides: [Side::Bottom] }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
 // What follows a header's caption: «вы здесь», then the count at the row's right.
@@ -111,10 +111,10 @@ public class QuestRow implements Component {
   derived ended: boolean = self.progress != ""
   // Its objectives still to do: one done leaves the list (the page says them all).
   derived goalsLeft: array<Game::QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
-  derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
+  derived levelColor: color = questLevelColor(self.quest.level, self.player, INK)
   derived progress: string = stateOf(self.quest)
-  derived progressColor: Color = self.quest.failed ? RED : GREEN
-  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
+  derived progressColor: color = self.quest.failed ? RED : GREEN
+  derived background: color | ByInteractionState<color> = rowShade(self.picked)
   derived group: string = self.quest.group > 1 ? Locale::GROUP.format(self.quest.group) : ""
   derived entries: array<MenuEntry> = [
     { label: self.quest.tracked ? Locale::UNTRACK : Locale::TRACK },
@@ -229,10 +229,10 @@ class GoalLine implements Component {
   derived done: boolean = self.objective.done
 
   objective: Signal<Game::QuestObjective>
-  color: Signal<Color>
+  color: Signal<color>
   // The list's small lines; the page's are the body's size.
   small: Signal<boolean>
-  constructor(objective: Signal<Game::QuestObjective>, color: Signal<Color> = DIM, small: Signal<boolean> = true) {
+  constructor(objective: Signal<Game::QuestObjective>, color: Signal<color> = DIM, small: Signal<boolean> = true) {
     self.objective = objective
     self.color = color
     self.small = small

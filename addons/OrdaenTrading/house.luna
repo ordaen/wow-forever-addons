@@ -14,11 +14,11 @@ import Style from "@/style"
 public struct Named {
   name: string
   lower: string
-  color: Color
+  color: color
 }
 
 // What the game says of an item: its name and its quality's colour, from its tooltip's first line.
-public function nameOf(item: integer): (string, Color) {
+public function nameOf(item: integer): (string, color) {
   const known = knownName(item)
   if (known == nil) { return (Locale::UNKNOWN_ITEM.format(item), Style::INK) }
   return (known.name, known.color)

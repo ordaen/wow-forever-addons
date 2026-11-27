@@ -17,11 +17,11 @@ const BLANK = 1
 const UNIT_NAME = 2
 const UNIT_OWNER = 16
 
-const ORANGE: Color = Color::hex("#ff8040")
-const FRIENDLY: Color = Color::hex("#40bf40")
+const ORANGE: color = #ff8040
+const FRIENDLY: color = #40bf40
 
 // A standing's colour: hated to hostile red, unfriendly orange, neutral yellow, friendly and up green.
-function standingColor(rank: integer): Color {
+function standingColor(rank: integer): color {
   if (rank <= 2) { return RED }
   if (rank == 3) { return ORANGE }
   if (rank == 4) { return YELLOW }
@@ -29,7 +29,7 @@ function standingColor(rank: integer): Color {
 }
 
 // A player's name with their title: the title quieter, the name in its colour, in the order the game puts them.
-function titledName(name: string, titled: string | nil, color: Color): string {
+function titledName(name: string, titled: string | nil, color: color): string {
   if (titled == nil || titled == name) { return name }
   let around = titled.split(name)
   let before = around[1]

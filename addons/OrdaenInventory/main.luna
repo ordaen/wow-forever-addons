@@ -80,7 +80,7 @@ const BAGS_X = (WIDTH + APART) / 2
 const SAFE_SALE = 12
 
 // The module's mark in the chat.
-const CAPTION: Color = Color::hex("#e8c35a")
+const CAPTION: color = #e8c35a
 const BUTTON = 140.625dp
 const DIALOG = 375dp
 // The bags' tab of the window: the game's bag icon.

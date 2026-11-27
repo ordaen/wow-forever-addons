@@ -6,21 +6,21 @@ import { Align, ByInteractionState, Edges, Line, Side } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH } from "@/units"
 
-const CLEAR: Color = Color::hex("#00000000")
-const LIGHT: Color = Color::hex("#ffffff14")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000033"), focus: Color::hex("#00000033") }
+const CLEAR: color = #00000000
+const LIGHT: color = #ffffff14
+const SHADE: ByInteractionState<color> = { default: CLEAR, hover: #00000033, focus: #00000033 }
 const ALL: array<Side> = [Side::Top, Side::Right, Side::Bottom, Side::Left]
 const RULED: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: ALL }
 const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: ALL }
-const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
+const NAME: ByInteractionState<color> = { default: #a3977f, hover: #e8dcc4, focus: #e8dcc4 }
 const TAB_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 4sp }
 
 class SmallTab implements Component {
   public pick: Event<integer> = new Event()
   derived picked: boolean = self.selected == self.index
-  derived back: Color | ByInteractionState<Color> = self.picked ? LIGHT : SHADE
+  derived back: color | ByInteractionState<color> = self.picked ? LIGHT : SHADE
   derived rule: Line = self.picked ? RULED : UNRULED
-  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
+  derived color: color | ByInteractionState<color> = self.picked ? BRIGHT_TEXT : NAME
 
   label: Signal<string>
   const index: integer

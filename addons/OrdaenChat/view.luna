@@ -5,14 +5,14 @@ import { BRIGHT_TEXT, Component, ListTab, SECONDARY_TEXT, SessionRule, timeText 
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
-const MARK: Color = Color::hex("#ff9a2e33")
+const MARK: color = #ff9a2e33
 // A time above a minute's lines: the time stamps' muted grey, at the secondary text's size, on its line's own lines.
-const STAMP_GREY: Color = Color::hex("#9d9d9d")
+const STAMP_GREY: color = #9d9d9d
 // The shade behind the tab under the cursor: a list tab's own under the cursor. The open one stands on the lines' own
 // ground, one piece with them.
-const SHADE: Color = Color::hex("#00000059")
+const SHADE: color = #00000059
 // The unread count: bright digits on a plain fill, no art; never narrower than it is high.
-const COUNT_FILL: Color = Color::hex("#9b2c1f")
+const COUNT_FILL: color = #9b2c1f
 const COUNT_WIDE: Bounds = { min: 18.75dp, max: nil }
 const COUNT_PAD: Edges = { right: 1sp, left: 1sp }
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
@@ -31,14 +31,14 @@ public class TabButton implements Component {
   public menu: Event<ChatTab> = new Event()
 
   state hovered = false
-  derived shade: Color | nil = self.open ? self.ground : self.hovered ? SHADE : nil
+  derived shade: color | nil = self.open ? self.ground : self.hovered ? SHADE : nil
   derived unread: boolean = self.tab.unread > 0
 
   tab: Signal<ChatTab>
   open: Signal<boolean>
   // The lines' dark ground, the open tab's.
-  ground: Signal<Color>
-  constructor(tab: Signal<ChatTab>, open: Signal<boolean>, ground: Signal<Color>) {
+  ground: Signal<color>
+  constructor(tab: Signal<ChatTab>, open: Signal<boolean>, ground: Signal<color>) {
     self.tab = tab
     self.open = open
     self.ground = ground
@@ -82,7 +82,7 @@ public class Row implements Component {
   // A link of the line clicked.
   public link: Event<Event::Link> = new Event()
 
-  derived band: Color | nil = self.line.marked ? MARK : nil
+  derived band: color | nil = self.line.marked ? MARK : nil
   // A line kept from before sessions were told apart is named by its own time.
   derived began: integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
   // Its time, written as every time of Ordaen's is.

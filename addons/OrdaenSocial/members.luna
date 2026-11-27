@@ -139,7 +139,7 @@ public function shownOf(members: array<Member>, query: string, show: Show, colum
 }
 
 // The colour of a member's name: its class's, grey while offline.
-public function nameColorOf(member: Member): Color {
+public function nameColorOf(member: Member): color {
   if (!online(member)) { return Style::OFFLINE }
   return classColor(member.classFile) ?? Style::INK
 }
@@ -151,7 +151,7 @@ class MemberRow implements Component {
 
   derived picked: boolean = self.chosen == self.member.key
   derived level: string = self.member.level > 0 ? string::of(self.member.level) : ""
-  derived ink: Color = online(self.member) ? Style::INK : Style::OFFLINE
+  derived ink: color = online(self.member) ? Style::INK : Style::OFFLINE
   derived last: string = extraOf(self.member, self.extra)
   // The note is cut at its column's edge; the professions and the points wrap.
   derived lastWrap: TextWrap = extraWrap(self.extra)

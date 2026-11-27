@@ -25,7 +25,7 @@ import { Source, SourceTotals, merchantSaleOf, sourceTotalsOf } from "@/split"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
-const NOTE: Color = Color::hex("#c8b48a")
+const NOTE: color = #c8b48a
 const SWITCHES: Line = { width: 1.171875dp, color: Style::LINE, sides: [Side::Top] }
 // From the band down to the window's bottom line: the room inside, the window's at the right.
 const DETAILS_ROOM: Edges = { top: 5sp, right: WINDOW_ROOM, bottom: 5sp, left: 5sp }
@@ -70,7 +70,7 @@ public class RecipeDetails implements Component {
   derived shown: Game::Recipe = self.recipe ?? NOTHING
   derived icon: Art = self.shown.icon
   derived skill: string = self.skillOf()
-  derived skillColor: Color = self.shown.learned ? Style::difficultyColor(self.shown.difficulty) : Style::RED
+  derived skillColor: color = self.shown.learned ? Style::difficultyColor(self.shown.difficulty) : Style::RED
   derived description: string = Game::tradeSkill.description(self.shown.id)
   derived needs: string = self.needsOf()
   derived learned: boolean = self.shown.learned

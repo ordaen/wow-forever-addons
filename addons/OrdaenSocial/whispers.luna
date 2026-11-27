@@ -24,9 +24,9 @@ const SIDEBAR_LEAST: Bounds = { min: 240dp }
 const WELL_ROOM: number<Spacing> = 3sp
 // The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
 // copper; their words light on both.
-public const HEARD_FILL: Color = Color::hex("#3d2e24e6")
-public const TOLD_FILL: Color = Color::hex("#8c4d2ed6")
-const INK: Color = Color::hex("#e8dcc4")
+public const HEARD_FILL: color = #3d2e24e6
+public const TOLD_FILL: color = #8c4d2ed6
+const INK: color = #e8dcc4
 // Room above a bubble: little inside a group, more where a group starts.
 const IN_GROUP: Edges = { top: 1sp }
 const NEW_GROUP: Edges = { top: 3sp }
@@ -35,10 +35,10 @@ const GROUP_SECONDS = 120
 // A bubble's width against the rest of its row: three quarters.
 const HEARD_COLUMNS: array<Track> = [{ fr: 3 }, { fr: 1 }]
 const TOLD_COLUMNS: array<Track> = [{ fr: 1 }, { fr: 3 }]
-const WHISPER: Color = Color::hex("#ff80ff")
-const BATTLE_NET: Color = Color::hex("#00fff6")
-const PICKED: Color = Color::hex("#2a1c10e6")
-const HINT: Color = Color::hex("#857a66")
+const WHISPER: color = #ff80ff
+const BATTLE_NET: color = #00fff6
+const PICKED: color = #2a1c10e6
+const HINT: color = #857a66
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A name whole, its level right after it; a Battle.net friend's character close under the account's name.
 const NAME_AND_LEVEL: array<Track> = [MAX, MAX]
@@ -90,7 +90,7 @@ public class Bubble implements Component {
   derived mine: boolean = self.item.line.mine
   derived columns: array<Track> = self.mine ? TOLD_COLUMNS : HEARD_COLUMNS
   derived side: Align = self.mine ? Align::End : Align::Start
-  derived fill: Color = self.mine ? TOLD_FILL : HEARD_FILL
+  derived fill: color = self.mine ? TOLD_FILL : HEARD_FILL
   derived above: Edges = self.item.starts ? NEW_GROUP : IN_GROUP
   derived time: string = timeText(Game::clock.timeAt(self.item.line.time.floor()))
   // A line kept from before sessions were told apart is named by its own time.
@@ -142,12 +142,12 @@ public class TalkRow implements Component {
   public pick: Event<Talk> = new Event()
   public menu: Event<Talk> = new Event()
 
-  derived color: Color = self.talk.battleNet ? BATTLE_NET : classColor(self.who.classFile) ?? WHISPER
+  derived color: color = self.talk.battleNet ? BATTLE_NET : classColor(self.who.classFile) ?? WHISPER
   derived level: string = levelText(self.who.level)
   derived hero: Hero | nil = self.who.hero
-  derived heroColor: Color = classColor(self.hero?.classFile) ?? INK
+  derived heroColor: color = classColor(self.hero?.classFile) ?? INK
   derived heroLevel: string = levelText(self.hero?.level ?? 0)
-  derived fill: Color | nil = self.open ? PICKED : nil
+  derived fill: color | nil = self.open ? PICKED : nil
   derived waiting: boolean = self.talk.unread > 0
 
   talk: Signal<Talk>

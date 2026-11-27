@@ -15,8 +15,8 @@ import { Opened } from "@/view"
 class AddedLine implements Component {
   derived paired: boolean = self.line.right != nil
   derived right: string = self.line.right ?? ""
-  derived leftColor: Color = self.line.color ?? BODY
-  derived rightColor: Color = self.line.rightColor ?? self.line.color ?? BODY
+  derived leftColor: color = self.line.color ?? BODY
+  derived rightColor: color = self.line.rightColor ?? self.line.color ?? BODY
   derived padding: Edges = self.line.indent ? INDENT : NO_PAD
   derived opens: Opens = self.opensOf()
   derived opening: boolean = self.line.opens != nil

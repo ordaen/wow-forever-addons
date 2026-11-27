@@ -84,8 +84,8 @@ test "a new quest's level is in the quest log's difficulty colour, grey where th
   const far = gossipQuest(21, "The Dragon's Lair", 70, false)
   Test::talk({ available: [far, { isTrivial: true, ..gossipQuest(22, "Old Bones", 71, false) }], ..innkeeper() })
   // Far above the player: the game's red, as Ordaen's quest log and tracker draw it; trivial by the client: its grey.
-  Test::expect(window().text("(70)").textColor().equal(Color::hex("#ff2020")))
-  Test::expect(window().text("(71)").textColor().equal(Color::hex("#808080")))
+  Test::expect(window().text("(70)").textColor().equal(#ff2020))
+  Test::expect(window().text("(71)").textColor().equal(#808080))
 }
 
 test "each line has its key, and a quest its level after its title" {

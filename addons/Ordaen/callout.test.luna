@@ -96,7 +96,7 @@ test "by a button at the screen's edge, it reaches inward and its arrow stands o
   destroy page
 }
 
-const VIOLET: Color = Color::hex("#8a4fd0")
+const VIOLET: color = #8a4fd0
 
 // A speech bubble: a count in the client's chat bubble made one colour.
 class Counted implements Component {

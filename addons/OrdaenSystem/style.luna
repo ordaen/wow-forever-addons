@@ -15,16 +15,16 @@ public const CATEGORY: number<Length> = 175.78125dp
 // How far an addon under its group's parent stands in.
 public const INDENT: number<Spacing> = 5.5sp
 
-public const INK: Color = Color::hex("#e8e0d0")
-public const DIM: Color = Color::hex("#9a9080")
-public const GOLD: Color = Color::hex("#f0c860")
-public const RED: Color = Color::hex("#ff6a55")
-public const GREEN: Color = Color::hex("#6fd46f")
+public const INK: color = #e8e0d0
+public const DIM: color = #9a9080
+public const GOLD: color = #f0c860
+public const RED: color = #ff6a55
+public const GREEN: color = #6fd46f
 // The heaviest third of a column.
-public const HOT: Color = Color::hex("#ffb040")
-public const CLEAR: Color = Color::hex("#00000000")
+public const HOT: color = #ffb040
+public const CLEAR: color = #00000000
 // The picked row.
-public const PICKED: Color = Color::hex("#f0c86024")
+public const PICKED: color = #f0c86024
 
 // The client's text for why it doesn't load an addon, in the player's language.
 public function reasonText(reason: Client::AddOnReason): string {
