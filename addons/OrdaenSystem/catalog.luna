@@ -165,7 +165,7 @@ public class Catalog {
       }
     }
     self.statuses = map
-    if (Build.dev) {
+    @if (Build.dev) {
       // What waits for a reload, and what the client said of it: the count the footer shows, said whole.
       for (addon of peek self.addons) {
         const status = map[addon.name]
