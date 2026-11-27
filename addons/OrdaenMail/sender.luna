@@ -218,7 +218,7 @@ function biggerStack(item: Integer, count: Integer, except: Array<Game.MailStack
   let slot = emptySlot()
   for (bag of 0..Game.bags.last) {
     for (place of 1..Game.bags.size(bag)) {
-      if (Game.bags.readSlot(bag, place, mut slot) && slot.id == item && slot.count > count && !slot.locked &&
+      if (Game.bags.readSlot(bag, place, slot) && slot.id == item && slot.count > count && !slot.locked &&
           !except.any(s => s.bag == bag && s.slot == place)) {
         return { bag: bag, slot: place }
       }
@@ -231,7 +231,7 @@ function emptyPlace(): Place | nil {
   let slot = emptySlot()
   for (bag of 0..Game.bags.last) {
     for (place of 1..Game.bags.size(bag)) {
-      if (!Game.bags.readSlot(bag, place, mut slot)) { return { bag: bag, slot: place } }
+      if (!Game.bags.readSlot(bag, place, slot)) { return { bag: bag, slot: place } }
     }
   }
   return nil
@@ -243,7 +243,7 @@ public function stackOf(item: Integer, count: Integer, locked: Boolean, except: 
   let slot = emptySlot()
   for (bag of 0..Game.bags.last) {
     for (place of 1..Game.bags.size(bag)) {
-      if (Game.bags.readSlot(bag, place, mut slot) && slot.id == item && slot.count == count && slot.locked == locked &&
+      if (Game.bags.readSlot(bag, place, slot) && slot.id == item && slot.count == count && slot.locked == locked &&
           !except.any(s => s.bag == bag && s.slot == place)) {
         return { bag: bag, slot: place, item: item, count: count }
       }

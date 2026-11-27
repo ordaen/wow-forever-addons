@@ -87,7 +87,7 @@ public class Scanner {
     self.since = Client.debugprofilestop()
     for (index of 1..count) {
       const key, unit, many = Game.auctionScan.read(index)
-      take(key, unit, many, mut alone, mut several)
+      take(key, unit, many, alone, several)
       if (index % CHECK == 0 && index < count && self.spent()) {
         self.progress = index / count * READ_SHARE
         await Game.frame()
@@ -103,7 +103,7 @@ public class Scanner {
         if (index == 0) { break }
         turn += 1
         const key, unit, many = Game.auctionScan.read(index)
-        take(key, unit, many, mut alone, mut several)
+        take(key, unit, many, alone, several)
         if (step % CHECK == 0 && self.spent()) {
           await Game.frame()
           self.since = Client.debugprofilestop()

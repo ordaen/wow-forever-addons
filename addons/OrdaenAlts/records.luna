@@ -20,7 +20,7 @@ function written(
     found.seen = now
     return found
   }
-  makeRoom(mut characters, who)
+  makeRoom(characters, who)
   const made = Character { name: name, realm: realm, faction: faction, classTag: Game.player.classTag, seen: now, mailExpires: nil }
   characters[who] = made
   return made
@@ -67,7 +67,7 @@ public class Records {
     self.who = who
     self.realm = realm
     self.faction = faction
-    self.me = written(mut kept.characters, who, realm, faction, name, now)
+    self.me = written(kept.characters, who, realm, faction, name, now)
     self.index()
   }
 
@@ -107,7 +107,7 @@ public class Records {
         old.name = profession.name
         old.rank = profession.rank
         old.max = profession.max
-        kept.push(mut old)
+        kept.push(old)
       }
     }
     self.me.professions = kept
@@ -129,7 +129,7 @@ public class Records {
   // A profession of the character's that the game's list hasn't given yet.
   added(mut self, skillLine: Integer): mut Known {
     const made = Known { skillLine: skillLine }
-    self.me.professions.push(mut made)
+    self.me.professions.push(made)
     return made
   }
 

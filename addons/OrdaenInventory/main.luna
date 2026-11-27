@@ -198,12 +198,12 @@ public class Inventory implements Module, App {
     self.guild = new GuildBank()
     self.tips = new GuardTips(self.hovered, self.settings.values, self.bankOpen, self.guild.open)
     self.main = new Pane(
-      self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, mut self.list, self.settings.values,
-      self.mainWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
+      self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, self.list, self.settings.values,
+      self.mainWidth, self.lit, self.running, self.goldRows, self.slotsOpen, self.bankSlotsOpen, self.menu, self.useClick
     )
     self.side = new Pane(
-      self.carried, self.bank, self.vaultGuild, self.guild, self.vaultOpen, self.atVault, mut self.list, self.settings.values,
-      self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
+      self.carried, self.bank, self.vaultGuild, self.guild, self.vaultOpen, self.atVault, self.list, self.settings.values,
+      self.vaultWidth, self.lit, self.running, self.goldRows, self.slotsOpen, self.bankSlotsOpen, self.menu, self.useClick
     )
     self.looter = new Looter(self.lootChoices)
     self.lootLines = new LootLines(self.toastsShown)
@@ -219,8 +219,8 @@ public class Inventory implements Module, App {
     self.hear(self.main)
     self.hear(self.side)
     watch (open of self.atVault) { self.onVault(open) }
-    watch (open of self.slotsOpen) { self.placeSlots(open, mut self.slotsWindow, self.window, true) }
-    watch (open of self.bankSlotsOpen) { self.placeSlots(open, mut self.bankSlotsWindow, self.vaultWindow, false) }
+    watch (open of self.slotsOpen) { self.placeSlots(open, self.slotsWindow, self.window, true) }
+    watch (open of self.bankSlotsOpen) { self.placeSlots(open, self.bankSlotsWindow, self.vaultWindow, false) }
     watch (open of Game.bags.open) { self.onOpen(open) }
     watch (open of self.bankOpen) { self.onBank(open) }
     watch (open of self.guild.open) { self.onGuild(open) }
@@ -472,7 +472,7 @@ public class Inventory implements Module, App {
     }
     const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
     if (chord == nil) { return }
-    self.act(mut slot, actionAt(peek self.settings.values.slotPresses, chord))
+    self.act(slot, actionAt(peek self.settings.values.slotPresses, chord))
   }
 
   // Gold on the cursor let go on a slot, as the game's bags do: the player's back into the purse, the guild bank's

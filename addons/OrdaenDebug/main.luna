@@ -23,9 +23,9 @@ public class DebugModule implements Module, App {
 
   constructor() {
     self.errors = new Errors(takeSaved(), clientMeta())
-    self.catcher = new Catcher(mut self.errors)
-    self.kit = new Kit(mut self.catcher)
-    Debug.attach(mut self.kit)
+    self.catcher = new Catcher(self.errors)
+    self.kit = new Kit(self.catcher)
+    Debug.attach(self.kit)
     Ordaen.modules.add(self)
   }
 

@@ -40,11 +40,11 @@ function filled(title: String, body: String, spell: Integer | nil, into: mut Arr
 public function templatesOf(classTag: String): Array<MacroTemplate> {
   const templates: Array<MacroTemplate> = []
   const spells = SPELLS[classTag] ?? {}
-  filled(Locale.TEMPLATE_MOUSEOVER_HEAL, "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] %s", spells.heal, mut templates)
-  filled(Locale.TEMPLATE_SELF_ALT, "#showtooltip\n/cast [mod:alt,@player][] %s", spells.heal, mut templates)
-  filled(Locale.TEMPLATE_FOCUS_INTERRUPT, "#showtooltip\n/stopcasting\n/cast [@focus,harm,nodead][] %s", spells.interrupt, mut templates)
-  filled(Locale.TEMPLATE_FOCUS_CONTROL, "#showtooltip\n/cast [mod:alt,@focus,harm,nodead][] %s", spells.control, mut templates)
-  filled(Locale.TEMPLATE_START_ATTACK, "#showtooltip\n/startattack\n/cast %s", spells.attack, mut templates)
+  filled(Locale.TEMPLATE_MOUSEOVER_HEAL, "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] %s", spells.heal, templates)
+  filled(Locale.TEMPLATE_SELF_ALT, "#showtooltip\n/cast [mod:alt,@player][] %s", spells.heal, templates)
+  filled(Locale.TEMPLATE_FOCUS_INTERRUPT, "#showtooltip\n/stopcasting\n/cast [@focus,harm,nodead][] %s", spells.interrupt, templates)
+  filled(Locale.TEMPLATE_FOCUS_CONTROL, "#showtooltip\n/cast [mod:alt,@focus,harm,nodead][] %s", spells.control, templates)
+  filled(Locale.TEMPLATE_START_ATTACK, "#showtooltip\n/startattack\n/cast %s", spells.attack, templates)
   templates.push({ title: Locale.TEMPLATE_TRINKET.format(1), body: "#showtooltip 13\n/use 13" })
   templates.push({ title: Locale.TEMPLATE_TRINKET.format(2), body: "#showtooltip 14\n/use 14" })
   return templates

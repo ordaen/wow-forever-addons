@@ -342,7 +342,7 @@ public class ProfilesPage implements Component {
   // where it is empty).
   request(mut self, change: (next: mut SavedProfiles) => nil, chosen: String, note: String) {
     const next = self.profiles.edit()
-    change(mut next)
+    change(next)
     self.profiles.apply(next)
     self.chosen = chosen
     self.epoch += 1

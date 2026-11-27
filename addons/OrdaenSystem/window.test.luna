@@ -1708,7 +1708,7 @@ test "by category, the sort orders each category's addons: by load now, at its p
     return can, reason
   }
   const meter = new Meter()
-  sorting(mut meter)
+  sorting(meter)
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
@@ -1773,7 +1773,7 @@ test "a table's heading sorts by its column, the heaviest first; clicked again, 
     return can, reason
   }
   const meter = new Meter()
-  sorting(mut meter)
+  sorting(meter)
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
@@ -1815,7 +1815,7 @@ test "by category, a heading sorts nothing" {
     return can, reason
   }
   const meter = new Meter()
-  sorting(mut meter)
+  sorting(meter)
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)

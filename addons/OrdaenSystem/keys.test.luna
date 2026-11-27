@@ -82,7 +82,7 @@ test "the page finds a command by its name, its section or its key, and its menu
   _ = Client.SetBinding("W", "MOVEFORWARD", nil)
   _ = Client.SetBinding("ENTER", "OPENCHAT", nil)
   const bindings = read()
-  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.mount(new KeysPage(bindings), { left: 0, top: 0, width: 1100, height: 600 })
   Test.expect(Test.page().text("Toggle Game Menu").shown())
   Test.page().input().type("chat")
   Test.expect(Test.page().text("Open Chat").shown() && !Test.page().text("Jump").shown())
@@ -98,7 +98,7 @@ test "the page finds a command by its name, its section or its key, and its menu
 test "a key is set by pressing it: the command's «Change key», the key, Enter; the command that had it loses it" {
   _ = Client.SetBinding("SPACE", "JUMP", nil)
   const bindings = read()
-  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.mount(new KeysPage(bindings), { left: 0, top: 0, width: 1100, height: 600 })
   Test.page().text("Move Forward").item().rightClick()
   Test.page().text("Change key").click()
   _ = Test.key(Key.Space)
@@ -113,7 +113,7 @@ test "a key is set by pressing it: the command's «Change key», the key, Enter;
 test "Escape in the capture changes nothing, and Enter with nothing pressed yet is the key" {
   _ = Client.SetBinding("ENTER", nil, nil)
   const bindings = read()
-  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.mount(new KeysPage(bindings), { left: 0, top: 0, width: 1100, height: 600 })
   Test.page().text("Open Chat").item().rightClick()
   Test.page().text("Change key").click()
   _ = Test.key(Key.F)

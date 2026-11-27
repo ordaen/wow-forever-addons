@@ -126,7 +126,7 @@ public class Spells implements Module, App {
   constructor() {
     self.page = new SpellbookPage(self.spells, self.lines, self.pets, self.petBook)
     self.learnPage = new TrainerPage(
-      self.learnServices, mut self.learnList, mut self.ignored, self.learnTab, Locale.COL_SKILL, false, false,
+      self.learnServices, self.learnList, self.ignored, self.learnTab, Locale.COL_SKILL, false, false,
       self.learnNotes, self.learnActions, self.learnPrices
     )
     self.learnPage.acted.listen(self.onActed)

@@ -20,7 +20,7 @@ class Bare {
   field: mut MoneyField | nil
 
   constructor() {
-    self.field = new MoneyField(mut self.copper)
+    self.field = new MoneyField(self.copper)
   }
 
   destructor() {

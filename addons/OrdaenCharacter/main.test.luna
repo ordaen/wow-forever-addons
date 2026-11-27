@@ -312,7 +312,7 @@ test "left-click on a slot picks up what is worn there, and on an empty one lets
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button(HELM_ICON).click()
   window.button(EMPTY_FEET).click()
   Test.expect(sheet.heard.join(", ") == "pickup 1, pickup 8")
@@ -322,7 +322,7 @@ test "Shift+Left-click on a slot puts the item's link into the chat and picks no
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   _ = Test.requests()
   Test.hold([.Shift])
   window.button(REAPER_ICON).click()
@@ -334,7 +334,7 @@ test "right-click on a slot uses what is worn there, the client's own doing, and
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button(HELM_ICON).rightClick()
   Test.expect(sheet.heard.length == 0)
   Test.expect(Test.performed().join(", ") == "item 1")
@@ -344,7 +344,7 @@ test "while a spell waits for its target (an armour kit), left-click applies it 
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Game.player.targeting = true
   Test.flush()
   window.button(HELM_ICON).click()
@@ -368,7 +368,7 @@ test "Ctrl+Left-click on a slot tries what it holds on in the dressing room and 
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.hold([.Ctrl])
   window.button(HELM_ICON).click()
   Test.expect(sheet.heard.join(", ") == "try 1")
@@ -378,7 +378,7 @@ test "Alt+Left-click on a slot opens what the bags hold for it; one clicked is w
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.hold([.Alt])
   window.button(HELM_ICON).click()
   Test.expect(window.text("From your bags").shown())
@@ -404,7 +404,7 @@ test "the game's sets are tabs over the columns, the one worn picked: another pi
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
   Test.expect(!window.text("Fury").textColor().equal(BRIGHT_TEXT))
   window.button("Tank").click()
@@ -420,7 +420,7 @@ test "a class that keeps a relic has the relic's well in the ranged slot" {
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { relic: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Relic"))
   Test.expect(!window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Ranged"))
 }
@@ -433,7 +433,7 @@ test "the damage a second's card says the weapon's speed and damage, and how muc
     attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, mainSkill: MACES,
     bossGlancing: 40, bossGlancingPenalty: 35, levelGlancing: 10, levelGlancingPenalty: 5
   }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("50.0").hover()
   // Its title the name alone: the value stands on the card, no hand's heading for one weapon. The glancing blows' cut,
   // in percent and off the average hit of 125 (their chance is the chance to hit's).
@@ -449,7 +449,7 @@ test "the attack speed is a card beside what lands, its tooltip each hand's seco
   const sheet = new FakeSheet()
   // A 2.30 weapon, hasted 15%: a swing every 2.00 seconds, as the client gives it.
   sheet.figures = (): Stats => Stats { speed: 2, meleeHaste: 15 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // The card's seconds, its hourglass the glyphs' fourteenth row.
   Test.expect(window.text("2.00 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
   const sheetArt: Asset = "@/media/character-glyphs.tga"
@@ -467,7 +467,7 @@ test "each section has its own haste, its tooltip what it speeds up; none is sha
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 6, rangedHaste: 4, rangedSkill: WANDS, rangedSpeed: 1.5 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // Melee's and the wand's, each its own; a warrior casts nothing, so there is no spells' haste.
   Test.expect(window.text("6.00%").shown() && window.text("4.00%").shown())
   Test.expect(window.text("6.00%").rect().top < window.text("4.00%").rect().top)
@@ -480,7 +480,7 @@ test "a stat's tooltip stands beside the stat, out of the window on its column's
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 6 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // The melee haste, in the right column: the tooltip's left edge on the gauge's right one, past the window's right.
   const haste = window.text("6.00%")
   haste.hover()
@@ -495,7 +495,7 @@ test "the cards and the armor that hide what their tooltips light have their own
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { armor: 1200, meleeHit: 6, expertise: 2, atMaxLevel: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // The damage reduction's over its card, their left edges together.
   const reduction = window.text(Locale.DAMAGE_REDUCTION)
   reduction.hover()
@@ -519,7 +519,7 @@ test "the damage a second's tooltip lights what feeds it directly: attack power 
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, meleeHaste: 5 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("50.0").hover()
   // The attack power's card, the attack speed's and the main hand's slot (its share) glow; the haste's gauge, attack
   // speed's own source, doesn't.
@@ -533,7 +533,7 @@ test "with a weapon in each hand the damage a second's card says each hand's spe
   sheet.figures = (): Stats => Stats {
     speed: 2.5, minDamage: 100, maxDamage: 150, offSpeed: 2, offMinDamage: 40, offMaxDamage: 60
   }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("75.0").hover()
   const tip = Test.page().window("Off Hand")
   Test.expect(tip.texts().join(" | ").contains("DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Off Hand | Attack speed | 2.00 | Damage | 40 - 60 | DPS | 25.0"))
@@ -545,7 +545,7 @@ test "the damage a block stops lights the shield, its share the block its toolti
   const sheet = new FakeSheet()
   sheet.shielded = true
   sheet.figures = (): Stats => Stats { block: 5, blockValue: 41, shield: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("Damage Blocked").hover()
   Test.expect(Test.page().text("Guardian's Shield").shown())
   // The off hand's slot, in the window, shows the shield's 39 of the 41, as its row in the tooltip says it.
@@ -557,7 +557,7 @@ test "what health and mana regain stands under their bars, out of a fight and in
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { spirit: 100, healthRegen: 40, combatHealthRegen: 0, healthFromSpirit: 30, restingRegen: 55, regen: 12 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.text(Locale.REGEN).count() == 2 && window.text(Locale.COMBAT_REGEN).count() == 2)
   // The spells' section keeps no line of its own for it.
   Test.expect(window.text("55").shown() && window.text("12").shown())
@@ -572,7 +572,7 @@ test "a hit's tooltip says its section's chance to hit each target, green at no 
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6, spellHit: 6, speed: 2.6, offSpeed: 1.8 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("6.00%").nth(1).hover()
   const tip = Test.page().window("Raid bosses")
   // A boss's 8% of misses less 6 of hit, a target of the player's level's 5% gone; a weapon in each hand's 27 and 24.
@@ -586,7 +586,7 @@ test "a hit's caps are marks on its gauge, each a tooltip of its own, the gauge'
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   const marks = window.box(Color.hex("#ffd100d9"))
   // The melee's two (a boss's and a target of the player's level's), the spells' and ranged ones not on a warrior's.
   Test.expect(marks.count() >= 2)
@@ -600,7 +600,7 @@ test "expertise's tooltip: each target's chance to dodge, then to parry past the
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { expertise: 5.25 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("5.25%").hover()
   const tip = Test.page().window(Locale.EXPERTISE_TIP)
   // A boss: 6.5 - 5.25 of dodge, its parry whole; a target of the player's level: no dodge, 5 - 0.25 of parry.
@@ -614,7 +614,7 @@ test "what lands of a blow is a card of its own: at the greatest level a boss's,
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 6, expertise: 2, meleeCrit: 20, bossGlancing: 40, levelGlancing: 10, atMaxLevel: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // An ability from behind against a boss: 8 - 6 of misses and 6.5 - 2 of dodges fail.
   Test.expect(window.text(Locale.LANDS).shown())
   window.text("93.50%").hover()
@@ -637,7 +637,7 @@ test "below the greatest level a target of the player's level counts; weapon ski
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHit: 1, expertise: 1, meleeCrit: 50, meleeSkillPast: 10, bossGlancing: 30, levelGlancing: 10 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // Ten points of skill past the level's take 0.4 off: 5 - 1 - 0.4 of misses, 5 - 0.4 - 1 of dodges.
   window.text("92.80%").hover()
   const tip = Test.page().window(Locale.LANDS_TIP)
@@ -662,7 +662,7 @@ test "a low character's weapon skill counts against a boss's 315 of defense, as 
   const sheet = new FakeSheet()
   // Level 9 with 38 of 45 in the weapon: 7 short of its level, 277 short of a level 63 boss.
   sheet.figures = (): Stats => Stats { meleeCrit: 20, meleeSkillPast: -7, bossDefensePast: 270 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // A target of its level: 0.28 more misses and dodges, 0.28 less crit.
   window.text("89.44%").hover()
   const tip = Test.page().window(Locale.LANDS_TIP)
@@ -680,7 +680,7 @@ test "a spell's misses come first, its crits of what lands" {
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { spellHit: 2, spellCrit: 10, atMaxLevel: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // A boss: 17 - 2 of misses; a tenth of the 85 that lands crits.
   window.text("85.00%").hover()
   const tip = Test.page().window(Locale.LANDS_SPELL_TIP)
@@ -701,7 +701,7 @@ test "defence: the defense skill over all; the damage reduction and the hit on y
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { defense: 300, dodge: 7, parry: 6, block: 5, blockValue: 42, shield: true, armor: 2000, armorReduction: 30, resistances: [0, 10, 0, 0, 0] }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   const defense = window.text("300").rect()
   const reduction = window.text("Damage reduction").rect()
   const taken = window.text("Hit on you").rect()
@@ -728,7 +728,7 @@ test "dodge's tooltip lists the defense past the level's among its sources, 0.04
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { defense: 315, defensePast: 15, dodge: 7 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("7.00%").hover()
   const tip = Test.page().window("(315 − 300) × 0.04 =")
   Test.expect(tip.texts().join(" | ").contains("Defense | (315 − 300) × 0.04 = | 0.60%"))
@@ -740,7 +740,7 @@ test "a defense short of the level's takes off dodge, its working the defense le
   const sheet = new FakeSheet()
   // Level 9: 44 of the level's 45.
   sheet.figures = (): Stats => Stats { defense: 44, defensePast: -1, dodge: 5 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("5.00%").hover()
   const tip = Test.page().window("(44 − 45) × 0.04 =")
   Test.expect(tip.texts().join(" | ").contains("Defense | (44 − 45) × 0.04 = | -0.04%"))
@@ -754,7 +754,7 @@ test "a weapon's skill stands over its section's cards, its tooltip what it does
   sheet.figures = (): Stats => Stats {
     attackPower: 832, mainSkill: MACES, meleeSkillPast: -7, bossDefensePast: 270, bossGlancing: 100, bossGlancingPenalty: 89
   }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.text("Maces").rect().bottom <= window.text("Attack power").rect().top)
   window.text("Maces").hover()
   const tip = Test.page().window(Locale.WEAPON_SKILL_TIP)
@@ -786,7 +786,7 @@ test "the sets' tabs are the window's subtab band, its marble out to the frame a
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   const body = Test.edges(Ordaen.art.window.wood, 0)
   const band = Test.edges(Ordaen.art.window.marble, 0)
   const reach = Ordaen.art.frame.window.reach
@@ -801,7 +801,7 @@ test "with no set worn whole, «New Set» is the picked tab, «Save» beside it"
   const sheet = new FakeSheet()
   sheet.wornSet = -1
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.text("New Set").textColor().equal(BRIGHT_TEXT))
   Test.expect(!window.text("Tank").textColor().equal(BRIGHT_TEXT))
   Test.expect(window.text("Save").shown())
@@ -811,7 +811,7 @@ test "a set picked in a fight isn't put on, and the worn one stays picked" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.combat(true)
   window.button("Fury").click()
   Test.expect(sheet.heard.length == 0)
@@ -822,7 +822,7 @@ test "«New Set» saves nothing until «Save», which saves what is worn as the 
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(!window.text("Save").shown())
   window.button("New Set").click()
   Test.expect(sheet.heard.length == 0)
@@ -842,7 +842,7 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
   sheet.cursorSlot = 16
   sheet.helmLocked = true
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(window.button(REAPER_ICON).paintedWith(FITS_GLOW))
   Test.expect(!window.button(HELM_ICON).paintedWith(FITS_GLOW))
   Test.expect(window.button(HELM_ICON).opacity() < 1)
@@ -868,7 +868,7 @@ test "an aura's melee and ranged speed at once is each of the two's haste; its c
   Auras.refresh()
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 7, rangedHaste: 6, rangedSkill: WANDS, rangedSpeed: 1.5 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("7.00%").hover()
   Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).texts().join(" | ").contains("Effects | Wind Blessed | +2.00%"))
   window.text("6.00%").hover()
@@ -928,7 +928,7 @@ test "a set's bonus is one row under its name, however many of its pieces are wo
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.matched = true
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("312").hover()
   const tip = Test.page().window("Lion's Pride")
   Test.expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
@@ -1434,7 +1434,7 @@ test "a skills heading folds it in the game, and the list shows what the game th
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   window.button("Skills").click()
   window.button("Professions").click()
@@ -1471,7 +1471,7 @@ test "«Unlearn» asks once more, and only its own button unlearns the skill" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   window.button("Skills").click()
   window.button("Mining").click()
@@ -1490,7 +1490,7 @@ test "two hands swing together: the attack speed is both at once, and two of a k
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { speed: 2.7, offSpeed: 1.8, mainSkill: SWORDS, offSkill: SWORDS }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Char.readStats()
   Test.expect(window.text("1.08 s").shown())
   Test.expect(window.text("Swords").count() == 1)
@@ -1501,7 +1501,7 @@ test "a shield worn adds block's card to defence; without one block shows nowher
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Test.expect(!window.text("21.50%").shown() && !window.text("Block").shown())
   sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142, shield: true }
   Char.readStats()
@@ -1513,7 +1513,7 @@ test "a wand's section is its skill and its damage a second, no attack power" {
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { intellect: 246, rangedSkill: WANDS, rangedSpeed: 1.5, rangedMinDamage: 92, rangedMaxDamage: 171 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Char.readStats()
   Test.expect(window.text("Wands").shown())
   Test.expect(window.text("87.7").shown())
@@ -1525,7 +1525,7 @@ test "a druid's energy stands under its mana, with what each regains on a line u
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { power: 5240, restingRegen: 76, energy: 87, energyRegen: 13 }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   Char.readStats()
   const mana = window.text("5240").rect()
   const regen = window.text("76").rect()
@@ -1541,7 +1541,7 @@ test "a group's heading folds it in the game, and the list shows what the game t
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   Test.expect(window.text("Argent Dawn").shown())
   window.button("Other").click()
@@ -1553,7 +1553,7 @@ test "a faction picked shows its standing, what is left to the next and its swit
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   Test.expect(window.text("Pick a faction.").shown())
   window.button("Stormwind").click()
@@ -1567,7 +1567,7 @@ test "a faction the game won't let the player war with has its switch off and ta
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   window.button("Stormwind").click()
   window.button("At war").click()
@@ -1578,7 +1578,7 @@ test "what a faction rose since the window first read it shows beside it" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   sheet.stand = 4650
   Events.UPDATE_FACTION.emit()
@@ -1708,7 +1708,7 @@ test "each faction's gauge fills its own share, in its own row, as tall as the o
   const sheet = new FakeSheet()
   // Stormwind half way (6000 of 3000 to 9000), Argent Dawn a sixth (4000).
   sheet.stand = 6000
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.button("Progression").click()
   // The rows in order: Alliance, Stormwind, Other, Argent Dawn (a heading keeps its gauge's place, unseen).
   const stormwind = gaugeFill(window, 2)
@@ -1809,7 +1809,7 @@ test "the resistances are one bar, a slice a resistance the character has, as wi
   const sheet = new FakeSheet()
   // Arcane, fire, frost, nature, shadow: fire 30 and shadow 10, the rest none.
   sheet.figures = (): Stats => Stats { resistances: [0, 30, 0, 0, 10] }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   const fire = window.box(Style.FIRE).nth(1).item().rect()
   const shadow = window.box(Style.SHADOW).nth(1).item().rect()
   Test.expect(window.box(Style.FROST).count() == 0 && window.box(Style.NATURE).count() == 0)
@@ -1826,7 +1826,7 @@ test "the hit on you's card counts an enemy of the player's level below the grea
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { dodge: 5, parry: 5, block: 10, shield: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   // An enemy of the level: 5 of misses, the player's 5 of dodges and 5 of parries; a block lands.
   window.text("85.00%").hover()
   const tip = Test.page().window(Locale.HIT_TAKEN_TIP)
@@ -1841,7 +1841,7 @@ test "the damage reduction's card counts a raid boss at the greatest level, its 
   Game.items.icon = icons
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { armorReduction: 30, bossArmorReduction: 25, atMaxLevel: true }
-  const window = opened(mut sheet)
+  const window = opened(sheet)
   window.text("25.00%").hover()
   const tip = Test.page().window(Locale.DAMAGE_REDUCTION_TIP)
   Test.expect(tip.texts().join(" | ").contains("Raid bosses | Damage reduction | 25.00% | Targets of your level | Damage reduction | 30.00%"))
@@ -1932,7 +1932,7 @@ test "the game's inspect opens ours on the player's character and asks the serve
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const inspector = new FakeInspector()
-  const window = inspecting(mut inspector)
+  const window = inspecting(inspector)
   Test.expect(window.text("Grom").shown())
   Test.expect(window.text("58").shown())
   Test.expect(inspector.heard.join(",") == "ask target")

@@ -268,7 +268,7 @@ public class WorthPage implements Component {
             const entry = book.recipes[recipe]
             const ready = character.ready[recipe]
             if (entry != nil && wanted(mode, entry, ready, now)) {
-              const row = self.worthOf(prices, mode, character, learned.name, recipe, entry, mut held)
+              const row = self.worthOf(prices, mode, character, learned.name, recipe, entry, held)
               if (mode != Mode.Held || row.can > 0 || row.missing.length == 1) { list.push(row) }
             }
           }

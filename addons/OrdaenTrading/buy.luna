@@ -536,7 +536,7 @@ public class BuyPage implements Component {
         low: low, high: low, market: market, share: shareOf(low, market)
       })
     }
-    return self.sortedOf(mut list)
+    return self.sortedOf(list)
   }
 
   // A row an item: its variants' listings summed, their lowest prices as a range; named as the item, its market and age
@@ -569,7 +569,7 @@ public class BuyPage implements Component {
         }
       }
     }
-    return self.sortedOf(mut list)
+    return self.sortedOf(list)
   }
 
   sortedOf(self, list: mut Array<Found>): Array<Found> {

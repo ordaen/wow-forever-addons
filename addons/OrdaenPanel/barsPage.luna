@@ -129,7 +129,7 @@ class BarEditor implements Component {
     self.choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     watch (choice of self.choice) {
       if (!choiceIn(peek self.settings.values, peek self.defaults, self.spec).equal(choice)) {
-        put(mut self.settings, self.spec, choice)
+        put(self.settings, self.spec, choice)
       }
     }
     watch (values of self.settings.values) {
@@ -223,7 +223,7 @@ public class BarsPage implements Component {
   onFlip(mut self, spec: BarSpec) {
     const choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     choice.on = !choice.on
-    put(mut self.settings, spec, choice)
+    put(self.settings, spec, choice)
   }
 
   toggleMenu(mut self) { self.menuOpen = !self.menuOpen }
@@ -233,7 +233,7 @@ public class BarsPage implements Component {
     const spec = peek self.spec
     if (index == RESET_ENTRY) {
       const now = choiceIn(peek self.settings.values, peek self.defaults, spec)
-      put(mut self.settings, spec, reset(now, (peek self.defaults)[spec.id] ?? defaultChoice(spec, now.on)))
+      put(self.settings, spec, reset(now, (peek self.defaults)[spec.id] ?? defaultChoice(spec, now.on)))
       self.copiedFrom = nil
     } else if (index == PLACE_ENTRY) {
       Ordaen.putAt(Bar.idOf(spec), nil)
@@ -247,7 +247,7 @@ public class BarsPage implements Component {
     const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
     const values = peek self.settings.values
     const defaults = peek self.defaults
-    put(mut self.settings, spec, copied(choiceIn(values, defaults, from), choiceIn(values, defaults, spec), spec))
+    put(self.settings, spec, copied(choiceIn(values, defaults, from), choiceIn(values, defaults, spec), spec))
     self.copiedFrom = Bar.titleOf(from)
     self.menuOpen = false
   }

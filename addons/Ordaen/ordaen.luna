@@ -112,8 +112,8 @@ public class OrdaenCore implements App {
   waiting: mut Array<() => nil> = []
 
   constructor() {
-    self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
-    self.globals = new Settings<Globals>(DEFAULTS, "", mut self.keeper)
+    self.look = new Settings<Look>(preset(Preset.Ordaen), "look", self.keeper)
+    self.globals = new Settings<Globals>(DEFAULTS, "", self.keeper)
     self.chosen = load<Map<String, Boolean>>(.Account, "choices", {})
     // A renamed module stays on or off as it was under its former name.
     for (former, current of RENAMED) {
@@ -125,7 +125,7 @@ public class OrdaenCore implements App {
     if (before != nil) {
       self.keeper.profiles.adopt("places", "Ordaen:places", Places { parts: decode<Map<String, KeptPlace>>(before, {}) })
     }
-    self.places = new Settings<Places>(Places {}, "places", mut self.keeper)
+    self.places = new Settings<Places>(Places {}, "places", self.keeper)
     Runtime.command("/ordaen", (text: String) => self.command(text))
     Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
     watch (running of self.modules) { self.draw(running) }

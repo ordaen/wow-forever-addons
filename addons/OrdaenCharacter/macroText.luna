@@ -177,7 +177,7 @@ public function problemsOf(body: String, commands: Map<String, String>, known: (
         if (key == nil) {
           found.push({ line: line, text: Locale.MACRO_UNKNOWN_COMMAND.format(word) })
         } else if (listed(OPTION_KEYS, key)) {
-          optionProblems(line, key, rest, known, mut found)
+          optionProblems(line, key, rest, known, found)
         }
       }
     }

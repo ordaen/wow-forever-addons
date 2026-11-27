@@ -30,7 +30,7 @@ function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: B
   if (!accountMerged) {
     cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
   }
-  if (social) { pushSocial(mut cells, guildMerged) }
+  if (social) { pushSocial(cells, guildMerged) }
   // The game menu's button is the menu's last, whatever stands before it.
   cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game.frames.MainMenuMicroButton, friends: false })
   return cells
@@ -135,7 +135,7 @@ public class SocialLine implements Component {
 
 function socialOf(guildMerged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
-  pushSocial(mut cells, guildMerged)
+  pushSocial(cells, guildMerged)
   return cells
 }
 

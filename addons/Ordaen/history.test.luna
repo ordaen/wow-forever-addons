@@ -25,7 +25,7 @@ function ordaens(count: Integer): String {
 }
 
 test "a slider's drag shows at once, is written as it rests and as it is let go, and is one step" {
-  const page = new ScalePage(mut Ordaen.globals)
+  const page = new ScalePage(Ordaen.globals)
   Test.mount(page, PAGE)
   const steps = Ordaen.keeper.steps
   const knob = Test.painted(Ordaen.art.ctl.sliderKnob, nil)
@@ -65,7 +65,7 @@ function dragging(from: Number): Boolean {
 }
 
 test "an input under way is written before the values are packed: the game saving loses nothing" {
-  const page = new ScalePage(mut Ordaen.globals)
+  const page = new ScalePage(Ordaen.globals)
   Test.mount(page, PAGE)
   Test.expect(dragging(1))
   Ordaen.keeper.profiles.pack()

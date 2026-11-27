@@ -68,7 +68,7 @@ function crafter(name: String, skillLine: Integer, waits: Array<Integer>): mut C
     known.ready[recipe] = Hour.fromNow((waits[i + 1] ?? 0) * 3600)
   }
   const made = Character { name: name, realm: "Stand-in", faction: .Alliance, level: 60, seen: Hour.now(), mailExpires: nil }
-  made.professions.push(mut known)
+  made.professions.push(known)
   return made
 }
 

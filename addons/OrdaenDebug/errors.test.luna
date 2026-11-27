@@ -17,7 +17,7 @@ function noMeta(): Meta {
 
 test "starts a new session with the client's facts" {
   let db = saved(4, 0)
-  const errors = new Errors(mut db, { client: "1.60.1" })
+  const errors = new Errors(db, { client: "1.60.1" })
   Test.expect(errors.session() == 5)
   Test.expect(errors.meta()?.client == "1.60.1")
 }
@@ -53,8 +53,8 @@ test "de-duplicates against errors saved in earlier sessions" {
   let old = kept(1, "old", "other", Kind.Error, 1)
   old.count = 2
   let db = saved(1, 1)
-  db.errors.push(mut old)
-  let errors = new Errors(mut db, noMeta())
+  db.errors.push(old)
+  let errors = new Errors(db, noMeta())
   let entry, isNew = errors.add({ message: "old" })
   Test.expect(!isNew)
   Test.expect(entry.count == 3)
@@ -66,7 +66,7 @@ test "names the source of errors stored as other" {
   db.errors.push(kept(1, "Interface/AddOns/Details/w.lua:1: x", "other", Kind.Error, 1))
   db.errors.push(kept(2, "boom", "other", Kind.Error, 1))
   db.errors.push(kept(3, "Details: call to Show() was blocked", "other", Kind.Taint, 1))
-  const errors = new Errors(mut db, noMeta())
+  const errors = new Errors(db, noMeta())
   Test.expect(errors.db.errors[1]?.source == "Details")
   Test.expect(errors.db.errors[2]?.source == "other")
   Test.expect(errors.db.errors[3]?.source == "other")
@@ -78,7 +78,7 @@ test "forgets sessions nothing refers to" {
   db.sessions[1] = noMeta()
   db.sessions[2] = noMeta()
   db.sessions[3] = noMeta()
-  const errors = new Errors(mut db, noMeta())
+  const errors = new Errors(db, noMeta())
   Test.expect(errors.db.sessions[1] == nil)
   Test.expect(errors.db.sessions[2] != nil)
   Test.expect(errors.db.sessions[3] == nil)
@@ -151,7 +151,7 @@ test "counts the errors of this session, including older ones that came back" {
   let db = saved(1, 2)
   db.errors.push(kept(1, "old", "other", Kind.Error, 1))
   db.errors.push(kept(2, "back", "other", Kind.Error, 1))
-  let errors = new Errors(mut db, noMeta())
+  let errors = new Errors(db, noMeta())
   Test.expect(errors.sessionCount() == 0)
   _ = errors.add({ message: "new" })
   _ = errors.add({ message: "back" })
@@ -161,7 +161,7 @@ test "counts the errors of this session, including older ones that came back" {
 test "tells listeners about new errors and repeats, and which are first this session" {
   let db = saved(1, 1)
   db.errors.push(kept(1, "old", "other", Kind.Error, 1))
-  let errors = new Errors(mut db, noMeta())
+  let errors = new Errors(db, noMeta())
   let seen: Array<String> = []
   errors.onChange((entry: Entry, isNew: Boolean, firstThisSession: Boolean): nil => {
     seen.push(`${entry.message} ${isNew} ${firstThisSession}`)

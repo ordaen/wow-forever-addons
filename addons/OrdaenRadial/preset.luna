@@ -65,15 +65,15 @@ public function upgraded(saved: Ring): Ring | nil {
   const fresh = saved.clone()
   for (place, item of saved.items) {
     if (item is Item.Menu && holdsOldEmotes(saved, place)) {
-      emptyUnder(mut fresh, place)
-      addEmotes(mut fresh, place)
+      emptyUnder(fresh, place)
+      addEmotes(fresh, place)
       break
     }
   }
   for (pass of 1..) {
     const place = silentPlace(fresh)
     if (place == nil) { break }
-    removePlace(mut fresh, place)
+    removePlace(fresh, place)
   }
   return fresh.equal(saved) ? nil : fresh
 }
@@ -81,7 +81,7 @@ public function upgraded(saved: Ring): Ring | nil {
 // The first key's ring: Windows up, then clockwise Professions, Pings, Marks, Emotes, Travel, Group, Placing.
 function main(): Ring {
   const first = firstRing()
-  addEmotes(mut first, "5")
+  addEmotes(first, "5")
   return first
 }
 

@@ -349,7 +349,7 @@ public class Professions implements Module, App {
   derived inGroups: Boolean = self.list.values.view == View.Categories
 
   constructor() {
-    self.crafting = new CraftQueue(mut self.memory)
+    self.crafting = new CraftQueue(self.memory)
     Ordaen.modules.add(self)
     // The run the window was closed during ended: the profession closes now; another opened shows the window.
     watch (running of self.crafting.running) { self.runEnded(running) }

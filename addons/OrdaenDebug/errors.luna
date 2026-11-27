@@ -255,7 +255,7 @@ public class Errors {
       time: now(),
       session: self.db.session
     }
-    self.db.errors.push(mut entry)
+    self.db.errors.push(entry)
     self.index[message] = entry
     const n = self.db.errors.length
     if (n > ERRORS_MAX) {

@@ -49,7 +49,7 @@ function smith(name: String, realm: String, faction: String, recipes: Array<Inte
   const made = Character {
     name: name, realm: realm, faction: faction == "Horde" ? .Horde : .Alliance, level: 60, seen: Hour.now(), mailExpires: nil
   }
-  made.professions.push(mut known)
+  made.professions.push(known)
   return made
 }
 
@@ -259,7 +259,7 @@ test "the saved size of twenty characters with three hundred recipes and a hundr
     const character = Character {
       name: "Regy Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, level: 60, seen: Hour.now(), mailExpires: nil
     }
-    character.professions.push(mut known)
+    character.professions.push(known)
     character.held[Place.Bank] = items
     character.read[Place.Bank] = Hour.now()
     kept.characters[CharacterId.of("Player-6946-" + String.of(100000 + i))] = character

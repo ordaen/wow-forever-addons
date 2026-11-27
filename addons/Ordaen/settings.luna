@@ -52,7 +52,7 @@ public class Settings<S: Plain> implements Sectioned {
       // The active profile's section: read now, and again when the character switches to another profile.
       watch (name of self.keeper.profiles.active) { self.take(name, key) }
       self.keeper.profiles.packing.listen(self.pack)
-      self.keeper.enrol(key, self.id, addon?.title ?? key, mut self)
+      self.keeper.enrol(key, self.id, addon?.title ?? key, self)
     }
     // Every entry is read, so a change to any of them is recorded.
     watch { self.notice() }
@@ -122,7 +122,7 @@ public class Settings<S: Plain> implements Sectioned {
   // changes the values, one change.
   public change(mut self, apply: (values: mut S) => nil) {
     const values = (peek self.values).clone()
-    apply(mut values)
+    apply(values)
     self.values = values
   }
 

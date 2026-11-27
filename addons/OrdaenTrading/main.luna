@@ -131,9 +131,9 @@ public class Trading implements Module, App {
     self.house = new House(realm, self.kept.houses[realm])
     self.source = new OrdaenPrices(self.house, self.kept.vendor, self.cut)
     self.prices = self.source
-    self.scanner = new Scanner(mut self.house, mut self.source, mut self.kept)
-    self.ledger = new Ledger(mut self.kept.ledger)
-    self.shopping = new ShoppingList(mut self.kept)
+    self.scanner = new Scanner(self.house, self.source, self.kept)
+    self.ledger = new Ledger(self.kept.ledger)
+    self.shopping = new ShoppingList(self.kept)
     self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)
     Game.auctionHouse.opened.listen(self.onOpened)
     Game.merchant.opened.listen(self.onMerchant)
@@ -163,7 +163,7 @@ public class Trading implements Module, App {
 
   onMerchant(mut self) {
     const given = Game.merchant.prices()
-    if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
+    if (given != nil) { takeMerchant(self.kept.vendor, given) }
   }
 
   // The window closed (its button, Escape): the player leaves the house, as the game's own window's close does.

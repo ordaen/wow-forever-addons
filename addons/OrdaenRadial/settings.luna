@@ -290,7 +290,7 @@ public class RingsPage implements Component {
     const held = rings[index]
     if (held == nil) { return }
     const ring = held.clone()
-    edit(mut ring)
+    edit(ring)
     if (ring.equal(held)) { return }
     rings[index] = ring
     self.settings.values.rings = rings
@@ -372,7 +372,7 @@ public class RingsPage implements Component {
   rowsOf(self): Array<SlotRow> {
     const rows: Array<SlotRow> = []
     const ring = self.shownRing
-    if (ring != nil) { self.addRows(ring, "", 0, mut rows) }
+    if (ring != nil) { self.addRows(ring, "", 0, rows) }
     return rows
   }
 
@@ -385,7 +385,7 @@ public class RingsPage implements Component {
       rows.push({
         place: place, depth: depth, label: self.labelOf(item, place), kind: self.kindLabel(item), holds: holds, open: open
       })
-      if (open) { self.addRows(ring, place, depth + 1, mut rows) }
+      if (open) { self.addRows(ring, place, depth + 1, rows) }
     }
   }
 
@@ -417,7 +417,7 @@ public class RingsPage implements Component {
   addBeside(mut self) {
     const parent = parentOf(self.place)
     let added: String | nil = nil
-    self.change((r: mut Ring): nil => { added = addPlace(mut r, parent) })
+    self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
     const place = added
     if (place != nil) { self.place = place }
   }
@@ -426,7 +426,7 @@ public class RingsPage implements Component {
   addInside(mut self) {
     const parent = self.place
     let added: String | nil = nil
-    self.change((r: mut Ring): nil => { added = addPlace(mut r, parent) })
+    self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
     const place = added
     if (place == nil) { return }
     const opened = (peek self.opened).clone()
@@ -438,7 +438,7 @@ public class RingsPage implements Component {
   shift(mut self, by: Integer) {
     const place = self.place
     let moved: String | nil = nil
-    self.change((r: mut Ring): nil => { moved = shiftPlace(mut r, place, by) })
+    self.change((r: mut Ring): nil => { moved = shiftPlace(r, place, by) })
     const next = moved
     if (next != nil) { self.place = next }
   }
@@ -448,7 +448,7 @@ public class RingsPage implements Component {
 
   remove(mut self) {
     const place = self.place
-    self.change((r: mut Ring): nil => { removePlace(mut r, place) })
+    self.change((r: mut Ring): nil => { removePlace(r, place) })
     self.place = ""
   }
 
@@ -464,7 +464,7 @@ public class RingsPage implements Component {
       r.conditions[place] = condition
       // What stood under a submenu or a slot goes with it; a new one starts with no items.
       if (!holdsItems(next)) {
-        emptyUnder(mut r, place)
+        emptyUnder(r, place)
       } else if (r.counts[place] == nil) {
         r.counts[place] = 0
       }

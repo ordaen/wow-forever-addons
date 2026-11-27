@@ -734,7 +734,7 @@ public class Window implements Component {
   remember(mut self, change: (view: mut WindowView) => nil) {
     const view = (peek self.declared.memory.values).clone()
     if (!view.remember) { return }
-    change(mut view)
+    change(view)
     self.written = view.clone()
     self.declared.memory.write(view)
   }

@@ -172,7 +172,7 @@ public class Keeper {
     } else {
       const step: Step = { before: {} }
       step.before[key] = before
-      shelf.steps.push(mut step)
+      shelf.steps.push(step)
       if (shelf.steps.length > HISTORY_MOST) { _ = shelf.steps.remove(1) }
       self.joined = self.joining
     }
@@ -330,7 +330,7 @@ public class Keeper {
       const changes = section == nil ? 0 : section.differs(raw)
       if (changes > 0) {
         count += changes
-        self.named(mut modules, key)
+        self.named(modules, key)
       }
     }
     return { count: count, modules: modules }
@@ -342,7 +342,7 @@ public class Keeper {
     const shelf = self.shelf()
     const last = shelf.steps[shelf.steps.length]
     if (last == nil) { return modules }
-    for (key, _ of last.before) { self.named(mut modules, key) }
+    for (key, _ of last.before) { self.named(modules, key) }
     return modules
   }
 

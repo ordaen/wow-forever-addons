@@ -147,7 +147,7 @@ public class House {
       return
     }
     points.push(Quote.of(low, at))
-    rolled(mut points, at)
+    rolled(points, at)
   }
 
   // Drops every key unseen for 30 days; says how many went.

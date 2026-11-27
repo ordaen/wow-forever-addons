@@ -127,8 +127,8 @@ public struct SavedProfiles implements Plain {
   // A module's sections and memory under its former name moved to its current one, in every profile.
   public moved(mut self, former: String, current: String) {
     for (_, profile of self.profiles) {
-      movedKeys(mut profile.sections, former, current)
-      movedKeys(mut profile.memory, former, current)
+      movedKeys(profile.sections, former, current)
+      movedKeys(profile.memory, former, current)
     }
   }
 }

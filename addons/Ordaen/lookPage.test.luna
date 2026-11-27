@@ -22,7 +22,7 @@ function state(): String {
 }
 
 test "a preset is chosen whole, a colour changed after it, and each gone back through" {
-  let page = new LookPage(mut Ordaen.look)
+  let page = new LookPage(Ordaen.look)
   Test.mount(page, { left: 0, top: 0, width: 800, height: 2600 })
   Test.note(state())
   Test.shot("Ordaen's preset in use")

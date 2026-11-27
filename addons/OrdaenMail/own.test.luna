@@ -100,7 +100,7 @@ class OwnPage {
   own: mut OwnTab
 
   constructor() {
-    self.own = new OwnTab(self.reached, crafting, self.rules, mut self.sender)
+    self.own = new OwnTab(self.reached, crafting, self.rules, self.sender)
     self.own.configure.listen(self.onConfigure)
   }
 
@@ -133,7 +133,7 @@ function opened(): mut OwnPage {
   const page = new OwnPage()
   Game.bags.holdings = (): Map<Integer, Integer> | nil => page.bagged
   Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => page.slotAt(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => page.slotAt(bag, slot, into)
   // The tab read the bags as the page was made, before they were answered: they change now.
   Game.bags.changed.emit()
   Test.mount(page, { left: 0, top: 0, width: 900, height: 500 })

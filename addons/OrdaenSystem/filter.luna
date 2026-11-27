@@ -88,11 +88,11 @@ public class FilterPick implements Component {
   // What its Tip says it is set to: each kind that narrows the list, or «All».
   shownOf(self): String {
     const list: Array<String> = []
-    narrowing(HEATS, self.heat, Heat.All, mut list)
-    narrowing(STANDINGS, self.standing, Standing.All, mut list)
-    narrowing(AGES, self.age, Age.All, mut list)
-    narrowing(LOADINGS, self.loading, Loading.All, mut list)
-    narrowing(WRITTEN, self.written, Written.All, mut list)
+    narrowing(HEATS, self.heat, Heat.All, list)
+    narrowing(STANDINGS, self.standing, Standing.All, list)
+    narrowing(AGES, self.age, Age.All, list)
+    narrowing(LOADINGS, self.loading, Loading.All, list)
+    narrowing(WRITTEN, self.written, Written.All, list)
     return list.length == 0 ? Locale.FILTER_ALL : list.join(", ")
   }
 

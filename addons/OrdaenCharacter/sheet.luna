@@ -570,7 +570,7 @@ public class ClientSheet implements Sheet {
 
   public fitting(self, slot: Integer): Array<Integer> {
     const found: Map<Integer, Integer> = {}
-    _ = Client.GetInventoryItemsForSlot(slot, mut found)
+    _ = Client.GetInventoryItemsForSlot(slot, found)
     const items: Array<Integer> = []
     for (_, item of found) {
       if (!items.any(i => i == item)) { items.push(item) }

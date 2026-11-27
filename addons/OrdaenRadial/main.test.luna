@@ -188,7 +188,7 @@ test "a place added inside a submenu is moved earlier, and one taken away takes 
 function editRing(index: Integer, edit: (ring: mut Ring) => nil) {
   const rings = Radial.settings.values.rings.clone()
   const ring = (rings[index] ?? panic("a ring for each key")).clone()
-  edit(mut ring)
+  edit(ring)
   rings[index] = ring
   Radial.settings.values.rings = rings
   Test.flush()

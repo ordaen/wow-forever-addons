@@ -87,7 +87,7 @@ function opened(bought: mut Array<String>): Test.Part {
 
 test "a double press on a service learns it where it can be learned now, and nothing where it can't" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   window.text("Bolt of Woolen Cloth").nth(1).click()
   window.text("Bolt of Woolen Cloth").nth(1).click()
   Test.expect(bought.length == 0)
@@ -101,7 +101,7 @@ test "a double press on a service learns it where it can be learned now, and not
 
 test "the footer is a band of marble under the list, the money on it" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   const band = Test.painted(Ordaen.art.window.marble, nil)
   const money = Test.holding("Your money", nil)
   const list = window.text("Red Linen Robe").rect()
@@ -118,7 +118,7 @@ test "a view kept before «Learned» started off loads with it off, its sort kep
 
 test "a known service's card says so in place of its price and «Learn», its name in the title's own line" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   window.button(Ordaen.art.ctl.tool.filter).click()
   Test.page().window("Reset").button(Locale.SHOW_KNOWN).click()
   window.button(Ordaen.art.ctl.tool.filter).click()
@@ -131,7 +131,7 @@ test "a known service's card says so in place of its price and «Learn», its na
 
 test "a right-click's «Ignore» covers every rank of a service with «Ignored» until «Stop ignoring», kept for the character" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   window.text("Red Linen Robe").nth(1).rightClick()
   Test.page().text("Ignore").click()
   // Ignored: a plate over its row says so, a double press learns nothing, «Learn» is greyed, the footer counts it grey.
@@ -152,7 +152,7 @@ test "a right-click's «Ignore» covers every rank of a service with «Ignored»
 
 test "a service's menu leaves out what can't be done to it: «Learn» where it can't be learned now" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   // The card's own «Learn» stands all along: the menu adds none.
   const learns = Test.page().text("Learn").count()
   window.text("Bolt of Woolen Cloth").nth(1).rightClick()
@@ -161,7 +161,7 @@ test "a service's menu leaves out what can't be done to it: «Learn» where it c
 
 test "a service that can be learned now has «Learn» in its menu" {
   const bought: Array<String> = []
-  const window = opened(mut bought)
+  const window = opened(bought)
   const learns = Test.page().text("Learn").count()
   window.text("Red Linen Robe").nth(1).rightClick()
   Test.expect(Test.page().text("Learn").count() == learns + 1 && Test.page().text("Ignore").shown())
@@ -172,7 +172,7 @@ test "a right-click's «Link in chat» puts the recipe's link in the chat, and t
   Client.GetTrainerServiceItemLink = (index: Number): String | nil => index == 2 ? "|cff1eff00|Hitem:2569::::|h[Red Linen Robe]|h|r" : nil
   const linked: Array<Integer> = []
   Game.chat.link = (id: Integer): nil => linked.push(id)
-  const window = opened(mut bought)
+  const window = opened(bought)
   window.text("Red Linen Robe").rightClick()
   Test.page().text("Link in chat").click()
   Test.expect(linked.length == 1 && linked[1] == 2569)

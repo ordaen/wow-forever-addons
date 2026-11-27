@@ -164,7 +164,7 @@ public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
     let left = want.count
     for (bag of 0..Game.bags.last) {
       for (place of 1..Game.bags.size(bag)) {
-        if (left > 0 && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
+        if (left > 0 && Game.bags.readSlot(bag, place, slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
           stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
           left -= slot.count
         }

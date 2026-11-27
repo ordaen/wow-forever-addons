@@ -234,7 +234,7 @@ public class Catalog {
   withNeeds(self, name: String): Array<String> {
     const seen: Map<String, Boolean> = {}
     const list: Array<String> = [name]
-    self.gather(name, mut seen, mut list)
+    self.gather(name, seen, list)
     return list
   }
 
@@ -243,7 +243,7 @@ public class Catalog {
       if (seen[need] != true) {
         seen[need] = true
         list.push(need)
-        self.gather(need, mut seen, mut list)
+        self.gather(need, seen, list)
       }
     }
   }
@@ -254,7 +254,7 @@ public class Catalog {
     const seen: Map<String, Boolean> = {}
     for (name of names) { seen[name] = true }
     const list: Array<String> = []
-    for (name of names) { self.reach(name, mut seen, mut list) }
+    for (name of names) { self.reach(name, seen, list) }
     return list
   }
 
@@ -263,7 +263,7 @@ public class Catalog {
       if (seen[other] != true) {
         seen[other] = true
         if (self.isOn(other)) { list.push(other) }
-        self.reach(other, mut seen, mut list)
+        self.reach(other, seen, list)
       }
     }
   }

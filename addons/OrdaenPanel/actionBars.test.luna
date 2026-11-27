@@ -82,7 +82,7 @@ function drawn(bars: Array<Shown>): String {
 function changed(values: BarsChoices, id: String, change: (choice: mut BarChoice) => nil): BarChoice {
   const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
   const choice = (values.bars[id] ?? defaultChoice(spec, true)).clone()
-  change(mut choice)
+  change(choice)
   return choice
 }
 

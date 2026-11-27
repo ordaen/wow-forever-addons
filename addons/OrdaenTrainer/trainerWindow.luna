@@ -1103,7 +1103,7 @@ public class TrainerWindow implements Component {
   ) {
     self.declared = declared
     self.tabSpec = tabSpec
-    self.page = new TrainerPage(services, mut list, mut ignored, tabSpec, noun, trade)
+    self.page = new TrainerPage(services, list, ignored, tabSpec, noun, trade)
   }
 
   onClose(self) { Client.CloseTrainer() }

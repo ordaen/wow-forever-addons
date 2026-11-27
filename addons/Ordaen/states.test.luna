@@ -83,7 +83,7 @@ function fontsOf(frame: any Client.Frame, out: mut Array<String>) {
     }
   }
   for (child of framesOf(...frame.GetChildren())) {
-    if (child.IsShown() && child.GetFrameStrata() == frame.GetFrameStrata()) { fontsOf(child, mut out) }
+    if (child.IsShown() && child.GetFrameStrata() == frame.GetFrameStrata()) { fontsOf(child, out) }
   }
 }
 
@@ -115,7 +115,7 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
       lines.push(`${indent}Texture ${place}`)
     }
   }
-  fontsOf(page, mut lines)
+  fontsOf(page, lines)
   if (!crops) { return lines }
   // Each file drawn and the size of the part of it drawn, once.
   let parts: Array<String> = []

@@ -93,7 +93,7 @@ public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by
           subkind: split == .Subclass ? slot.read.subkind : 0, slots: [slot]
         }
         found[key] = made
-        groups.push(mut made)
+        groups.push(made)
       }
     }
   }

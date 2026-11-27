@@ -367,14 +367,14 @@ test "a window stands with the client's panels, the last opened or clicked in fr
   desk.betaOpen = true
   Test.flush()
   Test.expect(front(desk) == "Beta")
-  const panel = clientFrame("MEDIUM", mut clicked)
+  const panel = clientFrame("MEDIUM", clicked)
   panel.Show()
   desk.hit = ""
   Test.expect(front(desk) == "" && clicked.length == 1)
   Test.click(BETA_ONLY, nil)
   Test.expect(front(desk) == "Beta" && clicked.length == 1)
   panel.Hide()
-  const map = clientFrame("HIGH", mut clicked)
+  const map = clientFrame("HIGH", clicked)
   map.Show()
   desk.hit = ""
   Test.click(BETA_ONLY, nil)

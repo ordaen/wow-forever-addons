@@ -120,7 +120,7 @@ public class Mail implements Module, App {
   }
 
   constructor() {
-    self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, mut self.sender)
+    self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, self.sender)
     self.own.configure.listen(self.onSettings)
     Ordaen.modules.add(self)
     Game.mailObserver.opened.listen(self.onOpened)

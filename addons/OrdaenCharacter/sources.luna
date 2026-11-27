@@ -746,9 +746,9 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
     fromStats.push({ row: { label: Locale.BASE, value: amountText(base, spec.percent) }, amount: base })
   }
   const sections: Array<TipSection> = []
-  section(Locale.FROM_STATS, fromStats, mut sections)
-  section(Locale.FROM_ITEMS, parts.fromItems, mut sections)
-  section(Locale.FROM_EFFECTS, parts.fromEffects, mut sections)
+  section(Locale.FROM_STATS, fromStats, sections)
+  section(Locale.FROM_ITEMS, parts.fromItems, sections)
+  section(Locale.FROM_EFFECTS, parts.fromEffects, sections)
   if (stat == .MeleeHit || stat == .RangedHit || stat == .SpellHit) {
     for (chances of hitChancesOf(stat, facts.stats)) { sections.push(chances) }
   }

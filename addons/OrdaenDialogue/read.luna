@@ -185,7 +185,7 @@ public function gossipLines(): Array<Line> {
       source: .Gossip
     })
   }
-  return inOrder(mut lines)
+  return inOrder(lines)
 }
 
 // A quest giver's greeting: its quests in progress and to hand in, then the new ones, each by its place.
@@ -203,7 +203,7 @@ public function greetingLines(): Array<Line> {
     const kind = repeatable ? LineKind.Daily : offerKind(frequency, legendary)
     lines.push(questLine(kind, title ?? "", Client.GetAvailableLevel(index).floor(), trivial, index, .Greeting))
   }
-  return inOrder(mut lines)
+  return inOrder(lines)
 }
 
 // A quest's item of a kind (`choice`, `reward`) at its place.

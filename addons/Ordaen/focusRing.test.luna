@@ -37,14 +37,14 @@ function counted(...regions: any Region): Integer { return regions.length }
 function rings(frame: any Frame, into: mut Array<any Frame>) {
   for (kid of listed(...frame.GetChildren())) {
     if (counted(...kid.GetRegions()) == 4 && kid.GetNumChildren() == 0 && kid.IsShown()) { into.push(kid) }
-    rings(kid, mut into)
+    rings(kid, into)
   }
 }
 
 // What the ring shows, as the client describes it.
 function ringDrawn(): String {
   let found: Array<any Frame> = []
-  rings(UIParent, mut found)
+  rings(UIParent, found)
   const shown = found[1] ?? panic("a ring stands round the focused box")
   return Test.dump(shown)
 }

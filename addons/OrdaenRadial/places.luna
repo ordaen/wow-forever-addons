@@ -75,11 +75,11 @@ function dropWhere(ring: mut Ring, gone: (key: String) => Boolean) {
 }
 
 // Everything under a place taken away, the place too.
-function drop(ring: mut Ring, place: String) { dropWhere(mut ring, key => under(key, place)) }
+function drop(ring: mut Ring, place: String) { dropWhere(ring, key => under(key, place)) }
 
 // Everything under a place taken away, the place itself kept: a submenu made a spell.
 public function emptyUnder(ring: mut Ring, place: String) {
-  dropWhere(mut ring, key => key != place && under(key, place))
+  dropWhere(ring, key => key != place && under(key, place))
 }
 
 // An empty place added at the end of a ring's place: its place, or none where the ring is full.
@@ -96,17 +96,17 @@ public function addPlace(ring: mut Ring, parent: String): String | nil {
 public function removePlace(ring: mut Ring, place: String) {
   const parent = parentOf(place)
   const count = countOf(ring, parent)
-  drop(mut ring, place)
-  for (number of numberOf(place) + 1..count) { move(mut ring, within(parent, number), within(parent, number - 1)) }
+  drop(ring, place)
+  for (number of numberOf(place) + 1..count) { move(ring, within(parent, number), within(parent, number - 1)) }
   ring.counts[parent] = (count - 1).max(0)
 }
 
 // Two places of one ring swapped, with all under each.
 public function swapPlaces(ring: mut Ring, first: String, second: String) {
   const aside = "~"
-  move(mut ring, first, aside)
-  move(mut ring, second, first)
-  move(mut ring, aside, second)
+  move(ring, first, aside)
+  move(ring, second, first)
+  move(ring, aside, second)
 }
 
 // A place moved one along in its ring (`by` -1 back, 1 on): its new place, or none at either end.
@@ -115,6 +115,6 @@ public function shiftPlace(ring: mut Ring, place: String, by: Integer): String |
   const number = numberOf(place) + by
   if (number < 1 || number > countOf(ring, parent)) { return nil }
   const other = within(parent, number)
-  swapPlaces(mut ring, place, other)
+  swapPlaces(ring, place, other)
   return other
 }

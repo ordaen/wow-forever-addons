@@ -204,7 +204,7 @@ public class Social implements Module, App {
       self.readTalk(self.talkOpen)
     }
     // The friends read: the characters Battle.net friends play here written down.
-    watch (friends of self.read) { noteSeen(mut self.seen, friends, Client.GetServerTime()) }
+    watch (friends of self.read) { noteSeen(self.seen, friends, Client.GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
     watch (opened of self.open) {
       if (!opened) { return }
@@ -717,7 +717,7 @@ public class Social implements Module, App {
     const talk = self.talkMade[pick.talk.key]
     if (talk == nil) { return }
     match (pick.action) {
-      .Close => { self.closeTalk(mut talk) }
+      .Close => { self.closeTalk(talk) }
       .Clear => { talk.clear() }
     }
     self.countUnread()

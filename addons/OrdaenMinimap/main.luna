@@ -148,12 +148,12 @@ public class Minimap implements Module, App {
 
   hiddenParts(self): Array<any Frame> {
     const parts: Array<any Frame> = []
-    Minimap.hide(mut parts, Game.frames.MinimapCluster)
-    Minimap.hide(mut parts, Game.frames.MinimapBackdrop)
-    Minimap.hide(mut parts, Game.frames.MinimapZoomIn)
-    Minimap.hide(mut parts, Game.frames.MinimapZoomOut)
-    Minimap.hide(mut parts, Game.frames.MinimapZoomHitArea)
-    Minimap.hide(mut parts, Game.frames.OrdaenDevButton)
+    Minimap.hide(parts, Game.frames.MinimapCluster)
+    Minimap.hide(parts, Game.frames.MinimapBackdrop)
+    Minimap.hide(parts, Game.frames.MinimapZoomIn)
+    Minimap.hide(parts, Game.frames.MinimapZoomOut)
+    Minimap.hide(parts, Game.frames.MinimapZoomHitArea)
+    Minimap.hide(parts, Game.frames.OrdaenDevButton)
     return parts
   }
 

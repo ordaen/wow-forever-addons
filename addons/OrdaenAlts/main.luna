@@ -79,11 +79,11 @@ public class Alts implements Module, App {
     self.current = CharacterId.of(Game.player.guid)
     const surname = Game.player.surname
     self.records = new Records(
-      mut self.kept, self.current, Game.player.realm, factionOf(Game.player.faction),
+      self.kept, self.current, Game.player.realm, factionOf(Game.player.faction),
       surname == nil ? Game.player.name : Game.player.name + " " + surname, Hour.now()
     )
     self.characters = self.records.characters
-    self.recorder = new Recorder(mut self.records)
+    self.recorder = new Recorder(self.records)
     Ordaen.modules.add(self)
     // A command can't be taken back: once the module is turned off it does nothing.
     Runtime.command("/alts", (text: String): nil => {

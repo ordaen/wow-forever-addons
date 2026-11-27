@@ -45,7 +45,7 @@ function chosen(stand: Stand, id: String): BarChoice {
 // A bar's settings changed and saved, as a page left them before.
 function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => nil) {
   const choice = chosen(stand, id).clone()
-  change(mut choice)
+  change(choice)
   stand.settings.change((values: mut BarsChoices): nil => {
     values.bars[id] = choice
   })
@@ -91,7 +91,7 @@ test "a copy takes every setting but the place, the switch and Панель 1's 
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
-  set(mut stand, "3", (choice: mut BarChoice): nil => {
+  set(stand, "3", (choice: mut BarChoice): nil => {
     choice.on = false
     choice.buttons = 12
     choice.perRow = 12
@@ -123,7 +123,7 @@ test "a copy made in a fight changes the bar only as the fight ends" {
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
-  set(mut stand, "3", (choice: mut BarChoice): nil => { choice.buttons = 5 })
+  set(stand, "3", (choice: mut BarChoice): nil => { choice.buttons = 5 })
   Test.page().button("Action Bar 2").click()
   Test.combat(true)
   copyFrom("Action Bar 3")
@@ -140,7 +140,7 @@ test "the menu resets the bar's settings, its switch kept, and puts it back wher
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
-  set(mut stand, "3", (choice: mut BarChoice): nil => {
+  set(stand, "3", (choice: mut BarChoice): nil => {
     choice.on = false
     choice.size = 30
     choice.keys = false

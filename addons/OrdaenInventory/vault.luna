@@ -12,8 +12,8 @@ public const GUILD_SLOTS = 98
 // What lies in the slot, into `into`; false for an empty slot.
 public function readIn(vault: Vault, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
   return match (vault) {
-    .Guild => readGuild(bag, slot, mut into)
-    else => Game.bags.readSlot(bag, slot, mut into)
+    .Guild => readGuild(bag, slot, into)
+    else => Game.bags.readSlot(bag, slot, into)
   }
 }
 

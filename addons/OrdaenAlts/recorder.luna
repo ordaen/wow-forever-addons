@@ -42,7 +42,7 @@ public class Recorder {
         if (left != nil) { ready[recipe] = Hour.fromNow(left) }
       }
     }
-    self.records.setRecipes(open, mut recipes, mut ready)
+    self.records.setRecipes(open, recipes, ready)
   }
 
   // A recipe learned while a profession is open belongs to it; one learned from a trainer is read the next time the
@@ -90,7 +90,7 @@ public class Recorder {
         items[item] = (items[item] ?? 0) + owned.quantity
       }
     }
-    self.records.setPlace(Place.Auctions, mut items, nil)
+    self.records.setPlace(Place.Auctions, items, nil)
   }
 }
 

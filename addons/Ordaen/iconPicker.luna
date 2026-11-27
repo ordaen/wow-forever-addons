@@ -44,10 +44,10 @@ struct Offered {
 // The client's icon lists in the macro window's order, each a file's number or a name under Interface/Icons/.
 function clientIcons(): Array<Offered> {
   const raw: Array<FileId | String> = []
-  Client.GetLooseMacroIcons(mut raw)
-  Client.GetMacroIcons(mut raw)
-  Client.GetLooseMacroItemIcons(mut raw)
-  Client.GetMacroItemIcons(mut raw)
+  Client.GetLooseMacroIcons(raw)
+  Client.GetMacroIcons(raw)
+  Client.GetLooseMacroItemIcons(raw)
+  Client.GetMacroItemIcons(raw)
   const offered: Array<Offered> = []
   for (each of raw) {
     if (each is FileId) {

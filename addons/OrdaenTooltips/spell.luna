@@ -189,10 +189,10 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
         foot.push({ left: label, right: value, valueColor: line.usable == false ? RED : nil })
       }
     } else if (line.kind == DESCRIPTION) {
-      if (left != nil) { describe(left, mut body) }
+      if (left != nil) { describe(left, body) }
     } else if (line.kind == PASSIVE) {
       if (left != nil) { desc.push({ text: left }) }
-    } else if (line.kind != BLANK && left != nil && right == nil && !reagents(left, mut foot) && !tools(left, mut foot)) {
+    } else if (line.kind != BLANK && left != nil && right == nil && !reagents(left, foot) && !tools(left, foot)) {
       body.push({ left: left, color: colorOf(line.leftColor) })
     }
   }

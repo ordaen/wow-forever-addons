@@ -136,7 +136,7 @@ public class Slot {
     const wasNew = peek self.isNew
     const wasLoaded = self.read.loaded
     let changed = 0
-    if (!readIn(self.vault, self.bag, self.index, mut self.read)) {
+    if (!readIn(self.vault, self.bag, self.index, self.read)) {
       self.id = 0
       self.count = 0
       self.isNew = false

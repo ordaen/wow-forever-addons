@@ -181,7 +181,7 @@ public class Chat implements Module, App {
         const as = `${line.channel > 0 ? peek tab.channelName : ""}|${peek tab.keywords}`
         const shown = drawn[as] ?? self.shownLine(line, peek tab.channelName, peek tab.words)
         drawn[as] = shown
-        self.addTo(mut tab, shown, open)
+        self.addTo(tab, shown, open)
       }
     }
   }

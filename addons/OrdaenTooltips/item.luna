@@ -265,7 +265,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
         foot.push({
           left: Locale.CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term.Cls)
         })
-      } else if (needs != nil && reagents(needs, mut body)) {
+      } else if (needs != nil && reagents(needs, body)) {
         // A recipe's reagents: rows.
       } else if (hasStats && left.match("^[%+%-]%d") != nil && colorOf(line.leftColor) == nil) {
         // A stat: its row is drawn from the item's stats.

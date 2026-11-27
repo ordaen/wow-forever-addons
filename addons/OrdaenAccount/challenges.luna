@@ -347,7 +347,7 @@ public class Challenges {
   listedOf(self): Array<Challenge> {
     const words = self.search.lower()
     const list = self.everything.filter(one => self.shown(one) && (words == "" || one.name.lower().contains(words)))
-    sortedBy(mut list, self.sort)
+    sortedBy(list, self.sort)
     return list
   }
 

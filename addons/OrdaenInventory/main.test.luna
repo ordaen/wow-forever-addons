@@ -284,7 +284,7 @@ test "the window shows while the game has its bags open, and the game's own bag 
   Game.bags.windows = [own]
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Test.expect(!bags().shown() && own.GetAlpha() == 0)
   Game.bags.open = true
@@ -296,7 +296,7 @@ test "the window shows while the game has its bags open, and the game's own bag 
 test "the bags are followed while they are open, and not while they are shut" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Test.expect(Test.requests().length == 0)
   Game.bags.open = true
@@ -308,7 +308,7 @@ test "the bags are followed while they are open, and not while they are shut" {
 test "the window's close shuts the game's bags" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // The corner's controls show while the cursor is over the window.
@@ -320,7 +320,7 @@ test "the window's close shuts the game's bags" {
 test "the corner's gear opens the module's page of the settings, with its two windows, standing over the bags" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   // Small slots against each other, the bags low enough for the settings to cover their gear; the player left the bags
   // in the screen's middle, where the settings open.
@@ -349,7 +349,7 @@ test "turned off in the settings the window goes and the game's own bag windows 
   Game.bags.windows = [own]
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   const page = settings()
@@ -366,7 +366,7 @@ test "turned off in the settings the window goes and the game's own bag windows 
 test "each tab says how many items it has, «New» among them while something is new" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(tab("All") == "All | 9" && tab("New") == "New | 1" && tab("Quest items") == "Quest items | 1")
@@ -378,7 +378,7 @@ test "each tab says how many items it has, «New» among them while something is
 test "every item shows under «All», a section for each category in the kinds' order, «Free» last" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -397,7 +397,7 @@ test "every item shows under «All», a section for each category in the kinds' 
 test "a tab clicked shows its items alone" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -424,7 +424,7 @@ test "an item stands in the tab of its class, and a grey one in «Junk» whateve
     { bag: 0, slot: 10, id: 10, name: "Stone", icon: HEARTH, kind: 15, subkindName: "Kind" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -447,7 +447,7 @@ test "an item stands in the tab of its class, and a grey one in «Junk» whateve
 test "the cursor on a new item: new no more, its glow gone, the game told, and «New» goes" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -465,7 +465,7 @@ test "the cursor on a new item: new no more, its glow gone, the game told, and �
 test "«New» picked shows the new items in one section; once none is new the window shows every item" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -479,7 +479,7 @@ test "an item come into the bags new is told under «New»" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().shown())
@@ -493,7 +493,7 @@ test "an item come into the bags new is told under «New»" {
 test "the view «By bag»: a section per bag, captioned by its name and fill, its empty slots too" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -509,7 +509,7 @@ test "the window is as high as its slots, so none hides under a scroll: the last
   world.sizes = [16, 36, 36, 36, 36]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   // Slots small enough for all of them to fit the screen.
@@ -525,7 +525,7 @@ test "the window is as high as its slots, so none hides under a scroll: the last
 test "the view «One bag»: every slot in one grid in the bags' order, with no caption" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -542,7 +542,7 @@ test "the view «One bag»: every slot in one grid in the bags' order, with no c
 test "sorted by quality: the best first, then by name" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -554,7 +554,7 @@ test "sorted by quality: the best first, then by name" {
 test "sorted by name: in the alphabet's order" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -565,7 +565,7 @@ test "sorted by name: in the alphabet's order" {
 test "sorted by item level: the highest first" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -577,7 +577,7 @@ test "sorted by count: the largest stack first, and a stack that grows moves up"
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -592,7 +592,7 @@ test "a stack's count changing shows its new count, the order kept where the sor
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -609,7 +609,7 @@ test "sorted by item type: by the game's class of each, whatever its name" {
     { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3, subkindName: "Parts" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -626,7 +626,7 @@ test "two stacks alike stand in the bags' order whatever the sort" {
     { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 4, kind: 7 }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -639,7 +639,7 @@ test "two stacks alike stand in the bags' order whatever the sort" {
 test "the search dims every item whose name doesn't hold the text, in any case" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -651,7 +651,7 @@ test "the search dims every item whose name doesn't hold the text, in any case" 
 test "the search never dims an empty slot" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -663,7 +663,7 @@ test "the search never dims an empty slot" {
 test "the search isn't kept: after a reload nothing is dimmed" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -677,7 +677,7 @@ test "the search isn't kept: after a reload nothing is dimmed" {
 test "a category's caption has no mark and shuts nothing: a tab shows its items whole" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   // Slots small enough for all of them to fit the screen.
@@ -694,7 +694,7 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
 test "each category stands on the wood, its caption over its slots, each slot wearing the client's crest" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -710,7 +710,7 @@ test "each category stands on the wood, its caption over its slots, each slot we
 test "Shift+click set to Pick up on a slot picks its item up, or puts down there what the cursor holds" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -727,7 +727,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
 test "a slot dragged picks its item up, and let go on another slot puts it down there, as a click does" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -746,7 +746,7 @@ test "a slot dragged picks its item up, and let go on another slot puts it down 
 test "a slot's item dragged onto an action bar's button: the client's cursor takes it, and the button the item" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   // The client's cursor and the potion's slot as the client has it.
   Client.C_Container.GetContainerItemInfo = (bag: Integer, slot: Integer): Client.ContainerItemInfo | nil => bag == 0 && slot == 3 ?
@@ -775,7 +775,7 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
 test "a left click on a slot is the client's own use of the item, each click one use" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -801,7 +801,7 @@ test "a left click on a slot is the client's own use of the item, each click one
 test "Shift+right-click puts the item's link into the chat" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -816,7 +816,7 @@ test "Shift+right-click puts the item's link into the chat" {
 test "at a merchant and at the mailbox a quest's items dim" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -835,7 +835,7 @@ test "at the mailbox what is bound dims, and what is dragged dims with no mark o
     { bag: 0, slot: 3, id: 3, name: "Sent Blade", icon: POTION, kind: 2, locked: true }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -850,7 +850,7 @@ test "anywhere, what is on the cursor or held by the client dims" {
     { bag: 0, slot: 2, id: 2, name: "Dragged Blade", icon: POTION, kind: 2, locked: true }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -863,7 +863,7 @@ test "at the auction house what is bound dims" {
     { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -879,7 +879,7 @@ test "at crafting only trade goods and reagents stay lit" {
     { bag: 0, slot: 4, id: 4, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -893,7 +893,7 @@ test "at crafting only trade goods and reagents stay lit" {
 test "the slot menu protects a slot with a padlock, and takes it off again" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -908,7 +908,7 @@ test "the slot menu protects a slot with a padlock, and takes it off again" {
 test "an empty slot takes no protection" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
@@ -932,7 +932,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   // The potion casts its spell.
   let spell: String | nil = "Minor Healing Potion"
@@ -971,7 +971,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
 test "a protection is kept for the character: there after a reload, not for another character" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -986,7 +986,7 @@ test "a protected item moved to another slot takes its protection with it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1001,7 +1001,7 @@ test "a protected item gone from the bags loses its protection: put back, it has
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1024,7 +1024,7 @@ test "«Sort the bags» moves the items into the window's order, a swap at a tim
   world.sizes = [4, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
@@ -1049,7 +1049,7 @@ test "«Sort the bags» leaves a protected slot as it is" {
   world.sizes = [3, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
@@ -1072,7 +1072,7 @@ test "«Sort the bags» leaves a bag that takes only its own kind as it is" {
   world.general = false
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1088,7 +1088,7 @@ test "«Sort the bags» waits for a locked slot, and goes on once it is let go" 
   world.sizes = [2, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1109,7 +1109,7 @@ test "«Sort the bags» never takes a stack out of a place it belongs in, waitin
   world.sizes = [3, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1133,7 +1133,7 @@ test "«Sort the bags» swaps as many pairs in a go as touch no slot twice, and 
   world.sizes = [4, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
@@ -1154,7 +1154,7 @@ test "«Sort the bags» moves the items into the sort picked" {
   world.sizes = [4, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
@@ -1175,7 +1175,7 @@ test "«Sort the bags» ends at once where the client takes no swap" {
   world.sizes = [2, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   // Something on the cursor: the client takes no swap.
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => false
   Test.mount(nil, SCREEN)
@@ -1192,7 +1192,7 @@ test "«Sort the bags» over bags in order ends at once, an item picked up or no
   world.sizes = [2, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1209,7 +1209,7 @@ test "«Sort the bags» gives up after as many goes as there are slots, the clie
   world.moves = false
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1230,7 +1230,7 @@ test "the bags shut while «Sort the bags» goes stop it" {
   world.moves = false
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1249,7 +1249,7 @@ test "the bags shut while «Sort the bags» goes stop it" {
 test "the bag button opens the bag slots: each bag with its name and fill, an empty place as one" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(BAG_BUTTON).click()
@@ -1261,7 +1261,7 @@ test "the bag button opens the bag slots: each bag with its name and fill, an em
 test "the cursor on a bag lights its items, every other dimmed, and shows the bag's tooltip; off it, nothing is dimmed" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1279,7 +1279,7 @@ test "the cursor on a bag lights its items, every other dimmed, and shows the ba
 test "the bag slots close with their close and with the bag button, and open again with it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(BAG_BUTTON).click()
@@ -1296,7 +1296,7 @@ test "the bag slots close with their close and with the bag button, and open aga
 test "the bag under the cursor is shaded, its name in ink and its fill in the labels' colour" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(BAG_BUTTON).click()
@@ -1312,7 +1312,7 @@ test "the bag slots follow the bags: a bag swapped shows its icon, its slots and
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(BAG_BUTTON).click()
@@ -1327,7 +1327,7 @@ test "the bag slots follow the bags: a bag swapped shows its icon, its slots and
 test "the bag slots shut with the bags and open with them; a bag lit when they shut is lit no more" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1344,7 +1344,7 @@ test "the bag slots shut with the bags and open with them; a bag lit when they s
 test "the footer says the free slots of the total, and the currency the player follows" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.money.amount = 123456
   Game.money.tracked = "12 Marks"
   Test.mount(nil, SCREEN)
@@ -1426,7 +1426,7 @@ test "an item come into a bag shows, the counts told" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1441,7 +1441,7 @@ test "a bag's fill in the view «By bag» follows its items" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
@@ -1455,7 +1455,7 @@ test "a bag swapped for a larger one: its slots read anew" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1471,7 +1471,7 @@ test "a bag swapped for a larger one: its slots read anew" {
 test "the view picked is the profile's: there after a reload" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
@@ -1482,7 +1482,7 @@ test "the view picked is the profile's: there after a reload" {
 test "the sort picked is the profile's: there after a reload" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1494,7 +1494,7 @@ test "the sort picked is the profile's: there after a reload" {
 test "a new profile used: the window by category in the bags' order, as at first" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1517,7 +1517,7 @@ test "a new profile used: the window by category in the bags' order, as at first
 test "the tab picked is white, the others in the labels' colour, and one with no item shows dimmed" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().text("All").textColor().equal(PICKED) && bags().button("Trade goods").text("Trade goods").textColor().equal(LABEL))
@@ -1529,7 +1529,7 @@ test "the tab picked is white, the others in the labels' colour, and one with no
 test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plain" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // A tab of one kind: its sections are its subclasses.
@@ -1551,7 +1551,7 @@ test "each item's rim is in its quality's colour" {
     { bag: 0, slot: 8, id: 8, name: "H", icon: RECIPE, quality: 7, kind: 7 }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1565,7 +1565,7 @@ test "a caption longer than its card is cut at the card's edge" {
     { bag: 0, slot: 1, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Предметы для заданий и поручений" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1580,7 +1580,7 @@ test "the sections of a kind stand in the order of the game's subclasses" {
     { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1595,7 +1595,7 @@ test "the client's miscellaneous «Junk» subclass (a hearthstone) is captioned 
     { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
   ])
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1607,7 +1607,7 @@ test "a stack taken out leaves its slot empty: no count, no glow" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1622,7 +1622,7 @@ test "every bag with slots has its section in the view «By bag» and its slots 
   const world = new World(everyday())
   world.sizes = [16, 6, 0, 0, 4]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
@@ -1634,7 +1634,7 @@ test "every bag with slots has its section in the view «By bag» and its slots 
 test "in the view «By bag» a bag's caption is a name alone: a click on it shuts nothing" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
@@ -1646,7 +1646,7 @@ test "in the view «By bag» a bag's caption is a name alone: a click on it shut
 test "slots stand apart by the setting's room, three steps where none is chosen; none at 0" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
@@ -1661,7 +1661,7 @@ test "slots stand apart by the setting's room, three steps where none is chosen;
 test "a slot is as big as the setting says, 50 where none is chosen, its icon with it, and the cards stay in the list" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1677,7 +1677,7 @@ test "a slot is as big as the setting says, 50 where none is chosen, its icon wi
 test "the footer stands on the game's marble, a rim round it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // The second marble: the first is the category column.
@@ -1695,7 +1695,7 @@ test "a protected stack used up: its protection passes to no other stack of its 
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1717,7 +1717,7 @@ test "two protected stacks of one item moved: each keeps its protection" {
   world.sizes = [4, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1736,7 +1736,7 @@ test "the cursor off a slot, or the bags shut, a tooltip of its item elsewhere s
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1762,7 +1762,7 @@ test "a stack picked up and let go elsewhere leaves its slot free for «Sort the
   world.sizes = [3, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1783,7 +1783,7 @@ test "an update that changes nothing redraws nothing, sorted by count too" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.sort, "Count")
@@ -1799,7 +1799,7 @@ test "a count changing redraws that count alone, where the sort isn't by count" 
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().shown())
@@ -1815,7 +1815,7 @@ test "an empty bag put on shows its section in the view «By bag»" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
@@ -1830,7 +1830,7 @@ test "in the view «One bag», the cursor off a slot, a tooltip of its item else
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1863,7 +1863,7 @@ function firstSpan(): Integer {
 test "the one-bag view keeps no room for the tabs it doesn't show: it may be the tab list narrower than the categories" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
@@ -1876,7 +1876,7 @@ test "the one-bag view keeps no room for the tabs it doesn't show: it may be the
 test "every category's name stands whole in the tabs' column, the column at least its least width" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
@@ -1891,7 +1891,7 @@ test "every category's name stands whole in the tabs' column, the column at leas
 test "a group is at least the fewest slots in a row wide, as the player sets it, and the window narrows to one" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Inventory.settings.change((values: mut Choices): nil => { values.rowLeast = 6 })
   Game.bags.open = true
@@ -1904,7 +1904,7 @@ test "a group is at least the fewest slots in a row wide, as the player sets it,
 test "the grip narrows a wide window past the row it opened with, down to its least: the cards ask nothing of it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Inventory.list.write({ view: .One, ..Inventory.list.values })
   Inventory.window.memory.write({ width: 1400ui, ..Inventory.window.memory.values })
@@ -1918,7 +1918,7 @@ test "the grip narrows a wide window past the row it opened with, down to its le
 test "the cursor on the client's bag button, where the bottom panel shows it, lights that bag's slots" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -1939,7 +1939,7 @@ test "the cursor on the client's bag button, where the bottom panel shows it, li
 test "in the category view the tabs stand down a marble column the page's height; the toolbar is beside it, over the list" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "Categories")
@@ -1967,7 +1967,7 @@ function withNewBag(world: mut World) {
   world.items.push({ bag: 0, slot: 6, id: 4245, name: "Small Silk Pack", icon: LINEN_BAG, kind: 1 })
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   const frame = Client.CreateFrame("Button", nil, Client.UIParent)
   Game.bags.buttons = [
@@ -1979,7 +1979,7 @@ function withNewBag(world: mut World) {
 
 test "a bag used goes on in an empty bag place, by the bags themselves" {
   const world = new World(everyday())
-  withNewBag(mut world)
+  withNewBag(world)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
@@ -1991,7 +1991,7 @@ test "a bag used goes on in an empty bag place, by the bags themselves" {
 test "with every place taken, the smallest bag is emptied into the others, then the new one goes on in its place" {
   const world = new World(everyday())
   world.sizes = [16, 6, 8, 8, 8]
-  withNewBag(mut world)
+  withNewBag(world)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean =>
   world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
@@ -2008,7 +2008,7 @@ test "with every place taken, the smallest bag is emptied into the others, then 
 test "a bag whose smallest replacement holds more than the other bags have free stays, and the chat says why" {
   const world = new World(everyday())
   world.sizes = [9, 6, 0, 0, 0]
-  withNewBag(mut world)
+  withNewBag(world)
   Game.bags.buttons = [{ kind: .Bag, bag: 1, frame: Client.CreateFrame("Button", nil, Client.UIParent), icon: nil }]
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -2023,7 +2023,7 @@ test "a bag whose smallest replacement holds more than the other bags have free 
 test "while a spell waits for an item, a left click gives it the slot's item, the client's secure doing; nothing is picked up" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -2039,7 +2039,7 @@ test "while a spell waits for an item, a left click gives it the slot's item, th
 test "gold on the cursor let go on a slot goes back into the purse; the guild bank's is taken out" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   let gold: String = "money"
   let dropped = 0
@@ -2067,7 +2067,7 @@ test "gold on the cursor let go on a slot goes back into the purse; the guild ba
 test "a bag's line clicked keeps its items lit, the rest faded, until clicked again" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -2085,7 +2085,7 @@ test "a bag's line clicked keeps its items lit, the rest faded, until clicked ag
 test "a worn bag's line dragged takes the bag off its place; a bag held from a place let go on another is put on there" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
@@ -2111,7 +2111,7 @@ test "an ordinary bag never takes a bag for one kind of thing off: the smallest 
   world.sizes = [16, 6, 8, 8, 8]
   // The linen bag, the smallest, takes one kind of thing alone.
   world.general = false
-  withNewBag(mut world)
+  withNewBag(world)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
@@ -2125,7 +2125,7 @@ test "a run the client won't finish gives up after its goes, and the chat says t
   world.sizes = [16, 6, 8, 8, 8]
   // The client takes the swaps and moves nothing.
   world.moves = false
-  withNewBag(mut world)
+  withNewBag(world)
   Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean =>
   world.swap(fromBag, fromSlot, toBag, toSlot)
   Test.mount(nil, SCREEN)
@@ -2139,7 +2139,7 @@ test "a run the client won't finish gives up after its goes, and the chat says t
 
 test "a bag isn't put on while the cursor holds something" {
   const world = new World(everyday())
-  withNewBag(mut world)
+  withNewBag(world)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.flush()
@@ -2155,7 +2155,7 @@ test "the keyring's keys are read with the bags: under «Keys», and the keyring
   Game.bags.bag = (bag: Integer): Game.BagInfo => bag == -1 ?
     { bag: -1, item: nil, name: "Keyring", icon: nil, slots: 32, general: false } : world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => bag == -1 ? 32 : world.size(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true

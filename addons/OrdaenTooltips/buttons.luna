@@ -39,9 +39,9 @@ function rowsOf(owner: String): mut Array<TextLine> {
       let percent = (worn * 100).round()
       rows.push({ left: Locale.EXTRA_DURABILITY, right: `${percent}%`, rightColor: percent < 25 ? RED : nil })
     }
-    talentsRow(mut rows)
+    talentsRow(rows)
   } else if (owner == "TalentMicroButton") {
-    talentsRow(mut rows)
+    talentsRow(rows)
   } else if (owner == "ProfessionMicroButton") {
     for (profession of Game.professions.list) {
       rows.push({ left: profession.name, right: count(profession.rank, profession.max) })
