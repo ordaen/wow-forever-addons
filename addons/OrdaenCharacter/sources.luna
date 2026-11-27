@@ -228,7 +228,7 @@ function section(title: string, parts: array<Part>, into: mut array<TipSection>)
 // damage from strength, for a class with a shield.
 function feedsOf(stats: Stats, classTag: string): array<Feed> {
   const by = stats.conversions
-  const all: array<Feed> = [
+  const all: array<Feed> = mut [
     { from: .Strength, to: .AttackPower, per: by.attackPerStrength },
     { from: .Agility, to: .AttackPower, per: by.attackPerAgility },
     { from: .Agility, to: .RangedAttackPower, per: by.rangedPerAgility },
@@ -301,7 +301,7 @@ function sum(parts: array<Part>): number {
 // hit's damage (the least down, the most up, at least 1); a hand's of two, its damage a second too (the card's is both
 // hands').
 function handRows(min: number, max: number, speed: number, ofTwo: boolean): array<TipRow> {
-  const rows: array<TipRow> = [
+  const rows: array<TipRow> = mut [
     { label: Locale::ATTACK_SPEED, value: "%.2f".format(speed) },
     { label: Locale::DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` }
   ]
@@ -313,14 +313,14 @@ function handRows(min: number, max: number, speed: number, ofTwo: boolean): arra
 // each hand's section; the melee's glancing blows. Attack power lights with it, and each weapon's slot with its damage
 // a second.
 function damageBreakdown(ranged: boolean, stats: Stats): Breakdown {
-  const shares: map<integer, string> = {}
+  const shares: map<integer, string> = mut {}
   if (ranged) {
     shares[RANGED_SLOT] = "%.1f".format(rangedDps(stats))
     const rows = handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed, false)
     return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower, .RangedAttackSpeed], shares: shares }
   }
   shares[MAIN_HAND_SLOT] = "%.1f".format(handDps(stats.minDamage, stats.maxDamage, stats.speed))
-  const sections: array<TipSection> = []
+  const sections: array<TipSection> = mut []
   const off = stats.offSpeed ?? 0
   let rows: array<TipRow> = []
   if (off > 0) {
@@ -406,7 +406,7 @@ public struct Cap {
 
 // A hit gauge's caps: each target's hit that misses nothing.
 public function hitCaps(stat: Stat, stats: Stats): array<Cap> {
-  const caps: array<Cap> = []
+  const caps: array<Cap> = mut []
   for (c of capsOf(stat, dualOf(stats))) {
     const title = c == DUAL_HIT_CAPS ? Locale::HIT_CAP_DUAL : ""
     caps.push({ at: c.boss, title: title != "" ? `${title}: ${Locale::HIT_CAP_BOSS}` : Locale::HIT_CAP_BOSS, text: Locale::HIT_MARK.format(amountText(c.boss, true)) })
@@ -446,7 +446,7 @@ function avoidanceRows(expertise: number, of: Avoidance): array<TipRow> {
 
 // The expertise gauge's caps: where each target no longer dodges, and where it no longer parries (past its dodge).
 public function expertiseCaps(): array<Cap> {
-  const caps: array<Cap> = []
+  const caps: array<Cap> = mut []
   const targets: array<Target> = [{ name: Locale::HIT_CAP_BOSS, of: BOSS_AVOIDANCE }, { name: Locale::HIT_CAP_LEVEL, of: LEVEL_AVOIDANCE }]
   for (target of targets) {
     const parry = target.of.dodge + target.of.parry
@@ -557,7 +557,7 @@ function outcomesOf(strike: Strike, stats: Stats, boss: boolean): array<Outcome>
   const odds = oddsOf(strike, stats, boss, caps)
   const whole = oddsOf(strike, {}, boss, caps)
   const crit = critAt(strike, stats, boss)
-  const outcomes: array<Outcome> = [{ label: Locale::MISS, share: odds.miss, color: Style::RED, whole: whole.miss }]
+  const outcomes: array<Outcome> = mut [{ label: Locale::MISS, share: odds.miss, color: Style::RED, whole: whole.miss }]
   if (strike == .Spell) {
     const crits = (100 - odds.miss) * crit / 100
     outcomes.push({ label: Locale::ORDINARY, share: 100 - odds.miss - crits, color: Style::ORDINARY })
@@ -632,7 +632,7 @@ function takenOf(stats: Stats, boss: boolean): array<Outcome> {
   const edge = (stats.defensePast - past) * SKILL_STEP
   const lose = past * SKILL_STEP
   const gap = past + (-stats.defensePast).max(0)
-  const parts: array<Outcome> = []
+  const parts: array<Outcome> = mut []
   const add = (label: string, chance: number, color: Color) => {
     parts.push({ label: label, share: chance.max(0).min(roomOf(parts)), color: color })
   }
@@ -670,7 +670,7 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
   const past = statValue(stat, stats)
   const sections = bothTargets(stats, (title: string, boss: boolean): TipSection => {
     const edge = (past - (boss ? stats.bossDefensePast : 0)) * SKILL_STEP
-    const rows: array<TipRow> = [
+    const rows: array<TipRow> = mut [
       { label: Locale::SKILL_HIT, value: signedPercent(edge), valueTone: edgeTone(edge) },
       { label: Locale::CRIT, value: signedPercent(edge), valueTone: edgeTone(edge) }
     ]
@@ -689,7 +689,7 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
 // seconds; the weapon's own are those times the haste. The haste lights with it.
 function speedBreakdown(ranged: boolean, stats: Stats): Breakdown {
   const haste = ranged ? stats.rangedHaste : stats.meleeHaste
-  const rows: array<TipRow> = [{ label: Locale::HASTE, value: added(haste, true) }]
+  const rows: array<TipRow> = mut [{ label: Locale::HASTE, value: added(haste, true) }]
   if (ranged) {
     rows.push(swingRow(Locale::SECTION_RANGED, stats.rangedSpeed, haste))
   } else {
@@ -745,7 +745,7 @@ public function breakdownOf(stat: Stat, text: string, facts: Facts): Breakdown {
   if (base.abs() >= (spec.percent ? 0.005 : 0.5)) {
     fromStats.push({ row: { label: Locale::BASE, value: amountText(base, spec.percent) }, amount: base })
   }
-  const sections: array<TipSection> = []
+  const sections: array<TipSection> = mut []
   section(Locale::FROM_STATS, fromStats, sections)
   section(Locale::FROM_ITEMS, parts.fromItems, sections)
   section(Locale::FROM_EFFECTS, parts.fromEffects, sections)
@@ -767,7 +767,7 @@ function baseFor(stat: Stat, facts: Facts, parts: Parts): number {
 
 // Each stat's base, by its name: what the character is without its items, its auras and what its stats feed.
 public function basesOf(facts: Facts): map<string, number> {
-  const bases: map<string, number> = {}
+  const bases: map<string, number> = mut {}
   for (stat of EVERY_STAT) { bases[`${stat}`] = baseFor(stat, facts, partsOf(stat, facts)) }
   return bases
 }
@@ -784,7 +784,7 @@ function boostTone(amount: number): Color | nil {
 
 // Each stat an aura changes, by its name, and how; a stat none changes isn't in it.
 public function boostsOf(facts: Facts): map<string, Boost> {
-  const boosts: map<string, Boost> = {}
+  const boosts: map<string, Boost> = mut {}
   if (facts.auras.length == 0) { return boosts }
   for (stat of EVERY_STAT) {
     const effects = partsOf(stat, facts).fromEffects
@@ -806,11 +806,11 @@ public function givenTo(stat: Stat, facts: Facts): number {
 function partsOf(stat: Stat, facts: Facts): Parts {
   const spec = specOf(stat)
   const total = spec.of(facts.stats)
-  const fromStats: array<Part> = []
-  const fromItems: array<Part> = []
-  const fromEffects: array<Part> = []
-  const fed: array<Stat> = []
-  const shares: map<integer, string> = {}
+  const fromStats: array<Part> = mut []
+  const fromItems: array<Part> = mut []
+  const fromEffects: array<Part> = mut []
+  const fed: array<Stat> = mut []
+  const shares: map<integer, string> = mut {}
 
   for (feed of feedsOf(facts.stats, facts.classTag)) {
     if (feed.to == stat) {
@@ -841,7 +841,7 @@ function partsOf(stat: Stat, facts: Facts): Parts {
 
   // Each set's bonuses once, however many of its pieces are worn; its pieces that give the stat nothing of their own
   // light with the set's share.
-  const sets: array<string> = []
+  const sets: array<string> = mut []
   for (piece of facts.worn) {
     const set = piece.set
     if (set != nil && !sets.any(name => name == set.name)) {

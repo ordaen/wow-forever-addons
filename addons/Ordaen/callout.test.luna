@@ -106,7 +106,7 @@ class Counted implements Component {
 
   public render(): Template {
     return $ltml {
-      <Callout by={self.by} title={"3"} look={CalloutLook.Speech { tone: VIOLET }} pulse={self.unread} />
+      <Callout by={self.by} title={"3"} look={CalloutLook::Speech { tone: VIOLET }} pulse={self.unread} />
     }
   }
 }
@@ -154,7 +154,7 @@ class Framed implements Component {
 
   public render(): Template {
     return $ltml {
-      <Callout by={self.by} title={TITLE} look={CalloutLook.Framed { closable: false }} />
+      <Callout by={self.by} title={TITLE} look={CalloutLook::Framed { closable: false }} />
     }
   }
 }

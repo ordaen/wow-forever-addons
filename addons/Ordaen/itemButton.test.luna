@@ -76,7 +76,7 @@ class Dragged {
   public render(): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={3sp}>
-        <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1, chord: .Left }} @dragged={self.onDragged}
+        <ItemButton item={6948} action={Action::UseBagItem { bag: 0, slot: 1, chord: .Left }} @dragged={self.onDragged}
                     @pressed={self.onPressed} />
         <ItemButton item={2589} @dropped={self.onDropped} @pressed={self.onPressed} />
       </box>
@@ -125,7 +125,7 @@ test "each quality has its own border colour, lit inside from uncommon up, a slo
   let slot = new Slot()
   const qualities = [Quality::Poor, Quality::Common, Quality::Uncommon, Quality::Rare, Quality::Epic, Quality::Legendary,
     Quality::Artifact, Quality::Heirloom]
-  let seen: array<string> = []
+  let seen: array<string> = mut []
   for (quality of qualities) {
     slot.quality = quality
     const look = slot.look()

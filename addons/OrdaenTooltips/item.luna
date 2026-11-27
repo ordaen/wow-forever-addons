@@ -101,7 +101,7 @@ function reagents(text: string, body: mut array<TextLine>): boolean {
 
 // A model with one more line in its footer.
 function withNote(model: Model, note: Note): Model {
-  let foot: array<Note> = []
+  let foot: array<Note> = mut []
   for (kept of model.foot) { foot.push(kept) }
   foot.push(note)
   return { foot: foot, ..model }
@@ -111,14 +111,14 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
   let id = data.id
   let name: string | nil = nil
   let nameColor = BRIGHT_TEXT
-  let desc: array<Part> = []
-  let info: array<Part> = []
-  let facts: array<Fact> = []
-  let body: array<TextLine> = []
-  let foot: array<Note> = []
-  let sides: array<Model> = []
-  let makes: array<Game::TooltipData> = []
-  let stats: map<string, number> = {}
+  let desc: array<Part> = mut []
+  let info: array<Part> = mut []
+  let facts: array<Fact> = mut []
+  let body: array<TextLine> = mut []
+  let foot: array<Note> = mut []
+  let sides: array<Model> = mut []
+  let makes: array<Game::TooltipData> = mut []
+  let stats: map<string, number> = mut {}
   let timer = false
 
   let level = id != nil ? Game::items.level(id) : nil
@@ -139,7 +139,7 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
   let recipe = false
   let learned = false
   let setName: string | nil = nil
-  let setBody: array<TextLine> = []
+  let setBody: array<TextLine> = mut []
   for (line of data.lines) {
     let kind = line.kind
     let left = clean(line.left)
@@ -315,7 +315,7 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
 public function compare(
   target: Model, better: map<string, number>, worse: map<string, number>, lacks: boolean
 ): Model {
-  let body: array<TextLine> = []
+  let body: array<TextLine> = mut []
   for (row of target.body) {
     let key = row.stat
     let right = row.right
@@ -343,11 +343,11 @@ public function compare(
 // label on the left and the value on the right, at the body's size, before its words.
 function useSide(model: Model | nil): Model | nil {
   if (model == nil) { return nil }
-  let body: array<TextLine> = []
+  let body: array<TextLine> = mut []
   for (part of model.desc) { body.push(rowOf(part.text)) }
   for (part of model.info) { body.push(rowOf(part.text)) }
   // The spell's own cells (its cost, range, cast, cooldown) stay its band; the rest (an armour kit's armour) are rows.
-  let facts: array<Fact> = []
+  let facts: array<Fact> = mut []
   for (fact of model.facts) {
     if (fact.cell.kind == BandKind::Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
   }

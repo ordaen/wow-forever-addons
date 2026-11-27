@@ -120,7 +120,7 @@ public class Compose implements Component {
   state body = ""
   state paidTab = 1
   state copper = 0
-  state stacks: mut array<Game::MailStack> = []
+  state stacks: mut array<Game::MailStack> = mut []
   state names: array<Recipient> = []
   derived typed: string = trimmed(self.to)
   derived shown: array<Recipient> = matching(self.names, self.typed, SHOWN_NAMES)
@@ -154,11 +154,11 @@ public class Compose implements Component {
 
   // The letters' slots: twelve stacks a letter, and the empty slot after the last stack.
   slotsOf(): array<LetterSlots> {
-    const list: array<LetterSlots> = []
+    const list: array<LetterSlots> = mut []
     const total = self.stacks.length
     const count = lettersFor(total + 1)
     for (number of 1..count) {
-      const stacks: array<Game::MailStack> = []
+      const stacks: array<Game::MailStack> = mut []
       for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(total)) {
         stacks.push(self.stacks[index] ?? panic("a place within the stacks"))
       }

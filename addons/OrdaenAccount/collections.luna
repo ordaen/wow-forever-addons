@@ -88,7 +88,7 @@ function fileOf(icon: number | nil): FileId | nil {
 }
 
 function mounts(): array<Entry> {
-  const list: array<Entry> = []
+  const list: array<Entry> = mut []
   for (id of Client::C_MountJournal::GetMountIDs()) {
     const (name, spell, icon, _, usable, _, _, _, _, hidden, owned, _, _) = Client::C_MountJournal::GetMountInfoByID(id)
     if (name != nil && hidden != true) {
@@ -104,7 +104,7 @@ function mounts(): array<Entry> {
 function pets(): array<Entry> {
   // The journal's own search would leave pets out: every pet is read, the list searched here.
   Client::C_PetJournal::ClearSearchFilter()
-  const list: array<Entry> = []
+  const list: array<Entry> = mut []
   const (count, _) = Client::C_PetJournal::GetNumPets()
   for (index of 1..count.floor()) {
     const (pet, species, owned, custom, _, _, revoked, name, icon, _, _, _, _, _, _, _, _, _) = Client::C_PetJournal::GetPetInfoByIndex(index)
@@ -120,7 +120,7 @@ function pets(): array<Entry> {
 
 function toys(): array<Entry> {
   Client::C_ToyBox::SetFilterString("")
-  const list: array<Entry> = []
+  const list: array<Entry> = mut []
   for (index of 1..Client::C_ToyBox::GetNumFilteredToys().floor()) {
     const item = Client::C_ToyBox::GetToyFromIndex(index)
     if (item > 0) {
@@ -215,7 +215,7 @@ public class EntryTile implements Component {
 // its name beside it in the rows' view.
 public class ToyRow implements Component {
   derived ink: Color = self.entry.owned ? Style::INK : Style::MISSING
-  derived action: Action | nil = self.entry.owned && self.entry.usable ? Action.UseItem { item: self.entry.id } : nil
+  derived action: Action | nil = self.entry.owned && self.entry.usable ? Action::UseItem { item: self.entry.id } : nil
 
   entry: Signal<Entry>
   const icons: boolean

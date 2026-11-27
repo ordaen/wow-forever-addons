@@ -42,7 +42,7 @@ function streamKey(stream: Game::ChatStream): string {
 
 // The windows' own settings with one window's set (nil: taken away).
 function withTab(tabs: map<string, TabChoices>, key: string, choices: TabChoices | nil): map<string, TabChoices> {
-  const changed: map<string, TabChoices> = {}
+  const changed: map<string, TabChoices> = mut {}
   for (other, kept of tabs) { changed[other] = kept }
   changed[key] = choices
   return changed

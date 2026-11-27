@@ -125,7 +125,7 @@ function lineName(lines: array<Game::SpellLine>, index: integer): string {
 // cooldown runs a shade falls over the icon, by the client's clock (nothing runs per frame). A pet's spell is cast by
 // the pet, and the right button turns its autocast, marked in the slot's corner while on.
 class SpellSlot implements Component {
-  derived cast: Action | nil = castable(self.spell) ? Action.CastSpell { spell: castName(self.spell), chord: .Left, selfCast: true } : nil
+  derived cast: Action | nil = castable(self.spell) ? Action::CastSpell { spell: castName(self.spell), chord: .Left, selfCast: true } : nil
   derived dimmed: boolean = !self.spell.learned
   derived cooling: boolean = self.run != nil
   derived shade: BarFill = { duration: runOf(self.run), color: COOLING, from: FillFrom::Top }
@@ -341,7 +341,7 @@ public class SpellbookPage {
   // (an active one says nothing of it); its rank where it has one. A pet's spell stands under its
   // book, which says both.
   detailOf(spell: Game::SpellEntry): string {
-    const parts: array<string> = []
+    const parts: array<string> = mut []
     if (!spell.pet && self.byType) { parts.push(self.lineOf(spell)) }
     if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale::PASSIVE) }
     const rank = rankOf(spell)
@@ -351,7 +351,7 @@ public class SpellbookPage {
 
   // The player's spells and the pet's that the search and the filter keep, in the sort's order.
   shownOf(): array<Game::SpellEntry> {
-    const list: array<Game::SpellEntry> = []
+    const list: array<Game::SpellEntry> = mut []
     const sought = self.search.lower()
     for (from of [self.spells, self.pets]) {
       for (spell of from) {
@@ -375,7 +375,7 @@ public class SpellbookPage {
   // The columns' groups, each in the sort's order, one with no spell left out: by type the active spells, then the
   // passive ones; by spec a group for each skill line, in the book's order. The pet's spells last, under its book.
   groupsOf(): array<SpellGroup> {
-    const groups: array<SpellGroup> = []
+    const groups: array<SpellGroup> = mut []
     const add = (title: string, spells: array<Game::SpellEntry>) => {
       if (spells.length > 0) { groups.push({ title: title, spells: spells }) }
     }

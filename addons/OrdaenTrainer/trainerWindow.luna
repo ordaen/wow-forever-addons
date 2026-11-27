@@ -112,7 +112,7 @@ const TRACKS: array<Track> = [{ fr: 1 }, NARROW, NARROW, PRICE]
 // The sorts a kind of trainer's window offers, as its sort button and an owner's settings page list them: its trainer's
 // order (0), each column, «available first».
 public function trainerSorts(noun: string, trade: boolean): array<Choice<integer>> {
-  const list: array<Choice<integer>> = [{ value: 0, label: Locale::TRAINER_ORDER }]
+  const list: array<Choice<integer>> = mut [{ value: 0, label: Locale::TRAINER_ORDER }]
   for (choice of sortChoices(columnsOf(noun, trade), MORE_SORTS)) { list.push(choice) }
   return list
 }
@@ -217,7 +217,7 @@ function rankOf(service: Game::TrainerService): string {
 // The line under a service's name: its spec («Огонь»), its rank, then what it asks for (a level from 2, a skill from 1), or that it is
 // known.
 function needsOf(service: Game::TrainerService): string {
-  const parts: array<string> = []
+  const parts: array<string> = mut []
   if (service.skillLine != "") { parts.push(service.skillLine) }
   const rank = rankOf(service)
   if (rank != "") { parts.push(rank) }
@@ -506,7 +506,7 @@ function factsOf(service: Game::TrainerService | nil): SpellFacts {
   const tip = Game::spells.tooltip(spell)
   if (tip == nil) { return NO_FACTS }
   const band = bandOf(tip.lines, Game::spells.cost(spell))
-  const lines: array<string> = []
+  const lines: array<string> = mut []
   for (at, line of tip.lines) {
     const left = line.left ?? ""
     const right = line.right ?? ""
@@ -520,7 +520,7 @@ function factsOf(service: Game::TrainerService | nil): SpellFacts {
 // The numbers of a text, in order, and the text with each number taken out: two ranks of one spell read the same
 // but for their numbers.
 function numbersOf(text: string): (array<string>, string) {
-  const numbers: array<string> = []
+  const numbers: array<string> = mut []
   const rest = text.replace("(%d+%.?%d*)", (number: string): string => {
     numbers.push(number)
     return "#"
@@ -538,7 +538,7 @@ struct Change {
 // the new one»; nothing where the player has no rank of it, or where the two don't read alike but for their numbers
 // (never a guess).
 function changesOf(service: Game::TrainerService | nil): array<Change> {
-  const list: array<Change> = []
+  const list: array<Change> = mut []
   const spell = service?.spell
   if (service == nil || spell == nil) { return list }
   const had = rankHad(service.name, spell)
@@ -735,7 +735,7 @@ public class TrainerPage {
   count(show: TrainerShow): integer { return self.services.count(service => showOf(service, self.ignoredNames) == show) }
 
   countsOf(): array<FooterCount> {
-    const counts: array<FooterCount> = [
+    const counts: array<FooterCount> = mut [
       { label: Locale::TRAINER_AVAILABLE, value: string::of(self.count(.Available)), color: GREEN },
       { label: Locale::TRAINER_UNAVAILABLE, value: string::of(self.count(.Unavailable)), color: RED },
       { label: Locale::TRAINER_KNOWN, value: string::of(self.count(.Known)), color: BLUE }
@@ -748,7 +748,7 @@ public class TrainerPage {
   // What a service's menu offers, each only where it can be done: learn it (where it can be learned now), ignore it or
   // stop ignoring it (where it isn't known), its link in the chat (where it has one).
   actsOf(service: Game::TrainerService | nil): array<MenuAct> {
-    const acts: array<MenuAct> = []
+    const acts: array<MenuAct> = mut []
     if (service == nil) { return acts }
     if (self.atTrainer && learnable(service, self.ignoredNames)) { acts.push(.Learn) }
     if (service.status != Game::ServiceStatus::Learned) { acts.push(.Ignore) }
@@ -758,7 +758,7 @@ public class TrainerPage {
 
   // The menu's lines, a rule above each after the first.
   entriesOf(acts: array<MenuAct>, service: Game::TrainerService | nil): array<MenuEntry> {
-    const entries: array<MenuEntry> = []
+    const entries: array<MenuEntry> = mut []
     if (service == nil) { return entries }
     for (at, act of acts) { entries.push({ label: self.labelOf(act, service), group: at > 1 }) }
     return entries
@@ -809,7 +809,7 @@ public class TrainerPage {
   }
 
   categoriesOf(): array<string> {
-    let categories: array<string> = []
+    let categories: array<string> = mut []
     for (service of self.shown) {
       const category = service.category
       if (category != "" && !categories.any(each => each == category)) { categories.push(category) }
@@ -831,7 +831,7 @@ public class TrainerPage {
   countIn(category: string): integer { return self.shown.count(service => service.category == category) }
 
   mut onToggle(category: string) {
-    let folded: map<string, boolean> = {}
+    let folded: map<string, boolean> = mut {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[category] = folded[category] == true ? nil : true
     self.folded = folded
@@ -855,7 +855,7 @@ public class TrainerPage {
   // The services as the list shows them, top to bottom: by category where it groups them, a folded one's left out.
   inOrder(): array<Game::TrainerService> {
     if ((peek self.tabled) || !(peek self.grouped)) { return peek self.shown }
-    const all: array<Game::TrainerService> = []
+    const all: array<Game::TrainerService> = mut []
     for (category of peek self.categories) {
       for (service of self.inCategory(category)) { all.push(service) }
     }
@@ -921,7 +921,7 @@ public class TrainerPage {
 
   // A service ignored, or no longer: every rank of it, kept for the character.
   mut flipIgnored(name: string) {
-    let names: map<string, boolean> = {}
+    let names: map<string, boolean> = mut {}
     for (each, on of peek self.ignoredNames) { names[each] = on }
     names[name] = names[name] == true ? nil : true
     self.ignored.write({ names: names })

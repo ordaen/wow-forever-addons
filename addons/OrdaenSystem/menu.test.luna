@@ -12,7 +12,7 @@ const PLATES = ["Options", "AddOns", "Log Out", "Exit Game", "Return to Game"]
 
 // Blizzard's buttons that show.
 function buttonsOf(...frames: any Client::Frame): array<any Client::Button> {
-  const list: array<any Client::Button> = []
+  const list: array<any Client::Button> = mut []
   for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame is Client::Button) {
@@ -111,7 +111,7 @@ test "the cursor on a plate lights it alone, and the light goes as it leaves" {
 // the red one's (5).
 function pushed(): string {
   Test::flush()
-  const rows: array<string> = []
+  const rows: array<string> = mut []
   for (drawn of Test::drawn()) {
     const file = drawn.file
     if (file is string && file.match("[/\\]button$") != nil) {

@@ -204,7 +204,7 @@ public class GameKeeping {
   // Every command's keys now, those with any.
   mut keysNow(): map<string, array<string>> {
     self.bindings.read()
-    const keys: map<string, array<string>> = {}
+    const keys: map<string, array<string>> = mut {}
     for (command of self.bindings.commands) {
       if (command.keys.length > 0) { keys[command.action] = command.keys.clone() }
     }
@@ -213,7 +213,7 @@ public class GameKeeping {
 
   // What applying the profile would change: each setting it holds that the game has otherwise, then each command's keys.
   mut changes(): array<GameChange> {
-    const list: array<GameChange> = []
+    const list: array<GameChange> = mut []
     const values = peek self.kept.values
     for (variable, text of values.settings) {
       const wanted = settingValue(text)

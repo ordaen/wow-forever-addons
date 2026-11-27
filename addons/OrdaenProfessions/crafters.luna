@@ -29,14 +29,14 @@ public struct Crafter {
 }
 
 // A list of an item's crafters, empty, for its first.
-function none(): mut array<Crafter> { return [] }
+function none(): mut array<Crafter> { return mut [] }
 
 // Every item a known recipe takes, with its crafters by profession, in the order first met: made once as the book
 // changes, a map read for each tooltip.
 public function craftersOf(book: Book): map<integer, array<Crafter>> {
-  const found: map<integer, mut array<Crafter>> = {}
+  const found: map<integer, mut array<Crafter>> = mut {}
   // Where an item's crafter stands in its list, by «item, profession, character».
-  const at: map<string, integer> = {}
+  const at: map<string, integer> = mut {}
   for (guid, shelf of book.characters) {
     for (skillLine, learned of shelf.professions) {
       for (recipe of learned.recipes) {
@@ -53,7 +53,7 @@ public function craftersOf(book: Book): map<integer, array<Crafter>> {
             })
             at[key] = list.length
           } else if (index != nil && !crafter.recipes.any((known: integer) => known == recipe)) {
-            const recipes: array<integer> = []
+            const recipes: array<integer> = mut []
             for (known of crafter.recipes) { recipes.push(known) }
             recipes.push(recipe)
             list[index] = { recipes: recipes, ..crafter }
@@ -100,7 +100,7 @@ public function skillUpRank(difficulty: Game::Difficulty): integer {
 // A crafter's recipes as it sees them, at its rank, by the profession's thresholds; the best first met.
 public function craftingOf(crafter: Crafter, book: Book, table: Thresholds): Crafting {
   let best = Game::Difficulty::Never
-  const recipes: array<CraftRecipe> = []
+  const recipes: array<CraftRecipe> = mut []
   for (recipe of crafter.recipes) {
     const difficulty = difficultyAt(table, recipe, crafter.rank)
     if (skillUpRank(difficulty) < skillUpRank(best)) { best = difficulty }
@@ -147,10 +147,10 @@ public class CraftersLines implements ItemLines {
     if (found == nil || found.length == 0) { return NONE }
     const me = Game::player.guid
     const book = self.book()
-    const thresholds: map<integer, Thresholds> = {}
-    const lines: array<Line> = [{ left: Locale::USED_IN, color: HEAD }]
+    const thresholds: map<integer, Thresholds> = mut {}
+    const lines: array<Line> = mut [{ left: Locale::USED_IN, color: HEAD }]
     // Each profession in the order first met, the character played first in it.
-    const professions: array<integer> = []
+    const professions: array<integer> = mut []
     for (crafter of found) {
       if (!professions.any(line => line == crafter.skillLine)) { professions.push(crafter.skillLine) }
     }
@@ -171,7 +171,7 @@ public class CraftersLines implements ItemLines {
   // A crafter's line: its name in its best recipe's colour, opening the recipes; its profession at the right.
   lineOf(crafter: Crafter, item: integer, book: Book, table: Thresholds): Line {
     const crafting = craftingOf(crafter, book, table)
-    const rows: array<Listed> = []
+    const rows: array<Listed> = mut []
     const taught = self.taught()
     for (index, recipe of crafting.recipes) {
       // The skill it is learned at: its item's, else what a trainer said; none where neither is known.

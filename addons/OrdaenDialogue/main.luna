@@ -725,7 +725,7 @@ public class Dialogue implements Module, App {
   }
   derived mainOff: boolean = self.mainOffNow()
   derived mainTip: TipText | nil = self.mainOff ? { title: self.mainLabel, text: self.page == Page::Progress ? Locale::NOT_READY : Locale::PICK_A_REWARD, rows: [] } : nil
-  derived backKey: ButtonKey = self.hints ? ButtonKey.Named { name: Locale::KEY_ESC } : ButtonKey::None
+  derived backKey: ButtonKey = self.hints ? ButtonKey::Named { name: Locale::KEY_ESC } : ButtonKey::None
   derived mainKey: ButtonKey = self.hints ? ButtonKey::Space : ButtonKey::None
   derived promptText: string = self.promptTextNow()
   derived promptCost: integer = self.promptCostNow()

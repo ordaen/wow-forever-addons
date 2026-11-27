@@ -41,7 +41,7 @@ function input(parent: any Client::Frame): any Client::EditBox {
 
 // A line said by someone, shown in the windows given.
 function line(kind: string, body: string, sender: string, windows: array<integer>, channel: integer = 0, channelName: string = ""): mut Game::ChatLine {
-  return {
+  return mut {
     kind: kind, event: `CHAT_MSG_${kind}`, body: body, plain: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
     channelName: channelName, stream: "", color: WHITE, time: Game::clock.server, stamp: "", windows: windows, secret: ""
   }
@@ -657,7 +657,7 @@ function groupsOf(shown: map<string, boolean>): array<Game::ChatGroup> {
     "SAY", "YELL", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "MONSTER_SAY", "LOOT", "ACHIEVEMENT",
     "GUILD_ACHIEVEMENT", "BG_HORDE", "BG_ALLIANCE", "CHANNEL", "COMMUNITIES_CHANNEL", "AFK"
   ]
-  return order.map(name => Game.ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
+  return order.map(name => Game::ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
 }
 
 // The game's windows, and a fourth the game opens as it is asked for one: showing say as a new window does, and
@@ -744,7 +744,7 @@ test "a character's chat gets a tab of its channels once it is in some, and Gene
   windowsLoad()
   // In no channel yet: the tab waits for them.
   Test::expect(!Test::requests().any(r => r == "Chat.open Channels"))
-  joined = [{ name: "General", shown: true }, { name: "Trade", shown: true }]
+  joined = mut [{ name: "General", shown: true }, { name: "Trade", shown: true }]
   Events::CHANNEL_UI_UPDATE.emit()
   Test::pass(0.01)
   const asked = Test::requests()
@@ -908,7 +908,7 @@ test "an Ordaen addon writes into the chat with its mark and colour" {
 }
 
 test "a line kept with no sender (kept before senders were) comes back, said by nobody" {
-  const old: map<string, unknown> = {}
+  const old: map<string, unknown> = mut {}
   old["whole"] = "[Thrall] says: from before"
   old["color"] = WHITE
   old["time"] = 1
@@ -918,10 +918,10 @@ test "a line kept with no sender (kept before senders were) comes back, said by 
   old["past"] = true
   old["secret"] = false
   old["mine"] = false
-  const tab: map<string, unknown> = {}
+  const tab: map<string, unknown> = mut {}
   tab["key"] = "w1"
   tab["lines"] = [old]
-  const kept: map<string, unknown> = {}
+  const kept: map<string, unknown> = mut {}
   kept["tabs"] = [tab]
   const back = Kept::decode(kept, Kept { tabs: [] })
   const lines = back.tabs[1]?.lines ?? []

@@ -16,31 +16,31 @@ const PAIR: array<Track> = ["max-content", "max-content"]
 // Account), one button opens it, in the legacy's place with the legacy's icon: the collections' button, whose window
 // the account's stands for.
 function menuOf(faced: boolean, social: boolean, merged: boolean, guildMerged: boolean, accountMerged: boolean): array<Cell> {
-  let cells: array<Cell> = []
+  let cells: array<Cell> = mut []
   if (faced) { cells.push(Cell::Face) }
-  cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game::frames.ProfessionMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game::frames.SpellbookMicroButton, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-professions.tga", frame: Game::frames.ProfessionMicroButton, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game::frames.SpellbookMicroButton, friends: false })
   if (!merged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game::frames.TalentMicroButton, friends: false })
+    cells.push(Cell::Menu { icon: "@/assets/micro-spectalents.tga", frame: Game::frames.TalentMicroButton, friends: false })
   }
   const legacy = accountMerged ? Game::frames.CollectionsMicroButton : Game::frames.LegacyMicroButton
-  cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: legacy, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game::frames.QuestLogMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game::frames.LFDMicroButton, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-legacy.tga", frame: legacy, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-questlog.tga", frame: Game::frames.QuestLogMicroButton, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game::frames.LFDMicroButton, friends: false })
   if (!accountMerged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game::frames.CollectionsMicroButton, friends: false })
+    cells.push(Cell::Menu { icon: "@/assets/micro-collections.tga", frame: Game::frames.CollectionsMicroButton, friends: false })
   }
   if (social) { pushSocial(cells, guildMerged) }
   // The game menu's button is the menu's last, whatever stands before it.
-  cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game::frames.MainMenuMicroButton, friends: false })
+  cells.push(Cell::Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game::frames.MainMenuMicroButton, friends: false })
   return cells
 }
 
 // Friends, with how many are online, and the guild (unless one window holds both).
 function pushSocial(cells: mut array<Cell>, guildMerged: boolean) {
-  cells.push(Cell.Menu { icon: "@/assets/micro-social.tga", frame: Game::frames.QuickJoinToastButton, friends: true })
+  cells.push(Cell::Menu { icon: "@/assets/micro-social.tga", frame: Game::frames.QuickJoinToastButton, friends: true })
   if (!guildMerged) {
-    cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game::frames.GuildMicroButton, friends: false })
+    cells.push(Cell::Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game::frames.GuildMicroButton, friends: false })
   }
 }
 
@@ -134,7 +134,7 @@ public class SocialLine implements Component {
 }
 
 function socialOf(guildMerged: boolean): array<Cell> {
-  let cells: array<Cell> = []
+  let cells: array<Cell> = mut []
   pushSocial(cells, guildMerged)
   return cells
 }
@@ -180,7 +180,7 @@ public class MoneyLine implements Component {
 public class BagLine implements Component {
   // The keyring has no cell: its keys are read with the bags, under their own tab. The game's keyring button is kept
   // unseen.
-  derived cells: array<Cell> = Game::bags.buttons.filter(button => button.kind != Game::BagKind::Keyring).map(button => Cell.Bag { button: button })
+  derived cells: array<Cell> = Game::bags.buttons.filter(button => button.kind != Game::BagKind::Keyring).map(button => Cell::Bag { button: button })
   derived keyrings: array<any Frame> = Game::bags.buttons.filter(button => button.kind == Game::BagKind::Keyring).map(button => button.frame)
 
   vertical: Signal<boolean>

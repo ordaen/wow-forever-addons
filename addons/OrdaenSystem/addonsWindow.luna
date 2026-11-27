@@ -81,7 +81,7 @@ const TOOLS: Edges = { top: 6sp, left: WINDOW_ROOM, right: WINDOW_ROOM }
 const EDGE_TO_EDGE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const HALF: number<Spacing> = 3sp / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
-const RELOAD: Action = Action.RunMacro { macro: "/reload" }
+const RELOAD: Action = Action::RunMacro { macro: "/reload" }
 const RELOAD_TIP: TipText = { title: Locale::RELOAD, text: Locale::IN_COMBAT, rows: [] }
 const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
@@ -104,7 +104,7 @@ function isUnder(addon: AddOn, parent: string): boolean { return addon.group == 
 function flipped(kept: array<string>, name: string): array<string> {
   const next = kept.filter(held => held != name)
   if (next.length == kept.length) { next.push(name) }
-  const capped: array<string> = []
+  const capped: array<string> = mut []
   for (index, held of next) {
     if (index > next.length - FOLDED_MOST) { capped.push(held) }
   }
@@ -123,7 +123,7 @@ function weightOf(order: Order, name: string, profiler: Profiler): number {
 
 // From which value a column is lit: its heaviest third, of the values above nought.
 function thirdOf(values: array<number>): number {
-  const list: array<number> = []
+  const list: array<number> = mut []
   for (value of values) {
     if (value > 0) { list.push(value) }
   }
@@ -301,7 +301,7 @@ public class AddOnsWindow implements Component {
   sectionsOf(): array<string> {
     const names = self.settings.groups.map(group => group.name)
     const keys = Runtime::text("SETTINGS_KEYBINDINGS_LABEL") ?? Client::KEY_BINDINGS
-    const list: array<string> = []
+    const list: array<string> = mut []
     for (index, name of names) {
       if (index == KEYS_SECTION) { list.push(keys) }
       list.push(name)
@@ -332,7 +332,7 @@ public class AddOnsWindow implements Component {
     }
     self.catalog.read()
     self.dropGone()
-    const loaded: array<string> = []
+    const loaded: array<string> = mut []
     for (addon of peek self.catalog.addons) {
       if ((peek self.catalog.statuses)[addon.name]?.loaded == true) { loaded.push(addon.name) }
     }
@@ -384,7 +384,7 @@ public class AddOnsWindow implements Component {
 
   // The addons that show, in the order the sort says.
   visibleOf(): array<AddOn> {
-    const list: array<AddOn> = []
+    const list: array<AddOn> = mut []
     for (addon of self.catalog.addons) {
       if (self.matches(addon, self.catalog.statuses[addon.name])) { list.push(addon) }
     }
@@ -408,7 +408,7 @@ public class AddOnsWindow implements Component {
   // The lines: in a table, every addon shown; by category, a caption for each category (by its exact text, «Other»
   // last) and its addons, each group's members right under their parent, indented.
   linesOf(): array<Line> {
-    const list: array<Line> = []
+    const list: array<Line> = mut []
     if (self.list.values.view == .Table) {
       for (addon of self.visible) {
         list.push({
@@ -418,24 +418,24 @@ public class AddOnsWindow implements Component {
       return list
     }
     // Each group whole, whatever the search and the filter show of it: what its caption's switch switches.
-    const groups: map<string, mut array<string>> = {}
+    const groups: map<string, mut array<string>> = mut {}
     for (addon of self.catalog.addons) {
       if (addon.group != self.framework || addon.name == self.framework) {
         const held = groups[addon.category]
         if (held == nil) {
-          groups[addon.category] = [addon.name]
+          groups[addon.category] = mut [addon.name]
         } else {
           held.push(addon.name)
         }
       }
     }
-    const byCategory: map<string, mut array<AddOn>> = {}
-    const categories: array<string> = []
+    const byCategory: map<string, mut array<AddOn>> = mut {}
+    const categories: array<string> = mut []
     for (addon of self.visible) {
       const held = byCategory[addon.category]
       if (held == nil) {
         categories.push(addon.category)
-        byCategory[addon.category] = [addon]
+        byCategory[addon.category] = mut [addon]
       } else {
         held.push(addon)
       }
@@ -449,7 +449,7 @@ public class AddOnsWindow implements Component {
         names: groups[category] ?? [], tabled: false
       })
       if (!folded) {
-        const here: map<string, boolean> = {}
+        const here: map<string, boolean> = mut {}
         for (addon of members) { here[addon.name] = true }
         for (addon of members) {
           if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
@@ -475,31 +475,31 @@ public class AddOnsWindow implements Component {
   }
 
   hotOf(): Hot {
-    const now: array<number> = []
-    const peak: array<number> = []
+    const now: array<number> = mut []
+    const peak: array<number> = mut []
     for (_, load of self.profiler.loads) {
       now.push(load.now)
       peak.push(load.peak)
     }
-    const weights: array<number> = []
+    const weights: array<number> = mut []
     for (_, kb of self.profiler.memory) { weights.push(kb) }
     return { now: thirdOf(now), peak: thirdOf(peak), memory: thirdOf(weights) }
   }
 
   dependentsText(): string {
-    const names: array<string> = []
+    const names: array<string> = mut []
     for (name of self.catalog.dependentsOf(self.asking)) { names.push(self.catalog.titleOf(name)) }
     return names.join(", ")
   }
 
   setEntriesOf(): array<MenuEntry> {
-    const list: array<MenuEntry> = [{ label: Locale::SET_SAVE }]
+    const list: array<MenuEntry> = mut [{ label: Locale::SET_SAVE }]
     for (index, kept of self.sets.list) { list.push({ label: kept.name, group: index == 1 }) }
     return list
   }
 
   waitRowsOf(): array<TipRow> {
-    const list: array<TipRow> = []
+    const list: array<TipRow> = mut []
     for (addon of self.catalog.addons) {
       const status = self.catalog.statuses[addon.name]
       if (status != nil) {
@@ -528,8 +528,8 @@ public class AddOnsWindow implements Component {
 
   // The folded categories and parents no addon has any more (each addon of one taken out of the folder) are let go.
   mut dropGone() {
-    const categories: map<string, boolean> = {}
-    const names: map<string, boolean> = {}
+    const categories: map<string, boolean> = mut {}
+    const names: map<string, boolean> = mut {}
     for (addon of peek self.catalog.addons) {
       categories[addon.category] = true
       names[addon.name] = true
@@ -548,7 +548,7 @@ public class AddOnsWindow implements Component {
   // The checkbox: on with what it needs; off alone, after asking where others need it. With Ctrl on a group's
   // parent, the parent and every addon of its group to the parent's new state together.
   public mut onToggle(name: string, control: boolean) {
-    const names: array<string> = [name]
+    const names: array<string> = mut [name]
     if (control) {
       for (member of (peek self.catalog.members)[name] ?? []) { names.push(member) }
     }

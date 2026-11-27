@@ -91,7 +91,7 @@ function says(part: Test::Part, label: string, expected: string): boolean {
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: array<string> = []
+      let read: array<string> = mut []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
@@ -188,7 +188,7 @@ test "five thousand items: the list builds the rows in view, and the wheel build
   Game::items.tooltip = (id: integer): Game::TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: array<Game::Offer> = []
+  let offers: array<Game::Offer> = mut []
   for (id of 1..5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
   const made = Wow::made()
   Game::auctionQuery.results.emit(offers)

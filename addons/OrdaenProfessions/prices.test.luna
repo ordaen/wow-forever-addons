@@ -92,7 +92,7 @@ function reads(part: Test::Part, expected: string): boolean {
 // Whether the card's totals read exactly this, from «Cost» to the card's switches: where they don't, the test fails
 // with what they read.
 function totals(expected: string): boolean {
-  let read: array<string> = []
+  let read: array<string> = mut []
   for (shown of window().texts()) {
     if (shown == "Favorite") { break }
     if (read.length > 0 || shown == "Cost") { read.push(shown) }
@@ -118,7 +118,7 @@ function near(a: Color, b: Color): boolean {
 // all»: the list's window opened from Ordaen Trading's «Shopping list» at the house (open), as the player does.
 function shoppingList(expected: string): boolean {
   Test::page().window("Sell").button("Shopping list").click()
-  let read: array<string> = []
+  let read: array<string> = mut []
   let inside = false
   for (shown of Test::page().window("Search all").texts()) {
     if (shown == "Search all") { break }

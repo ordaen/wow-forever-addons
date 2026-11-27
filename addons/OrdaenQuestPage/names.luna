@@ -42,7 +42,7 @@ function letterAt(text: string, at: integer): integer {
 
 // The words of a text, in order.
 function wordsOf(text: string): array<Word> {
-  const words: array<Word> = []
+  const words: array<Word> = mut []
   const end = text.length
   let from = 0
   let letters = 0
@@ -123,7 +123,7 @@ struct Found {
 public function markNames(text: string, names: array<Named>): string {
   if (text.contains("|")) { return text }
   const words = wordsOf(text)
-  const found: array<Found> = []
+  const found: array<Found> = mut []
   const ordered = names.filter(named => named.name != "")
   ordered.sort((a: Named, b: Named): boolean => wordsOf(a.name).length > wordsOf(b.name).length)
   for (named of ordered) {
@@ -148,7 +148,7 @@ public function markNames(text: string, names: array<Named>): string {
   }
   if (found.length == 0) { return text }
   found.sort((a: Found, b: Found): boolean => a.from < b.from)
-  const pieces: array<string> = []
+  const pieces: array<string> = mut []
   let at = 1
   for (one of found) {
     pieces.push(text.sub(at, one.from - 1))

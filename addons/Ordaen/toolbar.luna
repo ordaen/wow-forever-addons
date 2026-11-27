@@ -249,7 +249,7 @@ public class ToolSort implements Component {
 
 // The choices of a ToolSort: the sortable columns with a heading, then the sorts no column shows.
 public function sortChoices(columns: array<Column>, more: array<string>): array<Choice<integer>> {
-  const list: array<Choice<integer>> = []
+  const list: array<Choice<integer>> = mut []
   for (index, column of columns) {
     if (column.sortable == true && column.title != "") { list.push({ value: index, label: column.title }) }
   }

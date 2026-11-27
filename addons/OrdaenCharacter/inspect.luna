@@ -65,7 +65,7 @@ public class ClientInspector implements Inspector {
     let (className, classTag, _) = Client::UnitClass(unit)
     let (guild, _, _) = Client::GetGuildInfo(unit)
     let (name, _) = Client::UnitName(unit)
-    const worn: array<Worn> = []
+    const worn: array<Worn> = mut []
     for (slot of 0..19) { worn.push(wornBy(unit, slot, self.words)) }
     return {
       who: { name: name, level: Client::UnitLevel(unit).floor(), race: race ?? "", className: className ?? "", scene: scene ?? "" },

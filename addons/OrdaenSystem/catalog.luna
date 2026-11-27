@@ -68,7 +68,7 @@ public struct Step {
 
 // The values a client's call gives, one after another, as a list.
 function listOf(...names: string): array<string> {
-  const list: array<string> = []
+  const list: array<string> = mut []
   for (i of 1..names.length) {
     const name = names[i]
     if (name != nil) { list.push(name) }
@@ -117,7 +117,7 @@ public class Catalog {
     const locale = Game::client.locale
     const (_, _, _, interface, _, _) = Client::GetBuildInfo()
     const count = Client::C_AddOns::GetNumAddOns()
-    const list: array<AddOn> = []
+    const list: array<AddOn> = mut []
     for (index of 1..count) {
       const name = Client::C_AddOns::GetAddOnName(index)
       const needs = listOf(...Client::C_AddOns::GetAddOnDependencies(name))
@@ -152,7 +152,7 @@ public class Catalog {
   public mut refresh() {
     const player = Game::player.guid
     const character = self.character()
-    const map: map<string, Status> = {}
+    const map: map<string, Status> = mut {}
     for (addon of peek self.addons) {
       const state = Client::C_AddOns::GetAddOnEnableState(addon.name, character)
       const (_, loaded) = Client::C_AddOns::IsAddOnLoaded(addon.name)
@@ -181,18 +181,18 @@ public class Catalog {
   public character(): string | nil { return (peek self.everyone) ? nil : Game::player.guid }
 
   indexOf(): map<string, AddOn> {
-    const map: map<string, AddOn> = {}
+    const map: map<string, AddOn> = mut {}
     for (addon of self.addons) { map[addon.name] = addon }
     return map
   }
 
   reverseOf(): map<string, array<string>> {
-    const map: map<string, mut array<string>> = {}
+    const map: map<string, mut array<string>> = mut {}
     for (addon of self.addons) {
       for (need of addon.needs) {
         const held = map[need]
         if (held == nil) {
-          map[need] = [addon.name]
+          map[need] = mut [addon.name]
         } else {
           held.push(addon.name)
         }
@@ -202,11 +202,11 @@ public class Catalog {
   }
 
   membersOf(): map<string, array<string>> {
-    const map: map<string, mut array<string>> = {}
+    const map: map<string, mut array<string>> = mut {}
     for (addon of self.addons) {
       const held = map[addon.group]
       if (held == nil) {
-        map[addon.group] = [addon.name]
+        map[addon.group] = mut [addon.name]
       } else {
         held.push(addon.name)
       }
@@ -232,8 +232,8 @@ public class Catalog {
   // An addon, then what it needs and what those need in turn: each need once, a ring followed once (back to the
   // addon itself, where it is in one). One the folder hasn't is named, and needs nothing.
   withNeeds(name: string): array<string> {
-    const seen: map<string, boolean> = {}
-    const list: array<string> = [name]
+    const seen: map<string, boolean> = mut {}
+    const list: array<string> = mut [name]
     self.gather(name, seen, list)
     return list
   }
@@ -251,9 +251,9 @@ public class Catalog {
   // Every addon that is on and needs one of `names`, directly or through another: what stops loading when they go.
   // `names` themselves are never among them, a ring back to one of them left there.
   public dependentsOf(names: array<string>): array<string> {
-    const seen: map<string, boolean> = {}
+    const seen: map<string, boolean> = mut {}
     for (name of names) { seen[name] = true }
-    const list: array<string> = []
+    const list: array<string> = mut []
     for (name of names) { self.reach(name, seen, list) }
     return list
   }
@@ -279,10 +279,10 @@ public class Catalog {
   // which then says why it doesn't load.
   public mut switchOn(names: array<string>) {
     const character = self.character()
-    const asked: map<string, boolean> = {}
+    const asked: map<string, boolean> = mut {}
     for (name of names) { asked[name] = true }
-    const targets: array<string> = []
-    const listed: map<string, boolean> = {}
+    const targets: array<string> = mut []
+    const listed: map<string, boolean> = mut {}
     for (name of names) {
       for (one of self.withNeeds(name)) {
         if (listed[one] != true) {
@@ -291,8 +291,8 @@ public class Catalog {
         }
       }
     }
-    const changes: array<Change> = []
-    const also: array<string> = []
+    const changes: array<Change> = mut []
+    const also: array<string> = mut []
     const statuses = peek self.statuses
     for (name of targets) {
       const status = statuses[name]
@@ -373,7 +373,7 @@ public class Catalog {
   // stay on, and the player can switch the rest on again.
   public mut disableAll(kept: string) {
     const character = self.character()
-    const keep: map<string, boolean> = {}
+    const keep: map<string, boolean> = mut {}
     for (name of self.withNeeds(kept)) { keep[name] = true }
     for (addon of peek self.addons) {
       if (keep[addon.name] != true && self.isOn(addon.name)) { Client::C_AddOns::DisableAddOn(addon.name, character) }
@@ -389,7 +389,7 @@ public class Catalog {
   // A set applied: every addon it names that is in the folder on, every other off, for whom the header says.
   public mut apply(names: array<string>) {
     const character = self.character()
-    const wanted: map<string, boolean> = {}
+    const wanted: map<string, boolean> = mut {}
     for (name of names) { wanted[name] = true }
     for (addon of peek self.addons) {
       if (wanted[addon.name] == true) {
@@ -405,7 +405,7 @@ public class Catalog {
 
   // The addons on for whom the header says: what a set saves.
   public onNames(): array<string> {
-    const list: array<string> = []
+    const list: array<string> = mut []
     for (addon of peek self.addons) {
       if (self.isOn(addon.name)) { list.push(addon.name) }
     }

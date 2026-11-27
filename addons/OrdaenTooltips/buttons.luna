@@ -24,7 +24,7 @@ function talentsRow(rows: mut array<TextLine>) {
 
 // The rows a button adds, by the game's name for it.
 function rowsOf(owner: string): mut array<TextLine> {
-  let rows: array<TextLine> = []
+  let rows: array<TextLine> = mut []
   let bag = BAGS[owner]
   if (bag != nil) {
     // The backpack: the free slots of every bag together; a bag's slot: its own.
@@ -64,7 +64,7 @@ public function extras(owner: string | nil, model: Model): Model {
   if (owner == nil) { return model }
   let added = rowsOf(owner)
   if (added.length == 0) { return model }
-  let body: array<TextLine> = []
+  let body: array<TextLine> = mut []
   for (line of model.body) { body.push(line) }
   for (row of added) { body.push(row) }
   return { body: body, ..model }

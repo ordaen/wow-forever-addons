@@ -28,7 +28,7 @@ const BUTTON = 117.1875dp
 
 // The bank's containers as the bags' window reads them: a tab with no name of its own is named by its place.
 public function bankInfos(): array<Game::BagInfo> {
-  let infos: array<Game::BagInfo> = []
+  let infos: array<Game::BagInfo> = mut []
   for (index, tab of Client::C_Bank::FetchPurchasedBankTabData(Client::BankType::Character)) {
     const bag = tab.ID.floor()
     const name = tab.name != "" ? tab.name : index == 1 ? Locale::BANK : Locale::BANK_BAG.format(index - 1)

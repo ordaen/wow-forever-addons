@@ -43,7 +43,7 @@ function among(words: array<string>, word: string | nil): boolean { return word 
 // A line's numbers lit, each with its unit and a range whole («от 19 до 20 сек.»), the punctuation after left as it is.
 function litNumbers(line: string): string {
   const words = line.split(" ")
-  const out: array<string> = []
+  const out: array<string> = mut []
   let skip = 0
   for (at, word of words) {
     if (skip > 0) {
@@ -62,7 +62,7 @@ function litNumbers(line: string): string {
       out.push(word)
       continue
     }
-    const parts: array<string> = []
+    const parts: array<string> = mut []
     for (each of at..last) { parts.push(words[each] ?? "") }
     let taken = parts.join(" ")
     let tail = bareOf(words[last] ?? "")[2]

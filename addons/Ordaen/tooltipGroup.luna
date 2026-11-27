@@ -64,7 +64,7 @@ public class TooltipGroup implements Component {
   }
 } static {
   autos(count: integer): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (i of 1..count) { list.push("max-content") }
     return list
   }

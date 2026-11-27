@@ -12,7 +12,7 @@ import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
 function learned(ids: array<integer>): array<Game::Recipe> {
-  return ids.map(id => Game.Recipe {
+  return ids.map(id => Game::Recipe {
     id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
 }
@@ -24,7 +24,7 @@ const START = 1577836800 + 1000 * 3600
 
 // What a place holds, as the game gives it: item, count, item, count.
 function counts(pairs: array<integer>): map<integer, integer> {
-  const held: map<integer, integer> = {}
+  const held: map<integer, integer> = mut {}
   for (i of 1..pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
   return held
 }
@@ -32,7 +32,7 @@ function counts(pairs: array<integer>): map<integer, integer> {
 // The characters other sessions recorded, by their GUIDs, kept as the module's saved records; the module turned off
 // and on in Ordaen's settings reads them.
 function recorded(guids: array<string>, characters: array<Character>) {
-  const kept = Kept {}
+  const kept = mut Kept {}
   for (index, character of characters) { kept.characters[CharacterId::of(guids[index] ?? "")] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")
@@ -44,9 +44,9 @@ function recorded(guids: array<string>, characters: array<Character>) {
 
 // A smith of a realm and side who knows these recipes.
 function smith(name: string, realm: string, faction: string, recipes: array<integer>): mut Character {
-  const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+  const known = mut Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
   for (id of recipes) { known.recipes.push(RecipeId::of(id)) }
-  const made = Character {
+  const made = mut Character {
     name: name, realm: realm, faction: faction == "Horde" ? .Horde : .Alliance, level: 60, seen: Hour::now(), mailExpires: nil
   }
   made.professions.push(known)
@@ -81,7 +81,7 @@ test "a character of another realm or side knows its recipes out of reach, and c
     ["Player-1-2", "Player-2-3", "Player-1-4"],
     [smith("Aria", "Stand-in", "Alliance", [2663]), smith("Regy", "Elsewhere", "Alliance", [2663]), smith("Horda", "Stand-in", "Horde", [2663])]
   )
-  const reach: map<string, boolean> = {}
+  const reach: map<string, boolean> = mut {}
   for (knower of Alts.knowers(RecipeId::of(2663))) { reach[Alts.characters[knower.who]?.name ?? ""] = knower.reachable }
   Test::expect(reach["Aria"] == true && reach["Regy"] == false && reach["Horda"] == false)
   Test::expect(Alts.reaches(CharacterId::of("Player-1-2")) && Alts.reaches(Alts.current))
@@ -119,7 +119,7 @@ test "an item held is answered with each holder, how many and where" {
   Game::bags.changed.emit()
   Game::bankObserver.holdings = (): map<integer, integer> | nil => counts([2589, 20])
   Game::bankObserver.opened.emit()
-  const where: map<string, integer> = {}
+  const where: map<string, integer> = mut {}
   for (held of Alts.holders(ItemId::of(2589))) {
     Test::expect(held.who == Alts.current)
     where[held.place == Place::Bags ? "bags" : held.place == Place::Bank ? "bank" : "?"] = held.count
@@ -180,8 +180,8 @@ test "the bags read again with nothing changed tell the window nothing" {
 
 test "past forty characters the one played longest ago is dropped, never the one being played" {
   Game::clock.server = START
-  const guids: array<string> = []
-  const others: array<Character> = []
+  const guids: array<string> = mut []
+  const others: array<Character> = mut []
   for (i of 1..40) {
     guids.push("Player-1-" + string::of(100 + i))
     others.push(Character { name: "Alt " + string::of(i), realm: "Stand-in", faction: .Alliance, seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
@@ -196,8 +196,8 @@ test "past forty characters the one played longest ago is dropped, never the one
 }
 
 test "one fewer than the most characters drops none" {
-  const guids: array<string> = []
-  const others: array<Character> = []
+  const guids: array<string> = mut []
+  const others: array<Character> = mut []
   for (i of 1..39) {
     guids.push("Player-1-" + string::of(100 + i))
     others.push(Character { name: "Alt " + string::of(i), seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
@@ -209,12 +209,12 @@ test "one fewer than the most characters drops none" {
 
 test "a reading past the most recipes or kinds of items is refused, and says so" {
   Test::mount(nil, SCREEN)
-  const recipes: array<integer> = []
+  const recipes: array<integer> = mut []
   for (i of 1..1501) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING
   Test::flush()
-  const items: map<integer, integer> = {}
+  const items: map<integer, integer> = mut {}
   for (i of 1..1001) { items[i] = 1 }
   Game::bags.holdings = (): map<integer, integer> | nil => items
   Game::bags.changed.emit()
@@ -227,12 +227,12 @@ test "a reading past the most recipes or kinds of items is refused, and says so"
 
 test "the most recipes and kinds of items are taken" {
   Test::mount(nil, SCREEN)
-  const recipes: array<integer> = []
+  const recipes: array<integer> = mut []
   for (i of 1..1500) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING
   Test::flush()
-  const items: map<integer, integer> = {}
+  const items: map<integer, integer> = mut {}
   for (i of 1..1000) { items[i] = 1 }
   Game::bags.holdings = (): map<integer, integer> | nil => items
   Game::bags.changed.emit()
@@ -250,13 +250,13 @@ test "the character being played can't be forgotten; another is, once, and its r
 }
 
 test "the saved size of twenty characters with three hundred recipes and a hundred and fifty items each" {
-  const kept = Kept {}
+  const kept = mut Kept {}
   for (i of 1..20) {
-    const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+    const known = mut Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
     for (r of 1..300) { known.recipes.push(RecipeId::of(2000 + r * 7)) }
-    const items: map<ItemId, integer> = {}
+    const items: map<ItemId, integer> = mut {}
     for (n of 1..150) { items[ItemId::of(2000 + n * 13)] = n }
-    const character = Character {
+    const character = mut Character {
       name: "Regy Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, level: 60, seen: Hour::now(), mailExpires: nil
     }
     character.professions.push(known)
@@ -289,7 +289,7 @@ test "the character played again on another realm knows its recipes in reach" {
 
 test "a recipe learned past the most a profession keeps is left out" {
   Test::mount(nil, SCREEN)
-  const recipes: array<integer> = []
+  const recipes: array<integer> = mut []
   for (i of 1..1500) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING

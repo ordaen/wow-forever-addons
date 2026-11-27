@@ -93,7 +93,7 @@ function infoOf(item: integer): AttachmentInfo {
     color = { r: r, g: g, b: b, a: 1 }
   }
   const worn = slot != nil && slot != "" ? Runtime::text(slot) : nil
-  const parts: array<string> = []
+  const parts: array<string> = mut []
   if (worn != nil) { parts.push(worn) }
   if (subkind != nil && subkind != "") { parts.push(subkind) } else if (kind != nil) { parts.push(kind) }
   return { color: color, kind: parts.join(", "), price: (price ?? 0).floor() }

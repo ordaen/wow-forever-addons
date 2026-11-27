@@ -75,7 +75,7 @@ test "a quest done, one QuestieDB doesn't know, and an objective that isn't the 
 }
 
 test "an item dropped by more than a hundred creatures is everyday loot: it names none" {
-  const many: array<integer> = []
+  const many: array<integer> = mut []
   for (creature of 1..101) { many.push(creature) }
   Test::expect(droppersOf(meat(boars(many))).length == 0)
   Test::expect(droppersOf(meat(boars([113, 119]))).length == 2)

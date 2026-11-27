@@ -115,7 +115,7 @@ struct TemplateArt {
 }
 
 function templateArt(frame: any Client::Frame, ...regions: any Client::Region): TemplateArt {
-  const pieces: array<Piece> = []
+  const pieces: array<Piece> = mut []
   for (i of 1..regions.length) {
     const region = regions[i]
     // The template's art: its textures and its masks, each its own kind to the client (a texture is no mask texture).
@@ -131,7 +131,7 @@ function templateArt(frame: any Client::Frame, ...regions: any Client::Region): 
 // A piece of the art as the template lays it out: its points, and its size, or its atlas's where the client hasn't
 // sized it yet (the icon's mask, sized by its atlas only once drawn).
 function pieceOf(region: any Client::MaskTexture): Piece {
-  const pins: array<Pin> = []
+  const pins: array<Pin> = mut []
   for (p of 1..region.GetNumPoints()) {
     let (point, to, toPoint, x, y) = region.GetPoint(p, nil)
     const at = point ?? "CENTER"
@@ -347,7 +347,7 @@ public class Bar implements Component {
     self.forms = forms
     self.id = Bar::idOf(spec)
     self.title = Bar::titleOf(spec)
-    const buttons: array<Slot> = []
+    const buttons: array<Slot> = mut []
     for (index of 1..spec.most) {
       const name = buttonName(spec.id, index)
       const frame = Client::CreateFrame("CheckButton", name, Client::UIParent, spec.template)
@@ -421,7 +421,7 @@ public class Bar implements Component {
 
   // The stances' faces, each form's by its button's place: whether the player is in it, whether it can be taken.
   mut readForms(count: integer) {
-    const faces: array<Face> = []
+    const faces: array<Face> = mut []
     for (index of 1..self.spec.most) {
       let (icon, active, castable, _) = Client::GetShapeshiftFormInfo(index)
       faces.push(index <= count ? { icon: icon, lit: active, usable: castable } : BLANK)
@@ -457,7 +457,7 @@ public class Bar implements Component {
 
   // The pet's faces, each place's of its bar: a command's icon is named by a global of the client's.
   mut readPet() {
-    const faces: array<Face> = []
+    const faces: array<Face> = mut []
     for (index of 1..self.spec.most) {
       let (_, texture, token, active, _, _, _) = Client::GetPetActionInfo(index)
       const icon: Art | nil = texture is string ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
@@ -479,7 +479,7 @@ public class Bar implements Component {
 
   // The buttons within its count (`within`), or those past it.
   drawnOf(within: boolean): array<Slot> {
-    const drawn: array<Slot> = []
+    const drawn: array<Slot> = mut []
     for (index, slot of self.slots) {
       if ((index <= self.count) == within) { drawn.push(slot) }
     }

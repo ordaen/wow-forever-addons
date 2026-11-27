@@ -102,7 +102,7 @@ public function afterBuyback(old: number, share: number): number {
 // The lists with the item's mark given (nil takes it away). Past the cap the mark given longest ago leaves.
 public function withMark(lists: JunkLists, id: integer, mark: Mark | nil): JunkLists {
   const turn = lists.turn + 1
-  let marks: map<integer, Marked> = {}
+  let marks: map<integer, Marked> = mut {}
   let count = 0
   for (key, entry of lists.marks) {
     if (key != id) {
@@ -130,7 +130,7 @@ public function withMark(lists: JunkLists, id: integer, mark: Mark | nil): JunkL
 
 // The lists with the item's score (one below `FORGOTTEN` is dropped). Past the cap the lowest score leaves.
 public function withScore(lists: JunkLists, id: integer, score: number): JunkLists {
-  let learned: map<integer, number> = {}
+  let learned: map<integer, number> = mut {}
   let count = 0
   for (key, value of lists.learned) {
     if (key != id) {

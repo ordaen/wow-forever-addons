@@ -44,7 +44,7 @@ function row(name: string): string {
 
 // The names in the table, in its order.
 function order(names: array<string>): string {
-  const found: array<string> = []
+  const found: array<string> = mut []
   for (text of window().texts()) {
     if (names.any(name => name == text)) { found.push(text) }
   }
@@ -53,7 +53,7 @@ function order(names: array<string>): string {
 
 // A character of the player's realm and side, last played `hours` ago.
 function alt(name: string, level: integer, hours: integer): mut Character {
-  return Character {
+  return mut Character {
     name: name, realm: REALM, faction: .Alliance, level: level, seen: Hour::fromNow(-hours * 3600), mailExpires: nil
   }
 }
@@ -71,7 +71,7 @@ function again() {
 // The characters other sessions recorded (each its own GUID), and the one being played as it was last played where it
 // was, kept as the module's saved records and read by the module anew.
 function recorded(others: array<Character>, me: Character | nil) {
-  const kept = Kept {}
+  const kept = mut Kept {}
   for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   if (me != nil) { kept.characters[CharacterId::of(PLAYER)] = me.clone() }
   Game::saved.store(.Own, "characters", kept)
@@ -310,7 +310,7 @@ test "a character forgotten leaves the table, and stays gone when the module rea
 }
 
 test "forty characters scroll inside the window" {
-  const others: array<Character> = []
+  const others: array<Character> = mut []
   for (i of 1..39) { others.push(alt("Alt " + string::of(100 + i), 10, i)) }
   Test::mount(nil, SCREEN)
   recorded(others, nil)

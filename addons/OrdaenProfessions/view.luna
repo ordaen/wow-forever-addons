@@ -182,11 +182,11 @@ const NO_RECIPES: array<Game::Recipe> = []
 // The recipes by their category, each category's in the order they are given in: the list is read once for every
 // group there is.
 public function sorted(recipes: array<Game::Recipe>): map<integer, array<Game::Recipe>> {
-  let lists: map<integer, mut array<Game::Recipe>> = {}
+  let lists: map<integer, mut array<Game::Recipe>> = mut {}
   for (recipe of recipes) {
     let list = lists[recipe.categoryID]
     if (list == nil) {
-      lists[recipe.categoryID] = [recipe]
+      lists[recipe.categoryID] = mut [recipe]
     } else {
       list.push(recipe)
     }
@@ -200,7 +200,7 @@ public function members(
   recipes: array<Game::Recipe>, byCategory: map<integer, array<Game::Recipe>>, group: integer, starred: array<integer>
 ): array<Game::Recipe> {
   if (group != FAVORITES) { return byCategory[group] ?? NO_RECIPES }
-  let list: array<Game::Recipe> = []
+  let list: array<Game::Recipe> = mut []
   for (recipe of recipes) {
     if (has(starred, recipe.id)) { list.push(recipe) }
   }

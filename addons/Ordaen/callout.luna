@@ -108,7 +108,7 @@ public class Callout implements Component {
     // Under the title, in a framed callout.
     text: Signal<string> = "",
     side: Signal<CalloutSide> = CalloutSide::Above,
-    look: Signal<CalloutLook> = CalloutLook.Framed { closable: true },
+    look: Signal<CalloutLook> = CalloutLook::Framed { closable: true },
     // It fades and comes back, over and over, while this holds: something waits for a look (unread whispers).
     pulse: Signal<boolean> = false
   ) {

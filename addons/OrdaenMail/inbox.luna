@@ -84,7 +84,7 @@ function kindIcon(kind: Game::MailKind): Art {
 }
 
 function attachedText(letter: Game::MailLetter): string {
-  const parts: array<string> = []
+  const parts: array<string> = mut []
   if (letter.items.length > 0) { parts.push(Locale::ITEMS_COUNT.format(letter.items.length)) }
   if (letter.copper > 0) { parts.push(Game::money.format(letter.copper)) }
   if (letter.cod > 0) { parts.push(`${Locale::COD} ${Game::money.format(letter.cod)}`) }
@@ -93,7 +93,7 @@ function attachedText(letter: Game::MailLetter): string {
 
 // A row's tooltip: the sender, then every attachment and the money.
 function tipRows(letter: Game::MailLetter): array<TipRow> {
-  const rows: array<TipRow> = []
+  const rows: array<TipRow> = mut []
   for (item of letter.items) { rows.push({ label: item.name, value: string::of(item.count) }) }
   if (letter.copper > 0) { rows.push({ label: Locale::MONEY, value: Game::money.format(letter.copper) }) }
   if (letter.cod > 0) { rows.push({ label: Locale::COD_AMOUNT, value: Game::money.format(letter.cod) }) }
@@ -138,7 +138,7 @@ public class LetterRow implements Component {
   }
 
   firstOf(): array<Game::MailItem> {
-    const list: array<Game::MailItem> = []
+    const list: array<Game::MailItem> = mut []
     for (item of self.letter.items) {
       if (list.length < FIRST_ITEMS) { list.push(item) }
     }
@@ -261,7 +261,7 @@ public class Inbox implements Component {
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<InboxView> = new ModuleMemory<InboxView>(INBOX_VIEW, .Profile, "inbox")
-  state folded: mut map<Game::MailKind, boolean> = {}
+  state folded: mut map<Game::MailKind, boolean> = mut {}
   derived shown: array<Game::MailLetter> = self.shownOf()
   derived groups: array<Group> = self.groupsOf()
   derived count: integer = self.shown.count(collectable)
@@ -301,7 +301,7 @@ public class Inbox implements Component {
   }
 
   groupsOf(): array<Group> {
-    const list: array<Group> = []
+    const list: array<Group> = mut []
     for (kind of KINDS) {
       const part = self.shown.filter(l => l.kind == kind)
       if (part.length > 0) {

@@ -15,7 +15,7 @@ const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 
 // The first `LISTED_MOST` changes.
 function firstOf(changes: array<GameChange>): array<GameChange> {
-  const list: array<GameChange> = []
+  const list: array<GameChange> = mut []
   for (change of changes) {
     if (list.length >= LISTED_MOST) { break }
     list.push(change)

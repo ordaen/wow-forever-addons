@@ -45,7 +45,7 @@ test "the art and the restricted code choose the same item for every direction" 
 // item the client refuses in a fight, left a line of a macro.
 class Held {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
-  public state used: mut array<string> = []
+  public state used: mut array<string> = mut []
   constructor(scale: number, centred: boolean = false, anchored: boolean = false) {
     const rings: array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
     const entries: array<WheelEntry> = [

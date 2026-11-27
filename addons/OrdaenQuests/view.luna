@@ -509,7 +509,7 @@ public class QuestButtons implements Component {
 
 // A quest's items as the reward rows show them: the choices numbered by their place, what is given anyway 0.
 function rewardsOf(items: array<Game::QuestItem>, chosen: boolean): array<Reward> {
-  let rows: array<Reward> = []
+  let rows: array<Reward> = mut []
   for (index, item of items) { rows.push(logReward(item.item, item.count, chosen ? index : 0)) }
   return rows
 }

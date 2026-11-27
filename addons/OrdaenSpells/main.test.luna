@@ -668,7 +668,7 @@ test "the pet's spells stand last under its book; the right button on a pet's sp
 
 test "opened and closed by its command, the spellbook plays the game's sounds and tells other addons" {
   Test::mount(nil, PAGE)
-  const played: array<integer> = []
+  const played: array<integer> = mut []
   Client::PlaySound = (kit: integer, channel: string | nil, once: boolean | nil): (boolean | nil, unknown) => {
     played.push(kit)
     return (true, nil)
@@ -722,7 +722,7 @@ test "a long name wraps in its column, on its font's own lines, and is never cut
   Game::spellbook.lines = lines
   const long = "Improved Heroic Strike of the Long Winter Nights"
   Game::spellbook.entries = (): array<Game::SpellEntry> => {
-    const list: array<Game::SpellEntry> = []
+    const list: array<Game::SpellEntry> = mut []
     for (spell of spells()) { list.push(spell) }
     list.push({ id: 99, name: long, rank: "Rank 3", icon: ICON, level: 20, passive: false, line: 2 })
     return list
@@ -764,7 +764,7 @@ test "a trainer whose list fills after it shows, in the same frame, shows the li
 test "the trainer's window's close leaves the trainer, as the game's does" {
   Test::mount(nil, PAGE)
   Game::trainer.services = services
-  const left: array<string> = []
+  const left: array<string> = mut []
   Client::CloseTrainer = (): nil => left.push("closed")
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -857,7 +857,7 @@ test "what a service needs turns dim once the trainer says it can be learned" {
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
-  Game::trainer.services = (): array<Game::TrainerService> => services().map(service => Game.TrainerService { status: .Available, ..service })
+  Game::trainer.services = (): array<Game::TrainerService> => services().map(service => Game::TrainerService { status: .Available, ..service })
   Game::trainer.changed.emit()
   Test::expect(drawnIn(window.text("Rank 2 · Requires level 50"), DIM))
 }
@@ -1155,7 +1155,7 @@ test "a price the player can't pay is red, one they can in ink" {
 test "Learn buys the picked service where it can be learned and paid for, and is greyed otherwise" {
   Test::mount(nil, PAGE)
   Game::trainer.services = services
-  const bought: array<integer> = []
+  const bought: array<integer> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -1184,7 +1184,7 @@ test "Learn goes on to the next service that can be learned now, past one that c
   Test::mount(nil, PAGE)
   Game::trainer.services = described
   Game::money.amount = 1000
-  const bought: array<integer> = []
+  const bought: array<integer> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -1229,7 +1229,7 @@ test "with nothing picked, «Learn available» asks first, then learns what can 
   Test::mount(nil, PAGE)
   Game::trainer.services = batch
   Game::money.amount = 1000
-  const bought: array<integer> = []
+  const bought: array<integer> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -1244,7 +1244,7 @@ test "«Learn available» is greyed while the money doesn't pay for all; a list 
   Test::mount(nil, PAGE)
   Game::trainer.services = batch
   Game::money.amount = 500
-  const bought: array<integer> = []
+  const bought: array<integer> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()

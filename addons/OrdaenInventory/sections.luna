@@ -78,8 +78,8 @@ struct Group {
 // The categories view's sections for a tab: split as its setting says, each sorted, in the kinds' fixed order whatever
 // the sort; no section without items; then «Free».
 public function tabSections(slots: array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): array<Section> {
-  let groups: array<mut Group> = []
-  let found: map<string, mut Group> = {}
+  let groups: array<mut Group> = mut []
+  let found: map<string, mut Group> = mut {}
   const split = splitOf(tab, grouping)
   for (slot of slots) {
     if (inTab(slot, tab)) {
@@ -88,7 +88,7 @@ public function tabSections(slots: array<Slot>, tab: Tab, grouping: Grouping, by
       if (group != nil) {
         group.slots.push(slot)
       } else {
-        const made: Group = {
+        const made: Group = mut {
           key: key, title: titleOf(slot, split), rank: rankOf(slot.tab),
           subkind: split == .Subclass ? slot.read.subkind : 0, slots: [slot]
         }
@@ -98,7 +98,7 @@ public function tabSections(slots: array<Slot>, tab: Tab, grouping: Grouping, by
     }
   }
   groups.sort((a: Group, b: Group): boolean => groupBefore(a, b))
-  let sections: array<Section> = []
+  let sections: array<Section> = mut []
   for (group of groups) {
     group.slots.sort((a: Slot, b: Slot): boolean => before(a, b, by))
     sections.push({ key: group.key, title: group.title, bag: -1, slots: group.slots, free: false })
@@ -141,7 +141,7 @@ function subclassName(slot: Slot): string {
 
 // A section for each bag, in the bags' order, every slot of it with the empty ones, its name for a caption.
 public function bagSections(bags: array<array<Slot>>, names: array<string>): array<Section> {
-  let sections: array<Section> = []
+  let sections: array<Section> = mut []
   for (index, slots of bags) {
     if (slots.length > 0) {
       sections.push({ key: `bag/${index}`, title: names[index] ?? "", bag: index - 1, slots: slots, free: false })
@@ -152,7 +152,7 @@ public function bagSections(bags: array<array<Slot>>, names: array<string>): arr
 
 // Every slot in one grid, in the bags' order, the empty ones too.
 public function oneSection(bags: array<array<Slot>>): array<Section> {
-  let slots: array<Slot> = []
+  let slots: array<Slot> = mut []
   for (bag of bags) {
     for (slot of bag) { slots.push(slot) }
   }
@@ -161,7 +161,7 @@ public function oneSection(bags: array<array<Slot>>): array<Section> {
 
 // How many items each tab has: a tab with none isn't in the map.
 public function countsOf(slots: array<Slot>): map<Tab, integer> {
-  let counts: map<Tab, integer> = {}
+  let counts: map<Tab, integer> = mut {}
   for (slot of slots) {
     if (peek slot.id != 0) {
       counts[Tab::All] = (counts[Tab::All] ?? 0) + 1

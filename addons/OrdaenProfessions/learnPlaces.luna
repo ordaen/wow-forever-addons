@@ -111,7 +111,7 @@ public class LearnTable implements Component {
   }
 
   placedOf(): array<Placed> {
-    const list: array<Placed> = []
+    const list: array<Placed> = mut []
     for (place of self.places) {
       list.push({ place: place, yards: place.npc == 0 ? nil : self.distance(place.npc) })
     }

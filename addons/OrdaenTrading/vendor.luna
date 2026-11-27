@@ -64,7 +64,7 @@ function iconOf(texture: number | string | nil): Art | nil {
 
 // What an item costs besides money, as the merchant's list says it.
 function costsOf(index: integer): array<Cost> {
-  let costs: array<Cost> = []
+  let costs: array<Cost> = mut []
   for (part of 1..Client::GetMerchantItemCostInfo(index).floor()) {
     const (texture, value, link, name) = Client::GetMerchantItemCostItem(index, part)
     if (texture != nil) { costs.push({ icon: iconOf(texture), amount: value.floor(), name: name ?? link ?? "" }) }
@@ -91,7 +91,7 @@ function wareAt(index: integer): Ware | nil {
 // What the merchant takes besides money that the player holds (`GetMerchantCurrencies`): each with its icon and how
 // many the player has.
 function currenciesOf(): array<Cost> {
-  let held: array<Cost> = []
+  let held: array<Cost> = mut []
   for (id of Client::C_MerchantFrame::GetMerchantCurrencies() ?? []) {
     const info = Client::C_CurrencyInfo::GetCurrencyInfo(id)
     if (info != nil) { held.push({ icon: info.iconFileID, amount: info.quantity.floor(), name: info.name }) }
@@ -149,14 +149,14 @@ public class Vendor {
 
   // Everything the merchant's window shows, read again.
   public mut read() {
-    let wares: array<Ware> = []
+    let wares: array<Ware> = mut []
     for (index of 1..Client::GetMerchantNumItems()) {
       const ware = wareAt(index)
       // A sold-out item leaves the list.
       if (ware != nil && ware.available != 0) { wares.push(ware) }
     }
     self.wares = wares
-    let sold: array<Sold> = []
+    let sold: array<Sold> = mut []
     for (place of 1..Client::GetNumBuybackItems()) {
       const (name, texture, price, count, _, usable) = Client::GetBuybackItemInfo(place)
       if (name != nil) {

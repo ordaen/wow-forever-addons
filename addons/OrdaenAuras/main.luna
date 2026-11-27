@@ -25,7 +25,7 @@ public class Auras implements Module, App {
   // The character's auras as the client has them now.
   public mut refresh() {
     const level = Game::player.level
-    const list: array<Active> = []
+    const list: array<Active> = mut []
     for (aura of Game::auras.player()) {
       const changes = changesOf(aura.spell, aura.stacks, aura.points, level)
       if (changes.length > 0) {

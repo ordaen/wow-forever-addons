@@ -54,7 +54,7 @@ const MODIFIERS: array<string> = ["ALT", "CTRL", "SHIFT", "META"]
 // A key's parts as caps read them: its modifiers, then the key (`CTRL-SHIFT-F` is Ctrl, Shift, F), each in the
 // client's words.
 public function capsOf(key: string): array<string> {
-  const parts: array<string> = []
+  const parts: array<string> = mut []
   let rest = key
   for (modifier of MODIFIERS) {
     if (rest.length > modifier.length + 1 && rest.sub(1, modifier.length + 1) == `${modifier}-`) {
@@ -85,7 +85,7 @@ function matches(command: Command, query: string, filter: KeyFilter): boolean {
 public class KeysPage implements Component {
   state search = ""
   state filter: KeyFilter = KeyFilter::All
-  state folded: mut map<string, boolean> = {}
+  state folded: mut map<string, boolean> = mut {}
   // What the last change the client refused says, until the next change.
   state refused = ""
   derived lines: array<KeyLine> = self.linesOf()
@@ -157,19 +157,19 @@ public class KeysPage implements Component {
 
   linesOf(): array<KeyLine> {
     const query = self.search.lower()
-    const lines: array<mut KeyLine> = []
+    const lines: array<mut KeyLine> = mut []
     let section = ""
     let caption = 0
     for (command of self.bindings.commands) {
       if (matches(command, query, self.filter)) {
         if (command.section != section) {
           section = command.section
-          lines.push({ caption: true, name: section, count: 0, folded: self.folded[section] == true })
+          lines.push(mut { caption: true, name: section, count: 0, folded: self.folded[section] == true })
           caption = lines.length
         }
         const head = lines[caption] ?? panic("the command's caption stands above it")
         head.count += 1
-        if (!head.folded) { lines.push({ caption: false, name: command.action, count: 0, folded: false }) }
+        if (!head.folded) { lines.push(mut { caption: false, name: command.action, count: 0, folded: false }) }
       }
     }
     return lines
@@ -292,7 +292,7 @@ class KeyRow implements Component {
   }
 
   actsOf(): array<RowEntry> {
-    const list: array<RowEntry> = [{ act: .Change, key: "" }]
+    const list: array<RowEntry> = mut [{ act: .Change, key: "" }]
     if (self.keys.length == 1) { list.push({ act: .Add, key: "" }) }
     for (key of self.keys) { list.push({ act: .Unbind, key: key }) }
     for (key of self.keys) { list.push({ act: .Same, key: key }) }

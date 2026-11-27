@@ -143,7 +143,7 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
   alone()
   const holder = new Holder()
   Client::C_Container::GetContainerItemInfo = (bag: integer, slot: integer): Client::ContainerItemInfo | nil => bag == 0 ?
-    Client.ContainerItemInfo {
+    Client::ContainerItemInfo {
       iconFileID: 134829, stackCount: 5, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: `item:${117 + slot}`, isFiltered: false, hasNoValue: false, itemID: 117 + slot, isBound: false,
       itemName: "Minor Healing Potion"
@@ -224,7 +224,7 @@ test "a button's tooltip is given its key as the button shows it, among the tool
   _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
   Test::flush()
-  const given: array<string> = []
+  const given: array<string> = mut []
   for (row of Ordaen.hotkeys) {
     for (key of row.keys(buttonName("2", 2))) { given.push(key) }
   }
@@ -611,7 +611,7 @@ test "a bar's size changed while it shows keeps the client's art in proportion: 
 // The masks among a button's regions (a texture is a kind of mask texture: a mask is told by its own word): each
 // one's width.
 function maskWidths(...regions: any Client::Region): array<number> {
-  const widths: array<number> = []
+  const widths: array<number> = mut []
   for (i of 1..regions.length) {
     const region = regions[i]
     if (region is Client::MaskTexture && region.GetObjectType() == "MaskTexture") { widths.push(region.GetWidth()) }

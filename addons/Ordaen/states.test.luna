@@ -58,7 +58,7 @@ function pageOf(frame: any Client::Frame): any Client::Frame {
 
 // The regions and the frames the client hands one after another, as lists.
 function regionsOf(...given: any Client::Region): array<any Client::Region> {
-  let list: array<any Client::Region> = []
+  let list: array<any Client::Region> = mut []
   for (index of 1..given.length) {
     const region = given[index]
     if (region != nil) { list.push(region) }
@@ -66,7 +66,7 @@ function regionsOf(...given: any Client::Region): array<any Client::Region> {
   return list
 }
 function framesOf(...given: any Client::Frame): array<any Client::Frame> {
-  let list: array<any Client::Frame> = []
+  let list: array<any Client::Frame> = mut []
   for (index of 1..given.length) {
     const frame = given[index]
     if (frame != nil) { list.push(frame) }
@@ -92,9 +92,9 @@ function fontsOf(frame: any Client::Frame, out: mut array<string>) {
 // tip under the cursor, on a strata of its own) is no part of its look.
 function drawnBut(page: any Client::Frame, crops: boolean): array<string> {
   Test::flush()
-  let lines: array<string> = []
+  let lines: array<string> = mut []
   // A texture over another of the same place and size is a light on it (an art's glow, its pushed row): one line.
-  let laid: map<string, boolean> = {}
+  let laid: map<string, boolean> = mut {}
   // The indent of a popup's frame while its lines are passed over.
   let popup: integer | nil = nil
   for (line of Test::dump(page).split("\n")) {
@@ -118,8 +118,8 @@ function drawnBut(page: any Client::Frame, crops: boolean): array<string> {
   fontsOf(page, lines)
   if (!crops) { return lines }
   // Each file drawn and the size of the part of it drawn, once.
-  let parts: array<string> = []
-  let named: map<string, boolean> = {}
+  let parts: array<string> = mut []
+  let named: map<string, boolean> = mut {}
   for (part of Test::drawn()) {
     const line = `texture ${string::of(part.file)} ${string::of(part.right - part.left)} x ${string::of(part.bottom - part.top)}`
     if (named[line] != true) {

@@ -97,7 +97,7 @@ function challengeOf(id: number | nil, name: string | nil, done: boolean | nil, 
 
 // A category's challenges, as the game orders them.
 function challengesIn(category: integer): array<Challenge> {
-  const list: array<Challenge> = []
+  const list: array<Challenge> = mut []
   const (total, _, _) = Client::GetCategoryNumAchievements(category)
   for (index of 1..total.floor()) {
     const (id, name, _, done, month, day, year, description, _, icon, _, _, mine, _) = Client::GetAchievementInfo(category, index)
@@ -110,14 +110,14 @@ function challengesIn(category: integer): array<Challenge> {
 // Every category with its challenges, each under its parent, in the game's order.
 function categoriesOf(): array<Category> {
   const ids = Client::GetCategoryList()
-  const parents: map<integer, integer> = {}
-  const names: map<integer, string> = {}
+  const parents: map<integer, integer> = mut {}
+  const names: map<integer, string> = mut {}
   for (id of ids) {
     const (name, parent, _) = Client::GetCategoryInfo(id)
     names[id] = name
     parents[id] = parent
   }
-  const list: array<Category> = []
+  const list: array<Category> = mut []
   for (id of ids) {
     if ((parents[id] ?? -1) == -1) {
       list.push({ id: id, name: names[id] ?? "", depth: 0, challenges: challengesIn(id) })
@@ -130,7 +130,7 @@ function categoriesOf(): array<Category> {
 }
 
 function criteriaOf(challenge: integer): array<Criterion> {
-  const list: array<Criterion> = []
+  const list: array<Criterion> = mut []
   for (index of 1..Client::GetAchievementNumCriteria(challenge).floor()) {
     const (text, _, done, have, need, _, _, _, shown, _, _) = Client::GetAchievementCriteriaInfo(challenge, index)
     const counted = need > 1 && !done
@@ -322,7 +322,7 @@ public class Challenges {
   }
 
   everyOf(): array<Challenge> {
-    const list: array<Challenge> = []
+    const list: array<Challenge> = mut []
     for (category of self.categories) {
       for (one of category.challenges) { list.push(one) }
     }
@@ -336,7 +336,7 @@ public class Challenges {
 
   // The categories with what the filter leaves of them; one the filter empties is left out.
   foldsOf(): array<Category> {
-    const list: array<Category> = []
+    const list: array<Category> = mut []
     for (category of self.categories) {
       const left = category.challenges.filter(one => self.shown(one))
       if (left.length > 0) { list.push({ id: category.id, name: category.name, depth: category.depth, challenges: left }) }
@@ -353,7 +353,7 @@ public class Challenges {
 
   // A category folded is one not open.
   closedOf(): map<integer, boolean> {
-    const closed: map<integer, boolean> = {}
+    const closed: map<integer, boolean> = mut {}
     for (category of self.categories) { closed[category.id] = self.opened[category.id] != true }
     return closed
   }
@@ -381,7 +381,7 @@ public class Challenges {
   mut onPick(id: integer) { self.chosen = id }
 
   mut onToggle(id: integer) {
-    const next: map<integer, boolean> = {}
+    const next: map<integer, boolean> = mut {}
     for (key, value of self.opened) { next[key] = value }
     next[id] = self.opened[id] != true
     self.opened = next

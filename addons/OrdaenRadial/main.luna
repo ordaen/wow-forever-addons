@@ -77,8 +77,8 @@ function withChosenIcon(drawn: WheelItem, chosen: PlaceIcon | nil): WheelItem {
 }
 
 public function laidOut(ring: Ring, offers: map<string, RadialOffer>): Laid {
-  const counts: map<string, integer> = {}
-  const items: map<string, Item> = {}
+  const counts: map<string, integer> = mut {}
+  const items: map<string, Item> = mut {}
   for (place, count of ring.counts) { counts[place] = count }
   for (place, item of ring.items) {
     if (item == Item::Professions) {
@@ -91,9 +91,9 @@ public function laidOut(ring: Ring, offers: map<string, RadialOffer>): Laid {
       items[place] = item
     }
   }
-  const rings: array<WheelRing> = []
+  const rings: array<WheelRing> = mut []
   for (place, count of counts) { rings.push({ path: wheelPlace(place), count: count }) }
-  const entries: array<WheelEntry> = []
+  const entries: array<WheelEntry> = mut []
   const mine = playerClass()
   for (place, item of items) {
     const condition = ring.conditions[place]
@@ -164,7 +164,7 @@ public class Radial implements Module, App {
   // Each ring an older build saved, upgraded (`upgraded`); the settings changed only where one was.
   mut upgrade(choices: Choices) {
     let changed = false
-    const rings: array<Ring> = []
+    const rings: array<Ring> = mut []
     for (ring of choices.rings) {
       const fresh = upgraded(ring)
       if (fresh != nil) { changed = true }
@@ -179,7 +179,7 @@ public class Radial implements Module, App {
   }
 
   offersOf(): map<string, RadialOffer> {
-    const offers: map<string, RadialOffer> = {}
+    const offers: map<string, RadialOffer> = mut {}
     for (kind of self.kinds) { offers[kind.id] = kind.offer() }
     return offers
   }
@@ -245,7 +245,7 @@ public class Radial implements Module, App {
     const place = placeOf(self.level)
     const count = ring.counts[place] ?? 0
     const fighting = Game::situation.combat
-    const items: array<WheelItem> = []
+    const items: array<WheelItem> = mut []
     for (index of 1..count) {
       const at = within(place, index)
       const item = ring.items[at] ?? Item::Empty
@@ -287,7 +287,7 @@ public class Radial implements Module, App {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
       const (first, second) = Client::GetBindingKey(command)
-      const keys: array<string> = []
+      const keys: array<string> = mut []
       if (first != nil) { keys.push(first) }
       if (second != nil) { keys.push(second) }
       wheel.bind(keys)

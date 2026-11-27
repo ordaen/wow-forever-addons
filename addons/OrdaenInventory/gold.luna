@@ -33,7 +33,7 @@ public class Gold {
 
   mut keep(copper: integer) {
     const own = Game::player.guid
-    let characters: map<string, Purse> = {}
+    let characters: map<string, Purse> = mut {}
     let count = 1
     for (guid, purse of (peek self.memory.values).characters) {
       if (guid != own) {
@@ -60,7 +60,7 @@ public class Gold {
   rowsOf(): array<TipRow> {
     const own = Game::player.guid
     const realm = Game::player.realm
-    let others: array<Purse> = []
+    let others: array<Purse> = mut []
     let total = 0
     let mine: Purse | nil = nil
     for (guid, purse of self.memory.values.characters) {
@@ -70,7 +70,7 @@ public class Gold {
       }
     }
     others.sort((a: Purse, b: Purse): boolean => a.copper > b.copper || (a.copper == b.copper && a.name < b.name))
-    let rows: array<TipRow> = []
+    let rows: array<TipRow> = mut []
     if (mine != nil) { rows.push({ label: mine.name, value: Game::money.format(mine.copper) }) }
     for (purse of others) { rows.push({ label: purse.name, value: Game::money.format(purse.copper) }) }
     rows.push({ label: Locale::GOLD_TOTAL, value: Game::money.format(total) })

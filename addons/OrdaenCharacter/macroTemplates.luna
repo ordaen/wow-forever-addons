@@ -38,7 +38,7 @@ function filled(title: string, body: string, spell: integer | nil, into: mut arr
 
 // The templates for a class, by its tag: its spells' first, then the trinkets'.
 public function templatesOf(classTag: string): array<MacroTemplate> {
-  const templates: array<MacroTemplate> = []
+  const templates: array<MacroTemplate> = mut []
   const spells = SPELLS[classTag] ?? {}
   filled(Locale::TEMPLATE_MOUSEOVER_HEAL, "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] %s", spells.heal, templates)
   filled(Locale::TEMPLATE_SELF_ALT, "#showtooltip\n/cast [mod:alt,@player][] %s", spells.heal, templates)

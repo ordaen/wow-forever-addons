@@ -101,7 +101,7 @@ struct Effect {
 }
 
 function effectsOf(spell: integer): array<Effect> {
-  const effects: array<Effect> = []
+  const effects: array<Effect> = mut []
   const block = Effects::blocks[(spell / BLOCK).floor()]
   if (block == nil) { return effects }
   let own: string | nil = nil

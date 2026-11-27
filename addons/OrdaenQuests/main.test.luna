@@ -23,7 +23,7 @@ function quest(id: integer, title: string, header: string): Test::LogQuest {
 
 // The player's log: two quests of the world, one of a dungeon.
 function standing(): mut array<Test::LogQuest> {
-  return [
+  return mut [
     { story: "Gryan asks you to look into Westfall.", xp: 420, ..quest(101, "The Defias Brotherhood", "Westfall") },
     { tag: 81, ..quest(102, "Red Silk Bandanas", "The Deadmines") },
     quest(103, "Elwynn Wolves", "Elwynn Forest")
@@ -247,7 +247,7 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
 
 test "many rewards give way to the parchment, which keeps its least height" {
   const log = standing()
-  let choices: array<Test::LogReward> = []
+  let choices: array<Test::LogReward> = mut []
   for (index of 1..6) { choices.push({ item: 1001 + index % 3, count: index }) }
   log[3] = { rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)

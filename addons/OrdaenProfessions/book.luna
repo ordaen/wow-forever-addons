@@ -77,7 +77,7 @@ public function written(book: Book, skillLine: integer, recipes: array<Game::Rec
   }
   let entries = 0
   for (key, _ of next.recipes) { entries += 1 }
-  const names: map<integer, string> = {}
+  const names: map<integer, string> = mut {}
   for (recipe of recipes) { names[recipe.id] = recipe.name }
   for (id of known) {
     if (next.recipes[id] == nil) {

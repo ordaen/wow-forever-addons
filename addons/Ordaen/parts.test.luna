@@ -38,8 +38,8 @@ function placing(): array<string> {
   Test::mount(nil, SCREEN)
   Ordaen.togglePlacing()
   Test::flush()
-  const titles: array<string> = []
-  const seen: map<string, boolean> = {}
+  const titles: array<string> = mut []
+  const seen: map<string, boolean> = mut {}
   for (part of Ordaen.parts) {
     if (seen[part.id] != true) {
       seen[part.id] = true
@@ -83,7 +83,7 @@ test "in the placing mode the ninth part moves and goes back" { Test::expect(mov
 
 test "in the placing mode every part the modules draw on the screen is shaded with its name" {
   _ = placing()
-  const names: map<string, boolean> = {}
+  const names: map<string, boolean> = mut {}
   for (part of Ordaen.parts) { names[part.title] = true }
   Test::expect(modules() == 0 || Ordaen.parts.length > 0)
 

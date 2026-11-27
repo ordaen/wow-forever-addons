@@ -45,11 +45,11 @@ function objectiveRow(text: string, label: string, done: boolean, indent: boolea
 
 // The game's quest rows as blocks, in its order. `party`: the party's objectives are kept too.
 function blocksOf(lines: array<Game::TooltipLine>, party: boolean): array<Block> {
-  const blocks: array<Block> = []
+  const blocks: array<Block> = mut []
   let started = false
   let title = ""
-  let own: array<TextLine> = []
-  let theirs: array<TextLine> = []
+  let own: array<TextLine> = mut []
+  let theirs: array<TextLine> = mut []
   let member: string | nil = nil
   for (line of lines) {
     let text = clean(line.left)
@@ -58,8 +58,8 @@ function blocksOf(lines: array<Game::TooltipLine>, party: boolean): array<Block>
       if (started) { blocks.push({ title: title, own: own, party: theirs }) }
       started = true
       title = text
-      own = []
-      theirs = []
+      own = mut []
+      theirs = mut []
       member = nil
     } else if (line.kind == QUEST_PLAYER) {
       member = text
@@ -108,19 +108,19 @@ public function questRows(
 ): mut array<TextLine> {
   const blocks = blocksOf(lines, party)
   // The rows added to each of the game's blocks, by its place; and the quests the game names none of, in order.
-  const added: map<integer, mut array<TextLine>> = {}
-  const ownRows: map<integer, mut array<TextLine>> = {}
-  const ownQuests: array<Wanted> = []
+  const added: map<integer, mut array<TextLine>> = mut {}
+  const ownRows: map<integer, mut array<TextLine>> = mut {}
+  const ownQuests: array<Wanted> = mut []
   for (want of wants) {
     const at = blockOf(blocks, want.title)
     if (at != nil) {
       if ((blocks[at] ?? panic("a block")).own.any(row => row.left == want.objective)) { continue }
       const list = added[at]
-      if (list == nil) { added[at] = [wantedRow(want)] } else { list.push(wantedRow(want)) }
+      if (list == nil) { added[at] = mut [wantedRow(want)] } else { list.push(wantedRow(want)) }
     } else {
       const list = ownRows[want.quest]
       if (list == nil) {
-        ownRows[want.quest] = [wantedRow(want)]
+        ownRows[want.quest] = mut [wantedRow(want)]
         ownQuests.push(want)
       } else {
         list.push(wantedRow(want))

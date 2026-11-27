@@ -32,7 +32,7 @@ public function bartenderLoaded(): boolean {
 public function barDefaults(): map<string, BarChoice> {
   let (bottomLeft, bottomRight, right, left, six, seven, eight) = Client::GetActionBarToggles()
   const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client::GetNumShapeshiftForms() > 0]
-  const defaults: map<string, BarChoice> = {}
+  const defaults: map<string, BarChoice> = mut {}
   for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
   return defaults
 }
@@ -148,7 +148,7 @@ public class ActionBars implements Component, OwnerKeys {
 
   // The bars on, each standing over those under it by their rows' height: none overlaps another.
   barsOf(): array<Shown> {
-    const bars: array<Shown> = []
+    const bars: array<Shown> = mut []
     if (!self.ready) { return bars }
     let below: number<Length> = 0ui
     for (spec of SPECS) {
@@ -175,8 +175,8 @@ public class ActionBars implements Component, OwnerKeys {
   // fight alone: the client takes no binding in one.
   mut bind() {
     Client::ClearOverrideBindings(self.owner)
-    const keys: map<string, string> = {}
-    const named: map<string, string> = {}
+    const keys: map<string, string> = mut {}
+    const named: map<string, string> = mut {}
     for (bar of peek self.bars) {
       for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
@@ -195,7 +195,7 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   hiddenBars(): array<any Client::Frame> {
-    const parts: array<any Client::Frame> = []
+    const parts: array<any Client::Frame> = mut []
     for (bar of self.bars) {
       const frame = ActionBars::gameBar(bar.spec)
       if (frame != nil) { parts.push(frame) }

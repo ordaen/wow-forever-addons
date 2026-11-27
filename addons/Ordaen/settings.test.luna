@@ -33,7 +33,7 @@ test "`/ordaen` with a name no module has opens the settings on Ordaen's own pag
 
 test "a library that needs Ordaen is no module: the settings list no switch for it, and `/ordaen` names it not" {
   // What the build writes into the TOC of an addon with a root.
-  const rooted: map<string, string> = {}
+  const rooted: map<string, string> = mut {}
   rooted["X-LunaType-Root"] = "1"
   Test::addon({ name: "OrdaenFakeModule", title: "Fake Module", needs: ["Ordaen"], fields: rooted })
   Test::addon({ name: "OrdaenFakeLibrary", title: "Fake Library", needs: ["Ordaen"] })

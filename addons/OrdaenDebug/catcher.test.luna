@@ -25,7 +25,7 @@ test "a fault of LunaType's is LunaType's" {
 test "keeps a blocked action under the addon the client blames, and tells its listeners each time" {
   let errors = new Errors(noErrors(), {})
   let catcher = new Catcher(errors)
-  let heard: array<string> = []
+  let heard: array<string> = mut []
   catcher.onTaint((addon: string, called: string, verb: string): nil => heard.push(`${addon} ${called} ${verb}`))
   catcher.taint("ADDON_ACTION_BLOCKED", "Blizzard_Settings", "Minimap:SetParent")
   catcher.taint("ADDON_ACTION_FORBIDDEN", "Details", "UNKNOWN()")

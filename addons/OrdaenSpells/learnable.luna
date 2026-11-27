@@ -74,7 +74,7 @@ public struct CityPrice {
 }
 
 function numbersOf(text: string, between: string): array<integer> {
-  const list: array<integer> = []
+  const list: array<integer> = mut []
   if (text == "") { return list }
   for (part of text.split(between)) {
     const number = part.toNumber()
@@ -87,7 +87,7 @@ function numberAt(parts: array<string>, at: integer): integer { return (parts[at
 
 // A class's trainer spells, by level.
 public function trainerSpellsOf(classTag: string): array<TrainerSpell> {
-  const list: array<TrainerSpell> = []
+  const list: array<TrainerSpell> = mut []
   const text = Training::spells[classTag]
   if (text == nil) { return list }
   for (entry of text.split(";")) {
@@ -102,14 +102,14 @@ public function trainerSpellsOf(classTag: string): array<TrainerSpell> {
 
 // A class's quest spells, by spell: the ways each is given.
 public function questWaysOf(classTag: string): map<integer, array<QuestWay>> {
-  const ways: map<integer, array<QuestWay>> = {}
+  const ways: map<integer, array<QuestWay>> = mut {}
   const text = Training::quests[classTag]
   if (text == nil) { return ways }
   for (entry of text.split(";")) {
     const (spell, rest) = entry.match("^(%d+):(.*)$")
     const id = spell?.toNumber()?.floor()
     if (id != nil && rest != nil) {
-      const list: array<QuestWay> = []
+      const list: array<QuestWay> = mut []
       for (way of rest.split("|")) {
         const parts = way.split(",")
         list.push({
@@ -148,7 +148,7 @@ public function bestPrice(learner: Learner, cost: integer, role: string): intege
 
 // What a price comes to at each city whose trainers teach a role on the learner's side, cheapest first.
 public function cityPricesOf(learner: Learner, cost: integer, role: string): array<CityPrice> {
-  const list: array<CityPrice> = []
+  const list: array<CityPrice> = mut []
   for (faction of factionsOf(learner, role)) {
     if (Training::factions[faction]?.city == true) {
       list.push({ faction: faction, standing: learner.standing(faction) ?? 0, price: discounted(cost, discountAt(learner, faction)) })
@@ -194,10 +194,10 @@ public struct WeaponWay {
 
 // The weapon skills the learner's class may learn, in What's Training's order.
 public function weaponWaysOf(learner: Learner): array<WeaponWay> {
-  const list: array<WeaponWay> = []
+  const list: array<WeaponWay> = mut []
   for (spell, skill of Training::weapons) {
     if (skill.classes.split("/").any(each => each == learner.classTag)) {
-      const masters: array<WeaponMaster> = []
+      const masters: array<WeaponMaster> = mut []
       for (entry of skill.masters.split("|")) {
         const parts = entry.split(",")
         const npc = numberAt(parts, 2)
@@ -237,8 +237,8 @@ public struct Grimoire {
 
 // The demon trainer's grimoires, by level.
 public function grimoiresOf(): array<Grimoire> {
-  const list: array<Grimoire> = []
-  const ranks: map<string, integer> = {}
+  const list: array<Grimoire> = mut []
+  const ranks: map<string, integer> = mut {}
   for (entry of Training::tomes.split(";")) {
     const parts = entry.split(",")
     const spell = numberAt(parts, 5)
@@ -332,8 +332,8 @@ public type NpcName = (npc: integer) => string | nil
 // below it aren't known; each of them is, once a higher rank of the same spell is.
 function withRanksBelow(learner: Learner): Learner {
   // The ranked spells by name: a spell whose name the client hasn't is no rank of another.
-  const ranked: array<TrainerSpell> = []
-  const names: map<integer, string> = {}
+  const ranked: array<TrainerSpell> = mut []
+  const names: map<integer, string> = mut {}
   for (spell of trainerSpellsOf(learner.classTag)) {
     const name = Game::spells.name(spell.id)
     if (spell.rank > 0 && name != nil) {
@@ -341,12 +341,12 @@ function withRanksBelow(learner: Learner): Learner {
       names[spell.id] = name
     }
   }
-  const highest: map<string, integer> = {}
+  const highest: map<string, integer> = mut {}
   for (spell of ranked) {
     const name = names[spell.id] ?? ""
     if (learner.known(spell.id) && spell.rank > (highest[name] ?? 0)) { highest[name] = spell.rank }
   }
-  const below: map<integer, boolean> = {}
+  const below: map<integer, boolean> = mut {}
   for (spell of ranked) {
     if (spell.rank < (highest[names[spell.id] ?? ""] ?? 0)) { below[spell.id] = true }
   }
@@ -363,9 +363,9 @@ function withRanksBelow(learner: Learner): Learner {
 // masters.
 public function learnableOf(given: Learner, questName: QuestName, npcName: NpcName, openLabel: string | nil): Learnable {
   const learner = withRanksBelow(given)
-  const rows: array<Row> = []
+  const rows: array<Row> = mut []
   const quests = questWaysOf(learner.classTag)
-  const pets: map<integer, boolean> = {}
+  const pets: map<integer, boolean> = mut {}
   for (spell of Training::petAbilities) { pets[spell] = true }
   for (spell of trainerSpellsOf(learner.classTag)) {
     const forSide = spell.side == 0 || spell.side == learner.side
@@ -408,11 +408,11 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
     if (a.name != b.name) { return a.name < b.name }
     return a.spell < b.spell
   })
-  const services: array<Game::TrainerService> = []
-  const notes: map<integer, string> = {}
-  const actions: map<integer, string> = {}
-  const questOf: map<integer, integer> = {}
-  const prices: map<integer, array<PlacePrice>> = {}
+  const services: array<Game::TrainerService> = mut []
+  const notes: map<integer, string> = mut {}
+  const actions: map<integer, string> = mut {}
+  const questOf: map<integer, integer> = mut {}
+  const prices: map<integer, array<PlacePrice>> = mut {}
   for (at, row of rows) {
     services.push({
       index: at, name: row.name, rank: row.rank == 0 ? "" : Locale::SPELL_RANK.format(row.rank),

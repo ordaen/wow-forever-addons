@@ -113,9 +113,9 @@ function cardHeight(section: Section, span: integer, room: CardRoom): number<Len
 
 // The lines of `sections` in a list `width` wide.
 public function linesOf(sections: array<Section>, width: number<Length>, room: CardRoom): array<CardRow> {
-  let lines: array<CardRow> = []
-  let cards: array<Card> = []
-  let tracks: array<Track> = []
+  let lines: array<CardRow> = mut []
+  let cards: array<Card> = mut []
+  let tracks: array<Track> = mut []
   let high: number<Length> = 0ui
   let used: number<Length> = 0ui
   const most = spanIn(width, room)
@@ -124,8 +124,8 @@ public function linesOf(sections: array<Section>, width: number<Length>, room: C
     const wide = cardWidth(span, room)
     if (cards.length > 0 && used + room.between + wide > width) {
       lines.push({ cards: cards, tracks: tracks, height: high })
-      cards = []
-      tracks = []
+      cards = mut []
+      tracks = mut []
       high = 0ui
       used = 0ui
     }

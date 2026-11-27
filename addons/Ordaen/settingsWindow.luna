@@ -139,7 +139,7 @@ public class SettingsWindow implements Component {
   }
 
   namesOf(): array<string> {
-    let list: array<string> = []
+    let list: array<string> = mut []
     for (page of self.shown) { list.push(page.title) }
     return list
   }
@@ -218,7 +218,7 @@ public class SettingsWindow implements Component {
 
   // «Последнее изменение», «Начало сессии», then a row per savepoint.
   mut backEntries(): array<MenuEntry> {
-    const list: array<MenuEntry> = []
+    const list: array<MenuEntry> = mut []
     const last = Ordaen.keeper.lastModules()
     if (last.length == 0) {
       list.push({ label: Locale::HISTORY_LAST_NONE, on: nil, disabled: true, group: nil })

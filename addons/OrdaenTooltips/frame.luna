@@ -293,7 +293,7 @@ public class Row implements Component {
 // `was` is the section as it was drawn, made from the lines `from`: a line that is the one it was made from, with
 // the room it had, is `was`'s again, and with every line so, `was` itself.
 function rows(lines: array<TextLine>, was: array<Drawn>, from: array<TextLine>): array<Drawn> {
-  let list: array<Drawn> = []
+  let list: array<Drawn> = mut []
   let same = lines.length == was.length
   let pairedBefore = false
   let underHead = false
@@ -438,7 +438,7 @@ public class TipFrame implements Component {
 
   // One column as wide as each piece and each « · » between two, and the rest of the row empty.
   tracks(pieces: integer): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (i of 1..pieces) {
       if (i > 1) { list.push("max-content") }
       list.push("max-content")
@@ -448,7 +448,7 @@ public class TipFrame implements Component {
   }
 
   notes(): array<Drawn> {
-    let list: array<Drawn> = []
+    let list: array<Drawn> = mut []
     for (note of self.model.foot) {
       let alone = note.right == nil
       list.push({

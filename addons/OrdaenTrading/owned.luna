@@ -125,7 +125,7 @@ public class OwnedPage implements Component {
 
   shownOf(): array<Shown> {
     _ = self.revision
-    let list: array<Shown> = []
+    let list: array<Shown> = mut []
     for (owned of Game::ownedAuctions.list) {
       const (name, color) = nameOf(owned.item)
       const buyout = owned.buyout
@@ -144,7 +144,7 @@ public class OwnedPage implements Component {
   // The auctions asked again, and their items browsed for the house's lowest.
   onCheck() {
     _ = Game::ownedAuctions.refresh()
-    let items: array<integer> = []
+    let items: array<integer> = mut []
     for (owned of peek Game::ownedAuctions.list) { items.push(owned.item) }
     if (items.length > 0) { _ = Game::auctionQuery.browse(items) }
   }

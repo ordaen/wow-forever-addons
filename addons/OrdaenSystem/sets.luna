@@ -15,7 +15,7 @@ struct Kept implements Plain {
 }
 
 public class Sets {
-  public state list: mut array<AddOnSet> = []
+  public state list: mut array<AddOnSet> = mut []
 
   constructor() {
     self.list = load<Kept>(.Account, KEY, Kept {}).sets.clone()

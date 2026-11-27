@@ -26,13 +26,13 @@ public struct Filed {
 
 // Cards under their headings, in order: those that follow one another under one heading make one group.
 public function grouped(filed: array<Filed>): array<Group> {
-  const groups: array<Group> = []
+  const groups: array<Group> = mut []
   let title = ""
-  let cards: array<Card> = []
+  let cards: array<Card> = mut []
   for (entry of filed) {
     if (entry.title != title && cards.length > 0) {
       groups.push({ title: title, cards: cards })
-      cards = []
+      cards = mut []
     }
     title = entry.title
     cards.push(entry.card)

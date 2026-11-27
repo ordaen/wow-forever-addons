@@ -118,7 +118,7 @@ struct Named {
 
 // Every recipe name the window shows, top to bottom, left to right.
 function named(): array<Named> {
-  let list: array<Named> = []
+  let list: array<Named> = mut []
   for (name of NAMES) {
     const texts = window().text(name)
     for (n of 1..texts.count()) {
@@ -148,7 +148,7 @@ function cardOf(list: array<Named>): integer {
 function listed(): string {
   const list = named()
   const card = cardOf(list)
-  let names: array<string> = []
+  let names: array<string> = mut []
   for (index, shown of list) {
     if (index != card) { names.push(shown.name) }
   }
@@ -558,7 +558,7 @@ test "the filter starts as What's Training's: a trainer's, a vendor's or a quest
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   // What's Training's: a recipe its trainer teaches, and one a vendor sells to those Friendly with its faction.
-  const all: array<Game::Recipe> = []
+  const all: array<Game::Recipe> = mut []
   for (each of recipes()) { all.push(each) }
   all.push(recipe(2393, "Trainer's Shirt", 11, Game::Difficulty::Usually, 0, false))
   all.push(recipe(1301440, "Vendor's Robe", 11, Game::Difficulty::Usually, 0, false))
@@ -925,7 +925,7 @@ test "starred and tracked recipes are there after a reload" {
 
 test "a hundred starred is the most: one more takes off the one starred first" {
   // Kept from an earlier session: the cloak starred first, then ninety-eight recipes of other professions.
-  let favorites: array<integer> = [110]
+  let favorites: array<integer> = mut [110]
   for (id of 1..98) { favorites.push(5000 + id) }
   Game::saved.store(.Character, "OrdaenProfessions:memory", Kept { last: 0, seen: {}, favorites: favorites, tracked: [], queue: [], paused: {} })
   Test::reload()

@@ -32,7 +32,7 @@ test "a frame moved from under a still cursor hears the cursor leave, the next f
   frame.SetSize(100, 100)
   frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, -500)
   frame.EnableMouse(true)
-  let heard: map<string, integer> = {}
+  let heard: map<string, integer> = mut {}
   frame.SetScript("OnEnter", (): nil => { heard["enter"] = (heard["enter"] ?? 0) + 1 })
   frame.SetScript("OnLeave", (): nil => { heard["leave"] = (heard["leave"] ?? 0) + 1 })
   Test::moveTo({ x: 50, y: 550 })

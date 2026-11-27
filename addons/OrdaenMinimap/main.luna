@@ -54,7 +54,7 @@ public class Minimap implements Module, App {
     { title: Locale::TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } }
   ]
   // The ring buttons' angles as the player left them: degrees from the top, clockwise.
-  state angles: mut map<RingId, number> = {}
+  state angles: mut map<RingId, number> = mut {}
   state hovered = false
   state drawerOpen = false
   // The ring button being dragged, its angle meanwhile, and where its middle stood as the drag began, and its size.
@@ -147,7 +147,7 @@ public class Minimap implements Module, App {
   }
 
   hiddenParts(): array<any Frame> {
-    const parts: array<any Frame> = []
+    const parts: array<any Frame> = mut []
     Minimap::hide(parts, Game::frames.MinimapCluster)
     Minimap::hide(parts, Game::frames.MinimapBackdrop)
     Minimap::hide(parts, Game::frames.MinimapZoomIn)

@@ -34,10 +34,10 @@ public class Stock {
       if (had == nil || had.length != info.slots || (had[1]?.bag ?? info.bag) != info.bag) { sized = true }
     }
     if (sized) {
-      let bags: array<mut array<mut Slot>> = []
-      let all: array<mut Slot> = []
+      let bags: array<mut array<mut Slot>> = mut []
+      let all: array<mut Slot> = mut []
       for (info of infos) {
-        let slots: array<mut Slot> = []
+        let slots: array<mut Slot> = mut []
         for (index of 1..info.slots) {
           const slot = new Slot(self.vault, info.bag, index)
           slots.push(slot)
@@ -131,7 +131,7 @@ public class Stock {
       total += slots.length
     }
     if (!same) {
-      let fills: map<integer, string> = {}
+      let fills: map<integer, string> = mut {}
       for (index, slots of self.bags) {
         const info = self.infos[index]
         if (info != nil) { fills[info.bag] = Locale::FILL.format(self.used[index] ?? 0, slots.length) }

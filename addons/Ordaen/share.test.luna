@@ -8,7 +8,7 @@ struct Probe implements Plain {
 }
 
 function sample(): Shared {
-  const shared = Shared { name: "Raid" }
+  const shared = mut Shared { name: "Raid" }
   shared.sections["OrdaenMinimap"] = Game::encoding.serialize(Probe { scale: 1.5 }) ?? panic("the client packs")
   shared.sections["OrdaenNotInstalled"] = Game::encoding.serialize(Probe { scale: 2 }) ?? panic("the client packs")
   return shared
@@ -56,7 +56,7 @@ test "a text that isn't a profile is refused, each with its reason" {
   const raw = Game::encoding.serialize(sample()) ?? panic("the client packs")
   Test::expect(why(read(textOf(raw.sub(1, raw.length - 5)))) == Refusal::Damaged)
   // A section that is not CBOR (a text string whose length is cut off).
-  const bad = Shared { name: "Bad" }
+  const bad = mut Shared { name: "Bad" }
   bad.sections["OrdaenMinimap"] = "{{{{"
   Test::expect(why(read(write(bad) ?? panic("written"))) == Refusal::Damaged)
   // CBOR that is a number, or a table with no sections.

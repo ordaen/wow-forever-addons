@@ -40,7 +40,7 @@ function flip(from: Art) {
 
 // The player's choice kept from the last session: the minimap off.
 function keptOff() {
-  const choices: map<string, boolean> = {}
+  const choices: map<string, boolean> = mut {}
   choices["OrdaenMinimap"] = false
   Game::saved.store(.Account, "choices", choices)
 }

@@ -155,7 +155,7 @@ function rank(kind: LineKind): integer {
 }
 
 function inOrder(lines: mut array<Line>): array<Line> {
-  let ordered: array<Line> = []
+  let ordered: array<Line> = mut []
   for (step of 1..4) {
     for (line of lines) {
       if (rank(line.kind) == step) { ordered.push(line) }
@@ -166,7 +166,7 @@ function inOrder(lines: mut array<Line>): array<Line> {
 
 // The gossip window's list: its quests, then its options in the game's order.
 public function gossipLines(): array<Line> {
-  let lines: array<Line> = []
+  let lines: array<Line> = mut []
   for (quest of Client::C_GossipInfo::GetActiveQuests()) {
     const kind = activeKind(quest.isComplete == true, quest.repeatable == true || (quest.frequency ?? 0) > 0)
     lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
@@ -175,7 +175,7 @@ public function gossipLines(): array<Line> {
     const kind = quest.repeatable == true ? LineKind::Daily : offerKind(quest.frequency, quest.isLegendary)
     lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
   }
-  let options: array<Client::GossipOptionUIInfo> = []
+  let options: array<Client::GossipOptionUIInfo> = mut []
   for (given of Client::C_GossipInfo::GetOptions()) { options.push(given) }
   options.sort((a, b) => a.orderIndex < b.orderIndex)
   for (option of options) {
@@ -190,7 +190,7 @@ public function gossipLines(): array<Line> {
 
 // A quest giver's greeting: its quests in progress and to hand in, then the new ones, each by its place.
 public function greetingLines(): array<Line> {
-  let lines: array<Line> = []
+  let lines: array<Line> = mut []
   for (index of 1..Client::GetNumActiveQuests().floor()) {
     const (title, complete) = Client::GetActiveTitle(index)
     const kind = activeKind(complete, false)
@@ -240,7 +240,7 @@ const CURRENCY_LOOT = 1
 
 // What a quest gives besides its items to choose: its items and currencies, spells learned, a title, a skill's points.
 function givenRewards(questID: integer): array<Reward> {
-  let given: array<Reward> = []
+  let given: array<Reward> = mut []
   for (index of 1..Client::GetNumQuestRewards()) { given.push(questItem("reward", index)) }
   for (info of Client::C_QuestInfoSystem::GetQuestRewardCurrencies(questID) ?? []) { given.push(currencyReward(info, 0)) }
   for (spell of Client::C_QuestInfoSystem::GetQuestRewardSpells(questID) ?? []) {
@@ -272,7 +272,7 @@ function givenRewards(questID: integer): array<Reward> {
 // What a quest needs handed in, with how many of each the player has: its items (none where the quest hides them, nor
 // one it hides) and its currencies.
 function needsOf(): array<Need> {
-  let needs: array<Need> = []
+  let needs: array<Need> = mut []
   if (!Client::C_QuestOffer::GetHideRequiredItems()) {
     for (index of 1..Client::GetNumQuestItems()) {
       if (!Client::IsQuestItemHidden(index)) {
@@ -296,7 +296,7 @@ function needsOf(): array<Need> {
 // The page a quest giver shows, with its text: the details' description, the progress' words or the reward's thanks.
 public function questOf(text: string): Quest {
   const id = Client::GetQuestID().floor()
-  let choices: array<Reward> = []
+  let choices: array<Reward> = mut []
   for (index of 1..Client::GetNumQuestChoices()) { choices.push(choiceReward(index)) }
   return {
     id: id, title: Client::GetTitleText(), text: text, objectives: Client::GetObjectiveText(),

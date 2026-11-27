@@ -35,10 +35,10 @@ public struct RuledKin {
 
 // The characters a letter reaches that have a profession, with their professions, each by name.
 public function ruledKinOf(alts: Alts): array<RuledKin> {
-  const list: array<RuledKin> = []
+  const list: array<RuledKin> = mut []
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who) && character.professions.length > 0) {
-      const professions: array<RuledProfession> = []
+      const professions: array<RuledProfession> = mut []
       for (known of character.professions) { professions.push({ skillLine: known.skillLine, name: known.name }) }
       professions.sort((a, b) => a.name < b.name)
       list.push({ who: who, name: character.name, professions: professions })

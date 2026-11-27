@@ -98,7 +98,7 @@ const ARMOR_CAP = 17265
 // (a shield), blocked (a shield struck through) and time (an hourglass).
 const GLYPH_FILE: Asset = "@/media/character-glyphs.tga"
 const function glyphPieces(): array<Piece> {
-  let list: array<Piece> = []
+  let list: array<Piece> = mut []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
   return list
 }
@@ -168,12 +168,12 @@ public function mainsOf(stats: Stats, weights: Weights | nil): array<Main> {
     { value: stats.spirit, short: Locale::SPIRIT_SHORT, label: Locale::SPIRIT, tip: stats.tips.primary[5] ?? "", stat: .Spirit, valued: valued(5) }
   ]
   if (most > 0) {
-    let order: array<integer> = [1, 2, 3, 4, 5]
+    let order: array<integer> = mut [1, 2, 3, 4, 5]
     order.sort((a: integer, b: integer): boolean => (worth[a] ?? 0) > (worth[b] ?? 0) || ((worth[a] ?? 0) == (worth[b] ?? 0) && a < b))
     return order.map(index => all[index] ?? panic("five main stats"))
   }
   const lead = stats.intellect > stats.strength.max(stats.agility) ? 4 : stats.agility > stats.strength ? 2 : 1
-  const order: array<integer> = [lead, 3]
+  const order: array<integer> = mut [lead, 3]
   for (index of 1..5) {
     if (index != lead && index != 3) { order.push(index) }
   }
@@ -184,7 +184,7 @@ public function mainsOf(stats: Stats, weights: Weights | nil): array<Main> {
 // side, against the enemy the cards count; under them, with a shield, block's chance and the damage a block stops. The
 // reduction's tooltip stands over it, the hit's on its right, block's on its left, each clear of what it lights.
 function defenceCardsOf(stats: Stats): array<array<Figure>> {
-  const rows: array<array<Figure>> = [[
+  const rows: array<array<Figure>> = mut [[
     {
       label: Locale::DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH),
       color: Style::STAT, stat: .DamageReduction, tip: { point: .BottomLeft, to: .TopLeft }
@@ -283,8 +283,8 @@ struct Held {
 // The skill gauges of the weapons a section holds, the main hand's and the other's where each holds one: one a skill
 // (two swords share one, the main hand's), in blue up to the cap, each with its tooltip.
 function skillGauges(held: array<Held>, skills: array<Skill>): array<Gauge> {
-  const gauges: array<Gauge> = []
-  const seen: array<integer> = []
+  const gauges: array<Gauge> = mut []
+  const seen: array<integer> = mut []
   for (weapon of held) {
     const id = weapon.skill
     if (id != nil && !seen.any(s => s == id)) {
@@ -315,7 +315,7 @@ function speedCard(between: number, stat: Stat): Figure {
 
 // The second row of a weapon's section: what lands, and the seconds between its attacks where it has any.
 function landsRow(lands: Stat, between: number, speed: Stat, stats: Stats): array<Figure> {
-  const row = [landsCard(lands, stats)]
+  const row = mut [landsCard(lands, stats)]
   if (between > 0) { row.push(speedCard(between, speed)) }
   return row
 }
@@ -375,7 +375,7 @@ function spells(stats: Stats, classTag: string): Section | nil {
   if (casting == nil) { return nil }
   const schools = casting.schools.map(school => school)
   schools.sort((a, b) => (stats.schoolDamage[a - 1] ?? 0) > (stats.schoolDamage[b - 1] ?? 0))
-  const cards: array<Figure> = []
+  const cards: array<Figure> = mut []
   for (index, school of schools) {
     cards.push({ label: schoolName(school), value: string::of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1, stat: .SpellDamage })
   }
@@ -397,7 +397,7 @@ function spells(stats: Stats, classTag: string): Section | nil {
 // The right column's sections in the order the class reads them: a caster's spells first, then melee and ranged;
 // anyone else's melee and ranged, then their spells.
 public function sectionsOf(stats: Stats, skills: array<Skill>, classTag: string): array<Section> {
-  const sections: array<Section> = []
+  const sections: array<Section> = mut []
   const magic = spells(stats, classTag)
   const caster = stats.intellect > stats.strength.max(stats.agility)
   if (caster && magic != nil) { sections.push(magic) }
@@ -441,7 +441,7 @@ public const TIP_LEFT: Beside = {
 // Where a view's tooltip stands: its own way first where it has one, then its column's.
 function placeFor(column: Beside, own: Hang | nil): Beside {
   if (own == nil) { return column }
-  const prefer: array<Hang> = [own]
+  const prefer: array<Hang> = mut [own]
   for (hang of column.prefer ?? []) { prefer.push(hang) }
   return { beside: column.beside, prefer: prefer }
 }

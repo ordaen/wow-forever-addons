@@ -204,7 +204,7 @@ public class RecipeDetails implements Component {
   // which isn't made here.
   needsOf(): string {
     if (!self.shown.learned) { return "" }
-    const lines: array<string> = []
+    const lines: array<string> = mut []
     for (need of Game::tradeSkill.requirements(self.shown.id)) {
       const line = Locale::TOOLS + ": " + need.name
       lines.push(need.met ? line : "|cffff4040" + line + "|r")

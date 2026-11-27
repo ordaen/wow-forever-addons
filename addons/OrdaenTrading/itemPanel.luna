@@ -49,7 +49,7 @@ function lowestOf(history: any PriceHistory, key: PriceKey, span: Span, now: Hou
   const count = hourly ? HOURS_A_DAY : span == Span::Week ? WEEK : MONTH
   const today = (now / HOURS_A_DAY).floor()
   const first = hourly ? now - (HOURS_A_DAY - 1) : (today - (count - 1)) * HOURS_A_DAY
-  let lows: array<integer> = []
+  let lows: array<integer> = mut []
   for (index of 1..count) { lows.push(0) }
   for (point of history.hours(key, Hour::of(first), now)) {
     const at = hourly ? point.hour - first + 1 : ((point.hour - first) / HOURS_A_DAY).floor() + 1
@@ -92,7 +92,7 @@ class PriceChart implements Component {
   }
 
   barsOf(): array<Bar> {
-    let list: array<Bar> = []
+    let list: array<Bar> = mut []
     const high = self.high
     const last = self.lows.length
     for (index, copper of self.lows) {
@@ -103,7 +103,7 @@ class PriceChart implements Component {
   }
 
   columnsOf(): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (bar of self.lows) { list.push({ fr: 1 }) }
     return list
   }

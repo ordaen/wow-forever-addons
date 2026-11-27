@@ -36,39 +36,39 @@ public function hasRoom(ring: Ring, parent: string): boolean { return countOf(ri
 
 // Every key of the four maps moved from one place to another.
 function move(ring: mut Ring, from: string, to: string) {
-  const items: map<string, Item> = {}
+  const items: map<string, Item> = mut {}
   for (key, item of ring.items) { items[movedKey(key, from, to)] = item }
   ring.items = items
-  const counts: map<string, integer> = {}
+  const counts: map<string, integer> = mut {}
   for (key, count of ring.counts) { counts[movedKey(key, from, to)] = count }
   ring.counts = counts
   const conditions = ring.conditions.clone()
-  ring.conditions = {}
+  ring.conditions = mut {}
   for (key, condition of conditions) { ring.conditions[movedKey(key, from, to)] = condition }
   const icons = ring.icons.clone()
-  ring.icons = {}
+  ring.icons = mut {}
   for (key, icon of icons) { ring.icons[movedKey(key, from, to)] = icon }
 }
 
 // The keys a test holds taken away from the four maps.
 function dropWhere(ring: mut Ring, gone: (key: string) => boolean) {
-  const items: map<string, Item> = {}
+  const items: map<string, Item> = mut {}
   for (key, item of ring.items) {
     if (!gone(key)) { items[key] = item }
   }
   ring.items = items
-  const counts: map<string, integer> = {}
+  const counts: map<string, integer> = mut {}
   for (key, count of ring.counts) {
     if (!gone(key)) { counts[key] = count }
   }
   ring.counts = counts
   const conditions = ring.conditions.clone()
-  ring.conditions = {}
+  ring.conditions = mut {}
   for (key, condition of conditions) {
     if (!gone(key)) { ring.conditions[key] = condition }
   }
   const icons = ring.icons.clone()
-  ring.icons = {}
+  ring.icons = mut {}
   for (key, icon of icons) {
     if (!gone(key)) { ring.icons[key] = icon }
   }

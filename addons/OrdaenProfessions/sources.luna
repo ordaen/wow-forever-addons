@@ -43,7 +43,7 @@ function partsOf(text: string, between: string): array<string> { return text == 
 
 // `id:area:side:level/...` or `npc:area+area:side/...`: each place, its first area.
 function sidedOf(text: string): array<Sided> {
-  const list: array<Sided> = []
+  const list: array<Sided> = mut []
   for (entry of partsOf(text, "/")) {
     const parts = entry.split(":")
     const area = (parts[2] ?? "").split("+")[1] ?? ""
@@ -54,12 +54,12 @@ function sidedOf(text: string): array<Sided> {
 
 // A profession's recipes' sources, by the recipe's spell; none for a profession the table hasn't.
 public function sourcesOf(skillLine: integer | nil): map<integer, RecipeSource> {
-  const sources: map<integer, RecipeSource> = {}
+  const sources: map<integer, RecipeSource> = mut {}
   const text = skillLine == nil ? nil : Recipes::recipes[skillLine]
   if (text == nil) { return sources }
   for (entry of text.split(";")) {
     const parts = entry.split(",")
-    const reputation: array<Asked> = []
+    const reputation: array<Asked> = mut []
     for (asked of partsOf(parts[13] ?? "", "/")) {
       const pair = asked.split(":")
       reputation.push({ faction: numberAt(pair, 1), standing: numberAt(pair, 2) })
@@ -139,7 +139,7 @@ function placeOf(way: string, name: string): LearnPlace { return { way: way, nam
 // Where a recipe is learned, for the player's side: its trainer, each vendor, each quest, a drop, a player's making, an
 // object in the world.
 public function placesOf(source: RecipeSource, side: integer): array<LearnPlace> {
-  const places: array<LearnPlace> = []
+  const places: array<LearnPlace> = mut []
   for (way of source.sources) {
     if (way == "trainer") {
       places.push({ way: Locale::WAY_TRAINER, name: Locale::LEARN_TRAINER.format(source.skill), zone: "", cost: source.cost, quest: 0, npc: 0 })
@@ -168,7 +168,7 @@ public function placesOf(source: RecipeSource, side: integer): array<LearnPlace>
 
 // What learning a recipe asks besides its place, a line each: a standing with a faction, merchant favor.
 public function asksOf(source: RecipeSource): array<string> {
-  const lines: array<string> = []
+  const lines: array<string> = mut []
   for (asked of source.reputation) {
     const faction = Client::C_Reputation::GetFactionDataByID(asked.faction)?.name ?? string::of(asked.faction)
     const standing = Runtime::text(`FACTION_STANDING_LABEL${asked.standing}`) ?? string::of(asked.standing)

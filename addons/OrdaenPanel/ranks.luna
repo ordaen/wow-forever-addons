@@ -13,7 +13,7 @@ function rankOf(spell: integer): integer | nil {
 
 // The action slots holding the rank just below `spell`'s: the same name, one rank less.
 function previousSlots(spell: integer): array<integer> {
-  const slots: array<integer> = []
+  const slots: array<integer> = mut []
   const name = Client::C_Spell::GetSpellName(spell)
   const rank = rankOf(spell)
   if (name == nil || rank == nil || rank < 2) { return slots }

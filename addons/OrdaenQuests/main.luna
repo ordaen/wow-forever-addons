@@ -291,7 +291,7 @@ public class Quests implements Module, App {
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
   public mut refresh() {
     const quests = logQuests()
-    const facts: map<integer, QuestFacts> = {}
+    const facts: map<integer, QuestFacts> = mut {}
     for (id, known of peek self.facts) { facts[id] = known }
     for (quest of quests) {
       if (facts[quest.id] == nil) {
@@ -399,7 +399,7 @@ public class Quests implements Module, App {
   // until the map hides: another module's «show the nearest» of trainers or vendors. Where none is on the player's
   // continent, the first NPC's first spot. False as `showNpc` is, and where QuestieDB knows no spot of any.
   public mut showNearest(npcs: array<integer>): boolean {
-    const figures: array<Figure> = []
+    const figures: array<Figure> = mut []
     for (npc of npcs) {
       const figure = self.data.npc(npc)
       if (figure != nil) { figures.push(figure) }

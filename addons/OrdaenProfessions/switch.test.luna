@@ -16,13 +16,13 @@ function gameWindow(): any Client::Frame {
 }
 
 function categories(base: integer, name: string): array<Game::Category> {
-  let list: array<Game::Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
+  let list: array<Game::Category> = mut [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
   for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + string::of(i), parentID: base }) }
   return list
 }
 
 function recipes(base: integer, name: string, count: integer): array<Game::Recipe> {
-  let list: array<Game::Recipe> = []
+  let list: array<Game::Recipe> = mut []
   for (i of 1..count) {
     list.push({
       id: base * 1000 + i, name: name + " thing " + string::of(i), icon: "Interface/Icons/INV_Misc_Note_01",

@@ -74,7 +74,7 @@ function says(part: Test::Part, label: string, expected: string): boolean {
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: array<string> = []
+      let read: array<string> = mut []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
@@ -189,7 +189,7 @@ test "a scan shows its progress as it reads, and the house shut on it drops it: 
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let auctions: array<Sale> = []
+  let auctions: array<Sale> = mut []
   for (index of 1..1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
   // The clock moves 0.02 ms an auction read: asked every 50 auctions, the frame's 4 ms are past at the 250th.
   let reads = 0

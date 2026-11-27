@@ -110,7 +110,7 @@ public class Characters implements Component {
     // Read again when any record changed.
     _ = self.touched
     const now = Hour::now()
-    const list: array<Line> = []
+    const list: array<Line> = mut []
     for (who, character of self.records.characters) {
       const bank = character.read[Place::Bank]
       const mail = character.read[Place::Mail]
@@ -135,7 +135,7 @@ public class Characters implements Component {
 
   // The lines by the column the table is sorted by.
   order(): array<Line> {
-    const list: array<Line> = []
+    const list: array<Line> = mut []
     for (line of self.lines) { list.push(line) }
     const column = self.sorted
     const down = self.descending

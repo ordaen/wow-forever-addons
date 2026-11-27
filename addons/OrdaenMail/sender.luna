@@ -11,7 +11,7 @@ import Locale from "@/locales"
 const ANSWER = 10
 
 function emptySlot(): mut Game::SlotItem {
-  return {
+  return mut {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
   }
@@ -39,10 +39,10 @@ public class Sender {
     const count = lettersFor(stacks.length)
     const values = peek self.memory.values
     let next = values.next
-    const queue: array<Sent> = []
+    const queue: array<Sent> = mut []
     for (letter of values.queue) { queue.push(letter.clone()) }
     for (place of 1..count) {
-      const items: array<SentItem> = []
+      const items: array<SentItem> = mut []
       for (index of ((place - 1) * PLACES + 1)..(place * PLACES).min(stacks.length)) {
         const stack = stacks[index] ?? panic("within the stacks")
         items.push({ item: stack.item, count: stack.count })
@@ -119,7 +119,7 @@ public class Sender {
     const done = gone.clone()
     done.state = SentState::Sent
     done.at = peek Game::clock.server
-    const history: array<Sent> = [done]
+    const history: array<Sent> = mut [done]
     for (old of values.history) {
       if (history.length < HISTORY_MOST) { history.push(old) }
     }
@@ -184,7 +184,7 @@ public class Sender {
 // The stacks of the bags that hold a letter's items: each exactly that many of that item, not on its way anywhere, none
 // taken twice. An item no stack holds is left out.
 function stacksFor(items: array<SentItem>): array<Game::MailStack> {
-  const found: array<Game::MailStack> = []
+  const found: array<Game::MailStack> = mut []
   for (wanted of items) {
     const stack = stackOf(wanted.item, wanted.count, false, found)
     if (stack != nil) { found.push(stack) }
@@ -195,7 +195,7 @@ function stacksFor(items: array<SentItem>): array<Game::MailStack> {
 // The first of a letter's items no whole stack holds split off a bigger one into an empty slot, as the game's split
 // does; false where every item has its stack, or none can be split (no bigger stack, no empty slot).
 function splitFor(items: array<SentItem>): boolean {
-  const found: array<Game::MailStack> = []
+  const found: array<Game::MailStack> = mut []
   for (wanted of items) {
     const stack = stackOf(wanted.item, wanted.count, false, found)
     if (stack != nil) {

@@ -35,7 +35,7 @@ function opening(window: Window): Opening {
 
 function openAction(window: Window): WheelAction {
   const line = opening(window).line
-  return line != nil ? WheelAction.MacroText { text: line } : WheelAction::Ours
+  return line != nil ? WheelAction::MacroText { text: line } : WheelAction::Ours
 }
 
 // A kind of ping: its name, the client's mark of it, and its number for `/ping` (the client reads a kind's name only

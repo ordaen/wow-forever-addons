@@ -103,13 +103,13 @@ function filterGroups(filters: array<NewsFilter>): array<FilterGroup<integer>> {
 }
 
 function filterValues(filters: array<NewsFilter>): map<integer, boolean> {
-  const values: map<integer, boolean> = {}
+  const values: map<integer, boolean> = mut {}
   for (filter of filters) { values[filter.kind] = filter.shown }
   return values
 }
 
 function allShown(filters: array<NewsFilter>): map<integer, boolean> {
-  const values: map<integer, boolean> = {}
+  const values: map<integer, boolean> = mut {}
   for (filter of filters) { values[filter.kind] = true }
   return values
 }

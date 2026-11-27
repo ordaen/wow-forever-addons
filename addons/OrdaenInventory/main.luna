@@ -235,7 +235,7 @@ public class Inventory implements Module, App {
 
   // The bank's tab always (it says how to see it until the bank was read); the guild bank's once a tab of it was read.
   vaultsOf(): array<Vault> {
-    let vaults: array<Vault> = [Vault::Bags]
+    let vaults: array<Vault> = mut [Vault::Bags]
     if (self.atVault) { return vaults }
     vaults.push(Vault::Bank)
     if (self.vaultGuild.total > 0) { vaults.push(Vault::Guild) }
@@ -290,7 +290,7 @@ public class Inventory implements Module, App {
   }
 
   gameFramesOf(): array<any Frame> {
-    let frames: array<any Frame> = []
+    let frames: array<any Frame> = mut []
     for (window of Game::bags.windows) { frames.push(window) }
     if (self.bankOpen) {
       const bank = Runtime::frame("BankFrame")
@@ -362,7 +362,7 @@ public class Inventory implements Module, App {
 
   // Every bag read: a bag whose size changed gets its slots made again.
   public mut readAll() {
-    let infos: array<Game::BagInfo> = []
+    let infos: array<Game::BagInfo> = mut []
     for (bag of Game::bags.containers) { infos.push(Game::bags.bag(bag)) }
     self.settle(self.carried.read(infos, peek self.junkLists.values, peek self.settings.values.junk))
   }
@@ -407,7 +407,7 @@ public class Inventory implements Module, App {
   // goes with it; one whose item is gone from the bags is dropped. A slot is drawn protected where one stays.
   mut follow() {
     const kept = peek self.memory.values
-    let guards: array<Guard> = []
+    let guards: array<Guard> = mut []
     let changed = false
     for (guard of kept.guards) {
       const slot = self.carried.slotAt(guard.bag, guard.slot)
@@ -433,7 +433,7 @@ public class Inventory implements Module, App {
 
   bagLinesOf(): array<BagLine> {
     _ = self.carried.revision
-    let lines: array<BagLine> = []
+    let lines: array<BagLine> = mut []
     for (index, info of self.carried.infos) {
       // A bag's place stands empty too; the keyring (no place) only where the client gives it slots.
       if (info.bag >= 0 || info.slots > 0) {
@@ -447,7 +447,7 @@ public class Inventory implements Module, App {
   // The bank's bags: each container past the bank's own, at its place among the bank's bag slots.
   bankBagsOf(): array<BankBag> {
     _ = self.bank.revision
-    let bags: array<BankBag> = []
+    let bags: array<BankBag> = mut []
     for (index, info of self.bank.infos) {
       if (index > 1) {
         const slots = self.bank.bags[index] ?? []
@@ -662,7 +662,7 @@ public class Inventory implements Module, App {
     let sold = 0
     let worth = 0
     // Why each junk slot passed over was: told where junk shows and none sold.
-    let passed: array<string> = []
+    let passed: array<string> = mut []
     for (slot of self.carried.all) {
       if (sold < SAFE_SALE && slot.junk) {
         const why = unsellable(slot)
@@ -699,7 +699,7 @@ public class Inventory implements Module, App {
   public mut guard(slot: Slot) {
     if (peek slot.id == 0) { return }
     const kept = peek self.memory.values
-    let guards: array<Guard> = []
+    let guards: array<Guard> = mut []
     let was = false
     for (guard of kept.guards) {
       if (guard.bag == slot.bag && guard.slot == slot.index) { was = true } else { guards.push(guard) }

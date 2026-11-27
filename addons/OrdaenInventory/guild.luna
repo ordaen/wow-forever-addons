@@ -133,7 +133,7 @@ public class GuildBank {
   }
 
   mut readTabs() {
-    let tabs: array<GuildTab> = []
+    let tabs: array<GuildTab> = mut []
     for (index of 1..Client::GetNumGuildBankTabs().floor()) {
       let (name, icon, viewable, canDeposit, withdrawals) = Client::GetGuildBankTabInfo(index)
       tabs.push({
@@ -151,7 +151,7 @@ public class GuildBank {
   }
 
   mut readLog() {
-    let lines: array<string> = []
+    let lines: array<string> = mut []
     if (peek self.page == GuildPage::MoneyLog) {
       for (index of 1..Client::GetNumGuildBankMoneyTransactions().floor()) {
         let (kind, who, amount, _, _, _, _) = Client::GetGuildBankMoneyTransaction(index)

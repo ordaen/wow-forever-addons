@@ -12,7 +12,7 @@ import { Component } from "@/module"
 import { ButtonPlate, PushButton } from "@/pushButton"
 
 // The reload: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
-const RELOAD: Action = Action.RunMacro { macro: "/reload" }
+const RELOAD: Action = Action::RunMacro { macro: "/reload" }
 const WIDTH = 539.0625dp
 const BUTTON = 187.5dp
 

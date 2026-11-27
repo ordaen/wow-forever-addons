@@ -104,7 +104,7 @@ function itemName(item: integer): string { return Client::C_Item::GetItemNameByI
 
 // The characters the one being played can send to.
 public function kinOf(alts: Alts): array<Kin> {
-  const kin: array<Kin> = []
+  const kin: array<Kin> = mut []
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) { kin.push({ who: who, name: character.name, classTag: character.classTag }) }
   }
@@ -118,18 +118,18 @@ public function ownRows(
   kin: array<Kin>, held: map<integer, integer>, crafting: (item: integer) => array<Crafting>,
   rule: (who: string, skillLine: integer) => SendRule
 ): array<OwnRow> {
-  const rows: array<OwnRow> = []
+  const rows: array<OwnRow> = mut []
   for (one of kin) {
-    const offers: map<integer, mut array<Offer>> = {}
-    const professions: map<integer, string> = {}
-    const items: map<integer, boolean> = {}
+    const offers: map<integer, mut array<Offer>> = mut {}
+    const professions: map<integer, string> = mut {}
+    const items: map<integer, boolean> = mut {}
     let count = 0
     for (item, bagged of held) {
       for (use of crafting(item)) {
         if (use.guid == one.who && allows(rule(one.who, use.skillLine), use)) {
           const offer: Offer = { item: item, name: itemName(item), count: bagged, recipes: use.recipes, color: use.bestColor }
           const list = offers[use.skillLine]
-          if (list == nil) { offers[use.skillLine] = [offer] } else { list.push(offer) }
+          if (list == nil) { offers[use.skillLine] = mut [offer] } else { list.push(offer) }
           professions[use.skillLine] = use.profession
           if (items[item] == nil) {
             items[item] = true
@@ -138,7 +138,7 @@ public function ownRows(
         }
       }
     }
-    const sections: array<Section> = []
+    const sections: array<Section> = mut []
     for (skillLine, list of offers) {
       list.sort((a, b) => a.name < b.name)
       sections.push({ skillLine: skillLine, profession: professions[skillLine] ?? "", offers: list })
@@ -155,8 +155,8 @@ public function ownRows(
 // and the rest as one part, which the queue splits off a bigger stack as the letter goes. The queue cuts them into
 // letters of twelve.
 public function stacksOf(wanted: array<Game::MailStack>): array<Game::MailStack> {
-  const stacks: array<Game::MailStack> = []
-  let slot = Game.SlotItem {
+  const stacks: array<Game::MailStack> = mut []
+  let slot = mut Game::SlotItem {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
   }
@@ -178,16 +178,16 @@ public function stacksOf(wanted: array<Game::MailStack>): array<Game::MailStack>
 // What goes of the offers, by the counts chosen (`chosen` by «who:item»: 0 for one unticked, all where unset); an item
 // in two of them once, at the most chosen.
 function wantedOf(who: string, offers: array<Offer>, chosen: map<string, integer>): array<Game::MailStack> {
-  const wanted: array<mut Game::MailStack> = []
+  const wanted: array<mut Game::MailStack> = mut []
   for (offer of offers) {
     const count = chosen[`${who}:${offer.item}`] ?? offer.count
-    if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
+    if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push(mut { bag: 0, slot: 0, item: offer.item, count: count }) }
   }
   return wanted
 }
 
 function offersOf(row: OwnRow): array<Offer> {
-  const offers: array<Offer> = []
+  const offers: array<Offer> = mut []
   for (section of row.sections) {
     for (offer of section.offers) { offers.push(offer) }
   }

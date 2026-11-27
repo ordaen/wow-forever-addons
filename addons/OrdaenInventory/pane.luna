@@ -291,7 +291,7 @@ public class Pane {
   // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
   tabsOf(): array<Tab> {
     const choices = self.choices
-    let tabs: array<Tab> = [Tab::All]
+    let tabs: array<Tab> = mut [Tab::All]
     if ((self.counts[Tab::New] ?? 0) > 0) { tabs.push(Tab::New) }
     for (kind of KINDS) {
       const empty = (self.counts[kind] ?? 0) == 0

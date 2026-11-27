@@ -96,7 +96,7 @@ public class WindowsPage implements Component {
   }
 
   tabChoicesOf(): array<Choice<integer>> {
-    const list: array<Choice<integer>> = [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
+    const list: array<Choice<integer>> = mut [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
     const window = self.windows[self.current]
     if (window == nil) { return list }
     for (index, title of window.tabs) { list.push({ value: index, label: title }) }

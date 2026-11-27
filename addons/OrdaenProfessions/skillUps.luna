@@ -33,9 +33,9 @@ public struct Thresholds {
 
 // The profession's thresholds; none for one the table hasn't (a skill line of no recipes).
 public function thresholdsOf(skillLine: integer | nil): Thresholds {
-  const yellow: map<integer, integer> = {}
-  const grey: map<integer, integer> = {}
-  const learned: map<integer, integer> = {}
+  const yellow: map<integer, integer> = mut {}
+  const grey: map<integer, integer> = mut {}
+  const learned: map<integer, integer> = mut {}
   const text = skillLine == nil ? nil : Levels::lines[skillLine]
   if (text == nil) { return { yellow: yellow, grey: grey, learned: learned } }
   for (entry of text.split(";")) {

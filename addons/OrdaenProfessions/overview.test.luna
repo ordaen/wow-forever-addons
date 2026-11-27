@@ -93,11 +93,11 @@ function near(a: Color, b: Color): boolean {
 // Whether a section of the overview reads exactly this, its title and its lines joined by « | »: where it doesn't,
 // the test fails with what it reads.
 function sectionReads(title: string, expected: string): boolean {
-  let read: array<string> = []
+  let read: array<string> = mut []
   let inside = false
   for (shown of window().texts()) {
     if (shown == title) {
-      read = []
+      read = mut []
       inside = true
     } else if (TITLES.any(other => other == shown) || TABS.any(other => other == shown)) {
       inside = false

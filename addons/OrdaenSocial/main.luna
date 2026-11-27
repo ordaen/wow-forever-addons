@@ -98,7 +98,7 @@ public class Social implements Module, App {
   public state guildSub: integer = SUB_ROSTER
   // The game's own windows ours stands for, and those of them showing: held unseen and off the screen.
   games: mut array<any Client::Frame> = []
-  state held: mut array<any Frame> = []
+  state held: mut array<any Frame> = mut []
   // The game's guild and communities window once its addon has loaded, and the game's window the player asked for as
   // it is, until it closes.
   communities: any Client::Frame | nil = nil
@@ -668,11 +668,11 @@ public class Social implements Module, App {
   }
 
   talkWhoOf(): map<string, TalkWho> {
-    const members: array<Member> = []
+    const members: array<Member> = mut []
     for (member of self.guildMembers) { members.push(member) }
     for (member of self.clubMembers) { members.push(member) }
     const known = KnownPeople { friends: self.friends, members: members, allies: self.allies }
-    const who: map<string, TalkWho> = {}
+    const who: map<string, TalkWho> = mut {}
     for (talk of self.talks) { who[talk.key] = whoOf(talk, known) }
     return who
   }
@@ -686,7 +686,7 @@ public class Social implements Module, App {
   mut talkOf(key: string): mut Talk {
     const talk = self.talkMade[key] ?? new Talk(key)
     self.talkMade[key] = talk
-    const talks: array<Talk> = [talk]
+    const talks: array<Talk> = mut [talk]
     for (other of peek self.talks) {
       if (other.key != key) { talks.push(other) }
     }
@@ -762,7 +762,7 @@ public class Social implements Module, App {
 
   mut recallTalks() {
     const kept = KeptTalks::decode(Game::saved.stored(Game::Scope::Character, TALKS_KEPT), KeptTalks { talks: [] })
-    const talks: array<Talk> = []
+    const talks: array<Talk> = mut []
     for (one of kept.talks) {
       const talk = new Talk(one.key)
       talk.recall(one.lines)

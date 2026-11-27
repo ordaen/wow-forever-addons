@@ -92,10 +92,10 @@ public struct Level {
 
 function levelsOf(): array<Level> {
   const reached = Client::C_MajorFactions::GetCurrentRenownLevel(TRACK).floor()
-  const list: array<Level> = []
+  const list: array<Level> = mut []
   for (info of Client::C_MajorFactions::GetRenownLevels(TRACK)) {
     const level = info.level.floor()
-    const rewards: array<Client::MajorFactionRenownRewardInfo> = []
+    const rewards: array<Client::MajorFactionRenownRewardInfo> = mut []
     for (reward of Client::C_MajorFactions::GetRenownRewardsForLevel(TRACK, level)) { rewards.push(reward) }
     rewards.sort((a, b) => a.uiOrder < b.uiOrder)
     const first = rewards[1]
@@ -136,7 +136,7 @@ function filledOf(levels: array<Level>, rank: integer, earned: number, threshold
 
 // The four levels from `first`, as many as there are.
 function windowOf(levels: array<Level>, first: integer): array<Level> {
-  const list: array<Level> = []
+  const list: array<Level> = mut []
   for (index, level of levels) {
     if (index >= first && index < first + CARDS) { list.push(level) }
   }

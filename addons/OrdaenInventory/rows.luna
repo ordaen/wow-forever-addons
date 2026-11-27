@@ -129,9 +129,9 @@ class BagSlot implements Component {
   // spell waits for an item to land on (an enchant, a sharpening stone, lockpicking), the left click gives it this
   // one, as the game's bags do, whatever the scheme says.
   derived action: Action | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil :
-    Game::player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton::Left } :
+    Game::player.targeting ? Action::UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton::Left } :
     handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
-    Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
+    Action::UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
   derived menuShown: boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: string = self.shelf.menu?.title ?? ""

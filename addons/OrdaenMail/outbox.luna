@@ -225,7 +225,7 @@ public class Outbox implements Component {
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<OutboxView> = new ModuleMemory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
-  state folded: mut map<string, boolean> = {}
+  state folded: mut map<string, boolean> = mut {}
   derived all: array<Sent> = self.allOf()
   derived shown: array<Sent> = self.shownOf()
   derived groups: array<ToGroup> = self.groupsOf()
@@ -249,7 +249,7 @@ public class Outbox implements Component {
 
   // The queue's letters then those gone, the newest first.
   allOf(): array<Sent> {
-    const list: array<Sent> = []
+    const list: array<Sent> = mut []
     for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? panic("within the queue")) }
     for (letter of self.history) { list.push(letter) }
     return list
@@ -271,7 +271,7 @@ public class Outbox implements Component {
   }
 
   groupsOf(): array<ToGroup> {
-    const list: array<ToGroup> = []
+    const list: array<ToGroup> = mut []
     for (letter of self.shown) {
       if (!list.any(g => g.to == letter.to)) {
         const part = self.shown.filter(l => l.to == letter.to)

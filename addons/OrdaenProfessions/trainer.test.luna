@@ -86,7 +86,7 @@ function opened(bought: mut array<string>): Test::Part {
 }
 
 test "a double press on a service learns it where it can be learned now, and nothing where it can't" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   window.text("Bolt of Woolen Cloth").nth(1).click()
   window.text("Bolt of Woolen Cloth").nth(1).click()
@@ -100,7 +100,7 @@ test "a double press on a service learns it where it can be learned now, and not
 }
 
 test "the footer is a band of marble under the list, the money on it" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   const band = Test::painted(Ordaen.art.window.marble, nil)
   const money = Test::holding("Your money", nil)
@@ -117,7 +117,7 @@ test "a view kept before «Learned» started off loads with it off, its sort kep
 }
 
 test "a known service's card says so in place of its price and «Learn», its name in the title's own line" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   window.button(Ordaen.art.ctl.tool.filter).click()
   Test::page().window("Reset").button(Locale::SHOW_KNOWN).click()
@@ -130,7 +130,7 @@ test "a known service's card says so in place of its price and «Learn», its na
 }
 
 test "a right-click's «Ignore» covers every rank of a service with «Ignored» until «Stop ignoring», kept for the character" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   window.text("Red Linen Robe").nth(1).rightClick()
   Test::page().text("Ignore").click()
@@ -151,7 +151,7 @@ test "a right-click's «Ignore» covers every rank of a service with «Ignored»
 }
 
 test "a service's menu leaves out what can't be done to it: «Learn» where it can't be learned now" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   // The card's own «Learn» stands all along: the menu adds none.
   const learns = Test::page().text("Learn").count()
@@ -160,7 +160,7 @@ test "a service's menu leaves out what can't be done to it: «Learn» where it c
 }
 
 test "a service that can be learned now has «Learn» in its menu" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   const window = opened(bought)
   const learns = Test::page().text("Learn").count()
   window.text("Red Linen Robe").nth(1).rightClick()
@@ -168,9 +168,9 @@ test "a service that can be learned now has «Learn» in its menu" {
 }
 
 test "a right-click's «Link in chat» puts the recipe's link in the chat, and the game's tooltip shows anywhere on its row" {
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   Client::GetTrainerServiceItemLink = (index: number): string | nil => index == 2 ? "|cff1eff00|Hitem:2569::::|h[Red Linen Robe]|h|r" : nil
-  const linked: array<integer> = []
+  const linked: array<integer> = mut []
   Game::chat.link = (id: integer): nil => linked.push(id)
   const window = opened(bought)
   window.text("Red Linen Robe").rightClick()
@@ -185,7 +185,7 @@ test "«Learn» buys the picked service where it can be learned now, and nothing
   Game::trainer.teachesClass = (): boolean => false
   Client::IsTradeskillTrainer = (): boolean => true
   Game::trainer.services = (): array<Game::TrainerService> => taught()
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(string::of(index))
   Game::money.amount = 1000
   Test::mount(nil, SCREEN)
@@ -219,8 +219,8 @@ test "the filter's switches on the toolbar's right keep what is learned now, wha
 test "the trainer's skill bar shows its rank of the most; the list stands under the trainer's categories, folded by a click; a service's tooltip is the game's" {
   Game::trainer.teachesClass = (): boolean => false
   Client::IsTradeskillTrainer = (): boolean => true
-  Game::trainer.services = (): array<Game::TrainerService> => taught().map(service => Game.TrainerService { category: service.index == 3 ? "Cloth" : "Robes", ..service })
-  Game::trainer.skill = (): Game::TrainerSkill | nil => Game.TrainerSkill { rank: 60, most: 75, added: 0 }
+  Game::trainer.services = (): array<Game::TrainerService> => taught().map(service => Game::TrainerService { category: service.index == 3 ? "Cloth" : "Robes", ..service })
+  Game::trainer.skill = (): Game::TrainerSkill | nil => Game::TrainerSkill { rank: 60, most: 75, added: 0 }
   Test::mount(nil, SCREEN)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -244,7 +244,7 @@ test "a new profession is asked first, and greyed while two are known" {
   Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Tailoring", rank: "Apprentice", icon: ROBE, status: .Available, level: 5, cost: 10, description: "", skill: nil, profession: true }
   ]
-  const bought: array<string> = []
+  const bought: array<string> = mut []
   Client::BuyTrainerService = (index: integer): nil => bought.push(string::of(index))
   Game::money.amount = 1000
   Test::mount(nil, SCREEN)

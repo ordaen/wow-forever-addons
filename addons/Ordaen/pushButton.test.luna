@@ -168,7 +168,7 @@ class Keyed {
     return $ltml {
       // As narrow as its label lets it: the label stands right at its room's start.
       <box columns={["max-content"]} xAlign={Align::Start}>
-        <PushButton label={"Decline"} width={1dp} key={ButtonKey.Named { name: "Esc" }} />
+        <PushButton label={"Decline"} width={1dp} key={ButtonKey::Named { name: "Esc" }} />
       </box>
     }
   }

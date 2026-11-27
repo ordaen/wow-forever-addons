@@ -32,7 +32,7 @@ class AddedLine implements Component {
 
   opensOf(): Opens {
     const listing = self.line.opens
-    return listing == nil ? Opens::None : Opens.Listing { listing: listing }
+    return listing == nil ? Opens::None : Opens::Listing { listing: listing }
   }
 
   public render(): Template {

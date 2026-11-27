@@ -77,7 +77,7 @@ public class Account implements Module, App {
   derived alts: Template = Alts?.content ?? self.altsOff
   // The game's windows ours stands for, and those of them showing: held unseen and off the screen.
   games: mut array<any Client::Frame> = []
-  state held: mut array<any Frame> = []
+  state held: mut array<any Frame> = mut []
   pass: mut GamePass = new GamePass()
   // The micro menu's button pressed: the journal it shows opens ours on the tab last open, not on «Collections».
   fromButton = false

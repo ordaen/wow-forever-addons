@@ -51,7 +51,7 @@ public struct Dressed {
 
 // The values a client's call gives, one after another, as a list.
 function framesOf(...frames: any Client::Frame): array<any Client::Frame> {
-  const list: array<any Client::Frame> = []
+  const list: array<any Client::Frame> = mut []
   for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame != nil) { list.push(frame) }
@@ -144,7 +144,7 @@ public class GameMenu {
     const event = menu.NewExternalEventFrame.IsShown()
     fade(0, ...menu.GetRegions())
     menu.EnableMouse(false)
-    const list: array<Dressed> = []
+    const list: array<Dressed> = mut []
     for (child of framesOf(...menu.GetChildren())) {
       if (child is Client::Button) {
         if (child.IsShown()) {

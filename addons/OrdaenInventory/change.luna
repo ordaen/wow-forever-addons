@@ -83,7 +83,7 @@ public class BagChanger {
     self.slots = slots
     self.general = general
     self.left = GOES
-    self.asked = {}
+    self.asked = mut {}
     self.running = true
     self.step()
     return Change::Started

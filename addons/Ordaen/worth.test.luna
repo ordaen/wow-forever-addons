@@ -23,7 +23,7 @@ test "an item's worth is each stat by its weight, a rating by the percentage it 
   Client::GetCombatRatingBonusForCombatRatingValue = (rating: integer, value: number): number | nil => value / 14
   const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? panic("arms")
   const w = arms.leveling
-  let stats: map<string, number> = {}
+  let stats: map<string, number> = mut {}
   stats["ITEM_MOD_STRENGTH_SHORT"] = 10
   stats["ITEM_MOD_CRIT_RATING_SHORT"] = 14
   stats["ITEM_MOD_DAMAGE_PER_SECOND_SHORT"] = 5

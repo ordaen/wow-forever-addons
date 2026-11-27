@@ -183,10 +183,10 @@ public class SystemSettings {
   public mut read() {
     const panel = Client::SettingsPanel
     if (panel == nil) { return }
-    const groups: array<PageGroup> = []
-    const everyLine: map<integer, array<SettingLine>> = {}
+    const groups: array<PageGroup> = mut []
+    const everyLine: map<integer, array<SettingLine>> = mut {}
     for (group of panel.GetCategoryList().groups) {
-      const pages: array<SettingsPage> = []
+      const pages: array<SettingsPage> = mut []
       for (category of group.categories) {
         if (!shown(category)) { continue }
         pages.push(pageOf(panel, category, false))
@@ -207,7 +207,7 @@ public class SystemSettings {
     const panel = Client::SettingsPanel
     const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
-    const lines: array<SettingLine> = []
+    const lines: array<SettingLine> = mut []
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
       const data = initializer.data
       if (data == nil) { continue }
@@ -242,7 +242,7 @@ public class SystemSettings {
 
   // Every value of the page shown read again (a console variable changed: `CVAR_UPDATE`, or another window).
   public mut refresh() {
-    const values: map<string, boolean | number | string> = {}
+    const values: map<string, boolean | number | string> = mut {}
     for (line of peek self.lines) {
       if (line.variable != "") {
         const setting = Client::Settings?.GetSetting(line.variable)
@@ -349,7 +349,7 @@ public class SystemSettings {
 
   // The pages a search finds, by their ids: those whose name, or a line's name or tooltip, holds it.
   public matching(query: string): map<integer, boolean> {
-    const found: map<integer, boolean> = {}
+    const found: map<integer, boolean> = mut {}
     if (query == "") { return found }
     for (group of self.groups) {
       for (page of group.pages) {

@@ -305,7 +305,7 @@ public class Professions implements Module, App {
   derived trackName: string = knownSpellName(self.trackSpell)
   derived hasTrack: boolean = self.trackName != ""
   derived bandColumns: array<Track> = self.hasTrack ? BAND_WITH_TRACK : FILL
-  derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName, chord: .Left, selfCast: false }
+  derived trackAction: Action | nil = Action::CastSpell { spell: self.trackName, chord: .Left, selfCast: false }
   // The open profession's queue, in the order it was asked for; what it is doing, or why it waits; whether «Create
   // next» starts its next run.
   public derived queued: array<Queued> = self.crafting.linesOf(Game::tradeSkill.open)
@@ -377,8 +377,8 @@ public class Professions implements Module, App {
   // (Ordaen Mail's «To my characters»).
   public craftingWith(item: integer): array<Crafting> {
     const book = self.written
-    const tables: map<integer, Thresholds> = {}
-    const list: array<Crafting> = []
+    const tables: map<integer, Thresholds> = mut {}
+    const list: array<Crafting> = mut []
     for (crafter of self.crafters[item] ?? []) {
       const table = tables[crafter.skillLine] ?? thresholdsOf(crafter.skillLine)
       tables[crafter.skillLine] = table
@@ -408,7 +408,7 @@ public class Professions implements Module, App {
 
   // Each profession the character has: its icon, its name and its skill (`31 / 75`).
   tabsOf(): array<WindowTabSpec> {
-    let list: array<WindowTabSpec> = []
+    let list: array<WindowTabSpec> = mut []
     for (profession of Game::professions.list) {
       list.push({
         title: profession.name, icon: profession.icon,
@@ -491,7 +491,7 @@ public class Professions implements Module, App {
   // The overview first, then the recipes (the page it opens at), the camp's, the ones not learned, the queue, the
   // worth.
   pageKindsOf(): array<Page> {
-    let kinds: array<Page> = [Page::Overview, Page::Recipes]
+    let kinds: array<Page> = mut [Page::Overview, Page::Recipes]
     if (self.camp != 0 && self.hasRecipes(self.camp)) { kinds.push(Page::Camp) }
     kinds.push(Page::Unlearned)
     kinds.push(Page::Queue)
@@ -512,7 +512,7 @@ public class Professions implements Module, App {
   // «Queue (2)» while two recipes of the open profession wait.
   pageNamesOf(): array<string> {
     const waiting = self.queued.length
-    let names: array<string> = []
+    let names: array<string> = mut []
     for (kind of self.pageKinds) {
       names.push(match (kind) {
         Page::Recipes => Locale::TAB_RECIPES
@@ -563,13 +563,13 @@ public class Professions implements Module, App {
     const asked = `${sought}\n${sort}\n${self.filterKey}\n${self.unlearnedShown}\n${self.byReadiness}`
     if (asked != self.sortedAs) {
       self.sortedAs = asked
-      self.sortedOf = {}
+      self.sortedOf = mut {}
     }
     const all = Game::tradeSkill.recipes
     const open = Game::tradeSkill.open
     const kept = open == nil ? nil : self.sortedOf[open]
     if (kept != nil && kept.of == all) { return kept.list }
-    let list: array<Game::Recipe> = []
+    let list: array<Game::Recipe> = mut []
     const thresholds = self.thresholds
     const rank = self.profession?.rank ?? 0
     for (recipe of all) {
@@ -586,7 +586,7 @@ public class Professions implements Module, App {
   }
 
   mainsOf(): array<Game::Recipe> {
-    let list: array<Game::Recipe> = []
+    let list: array<Game::Recipe> = mut []
     for (recipe of self.shown) {
       if (recipe.categoryID != self.camp) { list.push(recipe) }
     }
@@ -595,7 +595,7 @@ public class Professions implements Module, App {
 
   // The categories with recipes the lists let through but the camp's, which has a tab of its own, the favorites first.
   groupsOf(): array<Group> {
-    let list: array<Group> = []
+    let list: array<Group> = mut []
     const starred = self.kept.favorites
     const byCategory = self.byCategory
     const hearts = members(self.mains, byCategory, FAVORITES, starred)
@@ -618,13 +618,13 @@ public class Professions implements Module, App {
 
   // The recipes shown by what waits for each, at the profession's skill.
   readinessGroups(): map<integer, array<Game::Recipe>> {
-    const lists: map<integer, mut array<Game::Recipe>> = {}
+    const lists: map<integer, mut array<Game::Recipe>> = mut {}
     const skill = self.profession?.rank ?? 0
     const most = self.profession?.max ?? 0
     for (recipe of self.shown) {
       const at = readinessOf(self.sources[recipe.id], skill, most)
       const list = lists[at]
-      if (list == nil) { lists[at] = [recipe] } else { list.push(recipe) }
+      if (list == nil) { lists[at] = mut [recipe] } else { list.push(recipe) }
     }
     return lists
   }
@@ -647,7 +647,7 @@ public class Professions implements Module, App {
   }
 
   tableRowsOf(): array<Game::Recipe> {
-    let list: array<Game::Recipe> = []
+    let list: array<Game::Recipe> = mut []
     for (recipe of self.mains) { list.push(recipe) }
     const column = self.list.values.tableColumn
     const descending = self.list.values.tableDescending
@@ -660,7 +660,7 @@ public class Professions implements Module, App {
   // making's totals at each source while prices show (read again when a price may have moved). Nothing while the
   // table doesn't show.
   factsOf(): map<integer, TableFacts> {
-    const facts: map<integer, TableFacts> = {}
+    const facts: map<integer, TableFacts> = mut {}
     if (self.list.values.view != View::Table || self.onCamp) { return facts }
     const prices = self.prices
     if (prices != nil) { _ = prices.revision }
@@ -690,7 +690,7 @@ public class Professions implements Module, App {
 
   // The recipes of every group, one group after another.
   grouped(): array<Game::Recipe> {
-    let list: array<Game::Recipe> = []
+    let list: array<Game::Recipe> = mut []
     for (group of self.groups) {
       for (recipe of members(self.mains, self.byCategory, group.id, self.kept.favorites)) { list.push(recipe) }
     }
@@ -724,7 +724,7 @@ public class Professions implements Module, App {
     }
     if (open != nil && open != self.skillLine) {
       self.skillLine = open
-      self.texts = {}
+      self.texts = mut {}
       self.category = 0
       self.recipe = 0
       self.page = self.pageAt(Page::Recipes)
@@ -812,7 +812,7 @@ public class Professions implements Module, App {
 
   // The recipe's number added to a list, or taken off it where it is there; the oldest goes where the list is full.
   toggled(list: array<integer>, id: integer): array<integer> {
-    let out: array<integer> = []
+    let out: array<integer> = mut []
     for (entry of list) {
       if (entry != id) { out.push(entry) }
     }

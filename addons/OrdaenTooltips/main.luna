@@ -218,7 +218,7 @@ public class Tooltips implements Module, App {
   // slot): read while the tooltip isn't locked, kept as they were while it is (the cursor gone onto the tooltip).
   keysAddedNow(): array<string> {
     const shownItem = self.drawn?.item ?? 0
-    let added: array<string> = []
+    let added: array<string> = mut []
     if (shownItem == 0) { return added }
     const link = self.drawn?.link ?? ""
     for (row of self.keys) {
@@ -236,7 +236,7 @@ public class Tooltips implements Module, App {
   withKeys(model: Model): Model {
     const added = self.keysAdded
     if (added.length == 0) { return model }
-    let keys: array<string> = []
+    let keys: array<string> = mut []
     for (key of model.keys) { keys.push(key) }
     for (key of added) { keys.push(key) }
     return { keys: keys, ..model }
@@ -510,7 +510,7 @@ public class Tooltips implements Module, App {
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
     // item; with two, on each worn one.
-    let compared: array<Model> = []
+    let compared: array<Model> = mut []
     let model = told
     for (wornData of worn) {
       let other = item(wornData, options)
@@ -536,8 +536,8 @@ public class Tooltips implements Module, App {
     const creature = creatureOf(data)
     if (creature == 0) { return model }
     const offering = self.settings.values.npcsQuests
-    const wants: array<Wanted> = []
-    const offers: array<Offered> = []
+    const wants: array<Wanted> = mut []
+    const offers: array<Offered> = mut []
     for (entry of self.creatures) {
       for (want of entry.wants(creature)) { wants.push(want) }
       if (offering) {
@@ -598,7 +598,7 @@ function withWorth(model: Model, link: string, untrained: boolean): Model {
   const percent = (share * 100).round()
   const right = percent > 0 ? `+${percent}%` : percent < 0 ? `−${-percent}%` : "="
   const color = percent > 0 ? GREEN : percent < 0 ? RED : nil
-  let foot: array<Note> = []
+  let foot: array<Note> = mut []
   for (note of model.foot) { foot.push(note) }
   foot.push({ left: Locale::WORTH_FOR.format(spec), right: right, valueColor: color })
   if (untrained) { foot.push({ left: Locale::WORTH_UNTRAINED, valueColor: RED }) }
@@ -615,7 +615,7 @@ function blizzardPlace(tip: Game::ShownTip): Standing {
 // The model with the hotkeys other modules give its owner, by the owner's name, after its own.
 function ownerKeys(owner: string | nil, model: Model): Model {
   if (owner == nil || Ordaen.hotkeys.length == 0) { return model }
-  let keys: array<string> = []
+  let keys: array<string> = mut []
   for (key of model.keys) { keys.push(key) }
   for (row of Ordaen.hotkeys) {
     for (key of row.keys(owner)) { keys.push(key) }

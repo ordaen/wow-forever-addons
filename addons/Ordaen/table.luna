@@ -44,7 +44,7 @@ struct Head {
 // The headings over columns `from` to `to`, `depth` groups in: a column in no further group its own, a run of
 // neighbouring columns in one its group's, the headings under it the run's at the next depth.
 function headsOf(columns: array<Column>, from: integer, to: integer, depth: integer): array<Head> {
-  let heads: array<Head> = []
+  let heads: array<Head> = mut []
   // The first column the headings so far leave.
   let next = from
   for (at of from..to) {
@@ -122,7 +122,7 @@ const MARK_TOP = (MARK_HEIGHT - MARK_CELL) / 2
 // The tracks of a table's columns: one per column. A width is a `fit` column of it: as wide as its heading and its
 // cells need where the room allows, the shares giving way first, its cells wrapped where none can; never cut.
 function tracksOf(columns: array<Column>): array<Track> {
-  let list: array<Track> = []
+  let list: array<Track> = mut []
   for (column of columns) {
     const width = column.width
     list.push(width is number ? Fit { fit: width } : width)

@@ -8,9 +8,9 @@ import { emptyUnder, removePlace, within } from "@/places"
 
 // A ring from its rings' sizes and its items, each by its place.
 function ring(counts: mut map<string, integer>, placed: array<(string, Item)>): mut Ring {
-  const items: map<string, Item> = {}
+  const items: map<string, Item> = mut {}
   for (pair of placed) { items[pair[1]] = pair[2] }
-  return { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: {} }
+  return mut { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: mut {} }
 }
 
 function line(title: string, text: string, icon: Asset): Item {
@@ -86,7 +86,7 @@ function main(): Ring {
 }
 
 function firstRing(): mut Ring {
-  return ring({ [""]: 8, ["1"]: 8, ["2"]: 1, ["3"]: 4, ["4"]: 8, ["6"]: 2, ["7"]: 3, ["8"]: 3 }, [
+  return ring(mut { [""]: 8, ["1"]: 8, ["2"]: 1, ["3"]: 4, ["4"]: 8, ["6"]: 2, ["7"]: 3, ["8"]: 3 }, [
     ("1", .Menu { title: Locale::RING_WINDOWS, icon: "Interface/Icons/INV_Misc_Book_09" }),
     ("1_1", .Open { window: Window::Character }),
     ("1_2", .Open { window: Window::Spellbook }),
@@ -129,13 +129,13 @@ function firstRing(): mut Ring {
 
 // The raid marks round a ring of their own: skull up, then clockwise.
 function marks(): Ring {
-  const placed: array<(string, Item)> = []
+  const placed: array<(string, Item)> = mut []
   for (index of 1..8) { placed.push((string::of(index), .RaidMark { mark: 9 - index })) }
-  return ring({ [""]: 8 }, placed)
+  return ring(mut { [""]: 8 }, placed)
 }
 
 function pings(): Ring {
-  return ring({ [""]: 4 }, [
+  return ring(mut { [""]: 4 }, [
     ("1", .Pinged { ping: Ping::Attack }),
     ("2", .Pinged { ping: Ping::Assist }),
     ("3", .Pinged { ping: Ping::Warning }),

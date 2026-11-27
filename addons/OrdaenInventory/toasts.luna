@@ -172,7 +172,7 @@ public class LootLines {
     coins: boolean) {
     const now = peek Game::clock.time
     const flashed = quality == .Epic || quality == .Legendary || quality == .Artifact ? now : 0
-    let list: array<Toast> = []
+    let list: array<Toast> = mut []
     let found = false
     let last: number = now - APART
     for (toast of peek self.toasts) {

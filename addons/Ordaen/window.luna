@@ -659,7 +659,7 @@ public class Window implements Component {
 
   // What the player is in the middle of, of what can hide a window: read while the window is shown alone.
   occasionsOf(): array<Occasion> {
-    const list: array<Occasion> = []
+    const list: array<Occasion> = mut []
     if (!self.shown) { return list }
     const situation = Game::situation
     if (situation.combat) { list.push(.Combat) }
@@ -722,7 +722,7 @@ public class Window implements Component {
     let height = self.minHeight.max(used.height)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
-    self.declared.placing = {
+    self.declared.placing = mut {
       x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height
     }
     self.full = used.full
@@ -787,7 +787,7 @@ public class Window implements Component {
   }
 
   tabColumns(): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (tab of self.tabs) { list.push("max-content") }
     return list
   }

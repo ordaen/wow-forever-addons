@@ -92,7 +92,7 @@ public class House {
 
   // A key's history from `from` to `to`, both ends kept, oldest first, as it is kept (`PriceHistory.hours`).
   public hours(key: PriceKey, from: Hour, to: Hour): array<HourPrice> {
-    let points: array<HourPrice> = []
+    let points: array<HourPrice> = mut []
     const all = self.history[key]
     if (all == nil) { return points }
     for (point of all) {
@@ -137,7 +137,7 @@ public class House {
     const points = self.history[key]
     if (points == nil) {
       if (self.histories >= HISTORY_MOST) { return }
-      self.history[key] = [Quote::of(low, at)]
+      self.history[key] = mut [Quote::of(low, at)]
       self.histories += 1
       return
     }
@@ -152,7 +152,7 @@ public class House {
 
   // Drops every key unseen for 30 days; says how many went.
   public mut prune(now: Hour): integer {
-    let gone: array<PriceKey> = []
+    let gone: array<PriceKey> = mut []
     for (key, quote of self.market) {
       if (now - quote.seen() > KEPT_HOURS) { gone.push(key) }
     }
@@ -198,8 +198,8 @@ function rolled(points: mut array<Quote>, now: Hour) {
 }
 
 function unpacked(packed: string | nil): mut Packed {
-  if (packed == nil) { return Packed {} }
+  if (packed == nil) { return mut Packed {} }
   const raw = Game::encoding.decompress(packed)
-  if (raw == nil) { return Packed {} }
+  if (raw == nil) { return mut Packed {} }
   return Packed::decode(Game::encoding.deserialize(raw), Packed {})
 }

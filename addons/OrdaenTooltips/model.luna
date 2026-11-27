@@ -27,11 +27,11 @@ public enum Opens {
 
 // A term a part names, and one it names with the amount it speaks of.
 public function named(term: Term): Opens {
-  return Opens.Term { term: term, amount: nil }
+  return Opens::Term { term: term, amount: nil }
 }
 
 public function namedWith(term: Term, amount: string): Opens {
-  return Opens.Term { term: term, amount: amount }
+  return Opens::Term { term: term, amount: amount }
 }
 
 // The term for a unit's side.
@@ -105,7 +105,7 @@ public enum Picture {
 // An icon where the game has one for the thing.
 public function iconOf(art: Art | nil): Picture {
   if (art == nil) { return Picture::None }
-  return Picture.Icon { art: art }
+  return Picture::Icon { art: art }
 }
 
 public struct Model {

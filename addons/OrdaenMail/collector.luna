@@ -49,7 +49,7 @@ public class Collector {
   public mut start(letters: array<Game::MailLetter>, keepFree: integer) {
     self.keepFree = keepFree
     self.targets = letters.map(keyOf)
-    self.skipped = {}
+    self.skipped = mut {}
     self.asked = ""
     self.tries = 0
     self.stopped = nil

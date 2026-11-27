@@ -55,7 +55,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   if (first == nil) { return nil }
   let title = first.left
   if (title == nil) { return nil }
-  let keys: array<string> = []
+  let keys: array<string> = mut []
   let (name, key) = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
   if (name != nil && key != nil && name != "") {
     title = name
@@ -63,7 +63,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   }
   let before = was != nil && was.kind == Kind::Text ? was.body : nil
   let same = true
-  let body: array<TextLine> = []
+  let body: array<TextLine> = mut []
   for (i, line of data.lines) {
     if (i == 1) { continue }
     let only = line.left ?? line.right
@@ -105,8 +105,8 @@ function sameColor(a: Color | nil, b: Color | nil): boolean {
 // them.
 public function object(data: Game::TooltipData, options: Options): Model | nil {
   let name: string | nil = nil
-  let body: array<TextLine> = []
-  let foot: array<Note> = []
+  let body: array<TextLine> = mut []
+  let foot: array<Note> = mut []
   for (i, line of data.lines) {
     let text = clean(line.left)
     if (i == 1) {
@@ -177,7 +177,7 @@ public function group(data: Game::TooltipData, options: Options, was: Model | ni
   if (kind != Kind::Item) {
     let model = fill(data, options, was)
     if (model == nil) { return nil }
-    let sides: array<Model> = []
+    let sides: array<Model> = mut []
     let made = kind == Kind::Spell ? madeBy(data) : nil
     let inner = made != nil ? item(made, options) : nil
     if (inner != nil) { sides.push(inner.model) }
@@ -185,7 +185,7 @@ public function group(data: Game::TooltipData, options: Options, was: Model | ni
   }
   let read = item(data, options)
   if (read == nil) { return nil }
-  let sides: array<Model> = []
+  let sides: array<Model> = mut []
   for (side of read.sides) { sides.push(side) }
   for (made of read.makes) {
     let inner = item(made, options)

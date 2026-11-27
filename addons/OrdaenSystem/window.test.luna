@@ -166,7 +166,7 @@ class World {
 
 // What a client's call gives, one after another, as a list.
 function needsOf(...names: string): array<string> {
-  const list: array<string> = []
+  const list: array<string> = mut []
   for (i of 1..names.length) { list.push(names[i] ?? "") }
   return list
 }
@@ -174,19 +174,19 @@ function needsOf(...names: string): array<string> {
 // The stand-in's own three, as their TOCs say them; then three addons of other authors: one in its category, loaded;
 // one built for an older client, which the client doesn't load; one on demand, not loaded, with no category.
 function everyday(): mut array<mut Fake> {
-  return [
-    { name: "LunaType", title: "LunaType", loaded: true },
-    {
+  return mut [
+    mut { name: "LunaType", title: "LunaType", loaded: true },
+    mut {
       name: "Ordaen", title: "Ordaen", notes: "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen.",
       version: "1.0.0", category: "User Interface", loaded: true
     },
-    {
+    mut {
       name: "OrdaenSystem", title: "Ordaen System", category: "User Interface", group: "Ordaen", demand: true,
       loaded: true
     },
-    { name: "Bagger", title: "Bagger", notes: "All bags in one window.", author: "Ann", version: "2.1", category: "Inventory", loaded: true },
-    { name: "OldMap", title: "Old Map", version: "1.0", category: "Map", outdated: true, reason: "INTERFACE_VERSION" },
-    { name: "Chatter", title: "Chatter", author: "Bo", demand: true }
+    mut { name: "Bagger", title: "Bagger", notes: "All bags in one window.", author: "Ann", version: "2.1", category: "Inventory", loaded: true },
+    mut { name: "OldMap", title: "Old Map", version: "1.0", category: "Map", outdated: true, reason: "INTERFACE_VERSION" },
+    mut { name: "Chatter", title: "Chatter", author: "Bo", demand: true }
   ]
 }
 
@@ -225,7 +225,7 @@ class Meter {
 
   // The ten heaviest now, as the client names them: those over 1 % here.
   public top(metric: Client::AddOnProfilerMetric, k: number): array<Client::AddOnProfilerResult> {
-    const list: array<Client::AddOnProfilerResult> = []
+    const list: array<Client::AddOnProfilerResult> = mut []
     if (metric != .RecentAverageTime || k != 10) { return list }
     for (name, now of self.now) {
       if (now >= 1) { list.push({ addOnName: name, metricValue: now }) }
@@ -325,7 +325,7 @@ function cardStart(texts: array<string>): integer {
 function listed(): array<string> {
   const texts = window().texts()
   const start = cardStart(texts)
-  const list: array<string> = []
+  const list: array<string> = mut []
   for (i, text of texts) {
     if (i >= start || text == Locale::RELOAD) { break }
     list.push(text)
@@ -343,7 +343,7 @@ function titles(): string {
 function card(): string {
   const texts = window().texts()
   const start = cardStart(texts)
-  const list: array<string> = []
+  const list: array<string> = mut []
   for (i, text of texts) {
     if (i >= start) {
       if (text == Locale::RESET) { break }
@@ -452,7 +452,7 @@ test "the list stands by category, a caption with its count over its addons, «O
 
 test "a title keeps its colours on its row, and sorts as it reads without them" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Zed", title: "|cff33ff99Arrows|r", category: "Inventory", loaded: true })
+  world.fakes.push(mut { name: "Zed", title: "|cff33ff99Arrows|r", category: "Inventory", loaded: true })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -475,7 +475,7 @@ test "a title keeps its colours on its row, and sorts as it reads without them" 
 
 test "the cursor on a row shows its title and notes, without their colour codes" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Zed", title: "|cff33ff99Zed|r", notes: "In |cffffffffwhite|r.", category: "Inventory", loaded: true })
+  world.fakes.push(mut { name: "Zed", title: "|cff33ff99Zed|r", notes: "In |cffffffffwhite|r.", category: "Inventory", loaded: true })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -569,7 +569,7 @@ test "a row says why the client doesn't load an addon, in red" {
 
 test "an addon switched off says «disabled», dim; switched on, not loaded, it waits for a reload" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  world.fakes.push(mut { name: "Fresh", title: "Fresh" })
   world.off["Fresh"] = true
   world.savedOff["Fresh"] = true
   Client::C_AddOns::GetNumAddOns = () => world.count()
@@ -655,7 +655,7 @@ test "a loaded addon switched off stays loaded until a reload, and the footer co
 
 test "what waits for a reload is listed in the footer's tip: on and not loaded, off and loaded" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  world.fakes.push(mut { name: "Fresh", title: "Fresh" })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -1928,9 +1928,9 @@ test "«Load» in the menu of an addon on demand loads it now, and opens its car
 
 test "«Load» isn't offered for what is loaded, off, refused or loaded at login" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Fresh", title: "Fresh" })
-  world.fakes.push({ name: "Shut", title: "Shut", demand: true })
-  world.fakes.push({ name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
+  world.fakes.push(mut { name: "Fresh", title: "Fresh" })
+  world.fakes.push(mut { name: "Shut", title: "Shut", demand: true })
+  world.fakes.push(mut { name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
   world.off["Shut"] = true
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
@@ -2108,7 +2108,7 @@ test "the card of an addon with no picture of its own, or one the client can't s
 
 test "a refusal of «Load» stays on the card of the addon it is about" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Picky", title: "Picky", demand: true, refuses: "NOT_AVAILABLE" })
+  world.fakes.push(mut { name: "Picky", title: "Picky", demand: true, refuses: "NOT_AVAILABLE" })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -2152,7 +2152,7 @@ test "in a fight the card's «Load» is greyed, does nothing, and says why under
 
 test "the card's state: waits for a reload in green, disabled dim, refused in red" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  world.fakes.push(mut { name: "Fresh", title: "Fresh" })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -2653,7 +2653,7 @@ test "a module's state opens Ordaen's settings at the module" {
 
 test "a module the client won't load says why, in red" {
   const world = new World(everyday())
-  world.fakes.push({
+  world.fakes.push(mut {
     name: "OrdaenBank", title: "Ordaen Bank", category: "User Interface", group: "Ordaen", demand: true, reason: "INSECURE"
   })
   Client::C_AddOns::GetNumAddOns = () => world.count()
@@ -2680,7 +2680,7 @@ test "a module the client won't load says why, in red" {
 
 test "the card shows the addon's icon as its TOC names it, the question mark where it names none" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Bright", title: "Bright", icon: "Interface/Icons/INV_Misc_Bag_08", loaded: true })
+  world.fakes.push(mut { name: "Bright", title: "Bright", icon: "Interface/Icons/INV_Misc_Bag_08", loaded: true })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)
@@ -2729,8 +2729,8 @@ test "the card of an addon not loaded says no memory, and its links say what the
 
 test "the card offers «Load» only for an addon on demand that is on, not loaded and not refused" {
   const world = new World(everyday())
-  world.fakes.push({ name: "Shut", title: "Shut", demand: true })
-  world.fakes.push({ name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
+  world.fakes.push(mut { name: "Shut", title: "Shut", demand: true })
+  world.fakes.push(mut { name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
   world.off["Shut"] = true
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
@@ -2863,8 +2863,8 @@ test "a column lights its heaviest third: one of a single value, two of four" {
 
 test "two addons of one title both stand in the list" {
   const world = new World(everyday())
-  world.fakes.push({ name: "TwinA", title: "Twin", category: "Inventory", loaded: true })
-  world.fakes.push({ name: "TwinB", title: "Twin", category: "Inventory", loaded: true })
+  world.fakes.push(mut { name: "TwinA", title: "Twin", category: "Inventory", loaded: true })
+  world.fakes.push(mut { name: "TwinB", title: "Twin", category: "Inventory", loaded: true })
   Client::C_AddOns::GetNumAddOns = () => world.count()
   Client::C_AddOns::GetAddOnName = index => world.name(index)
   Client::C_AddOns::GetAddOnMetadata = (name, field) => world.metadata(name, field)

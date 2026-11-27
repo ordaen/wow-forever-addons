@@ -127,7 +127,7 @@ test "Legacy's tree is drawn as the talents are, its points in the footer; a nod
 test "Legacy's rewards are the game's track: the rank in its emblem, four cards a time, the arrows turning it" {
   Client::C_MajorFactions::GetCurrentRenownLevel = (id: number): number => 2
   Client::C_MajorFactions::GetRenownLevels = (id: number): array<Client::MajorFactionRenownLevelInfo> => {
-    const levels: array<Client::MajorFactionRenownLevelInfo> = []
+    const levels: array<Client::MajorFactionRenownLevelInfo> = mut []
     for (level of 1..6) { levels.push({ factionID: 2802, level: level, locked: level > 2, isMilestone: false, isCapstone: false }) }
     return levels
   }

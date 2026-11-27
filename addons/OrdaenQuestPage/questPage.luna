@@ -416,7 +416,7 @@ public function choiceViews(rewards: array<Reward>, upgrades: array<number>): ar
     best = best.max(upgrades[index] ?? 0)
     dearest = dearest.max(reward.sell)
   }
-  let views: array<RewardView> = []
+  let views: array<RewardView> = mut []
   for (index, reward of rewards) {
     const upgrade = upgrades[index] ?? 0
     views.push({ reward: reward, upgrade: upgrade, best: upgrade > 0 && upgrade == best, dearest: dearest > 0 && reward.sell == dearest })

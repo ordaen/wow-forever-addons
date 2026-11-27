@@ -32,7 +32,7 @@ public class Showcase implements Module {
   public const title: string = "Showcase"
   public const pages: array<SettingsPage> = []
 
-  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "",
+  state choices: mut Choices = mut { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "",
     exported: "Ordaen:1:drawer\nhide=never" }
   state saved = 0
   state hint = false

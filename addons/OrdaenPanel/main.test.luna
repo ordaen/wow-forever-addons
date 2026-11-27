@@ -108,7 +108,7 @@ function client(name: string): any Client::Frame {
 // The game's bag buttons, every one its constants say it has (the stand-in's are Forever's): the backpack, a slot for
 // each bag, one for each reagent bag, the keyring's; each of `make`'s frame of that name.
 function bagButtons(make: (name: string) => any Client::Frame): array<Game::BagButton> {
-  let bags: array<Game::BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
+  let bags: array<Game::BagButton> = mut [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
   for (slot of 0..Client::NUM_BAG_SLOTS - 1) {
     bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG, bag: slot + 1 })
   }
@@ -263,7 +263,7 @@ test "every bag button the game has stands in a cell after the menu, in its orde
   Game::bags.buttons = bagButtons(frame)
   Test::mount(nil, SCREEN)
   const window = panel()
-  let icons: array<Art> = [BACKPACK]
+  let icons: array<Art> = mut [BACKPACK]
   for (slot of 1..Client::NUM_BAG_SLOTS) { icons.push(BAG) }
   for (slot of 1..Client::NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
   Test::expect(window.box(CELL).count() == 10 + icons.length && !window.box(KEYRING).shown())
@@ -288,7 +288,7 @@ test "with Ordaen Social on, the friends' cell alone opens the friends and the g
 }
 
 test "with Ordaen Account on, one cell in the legacy's place opens the collections' button; the collections' cell goes" {
-  let clicked: array<string> = []
+  let clicked: array<string> = mut []
   const collections = frame("CollectionsMicroButton")
   collections.SetScript("OnClick", () => { clicked.push("collections") })
   Game::frames.CollectionsMicroButton = collections
@@ -357,7 +357,7 @@ test "a groove runs up past the cells to the panel's metal, through the room und
 }
 
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
-  let clicked: array<string> = []
+  let clicked: array<string> = mut []
   const professions = frame("ProfessionMicroButton")
   professions.SetScript("OnClick", () => { clicked.push("professions") })
   Game::frames.ProfessionMicroButton = professions
@@ -880,13 +880,13 @@ test "the panel's height reaches from 60, where its cells still fit, to 96 on it
 test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
   const low: Choices = { height: 24, ..DEFAULTS }
   // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
-  const sections: map<string, string> = {}
+  const sections: map<string, string> = mut {}
   sections["OrdaenPanel"] = Game::encoding.serialize(low)
-  const profile: map<string, map<string, string>> = {}
+  const profile: map<string, map<string, string>> = mut {}
   profile["sections"] = sections
-  const profiles: map<string, map<string, map<string, string>>> = {}
+  const profiles: map<string, map<string, map<string, string>>> = mut {}
   profiles["Default"] = profile
-  const kept: map<string, map<string, map<string, map<string, string>>>> = {}
+  const kept: map<string, map<string, map<string, map<string, string>>>> = mut {}
   kept["profiles"] = profiles
   Game::saved.store(.Account, "profiles", kept)
   Test::reload()

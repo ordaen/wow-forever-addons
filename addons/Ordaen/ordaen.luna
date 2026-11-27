@@ -71,15 +71,15 @@ public class OrdaenCore implements App {
   // The room each module's part keeps along the screen's bottom edge (the bottom panel), by its module's folder, and
   // the room the highest keeps: the free parts that stand by that edge until the player moves them (the action bars)
   // stand above it.
-  state bottoms: mut map<string, number<Length>> = {}
+  state bottoms: mut map<string, number<Length>> = mut {}
   public derived bottomTaken: number<Length> = self.bottomTakenOf()
   // The room each module's part keeps down from the screen's top right corner (the minimap at home), and the most:
   // what stands along the right edge (the tracker) starts under it.
-  state topRights: mut map<string, number<Length>> = {}
+  state topRights: mut map<string, number<Length>> = mut {}
   public derived topRightTaken: number<Length> = mostOf(self.topRights)
   // What each module asks the player to look at, by its folder: a count another module's part shows for it (the
   // panel's cell, a badge), read by the folder, so neither imports the other.
-  state notices: mut map<string, integer> = {}
+  state notices: mut map<string, integer> = mut {}
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
   drawn: mut WeakMap<any Module, boolean> = {}
   // The mode in which the player moves every module's parts about the screen.
@@ -162,7 +162,7 @@ public class OrdaenCore implements App {
 
   mut combatEnded() {
     const waiting = self.waiting
-    self.waiting = []
+    self.waiting = mut []
     for (run of waiting) { run() }
   }
 
@@ -195,7 +195,7 @@ public class OrdaenCore implements App {
     const tip = Game::items.tooltip(id)
     if (tip == nil) { return nil }
     if (self.tipCount >= TIPS_MOST) {
-      self.tips = {}
+      self.tips = mut {}
       self.tipCount = 0
     }
     self.tips[id] = tip
@@ -205,7 +205,7 @@ public class OrdaenCore implements App {
 
   // Every tooltip kept let go, and what read one told.
   mut forgetTips() {
-    self.tips = {}
+    self.tips = mut {}
     self.tipCount = 0
     self.tipsAge += 1
   }
@@ -330,7 +330,7 @@ public class OrdaenCore implements App {
   // asked to keep one. One that is off now forgets its answer, so it is asked again when it comes back.
   mut askConflicts(modules: array<Runtime::Addon>) {
     const answered = load<map<string, boolean>>(.Account, "conflicts", {})
-    let asking: map<string, Runtime::Addon> = {}
+    let asking: map<string, Runtime::Addon> = mut {}
     const running = modules.filter(module => self.chosen[module.name] != false)
     for (module of running) {
       for (other of module.conflicts()) {
@@ -356,7 +356,7 @@ public class OrdaenCore implements App {
   // The questions waiting, drawn as the modules they are of are: nothing is drawn while Ordaen's root is being made.
   mut askWaiting() {
     const waiting = self.unasked
-    self.unasked = []
+    self.unasked = mut []
     for (conflict of waiting) {
       Runtime::mount(new ConflictQuestion(conflict, (kept: boolean): nil => {
         self.conflictAnswered(conflict, kept)

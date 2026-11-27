@@ -51,7 +51,7 @@ public class Cooldowns implements Component {
     // Read again when any record changed.
     _ = self.touched
     const now = Hour::now()
-    const list: array<Wait> = []
+    const list: array<Wait> = mut []
     for (_, character of self.records.characters) {
       for (known of character.professions) {
         for (recipe, ready of known.ready) {
@@ -63,7 +63,7 @@ public class Cooldowns implements Component {
   }
 
   order(): array<Wait> {
-    const list: array<Wait> = []
+    const list: array<Wait> = mut []
     for (wait of self.waits) { list.push(wait) }
     const column = self.sorted
     const down = self.descending

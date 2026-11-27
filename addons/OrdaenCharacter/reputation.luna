@@ -49,7 +49,7 @@ function keeps(faction: Faction, needle: string, show: FactionShow): boolean {
 public function listedOf(factions: array<Faction>, search: string, show: FactionShow): array<Faction> {
   const needle = search.lower()
   if (needle == "" && show == .All) { return factions }
-  const listed: array<Faction> = []
+  const listed: array<Faction> = mut []
   let heading: Faction | nil = nil
   for (faction of factions) {
     if (faction.header) {

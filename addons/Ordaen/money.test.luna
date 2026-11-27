@@ -21,7 +21,7 @@ test "an amount is written as the game writes it and follows its cell" {
   page.copper = 0
   Test::shot("nothing: the game's text for nought")
 
-  let asked: array<integer> = []
+  let asked: array<integer> = mut []
   Game::money.format = (copper: integer): string => {
     asked.push(copper)
     return "coins"

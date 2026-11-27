@@ -14,20 +14,20 @@ public struct Group {
 
 // The quests of a kind under their headers, in the client's order, the player's zone first.
 public function groupsOf(quests: array<LogQuest>, kind: QuestKind, zone: string): array<Group> {
-  const headers: array<string> = []
-  const byHeader: map<string, mut array<LogQuest>> = {}
+  const headers: array<string> = mut []
+  const byHeader: map<string, mut array<LogQuest>> = mut {}
   for (quest of quests) {
     if (quest.kind == kind) {
       const under = byHeader[quest.header]
       if (under == nil) {
         headers.push(quest.header)
-        byHeader[quest.header] = [quest]
+        byHeader[quest.header] = mut [quest]
       } else {
         under.push(quest)
       }
     }
   }
-  const groups: array<Group> = []
+  const groups: array<Group> = mut []
   for (header of headers.filter(header => header == zone)) { groups.push({ header: header, here: true, quests: byHeader[header] ?? [] }) }
   for (header of headers.filter(header => header != zone)) { groups.push({ header: header, here: false, quests: byHeader[header] ?? [] }) }
   return groups
@@ -96,7 +96,7 @@ public struct Opened implements Plain {
 
 // The folds after the player folds or opens `header`: the log's other headers as they were.
 public function foldedOnce(folds: Folds, header: string, quests: array<LogQuest>): Folds {
-  const headers: map<string, boolean> = {}
+  const headers: map<string, boolean> = mut {}
   for (quest of quests) {
     const name = quest.header
     const was = folds.headers[name] == true

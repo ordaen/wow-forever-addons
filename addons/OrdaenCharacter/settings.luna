@@ -82,7 +82,7 @@ function classBuildLabel(): string {
 
 // A talent group's build: by its talents, or one picked.
 function pickChoices(): array<Choice<string>> {
-  let choices: array<Choice<string>> = [{ value: "", label: Locale::BUILD_BY_TALENTS }]
+  let choices: array<Choice<string>> = mut [{ value: "", label: Locale::BUILD_BY_TALENTS }]
   for (choice of buildChoices()) { choices.push(choice) }
   return choices
 }

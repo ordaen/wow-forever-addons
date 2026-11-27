@@ -64,7 +64,7 @@ public struct PickedCondition {
 // An option's brackets as the picker builds them: the unit aimed at first (`@focus`; none where empty), then each
 // condition; `[]` with neither.
 public function optionText(unit: string, conditions: array<PickedCondition>): string {
-  const parts: array<string> = []
+  const parts: array<string> = mut []
   if (unit != "") { parts.push(`@${unit}`) }
   for (condition of conditions) {
     const value = condition.value == "" ? "" : `:${condition.value}`
@@ -92,8 +92,8 @@ public function lettersOf(text: string): integer {
 // Each of the client's commands by its spellings, lower-cased (`/cast` and `/закл` alike): its key, or an addon's
 // command (`/dbm`) by its own.
 public function commandsOf(): map<string, string> {
-  const names: map<string, string> = {}
-  const keys: array<string> = []
+  const names: map<string, string> = mut {}
+  const keys: array<string> = mut []
   for (key of COMMAND_KEYS) { keys.push(key) }
   for (key, _ of Client::SlashCmdList) { keys.push(key) }
   for (key of keys) {
@@ -126,7 +126,7 @@ function conditionFault(written: string): string | nil {
 function namesOf(key: string, what: string): array<string> {
   let rest = what
   if (key == "CASTSEQUENCE") { rest = rest.replace("^%s*reset=%S+%s*", "") }
-  const names: array<string> = []
+  const names: array<string> = mut []
   const parts = key == "CAST" || key == "USE" ? [rest] : rest.split(",")
   for (part of parts) {
     const name = part.replace("^%s+", "").replace("%s+$", "").replace("^!", "").replace("%s*%(.-%)$", "")
@@ -163,7 +163,7 @@ function optionProblems(line: integer, key: string, text: string, known: (name: 
 // line that isn't a command (said in the chat), an option's wrong condition or unclosed `[`, a name it won't find
 // (`known` asks the player's spells and items).
 public function problemsOf(body: string, commands: map<string, string>, known: (name: string) => boolean): array<Problem> {
-  const found: array<Problem> = []
+  const found: array<Problem> = mut []
   const letters = lettersOf(body)
   if (letters > MOST_LETTERS) { found.push({ line: 0, text: Locale::MACRO_TOO_LONG.format(letters - MOST_LETTERS) }) }
   for (line, written of body.split("\n")) {
@@ -195,7 +195,7 @@ public function knownName(name: string): boolean {
 // round `,` and `;`, inside `[` `]` and after `]` (the command's space before its first `[` stays: the client parts
 // the command there), one space where there were several, no space at a line's ends and no empty line.
 public function shortened(body: string): string {
-  const lines: array<string> = []
+  const lines: array<string> = mut []
   for (written of body.split("\n")) {
     let line = written.replace("%s+", " ").replace("^ ", "").replace(" $", "")
     line = line.replace("target%s*=%s*", "@")

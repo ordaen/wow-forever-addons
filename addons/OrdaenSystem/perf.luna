@@ -83,7 +83,7 @@ public class Profiler {
   public mut sample() {
     self.measuring = Client::C_AddOnProfiler::IsEnabled()
     if (!(peek self.measuring)) { return }
-    const map: map<string, Load> = {}
+    const map: map<string, Load> = mut {}
     for (name of self.names) {
       map[name] = {
         now: share(name, .RecentAverageTime),
@@ -96,7 +96,7 @@ public class Profiler {
     self.loads = map
     const whole = Client::C_AddOnProfiler::GetApplicationMetric(.RecentAverageTime)
     self.overall = whole <= 0 ? 0 : Client::C_AddOnProfiler::GetOverallMetric(.RecentAverageTime) / whole * 100
-    const top: map<string, boolean> = {}
+    const top: map<string, boolean> = mut {}
     for (result of Client::C_AddOnProfiler::GetTopKAddOnsForMetric(.RecentAverageTime, 10)) { top[result.addOnName] = true }
     self.heavy = top
   }
@@ -104,7 +104,7 @@ public class Profiler {
   // Every addon's memory, read anew.
   public mut weigh() {
     Client::UpdateAddOnMemoryUsage()
-    const map: map<string, number> = {}
+    const map: map<string, number> = mut {}
     for (name of self.names) { map[name] = Client::GetAddOnMemoryUsage(name) }
     self.memory = map
   }

@@ -72,7 +72,7 @@ public struct LinkPick {
 function actionsFor(link: Event::Link | nil): array<LinkAction> {
   if (link == nil) { return [] }
   if (nameOf(link.link) != nil) { return NAME_ACTIONS }
-  const actions: array<LinkAction> = []
+  const actions: array<LinkAction> = mut []
   const id = questOf(link.link)
   if (id != nil && Quests != nil) {
     actions.push(.ShowInLog)
@@ -100,7 +100,7 @@ public function shownName(link: Event::Link): string {
 
 // What a tab's menu offers it: undocking a docked window but the first, docking an undocked one.
 function actionsOf(tab: ChatTab | nil): array<TabAction> {
-  const actions: array<TabAction> = [.Rename, .Settings, .New, .Lock, .Interactable]
+  const actions: array<TabAction> = mut [.Rename, .Settings, .New, .Lock, .Interactable]
   if (tab != nil && tab.docked && tab.window > 1) { actions.push(.Undock) }
   if (tab != nil && !tab.docked) { actions.push(.Dock) }
   actions.push(.Close)

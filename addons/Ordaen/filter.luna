@@ -42,7 +42,7 @@ public struct FilterGroup<K: unknown> {
 
 // What is on with each of `keys` switched to `on`, the rest as they were.
 public function switched<K: unknown>(values: map<K, boolean>, keys: array<K>, on: boolean): mut map<K, boolean> {
-  const next: map<K, boolean> = {}
+  const next: map<K, boolean> = mut {}
   for (key, value of values) { next[key] = value }
   for (key of keys) { next[key] = on }
   return next
@@ -142,7 +142,7 @@ public class FilterButton<K: unknown> implements Component {
 
   // The Tip's text: the options on, in the menu's order.
   namedOf(): string {
-    const on: array<string> = []
+    const on: array<string> = mut []
     for (group of self.groups) {
       for (option of group.options) {
         if (self.values[option.key] == true) { on.push(option.label) }

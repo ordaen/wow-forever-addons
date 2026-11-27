@@ -56,7 +56,7 @@ public struct Need {
 // The queue's lines: a recipe of the open profession as the game has it, another by its kept name and its
 // profession's icon.
 public function linesOf(queued: array<Queued>, recipes: array<Game::Recipe>, professions: array<Game::Profession>): array<QueueLine> {
-  let list: array<QueueLine> = []
+  let list: array<QueueLine> = mut []
   for (entry of queued) {
     const recipe = recipes.find(r => r.id == entry.recipe)
     if (recipe != nil) {
@@ -74,7 +74,7 @@ public function linesOf(queued: array<Queued>, recipes: array<Game::Recipe>, pro
 
 // The reagents of every line, one entry a reagent, in the order they are first met.
 public function needsOf(lines: array<QueueLine>): array<Need> {
-  let list: array<mut Need> = []
+  let list: array<mut Need> = mut []
   for (line of lines) {
     for (reagent of Game::tradeSkill.reagents(line.recipe)) {
       let found = false
@@ -87,7 +87,7 @@ public function needsOf(lines: array<QueueLine>): array<Need> {
       }
       if (!found) {
         const total = reagent.need * line.count
-        list.push({
+        list.push(mut {
           item: reagent.itemID, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
           need: total, have: reagent.have,
           missing: (0).max(total - reagent.have)

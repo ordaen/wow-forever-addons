@@ -48,7 +48,7 @@ function sectionOf(category: string | nil): string {
 }
 
 function keysOf(first: string | nil, second: string | nil): array<string> {
-  const keys: array<string> = []
+  const keys: array<string> = mut []
   if (first != nil) { keys.push(first) }
   if (second != nil) { keys.push(second) }
   return keys
@@ -64,8 +64,8 @@ public class Bindings {
 
   // The list read anew, in one pass.
   public mut read() {
-    const commands: array<Command> = []
-    const places: map<string, integer> = {}
+    const commands: array<Command> = mut []
+    const places: map<string, integer> = mut {}
     const count = Client::GetNumBindings().floor()
     for (i of 1..count) {
       const (action, category, first, second) = Client::GetBinding(i)
@@ -100,7 +100,7 @@ public class Bindings {
       keys.push(key)
     }
     const holder = self.holder(action, key)
-    const changes: array<Before> = [{ action: action, keys: before.clone() }]
+    const changes: array<Before> = mut [{ action: action, keys: before.clone() }]
     if (holder != "" && holder != action) {
       changes.push({ action: holder, keys: (self.command(holder)?.keys ?? []).clone() })
     }

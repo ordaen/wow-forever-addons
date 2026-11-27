@@ -552,7 +552,7 @@ test "the form draws an empty slot, and an item from the bags let go on it goes 
   // The four fields (to, subject, text, money) and the slot, the fourth drawn.
   Test::expect(window.box(SLOT_WELL).count() == 5)
   Client::C_Container::GetContainerItemInfo = (bag: integer, slot: integer): Client::ContainerItemInfo | nil => bag == 0 && slot >= 2 && slot <= 3 ?
-    Client.ContainerItemInfo {
+    Client::ContainerItemInfo {
       iconFileID: 132889, stackCount: 20, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: "item:2589", isFiltered: false, hasNoValue: false, itemID: 2589, isBound: false, itemName: "Linen Cloth"
     } :

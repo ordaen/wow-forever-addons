@@ -72,7 +72,7 @@ public class Maps implements Module, App {
   drawn: array<Mark> = []
   // The pins of the layers the player shows, asked again when what a layer read changes.
   derived marks: array<Mark> {
-    const marks: array<Mark> = []
+    const marks: array<Mark> = mut []
     for (layer of self.layers) {
       if (self.settings.values.hidden[layer.id] != true) {
         for (pin of layer.pins()) { marks.push({ pin: pin, lines: layer.lines(pin), layer: layer }) }
@@ -124,9 +124,9 @@ public class Maps implements Module, App {
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
   // A lit one goes first, so it is the one drawn.
   mut place(marks: array<Mark>) {
-    const placed: array<Placed> = []
-    const lines: array<mut array<string>> = []
-    const drawn: array<Mark> = []
+    const placed: array<Placed> = mut []
+    const lines: array<mut array<string>> = mut []
+    const drawn: array<Mark> = mut []
     if (self.host.shown()) {
       for (mark of litFirst(marks)) {
         const at = self.host.place(mark.pin)
@@ -148,7 +148,7 @@ public class Maps implements Module, App {
 
   // Map's section of a dungeon's card: its title, then each entry's lines; none where no entry has any.
   public cardOf(map: integer, names: array<string>): array<string> {
-    const said: array<string> = []
+    const said: array<string> = mut []
     for (section of self.dungeons) {
       for (line of section.lines(names)) { said.push(line) }
     }

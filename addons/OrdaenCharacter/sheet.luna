@@ -441,7 +441,7 @@ function startOf(format: string | nil): string {
 // The words the client's lines are told by, in the client's language: its own names of the item stats, and this
 // addon's words for what the client names nowhere (armor and every stat as a bonus says them, a chance's stem).
 public function clientWords(): LineWords {
-  const flat: array<FlatWord> = [
+  const flat: array<FlatWord> = mut [
     { label: Locale::WORD_ARMOR, stats: [.Armor] },
     { label: Locale::WORD_ALL_STATS, stats: MAINS }
   ]
@@ -467,7 +467,7 @@ public function clientWords(): LineWords {
 
 // The lines of the tooltip of the item a unit wears in a slot, in order.
 function linesOf(unit: string, slot: integer): array<ItemLine> {
-  const lines: array<ItemLine> = []
+  const lines: array<ItemLine> = mut []
   const data = Client::C_TooltipInfo::GetInventoryItem(unit, slot, nil)
   if (!(data is Table)) { return lines }
   const raw = data["lines"]
@@ -484,7 +484,7 @@ function linesOf(unit: string, slot: integer): array<ItemLine> {
 }
 
 function givenBy(link: string | nil): array<Given> {
-  const gives: array<Given> = []
+  const gives: array<Given> = mut []
   if (link == nil) { return gives }
   const table = Client::C_Item::GetItemStats(link)
   if (table is Table) {
@@ -509,7 +509,7 @@ public function wornBy(unit: string, slot: integer, words: LineWords): Worn {
   const item = id.floor()
   let (name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _) = Client::C_Item::GetItemInfo(item)
   const bonuses = bonusesOf(linesOf(unit, slot), words)
-  const gives: array<Given> = []
+  const gives: array<Given> = mut []
   for (given of givenBy(Client::GetInventoryItemLink(unit, slot))) { gives.push(given) }
   for (given of bonuses.base) { gives.push(given) }
   for (given of bonuses.enchant) { gives.push(given) }
@@ -569,9 +569,9 @@ public class ClientSheet implements Sheet {
   }
 
   public fitting(slot: integer): array<integer> {
-    const found: map<integer, integer> = {}
+    const found: map<integer, integer> = mut {}
     _ = Client::GetInventoryItemsForSlot(slot, found)
-    const items: array<integer> = []
+    const items: array<integer> = mut []
     for (_, item of found) {
       if (!items.any(i => i == item)) { items.push(item) }
     }
@@ -582,7 +582,7 @@ public class ClientSheet implements Sheet {
   public mut equip(item: integer, slot: integer) { Client::C_Item::EquipItemByName(item, slot) }
 
   public sets(): array<GearSet> {
-    const sets: array<GearSet> = []
+    const sets: array<GearSet> = mut []
     for (id of Client::C_EquipmentSet::GetEquipmentSetIDs()) {
       let (name, _, _, worn, _, _, _, lost, _) = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
       if (name != nil) {
@@ -629,9 +629,9 @@ public class ClientSheet implements Sheet {
     const healing = Client::GetSpellBonusHealing().floor()
     const block = Client::GetBlockChance()
     const hit = Client::GetHitModifier()
-    const primary: array<integer> = []
-    const bases: array<integer> = []
-    const primaryTips: array<string> = []
+    const primary: array<integer> = mut []
+    const bases: array<integer> = mut []
+    const primaryTips: array<string> = mut []
     for (index of 1..5) {
       let (natural, effective, up, down) = Client::UnitStat("player", index)
       primary.push(effective.floor())
@@ -646,7 +646,7 @@ public class ClientSheet implements Sheet {
     let (expertise, _, _) = Client::GetExpertise()
     let (_, runSpeed, _, swimSpeed) = Client::GetUnitSpeed("player")
     let (energyRegen, _) = Client::GetPowerRegenForPowerType(ENERGY_POWER)
-    const schoolDamage: array<integer> = []
+    const schoolDamage: array<integer> = mut []
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client::GetSpellBonusDamage(school) ?? 0).floor()) }
     const relic = Client::UnitHasRelicSlot("player")
     let (healthRegen, combatHealthRegen) = Client::GetHealthRegen()
@@ -767,7 +767,7 @@ public class ClientSheet implements Sheet {
   }
 
   public factions(): array<Faction> {
-    const rows: array<Faction> = []
+    const rows: array<Faction> = mut []
     for (index of 1..Client::C_Reputation::GetNumFactions()) {
       const data = Client::C_Reputation::GetFactionDataByIndex(index)
       if (data != nil) {
@@ -797,7 +797,7 @@ public class ClientSheet implements Sheet {
   public inactive(index: integer): boolean { return !Client::C_Reputation::IsFactionActive(index) }
 
   public skills(): array<Skill> {
-    const rows: array<Skill> = []
+    const rows: array<Skill> = mut []
     for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
       const data = Client::C_SkillInfo::GetSkillLineInfo(index)
       if (data != nil) {

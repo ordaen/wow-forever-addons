@@ -92,7 +92,7 @@ function flatAt(text: string, words: LineWords): FlatWord | nil {
 // The stats a bonus's text gives: each flat bonus («+2 к выносливости и +16 к броне»: an amount after each «+» and the
 // words after it), or else the chance it names («Повышает вероятность попадания на 2,0%»).
 public function givenOf(text: string, words: LineWords): array<Given> {
-  const gives: array<Given> = []
+  const gives: array<Given> = mut []
   for (index, piece of text.split("+")) {
     if (index > 1) {
       const (amount, label) = piece.match("^(%d+[,%.]?%d*) (.*)$")
@@ -119,10 +119,10 @@ public function givenOf(text: string, words: LineWords): array<Given> {
 // What an item's lines give beyond its item stats: a shield's block, its enchant's line, and its set's name with each
 // bonus in effect (a bonus not yet in effect starts otherwise, with the pieces it needs).
 public function bonusesOf(lines: array<ItemLine>, words: LineWords): LineBonuses {
-  const base: array<Given> = []
-  const enchant: array<Given> = []
+  const base: array<Given> = mut []
+  const enchant: array<Given> = mut []
   let setName: string | nil = nil
-  const setGives: array<Given> = []
+  const setGives: array<Given> = mut []
   for (index, line of lines) {
     const block = words.shieldBlock != "" ? amountBy(line.text, words.shieldBlock) : nil
     if (block != nil) {

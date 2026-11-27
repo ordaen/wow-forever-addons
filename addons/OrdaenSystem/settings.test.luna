@@ -14,7 +14,7 @@ function read(): mut SystemSettings {
 }
 
 function names(settings: SystemSettings): string {
-  const all: array<string> = []
+  const all: array<string> = mut []
   for (group of settings.groups) {
     all.push(group.name)
     for (page of group.pages) { all.push(page.child ? `  ${page.name}` : page.name) }

@@ -82,8 +82,8 @@ public class Scanner {
     self.progress = 0
     const at = Hour::now()
     // An item listed once is its one auction; one listed more, its auctions: a list only where there are several.
-    const alone: map<PriceKey, Listing> = {}
-    const several: map<PriceKey, mut array<Listing>> = {}
+    const alone: map<PriceKey, Listing> = mut {}
+    const several: map<PriceKey, mut array<Listing>> = mut {}
     self.since = Client::debugprofilestop()
     for (index of 1..count) {
       const (key, unit, many) = Game::auctionScan.read(index)
@@ -200,7 +200,7 @@ function take(key: integer, unit: integer, many: integer, alone: mut map<PriceKe
     return
   }
   alone[priced] = nil
-  several[priced] = [first, auction]
+  several[priced] = mut [first, auction]
 }
 
 function cheaper(a: Listing, b: Listing): boolean { return a < b }

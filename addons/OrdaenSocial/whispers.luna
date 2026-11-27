@@ -70,7 +70,7 @@ function together(first: TalkLine | nil, second: TalkLine | nil): boolean {
 // The lines as bubbles, each told where its group starts and ends, and whether it opens its session: its session
 // isn't the line's before, or, the first line, isn't this session.
 function bubblesOf(lines: array<TalkLine>): array<Bubbled> {
-  const bubbles: array<Bubbled> = []
+  const bubbles: array<Bubbled> = mut []
   for (index, line of lines) {
     const before = lines[index - 1]
     bubbles.push({

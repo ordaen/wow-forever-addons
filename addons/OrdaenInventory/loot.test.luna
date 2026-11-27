@@ -17,7 +17,7 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 
 // A window of ore (5), a locked axe and leather (2); the backpack has `free` free slots. What is taken, by slot.
 function window(free: integer): array<integer> {
-  const taken: array<integer> = []
+  const taken: array<integer> = mut []
   Client::GetNumLootItems = (): integer => 3
   Client::GetLootSlotType = (slot: number): Client::LootSlotType => Client::LootSlotType::Item
   Client::GetLootSlotInfo = (slot: number): (number | string | nil, string | nil, number, number | nil, number, boolean, boolean, number | nil, boolean) => {

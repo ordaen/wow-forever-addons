@@ -209,7 +209,7 @@ public class GearWorth {
   }
 
   mut readWorn() {
-    const worn: array<string> = []
+    const worn: array<string> = mut []
     for (slot of 1..LAST_WORN) { worn.push(Client::GetInventoryItemLink("player", slot) ?? "") }
     self.worn = worn
   }
@@ -233,7 +233,7 @@ public class GearWorth {
     if (worn == nil || PLACES[worn] == nil) { return nil }
     const stats = Client::C_Item::GetItemStats(link)
     if (!(stats is Table)) { return nil }
-    let given: map<string, number> = {}
+    let given: map<string, number> = mut {}
     for (key, value of stats) {
       if (key is string && value is number) { given[key] = value }
     }

@@ -29,7 +29,7 @@ public function droppersOf(drop: ItemDrops): array<integer> {
   if (drop.sources.length > COMMON) { return [] }
   let best = 0.0
   for (source of drop.sources) { best = best.max(source.chance ?? 0) }
-  const creatures: array<integer> = []
+  const creatures: array<integer> = mut []
   for (source of drop.sources) {
     if (best == 0 || (source.chance ?? 0) >= best * RARE_SHARE) { creatures.push(source.creature) }
   }
@@ -48,7 +48,7 @@ function objectiveFor(quest: LogQuest, facts: QuestFacts, at: integer): Game::Qu
 // The log's quests to do by the creatures that drop what their item objectives ask for. An objective not done counts
 // short of its need: Forever's client can say 1 of 1 before it is done (the game's side raises that as a fault).
 public function wantsOf(quests: array<LogQuest>, facts: map<integer, QuestFacts>): map<integer, array<Wanted>> {
-  const by: map<integer, mut array<Wanted>> = {}
+  const by: map<integer, mut array<Wanted>> = mut {}
   for (quest of quests) {
     const known = facts[quest.id]
     if (quest.done || quest.failed || known == nil) { continue }
@@ -63,7 +63,7 @@ public function wantsOf(quests: array<LogQuest>, facts: map<integer, QuestFacts>
       for (creature of droppersOf(drop)) {
         const list = by[creature]
         if (list == nil) {
-          by[creature] = [want]
+          by[creature] = mut [want]
         } else {
           list.push(want)
         }
@@ -124,7 +124,7 @@ public function offersOf(
   npc: NpcQuests, quests: array<LogQuest>, factsOf: (id: integer) => QuestFacts | nil, seeker: Seeker,
   done: (id: integer) => boolean
 ): array<Offered> {
-  const offers: array<Offered> = []
+  const offers: array<Offered> = mut []
   for (id of npc.ends) {
     const quest = quests.find(quest => quest.id == id)
     if (quest != nil && quest.done) { offers.push({ title: quest.title, level: quest.level, turnIn: true }) }

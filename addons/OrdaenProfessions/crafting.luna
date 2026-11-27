@@ -47,7 +47,7 @@ public class CraftQueue {
   public mut add(skillLine: integer, recipe: integer, name: string, count: integer): boolean {
     const before = peek self.lines
     const ahead = before.any(entry => entry.skillLine == skillLine)
-    let queue: array<Queued> = []
+    let queue: array<Queued> = mut []
     let found = false
     for (entry of before) {
       if (entry.recipe == recipe) {
@@ -71,7 +71,7 @@ public class CraftQueue {
   public mut recount(recipe: integer, count: integer) {
     // The running line taken out: the queue no longer follows its run.
     if (count < 1 && recipe == peek self.making) { self.left = 0 }
-    let queue: array<Queued> = []
+    let queue: array<Queued> = mut []
     for (entry of peek self.lines) {
       const counted = entry.recipe == recipe ? count : entry.count
       if (counted > 0) { queue.push({ count: counted, ..entry }) }
@@ -148,7 +148,7 @@ public class CraftQueue {
   mut write(queue: array<Queued>, paused: map<integer, Pause>) {
     const now = peek self.memory.values
     const held = queue.map((line: Queued): Queued => ({ count: line.count.min(MOST_COUNT), ..line }))
-    let kept: map<integer, Pause> = {}
+    let kept: map<integer, Pause> = mut {}
     for (skillLine, why of paused) {
       if (why != Pause::None && queue.any(line => line.skillLine == skillLine)) { kept[skillLine] = why }
     }

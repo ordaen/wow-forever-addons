@@ -69,7 +69,7 @@ public function clockText(seconds: integer): string {
 
 // The first `count` of the quests, or all of them where there are fewer.
 function firstOf(quests: array<Game::LogQuest>, count: integer): array<Game::LogQuest> {
-  const first: array<Game::LogQuest> = []
+  const first: array<Game::LogQuest> = mut []
   for (quest of quests) {
     if (first.length >= count) { break }
     first.push(quest)
@@ -142,7 +142,7 @@ public class Tracker implements Module, App {
   // The log's quests as the client has them now; an objective that moved on sounds as the game's tracker does.
   public mut refresh() {
     const tracked = Game::questLog.quests()
-    const heard: map<integer, string> = {}
+    const heard: map<integer, string> = mut {}
     let rolled = false
     const before = peek self.heard
     for (quest of tracked) {
@@ -165,7 +165,7 @@ public class Tracker implements Module, App {
     const quests = peek self.quests
     // A quest without its item draws no button: what is kept of it stays unread.
     if (!hasItem(quests)) { return }
-    const running: map<integer, FillDuration> = {}
+    const running: map<integer, FillDuration> = mut {}
     for (quest of quests) {
       const cooldown = quest.item > 0 ? Game::questLog.itemCooldown(quest.id) : nil
       if (cooldown != nil) { running[quest.id] = cooldown }
@@ -247,7 +247,7 @@ class TrackedQuest implements Component {
   derived levelColor: Color = questLevelColor(self.quest.level, self.player, BRIGHT_TEXT)
   derived tag: string = tagText(self.quest.tag)
   // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
-  derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
+  derived use: Action | nil = Action::UseQuestItem { quest: self.quest.id }
   // Done: a green check at its title's right, no line of where to hand it in. Failed: said under its title.
   derived checked: boolean = self.quest.done && !self.quest.failed
   // A timed quest's time left, said under its title while it runs, red in its last minute; read from the clock only

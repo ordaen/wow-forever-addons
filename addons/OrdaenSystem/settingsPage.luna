@@ -105,14 +105,14 @@ struct LineSection {
 
 // A page's lines cut at its headings: a section each, the lines before the first heading under `first`.
 function sectionsOf(lines: array<SettingLine>, first: string): array<LineSection> {
-  const list: array<LineSection> = []
+  const list: array<LineSection> = mut []
   let title = first
-  let held: array<SettingLine> = []
+  let held: array<SettingLine> = mut []
   for (line of lines) {
     if (line.kind == .Header) {
       if (held.length > 0) { list.push({ title: title, lines: held }) }
       title = line.name
-      held = []
+      held = mut []
     } else {
       held.push(line)
     }

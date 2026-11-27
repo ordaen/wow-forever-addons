@@ -113,7 +113,7 @@ test "a label longer than the plate is cut inside it, and the arrow stays on the
 class Long {
   public state picked = 1
   public render(): Template {
-    const many: array<Choice<integer>> = []
+    const many: array<Choice<integer>> = mut []
     for (n of 1..40) { many.push({ value: n, label: `Choice ${n}` }) }
     return $ltml {
       <box padding={{ top: 100sp }}>

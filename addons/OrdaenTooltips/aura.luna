@@ -63,7 +63,7 @@ function campRows(text: string, body: mut array<TextLine>) {
     }
     let (name, effect) = line.match("^%s*([^:]+):%s*(.+)$")
     if (name != nil && effect != nil) {
-      body.push({ left: name, right: campShort(name) ?? effect, opens: Opens.Text { name: name, text: effect } })
+      body.push({ left: name, right: campShort(name) ?? effect, opens: Opens::Text { name: name, text: effect } })
     }
   }
 }
@@ -92,11 +92,11 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
   let known = Game::auras.shown(data)
   let name: string | nil = nil
   let description: string | nil = nil
-  let desc: array<Part> = []
-  let info: array<Part> = []
-  let facts: array<Fact> = []
-  let body: array<TextLine> = []
-  let foot: array<Note> = []
+  let desc: array<Part> = mut []
+  let info: array<Part> = mut []
+  let facts: array<Fact> = mut []
+  let body: array<TextLine> = mut []
+  let foot: array<Note> = mut []
   for (i, line of data.lines) {
     let left = clean(line.left)
     if (i == 1) {
@@ -150,7 +150,7 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
       foot.push({
         left: Locale::CASTER, right: source == "player" ? Locale::YOU : caster,
         valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term::Caster),
-        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens::None
+        valueOpens: source != nil && source != "player" ? Opens::Unit { unit: source } : Opens::None
       })
     }
     if (options.aurasTotal && description != nil) {

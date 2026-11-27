@@ -5,7 +5,7 @@ import { lettersFor, numbered, remembered } from "@/letters"
 import { Sender } from "@/sender"
 
 function stacks(count: integer): array<Game::MailStack> {
-  const list: array<Game::MailStack> = []
+  const list: array<Game::MailStack> = mut []
   for (index of 1..count) { list.push({ bag: 0, slot: index, item: 2589, count: 20 }) }
   return list
 }

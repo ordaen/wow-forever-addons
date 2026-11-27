@@ -144,8 +144,8 @@ public class SellPage implements Component {
     _ = self.bags
     _ = self.prices.revision
     const given = Game::auctionActions.sellable() ?? []
-    let list: array<Offered> = []
-    const at: map<ItemId, integer> = {}
+    let list: array<Offered> = mut []
+    const at: map<ItemId, integer> = mut {}
     for (stack of given) {
       const item = ItemId::of(stack.item)
       const index = at[item]

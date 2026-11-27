@@ -71,7 +71,7 @@ public class GearSlot implements Component {
   derived wearShown: boolean = self.wear && self.worn.durability != nil
   derived wearFill: BarFill = self.fillOf()
   derived use: Action | nil = self.own && self.worn.item != nil ?
-    Action.UseWornItem { slot: self.spec.id, chord: Game::player.targeting ? MouseButton::Left : MouseButton::Right } : nil
+    Action::UseWornItem { slot: self.spec.id, chord: Game::player.targeting ? MouseButton::Left : MouseButton::Right } : nil
   derived wornSlot: integer | nil = self.own ? self.spec.id : nil
   derived cooling: boolean = self.worn.cooldown != nil
   derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom::Top }

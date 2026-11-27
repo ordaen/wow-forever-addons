@@ -67,7 +67,7 @@ class ProfileDropdown implements Component {
   }
 
   offer(): Offer {
-    const choices: array<Choice<string>> = []
+    const choices: array<Choice<string>> = mut []
     let key = self.none ? "-" : ""
     if (self.none) { choices.push({ value: "", label: Locale::PROFILES_NO_PICK }) }
     for (name of self.names) {
@@ -136,7 +136,7 @@ function addonOf(key: string): string {
 
 // The keys of a profile's sections, in order.
 function keysOf(profile: Profile | nil): array<string> {
-  const keys: array<string> = []
+  const keys: array<string> = mut []
   if (profile != nil) {
     for (key, _ of profile.sections) { keys.push(key) }
   }
@@ -199,7 +199,7 @@ public class ProfilesPage implements Component {
 
   constructor() {
     self.profiles = Ordaen.keeper.profiles
-    const titles: map<string, string> = {}
+    const titles: map<string, string> = mut {}
     for (addon of Ordaen.moduleAddons()) { titles[addon.name] = addon.title }
     titles["Ordaen"] = Ordaen.title
     self.titles = titles
@@ -227,7 +227,7 @@ public class ProfilesPage implements Component {
   }
 
   othersOf(): array<string> {
-    const list: array<string> = []
+    const list: array<string> = mut []
     for (each of self.names) {
       if (each != self.profiles.active) { list.push(each) }
     }
@@ -267,7 +267,7 @@ public class ProfilesPage implements Component {
 
   // What the preview says of each module in the text: whether it is installed and how many of its settings differ.
   linesOf(): array<Line> {
-    const lines: array<Line> = []
+    const lines: array<Line> = mut []
     const shared = self.previewed
     if (shared == nil) { return lines }
     const keys = keysOf({ sections: shared.sections })
@@ -455,7 +455,7 @@ public class ProfilesPage implements Component {
 
   // The keys not ticked, with `key` in them or not.
   ticked(off: array<string>, key: string, on: boolean): array<string> {
-    const list: array<string> = []
+    const list: array<string> = mut []
     for (each of off) {
       if (each != key) { list.push(each) }
     }
@@ -465,7 +465,7 @@ public class ProfilesPage implements Component {
 
   // The sections ticked of a profile that has them.
   chosenSections(profile: Profile | nil, off: array<string>): map<string, string> {
-    const sections: map<string, string> = {}
+    const sections: map<string, string> = mut {}
     if (profile == nil) { return sections }
     for (key, packed of profile.sections) {
       if (!off.any(each => each == key)) { sections[key] = packed }
@@ -479,7 +479,7 @@ public class ProfilesPage implements Component {
     const from = self.profiles.kept.profiles[self.source]
     const sections = self.chosenSections(from, self.copyOff)
     let copied = 0
-    let kept: array<string> = []
+    let kept: array<string> = mut []
     Ordaen.keeper.together(() => {
       for (key, packed of sections) {
         if (Ordaen.keeper.copyIn(key, Game::encoding.deserialize(packed))) {
@@ -552,7 +552,7 @@ public class ProfilesPage implements Component {
     const made = self.typed()
     if (made == nil) { return }
     const next = self.profiles.edit()
-    next.profiles[made] = Profile { sections: result.sections.clone() }
+    next.profiles[made] = mut Profile { sections: result.sections.clone() }
     self.profiles.apply(next)
     self.chosen = made
     self.name = ""

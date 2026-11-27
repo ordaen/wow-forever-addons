@@ -117,7 +117,7 @@ function partShown(names: array<string>, groups: array<Game::ChatGroup>): boolea
 
 // The rows the client has (one of its first part's groups), as the window's groups show them.
 public function rowsOf(rows: array<GroupRow>, groups: array<Game::ChatGroup>): array<RowShown> {
-  const shown: array<RowShown> = []
+  const shown: array<RowShown> = mut []
   for (row of rows) {
     const first = groups.find(group => row.first.any(name => name == group.name))
     if (first != nil) {
@@ -132,7 +132,7 @@ public function rowsOf(rows: array<GroupRow>, groups: array<Game::ChatGroup>): a
 
 // Every row of the page: the speech, the systems' sections, the channels' notices.
 function allRows(): array<GroupRow> {
-  const rows: array<GroupRow> = []
+  const rows: array<GroupRow> = mut []
   for (row of TALKS) { rows.push(row) }
   for (section of SYSTEMS) {
     for (row of section.rows) { rows.push(row) }
@@ -149,9 +149,9 @@ function covered(rows: array<GroupRow>, name: string): boolean {
 // The systems' sections as the window shows them: the last takes every group no row covers, in the game's words.
 public function systemsOf(groups: array<Game::ChatGroup>): array<SectionShown> {
   const every = allRows()
-  const sections: array<SectionShown> = []
+  const sections: array<SectionShown> = mut []
   for (at, section of SYSTEMS) {
-    const rows: array<RowShown> = []
+    const rows: array<RowShown> = mut []
     for (row of rowsOf(section.rows, groups)) { rows.push(row) }
     if (at == SYSTEMS.length) {
       for (group of groups) {
@@ -168,7 +168,7 @@ public function rowGroups(key: string, pair: Pair): array<Game::ChatShown> {
   const row = allRows().find(each => each.first[1] == key) ?? one([key])
   const first = pair == .First || pair == .Both
   const second = pair == .Second || pair == .Both
-  const groups: array<Game::ChatShown> = []
+  const groups: array<Game::ChatShown> = mut []
   for (name of row.first) { groups.push({ name: name, shown: first }) }
   for (name of row.second) { groups.push({ name: name, shown: second }) }
   return groups

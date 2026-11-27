@@ -162,7 +162,7 @@ public class ChatTab {
 
   // The lines kept for the next session: the last `count` that can be kept.
   public keptLines(count: integer): array<Shown> {
-    const keep: array<Shown> = []
+    const keep: array<Shown> = mut []
     for (line of self.lines) {
       if (!line.secret) { keep.push(line) }
     }
@@ -181,7 +181,7 @@ public class ChatTab {
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
   public slice(back: integer, count: integer): array<Entry> {
-    const shown: array<Entry> = []
+    const shown: array<Entry> = mut []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) {
       const line = self.lines[at] ?? panic("inside the lines")
@@ -228,7 +228,7 @@ public function marks(text: string, words: array<string>): boolean {
 
 // The keywords as the setting writes them, lower-case, the player's name first.
 public function wordsOf(keywords: string, own: string): array<string> {
-  const words: array<string> = [own.lower()]
+  const words: array<string> = mut [own.lower()]
   for (word of keywords.split(",")) {
     const trimmed = word.replace("^%s+", "").replace("%s+$", "").lower()
     if (trimmed != "") { words.push(trimmed) }

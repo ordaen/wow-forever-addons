@@ -744,7 +744,7 @@ test "auto-complete «Picked» hands in the quest picked, its single reward take
 test "a reward worth at least the setting's share more than what is worn is put on as it lands in the bags; a lesser one isn't" {
   Test::mount(nil, SCREEN)
   Dialogue.settings.values.autoComplete = Auto::Picked
-  let equipped: array<string> = []
+  let equipped: array<string> = mut []
   let landed = 0
   Client::GetQuestItemLink = (kind: string, index: number): string | nil => "item:4540"
   Client::C_Item::GetItemCount = (item: string | integer, bank: boolean | nil, uses: boolean | nil, reagent: boolean | nil, account: boolean | nil): number => landed
@@ -796,7 +796,7 @@ test "a book: every page read as it opens and shown at once; Escape closes it" {
 // Sounds
 
 test "the window opens and closes with the game's own sounds" {
-  const sounds: array<string> = []
+  const sounds: array<string> = mut []
   Client::C_Sound::PlaySound = (kit: number, kind: unknown, a: boolean | nil, b: boolean | nil, c: number | nil, d: number | nil): (boolean | nil, unknown) => {
     sounds.push(string::of(kit))
     return (true, nil)
@@ -1005,7 +1005,7 @@ test "the NPC's title under its name is the plain line of its tooltip, never its
 
 // A guard's directions: seventeen places.
 function guard(): Test::Npc {
-  let options: array<Client::GossipOptionUIInfo> = []
+  let options: array<Client::GossipOptionUIInfo> = mut []
   for (index of 1..17) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
   return { name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options }
 }
@@ -1136,7 +1136,7 @@ function bindingReward(item: string | integer): (string | nil, string | nil, Cli
 test "a reward that binds as it is worn is left in the bags, and the chat says so: binding it is the player's choice" {
   Test::mount(nil, SCREEN)
   Dialogue.settings.values.autoComplete = Auto::Picked
-  let equipped: array<string> = []
+  let equipped: array<string> = mut []
   Client::GetQuestItemLink = (kind: string, index: number): string | nil => "item:4540"
   Client::C_Item::GetItemCount = (item: string | integer, bank: boolean | nil, uses: boolean | nil, reagent: boolean | nil, account: boolean | nil): number => 1
   Client::C_Item::EquipItemByName = (item: string | integer, slot: integer | nil) => { equipped.push(string::of(item)) }

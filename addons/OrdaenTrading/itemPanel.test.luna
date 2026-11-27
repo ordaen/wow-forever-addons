@@ -155,7 +155,7 @@ test "a history is kept for 8,000 items at most: one more has none" {
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: array<Game::Offer> = []
+  let offers: array<Game::Offer> = mut []
   for (index of 1..8001) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
   Game::auctionQuery.results.emit(offers)
   Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [
@@ -173,7 +173,7 @@ test "the 8,000 are freed as a full scan drops what is 30 days old: a new item h
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: array<Game::Offer> = []
+  let offers: array<Game::Offer> = mut []
   for (index of 1..8000) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
   Game::auctionQuery.results.emit(offers)
   Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [

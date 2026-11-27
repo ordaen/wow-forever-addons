@@ -355,7 +355,7 @@ test "in a client in another language an emote is named by its command in it, el
 function oldEmotes(last: string) {
   editRing(1, (ring: mut Ring): nil => {
     const lines = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", last]
-    const kept: map<string, Item> = {}
+    const kept: map<string, Item> = mut {}
     for (place, item of ring.items) {
       if (place.sub(1, 2) != "5_") { kept[place] = item }
     }

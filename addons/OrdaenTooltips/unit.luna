@@ -42,10 +42,10 @@ function player(token: string, who: Game::UnitInfo, options: Options): Model | n
   let name = who.name
   if (name == nil) { return nil }
   let color = (options.classNames ? who.classColor : nil) ?? BRIGHT_TEXT
-  let desc: array<Part> = []
-  let info: array<Part> = []
-  let facts: array<Fact> = []
-  let foot: array<Note> = []
+  let desc: array<Part> = mut []
+  let info: array<Part> = mut []
+  let facts: array<Fact> = mut []
+  let foot: array<Note> = mut []
   let guild = who.guild
   if (guild != nil) {
     desc.push({ text: guild, opens: named(Term::Guild) })
@@ -75,7 +75,7 @@ function player(token: string, who: Game::UnitInfo, options: Options): Model | n
   if (options.playersTarget && target != nil) {
     foot.push({
       left: Locale::TARGET, right: target.name, valueColor: target.color, opens: named(Term::Ptarget),
-      valueOpens: Opens.Unit { unit: token + "target" }
+      valueOpens: Opens::Unit { unit: token + "target" }
     })
   }
   if (options.playersRelation) {
@@ -111,11 +111,11 @@ function npc(who: Game::UnitInfo, name: string, data: Game::TooltipData, options
   let level = who.level
   let creature = who.creatureType
   let factionName: string | nil = nil
-  let desc: array<Part> = []
-  let info: array<Part> = []
-  let facts: array<Fact> = []
-  let body: array<TextLine> = []
-  let foot: array<Note> = []
+  let desc: array<Part> = mut []
+  let info: array<Part> = mut []
+  let facts: array<Fact> = mut []
+  let body: array<TextLine> = mut []
+  let foot: array<Note> = mut []
   for (i, line of data.lines) {
     if (i == 1) { continue }
     let text = clean(line.left)
@@ -182,7 +182,7 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
   if (token == nil || who == nil) {
     // A unit gone: what the game wrote.
     if (name == nil) { return nil }
-    let body: array<TextLine> = []
+    let body: array<TextLine> = mut []
     for (i, line of data.lines) {
       if (i == 1) { continue }
       let text = clean(line.left)
@@ -195,10 +195,10 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
   }
   if (who.player) {
     let read = player(token, who, options)
-    return read != nil ? { picture: Picture.Face { unit: token }, ..read } : nil
+    return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
   }
   if (name == nil) { return nil }
-  return { picture: Picture.Face { unit: token }, ..npc(who, name, data, options) }
+  return { picture: Picture::Face { unit: token }, ..npc(who, name, data, options) }
 }
 
 // The number of the NPC a unit's tooltip is of; 0 for a player, a unit gone, or a tooltip of anything else.
@@ -215,9 +215,9 @@ public function unitOf(token: string, options: Options): Model | nil {
   if (who == nil) { return nil }
   if (who.player) {
     let read = player(token, who, options)
-    return read != nil ? { picture: Picture.Face { unit: token }, ..read } : nil
+    return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
   }
   let name = who.name
   if (name == nil) { return nil }
-  return { picture: Picture.Face { unit: token }, ..npc(who, name, { lines: [] }, options) }
+  return { picture: Picture::Face { unit: token }, ..npc(who, name, { lines: [] }, options) }
 }

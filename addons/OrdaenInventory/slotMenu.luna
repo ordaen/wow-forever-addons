@@ -41,8 +41,8 @@ public function socketable(slot: Slot): boolean {
 
 // The menu of the slot's item, as the slot stands now.
 public function menuOf(slot: Slot, mark: Mark | nil, place: Game::BagPlace): SlotMenu {
-  let entries: array<MenuEntry> = []
-  let acts: array<MenuAct> = []
+  let entries: array<MenuEntry> = mut []
+  let acts: array<MenuAct> = mut []
   const why = slot.why
   entries.push({ label: why != nil ? whyText(why) : tabName(slot.tab), on: nil, disabled: true, group: nil, more: nil })
   acts.push(MenuAct::Heading)

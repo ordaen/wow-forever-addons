@@ -67,7 +67,7 @@ public struct Change {
 
 // The modules a menu's entry names: three at most, then how many more.
 public function modulesText(modules: array<string>): string {
-  const named: array<string> = []
+  const named: array<string> = mut []
   for (title of modules) {
     if (named.length < NAMED_MOST) { named.push(title) }
   }
@@ -145,7 +145,7 @@ public class Keeper {
     const name = peek self.profiles.active
     const kept = self.shelves[name]
     if (kept != nil) { return kept }
-    const made: Shelf = {}
+    const made: Shelf = mut {}
     self.shelves[name] = made
     return made
   }
@@ -170,7 +170,7 @@ public class Keeper {
     if (self.joined && last != nil) {
       if (last.before[key] == nil) { last.before[key] = before }
     } else {
-      const step: Step = { before: {} }
+      const step: Step = mut { before: {} }
       step.before[key] = before
       shelf.steps.push(step)
       if (shelf.steps.length > HISTORY_MOST) { _ = shelf.steps.remove(1) }
@@ -299,7 +299,7 @@ public class Keeper {
     self.settleAll()
     const shelf = self.shelf()
     if (shelf.points.length >= POINTS_MOST) { return false }
-    const sections: map<string, unknown> = {}
+    const sections: map<string, unknown> = mut {}
     for (key, section of self.sections) { sections[key] = section.snapshot() }
     shelf.made += 1
     const (hours, minutes) = Client::GetGameTime()
@@ -324,7 +324,7 @@ public class Keeper {
   // What going back to `place` would change now.
   public changeTo(place: map<string, unknown>): Change {
     let count = 0
-    const modules: array<string> = []
+    const modules: array<string> = mut []
     for (key, raw of place) {
       const section = self.sections[key]
       const changes = section == nil ? 0 : section.differs(raw)
@@ -338,7 +338,7 @@ public class Keeper {
 
   // The modules the last step changed.
   public mut lastModules(): array<string> {
-    const modules: array<string> = []
+    const modules: array<string> = mut []
     const shelf = self.shelf()
     const last = shelf.steps[shelf.steps.length]
     if (last == nil) { return modules }

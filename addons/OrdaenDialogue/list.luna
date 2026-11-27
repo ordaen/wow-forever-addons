@@ -52,13 +52,13 @@ public struct Placed {
 public function columnsOf(lines: array<Line>): array<array<Placed>> {
   const count = ((lines.length + COLUMN_LINES - 1) / COLUMN_LINES).floor().max(1)
   const tall = ((lines.length + count - 1) / count).floor()
-  let columns: array<array<Placed>> = []
-  let column: array<Placed> = []
+  let columns: array<array<Placed>> = mut []
+  let column: array<Placed> = mut []
   for (index, line of lines) {
     column.push({ line: line, index: index, place: column.length + 1 })
     if (column.length == tall) {
       columns.push(column)
-      column = []
+      column = mut []
     }
   }
   if (column.length > 0) { columns.push(column) }

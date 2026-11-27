@@ -32,8 +32,8 @@ public class Recorder {
   // or its list hasn't come.
   mut readRecipes(open: integer | nil, count: integer) {
     if (open == nil || count == 0) { return }
-    const recipes: array<RecipeId> = []
-    const ready: map<RecipeId, Hour> = {}
+    const recipes: array<RecipeId> = mut []
+    const ready: map<RecipeId, Hour> = mut {}
     for (read of peek Game::tradeSkill.recipes) {
       if (read.learned) {
         const recipe = RecipeId::of(read.id)
@@ -83,7 +83,7 @@ public class Recorder {
   // the house is open.
   mut readAuctions(list: array<Game::Owned>) {
     if (list.length == 0 && !peek Game::auctionHouse.open) { return }
-    const items: map<ItemId, integer> = {}
+    const items: map<ItemId, integer> = mut {}
     for (owned of list) {
       if (!owned.sold) {
         const item = ItemId::of(owned.item)
@@ -96,7 +96,7 @@ public class Recorder {
 
 // A holding as the game's seam gives it, as the records' brands.
 function itemsOf(held: map<integer, integer>): mut map<ItemId, integer> {
-  const items: map<ItemId, integer> = {}
+  const items: map<ItemId, integer> = mut {}
   for (id, count of held) { items[ItemId::of(id)] = count }
   return items
 }

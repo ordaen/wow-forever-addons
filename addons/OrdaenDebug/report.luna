@@ -12,7 +12,7 @@ const BUTTON = 140dp
 
 // Every addon the client has loaded: its folder and its version.
 function addonLines(): array<string> {
-  let lines: array<string> = []
+  let lines: array<string> = mut []
   const count = Client::C_AddOns::GetNumAddOns()
   for (i of 1..count) {
     const (loaded, _) = Client::C_AddOns::IsAddOnLoaded(i)
@@ -27,7 +27,7 @@ function addonLines(): array<string> {
 // The report's text, as it stands now.
 public function report(errors: Errors): string {
   const meta = errors.meta()
-  let lines = [
+  let lines = mut [
     Locale::REPORT_HEAD,
     Locale::REPORT_CLIENT.format(string::of(meta?.client), string::of(meta?.build), string::of(meta?.interface),
       string::of(meta?.locale), string::of(meta?.core)),

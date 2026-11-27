@@ -62,7 +62,7 @@ public class Market implements Component {
 
   // The sales by the column the table is sorted by, as the page keeps them when it is not.
   order(): array<Sale> {
-    let list: array<Sale> = []
+    let list: array<Sale> = mut []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
     const down = self.descending

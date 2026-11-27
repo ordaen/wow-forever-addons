@@ -17,7 +17,7 @@ const GLYPH = 18.75dp
 const GLYPH_CELL = 23.4375dp
 const GLYPH_IN = -2.34375dp
 const function glyphPieces(): array<Piece> {
-  let list: array<Piece> = []
+  let list: array<Piece> = mut []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
   return list
 }
@@ -173,8 +173,8 @@ function textOf(text: string | nil): string | nil { return text == "" ? nil : te
 // range, cast and cooldown) and of its one-sided ones among its first lines before any other, reagents and tools
 // left out.
 public function bandOf(lines: array<Game::TooltipLine>, cost: Game::SpellCost | nil): Band {
-  const facts: array<BandFact> = []
-  const taken: map<integer, boolean> = {}
+  const facts: array<BandFact> = mut []
+  const taken: map<integer, boolean> = mut {}
   let description = ""
   for (line of lines) {
     if (line.kind == DESCRIPTION) { description = description + (line.left ?? "") }

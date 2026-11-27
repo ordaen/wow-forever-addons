@@ -36,7 +36,7 @@ class Sales {
   public derived ordered: array<Sale> = self.order()
 
   order(): array<Sale> {
-    let list: array<Sale> = []
+    let list: array<Sale> = mut []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
     const down = self.descending
@@ -124,7 +124,7 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
 const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 function many(count: integer): array<Sale> {
-  let list: array<Sale> = []
+  let list: array<Sale> = mut []
   for (i of 1..count) { list.push({ name: `Ware ${i}`, price: i * 37, seen: i * 600 }) }
   return list
 }

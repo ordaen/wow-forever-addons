@@ -115,7 +115,7 @@ class FakeSheet implements Sheet {
   public stats(): Stats | nil { return self.figures() }
 
   public factions(): array<Faction> {
-    const rows: array<Faction> = [
+    const rows: array<Faction> = mut [
       heading(1, 100, "Alliance", false),
       faction(2, 72, "Stormwind", 5, self.stand),
       heading(3, 200, "Other", self.folded)
@@ -129,7 +129,7 @@ class FakeSheet implements Sheet {
   // The professions' heading folded.
   craftsFolded = false
   public skills(): array<Skill> {
-    const rows: array<Skill> = [
+    const rows: array<Skill> = mut [
       { index: 1, name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
       { id: MACES, index: 2, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
       { id: SWORDS, index: 3, name: "Swords", header: false, rank: 290, modifier: 0, max: 300 },

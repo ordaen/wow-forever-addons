@@ -115,7 +115,7 @@ public function itemOf(kind: string, text: string, emotes: map<string, string>):
     "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::Cycle }
     "slotRemember" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::Remember }
     "slotFirst" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode::First }
-    else => kind.sub(1, 5) == "kind:" ? Item.Kind { kind: kind.sub(6) } : Item::Empty
+    else => kind.sub(1, 5) == "kind:" ? Item::Kind { kind: kind.sub(6) } : Item::Empty
   }
 }
 
@@ -187,12 +187,12 @@ public function heldItem(): Item | nil {
   const (kind, first, _, spellId) = Client::GetCursorInfo()
   if (kind == "spell" && spellId is integer) {
     const name = Client::C_Spell::GetSpellName(spellId)
-    return name != nil ? Item.Spell { spell: name } : nil
+    return name != nil ? Item::Spell { spell: name } : nil
   }
   if (kind == "item" && first is integer) { return .Bag { item: first } }
   if (kind == "macro" && first is integer) {
     const (name, _, _) = Client::GetMacroInfo(first)
-    return name != nil ? Item.Macro { macro: name } : nil
+    return name != nil ? Item::Macro { macro: name } : nil
   }
   return nil
 }
@@ -244,7 +244,7 @@ public class RingsPage implements Component {
   constructor(settings: mut Settings<Choices>, kinds: Signal<array<any RadialKind>>, emotes: map<string, string>) {
     self.settings = settings
     self.emotes = emotes
-    const all: array<Choice<string>> = []
+    const all: array<Choice<string>> = mut []
     for (choice of CATALOGUE) { all.push(choice) }
     for (kind of peek kinds) { all.push({ value: `kind:${kind.id}`, label: kind.title }) }
     self.catalogue = all
@@ -370,7 +370,7 @@ public class RingsPage implements Component {
 
   // The tree's lines: each place of the ring, and under one that holds items and is open, its own.
   rowsOf(): array<SlotRow> {
-    const rows: array<SlotRow> = []
+    const rows: array<SlotRow> = mut []
     const ring = self.shownRing
     if (ring != nil) { self.addRows(ring, "", 0, rows) }
     return rows
@@ -393,7 +393,7 @@ public class RingsPage implements Component {
   pathOf(): string {
     const ring = self.shownRing
     if (ring == nil || self.place == "") { return Locale::SLOT_NONE }
-    const labels: array<string> = []
+    const labels: array<string> = mut []
     let at = ""
     for (number of self.place.split("_")) {
       at = at == "" ? number : `${at}_${number}`

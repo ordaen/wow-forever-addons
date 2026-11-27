@@ -237,7 +237,7 @@ public class Wheel implements Component {
   // The hints the middle has room for under the name.
   hintsOf(): array<string> {
     const room = MIDDLE_LINES - (self.named ? 1 : 0)
-    const hints: array<string> = []
+    const hints: array<string> = mut []
     for (index, hint of self.middle.hints) {
       if (index <= room) { hints.push(hint) }
     }
@@ -255,7 +255,7 @@ public class Wheel implements Component {
   // inner edge (gold in the slice aimed at); the slice aimed at, lit, and its curved edges gold.
   cutsOf(): array<Cut> {
     const count = self.count
-    const cuts: array<Cut> = []
+    const cuts: array<Cut> = mut []
     for (index, item of self.items) {
       if (index <= count) {
         const sides = self.sides(index)
@@ -307,7 +307,7 @@ public class Wheel implements Component {
   // band's inner edge is), the slice aimed at's two gold.
   edgesOf(): array<Edge> {
     const count = self.count
-    const edges: array<Edge> = []
+    const edges: array<Edge> = mut []
     if (count < 2) { return edges }
     for (index, item of self.items) {
       if (index <= count) {
@@ -331,7 +331,7 @@ public class Wheel implements Component {
 
   spotsOf(): array<Spot> {
     const count = self.count
-    const spots: array<Spot> = []
+    const spots: array<Spot> = mut []
     const out = ICON_AT * self.scale * (0.4 + 0.6 * self.opening)
     for (index, item of self.items) {
       if (index <= count) {

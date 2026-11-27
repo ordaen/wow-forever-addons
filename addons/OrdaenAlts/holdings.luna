@@ -142,7 +142,7 @@ public class Holdings implements Component {
 
   // Who holds the item, a row each: the character, and its count in each place the filter leaves.
   holdersOf(list: array<Held>): array<TipRow> {
-    const rows: array<TipRow> = []
+    const rows: array<TipRow> = mut []
     for (held of list) {
       if (self.places[held.place] == true) {
         const character = self.records.characters[held.who]
@@ -157,9 +157,9 @@ public class Holdings implements Component {
     // Read again when any record changed.
     _ = self.touched
     const sought = self.search.lower()
-    const found: array<Entry> = []
+    const found: array<Entry> = mut []
     for (id, list of self.records.everything()) {
-      const counts: array<integer> = []
+      const counts: array<integer> = mut []
       let total = 0
       for (place of PLACES) {
         let count = 0
@@ -183,7 +183,7 @@ public class Holdings implements Component {
 
   // By the column sorted: the name's, a place's count or the total, the most first; again the other way.
   order(): array<Entry> {
-    const list: array<Entry> = []
+    const list: array<Entry> = mut []
     for (entry of self.entries) { list.push(entry) }
     const column = self.sorted
     const down = self.descending

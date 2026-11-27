@@ -170,7 +170,7 @@ function costTip(side: SourceTotals): string {
 
 // What a profit's tip says: the item isn't bought here, the parts at the other source's price, the parts with none.
 function profitTip(side: SourceTotals): string {
-  const lines: array<string> = []
+  const lines: array<string> = mut []
   if (side.sale == nil) { lines.push(Locale::TIP_NOT_BOUGHT) }
   if (side.filled.length > 0) { lines.push(Locale::TIP_PROFIT_FILLED.format(side.filled.join(", "))) }
   if (side.unpriced.length > 0) { lines.push(Locale::TIP_PROFIT_UNPRICED.format(side.unpriced.join(", "))) }

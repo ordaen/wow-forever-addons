@@ -35,7 +35,7 @@ function diplomatRank(): integer {
 // The reputations by the factions' names, a gain with the player's bonus (a loss as it is); a faction the client
 // doesn't name is left out.
 public function standingsOf(gains: array<FactionGain>): array<Standing> {
-  let standings: array<Standing> = []
+  let standings: array<Standing> = mut []
   if (gains.length == 0) { return standings }
   const bonus = 1 + diplomatRank() * DIPLOMAT_STEP
   for (gain of gains) {

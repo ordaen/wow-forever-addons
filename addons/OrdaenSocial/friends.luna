@@ -117,7 +117,7 @@ function nameColorOf(friend: Friend): Color {
 // The second line's points: «Battle.net» first for an account, then the character and its zone, the game, or when it
 // was last seen (an account's, with the character it was last seen on here).
 function pointsOf(friend: Friend): string {
-  const points: array<string> = []
+  const points: array<string> = mut []
   const account = friend.account
   if (account != nil) { points.push(Locale::BATTLE_NET) }
   const hero = friend.hero

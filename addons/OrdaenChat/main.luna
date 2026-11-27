@@ -133,8 +133,8 @@ public class Chat implements Module, App {
 
   // The tabs made anew from the game's windows; a tab whose key stays keeps its lines.
   mut sync() {
-    const tabs: array<ChatTab> = []
-    const undocked: array<ChatTab> = []
+    const tabs: array<ChatTab> = mut []
+    const undocked: array<ChatTab> = mut []
     for (window of peek Game::chat.windows) {
       const tab = self.tabOf(`w${window.index}`, window.name)
       tab.follow(window)
@@ -171,7 +171,7 @@ public class Chat implements Module, App {
     if (Social?.heard(line, line.secret != "" ? line.body : linked(line.text)) == true) { return }
     const open = peek self.openKey
     // The line as drawn, by how a tab draws it: its channel's name, its keywords.
-    const drawn: map<string, Shown> = {}
+    const drawn: map<string, Shown> = mut {}
     for (index of line.windows) {
       const key = tabKey(index)
       // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
@@ -366,7 +366,7 @@ public class Chat implements Module, App {
 
   // The last lines of each tab, as many as it keeps, for the next session: written once, as the player logs out.
   mut keep() {
-    const tabs: array<KeptTab> = []
+    const tabs: array<KeptTab> = mut []
     for (_, tab of self.made) {
       const count = peek tab.kept
       if (count > 0) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }

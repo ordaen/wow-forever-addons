@@ -242,7 +242,7 @@ const TICK = 18.75dp
 
 // The labels of the choices a list holds, in the choices' order, joined; none when it holds none.
 function labelsOf<T: unknown>(choices: array<Choice<T>>, value: array<T>): string {
-  const labels: array<string> = []
+  const labels: array<string> = mut []
   for (choice of choices) {
     if (value.any((each: T) => each == choice.value)) { labels.push(choice.label) }
   }
@@ -291,7 +291,7 @@ public class ManyDropdown<T: unknown> implements Component {
   // The choice flipped: the list keeps the choices' order.
   mut onFlip(flipped: T) {
     const was = peek self.value
-    const next: array<T> = []
+    const next: array<T> = mut []
     for (choice of self.choices) {
       const held = was.any((each: T) => each == choice.value)
       if (held != (choice.value == flipped)) { next.push(choice.value) }

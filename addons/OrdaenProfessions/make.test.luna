@@ -47,7 +47,7 @@ function window(): Test::Part {
 // The make row as it reads: the mode, the count with − and +, «Create», and under them what it comes
 // to (none said by «Quantity»).
 function row(): string {
-  let read: array<string> = []
+  let read: array<string> = mut []
   let created = false
   for (shown of window().texts()) {
     if (read.length > 0 || MODES.any(name => name == shown)) { read.push(shown) }

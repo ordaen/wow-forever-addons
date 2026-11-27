@@ -71,7 +71,7 @@ function friends(): array<Friend> {
 
 // The rest the game's friends part answers each test with: a request, one ignored, the player's Battle.net self.
 function requests(): array<Game::FriendRequest> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
-function ignoredOnes(): array<Game::Ignored> { return [Game.Ignored.Character { index: 1, name: "Rudegnome" }] }
+function ignoredOnes(): array<Game::Ignored> { return [Game::Ignored::Character { index: 1, name: "Rudegnome" }] }
 
 function battleNetSelf(): Game::BattleNetSelf {
   return { battleTag: "Ordaen#2718", presence: .Online, broadcast: "", hero: hero("Torvald", 25, "Ironforge") }
@@ -1241,7 +1241,7 @@ test "an ally a request was sent to this session says so, and can't be asked aga
 test "the characters last seen are capped, go when not seen for long or no longer friends, and stay while Battle.net is off" {
   const now = 1800000000
   const old: SeenHero = { name: "Old", level: 10, className: "Mage", classFile: "MAGE", realm: "Flamegor", at: now - 200 * 86400 }
-  const kept: map<string, SeenHero> = {}
+  const kept: map<string, SeenHero> = mut {}
   kept["Old#1"] = old
   kept["Gone#2"] = { name: "Gone", level: 5, className: "", classFile: "", realm: "", at: now }
   kept["Drake#2145"] = { name: "Torgrim", level: 25, className: "Warrior", classFile: "WARRIOR", realm: "Flamegor", at: now }
@@ -1254,8 +1254,8 @@ test "the characters last seen are capped, go when not seen for long or no longe
   // Nothing changed: nothing to write.
   Test::expect(seenAfter(read, friends(), now) == nil)
   // At most two hundred: the oldest go.
-  const many: map<string, SeenHero> = {}
-  const list: array<Friend> = []
+  const many: map<string, SeenHero> = mut {}
+  const list: array<Friend> = mut []
   for (at of 1..205) {
     const tag = `Friend#${at}`
     many[tag] = { name: "A", level: 1, className: "", classFile: "", realm: "", at: now - at }
@@ -1304,7 +1304,7 @@ function sameColor(a: Color, b: Color): boolean { return a.r == b.r && a.g == b.
 // A whisper as Ordaen Chat hands it: heard (or told, by the player), its words what the bubble shows.
 function whisper(sender: string, words: string, told: boolean = false, time: number = Game::clock.server): mut Game::ChatLine {
   const kind = told ? "WHISPER_INFORM" : "WHISPER"
-  return {
+  return mut {
     kind: kind, event: `CHAT_MSG_${kind}`, body: words, plain: words, text: words, sender: sender, guid: "", lineId: 1,
     channel: 0, channelName: "", stream: "", color: Color::hex("#ff80ff"), time: time, stamp: "", windows: [1], secret: ""
   }

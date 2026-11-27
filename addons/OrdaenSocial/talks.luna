@@ -152,7 +152,7 @@ public class Talk {
 
   // Its lines cleared, nothing of it waiting.
   public mut clear() {
-    self.lines = []
+    self.lines = mut []
     self.unread = 0
     self.version = (peek self.version) + 1
   }
@@ -167,7 +167,7 @@ public class Talk {
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
   public slice(back: integer, count: integer): array<TalkLine> {
-    const shown: array<TalkLine> = []
+    const shown: array<TalkLine> = mut []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
     return shown

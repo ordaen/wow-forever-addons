@@ -21,7 +21,7 @@ function written(
     return found
   }
   makeRoom(characters, who)
-  const made = Character { name: name, realm: realm, faction: faction, classTag: Game::player.classTag, seen: now, mailExpires: nil }
+  const made = mut Character { name: name, realm: realm, faction: faction, classTag: Game::player.classTag, seen: now, mailExpires: nil }
   characters[who] = made
   return made
 }
@@ -96,13 +96,13 @@ public class Records {
   // is empty until the client has read the skills, which a character with none has too: an empty list changes nothing.
   public mut setProfessions(professions: array<Game::Profession>) {
     if (professions.length == 0) { return }
-    const kept: array<mut Known> = []
+    const kept: array<mut Known> = mut []
     let changed = professions.length != self.me.professions.length
     for (profession of professions) {
       const old = self.professionOf(profession.skillLine)
       if (old == nil) {
         changed = true
-        kept.push(Known { skillLine: profession.skillLine, name: profession.name, rank: profession.rank, max: profession.max })
+        kept.push(mut Known { skillLine: profession.skillLine, name: profession.name, rank: profession.rank, max: profession.max })
       } else {
         old.name = profession.name
         old.rank = profession.rank
@@ -128,7 +128,7 @@ public class Records {
 
   // A profession of the character's that the game's list hasn't given yet.
   mut added(skillLine: integer): mut Known {
-    const made = Known { skillLine: skillLine }
+    const made = mut Known { skillLine: skillLine }
     self.me.professions.push(made)
     return made
   }
@@ -228,7 +228,7 @@ public class Records {
   mut holdingOf(item: ItemId): mut array<Held> {
     const list = self.holding[item]
     if (list != nil) { return list }
-    const made: array<Held> = []
+    const made: array<Held> = mut []
     self.holding[item] = made
     return made
   }
@@ -236,7 +236,7 @@ public class Records {
   mut knowingOf(recipe: RecipeId): mut array<Knower> {
     const list = self.knowing[recipe]
     if (list != nil) { return list }
-    const made: array<Knower> = []
+    const made: array<Knower> = mut []
     self.knowing[recipe] = made
     return made
   }
@@ -254,8 +254,8 @@ public class Records {
 
   // Both indexes, made again from the records.
   mut index() {
-    self.knowing = {}
-    self.holding = {}
+    self.knowing = mut {}
+    self.holding = mut {}
     for (who, character of self.characters) {
       const reachable = character.realm == self.realm && character.faction == self.faction
       for (known of character.professions) {

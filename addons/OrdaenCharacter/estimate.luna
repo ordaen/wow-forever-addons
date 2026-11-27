@@ -32,7 +32,7 @@ public function ratesOf(facts: Facts): Rates {
 
 // The stats of a character of the rates' class, race and level wearing `worn`.
 public function estimate(rates: Rates, worn: array<Worn>, classTag: string): Stats {
-  const values: map<string, number> = {}
+  const values: map<string, number> = mut {}
   for (stat of MAINS) { values[`${stat}`] = baseOf(rates, stat) }
   const bare = statsFrom(values, rates)
   // The main stats first: what they feed is worked out from them.

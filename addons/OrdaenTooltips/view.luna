@@ -68,7 +68,7 @@ function listed(listing: Listing): Model {
     kind: Kind::Text, name: listing.name, nameColor: GOLD, desc: [], info: [], facts: [],
     body: listing.rows.map(row => TextLine {
       left: row.left, right: row.right, color: row.color, rightColor: nil, desc: nil, indent: nil, stat: nil,
-      compared: nil, opens: row.item != nil ? Opens.Item { id: row.item } : Opens::None
+      compared: nil, opens: row.item != nil ? Opens::Item { id: row.item } : Opens::None
     }),
     more: [], foot: listing.foot.map(line => Note { left: line.left, right: line.right, valueColor: line.rightColor }),
     keys: []
@@ -197,7 +197,7 @@ public class TipGroup implements Component {
   // The worn items from the screen's left to its right: away from the main tooltip, which stands at the frame.
   inOrder(): array<Model> {
     if (!self.leftwards) { return self.compared }
-    let leftwards: array<Model> = []
+    let leftwards: array<Model> = mut []
     for (i of self.compared.length..1 step -1) {
       let model = self.compared[i]
       if (model != nil) { leftwards.push(model) }

@@ -129,7 +129,7 @@ public class Tabs implements Component {
   }
 
   tracks(): array<Track> {
-    let list: array<Track> = [Ordaen.lengthOf(WINDOW_ROOM)]
+    let list: array<Track> = mut [Ordaen.lengthOf(WINDOW_ROOM)]
     for (name of self.tabs) { list.push("max-content") }
     list.push({ fr: 1 })
     return list

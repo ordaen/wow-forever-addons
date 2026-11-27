@@ -41,7 +41,7 @@ function listed(rows: string, count: integer, all: integer): string {
 
 // What a place holds, as the game gives it: item, count, item, count.
 function counts(pairs: array<integer>): map<integer, integer> {
-  const held: map<integer, integer> = {}
+  const held: map<integer, integer> = mut {}
   for (i of 1..pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
   return held
 }
@@ -55,16 +55,16 @@ function named(id: integer): Game::TooltipData | nil {
 
 // A character of the player's realm and side that holds these in a place.
 function holder(name: string, place: Place, pairs: array<integer>): mut Character {
-  const held: map<ItemId, integer> = {}
+  const held: map<ItemId, integer> = mut {}
   for (id, count of counts(pairs)) { held[ItemId::of(id)] = count }
-  const made = Character { name: name, realm: "Stand-in", faction: .Alliance, level: 10, seen: Hour::now(), mailExpires: nil }
+  const made = mut Character { name: name, realm: "Stand-in", faction: .Alliance, level: 10, seen: Hour::now(), mailExpires: nil }
   made.held[place] = held
   return made
 }
 
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
 function recorded(others: array<Character>) {
-  const kept = Kept {}
+  const kept = mut Kept {}
   for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")
@@ -130,7 +130,7 @@ test "an item the game has no name for yet is listed by its number" {
 }
 
 test "the game is asked an item's name once while the tab shows" {
-  const asked: array<integer> = []
+  const asked: array<integer> = mut []
   Game::items.tooltip = (id: integer): Game::TooltipData | nil => {
     asked.push(id)
     return { lines: [{ left: "Linen Cloth", kind: 0 }] }

@@ -89,7 +89,7 @@ const ACCOUNT = "Ordaen Account"
 const SOCIAL_FOLDER = "OrdaenSocial"
 
 // The whispers' bubble: a plain round dot of Ordaen's violet, in the tone of the game's whisper pink.
-const WHISPERS_LOOK: CalloutLook = CalloutLook.Speech { tone: Color::hex("#8a4fd0") }
+const WHISPERS_LOOK: CalloutLook = CalloutLook::Speech { tone: Color::hex("#8a4fd0") }
 // The friends' button the whispers' bubble points at, while it shows.
 function bubbleBy(shown: boolean, button: any Frame | nil): array<any Frame> {
   return !shown || button == nil ? [] : [button]
@@ -164,7 +164,7 @@ public class ZoneBox implements Component {
   }
 
   tracks(): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (here of [self.micro, self.socialAlone]) {
       if (here) { list.push("max-content") }
     }
@@ -400,7 +400,7 @@ public class Panel implements Module, App {
 
   // What the other modules' sources give now, none left out where one has nothing to show.
   partsOf(): array<XpPart> {
-    const parts: array<XpPart> = []
+    const parts: array<XpPart> = mut []
     for (source of self.xpSources) {
       const part = source.part()
       if (part != nil) { parts.push(part) }

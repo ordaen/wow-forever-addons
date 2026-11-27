@@ -197,7 +197,7 @@ public class LineRow implements Component {
   // The row's quick actions: its switch (but a module's, whose switch is Ordaen's), «Load» where it can be loaded
   // now, a module's page in Ordaen's settings, and its card.
   actionsOf(): array<RowAction> {
-    const list: array<RowAction> = []
+    const list: array<RowAction> = mut []
     if (!self.module) { list.push(.Switch) }
     const status = self.status
     if (self.addon?.demand == true && status != nil && !status.loaded && status.mine && status.reason == nil) {

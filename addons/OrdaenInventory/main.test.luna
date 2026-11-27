@@ -169,30 +169,30 @@ class World {
 // The backpack's sixteen slots and the linen bag's six: a hearthstone, cloth, potions, a sword, a grey rabbit's foot, a
 // quest's deed, a new shirt; a recipe and more cloth in the linen bag. Nine items, thirteen slots free.
 function everyday(): mut array<mut Lies> {
-  return [
-    { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15 },
-    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth" },
-    { bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1, subkindName: "Potion" },
-    { bag: 0, slot: 4, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" },
-    { bag: 0, slot: 5, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0, kind: 15, subkindName: "Oddments" },
-    { bag: 0, slot: 7, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Quest" },
-    {
+  return mut [
+    mut { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15 },
+    mut { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth" },
+    mut { bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1, subkindName: "Potion" },
+    mut { bag: 0, slot: 4, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" },
+    mut { bag: 0, slot: 5, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0, kind: 15, subkindName: "Oddments" },
+    mut { bag: 0, slot: 7, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Quest" },
+    mut {
       bag: 0, slot: 9, id: 2575, name: "Red Linen Shirt", icon: SHIRT, quality: 2, kind: 4, subkindName: "Miscellaneous", isNew: true,
       level: 12
     },
-    { bag: 1, slot: 2, id: 2408, name: "Recipe: Fine Leather Gloves", icon: RECIPE, quality: 2, kind: 9, subkind: 1, subkindName: "Leatherworking" },
-    { bag: 1, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 7, kind: 7, subkind: 5, subkindName: "Cloth" }
+    mut { bag: 1, slot: 2, id: 2408, name: "Recipe: Fine Leather Gloves", icon: RECIPE, quality: 2, kind: 9, subkind: 1, subkindName: "Leatherworking" },
+    mut { bag: 1, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 7, kind: 7, subkind: 5, subkindName: "Cloth" }
   ]
 }
 
 // Four cloths in the backpack's first slots, one section of the trade goods: wool, linen, silk and mageweave, each
 // told apart by a sort.
 function cloths(): mut array<mut Lies> {
-  return [
-    { bag: 0, slot: 1, id: 2592, name: "Wool Cloth", icon: WOOL, count: 5, kind: 7, subkind: 5, subkindName: "Cloth", level: 10 },
-    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth", level: 5 },
-    { bag: 0, slot: 3, id: 4306, name: "Silk Cloth", icon: SILK, quality: 2, kind: 7, subkind: 5, subkindName: "Cloth", level: 20 },
-    {
+  return mut [
+    mut { bag: 0, slot: 1, id: 2592, name: "Wool Cloth", icon: WOOL, count: 5, kind: 7, subkind: 5, subkindName: "Cloth", level: 10 },
+    mut { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth", level: 5 },
+    mut { bag: 0, slot: 3, id: 4306, name: "Silk Cloth", icon: SILK, quality: 2, kind: 7, subkind: 5, subkindName: "Cloth", level: 20 },
+    mut {
       bag: 0, slot: 4, id: 4338, name: "Mageweave Cloth", icon: MAGEWEAVE, count: 10, quality: 3, kind: 7, subkind: 5,
       subkindName: "Cloth", level: 15
     }
@@ -411,17 +411,17 @@ test "a tab clicked shows its items alone" {
 }
 
 test "an item stands in the tab of its class, and a grey one in «Junk» whatever its class" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Agate", icon: ZIRCON, kind: 3, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
-    { bag: 0, slot: 3, id: 3, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4, subkindName: "Kind" },
-    { bag: 0, slot: 5, id: 5, name: "Blade", icon: SWORD, kind: 2, subkindName: "Kind" },
-    { bag: 0, slot: 6, id: 6, name: "Broken Blade", icon: FOOT, quality: 0, kind: 2, subkindName: "Kind", level: 20 },
-    { bag: 0, slot: 7, id: 7, name: "Pattern", icon: RECIPE, kind: 9, subkindName: "Kind" },
-    { bag: 0, slot: 8, id: 8, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
-    { bag: 0, slot: 9, id: 9, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" },
-    { bag: 0, slot: 10, id: 10, name: "Stone", icon: HEARTH, kind: 15, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Agate", icon: ZIRCON, kind: 3, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
+    mut { bag: 0, slot: 3, id: 3, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4, subkindName: "Kind" },
+    mut { bag: 0, slot: 5, id: 5, name: "Blade", icon: SWORD, kind: 2, subkindName: "Kind" },
+    mut { bag: 0, slot: 6, id: 6, name: "Broken Blade", icon: FOOT, quality: 0, kind: 2, subkindName: "Kind", level: 20 },
+    mut { bag: 0, slot: 7, id: 7, name: "Pattern", icon: RECIPE, kind: 9, subkindName: "Kind" },
+    mut { bag: 0, slot: 8, id: 8, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    mut { bag: 0, slot: 9, id: 9, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" },
+    mut { bag: 0, slot: 10, id: 10, name: "Stone", icon: HEARTH, kind: 15, subkindName: "Kind" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -506,7 +506,7 @@ test "the view «By bag»: a section per bag, captioned by its name and fill, it
 
 test "the window is as high as its slots, so none hides under a scroll: the last of 160 is in view" {
   const world = new World(everyday())
-  world.sizes = [16, 36, 36, 36, 36]
+  world.sizes = mut [16, 36, 36, 36, 36]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -603,10 +603,10 @@ test "a stack's count changing shows its new count, the order kept where the sor
 }
 
 test "sorted by item type: by the game's class of each, whatever its name" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Parts" },
-    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Parts" },
-    { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3, subkindName: "Parts" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Parts" },
+    mut { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Parts" },
+    mut { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3, subkindName: "Parts" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -620,10 +620,10 @@ test "sorted by item type: by the game's class of each, whatever its name" {
 }
 
 test "two stacks alike stand in the bags' order whatever the sort" {
-  const world = new World([
-    { bag: 1, slot: 1, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 3, kind: 7 },
-    { bag: 0, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 2, kind: 7 },
-    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 4, kind: 7 }
+  const world = new World(mut [
+    mut { bag: 1, slot: 1, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 3, kind: 7 },
+    mut { bag: 0, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 2, kind: 7 },
+    mut { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 4, kind: 7 }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -750,7 +750,7 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
   Game::items.icon = (id: integer): Art | nil => world.icon(id)
   // The client's cursor and the potion's slot as the client has it.
   Client::C_Container::GetContainerItemInfo = (bag: integer, slot: integer): Client::ContainerItemInfo | nil => bag == 0 && slot == 3 ?
-    Client.ContainerItemInfo {
+    Client::ContainerItemInfo {
       iconFileID: POTION, stackCount: 5, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: "item:118", isFiltered: false, hasNoValue: false, itemID: 118, isBound: false,
       itemName: "Minor Healing Potion"
@@ -829,10 +829,10 @@ test "at a merchant and at the mailbox a quest's items dim" {
 }
 
 test "at the mailbox what is bound dims, and what is dragged dims with no mark on it" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
-    { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 },
-    { bag: 0, slot: 3, id: 3, name: "Sent Blade", icon: POTION, kind: 2, locked: true }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
+    mut { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 },
+    mut { bag: 0, slot: 3, id: 3, name: "Sent Blade", icon: POTION, kind: 2, locked: true }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -845,9 +845,9 @@ test "at the mailbox what is bound dims, and what is dragged dims with no mark o
 }
 
 test "anywhere, what is on the cursor or held by the client dims" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Free Blade", icon: SHIRT, kind: 2 },
-    { bag: 0, slot: 2, id: 2, name: "Dragged Blade", icon: POTION, kind: 2, locked: true }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Free Blade", icon: SHIRT, kind: 2 },
+    mut { bag: 0, slot: 2, id: 2, name: "Dragged Blade", icon: POTION, kind: 2, locked: true }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -858,9 +858,9 @@ test "anywhere, what is on the cursor or held by the client dims" {
 }
 
 test "at the auction house what is bound dims" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
-    { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
+    mut { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -872,11 +872,11 @@ test "at the auction house what is bound dims" {
 }
 
 test "at crafting only trade goods and reagents stay lit" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
-    { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3 },
-    { bag: 0, slot: 4, id: 4, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
+    mut { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3 },
+    mut { bag: 0, slot: 4, id: 4, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1008,7 +1008,7 @@ test "a protected item gone from the bags loses its protection: put back, it has
   protect(held(POTION))
   world.take(0, 3)
   Game::bags.updated.emit(0)
-  world.items.push({ bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1 })
+  world.items.push(mut { bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1 })
   Game::bags.updated.emit(0)
   Test::expect(held(POTION).shown() && Test::page().box(PADLOCK).count() == 0)
 }
@@ -1016,12 +1016,12 @@ test "a protected item gone from the bags loses its protection: put back, it has
 // «Sort the bags»
 
 test "«Sort the bags» moves the items into the window's order, a swap at a time, and stops once they are" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 3, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
-    { bag: 0, slot: 4, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 3, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    mut { bag: 0, slot: 4, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
   ])
-  world.sizes = [4, 0, 0, 0, 0]
+  world.sizes = mut [4, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1041,12 +1041,12 @@ test "«Sort the bags» moves the items into the window's order, a swap at a tim
 }
 
 test "«Sort the bags» leaves a protected slot as it is" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
-    { bag: 0, slot: 3, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    mut { bag: 0, slot: 3, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
   ])
-  world.sizes = [3, 0, 0, 0, 0]
+  world.sizes = mut [3, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1064,11 +1064,11 @@ test "«Sort the bags» leaves a protected slot as it is" {
 }
 
 test "«Sort the bags» leaves a bag that takes only its own kind as it is" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 1, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 1, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12 }
   ])
-  world.sizes = [2, 1, 0, 0, 0]
+  world.sizes = mut [2, 1, 0, 0, 0]
   world.general = false
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
@@ -1081,11 +1081,11 @@ test "«Sort the bags» leaves a bag that takes only its own kind as it is" {
 }
 
 test "«Sort the bags» waits for a locked slot, and goes on once it is let go" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, locked: true }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, locked: true }
   ])
-  world.sizes = [2, 0, 0, 0, 0]
+  world.sizes = mut [2, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1101,12 +1101,12 @@ test "«Sort the bags» waits for a locked slot, and goes on once it is let go" 
 
 test "«Sort the bags» never takes a stack out of a place it belongs in, waiting for a locked one instead" {
   // The letter goes first, the two ashes after it: the second ash is where an ash belongs, the first is locked.
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, locked: true },
-    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12 },
-    { bag: 0, slot: 3, id: 1, name: "Ash", icon: ASH, kind: 7 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, locked: true },
+    mut { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12 },
+    mut { bag: 0, slot: 3, id: 1, name: "Ash", icon: ASH, kind: 7 }
   ])
-  world.sizes = [3, 0, 0, 0, 0]
+  world.sizes = mut [3, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1124,13 +1124,13 @@ test "«Sort the bags» never takes a stack out of a place it belongs in, waitin
 
 test "«Sort the bags» swaps as many pairs in a go as touch no slot twice, and the rest at the next go" {
   // Into the letter, the elixir, the vest, the ash.
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7 },
-    { bag: 0, slot: 2, id: 2, name: "Letter", icon: DEED, kind: 12 },
-    { bag: 0, slot: 3, id: 3, name: "Elixir", icon: POTION, kind: 0 },
-    { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7 },
+    mut { bag: 0, slot: 2, id: 2, name: "Letter", icon: DEED, kind: 12 },
+    mut { bag: 0, slot: 3, id: 3, name: "Elixir", icon: POTION, kind: 0 },
+    mut { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4 }
   ])
-  world.sizes = [4, 0, 0, 0, 0]
+  world.sizes = mut [4, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1151,7 +1151,7 @@ test "«Sort the bags» swaps as many pairs in a go as touch no slot twice, and 
 
 test "«Sort the bags» moves the items into the sort picked" {
   const world = new World(cloths())
-  world.sizes = [4, 0, 0, 0, 0]
+  world.sizes = mut [4, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1168,11 +1168,11 @@ test "«Sort the bags» moves the items into the sort picked" {
 }
 
 test "«Sort the bags» ends at once where the client takes no swap" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7 },
-    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7 },
+    mut { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12 }
   ])
-  world.sizes = [2, 0, 0, 0, 0]
+  world.sizes = mut [2, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1185,11 +1185,11 @@ test "«Sort the bags» ends at once where the client takes no swap" {
 }
 
 test "«Sort the bags» over bags in order ends at once, an item picked up or not" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12, locked: true },
-    { bag: 0, slot: 2, id: 1, name: "Ash", icon: ASH, kind: 7 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12, locked: true },
+    mut { bag: 0, slot: 2, id: 1, name: "Ash", icon: ASH, kind: 7 }
   ])
-  world.sizes = [2, 0, 0, 0, 0]
+  world.sizes = mut [2, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1201,11 +1201,11 @@ test "«Sort the bags» over bags in order ends at once, an item picked up or no
 }
 
 test "«Sort the bags» gives up after as many goes as there are slots, the client moving nothing" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
   ])
-  world.sizes = [2, 0, 0, 0, 0]
+  world.sizes = mut [2, 0, 0, 0, 0]
   world.moves = false
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
@@ -1222,11 +1222,11 @@ test "«Sort the bags» gives up after as many goes as there are slots, the clie
 }
 
 test "the bags shut while «Sort the bags» goes stop it" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
-    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    mut { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
   ])
-  world.sizes = [2, 0, 0, 0, 0]
+  world.sizes = mut [2, 0, 0, 0, 0]
   world.moves = false
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
@@ -1318,7 +1318,7 @@ test "the bag slots follow the bags: a bag swapped shows its icon, its slots and
   bags().button(BAG_BUTTON).click()
   world.sizes[2] = 10
   world.linenIcon = BIG_BAG
-  world.items.push({ bag: 1, slot: 10, id: 118, name: "Minor Healing Potion", icon: POTION, kind: 0 })
+  world.items.push(mut { bag: 1, slot: 10, id: 118, name: "Minor Healing Potion", icon: POTION, kind: 0 })
   Game::bags.updated.emit(1)
   Test::expect(reads(bagSlots().text("Linen Bag").item(), "Linen Bag | 3/10") && bagSlots().box(BIG_BAG).shown())
   Test::expect(!bagSlots().box(LINEN_BAG).shown())
@@ -1390,7 +1390,7 @@ test "fifty characters' gold is kept, this one's among them" {
   // (a reload runs what waits first), so the next load reads them.
   Test::mount(nil, SCREEN)
   Test::flush()
-  let characters: map<string, Purse> = {}
+  let characters: map<string, Purse> = mut {}
   for (index of 1..49) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
@@ -1407,7 +1407,7 @@ test "past fifty characters the one seen longest ago is forgotten" {
   // has kept its own, as above.
   Test::mount(nil, SCREEN)
   Test::flush()
-  let characters: map<string, Purse> = {}
+  let characters: map<string, Purse> = mut {}
   for (index of 1..50) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
@@ -1431,7 +1431,7 @@ test "an item come into a bag shows, the counts told" {
   Test::mount(nil, SCREEN)
   Game::bags.open = true
   Test::expect(bags().shown())
-  world.items.push({ bag: 1, slot: 6, id: 1710, name: "Greater Healing Potion", icon: MOSS, count: 2, kind: 0, subkind: 1, subkindName: "Potion" })
+  world.items.push(mut { bag: 1, slot: 6, id: 1710, name: "Greater Healing Potion", icon: MOSS, count: 2, kind: 0, subkind: 1, subkindName: "Potion" })
   Game::bags.updated.emit(1)
   Test::expect(bags().text("12 of 22").shown() && tab("Consumables") == "Consumables | 2" && held(MOSS).shown())
   Test::expect(bags().text("12").shown())
@@ -1461,7 +1461,7 @@ test "a bag swapped for a larger one: its slots read anew" {
   Game::bags.open = true
   Test::expect(bags().shown())
   world.sizes[2] = 10
-  world.items.push({ bag: 1, slot: 10, id: 1710, name: "Greater Healing Potion", icon: MOSS, kind: 0 })
+  world.items.push(mut { bag: 1, slot: 10, id: 1710, name: "Greater Healing Potion", icon: MOSS, kind: 0 })
   Game::bags.updated.emit(1)
   Test::expect(bags().text("16 of 26").shown() && held(MOSS).shown())
 }
@@ -1540,15 +1540,15 @@ test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plai
 }
 
 test "each item's rim is in its quality's colour" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "A", icon: HEARTH, quality: 0, kind: 7 },
-    { bag: 0, slot: 2, id: 2, name: "B", icon: CLOTH, quality: 1, kind: 7 },
-    { bag: 0, slot: 3, id: 3, name: "C", icon: POTION, quality: 2, kind: 7 },
-    { bag: 0, slot: 4, id: 4, name: "D", icon: SWORD, quality: 3, kind: 7 },
-    { bag: 0, slot: 5, id: 5, name: "E", icon: FOOT, quality: 4, kind: 7 },
-    { bag: 0, slot: 6, id: 6, name: "F", icon: DEED, quality: 5, kind: 7 },
-    { bag: 0, slot: 7, id: 7, name: "G", icon: SHIRT, quality: 6, kind: 7 },
-    { bag: 0, slot: 8, id: 8, name: "H", icon: RECIPE, quality: 7, kind: 7 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "A", icon: HEARTH, quality: 0, kind: 7 },
+    mut { bag: 0, slot: 2, id: 2, name: "B", icon: CLOTH, quality: 1, kind: 7 },
+    mut { bag: 0, slot: 3, id: 3, name: "C", icon: POTION, quality: 2, kind: 7 },
+    mut { bag: 0, slot: 4, id: 4, name: "D", icon: SWORD, quality: 3, kind: 7 },
+    mut { bag: 0, slot: 5, id: 5, name: "E", icon: FOOT, quality: 4, kind: 7 },
+    mut { bag: 0, slot: 6, id: 6, name: "F", icon: DEED, quality: 5, kind: 7 },
+    mut { bag: 0, slot: 7, id: 7, name: "G", icon: SHIRT, quality: 6, kind: 7 },
+    mut { bag: 0, slot: 8, id: 8, name: "H", icon: RECIPE, quality: 7, kind: 7 }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1561,8 +1561,8 @@ test "each item's rim is in its quality's colour" {
 
 // A caption longer than its card (a subclass in Russian: «Предметы для заданий») is cut at the card's edge, its fill kept.
 test "a caption longer than its card is cut at the card's edge" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Предметы для заданий и поручений" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Предметы для заданий и поручений" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1575,9 +1575,9 @@ test "a caption longer than its card is cut at the card's edge" {
 }
 
 test "the sections of a kind stand in the order of the game's subclasses" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 1, name: "Staff", icon: MOSS, kind: 2, subkind: 10, subkindName: "Staves" },
-    { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 1, name: "Staff", icon: MOSS, kind: 2, subkind: 10, subkindName: "Staves" },
+    mut { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1590,9 +1590,9 @@ test "the sections of a kind stand in the order of the game's subclasses" {
 }
 
 test "the client's miscellaneous «Junk» subclass (a hearthstone) is captioned by its tab: only the junk tab says junk" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15, subkind: 0, subkindName: "Junk" },
-    { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15, subkind: 0, subkindName: "Junk" },
+    mut { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1620,7 +1620,7 @@ test "a stack taken out leaves its slot empty: no count, no glow" {
 
 test "every bag with slots has its section in the view «By bag» and its slots in «One bag», the last bag's too" {
   const world = new World(everyday())
-  world.sizes = [16, 6, 0, 0, 4]
+  world.sizes = mut [16, 6, 0, 0, 4]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
   Test::mount(nil, SCREEN)
@@ -1701,7 +1701,7 @@ test "a protected stack used up: its protection passes to no other stack of its 
   Game::bags.open = true
   protect(held(POTION))
   // Another stack of the potions comes in, then the protected one is drunk to the last.
-  world.items.push({ bag: 0, slot: 10, id: 118, name: "Minor Healing Potion", icon: POTION, count: 2, kind: 0, subkind: 1 })
+  world.items.push(mut { bag: 0, slot: 10, id: 118, name: "Minor Healing Potion", icon: POTION, count: 2, kind: 0, subkind: 1 })
   Game::bags.updated.emit(0)
   Test::expect(Test::page().box(PADLOCK).count() == 1)
   world.take(0, 3)
@@ -1710,11 +1710,11 @@ test "a protected stack used up: its protection passes to no other stack of its 
 }
 
 test "two protected stacks of one item moved: each keeps its protection" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 },
-    { bag: 0, slot: 2, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 },
+    mut { bag: 0, slot: 2, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 }
   ])
-  world.sizes = [4, 0, 0, 0, 0]
+  world.sizes = mut [4, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1755,11 +1755,11 @@ test "the cursor off a slot, or the bags shut, a tooltip of its item elsewhere s
 // More of «Sort the bags»
 
 test "a stack picked up and let go elsewhere leaves its slot free for «Sort the bags»" {
-  const world = new World([
-    { bag: 0, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12 },
-    { bag: 0, slot: 2, id: 1, name: "Ash", icon: ASH, kind: 7, locked: true }
+  const world = new World(mut [
+    mut { bag: 0, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12 },
+    mut { bag: 0, slot: 2, id: 1, name: "Ash", icon: ASH, kind: 7, locked: true }
   ])
-  world.sizes = [3, 0, 0, 0, 0]
+  world.sizes = mut [3, 0, 0, 0, 0]
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1964,7 +1964,7 @@ function askedOnly(expected: string): boolean {
 
 // The everyday bags with a new bag in the backpack's sixth slot, and the client's four bag places.
 function withNewBag(world: mut World) {
-  world.items.push({ bag: 0, slot: 6, id: 4245, name: "Small Silk Pack", icon: LINEN_BAG, kind: 1 })
+  world.items.push(mut { bag: 0, slot: 6, id: 4245, name: "Small Silk Pack", icon: LINEN_BAG, kind: 1 })
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -1990,7 +1990,7 @@ test "a bag used goes on in an empty bag place, by the bags themselves" {
 
 test "with every place taken, the smallest bag is emptied into the others, then the new one goes on in its place" {
   const world = new World(everyday())
-  world.sizes = [16, 6, 8, 8, 8]
+  world.sizes = mut [16, 6, 8, 8, 8]
   withNewBag(world)
   Game::bags.swap = (fromBag: integer, fromSlot: integer, toBag: integer, toSlot: integer): boolean =>
   world.swap(fromBag, fromSlot, toBag, toSlot)
@@ -2007,7 +2007,7 @@ test "with every place taken, the smallest bag is emptied into the others, then 
 
 test "a bag whose smallest replacement holds more than the other bags have free stays, and the chat says why" {
   const world = new World(everyday())
-  world.sizes = [9, 6, 0, 0, 0]
+  world.sizes = mut [9, 6, 0, 0, 0]
   withNewBag(world)
   Game::bags.buttons = [{ kind: .Bag, bag: 1, frame: Client::CreateFrame("Button", nil, Client::UIParent), icon: nil }]
   Test::mount(nil, SCREEN)
@@ -2108,7 +2108,7 @@ test "a worn bag's line dragged takes the bag off its place; a bag held from a p
 
 test "an ordinary bag never takes a bag for one kind of thing off: the smallest ordinary one is replaced" {
   const world = new World(everyday())
-  world.sizes = [16, 6, 8, 8, 8]
+  world.sizes = mut [16, 6, 8, 8, 8]
   // The linen bag, the smallest, takes one kind of thing alone.
   world.general = false
   withNewBag(world)
@@ -2122,7 +2122,7 @@ test "an ordinary bag never takes a bag for one kind of thing off: the smallest 
 
 test "a run the client won't finish gives up after its goes, and the chat says the bag wasn't put on" {
   const world = new World(everyday())
-  world.sizes = [16, 6, 8, 8, 8]
+  world.sizes = mut [16, 6, 8, 8, 8]
   // The client takes the swaps and moves nothing.
   world.moves = false
   withNewBag(world)
@@ -2150,7 +2150,7 @@ test "a bag isn't put on while the cursor holds something" {
 
 test "the keyring's keys are read with the bags: under «Keys», and the keyring a line of the bag slots" {
   const world = new World(everyday())
-  world.items.push({ bag: -1, slot: 1, id: 5396, name: "Key to Searing Gorge", icon: DEED, kind: 13 })
+  world.items.push(mut { bag: -1, slot: 1, id: 5396, name: "Key to Searing Gorge", icon: DEED, kind: 13 })
   Game::bags.containers = [0, 1, 2, 3, 4, -1]
   Game::bags.bag = (bag: integer): Game::BagInfo => bag == -1 ?
     { bag: -1, item: nil, name: "Keyring", icon: nil, slots: 32, general: false } : world.bag(bag)

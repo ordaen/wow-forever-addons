@@ -119,7 +119,7 @@ function near(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 // The control group's textures drawn now, in the order they were made: each control's plate, then its glyph, each by
 // the row of its file it shows.
 function corner(): string {
-  let parts: array<string> = []
+  let parts: array<string> = mut []
   for (drawn of Test::drawn()) {
     let file = drawn.file
     if (file is string) {
@@ -361,7 +361,7 @@ function clientFrame(strata: string, clicked: mut array<string>): any Client::Fr
 // toplevel): the one opened or clicked last is in front. The world map stands over them all, as over the client's.
 test "a window stands with the client's panels, the last opened or clicked in front, and under the world map" {
   Test::screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
-  let clicked: array<string> = []
+  let clicked: array<string> = mut []
   let desk = new Desk()
   Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   desk.betaOpen = true

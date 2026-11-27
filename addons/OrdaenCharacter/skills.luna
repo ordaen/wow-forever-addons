@@ -33,7 +33,7 @@ function bonusText(skill: Skill): string { return skill.modifier > 0 ? `+${skill
 public function listedSkills(skills: array<Skill>, search: string): array<Skill> {
   const needle = search.lower()
   if (needle == "") { return skills }
-  const listed: array<Skill> = []
+  const listed: array<Skill> = mut []
   let heading: Skill | nil = nil
   for (skill of skills) {
     if (skill.header) {

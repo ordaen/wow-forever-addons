@@ -36,10 +36,10 @@ function same(a: SeenHero, b: SeenHero): boolean {
 // not seen for long gone, the oldest gone past the cap. Nil where nothing changed (nothing to write). A list with no
 // account (Battle.net off) drops nobody.
 public function seenAfter(kept: map<string, SeenHero>, friends: array<Friend>, now: number): map<string, SeenHero> | nil {
-  const next: map<string, SeenHero> = {}
+  const next: map<string, SeenHero> = mut {}
   let changed = false
   const accounts = friends.filter(friend => friend.account != nil)
-  const tags: map<string, boolean> = {}
+  const tags: map<string, boolean> = mut {}
   for (friend of accounts) {
     const tag = friend.account?.battleTag ?? ""
     tags[tag] = true
@@ -62,7 +62,7 @@ public function seenAfter(kept: map<string, SeenHero>, friends: array<Friend>, n
       changed = true
     }
   }
-  const tagsKept: array<string> = []
+  const tagsKept: array<string> = mut []
   for (tag, _ of next) { tagsKept.push(tag) }
   if (tagsKept.length > SEEN_MOST) {
     tagsKept.sort((a: string, b: string) => (next[a]?.at ?? 0) > (next[b]?.at ?? 0))

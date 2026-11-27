@@ -160,7 +160,7 @@ public class Mail implements Module, App {
         { label: Locale::COUNT_SENT, value: string::of(self.history.length) }
       ]
     }
-    const list: array<FooterCount> = [{ label: Locale::COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
+    const list: array<FooterCount> = mut [{ label: Locale::COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
     if (self.collector.money > 0) { list.push({ label: Locale::COUNT_TAKEN_MONEY, value: Game::money.format(self.collector.money) }) }
     if (self.collector.stacks > 0) { list.push({ label: Locale::COUNT_TAKEN_ITEMS, value: string::of(self.collector.stacks) }) }
     if (self.collector.stopped == .Full) { list.push({ label: Locale::BAGS_FULL, value: "", color: Style::RED }) }
@@ -170,7 +170,7 @@ public class Mail implements Module, App {
   // The mailbox opened: the window shows on «Outbox» where letters wait to go, else on «Inbox»; the game's window held.
   mut onOpened() {
     self.closed = false
-    self.ledgered = []
+    self.ledgered = mut []
     self.collector.reset()
     self.picked = 0
     self.ticked = []

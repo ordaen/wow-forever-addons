@@ -21,8 +21,8 @@ public class Arranger {
   // A run over `slots` (every slot of the bags, in their order) into the order `by`; `general` tells the bags that
   // take part. A protected slot (`Slot.guarded`) keeps what it holds.
   public mut start(slots: array<Slot>, general: (bag: integer) => boolean, by: SortBy) {
-    let places: array<Slot> = []
-    let items: array<Slot> = []
+    let places: array<Slot> = mut []
+    let items: array<Slot> = mut []
     for (slot of slots) {
       if (general(slot.bag) && !peek slot.guarded) {
         places.push(slot)
@@ -30,12 +30,12 @@ public class Arranger {
       }
     }
     // The window's order: the kinds' sections in their order, each sorted.
-    let ordered: array<Slot> = []
+    let ordered: array<Slot> = mut []
     for (section of tabSections(items, .All, .Type, by)) {
       for (slot of section.slots) { ordered.push(slot) }
     }
     // The places past the last item want nothing: they hold what the swaps leave them.
-    let wanted: array<integer> = []
+    let wanted: array<integer> = mut []
     for (slot of ordered) { wanted.push(slot.key()) }
     self.places = places
     self.wanted = wanted
@@ -57,7 +57,7 @@ public class Arranger {
     self.left -= 1
     // The later places a swap of this go took a stack from: each is left for the next go. A place a swap filled is
     // never looked at again in the go, as the walk and `holderOf` go on past it.
-    let taken: map<Slot, boolean> = {}
+    let taken: map<Slot, boolean> = mut {}
     let pending = false
     let moved = false
     for (index, place of self.places) {

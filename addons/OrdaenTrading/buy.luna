@@ -525,7 +525,7 @@ public class BuyPage implements Component {
   // A row a key the house showed: a variant named with its suffix, its own lowest over its own market.
   mut variantsOf(): array<Found> {
     _ = self.prices.revision
-    let list: array<Found> = []
+    let list: array<Found> = mut []
     for (offer of self.offers) {
       const key = PriceKey::given(offer.key)
       const named = self.house.named(key)
@@ -543,8 +543,8 @@ public class BuyPage implements Component {
   // those of its cheapest variant, which a pick or the menu takes.
   mut foldedOf(): array<Found> {
     _ = self.prices.revision
-    let at: map<ItemId, integer> = {}
-    let list: array<Found> = []
+    let at: map<ItemId, integer> = mut {}
+    let list: array<Found> = mut []
     for (offer of self.offers) {
       const key = PriceKey::given(offer.key)
       const item = key.item()

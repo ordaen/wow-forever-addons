@@ -20,22 +20,22 @@ public struct QueueItem {
 
 // Every recipe of the book by the items it takes: made once as the book changes, a map read for each question.
 public function usesOf(book: Book): map<integer, array<Use>> {
-  const lines: map<integer, integer> = {}
-  const names: map<integer, string> = {}
+  const lines: map<integer, integer> = mut {}
+  const names: map<integer, string> = mut {}
   for (_, shelf of book.characters) {
     for (skillLine, learned of shelf.professions) {
       names[skillLine] = learned.name
       for (recipe of learned.recipes) { lines[recipe] = skillLine }
     }
   }
-  const uses: map<integer, mut array<Use>> = {}
+  const uses: map<integer, mut array<Use>> = mut {}
   for (recipe, entry of book.recipes) {
     const skillLine = lines[recipe]
     if (skillLine != nil) {
       for (part of entry.parts) {
         const use: Use = { recipe: recipe, skillLine: skillLine, profession: names[skillLine] ?? "", count: part.count }
         const list = uses[part.item]
-        if (list == nil) { uses[part.item] = [use] } else { list.push(use) }
+        if (list == nil) { uses[part.item] = mut [use] } else { list.push(use) }
       }
     }
   }
@@ -44,8 +44,8 @@ public function usesOf(book: Book): map<integer, array<Use>> {
 
 // What the queue's lines take together, by item, in the order first met.
 public function needsOf(book: Book, queue: array<Queued>): array<QueueItem> {
-  const needs: array<QueueItem> = []
-  const at: map<integer, integer> = {}
+  const needs: array<QueueItem> = mut []
+  const at: map<integer, integer> = mut {}
   for (line of queue) {
     const entry = book.recipes[line.recipe]
     if (entry != nil) {

@@ -43,12 +43,12 @@ struct Offered {
 
 // The client's icon lists in the macro window's order, each a file's number or a name under Interface/Icons/.
 function clientIcons(): array<Offered> {
-  const raw: array<FileId | string> = []
+  const raw: array<FileId | string> = mut []
   Client::GetLooseMacroIcons(raw)
   Client::GetMacroIcons(raw)
   Client::GetLooseMacroItemIcons(raw)
   Client::GetMacroItemIcons(raw)
-  const offered: array<Offered> = []
+  const offered: array<Offered> = mut []
   for (each of raw) {
     if (each is FileId) {
       offered.push({ icon: each, words: "" })
@@ -62,7 +62,7 @@ function clientIcons(): array<Offered> {
 
 // The player's spells, each by its name: what a search by a spell's name finds.
 function spellIcons(): array<Offered> {
-  const offered: array<Offered> = []
+  const offered: array<Offered> = mut []
   const lines = Client::C_SpellBook::GetNumSpellBookSkillLines().floor()
   for (line of 1..lines) {
     const info = Client::C_SpellBook::GetSpellBookSkillLineInfo(line)
@@ -79,13 +79,13 @@ function spellIcons(): array<Offered> {
 
 // The icons in rows of ten.
 function rowsOf(offered: array<Offered>): array<array<Offered>> {
-  const rows: array<array<Offered>> = []
-  let row: array<Offered> = []
+  const rows: array<array<Offered>> = mut []
+  let row: array<Offered> = mut []
   for (each of offered) {
     row.push(each)
     if (row.length == PER_ROW) {
       rows.push(row)
-      row = []
+      row = mut []
     }
   }
   if (row.length > 0) { rows.push(row) }
@@ -160,7 +160,7 @@ public class IconPicker implements Component {
     self.title = title
     self.first = first
     self.chosen = peek value
-    const all: array<Offered> = []
+    const all: array<Offered> = mut []
     if (first == IconPickerFirst::NoIcon) { all.push({ icon: nil, words: "" }) }
     if (first == IconPickerFirst::GameChooses) { all.push({ icon: QUESTION_MARK, words: "" }) }
     for (each of spellIcons()) { all.push(each) }

@@ -437,7 +437,7 @@ public class MerchantWindow implements Component {
   }
 
   soldOf(): array<Sold> {
-    let sold: array<Sold> = []
+    let sold: array<Sold> = mut []
     for (index of self.vendor.sold.length..1 step -1) { sold.push(self.vendor.sold[index] ?? panic("within the buyback")) }
     return sold
   }
@@ -582,7 +582,7 @@ public class MerchantWindow implements Component {
   mut onCountCancel() { self.counting = nil }
 
   mut onToggle(tab: ItemKind) {
-    let folded: map<ItemKind, boolean> = {}
+    let folded: map<ItemKind, boolean> = mut {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[tab] = folded[tab] == true ? nil : true
     self.folded = folded

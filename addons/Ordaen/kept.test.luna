@@ -126,7 +126,7 @@ struct Grown implements Plain {
 }
 
 test "a memory past its bound isn't kept" {
-  const names: array<string> = []
+  const names: array<string> = mut []
   for (i of 1..100) { names.push("name number %d".format(i)) }
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: names })
   Test::expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
@@ -250,7 +250,7 @@ test "the grip stops where the content would be cut, and the window grows again 
   const grown = Test::edges(Ordaen.art.window.wood, 0)
   Test::expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
   // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
-  page.placing.placing = { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
+  page.placing.placing = mut { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
   Test::flush()
   const handed = Test::edges(Ordaen.art.window.wood, 0)
   Test::expect(near(handed.right - handed.left, least.right - least.left))

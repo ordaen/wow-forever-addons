@@ -22,8 +22,8 @@ public struct Recipient {
 // Every recipient the player knows, own characters first, then friends, the guild, the communities and the recent
 // recipients; a name known twice stands where it comes first.
 public function everyone(alts: Alts | nil, recent: array<string>): array<Recipient> {
-  const list: array<Recipient> = []
-  const seen: map<string, boolean> = {}
+  const list: array<Recipient> = mut []
+  const seen: map<string, boolean> = mut {}
   const add = (from: array<Recipient>) => {
     for (who of from) {
       if (seen[who.name] == nil) {
@@ -45,7 +45,7 @@ public function everyone(alts: Alts | nil, recent: array<string>): array<Recipie
 
 // The first `most` recipients whose names begin with what was typed.
 public function matching(list: array<Recipient>, typed: string, most: integer): array<Recipient> {
-  const found: array<Recipient> = []
+  const found: array<Recipient> = mut []
   for (who of list) {
     if (found.length >= most) { break }
     if (starts(who.name, typed)) { found.push(who) }
@@ -66,7 +66,7 @@ function byOnline(a: Recipient, b: Recipient): boolean {
 
 // The player's other characters a letter reaches; none while Ordaen Alts is off.
 public function own(alts: Alts | nil): array<Recipient> {
-  const list: array<Recipient> = []
+  const list: array<Recipient> = mut []
   if (alts == nil) { return list }
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) {
@@ -78,7 +78,7 @@ public function own(alts: Alts | nil): array<Recipient> {
 }
 
 public function friends(): array<Recipient> {
-  const list: array<Recipient> = []
+  const list: array<Recipient> = mut []
   for (index of 1..Client::C_FriendList::GetNumFriends()) {
     const info = Client::C_FriendList::GetFriendInfoByIndex(index)
     if (info != nil) {
@@ -91,7 +91,7 @@ public function friends(): array<Recipient> {
 }
 
 public function guild(): array<Recipient> {
-  const list: array<Recipient> = []
+  const list: array<Recipient> = mut []
   const (count, _) = Client::GetNumGuildMembers()
   for (index of 1..count) {
     const (name, _, _, level, _, _, _, _, online, _, tag) = Client::GetGuildRosterInfo(index)
@@ -105,7 +105,7 @@ public function guild(): array<Recipient> {
 
 // The members of every character community the player is in (not Battle.net ones), each under its community's name.
 public function communities(): array<Recipient> {
-  const list: array<Recipient> = []
+  const list: array<Recipient> = mut []
   for (club of Client::C_Club::GetSubscribedClubs()) {
     if (club.clubType == Client::ClubType::Character) {
       for (member of Client::C_Club::GetClubMembers(club.clubId, nil)) {

@@ -55,7 +55,7 @@ enum Over { Off = "off", Bar = "bar", Part = "part" }
 
 // The tube's tracks, in hundredths of it: the fill, each part past it in turn (none past the tube's end), the rest.
 function tracksOf(value: integer, least: integer, most: integer, parts: array<XpPart>): array<Track> {
-  const tracks: array<Track> = []
+  const tracks: array<Track> = mut []
   let reached = share(value, least, most)
   let past = value
   tracks.push({ fr: reached })
@@ -384,7 +384,7 @@ public class XpBar implements Component {
   // bonus where there is one: each with its part of the level's whole.
   experienceRows(): array<TipRow> {
     let whole = Game::player.xpMax
-    let rows: array<TipRow> = [
+    let rows: array<TipRow> = mut [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::player.xp, whole) },
       { label: Locale::XP_TIP_TO_LEVEL.format(Game::player.level + 1), value: leftCount(self.toLevel, whole) }
     ]
@@ -407,7 +407,7 @@ public class XpBar implements Component {
   // each with its part of the standing's whole.
   standingRows(): array<TipRow> {
     let whole = Game::reputation.max - Game::reputation.min
-    let rows: array<TipRow> = [
+    let rows: array<TipRow> = mut [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::reputation.value - Game::reputation.min, whole) }
     ]
     if (Game::reputation.next != "") {

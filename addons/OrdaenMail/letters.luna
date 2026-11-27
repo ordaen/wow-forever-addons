@@ -96,7 +96,7 @@ public function lettersFor(stacks: integer): integer { return (1).max(((stacks +
 
 // A name put first among the recent recipients, once, the list kept to its cap.
 public function remembered(names: array<string>, name: string): array<string> {
-  const list: array<string> = [name]
+  const list: array<string> = mut [name]
   for (one of names) {
     if (one != name && list.length < RECIPIENTS_MOST) { list.push(one) }
   }

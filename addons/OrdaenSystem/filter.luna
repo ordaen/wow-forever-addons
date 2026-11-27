@@ -87,7 +87,7 @@ public class FilterPick implements Component {
 
   // What its Tip says it is set to: each kind that narrows the list, or «All».
   shownOf(): string {
-    const list: array<string> = []
+    const list: array<string> = mut []
     narrowing(HEATS, self.heat, Heat::All, list)
     narrowing(STANDINGS, self.standing, Standing::All, list)
     narrowing(AGES, self.age, Age::All, list)

@@ -36,9 +36,9 @@ public function sourceTotalsOf(parts: array<PartPrice>, source: Source, sale: in
   // Nothing to buy costs nothing; parts none of which is sold here have no cost here.
   let cost: integer | nil = parts.length == 0 ? 0 : nil
   let fill = 0
-  const missing: array<string> = []
-  const filled: array<string> = []
-  const unpriced: array<string> = []
+  const missing: array<string> = mut []
+  const filled: array<string> = mut []
+  const unpriced: array<string> = mut []
   for (part of parts) {
     const here = priceAt(part, source)
     if (here != nil) {

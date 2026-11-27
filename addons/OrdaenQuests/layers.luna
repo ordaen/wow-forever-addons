@@ -13,7 +13,7 @@ public class DungeonQuests implements DungeonSection {
   constructor(quests: Signal<array<LogQuest>>) { self.quests = quests }
 
   public lines(names: array<string>): array<string> {
-    const lines: array<string> = []
+    const lines: array<string> = mut []
     for (quest of self.quests) {
       if (names.find(name => name == quest.header) != nil) { lines.push(`[${quest.level}] ${quest.title}`) }
     }
@@ -66,7 +66,7 @@ public class ChainPins implements Layer {
 
   public pins(): array<Pin> {
     const facts = self.facts
-    const pins: array<Pin> = []
+    const pins: array<Pin> = mut []
     if (facts == nil || self.shown == 0 || self.shown != self.chained) { return pins }
     for (figure of facts.givers) {
       for (spot of figure.spots) {
@@ -111,7 +111,7 @@ public class TurnInPins implements Layer {
   }
 
   public pins(): array<Pin> {
-    const pins: array<Pin> = []
+    const pins: array<Pin> = mut []
     const quest = self.quests.find(quest => quest.id == self.shown)
     const facts = self.facts[self.shown]
     if (quest == nil || facts == nil || !quest.done) { return pins }
@@ -155,10 +155,10 @@ public function nearestOf(figures: array<Figure>, distance: (spot: Spot) => numb
   let first: FigureSpot | nil = nil
   for (figure of figures) {
     for (spot of figure.spots) {
-      if (first == nil) { first = { figure: figure, spot: spot } }
+      if (first == nil) { first = mut { figure: figure, spot: spot } }
       const yards = distance(spot)
       if (yards != nil && (best == nil || yards < bestYards)) {
-        best = { figure: figure, spot: spot }
+        best = mut { figure: figure, spot: spot }
         bestYards = yards
       }
     }
@@ -188,7 +188,7 @@ public class NpcPins implements Layer {
 
   public pins(): array<Pin> {
     const figure = self.shown
-    const pins: array<Pin> = []
+    const pins: array<Pin> = mut []
     if (figure == nil) { return pins }
     for (spot of figure.spots) {
       pins.push({ of: figure.id, area: spot.area, x: spot.x, y: spot.y, icon: NPC, lit: true })

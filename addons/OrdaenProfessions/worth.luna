@@ -204,7 +204,7 @@ public class WorthPage implements Component {
   reachedOf(): array<Reached> {
     const book = self.book
     const own = Game::player.guid
-    const list: array<Reached> = []
+    const list: array<Reached> = mut []
     const alts = Alts
     if (alts == nil) {
       const shelf = book.characters[own]
@@ -215,7 +215,7 @@ public class WorthPage implements Component {
     for (id, character of alts.characters) {
       const shelf = book.characters[id]
       if (shelf != nil && (id == own || alts.reaches(id))) {
-        const ready: map<integer, integer> = {}
+        const ready: map<integer, integer> = mut {}
         for (known of character.professions) {
           for (recipe, hour of known.ready) { ready[recipe] = hour }
         }
@@ -258,8 +258,8 @@ public class WorthPage implements Component {
     const book = self.book
     const mode = self.mode
     const now: integer = Hour::now()
-    const held: map<integer, integer> = {}
-    const list: array<Worth> = []
+    const held: map<integer, integer> = mut {}
+    const list: array<Worth> = mut []
     for (character of self.reached) {
       const shelf = book.characters[character.guid]
       if (shelf != nil) {
@@ -287,7 +287,7 @@ public class WorthPage implements Component {
     let cost: integer | nil = prices == nil ? nil : 0
     let age: integer | nil = nil
     let can = number::huge
-    const missing: array<Reagent> = []
+    const missing: array<Reagent> = mut []
     for (part of entry.parts) {
       const have: integer = held[part.item] ?? self.heldOf(part.item)
       held[part.item] = have

@@ -69,7 +69,7 @@ function says(part: Test::Part, label: string, expected: string): boolean {
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: array<string> = []
+      let read: array<string> = mut []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }

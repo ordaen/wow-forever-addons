@@ -129,13 +129,13 @@ function nameOf(token: string, own: array<string>, owners: map<string, string>, 
 
 // What the wheel names each emote by, by its token (`nameOf`).
 public function emoteNames(): map<string, string> {
-  const commands: map<string, array<string>> = {}
+  const commands: map<string, array<string>> = mut {}
   // Each first command's emote: the lowest number's.
-  const owners: map<string, string> = {}
+  const owners: map<string, string> = mut {}
   for (index of 1..EMOTES_MOST) {
     const token = text(`EMOTE${index}_TOKEN`)
     if (token != nil && commands[token] == nil) {
-      const own: array<string> = []
+      const own: array<string> = mut []
       for (step of 1..COMMANDS_MOST) {
         const command = text(`EMOTE${index}_CMD${step}`)
         if (command == nil) { break }
@@ -149,7 +149,7 @@ public function emoteNames(): map<string, string> {
     }
   }
   const english = Client::GetLocale() == "enUS" || Client::GetLocale() == "enGB"
-  const names: map<string, string> = {}
+  const names: map<string, string> = mut {}
   for (token, own of commands) { names[token] = nameOf(token, own, owners, english) }
   return names
 }

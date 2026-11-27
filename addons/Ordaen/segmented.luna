@@ -86,7 +86,7 @@ public class Segmented<T: unknown> implements Component {
   }
 
   tracks(): array<Track> {
-    let list: array<Track> = []
+    let list: array<Track> = mut []
     for (choice of self.choices) { list.push("max-content") }
     return list
   }

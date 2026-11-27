@@ -96,7 +96,7 @@ public class Character implements Module, App {
   state skills: array<Skill> = []
   state factions: array<Faction> = []
   // Each faction's value as the window first read it this session, by the faction's number: what it rose since.
-  state starts: mut map<integer, integer> = {}
+  state starts: mut map<integer, integer> = mut {}
   // The faction picked, by its number (none: 0), and whether it is inactive.
   state chosen = 0
   state chosenInactive = false
@@ -451,7 +451,7 @@ public class Character implements Module, App {
 
   // The slots what the cursor holds goes in, as the game's slots light.
   mut readFits() {
-    const fits: array<integer> = []
+    const fits: array<integer> = mut []
     for (slot of 0..19) {
       if (self.sheet.fits(slot)) { fits.push(slot) }
     }
@@ -465,7 +465,7 @@ public class Character implements Module, App {
   }
 
   mut readGear() {
-    const worn: array<Worn> = []
+    const worn: array<Worn> = mut []
     for (slot of 0..19) { worn.push(self.sheet.worn(slot)) }
     self.worn = worn
     self.usesAmmo = self.sheet.usesAmmo()

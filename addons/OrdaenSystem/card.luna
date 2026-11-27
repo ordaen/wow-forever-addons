@@ -138,7 +138,7 @@ public class Card implements Component {
   }
 
   namedOf(names: array<string>): array<Named> {
-    const list: array<Named> = []
+    const list: array<Named> = mut []
     for (name of names) {
       const status = self.catalog.statuses[name]
       if (status == nil) {
@@ -167,7 +167,7 @@ public class Card implements Component {
         { label: Locale::CARD_SPIKES, value: DASH }, { label: Locale::CARD_MEMORY, value: weight }
       ]
     }
-    const spikes: array<string> = []
+    const spikes: array<string> = mut []
     for (index, over of SPIKES) {
       const count = load.spikes[index] ?? 0
       if (count > 0) { spikes.push(Locale::SPIKE.format(over, count)) }

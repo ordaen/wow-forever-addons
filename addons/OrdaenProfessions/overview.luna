@@ -131,7 +131,7 @@ public class OverviewPage implements Component {
   derived spellName: string = knownSpellName(self.spell)
   derived hasSpell: boolean = self.spellName != ""
   derived spellLabel: string = self.profession?.skillLine == FISHING ? Locale::ACTION_FISH : Locale::ACTION_DISENCHANT
-  derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
+  derived spellAction: Action | nil = Action::CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
   derived counts: array<OverviewLine> = self.countsOf()
   derived toLearn: array<OverviewLine> = self.toLearnOf()
   derived needs: array<OverviewLine> = self.needsOf()
@@ -182,7 +182,7 @@ public class OverviewPage implements Component {
       const y = learnSkillOf(taught[b.name], yellow[b.id])
       return x < y || (x == y && a.name < b.name)
     })
-    let lines: array<OverviewLine> = []
+    let lines: array<OverviewLine> = mut []
     for (recipe of list) {
       if (lines.length >= NEXT_MOST) { break }
       const from = taught[recipe.name]
@@ -197,7 +197,7 @@ public class OverviewPage implements Component {
 
   // Each tool or place a learned recipe asks for, once, in the order met.
   needsOf(): array<OverviewLine> {
-    let lines: array<OverviewLine> = []
+    let lines: array<OverviewLine> = mut []
     for (recipe of Game::tradeSkill.recipes) {
       if (recipe.learned) {
         for (need of Game::tradeSkill.requirements(recipe.id)) {
@@ -211,7 +211,7 @@ public class OverviewPage implements Component {
 
   // The tracked recipes of this profession, each with what its bags still lack for one making.
   trackedOf(): array<OverviewLine> {
-    let lines: array<OverviewLine> = []
+    let lines: array<OverviewLine> = mut []
     for (recipe of Game::tradeSkill.recipes) {
       if (has(self.kept.tracked, recipe.id)) {
         let missing = ""

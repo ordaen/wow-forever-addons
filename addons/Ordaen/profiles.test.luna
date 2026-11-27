@@ -20,11 +20,11 @@ struct Remembered implements Plain {
 }
 
 test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {
-  const picks = ProfilePicks {}
+  const picks = mut ProfilePicks {}
   picks.account = "Shared"
   picks.byClass["MAGE"] = "Mages"
   picks.byCharacter["Player-1"] = "Mine"
-  const specs: map<integer, ProfileName> = {}
+  const specs: map<integer, ProfileName> = mut {}
   specs[2] = "Frost"
   picks.bySpec["Player-1"] = specs
   Test::expect(picked(picks, { character: "Player-1", spec: 2, classTag: "MAGE" }) == "Frost")
@@ -56,23 +56,23 @@ test "a switch to another profile takes effect at once, and is kept" {
 test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
   const globals: Globals = { scale: 1.25, density: Density::Compact, ..DEFAULTS }
   const look = preset(Preset::Minimal)
-  const settings: map<string, unknown> = {}
+  const settings: map<string, unknown> = mut {}
   settings["Ordaen"] = globals
   settings["Ordaen:look"] = look
   settings["OrdaenMinimap"] = Probe { scale: 1.5 }
   settings["OrdaenProfessions:memory"] = Remembered { last: "Alchemy" }
-  const choices: map<string, boolean> = {}
+  const choices: map<string, boolean> = mut {}
   choices["OrdaenPanel"] = false
-  const places: map<string, KeptPlace> = {}
+  const places: map<string, KeptPlace> = mut {}
   places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
-  const account: map<string, unknown> = {}
+  const account: map<string, unknown> = mut {}
   account["settings"] = settings
   account["choices"] = choices
   account["places"] = places
   Test::saved("LunaTypeDB", account)
-  const own: map<string, unknown> = {}
+  const own: map<string, unknown> = mut {}
   own["OrdaenPanel:memory"] = Remembered { last: "bags" }
-  const character: map<string, unknown> = {}
+  const character: map<string, unknown> = mut {}
   character["settings"] = own
   Test::saved("LunaTypeCharDB", character)
   Test::reload()
@@ -105,9 +105,9 @@ test "what develop's build kept reads back: its settings as «Default», what mo
 }
 
 test "what develop kept for a module that loads after «Default» was renamed moves into the profile that is the account's now" {
-  const settings: map<string, unknown> = {}
+  const settings: map<string, unknown> = mut {}
   settings["OrdaenMinimap"] = Probe { scale: 1.5 }
-  const account: map<string, unknown> = {}
+  const account: map<string, unknown> = mut {}
   account["settings"] = settings
   Test::saved("LunaTypeDB", account)
   Test::reload()
@@ -139,9 +139,9 @@ test "a change applies at once with nothing to save, and is packed into its prof
 }
 
 test "the parts' places are the active profile's, and the account's move into «Default» once" {
-  const places: map<string, KeptPlace> = {}
+  const places: map<string, KeptPlace> = mut {}
   places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
-  const account: map<string, unknown> = {}
+  const account: map<string, unknown> = mut {}
   account["places"] = places
   Test::saved("LunaTypeDB", account)
   Test::reload()
@@ -233,19 +233,19 @@ test "a second character of another class follows the class's pick or the accoun
 }
 
 test "a renamed module keeps what was kept under its former name: its settings, its memory, its sections, on or off" {
-  const settings: map<string, unknown> = {}
+  const settings: map<string, unknown> = mut {}
   settings["OrdaenAuction"] = Probe { scale: 2 }
   settings["OrdaenAuction:buy"] = Remembered { last: "Linen" }
-  const choices: map<string, boolean> = {}
+  const choices: map<string, boolean> = mut {}
   choices["OrdaenAuction"] = false
   settings["choices"] = choices
-  const sections: map<string, string> = {}
+  const sections: map<string, string> = mut {}
   sections["OrdaenAuction:list"] = "packed"
-  const profile: Profile = { sections: sections }
-  const profiles: map<string, mut Profile> = {}
+  const profile: Profile = mut { sections: sections }
+  const profiles: map<string, mut Profile> = mut {}
   profiles[DEFAULT_PROFILE] = profile
   settings["profiles"] = SavedProfiles { profiles: profiles }
-  const account: map<string, unknown> = {}
+  const account: map<string, unknown> = mut {}
   account["settings"] = settings
   Test::saved("LunaTypeDB", account)
   Test::reload()
