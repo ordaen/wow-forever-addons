@@ -887,11 +887,11 @@ test "a player's state reads dead, a ghost or not to be disturbed; a party membe
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   Test::expect(tip("Kirin Tor").text("Corpse").shown())
-  who = mut { ghost: true, ..jaina() }
+  who = { ghost: true, ..jaina() }
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   Test::expect(reads(tip("Kirin Tor"), "|cffcbb994|r|cff4d99ffJaina|r|cffcbb994 the Patient|r | Kirin Tor | · | Archmage | Mage | · | Ghost | · | PvP | Level 60 | Human | Alliance | Target | Thrall | Raid | Group 2 | Friend | met in Dalaran"))
-  who = mut { afk: false, dnd: true, raidGroup: nil, inParty: true, friend: false, ignored: true, ..jaina() }
+  who = { afk: false, dnd: true, raidGroup: nil, inParty: true, friend: false, ignored: true, ..jaina() }
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
   const player = tip("Kirin Tor")
@@ -1833,7 +1833,7 @@ test "what an effect will still deal counts the whole ticks left, its stacks as 
   Game::tooltip.main = showing(holyFire())
   Test::pass(SHOWS)
   Test::expect(tip("Holy Fire").text("36 over 10 s").shown())
-  info = mut { stacks: 1, left: 10, ..burning() }
+  info = { stacks: 1, left: 10, ..burning() }
   Game::tooltip.main = showing({
     kind: 7, id: 1, lines: [{ left: "Ember", kind: 0 }, { left: "Burns for 0 damage every 3 sec.", kind: DESCRIBED }]
   })

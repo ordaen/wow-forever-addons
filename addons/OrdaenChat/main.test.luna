@@ -41,7 +41,7 @@ function input(parent: any Client::Frame): any Client::EditBox {
 
 // A line said by someone, shown in the windows given.
 function line(kind: string, body: string, sender: string, windows: array<integer>, channel: integer = 0, channelName: string = ""): mut Game::ChatLine {
-  return mut {
+  return {
     kind: kind, event: `CHAT_MSG_${kind}`, body: body, plain: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
     channelName: channelName, stream: "", color: WHITE, time: Game::clock.server, stamp: "", windows: windows, secret: ""
   }

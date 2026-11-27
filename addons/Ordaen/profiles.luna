@@ -109,7 +109,7 @@ implement SavedProfiles {
   // The profile under another name, in its picks too.
   public mut renamed(from: string, to: string) {
     // The account's default is there before anything is kept in it.
-    if (self.profiles[from] == nil) { self.profiles[from] = mut Profile {} }
+    if (self.profiles[from] == nil) { self.profiles[from] = Profile {} }
     const profile = self.profiles[from]
     if (profile == nil) { return }
     self.profiles[from] = nil
@@ -119,7 +119,7 @@ implement SavedProfiles {
 
   // The profile with no section: every module reads its defaults.
   public mut cleared(name: string) {
-    self.profiles[name] = mut Profile {}
+    self.profiles[name] = Profile {}
   }
 
   // The profile gone, and every pick of it.
@@ -347,7 +347,7 @@ public class Profiles {
     if (!self.free(name)) { return false }
     const next = self.edit()
     const source = from == nil ? nil : next.profiles[from]
-    next.profiles[name] = source == nil ? mut Profile {} : source.clone()
+    next.profiles[name] = source == nil ? Profile {} : source.clone()
     self.apply(next)
     return true
   }
@@ -356,7 +356,7 @@ public class Profiles {
   // taken, or a section can't be packed.
   public mut makeOf(name: ProfileName, sections: map<string, unknown>): boolean {
     if (!self.free(name)) { return false }
-    const profile = mut Profile {}
+    const profile = Profile {}
     for (key, values of sections) {
       const packed = Game::encoding.serialize(values)
       if (packed == nil) { return false }

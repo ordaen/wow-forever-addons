@@ -155,10 +155,10 @@ public function nearestOf(figures: array<Figure>, distance: (spot: Spot) => numb
   let first: FigureSpot | nil = nil
   for (figure of figures) {
     for (spot of figure.spots) {
-      if (first == nil) { first = mut { figure: figure, spot: spot } }
+      if (first == nil) { first = { figure: figure, spot: spot } }
       const yards = distance(spot)
       if (yards != nil && (best == nil || yards < bestYards)) {
-        best = mut { figure: figure, spot: spot }
+        best = { figure: figure, spot: spot }
         bestYards = yards
       }
     }

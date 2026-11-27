@@ -4,11 +4,11 @@ import Test from "$test"
 import { DB, ERRORS_MAX, Entry, Errors, Kind, Meta, SAVED, isOurs, noErrors, read, sourceOf, takeSaved } from "@/errors"
 
 function saved(session: integer, nextId: integer): mut DB {
-  return mut { session: session, nextId: nextId, sessions: mut {}, errors: mut [] }
+  return { session: session, nextId: nextId, sessions: mut {}, errors: mut [] }
 }
 
 function kept(id: integer, message: string, source: string, kind: Kind, session: integer): mut Entry {
-  return mut Entry { id: id, kind: kind, source: source, message: message, count: 1, time: "2026-01-01 00:00:00", session: session }
+  return Entry { id: id, kind: kind, source: source, message: message, count: 1, time: "2026-01-01 00:00:00", session: session }
 }
 
 function noMeta(): Meta {

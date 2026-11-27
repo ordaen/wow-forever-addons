@@ -88,7 +88,7 @@ public function tabSections(slots: array<Slot>, tab: Tab, grouping: Grouping, by
       if (group != nil) {
         group.slots.push(slot)
       } else {
-        const made: Group = mut {
+        const made: Group = {
           key: key, title: titleOf(slot, split), rank: rankOf(slot.tab),
           subkind: split == .Subclass ? slot.read.subkind : 0, slots: [slot]
         }

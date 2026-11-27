@@ -722,7 +722,7 @@ public class Window implements Component {
     let height = self.minHeight.max(used.height)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
-    self.declared.placing = mut {
+    self.declared.placing = {
       x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height
     }
     self.full = used.full

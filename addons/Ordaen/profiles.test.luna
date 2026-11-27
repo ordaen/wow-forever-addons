@@ -20,7 +20,7 @@ struct Remembered implements Plain {
 }
 
 test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {
-  const picks = mut ProfilePicks {}
+  const picks = ProfilePicks {}
   picks.account = "Shared"
   picks.byClass["MAGE"] = "Mages"
   picks.byCharacter["Player-1"] = "Mine"
@@ -241,7 +241,7 @@ test "a renamed module keeps what was kept under its former name: its settings, 
   settings["choices"] = choices
   const sections: map<string, string> = mut {}
   sections["OrdaenAuction:list"] = "packed"
-  const profile: Profile = mut { sections: sections }
+  const profile: Profile = { sections: sections }
   const profiles: map<string, mut Profile> = mut {}
   profiles[DEFAULT_PROFILE] = profile
   settings["profiles"] = SavedProfiles { profiles: profiles }

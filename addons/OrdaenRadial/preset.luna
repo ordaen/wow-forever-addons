@@ -10,7 +10,7 @@ import { emptyUnder, removePlace, within } from "@/places"
 function ring(counts: mut map<string, integer>, placed: array<(string, Item)>): mut Ring {
   const items: map<string, Item> = mut {}
   for (pair of placed) { items[pair[1]] = pair[2] }
-  return mut { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: mut {} }
+  return { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: mut {} }
 }
 
 function line(title: string, text: string, icon: Asset): Item {

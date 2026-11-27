@@ -145,7 +145,7 @@ public class Keeper {
     const name = peek self.profiles.active
     const kept = self.shelves[name]
     if (kept != nil) { return kept }
-    const made: Shelf = mut {}
+    const made: Shelf = {}
     self.shelves[name] = made
     return made
   }
@@ -170,7 +170,7 @@ public class Keeper {
     if (self.joined && last != nil) {
       if (last.before[key] == nil) { last.before[key] = before }
     } else {
-      const step: Step = mut { before: {} }
+      const step: Step = { before: {} }
       step.before[key] = before
       shelf.steps.push(step)
       if (shelf.steps.length > HISTORY_MOST) { _ = shelf.steps.remove(1) }

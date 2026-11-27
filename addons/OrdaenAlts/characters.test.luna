@@ -53,7 +53,7 @@ function order(names: array<string>): string {
 
 // A character of the player's realm and side, last played `hours` ago.
 function alt(name: string, level: integer, hours: integer): mut Character {
-  return mut Character {
+  return Character {
     name: name, realm: REALM, faction: .Alliance, level: level, seen: Hour::fromNow(-hours * 3600), mailExpires: nil
   }
 }
@@ -71,7 +71,7 @@ function again() {
 // The characters other sessions recorded (each its own GUID), and the one being played as it was last played where it
 // was, kept as the module's saved records and read by the module anew.
 function recorded(others: array<Character>, me: Character | nil) {
-  const kept = mut Kept {}
+  const kept = Kept {}
   for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   if (me != nil) { kept.characters[CharacterId::of(PLAYER)] = me.clone() }
   Game::saved.store(.Own, "characters", kept)

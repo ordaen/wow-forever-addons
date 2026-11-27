@@ -121,7 +121,7 @@ public class Slot {
     self.vault = vault
     self.bag = bag
     self.index = index
-    self.read = mut {
+    self.read = {
       id: 0, count: 0, quality: 1, icon: nil, name: "", link: "", level: 0, kind: -1, subkind: -1, subkindName: "",
       worn: "", bound: false, locked: false, isNew: false, price: 0
     }

@@ -156,7 +156,7 @@ public function ownRows(
 // letters of twelve.
 public function stacksOf(wanted: array<Game::MailStack>): array<Game::MailStack> {
   const stacks: array<Game::MailStack> = mut []
-  let slot = mut Game::SlotItem {
+  let slot = Game::SlotItem {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
   }
@@ -181,7 +181,7 @@ function wantedOf(who: string, offers: array<Offer>, chosen: map<string, integer
   const wanted: array<mut Game::MailStack> = mut []
   for (offer of offers) {
     const count = chosen[`${who}:${offer.item}`] ?? offer.count
-    if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push(mut { bag: 0, slot: 0, item: offer.item, count: count }) }
+    if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
   }
   return wanted
 }

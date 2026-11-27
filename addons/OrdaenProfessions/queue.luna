@@ -87,7 +87,7 @@ public function needsOf(lines: array<QueueLine>): array<Need> {
       }
       if (!found) {
         const total = reagent.need * line.count
-        list.push(mut {
+        list.push({
           item: reagent.itemID, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
           need: total, have: reagent.have,
           missing: (0).max(total - reagent.have)

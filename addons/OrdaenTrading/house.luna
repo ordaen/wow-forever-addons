@@ -198,8 +198,8 @@ function rolled(points: mut array<Quote>, now: Hour) {
 }
 
 function unpacked(packed: string | nil): mut Packed {
-  if (packed == nil) { return mut Packed {} }
+  if (packed == nil) { return Packed {} }
   const raw = Game::encoding.decompress(packed)
-  if (raw == nil) { return mut Packed {} }
+  if (raw == nil) { return Packed {} }
   return Packed::decode(Game::encoding.deserialize(raw), Packed {})
 }

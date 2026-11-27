@@ -48,7 +48,7 @@ function shows(expected: string): boolean {
 
 // A character of a realm with professions: name, rank and most, each.
 function crafter(name: string, realm: string, skills: array<Known>): mut Character {
-  const made = mut Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour::now(), mailExpires: nil }
+  const made = Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour::now(), mailExpires: nil }
   for (known of skills) { made.professions.push(known.clone()) }
   return made
 }
@@ -59,7 +59,7 @@ function skill(name: string, rank: integer, max: integer): Known {
 
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
 function recorded(others: array<Character>) {
-  const kept = mut Kept {}
+  const kept = Kept {}
   for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")

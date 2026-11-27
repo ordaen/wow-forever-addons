@@ -552,7 +552,7 @@ public class ProfilesPage implements Component {
     const made = self.typed()
     if (made == nil) { return }
     const next = self.profiles.edit()
-    next.profiles[made] = mut Profile { sections: result.sections.clone() }
+    next.profiles[made] = Profile { sections: result.sections.clone() }
     self.profiles.apply(next)
     self.chosen = made
     self.name = ""

@@ -250,7 +250,7 @@ test "the grip stops where the content would be cut, and the window grows again 
   const grown = Test::edges(Ordaen.art.window.wood, 0)
   Test::expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
   // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
-  page.placing.placing = mut { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
+  page.placing.placing = { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
   Test::flush()
   const handed = Test::edges(Ordaen.art.window.wood, 0)
   Test::expect(near(handed.right - handed.left, least.right - least.left))

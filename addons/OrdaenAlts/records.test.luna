@@ -32,7 +32,7 @@ function counts(pairs: array<integer>): map<integer, integer> {
 // The characters other sessions recorded, by their GUIDs, kept as the module's saved records; the module turned off
 // and on in Ordaen's settings reads them.
 function recorded(guids: array<string>, characters: array<Character>) {
-  const kept = mut Kept {}
+  const kept = Kept {}
   for (index, character of characters) { kept.characters[CharacterId::of(guids[index] ?? "")] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")
@@ -44,9 +44,9 @@ function recorded(guids: array<string>, characters: array<Character>) {
 
 // A smith of a realm and side who knows these recipes.
 function smith(name: string, realm: string, faction: string, recipes: array<integer>): mut Character {
-  const known = mut Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+  const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
   for (id of recipes) { known.recipes.push(RecipeId::of(id)) }
-  const made = mut Character {
+  const made = Character {
     name: name, realm: realm, faction: faction == "Horde" ? .Horde : .Alliance, level: 60, seen: Hour::now(), mailExpires: nil
   }
   made.professions.push(known)
@@ -250,13 +250,13 @@ test "the character being played can't be forgotten; another is, once, and its r
 }
 
 test "the saved size of twenty characters with three hundred recipes and a hundred and fifty items each" {
-  const kept = mut Kept {}
+  const kept = Kept {}
   for (i of 1..20) {
-    const known = mut Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+    const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
     for (r of 1..300) { known.recipes.push(RecipeId::of(2000 + r * 7)) }
     const items: map<ItemId, integer> = mut {}
     for (n of 1..150) { items[ItemId::of(2000 + n * 13)] = n }
-    const character = mut Character {
+    const character = Character {
       name: "Regy Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, level: 60, seen: Hour::now(), mailExpires: nil
     }
     character.professions.push(known)

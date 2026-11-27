@@ -327,7 +327,7 @@ test "a text that isn't a profile is refused with its sentence and changes nothi
   Test::mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
   const before = snapshot()
-  const shared = mut Shared { name: "Bad" }
+  const shared = Shared { name: "Bad" }
   shared.sections["Ordaen"] = "{{{{"
   const cases: map<string, string> = mut {}
   cases[""] = Locale::PROFILES_ERR_NO_TEXT

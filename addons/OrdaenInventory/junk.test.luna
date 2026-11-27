@@ -103,9 +103,9 @@ class World {
 // A rabbit's foot (grey, with a price), a sword and some cloth in the backpack.
 function carried(): mut array<mut Lies> {
   return mut [
-    mut { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
-    mut { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 2, subkind: 7 },
-    mut { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 }
+    { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
+    { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 2, subkind: 7 },
+    { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 }
   ]
 }
 
@@ -218,9 +218,9 @@ test "a grey item read before the client loaded it is judged again once it is: t
 
 test "a quest's item carries the game's quest border, one that starts a quest not yet taken its «!»" {
   const world = new World(mut [
-    mut { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, questItem: true },
-    mut { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, questItem: true, startsQuest: true },
-    mut { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, kind: 7 }
+    { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, questItem: true },
+    { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, questItem: true, startsQuest: true },
+    { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, kind: 7 }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
@@ -238,8 +238,8 @@ test "a quest's item carries the game's quest border, one that starts a quest no
 
 test "gear worth more to the player's spec than what it wears carries the game's green arrow; the rest none" {
   const world = new World(mut [
-    mut { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
-    mut { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 4, subkind: 1 }
+    { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
+    { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 4, subkind: 1 }
   ])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
@@ -259,7 +259,7 @@ test "gear worth more to the player's spec than what it wears carries the game's
 }
 
 test "the green arrow follows the gear: better gloves put on take it from the bags' gloves, taken off give it back" {
-  const world = new World(mut [mut { bag: 0, slot: 1, id: 25, name: "Worn Gloves", icon: SWORD, kind: 4, subkind: 1 }])
+  const world = new World(mut [{ bag: 0, slot: 1, id: 25, name: "Worn Gloves", icon: SWORD, kind: 4, subkind: 1 }])
   Game::bags.bag = (bag: integer): Game::BagInfo => world.bag(bag)
   Game::bags.size = (bag: integer): integer => world.size(bag)
   Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => world.read(bag, slot, into)
@@ -345,13 +345,13 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   world.take(0, 3)
   Game::bags.updated.emit(0)
   Test::expect(!bags().button(CLOTH).shown())
-  world.items.push(mut { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
+  world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
   Game::bags.updated.emit(0)
   Test::expect(!bags().button(CLOTH).paintedWith(COIN))
   bags().button(CLOTH).click()
   world.take(0, 3)
   Game::bags.updated.emit(0)
-  world.items.push(mut { bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
+  world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
   Game::bags.updated.emit(0)
   Test::expect(bags().button(CLOTH).paintedWith(COIN))
 }
@@ -514,7 +514,7 @@ test "Alt+click and Ctrl+click do nothing in Ordaen's scheme: protecting is the 
 
 test "the bank opens in a window of its own beside the bags', its slots read and picked up as the bags' are" {
   const world = new World(carried())
-  world.items.push(mut { bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
+  world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
   Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): array<Client::BankTabData> => [{
     ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
     tabNameEditBoxHeader: ""
@@ -540,7 +540,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
 
 test "away from the banker the bank is a tab of the bags' window: what it held, said to be a copy, not used" {
   const world = new World(carried())
-  world.items.push(mut { bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
+  world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
   Client::C_Bank::FetchPurchasedBankTabData = (kind: Client::BankType): array<Client::BankTabData> => [{
     ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
     tabNameEditBoxHeader: ""
@@ -582,7 +582,7 @@ test "what changes in the bank is read once the client's batch of updates ends" 
   Game::bags.open = true
   Game::bankObserver.open = true
   Test::expect(!bank().button(GEM).shown())
-  world.items.push(mut { bag: BANK, slot: 1, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
+  world.items.push({ bag: BANK, slot: 1, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
   Game::bankObserver.changed.emit()
   Test::expect(!bank().button(GEM).shown())
   Events::BAG_UPDATE_DELAYED.emit()

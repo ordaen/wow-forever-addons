@@ -65,7 +65,7 @@ public type Listener = (entry: Entry, isNew: boolean, firstThisSession: boolean)
 
 // The saved table of a first session: no session before it, no error.
 public function noErrors(): mut DB {
-  return mut { session: 0, nextId: 0, sessions: mut {}, errors: mut [] }
+  return { session: 0, nextId: 0, sessions: mut {}, errors: mut [] }
 }
 
 // What a session left in the saved table, read as the store's types: what doesn't fit is left out.
@@ -244,7 +244,7 @@ public class Errors {
       return (existing, false)
     }
     self.db.nextId += 1
-    let entry = mut Entry {
+    let entry = Entry {
       id: self.db.nextId,
       kind: fields.kind ?? Kind::Error,
       source: fields.source ?? sourceOf(message, fields.stack),
