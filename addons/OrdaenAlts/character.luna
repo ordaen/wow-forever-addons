@@ -7,12 +7,12 @@ import Game from "$game"
 import { Copper, Hour, ItemId } from "Ordaen"
 
 // A character by its GUID (`Player-6946-005FB73B`): the same across renames of its realm.
-public type CharacterId = brand String {
-  public of(guid: String): CharacterId { return guid }
+public type CharacterId = brand string {
+  public of(guid: string): CharacterId { return guid }
 }
 
-public type RecipeId = brand Integer {
-  public of(id: Integer): RecipeId { return id }
+public type RecipeId = brand integer {
+  public of(id: integer): RecipeId { return id }
 }
 
 // The side a character fights for, as the game's `Faction` is, kept as plain data.
@@ -28,55 +28,55 @@ public enum Place { Bags = "bags", Bank = "bank", Mail = "mail", Auctions = "auc
 // A profession: its skill, the recipes the character has learned of it, and the hour each of them with a cooldown is
 // ready again.
 public struct Known implements Plain {
-  skillLine: Integer
+  skillLine: integer
   // Its name in the player's language, as the game listed it.
-  name: String = ""
-  rank: Integer = 0
-  max: Integer = 0
-  recipes: mut Array<RecipeId> = []
-  ready: mut Map<RecipeId, Hour> = {}
+  name: string = ""
+  rank: integer = 0
+  max: integer = 0
+  recipes: mut array<RecipeId> = []
+  ready: mut map<RecipeId, Hour> = {}
 }
 
 // One character of the player's account, as it was when last played. What a place holds is counted by item, never
 // slot by slot or as links.
 public struct Character implements Plain {
-  name: String = ""
-  realm: String = ""
+  name: string = ""
+  realm: string = ""
   faction: Faction = .Neutral
   // Its class, by the game's own word for it (`MAGE`); empty for a record kept before it was written down.
-  classTag: String = ""
-  level: Integer = 1
+  classTag: string = ""
+  level: integer = 1
   money: Copper = 0
   // When it was last played.
   seen: Hour = 0
-  professions: mut Array<mut Known> = []
-  held: mut Map<Place, Map<ItemId, Integer>> = {}
+  professions: mut array<mut Known> = []
+  held: mut map<Place, map<ItemId, integer>> = {}
   // When the bank and the mail were last read: none before the first time.
-  read: mut Map<Place, Hour> = {}
+  read: mut map<Place, Hour> = {}
   // The hour the first mail that carries something expires; none for an empty inbox or one never read.
   mailExpires: Hour | nil
   // The bags' slots, and how many are free.
-  slots: Integer = 0
-  free: Integer = 0
+  slots: integer = 0
+  free: integer = 0
 }
 
 // What is saved: every character by its GUID.
 public struct Kept implements Plain {
-  characters: mut Map<CharacterId, mut Character> = {}
+  characters: mut map<CharacterId, mut Character> = {}
 }
 
 // Who holds an item, how many, and in which place.
 public struct Held {
   who: CharacterId
   place: Place
-  count: Integer
+  count: integer
 }
 
 // Who knows a recipe: whether the playing character can send to them (the same realm and side), and the hour they can
 // make it again where it has a cooldown (an hour that has gone is ready now).
 public struct Knower {
   who: CharacterId
-  reachable: Boolean
+  reachable: boolean
   ready: Hour | nil
 }
 
@@ -88,4 +88,4 @@ public const MOST_RECIPES = 1500
 public const MOST_ITEMS = 1000
 // Hours unseen after which the window marks a character (90 days): marked, it stays until the player forgets it or
 // it is the one played longest ago past the most characters.
-public const STALE: Integer = 90 * 24
+public const STALE: integer = 90 * 24

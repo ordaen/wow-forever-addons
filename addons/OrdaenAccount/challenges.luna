@@ -20,7 +20,7 @@ import Style from "@/style"
 // The Legacy points' trait currency (`Constants.LegacyConsts.LEGACY_POINTS_TRAIT_CURRENCY_ID`).
 public const LEGACY_POINTS = 4225
 // Each class's category, which the list opens on (`LEGACY_DEFAULT_CATEGORY_<CLASS>`).
-const CLASS_CATEGORIES: Map<String, Integer> = {
+const CLASS_CATEGORIES: map<string, integer> = {
   WARRIOR: 15585, PALADIN: 15580, HUNTER: 15578, ROGUE: 15582, PRIEST: 15581, SHAMAN: 15583, MAGE: 15579,
   WARLOCK: 15584, DRUID: 15577
 }
@@ -32,59 +32,59 @@ public enum ChallengeShow { Done, Open }
 // How the one list is sorted.
 public enum ChallengeSort { Game, Name, Points }
 
-const VIEWS: Array<Choice<ChallengeView>> = [
+const VIEWS: array<Choice<ChallengeView>> = [
   { value: ChallengeView::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: ChallengeView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
-const SORTS: Array<Choice<ChallengeSort>> = [
+const SORTS: array<Choice<ChallengeSort>> = [
   { value: ChallengeSort::Game, label: Locale::SORT_GAME },
   { value: ChallengeSort::Name, label: Locale::SORT_NAME },
   { value: ChallengeSort::Points, label: Locale::SORT_POINTS }
 ]
-const FILTERS: Array<FilterGroup<ChallengeShow>> = [
+const FILTERS: array<FilterGroup<ChallengeShow>> = [
   { label: nil, options: [{ key: ChallengeShow::Done, label: Locale::SHOW_DONE }, { key: ChallengeShow::Open, label: Locale::SHOW_OPEN }] }
 ]
-const EVERY_SHOW: Map<ChallengeShow, Boolean> = { [ChallengeShow::Done]: true, [ChallengeShow::Open]: true }
+const EVERY_SHOW: map<ChallengeShow, boolean> = { [ChallengeShow::Done]: true, [ChallengeShow::Open]: true }
 
 // One challenge.
 public struct Challenge {
-  id: Integer
-  name: String
-  description: String
+  id: integer
+  name: string
+  description: string
   icon: FileId | nil
   // Completed by this character.
-  done: Boolean
+  done: boolean
   // When, as the game writes a date; empty while not completed.
-  date: String
-  points: Integer
+  date: string
+  points: integer
   // Its place in its category, as the game orders it (the completed first).
-  place: Integer
+  place: integer
 }
 
 // A category and its challenges, under its parent where it has one.
 public struct Category {
-  id: Integer
-  name: String
-  depth: Integer
-  challenges: Array<Challenge>
+  id: integer
+  name: string
+  depth: integer
+  challenges: array<Challenge>
 }
 
 // One of a challenge's criteria: its words, whether it is met, and how far a counted one has got.
 public struct Criterion {
-  text: String
-  done: Boolean
+  text: string
+  done: boolean
   // «3 / 10» for a counted one not met yet, empty for the others; how far, 0 to 1.
-  count: String
-  progress: Number
+  count: string
+  progress: number
 }
 
-const CHALLENGE_ROW: Array<Track> = [Style::ICON, { fr: 1 }, "max-content"]
-const CARD_HEAD: Array<Track> = [Style::CARD_ICON, { fr: 1 }]
-const CARD_PARTS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", { fr: 1 }]
+const CHALLENGE_ROW: array<Track> = [Style::ICON, { fr: 1 }, "max-content"]
+const CARD_HEAD: array<Track> = [Style::CARD_ICON, { fr: 1 }]
+const CARD_PARTS: array<Track> = ["max-content", "max-content", "max-content", "max-content", { fr: 1 }]
 
-function challengeOf(id: Number | nil, name: String | nil, done: Boolean | nil, month: Number | nil, day: Number | nil,
-  year: Number | nil, description: String | nil, icon: FileId | nil, mine: Boolean | nil,
-  place: Integer): Challenge | nil {
+function challengeOf(id: number | nil, name: string | nil, done: boolean | nil, month: number | nil, day: number | nil,
+  year: number | nil, description: string | nil, icon: FileId | nil, mine: boolean | nil,
+  place: integer): Challenge | nil {
   if (id == nil || name == nil) { return nil }
   const whole = id.floor()
   const earned = done == true && mine != false
@@ -96,8 +96,8 @@ function challengeOf(id: Number | nil, name: String | nil, done: Boolean | nil, 
 }
 
 // A category's challenges, as the game orders them.
-function challengesIn(category: Integer): Array<Challenge> {
-  const list: Array<Challenge> = []
+function challengesIn(category: integer): array<Challenge> {
+  const list: array<Challenge> = []
   const total, _, _ = Client::GetCategoryNumAchievements(category)
   for (index of 1..total.floor()) {
     const id, name, _, done, month, day, year, description, _, icon, _, _, mine, _ = Client::GetAchievementInfo(category, index)
@@ -108,16 +108,16 @@ function challengesIn(category: Integer): Array<Challenge> {
 }
 
 // Every category with its challenges, each under its parent, in the game's order.
-function categoriesOf(): Array<Category> {
+function categoriesOf(): array<Category> {
   const ids = Client::GetCategoryList()
-  const parents: Map<Integer, Integer> = {}
-  const names: Map<Integer, String> = {}
+  const parents: map<integer, integer> = {}
+  const names: map<integer, string> = {}
   for (id of ids) {
     const name, parent, _ = Client::GetCategoryInfo(id)
     names[id] = name
     parents[id] = parent
   }
-  const list: Array<Category> = []
+  const list: array<Category> = []
   for (id of ids) {
     if ((parents[id] ?? -1) == -1) {
       list.push({ id: id, name: names[id] ?? "", depth: 0, challenges: challengesIn(id) })
@@ -129,8 +129,8 @@ function categoriesOf(): Array<Category> {
   return list
 }
 
-function criteriaOf(challenge: Integer): Array<Criterion> {
-  const list: Array<Criterion> = []
+function criteriaOf(challenge: integer): array<Criterion> {
+  const list: array<Criterion> = []
   for (index of 1..Client::GetAchievementNumCriteria(challenge).floor()) {
     const text, _, done, have, need, _, _, _, shown, _, _ = Client::GetAchievementCriteriaInfo(challenge, index)
     const counted = need > 1 && !done
@@ -142,7 +142,7 @@ function criteriaOf(challenge: Integer): Array<Criterion> {
   return list
 }
 
-function sortedBy(list: mut Array<Challenge>, sort: ChallengeSort) {
+function sortedBy(list: mut array<Challenge>, sort: ChallengeSort) {
   match (sort) {
     .Game => list.sort((a, b) => a.done != b.done ? a.done : a.place < b.place)
     .Name => list.sort((a, b) => a.name < b.name)
@@ -151,14 +151,14 @@ function sortedBy(list: mut Array<Challenge>, sort: ChallengeSort) {
 }
 
 public class ChallengeRow implements Component {
-  public pick: Event<Integer> = new Event()
-  derived picked: Boolean = self.challenge.id == self.chosen
+  public pick: Event<integer> = new Event()
+  derived picked: boolean = self.challenge.id == self.chosen
   derived ink: Color = self.challenge.done ? Style::INK : Style::MISSING
-  derived points: String = "%d".format(self.challenge.points)
+  derived points: string = "%d".format(self.challenge.points)
 
   challenge: Signal<Challenge>
-  chosen: Signal<Integer>
-  constructor(challenge: Signal<Challenge>, chosen: Signal<Integer>) {
+  chosen: Signal<integer>
+  constructor(challenge: Signal<Challenge>, chosen: Signal<integer>) {
     self.challenge = challenge
     self.chosen = chosen
   }
@@ -181,23 +181,23 @@ public class ChallengeRow implements Component {
 
 // A category in the list: its fold, then its challenges while open.
 public class CategoryFold implements Component {
-  public pick: Event<Integer> = new Event()
-  public toggle: Event<Integer> = new Event()
-  derived folded: Boolean = self.closed[self.category.id] != false
-  derived title: String = (self.category.depth > 0 ? "· " : "") + self.category.name
-  derived count: String = "%d / %d".format(self.category.challenges.count(one => one.done), self.category.challenges.length)
+  public pick: Event<integer> = new Event()
+  public toggle: Event<integer> = new Event()
+  derived folded: boolean = self.closed[self.category.id] != false
+  derived title: string = (self.category.depth > 0 ? "· " : "") + self.category.name
+  derived count: string = "%d / %d".format(self.category.challenges.count(one => one.done), self.category.challenges.length)
 
   category: Signal<Category>
-  closed: Signal<Map<Integer, Boolean>>
-  chosen: Signal<Integer>
-  constructor(category: Signal<Category>, closed: Signal<Map<Integer, Boolean>>, chosen: Signal<Integer>) {
+  closed: Signal<map<integer, boolean>>
+  chosen: Signal<integer>
+  constructor(category: Signal<Category>, closed: Signal<map<integer, boolean>>, chosen: Signal<integer>) {
     self.category = category
     self.closed = closed
     self.chosen = chosen
   }
 
   onToggle(mut self) { self.toggle.emit(self.category.id) }
-  onPick(mut self, id: Integer) { self.pick.emit(id) }
+  onPick(mut self, id: integer) { self.pick.emit(id) }
 
   public render(self): Template {
     return $ltml {
@@ -217,7 +217,7 @@ public class CategoryFold implements Component {
 
 public class CriterionRow implements Component {
   derived ink: Color = self.criterion.done ? Style::GREEN : Style::INK
-  derived counted: Boolean = self.criterion.count != ""
+  derived counted: boolean = self.criterion.count != ""
 
   criterion: Signal<Criterion>
   constructor(criterion: Signal<Criterion>) { self.criterion = criterion }
@@ -243,22 +243,22 @@ public class Challenges {
   state search = ""
   state view: ChallengeView = .Categories
   state sort: ChallengeSort = .Game
-  state shows: Map<ChallengeShow, Boolean> = EVERY_SHOW
+  state shows: map<ChallengeShow, boolean> = EVERY_SHOW
   // The categories open, by their number; one not in it is folded.
-  state opened: Map<Integer, Boolean> = {}
-  derived categories: Array<Category> = self.readCategories()
-  derived everything: Array<Challenge> = self.everyOf()
+  state opened: map<integer, boolean> = {}
+  derived categories: array<Category> = self.readCategories()
+  derived everything: array<Challenge> = self.everyOf()
   // While a search is typed, or in the list's view, one list; otherwise the categories with what the filter leaves.
-  derived grouped: Boolean = self.view == .Categories && self.search == ""
-  derived folds: Array<Category> = self.foldsOf()
-  derived listed: Array<Challenge> = self.listedOf()
-  derived empty: Boolean = self.grouped ? self.folds.length == 0 : self.listed.length == 0
-  derived closed: Map<Integer, Boolean> = self.closedOf()
+  derived grouped: boolean = self.view == .Categories && self.search == ""
+  derived folds: array<Category> = self.foldsOf()
+  derived listed: array<Challenge> = self.listedOf()
+  derived empty: boolean = self.grouped ? self.folds.length == 0 : self.listed.length == 0
+  derived closed: map<integer, boolean> = self.closedOf()
   derived picked: Challenge | nil = self.chosen == 0 ? nil : self.everything.find(one => one.id == self.chosen)
-  derived criteria: Array<Criterion> = self.readCriteria()
-  derived pickedPoints: String = Locale::POINTS.format(self.picked?.points ?? 0)
-  derived pickedDate: String = self.picked?.done == true ? Locale::DONE_ON.format(self.picked?.date ?? "") : Locale::NOT_DONE
-  derived counts: Array<FooterCount> = self.countsOf()
+  derived criteria: array<Criterion> = self.readCriteria()
+  derived pickedPoints: string = Locale::POINTS.format(self.picked?.points ?? 0)
+  derived pickedDate: string = self.picked?.done == true ? Locale::DONE_ON.format(self.picked?.date ?? "") : Locale::NOT_DONE
+  derived counts: array<FooterCount> = self.countsOf()
   const card: Template = $ltml {
     <box rows={CARD_PARTS} gap={3sp}>
       <box columns={CARD_HEAD} gap={3sp} yAlign={Align::Center} @pointerEnter={self.onEnter}>
@@ -316,13 +316,13 @@ public class Challenges {
     if (own != nil) { self.opened = { [own]: true } }
   }
 
-  readCategories(self): Array<Category> {
+  readCategories(self): array<Category> {
     _ = self.touched
     return categoriesOf()
   }
 
-  everyOf(self): Array<Challenge> {
-    const list: Array<Challenge> = []
+  everyOf(self): array<Challenge> {
+    const list: array<Challenge> = []
     for (category of self.categories) {
       for (one of category.challenges) { list.push(one) }
     }
@@ -330,13 +330,13 @@ public class Challenges {
   }
 
   // Whether the filter leaves a challenge.
-  shown(self, one: Challenge): Boolean {
+  shown(self, one: Challenge): boolean {
     return one.done ? self.shows[ChallengeShow::Done] == true : self.shows[ChallengeShow::Open] == true
   }
 
   // The categories with what the filter leaves of them; one the filter empties is left out.
-  foldsOf(self): Array<Category> {
-    const list: Array<Category> = []
+  foldsOf(self): array<Category> {
+    const list: array<Category> = []
     for (category of self.categories) {
       const left = category.challenges.filter(one => self.shown(one))
       if (left.length > 0) { list.push({ id: category.id, name: category.name, depth: category.depth, challenges: left }) }
@@ -344,7 +344,7 @@ public class Challenges {
     return list
   }
 
-  listedOf(self): Array<Challenge> {
+  listedOf(self): array<Challenge> {
     const words = self.search.lower()
     const list = self.everything.filter(one => self.shown(one) && (words == "" || one.name.lower().contains(words)))
     sortedBy(list, self.sort)
@@ -352,18 +352,18 @@ public class Challenges {
   }
 
   // A category folded is one not open.
-  closedOf(self): Map<Integer, Boolean> {
-    const closed: Map<Integer, Boolean> = {}
+  closedOf(self): map<integer, boolean> {
+    const closed: map<integer, boolean> = {}
     for (category of self.categories) { closed[category.id] = self.opened[category.id] != true }
     return closed
   }
 
-  readCriteria(self): Array<Criterion> {
+  readCriteria(self): array<Criterion> {
     _ = self.touched
     return self.chosen == 0 ? [] : criteriaOf(self.chosen)
   }
 
-  countsOf(self): Array<FooterCount> {
+  countsOf(self): array<FooterCount> {
     let done = 0
     let points = 0
     for (one of self.everything) {
@@ -374,14 +374,14 @@ public class Challenges {
     }
     return [
       { label: Locale::COUNT_DONE, value: "%d / %d".format(done, self.everything.length) },
-      { label: Locale::COUNT_POINTS, value: String::of(points) }
+      { label: Locale::COUNT_POINTS, value: string::of(points) }
     ]
   }
 
-  onPick(mut self, id: Integer) { self.chosen = id }
+  onPick(mut self, id: integer) { self.chosen = id }
 
-  onToggle(mut self, id: Integer) {
-    const next: Map<Integer, Boolean> = {}
+  onToggle(mut self, id: integer) {
+    const next: map<integer, boolean> = {}
     for (key, value of self.opened) { next[key] = value }
     next[id] = self.opened[id] != true
     self.opened = next

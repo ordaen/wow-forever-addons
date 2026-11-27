@@ -11,11 +11,11 @@ import Style from "@/style"
 const LISTED_MOST = 12
 const WIDTH = 656.25dp
 const BUTTON = 234.375dp
-const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 
 // The first `LISTED_MOST` changes.
-function firstOf(changes: Array<GameChange>): Array<GameChange> {
-  const list: Array<GameChange> = []
+function firstOf(changes: array<GameChange>): array<GameChange> {
+  const list: array<GameChange> = []
   for (change of changes) {
     if (list.length >= LISTED_MOST) { break }
     list.push(change)
@@ -24,11 +24,11 @@ function firstOf(changes: Array<GameChange>): Array<GameChange> {
 }
 
 public class ProfileQuestion implements Component {
-  derived asked: Boolean = self.keeping.asking.length > 0
-  derived text: String = Locale::GAME_CHANGES_TEXT.format(self.keeping.asking.length)
-  derived listed: Array<GameChange> = firstOf(self.keeping.asking)
-  derived more: Integer = self.keeping.asking.length - self.listed.length
-  derived moreText: String = Locale::GAME_CHANGES_MORE.format(self.more)
+  derived asked: boolean = self.keeping.asking.length > 0
+  derived text: string = Locale::GAME_CHANGES_TEXT.format(self.keeping.asking.length)
+  derived listed: array<GameChange> = firstOf(self.keeping.asking)
+  derived more: integer = self.keeping.asking.length - self.listed.length
+  derived moreText: string = Locale::GAME_CHANGES_MORE.format(self.more)
 
   const keeping: mut GameKeeping
   constructor(keeping: mut GameKeeping) {

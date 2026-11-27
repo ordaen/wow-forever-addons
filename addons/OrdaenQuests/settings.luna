@@ -5,9 +5,9 @@ import Locale from "@/locales"
 
 public struct Choices implements Plain {
   // The game's «Журнал заданий» key (L) and its button in the micro menu open Quests' window; off, the game's log.
-  ownKey: Boolean
+  ownKey: boolean
   // A quest's page opens with its parchment folded to its title; a click unfolds it.
-  foldedScroll: Boolean = false
+  foldedScroll: boolean = false
 }
 
 public class GeneralPage implements Component {

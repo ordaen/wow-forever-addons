@@ -19,21 +19,21 @@ const ASK_WIDTH = 468.75dp
 const BUTTON_WIDTH = 164.0625dp
 
 // How far a skill is to its cap, from 0 to 1.
-function shareOf(skill: Skill): Number {
+function shareOf(skill: Skill): number {
   return skill.max <= 0 ? 0 : (skill.rank / skill.max).min(1)
 }
 
 // A skill's rank against its cap, as the game writes it.
-function rankText(skill: Skill): String { return `${skill.rank} / ${skill.max}` }
+function rankText(skill: Skill): string { return `${skill.rank} / ${skill.max}` }
 
-function bonusText(skill: Skill): String { return skill.modifier > 0 ? `+${skill.modifier}` : "" }
+function bonusText(skill: Skill): string { return skill.modifier > 0 ? `+${skill.modifier}` : "" }
 
 // The skills the list shows: those whose name holds the search, each under the heading the game lists it under, which
 // stays while it holds any. A folded heading's skills are the game's to list: a search finds them once it is opened.
-public function listedSkills(skills: Array<Skill>, search: String): Array<Skill> {
+public function listedSkills(skills: array<Skill>, search: string): array<Skill> {
   const needle = search.lower()
   if (needle == "") { return skills }
-  const listed: Array<Skill> = []
+  const listed: array<Skill> = []
   let heading: Skill | nil = nil
   for (skill of skills) {
     if (skill.header) {
@@ -48,7 +48,7 @@ public function listedSkills(skills: Array<Skill>, search: String): Array<Skill>
 }
 
 // The heading a skill is listed under; empty for one under none.
-function headingOf(skills: Array<Skill>, id: Integer): String {
+function headingOf(skills: array<Skill>, id: integer): string {
   let heading = ""
   for (skill of skills) {
     if (skill.header) {
@@ -61,7 +61,7 @@ function headingOf(skills: Array<Skill>, id: Integer): String {
 }
 
 // The footer's count: the skills the character has.
-public function skillsCount(skills: Array<Skill>): String {
+public function skillsCount(skills: array<Skill>): string {
   return Locale::SKILLS_COUNT.format(skills.count(skill => !skill.header))
 }
 
@@ -70,17 +70,17 @@ public class SkillRow implements Component {
   public pick: Event<Skill> = new Event()
   public fold: Event<Skill> = new Event()
 
-  derived share: Number = shareOf(self.skill)
-  derived barShown: Boolean = !self.skill.header
-  derived rank: String = self.skill.header ? "" : rankText(self.skill)
-  derived bonus: String = bonusText(self.skill)
+  derived share: number = shareOf(self.skill)
+  derived barShown: boolean = !self.skill.header
+  derived rank: string = self.skill.header ? "" : rankText(self.skill)
+  derived bonus: string = bonusText(self.skill)
   derived mark: Art | nil = self.skill.header ? (self.skill.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
   derived nameColor: Color = self.skill.header ? Style::GOLD : Style::INK
   derived background: Color = self.picked ? Style::PICKED : CLEAR
 
   skill: Signal<Skill>
-  picked: Signal<Boolean>
-  constructor(skill: Signal<Skill>, picked: Signal<Boolean>) {
+  picked: Signal<boolean>
+  constructor(skill: Signal<Skill>, picked: Signal<boolean>) {
     self.skill = skill
     self.picked = picked
   }
@@ -115,16 +115,16 @@ public class SkillDetail implements Component {
   public unlearn: Event<Skill> = new Event()
 
   state asking = false
-  derived share: Number = shareOf(self.skill)
-  derived rank: String = rankText(self.skill)
-  derived bonusShown: Boolean = self.skill.modifier > 0
-  derived bonus: String = Locale::SKILL_BONUS.format(self.skill.modifier)
-  derived described: Boolean = self.skill.description != ""
-  derived question: String = Locale::UNLEARN_ASK.format(self.skill.name)
+  derived share: number = shareOf(self.skill)
+  derived rank: string = rankText(self.skill)
+  derived bonusShown: boolean = self.skill.modifier > 0
+  derived bonus: string = Locale::SKILL_BONUS.format(self.skill.modifier)
+  derived described: boolean = self.skill.description != ""
+  derived question: string = Locale::UNLEARN_ASK.format(self.skill.name)
 
   skill: Signal<Skill>
-  heading: Signal<String>
-  constructor(skill: Signal<Skill>, heading: Signal<String>) {
+  heading: Signal<string>
+  constructor(skill: Signal<Skill>, heading: Signal<string>) {
     self.skill = skill
     self.heading = heading
   }
@@ -166,16 +166,16 @@ public class SkillsPage implements Component {
   public unlearn: Event<Skill> = new Event()
 
   derived picked: Skill | nil = self.skills.find(skill => !skill.header && skill.id == self.chosen)
-  derived hasPick: Boolean = self.picked != nil
+  derived hasPick: boolean = self.picked != nil
   derived shownPick: Skill = self.picked ?? self.skills[1] ?? panic("a skill is picked from the list")
-  derived pickedHeading: String = headingOf(self.skills, self.chosen)
-  derived listed: Array<Skill> = listedSkills(self.skills, self.search)
-  derived none: Boolean = self.listed.length == 0
+  derived pickedHeading: string = headingOf(self.skills, self.chosen)
+  derived listed: array<Skill> = listedSkills(self.skills, self.search)
+  derived none: boolean = self.listed.length == 0
 
-  skills: Signal<Array<Skill>>
-  chosen: Signal<Integer>
-  search: mut Signal<String>
-  constructor(skills: Signal<Array<Skill>>, chosen: Signal<Integer>, search: mut Signal<String>) {
+  skills: Signal<array<Skill>>
+  chosen: Signal<integer>
+  search: mut Signal<string>
+  constructor(skills: Signal<array<Skill>>, chosen: Signal<integer>, search: mut Signal<string>) {
     self.skills = skills
     self.chosen = chosen
     self.search = search

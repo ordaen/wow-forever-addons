@@ -32,20 +32,20 @@ const ARMED_OPACITY = 0.1
 const RING_1: NamedKey = { name: "ORDAEN_RADIAL_1", label: "Radial menu", key: nil }
 const RING_2: NamedKey = { name: "ORDAEN_RADIAL_2", label: "Radial menu: marks", key: nil }
 const RING_3: NamedKey = { name: "ORDAEN_RADIAL_3", label: "Radial menu: pings", key: nil }
-public const RING_KEYS: Array<String> = ["ORDAEN_RADIAL_1", "ORDAEN_RADIAL_2", "ORDAEN_RADIAL_3"]
+public const RING_KEYS: array<string> = ["ORDAEN_RADIAL_1", "ORDAEN_RADIAL_2", "ORDAEN_RADIAL_3"]
 
 // A ring's place inside the client's wheel: `""` the ring itself (`r`), `"3_2"` (`r_3_2`).
-public function wheelPlace(place: String): String { return place == "" ? ROOT : `${ROOT}_${place}` }
-public function placeOf(wheelPath: String): String { return wheelPath == ROOT ? "" : wheelPath.sub(ROOT.length + 2) }
+public function wheelPlace(place: string): string { return place == "" ? ROOT : `${ROOT}_${place}` }
+public function placeOf(wheelPath: string): string { return wheelPath == ROOT ? "" : wheelPath.sub(ROOT.length + 2) }
 
 // The player's class, as the client tags it (`WARRIOR`).
-function playerClass(): String | nil {
+function playerClass(): string | nil {
   const _, tag, _ = Client::UnitClass("player")
   return tag
 }
 
 // Whether an item's condition holds now: its class, its form, its modifier.
-function holdsNow(condition: Condition | nil): Boolean {
+function holdsNow(condition: Condition | nil): boolean {
   if (condition == nil) { return true }
   const classTag = condition.classTag
   if (classTag != nil && classTag != playerClass()) { return false }
@@ -62,12 +62,12 @@ function holdsNow(condition: Condition | nil): Boolean {
 // A ring as the wheel shows it: its rings and items, a ring of professions made of those the player has, each item's
 // action on its condition.
 public struct Laid {
-  rings: Array<WheelRing>
-  entries: Array<WheelEntry>
-  items: Map<String, Item>
-  counts: Map<String, Integer>
-  conditions: Map<String, Condition>
-  icons: Map<String, PlaceIcon>
+  rings: array<WheelRing>
+  entries: array<WheelEntry>
+  items: map<string, Item>
+  counts: map<string, integer>
+  conditions: map<string, Condition>
+  icons: map<string, PlaceIcon>
 }
 
 // An item as drawn, with the icon the player chose for its place over its own (`nil` chosen: its name in its wedge).
@@ -76,9 +76,9 @@ function withChosenIcon(drawn: WheelItem, chosen: PlaceIcon | nil): WheelItem {
   return { icon: chosen.icon, ..drawn }
 }
 
-public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
-  const counts: Map<String, Integer> = {}
-  const items: Map<String, Item> = {}
+public function laidOut(ring: Ring, offers: map<string, RadialOffer>): Laid {
+  const counts: map<string, integer> = {}
+  const items: map<string, Item> = {}
   for (place, count of ring.counts) { counts[place] = count }
   for (place, item of ring.items) {
     if (item == Item::Professions) {
@@ -91,9 +91,9 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
       items[place] = item
     }
   }
-  const rings: Array<WheelRing> = []
+  const rings: array<WheelRing> = []
   for (place, count of counts) { rings.push({ path: wheelPlace(place), count: count }) }
-  const entries: Array<WheelEntry> = []
+  const entries: array<WheelEntry> = []
   const mine = playerClass()
   for (place, item of items) {
     const condition = ring.conditions[place]
@@ -112,38 +112,38 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
 }
 
 public class Radial implements Module, App {
-  public const title: String = "Ordaen Radial"
+  public const title: string = "Ordaen Radial"
   // Kinds of items other modules add: they stand in the settings' catalogue and on the wheels.
   public const kinds = new Registry<any RadialKind>()
 
   public settings: mut Settings<Choices> = new Settings<Choices>(preset())
-  public const pages: Array<SettingsPage> = [
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} kinds={self.kinds} emotes={self.emotes} /> } }
   ]
   // A secure wheel for each ring's key.
-  public const wheels: mut Array<mut SecureWheel> = [
+  public const wheels: mut array<mut SecureWheel> = [
     new SecureWheel("OrdaenRadial1"), new SecureWheel("OrdaenRadial2"), new SecureWheel("OrdaenRadial3")
   ]
   // What the wheel names each emote by (its command in the player's language), by its token.
-  const emotes: Map<String, String> = emoteNames()
+  const emotes: map<string, string> = emoteNames()
   // What each kind of another module's offers now, by its id.
-  derived offers: Map<String, RadialOffer> = self.offersOf()
+  derived offers: map<string, RadialOffer> = self.offersOf()
   // Each ring as the wheel shows it, followed as the settings, the professions and the kinds' offers change.
-  derived laids: Array<Laid> = self.settings.values.rings.map(ring => laidOut(ring, self.offers))
+  derived laids: array<Laid> = self.settings.values.rings.map(ring => laidOut(ring, self.offers))
 
   // The ring that is up (0: none), the ring of it shown, and what the cursor chooses there.
-  public derived up: Integer = self.upOf()
+  public derived up: integer = self.upOf()
   derived wheel: SecureWheel | nil = self.wheels[self.up]
-  derived level: String = self.wheel?.level ?? ROOT
-  derived scale: Number = self.settings.values.rings[self.up]?.scale ?? 1
-  public derived shownItems: Array<WheelItem> = self.itemsOf()
-  public derived chosen: Integer = self.chosenOf()
+  derived level: string = self.wheel?.level ?? ROOT
+  derived scale: number = self.settings.values.rings[self.up]?.scale ?? 1
+  public derived shownItems: array<WheelItem> = self.itemsOf()
+  public derived chosen: integer = self.chosenOf()
   derived middle: WheelMiddle = self.middleOf()
-  derived opening: Number = self.wheel?.opening ?? 1
+  derived opening: number = self.wheel?.opening ?? 1
   // An item taken by a press, waiting for its release: the wheel all but vanishes while the cursor is over it, so the
   // spot its release does it at (where a ping lands) shows.
-  derived armed: Boolean = self.wheel?.armed ?? false
-  derived seeThrough: Boolean = self.armed && (self.wheel?.over ?? false)
+  derived armed: boolean = self.wheel?.armed ?? false
+  derived seeThrough: boolean = self.armed && (self.wheel?.over ?? false)
   derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames::Chosen
   // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
   derived category: Art | nil = self.categoryOf()
@@ -164,7 +164,7 @@ public class Radial implements Module, App {
   // Each ring an older build saved, upgraded (`upgraded`); the settings changed only where one was.
   upgrade(mut self, choices: Choices) {
     let changed = false
-    const rings: Array<Ring> = []
+    const rings: array<Ring> = []
     for (ring of choices.rings) {
       const fresh = upgraded(ring)
       if (fresh != nil) { changed = true }
@@ -178,20 +178,20 @@ public class Radial implements Module, App {
     return shown(item, item is Item::Kind ? self.offers[item.kind] : nil, self.emotes)
   }
 
-  offersOf(self): Map<String, RadialOffer> {
-    const offers: Map<String, RadialOffer> = {}
+  offersOf(self): map<string, RadialOffer> {
+    const offers: map<string, RadialOffer> = {}
     for (kind of self.kinds) { offers[kind.id] = kind.offer() }
     return offers
   }
 
-  upOf(self): Integer {
+  upOf(self): integer {
     for (index, wheel of self.wheels) {
       if (wheel.open) { return index }
     }
     return 0
   }
 
-  chosenOf(self): Integer {
+  chosenOf(self): integer {
     const wheel = self.wheel
     if (wheel == nil) { return 0 }
     return slotAt(wheel.aimX, wheel.aimY, self.shownItems.length, DEAD_ZONE / 1ui * self.scale)
@@ -236,7 +236,7 @@ public class Radial implements Module, App {
   }
 
   // The items of the ring shown, with their state now: read again as the wheel's count moves while it is up.
-  itemsOf(self): Array<WheelItem> {
+  itemsOf(self): array<WheelItem> {
     const ring = self.laids[self.up]
     const wheel = self.wheel
     if (ring == nil || wheel == nil) { return [] }
@@ -245,7 +245,7 @@ public class Radial implements Module, App {
     const place = placeOf(self.level)
     const count = ring.counts[place] ?? 0
     const fighting = Game::situation.combat
-    const items: Array<WheelItem> = []
+    const items: array<WheelItem> = []
     for (index of 1..count) {
       const at = within(place, index)
       const item = ring.items[at] ?? Item::Empty
@@ -270,7 +270,7 @@ public class Radial implements Module, App {
     return items
   }
 
-  apply(mut self, laids: Array<Laid>) {
+  apply(mut self, laids: array<Laid>) {
     for (index, wheel of self.wheels) {
       const laid = laids[index]
       const ring = self.settings.values.rings[index]
@@ -287,7 +287,7 @@ public class Radial implements Module, App {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
       const first, second = Client::GetBindingKey(command)
-      const keys: Array<String> = []
+      const keys: array<string> = []
       if (first != nil) { keys.push(first) }
       if (second != nil) { keys.push(second) }
       wheel.bind(keys)
@@ -295,7 +295,7 @@ public class Radial implements Module, App {
   }
 
   // An item used: one of ours is done here (the client did the rest).
-  onPick(self, path: String) {
+  onPick(self, path: string) {
     const ring = self.laids[self.up]
     if (ring == nil) { return }
     const item = ring.items[placeOf(path)]

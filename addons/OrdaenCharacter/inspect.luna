@@ -11,8 +11,8 @@ import Locale from "@/locales"
 import { Who, Worn, clientWords, wornBy } from "@/sheet"
 import Style from "@/style"
 
-const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const HONOR_ROWS: Array<Track> = ["max-content", "max-content"]
+const TREES: array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const HONOR_ROWS: array<Track> = ["max-content", "max-content"]
 // The client's number of the first rank (`Enum.PvPRanks.Rank_1`): a rank's title is its text by that count.
 const FIRST_RANK = 5
 const FEMALE = 3
@@ -20,33 +20,33 @@ const FEMALE = 3
 // The inspected player's honor: the rank with its title, the honor in it and what the next needs, and the honorable
 // kills today and in all.
 public struct Honor {
-  const rank: Integer = 0
-  const title: String = ""
-  const current: Integer = 0
-  const next: Integer = 0
-  const today: Integer = 0
-  const lifetime: Integer = 0
+  const rank: integer = 0
+  const title: string = ""
+  const current: integer = 0
+  const next: integer = 0
+  const today: integer = 0
+  const lifetime: integer = 0
 }
 
 // Who the inspected player is and what it wears.
 public struct Inspected {
   const who: Who = { name: "", level: 0, race: "", className: "" }
-  const classTag: String = ""
-  const guild: String = ""
-  const worn: Array<Worn> = []
+  const classTag: string = ""
+  const guild: string = ""
+  const worn: array<Worn> = []
 }
 
 // What the window asks of the client about the player inspected.
 public trait Inspector {
   // Whether the unit may be inspected (a player, near enough).
-  public canInspect(self, unit: String): Boolean
+  public canInspect(self, unit: string): boolean
   // The server asked about the unit; `INSPECT_READY` with its guid says it answered.
-  public ask(mut self, unit: String)
-  public guidOf(self, unit: String): String | nil
-  public read(self, unit: String): Inspected
-  public honor(self, unit: String): Honor
+  public ask(mut self, unit: string)
+  public guidOf(self, unit: string): string | nil
+  public read(self, unit: string): Inspected
+  public honor(self, unit: string): Honor
   // Ctrl+Left-click on a slot: the item tried on in the dressing room.
-  public tryOn(mut self, unit: String, slot: Integer)
+  public tryOn(mut self, unit: string, slot: integer)
   // The window closed: the server's answer let go.
   public clear(mut self)
 }
@@ -54,18 +54,18 @@ public trait Inspector {
 public class ClientInspector implements Inspector {
   const words: LineWords = clientWords()
 
-  public canInspect(self, unit: String): Boolean { return Client::CanInspect(unit) }
+  public canInspect(self, unit: string): boolean { return Client::CanInspect(unit) }
 
-  public ask(mut self, unit: String) { Client::NotifyInspect(unit) }
+  public ask(mut self, unit: string) { Client::NotifyInspect(unit) }
 
-  public guidOf(self, unit: String): String | nil { return Client::UnitGUID(unit) }
+  public guidOf(self, unit: string): string | nil { return Client::UnitGUID(unit) }
 
-  public read(self, unit: String): Inspected {
+  public read(self, unit: string): Inspected {
     let race, scene, _ = Client::UnitRace(unit)
     let className, classTag, _ = Client::UnitClass(unit)
     let guild, _, _ = Client::GetGuildInfo(unit)
     let name, _ = Client::UnitName(unit)
-    const worn: Array<Worn> = []
+    const worn: array<Worn> = []
     for (slot of 0..19) { worn.push(wornBy(unit, slot, self.words)) }
     return {
       who: { name: name, level: Client::UnitLevel(unit).floor(), race: race ?? "", className: className ?? "", scene: scene ?? "" },
@@ -75,7 +75,7 @@ public class ClientInspector implements Inspector {
     }
   }
 
-  public honor(self, unit: String): Honor {
+  public honor(self, unit: string): Honor {
     let today, _, _, _, lifetime, _, rank, current, next = Client::GetInspectHonorData()
     const level = (rank ?? 0).floor()
     let faction, _ = Client::UnitFactionGroup(unit, nil)
@@ -89,7 +89,7 @@ public class ClientInspector implements Inspector {
     }
   }
 
-  public tryOn(mut self, unit: String, slot: Integer) {
+  public tryOn(mut self, unit: string, slot: integer) {
     const link = Client::GetInventoryItemLink(unit, slot)
     if (link != nil) { _ = Client::DressUpItemLink(link) }
   }
@@ -99,10 +99,10 @@ public class ClientInspector implements Inspector {
 
 // «Таланты»: the inspected player's trees side by side, only shown.
 public class InspectTalents implements Component {
-  derived empty: Boolean = self.trees.length == 0
+  derived empty: boolean = self.trees.length == 0
 
-  trees: Signal<Array<Game::TalentTree>>
-  constructor(trees: Signal<Array<Game::TalentTree>>) {
+  trees: Signal<array<Game::TalentTree>>
+  constructor(trees: Signal<array<Game::TalentTree>>) {
     self.trees = trees
   }
 
@@ -120,10 +120,10 @@ public class InspectTalents implements Component {
 
 // «PvP»: the rank with its title and the honor towards the next, then the honorable kills today and in all.
 public class InspectHonor implements Component {
-  derived rankText: String = self.honor.rank > 0 ? Locale::PVP_RANK.format(self.honor.rank, self.honor.title) : self.honor.title
-  derived progress: String = Locale::PVP_PROGRESS.format(self.honor.current, self.honor.next)
-  derived today: String = String::of(self.honor.today)
-  derived lifetime: String = String::of(self.honor.lifetime)
+  derived rankText: string = self.honor.rank > 0 ? Locale::PVP_RANK.format(self.honor.rank, self.honor.title) : self.honor.title
+  derived progress: string = Locale::PVP_PROGRESS.format(self.honor.current, self.honor.next)
+  derived today: string = string::of(self.honor.today)
+  derived lifetime: string = string::of(self.honor.lifetime)
 
   honor: Signal<Honor>
   constructor(honor: Signal<Honor>) {

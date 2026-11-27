@@ -16,12 +16,12 @@ const GLYPH_FILE: Asset = "@/media/tooltip-glyphs.tga"
 const GLYPH = 18.75dp
 const GLYPH_CELL = 23.4375dp
 const GLYPH_IN = -2.34375dp
-const function glyphPieces(): Array<Piece> {
-  let list: Array<Piece> = []
+const function glyphPieces(): array<Piece> {
+  let list: array<Piece> = []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
   return list
 }
-const GLYPH_ART: Array<Piece> = glyphPieces()
+const GLYPH_ART: array<Piece> = glyphPieces()
 const DOT_LIGHT: Piece = GLYPH_ART[14] ?? panic("the dot's light is the last row")
 
 // The glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text (the cost's is
@@ -48,7 +48,7 @@ public enum BandKind { Cost, Range, Melee, CastNow, CastTime, CastChan, CastNext
 // A cell of a band: its text, in its colour (the body's where it has none), its glyph before it in its tint (a
 // cost's dot in its resource's colour), and what it says.
 public struct BandFact {
-  text: String
+  text: string
   color: Color | nil
   glyph: Glyph | nil
   tint: Color | nil
@@ -57,8 +57,8 @@ public struct BandFact {
 
 // A spell's band: its cells, and the places of the tooltip's lines they were read from (no other reader takes them).
 public struct Band {
-  facts: Array<BandFact>
-  taken: Map<Integer, Boolean>
+  facts: array<BandFact>
+  taken: map<integer, boolean>
 }
 
 // The game's numbers for what a line of a tooltip is.
@@ -88,20 +88,20 @@ function resourceColorOf(cost: Game::SpellCost): Color | nil {
 }
 
 // What follows a label's colon («Cooldown: 10 sec» is «10 sec»), or the text.
-function valueOf(text: String): String {
+function valueOf(text: string): string {
   return text.match("^[^:]+:%s*(.+)$") ?? text
 }
 
 // A number as the game wrote it in a line («1,5», «2.5»).
-function digitsOf(text: String): String { return text.match("%d+[,%.]?%d*") ?? "" }
+function digitsOf(text: string): string { return text.match("%d+[,%.]?%d*") ?? "" }
 
 // The word of a label the game writes before a list («Reagents: %s», «Материалы: |n», «Инструменты:»).
-function wordOf(label: String): String {
+function wordOf(label: string): string {
   return label.match("^%s*([^:|%%]-)%s*:") ?? ""
 }
 
 // A line that lists what the spell takes (its reagents, its tools): never a cell.
-function isList(text: String): Boolean {
+function isList(text: string): boolean {
   const label = text.match("^%s*([^:]-)%s*:")
   if (label == nil) { return false }
   return label == wordOf(Game::strings.spellReagents) || label == wordOf(Runtime::text("SPELL_TOTEMS") ?? "")
@@ -109,13 +109,13 @@ function isList(text: String): Boolean {
 
 // How long a channelled spell lasts, as its description says it («over 5 sec.», «в течение 5 сек.»), else its first
 // time in seconds; nothing where it says none.
-function channelOf(description: String): String | nil {
+function channelOf(description: string): string | nil {
   const seconds = description.match("в течение (%d+[,%.]?%d*)%s*сек") ?? description.match("over (%d+[,%.]?%d*)%s*sec") ??
     description.match("(%d+[,%.]?%d*)%s*сек") ?? description.match("(%d+[,%.]?%d*)%s*sec")
   return seconds == nil ? nil : Locale::CAST_SECONDS.format(seconds)
 }
 
-function isCast(kind: BandKind): Boolean {
+function isCast(kind: BandKind): boolean {
   return kind == .CastNow || kind == .CastTime || kind == .CastChan || kind == .CastNext
 }
 
@@ -123,7 +123,7 @@ function isCast(kind: BandKind): Boolean {
 // the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the cooldown;
 // `channel`: how long the spell is channelled, where it is.
 function cellOf(
-  text: String, first: Boolean, right: Boolean, cost: Game::SpellCost | nil, cast: Boolean, channel: String | nil
+  text: string, first: boolean, right: boolean, cost: Game::SpellCost | nil, cast: boolean, channel: string | nil
 ): BandFact {
   const digits = text.match("%d[%d%s\194\160]*")
   if (text == Game::strings.castInstant || text == Game::strings.castInstantNoMana) {
@@ -161,20 +161,20 @@ function cellOf(
     if (distance != nil) {
       // The distance and the unit after it in the client's line («30 yd», «30 м»), the rest of the line left out.
       const unit = Game::strings.spellRange.match("%%s(%s*[^%s]*)") ?? ""
-      return { text: (String::of(distance[1]) + unit).replace("%.$", ""), kind: .Range }
+      return { text: (string::of(distance[1]) + unit).replace("%.$", ""), kind: .Range }
     }
   }
   return { text: text }
 }
 
-function textOf(text: String | nil): String | nil { return text == "" ? nil : text }
+function textOf(text: string | nil): string | nil { return text == "" ? nil : text }
 
 // A spell's band, from the game's tooltip lines for it and what it costs: the cells of its two-sided lines (cost and
 // range, cast and cooldown) and of its one-sided ones among its first lines before any other, reagents and tools
 // left out.
-public function bandOf(lines: Array<Game::TooltipLine>, cost: Game::SpellCost | nil): Band {
-  const facts: Array<BandFact> = []
-  const taken: Map<Integer, Boolean> = {}
+public function bandOf(lines: array<Game::TooltipLine>, cost: Game::SpellCost | nil): Band {
+  const facts: array<BandFact> = []
+  const taken: map<integer, boolean> = {}
   let description = ""
   for (line of lines) {
     if (line.kind == DESCRIPTION) { description = description + (line.left ?? "") }
@@ -214,9 +214,9 @@ public function bandOf(lines: Array<Game::TooltipLine>, cost: Game::SpellCost | 
 // the lines below its text (the gap moves it).
 public const TERM_DASH: Piece = { file: "@/media/dash.tga", width: 8, height: 1, tile: Tile::Across }
 public const TERM_UNDERLINE: Color = Color::hex("#ffd10080")
-public const TERM_UNDERLINE_HEIGHT: Number<Length> = 1.171875dp
-const LINE_GAP: Number<Spacing> = 2sp
-public function termUnderlineAt(): Number<Length> {
+public const TERM_UNDERLINE_HEIGHT: number<Length> = 1.171875dp
+const LINE_GAP: number<Spacing> = 2sp
+public function termUnderlineAt(): number<Length> {
   return -(Ordaen.lengthOf(LINE_GAP) / 2 + TERM_UNDERLINE_HEIGHT)
 }
 
@@ -232,18 +232,18 @@ const BY_ITS_TEXT: Beside = { beside: "parent" }
 // it explains, the slot `opened`, stands beside it until the cursor leaves. The whole cell is the fact it explains.
 public class BandCell implements Component {
   state over = false
-  derived open: Boolean = self.lit && self.over
+  derived open: boolean = self.lit && self.over
   derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
   derived padding: Edges = self.last ? CELL_PAD_LAST : CELL_PAD
   derived glyph: Piece | nil = self.glyphOf()
-  derived dot: Boolean = self.fact.glyph == .Cost
+  derived dot: boolean = self.fact.glyph == .Cost
   derived color: Color = self.fact.color ?? TEXT
 
   fact: Signal<BandFact>
-  index: Signal<Integer>
-  last: Signal<Boolean>
-  lit: Signal<Boolean>
-  constructor(fact: Signal<BandFact>, index: Signal<Integer>, last: Signal<Boolean>, lit: Signal<Boolean> = false) {
+  index: Signal<integer>
+  last: Signal<boolean>
+  lit: Signal<boolean>
+  constructor(fact: Signal<BandFact>, index: Signal<integer>, last: Signal<boolean>, lit: Signal<boolean> = false) {
     self.fact = fact
     self.index = index
     self.last = last

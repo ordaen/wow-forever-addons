@@ -31,7 +31,7 @@ test "an NPC says its name and spawns; nil for one QuestieDB doesn't know" {
 }
 
 test "an item's sellers are those who trade with the player's side; none for a player of neither" {
-  const sellers: Array<Seller> = [{ npc: 1, sides: "A" }, { npc: 2, sides: "H" }, { npc: 3, sides: "AH" }, { npc: 4, sides: "" }]
+  const sellers: array<Seller> = [{ npc: 1, sides: "A" }, { npc: 2, sides: "H" }, { npc: 3, sides: "AH" }, { npc: 4, sides: "" }]
   Test::expect(sellingTo(sellers, Game::Faction::Alliance).map(npc => `${npc}`).join(",") == "1,3")
   Test::expect(sellingTo(sellers, Game::Faction::Horde).map(npc => `${npc}`).join(",") == "2,3")
   Test::expect(sellingTo(sellers, Game::Faction::Neutral).length == 0)

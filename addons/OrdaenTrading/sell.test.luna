@@ -10,9 +10,9 @@ import Test from "$test"
 
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
-const LINEN: Integer = 2589
-const AXE: Integer = 2847
-const ORE: Integer = 2770
+const LINEN: integer = 2589
+const AXE: integer = 2847
+const ORE: integer = 2770
 const RED: Color = Color::hex("#ff4040")
 const GREEN: Color = Color::hex("#40c040")
 const GOLD: Color = Color::hex("#ffd100")
@@ -20,14 +20,14 @@ const DIM: Color = Color::hex("#a3977f")
 // A row picked.
 const PICKED: Color = Color::hex("#00000040")
 
-function names(id: Integer): Game::TooltipData | nil {
+function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == AXE ? "Bronze Axe" : id == ORE ? "Copper Ore" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
 }
 
 // Linen in two stacks, a commodity; an axe, an item of its own.
-function bags(): Array<Game::Sellable> | nil {
+function bags(): array<Game::Sellable> | nil {
   return [
     { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
@@ -36,7 +36,7 @@ function bags(): Array<Game::Sellable> | nil {
 }
 
 // The client's deposit: 4 copper each of a commodity for 24 hours, twice that for 48, half for 12; an item's 150.
-function deposit(from: Game::Sellable, quantity: Integer, duration: Game::Duration): Integer | nil {
+function deposit(from: Game::Sellable, quantity: integer, duration: Game::Duration): integer | nil {
   if (!from.commodity) { return 150 }
   return duration == .Short ? quantity * 2 : duration == .Medium ? quantity * 4 : quantity * 8
 }
@@ -50,13 +50,13 @@ function panel(): Test::Part {
   return window().button("Post").item()
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
@@ -64,12 +64,12 @@ function asked(expected: String): Boolean {
 }
 
 // Whether the texts after `label` in `part` read exactly `expected` (as many as it has, joined by « | »).
-function says(part: Test::Part, label: String, expected: String): Boolean {
+function says(part: Test::Part, label: string, expected: string): boolean {
   const shown = part.texts()
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: Array<String> = []
+      let read: array<string> = []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
@@ -80,7 +80,7 @@ function says(part: Test::Part, label: String, expected: String): Boolean {
 }
 
 // Whether `first` is drawn before `second` in the window.
-function before(first: String, second: String): Boolean {
+function before(first: string, second: string): boolean {
   let at = 0
   for (index, text of window().texts()) {
     if (text == first && at == 0) { at = index }
@@ -105,7 +105,7 @@ test "each item the bags can put up is a row, its stacks counted together, with 
 }
 
 test "bags with nothing the house takes say so" {
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => []
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => []
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -121,14 +121,14 @@ test "the bags changing are read again" {
   Game::auctionHouse.open = true
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: ORE, count: 3, bag: 0, slot: 5, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: ORE, count: 3, bag: 0, slot: 5, commodity: true }]
   Test::expect(window().text("Linen Cloth").shown())
   Game::bags.changed.emit()
   Test::expect(!window().text("Linen Cloth").shown() && window().text("Copper Ore").shown())
 }
 
 test "a merchant's price shows beside the house's, and whichever pays more after the house's cut is named" {
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 33, [AXE]: 500 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 33, [AXE]: 500 } }
   Game::merchant.opened.emit()
   Game::clock.server = START
   Game::items.tooltip = names
@@ -146,7 +146,7 @@ test "a merchant's price shows beside the house's, and whichever pays more after
 }
 
 test "a merchant paying what the house brings after its cut is named over it" {
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 34 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 34 } }
   Game::merchant.opened.emit()
   Game::clock.server = START
   Game::items.tooltip = names
@@ -161,9 +161,9 @@ test "a merchant paying what the house brings after its cut is named over it" {
 }
 
 test "a column's title sorts the rows by it, and again the other way" {
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 34, [AXE]: 500, [ORE]: 20 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 34, [AXE]: 500, [ORE]: 20 } }
   Game::merchant.opened.emit()
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [
     { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
     { item: ORE, count: 3, bag: 0, slot: 3, commodity: true }
@@ -259,7 +259,7 @@ test "a deposit the client doesn't say is a dash" {
   Game::auctionHouse.open = true
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
-  Game::auctionActions.deposit = (from: Game::Sellable, quantity: Integer, duration: Game::Duration): Integer | nil => nil
+  Game::auctionActions.deposit = (from: Game::Sellable, quantity: integer, duration: Game::Duration): integer | nil => nil
   window().text("Linen Cloth").click()
   Test::expect(says(panel(), "Deposit", "—"))
 }
@@ -366,7 +366,7 @@ test "the row picked is marked" {
 }
 
 test "an item the game doesn't name yet is named by its number" {
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: 99999, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: 99999, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -391,7 +391,7 @@ test "an item listed at a copper is priced at a copper, and posted at it" {
 test "an item's stack is posted as one auction, its buyout the price for each times the count" {
   Game::clock.server = START
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: AXE, count: 3, bag: 0, slot: 2, commodity: false }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: AXE, count: 3, bag: 0, slot: 2, commodity: false }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   Game::auctionQuery.results.emit([{ key: AXE, copper: 1001, quantity: 2 }])
@@ -420,7 +420,7 @@ test "once its answer came, the panel hears no other" {
 
 test "what an item brings is weighed with the cut: 5% of a silver is 5 copper" {
   Game::clock.server = START
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 95 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 95 } }
   Game::merchant.opened.emit()
   Game::items.tooltip = names
   Game::auctionActions.sellable = bags
@@ -429,7 +429,7 @@ test "what an item brings is weighed with the cut: 5% of a silver is 5 copper" {
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 100, quantity: 30 }])
   window().button("Sell").click()
   Test::expect(window().text("Linen Cloth").item().text("Vendor").shown())
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 94 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 94 } }
   Game::merchant.opened.emit()
   Game::bags.changed.emit()
   Test::expect(window().text("Linen Cloth").item().text("Auction").shown())

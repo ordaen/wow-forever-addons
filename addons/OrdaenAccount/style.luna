@@ -1,17 +1,17 @@
 // The window's look: its size at the player's scale, its rooms and its colours.
 import { Edges } from "$ltml"
 // As wide as Ordaen Alts' table of characters, which its «Alts» tab shows.
-public const WIDTH: Number<Length> = 1390dp
-public const HEIGHT: Number<Length> = 680dp
+public const WIDTH: number<Length> = 1390dp
+public const HEIGHT: number<Length> = 680dp
 // The least the window is wide: a collection's list of two columns of rows beside its card.
-public const LEAST_WIDTH: Number<Length> = 1000dp
+public const LEAST_WIDTH: number<Length> = 1000dp
 // The card beside a list: the picked entry's look and words.
-public const CARD: Number<Length> = 380dp
+public const CARD: number<Length> = 380dp
 // A list's column of categories or trees.
-public const SIDE_LIST: Number<Length> = 260dp
-public const ICON: Number<Length> = 32dp
+public const SIDE_LIST: number<Length> = 260dp
+public const ICON: number<Length> = 32dp
 // The card's icon by its name.
-public const CARD_ICON: Number<Length> = 44dp
+public const CARD_ICON: number<Length> = 44dp
 
 // A page runs to the frame's line on every side (its tab's `padding` none); what stands over its list keeps the
 // window's room: at the top and the sides where it is the first thing (`TOP_ROOM`), at the sides under another

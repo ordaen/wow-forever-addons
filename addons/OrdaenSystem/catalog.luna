@@ -13,29 +13,29 @@ public enum Switch implements Plain { Off = "off", Some = "some", On = "on" }
 // One addon as its TOC says it.
 public struct AddOn {
   // Its folder: what the client names it by.
-  name: String
+  name: string
   // Its title as the TOC writes it, with its colour codes.
-  title: String
+  title: string
   // Its title without colour codes, in lower case: what the list sorts by.
-  key: String
+  key: string
   // What the search looks in: title, folder, author and notes, in lower case.
-  words: String
-  notes: String
-  author: String
-  version: String
-  icon: String
+  words: string
+  notes: string
+  author: string
+  version: string
+  icon: string
   // The category the client groups it under (`## Category-<locale>` first), `""` for none.
-  category: String
+  category: string
   // The addon it stands under (`## Group`), `""` for none.
-  group: String
+  group: string
   // What it needs (`## Dependencies`) and what it would like (`## OptionalDeps`), by folder.
-  needs: Array<String>
-  wants: Array<String>
-  demand: Boolean
+  needs: array<string>
+  wants: array<string>
+  demand: boolean
   // Built for an older client than this one: its TOC's interface below the client's.
-  outdated: Boolean
+  outdated: boolean
   // Written in LunaType: the runtime itself, or an addon that needs it.
-  lunatype: Boolean
+  lunatype: boolean
 }
 
 // The runtime's folder: what an addon written in LunaType needs.
@@ -46,29 +46,29 @@ public struct Status {
   // On or off for whom the header says.
   enabled: Switch
   // On for this character: what the next session loads.
-  mine: Boolean
-  loaded: Boolean
+  mine: boolean
+  loaded: boolean
   // Why the client doesn't load it for this character, where it doesn't; never «on demand».
   reason: Client::AddOnReason | nil
 }
 
 // One addon a step changed, and how it was before.
 public struct Change {
-  name: String
+  name: string
   before: Switch
   // On for this character before: how «Some» is put back.
-  mine: Boolean
+  mine: boolean
 }
 
 // What one switch changed: «Undo» puts back each addon in it; `also` are the titles of those that came with it.
 public struct Step {
-  changes: Array<Change>
-  also: Array<String>
+  changes: array<Change>
+  also: array<string>
 }
 
 // The values a client's call gives, one after another, as a list.
-function listOf(...names: String): Array<String> {
-  const list: Array<String> = []
+function listOf(...names: string): array<string> {
+  const list: array<string> = []
   for (i of 1..names.length) {
     const name = names[i]
     if (name != nil) { list.push(name) }
@@ -77,7 +77,7 @@ function listOf(...names: String): Array<String> {
 }
 
 // Whether an addon's dependencies hold the runtime: it is written in LunaType.
-function needsRuntime(needs: Array<String>): Boolean {
+function needsRuntime(needs: array<string>): boolean {
   for (name of needs) {
     if (name == RUNTIME) { return true }
   }
@@ -86,38 +86,38 @@ function needsRuntime(needs: Array<String>): Boolean {
 
 // Whether an addon's next session differs from this one: on and not loaded (but on demand, or refused), or off and
 // loaded.
-function waits(addon: AddOn, status: Status): Boolean {
+function waits(addon: AddOn, status: Status): boolean {
   return (status.mine && !status.loaded && !addon.demand && status.reason == nil) || (!status.mine && status.loaded)
 }
 
 // A title without the client's colour codes.
-public function plain(title: String): String {
+public function plain(title: string): string {
   return title.replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
 }
 
 public class Catalog {
   // Every addon of the client's list, in its order.
-  public state addons: Array<AddOn> = []
-  public state statuses: Map<String, Status> = {}
+  public state addons: array<AddOn> = []
+  public state statuses: map<string, Status> = {}
   // «All characters» in the header, or this character.
   public state everyone = true
   // The last step that switched addons on with others, until the next change: the strip under the list.
   public state step: Step | nil = nil
-  public derived byName: Map<String, AddOn> = self.indexOf()
+  public derived byName: map<string, AddOn> = self.indexOf()
   // Who names each addon as one it needs.
-  public derived neededBy: Map<String, Array<String>> = self.reverseOf()
+  public derived neededBy: map<string, array<string>> = self.reverseOf()
   // Who stands under each addon (`## Group`): a parent that names itself its group among them, which a switch takes
   // once.
-  public derived members: Map<String, Array<String>> = self.membersOf()
+  public derived members: map<string, array<string>> = self.membersOf()
   // Addons whose next session differs from this one: on and not loaded (but on demand), or off and loaded.
-  public derived waiting: Integer = self.waitingOf()
+  public derived waiting: integer = self.waitingOf()
 
   // The whole list read again: one pass over the client's addons.
   public read(mut self) {
     const locale = Game::client.locale
     const _, _, _, interface, _, _ = Client::GetBuildInfo()
     const count = Client::C_AddOns::GetNumAddOns()
-    const list: Array<AddOn> = []
+    const list: array<AddOn> = []
     for (index of 1..count) {
       const name = Client::C_AddOns::GetAddOnName(index)
       const needs = listOf(...Client::C_AddOns::GetAddOnDependencies(name))
@@ -152,7 +152,7 @@ public class Catalog {
   public refresh(mut self) {
     const player = Game::player.guid
     const character = self.character()
-    const map: Map<String, Status> = {}
+    const map: map<string, Status> = {}
     for (addon of peek self.addons) {
       const state = Client::C_AddOns::GetAddOnEnableState(addon.name, character)
       const _, loaded = Client::C_AddOns::IsAddOnLoaded(addon.name)
@@ -171,23 +171,23 @@ public class Catalog {
         const status = map[addon.name]
         if (status != nil && waits(addon, status)) {
           Debug::log("waits for a reload: %s (on for this character %s, loaded %s, on demand %s, reason %s)", addon.name,
-            String::of(status.mine), String::of(status.loaded), String::of(addon.demand), String::of(status.reason))
+            string::of(status.mine), string::of(status.loaded), string::of(addon.demand), string::of(status.reason))
         }
       }
     }
   }
 
   // The character the header's choice switches for: nil for all of them.
-  public character(self): String | nil { return (peek self.everyone) ? nil : Game::player.guid }
+  public character(self): string | nil { return (peek self.everyone) ? nil : Game::player.guid }
 
-  indexOf(self): Map<String, AddOn> {
-    const map: Map<String, AddOn> = {}
+  indexOf(self): map<string, AddOn> {
+    const map: map<string, AddOn> = {}
     for (addon of self.addons) { map[addon.name] = addon }
     return map
   }
 
-  reverseOf(self): Map<String, Array<String>> {
-    const map: Map<String, mut Array<String>> = {}
+  reverseOf(self): map<string, array<string>> {
+    const map: map<string, mut array<string>> = {}
     for (addon of self.addons) {
       for (need of addon.needs) {
         const held = map[need]
@@ -201,8 +201,8 @@ public class Catalog {
     return map
   }
 
-  membersOf(self): Map<String, Array<String>> {
-    const map: Map<String, mut Array<String>> = {}
+  membersOf(self): map<string, array<string>> {
+    const map: map<string, mut array<string>> = {}
     for (addon of self.addons) {
       const held = map[addon.group]
       if (held == nil) {
@@ -214,7 +214,7 @@ public class Catalog {
     return map
   }
 
-  waitingOf(self): Integer {
+  waitingOf(self): integer {
     let count = 0
     for (addon of self.addons) {
       const status = self.statuses[addon.name]
@@ -224,21 +224,21 @@ public class Catalog {
   }
 
   // Whether an addon is on for whom the header says (all of them or some).
-  public isOn(self, name: String): Boolean {
+  public isOn(self, name: string): boolean {
     const status = (peek self.statuses)[name]
     return status != nil && status.enabled != .Off
   }
 
   // An addon, then what it needs and what those need in turn: each need once, a ring followed once (back to the
   // addon itself, where it is in one). One the folder hasn't is named, and needs nothing.
-  withNeeds(self, name: String): Array<String> {
-    const seen: Map<String, Boolean> = {}
-    const list: Array<String> = [name]
+  withNeeds(self, name: string): array<string> {
+    const seen: map<string, boolean> = {}
+    const list: array<string> = [name]
     self.gather(name, seen, list)
     return list
   }
 
-  gather(self, name: String, seen: mut Map<String, Boolean>, list: mut Array<String>) {
+  gather(self, name: string, seen: mut map<string, boolean>, list: mut array<string>) {
     for (need of (peek self.byName)[name]?.needs ?? []) {
       if (seen[need] != true) {
         seen[need] = true
@@ -250,15 +250,15 @@ public class Catalog {
 
   // Every addon that is on and needs one of `names`, directly or through another: what stops loading when they go.
   // `names` themselves are never among them, a ring back to one of them left there.
-  public dependentsOf(self, names: Array<String>): Array<String> {
-    const seen: Map<String, Boolean> = {}
+  public dependentsOf(self, names: array<string>): array<string> {
+    const seen: map<string, boolean> = {}
     for (name of names) { seen[name] = true }
-    const list: Array<String> = []
+    const list: array<string> = []
     for (name of names) { self.reach(name, seen, list) }
     return list
   }
 
-  reach(self, name: String, seen: mut Map<String, Boolean>, list: mut Array<String>) {
+  reach(self, name: string, seen: mut map<string, boolean>, list: mut array<string>) {
     for (other of (peek self.neededBy)[name] ?? []) {
       if (seen[other] != true) {
         seen[other] = true
@@ -269,7 +269,7 @@ public class Catalog {
   }
 
   // An addon's title as it reads without colour codes, by its folder: the folder itself where it isn't listed.
-  public titleOf(self, name: String): String {
+  public titleOf(self, name: string): string {
     const addon = (peek self.byName)[name]
     return addon == nil ? name : plain(addon.title)
   }
@@ -277,12 +277,12 @@ public class Catalog {
   // `names` switched on for whom the header says, each with what it needs that is in the folder and off, in one
   // step; optional dependencies are never switched. A needed addon missing from the folder is left to the client,
   // which then says why it doesn't load.
-  public switchOn(mut self, names: Array<String>) {
+  public switchOn(mut self, names: array<string>) {
     const character = self.character()
-    const asked: Map<String, Boolean> = {}
+    const asked: map<string, boolean> = {}
     for (name of names) { asked[name] = true }
-    const targets: Array<String> = []
-    const listed: Map<String, Boolean> = {}
+    const targets: array<string> = []
+    const listed: map<string, boolean> = {}
     for (name of names) {
       for (one of self.withNeeds(name)) {
         if (listed[one] != true) {
@@ -291,8 +291,8 @@ public class Catalog {
         }
       }
     }
-    const changes: Array<Change> = []
-    const also: Array<String> = []
+    const changes: array<Change> = []
+    const also: array<string> = []
     const statuses = peek self.statuses
     for (name of targets) {
       const status = statuses[name]
@@ -306,14 +306,14 @@ public class Catalog {
   }
 
   // `names` switched off for whom the header says, alone: what needs them stays on and reads the client's reason.
-  public switchOff(mut self, names: Array<String>) {
+  public switchOff(mut self, names: array<string>) {
     const character = self.character()
     for (name of names) { Client::C_AddOns::DisableAddOn(name, character) }
     self.finish([], [])
   }
 
   // A step saved once; the strip shows it where others came with what was asked.
-  finish(mut self, changes: Array<Change>, also: Array<String>) {
+  finish(mut self, changes: array<Change>, also: array<string>) {
     Client::C_AddOns::SaveAddOns()
     self.step = also.length > 0 ? { changes: changes, also: also } : nil
     self.refresh()
@@ -355,14 +355,14 @@ public class Catalog {
   }
 
   // The header's choice: all characters, or this one.
-  public setEveryone(mut self, all: Boolean) {
+  public setEveryone(mut self, all: boolean) {
     self.everyone = all
     self.step = nil
     self.refresh()
   }
 
   // An addon loaded on demand, loaded now: nil where it loaded, else the client's reason.
-  public load(mut self, name: String): String | nil {
+  public load(mut self, name: string): string | nil {
     const loaded, reason = Client::C_AddOns::LoadAddOn(name)
     self.refresh()
     return loaded == true ? nil : reason ?? ""
@@ -371,9 +371,9 @@ public class Catalog {
   // «Disable all», as the game's own addon list does it: every addon off for whom the header says, saved once. The
   // game's list isn't an addon and stays after a reload; this page is one, so `kept` (this addon) and what it needs
   // stay on, and the player can switch the rest on again.
-  public disableAll(mut self, kept: String) {
+  public disableAll(mut self, kept: string) {
     const character = self.character()
-    const keep: Map<String, Boolean> = {}
+    const keep: map<string, boolean> = {}
     for (name of self.withNeeds(kept)) { keep[name] = true }
     for (addon of peek self.addons) {
       if (keep[addon.name] != true && self.isOn(addon.name)) { Client::C_AddOns::DisableAddOn(addon.name, character) }
@@ -382,14 +382,14 @@ public class Catalog {
   }
 
   // The names of `names` that aren't in the folder: what applying them skips.
-  public missing(self, names: Array<String>): Array<String> {
+  public missing(self, names: array<string>): array<string> {
     return names.filter(name => (peek self.byName)[name] == nil)
   }
 
   // A set applied: every addon it names that is in the folder on, every other off, for whom the header says.
-  public apply(mut self, names: Array<String>) {
+  public apply(mut self, names: array<string>) {
     const character = self.character()
-    const wanted: Map<String, Boolean> = {}
+    const wanted: map<string, boolean> = {}
     for (name of names) { wanted[name] = true }
     for (addon of peek self.addons) {
       if (wanted[addon.name] == true) {
@@ -404,8 +404,8 @@ public class Catalog {
   }
 
   // The addons on for whom the header says: what a set saves.
-  public onNames(self): Array<String> {
-    const list: Array<String> = []
+  public onNames(self): array<string> {
+    const list: array<string> = []
     for (addon of peek self.addons) {
       if (self.isOn(addon.name)) { list.push(addon.name) }
     }

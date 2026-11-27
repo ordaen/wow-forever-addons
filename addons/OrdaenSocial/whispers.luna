@@ -18,10 +18,10 @@ const STEP = 3
 const MAX: "max-content" = "max-content"
 // The conversations a sidebar at the left, as wide as its widest row (never under `SIDEBAR_LEAST`); the open one the
 // rest.
-const SIDEBAR_AND_TALK: Array<Track> = [MAX, { fr: 1 }]
+const SIDEBAR_AND_TALK: array<Track> = [MAX, { fr: 1 }]
 const SIDEBAR_LEAST: Bounds = { min: 240dp }
 // Between the well's rim and the bubbles: the least room a text keeps from a frame's line.
-const WELL_ROOM: Number<Spacing> = 3sp
+const WELL_ROOM: number<Spacing> = 3sp
 // The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
 // copper; their words light on both.
 public const HEARD_FILL: Color = Color::hex("#3d2e24e6")
@@ -33,44 +33,44 @@ const NEW_GROUP: Edges = { top: 3sp }
 // Lines of one side this close (seconds) stand in one group.
 const GROUP_SECONDS = 120
 // A bubble's width against the rest of its row: three quarters.
-const HEARD_COLUMNS: Array<Track> = [{ fr: 3 }, { fr: 1 }]
-const TOLD_COLUMNS: Array<Track> = [{ fr: 1 }, { fr: 3 }]
+const HEARD_COLUMNS: array<Track> = [{ fr: 3 }, { fr: 1 }]
+const TOLD_COLUMNS: array<Track> = [{ fr: 1 }, { fr: 3 }]
 const WHISPER: Color = Color::hex("#ff80ff")
 const BATTLE_NET: Color = Color::hex("#00fff6")
 const PICKED: Color = Color::hex("#2a1c10e6")
 const HINT: Color = Color::hex("#857a66")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A name whole, its level right after it; a Battle.net friend's character close under the account's name.
-const NAME_AND_LEVEL: Array<Track> = [MAX, MAX]
-const NAME_LINES_GAP: Number<Spacing> = 1.5sp
+const NAME_AND_LEVEL: array<Track> = [MAX, MAX]
+const NAME_LINES_GAP: number<Spacing> = 1.5sp
 // The count's room at a conversation's right, kept while none waits: nothing moves as it comes or goes.
-const COUNT_ROOM: Number<Length> = 28dp
+const COUNT_ROOM: number<Length> = 28dp
 
 // A line as a bubble: whether it opens a session (a rule naming it above), starts its group (room above it) and ends
 // it (its time under it).
 public struct Bubbled {
   line: TalkLine
-  opens: Boolean
-  starts: Boolean
-  ends: Boolean
+  opens: boolean
+  starts: boolean
+  ends: boolean
 }
 
 // A level after a name (`25lvl`); none where it isn't known.
-function levelText(level: Integer): String { return level > 0 ? Locale::ROW_LEVEL.format(level) : "" }
+function levelText(level: integer): string { return level > 0 ? Locale::ROW_LEVEL.format(level) : "" }
 
 // A conversation's partner as its name alone says it.
 function unknownWho(talk: Talk): TalkWho { return { name: talk.partner, classFile: "", level: 0, hero: nil } }
 
 // Two lines in one group: of one side and one session, the second said soon after the first.
-function together(first: TalkLine | nil, second: TalkLine | nil): Boolean {
+function together(first: TalkLine | nil, second: TalkLine | nil): boolean {
   return first != nil && second != nil && first.mine == second.mine && first.session == second.session &&
     second.time - first.time <= GROUP_SECONDS
 }
 
 // The lines as bubbles, each told where its group starts and ends, and whether it opens its session: its session
 // isn't the line's before, or, the first line, isn't this session.
-function bubblesOf(lines: Array<TalkLine>): Array<Bubbled> {
-  const bubbles: Array<Bubbled> = []
+function bubblesOf(lines: array<TalkLine>): array<Bubbled> {
+  const bubbles: array<Bubbled> = []
   for (index, line of lines) {
     const before = lines[index - 1]
     bubbles.push({
@@ -87,20 +87,20 @@ function bubblesOf(lines: Array<TalkLine>): Array<Bubbled> {
 public class Bubble implements Component {
   public link: Event<Event::Link> = new Event()
 
-  derived mine: Boolean = self.item.line.mine
-  derived columns: Array<Track> = self.mine ? TOLD_COLUMNS : HEARD_COLUMNS
+  derived mine: boolean = self.item.line.mine
+  derived columns: array<Track> = self.mine ? TOLD_COLUMNS : HEARD_COLUMNS
   derived side: Align = self.mine ? Align::End : Align::Start
   derived fill: Color = self.mine ? TOLD_FILL : HEARD_FILL
   derived above: Edges = self.item.starts ? NEW_GROUP : IN_GROUP
-  derived time: String = timeText(Game::clock.timeAt(self.item.line.time.floor()))
+  derived time: string = timeText(Game::clock.timeAt(self.item.line.time.floor()))
   // A line kept from before sessions were told apart is named by its own time.
-  derived began: Integer = (self.item.line.session != 0 ? self.item.line.session : self.item.line.time).floor()
+  derived began: integer = (self.item.line.session != 0 ? self.item.line.session : self.item.line.time).floor()
   // The tail under the group's last bubble, at its side.
   derived tail: BubbleTail = !self.item.ends ? BubbleTail::None : self.mine ? BubbleTail::End : BubbleTail::Start
 
   item: Signal<Bubbled>
-  lineHeight: Signal<Number<Length>>
-  constructor(item: Signal<Bubbled>, lineHeight: Signal<Number<Length>>) {
+  lineHeight: Signal<number<Length>>
+  constructor(item: Signal<Bubbled>, lineHeight: Signal<number<Length>>) {
     self.item = item
     self.lineHeight = lineHeight
   }
@@ -143,17 +143,17 @@ public class TalkRow implements Component {
   public menu: Event<Talk> = new Event()
 
   derived color: Color = self.talk.battleNet ? BATTLE_NET : classColor(self.who.classFile) ?? WHISPER
-  derived level: String = levelText(self.who.level)
+  derived level: string = levelText(self.who.level)
   derived hero: Hero | nil = self.who.hero
   derived heroColor: Color = classColor(self.hero?.classFile) ?? INK
-  derived heroLevel: String = levelText(self.hero?.level ?? 0)
+  derived heroLevel: string = levelText(self.hero?.level ?? 0)
   derived fill: Color | nil = self.open ? PICKED : nil
-  derived waiting: Boolean = self.talk.unread > 0
+  derived waiting: boolean = self.talk.unread > 0
 
   talk: Signal<Talk>
   who: Signal<TalkWho>
-  open: Signal<Boolean>
-  constructor(talk: Signal<Talk>, who: Signal<TalkWho>, open: Signal<Boolean>) {
+  open: Signal<boolean>
+  constructor(talk: Signal<Talk>, who: Signal<TalkWho>, open: Signal<boolean>) {
     self.talk = talk
     self.who = who
     self.open = open
@@ -193,16 +193,16 @@ public class TalkRow implements Component {
 // brings it back with them) and clearing its lines.
 public enum TalkAction { Close = "close", Clear = "clear" }
 
-const TALK_ACTIONS: Array<TalkAction> = [TalkAction::Close, TalkAction::Clear]
+const TALK_ACTIONS: array<TalkAction> = [TalkAction::Close, TalkAction::Clear]
 
-function talkLabel(action: TalkAction): String {
+function talkLabel(action: TalkAction): string {
   return match (action) {
     .Close => Locale::TALK_CLOSE
     .Clear => Locale::TALK_CLEAR
   }
 }
 
-const TALK_ENTRIES: Array<MenuEntry> = TALK_ACTIONS.map(action => MenuEntry {
+const TALK_ENTRIES: array<MenuEntry> = TALK_ACTIONS.map(action => MenuEntry {
   label: talkLabel(action), on: nil, disabled: nil, group: nil, more: nil
 })
 
@@ -216,9 +216,9 @@ public class Whispers implements Component {
   public picked: Event<Talk> = new Event()
   public talkPicked: Event<TalkPick> = new Event()
   // A name typed to whisper to.
-  public start: Event<String> = new Event()
+  public start: Event<string> = new Event()
   // The words typed in the open conversation, Enter pressed: in the key's own call, where the client sends them.
-  public send: Event<String> = new Event()
+  public send: Event<string> = new Event()
   public link: Event<Event::Link> = new Event()
 
   state name = ""
@@ -227,22 +227,22 @@ public class Whispers implements Component {
   state back = 0
   // The conversation whose menu is open.
   state menuTalk: Talk | nil = nil
-  derived menuTitle: String = self.menuTalk?.partner ?? ""
+  derived menuTitle: string = self.menuTalk?.partner ?? ""
   // What was typed in each conversation and not sent, kept while another is open.
-  drafts: mut Map<String, String> = {}
+  drafts: mut map<string, string> = {}
   derived open: Talk | nil = self.talks.find(talk => talk.key == self.openKey)
-  derived shown: Array<TalkLine> = self.shownOf()
-  derived bubbles: Array<Bubbled> = bubblesOf(self.shown)
-  derived empty: Boolean = self.open == nil
+  derived shown: array<TalkLine> = self.shownOf()
+  derived bubbles: array<Bubbled> = bubblesOf(self.shown)
+  derived empty: boolean = self.open == nil
 
-  talks: Signal<Array<Talk>>
-  who: Signal<Map<String, TalkWho>>
-  openKey: Signal<String>
+  talks: Signal<array<Talk>>
+  who: Signal<map<string, TalkWho>>
+  openKey: Signal<string>
   constructor(
-    talks: Signal<Array<Talk>>,
+    talks: Signal<array<Talk>>,
     // Who each conversation is with, by its key.
-    who: Signal<Map<String, TalkWho>>,
-    openKey: Signal<String>
+    who: Signal<map<string, TalkWho>>,
+    openKey: Signal<string>
   ) {
     self.talks = talks
     self.who = who
@@ -251,12 +251,12 @@ public class Whispers implements Component {
   }
 
   // Another conversation opened: what was typed in the last is kept, this one's brought back.
-  turnTo(mut self, key: String) {
+  turnTo(mut self, key: string) {
     self.back = 0
     self.draft = self.drafts[key] ?? ""
   }
 
-  shownOf(self): Array<TalkLine> {
+  shownOf(self): array<TalkLine> {
     const talk = self.open
     // The lines change in place: their version is what tells the view.
     if (talk == nil || talk.version < 0) { return [] }
@@ -272,7 +272,7 @@ public class Whispers implements Component {
 
   onMenuClose(mut self) { self.menuTalk = nil }
 
-  onTalkPick(mut self, place: Integer) {
+  onTalkPick(mut self, place: integer) {
     const talk = peek self.menuTalk
     const action = TALK_ACTIONS[place]
     self.menuTalk = nil

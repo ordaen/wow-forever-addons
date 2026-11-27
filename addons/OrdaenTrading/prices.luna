@@ -11,14 +11,14 @@ import { PriceKey, PriceSource, Quote } from "@/quote"
 const FRESH = 48
 
 public class OrdaenPrices implements PriceSource, PriceHistory {
-  public const name: String = "Ordaen"
+  public const name: string = "Ordaen"
   public state revision = 0
   const house: House
-  const vendors: Map<ItemId, Copper>
+  const vendors: map<ItemId, Copper>
   // The house's cut of a sale, in percent.
-  const houseCut: Signal<Integer>
+  const houseCut: Signal<integer>
 
-  constructor(house: House, vendors: Map<ItemId, Copper>, houseCut: Signal<Integer>) {
+  constructor(house: House, vendors: map<ItemId, Copper>, houseCut: Signal<integer>) {
     self.house = house
     self.vendors = vendors
     self.houseCut = houseCut
@@ -50,11 +50,11 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     return Quote::of((listed.copper() * (100 - self.houseCut) / 100).floor(), listed.seen())
   }
 
-  public cut(self): Integer { return self.houseCut }
+  public cut(self): integer { return self.houseCut }
 
   public vendor(self, item: ItemId): Copper | nil { return self.vendors[item] }
 
-  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice> { return self.house.hours(key, from, to) }
+  public hours(self, key: PriceKey, from: Hour, to: Hour): array<HourPrice> { return self.house.hours(key, from, to) }
 
   // A price may have moved: whatever follows prices reads them again.
   public moved(mut self) { self.revision += 1 }
@@ -62,7 +62,7 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
 
 // What an open merchant sells for money, by item, into the kept prices: a price seen before is written again, a new
 // one while fewer than `VENDOR_MOST` are kept.
-public function takeMerchant(vendor: mut Map<ItemId, Copper>, given: Map<Integer, Integer>) {
+public function takeMerchant(vendor: mut map<ItemId, Copper>, given: map<integer, integer>) {
   let count = 0
   for (_, kept of vendor) { count += 1 }
   for (id, copper of given) {

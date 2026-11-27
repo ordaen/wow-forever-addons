@@ -26,8 +26,8 @@ test "a profession's recipes are read with where each is learned: its trainer's 
 }
 
 test "a recipe is the other side's alone where its every way is a vendor or a quest and none of them is the player's side's" {
-  const horde: Array<Sided> = [{ id: VENDOR, area: 1, side: 2 }]
-  const both: Array<Sided> = [{ id: VENDOR, area: 1, side: 2 }, { id: VENDOR, area: 1, side: 0 }]
+  const horde: array<Sided> = [{ id: VENDOR, area: 1, side: 2 }]
+  const both: array<Sided> = [{ id: VENDOR, area: 1, side: 2 }, { id: VENDOR, area: 1, side: 0 }]
   const sold: RecipeSource = { skill: 1, sources: ["vendor"], cost: 0, favor: 0, reputation: [], quests: [], vendors: horde }
   Test::expect(otherSideOnly(sold, 1) && !otherSideOnly(sold, 2))
   Test::expect(!otherSideOnly({ skill: 1, sources: ["vendor"], cost: 0, favor: 0, reputation: [], quests: [], vendors: both }, 1))
@@ -54,7 +54,7 @@ test "a recipe's card has a place for each way it is learned, a vendor its own, 
 }
 
 // A recipe learned at `skill`, a rank asking `level`.
-function learnedAt(skill: Integer, level: Integer): RecipeSource {
+function learnedAt(skill: integer, level: integer): RecipeSource {
   return { skill: skill, level: level, sources: ["trainer"], cost: 0, favor: 0, reputation: [], quests: [], vendors: [] }
 }
 

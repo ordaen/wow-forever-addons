@@ -10,12 +10,12 @@ import { Ground } from "@/scrolledList"
 import { Column, Table, TableCell, TableRow } from "@/table"
 
 public struct Sale {
-  name: String
-  price: Integer
-  seen: Number
+  name: string
+  price: integer
+  seen: number
 }
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
   { title: "Price", width: 110ui, align: Align::End, sortable: true },
   { title: "Age", width: 50ui, align: Align::End, sortable: true },
@@ -23,7 +23,7 @@ const COLUMNS: Array<Column> = [
 ]
 
 class Sales {
-  public state sales: Array<Sale> = [
+  public state sales: array<Sale> = [
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
     { name: "Bronze Axe", price: 12345, seen: 86400 },
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
@@ -32,11 +32,11 @@ class Sales {
   public state descending = false
   public state picked = ""
   public state clicks = 0
-  public state height: Number<Length> | nil = nil
-  public derived ordered: Array<Sale> = self.order()
+  public state height: number<Length> | nil = nil
+  public derived ordered: array<Sale> = self.order()
 
-  order(self): Array<Sale> {
-    let list: Array<Sale> = []
+  order(self): array<Sale> {
+    let list: array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
     const down = self.descending
@@ -68,8 +68,8 @@ class Sales {
   }
 }
 
-function names(page: Sales): String {
-  return page.ordered.map((sale: Sale): String => sale.name).join(", ")
+function names(page: Sales): string {
+  return page.ordered.map((sale: Sale): string => sale.name).join(", ")
 }
 
 test "a heading click sorts by its column and again reverses it, the rows' own cells follow, every row is drawn" {
@@ -121,17 +121,17 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
   Test::expect(Test::blank())
 }
 
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
-function many(count: Integer): Array<Sale> {
-  let list: Array<Sale> = []
+function many(count: integer): array<Sale> {
+  let list: array<Sale> = []
   for (i of 1..count) { list.push({ name: `Ware ${i}`, price: i * 37, seen: i * 600 }) }
   return list
 }
 
 // A table in a row that shares what is left of a page 200 high, between a head and a foot: six hundred sales.
 class Long {
-  public state sales: Array<Sale> = many(600)
+  public state sales: array<Sale> = many(600)
   public state sorted = 0
   public state descending = false
 
@@ -183,7 +183,7 @@ test "a table given a height scrolls its rows past it, the headings stay" {
   Test::expect(Test::blank())
 }
 
-const SHARED: Array<Column> = [
+const SHARED: array<Column> = [
   { title: "Name", width: { fr: 1 } },
   { title: "Zone", width: { fr: 1 } },
   { title: "Note", width: { fr: 1 } }
@@ -232,7 +232,7 @@ test "a long text in a cell is cut at its column, and every row's columns stand 
   Test::expect(Test::blank())
 }
 
-const GROUPED: Array<Column> = [
+const GROUPED: array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
   { title: "House", width: 80ui, align: Align::End, sortable: true, group: ["Cost"] },
   { title: "Vendor", width: 80ui, align: Align::End, sortable: true, group: ["Cost"] },
@@ -240,7 +240,7 @@ const GROUPED: Array<Column> = [
   { title: "Vendor", width: 80ui, align: Align::End, group: ["Price"] },
   { title: "Profit", width: 80ui, align: Align::End }
 ]
-const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
+const WARES: array<string> = ["Copper Bar", "Bronze Axe"]
 
 // Two groups of two columns between two columns in none, on the wood.
 class Grouped {
@@ -288,7 +288,7 @@ test "neighbouring columns of one group share a heading over theirs; a table on 
 }
 
 // How many lines down what the client describes: a texture of the border's layer narrower than 2 and higher than 5.
-function upright(described: String): Integer {
+function upright(described: string): integer {
   let count = 0
   for (line of described.split("\n")) {
     const words = line.split(" ").filter(word => word != "")
@@ -313,7 +313,7 @@ test "a table on the wood rules its columns apart: a line down each gap of a row
   Test::expect(Test::blank())
 }
 
-const NESTED: Array<Column> = [
+const NESTED: array<Column> = [
   { title: "Item", width: { fr: 1 } },
   { title: "Buy", width: 70ui, group: ["Price", "House"] },
   { title: "Bid", width: 70ui, group: ["Price", "House"] },
@@ -382,6 +382,6 @@ test "a row on the wood is ruled under, the last too" {
   Test::expect(Test::blank())
 }
 
-function near(a: Number, b: Number): Boolean {
+function near(a: number, b: number): boolean {
   return (a - b).abs() < 0.02
 }

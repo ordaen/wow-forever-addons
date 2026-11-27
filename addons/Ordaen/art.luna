@@ -169,20 +169,20 @@ public struct OrdaenArt {
 }
 
 // Whether a frame of art draws a side: every side where it names none.
-function draws(metal: ArtBorder, side: Side): Boolean {
+function draws(metal: ArtBorder, side: Side): boolean {
   const sides = metal.sides
   return sides == nil || sides.any(each => each == side)
 }
 
 // How far a frame of art stands past its line across a box (left and right) and down it (top and bottom), on the
 // sides it draws. A border takes room inside the size its box is given: a size measured at the line takes these on.
-public function reachAcross(metal: ArtBorder): Number<Length> {
+public function reachAcross(metal: ArtBorder): number<Length> {
   const left = draws(metal, Side::Left) ? metal.reach.left : 0
   const right = draws(metal, Side::Right) ? metal.reach.right : 0
   return (left + right) * metal.scale * 1ui
 }
 
-public function reachDown(metal: ArtBorder): Number<Length> {
+public function reachDown(metal: ArtBorder): number<Length> {
   const top = draws(metal, Side::Top) ? metal.reach.top : 0
   const bottom = draws(metal, Side::Bottom) ? metal.reach.bottom : 0
   return (top + bottom) * metal.scale * 1ui
@@ -190,20 +190,20 @@ public function reachDown(metal: ArtBorder): Number<Length> {
 
 // How far in from its box's left edge the middle of a frame's left line stands: what is laid against the box from the
 // left reaches this far to meet the line, under it.
-public function toLeftLine(metal: ArtBorder): Number<Length> {
+public function toLeftLine(metal: ArtBorder): number<Length> {
   return (metal.reach.left + metal.width / 2) * metal.scale * 1ui
 }
 
 // How wide a frame's top left corner piece is drawn: what stands along its top starts past it. None for a frame drawn
 // from the client's own layout, whose corners aren't pieces of the look's.
-public function cornerArtWidth(metal: ArtBorder): Number<Length> {
+public function cornerArtWidth(metal: ArtBorder): number<Length> {
   const pieces = metal.drawnFrom
   return pieces is FramePieces ? pieces.topLeft.width * metal.scale * 1ui : 0ui
 }
 
 // How far below its box's top edge a frame's rod starts, past its shadow and its outer black line: what stands on the
 // frame from above (a tab's sides) meets the rod there, drawn over the shadow.
-public function toRod(metal: ArtBorder): Number<Length> {
+public function toRod(metal: ArtBorder): number<Length> {
   return (metal.lineStart - ROD) * metal.scale * 1ui
 }
 

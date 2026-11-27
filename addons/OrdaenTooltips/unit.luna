@@ -21,7 +21,7 @@ const ORANGE: Color = Color::hex("#ff8040")
 const FRIENDLY: Color = Color::hex("#40bf40")
 
 // A standing's colour: hated to hostile red, unfriendly orange, neutral yellow, friendly and up green.
-function standingColor(rank: Integer): Color {
+function standingColor(rank: integer): Color {
   if (rank <= 2) { return RED }
   if (rank == 3) { return ORANGE }
   if (rank == 4) { return YELLOW }
@@ -29,7 +29,7 @@ function standingColor(rank: Integer): Color {
 }
 
 // A player's name with their title: the title quieter, the name in its colour, in the order the game puts them.
-function titledName(name: String, titled: String | nil, color: Color): String {
+function titledName(name: string, titled: string | nil, color: Color): string {
   if (titled == nil || titled == name) { return name }
   let around = titled.split(name)
   let before = around[1]
@@ -38,14 +38,14 @@ function titledName(name: String, titled: String | nil, color: Color): String {
   return `|c${hex(LABEL)}${before}|r|c${hex(color)}${name}|r|c${hex(LABEL)}${after}|r`
 }
 
-function player(token: String, who: Game::UnitInfo, options: Options): Model | nil {
+function player(token: string, who: Game::UnitInfo, options: Options): Model | nil {
   let name = who.name
   if (name == nil) { return nil }
   let color = (options.classNames ? who.classColor : nil) ?? BRIGHT_TEXT
-  let desc: Array<Part> = []
-  let info: Array<Part> = []
-  let facts: Array<Fact> = []
-  let foot: Array<Note> = []
+  let desc: array<Part> = []
+  let info: array<Part> = []
+  let facts: array<Fact> = []
+  let foot: array<Note> = []
   let guild = who.guild
   if (guild != nil) {
     desc.push({ text: guild, opens: named(Term::Guild) })
@@ -100,7 +100,7 @@ function player(token: String, who: Game::UnitInfo, options: Options): Model | n
   }
 }
 
-function npc(who: Game::UnitInfo, name: String, data: Game::TooltipData, options: Options): Model {
+function npc(who: Game::UnitInfo, name: string, data: Game::TooltipData, options: Options): Model {
   let nameColor = BRIGHT_TEXT
   let reaction = who.reactionColor
   if (options.npcsLoot && who.tapped) {
@@ -110,12 +110,12 @@ function npc(who: Game::UnitInfo, name: String, data: Game::TooltipData, options
   }
   let level = who.level
   let creature = who.creatureType
-  let factionName: String | nil = nil
-  let desc: Array<Part> = []
-  let info: Array<Part> = []
-  let facts: Array<Fact> = []
-  let body: Array<TextLine> = []
-  let foot: Array<Note> = []
+  let factionName: string | nil = nil
+  let desc: array<Part> = []
+  let info: array<Part> = []
+  let facts: array<Fact> = []
+  let body: array<TextLine> = []
+  let foot: array<Note> = []
   for (i, line of data.lines) {
     if (i == 1) { continue }
     let text = clean(line.left)
@@ -125,7 +125,7 @@ function npc(who: Game::UnitInfo, name: String, data: Game::TooltipData, options
     // «PvP» and the level's line go: the band has the level.
     if (text == Game::strings.pvp) { continue }
     let numbered = text.match("%d") != nil
-    if (i <= 3 && level > 0 && numbered && text.contains(String::of(level))) { continue }
+    if (i <= 3 && level > 0 && numbered && text.contains(string::of(level))) { continue }
     let role = text.match("^<(.+)>$")
     if (role != nil) {
       desc.push({ text: role })
@@ -182,7 +182,7 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
   if (token == nil || who == nil) {
     // A unit gone: what the game wrote.
     if (name == nil) { return nil }
-    let body: Array<TextLine> = []
+    let body: array<TextLine> = []
     for (i, line of data.lines) {
       if (i == 1) { continue }
       let text = clean(line.left)
@@ -202,7 +202,7 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
 }
 
 // The number of the NPC a unit's tooltip is of; 0 for a player, a unit gone, or a tooltip of anything else.
-public function creatureOf(data: Game::TooltipData): Integer {
+public function creatureOf(data: Game::TooltipData): integer {
   let first = data.lines[1]
   let token = first != nil && first.kind == UNIT_NAME ? first.unit : nil
   return token != nil ? Game::units.of(token)?.creature ?? 0 : 0
@@ -210,7 +210,7 @@ public function creatureOf(data: Game::TooltipData): Integer {
 
 // A unit's tooltip by the game's name for it, as a part of another tooltip opens it: a player's whole; an NPC's
 // without the lines only the game's tooltip of it has (its role, its quests). Nothing once the unit is gone.
-public function unitOf(token: String, options: Options): Model | nil {
+public function unitOf(token: string, options: Options): Model | nil {
   let who = Game::units.of(token)
   if (who == nil) { return nil }
   if (who.player) {

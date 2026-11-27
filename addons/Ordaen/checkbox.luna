@@ -12,11 +12,11 @@ const SIZE = 25.78125dp
 // settings row's label has no room. Left-click toggles it; disabled, it takes no click.
 public class Tick implements Component {
   // The tick is always drawn, at no opacity while off: on and off differ in their colours alone.
-  derived tick: Number = knobShown(self.value)
+  derived tick: number = knobShown(self.value)
 
-  value: mut Signal<Boolean>
-  disabled: Signal<Boolean>
-  constructor(value: mut Signal<Boolean>, disabled: Signal<Boolean> = false) {
+  value: mut Signal<boolean>
+  disabled: Signal<boolean>
+  constructor(value: mut Signal<boolean>, disabled: Signal<boolean> = false) {
     self.value = value
     self.disabled = disabled
   }
@@ -41,18 +41,18 @@ public class Tick implements Component {
 
 public class Checkbox implements Component {
   // The tick is always drawn, at no opacity while off: on and off differ in their colours alone.
-  derived tick: Number = knobShown(self.value)
+  derived tick: number = knobShown(self.value)
 
-  label: Signal<String>
-  value: mut Signal<Boolean>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  value: mut Signal<boolean>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
+    label: Signal<string>,
     // The setting it shows and changes.
-    value: mut Signal<Boolean>,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    value: mut Signal<boolean>,
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value

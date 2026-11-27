@@ -22,7 +22,7 @@ const COUNT_FILL: Color = Color::hex("#9b2c1f")
 // The input's field's lit edges.
 const INPUT_LIT: Color = Color::hex("#8c6a3f")
 
-function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game::ChatWindow {
+function window(index: integer, name: string, partner: string, docked: boolean = true, fontSize: number = 13, combatLog: boolean = false): Game::ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
   const frame = Client::CreateFrame("Frame", `ChatFrame${index}`, Client::C_UI::GetUIParent(), nil)
   frame.Hide()
@@ -40,7 +40,7 @@ function input(parent: any Client::Frame): any Client::EditBox {
 }
 
 // A line said by someone, shown in the windows given.
-function line(kind: String, body: String, sender: String, windows: Array<Integer>, channel: Integer = 0, channelName: String = ""): mut Game::ChatLine {
+function line(kind: string, body: string, sender: string, windows: array<integer>, channel: integer = 0, channelName: string = ""): mut Game::ChatLine {
   return {
     kind: kind, event: `CHAT_MSG_${kind}`, body: body, plain: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
     channelName: channelName, stream: "", color: WHITE, time: Game::clock.server, stamp: "", windows: windows, secret: ""
@@ -48,10 +48,10 @@ function line(kind: String, body: String, sender: String, windows: Array<Integer
 }
 
 // The game's General and a whisper window.
-function gameWindows(): Array<Game::ChatWindow> { return [window(1, "General", ""), window(3, "Whisper", "Jaina")] }
+function gameWindows(): array<Game::ChatWindow> { return [window(1, "General", ""), window(3, "Whisper", "Jaina")] }
 
 // A whisper heard (or told, by the player): its words alone are what its bubble shows.
-function whisper(sender: String, words: String, told: Boolean = false): mut Game::ChatLine {
+function whisper(sender: string, words: string, told: boolean = false): mut Game::ChatLine {
   const said = line(told ? "WHISPER_INFORM" : "WHISPER", `[${sender}] whispers: ${words}`, sender, [1])
   said.text = words
   return said
@@ -67,7 +67,7 @@ function tabsPage(): Test::Part {
 }
 
 // The chat mounted, found by its first tab.
-function chat(first: String = "General"): Test::Part {
+function chat(first: string = "General"): Test::Part {
   Test::mount(nil, SCREEN)
   return Test::page().window(first)
 }
@@ -115,12 +115,12 @@ function ground(shown: Test::Part): Test::Rect {
   return { left: middle.left - round, top: middle.top, right: middle.right + round, bottom: middle.bottom }
 }
 
-function inBox(box: Test::Rect, at: Test::Rect): Boolean {
+function inBox(box: Test::Rect, at: Test::Rect): boolean {
   return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
 // The box of `color` a text stands on, where one is: a tab's ground or shade.
-function underOr(shown: Test::Part, text: String, color: Color): Test::Rect | nil {
+function underOr(shown: Test::Part, text: string, color: Color): Test::Rect | nil {
   const at = shown.text(text).rect()
   const boxes = shown.box(color)
   for (n of 1..boxes.count()) {
@@ -130,9 +130,9 @@ function underOr(shown: Test::Part, text: String, color: Color): Test::Rect | ni
   return nil
 }
 
-function standsOn(shown: Test::Part, text: String, color: Color): Boolean { return underOr(shown, text, color) != nil }
+function standsOn(shown: Test::Part, text: string, color: Color): boolean { return underOr(shown, text, color) != nil }
 
-function under(shown: Test::Part, text: String, color: Color): Test::Rect {
+function under(shown: Test::Part, text: string, color: Color): Test::Rect {
   return underOr(shown, text, color) ?? panic(`«${text}» stands on no box of that colour`)
 }
 
@@ -279,7 +279,7 @@ test "the input's field stands over a game window opened over the chat's corner,
   panel.SetSize(field.right + 50, 900 - field.top + 50)
   panel.EnableMouse(true)
   let pressed = 0
-  panel.SetScript("OnMouseDown", (...given: Unknown): nil => {
+  panel.SetScript("OnMouseDown", (...given: unknown): nil => {
     pressed += 1
   })
   Test::click({ x: (field.left + field.right) / 2, y: (field.top + field.bottom) / 2 }, nil)
@@ -307,10 +307,10 @@ test "a channel's line is named by its name, the zone left out, until its tab's 
 
 test "a tab's count goes off in its settings; the combat log's and a tab of channels alone have none until turned on" {
   Game::chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "")]
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => [
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => [
     { name: "SAY", label: "Say", shown: index != 4 }
   ]
-  Game::chat.channels = (index: Integer): Array<Game::ChatShown> => [{ name: "Trade", shown: index == 4 }]
+  Game::chat.channels = (index: integer): array<Game::ChatShown> => [{ name: "Trade", shown: index == 4 }]
   _ = chat()
   const shown = Test::page().window("Jaina")
   Game::chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [4], 2, "Trade - City"))
@@ -419,7 +419,7 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
 }
 
 // A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
-function drag(from: Test::Point, dx: Number, dy: Number) {
+function drag(from: Test::Point, dx: number, dy: number) {
   Test::moveTo(from)
   Test::press(nil)
   Test::moveTo({ x: from.x + 1, y: from.y })
@@ -646,14 +646,14 @@ test "a window the player undocked is a pane of its own" {
 }
 
 // A window's groups as the game's side gives them, the ones a test names.
-function groupsOf(shown: Map<String, Boolean>): Array<Game::ChatGroup> {
-  const labels: Map<String, String> = {
+function groupsOf(shown: map<string, boolean>): array<Game::ChatGroup> {
+  const labels: map<string, string> = {
     SAY: "Say", MONSTER_SAY: "Say", YELL: "Yell", PARTY: "Party", PARTY_LEADER: "Party Leader", RAID: "Raid",
     RAID_LEADER: "Raid Leader", RAID_WARNING: "Raid Warning", LOOT: "Item Loot", ACHIEVEMENT: "Achievement",
     GUILD_ACHIEVEMENT: "Guild Achievement", BG_HORDE: "Horde", BG_ALLIANCE: "Alliance", CHANNEL: "Channel",
     COMMUNITIES_CHANNEL: "COMMUNITIES_CHANNEL", AFK: "AFK"
   }
-  const order: Array<String> = [
+  const order: array<string> = [
     "SAY", "YELL", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "MONSTER_SAY", "LOOT", "ACHIEVEMENT",
     "GUILD_ACHIEVEMENT", "BG_HORDE", "BG_ALLIANCE", "CHANNEL", "COMMUNITIES_CHANNEL", "AFK"
   ]
@@ -662,14 +662,14 @@ function groupsOf(shown: Map<String, Boolean>): Array<Game::ChatGroup> {
 
 // The game's windows, and a fourth the game opens as it is asked for one: showing say as a new window does, and
 // the guild, as it is told to. The client refuses the first `refused` windows asked for, as it does while it loads.
-function guildOpening(refused: Integer) {
+function guildOpening(refused: integer) {
   const general = window(1, "General", "")
   const jaina = window(3, "Whisper", "Jaina")
   const guild = window(4, "Guild", "")
   let asked = 0
   Game::chat.windows = [general, jaina]
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 4 ? [{ name: "SAY", label: "Say", shown: true }, { name: "GUILD", label: "Guild", shown: true }] : []
-  Game::chat.open = (name: String): Integer | nil => {
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => index == 4 ? [{ name: "SAY", label: "Say", shown: true }, { name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.open = (name: string): integer | nil => {
     Test::asked("Chat.open", name)
     asked += 1
     if (asked <= refused) { return nil }
@@ -684,7 +684,7 @@ function windowsLoad() {
   Test::pass(0.01)
 }
 
-function guildAsked(): Boolean { return Test::requests().any(r => r == "Chat.open Guild") }
+function guildAsked(): boolean { return Test::requests().any(r => r == "Chat.open Guild") }
 
 test "a character's chat gets a tab of the guild's lines once its windows load, after the game's own handlers" {
   guildOpening(0)
@@ -732,11 +732,11 @@ test "a guild's tab the client refused while it loads its windows is asked for a
 
 test "a character's chat gets a tab of its channels once it is in some, and General leaves them to it" {
   // The guild's tab is there already (window 3): only the channels' is asked for.
-  let joined: Array<Game::ChatShown> = []
+  let joined: array<Game::ChatShown> = []
   Game::chat.windows = gameWindows()
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
-  Game::chat.channels = (index: Integer): Array<Game::ChatShown> => index == 1 ? joined : index == 5 ? [{ name: "General", shown: false }] : []
-  Game::chat.open = (name: String): Integer | nil => {
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.channels = (index: integer): array<Game::ChatShown> => index == 1 ? joined : index == 5 ? [{ name: "General", shown: false }] : []
+  Game::chat.open = (name: string): integer | nil => {
     Test::asked("Chat.open", name)
     return 5
   }
@@ -755,14 +755,14 @@ test "a character's chat gets a tab of its channels once it is in some, and Gene
 
 test "no guild's tab is made where a window past the game's two shows the guild already" {
   Game::chat.windows = gameWindows()
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
   _ = chat()
   windowsLoad()
   Test::expect(!guildAsked())
 }
 
 // A letter of the line's against a letter of the tab's name, Ordaen's body text.
-function lineToName(shown: Test::Part): Number {
+function lineToName(shown: Test::Part): number {
   const said = shown.text("[Thrall] says: Hello").letters()
   const name = shown.text("General").letters()
   return ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
@@ -807,7 +807,7 @@ test "the tabs begin level with the lines' ground, and the ground is dark, its t
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {
   Game::chat.windows = gameWindows()
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => groupsOf({ SAY: true, MONSTER_SAY: true, PARTY: true, PARTY_LEADER: true, LOOT: true })
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => groupsOf({ SAY: true, MONSTER_SAY: true, PARTY: true, PARTY_LEADER: true, LOOT: true })
   _ = chat()
   const settings = tabsPage()
   Test::expect(["Speech", "Channels", "Communities", "System"].all(title => settings.text(title).shown()))
@@ -835,7 +835,7 @@ test "the Tabs page lists the windows in a sidebar; the picked one's speech, cha
 
 test "the system messages stand in sections, the rest of the client's groups under Game; the communities' group is no row" {
   Game::chat.windows = gameWindows()
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => groupsOf({ BG_HORDE: true, BG_ALLIANCE: true, AFK: true })
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => groupsOf({ BG_HORDE: true, BG_ALLIANCE: true, AFK: true })
   _ = chat()
   const settings = tabsPage()
   Test::expect(["Progress", "Loot", "Battlegrounds", "Game"].all(title => settings.text(title).shown()))
@@ -908,7 +908,7 @@ test "an Ordaen addon writes into the chat with its mark and colour" {
 }
 
 test "a line kept with no sender (kept before senders were) comes back, said by nobody" {
-  const old: Map<String, Unknown> = {}
+  const old: map<string, unknown> = {}
   old["whole"] = "[Thrall] says: from before"
   old["color"] = WHITE
   old["time"] = 1
@@ -918,10 +918,10 @@ test "a line kept with no sender (kept before senders were) comes back, said by 
   old["past"] = true
   old["secret"] = false
   old["mine"] = false
-  const tab: Map<String, Unknown> = {}
+  const tab: map<string, unknown> = {}
   tab["key"] = "w1"
   tab["lines"] = [old]
-  const kept: Map<String, Unknown> = {}
+  const kept: map<string, unknown> = {}
   kept["tabs"] = [tab]
   const back = Kept::decode(kept, Kept { tabs: [] })
   const lines = back.tabs[1]?.lines ?? []
@@ -979,7 +979,7 @@ test "a community is no tab of its own: a tab shows it where the Tabs page ticks
   const friends: Game::ChatStream = { club: "12", stream: "1", name: "Friends" }
   const guild: Game::ChatStream = { club: "14", stream: "1", name: "Guildhall" }
   Game::chat.streams = [friends, guild]
-  Game::chat.communities = (index: Integer): Array<Game::ChatCommunity> => [{ stream: friends, shown: false }, { stream: guild, shown: true }]
+  Game::chat.communities = (index: integer): array<Game::ChatCommunity> => [{ stream: friends, shown: false }, { stream: guild, shown: true }]
   const shown = chat()
   Test::expect(!shown.text("Friends").shown())
   const settings = tabsPage()
@@ -996,7 +996,7 @@ test "someone's line naming a keyword is marked" {
 }
 
 // A line heard in a session: this one's where none is named.
-function plain(words: String, session: Number = THIS_SESSION): Shown {
+function plain(words: string, session: number = THIS_SESSION): Shown {
   return { whole: words, color: WHITE, time: session, repeat: words, count: 1, marked: false, session: session, secret: false, sender: "" }
 }
 
@@ -1015,7 +1015,7 @@ test "the chat is never lower than its tabs: the lines take the room they leave"
 }
 
 // The windows of the player's game: General, the combat log, Guild, Channels.
-function playersWindows(): Array<Game::ChatWindow> {
+function playersWindows(): array<Game::ChatWindow> {
   return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
 }
 
@@ -1030,7 +1030,7 @@ test "with the player's tabs, the lines keep their room, the newest at their foo
 }
 
 // A line said at `hour`:`minute` and `second`, where the game shows the chat's times.
-function stamped(body: String, hour: Integer, minute: Integer, second: Integer = 0): mut Game::ChatLine {
+function stamped(body: string, hour: integer, minute: integer, second: integer = 0): mut Game::ChatLine {
   const said = line("SAY", body, "Thrall", [1])
   said.stamp = "%d:%02d ".format(hour, minute)
   said.time = hour * 3600 + minute * 60 + second
@@ -1103,7 +1103,7 @@ test "messages stand apart by the chat's room between them, more than a message'
   const shown = Test::page().window("Jaina")
   Game::chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
   Game::chat.heard.emit(line("SAY", "[Thrall] says: two", "Thrall", [1]))
-  const room = (): Number => shown.text("[Thrall] says: two").rect().top - shown.text("[Thrall] says: one").rect().bottom
+  const room = (): number => shown.text("[Thrall] says: two").rect().top - shown.text("[Thrall] says: one").rect().bottom
   Test::expect((room() - Ordaen.lengthOf(MESSAGE_GAP * 1sp) / 1ui).abs() < 0.05)
   // The room's slider on the Chat page, two half-steps down by its − (the page's sixth: after the width, the height,
   // the background's opacity, the lines kept and the lines held).
@@ -1124,7 +1124,7 @@ test "a line without the game's times has no time above it" {
 
 test "a tab of neither General, the guild nor the channels has its times before its lines, until its settings say above" {
   Game::chat.windows = [window(1, "General", ""), window(4, "Drops", "Kel")]
-  Game::chat.groups = (index: Integer): Array<Game::ChatGroup> => [
+  Game::chat.groups = (index: integer): array<Game::ChatGroup> => [
     { name: "SAY", label: "Say", shown: index == 1 },
     { name: "LOOT", label: "Loot", shown: index == 4 }
   ]

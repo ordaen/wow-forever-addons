@@ -9,16 +9,16 @@ import Style from "@/style"
 
 // A profession's cell: the skill, `150 / 300`, or a dash.
 public struct Skill {
-  text: String
+  text: string
   // The rank it sorts by: -1 for a character without the profession.
-  rank: Integer
+  rank: integer
 }
 
 // One character as a row: its name and its skill in each profession, in the columns' order.
 public struct SkillLine {
-  key: String
-  name: String
-  skills: Array<Skill>
+  key: string
+  name: string
+  skills: array<Skill>
 }
 
 const NONE: Skill = { text: "—", rank: -1 }
@@ -58,24 +58,24 @@ class SkillRow implements Component {
 public class Grid implements Component {
   state sorted = 1
   state descending = false
-  derived names: Array<String> = self.namesOf()
-  derived columns: Array<Column> = self.columnsOf()
-  derived lines: Array<SkillLine> = self.linesOf()
-  derived ordered: Array<SkillLine> = self.order()
+  derived names: array<string> = self.namesOf()
+  derived columns: array<Column> = self.columnsOf()
+  derived lines: array<SkillLine> = self.linesOf()
+  derived ordered: array<SkillLine> = self.order()
 
   const records: Records
-  touched: Signal<Integer>
-  constructor(records: Records, touched: Signal<Integer>) {
+  touched: Signal<integer>
+  constructor(records: Records, touched: Signal<integer>) {
     self.records = records
     self.touched = touched
   }
 
   // The professions any character has, by name.
-  namesOf(self): Array<String> {
+  namesOf(self): array<string> {
     // Read again when any record changed.
     _ = self.touched
-    const seen: Map<String, Boolean> = {}
-    const list: Array<String> = []
+    const seen: map<string, boolean> = {}
+    const list: array<string> = []
     for (_, character of self.records.characters) {
       for (known of character.professions) {
         // A profession whose recipes were read before the game listed it has no name yet: no column.
@@ -90,20 +90,20 @@ public class Grid implements Component {
   }
 
   // The name's column, then a profession's each, sharing the width beyond their least.
-  columnsOf(self): Array<Column> {
-    const list: Array<Column> = [{ title: Locale::COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
+  columnsOf(self): array<Column> {
+    const list: array<Column> = [{ title: Locale::COL_NAME, width: { fr: 1, min: NAME_LEAST }, sortable: true }]
     for (name of self.names) { list.push({ title: name, width: { fr: 1, min: SKILL_LEAST }, align: Align::Center, sortable: true }) }
     return list
   }
 
   // Each character a line, by name, then by realm where two share a name.
-  linesOf(self): Array<SkillLine> {
-    const characters: Array<Character> = []
+  linesOf(self): array<SkillLine> {
+    const characters: array<Character> = []
     for (_, character of self.records.characters) { characters.push(character) }
     characters.sort((a, b) => a.name < b.name || (a.name == b.name && a.realm < b.realm))
-    const list: Array<SkillLine> = []
+    const list: array<SkillLine> = []
     for (character of characters) {
-      const skills: Array<Skill> = []
+      const skills: array<Skill> = []
       for (name of self.names) {
         let skill = NONE
         for (known of character.professions) {
@@ -117,8 +117,8 @@ public class Grid implements Component {
   }
 
   // The lines by the column the table is sorted by: the name's, or a profession's skill (without it, last either way).
-  order(self): Array<SkillLine> {
-    const list: Array<SkillLine> = []
+  order(self): array<SkillLine> {
+    const list: array<SkillLine> = []
     for (line of self.lines) { list.push(line) }
     const column = self.sorted
     const down = self.descending

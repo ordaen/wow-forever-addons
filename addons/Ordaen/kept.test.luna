@@ -11,7 +11,7 @@ import Locale from "@/locales"
 import { WINDOW_ROOM } from "@/units"
 import { FOOTER_ROOM, KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
 
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 
 // The settings window opened on Ordaen's own page, drawn.
 function open() {
@@ -23,7 +23,7 @@ function tab(): Test::Point { return Test::holding(Ordaen.title, nil) }
 function save(): Test::Point { return Test::holding(Locale::ROLLBACK, nil) }
 
 // A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
-function drag(from: Test::Point, dx: Number, dy: Number) {
+function drag(from: Test::Point, dx: number, dy: number) {
   Test::moveTo(from)
   Test::press(nil)
   Test::moveTo({ x: from.x + 1, y: from.y })
@@ -122,11 +122,11 @@ test "a window never moved keeps nothing, and moving one is no step of the setti
 
 // What a module's mistake might keep: a list that grows with play.
 struct Grown implements Plain {
-  names: Array<String> = []
+  names: array<string> = []
 }
 
 test "a memory past its bound isn't kept" {
-  const names: Array<String> = []
+  const names: array<string> = []
   for (i of 1..100) { names.push("name number %d".format(i)) }
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: names })
   Test::expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
@@ -139,7 +139,7 @@ function body(): Test::Rect { return Test::edges(Ordaen.art.window.wood, 0) }
 
 // A window whose content needs more than its least size says: a block of 500 by 400 over a footer.
 class Crowded {
-  state tabs: Array<WindowTabSpec> = [{ title: "Crowded" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Crowded" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 800ui, height: 600ui })
   const footer: Template = $ltml {
@@ -159,7 +159,7 @@ class Crowded {
 
 // A window of two tabs, the second laid out for one height.
 class Held {
-  state tabs: Array<WindowTabSpec> = [{ title: "Free" }, { title: "Held", height: 300ui }]
+  state tabs: array<WindowTabSpec> = [{ title: "Free" }, { title: "Held", height: 300ui }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("held", "held", { x: 0ui, y: 0ui, width: 600ui, height: 500ui })
 
@@ -195,7 +195,7 @@ test "a tab that holds the window's height draws it at that height, its grip cha
 // A window of two tabs, the second's page with no room round it, the window's own room as given (none: its own):
 // what each page holds fills it.
 class Padded {
-  state tabs: Array<WindowTabSpec> = [{ title: "Roomy" }, { title: "Flush", padding: { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp } }]
+  state tabs: array<WindowTabSpec> = [{ title: "Roomy" }, { title: "Flush", padding: { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp } }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("padded", "padded", { x: 0ui, y: 0ui, width: 600ui, height: 400ui })
   room: Edges | nil

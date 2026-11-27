@@ -14,26 +14,26 @@ import { Component } from "@/module"
 const GAP = 1sp
 
 public class TooltipGroup implements Component {
-  derived columns: Array<Track> = TooltipGroup::autos(1 + self.beside)
+  derived columns: array<Track> = TooltipGroup::autos(1 + self.beside)
   // The secondary tooltips stand on the primary's left: with none beside it there is nothing to turn round, and
   // nothing is drawn again as the side the group runs to changes.
-  derived turned: Boolean = self.leftwards && self.beside > 0
+  derived turned: boolean = self.leftwards && self.beside > 0
 
   public enter: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
 
-  shown: Signal<Boolean>
+  shown: Signal<boolean>
   place: Signal<Place>
-  beside: Signal<Integer>
+  beside: Signal<integer>
   across: Signal<Align>
-  leftwards: Signal<Boolean>
+  leftwards: Signal<boolean>
   constructor(
-    shown: Signal<Boolean>,
+    shown: Signal<boolean>,
     place: Signal<Place>,
     // How many tooltips the slot `secondary` holds.
-    beside: Signal<Integer> = 0,
+    beside: Signal<integer> = 0,
     across: Signal<Align> = Align::Start,
-    leftwards: Signal<Boolean> = false
+    leftwards: Signal<boolean> = false
   ) {
     self.shown = shown
     self.place = place
@@ -42,8 +42,8 @@ public class TooltipGroup implements Component {
     self.leftwards = leftwards
   }
 
-  autos(count: Integer): Array<Track> {
-    let list: Array<Track> = []
+  autos(count: integer): array<Track> {
+    let list: array<Track> = []
     for (i of 1..count) { list.push("max-content") }
     return list
   }

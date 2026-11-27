@@ -32,7 +32,7 @@ const CHANCE = 46
 // How an item is bound, by the game's own text for it: in the glossary term's short name («Персональный при
 // поднятии» for the game's «Становится персональным при поднятии»), opening the term; another binding as the game
 // wrote it.
-function binding(text: String): Part {
+function binding(text: string): Part {
   if (text == Game::strings.soulbound) { return { text: Locale::TERM_BOUND, color: nil, opens: named(Term::Bound) } }
   if (text == Game::strings.bindOnEquip) { return { text: Locale::TERM_BOE, color: nil, opens: named(Term::Boe) } }
   if (text == Game::strings.bindOnPickup) { return { text: Locale::TERM_BOP, color: nil, opens: named(Term::Bop) } }
@@ -42,40 +42,40 @@ function binding(text: String): Part {
 public struct ItemRead {
   model: Model
   // The tooltips beside it: what using it does, its set.
-  sides: Array<Model>
+  sides: array<Model>
   // What a recipe makes: the game's data for it, read as an item of its own.
-  makes: Array<Game::TooltipData>
+  makes: array<Game::TooltipData>
   // Its level and its stats by the game's key for each: what a comparison sets against the other item's rows.
-  stats: Map<String, Number>
+  stats: map<string, number>
 }
 
 // A number as Ordaen writes it, by Ordaen's number settings.
-function shown(n: Number): String {
+function shown(n: number): string {
   return Ordaen::number(n)
 }
 
 // What stood where a format of the game's has its first value, and its first two.
-function one(text: String, format: String): String | nil {
+function one(text: string, format: string): string | nil {
   let parts = text.unformat(format)
   if (parts == nil) { return nil }
   return parts[1]
 }
 
-function two(text: String, format: String): (String | nil, String | nil) {
+function two(text: string, format: string): (string | nil, string | nil) {
   let parts = text.unformat(format)
   if (parts == nil) { return nil, nil }
   return parts[1], parts[2]
 }
 
 // Durability's colour: red when broken, yellow at a quarter or less, the footer's own otherwise.
-function durabilityColor(current: Number, most: Number): Color | nil {
+function durabilityColor(current: number, most: number): Color | nil {
   if (current <= 0) { return RED }
   if (current <= most / 4) { return YELLOW }
   return nil
 }
 
 // «%d slots», in the form the number takes.
-function slots(count: Integer): String {
+function slots(count: integer): string {
   let which = Game::client.locale == "ruRU" ? form(count) : (count == 1 ? 1 : 3)
   match (which) {
     1 => return Locale::COL_SLOTS_ONE.format(count)
@@ -86,7 +86,7 @@ function slots(count: Integer): String {
 
 // A recipe's reagents written as one line («Thick Leather (6), Citrine (2)») as rows, the count on the right.
 // Whether there were any. A part with no count in brackets, or no name before it, is none.
-function reagents(text: String, body: mut Array<TextLine>): Boolean {
+function reagents(text: string, body: mut array<TextLine>): boolean {
   let any = false
   for (part of text.split(",")) {
     const count = (part.match("%((%d+)%)%s*$") ?? "").toNumber()
@@ -101,7 +101,7 @@ function reagents(text: String, body: mut Array<TextLine>): Boolean {
 
 // A model with one more line in its footer.
 function withNote(model: Model, note: Note): Model {
-  let foot: Array<Note> = []
+  let foot: array<Note> = []
   for (kept of model.foot) { foot.push(kept) }
   foot.push(note)
   return { foot: foot, ..model }
@@ -109,16 +109,16 @@ function withNote(model: Model, note: Note): Model {
 
 public function item(data: Game::TooltipData, options: Options): ItemRead | nil {
   let id = data.id
-  let name: String | nil = nil
+  let name: string | nil = nil
   let nameColor = BRIGHT_TEXT
-  let desc: Array<Part> = []
-  let info: Array<Part> = []
-  let facts: Array<Fact> = []
-  let body: Array<TextLine> = []
-  let foot: Array<Note> = []
-  let sides: Array<Model> = []
-  let makes: Array<Game::TooltipData> = []
-  let stats: Map<String, Number> = {}
+  let desc: array<Part> = []
+  let info: array<Part> = []
+  let facts: array<Fact> = []
+  let body: array<TextLine> = []
+  let foot: array<Note> = []
+  let sides: array<Model> = []
+  let makes: array<Game::TooltipData> = []
+  let stats: map<string, number> = {}
   let timer = false
 
   let level = id != nil ? Game::items.level(id) : nil
@@ -138,8 +138,8 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
   let nested = false
   let recipe = false
   let learned = false
-  let setName: String | nil = nil
-  let setBody: Array<TextLine> = []
+  let setName: string | nil = nil
+  let setBody: array<TextLine> = []
   for (line of data.lines) {
     let kind = line.kind
     let left = clean(line.left)
@@ -313,9 +313,9 @@ public function item(data: Game::TooltipData, options: Options): ItemRead | nil 
 // is less), nothing when they are equal. With `lacks`, the stats only `worse` has follow as «—» with what is lost:
 // the hovered item against the worn one.
 public function compare(
-  target: Model, better: Map<String, Number>, worse: Map<String, Number>, lacks: Boolean
+  target: Model, better: map<string, number>, worse: map<string, number>, lacks: boolean
 ): Model {
-  let body: Array<TextLine> = []
+  let body: array<TextLine> = []
   for (row of target.body) {
     let key = row.stat
     let right = row.right
@@ -343,11 +343,11 @@ public function compare(
 // label on the left and the value on the right, at the body's size, before its words.
 function useSide(model: Model | nil): Model | nil {
   if (model == nil) { return nil }
-  let body: Array<TextLine> = []
+  let body: array<TextLine> = []
   for (part of model.desc) { body.push(rowOf(part.text)) }
   for (part of model.info) { body.push(rowOf(part.text)) }
   // The spell's own cells (its cost, range, cast, cooldown) stay its band; the rest (an armour kit's armour) are rows.
-  let facts: Array<Fact> = []
+  let facts: array<Fact> = []
   for (fact of model.facts) {
     if (fact.cell.kind == BandKind::Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
   }
@@ -370,7 +370,7 @@ function factRow(cell: BandFact): TextLine {
 }
 
 // A title line's fact as a row: «Armor: +24» its label and its value; a line with no label, the label alone.
-function rowOf(text: String): TextLine {
+function rowOf(text: string): TextLine {
   let label, value = text.match("^(.-):%s+(.+)$")
   if (label == nil || value == nil) { return { left: text } }
   return { left: label, right: value }

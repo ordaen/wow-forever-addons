@@ -14,20 +14,20 @@ import { BRIGHT_TEXT, Component, reachAcross, reachDown } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
-const TITLE_TOP: Number<Length> = 16.40625dp + 12dp
+const TITLE_TOP: number<Length> = 16.40625dp + 12dp
 // The title's text, as tall as it is drawn.
 const TITLE_LINE = 21.09375dp
-const GROOVE_TOP: Number<Length> = TITLE_TOP + TITLE_LINE + 12dp
+const GROOVE_TOP: number<Length> = TITLE_TOP + TITLE_LINE + 12dp
 const GROOVE = 4.6875dp
 const GROOVE_SIDE = 46.875dp
-const HEAD: Number<Length> = GROOVE_TOP + GROOVE + 24dp
+const HEAD: number<Length> = GROOVE_TOP + GROOVE + 24dp
 // Half the gap between two plates: taken off each plate above and below.
-const HALF_GAP: Number<Length> = 12dp / 2
+const HALF_GAP: number<Length> = 12dp / 2
 const TITLE: Color = Color::hex("#ffd100")
 const ENGRAVED: Shadow = { color: Color::hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
 const LABEL: Color = Color::hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
-const OWN_DROP: ByInteractionState<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
+const OWN_DROP: ByInteractionState<number<Length>> = { default: 0ui, pressed: 2.34375dp }
 const OWN_LABEL: ByInteractionState<Color> = { default: Color::hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const LABEL_HOVER: Color = BRIGHT_TEXT
 const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
@@ -38,20 +38,20 @@ const DOWN = 2.34375dp
 // One of Blizzard's buttons as the dress draws it.
 public struct Dressed {
   button: any Client::Button
-  label: String
+  label: string
   // One of the exits: in red.
-  accent: Boolean
+  accent: boolean
   // Blizzard's «new» label hangs by it.
-  gem: Boolean
+  gem: boolean
   // «AddOns»: ours stands over it.
-  addons: Boolean
-  width: Number<Length>
-  height: Number<Length>
+  addons: boolean
+  width: number<Length>
+  height: number<Length>
 }
 
 // The values a client's call gives, one after another, as a list.
-function framesOf(...frames: any Client::Frame): Array<any Client::Frame> {
-  const list: Array<any Client::Frame> = []
+function framesOf(...frames: any Client::Frame): array<any Client::Frame> {
+  const list: array<any Client::Frame> = []
   for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame != nil) { list.push(frame) }
@@ -60,7 +60,7 @@ function framesOf(...frames: any Client::Frame): Array<any Client::Frame> {
 }
 
 // A frame's own textures and texts at an alpha: its art.
-function fade(alpha: Number, ...regions: any Client::Region) {
+function fade(alpha: number, ...regions: any Client::Region) {
   for (i of 1..regions.length) {
     const region = regions[i]
     if (region is Client::Texture) { region.SetAlpha(alpha) }
@@ -70,7 +70,7 @@ function fade(alpha: Number, ...regions: any Client::Region) {
 
 // Whether what a hook of the client's calls still runs: the hook holds this, and calls nothing once it is off.
 public struct Live {
-  on: Boolean
+  on: boolean
 }
 
 // The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each
@@ -78,17 +78,17 @@ public struct Live {
 // call as every later one is.
 public class GameMenu {
   public state shown = false
-  public state buttons: Array<Dressed> = []
-  public state width: Number<Length> = 0ui
-  public state height: Number<Length> = 0ui
+  public state buttons: array<Dressed> = []
+  public state width: number<Length> = 0ui
+  public state height: number<Length> = 0ui
   // How far Blizzard's first button stands under the menu's top (its point on the menu's), nothing when it stands by
   // something else.
-  public state lead: Number = 0
+  public state lead: number = 0
   // The button under the cursor and the one held down: Blizzard's, which keep the mouse.
   public state hovered: any Client::Button | nil = nil
   public state held: any Client::Button | nil = nil
   // The buttons already hooked: a pooled button is hooked once, whatever it holds later.
-  hooked: mut WeakMap<any Client::Button, Boolean> = {}
+  hooked: mut WeakMap<any Client::Button, boolean> = {}
   // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
   // and calls nothing of it.
   const live: mut Live = { on: true }
@@ -101,16 +101,16 @@ public class GameMenu {
     self.started = true
     const menu = Client::GameMenuFrame
     const live = self.live
-    _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
+    _ = menu.HookScript("OnShow", (...args: unknown): nil => {
       if (live.on) { self.onShow() }
     })
-    _ = menu.HookScript("OnHide", (...args: Unknown): nil => {
+    _ = menu.HookScript("OnHide", (...args: unknown): nil => {
       if (live.on) { self.onHide() }
     })
     // Blizzard's menu is a layout frame: its buttons get their places and the menu its size on the next frame's
     // update, a pooled button standing where its last entry stood till then. Matched again once laid out, which
     // follows every time Blizzard builds them anew (`InitButtons` marks the menu for it) before that frame is drawn.
-    Client::hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
+    Client::hooksecurefunc(menu, "Layout", (...args: unknown): nil => {
       if (live.on) { self.onInit() }
     })
     self.onShow()
@@ -144,7 +144,7 @@ public class GameMenu {
     const event = menu.NewExternalEventFrame.IsShown()
     fade(0, ...menu.GetRegions())
     menu.EnableMouse(false)
-    const list: Array<Dressed> = []
+    const list: array<Dressed> = []
     for (child of framesOf(...menu.GetChildren())) {
       if (child is Client::Button) {
         if (child.IsShown()) {
@@ -173,7 +173,7 @@ public class GameMenu {
     self.width = menu.GetWidth() * 1ui
     self.height = menu.GetHeight() * 1ui
     // The topmost of Blizzard's buttons, whichever its pool handed first: the least way down from the menu's top.
-    let lead: Number | nil = nil
+    let lead: number | nil = nil
     for (dressed of list) {
       const point, relative, to, _, y = dressed.button.GetPoint(1, nil)
       if (relative == menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
@@ -186,16 +186,16 @@ public class GameMenu {
     if (self.hooked[button] == true) { return }
     self.hooked[button] = true
     const live = self.live
-    _ = button.HookScript("OnEnter", (...args: Unknown): nil => {
+    _ = button.HookScript("OnEnter", (...args: unknown): nil => {
       if (live.on) { self.hovered = button }
     })
-    _ = button.HookScript("OnLeave", (...args: Unknown): nil => {
+    _ = button.HookScript("OnLeave", (...args: unknown): nil => {
       if (live.on) { self.onLeave(button) }
     })
-    _ = button.HookScript("OnMouseDown", (...args: Unknown): nil => {
+    _ = button.HookScript("OnMouseDown", (...args: unknown): nil => {
       if (live.on) { self.held = button }
     })
-    _ = button.HookScript("OnMouseUp", (...args: Unknown): nil => {
+    _ = button.HookScript("OnMouseUp", (...args: unknown): nil => {
       if (live.on) { self.held = nil }
     })
   }
@@ -228,20 +228,20 @@ public class Plate implements Component {
   // «AddOns» was clicked.
   public pick: Event<nil> = new Event()
 
-  derived over: Boolean = self.menu.hovered == self.dressed.button
-  derived down: Boolean = self.menu.held == self.dressed.button
+  derived over: boolean = self.menu.hovered == self.dressed.button
+  derived down: boolean = self.menu.held == self.dressed.button
   derived art: Art = self.dressed.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
   // The plate's interaction state is the button's of Blizzard's under it, as the menu hears it.
   derived looks: InteractionState = { hover: self.over, pressed: self.down }
-  derived light: Number = self.over ? 1 : 0
+  derived light: number = self.over ? 1 : 0
   derived color: Color = self.over ? LABEL_HOVER : LABEL
-  derived drop: Number<Length> = self.down ? DOWN : 0ui
-  derived gem: Number = self.dressed.gem ? 1 : 0
-  derived high: Number<Length> = self.dressed.height - 2 * HALF_GAP
-  derived gemTop: Number<Length> = (self.high - GEM) / 2
+  derived drop: number<Length> = self.down ? DOWN : 0ui
+  derived gem: number = self.dressed.gem ? 1 : 0
+  derived high: number<Length> = self.dressed.height - 2 * HALF_GAP
+  derived gemTop: number<Length> = (self.high - GEM) / 2
   derived place: Anchored = { point: Point::TopLeft, to: Point::TopLeft, y: HALF_GAP, by: self.dressed.button }
   // «AddOns», ours: lit while the cursor is on it.
-  derived ownLight: Number = self.ownOver ? 1 : 0
+  derived ownLight: number = self.ownOver ? 1 : 0
   state ownOver = false
 
   dressed: Signal<Dressed>
@@ -291,9 +291,9 @@ public class MenuDress implements Component {
   public addons: Event<nil> = new Event()
 
   // Blizzard's menu at the frame's line, the art past the line round it.
-  derived wide: Number<Length> = self.menu.width + reachAcross(Ordaen.art.frame.small)
+  derived wide: number<Length> = self.menu.width + reachAcross(Ordaen.art.frame.small)
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
-  derived high: Number<Length> = self.menu.height - self.menu.lead * 1ui + HEAD + reachDown(Ordaen.art.frame.small)
+  derived high: number<Length> = self.menu.height - self.menu.lead * 1ui + HEAD + reachDown(Ordaen.art.frame.small)
 
   // Blizzard's menu, matched by the module from its first show on.
   const menu: GameMenu

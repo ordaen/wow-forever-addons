@@ -21,27 +21,27 @@ const POOL: Color = Color::hex("#00000040")
 const POOL_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 
 // One of the items placed: what tells it from the others, its name on its chip, and what the cursor on it says.
-public struct ZoneItem<K: Unknown> {
+public struct ZoneItem<K: unknown> {
   key: K
-  label: String
-  hint: String | nil
+  label: string
+  hint: string | nil
 }
 
 // An item's chip: dragged from where it is, it is the one a zone takes when it is let go there.
-public class ZoneChip<K: Unknown> implements Component {
-  derived opacity: Number = self.pooled ? 0.8 : 1
+public class ZoneChip<K: unknown> implements Component {
+  derived opacity: number = self.pooled ? 0.8 : 1
 
   item: Signal<ZoneItem<K>>
   dragging: mut Signal<K | nil>
   hinted: mut Signal<K | nil>
-  pooled: Signal<Boolean>
+  pooled: Signal<boolean>
   constructor(
     item: Signal<ZoneItem<K>>,
     // The item being dragged, and the one under the cursor: none while there is none.
     dragging: mut Signal<K | nil>,
     hinted: mut Signal<K | nil>,
     // In the pool: greyed.
-    pooled: Signal<Boolean>
+    pooled: Signal<boolean>
   ) {
     self.item = item
     self.dragging = dragging
@@ -74,30 +74,30 @@ public class ZoneChip<K: Unknown> implements Component {
 
 // One zone, or the pool: its name and the chips of the items that sit in it. What is dragged and let go over it is
 // placed in it.
-public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
+public class ZoneColumn<K: unknown, Z: unknown> implements Component {
   // The first zone's chips from the left, the second's in the middle, the third's to the right.
   derived align: Align = self.alignOf()
   derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
-  derived named: Boolean = !self.pool
+  derived named: boolean = !self.pool
 
   zone: Signal<Choice<Z>>
-  index: Signal<Integer>
-  const items: Array<ZoneItem<K>>
-  value: mut Signal<Map<K, Z>>
+  index: Signal<integer>
+  const items: array<ZoneItem<K>>
+  value: mut Signal<map<K, Z>>
   dragging: mut Signal<K | nil>
   hinted: mut Signal<K | nil>
-  pool: Signal<Boolean>
+  pool: Signal<boolean>
   constructor(
     zone: Signal<Choice<Z>>,
     // Its place among the zones.
-    index: Signal<Integer>,
-    items: Array<ZoneItem<K>>,
+    index: Signal<integer>,
+    items: array<ZoneItem<K>>,
     // Where each item sits.
-    value: mut Signal<Map<K, Z>>,
+    value: mut Signal<map<K, Z>>,
     dragging: mut Signal<K | nil>,
     hinted: mut Signal<K | nil>,
     // The pool has its name over it, not in it.
-    pool: Signal<Boolean> = false
+    pool: Signal<boolean> = false
   ) {
     self.zone = zone
     self.index = index
@@ -134,24 +134,24 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
   }
 }
 
-public class Zones<K: Unknown, Z: Unknown> implements Component {
+public class Zones<K: unknown, Z: unknown> implements Component {
   state dragging: K | nil = nil
   state hinted: K | nil = nil
-  derived hintTitle: String = self.hintedItem()?.label ?? ""
-  derived hintText: String = self.hintedItem()?.hint ?? ""
-  derived hintShown: Boolean = self.hintText != ""
+  derived hintTitle: string = self.hintedItem()?.label ?? ""
+  derived hintText: string = self.hintedItem()?.hint ?? ""
+  derived hintShown: boolean = self.hintText != ""
 
-  const items: Array<ZoneItem<K>>
-  const zones: Array<Choice<Z>>
+  const items: array<ZoneItem<K>>
+  const zones: array<Choice<Z>>
   const off: Choice<Z>
-  value: mut Signal<Map<K, Z>>
+  value: mut Signal<map<K, Z>>
   constructor(
-    items: Array<ZoneItem<K>>,
+    items: array<ZoneItem<K>>,
     // The zones, in order, and the pool: each a place an item can sit in, with its name.
-    zones: Array<Choice<Z>>,
+    zones: array<Choice<Z>>,
     off: Choice<Z>,
     // Where each item sits: every item has its place, a zone's or the pool's.
-    value: mut Signal<Map<K, Z>>
+    value: mut Signal<map<K, Z>>
   ) {
     self.items = items
     self.zones = zones

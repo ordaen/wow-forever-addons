@@ -6,10 +6,10 @@ import { Module, SettingsPage } from "Ordaen"
 import { Active, changesOf } from "@/changes"
 
 public class Auras implements Module, App {
-  public const title: String = "Ordaen Auras"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Ordaen Auras"
+  public const pages: array<SettingsPage> = []
   // The character's auras that change a stat, the helpful ones first, each in the client's order.
-  public state active: Array<Active> = []
+  public state active: array<Active> = []
 
   constructor() {
     Ordaen.modules.add(self)
@@ -25,7 +25,7 @@ public class Auras implements Module, App {
   // The character's auras as the client has them now.
   public refresh(mut self) {
     const level = Game::player.level
-    const list: Array<Active> = []
+    const list: array<Active> = []
     for (aura of Game::auras.player()) {
       const changes = changesOf(aura.spell, aura.stacks, aura.points, level)
       if (changes.length > 0) {

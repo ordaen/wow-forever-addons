@@ -6,7 +6,7 @@ import { Leadings } from "$ltml"
 import { Density } from "@/globals"
 
 // What `1sp` is at each density: at the most compact, the body's line still clears its font's own line.
-public function spacingFor(density: Density): Number<Length> {
+public function spacingFor(density: Density): number<Length> {
   return match (density) {
     .Compact => 3.75dp
     .Normal => 4dp
@@ -16,7 +16,7 @@ public function spacingFor(density: Density): Number<Length> {
 
 // The body's text size, what `1rem` is (a text that names none): Ordaen gives it to the renderer, and every text
 // any addon draws is its size in `rem` of it: the game's own body text (GameFontNormal).
-public const BODY_TEXT: Number<Length> = 12ui
+public const BODY_TEXT: number<Length> = 12ui
 
 // The brightest text: a name or a value picked out, a label under the cursor or picked. A warm off-white, never pure
 // white, which glares on the dark wood and breaks up on an OLED panel's pixels.
@@ -25,19 +25,19 @@ public const BRIGHT_TEXT: Color = Color::hex("#f0e6d2")
 // The text sizes besides the body's: a description, a hint, a detail under a name, a tab's subtitle; and a window's or
 // a tooltip's title. Hierarchy is shown by colour, a border or a gap before a size. Two units under the body and two
 // over it, as the game's small and title fonts stand by its body's, whatever the body is.
-public const SECONDARY_TEXT: Number<TextSize> = (BODY_TEXT - 2ui) / BODY_TEXT * 1rem
-public const TITLE_TEXT: Number<TextSize> = (BODY_TEXT + 2ui) / BODY_TEXT * 1rem
+public const SECONDARY_TEXT: number<TextSize> = (BODY_TEXT - 2ui) / BODY_TEXT * 1rem
+public const TITLE_TEXT: number<TextSize> = (BODY_TEXT + 2ui) / BODY_TEXT * 1rem
 
 // The thin line that rules the inside of a window: a tab band's foot and its picked tab, a footer's top.
 public const RULE_COLOR: Color = Color::hex("#3e2f1d")
-public const RULE_WIDTH: Number<Length> = 1.171875dp
+public const RULE_WIDTH: number<Length> = 1.171875dp
 
 // The room inside a window's frame, from its line to its content: more than any gap inside it.
-public const WINDOW_ROOM: Number<Spacing> = 6.5sp
+public const WINDOW_ROOM: number<Spacing> = 6.5sp
 
 // How high a line of a text is: its size times its kind's leading, on the rhythm's grid of half `sp`s as `sp` is at the
 // normal density (the density then makes every line and every room as much larger or smaller together).
-function lineFor(text: Number<Length>, leading: Number): Number<Spacing> {
+function lineFor(text: number<Length>, leading: number): number<Spacing> {
   const units = text * leading / spacingFor(.Normal)
   return (units * 2 + 0.5).floor() / 2 * 1sp
 }
@@ -49,8 +49,8 @@ public const LEADINGS: Leadings = { row: 1.3, title: 1.2, prose: 1.4 }
 
 // The lines of the body's text, a title's and prose's at their sizes, for what is measured in lines: a row of a list
 // is a whole number of the body's.
-public const BODY_LINE: Number<Spacing> = lineFor(BODY_TEXT, LEADINGS.row)
-public const TITLE_LINE: Number<Spacing> = lineFor(BODY_TEXT * TITLE_TEXT / 1rem, LEADINGS.title)
-public const PROSE_LINE: Number<Spacing> = lineFor(BODY_TEXT, LEADINGS.prose)
+public const BODY_LINE: number<Spacing> = lineFor(BODY_TEXT, LEADINGS.row)
+public const TITLE_LINE: number<Spacing> = lineFor(BODY_TEXT * TITLE_TEXT / 1rem, LEADINGS.title)
+public const PROSE_LINE: number<Spacing> = lineFor(BODY_TEXT, LEADINGS.prose)
 // A text set on art keeps its font's own line, the least a line is: a count on an icon, a label on a plate.
-public const TIGHT_LINE: Number<Spacing> = 0sp
+public const TIGHT_LINE: number<Spacing> = 0sp

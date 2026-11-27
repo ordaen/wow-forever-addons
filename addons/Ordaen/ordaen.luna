@@ -31,26 +31,26 @@ const QUEST_COLORS = "showQuestDifficultyColor"
 public struct KeptPlace implements Plain {
   point: Point = Point::Center
   to: Point | nil
-  x: Number<Length> | nil
-  y: Number<Length> | nil
+  x: number<Length> | nil
+  y: number<Length> | nil
 }
 
 // Where the player put each part, by the part's name: Ordaen's section `Ordaen:places` of the active profile, so going
 // back, a savepoint and a profile hold where the parts stand.
 public struct Places implements Plain {
-  parts: mut Map<String, KeptPlace> = {}
+  parts: mut map<string, KeptPlace> = {}
 }
 
 // The most room any module's part keeps along one edge.
-function mostOf(kept: Map<String, Number<Length>>): Number<Length> {
-  let most: Number<Length> = 0ui
+function mostOf(kept: map<string, number<Length>>): number<Length> {
+  let most: number<Length> = 0ui
   for (_, taken of kept) { most = most.max(taken) }
   return most
 }
 
 public class OrdaenCore implements App {
   public const icon: Art = "Interface/Icons/Trade_Engineering"
-  public const title: String = "Ordaen"
+  public const title: string = "Ordaen"
   // The art everything Ordaen draws with, whatever the player chooses.
   public const art: OrdaenArt = ARTWORK
   // Every `Settings` together, as the settings window sees them, with the history of their changes.
@@ -63,7 +63,7 @@ public class OrdaenCore implements App {
   public const globals: mut Settings<Globals>
   // What `1sp` is as the player's density has it: every gap, padding and line height of every addon, given to the
   // renderer (`Runtime.spacingUnit`).
-  public derived spacingUnit: Number<Length> = spacingFor(self.globals.values.density)
+  public derived spacingUnit: number<Length> = spacingFor(self.globals.values.density)
   // The dev tools' window: whether it is open.
   public state dev = false
   // The modules that run: each module's root adds itself as it is made, and goes as it is destroyed.
@@ -71,17 +71,17 @@ public class OrdaenCore implements App {
   // The room each module's part keeps along the screen's bottom edge (the bottom panel), by its module's folder, and
   // the room the highest keeps: the free parts that stand by that edge until the player moves them (the action bars)
   // stand above it.
-  state bottoms: mut Map<String, Number<Length>> = {}
-  public derived bottomTaken: Number<Length> = self.bottomTakenOf()
+  state bottoms: mut map<string, number<Length>> = {}
+  public derived bottomTaken: number<Length> = self.bottomTakenOf()
   // The room each module's part keeps down from the screen's top right corner (the minimap at home), and the most:
   // what stands along the right edge (the tracker) starts under it.
-  state topRights: mut Map<String, Number<Length>> = {}
-  public derived topRightTaken: Number<Length> = mostOf(self.topRights)
+  state topRights: mut map<string, number<Length>> = {}
+  public derived topRightTaken: number<Length> = mostOf(self.topRights)
   // What each module asks the player to look at, by its folder: a count another module's part shows for it (the
   // panel's cell, a badge), read by the folder, so neither imports the other.
-  state notices: mut Map<String, Integer> = {}
+  state notices: mut map<string, integer> = {}
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
-  drawn: mut WeakMap<any Module, Boolean> = {}
+  drawn: mut WeakMap<any Module, boolean> = {}
   // The mode in which the player moves every module's parts about the screen.
   public state placing = false
   // The parts drawn that the player can move: each part's `Mover` joins as it is made and leaves as it ends.
@@ -93,28 +93,28 @@ public class OrdaenCore implements App {
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
   const places: mut Settings<Places>
   // Which modules the player turned off: the account's, whatever each character's list of addons says.
-  chosen: mut Map<String, Boolean> = {}
+  chosen: mut map<string, boolean> = {}
   // The settings window, made when it is first asked for.
   window: mut SettingsWindow | nil = nil
   // The game's tooltip of each item asked for, by its number: every slot and list that reads one asks the game once.
   // Emptied when the player levels up or a skill changes (what the tooltips mark usable follows the player), and
   // when it passes TIPS_MOST.
-  tips: mut Map<Integer, Game::TooltipData> = {}
+  tips: mut map<integer, Game::TooltipData> = {}
   tipCount = 0
   // Moves each time `tips` is emptied: what read a tooltip through `itemTip` reads it again.
   public state tipsAge = 0
   // The other addons that draw what modules draw, whose question waits to be drawn (`askWaiting`).
-  unasked: mut Array<Conflict> = []
+  unasked: mut array<Conflict> = []
   // The game's setting that colours a quest's level by its difficulty (`showQuestDifficultyColor`, in the world map's
   // filter menu): the quest log's and the tracker's levels follow it, as the game's own do.
-  public state questColors: Boolean = Client::C_CVar::GetCVarBool(QUEST_COLORS) == true
+  public state questColors: boolean = Client::C_CVar::GetCVarBool(QUEST_COLORS) == true
   // What waits for the player's fight to end (`afterCombat`), in the order asked.
-  waiting: mut Array<() => nil> = []
+  waiting: mut array<() => nil> = []
 
   constructor() {
     self.look = new Settings<Look>(preset(Preset::Ordaen), "look", self.keeper)
     self.globals = new Settings<Globals>(DEFAULTS, "", self.keeper)
-    self.chosen = load<Map<String, Boolean>>(.Account, "choices", {})
+    self.chosen = load<map<string, boolean>>(.Account, "choices", {})
     // A renamed module stays on or off as it was under its former name.
     for (former, current of RENAMED) {
       if (self.chosen[current] == nil) { self.chosen[current] = self.chosen[former] }
@@ -123,10 +123,10 @@ public class OrdaenCore implements App {
     // The account's places, kept before profiles held them, are moved into «Default» as they are first read.
     const before = Game::saved.stored(.Account, "places")
     if (before != nil) {
-      self.keeper.profiles.adopt("places", "Ordaen:places", Places { parts: decode<Map<String, KeptPlace>>(before, {}) })
+      self.keeper.profiles.adopt("places", "Ordaen:places", Places { parts: decode<map<string, KeptPlace>>(before, {}) })
     }
     self.places = new Settings<Places>(Places {}, "places", self.keeper)
-    Runtime::command("/ordaen", (text: String) => self.command(text))
+    Runtime::command("/ordaen", (text: string) => self.command(text))
     Runtime::options(self.title, Locale::SETTINGS_OPEN, () => self.toggleSettings(nil))
     watch (running of self.modules) { self.draw(running) }
     // Every text any addon draws is in the look's fonts: given once here, and again when the look's change.
@@ -166,30 +166,30 @@ public class OrdaenCore implements App {
     for (run of waiting) { run() }
   }
 
-  bottomTakenOf(self): Number<Length> { return mostOf(self.bottoms) }
+  bottomTakenOf(self): number<Length> { return mostOf(self.bottoms) }
 
   // How far down from the screen's top right corner a module's part reaches, in UI units: 0 while it keeps no room
   // there (moved away, off, or the module ending).
-  public keepTopRight(mut self, folder: String, taken: Number<Length>) {
+  public keepTopRight(mut self, folder: string, taken: number<Length>) {
     self.topRights[folder] = taken
   }
 
   // How far up from the screen's bottom edge a module's part reaches, in UI units: 0 while it keeps no room there
   // (off, along another side, or the module ending).
-  public keepBottom(mut self, folder: String, taken: Number<Length>) {
+  public keepBottom(mut self, folder: string, taken: number<Length>) {
     self.bottoms[folder] = taken
   }
 
   // How many things a module asks the player to look at (unread whispers): 0 once it asks nothing, as it ends too.
-  public notice(mut self, folder: String, count: Integer) {
+  public notice(mut self, folder: string, count: integer) {
     self.notices[folder] = count
   }
 
   // What a module asks the player to look at, by its folder: 0 where it asks nothing or doesn't run.
-  public noticeOf(self, folder: String): Integer { return self.notices[folder] ?? 0 }
+  public noticeOf(self, folder: string): integer { return self.notices[folder] ?? 0 }
 
   // The game's tooltip of an item, asked of the game once and kept; none while the game has none yet.
-  public itemTip(mut self, id: Integer): Game::TooltipData | nil {
+  public itemTip(mut self, id: integer): Game::TooltipData | nil {
     const kept = self.tips[id]
     if (kept != nil) { return kept }
     const tip = Game::items.tooltip(id)
@@ -211,12 +211,12 @@ public class OrdaenCore implements App {
   }
 
   // A setting of the game's changed: the one Ordaen follows read again.
-  onSetting(mut self, name: String, value: String) {
+  onSetting(mut self, name: string, value: string) {
     if (name == QUEST_COLORS) { self.questColors = value == "1" }
   }
 
   // Each module that runs and isn't drawn yet, drawn on the screen as a module's root is: what it draws ends with it.
-  draw(mut self, running: Array<any Module>) {
+  draw(mut self, running: array<any Module>) {
     for (module of running) {
       if (self.drawn[module] == nil) {
         self.drawn[module] = true
@@ -245,16 +245,16 @@ public class OrdaenCore implements App {
   }
 
   // Whether the player has a module on, by its folder: Ordaen's own switch, whatever the client's list says.
-  public isChosen(self, folder: String): Boolean { return self.chosen[folder] != false }
+  public isChosen(self, folder: string): boolean { return self.chosen[folder] != false }
 
   // A room in the spacing unit as a length, for a size worked out from gaps (a drawer as wide as its cells and the
   // gaps between them); read in a derived cell, it follows the density.
-  public lengthOf(self, room: Number<Spacing>): Number<Length> { return room / 1sp * self.spacingUnit }
+  public lengthOf(self, room: number<Spacing>): number<Length> { return room / 1sp * self.spacingUnit }
   // A length measured of the art as a room in the spacing unit, for a padding that meets the art's lines.
-  public spacingOf(self, length: Number<Length>): Number<Spacing> { return length / self.spacingUnit * 1sp }
+  public spacingOf(self, length: number<Length>): number<Spacing> { return length / self.spacingUnit * 1sp }
 
   // The settings window at the page of a module's folder (`""`: Ordaen's own), or closed where it shows that page.
-  public toggleNamed(mut self, folder: String) {
+  public toggleNamed(mut self, folder: string) {
     if (self.window == nil) {
       const made = new SettingsWindow()
       Runtime::mount(made, Runtime::screen())
@@ -266,14 +266,14 @@ public class OrdaenCore implements App {
 
   // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is
   // followed: the part moves when its place is kept anew.
-  public moved(self, part: String): Anchored | nil {
+  public moved(self, part: string): Anchored | nil {
     const kept = self.places.values.parts[part]
     if (kept == nil) { return nil }
     return { point: kept.point, to: kept.to, x: kept.x, y: kept.y }
   }
 
   // Keep a part's place, a step of the history; nothing puts it back where its module says.
-  public putAt(mut self, part: String, place: Anchored | nil) {
+  public putAt(mut self, part: string, place: Anchored | nil) {
     self.places.change((values: mut Places): nil => {
       values.parts[part] = place == nil ? nil : KeptPlace { point: place.point, to: place.to, x: place.x, y: place.y }
     })
@@ -281,7 +281,7 @@ public class OrdaenCore implements App {
 
   // The player's choice: kept, whatever comes of it. A module turned on is on in the client's own list of addons
   // from then, loaded where it can be, and its root made; turned off, its root is destroyed.
-  public turn(mut self, addon: Runtime::Addon, on: Boolean) {
+  public turn(mut self, addon: Runtime::Addon, on: boolean) {
     self.chosen[addon.name] = on
     Game::saved.store(.Account, "choices", self.chosen)
     Debug::log("module %s turned %s by the player", addon.name, on ? "on" : "off")
@@ -290,7 +290,7 @@ public class OrdaenCore implements App {
 
   // A module run or ended. What the player chose isn't touched: a module that can't be loaded now is tried again
   // at the next start.
-  run(self, addon: Runtime::Addon, on: Boolean) {
+  run(self, addon: Runtime::Addon, on: boolean) {
     if (!on) {
       addon.disable()
       return
@@ -301,10 +301,10 @@ public class OrdaenCore implements App {
 
   // The addons that are the player's modules: each one that needs Ordaen and has a root of its own. A library (code
   // alone, as Ordaen Trainer is) is no module: it loads as the modules that need it do, and has no switch of its own.
-  public moduleAddons(self): Array<Runtime::Addon> {
+  public moduleAddons(self): array<Runtime::Addon> {
     const own = Runtime::Addon::of(self)
     if (own == nil) { return [] }
-    return own.dependents().filter((addon: Runtime::Addon): Boolean => addon.hasRoot)
+    return own.dependents().filter((addon: Runtime::Addon): boolean => addon.hasRoot)
   }
 
   // The modules the player has run but those the player turned off, as the client's
@@ -328,9 +328,9 @@ public class OrdaenCore implements App {
 
   // Each other addon loaded that draws what modules on draw, and was never answered since it came: the player is
   // asked to keep one. One that is off now forgets its answer, so it is asked again when it comes back.
-  askConflicts(mut self, modules: Array<Runtime::Addon>) {
-    const answered = load<Map<String, Boolean>>(.Account, "conflicts", {})
-    let asking: Map<String, Runtime::Addon> = {}
+  askConflicts(mut self, modules: array<Runtime::Addon>) {
+    const answered = load<map<string, boolean>>(.Account, "conflicts", {})
+    let asking: map<string, Runtime::Addon> = {}
     const running = modules.filter(module => self.chosen[module.name] != false)
     for (module of running) {
       for (other of module.conflicts()) {
@@ -358,7 +358,7 @@ public class OrdaenCore implements App {
     const waiting = self.unasked
     self.unasked = []
     for (conflict of waiting) {
-      Runtime::mount(new ConflictQuestion(conflict, (kept: Boolean): nil => {
+      Runtime::mount(new ConflictQuestion(conflict, (kept: boolean): nil => {
         self.conflictAnswered(conflict, kept)
         return nil
       }), Runtime::screen())
@@ -366,8 +366,8 @@ public class OrdaenCore implements App {
   }
 
   // The player's answer, kept: Ordaen kept (the other addon is off from the reload), or the other (its modules off).
-  conflictAnswered(mut self, conflict: Conflict, kept: Boolean) {
-    const answered = load<Map<String, Boolean>>(.Account, "conflicts", {})
+  conflictAnswered(mut self, conflict: Conflict, kept: boolean) {
+    const answered = load<map<string, boolean>>(.Account, "conflicts", {})
     answered[conflict.other.name] = kept
     Game::saved.store(.Account, "conflicts", answered)
     if (kept) { return }
@@ -376,12 +376,12 @@ public class OrdaenCore implements App {
 
   // `/ordaen` opens the settings, `/ordaen <module>` on that module's page: its folder or its name in the list, in
   // any case (`/ordaen minimap`). A word that names no module the player has opens Ordaen's own page.
-  command(mut self, text: String) {
+  command(mut self, text: string) {
     const word = (text.match("^%s*(%S+)") ?? "").lower()
     self.toggleSettings(word == "" ? nil : self.moduleNamed(word))
   }
 
-  moduleNamed(self, word: String): Runtime::Addon | nil {
+  moduleNamed(self, word: string): Runtime::Addon | nil {
     for (addon of self.moduleAddons()) {
       const folder = addon.name.lower()
       if (folder == word || folder == "ordaen" + word) { return addon }

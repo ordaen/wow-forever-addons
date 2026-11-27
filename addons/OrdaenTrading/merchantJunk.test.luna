@@ -12,7 +12,7 @@ const FOOT: FileId = 133854
 const CLOTH: FileId = 132889
 
 // Three grey rabbit's feet (10 copper each) and some linen in the backpack.
-function read(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
+function read(bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
   if (bag != 0 || slot > 2) {
     into.id = 0
     return false
@@ -39,17 +39,17 @@ function read(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
 }
 
 function atMerchant() {
-  Game::bags.bag = (bag: Integer): Game::BagInfo => {
+  Game::bags.bag = (bag: integer): Game::BagInfo => {
     return { bag: bag, item: nil, name: bag == 0 ? "Backpack" : "", icon: nil, slots: bag == 0 ? 16 : 0, general: true }
   }
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 16 : 0
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 16 : 0
   Game::bags.readSlot = read
-  Game::items.icon = (id: Integer): Art | nil => id == 3300 ? FOOT : CLOTH
-  Game::items.maxStack = (id: Integer): Integer | nil => 20
-  Client::CanGuildBankRepair = (): Boolean => false
+  Game::items.icon = (id: integer): Art | nil => id == 3300 ? FOOT : CLOTH
+  Game::items.maxStack = (id: integer): integer | nil => 20
+  Client::CanGuildBankRepair = (): boolean => false
   // The merchant takes what the bags send it (the fake writes the ask).
-  Game::bags.send = (bag: Integer, slot: Integer): Boolean => true
-  Client::UnitName = (unit: String): (String, String) => {
+  Game::bags.send = (bag: integer, slot: integer): boolean => true
+  Client::UnitName = (unit: string): (string, string) => {
     return "Tharynn", ""
   }
   Test::mount(nil, SCREEN)

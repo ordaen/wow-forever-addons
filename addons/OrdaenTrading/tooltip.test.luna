@@ -16,9 +16,9 @@ const SHOWS = 0.32
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
 const HOUR = 3600
-const ORE: Integer = 2770
-const BLADE: Integer = 15211
-const SUFFIXED: Integer = 1048576
+const ORE: integer = 2770
+const BLADE: integer = 15211
+const SUFFIXED: integer = 1048576
 const AMBER: Color = Color::hex("#ffb02e")
 const DIM: Color = Color::hex("#a3977f")
 // A text the settings window always shows.
@@ -43,11 +43,11 @@ function ore(): Game::TooltipData {
 }
 
 // The item tooltip that names this.
-function tip(name: String): Test::Part {
+function tip(name: string): Test::Part {
   return Test::page().window(name)
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -125,14 +125,14 @@ test "the price line off in the settings: the tooltip has none" {
 
 test "an item on the shopping list says how many are wanted, and how many of them this character holds" {
   Test::mount(nil, SCREEN)
-  Game::items.owned = (id: Integer): Integer => 4
+  Game::items.owned = (id: integer): integer => 4
   Trading.shopping.add(ItemId::of(ORE), 12, .ByHand)
   Game::tooltip.main = hidden()
   Test::pass(0.2)
   Game::tooltip.main = showing(ore())
   Test::pass(SHOWS)
   Test::expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 4 | On the shopping list | 12 (bought 4)"))
-  Game::items.owned = (id: Integer): Integer => 30
+  Game::items.owned = (id: integer): integer => 30
   Game::tooltip.main = hidden()
   Test::pass(0.2)
   Game::tooltip.main = showing(ore())

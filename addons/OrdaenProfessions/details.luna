@@ -30,106 +30,106 @@ const SWITCHES: Line = { width: 1.171875dp, color: Style::LINE, sides: [Side::To
 // From the band down to the window's bottom line: the room inside, the window's at the right.
 const DETAILS_ROOM: Edges = { top: 5sp, right: WINDOW_ROOM, bottom: 5sp, left: 5sp }
 const SWITCHES_PAD: Edges = { top: 3sp }
-const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
+const FLAGS: array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The scroll; a recipe not learned, its tab's footer under it.
-const PANEL: Array<Track> = [{ fr: 1 }, "max-content"]
-const UNLEARNED_TABS: Array<String> = [Locale::SECTION_LEARN, Locale::SECTION_PRICES]
-const NO_COUNTS: Array<FooterCount> = []
+const PANEL: array<Track> = [{ fr: 1 }, "max-content"]
+const UNLEARNED_TABS: array<string> = [Locale::SECTION_LEARN, Locale::SECTION_PRICES]
+const NO_COUNTS: array<FooterCount> = []
 const WIDE = 257.8125dp
 // When the prices were updated, «To the shopping list».
-const AGE_SHOP: Array<Track> = [{ fr: 1 }, "max-content"]
+const AGE_SHOP: array<Track> = [{ fr: 1 }, "max-content"]
 const NO_TOTALS: Totals = {
   cost: nil, toBuy: nil, sellable: false, sale: nil, listed: nil, cut: 0, profit: nil, oldest: nil, priced: false
 }
 const SLOT = 60.9375dp
-const HEAD: Array<Track> = [SLOT, { fr: 1 }]
+const HEAD: array<Track> = [SLOT, { fr: 1 }]
 const NOTHING: Game::Recipe = {
   id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game::Difficulty::Never, craftable: 0
 }
 
 public class RecipeDetails implements Component {
   // A switch flipped: the recipe's number.
-  public act: Event<(Act, Integer)> = new Event()
+  public act: Event<(Act, integer)> = new Event()
   // «To the shopping list»: what the count lacks, for the recipe's number and the count.
-  public shop: Event<(Integer, Integer)> = new Event()
+  public shop: Event<(integer, integer)> = new Event()
   // A place it is learned at clicked: its quest's page, its vendor on the map.
   public open: Event<LearnPlace> = new Event()
   // «Create» clicked, with how many.
-  public create: Event<Integer> = new Event()
+  public create: Event<integer> = new Event()
   // «Stop» or «Remove from queue», with the recipe.
-  public drop: Event<Integer> = new Event()
+  public drop: Event<integer> = new Event()
 
   // A recipe not learned: its tab, «Where to learn» (1) or «Prices & costs» (2).
   state unlearnedTab = 1
-  derived learning: Boolean = self.unlearnedTab == 1
+  derived learning: boolean = self.unlearnedTab == 1
   // A place of it on the map: its vendors.
-  derived npcs: Array<Integer> = self.places.filter(place => place.npc != 0).map(place => place.npc)
-  derived mapped: Boolean = self.npcs.length > 0 && !Game::situation.combat
-  derived has: Boolean = self.recipe != nil
+  derived npcs: array<integer> = self.places.filter(place => place.npc != 0).map(place => place.npc)
+  derived mapped: boolean = self.npcs.length > 0 && !Game::situation.combat
+  derived has: boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
   derived shown: Game::Recipe = self.recipe ?? NOTHING
   derived icon: Art = self.shown.icon
-  derived skill: String = self.skillOf()
+  derived skill: string = self.skillOf()
   derived skillColor: Color = self.shown.learned ? Style::difficultyColor(self.shown.difficulty) : Style::RED
-  derived description: String = Game::tradeSkill.description(self.shown.id)
-  derived needs: String = self.needsOf()
-  derived learned: Boolean = self.shown.learned
+  derived description: string = Game::tradeSkill.description(self.shown.id)
+  derived needs: string = self.needsOf()
+  derived learned: boolean = self.shown.learned
   derived source: RecipeSource | nil = self.learned ? nil : self.sources[self.shown.id]
-  derived places: Array<LearnPlace> = self.placesOf()
-  derived asks: String = self.asksOf()
-  derived asked: Boolean = self.asks != ""
-  derived lacking: Boolean = self.parts.any(part => part.have < part.need) || self.reagents.any(r => r.have < r.need * self.pricedCount)
-  derived learnedPriced: Boolean = self.learned && self.priced
-  derived unlearnedPriced: Boolean = !self.learned && self.priced
-  derived reagents: Array<Game::Reagent> = Game::tradeSkill.reagents(self.shown.id)
+  derived places: array<LearnPlace> = self.placesOf()
+  derived asks: string = self.asksOf()
+  derived asked: boolean = self.asks != ""
+  derived lacking: boolean = self.parts.any(part => part.have < part.need) || self.reagents.any(r => r.have < r.need * self.pricedCount)
+  derived learnedPriced: boolean = self.learned && self.priced
+  derived unlearnedPriced: boolean = !self.learned && self.priced
+  derived reagents: array<Game::Reagent> = Game::tradeSkill.reagents(self.shown.id)
   // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
-  derived made: Integer | nil = self.madeOf()
-  derived hasItem: Boolean = self.made != nil
-  derived favorite: Boolean = has(self.kept.favorites, self.shown.id)
-  derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
-  derived cannotTrack: Boolean = !self.shown.learned
-  derived noted: Boolean = self.note != ""
+  derived made: integer | nil = self.madeOf()
+  derived hasItem: boolean = self.made != nil
+  derived favorite: boolean = has(self.kept.favorites, self.shown.id)
+  derived tracked: boolean = has(self.kept.tracked, self.shown.id)
+  derived cannotTrack: boolean = !self.shown.learned
+  derived noted: boolean = self.note != ""
   // Ordaen Trading's prices, while they are shown: each reagent's for the count the make row says, and the totals.
-  derived priced: Boolean = self.prices != nil
+  derived priced: boolean = self.prices != nil
   // How many the prices are for: the make row's count, one at least.
-  derived pricedCount: Integer = self.count.max(1)
-  derived parts: Array<PartPrice> = self.partsOf()
+  derived pricedCount: integer = self.count.max(1)
+  derived parts: array<PartPrice> = self.partsOf()
   derived totals: Totals = self.totalsOf()
   // The totals at each source, side by side: the house's and a merchant's.
-  derived merchantSale: Integer | nil = merchantSaleOf(self.made, self.shown.id, self.pricedCount)
+  derived merchantSale: integer | nil = merchantSaleOf(self.made, self.shown.id, self.pricedCount)
   derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source::Auction, self.totals.sale)
   derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source::Merchant, self.merchantSale)
   // Ordaen Trading is on but has no price for any part: nothing was scanned, or (where the house prices what it
   // makes) none of the reagents.
-  derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
-  derived noPricesText: String = self.totals.sale == nil ? Locale::NO_PRICES : Locale::NO_REAGENT_PRICES
+  derived noPrices: boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
+  derived noPricesText: string = self.totals.sale == nil ? Locale::NO_PRICES : Locale::NO_REAGENT_PRICES
 
   recipe: Signal<Game::Recipe | nil>
   kept: Signal<Kept>
-  note: Signal<String>
+  note: Signal<string>
   prices: Signal<any PriceSource | nil>
-  count: mut Signal<Integer>
+  count: mut Signal<integer>
   mode: mut Signal<MakeMode>
   profession: Signal<Game::Profession | nil>
-  yellow: Signal<Integer | nil>
-  grey: Signal<Integer | nil>
-  sources: Signal<Map<Integer, RecipeSource>>
+  yellow: Signal<integer | nil>
+  grey: Signal<integer | nil>
+  sources: Signal<map<integer, RecipeSource>>
   queueing: Signal<Queueing>
   constructor(
     recipe: Signal<Game::Recipe | nil>,
     kept: Signal<Kept>,
     // What became of the last «Create» that waits in the queue; empty for none.
-    note: Signal<String>,
+    note: Signal<string>,
     // Ordaen Trading's prices while they are shown (it is on, and «Prices» is); none for none.
     prices: Signal<any PriceSource | nil>,
     // The make row's: how many, by which mode, of the profession open; where the recipe turns yellow and grey.
-    count: mut Signal<Integer>,
+    count: mut Signal<integer>,
     mode: mut Signal<MakeMode>,
     profession: Signal<Game::Profession | nil>,
-    yellow: Signal<Integer | nil>,
-    grey: Signal<Integer | nil>,
+    yellow: Signal<integer | nil>,
+    grey: Signal<integer | nil>,
     // Where the recipes of the profession open are learned.
-    sources: Signal<Map<Integer, RecipeSource>>,
+    sources: Signal<map<integer, RecipeSource>>,
     // Where the recipe stands in the queue.
     queueing: Signal<Queueing> = Queueing::None
   ) {
@@ -146,14 +146,14 @@ public class RecipeDetails implements Component {
     self.queueing = queueing
   }
 
-  onCreate(self, count: Integer) { self.create.emit(count) }
+  onCreate(self, count: integer) { self.create.emit(count) }
   onDrop(self) { self.drop.emit(self.shown.id) }
-  placesOf(self): Array<LearnPlace> {
+  placesOf(self): array<LearnPlace> {
     const source = self.source
     return source == nil ? [] : placesOf(source, sideOfPlayer())
   }
 
-  asksOf(self): String {
+  asksOf(self): string {
     const source = self.source
     return source == nil ? "" : asksOf(source).join("\n")
   }
@@ -164,11 +164,11 @@ public class RecipeDetails implements Component {
   onNearest(self) { _ = Quests?.showNearest(peek self.npcs) }
 
   // How far an NPC's nearest spot is, in yards (Ordaen Quests' reading of QuestieDB); none without it.
-  const distance: (npc: Integer) => Number | nil = (npc: Integer): Number | nil => Quests?.distanceTo(npc)
+  const distance: (npc: integer) => number | nil = (npc: integer): number | nil => Quests?.distanceTo(npc)
   onOpen(self, place: LearnPlace) { self.open.emit(place) }
 
   // Read again when a price may have moved (`revision`).
-  partsOf(self): Array<PartPrice> {
+  partsOf(self): array<PartPrice> {
     const prices = self.prices
     if (prices == nil) { return [] }
     _ = prices.revision
@@ -181,7 +181,7 @@ public class RecipeDetails implements Component {
     return totalsOf(prices, self.parts, self.made, yieldOf(self.shown.id), self.pricedCount)
   }
 
-  madeOf(self): Integer | nil {
+  madeOf(self): integer | nil {
     const schematic = Game::recipeReader.schematic(self.shown.id)
     if (schematic == nil) { return nil }
     return schematic.makes
@@ -190,7 +190,7 @@ public class RecipeDetails implements Component {
   onFavorite(self) { self.act.emit(Act::Favorite, self.shown.id) }
   onTrack(self) { self.act.emit(Act::Track, self.shown.id) }
 
-  skillOf(self): String {
+  skillOf(self): string {
     if (!self.shown.learned) { return Locale::NOT_LEARNED }
     match (self.shown.difficulty) {
       Game::Difficulty::Always => return Locale::DIFFICULTY_0
@@ -202,9 +202,9 @@ public class RecipeDetails implements Component {
 
   // What the work needs, a line each, red while missing: «Needs: Blacksmith Hammer». Nothing for a recipe not learned,
   // which isn't made here.
-  needsOf(self): String {
+  needsOf(self): string {
     if (!self.shown.learned) { return "" }
-    const lines: Array<String> = []
+    const lines: array<string> = []
     for (need of Game::tradeSkill.requirements(self.shown.id)) {
       const line = Locale::TOOLS + ": " + need.name
       lines.push(need.met ? line : "|cffff4040" + line + "|r")

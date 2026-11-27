@@ -14,9 +14,9 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800
 const HOUR = 3600
-const ORE: Integer = 2770
-const LINEN: Integer = 2589
-const AXE: Integer = 2847
+const ORE: integer = 2770
+const LINEN: integer = 2589
+const AXE: integer = 2847
 const RED: Color = Color::hex("#ff4040")
 const GREEN: Color = Color::hex("#40c040")
 const INK: Color = Color::hex("#e8dcc4")
@@ -32,20 +32,20 @@ const MENU_DIM: Color = Color::hex("#6f6552")
 const CATEGORY: Color = Color::hex("#d6a56b3d")
 // The player's case: a warhammer whose random suffixes are variants of their own. A key is the item's id and its
 // suffix × 2^20.
-const WARHAMMER: Integer = 15216
-const SUFFIXED: Integer = 1048576
-const BEAR: Integer = 1017
-const EAGLE: Integer = 1018
-const MONKEY: Integer = 1019
+const WARHAMMER: integer = 15216
+const SUFFIXED: integer = 1048576
+const BEAR: integer = 1017
+const EAGLE: integer = 1018
+const MONKEY: integer = 1019
 
-function names(id: Integer): Game::TooltipData | nil {
+function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == AXE ? "Bronze Axe" :
     id == WARHAMMER ? "Sergeant's Warhammer" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
 }
 
-function variants(id: Integer, suffix: Integer): Game::TooltipData | nil {
+function variants(id: integer, suffix: integer): Game::TooltipData | nil {
   if (id != WARHAMMER) { return nil }
   const of = suffix == BEAR ? "the Bear" : suffix == EAGLE ? "the Eagle" : suffix == MONKEY ? "the Monkey" : nil
   if (of == nil) { return nil }
@@ -56,7 +56,7 @@ function variants(id: Integer, suffix: Integer): Game::TooltipData | nil {
 class Tooltips {
   public count = 0
 
-  public of(mut self, id: Integer): Game::TooltipData | nil {
+  public of(mut self, id: integer): Game::TooltipData | nil {
     self.count += 1
     return names(id)
   }
@@ -71,14 +71,14 @@ function panel(): Test::Part {
   return window().button("Add to shopping list").item()
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // What the game was asked, but the tooltips of the rows the cursor crossed.
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
@@ -86,12 +86,12 @@ function asked(expected: String): Boolean {
 }
 
 // Whether the texts after `label` in `part` read exactly `expected` (as many as it has, joined by « | »).
-function says(part: Test::Part, label: String, expected: String): Boolean {
+function says(part: Test::Part, label: string, expected: string): boolean {
   const shown = part.texts()
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: Array<String> = []
+      let read: array<string> = []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
@@ -102,7 +102,7 @@ function says(part: Test::Part, label: String, expected: String): Boolean {
 }
 
 // Whether `first` is drawn before `second` in the window.
-function before(first: String, second: String): Boolean {
+function before(first: string, second: string): boolean {
   let at = 0
   for (index, text of window().texts()) {
     if (text == first && at == 0) { at = index }
@@ -185,10 +185,10 @@ test "the age column: «< 1 h» this hour, the hours under a day, the market's d
 
 test "five thousand items: the list builds the rows in view, and the wheel builds none" {
   Game::clock.server = START
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: Array<Game::Offer> = []
+  let offers: array<Game::Offer> = []
   for (id of 1..5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
   const made = Wow::made()
   Game::auctionQuery.results.emit(offers)
@@ -301,7 +301,7 @@ test "typing: keys a tenth of a second apart are one search once the typing sett
   _ = Test::requests()
   Test::flush()
   let tooltips = new Tooltips()
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => tooltips.of(id)
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => tooltips.of(id)
   const field = window().input()
   field.type("")
   for (letter of ["c", "o", "p", "p", "e", "r"]) {
@@ -826,14 +826,14 @@ test "the house's names are asked of the game once: the same items shown again a
   _ = Test::requests()
   Test::flush()
   let tooltips = new Tooltips()
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => tooltips.of(id)
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => tooltips.of(id)
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }, { key: ORE, copper: 80, quantity: 40 }])
   Test::expect(window().text("Linen Cloth").shown() && tooltips.count == 0)
 }
 
 test "a name is drawn in its quality's colour, or the colour of its tooltip's first line" {
   Game::clock.server = START
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => {
     if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0, quality: GREEN }] } }
     if (id == ORE) { return { lines: [{ left: "Copper Ore", kind: 0, leftColor: AMBER }] } }
     return { lines: [{ left: "Bronze Axe", kind: 0 }] }

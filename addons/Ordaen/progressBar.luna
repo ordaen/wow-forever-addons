@@ -12,16 +12,16 @@ const LABEL: Color = Color::hex("#cbb994")
 
 public class ProgressBar implements Component {
   // The fill's width: the fraction of the groove inside its edges.
-  derived fillWidth: Number<Length> = (0).max((1).min(self.fraction)) * (self.width - 2 * EDGE)
-  derived hasLabel: Boolean = self.label != ""
+  derived fillWidth: number<Length> = (0).max((1).min(self.fraction)) * (self.width - 2 * EDGE)
+  derived hasLabel: boolean = self.label != ""
 
-  fraction: Signal<Number>
-  label: Signal<String>
-  width: Signal<Number<Length>>
+  fraction: Signal<number>
+  label: Signal<string>
+  width: Signal<number<Length>>
   constructor(
-    fraction: Signal<Number>,
-    label: Signal<String> = "",
-    width: Signal<Number<Length>> = LENGTH
+    fraction: Signal<number>,
+    label: Signal<string> = "",
+    width: Signal<number<Length>> = LENGTH
   ) {
     self.fraction = fraction
     self.label = label

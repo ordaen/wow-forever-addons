@@ -24,13 +24,13 @@ public const SCROLL_HEAD: Color = Color::hex("#3a1000")
 const SCROLL_TITLE: Color = Color::hex("#200800")
 // The rule each side of a section's heading: the heading's ink, faded.
 const SCROLL_RULE: Color = Color::hex("#3a100080")
-const RULE_HEIGHT: Number<Length> = 1.171875dp
-const HEADING_ACROSS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+const RULE_HEIGHT: number<Length> = 1.171875dp
+const HEADING_ACROSS: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The body's lines on the parchment: as tight as a title's, a written page's (the window's prose stands looser).
 public const SCROLL_LEADING: Leading = .Title
 // What the parchment holds is read as a page of sentences: a unit over the window's body, as a book's text stands
 // larger than its labels.
-const SCROLL_TEXT: Number<TextSize> = (BODY_TEXT + 1ui) / BODY_TEXT * 1rem
+const SCROLL_TEXT: number<TextSize> = (BODY_TEXT + 1ui) / BODY_TEXT * 1rem
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
 public const SCROLL_DIM: Color = Color::hex("#4a3520")
 // In the well.
@@ -40,7 +40,7 @@ public const WELL_RED: Color = Color::hex("#e0301e")
 public const WELL_GREEN: Color = Color::hex("#40bf40")
 public const WELL_GOLD: Color = Color::hex("#ffd100")
 public const WELL_RULE: Line = { width: 1.171875dp, color: Color::hex("#3e2f1d"), sides: [Side::Top] }
-public const REWARD_ICON: Number<Length> = 39.84375dp
+public const REWARD_ICON: number<Length> = 39.84375dp
 
 const BEST: Color = Color::hex("#40ff40")
 // A section of the rewards: the cut with its title, then its rows, off the section before.
@@ -51,12 +51,12 @@ const ROWS_GAP: Gaps = { columns: 4sp, rows: 0.5sp }
 // Past this many rows a section stands in two columns where its page asks for them (`paired`), each as wide as its
 // widest row: no name is cut, and the page grows for them.
 const PAIRED_PAST = 3
-const PAIRED: Array<Track> = ["max-content", "max-content"]
+const PAIRED: array<Track> = ["max-content", "max-content"]
 
-function columnsFor(paired: Boolean, rows: Integer): Columns { return paired && rows > PAIRED_PAST ? PAIRED : 1 }
+function columnsFor(paired: boolean, rows: integer): Columns { return paired && rows > PAIRED_PAST ? PAIRED : 1 }
 // Experience, each reputation and money, a row each: what it is, then how much at the section's right end; off the
 // rewards over them by a gap of their own.
-const GAINS: Array<Track> = ["max-content", { fr: 1 }]
+const GAINS: array<Track> = ["max-content", { fr: 1 }]
 const UNDER_REWARDS: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const ALONE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const KEYCAP: Color = Color::hex("#00000080")
@@ -64,29 +64,29 @@ const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const KEY_TEXT: Color = Color::hex("#c9a76a")
 const KEYCAP_SMALL = 25.78125dp
 const UPGRADE_WIDTH = 70.3125dp
-const WITH_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
-const NO_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const WITH_UPGRADE: array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
+const NO_UPGRADE: array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 
 // The game's green arrow of an upgrade, before the best one's word.
 const UPGRADE: Atlas = "bags-greenarrow"
 const ARROW = 14.0625dp
 // The arrow's room and the word, the word at the column's end.
-const UPGRADE_CELLS: Array<Track> = [ARROW, { fr: 1 }]
+const UPGRADE_CELLS: array<Track> = [ARROW, { fr: 1 }]
 
 // The scroll's width, its art's (1024 texels): where it stands, it is about as wide, its rolls barely stretched.
-public const SCROLL_WIDTH: Number<Length> = 468.75dp
+public const SCROLL_WIDTH: number<Length> = 468.75dp
 // Whether what a scroll holds would overflow it at its least height (`SCROLL_ROW`): where it would, a page stands it in
 // a column of its own, the page's whole height, beside the rest. An estimate that errs long, so a scroll that fits
 // never stands alone needlessly scrolled: its lines at the paper's width with the widest letters (Cyrillic, each
 // counted by its bytes, twice a Latin letter), each paragraph starting a line, the title's letters half again as high.
-public function scrollOverflows(title: String, texts: Array<String>): Boolean {
+public function scrollOverflows(title: string, texts: array<string>): boolean {
   let lines = linesOf(title, TITLE_LETTERS) * 1.5
   for (text of texts) { lines += linesOf(text, LINE_LETTERS) }
   return lines > LEAST_LINES
 }
 
 // How many lines a text takes at `letters` a line, each paragraph starting one; none for no text.
-function linesOf(text: String, letters: Integer): Integer {
+function linesOf(text: string, letters: integer): integer {
   if (text == "") { return 0 }
   let lines = 0
   for (paragraph of text.split("\n")) { lines += (paragraph.length.max(1) / letters).ceil() }
@@ -99,7 +99,7 @@ const TITLE_LETTERS = 30
 const LEAST_LINES = 4
 
 // The scroll where it stands in a column of its own (a page whose text is long): half again as wide.
-public const WIDE_SCROLL: Number<Length> = SCROLL_WIDTH * 1.5
+public const WIDE_SCROLL: number<Length> = SCROLL_WIDTH * 1.5
 
 // The scroll's art (art/pieces/scroll.json), in parts that repeat, so it is drawn at any width and height unstretched:
 // each roll its two ends with a straight piece of roll repeating across between them, the paper its plain middle
@@ -116,7 +116,7 @@ public struct ScrollArt {
   // The sheet's shading and spots, drawn once over the paper's repeating grain, stretched, multiplied into it.
   tone: Art
 }
-const TEXEL: Number<Length> = SCROLL_WIDTH / 1024
+const TEXEL: number<Length> = SCROLL_WIDTH / 1024
 public const SCROLL_ART: ScrollArt = {
   top: {
     left: "@/media/scroll-top-left.tga",
@@ -162,7 +162,7 @@ public const SHEET_ART: SheetArt = {
   bottomRight: "@/media/sheet-bottom-right.tga"
 }
 // A corner of the sheet and the width of its edges (64 texels): the corners at their own size, the rest between.
-const CORNER: Number<Length> = TEXEL * 64
+const CORNER: number<Length> = TEXEL * 64
 // The scroll's row where it stands over other things (a quest page's rewards): the room left, never less than half
 // the art's width, about five lines on the paper, so what stands beside it gives way first.
 public const SCROLL_ROW: Track = { fr: 1, min: TEXEL * 512 }
@@ -172,13 +172,13 @@ const OVER_TONE = 2
 const OVER_PAPER = 3
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from the torn edges, past
 // their deepest bites, by a margin: less across than down.
-const OFF_SIDES: Number<Length> = 36.5625dp
-const OFF_ENDS: Number<Length> = 48.75dp
-const OFF_EDGES: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
+const OFF_SIDES: number<Length> = 36.5625dp
+const OFF_ENDS: number<Length> = 48.75dp
+const OFF_EDGES: array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
 // Growing, the text stands in the layout, as far in as it stands over the paper otherwise.
-const ON_PAPER: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
+const ON_PAPER: array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 // Folded: the title alone, as far in from the edges as the text unfolded.
-const FOLDED_DOWN: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
+const FOLDED_DOWN: array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 
 // The scroll: what is said of a quest on a sheet of parchment, its title first. It fills the cell it stands in, at any
 // width and height (its art repeats); what it holds scrolls past the paper's height. The text stands over the sheet
@@ -186,17 +186,17 @@ const FOLDED_DOWN: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 // as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it, Enter or Space,
 // unfolds it. Growing (`grows`), it is as high as what it holds, held between the bounds of its box's height.
 public class Scroll implements Component {
-  derived titled: Boolean = self.title != ""
+  derived titled: boolean = self.title != ""
 
-  title: Signal<String>
-  folded: mut Signal<Boolean>
-  grows: Signal<Boolean>
+  title: Signal<string>
+  folded: mut Signal<boolean>
+  grows: Signal<boolean>
   constructor(
     // The quest's name, over what the scroll holds; none: what it holds alone.
-    title: Signal<String> = "",
-    folded: mut Signal<Boolean> = false,
+    title: Signal<string> = "",
+    folded: mut Signal<boolean> = false,
     // As high as what it holds, where its box's height leaves that open; else the height of its cell.
-    grows: Signal<Boolean> = false
+    grows: Signal<boolean> = false
   ) {
     self.title = title
     self.folded = folded
@@ -272,8 +272,8 @@ class Sheet implements Component {
 
 // A quest's name at the head of its scroll, in the scroll's heading ink.
 class ScrollTitle implements Component {
-  title: Signal<String>
-  constructor(title: Signal<String>) { self.title = title }
+  title: Signal<string>
+  constructor(title: Signal<string>) { self.title = title }
 
   public render(self): Template {
     return $ltml {
@@ -285,8 +285,8 @@ class ScrollTitle implements Component {
 
 // A section's heading on the parchment («Objectives»): its title in the middle of a rule, the rule each side of it.
 public class ScrollHeading implements Component {
-  title: Signal<String>
-  constructor(title: Signal<String>) { self.title = title }
+  title: Signal<string>
+  constructor(title: Signal<string>) { self.title = title }
 
   public render(self): Template {
     return $ltml {
@@ -300,13 +300,13 @@ public class ScrollHeading implements Component {
 }
 
 // A picture the client gave: a file's number or a path.
-public function artOf(texture: Number | String | nil): Art | nil {
-  if (texture is String) {
+public function artOf(texture: number | string | nil): Art | nil {
+  if (texture is string) {
     if (texture is Asset) { return texture }
     if (texture is Atlas) { return texture }
     return nil
   }
-  if (texture is Number) {
+  if (texture is number) {
     const id = texture.floor()
     if (id is FileId) { return id }
   }
@@ -319,30 +319,30 @@ public enum RewardKind { Item, Currency, Spell, Title, Skill }
 // wear it; its sell price), a spell learned, a title, a currency, a skill's points.
 public struct Reward {
   const kind: RewardKind
-  const name: String
+  const name: string
   const icon: Art | nil
-  const count: Integer
+  const count: integer
   const quality: Quality
-  const item: Integer | nil
-  const link: String | nil
-  const detail: String
-  const unusable: Boolean
+  const item: integer | nil
+  const link: string | nil
+  const detail: string
+  const unusable: boolean
   // The item's sell price at a vendor, all of the count; 0 where it sells for nothing.
-  const sell: Integer
+  const sell: integer
   // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
-  const index: Integer
+  const index: integer
   // A currency's number, whose tooltip its slot shows (with the count); none for anything else.
-  const currency: Integer | nil = nil
+  const currency: integer | nil = nil
 }
 
 // A reputation a quest raises.
 public struct Standing {
-  const name: String
-  const amount: Integer
+  const name: string
+  const amount: integer
 }
 
 // An item's second line: its slot as the game names it and its type («Waist · Leather»).
-function itemDetail(subType: String | nil, slot: String | nil): String {
+function itemDetail(subType: string | nil, slot: string | nil): string {
   const slotName = slot != nil && slot != "" ? Runtime::text(slot) ?? "" : ""
   const kind = subType ?? ""
   if (slotName != "" && kind != "") { return `${slotName} · ${kind}` }
@@ -352,7 +352,7 @@ function itemDetail(subType: String | nil, slot: String | nil): String {
 // An item a quest gives, as the quest's own window names it (its name, icon and link, whether the player can use it),
 // with what the item's own data adds: its quality, its slot and type, its sell price.
 public function itemReward(
-  item: Integer | nil, count: Integer, name: String, icon: Art | nil, usable: Boolean, link: String | nil, index: Integer
+  item: integer | nil, count: integer, name: string, icon: Art | nil, usable: boolean, link: string | nil, index: integer
 ): Reward {
   let quality = Quality::Common
   let detail = ""
@@ -370,7 +370,7 @@ public function itemReward(
 }
 
 // An item a quest in the log gives, all of it read from the item's own data.
-public function logReward(item: Integer, count: Integer, index: Integer): Reward {
+public function logReward(item: integer, count: integer, index: integer): Reward {
   const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
 }
@@ -378,11 +378,11 @@ public function logReward(item: Integer, count: Integer, index: Integer): Reward
 // Keycap: the key that picks a line or a reward, in a small dark cap; as big as a reward's icon where it stands
 // beside one. An empty key keeps the cap's width alone, so the column holds.
 public class Keycap implements Component {
-  derived shown: Boolean = self.key != ""
+  derived shown: boolean = self.key != ""
 
-  key: Signal<String>
-  size: Signal<Number<Length>>
-  constructor(key: Signal<String>, size: Signal<Number<Length>> = KEYCAP_SMALL) {
+  key: Signal<string>
+  size: Signal<number<Length>>
+  constructor(key: Signal<string>, size: Signal<number<Length>> = KEYCAP_SMALL) {
     self.key = key
     self.size = size
   }
@@ -403,20 +403,20 @@ public class Keycap implements Component {
 public struct RewardView {
   const reward: Reward
   // How much more it is worth than what is worn (Ordaen's worth), 0.15 for 15%; 0 for none.
-  const upgrade: Number
-  const best: Boolean
-  const dearest: Boolean
+  const upgrade: number
+  const best: boolean
+  const dearest: boolean
 }
 
 // The rows of rewards to choose: the best upgrade marked, and the dearest at a vendor.
-public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Array<RewardView> {
-  let best: Number = 0
+public function choiceViews(rewards: array<Reward>, upgrades: array<number>): array<RewardView> {
+  let best: number = 0
   let dearest = 0
   for (index, reward of rewards) {
     best = best.max(upgrades[index] ?? 0)
     dearest = dearest.max(reward.sell)
   }
-  let views: Array<RewardView> = []
+  let views: array<RewardView> = []
   for (index, reward of rewards) {
     const upgrade = upgrades[index] ?? 0
     views.push({ reward: reward, upgrade: upgrade, best: upgrade > 0 && upgrade == best, dearest: dearest > 0 && reward.sell == dearest })
@@ -427,41 +427,41 @@ public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Ar
 // A quest's rewards: those to choose («Choose your reward» where they are chosen, «You will be able to choose»
 // before), those given anyway, and the rows of experience, reputation and money.
 public class Rewards implements Component {
-  public choose: Event<Integer> = new Event()
+  public choose: Event<integer> = new Event()
 
-  derived hasChoices: Boolean = self.views.length > 0
-  derived hasAlso: Boolean = self.also.length > 0
-  derived chooseTitle: String = self.pickable ? Locale::QUEST_CHOOSE_REWARD : Locale::QUEST_CAN_CHOOSE
-  derived alsoTitle: String = self.hasChoices ? Locale::QUEST_ALSO_GET : Locale::QUEST_REWARD
-  derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
+  derived hasChoices: boolean = self.views.length > 0
+  derived hasAlso: boolean = self.also.length > 0
+  derived chooseTitle: string = self.pickable ? Locale::QUEST_CHOOSE_REWARD : Locale::QUEST_CAN_CHOOSE
+  derived alsoTitle: string = self.hasChoices ? Locale::QUEST_ALSO_GET : Locale::QUEST_REWARD
+  derived banded: boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   // What is given anyway, the rows of gains with it: one section under one cut.
-  derived received: Boolean = self.hasAlso || self.banded
+  derived received: boolean = self.hasAlso || self.banded
   derived gainsRoom: Edges = self.hasAlso ? UNDER_REWARDS : ALONE
   derived choiceColumns: Columns = columnsFor(self.paired, self.views.length)
   derived alsoColumns: Columns = columnsFor(self.paired, self.also.length)
 
-  views: Signal<Array<RewardView>>
-  also: Signal<Array<Reward>>
-  xp: Signal<Integer>
-  money: Signal<Integer>
-  standings: Signal<Array<Standing>>
-  pickable: Signal<Boolean>
-  choice: Signal<Integer>
-  hints: Signal<Boolean>
-  upgradeColumn: Signal<Boolean>
+  views: Signal<array<RewardView>>
+  also: Signal<array<Reward>>
+  xp: Signal<integer>
+  money: Signal<integer>
+  standings: Signal<array<Standing>>
+  pickable: Signal<boolean>
+  choice: Signal<integer>
+  hints: Signal<boolean>
+  upgradeColumn: Signal<boolean>
   // Many rows stand in two columns, the page growing for them (a window's side); else one, whatever their names.
-  paired: Signal<Boolean>
+  paired: Signal<boolean>
   constructor(
-    views: Signal<Array<RewardView>>,
-    also: Signal<Array<Reward>>,
-    xp: Signal<Integer>,
-    money: Signal<Integer>,
-    standings: Signal<Array<Standing>> = [],
-    pickable: Signal<Boolean> = false,
-    choice: Signal<Integer> = 0,
-    hints: Signal<Boolean> = false,
-    upgradeColumn: Signal<Boolean> = false,
-    paired: Signal<Boolean> = false
+    views: Signal<array<RewardView>>,
+    also: Signal<array<Reward>>,
+    xp: Signal<integer>,
+    money: Signal<integer>,
+    standings: Signal<array<Standing>> = [],
+    pickable: Signal<boolean> = false,
+    choice: Signal<integer> = 0,
+    hints: Signal<boolean> = false,
+    upgradeColumn: Signal<boolean> = false,
+    paired: Signal<boolean> = false
   ) {
     self.paired = paired
     self.views = views
@@ -475,7 +475,7 @@ public class Rewards implements Component {
     self.upgradeColumn = upgradeColumn
   }
 
-  onChoose(mut self, index: Integer) { self.choose.emit(index) }
+  onChoose(mut self, index: integer) { self.choose.emit(index) }
 
   public render(self): Template {
     return $ltml {
@@ -516,17 +516,17 @@ public class Rewards implements Component {
 // The mark of experience after an amount of it: the client's «XP» letters with their glow, cut to the band they stand
 // in (art/pieces/xp-mark.json, 2:1); a line high, the letters as tall as the digits beside them.
 public const XP_MARK: Asset = "@/media/xp-mark.tga"
-const XP_MARK_HEIGHT: Number<Length> = 20.15625dp
-const XP_MARK_WIDTH: Number<Length> = XP_MARK_HEIGHT * 2
+const XP_MARK_HEIGHT: number<Length> = 20.15625dp
+const XP_MARK_WIDTH: number<Length> = XP_MARK_HEIGHT * 2
 
 // An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
 // of it, in one line; the mark says what the number is.
 public class Experience implements Component {
-  derived text: String = String::of(self.amount)
+  derived text: string = string::of(self.amount)
 
-  amount: Signal<Integer>
+  amount: Signal<integer>
   color: Signal<Color>
-  constructor(amount: Signal<Integer>, color: Signal<Color> = WELL_TEXT) {
+  constructor(amount: Signal<integer>, color: Signal<Color> = WELL_TEXT) {
     self.amount = amount
     self.color = color
   }
@@ -548,40 +548,40 @@ public class Experience implements Component {
 // upgrade) and its sell price, the dearest one's in gold. A reward to choose is a row the player picks (click, its
 // key, or the keyboard's focus and Enter); one given is a row alone.
 public class RewardRow implements Component {
-  public choose: Event<Integer> = new Event()
+  public choose: Event<integer> = new Event()
 
-  derived columns: Array<Track> = self.upgradeColumn ? WITH_UPGRADE : NO_UPGRADE
-  derived keyed: Boolean = self.hints && self.pickable
-  derived key: String = self.reward.index <= 9 ? String::of(self.reward.index) : ""
+  derived columns: array<Track> = self.upgradeColumn ? WITH_UPGRADE : NO_UPGRADE
+  derived keyed: boolean = self.hints && self.pickable
+  derived key: string = self.reward.index <= 9 ? string::of(self.reward.index) : ""
   derived nameColor: Color = qualityColor(self.reward.quality)
   derived detailColor: Color = self.reward.unusable ? WELL_RED : WELL_DIM
-  derived hasDetail: Boolean = self.reward.detail != ""
-  derived upgradeWord: String = upgradeText(self.upgrade)
+  derived hasDetail: boolean = self.reward.detail != ""
+  derived upgradeWord: string = upgradeText(self.upgrade)
   derived upgradeColor: Color = self.best ? BEST : WELL_GREEN
-  derived priced: Boolean = self.reward.sell > 0
+  derived priced: boolean = self.reward.sell > 0
   derived priceColor: Color = self.dearest ? WELL_GOLD : WELL_DIM
   state upgradeHovered = false
-  derived upgradeTipShown: Boolean = self.upgradeHovered && self.upgradeWord != ""
-  derived upgradeTip: String = Locale::QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
+  derived upgradeTipShown: boolean = self.upgradeHovered && self.upgradeWord != ""
+  derived upgradeTip: string = Locale::QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
 
   reward: Signal<Reward>
-  pickable: Signal<Boolean>
-  picked: Signal<Boolean>
-  hints: Signal<Boolean>
-  upgradeColumn: Signal<Boolean>
-  upgrade: Signal<Number | nil>
-  best: Signal<Boolean>
-  dearest: Signal<Boolean>
+  pickable: Signal<boolean>
+  picked: Signal<boolean>
+  hints: Signal<boolean>
+  upgradeColumn: Signal<boolean>
+  upgrade: Signal<number | nil>
+  best: Signal<boolean>
+  dearest: Signal<boolean>
   constructor(
     reward: Signal<Reward>,
     // A reward to choose on the page where it is chosen.
-    pickable: Signal<Boolean> = false,
-    picked: Signal<Boolean> = false,
-    hints: Signal<Boolean> = false,
-    upgradeColumn: Signal<Boolean> = false,
-    upgrade: Signal<Number | nil> = nil,
-    best: Signal<Boolean> = false,
-    dearest: Signal<Boolean> = false
+    pickable: Signal<boolean> = false,
+    picked: Signal<boolean> = false,
+    hints: Signal<boolean> = false,
+    upgradeColumn: Signal<boolean> = false,
+    upgrade: Signal<number | nil> = nil,
+    best: Signal<boolean> = false,
+    dearest: Signal<boolean> = false
   ) {
     self.reward = reward
     self.pickable = pickable
@@ -648,27 +648,27 @@ class RewardCells implements Component {
   public slot: Event<Event::Press> = new Event()
   public upgradeEnter: Event<nil> = new Event()
   // The spec the upgrade is weighed for: the one played, or the build chosen.
-  derived specName: String = Game::player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
+  derived specName: string = Game::player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
   public upgradeLeave: Event<nil> = new Event()
 
   reward: Signal<Reward>
-  keyed: Signal<Boolean>
-  key: Signal<String>
+  keyed: Signal<boolean>
+  key: Signal<string>
   nameColor: Signal<Color>
   detailColor: Signal<Color>
-  hasDetail: Signal<Boolean>
-  upgradeColumn: Signal<Boolean>
-  upgradeWord: Signal<String>
+  hasDetail: Signal<boolean>
+  upgradeColumn: Signal<boolean>
+  upgradeWord: Signal<string>
   upgradeColor: Signal<Color>
-  upgradeTipShown: Signal<Boolean>
-  upgradeTip: Signal<String>
-  best: Signal<Boolean>
-  priced: Signal<Boolean>
+  upgradeTipShown: Signal<boolean>
+  upgradeTip: Signal<string>
+  best: Signal<boolean>
+  priced: Signal<boolean>
   priceColor: Signal<Color>
   constructor(
-    reward: Signal<Reward>, keyed: Signal<Boolean>, key: Signal<String>, nameColor: Signal<Color>,
-    detailColor: Signal<Color>, hasDetail: Signal<Boolean>, upgradeColumn: Signal<Boolean>, upgradeWord: Signal<String>,
-    upgradeColor: Signal<Color>, upgradeTipShown: Signal<Boolean>, upgradeTip: Signal<String>, best: Signal<Boolean>, priced: Signal<Boolean>,
+    reward: Signal<Reward>, keyed: Signal<boolean>, key: Signal<string>, nameColor: Signal<Color>,
+    detailColor: Signal<Color>, hasDetail: Signal<boolean>, upgradeColumn: Signal<boolean>, upgradeWord: Signal<string>,
+    upgradeColor: Signal<Color>, upgradeTipShown: Signal<boolean>, upgradeTip: Signal<string>, best: Signal<boolean>, priced: Signal<boolean>,
     priceColor: Signal<Color>
   ) {
     self.reward = reward

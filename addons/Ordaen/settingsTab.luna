@@ -4,11 +4,11 @@
 import { Component } from "@/module"
 
 public class SettingsTab implements Component {
-  public const title: String
-  shown: Signal<Boolean>
+  public const title: string
+  shown: Signal<boolean>
   constructor(
-    title: String,
-    shown: Signal<Boolean> = true
+    title: string,
+    shown: Signal<boolean> = true
   ) {
     self.title = title
     self.shown = shown

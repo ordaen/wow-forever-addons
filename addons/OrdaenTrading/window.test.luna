@@ -29,7 +29,7 @@ function window(): Test::Part {
 
 // Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
 // what it was asked.
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
@@ -37,13 +37,13 @@ function asked(expected: String): Boolean {
 }
 
 // The game's own window stands off the screen, unseen: it stays open, which keeps the house open.
-function away(own: any Client::Frame): Boolean {
+function away(own: any Client::Frame): boolean {
   Test::flush()
   return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
 }
 
 // The game's own window is where it stood, seen.
-function back(own: any Client::Frame): Boolean {
+function back(own: any Client::Frame): boolean {
   Test::flush()
   return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }

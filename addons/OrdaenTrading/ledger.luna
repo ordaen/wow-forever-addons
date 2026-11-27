@@ -9,9 +9,9 @@ public enum Deal implements Plain { Sold = "sold", Bought = "bought", Expired = 
 // One row: the item by its name (an invoice names it so), how many, for how much in all.
 public struct Dealt implements Plain {
   deal: Deal = .Sold
-  item: String = ""
-  count: Integer = 0
-  copper: Integer = 0
+  item: string = ""
+  count: integer = 0
+  copper: integer = 0
   at: Hour = 0
 }
 
@@ -23,10 +23,10 @@ const KEPT_HOURS = 2160
 public class Ledger {
   // Moves with every row written: a reader of the ledger follows it.
   public state revision = 0
-  rows: mut Array<Dealt>
+  rows: mut array<Dealt>
 
   // `rows` are the module's saved ones, written in place; those past 90 days go as the next is written.
-  constructor(rows: mut Array<Dealt>) {
+  constructor(rows: mut array<Dealt>) {
     self.rows = rows
   }
 
@@ -37,12 +37,12 @@ public class Ledger {
   }
 
   // An auction came back unsold.
-  public expired(mut self, item: String, count: Integer) {
+  public expired(mut self, item: string, count: integer) {
     self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour::now() })
   }
 
   // The rows of one kind, and their money together.
-  public total(self, deal: Deal): (Integer, Integer) {
+  public total(self, deal: Deal): (integer, integer) {
     let rows = 0
     let copper = 0
     for (row of self.rows) {

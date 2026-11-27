@@ -15,7 +15,7 @@ import Style from "@/style"
 const CLEAR: Color = Color::hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#d6a56b1f"), focus: Color::hex("#d6a56b1f") }
 const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [Side::Top] }
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 
 public class TabItem implements Component {
   public pick: Event<MouseButton> = new Event()
@@ -24,23 +24,23 @@ public class TabItem implements Component {
   derived background: Art | Color | ByInteractionState<Color> = self.selected ? self.into.art : SHADE
   derived tint: Color | nil = self.selected ? self.into.tint : nil
   derived rule: Line | nil = self.first ? nil : RULE
-  derived grooved: Boolean = self.selected && self.groove
+  derived grooved: boolean = self.selected && self.groove
 
-  selected: Signal<Boolean>
+  selected: Signal<boolean>
   into: Signal<Style::Surface>
-  groove: Signal<Boolean>
-  first: Signal<Boolean>
-  columns: Signal<Array<Track>>
+  groove: Signal<boolean>
+  first: Signal<boolean>
+  columns: Signal<array<Track>>
   padding: Signal<Edges>
   constructor(
-    selected: Signal<Boolean>,
+    selected: Signal<boolean>,
     // The surface of the section the item selects for: the selected one's.
     into: Signal<Style::Surface>,
     // Its list is parted from the section by a groove.
-    groove: Signal<Boolean> = false,
+    groove: Signal<boolean> = false,
     // The list's first item: no rule above it.
-    first: Signal<Boolean> = false,
-    columns: Signal<Array<Track>> = ONE,
+    first: Signal<boolean> = false,
+    columns: Signal<array<Track>> = ONE,
     padding: Signal<Edges>
   ) {
     self.selected = selected

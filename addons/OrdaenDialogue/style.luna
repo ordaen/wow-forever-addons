@@ -5,8 +5,8 @@ import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, WELL_DIM, WELL_GOLD, WELL_GREEN, W
 
 // What Ordaen's window frame takes across past the room the window was sized for.
 const FRAME_ACROSS = 3.7ui
-public const WIDTH: Number<Length> = 515.625dp + FRAME_ACROSS
-public const HEIGHT: Number<Length> = 820.3125dp
+public const WIDTH: number<Length> = 515.625dp + FRAME_ACROSS
+public const HEIGHT: number<Length> = 820.3125dp
 
 // On the parchment.
 public const INK: Color = SCROLL_INK
@@ -21,4 +21,4 @@ public const GREEN: Color = WELL_GREEN
 public const GOLD: Color = WELL_GOLD
 public const RULE: Line = WELL_RULE
 public const GROUP_TAG: Color = Color::hex("#7a1e00")
-public const ICON: Number<Length> = 18.75dp
+public const ICON: number<Length> = 18.75dp

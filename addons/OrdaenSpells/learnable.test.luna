@@ -31,33 +31,33 @@ const FRIENDLY = 5
 const HONORED = 6
 
 // A level 10 human warrior of the Alliance who knows `known`, Friendly or `stormwind` with Stormwind.
-function warrior(known: Array<Integer>, stormwind: Integer = FRIENDLY): Learner {
+function warrior(known: array<integer>, stormwind: integer = FRIENDLY): Learner {
   return {
     classTag: "WARRIOR", race: 1, side: 1, level: 10,
-    known: (spell: Integer): Boolean => known.any(each => each == spell),
-    petKnown: (spell: Integer): Boolean => known.any(each => each == spell),
-    standing: (faction: Integer): Integer | nil => faction == STORMWIND ? stormwind : FRIENDLY
+    known: (spell: integer): boolean => known.any(each => each == spell),
+    petKnown: (spell: integer): boolean => known.any(each => each == spell),
+    standing: (faction: integer): integer | nil => faction == STORMWIND ? stormwind : FRIENDLY
   }
 }
 
 // A level 10 human of the Alliance of `classTag`, knowing nothing, whose pet knows `pet`.
-function classLearner(classTag: String, pet: Array<Integer>): Learner {
+function classLearner(classTag: string, pet: array<integer>): Learner {
   return {
-    classTag: classTag, race: 1, side: 1, level: 10, known: (spell: Integer): Boolean => false,
-    petKnown: (spell: Integer): Boolean => pet.any(each => each == spell),
-    standing: (faction: Integer): Integer | nil => FRIENDLY
+    classTag: classTag, race: 1, side: 1, level: 10, known: (spell: integer): boolean => false,
+    petKnown: (spell: integer): boolean => pet.any(each => each == spell),
+    standing: (faction: integer): integer | nil => FRIENDLY
   }
 }
 
-function noQuest(quest: Integer): String | nil { return nil }
+function noQuest(quest: integer): string | nil { return nil }
 
-function noNpc(npc: Integer): String | nil { return nil }
+function noNpc(npc: integer): string | nil { return nil }
 
-function serviceOf(learnable: Learnable, spell: Integer): Game::TrainerService | nil {
+function serviceOf(learnable: Learnable, spell: integer): Game::TrainerService | nil {
   return learnable.services.find(service => service.spell == spell)
 }
 
-function headingOf(learnable: Learnable, spell: Integer): String { return serviceOf(learnable, spell)?.category ?? "" }
+function headingOf(learnable: Learnable, spell: integer): string { return serviceOf(learnable, spell)?.category ?? "" }
 
 test "each spell stands under what it waits for: learned now, an earlier rank first, the next levels, later, known" {
   const learnable = learnableOf(warrior([BATTLE_SHOUT, HEROIC_STRIKE]), noQuest, noNpc, nil)
@@ -75,7 +75,7 @@ test "each spell stands under what it waits for: learned now, an earlier rank fi
 }
 
 test "a rank below one the spellbook holds is known: the client's book keeps a spell's highest rank alone" {
-  Game::spells.name = (id: Integer): String | nil => id == REND || id == REND_2 ? "Rend" : id == CHARGE ? "Charge" : nil
+  Game::spells.name = (id: integer): string | nil => id == REND || id == REND_2 ? "Rend" : id == CHARGE ? "Charge" : nil
   const learnable = learnableOf(warrior([REND_2]), noQuest, noNpc, nil)
   Test::expect(headingOf(learnable, REND) == "Known" && headingOf(learnable, REND_2) == "Known")
   Test::expect(headingOf(learnable, CHARGE) == "Available now")
@@ -89,7 +89,7 @@ test "a talent's later rank waits for the talent whatever its level, as What's T
 }
 
 test "the known and the talents' stand by name, the rest by level" {
-  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == BATTLE_SHOUT ? "Battle Shout" : nil
+  Game::spells.name = (id: integer): string | nil => id == CHARGE ? "Charge" : id == BATTLE_SHOUT ? "Battle Shout" : nil
   const learnable = learnableOf(warrior([CHARGE, BATTLE_SHOUT]), noQuest, noNpc, nil)
   const known = learnable.services.filter(service => service.category == "Known").map(service => service.name)
   Test::expect(known.join(", ") == "Battle Shout, Charge")
@@ -111,7 +111,7 @@ test "a price at each city whose trainers teach the class, cheapest first: a ten
 }
 
 test "a quest's spell stands under the quests with the quest of the player's race, and its action opens it" {
-  const named = (quest: Integer): String | nil => quest == 1665 ? "Defensive Stance" : nil
+  const named = (quest: integer): string | nil => quest == 1665 ? "Defensive Stance" : nil
   const learnable = learnableOf(warrior([]), named, noNpc, "Show quest")
   const stance = serviceOf(learnable, DEFENSIVE_STANCE)
   Test::expect(stance?.category == "From quests" && stance?.cost == 0)
@@ -125,7 +125,7 @@ test "a quest's spell stands under the quests with the quest of the player's rac
 }
 
 test "a weapon skill of the class stands under the weapon masters with its masters on the player's side and their prices" {
-  const masters = (npc: Integer): String | nil => npc == 11867 ? "Woo Ping" : nil
+  const masters = (npc: integer): string | nil => npc == 11867 ? "Woo Ping" : nil
   const friendly = learnableOf(warrior([SWORDS]), noQuest, masters, nil)
   const polearms = serviceOf(friendly, POLEARMS)
   Test::expect(polearms?.category == "Weapon masters" && polearms?.cost == 10000 && polearms?.level == 20)
@@ -141,7 +141,7 @@ test "a weapon skill of the class stands under the weapon masters with its maste
 }
 
 test "a warlock's demon grimoires stand under the demon trainer, ranked by the grimoires of their spell, known where the demon knows them" {
-  Game::spells.name = (id: Integer): String | nil => id == BLOOD_PACT || id == BLOOD_PACT_2 ? "Blood Pact" : nil
+  Game::spells.name = (id: integer): string | nil => id == BLOOD_PACT || id == BLOOD_PACT_2 ? "Blood Pact" : nil
   const warlock = classLearner("WARLOCK", [])
   const grimoires = learnableOf(warlock, noQuest, noNpc, nil)
   const pact = serviceOf(grimoires, BLOOD_PACT)
@@ -164,7 +164,7 @@ test "the spellbook's «Learnable» tab lists them under their headings, with a 
   Test::mount(nil, PAGE)
   Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
   Game::player.level = 10
-  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == OVERPOWER ? "Overpower" : nil
+  Game::spells.name = (id: integer): string | nil => id == CHARGE ? "Charge" : id == OVERPOWER ? "Overpower" : nil
   Test::open("/spellbook")
   const window = Test::page().window("Spells")
   window.button("Learnable").click()
@@ -181,7 +181,7 @@ test "the «Learnable» list runs to the window's frame; the search over it keep
   Test::mount(nil, PAGE)
   Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
   Game::player.level = 10
-  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Game::spells.name = (id: integer): string | nil => id == CHARGE ? "Charge" : nil
   Test::open("/spellbook")
   const window = Test::page().window("Spells")
   window.button("Learnable").click()
@@ -193,7 +193,7 @@ test "a picked spell's price at each city is a line of the city and the price; t
   Test::login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
   Test::factions({ [STORMWIND]: "Stormwind" })
   Game::player.level = 10
-  Game::spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Game::spells.name = (id: integer): string | nil => id == CHARGE ? "Charge" : nil
   Test::open("/spellbook")
   const window = Test::page().window("Spells")
   window.button("Learnable").click()

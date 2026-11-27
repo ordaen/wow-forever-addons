@@ -5,7 +5,7 @@ import { BRIGHT_TEXT, Quality } from "Ordaen"
 import Locale from "@/locales"
 import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollHeading, Standing, XP_MARK } from "@/questPage"
 
-function given(name: String): Reward {
+function given(name: string): Reward {
   return {
     kind: .Title, name: name, icon: nil, count: 1, quality: Quality::Common, item: nil, link: nil, detail: "",
     unusable: false, sell: 0, index: 0
@@ -13,8 +13,8 @@ function given(name: String): Reward {
 }
 
 class Page {
-  public state also: Array<Reward> = [given("One"), given("Two"), given("Three"), given("Four")]
-  public state standings: Array<Standing> = [{ name: "Stormwind", amount: 250 }]
+  public state also: array<Reward> = [given("One"), given("Two"), given("Three"), given("Four")]
+  public state standings: array<Standing> = [{ name: "Stormwind", amount: 250 }]
 
   public render(self): Template {
     return $ltml {
@@ -26,7 +26,7 @@ class Page {
 }
 
 // A folded scroll's row is its holder's as high as it, as a page's is.
-const FOLDED_ROWS: Array<Track> = ["max-content"]
+const FOLDED_ROWS: array<Track> = ["max-content"]
 
 class Parchment {
   public state folded = true

@@ -13,18 +13,18 @@ import { Opened } from "@/view"
 // that wraps; set in where it says so. A label that opens a list is a term: underlined in a locked tooltip, the list
 // beside it while the cursor is on it.
 class AddedLine implements Component {
-  derived paired: Boolean = self.line.right != nil
-  derived right: String = self.line.right ?? ""
+  derived paired: boolean = self.line.right != nil
+  derived right: string = self.line.right ?? ""
   derived leftColor: Color = self.line.color ?? BODY
   derived rightColor: Color = self.line.rightColor ?? self.line.color ?? BODY
   derived padding: Edges = self.line.indent ? INDENT : NO_PAD
   derived opens: Opens = self.opensOf()
-  derived opening: Boolean = self.line.opens != nil
+  derived opening: boolean = self.line.opens != nil
 
   line: Signal<Line>
-  locked: Signal<Boolean>
+  locked: Signal<boolean>
   options: Signal<Options>
-  constructor(line: Signal<Line>, locked: Signal<Boolean>, options: Signal<Options>) {
+  constructor(line: Signal<Line>, locked: Signal<boolean>, options: Signal<Options>) {
     self.line = line
     self.locked = locked
     self.options = options
@@ -55,12 +55,12 @@ class AddedLine implements Component {
 
 // The lines one entry gives: a section of the tooltip, ruled off, or nothing where it gives none.
 class AddedLines implements Component {
-  derived some: Boolean = self.lines.length > 0
+  derived some: boolean = self.lines.length > 0
 
-  lines: Signal<Array<Line>>
-  locked: Signal<Boolean>
+  lines: Signal<array<Line>>
+  locked: Signal<boolean>
   options: Signal<Options>
-  constructor(lines: Signal<Array<Line>>, locked: Signal<Boolean>, options: Signal<Options>) {
+  constructor(lines: Signal<array<Line>>, locked: Signal<boolean>, options: Signal<Options>) {
     self.lines = lines
     self.locked = locked
     self.options = options
@@ -76,25 +76,25 @@ class AddedLines implements Component {
 }
 
 // No line: what an entry gives while the tooltip isn't of its kind.
-const NONE: Array<Line> = []
+const NONE: array<Line> = []
 
 // An entry of an item's section: what it gives for the item shown, 0 where the tooltip shows none. An entry may say
 // what it says of the frame under the cursor (a bag's slot): while the tooltip is locked, the cursor gone from that
 // frame onto the tooltip, its lines stay as they were.
 public class AddedToItem implements Component {
-  derived asked: Array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
-  state lines: Array<Line> = NONE
+  derived asked: array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
+  state lines: array<Line> = NONE
 
   row: Signal<any ItemLines>
-  item: Signal<Integer>
-  link: Signal<String>
-  locked: Signal<Boolean>
+  item: Signal<integer>
+  link: Signal<string>
+  locked: Signal<boolean>
   options: Signal<Options>
   constructor(
     row: Signal<any ItemLines>,
-    item: Signal<Integer>,
-    link: Signal<String>,
-    locked: Signal<Boolean>,
+    item: Signal<integer>,
+    link: Signal<string>,
+    locked: Signal<boolean>,
     options: Signal<Options>
   ) {
     self.row = row
@@ -115,13 +115,13 @@ public class AddedToItem implements Component {
 // An entry of a world object's section: what it gives for the object shown, by its name, "" where the tooltip shows
 // none.
 public class AddedToObject implements Component {
-  derived lines: Array<Line> = self.name == "" ? NONE : self.row.lines(self.name)
+  derived lines: array<Line> = self.name == "" ? NONE : self.row.lines(self.name)
 
   row: Signal<any ObjectLines>
-  name: Signal<String>
-  locked: Signal<Boolean>
+  name: Signal<string>
+  locked: Signal<boolean>
   options: Signal<Options>
-  constructor(row: Signal<any ObjectLines>, name: Signal<String>, locked: Signal<Boolean>, options: Signal<Options>) {
+  constructor(row: Signal<any ObjectLines>, name: Signal<string>, locked: Signal<boolean>, options: Signal<Options>) {
     self.row = row
     self.name = name
     self.locked = locked

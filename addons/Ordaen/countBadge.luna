@@ -12,12 +12,12 @@ const WIDE: Bounds = { min: 25.78125dp, max: nil }
 const PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 
 public class CountBadge implements Component {
-  derived toned: Boolean = self.tone != nil
+  derived toned: boolean = self.tone != nil
 
-  count: Signal<Integer>
+  count: Signal<integer>
   tone: Signal<Color | nil>
   constructor(
-    count: Signal<Integer>,
+    count: Signal<integer>,
     // The pill's colour, the tone of what it counts; none: the art's own.
     tone: Signal<Color | nil> = nil
   ) {

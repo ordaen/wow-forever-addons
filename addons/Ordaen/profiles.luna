@@ -7,17 +7,17 @@ import Debug from "$debug"
 import Events from "$events"
 import Game from "$game"
 
-public type ProfileName = brand String
+public type ProfileName = brand string
 
 // The profile every account has, made from what was kept before profiles were.
 public const DEFAULT_PROFILE: ProfileName = "Default"
 
 public struct Profile implements Plain {
   // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
-  sections: mut Map<String, String> = {}
+  sections: mut map<string, string> = {}
   // Each profile's `ModuleMemory`'s values, packed, by its key (`OrdaenTrading:window:main`): where the player left a
   // window or a list. Never in an export.
-  memory: mut Map<String, String> = {}
+  memory: mut map<string, string> = {}
 }
 
 // How long a memory kept in a profile may be, packed: a struct of a few numbers, flags and enum members is a tenth
@@ -27,14 +27,14 @@ public const MEMORY_BOUND = 512
 public struct ProfilePicks implements Plain {
   account: ProfileName = DEFAULT_PROFILE
   // By the class's tag (`MAGE`).
-  byClass: mut Map<String, ProfileName> = {}
+  byClass: mut map<string, ProfileName> = {}
   // By the character's GUID.
-  byCharacter: mut Map<String, ProfileName> = {}
+  byCharacter: mut map<string, ProfileName> = {}
   // By the character's GUID, then the specialisation's index.
-  bySpec: mut Map<String, mut Map<Integer, ProfileName>> = {}
+  bySpec: mut map<string, mut map<integer, ProfileName>> = {}
 
   // The profile under another name, in every pick that names it.
-  public renamed(mut self, from: String, to: String) {
+  public renamed(mut self, from: string, to: string) {
     if (self.account == from) { self.account = to }
     for (tag, name of self.byClass) {
       if (name == from) { self.byClass[tag] = to }
@@ -50,7 +50,7 @@ public struct ProfilePicks implements Plain {
   }
 
   // Every pick of the profile is dropped: the next rule answers where it was. The account's stays: it always names one.
-  public without(mut self, gone: String) {
+  public without(mut self, gone: string) {
     for (tag, name of self.byClass) {
       if (name == gone) { self.byClass[tag] = nil }
     }
@@ -65,12 +65,12 @@ public struct ProfilePicks implements Plain {
   }
 
   // The account's default: every character with no pick of its own uses it.
-  public setAccount(mut self, name: String) {
+  public setAccount(mut self, name: string) {
     self.account = name
   }
 
   // The pick for a character, a class or a specialisation of a character, or none (`nil`).
-  public forCharacter(mut self, guid: String, name: String | nil) {
+  public forCharacter(mut self, guid: string, name: string | nil) {
     if (name == nil) {
       self.byCharacter[guid] = nil
     } else {
@@ -78,7 +78,7 @@ public struct ProfilePicks implements Plain {
     }
   }
 
-  public forClass(mut self, tag: String, name: String | nil) {
+  public forClass(mut self, tag: string, name: string | nil) {
     if (name == nil) {
       self.byClass[tag] = nil
     } else {
@@ -86,7 +86,7 @@ public struct ProfilePicks implements Plain {
     }
   }
 
-  public forSpec(mut self, guid: String, index: Integer, name: String | nil) {
+  public forSpec(mut self, guid: string, index: integer, name: string | nil) {
     if (self.bySpec[guid] == nil) { self.bySpec[guid] = {} }
     const specs = self.bySpec[guid]
     if (specs == nil) { return }
@@ -99,11 +99,11 @@ public struct ProfilePicks implements Plain {
 }
 
 public struct SavedProfiles implements Plain {
-  profiles: mut Map<String, mut Profile> = {}
+  profiles: mut map<string, mut Profile> = {}
   picks: mut ProfilePicks = ProfilePicks {}
 
   // The profile under another name, in its picks too.
-  public renamed(mut self, from: String, to: String) {
+  public renamed(mut self, from: string, to: string) {
     // The account's default is there before anything is kept in it.
     if (self.profiles[from] == nil) { self.profiles[from] = Profile {} }
     const profile = self.profiles[from]
@@ -114,18 +114,18 @@ public struct SavedProfiles implements Plain {
   }
 
   // The profile with no section: every module reads its defaults.
-  public cleared(mut self, name: String) {
+  public cleared(mut self, name: string) {
     self.profiles[name] = Profile {}
   }
 
   // The profile gone, and every pick of it.
-  public without(mut self, gone: String) {
+  public without(mut self, gone: string) {
     self.profiles[gone] = nil
     self.picks.without(gone)
   }
 
   // A module's sections and memory under its former name moved to its current one, in every profile.
-  public moved(mut self, former: String, current: String) {
+  public moved(mut self, former: string, current: string) {
     for (_, profile of self.profiles) {
       movedKeys(profile.sections, former, current)
       movedKeys(profile.memory, former, current)
@@ -135,11 +135,11 @@ public struct SavedProfiles implements Plain {
 
 // A module renamed: its former name to its current one. What was kept under the former moves once at login, where
 // the current has nothing yet: the account's and the character's saved keys, and each profile's sections and memory.
-public const RENAMED: Map<String, String> = { ["OrdaenAuction"]: "OrdaenTrading", ["OrdaenBags"]: "OrdaenInventory" }
+public const RENAMED: map<string, string> = { ["OrdaenAuction"]: "OrdaenTrading", ["OrdaenBags"]: "OrdaenInventory" }
 
 // The key `former` and every `former:…` moved to `current` and `current:…`, where nothing stands there yet.
-function movedKeys(keys: mut Map<String, String>, former: String, current: String) {
-  let moving: Array<String> = []
+function movedKeys(keys: mut map<string, string>, former: string, current: string) {
+  let moving: array<string> = []
   for (key, _ of keys) {
     if (key == former || key.sub(1, former.length + 1) == `${former}:`) { moving.push(key) }
   }
@@ -176,7 +176,7 @@ public function picked(picks: ProfilePicks, who: Profiles::Player): ProfileName 
 // A profile's name as the player typed it: nil where it is empty or too long to be read in a list.
 public const MAX_NAME = 40
 
-public function named(text: String): ProfileName | nil {
+public function named(text: string): ProfileName | nil {
   if (text == "" || text.length > MAX_NAME) { return nil }
   return text
 }
@@ -184,9 +184,9 @@ public function named(text: String): ProfileName | nil {
 public class Profiles {
   // Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
   public struct Player {
-    character: String | nil
-    spec: Integer | nil
-    classTag: String
+    character: string | nil
+    spec: integer | nil
+    classTag: string
   }
 
   // Which rule named the profile a character uses, in the order they win.
@@ -204,7 +204,7 @@ public class Profiles {
   // The rule that names it, for the page to say why.
   public derived why: Profiles::Reason = pickOf(self.kept.picks, self.who()).why
   // Every profile, by name: the ones kept and the account's, which is there before anything is kept in it.
-  public derived names: Array<String> = self.namesOf()
+  public derived names: array<string> = self.namesOf()
   // Each `Settings` packs its values into its profile where they changed: as the game saves (`PLAYER_LOGOUT` comes
   // before every save, a `/reload` too), before what is kept is edited (a switch of profile, a copy) and before an
   // export. A change itself is never packed. Each listener is its own call: one module's error keeps no other's.
@@ -234,9 +234,9 @@ public class Profiles {
     return { character: Game::player.guid, spec: Game::player.spec?.index, classTag: Game::player.classTag }
   }
 
-  namesOf(self): Array<String> {
+  namesOf(self): array<string> {
     const kept = self.kept
-    const list: Array<String> = []
+    const list: array<string> = []
     for (name, _ of kept.profiles) { list.push(name) }
     if (kept.profiles[kept.picks.account] == nil) { list.push(kept.picks.account) }
     list.sort((a, b) => a < b)
@@ -254,7 +254,7 @@ public class Profiles {
   }
 
   // Whether keeping `next` would make this character use another profile than it does.
-  public switches(self, next: SavedProfiles): Boolean {
+  public switches(self, next: SavedProfiles): boolean {
     return picked(next.picks, self.who()) != peek self.active
   }
 
@@ -266,7 +266,7 @@ public class Profiles {
 
   // A `Settings`' section in a profile, unpacked for its `decode`; nil where the profile has none. A `Settings` kept
   // before profiles were (`Game.saved` under its key) is moved into «Default» as it is first read.
-  public section(mut self, name: ProfileName, key: String): Unknown {
+  public section(mut self, name: ProfileName, key: string): unknown {
     const before = Game::saved.stored(.Account, key)
     if (before != nil) {
       const packed = Game::encoding.serialize(before)
@@ -284,14 +284,14 @@ public class Profiles {
   }
 
   // A `Settings`' values kept in a profile.
-  public write(mut self, name: ProfileName, key: String, values: Unknown) {
+  public write(mut self, name: ProfileName, key: string, values: unknown) {
     const packed = Game::encoding.serialize(values)
     if (packed != nil) { self.put(name, key, packed) }
   }
 
   // What was kept on the account under `old` before profiles held it (`values`, read as its section's shape) is moved
   // into «Default», where that has no section of the key yet, as it is first read.
-  public adopt(mut self, old: String, key: String, values: Unknown) {
+  public adopt(mut self, old: string, key: string, values: unknown) {
     const packed = Game::encoding.serialize(values)
     // A client that can't pack it: it stays where it was, read again at the next start.
     if (packed == nil) { return }
@@ -302,7 +302,7 @@ public class Profiles {
   }
 
   // A `ModuleMemory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
-  public recalled(self, name: ProfileName, key: String): Unknown {
+  public recalled(self, name: ProfileName, key: string): unknown {
     const profile = (peek self.kept).profiles[name]
     if (profile == nil) { return nil }
     const raw = profile.memory[key]
@@ -312,7 +312,7 @@ public class Profiles {
 
   // A `ModuleMemory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
   // changes.
-  public remember(mut self, key: String, values: Unknown | nil) {
+  public remember(mut self, key: string, values: unknown | nil) {
     const packed = values == nil ? nil : Game::encoding.serialize(values)
     if (values != nil && packed == nil) { return }
     if (packed != nil && packed.length > MEMORY_BOUND) {
@@ -329,7 +329,7 @@ public class Profiles {
     self.apply(next)
   }
 
-  put(mut self, name: ProfileName, key: String, packed: String) {
+  put(mut self, name: ProfileName, key: string, packed: string) {
     const next = self.copy()
     const profile = next.profiles[name] ?? Profile {}
     profile.sections[key] = packed
@@ -339,7 +339,7 @@ public class Profiles {
 
   // A new profile, a copy of the profile `from` or, where that is nil, with no section (every module's defaults):
   // false where the name is empty or taken.
-  public make(mut self, name: ProfileName, from: String | nil): Boolean {
+  public make(mut self, name: ProfileName, from: string | nil): boolean {
     if (!self.free(name)) { return false }
     const next = self.edit()
     const source = from == nil ? nil : next.profiles[from]
@@ -350,7 +350,7 @@ public class Profiles {
 
   // A new profile of a savepoint's sections (each a snapshot of a module's values): false where the name is empty or
   // taken, or a section can't be packed.
-  public makeOf(mut self, name: ProfileName, sections: Map<String, Unknown>): Boolean {
+  public makeOf(mut self, name: ProfileName, sections: map<string, unknown>): boolean {
     if (!self.free(name)) { return false }
     const profile = Profile {}
     for (key, values of sections) {
@@ -364,7 +364,7 @@ public class Profiles {
     return true
   }
 
-  free(self, name: ProfileName): Boolean {
+  free(self, name: ProfileName): boolean {
     return name != "" && !self.namesOf().any(known => known == name)
   }
 

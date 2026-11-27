@@ -5,44 +5,44 @@ public import { Market, Sale, Worth } from "@/market"
 public import { Tinted } from "@/tinted"
 public import { Windowed } from "@/windowed"
 
-const TABS: Array<String> = ["Map", "Drawer", "Market"]
+const TABS: array<string> = ["Map", "Drawer", "Market"]
 
 public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 
-const HIDES: Array<Choice<Hide>> = [
+const HIDES: array<Choice<Hide>> = [
   { value: Hide::Never, label: "Never" },
   { value: Hide::Combat, label: "In combat" },
   { value: Hide::Transport, label: "On a mount", soon: true }
 ]
 
 public struct Choices {
-  showZone: Boolean
-  scale: Number
-  columns: Integer
-  drawer: Boolean
+  showZone: boolean
+  scale: number
+  columns: integer
+  drawer: boolean
   hide: Hide
-  name: String
+  name: string
   // What the drawer's export box holds.
-  exported: String
+  exported: string
 }
 
 // A module's page, made by the tests and added to Ordaen's modules there: in the game nothing makes it (the
 // addon has no root, so a build linked into the game leaves it out).
 public class Showcase implements Module {
-  public const title: String = "Showcase"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Showcase"
+  public const pages: array<SettingsPage> = []
 
   state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "",
     exported: "Ordaen:1:drawer\nhide=never" }
   state saved = 0
   state hint = false
   state tab = 1
-  derived onMap: Boolean = self.tab == 1
-  derived onDrawer: Boolean = self.tab == 2
-  derived onMarket: Boolean = self.tab == 3
-  derived summary: String = self.describe()
+  derived onMap: boolean = self.tab == 1
+  derived onDrawer: boolean = self.tab == 2
+  derived onMarket: boolean = self.tab == 3
+  derived summary: string = self.describe()
 
-  describe(self): String {
+  describe(self): string {
     return self.choices.showZone ? "zone shown" : "zone hidden"
   }
 

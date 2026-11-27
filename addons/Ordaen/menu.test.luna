@@ -12,9 +12,9 @@ class Rows {
   public state closed = 0
   // Clicks that reached the box beside the row.
   public state beside = 0
-  public derived entries: Array<MenuEntry> = self.entriesOf()
+  public derived entries: array<MenuEntry> = self.entriesOf()
 
-  entriesOf(self): Array<MenuEntry> {
+  entriesOf(self): array<MenuEntry> {
     return [
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
@@ -29,7 +29,7 @@ class Rows {
 
   onBeside(mut self) { self.beside += 1 }
 
-  onPick(mut self, index: Integer) {
+  onPick(mut self, index: integer) {
     self.picked = index
     if (index == 3) { self.favorite = !self.favorite } else { self.open = false }
   }
@@ -99,17 +99,17 @@ class Copying {
   public state open = true
   public state picked = 0
   public state from = 0
-  public const entries: Array<MenuEntry> = [
+  public const entries: array<MenuEntry> = [
     { label: "Copy from", more: [{ label: "Bar 2" }, { label: "Bar 3" }] },
     { label: "Reset", group: true }
   ]
 
-  onPick(mut self, index: Integer) {
+  onPick(mut self, index: integer) {
     self.picked = index
     self.open = false
   }
 
-  onPickMore(mut self, index: Integer, at: Integer) {
+  onPickMore(mut self, index: integer, at: integer) {
     self.picked = index
     self.from = at
     self.open = false

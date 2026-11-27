@@ -12,13 +12,13 @@ import Locale from "@/locales"
 
 // A form of the player's class that pages Панель 1: its bonus bar and its name.
 public struct Form {
-  bonusbar: Integer
-  name: String
+  bonusbar: integer
+  name: string
 }
 
 // The forms that page Панель 1, by the client's own tables (`SpellShapeshiftForm.BonusActionBar`): a warrior's three
 // stances, a druid's cat, prowl and bear, a rogue's stealth. Other classes have none.
-public function formsOf(classTag: String): Array<Form> {
+public function formsOf(classTag: string): array<Form> {
   return match (classTag) {
     "WARRIOR" => [
       { bonusbar: 1, name: Locale::FORM_BATTLE },
@@ -37,20 +37,20 @@ public function formsOf(classTag: String): Array<Form> {
 
 // One form's switch: on, Панель 1 shows the form's page in it.
 class FormRow implements Component {
-  state on: Boolean
+  state on: boolean
 
   const form: Form
   settings: mut Settings<BarsChoices>
   constructor(form: Form, settings: mut Settings<BarsChoices>) {
     self.form = form
     self.settings = settings
-    self.on = (peek self.settings.values).unpaged[String::of(form.bonusbar)] != true
+    self.on = (peek self.settings.values).unpaged[string::of(form.bonusbar)] != true
     watch (on of self.on) { self.write(on) }
   }
 
   // The switch as the settings hold it: written where it differs, so the page opening changes nothing.
-  write(mut self, on: Boolean) {
-    const key = String::of(self.form.bonusbar)
+  write(mut self, on: boolean) {
+    const key = string::of(self.form.bonusbar)
     if (((peek self.settings.values).unpaged[key] != true) == on) { return }
     const unpaged = (peek self.settings.values).unpaged.clone()
     unpaged[key] = !on
@@ -63,7 +63,7 @@ class FormRow implements Component {
 }
 
 // A bar's settings in the settings, or its defaults where the player never changed them.
-function choiceIn(values: BarsChoices, defaults: Map<String, BarChoice>, spec: BarSpec): BarChoice {
+function choiceIn(values: BarsChoices, defaults: map<string, BarChoice>, spec: BarSpec): BarChoice {
   return values.bars[spec.id] ?? defaults[spec.id] ?? defaultChoice(spec, false)
 }
 
@@ -79,17 +79,17 @@ class BarTab implements Component {
   public pick: Event<BarSpec> = new Event()
   public flip: Event<BarSpec> = new Event()
 
-  derived on: Boolean = choiceIn(self.settings.values, self.defaults, self.spec).on
+  derived on: boolean = choiceIn(self.settings.values, self.defaults, self.spec).on
   derived shown: Shown = self.on ? .On : .Off
-  derived selected: Boolean = self.picked == self.spec.id
-  derived off: Boolean = !self.on
+  derived selected: boolean = self.picked == self.spec.id
+  derived off: boolean = !self.on
 
   const spec: BarSpec
-  const title: String
-  picked: Signal<String>
-  defaults: Signal<Map<String, BarChoice>>
+  const title: string
+  picked: Signal<string>
+  defaults: Signal<map<string, BarChoice>>
   settings: Settings<BarsChoices>
-  constructor(spec: BarSpec, picked: Signal<String>, defaults: Signal<Map<String, BarChoice>>, settings: Settings<BarsChoices>) {
+  constructor(spec: BarSpec, picked: Signal<string>, defaults: Signal<map<string, BarChoice>>, settings: Settings<BarsChoices>) {
     self.spec = spec
     self.title = Bar::titleOf(spec)
     self.picked = picked
@@ -113,15 +113,15 @@ class BarTab implements Component {
 // taken again from them where something else writes it there (the «…» menu, a profile).
 class BarEditor implements Component {
   state choice: mut BarChoice
-  derived paged: Boolean = self.spec.kind == BarKind::Action && self.spec.number == 1 && self.forms.length > 0
+  derived paged: boolean = self.spec.kind == BarKind::Action && self.spec.number == 1 && self.forms.length > 0
   // An action bar's buttons may be empty; a pet's or a stance's show what they hold.
-  derived actions: Boolean = self.spec.kind == BarKind::Action
+  derived actions: boolean = self.spec.kind == BarKind::Action
 
   const spec: BarSpec
-  const forms: Array<Form>
+  const forms: array<Form>
   settings: mut Settings<BarsChoices>
-  defaults: Signal<Map<String, BarChoice>>
-  constructor(spec: BarSpec, settings: mut Settings<BarsChoices>, defaults: Signal<Map<String, BarChoice>>) {
+  defaults: Signal<map<string, BarChoice>>
+  constructor(spec: BarSpec, settings: mut Settings<BarsChoices>, defaults: Signal<map<string, BarChoice>>) {
     self.spec = spec
     self.settings = settings
     self.defaults = defaults
@@ -165,12 +165,12 @@ class BarEditor implements Component {
 
 // What the page remembers: the bar last picked, which it opens on.
 struct PageMemory implements Plain {
-  picked: String
+  picked: string
 }
 
 // The bars' list as wide as their names, the picked bar's rows the rest.
-const PAGE: Array<Track> = ["max-content", { fr: 1 }]
-const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }]
+const HEAD: array<Track> = [{ fr: 1 }, "max-content"]
 const MORE = 39.84375dp
 // The «…» glyph on the head's icon button.
 const MORE_GLYPH = "…"
@@ -182,35 +182,35 @@ const PLACE_ENTRY = 3
 
 public class BarsPage implements Component {
   const memory: mut ModuleMemory<PageMemory> = new ModuleMemory<PageMemory>({ picked: "1" }, .Profile, "barsPage")
-  derived picked: String = self.spec.id
+  derived picked: string = self.spec.id
   derived spec: BarSpec = SPECS.find(spec => spec.id == self.memory.values.picked) ?? SPECS[1]
-  derived title: String = Bar::titleOf(self.spec)
+  derived title: string = Bar::titleOf(self.spec)
   // The «…» menu: copying another bar's settings in (a submenu of every other bar, an off one marked), resetting
   // them, the bar back where the panel puts it.
   state menuOpen = false
-  derived others: Array<BarSpec> = SPECS.filter(spec => spec.id != self.spec.id)
-  derived entries: Array<MenuEntry> = [
+  derived others: array<BarSpec> = SPECS.filter(spec => spec.id != self.spec.id)
+  derived entries: array<MenuEntry> = [
     { label: Locale::COPY_FROM, more: self.others.map(spec => ({ label: self.nameOf(spec) })) },
     { label: Locale::RESET_BAR },
     { label: Locale::DEFAULT_PLACE }
   ]
   // The bar whose settings were copied into the picked one, until another is picked.
-  state copiedFrom: String | nil = nil
-  derived fromShown: Boolean = self.copiedFrom != nil
+  state copiedFrom: string | nil = nil
+  derived fromShown: boolean = self.copiedFrom != nil
 
   settings: mut Settings<BarsChoices>
   // Each bar's settings before the player changes them, by its id.
-  defaults: Signal<Map<String, BarChoice>>
+  defaults: Signal<map<string, BarChoice>>
   // Bartender4 is loaded: the bars stay off, and the page says why.
-  conflict: Signal<Boolean>
-  constructor(settings: mut Settings<BarsChoices>, defaults: Signal<Map<String, BarChoice>>, conflict: Signal<Boolean>) {
+  conflict: Signal<boolean>
+  constructor(settings: mut Settings<BarsChoices>, defaults: Signal<map<string, BarChoice>>, conflict: Signal<boolean>) {
     self.settings = settings
     self.defaults = defaults
     self.conflict = conflict
   }
 
   // A bar's name in the copy's submenu: an off one says so.
-  nameOf(self, spec: BarSpec): String {
+  nameOf(self, spec: BarSpec): string {
     const title = Bar::titleOf(spec)
     return choiceIn(self.settings.values, self.defaults, spec).on ? title : Locale::BAR_OFF.format(title)
   }
@@ -229,7 +229,7 @@ public class BarsPage implements Component {
   toggleMenu(mut self) { self.menuOpen = !self.menuOpen }
   closeMenu(mut self) { self.menuOpen = false }
 
-  onMenu(mut self, index: Integer) {
+  onMenu(mut self, index: integer) {
     const spec = peek self.spec
     if (index == RESET_ENTRY) {
       const now = choiceIn(peek self.settings.values, peek self.defaults, spec)
@@ -242,7 +242,7 @@ public class BarsPage implements Component {
   }
 
   // Another bar's settings copied into the picked one, at once.
-  onCopy(mut self, entry: Integer, at: Integer) {
+  onCopy(mut self, entry: integer, at: integer) {
     const spec = peek self.spec
     const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
     const values = peek self.settings.values

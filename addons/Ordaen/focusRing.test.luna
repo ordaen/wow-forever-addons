@@ -22,8 +22,8 @@ class Focusable {
   }
 }
 
-function listed(...kids: any Frame): Array<any Frame> {
-  let all: Array<any Frame> = []
+function listed(...kids: any Frame): array<any Frame> {
+  let all: array<any Frame> = []
   for (i of 1..kids.length) {
     const kid = kids[i]
     if (kid != nil) { all.push(kid) }
@@ -31,10 +31,10 @@ function listed(...kids: any Frame): Array<any Frame> {
   return all
 }
 
-function counted(...regions: any Region): Integer { return regions.length }
+function counted(...regions: any Region): integer { return regions.length }
 
 // Every frame under `frame` with four textures and nothing else, shown: the ring.
-function rings(frame: any Frame, into: mut Array<any Frame>) {
+function rings(frame: any Frame, into: mut array<any Frame>) {
   for (kid of listed(...frame.GetChildren())) {
     if (counted(...kid.GetRegions()) == 4 && kid.GetNumChildren() == 0 && kid.IsShown()) { into.push(kid) }
     rings(kid, into)
@@ -42,8 +42,8 @@ function rings(frame: any Frame, into: mut Array<any Frame>) {
 }
 
 // What the ring shows, as the client describes it.
-function ringDrawn(): String {
-  let found: Array<any Frame> = []
+function ringDrawn(): string {
+  let found: array<any Frame> = []
   rings(UIParent, found)
   const shown = found[1] ?? panic("a ring stands round the focused box")
   return Test::dump(shown)

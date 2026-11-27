@@ -15,12 +15,12 @@ const SPELL_NAME = 13
 const LIT = "|cff40ff60"
 
 // A word without the colours the game wrote it in: a lit word shows in the one colour.
-function plain(word: String): String {
+function plain(word: string): string {
   return (word.replace("|c%x%x%x%x%x%x%x%x", "")).replace("|r", "")
 }
 
-function words(text: String): mut Array<String> {
-  let list: Array<String> = []
+function words(text: string): mut array<string> {
+  let list: array<string> = []
   for (word of (text.replace("%s+", " ")).split(" ")) {
     if (word != "") { list.push(word) }
   }
@@ -29,7 +29,7 @@ function words(text: String): mut Array<String> {
 
 // The next rank's description with the words that differ from the current one's, place for place, lit green:
 // ranks of one talent differ in their numbers.
-function diff(current: String, after: String): String {
+function diff(current: string, after: string): string {
   let before = words(current)
   let out = ""
   for (i, word of words(after)) {
@@ -42,14 +42,14 @@ function diff(current: String, after: String): String {
 public function talent(data: Game::TooltipData, known: Game::TalentInfo, options: Options): Model | nil {
   let name = Game::spells.name(known.spell)
   if (name == nil) { return nil }
-  let lines: Array<Game::TooltipLine> = [{ left: name, kind: SPELL_NAME }]
+  let lines: array<Game::TooltipLine> = [{ left: name, kind: SPELL_NAME }]
   for (line of data.lines) { lines.push(line) }
   let read = spell({ id: known.spell, lines: lines, ..data }, options)
   if (read == nil) { return nil }
 
   // The second line: the spell's own «Passive» and rank give way.
   let maxed = known.rank >= known.ranks
-  let desc: Array<Part> = [
+  let desc: array<Part> = [
     { text: Locale::TALENT, opens: named(Term::Talent) },
     { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term::Talent) }
   ]
@@ -58,7 +58,7 @@ public function talent(data: Game::TooltipData, known: Game::TalentInfo, options
   let tree = tab != nil ? Talents::name[tab] : nil
   if (tree != nil) { desc.push({ text: Game::client.locale == "ruRU" ? tree.ruRU : tree.enUS }) }
 
-  let more: Array<TextLine> = []
+  let more: array<TextLine> = []
   let current = known.current
   let after = known.next
   if (options.spellsNext && known.rank > 0 && !maxed && current != nil && after != nil && after != "") {
@@ -66,13 +66,13 @@ public function talent(data: Game::TooltipData, known: Game::TalentInfo, options
     more.push({ left: diff(current, after), desc: true })
   }
 
-  let foot: Array<Note> = []
+  let foot: array<Note> = []
   for (note of read.foot) { foot.push(note) }
   if (known.rank == 0) {
     for (condition of known.conditions) {
       if (condition.points > 0) {
         foot.push({
-          left: Locale::TALENT_POINTS, right: String::of(condition.points), valueColor: condition.met ? nil : RED,
+          left: Locale::TALENT_POINTS, right: string::of(condition.points), valueColor: condition.met ? nil : RED,
           opens: named(Term::Talent)
         })
       }

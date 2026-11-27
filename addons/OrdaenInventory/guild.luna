@@ -12,12 +12,12 @@ import Locale from "@/locales"
 // A tab of the guild's: its place, name and icon, whether the player may see it and put things in, and how many
 // withdrawals a day the guild allows the player there (-1: any).
 public struct GuildTab {
-  const index: Integer
-  const name: String
+  const index: integer
+  const name: string
   const icon: Art
-  const viewable: Boolean
-  const canDeposit: Boolean
-  const withdrawals: Integer
+  const viewable: boolean
+  const canDeposit: boolean
+  const withdrawals: integer
 }
 
 // What the guild bank's page shows: a tab's slots, the tab's log, or the money's log.
@@ -30,19 +30,19 @@ const NO_ICON: Asset = "Interface/ICONS/INV_Misc_QuestionMark"
 const MONEY_LOG = 9
 
 // A tab's name: the guild's, or its place where the guild named it nothing.
-public function tabTitle(index: Integer, name: String): String {
+public function tabTitle(index: integer, name: string): string {
   return name != "" ? name : Locale::GUILD_TAB.format(index)
 }
 
 // What a tab's line says beside its name: the withdrawals a day where the guild limits them, a dash where the player
 // may take nothing.
-public function withdrawalsText(tab: GuildTab): String {
+public function withdrawalsText(tab: GuildTab): string {
   if (tab.withdrawals < 0) { return "" }
   return Locale::GUILD_WITHDRAWALS.format(tab.withdrawals)
 }
 
 // A line of a tab's log, as the guild bank's own window writes it.
-public function logLine(kind: String, who: String, item: String, count: Integer): String {
+public function logLine(kind: string, who: string, item: string, count: integer): string {
   return match (kind) {
     "deposit" => Locale::LOG_DEPOSIT.format(who, count, item)
     "withdraw" => Locale::LOG_WITHDRAW.format(who, count, item)
@@ -52,7 +52,7 @@ public function logLine(kind: String, who: String, item: String, count: Integer)
 
 public class GuildBank {
   public state open = false
-  public state tabs: Array<GuildTab> = []
+  public state tabs: array<GuildTab> = []
   // The tab shown, from 1; whether its slots are on their way.
   public state tab = 1
   public state loading = false
@@ -61,7 +61,7 @@ public class GuildBank {
   // What the player may still take of the guild's money today; -1: any.
   public state withdrawLeft = 0
   public state canWithdraw = false
-  public state log: Array<String> = []
+  public state log: array<string> = []
   // The shown tab's slots came, or changed.
   public slots: Event<nil> = new Event()
 
@@ -102,7 +102,7 @@ public class GuildBank {
   onClosed(mut self) { self.open = false }
 
   // A tab shown: the client told which, and asked for its slots (and its log, on the log's page).
-  public show(mut self, tab: Integer) {
+  public show(mut self, tab: integer) {
     self.tab = tab
     Client::SetCurrentGuildBankTab(tab)
     if (peek self.page == GuildPage::Items) {
@@ -133,7 +133,7 @@ public class GuildBank {
   }
 
   readTabs(mut self) {
-    let tabs: Array<GuildTab> = []
+    let tabs: array<GuildTab> = []
     for (index of 1..Client::GetNumGuildBankTabs().floor()) {
       let name, icon, viewable, canDeposit, withdrawals = Client::GetGuildBankTabInfo(index)
       tabs.push({
@@ -151,7 +151,7 @@ public class GuildBank {
   }
 
   readLog(mut self) {
-    let lines: Array<String> = []
+    let lines: array<string> = []
     if (peek self.page == GuildPage::MoneyLog) {
       for (index of 1..Client::GetNumGuildBankMoneyTransactions().floor()) {
         let kind, who, amount, _, _, _, _ = Client::GetGuildBankMoneyTransaction(index)
@@ -169,11 +169,11 @@ public class GuildBank {
   }
 
   // The guild's money moved in the player's click on the dialog's button.
-  public deposit(self, copper: Integer) { Client::DepositGuildBankMoney(copper) }
-  public withdraw(self, copper: Integer) { Client::WithdrawGuildBankMoney(copper) }
+  public deposit(self, copper: integer) { Client::DepositGuildBankMoney(copper) }
+  public withdraw(self, copper: integer) { Client::WithdrawGuildBankMoney(copper) }
 
   // The player's use of a slot of the guild bank: its stack into the bags, as the game's right click does.
-  public take(self, tab: Integer, slot: Integer) { Client::AutoStoreGuildBankItem(tab, slot) }
+  public take(self, tab: integer, slot: integer) { Client::AutoStoreGuildBankItem(tab, slot) }
 
   // The window's close leaves the guild bank.
   public close(self) {

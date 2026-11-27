@@ -18,65 +18,65 @@ function account() {
 }
 
 // The names among `names` the window shows, in the order drawn.
-function inOrder(names: Array<String>): String {
+function inOrder(names: array<string>): string {
   return window().texts().filter(text => names.any(name => name == text)).join(", ")
 }
 
 // Three mounts: one collected, two not, given out of order.
 function mounts() {
-  Client::C_MountJournal::GetMountIDs = (): Array<Number> => [3, 1, 2]
-  Client::C_MountJournal::GetMountInfoByID = (id: Number) => {
+  Client::C_MountJournal::GetMountIDs = (): array<number> => [3, 1, 2]
+  Client::C_MountJournal::GetMountInfoByID = (id: number) => {
     if (id == 1) { return "Zebra", 101, 132261, false, true, 0, false, false, nil, false, true, 1, false }
     if (id == 2) { return "Alpaca", 102, 132261, false, true, 0, false, false, nil, false, false, 2, false }
     return "Bear", 103, 132261, false, true, 0, false, false, nil, false, false, 3, false
   }
-  Client::C_MountJournal::GetMountInfoExtraByID = (id: Number) => {
+  Client::C_MountJournal::GetMountInfoExtraByID = (id: number) => {
     return 1234, "A striped horse of the plains.", "Vendor: Zeb", false, 230, 4, 0, 0, false
   }
 }
 
 // Two toys: one the player has, one not.
 function toys() {
-  Client::C_ToyBox::GetNumFilteredToys = (): Number => 2
-  Client::C_ToyBox::GetToyFromIndex = (index: Integer): Number => index == 1 ? 1973 : 18984
-  Client::C_ToyBox::GetToyInfo = (item: Number) => {
+  Client::C_ToyBox::GetNumFilteredToys = (): number => 2
+  Client::C_ToyBox::GetToyFromIndex = (index: integer): number => index == 1 ? 1973 : 18984
+  Client::C_ToyBox::GetToyInfo = (item: number) => {
     if (item == 1973) { return 1973, "Orb of Deception", 134334, false, false }
     return 18984, "Dimensional Ripper", 133870, false, false
   }
-  Client::PlayerHasToy = (item: Number): Boolean => item == 1973
-  Client::C_ToyBox::IsToyUsable = (item: Number): Boolean => true
+  Client::PlayerHasToy = (item: number): boolean => item == 1973
+  Client::C_ToyBox::IsToyUsable = (item: number): boolean => true
 }
 
 // The Warrior's category of challenges, one completed and one not, and the Paladin's, empty.
 function challenges() {
-  Client::GetCategoryList = (): Array<Integer> => [15585, 15580]
-  Client::GetCategoryInfo = (id: Integer) => {
+  Client::GetCategoryList = (): array<integer> => [15585, 15580]
+  Client::GetCategoryInfo = (id: integer) => {
     if (id == 15585) { return "Warrior", -1, 0 }
     return "Paladin", -1, 0
   }
-  Client::GetCategoryNumAchievements = (id: Number) => {
+  Client::GetCategoryNumAchievements = (id: number) => {
     if (id == 15585) { return 2, 1, 1 }
     return 0, 0, 0
   }
-  Client::GetAchievementInfo = (category: Integer, index: Integer | nil) => {
+  Client::GetAchievementInfo = (category: integer, index: integer | nil) => {
     if (index == 1) {
       return 501, "Shield Wall", 10, true, 6, 3, 26, "Block a hundred blows.", 0, 132341, "", false, true, ""
     }
     return 502, "Execute", 10, false, nil, nil, nil, "Finish twenty foes.", 0, 132342, "", false, false, ""
   }
-  Client::C_Traits::GetTraitCurrencyForAchievement = (currency: Number, id: Number): Number => id == 501 ? 5 : 10
-  Client::GetAchievementNumCriteria = (id: Number): Number => id == 502 ? 1 : 0
-  Client::GetAchievementCriteriaInfo = (id: Integer, index: Integer) => {
+  Client::C_Traits::GetTraitCurrencyForAchievement = (currency: number, id: number): number => id == 501 ? 5 : 10
+  Client::GetAchievementNumCriteria = (id: number): number => id == 502 ? 1 : 0
+  Client::GetAchievementCriteriaInfo = (id: integer, index: integer) => {
     return "Foes finished", 0, false, 7, 20, "", 0, 0, "", 1, true
   }
-  Client::UnitClass = (unit: String) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: string) => { return "Warrior", "WARRIOR", 1 }
 }
 
 // The Professions tree's configuration as the game gives it: two nodes, an arrow from the first to the second, three
 // points left; what was bought and applied is written down.
 class LegacyTree implements Game::TalentConfig {
-  asked: mut Array<String> = []
-  public trees(self): Array<Game::TalentTree> {
+  asked: mut array<string> = []
+  public trees(self): array<Game::TalentTree> {
     return [{
       id: 1187, name: "Legacy",
       nodes: [
@@ -85,19 +85,19 @@ class LegacyTree implements Game::TalentConfig {
       ]
     }]
   }
-  public unspent(self): Integer { return 3 }
-  public staged(self): Boolean { return self.asked.length > 0 }
-  public spend(mut self, node: Integer): Boolean {
+  public unspent(self): integer { return 3 }
+  public staged(self): boolean { return self.asked.length > 0 }
+  public spend(mut self, node: integer): boolean {
     self.asked.push("spend %d".format(node))
     return true
   }
-  public refund(mut self, node: Integer): Boolean {
+  public refund(mut self, node: integer): boolean {
     self.asked.push("refund %d".format(node))
     return true
   }
-  public commit(mut self): Boolean { return true }
-  public rollback(mut self): Boolean { return true }
-  public reset(mut self): Boolean { return true }
+  public commit(mut self): boolean { return true }
+  public rollback(mut self): boolean { return true }
+  public reset(mut self): boolean { return true }
 }
 
 test "the window opens on Legacy, which is locked until the player's first Legacy rank; again it closes" {
@@ -109,9 +109,9 @@ test "the window opens on Legacy, which is locked until the player's first Legac
 }
 
 test "Legacy's tree is drawn as the talents are, its points in the footer; a node clicked is bought, and Undo and Apply come with it" {
-  Client::C_MajorFactions::GetCurrentRenownLevel = (id: Number): Number => 4
+  Client::C_MajorFactions::GetCurrentRenownLevel = (id: number): number => 4
   const tree = new LegacyTree()
-  Game::talentTrees.of = (id: Integer): mut any Game::TalentConfig | nil => id == 1187 ? tree : nil
+  Game::talentTrees.of = (id: integer): mut any Game::TalentConfig | nil => id == 1187 ? tree : nil
   Test::mount(nil, SCREEN)
   account()
   // Each node says its rank of its ranks, as the game's Legacy tree does.
@@ -125,13 +125,13 @@ test "Legacy's tree is drawn as the talents are, its points in the footer; a nod
 }
 
 test "Legacy's rewards are the game's track: the rank in its emblem, four cards a time, the arrows turning it" {
-  Client::C_MajorFactions::GetCurrentRenownLevel = (id: Number): Number => 2
-  Client::C_MajorFactions::GetRenownLevels = (id: Number): Array<Client::MajorFactionRenownLevelInfo> => {
-    const levels: Array<Client::MajorFactionRenownLevelInfo> = []
+  Client::C_MajorFactions::GetCurrentRenownLevel = (id: number): number => 2
+  Client::C_MajorFactions::GetRenownLevels = (id: number): array<Client::MajorFactionRenownLevelInfo> => {
+    const levels: array<Client::MajorFactionRenownLevelInfo> = []
     for (level of 1..6) { levels.push({ factionID: 2802, level: level, locked: level > 2, isMilestone: false, isCapstone: false }) }
     return levels
   }
-  Client::C_MajorFactions::GetRenownRewardsForLevel = (id: Number, level: Number): Array<Client::MajorFactionRenownRewardInfo> => {
+  Client::C_MajorFactions::GetRenownRewardsForLevel = (id: number, level: number): array<Client::MajorFactionRenownRewardInfo> => {
     return [{ renownRewardID: level, uiOrder: 1, isAccountUnlock: true, name: "Reward %d".format(level.floor()), icon: 134400 }]
   }
   Test::mount(nil, SCREEN)
@@ -176,7 +176,7 @@ test "the filter leaves out what isn't collected, and the sort by name mixes the
 test "toys are a list with no card: the game's tooltip on one, the player's toys first, red only where the toy box says no" {
   toys()
   // A toy collected says «Already known» in red in its tooltip: the toy box, not the tooltip, says whether it is usable.
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => {
     return { lines: [{ left: "Orb of Deception", kind: 0 }, { left: "Already known", kind: 0, usable: false }] }
   }
   Test::mount(nil, SCREEN)

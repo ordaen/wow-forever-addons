@@ -30,11 +30,11 @@ public struct Standing {
   by: any Frame
   // In the frame's place, hanging by the same corner (the game's own tooltip, where the game anchored it); beside
   // the frame otherwise.
-  inPlace: Boolean
+  inPlace: boolean
   // Under the frame (in its place: hanging by its top); above it otherwise.
-  below: Boolean
+  below: boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
-  right: Boolean
+  right: boolean
   // How the frame asked its tooltips to stand beside it, tried first where it keeps them on the screen.
   hang: Hang | nil = nil
 }
@@ -80,7 +80,7 @@ function listed(listing: Listing): Model {
 // further, at any depth.
 public class Opened implements Component {
   derived read: Model | nil = self.readNow()
-  derived some: Boolean = self.read != nil
+  derived some: boolean = self.read != nil
   derived model: Model = self.read ?? NOTHING
 
   opens: Signal<Opens>
@@ -118,14 +118,14 @@ public class Opened implements Component {
 }
 
 public class TipGroup implements Component {
-  derived comparing: Boolean = self.compared.length > 0
-  derived hasSides: Boolean = self.sides.length > 0
-  derived leftwards: Boolean = self.standing.right
+  derived comparing: boolean = self.compared.length > 0
+  derived hasSides: boolean = self.sides.length > 0
+  derived leftwards: boolean = self.standing.right
   // Beside the main tooltip, away from it: the column of sides, then the worn items.
-  derived sidesFirst: Boolean = self.hasSides && !self.leftwards
-  derived sidesLast: Boolean = self.hasSides && self.leftwards
-  derived worn: Array<Model> = self.inOrder()
-  derived besides: Integer = (self.hasSides ? 1 : 0) + self.compared.length
+  derived sidesFirst: boolean = self.hasSides && !self.leftwards
+  derived sidesLast: boolean = self.hasSides && self.leftwards
+  derived worn: array<Model> = self.inOrder()
+  derived besides: integer = (self.hasSides ? 1 : 0) + self.compared.length
   derived place: Place = self.at()
   // Every tooltip's edge on the frame's side lined up; compared, their titles are, at the top.
   derived across: Align = self.standing.below || self.comparing ? Align::Start : Align::End
@@ -134,38 +134,38 @@ public class TipGroup implements Component {
   // A locked group's close button was clicked; the cursor came onto the group, and left it.
   public close: Event<nil> = new Event()
   // A drag of a draggable group began (true), and ended (false).
-  public drag: Event<Boolean> = new Event()
+  public drag: Event<boolean> = new Event()
   public enter: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
 
   model: Signal<Model>
-  sides: Signal<Array<Model>>
-  compared: Signal<Array<Model>>
+  sides: Signal<array<Model>>
+  compared: Signal<array<Model>>
   standing: Signal<Standing>
-  shown: Signal<Boolean>
+  shown: Signal<boolean>
   options: Signal<Options>
-  locks: Signal<Boolean>
-  charge: Signal<Integer>
-  locked: Signal<Boolean>
-  draggable: Signal<Boolean>
+  locks: Signal<boolean>
+  charge: Signal<integer>
+  locked: Signal<boolean>
+  draggable: Signal<boolean>
   constructor(
     model: Signal<Model>,
     // The tooltips open beside it from the start, top to bottom.
-    sides: Signal<Array<Model>>,
+    sides: Signal<array<Model>>,
     // The items it is compared with, from the main tooltip outwards.
-    compared: Signal<Array<Model>>,
+    compared: Signal<array<Model>>,
     standing: Signal<Standing>,
-    shown: Signal<Boolean>,
+    shown: Signal<boolean>,
     // What the player asked a tooltip to show: a unit a part opens is read with it.
     options: Signal<Options>,
     // The main tooltip's lock: whether it locks at all (its bar's room is kept only then), how far it is charged, of a
     // hundred, and whether it is locked. The group takes the cursor locked or not: what holds the tooltips listens
     // for it always (a listener is bound for good), and tells it always.
-    locks: Signal<Boolean> = false,
-    charge: Signal<Integer> = 0,
-    locked: Signal<Boolean> = false,
+    locks: Signal<boolean> = false,
+    charge: Signal<integer> = 0,
+    locked: Signal<boolean> = false,
     // The player drags it by its main tooltip (a pinned one).
-    draggable: Signal<Boolean> = false
+    draggable: Signal<boolean> = false
   ) {
     self.model = model
     self.sides = sides
@@ -195,9 +195,9 @@ public class TipGroup implements Component {
   onLeave(mut self) { self.leave.emit() }
 
   // The worn items from the screen's left to its right: away from the main tooltip, which stands at the frame.
-  inOrder(self): Array<Model> {
+  inOrder(self): array<Model> {
     if (!self.leftwards) { return self.compared }
-    let leftwards: Array<Model> = []
+    let leftwards: array<Model> = []
     for (i of self.compared.length..1 step -1) {
       let model = self.compared[i]
       if (model != nil) { leftwards.push(model) }
@@ -211,8 +211,8 @@ public class TipGroup implements Component {
     // Compared, the main tooltip stands lower by the worn one's header: the group goes as much higher, so the main
     // tooltip itself hangs as its owner asked.
     if (!standing.inPlace && hang != nil) {
-      const lift: Number<Length> = self.comparing ? Ordaen.lengthOf(HEADER) : 0ui
-      const down: Number<Length> = hang.y ?? 0ui
+      const lift: number<Length> = self.comparing ? Ordaen.lengthOf(HEADER) : 0ui
+      const down: number<Length> = hang.y ?? 0ui
       const lifted: Hang = { y: down - lift, ..hang }
       return { beside: standing.by, prefer: [lifted, mirrored(lifted)] }
     }

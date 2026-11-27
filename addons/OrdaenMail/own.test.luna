@@ -17,13 +17,13 @@ const ENGINEERING = 202
 const ORANGE: Color = Color::hex("#ff8040")
 const GREY: Color = Color::hex("#808080")
 
-function kin(): Array<Kin> {
+function kin(): array<Kin> {
   return [{ who: "Player-1-3", name: "Regron", classTag: "WARRIOR" }, { who: "Player-1-2", name: "Aria", classTag: "MAGE" }]
 }
 
 // Bronze bars go into Regron's axe (Blacksmithing, orange for him) and Aria's tube (Engineering, grey for her); stone
 // into the axe alone; linen into nothing they know.
-function crafting(item: Integer): Array<Crafting> {
+function crafting(item: integer): array<Crafting> {
   const axe: Crafting = {
     skillLine: BLACKSMITHING, profession: "Blacksmithing", guid: "Player-1-3", name: "Regron", rank: 50,
     best: Game::Difficulty::Always, bestColor: ORANGE,
@@ -39,7 +39,7 @@ function crafting(item: Integer): Array<Crafting> {
   return []
 }
 
-function names(id: String | Integer): String | nil {
+function names(id: string | integer): string | nil {
   return id == BAR ? "Bronze Bar" : id == STONE ? "Rough Stone" : "Linen Cloth"
 }
 
@@ -47,7 +47,7 @@ const ANY: SendRules = {}
 
 test "each other character something goes to has a row, its items in a section per profession, in its class's colour" {
   Client::C_Item::GetItemNameByID = names
-  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine))
+  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: string, skillLine: integer): SendRule => ruleOf(ANY, who, skillLine))
   Test::expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Regron 2, Aria 1")
   const regron = rows[1] ?? panic("Regron's row")
   const smithing = regron.sections[1] ?? panic("his Blacksmithing")
@@ -66,17 +66,17 @@ test "a profession switched off sends nothing, nor one whose best recipe is wors
       [ruleKey("Player-1-2", ENGINEERING)]: { on: true, least: Least::Green }
     }
   }
-  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
+  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5 }, crafting, (who: string, skillLine: integer): SendRule => ruleOf(rules, who, skillLine))
   // Regron's smithing is off; Aria's tube is grey, below «green and better»: nothing goes to anyone.
   Test::expect(rows.length == 0)
   const orange: SendRules = { rules: { [ruleKey("Player-1-3", BLACKSMITHING)]: { on: true, least: Least::Orange } } }
-  const kept = ownRows(kin(), { [BAR]: 20 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(orange, who, skillLine))
+  const kept = ownRows(kin(), { [BAR]: 20 }, crafting, (who: string, skillLine: integer): SendRule => ruleOf(orange, who, skillLine))
   Test::expect(kept.map(row => row.name).join(", ") == "Regron, Aria")
 }
 
 test "a count sent takes whole stacks that fit and the rest as a part, which the queue splits off" {
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => {
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => {
     if (bag != 0 || (slot != 2 && slot != 3)) { return false }
     into.id = LINEN
     into.count = slot == 2 ? 20 : 5
@@ -93,8 +93,8 @@ test "a count sent takes whole stacks that fit and the rest as a part, which the
 // them out.
 class OwnPage {
   public configured = 0
-  public bagged: Map<Integer, Integer> = { [BAR]: 20, [STONE]: 5 }
-  public state reached: Array<Kin> | nil = kin()
+  public bagged: map<integer, integer> = { [BAR]: 20, [STONE]: 5 }
+  public state reached: array<Kin> | nil = kin()
   public state rules: SendRules = {}
   public sender: mut Sender = new Sender()
   own: mut OwnTab
@@ -104,7 +104,7 @@ class OwnPage {
     self.own.configure.listen(self.onConfigure)
   }
 
-  public slotAt(self, bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
+  public slotAt(self, bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
     if (bag != 0 || slot > 2) { return false }
     const item = slot == 1 ? BAR : STONE
     const count = self.bagged[item] ?? 0
@@ -131,9 +131,9 @@ class OwnPage {
 function opened(): mut OwnPage {
   Client::C_Item::GetItemNameByID = names
   const page = new OwnPage()
-  Game::bags.holdings = (): Map<Integer, Integer> | nil => page.bagged
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => page.slotAt(bag, slot, into)
+  Game::bags.holdings = (): map<integer, integer> | nil => page.bagged
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => page.slotAt(bag, slot, into)
   // The tab read the bags as the page was made, before they were answered: they change now.
   Game::bags.changed.emit()
   Test::mount(page, { left: 0, top: 0, width: 900, height: 500 })
@@ -152,7 +152,7 @@ test "the characters something goes to stand at the left with how many items; th
   screen.text("Regron").click()
   screen.button("Send all").click()
   const queued = (peek page.sender.memory.values).queue
-  Test::expect(queued.length == 1 && queued.any((letter: Sent): Boolean => letter.to == "Regron" && letter.items.length == 2))
+  Test::expect(queued.length == 1 && queued.any((letter: Sent): boolean => letter.to == "Regron" && letter.items.length == 2))
   destroy page
   Test::expect(Test::blank())
 }

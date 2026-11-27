@@ -56,36 +56,36 @@ function showing(data: Game::TooltipData): Game::ShownTip {
 
 // Whether a part's texts read exactly this, each without the room round it (the « · » between a title's pieces is
 // «·»), joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().map(text => text.match("^%s*(.-)%s*$") ?? text).join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // Whether a text is drawn in this colour: where it isn't, the test fails with the colour it is in.
-function inColor(part: Test::Part, color: Color): Boolean {
+function inColor(part: Test::Part, color: Color): boolean {
   const drawn = part.textColor()
   if (!drawn.equal(color)) { panic(`it is drawn in ${code(drawn)}, not ${code(color)}`) }
   return true
 }
 
-function code(color: Color): String {
+function code(color: Color): string {
   return "#%02x%02x%02x".format((color.r * 255).round(), (color.g * 255).round(), (color.b * 255).round())
 }
 
 // The tooltip that holds this text.
-function tip(holding: String): Test::Part {
+function tip(holding: string): Test::Part {
   return Test::page().window(holding)
 }
 
 // Nothing of Ordaen's shows: the show is the game's.
-function none(): Boolean {
+function none(): boolean {
   return Test::surfaces().length == 0
 }
 
 // A control of the module's tab in the settings, clicked as the player clicks it, which applies at once: `/ordaen`,
 // «Tooltips», the tab, the control, and the window closed.
-function choose(tab: String, control: String) {
+function choose(tab: string, control: string) {
   Test::open("/ordaen")
   const settings = Test::page().window(SETTINGS)
   settings.button("Tooltips").click()
@@ -168,7 +168,7 @@ test "a button's line in a colour of its own keeps it; one in the game's gold or
 }
 
 // The game menu's button as the game fills it each second: its latency.
-function menu(latency: Integer, color: Color): Game::TooltipData {
+function menu(latency: integer, color: Color): Game::TooltipData {
   return {
     plain: true,
     lines: [
@@ -215,8 +215,8 @@ test "a text tooltip the game fills anew draws anew only the line that changed, 
 }
 
 // The menu button's tooltip with a dozen addons' memory, the third's as given.
-function memory(third: String): Game::TooltipData {
-  let lines: Array<Game::TooltipLine> = [{ left: "Game Menu |cffffd200(Esc)|r", kind: 0 }]
+function memory(third: string): Game::TooltipData {
+  let lines: array<Game::TooltipLine> = [{ left: "Game Menu |cffffd200(Esc)|r", kind: 0 }]
   for (i of 1..12) { lines.push({ left: `Addon ${i}`, right: i == 3 ? third : `${i}.10 MB`, kind: 0 }) }
   return { plain: true, lines: lines }
 }
@@ -248,7 +248,7 @@ test "a text tooltip the game fills anew with the same lines makes no tooltip an
 }
 
 // The game's tooltip at the same place showing other lines.
-function refilled(shown: Game::ShownTip, lines: Array<Game::TooltipLine>): Game::ShownTip {
+function refilled(shown: Game::ShownTip, lines: array<Game::TooltipLine>): Game::ShownTip {
   return { data: { plain: true, lines: lines }, ..shown }
 }
 
@@ -352,7 +352,7 @@ test "a chest whose skill the player has names its rank in the footer's colour" 
 
 test "a door names the keys that open it, a key the player doesn't carry in red" {
   Test::mount(nil, SCREEN)
-  Game::items.count = (name: String): Integer => name == "Workshop Key" ? 1 : 0
+  Game::items.count = (name: string): integer => name == "Workshop Key" ? 1 : 0
   Game::tooltip.main = showing({
     kind: 4,
     lines: [
@@ -370,7 +370,7 @@ test "a door names the keys that open it, a key the player doesn't carry in red"
 
 test "a key the player carries is red while the game says the door can't be opened" {
   Test::mount(nil, SCREEN)
-  Game::items.count = (name: String): Integer => 1
+  Game::items.count = (name: string): integer => 1
   Game::tooltip.main = showing({
     kind: 4,
     lines: [{ left: "Workshop Door", kind: 0 }, { left: "Requires: Workshop Key", kind: REQUIRES, usable: false }]
@@ -423,9 +423,9 @@ test "an objective the game says is done is green before its count is reached" {
 // Abilities
 
 test "a spell reads its rank and tab, its cost and range, its cast, its description and what it requires" {
-  Game::spells.texture = (id: Integer): Art | nil => id == 116 ? "Interface/Icons/Spell_Frost_FrostBolt02" : nil
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => id == 116 ? { amount: 65, color: BLUE } : nil
-  Game::spells.tab = (id: Integer): String | nil => id == 116 ? "Frost" : nil
+  Game::spells.texture = (id: integer): Art | nil => id == 116 ? "Interface/Icons/Spell_Frost_FrostBolt02" : nil
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => id == 116 ? { amount: 65, color: BLUE } : nil
+  Game::spells.tab = (id: integer): string | nil => id == 116 ? "Frost" : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -436,7 +436,7 @@ test "a spell reads its rank and tab, its cost and range, its cast, its descript
 }
 
 test "a spell's cost is a dot in its resource's colour, each cast its own glyph" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65, color: BLUE })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 65, color: BLUE })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -447,7 +447,7 @@ test "a spell's cost is a dot in its resource's colour, each cast its own glyph"
 }
 
 test "a cost in mana, rage or energy is the design's colour of it, not the client's" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65, resource: .Mana, color: BLUE })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 65, resource: .Mana, color: BLUE })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -455,8 +455,8 @@ test "a cost in mana, rage or energy is the design's colour of it, not the clien
 }
 
 test "a finishing move reads instant, melee range, its cooldown, its points as rows and its reagents" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 35, color: GAME_GOLD })
-  Game::items.count = (name: String): Integer => name == "Flash Powder" ? 1 : 3
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 35, color: GAME_GOLD })
+  Game::items.count = (name: string): integer => name == "Flash Powder" ? 1 : 3
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(eviscerate())
   Test::pass(SHOWS)
@@ -490,7 +490,7 @@ function wandRecipe(): Game::TooltipData {
 }
 
 test "a trainer's recipe is the recipe's tooltip, its reagents in the footer, with the item it makes beside it" {
-  Game::items.count = (name: String): Integer => name == "Simple Wood" ? 1 : 0
+  Game::items.count = (name: string): integer => name == "Simple Wood" ? 1 : 0
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(wandRecipe())
   Test::pass(SHOWS)
@@ -531,7 +531,7 @@ test "a channelled spell's cell says for how long, as its description has it; th
 }
 
 test "a spell's rank is the client's subtext where its tooltip says none, in Ordaen's words" {
-  Client::C_Spell::GetSpellSubtext = (spell: String | Integer): String | nil => spell == 10 ? "Уровень 7" : nil
+  Client::C_Spell::GetSpellSubtext = (spell: string | integer): string | nil => spell == 10 ? "Уровень 7" : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 1, id: 10, lines: [{ left: "Blizzard", kind: NAME_OF_SPELL }, { left: "Channeled", kind: 0 }] })
   Test::pass(SHOWS)
@@ -539,7 +539,7 @@ test "a spell's rank is the client's subtext where its tooltip says none, in Ord
 }
 
 test "a spell cooling down says how long until it is ready, in yellow" {
-  Game::spells.cooldown = (id: Integer): Number | nil => 95
+  Game::spells.cooldown = (id: integer): number | nil => 95
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -549,8 +549,8 @@ test "a spell cooling down says how long until it is ready, in yellow" {
 }
 
 test "a wait is said in whole hours from an hour, in whole minutes from a minute, in seconds below" {
-  let left: Number = 3600
-  Game::spells.cooldown = (id: Integer): Number | nil => left
+  let left: number = 3600
+  Game::spells.cooldown = (id: integer): number | nil => left
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -567,8 +567,8 @@ test "a wait is said in whole hours from an hour, in whole minutes from a minute
 }
 
 test "a spell's wait is read again as the seconds pass" {
-  let left: Number = 95
-  Game::spells.cooldown = (id: Integer): Number | nil => left
+  let left: number = 95
+  Game::spells.cooldown = (id: integer): number | nil => left
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -578,8 +578,8 @@ test "a spell's wait is read again as the seconds pass" {
 }
 
 test "a spell that comes ready says no wait, and nothing waits for a second once it is locked" {
-  let left: Number | nil = 30
-  Game::spells.cooldown = (id: Integer): Number | nil => left
+  let left: number | nil = 30
+  Game::spells.cooldown = (id: integer): number | nil => left
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(frostbolt())
   Test::pass(SHOWS)
@@ -590,7 +590,7 @@ test "a spell that comes ready says no wait, and nothing waits for a second once
 }
 
 test "a spell's «Cooldown» unticked says no wait" {
-  Game::spells.cooldown = (id: Integer): Number | nil => 95
+  Game::spells.cooldown = (id: integer): number | nil => 95
   Test::mount(nil, SCREEN)
   choose("Abilities", "Cooldown")
   Game::tooltip.main = showing(frostbolt())
@@ -616,8 +616,8 @@ test "a spell with no name line is left to the game" {
 // Talents
 
 test "a talent reads its tree and its rank, and the next rank with what changes in it lit" {
-  Game::spells.name = (id: Integer): String | nil => id == 11069 ? "Improved Fireball" : nil
-  Game::spells.texture = (id: Integer): Art | nil => "Interface/Icons/Spell_Fire_FlameBolt"
+  Game::spells.name = (id: integer): string | nil => id == 11069 ? "Improved Fireball" : nil
+  Game::spells.texture = (id: integer): Art | nil => "Interface/Icons/Spell_Fire_FlameBolt"
   Game::talents.shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
     spell: 11069, rank: 2, ranks: 5, current: "Reduces the cast time of Fireball by |cffffffff0.2|r sec.",
     next: "Reduces  the cast time of Fireball by |cffffffff0.3|r sec.", conditions: [], locked: false
@@ -635,7 +635,7 @@ test "a talent reads its tree and its rank, and the next rank with what changes 
 }
 
 test "a talent's next rank whose first word changes starts with that word lit, nothing before it" {
-  Game::spells.name = (id: Integer): String | nil => "Improved Fireball"
+  Game::spells.name = (id: integer): string | nil => "Improved Fireball"
   Game::talents.shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
     spell: 11069, rank: 1, ranks: 5, current: "2 sec. off Fireball's cast.", next: "3 sec. off Fireball's cast.",
     conditions: [], locked: false
@@ -648,7 +648,7 @@ test "a talent's next rank whose first word changes starts with that word lit, n
 }
 
 test "a talent at its last rank shows its rank in green and no next rank" {
-  Game::spells.name = (id: Integer): String | nil => "Improved Fireball"
+  Game::spells.name = (id: integer): string | nil => "Improved Fireball"
   Game::talents.shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
     spell: 11069, rank: 5, ranks: 5, current: "Reduces it by 0.5 sec.", next: "Reduces it by 0.6 sec.",
     conditions: [], locked: false
@@ -662,7 +662,7 @@ test "a talent at its last rank shows its rank in green and no next rank" {
 }
 
 test "a talent's «Next rank» unticked shows no next rank" {
-  Game::spells.name = (id: Integer): String | nil => "Improved Fireball"
+  Game::spells.name = (id: integer): string | nil => "Improved Fireball"
   Game::talents.shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
     spell: 11069, rank: 2, ranks: 5, current: "Reduces it by 0.2 sec.", next: "Reduces it by 0.3 sec.",
     conditions: [], locked: false
@@ -675,7 +675,7 @@ test "a talent's «Next rank» unticked shows no next rank" {
 }
 
 test "a talent not learned names the points its tree wants, red while not spent, and the talent before it" {
-  Game::spells.name = (id: Integer): String | nil => "Improved Fireball"
+  Game::spells.name = (id: integer): string | nil => "Improved Fireball"
   Game::talents.shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
     spell: 11069, rank: 0, ranks: 5, current: "Reduces it.", next: "Reduces the cast time.",
     conditions: [{ points: 5, met: false }, { points: 0, met: true }, { points: 10, met: true }], locked: true
@@ -722,8 +722,8 @@ function burning(): Game::AuraInfo {
 }
 
 test "a harmful effect reads what it is, its stacks and time, the spell of the player's that removes it, who cast it and what it will still deal" {
-  Game::spells.known = (id: Integer): Boolean => id == 527
-  Game::spells.name = (id: Integer): String | nil => id == 527 ? "Dispel Magic" : nil
+  Game::spells.known = (id: integer): boolean => id == 527
+  Game::spells.name = (id: integer): string | nil => id == 527 ? "Dispel Magic" : nil
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => burning()
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
@@ -738,7 +738,7 @@ test "a harmful effect reads what it is, its stacks and time, the spell of the p
 }
 
 test "a harmful effect the player's class can't remove names no spell" {
-  Game::spells.known = (id: Integer): Boolean => false
+  Game::spells.known = (id: integer): boolean => false
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => burning()
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
@@ -783,7 +783,7 @@ test "an effect's «Spell ID» ticked shows its number" {
 }
 
 test "a buff of the player's own is theirs in gold, cancelled with a click, cast by them, with no time when it doesn't end" {
-  Game::spells.texture = (id: Integer): Art | nil => "Interface/Icons/Spell_Holy_WordFortitude"
+  Game::spells.texture = (id: integer): Art | nil => "Interface/Icons/Spell_Holy_WordFortitude"
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
     harmful: false, source: "player", sourceName: "Me", stacks: 1, own: true, hostile: false
   })
@@ -801,8 +801,8 @@ test "a buff of the player's own is theirs in gold, cancelled with a click, cast
 }
 
 test "an enemy's magic buff names the spell of the player's class that takes it off" {
-  Game::spells.known = (id: Integer): Boolean => id == 527
-  Game::spells.name = (id: Integer): String | nil => id == 527 ? "Dispel Magic" : nil
+  Game::spells.known = (id: integer): boolean => id == 527
+  Game::spells.name = (id: integer): string | nil => id == 527 ? "Dispel Magic" : nil
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
     harmful: false, dispel: "Magic", stacks: 1, left: 4000, own: false, hostile: true
   })
@@ -813,8 +813,8 @@ test "an enemy's magic buff names the spell of the player's class that takes it 
 }
 
 test "a friend's magic buff names nothing that takes it off" {
-  Game::spells.known = (id: Integer): Boolean => true
-  Game::spells.name = (id: Integer): String | nil => "Dispel Magic"
+  Game::spells.known = (id: integer): boolean => true
+  Game::spells.name = (id: integer): string | nil => "Dispel Magic"
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
     harmful: false, dispel: "Magic", stacks: 1, own: false, hostile: false
   })
@@ -849,12 +849,12 @@ function jaina(): Game::UnitInfo {
   }
 }
 
-function hovered(name: String): Game::TooltipData {
+function hovered(name: string): Game::TooltipData {
   return { kind: 2, lines: [{ left: name, kind: NAME_OF_UNIT, unit: "mouseover" }, { left: "Level 60", kind: 0 }] }
 }
 
 test "a player reads their title round their name, guild and rank, class, away, PvP, level, race and side, target, raid and friend" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => unit == "mouseover" ? jaina() : nil
+  Game::units.of = (unit: string): Game::UnitInfo | nil => unit == "mouseover" ? jaina() : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
@@ -866,7 +866,7 @@ test "a player reads their title round their name, guild and rank, class, away, 
 }
 
 test "a player of the other side is in red with the Horde's glyph" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({
     name: "Rexxar", player: true, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 0,
     faction: "Horde", sameFaction: false, inParty: false, friend: false, ignored: false, tapped: false,
     classification: "normal"
@@ -882,7 +882,7 @@ test "a player of the other side is in red with the Horde's glyph" {
 
 test "a player's state reads dead, a ghost or not to be disturbed; a party member is the player's group, one ignored is red" {
   let who: Game::UnitInfo = { dead: true, ..jaina() }
-  Game::units.of = (unit: String): Game::UnitInfo | nil => who
+  Game::units.of = (unit: string): Game::UnitInfo | nil => who
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
@@ -901,7 +901,7 @@ test "a player's state reads dead, a ghost or not to be disturbed; a party membe
 }
 
 test "a player's «The player's target» and «Group and friends» unticked leave the footer out" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => jaina()
+  Game::units.of = (unit: string): Game::UnitInfo | nil => jaina()
   Test::mount(nil, SCREEN)
   choose("Players", "The player's target")
   choose("Players", "Group and friends")
@@ -937,8 +937,8 @@ function pillagerTip(): Game::TooltipData {
 }
 
 test "an NPC reads its role, its kind, its level in its colour, elite and rare, its faction, the quests with the party's, whose loot it is and the standing" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => unit == "target" ? pillager() : nil
-  Game::reputation.with = (faction: String): Game::Standing | nil => faction == "Defias Brotherhood" ? { rank: 2, label: "Hostile" } : nil
+  Game::units.of = (unit: string): Game::UnitInfo | nil => unit == "target" ? pillager() : nil
+  Game::reputation.with = (faction: string): Game::Standing | nil => faction == "Defias Brotherhood" ? { rank: 2, label: "Hostile" } : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
@@ -952,7 +952,7 @@ test "an NPC reads its role, its kind, its level in its colour, elite and rare, 
 }
 
 test "an NPC no one else has tapped is in its reaction's colour" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({ tapped: false, ..pillager() })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ tapped: false, ..pillager() })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
@@ -962,8 +962,8 @@ test "an NPC no one else has tapped is in its reaction's colour" {
 
 test "a standing reads red to hostile, orange unfriendly, yellow neutral, green from friendly" {
   let rank = 3
-  Game::units.of = (unit: String): Game::UnitInfo | nil => pillager()
-  Game::reputation.with = (faction: String): Game::Standing | nil => ({ rank: rank, label: "Standing" })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => pillager()
+  Game::reputation.with = (faction: string): Game::Standing | nil => ({ rank: rank, label: "Standing" })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
@@ -979,8 +979,8 @@ test "a standing reads red to hostile, orange unfriendly, yellow neutral, green 
 }
 
 test "an NPC's «Party quests», «Someone else's loot» and «Reputation» unticked leave them out" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => pillager()
-  Game::reputation.with = (faction: String): Game::Standing | nil => ({ rank: 2, label: "Hostile" })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => pillager()
+  Game::reputation.with = (faction: string): Game::Standing | nil => ({ rank: 2, label: "Hostile" })
   Test::mount(nil, SCREEN)
   choose("NPCs", "Party quests")
   choose("NPCs", "Someone else's loot")
@@ -993,7 +993,7 @@ test "an NPC's «Party quests», «Someone else's loot» and «Reputation» unti
 }
 
 test "a dead NPC far above the player reads a corpse and ?? in red" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({
     level: 0, dead: true, faction: nil, classification: "worldboss", tapped: false, reactionColor: nil, ..pillager()
   })
   Test::mount(nil, SCREEN)
@@ -1044,7 +1044,7 @@ function axeTip(): Game::TooltipData {
   }
 }
 
-function axeStats(data: Game::TooltipData): Array<Game::ItemStat> {
+function axeStats(data: Game::TooltipData): array<Game::ItemStat> {
   if (data.id != 9001) { return [] }
   return [
     { key: "ITEM_MOD_STRENGTH_SHORT", name: "Strength", value: 21 },
@@ -1060,8 +1060,8 @@ function healingTouch(): Game::TooltipData {
 }
 
 test "a weapon reads its band, its level and stats as rows, what it does, and its footer" {
-  Game::items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Axe_01"
-  Game::items.level = (id: Integer): Integer | nil => 62
+  Game::items.icon = (id: integer): Art | nil => "Interface/Icons/INV_Axe_01"
+  Game::items.level = (id: integer): integer | nil => 62
   Game::items.stats = axeStats
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(axeTip())
@@ -1102,7 +1102,7 @@ test "an item's durability is yellow at a quarter or less and red when broken" {
 }
 
 test "an item of the first level shows no item level" {
-  Game::items.level = (id: Integer): Integer | nil => 1
+  Game::items.level = (id: integer): integer | nil => 1
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 0, id: 1, lines: [{ left: "Mace", kind: NAME_OF_ITEM }] })
   Test::pass(SHOWS)
@@ -1110,7 +1110,7 @@ test "an item of the first level shows no item level" {
 }
 
 test "an item's «Item level» unticked and «Item ID» ticked: no level, and its number" {
-  Game::items.level = (id: Integer): Integer | nil => 62
+  Game::items.level = (id: integer): integer | nil => 62
   Test::mount(nil, SCREEN)
   choose("Items", "Item level")
   choose("Items", "Item ID")
@@ -1147,8 +1147,8 @@ test "a wand's single damage of a school is a fact with the damage's glyph" {
 }
 
 test "what using an item does stands beside it, with the time until it can be used again" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => id == 7001 ? healingTouch() : nil
-  Game::items.cooldown = (id: Integer): Number | nil => 30
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => id == 7001 ? healingTouch() : nil
+  Game::items.cooldown = (id: integer): number | nil => 30
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(axeTip())
   Test::pass(SHOWS)
@@ -1160,9 +1160,9 @@ test "what using an item does stands beside it, with the time until it can be us
 }
 
 test "an item's wait is read again as the seconds pass" {
-  let left: Number = 30
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => healingTouch()
-  Game::items.cooldown = (id: Integer): Number | nil => left
+  let left: number = 30
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => healingTouch()
+  Game::items.cooldown = (id: integer): number | nil => left
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(axeTip())
   Test::pass(SHOWS)
@@ -1173,7 +1173,7 @@ test "an item's wait is read again as the seconds pass" {
 }
 
 test "an item whose use is ready waits for no second once it is locked" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => healingTouch()
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => healingTouch()
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(axeTip())
   Test::pass(SHOWS)
@@ -1182,8 +1182,8 @@ test "an item whose use is ready waits for no second once it is locked" {
 }
 
 test "an item's «Cooldown» unticked leaves the wait out of what using it does" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => healingTouch()
-  Game::items.cooldown = (id: Integer): Number | nil => 30
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => healingTouch()
+  Game::items.cooldown = (id: integer): number | nil => 30
   Test::mount(nil, SCREEN)
   choose("Items", "Cooldown")
   Game::tooltip.main = showing(axeTip())
@@ -1210,9 +1210,9 @@ test "an item's set stands beside it: its name in gold, its pieces and bonuses u
 }
 
 test "a bag reads its slots and armour, how many the player has in the bags and in the bank, and its stack size" {
-  Game::items.maxStack = (id: Integer): Integer | nil => 20
-  Game::items.inBags = (id: Integer): Integer => 3
-  Game::items.owned = (id: Integer): Integer => 8
+  Game::items.maxStack = (id: integer): integer | nil => 20
+  Game::items.inBags = (id: integer): integer => 3
+  Game::items.owned = (id: integer): integer => 8
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({
     kind: 0, id: 9002,
@@ -1232,8 +1232,8 @@ test "a bag of one slot says one slot" {
 }
 
 test "an item the player has one of, all in the bags and none stacking, says nothing of how many" {
-  Game::items.inBags = (id: Integer): Integer => 1
-  Game::items.owned = (id: Integer): Integer => 1
+  Game::items.inBags = (id: integer): integer => 1
+  Game::items.owned = (id: integer): integer => 1
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 0, id: 9002, lines: [{ left: "Linen Bag", kind: NAME_OF_ITEM }] })
   Test::pass(SHOWS)
@@ -1241,8 +1241,8 @@ test "an item the player has one of, all in the bags and none stacking, says not
 }
 
 test "an item kept only in the bank says how many are in the bank" {
-  Game::items.inBags = (id: Integer): Integer => 0
-  Game::items.owned = (id: Integer): Integer => 4
+  Game::items.inBags = (id: integer): integer => 0
+  Game::items.owned = (id: integer): integer => 4
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 0, id: 9002, lines: [{ left: "Linen Bag", kind: NAME_OF_ITEM }] })
   Test::pass(SHOWS)
@@ -1250,9 +1250,9 @@ test "an item kept only in the bank says how many are in the bank" {
 }
 
 test "an item's «How many you have» and «Stack size» unticked say neither" {
-  Game::items.maxStack = (id: Integer): Integer | nil => 20
-  Game::items.inBags = (id: Integer): Integer => 3
-  Game::items.owned = (id: Integer): Integer => 8
+  Game::items.maxStack = (id: integer): integer | nil => 20
+  Game::items.inBags = (id: integer): integer => 3
+  Game::items.owned = (id: integer): integer => 8
   Test::mount(nil, SCREEN)
   choose("Items", "How many you have")
   choose("Items", "Stack size")
@@ -1262,7 +1262,7 @@ test "an item's «How many you have» and «Stack size» unticked say neither" {
 }
 
 test "a recipe reads its reagents as rows and whether it is known, the item it makes beside it" {
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => id != 9004 ? nil : {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 9004 ? nil : {
     kind: 0, id: 9004, lines: [{ left: "Swift Boots", kind: NAME_OF_ITEM }, { left: "40 Armor", kind: 0 }]
   }
   Test::mount(nil, SCREEN)
@@ -1344,7 +1344,7 @@ test "an item with no name line is left to the game" {
 // Comparisons
 
 // The strength, stamina and agility of each axe, as the game reads an item's stats.
-function axes(data: Game::TooltipData): Array<Game::ItemStat> {
+function axes(data: Game::TooltipData): array<Game::ItemStat> {
   const name = data.lines[1]?.left
   if (name == "Greataxe") {
     return [
@@ -1363,13 +1363,13 @@ function axes(data: Game::TooltipData): Array<Game::ItemStat> {
   return []
 }
 
-function wielded(name: String): Game::TooltipData {
+function wielded(name: string): Game::TooltipData {
   return { kind: 0, lines: [{ left: name, kind: NAME_OF_ITEM }] }
 }
 
 test "an item compared with the worn one shows it under «Equipped», and on itself what it has more or less of" {
   Game::items.stats = axes
-  Game::items.statName = (key: String): String | nil => key == "ITEM_MOD_AGILITY_SHORT" ? "Agility" : nil
+  Game::items.statName = (key: string): string | nil => key == "ITEM_MOD_AGILITY_SHORT" ? "Agility" : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.compared = [wielded("Worn Axe")]
   Game::tooltip.main = showing(wielded("Greataxe"))
@@ -1555,7 +1555,7 @@ test "a spell's line with no right side after its fourth is the body's, though n
 }
 
 test "a finishing move's sentence before its rows is in the body's colour" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 35 })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 35 })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(eviscerate())
   Test::pass(SHOWS)
@@ -1594,8 +1594,8 @@ test "a cast of any kind beside a cooldown makes the cooldown a cell of its own"
 }
 
 test "a reagent the player carries just enough of is in the footer's colour" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 35 })
-  Game::items.count = (name: String): Integer => 2
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 35 })
+  Game::items.count = (name: string): integer => 2
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(eviscerate())
   Test::pass(SHOWS)
@@ -1641,9 +1641,9 @@ test "a weapon's damage of a school and a single damage read as its band's damag
 }
 
 test "an item in the bags and the bank says how many in each; all of it in the bags, nothing of the bank" {
-  Game::items.maxStack = (id: Integer): Integer | nil => 20
-  Game::items.inBags = (id: Integer): Integer => 1
-  Game::items.owned = (id: Integer): Integer => id == 9002 ? 3 : 1
+  Game::items.maxStack = (id: integer): integer | nil => 20
+  Game::items.inBags = (id: integer): integer => 1
+  Game::items.owned = (id: integer): integer => id == 9002 ? 3 : 1
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 0, id: 9002, lines: [{ left: "Linen", kind: NAME_OF_ITEM }] })
   Test::pass(SHOWS)
@@ -1654,7 +1654,7 @@ test "an item in the bags and the bank says how many in each; all of it in the b
 }
 
 test "what using an item does has no title of its own: under its «Use» tab, what the spell's title says as rows" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => ({
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => ({
     kind: 1, id: 7002,
     lines: [{ left: "Light Armor Kit", kind: 13 }, { left: "Armor: +24", kind: 0 }, { left: "Lasts 30 min.", kind: 0 }]
   })
@@ -1671,11 +1671,11 @@ test "what using an item does has no title of its own: under its «Use» tab, wh
 }
 
 test "what using an item does keeps its own footer, the wait after it" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => ({
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => ({
     kind: 1, id: 7001,
     lines: [{ left: "Healing Touch", kind: NAME_OF_SPELL }, { left: "Requires: Druid", kind: REQUIRES }]
   })
-  Game::items.cooldown = (id: Integer): Number | nil => 30
+  Game::items.cooldown = (id: integer): number | nil => 30
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(axeTip())
   Test::pass(SHOWS)
@@ -1684,7 +1684,7 @@ test "what using an item does keeps its own footer, the wait after it" {
 
 test "an item compared by level: the level it has more of, and no row for a level it lacks" {
   Game::items.stats = axes
-  Game::items.level = (id: Integer): Integer | nil => id == 1 ? 62 : id == 2 ? 60 : nil
+  Game::items.level = (id: integer): integer | nil => id == 1 ? 62 : id == 2 ? 60 : nil
   Test::mount(nil, SCREEN)
   Game::tooltip.compared = [{ kind: 0, id: 2, lines: [{ left: "Worn Axe", kind: NAME_OF_ITEM }] }]
   Game::tooltip.main = showing({ kind: 0, id: 1, lines: [{ left: "Greataxe", kind: NAME_OF_ITEM }] })
@@ -1696,7 +1696,7 @@ test "an item compared by level: the level it has more of, and no row for a leve
 }
 
 test "an NPC's first lines: a title in its role's place, a pet's owner, its level's line and a line like its kind gone" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({
     name: "Wolf", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 5,
     inParty: false, friend: false, ignored: false, tapped: false, creatureType: "Beast", classification: "rare",
     sameFaction: true
@@ -1715,7 +1715,7 @@ test "an NPC's first lines: a title in its role's place, a pet's owner, its leve
 }
 
 // An NPC of this level and side, with the game's lines after its name.
-function npcOf(level: Integer, faction: String | nil): Game::UnitInfo {
+function npcOf(level: integer, faction: string | nil): Game::UnitInfo {
   return {
     name: "Ogre", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: level,
     faction: faction, sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
@@ -1723,15 +1723,15 @@ function npcOf(level: Integer, faction: String | nil): Game::UnitInfo {
   }
 }
 
-function npcTip(lines: Array<String>): Game::TooltipData {
-  let all: Array<Game::TooltipLine> = [{ left: "Ogre", kind: NAME_OF_UNIT, unit: "target" }]
+function npcTip(lines: array<string>): Game::TooltipData {
+  let all: array<Game::TooltipLine> = [{ left: "Ogre", kind: NAME_OF_UNIT, unit: "target" }]
   for (text of lines) { all.push(text == "" ? { left: "---", kind: 1 } : { left: text, kind: 0 }) }
   return { kind: 2, lines: all }
 }
 
 test "an NPC's level line goes only among its first three lines, and only for a level the game knows" {
   let who = npcOf(60, nil)
-  Game::units.of = (unit: String): Game::UnitInfo | nil => who
+  Game::units.of = (unit: string): Game::UnitInfo | nil => who
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(npcTip(["Level 60", "Brute", "Slain 60 times"]))
   Test::pass(SHOWS)
@@ -1747,7 +1747,7 @@ test "an NPC's level line goes only among its first three lines, and only for a 
 }
 
 test "an NPC's faction is its line among the first four; a later one is the body's" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => npcOf(60, "Alliance")
+  Game::units.of = (unit: string): Game::UnitInfo | nil => npcOf(60, "Alliance")
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(npcTip(["<Watch>", "Level 60", "Stormwind"]))
   Test::pass(SHOWS)
@@ -1758,7 +1758,7 @@ test "an NPC's faction is its line among the first four; a later one is the body
 }
 
 test "an NPC's first plain line among the first four says what it is; a later one is the body's" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => npcOf(60, nil)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => npcOf(60, nil)
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(npcTip(["Level 60", "", "Tunnel Rat"]))
   Test::pass(SHOWS)
@@ -1769,7 +1769,7 @@ test "an NPC's first plain line among the first four says what it is; a later on
 }
 
 test "an NPC of the player's side is in green; one of the first level says so" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({
     name: "Guard", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 1,
     faction: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
     classification: "elite"
@@ -1784,7 +1784,7 @@ test "an NPC of the player's side is in green; one of the first level says so" {
 }
 
 test "an NPC of the other side is in red" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => pillager()
+  Game::units.of = (unit: string): Game::UnitInfo | nil => pillager()
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(pillagerTip())
   Test::pass(SHOWS)
@@ -1792,7 +1792,7 @@ test "an NPC of the other side is in red" {
 }
 
 test "a player's title without their name in it stands whole; a player of the first level says so" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({ titled: "Archmage of Dalaran", level: 1, ..jaina() })
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({ titled: "Archmage of Dalaran", level: 1, ..jaina() })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(hovered("Jaina"))
   Test::pass(SHOWS)
@@ -1800,7 +1800,7 @@ test "a player's title without their name in it stands whole; a player of the fi
 }
 
 test "a player's state reads whole: not to be disturbed, in the player's group, ignored" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => ({
+  Game::units.of = (unit: string): Game::UnitInfo | nil => ({
     afk: false, dnd: true, pvp: false, raidGroup: nil, inParty: true, friend: false, ignored: true, guild: nil,
     titled: nil, target: nil, ..jaina()
   })
@@ -1847,7 +1847,7 @@ test "what an effect will still deal counts the whole ticks left, its stacks as 
 }
 
 test "an effect's time is read again as the seconds pass, and a time run out is nought" {
-  let left: Number = 9
+  let left: number = 9
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ left: left, ..burning() })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
@@ -1868,8 +1868,8 @@ test "an effect that doesn't end waits for no second once it is locked" {
 }
 
 test "a disease on a priest names the first of the class's cures the priest knows, in the disease's colour" {
-  Game::spells.known = (id: Integer): Boolean => id == 528
-  Game::spells.name = (id: Integer): String | nil => id == 528 ? "Cure Disease" : id == 552 ? "Abolish Disease" : nil
+  Game::spells.known = (id: integer): boolean => id == 528
+  Game::spells.name = (id: integer): string | nil => id == 528 ? "Cure Disease" : id == 552 ? "Abolish Disease" : nil
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({ dispel: "Disease", dispelName: "Disease", ..burning() })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing(holyFire())
@@ -1884,8 +1884,8 @@ test "a class other than a priest names its own cures: a mage's for a curse, a d
     ["MAGE", "Curse", "475", "11"], ["DRUID", "Poison", "2893", "12"], ["PALADIN", "Disease", "4987", "13"],
     ["SHAMAN", "Poison", "526", "14"]
   ]
-  Game::spells.known = (id: Integer): Boolean => true
-  Game::spells.name = (id: Integer): String | nil => `Spell ${id}`
+  Game::spells.known = (id: integer): boolean => true
+  Game::spells.name = (id: integer): string | nil => `Spell ${id}`
   Test::mount(nil, SCREEN)
   for (cure of cures) {
     const tag = cure[1] ?? ""
@@ -1899,8 +1899,8 @@ test "a class other than a priest names its own cures: a mage's for a curse, a d
 }
 
 test "a shaman purges an enemy's magic buff with its own spell; a warrior names none" {
-  Game::spells.known = (id: Integer): Boolean => true
-  Game::spells.name = (id: Integer): String | nil => `Spell ${id}`
+  Game::spells.known = (id: integer): boolean => true
+  Game::spells.name = (id: integer): string | nil => `Spell ${id}`
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
     harmful: false, dispel: "Magic", stacks: 1, own: false, hostile: true
   })
@@ -1916,8 +1916,8 @@ test "a shaman purges an enemy's magic buff with its own spell; a warrior names 
 }
 
 test "an enemy's magic buff names a priest's first purge it knows" {
-  Game::spells.known = (id: Integer): Boolean => true
-  Game::spells.name = (id: Integer): String | nil => id == 988 ? "Mass Dispel" : "Dispel Magic"
+  Game::spells.known = (id: integer): boolean => true
+  Game::spells.name = (id: integer): string | nil => id == 988 ? "Mass Dispel" : "Dispel Magic"
   Game::auras.shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
     harmful: false, dispel: "Magic", stacks: 1, own: false, hostile: true
   })
@@ -1983,7 +1983,7 @@ test "a description lights a range whole and each number with its unit" {
 
 test "a long body scrolls past its most height: the tooltip stands no taller" {
   // A quest's text of sixty lines, each its own line of the body.
-  const lines: Array<Game::TooltipLine> = [{ left: "A Long Errand", kind: 0 }]
+  const lines: array<Game::TooltipLine> = [{ left: "A Long Errand", kind: 0 }]
   for (n of 1..60) { lines.push({ left: `Step ${n} of the errand`, kind: 0 }) }
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 2, lines: lines })

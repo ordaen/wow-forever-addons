@@ -4,5 +4,5 @@
 // Its public API.
 public module LibQuestieDB {
   // Whether its data answers to contract `n` (it holds a range of them), and where not, its own message.
-  public function RequireContract(n: Integer): (Boolean, String | nil)
+  public function RequireContract(n: integer): (boolean, string | nil)
 }

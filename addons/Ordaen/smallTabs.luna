@@ -9,23 +9,23 @@ import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH } from "@/units"
 const CLEAR: Color = Color::hex("#00000000")
 const LIGHT: Color = Color::hex("#ffffff14")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color::hex("#00000033"), focus: Color::hex("#00000033") }
-const ALL: Array<Side> = [Side::Top, Side::Right, Side::Bottom, Side::Left]
+const ALL: array<Side> = [Side::Top, Side::Right, Side::Bottom, Side::Left]
 const RULED: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: ALL }
 const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: ALL }
 const NAME: ByInteractionState<Color> = { default: Color::hex("#a3977f"), hover: Color::hex("#e8dcc4"), focus: Color::hex("#e8dcc4") }
 const TAB_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 4sp }
 
 class SmallTab implements Component {
-  public pick: Event<Integer> = new Event()
-  derived picked: Boolean = self.selected == self.index
+  public pick: Event<integer> = new Event()
+  derived picked: boolean = self.selected == self.index
   derived back: Color | ByInteractionState<Color> = self.picked ? LIGHT : SHADE
   derived rule: Line = self.picked ? RULED : UNRULED
   derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
 
-  label: Signal<String>
-  const index: Integer
-  selected: Signal<Integer>
-  constructor(label: Signal<String>, index: Integer, selected: Signal<Integer>) {
+  label: Signal<string>
+  const index: integer
+  selected: Signal<integer>
+  constructor(label: Signal<string>, index: integer, selected: Signal<integer>) {
     self.label = label
     self.index = index
     self.selected = selected
@@ -44,18 +44,18 @@ class SmallTab implements Component {
 }
 
 public class SmallTabs implements Component {
-  tabs: Signal<Array<String>>
-  selected: mut Signal<Integer>
+  tabs: Signal<array<string>>
+  selected: mut Signal<integer>
   constructor(
-    tabs: Signal<Array<String>>,
+    tabs: Signal<array<string>>,
     // The picked tab's place, from 1.
-    selected: mut Signal<Integer>
+    selected: mut Signal<integer>
   ) {
     self.tabs = tabs
     self.selected = selected
   }
 
-  onPick(mut self, index: Integer) { self.selected = index }
+  onPick(mut self, index: integer) { self.selected = index }
 
   public render(self): Template {
     return $ltml {

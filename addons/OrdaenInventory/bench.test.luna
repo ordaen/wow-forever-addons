@@ -6,19 +6,19 @@ import Debug from "$debug"
 import Game from "$game"
 import Test from "$test"
 
-const NAMES: Array<String> = ["Copper Ore", "Linen Cloth", "Silk Cloth"]
+const NAMES: array<string> = ["Copper Ore", "Linen Cloth", "Silk Cloth"]
 
 // Four bags of six slots and the backpack's, three slots of four holding something: every part of the window runs, and
 // a run that checks the whole layout after each flush (`--full`) stays in a test's time.
-function bagOf(bag: Integer): Game::BagInfo {
+function bagOf(bag: integer): Game::BagInfo {
   return { bag: bag, item: nil, name: `Bag ${bag}`, icon: nil, slots: bag <= 4 ? 6 : 0, general: true }
 }
 
-function sizeOf(bag: Integer): Integer {
+function sizeOf(bag: integer): integer {
   return bag <= 4 ? 6 : 0
 }
 
-function readSlot(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean {
+function readSlot(bag: integer, slot: integer, into: mut Game::SlotItem): boolean {
   if (slot % 4 == 0) {
     into.id = 0
     return false
@@ -44,8 +44,8 @@ function readSlot(bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolea
 
 // The module's spans since the last call, summed: kilobytes its code made. Laying its window out (`layout Bags`) is the
 // renderer's, charged to the module whose surface it is, and left out.
-function made(): Number {
-  let kb: Number = 0
+function made(): number {
+  let kb: number = 0
   @if (Build::dev) {
     for (span of Debug::spans()) {
       if (span.addon == "OrdaenInventory" && span.label.sub(1, 7) != "layout ") { kb += span.kb }

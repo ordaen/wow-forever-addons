@@ -12,7 +12,7 @@ import { Shared, write } from "@/share"
 
 const PAGE: Test::Page = { left: 10, top: 10, width: 760, height: 1500 }
 
-function shown(title: String) {
+function shown(title: string) {
   Test::flush()
   Test::shot(title)
 }
@@ -23,7 +23,7 @@ function click(at: Test::Point) {
 }
 
 // A name typed into the page's first field.
-function typeName(text: String) {
+function typeName(text: string) {
   click(Test::field(1))
   Test::erase(40)
   Test::type(text)
@@ -36,7 +36,7 @@ const CHARACTER = 2
 const CLASS = 3
 const ACCOUNT = 4
 
-function tick(nth: Integer) {
+function tick(nth: integer) {
   click(Test::painted(Ordaen.art.ctl.check, nth))
 }
 
@@ -46,15 +46,15 @@ function snapshot(): SavedProfiles {
 }
 
 // Whether a profile keeps a section.
-function has(name: String, key: String): Boolean {
+function has(name: string, key: string): boolean {
   const profile = Ordaen.keeper.profiles.kept.profiles[name]
   if (profile == nil) { return false }
   return profile.sections[key] != nil
 }
 
 // A section of a module nobody has installed, packed as the client packs it.
-function ghost(): String {
-  const settings: Map<String, Number> = {}
+function ghost(): string {
+  const settings: map<string, number> = {}
   settings["scale"] = 3
   return Game::encoding.serialize(settings) ?? panic("the client packs")
 }
@@ -329,7 +329,7 @@ test "a text that isn't a profile is refused with its sentence and changes nothi
   const before = snapshot()
   const shared = Shared { name: "Bad" }
   shared.sections["Ordaen"] = "{{{{"
-  const cases: Map<String, String> = {}
+  const cases: map<string, string> = {}
   cases[""] = Locale::PROFILES_ERR_NO_TEXT
   cases["hello"] = Locale::PROFILES_REFUSED_NOT_PROFILE
   cases["ORDAEN:2:abcd"] = Locale::PROFILES_REFUSED_VERSION.format("2")

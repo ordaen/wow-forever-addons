@@ -4,7 +4,7 @@ import Test from "$test"
 import { Money } from "@/money"
 
 class Priced {
-  state copper: Integer = 12345
+  state copper: integer = 12345
 
   public render(self): Template {
     return $ltml {
@@ -21,8 +21,8 @@ test "an amount is written as the game writes it and follows its cell" {
   page.copper = 0
   Test::shot("nothing: the game's text for nought")
 
-  let asked: Array<Integer> = []
-  Game::money.format = (copper: Integer): String => {
+  let asked: array<integer> = []
+  Game::money.format = (copper: integer): string => {
     asked.push(copper)
     return "coins"
   }

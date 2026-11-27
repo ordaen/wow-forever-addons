@@ -4,34 +4,34 @@
 // Its public API, major 1: what Ordaen Map reads of it.
 public module OpenMapAPI {
   // The API's major version (1) and its version within it (4: the townsfolk provider).
-  public major: Integer
-  public version: Integer
+  public major: integer
+  public version: integer
   // Whether its stitched map shows now.
-  public function IsStitched(): Boolean
+  public function IsStitched(): boolean
   // A point of a uiMap, 0 to 1, in the stitched world's coordinates; nil where the map isn't part of it.
-  public function WorldFromMap(map: Integer, x: Number, y: Number): (Number | nil, Number | nil)
+  public function WorldFromMap(map: integer, x: number, y: number): (number | nil, number | nil)
   // A point of the stitched world on a uiMap, 0 to 1 (outside 0 to 1 where it is off the map); nil where it can't say.
-  public function MapFromWorld(map: Integer, u: Number, v: Number): (Number | nil, Number | nil)
+  public function MapFromWorld(map: integer, u: number, v: number): (number | nil, number | nil)
   // Glides the stitched map to a point of the world at a zoom (1: the whole world fits; nil: as it is); false where
   // the stitched map doesn't show.
-  public function ShowWorld(u: Number, v: Number, zoom: Number | nil): Boolean
+  public function ShowWorld(u: number, v: number, zoom: number | nil): boolean
   // The highest frame level its art takes on the canvas: other addons' pins stand over it.
   // The frame level the stitched art reaches; nil until OpenMap has built its stitched map.
-  public function ArtTopLevel(): Integer | nil
+  public function ArtTopLevel(): integer | nil
   // CallbackHandler's: `run` is called with the event's name on each of its events (`OpenMap_ViewChanged`,
   // `OpenMap_StitchedChanged`), until `owner`'s are taken away.
-  public function RegisterCallback(owner: Table, event: String, run: (event: String) => nil)
+  public function RegisterCallback(owner: Table, event: string, run: (event: string) => nil)
   public function UnregisterAllCallbacks(owner: Table)
   // A switch in its menu, under the addon's section.
-  public function RegisterMenuToggle(addon: String, toggle: MenuToggle)
+  public function RegisterMenuToggle(addon: string, toggle: MenuToggle)
 }
 
 // A switch in OpenMap's menu: what it shows comes from `get`, a click calls `set`; `tab` and `section` say where.
 public struct MenuToggle {
-  id: String
-  label: String
-  get: () => Boolean
-  set: (on: Boolean) => nil
-  tab: String
-  section: String
+  id: string
+  label: string
+  get: () => boolean
+  set: (on: boolean) => nil
+  tab: string
+  section: string
 }

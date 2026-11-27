@@ -9,7 +9,7 @@ import { rowShade } from "@/pickRow"
 
 const GOLD: Color = Color::hex("#e8c35a")
 const MARK = 14.0625dp
-const COLUMNS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const COLUMNS: array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The whole row takes the click: it shades under the cursor and the keyboard's focus, as a list's row does.
 const SHADE: Color | ByInteractionState<Color> = rowShade(false)
 
@@ -18,9 +18,9 @@ public class FoldCaption implements Component {
 
   derived mark: Art = self.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
 
-  title: Signal<String>
-  folded: Signal<Boolean>
-  constructor(title: Signal<String>, folded: Signal<Boolean>) {
+  title: Signal<string>
+  folded: Signal<boolean>
+  constructor(title: Signal<string>, folded: Signal<boolean>) {
     self.title = title
     self.folded = folded
   }

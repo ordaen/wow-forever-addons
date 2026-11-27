@@ -13,51 +13,51 @@ import { leftText } from "@/style"
 
 // A window docked at the screen's right is narrow: whether it is the lowest stands under the item's name.
 // «Cancel» is as wide as its column.
-const CANCEL_WIDTH: Number<Length> = 87.890625dp
-const COLUMNS: Array<Column> = [
+const CANCEL_WIDTH: number<Length> = 87.890625dp
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 } },
   { title: Locale::COLUMN_COUNT, width: 63.28125dp, align: Align::End },
   { title: Locale::COLUMN_UNIT, width: 93.75dp, align: Align::End },
   { title: Locale::COLUMN_LEFT, width: 70.3125dp, align: Align::End },
   { title: "", width: CANCEL_WIDTH + 14.0625dp, align: Align::End }
 ]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
-const LINES: Array<Track> = ["max-content", "max-content"]
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
+const LINES: array<Track> = ["max-content", "max-content"]
 // The list, the rest of the window's height; «Check» and what it does under it.
-const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
-const FILL: Array<Track> = [{ fr: 1 }]
-const BUTTONS: Array<Track> = ["max-content", { fr: 1 }]
+const PAGE: array<Track> = [{ fr: 1 }, "max-content"]
+const FILL: array<Track> = [{ fr: 1 }]
+const BUTTONS: array<Track> = ["max-content", { fr: 1 }]
 
 // One auction, as its row draws it.
 public struct Shown {
-  auction: Integer
-  item: Integer
-  name: String
+  auction: integer
+  item: integer
+  name: string
   color: Color
-  quantity: Integer
+  quantity: integer
   // The buyout for one; none for an auction with a bid alone.
-  unit: Integer | nil
-  sold: Boolean
+  unit: integer | nil
+  sold: boolean
   // Whether it is the house's lowest as last seen; none where the house has no listing of it.
-  lowest: Boolean | nil
-  left: String
+  lowest: boolean | nil
+  left: string
 }
 
 class OwnedRow implements Component {
-  public cancel: Event<Integer> = new Event()
+  public cancel: Event<integer> = new Event()
 
-  derived lowest: String = self.shown.sold ? Locale::SOLD : self.shown.lowest == nil ? "—" :
+  derived lowest: string = self.shown.sold ? Locale::SOLD : self.shown.lowest == nil ? "—" :
     self.shown.lowest == true ? Locale::LOWEST : Locale::UNDERCUT
   derived lowestColor: Color = self.shown.sold ? Style::GOLD : self.shown.lowest == true ? Style::GREEN :
     self.shown.lowest == false ? Style::RED : Style::DIM
-  derived priced: Boolean = self.shown.unit != nil
-  derived unit: Integer = self.shown.unit ?? 0
+  derived priced: boolean = self.shown.unit != nil
+  derived unit: integer = self.shown.unit ?? 0
 
   // The row's auction: the table hands the row to another auction as it scrolls.
   shown: Signal<Shown>
   // An action waits: no other goes.
-  busy: Signal<Boolean>
-  constructor(shown: Signal<Shown>, busy: Signal<Boolean>) {
+  busy: Signal<boolean>
+  constructor(shown: Signal<Shown>, busy: Signal<boolean>) {
     self.shown = shown
     self.busy = busy
   }
@@ -101,8 +101,8 @@ class OwnedRow implements Component {
 
 // How the player left the auctions' list: the column it is sorted by (0: as it comes) and which way.
 public struct OwnedView implements Plain {
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 const OWNED_VIEW: OwnedView = {}
 
@@ -111,11 +111,11 @@ public class OwnedPage implements Component {
   public list: mut ModuleMemory<OwnedView> = new ModuleMemory<OwnedView>(OWNED_VIEW, .Profile, "owned")
   // A cancel sent from here waits for its answer.
   state sending = false
-  derived rows: Array<Shown> = self.shownOf()
+  derived rows: array<Shown> = self.shownOf()
 
   const house: House
-  revision: Signal<Integer>
-  constructor(house: House, revision: Signal<Integer>) {
+  revision: Signal<integer>
+  constructor(house: House, revision: Signal<integer>) {
     self.house = house
     self.revision = revision
     // The page shown: the client is asked for the auctions as they stand.
@@ -123,9 +123,9 @@ public class OwnedPage implements Component {
     Game::auctionActions.answered.listen(self.onAnswer)
   }
 
-  shownOf(self): Array<Shown> {
+  shownOf(self): array<Shown> {
     _ = self.revision
-    let list: Array<Shown> = []
+    let list: array<Shown> = []
     for (owned of Game::ownedAuctions.list) {
       const name, color = nameOf(owned.item)
       const buyout = owned.buyout
@@ -144,13 +144,13 @@ public class OwnedPage implements Component {
   // The auctions asked again, and their items browsed for the house's lowest.
   onCheck(self) {
     _ = Game::ownedAuctions.refresh()
-    let items: Array<Integer> = []
+    let items: array<integer> = []
     for (owned of peek Game::ownedAuctions.list) { items.push(owned.item) }
     if (items.length > 0) { _ = Game::auctionQuery.browse(items) }
   }
 
   // From the player's click alone: one auction.
-  onCancel(mut self, auction: Integer) {
+  onCancel(mut self, auction: integer) {
     if (Game::auctionActions.cancel(auction)) { self.sending = true }
   }
 

@@ -22,13 +22,13 @@ function minimapAddon(): Runtime::Addon {
 }
 
 // Whether the client has loaded the module's files.
-function loaded(): Boolean {
+function loaded(): boolean {
   let held, _ = Client::C_AddOns::IsAddOnLoaded("OrdaenMinimap")
   return held
 }
 
 // Whether the minimap is drawn on the screen.
-function drawn(): Boolean {
+function drawn(): boolean {
   return Test::page().window(ZONE).shown()
 }
 
@@ -40,7 +40,7 @@ function flip(from: Art) {
 
 // The player's choice kept from the last session: the minimap off.
 function keptOff() {
-  const choices: Map<String, Boolean> = {}
+  const choices: map<string, boolean> = {}
   choices["OrdaenMinimap"] = false
   Game::saved.store(.Account, "choices", choices)
 }

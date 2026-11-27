@@ -9,11 +9,11 @@ import Locale from "@/locales"
 import { Least, SendRule, SendRules, ruleKey, ruleOf } from "@/own"
 import Style from "@/style"
 
-const SPLIT: Array<Track> = [Style::OWN_LIST, { fr: 1 }]
-const ONE: Array<Track> = [{ fr: 1 }]
-const RULE: Array<Track> = [{ fr: 1 }, "max-content"]
+const SPLIT: array<Track> = [Style::OWN_LIST, { fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
+const RULE: array<Track> = [{ fr: 1 }, "max-content"]
 const LEAST_WIDTH = 210.9375dp
-const LEASTS: Array<Choice<Least>> = [
+const LEASTS: array<Choice<Least>> = [
   { value: Least::Any, label: Locale::LEAST_ANY },
   { value: Least::Green, label: Locale::LEAST_GREEN },
   { value: Least::Yellow, label: Locale::LEAST_YELLOW },
@@ -22,23 +22,23 @@ const LEASTS: Array<Choice<Least>> = [
 
 // A profession of a character, as the rules see it.
 public struct RuledProfession {
-  skillLine: Integer
-  name: String
+  skillLine: integer
+  name: string
 }
 
 // A character with professions a letter reaches.
 public struct RuledKin {
-  who: String
-  name: String
-  professions: Array<RuledProfession>
+  who: string
+  name: string
+  professions: array<RuledProfession>
 }
 
 // The characters a letter reaches that have a profession, with their professions, each by name.
-public function ruledKinOf(alts: Alts): Array<RuledKin> {
-  const list: Array<RuledKin> = []
+public function ruledKinOf(alts: Alts): array<RuledKin> {
+  const list: array<RuledKin> = []
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who) && character.professions.length > 0) {
-      const professions: Array<RuledProfession> = []
+      const professions: array<RuledProfession> = []
       for (known of character.professions) { professions.push({ skillLine: known.skillLine, name: known.name }) }
       professions.sort((a, b) => a.name < b.name)
       list.push({ who: who, name: character.name, professions: professions })
@@ -51,7 +51,7 @@ public function ruledKinOf(alts: Alts): Array<RuledKin> {
 // One profession's rule: whether it sends, and the least recipe.
 class RuleRow implements Component {
   // Its skill line, and the rule as it now stands.
-  public changed: Event<(Integer, SendRule)> = new Event()
+  public changed: Event<(integer, SendRule)> = new Event()
   state on = true
   state least = Least::Any
 
@@ -80,12 +80,12 @@ class RuleRow implements Component {
 
 // A character in the list.
 class RuledEntry implements Component {
-  public pick: Event<String> = new Event()
-  derived on: Boolean = self.picked == self.ruled.who
+  public pick: Event<string> = new Event()
+  derived on: boolean = self.picked == self.ruled.who
 
   ruled: Signal<RuledKin>
-  picked: Signal<String>
-  constructor(ruled: Signal<RuledKin>, picked: Signal<String>) {
+  picked: Signal<string>
+  constructor(ruled: Signal<RuledKin>, picked: Signal<string>) {
     self.ruled = ruled
     self.picked = picked
   }
@@ -103,11 +103,11 @@ class RuledEntry implements Component {
 
 public class RulesPage implements Component {
   state picked = ""
-  derived kin: Array<RuledKin> = self.kinNow()
+  derived kin: array<RuledKin> = self.kinNow()
   derived current: RuledKin | nil = self.kin.find(one => one.who == self.picked) ?? self.kin[1]
-  derived currentWho: String = self.current?.who ?? ""
-  derived professions: Array<RuledProfession> = self.current?.professions ?? []
-  derived none: Boolean = self.kin.length == 0
+  derived currentWho: string = self.current?.who ?? ""
+  derived professions: array<RuledProfession> = self.current?.professions ?? []
+  derived none: boolean = self.kin.length == 0
 
   alts: Signal<Alts | nil>
   rules: mut ModuleMemory<SendRules>
@@ -116,16 +116,16 @@ public class RulesPage implements Component {
     self.rules = rules
   }
 
-  kinNow(self): Array<RuledKin> {
+  kinNow(self): array<RuledKin> {
     const alts = self.alts
     return alts == nil ? [] : ruledKinOf(alts)
   }
 
-  ruleNow(self, skillLine: Integer): SendRule { return ruleOf(peek self.rules.values, peek self.currentWho, skillLine) }
+  ruleNow(self, skillLine: integer): SendRule { return ruleOf(peek self.rules.values, peek self.currentWho, skillLine) }
 
-  onPick(mut self, who: String) { self.picked = who }
+  onPick(mut self, who: string) { self.picked = who }
 
-  onChanged(mut self, skillLine: Integer, rule: SendRule) {
+  onChanged(mut self, skillLine: integer, rule: SendRule) {
     const values = peek self.rules.values
     const key = ruleKey(peek self.currentWho, skillLine)
     const before = ruleOf(values, peek self.currentWho, skillLine)

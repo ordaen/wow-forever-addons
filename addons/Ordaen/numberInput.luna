@@ -29,7 +29,7 @@ public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
 const SLID = 100
 
 // The −, the slider or the field, the +, the unit.
-const ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
+const ROW: array<Track> = ["max-content", "max-content", "max-content", "max-content"]
 const LENGTH = 281.25dp
 // The knob's height: the band that takes the mouse, the groove centred in it.
 const BAND = 23.4375dp
@@ -58,14 +58,14 @@ const STEP_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1
 const SETTLE = 0.6
 
 // `value` on the nearest of the steps from `least`, held between `least` and `most`.
-public function stepped(value: Number, least: Number, most: Number, step: Number): Number {
+public function stepped(value: number, least: number, most: number, step: number): number {
   const on = least + ((value - least) / step).round() * step
   return least.max(most.min(on))
 }
 
 // The decimals a step has: 0 for 1, 2 for 0.01 or 0.05; at most six. A value written with them says no more than the
 // steps can tell apart, whatever the client kept it as (a 32-bit float's 0.71999996900558 for 0.72).
-public function placesOf(step: Number): Integer {
+public function placesOf(step: number): integer {
   let scaled = step
   for (places of 0..6) {
     if ((scaled - scaled.round()).abs() < 0.000001) { return places }
@@ -75,7 +75,7 @@ public function placesOf(step: Number): Integer {
 }
 
 // A number written to so many decimals, without the zeros at their end: 0.72, 2, 0.5.
-public function decimal(value: Number, places: Integer): String {
+public function decimal(value: number, places: integer): string {
   const text = `%.${places}f`.format(value)
   if (places == 0) { return text }
   // The zeros at the end go, then a point left alone.
@@ -85,7 +85,7 @@ public function decimal(value: Number, places: Integer): String {
 }
 
 // A value as the slider shows it, in its unit, to its step's decimals.
-public function said(value: Number, unit: Unit, step: Number): String {
+public function said(value: number, unit: Unit, step: number): string {
   match (unit) {
     Unit::Percent => return "%d%%".format((value * 100).round())
     .Px => return Locale::UNIT_PX.format(value.round())
@@ -95,7 +95,7 @@ public function said(value: Number, unit: Unit, step: Number): String {
 }
 
 // The unit's name after a field: none for a plain number.
-function nameOf(unit: Unit): String {
+function nameOf(unit: Unit): string {
   match (unit) {
     Unit::Percent => return "%"
     .Px => return Locale::UNIT_PX_NAME
@@ -105,7 +105,7 @@ function nameOf(unit: Unit): String {
 }
 
 // The number a text is, or nothing: digits, with a minus sign and a point.
-function numberOf(text: String): Number | nil {
+function numberOf(text: string): number | nil {
   const digits = text.match("^%s*(%-?%d+%.?%d*)%s*$")
   if (digits == nil) { return nil }
   return digits.toNumber()
@@ -114,20 +114,20 @@ function numberOf(text: String): Number | nil {
 public class NumberInput implements Component {
   // The value held to the range: one kept outside it (saved before the range changed) is read as its nearest end,
   // which is what the control shows. While a drag or a held − or + is under way, it shows where that has gone.
-  derived held: Number = self.least.max(self.most.min(self.moving ?? self.value))
+  derived held: number = self.least.max(self.most.min(self.moving ?? self.value))
   // Where a drag or a held − or + has gone and the value hasn't taken yet: it takes it as the input rests and as it ends.
-  state moving: Number | nil = nil
-  const rest: mut Resting<Number>
-  derived fewer: Boolean = !self.disabled && self.held > self.least
-  derived more: Boolean = !self.disabled && self.held < self.most
+  state moving: number | nil = nil
+  const rest: mut Resting<number>
+  derived fewer: boolean = !self.disabled && self.held > self.least
+  derived more: boolean = !self.disabled && self.held < self.most
   // Where the value sits along the range, from 0 to 1.
-  derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
-  derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
-  derived knobLeft: Number<Length> = self.fraction * LENGTH
-  derived shown: String = self.sliding ? self.saying(self.held) : nameOf(self.unit)
+  derived fraction: number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
+  derived fillWidth: number<Length> = self.fraction * (LENGTH - 2 * EDGE)
+  derived knobLeft: number<Length> = self.fraction * LENGTH
+  derived shown: string = self.sliding ? self.saying(self.held) : nameOf(self.unit)
   // The field's text, and whether it is a number.
-  public state text: String
-  public derived bad: Boolean = numberOf(self.text) == nil
+  public state text: string
+  public derived bad: boolean = numberOf(self.text) == nil
   derived edge: Line = self.bad ? BAD : FIELD_EDGE
   // − and +: the bronze plate, its pushed row while held; focused, the plate lit by its glow (the renderer lights a
   // piece's glow on focus as under the cursor); disabled at its bound, the grey plate.
@@ -142,30 +142,30 @@ public class NumberInput implements Component {
   // What is typed, waiting for the typing to pause.
   pending: Task<nil> | nil = nil
 
-  label: Signal<String>
-  value: mut Signal<Number>
-  const least: Number
-  const most: Number
-  const step: Number
+  label: Signal<string>
+  value: mut Signal<number>
+  const least: number
+  const most: number
+  const step: number
   const unit: Unit
-  hint: Signal<String>
-  disabled: Signal<Boolean>
-  const sliding: Boolean
+  hint: Signal<string>
+  disabled: Signal<boolean>
+  const sliding: boolean
   // A field shows a percent in hundredths: 70, not 0.7.
-  const scale: Number
+  const scale: number
   // How the value beside the slider is written, where its own owner says (Blizzard's 72% for 0.72): a control with
   // one always slides, as its value can't be typed.
-  const format: ((value: Number) => String) | nil
+  const format: ((value: number) => string) | nil
   constructor(
-    label: Signal<String>,
-    value: mut Signal<Number>,
-    least: Number,
-    most: Number,
-    step: Number = 1,
+    label: Signal<string>,
+    value: mut Signal<number>,
+    least: number,
+    most: number,
+    step: number = 1,
     unit: Unit = Unit::None,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
-    format: ((value: Number) => String) | nil = nil
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false,
+    format: ((value: number) => string) | nil = nil
   ) {
     self.label = label
     self.value = value
@@ -179,7 +179,7 @@ public class NumberInput implements Component {
     self.sliding = format != nil || (most - least) / step <= SLID
     self.scale = unit == Unit::Percent ? 100 : 1
     self.text = ""
-    self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
+    self.rest = new Resting<number>((to: number): nil => { self.write(to) })
     // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
     if (!self.sliding) {
       self.text = self.written(peek self.held)
@@ -189,7 +189,7 @@ public class NumberInput implements Component {
   }
 
   // What was typed is a number: the value is it, on its steps and held to the bounds.
-  take(mut self, typed: String) {
+  take(mut self, typed: string) {
     const number = numberOf(typed)
     if (number == nil) { return }
     const kept = stepped(number / self.scale, self.least, self.most, self.step)
@@ -201,38 +201,38 @@ public class NumberInput implements Component {
   }
 
   // The value beside the slider: as its format writes it, else in its unit.
-  saying(self, value: Number): String {
+  saying(self, value: number): string {
     const format = self.format
     return format == nil ? said(value, self.unit, self.step) : format(value)
   }
 
   // A value as the field writes it: in its scale, to its step's decimals.
-  written(self, value: Number): String { return decimal(value * self.scale, placesOf(self.step * self.scale)) }
+  written(self, value: number): string { return decimal(value * self.scale, placesOf(self.step * self.scale)) }
 
   // The value changed: the field says it, unless it already does.
-  show(mut self, value: Number) {
+  show(mut self, value: number) {
     if (numberOf(peek self.text) != value * self.scale) { self.text = self.written(value) }
   }
 
   // What a drag or a held − or + rested at, or ended at: the value takes it, and the control shows the value again.
-  write(mut self, to: Number) {
+  write(mut self, to: number) {
     self.value = to
     self.moving = nil
   }
 
   // `steps` down or up from what the control shows, held to the range.
-  steppedBy(self, steps: Number): Number {
+  steppedBy(self, steps: number): number {
     return stepped(self.held + steps * self.step, self.least, self.most, self.step)
   }
 
   // Some steps down or up, written at once (a key).
-  nudge(mut self, steps: Number) {
+  nudge(mut self, steps: number) {
     if (self.disabled) { return }
     self.value = self.steppedBy(steps)
   }
 
   // A drag or a held − or + moved to `to`: shown at once, written as it rests.
-  move(mut self, to: Number) {
+  move(mut self, to: number) {
     self.moving = to
     self.rest.move(to)
   }
@@ -270,7 +270,7 @@ public class NumberInput implements Component {
   onLeave(mut self) { self.hovered = 0 }
 
   // What − or + says under the cursor: each key and how far it steps, signed, in the value's unit.
-  stepsTip(self, title: String, sign: String): TipText {
+  stepsTip(self, title: string, sign: string): TipText {
     return stepTip(title, steps => sign + said(steps * self.step, self.unit, self.step))
   }
 
@@ -278,7 +278,7 @@ public class NumberInput implements Component {
   // bound that more digits only take further (a positive number over the most, a negative one under the least): held
   // to that bound. What reads the value next (Save, Post) sees what was typed. Only a number on its way into the range
   // («1» of «150», the least 100) or between steps waits: for the typing to pause (`SETTLE`), Enter or a step.
-  typed(mut self, typed: String) {
+  typed(mut self, typed: string) {
     if (self.pending != nil) {
       destroy self.pending
       Ordaen.keeper.end()
@@ -320,7 +320,7 @@ public class NumberInput implements Component {
   onSubmit(mut self) { self.settle() }
 
   // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
-  valueAt(self, x: Number<Length>): Number {
+  valueAt(self, x: number<Length>): number {
     const t = (0).max((1).min((x - INSET) / LENGTH))
     return stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
   }

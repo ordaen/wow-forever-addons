@@ -9,7 +9,7 @@ import Locale from "@/locales"
 public const MOST_LETTERS = 255
 
 // The client's commands by their keys: each one's spellings are its `SLASH_<key><n>` texts.
-const COMMAND_KEYS: Array<String> = [
+const COMMAND_KEYS: array<string> = [
   "TARGET", "INSPECT", "STOPATTACK", "CAST", "USE", "STOPCASTING", "STOPSPELLTARGET", "CANCELAURA", "CANCELFORM",
   "EQUIP", "EQUIP_TO_SLOT", "CHANGEACTIONBAR", "SWAPACTIONBAR", "TARGET_EXACT", "TARGET_NEAREST_ENEMY",
   "TARGET_NEAREST_ENEMY_PLAYER", "TARGET_NEAREST_FRIEND", "TARGET_NEAREST_FRIEND_PLAYER", "TARGET_NEAREST_PARTY",
@@ -26,7 +26,7 @@ const COMMAND_KEYS: Array<String> = [
 ]
 
 // The commands whose text takes options, each `[conditions] what` and parted by `;`.
-const OPTION_KEYS: Array<String> = [
+const OPTION_KEYS: array<string> = [
   "TARGET", "STOPATTACK", "CAST", "USE", "STOPCASTING", "CANCELAURA", "CANCELFORM", "EQUIP", "EQUIP_TO_SLOT",
   "CHANGEACTIONBAR", "SWAPACTIONBAR", "TARGET_EXACT", "TARGET_NEAREST_ENEMY", "TARGET_NEAREST_ENEMY_PLAYER",
   "TARGET_NEAREST_FRIEND", "TARGET_NEAREST_FRIEND_PLAYER", "TARGET_NEAREST_PARTY", "TARGET_NEAREST_RAID", "CLEARTARGET",
@@ -38,10 +38,10 @@ const OPTION_KEYS: Array<String> = [
 ]
 
 // The commands that name spells or items, the client's to find.
-const NAMING_KEYS: Array<String> = ["CAST", "USE", "CASTSEQUENCE", "CASTRANDOM", "USERANDOM"]
+const NAMING_KEYS: array<string> = ["CAST", "USE", "CASTSEQUENCE", "CASTRANDOM", "USERANDOM"]
 
 // The conditions an option takes (`[help]`, `[nodead]`, `[mod:shift]`), by the client's names.
-public const CONDITIONS: Array<String> = [
+public const CONDITIONS: array<string> = [
   "actionbar", "bar", "bonusbar", "btn", "button", "canexitvehicle", "channeling", "combat", "cursor", "dead",
   "equipped", "worn", "exists", "extrabar", "flyable", "flying", "form", "stance", "group", "harm", "help", "indoors",
   "known", "mod", "modifier", "mounted", "outdoors", "overridebar", "party", "pet", "petbattle", "possessbar", "raid",
@@ -49,22 +49,22 @@ public const CONDITIONS: Array<String> = [
 ]
 
 // The units an option may aim at (`@focus`, `target=mouseover`).
-public const UNITS: Array<String> = [
+public const UNITS: array<string> = [
   "player", "target", "focus", "mouseover", "pet", "targettarget", "focustarget", "party1", "party2", "party3",
   "party4", "raid1", "arena1", "none", "cursor"
 ]
 
 // One condition the picker built: its name, `no` before it or not, and what follows its `:` (none where empty).
 public struct PickedCondition {
-  const name: String
-  const negated: Boolean = false
-  const value: String = ""
+  const name: string
+  const negated: boolean = false
+  const value: string = ""
 }
 
 // An option's brackets as the picker builds them: the unit aimed at first (`@focus`; none where empty), then each
 // condition; `[]` with neither.
-public function optionText(unit: String, conditions: Array<PickedCondition>): String {
-  const parts: Array<String> = []
+public function optionText(unit: string, conditions: array<PickedCondition>): string {
+  const parts: array<string> = []
   if (unit != "") { parts.push(`@${unit}`) }
   for (condition of conditions) {
     const value = condition.value == "" ? "" : `:${condition.value}`
@@ -75,12 +75,12 @@ public function optionText(unit: String, conditions: Array<PickedCondition>): St
 
 // What the body's checker found on a line (from 1; 0 for the whole body).
 public struct Problem {
-  const line: Integer
-  const text: String
+  const line: integer
+  const text: string
 }
 
 // The body's letters, as the client counts them: a letter of several bytes is one.
-public function lettersOf(text: String): Integer {
+public function lettersOf(text: string): integer {
   let letters = 0
   for (at of 1..text.length) {
     const byte = text.byte(at) ?? 0
@@ -91,9 +91,9 @@ public function lettersOf(text: String): Integer {
 
 // Each of the client's commands by its spellings, lower-cased (`/cast` and `/закл` alike): its key, or an addon's
 // command (`/dbm`) by its own.
-public function commandsOf(): Map<String, String> {
-  const names: Map<String, String> = {}
-  const keys: Array<String> = []
+public function commandsOf(): map<string, string> {
+  const names: map<string, string> = {}
+  const keys: array<string> = []
   for (key of COMMAND_KEYS) { keys.push(key) }
   for (key, _ of Client::SlashCmdList) { keys.push(key) }
   for (key of keys) {
@@ -106,11 +106,11 @@ public function commandsOf(): Map<String, String> {
   return names
 }
 
-function listed(list: Array<String>, word: String): Boolean { return list.any(each => each == word) }
+function listed(list: array<string>, word: string): boolean { return list.any(each => each == word) }
 
 // A condition as written between `[` and `]`, wrong or right: the client's name, with `no` before it or not, and
 // what follows its `:`.
-function conditionFault(written: String): String | nil {
+function conditionFault(written: string): string | nil {
   const condition = written.lower().replace("^%s+", "").replace("%s+$", "")
   if (condition == "" || condition.sub(1, 1) == "@") { return nil }
   const aim = condition.match("^target%s*=%s*(.*)$")
@@ -123,10 +123,10 @@ function conditionFault(written: String): String | nil {
 
 // The names a command's option asks the client for: a spell's or an item's, never a slot's number or an item's link;
 // a sequence's and a random pick's each, its `reset=` left out.
-function namesOf(key: String, what: String): Array<String> {
+function namesOf(key: string, what: string): array<string> {
   let rest = what
   if (key == "CASTSEQUENCE") { rest = rest.replace("^%s*reset=%S+%s*", "") }
-  const names: Array<String> = []
+  const names: array<string> = []
   const parts = key == "CAST" || key == "USE" ? [rest] : rest.split(",")
   for (part of parts) {
     const name = part.replace("^%s+", "").replace("%s+$", "").replace("^!", "").replace("%s*%(.-%)$", "")
@@ -137,7 +137,7 @@ function namesOf(key: String, what: String): Array<String> {
 
 // What the client would refuse in a command's options, or not find: an option's conditions that aren't the client's,
 // a `[` with no `]`, a name of no spell the player knows and of no item they have.
-function optionProblems(line: Integer, key: String, text: String, known: (name: String) => Boolean, found: mut Array<Problem>) {
+function optionProblems(line: integer, key: string, text: string, known: (name: string) => boolean, found: mut array<Problem>) {
   for (option of text.split(";")) {
     let rest = option
     for (step of 1..) {
@@ -162,8 +162,8 @@ function optionProblems(line: Integer, key: String, text: String, known: (name: 
 // What in a body the client would refuse or not find, line by line: too many letters, a command it doesn't know, a
 // line that isn't a command (said in the chat), an option's wrong condition or unclosed `[`, a name it won't find
 // (`known` asks the player's spells and items).
-public function problemsOf(body: String, commands: Map<String, String>, known: (name: String) => Boolean): Array<Problem> {
-  const found: Array<Problem> = []
+public function problemsOf(body: string, commands: map<string, string>, known: (name: string) => boolean): array<Problem> {
+  const found: array<Problem> = []
   const letters = lettersOf(body)
   if (letters > MOST_LETTERS) { found.push({ line: 0, text: Locale::MACRO_TOO_LONG.format(letters - MOST_LETTERS) }) }
   for (line, written of body.split("\n")) {
@@ -186,7 +186,7 @@ public function problemsOf(body: String, commands: Map<String, String>, known: (
 }
 
 // Whether the player has what a name names: a spell of theirs, or an item in their bags or worn.
-public function knownName(name: String): Boolean {
+public function knownName(name: string): boolean {
   if (Client::C_Spell::GetSpellInfo(name) != nil) { return true }
   return Client::C_Item::GetItemCount(name, true, nil, nil, nil) > 0
 }
@@ -194,8 +194,8 @@ public function knownName(name: String): Boolean {
 // The body made shorter, doing the same: `target=` as `@`, the conditions' long names as their short ones, no room
 // round `,` and `;`, inside `[` `]` and after `]` (the command's space before its first `[` stays: the client parts
 // the command there), one space where there were several, no space at a line's ends and no empty line.
-public function shortened(body: String): String {
-  const lines: Array<String> = []
+public function shortened(body: string): string {
+  const lines: array<string> = []
   for (written of body.split("\n")) {
     let line = written.replace("%s+", " ").replace("^ ", "").replace(" $", "")
     line = line.replace("target%s*=%s*", "@")

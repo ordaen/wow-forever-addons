@@ -16,9 +16,9 @@ public enum MenuAct { Heading, MarkJunk, MarkKeep, Unmark, Link, Socket, Sell, P
 // The menu open on a slot: its lines and what each does, by place.
 public struct SlotMenu {
   const slot: Slot
-  const title: String
-  const entries: Array<MenuEntry>
-  const acts: Array<MenuAct>
+  const title: string
+  const entries: array<MenuEntry>
+  const acts: array<MenuAct>
 }
 
 // The client's classes of what is worn (`Enum.ItemClass`): what may have sockets.
@@ -26,7 +26,7 @@ const WEAPON = 2
 const ARMOR = 4
 
 // Why an item is junk, as the menu's heading and the tooltip's note say it.
-public function whyText(why: Why): String {
+public function whyText(why: Why): string {
   return match (why) {
     .Marked => Locale::WHY_MARKED
     .Learned => Locale::WHY_LEARNED
@@ -35,14 +35,14 @@ public function whyText(why: Why): String {
 }
 
 // Whether the slot's item may have sockets to open: gear, outside the guild bank.
-public function socketable(slot: Slot): Boolean {
+public function socketable(slot: Slot): boolean {
   return (slot.read.kind == WEAPON || slot.read.kind == ARMOR) && slot.vault != Vault::Guild
 }
 
 // The menu of the slot's item, as the slot stands now.
 public function menuOf(slot: Slot, mark: Mark | nil, place: Game::BagPlace): SlotMenu {
-  let entries: Array<MenuEntry> = []
-  let acts: Array<MenuAct> = []
+  let entries: array<MenuEntry> = []
+  let acts: array<MenuAct> = []
   const why = slot.why
   entries.push({ label: why != nil ? whyText(why) : tabName(slot.tab), on: nil, disabled: true, group: nil, more: nil })
   acts.push(MenuAct::Heading)

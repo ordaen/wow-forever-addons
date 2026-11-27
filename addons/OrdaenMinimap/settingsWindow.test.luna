@@ -30,12 +30,12 @@ function minimapPage(): Test::Part {
 }
 
 // Whether the window's «Roll back» takes a click: the session has a change or a savepoint.
-function backable(settings: Test::Part): Boolean {
+function backable(settings: Test::Part): boolean {
   return !settings.button("Roll back").paintedWith(Ordaen.art.ctl.buttonDisabled)
 }
 
 // Whether the `nth` checkbox is ticked: its tick, always drawn, shows.
-function ticked(settings: Test::Part, nth: Integer): Boolean {
+function ticked(settings: Test::Part, nth: integer): boolean {
   return settings.box(Ordaen.art.ctl.tick).nth(nth).opacity() == 1
 }
 

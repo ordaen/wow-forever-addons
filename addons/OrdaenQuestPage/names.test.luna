@@ -3,11 +3,11 @@
 import Test from "$test"
 import { Named, NamedKind, ScrollText, markNames } from "@/names"
 
-function figure(name: String, id: Integer): Named {
+function figure(name: string, id: integer): Named {
   return { name: name, kind: NamedKind::Figure, link: `ordaen:npc:${id}`, lines: ["Objective", "Elwynn Forest"] }
 }
 
-function item(name: String, id: Integer): Named {
+function item(name: string, id: integer): Named {
   return { name: name, kind: NamedKind::Item, link: `item:${id}`, lines: [] }
 }
 

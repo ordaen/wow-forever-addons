@@ -6,7 +6,7 @@ import Levels from "@/levels"
 
 // How hard a recipe is at a skill, as the client colours it: orange below yellow, yellow up to halfway to grey, green
 // up to grey, grey from there; grey for one the table hasn't.
-public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Integer): Game::Difficulty {
+public function difficultyAt(thresholds: Thresholds, recipe: integer, skill: integer): Game::Difficulty {
   const yellow = thresholds.yellow[recipe]
   const grey = thresholds.grey[recipe]
   if (yellow == nil || grey == nil || skill >= grey) { return Game::Difficulty::Never }
@@ -17,7 +17,7 @@ public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Int
 
 // A recipe as the lists show it: one not learned says what it would do for the skill now (the client says nothing of
 // it), so its name takes that colour as a learned one's does; a learned one is the client's.
-public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: Integer): Game::Recipe {
+public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: integer): Game::Recipe {
   if (recipe.learned) { return recipe }
   return { difficulty: difficultyAt(thresholds, recipe.id, rank), ..recipe }
 }
@@ -26,16 +26,16 @@ public function learnable(recipe: Game::Recipe, thresholds: Thresholds, rank: In
 // teaches, the skill the item asks to learn it (its orange point). A trainer's recipe says its own while the trainer
 // shows it (`Game.trainer.services`' `skill`).
 public struct Thresholds {
-  yellow: Map<Integer, Integer>
-  grey: Map<Integer, Integer>
-  learned: Map<Integer, Integer> = {}
+  yellow: map<integer, integer>
+  grey: map<integer, integer>
+  learned: map<integer, integer> = {}
 }
 
 // The profession's thresholds; none for one the table hasn't (a skill line of no recipes).
-public function thresholdsOf(skillLine: Integer | nil): Thresholds {
-  const yellow: Map<Integer, Integer> = {}
-  const grey: Map<Integer, Integer> = {}
-  const learned: Map<Integer, Integer> = {}
+public function thresholdsOf(skillLine: integer | nil): Thresholds {
+  const yellow: map<integer, integer> = {}
+  const grey: map<integer, integer> = {}
+  const learned: map<integer, integer> = {}
   const text = skillLine == nil ? nil : Levels::lines[skillLine]
   if (text == nil) { return { yellow: yellow, grey: grey, learned: learned } }
   for (entry of text.split(";")) {
@@ -55,8 +55,8 @@ public function thresholdsOf(skillLine: Integer | nil): Thresholds {
 
 // How many makings it takes, on average, to raise the skill by `points` from `skill`: none where the skill would
 // reach the recipe's grey, or the most the rank allows, first.
-public function expectedMakings(skill: Integer, most: Integer, yellow: Integer, grey: Integer, points: Integer): Integer | nil {
-  let total: Number = 0
+public function expectedMakings(skill: integer, most: integer, yellow: integer, grey: integer, points: integer): integer | nil {
+  let total: number = 0
   for (step of 0..points - 1) {
     const at = skill + step
     if (at >= grey || at >= most) { return nil }

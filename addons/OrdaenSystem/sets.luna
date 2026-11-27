@@ -6,16 +6,16 @@ public const MOST = 10
 const KEY = "systemSets"
 
 public struct AddOnSet implements Plain {
-  name: String = ""
-  addons: Array<String> = []
+  name: string = ""
+  addons: array<string> = []
 }
 
 struct Kept implements Plain {
-  sets: Array<AddOnSet> = []
+  sets: array<AddOnSet> = []
 }
 
 public class Sets {
-  public state list: mut Array<AddOnSet> = []
+  public state list: mut array<AddOnSet> = []
 
   constructor() {
     self.list = load<Kept>(.Account, KEY, Kept {}).sets.clone()
@@ -24,7 +24,7 @@ public class Sets {
   store(self) { Game::saved.store(.Account, KEY, Kept { sets: peek self.list }) }
 
   // A set saved under a name, in place of one of that name: false where ten are kept already.
-  public save(mut self, name: String, addons: Array<String>): Boolean {
+  public save(mut self, name: string, addons: array<string>): boolean {
     const sets = peek self.list
     for (index, kept of sets) {
       if (kept.name == name) {
@@ -39,14 +39,14 @@ public class Sets {
     return true
   }
 
-  public rename(mut self, index: Integer, name: String) {
+  public rename(mut self, index: integer, name: string) {
     const kept = (peek self.list)[index]
     if (kept == nil || name == "") { return }
     self.list[index] = { name: name, addons: kept.addons }
     self.store()
   }
 
-  public remove(mut self, index: Integer) {
+  public remove(mut self, index: integer) {
     if ((peek self.list)[index] == nil) { return }
     _ = self.list.remove(index)
     self.store()

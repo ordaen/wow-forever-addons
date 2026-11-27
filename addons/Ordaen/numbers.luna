@@ -12,7 +12,7 @@ const NBSP = "\194\160"
 // The most decimals a number under 1 takes.
 const FINEST = 12
 
-function decimalsFor(value: Number, precision: Integer, round: Boolean): Integer {
+function decimalsFor(value: number, precision: integer, round: boolean): integer {
   if (value > 0 && value < 1) {
     let scaled = value
     let shifts = 0
@@ -27,7 +27,7 @@ function decimalsFor(value: Number, precision: Integer, round: Boolean): Integer
 }
 
 // Whole digits with `group` between every three from the right.
-function grouped(digits: String, group: String): String {
+function grouped(digits: string, group: string): string {
   const n = digits.length
   if (n <= 3) { return digits }
   let first = n % 3
@@ -38,8 +38,8 @@ function grouped(digits: String, group: String): String {
   return out
 }
 
-public function number(n: Number): String {
-  if (!n.finite()) { return String::of(n) }
+public function number(n: number): string {
+  if (!n.finite()) { return string::of(n) }
   let chosen = Ordaen.globals.values
   let thousands = chosen.numberFormat == NumberFormat::Space ? NBSP : chosen.numberFormat == NumberFormat::Comma ? "," : "."
   let point = chosen.numberFormat == NumberFormat::Dot ? "," : "."

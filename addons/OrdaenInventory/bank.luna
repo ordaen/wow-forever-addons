@@ -13,7 +13,7 @@ import Locale from "@/locales"
 
 // The bank's bag slots, by their place among the bank's tabs (`Enum.BagIndex.Characterbanktab`).
 const BAG_SLOTS = -2
-const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
+const ROW: array<Track> = [37.5dp, { fr: 1 }, "max-content"]
 const ICON = 37.5dp
 const INK: Color = Color::hex("#e8dcc4")
 const LABEL: Color = Color::hex("#a3977f")
@@ -27,8 +27,8 @@ const DIALOG = 375dp
 const BUTTON = 117.1875dp
 
 // The bank's containers as the bags' window reads them: a tab with no name of its own is named by its place.
-public function bankInfos(): Array<Game::BagInfo> {
-  let infos: Array<Game::BagInfo> = []
+public function bankInfos(): array<Game::BagInfo> {
+  let infos: array<Game::BagInfo> = []
   for (index, tab of Client::C_Bank::FetchPurchasedBankTabData(Client::BankType::Character)) {
     const bag = tab.ID.floor()
     const name = tab.name != "" ? tab.name : index == 1 ? Locale::BANK : Locale::BANK_BAG.format(index - 1)
@@ -39,14 +39,14 @@ public function bankInfos(): Array<Game::BagInfo> {
 
 // A bank bag's line: its icon, name and fill; a click picks the bag up, or puts the one on the cursor there.
 public struct BankBag {
-  const place: Integer
+  const place: integer
   const info: Game::BagInfo
-  const used: Integer
+  const used: integer
 }
 
 class BankBagEntry implements Component {
   state hovered = false
-  derived fill: String = Locale::FILL.format(self.bag.used, self.bag.info.slots)
+  derived fill: string = Locale::FILL.format(self.bag.used, self.bag.info.slots)
   derived back: Color = self.hovered ? SHADE : CLEAR
 
   bag: Signal<BankBag>
@@ -73,17 +73,17 @@ public class BankSlotsWindow implements Component {
   public close: Event<nil> = new Event()
   state tab = 1
   state asking = false
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale::BANK_SLOTS, desc: nil, icon: BANK_ICON }]
+  derived tabs: array<WindowTabSpec> = [{ title: Locale::BANK_SLOTS, desc: nil, icon: BANK_ICON }]
   // What the next slot costs and whether the player can pay it, read as the window shows and when the money changes.
   derived next: Client::PurchasableBankTabData | nil = self.nextOf()
-  derived buyable: Boolean = self.next != nil && Client::C_Bank::CanPurchaseBankTab(Client::BankType::Character)
-  derived cost: Integer = (self.next?.tabCost ?? 0).floor()
-  derived afford: Boolean = self.next?.canAfford == true
+  derived buyable: boolean = self.next != nil && Client::C_Bank::CanPurchaseBankTab(Client::BankType::Character)
+  derived cost: integer = (self.next?.tabCost ?? 0).floor()
+  derived afford: boolean = self.next?.canAfford == true
   derived costColor: Color = self.afford ? INK : RED
 
-  bags: Signal<Array<BankBag>>
+  bags: Signal<array<BankBag>>
   declared: mut KeptWindow
-  constructor(bags: Signal<Array<BankBag>>, declared: mut KeptWindow) {
+  constructor(bags: Signal<array<BankBag>>, declared: mut KeptWindow) {
     self.bags = bags
     self.declared = declared
   }

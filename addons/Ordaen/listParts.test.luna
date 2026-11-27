@@ -12,19 +12,19 @@ import { Column, Table, TableCell, TableRow } from "@/table"
 import { ToolSort, Toolbar, sortChoices } from "@/toolbar"
 
 const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: "Name", width: { fr: 1 }, sortable: true },
   { title: "", width: 40dp, sortable: true },
   { title: "Note", width: 120dp }
 ]
 
 class Line {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  const index: Integer
-  name: Signal<String>
-  picked: Signal<Integer>
-  constructor(index: Integer, name: Signal<String>, picked: Signal<Integer>) {
+  const index: integer
+  name: Signal<string>
+  picked: Signal<integer>
+  constructor(index: integer, name: Signal<string>, picked: Signal<integer>) {
     self.index = index
     self.name = name
     self.picked = picked
@@ -47,9 +47,9 @@ class Picking {
   state folded = false
   state clicks = 0
 
-  state names: Array<String> = ["Ally one", "Ally two"]
+  state names: array<string> = ["Ally one", "Ally two"]
 
-  onPick(mut self, index: Integer) {
+  onPick(mut self, index: integer) {
     self.picked = index
     self.picks += 1
   }
@@ -97,7 +97,7 @@ test "how long ago: never under a minute, then hours, then days" {
 }
 
 class Listing {
-  state names: Array<String> = []
+  state names: array<string> = []
   state sorted = 0
   state descending = false
   state query = ""

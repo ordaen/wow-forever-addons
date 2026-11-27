@@ -8,7 +8,7 @@ import Locale from "@/locales"
 import Style from "@/style"
 
 // What a community is: of Battle.net accounts or of characters, and how many are in it.
-function kindOf(club: Club): String {
+function kindOf(club: Club): string {
   return Locale::CLUB_KIND.format(club.battleNet ? Locale::CLUB_BATTLE_NET : Locale::CLUB_CHARACTERS, club.memberCount)
 }
 
@@ -31,8 +31,8 @@ class StreamRow implements Component {
 // The picked community's card, with no member picked.
 public class ClubCard implements Component {
   club: Signal<Club>
-  streams: Signal<Array<ClubStream>>
-  constructor(club: Signal<Club>, streams: Signal<Array<ClubStream>>) {
+  streams: Signal<array<ClubStream>>
+  constructor(club: Signal<Club>, streams: Signal<array<ClubStream>>) {
     self.club = club
     self.streams = streams
   }

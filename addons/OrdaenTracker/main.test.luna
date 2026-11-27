@@ -22,12 +22,12 @@ function logged() {
 
 // A module's log and map: it opens quest 101 alone, and shows quest 101 alone on the map (at Westfall's).
 class Where implements QuestOpener {
-  public showOnMap(self, quest: Integer): Boolean {
+  public showOnMap(self, quest: integer): boolean {
     if (quest != 101) { return false }
     Client::C_Map::OpenWorldMap(1436)
     return true
   }
-  public open(self, quest: Integer): Boolean {
+  public open(self, quest: integer): boolean {
     if (quest != 101) { return false }
     Client::C_SuperTrack::SetSuperTrackedQuestID(quest)
     return true
@@ -205,7 +205,7 @@ test "a quest's item shows its cooldown's sweep while one runs, and none while n
 
 // As many tracked quests of the zone as the client tracks, each with two objectives: more than the screen holds.
 function crowded() {
-  const log: Array<Test::LogQuest> = []
+  const log: array<Test::LogQuest> = []
   for (n of 1..25) {
     log.push({ id: 200 + n, title: `Quest ${n}`, header: "Elwynn Forest", level: 10, watched: true,
       objectives: [{ text: "Wolves slain: 0/8" }, { text: "Bandanas: 0/6" }] })

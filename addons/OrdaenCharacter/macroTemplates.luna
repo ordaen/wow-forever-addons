@@ -5,19 +5,19 @@ import Locale from "@/locales"
 
 // A template ready to take: its title and its body.
 public struct MacroTemplate {
-  const title: String
-  const body: String
+  const title: string
+  const body: string
 }
 
 // A class's spells the templates name, by their first rank's number (a rank's name is every rank's).
 struct ClassSpells {
-  const heal: Integer | nil = nil
-  const attack: Integer | nil = nil
-  const interrupt: Integer | nil = nil
-  const control: Integer | nil = nil
+  const heal: integer | nil = nil
+  const attack: integer | nil = nil
+  const interrupt: integer | nil = nil
+  const control: integer | nil = nil
 }
 
-const SPELLS: Map<String, ClassSpells> = {
+const SPELLS: map<string, ClassSpells> = {
   ["WARRIOR"]: { attack: 78, interrupt: 6552, control: 1715 },
   ["PALADIN"]: { heal: 635, attack: 20271, control: 853 },
   ["HUNTER"]: { attack: 3044, control: 5116 },
@@ -30,15 +30,15 @@ const SPELLS: Map<String, ClassSpells> = {
 }
 
 // A template of a spell the class has, its name in it; none where the class has none or the client names none.
-function filled(title: String, body: String, spell: Integer | nil, into: mut Array<MacroTemplate>) {
+function filled(title: string, body: string, spell: integer | nil, into: mut array<MacroTemplate>) {
   if (spell == nil) { return }
   const name = Client::C_Spell::GetSpellName(spell)
   if (name != nil) { into.push({ title: title, body: body.format(name) }) }
 }
 
 // The templates for a class, by its tag: its spells' first, then the trinkets'.
-public function templatesOf(classTag: String): Array<MacroTemplate> {
-  const templates: Array<MacroTemplate> = []
+public function templatesOf(classTag: string): array<MacroTemplate> {
+  const templates: array<MacroTemplate> = []
   const spells = SPELLS[classTag] ?? {}
   filled(Locale::TEMPLATE_MOUSEOVER_HEAL, "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] %s", spells.heal, templates)
   filled(Locale::TEMPLATE_SELF_ALT, "#showtooltip\n/cast [mod:alt,@player][] %s", spells.heal, templates)

@@ -5,13 +5,13 @@ import { Component } from "@/module"
 
 const INK: Color = Color::hex("#e8dcc4")
 const DIM: Color = Color::hex("#a3977f")
-const COLUMNS: Array<Track> = [117.1875dp, { fr: 1 }]
+const COLUMNS: array<Track> = [117.1875dp, { fr: 1 }]
 
 public class Fact implements Component {
-  label: Signal<String>
-  value: Signal<String>
+  label: Signal<string>
+  value: Signal<string>
   color: Signal<Color>
-  constructor(label: Signal<String>, value: Signal<String>, color: Signal<Color> = INK) {
+  constructor(label: Signal<string>, value: Signal<string>, color: Signal<Color> = INK) {
     self.label = label
     self.value = value
     self.color = color

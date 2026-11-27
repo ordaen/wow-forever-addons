@@ -28,7 +28,7 @@ function start() {
 }
 
 // A key held at the screen's middle and the cursor moved `x` right and `y` down.
-function hold(key: String, x: Number, y: Number) {
+function hold(key: string, x: number, y: number) {
   Test::moveTo(MIDDLE)
   _ = Test::holdBound(key)
   Test::flush()
@@ -36,7 +36,7 @@ function hold(key: String, x: Number, y: Number) {
   Test::pass(0.05)
 }
 
-function clickAt(x: Number, y: Number) {
+function clickAt(x: number, y: number) {
   Test::moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
   Test::pass(0.05)
   Test::press(nil)
@@ -185,7 +185,7 @@ test "a place added inside a submenu is moved earlier, and one taken away takes 
 }
 
 // One ring of the player's changed as `edit` changes it.
-function editRing(index: Integer, edit: (ring: mut Ring) => nil) {
+function editRing(index: integer, edit: (ring: mut Ring) => nil) {
   const rings = Radial.settings.values.rings.clone()
   const ring = (rings[index] ?? panic("a ring for each key")).clone()
   edit(ring)
@@ -196,8 +196,8 @@ function editRing(index: Integer, edit: (ring: mut Ring) => nil) {
 
 // A kind of another module's: the next junk to sell, an item of the bags.
 class Junk implements RadialKind {
-  public const id: String = "junk"
-  public const title: String = "The next junk"
+  public const id: string = "junk"
+  public const title: string = "The next junk"
   public offer(self): RadialOffer {
     return { name: "Broken Fang", icon: "Interface/Icons/INV_Misc_QuestionMark", action: .Item { item: 4875 }, dim: false }
   }
@@ -205,7 +205,7 @@ class Junk implements RadialKind {
 
 test "a spell dropped from the spellbook goes in the place chosen" {
   start()
-  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
+  Client::C_Spell::GetSpellName = (id: string | integer): string | nil => id == 2383 ? "Find Herbs" : nil
   const settings = radialTab()
   clickDown(settings, settings.button("6. Travel"))
   Client::C_Spell::PickupSpell(2383)
@@ -230,7 +230,7 @@ test "a kind another module adds offers its item on the wheel, in a fight too" {
 
 test "an item of another class is dimmed and does nothing; one held to a modifier needs it" {
   start()
-  Client::UnitClass = (unit: String): (String | nil, String | nil, Number | nil) => { return "Warrior", "WARRIOR", 1 }
+  Client::UnitClass = (unit: string): (string | nil, string | nil, number | nil) => { return "Warrior", "WARRIOR", 1 }
   editRing(3, (ring: mut Ring): nil => {
     ring.conditions["1"] = { classTag: "MAGE", form: nil, modifier: nil }
     ring.conditions["2"] = { classTag: nil, form: nil, modifier: .Shift }
@@ -250,14 +250,14 @@ test "an item of another class is dimmed and does nothing; one held to a modifie
 
 test "a spell shows its charges and its cooldown's sweep; a macro its own icon" {
   start()
-  Client::C_Spell::GetSpellTexture = (spell: String | Integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
-  Client::C_Spell::GetSpellCharges = (spell: String | Integer): SpellChargeInfo | nil => {
+  Client::C_Spell::GetSpellTexture = (spell: string | integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
+  Client::C_Spell::GetSpellCharges = (spell: string | integer): SpellChargeInfo | nil => {
     currentCharges: 2, maxCharges: 3, cooldownStartTime: 0, cooldownDuration: 0, chargeModRate: 1, isActive: true
   }
-  Client::C_Spell::GetSpellCooldown = (spell: String | Integer): SpellCooldownInfo | nil => {
+  Client::C_Spell::GetSpellCooldown = (spell: string | integer): SpellCooldownInfo | nil => {
     startTime: 5, duration: 30, isEnabled: true, isActive: true, modRate: 1, activeCategory: nil
   }
-  Client::GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "/cast Heal" }
+  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return "Heal me", 134400, "/cast Heal" }
   editRing(3, (ring: mut Ring): nil => {
     ring.items["1"] = .Spell { spell: "Charge" }
     ring.items["2"] = .Macro { macro: "Heal me" }
@@ -283,14 +283,14 @@ test "a ring's size and its submenus' memory are chosen on the tab" {
 
 test "an item from the bags and a macro dropped go in the place chosen" {
   start()
-  Client::GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
-  Client::GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }
+  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return "item", 6948, "item:6948", nil }
+  Client::GetMacroInfo = (which: string | integer): (string | nil, FileId | nil, string | nil) => { return "Heal me", 134400, "" }
   const settings = radialTab()
   clickDown(settings, settings.button("1. Windows"))
   const drop = settings.button("Drop a spell, an item or a macro here: it goes in the place")
   clickDown(settings, drop)
   Test::expect(firstRing().items["1"] is Item::Bag)
-  Client::GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
+  Client::GetCursorInfo = (): (string | nil, unknown, unknown, unknown) => { return "macro", 3, nil, nil }
   clickDown(settings, drop)
   Test::expect(firstRing().items["1"] is Item::Macro)
 }
@@ -341,21 +341,21 @@ test "emotes stand in families of groups, each named by its command with no icon
 }
 
 test "in a client in another language an emote is named by its command in it, else by our word, never by an English command" {
-  Client::GetLocale = (): String => "ruRU"
+  Client::GetLocale = (): string => "ruRU"
   const names = emoteNames()
   const beckon = names["BECKON"] ?? ""
   const russian, _ = beckon.find("[\128-\255]")
   Test::expect(beckon != "/beckon" && beckon.sub(1, 1) == "/" && russian != nil)
   Test::expect(names["CLAP"] == "Clap" && names["GREET"] == "/привет" && names["HELLO"] == "/при")
-  Client::GetLocale = (): String => "enUS"
+  Client::GetLocale = (): string => "enUS"
   Test::expect(emoteNames()["BECKON"] == "/beckon")
 }
 
 // The first ring's Emotes submenu as an older build saved it: eight lines, the last one `last`.
-function oldEmotes(last: String) {
+function oldEmotes(last: string) {
   editRing(1, (ring: mut Ring): nil => {
     const lines = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", last]
-    const kept: Map<String, Item> = {}
+    const kept: map<string, Item> = {}
     for (place, item of ring.items) {
       if (place.sub(1, 2) != "5_") { kept[place] = item }
     }

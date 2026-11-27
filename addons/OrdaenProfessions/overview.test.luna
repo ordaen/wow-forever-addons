@@ -21,26 +21,26 @@ const GOLD = 3308
 const INK: Color = Color::hex("#e8dcc4")
 const DIM: Color = Color::hex("#a3977f")
 
-function recipe(id: Integer, name: String, difficulty: Game::Difficulty, craftable: Integer, learned: Boolean): Game::Recipe {
+function recipe(id: integer, name: string, difficulty: Game::Difficulty, craftable: integer, learned: boolean): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 21, learned: learned,
     difficulty: difficulty, craftable: craftable
   }
 }
 
-function profession(skillLine: Integer, name: String, rank: Integer, max: Integer): Game::Profession {
+function profession(skillLine: integer, name: string, rank: integer, max: integer): Game::Profession {
   return { skillLine: skillLine, name: name, icon: 136248, rank: rank, max: max, kind: Game::ProfessionKind::Gathering }
 }
 
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [profession(MINING, "Mining", 70, 75), profession(FISHING, "Fishing", 120, 150)]
 }
 
-function categories(): Array<Game::Category> {
+function categories(): array<Game::Category> {
   return [{ id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 }]
 }
 
-function recipes(): Array<Game::Recipe> {
+function recipes(): array<Game::Recipe> {
   return [
     recipe(COPPER, "Smelt Copper", Game::Difficulty::Rarely, 4, true),
     recipe(TIN, "Smelt Tin", Game::Difficulty::Always, 0, true),
@@ -51,7 +51,7 @@ function recipes(): Array<Game::Recipe> {
 }
 
 // Bronze takes a copper bar (three held) and a tin bar (none).
-function reagents(id: Integer): Array<Game::Reagent> {
+function reagents(id: integer): array<Game::Reagent> {
   if (id == BRONZE) {
     return [
       { itemID: 2840, name: "Copper Bar", icon: "Interface/Icons/INV_Ingot_02", have: 3, need: 1 },
@@ -62,7 +62,7 @@ function reagents(id: Integer): Array<Game::Reagent> {
 }
 
 // What a mining trainer says: gold from 155 for 1s, silver from 75 for 50c; a service with no skill is no recipe.
-function services(): Array<Game::TrainerService> {
+function services(): array<Game::TrainerService> {
   return [
     { index: 1, name: "Smelt Gold", rank: "", status: Game::ServiceStatus::Unavailable, level: 0, cost: 100, description: "", skill: 155 },
     { index: 2, name: "Smelt Silver", rank: "", status: Game::ServiceStatus::Available, level: 0, cost: 50, description: "", skill: 75 },
@@ -74,26 +74,26 @@ function window(): Test::Part {
   return Test::page().window("Overview")
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // The sections' titles, in the order drawn («Recipes» is the tab's name too, drawn before them).
-const TITLES: Array<String> = ["Recipes", "What to learn next", "Needed for the work", "Tracked recipes"]
+const TITLES: array<string> = ["Recipes", "What to learn next", "Needed for the work", "Tracked recipes"]
 // The window's tabs, drawn after the page.
-const TABS: Array<String> = ["Mining", "Fishing", "Enchanting", "Cooking", "First Aid"]
+const TABS: array<string> = ["Mining", "Fishing", "Enchanting", "Cooking", "First Aid"]
 
 // Whether two colours are the same as the client keeps them (to three places).
-function near(a: Color, b: Color): Boolean {
+function near(a: Color, b: Color): boolean {
   return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
 }
 
 // Whether a section of the overview reads exactly this, its title and its lines joined by « | »: where it doesn't,
 // the test fails with what it reads.
-function sectionReads(title: String, expected: String): Boolean {
-  let read: Array<String> = []
+function sectionReads(title: string, expected: string): boolean {
+  let read: array<string> = []
   let inside = false
   for (shown of window().texts()) {
     if (shown == title) {
@@ -155,8 +155,8 @@ test "Fishing's overview has «Fish», which the client casts from the player's 
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   Game::professions.list = professions()
   Game::tradeSkill.categories = [{ id: 3, name: "Fishing" }, { id: 30, name: "Resting at camp", parentID: 3 }]
-  Game::spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
-  Game::spells.known = (id: Integer): Boolean => true
+  Game::spells.name = (id: integer): string | nil => id == 7620 ? "Fishing" : nil
+  Game::spells.known = (id: integer): boolean => true
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = FISHING
   window().button("Overview").click()
@@ -169,8 +169,8 @@ test "Enchanting's overview has «Disenchant»; Mining's has no spell on it" {
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   Game::professions.list = [profession(ENCHANTING, "Enchanting", 70, 75), profession(MINING, "Mining", 70, 75)]
   Game::tradeSkill.categories = categories()
-  Game::spells.name = (id: Integer): String | nil => id == 13262 ? "Disenchant" : id == 2580 ? "Find Minerals" : nil
-  Game::spells.known = (id: Integer): Boolean => true
+  Game::spells.name = (id: integer): string | nil => id == 13262 ? "Disenchant" : id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: integer): boolean => true
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = ENCHANTING
   window().button("Overview").click()
@@ -186,8 +186,8 @@ test "the overview's spell the character doesn't know has no button" {
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
-  Game::spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
-  Game::spells.known = (id: Integer): Boolean => false
+  Game::spells.name = (id: integer): string | nil => id == 7620 ? "Fishing" : nil
+  Game::spells.known = (id: integer): boolean => false
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = FISHING
   window().button("Overview").click()
@@ -291,7 +291,7 @@ test "what a profession's trainer said orders what to learn next, with its skill
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::trainer.services = services
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Test::mount(nil, SCREEN)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -306,11 +306,11 @@ test "a trainer's word stands over the table's: a recipe it teaches early comes 
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Smelt Gold", rank: "", status: Game::ServiceStatus::Available, level: 0, cost: 100, description: "", skill: 60 }
   ]
   Test::mount(nil, SCREEN)
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.open = true
   Game::trainer.changed.emit()
   Game::tradeSkill.open = MINING
@@ -324,12 +324,12 @@ test "a class trainer's services, or a trainer's while it is shut, teach nothing
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::trainer.services = services
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Test::mount(nil, SCREEN)
-  Game::trainer.teachesClass = (): Boolean => true
+  Game::trainer.teachesClass = (): boolean => true
   Game::trainer.open = true
   Game::trainer.changed.emit()
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.open = false
   Game::trainer.changed.emit()
   Game::tradeSkill.open = MINING
@@ -343,7 +343,7 @@ test "what the trainers said is there after a reload, and for another character"
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::trainer.services = services
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Test::mount(nil, SCREEN)
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -360,14 +360,14 @@ test "a trainer met again adds to what earlier ones said" {
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Smelt Gold", rank: "", status: Game::ServiceStatus::Available, level: 0, cost: 100, description: "", skill: 155 }
   ]
   Test::mount(nil, SCREEN)
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.open = true
   Game::trainer.changed.emit()
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Smelt Silver", rank: "", status: Game::ServiceStatus::Available, level: 0, cost: 50, description: "", skill: 75 }
   ]
   Game::trainer.changed.emit()
@@ -381,7 +381,7 @@ test "what the work needs: each tool or place a learned recipe asks for, once" {
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.requirements = (id: Integer): Array<Game::Requirement> => {
+  Game::tradeSkill.requirements = (id: integer): array<Game::Requirement> => {
     if (id == GOLD) { return [{ name: "Gold Anvil", met: false }] }
     if (id == BRONZE) { return [{ name: "Forge", met: false }, { name: "Mining Pick", met: true }] }
     return [{ name: "Forge", met: true }]
@@ -409,7 +409,7 @@ test "the tracked recipes, each with what the bags still lack for one making" {
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     if (id == COPPER) {
       return [
         { itemID: 2770, name: "Copper Ore", icon: "Interface/Icons/INV_Ore_Copper_01", have: 2, need: 2 },

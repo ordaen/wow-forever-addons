@@ -28,7 +28,7 @@ public enum Chord implements Plain {
   AltRight = "altRight"
 }
 
-public const CHORDS: Array<Chord> = [.Left, .ShiftLeft, .CtrlLeft, .AltLeft, .Right, .ShiftRight, .CtrlRight, .AltRight]
+public const CHORDS: array<Chord> = [.Left, .ShiftLeft, .CtrlLeft, .AltLeft, .Right, .ShiftRight, .CtrlRight, .AltRight]
 
 // The scheme: one action for each chord.
 public struct Clicks implements Plain {
@@ -57,7 +57,7 @@ public const AS_THE_GAME: Clicks = {
 }
 
 // The chord of a press, by its button and the modifier held (Shift before Ctrl before Alt where several are).
-public function chordOf(button: MouseButton, shift: Boolean, ctrl: Boolean, alt: Boolean): Chord | nil {
+public function chordOf(button: MouseButton, shift: boolean, ctrl: boolean, alt: boolean): Chord | nil {
   if (button == MouseButton::Left) {
     if (shift) { return .ShiftLeft }
     if (ctrl) { return .CtrlLeft }
@@ -130,12 +130,12 @@ public function bindingOf(chord: Chord): KeyBinding<MouseButton> {
 }
 
 // How many chords hold the action.
-function countOf(clicks: Clicks, action: SlotAction): Integer {
+function countOf(clicks: Clicks, action: SlotAction): integer {
   return CHORDS.count(chord => actionAt(clicks, chord) == action)
 }
 
 // What a chord's row offers: every action, but only its own where it holds the last Use or the last Menu.
-public function choicesFor(clicks: Clicks, chord: Chord): Array<Choice<SlotAction>> {
+public function choicesFor(clicks: Clicks, chord: Chord): array<Choice<SlotAction>> {
   const now = actionAt(clicks, chord)
   if ((now == .Use || now == .Menu) && countOf(clicks, now) == 1) { return [choiceOf(now)] }
   return ACTIONS.map(action => choiceOf(action))
@@ -145,9 +145,9 @@ function choiceOf(action: SlotAction): Choice<SlotAction> {
   return { value: action, label: actionName(action) }
 }
 
-const ACTIONS: Array<SlotAction> = [.Use, .Pickup, .Menu, .Link, .Protect, .Socket, .Nothing]
+const ACTIONS: array<SlotAction> = [.Use, .Pickup, .Menu, .Link, .Protect, .Socket, .Nothing]
 
-public function actionName(action: SlotAction): String {
+public function actionName(action: SlotAction): string {
   return match (action) {
     .Use => Locale::ACT_USE
     .Pickup => Locale::ACT_PICKUP
@@ -159,7 +159,7 @@ public function actionName(action: SlotAction): String {
   }
 }
 
-public function chordName(chord: Chord): String {
+public function chordName(chord: Chord): string {
   return match (chord) {
     .Left => Locale::CHORD_LEFT
     .ShiftLeft => Locale::CHORD_SHIFT_LEFT

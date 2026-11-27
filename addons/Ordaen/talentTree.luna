@@ -25,16 +25,16 @@ const ICON_INSET = 6.09375dp
 const STEP = 82.03125dp
 const ROW_LEAST = 82.03125dp
 // A cell: room over its node, the node's row, room under it.
-const CELL_ROWS: Array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
+const CELL_ROWS: array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
 // An arrow's line and its edge, and its head (the client's is 14 by 12 px, here at the nodes' scale).
 const LINE = 4.6875dp
 const LINE_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
 const HEAD = 21.09375dp
 // Where a cell's vertical line and its node stand across it, and where its horizontal line stands down its node's row.
-const MIDDLE: Number<Length> = (STEP - LINE) / 2
-const NODE_LEFT: Number<Length> = (STEP - SIZE) / 2
-const ACROSS_TOP: Number<Length> = (SIZE - LINE) / 2
-const HALF: Number<Length> = STEP / 2
+const MIDDLE: number<Length> = (STEP - LINE) / 2
+const NODE_LEFT: number<Length> = (STEP - SIZE) / 2
+const ACROSS_TOP: number<Length> = (SIZE - LINE) / 2
+const HALF: number<Length> = STEP / 2
 // The rank, a bare number large in the node's middle (on the font's own line, as text set on art is, so the digits
 // stand in the middle and not over a line's room below them; as wide as the node, its letters centred by the client
 // whatever their width there), outlined thinly (the client draws a thick outline's digit off its centre), in the
@@ -83,22 +83,22 @@ public struct TreeCell {
 
 // A tree's cells, row by row: how many columns and rows it has, and each cell.
 public struct TreeGrid {
-  columns: Integer
-  rows: Integer
-  cells: Array<TreeCell>
+  columns: integer
+  rows: integer
+  cells: array<TreeCell>
 }
 
 // Where a tree's nodes begin: the smallest x or y.
-function leastOf(nodes: Array<Game::TalentNode>, vertical: Boolean): Number {
-  let least = Number::huge
+function leastOf(nodes: array<Game::TalentNode>, vertical: boolean): number {
+  let least = number::huge
   for (node of nodes) { least = least.min(vertical ? node.y : node.x) }
   return nodes.length == 0 ? 0 : least
 }
 
 // The client's grid of a tree: the least gap between two of its nodes across or down (a talent tree's `CELL`, a Legacy
 // tree's own), `CELL` where no two stand apart.
-function cellOf(nodes: Array<Game::TalentNode>): Number {
-  let cell = Number::huge
+function cellOf(nodes: array<Game::TalentNode>): number {
+  let cell = number::huge
   for (node of nodes) {
     for (other of nodes) {
       const across = (node.x - other.x).abs()
@@ -107,16 +107,16 @@ function cellOf(nodes: Array<Game::TalentNode>): Number {
       if (down > 0) { cell = cell.min(down) }
     }
   }
-  return cell == Number::huge ? CELL : cell
+  return cell == number::huge ? CELL : cell
 }
 
 // The column or row of the client's grid a node stands in, from the tree's first.
-function stepOf(at: Number, least: Number, cell: Number): Integer {
+function stepOf(at: number, least: number, cell: number): integer {
   return ((at - least) / cell + 0.5).floor()
 }
 
 // A tree laid out on its grid, its arrows drawn into the cells they cross.
-public function gridOf(nodes: Array<Game::TalentNode>): TreeGrid {
+public function gridOf(nodes: array<Game::TalentNode>): TreeGrid {
   const leastX = leastOf(nodes, false)
   const leastY = leastOf(nodes, true)
   const cell = cellOf(nodes)
@@ -126,9 +126,9 @@ public function gridOf(nodes: Array<Game::TalentNode>): TreeGrid {
     columns = columns.max(stepOf(node.x, leastX, cell) + 1)
     rows = rows.max(stepOf(node.y, leastY, cell) + 1)
   }
-  const cells: Array<mut TreeCell> = []
+  const cells: array<mut TreeCell> = []
   for (place of 1..columns * rows) { cells.push({}) }
-  const at = (column: Integer, row: Integer): mut TreeCell => cells[row * columns + column + 1] ?? panic("a cell of the grid")
+  const at = (column: integer, row: integer): mut TreeCell => cells[row * columns + column + 1] ?? panic("a cell of the grid")
   for (node of nodes) { at(stepOf(node.x, leastX, cell), stepOf(node.y, leastY, cell)).node = node }
   for (node of nodes) {
     const fromColumn = stepOf(node.x, leastX, cell)
@@ -176,20 +176,20 @@ public function gridOf(nodes: Array<Game::TalentNode>): TreeGrid {
 }
 
 // The points spent in a tree.
-public function spentIn(tree: Game::TalentTree): Integer {
+public function spentIn(tree: Game::TalentTree): integer {
   let sum = 0
   for (node of tree.nodes) { sum += node.rank }
   return sum
 }
 
 // What a node's tooltip says under its name: what the rank held does, or the first rank where it holds none.
-function tipTextOf(node: Game::TalentNode): String {
+function tipTextOf(node: Game::TalentNode): string {
   return (node.rank > 0 ? node.current : node.next) ?? ""
 }
 
 // Its rows: its rank of its ranks, each point its tree still needs (red), and that a click learns it where one may.
-function tipRowsOf(node: Game::TalentNode): Array<TipRow> {
-  const rows: Array<TipRow> = [{ label: Locale::TALENT_RANK, value: "%d/%d".format(node.rank, node.ranks) }]
+function tipRowsOf(node: Game::TalentNode): array<TipRow> {
+  const rows: array<TipRow> = [{ label: Locale::TALENT_RANK, value: "%d/%d".format(node.rank, node.ranks) }]
   for (condition of node.conditions) {
     if (!condition.met) { rows.push({ label: Locale::TALENT_TREE_POINTS.format(condition.points), value: "", tone: RED }) }
   }
@@ -198,7 +198,7 @@ function tipRowsOf(node: Game::TalentNode): Array<TipRow> {
 }
 
 // Its next rank, where it holds one and has another.
-function tipSectionsOf(node: Game::TalentNode): Array<TipSection> {
+function tipSectionsOf(node: Game::TalentNode): array<TipSection> {
   const next = node.next
   return node.rank > 0 && next != nil ? [{ title: Locale::TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
 }
@@ -222,8 +222,8 @@ function lookOf(node: Game::TalentNode): Look {
 struct LookArt {
   frame: Atlas
   rank: Color
-  grey: Boolean
-  veil: Number
+  grey: boolean
+  veil: number
 }
 
 function artOf(look: Look): LookArt {
@@ -239,28 +239,28 @@ function artOf(look: Look): LookArt {
 }
 
 class TalentNodeView implements Component {
-  public spend: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
+  public spend: Event<integer> = new Event()
+  public refund: Event<integer> = new Event()
 
   state hovered = false
-  derived tipText: String = tipTextOf(self.node)
-  derived tipRows: Array<TipRow> = tipRowsOf(self.node)
-  derived tipSections: Array<TipSection> = tipSectionsOf(self.node)
+  derived tipText: string = tipTextOf(self.node)
+  derived tipRows: array<TipRow> = tipRowsOf(self.node)
+  derived tipSections: array<TipSection> = tipSectionsOf(self.node)
 
-  derived lit: Boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
+  derived lit: boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
   derived look: Look = lookOf(self.node)
   derived art: LookArt = artOf(self.look)
-  derived opacity: Number = self.lit ? 1 : 0.3
+  derived opacity: number = self.lit ? 1 : 0.3
   // The rank shows once one is held, or where one may be taken (a 0 then); as a fraction it shows on every node.
-  derived ranked: Boolean = !self.fraction && (self.node.rank > 0 || self.look == .Selectable)
-  derived rank: String = "%d".format(self.node.rank)
-  derived ranks: String = "%d/%d".format(self.node.rank, self.node.ranks)
-  derived veiled: Boolean = self.art.veil > 0
+  derived ranked: boolean = !self.fraction && (self.node.rank > 0 || self.look == .Selectable)
+  derived rank: string = "%d".format(self.node.rank)
+  derived ranks: string = "%d/%d".format(self.node.rank, self.node.ranks)
+  derived veiled: boolean = self.art.veil > 0
 
   node: Signal<Game::TalentNode>
-  search: Signal<String>
-  const fraction: Boolean
-  constructor(node: Signal<Game::TalentNode>, search: Signal<String>, fraction: Boolean) {
+  search: Signal<string>
+  const fraction: boolean
+  constructor(node: Signal<Game::TalentNode>, search: Signal<string>, fraction: boolean) {
     self.node = node
     self.search = search
     self.fraction = fraction
@@ -302,34 +302,34 @@ class TalentNodeView implements Component {
 }
 
 // A cell's node as a list: none, or the one.
-function nodesOf(cell: TreeCell): Array<Game::TalentNode> {
+function nodesOf(cell: TreeCell): array<Game::TalentNode> {
   const node = cell.node
   return node == nil ? [] : [node]
 }
 
 // One cell of a tree: the arrows' pieces in it, under its node.
 class TreeCellView implements Component {
-  public spend: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
+  public spend: Event<integer> = new Event()
+  public refund: Event<integer> = new Event()
 
-  derived headTurn: Number<Angle> = self.cell.way == Way::Right ? -90deg : self.cell.way == Way::Left ? 90deg : 0deg
-  derived headDown: Boolean = self.cell.head != nil && self.cell.way == Way::Down
-  derived headAcross: Boolean = self.cell.head != nil && self.cell.way != Way::Down
-  derived headLeft: Number<Length> = self.cell.way == Way::Right ? NODE_LEFT - HEAD : NODE_LEFT + SIZE
+  derived headTurn: number<Angle> = self.cell.way == Way::Right ? -90deg : self.cell.way == Way::Left ? 90deg : 0deg
+  derived headDown: boolean = self.cell.head != nil && self.cell.way == Way::Down
+  derived headAcross: boolean = self.cell.head != nil && self.cell.way != Way::Down
+  derived headLeft: number<Length> = self.cell.way == Way::Right ? NODE_LEFT - HEAD : NODE_LEFT + SIZE
   // The cell's node, where it has one.
-  derived nodes: Array<Game::TalentNode> = nodesOf(self.cell)
+  derived nodes: array<Game::TalentNode> = nodesOf(self.cell)
 
   cell: Signal<TreeCell>
-  search: Signal<String>
-  const fraction: Boolean
-  constructor(cell: Signal<TreeCell>, search: Signal<String>, fraction: Boolean) {
+  search: Signal<string>
+  const fraction: boolean
+  constructor(cell: Signal<TreeCell>, search: Signal<string>, fraction: boolean) {
     self.cell = cell
     self.search = search
     self.fraction = fraction
   }
 
-  onSpend(mut self, id: Integer) { self.spend.emit(id) }
-  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+  onSpend(mut self, id: integer) { self.spend.emit(id) }
+  onRefund(mut self, id: integer) { self.refund.emit(id) }
 
   public render(self): Template {
     return $ltml {
@@ -366,28 +366,28 @@ class TreeCellView implements Component {
 }
 
 public class TalentTreeView implements Component {
-  public spend: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
+  public spend: Event<integer> = new Event()
+  public refund: Event<integer> = new Event()
 
-  derived title: String = `${self.tree.name}: ${spentIn(self.tree)}`
+  derived title: string = `${self.tree.name}: ${spentIn(self.tree)}`
   // The title over the grid while it is shown, the grid the rest.
-  derived parts: Array<Track> = self.titled ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
+  derived parts: array<Track> = self.titled ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
   derived grid: TreeGrid = gridOf(self.tree.nodes)
-  derived columns: Array<Track> = tracksOf(self.grid.columns, STEP)
-  derived rows: Array<Track> = rowTracksOf(self.grid.rows)
+  derived columns: array<Track> = tracksOf(self.grid.columns, STEP)
+  derived rows: array<Track> = rowTracksOf(self.grid.rows)
 
   tree: Signal<Game::TalentTree>
-  search: Signal<String>
-  const titled: Boolean
-  const fraction: Boolean
+  search: Signal<string>
+  const titled: boolean
+  const fraction: boolean
   constructor(
     tree: Signal<Game::TalentTree>,
-    search: Signal<String> = "",
+    search: Signal<string> = "",
     // The tree's name and points over it; none where its owner names the tree (Legacy's list of trees).
-    titled: Boolean = true,
+    titled: boolean = true,
     // Each node's rank of its ranks, small and white at its lower right on every node, as Blizzard's Legacy tree has
     // it; otherwise the rank large in its middle once one is held, as the talents have it.
-    fraction: Boolean = false
+    fraction: boolean = false
   ) {
     self.tree = tree
     self.search = search
@@ -395,8 +395,8 @@ public class TalentTreeView implements Component {
     self.fraction = fraction
   }
 
-  onSpend(mut self, id: Integer) { self.spend.emit(id) }
-  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+  onSpend(mut self, id: integer) { self.spend.emit(id) }
+  onRefund(mut self, id: integer) { self.refund.emit(id) }
 
   public render(self): Template {
     return $ltml {
@@ -412,15 +412,15 @@ public class TalentTreeView implements Component {
 }
 
 // `count` tracks each `width` wide.
-function tracksOf(count: Integer, width: Number<Length>): Array<Track> {
-  const list: Array<Track> = []
+function tracksOf(count: integer, width: number<Length>): array<Track> {
+  const list: array<Track> = []
   for (place of 1..count) { list.push(width) }
   return list
 }
 
 // `count` rows sharing the tree's height, each at least a node and its gap.
-function rowTracksOf(count: Integer): Array<Track> {
-  const list: Array<Track> = []
+function rowTracksOf(count: integer): array<Track> {
+  const list: array<Track> = []
   for (place of 1..count) { list.push({ fr: 1, min: ROW_LEAST }) }
   return list
 }

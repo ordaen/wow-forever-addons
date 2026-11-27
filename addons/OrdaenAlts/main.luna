@@ -21,36 +21,36 @@ import Style from "@/style"
 // the only time they are written.
 const KEY = "characters"
 
-const TABS: Array<WindowTabSpec> = [
+const TABS: array<WindowTabSpec> = [
   { title: Locale::TAB_CHARACTERS, padding: Style::NO_ROOM },
   { title: Locale::TAB_ITEMS, padding: Style::NO_ROOM },
   { title: Locale::TAB_COOLDOWNS, padding: Style::NO_ROOM },
   { title: Locale::TAB_PROFESSIONS, padding: Style::NO_ROOM }
 ]
 // The same pages as the tabs of Account's «Alts» tab.
-const PAGES: Array<String> = [Locale::TAB_CHARACTERS, Locale::TAB_ITEMS, Locale::TAB_COOLDOWNS, Locale::TAB_PROFESSIONS]
+const PAGES: array<string> = [Locale::TAB_CHARACTERS, Locale::TAB_ITEMS, Locale::TAB_COOLDOWNS, Locale::TAB_PROFESSIONS]
 // The module whose window shows the pages in place of this one's.
 const ACCOUNT = "Ordaen Account"
 
 public class Alts implements Module, App {
-  public const title: String = "Ordaen Alts"
+  public const title: string = "Ordaen Alts"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window]
+  public const pages: array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   // The character being played.
   public const current: CharacterId
   // Every character of the account that was recorded, by its GUID.
-  public const characters: Map<CharacterId, Character>
+  public const characters: map<CharacterId, Character>
   // Moves when what `knowers` and `holders` answer may have changed.
-  public derived revision: Integer = self.records.revision
+  public derived revision: integer = self.records.revision
 
   // `/alts` typed while Account shows the pages: Account opens them.
   public const asked: Event<nil> = new Event()
   // Account runs: the pages are its tab's, and this module draws no window.
-  public derived hosted: Boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
+  public derived hosted: boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
   // The pages under their tabs, as Account's «Alts» tab shows them.
   public const content: Template = $ltml {
     <box columns={1} rows={["max-content", { fr: 1 }]}>
@@ -86,7 +86,7 @@ public class Alts implements Module, App {
     self.recorder = new Recorder(self.records)
     Ordaen.modules.add(self)
     // A command can't be taken back: once the module is turned off it does nothing.
-    Runtime::command("/alts", (text: String): nil => {
+    Runtime::command("/alts", (text: string): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.onCommand() }
       }
@@ -96,17 +96,17 @@ public class Alts implements Module, App {
 
   // Who of the characters knows a recipe: whether the character being played can send to them, and the hour they can
   // make it again where it has a cooldown.
-  public knowers(self, recipe: RecipeId): Array<Knower> { return self.records.knowers(recipe) }
+  public knowers(self, recipe: RecipeId): array<Knower> { return self.records.knowers(recipe) }
 
   // Who holds an item, how many, and where.
-  public holders(self, item: ItemId): Array<Held> { return self.records.holders(item) }
+  public holders(self, item: ItemId): array<Held> { return self.records.holders(item) }
 
   // Whether the character being played can send to another: the same realm and side.
-  public reaches(self, who: CharacterId): Boolean { return self.records.reaches(who) }
+  public reaches(self, who: CharacterId): boolean { return self.records.reaches(who) }
 
   // A character's record removed, the indexes without it; never the character being played. Whether it was removed.
   @discardable
-  public forget(mut self, who: CharacterId): Boolean { return self.records.forget(who) }
+  public forget(mut self, who: CharacterId): boolean { return self.records.forget(who) }
 
   public toggle(mut self) { self.open = !self.open }
   onClose(mut self) { self.open = false }

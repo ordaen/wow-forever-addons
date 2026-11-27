@@ -55,7 +55,7 @@ const FOLDER = "OrdaenSocial"
 const WEB_LINK = "ordaenurl:"
 // The game's friends window, and its pages, with the tab and the friends' page of ours each opens.
 const FRIENDS_WINDOW = "FriendsFrame"
-const GAME_WINDOWS: Array<String> = [FRIENDS_WINDOW, "SocialUIFrame"]
+const GAME_WINDOWS: array<string> = [FRIENDS_WINDOW, "SocialUIFrame"]
 // The game's guild and communities window, made as its addon loads.
 const COMMUNITIES_ADDON = "Blizzard_Communities"
 const COMMUNITIES_WINDOW = "CommunitiesFrame"
@@ -66,20 +66,20 @@ const NO_ME: BattleNetSelf = { battleTag: "", presence: .Online, broadcast: "", 
 // The most a recent ally's note holds (`RecentAlliesNoteEditBox`'s letters).
 const NOTE_MOST = 48
 const NO_RIGHTS: GuildRights = { invite: false, promote: false, demote: false, manage: false }
-const GUILD_SUBS: Array<String> = [Locale::SUB_ROSTER, Locale::SUB_NEWS]
+const GUILD_SUBS: array<string> = [Locale::SUB_ROSTER, Locale::SUB_NEWS]
 
-function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
+function onlineOf(members: array<Member>): integer { return members.count(member => member.presence != .Offline) }
 
 // A list's counts in the footer: how many it has, under its own label, and how many of them are online.
-function counted(label: String, all: Integer, online: Integer): Array<FooterCount> {
-  return [{ label: label, value: String::of(all) }, { label: Locale::FOOT_ONLINE, value: String::of(online) }]
+function counted(label: string, all: integer, online: integer): array<FooterCount> {
+  return [{ label: label, value: string::of(all) }, { label: Locale::FOOT_ONLINE, value: string::of(online) }]
 }
 
 public class Social implements Module, App {
-  public const title: String = "Ordaen Social"
+  public const title: string = "Ordaen Social"
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window]
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
@@ -93,12 +93,12 @@ public class Social implements Module, App {
   public seen: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
 
   public state open = false
-  public state tab: Integer = TAB_FRIENDS
-  public state sub: Integer = SUB_STATUS
-  public state guildSub: Integer = SUB_ROSTER
+  public state tab: integer = TAB_FRIENDS
+  public state sub: integer = SUB_STATUS
+  public state guildSub: integer = SUB_ROSTER
   // The game's own windows ours stands for, and those of them showing: held unseen and off the screen.
-  games: mut Array<any Client::Frame> = []
-  state held: mut Array<any Frame> = []
+  games: mut array<any Client::Frame> = []
+  state held: mut array<any Frame> = []
   // The game's guild and communities window once its addon has loaded, and the game's window the player asked for as
   // it is, until it closes.
   communities: any Client::Frame | nil = nil
@@ -106,23 +106,23 @@ public class Social implements Module, App {
   addonHeard: Handle | nil = nil
   // The friends as the client gives them; as the window shows them, an offline Battle.net friend with the character
   // last seen.
-  state read: Array<Friend> = []
-  derived friends: Array<Friend> = withSeen(self.read, self.seen.values.heroes)
-  state requests: Array<FriendRequest> = []
-  state ignored: Array<Ignored> = []
+  state read: array<Friend> = []
+  derived friends: array<Friend> = withSeen(self.read, self.seen.values.heroes)
+  state requests: array<FriendRequest> = []
+  state ignored: array<Ignored> = []
   state me: BattleNetSelf = NO_ME
   // The guild's message of the day: the client gives it in the player's input alone, and says it anew (`GUILD_MOTD`).
   state motd = ""
   state guild: GuildRoster | nil = nil
-  state news: Array<GuildNews> = []
-  state newsFilters: Array<NewsFilter> = []
-  state clubs: Array<Club> = []
-  state clubMembers: Array<Member> = []
-  state streams: Array<ClubStream> = []
-  state allies: Array<RecentAlly> = []
+  state news: array<GuildNews> = []
+  state newsFilters: array<NewsFilter> = []
+  state clubs: array<Club> = []
+  state clubMembers: array<Member> = []
+  state streams: array<ClubStream> = []
+  state allies: array<RecentAlly> = []
   // The recent allies' filter: the categories asked of the game, and online or not.
-  state allyFilter: Map<AllyFilter, Boolean> = allyFilterStart()
-  derived allyCategories: Array<AllyCategory> | nil = categoriesOf(self.allyFilter)
+  state allyFilter: map<AllyFilter, boolean> = allyFilterStart()
+  derived allyCategories: array<AllyCategory> | nil = categoriesOf(self.allyFilter)
   // The friend whose card shows, by `keyOf` (none: the player's own card); the guild member's, the community's
   // member's, the ally's, by their keys (none: the guild's card, the community's, no card). The community shown: its
   // tab's place.
@@ -146,8 +146,8 @@ public class Social implements Module, App {
   state noting = false
   state noteText = ""
   // The whisper conversations, the one last spoken in first, by their keys too; the one open in the whispers' tab.
-  public state talks: Array<Talk> = []
-  talkMade: mut Map<String, mut Talk> = {}
+  public state talks: array<Talk> = []
+  talkMade: mut map<string, mut Talk> = {}
   public state talkOpen = ""
   // The whispers' lines waiting unread, all conversations': the whispers' tab says it, and the panel's friends cell.
   public state whispersUnread = 0
@@ -155,20 +155,20 @@ public class Social implements Module, App {
   state copied = ""
 
   derived pickedFriend: Friend | nil = self.picked == "" ? nil : self.friends.find(friend => keyOf(friend) == self.picked)
-  derived guildMembers: Array<Member> = self.guild?.members ?? []
+  derived guildMembers: array<Member> = self.guild?.members ?? []
   // Who each conversation is with, by its key, as the people the window has read know them.
-  derived talkWho: Map<String, TalkWho> = self.talkWhoOf()
+  derived talkWho: map<string, TalkWho> = self.talkWhoOf()
   derived rights: GuildRights = self.guild?.rights ?? NO_RIGHTS
   derived pickedMember: Member | nil = self.member == "" ? nil : self.guildMembers.find(one => one.key == self.member)
   derived chosenClub: Club | nil = self.clubs[self.clubTab] ?? self.clubs[1]
-  derived clubNames: Array<String> = self.clubs.map(one => one.name)
-  derived clubId: String = self.chosenClub?.id ?? ""
+  derived clubNames: array<string> = self.clubs.map(one => one.name)
+  derived clubId: string = self.chosenClub?.id ?? ""
   derived pickedClubMember: Member | nil = self.clubMember == "" ? nil : self.clubMembers.find(one => one.key == self.clubMember)
   derived pickedAlly: RecentAlly | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
   // The friends online, of the list as it was read (the window reads it while it shows, and shows nothing else).
-  derived onlineCount: Integer = self.friends.count(friend => friend.presence != .Offline)
-  derived guildOnline: Integer = onlineOf(self.guildMembers)
-  derived tabs: Array<WindowTabSpec> = [
+  derived onlineCount: integer = self.friends.count(friend => friend.presence != .Offline)
+  derived guildOnline: integer = onlineOf(self.guildMembers)
+  derived tabs: array<WindowTabSpec> = [
     { title: Locale::TAB_FRIENDS, desc: Locale::ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS, padding: Style::NO_ROOM },
     {
       title: Locale::TAB_GUILD, desc: self.guild != nil ? Locale::ONLINE_COUNT.format(self.guildOnline) : Locale::NO_GUILD_LOWER, icon: ICON_GUILD,
@@ -178,15 +178,15 @@ public class Social implements Module, App {
     { title: Locale::TAB_ALLIES, desc: Locale::ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES, padding: Style::NO_ROOM },
     { title: Locale::TAB_WHISPERS, desc: self.whispersDesc, icon: ICON_WHISPERS }
   ]
-  derived whispersDesc: String = self.whispersUnread > 0 ? Locale::UNREAD_COUNT.format(self.whispersUnread) : Locale::TALKS_COUNT.format(self.talks.length)
-  derived subTabs: Array<String> = [Locale::SUB_STATUS, self.requestsTitle(), Locale::SUB_IGNORE]
+  derived whispersDesc: string = self.whispersUnread > 0 ? Locale::UNREAD_COUNT.format(self.whispersUnread) : Locale::TALKS_COUNT.format(self.talks.length)
+  derived subTabs: array<string> = [Locale::SUB_STATUS, self.requestsTitle(), Locale::SUB_IGNORE]
   derived side: WindowSide | nil = self.sideOf()
-  derived removeText: String = Locale::REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
-  derived removeDetail: String = self.removing?.account != nil ? Locale::REMOVE_BATTLE_NET : Locale::REMOVE_CHARACTER
-  derived addRule: String = namesAccount(self.addText) ? Locale::ADD_RULE_BATTLE_NET : Locale::ADD_RULE_CHARACTER
-  derived broadcastCount: String = Locale::BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
-  derived leaveText: String = Locale::LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
-  derived counts: Array<FooterCount> = self.countsOf()
+  derived removeText: string = Locale::REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
+  derived removeDetail: string = self.removing?.account != nil ? Locale::REMOVE_BATTLE_NET : Locale::REMOVE_CHARACTER
+  derived addRule: string = namesAccount(self.addText) ? Locale::ADD_RULE_BATTLE_NET : Locale::ADD_RULE_CHARACTER
+  derived broadcastCount: string = Locale::BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
+  derived leaveText: string = Locale::LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
+  derived counts: array<FooterCount> = self.countsOf()
   // The footer, as every list window's: the counts as label and value pairs.
   const footer: Template = $ltml { <ListFooter counts={self.counts} /> }
 
@@ -260,7 +260,7 @@ public class Social implements Module, App {
 
   destructor() { Ordaen.notice(FOLDER, 0) }
 
-  onAddonLoaded(mut self, name: String) {
+  onAddonLoaded(mut self, name: string) {
     if (name != COMMUNITIES_ADDON) { return }
     if (self.addonHeard != nil) { destroy self.addonHeard }
     self.hookCommunities(Runtime::frame(COMMUNITIES_WINDOW))
@@ -276,7 +276,7 @@ public class Social implements Module, App {
 
   // A game's window ours stands for: ours opens and closes with it (on `tab`, where it names one). Hooked as the game
   // names it, on its show and hide, which are rare.
-  public hook(mut self, frame: any Frame | nil, tab: Integer | nil) {
+  public hook(mut self, frame: any Frame | nil, tab: integer | nil) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     self.games.push(window)
@@ -295,7 +295,7 @@ public class Social implements Module, App {
 
   // A page of the game's window (the friends' list, the black list, the recent allies): shown, ours turns to its tab
   // (and the friends' page).
-  hookPage(mut self, name: String, tab: Integer, sub: Integer | nil) {
+  hookPage(mut self, name: string, tab: integer, sub: integer | nil) {
     const page = Runtime::frame(name)
     if (page == nil) { return }
     const shown: any Client::Frame = page
@@ -307,7 +307,7 @@ public class Social implements Module, App {
   }
 
   // The game's window shown: ours shows in its place, unless the player asked for the game's window as it is.
-  onGameShown(mut self, frame: any Frame, tab: Integer | nil) {
+  onGameShown(mut self, frame: any Frame, tab: integer | nil) {
     if (self.pass.passes(frame)) { return }
     if (tab == TAB_GUILD) {
       // The guild's window opens on the guild, outside one on the communities.
@@ -350,7 +350,7 @@ public class Social implements Module, App {
   readMe(mut self) { self.me = Game::friends.battleNetSelf() }
   readGuild(mut self) { self.guild = Game::guild.roster(peek self.motd) }
 
-  onMotd(mut self, text: String) {
+  onMotd(mut self, text: string) {
     self.motd = text
     self.readGuild()
   }
@@ -362,32 +362,32 @@ public class Social implements Module, App {
   readClubs(mut self) { self.clubs = Game::communities.clubs() }
   readAllies(mut self) { self.allies = Game::recentAllies.list(peek self.allyCategories) }
 
-  readClub(mut self, id: String) {
+  readClub(mut self, id: string) {
     self.clubMembers = id == "" ? [] : Game::communities.members(id)
     self.streams = id == "" ? [] : Game::communities.streams(id)
   }
 
   // A community's members or streams changed: read again where it is the one shown.
-  onClubChanged(mut self, club: String) {
+  onClubChanged(mut self, club: string) {
     const shown = peek self.clubId
     if (club == shown) { self.readClub(shown) }
   }
 
-  requestsTitle(self): String {
+  requestsTitle(self): string {
     const waiting = self.requests.length
     return waiting > 0 ? Locale::SUB_REQUESTS_WAITING.format(waiting) : Locale::SUB_REQUESTS
   }
 
   // The footer's counts, of the tab shown.
-  countsOf(self): Array<FooterCount> {
+  countsOf(self): array<FooterCount> {
     return match (self.tab) {
       TAB_FRIENDS => counted(Locale::FOOT_FRIENDS, self.friends.length, self.onlineCount)
       TAB_GUILD => self.guild != nil ? counted(Locale::FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
       TAB_COMMUNITIES => self.chosenClub != nil ? counted(Locale::FOOT_MEMBERS, self.clubMembers.length, onlineOf(self.clubMembers)) : []
-      TAB_ALLIES => [{ label: Locale::FOOT_ALLIES, value: String::of(self.allies.length) }]
+      TAB_ALLIES => [{ label: Locale::FOOT_ALLIES, value: string::of(self.allies.length) }]
       TAB_WHISPERS => [
-        { label: Locale::FOOT_TALKS, value: String::of(self.talks.length) },
-        { label: Locale::FOOT_UNREAD, value: String::of(self.whispersUnread) }
+        { label: Locale::FOOT_TALKS, value: string::of(self.talks.length) },
+        { label: Locale::FOOT_UNREAD, value: string::of(self.whispersUnread) }
       ]
       else => []
     }
@@ -395,10 +395,10 @@ public class Social implements Module, App {
 
   // A friend picked in the list: its card; picked again, the player's own. A guild's or a community's member, an ally:
   // the same.
-  onPick(mut self, key: String) { self.picked = (peek self.picked) == key ? "" : key }
-  onPickMember(mut self, key: String) { self.member = (peek self.member) == key ? "" : key }
-  onPickClubMember(mut self, key: String) { self.clubMember = (peek self.clubMember) == key ? "" : key }
-  onPickAlly(mut self, key: String) { self.ally = (peek self.ally) == key ? "" : key }
+  onPick(mut self, key: string) { self.picked = (peek self.picked) == key ? "" : key }
+  onPickMember(mut self, key: string) { self.member = (peek self.member) == key ? "" : key }
+  onPickClubMember(mut self, key: string) { self.clubMember = (peek self.clubMember) == key ? "" : key }
+  onPickAlly(mut self, key: string) { self.ally = (peek self.ally) == key ? "" : key }
 
   // What the card's buttons ask, in the click's own call.
   // A friend whispered in the whispers' tab: a Battle.net friend by the account's token, which the client's whisper
@@ -420,7 +420,7 @@ public class Social implements Module, App {
   }
 
   // The game's own menu of a friend: a row's right click, the card's ⋮.
-  onFriendMenu(mut self, key: String) {
+  onFriendMenu(mut self, key: string) {
     const friend = (peek self.friends).find(one => keyOf(one) == key)
     if (friend != nil) { Game::friends.menu(friend) }
   }
@@ -477,13 +477,13 @@ public class Social implements Module, App {
 
   onAddNo(mut self) { self.adding = false }
 
-  onAnswer(mut self, request: FriendRequest, accept: Boolean) {
+  onAnswer(mut self, request: FriendRequest, accept: boolean) {
     Game::friends.answer(request, accept)
     self.readRequests()
     self.readFriends()
   }
 
-  onIgnore(mut self, name: String) {
+  onIgnore(mut self, name: string) {
     Game::friends.ignore(name)
     self.readIgnored()
   }
@@ -520,9 +520,9 @@ public class Social implements Module, App {
 
   // The game's own menu of a guild member (its promote, demote, remove and notes among its entries) or of a
   // community's: a row's right click, the card's ⋮.
-  onGuildMenu(mut self, key: String) { Game::guild.menu(key) }
+  onGuildMenu(mut self, key: string) { Game::guild.menu(key) }
 
-  onClubMenu(mut self, key: String) {
+  onClubMenu(mut self, key: string) {
     const club = peek self.clubId
     if (club != "") { Game::communities.menu(club, key) }
   }
@@ -537,7 +537,7 @@ public class Social implements Module, App {
     if (one != nil) { self.onClubMenu(one.key) }
   }
 
-  onNewsFilter(mut self, kind: Integer, shown: Boolean) {
+  onNewsFilter(mut self, kind: integer, shown: boolean) {
     Game::guild.filterNews(kind, shown)
     self.newsFilters = Game::guild.newsFilters()
   }
@@ -604,7 +604,7 @@ public class Social implements Module, App {
     self.readAllies()
   }
 
-  onAllyMenu(mut self, key: String) {
+  onAllyMenu(mut self, key: string) {
     const one = (peek self.allies).find(ally => ally.member.key == key)
     if (one != nil) { Game::recentAllies.menu(one) }
   }
@@ -634,7 +634,7 @@ public class Social implements Module, App {
   // A line Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them; whether it was a
   // whisper, which is then the window's alone. A whisper is its conversation's, which goes first in the list; heard
   // while that conversation isn't the one shown, it waits unread.
-  public heard(mut self, line: Game::ChatLine, whole: String): Boolean {
+  public heard(mut self, line: Game::ChatLine, whole: string): boolean {
     if (!isWhisper(line)) { return false }
     const told = isTold(line)
     const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
@@ -646,7 +646,7 @@ public class Social implements Module, App {
 
   // A whisper started anywhere (a card's, the chat's, another addon's): the window shown on the whispers' tab, the
   // person's conversation open, a new one where there is none.
-  public whisperTo(mut self, name: String, battleNet: Boolean) {
+  public whisperTo(mut self, name: string, battleNet: boolean) {
     self.talkOpen = self.talkOf(talkKey(name, battleNet)).key
     if (!(peek self.open)) {
       const friends = Runtime::frame(FRIENDS_WINDOW)
@@ -656,37 +656,37 @@ public class Social implements Module, App {
   }
 
   // A player reported: their lines go from every conversation, as the game's windows take them away.
-  public reported(mut self, guid: String) {
+  public reported(mut self, guid: string) {
     if (guid == "") { return }
     for (_, talk of self.talkMade) { talk.forgetSender(guid) }
   }
 
   // The conversation the whispers' tab opens on: the first waiting unread, else the newest; none where there is none.
-  firstTalk(self): String {
+  firstTalk(self): string {
     const talks = peek self.talks
     return (talks.find(talk => peek talk.unread > 0) ?? talks[1])?.key ?? ""
   }
 
-  talkWhoOf(self): Map<String, TalkWho> {
-    const members: Array<Member> = []
+  talkWhoOf(self): map<string, TalkWho> {
+    const members: array<Member> = []
     for (member of self.guildMembers) { members.push(member) }
     for (member of self.clubMembers) { members.push(member) }
     const known = KnownPeople { friends: self.friends, members: members, allies: self.allies }
-    const who: Map<String, TalkWho> = {}
+    const who: map<string, TalkWho> = {}
     for (talk of self.talks) { who[talk.key] = whoOf(talk, known) }
     return who
   }
 
   // Whether a conversation is the one the player looks at.
-  shows(self, key: String): Boolean {
+  shows(self, key: string): boolean {
     return peek self.open && peek self.tab == TAB_WHISPERS && peek self.talkOpen == key
   }
 
   // A conversation, made where there is none, put first in the list.
-  talkOf(mut self, key: String): mut Talk {
+  talkOf(mut self, key: string): mut Talk {
     const talk = self.talkMade[key] ?? new Talk(key)
     self.talkMade[key] = talk
-    const talks: Array<Talk> = [talk]
+    const talks: array<Talk> = [talk]
     for (other of peek self.talks) {
       if (other.key != key) { talks.push(other) }
     }
@@ -695,7 +695,7 @@ public class Social implements Module, App {
   }
 
   // A conversation looked at: nothing of it waits.
-  readTalk(mut self, key: String) {
+  readTalk(mut self, key: string) {
     const talk = self.talkMade[key]
     if (talk == nil || peek talk.unread == 0) { return }
     talk.unread = 0
@@ -710,7 +710,7 @@ public class Social implements Module, App {
 
   onTalkPick(mut self, talk: Talk) { self.talkOpen = talk.key }
 
-  onTalkStart(mut self, name: String) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
+  onTalkStart(mut self, name: string) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
 
   // A conversation's menu picked: closed, or its lines cleared.
   onTalkMenu(mut self, pick: TalkPick) {
@@ -732,7 +732,7 @@ public class Social implements Module, App {
   }
 
   // The words typed in a conversation, sent in the key's own call.
-  onTalkSend(mut self, text: String) {
+  onTalkSend(mut self, text: string) {
     const talk = self.talkMade[peek self.talkOpen]
     if (talk != nil) { _ = Game::chat.whisper(talk.partner, text, talk.battleNet) }
   }
@@ -753,7 +753,7 @@ public class Social implements Module, App {
   // the player logs out.
   keepTalks(mut self) {
     const listed = peek self.talks
-    const talks: Array<KeptTalk> = listed.map(talk => keptOf(talk, false))
+    const talks: array<KeptTalk> = listed.map(talk => keptOf(talk, false))
     for (key, talk of self.talkMade) {
       if (!listed.any(one => one.key == key)) { talks.push(keptOf(talk, true)) }
     }
@@ -762,7 +762,7 @@ public class Social implements Module, App {
 
   recallTalks(mut self) {
     const kept = KeptTalks::decode(Game::saved.stored(Game::Scope::Character, TALKS_KEPT), KeptTalks { talks: [] })
-    const talks: Array<Talk> = []
+    const talks: array<Talk> = []
     for (one of kept.talks) {
       const talk = new Talk(one.key)
       talk.recall(one.lines)

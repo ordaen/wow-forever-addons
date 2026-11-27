@@ -25,26 +25,26 @@ const COD_MOST = 10000 * 10000
 // How many names the popover under «To» shows.
 const SHOWN_NAMES = 8
 const SLOT = 46.875dp
-const SLOTS: Array<Track> = [SLOT, SLOT, SLOT, SLOT, SLOT, SLOT]
-const NAME_ROW: Array<Track> = [9.375dp, { fr: 1 }, "max-content", "max-content"]
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
+const SLOTS: array<Track> = [SLOT, SLOT, SLOT, SLOT, SLOT, SLOT]
+const NAME_ROW: array<Track> = [9.375dp, { fr: 1 }, "max-content", "max-content"]
+const FOOT: array<Track> = [{ fr: 1 }, "max-content"]
 const DOT = 7.03125dp
 const POPOVER: Bounds = { min: 351.5625dp, max: nil }
 // «Send money» and «C.O.D.», the tabs' places.
-const PAID_TABS: Array<String> = [Locale::SEND_MONEY, Locale::COD_TAB]
+const PAID_TABS: array<string> = [Locale::SEND_MONEY, Locale::COD_TAB]
 const COD_TAB = 2
 
 // One letter's slots of the form: its heading where there are several, its stacks, and whether the empty slot to fill
 // stands after them (the last letter's, while it has room).
 public struct LetterSlots {
-  number: Integer
-  title: String
-  stacks: Array<Game::MailStack>
-  open: Boolean
+  number: integer
+  title: string
+  stacks: array<Game::MailStack>
+  open: boolean
 }
 
 // Who a recipient is to the player, as the popover names it: a community's member by the community's name.
-function whoOf(who: Recipient): String {
+function whoOf(who: Recipient): string {
   return match (who.source) {
     Source::Own => Locale::WHO_OWN
     Source::Friend => Locale::WHO_FRIEND
@@ -57,12 +57,12 @@ function whoOf(who: Recipient): String {
 // A name in the popover under «To»: a dot, green while online, the name in its class's colour, the level, and who it
 // is to the player.
 public class NameRow implements Component {
-  public pick: Event<String> = new Event()
+  public pick: Event<string> = new Event()
 
   derived dot: Color = self.who.online ? Style::GREEN : Style::FAINT
   derived ink: Color = self.who.color ?? Style::INK
-  derived level: String = self.who.level > 0 ? String::of(self.who.level) : ""
-  derived kind: String = whoOf(self.who)
+  derived level: string = self.who.level > 0 ? string::of(self.who.level) : ""
+  derived kind: string = whoOf(self.who)
 
   who: Signal<Recipient>
   constructor(who: Signal<Recipient>) {
@@ -89,8 +89,8 @@ public class FormSlot implements Component {
   public dropped: Event<nil> = new Event()
 
   // As the slot takes it: an item or none.
-  derived item: Integer | nil = self.stack.item
-  derived count: Integer = self.stack.count
+  derived item: integer | nil = self.stack.item
+  derived count: integer = self.stack.count
 
   stack: Signal<Game::MailStack>
   constructor(stack: Signal<Game::MailStack>) {
@@ -120,24 +120,24 @@ public class Compose implements Component {
   state body = ""
   state paidTab = 1
   state copper = 0
-  state stacks: mut Array<Game::MailStack> = []
-  state names: Array<Recipient> = []
-  derived typed: String = trimmed(self.to)
-  derived shown: Array<Recipient> = matching(self.names, self.typed, SHOWN_NAMES)
-  derived listing: Boolean = self.typed != "" && self.picked != self.to && self.shown.length > 0
-  derived cod: Boolean = self.paidTab == COD_TAB
-  derived letters: Integer = lettersFor(self.stacks.length)
-  derived slots: Array<LetterSlots> = self.slotsOf()
-  derived postage: Integer = self.postageOf()
+  state stacks: mut array<Game::MailStack> = []
+  state names: array<Recipient> = []
+  derived typed: string = trimmed(self.to)
+  derived shown: array<Recipient> = matching(self.names, self.typed, SHOWN_NAMES)
+  derived listing: boolean = self.typed != "" && self.picked != self.to && self.shown.length > 0
+  derived cod: boolean = self.paidTab == COD_TAB
+  derived letters: integer = lettersFor(self.stacks.length)
+  derived slots: array<LetterSlots> = self.slotsOf()
+  derived postage: integer = self.postageOf()
   // The footer's: what the letters cost to send.
-  derived counts: Array<FooterCount> = [{ label: Locale::POSTAGE, value: Game::money.format(self.postage) }]
-  derived codTooHigh: Boolean = self.cod && self.copper > COD_MOST
-  derived codSplit: Boolean = self.cod && self.copper > 0 && self.letters > 1
-  derived ready: Boolean = self.typed != "" && !self.codTooHigh && !self.codSplit
+  derived counts: array<FooterCount> = [{ label: Locale::POSTAGE, value: Game::money.format(self.postage) }]
+  derived codTooHigh: boolean = self.cod && self.copper > COD_MOST
+  derived codSplit: boolean = self.cod && self.copper > 0 && self.letters > 1
+  derived ready: boolean = self.typed != "" && !self.codTooHigh && !self.codSplit
 
   const sender: mut Sender
   alts: Signal<Alts | nil>
-  constructor(sender: mut Sender, alts: Signal<Alts | nil>, to: String = "") {
+  constructor(sender: mut Sender, alts: Signal<Alts | nil>, to: string = "") {
     self.sender = sender
     self.alts = alts
     self.to = to
@@ -153,12 +153,12 @@ public class Compose implements Component {
   }
 
   // The letters' slots: twelve stacks a letter, and the empty slot after the last stack.
-  slotsOf(self): Array<LetterSlots> {
-    const list: Array<LetterSlots> = []
+  slotsOf(self): array<LetterSlots> {
+    const list: array<LetterSlots> = []
     const total = self.stacks.length
     const count = lettersFor(total + 1)
     for (number of 1..count) {
-      const stacks: Array<Game::MailStack> = []
+      const stacks: array<Game::MailStack> = []
       for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(total)) {
         stacks.push(self.stacks[index] ?? panic("a place within the stacks"))
       }
@@ -170,7 +170,7 @@ public class Compose implements Component {
     return list
   }
 
-  postageOf(self): Integer {
+  postageOf(self): integer {
     let total = 0
     for (number of 1..self.letters) {
       total += Game::mailbox.postage((self.stacks.length - (number - 1) * PLACES).min(PLACES).max(0))
@@ -178,7 +178,7 @@ public class Compose implements Component {
     return total
   }
 
-  onPickName(mut self, name: String) {
+  onPickName(mut self, name: string) {
     self.to = name
     self.picked = name
   }

@@ -2,32 +2,32 @@
 // beside the card, the cards beside a roster, and the colours of who stands how.
 import { Edges } from "$ltml"
 
-public const WIDTH: Number<Length> = 1054.6875dp
+public const WIDTH: number<Length> = 1054.6875dp
 // A list's tab runs to the frame's line on every side and down to the footer (its `padding` none): its list takes the
 // whole section. What stands over the list keeps the window's room: at the top and the sides where it is the first
 // thing (`TOP_ROOM`), at the sides under another (`SIDE_ROOM`).
 public const NO_ROOM: Edges = {}
 public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
 public const SIDE_ROOM: Edges = { right: 8sp, left: 8sp }
-public const HEIGHT: Number<Length> = 679.6875dp
+public const HEIGHT: number<Length> = 679.6875dp
 // The friends' list; the card takes the rest.
-public const CARD: Number<Length> = 492.1875dp
-public const DOT: Number<Length> = 14.0625dp
-public const BIG_DOT: Number<Length> = 18.75dp
-public const SEARCH: Number<Length> = 164.0625dp
-public const BUTTON: Number<Length> = 152.34375dp
-public const WIDE_BUTTON: Number<Length> = 246.09375dp
-public const SMALL_BUTTON: Number<Length> = 128.90625dp
+public const CARD: number<Length> = 492.1875dp
+public const DOT: number<Length> = 14.0625dp
+public const BIG_DOT: number<Length> = 18.75dp
+public const SEARCH: number<Length> = 164.0625dp
+public const BUTTON: number<Length> = 152.34375dp
+public const WIDE_BUTTON: number<Length> = 246.09375dp
+public const SMALL_BUTTON: number<Length> = 128.90625dp
 // The item of a line of the guild's news, its tooltip the game's.
-public const NEWS_ITEM: Number<Length> = 23.4375dp
+public const NEWS_ITEM: number<Length> = 23.4375dp
 // A card's «⋮»: the rest of what can be done, the game's own menu.
-public const MENU_BUTTON: Number<Length> = 46.875dp
+public const MENU_BUTTON: number<Length> = 46.875dp
 // The player's own card's two buttons, side by side in it.
-public const CARD_BUTTON: Number<Length> = 210.9375dp
-public const ASK: Number<Length> = 515.625dp
-public const ASK_BUTTON: Number<Length> = 175.78125dp
+public const CARD_BUTTON: number<Length> = 210.9375dp
+public const ASK: number<Length> = 515.625dp
+public const ASK_BUTTON: number<Length> = 175.78125dp
 // The card beside a roster or the recent allies: a member's, the guild's, a community's, an ally's.
-public const SIDE_CARD: Number<Length> = 351.5625dp
+public const SIDE_CARD: number<Length> = 351.5625dp
 
 public const INK: Color = Color::hex("#e8dcc4")
 public const DIM: Color = Color::hex("#a3977f")
@@ -47,7 +47,7 @@ public const BUSY_ICON: Asset = "Interface/FriendsFrame/StatusIcon-DnD"
 public const OFFLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Offline"
 // A best friend's star after the name: the game's own friends list's.
 public const STAR_ICON: Atlas = "friendslist-favorite"
-public const STAR: Number<Length> = 18.75dp
+public const STAR: number<Length> = 18.75dp
 // A friends list row's icons, the status glyph and the star alike: as high as the name's line (17.78 units), as the
 // game's own list has them (16 and 17).
-public const ROW_ICON: Number<Length> = 25dp
+public const ROW_ICON: number<Length> = 25dp

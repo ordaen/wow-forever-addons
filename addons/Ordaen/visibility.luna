@@ -16,7 +16,7 @@ public enum Visible implements Plain { Hide = "hide", Show = "show", Hover = "ho
 // One state's choice: hidden, shown or on hover, and how visible it is while it isn't shown.
 public struct StateVisibility implements Plain {
   visible: Visible
-  opacity: Number
+  opacity: number
 }
 
 // The three states: out of combat and off transport, in combat, on transport (a flight path, a vehicle).
@@ -39,7 +39,7 @@ public function stateOf(visibility: Visibility): StateVisibility {
 
 // How visible the part is now, the cursor on it or not: 1 shown, its state's opacity hidden. Shown on hover, it never
 // goes quite to nothing, so the cursor still finds it.
-public function opacityNow(visibility: Visibility, hovered: Boolean): Number {
+public function opacityNow(visibility: Visibility, hovered: boolean): number {
   const state = stateOf(visibility)
   match (state.visible) {
     Visible::Show => return 1
@@ -48,7 +48,7 @@ public function opacityNow(visibility: Visibility, hovered: Boolean): Number {
   }
 }
 
-const VISIBLES: Array<Choice<Visible>> = [
+const VISIBLES: array<Choice<Visible>> = [
   { value: Visible::Show, label: Locale::VISIBLE_SHOW },
   { value: Visible::Hover, label: Locale::VISIBLE_HOVER },
   { value: Visible::Hide, label: Locale::VISIBLE_HIDE }
@@ -56,12 +56,12 @@ const VISIBLES: Array<Choice<Visible>> = [
 
 // One state's rows: its choice, and its opacity while it isn't «Show».
 class StateRows implements Component {
-  derived faded: Boolean = self.value.visible != Visible::Show
+  derived faded: boolean = self.value.visible != Visible::Show
 
-  label: Signal<String>
+  label: Signal<string>
   value: mut Signal<StateVisibility>
-  disabled: Signal<Boolean>
-  constructor(label: Signal<String>, value: mut Signal<StateVisibility>, disabled: Signal<Boolean>) {
+  disabled: Signal<boolean>
+  constructor(label: Signal<string>, value: mut Signal<StateVisibility>, disabled: Signal<boolean>) {
     self.label = label
     self.value = value
     self.disabled = disabled
@@ -80,8 +80,8 @@ class StateRows implements Component {
 // The setting on a module's page: a section of the three states, and under them what the module adds of its own.
 public class VisibilityRows implements Component {
   value: mut Signal<Visibility>
-  disabled: Signal<Boolean>
-  constructor(value: mut Signal<Visibility>, disabled: Signal<Boolean> = false) {
+  disabled: Signal<boolean>
+  constructor(value: mut Signal<Visibility>, disabled: Signal<boolean> = false) {
     self.value = value
     self.disabled = disabled
   }

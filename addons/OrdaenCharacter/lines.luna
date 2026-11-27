@@ -6,22 +6,22 @@ import { Given, Stat } from "@/stat"
 
 // A line of an item's tooltip as the client gives it: its text and its type (`Enum.TooltipDataLineType`).
 public struct ItemLine {
-  const text: String
-  const kind: Integer
+  const text: string
+  const kind: integer
 }
 
 // A flat bonus as a line says it after its amount («+16 к броне», «+7 Agility»): the words, and the stats it gives.
 public struct FlatWord {
-  const label: String
-  const stats: Array<Stat>
+  const label: string
+  const stats: array<Stat>
 }
 
 // A chance as a line says it («Повышает вероятность попадания на 2,0%»): a word every such line holds (a stem, so
 // its endings don't matter), the stats it gives, and those it gives where the line is about spells.
 public struct ChanceWord {
-  const stem: String
-  const stats: Array<Stat>
-  const spells: Array<Stat> = []
+  const stem: string
+  const stats: array<Stat>
+  const spells: array<Stat> = []
 }
 
 // The client's words the reader tells lines by: the enchant's and an active set bonus's starts, the flat bonuses, the
@@ -29,31 +29,31 @@ public struct ChanceWord {
 // `SHIELD_BLOCK_TEMPLATE`: Forever's «Вероятность блока: %s», the amount the damage a block stops; none: no such line
 // is read).
 public struct LineWords {
-  const enchant: String
-  const setBonus: String
-  const flat: Array<FlatWord>
-  const chances: Array<ChanceWord>
-  const spells: String
-  const shieldBlock: String = ""
+  const enchant: string
+  const setBonus: string
+  const flat: array<FlatWord>
+  const chances: array<ChanceWord>
+  const spells: string
+  const shieldBlock: string = ""
 }
 
 // A set some of whose pieces are worn: its name and what its bonuses in effect give.
 public struct WornSet {
-  const name: String
-  const gives: Array<Given>
+  const name: string
+  const gives: array<Given>
 }
 
 // What the reader found: the item's own stats its item stats leave out (a shield's block), the enchant's stats, and
 // the item's set (none for an item of none).
 public struct LineBonuses {
-  const base: Array<Given>
-  const enchant: Array<Given>
+  const base: array<Given>
+  const enchant: array<Given>
   const set: WornSet | nil
 }
 
 // The amount a line says in a template's place for it («39 Блок» by «%d Блок», «Вероятность блока: 3» by Forever's
 // «Вероятность блока: %s»); none where the line isn't one.
-function amountBy(text: String, template: String): Number | nil {
+function amountBy(text: string, template: string): number | nil {
   const start, end = template.match("^(.-)%%[ds](.*)$")
   if (start == nil || end == nil) { return nil }
   const rest = start == "" ? text : after(text, start)
@@ -66,18 +66,18 @@ function amountBy(text: String, template: String): Number | nil {
 const ENCHANT_LINE = 15
 
 // A number as a line writes it, with a decimal comma or point.
-function numberOf(text: String): Number {
+function numberOf(text: string): number {
   return text.replace(",", ".").toNumber() ?? 0
 }
 
 // The text after a start, where the text begins with it; none where it doesn't.
-function after(text: String, start: String): String | nil {
+function after(text: string, start: string): string | nil {
   if (start == "" || text.sub(1, start.length) != start) { return nil }
   return text.sub(start.length + 1)
 }
 
 // The flat bonus whose words the text starts with, the longest of those that fit («к силе атаки», not «к силе»).
-function flatAt(text: String, words: LineWords): FlatWord | nil {
+function flatAt(text: string, words: LineWords): FlatWord | nil {
   let found: FlatWord | nil = nil
   let longest = 0
   for (word of words.flat) {
@@ -91,8 +91,8 @@ function flatAt(text: String, words: LineWords): FlatWord | nil {
 
 // The stats a bonus's text gives: each flat bonus («+2 к выносливости и +16 к броне»: an amount after each «+» and the
 // words after it), or else the chance it names («Повышает вероятность попадания на 2,0%»).
-public function givenOf(text: String, words: LineWords): Array<Given> {
-  const gives: Array<Given> = []
+public function givenOf(text: string, words: LineWords): array<Given> {
+  const gives: array<Given> = []
   for (index, piece of text.split("+")) {
     if (index > 1) {
       const amount, label = piece.match("^(%d+[,%.]?%d*) (.*)$")
@@ -118,11 +118,11 @@ public function givenOf(text: String, words: LineWords): Array<Given> {
 
 // What an item's lines give beyond its item stats: a shield's block, its enchant's line, and its set's name with each
 // bonus in effect (a bonus not yet in effect starts otherwise, with the pieces it needs).
-public function bonusesOf(lines: Array<ItemLine>, words: LineWords): LineBonuses {
-  const base: Array<Given> = []
-  const enchant: Array<Given> = []
-  let setName: String | nil = nil
-  const setGives: Array<Given> = []
+public function bonusesOf(lines: array<ItemLine>, words: LineWords): LineBonuses {
+  const base: array<Given> = []
+  const enchant: array<Given> = []
+  let setName: string | nil = nil
+  const setGives: array<Given> = []
   for (index, line of lines) {
     const block = words.shieldBlock != "" ? amountBy(line.text, words.shieldBlock) : nil
     if (block != nil) {

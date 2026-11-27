@@ -6,67 +6,67 @@ import root Ordaen from "Ordaen"
 import { RULE_COLOR, RULE_WIDTH } from "Ordaen"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
-public const WIDTH: Number<Length> = 1500dp
-public const HEIGHT: Number<Length> = 860.24dp
+public const WIDTH: number<Length> = 1500dp
+public const HEIGHT: number<Length> = 860.24dp
 // The room between the frame's line and the character page: none, its sections keeping their own and its cuts running
 // to the frame.
 public const PAGE_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 // The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
 // them) in the middle, as wide in any window as its slots and four weapons need and at least `DOLL`, the stats on the
 // right. The two sides share the rest equally, each at least what the stats' main stats, cards and gauges need whole.
-public const DOLL: Number<Length> = 470dp
-public const SIDE_LEAST: Number<Length> = 440dp
+public const DOLL: number<Length> = 470dp
+public const SIDE_LEAST: number<Length> = 440dp
 public const SIDE_COLUMN: Track = { fr: 1, min: SIDE_LEAST }
 // A slot: the standard size, the larger, and the most the paper doll holds; its edge (Ordaen's item button's); an
 // icon's picture in texels (its 64 less the 0.08 of each side the renderer cuts as its rim).
-public const SLOT: Number<Length> = 46.875dp
-public const SLOT_LARGE: Number<Length> = 52.734375dp
-public const SLOT_MOST: Number<Length> = 67.96875dp
-public const SLOT_EDGE: Number<Length> = 2.34375dp
-public const ICON_TEXELS: Number = 64 * 0.84
+public const SLOT: number<Length> = 46.875dp
+public const SLOT_LARGE: number<Length> = 52.734375dp
+public const SLOT_MOST: number<Length> = 67.96875dp
+public const SLOT_EDGE: number<Length> = 2.34375dp
+public const ICON_TEXELS: number = 64 * 0.84
 // The durability bar under a slot.
-public const WEAR: Number<Length> = 3.515625dp
+public const WEAR: number<Length> = 3.515625dp
 // The reputation tab's side, where the chosen faction stands.
-public const SIDE: Number<Length> = 328.125dp
+public const SIDE: number<Length> = 328.125dp
 // A field the player types in (a spec's name, the talents' search): its height, its room round the text, its well.
-public const FIELD: Number<Length> = 35.15625dp
+public const FIELD: number<Length> = 35.15625dp
 public const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
 public const FIELD_BACK: Color = Color::hex("#00000080")
 
 // A health or power bar: slim, its corners softly rounded, a thin bronze line round its dark trough, a gloss over the
 // fill's upper part; the room its regeneration keeps from the bar's right end; its texts' shadow (the item level's too).
-public const POOL: Number<Length> = 24dp
-public const POOL_LINE: Number<Length> = 1.171875dp
-public const POOL_ROUND: Number<Length> = 4.6875dp
-public const POOL_GLOSS: Number<Length> = POOL * 0.4
+public const POOL: number<Length> = 24dp
+public const POOL_LINE: number<Length> = 1.171875dp
+public const POOL_ROUND: number<Length> = 4.6875dp
+public const POOL_GLOSS: number<Length> = POOL * 0.4
 public const POOL_RIM: Color = Color::hex("#8a6a3e")
 public const POOL_TROUGH: Color = Color::hex("#0b0805")
 // How much of its colour a pool's fill keeps.
-public const POOL_DEPTH: Number = 0.55
+public const POOL_DEPTH: number = 0.55
 public const GLOSS: Color = Color::hex("#ffffff1f")
-public const TUBE_REGEN: Number<Length> = 10dp
+public const TUBE_REGEN: number<Length> = 10dp
 public const TUBE_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
-public const ONE_ROW: Array<Track> = [{ fr: 1 }]
+public const ONE_ROW: array<Track> = [{ fr: 1 }]
 // A gauge's channel (a skill's too) and its columns (the name, the value).
-public const CHANNEL: Number<Length> = 16.40625dp
+public const CHANNEL: number<Length> = 16.40625dp
 // A gauge with its text in it: a skill's rank, a faction's standing.
-public const GAUGE_BAR: Number<Length> = 26.953125dp
-public const GAUGE_LABEL: Number<Length> = 150dp
-public const GAUGE_VALUE: Number<Length> = 72dp
+public const GAUGE_BAR: number<Length> = 26.953125dp
+public const GAUGE_LABEL: number<Length> = 150dp
+public const GAUGE_VALUE: number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
-public const SOCKET: Number<Length> = 36dp
-public const GLYPH: Number<Length> = 24dp
+public const SOCKET: number<Length> = 36dp
+public const GLYPH: number<Length> = 24dp
 public const SOCKET_FLOOR: Color = Color::hex("#00000073")
 // The socket's corners inside the card's rim; the card's room: the rim's at the socket, the text's at the right; its
 // value's size.
-public const SOCKET_ROUND: Number<Length> = 2.34375dp
+public const SOCKET_ROUND: number<Length> = 2.34375dp
 public const CARD_PAD: Edges = { top: 0.5sp, right: 3sp, bottom: 0.5sp, left: 0.5sp }
 // The room over and under a card's name and value.
 public const CARD_TEXT_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
-public const CARD_GAP: Number<Spacing> = 1.5sp
-public const CARD_VALUE: Number<TextSize> = 1.35rem
+public const CARD_GAP: number<Spacing> = 1.5sp
+public const CARD_VALUE: number<TextSize> = 1.35rem
 // A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
-public const SIDE_ROOM: Number<Spacing> = 6sp
+public const SIDE_ROOM: number<Spacing> = 6sp
 // A list page runs edge to edge (its tab's room none): its subtabs' band from side to side, its toolbar the window's
 // room from the band and the sides, its list reaching the frame's line and the footer; beside it a details column
 // from the band to the footer, on the window's wood, the frame's line down its left.
@@ -82,7 +82,7 @@ public const CARDS_PAD: Edges = { bottom: 2sp }
 public const AFTER_CUT: Edges = { top: 2.5sp }
 // A main stat's room and its number's size: twice the body's, whatever size the look gives the body.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
-public const MAIN_TEXT: Number<TextSize> = 2rem
+public const MAIN_TEXT: number<TextSize> = 2rem
 
 public const INK: Color = Color::hex("#e8dcc4")
 public const DIM: Color = Color::hex("#a3977f")
@@ -109,20 +109,20 @@ public const TROUGH: Color = Color::hex("#000000a6")
 // the column's height while the character tab holds the window at `HEIGHT`: under the sets' strip on the player's
 // own, over the footer's estimate on another's; centred and cut at the column's sides. A veil over it so the slots read;
 // the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
-public const SCENE_ASPECT: Number = 231 / 322
-public const SCENE_HEIGHT: Number<Length> = 780.55dp
-public const SCENE_HEIGHT_INSPECTED: Number<Length> = 801.24dp
+public const SCENE_ASPECT: number = 231 / 322
+public const SCENE_HEIGHT: number<Length> = 780.55dp
+public const SCENE_HEIGHT_INSPECTED: number<Length> = 801.24dp
 public const SCENE_VEIL: Color = Color::hex("#00000059")
 // The paper doll's sides: the tabs' plain rule down each, not a cut in the wood.
 public const DOLL_SIDES: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side::Left, Side::Right] }
 public const MODEL_BACK: Color = Color::hex("#0b0805")
-public const DOLL_ROOM: Number<Spacing> = 6sp
+public const DOLL_ROOM: number<Spacing> = 6sp
 public const DOLL_PAD: Edges = { top: DOLL_ROOM, right: DOLL_ROOM, bottom: DOLL_ROOM, left: DOLL_ROOM }
 // The gap between a slots' column and the model's, and between two weapons.
-public const DOLL_GAP: Number<Spacing> = 3sp
-public const WEAPON_GAP: Number<Spacing> = 2sp
+public const DOLL_GAP: number<Spacing> = 3sp
+public const WEAPON_GAP: number<Spacing> = 2sp
 // The eight slots down each side of the model, spread from its top to its bottom.
-public const SLOT_ROWS: Array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
+public const SLOT_ROWS: array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
 public const GAUGE: Color = Color::hex("#a3864f")
 public const SKILL: Color = Color::hex("#3a68b8")
 // The schools' and the resistances' colours: armor, holy, fire, nature, frost, shadow and arcane; a stat's glyph

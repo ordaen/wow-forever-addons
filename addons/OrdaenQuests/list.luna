@@ -15,24 +15,24 @@ const EMPTY_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 
 // A group's rows: its header, and its quests while it isn't folded.
 class GroupRows implements Component {
-  public act: Event<(Integer, Act)> = new Event()
-  public fold: Event<String> = new Event()
+  public act: Event<(integer, Act)> = new Event()
+  public fold: Event<string> = new Event()
 
-  derived open: Boolean = self.folded[self.group.header] != true
+  derived open: boolean = self.folded[self.group.header] != true
 
   group: Signal<Group>
-  picked: Signal<Integer>
-  folded: Signal<Map<String, Boolean>>
-  player: Signal<Integer>
-  constructor(group: Signal<Group>, picked: Signal<Integer>, folded: Signal<Map<String, Boolean>>, player: Signal<Integer>) {
+  picked: Signal<integer>
+  folded: Signal<map<string, boolean>>
+  player: Signal<integer>
+  constructor(group: Signal<Group>, picked: Signal<integer>, folded: Signal<map<string, boolean>>, player: Signal<integer>) {
     self.group = group
     self.picked = picked
     self.folded = folded
     self.player = player
   }
 
-  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
-  onFold(mut self, header: String) { self.fold.emit(header) }
+  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
+  onFold(mut self, header: string) { self.fold.emit(header) }
 
   public render(self): Template {
     return $ltml {
@@ -49,34 +49,34 @@ class GroupRows implements Component {
 }
 
 public class QuestList implements Component {
-  public act: Event<(Integer, Act)> = new Event()
-  public fold: Event<String> = new Event()
+  public act: Event<(integer, Act)> = new Event()
+  public fold: Event<string> = new Event()
 
-  derived inZones: Boolean = self.view == .Zones
-  derived groups: Array<Group> = groupsOf(self.quests, self.kind, self.zone)
-  derived flat: Array<LogQuest> = ofKind(self.quests, self.kind)
-  derived empty: Boolean = self.flat.length == 0
-  derived emptyText: String = !self.any ? self.noneText() : Locale::NOTHING_FOUND
+  derived inZones: boolean = self.view == .Zones
+  derived groups: array<Group> = groupsOf(self.quests, self.kind, self.zone)
+  derived flat: array<LogQuest> = ofKind(self.quests, self.kind)
+  derived empty: boolean = self.flat.length == 0
+  derived emptyText: string = !self.any ? self.noneText() : Locale::NOTHING_FOUND
 
-  quests: Signal<Array<LogQuest>>
+  quests: Signal<array<LogQuest>>
   kind: Signal<QuestKind>
   view: Signal<QuestView>
-  zone: Signal<String>
-  picked: Signal<Integer>
-  folded: Signal<Map<String, Boolean>>
-  player: Signal<Integer>
-  any: Signal<Boolean>
+  zone: Signal<string>
+  picked: Signal<integer>
+  folded: Signal<map<string, boolean>>
+  player: Signal<integer>
+  any: Signal<boolean>
   constructor(
     // The quests let through, in the order asked.
-    quests: Signal<Array<LogQuest>>,
+    quests: Signal<array<LogQuest>>,
     kind: Signal<QuestKind>,
     view: Signal<QuestView>,
-    zone: Signal<String>,
-    picked: Signal<Integer>,
-    folded: Signal<Map<String, Boolean>>,
-    player: Signal<Integer>,
+    zone: Signal<string>,
+    picked: Signal<integer>,
+    folded: Signal<map<string, boolean>>,
+    player: Signal<integer>,
     // The tab has quests in the log, whether or not any is let through.
-    any: Signal<Boolean>
+    any: Signal<boolean>
   ) {
     self.quests = quests
     self.kind = kind
@@ -88,7 +88,7 @@ public class QuestList implements Component {
     self.any = any
   }
 
-  noneText(self): String {
+  noneText(self): string {
     return match (self.kind) {
       .World => Locale::EMPTY_WORLD
       .Dungeon => Locale::EMPTY_DUNGEONS
@@ -97,8 +97,8 @@ public class QuestList implements Component {
     }
   }
 
-  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
-  onFold(mut self, header: String) { self.fold.emit(header) }
+  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
+  onFold(mut self, header: string) { self.fold.emit(header) }
 
   public render(self): Template {
     return $ltml {

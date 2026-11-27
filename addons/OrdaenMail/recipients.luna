@@ -11,20 +11,20 @@ public enum Source { Own, Friend, Guild, Community, Recent }
 // One who can be written to: a name as the game takes it, the level, whether online, the class's colour where known,
 // who it is to the player, and the community it stands in (a community's member alone).
 public struct Recipient {
-  name: String
-  level: Integer
-  online: Boolean
+  name: string
+  level: integer
+  online: boolean
   color: Color | nil
   source: Source
-  group: String
+  group: string
 }
 
 // Every recipient the player knows, own characters first, then friends, the guild, the communities and the recent
 // recipients; a name known twice stands where it comes first.
-public function everyone(alts: Alts | nil, recent: Array<String>): Array<Recipient> {
-  const list: Array<Recipient> = []
-  const seen: Map<String, Boolean> = {}
-  const add = (from: Array<Recipient>) => {
+public function everyone(alts: Alts | nil, recent: array<string>): array<Recipient> {
+  const list: array<Recipient> = []
+  const seen: map<string, boolean> = {}
+  const add = (from: array<Recipient>) => {
     for (who of from) {
       if (seen[who.name] == nil) {
         seen[who.name] = true
@@ -44,8 +44,8 @@ public function everyone(alts: Alts | nil, recent: Array<String>): Array<Recipie
 }
 
 // The first `most` recipients whose names begin with what was typed.
-public function matching(list: Array<Recipient>, typed: String, most: Integer): Array<Recipient> {
-  const found: Array<Recipient> = []
+public function matching(list: array<Recipient>, typed: string, most: integer): array<Recipient> {
+  const found: array<Recipient> = []
   for (who of list) {
     if (found.length >= most) { break }
     if (starts(who.name, typed)) { found.push(who) }
@@ -54,19 +54,19 @@ public function matching(list: Array<Recipient>, typed: String, most: Integer): 
 }
 
 // Whether a name begins with what was typed, of any case.
-public function starts(name: String, typed: String): Boolean {
+public function starts(name: string, typed: string): boolean {
   return typed == "" || name.lower().sub(1, typed.length) == typed.lower()
 }
 
-function byOnline(a: Recipient, b: Recipient): Boolean {
+function byOnline(a: Recipient, b: Recipient): boolean {
   if (a.group != b.group) { return a.group < b.group }
   if (a.online != b.online) { return a.online }
   return a.name < b.name
 }
 
 // The player's other characters a letter reaches; none while Ordaen Alts is off.
-public function own(alts: Alts | nil): Array<Recipient> {
-  const list: Array<Recipient> = []
+public function own(alts: Alts | nil): array<Recipient> {
+  const list: array<Recipient> = []
   if (alts == nil) { return list }
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) {
@@ -77,8 +77,8 @@ public function own(alts: Alts | nil): Array<Recipient> {
   return list
 }
 
-public function friends(): Array<Recipient> {
-  const list: Array<Recipient> = []
+public function friends(): array<Recipient> {
+  const list: array<Recipient> = []
   for (index of 1..Client::C_FriendList::GetNumFriends()) {
     const info = Client::C_FriendList::GetFriendInfoByIndex(index)
     if (info != nil) {
@@ -90,8 +90,8 @@ public function friends(): Array<Recipient> {
   return list
 }
 
-public function guild(): Array<Recipient> {
-  const list: Array<Recipient> = []
+public function guild(): array<Recipient> {
+  const list: array<Recipient> = []
   const count, _ = Client::GetNumGuildMembers()
   for (index of 1..count) {
     const name, _, _, level, _, _, _, _, online, _, tag = Client::GetGuildRosterInfo(index)
@@ -104,8 +104,8 @@ public function guild(): Array<Recipient> {
 }
 
 // The members of every character community the player is in (not Battle.net ones), each under its community's name.
-public function communities(): Array<Recipient> {
-  const list: Array<Recipient> = []
+public function communities(): array<Recipient> {
+  const list: array<Recipient> = []
   for (club of Client::C_Club::GetSubscribedClubs()) {
     if (club.clubType == Client::ClubType::Character) {
       for (member of Client::C_Club::GetClubMembers(club.clubId, nil)) {

@@ -6,7 +6,7 @@ import Test from "$test"
 import { Bindings } from "@/keys"
 import { KeysPage } from "@/keysPage"
 
-function keysOf(bindings: Bindings, action: String): String {
+function keysOf(bindings: Bindings, action: string): string {
   return (bindings.command(action)?.keys ?? []).join(" ")
 }
 

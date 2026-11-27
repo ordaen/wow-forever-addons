@@ -12,26 +12,26 @@ import { Line, LineKind } from "@/read"
 import Style from "@/style"
 
 // The title as wide as it is, never wrapped (the window widens to hold the longest); «auto» right after it.
-const COLUMNS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
+const COLUMNS: array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
 // A key that picks a line, and its name on the keycap.
 public struct LineKey {
   const key: Key
-  const name: String
+  const name: string
 }
 
 // The keys the window hears: the digits 1–9, a line's place in the column the keys are on (and a quest's reward).
 // Past nine lines the list has columns, and Tab moves the keys to the next.
-public const LINE_KEYS: Array<LineKey> = [
+public const LINE_KEYS: array<LineKey> = [
   { key: Key::Digit1, name: "1" }, { key: Key::Digit2, name: "2" }, { key: Key::Digit3, name: "3" },
   { key: Key::Digit4, name: "4" }, { key: Key::Digit5, name: "5" }, { key: Key::Digit6, name: "6" },
   { key: Key::Digit7, name: "7" }, { key: Key::Digit8, name: "8" }, { key: Key::Digit9, name: "9" }
 ]
 
 // The name of the key at that place in a column; "" past the keys.
-public function keyName(place: Integer): String { return LINE_KEYS[place]?.name ?? "" }
+public function keyName(place: integer): string { return LINE_KEYS[place]?.name ?? "" }
 
 // The place of the line a key picks; 0 for a key that picks none.
-public function placeOf(key: Key): Integer {
+public function placeOf(key: Key): integer {
   for (index, lineKey of LINE_KEYS) {
     if (lineKey.key == key) { return index }
   }
@@ -39,21 +39,21 @@ public function placeOf(key: Key): Integer {
 }
 
 // The most lines a column of the list holds, one a key: past it they flow into the next column, the window widening.
-public const COLUMN_LINES: Integer = LINE_KEYS.length
+public const COLUMN_LINES: integer = LINE_KEYS.length
 
 // A line of the list: its place among the lines, which a pick goes by, and its place in its column, its key.
 public struct Placed {
   const line: Line
-  const index: Integer
-  const place: Integer
+  const index: integer
+  const place: integer
 }
 
 // The lines in columns of as many as the most a column holds lets them be even, each column top to bottom.
-public function columnsOf(lines: Array<Line>): Array<Array<Placed>> {
+public function columnsOf(lines: array<Line>): array<array<Placed>> {
   const count = ((lines.length + COLUMN_LINES - 1) / COLUMN_LINES).floor().max(1)
   const tall = ((lines.length + count - 1) / count).floor()
-  let columns: Array<Array<Placed>> = []
-  let column: Array<Placed> = []
+  let columns: array<array<Placed>> = []
+  let column: array<Placed> = []
   for (index, line of lines) {
     column.push({ line: line, index: index, place: column.length + 1 })
     if (column.length == tall) {
@@ -77,14 +77,14 @@ function titleColor(line: Line): Color {
 
 // An answer to the question the window asks (Yes, No): its key, its word; a click, Enter or Space gives it.
 public class AnswerRow implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  derived key: String = keyName(self.index)
+  derived key: string = keyName(self.index)
 
-  label: Signal<String>
-  index: Signal<Integer>
-  hints: Signal<Boolean>
-  constructor(label: Signal<String>, index: Signal<Integer>, hints: Signal<Boolean>) {
+  label: Signal<string>
+  index: Signal<integer>
+  hints: Signal<boolean>
+  constructor(label: Signal<string>, index: Signal<integer>, hints: Signal<boolean>) {
     self.label = label
     self.index = index
     self.hints = hints
@@ -103,28 +103,28 @@ public class AnswerRow implements Component {
   }
 }
 
-const ANSWER_COLUMNS: Array<Track> = ["max-content", "max-content"]
+const ANSWER_COLUMNS: array<Track> = ["max-content", "max-content"]
 
 // A column of the list: a stop of the keyboard's focus (Tab, Shift+Tab), its rows none; the keys 1–9 are its lines'
 // while it has the focus, the first column's as the list shows. The column the keys are on is where Tab counts from
 // while nothing has the focus, so the first Tab gives them to the next.
 public class OptionColumn implements Component {
-  public pick: Event<Integer> = new Event()
-  public mark: Event<Integer> = new Event()
-  public focus: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
+  public mark: Event<integer> = new Event()
+  public focus: Event<integer> = new Event()
 
-  lines: Signal<Array<Placed>>
-  number: Signal<Integer>
-  keysHere: Signal<Boolean>
-  hints: Signal<Boolean>
+  lines: Signal<array<Placed>>
+  number: Signal<integer>
+  keysHere: Signal<boolean>
+  hints: Signal<boolean>
   // The NPC's options the player marked, by their IDs.
-  marked: Signal<Array<Integer>>
+  marked: Signal<array<integer>>
   constructor(
-    lines: Signal<Array<Placed>>,
-    number: Signal<Integer>,
-    keysHere: Signal<Boolean>,
-    hints: Signal<Boolean>,
-    marked: Signal<Array<Integer>>
+    lines: Signal<array<Placed>>,
+    number: Signal<integer>,
+    keysHere: Signal<boolean>,
+    hints: Signal<boolean>,
+    marked: Signal<array<integer>>
   ) {
     self.lines = lines
     self.number = number
@@ -134,9 +134,9 @@ public class OptionColumn implements Component {
   }
 
   onFocus(mut self, frame: any Frame) { self.focus.emit(peek self.number) }
-  isMarked(self, line: Line): Boolean { return line.kind == LineKind::Option && self.marked.any(option => option == line.id) }
-  onPick(mut self, index: Integer) { self.pick.emit(index) }
-  onMark(mut self, index: Integer) { self.mark.emit(index) }
+  isMarked(self, line: Line): boolean { return line.kind == LineKind::Option && self.marked.any(option => option == line.id) }
+  onPick(mut self, index: integer) { self.pick.emit(index) }
+  onMark(mut self, index: integer) { self.mark.emit(index) }
 
   public render(self): Template {
     return $ltml {
@@ -151,34 +151,34 @@ public class OptionColumn implements Component {
 }
 
 public class OptionRow implements Component {
-  public pick: Event<Integer> = new Event()
-  public mark: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
+  public mark: Event<integer> = new Event()
 
-  derived keyed: Boolean = self.hints
+  derived keyed: boolean = self.hints
   // Its key while the keys are on its column; else the keycap's room alone.
-  derived key: String = self.keysHere ? keyName(self.place) : ""
-  derived leveled: Boolean = self.line.level > 0
+  derived key: string = self.keysHere ? keyName(self.place) : ""
+  derived leveled: boolean = self.line.level > 0
   derived levelColor: Color = colorOf(self.line.difficulty)
-  derived levelText: String = `(${self.line.level})`
+  derived levelText: string = `(${self.line.level})`
   derived color: Color = titleColor(self.line)
   derived iconTint: Color = self.line.kind == LineKind::InProgress ? GREY : WHITE
-  derived greyed: Boolean = self.line.kind == LineKind::InProgress
-  derived entries: Array<MenuEntry> = [{ label: Locale::ALWAYS_PICK, on: self.marked }]
+  derived greyed: boolean = self.line.kind == LineKind::InProgress
+  derived entries: array<MenuEntry> = [{ label: Locale::ALWAYS_PICK, on: self.marked }]
   state menuOpen = false
 
   line: Signal<Line>
-  index: Signal<Integer>
-  place: Signal<Integer>
-  keysHere: Signal<Boolean>
-  hints: Signal<Boolean>
-  marked: Signal<Boolean>
+  index: Signal<integer>
+  place: Signal<integer>
+  keysHere: Signal<boolean>
+  hints: Signal<boolean>
+  marked: Signal<boolean>
   constructor(
     line: Signal<Line>,
-    index: Signal<Integer>,
-    place: Signal<Integer>,
-    keysHere: Signal<Boolean>,
-    hints: Signal<Boolean>,
-    marked: Signal<Boolean>
+    index: Signal<integer>,
+    place: Signal<integer>,
+    keysHere: Signal<boolean>,
+    hints: Signal<boolean>,
+    marked: Signal<boolean>
   ) {
     self.line = line
     self.index = index
@@ -195,7 +195,7 @@ public class OptionRow implements Component {
     if ((peek self.line).kind == LineKind::Option) { self.menuOpen = true }
   }
 
-  onMenu(mut self, entry: Integer) {
+  onMenu(mut self, entry: integer) {
     self.menuOpen = false
     self.mark.emit(peek self.index)
   }

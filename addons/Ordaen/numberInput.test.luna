@@ -10,8 +10,8 @@ import { WindowsPage } from "@/windowsPage"
 
 // A slider of a hundred steps and a field of eight thousand.
 class Numbers {
-  state share: Number = 0.5
-  state place: Number = 0
+  state share: number = 0.5
+  state place: number = 0
 
   public render(self): Template {
     return $ltml {
@@ -23,7 +23,7 @@ class Numbers {
   }
 }
 
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.0001 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.0001 }
 
 test "the slider's − and + step it: a step, ten with Shift, a hundred with Ctrl, held to its ends" {
   let page = new Numbers()
@@ -67,7 +67,7 @@ test "the field's − and + step it too, and a number typed past a bound is the 
 
 // A field whose least is over its first digit: 1 is on its way to 150.
 class Sized {
-  state size: Number = 400
+  state size: number = 400
 
   public render(self): Template {
     return $ltml { <NumberInput label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit::Px} /> }
@@ -144,9 +144,9 @@ test "under the cursor − and + say their steps in the value's unit, and the ti
 
 // The two in a window: the keyboard's focus moves in a surface.
 class Windowed {
-  state share: Number = 1
-  state place: Number = 0
-  state tabs: Array<WindowTabSpec> = [{ title: "Numbers" }]
+  state share: number = 1
+  state place: number = 0
+  state tabs: array<WindowTabSpec> = [{ title: "Numbers" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("numbers", "numbers", { x: 0ui, y: 0ui, width: 760ui, height: 300ui })
 
@@ -191,7 +191,7 @@ test "the unit shows: the slider's value in it, the field's name after it" {
 // The settings' «Windows» page of one window.
 class Kept {
   public window: mut KeptWindow = new KeptWindow("main", "Bank", { x: 10ui, y: -20ui, width: 400ui, height: 300ui })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const windows: mut array<mut KeptWindow> = [self.window]
 
   public render(self): Template {
     return $ltml { <WindowsPage windows={mut self.windows} /> }
@@ -212,7 +212,7 @@ test "a window's place and size are InputNumbers: a field between − and +, in 
 
 // A setting the client keeps as a 32-bit float: 0.72 read back as 0.71999996900558, on steps of 0.01.
 class Floated {
-  state scale: Number = 0.71999996900558
+  state scale: number = 0.71999996900558
 
   public render(self): Template {
     return $ltml { <NumberInput label={"Scale"} value={mut self.scale} least={0.65} most={1.15} step={0.01} /> }

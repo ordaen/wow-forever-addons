@@ -24,19 +24,19 @@ const UNTINTED: Color = Color::hex("#ffffff")
 // A cell's measures at its height and the room it reaches up through: its slot (as wide as it is high, room and all),
 // its icon's size and place in the slot.
 public struct CellSize {
-  width: Number<Length>
-  height: Number<Length>
-  rise: Number<Length>
-  slot: Number<Length>
-  icon: Number<Length>
-  iconLeft: Number<Length>
+  width: number<Length>
+  height: number<Length>
+  rise: number<Length>
+  slot: number<Length>
+  icon: number<Length>
+  iconLeft: number<Length>
   // One place, pressed or not: the game's button over the icon takes the press, and an icon that followed the cursor
   // would take the mouse from that button.
-  iconTop: Number<Length>
-  face: Number<Length>
+  iconTop: number<Length>
+  face: number<Length>
 }
 
-public function cellSize(height: Number<Length>, rise: Number<Length> = 0ui): CellSize {
+public function cellSize(height: number<Length>, rise: number<Length> = 0ui): CellSize {
   const scale = height / CELL_HEIGHT
   const slot = height + rise
   const icon = ICON * scale
@@ -50,29 +50,29 @@ public function cellSize(height: Number<Length>, rise: Number<Length> = 0ui): Ce
 public class MenuCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
   derived tint: Color = self.gold ? GOLD : UNTINTED
-  derived counted: Boolean = self.count > 0
-  derived badgeRight: Number<Length> = self.size.width * 0.12
-  derived badgeBottom: Number<Length> = self.size.slot * 0.14
+  derived counted: boolean = self.count > 0
+  derived badgeRight: number<Length> = self.size.width * 0.12
+  derived badgeBottom: number<Length> = self.size.slot * 0.14
 
   const icon: Art
   frame: Signal<any Frame | nil>
-  gold: Signal<Boolean>
-  count: Signal<Integer>
+  gold: Signal<boolean>
+  count: Signal<integer>
   size: Signal<CellSize>
-  after: Signal<Number<Length>>
+  after: Signal<number<Length>>
   // The slot is square with the cut after it: the cell takes the rest of it.
-  derived reach: Number<Length> = self.size.width
-  derived own: Number<Length> = self.size.width - self.after
+  derived reach: number<Length> = self.size.width
+  derived own: number<Length> = self.size.width - self.after
   constructor(
     icon: Art,
     frame: Signal<any Frame | nil>,
     // The icon in one gold.
-    gold: Signal<Boolean>,
+    gold: Signal<boolean>,
     size: Signal<CellSize>,
     // A number on the cell while it isn't 0: the friends online.
-    count: Signal<Integer> = 0,
+    count: Signal<integer> = 0,
     // How far it reaches right over the cut after it.
-    after: Signal<Number<Length>> = 0ui
+    after: Signal<number<Length>> = 0ui
   ) {
     self.icon = icon
     self.frame = frame
@@ -105,23 +105,23 @@ public class MenuCell implements Component {
 // over the cell like the others.
 public class FaceCell implements Component {
   // Ordaen's art: its root is there before this module loads.
-  derived faceLeft: Number<Length> = (self.size.width - self.size.face) / 2
-  derived faceTop: Number<Length> = (self.size.slot - self.size.face) / 2
+  derived faceLeft: number<Length> = (self.size.width - self.size.face) / 2
+  derived faceTop: number<Length> = (self.size.slot - self.size.face) / 2
 
   size: Signal<CellSize>
-  face: Signal<String | nil>
+  face: Signal<string | nil>
   icon: Signal<Art | nil>
-  after: Signal<Number<Length>>
+  after: Signal<number<Length>>
   // The slot is square with the cut after it: the cell takes the rest of it.
-  derived reach: Number<Length> = self.size.width
-  derived own: Number<Length> = self.size.width - self.after
+  derived reach: number<Length> = self.size.width
+  derived own: number<Length> = self.size.width - self.after
   constructor(
     size: Signal<CellSize>,
     // The unit whose face it shows, or nil for the class's icon.
-    face: Signal<String | nil>,
+    face: Signal<string | nil>,
     icon: Signal<Art | nil>,
     // How far it reaches right over the cut after it.
-    after: Signal<Number<Length>> = 0ui
+    after: Signal<number<Length>> = 0ui
   ) {
     self.size = size
     self.face = face
@@ -148,18 +148,18 @@ public class FaceCell implements Component {
 // the free slots of every bag in its lower right.
 public class BagCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived counted: Boolean = self.button.kind == Game::BagKind::Backpack && Game::bags.free > 0
-  derived countInset: Number<Length> = self.size.iconLeft - 3.515625dp
-  derived countBottom: Number<Length> = self.size.iconLeft - 7.03125dp
+  derived counted: boolean = self.button.kind == Game::BagKind::Backpack && Game::bags.free > 0
+  derived countInset: number<Length> = self.size.iconLeft - 3.515625dp
+  derived countBottom: number<Length> = self.size.iconLeft - 7.03125dp
   derived icon: Art | nil = self.button.icon
 
   const button: Game::BagButton
   size: Signal<CellSize>
-  after: Signal<Number<Length>>
+  after: Signal<number<Length>>
   // The slot is square with the cut after it: the cell takes the rest of it.
-  derived reach: Number<Length> = self.size.width
-  derived own: Number<Length> = self.size.width - self.after
-  constructor(button: Game::BagButton, size: Signal<CellSize>, after: Signal<Number<Length>> = 0ui) {
+  derived reach: number<Length> = self.size.width
+  derived own: number<Length> = self.size.width - self.after
+  constructor(button: Game::BagButton, size: Signal<CellSize>, after: Signal<number<Length>> = 0ui) {
     self.button = button
     self.size = size
     self.after = after

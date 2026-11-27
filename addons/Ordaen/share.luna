@@ -5,8 +5,8 @@ import Game from "$game"
 
 // What the text holds: a name, and each module's section as that module's settings were kept (CBOR).
 public struct Shared implements Plain {
-  name: String = ""
-  sections: mut Map<String, String> = {}
+  name: string = ""
+  sections: mut map<string, string> = {}
 }
 
 // The text's first characters, up to the version.
@@ -29,11 +29,11 @@ public enum Refusal {
 public struct Refused implements Error {
   reason: Refusal
   // The version the text names, where that is the reason.
-  version: String | nil
+  version: string | nil
 }
 
 // A profile as a text; nil where the client can't pack it.
-public function write(shared: Shared): String | nil {
+public function write(shared: Shared): string | nil {
   const raw = Game::encoding.serialize(shared)
   if (raw == nil) { return nil }
   const packed = Game::encoding.compress(raw)
@@ -45,7 +45,7 @@ public function write(shared: Shared): String | nil {
 
 // The profile a text holds, or why it isn't one. White space is ignored: a text copied from a chat line or a window
 // has line breaks.
-public function read(typed: String): Shared | Refused {
+public function read(typed: string): Shared | Refused {
   const text = typed.replace("%s+", "")
   const version = text.match("^ORDAEN:(%d+):")
   if (version == nil) { return Refused { reason: Refusal::NotProfile, version: nil } }

@@ -18,10 +18,10 @@ const BRUSHED: Art = xpFillArt(XpFill::Brushed)
 
 // A tube's height and its label's size: both tubes stand side by side, each half the bars' width, each label over its
 // tube. The tube's ring is 10 of its art's 64 high, so at 20 the ring is 3 wide.
-const TUBE_HEIGHT: Number<Length> = 20ui
+const TUBE_HEIGHT: number<Length> = 20ui
 const LABEL_TEXT = 1.1rem
 // The label over the tube, and the room between them.
-const LABELLED: Array<Track> = ["max-content", { fr: 1 }]
+const LABELLED: array<Track> = ["max-content", { fr: 1 }]
 const LABEL_ROOM = 1sp
 const GAP = 3sp
 // Room enough for anything: a bar standing by itself.
@@ -30,20 +30,20 @@ const UNBOUNDED = 1000ui
 // way to on a short screen; two side by side take more.
 const LEAST: Bounds = { min: 240ui, max: nil }
 const LEAST_PAIR: Bounds = { min: 420ui, max: nil }
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 // Half each, whatever their words: a track takes no more for its longer label.
-const TWO: Array<Track> = [{ fr: 1, min: 0ui }, { fr: 1, min: 0ui }]
+const TWO: array<Track> = [{ fr: 1, min: 0ui }, { fr: 1, min: 0ui }]
 const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
 const RESTED: Color = Color::hex("#6e96d129")
 const LABEL: Color = Color::hex("#f3e7cc")
 const LABEL_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
-const LABEL_PARTS: Array<Track> = ["max-content", "max-content"]
+const LABEL_PARTS: array<Track> = ["max-content", "max-content"]
 const LABEL_GAP = 1.5sp
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
 const GROOVE: Line = { width: 2ui, color: Color::hex("#0a0603d9"), sides: [Side::Top, Side::Right, Side::Bottom, Side::Left] }
-const FILL: Array<Track> = [{ fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
-const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const CELLS: array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const MARK: Line = { width: 1ui, color: Color::hex("#00000080"), sides: [Side::Right] }
 // Rested experience grows to a level and a half at most (the client's rule).
 const RESTED_MOST = 1.5
@@ -54,8 +54,8 @@ const FINE_PERCENT = 10
 enum Over { Off = "off", Bar = "bar", Part = "part" }
 
 // The tube's tracks, in hundredths of it: the fill, each part past it in turn (none past the tube's end), the rest.
-function tracksOf(value: Integer, least: Integer, most: Integer, parts: Array<XpPart>): Array<Track> {
-  const tracks: Array<Track> = []
+function tracksOf(value: integer, least: integer, most: integer, parts: array<XpPart>): array<Track> {
+  const tracks: array<Track> = []
   let reached = share(value, least, most)
   let past = value
   tracks.push({ fr: reached })
@@ -72,7 +72,7 @@ function tracksOf(value: Integer, least: Integer, most: Integer, parts: Array<Xp
 // One part past a tube's fill as its look says: the tube's fill art made grey and tinted the part's colour, or the
 // colour alone.
 class PartFill implements Component {
-  derived filled: Boolean = self.part.look == XpLook::Fill
+  derived filled: boolean = self.part.look == XpLook::Fill
 
   part: Signal<XpPart>
   fill: Signal<Art>
@@ -123,39 +123,39 @@ class PartSpot implements Component {
 }
 
 // A value between its least and its most, as the start and the end of the bar.
-function share(value: Integer, least: Integer, most: Integer): Number {
+function share(value: integer, least: integer, most: integer): number {
   let span = most - least
   if (span <= 0) { return 100 }
   return 100 * (0).max((value - least).min(span)) / span
 }
 
 // A percentage as it is shown: whole from FINE_PERCENT up, with one decimal under it, cut, never rounded up.
-function shownPercent(percent: Number): Number {
+function shownPercent(percent: number): number {
   return percent >= FINE_PERCENT ? percent.floor() : (percent * 10).floor() / 10
 }
 
 // A part of the whole in percent of the whole, as it is shown: never of what is left of it.
-function shownShare(part: Integer, whole: Integer): Number {
+function shownShare(part: integer, whole: integer): number {
   return shownPercent(whole > 0 ? 100 * (0).max(part) / whole : 0)
 }
 
-function percentText(percent: Number): String {
+function percentText(percent: number): string {
   return number(shownPercent(percent)) + "%"
 }
 
-public function partOf(part: Integer, whole: Integer): String {
+public function partOf(part: integer, whole: integer): string {
   return number(shownShare(part, whole)) + "%"
 }
 
 // What is left of the whole, in percent: the whole less the part done as it is shown, so the two read 100% together.
-public function leftOf(left: Integer, whole: Integer): String {
+public function leftOf(left: integer, whole: integer): string {
   return number(100 - shownShare(whole - left, whole)) + "%"
 }
 
 // The values of a tube as its view says them: what it says first, and what it says after, dimmed in brackets ("" for
 // none). With words before them (the standing), the words take the dimmed part's room, so the longest standing's name
 // with its values still fits a tube at its least (the rest stays in the tooltip).
-function valuesOf(view: XpView, value: Integer, least: Integer, most: Integer, words: String): (String, String) {
+function valuesOf(view: XpView, value: integer, least: integer, most: integer, words: string): (string, string) {
   const numbers = "%s / %s".format(number(value - least), number(most - least))
   const percent = percentText(share(value, least, most))
   let first = ""
@@ -177,17 +177,17 @@ function valuesOf(view: XpView, value: Integer, least: Integer, most: Integer, w
 }
 
 // A count and its part of the whole: «900 (90%)».
-function countOf(part: Integer, whole: Integer): String {
+function countOf(part: integer, whole: integer): string {
   return "%s (%s)".format(number(part), partOf(part, whole))
 }
 
 // What is left to the whole and its part: «900 (90%)», with the part done reading 100% together.
-function leftCount(left: Integer, whole: Integer): String {
+function leftCount(left: integer, whole: integer): string {
   return "%s (%s)".format(number(left), leftOf(left, whole))
 }
 
 // Where a value is in its whole: «100 (10%) / 1 000».
-function currentOf(part: Integer, whole: Integer): String {
+function currentOf(part: integer, whole: integer): string {
   return "%s / %s".format(countOf(part, whole), number(whole))
 }
 
@@ -196,47 +196,47 @@ function currentOf(part: Integer, whole: Integer): String {
 // over the bar.
 public class Tube implements Component {
   state over: Over = Over::Off
-  derived inset: Number<Length> = self.height * 10 / 64
+  derived inset: number<Length> = self.height * 10 / 64
   // How far the value has got, in hundredths of the tube; the tube in columns that share it: the fill, each part, the
   // rest (the fill's alone in the fill's layer).
-  derived filled: Number = share(self.value, self.least, self.most)
-  derived fillParts: Array<Track> = [{ fr: self.filled }, { fr: 100 - self.filled }]
-  derived tracks: Array<Track> = tracksOf(self.value, self.least, self.most, self.parts)
-  derived label: String = self.labelOf(1)
-  derived dimmed: String = self.labelOf(2)
-  derived hasDimmed: Boolean = self.dimmed != ""
-  derived overBar: Boolean = self.over == Over::Bar
-  derived tinted: Boolean = self.tint != nil
+  derived filled: number = share(self.value, self.least, self.most)
+  derived fillParts: array<Track> = [{ fr: self.filled }, { fr: 100 - self.filled }]
+  derived tracks: array<Track> = tracksOf(self.value, self.least, self.most, self.parts)
+  derived label: string = self.labelOf(1)
+  derived dimmed: string = self.labelOf(2)
+  derived hasDimmed: boolean = self.dimmed != ""
+  derived overBar: boolean = self.over == Over::Bar
+  derived tinted: boolean = self.tint != nil
 
   // Ordaen's art: its root is there before this module loads.
   fill: Signal<Art>
-  bezel: Signal<Boolean>
+  bezel: Signal<boolean>
   view: Signal<XpView>
-  value: Signal<Integer>
-  least: Signal<Integer>
-  most: Signal<Integer>
-  words: Signal<String>
-  parts: Signal<Array<XpPart>>
-  height: Signal<Number<Length>>
+  value: Signal<integer>
+  least: Signal<integer>
+  most: Signal<integer>
+  words: Signal<string>
+  parts: Signal<array<XpPart>>
+  height: Signal<number<Length>>
   tint: Signal<Color | nil>
-  title: Signal<String>
-  rows: Signal<Array<TipRow>>
+  title: Signal<string>
+  rows: Signal<array<TipRow>>
   constructor(
     fill: Signal<Art>,
     // The bronze ring round the tube; else a groove carved round it.
-    bezel: Signal<Boolean>,
+    bezel: Signal<boolean>,
     view: Signal<XpView>,
-    value: Signal<Integer>,
-    least: Signal<Integer>,
-    most: Signal<Integer>,
+    value: Signal<integer>,
+    least: Signal<integer>,
+    most: Signal<integer>,
     // The tooltip over the bar.
-    title: Signal<String>,
-    rows: Signal<Array<TipRow>>,
+    title: Signal<string>,
+    rows: Signal<array<TipRow>>,
     // What the bar says before its values: the standing.
-    words: Signal<String> = "",
+    words: Signal<string> = "",
     // The parts past the fill, in turn: quests done, the rested bonus.
-    parts: Signal<Array<XpPart>> = [],
-    height: Signal<Number<Length>> = TUBE_HEIGHT,
+    parts: Signal<array<XpPart>> = [],
+    height: Signal<number<Length>> = TUBE_HEIGHT,
     // A colour the fill takes, its art made grey under it: the standing's.
     tint: Signal<Color | nil> = nil
   ) {
@@ -255,7 +255,7 @@ public class Tube implements Component {
   }
 
   // The label's first part, or its dimmed one.
-  labelOf(self, part: Integer): String {
+  labelOf(self, part: integer): string {
     const first, after = valuesOf(self.view, self.value, self.least, self.most, self.words)
     return part == 1 ? first : after
   }
@@ -319,22 +319,22 @@ public class Tube implements Component {
 public class XpBar implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
   // Below the level's cap there is experience to gain.
-  derived leveling: Boolean = Game::player.xpMax > 0
-  derived watched: Boolean = Game::reputation.name != ""
+  derived leveling: boolean = Game::player.xpMax > 0
+  derived watched: boolean = Game::reputation.name != ""
   // Both shown, they share the line, half each; one alone takes it whole.
-  derived paired: Boolean = self.leveling && self.watched
-  derived columns: Array<Track> = self.paired ? TWO : ONE
+  derived paired: boolean = self.leveling && self.watched
+  derived columns: array<Track> = self.paired ? TWO : ONE
   derived width: Bounds = self.paired ? LEAST_PAIR : LEAST
-  derived tubeHeight: Number<Length> = TUBE_HEIGHT.min(self.room)
-  derived toLevel: Integer = Game::player.xpMax - Game::player.xp
-  derived toNext: Integer = Game::reputation.max - Game::reputation.value
-  derived restedMost: Integer = (Game::player.xpMax * RESTED_MOST).floor()
-  derived xpTitle: String = Locale::XP_TIP_TITLE.format(Game::player.level)
-  derived xpRows: Array<TipRow> = self.experienceRows()
-  derived restedRows: Array<TipRow> = self.restRows()
+  derived tubeHeight: number<Length> = TUBE_HEIGHT.min(self.room)
+  derived toLevel: integer = Game::player.xpMax - Game::player.xp
+  derived toNext: integer = Game::reputation.max - Game::reputation.value
+  derived restedMost: integer = (Game::player.xpMax * RESTED_MOST).floor()
+  derived xpTitle: string = Locale::XP_TIP_TITLE.format(Game::player.level)
+  derived xpRows: array<TipRow> = self.experienceRows()
+  derived restedRows: array<TipRow> = self.restRows()
   // Past the fill: what other modules know the player will get (quests done), then the rested bonus.
-  derived xpParts: Array<XpPart> = self.partsOf()
-  derived reputationRows: Array<TipRow> = self.standingRows()
+  derived xpParts: array<XpPart> = self.partsOf()
+  derived reputationRows: array<TipRow> = self.standingRows()
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
   derived standingTint: Color | nil = Game::reputation.color
 
@@ -342,20 +342,20 @@ public class XpBar implements Component {
   const steel: Art = Ordaen.art.panel.xpSteel
 
   // How high the bar may be: the panel's inside.
-  room: Signal<Number<Length>>
+  room: Signal<number<Length>>
   fill: Signal<Art>
-  bezel: Signal<Boolean>
+  bezel: Signal<boolean>
   view: Signal<XpView>
-  sources: Signal<Array<XpPart>>
+  sources: Signal<array<XpPart>>
   constructor(
-    room: Signal<Number<Length>> = UNBOUNDED,
+    room: Signal<number<Length>> = UNBOUNDED,
     // What fills the experience's tube.
     fill: Signal<Art> = BRUSHED,
     // The bronze ring round each tube; else a carved groove.
-    bezel: Signal<Boolean> = true,
+    bezel: Signal<boolean> = true,
     view: Signal<XpView> = XpView::Numbers,
     // The parts other modules give (`Panel.xpSources`).
-    sources: Signal<Array<XpPart>> = []
+    sources: Signal<array<XpPart>> = []
   ) {
     self.room = room
     self.fill = fill
@@ -364,7 +364,7 @@ public class XpBar implements Component {
     self.sources = sources
   }
 
-  partsOf(self): Array<XpPart> {
+  partsOf(self): array<XpPart> {
     const parts = self.sources.map(part => part)
     if (Game::player.rested > 0) {
       parts.push({
@@ -382,9 +382,9 @@ public class XpBar implements Component {
 
   // Where the experience is, what is left to the next level, each other module's part (quests done), and the rested
   // bonus where there is one: each with its part of the level's whole.
-  experienceRows(self): Array<TipRow> {
+  experienceRows(self): array<TipRow> {
     let whole = Game::player.xpMax
-    let rows: Array<TipRow> = [
+    let rows: array<TipRow> = [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::player.xp, whole) },
       { label: Locale::XP_TIP_TO_LEVEL.format(Game::player.level + 1), value: leftCount(self.toLevel, whole) }
     ]
@@ -395,7 +395,7 @@ public class XpBar implements Component {
     return rows
   }
 
-  restRows(self): Array<TipRow> {
+  restRows(self): array<TipRow> {
     return [
       self.restedRow(),
       { label: Locale::RESTED_TIP_RESTING, value: Game::situation.resting ? Locale::YES : Locale::NO },
@@ -405,9 +405,9 @@ public class XpBar implements Component {
 
   // Where the reputation is in its standing and what is left to the next, named in its colour as the bar is drawn:
   // each with its part of the standing's whole.
-  standingRows(self): Array<TipRow> {
+  standingRows(self): array<TipRow> {
     let whole = Game::reputation.max - Game::reputation.min
-    let rows: Array<TipRow> = [
+    let rows: array<TipRow> = [
       { label: Locale::TIP_CURRENT, value: currentOf(Game::reputation.value - Game::reputation.min, whole) }
     ]
     if (Game::reputation.next != "") {

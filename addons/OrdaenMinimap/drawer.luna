@@ -8,7 +8,7 @@ const CELL = 39.84375dp
 const ICON = CELL - 4.6875dp
 
 public class DrawerEntry implements Component {
-  public hover: Event<String> = new Event()
+  public hover: Event<string> = new Event()
   public leave: Event<nil> = new Event()
 
   // Ordaen's art: its root is there before this module loads.

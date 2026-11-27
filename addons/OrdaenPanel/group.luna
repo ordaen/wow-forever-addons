@@ -7,44 +7,44 @@ import { CUT, Component, Groove, SHORT_CUT, ShortCut } from "Ordaen"
 import { BagCell, CELL_HEIGHT, CellSize, FaceCell, MenuCell, cellSize } from "@/cells"
 
 // One track down a side of the screen; along it, the divider and the cell.
-const DOWN: Array<Track> = ["max-content"]
-const PAIR: Array<Track> = ["max-content", "max-content"]
+const DOWN: array<Track> = ["max-content"]
+const PAIR: array<Track> = ["max-content", "max-content"]
 
 // What a cell of a group is: the character's face, a button of the game's menu with our icon (the friends' with how
 // many are online), a bag button of the game's.
 public enum Cell {
   Face
-  Menu { icon: Art, frame: any Frame | nil, friends: Boolean }
+  Menu { icon: Art, frame: any Frame | nil, friends: boolean }
   Bag { button: Game::BagButton }
 }
 
 // The group: its cells in their order, across the screen or down a side of it, each as high as the group is.
 public class CellGroup implements Component {
-  derived columns: Array<Track> = self.vertical ? DOWN : self.across()
+  derived columns: array<Track> = self.vertical ? DOWN : self.across()
   derived size: CellSize = cellSize(self.height, self.vertical ? 0ui : self.rise)
 
-  cells: Signal<Array<Cell>>
-  gold: Signal<Boolean>
-  vertical: Signal<Boolean>
-  height: Signal<Number<Length>>
-  face: Signal<String | nil>
+  cells: Signal<array<Cell>>
+  gold: Signal<boolean>
+  vertical: Signal<boolean>
+  height: Signal<number<Length>>
+  face: Signal<string | nil>
   icon: Signal<Art | nil>
-  rise: Signal<Number<Length>>
-  leading: Signal<Boolean>
+  rise: Signal<number<Length>>
+  leading: Signal<boolean>
   constructor(
-    cells: Signal<Array<Cell>>,
+    cells: Signal<array<Cell>>,
     // The menu's icons in one gold.
-    gold: Signal<Boolean> = false,
-    vertical: Signal<Boolean> = false,
+    gold: Signal<boolean> = false,
+    vertical: Signal<boolean> = false,
     // How high each cell is: the panel's inside.
-    height: Signal<Number<Length>> = CELL_HEIGHT,
+    height: Signal<number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
-    face: Signal<String | nil> = "player",
+    face: Signal<string | nil> = "player",
     icon: Signal<Art | nil> = nil,
     // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
-    rise: Signal<Number<Length>> = 0ui,
+    rise: Signal<number<Length>> = 0ui,
     // A cut before its first cell too: what stands before the group has no edge of its own (the money before the bags).
-    leading: Signal<Boolean> = false
+    leading: Signal<boolean> = false
   ) {
     self.cells = cells
     self.gold = gold
@@ -56,7 +56,7 @@ public class CellGroup implements Component {
     self.leading = leading
   }
 
-  across(self): Array<Track> {
+  across(self): array<Track> {
     return self.cells.map((cell: Cell): Track => "max-content")
   }
 
@@ -75,37 +75,37 @@ public class CellGroup implements Component {
 
 // A cell of the group, with the divider before it unless it is the group's first.
 class GroupCell implements Component {
-  derived columns: Array<Track> = self.vertical ? DOWN : PAIR
-  derived rows: Array<Track> | nil = self.vertical ? PAIR : nil
+  derived columns: array<Track> = self.vertical ? DOWN : PAIR
+  derived rows: array<Track> | nil = self.vertical ? PAIR : nil
   // The divider: the cut down the cell's whole height between cells across the screen, along its whole width
   // between cells down a side.
-  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : SHORT_CUT
-  derived dividerHeight: Number<Length> = self.vertical ? CUT : self.size.height
-  derived upright: Boolean = !self.vertical
+  derived dividerWidth: number<Length> = self.vertical ? self.size.width : SHORT_CUT
+  derived dividerHeight: number<Length> = self.vertical ? CUT : self.size.height
+  derived upright: boolean = !self.vertical
   // The cut after a cell across the screen is lit with it under the cursor and takes its clicks: the cell reaches over
   // it, but the group's last, after which none stands.
-  derived after: Number<Length> = self.upright && !self.last ? SHORT_CUT : 0ui
+  derived after: number<Length> = self.upright && !self.last ? SHORT_CUT : 0ui
 
   const cell: Cell
-  const first: Boolean
+  const first: boolean
   // The cells come and go: whether it is the last follows them.
-  last: Signal<Boolean>
-  gold: Signal<Boolean>
-  vertical: Signal<Boolean>
+  last: Signal<boolean>
+  gold: Signal<boolean>
+  vertical: Signal<boolean>
   size: Signal<CellSize>
-  face: Signal<String | nil>
+  face: Signal<string | nil>
   icon: Signal<Art | nil>
-  rise: Signal<Number<Length>>
+  rise: Signal<number<Length>>
   constructor(
     cell: Cell,
-    first: Boolean,
-    last: Signal<Boolean>,
-    gold: Signal<Boolean>,
-    vertical: Signal<Boolean>,
+    first: boolean,
+    last: Signal<boolean>,
+    gold: Signal<boolean>,
+    vertical: Signal<boolean>,
     size: Signal<CellSize>,
-    face: Signal<String | nil>,
+    face: Signal<string | nil>,
     icon: Signal<Art | nil>,
-    rise: Signal<Number<Length>>
+    rise: Signal<number<Length>>
   ) {
     self.cell = cell
     self.first = first
@@ -137,18 +137,18 @@ class GroupCell implements Component {
 // The cell itself, as what it is.
 class CellOf implements Component {
   const cell: Cell
-  gold: Signal<Boolean>
+  gold: Signal<boolean>
   size: Signal<CellSize>
-  face: Signal<String | nil>
+  face: Signal<string | nil>
   icon: Signal<Art | nil>
-  after: Signal<Number<Length>>
+  after: Signal<number<Length>>
   constructor(
     cell: Cell,
-    gold: Signal<Boolean>,
+    gold: Signal<boolean>,
     size: Signal<CellSize>,
-    face: Signal<String | nil>,
+    face: Signal<string | nil>,
     icon: Signal<Art | nil>,
-    after: Signal<Number<Length>>
+    after: Signal<number<Length>>
   ) {
     self.cell = cell
     self.gold = gold

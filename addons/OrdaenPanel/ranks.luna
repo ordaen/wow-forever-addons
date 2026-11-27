@@ -7,19 +7,19 @@ import root Ordaen from "Ordaen"
 const SLOTS = 180
 
 // A spell's rank, from the client's word for it («Rank 3», «Уровень 3»); none for a spell without ranks.
-function rankOf(spell: Integer): Integer | nil {
+function rankOf(spell: integer): integer | nil {
   return Client::C_Spell::GetSpellSubtext(spell)?.match("(%d+)")?.toNumber()?.floor()
 }
 
 // The action slots holding the rank just below `spell`'s: the same name, one rank less.
-function previousSlots(spell: Integer): Array<Integer> {
-  const slots: Array<Integer> = []
+function previousSlots(spell: integer): array<integer> {
+  const slots: array<integer> = []
   const name = Client::C_Spell::GetSpellName(spell)
   const rank = rankOf(spell)
   if (name == nil || rank == nil || rank < 2) { return slots }
   for (slot of 1..SLOTS) {
     const kind, held, _ = Client::GetActionInfo(slot)
-    if (kind == "spell" && held is Number) {
+    if (kind == "spell" && held is number) {
       const id = held.floor()
       if (id != spell && Client::C_Spell::GetSpellName(id) == name && rankOf(id) == rank - 1) { slots.push(slot) }
     }
@@ -29,7 +29,7 @@ function previousSlots(spell: Integer): Array<Integer> {
 
 // `spell` learned: each slot that held the rank before it holds it now. Out of a fight (the bars are protected in
 // one), and only while the cursor is the player's to keep: a spell picked up for it lets go what the cursor held.
-public function promote(spell: Integer) {
+public function promote(spell: integer) {
   Ordaen.afterCombat(() => {
     const held, _, _, _ = Client::GetCursorInfo()
     if (held != nil) { return }

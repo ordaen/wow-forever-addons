@@ -22,12 +22,12 @@ const RUSSIAN: LineWords = {
 }
 
 // What a list of stats gives, written out: «Stamina 2, Armor 16».
-function told(gives: Array<Given>): String {
+function told(gives: array<Given>): string {
   return gives.map(given => `${given.stat} ${given.amount}`).join(", ")
 }
 
 test "an enchant's line gives each of its flat bonuses" {
-  const lines: Array<ItemLine> = [
+  const lines: array<ItemLine> = [
     { text: "Кожаный шлем", kind: 0 },
     { text: "Чары: +2 к выносливости и +16 к броне", kind: 15 }
   ]
@@ -37,7 +37,7 @@ test "an enchant's line gives each of its flat bonuses" {
 }
 
 test "a shield's block line gives the block's damage as the item's own; a block chance's line is no such line" {
-  const lines: Array<ItemLine> = [
+  const lines: array<ItemLine> = [
     { text: "Щит стражника", kind: 0 },
     { text: "1386 к броне", kind: 0 },
     { text: "39 Блок", kind: 0 },
@@ -51,7 +51,7 @@ test "Forever's shield line, its template's amount a string's place, gives the b
     enchant: "Чары: ", setBonus: "Комплект: ", flat: [], chances: [], spells: "заклинан",
     shieldBlock: "Вероятность блока: %s"
   }
-  const lines: Array<ItemLine> = [
+  const lines: array<ItemLine> = [
     { text: "Дубовый щит истопника", kind: 22 },
     { text: "Броня: 161", kind: 0 },
     { text: "Вероятность блока: 3", kind: 0 },
@@ -61,7 +61,7 @@ test "Forever's shield line, its template's amount a string's place, gives the b
 }
 
 test "a set's name and its bonuses in effect, a flat one and a chance; one not yet in effect is left out" {
-  const lines: Array<ItemLine> = [
+  const lines: array<ItemLine> = [
     { text: "Плащ соучастника", kind: 0 },
     { text: "Соучастники (2/3)", kind: 0 },
     { text: "Комплект: +22 к силе.", kind: 0 },

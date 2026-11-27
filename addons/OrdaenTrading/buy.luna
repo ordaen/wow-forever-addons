@@ -26,23 +26,23 @@ import { leftText } from "@/style"
 public struct Found {
   key: PriceKey
   item: ItemId
-  name: String
+  name: string
   // The name lowercased, as a search matches it.
-  lower: String
+  lower: string
   color: Color
-  listed: Integer
+  listed: integer
   // The lowest price for one, and in a row of an item's folded variants the highest of their lowest (the lowest
   // itself in a variant's row).
   low: Copper
   high: Copper
   market: Quote | nil
   // The lowest as a share of the market, in percent; none without a market.
-  share: Integer | nil
+  share: integer | nil
 }
 
 // The two views: a row a variant, or a row an item with its variants folded.
 public enum View implements Plain { Variants = "variants", Items = "items" }
-const VIEWS: Array<Choice<View>> = [
+const VIEWS: array<Choice<View>> = [
   { value: View::Variants, label: Locale::VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
   { value: View::Items, label: Locale::VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories }
 ]
@@ -53,7 +53,7 @@ const LOW_COLUMN = 4
 const MARKET_COLUMN = 5
 const SHARE_COLUMN = 6
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: "", width: 51.5625dp },
   { title: Locale::COLUMN_LISTED, width: 105.46875dp, align: Align::End, sortable: true },
@@ -63,7 +63,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale::COLUMN_AGE, width: 82.03125dp, align: Align::End, sortable: true }
 ]
 // A row an item: its range in the lowest's place, sorted by the lowest.
-const ITEM_COLUMNS: Array<Column> = [
+const ITEM_COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: "", width: 51.5625dp },
   { title: Locale::COLUMN_LISTED, width: 105.46875dp, align: Align::End, sortable: true },
@@ -72,28 +72,28 @@ const ITEM_COLUMNS: Array<Column> = [
   { title: Locale::COLUMN_SHARE, width: 65.625dp, align: Align::End, sortable: true },
   { title: Locale::COLUMN_AGE, width: 82.03125dp, align: Align::End, sortable: true }
 ]
-const RANGE: Array<Track> = ["max-content", "max-content", "max-content"]
+const RANGE: array<Track> = ["max-content", "max-content", "max-content"]
 // A category's name and nothing at its right; a subclass stands in under its class.
-const CATEGORY: Array<Track> = [{ fr: 1 }]
+const CATEGORY: array<Track> = [{ fr: 1 }]
 const CLASS_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const SUBCLASS_PAD: Edges = { top: 1.5sp, right: 5sp, bottom: 1.5sp, left: 5sp + 4sp }
-const LISTING_COLUMNS: Array<Column> = [
+const LISTING_COLUMNS: array<Column> = [
   { title: Locale::COLUMN_UNIT, width: { fr: 1 }, align: Align::End },
   { title: Locale::COLUMN_COUNT, width: 65.625dp, align: Align::End },
   { title: Locale::COLUMN_LEFT, width: 65.625dp, align: Align::End }
 ]
 // The categories at the left, the results at the right.
-const PAGE: Array<Track> = [Style::CATEGORIES, { fr: 1 }]
+const PAGE: array<Track> = [Style::CATEGORIES, { fr: 1 }]
 // How long the typing settles before what is typed is searched for, in seconds.
 const SETTLE = 0.25
-const FILL: Array<Track> = [{ fr: 1 }]
-const SIDE: Array<Track> = ["max-content", { fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
+const SIDE: array<Track> = ["max-content", { fr: 1 }]
 // The toolbar, and the shopping list's window at the row's right end.
-const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
+const TOOLS: array<Track> = [{ fr: 1 }, "max-content"]
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
 // The item panel's part: the listings (the rest of its height), the quantity and the total, a refusal, the buttons.
-const PANEL: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
-const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
+const PANEL: array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
+const PAIR: array<Track> = [{ fr: 1 }, "max-content"]
 const MENU_WIDTH = 246.09375dp
 const MENU_BACK: Color = Color::hex("#0a0806f7")
 const MENU_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
@@ -113,7 +113,7 @@ const DEAR = 100
 // A filter that lets every one through: no class, no subclass, any level, any quality.
 const ANY = -1
 // The level filter: any, or a band of ten levels by its first (1, 11, ... 51).
-const LEVELS: Array<Choice<Integer>> = [
+const LEVELS: array<Choice<integer>> = [
   { value: ANY, label: Locale::ANY_LEVEL },
   { value: 1, label: Locale::LEVELS.format(1, 10) },
   { value: 11, label: Locale::LEVELS.format(11, 20) },
@@ -122,7 +122,7 @@ const LEVELS: Array<Choice<Integer>> = [
   { value: 41, label: Locale::LEVELS.format(41, 50) },
   { value: 51, label: Locale::LEVELS.format(51, 60) }
 ]
-const QUALITIES: Array<Choice<Integer>> = [
+const QUALITIES: array<Choice<integer>> = [
   { value: ANY, label: Locale::ANY_QUALITY },
   { value: 1, label: Locale::QUALITY_COMMON },
   { value: 2, label: Locale::QUALITY_UNCOMMON },
@@ -131,7 +131,7 @@ const QUALITIES: Array<Choice<Integer>> = [
 ]
 
 // The label of the choice a filter's value is.
-function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
+function labelOf(choices: array<Choice<integer>>, value: integer): string {
   return choices.find(choice => choice.value == value)?.label ?? ""
 }
 
@@ -141,10 +141,10 @@ function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
 // How the player left «Buy»'s list: the filter's level band and quality, the column it is sorted by (0: as the
 // house gives it) and which way, and whether it shows each variant or each item.
 public struct BuyView implements Plain {
-  level: Integer = ANY
-  quality: Integer = ANY
-  sorted: Integer = 0
-  descending: Boolean = false
+  level: integer = ANY
+  quality: integer = ANY
+  sorted: integer = 0
+  descending: boolean = false
   view: View = View::Variants
 }
 const BUY_VIEW: BuyView = {}
@@ -152,15 +152,15 @@ const BUY_VIEW: BuyView = {}
 class FilterMenu implements Component {
   public close: Event<nil> = new Event()
 
-  level: mut Signal<Integer>
-  quality: mut Signal<Integer>
-  constructor(level: mut Signal<Integer>, quality: mut Signal<Integer>) {
+  level: mut Signal<integer>
+  quality: mut Signal<integer>
+  constructor(level: mut Signal<integer>, quality: mut Signal<integer>) {
     self.level = level
     self.quality = quality
   }
 
-  onLevel(mut self, value: Integer) { self.level = value }
-  onQuality(mut self, value: Integer) { self.quality = value }
+  onLevel(mut self, value: integer) { self.level = value }
+  onQuality(mut self, value: integer) { self.quality = value }
   onClose(self) { self.close.emit() }
 
   public render(self): Template {
@@ -181,22 +181,22 @@ class FilterMenu implements Component {
 // A class of the house's categories at the page's left: its entry, and while it is the class picked, its subclasses
 // under it, stood in. Picking reports the class and the subclass (`ANY` for the class whole).
 class CategoryEntry implements Component {
-  public pick: Event<(Integer, Integer)> = new Event()
+  public pick: Event<(integer, integer)> = new Event()
 
-  derived open: Boolean = self.itemClass == self.category.itemClass
-  derived whole: Boolean = self.open && self.itemSubclass == ANY
+  derived open: boolean = self.itemClass == self.category.itemClass
+  derived whole: boolean = self.open && self.itemSubclass == ANY
 
   category: Signal<Game::ItemCategory>
-  itemClass: Signal<Integer>
-  itemSubclass: Signal<Integer>
-  constructor(category: Signal<Game::ItemCategory>, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
+  itemClass: Signal<integer>
+  itemSubclass: Signal<integer>
+  constructor(category: Signal<Game::ItemCategory>, itemClass: Signal<integer>, itemSubclass: Signal<integer>) {
     self.category = category
     self.itemClass = itemClass
     self.itemSubclass = itemSubclass
   }
 
   onClass(self, button: MouseButton) { self.pick.emit(self.category.itemClass, ANY) }
-  onSubclass(self, subclass: Integer) { self.pick.emit(self.category.itemClass, subclass) }
+  onSubclass(self, subclass: integer) { self.pick.emit(self.category.itemClass, subclass) }
 
   public render(self): Template {
     return $ltml {
@@ -215,13 +215,13 @@ class CategoryEntry implements Component {
 
 // A subclass under its class, stood in: picking reports its number.
 class SubclassEntry implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  derived selected: Boolean = self.itemSubclass == self.subclass.itemSubclass
+  derived selected: boolean = self.itemSubclass == self.subclass.itemSubclass
 
   subclass: Signal<Game::ItemSubcategory>
-  itemSubclass: Signal<Integer>
-  constructor(subclass: Signal<Game::ItemSubcategory>, itemSubclass: Signal<Integer>) {
+  itemSubclass: Signal<integer>
+  constructor(subclass: Signal<Game::ItemSubcategory>, itemSubclass: Signal<integer>) {
     self.subclass = subclass
     self.itemSubclass = itemSubclass
   }
@@ -238,14 +238,14 @@ class SubclassEntry implements Component {
 }
 
 // An age in seconds, as the `Age` control reads one; none without a price.
-public function ageOf(quote: Quote | nil): Number | nil {
+public function ageOf(quote: Quote | nil): number | nil {
   if (quote == nil) { return nil }
   return quote.age() * 3600
 }
 
 // The age column's text and colour: the hours under a day (a house's prices move by the hour), «< 1 h» for this
 // hour's; from a day the market's days (`ageText`: amber to the third day, dimmed after); nothing without a price.
-public function ageCell(quote: Quote | nil): (String, Color) {
+public function ageCell(quote: Quote | nil): (string, Color) {
   if (quote == nil) { return "", Style::DIM }
   const hours = quote.age()
   if (hours < 1) { return Locale::AGE_FRESH, Style::INK }
@@ -255,7 +255,7 @@ public function ageCell(quote: Quote | nil): (String, Color) {
 }
 
 // The share's colour: green for a bargain, red where dear, the ink between.
-function shareColor(share: Integer | nil): Color {
+function shareColor(share: integer | nil): Color {
   if (share == nil) { return Style::DIM }
   if (share < CHEAP) { return Style::GREEN }
   if (share > DEAR) { return Style::RED }
@@ -263,13 +263,13 @@ function shareColor(share: Integer | nil): Color {
 }
 
 // The lowest as a share of its own market, in percent; none without one.
-function shareOf(low: Copper, market: Quote | nil): Integer | nil {
+function shareOf(low: Copper, market: Quote | nil): integer | nil {
   if (market == nil || market.copper() <= 0) { return nil }
   return (low * 100 / market.copper()).round()
 }
 
 // The share as a row writes it: a dash where there is none.
-function shareText(share: Integer | nil): String {
+function shareText(share: integer | nil): string {
   return share != nil ? "%d%%".format(share) : "—"
 }
 
@@ -283,14 +283,14 @@ public enum RowAct { List = "list", Search = "search", Close = "close" }
 class RowMenu implements Component {
   public act: Event<RowAct> = new Event()
 
-  derived entries: Array<MenuEntry> = self.entriesOf()
+  derived entries: array<MenuEntry> = self.entriesOf()
 
   purchase: mut Purchase
   constructor(key: PriceKey) {
     self.purchase = new Purchase(key)
   }
 
-  entriesOf(self): Array<MenuEntry> {
+  entriesOf(self): array<MenuEntry> {
     const quoted = self.purchase.quotedCount == 1
     // A commodity's listings hold one at least; an item has an auction to buy out.
     const buyable = self.purchase.commodity || self.purchase.next > 0
@@ -303,7 +303,7 @@ class RowMenu implements Component {
   }
 
   // A commodity's first click has the client price one: its menu stays for the second, which buys it.
-  onPick(mut self, index: Integer) {
+  onPick(mut self, index: integer) {
     if (index == 1) {
       const last = peek self.purchase.quotedCount == 1 || !(peek self.purchase.commodity)
       if (self.purchase.buy(1) && last) { self.act.emit(RowAct::Close) }
@@ -329,25 +329,25 @@ class FoundRow implements Component {
   public menu: Event<PriceKey> = new Event()
   public act: Event<(RowAct, Found)> = new Event()
 
-  derived age: String = self.ageTextOf()
+  derived age: string = self.ageTextOf()
   derived ageInk: Color = self.ageInkOf()
-  derived priced: Boolean = self.found.market != nil
-  derived market: Integer = self.found.market?.copper() ?? 0
-  derived share: String = shareText(self.found.share)
+  derived priced: boolean = self.found.market != nil
+  derived market: integer = self.found.market?.copper() ?? 0
+  derived share: string = shareText(self.found.share)
   derived shareInk: Color = shareColor(self.found.share)
-  derived ranged: Boolean = self.found.high > self.found.low
+  derived ranged: boolean = self.found.high > self.found.low
 
   // The row's line: the table hands the row to another line as it scrolls.
   found: Signal<Found>
-  selected: Signal<Boolean>
-  wanted: Signal<Boolean>
-  menuOpen: Signal<Boolean>
+  selected: Signal<boolean>
+  wanted: Signal<boolean>
+  menuOpen: Signal<boolean>
   constructor(
     found: Signal<Found>,
-    selected: Signal<Boolean>,
-    wanted: Signal<Boolean>,
+    selected: Signal<boolean>,
+    wanted: Signal<boolean>,
     // Its menu shows, under it.
-    menuOpen: Signal<Boolean>
+    menuOpen: Signal<boolean>
   ) {
     self.found = found
     self.selected = selected
@@ -362,7 +362,7 @@ class FoundRow implements Component {
 
   onAct(self, act: RowAct) { self.act.emit(act, self.found) }
 
-  ageTextOf(self): String {
+  ageTextOf(self): string {
     const text, _ = ageCell(self.found.market)
     return text
   }
@@ -431,7 +431,7 @@ public class BuyPage implements Component {
   state itemSubclass = ANY
   state filterOpen = false
   // The filter's Tip: the level band and the quality it lets through.
-  derived filterText: String = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
+  derived filterText: string = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<BuyView> = new ModuleMemory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
@@ -442,41 +442,41 @@ public class BuyPage implements Component {
   // Every row of what the house showed, a row a variant, and the same with each item's variants folded, each sorted:
   // rebuilt as the house shows other items, its prices move or the sort changes, never as the player types. The rows
   // shown are the view's whose lowercased name holds the search.
-  derived variants: Array<Found> = self.variantsOf()
-  derived folded: Array<Found> = self.foldedOf()
-  derived byItem: Boolean = self.list.values.view == View::Items
-  derived rows: Array<Found> = self.matching()
+  derived variants: array<Found> = self.variantsOf()
+  derived folded: array<Found> = self.foldedOf()
+  derived byItem: boolean = self.list.values.view == View::Items
+  derived rows: array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
-  derived picks: Array<Found> = self.chosenOf()
-  derived filtered: Boolean = self.list.values.level != ANY || self.list.values.quality != ANY
-  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
+  derived picks: array<Found> = self.chosenOf()
+  derived filtered: boolean = self.list.values.level != ANY || self.list.values.quality != ANY
+  derived wanted: string = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
     self.list.values.quality)
-  derived empty: String = self.items > 0 ? Locale::NO_RESULTS : Locale::NO_PRICES_FIND
+  derived empty: string = self.items > 0 ? Locale::NO_RESULTS : Locale::NO_PRICES_FIND
   // What the table says under its headings while it has no rows.
-  derived emptySaid: String = self.rows.length == 0 ? self.empty : ""
-  derived anyClass: Boolean = self.itemClass == ANY
+  derived emptySaid: string = self.rows.length == 0 ? self.empty : ""
+  derived anyClass: boolean = self.itemClass == ANY
   // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
   turn = 0
 
   // The house's categories, as the client lists them.
-  const categories: Array<Game::ItemCategory>
+  const categories: array<Game::ItemCategory>
   house: mut House
   const prices: any PriceSource
-  offers: Signal<Array<Game::Offer>>
-  items: Signal<Integer>
+  offers: Signal<array<Game::Offer>>
+  items: Signal<integer>
   // The shopping list: its items marked, the row picked added to it.
   shopping: mut ShoppingList
-  chosen: mut Signal<Array<Found>>
+  chosen: mut Signal<array<Found>>
   constructor(
     house: mut House,
     prices: any PriceSource,
     // What the house showed last.
-    offers: Signal<Array<Game::Offer>>,
+    offers: Signal<array<Game::Offer>>,
     // How many items the house's prices cover.
-    items: Signal<Integer>,
+    items: Signal<integer>,
     shopping: mut ShoppingList,
     // The row picked, while it is shown: the window's side section draws it.
-    chosen: mut Signal<Array<Found>>
+    chosen: mut Signal<array<Found>>
   ) {
     self.house = house
     self.prices = prices
@@ -503,7 +503,7 @@ public class BuyPage implements Component {
   }
 
   // The typing settled, unless a key or Enter came since.
-  async settleLater(mut self, turn: Integer) {
+  async settleLater(mut self, turn: integer) {
     await Game::delay(SETTLE)
     if (turn == self.turn) { self.search = peek self.typed }
   }
@@ -523,9 +523,9 @@ public class BuyPage implements Component {
   }
 
   // A row a key the house showed: a variant named with its suffix, its own lowest over its own market.
-  variantsOf(mut self): Array<Found> {
+  variantsOf(mut self): array<Found> {
     _ = self.prices.revision
-    let list: Array<Found> = []
+    let list: array<Found> = []
     for (offer of self.offers) {
       const key = PriceKey::given(offer.key)
       const named = self.house.named(key)
@@ -541,10 +541,10 @@ public class BuyPage implements Component {
 
   // A row an item: its variants' listings summed, their lowest prices as a range; named as the item, its market and age
   // those of its cheapest variant, which a pick or the menu takes.
-  foldedOf(mut self): Array<Found> {
+  foldedOf(mut self): array<Found> {
     _ = self.prices.revision
-    let at: Map<ItemId, Integer> = {}
-    let list: Array<Found> = []
+    let at: map<ItemId, integer> = {}
+    let list: array<Found> = []
     for (offer of self.offers) {
       const key = PriceKey::given(offer.key)
       const item = key.item()
@@ -572,7 +572,7 @@ public class BuyPage implements Component {
     return self.sortedOf(list)
   }
 
-  sortedOf(self, list: mut Array<Found>): Array<Found> {
+  sortedOf(self, list: mut array<Found>): array<Found> {
     const column = self.list.values.sorted
     const down = self.list.values.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
@@ -580,14 +580,14 @@ public class BuyPage implements Component {
   }
 
   // The view's rows whose lowercased name holds the search: all of them for none.
-  matching(self): Array<Found> {
+  matching(self): array<Found> {
     const all = self.byItem ? self.folded : self.variants
     const sought = self.search.lower()
     if (sought == "") { return all }
     return all.filter(row => row.lower.contains(sought))
   }
 
-  chosenOf(self): Array<Found> {
+  chosenOf(self): array<Found> {
     const picked = self.picked
     const row = picked != nil ? self.rows.find(row => row.key == picked) : nil
     return row != nil ? [row] : []
@@ -615,7 +615,7 @@ public class BuyPage implements Component {
     self.itemClass = ANY
     self.itemSubclass = ANY
   }
-  pickCategory(mut self, itemClass: Integer, itemSubclass: Integer) {
+  pickCategory(mut self, itemClass: integer, itemSubclass: integer) {
     self.itemClass = itemClass
     self.itemSubclass = itemSubclass
   }
@@ -670,21 +670,21 @@ public class BuyPage implements Component {
 }
 
 // The time a listing has left, where the client says it.
-function leftOf(seconds: Integer | nil): String {
+function leftOf(seconds: integer | nil): string {
   return seconds != nil ? leftText(seconds) : "—"
 }
 
 // One listing of the picked item: its price for one, how many, the time left; marked where the next click buys
 // from it (its place within `first` to `last`).
 class ListingRow implements Component {
-  derived left: String = leftOf(self.listing.left)
-  derived selected: Boolean = self.index >= self.first && self.index <= self.last
+  derived left: string = leftOf(self.listing.left)
+  derived selected: boolean = self.index >= self.first && self.index <= self.last
 
   const listing: Game::Listing
-  const index: Integer
-  first: Signal<Integer>
-  last: Signal<Integer>
-  constructor(listing: Game::Listing, index: Integer, first: Signal<Integer>, last: Signal<Integer>) {
+  const index: integer
+  first: Signal<integer>
+  last: Signal<integer>
+  constructor(listing: Game::Listing, index: integer, first: Signal<integer>, last: Signal<integer>) {
     self.listing = listing
     self.index = index
     self.first = first
@@ -715,23 +715,23 @@ public class Chosen implements Component {
   state count = 1
   state listSorted = 0
   state listDescending = false
-  derived listings: Array<Game::Listing> = self.purchase.listings ?? []
-  derived commodity: Boolean = self.purchase.commodity
+  derived listings: array<Game::Listing> = self.purchase.listings ?? []
+  derived commodity: boolean = self.purchase.commodity
   // The listings the next click buys from: a commodity's first so many, an item's one auction.
-  derived first: Integer = self.commodity ? 1 : self.purchase.next
-  derived last: Integer = self.commodity ? self.purchase.coveredBy(self.count) : self.purchase.next
-  derived refused: Boolean = self.purchase.refused != nil
-  derived refusedText: String = self.purchase.refused ?? ""
+  derived first: integer = self.commodity ? 1 : self.purchase.next
+  derived last: integer = self.commodity ? self.purchase.coveredBy(self.count) : self.purchase.next
+  derived refused: boolean = self.purchase.refused != nil
+  derived refusedText: string = self.purchase.refused ?? ""
   derived auction: Game::Listing | nil = self.listings[self.purchase.next]
-  derived quoted: Boolean = self.purchase.quotedCount == self.count
-  derived total: Integer = self.totalOf()
-  derived buyLabel: String = self.quoted ? Locale::CONFIRM : Locale::BUY
-  derived canBuy: Boolean = !Game::auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
+  derived quoted: boolean = self.purchase.quotedCount == self.count
+  derived total: integer = self.totalOf()
+  derived buyLabel: string = self.quoted ? Locale::CONFIRM : Locale::BUY
+  derived canBuy: boolean = !Game::auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
       self.auction != nil)
-  derived auctionCount: String = String::of(self.auction?.quantity ?? 0)
+  derived auctionCount: string = string::of(self.auction?.quantity ?? 0)
 
   // Under the item's name in its panel: how many are listed.
-  const detail: String
+  const detail: string
   const found: Found
   const house: House
   const prices: any PriceSource
@@ -754,7 +754,7 @@ public class Chosen implements Component {
     self.purchase = new Purchase(found.key)
   }
 
-  totalOf(self): Integer {
+  totalOf(self): integer {
     if (!self.commodity) { return self.auction?.buyout ?? 0 }
     if (self.quoted) { return self.purchase.quotedTotal }
     return self.purchase.costOf(self.count) ?? 0
@@ -799,7 +799,7 @@ public class Chosen implements Component {
 }
 
 // Whether `a` comes before `b` by the column, cheapest, fewest, first by name and youngest first.
-function before(a: Found, b: Found, column: Integer): Boolean {
+function before(a: Found, b: Found, column: integer): boolean {
   if (column == NAME_COLUMN) { return a.name < b.name }
   if (column == LISTED_COLUMN) { return a.listed < b.listed }
   if (column == LOW_COLUMN) { return a.low < b.low }

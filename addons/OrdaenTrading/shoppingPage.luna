@@ -19,25 +19,25 @@ import { Source } from "@/wanted"
 
 // A window docked at the screen's right is narrow: what is held and needed stands under what is left to buy, the
 // price's age under the price.
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 } },
   { title: Locale::COLUMN_TO_BUY, width: 131.25dp, align: Align::End },
   { title: Locale::COLUMN_PRICE, width: 117.1875dp, align: Align::End },
   { title: Locale::COLUMN_TOTAL, width: 105.46875dp, align: Align::End },
   { title: "", width: 126.5625dp, align: Align::End }
 ]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
-const LINES: Array<Track> = ["max-content", "max-content"]
-const PRICE: Array<Track> = ["max-content", "max-content"]
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
+const LINES: array<Track> = ["max-content", "max-content"]
+const PRICE: array<Track> = ["max-content", "max-content"]
 // The total over the list, the list (the rest of the window's height), the buttons under it.
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const FILL: Array<Track> = [{ fr: 1 }]
-const HEAD: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FILL: array<Track> = [{ fr: 1 }]
+const HEAD: array<Track> = [{ fr: 1 }, "max-content", "max-content"]
 // The footer has its buttons alone.
-const NO_COUNTS: Array<FooterCount> = []
+const NO_COUNTS: array<FooterCount> = []
 
 // What asked for a line, as the row says it: «Bronze Axe ×5 — Regron's queue», «by hand».
-function sourceText(source: Source): String {
+function sourceText(source: Source): string {
   return match (source) {
     .Queue => Locale::QUEUE_LINE.format(Game::spells.name(source.recipe) ?? Locale::UNKNOWN_RECIPE.format(source.recipe),
       source.crafts, source.character)
@@ -46,7 +46,7 @@ function sourceText(source: Source): String {
 }
 
 // Under the item's name, its sources on one line: every row is as high as the others.
-function linesText(row: Row): String {
+function linesText(row: Row): string {
   let text = ""
   for (index, line of row.lines) {
     text = text + (index == 1 ? "" : ", ") + sourceText(line.source)
@@ -64,34 +64,34 @@ class ShoppingRow implements Component {
   public pick: Event<ItemId> = new Event()
   public buy: Event<ItemId> = new Event()
 
-  derived quoted: Integer = self.quotedItem == self.row.item ? self.quotedTotal : 0
+  derived quoted: integer = self.quotedItem == self.row.item ? self.quotedTotal : 0
   derived quote: Quote | nil = quoteOf(self.prices, self.row.item)
-  derived priced: Boolean = self.quote != nil
-  derived unit: Integer = self.quote?.copper() ?? 0
-  derived sum: Integer = self.quoted > 0 ? self.quoted : self.unit * self.row.toBuy
-  derived age: Number | nil = ageOf(self.quote)
+  derived priced: boolean = self.quote != nil
+  derived unit: integer = self.quote?.copper() ?? 0
+  derived sum: integer = self.quoted > 0 ? self.quoted : self.unit * self.row.toBuy
+  derived age: number | nil = ageOf(self.quote)
   derived ink: Color = self.row.toBuy == 0 ? Style::DIM : Style::INK
-  derived name: String = self.nameText()
+  derived name: string = self.nameText()
   derived color: Color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
-  derived from: String = linesText(self.row)
-  derived bought: Boolean = self.row.toBuy == 0
-  derived buyLabel: String = self.bought ? Locale::BOUGHT : self.quoted > 0 ? Locale::CONFIRM :
+  derived from: string = linesText(self.row)
+  derived bought: boolean = self.row.toBuy == 0
+  derived buyLabel: string = self.bought ? Locale::BOUGHT : self.quoted > 0 ? Locale::CONFIRM :
     Locale::BUY_COUNT.format(self.row.toBuy)
-  derived canBuy: Boolean = self.priced && !self.bought && !Game::auctionActions.busy
+  derived canBuy: boolean = self.priced && !self.bought && !Game::auctionActions.busy
 
   // The row's line of the list: the table hands the row to another line as it scrolls.
   row: Signal<Row>
   const prices: any PriceSource
-  selected: Signal<Boolean>
+  selected: Signal<boolean>
   quotedItem: Signal<ItemId | nil>
-  quotedTotal: Signal<Integer>
+  quotedTotal: Signal<integer>
   constructor(
     row: Signal<Row>,
     prices: any PriceSource,
-    selected: Signal<Boolean>,
+    selected: Signal<boolean>,
     // The item whose purchase the client priced (none for none), and what it asked, in copper.
     quotedItem: Signal<ItemId | nil>,
-    quotedTotal: Signal<Integer>
+    quotedTotal: Signal<integer>
   ) {
     self.row = row
     self.prices = prices
@@ -100,7 +100,7 @@ class ShoppingRow implements Component {
     self.quotedTotal = quotedTotal
   }
 
-  nameText(self): String {
+  nameText(self): string {
     const name, _ = nameOf(self.row.item)
     return name
   }
@@ -161,8 +161,8 @@ class ShoppingRow implements Component {
 
 // How the player left the shopping list: the column it is sorted by (0: as it comes) and which way.
 public struct ShoppingView implements Plain {
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 const SHOPPING_VIEW: ShoppingView = {}
 
@@ -173,17 +173,17 @@ public class ShoppingPage implements Component {
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil
   // The list's rows bought at the page's market, every row for none.
-  derived rows: Array<Row> = self.list.rows.filter(row => self.market == nil || marketOf(self.prices, row.item) == self.market)
-  derived empty: Boolean = self.rows.length == 0
-  derived chosen: Boolean = self.chosenOf()
+  derived rows: array<Row> = self.list.rows.filter(row => self.market == nil || marketOf(self.prices, row.item) == self.market)
+  derived empty: boolean = self.rows.length == 0
+  derived chosen: boolean = self.chosenOf()
   // The row whose purchase the client priced, none for none, and the price.
   derived quotedItem: ItemId | nil = self.quotedItemOf()
-  derived quotedTotal: Integer = self.purchase?.quotedTotal ?? 0
+  derived quotedTotal: integer = self.purchase?.quotedTotal ?? 0
   // Every row's sum, and whether a row without a price left it short.
-  derived total: Integer = self.totalOf()
-  derived short: Boolean = self.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
+  derived total: integer = self.totalOf()
+  derived short: boolean = self.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
   // Searched and bought from at the house alone.
-  derived away: Boolean = self.empty || !Game::auctionHouse.open
+  derived away: boolean = self.empty || !Game::auctionHouse.open
 
   const prices: any PriceSource
   list: mut ShoppingList
@@ -195,7 +195,7 @@ public class ShoppingPage implements Component {
   }
 
   // The row picked, while it is on the list.
-  chosenOf(self): Boolean {
+  chosenOf(self): boolean {
     const picked = self.picked
     return picked != nil && self.list.needed[picked] != nil
   }
@@ -206,7 +206,7 @@ public class ShoppingPage implements Component {
     return purchase.key.item()
   }
 
-  totalOf(self): Integer {
+  totalOf(self): integer {
     let copper = 0
     for (row of self.rows) { copper += (quoteOf(self.prices, row.item)?.copper() ?? 0) * row.toBuy }
     return copper

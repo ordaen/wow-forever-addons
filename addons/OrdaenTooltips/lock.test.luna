@@ -27,7 +27,7 @@ const HELP = "Interface/Cursor/QuestTurnIn"
 const ARMOUR = "Reduces the |cffffffffphysical damage|r you take."
 
 // A frame of the game's, by its name, at a place on the screen: in the screen's frame, as the game's are.
-function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client::Frame {
+function frame(kind: string, name: string, x: number, y: number, width: number, height: number): any Client::Frame {
   const made = Client::CreateFrame(kind, name, Client::UIParent, nil)
   made.SetSize(width, height)
   made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", x, -y)
@@ -78,7 +78,7 @@ function locked(): Test::Part {
 }
 
 // Whether a tooltip is locked: its hint shows.
-function isLocked(): Boolean {
+function isLocked(): boolean {
   return Test::page().text(LOCKED).shown()
 }
 
@@ -95,7 +95,7 @@ function elsewhere() {
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -146,7 +146,7 @@ test "a tooltip charged in full locks: its hint in the bar's place, and its clos
 
 // A hotkey another module has for every item.
 class Keyed implements ItemKeys {
-  public keys(self, item: Integer, link: String): Array<String> { return ["Alt+Left-click: hold"] }
+  public keys(self, item: integer, link: string): array<string> { return ["Alt+Left-click: hold"] }
 }
 
 test "a locked tooltip's hint stands a section under its hotkeys, as under any section" {
@@ -171,13 +171,13 @@ class OnSlot {
 class SlotKey implements ItemKeys {
   const slot: OnSlot
   constructor(slot: OnSlot) { self.slot = slot }
-  public keys(self, item: Integer, link: String): Array<String> { return self.slot.hovered ? ["Alt+Left-click: protect"] : [] }
+  public keys(self, item: integer, link: string): array<string> { return self.slot.hovered ? ["Alt+Left-click: protect"] : [] }
 }
 
 class SlotNote implements ItemLines {
   const slot: OnSlot
   constructor(slot: OnSlot) { self.slot = slot }
-  public lines(self, item: Integer, link: String): Array<Line> { return self.slot.hovered ? [{ left: "Protected from sorting" }] : [] }
+  public lines(self, item: integer, link: string): array<Line> { return self.slot.hovered ? [{ left: "Protected from sorting" }] : [] }
 }
 
 test "the cursor gone from the slot onto the locked tooltip keeps the hotkeys and notes said of the slot" {
@@ -453,7 +453,7 @@ test "a tooltip closed locks again after the cursor left its source and came bac
 // What its parts open
 
 test "a locked tooltip underlines the parts that open something; one not locked underlines nothing" {
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65 })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 65 })
   Test::mount(new Elsewhere(), SCREEN)
   Game::tooltip.main = inSlot(frostbolt())
   Test::pass(SHOWS)
@@ -476,7 +476,7 @@ test "the cursor on a cell that names a term opens the term beside it, under the
 }
 
 // A player of a side, on the screen: their tooltip names the side.
-function sided(faction: String): Game::UnitInfo {
+function sided(faction: string): Game::UnitInfo {
   return {
     name: "Varian", player: true, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 60,
     faction: faction, sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
@@ -486,7 +486,7 @@ function sided(faction: String): Game::UnitInfo {
 
 test "a player's side opens its term: the Alliance's, the Horde's, and none for a side Ordaen doesn't know" {
   let faction = "Alliance"
-  Game::units.of = (unit: String): Game::UnitInfo | nil => sided(faction)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => sided(faction)
   Test::mount(new Elsewhere(), SCREEN)
   for (side of ["Alliance", "Horde"]) {
     faction = side
@@ -558,10 +558,10 @@ test "a fact that speaks of an amount opens its term with the amount in it" {
 
 test "what a locked tooltip opens is locked itself: the cursor goes into it, and what it holds opens further" {
   // A spell whose reagent opens its item; the item is soulbound, which opens its term.
-  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
     return item == "Linen Cloth" ? 2589 : nil, nil, nil, nil, nil, nil, nil
   }
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => id != 2589 ? nil : {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 2589 ? nil : {
     kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }, { left: "Soulbound", kind: 20 }]
   }
   Test::mount(new Elsewhere(), SCREEN)
@@ -582,7 +582,7 @@ test "what a locked tooltip opens is locked itself: the cursor goes into it, and
 }
 
 test "a tooltip beside a locked one opens its terms too" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => ({
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => ({
     kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }]
   })
   Test::mount(new Elsewhere(), SCREEN)
@@ -623,7 +623,7 @@ test "a building of the camp opens its whole sentence" {
 }
 
 // A player as the game knows them, by the game's name for the unit: Jaina under the cursor, her target Ann.
-function known(unit: String): Game::UnitInfo | nil {
+function known(unit: string): Game::UnitInfo | nil {
   if (unit == "mouseover") {
     return {
       name: "Jaina", player: true, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 60,
@@ -666,7 +666,7 @@ test "a caster who is gone opens nothing" {
 
 // A tooltip of each kind that locks, by the tab its «Tooltips in tooltips» is on: an item, an ability, an effect, a
 // player, an NPC, a world object.
-function ofKind(tab: String): Game::TooltipData {
+function ofKind(tab: string): Game::TooltipData {
   if (tab == "Items") { return sword() }
   if (tab == "Abilities") { return frostbolt() }
   if (tab == "Effects") { return { kind: 7, id: 1, about: "spell:1", lines: [{ left: "Renew", kind: 0 }] } }
@@ -675,7 +675,7 @@ function ofKind(tab: String): Game::TooltipData {
 }
 
 // «Tooltips in tooltips» of a kind's tab clicked: it applies at once.
-function lockOf(tab: String) {
+function lockOf(tab: string) {
   Test::open("/ordaen")
   const settings = Test::page().window(SETTINGS)
   settings.button("Tooltips").click()
@@ -684,7 +684,7 @@ function lockOf(tab: String) {
   Test::key(Key::Escape)
 }
 
-function anyone(unit: String): Game::UnitInfo | nil {
+function anyone(unit: string): Game::UnitInfo | nil {
   return {
     name: unit, player: unit == "Players", dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 10,
     inParty: false, friend: false, ignored: false, tapped: false, classification: "normal", sameFaction: true
@@ -767,13 +767,13 @@ test "a locked tooltip opens no term before the cursor comes onto a part" {
 }
 
 // Whether a text is this one: where it isn't, the test fails with what it is.
-function same(said: String, expected: String): Boolean {
+function same(said: string, expected: string): boolean {
   if (said != expected) { panic(`it says «${said}», not «${expected}»`) }
   return true
 }
 
 // The name of the term the cursor on this part of the locked tooltip opens.
-function termOf(part: String): String {
+function termOf(part: string): string {
   locked().text(part).hover()
   const opened = Test::surfaces()[2]?.texts ?? []
   locked().text("Locked — hover the underlined parts").hover()
@@ -797,11 +797,11 @@ test "each cell of an ability's band opens its own term" {
 const WOOD: FileId = 135435
 
 test "a recipe's reagent stands with its icon, and opens its own tooltip from the locked one" {
-  Client::C_Item::GetItemInfoInstant = (itemInfo: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (itemInfo: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
     if (itemInfo == "Simple Wood") { return 4470, nil, nil, nil, WOOD, nil, nil }
     return nil, nil, nil, nil, nil, nil, nil
   }
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => id != 4470 ? nil : {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 4470 ? nil : {
     kind: 0, id: 4470, lines: [{ left: "Simple Wood", kind: 22 }, { left: "Used to craft wooden things.", kind: 0 }]
   }
   Test::mount(new Elsewhere(), SCREEN)
@@ -833,7 +833,7 @@ test "an item bound on equip or on pickup opens what that binding is" {
 }
 
 test "the caster of an effect opens the caster's own tooltip; the player's own «You» opens nothing" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => unit != "target" ? nil : {
+  Game::units.of = (unit: string): Game::UnitInfo | nil => unit != "target" ? nil : {
     name: "Scarlet Monk", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 30,
     inParty: false, friend: false, ignored: false, tapped: false, classification: "normal", sameFaction: false
   }
@@ -874,7 +874,7 @@ test "a new tooltip locked waits for the cursor, though the cursor was on the on
 
 // Another module's line that opens a list: a crafter, the recipes it knows taking the item, each opening what it makes.
 class Crafters implements ItemLines {
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     return [{
       left: "Ann", right: "Tailoring",
       opens: {
@@ -887,7 +887,7 @@ class Crafters implements ItemLines {
 
 test "a line another module adds opens its list, whose rows open the items they name" {
   Test::mount(new Elsewhere(), SCREEN)
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => id != 9011 ? nil : shield()
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => id != 9011 ? nil : shield()
   const added = Tooltips.uses.add(new Crafters())
   Game::tooltip.main = inSlot(sword())
   Test::pass(SHOWS)

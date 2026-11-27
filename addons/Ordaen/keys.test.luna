@@ -16,14 +16,14 @@ import { Tabs } from "@/tabs"
 import { TextBox } from "@/textBox"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
-const SIDES: Array<Choice<String>> = [{ value: "left", label: "Left" }, { value: "right", label: "Right" }]
-const SIZES: Array<Choice<Integer>> = [{ value: 1, label: "Small" }, { value: 2, label: "Large" }]
-const COLUMNS: Array<Column> = [{ title: "Name", width: { fr: 1 }, align: Align::Start }]
-const ENTRIES: Array<MenuEntry> = [{ label: "Copy" }, { label: "Paste" }]
+const SIDES: array<Choice<string>> = [{ value: "left", label: "Left" }, { value: "right", label: "Right" }]
+const SIZES: array<Choice<integer>> = [{ value: 1, label: "Small" }, { value: 2, label: "Large" }]
+const COLUMNS: array<Column> = [{ title: "Name", width: { fr: 1 }, align: Align::Start }]
+const ENTRIES: array<MenuEntry> = [{ label: "Copy" }, { label: "Paste" }]
 
 class Controls {
   state open = true
-  state tabs: Array<WindowTabSpec> = [{ title: "Controls" }, { title: "More" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Controls" }, { title: "More" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 760ui, height: 620ui })
   state pixel = false
@@ -33,7 +33,7 @@ class Controls {
   state side = "left"
   state size = 1
   state compact = "left"
-  state scale: Number = 1
+  state scale: number = 1
   state money = 0
   state notes = ""
   state page = 1
@@ -47,7 +47,7 @@ class Controls {
   pickRow(mut self) { self.row += 1 }
   showMenu(mut self) { self.menu = true }
   hideMenu(mut self) { self.menu = false }
-  onPick(mut self, at: Integer) {
+  onPick(mut self, at: integer) {
     self.picked = at
     self.menu = false
   }
@@ -82,7 +82,7 @@ class Controls {
 }
 
 // Tab until the focus says `said` (its place, `#1 `, or its text, `«Left»`), at most once round the window.
-function tabTo(said: String) {
+function tabTo(said: string) {
   for (i of 1..20) {
     Test::key(Move::Next)
     if (Test::focused().contains(said)) { return }

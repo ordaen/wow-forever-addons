@@ -19,7 +19,7 @@ function open() {
 }
 
 // What an entry of «Откатить»'s menu says of going back over `count` settings of Ordaen's own.
-function ordaens(count: Integer): String {
+function ordaens(count: integer): string {
   const change: Change = { count: count, modules: [Ordaen.title] }
   return changeText(change)
 }
@@ -53,7 +53,7 @@ test "a slider's drag shows at once, is written as it rests and as it is let go,
 }
 
 // The scale's slider pressed and moved, not let go: whether its value is still `from`, waiting for the drag to rest.
-function dragging(from: Number): Boolean {
+function dragging(from: number): boolean {
   const knob = Test::painted(Ordaen.art.ctl.sliderKnob, nil)
   Test::moveTo(knob)
   Test::press(nil)
@@ -120,11 +120,11 @@ test "+ held shows each step at once and writes it as it is let go, one step of 
   Test::pass(REST + 0.05)
   Test::expect(Ordaen.globals.values.scale == 1.05)
   Test::pass(0.3)
-  Test::expect(Test::page().input().value() != String::of(Ordaen.globals.values.scale))
+  Test::expect(Test::page().input().value() != string::of(Ordaen.globals.values.scale))
   Test::release(nil)
   Test::flush()
   // Let go: the value is what the field shows, and the whole hold is one step.
-  Test::expect(Test::page().input().value() == String::of(Ordaen.globals.values.scale))
+  Test::expect(Test::page().input().value() == string::of(Ordaen.globals.values.scale))
   Test::expect(Ordaen.globals.values.scale > 1.05 && Ordaen.keeper.steps == steps + 1)
 }
 

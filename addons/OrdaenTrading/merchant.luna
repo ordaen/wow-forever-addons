@@ -26,15 +26,15 @@ public struct MerchantView implements Plain {
   view: WareView = WareView::List
   sort: WareSort = WareSort::Merchant
   filter: WareFilter = WareFilter::All
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 public const MERCHANT_VIEW: MerchantView = {}
 
 // A purchase waiting for the player's word: the item, and how many (nil: one purchase of the merchant's stack).
 struct Purchase {
   const ware: Ware
-  const count: Integer | nil
+  const count: integer | nil
 }
 
 // The game's own price past which a purchase is asked first (`MERCHANT_HIGH_PRICE_COST`).
@@ -60,35 +60,35 @@ const COST_ICON = 16.40625dp
 const SLOT = 43.359375dp
 // A table row: an item's slot and the row's padding round it.
 const TABLE_SLOT = 28.125dp
-const TABLE_CELL: Array<Track> = [TABLE_SLOT, { fr: 1 }]
+const TABLE_CELL: array<Track> = [TABLE_SLOT, { fr: 1 }]
 public const SIDE_WIDTH = 234.375dp
 const DIALOG = 375dp
 const BUTTON = 140.625dp
-const CELL: Array<Track> = [SLOT, { fr: 1 }]
-const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
-const BODY: Array<Track> = ["max-content", { fr: 1 }]
-const FILL: Array<Track> = [{ fr: 1 }]
-const SIDE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const COST: Array<Track> = ["max-content", "max-content"]
+const CELL: array<Track> = [SLOT, { fr: 1 }]
+const PAIR: array<Track> = [{ fr: 1 }, "max-content"]
+const BODY: array<Track> = ["max-content", { fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
+const SIDE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const COST: array<Track> = ["max-content", "max-content"]
 // The money, then each part of what it costs besides.
 const PRICE: Columns = { each: "max-content" }
-const VIEWS: Array<Choice<WareView>> = [
+const VIEWS: array<Choice<WareView>> = [
   { value: WareView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: WareView::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: WareView::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
-const SORTS: Array<Choice<WareSort>> = [
+const SORTS: array<Choice<WareSort>> = [
   { value: WareSort::Merchant, label: Locale::SORT_MERCHANT },
   { value: WareSort::Name, label: Locale::SORT_NAME },
   { value: WareSort::Price, label: Locale::SORT_PRICE },
   { value: WareSort::Usable, label: Locale::SORT_USABLE }
 ]
-const FILTERS: Array<Choice<WareFilter>> = [
+const FILTERS: array<Choice<WareFilter>> = [
   { value: WareFilter::All, label: Locale::FILTER_ALL },
   { value: WareFilter::Usable, label: Locale::FILTER_USABLE },
   { value: WareFilter::Affordable, label: Locale::FILTER_AFFORDABLE }
 ]
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: Locale::COLUMN_TYPE, width: 93.75dp, sortable: true },
   { title: Locale::COLUMN_LEVEL, width: 56.25dp, align: Align::End, sortable: true },
@@ -97,7 +97,7 @@ const COLUMNS: Array<Column> = [
 ]
 
 // Whether the item stays in the list: its name holds the search, and the filter keeps it.
-function kept(ware: Ware, filter: WareFilter, query: String, money: Integer): Boolean {
+function kept(ware: Ware, filter: WareFilter, query: string, money: integer): boolean {
   if (query != "" && !ware.name.lower().contains(query)) { return false }
   return match (filter) {
     .All => true
@@ -107,7 +107,7 @@ function kept(ware: Ware, filter: WareFilter, query: String, money: Integer): Bo
 }
 
 // Whether `a` stands before `b` by the sort; the merchant's order where they are alike.
-function before(a: Ware, b: Ware, sort: WareSort): Boolean {
+function before(a: Ware, b: Ware, sort: WareSort): boolean {
   match (sort) {
     .Name => {
       if (a.name != b.name) { return a.name < b.name }
@@ -125,14 +125,14 @@ function before(a: Ware, b: Ware, sort: WareSort): Boolean {
 
 // The table's order: by its column (1 the name, 2 the type, 3 the level, 4 how many the bags hold, 5 the price), the
 // merchant's where they are alike or none is picked.
-function tableBefore(a: Ware, b: Ware, column: Integer, descending: Boolean): Boolean {
+function tableBefore(a: Ware, b: Ware, column: integer, descending: boolean): boolean {
   const ka = columnKey(a, column)
   const kb = columnKey(b, column)
   if (ka != kb) { return descending ? kb < ka : ka < kb }
   return a.index < b.index
 }
 
-function columnKey(ware: Ware, column: Integer): String {
+function columnKey(ware: Ware, column: integer): string {
   return match (column) {
     1 => ware.name
     2 => ware.kind
@@ -144,20 +144,20 @@ function columnKey(ware: Ware, column: Integer): String {
 }
 
 // What a purchase of `count` items costs in money (nil: one purchase of the merchant's stack).
-function moneyFor(ware: Ware, count: Integer | nil): Integer {
+function moneyFor(ware: Ware, count: integer | nil): integer {
   if (count == nil) { return ware.price }
   return (ware.price * count / ware.stack).ceil()
 }
 
 // How many of the item one purchase of the player's choosing takes at most: the merchant's most at once, and what the
 // player's money pays for.
-function mostFor(ware: Ware, money: Integer): Integer {
+function mostFor(ware: Ware, money: integer): integer {
   if (ware.price <= 0) { return ware.most }
   return ware.most.min((money * ware.stack / ware.price).floor())
 }
 
 // The line under an item's name: how many the merchant has left, and how many the bags hold.
-function stockLine(ware: Ware, carried: Integer): String {
+function stockLine(ware: Ware, carried: integer): string {
   const held = carried > 0 ? Locale::MERCHANT_IN_BAGS.format(carried) : ""
   if (ware.available < 0) { return held }
   const left = Locale::LEFT.format(ware.available)
@@ -167,8 +167,8 @@ function stockLine(ware: Ware, carried: Integer): String {
 // What a purchase costs besides money: each part, with its icon.
 class CostTag implements Component {
   icon: Signal<Art | nil>
-  amount: Signal<Integer>
-  constructor(icon: Signal<Art | nil>, amount: Signal<Integer>) {
+  amount: Signal<integer>
+  constructor(icon: Signal<Art | nil>, amount: Signal<integer>) {
     self.icon = icon
     self.amount = amount
   }
@@ -188,21 +188,21 @@ class WareCell implements Component {
   public pressed: Event<(Ware, Event::Press)> = new Event()
   public dragged: Event<Ware> = new Event()
   // An entry of its menu picked, by its place; the menu closed by a click outside it.
-  public chose: Event<Integer> = new Event()
+  public chose: Event<integer> = new Event()
   public closed: Event<nil> = new Event()
 
-  derived dear: Boolean = self.ware.price > Game::money.amount
+  derived dear: boolean = self.ware.price > Game::money.amount
   derived priceColor: Color = self.dear ? RED : INK
   derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
-  derived priced: Boolean = self.ware.price > 0
+  derived priced: boolean = self.ware.price > 0
   // The client's coin bag over a ware, red where the player can't afford it.
   derived cursor: Cursor = self.dear ? Cursor::BuyError : Cursor::Buy
-  derived stock: String = stockLine(self.ware, Game::items.inBags(self.ware.id))
+  derived stock: string = stockLine(self.ware, Game::items.inBags(self.ware.id))
 
   ware: Signal<Ware>
-  menuShown: Signal<Boolean>
-  entries: Signal<Array<MenuEntry>>
-  constructor(ware: Signal<Ware>, menuShown: Signal<Boolean>, entries: Signal<Array<MenuEntry>>) {
+  menuShown: Signal<boolean>
+  entries: Signal<array<MenuEntry>>
+  constructor(ware: Signal<Ware>, menuShown: Signal<boolean>, entries: Signal<array<MenuEntry>>) {
     self.ware = ware
     self.menuShown = menuShown
     self.entries = entries
@@ -210,7 +210,7 @@ class WareCell implements Component {
 
   onPressed(self, click: Event::Press) { self.pressed.emit(self.ware, click) }
   onDragged(self) { self.dragged.emit(self.ware) }
-  onChose(self, place: Integer) { self.chose.emit(place) }
+  onChose(self, place: integer) { self.chose.emit(place) }
   onClosed(self) { self.closed.emit() }
 
   public render(self): Template {
@@ -241,20 +241,20 @@ class WareCell implements Component {
 // opens its menu.
 class SoldCell implements Component {
   public pressed: Event<(Sold, MouseButton)> = new Event()
-  public chose: Event<Integer> = new Event()
+  public chose: Event<integer> = new Event()
   public closed: Event<nil> = new Event()
 
   derived nameColor: Color = self.sold.usable ? INK : RED
 
   sold: Signal<Sold>
-  menuShown: Signal<Boolean>
-  constructor(sold: Signal<Sold>, menuShown: Signal<Boolean>) {
+  menuShown: Signal<boolean>
+  constructor(sold: Signal<Sold>, menuShown: Signal<boolean>) {
     self.sold = sold
     self.menuShown = menuShown
   }
 
   onPressed(self, click: Event::Press) { self.pressed.emit(self.sold, click.button) }
-  onChose(self, place: Integer) { self.chose.emit(place) }
+  onChose(self, place: integer) { self.chose.emit(place) }
   onClosed(self) { self.closed.emit() }
 
   public render(self): Template {
@@ -276,12 +276,12 @@ class SoldCell implements Component {
 // click folds it.
 class WareCaption implements Component {
   public toggled: Event<ItemKind> = new Event()
-  derived title: String = "%s (%d)".format(kindName(self.tab), self.count)
+  derived title: string = "%s (%d)".format(kindName(self.tab), self.count)
 
   const tab: ItemKind
-  count: Signal<Integer>
-  folded: Signal<Boolean>
-  constructor(tab: ItemKind, count: Signal<Integer>, folded: Signal<Boolean>) {
+  count: Signal<integer>
+  folded: Signal<boolean>
+  constructor(tab: ItemKind, count: Signal<integer>, folded: Signal<boolean>) {
     self.tab = tab
     self.count = count
     self.folded = folded
@@ -301,18 +301,18 @@ class WareCaption implements Component {
 // One item as a row of the table.
 class WareTableRow implements Component {
   public pressed: Event<(Ware, MouseButton)> = new Event()
-  public chose: Event<Integer> = new Event()
+  public chose: Event<integer> = new Event()
   public closed: Event<nil> = new Event()
 
-  derived carried: Integer = Game::items.inBags(self.ware.id)
-  derived dear: Boolean = self.ware.price > Game::money.amount
+  derived carried: integer = Game::items.inBags(self.ware.id)
+  derived dear: boolean = self.ware.price > Game::money.amount
   derived priceColor: Color = self.dear ? RED : INK
   derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
 
   ware: Signal<Ware>
-  menuShown: Signal<Boolean>
-  entries: Signal<Array<MenuEntry>>
-  constructor(ware: Signal<Ware>, menuShown: Signal<Boolean>, entries: Signal<Array<MenuEntry>>) {
+  menuShown: Signal<boolean>
+  entries: Signal<array<MenuEntry>>
+  constructor(ware: Signal<Ware>, menuShown: Signal<boolean>, entries: Signal<array<MenuEntry>>) {
     self.ware = ware
     self.menuShown = menuShown
     self.entries = entries
@@ -320,7 +320,7 @@ class WareTableRow implements Component {
 
   onPick(self, button: MouseButton) { self.pressed.emit(self.ware, button) }
   onSlot(self, click: Event::Press) { self.pressed.emit(self.ware, click.button) }
-  onChose(self, place: Integer) { self.chose.emit(place) }
+  onChose(self, place: integer) { self.chose.emit(place) }
   onClosed(self) { self.closed.emit() }
 
   // The item's tooltip beside its whole row.
@@ -360,7 +360,7 @@ public class MerchantWindow implements Component {
 
   state tab = 1
   state search = ""
-  state folded: Map<ItemKind, Boolean> = {}
+  state folded: map<ItemKind, boolean> = {}
   // The purchase asked about, and the item whose count is being chosen with the count chosen.
   state asking: Purchase | nil = nil
   state counting: Ware | nil = nil
@@ -369,52 +369,52 @@ public class MerchantWindow implements Component {
   state menuAt = 0
   state soldMenuAt = 0
   derived menuWare: Ware | nil = self.vendor.wares.find(ware => ware.index == self.menuAt)
-  derived menuActs: Array<WareAct> = actsOf(self.menuWare)
-  derived menuEntries: Array<MenuEntry> = self.menuActs.map(act => MenuEntry { label: actLabel(act) })
+  derived menuActs: array<WareAct> = actsOf(self.menuWare)
+  derived menuEntries: array<MenuEntry> = self.menuActs.map(act => MenuEntry { label: actLabel(act) })
 
-  derived tabs: Array<WindowTabSpec> = [
+  derived tabs: array<WindowTabSpec> = [
     { title: self.vendor.name == "" ? Locale::MERCHANT : self.vendor.name, desc: nil, icon: VENDOR_ICON },
     { title: Locale::BUYBACK, desc: nil, icon: BUYBACK_ICON }
   ]
-  derived buying: Boolean = self.tab == 1
-  derived query: String = self.search.lower()
-  derived shown: Array<Ware> = self.shownOf()
-  derived tabled: Boolean = self.list.values.view == WareView::Table
-  derived grouped: Boolean = self.list.values.view == WareView::Categories
-  derived narrowed: Boolean = self.list.values.filter != WareFilter::All
-  derived groups: Array<ItemKind> = ITEM_KINDS.filter(tab => self.shown.any(ware => ware.tab == tab))
+  derived buying: boolean = self.tab == 1
+  derived query: string = self.search.lower()
+  derived shown: array<Ware> = self.shownOf()
+  derived tabled: boolean = self.list.values.view == WareView::Table
+  derived grouped: boolean = self.list.values.view == WareView::Categories
+  derived narrowed: boolean = self.list.values.filter != WareFilter::All
+  derived groups: array<ItemKind> = ITEM_KINDS.filter(tab => self.shown.any(ware => ware.tab == tab))
   // The buyback, the newest first.
-  derived sold: Array<Sold> = self.soldOf()
-  derived counts: Array<FooterCount> = self.countsOf()
+  derived sold: array<Sold> = self.soldOf()
+  derived counts: array<FooterCount> = self.countsOf()
   derived side: WindowSide | nil = { width: SIDE_WIDTH, content: self.column }
-  derived junkLabel: String = self.junkWorth > 0 ? `${Locale::SELL_JUNK} ${Game::money.format(self.junkWorth)}` : Locale::SELL_JUNK
-  derived repairLabel: String = self.vendor.worn ? `${Locale::REPAIR_ALL} ${Game::money.format(self.vendor.repairCost)}` : Locale::REPAIR_ALL
-  derived canRepair: Boolean = self.vendor.worn && self.vendor.repairCost <= Game::money.amount
-  derived guildRepair: Boolean = self.vendor.repairs && self.vendor.guildRepairs && self.vendor.worn
-  derived askTitle: String = self.askTitleOf()
-  derived askCosts: String = self.askCostsOf()
+  derived junkLabel: string = self.junkWorth > 0 ? `${Locale::SELL_JUNK} ${Game::money.format(self.junkWorth)}` : Locale::SELL_JUNK
+  derived repairLabel: string = self.vendor.worn ? `${Locale::REPAIR_ALL} ${Game::money.format(self.vendor.repairCost)}` : Locale::REPAIR_ALL
+  derived canRepair: boolean = self.vendor.worn && self.vendor.repairCost <= Game::money.amount
+  derived guildRepair: boolean = self.vendor.repairs && self.vendor.guildRepairs && self.vendor.worn
+  derived askTitle: string = self.askTitleOf()
+  derived askCosts: string = self.askCostsOf()
   // A purchase paid in items or currencies that the merchant won't take back: said as it is asked, as the game does.
-  derived askFinal: Boolean = self.askFinalOf()
+  derived askFinal: boolean = self.askFinalOf()
   // «Repair an item» lit while the cursor mends.
   derived repairPlate: ButtonPlate = self.vendor.repairing ? ButtonPlate::Accent : ButtonPlate::Bronze
   // The item sold last, under the goods (the game's buyback slot): a click buys it back.
-  derived lastSold: Array<Sold> = self.buying && self.vendor.sold.length > 0 ? [self.vendor.sold[self.vendor.sold.length] ?? panic("within the buyback")] : []
-  derived hasLastSold: Boolean = self.lastSold.length > 0
-  derived hasCurrencies: Boolean = self.vendor.currencies.length > 0
-  derived countMost: Integer = self.counting == nil ? 1 : mostFor(self.counting ?? panic("counting"), Game::money.amount)
-  derived countPrice: Integer = self.counting == nil ? 0 : moneyFor(self.counting ?? panic("counting"), self.count)
+  derived lastSold: array<Sold> = self.buying && self.vendor.sold.length > 0 ? [self.vendor.sold[self.vendor.sold.length] ?? panic("within the buyback")] : []
+  derived hasLastSold: boolean = self.lastSold.length > 0
+  derived hasCurrencies: boolean = self.vendor.currencies.length > 0
+  derived countMost: integer = self.counting == nil ? 1 : mostFor(self.counting ?? panic("counting"), Game::money.amount)
+  derived countPrice: integer = self.counting == nil ? 0 : moneyFor(self.counting ?? panic("counting"), self.count)
 
   vendor: mut Vendor
   declared: mut KeptWindow
   list: mut ModuleMemory<MerchantView>
-  junkCount: Signal<Integer>
-  junkWorth: Signal<Integer>
+  junkCount: Signal<integer>
+  junkWorth: Signal<integer>
   constructor(
     vendor: mut Vendor,
     declared: mut KeptWindow,
     list: mut ModuleMemory<MerchantView>,
-    junkCount: Signal<Integer>,
-    junkWorth: Signal<Integer>
+    junkCount: Signal<integer>,
+    junkWorth: Signal<integer>
   ) {
     self.vendor = vendor
     self.declared = declared
@@ -424,7 +424,7 @@ public class MerchantWindow implements Component {
     watch { self.vendor.buyingBack = self.tab == BUYBACK_TAB }
   }
 
-  shownOf(self): Array<Ware> {
+  shownOf(self): array<Ware> {
     const view = self.list.values
     const money = Game::money.amount
     let wares = self.vendor.wares.filter(ware => kept(ware, view.filter, self.query, money))
@@ -436,28 +436,28 @@ public class MerchantWindow implements Component {
     return wares
   }
 
-  soldOf(self): Array<Sold> {
-    let sold: Array<Sold> = []
+  soldOf(self): array<Sold> {
+    let sold: array<Sold> = []
     for (index of self.vendor.sold.length..1 step -1) { sold.push(self.vendor.sold[index] ?? panic("within the buyback")) }
     return sold
   }
 
-  countsOf(self): Array<FooterCount> {
-    if (!self.buying) { return [{ label: Locale::FOOT_SOLD, value: String::of(self.vendor.sold.length) }] }
+  countsOf(self): array<FooterCount> {
+    if (!self.buying) { return [{ label: Locale::FOOT_SOLD, value: string::of(self.vendor.sold.length) }] }
     const all = self.vendor.wares.length
     const shown = self.shown.length
-    return [{ label: Locale::FOOT_WARES, value: shown == all ? String::of(all) : Locale::WARES_OF.format(shown, all) }]
+    return [{ label: Locale::FOOT_WARES, value: shown == all ? string::of(all) : Locale::WARES_OF.format(shown, all) }]
   }
 
   // The items of a category, as the categories view shows them: none while it is folded.
-  inGroup(self, tab: ItemKind): Array<Ware> {
+  inGroup(self, tab: ItemKind): array<Ware> {
     if (self.folded[tab] == true) { return [] }
     return self.shown.filter(ware => ware.tab == tab)
   }
 
-  countIn(self, tab: ItemKind): Integer { return self.shown.count(ware => ware.tab == tab) }
+  countIn(self, tab: ItemKind): integer { return self.shown.count(ware => ware.tab == tab) }
 
-  askTitleOf(self): String {
+  askTitleOf(self): string {
     const asking = self.asking
     if (asking == nil) { return "" }
     const count = asking.count ?? asking.ware.stack
@@ -466,12 +466,12 @@ public class MerchantWindow implements Component {
     return price > 0 ? Locale::ASK_BUY.format(named, Game::money.format(price)) : Locale::ASK_BUY_COSTS.format(named)
   }
 
-  askFinalOf(self): Boolean {
+  askFinalOf(self): boolean {
     const asking = self.asking
     return asking != nil && !asking.ware.refundable && asking.ware.costs.length > 0
   }
 
-  askCostsOf(self): String {
+  askCostsOf(self): string {
     const asking = self.asking
     if (asking == nil) { return "" }
     return asking.ware.costs.map(cost => `${cost.amount} ${cost.name}`).join(", ")
@@ -502,7 +502,7 @@ public class MerchantWindow implements Component {
   }
 
   // An entry of an item's menu picked: the menu closes, and the entry acts on its item.
-  onChose(mut self, place: Integer) {
+  onChose(mut self, place: integer) {
     const ware = peek self.menuWare
     const act = (peek self.menuActs)[place]
     self.menuAt = 0
@@ -526,7 +526,7 @@ public class MerchantWindow implements Component {
     }
   }
 
-  onSoldChose(mut self, place: Integer) {
+  onSoldChose(mut self, place: integer) {
     const sold = self.vendor.sold.find(each => each.place == peek self.soldMenuAt)
     self.soldMenuAt = 0
     if (sold != nil && place == 1) { self.vendor.buyBack(sold) }
@@ -557,7 +557,7 @@ public class MerchantWindow implements Component {
 
   // A purchase: bought at once, or asked about first where its price reaches the game's asking price or it is paid
   // in items or currencies.
-  purchase(mut self, ware: Ware, count: Integer | nil) {
+  purchase(mut self, ware: Ware, count: integer | nil) {
     if (asks(ware, count)) {
       self.asking = { ware: ware, count: count }
       return
@@ -582,7 +582,7 @@ public class MerchantWindow implements Component {
   onCountCancel(mut self) { self.counting = nil }
 
   onToggle(mut self, tab: ItemKind) {
-    let folded: Map<ItemKind, Boolean> = {}
+    let folded: map<ItemKind, boolean> = {}
     for (each, shut of peek self.folded) { folded[each] = shut }
     folded[tab] = folded[tab] == true ? nil : true
     self.folded = folded
@@ -685,12 +685,12 @@ public class MerchantWindow implements Component {
 // link it in the chat.
 enum WareAct { Buy, Several, TryOn, Link }
 
-function actsOf(ware: Ware | nil): Array<WareAct> {
+function actsOf(ware: Ware | nil): array<WareAct> {
   if (ware == nil) { return [] }
   return ware.most > 1 ? [.Buy, .Several, .TryOn, .Link] : [.Buy, .TryOn, .Link]
 }
 
-function actLabel(act: WareAct): String {
+function actLabel(act: WareAct): string {
   return match (act) {
     .Buy => Locale::BUY
     .Several => Locale::BUY_SEVERAL
@@ -700,10 +700,10 @@ function actLabel(act: WareAct): String {
 }
 
 // A buyback's item's menu: buy it back.
-const SOLD_ENTRIES: Array<MenuEntry> = [{ label: Locale::BUY_BACK }]
+const SOLD_ENTRIES: array<MenuEntry> = [{ label: Locale::BUY_BACK }]
 
 // Whether the game asks about a purchase first: its price reaches the game's asking price, or it is paid in items or
 // currencies.
-function asks(ware: Ware, count: Integer | nil): Boolean {
+function asks(ware: Ware, count: integer | nil): boolean {
   return ware.costs.length > 0 || moneyFor(ware, count) >= HIGH_PRICE
 }

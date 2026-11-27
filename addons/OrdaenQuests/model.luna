@@ -6,16 +6,16 @@ import { QuestKind } from "@/kind"
 
 // One header of a tab and its quests.
 public struct Group {
-  header: String
+  header: string
   // The player is in that zone: it stands first, marked.
-  here: Boolean
-  quests: Array<LogQuest>
+  here: boolean
+  quests: array<LogQuest>
 }
 
 // The quests of a kind under their headers, in the client's order, the player's zone first.
-public function groupsOf(quests: Array<LogQuest>, kind: QuestKind, zone: String): Array<Group> {
-  const headers: Array<String> = []
-  const byHeader: Map<String, mut Array<LogQuest>> = {}
+public function groupsOf(quests: array<LogQuest>, kind: QuestKind, zone: string): array<Group> {
+  const headers: array<string> = []
+  const byHeader: map<string, mut array<LogQuest>> = {}
   for (quest of quests) {
     if (quest.kind == kind) {
       const under = byHeader[quest.header]
@@ -27,14 +27,14 @@ public function groupsOf(quests: Array<LogQuest>, kind: QuestKind, zone: String)
       }
     }
   }
-  const groups: Array<Group> = []
+  const groups: array<Group> = []
   for (header of headers.filter(header => header == zone)) { groups.push({ header: header, here: true, quests: byHeader[header] ?? [] }) }
   for (header of headers.filter(header => header != zone)) { groups.push({ header: header, here: false, quests: byHeader[header] ?? [] }) }
   return groups
 }
 
 // How many of the quests are of each kind, in the tabs' order.
-public function countOf(quests: Array<LogQuest>, kind: QuestKind): Integer {
+public function countOf(quests: array<LogQuest>, kind: QuestKind): integer {
   return quests.count(quest => quest.kind == kind)
 }
 
@@ -51,7 +51,7 @@ public enum QuestFilter implements Plain {
 }
 
 // The filter as the window starts: every quest shown, tracked or not.
-public const FILTER_START: Map<QuestFilter, Boolean> = switched({}, [
+public const FILTER_START: map<QuestFilter, boolean> = switched({}, [
   QuestFilter::Trivial, QuestFilter::Easy, QuestFilter::Even, QuestFilter::Hard, QuestFilter::Impossible, QuestFilter::Solo,
   QuestFilter::Group
 ], true)
@@ -78,7 +78,7 @@ public enum QuestView implements Plain { Zones = "zones", List = "list" }
 // search isn't kept.
 public struct ListChoices implements Plain {
   status: QuestStatus = QuestStatus::All
-  filter: Map<QuestFilter, Boolean> = FILTER_START
+  filter: map<QuestFilter, boolean> = FILTER_START
   sort: QuestSort = QuestSort::Log
   view: QuestView = QuestView::Zones
 }
@@ -86,17 +86,17 @@ public struct ListChoices implements Plain {
 // The headers the player folded, by their text, the character's (whose log they are): only those its log has, so
 // it holds no more than the log's headers.
 public struct Folds implements Plain {
-  headers: Map<String, Boolean> = {}
+  headers: map<string, boolean> = {}
 }
 
 // The quest whose page the log showed last, the character's: the log opens on it again after a /reload (0: the list).
 public struct Opened implements Plain {
-  quest: Integer = 0
+  quest: integer = 0
 }
 
 // The folds after the player folds or opens `header`: the log's other headers as they were.
-public function foldedOnce(folds: Folds, header: String, quests: Array<LogQuest>): Folds {
-  const headers: Map<String, Boolean> = {}
+public function foldedOnce(folds: Folds, header: string, quests: array<LogQuest>): Folds {
+  const headers: map<string, boolean> = {}
   for (quest of quests) {
     const name = quest.header
     const was = folds.headers[name] == true
@@ -108,19 +108,19 @@ public function foldedOnce(folds: Folds, header: String, quests: Array<LogQuest>
 // What the window asks of the log: the search (lower case), the status switch, the filter's options on, and the
 // player's level the difficulties are of.
 public struct Asked {
-  sought: String
+  sought: string
   status: QuestStatus
-  filter: Map<QuestFilter, Boolean>
-  player: Integer
+  filter: map<QuestFilter, boolean>
+  player: integer
 }
 
 // Whether a quest's title or one of its objectives holds what is sought.
-function holds(quest: LogQuest, sought: String): Boolean {
+function holds(quest: LogQuest, sought: string): boolean {
   return sought == "" || quest.title.lower().contains(sought) ||
     quest.objectives.any(objective => objective.text.lower().contains(sought))
 }
 
-function statusPasses(quest: LogQuest, status: QuestStatus): Boolean {
+function statusPasses(quest: LogQuest, status: QuestStatus): boolean {
   return match (status) {
     .Progress => !quest.done
     .Done => quest.done
@@ -128,7 +128,7 @@ function statusPasses(quest: LogQuest, status: QuestStatus): Boolean {
   }
 }
 
-public function passes(quest: LogQuest, asked: Asked): Boolean {
+public function passes(quest: LogQuest, asked: Asked): boolean {
   if (asked.filter[QuestFilter::Tracked] == true && !quest.tracked) { return false }
   if (asked.filter[difficultyFilter(difficultyOf(quest.level, asked.player))] != true) { return false }
   if (asked.filter[quest.group > 1 ? QuestFilter::Group : QuestFilter::Solo] != true) { return false }
@@ -136,7 +136,7 @@ public function passes(quest: LogQuest, asked: Asked): Boolean {
 }
 
 // The quests the search, the switch and the filter let through, in the order asked.
-public function listedOf(quests: Array<LogQuest>, asked: Asked, sort: QuestSort): Array<LogQuest> {
+public function listedOf(quests: array<LogQuest>, asked: Asked, sort: QuestSort): array<LogQuest> {
   const listed = quests.filter(quest => passes(quest, asked))
   match (sort) {
     .Log => {}
@@ -147,6 +147,6 @@ public function listedOf(quests: Array<LogQuest>, asked: Asked, sort: QuestSort)
 }
 
 // The quests of a kind, in the order they come.
-public function ofKind(quests: Array<LogQuest>, kind: QuestKind): Array<LogQuest> {
+public function ofKind(quests: array<LogQuest>, kind: QuestKind): array<LogQuest> {
   return quests.filter(quest => quest.kind == kind)
 }

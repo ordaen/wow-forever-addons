@@ -5,11 +5,11 @@ import { FooterBand } from "@/footerBand"
 import { FooterCount, FooterCounts } from "@/footerCounts"
 import { Component } from "@/module"
 
-const SPREAD: Array<Track> = [{ fr: 1 }, "max-content"]
+const SPREAD: array<Track> = [{ fr: 1 }, "max-content"]
 
 public class ListFooter implements Component {
-  counts: Signal<Array<FooterCount>>
-  constructor(counts: Signal<Array<FooterCount>>) {
+  counts: Signal<array<FooterCount>>
+  constructor(counts: Signal<array<FooterCount>>) {
     self.counts = counts
   }
 

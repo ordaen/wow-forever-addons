@@ -4,7 +4,7 @@ import Test from "$test"
 import { MoneyField, MoneyInput, copperOf, copperText } from "@/moneyInput"
 
 class Price {
-  state copper: Integer = 12503
+  state copper: integer = 12503
   state off = false
 
   public render(self): Template {
@@ -16,7 +16,7 @@ class Price {
 
 // The field alone on a cell, its text written by the test.
 class Bare {
-  state copper: Integer = 5
+  state copper: integer = 5
   field: mut MoneyField | nil
 
   constructor() {
@@ -28,9 +28,9 @@ class Bare {
   }
 }
 
-function read(text: String): String {
+function read(text: string): string {
   const copper = copperOf(text)
-  return copper == nil ? "not an amount" : String::of(copper)
+  return copper == nil ? "not an amount" : string::of(copper)
 }
 
 test "a text names an amount by its units, in order, each once, and anything else names none" {
@@ -108,25 +108,25 @@ test "the field's edge is red while its text names no amount and plain once it d
   let bare = new Bare()
   const field = bare.field ?? panic("the field is made")
   Test::expect(!field.bad)
-  Test::note("5 copper: " + field.text + ", bad " + String::of(field.bad))
+  Test::note("5 copper: " + field.text + ", bad " + string::of(field.bad))
 
   field.text = "1g x"
   Test::flush()
   Test::expect(field.bad)
   Test::expect(bare.copper == 5)
-  Test::note("1g x: bad " + String::of(field.bad) + ", the cell " + String::of(bare.copper))
+  Test::note("1g x: bad " + string::of(field.bad) + ", the cell " + string::of(bare.copper))
 
   field.text = "1g 2s"
   Test::flush()
   Test::expect(!field.bad)
   Test::expect(bare.copper == 10200)
-  Test::note("1g 2s: bad " + String::of(field.bad) + ", the cell " + String::of(bare.copper))
+  Test::note("1g 2s: bad " + string::of(field.bad) + ", the cell " + string::of(bare.copper))
 
   field.text = ""
   Test::flush()
   Test::expect(!field.bad)
   Test::expect(bare.copper == 10200)
-  Test::note("empty: bad " + String::of(field.bad) + ", the cell " + String::of(bare.copper))
+  Test::note("empty: bad " + string::of(field.bad) + ", the cell " + string::of(bare.copper))
   Test::shot("what the field read")
 
   destroy bare

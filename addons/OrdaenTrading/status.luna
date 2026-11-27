@@ -12,32 +12,32 @@ import { Scanner } from "@/scan"
 import Style from "@/style"
 import { agoText, itemsText, leftText } from "@/style"
 
-const COLUMNS: Array<Track> = [{ fr: 1 }, "max-content"]
+const COLUMNS: array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Status implements Component {
   // The server's time, read again once a second while the line shows: what counts down follows it.
-  derived now: Integer {
+  derived now: integer {
     _ = Game::clock.seconds
     return serverSeconds()
   }
-  derived priced: Boolean = self.items > 0
-  derived scanned: Boolean = self.lastFull > 0
-  derived prices: String = self.pricesText()
-  derived waiting: Boolean = Game::auctionScan.running && !self.scanner.reading
-  derived wait: Integer = self.scanned ? self.scanner.wait(self.now) : 0
-  derived next: String = Locale::NEXT_FULL.format(leftText(self.wait))
-  derived fault: String | nil = Debug::faultOf("AuctionScan")
-  derived faultText: String = Locale::FAULT.format(self.fault ?? "")
-  derived percent: String = Locale::SCANNING.format((self.scanner.progress * 100).floor())
+  derived priced: boolean = self.items > 0
+  derived scanned: boolean = self.lastFull > 0
+  derived prices: string = self.pricesText()
+  derived waiting: boolean = Game::auctionScan.running && !self.scanner.reading
+  derived wait: integer = self.scanned ? self.scanner.wait(self.now) : 0
+  derived next: string = Locale::NEXT_FULL.format(leftText(self.wait))
+  derived fault: string | nil = Debug::faultOf("AuctionScan")
+  derived faultText: string = Locale::FAULT.format(self.fault ?? "")
+  derived percent: string = Locale::SCANNING.format((self.scanner.progress * 100).floor())
 
-  items: Signal<Integer>
-  lastFull: Signal<Integer>
+  items: Signal<integer>
+  lastFull: Signal<integer>
   scanner: mut Scanner
   constructor(
     // How many items the house's prices cover.
-    items: Signal<Integer>,
+    items: Signal<integer>,
     // The server's time of the account's last full scan; 0 for none.
-    lastFull: Signal<Integer>,
+    lastFull: Signal<integer>,
     scanner: mut Scanner
   ) {
     self.items = items
@@ -45,7 +45,7 @@ public class Status implements Component {
     self.scanner = scanner
   }
 
-  pricesText(self): String {
+  pricesText(self): string {
     if (!self.priced) { return Locale::NO_PRICES }
     const counted = itemsText(self.items)
     if (!self.scanned) { return counted }

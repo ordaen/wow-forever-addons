@@ -12,8 +12,8 @@ const CAPTION: Color = Color::hex("#ffd100")
 
 public class AutoEquip {
   // The reward waiting to be put on, by its link, and how much better it is.
-  pending: String | nil = nil
-  share: Number = 0
+  pending: string | nil = nil
+  share: number = 0
 
   constructor() {
     Events::BAG_UPDATE_DELAYED.listen(self.tryEquip)
@@ -22,7 +22,7 @@ public class AutoEquip {
 
   // A reward taken, and how much more it is worth than what is worn: worn as it comes where that is at least `least`
   // (0.15: 15%).
-  public note(mut self, link: String | nil, share: Number | nil, least: Number) {
+  public note(mut self, link: string | nil, share: number | nil, least: number) {
     self.pending = nil
     if (link == nil || share == nil || share < least) { return }
     self.pending = link
@@ -46,7 +46,7 @@ public class AutoEquip {
 // The client's bind type of what binds as it is worn (`GetItemInfo`'s fourteenth value).
 const BIND_ON_EQUIP = 2
 
-function bindsOnEquip(link: String): Boolean {
+function bindsOnEquip(link: string): boolean {
   const _, _, _, _, _, _, _, _, _, _, _, _, _, bind, _, _, _, _ = Client::C_Item::GetItemInfo(link)
   return bind == BIND_ON_EQUIP
 }

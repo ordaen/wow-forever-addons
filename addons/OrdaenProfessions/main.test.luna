@@ -21,7 +21,7 @@ const CLOSED: Color = Color::hex("#a3977f")
 const SETTINGS = "Move mode"
 const REMEMBER = "Remember the last recipe"
 
-function recipe(id: Integer, name: String, category: Integer): Game::Recipe {
+function recipe(id: integer, name: string, category: integer): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
     difficulty: Game::Difficulty::Always, craftable: 1
@@ -30,7 +30,7 @@ function recipe(id: Integer, name: String, category: Integer): Game::Recipe {
 
 // Tailoring at 31 of 75, Blacksmithing at 120 of 150, First Aid at 40 of 75: the game gives an icon as its file's
 // number or as its path.
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
     {
@@ -53,24 +53,24 @@ function gameWindow(): any Client::Frame {
 }
 
 // Tailoring as the game opens it: its camp's recipe, and two in «Cloth armour».
-function tailoringCategories(): Array<Game::Category> {
+function tailoringCategories(): array<Game::Category> {
   return [
     { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }
   ]
 }
 
-function tailoringRecipes(): Array<Game::Recipe> {
+function tailoringRecipes(): array<Game::Recipe> {
   return [recipe(100, "Linen Bandage", 10), recipe(110, "Linen Cloak", 11), recipe(111, "Brown Linen Vest", 11)]
 }
 
 // Blacksmithing as the game opens it: no camp recipe.
-function smithingCategories(): Array<Game::Category> {
+function smithingCategories(): array<Game::Category> {
   return [
     { id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Weapons", parentID: 2 }
   ]
 }
 
-function smithingRecipes(): Array<Game::Recipe> {
+function smithingRecipes(): array<Game::Recipe> {
   return [recipe(200, "Copper Mace", 21)]
 }
 
@@ -81,20 +81,20 @@ function window(): Test::Part {
 
 // Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
 // what it was asked.
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 // The game's own window stands off the screen, unseen: it stays open, which keeps the profession open.
-function away(own: any Client::Frame): Boolean {
+function away(own: any Client::Frame): boolean {
   Test::flush()
   return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
 }
 
 // The game's own window is where it stood, seen.
-function back(own: any Client::Frame): Boolean {
+function back(own: any Client::Frame): boolean {
   Test::flush()
   return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }
@@ -345,8 +345,8 @@ test "the profession last open is asked for after a reload" {
 test "Mining has «Find Minerals» at the skill bar's right, which the client casts from the player's click" {
   Game::frames.Professions = gameWindow()
   Game::professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game::ProfessionKind::Gathering }]
-  Game::spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game::spells.known = (id: Integer): Boolean => true
+  Game::spells.name = (id: integer): string | nil => id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: integer): boolean => true
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = MINING
   // In the band, on the bar's line, a gap between them.
@@ -364,8 +364,8 @@ test "Herbalism has «Find Herbs»; a crafting profession has no spell in the fo
     { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 12, max: 75, kind: Game::ProfessionKind::Gathering },
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
-  Game::spells.name = (id: Integer): String | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
-  Game::spells.known = (id: Integer): Boolean => true
+  Game::spells.name = (id: integer): string | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: integer): boolean => true
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = HERBALISM
   Test::expect(window().button("Find Herbs").shown())
@@ -378,8 +378,8 @@ test "Herbalism has «Find Herbs»; a crafting profession has no spell in the fo
 test "a profession's spell the character doesn't know has no button" {
   Game::frames.Professions = gameWindow()
   Game::professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game::ProfessionKind::Gathering }]
-  Game::spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game::spells.known = (id: Integer): Boolean => false
+  Game::spells.name = (id: integer): string | nil => id == 2580 ? "Find Minerals" : nil
+  Game::spells.known = (id: integer): boolean => false
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = MINING
   Test::expect(window().shown() && !window().button("Find Minerals").shown())

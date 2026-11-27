@@ -7,23 +7,23 @@ import { PriceKey } from "@/quote"
 
 public class Purchase {
   // The item's listings as the client last gave them; none until it has.
-  public state listings: Array<Game::Listing> | nil = nil
+  public state listings: array<Game::Listing> | nil = nil
   // A commodity's purchase the client priced: how many (0 for none) and what all of them cost, in copper.
   public state quotedCount = 0
   public state quotedTotal = 0
   // The client's refusal of what this sent last, in its words; none where it took it.
-  public state refused: String | nil = nil
+  public state refused: string | nil = nil
   // The listings are wanted: asked as soon as the house takes a query.
   state wanted = true
   // An action sent from here waits for its answer.
   state sending = false
-  public derived listed: Boolean = self.listings != nil
+  public derived listed: boolean = self.listings != nil
   // Bought by quantity, not by auction.
-  public derived commodity: Boolean = (self.listings ?? [])[1]?.commodity == true
+  public derived commodity: boolean = (self.listings ?? [])[1]?.commodity == true
   // The auction the next click buys out (an item's), cheapest first: none for a commodity, or where none has a buyout.
-  public derived next: Integer = self.nextOf()
+  public derived next: integer = self.nextOf()
   // How many the listings hold in all.
-  public derived held: Integer = self.heldOf()
+  public derived held: integer = self.heldOf()
 
   public const key: PriceKey
 
@@ -36,7 +36,7 @@ public class Purchase {
     }
   }
 
-  nextOf(self): Integer {
+  nextOf(self): integer {
     const listings = self.listings
     if (listings == nil || self.commodity) { return 0 }
     for (index, listing of listings) {
@@ -45,14 +45,14 @@ public class Purchase {
     return 0
   }
 
-  heldOf(self): Integer {
+  heldOf(self): integer {
     let count = 0
     for (listing of self.listings ?? []) { count += listing.quantity }
     return count
   }
 
   // What `count` of a commodity costs, the cheapest first; nil where the listings hold fewer.
-  public costOf(self, count: Integer): Integer | nil {
+  public costOf(self, count: integer): integer | nil {
     let left = count
     let copper = 0
     for (listing of self.listings ?? []) {
@@ -64,7 +64,7 @@ public class Purchase {
   }
 
   // How many of the listings, the cheapest first, a commodity's `count` takes from.
-  public coveredBy(self, count: Integer): Integer {
+  public coveredBy(self, count: integer): integer {
     let left = count
     let covered = 0
     for (listing of self.listings ?? []) {
@@ -77,7 +77,7 @@ public class Purchase {
 
   // From the player's click alone: a commodity's `count` priced, or bought where the client priced that many; an
   // item's cheapest auction with a buyout bought out. False where nothing was sent.
-  public buy(mut self, count: Integer): Boolean {
+  public buy(mut self, count: integer): boolean {
     const listings = peek self.listings
     if (listings == nil) { return false }
     let sent = false
@@ -98,7 +98,7 @@ public class Purchase {
     return sent
   }
 
-  onListed(mut self, key: Integer, listings: Array<Game::Listing>) {
+  onListed(mut self, key: integer, listings: array<Game::Listing>) {
     if (key == self.key) { self.listings = listings }
   }
 

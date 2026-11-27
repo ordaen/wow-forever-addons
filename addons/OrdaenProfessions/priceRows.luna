@@ -19,7 +19,7 @@ const SLOT = 37.5dp
 const MONEY = 119.53125dp
 // The names never narrower than the totals' labels («Cost», «Price», «Profit»), which stand under them.
 // «For 1» and «In the bags» as wide as their headings and numbers.
-const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, "max-content", "max-content", MONEY, MONEY]
+const PRICED: array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, "max-content", "max-content", MONEY, MONEY]
 // The icon fills its column, with a cell's room over and under it.
 const ICON_ROOM: Edges = { top: 1.5sp, bottom: 1.5sp }
 // A total's line: less room over and under than a reagent's.
@@ -33,7 +33,7 @@ const HOUR = 3600
 const DAY = 24
 
 // The text of a way.
-public function wayText(way: Way): String {
+public function wayText(way: Way): string {
   return match (way) {
     Way::Buy => Locale::WAY_BUY
     Way::Vendor => Locale::WAY_VENDOR
@@ -43,13 +43,13 @@ public function wayText(way: Way): String {
 
 // A priced reagent: a row of the table's, its item's tooltip beside the whole row.
 public class PricedReagentRow implements Component {
-  derived item: Integer | nil = self.price.item
+  derived item: integer | nil = self.price.item
   derived icon: Art | nil = self.price.icon
   derived color: Color = self.price.have < self.price.need ? Style::RED : Style::INK
-  derived hasAuction: Boolean = self.price.auction != nil
-  derived hasVendor: Boolean = self.price.vendor != nil
-  derived auction: Integer = self.price.auction ?? 0
-  derived vendor: Integer = self.price.vendor ?? 0
+  derived hasAuction: boolean = self.price.auction != nil
+  derived hasVendor: boolean = self.price.vendor != nil
+  derived auction: integer = self.price.auction ?? 0
+  derived vendor: integer = self.price.vendor ?? 0
   derived auctionBack: Color = self.price.way == Way::Buy ? CHEAPER : CLEAR
   derived vendorBack: Color = self.price.way == Way::Vendor ? CHEAPER : CLEAR
 
@@ -90,16 +90,16 @@ public class PricedReagentRow implements Component {
 // under the cursor; `none` where there is no amount.
 class TotalCell implements Component {
   state hovered = false
-  derived has: Boolean = self.amount != nil
-  derived losing: Boolean = (self.amount ?? 0) < 0
-  derived shown: Integer = (self.amount ?? 0).abs()
+  derived has: boolean = self.amount != nil
+  derived losing: boolean = (self.amount ?? 0) < 0
+  derived shown: integer = (self.amount ?? 0).abs()
   derived color: Color = self.losing ? Style::RED : BRIGHT_TEXT
-  derived tipped: Boolean = self.hovered && self.tip != ""
+  derived tipped: boolean = self.hovered && self.tip != ""
 
-  amount: Signal<Integer | nil>
-  rough: Signal<Boolean>
-  tip: Signal<String>
-  constructor(amount: Signal<Integer | nil>, rough: Signal<Boolean>, tip: Signal<String>) {
+  amount: Signal<integer | nil>
+  rough: Signal<boolean>
+  tip: Signal<string>
+  constructor(amount: Signal<integer | nil>, rough: Signal<boolean>, tip: Signal<string>) {
     self.amount = amount
     self.rough = rough
     self.tip = tip
@@ -127,17 +127,17 @@ class TotalCell implements Component {
 
 // A row of the totals: its label under the reagents' names, its amount at each source under that source's column.
 class TotalRow implements Component {
-  label: Signal<String>
-  auction: Signal<Integer | nil>
-  merchant: Signal<Integer | nil>
-  auctionRough: Signal<Boolean>
-  merchantRough: Signal<Boolean>
-  auctionTip: Signal<String>
-  merchantTip: Signal<String>
+  label: Signal<string>
+  auction: Signal<integer | nil>
+  merchant: Signal<integer | nil>
+  auctionRough: Signal<boolean>
+  merchantRough: Signal<boolean>
+  auctionTip: Signal<string>
+  merchantTip: Signal<string>
   rule: Signal<Line | nil>
   constructor(
-    label: Signal<String>, auction: Signal<Integer | nil>, merchant: Signal<Integer | nil>, auctionRough: Signal<Boolean>,
-    merchantRough: Signal<Boolean>, auctionTip: Signal<String>, merchantTip: Signal<String>, rule: Signal<Line | nil> = nil
+    label: Signal<string>, auction: Signal<integer | nil>, merchant: Signal<integer | nil>, auctionRough: Signal<boolean>,
+    merchantRough: Signal<boolean>, auctionTip: Signal<string>, merchantTip: Signal<string>, rule: Signal<Line | nil> = nil
   ) {
     self.label = label
     self.auction = auction
@@ -164,13 +164,13 @@ class TotalRow implements Component {
 }
 
 // What a cost's tip says: the parts it leaves out.
-function costTip(side: SourceTotals): String {
+function costTip(side: SourceTotals): string {
   return side.cost != nil && side.missing.length > 0 ? Locale::TIP_COST_PARTIAL.format(side.missing.join(", ")) : ""
 }
 
 // What a profit's tip says: the item isn't bought here, the parts at the other source's price, the parts with none.
-function profitTip(side: SourceTotals): String {
-  const lines: Array<String> = []
+function profitTip(side: SourceTotals): string {
+  const lines: array<string> = []
   if (side.sale == nil) { lines.push(Locale::TIP_NOT_BOUGHT) }
   if (side.filled.length > 0) { lines.push(Locale::TIP_PROFIT_FILLED.format(side.filled.join(", "))) }
   if (side.unpriced.length > 0) { lines.push(Locale::TIP_PROFIT_UNPRICED.format(side.unpriced.join(", "))) }
@@ -179,21 +179,21 @@ function profitTip(side: SourceTotals): String {
 
 // The priced reagents under their headings, and under them the totals at each source, in the same columns.
 public class PriceTable implements Component {
-  derived auctionCostTip: String = costTip(self.auction)
-  derived merchantCostTip: String = costTip(self.merchant)
-  derived auctionRough: Boolean = roughCost(self.auction)
-  derived merchantRough: Boolean = roughCost(self.merchant)
-  derived saleTip: String = self.saleTipOf()
-  derived auctionProfitRough: Boolean = roughProfit(self.auction)
-  derived merchantProfitRough: Boolean = roughProfit(self.merchant)
-  derived auctionProfitTip: String = profitTip(self.auction)
-  derived merchantProfitTip: String = profitTip(self.merchant)
+  derived auctionCostTip: string = costTip(self.auction)
+  derived merchantCostTip: string = costTip(self.merchant)
+  derived auctionRough: boolean = roughCost(self.auction)
+  derived merchantRough: boolean = roughCost(self.merchant)
+  derived saleTip: string = self.saleTipOf()
+  derived auctionProfitRough: boolean = roughProfit(self.auction)
+  derived merchantProfitRough: boolean = roughProfit(self.merchant)
+  derived auctionProfitTip: string = profitTip(self.auction)
+  derived merchantProfitTip: string = profitTip(self.merchant)
 
-  parts: Signal<Array<PartPrice>>
+  parts: Signal<array<PartPrice>>
   auction: Signal<SourceTotals>
   merchant: Signal<SourceTotals>
   totals: Signal<Totals>
-  constructor(parts: Signal<Array<PartPrice>>, auction: Signal<SourceTotals>, merchant: Signal<SourceTotals>, totals: Signal<Totals>) {
+  constructor(parts: Signal<array<PartPrice>>, auction: Signal<SourceTotals>, merchant: Signal<SourceTotals>, totals: Signal<Totals>) {
     self.parts = parts
     self.auction = auction
     self.merchant = merchant
@@ -201,7 +201,7 @@ public class PriceTable implements Component {
   }
 
   // The house's price before its cut, and the cut.
-  saleTipOf(self): String {
+  saleTipOf(self): string {
     const sale = self.auction.sale
     if (sale == nil) { return "" }
     return Locale::SALE_TIP.format(Game::money.format(self.totals.listed ?? 0), self.totals.cut, Game::money.format(sale))
@@ -242,7 +242,7 @@ public class PriceTable implements Component {
 }
 
 // The text of how old the oldest price is: in hours under two days, then in days.
-function ageLine(hours: Integer | nil): String {
+function ageLine(hours: integer | nil): string {
   if (hours == nil) { return "" }
   if (hours < 2 * DAY) { return Locale::PRICES_AGE_HOURS.format(hours) }
   return Locale::PRICES_AGE_DAYS.format((hours / DAY).floor())
@@ -250,8 +250,8 @@ function ageLine(hours: Integer | nil): String {
 
 // How old the oldest price the totals took is, in its age's colour.
 public class PricesAge implements Component {
-  derived age: String = ageLine(self.totals.oldest)
-  derived aged: Boolean = self.age != ""
+  derived age: string = ageLine(self.totals.oldest)
+  derived aged: boolean = self.age != ""
   derived color: Color = self.colorOf()
 
   totals: Signal<Totals>

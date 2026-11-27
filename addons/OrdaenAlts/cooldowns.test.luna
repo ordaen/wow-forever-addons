@@ -11,7 +11,7 @@ import { Character, CharacterId, Kept, Known, RecipeId } from "@/character"
 import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
-function learned(ids: Array<Integer>): Array<Game::Recipe> {
+function learned(ids: array<integer>): array<Game::Recipe> {
   return ids.map(id => Game.Recipe {
     id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
@@ -38,7 +38,7 @@ const TRANSMUTE = 11479
 const MOONCLOTH = 18560
 
 // The game's names of the recipes.
-function spellName(id: Integer): String | nil {
+function spellName(id: integer): string | nil {
   return id == STONE ? "Elemental Sharpening Stone" : id == TRANSMUTE ? "Transmute: Iron to Gold" : id == MOONCLOTH ? "Mooncloth" : nil
 }
 
@@ -52,7 +52,7 @@ function cooldowns(): Test::Part {
 
 // Whether the tab shows this, read whole: the headings, each recipe's row, then the tabs. Where it shows something
 // else, the test stops and says what.
-function shows(expected: String): Boolean {
+function shows(expected: string): boolean {
   const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
   if (said != expected) { panic(`the window shows «${said}»`) }
   return true
@@ -60,7 +60,7 @@ function shows(expected: String): Boolean {
 
 // A character of the player's realm and side with a profession whose recipes are ready in these hours (recipe,
 // hours, recipe, hours).
-function crafter(name: String, skillLine: Integer, waits: Array<Integer>): mut Character {
+function crafter(name: string, skillLine: integer, waits: array<integer>): mut Character {
   const known = Known { skillLine: skillLine, name: "Craft", rank: 300, max: 300 }
   for (i of 1..waits.length step 2) {
     const recipe = RecipeId::of(waits[i] ?? 0)
@@ -73,9 +73,9 @@ function crafter(name: String, skillLine: Integer, waits: Array<Integer>): mut C
 }
 
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
-function recorded(others: Array<Character>) {
+function recorded(others: array<Character>) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")
   const settings = Test::page().window("Move mode")
@@ -94,7 +94,7 @@ test "a profession opened records the cooldowns of its recipes, and only of thos
   Game::clock.server = START
   Game::spells.name = spellName
   Game::tradeSkill.recipes = learned([STONE, 2662])
-  Game::recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == STONE ? 5 * 3600 : nil
+  Game::recipeReader.cooldown = (recipe: integer): integer | nil => recipe == STONE ? 5 * 3600 : nil
   Test::mount(nil, SCREEN)
   _ = cooldowns()
   Game::tradeSkill.open = SMITHING
@@ -103,7 +103,7 @@ test "a profession opened records the cooldowns of its recipes, and only of thos
 
 test "nothing is recorded while no profession is open, or where the game gives no recipes" {
   Game::tradeSkill.recipes = learned([STONE])
-  Game::recipeReader.cooldown = (recipe: Integer): Integer | nil => 3600
+  Game::recipeReader.cooldown = (recipe: integer): integer | nil => 3600
   Test::mount(nil, SCREEN)
   _ = cooldowns()
   Game::tradeSkill.recipes = []
@@ -151,7 +151,7 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
     crafter("Aria", SMITHING, [STONE, 30]), crafter("Bram", ALCHEMY, [TRANSMUTE, -5]), crafter("Cole", ALCHEMY, [MOONCLOTH, 2])
   ])
   const window = cooldowns()
-  const rows = (first: String, second: String, third: String): String => `${HEADINGS} | ${first} | ${second} | ${third} | ${TABS}`
+  const rows = (first: string, second: string, third: string): string => `${HEADINGS} | ${first} | ${second} | ${third} | ${TABS}`
   const stone = "Elemental Sharpening Stone | Aria | in 1 d."
   const transmute = "Transmute: Iron to Gold | Bram | Ready"
   const mooncloth = "Mooncloth | Cole | in 2 h"
@@ -170,7 +170,7 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
 
 test "forty cooldowns scroll inside the window" {
   Game::clock.server = START
-  const waits: Array<Integer> = []
+  const waits: array<integer> = []
   for (i of 1..40) {
     waits.push(5000 + i)
     waits.push(i)

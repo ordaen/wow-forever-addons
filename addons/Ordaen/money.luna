@@ -6,16 +6,16 @@ import { Component } from "@/module"
 const INK: Color = Color::hex("#e8dcc4")
 
 public class Money implements Component {
-  derived text: String = Game::money.format(self.amount)
+  derived text: string = Game::money.format(self.amount)
 
-  amount: Signal<Integer>
+  amount: Signal<integer>
   color: Signal<Color>
-  textSize: Signal<Number<TextSize>>
+  textSize: Signal<number<TextSize>>
   constructor(
     // In copper.
-    amount: Signal<Integer>,
+    amount: Signal<integer>,
     color: Signal<Color> = INK,
-    textSize: Signal<Number<TextSize>> = 1rem
+    textSize: Signal<number<TextSize>> = 1rem
   ) {
     self.amount = amount
     self.color = color

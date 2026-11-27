@@ -39,19 +39,19 @@ const RECHECK = 15
 // A question waiting for the player's answer.
 public enum Ask {
   // Cash on delivery to pay before the letter's item (or every item) is taken.
-  Pay { index: Integer, place: Integer, copper: Integer }
+  Pay { index: integer, place: integer, copper: integer }
   // Not enough money for the cash on delivery.
-  Short { copper: Integer }
+  Short { copper: integer }
   // The mailbox closed with letters still waiting to go.
-  Close { waiting: Integer }
+  Close { waiting: integer }
 }
 
 public class Mail implements Module, App {
-  public const title: String = "Ordaen Mail"
+  public const title: string = "Ordaen Mail"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window]
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale::TAB_RULES, content: $ltml { <RulesPage alts={Alts} rules={mut self.sendRules} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -63,22 +63,22 @@ public class Mail implements Module, App {
   // What «To my characters» sends to each character's professions, the account's (`RulesPage`).
   public sendRules: mut ModuleMemory<SendRules> = new ModuleMemory<SendRules>({}, .Account, "sendRules")
   // How much more an item is worth to the player's spec than what it wears (Ordaen's worth).
-  public upgrade: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
+  public upgrade: (link: string) => number | nil = (link: string): number | nil => Ordaen.worth.upgradeOf(link)
 
   // «To my characters»' reads: the characters a letter reaches (none while Ordaen Alts is off), whose recipes take an
   // item.
-  derived kin: Array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? panic("tested"))
-  const crafting: CraftingRead = (item: Integer): Array<Crafting> => Professions.craftingWith(item)
+  derived kin: array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? panic("tested"))
+  const crafting: CraftingRead = (item: integer): array<Crafting> => Professions.craftingWith(item)
   // «To my characters»: its columns and its footer.
   public own: mut OwnTab
 
   state tab = TAB_INBOX
-  state letters: Array<Game::MailLetter> = []
+  state letters: array<Game::MailLetter> = []
   state total = 0
   // The letter opened (its place in the inbox; 0 none), its text, and the letters ticked.
   state picked = 0
   state text = ""
-  state ticked: Array<Integer> = []
+  state ticked: array<integer> = []
   // «Outbox»'s picked letter, and whether the form is open (with the recipient it opens with).
   state sentPicked = 0
   state writing = false
@@ -87,20 +87,20 @@ public class Mail implements Module, App {
   // The player shut the window while the mailbox stays open.
   state closed = false
   // The game's mailbox window, held unseen while ours shows.
-  state held: Array<any Frame> = []
+  state held: array<any Frame> = []
   // A letter whose cash on delivery was paid: the rest of it is taken once the inbox is read again.
   paid = ""
   recheck: Task<nil> | nil = nil
   // The auction house's letters already written into the ledger this visit, by key.
-  ledgered: mut Array<String> = []
+  ledgered: mut array<string> = []
   // `blockTrades` as the player had it, while ours is set.
-  tradesBefore: String | nil = nil
+  tradesBefore: string | nil = nil
 
-  derived open: Boolean = Game::mailObserver.open && !self.closed
-  derived queue: Array<Sent> = self.sender.memory.values.queue
-  derived history: Array<Sent> = self.sender.memory.values.history
-  derived waiting: Integer = self.queue.count(waits)
-  derived tabs: Array<WindowTabSpec> = [
+  derived open: boolean = Game::mailObserver.open && !self.closed
+  derived queue: array<Sent> = self.sender.memory.values.queue
+  derived history: array<Sent> = self.sender.memory.values.history
+  derived waiting: integer = self.queue.count(waits)
+  derived tabs: array<WindowTabSpec> = [
     { title: Locale::TAB_INBOX, desc: Locale::LETTERS_COUNT.format(self.total), icon: nil },
     { title: Locale::TAB_SENT, desc: self.outboxDesc(), icon: nil },
     { title: Locale::TAB_OWN, desc: nil, icon: nil, padding: NO_ROOM }
@@ -108,9 +108,9 @@ public class Mail implements Module, App {
   derived current: Game::MailLetter | nil = self.letters.find(l => l.index == self.picked)
   derived sentCurrent: Sent | nil = self.queue.find(l => l.number == self.sentPicked) ?? self.history.find(l => l.number == self.sentPicked)
   derived side: WindowSide | nil = self.sideOf()
-  derived counts: Array<FooterCount> = self.countsOf()
-  derived busy: Boolean = self.collector.running
-  derived askText: String = self.askTextOf()
+  derived counts: array<FooterCount> = self.countsOf()
+  derived busy: boolean = self.collector.running
+  derived askText: string = self.askTextOf()
   // The footer: «To my characters»' own on that tab, the counts on the others.
   const footer: Template = $ltml {
     <$if={self.tab == TAB_OWN}> {self.own.footer} </>
@@ -149,20 +149,20 @@ public class Mail implements Module, App {
     for (attached of letter.items) { auction.ledger.expired(attached.name, attached.count) }
   }
 
-  outboxDesc(self): String {
+  outboxDesc(self): string {
     return self.waiting > 0 ? Locale::WAITING_COUNT.format(self.waiting) : Locale::SENT_COUNT.format(self.history.length)
   }
 
-  countsOf(self): Array<FooterCount> {
+  countsOf(self): array<FooterCount> {
     if (self.tab == TAB_OUTBOX) {
       return [
-        { label: Locale::COUNT_WAITING, value: String::of(self.waiting) },
-        { label: Locale::COUNT_SENT, value: String::of(self.history.length) }
+        { label: Locale::COUNT_WAITING, value: string::of(self.waiting) },
+        { label: Locale::COUNT_SENT, value: string::of(self.history.length) }
       ]
     }
-    const list: Array<FooterCount> = [{ label: Locale::COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
+    const list: array<FooterCount> = [{ label: Locale::COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
     if (self.collector.money > 0) { list.push({ label: Locale::COUNT_TAKEN_MONEY, value: Game::money.format(self.collector.money) }) }
-    if (self.collector.stacks > 0) { list.push({ label: Locale::COUNT_TAKEN_ITEMS, value: String::of(self.collector.stacks) }) }
+    if (self.collector.stacks > 0) { list.push({ label: Locale::COUNT_TAKEN_ITEMS, value: string::of(self.collector.stacks) }) }
     if (self.collector.stopped == .Full) { list.push({ label: Locale::BAGS_FULL, value: "", color: Style::RED }) }
     return list
   }
@@ -192,7 +192,7 @@ public class Mail implements Module, App {
   }
 
   // «Don't accept trades at the mailbox»: the game's own setting, put back as the mailbox closes.
-  blockTrades(mut self, on: Boolean) {
+  blockTrades(mut self, on: boolean) {
     if (on && (peek self.settings.values).blockTrades) {
       self.tradesBefore = Client::C_CVar::GetCVar("blockTrades")
       _ = Client::C_CVar::SetCVar("blockTrades", "1")
@@ -226,11 +226,11 @@ public class Mail implements Module, App {
   onSent(mut self) { play("IG_ABILITY_PAGE_TURN") }
 
   // Everything taken from these letters, one thing at a time, the bag slots the setting keeps left free.
-  takeFrom(mut self, letters: Array<Game::MailLetter>) {
+  takeFrom(mut self, letters: array<Game::MailLetter>) {
     self.collector.start(letters, (peek self.settings.values).keepFree.floor())
   }
 
-  onRowClicked(mut self, index: Integer, click: RowClick) {
+  onRowClicked(mut self, index: integer, click: RowClick) {
     const letter = (peek self.letters).find(l => l.index == index)
     if (letter == nil) { return }
     match (click) {
@@ -244,7 +244,7 @@ public class Mail implements Module, App {
     }
   }
 
-  openLetter(mut self, index: Integer) {
+  openLetter(mut self, index: integer) {
     if (peek self.picked == index) {
       self.picked = 0
       play("IG_SPELLBOOK_CLOSE")
@@ -283,7 +283,7 @@ public class Mail implements Module, App {
   }
 
   // An attachment taken; with cash on delivery the player is asked to pay first (or told the money is short).
-  take(mut self, letter: Game::MailLetter, place: Integer) {
+  take(mut self, letter: Game::MailLetter, place: integer) {
     play("IG_MAINMENU_OPTION_CHECKBOX_ON")
     if (letter.cod == 0) {
       self.noteTaken(letter)
@@ -325,7 +325,7 @@ public class Mail implements Module, App {
     self.window.ask(TAB_OUTBOX)
   }
 
-  onTakeAll(mut self, letters: Array<Game::MailLetter>) { self.takeFrom(letters) }
+  onTakeAll(mut self, letters: array<Game::MailLetter>) { self.takeFrom(letters) }
 
   onTakeTicked(mut self) {
     const ticked = peek self.ticked
@@ -341,7 +341,7 @@ public class Mail implements Module, App {
     self.ticked = []
   }
 
-  onSentPick(mut self, number: Integer) {
+  onSentPick(mut self, number: integer) {
     self.sentPicked = number
     self.writing = false
   }
@@ -351,14 +351,14 @@ public class Mail implements Module, App {
     self.writing = true
   }
 
-  onWriteAgain(mut self, to: String) {
+  onWriteAgain(mut self, to: string) {
     self.writeTo = to
     self.writing = true
   }
 
   onComposeClosed(mut self) { self.writing = false }
 
-  onRemoveSent(mut self, number: Integer) {
+  onRemoveSent(mut self, number: integer) {
     self.sender.remove(number)
     self.sentPicked = 0
   }
@@ -389,7 +389,7 @@ public class Mail implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime::Addon::of(self)) }
 
-  askTextOf(self): String {
+  askTextOf(self): string {
     const ask = self.asking
     return match (ask) {
       nil => ""
@@ -455,7 +455,7 @@ public class Mail implements Module, App {
 }
 
 // One of the game's interface sounds, by its kit's name, as the game's mailbox window plays it.
-function play(kit: String) {
+function play(kit: string) {
   const id = Client::SOUNDKIT[kit]
   if (id != nil) { _ = Client::PlaySound(id, nil, nil) }
 }

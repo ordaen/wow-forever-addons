@@ -3,7 +3,7 @@ import Test from "$test"
 import { Age, ageText } from "@/age"
 
 class Priced {
-  state seconds: Number | nil = 7200
+  state seconds: number | nil = 7200
 
   public render(self): Template {
     return $ltml {
@@ -43,7 +43,7 @@ test "an age draws nothing under a day, amber to the third day, dimmed after, an
 }
 
 test "the rule as text: what a tooltip's line says and its colour, as the control draws them" {
-  const ages: Array<Number> = [7200, 86400, 3 * 86400 + 86399, 4 * 86400, 30 * 86400 + 5, 31 * 86400]
+  const ages: array<number> = [7200, 86400, 3 * 86400 + 86399, 4 * 86400, 30 * 86400 + 5, 31 * 86400]
   for (seconds of ages) {
     const text, color = ageText(seconds)
     const shade = color != nil ? "%.2f %.2f %.2f".format(color.r, color.g, color.b) : "none"

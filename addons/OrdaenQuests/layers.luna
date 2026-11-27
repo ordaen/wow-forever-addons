@@ -9,11 +9,11 @@ import { Figure, QuestFacts, Spot } from "@/questie"
 
 // The log's quests of a dungeon on its card on the map: those under its instance's header, «[level] title».
 public class DungeonQuests implements DungeonSection {
-  quests: Signal<Array<LogQuest>>
-  constructor(quests: Signal<Array<LogQuest>>) { self.quests = quests }
+  quests: Signal<array<LogQuest>>
+  constructor(quests: Signal<array<LogQuest>>) { self.quests = quests }
 
-  public lines(self, names: Array<String>): Array<String> {
-    const lines: Array<String> = []
+  public lines(self, names: array<string>): array<string> {
+    const lines: array<string> = []
     for (quest of self.quests) {
       if (names.find(name => name == quest.header) != nil) { lines.push(`[${quest.level}] ${quest.title}`) }
     }
@@ -23,7 +23,7 @@ public class DungeonQuests implements DungeonSection {
 
 // The area a quest leads to: where its first objective is while it is to do, whom to hand it to once done; else the
 // zone QuestieDB puts it in; nil where it says neither.
-public function leadsTo(quest: LogQuest, facts: QuestFacts): Integer | nil {
+public function leadsTo(quest: LogQuest, facts: QuestFacts): integer | nil {
   for (figure of quest.done ? facts.takers : facts.targets) {
     const spot = figure.spots[1]
     if (spot != nil) { return spot.area }
@@ -32,7 +32,7 @@ public function leadsTo(quest: LogQuest, facts: QuestFacts): Integer | nil {
 }
 
 // The area a quest not taken starts in: where its first giver stands; else its zone; nil where QuestieDB says neither.
-public function startsAt(facts: QuestFacts): Integer | nil {
+public function startsAt(facts: QuestFacts): integer | nil {
   for (figure of facts.givers) {
     const spot = figure.spots[1]
     if (spot != nil) { return spot.area }
@@ -45,28 +45,28 @@ const AVAILABLE: Asset = "Interface/GossipFrame/AvailableQuestIcon"
 // Where the quest of a chain whose page shows is given, while the player asked to see it on the map: its givers'
 // spots, lit, under the game's mark of a quest to take.
 public class ChainPins implements Layer {
-  public const id: String = "quests.givers"
-  public const title: String = Locale::LAYER_GIVERS
-  public const hint: String = Locale::LAYER_GIVERS_TIP
+  public const id: string = "quests.givers"
+  public const title: string = Locale::LAYER_GIVERS
+  public const hint: string = Locale::LAYER_GIVERS_TIP
 
-  chained: Signal<Integer>
+  chained: Signal<integer>
   facts: Signal<QuestFacts | nil>
-  shown: Signal<Integer>
+  shown: Signal<integer>
   constructor(
     // The quest of a chain whose page shows (0: none), and QuestieDB's facts of it.
-    chained: Signal<Integer>,
+    chained: Signal<integer>,
     facts: Signal<QuestFacts | nil>,
     // The quest the player asked to see on the map (0: none).
-    shown: Signal<Integer>
+    shown: Signal<integer>
   ) {
     self.chained = chained
     self.facts = facts
     self.shown = shown
   }
 
-  public pins(self): Array<Pin> {
+  public pins(self): array<Pin> {
     const facts = self.facts
-    const pins: Array<Pin> = []
+    const pins: array<Pin> = []
     if (facts == nil || self.shown == 0 || self.shown != self.chained) { return pins }
     for (figure of facts.givers) {
       for (spot of figure.spots) {
@@ -77,14 +77,14 @@ public class ChainPins implements Layer {
   }
 
   // The quest's title, then who gives it.
-  public lines(self, pin: Pin): Array<String> {
+  public lines(self, pin: Pin): array<string> {
     const facts = self.facts
     if (facts == nil) { return [] }
     return [facts.name, Locale::GIVEN_BY.format(facts.givers.map(figure => figure.name).join(", "))]
   }
 
   // Not in the log: nothing to point the way to.
-  public press(self, pin: Pin, shift: Boolean) {}
+  public press(self, pin: Pin, shift: boolean) {}
 }
 
 const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
@@ -92,26 +92,26 @@ const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 // Whom to hand the quest the player asked to see on the map, once it is done: its takers' spots, lit. Where it is to
 // do, the game's own shaded area of its objectives shows (Map's), and nothing of this layer.
 public class TurnInPins implements Layer {
-  public const id: String = "quests.turnIns"
-  public const title: String = Locale::LAYER_TURN_INS
-  public const hint: String = Locale::LAYER_TURN_INS_TIP
+  public const id: string = "quests.turnIns"
+  public const title: string = Locale::LAYER_TURN_INS
+  public const hint: string = Locale::LAYER_TURN_INS_TIP
 
-  quests: Signal<Array<LogQuest>>
-  facts: Signal<Map<Integer, QuestFacts>>
-  shown: Signal<Integer>
+  quests: Signal<array<LogQuest>>
+  facts: Signal<map<integer, QuestFacts>>
+  shown: Signal<integer>
   constructor(
-    quests: Signal<Array<LogQuest>>,
-    facts: Signal<Map<Integer, QuestFacts>>,
+    quests: Signal<array<LogQuest>>,
+    facts: Signal<map<integer, QuestFacts>>,
     // The quest the player asked to see on the map (0: none).
-    shown: Signal<Integer>
+    shown: Signal<integer>
   ) {
     self.quests = quests
     self.facts = facts
     self.shown = shown
   }
 
-  public pins(self): Array<Pin> {
-    const pins: Array<Pin> = []
+  public pins(self): array<Pin> {
+    const pins: array<Pin> = []
     const quest = self.quests.find(quest => quest.id == self.shown)
     const facts = self.facts[self.shown]
     if (quest == nil || facts == nil || !quest.done) { return pins }
@@ -124,13 +124,13 @@ public class TurnInPins implements Layer {
   }
 
   // The quest's title, then that it is turned in there.
-  public lines(self, pin: Pin): Array<String> {
+  public lines(self, pin: Pin): array<string> {
     const quest = self.quests.find(quest => quest.id == pin.of)
     return quest == nil ? [] : [quest.title, Locale::TURN_IN]
   }
 
   // As the game's map has its quest pins: a click points the way to the quest, Shift+click stops tracking it.
-  public press(self, pin: Pin, shift: Boolean) {
+  public press(self, pin: Pin, shift: boolean) {
     if (shift) {
       Game::questLog.track(pin.of, false)
     } else {
@@ -149,7 +149,7 @@ public struct FigureSpot {
 
 // Of the figures' spots, the one nearest the player by `distance` (nil: not measurable, another continent); where
 // none is measurable, the first figure's first spot; nil where none has a spot.
-public function nearestOf(figures: Array<Figure>, distance: (spot: Spot) => Number | nil): FigureSpot | nil {
+public function nearestOf(figures: array<Figure>, distance: (spot: Spot) => number | nil): FigureSpot | nil {
   let best: FigureSpot | nil = nil
   let bestYards = 0.0
   let first: FigureSpot | nil = nil
@@ -167,8 +167,8 @@ public function nearestOf(figures: Array<Figure>, distance: (spot: Spot) => Numb
 }
 
 // Of a figure's spots, the distance to the nearest by `distance`; nil where none is measurable.
-public function nearestYards(figure: Figure, distance: (spot: Spot) => Number | nil): Number | nil {
-  let best: Number | nil = nil
+public function nearestYards(figure: Figure, distance: (spot: Spot) => number | nil): number | nil {
+  let best: number | nil = nil
   for (spot of figure.spots) {
     const yards = distance(spot)
     if (yards != nil && (best == nil || yards < best)) { best = yards }
@@ -179,16 +179,16 @@ public function nearestYards(figure: Figure, distance: (spot: Spot) => Number | 
 // The NPC another module asked to see on the map (a trainer or a vendor of a recipe): its spots, lit, its name in the
 // tooltip, until the map hides.
 public class NpcPins implements Layer {
-  public const id: String = "quests.npc"
-  public const title: String = Locale::LAYER_NPC
-  public const hint: String = Locale::LAYER_NPC_TIP
+  public const id: string = "quests.npc"
+  public const title: string = Locale::LAYER_NPC
+  public const hint: string = Locale::LAYER_NPC_TIP
 
   shown: Signal<Figure | nil>
   constructor(shown: Signal<Figure | nil>) { self.shown = shown }
 
-  public pins(self): Array<Pin> {
+  public pins(self): array<Pin> {
     const figure = self.shown
-    const pins: Array<Pin> = []
+    const pins: array<Pin> = []
     if (figure == nil) { return pins }
     for (spot of figure.spots) {
       pins.push({ of: figure.id, area: spot.area, x: spot.x, y: spot.y, icon: NPC, lit: true })
@@ -196,7 +196,7 @@ public class NpcPins implements Layer {
     return pins
   }
 
-  public lines(self, pin: Pin): Array<String> { return [self.shown?.name ?? ""] }
+  public lines(self, pin: Pin): array<string> { return [self.shown?.name ?? ""] }
 
-  public press(self, pin: Pin, shift: Boolean) {}
+  public press(self, pin: Pin, shift: boolean) {}
 }

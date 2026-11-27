@@ -4,8 +4,8 @@ import { Cut } from "@/cut"
 import { Component } from "@/module"
 
 public class Section implements Component {
-  title: Signal<String>
-  constructor(title: Signal<String>) {
+  title: Signal<string>
+  constructor(title: Signal<string>) {
     self.title = title
   }
 

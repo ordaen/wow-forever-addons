@@ -5,16 +5,16 @@
 import Client from "$client"
 
 public trait People {
-  public copy(mut self, text: String)
+  public copy(mut self, text: string)
   // A character by its name (with its realm where it is of another) invited to the group.
-  public inviteTo(mut self, name: String)
+  public inviteTo(mut self, name: string)
 }
 
 // Whether a text the player typed names a Battle.net account (a BattleTag or an email), as the add-friend window reads
 // it; anything else is a character's name.
-public function namesAccount(text: String): Boolean { return text.contains("#") || text.contains("@") }
+public function namesAccount(text: string): boolean { return text.contains("#") || text.contains("@") }
 
 public class ClientPeople implements People {
-  public copy(mut self, text: String) { _ = Client::CopyToClipboard(text, nil) }
-  public inviteTo(mut self, name: String) { Client::C_PartyInfo::InviteUnit(name) }
+  public copy(mut self, text: string) { _ = Client::CopyToClipboard(text, nil) }
+  public inviteTo(mut self, name: string) { Client::C_PartyInfo::InviteUnit(name) }
 }

@@ -10,7 +10,7 @@ import { PushButton } from "@/pushButton"
 import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec, windowSides } from "@/window"
 
 class Tabbed {
-  state tabs: Array<WindowTabSpec> = [
+  state tabs: array<WindowTabSpec> = [
     { title: "Professions", desc: "Tailoring 75", icon: "Interface/Icons/Trade_Tailoring" },
     { title: "Recipes" }
   ]
@@ -27,15 +27,15 @@ class Tabbed {
 }
 
 class Gearbox {
-  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state opened = 0
   state closed = 0
   // Whether the window has the button: a window made without it has none.
-  const withSettings: Boolean
+  const withSettings: boolean
 
-  constructor(withSettings: Boolean) { self.withSettings = withSettings }
+  constructor(withSettings: boolean) { self.withSettings = withSettings }
 
   onSettings(mut self) { self.opened += 1 }
   onClose(mut self) { self.closed += 1 }
@@ -63,12 +63,12 @@ const BETA_ONLY: Test::Point = { x: 800, y: 720 }
 const ROOM_RIGHT_OF_TABS: Test::Point = { x: 950, y: 470 }
 const FACE: Color = Color::hex("#30302a")
 const FLOOR: Color = Color::hex("#202830")
-const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 class Desk {
-  state alphaTabs: Array<WindowTabSpec> = [{ title: "Alpha" }]
-  state betaTabs: Array<WindowTabSpec> = [{ title: "Beta" }]
-  state gammaTabs: Array<WindowTabSpec> = [{ title: "Gamma" }]
+  state alphaTabs: array<WindowTabSpec> = [{ title: "Alpha" }]
+  state betaTabs: array<WindowTabSpec> = [{ title: "Beta" }]
+  state gammaTabs: array<WindowTabSpec> = [{ title: "Gamma" }]
   state tab = 1
   public alpha: mut KeptWindow = new KeptWindow("alpha", "alpha", { x: -150ui, y: 0ui, width: 400ui, height: 200ui })
   public beta: mut KeptWindow = new KeptWindow("beta", "beta", { x: 0ui, y: 100ui, width: 400ui, height: 400ui })
@@ -77,7 +77,7 @@ class Desk {
   state betaOpen = false
   state gammaOpen = false
   // The window the last click on a body reached.
-  public state hit: String = ""
+  public state hit: string = ""
 
   onAlpha(mut self) { self.hit = "Alpha" }
   onBeta(mut self) { self.hit = "Beta" }
@@ -108,21 +108,21 @@ class Desk {
 
 // The window a click where all three overlap reaches: the one in front. A frame passes first, as one always does
 // between two clicks of the player's.
-function front(desk: Desk): String {
+function front(desk: Desk): string {
   Test::pass(0.02)
   Test::click(SHARED, nil)
   return desk.hit
 }
 
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 
 // The control group's textures drawn now, in the order they were made: each control's plate, then its glyph, each by
 // the row of its file it shows.
-function corner(): String {
-  let parts: Array<String> = []
+function corner(): string {
+  let parts: array<string> = []
   for (drawn of Test::drawn()) {
     let file = drawn.file
-    if (file is String) {
+    if (file is string) {
       if (file.contains("ctl-corner-plate")) { parts.push(`plate ${(drawn.top * 16 + 0.5).floor()}`) }
       if (file.contains("ctl-corner-glyph")) { parts.push(`glyph ${(drawn.top * 8 + 0.5).floor()}`) }
     }
@@ -169,7 +169,7 @@ test "a window made without settings has no button" {
 
 // A window of many long tabs, its body given less room than they take.
 class Crowded {
-  state tabs: Array<WindowTabSpec> = [
+  state tabs: array<WindowTabSpec> = [
     { title: "The first long tab" }, { title: "The second long tab" }, { title: "The third long tab" },
     { title: "The fourth long tab" }
   ]
@@ -245,7 +245,7 @@ test "the window is never narrower than its tabs and its control group" {
 
 // A window whose second tab keeps its size.
 class Pinned {
-  state tabs: Array<WindowTabSpec> = [{ title: "Sized" }, { title: "Kept", fixed: true }]
+  state tabs: array<WindowTabSpec> = [{ title: "Sized" }, { title: "Kept", fixed: true }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("pinned", "pinned", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
@@ -346,7 +346,7 @@ test "windows opened and clicked in turn each come to the front and take Escape"
 
 // A frame of the client's over the middle of the screen, on a layer, toplevel as the client's panels are, telling the
 // clicks it takes.
-function clientFrame(strata: String, clicked: mut Array<String>): any Client::Frame {
+function clientFrame(strata: string, clicked: mut array<string>): any Client::Frame {
   const made = Client::CreateFrame("Button", nil, Client::UIParent, nil)
   made.SetFrameStrata(strata)
   made.SetToplevel(true)
@@ -361,7 +361,7 @@ function clientFrame(strata: String, clicked: mut Array<String>): any Client::Fr
 // toplevel): the one opened or clicked last is in front. The world map stands over them all, as over the client's.
 test "a window stands with the client's panels, the last opened or clicked in front, and under the world map" {
   Test::screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
-  let clicked: Array<String> = []
+  let clicked: array<string> = []
   let desk = new Desk()
   Test::mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   desk.betaOpen = true
@@ -446,7 +446,7 @@ test "a tab stands on the body's rod, and nothing of it reaches below its foot" 
 
 // A window with a footer: «Reset» at its left, a status, «Save» at its right, on the body's bottom line.
 class Footed {
-  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state saved = 0
@@ -483,7 +483,7 @@ test "a footer stands on the window's bottom line under the content, its groups 
 // A window whose footer draws its own floor: the window places it flush, so the floor reaches the main section's
 // sides and bottom, while the content keeps the window's room.
 class Floored {
-  state tabs: Array<WindowTabSpec> = [{ title: "Bags" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Bags" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   const footer: Template = $ltml {
@@ -520,7 +520,7 @@ test "a footer is placed flush with the main section's sides and bottom: its own
 
 // A window 400 wide with one page, no footer.
 class Plain {
-  state tabs: Array<WindowTabSpec> = [{ title: "Bags" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Bags" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("plain", "plain", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
@@ -545,7 +545,7 @@ test "a window's page is as wide as the window less its sides: the frame, the in
 
 // A window with a side section: the list's part with its footer band, and beside it the details, the full height.
 class Sided {
-  state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Market" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {
@@ -604,7 +604,7 @@ test "a footer band runs from the frame's line to the side's line, its own line 
 
 // A window whose footer runs under its side too: the list's counts and the card's action in one band.
 class Across {
-  state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Market" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("across", "across", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {
@@ -655,7 +655,7 @@ test "a footer under the side too is one band from the frame's line on the left 
 
 // A side whose content is wider than the side was declared (rewards in two columns).
 class WideSide {
-  state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Market" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("wide", "wide", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const details: WindowSide = {
@@ -688,7 +688,7 @@ test "a side section grows past its width for content that needs more, the main 
 
 // A window with a footer under each section: the main one's a line of text, the side's two buttons stacked, higher.
 class TwoFooters {
-  state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Market" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {

@@ -14,28 +14,28 @@ import { readSetting, writeSetting } from "@/settings"
 
 public struct GameValues implements Plain {
   // Whether the profile holds the game's yet.
-  taken: Boolean = false
+  taken: boolean = false
   // Each setting set through the window, by its variable, as its text (`settingText`).
-  settings: mut Map<String, String> = {}
+  settings: mut map<string, string> = {}
   // The keys of every command bound, by the command.
-  keys: mut Map<String, Array<String>> = {}
+  keys: mut map<string, array<string>> = {}
 }
 
 // What applying a profile would change: a setting's or a command's, from what the game has to what the profile holds.
 public struct GameChange {
-  label: String
-  from: String
-  to: String
+  label: string
+  from: string
+  to: string
 }
 
 // A setting's value as a profile keeps it, its type first (`b:1`, `n:0.5`, `s:text`), and back.
-public function settingText(value: Boolean | Number | String): String {
-  if (value is Boolean) { return value ? "b:1" : "b:0" }
-  if (value is Number) { return `n:${value}` }
+public function settingText(value: boolean | number | string): string {
+  if (value is boolean) { return value ? "b:1" : "b:0" }
+  if (value is number) { return `n:${value}` }
   return `s:${value}`
 }
 
-public function settingValue(text: String): Boolean | Number | String {
+public function settingValue(text: string): boolean | number | string {
   const kind = text.sub(1, 2)
   const rest = text.sub(3)
   if (kind == "b:") { return rest == "1" }
@@ -44,13 +44,13 @@ public function settingValue(text: String): Boolean | Number | String {
 }
 
 // A value as the question shows it.
-function shown(value: Boolean | Number | String | nil): String {
+function shown(value: boolean | number | string | nil): string {
   if (value == nil) { return "—" }
-  if (value is Boolean) { return Runtime::text(value ? "YES" : "NO") ?? (value ? "Yes" : "No") }
-  return String::of(value)
+  if (value is boolean) { return Runtime::text(value ? "YES" : "NO") ?? (value ? "Yes" : "No") }
+  return string::of(value)
 }
 
-function sameKeys(a: Array<String>, b: Array<String>): Boolean {
+function sameKeys(a: array<string>, b: array<string>): boolean {
   if (a.length != b.length) { return false }
   for (at, key of a) {
     if (b[at] != key) { return false }
@@ -58,7 +58,7 @@ function sameKeys(a: Array<String>, b: Array<String>): Boolean {
   return true
 }
 
-function sameMaps(a: Map<String, Array<String>>, b: Map<String, Array<String>>): Boolean {
+function sameMaps(a: map<string, array<string>>, b: map<string, array<string>>): boolean {
   for (action, keys of a) {
     if (!sameKeys(keys, b[action] ?? [])) { return false }
   }
@@ -71,7 +71,7 @@ function sameMaps(a: Map<String, Array<String>>, b: Map<String, Array<String>>):
 public class GameKeeping {
   public const kept: mut Settings<GameValues> = new Settings<GameValues>(GameValues {}, "game")
   // What applying the profile switched to would change, asked first; empty: nothing asked.
-  public state asking: Array<GameChange> = []
+  public state asking: array<GameChange> = []
   // An apply waiting for the fight's end.
   state waiting = false
   // The game is in the world: what a profile holds may be applied.
@@ -79,7 +79,7 @@ public class GameKeeping {
   // The keys are being set from the profile: the client's own change of them isn't the player's.
   applying = false
   // The profile last seen active.
-  profile: String | nil = nil
+  profile: string | nil = nil
   const bindings: mut Bindings = new Bindings()
 
   constructor() {
@@ -103,7 +103,7 @@ public class GameKeeping {
 
   // Another profile: one that never held the game's takes them; one that holds others asks first. The same profile
   // worked out again (the player's specialisation read) is no switch.
-  switched(mut self, name: String) {
+  switched(mut self, name: string) {
     const before = self.profile
     self.profile = name
     if (!self.started || before == nil || before == name) { return }
@@ -125,7 +125,7 @@ public class GameKeeping {
 
   // A setting set through the window: the profile's now; one set back to its default: the game's again.
   // The first holds the game's as they are, with it.
-  public record(mut self, variable: String, value: Boolean | Number | String) {
+  public record(mut self, variable: string, value: boolean | number | string) {
     const text = settingText(value)
     const taken = (peek self.kept.values).taken
     const keys = taken ? nil : self.keysNow()
@@ -138,12 +138,12 @@ public class GameKeeping {
     })
   }
 
-  public forget(mut self, variable: String) {
+  public forget(mut self, variable: string) {
     self.kept.change((values: mut GameValues): nil => { values.settings[variable] = nil })
   }
 
   // The player's answer: the profile's applied, or the game's kept as they are, which the profile takes.
-  public answer(mut self, apply: Boolean) {
+  public answer(mut self, apply: boolean) {
     self.asking = []
     if (apply) {
       self.apply()
@@ -202,9 +202,9 @@ public class GameKeeping {
   }
 
   // Every command's keys now, those with any.
-  keysNow(mut self): Map<String, Array<String>> {
+  keysNow(mut self): map<string, array<string>> {
     self.bindings.read()
-    const keys: Map<String, Array<String>> = {}
+    const keys: map<string, array<string>> = {}
     for (command of self.bindings.commands) {
       if (command.keys.length > 0) { keys[command.action] = command.keys.clone() }
     }
@@ -212,8 +212,8 @@ public class GameKeeping {
   }
 
   // What applying the profile would change: each setting it holds that the game has otherwise, then each command's keys.
-  changes(mut self): Array<GameChange> {
-    const list: Array<GameChange> = []
+  changes(mut self): array<GameChange> {
+    const list: array<GameChange> = []
     const values = peek self.kept.values
     for (variable, text of values.settings) {
       const wanted = settingValue(text)

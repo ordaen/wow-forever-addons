@@ -10,27 +10,27 @@ public enum Auto implements Plain { Off = "off", Picked = "picked", All = "all" 
 // What the player chooses.
 public struct Choices implements Plain {
   // 1–9, Space, Tab and Esc are the window's while it shows.
-  keyboard: Boolean
+  keyboard: boolean
   // The keycaps beside the options and rewards, and the key's segment on the buttons.
-  keyHints: Boolean
+  keyHints: boolean
   // An NPC with one plain option and no quests doesn't open the window: the option is picked.
-  skipSingle: Boolean
+  skipSingle: boolean
   // The options the player marked are picked as the talk starts.
-  alwaysPick: Boolean
+  alwaysPick: boolean
   autoAccept: Auto
   autoComplete: Auto
   // A quest's page opens with its parchment folded to its title; a click unfolds it.
-  foldedScroll: Boolean = false
+  foldedScroll: boolean = false
   // A quest's reward is put on as it comes where it is worth at least `equipFrom` percent more than what is worn.
-  autoEquip: Boolean = true
-  equipFrom: Number = 15
+  autoEquip: boolean = true
+  equipFrom: number = 15
 }
 
 public const DEFAULTS: Choices = {
   keyboard: true, keyHints: true, skipSingle: true, alwaysPick: true, autoAccept: .Off, autoComplete: .Off
 }
 
-const AUTO_CHOICES: Array<Choice<Auto>> = [
+const AUTO_CHOICES: array<Choice<Auto>> = [
   { value: Auto::Off, label: Locale::AUTO_OFF },
   { value: Auto::Picked, label: Locale::AUTO_PICKED },
   { value: Auto::All, label: Locale::AUTO_ALL }
@@ -38,7 +38,7 @@ const AUTO_CHOICES: Array<Choice<Auto>> = [
 
 public class GeneralPage implements Component {
   // The key hints mean nothing without the keys.
-  derived hintsOff: Boolean = !self.settings.values.keyboard
+  derived hintsOff: boolean = !self.settings.values.keyboard
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -64,7 +64,7 @@ public class GeneralPage implements Component {
 
 // «Convenience»: what Dialogue does by itself.
 public class ConveniencePage implements Component {
-  derived off: Boolean = !self.settings.values.autoEquip
+  derived off: boolean = !self.settings.values.autoEquip
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {

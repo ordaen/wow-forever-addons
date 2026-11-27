@@ -25,9 +25,9 @@ const MONEY_AFTER = 2
 const FLASH = 1
 const ICON = 28ui
 const WIDTH = 200ui
-const ROW: Array<Track> = [ICON, { fr: 1 }]
+const ROW: array<Track> = [ICON, { fr: 1 }]
 // The money's line is its coins alone, with no icon.
-const COINS_ROW: Array<Track> = [{ fr: 1 }]
+const COINS_ROW: array<Track> = [{ fr: 1 }]
 const BACK: Color = Color::hex("#000000aa")
 const COUNT: Color = Color::hex("#ffffff")
 // Where the lines stand while the player never moved them: right of the screen's middle, a little up.
@@ -35,29 +35,29 @@ const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
 
 // A line: what it shows, and when it came, is kept up to and flashed.
 struct Toast {
-  key: String
-  name: String
+  key: string
+  name: string
   icon: Art | nil
   quality: Quality
-  count: Integer
-  link: String | nil
-  quest: Boolean
-  coins: Boolean
-  came: Number
-  until: Number
-  flashed: Number
+  count: integer
+  link: string | nil
+  quest: boolean
+  coins: boolean
+  came: number
+  until: number
+  flashed: number
 }
 
 // The samples the placing mode shows, as at this moment of their lives: come, not fading.
-const SAMPLED: Number = 1
-const SAMPLES: Array<Toast> = [
+const SAMPLED: number = 1
+const SAMPLES: array<Toast> = [
   { key: "epic", name: "Epic", icon: 132331, quality: .Epic, count: 1, link: nil, quest: false, coins: false, came: 0, until: SAMPLED + LIFE, flashed: 0 },
   { key: "common", name: "Common", icon: 134400, quality: .Common, count: 5, link: nil, quest: false, coins: false, came: 0, until: SAMPLED + LIFE, flashed: 0 },
   { key: "coins", name: "", icon: nil, quality: .Common, count: 12345, link: nil, quest: false, coins: true, came: 0, until: SAMPLED + LIFE, flashed: 0 }
 ]
 
 // The quality of a slot's item by the client's number for it.
-function qualityOf(quality: Integer): Quality {
+function qualityOf(quality: integer): Quality {
   return match (quality) {
     0 => Quality::Poor
     2 => Quality::Uncommon
@@ -74,15 +74,15 @@ function qualityOf(quality: Integer): Quality {
 class ToastLine implements Component {
   derived color: Color = qualityColor(self.toast.quality)
   derived edge: Line = { width: 1ui, color: self.color }
-  derived text: String = self.toast.coins ? Game::money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
-  derived age: Number = self.now - self.toast.came
-  derived left: Number<Length> = self.age >= SLIDE ? 0ui : FROM * (self.age / SLIDE - 1)
-  derived opacity: Number = self.age < SLIDE ? self.age / SLIDE : (self.toast.until - self.now).min(FADE).max(0) / FADE
-  derived flash: Number = (FLASH - (self.now - self.toast.flashed)).max(0) / FLASH
+  derived text: string = self.toast.coins ? Game::money.format(self.toast.count) : `+${self.toast.count} ${self.toast.name}`
+  derived age: number = self.now - self.toast.came
+  derived left: number<Length> = self.age >= SLIDE ? 0ui : FROM * (self.age / SLIDE - 1)
+  derived opacity: number = self.age < SLIDE ? self.age / SLIDE : (self.toast.until - self.now).min(FADE).max(0) / FADE
+  derived flash: number = (FLASH - (self.now - self.toast.flashed)).max(0) / FLASH
 
   toast: Signal<Toast>
-  now: Signal<Number>
-  constructor(toast: Signal<Toast>, now: Signal<Number>) {
+  now: Signal<number>
+  constructor(toast: Signal<Toast>, now: Signal<number>) {
     self.toast = toast
     self.now = now
   }
@@ -109,20 +109,20 @@ class ToastLine implements Component {
 // the money as what the purse gains from a window's opening to a little after it closes, since the client tells the
 // money after a window emptied at once is closed.
 public class LootLines {
-  state toasts: Array<Toast> = []
-  on: Signal<Boolean>
+  state toasts: array<Toast> = []
+  on: Signal<boolean>
   // The purse as a window opened or last gained, while its money is still to come; nothing otherwise.
-  purse: Integer | nil = nil
+  purse: integer | nil = nil
   ending: Task<nil> | nil = nil
   // The game's time, read only while a line shows: nothing is run each frame otherwise.
-  derived now: Number = self.toasts.length > 0 ? Game::clock.time : 0
-  public derived shown: Array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
+  derived now: number = self.toasts.length > 0 ? Game::clock.time : 0
+  public derived shown: array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
   // Whether a line is shown: the lines stand in no frame otherwise.
-  public derived any: Boolean = self.shown.length > 0
-  derived samples: Boolean = Ordaen.placing
-  public derived clock: Number = self.samples ? SAMPLED : self.now
+  public derived any: boolean = self.shown.length > 0
+  derived samples: boolean = Ordaen.placing
+  public derived clock: number = self.samples ? SAMPLED : self.now
 
-  constructor(on: Signal<Boolean>) {
+  constructor(on: Signal<boolean>) {
     self.on = on
     watch (now of self.now) { self.forget(now) }
     Game::loot.opened.listen(self.onOpened)
@@ -140,7 +140,7 @@ public class LootLines {
   }
 
   // A window opened: the purse counts from here, unless a window before it still waits for its money.
-  onOpened(mut self, auto: Boolean) {
+  onOpened(mut self, auto: boolean) {
     self.stopEnding()
     if (self.purse == nil) { self.purse = peek Game::money.amount }
   }
@@ -161,20 +161,20 @@ public class LootLines {
     self.ending = nil
   }
 
-  onMoney(mut self, copper: Integer) {
+  onMoney(mut self, copper: integer) {
     const was = self.purse
     if (was == nil) { return }
     self.purse = copper
     if (copper > was && peek self.on) { self.add("coins", "", nil, .Common, copper - was, nil, false, true) }
   }
 
-  add(mut self, key: String, name: String, icon: Art | nil, quality: Quality, count: Integer, link: String | nil, quest: Boolean,
-    coins: Boolean) {
+  add(mut self, key: string, name: string, icon: Art | nil, quality: Quality, count: integer, link: string | nil, quest: boolean,
+    coins: boolean) {
     const now = peek Game::clock.time
     const flashed = quality == .Epic || quality == .Legendary || quality == .Artifact ? now : 0
-    let list: Array<Toast> = []
+    let list: array<Toast> = []
     let found = false
-    let last: Number = now - APART
+    let last: number = now - APART
     for (toast of peek self.toasts) {
       last = last.max(toast.came)
       if (toast.key == key) {
@@ -195,7 +195,7 @@ public class LootLines {
   }
 
   // The lines past their time go.
-  forget(mut self, now: Number) {
+  forget(mut self, now: number) {
     if (now == 0) { return }
     const kept = peek self.toasts
     if (kept.all(toast => toast.until > now)) { return }

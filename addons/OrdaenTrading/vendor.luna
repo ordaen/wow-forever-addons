@@ -10,61 +10,61 @@ import { ItemKind, Quality, kindOf, qualityFrom } from "Ordaen"
 // A part of what an item costs besides money: an item or a currency, its icon, how many and its name.
 public struct Cost {
   const icon: Art | nil
-  const amount: Integer
-  const name: String
+  const amount: integer
+  const name: string
 }
 
 // One item the merchant sells, at its place in the merchant's list.
 public struct Ware {
-  const index: Integer
-  const id: Integer
-  const name: String
+  const index: integer
+  const id: integer
+  const name: string
   const icon: Art | nil
   const quality: Quality
   // The money one purchase costs (`stack` items at once), in copper: 0 for an item bought with its costs alone.
-  const price: Integer
-  const stack: Integer
+  const price: integer
+  const stack: integer
   // How many the merchant has left: -1 for no end.
-  const available: Integer
+  const available: integer
   // The player can use it (the client's word: its class, its level), and can buy it at all.
-  const usable: Boolean
-  const purchasable: Boolean
-  const costs: Array<Cost>
+  const usable: boolean
+  const purchasable: boolean
+  const costs: array<Cost>
   // The most bought in one purchase (`GetMerchantItemMaxStack`).
-  const most: Integer
+  const most: integer
   // The level it needs, and the bags' tab its kind falls in: the categories view's caption.
-  const level: Integer
+  const level: integer
   const tab: ItemKind
-  const kind: String
+  const kind: string
   // It starts a quest (the game's «!» over its icon); the purchase can be refunded (one paid in items or currencies
   // that can't is said so as it is asked); its link (the dressing room's, the chat's).
-  const quest: Boolean
-  const refundable: Boolean
-  const link: String | nil
+  const quest: boolean
+  const refundable: boolean
+  const link: string | nil
 }
 
 // An item sold to the merchant this visit, at its place in the buyback list (the last the newest).
 public struct Sold {
-  const place: Integer
-  const name: String
+  const place: integer
+  const name: string
   const icon: Art | nil
-  const price: Integer
-  const count: Integer
-  const usable: Boolean
+  const price: integer
+  const count: integer
+  const usable: boolean
 }
 
 // The client's class of items for a recipe (`Enum.ItemClass.Recipe`), for what has none.
 const NO_CLASS = 15
 
-function iconOf(texture: Number | String | nil): Art | nil {
+function iconOf(texture: number | string | nil): Art | nil {
   if (texture is FileId) { return texture }
   if (texture is Asset) { return texture }
   return nil
 }
 
 // What an item costs besides money, as the merchant's list says it.
-function costsOf(index: Integer): Array<Cost> {
-  let costs: Array<Cost> = []
+function costsOf(index: integer): array<Cost> {
+  let costs: array<Cost> = []
   for (part of 1..Client::GetMerchantItemCostInfo(index).floor()) {
     const texture, value, link, name = Client::GetMerchantItemCostItem(index, part)
     if (texture != nil) { costs.push({ icon: iconOf(texture), amount: value.floor(), name: name ?? link ?? "" }) }
@@ -73,7 +73,7 @@ function costsOf(index: Integer): Array<Cost> {
 }
 
 // One item of the merchant's list; none where the client hasn't it (yet).
-function wareAt(index: Integer): Ware | nil {
+function wareAt(index: integer): Ware | nil {
   const info = Client::C_MerchantFrame::GetItemInfo(index)
   const id = Client::GetMerchantItemID(index)
   if (info == nil || id == nil) { return nil }
@@ -90,8 +90,8 @@ function wareAt(index: Integer): Ware | nil {
 
 // What the merchant takes besides money that the player holds (`GetMerchantCurrencies`): each with its icon and how
 // many the player has.
-function currenciesOf(): Array<Cost> {
-  let held: Array<Cost> = []
+function currenciesOf(): array<Cost> {
+  let held: array<Cost> = []
   for (id of Client::C_MerchantFrame::GetMerchantCurrencies() ?? []) {
     const info = Client::C_CurrencyInfo::GetCurrencyInfo(id)
     if (info != nil) { held.push({ icon: info.iconFileID, amount: info.quantity.floor(), name: info.name }) }
@@ -104,8 +104,8 @@ public class Vendor {
   // The merchant's window shows the buyback: a slot's use there sells nothing, as the game's window has it.
   public state buyingBack = false
   public state name = ""
-  public state wares: Array<Ware> = []
-  public state sold: Array<Sold> = []
+  public state wares: array<Ware> = []
+  public state sold: array<Sold> = []
   // Whether the merchant repairs; what mending everything worn and carried costs, and whether anything needs it.
   public state repairs = false
   public state repairCost = 0
@@ -115,7 +115,7 @@ public class Vendor {
   // The client's cursor mends the next item clicked (`InRepairMode`).
   public state repairing = false
   // The currencies the merchant takes, as the player holds them.
-  public state currencies: Array<Cost> = []
+  public state currencies: array<Cost> = []
 
   constructor() {
     Events::MERCHANT_SHOW.listen(self.onShow)
@@ -149,14 +149,14 @@ public class Vendor {
 
   // Everything the merchant's window shows, read again.
   public read(mut self) {
-    let wares: Array<Ware> = []
+    let wares: array<Ware> = []
     for (index of 1..Client::GetMerchantNumItems()) {
       const ware = wareAt(index)
       // A sold-out item leaves the list.
       if (ware != nil && ware.available != 0) { wares.push(ware) }
     }
     self.wares = wares
-    let sold: Array<Sold> = []
+    let sold: array<Sold> = []
     for (place of 1..Client::GetNumBuybackItems()) {
       const name, texture, price, count, _, usable = Client::GetBuybackItemInfo(place)
       if (name != nil) {
@@ -180,9 +180,9 @@ public class Vendor {
 
   // The player's own click: one purchase of the item (`count` items of a stack the merchant sells by one; nil: the
   // merchant's own stack), bought back, mended.
-  public buy(self, ware: Ware, count: Integer | nil) { Client::BuyMerchantItem(ware.index, count) }
+  public buy(self, ware: Ware, count: integer | nil) { Client::BuyMerchantItem(ware.index, count) }
   public buyBack(self, sold: Sold) { Client::BuybackItem(sold.place) }
-  public repairAll(self, guild: Boolean) { Client::RepairAllItems(guild) }
+  public repairAll(self, guild: boolean) { Client::RepairAllItems(guild) }
   // The client's repair cursor: the next item clicked, worn or carried, is mended; again, the cursor is back.
   public repairOne(mut self) {
     if (Client::InRepairMode()) {

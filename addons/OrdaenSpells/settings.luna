@@ -7,17 +7,17 @@ import Locale from "@/locales"
 // What the player chooses.
 public struct Choices implements Plain {
   // The class trainer is drawn by this module; off, it is the game's.
-  trainer: Boolean
+  trainer: boolean
   // The view and the sort (its place among the trainer's sorts, 0 its own order) the class trainer's window opens with.
   trainerView: TrainerView
-  trainerSort: Integer
+  trainerSort: integer
 }
 
 // The «Trainer» page: whether the class trainer's window is ours, and the view and sort it opens with. What the
 // window's own buttons change lasts until it closes.
 public class TrainerSettingsPage implements Component {
   // The class trainer's sorts, as its sort button lists them.
-  const sorts: Array<Choice<Integer>> = trainerSorts(Locale::COL_SKILL, false)
+  const sorts: array<Choice<integer>> = trainerSorts(Locale::COL_SKILL, false)
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {

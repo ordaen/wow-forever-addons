@@ -12,10 +12,10 @@ public const GROUND_ROUND = 7.03125dp
 
 // Which corners of a rounded fill are round; a corner that isn't is square.
 public struct Corners {
-  topLeft: Boolean
-  topRight: Boolean
-  bottomLeft: Boolean
-  bottomRight: Boolean
+  topLeft: boolean
+  topRight: boolean
+  bottomLeft: boolean
+  bottomRight: boolean
 }
 public const EVERY_CORNER: Corners = { topLeft: true, topRight: true, bottomLeft: true, bottomRight: true }
 
@@ -24,13 +24,13 @@ const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
 
 public class RoundedFill implements Component {
-  derived across: Number<Length> = 2 * self.radius
+  derived across: number<Length> = 2 * self.radius
 
   color: Signal<Color>
-  radius: Signal<Number<Length>>
+  radius: Signal<number<Length>>
   corners: Signal<Corners>
   art: Signal<Art>
-  constructor(color: Signal<Color> = GROUND, radius: Signal<Number<Length>> = GROUND_ROUND, corners: Signal<Corners> = EVERY_CORNER,
+  constructor(color: Signal<Color> = GROUND, radius: Signal<number<Length>> = GROUND_ROUND, corners: Signal<Corners> = EVERY_CORNER,
     // What fills it in place of the plain colour, tinted by `color` (white: as it is): the game's marble, a bar's
     // texture. Each piece draws it on its own.
     art: Signal<Art> = PLAIN) {

@@ -11,11 +11,11 @@ import { ToolButton, ToolPick, Toolbar } from "@/toolbar"
 enum Order { Difficulty = "difficulty", Name = "name" }
 enum Look { Columns = "columns", List = "list" }
 
-const ORDERS: Array<Choice<Order>> = [
+const ORDERS: array<Choice<Order>> = [
   { value: Order::Difficulty, label: "By difficulty" },
   { value: Order::Name, label: "By name" }
 ]
-const LOOKS: Array<Choice<Look>> = [
+const LOOKS: array<Choice<Look>> = [
   { value: Look::Columns, label: "In columns", icon: ARTWORK.ctl.tool.columns },
   { value: Look::List, label: "One list", icon: ARTWORK.ctl.tool.list }
 ]
@@ -45,7 +45,7 @@ class Window {
 }
 
 // Whether a surface shown holds these texts, in this order.
-function tipSays(title: String, text: String): Boolean {
+function tipSays(title: string, text: string): boolean {
   for (shown of Test::surfaces()) {
     if (shown.texts.length == 2 && shown.texts[1] == title && shown.texts[2] == text) { return true }
   }

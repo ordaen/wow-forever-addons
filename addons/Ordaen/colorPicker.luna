@@ -12,7 +12,7 @@ const EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
 
 public class ColorPicker implements Component {
   // The game's picker as this one opened it: what it reports is for whoever opened it last.
-  ticket: Integer = 0
+  ticket: integer = 0
   // The colour when the picker opened.
   before: Color | nil = nil
   // The colour last picked while the picker moves: the swatch shows it, the setting takes it when the picker rests.
@@ -20,16 +20,16 @@ public class ColorPicker implements Component {
   derived shown: Color = self.picking ?? self.value
   const rest: mut Resting<Color>
 
-  label: Signal<String>
+  label: Signal<string>
   value: mut Signal<Color>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
+    label: Signal<string>,
     // The setting it shows and changes.
     value: mut Signal<Color>,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value
@@ -49,13 +49,13 @@ public class ColorPicker implements Component {
     self.ticket = Game::colorPicker.open(self.value)
   }
 
-  onPicked(mut self, ticket: Integer, color: Color) {
+  onPicked(mut self, ticket: integer, color: Color) {
     if (ticket != self.ticket) { return }
     self.picking = color.clone()
     self.rest.move(color.clone())
   }
 
-  onCancelled(mut self, ticket: Integer) {
+  onCancelled(mut self, ticket: integer) {
     const before = self.before
     if (ticket != self.ticket || before == nil) { return }
     self.rest.move(before.clone())

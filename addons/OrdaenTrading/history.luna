@@ -7,14 +7,14 @@ import { PriceKey } from "@/quote"
 // lowest price for one seen in it, in copper.
 public struct HourPrice {
   hour: Hour
-  copper: Integer
+  copper: integer
 }
 
 public trait PriceHistory {
   // Moves when a scan keeps another hour: a chart that follows prices reads it.
-  public revision: Signal<Integer>
+  public revision: Signal<integer>
   // The item's prices from `from` to `to`, both ends kept, oldest first; an hour with no price seen is left out. The
   // last 24 hours are kept an hour a point; older ones one point a day, the day's lowest, at the day's first hour (the
   // saved variable stays small). A day's lowest of the points in it is the same on both.
-  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice>
+  public hours(self, key: PriceKey, from: Hour, to: Hour): array<HourPrice>
 }

@@ -18,7 +18,7 @@ public enum CalloutSide { Above, Below }
 
 // How it looks: framed, with a close glyph or without; or a chat bubble of one colour.
 public enum CalloutLook {
-  Framed { closable: Boolean }
+  Framed { closable: boolean }
   Speech { tone: Color }
 }
 
@@ -43,8 +43,8 @@ const TAIL_MEET = 8ui
 const BUBBLE_LEAST = 32ui
 const BUBBLE_PAD: Edges = { top: 0sp, right: 3sp, bottom: 0sp, left: 3sp }
 const GLYPH = 18.75dp
-const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
-const PAD: Number<Spacing> = 5sp
+const HEAD: array<Track> = [{ fr: 1 }, "max-content"]
+const PAD: number<Spacing> = 5sp
 
 // Where the arrow stands: its point on the frame's top middle, or on its bottom middle.
 function arrowPlaceOf(by: any Frame, side: CalloutSide): Anchored {
@@ -55,8 +55,8 @@ function arrowPlaceOf(by: any Frame, side: CalloutSide): Anchored {
 }
 
 // Where the bubble stands: centred past the arrow's base.
-function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: Number<Length>, meet: Number<Length>): Anchored {
-  const past: Number<Length> = GAP + arrowHeight - meet
+function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: number<Length>, meet: number<Length>): Anchored {
+  const past: number<Length> = GAP + arrowHeight - meet
   if (side == CalloutSide::Above) {
     return { point: Point::Bottom, to: Point::Top, y: -past, by: by }
   }
@@ -72,7 +72,7 @@ function toneOf(look: CalloutLook): Color | nil {
 }
 
 // Whether a framed callout has its close glyph.
-function closableOf(look: CalloutLook): Boolean {
+function closableOf(look: CalloutLook): boolean {
   match (look) {
     .Framed => return look.closable
     .Speech => return false
@@ -83,34 +83,34 @@ public class Callout implements Component {
   public close: Event<nil> = new Event()
 
   derived tone: Color | nil = toneOf(self.look)
-  derived speech: Boolean = self.tone != nil
-  derived framed: Boolean = !self.speech
-  derived closable: Boolean = closableOf(self.look)
+  derived speech: boolean = self.tone != nil
+  derived framed: boolean = !self.speech
+  derived closable: boolean = closableOf(self.look)
   derived arrow: Atlas = self.speech ? TAIL : ARROW
-  derived arrowWidth: Number<Length> = self.speech ? TAIL_SIZE : ARROW_WIDTH
-  derived arrowHeight: Number<Length> = self.speech ? TAIL_SIZE : ARROW_HEIGHT
+  derived arrowWidth: number<Length> = self.speech ? TAIL_SIZE : ARROW_WIDTH
+  derived arrowHeight: number<Length> = self.speech ? TAIL_SIZE : ARROW_HEIGHT
   derived arrowPlace: Anchored = arrowPlaceOf(self.by, self.side)
   derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight, self.speech ? TAIL_MEET : MEET)
-  derived turn: Number<Angle> = self.side == CalloutSide::Above ? 0deg : 180deg
-  derived hasText: Boolean = self.text != ""
+  derived turn: number<Angle> = self.side == CalloutSide::Above ? 0deg : 180deg
+  derived hasText: boolean = self.text != ""
   derived arrowTint: Color = self.tone ?? GOLD
 
   by: Signal<any Frame>
-  title: Signal<String>
-  text: Signal<String>
+  title: Signal<string>
+  text: Signal<string>
   side: Signal<CalloutSide>
   look: Signal<CalloutLook>
-  pulse: Signal<Boolean>
+  pulse: Signal<boolean>
   constructor(
     // The frame it points at.
     by: Signal<any Frame>,
-    title: Signal<String>,
+    title: Signal<string>,
     // Under the title, in a framed callout.
-    text: Signal<String> = "",
+    text: Signal<string> = "",
     side: Signal<CalloutSide> = CalloutSide::Above,
     look: Signal<CalloutLook> = CalloutLook.Framed { closable: true },
     // It fades and comes back, over and over, while this holds: something waits for a look (unread whispers).
-    pulse: Signal<Boolean> = false
+    pulse: Signal<boolean> = false
   ) {
     self.by = by
     self.title = title

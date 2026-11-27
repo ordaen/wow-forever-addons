@@ -7,7 +7,7 @@ import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COL_NAME, width: { fr: 2 }, sortable: true },
   { title: Locale::COL_LEVEL, width: 75dp, align: Align::End, sortable: true },
   { title: Locale::COL_GOLD, width: 140.625dp, align: Align::End, sortable: true },
@@ -22,22 +22,22 @@ const CONFIRM_WIDTH = 539.0625dp
 // One character as a row shows it.
 public struct Line {
   who: CharacterId
-  name: String
-  level: Integer
-  money: Integer
+  name: string
+  level: integer
+  money: integer
   // Free bag slots; -1 for bags never read.
-  free: Integer
+  free: integer
   // Hours since it was played.
-  away: Integer
-  bank: String
-  mail: String
+  away: integer
+  bank: string
+  mail: string
   // Mail that expires within three days.
-  urgent: Boolean
-  current: Boolean
+  urgent: boolean
+  current: boolean
   // Not the playing character's realm and side: in no plan.
-  apart: Boolean
+  apart: boolean
   // Not played for ninety days: the player may forget it.
-  stale: Boolean
+  stale: boolean
 }
 
 // One row of the table: the character's cells, and «Forget» where it may be forgotten.
@@ -46,8 +46,8 @@ public class CharacterRow implements Component {
 
   derived name: Color = self.line.apart ? Style::AWAY : self.line.current ? Style::GOLD : Style::INK
   derived seen: Color = self.line.stale ? Style::RED : Style::DIM
-  derived seenText: String = self.line.current ? Locale::NOW : Style::ago(self.line.away)
-  derived bags: String = self.line.free < 0 ? "—" : String::of(self.line.free)
+  derived seenText: string = self.line.current ? Locale::NOW : Style::ago(self.line.away)
+  derived bags: string = self.line.free < 0 ? "—" : string::of(self.line.free)
   derived mail: Color = self.line.urgent ? Style::RED : Style::DIM
 
   line: Signal<Line>
@@ -91,26 +91,26 @@ public class Characters implements Component {
   state asking: CharacterId | nil = nil
   state sorted = 0
   state descending = false
-  derived lines: Array<Line> = self.linesOf()
-  derived ordered: Array<Line> = self.order()
-  derived question: String = self.questionOf()
-  derived alone: Boolean = self.lines.length < 2
+  derived lines: array<Line> = self.linesOf()
+  derived ordered: array<Line> = self.order()
+  derived question: string = self.questionOf()
+  derived alone: boolean = self.lines.length < 2
   // The table scrolls in the window's height, above the note while there is one.
-  derived rows: Array<Track> = self.alone ? [{ fr: 1 }, "max-content"] : [{ fr: 1 }]
+  derived rows: array<Track> = self.alone ? [{ fr: 1 }, "max-content"] : [{ fr: 1 }]
 
   const records: Records
-  touched: Signal<Integer>
-  constructor(records: Records, touched: Signal<Integer>) {
+  touched: Signal<integer>
+  constructor(records: Records, touched: Signal<integer>) {
     self.records = records
     self.touched = touched
   }
 
   // Every character as a line; read again when any record changed.
-  linesOf(self): Array<Line> {
+  linesOf(self): array<Line> {
     // Read again when any record changed.
     _ = self.touched
     const now = Hour::now()
-    const list: Array<Line> = []
+    const list: array<Line> = []
     for (who, character of self.records.characters) {
       const bank = character.read[Place::Bank]
       const mail = character.read[Place::Mail]
@@ -134,8 +134,8 @@ public class Characters implements Component {
   }
 
   // The lines by the column the table is sorted by.
-  order(self): Array<Line> {
-    const list: Array<Line> = []
+  order(self): array<Line> {
+    const list: array<Line> = []
     for (line of self.lines) { list.push(line) }
     const column = self.sorted
     const down = self.descending
@@ -150,7 +150,7 @@ public class Characters implements Component {
     return list
   }
 
-  questionOf(self): String {
+  questionOf(self): string {
     const who = self.asking
     if (who == nil) { return "" }
     return Locale::FORGET_ASK.format(self.records.characters[who]?.name ?? "")

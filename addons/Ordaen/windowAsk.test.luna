@@ -4,7 +4,7 @@ import Test from "$test"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 class Asking {
-  state tabs: Array<WindowTabSpec> = [{ title: "Friends" }, { title: "Guild" }, { title: "Allies" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Friends" }, { title: "Guild" }, { title: "Allies" }]
   state tab = 1
   public window: mut KeptWindow = new KeptWindow("asking", "asking", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = false

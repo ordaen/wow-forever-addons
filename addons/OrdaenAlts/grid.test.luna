@@ -11,7 +11,7 @@ import { Character, CharacterId, Kept, Known } from "@/character"
 import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
-function learned(ids: Array<Integer>): Array<Game::Recipe> {
+function learned(ids: array<integer>): array<Game::Recipe> {
   return ids.map(id => Game.Recipe {
     id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
@@ -40,27 +40,27 @@ function grid(): Test::Part {
 
 // Whether the tab shows this, read whole: the headings, each character's row, then the tabs. Where it shows something
 // else, the test stops and says what.
-function shows(expected: String): Boolean {
+function shows(expected: string): boolean {
   const said = Test::page().window(Locale::TAB_CHARACTERS).texts().join(" | ")
   if (said != expected) { panic(`the window shows «${said}»`) }
   return true
 }
 
 // A character of a realm with professions: name, rank and most, each.
-function crafter(name: String, realm: String, skills: Array<Known>): mut Character {
+function crafter(name: string, realm: string, skills: array<Known>): mut Character {
   const made = Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour::now(), mailExpires: nil }
   for (known of skills) { made.professions.push(known.clone()) }
   return made
 }
 
-function skill(name: String, rank: Integer, max: Integer): Known {
+function skill(name: string, rank: integer, max: integer): Known {
   return { skillLine: name.length, name: name, rank: rank, max: max }
 }
 
 // The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
-function recorded(others: Array<Character>) {
+function recorded(others: array<Character>) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
   Test::open("/ordaen")
   const settings = Test::page().window("Move mode")
@@ -109,8 +109,8 @@ test "two characters of one name on different realms each have their own skills"
 }
 
 test "forty characters' skills scroll inside the window" {
-  const others: Array<Character> = []
-  for (i of 1..39) { others.push(crafter("Alt " + String::of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
+  const others: array<Character> = []
+  for (i of 1..39) { others.push(crafter("Alt " + string::of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
   Test::mount(nil, SCREEN)
   recorded(others)
   const window = grid()

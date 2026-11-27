@@ -6,29 +6,29 @@ import Style from "@/style"
 
 // A stat as a card shows it: its name and its value.
 public struct Card {
-  const label: String
-  const value: String
+  const label: string
+  const value: string
   // What the game's paper doll says of it under its name and value: its tooltip's text.
-  const tip: String = ""
+  const tip: string = ""
 }
 
 // A group of cards under its heading.
 public struct Group {
-  const title: String
-  const cards: Array<Card>
+  const title: string
+  const cards: array<Card>
 }
 
 // A card with the heading of the group it goes under.
 public struct Filed {
-  const title: String
+  const title: string
   const card: Card
 }
 
 // Cards under their headings, in order: those that follow one another under one heading make one group.
-public function grouped(filed: Array<Filed>): Array<Group> {
-  const groups: Array<Group> = []
+public function grouped(filed: array<Filed>): array<Group> {
+  const groups: array<Group> = []
   let title = ""
-  let cards: Array<Card> = []
+  let cards: array<Card> = []
   for (entry of filed) {
     if (entry.title != title && cards.length > 0) {
       groups.push({ title: title, cards: cards })
@@ -44,8 +44,8 @@ public function grouped(filed: Array<Filed>): Array<Group> {
 // A card of a list; under the cursor the game's own words on it, as its paper doll's tooltip says them.
 public class ListCard implements Component {
   state hovered = false
-  derived tipShown: Boolean = self.hovered && self.card.tip != ""
-  derived tipTitle: String = `${self.card.label} ${self.card.value}`
+  derived tipShown: boolean = self.hovered && self.card.tip != ""
+  derived tipTitle: string = `${self.card.label} ${self.card.value}`
 
   card: Signal<Card>
   constructor(card: Signal<Card>) {

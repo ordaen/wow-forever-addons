@@ -19,15 +19,15 @@ const LIGHT: Color = Color::hex("#d6a56b")
 const PADDING: Edges = { top: 2sp, right: 3.5sp, bottom: 2sp, left: 4.5sp }
 // An entry of one line (`oneLine`): set closer, its name kept whole.
 const LINE_PADDING: Edges = { top: 1sp, right: 3.5sp, bottom: 1sp, left: 4.5sp }
-const WITH_ICON: Array<Track> = [25.78125dp, { fr: 1 }, "max-content"]
+const WITH_ICON: array<Track> = [25.78125dp, { fr: 1 }, "max-content"]
 // An entry without an icon: its name from the left.
-const NO_ICON: Array<Track> = [{ fr: 1 }, "max-content"]
+const NO_ICON: array<Track> = [{ fr: 1 }, "max-content"]
 
 public class ListTab implements Component {
   public pick: Event<nil> = new Event()
 
-  derived hasIcon: Boolean = self.icon != nil
-  derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
+  derived hasIcon: boolean = self.icon != nil
+  derived columns: array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
   derived background: Color | ByInteractionState<Color> = self.framed ? CLEAR : self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? BRIGHT_TEXT : self.off ? OFF : INK
   derived tint: Color = self.off ? DIM : BRIGHT_TEXT
@@ -36,21 +36,21 @@ public class ListTab implements Component {
   derived padding: Edges = self.oneLine ? LINE_PADDING : PADDING
   derived wrap: TextWrap = self.oneLine ? .None : .Words
 
-  label: Signal<String>
-  selected: Signal<Boolean>
+  label: Signal<string>
+  selected: Signal<boolean>
   icon: Signal<Art | nil>
-  off: Signal<Boolean>
-  framed: Signal<Boolean>
-  oneLine: Signal<Boolean>
+  off: Signal<boolean>
+  framed: Signal<boolean>
+  oneLine: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    selected: Signal<Boolean>,
+    label: Signal<string>,
+    selected: Signal<boolean>,
     // None for an entry without a picture.
     icon: Signal<Art | nil> = nil,
-    off: Signal<Boolean> = false,
-    framed: Signal<Boolean> = false,
+    off: Signal<boolean> = false,
+    framed: Signal<boolean> = false,
     // An entry of a list as wide as its names: each kept on one line, the entries set closer.
-    oneLine: Signal<Boolean> = false
+    oneLine: Signal<boolean> = false
   ) {
     self.label = label
     self.selected = selected

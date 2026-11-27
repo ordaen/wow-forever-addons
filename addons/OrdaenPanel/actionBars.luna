@@ -22,17 +22,17 @@ function hiddenFrame(): any Client::Frame {
 }
 
 // Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the panel's bars stay off.
-public function bartenderLoaded(): Boolean {
+public function bartenderLoaded(): boolean {
   let loaded, _ = Client::C_AddOns::IsAddOnLoaded("Bartender4")
   return loaded
 }
 
 // Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the pet's
 // bar on, the stances' on for a class with forms).
-public function barDefaults(): Map<String, BarChoice> {
+public function barDefaults(): map<string, BarChoice> {
   let bottomLeft, bottomRight, right, left, six, seven, eight = Client::GetActionBarToggles()
   const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client::GetNumShapeshiftForms() > 0]
-  const defaults: Map<String, BarChoice> = {}
+  const defaults: map<string, BarChoice> = {}
   for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
   return defaults
 }
@@ -40,42 +40,42 @@ public function barDefaults(): Map<String, BarChoice> {
 // A bar drawn: its spec, and how high the bars under it in the default stack stand, with the room above each.
 public struct Shown {
   spec: BarSpec
-  below: Number<Length>
+  below: number<Length>
 }
 
 public class ActionBars implements Component, OwnerKeys {
   // The choices that apply: the settings', taken out of a fight alone (the bars' buttons are protected).
   state applied: BarsChoices
   // The player's forms: the stances' bar shows a button for each.
-  state forms: Integer = 0
+  state forms: integer = 0
   // The bars are made once the player is out of a fight: the panel turned on in one waits for its end.
   public state ready = false
 
   // The bars drawn, the action bars in Blizzard's order from the bottom, then the pet's and the stances'.
-  public derived bars: Array<Shown> = self.barsOf()
-  derived paging: String = self.pagingOf()
+  public derived bars: array<Shown> = self.barsOf()
+  derived paging: string = self.pagingOf()
   // The game's bars drawn in their place, kept unseen while the bars run: their slots stay as they are.
-  derived hidden: Array<any Client::Frame> = self.hiddenBars()
+  derived hidden: array<any Client::Frame> = self.hiddenBars()
   // Where the game's bars are kept while the bars run: a frame never shown. A bar hidden by itself doesn't stay so:
   // the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead, and
   // whatever shows it, it draws nothing.
   const hider: any Client::Frame = hiddenFrame()
   // Each bar put in the hider, by the parent the game gave it: given back as the bars end.
-  parents: mut Map<any Client::Frame, any Client::Frame> = {}
+  parents: mut map<any Client::Frame, any Client::Frame> = {}
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
-  state bound: Map<String, String> = {}
+  state bound: map<string, string> = {}
   // The same keys by the name of the button they click: what its tooltip says it is pressed by.
-  state named: Map<String, String> = {}
+  state named: map<string, string> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
   const owner: any Client::Frame = Client::CreateFrame("Frame", nil, Client::UIParent, nil)
 
   values: Signal<BarsChoices>
-  defaults: Signal<Map<String, BarChoice>>
+  defaults: Signal<map<string, BarChoice>>
   constructor(
     // The bars' settings, as saved.
     values: Signal<BarsChoices>,
     // Each bar's settings before the player changed them, by its id.
-    defaults: Signal<Map<String, BarChoice>>
+    defaults: Signal<map<string, BarChoice>>
   ) {
     self.values = values
     self.defaults = defaults
@@ -99,7 +99,7 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // A button's tooltip: the key that presses it, as the button shows it («1: use»).
-  public keys(self, owner: String): Array<String> {
+  public keys(self, owner: string): array<string> {
     const key = self.named[owner]
     return key == nil ? [] : [Locale::KEY_USE.format(key)]
   }
@@ -123,16 +123,16 @@ public class ActionBars implements Component, OwnerKeys {
   countForms(mut self) { self.forms = Client::GetNumShapeshiftForms() }
 
   // A spell learned: a new rank takes its previous rank's slots.
-  learned(self, spell: Number, _line: Integer, _perk: Boolean) { promote(spell.floor()) }
+  learned(self, spell: number, _line: integer, _perk: boolean) { promote(spell.floor()) }
 
   // The game's keys and bars go back as they were.
-  giveBack(owner: any Client::Frame, parents: Map<any Client::Frame, any Client::Frame>) {
+  giveBack(owner: any Client::Frame, parents: map<any Client::Frame, any Client::Frame>) {
     Client::ClearOverrideBindings(owner)
     for (frame, parent of parents) { frame.SetParent(parent) }
   }
 
   // Each of the game's bars goes into the hider, its own parent kept to give back.
-  putAway(mut self, games: Array<any Client::Frame>) {
+  putAway(mut self, games: array<any Client::Frame>) {
     for (frame of games) {
       if (self.parents[frame] == nil) {
         const parent = frame.GetParent()
@@ -148,15 +148,15 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // How many buttons a bar shows: as many as chosen, and for the stances' bar no more than the player's forms.
-  countOf(self, spec: BarSpec, choice: BarChoice): Integer {
+  countOf(self, spec: BarSpec, choice: BarChoice): integer {
     return spec.kind == BarKind::Stance ? choice.buttons.min(self.forms) : choice.buttons
   }
 
   // The bars on, each standing over those under it by their rows' height: none overlaps another.
-  barsOf(self): Array<Shown> {
-    const bars: Array<Shown> = []
+  barsOf(self): array<Shown> {
+    const bars: array<Shown> = []
     if (!self.ready) { return bars }
-    let below: Number<Length> = 0ui
+    let below: number<Length> = 0ui
     for (spec of SPECS) {
       const choice = self.choiceOf(spec)
       if (choice.on) {
@@ -169,10 +169,10 @@ public class ActionBars implements Component, OwnerKeys {
   }
 
   // Панель 1's paging: the page turned to, then each form's whose page the player keeps.
-  pagingOf(self): String {
+  pagingOf(self): string {
     let options = TURNED
     for (bonusbar of 1..4) {
-      if (self.applied.unpaged[String::of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
+      if (self.applied.unpaged[string::of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
     }
     return `${options}1`
   }
@@ -181,8 +181,8 @@ public class ActionBars implements Component, OwnerKeys {
   // fight alone: the client takes no binding in one.
   bind(mut self) {
     Client::ClearOverrideBindings(self.owner)
-    const keys: Map<String, String> = {}
-    const named: Map<String, String> = {}
+    const keys: map<string, string> = {}
+    const named: map<string, string> = {}
     for (bar of peek self.bars) {
       for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
@@ -200,8 +200,8 @@ public class ActionBars implements Component, OwnerKeys {
     self.named = named
   }
 
-  hiddenBars(self): Array<any Client::Frame> {
-    const parts: Array<any Client::Frame> = []
+  hiddenBars(self): array<any Client::Frame> {
+    const parts: array<any Client::Frame> = []
     for (bar of self.bars) {
       const frame = ActionBars::gameBar(bar.spec)
       if (frame != nil) { parts.push(frame) }
@@ -218,7 +218,7 @@ public class ActionBars implements Component, OwnerKeys {
     }
   }
 
-  actionBar(number: Integer): any Client::Frame | nil {
+  actionBar(number: integer): any Client::Frame | nil {
     return match (number) {
       1 => Game::frames.MainActionBar
       2 => Game::frames.MultiBarBottomLeft

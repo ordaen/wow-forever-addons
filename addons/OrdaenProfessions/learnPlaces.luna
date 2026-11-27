@@ -12,7 +12,7 @@ import Style from "@/style"
 
 const LINK: Color = Color::hex("#d6b878")
 const NONE = "—"
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
   { title: Locale::COLUMN_WAY, width: 93.75dp, sortable: true },
   { title: Locale::COLUMN_DISTANCE, width: 117.1875dp, align: Align::End, sortable: true },
@@ -29,12 +29,12 @@ const MOST_HEIGHT = 257.8125dp
 public struct Placed {
   place: LearnPlace
   // In yards; none where no spot of it is known on the player's continent.
-  yards: Number | nil
+  yards: number | nil
 }
 
 // Whether `a` stands before `b` by a column, a place with no distance after every one with one, either way; then by
 // name. Never a place before itself.
-function placedBefore(column: Integer, descending: Boolean, a: Placed, b: Placed): Boolean {
+function placedBefore(column: integer, descending: boolean, a: Placed, b: Placed): boolean {
   if (column == BY_DISTANCE && a.yards != b.yards) {
     const x = a.yards
     const y = b.yards
@@ -48,7 +48,7 @@ function placedBefore(column: Integer, descending: Boolean, a: Placed, b: Placed
 }
 
 // How far a place is, as the table says it.
-function yardsText(yards: Number | nil): String {
+function yardsText(yards: number | nil): string {
   if (yards == nil) { return NONE }
   return Locale::YARDS.format(yards.floor())
 }
@@ -56,11 +56,11 @@ function yardsText(yards: Number | nil): String {
 class LearnPlaceRow implements Component {
   public open: Event<LearnPlace> = new Event()
 
-  derived opens: Boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game::situation.combat)
+  derived opens: boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game::situation.combat)
   derived nameColor: Color = self.opens ? LINK : Style::INK
-  derived hasZone: Boolean = self.placed.place.zone != ""
-  derived priced: Boolean = self.placed.place.cost > 0
-  derived far: String = yardsText(self.placed.yards)
+  derived hasZone: boolean = self.placed.place.zone != ""
+  derived priced: boolean = self.placed.place.cost > 0
+  derived far: string = yardsText(self.placed.yards)
 
   placed: Signal<Placed>
   constructor(placed: Signal<Placed>) { self.placed = placed }
@@ -96,22 +96,22 @@ public class LearnTable implements Component {
   public open: Event<LearnPlace> = new Event()
   state sorted = BY_DISTANCE
   state descending = false
-  derived placed: Array<Placed> = self.placedOf()
-  derived height: Number<Length> | nil = self.places.length > MOST_ROWS ? MOST_HEIGHT : nil
+  derived placed: array<Placed> = self.placedOf()
+  derived height: number<Length> | nil = self.places.length > MOST_ROWS ? MOST_HEIGHT : nil
 
-  places: Signal<Array<LearnPlace>>
-  const distance: (npc: Integer) => Number | nil
+  places: Signal<array<LearnPlace>>
+  const distance: (npc: integer) => number | nil
   constructor(
-    places: Signal<Array<LearnPlace>>,
+    places: Signal<array<LearnPlace>>,
     // How far an NPC's nearest spot is, in yards; none where none is known.
-    distance: (npc: Integer) => Number | nil
+    distance: (npc: integer) => number | nil
   ) {
     self.places = places
     self.distance = distance
   }
 
-  placedOf(self): Array<Placed> {
-    const list: Array<Placed> = []
+  placedOf(self): array<Placed> {
+    const list: array<Placed> = []
     for (place of self.places) {
       list.push({ place: place, yards: place.npc == 0 ? nil : self.distance(place.npc) })
     }

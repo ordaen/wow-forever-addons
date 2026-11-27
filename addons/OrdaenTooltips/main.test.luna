@@ -23,7 +23,7 @@ const RED: Color = Color::hex("#ff4040")
 const HOTKEY: Color = Color::hex("#857a66")
 
 // A frame of the game's, by its name, at a place on the screen: in the screen's frame, as the game's are.
-function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client::Frame {
+function frame(kind: string, name: string, x: number, y: number, width: number, height: number): any Client::Frame {
   const made = Client::CreateFrame(kind, name, Client::UIParent, nil)
   made.SetSize(width, height)
   made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", x, -y)
@@ -55,7 +55,7 @@ function hidden(): Game::ShownTip {
 }
 
 // A button of the micro menu in the screen's lower half, its top left at 600,800, 30 wide: the game's tooltip for it.
-function atButton(name: String, data: Game::TooltipData): Game::ShownTip {
+function atButton(name: string, data: Game::TooltipData): Game::ShownTip {
   return {
     owner: frame("Button", name, 600, 800, 30, 40), ownerName: name, placeable: true, ..showing(data)
   }
@@ -63,14 +63,14 @@ function atButton(name: String, data: Game::TooltipData): Game::ShownTip {
 
 // A thing in a slot of the game's at the screen's top right, its top left at 1300,200, 40 wide: under it and on its
 // right edge, as the game asks.
-function inSlot(name: String, data: Game::TooltipData): Game::ShownTip {
+function inSlot(name: string, data: Game::TooltipData): Game::ShownTip {
   return {
     owner: frame("Button", name, 1300, 200, 40, 40), ownerName: name, placeable: true, ownerHigh: true,
     ownerRight: true, ..showing(data)
   }
 }
 
-function text(title: String): Game::TooltipData {
+function text(title: string): Game::TooltipData {
   return { plain: true, lines: [{ left: title, kind: 0 }] }
 }
 
@@ -79,20 +79,20 @@ function sword(): Game::TooltipData {
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // Whether a number is this one, to a hundredth: where it isn't, the test fails with what it is.
-function near(value: Number, expected: Number): Boolean {
+function near(value: number, expected: number): boolean {
   if ((value - expected).abs() > 0.01) { panic(`it is ${value}, not ${expected}`) }
   return true
 }
 
 // The module's tab in the settings: `/ordaen`, «Tooltips», the tab.
-function tab(title: String): Test::Part {
+function tab(title: string): Test::Part {
   Test::open("/ordaen")
   const settings = Test::page().window(SETTINGS)
   settings.button("Tooltips").click()
@@ -102,14 +102,14 @@ function tab(title: String): Test::Part {
 }
 
 // A control of the module's tab clicked, which applies at once, and the window closed.
-function choose(title: String, control: String) {
+function choose(title: string, control: string) {
   const settings = tab(title)
   settings.button(control).click()
   Test::key(Key::Escape)
 }
 
 // A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice.
-function pick(title: String, now: String, nth: Integer, choice: String) {
+function pick(title: string, now: string, nth: integer, choice: string) {
   const settings = tab(title)
   settings.button(now).nth(nth).click()
   Test::page().window(choice).button(choice).click()
@@ -206,7 +206,7 @@ test "a kind on Default stands where the general position says: Blizzard's place
 }
 
 test "a kind on Beside the object stands beside its owner though the general position is Blizzard's place" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(false)
   Test::mount(nil, SCREEN)
   pick("NPCs", "Default", 1, "Beside the object")
   Game::tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
@@ -234,11 +234,11 @@ test "each kind stands where Blizzard's own UI puts it: what a frame holds besid
   Game::tooltip.main = atButton("SomeAddonButton", { kind: 4, lines: [{ left: "Chest", kind: 0 }] })
   Test::pass(SHOWS)
   Test::expect(near(Test::page().window("Chest").rect().bottom, 750))
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(false)
   Game::tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
   Test::pass(SHOWS)
   Test::expect(near(Test::page().window("Wolf").rect().bottom, 750))
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(true)
   Game::tooltip.main = atButton("SomeAddonButton", unitTip("Jaina"))
   Test::pass(SHOWS)
   Test::expect(near(Test::page().window("Jaina").rect().bottom, 750))
@@ -272,7 +272,7 @@ test "with items on Blizzard's place an item in the bags stands at the game's de
 }
 
 test "the tooltips beside an item stand in a column away from the corner, and the worn one beyond them" {
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => ({
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => ({
     kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }]
   })
   Test::mount(nil, SCREEN)
@@ -323,11 +323,11 @@ test "abilities, effects and objects turned off on their tabs are the game's own
 }
 
 // The unit under the cursor: a player or an NPC as the test says.
-function unitTip(name: String): Game::TooltipData {
+function unitTip(name: string): Game::TooltipData {
   return { kind: 2, lines: [{ left: name, kind: 2, unit: "mouseover" }] }
 }
 
-function aUnit(player: Boolean): Game::UnitInfo {
+function aUnit(player: boolean): Game::UnitInfo {
   return {
     name: player ? "Jaina" : "Wolf", player: player, dead: false, ghost: false, afk: false, dnd: false, pvp: false,
     level: 10, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
@@ -336,26 +336,26 @@ function aUnit(player: Boolean): Game::UnitInfo {
 }
 
 test "players turned off are the game's own, and NPCs still drawn here" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(true)
   Test::mount(nil, SCREEN)
   choose("Players", "On")
   Game::tooltip.main = showing(unitTip("Jaina"))
   Test::pass(SHOWS)
   Test::expect(Test::surfaces().length == 0)
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(false)
   Game::tooltip.main = showing(unitTip("Wolf"))
   Test::pass(SHOWS)
   Test::expect(Test::page().window("Wolf").shown())
 }
 
 test "NPCs turned off are the game's own, and players still drawn here" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(false)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(false)
   Test::mount(nil, SCREEN)
   choose("NPCs", "On")
   Game::tooltip.main = showing(unitTip("Wolf"))
   Test::pass(SHOWS)
   Test::expect(Test::surfaces().length == 0)
-  Game::units.of = (unit: String): Game::UnitInfo | nil => aUnit(true)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => aUnit(true)
   Game::tooltip.main = showing(unitTip("Jaina"))
   Test::pass(SHOWS)
   Test::expect(Test::page().window("Jaina").shown())
@@ -397,7 +397,7 @@ test "a setting's box shows its tick before it is changed" {
 
 // The hotkeys a module gives one button of its own: its key, as the button shows it.
 class ButtonKeys implements OwnerKeys {
-  public keys(self, owner: String): Array<String> { return owner == "ActionButton2" ? ["2: use"] : [] }
+  public keys(self, owner: string): array<string> { return owner == "ActionButton2" ? ["2: use"] : [] }
 }
 
 test "a menu button's key stands among the hotkeys, last, in their colour" {
@@ -425,8 +425,8 @@ test "a button another module gives a key has it among the hotkeys of whatever i
 // What buttons tell more
 
 test "the character's button tells the item level and the most worn piece's durability, red under a quarter" {
-  Game::character.itemLevel = (): Number | nil => 61.7
-  Game::character.durability = (): Number | nil => 0.2
+  Game::character.itemLevel = (): number | nil => 61.7
+  Game::character.durability = (): number | nil => 0.2
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("CharacterMicroButton", {
     plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }]
@@ -435,14 +435,14 @@ test "the character's button tells the item level and the most worn piece's dura
   const tip = Test::page().window("Character Info")
   Test::expect(reads(tip, "Character Info | Item level | 61 | Durability | 20% | C: open"))
   Test::expect(tip.text("20%").textColor().equal(RED))
-  Game::character.durability = (): Number | nil => 0.25
+  Game::character.durability = (): number | nil => 0.25
   Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   Test::pass(SHOWS)
   Test::expect(Test::page().window("Character Info").text("25%").textColor().equal(VALUE))
 }
 
 test "the character's button with no item level says none" {
-  Game::character.itemLevel = (): Number | nil => 0
+  Game::character.itemLevel = (): number | nil => 0
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   Test::pass(SHOWS)
@@ -450,7 +450,7 @@ test "the character's button with no item level says none" {
 }
 
 test "the backpack tells the free slots of every bag together, a bag's slot its own" {
-  Game::bags.roomOf = (bag: Integer): Game::BagRoom => bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
+  Game::bags.roomOf = (bag: integer): Game::BagRoom => bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
   Game::bags.roomOfAll = (): Game::BagRoom => ({ free: 3, slots: 22 })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("MainMenuBarBackpackButton", text("Backpack"))
@@ -465,21 +465,21 @@ test "the backpack tells the free slots of every bag together, a bag's slot its 
 }
 
 test "the talents' button tells the points not spent, and nothing with none" {
-  Game::character.unspentTalents = (): Integer => 3
+  Game::character.unspentTalents = (): integer => 3
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("TalentMicroButton", text("Talents"))
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Talents"), "Talents | Unspent points | 3"))
-  Game::character.unspentTalents = (): Integer => 0
+  Game::character.unspentTalents = (): integer => 0
   Game::tooltip.main = atButton("TalentMicroButton", text("Talents (N)"))
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Talents (N)"), "Talents (N)"))
 }
 
 test "the character's button tells the talent points not spent too, after the item level, its window holding the talents" {
-  Game::character.itemLevel = (): Number | nil => 12
-  Game::character.durability = (): Number | nil => nil
-  Game::character.unspentTalents = (): Integer => 2
+  Game::character.itemLevel = (): number | nil => 12
+  Game::character.durability = (): number | nil => nil
+  Game::character.unspentTalents = (): integer => 2
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   Test::pass(SHOWS)
@@ -498,12 +498,12 @@ test "the professions' button tells each profession's rank" {
 }
 
 test "the achievements' button tells the points, and nothing with none" {
-  Game::character.achievementPoints = (): Integer => 450
+  Game::character.achievementPoints = (): integer => 450
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Achievements"), "Achievements | Achievement points | 450"))
-  Game::character.achievementPoints = (): Integer => 0
+  Game::character.achievementPoints = (): integer => 0
   Game::tooltip.main = atButton("AchievementMicroButton", text("Achievements (Y)"))
   Test::pass(SHOWS)
   Test::expect(reads(Test::page().window("Achievements (Y)"), "Achievements (Y)"))
@@ -530,7 +530,7 @@ test "the guild's button tells how many are online, and nothing out of a guild" 
 }
 
 test "with «More on buttons» unticked a button tells its own lines alone" {
-  Game::character.itemLevel = (): Number | nil => 61.7
+  Game::character.itemLevel = (): number | nil => 61.7
   Test::mount(nil, SCREEN)
   choose("Buttons and text", "More on buttons")
   Game::tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
@@ -556,7 +556,7 @@ test "a tooltip shown again draws only what differs: nothing of the group is mad
   Test::expect(said.contains("SetText=1"))
 }
 
-function kragos(unit: String): Game::UnitInfo | nil {
+function kragos(unit: string): Game::UnitInfo | nil {
   if (unit != "mouseover") { return nil }
   return {
     name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
@@ -574,14 +574,14 @@ function frostbolt(): Game::TooltipData {
 }
 
 // Whether anything shown says one of the unit's texts.
-function anyOfKragos(): Boolean {
+function anyOfKragos(): boolean {
   const all = Test::page().texts()
   return ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"].any(said => all.any(shown => shown == said))
 }
 
 test "a spell's tooltip straight after a unit's holds nothing of the unit's, charging or locked" {
   Game::units.of = kragos
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65 })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 65 })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
   Test::pass(SHOWS)
@@ -596,7 +596,7 @@ test "a spell's tooltip straight after a unit's holds nothing of the unit's, cha
 
 test "a spell's tooltip after a unit's, the game's gone between, holds nothing of the unit's, charging or locked" {
   Game::units.of = kragos
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 65 })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 65 })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
   Test::pass(SHOWS)
@@ -648,7 +648,7 @@ function axeWithSides(): Game::TooltipData {
   }
 }
 
-function healingTouch(id: Integer): Game::TooltipData | nil {
+function healingTouch(id: integer): Game::TooltipData | nil {
   return { kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }] }
 }
 
@@ -714,7 +714,7 @@ test "compared, the main tooltip's title stands level with the worn item's under
 // What buttons tell more: their edges
 
 test "each bag's slot tells its own free slots" {
-  Game::bags.roomOf = (bag: Integer): Game::BagRoom => ({ free: bag, slots: 10 * bag })
+  Game::bags.roomOf = (bag: integer): Game::BagRoom => ({ free: bag, slots: 10 * bag })
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("CharacterBag1Slot", text("Bag 2"))
   Test::pass(SHOWS)
@@ -728,11 +728,11 @@ test "each bag's slot tells its own free slots" {
 }
 
 test "a bag of one slot, an item level of one, a durability of a half and a single point are told" {
-  Game::bags.roomOf = (bag: Integer): Game::BagRoom => ({ free: 1, slots: 1 })
-  Game::character.itemLevel = (): Number | nil => 1
-  Game::character.durability = (): Number | nil => 0.5
-  Game::character.unspentTalents = (): Integer => 1
-  Game::character.achievementPoints = (): Integer => 1
+  Game::bags.roomOf = (bag: integer): Game::BagRoom => ({ free: 1, slots: 1 })
+  Game::character.itemLevel = (): number | nil => 1
+  Game::character.durability = (): number | nil => 0.5
+  Game::character.unspentTalents = (): integer => 1
+  Game::character.achievementPoints = (): integer => 1
   Test::mount(nil, SCREEN)
   Game::tooltip.main = atButton("CharacterBag0Slot", text("Pouch"))
   Test::pass(SHOWS)
@@ -815,11 +815,11 @@ test "straight from a button's tooltip to a slot's, the slot's shows at once bes
 }
 
 test "an item's worth to the spec stands at its foot, and a weapon whose skill isn't trained says so" {
-  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
     return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
   }
-  Client::C_Item::GetItemStats = (link: String): Unknown => {
-    const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: 5 }
+  Client::C_Item::GetItemStats = (link: string): unknown => {
+    const stats: map<string, number> = { ["ITEM_MOD_INTELLECT_SHORT"]: 5 }
     return stats
   }
   Test::mount(nil, SCREEN)

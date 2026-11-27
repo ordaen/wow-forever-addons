@@ -21,8 +21,8 @@ public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
 public struct ListView implements Plain {
   view: View = View::Columns
   sort: SortBy = SortBy::Difficulty
-  tableColumn: Integer = 1
-  tableDescending: Boolean = false
+  tableColumn: integer = 1
+  tableDescending: boolean = false
   grouping: Grouping = Grouping::Readiness
 }
 public const LIST_VIEW: ListView = {}
@@ -44,18 +44,18 @@ public const READY_NOW = -11
 public const READY_MISSING = -12
 public const READY_SOON = -13
 public const READY_LATER = -14
-public const READINESS: Array<Integer> = [READY_NOW, READY_MISSING, READY_SOON, READY_LATER]
+public const READINESS: array<integer> = [READY_NOW, READY_MISSING, READY_SOON, READY_LATER]
 
 // A category of the game's with the recipes of it the search and the filter let through, and how many of those the
 // bags can make now; or the favorites.
 public struct Group {
-  id: Integer
-  name: String
-  total: Integer
-  makeable: Integer
+  id: integer
+  name: string
+  total: integer
+  makeable: integer
 }
 
-function rank(difficulty: Game::Difficulty): Integer {
+function rank(difficulty: Game::Difficulty): integer {
   return match (difficulty) {
     Game::Difficulty::Always => 0
     Game::Difficulty::Usually => 1
@@ -65,7 +65,7 @@ function rank(difficulty: Game::Difficulty): Integer {
 }
 
 // Whether `a` stands before `b`: a total order (the name and then the number settle a tie), as Lua's sort asks.
-public function before(sort: SortBy, a: Game::Recipe, b: Game::Recipe): Boolean {
+public function before(sort: SortBy, a: Game::Recipe, b: Game::Recipe): boolean {
   if (sort == SortBy::Makeable) {
     if (a.craftable > b.craftable) { return true }
     if (a.craftable < b.craftable) { return false }
@@ -85,9 +85,9 @@ public function before(sort: SortBy, a: Game::Recipe, b: Game::Recipe): Boolean 
 // subclass («Ткань») and where it is worn («Спина»), or its class where it isn't worn («Расходуемые»), its totals at the house and at a merchant (none while prices
 // aren't shown).
 public struct TableFacts {
-  skill: Integer | nil
-  subtype: String | nil
-  kind: String | nil
+  skill: integer | nil
+  subtype: string | nil
+  kind: string | nil
   both: BothSources | nil
 }
 
@@ -106,14 +106,14 @@ public const COLUMN_SALE_MERCHANT = 9
 public const COLUMN_PROFIT = 10
 
 // A recipe's text in a column; none for a column of numbers, or where it has none.
-function textAt(column: Integer, facts: TableFacts | nil): String | nil {
+function textAt(column: integer, facts: TableFacts | nil): string | nil {
   if (column == COLUMN_CLASS) { return facts?.subtype }
   if (column == COLUMN_TYPE) { return facts?.kind }
   return nil
 }
 
 // A recipe's number in a column; none where it has none (no price, no skill known).
-function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game::Recipe): Integer | nil {
+function numberAt(column: integer, facts: TableFacts | nil, recipe: Game::Recipe): integer | nil {
   const both = facts?.both
   if (column == COLUMN_SKILL) { return facts?.skill }
   if (column == COLUMN_MAKEABLE) { return recipe.craftable }
@@ -128,7 +128,7 @@ function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game::Recipe
 
 // Whether `x` stands before `y` in a column, as far as they differ: none where they don't. One with nothing stands
 // after every one with something, either way.
-function numberBefore(x: Integer | nil, y: Integer | nil, descending: Boolean): Boolean | nil {
+function numberBefore(x: integer | nil, y: integer | nil, descending: boolean): boolean | nil {
   if (x != nil && y != nil) {
     if (x < y) { return !descending }
     if (y < x) { return descending }
@@ -138,7 +138,7 @@ function numberBefore(x: Integer | nil, y: Integer | nil, descending: Boolean): 
   return nil
 }
 
-function textBefore(x: String | nil, y: String | nil, descending: Boolean): Boolean | nil {
+function textBefore(x: string | nil, y: string | nil, descending: boolean): boolean | nil {
   if (x != nil && y != nil) {
     if (x < y) { return !descending }
     if (y < x) { return descending }
@@ -150,8 +150,8 @@ function textBefore(x: String | nil, y: String | nil, descending: Boolean): Bool
 
 // The table's order by a column (`facts` by recipe); then by name, then by number, the column's way.
 public function tableBefore(
-  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game::Recipe, b: Game::Recipe
-): Boolean {
+  column: integer, descending: boolean, facts: map<integer, TableFacts>, a: Game::Recipe, b: Game::Recipe
+): boolean {
   const x = facts[a.id]
   const y = facts[b.id]
   const texts = column == COLUMN_CLASS || column == COLUMN_TYPE
@@ -164,7 +164,7 @@ public function tableBefore(
 }
 
 // Whether a number is among the ones listed.
-public function has(list: Array<Integer>, id: Integer): Boolean {
+public function has(list: array<integer>, id: integer): boolean {
   for (entry of list) {
     if (entry == id) { return true }
   }
@@ -173,16 +173,16 @@ public function has(list: Array<Integer>, id: Integer): Boolean {
 
 // A list of the game's (`of`) as the window shows it: filtered and in its order.
 public struct Sorted {
-  const of: Array<Game::Recipe>
-  const list: Array<Game::Recipe>
+  const of: array<Game::Recipe>
+  const list: array<Game::Recipe>
 }
 
-const NO_RECIPES: Array<Game::Recipe> = []
+const NO_RECIPES: array<Game::Recipe> = []
 
 // The recipes by their category, each category's in the order they are given in: the list is read once for every
 // group there is.
-public function sorted(recipes: Array<Game::Recipe>): Map<Integer, Array<Game::Recipe>> {
-  let lists: Map<Integer, mut Array<Game::Recipe>> = {}
+public function sorted(recipes: array<Game::Recipe>): map<integer, array<Game::Recipe>> {
+  let lists: map<integer, mut array<Game::Recipe>> = {}
   for (recipe of recipes) {
     let list = lists[recipe.categoryID]
     if (list == nil) {
@@ -197,10 +197,10 @@ public function sorted(recipes: Array<Game::Recipe>): Map<Integer, Array<Game::R
 // The recipes of a group, in the order they are given in: a category's as they were sorted (`sorted`, of the same
 // recipes), the favorites picked out of them all.
 public function members(
-  recipes: Array<Game::Recipe>, byCategory: Map<Integer, Array<Game::Recipe>>, group: Integer, starred: Array<Integer>
-): Array<Game::Recipe> {
+  recipes: array<Game::Recipe>, byCategory: map<integer, array<Game::Recipe>>, group: integer, starred: array<integer>
+): array<Game::Recipe> {
   if (group != FAVORITES) { return byCategory[group] ?? NO_RECIPES }
-  let list: Array<Game::Recipe> = []
+  let list: array<Game::Recipe> = []
   for (recipe of recipes) {
     if (has(starred, recipe.id)) { list.push(recipe) }
   }
@@ -213,10 +213,10 @@ public enum Page { Recipes = "recipes", Camp = "camp", Unlearned = "unlearned", 
 // A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession (whose
 // «Queue» tab shows it and runs it), and its name (the game names only the open profession's recipes).
 public struct Queued implements Plain {
-  skillLine: Integer
-  recipe: Integer
-  name: String
-  count: Integer
+  skillLine: integer
+  recipe: integer
+  name: string
+  count: integer
 }
 
 // Why a profession's queue waits for the player's click to go on: for nothing (its next recipe is ready, or nothing
@@ -238,8 +238,8 @@ public enum QueueAct { Drop = 1, Open = 2, Next = 3 }
 
 // The last category and recipe the player had chosen in a profession.
 public struct Seen implements Plain {
-  category: Integer
-  recipe: Integer
+  category: integer
+  recipe: integer
 }
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
@@ -248,12 +248,12 @@ public struct Seen implements Plain {
 // profession's waits, by its skill line (none for one that waits for nothing). Where the window stands is the
 // window's own (`Window`, the profile's).
 public struct Kept implements Plain {
-  last: Integer
-  seen: Map<Integer, Seen>
-  favorites: Array<Integer>
-  tracked: Array<Integer>
-  queue: Array<Queued>
-  paused: Map<Integer, Pause>
+  last: integer
+  seen: map<integer, Seen>
+  favorites: array<integer>
+  tracked: array<integer>
+  queue: array<Queued>
+  paused: map<integer, Pause>
 }
 
 // The most recipes starred, or tracked.

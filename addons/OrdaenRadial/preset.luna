@@ -7,19 +7,19 @@ import Locale from "@/locales"
 import { emptyUnder, removePlace, within } from "@/places"
 
 // A ring from its rings' sizes and its items, each by its place.
-function ring(counts: mut Map<String, Integer>, placed: Array<[String, Item]>): mut Ring {
-  const items: Map<String, Item> = {}
+function ring(counts: mut map<string, integer>, placed: array<[string, Item]>): mut Ring {
+  const items: map<string, Item> = {}
   for (pair of placed) { items[pair[1]] = pair[2] }
   return { opensAt: OpensAt::Middle, names: WheelNames::Chosen, scale: 1, remember: false, anchored: true, counts: counts, items: items, conditions: {} }
 }
 
-function line(title: String, text: String, icon: Asset): Item {
+function line(title: string, text: string, icon: Asset): Item {
   return .Line { title: title, line: text, icon: icon }
 }
 
 // Every emote under a place: its families, each a submenu of its groups, each a submenu of its emotes, all named
 // and none with an icon.
-function addEmotes(target: mut Ring, at: String) {
+function addEmotes(target: mut Ring, at: string) {
   const counts = target.counts
   const items = target.items
   counts[at] = EMOTES.length
@@ -38,10 +38,10 @@ function addEmotes(target: mut Ring, at: String) {
 
 // The emote lines an older preset put in its Emotes submenu, in order: a submenu that still holds exactly these was
 // never changed by the player.
-const OLD_EMOTE_LINES: Array<String> = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", "/cry"]
+const OLD_EMOTE_LINES: array<string> = ["/wave", "/thank", "/cheer", "/laugh", "/bow", "/dance", "/salute", "/cry"]
 
 // Whether a submenu holds the older preset's emote lines and nothing else.
-function holdsOldEmotes(saved: Ring, at: String): Boolean {
+function holdsOldEmotes(saved: Ring, at: string): boolean {
   if ((saved.counts[at] ?? 0) != OLD_EMOTE_LINES.length) { return false }
   for (index, wanted of OLD_EMOTE_LINES) {
     const item = saved.items[within(at, index)]
@@ -51,7 +51,7 @@ function holdsOldEmotes(saved: Ring, at: String): Boolean {
 }
 
 // A place of a ring that holds an emote the server does nothing for (`SILENT`); none where no place does.
-function silentPlace(shown: Ring): String | nil {
+function silentPlace(shown: Ring): string | nil {
   for (place, item of shown.items) {
     if (item is Item::Emote && SILENT.any(token => token == item.token)) { return place }
   }
@@ -129,8 +129,8 @@ function firstRing(): mut Ring {
 
 // The raid marks round a ring of their own: skull up, then clockwise.
 function marks(): Ring {
-  const placed: Array<[String, Item]> = []
-  for (index of 1..8) { placed.push([String::of(index), .RaidMark { mark: 9 - index }]) }
+  const placed: array<[string, Item]> = []
+  for (index of 1..8) { placed.push([string::of(index), .RaidMark { mark: 9 - index }]) }
   return ring({ [""]: 8 }, placed)
 }
 
@@ -148,6 +148,6 @@ public function preset(): Choices {
 }
 
 // One ring as it comes: «Back to the preset».
-public function presetRing(index: Integer): Ring {
+public function presetRing(index: integer): Ring {
   return preset().rings[index] ?? panic("the preset has a ring for each key")
 }

@@ -6,28 +6,28 @@
 
 // A line another module adds: a label at the left, a value at the right.
 public struct Line {
-  left: String
-  right: String | nil = nil
+  left: string
+  right: string | nil = nil
   color: Color | nil = nil
   rightColor: Color | nil = nil
-  indent: Boolean = false
+  indent: boolean = false
   // What its label opens once the tooltip is locked and the cursor comes onto it: a list of its own.
   opens: Listing | nil = nil
 }
 
 // A list a line opens, drawn as a tooltip beside it: its title, its rows, and the notes under them.
 public struct Listing {
-  name: String
-  rows: Array<Listed>
-  foot: Array<Line> = []
+  name: string
+  rows: array<Listed>
+  foot: array<Line> = []
 }
 
 // A row of a list: a name with its value at the right; it may open an item's own tooltip (a recipe's product).
 public struct Listed {
-  left: String
-  right: String | nil = nil
+  left: string
+  right: string | nil = nil
   color: Color | nil = nil
-  item: Integer | nil = nil
+  item: integer | nil = nil
 }
 
 // What a module adds to an item's tooltip. Asked each time an item is shown (the same item shown again after the
@@ -35,32 +35,32 @@ public struct Listed {
 // again when something it read changes; not while the item stays shown, however often the game fills its tooltip
 // anew. Budget: one map read where nothing changed. The lines it gives are drawn as they are.
 public trait ItemLines {
-  public lines(self, item: Integer, link: String): Array<Line>
+  public lines(self, item: integer, link: string): array<Line>
 }
 
 // What a module adds to an item tooltip's hotkeys («Alt+Left-click: protect the slot from sorting»): drawn after the
 // tooltip's own, as they are. Budget as for `ItemLines`.
 public trait ItemKeys {
-  public keys(self, item: Integer, link: String): Array<String>
+  public keys(self, item: integer, link: string): array<string>
 }
 
 // An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the quest by
 // its number and its title, the objective's text without its count, the count, and whether it is done.
 public struct Wanted {
-  quest: Integer
-  title: String
-  objective: String
-  have: Integer
-  need: Integer
-  done: Boolean
+  quest: integer
+  title: string
+  objective: string
+  have: integer
+  need: integer
+  done: boolean
 }
 
 // A quest a creature gives the player now, or takes back from them (`turnIn`: one of the log's, done): its title and
 // its level.
 public struct Offered {
-  title: String
-  level: Integer
-  turnIn: Boolean
+  title: string
+  level: integer
+  turnIn: boolean
 }
 
 // What a module says of a creature's quests, by the creature's number (`Game.UnitInfo.creature`): the objectives it
@@ -68,12 +68,12 @@ public struct Offered {
 // an objective they already have left out), and the quests it gives or takes, before them while the NPCs' «Quests»
 // setting is on. Budget as for `ItemLines`.
 public trait CreatureQuests {
-  public wants(self, creature: Integer): Array<Wanted>
-  public offers(self, creature: Integer): Array<Offered>
+  public wants(self, creature: integer): array<Wanted>
+  public offers(self, creature: integer): array<Offered>
 }
 
 // What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for
 // `ItemLines`.
 public trait ObjectLines {
-  public lines(self, name: String): Array<Line>
+  public lines(self, name: string): array<Line>
 }

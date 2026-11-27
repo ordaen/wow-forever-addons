@@ -18,13 +18,13 @@ import Locale from "@/locales"
 import { Sender } from "@/sender"
 import Style from "@/style"
 
-const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const OFFER: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The characters' column as wide as its longest name, never narrower than `Style.OWN_LIST`; the sections the rest.
-const SPLIT: Array<Track> = ["max-content", { fr: 1 }]
+const SPLIT: array<Track> = ["max-content", { fr: 1 }]
 const TABS_BOUNDS: Bounds = { min: Style::OWN_LIST }
 // Each column's room: the window keeps none on this tab.
 const PAGE_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
-const FILL: Array<Track> = [{ fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
 
 // The least a recipe must do for a character's skill for what it takes to go: any, green or better, yellow or
 // better, orange alone.
@@ -32,25 +32,25 @@ public enum Least implements Plain { Any = "any", Green = "green", Yellow = "yel
 
 // What goes to one character for one of its professions.
 public struct SendRule implements Plain {
-  on: Boolean = true
+  on: boolean = true
   least: Least = Least::Any
 }
 
 // The rules, the account's, by «who:skillLine»: one never set is on, for any recipe.
 public struct SendRules implements Plain {
-  rules: Map<String, SendRule> = {}
+  rules: map<string, SendRule> = {}
 }
 
 public const DEFAULT_RULE: SendRule = {}
 
-public function ruleKey(who: String, skillLine: Integer): String { return `${who}:${skillLine}` }
+public function ruleKey(who: string, skillLine: integer): string { return `${who}:${skillLine}` }
 
-public function ruleOf(rules: SendRules, who: String, skillLine: Integer): SendRule {
+public function ruleOf(rules: SendRules, who: string, skillLine: integer): SendRule {
   return rules.rules[ruleKey(who, skillLine)] ?? DEFAULT_RULE
 }
 
 // The worst difficulty a rule lets through, as `skillUpRank` orders them (orange 0, grey 3).
-function worstOf(least: Least): Integer {
+function worstOf(least: Least): integer {
   return match (least) {
     Least::Any => 3
     Least::Green => 2
@@ -60,51 +60,51 @@ function worstOf(least: Least): Integer {
 }
 
 // Whether a rule lets a profession's recipes take an item: it is on, and the best of them is good enough.
-public function allows(rule: SendRule, crafting: Crafting): Boolean {
+public function allows(rule: SendRule, crafting: Crafting): boolean {
   return rule.on && skillUpRank(crafting.best) <= worstOf(rule.least)
 }
 
 // One of the bags' items a character's profession uses: how many the bags hold, its recipes in that profession as the
 // character sees them, and the best one's colour.
 public struct Offer {
-  item: Integer
-  name: String
-  count: Integer
-  recipes: Array<CraftRecipe>
+  item: integer
+  name: string
+  count: integer
+  recipes: array<CraftRecipe>
   color: Color
 }
 
 // A profession of a character and what the bags hold for it.
 public struct Section {
-  skillLine: Integer
-  profession: String
-  offers: Array<Offer>
+  skillLine: integer
+  profession: string
+  offers: array<Offer>
 }
 
 // A character something goes to: its sections, and how many items they hold (an item in two sections once).
 public struct OwnRow {
-  who: String
-  name: String
+  who: string
+  name: string
   color: Color | nil
-  sections: Array<Section>
-  items: Integer
+  sections: array<Section>
+  items: integer
 }
 
 // Whose recipes take an item, as Ordaen Professions answers it.
-public type CraftingRead = (item: Integer) => Array<Crafting>
+public type CraftingRead = (item: integer) => array<Crafting>
 
 // One of the player's other characters a letter reaches.
 public struct Kin {
-  who: String
-  name: String
-  classTag: String
+  who: string
+  name: string
+  classTag: string
 }
 
-function itemName(item: Integer): String { return Client::C_Item::GetItemNameByID(item) ?? String::of(item) }
+function itemName(item: integer): string { return Client::C_Item::GetItemNameByID(item) ?? string::of(item) }
 
 // The characters the one being played can send to.
-public function kinOf(alts: Alts): Array<Kin> {
-  const kin: Array<Kin> = []
+public function kinOf(alts: Alts): array<Kin> {
+  const kin: array<Kin> = []
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) { kin.push({ who: who, name: character.name, classTag: character.classTag }) }
   }
@@ -115,14 +115,14 @@ public function kinOf(alts: Alts): Array<Kin> {
 // Per kin, what the bags hold that its professions' recipes take, as the rules let through: `crafting` whose recipes
 // take an item. A character nothing goes to has no row.
 public function ownRows(
-  kin: Array<Kin>, held: Map<Integer, Integer>, crafting: (item: Integer) => Array<Crafting>,
-  rule: (who: String, skillLine: Integer) => SendRule
-): Array<OwnRow> {
-  const rows: Array<OwnRow> = []
+  kin: array<Kin>, held: map<integer, integer>, crafting: (item: integer) => array<Crafting>,
+  rule: (who: string, skillLine: integer) => SendRule
+): array<OwnRow> {
+  const rows: array<OwnRow> = []
   for (one of kin) {
-    const offers: Map<Integer, mut Array<Offer>> = {}
-    const professions: Map<Integer, String> = {}
-    const items: Map<Integer, Boolean> = {}
+    const offers: map<integer, mut array<Offer>> = {}
+    const professions: map<integer, string> = {}
+    const items: map<integer, boolean> = {}
     let count = 0
     for (item, bagged of held) {
       for (use of crafting(item)) {
@@ -138,7 +138,7 @@ public function ownRows(
         }
       }
     }
-    const sections: Array<Section> = []
+    const sections: array<Section> = []
     for (skillLine, list of offers) {
       list.sort((a, b) => a.name < b.name)
       sections.push({ skillLine: skillLine, profession: professions[skillLine] ?? "", offers: list })
@@ -154,8 +154,8 @@ public function ownRows(
 // The stacks a letter takes for each item and count wanted: the bags' whole stacks while they fit in what is left,
 // and the rest as one part, which the queue splits off a bigger stack as the letter goes. The queue cuts them into
 // letters of twelve.
-public function stacksOf(wanted: Array<Game::MailStack>): Array<Game::MailStack> {
-  const stacks: Array<Game::MailStack> = []
+public function stacksOf(wanted: array<Game::MailStack>): array<Game::MailStack> {
+  const stacks: array<Game::MailStack> = []
   let slot = Game.SlotItem {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
@@ -177,8 +177,8 @@ public function stacksOf(wanted: Array<Game::MailStack>): Array<Game::MailStack>
 
 // What goes of the offers, by the counts chosen (`chosen` by «who:item»: 0 for one unticked, all where unset); an item
 // in two of them once, at the most chosen.
-function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer>): Array<Game::MailStack> {
-  const wanted: Array<mut Game::MailStack> = []
+function wantedOf(who: string, offers: array<Offer>, chosen: map<string, integer>): array<Game::MailStack> {
+  const wanted: array<mut Game::MailStack> = []
   for (offer of offers) {
     const count = chosen[`${who}:${offer.item}`] ?? offer.count
     if (count > 0 && !wanted.any(w => w.item == offer.item)) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
@@ -186,8 +186,8 @@ function wantedOf(who: String, offers: Array<Offer>, chosen: Map<String, Integer
   return wanted
 }
 
-function offersOf(row: OwnRow): Array<Offer> {
-  const offers: Array<Offer> = []
+function offersOf(row: OwnRow): array<Offer> {
+  const offers: array<Offer> = []
   for (section of row.sections) {
     for (offer of section.offers) { offers.push(offer) }
   }
@@ -198,12 +198,12 @@ function offersOf(row: OwnRow): Array<Offer> {
 // recipes, each in its colour.
 class OfferRow implements Component {
   // The item, and how many of it go now: 0 while it is unticked.
-  public toggled: Event<(Integer, Integer)> = new Event()
+  public toggled: Event<(integer, integer)> = new Event()
   state checked = true
   state count = 0
   state hovered = false
-  derived recipes: String = Locale::OWN_RECIPES.format(self.offer.recipes.length)
-  derived rows: Array<TipRow> = self.offer.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
+  derived recipes: string = Locale::OWN_RECIPES.format(self.offer.recipes.length)
+  derived rows: array<TipRow> = self.offer.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
 
   offer: Signal<Offer>
   constructor(offer: Signal<Offer>) {
@@ -235,13 +235,13 @@ class OfferRow implements Component {
 // A profession's items, under its name, with «Send» for them.
 class SectionBlock implements Component {
   public send: Event<Section> = new Event()
-  public toggled: Event<(Integer, Integer)> = new Event()
+  public toggled: Event<(integer, integer)> = new Event()
 
   section: Signal<Section>
   constructor(section: Signal<Section>) { self.section = section }
 
   onSend(mut self) { self.send.emit(self.section) }
-  onToggle(mut self, item: Integer, count: Integer) { self.toggled.emit(item, count) }
+  onToggle(mut self, item: integer, count: integer) { self.toggled.emit(item, count) }
 
   public render(self): Template {
     return $ltml {
@@ -264,31 +264,31 @@ public class OwnTab {
   public configure: Event<nil> = new Event()
 
   // How many of each item go, by «who:item»: 0 for one unticked; the whole of what the bags hold where unset.
-  state chosen: Map<String, Integer> = {}
+  state chosen: map<string, integer> = {}
   // What the bags hold, by item: read again each time they change (a letter sent takes its items out).
-  state held: Map<Integer, Integer> = {}
+  state held: map<integer, integer> = {}
   // The character's tab chosen, by its place; the first where the list is shorter now.
   state picked = 1
-  derived noAlts: Boolean = self.reached == nil
-  derived kin: Array<Kin> = self.reached ?? []
-  derived alone: Boolean = !self.noAlts && self.kin.length == 0
-  derived rows: Array<OwnRow> = self.rowsOf()
-  derived nothing: Boolean = !self.noAlts && !self.alone && self.rows.length == 0
-  derived names: Array<String> = self.rows.map(row => row.name)
-  derived items: Array<Integer> = self.rows.map(row => row.items)
+  derived noAlts: boolean = self.reached == nil
+  derived kin: array<Kin> = self.reached ?? []
+  derived alone: boolean = !self.noAlts && self.kin.length == 0
+  derived rows: array<OwnRow> = self.rowsOf()
+  derived nothing: boolean = !self.noAlts && !self.alone && self.rows.length == 0
+  derived names: array<string> = self.rows.map(row => row.name)
+  derived items: array<integer> = self.rows.map(row => row.items)
   derived current: OwnRow | nil = self.rows[self.picked] ?? self.rows[1]
-  derived currentWho: String = self.current?.who ?? ""
-  derived sections: Array<Section> = self.current?.sections ?? []
-  derived letters: Integer = self.lettersNow()
-  derived counts: Array<FooterCount> = [{ label: Locale::LETTERS, value: String::of(self.letters) }]
+  derived currentWho: string = self.current?.who ?? ""
+  derived sections: array<Section> = self.current?.sections ?? []
+  derived letters: integer = self.lettersNow()
+  derived counts: array<FooterCount> = [{ label: Locale::LETTERS, value: string::of(self.letters) }]
 
-  reached: Signal<Array<Kin> | nil>
+  reached: Signal<array<Kin> | nil>
   const crafting: CraftingRead
   rules: Signal<SendRules>
   sender: mut Sender
   constructor(
     // The characters a letter reaches (`kinOf`); none while Ordaen Alts is off.
-    reached: Signal<Array<Kin> | nil>,
+    reached: Signal<array<Kin> | nil>,
     // Whose recipes take an item (Ordaen Professions' `craftingWith`).
     crafting: CraftingRead,
     rules: Signal<SendRules>,
@@ -308,20 +308,20 @@ public class OwnTab {
     if (held != nil) { self.held = held }
   }
 
-  rowsOf(self): Array<OwnRow> {
+  rowsOf(self): array<OwnRow> {
     const rules = self.rules
-    return ownRows(self.kin, self.held, self.crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
+    return ownRows(self.kin, self.held, self.crafting, (who: string, skillLine: integer): SendRule => ruleOf(rules, who, skillLine))
   }
 
   // How many letters «Send all» takes: none where nothing is ticked.
-  lettersNow(self): Integer {
+  lettersNow(self): integer {
     const row = self.current
     if (row == nil) { return 0 }
     const stacks = stacksOf(wantedOf(row.who, offersOf(row), self.chosen)).length
     return stacks == 0 ? 0 : lettersFor(stacks)
   }
 
-  onToggle(mut self, item: Integer, count: Integer) {
+  onToggle(mut self, item: integer, count: integer) {
     const key = `${peek self.currentWho}:${item}`
     const before = peek self.chosen
     if (before[key] == count) { return }
@@ -331,7 +331,7 @@ public class OwnTab {
   }
 
   // What the offers come to goes to the chosen character, as letters of twelve stacks.
-  sendOffers(mut self, offers: Array<Offer>) {
+  sendOffers(mut self, offers: array<Offer>) {
     const row = peek self.current
     if (row == nil) { return }
     const stacks = stacksOf(wantedOf(row.who, offers, peek self.chosen))

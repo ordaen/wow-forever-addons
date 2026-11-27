@@ -6,9 +6,9 @@ import Locale from "@/locales"
 // What the player chooses.
 public struct Choices implements Plain {
   // Bag slots «Collect all» leaves free; an item that stacks onto one the player has still comes.
-  keepFree: Number
+  keepFree: number
   // The game's trade requests are refused while the mailbox is open.
-  blockTrades: Boolean
+  blockTrades: boolean
 }
 
 public class GeneralPage implements Component {

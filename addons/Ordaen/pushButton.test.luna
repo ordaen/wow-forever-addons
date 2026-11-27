@@ -39,7 +39,7 @@ test "a push button in a table's cell narrower than it holds its label in its co
 }
 
 // Whether the button's label stands inside its height and clear of the plate's rim by a gap at both ends.
-function fits(label: String): Boolean {
+function fits(label: string): boolean {
   const plate = Test::page().button(label).rect()
   const drawn = Test::page().text(label).letters()
   return drawn.left > plate.left + rimOf(plate) + 1 && drawn.right < plate.right - rimOf(plate) - 1 &&
@@ -47,7 +47,7 @@ function fits(label: String): Boolean {
 }
 
 // The plate's rim: the carved line round the face, 15 of the art's 64 px in from each end, the art as high as the plate.
-function rimOf(plate: Test::Rect): Number { return (plate.bottom - plate.top) * 15 / 64 }
+function rimOf(plate: Test::Rect): number { return (plate.bottom - plate.top) * 15 / 64 }
 
 test "every push button's label stands inside its caps, a long one widening the button" {
   let page = new Buttons()
@@ -176,7 +176,7 @@ class Keyed {
 
 // Whether the key's segment stands inside the plate's rim, its key in it, and the label past its groove by a gap and
 // clear of the plate's rim at its other end.
-function keyedFits(): Boolean {
+function keyedFits(): boolean {
   const plate = Test::page().button("Decline").rect()
   const segment = Test::page().box(Color::hex("#00000038")).rect()
   const key = Test::page().text("Esc").letters()
@@ -217,7 +217,7 @@ class Glyphs {
 }
 
 // Whether a glyph's button is as wide as it was made, and the icon's as high as it is wide.
-function glyphsHold(): Boolean {
+function glyphsHold(): boolean {
   const fewer = Test::page().button("-").rect()
   const more = Test::page().button("+").rect()
   const icon = Test::page().button(SQUARE_ICON).rect()

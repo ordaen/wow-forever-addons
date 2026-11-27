@@ -6,7 +6,7 @@ import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COL_RECIPE, width: { fr: 3 }, sortable: true },
   { title: Locale::COL_NAME, width: { fr: 2 }, sortable: true },
   { title: Locale::COL_READY, width: 164.0625dp, align: Align::End, sortable: true }
@@ -14,16 +14,16 @@ const COLUMNS: Array<Column> = [
 
 // One recipe of one character with a cooldown.
 public struct Wait {
-  recipe: String
-  who: String
+  recipe: string
+  who: string
   // Hours until it is ready: nought or less is now.
-  hours: Integer
+  hours: integer
   // What the cell says and in which colour.
-  text: String
+  text: string
   color: Color
 }
 
-function waitOf(recipe: String, who: String, hours: Integer): Wait {
+function waitOf(recipe: string, who: string, hours: integer): Wait {
   return {
     recipe: recipe, who: who, hours: hours, text: hours <= 0 ? Locale::READY_NOW : Style::until(hours),
     color: hours <= 0 ? Style::GREEN : Style::DIM
@@ -34,36 +34,36 @@ public class Cooldowns implements Component {
   // The column the table is sorted by; the soonest first at first.
   state sorted = 3
   state descending = false
-  derived waits: Array<Wait> = self.waitsOf()
-  derived ordered: Array<Wait> = self.order()
-  derived empty: Boolean = self.waits.length == 0
+  derived waits: array<Wait> = self.waitsOf()
+  derived ordered: array<Wait> = self.order()
+  derived empty: boolean = self.waits.length == 0
   // The table scrolls in the window's height, below the note while there is one.
-  derived rows: Array<Track> = self.empty ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
+  derived rows: array<Track> = self.empty ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
 
   const records: Records
-  touched: Signal<Integer>
-  constructor(records: Records, touched: Signal<Integer>) {
+  touched: Signal<integer>
+  constructor(records: Records, touched: Signal<integer>) {
     self.records = records
     self.touched = touched
   }
 
-  waitsOf(self): Array<Wait> {
+  waitsOf(self): array<Wait> {
     // Read again when any record changed.
     _ = self.touched
     const now = Hour::now()
-    const list: Array<Wait> = []
+    const list: array<Wait> = []
     for (_, character of self.records.characters) {
       for (known of character.professions) {
         for (recipe, ready of known.ready) {
-          list.push(waitOf(Game::spells.name(recipe) ?? "#" + String::of(recipe), character.name, ready - now))
+          list.push(waitOf(Game::spells.name(recipe) ?? "#" + string::of(recipe), character.name, ready - now))
         }
       }
     }
     return list
   }
 
-  order(self): Array<Wait> {
-    const list: Array<Wait> = []
+  order(self): array<Wait> {
+    const list: array<Wait> = []
     for (wait of self.waits) { list.push(wait) }
     const column = self.sorted
     const down = self.descending

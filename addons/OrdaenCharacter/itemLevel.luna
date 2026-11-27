@@ -10,26 +10,26 @@ import Style from "@/style"
 // An item's row in the tooltip: its picture, its name in its quality's colour, its level.
 function levelRow(piece: Worn): TipRow {
   return {
-    label: piece.name, value: String::of(piece.level ?? 0), icon: Game::items.icon(piece.item ?? 0),
+    label: piece.name, value: string::of(piece.level ?? 0), icon: Game::items.icon(piece.item ?? 0),
     tone: qualityColor(piece.quality)
   }
 }
 
 // A level as it reads: whole, or with the half the median of an even count may have.
-function levelText(level: Number): String {
-  return level == level.floor() ? String::of(level.floor()) : "%.1f".format(level)
+function levelText(level: number): string {
+  return level == level.floor() ? string::of(level.floor()) : "%.1f".format(level)
 }
 
 public class ItemLevel implements Component {
   state tipShown = false
-  derived levelled: Array<Worn> = levelledItems(self.worn)
-  derived median: Number | nil = medianLevel(self.levelled)
-  derived shown: Boolean = self.median != nil
-  derived value: String = levelText(self.median ?? 0)
-  derived rows: Array<TipRow> = self.levelled.map(piece => levelRow(piece))
+  derived levelled: array<Worn> = levelledItems(self.worn)
+  derived median: number | nil = medianLevel(self.levelled)
+  derived shown: boolean = self.median != nil
+  derived value: string = levelText(self.median ?? 0)
+  derived rows: array<TipRow> = self.levelled.map(piece => levelRow(piece))
 
-  worn: Signal<Array<Worn>>
-  constructor(worn: Signal<Array<Worn>>) {
+  worn: Signal<array<Worn>>
+  constructor(worn: Signal<array<Worn>>) {
     self.worn = worn
   }
 

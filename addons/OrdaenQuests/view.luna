@@ -22,7 +22,7 @@ public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Show
 
 const INK: Color = Color::hex("#e8dcc4")
 // What the player's clicks on a quest's row do, in its tooltip.
-const ROW_KEYS: Array<String> = [Locale::ROW_KEY_PAGE, Locale::ROW_KEY_LINK, Locale::ROW_KEY_MENU]
+const ROW_KEYS: array<string> = [Locale::ROW_KEY_PAGE, Locale::ROW_KEY_LINK, Locale::ROW_KEY_MENU]
 const GOLD: Color = Color::hex("#ffd100")
 const DIM: Color = Color::hex("#a3977f")
 const GREEN: Color = Color::hex("#40c040")
@@ -38,7 +38,7 @@ const ROW_RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b26"), side
 const BUTTON = 131.25dp
 
 // The client opens the map for an addon out of a fight alone: «Show on map» is off in one, its tip says why.
-function mapTipOf(combat: Boolean): TipText | nil {
+function mapTipOf(combat: boolean): TipText | nil {
   return combat ? { title: Locale::SHOW_ON_MAP, text: Locale::MAP_IN_COMBAT, rows: [] } : nil
 }
 // The bullet between what a quest gives: dimmer than the dim text it parts.
@@ -46,7 +46,7 @@ const BULLET = "•"
 const BULLET_COLOR: Color = Color::hex("#6b6352")
 // A row's title line: its level, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
-const TITLE_LINE: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
+const TITLE_LINE: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const HEADER_PAD: Edges = { top: 3sp, right: 2sp, bottom: 3sp, left: 2sp }
 // A header's band: a gold wash over the well's floor, a brighter line under it, so it reads apart from its quests.
 const HEADER_BAND: Color = Color::hex("#d6a56b38")
@@ -54,10 +54,10 @@ const HEADER_LINE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b66"), s
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
 // What follows a header's caption: «вы здесь», then the count at the row's right.
-const HEADER_REST: Array<Track> = [{ fr: 1 }, "max-content"]
+const HEADER_REST: array<Track> = [{ fr: 1 }, "max-content"]
 
 // A text a quest's row ends with: «Готово», «Провалено», or none while it is in progress (its objectives say how far).
-function stateOf(quest: LogQuest): String {
+function stateOf(quest: LogQuest): string {
   if (quest.failed) { return Locale::FAILED }
   if (quest.done) { return Locale::DONE }
   return ""
@@ -66,15 +66,15 @@ function stateOf(quest: LogQuest): String {
 // The header of a group, on its band: the library's fold caption of the header's text; «вы здесь» after it beside the
 // player's zone; at the right how many of its quests are complete of all of them, «1/3».
 public class HeaderRow implements Component {
-  public fold: Event<String> = new Event()
+  public fold: Event<string> = new Event()
 
-  derived counter: String = `${self.quests.filter(quest => quest.done).length}/${self.quests.length}`
+  derived counter: string = `${self.quests.filter(quest => quest.done).length}/${self.quests.length}`
 
-  header: Signal<String>
-  here: Signal<Boolean>
-  folded: Signal<Boolean>
-  quests: Signal<Array<LogQuest>>
-  constructor(header: Signal<String>, here: Signal<Boolean>, folded: Signal<Boolean>, quests: Signal<Array<LogQuest>>) {
+  header: Signal<string>
+  here: Signal<boolean>
+  folded: Signal<boolean>
+  quests: Signal<array<LogQuest>>
+  constructor(header: Signal<string>, here: Signal<boolean>, folded: Signal<boolean>, quests: Signal<array<LogQuest>>) {
     self.header = header
     self.here = here
     self.folded = folded
@@ -99,24 +99,24 @@ public class HeaderRow implements Component {
 }
 
 public class QuestRow implements Component {
-  public act: Event<(Integer, Act)> = new Event()
+  public act: Event<(integer, Act)> = new Event()
 
   state menuOpen = false
   state hovered = false
   // Its tooltip, as the game's log's: what is left to do (the quest's task), or that it is done or failed, and what the
   // player's clicks on it do. The task is asked of the client while the tooltip shows.
-  derived tipShown: Boolean = self.hovered && !self.menuOpen
-  derived tipText: String = self.ended ? self.progress : Game::questLog.text(self.quest.id).task
+  derived tipShown: boolean = self.hovered && !self.menuOpen
+  derived tipText: string = self.ended ? self.progress : Game::questLog.text(self.quest.id).task
   // Complete or failed: said under the title in place of its objectives.
-  derived ended: Boolean = self.progress != ""
+  derived ended: boolean = self.progress != ""
   // Its objectives still to do: one done leaves the list (the page says them all).
-  derived goalsLeft: Array<Game::QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
+  derived goalsLeft: array<Game::QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
   derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
-  derived progress: String = stateOf(self.quest)
+  derived progress: string = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
-  derived group: String = self.quest.group > 1 ? Locale::GROUP.format(self.quest.group) : ""
-  derived entries: Array<MenuEntry> = [
+  derived group: string = self.quest.group > 1 ? Locale::GROUP.format(self.quest.group) : ""
+  derived entries: array<MenuEntry> = [
     { label: self.quest.tracked ? Locale::UNTRACK : Locale::TRACK },
     { label: Locale::SUPER_TRACK },
     { label: Locale::SHARE, disabled: !self.quest.shareable },
@@ -126,15 +126,15 @@ public class QuestRow implements Component {
   derived rule: Line | nil = self.ruled ? ROW_RULE : nil
 
   quest: Signal<LogQuest>
-  picked: Signal<Boolean>
-  player: Signal<Integer>
-  ruled: Signal<Boolean>
+  picked: Signal<boolean>
+  player: Signal<integer>
+  ruled: Signal<boolean>
   constructor(
     quest: Signal<LogQuest>,
-    picked: Signal<Boolean>,
-    player: Signal<Integer>,
+    picked: Signal<boolean>,
+    player: Signal<integer>,
     // A quest after another of its list: a rule above it.
-    ruled: Signal<Boolean> = false
+    ruled: Signal<boolean> = false
   ) {
     self.quest = quest
     self.picked = picked
@@ -154,7 +154,7 @@ public class QuestRow implements Component {
     self.hovered = false
   }
 
-  onEntry(mut self, index: Integer) {
+  onEntry(mut self, index: integer) {
     self.menuOpen = false
     const act = match (index) {
       1 => Act::Track
@@ -193,11 +193,11 @@ public class QuestRow implements Component {
 // What a quest gives, at its title's right: its experience and its money, a dim bullet between them; nothing where it
 // gives neither, and no room after one alone.
 class Gains implements Component {
-  derived both: Boolean = self.xp > 0 && self.money > 0
+  derived both: boolean = self.xp > 0 && self.money > 0
 
-  xp: Signal<Integer>
-  money: Signal<Integer>
-  constructor(xp: Signal<Integer>, money: Signal<Integer>) {
+  xp: Signal<integer>
+  money: Signal<integer>
+  constructor(xp: Signal<integer>, money: Signal<integer>) {
     self.xp = xp
     self.money = money
   }
@@ -215,7 +215,7 @@ class Gains implements Component {
 
 // An objective's text as the client gives it («Defias slain: 3/10»): what is to be done, and its count; a text
 // without a count is all what.
-public function goalParts(text: String): (String, String) {
+public function goalParts(text: string): (string, string) {
   const what, count = text.match("^(.-):%s*(%d+%s*/%s*%d+)$")
   if (what == nil || count == nil) { return text, "" }
   return what, count
@@ -224,15 +224,15 @@ public function goalParts(text: String): (String, String) {
 // One objective: what is to be done, wrapped, in `color`, and at its right its count, or the client's green check once
 // it is done.
 class GoalLine implements Component {
-  derived what: String = whatOf(self.objective.text)
-  derived count: String = countOf(self.objective.text)
-  derived done: Boolean = self.objective.done
+  derived what: string = whatOf(self.objective.text)
+  derived count: string = countOf(self.objective.text)
+  derived done: boolean = self.objective.done
 
   objective: Signal<Game::QuestObjective>
   color: Signal<Color>
   // The list's small lines; the page's are the body's size.
-  small: Signal<Boolean>
-  constructor(objective: Signal<Game::QuestObjective>, color: Signal<Color> = DIM, small: Signal<Boolean> = true) {
+  small: Signal<boolean>
+  constructor(objective: Signal<Game::QuestObjective>, color: Signal<Color> = DIM, small: Signal<boolean> = true) {
     self.objective = objective
     self.color = color
     self.small = small
@@ -260,12 +260,12 @@ const CHECK: Asset = "Interface/RaidFrame/ReadyCheck-Ready"
 const CHECK_SIZE = 18.75dp
 const CHECK_SMALL = 16.40625dp
 
-function whatOf(text: String): String {
+function whatOf(text: string): string {
   const what, _ = goalParts(text)
   return what
 }
 
-function countOf(text: String): String {
+function countOf(text: string): string {
   const _, count = goalParts(text)
   return count
 }
@@ -273,19 +273,19 @@ function countOf(text: String): String {
 // A section under the scroll: the cut with its title, then what it holds.
 const SECTION_GAP = 2sp
 // The scroll's row: its least height unfolded, its own height folded.
-function scrollRow(folded: Boolean): Track {
+function scrollRow(folded: boolean): Track {
   if (folded) { return "max-content" }
   return SCROLL_ROW
 }
-const BUTTON_ALONE: Array<Track> = ["max-content", { fr: 1 }]
+const BUTTON_ALONE: array<Track> = ["max-content", { fr: 1 }]
 
 // The line under a quest's parchment: the quest after it in its chain, by QuestieDB's name, in gold as a link; a
 // click, Enter or Space opens that quest's page. Nothing where QuestieDB knows none.
 public class ChainLine implements Component {
-  public open: Event<Integer> = new Event()
+  public open: Event<integer> = new Event()
 
-  derived next: Integer = self.facts?.next ?? 0
-  derived name: String = self.next > 0 ? self.facts?.nextName ?? "" : ""
+  derived next: integer = self.facts?.next ?? 0
+  derived name: string = self.next > 0 ? self.facts?.nextName ?? "" : ""
 
   facts: Signal<QuestFacts | nil>
   constructor(facts: Signal<QuestFacts | nil>) {
@@ -309,29 +309,29 @@ public class ChainLine implements Component {
 // A quest of a chain not in the log, as QuestieDB knows it: on the scroll its title, its level and the level it may be
 // taken at, what it asks; under it the quest after it, and «Show on map», which shows where it is given.
 public class ChainPage implements Component {
-  public act: Event<(Integer, Act)> = new Event()
+  public act: Event<(integer, Act)> = new Event()
 
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
-  derived levels: String = Locale::CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
+  derived levels: string = Locale::CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
   // The things its task names, marked on the parchment.
-  derived named: Array<Named> = namedOf(self.facts)
-  derived combat: Boolean = Game::situation.combat
+  derived named: array<Named> = namedOf(self.facts)
+  derived combat: boolean = Game::situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
   // Its scroll, the line of the quest after it, its button.
-  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", "max-content"]
+  derived rows: array<Track> = [scrollRow(self.folded), "max-content", "max-content"]
 
-  quest: Signal<Integer>
+  quest: Signal<integer>
   facts: Signal<QuestFacts>
-  foldFirst: Signal<Boolean>
-  constructor(quest: Signal<Integer>, facts: Signal<QuestFacts>, foldFirst: Signal<Boolean> = false) {
+  foldFirst: Signal<boolean>
+  constructor(quest: Signal<integer>, facts: Signal<QuestFacts>, foldFirst: Signal<boolean> = false) {
     self.quest = quest
     self.facts = facts
     self.foldFirst = foldFirst
     watch (id of self.quest) { self.folded = peek self.foldFirst }
   }
 
-  onNext(mut self, next: Integer) { self.act.emit(next, Act::ShowNext) }
+  onNext(mut self, next: integer) { self.act.emit(next, Act::ShowNext) }
   onMap(mut self) { self.act.emit(self.quest, Act::ShowOnMap) }
 
   public render(self): Template {
@@ -352,45 +352,45 @@ public class ChainPage implements Component {
   }
 }
 // The tracking switch's row: its label at the start, the switch at the page's right edge, over the Abandon button.
-const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
+const LABEL_THEN_SWITCH: array<Track> = [{ fr: 1 }, "max-content"]
 
 // The picked quest's page, as Dialogue's quest page: on the scroll its title, its story and its task, the lore alone;
 // under it its objectives (each wrapped, its count at the right), the next quest of its chain (QuestieDB's), what it gives, the library's reward
 // rows and band; then its tracking switch, and its buttons (`QuestButtons`) under it where its window has no footer
 // band for them. Abandoning asks first.
 public class QuestPage implements Component {
-  public act: Event<(Integer, Act)> = new Event()
+  public act: Event<(integer, Act)> = new Event()
 
   derived tracking: Shown = self.quest.tracked ? Shown::On : Shown::Off
   // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
   // objective is the task's own text) isn't said twice.
-  derived goals: Array<Game::QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
-  derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
-  derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
-  derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
+  derived goals: array<Game::QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
+  derived choiceRows: array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
+  derived givenRows: array<Reward> = rewardsOf(self.text.rewards, false)
+  derived standings: array<Standing> = standingsOf(self.facts?.reputation ?? [])
   // The things its story and task name (QuestieDB's), marked on the parchment; none for a quest it doesn't know.
-  derived named: Array<Named> = namedOfFacts(self.facts)
+  derived named: array<Named> = namedOfFacts(self.facts)
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
-  derived questId: Integer = self.quest.id
+  derived questId: integer = self.quest.id
   // Stacked: the scroll takes the room left; folded, the room left stands over the tracking switch.
-  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", self.folded ? FILL_ROW : CONTENT_ROW]
-  derived wide: Boolean = !self.folded && scrollOverflows(self.quest.title, [self.text.story, Locale::SECTION_TASKS, self.text.task])
+  derived rows: array<Track> = [scrollRow(self.folded), "max-content", self.folded ? FILL_ROW : CONTENT_ROW]
+  derived wide: boolean = !self.folded && scrollOverflows(self.quest.title, [self.text.story, Locale::SECTION_TASKS, self.text.task])
 
   quest: Signal<LogQuest>
   text: Signal<Game::QuestText>
   facts: Signal<QuestFacts | nil>
-  player: Signal<Integer>
-  foldFirst: Signal<Boolean>
+  player: Signal<integer>
+  foldFirst: Signal<boolean>
   // Its buttons stand in its window's footer band (`QuestButtons`), not under it.
-  footed: Signal<Boolean>
+  footed: Signal<boolean>
   constructor(
     quest: Signal<LogQuest>,
     text: Signal<Game::QuestText>,
     facts: Signal<QuestFacts | nil>,
-    player: Signal<Integer>,
-    foldFirst: Signal<Boolean> = false,
-    footed: Signal<Boolean> = false
+    player: Signal<integer>,
+    foldFirst: Signal<boolean> = false,
+    footed: Signal<boolean> = false
   ) {
     self.quest = quest
     self.text = text
@@ -402,8 +402,8 @@ public class QuestPage implements Component {
   }
 
   onTrack(mut self) { self.act.emit(self.quest.id, Act::Track) }
-  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
-  onNext(mut self, next: Integer) { self.act.emit(next, Act::ShowNext) }
+  onAct(mut self, id: integer, act: Act) { self.act.emit(id, act) }
+  onNext(mut self, next: integer) { self.act.emit(next, Act::ShowNext) }
 
   // Its scroll beside the rest, the page's whole height, where what it holds would overflow it at its least height;
   // over the rest otherwise.
@@ -468,21 +468,21 @@ public class QuestPage implements Component {
 
 // A wide page: the scroll at its art's width, the rest beside it never narrower than `DETAILS_LEAST` (a least of its
 // own, which the side grows for); the scroll the whole height, the rest from the top.
-const WIDE_COLUMNS: Array<Track> = [WIDE_SCROLL, { fr: 1 }]
+const WIDE_COLUMNS: array<Track> = [WIDE_SCROLL, { fr: 1 }]
 const DETAILS_LEAST: Bounds = { min: 375dp, max: nil }
-const ONE_ROW: Array<Track> = [{ fr: 1 }]
+const ONE_ROW: array<Track> = [{ fr: 1 }]
 const FILL_ROW: Track = { fr: 1 }
 const CONTENT_ROW: Track = "max-content"
 // Beside the scroll the sections from the top, the foot taking the room left (its switch at its bottom).
-const DETAIL_ROWS: Array<Track> = ["max-content", { fr: 1 }]
+const DETAIL_ROWS: array<Track> = ["max-content", { fr: 1 }]
 
 // A quest's buttons: Abandon, the accent one, at the left; at the right «Share» while the player can share it (in a
 // group, a quest the client lets be shared) and «Show on map» (not in a fight), the outermost. In a window's footer band, or under the page where
 // it stands on its own.
 public class QuestButtons implements Component {
-  public act: Event<(Integer, Act)> = new Event()
+  public act: Event<(integer, Act)> = new Event()
 
-  derived combat: Boolean = Game::situation.combat
+  derived combat: boolean = Game::situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
 
   quest: Signal<LogQuest>
@@ -508,8 +508,8 @@ public class QuestButtons implements Component {
 }
 
 // A quest's items as the reward rows show them: the choices numbered by their place, what is given anyway 0.
-function rewardsOf(items: Array<Game::QuestItem>, chosen: Boolean): Array<Reward> {
-  let rows: Array<Reward> = []
+function rewardsOf(items: array<Game::QuestItem>, chosen: boolean): array<Reward> {
+  let rows: array<Reward> = []
   for (index, item of items) { rows.push(logReward(item.item, item.count, chosen ? index : 0)) }
   return rows
 }

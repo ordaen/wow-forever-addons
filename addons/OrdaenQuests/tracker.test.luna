@@ -6,7 +6,7 @@ import { whereOf } from "@/tracker"
 
 const UNKNOWN_AREA = 999999
 
-function wolf(area: Integer): Figure {
+function wolf(area: integer): Figure {
   return { id: 1, kind: .Npc, name: "Wolf", spots: [{ area: area, x: 0.3, y: 0.3 }, { area: area, x: 0.4, y: 0.4 }, { area: 12, x: 0.1, y: 0.1 }] }
 }
 

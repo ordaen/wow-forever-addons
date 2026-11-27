@@ -33,22 +33,22 @@ const NONE_FILL: Color = Color::hex("#0d0a08")
 public const NO_ICON_MARK: Color = Color::hex("#a89878")
 const MARK_WIDTH = 14.0625dp
 const MARK_HEIGHT = 2.34375dp
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 
 // An icon offered, and the words a search finds it by: the spell's name that wears it, or its own file's name.
 struct Offered {
   const icon: IconChoice
-  const words: String
+  const words: string
 }
 
 // The client's icon lists in the macro window's order, each a file's number or a name under Interface/Icons/.
-function clientIcons(): Array<Offered> {
-  const raw: Array<FileId | String> = []
+function clientIcons(): array<Offered> {
+  const raw: array<FileId | string> = []
   Client::GetLooseMacroIcons(raw)
   Client::GetMacroIcons(raw)
   Client::GetLooseMacroItemIcons(raw)
   Client::GetMacroItemIcons(raw)
-  const offered: Array<Offered> = []
+  const offered: array<Offered> = []
   for (each of raw) {
     if (each is FileId) {
       offered.push({ icon: each, words: "" })
@@ -61,8 +61,8 @@ function clientIcons(): Array<Offered> {
 }
 
 // The player's spells, each by its name: what a search by a spell's name finds.
-function spellIcons(): Array<Offered> {
-  const offered: Array<Offered> = []
+function spellIcons(): array<Offered> {
+  const offered: array<Offered> = []
   const lines = Client::C_SpellBook::GetNumSpellBookSkillLines().floor()
   for (line of 1..lines) {
     const info = Client::C_SpellBook::GetSpellBookSkillLineInfo(line)
@@ -78,9 +78,9 @@ function spellIcons(): Array<Offered> {
 }
 
 // The icons in rows of ten.
-function rowsOf(offered: Array<Offered>): Array<Array<Offered>> {
-  const rows: Array<Array<Offered>> = []
-  let row: Array<Offered> = []
+function rowsOf(offered: array<Offered>): array<array<Offered>> {
+  const rows: array<array<Offered>> = []
+  let row: array<Offered> = []
   for (each of offered) {
     row.push(each)
     if (row.length == PER_ROW) {
@@ -96,7 +96,7 @@ function rowsOf(offered: Array<Offered>): Array<Array<Offered>> {
 class IconCell implements Component {
   public pick: Event<IconChoice> = new Event()
 
-  derived none: Boolean = self.offered.icon == nil
+  derived none: boolean = self.offered.icon == nil
   derived rim: Line = self.offered.icon == self.chosen ? PICKED_RIM : RIM
 
   offered: Signal<Offered>
@@ -125,9 +125,9 @@ class IconCell implements Component {
 class IconRow implements Component {
   public pick: Event<IconChoice> = new Event()
 
-  icons: Signal<Array<Offered>>
+  icons: Signal<array<Offered>>
   chosen: Signal<IconChoice>
-  constructor(icons: Signal<Array<Offered>>, chosen: Signal<IconChoice>) {
+  constructor(icons: Signal<array<Offered>>, chosen: Signal<IconChoice>) {
     self.icons = icons
     self.chosen = chosen
   }
@@ -150,17 +150,17 @@ public class IconPicker implements Component {
   state chosen: IconChoice
   state search = ""
   // The icons offered, read once as it opens: the client's lists are long and never change while it is open.
-  const all: Array<Offered>
-  derived shown: Array<Offered> = self.shownOf()
-  derived rows: Array<Array<Offered>> = rowsOf(self.shown)
+  const all: array<Offered>
+  derived shown: array<Offered> = self.shownOf()
+  derived rows: array<array<Offered>> = rowsOf(self.shown)
 
-  title: Signal<String>
+  title: Signal<string>
   const first: IconPickerFirst
-  constructor(value: Signal<IconChoice>, title: Signal<String>, first: IconPickerFirst = IconPickerFirst::Nothing) {
+  constructor(value: Signal<IconChoice>, title: Signal<string>, first: IconPickerFirst = IconPickerFirst::Nothing) {
     self.title = title
     self.first = first
     self.chosen = peek value
-    const all: Array<Offered> = []
+    const all: array<Offered> = []
     if (first == IconPickerFirst::NoIcon) { all.push({ icon: nil, words: "" }) }
     if (first == IconPickerFirst::GameChooses) { all.push({ icon: QUESTION_MARK, words: "" }) }
     for (each of spellIcons()) { all.push(each) }
@@ -169,7 +169,7 @@ public class IconPicker implements Component {
   }
 
   // Those whose words hold the search, every one while it is empty.
-  shownOf(self): Array<Offered> {
+  shownOf(self): array<Offered> {
     const needle = self.search.lower()
     if (needle == "") { return self.all }
     return self.all.filter(each => each.words.contains(needle))

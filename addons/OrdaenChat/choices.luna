@@ -8,7 +8,7 @@ public enum ChannelName implements Plain { Name = "name", Number = "number", Bot
 
 // The least width the player may choose (in dp): a window's least body, Ordaen's `WINDOW_MIN_WIDTH`. The chat stands
 // wider where its tabs and the lines' own least need it.
-public const LEAST_WIDTH: Integer = (WINDOW_MIN_WIDTH / 1dp).ceil()
+public const LEAST_WIDTH: integer = (WINDOW_MIN_WIDTH / 1dp).ceil()
 // The least height of the lines the player may choose (in dp): eight lines of the body's font. The chat stands
 // taller where its tabs need it.
 public const LEAST_HEIGHT = 150
@@ -18,8 +18,8 @@ public const MESSAGE_GAP_MOST = 10
 
 // The chat's size as the settings keep it (in dp): its whole width, the lines' height.
 public struct ChatSize {
-  width: Number
-  height: Number
+  width: number
+  height: number
 }
 
 // Where a line's time stamp stands (where the game shows the chat's times): before each line («[12:04] …»), or above
@@ -29,16 +29,16 @@ public enum StampPlace implements Plain { Inline = "inline", Above = "above" }
 // A tab's own settings, as the «Tabs» page writes them.
 public struct TabChoices implements Plain {
   // The count of its lines waiting unread, shown on it.
-  counter: Boolean
+  counter: boolean
   channelName: ChannelName
   stamps: StampPlace = .Above
   // Words (comma-separated) that mark someone else's line in it, beside the player's own name.
-  keywords: String = ""
+  keywords: string = ""
   // The same sender's same words one after another are one line with «×N».
-  repeats: Boolean = true
+  repeats: boolean = true
   // Lines it holds this session, and those kept after a reload (0 keeps none).
-  held: Integer = 500
-  kept: Integer = 200
+  held: integer = 500
+  kept: integer = 200
   // What the input's history keeps of what is sent while the tab is open (Alt and Up or Down bring it back).
   history: Game::ChatHistory = .All
 }
@@ -56,32 +56,32 @@ public function tabDefaults(window: Game::ChatWindow): TabChoices {
 }
 
 // A window that shows channels and no message group.
-function channelsOnly(window: Integer): Boolean {
+function channelsOnly(window: integer): boolean {
   return Game::chat.groups(window).all(group => !group.shown) && Game::chat.channels(window).any(channel => channel.shown)
 }
 
 // The key a window's own settings are kept under: its tab's.
-public function tabKey(window: Integer): String {
+public function tabKey(window: integer): string {
   return `w${window}`
 }
 
 public struct Choices implements Plain {
   // The chat's size.
-  width: Number
-  height: Number
+  width: number
+  height: number
   // The whole chat hidden while the cursor is off it (shown while on it, or while the player types), and how much of
   // it shows meanwhile (0: nothing).
-  hide: Boolean
-  hiddenOpacity: Number
+  hide: boolean
+  hiddenOpacity: number
   // How opaque the lines' dark ground is, from 0 to 1.
-  ground: Number = 0.8
+  ground: number = 0.8
   // Each window's own settings, by its tab's key (`tabKey`); a window without them takes `tabDefaults`.
-  tabs: Map<String, TabChoices>
+  tabs: map<string, TabChoices>
   // The lines at a size of the chat's own (in UI units), not Ordaen's body text.
-  ownTextSize: Boolean
-  textSize: Number
+  ownTextSize: boolean
+  textSize: number
   // The room between messages (in sp).
-  messageGap: Number = MESSAGE_GAP
+  messageGap: number = MESSAGE_GAP
   // The input always shown under the lines (off: from Enter to the line sent).
-  inputAlways: Boolean
+  inputAlways: boolean
 }

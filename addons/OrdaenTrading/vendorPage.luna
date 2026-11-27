@@ -15,27 +15,27 @@ import Style from "@/style"
 // How the sellers of an item are found: the NPCs that sell it, how far one is (nil: not known), and the nearest
 // shown on the map. The professions window gives them, from Ordaen Quests.
 public struct Sellers {
-  of: (item: Integer) => Array<Integer>
-  distance: (npc: Integer) => Number | nil
-  showNearest: (npcs: Array<Integer>) => nil
+  of: (item: integer) => array<integer>
+  distance: (npc: integer) => number | nil
+  showNearest: (npcs: array<integer>) => nil
 }
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1, min: 175.78125dp } },
   { title: Locale::COLUMN_TO_BUY, width: 105.46875dp, align: Align::End },
   { title: Locale::COLUMN_PRICE, width: 105.46875dp, align: Align::End },
   { title: Locale::COLUMN_TOTAL, width: 105.46875dp, align: Align::End },
   { title: Locale::COLUMN_NEAREST, width: 105.46875dp, align: Align::End }
 ]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
-const LINES: Array<Track> = ["max-content", "max-content"]
-const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
-const NO_COUNTS: Array<FooterCount> = []
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
+const LINES: array<Track> = ["max-content", "max-content"]
+const PAGE: array<Track> = [{ fr: 1 }, "max-content"]
+const NO_COUNTS: array<FooterCount> = []
 const WIDE = 257.8125dp
 
 // The nearest of the NPCs that sell an item, in yards; nil where none is known or none has a place.
-function nearestOf(sellers: Sellers, item: ItemId): Number | nil {
-  let best: Number | nil = nil
+function nearestOf(sellers: Sellers, item: ItemId): number | nil {
+  let best: number | nil = nil
   for (npc of sellers.of(item)) {
     const yards = sellers.distance(npc)
     if (yards != nil && (best == nil || yards < best)) { best = yards }
@@ -45,8 +45,8 @@ function nearestOf(sellers: Sellers, item: ItemId): Number | nil {
 
 // Where the open merchant lists an item, and how many one purchase takes at most; nil where it doesn't sell it.
 struct Offer {
-  index: Integer
-  most: Integer
+  index: integer
+  most: integer
 }
 
 function offerOf(item: ItemId): Offer | nil {
@@ -61,24 +61,24 @@ function offerOf(item: ItemId): Offer | nil {
 class VendorRow implements Component {
   public pick: Event<ItemId> = new Event()
 
-  derived name: String = self.nameText()
+  derived name: string = self.nameText()
   derived color: Color = self.row.toBuy == 0 ? Style::DIM : self.nameColor()
   derived ink: Color = self.row.toBuy == 0 ? Style::DIM : Style::INK
-  derived unit: Integer = self.prices.vendor(self.row.item) ?? 0
-  derived nearest: Number | nil = nearestOf(self.sellers, self.row.item)
+  derived unit: integer = self.prices.vendor(self.row.item) ?? 0
+  derived nearest: number | nil = nearestOf(self.sellers, self.row.item)
 
   row: Signal<Row>
   const prices: any PriceSource
   const sellers: Sellers
-  selected: Signal<Boolean>
-  constructor(row: Signal<Row>, prices: any PriceSource, sellers: Sellers, selected: Signal<Boolean>) {
+  selected: Signal<boolean>
+  constructor(row: Signal<Row>, prices: any PriceSource, sellers: Sellers, selected: Signal<boolean>) {
     self.row = row
     self.prices = prices
     self.sellers = sellers
     self.selected = selected
   }
 
-  nameText(self): String {
+  nameText(self): string {
     const name, _ = nameOf(self.row.item)
     return name
   }
@@ -128,18 +128,18 @@ public class VendorPage implements Component {
   // The rows stand as the list has them: the headings sort nothing.
   state sorted = 0
   state descending = false
-  derived rows: Array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market::Vendor)
-  derived empty: Boolean = self.rows.length == 0
+  derived rows: array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market::Vendor)
+  derived empty: boolean = self.rows.length == 0
   derived chosen: Row | nil = self.rows.find(row => row.item == self.picked)
   // The open merchant sells the picked row, and some of it is left to buy.
-  derived buyable: Boolean = self.atMerchant && (self.chosen?.toBuy ?? 0) > 0 && offerOf(self.picked ?? 0) != nil
-  derived mapped: Boolean = self.picked != nil && self.sellers.of(self.picked ?? 0).length > 0
+  derived buyable: boolean = self.atMerchant && (self.chosen?.toBuy ?? 0) > 0 && offerOf(self.picked ?? 0) != nil
+  derived mapped: boolean = self.picked != nil && self.sellers.of(self.picked ?? 0).length > 0
 
   const prices: any PriceSource
   list: mut ShoppingList
   const sellers: Sellers
-  atMerchant: Signal<Boolean>
-  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<Boolean>) {
+  atMerchant: Signal<boolean>
+  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<boolean>) {
     self.prices = prices
     self.list = list
     self.sellers = sellers

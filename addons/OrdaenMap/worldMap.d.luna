@@ -5,26 +5,26 @@ import Client from "$client"
 // The world map's canvas, where pins stand; nil before Blizzard's map is made.
 public function canvas(): any Client::Frame | nil
 // The map the world map shows (`WorldMapFrame:GetMapID()`); 0 while it doesn't show.
-public function shownMap(): Integer
+public function shownMap(): integer
 // `run` is called when the world map shows or hides and when the map it shows changes. Once; `forget` takes it away.
 // `run` is also called as the map's side panel shows, hides or changes size.
 public function listen(run: () => nil)
 // The map's side panel (`WorldMapFrame.QuestLog`, Blizzard's quest log) while it shows, and its width and height in
 // UI units; nil and 0 while it doesn't.
-public function sidePanel(): (any Client::Frame | nil, Number, Number)
+public function sidePanel(): (any Client::Frame | nil, number, number)
 public function forget()
 // Blizzard's quest marks on its map (its quest pins and the shaded area of the map's focused quest) of `quest` alone:
 // the quest shown on the map, its area drawn; 0 for every quest's, as the game has them.
-public function onlyQuest(quest: Integer)
+public function onlyQuest(quest: integer)
 // The game's tooltip beside a pin: its first line the title, in white, the others under it.
-public function tip(owner: any Client::Frame, lines: Array<String>)
+public function tip(owner: any Client::Frame, lines: array<string>)
 public function untip()
 // Ordaen's section of a dungeon's card in OpenMap (`RegisterDungeonSection`): `run` is given the dungeon's map and its
 // instances' names, and gives the section's title then its lines, or none for no section. `noDungeonSection` takes it
 // off.
-public function dungeonSection(run: (map: Integer, names: Array<String>) => Array<String>)
+public function dungeonSection(run: (map: integer, names: array<string>) => array<string>)
 public function noDungeonSection()
 // OpenMap's townsfolk from QuestieDB's NPCs and objects (`RegisterTownsfolkProvider`), each zone's map by its area
 // from `maps`; called where QuestieDB holds contract 4. `noTownsfolk` takes them off.
-public function townsfolk(maps: Map<Integer, Integer>)
+public function townsfolk(maps: map<integer, integer>)
 public function noTownsfolk()

@@ -5,27 +5,27 @@ import { QuestKind, kindOfTag } from "@/kind"
 
 // A quest of the player's log, as the client says it, and its tab, worked out as it is read.
 public struct LogQuest {
-  id: Integer
-  title: String
-  level: Integer
+  id: integer
+  title: string
+  level: integer
   // The client's header it stands under: a zone, an instance, a battleground.
-  header: String
+  header: string
   kind: QuestKind
-  done: Boolean
-  failed: Boolean
-  tracked: Boolean
+  done: boolean
+  failed: boolean
+  tracked: boolean
   // The group it is meant for (an elite quest, «Группа: 3»); 0 for one played alone.
-  group: Integer
+  group: integer
   // The player can share it now: the client lets it be shared, and the player is in a group.
-  shareable: Boolean
-  objectives: Array<Game::QuestObjective>
+  shareable: boolean
+  objectives: array<Game::QuestObjective>
   // The experience and the money (copper) it gives; 0 for none.
-  xp: Integer
-  money: Integer
+  xp: integer
+  money: integer
 }
 
 // The log's quests, in the client's order.
-public function logQuests(): Array<LogQuest> {
+public function logQuests(): array<LogQuest> {
   return Game::questLog.quests().map(quest => LogQuest {
     id: quest.id, title: quest.title, level: quest.level, header: quest.header, kind: kindOfTag(quest.tag),
     done: quest.done, failed: quest.failed, tracked: quest.tracked, group: quest.group, shareable: quest.shareable,

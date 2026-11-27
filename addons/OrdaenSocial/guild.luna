@@ -48,7 +48,7 @@ public class GuildCard implements Component {
 }
 
 // Whether a line of news is of an item: looted, crafted or bought (the game's own tooltip of the item is its).
-function ofItem(kind: NewsKind): Boolean {
+function ofItem(kind: NewsKind): boolean {
   return kind == .Looted || kind == .Crafted || kind == .Bought || kind == .LegendaryLooted
 }
 
@@ -66,8 +66,8 @@ function tipOf(news: GuildNews): TipText | nil {
 
 class NewsRow implements Component {
   state hovered = false
-  derived date: String = Locale::NEWS_DATE.format(self.news.day, self.news.month)
-  derived item: Boolean = ofItem(self.news.kind)
+  derived date: string = Locale::NEWS_DATE.format(self.news.day, self.news.month)
+  derived item: boolean = ofItem(self.news.kind)
   derived tip: TipText | nil = self.hovered ? tipOf(self.news) : nil
 
   news: Signal<GuildNews>
@@ -96,20 +96,20 @@ class NewsRow implements Component {
 }
 
 // The news filter's kinds the game offers, by their numbers: each on as the client keeps it.
-function optionOf(filter: NewsFilter): FilterOption<Integer> { return { key: filter.kind, label: filter.label } }
+function optionOf(filter: NewsFilter): FilterOption<integer> { return { key: filter.kind, label: filter.label } }
 
-function filterGroups(filters: Array<NewsFilter>): Array<FilterGroup<Integer>> {
+function filterGroups(filters: array<NewsFilter>): array<FilterGroup<integer>> {
   return [{ label: nil, options: filters.map(filter => optionOf(filter)) }]
 }
 
-function filterValues(filters: Array<NewsFilter>): Map<Integer, Boolean> {
-  const values: Map<Integer, Boolean> = {}
+function filterValues(filters: array<NewsFilter>): map<integer, boolean> {
+  const values: map<integer, boolean> = {}
   for (filter of filters) { values[filter.kind] = filter.shown }
   return values
 }
 
-function allShown(filters: Array<NewsFilter>): Map<Integer, Boolean> {
-  const values: Map<Integer, Boolean> = {}
+function allShown(filters: array<NewsFilter>): map<integer, boolean> {
+  const values: map<integer, boolean> = {}
   for (filter of filters) { values[filter.kind] = true }
   return values
 }
@@ -117,17 +117,17 @@ function allShown(filters: Array<NewsFilter>): Map<Integer, Boolean> {
 // The guild's news, as the game keeps it: the sticky lines first, then the newest. Its filter is the game's own (the
 // server keeps it and sends the news again): a kind switched is asked of the game.
 public class NewsList implements Component {
-  public filter: Event<(Integer, Boolean)> = new Event()
+  public filter: Event<(integer, boolean)> = new Event()
 
-  state picked: Map<Integer, Boolean> = {}
-  derived shown: Array<GuildNews> = self.ordered()
-  derived start: Map<Integer, Boolean> = allShown(self.filters)
+  state picked: map<integer, boolean> = {}
+  derived shown: array<GuildNews> = self.ordered()
+  derived start: map<integer, boolean> = allShown(self.filters)
 
-  news: Signal<Array<GuildNews>>
-  filters: Signal<Array<NewsFilter>>
+  news: Signal<array<GuildNews>>
+  filters: Signal<array<NewsFilter>>
   // The kinds the game offers here, as the list is made: the game's own, which don't change.
-  const groups: Array<FilterGroup<Integer>>
-  constructor(news: Signal<Array<GuildNews>>, filters: Signal<Array<NewsFilter>>) {
+  const groups: array<FilterGroup<integer>>
+  constructor(news: Signal<array<GuildNews>>, filters: Signal<array<NewsFilter>>) {
     self.news = news
     self.filters = filters
     self.groups = filterGroups(peek filters)
@@ -136,14 +136,14 @@ public class NewsList implements Component {
   }
 
   // What the player switched, asked of the game: each kind whose switch isn't what the game keeps.
-  onPicked(mut self, chosen: Map<Integer, Boolean>) {
+  onPicked(mut self, chosen: map<integer, boolean>) {
     for (filter of peek self.filters) {
       const on = chosen[filter.kind] ?? false
       if (on != filter.shown) { self.filter.emit(filter.kind, on) }
     }
   }
 
-  ordered(self): Array<GuildNews> {
+  ordered(self): array<GuildNews> {
     const list = self.news.filter(line => line.sticky)
     for (line of self.news) {
       if (!line.sticky) { list.push(line) }

@@ -1,19 +1,19 @@
 // The AddOns window's measures and colours, and the client's own words for why an addon doesn't load.
 import Client from "$client"
 
-public const WIDTH: Number<Length> = 1148.4375dp
-public const HEIGHT: Number<Length> = 703.125dp
+public const WIDTH: number<Length> = 1148.4375dp
+public const HEIGHT: number<Length> = 703.125dp
 // The card's column at the window's right.
-public const CARD: Number<Length> = 351.5625dp
+public const CARD: number<Length> = 351.5625dp
 // Every line of the list, a category's caption too, is this high.
-public const ROW: Number<Length> = 30.46875dp
+public const ROW: number<Length> = 30.46875dp
 // The numbers' columns: now, peak, memory.
-public const NUMBER: Number<Length> = 82.03125dp
-public const MEMORY: Number<Length> = 93.75dp
+public const NUMBER: number<Length> = 82.03125dp
+public const MEMORY: number<Length> = 93.75dp
 // The table's category column.
-public const CATEGORY: Number<Length> = 175.78125dp
+public const CATEGORY: number<Length> = 175.78125dp
 // How far an addon under its group's parent stands in.
-public const INDENT: Number<Spacing> = 5.5sp
+public const INDENT: number<Spacing> = 5.5sp
 
 public const INK: Color = Color::hex("#e8e0d0")
 public const DIM: Color = Color::hex("#9a9080")
@@ -27,7 +27,7 @@ public const CLEAR: Color = Color::hex("#00000000")
 public const PICKED: Color = Color::hex("#f0c86024")
 
 // The client's text for why it doesn't load an addon, in the player's language.
-public function reasonText(reason: Client::AddOnReason): String {
+public function reasonText(reason: Client::AddOnReason): string {
   return match (reason) {
     "BANNED" => Client::ADDON_BANNED
     "CORRUPT" => Client::ADDON_CORRUPT
@@ -63,4 +63,4 @@ public function reasonText(reason: Client::AddOnReason): String {
 }
 
 // Whether a reason is one of a dependency's: the card names which.
-public function ofDependency(reason: Client::AddOnReason): Boolean { return reason.sub(1, 4) == "DEP_" }
+public function ofDependency(reason: Client::AddOnReason): boolean { return reason.sub(1, 4) == "DEP_" }

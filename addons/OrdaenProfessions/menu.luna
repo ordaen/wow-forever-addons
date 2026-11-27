@@ -7,12 +7,12 @@ import Locale from "@/locales"
 import { Act, Kept, has } from "@/view"
 
 // What each line asks, by its place in the menu.
-const ACTS: Array<Act> = [Act::Link, Act::Make, Act::Favorite, Act::Track]
+const ACTS: array<Act> = [Act::Link, Act::Make, Act::Favorite, Act::Track]
 
 public class RecipeMenu implements Component {
-  public act: Event<(Act, Integer)> = new Event()
+  public act: Event<(Act, integer)> = new Event()
 
-  derived entries: Array<MenuEntry> = self.entriesOf()
+  derived entries: array<MenuEntry> = self.entriesOf()
 
   recipe: Signal<Game::Recipe>
   kept: Signal<Kept>
@@ -24,7 +24,7 @@ public class RecipeMenu implements Component {
     self.kept = kept
   }
 
-  entriesOf(self): Array<MenuEntry> {
+  entriesOf(self): array<MenuEntry> {
     const schematic = Game::recipeReader.schematic(self.recipe.id)
     return [
       { label: Locale::MENU_LINK, disabled: schematic == nil || schematic.makes == nil },
@@ -34,7 +34,7 @@ public class RecipeMenu implements Component {
     ]
   }
 
-  onPick(self, index: Integer) {
+  onPick(self, index: integer) {
     self.act.emit(ACTS[index] ?? panic("a menu line the recipe's menu doesn't have"), self.recipe.id)
   }
 

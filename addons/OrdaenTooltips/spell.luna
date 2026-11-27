@@ -22,7 +22,7 @@ const REQUIREMENT = 43
 const NESTED = 19
 
 // «%d points», in the form the number takes: the Russian rule on a Russian client, one and the rest elsewhere.
-function combo(points: Integer): String {
+function combo(points: integer): string {
   let which = Game::client.locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
   match (which) {
     1 => return Locale::COMBO_ONE.format(points)
@@ -32,12 +32,12 @@ function combo(points: Integer): String {
 }
 
 // The word of a label the game writes before a list («Reagents: %s», «Материалы: |n», «Инструменты:»).
-function wordOf(label: String): String {
+function wordOf(label: string): string {
   return label.match("^%s*([^:|%%]-)%s*:") ?? ""
 }
 
 // The list after `word:` in a line, its colour codes and line breaks taken out; nothing for a line of another label.
-function listAfter(text: String, word: String): String | nil {
+function listAfter(text: string, word: string): string | nil {
   let label, rest = text.match("^%s*([^:]-)%s*:(.*)$")
   if (word == "" || label != word || rest == nil) { return nil }
   let bare = rest.replace("|n", " ").replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
@@ -46,7 +46,7 @@ function listAfter(text: String, word: String): String | nil {
 
 // The spell's reagents («Reagents: Rune of Teleportation, Powder (2)») as footer rows: the reagent, how many it
 // takes, red where the player carries fewer. Whether the line was the reagents'.
-function reagents(text: String, foot: mut Array<Note>): Boolean {
+function reagents(text: string, foot: mut array<Note>): boolean {
   let list = listAfter(text, wordOf(Game::strings.spellReagents))
   if (list == nil) { return false }
   for (part of list.split(",")) {
@@ -68,7 +68,7 @@ function reagents(text: String, foot: mut Array<Note>): Boolean {
 
 // The tools a recipe needs («Tools: Runed Copper Rod») as one footer row, red where the player carries one of them
 // not. Whether the line was the tools'.
-function tools(text: String, foot: mut Array<Note>): Boolean {
+function tools(text: string, foot: mut array<Note>): boolean {
   let word = wordOf(Runtime::text("SPELL_TOTEMS") ?? "")
   let list = listAfter(text, word)
   if (list == nil) { return false }
@@ -91,7 +91,7 @@ public function madeBy(data: Game::TooltipData): Game::TooltipData | nil {
     let own = Game::items.tooltip(made)
     if (own != nil) { return own }
   }
-  let lines: Array<Game::TooltipLine> = []
+  let lines: array<Game::TooltipLine> = []
   for (i, line of data.lines) {
     if (i > at) { lines.push(Game.TooltipLine { left: line.left?.match("^%s*(.-)$"), ..line }) }
   }
@@ -101,7 +101,7 @@ public function madeBy(data: Game::TooltipData): Game::TooltipData | nil {
 
 // What a line of a finishing move's list gives: the range it names («46-66», «46 – 66») as «46–66», or its first
 // number.
-function comboValue(effect: String): String | nil {
+function comboValue(effect: string): string | nil {
   let low, high = effect.match("(%d+)%s*%-%s*(%d+)")
   if (low != nil && high != nil) { return low + "–" + high }
   let from, to = effect.match("(%d+)%s*–%s*(%d+)")
@@ -111,21 +111,21 @@ function comboValue(effect: String): String | nil {
 
 // A rank in Ordaen's words («Rank 4», «Ранг 4»), whatever the client calls it («Уровень 4»); its words where they
 // hold no number.
-function rankText(rank: String): String {
+function rankText(rank: string): string {
   const number = rank.match("%d+")
   return number == nil ? rank : Locale::RANK.format(number)
 }
 
 // A description into the body. A finishing move's («1 point: 46-66 damage» on a line each) gives its sentence
 // first and then a row for each line of the list.
-function describe(text: String, body: mut Array<TextLine>) {
+function describe(text: string, body: mut array<TextLine>) {
   if (text.match("^%s*%d%s") == nil && text.match("\n%s*%d%s") == nil) {
     body.push({ left: richDescription(text), desc: true })
     return
   }
-  let rows: Array<TextLine> = []
-  let first: String | nil = nil
-  let rest: String | nil = nil
+  let rows: array<TextLine> = []
+  let first: string | nil = nil
+  let rest: string | nil = nil
   for (line of text.split("\n")) {
     if (line == "") { continue }
     let points, effect = line.match("^%s*(%d)%s+[^%d:]-:%s*(.+)$")
@@ -161,15 +161,15 @@ function opensOf(kind: BandKind): Opens {
 public function spell(data: Game::TooltipData, options: Options): Model | nil {
   let id = data.id
   let cost = id != nil ? Game::spells.cost(id) : nil
-  let name: String | nil = nil
-  let desc: Array<Part> = []
-  let info: Array<Part> = []
-  let body: Array<TextLine> = []
-  let foot: Array<Note> = []
+  let name: string | nil = nil
+  let desc: array<Part> = []
+  let info: array<Part> = []
+  let body: array<TextLine> = []
+  let foot: array<Note> = []
   // The band (cost and range, cast and cooldown): Ordaen's reading of the game's first lines, which no other part
   // reads again.
   const band = bandOf(data.lines, cost)
-  const facts: Array<Fact> = band.facts.map(cell => Fact { cell: cell, opens: opensOf(cell.kind) })
+  const facts: array<Fact> = band.facts.map(cell => Fact { cell: cell, opens: opensOf(cell.kind) })
   for (i, line of data.lines) {
     // A recipe's made item: a tooltip of its own beside this one (`madeBy`).
     if (line.kind == NESTED) { break }

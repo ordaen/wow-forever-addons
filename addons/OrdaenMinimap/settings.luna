@@ -28,7 +28,7 @@ public class MapPage implements Component {
 }
 
 public class DrawerPage implements Component {
-  derived drawerOff: Boolean = !self.settings.values.drawerOn
+  derived drawerOff: boolean = !self.settings.values.drawerOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {

@@ -63,7 +63,7 @@ public enum Stat {
 }
 
 // Every stat, in the enum's order.
-public const EVERY_STAT: Array<Stat> = [
+public const EVERY_STAT: array<Stat> = [
   .Strength,
   .Agility,
   .Stamina,
@@ -118,21 +118,21 @@ public const EVERY_STAT: Array<Stat> = [
 ]
 
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).
-public const MAINS: Array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
+public const MAINS: array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
 
 // What a worn item gives a stat, in the stat's own unit (a rating already made a percentage).
 public struct Given {
   const stat: Stat
-  const amount: Number
+  const amount: number
 }
 
 // The client's item stats (`C_Item.GetItemStats`' keys), each the stats it gives and the combat rating it is counted
 // in (none: 0), which the sheet turns into the stat's percentage.
 public struct ItemKey {
-  const stats: Array<Stat>
-  const rating: Integer = 0
+  const stats: array<Stat>
+  const rating: integer = 0
 }
-public const ITEM_KEYS: Map<String, ItemKey> = {
+public const ITEM_KEYS: map<string, ItemKey> = {
   ITEM_MOD_STRENGTH_SHORT: { stats: [.Strength] },
   ITEM_MOD_AGILITY_SHORT: { stats: [.Agility] },
   ITEM_MOD_STAMINA_SHORT: { stats: [.Stamina] },

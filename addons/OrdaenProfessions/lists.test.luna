@@ -37,23 +37,23 @@ const SETTINGS = "Move mode"
 // The card's note that a recipe waits in the queue.
 const QUEUED = "Queued: made after the ones ahead."
 // Every recipe's name, by which the lists are read.
-const NAMES: Array<String> = [
+const NAMES: array<string> = [
   "Linen Bandage", "Linen Cloak", "Brown Linen Vest", "Woolen Cape", "Linen Bag", "Woolen Bag", "Copper Mace", "Trainer's Shirt", "Vendor's Robe"
 ]
 
 function recipe(
-  id: Integer, name: String, category: Integer, difficulty: Game::Difficulty, craftable: Integer, learned: Boolean
+  id: integer, name: string, category: integer, difficulty: Game::Difficulty, craftable: integer, learned: boolean
 ): Game::Recipe {
   return {
     id: id, name: name, icon: NOTE, categoryID: category, learned: learned, difficulty: difficulty, craftable: craftable
   }
 }
 
-function reagent(name: String, item: Integer, have: Integer, need: Integer): Game::Reagent {
+function reagent(name: string, item: integer, have: integer, need: integer): Game::Reagent {
   return { itemID: item, name: name, icon: "Interface/Icons/INV_Fabric_Linen_01", have: have, need: need }
 }
 
-function reagents(id: Integer): Array<Game::Reagent> {
+function reagents(id: integer): array<Game::Reagent> {
   if (id == 110) { return [reagent("Bolt of Linen Cloth", 2589, 3, 1), reagent("Coarse Thread", 2320, 0, 1)] }
   if (id == 111) { return [reagent("Coarse Thread", 2320, 0, 2)] }
   if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 6, 3)] }
@@ -62,19 +62,19 @@ function reagents(id: Integer): Array<Game::Reagent> {
 }
 
 // Every recipe makes an item but Woolen Bag, which makes none (as an enchant makes none).
-function schematic(id: Integer): Game::Schematic | nil {
+function schematic(id: integer): Game::Schematic | nil {
   if (id == 121) { return nil }
   return { recipe: id, makes: 1000 + id, least: 1, most: 1, parts: [] }
 }
 
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
     { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 12, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
-function categories(): Array<Game::Category> {
+function categories(): array<Game::Category> {
   return [
     { id: 1, name: "Tailoring" },
     { id: 10, name: "Resting at camp", parentID: 1 },
@@ -84,7 +84,7 @@ function categories(): Array<Game::Category> {
   ]
 }
 
-function recipes(): Array<Game::Recipe> {
+function recipes(): array<Game::Recipe> {
   return [
     recipe(100, "Linen Bandage", 10, Game::Difficulty::Rarely, 4, true),
     recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true),
@@ -95,12 +95,12 @@ function recipes(): Array<Game::Recipe> {
   ]
 }
 
-function smithingCategories(): Array<Game::Category> {
+function smithingCategories(): array<Game::Category> {
   return [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Weapons", parentID: 2 }]
 }
 
 // Blacksmithing: one recipe.
-function smithingRecipes(): Array<Game::Recipe> {
+function smithingRecipes(): array<Game::Recipe> {
   return [recipe(200, "Copper Mace", 21, Game::Difficulty::Always, 1, true)]
 }
 
@@ -111,14 +111,14 @@ function window(): Test::Part {
 
 // A recipe's name where the window shows it.
 struct Named {
-  name: String
-  top: Number
-  left: Number
+  name: string
+  top: number
+  left: number
 }
 
 // Every recipe name the window shows, top to bottom, left to right.
-function named(): Array<Named> {
-  let list: Array<Named> = []
+function named(): array<Named> {
+  let list: array<Named> = []
   for (name of NAMES) {
     const texts = window().text(name)
     for (n of 1..texts.count()) {
@@ -132,9 +132,9 @@ function named(): Array<Named> {
 
 // Where the chosen recipe's name on its card stands among them: the card stands right of the lists, so its name is the
 // one furthest right; 0 for none.
-function cardOf(list: Array<Named>): Integer {
+function cardOf(list: array<Named>): integer {
   let card = 0
-  let left: Number = 0
+  let left: number = 0
   for (index, shown of list) {
     if (card == 0 || shown.left > left) {
       card = index
@@ -145,10 +145,10 @@ function cardOf(list: Array<Named>): Integer {
 }
 
 // The recipes the lists show, in the order drawn: every name the window shows but the chosen recipe's on its card.
-function listed(): String {
+function listed(): string {
   const list = named()
   const card = cardOf(list)
-  let names: Array<String> = []
+  let names: array<string> = []
   for (index, shown of list) {
     if (index != card) { names.push(shown.name) }
   }
@@ -156,44 +156,44 @@ function listed(): String {
 }
 
 // The chosen recipe: the name on its card.
-function chosen(): String {
+function chosen(): string {
   const list = named()
   return list[cardOf(list)]?.name ?? ""
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // Whether two colours are the same as the client keeps them (to three places).
-function near(a: Color, b: Color): Boolean {
+function near(a: Color, b: Color): boolean {
   return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
 }
 
 // Whether the lists read exactly this: where they don't, the test fails with what they read.
-function lists(expected: String): Boolean {
+function lists(expected: string): boolean {
   const read = listed()
   if (read != expected) { panic(`the lists read «${read}», not «${expected}»`) }
   return true
 }
 
 // Whether the game was asked exactly this since it was last asked, joined by «, ».
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
 // A choice of one of the toolbar's pickers: the picker by its glyph, then the choice in its list, which holds `first`.
-function pick(glyph: Art, first: String, choice: String) {
+function pick(glyph: Art, first: string, choice: string) {
   window().button(glyph).click()
   Test::page().window(first).button(choice).click()
 }
 
-function view(choice: String) {
+function view(choice: string) {
   for (glyph of [Ordaen.art.ctl.tool.columns, Ordaen.art.ctl.tool.categories, Ordaen.art.ctl.tool.table]) {
     if (window().button(glyph).shown()) {
       pick(glyph, "In columns", choice)
@@ -203,7 +203,7 @@ function view(choice: String) {
   panic("the view's picker isn't shown")
 }
 
-function sort(choice: String) {
+function sort(choice: string) {
   pick(Ordaen.art.ctl.tool.sort, "By difficulty", choice)
 }
 
@@ -214,7 +214,7 @@ function filter(): Test::Part {
 }
 
 // A line of the open right-click menu clicked: the menu is found by its «Link in chat», which it always shows.
-function choose(label: String) {
+function choose(label: string) {
   Test::page().window("Link in chat").button(label).click()
 }
 
@@ -225,7 +225,7 @@ function settings(): Test::Part {
 }
 
 // A setting's checkbox clicked and saved, the settings window closed.
-function setting(label: String) {
+function setting(label: string) {
   const page = settings()
   page.button(label).click()
   page.text(label).hover()
@@ -274,8 +274,8 @@ test "the chosen recipe a light, the chosen category cut into the groove" {
 }
 
 // The bottom of the lowest of the boxes found.
-function lowest(boxes: Test::Part): Number {
-  let bottom: Number = 0
+function lowest(boxes: Test::Part): number {
+  let bottom: number = 0
   for (n of 1..boxes.count()) { bottom = bottom.max(boxes.nth(n).rect().bottom) }
   return bottom
 }
@@ -386,9 +386,9 @@ test "a table's row says its made item's class and where it is worn, else its ki
   Game::recipeReader.schematic = schematic
   // The cloak (1110) and the vest (1111) are cloth, worn on the back and the chest; the bag (1120) a bag, not worn, a
   // container; the woolen bag makes nothing.
-  Game::items.subtype = (id: Integer): String | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
-  Game::items.equipSlot = (id: Integer): String | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
-  Game::items.category = (id: Integer): String | nil => id == 1120 ? "Container" : id == 1110 || id == 1111 ? "Armor" : nil
+  Game::items.subtype = (id: integer): string | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
+  Game::items.equipSlot = (id: integer): string | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
+  Game::items.category = (id: integer): string | nil => id == 1120 ? "Container" : id == 1110 || id == 1111 ? "Armor" : nil
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   view("Table")
@@ -407,8 +407,8 @@ test "a table's class and type wrap onto lines of their own, their row as high a
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::recipeReader.schematic = schematic
-  Game::items.subtype = (id: Integer): String | nil => id == 1111 ? "Cloth Woven Of Many Long Threads" : "Cloth"
-  Game::items.category = (id: Integer): String | nil => id == 1111 ? "Armor Of Every Kind There Is" : "Armor"
+  Game::items.subtype = (id: integer): string | nil => id == 1111 ? "Cloth Woven Of Many Long Threads" : "Cloth"
+  Game::items.category = (id: integer): string | nil => id == 1111 ? "Armor Of Every Kind There Is" : "Armor"
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   view("Table")
@@ -418,7 +418,7 @@ test "a table's class and type wrap onto lines of their own, their row as high a
   Test::expect(heightOf(window().text("Brown Linen Vest").nth(1).item()) > heightOf(window().text("Linen Cloak").nth(1).item()))
 }
 
-function heightOf(part: Test::Part): Number {
+function heightOf(part: Test::Part): number {
   const rect = part.rect()
   return rect.bottom - rect.top
 }
@@ -558,7 +558,7 @@ test "the filter starts as What's Training's: a trainer's, a vendor's or a quest
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   // What's Training's: a recipe its trainer teaches, and one a vendor sells to those Friendly with its faction.
-  const all: Array<Game::Recipe> = []
+  const all: array<Game::Recipe> = []
   for (each of recipes()) { all.push(each) }
   all.push(recipe(2393, "Trainer's Shirt", 11, Game::Difficulty::Usually, 0, false))
   all.push(recipe(1301440, "Vendor's Robe", 11, Game::Difficulty::Usually, 0, false))
@@ -668,7 +668,7 @@ test "the search reads a recipe's reagents once, not again at each letter typed"
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     readings += 1
     return reagents(id)
   }
@@ -748,8 +748,8 @@ test "the card: the recipe's name, what making it does for the skill, its descri
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.description = (id: Integer): String => id == 110 ? "A plain cloak of linen." : ""
-  Game::tradeSkill.requirements = (id: Integer): Array<Game::Requirement> => id == 110 ? [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] : []
+  Game::tradeSkill.description = (id: integer): string => id == 110 ? "A plain cloak of linen." : ""
+  Game::tradeSkill.requirements = (id: integer): array<Game::Requirement> => id == 110 ? [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] : []
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   Test::expect(window().text("Always raises the skill").textColor().equal(ORANGE) && window().text("A plain cloak of linen.").shown())
@@ -769,7 +769,7 @@ test "the card of a recipe not learned says so in red, and has nothing of making
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.requirements = (id: Integer): Array<Game::Requirement> => [{ name: "Loom", met: false }]
+  Game::tradeSkill.requirements = (id: integer): array<Game::Requirement> => [{ name: "Loom", met: false }]
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   Test::expect(window().button("Create").shown() && window().text("Track").shown() && window().text("|cffff4040Needs: Loom|r").shown())
@@ -815,7 +815,7 @@ test "a long description is shown whole in the card" {
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   const long = "Teaches the tailor to sew a cloak of linen. Sewing it asks for a needle, thread, and a bolt of linen cloth, as the trainer says."
-  Game::tradeSkill.description = (id: Integer): String => long
+  Game::tradeSkill.description = (id: integer): string => long
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   Test::expect(window().text(long).shown())
@@ -827,7 +827,7 @@ test "the card's icon is the item it makes, the item's tooltip under the cursor;
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::recipeReader.schematic = schematic
-  Game::items.icon = (id: Integer): Art | nil => CLOTH_ICON
+  Game::items.icon = (id: integer): Art | nil => CLOTH_ICON
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   _ = Test::requests()
@@ -843,7 +843,7 @@ test "the card's item of a recipe not learned is dimmed" {
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::recipeReader.schematic = schematic
-  Game::items.icon = (id: Integer): Art | nil => CLOTH_ICON
+  Game::items.icon = (id: integer): Art | nil => CLOTH_ICON
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   Test::expect(window().button(CLOTH_ICON).opacity() == 1)
@@ -857,7 +857,7 @@ test "the reagents with prices off: each with have / need, red where the bags ho
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   // The woolen bag's wool has an icon of its own.
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     if (id == 121) { return [{ itemID: 2997, name: "Bolt of Woolen Cloth", icon: WOOL_ICON, have: 0, need: 3 }] }
     if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 3, 3)] }
     return reagents(id)
@@ -925,7 +925,7 @@ test "starred and tracked recipes are there after a reload" {
 
 test "a hundred starred is the most: one more takes off the one starred first" {
   // Kept from an earlier session: the cloak starred first, then ninety-eight recipes of other professions.
-  let favorites: Array<Integer> = [110]
+  let favorites: array<integer> = [110]
   for (id of 1..98) { favorites.push(5000 + id) }
   Game::saved.store(.Character, "OrdaenProfessions:memory", Kept { last: 0, seen: {}, favorites: favorites, tracked: [], queue: [], paused: {} })
   Test::reload()

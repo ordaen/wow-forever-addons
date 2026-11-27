@@ -5,24 +5,24 @@ import { Checkbox, Choice, Component, Dropdown, Section, Settings, Switch } from
 import { Choices, Delay, KindDelay, KindPlace, Place } from "@/choices"
 import Locale from "@/locales"
 
-const PLACES: Array<Choice<Place>> = [
+const PLACES: array<Choice<Place>> = [
   { value: Place::Anchor, label: Locale::TOOLTIPS_PLACE_ANCHOR },
   { value: Place::Blizzard, label: Locale::TOOLTIPS_PLACE_BLIZZARD }
 ]
-const DELAYS: Array<Choice<Delay>> = [
+const DELAYS: array<Choice<Delay>> = [
   { value: Delay::Instant, label: Locale::TOOLTIPS_DELAY_INSTANT },
   { value: Delay::Short, label: Locale::TOOLTIPS_DELAY_SHORT },
   { value: Delay::Medium, label: Locale::TOOLTIPS_DELAY_MEDIUM },
   { value: Delay::Long, label: Locale::TOOLTIPS_DELAY_LONG }
 ]
-const KINDDELAYS: Array<Choice<KindDelay>> = [
+const KINDDELAYS: array<Choice<KindDelay>> = [
   { value: KindDelay::Default, label: Locale::TOOLTIPS_DELAY_DEFAULT },
   { value: KindDelay::Instant, label: Locale::TOOLTIPS_DELAY_INSTANT },
   { value: KindDelay::Short, label: Locale::TOOLTIPS_DELAY_SHORT },
   { value: KindDelay::Medium, label: Locale::TOOLTIPS_DELAY_MEDIUM },
   { value: KindDelay::Long, label: Locale::TOOLTIPS_DELAY_LONG }
 ]
-const KINDPLACES: Array<Choice<KindPlace>> = [
+const KINDPLACES: array<Choice<KindPlace>> = [
   { value: KindPlace::Default, label: Locale::TOOLTIPS_PLACE_DEFAULT },
   { value: KindPlace::Anchor, label: Locale::TOOLTIPS_PLACE_ANCHOR },
   { value: KindPlace::Blizzard, label: Locale::TOOLTIPS_PLACE_BLIZZARD }
@@ -45,7 +45,7 @@ public class GeneralPage implements Component {
 }
 
 public class ItemsPage implements Component {
-  derived off: Boolean = !self.settings.values.itemsOn
+  derived off: boolean = !self.settings.values.itemsOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -79,7 +79,7 @@ public class ItemsPage implements Component {
 }
 
 public class SpellsPage implements Component {
-  derived off: Boolean = !self.settings.values.spellsOn
+  derived off: boolean = !self.settings.values.spellsOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -109,7 +109,7 @@ public class SpellsPage implements Component {
 }
 
 public class AurasPage implements Component {
-  derived off: Boolean = !self.settings.values.aurasOn
+  derived off: boolean = !self.settings.values.aurasOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -139,7 +139,7 @@ public class AurasPage implements Component {
 }
 
 public class PlayersPage implements Component {
-  derived off: Boolean = !self.settings.values.playersOn
+  derived off: boolean = !self.settings.values.playersOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -167,7 +167,7 @@ public class PlayersPage implements Component {
 }
 
 public class NpcsPage implements Component {
-  derived off: Boolean = !self.settings.values.npcsOn
+  derived off: boolean = !self.settings.values.npcsOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -199,7 +199,7 @@ public class NpcsPage implements Component {
 }
 
 public class ObjectsPage implements Component {
-  derived off: Boolean = !self.settings.values.objectsOn
+  derived off: boolean = !self.settings.values.objectsOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -221,7 +221,7 @@ public class ObjectsPage implements Component {
 }
 
 public class TextsPage implements Component {
-  derived off: Boolean = !self.settings.values.textsOn
+  derived off: boolean = !self.settings.values.textsOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {

@@ -15,13 +15,13 @@ const TAIL: Atlas = "ChatBubble-Tail"
 const TAIL_SIZE = 16ui
 const TAIL_MEET = 8ui
 const TAIL_IN = 8ui
-const TAIL_ROOM: Number<Length> = TAIL_SIZE - TAIL_MEET
+const TAIL_ROOM: number<Length> = TAIL_SIZE - TAIL_MEET
 const PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 
 public class SpeechBubble implements Component {
-  derived tailed: Boolean = self.tail != BubbleTail::None
-  derived tailLeft: Number<Length> | nil = self.tail == BubbleTail::Start ? TAIL_IN : nil
-  derived tailRight: Number<Length> | nil = self.tail == BubbleTail::End ? TAIL_IN : nil
+  derived tailed: boolean = self.tail != BubbleTail::None
+  derived tailLeft: number<Length> | nil = self.tail == BubbleTail::Start ? TAIL_IN : nil
+  derived tailRight: number<Length> | nil = self.tail == BubbleTail::End ? TAIL_IN : nil
 
   tone: Signal<Color>
   tail: Signal<BubbleTail>

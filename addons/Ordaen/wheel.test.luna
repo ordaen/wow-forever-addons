@@ -10,7 +10,7 @@ import Test from "$test"
 import { ROOT, SecureWheel, SlotMode, WheelAction, WheelEntry, WheelModifier, WheelRing, placeIn } from "@/secureWheel"
 import { SLOT_LUA, WHEEL_SIZE, Wheel, WheelItem, WheelMiddle, WheelNames, plainItem, slotAt } from "@/wheel"
 
-const RUN_SLOT: String = [
+const RUN_SLOT: string = [
   "local dx, dy = self:GetAttribute('dx'), self:GetAttribute('dy')",
   "local count, dead = self:GetAttribute('count'), self:GetAttribute('dead')",
   SLOT_LUA,
@@ -21,7 +21,7 @@ test "the art and the restricted code choose the same item for every direction" 
   const header = Client::CreateFrame("Frame", nil, Client::UIParent, "SecureHandlerBaseTemplate")
   for (count of 1..8) {
     for (step of 0..72) {
-      const turn = step * 5 * Number::pi / 180
+      const turn = step * 5 * number::pi / 180
       for (far of [10, 80]) {
         const dx = turn.sin() * far
         const dy = turn.cos() * far
@@ -45,10 +45,10 @@ test "the art and the restricted code choose the same item for every direction" 
 // item the client refuses in a fight, left a line of a macro.
 class Held {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
-  public state used: mut Array<String> = []
-  constructor(scale: Number, centred: Boolean = false, anchored: Boolean = false) {
-    const rings: Array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
-    const entries: Array<WheelEntry> = [
+  public state used: mut array<string> = []
+  constructor(scale: number, centred: boolean = false, anchored: boolean = false) {
+    const rings: array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
+    const entries: array<WheelEntry> = [
       { path: placeIn(ROOT, 1), action: .Spell { spell: "Find Herbs" }, refusesInFight: false, modifier: nil },
       { path: placeIn(ROOT, 2), action: WheelAction::Menu, refusesInFight: false, modifier: nil },
       { path: placeIn("r_2", 1), action: .MacroText { text: "/wave" }, refusesInFight: false, modifier: WheelModifier::Shift },
@@ -60,7 +60,7 @@ class Held {
     self.wheel.bind(["F"])
     self.wheel.picked.listen(self.onPick)
   }
-  onPick(mut self, path: String) { self.used.push(path) }
+  onPick(mut self, path: string) { self.used.push(path) }
 }
 
 // A wheel of slots and a submenu that remembers: up a slot that cycles (wave, bow), right one that remembers the
@@ -68,11 +68,11 @@ class Held {
 class Slotted {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelSlots")
   constructor() {
-    const rings: Array<WheelRing> = [
+    const rings: array<WheelRing> = [
       { path: ROOT, count: 4 }, { path: "r_1", count: 2 }, { path: "r_2", count: 2 }, { path: "r_3", count: 2 },
       { path: "r_4", count: 2 }
     ]
-    const entries: Array<WheelEntry> = [
+    const entries: array<WheelEntry> = [
       Slotted::entry("r_1", .Slot { mode: SlotMode::Cycle }), Slotted::line("r_1_1", "/wave"), Slotted::line("r_1_2", "/bow"),
       Slotted::entry("r_2", .Slot { mode: SlotMode::Remember }), Slotted::line("r_2_1", "/cheer"), Slotted::line("r_2_2", "/cry"),
       Slotted::entry("r_3", .Slot { mode: SlotMode::First }), Slotted::line("r_3_1", "/salute"), Slotted::line("r_3_2", "/dance"),
@@ -81,10 +81,10 @@ class Slotted {
     self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true, anchored: false })
     self.wheel.bind(["G"])
   }
-  entry(path: String, action: WheelAction): WheelEntry {
+  entry(path: string, action: WheelAction): WheelEntry {
     return { path: path, action: action, refusesInFight: false, modifier: nil }
   }
-  line(path: String, text: String): WheelEntry { return Slotted::entry(path, .MacroText { text: text }) }
+  line(path: string, text: string): WheelEntry { return Slotted::entry(path, .MacroText { text: text }) }
 }
 
 const MIDDLE: Test::Point = { x: 500, y: 400 }
@@ -96,22 +96,22 @@ function clickHere(button: MouseButton | nil) {
 }
 
 // The key held with the cursor at the wheel's middle.
-function open(key: String) {
+function open(key: string) {
   Test::moveTo(MIDDLE)
   Test::holdBound(key)
   Test::flush()
 }
 
 // The cursor moved by `x` right and `y` down from the middle, and a left click there.
-function clickAt(x: Number, y: Number) {
+function clickAt(x: number, y: number) {
   Test::moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
   clickHere(nil)
 }
 
 // The key held, a left click towards `x` right and `y` down, the key let go.
-function pick(x: Number, y: Number) { pickOn("F", x, y) }
+function pick(x: number, y: number) { pickOn("F", x, y) }
 
-function pickOn(key: String, x: Number, y: Number) {
+function pickOn(key: string, x: number, y: number) {
   open(key)
   clickAt(x, y)
   Test::releaseBound(key)
@@ -267,7 +267,7 @@ const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 const HOLLOW_ART: Asset = "@/media/radial-carve.tga"
 
 class Drawn {
-  public state items: Array<WheelItem> = [
+  public state items: array<WheelItem> = [
     plainItem("Character", QUESTION, false),
     plainItem("Talents", QUESTION, true),
     {
@@ -287,8 +287,8 @@ class Drawn {
 }
 
 // How many textures drawn show a file whose name holds `part`.
-function drawnOf(part: String): Integer {
-  return Test::drawn().filter(drawn => drawn.file is String && drawn.file.contains(part)).length
+function drawnOf(part: string): integer {
+  return Test::drawn().filter(drawn => drawn.file is string && drawn.file.contains(part)).length
 }
 
 test "each item is a slice cut in the stone, a gap off each side, its icon whole over its hollow; the chosen one lit, its icon outlined gold" {
@@ -544,7 +544,7 @@ test "anchored, going round on the wheel never moves it: its middle stays the ai
   const y = held.wheel.middleY
   // Round the wheel inside its edge, past where a reach of a fixed 120 dp would have moved it.
   const on = WHEEL_SIZE * 0.4 / 1ui
-  const round: Array<Test::Point> = [{ x: 0, y: -on }, { x: on, y: 0 }, { x: 0, y: on }, { x: -on, y: 0 }]
+  const round: array<Test::Point> = [{ x: 0, y: -on }, { x: on, y: 0 }, { x: 0, y: on }, { x: -on, y: 0 }]
   for (at of round) {
     Test::moveTo({ x: MIDDLE.x + at.x, y: MIDDLE.y + at.y })
     Test::pass(0.05)
@@ -642,7 +642,7 @@ test "anchored and drawn at the screen's middle, it aims from where it is drawn:
 
 // The cursor going round the wheel outside it, from straight up to the left, a quarter turn a step.
 function goRound() {
-  const round: Array<Test::Point> = [
+  const round: array<Test::Point> = [
     { x: 0, y: -300 }, { x: 212, y: -212 }, { x: 300, y: 0 }, { x: 212, y: 212 }, { x: 0, y: 300 }, { x: -212, y: 212 },
     { x: -300, y: 0 }
   ]

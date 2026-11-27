@@ -17,7 +17,7 @@ const COUNT_WIDE: Bounds = { min: 18.75dp, max: nil }
 const COUNT_PAD: Edges = { right: 1sp, left: 1sp }
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
 // tab out of it, centred on its height, in from its right edge.
-const COUNT_ROOM: Number<Length> = 28dp
+const COUNT_ROOM: number<Length> = 28dp
 const COUNT_SPOT: Edges = { right: 3sp }
 
 // A tab: an entry of the chat's sidebar, the library's list tab (its name), and while lines wait unread, their count's
@@ -32,13 +32,13 @@ public class TabButton implements Component {
 
   state hovered = false
   derived shade: Color | nil = self.open ? self.ground : self.hovered ? SHADE : nil
-  derived unread: Boolean = self.tab.unread > 0
+  derived unread: boolean = self.tab.unread > 0
 
   tab: Signal<ChatTab>
-  open: Signal<Boolean>
+  open: Signal<boolean>
   // The lines' dark ground, the open tab's.
   ground: Signal<Color>
-  constructor(tab: Signal<ChatTab>, open: Signal<Boolean>, ground: Signal<Color>) {
+  constructor(tab: Signal<ChatTab>, open: Signal<boolean>, ground: Signal<Color>) {
     self.tab = tab
     self.open = open
     self.ground = ground
@@ -84,17 +84,17 @@ public class Row implements Component {
 
   derived band: Color | nil = self.line.marked ? MARK : nil
   // A line kept from before sessions were told apart is named by its own time.
-  derived began: Integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
+  derived began: integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
   // Its time, written as every time of Ordaen's is.
-  derived time: String = timeText(Game::clock.timeAt(self.line.time.floor()))
-  derived above: Boolean = self.stamp == StampShown::Above
-  derived text: String = self.stamp == StampShown::Before ? `${STAMP.format(self.time)}${self.line.whole}` : self.line.whole
+  derived time: string = timeText(Game::clock.timeAt(self.line.time.floor()))
+  derived above: boolean = self.stamp == StampShown::Above
+  derived text: string = self.stamp == StampShown::Before ? `${STAMP.format(self.time)}${self.line.whole}` : self.line.whole
 
   line: Signal<Shown>
-  opens: Signal<Boolean>
+  opens: Signal<boolean>
   stamp: Signal<StampShown>
-  lineHeight: Signal<Number<Length>>
-  constructor(line: Signal<Shown>, opens: Signal<Boolean>, stamp: Signal<StampShown>, lineHeight: Signal<Number<Length>>) {
+  lineHeight: Signal<number<Length>>
+  constructor(line: Signal<Shown>, opens: Signal<boolean>, stamp: Signal<StampShown>, lineHeight: Signal<number<Length>>) {
     self.line = line
     self.opens = opens
     self.stamp = stamp

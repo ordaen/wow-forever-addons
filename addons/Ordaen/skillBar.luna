@@ -14,12 +14,12 @@ const TROUGH: Color = Color::hex("#0b0805")
 const RIM_COLOR: Color = Color::hex("#3d2710")
 const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
-const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const CELLS: array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const NOTCH: Line = { width: 1.171875dp, color: Color::hex("#000000bf"), sides: [Side::Right] }
-const FILL: Array<Track> = [{ fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
 
 // The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.
-function rankOf(most: Integer): String {
+function rankOf(most: integer): string {
   match (most) {
     75 => return Locale::SKILL_RANK_75
     150 => return Locale::SKILL_RANK_150
@@ -31,25 +31,25 @@ function rankOf(most: Integer): String {
 
 public class SkillBar implements Component {
   // The trough in two columns: the filled part, and the rest.
-  derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
-  derived label: String = self.labelOf()
+  derived parts: array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
+  derived label: string = self.labelOf()
   // The experience bar's fill as it starts.
   const fill: Art = xpFillArt(XpFill::Brushed)
 
   // The player's skill and the most it goes to now: the open profession's, a trainer's.
-  rank: Signal<Integer>
-  most: Signal<Integer>
-  constructor(rank: Signal<Integer>, most: Signal<Integer>) {
+  rank: Signal<integer>
+  most: Signal<integer>
+  constructor(rank: Signal<integer>, most: Signal<integer>) {
     self.rank = rank
     self.most = most
   }
 
-  shareOf(self): Number {
+  shareOf(self): number {
     if (self.most <= 0) { return 0 }
     return (1).min(self.rank / self.most)
   }
 
-  labelOf(self): String {
+  labelOf(self): string {
     if (self.rank <= 0 && self.most <= 0) { return "" }
     const skill = "%d / %d".format(self.rank, self.most)
     const rank = rankOf(self.most)

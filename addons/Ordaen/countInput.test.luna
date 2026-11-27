@@ -18,7 +18,7 @@ class Pair {
   }
 }
 
-function click(text: String) {
+function click(text: string) {
   Test::click(Test::holding(text, nil), nil)
   Test::flush()
 }

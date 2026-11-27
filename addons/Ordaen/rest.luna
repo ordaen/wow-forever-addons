@@ -11,23 +11,23 @@ public const REST = 0.25
 
 public class Resting<T> {
   // When what the input holds is written, while it moves.
-  state deadline: Number | nil = nil
-  derived due: Boolean = self.deadline != nil && Game::clock.time >= (self.deadline ?? 0)
+  state deadline: number | nil = nil
+  derived due: boolean = self.deadline != nil && Game::clock.time >= (self.deadline ?? 0)
   // What the input holds and hasn't written yet.
   pending: T | nil = nil
   under = false
   const write: (value: T) => nil
   // An input that tells no end (the game's colour picker closed with OK): its rest ends it.
-  const endsAtRest: Boolean
+  const endsAtRest: boolean
 
   // `write` puts a value where the control is bound.
-  constructor(write: (value: T) => nil, endsAtRest: Boolean = false) {
+  constructor(write: (value: T) => nil, endsAtRest: boolean = false) {
     self.write = write
     self.endsAtRest = endsAtRest
     watch (due of self.due) { self.rested(due) }
   }
 
-  rested(mut self, due: Boolean) {
+  rested(mut self, due: boolean) {
     if (!due) { return }
     if (self.endsAtRest) {
       self.end()
@@ -40,7 +40,7 @@ public class Resting<T> {
   destructor() { self.end() }
 
   // Whether an input is under way: the control shows its own value, not the one it is bound to.
-  public busy(self): Boolean { return self.under }
+  public busy(self): boolean { return self.under }
 
   // The input moved to `value`: written once it rests.
   public move(mut self, value: T) {

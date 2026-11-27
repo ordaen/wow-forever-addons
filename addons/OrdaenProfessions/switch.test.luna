@@ -15,24 +15,24 @@ function gameWindow(): any Client::Frame {
   return own
 }
 
-function categories(base: Integer, name: String): Array<Game::Category> {
-  let list: Array<Game::Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
-  for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + String::of(i), parentID: base }) }
+function categories(base: integer, name: string): array<Game::Category> {
+  let list: array<Game::Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
+  for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + string::of(i), parentID: base }) }
   return list
 }
 
-function recipes(base: Integer, name: String, count: Integer): Array<Game::Recipe> {
-  let list: Array<Game::Recipe> = []
+function recipes(base: integer, name: string, count: integer): array<Game::Recipe> {
+  let list: array<Game::Recipe> = []
   for (i of 1..count) {
     list.push({
-      id: base * 1000 + i, name: name + " thing " + String::of(i), icon: "Interface/Icons/INV_Misc_Note_01",
+      id: base * 1000 + i, name: name + " thing " + string::of(i), icon: "Interface/Icons/INV_Misc_Note_01",
       categoryID: base * 100 + 1 + i % 12, learned: i % 5 != 0, difficulty: Game::Difficulty::Usually, craftable: i % 3
     })
   }
   return list
 }
 
-function known(): Array<Game::Profession> {
+function known(): array<Game::Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
     { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game::ProfessionKind::Crafting }

@@ -16,10 +16,10 @@ public enum Kind {
 // glossary, with the amount the part speaks of; a name with its whole sentence (a camp's building and its bonus);
 // a unit's own tooltip, by the game's name for the unit (`mouseovertarget`); an item's own (a reagent's).
 public enum Opens {
-  Term { term: Term, amount: String | nil }
-  Text { name: String, text: String }
-  Unit { unit: String }
-  Item { id: Integer }
+  Term { term: Term, amount: string | nil }
+  Text { name: string, text: string }
+  Unit { unit: string }
+  Item { id: integer }
   // A list another module's line gives (the recipes that take a reagent), whose rows open further.
   Listing { listing: Listing }
   None
@@ -30,12 +30,12 @@ public function named(term: Term): Opens {
   return Opens.Term { term: term, amount: nil }
 }
 
-public function namedWith(term: Term, amount: String): Opens {
+public function namedWith(term: Term, amount: string): Opens {
   return Opens.Term { term: term, amount: amount }
 }
 
 // The term for a unit's side.
-public function side(faction: String): Opens {
+public function side(faction: string): Opens {
   if (faction == "Alliance") { return named(Term::Alliance) }
   if (faction == "Horde") { return named(Term::Horde) }
   return Opens::None
@@ -43,7 +43,7 @@ public function side(faction: String): Opens {
 
 // A piece of a title's line: the pieces are joined with « · », each in its colour.
 public struct Part {
-  text: String
+  text: string
   color: Color | nil
   opens: Opens = Opens::None
 }
@@ -56,20 +56,20 @@ public struct Fact {
 
 // A line of the body: a name and its value on the right, or free text that wraps.
 public struct TextLine {
-  left: String
-  right: String | nil
+  left: string
+  right: string | nil
   color: Color | nil
   rightColor: Color | nil
   // A spell's or an aura's description: larger than a free line.
-  desc: Boolean | nil
+  desc: boolean | nil
   // A party member's progress under an objective: set in.
-  indent: Boolean | nil
+  indent: boolean | nil
   // A quest's title over its objectives: apart from the rows before it, its objectives close under it.
-  heads: Boolean | nil
+  heads: boolean | nil
   // The icon before its name: the game's mark of a quest to take or to hand in.
   icon: Art | nil
   // On an item's stat: the game's key for it, which a comparison finds it by.
-  stat: String | nil
+  stat: string | nil
   // An item's stat against the one it is compared with: after its value, in brackets.
   compared: Compared | nil
   // What its name opens.
@@ -79,14 +79,14 @@ public struct TextLine {
 // A stat's difference from the compared item's: more or less, and by how much as shown (never signed: the mark says
 // which way).
 public struct Compared {
-  more: Boolean
-  by: String
+  more: boolean
+  by: string
 }
 
 // A line of the footer: a label and its value, quiet.
 public struct Note {
-  left: String
-  right: String | nil
+  left: string
+  right: string | nil
   valueColor: Color | nil
   // The icon before its label: a reagent's.
   icon: Art | nil = nil
@@ -98,7 +98,7 @@ public struct Note {
 // The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.
 public enum Picture {
   Icon { art: Art }
-  Face { unit: String }
+  Face { unit: string }
   None
 }
 
@@ -111,17 +111,17 @@ public function iconOf(art: Art | nil): Picture {
 public struct Model {
   kind: Kind
   // Above the title: «Equipped» on the worn item of a comparison.
-  header: String | nil
+  header: string | nil
   picture: Picture = Picture::None
-  name: String
+  name: string
   nameColor: Color
-  desc: Array<Part>
-  info: Array<Part>
-  facts: Array<Fact>
-  body: Array<TextLine>
-  more: Array<TextLine>
-  foot: Array<Note>
-  keys: Array<String>
+  desc: array<Part>
+  info: array<Part>
+  facts: array<Fact>
+  body: array<TextLine>
+  more: array<TextLine>
+  foot: array<Note>
+  keys: array<string>
   // Something in it counts down while it shows (a cooldown): it is read again once a second.
-  timer: Boolean | nil
+  timer: boolean | nil
 }

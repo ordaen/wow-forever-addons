@@ -13,11 +13,11 @@ import { BRIGHT_TEXT, Component, Corners, RoundedFill, Tip } from "Ordaen"
 // A mark on a gauge: where it stands, as a share of the gauge (a cap: the hit that misses nothing, the expertise that
 // takes a target's dodge off), and its tooltip's title and text.
 public struct GaugeMark {
-  const share: Number
-  const title: String
-  const text: String
+  const share: number
+  const title: string
+  const text: string
 }
-const NO_MARKS: Array<GaugeMark> = []
+const NO_MARKS: array<GaugeMark> = []
 // A mark's line, and the room round it that takes the cursor.
 const MARK_LINE = 1.7578125dp
 const MARK_ROOM = 7.03125dp
@@ -30,7 +30,7 @@ class MarkView implements Component {
   public left: Event<nil> = new Event()
 
   state hovered = false
-  derived columns: Array<Track> = [{ fr: self.mark.share.max(0).min(1) }, 0ui, { fr: 1 - self.mark.share.max(0).min(1) }]
+  derived columns: array<Track> = [{ fr: self.mark.share.max(0).min(1) }, 0ui, { fr: 1 - self.mark.share.max(0).min(1) }]
 
   mark: Signal<GaugeMark>
   constructor(mark: Signal<GaugeMark>) {
@@ -69,9 +69,9 @@ const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
 const RIM: Color = Color::hex("#000000")
 const UNTINTED: Color = Color::hex("#ffffff")
 // The rim's width, and how round the well's corners are, outside the rim and inside it.
-const LINE: Number<Length> = 1.171875dp
-const ROUND: Number<Length> = 3.515625dp
-const INNER: Number<Length> = ROUND - LINE
+const LINE: number<Length> = 1.171875dp
+const ROUND: number<Length> = 3.515625dp
+const INNER: number<Length> = ROUND - LINE
 const SHADE: Color = Color::hex("#000000b3")
 const SHADE_HEIGHT = 2.34375dp
 const SIDE_SHADE: Color = Color::hex("#00000066")
@@ -81,7 +81,7 @@ const SIDE_LIP: Color = Color::hex("#ffdeaa12")
 const LIP_HEIGHT = 1.171875dp
 const GLOSS: Color = Color::hex("#ffffff1f")
 const TEXT_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 
 // The carve's floor, filling the box it stands in: the rim, the marble inside it.
 public class CarvedFloor implements Component {
@@ -113,16 +113,16 @@ public class CarveShade implements Component {
 }
 
 // How far in from the carve's edge what fills it stands: its rim's width.
-public const WELL_INSET: Number<Length> = LINE
+public const WELL_INSET: number<Length> = LINE
 
 // A part of a well split by shares (the resistances'): the client's bar texture in its colour, rounded where the well
 // is (`corners`: the first part's left, the last's right), the gloss over its upper half, its text in its middle,
 // outlined as a gauge's.
 public class WellSlice implements Component {
   color: Signal<Color>
-  text: Signal<String>
+  text: Signal<string>
   corners: Signal<Corners>
-  constructor(color: Signal<Color>, text: Signal<String>, corners: Signal<Corners>) {
+  constructor(color: Signal<Color>, text: Signal<string>, corners: Signal<Corners>) {
     self.color = color
     self.text = text
     self.corners = corners
@@ -146,7 +146,7 @@ public class WellSlice implements Component {
 }
 
 // The well's two tracks: the fill's share and the rest.
-function sharesOf(value: Number): Array<Track> {
+function sharesOf(value: number): array<Track> {
   const share = value.max(0).min(1)
   return [{ fr: share }, { fr: 1 - share }]
 }
@@ -156,27 +156,27 @@ public class GaugeBar implements Component {
   public markEntered: Event<nil> = new Event()
   public markLeft: Event<nil> = new Event()
 
-  derived shares: Array<Track> = sharesOf(self.value)
-  derived full: Boolean = self.value >= 1
+  derived shares: array<Track> = sharesOf(self.value)
+  derived full: boolean = self.value >= 1
   derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.full, bottomRight: self.full }
-  derived glossHeight: Number<Length> = self.height / 2
-  derived hasText: Boolean = self.text != ""
+  derived glossHeight: number<Length> = self.height / 2
+  derived hasText: boolean = self.text != ""
 
-  value: Signal<Number>
+  value: Signal<number>
   tone: Signal<Color>
-  height: Signal<Number<Length>>
-  text: Signal<String>
+  height: Signal<number<Length>>
+  text: Signal<string>
   font: Signal<TextFont>
-  marks: Signal<Array<GaugeMark>>
+  marks: Signal<array<GaugeMark>>
   constructor(
     // How full, from 0 to 1.
-    value: Signal<Number>,
+    value: Signal<number>,
     tone: Signal<Color>,
-    height: Signal<Number<Length>>,
+    height: Signal<number<Length>>,
     // In its middle; none: no text. In the numbers' font unless it is words (a standing's name).
-    text: Signal<String> = "",
+    text: Signal<string> = "",
     font: Signal<TextFont> = TextFont::Numbers,
-    marks: Signal<Array<GaugeMark>> = NO_MARKS
+    marks: Signal<array<GaugeMark>> = NO_MARKS
   ) {
     self.value = value
     self.tone = tone

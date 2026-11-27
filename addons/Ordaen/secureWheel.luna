@@ -23,14 +23,14 @@ import { DEAD_ZONE, SLOT_LUA, WHEEL_SIZE, slotAt } from "@/wheel"
 // What an item does. The client does the first four on the click, in a fight too.
 public enum WheelAction implements Plain {
   // A spell by its name: its highest rank, a mount, a profession's window.
-  Spell { spell: String }
+  Spell { spell: string }
   // An item of the bags or worn, by its number.
-  Item { item: Integer }
+  Item { item: integer }
   // A macro of the player's, by its name.
-  Macro { macro: String }
+  Macro { macro: string }
   // A line of a macro: an emote (`/wave`), a ping (`/ping attack`), a mark (`/tm 8`), a window of the game's
   // (`/click CharacterMicroButton`), a spell on a condition (`/cast [form:1] Maul`).
-  MacroText { text: String }
+  MacroText { text: string }
   // It opens its own ring in place.
   Menu
   // A slot of several: its children stand under its place, as a submenu's do; it does the current one.
@@ -47,37 +47,37 @@ public enum WheelModifier implements Plain { Shift = "shift", Ctrl = "ctrl", Alt
 
 // One item of a wheel by its place: `r_3` the root ring's third, `r_3_2` the second of that one's submenu.
 public struct WheelEntry {
-  path: String
+  path: string
   action: WheelAction
   // The client refuses it in a fight (a window it won't open then): dimmed, and nothing done.
-  refusesInFight: Boolean
+  refusesInFight: boolean
   // Done only with this held.
   modifier: WheelModifier | nil
 }
 
 // How many items a ring holds, by its place (`r`, `r_3`).
 public struct WheelRing {
-  path: String
-  count: Integer
+  path: string
+  count: integer
 }
 
 // How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether it is anchored to
 // the cursor.
 public struct WheelSetup {
   // It is drawn at the screen's middle and not at the cursor. It never moves while it is up.
-  centred: Boolean
-  scale: Number
-  remember: Boolean
+  centred: boolean
+  scale: number
+  remember: boolean
   // Anchored: it aims two ways, and goes from one to the other as the cursor moves. On the wheel as drawn, or going
   // round it (`ROUND`), from the wheel's middle: the item under the cursor, or in its direction. Else from a point that
   // trails the cursor (`REACH`, `TRAIL`), starting where the hand was as the wheel opened: a short move turns to
   // another item whichever way the cursor went first. Not anchored, it aims from where the cursor was as it opened.
-  anchored: Boolean
+  anchored: boolean
 }
 
 // The place of the root ring, and of an item or a ring inside one.
 public const ROOT = "r"
-public function placeIn(ring: String, index: Integer): String { return `${ring}_${index}` }
+public function placeIn(ring: string, index: integer): string { return `${ring}_${index}` }
 
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
@@ -88,19 +88,19 @@ const REACH = 120dp
 const TRAIL = 108dp
 // Going round the wheel: the cursor's steps out of that square turning round the wheel's middle one way, more along
 // the way round than in or out, by this much together. A step more in or out than round ends it.
-const ROUND: Number = 0.5 * Number::pi
+const ROUND: number = 0.5 * number::pi
 // The bands round that square: the cursor going out of it comes into one of them, by its own motion, which is what
 // the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still runs
 // none. Each by the point of its side that touches the square, which way that side is from the middle, and
 // whether it runs across the screen (over or under the square) or beside the square, as tall as it. Together they
 // cover everything round the square, each reaching twice the screen away.
 struct Band {
-  point: String
-  x: Number
-  y: Number
-  across: Boolean
+  point: string
+  x: number
+  y: number
+  across: boolean
 }
-const BANDS: Array<Band> = [
+const BANDS: array<Band> = [
   { point: "BOTTOM", x: 0, y: 1, across: true },
   { point: "TOP", x: 0, y: -1, across: true },
   { point: "RIGHT", x: -1, y: 0, across: false },
@@ -108,7 +108,7 @@ const BANDS: Array<Band> = [
 ]
 // The client's restricted code that reads which item of the ring shown (`level`) the cursor went towards: it sets
 // `slot`, 0 in the middle.
-const AIM: String = [
+const AIM: string = [
   "local count = owner:GetAttribute('count-' .. level) or 0",
   "local dead = owner:GetAttribute('dead') or 0",
   "local x, y = self:GetMousePosition()",
@@ -133,7 +133,7 @@ const AIM: String = [
 // mouse wheel stepped to; a press in the middle takes none, and the release does what the cursor went towards then
 // (a submenu that remembers: its last). A right click goes back a ring, closing the wheel from the first; Escape
 // closes it.
-const CHOICE: String = [
+const CHOICE: string = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
   "  owner:SetAttribute('armed', nil)",
@@ -209,7 +209,7 @@ const CHOICE: String = [
 // several, the item it steps to goes on to the next (down) or back (up), through nought, the ring itself. A step
 // belongs to the item it was made on: stepping another takes the last one's back (out of a fight the aim leaving it
 // does, `forgetStep`; in one, addon code can't).
-const STEP: String = [
+const STEP: string = [
   "local level = owner:GetAttribute('level') or 'r'",
   AIM,
   "slot = owner:GetAttribute('armed') or slot",
@@ -231,7 +231,7 @@ const STEP: String = [
 // and a turn of `ROUND` aims from the wheel's middle; more in or out than round, it aims from the trailing point
 // again. Then the point stands `trail` behind the cursor: away from the wheel's middle on the wheel or going round it,
 // so the item stays the same as the aim goes back to it; else along the way the cursor went.
-const LEASH: String = [
+const LEASH: string = [
   "if not owner:GetAttribute('anchored') or owner:GetAttribute('armed') then return end",
   "local b = owner:GetFrameRef('button')",
   "local dial = owner:GetFrameRef('dial')",
@@ -273,7 +273,7 @@ const LEASH: String = [
 
 // The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
 // has one (`shift-type-r_3`).
-function actionAttributes(entry: WheelEntry): Array<[String, String]> {
+function actionAttributes(entry: WheelEntry): array<[string, string]> {
   const at = entry.path
   const held = entry.modifier
   const before = held == nil ? "" : `${held == WheelModifier::Shift ? "shift" : held == WheelModifier::Ctrl ? "ctrl" : "alt"}-`
@@ -289,18 +289,18 @@ function actionAttributes(entry: WheelEntry): Array<[String, String]> {
 public class SecureWheel {
   // Whether the wheel is up, and the ring it shows (`r`, `r_3`).
   public state open = false
-  public state level: String = ROOT
+  public state level: string = ROOT
   // The cursor from where it was as the wheel opened, right and up, in the screen's units: what the art aims by, as the
   // restricted code does (its button stands centred on that point).
-  public state aimX: Number = 0
-  public state aimY: Number = 0
+  public state aimX: number = 0
+  public state aimY: number = 0
   // Where the wheel's middle stands, from the screen's bottom left, in its units: where the art is drawn (the screen's
   // middle for a centred wheel, else where the cursor was as it opened).
-  public state middleX: Number = 0
-  public state middleY: Number = 0
+  public state middleX: number = 0
+  public state middleY: number = 0
   // How far it has opened, 0 to 1, over `OPENING_TIME`; and a count that moves while it is up, every `STATE_EVERY`
   // seconds: what an item's state (its cooldown, its range) is read again by.
-  public state opening: Number = 1
+  public state opening: number = 1
   public state tick = 0
   // An item taken by a press, until the release does it: the aim stands still, wherever the cursor goes.
   public state armed = false
@@ -309,7 +309,7 @@ public class SecureWheel {
   // A count that moves as the mouse wheel steps a band: what the art reads the steps again by.
   public state steps = 0
   // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
-  public const picked: Event<String> = new Event()
+  public const picked: Event<string> = new Event()
 
   // The client's restricted code runs in the header's environment; the button is what the key and the mouse click.
   const header: any Client::Frame
@@ -318,25 +318,25 @@ public class SecureWheel {
   const follower: any Client::Frame
   // The bands round the square of the trailing point (`BANDS`): each hears the cursor come into it (`LEASH`), and
   // lets every click through.
-  const bands: Array<any Client::Frame>
+  const bands: array<any Client::Frame>
   // Where the wheel is drawn, as large as the button: what an anchored wheel aims from on the wheel or going round it.
   const dial: any Client::Frame
   // The attributes written for the items last, unwritten before others are.
-  written: mut Array<String> = []
-  writtenOnHeader: mut Array<String> = []
-  picks: Integer = 0
+  written: mut array<string> = []
+  writtenOnHeader: mut array<string> = []
+  picks: integer = 0
   // The keys that hold it, without their modifiers (`"Q"` of `"CTRL-Q"`): what the client says is down.
-  held: mut Array<String> = []
-  openedAt: Number = 0
-  readAt: Number = 0
+  held: mut array<string> = []
+  openedAt: number = 0
+  readAt: number = 0
   // The item the aim was on last (the middle is none).
-  aimedName: String | nil = nil
-  anchored: Boolean = false
-  scale: Number = 1
+  aimedName: string | nil = nil
+  anchored: boolean = false
+  scale: number = 1
 
   constructor(
     // The button's global name: what the client's binding clicks.
-    name: String
+    name: string
   ) {
     self.header = Client::CreateFrame("Frame", nil, Client::UIParent, "SecureHandlerBaseTemplate")
     const made = Client::CreateFrame("Button", name, Client::UIParent, "SecureActionButtonTemplate")
@@ -379,17 +379,17 @@ public class SecureWheel {
     header.SetAttribute("dead", DEAD_ZONE / 1ui)
     Client::RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
     Client::SecureHandlerWrapScript(button, "OnClick", header, CHOICE, nil)
-    _ = button.HookScript("OnClick", (frame: Unknown, how: Unknown, down: Unknown): nil => self.heard())
+    _ = button.HookScript("OnClick", (frame: unknown, how: unknown, down: unknown): nil => self.heard())
     Client::SecureHandlerWrapScript(button, "OnMouseWheel", header, STEP, nil)
-    _ = button.HookScript("OnMouseWheel", (frame: Unknown, offset: Unknown): nil => { self.steps += 1 })
+    _ = button.HookScript("OnMouseWheel", (frame: unknown, offset: unknown): nil => { self.steps += 1 })
   }
 
   // The rings and their items and how the wheel is laid out, written out of a fight (in one, at its end).
-  public apply(mut self, rings: Array<WheelRing>, entries: Array<WheelEntry>, setup: WheelSetup) {
+  public apply(mut self, rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
     Ordaen.afterCombat(() => self.write(rings, entries, setup))
   }
 
-  write(mut self, rings: Array<WheelRing>, entries: Array<WheelEntry>, setup: WheelSetup) {
+  write(mut self, rings: array<WheelRing>, entries: array<WheelEntry>, setup: WheelSetup) {
     for (name of self.written) { self.button.SetAttribute(name, nil) }
     for (name of self.writtenOnHeader) { self.header.SetAttribute(name, nil) }
     self.written.clear()
@@ -415,7 +415,7 @@ public class SecureWheel {
       if (action is WheelAction::Slot) {
         const children = rings.find(ring => ring.path == entry.path)
         self.onHeader(`slot-${entry.path}`, children?.count ?? 0)
-        self.onHeader(`mode-${entry.path}`, String::of(action.mode))
+        self.onHeader(`mode-${entry.path}`, string::of(action.mode))
       }
       if (entry.refusesInFight) { self.onHeader(`fightoff-${entry.path}`, true) }
       for (pair of actionAttributes(entry)) {
@@ -425,25 +425,25 @@ public class SecureWheel {
     }
   }
 
-  onHeader(mut self, name: String, value: String | Integer | Boolean) {
+  onHeader(mut self, name: string, value: string | integer | boolean) {
     self.header.SetAttribute(name, value)
     self.writtenOnHeader.push(name)
   }
 
   // The item of a submenu or a slot of several the mouse wheel stepped to, by its place: 0 for none, the ring itself.
-  public step(self, path: String): Integer {
+  public step(self, path: string): integer {
     const kept = self.header.GetAttribute(`step-${path}`)
-    return kept is Integer ? kept : 0
+    return kept is integer ? kept : 0
   }
 
   // The child a slot of several does now, by the slot's place: the client's restricted code keeps it.
-  public current(self, path: String): Integer {
+  public current(self, path: string): integer {
     const kept = self.header.GetAttribute(`current-${path}`)
-    return kept is Integer ? kept : 1
+    return kept is integer ? kept : 1
   }
 
   // The keys that hold the wheel, by the client's names (`"CTRL-Q"`), bound over the player's own out of a fight.
-  public bind(mut self, keys: Array<String>) {
+  public bind(mut self, keys: array<string>) {
     self.held.clear()
     for (key of keys) { self.held.push(key.match("^.+%-(.+)$") ?? key) }
     const header = self.header
@@ -458,16 +458,16 @@ public class SecureWheel {
   // ring it was), then the wheel's state as its restricted code left it.
   heard(mut self) {
     const picks = self.header.GetAttribute("picks")
-    if (picks is Integer && picks != self.picks) {
+    if (picks is integer && picks != self.picks) {
       self.picks = picks
       const chosen = self.header.GetAttribute("chosen")
-      if (chosen is String) { self.picked.emit(chosen) }
+      if (chosen is string) { self.picked.emit(chosen) }
     }
     // A press takes an item and its release lets it go: told at each click, the closing one too.
     self.armed = self.header.GetAttribute("armed") != nil
     const shown = self.button.IsShown()
     const level = self.header.GetAttribute("level")
-    self.level = level is String ? level : ROOT
+    self.level = level is string ? level : ROOT
     if (shown != self.open) {
       self.open = shown
       self.follow(shown)
@@ -483,7 +483,7 @@ public class SecureWheel {
   }
 
   // The bands round the square of the aim's middle, `reach` from it each way.
-  placeBands(self, reach: Number) {
+  placeBands(self, reach: number) {
     const far = Client::UIParent.GetWidth().max(Client::UIParent.GetHeight()) * 2
     for (i of 1..BANDS.length) {
       const band = BANDS[i] ?? panic("a band for each frame")
@@ -495,7 +495,7 @@ public class SecureWheel {
   }
 
   // The cursor followed while the wheel is up, and not at all once it closes; it opens over `OPENING_TIME`.
-  follow(mut self, on: Boolean) {
+  follow(mut self, on: boolean) {
     if (!on) {
       self.follower.SetScript("OnUpdate", nil)
       return
@@ -555,7 +555,7 @@ public class SecureWheel {
   forgetStep(mut self) {
     const count = self.header.GetAttribute(`count-${self.level}`)
     const dead = self.header.GetAttribute("dead")
-    if (!(count is Integer) || !(dead is Number)) { return }
+    if (!(count is integer) || !(dead is number)) { return }
     const slot = slotAt(self.aimX, self.aimY, count, dead)
     if (slot == 0) { return }
     const name = placeIn(self.level, slot)

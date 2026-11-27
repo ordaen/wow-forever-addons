@@ -22,42 +22,42 @@ const SHORT: Color = Color::hex("#ff6a5a")
 const SMITHING_ICON: FileId = 136241
 const BOLT_ICON: Art = "Interface/Icons/INV_Fabric_Linen_02"
 
-function recipe(id: Integer, name: String, category: Integer, craftable: Integer, difficulty: Game::Difficulty): Game::Recipe {
+function recipe(id: integer, name: string, category: integer, craftable: integer, difficulty: Game::Difficulty): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true, difficulty: difficulty,
     craftable: craftable
   }
 }
 
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
     { skillLine: SMITHING, name: "Blacksmithing", icon: SMITHING_ICON, rank: 40, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
-function tailoringCategories(): Array<Game::Category> {
+function tailoringCategories(): array<Game::Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
 // The cloak (orange) with the bags making `cloaks`, the bolt (green) with nine, and a bandage at the camp.
-function tailoringRecipes(cloaks: Integer): Array<Game::Recipe> {
+function tailoringRecipes(cloaks: integer): array<Game::Recipe> {
   return [
     recipe(CLOAK, "Linen Cloak", 11, cloaks, Game::Difficulty::Always), recipe(BOLT, "Bolt of Linen Cloth", 11, 9, Game::Difficulty::Rarely),
     recipe(3275, "Linen Bandage", 10, 9, Game::Difficulty::Usually)
   ]
 }
 
-function smithingCategories(): Array<Game::Category> {
+function smithingCategories(): array<Game::Category> {
   return [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Stones", parentID: 2 }]
 }
 
-function smithingRecipes(): Array<Game::Recipe> {
+function smithingRecipes(): array<Game::Recipe> {
   return [recipe(STONE, "Rough Sharpening Stone", 21, 4, Game::Difficulty::Always)]
 }
 
 // A cloak takes a bolt (three held) and a thread (none); a bolt, two linen (four held).
-function reagents(id: Integer): Array<Game::Reagent> {
+function reagents(id: integer): array<Game::Reagent> {
   if (id == CLOAK) {
     return [
       { itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_02", have: 3, need: 1 },
@@ -73,20 +73,20 @@ function window(): Test::Part {
 }
 
 // What the game was asked, but the tooltips of the rows the cursor crossed.
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // The recipe chosen in the lists and «Create» clicked at a count `count`.
-function create(name: String, count: Integer) {
+function create(name: string, count: integer) {
   window().text(name).nth(1).click()
   for (step of 2..count) { window().button("+").click() }
   window().button("Create").click()
@@ -101,7 +101,7 @@ function queueTab(): Test::Part {
   panic("no «Queue» tab")
 }
 
-function off(part: Test::Part): Boolean {
+function off(part: Test::Part): boolean {
   return part.paintedWith(Ordaen.art.ctl.buttonDisabled)
 }
 
@@ -593,7 +593,7 @@ test "a reagent two recipes need is summed on one line, and follows a line's cou
   Game::tradeSkill.categories = tailoringCategories()
   Game::tradeSkill.recipes = tailoringRecipes(5)
   // The bandage takes a thread, the cloak's second reagent; one thread is held.
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     const thread: Game::Reagent = { itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 1, need: 1 }
     if (id == 3275) { return [thread] }
     if (id == CLOAK) { return [reagents(CLOAK)[1] ?? panic("the cloak takes a bolt"), thread] }
@@ -749,7 +749,7 @@ test "a reagent two recipes need that the bags hold all of is missing none" {
   Game::tradeSkill.categories = tailoringCategories()
   Game::tradeSkill.recipes = tailoringRecipes(5)
   // The cloak and the bandage take a thread each; five are held.
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     if (id == CLOAK || id == 3275) { return [{ itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 5, need: 1 }] }
     return []
   }

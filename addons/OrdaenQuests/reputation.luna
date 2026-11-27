@@ -15,7 +15,7 @@ const DIPLOMAT = 1225485
 const DIPLOMAT_STEP = 0.02
 
 // The player's rank of Diplomat: 0 without the legacy tree or the talent.
-function diplomatRank(): Integer {
+function diplomatRank(): integer {
   const config = Client::C_Traits::GetConfigIDBySystemID(LEGACY_TREE)
   if (config == nil) { return 0 }
   for (tree of Client::C_Traits::GetConfigInfo(config)?.treeIDs ?? []) {
@@ -34,8 +34,8 @@ function diplomatRank(): Integer {
 
 // The reputations by the factions' names, a gain with the player's bonus (a loss as it is); a faction the client
 // doesn't name is left out.
-public function standingsOf(gains: Array<FactionGain>): Array<Standing> {
-  let standings: Array<Standing> = []
+public function standingsOf(gains: array<FactionGain>): array<Standing> {
+  let standings: array<Standing> = []
   if (gains.length == 0) { return standings }
   const bonus = 1 + diplomatRank() * DIPLOMAT_STEP
   for (gain of gains) {

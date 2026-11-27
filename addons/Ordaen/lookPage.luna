@@ -15,9 +15,9 @@ import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
 const DIM: Color = Color::hex("#a3977f")
 const IN_USE: Color = Color::hex("#a6e39a")
-const PRESET_ROW: Array<Track> = [{ fr: 1 }, 175.78125dp]
+const PRESET_ROW: array<Track> = [{ fr: 1 }, 175.78125dp]
 
-const FONTS: Array<Choice<Font>> = [
+const FONTS: array<Choice<Font>> = [
   { value: Font::FiraSans, label: Locale::THEME_FONT_FIRASANS },
   { value: Font::AlegreyaSans, label: Locale::THEME_FONT_ALEGREYASANS },
   { value: Font::PtSans, label: Locale::THEME_FONT_PTSANS },
@@ -27,30 +27,30 @@ const FONTS: Array<Choice<Font>> = [
   { value: Font::FiraCondensed, label: Locale::THEME_FONT_FIRACONDENSED },
   { value: Font::PtSansNarrow, label: Locale::THEME_FONT_PTSANSNARROW }
 ]
-const NUMBERS_FONTS: Array<Choice<NumbersFont>> = [
+const NUMBERS_FONTS: array<Choice<NumbersFont>> = [
   { value: NumbersFont::PtSans, label: Locale::THEME_FONT_PTSANS },
   { value: NumbersFont::PtSansNarrow, label: Locale::THEME_FONT_PTSANSNARROW }
 ]
-const BOOK_FONTS: Array<Choice<BookFont>> = [
+const BOOK_FONTS: array<Choice<BookFont>> = [
   { value: BookFont::PtSerif, label: Locale::THEME_FONT_PTSERIF },
   { value: BookFont::Alegreya, label: Locale::THEME_FONT_ALEGREYA },
   { value: BookFont::Literata, label: Locale::THEME_FONT_LITERATA },
   { value: BookFont::Lora, label: Locale::THEME_FONT_LORA }
 ]
-const BARS: Array<Choice<BarTexture>> = [
+const BARS: array<Choice<BarTexture>> = [
   { value: BarTexture::Flat, label: Locale::THEME_BAR_FLAT },
   { value: BarTexture::Blizzard, label: Locale::THEME_BAR_BLIZZARD }
 ]
-const FRAMES: Array<Choice<BarFrame>> = [
+const FRAMES: array<Choice<BarFrame>> = [
   { value: BarFrame::Bezel, label: Locale::THEME_BARFRAME_BEZEL },
   { value: BarFrame::Groove, label: Locale::THEME_BARFRAME_GROOVE }
 ]
-const ANIMATIONS: Array<Choice<Animation>> = [
+const ANIMATIONS: array<Choice<Animation>> = [
   { value: Animation::Smooth, label: Locale::THEME_ANIM_SMOOTH },
   { value: Animation::Fast, label: Locale::THEME_ANIM_FAST },
   { value: Animation::Off, label: Locale::THEME_ANIM_OFF }
 ]
-const HUES: Array<Choice<Hue>> = [
+const HUES: array<Choice<Hue>> = [
   { value: Hue::Red, label: Locale::THEME_PALETTECOLOR_RED },
   { value: Hue::Orange, label: Locale::THEME_PALETTECOLOR_ORANGE },
   { value: Hue::Yellow, label: Locale::THEME_PALETTECOLOR_YELLOW },
@@ -64,14 +64,14 @@ const HUES: Array<Choice<Hue>> = [
   { value: Hue::Grey, label: Locale::THEME_PALETTECOLOR_GREY }
 ]
 
-function nameOf(named: Preset): String {
+function nameOf(named: Preset): string {
   match (named) {
     Preset::Ordaen => return Locale::THEME_NAME_ORDAEN
     Preset::Minimal => return Locale::THEME_NAME_MINIMAL
   }
 }
 
-function aboutOf(named: Preset): String {
+function aboutOf(named: Preset): string {
   match (named) {
     Preset::Ordaen => return Locale::THEME_ABOUT_ORDAEN
     Preset::Minimal => return Locale::THEME_ABOUT_MINIMAL
@@ -81,9 +81,9 @@ function aboutOf(named: Preset): String {
 // A preset: its name and what it is, and «Use», which writes the whole of it into the look; «In use» where the
 // look is that preset as it stands.
 public class PresetRow implements Component {
-  derived inUse: Boolean = presetOf(self.look.values) == self.preset
-  derived name: String = nameOf(self.preset)
-  derived about: String = aboutOf(self.preset)
+  derived inUse: boolean = presetOf(self.look.values) == self.preset
+  derived name: string = nameOf(self.preset)
+  derived about: string = aboutOf(self.preset)
 
   preset: Signal<Preset>
   look: mut Settings<Look>

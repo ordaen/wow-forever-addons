@@ -17,20 +17,20 @@ import Style from "@/style"
 public struct Offered {
   from: Game::Sellable
   item: ItemId
-  name: String
+  name: string
   color: Color
-  count: Integer
+  count: integer
   market: Copper | nil
   vendor: Copper | nil
   // The house pays more than the merchant, after its cut; none where neither price is known.
-  house: Boolean | nil
+  house: boolean | nil
 }
 
 const NAME_COLUMN = 1
 const MARKET_COLUMN = 3
 const VENDOR_COLUMN = 4
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: Locale::COLUMN_COUNT, width: 75dp, align: Align::End },
   { title: Locale::COLUMN_MARKET, width: 112.5dp, align: Align::End, sortable: true },
@@ -38,15 +38,15 @@ const COLUMNS: Array<Column> = [
   { title: Locale::COLUMN_BETTER, width: 105.46875dp }
 ]
 // The bags' side, and the picked item's panel at the right, the page's whole height.
-const PAGE: Array<Track> = [{ fr: 1 }, Style::PANEL]
-const FILL: Array<Track> = [{ fr: 1 }]
-const SIDE: Array<Track> = ["max-content", { fr: 1 }]
-const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
+const PAGE: array<Track> = [{ fr: 1 }, Style::PANEL]
+const FILL: array<Track> = [{ fr: 1 }]
+const SIDE: array<Track> = ["max-content", { fr: 1 }]
+const TOOLS: array<Track> = [{ fr: 1 }, "max-content"]
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
 // A label at the left, its value or control at the right.
-const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
+const PAIR: array<Track> = [{ fr: 1 }, "max-content"]
 const STEP = 32.8125dp
-const DURATIONS: Array<Choice<Game::Duration>> = [
+const DURATIONS: array<Choice<Game::Duration>> = [
   { value: Game::Duration::Short, label: Locale::HOURS.format(12) },
   { value: Game::Duration::Medium, label: Locale::HOURS.format(24) },
   { value: Game::Duration::Long, label: Locale::HOURS.format(48) }
@@ -55,17 +55,17 @@ const DURATIONS: Array<Choice<Game::Duration>> = [
 class OfferedRow implements Component {
   public pick: Event<ItemId> = new Event()
 
-  derived better: String = self.offered.house == nil ? "—" : self.offered.house == true ? Locale::BETTER_HOUSE :
+  derived better: string = self.offered.house == nil ? "—" : self.offered.house == true ? Locale::BETTER_HOUSE :
     Locale::BETTER_VENDOR
   derived betterInk: Color = self.offered.house == nil ? Style::DIM : self.offered.house == true ? Style::GREEN :
     Style::GOLD
-  derived market: Integer = self.offered.market ?? 0
-  derived vendor: Integer = self.offered.vendor ?? 0
+  derived market: integer = self.offered.market ?? 0
+  derived vendor: integer = self.offered.vendor ?? 0
 
   // The row's item: the table hands the row to another item as it scrolls.
   offered: Signal<Offered>
-  selected: Signal<Boolean>
-  constructor(offered: Signal<Offered>, selected: Signal<Boolean>) {
+  selected: Signal<boolean>
+  constructor(offered: Signal<Offered>, selected: Signal<boolean>) {
     self.offered = offered
     self.selected = selected
   }
@@ -107,8 +107,8 @@ class OfferedRow implements Component {
 
 // How the player left «Sell»'s list: the column it is sorted by (0: as it comes) and which way.
 public struct SellView implements Plain {
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 const SELL_VIEW: SellView = {}
 
@@ -121,16 +121,16 @@ public class SellPage implements Component {
   state picked: ItemId | nil = nil
   // Moves as the bags change: what the house takes is read again.
   state bags = 0
-  derived rows: Array<Offered> = self.rowsOf()
+  derived rows: array<Offered> = self.rowsOf()
   // The row picked, while it is shown: one or none, handed to the window's side section.
-  derived picks: Array<Offered> = self.chosenOf()
+  derived picks: array<Offered> = self.chosenOf()
 
   const prices: any PriceSource
-  chosen: mut Signal<Array<Offered>>
+  chosen: mut Signal<array<Offered>>
   constructor(
     prices: any PriceSource,
     // The row picked, while it is shown: the window's side section draws it.
-    chosen: mut Signal<Array<Offered>>
+    chosen: mut Signal<array<Offered>>
   ) {
     self.prices = prices
     self.chosen = chosen
@@ -140,12 +140,12 @@ public class SellPage implements Component {
 
   onBags(mut self) { self.bags += 1 }
 
-  rowsOf(self): Array<Offered> {
+  rowsOf(self): array<Offered> {
     _ = self.bags
     _ = self.prices.revision
     const given = Game::auctionActions.sellable() ?? []
-    let list: Array<Offered> = []
-    const at: Map<ItemId, Integer> = {}
+    let list: array<Offered> = []
+    const at: map<ItemId, integer> = {}
     for (stack of given) {
       const item = ItemId::of(stack.item)
       const index = at[item]
@@ -172,7 +172,7 @@ public class SellPage implements Component {
     return list
   }
 
-  chosenOf(self): Array<Offered> {
+  chosenOf(self): array<Offered> {
     const picked = self.picked
     const row = picked != nil ? self.rows.find(row => row.item == picked) : nil
     return row != nil ? [row] : []
@@ -209,20 +209,20 @@ public class SellPage implements Component {
 // The item picked, in the item panel: how many, the price for one, how long, the deposit, and «Post».
 public class Posting implements Component {
   state count = 1
-  state unit: Integer
+  state unit: integer
   state duration: Game::Duration = Game::Duration::Medium
   // The client's refusal of the last post, in its words.
-  state refused: String | nil = nil
+  state refused: string | nil = nil
   // A post sent from here waits for its answer.
   state sending = false
-  derived hasRefused: Boolean = self.refused != nil
-  derived refusedText: String = self.refused ?? ""
+  derived hasRefused: boolean = self.refused != nil
+  derived refusedText: string = self.refused ?? ""
   // A commodity is posted from every stack at once; an item's auction from its first stack.
-  derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
-  derived canPost: Boolean = !Game::auctionActions.busy && self.count <= self.most && self.unit > 0
+  derived most: integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
+  derived canPost: boolean = !Game::auctionActions.busy && self.count <= self.most && self.unit > 0
   // What the house holds back for this many for this long, as the client says it; «—» where it doesn't.
-  derived deposit: Integer | nil = Game::auctionActions.deposit(self.offered.from, self.count, self.duration)
-  derived depositAmount: Integer = self.deposit ?? 0
+  derived deposit: integer | nil = Game::auctionActions.deposit(self.offered.from, self.count, self.duration)
+  derived depositAmount: integer = self.deposit ?? 0
 
   const offered: Offered
   const key: PriceKey
@@ -230,7 +230,7 @@ public class Posting implements Component {
   const prices: any PriceSource
   const history: any PriceHistory | nil
   // Under the item's name in its panel: how many the bags hold.
-  const detail: String
+  const detail: string
   constructor(offered: Offered, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
     self.offered = offered
     self.key = PriceKey::of(offered.item)
@@ -295,7 +295,7 @@ public class Posting implements Component {
 }
 
 // Whether `a` comes before `b` by the column: by name, cheapest first.
-function before(a: Offered, b: Offered, column: Integer): Boolean {
+function before(a: Offered, b: Offered, column: integer): boolean {
   if (column == NAME_COLUMN) { return a.name < b.name }
   if (column == MARKET_COLUMN) { return (a.market ?? 0) < (b.market ?? 0) }
   return (a.vendor ?? 0) < (b.vendor ?? 0)

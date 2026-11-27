@@ -7,11 +7,11 @@ import { Figure, QuestFacts } from "@/questie"
 import { whereOf } from "@/tracker"
 
 // Each thing once, by its link: a figure that both gives the quest and takes it back says both.
-public function namedOf(facts: QuestFacts): Array<Named> {
+public function namedOf(facts: QuestFacts): array<Named> {
   // The figures in the order first named, and each one's roles by its link.
-  const figures: Array<Figure> = []
-  const roles: Map<String, Array<String>> = {}
-  const add = (figure: Figure, role: String): nil => {
+  const figures: array<Figure> = []
+  const roles: map<string, array<string>> = {}
+  const add = (figure: Figure, role: string): nil => {
     const link = linkOf(figure)
     const had = roles[link]
     if (had == nil) {
@@ -25,7 +25,7 @@ public function namedOf(facts: QuestFacts): Array<Named> {
   for (figure of facts.givers) { add(figure, Locale::NAMED_GIVER) }
   for (figure of facts.takers) { add(figure, Locale::NAMED_TAKER) }
   for (figure of facts.targets) { add(figure, Locale::NAMED_TARGET) }
-  const named: Array<Named> = []
+  const named: array<Named> = []
   for (figure of figures) {
     const where = whereOf([figure])
     const said = roles[linkOf(figure)] ?? []
@@ -36,19 +36,19 @@ public function namedOf(facts: QuestFacts): Array<Named> {
 }
 
 // The things a quest QuestieDB may not know names: none where it doesn't.
-public function namedOfFacts(facts: QuestFacts | nil): Array<Named> {
+public function namedOfFacts(facts: QuestFacts | nil): array<Named> {
   return facts == nil ? [] : namedOf(facts)
 }
 
 // The lines with one more after them.
-function plus(lines: Array<String>, one: String): Array<String> {
-  const more: Array<String> = []
+function plus(lines: array<string>, one: string): array<string> {
+  const more: array<string> = []
   for (line of lines) { more.push(line) }
   more.push(one)
   return more
 }
 
 // A figure's link in a parchment's text: Ordaen's own, which no game tooltip reads.
-function linkOf(figure: Figure): String {
+function linkOf(figure: Figure): string {
   return `ordaen:${figure.kind}:${figure.id}`
 }

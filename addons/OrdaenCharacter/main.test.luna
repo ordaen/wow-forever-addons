@@ -42,7 +42,7 @@ const SWORDS = 43
 const WANDS = 228
 const MINING = 186
 
-function faction(index: Integer, id: Integer, name: String, standing: Integer, value: Integer): Faction {
+function faction(index: integer, id: integer, name: string, standing: integer, value: integer): Faction {
   return {
     index: index, id: id, name: name, description: `${name}'s description.`, standing: standing, value: value,
     min: 3000, max: 9000, header: false, ranked: false, child: false, collapsed: false, atWar: false,
@@ -50,7 +50,7 @@ function faction(index: Integer, id: Integer, name: String, standing: Integer, v
   }
 }
 
-function heading(index: Integer, id: Integer, name: String, collapsed: Boolean): Faction {
+function heading(index: integer, id: integer, name: string, collapsed: boolean): Faction {
   return {
     index: index, id: id, name: name, description: "", standing: 4, value: 0, min: 0, max: 0, header: true,
     ranked: false, child: false, collapsed: collapsed, atWar: false, canToggleAtWar: false, canSetInactive: false,
@@ -73,7 +73,7 @@ const PRIDE: WornSet = { name: "Lion's Pride", gives: [{ stat: .Strength, amount
 // The test's sheet: a level 60 dwarf warrior with a helm and a two-hander, two groups of factions, and what the window
 // asks of it, heard.
 class FakeSheet implements Sheet {
-  heard: mut Array<String> = []
+  heard: mut array<string> = []
   // The second group folded.
   folded = false
   stand = 4500
@@ -82,7 +82,7 @@ class FakeSheet implements Sheet {
   // A shield in the off hand, its block's line read as 39 of the block's damage.
   shielded = false
 
-  public worn(self, slot: Integer): Worn {
+  public worn(self, slot: integer): Worn {
     if (slot == 1) {
       return {
         slot: slot, item: HELM, quality: Quality::Epic, level: 63, durability: 0.2, locked: self.helmLocked,
@@ -105,7 +105,7 @@ class FakeSheet implements Sheet {
     return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil }
   }
 
-  public usesAmmo(self): Boolean { return true }
+  public usesAmmo(self): boolean { return true }
 
   public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" } }
 
@@ -114,8 +114,8 @@ class FakeSheet implements Sheet {
   figures: () => Stats = warrior
   public stats(self): Stats | nil { return self.figures() }
 
-  public factions(self): Array<Faction> {
-    const rows: Array<Faction> = [
+  public factions(self): array<Faction> {
+    const rows: array<Faction> = [
       heading(1, 100, "Alliance", false),
       faction(2, 72, "Stormwind", 5, self.stand),
       heading(3, 200, "Other", self.folded)
@@ -124,12 +124,12 @@ class FakeSheet implements Sheet {
     return rows
   }
 
-  public inactive(self, index: Integer): Boolean { return false }
+  public inactive(self, index: integer): boolean { return false }
 
   // The professions' heading folded.
   craftsFolded = false
-  public skills(self): Array<Skill> {
-    const rows: Array<Skill> = [
+  public skills(self): array<Skill> {
+    const rows: array<Skill> = [
       { index: 1, name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
       { id: MACES, index: 2, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
       { id: SWORDS, index: 3, name: "Swords", header: false, rank: 290, modifier: 0, max: 300 },
@@ -145,45 +145,45 @@ class FakeSheet implements Sheet {
     return rows
   }
 
-  public foldSkills(mut self, index: Integer, open: Boolean) {
+  public foldSkills(mut self, index: integer, open: boolean) {
     self.heard.push(`fold skills ${index} ${open}`)
     if (index == 5) { self.craftsFolded = !open }
   }
 
-  public unlearn(mut self, skill: Integer) { self.heard.push(`unlearn ${skill}`) }
+  public unlearn(mut self, skill: integer) { self.heard.push(`unlearn ${skill}`) }
 
-  public pickup(mut self, slot: Integer) { self.heard.push(`pickup ${slot}`) }
+  public pickup(mut self, slot: integer) { self.heard.push(`pickup ${slot}`) }
 
-  public fold(mut self, index: Integer, open: Boolean) {
+  public fold(mut self, index: integer, open: boolean) {
     self.heard.push(`fold ${index} ${open}`)
     if (index == 3) { self.folded = !open }
   }
 
-  public watchFaction(mut self, index: Integer, on: Boolean) { self.heard.push(`watch ${index} ${on}`) }
-  public toggleAtWar(mut self, index: Integer) { self.heard.push(`war ${index}`) }
-  public setInactive(mut self, index: Integer, inactive: Boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
+  public watchFaction(mut self, index: integer, on: boolean) { self.heard.push(`watch ${index} ${on}`) }
+  public toggleAtWar(mut self, index: integer) { self.heard.push(`war ${index}`) }
+  public setInactive(mut self, index: integer, inactive: boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
 
   // The slot what the cursor holds goes in (none: 0), and the helm locked (picked up, on its way).
   cursorSlot = 0
   helmLocked = false
-  public fits(self, slot: Integer): Boolean { return slot == self.cursorSlot }
-  public tryOn(mut self, slot: Integer) { self.heard.push(`try ${slot}`) }
+  public fits(self, slot: integer): boolean { return slot == self.cursorSlot }
+  public tryOn(mut self, slot: integer) { self.heard.push(`try ${slot}`) }
   // The bags hold another helm.
-  public fitting(self, slot: Integer): Array<Integer> { return slot == 1 ? [OTHER_HELM] : [] }
-  public equip(mut self, item: Integer, slot: Integer) { self.heard.push(`equip ${item} ${slot}`) }
+  public fitting(self, slot: integer): array<integer> { return slot == 1 ? [OTHER_HELM] : [] }
+  public equip(mut self, item: integer, slot: integer) { self.heard.push(`equip ${item} ${slot}`) }
   // The set worn whole, by its number; -1 for none.
   wornSet = 0
-  public sets(self): Array<GearSet> {
+  public sets(self): array<GearSet> {
     return [
       { id: 0, name: "Tank", worn: self.wornSet == 0, missing: 0 }, { id: 1, name: "Fury", worn: self.wornSet == 1, missing: 2 }
     ]
   }
-  public useSet(mut self, id: Integer) { self.heard.push(`set ${id}`) }
-  public saveSet(mut self, name: String) { self.heard.push(`save ${name}`) }
+  public useSet(mut self, id: integer) { self.heard.push(`set ${id}`) }
+  public saveSet(mut self, name: string) { self.heard.push(`save ${name}`) }
 }
 
 // The worn items' icons, as the game gives them.
-function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : id == OTHER_HELM ? OTHER_ICON : REAPER_ICON }
+function icons(id: integer): Art | nil { return id == HELM ? HELM_ICON : id == OTHER_HELM ? OTHER_ICON : REAPER_ICON }
 
 // The game's character window, shown as its key or its micro button shows it, with the test's sheet (or the
 // client's): ours.
@@ -264,7 +264,7 @@ test "the items' level is the median of what is worn, its tooltip listing each i
 }
 
 // The helm's slot's width against the standard slot's, which the settings then pick.
-function slotWidthRatio(window: Test::Part): Number {
+function slotWidthRatio(window: Test::Part): number {
   const picked = window.button(HELM_ICON).rect()
   Char.settings.values.slotSize = SlotSize::Standard
   Test::flush()
@@ -327,7 +327,7 @@ test "Shift+Left-click on a slot puts the item's link into the chat and picks no
   Test::hold([.Shift])
   window.button(REAPER_ICON).click()
   Test::expect(sheet.heard.length == 0)
-  Test::expect(Test::requests().any(asked => asked.contains(String::of(REAPER))))
+  Test::expect(Test::requests().any(asked => asked.contains(string::of(REAPER))))
 }
 
 test "right-click on a slot uses what is worn there, the client's own doing, and picks nothing up" {
@@ -855,7 +855,7 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
 const SHOUT = 6673
 // The Skyborne's racial: melee and ranged speed at once, and casting speed, 2% each.
 const WIND_BLESSED = 1259710
-function spellNames(id: Integer): String | nil {
+function spellNames(id: integer): string | nil {
   if (id == WIND_BLESSED) { return "Wind Blessed" }
   return id == SHOUT ? "Battle Shout" : nil
 }
@@ -864,7 +864,7 @@ test "an aura's melee and ranged speed at once is each of the two's haste; its c
   Test::mount(nil, PAGE)
   Game::items.icon = icons
   Game::spells.name = spellNames
-  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: WIND_BLESSED, stacks: 0, harmful: false, points: [2, 2] }]
+  Game::auras.player = (): array<Game::PlayerAura> => [{ spell: WIND_BLESSED, stacks: 0, harmful: false, points: [2, 2] }]
   Auras.refresh()
   const sheet = new FakeSheet()
   sheet.figures = (): Stats => Stats { meleeHaste: 7, rangedHaste: 6, rangedSkill: WANDS, rangedSpeed: 1.5 }
@@ -889,7 +889,7 @@ test "a stat's tooltip lists the stats that feed it and the auras that change it
   Test::mount(nil, PAGE)
   Game::items.icon = icons
   Game::spells.name = spellNames
-  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Game::auras.player = (): array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
   Auras.refresh()
   const window = opened(new FakeSheet())
   window.text("832").hover()
@@ -905,12 +905,12 @@ test "a stat an aura raises reads green, one an aura lowers red whatever else ra
   Test::mount(nil, PAGE)
   Game::items.icon = icons
   Game::spells.name = spellNames
-  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Game::auras.player = (): array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
   Auras.refresh()
   const window = opened(new FakeSheet())
   Test::expect(window.text("832").textColor().equal(Style::GREEN))
   Test::expect(!window.text("312").textColor().equal(Style::GREEN))
-  Game::auras.player = (): Array<Game::PlayerAura> => [
+  Game::auras.player = (): array<Game::PlayerAura> => [
     { spell: SHOUT, stacks: 0, harmful: false, points: [100] },
     { spell: DEMORALIZED, stacks: 0, harmful: true, points: [-35] }
   ]
@@ -1003,7 +1003,7 @@ const FRAME_GREY = "talents-node-square-gray"
 const SECOND = "Secondary"
 
 // The trees of a spec: the first spec's two, the second's one.
-function trees(group: Integer): Array<Game::TalentTree> {
+function trees(group: integer): array<Game::TalentTree> {
   if (group == 2) {
     return [
       {
@@ -1028,7 +1028,7 @@ function trees(group: Integer): Array<Game::TalentTree> {
 }
 
 // The window opened on «Talents», on a spec's subtab, by its name.
-function onSpec(name: String): Test::Part {
+function onSpec(name: string): Test::Part {
   Game::items.icon = icons
   const window = opened(new FakeSheet())
   window.button("Talents").click()
@@ -1069,7 +1069,7 @@ test "a spec's trees stand on the class's art, out to the window's sides, betwee
 
 test "a talent under the cursor says what the client's tooltip says: its rank, what it does, the next rank, a click to learn" {
   Test::mount(nil, PAGE)
-  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
+  Game::talentTrees.trees = (group: integer): array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [
@@ -1104,13 +1104,13 @@ test "the second spec's tab shows that spec's trees" {
 
 test "each talent looks as the client draws it: gold when full, green where a point may go or one is held, grey and veiled where none may, darker where its tree lacks the points, red where a rank no longer holds" {
   Test::mount(nil, PAGE)
-  const node = (id: Integer, rank: Integer, canSpend: Boolean, gated: Boolean, stranded: Boolean): Game::TalentNode => {
+  const node = (id: integer, rank: integer, canSpend: boolean, gated: boolean, stranded: boolean): Game::TalentNode => {
     return {
       id: id, x: (id - 10) * 600, y: 0, name: "Talent %d".format(id), icon: TALENT_ICON, rank: rank, ranks: 5,
       canSpend: canSpend, canRefund: rank > 0, edges: [], gated: gated, locked: stranded, stranded: stranded
     }
   }
-  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
+  Game::talentTrees.trees = (group: integer): array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [node(10, 5, false, false, false), node(11, 2, true, false, false), node(12, 3, false, false, false),
@@ -1147,7 +1147,7 @@ test "a tree's arrow runs across and then down, cell by cell, gold once the tale
   Test::expect(!window.box(Style::GOLD).shown())
   Test::expect(window.box(ARROW_LINE).count() == 5)
   Test::expect(Test::drawn().any(d => d.file == "talents-arrow-head-gray"))
-  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
+  Game::talentTrees.trees = (group: integer): array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [
@@ -1196,7 +1196,7 @@ test "talents a step of the client's grid apart stand a gap apart, and an arrow'
 test "the header's right says the points left to spend in the active spec, and offers Activate for the other instead" {
   Test::mount(nil, PAGE)
   Game::talentTrees.trees = trees
-  Game::talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
+  Game::talentTrees.unspent = (group: integer): integer => group == 1 ? 3 : 7
   const window = onSpec("Primary")
   Test::expect(window.text("Talent points:").shown() && window.text("3").shown() && !window.button("Activate").shown())
   const points = window.text("3").rect()
@@ -1239,7 +1239,7 @@ test "the talents follow the trees the game reports while the window shows" {
   Test::mount(nil, PAGE)
   Game::talentTrees.trees = trees
   const window = onSpec("Primary")
-  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => [
+  Game::talentTrees.trees = (group: integer): array<Game::TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: SWORD, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
@@ -1253,7 +1253,7 @@ test "the talents follow the trees the game reports while the window shows" {
 test "the game is asked for the talents while the window shows, and for no tree on another tab" {
   Test::mount(nil, PAGE)
   let asked = 0
-  Game::talentTrees.trees = (group: Integer): Array<Game::TalentTree> => {
+  Game::talentTrees.trees = (group: integer): array<Game::TalentTree> => {
     asked += 1
     return []
   }
@@ -1284,7 +1284,7 @@ test "a click on a talent spends a point in it, a right-click takes one back" {
 test "with points staged, Apply stands out and applies them, Cancel takes them back, each its own width at the footer's ends" {
   Test::mount(nil, PAGE)
   Game::talentTrees.trees = trees
-  Game::talentTrees.staged = (): Boolean => true
+  Game::talentTrees.staged = (): boolean => true
   const window = onSpec("Primary")
   Test::expect(window.button("Apply").paintedWith(Ordaen.art.ctl.buttonAccent))
   Test::expect(!window.button("Cancel").paintedWith(Ordaen.art.ctl.buttonAccent))
@@ -1326,7 +1326,7 @@ test "the game's talent button opens ours on the active spec's tab, the game's t
   Test::expect(game.IsShown())
   Runtime::press(Client::TalentMicroButton, .Left)
   Test::expect(!game.IsShown() && !Test::page().text(WINDOW).shown())
-  Game::talentTrees.activeGroup = (): Integer => 2
+  Game::talentTrees.activeGroup = (): integer => 2
   Runtime::press(Client::TalentMicroButton, .Left)
   Test::expect(Test::page().window(WINDOW).text("Protection: 1").shown())
 }
@@ -1360,14 +1360,14 @@ test "the active spec's tab offers no Activate; the other's does, and asks the g
 
 test "the other spec's points staged can't be applied until it is active" {
   Test::mount(nil, PAGE)
-  Game::talentTrees.staged = (): Boolean => true
+  Game::talentTrees.staged = (): boolean => true
   const window = onSpec(SECOND)
   Test::expect(!window.button("Apply changes").shown())
 }
 
 test "the second spec's tab is the active one when the game says the player has it active" {
   Test::mount(nil, PAGE)
-  Game::talentTrees.activeGroup = (): Integer => 2
+  Game::talentTrees.activeGroup = (): integer => 2
   const window = onSpec(SECOND)
   Test::expect(!window.button("Activate").shown())
   window.button("Primary").click()
@@ -1376,7 +1376,7 @@ test "the second spec's tab is the active one when the game says the player has 
 
 test "a second spec not had is not offered: «Talents» shows the first's trees" {
   Test::mount(nil, PAGE)
-  Game::talentTrees.groups = (): Integer => 1
+  Game::talentTrees.groups = (): integer => 1
   Game::talentTrees.trees = trees
   const window = onSpec("Primary")
   Test::expect(!window.button(SECOND).shown())
@@ -1600,7 +1600,7 @@ test "the character is named with its surname, as Forever gives it" {
 
 test "the client's sheet reads what is worn in a slot from the client" {
   Test::mount(nil, PAGE)
-  Client::GetInventoryItemID = (unit: String, slot: Number): Number | nil => slot == 1 ? HELM : nil
+  Client::GetInventoryItemID = (unit: string, slot: number): number | nil => slot == 1 ? HELM : nil
   const sheet = new ClientSheet()
   const helm = sheet.worn(1)
   Test::expect(helm.item == HELM)
@@ -1609,9 +1609,9 @@ test "the client's sheet reads what is worn in a slot from the client" {
 
 test "the client's sheet reads health's and mana's regeneration a second, and spirit's share, as every five seconds" {
   Test::mount(nil, PAGE)
-  Client::GetHealthRegen = (): (Number, Number) => { return 4, 1 }
-  Client::GetHealthRegenFromSpirit = (): (Number, Number) => { return 2, 0 }
-  Client::GetManaRegenFromSpirit = (): (Number, Number) => { return 6, 0 }
+  Client::GetHealthRegen = (): (number, number) => { return 4, 1 }
+  Client::GetHealthRegenFromSpirit = (): (number, number) => { return 2, 0 }
+  Client::GetManaRegenFromSpirit = (): (number, number) => { return 6, 0 }
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   // Spirit's health counted standing, as the game's sheet takes it: three quarters.
   Test::expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
@@ -1632,18 +1632,18 @@ test "while the client holds the statistics secret the window keeps what it read
 
 test "the client's sheet reads the three hastes, the ranged with its ammo's" {
   Test::mount(nil, PAGE)
-  Client::GetMeleeHaste = (): Number => 4
-  Client::GetRangedHaste = (): (Number, Number) => { return 3, 2 }
-  Client::UnitSpellHaste = (unit: String): Number => 6
+  Client::GetMeleeHaste = (): number => 4
+  Client::GetRangedHaste = (): (number, number) => { return 3, 2 }
+  Client::UnitSpellHaste = (unit: string): number => 6
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   Test::expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
 }
 
 test "the client's sheet reads the glancing blows against a raid boss's 315 of defense and the level's own" {
   Test::mount(nil, PAGE)
-  Client::UnitLevel = (unit: String): Number => 60
-  Client::GetGlancingBlowChance = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.4 : 0.1
-  Client::GetGlancingBlowPenalty = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.35 : 0.05
+  Client::UnitLevel = (unit: string): number => 60
+  Client::GetGlancingBlowChance = (skill: number | nil, defense: number): number => defense == 315 ? 0.4 : 0.1
+  Client::GetGlancingBlowPenalty = (skill: number | nil, defense: number): number => defense == 315 ? 0.35 : 0.05
   const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   Test::expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
   Test::expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
@@ -1696,7 +1696,7 @@ test "the statistics as one list stand under no category" {
 const GAUGE_FILL: Art = "Interface/TargetingFrame/UI-StatusBar"
 // A gauge's fill, the nth on the page: a rounded fill's seven pieces (the middle, the left side, the right side, the
 // four corners), from its left side's left to its right side's right, as high as its middle.
-function gaugeFill(window: Test::Part, nth: Integer): Test::Rect {
+function gaugeFill(window: Test::Part, nth: integer): Test::Rect {
   const pieces = window.box(GAUGE_FILL)
   const first = (nth - 1) * 7
   const middle = pieces.nth(first + 1).rect()
@@ -1767,7 +1767,7 @@ test "the character tab holds the window at its own height; the player's taller 
 }
 
 // A texture the client draws of the dwarves' scene.
-function isScene(texture: Test::Drawn): Boolean {
+function isScene(texture: Test::Drawn): boolean {
   const at, _ = `${texture.file}`.find("backdrop%-dwarf")
   return at != nil
 }
@@ -1889,7 +1889,7 @@ test "the bars' and the stats' columns share the room the model's leaves, which 
 }
 
 // A box stands in the middle of another, to a unit.
-function centred(inner: Test::Rect, outer: Test::Rect): Boolean {
+function centred(inner: Test::Rect, outer: Test::Rect): boolean {
   return (inner.left - outer.left - (outer.right - inner.right)).abs() < 1
 }
 
@@ -1897,12 +1897,12 @@ function centred(inner: Test::Rect, outer: Test::Rect): Boolean {
 
 // The test's player inspected: a dwarf warrior of level 60 with the two-hander alone, of rank 8.
 class FakeInspector implements Inspector {
-  heard: mut Array<String> = []
+  heard: mut array<string> = []
 
-  public canInspect(self, unit: String): Boolean { return unit == "target" }
-  public ask(mut self, unit: String) { self.heard.push(`ask ${unit}`) }
-  public guidOf(self, unit: String): String | nil { return GROM }
-  public read(self, unit: String): Inspected {
+  public canInspect(self, unit: string): boolean { return unit == "target" }
+  public ask(mut self, unit: string) { self.heard.push(`ask ${unit}`) }
+  public guidOf(self, unit: string): string | nil { return GROM }
+  public read(self, unit: string): Inspected {
     return {
       who: { name: "Grom", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" }, classTag: "WARRIOR",
       worn: [{
@@ -1911,10 +1911,10 @@ class FakeInspector implements Inspector {
       }]
     }
   }
-  public honor(self, unit: String): Honor {
+  public honor(self, unit: string): Honor {
     return { rank: 8, title: "Knight", current: 300, next: 1000, today: 14, lifetime: 3870 }
   }
-  public tryOn(mut self, unit: String, slot: Integer) { self.heard.push(`try ${slot}`) }
+  public tryOn(mut self, unit: string, slot: integer) { self.heard.push(`try ${slot}`) }
   public clear(mut self) { self.heard.push("clear") }
 }
 
@@ -1972,7 +1972,7 @@ test "the stats are estimated from what the player's own character of that class
 test "the talents come with the server's answer, only shown; the honor tab says the rank and the kills" {
   Test::mount(nil, PAGE)
   Game::items.icon = icons
-  Game::talentTrees.inspected = (): Array<Game::TalentTree> => [{
+  Game::talentTrees.inspected = (): array<Game::TalentTree> => [{
     id: 1, name: "Arms", nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: nil, rank: 5, ranks: 5, canSpend: false, canRefund: false, edges: [] }]
   }]
   const window = inspecting(new FakeInspector())

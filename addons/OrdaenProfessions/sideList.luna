@@ -8,14 +8,14 @@ import { Edges, Overflow, Position, Scrollbar, Size, Track } from "$ltml"
 import { Component } from "Ordaen"
 import Style from "@/style"
 
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 const NO_ROOM: Edges = {}
 
 public class SideList implements Component {
   width: Signal<Size | nil>
   surface: Signal<Style::Surface | nil>
   room: Signal<Edges>
-  groove: Signal<Boolean>
+  groove: Signal<boolean>
   constructor(
     // The list's width. None: the width of its cell.
     width: Signal<Size | nil> = nil,
@@ -24,7 +24,7 @@ public class SideList implements Component {
     // Room round its rows, on its surface.
     room: Signal<Edges> = NO_ROOM,
     // A groove down its right side.
-    groove: Signal<Boolean> = false
+    groove: Signal<boolean> = false
   ) {
     self.width = width
     self.surface = surface

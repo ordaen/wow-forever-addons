@@ -8,23 +8,23 @@ import Locale from "@/locales"
 // («Shopping list», «My auctions»).
 // The main window's body is wider by the frame's art past its line on both sides (16.5 over the client's old frame);
 // a docked window as much narrower, so the main one keeps its room beside it on a small screen (its columns narrower).
-public const WIDTH: Number<Length> = 1242.1875dp + 16.5ui
-public const HEIGHT: Number<Length> = 820.3125dp
-public const SIDE_WIDTH: Number<Length> = 773.4375dp - 16.5ui
+public const WIDTH: number<Length> = 1242.1875dp + 16.5ui
+public const HEIGHT: number<Length> = 820.3125dp
+public const SIDE_WIDTH: number<Length> = 773.4375dp - 16.5ui
 // An item's slot in a row, and the chosen item's.
-public const SLOT: Number<Length> = 28.125dp
-public const BIG_SLOT: Number<Length> = 46.875dp
+public const SLOT: number<Length> = 28.125dp
+public const BIG_SLOT: number<Length> = 46.875dp
 // A list's note where it has no rows: a row of the list itself, its text in the row's middle (`yAlign`), a panel's
 // space at its sides.
 public const NOTE_PAD: Edges = { left: 5sp, right: 5sp }
 // What the item's section at the window's right holds, how wide: «Buy»'s picked row, «Sell»'s.
-public const PANEL: Number<Length> = 328.125dp
+public const PANEL: number<Length> = 328.125dp
 // The categories at «Buy»'s left.
-public const CATEGORIES: Number<Length> = 257.8125dp
+public const CATEGORIES: number<Length> = 257.8125dp
 // A button as wide as the section holds.
-public const PANEL_BUTTON: Number<Length> = PANEL
+public const PANEL_BUTTON: number<Length> = PANEL
 // A button that opens a docked window, at the search's row's right end.
-public const OPENER: Number<Length> = 175.78125dp
+public const OPENER: number<Length> = 175.78125dp
 
 public const INK: Color = Color::hex("#e8dcc4")
 public const DIM: Color = Color::hex("#a3977f")
@@ -39,7 +39,7 @@ const HOUR = 3600
 const DAY = 86400
 
 // How long ago, in the largest whole unit: «12 min ago», «2 h ago», «3 d ago»; under a minute «just now».
-public function agoText(seconds: Integer): String {
+public function agoText(seconds: integer): string {
   if (seconds < MINUTE) { return Locale::AGO_NOW }
   if (seconds < HOUR) { return Locale::AGO_MINUTES.format((seconds / MINUTE).floor()) }
   if (seconds < DAY) { return Locale::AGO_HOURS.format((seconds / HOUR).floor()) }
@@ -47,17 +47,17 @@ public function agoText(seconds: Integer): String {
 }
 
 // How many items, as the game's language says the number: «1 item», «6 412 items».
-public function itemsText(count: Integer): String {
+public function itemsText(count: integer): string {
   return plural(count, Locale::ITEMS_ONE, Locale::ITEMS_FEW, Locale::ITEMS_MANY).format(number(count))
 }
 
 // How many auctions: «1 auction», «31 870 auctions».
-public function auctionsText(count: Integer): String {
+public function auctionsText(count: integer): string {
   return plural(count, Locale::AUCTIONS_ONE, Locale::AUCTIONS_FEW, Locale::AUCTIONS_MANY).format(number(count))
 }
 
 // How long is left, rounded up to a whole minute, or an hour past one: «9 min», «2 h».
-public function leftText(seconds: Integer): String {
+public function leftText(seconds: integer): string {
   if (seconds <= HOUR) { return Locale::LEFT_MINUTES.format((seconds / MINUTE).ceil()) }
   return Locale::LEFT_HOURS.format((seconds / HOUR).ceil())
 }

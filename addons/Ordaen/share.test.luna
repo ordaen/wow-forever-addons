@@ -4,7 +4,7 @@ import Test from "$test"
 import { Refusal, Refused, Shared, read, write } from "@/share"
 
 struct Probe implements Plain {
-  scale: Number = 1
+  scale: number = 1
 }
 
 function sample(): Shared {
@@ -15,7 +15,7 @@ function sample(): Shared {
 }
 
 // The text for a body of the client's packing, as a text of this build is made.
-function textOf(raw: String): String {
+function textOf(raw: string): string {
   const packed = Game::encoding.compress(raw) ?? panic("the client packs")
   return "ORDAEN:1:" + (Game::encoding.toBase64(packed) ?? panic("the client packs"))
 }

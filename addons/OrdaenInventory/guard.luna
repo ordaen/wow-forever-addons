@@ -18,13 +18,13 @@ import { Vault } from "@/vault"
 // A protected slot, kept for the character: where it is and the item it protects. The protection follows its item:
 // moved by hand, it goes with it; the item gone from the bags, it is dropped.
 public struct Guard implements Plain {
-  bag: Integer
-  slot: Integer
-  id: Integer
+  bag: integer
+  slot: integer
+  id: integer
 }
 
-const NONE: Array<Line> = []
-const NO_KEYS: Array<String> = []
+const NONE: array<Line> = []
+const NO_KEYS: array<string> = []
 
 // The slot the cursor is on, as the window says it.
 public class Hovered {
@@ -36,7 +36,7 @@ public class GuardLine implements ItemLines {
   const hovered: Hovered
   constructor(hovered: Hovered) { self.hovered = hovered }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     const slot = self.hovered.slot
     if (slot == nil || slot.id != item) { return NONE }
     const why = slot.why
@@ -52,19 +52,19 @@ public class GuardKey implements ItemKeys {
   const hovered: Hovered
   choices: Signal<Choices>
   // The bank and the guild bank open: what a container's use does there.
-  bankOpen: Signal<Boolean>
-  guildOpen: Signal<Boolean>
-  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<Boolean>, guildOpen: Signal<Boolean>) {
+  bankOpen: Signal<boolean>
+  guildOpen: Signal<boolean>
+  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<boolean>, guildOpen: Signal<boolean>) {
     self.hovered = hovered
     self.choices = choices
     self.bankOpen = bankOpen
     self.guildOpen = guildOpen
   }
 
-  public keys(self, item: Integer, link: String): Array<String> {
+  public keys(self, item: integer, link: string): array<string> {
     const slot = self.hovered.slot
     if (slot == nil || slot.id != item) { return NO_KEYS }
-    let keys: Array<String> = []
+    let keys: array<string> = []
     for (chord of CHORDS) {
       const name = clickName(slot, actionAt(self.choices.slotPresses, chord), self.bankOpen, self.guildOpen)
       if (name != nil) { keys.push(Locale::KEY_CLICK.format(chordName(chord), name)) }
@@ -75,7 +75,7 @@ public class GuardKey implements ItemKeys {
 
 // What a click does to the slot now, as its hint says it; none where it does nothing: protecting is the bags' alone,
 // sockets gear's, a link the chat's while its input is open.
-function clickName(slot: Slot, action: SlotAction, bankOpen: Boolean, guildOpen: Boolean): String | nil {
+function clickName(slot: Slot, action: SlotAction, bankOpen: boolean, guildOpen: boolean): string | nil {
   return match (action) {
     .Nothing => nil
     .Use => useName(slot, bankOpen, guildOpen)
@@ -90,7 +90,7 @@ function clickName(slot: Slot, action: SlotAction, bankOpen: Boolean, guildOpen:
 // does the bank's while it is open; a window open takes the bags' item as it can (the guild bank, the bank, a letter, a
 // trade, a merchant, the auction house; never a bound one where it is refused, never one sold for nothing); else the
 // item's own use. None: the client does nothing with it.
-function useName(slot: Slot, bankOpen: Boolean, guildOpen: Boolean): String | nil {
+function useName(slot: Slot, bankOpen: boolean, guildOpen: boolean): string | nil {
   const read = slot.read
   if (slot.id == 0) { return nil }
   if (slot.vault == Vault::Guild) { return Locale::USE_TO_BAGS }
@@ -108,7 +108,7 @@ function useName(slot: Slot, bankOpen: Boolean, guildOpen: Boolean): String | ni
 
 // The item's own use, as the client's right-click does it: gear put on, a container of loot opened, a page read, the
 // quest it starts begun, its spell cast (a potion, food, a recipe learned).
-function ownUse(slot: Slot): String | nil {
+function ownUse(slot: Slot): string | nil {
   if (slot.read.worn != "") { return Locale::USE_EQUIP }
   const info = Client::C_Container::GetContainerItemInfo(slot.bag, slot.index)
   if (info != nil && info.hasLoot) { return Locale::USE_OPEN }
@@ -124,7 +124,7 @@ public class GuardTips {
   const line: GuardLine
   const key: GuardKey
 
-  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<Boolean>, guildOpen: Signal<Boolean>) {
+  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<boolean>, guildOpen: Signal<boolean>) {
     self.line = new GuardLine(hovered)
     self.key = new GuardKey(hovered, choices, bankOpen, guildOpen)
     watch (tooltips of Tooltips) {

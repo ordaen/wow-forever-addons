@@ -64,7 +64,7 @@ public function qualityColor(quality: Quality): Color {
 // Whether the player can use the item, as the client says in its tooltip: no requirement marked unmet (level, class,
 // skill, reputation), no slot or kind marked as not the player's. Read again when the kept tooltips are let go (a
 // level-up, a skill changed).
-public function usableItem(item: Integer): Boolean {
+public function usableItem(item: integer): boolean {
   _ = Ordaen.tipsAge
   const data = Ordaen.itemTip(item)
   if (data == nil) { return true }
@@ -119,14 +119,14 @@ const ARTIFACT: Line = { width: EDGE, color: Color::hex("#e6cc80") }
 const HEIRLOOM: Line = { width: EDGE, color: Color::hex("#00ccff") }
 const PIP = 8.203125dp
 const PIP_EDGE: Line = { width: 1.171875dp, color: Color::hex("#000000") }
-const NONE: Array<Marker> = []
+const NONE: array<Marker> = []
 
 // One pip.
 public class Pip implements Component {
-  derived left: Number<Length> | nil = self.marker.corner == Corner::TopRight ? nil : 0ui
-  derived right: Number<Length> | nil = self.marker.corner == Corner::TopRight ? 0ui : nil
-  derived top: Number<Length> | nil = self.marker.corner == Corner::BottomLeft ? nil : 0ui
-  derived bottom: Number<Length> | nil = self.marker.corner == Corner::BottomLeft ? 0ui : nil
+  derived left: number<Length> | nil = self.marker.corner == Corner::TopRight ? nil : 0ui
+  derived right: number<Length> | nil = self.marker.corner == Corner::TopRight ? 0ui : nil
+  derived top: number<Length> | nil = self.marker.corner == Corner::BottomLeft ? nil : 0ui
+  derived bottom: number<Length> | nil = self.marker.corner == Corner::BottomLeft ? 0ui : nil
 
   const marker: Marker
   constructor(marker: Marker) {
@@ -142,7 +142,7 @@ public class Pip implements Component {
 }
 
 public class ItemButton implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
   public pressed: Event<Event::Press> = new Event()
   public entered: Event<nil> = new Event()
   public left: Event<nil> = new Event()
@@ -153,87 +153,87 @@ public class ItemButton implements Component {
   // Whether the player can use the item, as the client says in its tooltip: a requirement it marks unmet (level,
   // class, skill, reputation) or a slot or kind it marks as not the player's. One the player can't use is tinted red
   // over its icon, as the game's own slots are.
-  public derived usable: Boolean = self.usableOf()
+  public derived usable: boolean = self.usableOf()
   derived tint: Color = self.usable ? UNTINTED : UNUSABLE
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
-  public derived lit: Boolean = self.item != nil && self.quality != Quality::Poor && self.quality != Quality::Common
+  public derived lit: boolean = self.item != nil && self.quality != Quality::Poor && self.quality != Quality::Common
   // Always drawn, at no opacity when not lit (or in a crest or a talent frame, which takes the colour): the slot keeps
   // its boxes whatever it holds.
-  derived rim: Number = self.lit && self.sunk ? 1 : 0
-  derived opacity: Number = self.dimmed ? 0.35 : 1
-  derived counted: Boolean = self.count > 1
-  derived sunk: Boolean = self.well == SlotWell::Sunk
-  derived crested: Boolean = self.well == SlotWell::Crested
-  derived talentFramed: Boolean = self.well == SlotWell::Framed
+  derived rim: number = self.lit && self.sunk ? 1 : 0
+  derived opacity: number = self.dimmed ? 0.35 : 1
+  derived counted: boolean = self.count > 1
+  derived sunk: boolean = self.well == SlotWell::Sunk
+  derived crested: boolean = self.well == SlotWell::Crested
+  derived talentFramed: boolean = self.well == SlotWell::Framed
   // The well's dark under the whole slot when sunk; inside the talent frame when framed; none in a crest.
   derived floor: Color = self.sunk ? WELL : CLEAR
-  derived crestSize: Number<Length> = self.size * CREST_WHOLE
+  derived crestSize: number<Length> = self.size * CREST_WHOLE
   // Where the icon stands inside the slot: inside the crest's rim or the talent frame, or edge to edge.
-  derived inset: Number<Length> = self.crested ? self.size * CREST_RIM : self.talentFramed ? self.size * TALENT_FRAME_RIM : 0dp
+  derived inset: number<Length> = self.crested ? self.size * CREST_RIM : self.talentFramed ? self.size * TALENT_FRAME_RIM : 0dp
   // The border goes round the slot on a sunk well; a crest's rim and a talent frame are their own, coloured by an item's
   // quality.
   derived slotEdge: Line = self.sunk ? self.edge : NO_EDGE
   derived frameTint: Color = self.lit ? self.edge.color : FRAME_UNLIT
-  derived framed: Boolean = self.crested && self.lit
+  derived framed: boolean = self.crested && self.lit
   derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 
   // The frame its `enter` handed, while the cursor is on it.
   state hoveredBy: any Frame | nil = nil
-  item: Signal<Integer | nil>
-  count: Signal<Integer>
+  item: Signal<integer | nil>
+  count: Signal<integer>
   quality: Signal<Quality>
-  dimmed: Signal<Boolean>
-  markers: Signal<Array<Marker>>
-  size: Signal<Number<Length>>
+  dimmed: Signal<boolean>
+  markers: Signal<array<Marker>>
+  size: Signal<number<Length>>
   action: Signal<Action | nil>
-  actsOnPress: Signal<Boolean>
+  actsOnPress: Signal<boolean>
   art: Signal<Art | nil>
-  linkOnShift: Signal<Boolean>
-  worn: Signal<Integer | nil>
-  spell: Signal<Integer | nil>
-  currency: Signal<Integer | nil>
+  linkOnShift: Signal<boolean>
+  worn: Signal<integer | nil>
+  spell: Signal<integer | nil>
+  currency: Signal<integer | nil>
   cooldown: Signal<FillDuration | nil>
-  mail: Signal<[Integer, Integer] | nil>
-  bag: Signal<[Integer, Integer] | nil>
+  mail: Signal<[integer, integer] | nil>
+  bag: Signal<[integer, integer] | nil>
   well: Signal<SlotWell>
   cursor: Signal<Cursor | nil>
-  tipped: Signal<Boolean>
-  toldUsable: Signal<Boolean | nil>
+  tipped: Signal<boolean>
+  toldUsable: Signal<boolean | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
-    item: Signal<Integer | nil>,
-    count: Signal<Integer> = 1,
+    item: Signal<integer | nil>,
+    count: Signal<integer> = 1,
     quality: Signal<Quality> = Quality::Common,
-    dimmed: Signal<Boolean> = false,
-    markers: Signal<Array<Marker>> = NONE,
-    size: Signal<Number<Length>> = 46.875dp,
+    dimmed: Signal<boolean> = false,
+    markers: Signal<array<Marker>> = NONE,
+    size: Signal<number<Length>> = 46.875dp,
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
     action: Signal<Action | nil> = nil,
     // Whether the client does the `action` as the button goes down; else as it comes up, whatever the player set, so
     // a drag off the slot is no click.
-    actsOnPress: Signal<Boolean> = false,
+    actsOnPress: Signal<boolean> = false,
     // The icon the game gave with what the slot shows (a reagent's): drawn in place of the item's, with or without one.
     art: Signal<Art | nil> = nil,
     // Whether Shift+Left-click puts the item's link into the chat; off, it is told as `pressed` (a slot whose clicks
     // the player sets).
-    linkOnShift: Signal<Boolean> = true,
+    linkOnShift: Signal<boolean> = true,
     // The player's own slot it is (the client's number for it: 1 the head): its tooltip is the worn item's, as the
     // game's paper doll shows it, never the item's by its number (which the game compares with what is worn: itself).
-    worn: Signal<Integer | nil> = nil,
+    worn: Signal<integer | nil> = nil,
     // The attachment of a letter of the open mailbox it shows (the letter's place in the inbox, the attachment's in
     // the letter): its tooltip is the game's of that attachment, as the game's open letter shows it.
-    mail: Signal<[Integer, Integer] | nil> = nil,
+    mail: Signal<[integer, integer] | nil> = nil,
     // The slot of the player's bags or bank it shows (the client's bag and slot): its tooltip is that very item's (bound
     // or not, how worn), as the game's bags show it, not the item's by its number.
-    bag: Signal<[Integer, Integer] | nil> = nil,
+    bag: Signal<[integer, integer] | nil> = nil,
     // The spell it shows, in place of an item (a spellbook's slot, its icon the `art`): its tooltip and its link are
     // the spell's, as the game's spellbook gives them.
-    spell: Signal<Integer | nil> = nil,
+    spell: Signal<integer | nil> = nil,
     // The currency it shows, in place of an item (a quest's currency reward, its icon the `art`): its tooltip is the
     // game's of the currency, with the `count`.
-    currency: Signal<Integer | nil> = nil,
+    currency: Signal<integer | nil> = nil,
     // The cooldown running on what it shows: the client's sweep over the icon. None: no sweep.
     cooldown: Signal<FillDuration | nil> = nil,
     // How its well stands on what holds it.
@@ -241,10 +241,10 @@ public class ItemButton implements Component {
     // The cursor's look while it is on the slot (the coin bag at a merchant).
     cursor: Signal<Cursor | nil> = nil,
     // Whether it shows its tooltip itself; off where what holds it shows one for all of it (a reward's row).
-    tipped: Signal<Boolean> = true,
+    tipped: Signal<boolean> = true,
     // Whether the player can use it, where the game says so in its own right (a toy: the toy box's `IsToyUsable`) and
     // not by its tooltip, whose «Already known» a toy collected has in red. None: by its tooltip.
-    usable: Signal<Boolean | nil> = nil
+    usable: Signal<boolean | nil> = nil
   ) {
     self.toldUsable = usable
     self.cursor = cursor
@@ -279,7 +279,7 @@ public class ItemButton implements Component {
     return Game::items.icon(item)
   }
 
-  usableOf(self): Boolean {
+  usableOf(self): boolean {
     const said = self.toldUsable
     if (said != nil) { return said }
     const item = self.item

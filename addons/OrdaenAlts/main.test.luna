@@ -26,9 +26,9 @@ function settings(): Test::Part {
 }
 
 // Whether the window shows this tab's content: each tab by a text only it shows.
-function onCharacters(): Boolean { return window().text(Locale::COL_GOLD).shown() }
-function onItems(): Boolean { return window().input().shown() }
-function onCooldowns(): Boolean { return window().text(Locale::NO_COOLDOWNS).shown() }
+function onCharacters(): boolean { return window().text(Locale::COL_GOLD).shown() }
+function onItems(): boolean { return window().input().shown() }
+function onCooldowns(): boolean { return window().text(Locale::NO_COOLDOWNS).shown() }
 
 test "Alts is among the modules in Ordaen's settings, and its page has the window's settings" {
   Test::mount(nil, SCREEN)

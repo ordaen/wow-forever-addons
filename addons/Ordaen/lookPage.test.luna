@@ -8,13 +8,13 @@ import { Look, presetOf } from "@/look"
 import { LookPage } from "@/lookPage"
 import { REST } from "@/rest"
 
-function presetNow(look: Look): String {
+function presetNow(look: Look): string {
   let preset = presetOf(look)
   if (preset == nil) { return "none" }
   return `${preset}`
 }
 
-function state(): String {
+function state(): string {
   Test::flush()
   let files = Ordaen.lookArt.fonts.numbers
   let font = files != nil ? files.regular : "the client's own text font"

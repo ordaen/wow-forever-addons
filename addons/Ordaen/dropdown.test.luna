@@ -6,7 +6,7 @@ import { Choice, CompactDropdown } from "@/dropdown"
 
 enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 
-const ORDERS: Array<Choice<Order>> = [
+const ORDERS: array<Choice<Order>> = [
   { value: Order::Difficulty, label: "By difficulty" },
   { value: Order::Name, label: "By name" },
   { value: Order::Price, label: "By price", soon: true }
@@ -82,7 +82,7 @@ test "the list keeps its own layer over the click catcher when the box round it 
   Test::expect(Test::blank())
 }
 
-const LONG: Array<Choice<Order>> = [
+const LONG: array<Choice<Order>> = [
   { value: Order::Difficulty, label: "Количество предметов для изготовления" },
   { value: Order::Name, label: "By name" }
 ]
@@ -113,7 +113,7 @@ test "a label longer than the plate is cut inside it, and the arrow stays on the
 class Long {
   public state picked = 1
   public render(self): Template {
-    const many: Array<Choice<Integer>> = []
+    const many: array<Choice<integer>> = []
     for (n of 1..40) { many.push({ value: n, label: `Choice ${n}` }) }
     return $ltml {
       <box padding={{ top: 100sp }}>

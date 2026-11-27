@@ -20,10 +20,10 @@ test "before its first talent point a class weighs by the build the profile pref
 }
 
 test "an item's worth is each stat by its weight, a rating by the percentage it gives, a weapon's damage by where it fires" {
-  Client::GetCombatRatingBonusForCombatRatingValue = (rating: Integer, value: Number): Number | nil => value / 14
+  Client::GetCombatRatingBonusForCombatRatingValue = (rating: integer, value: number): number | nil => value / 14
   const arms = SPEC_WEIGHTS.find(spec => spec.key == "arms") ?? panic("arms")
   const w = arms.leveling
-  let stats: Map<String, Number> = {}
+  let stats: map<string, number> = {}
   stats["ITEM_MOD_STRENGTH_SHORT"] = 10
   stats["ITEM_MOD_CRIT_RATING_SHORT"] = 14
   stats["ITEM_MOD_DAMAGE_PER_SECOND_SHORT"] = 5
@@ -52,28 +52,28 @@ test "a one-hander for one who can't wield two takes the main hand alone; an off
   Test::expect(placesFor("INVTYPE_SHIELD", false, false)?.both == false)
 }
 
-function slotsOf(places: Places | nil): String {
-  return (places ?? panic("the item is worn")).slots.map(slot => String::of(slot)).join(",")
+function slotsOf(places: Places | nil): string {
+  return (places ?? panic("the item is worn")).slots.map(slot => string::of(slot)).join(",")
 }
 
 // An upgrade's answer as a window holds it: worked out once, and again only as what it reads changes.
 class Held {
-  derived up: Number | nil = self.worth.upgradeOf("item:new")
+  derived up: number | nil = self.worth.upgradeOf("item:new")
   const worth: GearWorth
   constructor(worth: GearWorth) { self.worth = worth }
 }
 
 test "an upgrade's answer follows the gear: a piece put on is what the next is weighed against" {
-  Client::C_Item::GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+  Client::C_Item::GetItemInfoInstant = (item: string | integer): (number | nil, string | nil, string | nil, string | nil, FileId | nil, number | nil, number | nil) => {
     return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
   }
-  Client::C_Item::GetItemStats = (link: String): Unknown => {
-    const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:new" ? 10 : 8 }
+  Client::C_Item::GetItemStats = (link: string): unknown => {
+    const stats: map<string, number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:new" ? 10 : 8 }
     return stats
   }
-  Client::CanDualWield = (): Boolean => false
+  Client::CanDualWield = (): boolean => false
   let wearing = false
-  Client::GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == 16 ? "item:old" : nil
+  Client::GetInventoryItemLink = (unit: string, slot: number): string | nil => wearing && slot == 16 ? "item:old" : nil
   const held = new Held(new GearWorth())
   Test::expect(held.up == 1)
   wearing = true

@@ -18,7 +18,7 @@ function options() {
 }
 
 // Auto Loot as the game has it.
-function autoLoot(): String | nil {
+function autoLoot(): string | nil {
   return Client::C_CVar::GetCVar("autoLootDefault")
 }
 

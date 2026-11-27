@@ -11,16 +11,16 @@ const LABEL: Color = Color::hex("#cbb994")
 
 public class SettingRow implements Component {
   state hovered = false
-  derived tipShown: Boolean = self.hovered && self.hint != ""
-  derived opacity: Number = self.disabled ? 0.45 : 1
+  derived tipShown: boolean = self.hovered && self.hint != ""
+  derived opacity: number = self.disabled ? 0.45 : 1
 
-  label: Signal<String>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    label: Signal<string>,
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.hint = hint

@@ -8,17 +8,17 @@ import { Market, ShoppingList, marketOf } from "@/shopping"
 import { ShoppingPage } from "@/shoppingPage"
 import { Sellers, VendorPage } from "@/vendorPage"
 
-const PAGE: Array<Track> = ["max-content", { fr: 1 }]
+const PAGE: array<Track> = ["max-content", { fr: 1 }]
 
 public class ShoppingTab implements Component {
   state tab = 1
-  derived names: Array<String> = self.namesOf()
+  derived names: array<string> = self.namesOf()
 
   const prices: any PriceSource
   list: mut ShoppingList
   const sellers: Sellers
-  atMerchant: Signal<Boolean>
-  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<Boolean>) {
+  atMerchant: Signal<boolean>
+  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<boolean>) {
     self.prices = prices
     self.list = list
     self.sellers = sellers
@@ -26,7 +26,7 @@ public class ShoppingTab implements Component {
   }
 
   // «Auction (3)», «Vendors (2)».
-  namesOf(self): Array<String> {
+  namesOf(self): array<string> {
     const vendors = self.list.rows.count(row => marketOf(self.prices, row.item) == Market::Vendor)
     return [Locale::TAB_HOUSE.format(self.list.rows.length - vendors), Locale::TAB_VENDORS.format(vendors)]
   }

@@ -9,24 +9,24 @@ const RED: Color = Color::hex("#ff4040")
 
 public struct Choices implements Plain {
   // The layers the player switched off, by their ids: one not named shows.
-  hidden: mut Map<String, Boolean>
+  hidden: mut map<string, boolean>
   // Whether the quest log stands docked on the map; apart by default. The client's `questLogOpen` follows it, never
   // the other way: Blizzard's map opening its side panel by itself leaves the quest log key Quests'.
-  docked: Boolean = false
+  docked: boolean = false
 }
 
 // One layer's row: its title, its hint, and its switch, which the page flips through its owner.
 class LayerRow implements Component {
   // Its switch was clicked: the layer's id.
-  public flip: Event<String> = new Event()
+  public flip: Event<string> = new Event()
 
   derived state: Shown = self.on ? .On : .Off
 
-  id: Signal<String>
-  title: Signal<String>
-  hint: Signal<String>
-  on: Signal<Boolean>
-  constructor(id: Signal<String>, title: Signal<String>, hint: Signal<String>, on: Signal<Boolean>) {
+  id: Signal<string>
+  title: Signal<string>
+  hint: Signal<string>
+  on: Signal<boolean>
+  constructor(id: Signal<string>, title: Signal<string>, hint: Signal<string>, on: Signal<boolean>) {
     self.id = id
     self.title = title
     self.hint = hint
@@ -46,20 +46,20 @@ class LayerRow implements Component {
 
 public class GeneralPage implements Component {
   // A layer's switch was clicked: its id.
-  public flip: Event<String> = new Event()
+  public flip: Event<string> = new Event()
 
-  openMap: Signal<Boolean>
-  docked: mut Signal<Boolean>
-  layers: Signal<Array<any Layer>>
-  hidden: Signal<Map<String, Boolean>>
-  constructor(openMap: Signal<Boolean>, docked: mut Signal<Boolean>, layers: Signal<Array<any Layer>>, hidden: Signal<Map<String, Boolean>>) {
+  openMap: Signal<boolean>
+  docked: mut Signal<boolean>
+  layers: Signal<array<any Layer>>
+  hidden: Signal<map<string, boolean>>
+  constructor(openMap: Signal<boolean>, docked: mut Signal<boolean>, layers: Signal<array<any Layer>>, hidden: Signal<map<string, boolean>>) {
     self.openMap = openMap
     self.docked = docked
     self.layers = layers
     self.hidden = hidden
   }
 
-  onFlip(mut self, id: String) { self.flip.emit(id) }
+  onFlip(mut self, id: string) { self.flip.emit(id) }
 
   public render(self): Template {
     return $ltml {

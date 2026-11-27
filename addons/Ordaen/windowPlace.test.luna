@@ -7,7 +7,7 @@ import { PushButton } from "@/pushButton"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 class Shown {
-  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = true
@@ -21,11 +21,11 @@ class Shown {
   }
 }
 
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 
 // A window whose page holds a button.
 class WithButton {
-  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("withButton", "withButton", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
 
@@ -42,7 +42,7 @@ class WithButton {
 }
 
 // The cursor pressed at `from`, dragged by `by`, and let go.
-function dragged(from: Test::Point, dx: Number, dy: Number) {
+function dragged(from: Test::Point, dx: number, dy: number) {
   Test::moveTo(from)
   Test::press(nil)
   Test::moveTo({ x: from.x + 1, y: from.y })

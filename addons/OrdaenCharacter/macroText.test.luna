@@ -7,14 +7,14 @@ import { templatesOf } from "@/macroTemplates"
 import { MOST_LETTERS, PickedCondition, Problem, lettersOf, optionText, problemsOf, shortened } from "@/macroText"
 
 // The client's commands these bodies use, by their spellings (`commandsOf` reads them from the client's texts).
-const COMMANDS: Map<String, String> = {
+const COMMANDS: map<string, string> = {
   ["/cast"]: "CAST", ["/закл"]: "CAST", ["/use"]: "USE", ["/castsequence"]: "CASTSEQUENCE", ["/startattack"]: "STARTATTACK"
 }
 
 // The player knows Flash Heal and has Hearthstones; nothing else.
-function known(name: String): Boolean { return name == "Flash Heal" || name == "Hearthstone" }
+function known(name: string): boolean { return name == "Flash Heal" || name == "Hearthstone" }
 
-function said(problems: Array<Problem>): String {
+function said(problems: array<Problem>): string {
   return problems.map(problem => `${problem.line}: ${problem.text}`).join(" | ")
 }
 
@@ -42,12 +42,12 @@ test "a body over the game's letters says by how many, a letter of several bytes
 
 test "the condition picker's brackets: the unit first, then each condition with its no and its value; none is []" {
   Test::expect(optionText("", []) == "[]")
-  const conditions: Array<PickedCondition> = [{ name: "help" }, { name: "dead", negated: true }, { name: "mod", value: "shift" }]
+  const conditions: array<PickedCondition> = [{ name: "help" }, { name: "dead", negated: true }, { name: "mod", value: "shift" }]
   Test::expect(optionText("mouseover", conditions) == "[@mouseover,help,nodead,mod:shift]")
 }
 
 test "a class's templates name its spells as the client does; a spell it hasn't makes none; the trinkets' come last" {
-  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => id == 2139 ? "Counterspell" : id == 133 ? "Fireball" : nil
+  Client::C_Spell::GetSpellName = (id: string | integer): string | nil => id == 2139 ? "Counterspell" : id == 133 ? "Fireball" : nil
   const templates = templatesOf("MAGE")
   Test::expect(templates.map(template => template.title).join(" | ") == [
     Locale::TEMPLATE_FOCUS_INTERRUPT, Locale::TEMPLATE_START_ATTACK, Locale::TEMPLATE_TRINKET.format(1), Locale::TEMPLATE_TRINKET.format(2)

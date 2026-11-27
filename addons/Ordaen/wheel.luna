@@ -22,14 +22,14 @@ public const DEAD_ZONE = 30dp
 
 // The item a direction chooses: 0 in the dead zone round the middle, else the item whose slice holds the direction,
 // item 1 straight up and the rest clockwise, each slice centred on its item. `dx` right and `dy` up from the middle.
-public function slotAt(dx: Number, dy: Number, count: Integer, dead: Number): Integer {
+public function slotAt(dx: number, dy: number, count: integer, dead: number): integer {
   if (count < 1 || dx * dx + dy * dy < dead * dead) { return 0 }
-  const share = (dx.atan2(dy) / (2 * Number::pi) + 1 + 0.5 / count) % 1
+  const share = (dx.atan2(dy) / (2 * number::pi) + 1 + 0.5 / count) % 1
   return ((share * count).floor() + 1).min(count)
 }
 
 // `slotAt` as the client's restricted code runs it: from `dx`, `dy`, `count` and `dead`, it sets `slot`.
-public const SLOT_LUA: String = [
+public const SLOT_LUA: string = [
   "local slot = 0",
   "if count > 0 and dx * dx + dy * dy >= dead * dead then",
   "  local share = (math.atan2(dx, dy) / (2 * math.pi) + 1 + 0.5 / count) % 1",
@@ -44,33 +44,33 @@ public enum WheelNames implements Plain { Off = "off", Chosen = "chosen", Always
 
 // One item of a ring as it is drawn.
 public struct WheelItem {
-  name: String
+  name: string
   // Its picture; none: its name, written in its hollow instead (an emote's command).
   icon: Art | nil
   // Dimmed where it stands: it can't be used now.
-  dim: Boolean
+  dim: boolean
   // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
   // blue without the power it costs (none: as it is); its cooldown's run.
-  count: String
+  count: string
   tone: Color | nil
   cooldown: FillDuration | nil
   // A submenu or a slot of several: how many items it holds (its band's segments, eight at most; 0: no band), and
   // the one the slice shows (0: none).
-  segments: Integer
-  segment: Integer
+  segments: integer
+  segment: integer
 }
 
 // An item that is a plain picture and a name, with no state.
-public function plainItem(name: String, icon: Art | nil, dim: Boolean): WheelItem {
+public function plainItem(name: string, icon: Art | nil, dim: boolean): WheelItem {
   return { name: name, icon: icon, dim: dim, count: "", tone: nil, cooldown: nil, segments: 0, segment: 0 }
 }
 
 // What the middle says, one thing a line: the name of what is aimed at (or of the ring shown), dimmed where nothing
 // is aimed at, and what the hand can do now, each its own line under it; three lines at most, none wrapped.
 public struct WheelMiddle {
-  name: String
-  hints: Array<String>
-  dim: Boolean
+  name: string
+  hints: array<string>
+  dim: boolean
 }
 
 // The lines the middle holds at most: the name and two hints.
@@ -80,27 +80,27 @@ const MIDDLE_LINES = 3
 struct Cut {
   art: Art
   tint: Color
-  opacity: Number
-  masks: Array<Mask>
+  opacity: number
+  masks: array<Mask>
 }
 
 // A straight edge: a thin box turned along a direction from the middle, between two radii.
 struct Edge {
-  left: Number<Length>
-  top: Number<Length>
-  width: Number<Length>
-  height: Number<Length>
-  turn: Number<Angle>
+  left: number<Length>
+  top: number<Length>
+  width: number<Length>
+  height: number<Length>
+  turn: number<Angle>
   tint: Color
-  opacity: Number
+  opacity: number
 }
 
 // An item's icon where it stands.
 struct Spot {
   item: WheelItem
-  left: Number<Length>
-  top: Number<Length>
-  chosen: Boolean
+  left: number<Length>
+  top: number<Length>
+  chosen: boolean
 }
 
 // The wheel's lengths at a scale of 1: the ring between its inner and outer edge, a band of segments inside the outer
@@ -165,63 +165,63 @@ const SEGMENT_OFF = 0.38
 const SEGMENT_OFF_AIMED = 0.25
 
 // An item's direction: item 1 up, the rest clockwise.
-public function itemTurn(index: Integer, count: Integer): Number<Angle> {
+public function itemTurn(index: integer, count: integer): number<Angle> {
   return (index - 1) * 360deg / count
 }
 
 // How wide a slice of a ring of `count` is, its gaps taken off.
 // How wide an item's name may stand in its wedge, at a scale of 1: the wedge's width at the band, its widest, less a
 // margin each side (a long word reaches into the wedge's outer part); a ring of one or two, no wider than this.
-function wordsWidthOf(count: Integer): Number<Length> {
-  const across = 2 * BAND * (Number::pi / count.max(1)).sin()
+function wordsWidthOf(count: integer): number<Length> {
+  const across = 2 * BAND * (number::pi / count.max(1)).sin()
   return (across - 2 * WORDS_INSET).min(WORDS_MOST)
 }
 
-function sliceTurn(count: Integer): Number<Angle> {
+function sliceTurn(count: integer): number<Angle> {
   return count == 1 ? 360deg : 360deg / count - 2 * GAP
 }
 
 // What cuts a piece of the ring `ring` gives to the part between two directions, clockwise from `from` to `to`
 // (half a turn at most): the ring, what lies clockwise of `from`, what lies before `to`. A whole turn, the ring alone.
-function cutting(ring: Asset, from: Number<Angle>, to: Number<Angle>): Array<Mask> {
+function cutting(ring: Asset, from: number<Angle>, to: number<Angle>): array<Mask> {
   if (to - from >= 360deg) { return [{ art: ring }] }
   return [{ art: ring }, { art: HALF, turn: from }, { art: HALF, turn: to - 180deg }]
 }
 
 public class Wheel implements Component {
   // Every length, by the ring's scale.
-  derived size: Number<Length> = WHEEL_SIZE * self.scale
-  derived count: Integer = self.items.length.min(WHEEL_MOST)
-  derived cuts: Array<Cut> = self.cutsOf()
-  derived edges: Array<Edge> = self.edgesOf()
-  derived spots: Array<Spot> = self.spotsOf()
+  derived size: number<Length> = WHEEL_SIZE * self.scale
+  derived count: integer = self.items.length.min(WHEEL_MOST)
+  derived cuts: array<Cut> = self.cutsOf()
+  derived edges: array<Edge> = self.edgesOf()
+  derived spots: array<Spot> = self.spotsOf()
   // The items with a picture, each in its hollow; those with none, their name right in the wedge.
-  derived pictured: Array<Spot> = self.spots.filter(spot => spot.item.icon != nil)
-  derived worded: Array<Spot> = self.spots.filter(spot => spot.item.icon == nil)
-  derived wordsWidth: Number<Length> = wordsWidthOf(self.count) * self.scale
-  derived wordsHeight: Number<Length> = (BAND - INNER - 2 * WORDS_INSET) * self.scale
-  derived middleSize: Number<Length> = MIDDLE * self.scale
-  derived categorySize: Number<Length> = CATEGORY * self.scale
-  derived named: Boolean = self.middle.name != "" && self.names != WheelNames::Off
-  derived hints: Array<String> = self.hintsOf()
+  derived pictured: array<Spot> = self.spots.filter(spot => spot.item.icon != nil)
+  derived worded: array<Spot> = self.spots.filter(spot => spot.item.icon == nil)
+  derived wordsWidth: number<Length> = wordsWidthOf(self.count) * self.scale
+  derived wordsHeight: number<Length> = (BAND - INNER - 2 * WORDS_INSET) * self.scale
+  derived middleSize: number<Length> = MIDDLE * self.scale
+  derived categorySize: number<Length> = CATEGORY * self.scale
+  derived named: boolean = self.middle.name != "" && self.names != WheelNames::Off
+  derived hints: array<string> = self.hintsOf()
 
-  items: Signal<Array<WheelItem>>
-  chosen: Signal<Integer>
+  items: Signal<array<WheelItem>>
+  chosen: Signal<integer>
   middle: Signal<WheelMiddle>
   names: Signal<WheelNames>
-  scale: Signal<Number>
-  opening: Signal<Number>
+  scale: Signal<number>
+  opening: Signal<number>
   category: Signal<Art | nil>
   constructor(
     // The ring's items, up to `WHEEL_MOST`, item 1 up and the rest clockwise.
-    items: Signal<Array<WheelItem>>,
+    items: Signal<array<WheelItem>>,
     // The item the cursor's direction chooses (`slotAt`): 0 for none.
-    chosen: Signal<Integer>,
+    chosen: Signal<integer>,
     middle: Signal<WheelMiddle>,
     names: Signal<WheelNames>,
-    scale: Signal<Number> = 1,
+    scale: Signal<number> = 1,
     // How far it has opened, 0 to 1: the icons' distance from the middle.
-    opening: Signal<Number> = 1,
+    opening: Signal<number> = 1,
     // The icon of the ring shown, in the middle: a submenu's or a slot's own; none on the first ring.
     category: Signal<Art | nil> = nil
   ) {
@@ -235,9 +235,9 @@ public class Wheel implements Component {
   }
 
   // The hints the middle has room for under the name.
-  hintsOf(self): Array<String> {
+  hintsOf(self): array<string> {
     const room = MIDDLE_LINES - (self.named ? 1 : 0)
-    const hints: Array<String> = []
+    const hints: array<string> = []
     for (index, hint of self.middle.hints) {
       if (index <= room) { hints.push(hint) }
     }
@@ -245,7 +245,7 @@ public class Wheel implements Component {
   }
 
   // Slice `index`'s two edges.
-  sides(self, index: Integer): [Number<Angle>, Number<Angle>] {
+  sides(self, index: integer): [number<Angle>, number<Angle>] {
     const middle = itemTurn(index, self.count)
     const half = sliceTurn(self.count) / 2
     return [middle - half, middle + half]
@@ -253,9 +253,9 @@ public class Wheel implements Component {
 
   // The curved pieces, under to over: each slice's stone, its shade, its curved edges; each band's segments and its
   // inner edge (gold in the slice aimed at); the slice aimed at, lit, and its curved edges gold.
-  cutsOf(self): Array<Cut> {
+  cutsOf(self): array<Cut> {
     const count = self.count
-    const cuts: Array<Cut> = []
+    const cuts: array<Cut> = []
     for (index, item of self.items) {
       if (index <= count) {
         const sides = self.sides(index)
@@ -292,7 +292,7 @@ public class Wheel implements Component {
   }
 
   // A thin box along the direction `turn`, between two radii.
-  edge(self, turn: Number<Angle>, from: Number<Length>, to: Number<Length>, width: Number<Length>, tint: Color, opacity: Number): Edge {
+  edge(self, turn: number<Angle>, from: number<Length>, to: number<Length>, width: number<Length>, tint: Color, opacity: number): Edge {
     const r = turn / 1rad
     const scale = self.scale
     const out = (from + to) / 2 * scale
@@ -305,9 +305,9 @@ public class Wheel implements Component {
 
   // The straight edges: each slice's two, the lines between a band's segments (gold in the slice aimed at, as its
   // band's inner edge is), the slice aimed at's two gold.
-  edgesOf(self): Array<Edge> {
+  edgesOf(self): array<Edge> {
     const count = self.count
-    const edges: Array<Edge> = []
+    const edges: array<Edge> = []
     if (count < 2) { return edges }
     for (index, item of self.items) {
       if (index <= count) {
@@ -329,9 +329,9 @@ public class Wheel implements Component {
     return edges
   }
 
-  spotsOf(self): Array<Spot> {
+  spotsOf(self): array<Spot> {
     const count = self.count
-    const spots: Array<Spot> = []
+    const spots: array<Spot> = []
     const out = ICON_AT * self.scale * (0.4 + 0.6 * self.opening)
     for (index, item of self.items) {
       if (index <= count) {

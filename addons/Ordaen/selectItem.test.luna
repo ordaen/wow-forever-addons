@@ -5,7 +5,7 @@ import { SelectItem, selectedFill } from "@/selectItem"
 
 const GREEN: Color = Color::hex("#40c040")
 const ORANGE: Color = Color::hex("#ff8040")
-const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
+const NAME_COUNT: array<Track> = [{ fr: 1 }, "max-content"]
 
 class Sidebar {
   state picked = "Bags"

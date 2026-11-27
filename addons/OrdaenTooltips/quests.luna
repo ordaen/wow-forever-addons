@@ -22,19 +22,19 @@ const TO_HAND_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 // One quest's rows as the game says them: its title ("" for objectives under none), the player's objectives, then
 // the party's.
 struct Block {
-  title: String
-  own: Array<TextLine>
-  party: Array<TextLine>
+  title: string
+  own: array<TextLine>
+  party: array<TextLine>
 }
 
 // An objective's text without its count, wherever the client puts it («Wolf slain: 2/5», «2/5 Wolf slain», «- Wolf
 // slain: 2/5»).
-public function labelOf(text: String): String {
+public function labelOf(text: string): string {
   return text.replace("^%s*%-%s*", "").replace("^%d+%s*/%s*%d+%s*", "").replace("%s*:?%s*%d+%s*/%s*%d+%s*$", "")
 }
 
 // A row of the game's objective: its text without its count, the count at the right, green once done.
-function objectiveRow(text: String, label: String, done: Boolean, indent: Boolean): TextLine {
+function objectiveRow(text: string, label: string, done: boolean, indent: boolean): TextLine {
   let have, need = text.match("(%d+)%s*/%s*(%d+)")
   let counted = have != nil && need != nil && (have.toNumber() ?? 0) >= (need.toNumber() ?? 0)
   let value = have != nil && need != nil ? have + "/" + need : nil
@@ -44,13 +44,13 @@ function objectiveRow(text: String, label: String, done: Boolean, indent: Boolea
 }
 
 // The game's quest rows as blocks, in its order. `party`: the party's objectives are kept too.
-function blocksOf(lines: Array<Game::TooltipLine>, party: Boolean): Array<Block> {
-  const blocks: Array<Block> = []
+function blocksOf(lines: array<Game::TooltipLine>, party: boolean): array<Block> {
+  const blocks: array<Block> = []
   let started = false
   let title = ""
-  let own: Array<TextLine> = []
-  let theirs: Array<TextLine> = []
-  let member: String | nil = nil
+  let own: array<TextLine> = []
+  let theirs: array<TextLine> = []
+  let member: string | nil = nil
   for (line of lines) {
     let text = clean(line.left)
     if (text == nil) { continue }
@@ -77,7 +77,7 @@ function blocksOf(lines: Array<Game::TooltipLine>, party: Boolean): Array<Block>
 }
 
 // The place of the game's block of a quest's title; nil where the game names no such quest.
-function blockOf(blocks: Array<Block>, title: String): Integer | nil {
+function blockOf(blocks: array<Block>, title: string): integer | nil {
   for (at, block of blocks) {
     if (block.title == title) { return at }
   }
@@ -104,13 +104,13 @@ function offeredRow(offer: Offered): TextLine {
 // the game's block of its quest's title, unless that block already has its objective; else its quest's own block,
 // after the game's.
 public function questRows(
-  lines: Array<Game::TooltipLine>, party: Boolean, wants: Array<Wanted>, offers: Array<Offered>
-): mut Array<TextLine> {
+  lines: array<Game::TooltipLine>, party: boolean, wants: array<Wanted>, offers: array<Offered>
+): mut array<TextLine> {
   const blocks = blocksOf(lines, party)
   // The rows added to each of the game's blocks, by its place; and the quests the game names none of, in order.
-  const added: Map<Integer, mut Array<TextLine>> = {}
-  const ownRows: Map<Integer, mut Array<TextLine>> = {}
-  const ownQuests: Array<Wanted> = []
+  const added: map<integer, mut array<TextLine>> = {}
+  const ownRows: map<integer, mut array<TextLine>> = {}
+  const ownQuests: array<Wanted> = []
   for (want of wants) {
     const at = blockOf(blocks, want.title)
     if (at != nil) {
@@ -127,7 +127,7 @@ public function questRows(
       }
     }
   }
-  const rows: Array<TextLine> = offers.map(offer => offeredRow(offer))
+  const rows: array<TextLine> = offers.map(offer => offeredRow(offer))
   for (at, block of blocks) {
     if (block.title != "") { rows.push({ left: block.title, color: GOLD, heads: true }) }
     for (row of block.own) { rows.push(row) }
@@ -142,6 +142,6 @@ public function questRows(
 }
 
 // The game's quest rows alone (an object's tooltip). `party`: the party's objectives are shown too.
-public function quests(lines: Array<Game::TooltipLine>, party: Boolean): mut Array<TextLine> {
+public function quests(lines: array<Game::TooltipLine>, party: boolean): mut array<TextLine> {
   return questRows(lines, party, [], [])
 }

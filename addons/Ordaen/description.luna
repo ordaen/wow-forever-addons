@@ -14,36 +14,36 @@ const ARCANE = "e48af0"
 const HOLY = "ffe680"
 
 // A colour as the game's text codes write it: «|cffffffff».
-function code(color: String): String { return "|cff" + color }
+function code(color: string): string { return "|cff" + color }
 
 // The units a number is lit with, as the game writes them after it.
-const UNITS: Array<String> = [
+const UNITS: array<string> = [
   "сек.", "сек", "мин.", "мин", "ч.", "ед.", "м", "м.", "sec.", "sec", "min.", "min", "hr", "hrs", "yd", "yds", "yards"
 ]
 // The words that open and join a range: «от 19 до 20», «from 19 to 20».
-const RANGE_FROM: Array<String> = ["от", "from"]
-const RANGE_TO: Array<String> = ["до", "to"]
+const RANGE_FROM: array<string> = ["от", "from"]
+const RANGE_TO: array<string> = ["до", "to"]
 
 // A word without the punctuation after it, and that punctuation.
-function bareOf(word: String): [String, String] {
+function bareOf(word: string): [string, string] {
   const bare, tail = word.match("^(.-)([,;:!%?%)%.]*)$")
   return [bare ?? word, tail ?? ""]
 }
 
 // A number as a word is: «20», «1,5», «10%», a range in one word («19-20», «19–20»).
-function isNumber(word: String): Boolean {
+function isNumber(word: string): boolean {
   return word.match("^%d[%d,%.]*%%?$") != nil || word.match("^%d[%d,%.]*%-%d[%d,%.]*%%?$") != nil ||
     word.match("^%d[%d,%.]*–%d[%d,%.]*%%?$") != nil
 }
 
-function isUnit(word: String): Boolean { return UNITS.any(unit => unit == word) }
+function isUnit(word: string): boolean { return UNITS.any(unit => unit == word) }
 
-function among(words: Array<String>, word: String | nil): Boolean { return word != nil && words.any(each => each == word) }
+function among(words: array<string>, word: string | nil): boolean { return word != nil && words.any(each => each == word) }
 
 // A line's numbers lit, each with its unit and a range whole («от 19 до 20 сек.»), the punctuation after left as it is.
-function litNumbers(line: String): String {
+function litNumbers(line: string): string {
   const words = line.split(" ")
-  const out: Array<String> = []
+  const out: array<string> = []
   let skip = 0
   for (at, word of words) {
     if (skip > 0) {
@@ -62,7 +62,7 @@ function litNumbers(line: String): String {
       out.push(word)
       continue
     }
-    const parts: Array<String> = []
+    const parts: array<string> = []
     for (each of at..last) { parts.push(words[each] ?? "") }
     let taken = parts.join(" ")
     let tail = bareOf(words[last] ?? "")[2]
@@ -86,7 +86,7 @@ function litNumbers(line: String): String {
 }
 
 // A description as the design draws it. A text the game coloured itself is left as it is.
-public function richDescription(text: String): String {
+public function richDescription(text: string): string {
   if (text.contains("|c")) { return text }
   let lit = text.split("\n").map(line => litNumbers(line)).join("\n")
   lit = lit.replace("(физическ[^%s]* урон[^%s,%.]*)", school => code(PHYSICAL) + school + "|r")

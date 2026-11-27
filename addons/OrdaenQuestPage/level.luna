@@ -7,16 +7,16 @@ import { Component } from "Ordaen"
 const UNSEEN: Color = Color::hex("#00000000")
 
 public class QuestLevel implements Component {
-  derived tens: String = self.level >= 10 ? String::of((self.level / 10).floor() % 10) : "0"
+  derived tens: string = self.level >= 10 ? string::of((self.level / 10).floor() % 10) : "0"
   derived tensColor: Color = self.level >= 10 ? self.color : UNSEEN
-  derived ones: String = `${self.level % 10}${self.group ? "+" : ""}`
+  derived ones: string = `${self.level % 10}${self.group ? "+" : ""}`
 
-  level: Signal<Integer>
+  level: Signal<integer>
   // A group quest's: a «+» after the level.
-  group: Signal<Boolean>
+  group: Signal<boolean>
   // Its difficulty's colour (`questLevelColor`).
   color: Signal<Color>
-  constructor(level: Signal<Integer>, group: Signal<Boolean>, color: Signal<Color>) {
+  constructor(level: Signal<integer>, group: Signal<boolean>, color: Signal<Color>) {
     self.level = level
     self.group = group
     self.color = color

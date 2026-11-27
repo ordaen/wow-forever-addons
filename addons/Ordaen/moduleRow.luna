@@ -19,12 +19,12 @@ const KNOB_ON = 17.578125dp
 // A module the player has, as the settings window lists it: its addon's name, title and icon from its TOC; it runs
 // while its root is among Ordaen's `modules`, and its pages are that root's.
 public class ModuleEntry implements Entry {
-  public const folder: String
-  public const title: String
+  public const folder: string
+  public const title: string
   public const icon: Art
   public derived running: any Module | nil = self.find()
-  public derived on: Boolean = self.running != nil
-  public derived pages: Array<SettingsPage> = self.running?.pages ?? []
+  public derived on: boolean = self.running != nil
+  public derived pages: array<SettingsPage> = self.running?.pages ?? []
   const addon: Runtime::Addon
 
   constructor(addon: Runtime::Addon) {
@@ -41,14 +41,14 @@ public class ModuleEntry implements Entry {
     return nil
   }
 
-  public enable(self, on: Boolean) { Ordaen.turn(self.addon, on) }
+  public enable(self, on: boolean) { Ordaen.turn(self.addon, on) }
 }
 
 // A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
 public class ModuleSwitch implements Component {
   derived track: Art = self.entry.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
-  derived onOpacity: Number = knobShown(self.entry.on)
-  derived offOpacity: Number = knobShown(!self.entry.on)
+  derived onOpacity: number = knobShown(self.entry.on)
+  derived offOpacity: number = knobShown(!self.entry.on)
 
   entry: any Entry
   constructor(entry: any Entry) {
@@ -71,25 +71,25 @@ public class ModuleSwitch implements Component {
 
 public class ModuleRow implements Component {
   // Its folder: the page the window is to show.
-  public pick: Event<String> = new Event()
+  public pick: Event<string> = new Event()
 
   // Its name in the list: its title without "Ordaen " (Ordaen Panel: Panel).
-  derived name: String = self.nameOf()
-  derived selected: Boolean = self.shown == self.entry.folder
-  derived off: Boolean = !self.entry.on
+  derived name: string = self.nameOf()
+  derived selected: boolean = self.shown == self.entry.folder
+  derived off: boolean = !self.entry.on
 
   entry: any Entry
-  shown: Signal<String>
+  shown: Signal<string>
   constructor(
     entry: any Entry,
     // The page the window shows.
-    shown: Signal<String>
+    shown: Signal<string>
   ) {
     self.entry = entry
     self.shown = shown
   }
 
-  nameOf(self): String { return moduleName(self.entry.title) }
+  nameOf(self): string { return moduleName(self.entry.title) }
 
   onPick(mut self) { self.pick.emit(self.entry.folder) }
 

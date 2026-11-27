@@ -12,12 +12,12 @@ import Locale from "@/locales"
 import { ReportPage } from "@/report"
 
 public class DebugModule implements Module, App {
-  public const title: String = "Ordaen Debug"
+  public const title: string = "Ordaen Debug"
   public errors: mut Errors
   public catcher: mut Catcher
   public kit: mut Kit
   // Its one tab: «Report a bug».
-  public const pages: Array<SettingsPage> = [
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_REPORT, content: $ltml { <ReportPage errors={self.errors} /> } }
   ]
 

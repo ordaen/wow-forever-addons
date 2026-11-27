@@ -10,7 +10,7 @@ import { Component, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec } from "Or
 import { NO_ROOM, ROW_ROOM, frameSides } from "@/layout"
 import Locale from "@/locales"
 
-const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
+const ROW: array<Track> = [37.5dp, { fr: 1 }, "max-content"]
 const ICON = 37.5dp
 const INK: Color = Color::hex("#e8dcc4")
 const LABEL: Color = Color::hex("#a3977f")
@@ -23,19 +23,19 @@ const LIST = 260dp
 // A bag as the window lists it: what the game says of it, and how many of its slots hold something.
 public struct BagLine {
   const info: Game::BagInfo
-  const used: Integer
+  const used: integer
 }
 
 class BagEntry implements Component {
-  public lit: Event<Integer> = new Event()
-  public put: Event<Integer> = new Event()
-  public pick: Event<Integer> = new Event()
-  public lift: Event<Integer> = new Event()
+  public lit: Event<integer> = new Event()
+  public put: Event<integer> = new Event()
+  public pick: Event<integer> = new Event()
+  public lift: Event<integer> = new Event()
   // The backpack is no place: it is never taken off, nor anything put on there.
-  derived place: Boolean = self.line.info.bag > 0
-  derived name: String = self.line.info.slots > 0 ? self.line.info.name : Locale::EMPTY_BAG_PLACE
+  derived place: boolean = self.line.info.bag > 0
+  derived name: string = self.line.info.slots > 0 ? self.line.info.name : Locale::EMPTY_BAG_PLACE
   state hovered = false
-  derived fill: String = self.line.info.slots > 0 ? Locale::FILL.format(self.line.used, self.line.info.slots) : ""
+  derived fill: string = self.line.info.slots > 0 ? Locale::FILL.format(self.line.used, self.line.info.slots) : ""
   derived back: Color = self.hovered ? SHADE : CLEAR
 
   line: Signal<BagLine>
@@ -83,27 +83,27 @@ class BagEntry implements Component {
 
 public class BagSlotsWindow implements Component {
   public close: Event<nil> = new Event()
-  public lit: Event<Integer> = new Event()
+  public lit: Event<integer> = new Event()
   // A bag let go on a place, by the place.
-  public put: Event<Integer> = new Event()
+  public put: Event<integer> = new Event()
   // A line clicked with nothing held, and a worn bag's line dragged: by the place.
-  public pick: Event<Integer> = new Event()
-  public lift: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
+  public lift: Event<integer> = new Event()
   state tab = 1
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale::BAG_SLOTS }]
+  derived tabs: array<WindowTabSpec> = [{ title: Locale::BAG_SLOTS }]
 
-  lines: Signal<Array<BagLine>>
+  lines: Signal<array<BagLine>>
   declared: mut KeptWindow
-  constructor(lines: Signal<Array<BagLine>>, declared: mut KeptWindow) {
+  constructor(lines: Signal<array<BagLine>>, declared: mut KeptWindow) {
     self.lines = lines
     self.declared = declared
   }
 
   onClose(self) { self.close.emit() }
-  onLit(self, bag: Integer) { self.lit.emit(bag) }
-  onPut(self, bag: Integer) { self.put.emit(bag) }
-  onPick(self, bag: Integer) { self.pick.emit(bag) }
-  onLift(self, bag: Integer) { self.lift.emit(bag) }
+  onLit(self, bag: integer) { self.lit.emit(bag) }
+  onPut(self, bag: integer) { self.put.emit(bag) }
+  onPick(self, bag: integer) { self.pick.emit(bag) }
+  onLift(self, bag: integer) { self.lift.emit(bag) }
 
   public render(self): Template {
     return $ltml {

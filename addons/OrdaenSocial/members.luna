@@ -15,7 +15,7 @@ import Style from "@/style"
 // Who a roster shows: everyone, or those online.
 public enum Show { Everyone, Online }
 
-const SHOWS: Array<Choice<Show>> = [
+const SHOWS: array<Choice<Show>> = [
   { value: .Everyone, label: Locale::SHOW_EVERYONE },
   { value: .Online, label: Locale::SHOW_ONLINE }
 ]
@@ -23,13 +23,13 @@ const SHOWS: Array<Choice<Show>> = [
 // the achievement points.
 public enum Extra { Note, Professions, Achievements }
 
-const EXTRAS: Array<Choice<Extra>> = [
+const EXTRAS: array<Choice<Extra>> = [
   { value: .Note, label: Locale::COLUMN_NOTE },
   { value: .Professions, label: Locale::COLUMN_PROFESSIONS },
   { value: .Achievements, label: Locale::COLUMN_ACHIEVEMENTS }
 ]
 
-function extraTitle(extra: Extra): String {
+function extraTitle(extra: Extra): string {
   return match (extra) {
     .Note => Locale::COLUMN_NOTE
     .Professions => Locale::COLUMN_PROFESSIONS
@@ -38,11 +38,11 @@ function extraTitle(extra: Extra): String {
 }
 
 // What a member's last column says.
-function extraOf(member: Member, extra: Extra): String {
+function extraOf(member: Member, extra: Extra): string {
   return match (extra) {
     .Note => member.note
     .Professions => member.professions
-    .Achievements => member.achievementPoints > 0 ? String::of(member.achievementPoints) : ""
+    .Achievements => member.achievementPoints > 0 ? string::of(member.achievementPoints) : ""
   }
 }
 
@@ -52,7 +52,7 @@ const RANK_WIDTH = 140.625dp
 // The status (a dot, no heading: those online always stand first), the level, the name, where they are, the rank (a
 // community's role) and the extra column (the note, cut at its edge, the professions or the achievement points);
 // everything else wraps.
-function guildColumns(extra: Extra): Array<Column> {
+function guildColumns(extra: Extra): array<Column> {
   return [
     { title: "", width: STATUS_WIDTH },
     { title: Locale::COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align::Center, sortable: true },
@@ -66,10 +66,10 @@ function extraWrap(extra: Extra): TextWrap {
   if (extra == .Note) { return .Cut }
   return .Words
 }
-const GUILD_COLUMNS: Array<Column> = guildColumns(.Note)
-const PROFESSION_COLUMNS: Array<Column> = guildColumns(.Professions)
-const ACHIEVEMENT_COLUMNS: Array<Column> = guildColumns(.Achievements)
-const CLUB_COLUMNS: Array<Column> = [
+const GUILD_COLUMNS: array<Column> = guildColumns(.Note)
+const PROFESSION_COLUMNS: array<Column> = guildColumns(.Professions)
+const ACHIEVEMENT_COLUMNS: array<Column> = guildColumns(.Achievements)
+const CLUB_COLUMNS: array<Column> = [
   { title: "", width: STATUS_WIDTH },
   { title: Locale::COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align::Center, sortable: true },
   { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
@@ -78,7 +78,7 @@ const CLUB_COLUMNS: Array<Column> = [
   { title: Locale::COLUMN_NOTE, width: { fr: 1 }, sortable: true }
 ]
 // The sorts no column shows, the toolbar's alone: `columns.length + 1` and on.
-const MORE_SORTS: Array<String> = [Locale::COLUMN_CLASS]
+const MORE_SORTS: array<string> = [Locale::COLUMN_CLASS]
 // The columns as they are numbered from 1, then the toolbar's own sorts.
 const BY_LEVEL = 2
 const BY_NAME = 3
@@ -87,24 +87,24 @@ const BY_RANK = 5
 const BY_NOTE = 6
 const BY_CLASS = 7
 
-function online(member: Member): Boolean { return member.presence != .Offline }
+function online(member: Member): boolean { return member.presence != .Offline }
 
 // Where a member is: the zone while online, when last online while offline.
-public function whereOf(member: Member): String {
+public function whereOf(member: Member): string {
   if (online(member)) { return member.zone }
   return member.away > 0 ? hoursAgoText(member.away) : Locale::OFFLINE_LOWER
 }
 
 // -1 where `a` comes first, 1 where `b` does, 0 where they stand alike.
-function byText(a: String, b: String): Integer {
+function byText(a: string, b: string): integer {
   const x = a.lower()
   const y = b.lower()
   return x < y ? -1 : x > y ? 1 : 0
 }
 
-function byNumber(a: Integer, b: Integer): Integer { return a < b ? -1 : a > b ? 1 : 0 }
+function byNumber(a: integer, b: integer): integer { return a < b ? -1 : a > b ? 1 : 0 }
 
-function compared(column: Integer, a: Member, b: Member, extra: Extra): Integer {
+function compared(column: integer, a: Member, b: Member, extra: Extra): integer {
   return match (column) {
     BY_LEVEL => byNumber(a.level, b.level)
     BY_CLASS => byText(a.className, b.className)
@@ -116,7 +116,7 @@ function compared(column: Integer, a: Member, b: Member, extra: Extra): Integer 
 }
 
 // Whether a member stands before another: those online first, then the column's order, then the name.
-function before(a: Member, b: Member, column: Integer, descending: Boolean, extra: Extra): Boolean {
+function before(a: Member, b: Member, column: integer, descending: boolean, extra: Extra): boolean {
   if (online(a) != online(b)) { return online(a) }
   const order = compared(column, a, b, extra)
   if (order != 0) { return descending ? order > 0 : order < 0 }
@@ -125,14 +125,14 @@ function before(a: Member, b: Member, column: Integer, descending: Boolean, extr
 }
 
 // Whether a member is found by what the player typed: in the name, the class, the zone, the rank or the note.
-function found(member: Member, query: String): Boolean {
+function found(member: Member, query: string): boolean {
   if (query == "") { return true }
   const text = [member.name, member.className, member.zone, member.rank, member.note].join(" ").lower()
   return text.contains(query.lower())
 }
 
 // The members a roster shows, in its order.
-public function shownOf(members: Array<Member>, query: String, show: Show, column: Integer, descending: Boolean, extra: Extra = .Note): Array<Member> {
+public function shownOf(members: array<Member>, query: string, show: Show, column: integer, descending: boolean, extra: Extra = .Note): array<Member> {
   const shown = members.filter(member => found(member, query) && (show == .Everyone || online(member)))
   shown.sort((a, b) => before(a, b, column, descending, extra))
   return shown
@@ -146,20 +146,20 @@ public function nameColorOf(member: Member): Color {
 
 // A member as a row: a click picks it, a right click opens the game's menu of it.
 class MemberRow implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
-  derived picked: Boolean = self.chosen == self.member.key
-  derived level: String = self.member.level > 0 ? String::of(self.member.level) : ""
+  derived picked: boolean = self.chosen == self.member.key
+  derived level: string = self.member.level > 0 ? string::of(self.member.level) : ""
   derived ink: Color = online(self.member) ? Style::INK : Style::OFFLINE
-  derived last: String = extraOf(self.member, self.extra)
+  derived last: string = extraOf(self.member, self.extra)
   // The note is cut at its column's edge; the professions and the points wrap.
   derived lastWrap: TextWrap = extraWrap(self.extra)
 
   member: Signal<Member>
-  chosen: Signal<String>
+  chosen: Signal<string>
   extra: Signal<Extra>
-  constructor(member: Signal<Member>, chosen: Signal<String>, extra: Signal<Extra>) {
+  constructor(member: Signal<Member>, chosen: Signal<string>, extra: Signal<Extra>) {
     self.member = member
     self.chosen = chosen
     self.extra = extra
@@ -203,32 +203,32 @@ class MemberRow implements Component {
 // The roster with its tools: the toolbar (the search, «Показывать», the sort and, in the guild, the extra column) and
 // the table. `guild` names its rank column «Звание», a community's «Роль».
 public class MemberTable implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
   state query = ""
   state show: Show = .Everyone
   state sorted = BY_RANK
   state descending = false
   state extra: Extra = .Note
-  derived shown: Array<Member> = shownOf(self.members, self.query, self.show, self.sorted, self.descending, self.extra)
-  derived lit: Boolean = self.show != .Everyone
-  derived empty: String = self.shown.length == 0 ? Locale::NOTHING_FOUND : ""
+  derived shown: array<Member> = shownOf(self.members, self.query, self.show, self.sorted, self.descending, self.extra)
+  derived lit: boolean = self.show != .Everyone
+  derived empty: string = self.shown.length == 0 ? Locale::NOTHING_FOUND : ""
 
-  members: Signal<Array<Member>>
-  chosen: Signal<String>
+  members: Signal<array<Member>>
+  chosen: Signal<string>
   // A community's columns, or the guild's (with its extra column's choice).
-  const guild: Boolean
-  const columns: Array<Column>
-  constructor(members: Signal<Array<Member>>, chosen: Signal<String>, guild: Boolean = true) {
+  const guild: boolean
+  const columns: array<Column>
+  constructor(members: Signal<array<Member>>, chosen: Signal<string>, guild: boolean = true) {
     self.members = members
     self.chosen = chosen
     self.guild = guild
     self.columns = guild ? GUILD_COLUMNS : CLUB_COLUMNS
   }
 
-  onPick(mut self, key: String) { self.pick.emit(key) }
-  onMenu(mut self, key: String) { self.menu.emit(key) }
+  onPick(mut self, key: string) { self.pick.emit(key) }
+  onMenu(mut self, key: string) { self.menu.emit(key) }
 
   // The table, of these columns: one for each choice of the extra column, each its headings' own.
   public render(self): Template {
@@ -274,21 +274,21 @@ public class MemberCard implements Component {
   public demote: Event<nil> = new Event()
   public menu: Event<nil> = new Event()
 
-  derived sub: String = Locale::CARD_CHARACTER_LEVEL.format(self.member.className, self.member.level)
-  derived status: String = self.statusOf()
-  derived canAsk: Boolean = online(self.member)
-  derived ranks: Boolean = self.rights.promote || self.rights.demote
+  derived sub: string = Locale::CARD_CHARACTER_LEVEL.format(self.member.className, self.member.level)
+  derived status: string = self.statusOf()
+  derived canAsk: boolean = online(self.member)
+  derived ranks: boolean = self.rights.promote || self.rights.demote
 
   member: Signal<Member>
   rights: Signal<GuildRights>
-  rankTitle: Signal<String>
-  constructor(member: Signal<Member>, rights: Signal<GuildRights>, rankTitle: Signal<String>) {
+  rankTitle: Signal<string>
+  constructor(member: Signal<Member>, rights: Signal<GuildRights>, rankTitle: Signal<string>) {
     self.member = member
     self.rights = rights
     self.rankTitle = rankTitle
   }
 
-  statusOf(self): String {
+  statusOf(self): string {
     const text = presenceText(self.member.presence)
     return self.member.away > 0 ? `${text} · ${hoursAgoText(self.member.away)}` : text
   }

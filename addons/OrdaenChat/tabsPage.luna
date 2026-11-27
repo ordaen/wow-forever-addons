@@ -15,7 +15,7 @@ import { COMMUNITIES, GroupRowView, NOTICES, RowPick, RowShown, SectionShown, TA
 import Locale from "@/locales"
 
 // What the input's history keeps while a tab is open.
-const HISTORY: Array<Choice<Game::ChatHistory>> = [
+const HISTORY: array<Choice<Game::ChatHistory>> = [
   { value: Game::ChatHistory::All, label: Locale::HISTORY_ALL },
   { value: Game::ChatHistory::Commands, label: Locale::HISTORY_COMMANDS },
   { value: Game::ChatHistory::None, label: Locale::HISTORY_NONE }
@@ -25,24 +25,24 @@ const MAX: "max-content" = "max-content"
 const SIDEBAR = 180dp
 const BUTTON = 130dp
 
-const NAMES: Array<Choice<ChannelName>> = [
+const NAMES: array<Choice<ChannelName>> = [
   { value: ChannelName::Name, label: Locale::CHANNEL_NAME },
   { value: ChannelName::Number, label: Locale::CHANNEL_NUMBER },
   { value: ChannelName::Both, label: Locale::CHANNEL_BOTH }
 ]
-const STAMPS: Array<Choice<StampPlace>> = [
+const STAMPS: array<Choice<StampPlace>> = [
   { value: StampPlace::Inline, label: Locale::STAMPS_INLINE },
   { value: StampPlace::Above, label: Locale::STAMPS_ABOVE }
 ]
 
 // A community's stream's key among the rows.
-function streamKey(stream: Game::ChatStream): String {
+function streamKey(stream: Game::ChatStream): string {
   return `${stream.club}:${stream.stream}`
 }
 
 // The windows' own settings with one window's set (nil: taken away).
-function withTab(tabs: Map<String, TabChoices>, key: String, choices: TabChoices | nil): Map<String, TabChoices> {
-  const changed: Map<String, TabChoices> = {}
+function withTab(tabs: map<string, TabChoices>, key: string, choices: TabChoices | nil): map<string, TabChoices> {
+  const changed: map<string, TabChoices> = {}
   for (other, kept of tabs) { changed[other] = kept }
   changed[key] = choices
   return changed
@@ -54,8 +54,8 @@ public class ShownRow implements Component {
   public toggled: Event<Game::ChatShown> = new Event()
   state on = false
   item: Signal<Game::ChatShown>
-  label: Signal<String>
-  constructor(item: Signal<Game::ChatShown>, label: Signal<String>) {
+  label: Signal<string>
+  constructor(item: Signal<Game::ChatShown>, label: Signal<string>) {
     self.item = item
     self.label = label
     watch (read of self.item) { self.on = read.shown }
@@ -72,10 +72,10 @@ public class ShownRow implements Component {
 
 // One window's entry in the sidebar.
 public class WindowEntry implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
   const window: Game::ChatWindow
-  picked: Signal<Boolean>
-  constructor(window: Game::ChatWindow, picked: Signal<Boolean>) {
+  picked: Signal<boolean>
+  constructor(window: Game::ChatWindow, picked: Signal<boolean>) {
     self.window = window
     self.picked = picked
   }
@@ -91,13 +91,13 @@ public class TabsPage implements Component {
   derived chosen: Game::ChatWindow | nil = Game::chat.windows.find(window => window.index == self.window)
   // Moved by each change of what the window shows, so what it shows is read anew.
   state version = 0
-  derived groups: Array<Game::ChatGroup> = self.version >= 0 ? Game::chat.groups(self.window) : []
-  derived talks: Array<RowShown> = rowsOf(TALKS, self.groups)
-  derived notices: Array<RowShown> = rowsOf([NOTICES], self.groups)
-  derived systems: Array<SectionShown> = systemsOf(self.groups)
-  derived channels: Array<Game::ChatShown> = self.version >= 0 ? Game::chat.channels(self.window) : []
-  derived communities: Array<Game::ChatCommunity> = self.version >= 0 ? Game::chat.communities(self.window) : []
-  derived closable: Boolean = self.window > 2
+  derived groups: array<Game::ChatGroup> = self.version >= 0 ? Game::chat.groups(self.window) : []
+  derived talks: array<RowShown> = rowsOf(TALKS, self.groups)
+  derived notices: array<RowShown> = rowsOf([NOTICES], self.groups)
+  derived systems: array<SectionShown> = systemsOf(self.groups)
+  derived channels: array<Game::ChatShown> = self.version >= 0 ? Game::chat.channels(self.window) : []
+  derived communities: array<Game::ChatCommunity> = self.version >= 0 ? Game::chat.communities(self.window) : []
+  derived closable: boolean = self.window > 2
   state name = ""
   state locked = false
   state counter = true
@@ -105,13 +105,13 @@ public class TabsPage implements Component {
   state stamps: StampPlace = .Above
   state keywords = ""
   state repeats = true
-  state held: Number = 500
-  state kept: Number = 200
+  state held: number = 500
+  state kept: number = 200
   state history: Game::ChatHistory = .All
 
-  window: mut Signal<Integer>
+  window: mut Signal<integer>
   settings: mut Settings<Choices>
-  constructor(window: mut Signal<Integer>, settings: mut Settings<Choices>) {
+  constructor(window: mut Signal<integer>, settings: mut Settings<Choices>) {
     self.window = window
     self.settings = settings
     // The picked window's own settings, taken as it is picked.
@@ -159,7 +159,7 @@ public class TabsPage implements Component {
     self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(chosen.index), choices) })
   }
 
-  onPick(mut self, window: Integer) { self.window = window }
+  onPick(mut self, window: integer) { self.window = window }
 
   onRename(mut self) {
     const name = peek self.name

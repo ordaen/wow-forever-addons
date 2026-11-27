@@ -3,7 +3,7 @@ import Test from "$test"
 import { LearnTable } from "@/learnPlaces"
 import { LearnPlace } from "@/sources"
 
-function places(): Array<LearnPlace> {
+function places(): array<LearnPlace> {
   return [
     { way: "Vendor", name: "Alys Vol'tyr", zone: "Undercity", cost: 0, quest: 0, npc: 1 },
     { way: "Vendor", name: "Borya", zone: "Booty Bay", cost: 0, quest: 0, npc: 2 },
@@ -12,7 +12,7 @@ function places(): Array<LearnPlace> {
 }
 
 // Borya is 120 yards away, Alys 3400; the trainer has no spot.
-function yards(npc: Integer): Number | nil { return npc == 2 ? 120 : npc == 1 ? 3400.6 : nil }
+function yards(npc: integer): number | nil { return npc == 2 ? 120 : npc == 1 ? 3400.6 : nil }
 
 class Page {
   public opened = ""
@@ -22,7 +22,7 @@ class Page {
   }
 }
 
-function names(): String {
+function names(): string {
   return Test::page().texts().filter(text => text == "Alys Vol'tyr" || text == "Borya" || text.contains("trainer")).join(", ")
 }
 

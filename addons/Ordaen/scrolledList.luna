@@ -18,20 +18,20 @@ public enum Ground { Well, Wood }
 const INSIDE = 3sp
 const NONE = 0sp
 // The head as high as it is, the rows the rest.
-const PARTS: Array<Track> = ["max-content", { fr: 1 }]
+const PARTS: array<Track> = ["max-content", { fr: 1 }]
 const SUBGRID: Columns = "subgrid"
 
 public class ScrolledList implements Component {
-  derived sunk: Boolean = self.ground == Ground::Well
+  derived sunk: boolean = self.ground == Ground::Well
   // On the wood none: the list stands against its window's or its column's border, and its rows edge to edge.
   derived rim: Line | nil = self.sunk ? Ordaen.art.ctl.well.rim : nil
   derived floor = self.sunk ? Ordaen.art.ctl.well.floor : nil
-  derived inside: Number<Spacing> = self.rowsPadded || !self.sunk ? NONE : INSIDE
+  derived inside: number<Spacing> = self.rowsPadded || !self.sunk ? NONE : INSIDE
   // At the sides, the room it is given where it is.
-  derived across: Number<Spacing> = self.sides ?? self.inside
+  derived across: number<Spacing> = self.sides ?? self.inside
   // A table's head and rows stand in its tracks (`parts`), which keep the room at its sides: they reach over it, their
   // cells in the tracks. A list's head and rows keep the room themselves, the head the rows' sides.
-  derived tabled: Boolean = self.tracks != nil
+  derived tabled: boolean = self.tracks != nil
   derived parts: Columns | nil = self.tabled ? SUBGRID : nil
   derived tableSides: Edges | nil = self.tabled ? { left: self.across, right: self.across } : nil
   derived headSides: Edges | nil = self.tabled ? nil : { left: self.across, right: self.across }
@@ -39,38 +39,38 @@ public class ScrolledList implements Component {
     top: self.inside, right: self.tabled ? NONE : self.across, bottom: self.inside, left: self.tabled ? NONE : self.across
   }
 
-  tracks: Signal<Array<Track> | nil>
+  tracks: Signal<array<Track> | nil>
   columns: Signal<Columns | nil>
-  rows: Signal<Array<Track> | nil>
-  gap: Signal<Number<Spacing> | Gaps | nil>
+  rows: Signal<array<Track> | nil>
+  gap: Signal<number<Spacing> | Gaps | nil>
   yAlign: Signal<Align | nil>
-  height: Signal<Number<Length> | nil>
+  height: Signal<number<Length> | nil>
   width: Signal<Size | nil>
-  const virtual: Boolean
-  const rowsPadded: Boolean
+  const virtual: boolean
+  const rowsPadded: boolean
   ground: Signal<Ground>
-  sides: Signal<Number<Spacing> | nil>
+  sides: Signal<number<Spacing> | nil>
   constructor(
     // The columns of a table: its head and its rows are subgrids of them, its `columns` none of its own.
-    tracks: Signal<Array<Track> | nil> = nil,
+    tracks: Signal<array<Track> | nil> = nil,
     // Its rows' grid: one column where none is said.
     columns: Signal<Columns | nil> = nil,
-    rows: Signal<Array<Track> | nil> = nil,
-    gap: Signal<Number<Spacing> | Gaps | nil> = nil,
+    rows: Signal<array<Track> | nil> = nil,
+    gap: Signal<number<Spacing> | Gaps | nil> = nil,
     yAlign: Signal<Align | nil> = nil,
     // The well's height, its rim in it: it scrolls past it. None: the rest of the room its box gives it.
-    height: Signal<Number<Length> | nil> = nil,
+    height: Signal<number<Length> | nil> = nil,
     // The well's width, its rim in it. None: the width of its cell.
     width: Signal<Size | nil> = nil,
     // Its rows are of one height: a virtual list, which builds only the rows in view.
-    virtual: Boolean = false,
+    virtual: boolean = false,
     // Its rows bring their own padding (and their shade, their rules): they stand edge to edge inside the rim.
-    rowsPadded: Boolean = false,
+    rowsPadded: boolean = false,
     // A well, or the wood.
     ground: Signal<Ground> = Ground::Well,
     // The room at its sides, over what its ground and its rows give: a table's on the wood, the window's room less its
     // cells' own.
-    sides: Signal<Number<Spacing> | nil> = nil
+    sides: Signal<number<Spacing> | nil> = nil
   ) {
     self.sides = sides
     self.ground = ground

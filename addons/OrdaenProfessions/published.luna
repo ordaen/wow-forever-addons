@@ -6,29 +6,29 @@ import { Queued } from "@/view"
 
 // A recipe that takes an item: the recipe, its profession (by skill line and name), and how many one making takes.
 public struct Use {
-  recipe: Integer
-  skillLine: Integer
-  profession: String
-  count: Integer
+  recipe: integer
+  skillLine: integer
+  profession: string
+  count: integer
 }
 
 // An item the queue takes, and how many of it every line still to make takes together.
 public struct QueueItem {
-  item: Integer
-  count: Integer
+  item: integer
+  count: integer
 }
 
 // Every recipe of the book by the items it takes: made once as the book changes, a map read for each question.
-public function usesOf(book: Book): Map<Integer, Array<Use>> {
-  const lines: Map<Integer, Integer> = {}
-  const names: Map<Integer, String> = {}
+public function usesOf(book: Book): map<integer, array<Use>> {
+  const lines: map<integer, integer> = {}
+  const names: map<integer, string> = {}
   for (_, shelf of book.characters) {
     for (skillLine, learned of shelf.professions) {
       names[skillLine] = learned.name
       for (recipe of learned.recipes) { lines[recipe] = skillLine }
     }
   }
-  const uses: Map<Integer, mut Array<Use>> = {}
+  const uses: map<integer, mut array<Use>> = {}
   for (recipe, entry of book.recipes) {
     const skillLine = lines[recipe]
     if (skillLine != nil) {
@@ -43,9 +43,9 @@ public function usesOf(book: Book): Map<Integer, Array<Use>> {
 }
 
 // What the queue's lines take together, by item, in the order first met.
-public function needsOf(book: Book, queue: Array<Queued>): Array<QueueItem> {
-  const needs: Array<QueueItem> = []
-  const at: Map<Integer, Integer> = {}
+public function needsOf(book: Book, queue: array<Queued>): array<QueueItem> {
+  const needs: array<QueueItem> = []
+  const at: map<integer, integer> = {}
   for (line of queue) {
     const entry = book.recipes[line.recipe]
     if (entry != nil) {

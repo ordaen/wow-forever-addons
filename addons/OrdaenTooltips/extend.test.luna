@@ -20,7 +20,7 @@ class Priced implements ItemLines {
     self.asked = asked
   }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     self.asked()
     return [{ left: "Auction", right: `${self.copper / 100}g · ${item} · ${link}` }]
   }
@@ -30,19 +30,19 @@ class Priced implements ItemLines {
 
 // A row of the test's own for any item: its label, in a colour.
 class Said implements ItemLines {
-  const label: String
-  constructor(label: String) {
+  const label: string
+  constructor(label: string) {
     self.label = label
   }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     return [{ left: self.label, color: Color::hex("#40ff40") }]
   }
 }
 
 // What a vein gives, by its name.
 class Mined implements ObjectLines {
-  public lines(self, name: String): Array<Line> {
+  public lines(self, name: string): array<Line> {
     if (name != "Copper Vein") { return [] }
     return [{ left: "Copper Ore", right: "2–4", rightColor: Color::hex("#ffd100") }, { left: "Rough Stone", indent: true }]
   }
@@ -52,7 +52,7 @@ class Mined implements ObjectLines {
 class Keyed implements ItemKeys {
   public state held = false
 
-  public keys(self, item: Integer, link: String): Array<String> {
+  public keys(self, item: integer, link: string): array<string> {
     return [self.held ? `Alt+Left-click: let ${item} go` : `Alt+Left-click: hold ${item}`]
   }
 
@@ -79,12 +79,12 @@ function ore(): Game::TooltipData {
   }
 }
 
-function vein(name: String): Game::TooltipData {
+function vein(name: string): Game::TooltipData {
   return { kind: 4, lines: [{ left: name, kind: 0 }] }
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -112,12 +112,12 @@ test "an added row follows what it read" {
 
 // A row that reads what no cell follows (as an auction price's age is read by the clock).
 class Aged implements ItemLines {
-  const age: () => String
-  constructor(age: () => String) {
+  const age: () => string
+  constructor(age: () => string) {
     self.age = age
   }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     return [{ left: "Seen", right: self.age() }]
   }
 }
@@ -125,7 +125,7 @@ class Aged implements ItemLines {
 test "an added row is asked anew each time the same item shows, and drawn as it stands then" {
   Test::mount(nil, SCREEN)
   let age = "now"
-  const added = Tooltips.worth.add(new Aged((): String => age))
+  const added = Tooltips.worth.add(new Aged((): string => age))
   Game::tooltip.main = showing(ore())
   Test::pass(SHOWS)
   Test::expect(Test::page().window("Copper Ore").text("now").shown())
@@ -215,7 +215,7 @@ test "a world object has none of an item's hotkeys" {
 
 // A row of the test's own in one colour, its value with none of its own.
 class Tinted implements ItemLines {
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     return [{ left: "Sold for", right: "3g", color: Color::hex("#40ff40") }]
   }
 }
@@ -244,7 +244,7 @@ test "an item the game gives no number for asks the added rows nothing" {
 class Hunted implements CreatureQuests {
   public state have = 2
 
-  public wants(self, creature: Integer): Array<Wanted> {
+  public wants(self, creature: integer): array<Wanted> {
     if (creature != 113) { return [] }
     return [
       { quest: 86, title: "Pie for Billy", objective: "Chunk of Boar Meat", have: self.have, need: 4, done: self.have >= 4 },
@@ -253,7 +253,7 @@ class Hunted implements CreatureQuests {
     ]
   }
 
-  public offers(self, creature: Integer): Array<Offered> {
+  public offers(self, creature: integer): array<Offered> {
     if (creature != 113) { return [] }
     return [
       { title: "Princess Must Die!", level: 7, turnIn: true }, { title: "Report to Goldshire", level: 5, turnIn: false }
@@ -263,7 +263,7 @@ class Hunted implements CreatureQuests {
   public loot(mut self) { self.have = 4 }
 }
 
-function boar(creature: Integer): Game::UnitInfo {
+function boar(creature: integer): Game::UnitInfo {
   return {
     name: "Stonetusk Boar", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 5,
     sameFaction: false, inParty: false, friend: false, ignored: false, tapped: false, creatureType: "Beast",
@@ -286,7 +286,7 @@ function boarTip(): Game::TooltipData {
 
 test "a creature's quests: what it gives and takes first, then each objective it serves under its quest's title, the game's own once" {
   let creature = 113
-  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(creature)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => boar(creature)
   Test::mount(nil, SCREEN)
   const hunted = new Hunted()
   const added = Tooltips.creatures.add(hunted)
@@ -307,7 +307,7 @@ test "a creature's quests: what it gives and takes first, then each objective it
 }
 
 test "a quest's objectives stand close under its title, and the next quest's title stands apart from them" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(113)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => boar(113)
   Test::mount(nil, SCREEN)
   const added = Tooltips.creatures.add(new Hunted())
   Game::tooltip.main = showing(boarTip())
@@ -319,7 +319,7 @@ test "a quest's objectives stand close under its title, and the next quest's tit
 }
 
 test "with the NPCs' «Quests» unticked a creature names no quest it gives or takes, its objectives still" {
-  Game::units.of = (unit: String): Game::UnitInfo | nil => boar(113)
+  Game::units.of = (unit: string): Game::UnitInfo | nil => boar(113)
   Test::mount(nil, SCREEN)
   const added = Tooltips.creatures.add(new Hunted())
   Tooltips.settings.values.npcsQuests = false

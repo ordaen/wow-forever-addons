@@ -11,7 +11,7 @@ import { Slot } from "@/model"
 // whole section. What stands over the list (the toolbar) keeps the window's room at the top and the sides.
 public const NO_ROOM: Edges = {}
 // The window's room at a page's sides, kept by what stands beside a list of tabs: the toolbar and the items alike.
-public const PAGE_SIDE: Number<Spacing> = 8sp
+public const PAGE_SIDE: number<Spacing> = 8sp
 public const SIDE_ROOM: Edges = { right: PAGE_SIDE, left: PAGE_SIDE }
 public const TOP_ROOM: Edges = { top: 8sp }
 public const TOOL_ROOM: Edges = { top: 8sp, right: PAGE_SIDE, left: PAGE_SIDE }
@@ -19,7 +19,7 @@ public const TOOL_ROOM: Edges = { top: 8sp, right: PAGE_SIDE, left: PAGE_SIDE }
 public const ROW_ROOM: Edges = { top: 1sp, right: 8sp, bottom: 1sp, left: 8sp }
 
 // What a window takes of its width round a page with no room of its own: the frame's line and the art past it.
-public function frameSides(): Number<Length> {
+public function frameSides(): number<Length> {
   return windowSides() - Ordaen.lengthOf(2 * WINDOW_ROOM)
 }
 
@@ -32,9 +32,9 @@ public function frameSides(): Number<Length> {
 public const SLOT_SIZE = 50
 public const SLOT_SIZE_LEAST = 30
 public const SLOT_SIZE_MOST = 64
-const SLOT_PIXEL: Number<Length> = 1.171875dp
-public const CARD_PAD: Number<Spacing> = 2sp
-public const CARD_GAP: Number<Spacing> = 3sp
+const SLOT_PIXEL: number<Length> = 1.171875dp
+public const CARD_PAD: number<Spacing> = 2sp
+public const CARD_GAP: number<Spacing> = 3sp
 public const SLOT_GAP = 3
 public const SLOT_GAP_MOST = 10
 public const ROW_LEAST = 4
@@ -43,16 +43,16 @@ public const ROW_LEAST_MOST = 12
 // A slot's size and the rooms of the cards as lengths, as the density has them now, and the fewest slots in a card's
 // row: what the cards' widths and heights are worked out with.
 public struct CardRoom {
-  const least: Integer
-  const slot: Number<Length>
-  const gap: Number<Length>
-  const pad: Number<Length>
-  const between: Number<Length>
+  const least: integer
+  const slot: number<Length>
+  const gap: number<Length>
+  const pad: number<Length>
+  const between: number<Length>
 }
 
 // The slots' size and the cards' rooms at the density the player chose, the slots' size and gap, and the fewest slots
 // in a row; read in a `derived`, it follows them.
-public function cardRoom(slotGap: Number, slotSize: Number, rowLeast: Number): CardRoom {
+public function cardRoom(slotGap: number, slotSize: number, rowLeast: number): CardRoom {
   return {
     least: rowLeast.floor(), slot: slotSize * SLOT_PIXEL, gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD),
     between: Ordaen.lengthOf(CARD_GAP)
@@ -60,50 +60,50 @@ public function cardRoom(slotGap: Number, slotSize: Number, rowLeast: Number): C
 }
 // A caption's height, which the cards' heights are worked out with (the list is as high as they are, up to the
 // screen's): the caption takes its text's height, which at the body's text size (14) is its font's line, this.
-public const CAPTION_HIGH: Number<Length> = 23.625dp
+public const CAPTION_HIGH: number<Length> = 23.625dp
 
 // A section: its caption (none where it has none: the one-bag view, a tab grouped in one), the bag it is (-1 for none),
 // its slots in their order; the «Free» section, one slot with the free count.
 public struct Section {
-  const key: String
-  const title: String
-  const bag: Integer
-  const slots: Array<Slot>
-  const free: Boolean
+  const key: string
+  const title: string
+  const bag: integer
+  const slots: array<Slot>
+  const free: boolean
 }
 
 // A section as a card: how many slots wide it is.
 public struct Card {
   const section: Section
-  const span: Integer
+  const span: integer
 }
 
 // A line of cards side by side: each card's width, and the line's height (its tallest card's).
 public struct CardRow {
-  const cards: Array<Card>
-  const tracks: Array<Track>
-  const height: Number<Length>
+  const cards: array<Card>
+  const tracks: array<Track>
+  const height: number<Length>
 }
 
 // How many slots a row of a card as wide as `width` holds.
-public function spanIn(width: Number<Length>, room: CardRoom): Integer {
+public function spanIn(width: number<Length>, room: CardRoom): integer {
   return ((width - 2 * room.pad + room.gap) / (room.slot + room.gap)).floor().max(1)
 }
 
 // How wide a card of `span` slots is, its padding with it.
-public function cardWidth(span: Integer, room: CardRoom): Number<Length> {
+public function cardWidth(span: integer, room: CardRoom): number<Length> {
   return span * room.slot + (span - 1) * room.gap + 2 * room.pad
 }
 
 // A card with a caption (a group) is at least the fewest slots in a row wide, however few it holds.
-function spanOf(section: Section, most: Integer, room: CardRoom): Integer {
+function spanOf(section: Section, most: integer, room: CardRoom): integer {
   const count = section.free ? 1 : section.slots.length
   const least = section.title != "" ? room.least : 1
   return count.max(least).min(most)
 }
 
 // How high a card is: its caption, and its rows of slots.
-function cardHeight(section: Section, span: Integer, room: CardRoom): Number<Length> {
+function cardHeight(section: Section, span: integer, room: CardRoom): number<Length> {
   let high = 2 * room.pad
   if (section.title != "") { high += CAPTION_HIGH + room.gap }
   const count = section.free ? 1 : section.slots.length
@@ -112,12 +112,12 @@ function cardHeight(section: Section, span: Integer, room: CardRoom): Number<Len
 }
 
 // The lines of `sections` in a list `width` wide.
-public function linesOf(sections: Array<Section>, width: Number<Length>, room: CardRoom): Array<CardRow> {
-  let lines: Array<CardRow> = []
-  let cards: Array<Card> = []
-  let tracks: Array<Track> = []
-  let high: Number<Length> = 0ui
-  let used: Number<Length> = 0ui
+public function linesOf(sections: array<Section>, width: number<Length>, room: CardRoom): array<CardRow> {
+  let lines: array<CardRow> = []
+  let cards: array<Card> = []
+  let tracks: array<Track> = []
+  let high: number<Length> = 0ui
+  let used: number<Length> = 0ui
   const most = spanIn(width, room)
   for (section of sections) {
     const span = spanOf(section, most, room)
@@ -139,8 +139,8 @@ public function linesOf(sections: Array<Section>, width: Number<Length>, room: C
 }
 
 // How high the lines are together, the room between them with them.
-public function heightOf(lines: Array<CardRow>, room: CardRoom): Number<Length> {
-  let high: Number<Length> = 0ui
+public function heightOf(lines: array<CardRow>, room: CardRoom): number<Length> {
+  let high: number<Length> = 0ui
   for (index, line of lines) { high += index > 1 ? room.between + line.height : line.height }
   return high
 }

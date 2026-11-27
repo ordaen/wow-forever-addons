@@ -17,7 +17,7 @@ public enum KindDelay implements Plain {
 }
 
 // A wait in seconds.
-public function delaySeconds(delay: Delay): Number {
+public function delaySeconds(delay: Delay): number {
   return match (delay) {
     .Instant => 0
     .Short => 0.3
@@ -30,50 +30,50 @@ public function delaySeconds(delay: Delay): Number {
 public struct Choices implements Plain {
   place: Place
   delay: Delay = Delay::Short
-  itemsOn: Boolean
-  itemsLock: Boolean
+  itemsOn: boolean
+  itemsLock: boolean
   itemsPlace: KindPlace
   itemsDelay: KindDelay = KindDelay::Default
-  itemsIlvl: Boolean
-  itemsId: Boolean
-  itemsCount: Boolean
-  itemsStack: Boolean
-  itemsCooldown: Boolean
-  spellsOn: Boolean
-  spellsLock: Boolean
+  itemsIlvl: boolean
+  itemsId: boolean
+  itemsCount: boolean
+  itemsStack: boolean
+  itemsCooldown: boolean
+  spellsOn: boolean
+  spellsLock: boolean
   spellsPlace: KindPlace
   spellsDelay: KindDelay = KindDelay::Default
-  spellsId: Boolean
-  spellsNext: Boolean
-  spellsCooldown: Boolean
-  aurasOn: Boolean
-  aurasLock: Boolean
+  spellsId: boolean
+  spellsNext: boolean
+  spellsCooldown: boolean
+  aurasOn: boolean
+  aurasLock: boolean
   aurasPlace: KindPlace
   aurasDelay: KindDelay = KindDelay::Default
-  aurasId: Boolean
-  aurasCaster: Boolean
-  aurasTotal: Boolean
-  playersOn: Boolean
-  playersLock: Boolean
+  aurasId: boolean
+  aurasCaster: boolean
+  aurasTotal: boolean
+  playersOn: boolean
+  playersLock: boolean
   playersPlace: KindPlace
   playersDelay: KindDelay = KindDelay::Default
-  playersTarget: Boolean
-  playersRelation: Boolean
-  npcsOn: Boolean
-  npcsLock: Boolean
+  playersTarget: boolean
+  playersRelation: boolean
+  npcsOn: boolean
+  npcsLock: boolean
   npcsPlace: KindPlace
   npcsDelay: KindDelay = KindDelay::Default
-  npcsParty: Boolean
-  npcsLoot: Boolean
-  npcsRep: Boolean
+  npcsParty: boolean
+  npcsLoot: boolean
+  npcsRep: boolean
   // The quests an NPC gives and takes back, in its tooltip.
-  npcsQuests: Boolean = true
-  objectsOn: Boolean
-  objectsLock: Boolean
+  npcsQuests: boolean = true
+  objectsOn: boolean
+  objectsLock: boolean
   objectsPlace: KindPlace
   objectsDelay: KindDelay = KindDelay::Default
-  textsOn: Boolean
+  textsOn: boolean
   textsPlace: KindPlace
   textsDelay: KindDelay = KindDelay::Default
-  textsExtra: Boolean
+  textsExtra: boolean
 }

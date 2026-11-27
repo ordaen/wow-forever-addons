@@ -28,15 +28,15 @@ public const FITS_GLOW: Color = Color::hex("#ffd10040")
 // A chip's room round its word; the sets' «Save».
 const SAVE_WIDTH = 140dp
 const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
-const NO_SLOTS: Array<Integer> = []
-const NO_SETS: Array<GearSet> = []
-const NO_AURAS: Array<Active> = []
+const NO_SLOTS: array<integer> = []
+const NO_SETS: array<GearSet> = []
+const NO_AURAS: array<Active> = []
 const PLAYER = "player"
 const NOTHING: Worn = { slot: 0, item: nil, quality: .Common, level: nil, durability: nil }
 
 // Each race's scene from the game's dressing room, enlarged (art/pieces/backdrop-<race>.json), by the race's name in
 // the client's files; a race without one has the dark behind its model.
-const SCENES: Map<String, Asset> = {
+const SCENES: map<string, Asset> = {
   Human: "@/media/backdrop-human.tga", Dwarf: "@/media/backdrop-dwarf.tga",
   NightElf: "@/media/backdrop-nightelf.tga", Gnome: "@/media/backdrop-gnome.tga",
   Orc: "@/media/backdrop-orc.tga", Scourge: "@/media/backdrop-scourge.tga",
@@ -46,13 +46,13 @@ const SCENES: Map<String, Asset> = {
 
 // The paper doll's width at a slot's size: its two side rules, its room at the sides, the slots' columns with the gaps beside
 // them, and the four weapons between (main hand, off hand, ranged, ammo) with theirs; at least the model's room.
-function dollWidthOf(slot: Number<Length>): Number<Length> {
+function dollWidthOf(slot: number<Length>): number<Length> {
   const room = Ordaen.lengthOf(Style::DOLL_ROOM * 2 + Style::DOLL_GAP * 2 + Style::WEAPON_GAP * 3)
   return (RULE_WIDTH * 2 + slot * 6 + room).max(Style::DOLL)
 }
 
 // The durability bar's colour for what is left of an item.
-public function wearColor(left: Number): Color { return left < WORN_OUT ? Style::RED : Style::GREEN }
+public function wearColor(left: number): Color { return left < WORN_OUT ? Style::RED : Style::GREEN }
 
 // A slot of the paper doll, as the game's own slot takes the mouse: Left-click and a drag pick up what is worn and let
 // go there what the cursor holds, Ctrl+Left-click tries it on, Alt+Left-click opens what the bags hold for the slot
@@ -63,36 +63,36 @@ public function wearColor(left: Number): Color { return left < WORN_OUT ? Style:
 // item's, compared with what the player wears, and no click uses or picks up anything.
 public class GearSlot implements Component {
   // What the slot was asked: its number each time.
-  public picked: Event<Integer> = new Event()
-  public tried: Event<Integer> = new Event()
-  public flyout: Event<Integer> = new Event()
+  public picked: Event<integer> = new Event()
+  public tried: Event<integer> = new Event()
+  public flyout: Event<integer> = new Event()
 
   derived empty: Art | nil = self.worn.item == nil ? self.spec.empty : nil
-  derived wearShown: Boolean = self.wear && self.worn.durability != nil
+  derived wearShown: boolean = self.wear && self.worn.durability != nil
   derived wearFill: BarFill = self.fillOf()
   derived use: Action | nil = self.own && self.worn.item != nil ?
     Action.UseWornItem { slot: self.spec.id, chord: Game::player.targeting ? MouseButton::Left : MouseButton::Right } : nil
-  derived wornSlot: Integer | nil = self.own ? self.spec.id : nil
-  derived cooling: Boolean = self.worn.cooldown != nil
+  derived wornSlot: integer | nil = self.own ? self.spec.id : nil
+  derived cooling: boolean = self.worn.cooldown != nil
   derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom::Top }
-  derived shared: Boolean = self.share != ""
+  derived shared: boolean = self.share != ""
   // An empty slot under the cursor says what goes in it, the client's own name for it, as the game's slot does.
   state hovered = false
-  derived slotName: String = Runtime::text(self.spec.name) ?? ""
-  derived emptyTip: Boolean = self.hovered && self.worn.item == nil && self.slotName != ""
+  derived slotName: string = Runtime::text(self.spec.name) ?? ""
+  derived emptyTip: boolean = self.hovered && self.worn.item == nil && self.slotName != ""
 
   spec: Signal<SlotSpec>
   worn: Signal<Worn>
-  wear: Signal<Boolean>
-  fits: Signal<Boolean>
-  size: Signal<Number<Length>>
+  wear: Signal<boolean>
+  fits: Signal<boolean>
+  size: Signal<number<Length>>
   // What its item gives the stat whose tooltip is open («+40»): the slot rimmed in gold, the share in a badge centred
   // under it, room past the slot's sides for a wide one («+1.00%»); empty while it gives none.
-  share: Signal<String>
-  own: Signal<Boolean>
-  constructor(spec: Signal<SlotSpec>, worn: Signal<Worn>, wear: Signal<Boolean>,
-    fits: Signal<Boolean> = false, size: Signal<Number<Length>> = Style::SLOT, share: Signal<String> = "",
-    own: Signal<Boolean> = true) {
+  share: Signal<string>
+  own: Signal<boolean>
+  constructor(spec: Signal<SlotSpec>, worn: Signal<Worn>, wear: Signal<boolean>,
+    fits: Signal<boolean> = false, size: Signal<number<Length>> = Style::SLOT, share: Signal<string> = "",
+    own: Signal<boolean> = true) {
     self.spec = spec
     self.worn = worn
     self.wear = wear
@@ -173,8 +173,8 @@ function resourceColor(resource: Resource): Color {
 public class Chip implements Component {
   public click: Event<nil> = new Event()
 
-  label: Signal<String>
-  constructor(label: Signal<String>) {
+  label: Signal<string>
+  constructor(label: Signal<string>) {
     self.label = label
   }
 
@@ -196,21 +196,21 @@ public class Chip implements Component {
 // picked one; disabled while what is worn is a set already, which its tip names.
 public class GearSets implements Component {
   // A set's tab picked, by the set's number; «Save» pressed.
-  public use: Event<Integer> = new Event()
+  public use: Event<integer> = new Event()
   public save: Event<nil> = new Event()
 
   // The tab picked: a set's place, the place after them for «New Set».
-  state chosen: Integer = 1
-  derived names: Array<String> = self.namesOf()
-  derived drafting: Boolean = self.chosen == self.sets.length + 1
+  state chosen: integer = 1
+  derived names: array<string> = self.namesOf()
+  derived drafting: boolean = self.chosen == self.sets.length + 1
   derived same: GearSet | nil = self.sets.find(set => set.worn)
-  derived taken: Boolean = self.same != nil
+  derived taken: boolean = self.same != nil
   derived saveTip: TipText | nil = self.tipOf()
   // «Save»'s room from the band's right end: the window's own, as the tabs keep at its left.
-  derived room: Number<Length> = Ordaen.lengthOf(WINDOW_ROOM)
+  derived room: number<Length> = Ordaen.lengthOf(WINDOW_ROOM)
 
-  sets: Signal<Array<GearSet>>
-  constructor(sets: Signal<Array<GearSet>>) {
+  sets: Signal<array<GearSet>>
+  constructor(sets: Signal<array<GearSet>>) {
     self.sets = sets
     // The sets read anew: the one worn picked, unless «New Set» is (where a set saved takes its place).
     watch {
@@ -220,7 +220,7 @@ public class GearSets implements Component {
     watch (place of self.chosen) { self.onChosen(place) }
   }
 
-  onChosen(mut self, place: Integer) {
+  onChosen(mut self, place: integer) {
     const set = (peek self.sets)[place]
     if (set == nil || set.worn) { return }
     if (Game::situation.combat) {
@@ -230,7 +230,7 @@ public class GearSets implements Component {
     self.use.emit(set.id)
   }
 
-  namesOf(self): Array<String> {
+  namesOf(self): array<string> {
     const names = self.sets.map(set => set.name)
     names.push(Locale::NEW_SET)
     return names
@@ -257,7 +257,7 @@ public class GearSets implements Component {
 }
 
 // The place of the set worn whole; where none is, «New Set»'s, after the sets: what is worn is no set yet.
-function wornPlace(sets: Array<GearSet>): Integer {
+function wornPlace(sets: array<GearSet>): integer {
   for (place, set of sets) {
     if (set.worn) { return place }
   }
@@ -267,17 +267,17 @@ function wornPlace(sets: Array<GearSet>): Integer {
 // The game's flyout of a slot: what the bags hold that goes in it, each a click away from being worn.
 public class Flyout implements Component {
   // An item clicked: its number.
-  public chose: Event<Integer> = new Event()
+  public chose: Event<integer> = new Event()
   public close: Event<nil> = new Event()
 
-  derived none: Boolean = self.items.length == 0
+  derived none: boolean = self.items.length == 0
 
-  items: Signal<Array<Integer>>
-  constructor(items: Signal<Array<Integer>>) {
+  items: Signal<array<integer>>
+  constructor(items: Signal<array<integer>>) {
     self.items = items
   }
 
-  onPick(self, item: Integer) { self.chose.emit(item) }
+  onPick(self, item: integer) { self.chose.emit(item) }
   onClose(self) { self.close.emit() }
 
   public render(self): Template {
@@ -298,86 +298,86 @@ public class Flyout implements Component {
 
 public class GearPage implements Component {
   // A slot clicked or dragged: its number.
-  public picked: Event<Integer> = new Event()
+  public picked: Event<integer> = new Event()
   // A slot Ctrl+clicked, to try on what it holds; one Alt+clicked, for its flyout.
-  public tried: Event<Integer> = new Event()
-  public flyout: Event<Integer> = new Event()
+  public tried: Event<integer> = new Event()
+  public flyout: Event<integer> = new Event()
   // An item chosen in the flyout; the flyout closed.
-  public chose: Event<Integer> = new Event()
+  public chose: Event<integer> = new Event()
   public closeFlyout: Event<nil> = new Event()
   // A set clicked, by its number; «+» clicked.
-  public useSet: Event<Integer> = new Event()
+  public useSet: Event<integer> = new Event()
   public saveSet: Event<nil> = new Event()
 
-  derived fullName: String = self.who.surname != "" ? `${self.who.name} ${self.who.surname}` : self.who.name
-  derived whoText: String = Locale::LEVEL_RACE.format(self.who.level, self.who.race)
-  derived tag: String = self.classTag ?? Game::player.classTag
+  derived fullName: string = self.who.surname != "" ? `${self.who.name} ${self.who.surname}` : self.who.name
+  derived whoText: string = Locale::LEVEL_RACE.format(self.who.level, self.who.race)
+  derived tag: string = self.classTag ?? Game::player.classTag
   derived whoColor: Color = classColor(self.tag) ?? Style::GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
-  derived flyoutShown: Boolean = self.flyoutSlot != nil
+  derived flyoutShown: boolean = self.flyoutSlot != nil
   // The player's own by its spec's weights; another's (inspected) as the game orders them.
-  derived mains: Array<Main> = mainsOf(self.stats, self.classTag == nil ? Ordaen.worth.weights : nil)
-  derived resists: Array<Resist> = resistsOf(self.stats)
-  derived resisted: Boolean = self.resists.length > 0
+  derived mains: array<Main> = mainsOf(self.stats, self.classTag == nil ? Ordaen.worth.weights : nil)
+  derived resists: array<Resist> = resistsOf(self.stats)
+  derived resisted: boolean = self.resists.length > 0
   derived defence: Section = defenceOf(self.stats)
-  derived speeds: Array<Row> = speedsOf(self.stats)
-  derived sections: Array<Section> = sectionsOf(self.stats, self.skills, self.tag)
+  derived speeds: array<Row> = speedsOf(self.stats)
+  derived sections: array<Section> = sectionsOf(self.stats, self.skills, self.tag)
   // The bars: health, the resource with what it regains, and a druid's energy beside its mana.
-  derived health: String = String::of(self.stats.health)
-  derived power: String = self.stats.resource == Resource::Rage ? `0 / ${self.stats.power}` : String::of(self.stats.power)
-  derived powerFilled: Number = self.stats.resource == Resource::Rage ? 0 : 1
+  derived health: string = string::of(self.stats.health)
+  derived power: string = self.stats.resource == Resource::Rage ? `0 / ${self.stats.power}` : string::of(self.stats.power)
+  derived powerFilled: number = self.stats.resource == Resource::Rage ? 0 : 1
   derived powerTint: Color = resourceColor(self.stats.resource)
   // The weapons' slots: a class that keeps a relic has the relic's well and name in the ranged slot.
-  derived weapons: Array<SlotSpec> = self.stats.relic ? RELIC_WEAPONS : WEAPONS
-  derived healthRegen: Array<Row> = healthRegenRows(self.stats)
-  derived powerRegen: Array<Row> = powerRegenRows(self.stats)
-  derived energyShown: Boolean = self.stats.energy > 0
-  derived energy: String = String::of(self.stats.energy)
-  derived energyRegen: Array<Row> = energyRegenRows(self.stats)
+  derived weapons: array<SlotSpec> = self.stats.relic ? RELIC_WEAPONS : WEAPONS
+  derived healthRegen: array<Row> = healthRegenRows(self.stats)
+  derived powerRegen: array<Row> = powerRegenRows(self.stats)
+  derived energyShown: boolean = self.stats.energy > 0
+  derived energy: string = string::of(self.stats.energy)
+  derived energyRegen: array<Row> = energyRegenRows(self.stats)
   // Mana's sources; rage and energy have none of a stat's.
   derived powerStat: Stat | nil = self.stats.resource == Resource::Mana ? .Power : nil
   // The stat whose tooltip is open (none while none is), what it says and what lights with it.
   state tipped: Stat | nil = nil
   derived shown: Breakdown = self.shownOf()
   // The stats the auras on the character raise or lower: their values green or red.
-  derived boosts: Map<String, Boost> = boostsOf({
+  derived boosts: map<string, Boost> = boostsOf({
     stats: self.stats, worn: self.worn, auras: self.auras, classTag: self.tag
   })
 
-  worn: Signal<Array<Worn>>
+  worn: Signal<array<Worn>>
   who: Signal<Who>
   stats: Signal<Stats>
-  skills: Signal<Array<Skill>>
-  usesAmmo: Signal<Boolean>
+  skills: Signal<array<Skill>>
+  usesAmmo: Signal<boolean>
   choices: Signal<Choices>
   // The slots where what the cursor holds goes.
-  fitsSlots: Signal<Array<Integer>>
-  sets: Signal<Array<GearSet>>
+  fitsSlots: Signal<array<integer>>
+  sets: Signal<array<GearSet>>
   // The slot whose flyout is open, and what it offers.
-  flyoutSlot: Signal<Integer | nil>
-  fitting: Signal<Array<Integer>>
+  flyoutSlot: Signal<integer | nil>
+  fitting: Signal<array<integer>>
   // The auras on the character and what each changes (Ordaen Auras): a stat tooltip's «Effects».
-  auras: Signal<Array<Active>>
+  auras: Signal<array<Active>>
   // Whose character it is: the player's own (its sets and its flyout), or another player's, inspected (`unit`, of
   // class `classTag`), whose gear is only shown.
-  unit: Signal<String>
-  classTag: Signal<String | nil>
-  derived own: Boolean = self.unit == PLAYER
+  unit: Signal<string>
+  classTag: Signal<string | nil>
+  derived own: boolean = self.unit == PLAYER
   // The slots' size as the player chose it; the model's column between them gives up what larger slots take.
-  derived slot: Number<Length> = slotSizeOf(self.choices.slotSize)
-  derived dollColumns: Array<Track> = [self.slot, { fr: 1 }, self.slot]
+  derived slot: number<Length> = slotSizeOf(self.choices.slotSize)
+  derived dollColumns: array<Track> = [self.slot, { fr: 1 }, self.slot]
   // The paper doll as wide as its slots' columns and the four weapons' between them need, and never narrower than the
   // model's room; the bars' and the stats' columns share the rest. The scene centred in it.
-  derived dollWidth: Number<Length> = dollWidthOf(self.slot)
-  derived columns: Array<Track> = [Style::SIDE_COLUMN, self.dollWidth, Style::SIDE_COLUMN]
+  derived dollWidth: number<Length> = dollWidthOf(self.slot)
+  derived columns: array<Track> = [Style::SIDE_COLUMN, self.dollWidth, Style::SIDE_COLUMN]
   // The sets' strip along the page's top (the player's own character alone), the columns under it meeting its line.
-  derived rows: Array<Track> = self.own ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
-  derived sceneWidth: Number<Length> = (self.own ? Style::SCENE_HEIGHT : Style::SCENE_HEIGHT_INSPECTED) * Style::SCENE_ASPECT
-  derived sceneLeft: Number<Length> = (self.dollWidth - RULE_WIDTH * 2 - self.sceneWidth) / 2
-  constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
-    usesAmmo: Signal<Boolean>, choices: Signal<Choices>, fitsSlots: Signal<Array<Integer>> = NO_SLOTS,
-    sets: Signal<Array<GearSet>> = NO_SETS, flyoutSlot: Signal<Integer | nil> = nil, fitting: Signal<Array<Integer>> = NO_SLOTS,
-    auras: Signal<Array<Active>> = NO_AURAS, unit: Signal<String> = PLAYER, classTag: Signal<String | nil> = nil) {
+  derived rows: array<Track> = self.own ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
+  derived sceneWidth: number<Length> = (self.own ? Style::SCENE_HEIGHT : Style::SCENE_HEIGHT_INSPECTED) * Style::SCENE_ASPECT
+  derived sceneLeft: number<Length> = (self.dollWidth - RULE_WIDTH * 2 - self.sceneWidth) / 2
+  constructor(worn: Signal<array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<array<Skill>>,
+    usesAmmo: Signal<boolean>, choices: Signal<Choices>, fitsSlots: Signal<array<integer>> = NO_SLOTS,
+    sets: Signal<array<GearSet>> = NO_SETS, flyoutSlot: Signal<integer | nil> = nil, fitting: Signal<array<integer>> = NO_SLOTS,
+    auras: Signal<array<Active>> = NO_AURAS, unit: Signal<string> = PLAYER, classTag: Signal<string | nil> = nil) {
     self.worn = worn
     self.who = who
     self.stats = stats
@@ -402,22 +402,22 @@ public class GearPage implements Component {
   }
 
   // What the slot's item gives the stat whose tooltip is open; empty while it gives none.
-  shareOf(self, slot: Integer): String { return self.shown.shares[slot] ?? "" }
+  shareOf(self, slot: integer): string { return self.shown.shares[slot] ?? "" }
 
   onTipped(mut self, stat: Stat | nil) { self.tipped = stat }
 
-  wornOf(self, slot: Integer): Worn {
+  wornOf(self, slot: integer): Worn {
     return self.worn.find(piece => piece.slot == slot) ?? NOTHING
   }
 
-  fitsIn(self, slot: Integer): Boolean { return self.fitsSlots.any(s => s == slot) }
+  fitsIn(self, slot: integer): boolean { return self.fitsSlots.any(s => s == slot) }
 
-  onPicked(self, slot: Integer) { self.picked.emit(slot) }
-  onTried(self, slot: Integer) { self.tried.emit(slot) }
-  onFlyout(self, slot: Integer) { self.flyout.emit(slot) }
-  onChose(self, item: Integer) { self.chose.emit(item) }
+  onPicked(self, slot: integer) { self.picked.emit(slot) }
+  onTried(self, slot: integer) { self.tried.emit(slot) }
+  onFlyout(self, slot: integer) { self.flyout.emit(slot) }
+  onChose(self, item: integer) { self.chose.emit(item) }
   onCloseFlyout(self) { self.closeFlyout.emit() }
-  onUseSet(self, id: Integer) { self.useSet.emit(id) }
+  onUseSet(self, id: integer) { self.useSet.emit(id) }
   onSaveSet(self) { self.saveSet.emit() }
 
   public render(self): Template {

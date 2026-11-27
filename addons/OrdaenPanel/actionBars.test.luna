@@ -17,14 +17,14 @@ const SECOND_FORM: FileId = 130002
 const PET_SPELL: FileId = 131004
 
 // Whether a part stands where the client's button does.
-function near(part: Test::Part, frame: any Client::Frame): Boolean {
+function near(part: Test::Part, frame: any Client::Frame): boolean {
   const rect = part.rect()
   const at = Test::centre(frame)
   return ((rect.left + rect.right) / 2 - at.x).abs() < 0.001 && ((rect.top + rect.bottom) / 2 - at.y).abs() < 0.001
 }
 
 // Whether the button is the one lit.
-function lit(frame: any Client::Frame): Boolean {
+function lit(frame: any Client::Frame): boolean {
   return near(Test::page().box(Ordaen.art.ctl.qualityRim), frame)
 }
 
@@ -32,32 +32,32 @@ function lit(frame: any Client::Frame): Boolean {
 // character's settings have them now; and what a bar alone is handed.
 class Holder {
   public settings: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS)
-  public state defaults: Map<String, BarChoice> = barDefaults()
-  public state keys: Map<String, String> = {}
-  public state choices: Map<String, BarChoice> = {}
-  public state paging: String = "1"
-  public state forms: Integer = 0
-  public state below: Number<Length> = 0ui
+  public state defaults: map<string, BarChoice> = barDefaults()
+  public state keys: map<string, string> = {}
+  public state choices: map<string, BarChoice> = {}
+  public state paging: string = "1"
+  public state forms: integer = 0
+  public state below: number<Length> = 0ui
 }
 
 // Shown out of a fight, hidden in one.
 const PEACEFUL: Visibility = { combat: { visible: Visible::Hide, opacity: 0 }, ..ALWAYS }
 
 // One of the game's bars, shown or hidden.
-function gameBar(name: String, shown: Boolean): any Client::Frame {
+function gameBar(name: string, shown: boolean): any Client::Frame {
   const made = Client::CreateFrame("Frame", name, Client::UIParent, nil)
   if (!shown) { made.Hide() }
   return made
 }
 
 // The client's frame of that name made last, from `at` on.
-function lastNamed(name: String, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
+function lastNamed(name: string, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
   if (at == nil) { return found }
   return lastNamed(name, Client::EnumerateFrames(at), at.GetName() == name ? at : found)
 }
 
 // The client's button of a bar, by its name.
-function button(id: String, index: Integer): any Client::Frame {
+function button(id: string, index: integer): any Client::Frame {
   const name = buttonName(id, index)
   return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
 }
@@ -74,12 +74,12 @@ function alone() {
 }
 
 // The ids of the bars drawn, in their order.
-function drawn(bars: Array<Shown>): String {
+function drawn(bars: array<Shown>): string {
   return bars.map(shown => shown.spec.id).join(",")
 }
 
 // A bar's settings with one change.
-function changed(values: BarsChoices, id: String, change: (choice: mut BarChoice) => nil): BarChoice {
+function changed(values: BarsChoices, id: string, change: (choice: mut BarChoice) => nil): BarChoice {
   const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
   const choice = (values.bars[id] ?? defaultChoice(spec, true)).clone()
   change(choice)
@@ -122,7 +122,7 @@ test "made in a fight, the bars are drawn as the fight ends" {
 test "a key of the game's bindings presses our button in its place, and the button shows its key" {
   alone()
   // Every slot holds something: an empty button is unseen.
-  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => true
+  Client::C_ActionBar::HasAction = (slot: integer): boolean => true
   const holder = new Holder()
   _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
@@ -142,7 +142,7 @@ test "a key of the game's bindings presses our button in its place, and the butt
 test "an item the cursor holds goes onto the bar's button it is let go on, or clicked on, as on the game's bars" {
   alone()
   const holder = new Holder()
-  Client::C_Container::GetContainerItemInfo = (bag: Integer, slot: Integer): Client::ContainerItemInfo | nil => bag == 0 ?
+  Client::C_Container::GetContainerItemInfo = (bag: integer, slot: integer): Client::ContainerItemInfo | nil => bag == 0 ?
     Client.ContainerItemInfo {
       iconFileID: 134829, stackCount: 5, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: `item:${117 + slot}`, isFiltered: false, hasNoValue: false, itemID: 117 + slot, isBound: false,
@@ -172,15 +172,15 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
 }
 
 // Fireball's ranks 1 to 3, as the client names them.
-const FIREBALL_RANKS: Map<Integer, String> = { [133]: "Rank 1", [143]: "Rank 2", [145]: "Rank 3" }
-function fireballRank(id: String | Integer): String | nil { return id is Integer ? FIREBALL_RANKS[id] : nil }
+const FIREBALL_RANKS: map<integer, string> = { [133]: "Rank 1", [143]: "Rank 2", [145]: "Rank 3" }
+function fireballRank(id: string | integer): string | nil { return id is integer ? FIREBALL_RANKS[id] : nil }
 
 test "a new rank learned takes the slots of the rank before it; a rank lower still stays, the cursor left empty" {
   alone()
   const holder = new Holder()
   Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
   Test::flush()
-  Client::C_Spell::GetSpellName = (id: String | Integer): String | nil => fireballRank(id) != nil ? "Fireball" : nil
+  Client::C_Spell::GetSpellName = (id: string | integer): string | nil => fireballRank(id) != nil ? "Fireball" : nil
   Client::C_Spell::GetSpellSubtext = fireballRank
   // Rank 1 kept for a small cast, rank 2 on two bars.
   Client::C_Spell::PickupSpell(133)
@@ -201,7 +201,7 @@ test "a new rank learned takes the slots of the rank before it; a rank lower sti
 
 test "an action out of range has its icon darkened and its key in red" {
   alone()
-  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => slot == 62
+  Client::C_ActionBar::HasAction = (slot: integer): boolean => slot == 62
   const holder = new Holder()
   _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
@@ -224,7 +224,7 @@ test "a button's tooltip is given its key as the button shows it, among the tool
   _ = Client::SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test::mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
   Test::flush()
-  const given: Array<String> = []
+  const given: array<string> = []
   for (row of Ordaen.hotkeys) {
     for (key of row.keys(buttonName("2", 2))) { given.push(key) }
   }
@@ -274,7 +274,7 @@ test "a new rank of a form (a paladin's aura) changes the spell its button casts
   Test::expect(button("stance", 1).GetAttribute("spell") == 1)
   // Devotion Aura's second rank learned: the first form's spell is the new rank's (the others the stand-in's, their
   // place), and the client says the forms changed.
-  Client::GetShapeshiftFormInfo = (index: Integer): (FileId | nil, Boolean, Boolean, Integer) => {
+  Client::GetShapeshiftFormInfo = (index: integer): (FileId | nil, boolean, boolean, integer) => {
     return index == 1 ? FIRST_FORM : SECOND_FORM, false, true, index == 1 ? 10290 : index
   }
   Test::event("UPDATE_SHAPESHIFT_FORMS")
@@ -308,7 +308,7 @@ test "the client's stance and pet buttons are unseen under ours, which stand as 
 }
 
 // The client's button of a bar as an action button: what the client's own code keeps on it.
-function actionButton(id: String, index: Integer): any Client::ActionButton {
+function actionButton(id: string, index: integer): any Client::ActionButton {
   const frame = button(id, index)
   return frame is Client::ActionButton ? frame : panic("a bar's button is an action button")
 }
@@ -584,7 +584,7 @@ test "a bar that hides empty buttons shows them while something is dragged, and 
   Events::ACTIONBAR_HIDEGRID.emit()
   Test::flush()
   Test::expect(!Test::page().text("S2").shown())
-  Client::C_ActionBar::HasAction = (slot: Integer): Boolean => slot == 62
+  Client::C_ActionBar::HasAction = (slot: integer): boolean => slot == 62
   Test::event("ACTIONBAR_SLOT_CHANGED", 62)
   Test::flush()
   Test::expect(Test::page().text("S2").shown())
@@ -610,8 +610,8 @@ test "a bar's size changed while it shows keeps the client's art in proportion: 
 
 // The masks among a button's regions (a texture is a kind of mask texture: a mask is told by its own word): each
 // one's width.
-function maskWidths(...regions: any Client::Region): Array<Number> {
-  const widths: Array<Number> = []
+function maskWidths(...regions: any Client::Region): array<number> {
+  const widths: array<number> = []
   for (i of 1..regions.length) {
     const region = regions[i]
     if (region is Client::MaskTexture && region.GetObjectType() == "MaskTexture") { widths.push(region.GetWidth()) }
@@ -619,7 +619,7 @@ function maskWidths(...regions: any Client::Region): Array<Number> {
   return widths
 }
 
-function about(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+function about(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 
 test "a bar of smaller buttons keeps the client's art in the template's proportions: the frame round the icon, not on it" {
   alone()

@@ -9,40 +9,40 @@ public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 public enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 
 public struct Sale {
-  name: String
-  price: Integer
-  seen: Number
+  name: string
+  price: integer
+  seen: number
 }
 
-const FLAGS: Array<Marker> = [{ corner: Corner::TopLeft, color: Color::hex("#ffd100") }]
+const FLAGS: array<Marker> = [{ corner: Corner::TopLeft, color: Color::hex("#ffd100") }]
 
-const WORTHS: Array<Choice<Worth>> = [
+const WORTHS: array<Choice<Worth>> = [
   { value: Worth::Auction, label: "Auction" },
   { value: Worth::Merchant, label: "Merchant" },
   { value: Worth::Held, label: "Held", soon: true }
 ]
 
-const ORDERS: Array<Choice<Order>> = [
+const ORDERS: array<Choice<Order>> = [
   { value: Order::Difficulty, label: "By difficulty" },
   { value: Order::Name, label: "By name" },
   { value: Order::Price, label: "By price", soon: true }
 ]
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
   { title: "Each", width: 120ui, align: Align::End, sortable: true },
   { title: "Age", width: 60ui, align: Align::End, sortable: true }
 ]
 
 public class Market implements Component {
-  state scanned: Number = 0.4
-  state price: Integer = 12345
-  state seen: Number | nil = 2 * 86400
-  state wanted: Integer = 12503
+  state scanned: number = 0.4
+  state price: integer = 12345
+  state seen: number | nil = 2 * 86400
+  state wanted: integer = 12503
   state worth: Worth = Worth::Auction
   state treeOpen = true
   state chosenItem = 0
-  state sales: Array<Sale> = [
+  state sales: array<Sale> = [
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
     { name: "Bronze Axe", price: 12345, seen: 86400 },
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
@@ -57,12 +57,12 @@ public class Market implements Component {
   state menuOpen = false
   state menuOn = false
   state menuPicked = 0
-  derived menuEntries: Array<MenuEntry> = self.entriesOf()
-  derived ordered: Array<Sale> = self.order()
+  derived menuEntries: array<MenuEntry> = self.entriesOf()
+  derived ordered: array<Sale> = self.order()
 
   // The sales by the column the table is sorted by, as the page keeps them when it is not.
-  order(self): Array<Sale> {
-    let list: Array<Sale> = []
+  order(self): array<Sale> {
+    let list: array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
     const column = self.sorted
     const down = self.descending
@@ -75,7 +75,7 @@ public class Market implements Component {
     return list
   }
 
-  entriesOf(self): Array<MenuEntry> {
+  entriesOf(self): array<MenuEntry> {
     return [
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
@@ -87,14 +87,14 @@ public class Market implements Component {
     if (click.button == MouseButton::Right) { self.menuOpen = true }
   }
 
-  onMenuPick(mut self, index: Integer) {
+  onMenuPick(mut self, index: integer) {
     self.menuPicked = index
     if (index == 3) { self.menuOn = !self.menuOn } else { self.menuOpen = false }
   }
 
   onMenuClose(mut self) { self.menuOpen = false }
 
-  onItem(mut self, item: Integer) { self.chosenItem = item }
+  onItem(mut self, item: integer) { self.chosenItem = item }
   onSale(mut self, button: MouseButton) { self.clicked = button == MouseButton::Right ? "right" : "left" }
 
   public render(self): Template {

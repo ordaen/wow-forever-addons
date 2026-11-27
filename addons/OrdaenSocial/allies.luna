@@ -14,17 +14,17 @@ import { nameColorOf } from "@/members"
 import Style from "@/style"
 
 // The game's categories of what was done together, in the filter's order.
-const ALLY_CATEGORIES: Array<AllyCategory> = [.Professions, .PvP, .Raiding, .Dungeons, .Delves, .Questing]
+const ALLY_CATEGORIES: array<AllyCategory> = [.Professions, .PvP, .Raiding, .Dungeons, .Delves, .Questing]
 
 // How the allies are sorted in each group.
 public enum AllySort { Recent, Name, Level }
 
-const SORTS: Array<Choice<AllySort>> = [
+const SORTS: array<Choice<AllySort>> = [
   { value: .Recent, label: Locale::SORT_RECENT },
   { value: .Name, label: Locale::SORT_NAME },
   { value: .Level, label: Locale::SORT_LEVEL }
 ]
-const ROW: Array<Track> = [Style::DOT, { fr: 1 }, "max-content"]
+const ROW: array<Track> = [Style::DOT, { fr: 1 }, "max-content"]
 // A pickable row's padding (`PickRow`'s).
 const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 const DAY = 86400
@@ -48,7 +48,7 @@ function filterOf(category: AllyCategory): AllyFilter {
   }
 }
 
-function labelOf(category: AllyCategory): String {
+function labelOf(category: AllyCategory): string {
   return match (category) {
     .Professions => Locale::CATEGORY_PROFESSIONS
     .PvP => Locale::CATEGORY_PVP
@@ -60,47 +60,47 @@ function labelOf(category: AllyCategory): String {
 }
 
 // The filter's menus: the categories the game offers here (none where it offers none), then online or not.
-function filterGroups(categories: Array<AllyCategory>): Array<FilterGroup<AllyFilter>> {
+function filterGroups(categories: array<AllyCategory>): array<FilterGroup<AllyFilter>> {
   if (categories.length == 0) { return [PRESENCE_FILTER] }
   return [{ options: categories.map(category => { key: filterOf(category), label: labelOf(category) }) }, PRESENCE_FILTER]
 }
 
 // The filter as it starts: everything on.
-public function allyFilterStart(): mut Map<AllyFilter, Boolean> {
+public function allyFilterStart(): mut map<AllyFilter, boolean> {
   return switched(switched({}, ALLY_CATEGORIES.map(category => filterOf(category)), true), [AllyFilter::Online, AllyFilter::Offline], true)
 }
 
 // The categories the game is asked for: those switched on, or nil (every ally) while all of them are.
-public function categoriesOf(filter: Map<AllyFilter, Boolean>): Array<AllyCategory> | nil {
+public function categoriesOf(filter: map<AllyFilter, boolean>): array<AllyCategory> | nil {
   const on = ALLY_CATEGORIES.filter(category => filter[filterOf(category)] == true)
   return on.length == ALLY_CATEGORIES.length ? nil : on
 }
 
-function online(ally: RecentAlly): Boolean { return ally.member.presence != .Offline }
+function online(ally: RecentAlly): boolean { return ally.member.presence != .Offline }
 
 // Whether the filter's presence lets an ally through (the categories are the game's to apply).
-function passes(ally: RecentAlly, filter: Map<AllyFilter, Boolean>): Boolean {
+function passes(ally: RecentAlly, filter: map<AllyFilter, boolean>): boolean {
   return filter[online(ally) ? AllyFilter::Online : AllyFilter::Offline] == true
 }
 
 // When the newest thing done together was; 0 for none.
-function lastOf(ally: RecentAlly): Number { return ally.meetings[1]?.when ?? 0 }
+function lastOf(ally: RecentAlly): number { return ally.meetings[1]?.when ?? 0 }
 
 // The newest thing done together and how long ago.
-function metText(ally: RecentAlly): String {
+function metText(ally: RecentAlly): string {
   const last = ally.meetings[1]
   if (last == nil) { return "" }
   return `${last.text} · ${agoText(last.when)}`
 }
 
-function before(a: RecentAlly, b: RecentAlly, sort: AllySort): Boolean {
+function before(a: RecentAlly, b: RecentAlly, sort: AllySort): boolean {
   if (sort == .Recent && lastOf(a) != lastOf(b)) { return lastOf(a) > lastOf(b) }
   if (sort == .Level && a.member.level != b.member.level) { return a.member.level > b.member.level }
   return a.member.name.lower() < b.member.name.lower()
 }
 
 // Whether an ally is found by what the player typed: in the name, the class, the zone, the note or what was done.
-function found(ally: RecentAlly, query: String): Boolean {
+function found(ally: RecentAlly, query: string): boolean {
   if (query == "") { return true }
   const member = ally.member
   const text = [member.name, member.className, member.zone, member.note, metText(ally)].join(" ").lower()
@@ -108,7 +108,7 @@ function found(ally: RecentAlly, query: String): Boolean {
 }
 
 // The allies of one group (pinned or not) the list shows, in its order.
-function shownOf(allies: Array<RecentAlly>, pinned: Boolean, query: String, filter: Map<AllyFilter, Boolean>, sort: AllySort): Array<RecentAlly> {
+function shownOf(allies: array<RecentAlly>, pinned: boolean, query: string, filter: map<AllyFilter, boolean>, sort: AllySort): array<RecentAlly> {
   const shown = allies.filter(ally => ally.pinned == pinned && found(ally, query) && passes(ally, filter))
   shown.sort((a, b) => before(a, b, sort))
   return shown
@@ -116,16 +116,16 @@ function shownOf(allies: Array<RecentAlly>, pinned: Boolean, query: String, filt
 
 // An ally as a row: a left click, Enter or Space picks it, a right click opens the game's menu of it.
 class AllyRow implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
-  derived picked: Boolean = self.chosen == self.ally.member.key
-  derived level: String = String::of(self.ally.member.level)
+  derived picked: boolean = self.chosen == self.ally.member.key
+  derived level: string = string::of(self.ally.member.level)
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
   ally: Signal<RecentAlly>
-  chosen: Signal<String>
-  constructor(ally: Signal<RecentAlly>, chosen: Signal<String>) {
+  chosen: Signal<string>
+  constructor(ally: Signal<RecentAlly>, chosen: Signal<string>) {
     self.ally = ally
     self.chosen = chosen
   }
@@ -155,26 +155,26 @@ class AllyRow implements Component {
 // The recent allies with their tools; those pinned under «Закреплено», the rest under «Недавние союзники». The
 // filter is its owner's, which asks the game for the allies of the categories switched on.
 public class AllyList implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
   state query = ""
   state sort: AllySort = .Recent
-  derived filterStarts: Map<AllyFilter, Boolean> = allyFilterStart()
-  derived pinned: Array<RecentAlly> = shownOf(self.allies, true, self.query, self.filter, self.sort)
-  derived rest: Array<RecentAlly> = shownOf(self.allies, false, self.query, self.filter, self.sort)
-  derived empty: Boolean = self.pinned.length == 0 && self.rest.length == 0
+  derived filterStarts: map<AllyFilter, boolean> = allyFilterStart()
+  derived pinned: array<RecentAlly> = shownOf(self.allies, true, self.query, self.filter, self.sort)
+  derived rest: array<RecentAlly> = shownOf(self.allies, false, self.query, self.filter, self.sort)
+  derived empty: boolean = self.pinned.length == 0 && self.rest.length == 0
 
-  allies: Signal<Array<RecentAlly>>
-  chosen: Signal<String>
-  filter: mut Signal<Map<AllyFilter, Boolean>>
-  const groups: Array<FilterGroup<AllyFilter>>
+  allies: Signal<array<RecentAlly>>
+  chosen: Signal<string>
+  filter: mut Signal<map<AllyFilter, boolean>>
+  const groups: array<FilterGroup<AllyFilter>>
   constructor(
-    allies: Signal<Array<RecentAlly>>,
-    chosen: Signal<String>,
-    filter: mut Signal<Map<AllyFilter, Boolean>>,
+    allies: Signal<array<RecentAlly>>,
+    chosen: Signal<string>,
+    filter: mut Signal<map<AllyFilter, boolean>>,
     // The categories the game offers here: the filter's first menu.
-    categories: Array<AllyCategory>
+    categories: array<AllyCategory>
   ) {
     self.allies = allies
     self.chosen = chosen
@@ -182,8 +182,8 @@ public class AllyList implements Component {
     self.groups = filterGroups(categories)
   }
 
-  onPick(self, key: String) { self.pick.emit(key) }
-  onMenu(self, key: String) { self.menu.emit(key) }
+  onPick(self, key: string) { self.pick.emit(key) }
+  onMenu(self, key: string) { self.menu.emit(key) }
 
   public render(self): Template {
     return $ltml {
@@ -225,7 +225,7 @@ class MeetingRow implements Component {
 }
 
 // How long a pin lasts, in whole days from `now` (one at the least while it lasts); 0 where it never runs out.
-public function pinDaysLeft(ally: RecentAlly, now: Number): Integer {
+public function pinDaysLeft(ally: RecentAlly, now: number): integer {
   if (!ally.pinned || ally.pinExpires == 0) { return 0 }
   return (1).max(((ally.pinExpires - now) / DAY).ceil())
 }
@@ -241,15 +241,15 @@ public class AllyCard implements Component {
   public note: Event<nil> = new Event()
   public menu: Event<nil> = new Event()
 
-  derived sub: String = Locale::CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
-  derived canAsk: Boolean = online(self.ally)
-  derived daysLeft: Integer = pinDaysLeft(self.ally, self.now)
-  derived pinText: String = Locale::PIN_DAYS_LEFT.format(self.daysLeft)
+  derived sub: string = Locale::CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
+  derived canAsk: boolean = online(self.ally)
+  derived daysLeft: integer = pinDaysLeft(self.ally, self.now)
+  derived pinText: string = Locale::PIN_DAYS_LEFT.format(self.daysLeft)
   derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style::RED : Style::INK
 
   ally: Signal<RecentAlly>
-  now: Signal<Integer>
-  constructor(ally: Signal<RecentAlly>, now: Signal<Integer>) {
+  now: Signal<integer>
+  constructor(ally: Signal<RecentAlly>, now: Signal<integer>) {
     self.ally = ally
     self.now = now
   }

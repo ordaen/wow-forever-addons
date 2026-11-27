@@ -4,8 +4,8 @@ import Test from "$test"
 import { lettersFor, numbered, remembered } from "@/letters"
 import { Sender } from "@/sender"
 
-function stacks(count: Integer): Array<Game::MailStack> {
-  const list: Array<Game::MailStack> = []
+function stacks(count: integer): array<Game::MailStack> {
+  const list: array<Game::MailStack> = []
   for (index of 1..count) { list.push({ bag: 0, slot: index, item: 2589, count: 20 }) }
   return list
 }
@@ -18,7 +18,7 @@ test "twelve stacks go in a letter; thirteen in two, the subject numbered within
 }
 
 test "the recent recipients are the newest first, each once, twenty at most" {
-  let names: Array<String> = []
+  let names: array<string> = []
   for (index of 1..25) { names = remembered(names, `N${index}`) }
   Test::expect(names.length == 20 && names[1] == "N25")
   Test::expect(remembered(names, "N10")[1] == "N10" && remembered(names, "N10").length == 20)

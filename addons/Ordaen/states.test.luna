@@ -38,9 +38,9 @@ function frameAt(at: Test::Point): any Client::Frame {
 }
 
 // Where a frame stands and how large it is, as the client says it now.
-function rectOf(frame: any Client::Frame): String {
+function rectOf(frame: any Client::Frame): string {
   Test::flush()
-  return `${String::of(frame.GetLeft())}, ${String::of(frame.GetTop())} to ${String::of(frame.GetRight())}, ${String::of(frame.GetBottom())}`
+  return `${string::of(frame.GetLeft())}, ${string::of(frame.GetTop())} to ${string::of(frame.GetRight())}, ${string::of(frame.GetBottom())}`
 }
 
 // The frame the page or the surface is drawn in: the outermost under the screen's own that holds `frame` on its
@@ -57,16 +57,16 @@ function pageOf(frame: any Client::Frame): any Client::Frame {
 }
 
 // The regions and the frames the client hands one after another, as lists.
-function regionsOf(...given: any Client::Region): Array<any Client::Region> {
-  let list: Array<any Client::Region> = []
+function regionsOf(...given: any Client::Region): array<any Client::Region> {
+  let list: array<any Client::Region> = []
   for (index of 1..given.length) {
     const region = given[index]
     if (region != nil) { list.push(region) }
   }
   return list
 }
-function framesOf(...given: any Client::Frame): Array<any Client::Frame> {
-  let list: Array<any Client::Frame> = []
+function framesOf(...given: any Client::Frame): array<any Client::Frame> {
+  let list: array<any Client::Frame> = []
   for (index of 1..given.length) {
     const frame = given[index]
     if (frame != nil) { list.push(frame) }
@@ -75,11 +75,11 @@ function framesOf(...given: any Client::Frame): Array<any Client::Frame> {
 }
 
 // Each text's font in a frame and what is in it, a line each.
-function fontsOf(frame: any Client::Frame, out: mut Array<String>) {
+function fontsOf(frame: any Client::Frame, out: mut array<string>) {
   for (region of regionsOf(...frame.GetRegions())) {
     if (region is Client::FontString && region.IsShown()) {
       let file, size, flags = region.GetFont()
-      out.push(`font ${String::of(file)} ${String::of(size)} ${String::of(flags)} ${String::of(region.GetJustifyH())} ${String::of(region.GetSpacing())}`)
+      out.push(`font ${string::of(file)} ${string::of(size)} ${string::of(flags)} ${string::of(region.GetJustifyH())} ${string::of(region.GetSpacing())}`)
     }
   }
   for (child of framesOf(...frame.GetChildren())) {
@@ -90,13 +90,13 @@ function fontsOf(frame: any Client::Frame, out: mut Array<String>) {
 // What the page draws, a line each, its colours left out: its frames and regions as the client describes them, its
 // texts' fonts, and (with `crops`) each texture's file with the size of the part of it drawn. A popup it opens (a
 // tip under the cursor, on a strata of its own) is no part of its look.
-function drawnBut(page: any Client::Frame, crops: Boolean): Array<String> {
+function drawnBut(page: any Client::Frame, crops: boolean): array<string> {
   Test::flush()
-  let lines: Array<String> = []
+  let lines: array<string> = []
   // A texture over another of the same place and size is a light on it (an art's glow, its pushed row): one line.
-  let laid: Map<String, Boolean> = {}
+  let laid: map<string, boolean> = {}
   // The indent of a popup's frame while its lines are passed over.
-  let popup: Integer | nil = nil
+  let popup: integer | nil = nil
   for (line of Test::dump(page).split("\n")) {
     let start, _ = line.find("[^ ]")
     const depth = (start ?? 1) - 1
@@ -118,10 +118,10 @@ function drawnBut(page: any Client::Frame, crops: Boolean): Array<String> {
   fontsOf(page, lines)
   if (!crops) { return lines }
   // Each file drawn and the size of the part of it drawn, once.
-  let parts: Array<String> = []
-  let named: Map<String, Boolean> = {}
+  let parts: array<string> = []
+  let named: map<string, boolean> = {}
   for (part of Test::drawn()) {
-    const line = `texture ${String::of(part.file)} ${String::of(part.right - part.left)} x ${String::of(part.bottom - part.top)}`
+    const line = `texture ${string::of(part.file)} ${string::of(part.right - part.left)} x ${string::of(part.bottom - part.top)}`
     if (named[line] != true) {
       named[line] = true
       parts.push(line)
@@ -133,7 +133,7 @@ function drawnBut(page: any Client::Frame, crops: Boolean): Array<String> {
 }
 
 // What the page draws is what it drew at first, or the test stops and says the first line that isn't.
-function same(page: any Client::Frame, first: Array<String>, state: String, crops: Boolean) {
+function same(page: any Client::Frame, first: array<string>, state: string, crops: boolean) {
   const now = drawnBut(page, crops)
   for (index of 1..first.length.max(now.length)) {
     const was = first[index] ?? "(nothing)"
@@ -143,7 +143,7 @@ function same(page: any Client::Frame, first: Array<String>, state: String, crop
 }
 
 // The frame stands as it stood at first, or the test stops and says in which state it doesn't.
-function sameBox(frame: any Client::Frame, first: String, state: String) {
+function sameBox(frame: any Client::Frame, first: string, state: string) {
   const now = rectOf(frame)
   if (now != first) { panic(`the box stood at ${first} at first, at ${now} ${state}`) }
 }
@@ -152,7 +152,7 @@ function sameBox(frame: any Client::Frame, first: String, state: String) {
 // there (a click), and again after each of `steps` (each sets a state the owner holds). Away from the cursor the
 // textures' crops are compared too, unless `moves`: a state that moves art from one box to another of its own width (the
 // picked tab's wood).
-function holdsItsBox(at: Test::Point, steps: Array<() => nil>, moves: Boolean = false) {
+function holdsItsBox(at: Test::Point, steps: array<() => nil>, moves: boolean = false) {
   const frame = frameAt(at)
   const page = pageOf(frame)
   Test::moveTo(AWAY)
@@ -177,7 +177,7 @@ function holdsItsBox(at: Test::Point, steps: Array<() => nil>, moves: Boolean = 
 }
 
 class PageTabs {
-  state tabs: Array<String> = ["Recipes", "Camp", "Queue"]
+  state tabs: array<string> = ["Recipes", "Camp", "Queue"]
   state page = 1
 
   public render(self): Template {
@@ -195,9 +195,9 @@ test "a page's tab keeps its box picked or not" {
 }
 
 class ColumnTabs {
-  state tabs: Array<String> = ["All", "Gear", "Junk"]
+  state tabs: array<string> = ["All", "Gear", "Junk"]
   state page = 1
-  state offs: Array<Boolean> = [false, false, true]
+  state offs: array<boolean> = [false, false, true]
 
   public render(self): Template {
     return $ltml {
@@ -234,11 +234,11 @@ test "a column's tabs stand one under another as wide as the column, an off one 
 }
 
 class Tabbed {
-  state tabs: Array<WindowTabSpec>
+  state tabs: array<WindowTabSpec>
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
 
-  constructor(tabs: Array<WindowTabSpec>) { self.tabs = tabs }
+  constructor(tabs: array<WindowTabSpec>) { self.tabs = tabs }
 
   public render(self): Template {
     return $ltml {
@@ -306,7 +306,7 @@ class Checks {
 test "a checkbox and a switch keep their boxes on, off or disabled" {
   let page = new Checks()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.on = true }, () => { page.disabled = true }, () => { page.on = false }, () => { page.disabled = false }
   ]
   // Found before any is clicked: a click flips them.
@@ -338,7 +338,7 @@ class Modes {
 test "a segment keeps its box picked, not or disabled" {
   let page = new Modes()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.mode = Mode::Merchant }, () => { page.disabled = true }, () => { page.mode = Mode::Auction }
   ]
   holdsItsBox(Test::holding("Auction", nil), steps)
@@ -366,7 +366,7 @@ class Lists {
 test "a list's entry and a tree's row keep their boxes selected, off or open" {
   let page = new Lists()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.selected = true }, () => { page.off = true }, () => { page.open = true },
     () => { page.selected = false }, () => { page.off = false }, () => { page.open = false }
   ]
@@ -376,7 +376,7 @@ test "a list's entry and a tree's row keep their boxes selected, off or open" {
   destroy page
 }
 
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: "Recipe", width: { fr: 1 }, sortable: true },
   { title: "Makeable", width: 93.75dp, sortable: true },
   { title: "Plain", width: 93.75dp }
@@ -403,7 +403,7 @@ class Sorted {
 test "a table's heading and row keep their boxes sorted by or not, selected or not" {
   let page = new Sorted()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.column = 2 }, () => { page.descending = true }, () => { page.selected = true },
     () => { page.column = 1 }, () => { page.selected = false }
   ]
@@ -414,7 +414,7 @@ test "a table's heading and row keep their boxes sorted by or not, selected or n
 }
 
 class Menus {
-  state entries: Array<MenuEntry> = [
+  state entries: array<MenuEntry> = [
     { label: "Sound", on: false },
     { label: "Reset" },
     { label: "Delete", group: true }
@@ -432,7 +432,7 @@ class Menus {
 test "a menu's entry keeps its box on, off or disabled" {
   let page = new Menus()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.entries = [{ label: "Sound", on: true }, { label: "Reset", disabled: true }, { label: "Delete", group: true, disabled: true }] },
     () => { page.entries = [{ label: "Sound", on: false, disabled: true }, { label: "Reset" }, { label: "Delete", group: true }] }
   ]
@@ -444,13 +444,13 @@ test "a menu's entry keeps its box on, off or disabled" {
 
 // A module the settings window lists, turned on and off by the test.
 class Listed implements Entry {
-  public const folder: String = "OrdaenPanel"
-  public const title: String = "Ordaen Panel"
+  public const folder: string = "OrdaenPanel"
+  public const title: string = "Ordaen Panel"
   public const icon: Art = ICON
   public state on = false
-  public state pages: Array<SettingsPage> = []
+  public state pages: array<SettingsPage> = []
 
-  public enable(self, on: Boolean) {}
+  public enable(self, on: boolean) {}
 }
 
 class Modules {
@@ -469,7 +469,7 @@ class Modules {
 test "a module's entry and its switch keep their boxes on, off or shown" {
   let page = new Modules()
   Test::mount(page, PAGE)
-  const steps: Array<() => nil> = [
+  const steps: array<() => nil> = [
     () => { page.shown = "OrdaenPanel" }, () => { page.entry.on = true }, () => { page.shown = "" },
     () => { page.entry.on = false }
   ]

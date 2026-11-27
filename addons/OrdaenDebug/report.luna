@@ -11,8 +11,8 @@ const REPORT_ERRORS = 20
 const BUTTON = 140dp
 
 // Every addon the client has loaded: its folder and its version.
-function addonLines(): Array<String> {
-  let lines: Array<String> = []
+function addonLines(): array<string> {
+  let lines: array<string> = []
   const count = Client::C_AddOns::GetNumAddOns()
   for (i of 1..count) {
     const loaded, _ = Client::C_AddOns::IsAddOnLoaded(i)
@@ -25,12 +25,12 @@ function addonLines(): Array<String> {
 }
 
 // The report's text, as it stands now.
-public function report(errors: Errors): String {
+public function report(errors: Errors): string {
   const meta = errors.meta()
   let lines = [
     Locale::REPORT_HEAD,
-    Locale::REPORT_CLIENT.format(String::of(meta?.client), String::of(meta?.build), String::of(meta?.interface),
-      String::of(meta?.locale), String::of(meta?.core)),
+    Locale::REPORT_CLIENT.format(string::of(meta?.client), string::of(meta?.build), string::of(meta?.interface),
+      string::of(meta?.locale), string::of(meta?.core)),
     ""
   ]
   const addons = addonLines()
@@ -66,7 +66,7 @@ public class ReportPage implements Component {
     self.count = self.counted()
   }
 
-  counted(self): String {
+  counted(self): string {
     const session = self.errors.sessionCount()
     return Locale::REPORT_COUNT.format(session, self.errors.db.errors.length - session)
   }

@@ -15,9 +15,9 @@ import { Kept, has } from "@/view"
 
 const FRAME: Line = { width: 1.171875dp, color: Style::LINE }
 const BACK: Color = Color::hex("#0000004d")
-const PAD: Number<Spacing> = 5sp
-const CARD: Array<Track> = [{ fr: 1 }, "max-content"]
-const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const PAD: number<Spacing> = 5sp
+const CARD: array<Track> = [{ fr: 1 }, "max-content"]
+const GRID: array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 // The most recipes «What to learn next» lists.
 const NEXT_MOST = 6
 // Secondary professions: Cooking, First Aid, Fishing, by their skill lines.
@@ -32,12 +32,12 @@ const DISENCHANT_SPELL = 13262
 // The rank after the one whose most is `most`, the skill it is learned from and the level it needs; none after the
 // last.
 public struct NextRank {
-  name: String
-  skill: Integer
-  level: Integer
+  name: string
+  skill: integer
+  level: integer
 }
 
-public function nextRankOf(most: Integer): NextRank | nil {
+public function nextRankOf(most: integer): NextRank | nil {
   return match (most) {
     75 => { name: Locale::RANK_150, skill: 50, level: 10 }
     150 => { name: Locale::RANK_225, skill: 125, level: 20 }
@@ -47,7 +47,7 @@ public function nextRankOf(most: Integer): NextRank | nil {
 }
 
 // The profession's own spell on its overview, by its name as the client has it; none for one that has none.
-public function overviewSpellOf(skillLine: Integer): Integer | nil {
+public function overviewSpellOf(skillLine: integer): integer | nil {
   return match (skillLine) {
     FISHING => FISH_SPELL
     ENCHANTING => DISENCHANT_SPELL
@@ -56,26 +56,26 @@ public function overviewSpellOf(skillLine: Integer): Integer | nil {
 }
 
 // The spell's name as the client has it, where the player knows it; empty for none.
-public function knownSpellName(spell: Integer | nil): String {
+public function knownSpellName(spell: integer | nil): string {
   if (spell == nil || !Game::spells.known(spell)) { return "" }
   return Game::spells.name(spell) ?? ""
 }
 
-function secondary(skillLine: Integer): Boolean {
+function secondary(skillLine: integer): boolean {
   return skillLine == COOKING || skillLine == FIRST_AID || skillLine == FISHING
 }
 
 // A line of a section: a text, and the recipe a click on it opens (0: none).
 public struct OverviewLine {
-  text: String
-  recipe: Integer
+  text: string
+  recipe: integer
 }
 
 public class OverviewLineRow implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
   // A line of a recipe opens it: it alone takes the mouse, and is ink; another is dim.
-  derived opens: Boolean = self.line.recipe != 0
+  derived opens: boolean = self.line.recipe != 0
 
   line: Signal<OverviewLine>
   constructor(line: Signal<OverviewLine>) {
@@ -98,16 +98,16 @@ public class OverviewLineRow implements Component {
 
 // A section of the overview: its title in gold and its lines.
 public class OverviewSection implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  title: Signal<String>
-  lines: Signal<Array<OverviewLine>>
-  constructor(title: Signal<String>, lines: Signal<Array<OverviewLine>>) {
+  title: Signal<string>
+  lines: Signal<array<OverviewLine>>
+  constructor(title: Signal<string>, lines: Signal<array<OverviewLine>>) {
     self.title = title
     self.lines = lines
   }
 
-  onPick(self, recipe: Integer) { self.pick.emit(recipe) }
+  onPick(self, recipe: integer) { self.pick.emit(recipe) }
 
   public render(self): Template {
     return $ltml {
@@ -121,33 +121,33 @@ public class OverviewSection implements Component {
 
 public class OverviewPage implements Component {
   // A recipe's line clicked: its number.
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
   derived next: NextRank | nil = nextRankOf(self.profession?.max ?? 0)
-  derived hasNext: Boolean = self.next != nil
-  derived nextText: String = self.nextTextOf()
-  derived isSecondary: Boolean = secondary(self.profession?.skillLine ?? 0)
-  derived spell: Integer | nil = overviewSpellOf(self.profession?.skillLine ?? 0)
-  derived spellName: String = knownSpellName(self.spell)
-  derived hasSpell: Boolean = self.spellName != ""
-  derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale::ACTION_FISH : Locale::ACTION_DISENCHANT
+  derived hasNext: boolean = self.next != nil
+  derived nextText: string = self.nextTextOf()
+  derived isSecondary: boolean = secondary(self.profession?.skillLine ?? 0)
+  derived spell: integer | nil = overviewSpellOf(self.profession?.skillLine ?? 0)
+  derived spellName: string = knownSpellName(self.spell)
+  derived hasSpell: boolean = self.spellName != ""
+  derived spellLabel: string = self.profession?.skillLine == FISHING ? Locale::ACTION_FISH : Locale::ACTION_DISENCHANT
   derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
-  derived counts: Array<OverviewLine> = self.countsOf()
-  derived toLearn: Array<OverviewLine> = self.toLearnOf()
-  derived needs: Array<OverviewLine> = self.needsOf()
-  derived tracked: Array<OverviewLine> = self.trackedOf()
+  derived counts: array<OverviewLine> = self.countsOf()
+  derived toLearn: array<OverviewLine> = self.toLearnOf()
+  derived needs: array<OverviewLine> = self.needsOf()
+  derived tracked: array<OverviewLine> = self.trackedOf()
 
   profession: Signal<Game::Profession | nil>
   thresholds: Signal<Thresholds>
   kept: Signal<Kept>
-  taught: Signal<Map<String, Taught>>
+  taught: Signal<map<string, Taught>>
   constructor(
     profession: Signal<Game::Profession | nil>,
     // Where the profession's recipes turn yellow and grey.
     thresholds: Signal<Thresholds>,
     kept: Signal<Kept>,
     // What the trainers met teach, by the recipe's name.
-    taught: Signal<Map<String, Taught>> = {}
+    taught: Signal<map<string, Taught>> = {}
   ) {
     self.profession = profession
     self.thresholds = thresholds
@@ -155,13 +155,13 @@ public class OverviewPage implements Component {
     self.taught = taught
   }
 
-  nextTextOf(self): String {
+  nextTextOf(self): string {
     const next = self.next
     if (next == nil) { return "" }
     return Locale::NEXT_RANK.format(next.name, next.skill, next.level)
   }
 
-  countsOf(self): Array<OverviewLine> {
+  countsOf(self): array<OverviewLine> {
     const recipes = Game::tradeSkill.recipes
     const learned = recipes.count(r => r.learned)
     return [
@@ -173,16 +173,16 @@ public class OverviewPage implements Component {
 
   // The recipes not learned, by the skill they are learned at, the nearest first: the one a trainer said, else the
   // one they turn yellow at (the client's table has no skill they are learned at). Each says where it is learned.
-  toLearnOf(self): Array<OverviewLine> {
+  toLearnOf(self): array<OverviewLine> {
     const yellow = self.thresholds.yellow
     const taught = self.taught
-    let list: Array<Game::Recipe> = Game::tradeSkill.recipes.filter(r => !r.learned)
+    let list: array<Game::Recipe> = Game::tradeSkill.recipes.filter(r => !r.learned)
     list.sort((a, b) => {
       const x = learnSkillOf(taught[a.name], yellow[a.id])
       const y = learnSkillOf(taught[b.name], yellow[b.id])
       return x < y || (x == y && a.name < b.name)
     })
-    let lines: Array<OverviewLine> = []
+    let lines: array<OverviewLine> = []
     for (recipe of list) {
       if (lines.length >= NEXT_MOST) { break }
       const from = taught[recipe.name]
@@ -196,8 +196,8 @@ public class OverviewPage implements Component {
   }
 
   // Each tool or place a learned recipe asks for, once, in the order met.
-  needsOf(self): Array<OverviewLine> {
-    let lines: Array<OverviewLine> = []
+  needsOf(self): array<OverviewLine> {
+    let lines: array<OverviewLine> = []
     for (recipe of Game::tradeSkill.recipes) {
       if (recipe.learned) {
         for (need of Game::tradeSkill.requirements(recipe.id)) {
@@ -210,8 +210,8 @@ public class OverviewPage implements Component {
   }
 
   // The tracked recipes of this profession, each with what its bags still lack for one making.
-  trackedOf(self): Array<OverviewLine> {
-    let lines: Array<OverviewLine> = []
+  trackedOf(self): array<OverviewLine> {
+    let lines: array<OverviewLine> = []
     for (recipe of Game::tradeSkill.recipes) {
       if (has(self.kept.tracked, recipe.id)) {
         let missing = ""
@@ -229,7 +229,7 @@ public class OverviewPage implements Component {
     return lines
   }
 
-  onPick(self, recipe: Integer) { self.pick.emit(recipe) }
+  onPick(self, recipe: integer) { self.pick.emit(recipe) }
 
   public render(self): Template {
     return $ltml {

@@ -11,35 +11,35 @@ const DAY = 86400
 
 // A character a friend was seen on, and when (seconds since 1970).
 public struct SeenHero implements Plain {
-  name: String = ""
-  level: Integer = 0
-  className: String = ""
-  classFile: String = ""
-  realm: String = ""
-  at: Number = 0
+  name: string = ""
+  level: integer = 0
+  className: string = ""
+  classFile: string = ""
+  realm: string = ""
+  at: number = 0
 }
 
 public struct SeenHeroes implements Plain {
-  heroes: Map<String, SeenHero> = {}
+  heroes: map<string, SeenHero> = {}
 }
 public const SEEN_HEROES: SeenHeroes = {}
 
-function seenOf(hero: Hero, now: Number): SeenHero {
+function seenOf(hero: Hero, now: number): SeenHero {
   return { name: hero.name, level: hero.level, className: hero.className, classFile: hero.classFile, realm: hero.realm, at: now }
 }
 
-function same(a: SeenHero, b: SeenHero): Boolean {
+function same(a: SeenHero, b: SeenHero): boolean {
   return a.name == b.name && a.level == b.level && a.realm == b.realm && a.classFile == b.classFile
 }
 
 // What is kept after the friends were read at `now`: those playing here written down, those no longer friends and those
 // not seen for long gone, the oldest gone past the cap. Nil where nothing changed (nothing to write). A list with no
 // account (Battle.net off) drops nobody.
-public function seenAfter(kept: Map<String, SeenHero>, friends: Array<Friend>, now: Number): Map<String, SeenHero> | nil {
-  const next: Map<String, SeenHero> = {}
+public function seenAfter(kept: map<string, SeenHero>, friends: array<Friend>, now: number): map<string, SeenHero> | nil {
+  const next: map<string, SeenHero> = {}
   let changed = false
   const accounts = friends.filter(friend => friend.account != nil)
-  const tags: Map<String, Boolean> = {}
+  const tags: map<string, boolean> = {}
   for (friend of accounts) {
     const tag = friend.account?.battleTag ?? ""
     tags[tag] = true
@@ -62,10 +62,10 @@ public function seenAfter(kept: Map<String, SeenHero>, friends: Array<Friend>, n
       changed = true
     }
   }
-  const tagsKept: Array<String> = []
+  const tagsKept: array<string> = []
   for (tag, _ of next) { tagsKept.push(tag) }
   if (tagsKept.length > SEEN_MOST) {
-    tagsKept.sort((a: String, b: String) => (next[a]?.at ?? 0) > (next[b]?.at ?? 0))
+    tagsKept.sort((a: string, b: string) => (next[a]?.at ?? 0) > (next[b]?.at ?? 0))
     for (at of SEEN_MOST + 1..tagsKept.length) { next[tagsKept[at] ?? ""] = nil }
     changed = true
   }
@@ -73,7 +73,7 @@ public function seenAfter(kept: Map<String, SeenHero>, friends: Array<Friend>, n
 }
 
 // The friends as the window shows them: an offline Battle.net friend with the character last seen, where one was.
-public function withSeen(friends: Array<Friend>, kept: Map<String, SeenHero>): Array<Friend> {
+public function withSeen(friends: array<Friend>, kept: map<string, SeenHero>): array<Friend> {
   return friends.map(friend => {
     const account = friend.account
     if (account == nil || friend.hero != nil) { return friend }
@@ -85,7 +85,7 @@ public function withSeen(friends: Array<Friend>, kept: Map<String, SeenHero>): A
 }
 
 // The friends just read, written down in the saved list where anything changed.
-public function noteSeen(memory: mut ModuleMemory<SeenHeroes>, friends: Array<Friend>, now: Number) {
+public function noteSeen(memory: mut ModuleMemory<SeenHeroes>, friends: array<Friend>, now: number) {
   const next = seenAfter((peek memory.values).heroes, friends, now)
   if (next != nil) { memory.write({ heroes: next }) }
 }

@@ -12,10 +12,10 @@ import { BRIGHT_TEXT } from "@/units"
 
 // One of a dropdown's choices: the value the setting takes, and what the player reads; on a toolbar's ToolPick, the
 // glyph its button shows while it is picked (a view's).
-public struct Choice<T: Unknown> {
+public struct Choice<T: unknown> {
   value: T
-  label: String
-  soon: Boolean | nil
+  label: string
+  soon: boolean | nil
   icon: Art | nil
 }
 
@@ -42,23 +42,23 @@ function listRoom(): Bounds {
 }
 
 // One choice in the open menu.
-public class DropdownItem<T: Unknown> implements Component {
+public class DropdownItem<T: unknown> implements Component {
   public pick: Event<T> = new Event()
 
   derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
-  derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label
+  derived text: string = self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : BRIGHT_TEXT
   derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
   derived wrap: TextWrap = self.compact ? TextWrap::None : TextWrap::Words
 
   choice: Signal<Choice<T>>
   value: Signal<T>
-  const compact: Boolean
+  const compact: boolean
   constructor(
     choice: Signal<Choice<T>>,
     value: Signal<T>,
     // As a `CompactDropdown`'s: the text on one line.
-    compact: Boolean = false
+    compact: boolean = false
   ) {
     self.choice = choice
     self.value = value
@@ -81,28 +81,28 @@ public class DropdownItem<T: Unknown> implements Component {
 }
 
 // The label of the choice a value is: none when it is none of them.
-function labelOf<T: Unknown>(choices: Array<Choice<T>>, value: T): String {
+function labelOf<T: unknown>(choices: array<Choice<T>>, value: T): string {
   for (choice of choices) {
     if (choice.value == value) { return choice.label }
   }
   return ""
 }
 
-public class Dropdown<T: Unknown> implements Component {
+public class Dropdown<T: unknown> implements Component {
   state open = false
-  derived shown: String = labelOf(self.choices, self.value)
+  derived shown: string = labelOf(self.choices, self.value)
 
-  label: Signal<String>
+  label: Signal<string>
   value: mut Signal<T>
-  const choices: Array<Choice<T>>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  const choices: array<Choice<T>>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
+    label: Signal<string>,
     value: mut Signal<T>,
-    choices: Array<Choice<T>>,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    choices: array<Choice<T>>,
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value
@@ -148,24 +148,24 @@ public class Dropdown<T: Unknown> implements Component {
 // CompactDropdown: the bronze plate alone, as wide as it is told and with no label of a setting's row, for a tool row
 // (a sort, a view). It shows the picked choice in gold with an arrow; left-click opens the list under it, a click on a
 // choice picks it and closes the list, a click anywhere else closes it.
-public class CompactDropdown<T: Unknown> implements Component {
+public class CompactDropdown<T: unknown> implements Component {
   // A choice picked, heard in the player's click itself: what the client takes from a click alone (a status) is
   // done here, never by a watch on `value`, which runs a frame later.
   public pick: Event<T> = new Event()
   state open = false
-  derived shown: String = labelOf(self.choices, self.value)
+  derived shown: string = labelOf(self.choices, self.value)
   derived listBounds: Bounds = { min: self.width + 46.875dp, max: nil }
 
   value: mut Signal<T>
-  const choices: Array<Choice<T>>
-  width: Signal<Number<Length>>
-  disabled: Signal<Boolean>
+  const choices: array<Choice<T>>
+  width: Signal<number<Length>>
+  disabled: Signal<boolean>
   constructor(
     value: mut Signal<T>,
-    choices: Array<Choice<T>>,
-    width: Signal<Number<Length>>,
+    choices: array<Choice<T>>,
+    width: Signal<number<Length>>,
     // Shown dimmed, and opens no list.
-    disabled: Signal<Boolean> = false
+    disabled: Signal<boolean> = false
   ) {
     self.value = value
     self.choices = choices
@@ -209,15 +209,15 @@ public class CompactDropdown<T: Unknown> implements Component {
 }
 
 // One choice in a `ManyDropdown`'s open menu: its tick, gold while it is picked.
-class ManyItem<T: Unknown> implements Component {
+class ManyItem<T: unknown> implements Component {
   public flip: Event<T> = new Event()
 
-  derived picked: Boolean = self.value.any((each: T) => each == self.choice.value)
-  derived tick: Number = self.picked ? 1 : 0
+  derived picked: boolean = self.value.any((each: T) => each == self.choice.value)
+  derived tick: number = self.picked ? 1 : 0
 
   choice: Signal<Choice<T>>
-  value: Signal<Array<T>>
-  constructor(choice: Signal<Choice<T>>, value: Signal<Array<T>>) {
+  value: Signal<array<T>>
+  constructor(choice: Signal<Choice<T>>, value: Signal<array<T>>) {
     self.choice = choice
     self.value = value
   }
@@ -241,8 +241,8 @@ class ManyItem<T: Unknown> implements Component {
 const TICK = 18.75dp
 
 // The labels of the choices a list holds, in the choices' order, joined; none when it holds none.
-function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): String {
-  const labels: Array<String> = []
+function labelsOf<T: unknown>(choices: array<Choice<T>>, value: array<T>): string {
+  const labels: array<string> = []
   for (choice of choices) {
     if (value.any((each: T) => each == choice.value)) { labels.push(choice.label) }
   }
@@ -252,27 +252,27 @@ function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): Strin
 // ManyDropdown: a setting that is any number of several choices, as a `Dropdown` is one: the plate shows the picked
 // ones' names, or, where none is picked, `none` dimmed. Left-click on a choice in the open menu picks it or lets it go
 // and leaves the menu open; a click anywhere else closes it.
-public class ManyDropdown<T: Unknown> implements Component {
+public class ManyDropdown<T: unknown> implements Component {
   state open = false
-  derived picked: String = labelsOf(self.choices, self.value)
-  derived empty: Boolean = self.picked == ""
-  derived shown: String = self.empty ? self.none : self.picked
+  derived picked: string = labelsOf(self.choices, self.value)
+  derived empty: boolean = self.picked == ""
+  derived shown: string = self.empty ? self.none : self.picked
   derived color: Color = self.empty ? DIM : GOLD
 
-  label: Signal<String>
-  value: mut Signal<Array<T>>
-  const choices: Array<Choice<T>>
-  none: Signal<String>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  value: mut Signal<array<T>>
+  const choices: array<Choice<T>>
+  none: Signal<string>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    value: mut Signal<Array<T>>,
-    choices: Array<Choice<T>>,
+    label: Signal<string>,
+    value: mut Signal<array<T>>,
+    choices: array<Choice<T>>,
     // What the plate says while nothing is picked.
-    none: Signal<String>,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    none: Signal<string>,
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value
@@ -291,7 +291,7 @@ public class ManyDropdown<T: Unknown> implements Component {
   // The choice flipped: the list keeps the choices' order.
   onFlip(mut self, flipped: T) {
     const was = peek self.value
-    const next: Array<T> = []
+    const next: array<T> = []
     for (choice of self.choices) {
       const held = was.any((each: T) => each == choice.value)
       if (held != (choice.value == flipped)) { next.push(choice.value) }

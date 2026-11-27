@@ -48,7 +48,7 @@ public enum Hue implements Plain {
 
 public enum Preset { Ordaen = "ordaen", Minimal = "minimal" }
 // The presets, in the order the settings window lists them.
-public const PRESETS: Array<Preset> = [Preset::Ordaen, Preset::Minimal]
+public const PRESETS: array<Preset> = [Preset::Ordaen, Preset::Minimal]
 
 public struct Look implements Plain {
   // The text's, the titles', the numbers' and a page of sentences' fonts.
@@ -144,7 +144,7 @@ const BLIZZARD: Look = {
 }
 
 // Whether a look loaded is one of a preset Ordaen doesn't offer, to be loaded as Ordaen's.
-public function unoffered(look: Look): Boolean {
+public function unoffered(look: Look): boolean {
   return look.equal(BLIZZARD)
 }
 

@@ -23,13 +23,13 @@ const WHOLE: Line = { width: 1.171875dp, color: EDGE }
 const AFTER: Line = { width: 1.171875dp, color: EDGE, sides: [Side::Top, Side::Right, Side::Bottom] }
 
 // One segment of the strip.
-public class Segment<T: Unknown> implements Component {
+public class Segment<T: unknown> implements Component {
   public pick: Event<T> = new Event()
 
-  derived picked: Boolean = self.value == self.choice.value
-  derived soon: Boolean = self.choice.soon == true
-  derived text: String = self.soon ? self.choice.label + " — " + Locale::SOON : self.choice.label
-  derived still: Boolean = self.soon || self.disabled
+  derived picked: boolean = self.value == self.choice.value
+  derived soon: boolean = self.choice.soon == true
+  derived text: string = self.soon ? self.choice.label + " — " + Locale::SOON : self.choice.label
+  derived still: boolean = self.soon || self.disabled
   derived color: Color | ByInteractionState<Color> = self.soon ? DIM : self.picked ? BRIGHT_TEXT : self.still ? QUIET : NAME
   derived fill: Color | ByInteractionState<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
   derived edge: Line = self.first ? WHOLE : AFTER
@@ -38,13 +38,13 @@ public class Segment<T: Unknown> implements Component {
 
   choice: Signal<Choice<T>>
   value: Signal<T>
-  const first: Boolean
-  disabled: Signal<Boolean>
+  const first: boolean
+  disabled: Signal<boolean>
   constructor(
     choice: Signal<Choice<T>>,
     value: Signal<T>,
-    first: Boolean,
-    disabled: Signal<Boolean> = false
+    first: boolean,
+    disabled: Signal<boolean> = false
   ) {
     self.choice = choice
     self.value = value
@@ -67,26 +67,26 @@ public class Segment<T: Unknown> implements Component {
   }
 }
 
-public class Segmented<T: Unknown> implements Component {
+public class Segmented<T: unknown> implements Component {
   // One column as wide as each segment.
-  derived columns: Array<Track> = self.tracks()
-  derived opacity: Number = self.disabled ? 0.45 : 1
+  derived columns: array<Track> = self.tracks()
+  derived opacity: number = self.disabled ? 0.45 : 1
 
   value: mut Signal<T>
-  const choices: Array<Choice<T>>
-  disabled: Signal<Boolean>
+  const choices: array<Choice<T>>
+  disabled: Signal<boolean>
   constructor(
     value: mut Signal<T>,
-    choices: Array<Choice<T>>,
-    disabled: Signal<Boolean> = false
+    choices: array<Choice<T>>,
+    disabled: Signal<boolean> = false
   ) {
     self.value = value
     self.choices = choices
     self.disabled = disabled
   }
 
-  tracks(self): Array<Track> {
-    let list: Array<Track> = []
+  tracks(self): array<Track> {
+    let list: array<Track> = []
     for (choice of self.choices) { list.push("max-content") }
     return list
   }

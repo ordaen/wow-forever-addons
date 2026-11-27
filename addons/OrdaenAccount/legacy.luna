@@ -18,22 +18,22 @@ import Style from "@/style"
 public const TRACK = 2802
 // A Legacy tree: its trait tree, its name and its emblem (`LegacyTreeData`).
 public struct TreeKind {
-  id: Integer
-  name: String
+  id: integer
+  name: string
   icon: Atlas
 }
-const TREES: Array<TreeKind> = [
+const TREES: array<TreeKind> = [
   { id: 1187, name: Locale::TREE_PROFESSIONS, icon: "UI-Legacy-Tree-Professions" },
   { id: 1188, name: Locale::TREE_ADVENTURE, icon: "UI-Legacy-Tree-Adventure" },
   { id: 1189, name: Locale::TREE_PROGRESSION, icon: "UI-Legacy-Tree-Progression" }
 ]
-const SUBS: Array<String> = [Locale::SUB_TREE, Locale::SUB_REWARDS]
-const BUTTON: Number<Length> = 140dp
+const SUBS: array<string> = [Locale::SUB_TREE, Locale::SUB_REWARDS]
+const BUTTON: number<Length> = 140dp
 // The footer's band: the points in its middle, the buttons at its right.
-const FOOTER: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+const FOOTER: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The trees' column: each a row edge to edge, its emblem large.
-const TREE_EMBLEM: Number<Length> = 44dp
-const TREE_ROW: Array<Track> = [TREE_EMBLEM, { fr: 1 }]
+const TREE_EMBLEM: number<Length> = 44dp
+const TREE_ROW: array<Track> = [TREE_EMBLEM, { fr: 1 }]
 const TREE_PAD: Edges = { top: 4sp, right: 4sp, bottom: 4sp, left: 6sp }
 const TREE_SHADE: ByInteractionState<Color> = { default: Color::hex("#00000000"), hover: Color::hex("#ffffff14") }
 const TREE_PICKED: Color = Color::hex("#00000059")
@@ -73,33 +73,33 @@ const ICON_FRAME_SIZE = 80ui
 const CHECK_WIDTH = 40ui
 const CHECK_HEIGHT = 35ui
 // Where each of the four cards stands along the bar, out of 100 (`STATIC_CARD_POSITION_TO_PROGRESS`).
-const CARD_AT: Array<Number> = [12, 38, 63, 88]
+const CARD_AT: array<number> = [12, 38, 63, 88]
 const WHITE: Color = Color::hex("#ffffff")
 const DISABLED: Color = Color::hex("#7f7f7f")
 
 // Whether the player has the reward track's first level: what opens every page.
-public function legacyOpen(): Boolean { return Client::C_MajorFactions::GetCurrentRenownLevel(TRACK) > 0 }
+public function legacyOpen(): boolean { return Client::C_MajorFactions::GetCurrentRenownLevel(TRACK) > 0 }
 
 // A level of the reward track and its first reward (and how many more it gives).
 public struct Level {
-  level: Integer
-  reached: Boolean
+  level: integer
+  reached: boolean
   // The level the player has now: its card is green.
-  last: Boolean
-  name: String
+  last: boolean
+  name: string
   icon: FileId | nil
 }
 
-function levelsOf(): Array<Level> {
+function levelsOf(): array<Level> {
   const reached = Client::C_MajorFactions::GetCurrentRenownLevel(TRACK).floor()
-  const list: Array<Level> = []
+  const list: array<Level> = []
   for (info of Client::C_MajorFactions::GetRenownLevels(TRACK)) {
     const level = info.level.floor()
-    const rewards: Array<Client::MajorFactionRenownRewardInfo> = []
+    const rewards: array<Client::MajorFactionRenownRewardInfo> = []
     for (reward of Client::C_MajorFactions::GetRenownRewardsForLevel(TRACK, level)) { rewards.push(reward) }
     rewards.sort((a, b) => a.uiOrder < b.uiOrder)
     const first = rewards[1]
-    const more = rewards.length > 1 ? " +" + String::of(rewards.length - 1) : ""
+    const more = rewards.length > 1 ? " +" + string::of(rewards.length - 1) : ""
     list.push({ level: level, reached: level <= reached, last: level == reached, name: (first?.name ?? "") + more, icon: first?.icon })
   }
   return list
@@ -108,9 +108,9 @@ function levelsOf(): Array<Level> {
 // How far the bar is filled, out of 100, with the cards from `first` shown: Blizzard's `SetupProgressDetails` for a
 // track of cards that stand still. Under the first card's level it fills from the bar's start to the first card; between
 // two cards, by how far the player is from the one to the next.
-function filledOf(levels: Array<Level>, rank: Integer, earned: Number, threshold: Number, first: Integer): Number {
+function filledOf(levels: array<Level>, rank: integer, earned: number, threshold: number, first: integer): number {
   let reachedAt = 0
-  let toNext: Number = rank
+  let toNext: number = rank
   let gap = 100.0
   let last = 0
   for (index, level of levels) {
@@ -135,8 +135,8 @@ function filledOf(levels: Array<Level>, rank: Integer, earned: Number, threshold
 }
 
 // The four levels from `first`, as many as there are.
-function windowOf(levels: Array<Level>, first: Integer): Array<Level> {
-  const list: Array<Level> = []
+function windowOf(levels: array<Level>, first: integer): array<Level> {
+  const list: array<Level> = []
   for (index, level of levels) {
     if (index >= first && index < first + CARDS) { list.push(level) }
   }
@@ -145,16 +145,16 @@ function windowOf(levels: Array<Level>, first: Integer): Array<Level> {
 
 // A tree in the trees' column: its emblem and its name, the picked one shaded with a light along its left.
 public class TreeChoice implements Component {
-  public pick: Event<Integer> = new Event()
-  derived picked: Boolean = self.index == self.chosen
+  public pick: Event<integer> = new Event()
+  derived picked: boolean = self.index == self.chosen
   derived background: Color | ByInteractionState<Color> = self.picked ? TREE_PICKED : TREE_SHADE
   derived light: Color = self.picked ? TREE_LIGHT : CLEAR
   derived ink: Color = self.picked ? Style::WHITE_INK : Style::INK
 
   tree: Signal<TreeKind>
-  const index: Integer
-  chosen: Signal<Integer>
-  constructor(tree: Signal<TreeKind>, index: Integer, chosen: Signal<Integer>) {
+  const index: integer
+  chosen: Signal<integer>
+  constructor(tree: Signal<TreeKind>, index: integer, chosen: Signal<integer>) {
     self.tree = tree
     self.index = index
     self.chosen = chosen
@@ -219,21 +219,21 @@ public class Legacy {
   // The first of the four cards shown.
   state first = 1
   state config: mut any Game::TalentConfig | nil = nil
-  derived open: Boolean = self.readOpen()
+  derived open: boolean = self.readOpen()
   derived treeKind: TreeKind = TREES[self.treeIndex] ?? panic("three trees")
   derived tree: Game::TalentTree | nil = self.readTree()
-  derived points: Integer = self.readPoints()
-  derived staged: Boolean = self.readStaged()
-  derived treeShown: Boolean = self.sub == 1
-  derived levels: Array<Level> = self.readLevels()
-  derived rank: Integer = self.readRank()
-  derived shownLevels: Array<Level> = windowOf(self.levels, self.first)
-  derived filled: Number = self.readFilled()
-  derived fillTracks: Array<Track> = [{ fr: self.filled.max(0.001) }, { fr: (100 - self.filled).max(0.001) }]
-  derived canBack: Boolean = self.first > 1
-  derived canOn: Boolean = self.first + CARDS <= self.levels.length
+  derived points: integer = self.readPoints()
+  derived staged: boolean = self.readStaged()
+  derived treeShown: boolean = self.sub == 1
+  derived levels: array<Level> = self.readLevels()
+  derived rank: integer = self.readRank()
+  derived shownLevels: array<Level> = windowOf(self.levels, self.first)
+  derived filled: number = self.readFilled()
+  derived fillTracks: array<Track> = [{ fr: self.filled.max(0.001) }, { fr: (100 - self.filled).max(0.001) }]
+  derived canBack: boolean = self.first > 1
+  derived canOn: boolean = self.first + CARDS <= self.levels.length
   // Changes wait to be applied, on the tree's page.
-  derived changing: Boolean = self.staged && self.treeShown && self.open
+  derived changing: boolean = self.staged && self.treeShown && self.open
   const treePage: Template = $ltml {
     <box columns={[Style::SIDE_LIST, { fr: 1 }]} rows={[{ fr: 1 }]}>
       <box border={{ width: 1ui, color: RULE, sides: ["right"] }}>
@@ -316,7 +316,7 @@ public class Legacy {
 
   onChanged(mut self) { self.touched += 1 }
 
-  readOpen(self): Boolean {
+  readOpen(self): boolean {
     _ = self.touched
     return legacyOpen()
   }
@@ -327,42 +327,42 @@ public class Legacy {
     return trees.find(tree => tree.id == self.treeKind.id) ?? trees[1]
   }
 
-  readPoints(self): Integer {
+  readPoints(self): integer {
     _ = self.touched
     return self.config?.unspent() ?? 0
   }
 
-  readStaged(self): Boolean {
+  readStaged(self): boolean {
     _ = self.touched
     return self.config?.staged() == true
   }
 
-  readLevels(self): Array<Level> {
+  readLevels(self): array<Level> {
     _ = self.touched
     return levelsOf()
   }
 
-  readRank(self): Integer {
+  readRank(self): integer {
     _ = self.touched
     return Client::C_MajorFactions::GetCurrentRenownLevel(TRACK).floor()
   }
 
-  readFilled(self): Number {
+  readFilled(self): number {
     const data = Client::C_MajorFactions::GetMajorFactionData(TRACK)
     if (data == nil) { return 0 }
     return filledOf(self.levels, self.rank, data.renownReputationEarned, data.renownLevelThreshold, self.first)
   }
 
-  onTree(mut self, index: Integer) { self.treeIndex = index }
+  onTree(mut self, index: integer) { self.treeIndex = index }
   onBack(mut self) { self.first = (1).max(self.first - 1) }
   onOn(mut self) { self.first = self.first + 1 }
 
-  onBuy(mut self, node: Integer) {
+  onBuy(mut self, node: integer) {
     _ = self.config?.spend(node)
     self.touched += 1
   }
 
-  onRefund(mut self, node: Integer) {
+  onRefund(mut self, node: integer) {
     _ = self.config?.refund(node)
     self.touched += 1
   }

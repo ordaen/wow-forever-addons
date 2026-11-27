@@ -6,12 +6,12 @@ import { mapOfArea } from "@/areas"
 
 // A place in the world's yards, on its continent.
 struct Yards {
-  continent: Number
-  x: Number
-  y: Number
+  continent: number
+  x: number
+  y: number
 }
 
-function yardsOf(map: Number, x: Number, y: Number): Yards | nil {
+function yardsOf(map: number, x: number, y: number): Yards | nil {
   const continent, world = Client::C_Map::GetWorldPosFromMapPos(map, { x: x, y: y })
   if (continent == nil || world == nil) { return nil }
   return { continent: continent, x: world.x, y: world.y }
@@ -19,7 +19,7 @@ function yardsOf(map: Number, x: Number, y: Number): Yards | nil {
 
 // The yards from the player to a place (an area, 0 to 1 across and down it); nil on another continent, for an area
 // with no map, or where the client says nothing of where the player is (inside an instance).
-public function yardsFromPlayer(area: Integer, x: Number, y: Number): Number | nil {
+public function yardsFromPlayer(area: integer, x: number, y: number): number | nil {
   const map = mapOfArea[area]
   const own = Client::C_Map::GetBestMapForUnit("player")
   if (map == nil || own == nil) { return nil }

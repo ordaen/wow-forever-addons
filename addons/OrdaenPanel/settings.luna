@@ -4,24 +4,24 @@ import { Checkbox, Choice, Component, Dropdown, NumberInput, Section, Settings, 
 import { CharButton, CharView, Choices, Edge, Fit, MicroIcons, Outline, Places, XpBorder, XpTexture, XpView, Zone } from "@/choices"
 import Locale from "@/locales"
 
-const ICONS: Array<Choice<MicroIcons>> = [
+const ICONS: array<Choice<MicroIcons>> = [
   { value: MicroIcons::Upscaled, label: Locale::PANEL_MICROICONS_UPSCALED },
   { value: MicroIcons::Gold, label: Locale::PANEL_MICROICONS_GOLD }
 ]
-const CHAR_BUTTONS: Array<Choice<CharButton>> = [
+const CHAR_BUTTONS: array<Choice<CharButton>> = [
   { value: CharButton::Portrait, label: Locale::PANEL_CHARBUTTON_PORTRAIT },
   { value: CharButton::Button, label: Locale::PANEL_CHARBUTTON_BUTTON }
 ]
-const CHAR_VIEWS: Array<Choice<CharView>> = [
+const CHAR_VIEWS: array<Choice<CharView>> = [
   { value: CharView::Face, label: Locale::PANEL_CHARVIEW_FACE },
   { value: CharView::ClassIcon, label: Locale::PANEL_CHARVIEW_CLASS }
 ]
-const OUTLINES: Array<Choice<Outline>> = [
+const OUTLINES: array<Choice<Outline>> = [
   { value: Outline::None, label: Locale::PANEL_OUTLINE_NONE },
   { value: Outline::Thin, label: Locale::PANEL_OUTLINE_THIN },
   { value: Outline::Thick, label: Locale::PANEL_OUTLINE_THICK }
 ]
-const XP_TEXTURES: Array<Choice<XpTexture>> = [
+const XP_TEXTURES: array<Choice<XpTexture>> = [
   { value: XpTexture::Theme, label: Locale::PANEL_AS_THEME },
   { value: XpTexture::Deep, label: Locale::PANEL_XPFILL_DEEP },
   { value: XpTexture::Grain, label: Locale::PANEL_XPFILL_GRAIN },
@@ -30,29 +30,29 @@ const XP_TEXTURES: Array<Choice<XpTexture>> = [
   { value: XpTexture::Clouds, label: Locale::PANEL_XPFILL_CLOUDS },
   { value: XpTexture::Steel, label: Locale::PANEL_XPFILL_STEEL }
 ]
-const XP_BORDERS: Array<Choice<XpBorder>> = [
+const XP_BORDERS: array<Choice<XpBorder>> = [
   { value: XpBorder::Theme, label: Locale::PANEL_AS_THEME },
   { value: XpBorder::Bezel, label: Locale::PANEL_XPBORDER_BEZEL },
   { value: XpBorder::Groove, label: Locale::PANEL_XPBORDER_GROOVE }
 ]
-const XP_VIEWS: Array<Choice<XpView>> = [
+const XP_VIEWS: array<Choice<XpView>> = [
   { value: XpView::Numbers, label: Locale::PANEL_XPVIEW_NUMBERS },
   { value: XpView::Percent, label: Locale::PANEL_XPVIEW_PERCENT },
   { value: XpView::NumbersOnly, label: Locale::PANEL_XPVIEW_NUMBERS_ONLY },
   { value: XpView::PercentOnly, label: Locale::PANEL_XPVIEW_PERCENT_ONLY }
 ]
-const EDGES: Array<Choice<Edge>> = [
+const EDGES: array<Choice<Edge>> = [
   { value: Edge::Bottom, label: Locale::PANEL_EDGE_BOTTOM },
   { value: Edge::Top, label: Locale::PANEL_EDGE_TOP },
   { value: Edge::Left, label: Locale::PANEL_EDGE_LEFT },
   { value: Edge::Right, label: Locale::PANEL_EDGE_RIGHT }
 ]
-const FITS: Array<Choice<Fit>> = [
+const FITS: array<Choice<Fit>> = [
   { value: Fit::Full, label: Locale::PANEL_FIT_FULL },
   { value: Fit::Center, label: Locale::PANEL_FIT_CENTER }
 ]
 // Where an item sits: one zone, or none. An item is in one place at a time by its one choice.
-const ZONES: Array<Choice<Zone>> = [
+const ZONES: array<Choice<Zone>> = [
   { value: Zone::Left, label: Locale::SECTION_ITEMS_LEFT },
   { value: Zone::Center, label: Locale::SECTION_ITEMS_CENTER },
   { value: Zone::Right, label: Locale::SECTION_ITEMS_RIGHT },
@@ -84,7 +84,7 @@ public class GeneralPage implements Component {
 }
 
 public class MicroPage implements Component {
-  derived off: Boolean = !self.settings.values.microOn
+  derived off: boolean = !self.settings.values.microOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -106,7 +106,7 @@ public class MicroPage implements Component {
 }
 
 public class StatusPage implements Component {
-  derived off: Boolean = !self.settings.values.statusOn
+  derived off: boolean = !self.settings.values.statusOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -134,8 +134,8 @@ public class StatusPage implements Component {
 // The zone of each item, in a section.
 class PlacesRows implements Component {
   value: mut Signal<Places>
-  disabled: Signal<Boolean>
-  constructor(value: mut Signal<Places>, disabled: Signal<Boolean>) {
+  disabled: Signal<boolean>
+  constructor(value: mut Signal<Places>, disabled: Signal<boolean>) {
     self.value = value
     self.disabled = disabled
   }
@@ -163,14 +163,14 @@ class PlacesRows implements Component {
 }
 
 public class BottomPage implements Component {
-  derived off: Boolean = !self.settings.values.bottomOn
+  derived off: boolean = !self.settings.values.bottomOn
 
   settings: mut Settings<Choices>
-  const least: Number
+  const least: number
   constructor(
     settings: mut Settings<Choices>,
     // The least the panel is high: its cells keep their size.
-    least: Number
+    least: number
   ) {
     self.settings = settings
     self.least = least

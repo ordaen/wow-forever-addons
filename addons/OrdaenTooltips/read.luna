@@ -37,7 +37,7 @@ public function kindOf(data: Game::TooltipData): Kind | nil {
 }
 
 // «Requires Lockpicking (75)» as the skill and the rank, read back through the game's own format for the line.
-function skillOf(text: String): (String | nil, String | nil) {
+function skillOf(text: string): (string | nil, string | nil) {
   let parts = text.unformat(Game::strings.itemMinSkill)
   if (parts == nil) { return nil, nil }
   return parts[1], parts[2]
@@ -55,7 +55,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   if (first == nil) { return nil }
   let title = first.left
   if (title == nil) { return nil }
-  let keys: Array<String> = []
+  let keys: array<string> = []
   let name, key = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
   if (name != nil && key != nil && name != "") {
     title = name
@@ -63,7 +63,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   }
   let before = was != nil && was.kind == Kind::Text ? was.body : nil
   let same = true
-  let body: Array<TextLine> = []
+  let body: array<TextLine> = []
   for (i, line of data.lines) {
     if (i == 1) { continue }
     let only = line.left ?? line.right
@@ -95,7 +95,7 @@ public function plain(data: Game::TooltipData, was: Model | nil): Model | nil {
   }
 }
 
-function sameColor(a: Color | nil, b: Color | nil): Boolean {
+function sameColor(a: Color | nil, b: Color | nil): boolean {
   if (a == nil || b == nil) { return a == b }
   return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a
 }
@@ -104,9 +104,9 @@ function sameColor(a: Color | nil, b: Color | nil): Boolean {
 // red while it can't be opened), every other line a sentence in its own colour, the quests it is part of after
 // them.
 public function object(data: Game::TooltipData, options: Options): Model | nil {
-  let name: String | nil = nil
-  let body: Array<TextLine> = []
-  let foot: Array<Note> = []
+  let name: string | nil = nil
+  let body: array<TextLine> = []
+  let foot: array<Note> = []
   for (i, line of data.lines) {
     let text = clean(line.left)
     if (i == 1) {
@@ -165,9 +165,9 @@ public function fill(data: Game::TooltipData, options: Options, was: Model | nil
 // A tooltip with the ones that stand beside it from the start.
 public struct Group {
   model: Model
-  sides: Array<Model>
+  sides: array<Model>
   // An item's stats by the game's key for each, for a comparison; empty for anything else.
-  stats: Map<String, Number>
+  stats: map<string, number>
 }
 
 // The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a
@@ -177,7 +177,7 @@ public function group(data: Game::TooltipData, options: Options, was: Model | ni
   if (kind != Kind::Item) {
     let model = fill(data, options, was)
     if (model == nil) { return nil }
-    let sides: Array<Model> = []
+    let sides: array<Model> = []
     let made = kind == Kind::Spell ? madeBy(data) : nil
     let inner = made != nil ? item(made, options) : nil
     if (inner != nil) { sides.push(inner.model) }
@@ -185,7 +185,7 @@ public function group(data: Game::TooltipData, options: Options, was: Model | ni
   }
   let read = item(data, options)
   if (read == nil) { return nil }
-  let sides: Array<Model> = []
+  let sides: array<Model> = []
   for (side of read.sides) { sides.push(side) }
   for (made of read.makes) {
     let inner = item(made, options)

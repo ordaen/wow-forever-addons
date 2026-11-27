@@ -13,9 +13,9 @@ import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-const PLACES: Array<Place> = [Place::Bags, Place::Bank, Place::Mail, Place::Auctions]
+const PLACES: array<Place> = [Place::Bags, Place::Bank, Place::Mail, Place::Auctions]
 const COUNT = 120dp
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COL_ITEM, width: { fr: 1, min: 280dp }, sortable: true },
   { title: Locale::COL_BAGS_HELD, width: COUNT, align: Align::End, sortable: true },
   { title: Locale::COL_BANK_HELD, width: COUNT, align: Align::End, sortable: true },
@@ -23,9 +23,9 @@ const COLUMNS: Array<Column> = [
   { title: Locale::COL_AUCTIONS_HELD, width: COUNT, align: Align::End, sortable: true },
   { title: Locale::COL_TOTAL, width: COUNT, align: Align::End, sortable: true }
 ]
-const ITEM: Array<Track> = ["max-content", { fr: 1 }]
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const FILTERS: Array<FilterGroup<Place>> = [
+const ITEM: array<Track> = ["max-content", { fr: 1 }]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FILTERS: array<FilterGroup<Place>> = [
   {
     label: Locale::FILTER_PLACES,
     options: [
@@ -34,9 +34,9 @@ const FILTERS: Array<FilterGroup<Place>> = [
     ]
   }
 ]
-const EVERY_PLACE: Map<Place, Boolean> = { [Place::Bags]: true, [Place::Bank]: true, [Place::Mail]: true, [Place::Auctions]: true }
+const EVERY_PLACE: map<Place, boolean> = { [Place::Bags]: true, [Place::Bank]: true, [Place::Mail]: true, [Place::Auctions]: true }
 
-function placeName(place: Place): String {
+function placeName(place: Place): string {
   return match (place) {
     .Bags => Locale::PLACE_BAGS
     .Bank => Locale::PLACE_BANK
@@ -48,27 +48,27 @@ function placeName(place: Place): String {
 // One item as a row shows it: its counts by place (in `PLACES`' order) and in all, and who holds them.
 public struct Entry {
   id: ItemId
-  name: String
-  counts: Array<Integer>
-  total: Integer
-  holders: Array<TipRow>
+  name: string
+  counts: array<integer>
+  total: integer
+  holders: array<TipRow>
 }
 
-function countText(count: Integer): String { return count == 0 ? "—" : String::of(count) }
+function countText(count: integer): string { return count == 0 ? "—" : string::of(count) }
 
 // How many in all, of every item listed.
-function sumOf(entries: Array<Entry>): Integer {
+function sumOf(entries: array<Entry>): integer {
   let sum = 0
   for (entry of entries) { sum += entry.total }
   return sum
 }
 
 class HeldCell implements Component {
-  derived text: String = countText(self.count)
+  derived text: string = countText(self.count)
   derived ink: Color = self.count == 0 ? Style::DIM : Style::INK
 
-  count: Signal<Integer>
-  constructor(count: Signal<Integer>) { self.count = count }
+  count: Signal<integer>
+  constructor(count: Signal<integer>) { self.count = count }
 
   public render(self): Template {
     return $ltml {
@@ -112,54 +112,54 @@ public class ItemRow implements Component {
 
 public class Holdings implements Component {
   state search = ""
-  state places: Map<Place, Boolean> = EVERY_PLACE
+  state places: map<Place, boolean> = EVERY_PLACE
   state sorted = 6
   state descending = false
-  names: mut Map<ItemId, String> = {}
-  derived entries: Array<Entry> = self.entriesOf()
-  derived ordered: Array<Entry> = self.order()
-  derived empty: String = self.ordered.length == 0 ? Locale::NOTHING_FOUND : ""
-  derived totals: String = Locale::ITEMS_TOTAL.format(self.ordered.length, sumOf(self.ordered))
+  names: mut map<ItemId, string> = {}
+  derived entries: array<Entry> = self.entriesOf()
+  derived ordered: array<Entry> = self.order()
+  derived empty: string = self.ordered.length == 0 ? Locale::NOTHING_FOUND : ""
+  derived totals: string = Locale::ITEMS_TOTAL.format(self.ordered.length, sumOf(self.ordered))
 
   const records: Records
-  touched: Signal<Integer>
-  constructor(records: Records, touched: Signal<Integer>) {
+  touched: Signal<integer>
+  constructor(records: Records, touched: Signal<integer>) {
     self.records = records
     self.touched = touched
   }
 
   // An item's name as the game gives it, its number while the game has none yet.
-  nameOf(mut self, id: ItemId): String {
+  nameOf(mut self, id: ItemId): string {
     const known = self.names[id]
     if (known != nil) { return known }
     const tip = Ordaen.itemTip(id)
     const first = tip == nil ? nil : tip.lines[1]
     const name = first == nil ? nil : first.left
-    if (name == nil) { return "#" + String::of(id) }
+    if (name == nil) { return "#" + string::of(id) }
     self.names[id] = name
     return name
   }
 
   // Who holds the item, a row each: the character, and its count in each place the filter leaves.
-  holdersOf(self, list: Array<Held>): Array<TipRow> {
-    const rows: Array<TipRow> = []
+  holdersOf(self, list: array<Held>): array<TipRow> {
+    const rows: array<TipRow> = []
     for (held of list) {
       if (self.places[held.place] == true) {
         const character = self.records.characters[held.who]
-        rows.push({ label: "%s (%s)".format(character == nil ? "?" : character.name, placeName(held.place)), value: String::of(held.count) })
+        rows.push({ label: "%s (%s)".format(character == nil ? "?" : character.name, placeName(held.place)), value: string::of(held.count) })
       }
     }
     return rows
   }
 
   // The items that match the search, with their counts in the places the filter leaves; none held there is left out.
-  entriesOf(mut self): Array<Entry> {
+  entriesOf(mut self): array<Entry> {
     // Read again when any record changed.
     _ = self.touched
     const sought = self.search.lower()
-    const found: Array<Entry> = []
+    const found: array<Entry> = []
     for (id, list of self.records.everything()) {
-      const counts: Array<Integer> = []
+      const counts: array<integer> = []
       let total = 0
       for (place of PLACES) {
         let count = 0
@@ -173,7 +173,7 @@ public class Holdings implements Component {
       }
       if (total > 0) {
         const name = self.nameOf(id)
-        if (sought == "" || name.lower().contains(sought) || String::of(id) == sought) {
+        if (sought == "" || name.lower().contains(sought) || string::of(id) == sought) {
           found.push({ id: id, name: name, counts: counts, total: total, holders: self.holdersOf(list) })
         }
       }
@@ -182,8 +182,8 @@ public class Holdings implements Component {
   }
 
   // By the column sorted: the name's, a place's count or the total, the most first; again the other way.
-  order(self): Array<Entry> {
-    const list: Array<Entry> = []
+  order(self): array<Entry> {
+    const list: array<Entry> = []
     for (entry of self.entries) { list.push(entry) }
     const column = self.sorted
     const down = self.descending

@@ -14,7 +14,7 @@ const SCREEN_H = 900
 function start(): Placing { return { x: 0ui, y: 0ui, width: 400ui, height: 300ui } }
 
 class Framed {
-  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", start())
 
@@ -29,18 +29,18 @@ class Framed {
 
 // Where the cursor is taken to: a point of the screen, an axis left out staying where the drag took it.
 struct Goal {
-  name: String
-  x: Number | nil
-  y: Number | nil
+  name: string
+  x: number | nil
+  y: number | nil
 }
 
 // A drag of `kept`'s and what it should give.
 struct Case {
-  dx: Number<Length>
-  dy: Number<Length>
+  dx: number<Length>
+  dy: number<Length>
   hold: Hold
-  x: Number<Length>
-  y: Number<Length>
+  x: number<Length>
+  y: number<Length>
 }
 
 // Take what is at `at` and let it go at `to`: the client starts the drag a pixel on, and it is measured from the press.
@@ -59,23 +59,23 @@ function drag(at: Test::Point, to: Test::Point) {
 // The window's edges on the screen: its surface's, the body's box one level out.
 function edges(): Test::Rect { return Test::edges(Ordaen.art.window.wood, 1) }
 
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.5 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.5 }
 
 // Which way a goal takes an axis from `from`: -1, 0 or 1.
-function way(goal: Number | nil, from: Number): Number {
+function way(goal: number | nil, from: number): number {
   if (goal == nil) { return 0 }
   return goal < from ? -1 : 1
 }
 
-function on(goal: Number | nil, from: Number): Number { return goal ?? from }
+function on(goal: number | nil, from: number): number { return goal ?? from }
 
-function said(rect: Test::Rect): String {
+function said(rect: Test::Rect): string {
   return "%d %d %d %d".format(rect.left.round(), rect.top.round(), rect.right.round(), rect.bottom.round())
 }
 
 test "a drag is held to its surface's room: moved, at each edge and corner; sized, at the right and the bottom" {
   const room: Event::DragRoom = { left: 10ui, right: 20ui, up: 30ui, down: 40ui, leastWidth: 0ui, leastHeight: 0ui }
-  const cases: Array<Case> = [
+  const cases: array<Case> = [
     { dx: -50ui, dy: 5ui, hold: Hold::Move, x: -10ui, y: 5ui },
     { dx: 50ui, dy: -5ui, hold: Hold::Move, x: 20ui, y: -5ui },
     { dx: 5ui, dy: -50ui, hold: Hold::Move, x: 5ui, y: -30ui },
@@ -100,7 +100,7 @@ test "a drag is held to its surface's room: moved, at each edge and corner; size
 test "a window dragged into each edge and corner stops there, keeps the other axis, and comes back at once" {
   let page = new Framed()
   Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const goals: Array<Goal> = [
+  const goals: array<Goal> = [
     // The cursor on the screen: the window meets the edge before the cursor does.
     { name: "left", x: 5, y: nil },
     { name: "right", x: SCREEN_W - 5, y: nil },
@@ -147,7 +147,7 @@ test "a window dragged into each edge and corner stops there, keeps the other ax
 test "a window sized by its grip to each edge stops there, its top left where it was" {
   let page = new Framed()
   Test::mount(page, { left: 0, top: 0, width: 200, height: 100 })
-  const goals: Array<Goal> = [
+  const goals: array<Goal> = [
     { name: "right", x: SCREEN_W - 5, y: nil },
     { name: "bottom", x: nil, y: SCREEN_H - 5 },
     { name: "bottom right", x: SCREEN_W - 5, y: SCREEN_H - 5 },

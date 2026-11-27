@@ -10,13 +10,13 @@ import { Scanner } from "@/scan"
 import Style from "@/style"
 import { agoText, auctionsText, itemsText } from "@/style"
 
-const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 
 // A line: what at the left, how much at the right.
 class Fact implements Component {
-  label: Signal<String>
-  value: Signal<String>
-  constructor(label: Signal<String>, value: Signal<String>) {
+  label: Signal<string>
+  value: Signal<string>
+  constructor(label: Signal<string>, value: Signal<string>) {
     self.label = label
     self.value = value
   }
@@ -33,26 +33,26 @@ class Fact implements Component {
 
 // The money of a kind of the ledger's rows, at the right of a line.
 class DealtLine implements Component {
-  derived rows: Integer = self.counted()
-  derived text: String = self.label.format(self.rows)
-  derived copper: Integer = self.money()
+  derived rows: integer = self.counted()
+  derived text: string = self.label.format(self.rows)
+  derived copper: integer = self.money()
 
-  label: Signal<String>
+  label: Signal<string>
   const deal: Deal
   const ledger: Ledger
-  constructor(label: Signal<String>, deal: Deal, ledger: Ledger) {
+  constructor(label: Signal<string>, deal: Deal, ledger: Ledger) {
     self.label = label
     self.deal = deal
     self.ledger = ledger
   }
 
-  counted(self): Integer {
+  counted(self): integer {
     _ = self.ledger.revision
     const rows, _ = self.ledger.total(self.deal)
     return rows
   }
 
-  money(self): Integer {
+  money(self): integer {
     _ = self.ledger.revision
     const _, copper = self.ledger.total(self.deal)
     return copper
@@ -69,25 +69,25 @@ class DealtLine implements Component {
 }
 
 public class DataPage implements Component {
-  derived scanned: Boolean = self.lastFull > 0
-  derived last: String = self.lastText()
-  derived counted: String = self.scanner.auctions > 0 ?
+  derived scanned: boolean = self.lastFull > 0
+  derived last: string = self.lastText()
+  derived counted: string = self.scanner.auctions > 0 ?
     Locale::SCAN_COUNTS.format(auctionsText(self.scanner.auctions), itemsText(self.scanner.items)) : "—"
-  derived size: String = Locale::KB.format((self.scanner.size / 1024).ceil())
-  derived known: String = number(self.items)
+  derived size: string = Locale::KB.format((self.scanner.size / 1024).ceil())
+  derived known: string = number(self.items)
 
   const scanner: Scanner
   const ledger: Ledger
-  lastFull: Signal<Integer>
-  items: Signal<Integer>
-  constructor(scanner: Scanner, ledger: Ledger, lastFull: Signal<Integer>, items: Signal<Integer>) {
+  lastFull: Signal<integer>
+  items: Signal<integer>
+  constructor(scanner: Scanner, ledger: Ledger, lastFull: Signal<integer>, items: Signal<integer>) {
     self.scanner = scanner
     self.ledger = ledger
     self.lastFull = lastFull
     self.items = items
   }
 
-  lastText(self): String {
+  lastText(self): string {
     if (!self.scanned) { return Locale::NEVER }
     _ = Game::clock.seconds
     return agoText(serverSeconds() - self.lastFull)

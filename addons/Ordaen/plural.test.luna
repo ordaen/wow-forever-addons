@@ -2,9 +2,9 @@
 import Test from "$test"
 import { formIn, plural } from "@/plural"
 
-const COUNTS: Array<Integer> = [0, 1, 2, 4, 5, 11, 12, 14, 21, 22, 25, 101, 111, 1000]
-const RU: Array<String> = ["предмет", "предмета", "предметов"]
-const EN: Array<String> = ["item", "items", "items"]
+const COUNTS: array<integer> = [0, 1, 2, 4, 5, 11, 12, 14, 21, 22, 25, 101, 111, 1000]
+const RU: array<string> = ["предмет", "предмета", "предметов"]
+const EN: array<string> = ["item", "items", "items"]
 
 test "the form of a word for each number, in Russian and in English" {
   for (n of COUNTS) {

@@ -19,11 +19,11 @@ const RESTED: Color = Color::hex("#6e96d129")
 
 // The bars as the panel draws them: in its inside, with its choices.
 class Bars {
-  state room: Number<Length> = 53ui
+  state room: number<Length> = 53ui
   state fill: Art = xpFillArt(XpFill::Brushed)
   state bezel = true
   state view: XpView = XpView::Numbers
-  state sources: Array<XpPart> = []
+  state sources: array<XpPart> = []
 
   public render(self): Template {
     return $ltml {
@@ -40,8 +40,8 @@ const QUESTS: XpPart = {
 }
 
 // A text as it is shown: each `~` the space that parts a number's thousands.
-function shown(text: String): String {
-  return text.replace("~", String::char(194) + String::char(160))
+function shown(text: string): string {
+  return text.replace("~", string::char(194) + string::char(160))
 }
 
 // The bars drawn alone: the panel's own turned off.
@@ -50,7 +50,7 @@ function alone() {
 }
 
 // The texts of the tooltip that holds this text, joined.
-function tip(holding: String): String {
+function tip(holding: string): string {
   return Test::page().window(holding).texts().join(" | ")
 }
 

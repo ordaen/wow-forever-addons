@@ -7,12 +7,12 @@ import { Band, BandCell, BandFact, Glyph, bandOf, glyphArt } from "@/band"
 const NAME = 13
 const DESCRIPTION = 34
 
-function line(left: String, right: String | nil = nil, kind: Integer = 0): Game::TooltipLine {
+function line(left: string, right: string | nil = nil, kind: integer = 0): Game::TooltipLine {
   return { left: left, right: right, kind: kind }
 }
 
 // The cells' texts, joined by « | ».
-function said(band: Band): String { return band.facts.map(fact => fact.text).join(" | ") }
+function said(band: Band): string { return band.facts.map(fact => fact.text).join(" | ") }
 
 test "a spell's band reads its cost and range, its cast and its cooldown, the cost a dot in mana's colour" {
   const lines = [
@@ -44,7 +44,7 @@ test "a line after the description is no cell, nor reagents among the first" {
   Test::expect(band.facts.length == 0)
 }
 
-const CELLS: Array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color::hex("#2f6fe0") }, { text: "2.5 sec", glyph: .CastTime }]
+const CELLS: array<BandFact> = [{ text: "65", glyph: .Cost, tint: Color::hex("#2f6fe0") }, { text: "2.5 sec", glyph: .CastTime }]
 
 // Two cells, the second one explaining while `lit`.
 class Cells {

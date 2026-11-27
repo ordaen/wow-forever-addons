@@ -9,63 +9,63 @@ import Client from "$client"
 // A command of the list.
 public struct Command implements Plain {
   // The client's name for it (`MOVEFORWARD`), and the one the player reads (`GetBindingName`).
-  action: String
-  name: String
+  action: string
+  name: string
   // Its section's text: the header's (`BINDING_HEADER_MOVEMENT`) in the client's language.
-  section: String
+  section: string
   // Its keys in the client's order: the first and the second.
-  keys: Array<String>
+  keys: array<string>
 }
 
 // What a change did to one command: its keys before it.
 public struct Before implements Plain {
-  action: String
-  keys: Array<String>
+  action: string
+  keys: array<string>
 }
 
 // The last change, for «Undo»: each command it touched, with its keys before. `taken` names the command a key was
 // taken from (`""` where none was), with the key.
 public struct Step implements Plain {
-  before: Array<Before>
-  taken: String
-  key: String
+  before: array<Before>
+  taken: string
+  key: string
 }
 
 // Why a change wasn't made.
 public enum Refusal { Fight, Client }
 
 // A list's caption for the actions that are no command: Blizzard's spacers and texts between them.
-function isCommand(action: String): Boolean {
+function isCommand(action: string): boolean {
   return action.sub(1, 6) != "HEADER" && action.sub(1, 7) != "PREFACE"
 }
 
 // A section's text: the global its header names, or the name itself where the client has no text; a command with
 // none stands under «Other», as in Blizzard's window.
-function sectionOf(category: String | nil): String {
+function sectionOf(category: string | nil): string {
   const name = category ?? "BINDING_HEADER_OTHER"
   const text = Client::getglobal(name)
-  return text is String ? text : name
+  return text is string ? text : name
 }
 
-function keysOf(first: String | nil, second: String | nil): Array<String> {
-  const keys: Array<String> = []
+function keysOf(first: string | nil, second: string | nil): array<string> {
+  const keys: array<string> = []
   if (first != nil) { keys.push(first) }
   if (second != nil) { keys.push(second) }
   return keys
 }
 
 public class Bindings {
-  public state commands: Array<Command> = []
+  public state commands: array<Command> = []
   // The set the keys are kept in: the account's or this character's.
   public state set: Client::BindingSet = Client::BindingSet::Account
   public state step: Step | nil = nil
   // Where each command stands in `commands`.
-  state places: Map<String, Integer> = {}
+  state places: map<string, integer> = {}
 
   // The list read anew, in one pass.
   public read(mut self) {
-    const commands: Array<Command> = []
-    const places: Map<String, Integer> = {}
+    const commands: array<Command> = []
+    const places: map<string, integer> = {}
     const count = Client::GetNumBindings().floor()
     for (i of 1..count) {
       const action, category, first, second = Client::GetBinding(i)
@@ -79,19 +79,19 @@ public class Bindings {
     self.set = Client::GetCurrentBindingSet()
   }
 
-  public command(self, action: String): Command | nil {
+  public command(self, action: string): Command | nil {
     const at = self.places[action]
     return at == nil ? nil : self.commands[at]
   }
 
   // The command a key does now, in that command's context, or `""`.
-  public holder(self, action: String, key: String): String {
+  public holder(self, action: string, key: string): string {
     return Client::GetBindingAction(key, false, Client::C_KeyBindings::GetBindingContextForAction(action))
   }
 
   // The command's key at `slot` (1 or 2) set to `key`: the key leaves its other slot, and whatever command held it
   // loses it (the client takes it), which the step records.
-  public bind(mut self, action: String, slot: Integer, key: String): Refusal | nil {
+  public bind(mut self, action: string, slot: integer, key: string): Refusal | nil {
     const before = self.command(action)?.keys ?? []
     const keys = before.filter(held => held != key)
     if (slot <= keys.length) {
@@ -100,7 +100,7 @@ public class Bindings {
       keys.push(key)
     }
     const holder = self.holder(action, key)
-    const changes: Array<Before> = [{ action: action, keys: before.clone() }]
+    const changes: array<Before> = [{ action: action, keys: before.clone() }]
     if (holder != "" && holder != action) {
       changes.push({ action: holder, keys: (self.command(holder)?.keys ?? []).clone() })
     }
@@ -109,13 +109,13 @@ public class Bindings {
   }
 
   // The command loses one key.
-  public unbind(mut self, action: String, key: String): Refusal | nil {
+  public unbind(mut self, action: string, key: string): Refusal | nil {
     const before = self.command(action)?.keys ?? []
     return self.change([{ action: action, keys: before.clone() }], [{ action: action, keys: before.filter(held => held != key) }], "", "")
   }
 
   // The command's keys made `keys` (its default keys, read from the default set).
-  public reset(mut self, action: String, keys: Array<String>): Refusal | nil {
+  public reset(mut self, action: string, keys: array<string>): Refusal | nil {
     const before = self.command(action)?.keys ?? []
     return self.change([{ action: action, keys: before.clone() }], [{ action: action, keys: keys.clone() }], "", "")
   }
@@ -147,7 +147,7 @@ public class Bindings {
 
   // The keys kept for this character alone, or for the account. Turning to the character's copies the account's
   // keys into it; turning back drops the character's (the window asks first), as Blizzard's checkbox does.
-  public keepFor(mut self, character: Boolean): Refusal | nil {
+  public keepFor(mut self, character: boolean): Refusal | nil {
     if (Client::InCombatLockdown()) { return .Fight }
     if (character) {
       Client::SaveBindings(.Account)
@@ -163,7 +163,7 @@ public class Bindings {
   }
 
   // `after`'s commands given their keys; where the client refuses one, every command is put back as `before` says.
-  change(mut self, before: Array<Before>, after: Array<Before>, taken: String, key: String): Refusal | nil {
+  change(mut self, before: array<Before>, after: array<Before>, taken: string, key: string): Refusal | nil {
     if (Client::InCombatLockdown()) { return .Fight }
     for (wanted of after) {
       if (!self.put(wanted.action, wanted.keys)) {
@@ -180,7 +180,7 @@ public class Bindings {
 
   // A command's keys made exactly `keys`: the ones it has unbound, then each bound in order (the client keeps the
   // first bound first). False where the client refuses a key.
-  public put(self, action: String, keys: Array<String>): Boolean {
+  public put(self, action: string, keys: array<string>): boolean {
     const context = Client::C_KeyBindings::GetBindingContextForAction(action)
     const first, second = Client::GetBindingKey(action, nil, context)
     for (held of keysOf(first, second)) { _ = Client::SetBinding(held, nil, context) }

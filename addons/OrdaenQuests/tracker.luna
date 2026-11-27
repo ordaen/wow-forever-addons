@@ -6,20 +6,20 @@ import Locale from "@/locales"
 import { Figure, Spot } from "@/questie"
 
 // The zone's name of an `AreaTable` area, as the client names it; nil for one it doesn't know.
-function zoneOf(area: Integer): String | nil {
-  const name: String | nil = Client::C_Map::GetAreaInfo(area)
+function zoneOf(area: integer): string | nil {
+  const name: string | nil = Client::C_Map::GetAreaInfo(area)
   return name
 }
 
 // The first place of the first figure; nil where none has one.
-function firstSpot(figures: Array<Figure>): Spot | nil {
+function firstSpot(figures: array<Figure>): Spot | nil {
   const figure = figures[1]
   return figure == nil ? nil : figure.spots[1]
 }
 
 // Where the figures stand: the first one's zone, and how many places of theirs are in it; nothing where the client
 // doesn't know that zone.
-public function whereOf(figures: Array<Figure>): String {
+public function whereOf(figures: array<Figure>): string {
   const first = firstSpot(figures)
   if (first == nil) { return "" }
   const zone = zoneOf(first.area)
@@ -30,14 +30,14 @@ public function whereOf(figures: Array<Figure>): String {
 }
 
 public class TrackerOpener implements QuestOpener {
-  const opening: (id: Integer) => Boolean
-  const showing: (id: Integer) => Boolean
-  constructor(opening: (id: Integer) => Boolean, showing: (id: Integer) => Boolean) {
+  const opening: (id: integer) => boolean
+  const showing: (id: integer) => boolean
+  constructor(opening: (id: integer) => boolean, showing: (id: integer) => boolean) {
     self.opening = opening
     self.showing = showing
   }
 
-  public open(self, quest: Integer): Boolean { return self.opening(quest) }
+  public open(self, quest: integer): boolean { return self.opening(quest) }
 
-  public showOnMap(self, quest: Integer): Boolean { return self.showing(quest) }
+  public showOnMap(self, quest: integer): boolean { return self.showing(quest) }
 }

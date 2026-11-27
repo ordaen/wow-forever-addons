@@ -10,21 +10,21 @@ import Locale from "@/locales"
 import { PriceKey, PriceSource } from "@/quote"
 import { ShoppingList } from "@/shopping"
 
-const NONE: Array<Line> = []
+const NONE: array<Line> = []
 const HOUR = 3600
 
 // The «Auction» line of an item's tooltip.
 public class PriceLine implements ItemLines {
   const prices: any PriceSource
   // The setting: the line shows.
-  on: Signal<Boolean>
+  on: Signal<boolean>
 
-  constructor(prices: any PriceSource, on: Signal<Boolean>) {
+  constructor(prices: any PriceSource, on: Signal<boolean>) {
     self.prices = prices
     self.on = on
   }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     if (!self.on) { return NONE }
     _ = self.prices.revision
     const quote = self.prices.buy(PriceKey::ofLink(item, link))
@@ -42,7 +42,7 @@ public class TooltipLines {
   const price: PriceLine
   const listed: ListedLine
 
-  constructor(prices: any PriceSource, on: Signal<Boolean>, list: ShoppingList) {
+  constructor(prices: any PriceSource, on: Signal<boolean>, list: ShoppingList) {
     self.price = new PriceLine(prices, on)
     self.listed = new ListedLine(list)
     watch (tooltips of Tooltips) {
@@ -61,7 +61,7 @@ public class ListedLine implements ItemLines {
     self.list = list
   }
 
-  public lines(self, item: Integer, link: String): Array<Line> {
+  public lines(self, item: integer, link: string): array<Line> {
     const needed = self.list.needed[ItemId::of(item)]
     if (needed == nil) { return NONE }
     const held = Game::items.owned(item).min(needed)

@@ -4,13 +4,13 @@ import { Align, Track } from "$ltml"
 import { FOOTER_ROOM, KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 
 const DIM: Color = Color::hex("#a3977f")
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
+const FOOT: array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Windowed implements Module {
-  public const title: String = "Windowed"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Windowed"
+  public const pages: array<SettingsPage> = []
 
-  state tabs: Array<WindowTabSpec> = [
+  state tabs: array<WindowTabSpec> = [
     { title: "Professions", desc: "Tailoring 75", icon: "Interface/Icons/Trade_Tailoring" },
     { title: "Recipes" }
   ]
@@ -20,8 +20,8 @@ public class Windowed implements Module {
   // How many times the window's settings button was clicked, and its «Save».
   state settingsOpened = 0
   state saved = 0
-  derived body: String = self.tab == 1 ? "the first tab's page" : "the second tab's page"
-  derived note: String = "saved %d times".format(self.saved)
+  derived body: string = self.tab == 1 ? "the first tab's page" : "the second tab's page"
+  derived note: string = "saved %d times".format(self.saved)
   const footer: Template = $ltml {
     <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align::Center}>
       <text value={self.note} textSize={SECONDARY_TEXT} textColor={DIM} />

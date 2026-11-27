@@ -31,7 +31,7 @@ const PENDING: Color = Color::hex("#ff9a2e")
 const HOTKEY: Color = Color::hex("#857a66")
 
 // One of the game's own frames.
-function frame(name: String, shown: Boolean): any Client::Frame {
+function frame(name: string, shown: boolean): any Client::Frame {
   const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 32)
   made.SetShown(shown)
@@ -44,7 +44,7 @@ function minimap(): Test::Part {
 }
 
 // The minimap's page of the settings, at one of its tabs: `/ordaen`, «Minimap» in the list of modules, the tab.
-function tab(title: String): Test::Part {
+function tab(title: string): Test::Part {
   Test::open("/ordaen")
   const settings = Test::page().window(SETTINGS)
   settings.button("Minimap").click()
@@ -59,13 +59,13 @@ const COORDS_BOX = 3
 const HOVER_BOX = 4
 
 // One of the «Map» tab's checkboxes, the `nth`, clicked: it applies at once.
-function tick(nth: Integer) {
+function tick(nth: integer) {
   const settings = tab("Map")
   settings.button(Ordaen.art.ctl.check).nth(nth).click()
 }
 
 // One of «Visibility»'s states, the `nth` («General», «In combat», «On transport»), set to «Hide».
-function hideWhen(nth: Integer) {
+function hideWhen(nth: integer) {
   const settings = tab("Map")
   settings.text("Map size").wheel(-10)
   settings.button("Show").nth(nth).click()
@@ -83,11 +83,11 @@ function slide(knob: Test::Part, to: Test::Part) {
 }
 
 // The middle of what a part stands in.
-function middleX(rect: Test::Rect): Number { return (rect.left + rect.right) / 2 }
-function middleY(rect: Test::Rect): Number { return (rect.top + rect.bottom) / 2 }
+function middleX(rect: Test::Rect): number { return (rect.left + rect.right) / 2 }
+function middleY(rect: Test::Rect): number { return (rect.top + rect.bottom) / 2 }
 
 // The angle of a part's middle round the minimap's middle: degrees from the top, clockwise.
-function angleOf(part: Test::Part): Number {
+function angleOf(part: Test::Part): number {
   const whole = minimap().rect()
   const at = part.rect()
   const x = middleX(at) - middleX(whole)
@@ -101,12 +101,12 @@ function moveAway() {
 }
 
 // The frame: the first box in the wood of the minimap (the surface showing `text`), its metal round it.
-function frameRect(text: String = ZONE): Test::Rect {
+function frameRect(text: string = ZONE): Test::Rect {
   return Test::page().window(text).box(Ordaen.art.window.wood).nth(1).rect()
 }
 
 // Two lengths alike to a hundredth of a unit.
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+function near(a: number, b: number): boolean { return (a - b).abs() < 0.01 }
 
 // What the minimap shows
 
@@ -119,7 +119,7 @@ test "at home the frame stands in the screen's top right corner, square, its met
 test "the frame is square with or without the zone's strip, the clock's and the coordinates'" {
   Test::mount(nil, SCREEN)
   const side = frameRect().right - frameRect().left
-  const square = (shown: String): Boolean => {
+  const square = (shown: string): boolean => {
     const at = frameRect(shown)
     return near(at.right - at.left, side) && near(at.bottom - at.top, side)
   }

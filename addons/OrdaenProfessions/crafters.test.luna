@@ -48,7 +48,7 @@ test "the tooltip says «Used in crafting», then a line per character, the one 
   const written = book()
   const found = craftersOf(written)
   // A trainer taught the cap at 30.
-  const taught: Map<String, Taught> = { ["Feathered Cap"]: { skill: 30, cost: 100 } }
+  const taught: map<string, Taught> = { ["Feathered Cap"]: { skill: 30, cost: 100 } }
   const lines = new CraftersLines(() => found, () => written, () => taught).lines(FEATHER, "")
   Test::expect(lines[1]?.left == "Used in crafting")
   Test::expect(lines[2]?.left == "Player" && lines[2]?.right == "Tailoring")

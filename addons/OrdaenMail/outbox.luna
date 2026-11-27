@@ -17,33 +17,33 @@ public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent
 public struct OutboxView implements Plain {
   filter: SentFilter = SentFilter::All
   view: View = View::List
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 const OUTBOX_VIEW: OutboxView = {}
 
-const FILTERS: Array<Choice<SentFilter>> = [
+const FILTERS: array<Choice<SentFilter>> = [
   { value: SentFilter::All, label: Locale::SENT_ALL },
   { value: SentFilter::Waiting, label: Locale::SENT_WAITING },
   { value: SentFilter::Sent, label: Locale::SENT_SENT },
   { value: SentFilter::Stopped, label: Locale::SENT_STOPPED }
 ]
-const VIEWS: Array<Choice<View>> = [
+const VIEWS: array<Choice<View>> = [
   { value: View::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: View::Categories, label: Locale::VIEW_BY_RECIPIENT, icon: ARTWORK.ctl.tool.categories },
   { value: View::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COL_NUMBER, width: 46.875dp, sortable: true },
   { title: Locale::COL_SUBJECT, width: { fr: 3 } },
   { title: Locale::COL_TO, width: { fr: 2 }, sortable: true },
   { title: Locale::COL_ATTACHED, width: 152.34375dp },
   { title: Locale::COL_STATE, width: 164.0625dp, sortable: true }
 ]
-const ROW: Array<Track> = [35.15625dp, { fr: 1 }, "max-content", "max-content"]
-const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const BAR: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
+const ROW: array<Track> = [35.15625dp, { fr: 1 }, "max-content", "max-content"]
+const TOP: array<Track> = [{ fr: 1 }, "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const BAR: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 
 public function stateColor(state: SentState): Color {
   return match (state) {
@@ -54,7 +54,7 @@ public function stateColor(state: SentState): Color {
   }
 }
 
-public function stateText(letter: Sent): String {
+public function stateText(letter: Sent): string {
   return match (letter.state) {
     SentState::Waiting => Locale::STATE_WAITING
     SentState::Sending => Locale::STATE_SENDING
@@ -63,11 +63,11 @@ public function stateText(letter: Sent): String {
   }
 }
 
-public function itemsText(letter: Sent): String {
+public function itemsText(letter: Sent): string {
   return letter.items.length == 0 ? "" : Locale::ITEMS_COUNT.format(letter.items.length)
 }
 
-function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
+function passes(letter: Sent, filter: SentFilter, search: string): boolean {
   const kept = match (filter) {
     SentFilter::All => true
     SentFilter::Waiting => waits(letter)
@@ -81,14 +81,14 @@ function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
 }
 
 public class SentRow implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  derived on: Boolean = self.picked == self.letter.number
-  derived hasMoney: Boolean = self.letter.copper > 0
+  derived on: boolean = self.picked == self.letter.number
+  derived hasMoney: boolean = self.letter.copper > 0
 
   letter: Signal<Sent>
-  picked: Signal<Integer>
-  constructor(letter: Signal<Sent>, picked: Signal<Integer>) {
+  picked: Signal<integer>
+  constructor(letter: Signal<Sent>, picked: Signal<integer>) {
     self.letter = letter
     self.picked = picked
   }
@@ -114,13 +114,13 @@ public class SentRow implements Component {
 }
 
 public class SentTableRow implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
 
-  derived on: Boolean = self.picked == self.letter.number
+  derived on: boolean = self.picked == self.letter.number
 
   letter: Signal<Sent>
-  picked: Signal<Integer>
-  constructor(letter: Signal<Sent>, picked: Signal<Integer>) {
+  picked: Signal<integer>
+  constructor(letter: Signal<Sent>, picked: Signal<integer>) {
     self.letter = letter
     self.picked = picked
   }
@@ -142,19 +142,19 @@ public class SentTableRow implements Component {
 
 // The letters to one recipient, under their caption.
 public struct ToGroup {
-  to: String
-  title: String
-  letters: Array<Sent>
+  to: string
+  title: string
+  letters: array<Sent>
 }
 
 public class ToCaption implements Component {
-  public fold: Event<String> = new Event()
+  public fold: Event<string> = new Event()
 
-  derived shut: Boolean = self.folded[self.group.to] == true
+  derived shut: boolean = self.folded[self.group.to] == true
 
   group: Signal<ToGroup>
-  folded: Signal<Map<String, Boolean>>
-  constructor(group: Signal<ToGroup>, folded: Signal<Map<String, Boolean>>) {
+  folded: Signal<map<string, boolean>>
+  constructor(group: Signal<ToGroup>, folded: Signal<map<string, boolean>>) {
     self.group = group
     self.folded = folded
   }
@@ -169,12 +169,12 @@ public class ToCaption implements Component {
 // A letter of «Outbox» picked, beside the list: its subject, recipient, state, items and money; «Remove» for one still
 // waiting, «Write again» to the same recipient.
 public class SentView implements Component {
-  public remove: Event<Integer> = new Event()
-  public again: Event<String> = new Event()
+  public remove: Event<integer> = new Event()
+  public again: Event<string> = new Event()
 
-  derived removable: Boolean = self.letter.state == SentState::Waiting || self.letter.state == SentState::Stopped
-  derived hasMoney: Boolean = self.letter.copper > 0
-  derived hasCod: Boolean = self.letter.cod > 0
+  derived removable: boolean = self.letter.state == SentState::Waiting || self.letter.state == SentState::Stopped
+  derived hasMoney: boolean = self.letter.copper > 0
+  derived hasCod: boolean = self.letter.cod > 0
 
   letter: Signal<Sent>
   constructor(letter: Signal<Sent>) {
@@ -217,7 +217,7 @@ public class SentView implements Component {
 }
 
 public class Outbox implements Component {
-  public pick: Event<Integer> = new Event()
+  public pick: Event<integer> = new Event()
   public write: Event<nil> = new Event()
   public stop: Event<nil> = new Event()
   public resume: Event<nil> = new Event()
@@ -225,37 +225,37 @@ public class Outbox implements Component {
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<OutboxView> = new ModuleMemory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
-  state folded: mut Map<String, Boolean> = {}
-  derived all: Array<Sent> = self.allOf()
-  derived shown: Array<Sent> = self.shownOf()
-  derived groups: Array<ToGroup> = self.groupsOf()
-  derived empty: Boolean = self.shown.length == 0
-  derived waiting: Integer = self.queue.count(waits)
-  derived stopped: Integer = self.queue.count(l => l.state == SentState::Stopped)
-  derived hasQueue: Boolean = self.queue.length > 0
-  derived postage: Integer = self.postageOf()
-  derived inList: Boolean = self.list.values.view == View::List
-  derived inGroups: Boolean = self.list.values.view == View::Categories
-  derived narrowed: Boolean = self.list.values.filter != SentFilter::All
+  state folded: mut map<string, boolean> = {}
+  derived all: array<Sent> = self.allOf()
+  derived shown: array<Sent> = self.shownOf()
+  derived groups: array<ToGroup> = self.groupsOf()
+  derived empty: boolean = self.shown.length == 0
+  derived waiting: integer = self.queue.count(waits)
+  derived stopped: integer = self.queue.count(l => l.state == SentState::Stopped)
+  derived hasQueue: boolean = self.queue.length > 0
+  derived postage: integer = self.postageOf()
+  derived inList: boolean = self.list.values.view == View::List
+  derived inGroups: boolean = self.list.values.view == View::Categories
+  derived narrowed: boolean = self.list.values.filter != SentFilter::All
 
-  queue: Signal<Array<Sent>>
-  history: Signal<Array<Sent>>
-  picked: Signal<Integer>
-  constructor(queue: Signal<Array<Sent>>, history: Signal<Array<Sent>>, picked: Signal<Integer>) {
+  queue: Signal<array<Sent>>
+  history: Signal<array<Sent>>
+  picked: Signal<integer>
+  constructor(queue: Signal<array<Sent>>, history: Signal<array<Sent>>, picked: Signal<integer>) {
     self.queue = queue
     self.history = history
     self.picked = picked
   }
 
   // The queue's letters then those gone, the newest first.
-  allOf(self): Array<Sent> {
-    const list: Array<Sent> = []
+  allOf(self): array<Sent> {
+    const list: array<Sent> = []
     for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? panic("within the queue")) }
     for (letter of self.history) { list.push(letter) }
     return list
   }
 
-  shownOf(self): Array<Sent> {
+  shownOf(self): array<Sent> {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.all.filter(l => passes(l, filter, search))
@@ -270,8 +270,8 @@ public class Outbox implements Component {
     return list
   }
 
-  groupsOf(self): Array<ToGroup> {
-    const list: Array<ToGroup> = []
+  groupsOf(self): array<ToGroup> {
+    const list: array<ToGroup> = []
     for (letter of self.shown) {
       if (!list.any(g => g.to == letter.to)) {
         const part = self.shown.filter(l => l.to == letter.to)
@@ -282,14 +282,14 @@ public class Outbox implements Component {
   }
 
   // What the letters not yet gone will cost.
-  postageOf(self): Integer {
+  postageOf(self): integer {
     let total = 0
     for (letter of self.queue) { total += Game::mailbox.postage(letter.items.length) }
     return total
   }
 
-  onPick(mut self, number: Integer) { self.pick.emit(number) }
-  onFold(mut self, to: String) { self.folded[to] = !(self.folded[to] == true) }
+  onPick(mut self, number: integer) { self.pick.emit(number) }
+  onFold(mut self, to: string) { self.folded[to] = !(self.folded[to] == true) }
   onWrite(mut self) { self.write.emit() }
   onStop(mut self) { self.stop.emit() }
   onResume(mut self) { self.resume.emit() }

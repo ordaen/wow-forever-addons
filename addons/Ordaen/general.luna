@@ -9,21 +9,21 @@ import { Component } from "@/module"
 import { NumberInput, Unit } from "@/numberInput"
 import { Settings } from "@/settings"
 
-const DENSITIES: Array<Choice<Density>> = [
+const DENSITIES: array<Choice<Density>> = [
   { value: Density::Compact, label: Locale::GLOBAL_DENSITY_COMPACT },
   { value: Density::Normal, label: Locale::GLOBAL_DENSITY_NORMAL },
   { value: Density::Roomy, label: Locale::GLOBAL_DENSITY_ROOMY }
 ]
-const FORMATS: Array<Choice<NumberFormat>> = [
+const FORMATS: array<Choice<NumberFormat>> = [
   { value: NumberFormat::Space, label: Locale::GLOBAL_NUMBERFORMAT_SPACE },
   { value: NumberFormat::Comma, label: Locale::GLOBAL_NUMBERFORMAT_COMMA },
   { value: NumberFormat::Dot, label: Locale::GLOBAL_NUMBERFORMAT_DOT }
 ]
-const LARGE: Array<Choice<LargeNumbers>> = [
+const LARGE: array<Choice<LargeNumbers>> = [
   { value: LargeNumbers::Full, label: Locale::GLOBAL_NUMBERS_FULL },
   { value: LargeNumbers::Short, label: Locale::GLOBAL_NUMBERS_SHORT }
 ]
-const CLOCKS: Array<Choice<Clock>> = [
+const CLOCKS: array<Choice<Clock>> = [
   { value: Clock::H24, label: Locale::GLOBAL_CLOCK_24 },
   { value: Clock::H12, label: Locale::GLOBAL_CLOCK_12 }
 ]
@@ -47,7 +47,7 @@ public class ScalePage implements Component {
 
 public class NumbersPage implements Component {
   // Rounded numbers have no decimal places to choose.
-  derived rounded: Boolean = self.globals.values.numberRound
+  derived rounded: boolean = self.globals.values.numberRound
 
   globals: mut Settings<Globals>
   constructor(globals: mut Settings<Globals>) {

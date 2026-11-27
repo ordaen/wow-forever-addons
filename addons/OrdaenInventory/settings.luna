@@ -14,10 +14,10 @@ const BUTTON = 187.5dp
 // «Look»: a slot's size, in the interface's pixels; the room between two slots of a card, in steps of the spacing (0:
 // slot against slot); the fewest slots in a row, what a group and the window are at least as wide as.
 public class LookPage implements Component {
-  slotSize: mut Signal<Number>
-  slotGap: mut Signal<Number>
-  rowLeast: mut Signal<Number>
-  constructor(slotSize: mut Signal<Number>, slotGap: mut Signal<Number>, rowLeast: mut Signal<Number>) {
+  slotSize: mut Signal<number>
+  slotGap: mut Signal<number>
+  rowLeast: mut Signal<number>
+  constructor(slotSize: mut Signal<number>, slotGap: mut Signal<number>, rowLeast: mut Signal<number>) {
     self.slotSize = slotSize
     self.slotGap = slotGap
     self.rowLeast = rowLeast
@@ -38,8 +38,8 @@ public class LookPage implements Component {
 
 // «Convenience»: what the bags do by themselves.
 public class ConveniencePage implements Component {
-  sellJunk: mut Signal<Boolean>
-  constructor(sellJunk: mut Signal<Boolean>) { self.sellJunk = sellJunk }
+  sellJunk: mut Signal<boolean>
+  constructor(sellJunk: mut Signal<boolean>) { self.sellJunk = sellJunk }
 
   public render(self): Template {
     return $ltml {
@@ -72,7 +72,7 @@ public class LootPage implements Component {
 
 public class JunkPage implements Component {
   // A reset asked: of the marks (true) or of what was learned.
-  public reset: Event<Boolean> = new Event()
+  public reset: Event<boolean> = new Event()
 
   rules: mut Signal<JunkRules>
   constructor(rules: mut Signal<JunkRules>) { self.rules = rules }
@@ -102,8 +102,8 @@ public class JunkPage implements Component {
 // A chord's row as the page lists it: rebuilt when what it offers changes (its key says it).
 struct ChordSpec {
   const chord: Chord
-  const choices: Array<Choice<SlotAction>>
-  const key: String
+  const choices: array<Choice<SlotAction>>
+  const key: string
 }
 
 // One chord's dropdown: the action picked written into the scheme, and the scheme's action shown.
@@ -111,9 +111,9 @@ class ChordRow implements Component {
   state picked: SlotAction
 
   const chord: Chord
-  const choices: Array<Choice<SlotAction>>
+  const choices: array<Choice<SlotAction>>
   clicks: mut Signal<Clicks>
-  constructor(chord: Chord, choices: Array<Choice<SlotAction>>, clicks: mut Signal<Clicks>) {
+  constructor(chord: Chord, choices: array<Choice<SlotAction>>, clicks: mut Signal<Clicks>) {
     self.chord = chord
     self.choices = choices
     self.clicks = clicks
@@ -133,7 +133,7 @@ class ChordRow implements Component {
 }
 
 public class ClicksPage implements Component {
-  derived rows: Array<ChordSpec> = CHORDS.map(chord => self.specOf(chord))
+  derived rows: array<ChordSpec> = CHORDS.map(chord => self.specOf(chord))
 
   clicks: mut Signal<Clicks>
   constructor(clicks: mut Signal<Clicks>) { self.clicks = clicks }

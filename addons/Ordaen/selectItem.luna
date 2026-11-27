@@ -16,7 +16,7 @@ const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b14"), sides: [
 const FILL_ALPHA = 0.24
 const EDGE = 2.34375dp
 const PADDING: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
-const ONE: Array<Track> = [{ fr: 1 }]
+const ONE: array<Track> = [{ fr: 1 }]
 
 // The selected fill of an item of this colour.
 public function selectedFill(color: Color | nil): Color {
@@ -31,19 +31,19 @@ public class SelectItem implements Component {
   derived edge: Color = self.color ?? GOLD
   derived rule: Line | nil = self.first ? nil : RULE
 
-  selected: Signal<Boolean>
+  selected: Signal<boolean>
   color: Signal<Color | nil>
-  first: Signal<Boolean>
-  columns: Signal<Array<Track>>
+  first: Signal<boolean>
+  columns: Signal<array<Track>>
   padding: Signal<Edges>
   constructor(
-    selected: Signal<Boolean>,
+    selected: Signal<boolean>,
     // The item's own colour (a recipe's difficulty): its selected fill and edge. None for the lists' gold.
     color: Signal<Color | nil> = nil,
     // The list's first item: no rule above it.
-    first: Signal<Boolean> = false,
+    first: Signal<boolean> = false,
     // How what the slot holds is laid out: one column, or its own tracks (a name and a count).
-    columns: Signal<Array<Track>> = ONE,
+    columns: Signal<array<Track>> = ONE,
     padding: Signal<Edges> = PADDING
   ) {
     self.selected = selected

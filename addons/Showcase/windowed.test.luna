@@ -9,7 +9,7 @@ import { Windowed } from "@/windowed"
 const PAGE: Test::Page = { left: 100, top: 50, width: 300, height: 100 }
 
 // Take what is at `at` and let it go `dx`, `dy` further.
-function dragBy(at: Test::Point, dx: Number, dy: Number) {
+function dragBy(at: Test::Point, dx: number, dy: number) {
   Test::moveTo(at)
   Test::press(nil)
   Test::moveTo({ x: at.x + 1, y: at.y })
@@ -19,7 +19,7 @@ function dragBy(at: Test::Point, dx: Number, dy: Number) {
   Test::release(nil)
 }
 
-function show(title: String) {
+function show(title: string) {
   Test::shot(title)
 }
 
@@ -32,7 +32,7 @@ test "a frame moved from under a still cursor hears the cursor leave, the next f
   frame.SetSize(100, 100)
   frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, -500)
   frame.EnableMouse(true)
-  let heard: Map<String, Integer> = {}
+  let heard: map<string, integer> = {}
   frame.SetScript("OnEnter", (): nil => { heard["enter"] = (heard["enter"] ?? 0) + 1 })
   frame.SetScript("OnLeave", (): nil => { heard["leave"] = (heard["leave"] ?? 0) + 1 })
   Test::moveTo({ x: 50, y: 550 })

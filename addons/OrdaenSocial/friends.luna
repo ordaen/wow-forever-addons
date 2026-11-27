@@ -18,7 +18,7 @@ import Style from "@/style"
 // The filter's options: the friends' kinds, and online or not.
 public enum FriendFilter implements Plain { BattleNet = "battleNet", Characters = "characters", Online = "online", Offline = "offline" }
 
-const FILTERS: Array<FilterGroup<FriendFilter>> = [
+const FILTERS: array<FilterGroup<FriendFilter>> = [
   {
     options: [{ key: FriendFilter::BattleNet, label: Locale::BATTLE_NET }, { key: FriendFilter::Characters, label: Locale::FILTER_CHARACTERS }]
   },
@@ -30,13 +30,13 @@ const FILTERS: Array<FilterGroup<FriendFilter>> = [
 // How the list is drawn: rows of two lines, or a table's columns.
 public enum FriendView implements Plain { List = "list", Table = "table" }
 
-const VIEWS: Array<Choice<FriendView>> = [
+const VIEWS: array<Choice<FriendView>> = [
   { value: FriendView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: FriendView::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 const LEVEL_WIDTH = 82.03125dp
 // The table's columns; the name, the level and where sort the list (`ToolSort`), in the table and in the rows alike.
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_NAME, width: { fr: 1 }, sortable: true },
   { title: Locale::COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align::End, sortable: true },
   { title: Locale::WHERE, width: { fr: 1 }, sortable: true },
@@ -46,35 +46,35 @@ const COLUMNS: Array<Column> = [
 const BY_LEVEL = 2
 const BY_WHERE = 3
 const BY_STATUS = 5
-const MORE_SORTS: Array<String> = [Locale::SORT_STATUS]
+const MORE_SORTS: array<string> = [Locale::SORT_STATUS]
 
 // How the player left the friends' list, the profile's (`ModuleMemory`): its view, its sort and which way, and the
 // filter (empty until the list first starts it from the settings). The search isn't kept.
 public struct FriendsKept implements Plain {
   view: FriendView = FriendView::List
-  sorted: Integer = BY_STATUS
-  descending: Boolean = false
-  filter: Map<FriendFilter, Boolean> = {}
+  sorted: integer = BY_STATUS
+  descending: boolean = false
+  filter: map<FriendFilter, boolean> = {}
 }
 public const FRIENDS_KEPT: FriendsKept = {}
 
 // The status the player picks: the game's four.
-const PRESENCES: Array<Choice<Presence>> = [
+const PRESENCES: array<Choice<Presence>> = [
   { value: .Online, label: Locale::ONLINE },
   { value: .Away, label: Locale::AWAY },
   { value: .Busy, label: Locale::BUSY },
   { value: .Offline, label: Locale::INVISIBLE }
 ]
-const ROW: Array<Track> = [Style::ROW_ICON, { fr: 1 }]
+const ROW: array<Track> = [Style::ROW_ICON, { fr: 1 }]
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A friend's row's padding: a pickable row's (`PickRow`'s).
 const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 
 // What a friend is called in the list: the account's name, or the character's.
-public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
+public function titleOf(friend: Friend): string { return friend.account?.name ?? friend.hero?.name ?? "" }
 
 // What tells a friend from every other: its kind and the account or the character.
-public function keyOf(friend: Friend): String {
+public function keyOf(friend: Friend): string {
   const account = friend.account
   if (account != nil) { return `bn:${account.id}` }
   return `wow:${friend.hero?.name ?? ""}`
@@ -89,7 +89,7 @@ public function markOf(presence: Presence): Art {
   }
 }
 
-public function presenceText(presence: Presence): String {
+public function presenceText(presence: Presence): string {
   return match (presence) {
     .Online => Locale::ONLINE
     .Away => Locale::AWAY
@@ -99,7 +99,7 @@ public function presenceText(presence: Presence): String {
 }
 
 // What a Battle.net friend plays, by the client's code of the program.
-public function gameName(program: String): String {
+public function gameName(program: string): string {
   return match (program) {
     "WoW" => Locale::GAME_WOW
     "App", "BSAp" => Locale::GAME_APP
@@ -116,8 +116,8 @@ function nameColorOf(friend: Friend): Color {
 
 // The second line's points: «Battle.net» first for an account, then the character and its zone, the game, or when it
 // was last seen (an account's, with the character it was last seen on here).
-function pointsOf(friend: Friend): String {
-  const points: Array<String> = []
+function pointsOf(friend: Friend): string {
+  const points: array<string> = []
   const account = friend.account
   if (account != nil) { points.push(Locale::BATTLE_NET) }
   const hero = friend.hero
@@ -136,21 +136,21 @@ function pointsOf(friend: Friend): String {
   return points.join(" · ")
 }
 
-function online(friend: Friend): Boolean { return friend.presence != .Offline }
+function online(friend: Friend): boolean { return friend.presence != .Offline }
 
-function levelOf(friend: Friend): Integer { return friend.hero?.level ?? 0 }
+function levelOf(friend: Friend): integer { return friend.hero?.level ?? 0 }
 
-function whereOf(friend: Friend): String { return (friend.hero?.area ?? "").lower() }
+function whereOf(friend: Friend): string { return (friend.hero?.area ?? "").lower() }
 
 // Below 0 where the first text comes first, above 0 where the second does, 0 where they are the same.
-function textOrder(a: String, b: String): Integer {
+function textOrder(a: string, b: string): integer {
   if (a == b) { return 0 }
   return a < b ? -1 : 1
 }
 
 // How two friends stand by the sort, each sort's own way first: names and places from A, the highest level, those
 // online.
-function sortOrder(a: Friend, b: Friend, sorted: Integer): Integer {
+function sortOrder(a: Friend, b: Friend, sorted: integer): integer {
   return match (sorted) {
     BY_LEVEL => levelOf(b) - levelOf(a)
     BY_WHERE => textOrder(whereOf(a), whereOf(b))
@@ -161,7 +161,7 @@ function sortOrder(a: Friend, b: Friend, sorted: Integer): Integer {
 
 // Whether a friend comes before another: best friends first whichever way, then the sort (turned round where the
 // player turned it), then the name.
-function before(a: Friend, b: Friend, sorted: Integer, descending: Boolean): Boolean {
+function before(a: Friend, b: Friend, sorted: integer, descending: boolean): boolean {
   const aFavorite = a.account?.favorite == true
   const bFavorite = b.account?.favorite == true
   if (aFavorite != bFavorite) { return aFavorite }
@@ -171,7 +171,7 @@ function before(a: Friend, b: Friend, sorted: Integer, descending: Boolean): Boo
 }
 
 // Whether a friend is found by what the player typed: in the names, the BattleTag, the zone or the note.
-function found(friend: Friend, query: String): Boolean {
+function found(friend: Friend, query: string): boolean {
   if (query == "") { return true }
   const hero = friend.hero
   const account = friend.account
@@ -180,36 +180,36 @@ function found(friend: Friend, query: String): Boolean {
 }
 
 // Whether the filter lets a friend through: its kind's switch, and its presence's (a search finds those offline too).
-function passes(friend: Friend, filter: Map<FriendFilter, Boolean>, query: String): Boolean {
+function passes(friend: Friend, filter: map<FriendFilter, boolean>, query: string): boolean {
   const kind = friend.account != nil ? FriendFilter::BattleNet : FriendFilter::Characters
   const presence = online(friend) ? FriendFilter::Online : FriendFilter::Offline
   return filter[kind] == true && (filter[presence] == true || (query != "" && !online(friend)))
 }
 
 // The friends the list shows, in its order.
-public function shownOf(friends: Array<Friend>, query: String, kept: FriendsKept): Array<Friend> {
+public function shownOf(friends: array<Friend>, query: string, kept: FriendsKept): array<Friend> {
   const shown = friends.filter(friend => found(friend, query) && passes(friend, kept.filter, query))
   shown.sort((a, b) => before(a, b, kept.sorted, kept.descending))
   return shown
 }
 
 // The filter as the list starts it: both kinds, those online, and those offline as the settings say.
-public function filterStart(offline: Boolean): mut Map<FriendFilter, Boolean> {
+public function filterStart(offline: boolean): mut map<FriendFilter, boolean> {
   return switched(switched({}, [FriendFilter::BattleNet, FriendFilter::Characters, FriendFilter::Online], true), [FriendFilter::Offline], offline)
 }
 
 // A friend as a row of the list: a left click, Enter or Space picks it, a right click opens the game's menu of it.
 class FriendRow implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
-  derived level: String = self.friend.hero != nil ? Locale::ROW_LEVEL.format(levelOf(self.friend)) : ""
-  derived favorite: Boolean = self.friend.account?.favorite == true
+  derived level: string = self.friend.hero != nil ? Locale::ROW_LEVEL.format(levelOf(self.friend)) : ""
+  derived favorite: boolean = self.friend.account?.favorite == true
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
   friend: Signal<Friend>
-  picked: Signal<Boolean>
-  constructor(friend: Signal<Friend>, picked: Signal<Boolean>) {
+  picked: Signal<boolean>
+  constructor(friend: Signal<Friend>, picked: Signal<boolean>) {
     self.friend = friend
     self.picked = picked
   }
@@ -238,15 +238,15 @@ class FriendRow implements Component {
 // A friend as a row of the table: the name (the star after a best friend's), the level, where it is or what it plays,
 // and the note, the one text cut at its column. A right click opens the game's menu of it.
 class FriendTableRow implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
 
-  derived level: String = self.friend.hero != nil ? String::of(levelOf(self.friend)) : ""
-  derived favorite: Boolean = self.friend.account?.favorite == true
+  derived level: string = self.friend.hero != nil ? string::of(levelOf(self.friend)) : ""
+  derived favorite: boolean = self.friend.account?.favorite == true
 
   friend: Signal<Friend>
-  picked: Signal<Boolean>
-  constructor(friend: Signal<Friend>, picked: Signal<Boolean>) {
+  picked: Signal<boolean>
+  constructor(friend: Signal<Friend>, picked: Signal<boolean>) {
     self.friend = friend
     self.picked = picked
   }
@@ -286,21 +286,21 @@ class FriendTableRow implements Component {
 // The friends' list with its tools, as every list window's: the toolbar (the search, the filter, the sort and the
 // view) and «Добавить друга» beside it.
 public class FriendList implements Component {
-  public pick: Event<String> = new Event()
-  public menu: Event<String> = new Event()
+  public pick: Event<string> = new Event()
+  public menu: Event<string> = new Event()
   public add: Event<nil> = new Event()
 
   state query = ""
-  derived filterStarts: Map<FriendFilter, Boolean> = filterStart(self.offline)
-  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.kept.values)
+  derived filterStarts: map<FriendFilter, boolean> = filterStart(self.offline)
+  derived shown: array<Friend> = shownOf(self.friends, self.query, self.kept.values)
   // The settings' «offline» as last heard: a change of it switches the kept filter's, the first hearing doesn't.
-  offlineHeard: Boolean | nil = nil
+  offlineHeard: boolean | nil = nil
 
-  friends: Signal<Array<Friend>>
-  picked: Signal<String>
-  offline: Signal<Boolean>
+  friends: Signal<array<Friend>>
+  picked: Signal<string>
+  offline: Signal<boolean>
   kept: mut ModuleMemory<FriendsKept>
-  constructor(friends: Signal<Array<Friend>>, picked: Signal<String>, offline: Signal<Boolean>, kept: mut ModuleMemory<FriendsKept>) {
+  constructor(friends: Signal<array<Friend>>, picked: Signal<string>, offline: Signal<boolean>, kept: mut ModuleMemory<FriendsKept>) {
     self.friends = friends
     self.picked = picked
     self.offline = offline
@@ -309,7 +309,7 @@ public class FriendList implements Component {
   }
 
   // The filter starts as the settings say where none is kept, and follows a change of them.
-  onOffline(mut self, shows: Boolean) {
+  onOffline(mut self, shows: boolean) {
     const now = peek self.kept.values
     const first = self.offlineHeard == nil
     self.offlineHeard = shows
@@ -318,8 +318,8 @@ public class FriendList implements Component {
     self.kept.write({ filter: filter, ..now })
   }
 
-  onPick(mut self, key: String) { self.pick.emit(key) }
-  onMenu(mut self, key: String) { self.menu.emit(key) }
+  onPick(mut self, key: string) { self.pick.emit(key) }
+  onMenu(mut self, key: string) { self.menu.emit(key) }
   onAdd(mut self) { self.add.emit() }
 
   public render(self): Template {
@@ -350,12 +350,12 @@ public class FriendList implements Component {
 }
 
 // A character as the card says it: «Торгрим, Воин 25 · Пламегор».
-function heroText(hero: Hero): String {
+function heroText(hero: Hero): string {
   const realm = hero.realm != "" ? ` · ${hero.realm}` : ""
   return `${hero.name}, ${hero.className} ${hero.level}${realm}`
 }
 
-public function orDash(text: String): String { return text != "" ? text : Locale::DASH }
+public function orDash(text: string): string { return text != "" ? text : Locale::DASH }
 
 // The picked friend's card: who it is, how it stands, what it plays and where (an offline Battle.net friend: the
 // character last seen on), the note; Шепнуть, Пригласить, «Удалить» (which asks first) and ⋮, the game's own menu
@@ -366,25 +366,25 @@ public class FriendCard implements Component {
   public remove: Event<nil> = new Event()
   public menu: Event<nil> = new Event()
 
-  derived title: String = titleOf(self.friend)
+  derived title: string = titleOf(self.friend)
   derived color: Color = nameColorOf(self.friend)
-  derived sub: String = self.subOf()
-  derived favorite: Boolean = self.friend.account?.favorite == true
-  derived status: String = self.statusOf()
-  derived plays: String = self.friend.account != nil && online(self.friend) ? gameName(self.friend.account?.program ?? "") : ""
-  derived hero: String = self.friend.hero != nil ? heroText(self.friend.hero ?? panic("tested")) : ""
-  derived heroLabel: String = self.friend.account != nil && !online(self.friend) ? Locale::LAST_SEEN_AS : Locale::CHARACTER
-  derived where: String = online(self.friend) ? orDash(self.friend.hero?.area ?? "") : Locale::DASH
-  derived broadcast: String = self.friend.account?.broadcast ?? ""
-  derived canWhisper: Boolean = online(self.friend)
-  derived canInvite: Boolean = online(self.friend) && (self.friend.account == nil || self.friend.account?.gameAccount != 0)
+  derived sub: string = self.subOf()
+  derived favorite: boolean = self.friend.account?.favorite == true
+  derived status: string = self.statusOf()
+  derived plays: string = self.friend.account != nil && online(self.friend) ? gameName(self.friend.account?.program ?? "") : ""
+  derived hero: string = self.friend.hero != nil ? heroText(self.friend.hero ?? panic("tested")) : ""
+  derived heroLabel: string = self.friend.account != nil && !online(self.friend) ? Locale::LAST_SEEN_AS : Locale::CHARACTER
+  derived where: string = online(self.friend) ? orDash(self.friend.hero?.area ?? "") : Locale::DASH
+  derived broadcast: string = self.friend.account?.broadcast ?? ""
+  derived canWhisper: boolean = online(self.friend)
+  derived canInvite: boolean = online(self.friend) && (self.friend.account == nil || self.friend.account?.gameAccount != 0)
 
   friend: Signal<Friend>
   constructor(friend: Signal<Friend>) {
     self.friend = friend
   }
 
-  subOf(self): String {
+  subOf(self): string {
     const account = self.friend.account
     if (account != nil) { return Locale::CARD_BATTLE_NET.format(account.battleTag) }
     const hero = self.friend.hero
@@ -392,7 +392,7 @@ public class FriendCard implements Component {
     return Locale::CARD_CHARACTER.format(hero.className, hero.level, hero.realm)
   }
 
-  statusOf(self): String {
+  statusOf(self): string {
     const text = presenceText(self.friend.presence)
     const last = self.friend.account?.lastOnline ?? 0
     if (self.friend.presence == .Offline && last > 0) { return `${text} · ${agoText(last)}` }
@@ -446,7 +446,7 @@ public class MyCard implements Component {
 
   // The status picked here: the client's, until the player picks another.
   state picked: Presence = .Online
-  derived connected: Boolean = self.me.battleTag != ""
+  derived connected: boolean = self.me.battleTag != ""
 
   me: Signal<BattleNetSelf>
   constructor(me: Signal<BattleNetSelf>) {
@@ -493,7 +493,7 @@ public class MyCard implements Component {
 }
 
 class RequestRow implements Component {
-  public answer: Event<(FriendRequest, Boolean)> = new Event()
+  public answer: Event<(FriendRequest, boolean)> = new Event()
 
   request: Signal<FriendRequest>
   constructor(request: Signal<FriendRequest>) {
@@ -519,16 +519,16 @@ class RequestRow implements Component {
 
 // The requests received: Принять or Отклонить each.
 public class RequestList implements Component {
-  public answer: Event<(FriendRequest, Boolean)> = new Event()
+  public answer: Event<(FriendRequest, boolean)> = new Event()
 
-  derived heading: String = Locale::RECEIVED.format(self.requests.length)
+  derived heading: string = Locale::RECEIVED.format(self.requests.length)
 
-  requests: Signal<Array<FriendRequest>>
-  constructor(requests: Signal<Array<FriendRequest>>) {
+  requests: Signal<array<FriendRequest>>
+  constructor(requests: Signal<array<FriendRequest>>) {
     self.requests = requests
   }
 
-  onAnswer(mut self, request: FriendRequest, accept: Boolean) { self.answer.emit(request, accept) }
+  onAnswer(mut self, request: FriendRequest, accept: boolean) { self.answer.emit(request, accept) }
 
   public render(self): Template {
     return $ltml {
@@ -541,14 +541,14 @@ public class RequestList implements Component {
   }
 }
 
-function ignoredName(entry: Ignored): String {
+function ignoredName(entry: Ignored): string {
   return match (entry) {
     .Character => entry.name
     .Account => entry.name
   }
 }
 
-function ignoredKey(entry: Ignored): String {
+function ignoredKey(entry: Ignored): string {
   return match (entry) {
     .Character => `wow:${entry.name}`
     .Account => `bn:${entry.id}`
@@ -577,14 +577,14 @@ class IgnoredRow implements Component {
 
 // The black list: a name added, each taken off with Убрать.
 public class IgnoreList implements Component {
-  public ignore: Event<String> = new Event()
+  public ignore: Event<string> = new Event()
   public unignore: Event<Ignored> = new Event()
 
   state name = ""
-  derived heading: String = Locale::IGNORED.format(self.ignored.length)
+  derived heading: string = Locale::IGNORED.format(self.ignored.length)
 
-  ignored: Signal<Array<Ignored>>
-  constructor(ignored: Signal<Array<Ignored>>) {
+  ignored: Signal<array<Ignored>>
+  constructor(ignored: Signal<array<Ignored>>) {
     self.ignored = ignored
   }
 

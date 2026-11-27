@@ -11,13 +11,13 @@ public class Flag implements Component {
   // What the switch shows: the library's switch writes it, and it follows `on` whenever that changes.
   state value = false
 
-  label: Signal<String>
-  on: Signal<Boolean>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  on: Signal<boolean>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    on: Signal<Boolean>,
-    disabled: Signal<Boolean> = false
+    label: Signal<string>,
+    on: Signal<boolean>,
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.on = on
@@ -27,7 +27,7 @@ public class Flag implements Component {
   }
 
   // A click put the switch at `shown`: told, unless that is what the window already remembers.
-  flip(self, shown: Boolean) {
+  flip(self, shown: boolean) {
     if (shown != peek self.on) { self.flipped.emit() }
   }
 

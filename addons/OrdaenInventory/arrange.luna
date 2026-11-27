@@ -13,16 +13,16 @@ public class Arranger {
   public state running = false
   // The slots that take part, in the bags' order, and the stack each of the first should hold (`Slot.key`): one for
   // each item, the places past them want nothing.
-  places: Array<Slot> = []
-  wanted: Array<Integer> = []
+  places: array<Slot> = []
+  wanted: array<integer> = []
   // How many goes are left: a run ends after as many goes as there are places, whatever the client did.
   left = 0
 
   // A run over `slots` (every slot of the bags, in their order) into the order `by`; `general` tells the bags that
   // take part. A protected slot (`Slot.guarded`) keeps what it holds.
-  public start(mut self, slots: Array<Slot>, general: (bag: Integer) => Boolean, by: SortBy) {
-    let places: Array<Slot> = []
-    let items: Array<Slot> = []
+  public start(mut self, slots: array<Slot>, general: (bag: integer) => boolean, by: SortBy) {
+    let places: array<Slot> = []
+    let items: array<Slot> = []
     for (slot of slots) {
       if (general(slot.bag) && !peek slot.guarded) {
         places.push(slot)
@@ -30,12 +30,12 @@ public class Arranger {
       }
     }
     // The window's order: the kinds' sections in their order, each sorted.
-    let ordered: Array<Slot> = []
+    let ordered: array<Slot> = []
     for (section of tabSections(items, .All, .Type, by)) {
       for (slot of section.slots) { ordered.push(slot) }
     }
     // The places past the last item want nothing: they hold what the swaps leave them.
-    let wanted: Array<Integer> = []
+    let wanted: array<integer> = []
     for (slot of ordered) { wanted.push(slot.key()) }
     self.places = places
     self.wanted = wanted
@@ -57,7 +57,7 @@ public class Arranger {
     self.left -= 1
     // The later places a swap of this go took a stack from: each is left for the next go. A place a swap filled is
     // never looked at again in the go, as the walk and `holderOf` go on past it.
-    let taken: Map<Slot, Boolean> = {}
+    let taken: map<Slot, boolean> = {}
     let pending = false
     let moved = false
     for (index, place of self.places) {
@@ -79,7 +79,7 @@ public class Arranger {
   // A later place that holds the stack where it doesn't belong, not taken from in this go and not locked. The first
   // wrong place of a go always finds one: a place where the stack belongs is never emptied of it, and the rest wait for
   // a go.
-  holderOf(self, want: Integer, after: Integer, taken: Map<Slot, Boolean>): Slot | nil {
+  holderOf(self, want: integer, after: integer, taken: map<Slot, boolean>): Slot | nil {
     for (index, place of self.places) {
       if (index > after && taken[place] != true && !peek place.locked && place.key() == want && self.wanted[index] != want) {
         return place
@@ -88,7 +88,7 @@ public class Arranger {
     return nil
   }
 
-  anyLocked(self): Boolean {
+  anyLocked(self): boolean {
     return self.places.any(place => peek place.locked)
   }
 }

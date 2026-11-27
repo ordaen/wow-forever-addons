@@ -3,8 +3,8 @@
 import { Edges } from "$ltml"
 import Locale from "@/locales"
 
-public const WIDTH: Number<Length> = 1390dp
-public const HEIGHT: Number<Length> = 656.25dp
+public const WIDTH: number<Length> = 1390dp
+public const HEIGHT: number<Length> = 656.25dp
 
 // A page runs to the frame's line on every side (its tab's `padding` none): its table takes the whole section. What
 // stands over it keeps the window's room at the top and the sides (`TOP_ROOM`); a note under it at the sides and the
@@ -22,13 +22,13 @@ public const GREEN: Color = Color::hex("#40d060")
 public const AWAY: Color = Color::hex("#7a7060")
 
 // How long ago, from a number of hours: under a day in hours, then in days.
-public function ago(hours: Integer): String {
+public function ago(hours: integer): string {
   if (hours < 24) { return Locale::AGO_HOURS.format((0).max(hours)) }
   return Locale::AGO_DAYS.format((hours / 24).floor())
 }
 
 // How long until, from a number of hours: a day or more in days.
-public function until(hours: Integer): String {
+public function until(hours: integer): string {
   if (hours < 24) { return Locale::IN_HOURS.format((0).max(hours)) }
   return Locale::IN_DAYS.format((hours / 24).floor())
 }

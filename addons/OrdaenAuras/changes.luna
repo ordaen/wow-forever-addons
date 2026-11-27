@@ -37,7 +37,7 @@ public enum Kind {
 }
 
 // The generator's name of each kind (`lunatype generate auras`), the one place it is written.
-const KIND_OF: Map<String, Kind> = {
+const KIND_OF: map<string, Kind> = {
   ["stat"]: .Stat,
   ["statPercent"]: .StatPercent,
   ["armor"]: .Armor,
@@ -78,33 +78,33 @@ const BLOCK = 1000
 // percentage for a kind that is one).
 public struct Change {
   const kind: Kind
-  const misc: Integer
-  const amount: Number
+  const misc: integer
+  const amount: number
 }
 
 // An aura on the character and what it changes; none for an aura that changes no stat the table knows.
 public struct Active {
-  const spell: Integer
-  const harmful: Boolean
-  const stacks: Integer
-  const changes: Array<Change>
+  const spell: integer
+  const harmful: boolean
+  const stacks: integer
+  const changes: array<Change>
 }
 
 // An effect of the table: its place among its spell's effects (from 0), its kind, its misc value, its points and
 // what they grow by a level.
 struct Effect {
-  const index: Integer
+  const index: integer
   const kind: Kind
-  const misc: Integer
-  const points: Number
-  const growth: Number
+  const misc: integer
+  const points: number
+  const growth: number
 }
 
-function effectsOf(spell: Integer): Array<Effect> {
-  const effects: Array<Effect> = []
+function effectsOf(spell: integer): array<Effect> {
+  const effects: array<Effect> = []
   const block = Effects::blocks[(spell / BLOCK).floor()]
   if (block == nil) { return effects }
-  let own: String | nil = nil
+  let own: string | nil = nil
   for (entry of block.split(";")) {
     const id, rest = entry.match("^(%d+):(.*)$")
     if (id?.toNumber() == spell) {
@@ -129,7 +129,7 @@ function effectsOf(spell: Integer): Array<Effect> {
 
 // What an aura changes now: each effect the table knows, its amount the client's own points for that effect where it
 // gives them (talents and ranks counted in), else the table's points grown to the character's level; times its stacks.
-public function changesOf(spell: Integer, stacks: Integer, points: Array<Number>, level: Integer): Array<Change> {
+public function changesOf(spell: integer, stacks: integer, points: array<number>, level: integer): array<Change> {
   const times = stacks.max(1)
   return effectsOf(spell).map((effect: Effect): Change => {
     const live = points[effect.index + 1]

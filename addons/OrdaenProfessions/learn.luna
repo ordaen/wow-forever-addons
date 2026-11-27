@@ -5,17 +5,17 @@ import Game from "$game"
 
 // A recipe a trainer teaches: from what skill, for how much.
 public struct Taught implements Plain {
-  skill: Integer
-  cost: Integer
+  skill: integer
+  cost: integer
 }
 
 // What the trainers met have taught, by the recipe's name.
 public struct Learning implements Plain {
-  recipes: Map<String, Taught>
+  recipes: map<string, Taught>
 }
 
 // `known` with the services of a profession's trainer laid over it: each asking for a skill.
-public function learnedFrom(known: Map<String, Taught>, services: Array<Game::TrainerService>): Map<String, Taught> {
+public function learnedFrom(known: map<string, Taught>, services: array<Game::TrainerService>): map<string, Taught> {
   const recipes = known.clone()
   for (service of services) {
     const skill = service.skill
@@ -26,7 +26,7 @@ public function learnedFrom(known: Map<String, Taught>, services: Array<Game::Tr
 
 // The skill a recipe not learned is ordered by: the one a trainer teaches it from where one was met, else the one it
 // turns yellow at (the nearest the client's table tells); one with neither last.
-public function learnSkillOf(taught: Taught | nil, yellow: Integer | nil): Number {
+public function learnSkillOf(taught: Taught | nil, yellow: integer | nil): number {
   if (taught != nil) { return taught.skill }
-  return yellow ?? Number::huge
+  return yellow ?? number::huge
 }

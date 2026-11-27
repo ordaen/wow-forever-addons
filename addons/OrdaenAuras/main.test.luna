@@ -13,7 +13,7 @@ const HEALTH = 2378
 const RENEW = 139
 
 test "each aura's changes are the client's points for its effect, times its stacks" {
-  Game::auras.player = (): Array<Game::PlayerAura> => [
+  Game::auras.player = (): array<Game::PlayerAura> => [
     { spell: SHOUT, stacks: 0, harmful: false, points: [55] },
     { spell: HEALTH, stacks: 2, harmful: false, points: [120] }
   ]
@@ -27,14 +27,14 @@ test "each aura's changes are the client's points for its effect, times its stac
 
 test "without the client's points, an aura's change is the spell data's, grown to the character's level" {
   Game::player.level = 10
-  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [] }]
+  Game::auras.player = (): array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [] }]
   Auras.refresh()
   const shout = Auras.active[1] ?? panic("the shout")
   Test::expect(shout.changes[1]?.amount == 12)
 }
 
 test "a percentage of every stat keeps its misc value, all of them; an aura that changes no stat isn't listed" {
-  Game::auras.player = (): Array<Game::PlayerAura> => [
+  Game::auras.player = (): array<Game::PlayerAura> => [
     { spell: RENEW, stacks: 0, harmful: false, points: [9] },
     { spell: KINGS, stacks: 0, harmful: false, points: [10] }
   ]
@@ -45,10 +45,10 @@ test "a percentage of every stat keeps its misc value, all of them; an aura that
 }
 
 test "the auras are read again when the client says they changed" {
-  Game::auras.player = (): Array<Game::PlayerAura> => []
+  Game::auras.player = (): array<Game::PlayerAura> => []
   Auras.refresh()
   Test::expect(Auras.active.length == 0)
-  Game::auras.player = (): Array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [55] }]
+  Game::auras.player = (): array<Game::PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [55] }]
   Game::auras.changed.emit()
   Test::expect(Auras.active.length == 1)
 }

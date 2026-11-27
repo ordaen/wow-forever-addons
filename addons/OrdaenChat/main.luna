@@ -32,13 +32,13 @@ const HISTORY = "OrdaenChat:history"
 // whether it takes the character's channels, which the General window then leaves to it.
 struct DefaultTab {
   // Where the character's chat keeps that it was made.
-  made: String
-  name: String
-  groups: Array<String>
-  channels: Boolean
+  made: string
+  name: string
+  groups: array<string>
+  channels: boolean
 }
 
-const DEFAULT_TABS: Array<DefaultTab> = [
+const DEFAULT_TABS: array<DefaultTab> = [
   { made: "OrdaenChat:guildWindow", name: Locale::TAB_GUILD_NAME, groups: ["GUILD", "OFFICER"], channels: false },
   { made: "OrdaenChat:channelsWindow", name: Locale::TAB_CHANNELS_NAME, groups: ["CHANNEL"], channels: true }
 ]
@@ -47,7 +47,7 @@ const GENERAL = 1
 const BUTTON = 90dp
 
 public class Chat implements Module, App {
-  public const title: String = "Ordaen Chat"
+  public const title: string = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
     width: 430, height: 190, hide: false, hiddenOpacity: 0, ground: 0.8, tabs: {},
     inputAlways: false, ownTextSize: false, textSize: BODY_TEXT / 1ui,
@@ -57,24 +57,24 @@ public class Chat implements Module, App {
   state editing = 1
   // The default tabs asked for on the next frame.
   defaultTabsAsked = false
-  public const pages: Array<SettingsPage> = [
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } },
     { title: Locale::TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
   ]
 
   // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows), and
   // the undocked windows', each a pane.
-  made: mut Map<String, mut ChatTab> = {}
-  public state tabs: Array<ChatTab> = []
-  public state undocked: Array<ChatTab> = []
+  made: mut map<string, mut ChatTab> = {}
+  public state tabs: array<ChatTab> = []
+  public state undocked: array<ChatTab> = []
   public state openKey = "w1"
   // A web address clicked: shown to copy.
   public state copied = ""
   // The quest link whose quest the player is asked to abandon, and the items abandoning it destroys.
   state abandoning: Event::Link | nil = nil
-  state abandonItems: Array<String> = []
-  derived abandonAsk: String = Locale::QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
-  derived abandonLoses: String = Locale::QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
+  state abandonItems: array<string> = []
+  derived abandonAsk: string = Locale::QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
+  derived abandonLoses: string = Locale::QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil
   state newName = ""
@@ -83,23 +83,23 @@ public class Chat implements Module, App {
   state sizing: ChatSize | nil = nil
   sizedFrom: ChatSize = { width: 0, height: 0 }
   // Never under the least: a size kept from before stands at it.
-  derived width: Number<Length> = (self.sizing?.width ?? self.settings.values.width).max(LEAST_WIDTH) * 1dp
-  derived height: Number<Length> = (self.sizing?.height ?? self.settings.values.height).max(LEAST_HEIGHT) * 1dp
+  derived width: number<Length> = (self.sizing?.width ?? self.settings.values.width).max(LEAST_WIDTH) * 1dp
+  derived height: number<Length> = (self.sizing?.height ?? self.settings.values.height).max(LEAST_HEIGHT) * 1dp
   // How much of the chat shows while the cursor is off it.
-  derived awayOpacity: Number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
+  derived awayOpacity: number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
   // Where the chat stands until the player moves it: on the bottom panel at the screen's left, its tabs over the
   // character's portrait (the panel's room, none where it isn't along the bottom).
   derived home: Anchored = { point: Point::BottomLeft, x: 0dp, y: -Panel.bottomRoom }
   // While the portrait shows, the tabs are at least its width and keep room at their foot for what of it rises over
   // the panel, so they stand above it.
-  derived tabsLeast: Number<Length> = Panel.portraitShown ? PORTRAIT_WIDTH : 0ui
-  derived tabsFoot: Number<Length> = Panel.portraitShown ? (PORTRAIT_HEIGHT - Panel.bottomRoom).max(0ui) : 0ui
+  derived tabsLeast: number<Length> = Panel.portraitShown ? PORTRAIT_WIDTH : 0ui
+  derived tabsFoot: number<Length> = Panel.portraitShown ? (PORTRAIT_HEIGHT - Panel.bottomRoom).max(0ui) : 0ui
   derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
-  derived inputAlways: Boolean = self.settings.values.inputAlways
-  derived between: Number<Spacing> = self.settings.values.messageGap * 1sp
+  derived inputAlways: boolean = self.settings.values.inputAlways
+  derived between: number<Spacing> = self.settings.values.messageGap * 1sp
   // The lines' text: Ordaen's body text, as every module's, or the chat's own size (in UI units) where the player
   // chose one.
-  derived textSize: Number<TextSize> = self.settings.values.ownTextSize ? self.settings.values.textSize * 1rem * 1ui / BODY_TEXT : 1rem
+  derived textSize: number<TextSize> = self.settings.values.ownTextSize ? self.settings.values.textSize * 1rem * 1ui / BODY_TEXT : 1rem
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
 
   constructor() {
@@ -133,8 +133,8 @@ public class Chat implements Module, App {
 
   // The tabs made anew from the game's windows; a tab whose key stays keeps its lines.
   sync(mut self) {
-    const tabs: Array<ChatTab> = []
-    const undocked: Array<ChatTab> = []
+    const tabs: array<ChatTab> = []
+    const undocked: array<ChatTab> = []
     for (window of peek Game::chat.windows) {
       const tab = self.tabOf(`w${window.index}`, window.name)
       tab.follow(window)
@@ -150,14 +150,14 @@ public class Chat implements Module, App {
   }
 
   // Each window's tab takes its own settings: the player's, else its window's defaults.
-  chooseTabs(mut self, chosen: Map<String, TabChoices>) {
+  chooseTabs(mut self, chosen: map<string, TabChoices>) {
     for (window of peek Game::chat.windows) {
       const tab = self.made[tabKey(window.index)]
       if (tab != nil) { tab.choose(chosen[tab.key] ?? tabDefaults(window)) }
     }
   }
 
-  tabOf(mut self, key: String, title: String): mut ChatTab {
+  tabOf(mut self, key: string, title: string): mut ChatTab {
     const known = self.made[key]
     if (known != nil) { return known }
     const tab = new ChatTab(key, title)
@@ -171,7 +171,7 @@ public class Chat implements Module, App {
     if (Social?.heard(line, line.secret != "" ? line.body : linked(line.text)) == true) { return }
     const open = peek self.openKey
     // The line as drawn, by how a tab draws it: its channel's name, its keywords.
-    const drawn: Map<String, Shown> = {}
+    const drawn: map<string, Shown> = {}
     for (index of line.windows) {
       const key = tabKey(index)
       // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
@@ -187,19 +187,19 @@ public class Chat implements Module, App {
   }
 
   // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
-  onReported(mut self, guid: String) {
+  onReported(mut self, guid: string) {
     if (guid == "") { return }
     for (_, tab of self.made) { tab.forgetSender(guid) }
     Social?.reported(guid)
   }
 
-  addTo(mut self, tab: mut ChatTab, shown: Shown, open: String) {
+  addTo(mut self, tab: mut ChatTab, shown: Shown, open: string) {
     tab.add(shown)
     // An undocked window's pane shows each line as it comes: nothing waits unread there.
     if (tab.key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
   }
 
-  shownLine(self, line: Game::ChatLine, channelName: ChannelName, words: Array<String>): Shown {
+  shownLine(self, line: Game::ChatLine, channelName: ChannelName, words: array<string>): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, session: THIS_SESSION, secret: true,
@@ -328,7 +328,7 @@ public class Chat implements Module, App {
   // closed then stays closed.
   onWindowsLoaded(mut self) { self.defaultTabsLater() }
 
-  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.defaultTabsLater() }
+  onEnterWorld(mut self, initial: boolean, reloaded: boolean) { self.defaultTabsLater() }
 
   // Once a frame, however many events ask.
   defaultTabsLater(mut self) {
@@ -366,7 +366,7 @@ public class Chat implements Module, App {
 
   // The last lines of each tab, as many as it keeps, for the next session: written once, as the player logs out.
   keep(mut self) {
-    const tabs: Array<KeptTab> = []
+    const tabs: array<KeptTab> = []
     for (_, tab of self.made) {
       const count = peek tab.kept
       if (count > 0) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }
@@ -442,6 +442,6 @@ public class Chat implements Module, App {
 }
 
 // Whether a window past the game's two shows any of the message groups.
-function showsAny(groups: Array<String>): Boolean {
+function showsAny(groups: array<string>): boolean {
   return (peek Game::chat.windows).any(window => window.index > 2 && Game::chat.groups(window.index).any(group => group.shown && groups.any(name => name == group.name)))
 }

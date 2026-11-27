@@ -16,29 +16,29 @@ public enum Item implements Plain {
   // A place kept empty: its direction stays its own.
   Empty
   // A spell by its name (its highest rank), a mount's too.
-  Spell { spell: String }
+  Spell { spell: string }
   // An item of the bags by its number: dimmed while the player hasn't it.
-  Bag { item: Integer }
+  Bag { item: integer }
   // A macro of the player's, by its name.
-  Macro { macro: String }
+  Macro { macro: string }
   Open { window: Window }
   // A raid mark on the target (1 star to 8 skull; 0 takes it away).
-  RaidMark { mark: Integer }
+  RaidMark { mark: integer }
   // A world mark at the cursor (1 to 8; 0 takes them all away).
-  WorldMark { mark: Integer }
+  WorldMark { mark: integer }
   Pinged { ping: Ping }
   // A line of a macro: an emote (`/wave`), a command (`/readycheck`, `/roll`, `/reload`).
-  Line { title: String, line: String, icon: Asset }
+  Line { title: string, line: string, icon: Asset }
   // An emote of the client's, by its token (`LAUGH`): named by its command in the player's language (`/смех`), no icon.
-  Emote { token: String }
+  Emote { token: string }
   // Its own ring, in place: its items stand under its place (`3_1`, `3_2`). With no icon, its title stands in its place.
-  Menu { title: String, icon: Asset | nil }
+  Menu { title: string, icon: Asset | nil }
   // The player's professions, a ring of them: each opens its window.
   Professions
   // A slot of several: its children stand under its place, as a submenu's do; it does the current one.
-  Slot { title: String, icon: Asset, mode: SlotMode }
+  Slot { title: string, icon: Asset, mode: SlotMode }
   // A kind another module adds (`Radial.kinds`), by its id: what it offers now.
-  Kind { kind: String }
+  Kind { kind: string }
 }
 
 // Where a ring's wheel is drawn: at the screen's middle (the preset's), or at the cursor. It aims from where the cursor
@@ -48,19 +48,19 @@ public enum OpensAt implements Plain { Cursor = "cursor", Middle = "middle" }
 public struct Ring implements Plain {
   opensAt: OpensAt
   names: WheelNames
-  scale: Number
+  scale: number
   // Letting go in the middle of a submenu does the item last used there.
-  remember: Boolean
+  remember: boolean
   // Anchored: the wheel's middle is the aim's while the cursor is on it, and follows the cursor once it goes off.
-  anchored: Boolean = true
+  anchored: boolean = true
   // How many items each of its rings holds, by the ring's place (`""` the ring itself, `"3"` the third's submenu),
   // and each item by its place (`"1"` to `"8"`, `"3_2"`).
-  counts: mut Map<String, Integer>
-  items: mut Map<String, Item>
+  counts: mut map<string, integer>
+  items: mut map<string, Item>
   // When an item may be used, by its place: one with none always.
-  conditions: mut Map<String, Condition>
+  conditions: mut map<string, Condition>
   // The icon the player chose for a place, over the item's own; a place with none shows its item's.
-  icons: mut Map<String, PlaceIcon> = {}
+  icons: mut map<string, PlaceIcon> = {}
 }
 
 // An icon chosen for a place: the client's file by its number or path, or none (its name stands in its wedge).
@@ -70,13 +70,13 @@ public struct PlaceIcon implements Plain {
 
 public struct Choices implements Plain {
   // The rings on the keys `ORDAEN_RADIAL_1` to `_3`, in order.
-  rings: Array<Ring>
+  rings: array<Ring>
 }
 
 // When an item may be used: a class's alone (the client's tag, `WARRIOR`), in a form alone (the stance bar's place,
 // 0 none), with a modifier held alone. An item whose condition doesn't hold is dimmed where it stands.
 public struct Condition implements Plain {
-  classTag: String | nil
-  form: Integer | nil
+  classTag: string | nil
+  form: integer | nil
   modifier: WheelModifier | nil
 }

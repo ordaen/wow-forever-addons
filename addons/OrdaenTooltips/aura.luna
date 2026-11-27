@@ -15,23 +15,23 @@ const CAMP = 1229741
 const REMOVE_COLOR: Color = Color::hex("#8fd2ff")
 
 // What an effect is removed as, in its colour, lifted to read on the wood.
-const DISPEL: Map<String, Color> = {
+const DISPEL: map<string, Color> = {
   Magic: Color::hex("#3c9cff"), Curse: Color::hex("#b45cff"), Poison: Color::hex("#2fbf3f"), Disease: Color::hex("#c89040")
 }
 
 // The spells that remove an effect, by the player's class and by what the effect is removed as; and the ones that
 // take a buff off an enemy.
-const REMOVE: Map<String, Map<String, Array<Integer>>> = {
+const REMOVE: map<string, map<string, array<integer>>> = {
   MAGE: { Curse: [475] },
   DRUID: { Curse: [2782], Poison: [2893, 8946] },
   PRIEST: { Magic: [527, 988], Disease: [552, 528] },
   PALADIN: { Magic: [4987], Poison: [4987, 1152], Disease: [4987, 1152] },
   SHAMAN: { Poison: [526], Disease: [2870] }
 }
-const PURGE: Map<String, Array<Integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 527] }
+const PURGE: map<string, array<integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 527] }
 
 // The first of the spells the player knows, by its name.
-function remover(spells: Array<Integer> | nil): String | nil {
+function remover(spells: array<integer> | nil): string | nil {
   if (spells == nil) { return nil }
   for (id of spells) {
     if (Game::spells.known(id)) { return Game::spells.name(id) }
@@ -39,12 +39,12 @@ function remover(spells: Array<Integer> | nil): String | nil {
   return nil
 }
 
-function wait(seconds: Number): String {
+function wait(seconds: number): string {
   return duration(seconds, Game::strings.hours, Game::strings.minutes, Game::strings.seconds)
 }
 
 // A camp building's bonus in short, by the building's name.
-function campShort(name: String): String | nil {
+function campShort(name: string): string | nil {
   if (name == Locale::CAMP_WELL_NAME) { return Locale::CAMP_WELL }
   if (name == Locale::CAMP_AQUA_NAME) { return Locale::CAMP_AQUA }
   return nil
@@ -53,7 +53,7 @@ function campShort(name: String): String | nil {
 // The camp's bonuses as rows: every paragraph of its description after the first is «Building: effect», the
 // building on the left and its bonus in short on the right, or the sentence itself. The building opens its whole
 // sentence.
-function campRows(text: String, body: mut Array<TextLine>) {
+function campRows(text: string, body: mut array<TextLine>) {
   let first = true
   for (line of text.split("\n")) {
     if (line == "") { continue }
@@ -70,7 +70,7 @@ function campRows(text: String, body: mut Array<TextLine>) {
 
 // What an effect over time will still deal or heal: the amount and the period its description names, times the
 // ticks left, times the stacks. Its label and its value, or nothing where the description doesn't say so.
-function total(text: String, left: Number | nil, stacks: Integer): (String | nil, String | nil) {
+function total(text: string, left: number | nil, stacks: integer): (string | nil, string | nil) {
   if (left == nil) { return nil, nil }
   // A locale's text is a `String`: held to the pattern's grammar as it is read.
   const pattern = Locale::TOTAL_PATTERN
@@ -90,13 +90,13 @@ function total(text: String, left: Number | nil, stacks: Integer): (String | nil
 public function aura(data: Game::TooltipData, options: Options): Model | nil {
   let id = data.id
   let known = Game::auras.shown(data)
-  let name: String | nil = nil
-  let description: String | nil = nil
-  let desc: Array<Part> = []
-  let info: Array<Part> = []
-  let facts: Array<Fact> = []
-  let body: Array<TextLine> = []
-  let foot: Array<Note> = []
+  let name: string | nil = nil
+  let description: string | nil = nil
+  let desc: array<Part> = []
+  let info: array<Part> = []
+  let facts: array<Fact> = []
+  let body: array<TextLine> = []
+  let foot: array<Note> = []
   for (i, line of data.lines) {
     let left = clean(line.left)
     if (i == 1) {
@@ -131,7 +131,7 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
     }
     // What the player can do about it.
     let mine = Game::player.classTag
-    let by: String | nil = nil
+    let by: string | nil = nil
     if (dispel != nil && harmful) {
       let spells = REMOVE[mine]
       by = remover(spells != nil ? spells[dispel] : nil)

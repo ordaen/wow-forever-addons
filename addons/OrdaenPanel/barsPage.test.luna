@@ -16,7 +16,7 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900 }
 // The page and the bars it sets, on the test's own settings (kept nowhere).
 class Stand implements Component {
   public settings: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS)
-  public state defaults: Map<String, BarChoice> = barDefaults()
+  public state defaults: map<string, BarChoice> = barDefaults()
 
   public render(self): Template {
     return $ltml {
@@ -37,13 +37,13 @@ function alone() {
 }
 
 // A bar's settings as the settings hold them.
-function chosen(stand: Stand, id: String): BarChoice {
+function chosen(stand: Stand, id: string): BarChoice {
   const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
   return stand.settings.values.bars[id] ?? stand.defaults[id] ?? defaultChoice(spec, false)
 }
 
 // A bar's settings changed and saved, as a page left them before.
-function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => nil) {
+function set(stand: mut Stand, id: string, change: (choice: mut BarChoice) => nil) {
   const choice = chosen(stand, id).clone()
   change(choice)
   stand.settings.change((values: mut BarsChoices): nil => {
@@ -52,18 +52,18 @@ function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => ni
 }
 
 // The client's button of a bar made last, by its name.
-function lastNamed(name: String, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
+function lastNamed(name: string, at: any Client::Frame | nil, found: any Client::Frame | nil): any Client::Frame | nil {
   if (at == nil) { return found }
   return lastNamed(name, Client::EnumerateFrames(at), at.GetName() == name ? at : found)
 }
 
-function button(id: String, index: Integer): any Client::Frame {
+function button(id: string, index: integer): any Client::Frame {
   const name = buttonName(id, index)
   return lastNamed(name, Client::EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
 }
 
 // The «…» menu's copy, from the bar the submenu names so: the last such name drawn, the list's drawn before it.
-function copyFrom(named: String) {
+function copyFrom(named: string) {
   Test::page().button("…").click()
   Test::page().text("Copy settings from").hover()
   const found = Test::page().text(named)

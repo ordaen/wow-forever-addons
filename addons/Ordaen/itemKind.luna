@@ -13,7 +13,7 @@ public enum ItemKind implements Plain {
 }
 
 // The kinds in their fixed order: quest items and consumables first, then equipment, trade goods, recipes, the rest.
-public const ITEM_KINDS: Array<ItemKind> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Keys, .Other]
+public const ITEM_KINDS: array<ItemKind> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Keys, .Other]
 
 // The client's classes of items (`Enum.ItemClass`) the kinds are made of.
 const CONSUMABLE = 0
@@ -28,7 +28,7 @@ const KEY = 13
 
 // An item's kind by the client's class of it (`itemClass`): a trade good where crafting takes it, as the client marks
 // it (`reagent`), whatever its class (a feather is the client's miscellany).
-public function kindOf(itemClass: Integer, reagent: Boolean): ItemKind {
+public function kindOf(itemClass: integer, reagent: boolean): ItemKind {
   if (reagent) { return .Trade }
   return match (itemClass) {
     QUEST => .Quest
@@ -41,7 +41,7 @@ public function kindOf(itemClass: Integer, reagent: Boolean): ItemKind {
   }
 }
 
-public function kindName(kind: ItemKind): String {
+public function kindName(kind: ItemKind): string {
   return match (kind) {
     .Quest => Locale::KIND_QUEST
     .Consumables => Locale::KIND_CONSUMABLES

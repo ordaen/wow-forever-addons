@@ -33,40 +33,40 @@ const TAB_PAD: Edges = { top: 2.5sp, right: 6sp, bottom: 2.5sp, left: 6sp }
 const BAND_PAD: Edges = { top: 4sp }
 const HEAD_PAD: Edges = { right: WINDOW_ROOM, left: WINDOW_ROOM }
 const HEADED_PAD: Edges = { right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
-const BAND_ROWS: Array<Track> = ["max-content", "max-content"]
+const BAND_ROWS: array<Track> = ["max-content", "max-content"]
 // A count after the name: on a dark pill.
-const COUNTED: Array<Track> = ["max-content", "max-content"]
-const NAME_ONLY: Array<Track> = ["max-content"]
+const COUNTED: array<Track> = ["max-content", "max-content"]
+const NAME_ONLY: array<Track> = ["max-content"]
 // Vertical: the name takes the tab's width, the count at its right.
-const COUNTED_ACROSS: Array<Track> = [{ fr: 1 }, "max-content"]
-const NAME_ACROSS: Array<Track> = [{ fr: 1 }]
+const COUNTED_ACROSS: array<Track> = [{ fr: 1 }, "max-content"]
+const NAME_ACROSS: array<Track> = [{ fr: 1 }]
 const PILL: Color = Color::hex("#00000099")
 const PILL_PAD: Edges = { right: 1sp, left: 1sp }
 
 // One tab of the band.
 public class Tab implements Component {
-  derived picked: Boolean = self.selected == self.index
+  derived picked: boolean = self.selected == self.index
   derived border: Line = self.picked ? self.vertical ? OPEN_RIGHT : OPEN : self.vertical ? UNRULED_RIGHT : UNRULED
   derived foot: Color = self.picked ? CLEAR : RULE_COLOR
   derived background: Art | ByInteractionState<Color> = self.picked ? Ordaen.art.window.wood : SHADE
   derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : self.off ? OFF : NAME
-  derived counted: Boolean = self.count != nil
-  derived countText: String = String::of(self.count ?? 0)
-  derived tracks: Array<Track> = self.vertical ? self.counted ? COUNTED_ACROSS : NAME_ACROSS : self.counted ? COUNTED : NAME_ONLY
+  derived counted: boolean = self.count != nil
+  derived countText: string = string::of(self.count ?? 0)
+  derived tracks: array<Track> = self.vertical ? self.counted ? COUNTED_ACROSS : NAME_ACROSS : self.counted ? COUNTED : NAME_ONLY
 
-  label: Signal<String>
-  const index: Integer
-  selected: mut Signal<Integer>
-  count: Signal<Integer | nil>
-  off: Signal<Boolean>
-  vertical: Signal<Boolean>
+  label: Signal<string>
+  const index: integer
+  selected: mut Signal<integer>
+  count: Signal<integer | nil>
+  off: Signal<boolean>
+  vertical: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    index: Integer,
-    selected: mut Signal<Integer>,
-    count: Signal<Integer | nil> = nil,
-    off: Signal<Boolean> = false,
-    vertical: Signal<Boolean> = false
+    label: Signal<string>,
+    index: integer,
+    selected: mut Signal<integer>,
+    count: Signal<integer | nil> = nil,
+    off: Signal<boolean> = false,
+    vertical: Signal<boolean> = false
   ) {
     self.label = label
     self.index = index
@@ -97,28 +97,28 @@ public class Tab implements Component {
 
 public class Tabs implements Component {
   // The band's left end, a column as wide as each tab, and the rest of the band.
-  derived columns: Array<Track> = self.tracks()
+  derived columns: array<Track> = self.tracks()
   // Vertical: the column's top, a row as high as each tab, and the rest of the column.
-  derived rows: Array<Track> = self.tracks()
+  derived rows: array<Track> = self.tracks()
   derived headPad: Edges = self.headed ? HEADED_PAD : HEAD_PAD
 
-  tabs: Signal<Array<String>>
-  selected: mut Signal<Integer>
+  tabs: Signal<array<string>>
+  selected: mut Signal<integer>
   // Each tab's count, by its place; none: no counts shown.
-  counts: Signal<Array<Integer>>
+  counts: Signal<array<integer>>
   // Something stands over the tabs, in the band (the slot): room under it.
-  headed: Signal<Boolean>
+  headed: Signal<boolean>
   // Each tab with nothing in it, by its place: its name dim.
-  offs: Signal<Array<Boolean>>
+  offs: Signal<array<boolean>>
   // Down a column, not across a band; what stands over the tabs is the band's alone.
-  vertical: Signal<Boolean>
+  vertical: Signal<boolean>
   constructor(
-    tabs: Signal<Array<String>>,
-    selected: mut Signal<Integer>,
-    counts: Signal<Array<Integer>> = [],
-    headed: Signal<Boolean> = false,
-    offs: Signal<Array<Boolean>> = [],
-    vertical: Signal<Boolean> = false
+    tabs: Signal<array<string>>,
+    selected: mut Signal<integer>,
+    counts: Signal<array<integer>> = [],
+    headed: Signal<boolean> = false,
+    offs: Signal<array<boolean>> = [],
+    vertical: Signal<boolean> = false
   ) {
     self.tabs = tabs
     self.selected = selected
@@ -128,8 +128,8 @@ public class Tabs implements Component {
     self.vertical = vertical
   }
 
-  tracks(self): Array<Track> {
-    let list: Array<Track> = [Ordaen.lengthOf(WINDOW_ROOM)]
+  tracks(self): array<Track> {
+    let list: array<Track> = [Ordaen.lengthOf(WINDOW_ROOM)]
     for (name of self.tabs) { list.push("max-content") }
     list.push({ fr: 1 })
     return list

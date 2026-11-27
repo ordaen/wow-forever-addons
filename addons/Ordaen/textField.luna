@@ -11,18 +11,18 @@ const EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const PADDING: Edges = { right: 3sp, left: 3sp }
 
 public class TextField implements Component {
-  label: Signal<String>
-  value: mut Signal<String>
-  const maxLength: Integer | nil
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  value: mut Signal<string>
+  const maxLength: integer | nil
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    value: mut Signal<String>,
+    label: Signal<string>,
+    value: mut Signal<string>,
     // The most characters it takes; any number when left out.
-    maxLength: Integer | nil = nil,
-    hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false
+    maxLength: integer | nil = nil,
+    hint: Signal<string> = "",
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value

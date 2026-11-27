@@ -12,24 +12,24 @@ import type { CreatureQuests, Offered, Wanted } from "OrdaenTooltips"
 import { LogQuest } from "@/book"
 import { ItemDrops, NpcQuests, QuestFacts } from "@/questie"
 
-const NO_WANTS: Array<Wanted> = []
+const NO_WANTS: array<Wanted> = []
 // More droppers than this: everyday loot.
 const COMMON = 100
 // A creature whose chance is under this share of the best creature's drops the item hardly ever.
 const RARE_SHARE = 0.1
 
 // An objective's text without its count, wherever the client puts it («Name: 2/4», «2/4 Name»).
-function labelOf(text: String): String {
+function labelOf(text: string): string {
   return text.replace("^%d+%s*/%s*%d+%s*", "").replace("%s*:?%s*%d+%s*/%s*%d+%s*$", "")
 }
 
 // The creatures an item's objective is shown on: none for everyday loot; where QuestieDB has chances, those that drop
 // it at least `RARE_SHARE` as often as the best one; else every one.
-public function droppersOf(drop: ItemDrops): Array<Integer> {
+public function droppersOf(drop: ItemDrops): array<integer> {
   if (drop.sources.length > COMMON) { return [] }
   let best = 0.0
   for (source of drop.sources) { best = best.max(source.chance ?? 0) }
-  const creatures: Array<Integer> = []
+  const creatures: array<integer> = []
   for (source of drop.sources) {
     if (best == 0 || (source.chance ?? 0) >= best * RARE_SHARE) { creatures.push(source.creature) }
   }
@@ -38,7 +38,7 @@ public function droppersOf(drop: ItemDrops): Array<Integer> {
 
 // The log's objective a quest's item asks for: the log's item objectives stand in QuestieDB's order of its items, so
 // where they are as many, the one at the item's place; else the one whose text names the item, whole.
-function objectiveFor(quest: LogQuest, facts: QuestFacts, at: Integer): Game::QuestObjective | nil {
+function objectiveFor(quest: LogQuest, facts: QuestFacts, at: integer): Game::QuestObjective | nil {
   const items = quest.objectives.filter(objective => objective.kind == .Item)
   if (items.length == facts.drops.length) { return items[at] }
   const drop = facts.drops[at]
@@ -47,8 +47,8 @@ function objectiveFor(quest: LogQuest, facts: QuestFacts, at: Integer): Game::Qu
 
 // The log's quests to do by the creatures that drop what their item objectives ask for. An objective not done counts
 // short of its need: Forever's client can say 1 of 1 before it is done (the game's side raises that as a fault).
-public function wantsOf(quests: Array<LogQuest>, facts: Map<Integer, QuestFacts>): Map<Integer, Array<Wanted>> {
-  const by: Map<Integer, mut Array<Wanted>> = {}
+public function wantsOf(quests: array<LogQuest>, facts: map<integer, QuestFacts>): map<integer, array<Wanted>> {
+  const by: map<integer, mut array<Wanted>> = {}
   for (quest of quests) {
     const known = facts[quest.id]
     if (quest.done || quest.failed || known == nil) { continue }
@@ -75,35 +75,35 @@ public function wantsOf(quests: Array<LogQuest>, facts: Map<Integer, QuestFacts>
 
 // What the player is, for a quest's needs.
 public struct Seeker {
-  level: Integer
-  race: Integer
-  classNumber: Integer
+  level: integer
+  race: integer
+  classNumber: integer
   // The player's standing with a faction, the client's value (0 for a faction not met yet), and rank in a profession
   // by its skill line (none for one not learned).
-  standing: (faction: Integer) => Integer
-  skill: (line: Integer) => Integer | nil
+  standing: (faction: integer) => integer
+  skill: (line: integer) => integer | nil
 }
 
 // The player's standing with a faction: the client's value of it; 0 for one the player hasn't met.
-function standingWith(faction: Integer): Integer {
+function standingWith(faction: integer): integer {
   return (Client::C_Reputation::GetFactionDataByID(faction)?.currentStanding ?? 0).floor()
 }
 
 // The player's rank in a profession by its skill line; none where they haven't learned it.
-function skillIn(line: Integer): Integer | nil {
+function skillIn(line: integer): integer | nil {
   return Game::professions.list.find(profession => profession.skillLine == line)?.rank
 }
 
 // Whether every one of `ids` is turned in, one of them is, or one is taken or turned in.
-function allDone(ids: Array<Integer>, done: (id: Integer) => Boolean): Boolean { return ids.all(id => done(id)) }
-function anyDone(ids: Array<Integer>, done: (id: Integer) => Boolean): Boolean { return ids.any(id => done(id)) }
+function allDone(ids: array<integer>, done: (id: integer) => boolean): boolean { return ids.all(id => done(id)) }
+function anyDone(ids: array<integer>, done: (id: integer) => boolean): boolean { return ids.any(id => done(id)) }
 
 // Whether the player may take a quest now: of the level, the race and the class it is for, the quests before it
 // turned in, none it excludes taken or turned in, the standing and the skill it asks, and it neither turned in nor in
 // the log.
 public function takeable(
-  id: Integer, facts: QuestFacts, seeker: Seeker, logged: (id: Integer) => Boolean, done: (id: Integer) => Boolean
-): Boolean {
+  id: integer, facts: QuestFacts, seeker: Seeker, logged: (id: integer) => boolean, done: (id: integer) => boolean
+): boolean {
   if (logged(id) || done(id)) { return false }
   if (seeker.level < facts.minLevel || (facts.maxLevel > 0 && seeker.level > facts.maxLevel)) { return false }
   if (facts.races.length > 0 && !facts.races.any(race => race == seeker.race)) { return false }
@@ -121,15 +121,15 @@ public function takeable(
 
 // What an NPC offers the player: the log's done quests it takes back, then the quests it gives that may be taken now.
 public function offersOf(
-  npc: NpcQuests, quests: Array<LogQuest>, factsOf: (id: Integer) => QuestFacts | nil, seeker: Seeker,
-  done: (id: Integer) => Boolean
-): Array<Offered> {
-  const offers: Array<Offered> = []
+  npc: NpcQuests, quests: array<LogQuest>, factsOf: (id: integer) => QuestFacts | nil, seeker: Seeker,
+  done: (id: integer) => boolean
+): array<Offered> {
+  const offers: array<Offered> = []
   for (id of npc.ends) {
     const quest = quests.find(quest => quest.id == id)
     if (quest != nil && quest.done) { offers.push({ title: quest.title, level: quest.level, turnIn: true }) }
   }
-  const logged = (id: Integer): Boolean => quests.any(quest => quest.id == id)
+  const logged = (id: integer): boolean => quests.any(quest => quest.id == id)
   for (id of npc.starts) {
     const facts = factsOf(id)
     if (facts != nil && takeable(id, facts, seeker, logged, done)) {
@@ -140,19 +140,19 @@ public function offersOf(
 }
 
 public class QuestCreatures implements CreatureQuests {
-  derived by: Map<Integer, Array<Wanted>> = wantsOf(self.quests, self.facts)
+  derived by: map<integer, array<Wanted>> = wantsOf(self.quests, self.facts)
   derived seeker: Seeker = {
     level: Game::player.level, race: Game::player.raceNumber, classNumber: Game::player.classNumber,
     standing: standingWith, skill: skillIn
   }
 
-  quests: Signal<Array<LogQuest>>
-  facts: Signal<Map<Integer, QuestFacts>>
-  const npcQuests: (id: Integer) => NpcQuests
-  const factsOf: (id: Integer) => QuestFacts | nil
+  quests: Signal<array<LogQuest>>
+  facts: Signal<map<integer, QuestFacts>>
+  const npcQuests: (id: integer) => NpcQuests
+  const factsOf: (id: integer) => QuestFacts | nil
   constructor(
-    quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>, npcQuests: (id: Integer) => NpcQuests,
-    factsOf: (id: Integer) => QuestFacts | nil
+    quests: Signal<array<LogQuest>>, facts: Signal<map<integer, QuestFacts>>, npcQuests: (id: integer) => NpcQuests,
+    factsOf: (id: integer) => QuestFacts | nil
   ) {
     self.quests = quests
     self.facts = facts
@@ -160,13 +160,13 @@ public class QuestCreatures implements CreatureQuests {
     self.factsOf = factsOf
   }
 
-  public wants(self, creature: Integer): Array<Wanted> {
+  public wants(self, creature: integer): array<Wanted> {
     return self.by[creature] ?? NO_WANTS
   }
 
-  public offers(self, creature: Integer): Array<Offered> {
+  public offers(self, creature: integer): array<Offered> {
     return offersOf(
-      self.npcQuests(creature), self.quests, self.factsOf, self.seeker, (id: Integer): Boolean => Game::questLog.completed(id)
+      self.npcQuests(creature), self.quests, self.factsOf, self.seeker, (id: integer): boolean => Game::questLog.completed(id)
     )
   }
 }
@@ -176,8 +176,8 @@ public class QuestCreatures implements CreatureQuests {
 public class TooltipCreatures {
   const creatures: QuestCreatures
   constructor(
-    quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>, npcQuests: (id: Integer) => NpcQuests,
-    factsOf: (id: Integer) => QuestFacts | nil
+    quests: Signal<array<LogQuest>>, facts: Signal<map<integer, QuestFacts>>, npcQuests: (id: integer) => NpcQuests,
+    factsOf: (id: integer) => QuestFacts | nil
   ) {
     self.creatures = new QuestCreatures(quests, facts, npcQuests, factsOf)
     watch (tooltips of Tooltips) {

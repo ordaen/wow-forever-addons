@@ -3,7 +3,7 @@
 // areas`: never edited by hand. Source: wago.tools, product wowf, build 1.60.1.70959.
 
 // An area to its uiMap.
-public const mapOfArea: Map<Integer, Integer> = {
+public const mapOfArea: map<integer, integer> = {
   [1]: 1426,
   [3]: 1418,
   [4]: 1419,

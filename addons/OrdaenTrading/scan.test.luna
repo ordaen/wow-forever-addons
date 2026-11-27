@@ -16,10 +16,10 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800
 const HOUR = 3600
-const ORE: Integer = 2770
-const LINEN: Integer = 2589
-const BLADE: Integer = 15211
-const SUFFIXED: Integer = 1048576
+const ORE: integer = 2770
+const LINEN: integer = 2589
+const BLADE: integer = 15211
+const SUFFIXED: integer = 1048576
 const RED: Color = Color::hex("#ff4040")
 const AMBER: Color = Color::hex("#ffb02e")
 // A text the settings window always shows.
@@ -27,25 +27,25 @@ const SETTINGS = "Move mode"
 
 // An auction as the scan reads it: its key, its buyout for one, how many.
 struct Sale {
-  key: Integer
-  unit: Integer
-  many: Integer
+  key: integer
+  unit: integer
+  many: integer
 }
 
-function names(id: Integer): Game::TooltipData | nil {
+function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == BLADE ? "Glimmering Blade" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
 }
 
 // The bags: copper ore and linen.
-function bags(): Array<Game::Sellable> | nil {
+function bags(): array<Game::Sellable> | nil {
   return [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }, { item: LINEN, count: 1, bag: 0, slot: 2, commodity: true }]
 }
 
 // What the house answers a full scan with: these auctions, by their place.
-function reader(auctions: Array<Sale>): (index: Integer) => (Integer, Integer, Integer) {
-  return (index: Integer): (Integer, Integer, Integer) => {
+function reader(auctions: array<Sale>): (index: integer) => (integer, integer, integer) {
+  return (index: integer): (integer, integer, integer) => {
     const auction = auctions[index]
     if (auction == nil) { return 0, 0, 0 }
     return auction.key, auction.unit, auction.many
@@ -56,7 +56,7 @@ function window(): Test::Part {
   return Test::page().window("Sell")
 }
 
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
@@ -64,17 +64,17 @@ function asked(expected: String): Boolean {
 }
 
 // Whether the window shows this text (a progress bar's label among them).
-function showing(text: String): Boolean {
+function showing(text: string): boolean {
   return window().texts().any(shown => shown == text)
 }
 
 // Whether the texts after `label` in `part` read exactly `expected` (as many as it has, joined by « | »).
-function says(part: Test::Part, label: String, expected: String): Boolean {
+function says(part: Test::Part, label: string, expected: string): boolean {
   const shown = part.texts()
   const count = expected.split(" | ").length
   for (index, text of shown) {
     if (text == label) {
-      let read: Array<String> = []
+      let read: array<string> = []
       for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
@@ -85,14 +85,14 @@ function says(part: Test::Part, label: String, expected: String): Boolean {
 }
 
 // A full scan asked from «Scan» and answered with these auctions, read through.
-function scanned(auctions: Array<Sale>) {
+function scanned(auctions: array<Sale>) {
   window().button("Scan").click()
   Game::auctionScan.finished.emit(auctions.length)
   Test::pass(0.2)
 }
 
 // The item panel of an item the bags hold, picked on «Sell».
-function panel(name: String): Test::Part {
+function panel(name: string): Test::Part {
   window().button("Sell").click()
   Game::bags.changed.emit()
   window().text(name).click()
@@ -139,7 +139,7 @@ test "a full scan read through: the prices' age and how many items they cover, t
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(window().text("Prices: just now · 2 items").shown() && window().text("Next full scan in 15 min").shown())
@@ -152,7 +152,7 @@ test "the account's 15 minutes counted down, «Scan» is back; asked again befor
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   _ = Test::requests()
@@ -172,7 +172,7 @@ test "the account's wait is kept: after a reload the next scan is still counted 
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::reload()
@@ -189,16 +189,16 @@ test "a scan shows its progress as it reads, and the house shut on it drops it: 
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let auctions: Array<Sale> = []
+  let auctions: array<Sale> = []
   for (index of 1..1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
   // The clock moves 0.02 ms an auction read: asked every 50 auctions, the frame's 4 ms are past at the 250th.
   let reads = 0
-  Game::auctionScan.read = (index: Integer): (Integer, Integer, Integer) => {
+  Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
     reads += 1
     const auction = auctions[index] ?? panic("an auction of the answer")
     return auction.key, auction.unit, auction.many
   }
-  Client::debugprofilestop = (): Number => reads * 0.02
+  Client::debugprofilestop = (): number => reads * 0.02
   window().button("Scan").click()
   Game::auctionScan.finished.emit(auctions.length)
   // 250 of 1200 read a frame, 0.9 of the bar for the reading: 37% as the second frame is drawn.
@@ -243,7 +243,7 @@ test "a full scan's market is the cheapest fifth of what is listed, the lowest b
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   // 13 listed: the cheapest 3, two at 100 and one at 120, are 107 each.
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   const shown = panel("Copper Ore")
@@ -256,7 +256,7 @@ test "one auction far below the rest moves the fifth little; a single auction is
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [
+  const sold: array<Sale> = [
     { key: ORE, unit: 1, many: 1 }, { key: ORE, unit: 200, many: 30 }, { key: ORE, unit: 250, many: 20 },
     { key: LINEN, unit: 500, many: 1 }
   ]
@@ -272,7 +272,7 @@ test "an auction with no buyout, or one the client couldn't say, counts for noth
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }, { key: LINEN, unit: 0, many: 5 }, { key: 0, unit: 10, many: 1 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }, { key: LINEN, unit: 0, many: 5 }, { key: 0, unit: 10, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(says(panel("Linen Cloth"), "Market", "0g 0s 40c") && window().text("Prices: just now · 1 item").shown())
@@ -284,7 +284,7 @@ test "a weapon's random suffix is a price of its own, which its tooltip reads" {
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: BLADE + 3 * SUFFIXED, unit: 25000, many: 1 }, { key: BLADE, unit: 9000, many: 1 }]
+  const sold: array<Sale> = [{ key: BLADE + 3 * SUFFIXED, unit: 25000, many: 1 }, { key: BLADE, unit: 9000, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(window().text("Prices: just now · 2 items").shown())
@@ -296,12 +296,12 @@ test "auctions whose item's data came late are read as it comes, and counted" {
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const auctions: Array<Sale> = [
+  const auctions: array<Sale> = [
     { key: ORE, unit: 100, many: 2 }, { key: LINEN, unit: 40, many: 20 }, { key: BLADE, unit: 9000, many: 1 }
   ]
   // The blade's data hasn't loaded: the client says nothing of it until it comes.
   let loaded = false
-  Game::auctionScan.read = (index: Integer): (Integer, Integer, Integer) => {
+  Game::auctionScan.read = (index: integer): (integer, integer, integer) => {
     const auction = auctions[index] ?? panic("an auction of the answer")
     if (!loaded && index == 3) { return 0, 0, 0 }
     return auction.key, auction.unit, auction.many
@@ -312,8 +312,8 @@ test "auctions whose item's data came late are read as it comes, and counted" {
   Test::pass(0.02)
   Test::expect(showing("Scanning 0%"))
   loaded = true
-  const ready: Array<Integer> = [3]
-  Game::auctionScan.again = (turn: Integer): Integer => ready[turn] ?? 0
+  const ready: array<integer> = [3]
+  Game::auctionScan.again = (turn: integer): integer => ready[turn] ?? 0
   Game::auctionScan.waiting = 0
   Test::pass(0.1)
   Test::expect(window().text("Prices: just now · 3 items").shown())
@@ -326,7 +326,7 @@ test "auctions whose data never comes are given up after ten seconds" {
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   Game::auctionScan.waiting = 1
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(showing("Scanning 0%"))
@@ -360,10 +360,10 @@ test "what one costs is the lowest listed for two days, then the market; past 30
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
   window().button("Sell").click()
   Test::expect(window().text("Copper Ore").item().text("0g 1s 0c").shown())
   Game::clock.server = START + 49 * HOUR
@@ -379,17 +379,17 @@ test "what one costs is the lowest listed for two days, then the market; past 30
 
 test "what one brings is the lesser of the market and a fresh lowest, less the cut: «Pays more» weighs it" {
   Game::clock.server = START
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [ORE]: 96 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [ORE]: 96 } }
   Game::merchant.opened.emit()
   Game::items.tooltip = names
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   // The market 107, the lowest 100: 95 after the cut, under the merchant's 96.
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
   window().button("Sell").click()
   Test::expect(window().text("Copper Ore").item().text("Vendor").shown())
   // Two days on the lowest is old: 107 less the cut is 101.
@@ -420,7 +420,7 @@ test "a full scan drops what was unseen past 30 days: its market and its lowest"
   Game::clock.server = START + 20 * HOUR
   Game::auctionQuery.results.emit([{ key: BLADE, copper: 9000, quantity: 1 }])
   Game::clock.server = START + 721 * HOUR
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(window().text("Prices: just now · 2 items").shown())
@@ -451,7 +451,7 @@ test "a full scan is kept as it ends, and read back the same after a reload" {
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::reload()
@@ -498,7 +498,7 @@ test "«Data» after a full scan: how long ago, the auctions and items in it, th
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: LINEN, unit: 40, many: 20 }, { key: LINEN, unit: 45, many: 2 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: LINEN, unit: 40, many: 20 }, { key: LINEN, unit: 45, many: 2 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Game::clock.server = START + 300
@@ -529,10 +529,10 @@ test "the lowest listed is what one costs to its 48th hour" {
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: ORE, count: 1, bag: 0, slot: 1, commodity: true }]
   Game::clock.server = START + 48 * HOUR
   window().button("Sell").click()
   Test::expect(window().text("Copper Ore").item().text("0g 1s 0c").shown())
@@ -546,7 +546,7 @@ test "a full scan keeps what was seen 30 days ago to the hour" {
   Game::auctionHouse.open = true
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 40, quantity: 1 }])
   Game::clock.server = START + 720 * HOUR
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(window().text("Prices: just now · 2 items").shown())
@@ -554,14 +554,14 @@ test "a full scan keeps what was seen 30 days ago to the hour" {
 
 test "what one brings counts the lowest to its 48th hour, and nothing past 30 days" {
   Game::clock.server = START
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [ORE]: 96 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [ORE]: 96 } }
   Game::merchant.opened.emit()
   Game::items.tooltip = names
   Game::auctionActions.sellable = bags
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   // The market 107, the lowest 100: 95 after the cut while the lowest counts, 101 after.
-  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  const sold: array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Game::clock.server = START + 48 * HOUR
@@ -581,7 +581,7 @@ test "the prices' age: just now under a minute, minutes from one, hours from one
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   // Each second passed moves the server's time a second.
@@ -607,7 +607,7 @@ test "«Data» after a scan of one auction counts it" {
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  const sold: array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
   Game::auctionScan.read = reader(sold)
   scanned(sold)
   Test::expect(says(data(), "Auctions and items in it", "1 auction, 1 item"))

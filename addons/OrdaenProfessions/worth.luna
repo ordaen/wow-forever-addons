@@ -17,13 +17,13 @@ import Style from "@/style"
 // What the tab asks: sold at the house, sold to a merchant, made from what is held, a cooldown ready now.
 public enum Mode { Auction = "auction", Vendor = "vendor", Held = "held", Cooldowns = "cooldowns" }
 
-const MODES: Array<Choice<Mode>> = [
+const MODES: array<Choice<Mode>> = [
   { value: Mode::Auction, label: Locale::WORTH_MODE_AUCTION },
   { value: Mode::Vendor, label: Locale::WORTH_MODE_VENDOR },
   { value: Mode::Held, label: Locale::WORTH_MODE_HELD },
   { value: Mode::Cooldowns, label: Locale::WORTH_MODE_COOLDOWNS }
 ]
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
   { title: Locale::WORTH_WHO, width: 175.78125dp, sortable: true },
   { title: Locale::COLUMN_COST, width: 105.46875dp, align: Align::End, sortable: true },
@@ -33,7 +33,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale::WORTH_AGE, width: 70.3125dp, align: Align::End, sortable: true },
   { title: Locale::WORTH_CAN, width: 105.46875dp, align: Align::End, sortable: true }
 ]
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The mode and the notes over the table keep the window's room; the table runs to the page's edges.
 const HEAD_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 3sp, left: WINDOW_ROOM }
 const NONE = "—"
@@ -42,39 +42,39 @@ const DAY = 24
 // A recipe a character knows, as the tab weighs it: its prices for one making, and how many the holdings make now.
 public struct Worth {
   // The character's GUID and the recipe: one row of the table.
-  key: String
-  recipe: Integer
-  name: String
-  who: String
-  profession: String
-  cost: Integer | nil
-  sale: Integer | nil
-  profit: Integer | nil
-  percent: Integer | nil
+  key: string
+  recipe: integer
+  name: string
+  who: string
+  profession: string
+  cost: integer | nil
+  sale: integer | nil
+  profit: integer | nil
+  percent: integer | nil
   // Hours the oldest house price it took is old; none where it took none.
-  age: Integer | nil
-  can: Integer
+  age: integer | nil
+  can: integer
   // What one making lacks of what the reached characters hold.
-  missing: Array<Reagent>
+  missing: array<Reagent>
 }
 
 // A character the book has a page of, reached by the one being played.
 struct Reached {
-  guid: String
-  name: String
+  guid: string
+  name: string
   // The hour each recipe with a cooldown is ready again, as Ordaen Alts recorded it.
-  ready: Map<Integer, Integer>
+  ready: map<integer, integer>
 }
 
 // The page's text for an age in hours.
-function ageText(hours: Integer | nil): String {
+function ageText(hours: integer | nil): string {
   if (hours == nil) { return NONE }
   if (hours < 2 * DAY) { return Locale::WORTH_AGE_HOURS.format(hours) }
   return Locale::WORTH_AGE_DAYS.format((hours / DAY).floor())
 }
 
 // What a merchant gives for one of an item; none where the client says nothing.
-function merchantPrice(item: Integer): Integer | nil {
+function merchantPrice(item: integer): integer | nil {
   const _, _, _, _, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   if (price == nil || price <= 0) { return nil }
   return price.floor()
@@ -82,7 +82,7 @@ function merchantPrice(item: Integer): Integer | nil {
 
 // Whether the mode lists a recipe: one that makes an item to sell, any to make from what is held, one whose cooldown
 // Ordaen Alts records ready by now.
-function wanted(mode: Mode, entry: Entry, ready: Integer | nil, now: Integer): Boolean {
+function wanted(mode: Mode, entry: Entry, ready: integer | nil, now: integer): boolean {
   return match (mode) {
     Mode::Auction, Mode::Vendor => entry.makes != nil
     Mode::Held => true
@@ -91,7 +91,7 @@ function wanted(mode: Mode, entry: Entry, ready: Integer | nil, now: Integer): B
 }
 
 // Whether `a` stands before `b` in the column's order; a cell of no value stands last either way.
-function before(column: Integer, descending: Boolean, a: Worth, b: Worth): Boolean {
+function before(column: integer, descending: boolean, a: Worth, b: Worth): boolean {
   if (column == 1 || column == 0) { return descending ? a.name > b.name : a.name < b.name }
   if (column == 2) { return descending ? a.who > b.who : a.who < b.who }
   const x = numberOf(column, a)
@@ -101,7 +101,7 @@ function before(column: Integer, descending: Boolean, a: Worth, b: Worth): Boole
   return descending ? x > y : x < y
 }
 
-function numberOf(column: Integer, worth: Worth): Integer | nil {
+function numberOf(column: integer, worth: Worth): integer | nil {
   return match (column) {
     3 => worth.cost
     4 => worth.sale
@@ -114,23 +114,23 @@ function numberOf(column: Integer, worth: Worth): Integer | nil {
 
 // One row of the table.
 public class WorthLine implements Component {
-  public pick: Event<String> = new Event()
+  public pick: Event<string> = new Event()
 
-  derived picked: Boolean = self.chosen == self.worth.key
-  derived hasCost: Boolean = self.worth.cost != nil
-  derived cost: Integer = self.worth.cost ?? 0
-  derived hasSale: Boolean = self.worth.sale != nil
-  derived sale: Integer = self.worth.sale ?? 0
-  derived hasProfit: Boolean = self.worth.profit != nil
-  derived profit: Integer = self.worth.profit ?? 0
+  derived picked: boolean = self.chosen == self.worth.key
+  derived hasCost: boolean = self.worth.cost != nil
+  derived cost: integer = self.worth.cost ?? 0
+  derived hasSale: boolean = self.worth.sale != nil
+  derived sale: integer = self.worth.sale ?? 0
+  derived hasProfit: boolean = self.worth.profit != nil
+  derived profit: integer = self.worth.profit ?? 0
   derived profitColor: Color = self.profit < 0 ? Style::RED : BRIGHT_TEXT
-  derived percent: String = self.worth.percent == nil ? NONE : String::of(self.worth.percent)
-  derived age: String = ageText(self.worth.age)
-  derived can: String = String::of(self.worth.can)
+  derived percent: string = self.worth.percent == nil ? NONE : string::of(self.worth.percent)
+  derived age: string = ageText(self.worth.age)
+  derived can: string = string::of(self.worth.can)
 
   worth: Signal<Worth>
-  chosen: Signal<String>
-  constructor(worth: Signal<Worth>, chosen: Signal<String>) {
+  chosen: Signal<string>
+  constructor(worth: Signal<Worth>, chosen: Signal<string>) {
     self.worth = worth
     self.chosen = chosen
   }
@@ -180,17 +180,17 @@ public class WorthPage implements Component {
   state descending = true
   // The picked row's key; "" for none.
   state chosen = ""
-  derived reached: Array<Reached> = self.reachedOf()
-  derived rows: Array<Worth> = self.rowsOf()
-  derived alone: Boolean = self.reached.length < 2
-  derived noPrices: Boolean = self.prices == nil
-  derived unopened: String = self.unopenedOf()
-  derived hasUnopened: Boolean = self.unopened != ""
-  derived unopenedLine: String = Locale::WORTH_UNOPENED.format(self.unopened)
-  derived emptyLine: String = self.empty ? Locale::WORTH_EMPTY : ""
+  derived reached: array<Reached> = self.reachedOf()
+  derived rows: array<Worth> = self.rowsOf()
+  derived alone: boolean = self.reached.length < 2
+  derived noPrices: boolean = self.prices == nil
+  derived unopened: string = self.unopenedOf()
+  derived hasUnopened: boolean = self.unopened != ""
+  derived unopenedLine: string = Locale::WORTH_UNOPENED.format(self.unopened)
+  derived emptyLine: string = self.empty ? Locale::WORTH_EMPTY : ""
   derived picked: Worth | nil = self.rows.find(row => row.key == self.chosen)
-  derived canShop: Boolean = Trading != nil && self.picked != nil && (self.picked?.missing?.length ?? 0) > 0
-  derived empty: Boolean = self.rows.length == 0
+  derived canShop: boolean = Trading != nil && self.picked != nil && (self.picked?.missing?.length ?? 0) > 0
+  derived empty: boolean = self.rows.length == 0
 
   book: Signal<Book>
   prices: Signal<any PriceSource | nil>
@@ -201,10 +201,10 @@ public class WorthPage implements Component {
 
   // The characters whose rows the table has: the one being played, and each the book has a page of that Ordaen Alts
   // says it reaches (the same realm and side); the one being played alone while Ordaen Alts is off.
-  reachedOf(self): Array<Reached> {
+  reachedOf(self): array<Reached> {
     const book = self.book
     const own = Game::player.guid
-    const list: Array<Reached> = []
+    const list: array<Reached> = []
     const alts = Alts
     if (alts == nil) {
       const shelf = book.characters[own]
@@ -215,7 +215,7 @@ public class WorthPage implements Component {
     for (id, character of alts.characters) {
       const shelf = book.characters[id]
       if (shelf != nil && (id == own || alts.reaches(id))) {
-        const ready: Map<Integer, Integer> = {}
+        const ready: map<integer, integer> = {}
         for (known of character.professions) {
           for (recipe, hour of known.ready) { ready[recipe] = hour }
         }
@@ -226,7 +226,7 @@ public class WorthPage implements Component {
   }
 
   // The first reached character Ordaen Alts knows a profession of that the book has no page of; "" for none.
-  unopenedOf(self): String {
+  unopenedOf(self): string {
     const alts = Alts
     if (alts == nil) { return "" }
     _ = alts.revision
@@ -242,7 +242,7 @@ public class WorthPage implements Component {
   }
 
   // How many of an item the reached characters hold: Ordaen Alts' records, or this character's bags while it is off.
-  heldOf(self, item: Integer): Integer {
+  heldOf(self, item: integer): integer {
     const alts = Alts
     if (alts == nil) { return (Game::bags.holdings() ?? {})[item] ?? 0 }
     let count = 0
@@ -252,14 +252,14 @@ public class WorthPage implements Component {
     return count
   }
 
-  rowsOf(self): Array<Worth> {
+  rowsOf(self): array<Worth> {
     const prices = self.prices
     if (prices != nil) { _ = prices.revision }
     const book = self.book
     const mode = self.mode
-    const now: Integer = Hour::now()
-    const held: Map<Integer, Integer> = {}
-    const list: Array<Worth> = []
+    const now: integer = Hour::now()
+    const held: map<integer, integer> = {}
+    const list: array<Worth> = []
     for (character of self.reached) {
       const shelf = book.characters[character.guid]
       if (shelf != nil) {
@@ -282,15 +282,15 @@ public class WorthPage implements Component {
   }
 
   worthOf(
-    self, prices: any PriceSource | nil, mode: Mode, character: Reached, profession: String, recipe: Integer, entry: Entry,
-    held: mut Map<Integer, Integer>
+    self, prices: any PriceSource | nil, mode: Mode, character: Reached, profession: string, recipe: integer, entry: Entry,
+    held: mut map<integer, integer>
   ): Worth {
-    let cost: Integer | nil = prices == nil ? nil : 0
-    let age: Integer | nil = nil
-    let can = Number::huge
-    const missing: Array<Reagent> = []
+    let cost: integer | nil = prices == nil ? nil : 0
+    let age: integer | nil = nil
+    let can = number::huge
+    const missing: array<Reagent> = []
     for (part of entry.parts) {
-      const have: Integer = held[part.item] ?? self.heldOf(part.item)
+      const have: integer = held[part.item] ?? self.heldOf(part.item)
       held[part.item] = have
       can = can.min((have / part.count).floor())
       if (have < part.count) { missing.push({ item: part.item, count: part.count - have }) }
@@ -302,7 +302,7 @@ public class WorthPage implements Component {
         if (old != nil) { age = (age ?? old).max(old) }
       }
     }
-    let sale: Integer | nil = nil
+    let sale: integer | nil = nil
     const makes = entry.makes
     if (makes != nil) {
       if (mode == Mode::Vendor) {
@@ -312,13 +312,13 @@ public class WorthPage implements Component {
         const quote = prices.sell(PriceKey::of(makes))
         if (quote != nil) {
           sale = (quote.copper() * yieldOfEntry(entry)).floor()
-          const old: Integer = quote.age()
+          const old: integer = quote.age()
           age = (age ?? old).max(old)
         }
       }
     }
-    const profit: Integer | nil = sale != nil && cost != nil ? sale - cost : nil
-    const percent: Integer | nil = profit != nil && cost != nil && cost > 0 ? (profit * 100 / cost).floor() : nil
+    const profit: integer | nil = sale != nil && cost != nil ? sale - cost : nil
+    const percent: integer | nil = profit != nil && cost != nil && cost > 0 ? (profit * 100 / cost).floor() : nil
     return {
       key: `${character.guid}:${recipe}`, recipe: recipe, name: entry.name, who: character.name, profession: profession,
       cost: cost, sale: sale, profit: profit, percent: percent, age: age, can: entry.parts.length == 0 ? 0 : can.floor(),
@@ -326,7 +326,7 @@ public class WorthPage implements Component {
     }
   }
 
-  onPick(mut self, key: String) { self.chosen = self.chosen == key ? "" : key }
+  onPick(mut self, key: string) { self.chosen = self.chosen == key ? "" : key }
 
   // «В список покупок»: what one making of the picked row lacks, onto Ordaen Trading's list.
   onShop(self) {

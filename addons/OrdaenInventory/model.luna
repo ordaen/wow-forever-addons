@@ -40,7 +40,7 @@ public enum Grouping implements Plain { Type = "type", None = "none", Worn = "wo
 public const CONTAINER = 1
 
 // The kinds' tabs, in their fixed order (Ordaen's `ITEM_KINDS`), junk last.
-public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Keys, .Other, .Junk]
+public const KINDS: array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Keys, .Other, .Junk]
 
 // A kind's tab.
 public function tabOfKind(kind: ItemKind): Tab {
@@ -57,13 +57,13 @@ public function tabOfKind(kind: ItemKind): Tab {
 
 // One item, one tab: junk where the verdict says so whatever its class (a grey hammer is junk, not equipment), else
 // its kind's (`kindOf`, by the client's class of it and whether crafting takes it).
-public function tabOf(kind: Integer, reagent: Boolean, why: Why | nil): Tab {
+public function tabOf(kind: integer, reagent: boolean, why: Why | nil): Tab {
   if (why != nil) { return .Junk }
   return tabOfKind(kindOf(kind, reagent))
 }
 
 // A tab's place among the kinds; the two that aren't kinds stand before them.
-public function rankOf(tab: Tab): Integer {
+public function rankOf(tab: Tab): integer {
   for (index, kind of KINDS) {
     if (kind == tab) { return index }
   }
@@ -71,7 +71,7 @@ public function rankOf(tab: Tab): Integer {
 }
 
 // The item's quality as the library's slot draws it.
-public function qualityOf(quality: Integer): Quality {
+public function qualityOf(quality: integer): Quality {
   return match (quality) {
     0 => .Poor
     2 => .Uncommon
@@ -97,8 +97,8 @@ public const JUDGED = 8
 // kept.
 public class Slot {
   public const vault: Vault
-  public const bag: Integer
-  public const index: Integer
+  public const bag: integer
+  public const index: integer
   public const read: mut Game::SlotItem
   public state id = 0
   public state count = 0
@@ -117,7 +117,7 @@ public class Slot {
   public tab: Tab = .Other
   public why: Why | nil = nil
 
-  constructor(vault: Vault, bag: Integer, index: Integer) {
+  constructor(vault: Vault, bag: integer, index: integer) {
     self.vault = vault
     self.bag = bag
     self.index = index
@@ -130,7 +130,7 @@ public class Slot {
   // Read again from the game: what changed (`MOVED`: another item lies there, `COUNTED`: its count, `MARKED`: whether it
   // is new, `JUDGED`: its verdict), nought for nothing or a lock alone. The verdict is worked out for a new item, and
   // again once the client loaded an item read before it was (its price and level unknown till then).
-  public refresh(mut self, lists: JunkLists, rules: JunkRules): Integer {
+  public refresh(mut self, lists: JunkLists, rules: JunkRules): integer {
     const was = peek self.id
     const wasCount = peek self.count
     const wasNew = peek self.isNew
@@ -162,7 +162,7 @@ public class Slot {
   }
 
   // The verdict on the item worked out again (a mark, a score or a rule changed): `JUDGED` where it changed.
-  public judge(mut self, lists: JunkLists, rules: JunkRules): Integer {
+  public judge(mut self, lists: JunkLists, rules: JunkRules): integer {
     if (self.read.id == 0) { return 0 }
     const why = junkWhy(self.read, lists, rules)
     const tab = tabOf(self.read.kind, self.read.reagent, why)
@@ -180,13 +180,13 @@ public class Slot {
   }
 
   // What tells two stacks apart for sorting: the item and how many.
-  public key(self): Integer {
+  public key(self): integer {
     return (peek self.id) * 1000 + (peek self.count)
   }
 }
 
 // Whether Use hands the item over where the player stands, as the client's own bags do: sells it, or puts it in the
 // trade or the letter.
-public function handsOver(place: Game::BagPlace): Boolean {
+public function handsOver(place: Game::BagPlace): boolean {
   return place == .Merchant || place == .Trade || place == .Mail
 }

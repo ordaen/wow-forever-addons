@@ -10,7 +10,7 @@ const WOOD: Color = Color::hex("#2a1d12")
 class Pair {
   state leftwards = false
   derived place: Place = { point: Point::TopLeft, to: Point::TopLeft, by: self.by }
-  heard: mut Array<String> = []
+  heard: mut array<string> = []
   const by: any Frame
 
   constructor(by: any Frame) {
@@ -20,7 +20,7 @@ class Pair {
   onEnter(mut self) { self.heard.push("entered") }
   onLeave(mut self) { self.heard.push("left") }
   // What was heard since it was last asked, in order.
-  public told(mut self): String {
+  public told(mut self): string {
     let said = self.heard.join(", ")
     self.heard.clear()
     return said
@@ -42,7 +42,7 @@ class Pair {
 }
 
 // A frame of the game's at a place on the screen.
-function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client::Frame {
+function frame(kind: string, name: string, x: number, y: number, width: number, height: number): any Client::Frame {
   let made = Client::CreateFrame(kind, name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(width, height)
   made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", x, -y)

@@ -10,8 +10,8 @@ import Locale from "@/locales"
 
 // The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and the
 // room between a bar and the one above it in the default stack.
-const ABOVE: Number<Length> = 12dp
-public const BETWEEN: Number<Length> = 8dp
+const ABOVE: number<Length> = 12dp
+public const BETWEEN: number<Length> = 8dp
 const INK: Color = BRIGHT_TEXT
 const KEY_SHADOW: Shadow = { color: Color::hex("#000000"), x: 1ui, y: -1ui }
 // An action out of range: its key in the client's red, its icon darkened.
@@ -28,20 +28,20 @@ const WITH_PET = "[pet] show; hide"
 // with none its range dot) is unseen: the button draws its key itself.
 public class Slot {
   public const frame: any Client::ActionButton
-  public const name: String
-  public const command: String
-  public state shown: Boolean = false
-  public state outOfRange: Boolean = false
+  public const name: string
+  public const command: string
+  public state shown: boolean = false
+  public state outOfRange: boolean = false
   // Whether its action slot holds anything: read as a slot changes, and as its page turns. A pet's or a stance's
   // button holds what it shows.
-  public state holds: Boolean = true
+  public state holds: boolean = true
   slotHeard: Handle | nil = nil
   // The template's art as the template lays it out, fitted to each size the button is given.
   const art: TemplateArt
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
-  constructor(frame: any Client::ActionButton, name: String, command: String) {
+  constructor(frame: any Client::ActionButton, name: string, command: string) {
     self.frame = frame
     self.name = name
     self.command = command
@@ -55,7 +55,7 @@ public class Slot {
       if (life.on) { self.readHolds() }
     })
     // The template tells each button by one global function: the hook's body one comparison for another's.
-    Client::hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
+    Client::hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: unknown): nil => {
       if (life.on && args[1] == frame) { self.outOfRange = args[2] == true && args[3] != true }
     })
     _ = frame.HookScript("OnShow", (): nil => {
@@ -73,9 +73,9 @@ public class Slot {
 
   // The template's art fitted to the size the button gives the client's frame: told by the button itself, as the
   // client tells some of these frames no `OnSizeChanged` (two bars of 37 kept the art at 45's in the game).
-  public fit(self, size: Number) { fitArt(self.art, size) }
+  public fit(self, size: number) { fitArt(self.art, size) }
 
-  onSlotChanged(mut self, slot: Number) {
+  onSlotChanged(mut self, slot: number) {
     if (self.frame.action == slot) { self.readHolds() }
   }
 
@@ -88,20 +88,20 @@ public class Slot {
 
 // One point a piece of the template's art is placed by.
 struct Pin {
-  point: String
+  point: string
   to: any Client::Region | nil
-  toPoint: String
-  x: Number
-  y: Number
+  toPoint: string
+  x: number
+  y: number
 }
 
 // A piece of the client's template's art (a texture or a mask) as the template lays it out: its points, and its size
 // where they don't give it one.
 struct Piece {
   region: any Client::MaskTexture
-  pins: Array<Pin>
-  width: Number
-  height: Number
+  pins: array<Pin>
+  width: number
+  height: number
 }
 
 // The template's art as it is laid out for the template's own size (the action button's 45, the small one's 30, read
@@ -109,13 +109,13 @@ struct Piece {
 // centred on the icon and larger than it, the icon filling the button.
 struct TemplateArt {
   frame: any Client::Frame
-  width: Number
-  height: Number
-  pieces: Array<Piece>
+  width: number
+  height: number
+  pieces: array<Piece>
 }
 
 function templateArt(frame: any Client::Frame, ...regions: any Client::Region): TemplateArt {
-  const pieces: Array<Piece> = []
+  const pieces: array<Piece> = []
   for (i of 1..regions.length) {
     const region = regions[i]
     // The template's art: its textures and its masks, each its own kind to the client (a texture is no mask texture).
@@ -131,7 +131,7 @@ function templateArt(frame: any Client::Frame, ...regions: any Client::Region): 
 // A piece of the art as the template lays it out: its points, and its size, or its atlas's where the client hasn't
 // sized it yet (the icon's mask, sized by its atlas only once drawn).
 function pieceOf(region: any Client::MaskTexture): Piece {
-  const pins: Array<Pin> = []
+  const pins: array<Pin> = []
   for (p of 1..region.GetNumPoints()) {
     let point, to, toPoint, x, y = region.GetPoint(p, nil)
     const at = point ?? "CENTER"
@@ -140,7 +140,7 @@ function pieceOf(region: any Client::MaskTexture): Piece {
   let width = region.GetWidth()
   let height = region.GetHeight()
   // Only a piece placed by one point is sized (`fitArt`); the client names no atlas for a piece without one.
-  const name: String | nil = pins.length == 1 && (width <= 0 || height <= 0) ? region.GetAtlas() : nil
+  const name: string | nil = pins.length == 1 && (width <= 0 || height <= 0) ? region.GetAtlas() : nil
   const atlas = name != nil ? Client::C_Texture::GetAtlasInfo(name) : nil
   if (atlas != nil) {
     width = atlas.width
@@ -152,7 +152,7 @@ function pieceOf(region: any Client::MaskTexture): Piece {
 // The template's art at the size the button is given: every piece in proportion, as the template lays it out for its
 // own (its texts keep their corners). Stretched to the button instead, the frame's opening, in the art's top left part,
 // would be smaller than the icon, and the icon would stand out of it to the right and below.
-function fitArt(art: TemplateArt, size: Number) {
+function fitArt(art: TemplateArt, size: number) {
   const frame = art.frame
   const across = art.width > 0 ? size / art.width : 1
   const down = art.height > 0 ? size / art.height : 1
@@ -171,32 +171,32 @@ function fitArt(art: TemplateArt, size: Number) {
 }
 
 struct Life {
-  on: Boolean
+  on: boolean
 }
 
 // A bar's height in the default stack: its rows of buttons and the room between them.
-public function heightOf(count: Integer, perRow: Integer, size: Number, spacing: Number): Number<Length> {
+public function heightOf(count: integer, perRow: integer, size: number, spacing: number): number<Length> {
   const rows = (count / perRow).ceil()
   if (rows == 0) { return 0ui }
   return (rows * size + (rows - 1) * spacing) * 1ui
 }
 
 // A key as a button shows it: the modifiers by their first letter (`SHIFT-1` is `S1`).
-public function shortKey(key: String): String {
+public function shortKey(key: string): string {
   return key.replace("SHIFT%-", "S").replace("CTRL%-", "C").replace("ALT%-", "A")
 }
 
 // The name of a bar's button, a global of the client's: what a binding's click names.
-public function buttonName(id: String, index: Integer): String { return `OrdaenPanelBar${id}Button${index}` }
+public function buttonName(id: string, index: integer): string { return `OrdaenPanelBar${id}Button${index}` }
 
 // What a stance's or the pet's button shows of its own: its icon, drawn under the client's button (the client's
 // template draws none: the game's own stance and pet bars set it), and whether it is on (the form the player is in,
 // the pet's stance or command), lit in the look's accent over it.
 public struct Face {
   icon: Art | nil
-  lit: Boolean
+  lit: boolean
   // Whether it can be done now: dimmed where it can't, as the client's own buttons are.
-  usable: Boolean
+  usable: boolean
 }
 
 const BLANK: Face = { icon: nil, lit: false, usable: true }
@@ -204,8 +204,8 @@ const BLANK: Face = { icon: nil, lit: false, usable: true }
 const DIMMED = 0.4
 
 // A pet's command names its icon by one of the client's globals (`isToken`).
-function commandIcon(token: String): Art | nil {
-  const path: String | nil = match (token) {
+function commandIcon(token: string): Art | nil {
+  const path: string | nil = match (token) {
     "PET_ATTACK_TEXTURE" => Client::PET_ATTACK_TEXTURE
     "PET_FOLLOW_TEXTURE" => Client::PET_FOLLOW_TEXTURE
     "PET_MOVE_TO_TEXTURE" => Client::PET_MOVE_TO_TEXTURE
@@ -226,24 +226,24 @@ function commandIcon(token: String): Art | nil {
 // template draws its art at its own size (30, its frame 35) whatever size it is given, so it would stand out of the
 // button and apart from the next; it still takes the click and the cursor.
 public class Button implements Component {
-  derived key: String = self.showKeys && self.slot.shown && !self.empty ? self.keys[self.slot.command] ?? "" : ""
+  derived key: string = self.showKeys && self.slot.shown && !self.empty ? self.keys[self.slot.command] ?? "" : ""
   derived keyColor: Color = self.slot.outOfRange ? OUT_OF_RANGE : INK
-  derived darkened: Boolean = self.slot.outOfRange && self.slot.shown && !self.empty
+  derived darkened: boolean = self.slot.outOfRange && self.slot.shown && !self.empty
   // Unseen where its bar hides empty buttons and nothing is dragged that could go on it.
-  derived empty: Boolean = self.hideEmpty && !self.slot.holds && !self.dragging
-  derived clientOpacity: Number | nil = self.faced || self.empty ? 0 : nil
+  derived empty: boolean = self.hideEmpty && !self.slot.holds && !self.dragging
+  derived clientOpacity: number | nil = self.faced || self.empty ? 0 : nil
 
   const slot: Slot
   // Whether the button has a face of ours (a stance's, the pet's), and the client's is unseen.
-  const faced: Boolean
-  keys: Signal<Map<String, String>>
-  size: Signal<Number<Length>>
-  showKeys: Signal<Boolean>
+  const faced: boolean
+  keys: Signal<map<string, string>>
+  size: Signal<number<Length>>
+  showKeys: Signal<boolean>
   face: Signal<Face>
-  hideEmpty: Signal<Boolean>
-  dragging: Signal<Boolean>
-  constructor(slot: Slot, faced: Boolean, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>,
-    showKeys: Signal<Boolean>, face: Signal<Face>, hideEmpty: Signal<Boolean> = false, dragging: Signal<Boolean> = false) {
+  hideEmpty: Signal<boolean>
+  dragging: Signal<boolean>
+  constructor(slot: Slot, faced: boolean, keys: Signal<map<string, string>>, size: Signal<number<Length>>,
+    showKeys: Signal<boolean>, face: Signal<Face>, hideEmpty: Signal<boolean> = false, dragging: Signal<boolean> = false) {
     self.slot = slot
     self.faced = faced
     self.keys = keys
@@ -288,55 +288,55 @@ public class Button implements Component {
 // its opacity alone: its buttons are protected, and a fight keeps them where they are). Its choice changes out of a
 // fight alone: its module hands it the choice that applies.
 public class Bar implements Component {
-  slots: Array<Slot> = []
+  slots: array<Slot> = []
   state hovered = false
   derived home: Anchored = { point: Point::Bottom, y: -(Ordaen.bottomTaken + ABOVE + self.below) }
   derived choice: BarChoice = self.choices[self.spec.id] ?? self.defaults[self.spec.id] ?? defaultChoice(self.spec, false)
   derived visibility: Visibility = self.choice.visibility
-  derived opacity: Number = opacityNow(self.visibility, self.hovered)
+  derived opacity: number = opacityNow(self.visibility, self.hovered)
   // How many of its buttons show: as many as chosen, and for the stances' bar no more than the player's forms.
-  derived count: Integer = self.spec.kind == BarKind::Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
-  derived drawn: Array<Slot> = self.drawnOf(true)
+  derived count: integer = self.spec.kind == BarKind::Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
+  derived drawn: array<Slot> = self.drawnOf(true)
   // The buttons past its count: kept unseen while it is drawn (the renderer shows an embedded frame let go again).
-  derived unseen: Array<Slot> = self.drawnOf(false)
-  derived size: Number<Length> = self.choice.size * 1ui
+  derived unseen: array<Slot> = self.drawnOf(false)
+  derived size: number<Length> = self.choice.size * 1ui
   // The player's spacing of the buttons, a length they chose, as the gap takes it.
-  derived spacing: Number<Spacing> = Ordaen.spacingOf(self.choice.spacing * 1ui)
-  derived showKeys: Boolean = self.choice.keys
-  derived hideEmpty: Boolean = self.choice.hideEmpty
+  derived spacing: number<Spacing> = Ordaen.spacingOf(self.choice.spacing * 1ui)
+  derived showKeys: boolean = self.choice.keys
+  derived hideEmpty: boolean = self.choice.hideEmpty
   // Something the cursor holds could go on a button: the client shows its bars' grid meanwhile.
   state dragging = false
   // As many columns as buttons in a row, and no more than it has buttons: an empty column would take the cursor.
-  derived columns: Integer = self.choice.perRow.min(self.count).max(1)
+  derived columns: integer = self.choice.perRow.min(self.count).max(1)
   // Each button's face on the stances' and the pet's bars, by its place: read again as the player learns or takes a
   // form, and as the pet comes, goes or changes its bar.
-  state faces: Array<Face> = []
+  state faces: array<Face> = []
   // Whether the bar is still there: the client's hooks on its Quick Keybind mode stay after it ends.
   const life: mut Life = { on: true }
 
   // What tells it from every other part in the placing mode, and its name there.
-  id: String
-  title: String
+  id: string
+  title: string
 
   const spec: BarSpec
   // How high the bars under it in the default stack stand, with the room above each.
-  below: Signal<Number<Length>>
-  choices: Signal<Map<String, BarChoice>>
-  defaults: Signal<Map<String, BarChoice>>
-  keys: Signal<Map<String, String>>
-  paging: Signal<String>
-  forms: Signal<Integer>
+  below: Signal<number<Length>>
+  choices: Signal<map<string, BarChoice>>
+  defaults: Signal<map<string, BarChoice>>
+  keys: Signal<map<string, string>>
+  paging: Signal<string>
+  forms: Signal<integer>
   constructor(
     spec: BarSpec,
-    below: Signal<Number<Length>>,
+    below: Signal<number<Length>>,
     // Each bar's settings that apply, by its id, and this bar's before the player changed them.
-    choices: Signal<Map<String, BarChoice>>,
-    defaults: Signal<Map<String, BarChoice>>,
-    keys: Signal<Map<String, String>>,
+    choices: Signal<map<string, BarChoice>>,
+    defaults: Signal<map<string, BarChoice>>,
+    keys: Signal<map<string, string>>,
     // Панель 1's paging: the client's macro options its buttons' `actionpage` follows.
-    paging: Signal<String>,
+    paging: Signal<string>,
     // The player's forms, which the stances' bar shows.
-    forms: Signal<Integer>
+    forms: Signal<integer>
   ) {
     self.spec = spec
     self.below = below
@@ -347,7 +347,7 @@ public class Bar implements Component {
     self.forms = forms
     self.id = Bar::idOf(spec)
     self.title = Bar::titleOf(spec)
-    const buttons: Array<Slot> = []
+    const buttons: array<Slot> = []
     for (index of 1..spec.most) {
       const name = buttonName(spec.id, index)
       const frame = Client::CreateFrame("CheckButton", name, Client::UIParent, spec.template)
@@ -420,8 +420,8 @@ public class Bar implements Component {
   }
 
   // The stances' faces, each form's by its button's place: whether the player is in it, whether it can be taken.
-  readForms(mut self, count: Integer) {
-    const faces: Array<Face> = []
+  readForms(mut self, count: integer) {
+    const faces: array<Face> = []
     for (index of 1..self.spec.most) {
       let icon, active, castable, _ = Client::GetShapeshiftFormInfo(index)
       faces.push(index <= count ? { icon: icon, lit: active, usable: castable } : BLANK)
@@ -431,7 +431,7 @@ public class Bar implements Component {
 
   // Each form's button does its spell. Out of a fight alone, as the forms are counted: a button's attributes are
   // protected in one.
-  armForms(self, count: Integer) {
+  armForms(self, count: integer) {
     for (index, slot of peek self.slots) {
       let _, _, _, spell = Client::GetShapeshiftFormInfo(index)
       slot.frame.SetAttribute("spell", index <= count ? spell : nil)
@@ -447,20 +447,20 @@ public class Bar implements Component {
   }
 
   // The client's Quick Keybind mode opens (`true`) or closes: each button shows the mode's highlight while it runs.
-  keybinding(self, on: Boolean) {
+  keybinding(self, on: boolean) {
     for (slot of peek self.slots) { slot.frame.DoModeChange(on) }
   }
 
-  petOf(mut self, unit: String) {
+  petOf(mut self, unit: string) {
     if (unit == "player") { self.readPet() }
   }
 
   // The pet's faces, each place's of its bar: a command's icon is named by a global of the client's.
   readPet(mut self) {
-    const faces: Array<Face> = []
+    const faces: array<Face> = []
     for (index of 1..self.spec.most) {
       let _, texture, token, active, _, _, _ = Client::GetPetActionInfo(index)
-      const icon: Art | nil = texture is String ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
+      const icon: Art | nil = texture is string ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
       faces.push({ icon: icon, lit: active, usable: true })
     }
     self.faces = faces
@@ -477,7 +477,7 @@ public class Bar implements Component {
     Ordaen.afterCombat(() => Bar::putAway(frames, pet))
   }
 
-  putAway(frames: Array<any Client::Frame>, pet: Boolean) {
+  putAway(frames: array<any Client::Frame>, pet: boolean) {
     for (frame of frames) {
       if (pet) { Client::UnregisterStateDriver(frame, "visibility") }
       frame.Hide()
@@ -486,10 +486,10 @@ public class Bar implements Component {
   }
 
   // What tells it from every other placed part: where the placing mode keeps it.
-  public idOf(spec: BarSpec): String { return `OrdaenPanel.bar${spec.id}` }
+  public idOf(spec: BarSpec): string { return `OrdaenPanel.bar${spec.id}` }
 
   // Its name in the placing mode and on the module's page.
-  public titleOf(spec: BarSpec): String {
+  public titleOf(spec: BarSpec): string {
     return match (spec.kind) {
       BarKind::Action => Locale::BAR_TITLE.format(spec.number)
       BarKind::Pet => Locale::BAR_PET
@@ -498,8 +498,8 @@ public class Bar implements Component {
   }
 
   // The buttons within its count (`within`), or those past it.
-  drawnOf(self, within: Boolean): Array<Slot> {
-    const drawn: Array<Slot> = []
+  drawnOf(self, within: boolean): array<Slot> {
+    const drawn: array<Slot> = []
     for (index, slot of self.slots) {
       if ((index <= self.count) == within) { drawn.push(slot) }
     }
@@ -507,7 +507,7 @@ public class Bar implements Component {
   }
 
   // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
-  showFirst(self, count: Integer) {
+  showFirst(self, count: integer) {
     if (self.spec.kind != BarKind::Pet) { return }
     for (index, slot of peek self.slots) {
       if (index <= count) {

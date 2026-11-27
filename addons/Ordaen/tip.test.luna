@@ -9,10 +9,10 @@ import { Tip } from "@/tip"
 // cursor without taking it from there.
 class HoverRow implements Component {
   state hovered = false
-  derived title: String = "About " + self.name
+  derived title: string = "About " + self.name
 
-  name: Signal<String>
-  constructor(name: Signal<String>) { self.name = name }
+  name: Signal<string>
+  constructor(name: Signal<string>) { self.name = name }
 
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
@@ -28,7 +28,7 @@ class HoverRow implements Component {
 }
 
 class Rows {
-  const names: Array<String> = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"]
+  const names: array<string> = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"]
 
   public render(self): Template {
     return $ltml {
@@ -40,7 +40,7 @@ class Rows {
 }
 
 // The title of the Tip shown, or "" while none is.
-function tipShown(): String {
+function tipShown(): string {
   for (shown of Test::surfaces()) {
     for (text of shown.texts) {
       if (text.contains("About")) { return text }

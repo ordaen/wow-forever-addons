@@ -5,7 +5,7 @@ import Game from "$game"
 import Test from "$test"
 
 test "a module the player turned off that another's load brings in has no root made" {
-  const choices: Map<String, Boolean> = {}
+  const choices: map<string, boolean> = {}
   choices["OrdaenTrading"] = false
   Game::saved.store(.Account, "choices", choices)
   _ = Test::debugLog()

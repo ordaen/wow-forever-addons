@@ -21,20 +21,20 @@ const HEADING: Color = Color::hex("#ffd100")
 // How a row's value is worked out, dimmed before it.
 const WORKING: Color = Color::hex("#8c8270")
 const BY_ITS_BOX: Beside = { beside: "parent" }
-const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+const ROW: array<Track> = [{ fr: 1 }, "max-content"]
 // A row's picture, its label and the word after it, side by side at the row's start.
-const MARKED: Array<Track> = ["max-content", "max-content", "max-content"]
+const MARKED: array<Track> = ["max-content", "max-content", "max-content"]
 // A row's picture: as high as its line.
 const ICON = 16dp
 // A section's bar of shares: thin, under its rows.
 const SHARES_HEIGHT = 8dp
 // The bar's one row, its whole height: its slices hold nothing that gives them a height of their own.
-const ONE_ROW: Array<Track> = [{ fr: 1 }]
+const ONE_ROW: array<Track> = [{ fr: 1 }]
 
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
 public struct TipMark {
-  const text: String
+  const text: string
   const color: Color
 }
 
@@ -44,9 +44,9 @@ public struct TipMark {
 // where the row says (`working`: «20 × 15 =» before «300»). The defaults are written out, not constants of this file: a
 // default is made where the row is.
 public struct TipRow {
-  const label: String
-  const value: String
-  const working: String = ""
+  const label: string
+  const value: string
+  const working: string = ""
   const mark: TipMark = { text: "", color: BRIGHT_TEXT }
   const icon: Art | nil = nil
   const tone: Color | nil = nil
@@ -55,26 +55,26 @@ public struct TipRow {
 
 // A part of a whole a section's bar shows: its share of the whole and its colour.
 public struct TipSlice {
-  const share: Number
+  const share: number
   const color: Color
 }
 
 // A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects»; where it has
 // `shares`, a thin bar under its rows, the shares side by side across it, each as wide as its part of their sum.
 public struct TipSection {
-  const title: String
-  const rows: Array<TipRow>
-  const shares: Array<TipSlice> = []
+  const title: string
+  const rows: array<TipRow>
+  const shares: array<TipSlice> = []
 }
 
 function trackOf(slice: TipSlice): Track { return { fr: slice.share.max(0) } }
 
 // A section's bar, as `Tip` draws each.
 class TipShares implements Component {
-  derived columns: Array<Track> = self.shares.map(trackOf)
+  derived columns: array<Track> = self.shares.map(trackOf)
 
-  shares: Signal<Array<TipSlice>>
-  constructor(shares: Signal<Array<TipSlice>>) {
+  shares: Signal<array<TipSlice>>
+  constructor(shares: Signal<array<TipSlice>>) {
     self.shares = shares
   }
 
@@ -91,17 +91,17 @@ class TipShares implements Component {
 
 // What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.
 public struct TipText {
-  const title: String
-  const text: String
-  const rows: Array<TipRow>
+  const title: string
+  const text: string
+  const rows: array<TipRow>
 }
 
 // A row of a Tip, as `Tip` draws each.
 class TipLine implements Component {
-  derived iconed: Boolean = self.row.icon != nil
+  derived iconed: boolean = self.row.icon != nil
   derived ink: Color = self.row.tone ?? LABEL
   derived valueInk: Color = self.row.valueTone ?? NAME
-  derived worked: Boolean = self.row.working != ""
+  derived worked: boolean = self.row.working != ""
 
   row: Signal<TipRow>
   constructor(row: Signal<TipRow>) {
@@ -127,21 +127,21 @@ class TipLine implements Component {
 }
 
 public class Tip implements Component {
-  derived hasText: Boolean = self.text != ""
+  derived hasText: boolean = self.text != ""
   // Its width as drawn: its content's, up to its most and the art past the line on either side.
   derived width: Bounds = { min: nil, max: MOST + reachAcross(Ordaen.art.frame.small) }
 
-  title: Signal<String>
-  text: Signal<String>
-  rows: Signal<Array<TipRow>>
-  keys: Signal<Array<String>>
-  sections: Signal<Array<TipSection>>
+  title: Signal<string>
+  text: Signal<string>
+  rows: Signal<array<TipRow>>
+  keys: Signal<array<string>>
+  sections: Signal<array<TipSection>>
   // Where it stands: beside the box it is written in, the game's way, unless its owner says which of its corners on
   // which of that box's (a page's tooltip beside the whole page, clear of what it lights).
   place: Signal<Beside>
   constructor(
-    title: Signal<String>, text: Signal<String>, rows: Signal<Array<TipRow>> = [], keys: Signal<Array<String>> = [],
-    sections: Signal<Array<TipSection>> = [], place: Signal<Beside> = BY_ITS_BOX
+    title: Signal<string>, text: Signal<string>, rows: Signal<array<TipRow>> = [], keys: Signal<array<string>> = [],
+    sections: Signal<array<TipSection>> = [], place: Signal<Beside> = BY_ITS_BOX
   ) {
     self.title = title
     self.text = text

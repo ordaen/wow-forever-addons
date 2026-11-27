@@ -12,34 +12,34 @@ import { Page } from "@/talk"
 
 // The upper zone: what is said.
 public class Said implements Component {
-  derived isQuest: Boolean = self.page == Page::Detail || self.page == Page::Progress || self.page == Page::Reward
-  derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page::Book ? self.book : self.said
-  derived objectives: String = self.page == Page::Detail ? self.quest?.objectives ?? "" : ""
-  derived hasObjectives: Boolean = self.objectives != ""
+  derived isQuest: boolean = self.page == Page::Detail || self.page == Page::Progress || self.page == Page::Reward
+  derived text: string = self.isQuest ? self.quest?.text ?? "" : self.page == Page::Book ? self.book : self.said
+  derived objectives: string = self.page == Page::Detail ? self.quest?.objectives ?? "" : ""
+  derived hasObjectives: boolean = self.objectives != ""
   // The things a quest's words name, marked on the parchment; none in what an NPC says or a book.
-  derived names: Array<Named> = self.isQuest ? self.quest?.names ?? [] : []
-  derived group: Integer = self.isQuest ? self.quest?.group ?? 0 : 0
-  derived grouped: Boolean = self.group > 0
-  derived groupText: String = Locale::GROUP.format(self.group)
-  derived groupTip: String = Locale::GROUP_TIP.format(self.group)
+  derived names: array<Named> = self.isQuest ? self.quest?.names ?? [] : []
+  derived group: integer = self.isQuest ? self.quest?.group ?? 0 : 0
+  derived grouped: boolean = self.group > 0
+  derived groupText: string = Locale::GROUP.format(self.group)
+  derived groupTip: string = Locale::GROUP_TIP.format(self.group)
   state groupHovered = false
-  derived revealing: Boolean = self.isQuest && self.revealed >= 0
-  derived shownText: String = self.revealing ? self.text.sub(1, self.revealed) : ""
+  derived revealing: boolean = self.isQuest && self.revealed >= 0
+  derived shownText: string = self.revealing ? self.text.sub(1, self.revealed) : ""
   // The whole text keeps its room while it fades in, its lines where they will stand.
-  derived wholeOpacity: Number = self.revealing ? 0 : 1
+  derived wholeOpacity: number = self.revealing ? 0 : 1
 
   page: Signal<Page>
   quest: Signal<Quest | nil>
-  said: Signal<String>
-  book: Signal<String>
+  said: Signal<string>
+  book: Signal<string>
   // How much of a quest's text shows as it fades in, in bytes to a word's end; -1: all of it.
-  revealed: Signal<Integer>
+  revealed: Signal<integer>
   constructor(
     page: Signal<Page>,
     quest: Signal<Quest | nil>,
-    said: Signal<String>,
-    book: Signal<String>,
-    revealed: Signal<Integer> = -1
+    said: Signal<string>,
+    book: Signal<string>,
+    revealed: Signal<integer> = -1
   ) {
     self.page = page
     self.quest = quest
@@ -77,9 +77,9 @@ public class Said implements Component {
 
 // What a quest needs handed in: each item with how many the player has, red until there's enough; the money too.
 public class Needs implements Component {
-  derived needs: Array<Need> = self.quest?.needs ?? []
-  derived money: Integer = self.quest?.moneyNeeded ?? 0
-  derived paid: Boolean = self.money > 0
+  derived needs: array<Need> = self.quest?.needs ?? []
+  derived money: integer = self.quest?.moneyNeeded ?? 0
+  derived paid: boolean = self.money > 0
   derived moneyColor: Color = self.money > Game::money.amount ? Style::RED : Style::TEXT
 
   quest: Signal<Quest | nil>
@@ -98,7 +98,7 @@ public class Needs implements Component {
 }
 
 class NeedRow implements Component {
-  derived count: String = `${self.need.have}/${self.need.need}`
+  derived count: string = `${self.need.have}/${self.need.need}`
   derived color: Color = self.need.have < self.need.need ? Style::RED : Style::TEXT
 
   need: Signal<Need>

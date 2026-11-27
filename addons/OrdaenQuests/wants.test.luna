@@ -11,22 +11,22 @@ const BARE: QuestFacts = {
   givers: [], takers: [], targets: []
 }
 
-function meat(sources: Array<DropSource>): ItemDrops {
+function meat(sources: array<DropSource>): ItemDrops {
   return { item: 769, name: "Chunk of Boar Meat", sources: sources }
 }
 
-function boars(creatures: Array<Integer>): Array<DropSource> {
+function boars(creatures: array<integer>): array<DropSource> {
   return creatures.map(creature => DropSource { creature: creature })
 }
 
-function pie(done: Boolean, objectives: Array<Game::QuestObjective>): LogQuest {
+function pie(done: boolean, objectives: array<Game::QuestObjective>): LogQuest {
   return {
     id: 86, title: "Pie for Billy", level: 5, header: "Elwynn Forest", kind: .World, done: done, failed: false,
     tracked: false, group: 0, shareable: false, objectives: objectives, xp: 0, money: 0
   }
 }
 
-function meatObjective(text: String, have: Integer): Game::QuestObjective {
+function meatObjective(text: string, have: integer): Game::QuestObjective {
   return { text: text, done: have >= 4, kind: .Item, have: have, need: 4 }
 }
 
@@ -66,7 +66,7 @@ test "where the log has another count of item objectives, the one named whole is
 }
 
 test "a quest done, one QuestieDB doesn't know, and an objective that isn't the item's want nothing" {
-  const facts: Map<Integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
+  const facts: map<integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
   Test::expect(wantsOf([pie(true, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] == nil)
   Test::expect(wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 2/4", 2)])], {})[113] == nil)
   const tusk: Game::QuestObjective = { text: "Boar Tusk: 1/3", done: false, kind: .Item, have: 1, need: 3 }
@@ -75,14 +75,14 @@ test "a quest done, one QuestieDB doesn't know, and an objective that isn't the 
 }
 
 test "an item dropped by more than a hundred creatures is everyday loot: it names none" {
-  const many: Array<Integer> = []
+  const many: array<integer> = []
   for (creature of 1..101) { many.push(creature) }
   Test::expect(droppersOf(meat(boars(many))).length == 0)
   Test::expect(droppersOf(meat(boars([113, 119]))).length == 2)
 }
 
 test "where QuestieDB has chances, a creature that drops the item under a tenth as often as the best is left out" {
-  const sources: Array<DropSource> = [
+  const sources: array<DropSource> = [
     { creature: 113, chance: 53.4 }, { creature: 119, chance: 76.7 }, { creature: 478, chance: 0.0016 },
     { creature: 900 }
   ]
@@ -92,14 +92,14 @@ test "where QuestieDB has chances, a creature that drops the item under a tenth 
 
 // Friendly (3500) with Stormwind (72), unmet elsewhere; Cooking (185) at 60, no other profession.
 const HUMAN_MAGE: Seeker = {
-  level: 10, race: 1, classNumber: 8, standing: (faction: Integer): Integer => faction == 72 ? 3500 : 0,
-  skill: (line: Integer): Integer | nil => line == 185 ? 60 : nil
+  level: 10, race: 1, classNumber: 8, standing: (faction: integer): integer => faction == 72 ? 3500 : 0,
+  skill: (line: integer): integer | nil => line == 185 ? 60 : nil
 }
 
-function never(id: Integer): Boolean { return false }
+function never(id: integer): boolean { return false }
 
 test "a quest may be taken at its level, by its race and class, after the quests before it, and with none it excludes" {
-  const done = (id: Integer): Boolean => id == 1 || id == 2
+  const done = (id: integer): boolean => id == 1 || id == 2
   Test::expect(takeable(9, BARE, HUMAN_MAGE, never, never))
   Test::expect(!takeable(9, { minLevel: 11, ..BARE }, HUMAN_MAGE, never, never))
   Test::expect(!takeable(9, { maxLevel: 9, ..BARE }, HUMAN_MAGE, never, never))
@@ -110,8 +110,8 @@ test "a quest may be taken at its level, by its race and class, after the quests
   Test::expect(takeable(9, { afterAny: [3, 2], ..BARE }, HUMAN_MAGE, never, done))
   Test::expect(!takeable(9, { afterAny: [3, 4], ..BARE }, HUMAN_MAGE, never, done))
   Test::expect(!takeable(9, { exclusive: [9, 1], ..BARE }, HUMAN_MAGE, never, done))
-  Test::expect(!takeable(9, BARE, HUMAN_MAGE, (id: Integer): Boolean => id == 9, never))
-  Test::expect(!takeable(9, BARE, HUMAN_MAGE, never, (id: Integer): Boolean => id == 9))
+  Test::expect(!takeable(9, BARE, HUMAN_MAGE, (id: integer): boolean => id == 9, never))
+  Test::expect(!takeable(9, BARE, HUMAN_MAGE, never, (id: integer): boolean => id == 9))
 }
 
 test "a quest may be taken with the standing it asks and under the one it caps, and with the skill it asks" {
@@ -130,7 +130,7 @@ test "a quest may be taken with the standing it asks and under the one it caps, 
 test "an NPC offers the log's done quests it takes back, then those it gives that may be taken" {
   const npc: NpcQuests = { starts: [60, 61], ends: [86, 87] }
   const quests = [pie(true, []), { id: 87, ..pie(false, []) }]
-  const factsOf = (id: Integer): QuestFacts | nil => id == 60 ? { name: "Kobold Camp Cleanup", level: 6, ..BARE } : id == 61 ? { name: "Too High", minLevel: 30, ..BARE } : nil
+  const factsOf = (id: integer): QuestFacts | nil => id == 60 ? { name: "Kobold Camp Cleanup", level: 6, ..BARE } : id == 61 ? { name: "Too High", minLevel: 30, ..BARE } : nil
   const offers = offersOf(npc, quests, factsOf, HUMAN_MAGE, never)
   Test::expect(offers.length == 2)
   const first = offers[1] ?? panic("a turn-in")
@@ -141,7 +141,7 @@ test "an NPC offers the log's done quests it takes back, then those it gives tha
 
 test "an objective the client counts whole before it is done counts one short of its need, until done" {
   const said: Game::QuestObjective = { text: "Chunk of Boar Meat: 4/4", done: false, kind: .Item, have: 4, need: 4 }
-  const facts: Map<Integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
+  const facts: map<integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
   const short = (wantsOf([pie(false, [said])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
   Test::expect(short.have == 3 && short.need == 4 && !short.done)
   const whole = (wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")

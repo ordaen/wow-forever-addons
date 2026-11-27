@@ -2,15 +2,15 @@
 // letter says. Gaps are the spacing ladder's steps (`space`).
 import { Edges, Line, Side } from "$ltml"
 
-public const WIDTH: Number<Length> = 843.75dp
-public const HEIGHT: Number<Length> = 703.125dp
+public const WIDTH: number<Length> = 843.75dp
+public const HEIGHT: number<Length> = 703.125dp
 // The picked letter's side, and the form's.
-public const SIDE: Number<Length> = 562.5dp
-public const BUTTON: Number<Length> = 140.625dp
-public const WIDE_BUTTON: Number<Length> = 234.375dp
+public const SIDE: number<Length> = 562.5dp
+public const BUTTON: number<Length> = 140.625dp
+public const WIDE_BUTTON: number<Length> = 234.375dp
 // «To my characters»' list of characters at the left.
-public const OWN_LIST: Number<Length> = 222.65625dp
-public const ASK: Number<Length> = 468.75dp
+public const OWN_LIST: number<Length> = 222.65625dp
+public const ASK: number<Length> = 468.75dp
 
 public const INK: Color = Color::hex("#e8dcc4")
 public const DIM: Color = Color::hex("#a3977f")

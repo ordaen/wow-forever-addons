@@ -77,7 +77,7 @@ test "a copy text takes the keyboard when clicked, and what is typed into it is 
 }
 
 class Footer {
-  state counts: Array<FooterCount> = [{ label: "Members", value: "42" }, { label: "Online", value: "7" }]
+  state counts: array<FooterCount> = [{ label: "Members", value: "42" }, { label: "Online", value: "7" }]
 
   public render(self): Template {
     return $ltml {

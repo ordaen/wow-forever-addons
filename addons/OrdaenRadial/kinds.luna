@@ -5,18 +5,18 @@ import { Art } from "$ltml"
 import { WheelAction } from "Ordaen"
 
 public struct RadialOffer {
-  name: String
+  name: string
   icon: Art
   // What the client does for it (an item, a spell, a line of a macro), in a fight too.
   action: WheelAction
   // Nothing to do now: dimmed where it stands.
-  dim: Boolean
+  dim: boolean
 }
 
 public trait RadialKind {
   // What the rings keep it by.
-  public const id: String
+  public const id: string
   // What the settings' catalogue calls it.
-  public const title: String
+  public const title: string
   public offer(self): RadialOffer
 }

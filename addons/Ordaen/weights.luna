@@ -5,58 +5,58 @@
 
 // A spec's weights, per point of each stat (per 1% of a rating): nought for one it doesn't weigh.
 public struct Weights {
-  agility: Number = 0
-  allResist: Number = 0
-  ap: Number = 0
-  arcaneResist: Number = 0
-  arcaneSpellDamage: Number = 0
-  armor: Number = 0
-  blockRating: Number = 0
-  blockValue: Number = 0
-  critRating: Number = 0
-  defenseRating: Number = 0
-  dodgeRating: Number = 0
-  expertiseRating: Number = 0
-  feralAp: Number = 0
-  fireResist: Number = 0
-  fireSpellDamage: Number = 0
-  frostResist: Number = 0
-  frostSpellDamage: Number = 0
-  hasteRating: Number = 0
-  healing: Number = 0
-  health: Number = 0
-  hitRating: Number = 0
-  holySpellDamage: Number = 0
-  hp5: Number = 0
-  intellect: Number = 0
-  mana: Number = 0
-  meleeDps: Number = 0
-  mp5: Number = 0
-  natureResist: Number = 0
-  natureSpellDamage: Number = 0
-  parryRating: Number = 0
-  rangedDps: Number = 0
-  rap: Number = 0
-  shadowResist: Number = 0
-  shadowSpellDamage: Number = 0
-  spellDamage: Number = 0
-  spirit: Number = 0
-  stamina: Number = 0
-  strength: Number = 0
+  agility: number = 0
+  allResist: number = 0
+  ap: number = 0
+  arcaneResist: number = 0
+  arcaneSpellDamage: number = 0
+  armor: number = 0
+  blockRating: number = 0
+  blockValue: number = 0
+  critRating: number = 0
+  defenseRating: number = 0
+  dodgeRating: number = 0
+  expertiseRating: number = 0
+  feralAp: number = 0
+  fireResist: number = 0
+  fireSpellDamage: number = 0
+  frostResist: number = 0
+  frostSpellDamage: number = 0
+  hasteRating: number = 0
+  healing: number = 0
+  health: number = 0
+  hitRating: number = 0
+  holySpellDamage: number = 0
+  hp5: number = 0
+  intellect: number = 0
+  mana: number = 0
+  meleeDps: number = 0
+  mp5: number = 0
+  natureResist: number = 0
+  natureSpellDamage: number = 0
+  parryRating: number = 0
+  rangedDps: number = 0
+  rap: number = 0
+  shadowResist: number = 0
+  shadowSpellDamage: number = 0
+  spellDamage: number = 0
+  spirit: number = 0
+  stamina: number = 0
+  strength: number = 0
 }
 
 // A spec of a class: the client's class (`WARRIOR`), the spec's place among the class's specialisations (none for a
 // build Forever plays within one, chosen in the settings: a Shockadin), its own key and English name, and its weights.
 public struct SpecWeights {
-  classTag: String
-  key: String
-  spec: Integer | nil
-  label: String
+  classTag: string
+  key: string
+  spec: integer | nil
+  label: string
   leveling: Weights
   max: Weights
 }
 
-public const SPEC_WEIGHTS: Array<SpecWeights> = [
+public const SPEC_WEIGHTS: array<SpecWeights> = [
   {
     classTag: "WARRIOR", key: "arms", spec: 1, label: "Arms",
     leveling: { agility: 0.35, allResist: 0.15, ap: 0.5, arcaneResist: 0.03, armor: 0.04, blockRating: 0.1, blockValue: 0.02, critRating: 8.4, defenseRating: 0.05, dodgeRating: 0.72, expertiseRating: 13.5, fireResist: 0.03, frostResist: 0.03, hasteRating: 4, health: 0.15, hitRating: 13.5, hp5: 0.15, meleeDps: 7, natureResist: 0.03, parryRating: 0.9, rap: 0.02, shadowResist: 0.03, stamina: 0.75, strength: 1 },

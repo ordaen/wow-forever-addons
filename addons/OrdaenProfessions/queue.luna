@@ -17,46 +17,46 @@ import { MOST_COUNT, QueueAct, Queued } from "@/view"
 const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 
 // The lines and the table scrolling in the room there is, the footer band under them.
-const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
+const PAGE: array<Track> = [{ fr: 1 }, "max-content"]
 const EMPTY_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, left: WINDOW_ROOM }
-const LINE: Array<Track> = [37.5dp, { fr: 1 }, "max-content", "max-content"]
+const LINE: array<Track> = [37.5dp, { fr: 1 }, "max-content", "max-content"]
 const LINE_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
 const STEP = 28.125dp
 const SLOT = 37.5dp
-const NEED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp]
+const NEED: array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp]
 // With prices: what the missing part costs, and where it is cheaper.
-const NEED_PRICED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp, 117.1875dp, 93.75dp]
+const NEED_PRICED: array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp, 117.1875dp, 93.75dp]
 // The footer: the status, then what is left to buy and the shopping list while prices show, «Create next».
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
-const FOOT_PRICED: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
+const FOOT: array<Track> = [{ fr: 1 }, "max-content"]
+const FOOT_PRICED: array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const NEED_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
 const SHORT: Color = Color::hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
 public struct QueueLine {
-  recipe: Integer
-  name: String
+  recipe: integer
+  name: string
   icon: Art
   color: Color
-  count: Integer
+  count: integer
 }
 
 // A reagent the queue needs: all of it, what the bags hold, and what is missing; the first line that needs it.
 public struct Need {
-  item: Integer | nil
-  recipe: Integer
-  crafts: Integer
-  name: String
+  item: integer | nil
+  recipe: integer
+  crafts: integer
+  name: string
   icon: Art
-  need: Integer
-  have: Integer
-  missing: Integer
+  need: integer
+  have: integer
+  missing: integer
 }
 
 // The queue's lines: a recipe of the open profession as the game has it, another by its kept name and its
 // profession's icon.
-public function linesOf(queued: Array<Queued>, recipes: Array<Game::Recipe>, professions: Array<Game::Profession>): Array<QueueLine> {
-  let list: Array<QueueLine> = []
+public function linesOf(queued: array<Queued>, recipes: array<Game::Recipe>, professions: array<Game::Profession>): array<QueueLine> {
+  let list: array<QueueLine> = []
   for (entry of queued) {
     const recipe = recipes.find(r => r.id == entry.recipe)
     if (recipe != nil) {
@@ -73,8 +73,8 @@ public function linesOf(queued: Array<Queued>, recipes: Array<Game::Recipe>, pro
 }
 
 // The reagents of every line, one entry a reagent, in the order they are first met.
-public function needsOf(lines: Array<QueueLine>): Array<Need> {
-  let list: Array<mut Need> = []
+public function needsOf(lines: array<QueueLine>): array<Need> {
+  let list: array<mut Need> = []
   for (line of lines) {
     for (reagent of Game::tradeSkill.reagents(line.recipe)) {
       let found = false
@@ -100,20 +100,20 @@ public function needsOf(lines: Array<QueueLine>): Array<Need> {
 
 // A queued recipe's line.
 public class QueueRow implements Component {
-  public act: Event<(QueueAct, Integer)> = new Event()
+  public act: Event<(QueueAct, integer)> = new Event()
   // The stepper set the recipe's count; nought takes it out.
-  public counted: Event<(Integer, Integer)> = new Event()
+  public counted: Event<(integer, integer)> = new Event()
 
   derived rule: Line | nil = self.index > 1 ? Style::ROW_RULE : nil
   derived color: Color = self.line.color
   derived icon: Art = self.line.icon
 
   // The count as the stepper sets it: nought takes the line out.
-  state count: Integer
+  state count: integer
 
   line: Signal<QueueLine>
-  index: Signal<Integer>
-  constructor(line: Signal<QueueLine>, index: Signal<Integer>) {
+  index: Signal<integer>
+  constructor(line: Signal<QueueLine>, index: Signal<integer>) {
     self.line = line
     self.index = index
     self.count = (peek self.line).count
@@ -122,12 +122,12 @@ public class QueueRow implements Component {
   }
 
   // The queue's count changed: the stepper shows it.
-  follow(mut self, queued: Integer) {
+  follow(mut self, queued: integer) {
     if (queued != peek self.count) { self.count = queued }
   }
 
   // The stepper moved: the queue's count is its.
-  recount(self, count: Integer) {
+  recount(self, count: integer) {
     const line = peek self.line
     if (count != line.count) { self.counted.emit(line.recipe, count) }
   }
@@ -154,12 +154,12 @@ public class QueueRow implements Component {
 public struct NeedPrice {
   need: Need
   // The missing part's price; none where nothing is missing or no price is known.
-  copper: Integer | nil
+  copper: integer | nil
   way: Way
 }
 
 // Each need's missing part priced: the cheaper of the house and a merchant.
-public function needPricesOf(prices: any PriceSource, needs: Array<Need>): Array<NeedPrice> {
+public function needPricesOf(prices: any PriceSource, needs: array<Need>): array<NeedPrice> {
   return needs.map((need: Need): NeedPrice => {
     if (need.missing == 0) { return { need: need, copper: nil, way: Way::None } }
     const one = unitOf(prices, need.item)
@@ -169,7 +169,7 @@ public function needPricesOf(prices: any PriceSource, needs: Array<Need>): Array
 }
 
 // What all the missing parts cost; none where one has no price.
-public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
+public function toBuyOf(priced: array<NeedPrice>): integer | nil {
   let total = 0
   for (entry of priced) {
     const copper = entry.copper
@@ -184,20 +184,20 @@ public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
 // A reagent of the queue's table; with prices, what its missing part costs and where.
 public class NeedRow implements Component {
   derived need: Need = self.entry.need
-  derived item: Integer | nil = self.need.item
+  derived item: integer | nil = self.need.item
   derived icon: Art | nil = self.need.icon
-  derived lacks: Boolean = self.need.missing > 0
-  derived missing: String = self.lacks ? "%d".format(self.need.missing) : "-"
+  derived lacks: boolean = self.need.missing > 0
+  derived missing: string = self.lacks ? "%d".format(self.need.missing) : "-"
   derived missingColor: Color = self.lacks ? SHORT : Style::INK
-  derived columns: Array<Track> = self.priced ? NEED_PRICED : NEED
-  derived hasPrice: Boolean = self.entry.copper != nil
-  derived copper: Integer = self.entry.copper ?? 0
-  derived way: String = wayText(self.entry.way)
+  derived columns: array<Track> = self.priced ? NEED_PRICED : NEED
+  derived hasPrice: boolean = self.entry.copper != nil
+  derived copper: integer = self.entry.copper ?? 0
+  derived way: string = wayText(self.entry.way)
   derived wayColor: Color = self.entry.way == Way::None ? SHORT : Style::INK
 
   entry: Signal<NeedPrice>
-  priced: Signal<Boolean>
-  constructor(entry: Signal<NeedPrice>, priced: Signal<Boolean>) {
+  priced: Signal<boolean>
+  constructor(entry: Signal<NeedPrice>, priced: Signal<boolean>) {
     self.entry = entry
     self.priced = priced
   }
@@ -240,39 +240,39 @@ public class NeedRow implements Component {
 }
 
 public class QueuePage implements Component {
-  public act: Event<(QueueAct, Integer)> = new Event()
+  public act: Event<(QueueAct, integer)> = new Event()
   // A line's stepper set its recipe's count; nought takes it out.
-  public counted: Event<(Integer, Integer)> = new Event()
+  public counted: Event<(integer, integer)> = new Event()
 
   // «To the shopping list»: every need, with what it lacks (Ordaen Trading's list takes nothing of one that lacks none).
-  public shop: Event<Array<Need>> = new Event()
+  public shop: Event<array<Need>> = new Event()
   // «Create next».
   public next: Event<nil> = new Event()
 
-  derived lines: Array<QueueLine> = linesOf(self.queued, Game::tradeSkill.recipes, Game::professions.list)
-  derived needs: Array<Need> = needsOf(self.lines)
-  derived empty: Boolean = self.lines.length == 0
-  derived priced: Boolean = self.prices != nil
-  derived entries: Array<NeedPrice> = self.entriesOf()
-  derived toBuy: Integer | nil = toBuyOf(self.entries)
-  derived hasToBuy: Boolean = self.toBuy != nil
-  derived toBuyCopper: Integer = self.toBuy ?? 0
-  derived lacking: Boolean = self.needs.count(need => need.missing > 0) > 0
-  derived headColumns: Array<Track> = self.priced ? NEED_PRICED : NEED
-  derived footColumns: Array<Track> = self.priced ? FOOT_PRICED : FOOT
+  derived lines: array<QueueLine> = linesOf(self.queued, Game::tradeSkill.recipes, Game::professions.list)
+  derived needs: array<Need> = needsOf(self.lines)
+  derived empty: boolean = self.lines.length == 0
+  derived priced: boolean = self.prices != nil
+  derived entries: array<NeedPrice> = self.entriesOf()
+  derived toBuy: integer | nil = toBuyOf(self.entries)
+  derived hasToBuy: boolean = self.toBuy != nil
+  derived toBuyCopper: integer = self.toBuy ?? 0
+  derived lacking: boolean = self.needs.count(need => need.missing > 0) > 0
+  derived headColumns: array<Track> = self.priced ? NEED_PRICED : NEED
+  derived footColumns: array<Track> = self.priced ? FOOT_PRICED : FOOT
 
-  queued: Signal<Array<Queued>>
+  queued: Signal<array<Queued>>
   prices: Signal<any PriceSource | nil>
-  status: Signal<String>
-  ready: Signal<Boolean>
+  status: Signal<string>
+  ready: Signal<boolean>
   constructor(
     // The open profession's queue, in the order it runs.
-    queued: Signal<Array<Queued>>,
+    queued: Signal<array<Queued>>,
     // Ordaen Trading's prices while they are shown; none for none.
     prices: Signal<any PriceSource | nil> = nil,
     // What the queue is doing or why it waits; whether «Create next» can start a run.
-    status: Signal<String> = "",
-    ready: Signal<Boolean> = false
+    status: Signal<string> = "",
+    ready: Signal<boolean> = false
   ) {
     self.queued = queued
     self.prices = prices
@@ -283,7 +283,7 @@ public class QueuePage implements Component {
   onNext(self) { self.next.emit() }
 
   // Read again when a price may have moved; without prices each need stands alone.
-  entriesOf(self): Array<NeedPrice> {
+  entriesOf(self): array<NeedPrice> {
     const prices = self.prices
     if (prices == nil) { return self.needs.map(need => ({ need: need, copper: nil, way: Way::None })) }
     _ = prices.revision
@@ -292,8 +292,8 @@ public class QueuePage implements Component {
 
   onShop(self) { self.shop.emit(self.needs) }
 
-  onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
-  onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }
+  onAct(self, act: QueueAct, id: integer) { self.act.emit(act, id) }
+  onCounted(self, recipe: integer, count: integer) { self.counted.emit(recipe, count) }
 
   public render(self): Template {
     return $ltml {

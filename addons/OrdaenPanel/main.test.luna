@@ -63,8 +63,8 @@ const HONORED = "Honored 4 800 / 12 000"
 
 // Ordaen Spells as Ordaen's modules hold it: its title.
 class Spells implements Module {
-  public const title: String = "Ordaen Spells"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Ordaen Spells"
+  public const pages: array<SettingsPage> = []
 
   public render(self): Template {
     return $ltml { <box /> }
@@ -73,8 +73,8 @@ class Spells implements Module {
 
 // Ordaen Social as Ordaen's modules hold it: its title.
 class Social implements Module {
-  public const title: String = "Ordaen Social"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Ordaen Social"
+  public const pages: array<SettingsPage> = []
 
   public render(self): Template {
     return $ltml { <box /> }
@@ -83,8 +83,8 @@ class Social implements Module {
 
 // Ordaen Account as Ordaen's modules hold it: its title.
 class Account implements Module {
-  public const title: String = "Ordaen Account"
-  public const pages: Array<SettingsPage> = []
+  public const title: string = "Ordaen Account"
+  public const pages: array<SettingsPage> = []
 
   public render(self): Template {
     return $ltml { <box /> }
@@ -92,14 +92,14 @@ class Account implements Module {
 }
 
 // One of the game's own frames the panel stands in for, hides or leaves unseen.
-function frame(name: String): any Client::Frame {
+function frame(name: string): any Client::Frame {
   const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 40)
   return made
 }
 
 // One of the client's own frames, by its name.
-function client(name: String): any Client::Frame {
+function client(name: string): any Client::Frame {
   const found = Runtime::frame(name) ?? panic("the client has the frame")
   const held: any Client::Frame = found
   return held
@@ -107,8 +107,8 @@ function client(name: String): any Client::Frame {
 
 // The game's bag buttons, every one its constants say it has (the stand-in's are Forever's): the backpack, a slot for
 // each bag, one for each reagent bag, the keyring's; each of `make`'s frame of that name.
-function bagButtons(make: (name: String) => any Client::Frame): Array<Game::BagButton> {
-  let bags: Array<Game::BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
+function bagButtons(make: (name: string) => any Client::Frame): array<Game::BagButton> {
+  let bags: array<Game::BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
   for (slot of 0..Client::NUM_BAG_SLOTS - 1) {
     bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG, bag: slot + 1 })
   }
@@ -125,7 +125,7 @@ function panel(): Test::Part {
 }
 
 // The panel's page of the settings, at one of its tabs: `/ordaen`, «Panel» in the list of modules, the tab.
-function tab(title: String): Test::Part {
+function tab(title: string): Test::Part {
   Test::open("/ordaen")
   const settings = Test::page().window(SETTINGS)
   settings.button("Panel").click()
@@ -148,28 +148,28 @@ function visibility(): Test::Part {
 
 // One of «Visibility»'s states, the `nth` whose dropdown shows `face` («General», «In combat», «On transport» in that
 // order), set to `choice`.
-function hide(face: String, nth: Integer, choice: String) {
+function hide(face: string, nth: integer, choice: string) {
   const settings = visibility()
   pick(settings, face, nth, choice)
 }
 
 // A dropdown's choice: its face, which shows the choice made, clicked, then the choice in its list (a popup that holds
 // `among`, a choice no other surface shows).
-function choose(settings: Test::Part, face: String, among: String, choice: String) {
+function choose(settings: Test::Part, face: string, among: string, choice: string) {
   settings.button(face).click()
   Test::page().window(among).button(choice).click()
 }
 
 // The `nth` dropdown whose face shows `face`, set to `choice`: its list is the last surface that shows the choice (a
 // face may show it too).
-function pick(settings: Test::Part, face: String, nth: Integer, choice: String) {
+function pick(settings: Test::Part, face: string, nth: integer, choice: string) {
   settings.button(face).nth(nth).click()
   const holders = Test::page().window(choice)
   holders.nth(holders.count()).button(choice).click()
 }
 
 // A part taken with the left button, carried over each part of `path` in turn (a frame each) and let go over the last.
-function drag(from: Test::Part, path: Array<Test::Part>) {
+function drag(from: Test::Part, path: array<Test::Part>) {
   from.hover()
   Test::press(nil)
   for (over of path) {
@@ -183,21 +183,21 @@ function drag(from: Test::Part, path: Array<Test::Part>) {
 // An item of the panel put in a zone on «Bottom panel»'s tab: the `nth` of the items' dropdowns that shows `face`
 // (in the items' order: the menu, friends and guild, the experience bar, the zone's name, the time, the money, the
 // bags).
-function place(face: String, nth: Integer, zone: String) {
+function place(face: string, nth: integer, zone: string) {
   const settings = tab("Bottom panel")
   settings.text("Screen edge").wheel(-3)
   pick(settings, face, nth, zone)
 }
 
 // One of «Bottom panel»'s dropdowns' choices.
-function bottom(face: String, among: String, choice: String) {
+function bottom(face: string, among: string, choice: string) {
   const settings = tab("Bottom panel")
   choose(settings, face, among, choice)
 }
 
 // One of the tab's switches, the `nth` (on «General»: the panel's own, then the menu's, the bars', the panel's),
 // clicked.
-function flip(title: String, art: Art, nth: Integer) {
+function flip(title: string, art: Art, nth: integer) {
   const settings = tab(title)
   settings.button(art).nth(nth).click()
 }
@@ -263,7 +263,7 @@ test "every bag button the game has stands in a cell after the menu, in its orde
   Game::bags.buttons = bagButtons(frame)
   Test::mount(nil, SCREEN)
   const window = panel()
-  let icons: Array<Art> = [BACKPACK]
+  let icons: array<Art> = [BACKPACK]
   for (slot of 1..Client::NUM_BAG_SLOTS) { icons.push(BAG) }
   for (slot of 1..Client::NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
   Test::expect(window.box(CELL).count() == 10 + icons.length && !window.box(KEYRING).shown())
@@ -288,7 +288,7 @@ test "with Ordaen Social on, the friends' cell alone opens the friends and the g
 }
 
 test "with Ordaen Account on, one cell in the legacy's place opens the collections' button; the collections' cell goes" {
-  let clicked: Array<String> = []
+  let clicked: array<string> = []
   const collections = frame("CollectionsMicroButton")
   collections.SetScript("OnClick", () => { clicked.push("collections") })
   Game::frames.CollectionsMicroButton = collections
@@ -326,7 +326,7 @@ test "on a taller panel every cell and groove is as high as its inside, the icon
 test "the character's button shows the class's icon once chosen" {
   Game::player.level = 42
   Test::mount(nil, SCREEN)
-  const icons: Array<Asset> = [
+  const icons: array<Asset> = [
     "Interface/Icons/ClassIcon_Warrior", "Interface/Icons/ClassIcon_Paladin", "Interface/Icons/ClassIcon_Hunter",
     "Interface/Icons/ClassIcon_Rogue", "Interface/Icons/ClassIcon_Priest", "Interface/Icons/ClassIcon_Shaman",
     "Interface/Icons/ClassIcon_Mage", "Interface/Icons/ClassIcon_Warlock", "Interface/Icons/ClassIcon_Druid"
@@ -357,7 +357,7 @@ test "a groove runs up past the cells to the panel's metal, through the room und
 }
 
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
-  let clicked: Array<String> = []
+  let clicked: array<string> = []
   const professions = frame("ProfessionMicroButton")
   professions.SetScript("OnClick", () => { clicked.push("professions") })
   Game::frames.ProfessionMicroButton = professions
@@ -452,7 +452,7 @@ test "the cell under the cursor is lit, and shaded while it is pressed" {
 const WHISPER_VIOLET: Color = Color::hex("#8a4fd0")
 
 // Whether a surface shows this text.
-function surfaceSays(text: String): Boolean {
+function surfaceSays(text: string): boolean {
   return Test::surfaces().any(s => s.texts.any(t => t == text))
 }
 
@@ -526,7 +526,7 @@ test "talent points to spend are a badge on the portrait's rim under the level, 
   Test::mount(nil, SCREEN)
   const portrait = Test::page().window("42")
   Test::expect(!portrait.text("3").shown())
-  Game::talentTrees.unspent = (group: Integer): Integer => 3
+  Game::talentTrees.unspent = (group: integer): integer => 3
   Test::event("PLAYER_TALENT_UPDATE")
   Test::expect(portrait.text("3").shown())
   Test::expect(portrait.text("3").rect().top > portrait.text("42").rect().bottom)
@@ -538,7 +538,7 @@ test "talent points to spend are a badge on the portrait's rim under the level, 
   // Its middle on the frame down the portrait's right side, 3 in from its edge (the metal 6 wide).
   const edges = portrait.rect()
   Test::expect(((points.left + points.right) / 2 - (edges.right - 3)).abs() <= 1.5)
-  Game::talentTrees.unspent = (group: Integer): Integer => 0
+  Game::talentTrees.unspent = (group: integer): integer => 0
   Test::event("CHARACTER_POINTS_CHANGED", -3)
   Test::expect(!portrait.text("3").shown() && !portrait.text("0").shown())
 }
@@ -880,13 +880,13 @@ test "the panel's height reaches from 60, where its cells still fit, to 96 on it
 test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
   const low: Choices = { height: 24, ..DEFAULTS }
   // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
-  const sections: Map<String, String> = {}
+  const sections: map<string, string> = {}
   sections["OrdaenPanel"] = Game::encoding.serialize(low)
-  const profile: Map<String, Map<String, String>> = {}
+  const profile: map<string, map<string, string>> = {}
   profile["sections"] = sections
-  const profiles: Map<String, Map<String, Map<String, String>>> = {}
+  const profiles: map<string, map<string, map<string, string>>> = {}
   profiles["Default"] = profile
-  const kept: Map<String, Map<String, Map<String, Map<String, String>>>> = {}
+  const kept: map<string, map<string, map<string, map<string, string>>>> = {}
   kept["profiles"] = profiles
   Game::saved.store(.Account, "profiles", kept)
   Test::reload()

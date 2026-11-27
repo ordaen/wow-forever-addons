@@ -21,12 +21,12 @@ const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.1718
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
 // A caption: its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
-const CAPTION_TRACKS: Array<Track> = [{ fr: 1 }, "max-content"]
+const CAPTION_TRACKS: array<Track> = [{ fr: 1 }, "max-content"]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 // The client's gold coin, a disc with its dark rim, over a junk slot's top right corner.
 const COIN_ART: Asset = "Interface/MoneyFrame/UI-GoldIcon"
-const NO_ENTRIES: Array<MenuEntry> = []
+const NO_ENTRIES: array<MenuEntry> = []
 // The classes of items crafting takes (`Enum.ItemClass`: trade goods, reagents).
 const TRADE = 7
 const REAGENT = 5
@@ -46,9 +46,9 @@ const ARMOR = 4
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).
 public struct Filter {
-  const query: String
+  const query: string
   const place: Game::BagPlace
-  const lit: Integer
+  const lit: integer
 }
 
 // What every row, place and slot of the grid reads of the window, and the events they tell it: one object, made by the
@@ -61,29 +61,29 @@ public class Shelf {
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
   // A line of the open menu clicked (its place), or a click outside it.
-  public picked: Event<Integer> = new Event()
+  public picked: Event<integer> = new Event()
   public closed: Event<nil> = new Event()
 
   public filter: Signal<Filter>
-  public free: Signal<Integer>
+  public free: Signal<integer>
   // A slot's size, and the room between two slots of a card, as the player chose them.
-  public slot: Signal<Number<Length>>
-  public gap: Signal<Number<Spacing>>
-  public fills: Signal<Map<Integer, String>>
+  public slot: Signal<number<Length>>
+  public gap: Signal<number<Spacing>>
+  public fills: Signal<map<integer, string>>
   public menu: Signal<SlotMenu | nil>
   // How a container's slot is used (the client's secure click).
   public useClick: Signal<UseClick>
   // Whether the slots' vault is open: shut (the bank away from a banker), they are its copy, shown and not used.
-  public live: Signal<Boolean>
+  public live: Signal<boolean>
   constructor(
     filter: Signal<Filter>,
-    free: Signal<Integer>,
-    slot: Signal<Number<Length>>,
-    gap: Signal<Number<Spacing>>,
-    fills: Signal<Map<Integer, String>>,
+    free: Signal<integer>,
+    slot: Signal<number<Length>>,
+    gap: Signal<number<Spacing>>,
+    fills: Signal<map<integer, string>>,
     menu: Signal<SlotMenu | nil>,
     useClick: Signal<UseClick>,
-    live: Signal<Boolean>
+    live: Signal<boolean>
   ) {
     self.filter = filter
     self.free = free
@@ -98,7 +98,7 @@ public class Shelf {
 
 // Whether the place keeps the slot's item lit: at the auction house and the mailbox what isn't bound (nor a quest's,
 // which the mail takes neither), at crafting the reagents, at a merchant what isn't a quest's.
-function fits(slot: Slot, place: Game::BagPlace): Boolean {
+function fits(slot: Slot, place: Game::BagPlace): boolean {
   return match (place) {
     .AuctionHouse => !slot.read.bound
     .Mail => !slot.read.bound && slot.read.kind != QUEST
@@ -109,18 +109,18 @@ function fits(slot: Slot, place: Game::BagPlace): Boolean {
 }
 
 class BagSlot implements Component {
-  derived item: Integer | nil = self.slot.id == 0 ? nil : self.slot.id
-  derived dimmed: Boolean = self.dimmedOf()
-  derived count: Integer = self.slot.count
+  derived item: integer | nil = self.slot.id == 0 ? nil : self.slot.id
+  derived dimmed: boolean = self.dimmedOf()
+  derived count: integer = self.slot.count
   derived quality: Quality = self.slot.quality
   // At a merchant, the client's coin bag: red over what he gives nothing for.
   // Its place in the player's bags or bank while that is open: its tooltip that very item's (bound or not).
-  derived place: [Integer, Integer] | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
+  derived place: [integer, integer] | nil = self.slot.vault == Vault::Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
   derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game::BagPlace::Merchant ? nil :
     self.slot.read.price > 0 ? Cursor::Buy : Cursor::BuyError
-  derived coin: Boolean = self.slot.junk && self.slot.id != 0
+  derived coin: boolean = self.slot.junk && self.slot.id != 0
   // Gear the player can use, worth more to its spec than what it wears (Ordaen's worth).
-  derived upgrade: Boolean = self.upgradeNow()
+  derived upgrade: boolean = self.upgradeNow()
   derived questMark: Asset | nil = self.slot.startsQuest ? QUEST_BANG : self.slot.questItem ? QUEST_BORDER : nil
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open, nor any slot while Use hands the item over (sold to a merchant, put in a
@@ -132,9 +132,9 @@ class BagSlot implements Component {
     Game::player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton::Left } :
     handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
     Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
-  derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
-  derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
-  derived menuTitle: String = self.shelf.menu?.title ?? ""
+  derived menuShown: boolean = self.shelf.menu?.slot == self.slot
+  derived menuEntries: array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
+  derived menuTitle: string = self.shelf.menu?.title ?? ""
 
   slot: Signal<Slot>
   const shelf: Shelf
@@ -143,13 +143,13 @@ class BagSlot implements Component {
     self.shelf = shelf
   }
 
-  upgradeNow(self): Boolean {
+  upgradeNow(self): boolean {
     const slot = self.slot
     if (slot.id == 0 || (slot.read.kind != WEAPON && slot.read.kind != ARMOR) || !usableItem(slot.id)) { return false }
     return (Ordaen.worth.upgradeOf(slot.read.link) ?? 0) > 0
   }
 
-  dimmedOf(self): Boolean {
+  dimmedOf(self): boolean {
     const slot = self.slot
     const filter = self.shelf.filter
     if (filter.lit >= 0 && slot.bag != filter.lit) { return true }
@@ -164,7 +164,7 @@ class BagSlot implements Component {
   onPickup(self) { self.shelf.pickup.emit(self.slot) }
   onEnter(self) { self.shelf.entered.emit(self.slot) }
   onLeave(self) { self.shelf.left.emit(self.slot) }
-  onPicked(self, index: Integer) { self.shelf.picked.emit(index) }
+  onPicked(self, index: integer) { self.shelf.picked.emit(index) }
   onClosed(self) { self.shelf.closed.emit() }
 
   public render(self): Template {
@@ -191,7 +191,7 @@ class BagSlot implements Component {
 
 // A section's caption: its name, a bag's fill after it. «Free»'s name is plain.
 class Caption implements Component {
-  derived fill: String = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
+  derived fill: string = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
   derived titleColor: Color = self.section.free ? LABEL : CAPTION
 
   section: Signal<Section>
@@ -213,10 +213,10 @@ class Caption implements Component {
 
 // A section as a card: a darker ground, its caption, its slots in rows as wide as the card.
 class SectionCard implements Component {
-  derived titled: Boolean = self.card.section.title != ""
-  derived free: Boolean = self.card.section.free
-  derived span: Integer = self.card.span
-  derived slots: Array<Slot> = self.card.section.slots
+  derived titled: boolean = self.card.section.title != ""
+  derived free: boolean = self.card.section.free
+  derived span: integer = self.card.span
+  derived slots: array<Slot> = self.card.section.slots
   derived section: Section = self.card.section
 
   card: Signal<Card>
@@ -241,8 +241,8 @@ class SectionCard implements Component {
 
 // A line of cards side by side, each as high as itself.
 public class CardLine implements Component {
-  derived tracks: Array<Track> = self.line.tracks
-  derived cards: Array<Card> = self.line.cards
+  derived tracks: array<Track> = self.line.tracks
+  derived cards: array<Card> = self.line.cards
 
   line: Signal<CardRow>
   const shelf: Shelf

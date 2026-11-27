@@ -11,8 +11,8 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1300, height: 760, screen: 
 const PLATES = ["Options", "AddOns", "Log Out", "Exit Game", "Return to Game"]
 
 // Blizzard's buttons that show.
-function buttonsOf(...frames: any Client::Frame): Array<any Client::Button> {
-  const list: Array<any Client::Button> = []
+function buttonsOf(...frames: any Client::Frame): array<any Client::Button> {
+  const list: array<any Client::Button> = []
   for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame is Client::Button) {
@@ -23,7 +23,7 @@ function buttonsOf(...frames: any Client::Frame): Array<any Client::Button> {
 }
 
 // Whether Blizzard's own buttons show at this opacity, each taking the mouse but «AddOns» while dressed.
-function blizzards(alpha: Number, dressed: Boolean): Boolean {
+function blizzards(alpha: number, dressed: boolean): boolean {
   const list = buttonsOf(...Client::GameMenuFrame.GetChildren())
   if (list.length == 0) { return false }
   for (button of list) {
@@ -48,17 +48,17 @@ function escape() {
 }
 
 // A plate, by its label: each is a surface of its own.
-function plate(label: String): Test::Part {
+function plate(label: string): Test::Part {
   return Test::page().window(label)
 }
 
 // The plates lit, by their labels.
-function lit(): String {
+function lit(): string {
   return PLATES.filter(label => plate(label).box(Ordaen.art.ctl.buttonLight).opacity() == 1).join(", ")
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -109,13 +109,13 @@ test "the cursor on a plate lights it alone, and the light goes as it leaves" {
 
 // The push button's pushed rows drawn now, each once (a plate is drawn in three slices): the bronze plate's (1) and
 // the red one's (5).
-function pushed(): String {
+function pushed(): string {
   Test::flush()
-  const rows: Array<String> = []
+  const rows: array<string> = []
   for (drawn of Test::drawn()) {
     const file = drawn.file
-    if (file is String && file.match("[/\\]button$") != nil) {
-      const row = String::of((drawn.top * 8 + 0.5).floor())
+    if (file is string && file.match("[/\\]button$") != nil) {
+      const row = string::of((drawn.top * 8 + 0.5).floor())
       if ((row == "1" || row == "5") && !rows.any(seen => seen == row)) { rows.push(row) }
     }
   }

@@ -17,13 +17,13 @@ import { BRIGHT_TEXT } from "@/units"
 
 // The −, the number, the +. The number's room is as wide as its digits as the font draws them, two at least: it
 // widens past them for a third.
-const STEPS: Array<Track> = ["max-content", "max-content", "max-content"]
+const STEPS: array<Track> = ["max-content", "max-content", "max-content"]
 const NUMBER_BOUNDS: Bounds = { min: 25.78125dp, max: nil }
 // The width of − and +.
 public const STEP_WIDTH = 32.8125dp
 
 // `value` held between `least` and `most`; the least where the most is under it.
-public function held(value: Integer, least: Integer, most: Integer): Integer {
+public function held(value: integer, least: integer, most: integer): integer {
   return least.max(value.min(most))
 }
 
@@ -33,7 +33,7 @@ const ONE = 1
 const SHIFTED = 10
 const CONTROLLED = 100
 
-public function stride(): Integer {
+public function stride(): integer {
   const down = Game::keyboard.activeModifiers
   if (down.any(m => m == Modifier::Ctrl)) { return CONTROLLED }
   if (down.any(m => m == Modifier::Shift)) { return SHIFTED }
@@ -42,7 +42,7 @@ public function stride(): Integer {
 
 // What − or + says under the cursor: each key and how far it steps (`said` writes a stride of steps, signed), and
 // holding.
-public function stepTip(title: String, said: (steps: Integer) => String): TipText {
+public function stepTip(title: string, said: (steps: integer) => string): TipText {
   return {
     title: title,
     text: Locale::COUNT_HOLD,
@@ -54,26 +54,26 @@ public function stepTip(title: String, said: (steps: Integer) => String): TipTex
   }
 }
 
-const FEWER_TIP: TipText = stepTip(Locale::COUNT_FEWER, steps => "-" + String::of(steps))
-const MORE_TIP: TipText = stepTip(Locale::COUNT_MORE, steps => "+" + String::of(steps))
+const FEWER_TIP: TipText = stepTip(Locale::COUNT_FEWER, steps => "-" + string::of(steps))
+const MORE_TIP: TipText = stepTip(Locale::COUNT_MORE, steps => "+" + string::of(steps))
 
 public class CountInput implements Component {
-  derived off: Boolean = self.disabled || self.most < self.least
-  derived fewer: Boolean = !self.off && self.value > self.least
-  derived more: Boolean = !self.off && self.value < self.most
+  derived off: boolean = self.disabled || self.most < self.least
+  derived fewer: boolean = !self.off && self.value > self.least
+  derived more: boolean = !self.off && self.value < self.most
 
-  value: mut Signal<Integer>
-  least: Signal<Integer>
-  most: Signal<Integer>
+  value: mut Signal<integer>
+  least: Signal<integer>
+  most: Signal<integer>
   // The width of − and +.
-  const step: Number<Length>
-  disabled: Signal<Boolean>
+  const step: number<Length>
+  disabled: Signal<boolean>
   constructor(
-    value: mut Signal<Integer>,
-    least: Signal<Integer>,
-    most: Signal<Integer>,
-    step: Number<Length> = STEP_WIDTH,
-    disabled: Signal<Boolean> = false
+    value: mut Signal<integer>,
+    least: Signal<integer>,
+    most: Signal<integer>,
+    step: number<Length> = STEP_WIDTH,
+    disabled: Signal<boolean> = false
   ) {
     self.value = value
     self.least = least
@@ -84,7 +84,7 @@ public class CountInput implements Component {
   }
 
   // A bound moved past the value, or another wrote one outside them: the value is the bound.
-  hold(mut self, value: Integer, least: Integer, most: Integer) {
+  hold(mut self, value: integer, least: integer, most: integer) {
     const kept = held(value, least, most)
     if (kept != value) { self.value = kept }
   }

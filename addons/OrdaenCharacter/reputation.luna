@@ -18,27 +18,27 @@ const MARK = 18.75dp
 const CLEAR: Color = Color::hex("#00000000")
 
 // How far along its standing a faction is, from 0 to 1.
-function fractionOf(faction: Faction): Number {
+function fractionOf(faction: Faction): number {
   if (faction.max <= faction.min) { return 1 }
   return (faction.value - faction.min) / (faction.max - faction.min)
 }
 
 // What a faction rose since the window first read it this session.
-public function gainOf(faction: Faction, starts: Map<Integer, Integer>): Integer {
+public function gainOf(faction: Faction, starts: map<integer, integer>): integer {
   return faction.value - (starts[faction.id] ?? faction.value)
 }
 
-function shownOf(on: Boolean): Shown { return on ? .On : .Off }
+function shownOf(on: boolean): Shown { return on ? .On : .Off }
 
 // What the list shows: every faction, or those at war alone.
 public enum FactionShow { All, AtWar }
 
-const SHOWS: Array<Choice<FactionShow>> = [
+const SHOWS: array<Choice<FactionShow>> = [
   { value: FactionShow::All, label: Locale::SHOW_ALL },
   { value: FactionShow::AtWar, label: Locale::SHOW_AT_WAR }
 ]
 
-function keeps(faction: Faction, needle: String, show: FactionShow): Boolean {
+function keeps(faction: Faction, needle: string, show: FactionShow): boolean {
   if (show == .AtWar && !faction.atWar) { return false }
   return needle == "" || faction.name.lower().contains(needle)
 }
@@ -46,10 +46,10 @@ function keeps(faction: Faction, needle: String, show: FactionShow): Boolean {
 // The factions the list shows: those whose name holds the search (and those at war alone, where so chosen), each
 // under the heading the game lists it under, which stays while it holds any. A folded group's factions are the
 // game's to list: a search finds them once it is opened.
-public function listedOf(factions: Array<Faction>, search: String, show: FactionShow): Array<Faction> {
+public function listedOf(factions: array<Faction>, search: string, show: FactionShow): array<Faction> {
   const needle = search.lower()
   if (needle == "" && show == .All) { return factions }
-  const listed: Array<Faction> = []
+  const listed: array<Faction> = []
   let heading: Faction | nil = nil
   for (faction of factions) {
     if (faction.header) {
@@ -68,7 +68,7 @@ public function listedOf(factions: Array<Faction>, search: String, show: Faction
 }
 
 // The footer's count: the factions met, and those at war.
-public function factionsCount(factions: Array<Faction>): String {
+public function factionsCount(factions: array<Faction>): string {
   const met = factions.count(f => !f.header || f.ranked)
   const atWar = factions.count(f => f.atWar)
   const count = Locale::FACTIONS_COUNT.format(met)
@@ -80,20 +80,20 @@ public class FactionRow implements Component {
   public pick: Event<Faction> = new Event()
   public fold: Event<Faction> = new Event()
 
-  derived standing: String = standingName(self.faction.standing)
-  derived share: Number = fractionOf(self.faction)
+  derived standing: string = standingName(self.faction.standing)
+  derived share: number = fractionOf(self.faction)
   derived tone: Color = standingColor(self.faction.standing)
-  derived barShown: Boolean = !self.faction.header || self.faction.ranked
+  derived barShown: boolean = !self.faction.header || self.faction.ranked
   derived mark: Art | nil = self.faction.header ? (self.faction.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
-  derived indent: Number<Length> = self.faction.child ? INDENT : 0ui
-  derived gainText: String = self.gain > 0 ? `+${self.gain}` : ""
+  derived indent: number<Length> = self.faction.child ? INDENT : 0ui
+  derived gainText: string = self.gain > 0 ? `+${self.gain}` : ""
   derived nameColor: Color = self.faction.header ? Style::GOLD : self.faction.atWar ? Style::RED : Style::INK
   derived background: Color = self.picked ? Style::PICKED : CLEAR
 
   faction: Signal<Faction>
-  gain: Signal<Integer>
-  picked: Signal<Boolean>
-  constructor(faction: Signal<Faction>, gain: Signal<Integer>, picked: Signal<Boolean>) {
+  gain: Signal<integer>
+  picked: Signal<boolean>
+  constructor(faction: Signal<Faction>, gain: Signal<integer>, picked: Signal<boolean>) {
     self.faction = faction
     self.gain = gain
     self.picked = picked
@@ -130,10 +130,10 @@ public class FactionSwitch implements Component {
   derived state: Shown = shownOf(self.on)
   derived ink: Color = self.disabled ? Style::DIM : Style::INK
 
-  label: Signal<String>
-  on: Signal<Boolean>
-  disabled: Signal<Boolean>
-  constructor(label: Signal<String>, on: Signal<Boolean>, disabled: Signal<Boolean> = false) {
+  label: Signal<string>
+  on: Signal<boolean>
+  disabled: Signal<boolean>
+  constructor(label: Signal<string>, on: Signal<boolean>, disabled: Signal<boolean> = false) {
     self.label = label
     self.on = on
     self.disabled = disabled
@@ -157,21 +157,21 @@ public class FactionDetail implements Component {
   public inactive: Event<Faction> = new Event()
   public watch: Event<Faction> = new Event()
 
-  derived standing: String = standingName(self.faction.standing)
-  derived share: Number = fractionOf(self.faction)
+  derived standing: string = standingName(self.faction.standing)
+  derived share: number = fractionOf(self.faction)
   derived tone: Color = standingColor(self.faction.standing)
-  derived numbers: String = `${self.faction.value - self.faction.min} / ${self.faction.max - self.faction.min}`
-  derived toNext: String = self.faction.standing < EXALTED ?
-    Locale::TO_NEXT.format(standingName(self.faction.standing + 1), String::of(self.faction.max - self.faction.value)) :
+  derived numbers: string = `${self.faction.value - self.faction.min} / ${self.faction.max - self.faction.min}`
+  derived toNext: string = self.faction.standing < EXALTED ?
+    Locale::TO_NEXT.format(standingName(self.faction.standing + 1), string::of(self.faction.max - self.faction.value)) :
     ""
-  derived gainText: String = self.gain > 0 ? `+${self.gain}` : ""
-  derived noWar: Boolean = !self.faction.canToggleAtWar || self.faction.header
-  derived noInactive: Boolean = !self.faction.canSetInactive
+  derived gainText: string = self.gain > 0 ? `+${self.gain}` : ""
+  derived noWar: boolean = !self.faction.canToggleAtWar || self.faction.header
+  derived noInactive: boolean = !self.faction.canSetInactive
 
   faction: Signal<Faction>
-  gain: Signal<Integer>
-  isInactive: Signal<Boolean>
-  constructor(faction: Signal<Faction>, gain: Signal<Integer>, isInactive: Signal<Boolean>) {
+  gain: Signal<integer>
+  isInactive: Signal<boolean>
+  constructor(faction: Signal<Faction>, gain: Signal<integer>, isInactive: Signal<boolean>) {
     self.faction = faction
     self.gain = gain
     self.isInactive = isInactive
@@ -213,22 +213,22 @@ public class ReputationPage implements Component {
   public watch: Event<Faction> = new Event()
 
   derived picked: Faction | nil = self.factions.find(f => f.id == self.chosen && (!f.header || f.ranked))
-  derived hasPick: Boolean = self.picked != nil
-  derived pickedGain: Integer = self.picked == nil ? 0 : gainOf(self.picked ?? panic("picked"), self.starts)
+  derived hasPick: boolean = self.picked != nil
+  derived pickedGain: integer = self.picked == nil ? 0 : gainOf(self.picked ?? panic("picked"), self.starts)
   derived shownPick: Faction = self.picked ?? self.factions[1] ?? panic("a faction is picked from the list")
-  derived listed: Array<Faction> = listedOf(self.factions, self.search, self.show)
-  derived none: Boolean = self.listed.length == 0
-  derived narrowed: Boolean = self.show != .All
+  derived listed: array<Faction> = listedOf(self.factions, self.search, self.show)
+  derived none: boolean = self.listed.length == 0
+  derived narrowed: boolean = self.show != .All
 
-  factions: Signal<Array<Faction>>
-  starts: Signal<Map<Integer, Integer>>
-  chosen: Signal<Integer>
-  chosenInactive: Signal<Boolean>
+  factions: Signal<array<Faction>>
+  starts: Signal<map<integer, integer>>
+  chosen: Signal<integer>
+  chosenInactive: Signal<boolean>
   // The toolbar's search and filter, the window's to keep.
-  search: mut Signal<String>
+  search: mut Signal<string>
   show: mut Signal<FactionShow>
-  constructor(factions: Signal<Array<Faction>>, starts: Signal<Map<Integer, Integer>>, chosen: Signal<Integer>,
-    chosenInactive: Signal<Boolean>, search: mut Signal<String>, show: mut Signal<FactionShow>) {
+  constructor(factions: Signal<array<Faction>>, starts: Signal<map<integer, integer>>, chosen: Signal<integer>,
+    chosenInactive: Signal<boolean>, search: mut Signal<string>, show: mut Signal<FactionShow>) {
     self.factions = factions
     self.starts = starts
     self.chosen = chosen

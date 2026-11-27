@@ -12,11 +12,11 @@ import { ModuleMemory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.
 struct Probe implements Plain {
-  scale: Number = 1
+  scale: number = 1
 }
 
 struct Remembered implements Plain {
-  last: String = ""
+  last: string = ""
 }
 
 test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {
@@ -24,7 +24,7 @@ test "a character uses the profile picked for its spec, then for it, then for it
   picks.account = "Shared"
   picks.byClass["MAGE"] = "Mages"
   picks.byCharacter["Player-1"] = "Mine"
-  const specs: Map<Integer, ProfileName> = {}
+  const specs: map<integer, ProfileName> = {}
   specs[2] = "Frost"
   picks.bySpec["Player-1"] = specs
   Test::expect(picked(picks, { character: "Player-1", spec: 2, classTag: "MAGE" }) == "Frost")
@@ -56,23 +56,23 @@ test "a switch to another profile takes effect at once, and is kept" {
 test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
   const globals: Globals = { scale: 1.25, density: Density::Compact, ..DEFAULTS }
   const look = preset(Preset::Minimal)
-  const settings: Map<String, Unknown> = {}
+  const settings: map<string, unknown> = {}
   settings["Ordaen"] = globals
   settings["Ordaen:look"] = look
   settings["OrdaenMinimap"] = Probe { scale: 1.5 }
   settings["OrdaenProfessions:memory"] = Remembered { last: "Alchemy" }
-  const choices: Map<String, Boolean> = {}
+  const choices: map<string, boolean> = {}
   choices["OrdaenPanel"] = false
-  const places: Map<String, KeptPlace> = {}
+  const places: map<string, KeptPlace> = {}
   places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
-  const account: Map<String, Unknown> = {}
+  const account: map<string, unknown> = {}
   account["settings"] = settings
   account["choices"] = choices
   account["places"] = places
   Test::saved("LunaTypeDB", account)
-  const own: Map<String, Unknown> = {}
+  const own: map<string, unknown> = {}
   own["OrdaenPanel:memory"] = Remembered { last: "bags" }
-  const character: Map<String, Unknown> = {}
+  const character: map<string, unknown> = {}
   character["settings"] = own
   Test::saved("LunaTypeCharDB", character)
   Test::reload()
@@ -105,9 +105,9 @@ test "what develop's build kept reads back: its settings as «Default», what mo
 }
 
 test "what develop kept for a module that loads after «Default» was renamed moves into the profile that is the account's now" {
-  const settings: Map<String, Unknown> = {}
+  const settings: map<string, unknown> = {}
   settings["OrdaenMinimap"] = Probe { scale: 1.5 }
-  const account: Map<String, Unknown> = {}
+  const account: map<string, unknown> = {}
   account["settings"] = settings
   Test::saved("LunaTypeDB", account)
   Test::reload()
@@ -126,7 +126,7 @@ test "what develop kept for a module that loads after «Default» was renamed mo
 
 test "a change applies at once with nothing to save, and is packed into its profile as the game saves, not before" {
   const profiles = Ordaen.keeper.profiles
-  const packed = (): String | nil => (profiles.kept.profiles[profiles.active] ?? Profile {}).sections["Ordaen"]
+  const packed = (): string | nil => (profiles.kept.profiles[profiles.active] ?? Profile {}).sections["Ordaen"]
   const before = packed()
   Ordaen.globals.values.density = Density::Roomy
   Test::flush()
@@ -139,9 +139,9 @@ test "a change applies at once with nothing to save, and is packed into its prof
 }
 
 test "the parts' places are the active profile's, and the account's move into «Default» once" {
-  const places: Map<String, KeptPlace> = {}
+  const places: map<string, KeptPlace> = {}
   places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
-  const account: Map<String, Unknown> = {}
+  const account: map<string, unknown> = {}
   account["places"] = places
   Test::saved("LunaTypeDB", account)
   Test::reload()
@@ -233,19 +233,19 @@ test "a second character of another class follows the class's pick or the accoun
 }
 
 test "a renamed module keeps what was kept under its former name: its settings, its memory, its sections, on or off" {
-  const settings: Map<String, Unknown> = {}
+  const settings: map<string, unknown> = {}
   settings["OrdaenAuction"] = Probe { scale: 2 }
   settings["OrdaenAuction:buy"] = Remembered { last: "Linen" }
-  const choices: Map<String, Boolean> = {}
+  const choices: map<string, boolean> = {}
   choices["OrdaenAuction"] = false
   settings["choices"] = choices
-  const sections: Map<String, String> = {}
+  const sections: map<string, string> = {}
   sections["OrdaenAuction:list"] = "packed"
   const profile: Profile = { sections: sections }
-  const profiles: Map<String, mut Profile> = {}
+  const profiles: map<string, mut Profile> = {}
   profiles[DEFAULT_PROFILE] = profile
   settings["profiles"] = SavedProfiles { profiles: profiles }
-  const account: Map<String, Unknown> = {}
+  const account: map<string, unknown> = {}
   account["settings"] = settings
   Test::saved("LunaTypeDB", account)
   Test::reload()

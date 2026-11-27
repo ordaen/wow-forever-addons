@@ -5,7 +5,7 @@ import root Ordaen from "Ordaen"
 
 // A badge of another module's, showing the whispers' module's count by its folder.
 class Badge {
-  derived count: String = "%d".format(Ordaen.noticeOf("OrdaenSocial"))
+  derived count: string = "%d".format(Ordaen.noticeOf("OrdaenSocial"))
 
   public render(self): Template {
     return $ltml {

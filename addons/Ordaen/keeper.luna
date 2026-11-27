@@ -17,7 +17,7 @@ const NAMED_MOST = 3
 const PREFIX = "Ordaen "
 
 // A module's name as the settings window's list says it: its title without "Ordaen " (Ordaen Panel: Panel).
-public function moduleName(title: String): String {
+public function moduleName(title: string): string {
   if (title.sub(1, PREFIX.length) == PREFIX) { return title.sub(PREFIX.length + 1) }
   return title
 }
@@ -26,11 +26,11 @@ public function moduleName(title: String): String {
 // section is read as its type by the `Settings` that owns it.
 public trait Sectioned {
   // How many of its settings a snapshot or a section (read to plain data) would change in its values.
-  public differs(self, raw: Unknown): Integer
+  public differs(self, raw: unknown): integer
   // Its values as they are now, a copy.
-  public snapshot(self): Unknown
+  public snapshot(self): unknown
   // A snapshot or a section becomes its values: a change as any other.
-  public restore(mut self, raw: Unknown)
+  public restore(mut self, raw: unknown)
   // A change written and not recorded yet (a watch records it at the next frame) is recorded now.
   public settle(mut self)
   // Every value back to its default.
@@ -39,35 +39,35 @@ public trait Sectioned {
 
 // One step of the history: each section it changed, as it was before.
 struct Step {
-  before: mut Map<String, Unknown>
+  before: mut map<string, unknown>
 }
 
 // Every loaded section as it was when the player pressed «Точка».
 public struct Savepoint {
   // «Точка N»: its number in the session, and the game's time it was made at.
-  number: Integer
-  at: String
-  sections: Map<String, Unknown>
+  number: integer
+  at: string
+  sections: map<string, unknown>
 }
 
 // A profile's ways back, for the session.
 struct Shelf {
-  steps: mut Array<mut Step> = []
+  steps: mut array<mut Step> = []
   // Each section's values before its first change.
-  start: mut Map<String, Unknown> = {}
-  points: mut Array<Savepoint> = []
-  made: Integer = 0
+  start: mut map<string, unknown> = {}
+  points: mut array<Savepoint> = []
+  made: integer = 0
 }
 
 // What going back to a place would change: how many settings, and in which modules.
 public struct Change {
-  count: Integer
-  modules: Array<String>
+  count: integer
+  modules: array<string>
 }
 
 // The modules a menu's entry names: three at most, then how many more.
-public function modulesText(modules: Array<String>): String {
-  const named: Array<String> = []
+public function modulesText(modules: array<string>): string {
+  const named: array<string> = []
   for (title of modules) {
     if (named.length < NAMED_MOST) { named.push(title) }
   }
@@ -77,7 +77,7 @@ public function modulesText(modules: Array<String>): String {
 }
 
 // «4 настройки, Панель, Ordaen».
-public function changeText(change: Change): String {
+public function changeText(change: Change): string {
   const counted = plural(change.count, Locale::HISTORY_SETTINGS_ONE, Locale::HISTORY_SETTINGS_FEW, Locale::HISTORY_SETTINGS_MANY)
   return counted.format(change.count) + ", " + modulesText(change.modules)
 }
@@ -89,12 +89,12 @@ public class Keeper {
   public state steps = 0
   public state points = 0
   // Every `Settings` that is kept, by its key; who joined as it, and the title of its module.
-  sections: mut Map<String, mut any Sectioned> = {}
-  owners: mut Map<String, Integer> = {}
-  titles: mut Map<String, String> = {}
+  sections: mut map<string, mut any Sectioned> = {}
+  owners: mut map<string, integer> = {}
+  titles: mut map<string, string> = {}
   last = 0
   // Each profile's ways back, by its name.
-  shelves: mut Map<String, mut Shelf> = {}
+  shelves: mut map<string, mut Shelf> = {}
   // The input under way (a drag, a held button, typing): `finish` writes what it holds now.
   finish: (() => nil) | nil = nil
   // While an input is under way or a place is gone back to, what is recorded joins one step.
@@ -109,13 +109,13 @@ public class Keeper {
   }
 
   // A `Settings` that is kept is known by its key, and named by its module's title, until it is gone.
-  public enrol(mut self, key: String, id: Integer, title: String, section: mut any Sectioned) {
+  public enrol(mut self, key: string, id: integer, title: string, section: mut any Sectioned) {
     self.sections[key] = section
     self.owners[key] = id
     self.titles[key] = moduleName(title)
   }
 
-  public withdraw(mut self, key: String, id: Integer) {
+  public withdraw(mut self, key: string, id: integer) {
     if (self.owners[key] == id) {
       self.sections[key] = nil
       self.owners[key] = nil
@@ -123,18 +123,18 @@ public class Keeper {
   }
 
   // What a `Settings` is counted by.
-  public join(mut self): Integer {
+  public join(mut self): integer {
     self.last += 1
     return self.last
   }
 
   // Whether a `Settings` is made for the key: its module is loaded.
-  public loaded(self, key: String): Boolean {
+  public loaded(self, key: string): boolean {
     return self.sections[key] != nil
   }
 
   // How many settings a section would change; nil where no `Settings` is made for the key.
-  public differs(self, key: String, raw: Unknown): Integer | nil {
+  public differs(self, key: string, raw: unknown): integer | nil {
     const section = self.sections[key]
     if (section == nil) { return nil }
     return section.differs(raw)
@@ -150,7 +150,7 @@ public class Keeper {
     return made
   }
 
-  count(mut self, name: String) {
+  count(mut self, name: string) {
     const shelf = self.shelves[name]
     if (shelf == nil) {
       self.steps = 0
@@ -162,7 +162,7 @@ public class Keeper {
   }
 
   // A `Settings` changed: `before` is what its values were. One step, or a part of the step under way.
-  public stepped(mut self, key: String, before: Unknown) {
+  public stepped(mut self, key: string, before: unknown) {
     if (self.quiet) { return }
     const shelf = self.shelf()
     if (shelf.start[key] == nil) { shelf.start[key] = before }
@@ -237,7 +237,7 @@ public class Keeper {
   }
 
   // A section of another profile becomes the values of its `Settings`: false where none is made for the key.
-  public copyIn(mut self, key: String, raw: Unknown): Boolean {
+  public copyIn(mut self, key: string, raw: unknown): boolean {
     const section = self.sections[key]
     if (section == nil) { return false }
     section.restore(raw)
@@ -266,7 +266,7 @@ public class Keeper {
 
   // Every section of `place` the values are not, restored: one step, which «Последнее изменение» takes back. A
   // section whose module isn't loaded is left as it is.
-  goBack(mut self, place: Map<String, Unknown>) {
+  goBack(mut self, place: map<string, unknown>) {
     self.finishInput()
     self.settleAll()
     self.joining = true
@@ -288,18 +288,18 @@ public class Keeper {
   }
 
   // A savepoint gone back to, by its place in the list.
-  public toPoint(mut self, index: Integer) {
+  public toPoint(mut self, index: integer) {
     const point = self.shelf().points[index]
     if (point != nil) { self.goBack(point.sections) }
   }
 
   // «Точка»: every loaded section as it is now. False at the most a profile keeps.
-  public mark(mut self): Boolean {
+  public mark(mut self): boolean {
     self.finishInput()
     self.settleAll()
     const shelf = self.shelf()
     if (shelf.points.length >= POINTS_MOST) { return false }
-    const sections: Map<String, Unknown> = {}
+    const sections: map<string, unknown> = {}
     for (key, section of self.sections) { sections[key] = section.snapshot() }
     shelf.made += 1
     const hours, minutes = Client::GetGameTime()
@@ -309,7 +309,7 @@ public class Keeper {
   }
 
   // A savepoint let go.
-  public unmark(mut self, index: Integer) {
+  public unmark(mut self, index: integer) {
     const shelf = self.shelf()
     if (index < 1 || index > shelf.points.length) { return }
     _ = shelf.points.remove(index)
@@ -317,14 +317,14 @@ public class Keeper {
   }
 
   // The active profile's savepoints, in the order made.
-  public pointList(mut self): Array<Savepoint> {
+  public pointList(mut self): array<Savepoint> {
     return self.shelf().points
   }
 
   // What going back to `place` would change now.
-  public changeTo(self, place: Map<String, Unknown>): Change {
+  public changeTo(self, place: map<string, unknown>): Change {
     let count = 0
-    const modules: Array<String> = []
+    const modules: array<string> = []
     for (key, raw of place) {
       const section = self.sections[key]
       const changes = section == nil ? 0 : section.differs(raw)
@@ -337,8 +337,8 @@ public class Keeper {
   }
 
   // The modules the last step changed.
-  public lastModules(mut self): Array<String> {
-    const modules: Array<String> = []
+  public lastModules(mut self): array<string> {
+    const modules: array<string> = []
     const shelf = self.shelf()
     const last = shelf.steps[shelf.steps.length]
     if (last == nil) { return modules }
@@ -352,20 +352,20 @@ public class Keeper {
     return self.changeTo(self.shelf().start)
   }
 
-  named(self, modules: mut Array<String>, key: String) {
+  named(self, modules: mut array<string>, key: string) {
     const title = self.titles[key] ?? key
     if (!modules.any(each => each == title)) { modules.push(title) }
   }
 
   // A profile renamed keeps its ways back; deleted, they go with it.
-  public renamed(mut self, from: String, to: String) {
+  public renamed(mut self, from: string, to: string) {
     const shelf = self.shelves[from]
     self.shelves[from] = nil
     if (shelf != nil) { self.shelves[to] = shelf }
     self.count(peek self.profiles.active)
   }
 
-  public dropped(mut self, name: String) {
+  public dropped(mut self, name: string) {
     self.shelves[name] = nil
     self.count(peek self.profiles.active)
   }

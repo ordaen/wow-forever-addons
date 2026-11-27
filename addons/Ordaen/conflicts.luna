@@ -22,27 +22,27 @@ public enum ConflictStep { Ask, Reload, Done }
 // One other addon and the modules of Ordaen that draw what it draws, each on now.
 public struct Conflict {
   other: Runtime::Addon
-  modules: Array<Runtime::Addon>
+  modules: array<Runtime::Addon>
 }
 
 // The modules' titles in one text, as a sentence names them.
-function titlesOf(modules: Array<Runtime::Addon>): String {
+function titlesOf(modules: array<Runtime::Addon>): string {
   return modules.map(module => module.title).join(", ")
 }
 
 public class ConflictQuestion implements Component {
   public state step: ConflictStep = .Ask
-  derived asking: Boolean = self.step == .Ask
-  derived reloading: Boolean = self.step == .Reload
+  derived asking: boolean = self.step == .Ask
+  derived reloading: boolean = self.step == .Reload
   const conflict: Conflict
   // Told the player's answer: true where Ordaen is kept.
-  const answered: (kept: Boolean) => nil
-  const asked: String
-  const ordaenHint: String
-  const otherHint: String
-  const reloadText: String
+  const answered: (kept: boolean) => nil
+  const asked: string
+  const ordaenHint: string
+  const otherHint: string
+  const reloadText: string
 
-  constructor(conflict: Conflict, answered: (kept: Boolean) => nil) {
+  constructor(conflict: Conflict, answered: (kept: boolean) => nil) {
     self.conflict = conflict
     self.answered = answered
     const other = conflict.other.title

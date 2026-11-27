@@ -8,14 +8,14 @@ import Locale from "@/locales"
 public struct Choices implements Plain {
   // The recipe's card and the lists show Ordaen Trading's prices: the cost, the sale and the profit. Greyed while
   // Ordaen Trading is off, which has them.
-  prices: Boolean
+  prices: boolean
   // The window opens a profession at the category and recipe the player left it at.
-  remember: Boolean
+  remember: boolean
 }
 
 public class GeneralPage implements Component {
-  derived noAuction: Boolean = Trading == nil
-  derived pricesTip: String = self.noAuction ? Locale::SETTING_PRICES_OFF : Locale::SETTING_PRICES_TIP
+  derived noAuction: boolean = Trading == nil
+  derived pricesTip: string = self.noAuction ? Locale::SETTING_PRICES_OFF : Locale::SETTING_PRICES_TIP
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {

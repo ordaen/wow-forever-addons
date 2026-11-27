@@ -23,17 +23,17 @@ const MARK: FileId = 133784
 
 // What the test's merchant was asked to do.
 class Heard {
-  public said: mut Array<String> = []
-  public add(mut self, line: String) { self.said.push(line) }
-  public take(mut self): String {
+  public said: mut array<string> = []
+  public add(mut self, line: string) { self.said.push(line) }
+  public take(mut self): string {
     const all = self.said.join(", ")
     self.said.clear()
     return all
   }
 }
 
-function ware(name: String, icon: FileId, price: Number, stack: Number, available: Number, usable: Boolean,
-  extended: Boolean): Client::MerchantItemInfo {
+function ware(name: string, icon: FileId, price: number, stack: number, available: number, usable: boolean,
+  extended: boolean): Client::MerchantItemInfo {
   return {
     name: name, texture: icon, price: price, stackCount: stack, numAvailable: available, isPurchasable: true,
     isUsable: usable, hasExtendedCost: extended, currencyID: nil, spellID: nil, isQuestStartItem: false
@@ -42,7 +42,7 @@ function ware(name: String, icon: FileId, price: Number, stack: Number, availabl
 
 // A trade-supplies merchant: thread, a dagger the player can't use with two left, a pattern dear enough to be asked
 // about, one sold out, and a mark bought with two ore.
-function wareAt(index: Integer): Client::MerchantItemInfo | nil {
+function wareAt(index: integer): Client::MerchantItemInfo | nil {
   return match (index) {
     1 => ware("Coarse Thread", THREAD, 10, 1, -1, true, false)
     2 => ware("Gladius", DAGGER, 2000, 1, 2, false, false)
@@ -52,31 +52,31 @@ function wareAt(index: Integer): Client::MerchantItemInfo | nil {
   }
 }
 
-function costItem(index: Number, cost: Number): (Number | String | nil, Number, String | nil, String | nil) {
+function costItem(index: number, cost: number): (number | string | nil, number, string | nil, string | nil) {
   return ORE, 2, "item:2770", "Copper Ore"
 }
 
 // Two items sold back to it, the boots last.
-function soldAt(slot: Number): (String | nil, Number | String | nil, Number, Number, Number, Boolean) {
+function soldAt(slot: number): (string | nil, number | string | nil, number, number, number, boolean) {
   if (slot == 1) { return "Copper Ore", ORE, 5, 4, -1, true }
   return "Worn Boots", BOOTS, 12, 1, -1, true
 }
 
-function nameOf(unit: String): (String, String) {
+function nameOf(unit: string): (string, string) {
   return unit == "npc" ? VENDOR : "Regy", ""
 }
 
 test "the merchant's window opens with the merchant, each item with its price, and leaves with it" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
-  Client::GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client::GetMerchantItemCostInfo = (index: number): number => index == 5 ? 1 : 0
   Client::GetMerchantItemCostItem = costItem
-  Client::GetNumBuybackItems = (): Integer => 2
+  Client::GetNumBuybackItems = (): integer => 2
   Client::GetBuybackItemInfo = soldAt
   const heard = new Heard()
-  Client::BuybackItem = (index: Integer): nil => heard.add(`buyback ${index}`)
+  Client::BuybackItem = (index: integer): nil => heard.add(`buyback ${index}`)
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
   const window = Test::page().window(VENDOR)
@@ -97,14 +97,14 @@ test "the merchant's window opens with the merchant, each item with its price, a
 
 test "the left click buys one purchase, Shift+Left-click a count, and a dear purchase or one paid in items is asked first" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
-  Client::GetMerchantItemMaxStack = (index: Number): Number => index == 1 ? 20 : 1
-  Client::GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client::GetMerchantItemMaxStack = (index: number): number => index == 1 ? 20 : 1
+  Client::GetMerchantItemCostInfo = (index: number): number => index == 5 ? 1 : 0
   Client::GetMerchantItemCostItem = costItem
   const heard = new Heard()
-  Client::BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client::BuyMerchantItem = (index: integer, count: integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
   Game::money.amount = 10000
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
@@ -133,12 +133,12 @@ test "the left click buys one purchase, Shift+Left-click a count, and a dear pur
 
 test "the right click opens the item's menu: buy, how many (where a purchase takes more than one), try on, link" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
-  Client::GetMerchantItemMaxStack = (index: Number): Number => index == 1 ? 20 : 1
+  Client::GetMerchantItemMaxStack = (index: number): number => index == 1 ? 20 : 1
   const heard = new Heard()
-  Client::BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client::BuyMerchantItem = (index: integer, count: integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
   Game::money.amount = 10000
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
@@ -157,14 +157,14 @@ test "the right click opens the item's menu: buy, how many (where a purchase tak
 
 test "a left click on a purchase the game asks about asks first; a cheap one is bought at once, nothing onto the cursor" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
-  Client::GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client::GetMerchantItemCostInfo = (index: number): number => index == 5 ? 1 : 0
   Client::GetMerchantItemCostItem = costItem
   const heard = new Heard()
-  Client::BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
-  Client::PickupMerchantItem = (index: Integer): nil => heard.add(`pickup ${index}`)
+  Client::BuyMerchantItem = (index: integer, count: integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client::PickupMerchantItem = (index: integer): nil => heard.add(`pickup ${index}`)
   Game::money.amount = 10000
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
@@ -181,9 +181,9 @@ test "a left click on a purchase the game asks about asks first; a cheap one is 
 }
 
 // The thread a trade good, the dagger a weapon; the rest the client hasn't loaded.
-function itemInfo(item: String | Integer): (String | nil, String | nil, Client::ItemQuality | nil, Number | nil, Number | nil,
-  String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil,
-  Number | nil, Number | nil, Boolean | nil, String | nil) {
+function itemInfo(item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil,
+  string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil,
+  number | nil, number | nil, boolean | nil, string | nil) {
   if (item == 101) { return "Coarse Thread", nil, .Common, 5, 0, "Trade Goods", nil, 20, nil, THREAD, 2, 7, 0, 0, 0, 0, true, nil }
   if (item == 102) { return "Gladius", nil, .Uncommon, 20, 15, "Weapon", nil, 1, nil, DAGGER, 400, 2, 7, 1, 0, 0, false, nil }
   return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
@@ -191,12 +191,12 @@ function itemInfo(item: String | Integer): (String | nil, String | nil, Client::
 
 test "by category each kind has its caption with its count, folded by a click; as a table, a row's left click buys" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
   Client::C_Item::GetItemInfo = itemInfo
   const heard = new Heard()
-  Client::BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client::BuyMerchantItem = (index: integer, count: integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
   const window = Test::page().window(VENDOR)
@@ -215,13 +215,13 @@ test "by category each kind has its caption with its count, folded by a click; a
 
 test "at a merchant who repairs, «Repair all» says the cost and mends everything" {
   Client::UnitName = nameOf
-  Client::CanMerchantRepair = (): Boolean => true
-  Client::CanGuildBankRepair = (): Boolean => false
-  Client::GetRepairAllCost = (): (Number, Boolean) => {
+  Client::CanMerchantRepair = (): boolean => true
+  Client::CanGuildBankRepair = (): boolean => false
+  Client::GetRepairAllCost = (): (number, boolean) => {
     return 150, true
   }
   const heard = new Heard()
-  Client::RepairAllItems = (guild: Boolean | nil): nil => heard.add(`repair ${guild == true}`)
+  Client::RepairAllItems = (guild: boolean | nil): nil => heard.add(`repair ${guild == true}`)
   Game::money.amount = 10000
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
@@ -232,7 +232,7 @@ test "at a merchant who repairs, «Repair all» says the cost and mends everythi
 }
 
 // The pattern starts a quest; the mark is paid in ore and can't be refunded.
-function questWareAt(index: Integer): Client::MerchantItemInfo | nil {
+function questWareAt(index: integer): Client::MerchantItemInfo | nil {
   const info = wareAt(index)
   if (info == nil || index != 3) { return info }
   return { isQuestStartItem: true, ..info }
@@ -240,17 +240,17 @@ function questWareAt(index: Integer): Client::MerchantItemInfo | nil {
 
 test "an item that starts a quest has the game's mark; Left buys it, Ctrl tries it on, Alt is the client's click" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
-  Client::GetMerchantItemLink = (index: Number): String | nil => `item:${100 + index}`
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
+  Client::GetMerchantItemLink = (index: number): string | nil => `item:${100 + index}`
   Client::C_MerchantFrame::GetItemInfo = questWareAt
   const heard = new Heard()
-  Client::BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
-  Client::DressUpItemLink = (link: String): Boolean => {
+  Client::BuyMerchantItem = (index: integer, count: integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client::DressUpItemLink = (link: string): boolean => {
     heard.add(`dress ${link}`)
     return true
   }
-  Client::HandleModifiedItemClick = (link: String): Boolean => {
+  Client::HandleModifiedItemClick = (link: string): boolean => {
     heard.add(`modified ${link}`)
     return true
   }
@@ -271,18 +271,18 @@ test "an item that starts a quest has the game's mark; Left buys it, Ctrl tries 
 
 test "a purchase paid in items that can't be refunded says so as it is asked" {
   Client::UnitName = nameOf
-  Client::GetMerchantNumItems = (): Integer => 5
-  Client::GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client::GetMerchantNumItems = (): integer => 5
+  Client::GetMerchantItemID = (index: number): number | nil => 100 + index
   Client::C_MerchantFrame::GetItemInfo = wareAt
-  Client::GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client::GetMerchantItemCostInfo = (index: number): number => index == 5 ? 1 : 0
   Client::GetMerchantItemCostItem = costItem
-  Client::C_MerchantFrame::IsMerchantItemRefundable = (index: Integer): Boolean => index != 5
+  Client::C_MerchantFrame::IsMerchantItemRefundable = (index: integer): boolean => index != 5
   Test::mount(nil, SCREEN)
   Events::MERCHANT_SHOW.emit()
   Test::page().window(VENDOR).button(MARK).click()
   Test::expect(Test::page().window(Locale::BUY).text(Locale::NO_REFUND).shown())
   Test::page().window(Locale::BUY).button(Locale::CANCEL).click()
-  Client::C_MerchantFrame::IsMerchantItemRefundable = (index: Integer): Boolean => true
+  Client::C_MerchantFrame::IsMerchantItemRefundable = (index: integer): boolean => true
   Events::MERCHANT_UPDATE.emit()
   Test::page().window(VENDOR).button(MARK).click()
   Test::expect(!Test::page().window(Locale::BUY).text(Locale::NO_REFUND).shown())
@@ -290,10 +290,10 @@ test "a purchase paid in items that can't be refunded says so as it is asked" {
 
 test "the merchant's currencies show with the money, the last item sold under the goods, «Repair an item» lit while mending" {
   Client::UnitName = nameOf
-  Client::GetNumBuybackItems = (): Integer => 2
+  Client::GetNumBuybackItems = (): integer => 2
   Client::GetBuybackItemInfo = soldAt
-  Client::C_MerchantFrame::GetMerchantCurrencies = (): Array<Number> | nil => [1901]
-  Client::C_CurrencyInfo::GetCurrencyInfo = (id: Number): Client::CurrencyInfo | nil => {
+  Client::C_MerchantFrame::GetMerchantCurrencies = (): array<number> | nil => [1901]
+  Client::C_CurrencyInfo::GetCurrencyInfo = (id: number): Client::CurrencyInfo | nil => {
     return {
       name: "Honor", description: "", currencyID: id, isHeader: false, isHeaderExpanded: false, currencyListDepth: 0,
       isTypeUnused: false, isShowInBackpack: false, quantity: 750, trackedQuantity: 0, iconFileID: MARK, maxQuantity: 0,
@@ -303,9 +303,9 @@ test "the merchant's currencies show with the money, the last item sold under th
     }
   }
   const heard = new Heard()
-  Client::BuybackItem = (index: Integer): nil => heard.add(`buyback ${index}`)
-  Client::CanMerchantRepair = (): Boolean => true
-  Client::GetRepairAllCost = (): (Number, Boolean) => {
+  Client::BuybackItem = (index: integer): nil => heard.add(`buyback ${index}`)
+  Client::CanMerchantRepair = (): boolean => true
+  Client::GetRepairAllCost = (): (number, boolean) => {
     return 150, true
   }
   Test::mount(nil, SCREEN)

@@ -8,7 +8,7 @@ import Locale from "@/locales"
 import { Grouping, Slot, SortBy, Tab, rankOf } from "@/model"
 
 // A tab's name: a kind's is Ordaen's (`kindName`).
-public function tabName(tab: Tab): String {
+public function tabName(tab: Tab): string {
   return match (tab) {
     .All => Locale::TAB_ALL
     .New => Locale::TAB_NEW
@@ -25,7 +25,7 @@ public function tabName(tab: Tab): String {
 
 // Whether `a` comes before `b` in the sort's order: each sort's own first, then the name, then the place in the bags,
 // so no two items are ever equal and the order holds from one update to the next.
-public function before(a: Slot, b: Slot, by: SortBy): Boolean {
+public function before(a: Slot, b: Slot, by: SortBy): boolean {
   const x = a.read
   const y = b.read
   if (by == .Quality && x.quality != y.quality) { return x.quality > y.quality }
@@ -39,7 +39,7 @@ public function before(a: Slot, b: Slot, by: SortBy): Boolean {
 }
 
 // Whether the slot's item is in the tab.
-public function inTab(slot: Slot, tab: Tab): Boolean {
+public function inTab(slot: Slot, tab: Tab): boolean {
   if (peek slot.id == 0) { return false }
   return match (tab) {
     .All => true
@@ -68,18 +68,18 @@ const MISC_JUNK = 0
 
 // One section of a tab: its items, its caption, and where it stands among the others.
 struct Group {
-  key: String
-  title: String
-  rank: Integer
-  subkind: Integer
-  slots: mut Array<Slot>
+  key: string
+  title: string
+  rank: integer
+  subkind: integer
+  slots: mut array<Slot>
 }
 
 // The categories view's sections for a tab: split as its setting says, each sorted, in the kinds' fixed order whatever
 // the sort; no section without items; then «Free».
-public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): Array<Section> {
-  let groups: Array<mut Group> = []
-  let found: Map<String, mut Group> = {}
+public function tabSections(slots: array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): array<Section> {
+  let groups: array<mut Group> = []
+  let found: map<string, mut Group> = {}
   const split = splitOf(tab, grouping)
   for (slot of slots) {
     if (inTab(slot, tab)) {
@@ -97,23 +97,23 @@ public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by
       }
     }
   }
-  groups.sort((a: Group, b: Group): Boolean => groupBefore(a, b))
-  let sections: Array<Section> = []
+  groups.sort((a: Group, b: Group): boolean => groupBefore(a, b))
+  let sections: array<Section> = []
   for (group of groups) {
-    group.slots.sort((a: Slot, b: Slot): Boolean => before(a, b, by))
+    group.slots.sort((a: Slot, b: Slot): boolean => before(a, b, by))
     sections.push({ key: group.key, title: group.title, bag: -1, slots: group.slots, free: false })
   }
   sections.push({ key: "free", title: Locale::FREE, bag: -1, slots: [], free: true })
   return sections
 }
 
-function groupBefore(a: Group, b: Group): Boolean {
+function groupBefore(a: Group, b: Group): boolean {
   if (a.rank != b.rank) { return a.rank < b.rank }
   if (a.subkind != b.subkind) { return a.subkind < b.subkind }
   return a.key < b.key
 }
 
-function keyOf(slot: Slot, split: Split): String {
+function keyOf(slot: Slot, split: Split): string {
   return match (split) {
     .One => "all"
     .Category => `${slot.tab}`
@@ -124,7 +124,7 @@ function keyOf(slot: Slot, split: Split): String {
 
 // A section's caption: none for all in one; the tab's name for a category; the subclass's name as the game says it;
 // where an item is worn as the game names it (`INVTYPE_HEAD`), what isn't worn under its tab's name.
-function titleOf(slot: Slot, split: Split): String {
+function titleOf(slot: Slot, split: Split): string {
   return match (split) {
     .One => ""
     .Category => tabName(slot.tab)
@@ -133,15 +133,15 @@ function titleOf(slot: Slot, split: Split): String {
   }
 }
 
-function subclassName(slot: Slot): String {
+function subclassName(slot: Slot): string {
   const read = slot.read
   if (read.subkindName == "" || read.kind == MISC && read.subkind == MISC_JUNK) { return tabName(slot.tab) }
   return read.subkindName
 }
 
 // A section for each bag, in the bags' order, every slot of it with the empty ones, its name for a caption.
-public function bagSections(bags: Array<Array<Slot>>, names: Array<String>): Array<Section> {
-  let sections: Array<Section> = []
+public function bagSections(bags: array<array<Slot>>, names: array<string>): array<Section> {
+  let sections: array<Section> = []
   for (index, slots of bags) {
     if (slots.length > 0) {
       sections.push({ key: `bag/${index}`, title: names[index] ?? "", bag: index - 1, slots: slots, free: false })
@@ -151,8 +151,8 @@ public function bagSections(bags: Array<Array<Slot>>, names: Array<String>): Arr
 }
 
 // Every slot in one grid, in the bags' order, the empty ones too.
-public function oneSection(bags: Array<Array<Slot>>): Array<Section> {
-  let slots: Array<Slot> = []
+public function oneSection(bags: array<array<Slot>>): array<Section> {
+  let slots: array<Slot> = []
   for (bag of bags) {
     for (slot of bag) { slots.push(slot) }
   }
@@ -160,8 +160,8 @@ public function oneSection(bags: Array<Array<Slot>>): Array<Section> {
 }
 
 // How many items each tab has: a tab with none isn't in the map.
-public function countsOf(slots: Array<Slot>): Map<Tab, Integer> {
-  let counts: Map<Tab, Integer> = {}
+public function countsOf(slots: array<Slot>): map<Tab, integer> {
+  let counts: map<Tab, integer> = {}
   for (slot of slots) {
     if (peek slot.id != 0) {
       counts[Tab::All] = (counts[Tab::All] ?? 0) + 1

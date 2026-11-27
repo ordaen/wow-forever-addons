@@ -10,12 +10,12 @@ import root Ordaen from "Ordaen"
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // The modules the player has: every addon that needs Ordaen and has a root of its own.
-function modules(): Integer {
+function modules(): integer {
   return Ordaen.moduleAddons().length
 }
 
 // How far a part's middle went: the first surface that holds its name, before and after.
-function apart(one: Test::Point, other: Test::Point): Number {
+function apart(one: Test::Point, other: Test::Point): number {
   return ((one.x - other.x) ** 2 + (one.y - other.y) ** 2).sqrt()
 }
 
@@ -34,12 +34,12 @@ function dragged(from: Test::Point, to: Test::Point) {
 
 // The placing mode on the screen with every part drawn; the parts' titles, each once (a part may hold a mover in more
 // than one surface).
-function placing(): Array<String> {
+function placing(): array<string> {
   Test::mount(nil, SCREEN)
   Ordaen.togglePlacing()
   Test::flush()
-  const titles: Array<String> = []
-  const seen: Map<String, Boolean> = {}
+  const titles: array<string> = []
+  const seen: map<string, boolean> = {}
   for (part of Ordaen.parts) {
     if (seen[part.id] != true) {
       seen[part.id] = true
@@ -53,7 +53,7 @@ function placing(): Array<String> {
 const PARTS_DRAGGED = 9
 
 // The part at `index`, dragged across the screen, moves, and right-clicked goes back; with fewer parts, nothing to do.
-function movesAndGoesBack(index: Integer): Boolean {
+function movesAndGoesBack(index: integer): boolean {
   const title = placing()[index]
   if (title == nil) { return true }
   const home = Test::surfaceHolding(title)
@@ -83,7 +83,7 @@ test "in the placing mode the ninth part moves and goes back" { Test::expect(mov
 
 test "in the placing mode every part the modules draw on the screen is shaded with its name" {
   _ = placing()
-  const names: Map<String, Boolean> = {}
+  const names: map<string, boolean> = {}
   for (part of Ordaen.parts) { names[part.title] = true }
   Test::expect(modules() == 0 || Ordaen.parts.length > 0)
 

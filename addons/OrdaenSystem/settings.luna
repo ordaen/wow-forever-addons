@@ -20,17 +20,17 @@ function writingOf(setting: any Client::Setting | nil): Writing {
 }
 
 // A setting's value now, by its variable; none where the client has no such setting.
-public function readSetting(variable: String): Boolean | Number | String | nil {
+public function readSetting(variable: string): boolean | number | string | nil {
   return Client::Settings?.GetSetting(variable)?.GetValue()
 }
 
 // A setting set, as its line would write it: its console variable itself (a Boolean as `1` or `0`), or through
 // Blizzard's setting. Whether it waits for Apply.
-public function writeSetting(variable: String, value: Boolean | Number | String): Boolean {
+public function writeSetting(variable: string, value: boolean | number | string): boolean {
   const setting = Client::Settings?.GetSetting(variable)
   const writing = writingOf(setting)
   if (writing == .Variable) {
-    _ = Client::C_CVar::SetCVar(variable, value is Boolean ? (value ? "1" : "0") : String::of(value))
+    _ = Client::C_CVar::SetCVar(variable, value is boolean ? (value ? "1" : "0") : string::of(value))
   } else if (writing != .None) {
     setting?.SetValue(value)
   }
@@ -40,9 +40,9 @@ public function writeSetting(variable: String, value: Boolean | Number | String)
 // A setting written through the window: its variable and its value, and whether that is its default (a page's
 // defaults), which the profile no longer holds.
 public struct SettingWritten {
-  variable: String
-  value: Boolean | Number | String
-  byDefault: Boolean
+  variable: string
+  value: boolean | number | string
+  byDefault: boolean
 }
 
 // What a line of a page is, by the template Blizzard draws it with.
@@ -63,40 +63,40 @@ public enum LineKind {
 // A line of a page.
 public struct SettingLine {
   kind: LineKind
-  name: String
-  tooltip: String
+  name: string
+  tooltip: string
   // The setting's variable (`""` for a header or Blizzard's own line).
-  variable: String
+  variable: string
   // How the window writes it.
   writing: Writing
   // The checkbox the line stands under, by its variable (`""`: none): a slider's or a dropdown's of a line of two
   // controls, hidden while the checkbox is off.
-  under: String
+  under: string
   // A slider's range, and how Blizzard's window writes its value beside it (none: as a number).
-  least: Number
-  most: Number
-  step: Number
-  format: ((value: Number) => String) | nil
+  least: number
+  most: number
+  step: number
+  format: ((value: number) => string) | nil
 }
 
 // A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether Blizzard draws it as a
 // frame of its own (a canvas), which only Blizzard's window shows.
 public struct SettingsPage {
-  id: Integer
-  name: String
-  canvas: Boolean
+  id: integer
+  name: string
+  canvas: boolean
   // A page under another: drawn under it, indented.
-  child: Boolean
+  child: boolean
 }
 
 // A group of the list (Game, Accessibility, System) and its pages, in order.
 public struct PageGroup {
-  name: String
-  pages: Array<SettingsPage>
+  name: string
+  pages: array<SettingsPage>
 }
 
 // A line's kind by its template's name.
-function kindOf(template: String, data: Client::SettingsData): LineKind {
+function kindOf(template: string, data: Client::SettingsData): LineKind {
   if (template.contains("SectionHeader")) { return .Header }
   if (data.setting == nil) { return .Blizzard }
   if (template.contains("Checkbox")) { return .Check }
@@ -109,22 +109,22 @@ function kindOf(template: String, data: Client::SettingsData): LineKind {
 // own «Key Bindings» has them), and what the client names `NoDisplayKB`, the key bindings' pages its list never shows.
 const HIDDEN = "NoDisplayKB"
 
-function shown(category: any Client::SettingsCategory): Boolean {
+function shown(category: any Client::SettingsCategory): boolean {
   const name = category.GetName()
   return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime::text("SETTINGS_KEYBINDINGS_LABEL")
 }
 
 // A tooltip Blizzard gives as its text, or as the function that writes it.
-function textOf(tooltip: String | (() => String) | nil): String {
+function textOf(tooltip: string | (() => string) | nil): string {
   if (tooltip == nil) { return "" }
-  if (tooltip is String) { return tooltip }
+  if (tooltip is string) { return tooltip }
   return tooltip()
 }
 
 // What a slider's label beside it writes (`MinimalSliderWithSteppersMixin.Label.Right`).
 const SLIDER_RIGHT = 2
 
-function formatOf(range: Client::SettingsSliderOptions | nil): ((value: Number) => String) | nil {
+function formatOf(range: Client::SettingsSliderOptions | nil): ((value: number) => string) | nil {
   const formatters = range?.formatters
   return formatters == nil ? nil : formatters[SLIDER_RIGHT]
 }
@@ -137,13 +137,13 @@ const ERROR = "ffff2020"
 const GREEN = "ff19ff19"
 const WARNING = "ffff8000"
 
-function colored(color: String, text: String): String { return "|c" + color + text + "|r" }
+function colored(color: string, text: string): string { return "|c" + color + text + "|r" }
 
 // A line of a page: its kind, name and tooltip, its setting (none: a header or Blizzard's own), a slider's range, and
 // the checkbox it stands under.
 function lineOf(
-  kind: LineKind, name: String, tooltip: String | (() => String) | nil, setting: any Client::Setting | nil, range: Client::SettingsSliderOptions | nil,
-  under: String
+  kind: LineKind, name: string, tooltip: string | (() => string) | nil, setting: any Client::Setting | nil, range: Client::SettingsSliderOptions | nil,
+  under: string
 ): SettingLine {
   const variable = setting?.GetVariable() ?? ""
   return {
@@ -160,7 +160,7 @@ function lineOf(
   }
 }
 
-function pageOf(panel: any Client::SettingsPanelFrame, category: any Client::SettingsCategory, child: Boolean): SettingsPage {
+function pageOf(panel: any Client::SettingsPanelFrame, category: any Client::SettingsCategory, child: boolean): SettingsPage {
   const layout = panel.GetLayout(category)
   return { id: category.GetID(), name: category.GetName(), canvas: layout?.layoutType == .Canvas, child: child }
 }
@@ -168,25 +168,25 @@ function pageOf(panel: any Client::SettingsPanelFrame, category: any Client::Set
 public class SystemSettings {
   // Each setting the window writes, as it writes it: what the profile keeps (`GameKeeping`).
   public written: Event<SettingWritten> = new Event()
-  public state groups: Array<PageGroup> = []
+  public state groups: array<PageGroup> = []
   // The page shown, by its id: its lines, and the value each of its settings has now.
   public state page = 0
-  public state lines: Array<SettingLine> = []
-  public state values: Map<String, Boolean | Number | String> = {}
+  public state lines: array<SettingLine> = []
+  public state values: map<string, boolean | number | string> = {}
   // Each page's lines, by the page's id: what the search reads.
-  state everyLine: Map<Integer, Array<SettingLine>> = {}
+  state everyLine: map<integer, array<SettingLine>> = {}
   // Settings changed that wait for Apply, by their variable.
-  public state waiting: Array<String> = []
+  public state waiting: array<string> = []
 
   // The list read anew, as the tab opens: the client's groups, each with its pages and the pages under them, and every
   // page's lines (a thousand lines, read once a tab's open, for the search). The first page is shown.
   public read(mut self) {
     const panel = Client::SettingsPanel
     if (panel == nil) { return }
-    const groups: Array<PageGroup> = []
-    const everyLine: Map<Integer, Array<SettingLine>> = {}
+    const groups: array<PageGroup> = []
+    const everyLine: map<integer, array<SettingLine>> = {}
     for (group of panel.GetCategoryList().groups) {
-      const pages: Array<SettingsPage> = []
+      const pages: array<SettingsPage> = []
       for (category of group.categories) {
         if (!shown(category)) { continue }
         pages.push(pageOf(panel, category, false))
@@ -203,11 +203,11 @@ public class SystemSettings {
   }
 
   // A page's lines, read from its layout: none for an addon's own frame.
-  public linesOf(self, id: Integer): Array<SettingLine> {
+  public linesOf(self, id: integer): array<SettingLine> {
     const panel = Client::SettingsPanel
     const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
-    const lines: Array<SettingLine> = []
+    const lines: array<SettingLine> = []
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
       const data = initializer.data
       if (data == nil) { continue }
@@ -234,7 +234,7 @@ public class SystemSettings {
   }
 
   // The page shown: its lines read, and their values.
-  public open(mut self, id: Integer) {
+  public open(mut self, id: integer) {
     self.page = id
     self.lines = self.linesOf(id)
     self.refresh()
@@ -242,7 +242,7 @@ public class SystemSettings {
 
   // Every value of the page shown read again (a console variable changed: `CVAR_UPDATE`, or another window).
   public refresh(mut self) {
-    const values: Map<String, Boolean | Number | String> = {}
+    const values: map<string, boolean | number | string> = {}
     for (line of peek self.lines) {
       if (line.variable != "") {
         const setting = Client::Settings?.GetSetting(line.variable)
@@ -254,7 +254,7 @@ public class SystemSettings {
 
   // A line's setting set to a value, as the line writes it (a console variable's Boolean as `1` or `0`), and the
   // page's values read again; one that waits for Apply is kept as waiting.
-  public write(mut self, line: SettingLine, value: Boolean | Number | String, byDefault: Boolean = false) {
+  public write(mut self, line: SettingLine, value: boolean | number | string, byDefault: boolean = false) {
     if (line.writing != .None) {
       if (writeSetting(line.variable, value)) {
         const waiting = peek self.waiting
@@ -285,7 +285,7 @@ public class SystemSettings {
   }
 
   // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).
-  public choicesOf(self, id: Integer, variable: String): Array<Client::SettingsOption> {
+  public choicesOf(self, id: integer, variable: string): array<Client::SettingsOption> {
     const panel = Client::SettingsPanel
     const category = Client::Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
@@ -305,8 +305,8 @@ public class SystemSettings {
   // A line's tooltip as Blizzard's window writes it under the line's name: its text; a dropdown's choices that say
   // more of themselves, the one the game recommends and what the one picked warns of; and what the change asks, a
   // restart of the client or a reload.
-  public tipOf(self, line: SettingLine): String {
-    const parts: Array<String> = line.tooltip == "" ? [] : [line.tooltip]
+  public tipOf(self, line: SettingLine): string {
+    const parts: array<string> = line.tooltip == "" ? [] : [line.tooltip]
     const setting = line.variable == "" ? nil : Client::Settings?.GetSetting(line.variable)
     if (setting == nil) { return parts.join("\n") }
     if (line.kind == .Choice) {
@@ -348,13 +348,13 @@ public class SystemSettings {
   }
 
   // The pages a search finds, by their ids: those whose name, or a line's name or tooltip, holds it.
-  public matching(self, query: String): Map<Integer, Boolean> {
-    const found: Map<Integer, Boolean> = {}
+  public matching(self, query: string): map<integer, boolean> {
+    const found: map<integer, boolean> = {}
     if (query == "") { return found }
     for (group of self.groups) {
       for (page of group.pages) {
-        const lines: Array<SettingLine> = self.everyLine[page.id] ?? []
-        if (page.name.lower().contains(query) || lines.any((line: SettingLine): Boolean => lineMatches(line, query))) {
+        const lines: array<SettingLine> = self.everyLine[page.id] ?? []
+        if (page.name.lower().contains(query) || lines.any((line: SettingLine): boolean => lineMatches(line, query))) {
           found[page.id] = true
         }
       }
@@ -364,6 +364,6 @@ public class SystemSettings {
 }
 
 // Whether a line's name or tooltip holds the search.
-public function lineMatches(line: SettingLine, query: String): Boolean {
+public function lineMatches(line: SettingLine, query: string): boolean {
   return query == "" || line.name.lower().contains(query) || line.tooltip.lower().contains(query)
 }

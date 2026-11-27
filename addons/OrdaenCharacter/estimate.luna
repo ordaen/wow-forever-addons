@@ -10,18 +10,18 @@ import { EVERY_STAT, MAINS, Stat } from "@/stat"
 // What a character of a class, race and level is without its items and its auras: each stat's base by the stat's
 // name, what a point of a main stat is worth, and its resource.
 public struct Rates implements Plain {
-  const bases: Map<String, Number> = {}
+  const bases: map<string, number> = {}
   const conversions: Conversions = {}
   const resource: Resource = Resource::Mana
 }
 
 // The rates the account's characters showed, by `ratesKey`.
 public struct KeptRates implements Plain {
-  byKey: mut Map<String, Rates> = {}
+  byKey: mut map<string, Rates> = {}
 }
 
 // The key a class, a race (as the client names its files) and a level are kept under.
-public function ratesKey(classTag: String, race: String, level: Integer): String {
+public function ratesKey(classTag: string, race: string, level: integer): string {
   return `${classTag}:${race}:${level}`
 }
 
@@ -31,8 +31,8 @@ public function ratesOf(facts: Facts): Rates {
 }
 
 // The stats of a character of the rates' class, race and level wearing `worn`.
-public function estimate(rates: Rates, worn: Array<Worn>, classTag: String): Stats {
-  const values: Map<String, Number> = {}
+public function estimate(rates: Rates, worn: array<Worn>, classTag: string): Stats {
+  const values: map<string, number> = {}
   for (stat of MAINS) { values[`${stat}`] = baseOf(rates, stat) }
   const bare = statsFrom(values, rates)
   // The main stats first: what they feed is worked out from them.
@@ -46,20 +46,20 @@ public function estimate(rates: Rates, worn: Array<Worn>, classTag: String): Sta
   return statsFrom(values, rates)
 }
 
-function baseOf(rates: Rates, stat: Stat): Number { return rates.bases[`${stat}`] ?? 0 }
+function baseOf(rates: Rates, stat: Stat): number { return rates.bases[`${stat}`] ?? 0 }
 
-function factsOf(stats: Stats, worn: Array<Worn>, classTag: String): Facts {
+function factsOf(stats: Stats, worn: array<Worn>, classTag: string): Facts {
   return { stats: stats, worn: worn, auras: [], classTag: classTag }
 }
 
-function whole(value: Number): Integer { return value.round() }
+function whole(value: number): integer { return value.round() }
 
 // The schools a spell's damage counts, holy to arcane: each takes the spell damage every school gets.
-const SCHOOLS: Array<Integer> = [2, 3, 4, 5, 6, 7]
+const SCHOOLS: array<integer> = [2, 3, 4, 5, 6, 7]
 
 // The window's stats from each stat's value by its name; what no stat names (weapon damage, speeds) is left as none.
-function statsFrom(values: Map<String, Number>, rates: Rates): Stats {
-  const of = (stat: Stat): Number => values[`${stat}`] ?? 0
+function statsFrom(values: map<string, number>, rates: Rates): Stats {
+  const of = (stat: Stat): number => values[`${stat}`] ?? 0
   return {
     strength: whole(of(.Strength)),
     agility: whole(of(.Agility)),

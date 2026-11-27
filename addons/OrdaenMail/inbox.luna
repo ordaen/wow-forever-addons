@@ -17,8 +17,8 @@ import Style from "@/style"
 public struct InboxView implements Plain {
   filter: Filter = Filter::All
   view: View = View::List
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorted: integer = 0
+  descending: boolean = false
 }
 const INBOX_VIEW: InboxView = {}
 
@@ -31,7 +31,7 @@ const FIRST_ITEMS = 3
 const ICON = 32.8125dp
 const SMALL = 28.125dp
 
-const FILTERS: Array<Choice<Filter>> = [
+const FILTERS: array<Choice<Filter>> = [
   { value: Filter::All, label: Locale::FILTER_ALL },
   { value: Filter::Players, label: Locale::FILTER_PLAYERS },
   { value: Filter::Auction, label: Locale::FILTER_AUCTION },
@@ -39,28 +39,28 @@ const FILTERS: Array<Choice<Filter>> = [
   { value: Filter::Money, label: Locale::FILTER_MONEY },
   { value: Filter::Items, label: Locale::FILTER_ITEMS }
 ]
-const VIEWS: Array<Choice<View>> = [
+const VIEWS: array<Choice<View>> = [
   { value: View::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: View::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: View::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
-const COLUMNS: Array<Column> = [
+const COLUMNS: array<Column> = [
   { title: Locale::COL_SUBJECT, width: { fr: 3 }, sortable: true },
   { title: Locale::COL_FROM, width: { fr: 2 }, sortable: true },
   { title: Locale::COL_ATTACHED, width: 152.34375dp },
   { title: Locale::COL_DAYS, width: 82.03125dp, align: Align::End, sortable: true }
 ]
-const ROW: Array<Track> = ["max-content", ICON, { fr: 1 }, "max-content", 63.28125dp]
-const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const TICKED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const KINDS: Array<Game::MailKind> = [Game::MailKind::Auction, Game::MailKind::Player, Game::MailKind::System]
+const ROW: array<Track> = ["max-content", ICON, { fr: 1 }, "max-content", 63.28125dp]
+const TOP: array<Track> = [{ fr: 1 }, "max-content"]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const TICKED: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const KINDS: array<Game::MailKind> = [Game::MailKind::Auction, Game::MailKind::Player, Game::MailKind::System]
 
 // The letters of one kind, under their caption.
 public struct Group {
   kind: Game::MailKind
-  title: String
-  letters: Array<Game::MailLetter>
+  title: string
+  letters: array<Game::MailLetter>
 }
 
 // What the row's click asks: open it, take everything from it, return it.
@@ -69,11 +69,11 @@ public enum RowClick { Open = "open", Take = "take", Return = "return" }
 // By the days the row says: «3 d» is red whatever part of the fourth day is left.
 public function daysColor(letter: Game::MailLetter): Color { return letter.days.floor() <= URGENT_DAYS ? Style::RED : Style::DIM }
 
-public function daysText(letter: Game::MailLetter): String {
+public function daysText(letter: Game::MailLetter): string {
   return letter.days < 1 ? Locale::LESS_THAN_A_DAY : Locale::DAYS_LEFT.format(letter.days.floor())
 }
 
-public function senderOf(letter: Game::MailLetter): String { return letter.sender == "" ? Locale::SYSTEM_SENDER : letter.sender }
+public function senderOf(letter: Game::MailLetter): string { return letter.sender == "" ? Locale::SYSTEM_SENDER : letter.sender }
 
 function kindIcon(kind: Game::MailKind): Art {
   return match (kind) {
@@ -83,8 +83,8 @@ function kindIcon(kind: Game::MailKind): Art {
   }
 }
 
-function attachedText(letter: Game::MailLetter): String {
-  const parts: Array<String> = []
+function attachedText(letter: Game::MailLetter): string {
+  const parts: array<string> = []
   if (letter.items.length > 0) { parts.push(Locale::ITEMS_COUNT.format(letter.items.length)) }
   if (letter.copper > 0) { parts.push(Game::money.format(letter.copper)) }
   if (letter.cod > 0) { parts.push(`${Locale::COD} ${Game::money.format(letter.cod)}`) }
@@ -92,9 +92,9 @@ function attachedText(letter: Game::MailLetter): String {
 }
 
 // A row's tooltip: the sender, then every attachment and the money.
-function tipRows(letter: Game::MailLetter): Array<TipRow> {
-  const rows: Array<TipRow> = []
-  for (item of letter.items) { rows.push({ label: item.name, value: String::of(item.count) }) }
+function tipRows(letter: Game::MailLetter): array<TipRow> {
+  const rows: array<TipRow> = []
+  for (item of letter.items) { rows.push({ label: item.name, value: string::of(item.count) }) }
   if (letter.copper > 0) { rows.push({ label: Locale::MONEY, value: Game::money.format(letter.copper) }) }
   if (letter.cod > 0) { rows.push({ label: Locale::COD_AMOUNT, value: Game::money.format(letter.cod) }) }
   return rows
@@ -107,28 +107,28 @@ function clickOf(): RowClick {
   return .Open
 }
 
-const ROW_KEYS: Array<String> = [Locale::KEY_OPEN, Locale::KEY_TAKE, Locale::KEY_RETURN]
+const ROW_KEYS: array<string> = [Locale::KEY_OPEN, Locale::KEY_TAKE, Locale::KEY_RETURN]
 
 public class LetterRow implements Component {
-  public clicked: Event<(Integer, RowClick)> = new Event()
-  public tick: Event<Integer> = new Event()
+  public clicked: Event<(integer, RowClick)> = new Event()
+  public tick: Event<integer> = new Event()
 
   state hovered = false
   state checked = false
-  derived on: Boolean = self.picked == self.letter.index
-  derived shownItems: Array<Game::MailItem> = self.firstOf()
-  derived more: Integer = self.letter.items.length - self.shownItems.length
-  derived hasMore: Boolean = self.more > 0
-  derived hasMoney: Boolean = self.letter.copper > 0
-  derived hasCod: Boolean = self.letter.cod > 0
-  derived rows: Array<TipRow> = tipRows(self.letter)
+  derived on: boolean = self.picked == self.letter.index
+  derived shownItems: array<Game::MailItem> = self.firstOf()
+  derived more: integer = self.letter.items.length - self.shownItems.length
+  derived hasMore: boolean = self.more > 0
+  derived hasMoney: boolean = self.letter.copper > 0
+  derived hasCod: boolean = self.letter.cod > 0
+  derived rows: array<TipRow> = tipRows(self.letter)
   derived subjectInk: Color = self.letter.read ? Style::DIM : Style::INK
 
   letter: Signal<Game::MailLetter>
-  picked: Signal<Integer>
-  ticked: Signal<Array<Integer>>
-  busy: Signal<Boolean>
-  constructor(letter: Signal<Game::MailLetter>, picked: Signal<Integer>, ticked: Signal<Array<Integer>>, busy: Signal<Boolean>) {
+  picked: Signal<integer>
+  ticked: Signal<array<integer>>
+  busy: Signal<boolean>
+  constructor(letter: Signal<Game::MailLetter>, picked: Signal<integer>, ticked: Signal<array<integer>>, busy: Signal<boolean>) {
     self.letter = letter
     self.picked = picked
     self.ticked = ticked
@@ -137,8 +137,8 @@ public class LetterRow implements Component {
     watch (value of self.checked) { self.tickChanged() }
   }
 
-  firstOf(self): Array<Game::MailItem> {
-    const list: Array<Game::MailItem> = []
+  firstOf(self): array<Game::MailItem> {
+    const list: array<Game::MailItem> = []
     for (item of self.letter.items) {
       if (list.length < FIRST_ITEMS) { list.push(item) }
     }
@@ -199,14 +199,14 @@ public class LetterRow implements Component {
 }
 
 public class LetterTableRow implements Component {
-  public clicked: Event<(Integer, RowClick)> = new Event()
+  public clicked: Event<(integer, RowClick)> = new Event()
 
-  derived on: Boolean = self.picked == self.letter.index
+  derived on: boolean = self.picked == self.letter.index
 
   letter: Signal<Game::MailLetter>
-  picked: Signal<Integer>
-  busy: Signal<Boolean>
-  constructor(letter: Signal<Game::MailLetter>, picked: Signal<Integer>, busy: Signal<Boolean>) {
+  picked: Signal<integer>
+  busy: Signal<boolean>
+  constructor(letter: Signal<Game::MailLetter>, picked: Signal<integer>, busy: Signal<boolean>) {
     self.letter = letter
     self.picked = picked
     self.busy = busy
@@ -233,11 +233,11 @@ public class LetterTableRow implements Component {
 public class KindCaption implements Component {
   public fold: Event<Game::MailKind> = new Event()
 
-  derived shut: Boolean = self.folded[self.group.kind] == true
+  derived shut: boolean = self.folded[self.group.kind] == true
 
   group: Signal<Group>
-  folded: Signal<Map<Game::MailKind, Boolean>>
-  constructor(group: Signal<Group>, folded: Signal<Map<Game::MailKind, Boolean>>) {
+  folded: Signal<map<Game::MailKind, boolean>>
+  constructor(group: Signal<Group>, folded: Signal<map<Game::MailKind, boolean>>) {
     self.group = group
     self.folded = folded
   }
@@ -251,9 +251,9 @@ public class KindCaption implements Component {
 
 public class Inbox implements Component {
   // A row clicked: the letter and what the click asks.
-  public clicked: Event<(Integer, RowClick)> = new Event()
+  public clicked: Event<(integer, RowClick)> = new Event()
   // «Take all»: the letters the filter and the search show.
-  public takeAll: Event<Array<Game::MailLetter>> = new Event()
+  public takeAll: Event<array<Game::MailLetter>> = new Event()
   // The ticked letters' «Take» and «Return».
   public takeTicked: Event<nil> = new Event()
   public returnTicked: Event<nil> = new Event()
@@ -261,23 +261,23 @@ public class Inbox implements Component {
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<InboxView> = new ModuleMemory<InboxView>(INBOX_VIEW, .Profile, "inbox")
-  state folded: mut Map<Game::MailKind, Boolean> = {}
-  derived shown: Array<Game::MailLetter> = self.shownOf()
-  derived groups: Array<Group> = self.groupsOf()
-  derived count: Integer = self.shown.count(collectable)
-  derived takeLabel: String = Locale::TAKE_ALL.format(self.count)
-  derived empty: Boolean = self.shown.length == 0
-  derived inList: Boolean = self.list.values.view == View::List
-  derived inGroups: Boolean = self.list.values.view == View::Categories
-  derived narrowed: Boolean = self.list.values.filter != Filter::All
-  derived nothingToTake: Boolean = self.busy || self.count == 0
-  derived hasTicked: Boolean = self.ticked.length > 0
+  state folded: mut map<Game::MailKind, boolean> = {}
+  derived shown: array<Game::MailLetter> = self.shownOf()
+  derived groups: array<Group> = self.groupsOf()
+  derived count: integer = self.shown.count(collectable)
+  derived takeLabel: string = Locale::TAKE_ALL.format(self.count)
+  derived empty: boolean = self.shown.length == 0
+  derived inList: boolean = self.list.values.view == View::List
+  derived inGroups: boolean = self.list.values.view == View::Categories
+  derived narrowed: boolean = self.list.values.filter != Filter::All
+  derived nothingToTake: boolean = self.busy || self.count == 0
+  derived hasTicked: boolean = self.ticked.length > 0
 
-  letters: Signal<Array<Game::MailLetter>>
-  picked: Signal<Integer>
-  ticked: mut Signal<Array<Integer>>
-  busy: Signal<Boolean>
-  constructor(letters: Signal<Array<Game::MailLetter>>, picked: Signal<Integer>, ticked: mut Signal<Array<Integer>>, busy: Signal<Boolean>) {
+  letters: Signal<array<Game::MailLetter>>
+  picked: Signal<integer>
+  ticked: mut Signal<array<integer>>
+  busy: Signal<boolean>
+  constructor(letters: Signal<array<Game::MailLetter>>, picked: Signal<integer>, ticked: mut Signal<array<integer>>, busy: Signal<boolean>) {
     self.letters = letters
     self.picked = picked
     self.ticked = ticked
@@ -285,7 +285,7 @@ public class Inbox implements Component {
   }
 
   // The letters the filter and the search keep, in the order sorted (the inbox's own where none is).
-  shownOf(self): Array<Game::MailLetter> {
+  shownOf(self): array<Game::MailLetter> {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.letters.filter(l => matches(l, filter, search))
@@ -300,8 +300,8 @@ public class Inbox implements Component {
     return list
   }
 
-  groupsOf(self): Array<Group> {
-    const list: Array<Group> = []
+  groupsOf(self): array<Group> {
+    const list: array<Group> = []
     for (kind of KINDS) {
       const part = self.shown.filter(l => l.kind == kind)
       if (part.length > 0) {
@@ -316,21 +316,21 @@ public class Inbox implements Component {
     return list
   }
 
-  isTicked(self, index: Integer): Boolean { return self.ticked.any(i => i == index) }
+  isTicked(self, index: integer): boolean { return self.ticked.any(i => i == index) }
 
-  onClicked(mut self, index: Integer, click: RowClick) { self.clicked.emit(index, click) }
+  onClicked(mut self, index: integer, click: RowClick) { self.clicked.emit(index, click) }
 
   onFold(mut self, kind: Game::MailKind) { self.folded[kind] = !(self.folded[kind] == true) }
 
   // A tick turns one letter on or off; with Shift it ticks every letter shown from the last ticked to this one.
-  onTick(mut self, index: Integer) {
+  onTick(mut self, index: integer) {
     if (self.isTicked(index)) {
       self.ticked = (peek self.ticked).filter(i => i != index)
       return
     }
     const held = peek self.ticked
     const last = held[held.length]
-    const next: Array<Integer> = held.map(i => i)
+    const next: array<integer> = held.map(i => i)
     if (Game::input.shiftDown() && last != nil) {
       let inside = false
       for (letter of peek self.shown) {

@@ -49,20 +49,20 @@ const NO_TEXT: Game::QuestText = { story: "", task: "", experience: 0, money: 0,
 const DIM: Color = Color::hex("#a3977f")
 const RED: Color = Color::hex("#ff4040")
 // The toolbar over the list, and the list.
-const BODY: Array<Track> = ["max-content", { fr: 1 }]
-const FILL: Array<Track> = [{ fr: 1 }]
+const BODY: array<Track> = ["max-content", { fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
 // The log: its kinds' sub-tabs, the toolbar, the list.
-const LOG_ROWS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const LOG_ROWS: array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The status select stands an item's step after the search, as wide as its longest choice.
 const AFTER_SEARCH: Edges = { left: 3sp }
 const STATUS_WIDTH = 164.0625dp
 
-const STATUSES: Array<Choice<QuestStatus>> = [
+const STATUSES: array<Choice<QuestStatus>> = [
   { value: QuestStatus::Progress, label: Locale::STATUS_PROGRESS },
   { value: QuestStatus::Done, label: Locale::STATUS_DONE },
   { value: QuestStatus::All, label: Locale::STATUS_ALL }
 ]
-const FILTERS: Array<FilterGroup<QuestFilter>> = [
+const FILTERS: array<FilterGroup<QuestFilter>> = [
   { options: [{ key: QuestFilter::Tracked, label: Locale::FILTER_TRACKED }] },
   {
     label: Locale::FILTER_DIFFICULTY,
@@ -77,12 +77,12 @@ const FILTERS: Array<FilterGroup<QuestFilter>> = [
     options: [{ key: QuestFilter::Solo, label: Locale::FILTER_SOLO }, { key: QuestFilter::Group, label: Locale::FILTER_GROUP }]
   }
 ]
-const SORTS: Array<Choice<QuestSort>> = [
+const SORTS: array<Choice<QuestSort>> = [
   { value: QuestSort::Log, label: Locale::SORT_LOG },
   { value: QuestSort::Level, label: Locale::SORT_LEVEL },
   { value: QuestSort::Title, label: Locale::SORT_TITLE }
 ]
-const VIEWS: Array<Choice<QuestView>> = [
+const VIEWS: array<Choice<QuestView>> = [
   { value: QuestView::Zones, label: Locale::VIEW_ZONES, icon: ARTWORK.ctl.tool.categories },
   { value: QuestView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
@@ -93,12 +93,12 @@ const TAB_ICON: Asset = "Interface/QuestFrame/UI-QuestLog-BookIcon"
 const CHAIN_ICON: Asset = "Interface/GossipFrame/AvailableQuestIcon"
 
 // How many quests of the log are of each kind, in `KINDS`' order: the sub-tabs' counts.
-function kindCounts(quests: Array<LogQuest>): Array<Integer> {
+function kindCounts(quests: array<LogQuest>): array<integer> {
   return KINDS.map(kind => countOf(quests, kind))
 }
 
 // A sub-tab's title by its kind.
-function tabTitle(kind: QuestKind): String {
+function tabTitle(kind: QuestKind): string {
   return match (kind) {
     .World => Locale::TAB_WORLD
     .Dungeon => Locale::TAB_DUNGEONS
@@ -108,22 +108,22 @@ function tabTitle(kind: QuestKind): String {
 }
 
 // The sub-tabs' titles, in `KINDS`' order.
-const KIND_TITLES: Array<String> = KINDS.map(kind => tabTitle(kind))
+const KIND_TITLES: array<string> = KINDS.map(kind => tabTitle(kind))
 
 // A spot's world yards from the player (Ordaen Map's); nil on another continent or without Ordaen Map.
-function fromPlayer(spot: Spot): Number | nil {
+function fromPlayer(spot: Spot): number | nil {
   return Maps?.distanceTo(spot.area, spot.x, spot.y)
 }
 
 public class Quests implements Module, App {
-  public const title: String = "Ordaen Quests"
+  public const title: string = "Ordaen Quests"
   public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
   // The next quest of a chain, beside the log at first.
   public chainWindow: mut KeptWindow = new KeptWindow(
     "chain", Locale::CHAIN_WINDOW, { x: Style::CHAIN_X, y: 0ui, width: Style::CHAIN_WIDTH, height: Style::CHAIN_HEIGHT }
   )
-  public const windows: mut Array<mut KeptWindow> = [self.window, self.chainWindow]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window, self.chainWindow]
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
@@ -143,15 +143,15 @@ public class Quests implements Module, App {
   // The window's one tab, and the kind's sub-tab picked.
   state windowTab = 1
   state tab = 1
-  public state quests: Array<LogQuest> = []
+  public state quests: array<LogQuest> = []
   state most = 25
   state zone = ""
   // QuestieDB's facts of the log's quests it knows.
-  public state facts: Map<Integer, QuestFacts> = {}
+  public state facts: map<integer, QuestFacts> = {}
   // The quest whose page shows (0: none), kept for the character so the log opens on it again after a /reload; its
   // text, and the quest the player asked to abandon (0: none).
   public opened: mut ModuleMemory<Opened> = new ModuleMemory<Opened>({}, .Character, "opened")
-  public derived picked: Integer = self.opened.values.quest
+  public derived picked: integer = self.opened.values.quest
   // The quest the player asked to see on the map (0: none): its marks alone show, until the map hides.
   public state shownOnMap = 0
   // The NPC another module asked to see on the map (nil: none): its pins show, until the map hides.
@@ -163,7 +163,7 @@ public class Quests implements Module, App {
   state text: Game::QuestText = NO_TEXT
   state abandoning = 0
   // The items abandoning it destroys, by name: the question says them, as the game's does.
-  state abandonItems: Array<String> = []
+  state abandonItems: array<string> = []
   // The headers the player folded, the character's.
   public folds: mut ModuleMemory<Folds> = new ModuleMemory<Folds>({}, .Character, "folds")
   // The toolbar: what is sought, and how the player left the rest of it, the profile's.
@@ -171,41 +171,41 @@ public class Quests implements Module, App {
   public list: mut ModuleMemory<ListChoices> = new ModuleMemory<ListChoices>({}, .Profile, "list")
 
   // Docked on the map (Ordaen Map's switch): the game's log key and button are the game's.
-  derived docked: Boolean = Maps?.docked == true
-  derived mapShowing: Boolean = Maps?.showing == true
-  derived ownKey: Boolean = self.settings.values.ownKey && !self.docked
+  derived docked: boolean = Maps?.docked == true
+  derived mapShowing: boolean = Maps?.showing == true
+  derived ownKey: boolean = self.settings.values.ownKey && !self.docked
   // The log is read while something shows it: the window, Map's pins, Tooltips' creature rows, or Panel's experience
   // bar (the completed quests' part).
-  derived reading: Boolean = self.open || Maps != nil || Tooltips != nil || Panel != nil
+  derived reading: boolean = self.open || Maps != nil || Tooltips != nil || Panel != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale::TAB_QUESTS, desc: String::of(self.quests.length), icon: TAB_ICON }]
-  derived kindsCounted: Array<Integer> = kindCounts(self.quests)
-  derived count: Integer = self.quests.length
-  derived counted: Array<FooterCount> = [
+  derived tabs: array<WindowTabSpec> = [{ title: Locale::TAB_QUESTS, desc: string::of(self.quests.length), icon: TAB_ICON }]
+  derived kindsCounted: array<integer> = kindCounts(self.quests)
+  derived count: integer = self.quests.length
+  derived counted: array<FooterCount> = [
     { label: Locale::FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
   ]
-  derived known: Boolean = self.data.fault() == nil
+  derived known: boolean = self.data.fault() == nil
   derived asked: Asked = {
     sought: self.search.lower(), status: self.list.values.status, filter: self.list.values.filter, player: self.level
   }
-  derived listed: Array<LogQuest> = listedOf(self.quests, self.asked, self.list.values.sort)
-  derived kindHas: Boolean = countOf(self.quests, self.kind) > 0
+  derived listed: array<LogQuest> = listedOf(self.quests, self.asked, self.list.values.sort)
+  derived kindHas: boolean = countOf(self.quests, self.kind) > 0
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
   // The picked quest as a list of one, or none: the docked panel's page.
-  derived pickedList: Array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
+  derived pickedList: array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
   // Docked on the map while it shows: the side panel Quests' log stands over, where, and how big.
   derived dockedSide: SidePanel | nil = Maps?.side
   derived dockedPlace: Place = { point: Point::TopLeft, to: Point::TopLeft, by: self.dockedSide?.frame }
-  derived dockedWidth: Number<Length> = (self.dockedSide?.width ?? 0) * 1ui
-  derived dockedHeight: Number<Length> = (self.dockedSide?.height ?? 0) * 1ui
+  derived dockedWidth: number<Length> = (self.dockedSide?.width ?? 0) * 1ui
+  derived dockedHeight: number<Length> = (self.dockedSide?.height ?? 0) * 1ui
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
-  derived abandonText: String = Locale::ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
-  derived level: Integer = Game::player.level
-  derived chainTabs: Array<WindowTabSpec> = [{ title: Locale::CHAIN_WINDOW, icon: CHAIN_ICON }]
+  derived abandonText: string = Locale::ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
+  derived level: integer = Game::player.level
+  derived chainTabs: array<WindowTabSpec> = [{ title: Locale::CHAIN_WINDOW, icon: CHAIN_ICON }]
   // The chain's quest as a list of one, or none: the chain window's page.
-  derived chainedList: Array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
+  derived chainedList: array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
 
   const toggle: any Client::Frame
   const turnIns: TurnInPins
@@ -218,15 +218,15 @@ public class Quests implements Module, App {
 
   constructor() {
     self.tooltipCreatures = new TooltipCreatures(
-      self.quests, self.facts, (id: Integer): NpcQuests => self.data.npcQuests(id),
-      (id: Integer): QuestFacts | nil => self.data.quest(id)
+      self.quests, self.facts, (id: integer): NpcQuests => self.data.npcQuests(id),
+      (id: integer): QuestFacts | nil => self.data.quest(id)
     )
     self.doneXp = new DoneQuestsXp(self.quests)
     self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.npcPins = new NpcPins(self.shownNpc)
     self.dungeonQuests = new DungeonQuests(self.quests)
-    self.trackerOpener = new TrackerOpener((id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
+    self.trackerOpener = new TrackerOpener((id: integer): boolean => self.openAt(id), (id: integer): boolean => self.showOnMap(id))
     self.toggle = Client::CreateFrame("Button", TOGGLE, Client::UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -291,7 +291,7 @@ public class Quests implements Module, App {
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
   public refresh(mut self) {
     const quests = logQuests()
-    const facts: Map<Integer, QuestFacts> = {}
+    const facts: map<integer, QuestFacts> = {}
     for (id, known of peek self.facts) { facts[id] = known }
     for (quest of quests) {
       if (facts[quest.id] == nil) {
@@ -321,7 +321,7 @@ public class Quests implements Module, App {
   }
 
   // What the player asked of a quest, from its row or its page; each in the click's own call.
-  onAct(mut self, id: Integer, act: Act) {
+  onAct(mut self, id: integer, act: Act) {
     match (act) {
       .Pick => { self.pick(id) }
       .Track => {
@@ -348,22 +348,22 @@ public class Quests implements Module, App {
 
   // What QuestieDB says of a quest (its name, who gives it and where, ...), for another module: Spells' quest-taught
   // spells say where theirs starts. Nil for a quest it doesn't know, or without it.
-  public questFacts(mut self, id: Integer): QuestFacts | nil { return self.data.quest(id) }
+  public questFacts(mut self, id: integer): QuestFacts | nil { return self.data.quest(id) }
 
   // An NPC's name and spawns by QuestieDB (its names are its own locale's), for another module: a trainer to point at.
-  public npc(self, id: Integer): Figure | nil { return self.data.npc(id) }
+  public npc(self, id: integer): Figure | nil { return self.data.npc(id) }
 
   // The things a quest names (who gives it and takes it back, its objectives' NPCs, objects and items), by QuestieDB:
   // Dialogue's parchment marks them in the quest's words. None for a quest it doesn't know.
-  public questNames(mut self, id: Integer): Array<Named> { return namedOfFacts(self.data.quest(id)) }
+  public questNames(mut self, id: integer): array<Named> { return namedOfFacts(self.data.quest(id)) }
 
   // The reputations a quest changes once turned in, by QuestieDB: Dialogue's band at a quest giver says them.
-  public reputationOf(mut self, id: Integer): Array<Standing> {
+  public reputationOf(mut self, id: integer): array<Standing> {
     return standingsOf(self.data.quest(id)?.reputation ?? [])
   }
 
   // The chain window at a quest QuestieDB knows; nothing for one it doesn't.
-  openChained(mut self, id: Integer) {
+  openChained(mut self, id: integer) {
     const facts = self.data.quest(id)
     if (facts == nil) { return }
     self.chainedFacts = facts
@@ -376,7 +376,7 @@ public class Quests implements Module, App {
   // once done; the chain window's: where it is given), its pins alone shown and lit until the map hides; without
   // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it. Out of a fight alone:
   // the client opens the map for an addon there only, and every «Show on map» is off in one.
-  public showOnMap(mut self, id: Integer): Boolean {
+  public showOnMap(mut self, id: integer): boolean {
     const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
       Client::C_Map::OpenWorldMap(nil)
@@ -390,7 +390,7 @@ public class Quests implements Module, App {
   // The world map at where an NPC stands by QuestieDB (its first spot), its pins lit with its name until the map hides:
   // another module's link to a trainer or a vendor. False, and the map as it was, without Ordaen Map, in a fight (the
   // client opens the map for an addon out of one alone), or for an NPC QuestieDB doesn't know or has no spot of.
-  public showNpc(mut self, npc: Integer): Boolean {
+  public showNpc(mut self, npc: integer): boolean {
     const figure = self.data.npc(npc)
     return figure != nil && self.showAt(figure, figure.spots[1])
   }
@@ -398,8 +398,8 @@ public class Quests implements Module, App {
   // The world map at the spot nearest the player of all the NPCs' (QuestieDB's), that NPC's pins lit with its name
   // until the map hides: another module's «show the nearest» of trainers or vendors. Where none is on the player's
   // continent, the first NPC's first spot. False as `showNpc` is, and where QuestieDB knows no spot of any.
-  public showNearest(mut self, npcs: Array<Integer>): Boolean {
-    const figures: Array<Figure> = []
+  public showNearest(mut self, npcs: array<integer>): boolean {
+    const figures: array<Figure> = []
     for (npc of npcs) {
       const figure = self.data.npc(npc)
       if (figure != nil) { figures.push(figure) }
@@ -410,20 +410,20 @@ public class Quests implements Module, App {
 
   // The NPCs that sell an item (QuestieDB's) and trade with the player's side: another module's sellers of a reagent,
   // for `distanceTo` and `showNearest`. None without QuestieDB.
-  public vendorsOf(self, item: Integer): Array<Integer> {
+  public vendorsOf(self, item: integer): array<integer> {
     return self.data.vendorsOf(item, Game::player.faction)
   }
 
   // The world yards from the player to the NPC's nearest spot (QuestieDB's) on the player's continent, as
   // `showNearest` measures them: another module's distance column of trainers or vendors. Nil where QuestieDB has no
   // spot of it on this continent, or without Ordaen Map.
-  public distanceTo(mut self, npc: Integer): Number | nil {
+  public distanceTo(mut self, npc: integer): number | nil {
     const figure = self.data.npc(npc)
     return figure != nil ? nearestYards(figure, fromPlayer) : nil
   }
 
   // The map opened at a spot of an NPC's, its pins lit. Not without Ordaen Map, in a fight, or without a spot.
-  showAt(mut self, figure: Figure, spot: Spot | nil): Boolean {
+  showAt(mut self, figure: Figure, spot: Spot | nil): boolean {
     if (Maps == nil || Game::situation.combat || spot == nil) { return false }
     self.shownOnMap = 0
     self.shownNpc = figure
@@ -432,7 +432,7 @@ public class Quests implements Module, App {
   }
 
   // Where a quest leads on the map: a quest of the log by its state, the chain window's where it starts.
-  areaOf(self, id: Integer): Integer | nil {
+  areaOf(self, id: integer): integer | nil {
     const quest = (peek self.quests).find(quest => quest.id == id)
     const facts = (peek self.facts)[id]
     if (quest != nil && facts != nil) { return leadsTo(quest, facts) }
@@ -440,7 +440,7 @@ public class Quests implements Module, App {
     return id == peek self.chained && chained != nil ? startsAt(chained) : nil
   }
 
-  onFold(mut self, header: String) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
+  onFold(mut self, header: string) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
 
   onAbandonYes(mut self) {
     const id = peek self.abandoning
@@ -474,12 +474,12 @@ public class Quests implements Module, App {
   onBack(mut self) { self.pick(0) }
 
   // The quest whose page shows, kept for the character.
-  pick(mut self, id: Integer) { self.opened.write({ quest: id }) }
+  pick(mut self, id: integer) { self.opened.write({ quest: id }) }
 
   // The quest asked for from another module (the tracker, the chat's link): its page, in the window, or docked on the
   // map with its panel. In a fight, where the client opens no map for an addon, in the window. A quest not in the log
   // opens in the chain's window, as QuestieDB knows it; false where it knows nothing of it.
-  public openAt(mut self, id: Integer): Boolean {
+  public openAt(mut self, id: integer): boolean {
     if ((peek self.quests).find(quest => quest.id == id) == nil) {
       self.openChained(id)
       return peek self.chained == id

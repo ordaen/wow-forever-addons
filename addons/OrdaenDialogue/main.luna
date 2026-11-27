@@ -29,18 +29,18 @@ const SOUND_SELECT = 877
 const SOUND_CANCEL = 879
 const MARKS_KEY = "alwaysPick"
 
-function isQuest(line: Line): Boolean { return line.kind != LineKind::Option }
-function isTurnIn(line: Line): Boolean { return line.kind == LineKind::TurnIn || line.kind == LineKind::RepeatTurnIn }
-function isOffer(line: Line): Boolean {
+function isQuest(line: Line): boolean { return line.kind != LineKind::Option }
+function isTurnIn(line: Line): boolean { return line.kind == LineKind::TurnIn || line.kind == LineKind::RepeatTurnIn }
+function isOffer(line: Line): boolean {
   return line.kind == LineKind::New || line.kind == LineKind::Daily || line.kind == LineKind::Legendary
 }
 
-function sound(kit: Integer) { _ = Client::C_Sound::PlaySound(kit, nil) }
+function sound(kit: integer) { _ = Client::C_Sound::PlaySound(kit, nil) }
 
 // An option picked by its place, as the game's own window picks it: a vendor's or a trainer's has no option ID.
 function pickOption(line: Line) { Client::C_GossipInfo::SelectOptionByIndex(line.order, nil, nil) }
 
-function isQuestPage(page: Page): Boolean { return page == Page::Detail || page == Page::Progress || page == Page::Reward }
+function isQuestPage(page: Page): boolean { return page == Page::Detail || page == Page::Progress || page == Page::Reward }
 
 // The game's option that shows a quest's text at once ("1"), or lets it fade in ("0").
 const INSTANT_TEXT = "instantQuestText"
@@ -48,10 +48,10 @@ const INSTANT_TEXT = "instantQuestText"
 const FADE_STEP = 0.1
 const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
-const SCROLL_HEIGHT: Number<Length> = 281.25dp
+const SCROLL_HEIGHT: number<Length> = 281.25dp
 // What the window holds besides the scroll over the well, at most: its title, the needs and rewards, the buttons.
-const UNDER_SCROLL_ROOM: Number<Length> = 421.875dp
-const FILL: Array<Track> = [{ fr: 1 }]
+const UNDER_SCROLL_ROOM: number<Length> = 421.875dp
+const FILL: array<Track> = [{ fr: 1 }]
 // The share of the screen's height a window stands higher than to stand a long quest's scroll beside the well.
 const TALL = 0.6
 // The well under the scroll, off it; beside it, off it by a gap and never narrower than the window's own width.
@@ -66,7 +66,7 @@ const NO = 2
 
 // The end of the word at `at` or after it (a byte before a space, or the text's end): a text cut there wraps as the
 // whole does, and never inside a letter.
-function wordEnd(text: String, at: Integer): Integer {
+function wordEnd(text: string, at: integer): integer {
   for (stop of at..text.length) {
     if (text.sub(stop + 1, stop + 1) == " ") { return stop }
   }
@@ -74,10 +74,10 @@ function wordEnd(text: String, at: Integer): Integer {
 }
 
 public class Dialogue implements Module, App {
-  public const title: String = "Ordaen Dialogue"
+  public const title: string = "Ordaen Dialogue"
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: -560ui, y: -40ui, width: Style::WIDTH, height: Style::HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window]
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale::TAB_CONVENIENCE, content: $ltml { <ConveniencePage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -88,7 +88,7 @@ public class Dialogue implements Module, App {
 
   public state page: Page = .Closed
   public state source: Source = .Gossip
-  public state lines: Array<Line> = []
+  public state lines: array<Line> = []
   public state said = ""
   public state quest: Quest | nil = nil
   public state book = ""
@@ -99,7 +99,7 @@ public class Dialogue implements Module, App {
   public state speaker: Speaker = { name: "" }
   public state prompt: Prompt | nil = nil
   // The marked options, kept for the account.
-  public state marks: Array<Marked> = []
+  public state marks: array<Marked> = []
   // The NPC talked to, for its marks.
   state npc = 0
   // The quest page came from the NPC's list: back and Esc go there.
@@ -112,13 +112,13 @@ public class Dialogue implements Module, App {
   // Walking the NPC's quests one at a time as the talk starts («All»): the list's return goes on with the next.
   state walking = false
   // The quests tried on their own this talk: never tried twice.
-  tried: mut Array<Integer> = []
+  tried: mut array<integer> = []
   // Shift was held as the talk started: nothing is done on its own.
   state held = false
   // How much better each reward is than what is worn, by Ordaen's worth: a test's answer stands in its place.
-  upgradeOf: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
+  upgradeOf: (link: string) => number | nil = (link: string): number | nil => Ordaen.worth.upgradeOf(link)
   // The upgrade column, while the player's spec weighs items.
-  public derived upgradesShown: Boolean = Ordaen.worth.weights != nil
+  public derived upgradesShown: boolean = Ordaen.worth.weights != nil
   // How much of the quest's text shows as it fades in, as the game's own window lets it in (`instantQuestText` "0"):
   // bytes to a word's end, -1 for all of it. Its steps run only while it fades in.
   public state revealed = -1
@@ -128,27 +128,27 @@ public class Dialogue implements Module, App {
   // window (a trainer, a vendor, the next page), and until it does the talk is ours and nothing of it shows.
   state acting = false
   // A question asked is the window's page, its answers the list.
-  derived prompted: Boolean = self.prompt != nil
-  derived shown: Boolean = self.page != Page::Closed || self.prompted
-  derived listShown: Boolean = self.page == Page::List
+  derived prompted: boolean = self.prompt != nil
+  derived shown: boolean = self.page != Page::Closed || self.prompted
+  derived listShown: boolean = self.page == Page::List
   // A quest's page as it opens, its parchment folded to its title where the settings say so; a click unfolds it.
   state scrollFolded = false
-  derived onQuest: Boolean = isQuestPage(self.page) && !self.prompted
+  derived onQuest: boolean = isQuestPage(self.page) && !self.prompted
   // The parchment holds the lore alone: a quest's pages and what is read (a book, a letter, a plaque). The NPC's
   // words and a question stand on the window itself.
-  derived onParchment: Boolean = self.onQuest || (self.page == Page::Book && !self.prompted)
-  derived spoken: String = self.prompted ? self.promptText : self.said
-  derived questPageShown: String = self.onQuest ? `${self.page}:${self.quest?.id ?? 0}` : ""
-  derived scrollTitle: String = self.onQuest ? self.quest?.title ?? "" : ""
+  derived onParchment: boolean = self.onQuest || (self.page == Page::Book && !self.prompted)
+  derived spoken: string = self.prompted ? self.promptText : self.said
+  derived questPageShown: string = self.onQuest ? `${self.page}:${self.quest?.id ?? 0}` : ""
+  derived scrollTitle: string = self.onQuest ? self.quest?.title ?? "" : ""
   // Under a question its answers, with their keys; the buttons say them too.
-  derived listed: Boolean = self.listShown && !self.prompted
-  derived tabs: Array<WindowTabSpec> = [
+  derived listed: boolean = self.listShown && !self.prompted
+  derived tabs: array<WindowTabSpec> = [
     { title: self.speaker.name, desc: self.speaker.subtitle, icon: self.speaker.icon, portrait: self.speaker.portrait }
   ]
 
   constructor() {
     Ordaen.modules.add(self)
-    self.marks = decode<Array<Marked>>(Game::saved.stored(.Own, MARKS_KEY), [])
+    self.marks = decode<array<Marked>>(Game::saved.stored(.Own, MARKS_KEY), [])
     watch (lines of self.lines) { self.column = 1 }
     watch (shown of self.questPageShown) { self.scrollFolded = shown != "" && peek self.settings.values.foldedScroll }
     Events::GOSSIP_SHOW.listen(self.onGossip)
@@ -173,7 +173,7 @@ public class Dialogue implements Module, App {
 
   // ——— The talk starting: the NPC's list, or what is done on its own first.
 
-  onGossip(mut self, kit: String | nil) { self.startList(.Gossip) }
+  onGossip(mut self, kit: string | nil) { self.startList(.Gossip) }
   onGreeting(mut self) { self.startList(.Greeting) }
 
   startList(mut self, source: Source) {
@@ -199,7 +199,7 @@ public class Dialogue implements Module, App {
 
   // What is done on its own as the talk starts, and as the list comes back while the NPC's quests are walked; true
   // where something was picked (the game answers with its next page).
-  actAlone(mut self, lines: Array<Line>, fresh: Boolean): Boolean {
+  actAlone(mut self, lines: array<Line>, fresh: boolean): boolean {
     const choices = peek self.settings.values
     if (choices.autoComplete == Auto::All) {
       const turnIn = lines.find(line => isTurnIn(line) && !self.tried.any(id => id == line.id))
@@ -228,18 +228,18 @@ public class Dialogue implements Module, App {
   // The one-option skip: one option that leads somewhere (a vendor's goods, a trainer, a flight), no quests; a line
   // of talk always shows. `C_GossipInfo.ForceGossip()` isn't asked: Forever's client gives true for an ordinary
   // vendor, whose menu the skip is for.
-  onlyOption(self, lines: Array<Line>): Boolean {
+  onlyOption(self, lines: array<Line>): boolean {
     return (peek self.source) == Source::Gossip && lines.length == 1 && lines.all(line => line.leads)
   }
 
   // The game says how many quests the log holds and how many it takes.
-  logFull(self): Boolean {
+  logFull(self): boolean {
     const _, quests = Client::C_QuestLog::GetNumQuestLogEntries()
     return quests >= Client::C_QuestLog::GetMaxNumQuestsCanAccept()
   }
 
   // One quest of the walk: picked, and its pages answered on their own.
-  walk(mut self, line: Line, accepting: Boolean): Boolean {
+  walk(mut self, line: Line, accepting: boolean): boolean {
     self.tried.push(line.id)
     self.walking = true
     if (accepting) { self.acceptNext = true } else { self.completeNext = true }
@@ -249,7 +249,7 @@ public class Dialogue implements Module, App {
 
   // ——— The game's pages.
 
-  onDetail(mut self, startItem: Number | nil) {
+  onDetail(mut self, startItem: number | nil) {
     if (peek self.acceptNext) {
       self.acceptNext = false
       const quest = questOf(Client::GetQuestText())
@@ -308,7 +308,7 @@ public class Dialogue implements Module, App {
     self.show(.Reward)
   }
 
-  onItemInfo(mut self, item: Number, fine: Boolean) {
+  onItemInfo(mut self, item: number, fine: boolean) {
     const page = peek self.page
     if (page == Page::Detail || page == Page::Reward) { self.quest = questOf((peek self.quest)?.text ?? "") }
     if (page == Page::Reward) { self.preselect() }
@@ -336,7 +336,7 @@ public class Dialogue implements Module, App {
 
   // ——— The game closing its windows.
 
-  onGossipClosed(mut self, continuing: Boolean) {
+  onGossipClosed(mut self, continuing: boolean) {
     if (continuing) { return }
     self.walking = false
     self.acting = false
@@ -353,7 +353,7 @@ public class Dialogue implements Module, App {
 
   // ——— What is asked first.
 
-  onConfirm(mut self, option: Number, text: String, cost: Number) {
+  onConfirm(mut self, option: number, text: string, cost: number) {
     Client::StaticPopup_Hide("GOSSIP_CONFIRM")
     // An option that asks is never picked on its own again.
     self.unmark(option.floor())
@@ -363,13 +363,13 @@ public class Dialogue implements Module, App {
   onConfirmCancel(mut self) { self.prompt = nil }
 
   // The innkeeper asks whether the inn is to be home: the game's own question stands away, the window asks it.
-  onBinder(mut self, place: String) {
+  onBinder(mut self, place: string) {
     Client::StaticPopup_Hide("CONFIRM_BINDER")
     if (!(peek self.shown)) { sound(SOUND_OPEN) }
     self.prompt = .Binder { place: place }
   }
 
-  onEscort(mut self, who: String, quest: String, from: Number) {
+  onEscort(mut self, who: string, quest: string, from: number) {
     Client::StaticPopup_Hide("QUEST_ACCEPT")
     self.prompt = .Escort { text: Locale::ESCORT.format(who, quest) }
   }
@@ -400,7 +400,7 @@ public class Dialogue implements Module, App {
   // ——— The player's actions.
 
   // A line of the NPC's list, by its place.
-  public pickLine(mut self, index: Integer) {
+  public pickLine(mut self, index: integer) {
     const line = (peek self.lines)[index]
     if (line == nil) { return }
     const shift = Game::input.shiftDown()
@@ -502,7 +502,7 @@ public class Dialogue implements Module, App {
   }
 
   // A reward to choose, by its place; on the reward page alone.
-  public choose(mut self, index: Integer) {
+  public choose(mut self, index: integer) {
     const quest = peek self.quest
     if (peek self.page != Page::Reward || quest == nil || index > quest.choices.length) { return }
     self.choiceByPlayer = true
@@ -510,7 +510,7 @@ public class Dialogue implements Module, App {
   }
 
   // A key of 1–9: a line of the list's column the keys are on, an answer, or a reward to choose.
-  public pickNumber(mut self, number: Integer) {
+  public pickNumber(mut self, number: integer) {
     if (peek self.prompted) {
       self.answer(number)
     } else if (peek self.page == Page::List) {
@@ -523,7 +523,7 @@ public class Dialogue implements Module, App {
   }
 
   // An answer to the question by its place: 1 is Yes, 2 No; another place is none.
-  public answer(mut self, place: Integer) {
+  public answer(mut self, place: integer) {
     if (place == YES) { self.main() }
     if (place == NO) { self.back() }
   }
@@ -562,7 +562,7 @@ public class Dialogue implements Module, App {
     self.fading = self.fade(text)
   }
 
-  async fade(mut self, text: String) {
+  async fade(mut self, text: string) {
     let shown = 0
     // Each step lets in at least a letter: the text is in at most as many steps as it has.
     for (step of 1..text.length) {
@@ -596,13 +596,13 @@ public class Dialogue implements Module, App {
 
   // ——— The marks.
 
-  public isMarked(self, option: Integer): Boolean {
+  public isMarked(self, option: integer): boolean {
     const npc = peek self.npc
     return (peek self.marks).any(mark => mark.npc == npc && mark.option == option)
   }
 
   // Right-click's «Always pick this option»: marked, or unmarked again.
-  public toggleMark(mut self, index: Integer) {
+  public toggleMark(mut self, index: integer) {
     const line = (peek self.lines)[index]
     // An option the client gives no ID can't be told again at the next talk: it is never marked.
     if (line == nil || line.kind != LineKind::Option || line.id == 0) { return }
@@ -616,13 +616,13 @@ public class Dialogue implements Module, App {
     self.keepMarks(marks)
   }
 
-  unmark(mut self, option: Integer) {
+  unmark(mut self, option: integer) {
     const npc = peek self.npc
     const marks = (peek self.marks).filter(mark => !(mark.npc == npc && mark.option == option))
     if (marks.length != (peek self.marks).length) { self.keepMarks(marks) }
   }
 
-  keepMarks(mut self, marks: Array<Marked>) {
+  keepMarks(mut self, marks: array<Marked>) {
     self.marks = marks
     Game::saved.store(.Own, MARKS_KEY, marks)
   }
@@ -630,7 +630,7 @@ public class Dialogue implements Module, App {
   // ——— Rewards' worth.
 
   // The reward taken, by its place among the choices (0: what is given): noted to be put on where it is worth enough.
-  takeReward(mut self, index: Integer) {
+  takeReward(mut self, index: integer) {
     const choices = peek self.settings.values
     if (choices.autoEquip && index > 0) {
       const link = Client::GetQuestItemLink("choice", index)
@@ -646,7 +646,7 @@ public class Dialogue implements Module, App {
     self.choice = quest.choices.length == 1 ? 1 : bestReward(quest.choices, self.upgradeOf)
   }
 
-  public upgrade(self, reward: Reward): Number | nil {
+  public upgrade(self, reward: Reward): number | nil {
     const link = reward.link
     if (!(peek self.upgradesShown) || link == nil) { return nil }
     return self.upgradeOf(link)
@@ -666,15 +666,15 @@ public class Dialogue implements Module, App {
 
   // Tab: the keys move to the list's next column, from the last back to the first.
   // A column took the keyboard's focus (Tab, Shift+Tab): the keys 1–9 are its lines'.
-  onColumn(mut self, number: Integer) { self.column = number }
+  onColumn(mut self, number: integer) { self.column = number }
   onEscape(mut self) { self.back() }
 
   // ——— What the window draws.
 
-  derived keysOn: Boolean = self.settings.values.keyboard && !Game::situation.combat
-  derived hints: Boolean = self.settings.values.keyboard && self.settings.values.keyHints
-  derived combatNote: Boolean = self.settings.values.keyboard && Game::situation.combat
-  derived isBook: Boolean = self.page == Page::Book
+  derived keysOn: boolean = self.settings.values.keyboard && !Game::situation.combat
+  derived hints: boolean = self.settings.values.keyboard && self.settings.values.keyHints
+  derived combatNote: boolean = self.settings.values.keyboard && Game::situation.combat
+  derived isBook: boolean = self.page == Page::Book
   // The list's options are as wide as they are, never wrapped: it takes the room they need, which widens the window
   // (a scrolled box would keep its width); a quest's rewards scroll.
   derived wellOverflow: Overflow = self.listShown ? Overflow::Visible : Overflow::Scroll
@@ -685,53 +685,53 @@ public class Dialogue implements Module, App {
   // whole height (OrdaenQuestPage's estimate, erring long), where the window stands higher than `TALL` of the screen:
   // a lower one keeps the scroll over the well, its words scrolled. A folded scroll, a book and a question stand as
   // they do.
-  derived wide: Boolean = self.onQuest && !self.scrollFolded &&
+  derived wide: boolean = self.onQuest && !self.scrollFolded &&
     self.window.placing.height > Client::UIParent.GetHeight() * 1ui * TALL &&
     scrollOverflows(self.scrollTitle, [self.quest?.text ?? "", self.page == Page::Detail ? self.quest?.objectives ?? "" : ""])
   // The scroll at its one size, what is under it the rest; wide, the scroll half again as wide and the well side by
   // side.
-  derived scrollWidth: Number<Length> = self.wide ? WIDE_SCROLL : SCROLL_WIDTH
-  derived rows: Array<Track> = self.wide ? FILL : ["max-content", { fr: 1 }]
-  derived columns: Array<Track> = self.wide ? [WIDE_SCROLL, { fr: 1 }] : FILL
+  derived scrollWidth: number<Length> = self.wide ? WIDE_SCROLL : SCROLL_WIDTH
+  derived rows: array<Track> = self.wide ? FILL : ["max-content", { fr: 1 }]
+  derived columns: array<Track> = self.wide ? [WIDE_SCROLL, { fr: 1 }] : FILL
   // Over the well the scroll is as high as its words, from its least height up to what leaves the well and the
   // window's room on the screen; past that its words scroll.
   derived scrollHeight: Bounds | nil = self.wide ? nil : { min: SCROLL_HEIGHT, max: (Client::UIParent.GetHeight() * 1ui - UNDER_SCROLL_ROOM).max(SCROLL_HEIGHT) }
   derived wellPad: Edges = self.wide ? WIDE_WELL : UNDER_SCROLL
   derived wellWidth: Bounds | nil = self.wide ? WELL_LEAST : nil
   // The list's lines in columns, as many as their count needs; the window widens for each.
-  derived optionColumns: Array<Array<Placed>> = columnsOf(self.lines)
-  derived listColumns: Array<Track> = self.optionColumns.map((column): Track => "max-content")
+  derived optionColumns: array<array<Placed>> = columnsOf(self.lines)
+  derived listColumns: array<Track> = self.optionColumns.map((column): Track => "max-content")
   // The keys the window hears: 1–9, and on the list one for each line past them.
-  derived lineKeys: Array<LineKey> = self.keysOn ? LINE_KEYS : []
+  derived lineKeys: array<LineKey> = self.keysOn ? LINE_KEYS : []
   // The column of the list the keys are on: the first as a list shows, the next on each Tab.
   state column = 1
-  derived columned: Boolean = self.listed && self.optionColumns.length > 1
-  derived tabHint: Boolean = self.keysOn && self.columned && self.hints
+  derived columned: boolean = self.listed && self.optionColumns.length > 1
+  derived tabHint: boolean = self.keysOn && self.columned && self.hints
   // The NPC's options the player marked, by their IDs.
-  derived markedOptions: Array<Integer> = self.marks.filter(mark => mark.npc == self.npc).map(mark => mark.option)
-  derived pickable: Boolean = self.page == Page::Reward
-  derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
-  derived backLabel: String = self.prompted ? Locale::CANCEL : self.pageBack
-  derived pageBack: String = match (self.page) {
+  derived markedOptions: array<integer> = self.marks.filter(mark => mark.npc == self.npc).map(mark => mark.option)
+  derived pickable: boolean = self.page == Page::Reward
+  derived rewardViews: array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
+  derived backLabel: string = self.prompted ? Locale::CANCEL : self.pageBack
+  derived pageBack: string = match (self.page) {
     .Detail => self.fromList ? Locale::BACK : Locale::DECLINE
     .Book => Locale::CLOSE
     else => Locale::BACK
   }
-  derived mainLabel: String = self.prompted ? Locale::YES : self.pageMain
-  derived pageMain: String = match (self.page) {
+  derived mainLabel: string = self.prompted ? Locale::YES : self.pageMain
+  derived pageMain: string = match (self.page) {
     .Detail => Locale::ACCEPT
     .Progress => Locale::CONTINUE
     else => Locale::COMPLETE
   }
-  derived mainOff: Boolean = self.mainOffNow()
+  derived mainOff: boolean = self.mainOffNow()
   derived mainTip: TipText | nil = self.mainOff ? { title: self.mainLabel, text: self.page == Page::Progress ? Locale::NOT_READY : Locale::PICK_A_REWARD, rows: [] } : nil
   derived backKey: ButtonKey = self.hints ? ButtonKey.Named { name: Locale::KEY_ESC } : ButtonKey::None
   derived mainKey: ButtonKey = self.hints ? ButtonKey::Space : ButtonKey::None
-  derived promptText: String = self.promptTextNow()
-  derived promptCost: Integer = self.promptCostNow()
+  derived promptText: string = self.promptTextNow()
+  derived promptCost: integer = self.promptCostNow()
   state tab = 1
 
-  mainOffNow(self): Boolean {
+  mainOffNow(self): boolean {
     if (self.prompted) { return false }
     const quest = self.quest
     if (quest == nil) { return false }
@@ -740,7 +740,7 @@ public class Dialogue implements Module, App {
     return false
   }
 
-  promptTextNow(self): String {
+  promptTextNow(self): string {
     const prompt = self.prompt
     if (prompt == nil) { return "" }
     return match (prompt) {
@@ -752,14 +752,14 @@ public class Dialogue implements Module, App {
     }
   }
 
-  promptCostNow(self): Integer {
+  promptCostNow(self): integer {
     const prompt = self.prompt
     if (prompt is Prompt::Paid) { return prompt.cost }
     if (prompt is Prompt::Expensive) { return prompt.cost }
     return 0
   }
 
-  upgrades(self): Array<Number> {
+  upgrades(self): array<number> {
     const quest = self.quest
     if (quest == nil || !self.upgradesShown) { return [] }
     return quest.choices.map(reward => self.upgrade(reward) ?? 0)

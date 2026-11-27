@@ -4,12 +4,12 @@ import { Choice, Component, ZoneItem, Zones } from "Ordaen"
 public enum Part { Clock = "clock", Money = "money", Friends = "friends" }
 public enum Where { Left = "left", Middle = "middle", Right = "right", Off = "off" }
 
-const PARTS: Array<ZoneItem<Part>> = [
+const PARTS: array<ZoneItem<Part>> = [
   { key: Part::Clock, label: "Clock", hint: "The time of day." },
   { key: Part::Money, label: "Money" },
   { key: Part::Friends, label: "Friends", hint: "How many are online." }
 ]
-const ZONES: Array<Choice<Where>> = [
+const ZONES: array<Choice<Where>> = [
   { value: Where::Left, label: "Left" },
   { value: Where::Middle, label: "Middle" },
   { value: Where::Right, label: "Right" }
@@ -17,7 +17,7 @@ const ZONES: Array<Choice<Where>> = [
 const OFF: Choice<Where> = { value: Where::Off, label: "Not on the panel" }
 
 public class Arranged implements Component {
-  state places: Map<Part, Where> = {
+  state places: map<Part, Where> = {
     [Part::Clock]: Where::Left, [Part::Money]: Where::Right, [Part::Friends]: Where::Off
   }
 

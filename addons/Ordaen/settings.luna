@@ -7,7 +7,7 @@ import { ProfileName } from "@/profiles"
 
 // What a `Settings` or a `ModuleMemory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
 // of it where it has more than one (`Ordaen:look`); nothing for one no root owns (a test's own), which isn't kept.
-function keyOf(addon: Runtime::Addon | nil, part: String): String | nil {
+function keyOf(addon: Runtime::Addon | nil, part: string): string | nil {
   if (addon == nil) { return nil }
   return part == "" ? addon.name : addon.name + ":" + part
 }
@@ -33,13 +33,13 @@ public class Settings<S: Plain> implements Sectioned {
   // The profile the values are of, and whether they changed since they were last packed into it.
   profile: ProfileName | nil = nil
   dirty = false
-  key: String | nil = nil
+  key: string | nil = nil
   const keeper: mut Keeper
-  const id: Integer
+  const id: integer
 
   // `part` tells a module's second `Settings` from its first; `keeper` is Ordaen's root's own, handed in by the root
   // as it makes its own settings, and Ordaen's `keeper` otherwise.
-  constructor(defaults: S, part: String = "", keeper: mut Keeper | nil = nil) {
+  constructor(defaults: S, part: string = "", keeper: mut Keeper | nil = nil) {
     self.defaults = defaults
     self.values = defaults.clone()
     self.recorded = defaults.clone()
@@ -64,15 +64,15 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // How many settings a snapshot or a section would change in the values.
-  public differs(self, raw: Unknown): Integer {
+  public differs(self, raw: unknown): integer {
     return S.decode(raw, self.defaults).changes(self.values)
   }
 
-  public snapshot(self): Unknown {
+  public snapshot(self): unknown {
     return (peek self.values).clone()
   }
 
-  public restore(mut self, raw: Unknown) {
+  public restore(mut self, raw: unknown) {
     self.values = S.decode(raw, self.defaults)
   }
 
@@ -104,7 +104,7 @@ public class Settings<S: Plain> implements Sectioned {
   }
 
   // A profile's section becomes the values: what follows them draws again. The profile left keeps its values first.
-  take(mut self, profile: ProfileName, key: String) {
+  take(mut self, profile: ProfileName, key: string) {
     self.keeper.finishInput()
     self.pack()
     const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
@@ -141,11 +141,11 @@ public class ModuleMemory<S: Plain> {
   public state values: mut S
   const defaults: S
   const whose: Settings::Scope
-  key: String | nil = nil
+  key: string | nil = nil
   // What is kept now, to tell a change from a value taken from the kept one.
   kept: S
 
-  constructor(defaults: S, whose: Settings::Scope = .Profile, part: String = "memory") {
+  constructor(defaults: S, whose: Settings::Scope = .Profile, part: string = "memory") {
     self.defaults = defaults
     self.whose = whose
     self.values = defaults.clone()
@@ -171,7 +171,7 @@ public class ModuleMemory<S: Plain> {
     self.values = values.clone()
   }
 
-  recall(mut self, profile: ProfileName, key: String) {
+  recall(mut self, profile: ProfileName, key: string) {
     const values = S.decode(Ordaen.keeper.profiles.recalled(profile, key), self.defaults)
     self.kept = values.clone()
     self.values = values

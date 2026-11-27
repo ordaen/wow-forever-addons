@@ -15,16 +15,16 @@ const PLAIN: Edges = { top: 7sp, right: 7sp, bottom: 7sp, left: 7sp }
 const TITLED: Edges = { top: 13sp, right: 7sp, bottom: 7sp, left: 7sp }
 
 public class Dialog implements Component {
-  derived titled: Boolean = self.title != ""
+  derived titled: boolean = self.title != ""
   derived padding: Edges = self.titled ? TITLED : PLAIN
   // Its width as drawn: the one it is given at the frame's line, and the art past the line on either side.
-  derived framed: Number<Length> = self.width + reachAcross(Ordaen.art.frame.small)
+  derived framed: number<Length> = self.width + reachAcross(Ordaen.art.frame.small)
 
-  width: Signal<Number<Length>>
-  title: Signal<String>
+  width: Signal<number<Length>>
+  title: Signal<string>
   constructor(
-    width: Signal<Number<Length>>,
-    title: Signal<String> = ""
+    width: Signal<number<Length>>,
+    title: Signal<string> = ""
   ) {
     self.width = width
     self.title = title

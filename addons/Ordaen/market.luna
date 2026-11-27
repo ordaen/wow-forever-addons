@@ -3,26 +3,26 @@
 import Game from "$game"
 
 // An item, by the game's number for it.
-public type ItemId = brand Integer {
+public type ItemId = brand integer {
   // The game's number, as `"$game"` gives one.
-  public of(id: Integer): ItemId { return id }
+  public of(id: integer): ItemId { return id }
 }
 
 // An amount of money.
-public type Copper = brand Integer {
-  public of(amount: Integer): Copper { return amount }
+public type Copper = brand integer {
+  public of(amount: integer): Copper { return amount }
 }
 
 // 2020-01-01 00:00 UTC, in hours since 1970.
-const EPOCH: Integer = 438288
+const EPOCH: integer = 438288
 
 // Hours of the server's clock since 2020-01-01 00:00 UTC: a time kept as one small number. The clock is read, not
 // followed: what reads an hour isn't run again each second.
-public type Hour = brand Integer {
-  public of(hours: Integer): Hour { return hours }
+public type Hour = brand integer {
+  public of(hours: integer): Hour { return hours }
   public now(): Hour { return ((peek Game::clock.server) / 3600).floor() - EPOCH }
   // The hour `seconds` from now ends in, rounded up: what a cooldown or a mail's expiry gives.
-  public fromNow(seconds: Integer): Hour { return (((peek Game::clock.server) + seconds) / 3600).ceil() - EPOCH }
+  public fromNow(seconds: integer): Hour { return (((peek Game::clock.server) + seconds) / 3600).ceil() - EPOCH }
   // The hour so many hours after this one (before it, for a negative count).
-  public after(self, hours: Integer): Hour { return self + hours }
+  public after(self, hours: integer): Hour { return self + hours }
 }

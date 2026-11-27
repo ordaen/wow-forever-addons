@@ -3,13 +3,13 @@
 
 // A tree's name in the two languages, and its place among its class's three.
 public struct Tree {
-  ruRU: String
-  enUS: String
-  order: Integer
+  ruRU: string
+  enUS: string
+  order: integer
 }
 
 // A talent's spell, at any rank, to its tree.
-public const tab: Map<Integer, Integer> = {
+public const tab: map<integer, integer> = {
   [724]: 202,
   [5570]: 282,
   [5923]: 382,
@@ -1370,7 +1370,7 @@ public const tab: Map<Integer, Integer> = {
 }
 
 // A tree to its name.
-public const name: Map<Integer, Tree> = {
+public const name: map<integer, Tree> = {
   [41]: Tree { ruRU: "Огонь", enUS: "Fire", order: 2 },
   [61]: Tree { ruRU: "Лед", enUS: "Frost", order: 3 },
   [81]: Tree { ruRU: "Тайная магия", enUS: "Arcane", order: 1 },

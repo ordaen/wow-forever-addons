@@ -18,12 +18,12 @@ public class SampleNote implements Component {
 
 // A statistic of the game's: its category, its name and its value.
 struct Statistic {
-  const category: String
-  const name: String
-  const value: String
+  const category: string
+  const name: string
+  const value: string
 }
 
-const STATISTICS: Array<Statistic> = [
+const STATISTICS: array<Statistic> = [
   { category: "Character", name: "Total gold acquired", value: "1204" },
   { category: "Character", name: "Mounts owned", value: "2" },
   { category: "Combat", name: "Total damage done", value: "8 412 033" },
@@ -35,18 +35,18 @@ const STATISTICS: Array<Statistic> = [
 // How the statistics stand: under their categories, or as one list.
 public enum StatsView { Categories, List }
 
-const VIEWS: Array<Choice<StatsView>> = [
+const VIEWS: array<Choice<StatsView>> = [
   { value: StatsView::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: StatsView::List, label: Locale::VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 
-function found(search: String): Array<Statistic> {
+function found(search: string): array<Statistic> {
   const needle = search.lower()
   return STATISTICS.filter(s => needle == "" || s.name.lower().contains(needle))
 }
 
 // The statistics whose name holds the search: under their categories, or in one group with no heading.
-function groupsFound(search: String, view: StatsView): Array<Group> {
+function groupsFound(search: string, view: StatsView): array<Group> {
   const kept = found(search)
   if (view == .List) {
     if (kept.length == 0) { return [] }
@@ -56,16 +56,16 @@ function groupsFound(search: String, view: StatsView): Array<Group> {
 }
 
 // The footer's count: the statistics the search keeps.
-public function statisticsCount(search: String): String { return Locale::STATS_COUNT.format(found(search).length) }
+public function statisticsCount(search: string): string { return Locale::STATS_COUNT.format(found(search).length) }
 
 public class StatisticsPage implements Component {
-  derived groups: Array<Group> = groupsFound(self.search, self.view)
-  derived empty: Boolean = self.groups.length == 0
+  derived groups: array<Group> = groupsFound(self.search, self.view)
+  derived empty: boolean = self.groups.length == 0
 
   // The toolbar's search and view, the window's to keep.
-  search: mut Signal<String>
+  search: mut Signal<string>
   view: mut Signal<StatsView>
-  constructor(search: mut Signal<String>, view: mut Signal<StatsView>) {
+  constructor(search: mut Signal<string>, view: mut Signal<StatsView>) {
     self.search = search
     self.view = view
   }

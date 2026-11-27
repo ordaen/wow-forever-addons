@@ -25,45 +25,45 @@ const AFTER_RULE: Edges = { top: 3sp }
 const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b33"), sides: ["top"] }
 const INK: Color = Color::hex("#e8dcc4")
 const GOLD: Color = Color::hex("#f0c860")
-const LINE: Array<Track> = [{ fr: 1 }, SWITCH_WIDTH]
+const LINE: array<Track> = [{ fr: 1 }, SWITCH_WIDTH]
 const RESET_WIDTH = 140.625dp
 
 // One option: what the window's map knows it by, and its name.
-public struct FilterOption<K: Unknown> {
+public struct FilterOption<K: unknown> {
   key: K
-  label: String
+  label: string
 }
 
 // Options that go together; with a `label`, a switch of its own turns them all.
-public struct FilterGroup<K: Unknown> {
-  label: String | nil
-  options: Array<FilterOption<K>>
+public struct FilterGroup<K: unknown> {
+  label: string | nil
+  options: array<FilterOption<K>>
 }
 
 // What is on with each of `keys` switched to `on`, the rest as they were.
-public function switched<K: Unknown>(values: Map<K, Boolean>, keys: Array<K>, on: Boolean): mut Map<K, Boolean> {
-  const next: Map<K, Boolean> = {}
+public function switched<K: unknown>(values: map<K, boolean>, keys: array<K>, on: boolean): mut map<K, boolean> {
+  const next: map<K, boolean> = {}
   for (key, value of values) { next[key] = value }
   for (key of keys) { next[key] = on }
   return next
 }
 
 // The options of a group that are on, against all of them.
-function shownOf<K: Unknown>(group: FilterGroup<K>, values: Map<K, Boolean>): Shown {
+function shownOf<K: unknown>(group: FilterGroup<K>, values: map<K, boolean>): Shown {
   const on = group.options.count(option => values[option.key] == true)
   if (on == 0) { return .Off }
   return on == group.options.length ? .On : .Some
 }
 
 // One option's row: its name, and its switch.
-class FilterLine<K: Unknown> implements Component {
+class FilterLine<K: unknown> implements Component {
   public flip: Event<K> = new Event()
 
   derived state: Shown = self.on ? .On : .Off
 
   option: Signal<FilterOption<K>>
-  on: Signal<Boolean>
-  constructor(option: Signal<FilterOption<K>>, on: Signal<Boolean>) {
+  on: Signal<boolean>
+  constructor(option: Signal<FilterOption<K>>, on: Signal<boolean>) {
     self.option = option
     self.on = on
   }
@@ -82,20 +82,20 @@ class FilterLine<K: Unknown> implements Component {
 }
 
 // A group: its own row while it has a name, and its options.
-class FilterSection<K: Unknown> implements Component {
+class FilterSection<K: unknown> implements Component {
   public flip: Event<K> = new Event()
-  public flipAll: Event<Integer> = new Event()
+  public flipAll: Event<integer> = new Event()
 
   derived state: Shown = shownOf(self.group, self.values)
-  derived titled: Boolean = self.group.label != nil
-  derived title: String = self.group.label ?? ""
+  derived titled: boolean = self.group.label != nil
+  derived title: string = self.group.label ?? ""
   derived rule: Line | nil = self.index == 1 ? nil : RULE
   derived padding: Edges | nil = self.index == 1 ? nil : AFTER_RULE
 
   group: Signal<FilterGroup<K>>
-  values: Signal<Map<K, Boolean>>
-  const index: Integer
-  constructor(group: Signal<FilterGroup<K>>, values: Signal<Map<K, Boolean>>, index: Integer) {
+  values: Signal<map<K, boolean>>
+  const index: integer
+  constructor(group: Signal<FilterGroup<K>>, values: Signal<map<K, boolean>>, index: integer) {
     self.group = group
     self.values = values
     self.index = index
@@ -119,21 +119,21 @@ class FilterSection<K: Unknown> implements Component {
   }
 }
 
-public class FilterButton<K: Unknown> implements Component {
+public class FilterButton<K: unknown> implements Component {
   state open = false
   // Any option off what the window starts it as: the funnel is lit, and «Reset» does something.
-  derived narrowed: Boolean = self.groups.any(group => group.options.any(option => (self.values[option.key] == true) != (self.start[option.key] == true)))
-  derived named: String = self.namedOf()
+  derived narrowed: boolean = self.groups.any(group => group.options.any(option => (self.values[option.key] == true) != (self.start[option.key] == true)))
+  derived named: string = self.namedOf()
 
-  values: mut Signal<Map<K, Boolean>>
-  start: Signal<Map<K, Boolean>>
-  const groups: Array<FilterGroup<K>>
+  values: mut Signal<map<K, boolean>>
+  start: Signal<map<K, boolean>>
+  const groups: array<FilterGroup<K>>
   constructor(
     // What is on, by the options' keys.
-    values: mut Signal<Map<K, Boolean>>,
+    values: mut Signal<map<K, boolean>>,
     // What is on as the window starts, and again after «Reset».
-    start: Signal<Map<K, Boolean>>,
-    groups: Array<FilterGroup<K>>
+    start: Signal<map<K, boolean>>,
+    groups: array<FilterGroup<K>>
   ) {
     self.values = values
     self.start = start
@@ -141,8 +141,8 @@ public class FilterButton<K: Unknown> implements Component {
   }
 
   // The Tip's text: the options on, in the menu's order.
-  namedOf(self): String {
-    const on: Array<String> = []
+  namedOf(self): string {
+    const on: array<string> = []
     for (group of self.groups) {
       for (option of group.options) {
         if (self.values[option.key] == true) { on.push(option.label) }
@@ -155,7 +155,7 @@ public class FilterButton<K: Unknown> implements Component {
 
   onFlip(mut self, key: K) { self.values = switched(self.values, [key], self.values[key] != true) }
 
-  onFlipAll(mut self, index: Integer) {
+  onFlipAll(mut self, index: integer) {
     const group = self.groups[index] ?? panic("a section is one of the filter's groups")
     const keys = group.options.map(option => option.key)
     self.values = switched(self.values, keys, shownOf(group, self.values) != .On)

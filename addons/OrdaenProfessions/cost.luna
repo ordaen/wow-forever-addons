@@ -13,66 +13,66 @@ public enum Way { Buy = "buy", Vendor = "vendor", None = "none" }
 
 // A reagent with its prices, for the make row's count.
 public struct PartPrice {
-  name: String
+  name: string
   // The game's number of the item; none for a reagent the game names no item of.
-  item: Integer | nil
+  item: integer | nil
   icon: Art
   // What one making needs, all the count needs, and what the bags hold.
-  each: Integer
-  need: Integer
-  have: Integer
+  each: integer
+  need: integer
+  have: integer
   // The house's and a merchant's price of all it needs; none where none is known.
-  auction: Integer | nil
-  vendor: Integer | nil
+  auction: integer | nil
+  vendor: integer | nil
   way: Way
   // One part's price by its way; none for none.
-  unit: Integer | nil
+  unit: integer | nil
   // Hours the house's price it takes is old; none for a merchant's.
-  age: Integer | nil
+  age: integer | nil
 }
 
 public struct Totals {
   // Every part at its unit price.
-  cost: Integer | nil
+  cost: integer | nil
   // The parts the bags lack, at their unit prices.
-  toBuy: Integer | nil
+  toBuy: integer | nil
   // It makes an item, which sells.
-  sellable: Boolean
+  sellable: boolean
   // What it sells for, the house's cut taken; before the cut; the cut in percent.
-  sale: Integer | nil
-  listed: Integer | nil
-  cut: Integer
-  profit: Integer | nil
+  sale: integer | nil
+  listed: integer | nil
+  cut: integer
+  profit: integer | nil
   // The oldest house price the totals took, in hours; none where they took none.
-  oldest: Integer | nil
+  oldest: integer | nil
   // Some part has a price at all.
-  priced: Boolean
+  priced: boolean
 }
 
 // One of an item at the house and at a merchant, and how it is had: the cheaper of the two, a merchant's where they
 // are equal (it has no age).
 public struct UnitPrice {
-  bought: Integer | nil
-  sold: Integer | nil
+  bought: integer | nil
+  sold: integer | nil
   way: Way
   // One by its way; none for none.
-  unit: Integer | nil
+  unit: integer | nil
   // Hours the house's price it takes is old; none for a merchant's.
-  age: Integer | nil
+  age: integer | nil
 }
 
 // One of an item's prices; none at all for a reagent the game names no item of.
-public function unitOf(prices: any PriceSource, item: Integer | nil): UnitPrice {
+public function unitOf(prices: any PriceSource, item: integer | nil): UnitPrice {
   if (item == nil) { return { bought: nil, sold: nil, way: Way::None, unit: nil, age: nil } }
   const quote = prices.buy(PriceKey::of(item))
-  const bought: Integer | nil = quote?.copper()
-  const sold: Integer | nil = prices.vendor(ItemId::of(item))
+  const bought: integer | nil = quote?.copper()
+  const sold: integer | nil = prices.vendor(ItemId::of(item))
   if (sold != nil && (bought == nil || sold <= bought)) { return { bought: bought, sold: sold, way: Way::Vendor, unit: sold, age: nil } }
   if (bought != nil) { return { bought: bought, sold: sold, way: Way::Buy, unit: bought, age: quote?.age() } }
   return { bought: nil, sold: nil, way: Way::None, unit: nil, age: nil }
 }
 
-public function partOf(prices: any PriceSource, reagent: Game::Reagent, count: Integer): PartPrice {
+public function partOf(prices: any PriceSource, reagent: Game::Reagent, count: integer): PartPrice {
   const need = reagent.need * count
   const one = unitOf(prices, reagent.itemID)
   const bought = one.bought
@@ -83,18 +83,18 @@ public function partOf(prices: any PriceSource, reagent: Game::Reagent, count: I
   }
 }
 
-public function partsOf(prices: any PriceSource, reagents: Array<Game::Reagent>, count: Integer): Array<PartPrice> {
+public function partsOf(prices: any PriceSource, reagents: array<Game::Reagent>, count: integer): array<PartPrice> {
   return reagents.map(reagent => partOf(prices, reagent, count))
 }
 
 // The totals of a recipe's parts for the count, and the sale of what it makes: `makes` none for a recipe that makes no
 // item (an enchant), `yield` how many one making gives.
 public function totalsOf(
-  prices: any PriceSource, parts: Array<PartPrice>, makes: Integer | nil, yield: Number, count: Integer
+  prices: any PriceSource, parts: array<PartPrice>, makes: integer | nil, yield: number, count: integer
 ): Totals {
-  let cost: Integer | nil = 0
-  let toBuy: Integer | nil = 0
-  let oldest: Integer | nil = nil
+  let cost: integer | nil = 0
+  let toBuy: integer | nil = 0
+  let oldest: integer | nil = nil
   let priced = false
   for (part of parts) {
     const unit = part.unit
@@ -108,19 +108,19 @@ public function totalsOf(
     }
     oldest = older(oldest, part.age)
   }
-  let sale: Integer | nil = nil
-  let listed: Integer | nil = nil
+  let sale: integer | nil = nil
+  let listed: integer | nil = nil
   if (makes != nil) {
     const quote = prices.sell(PriceKey::of(makes))
     if (quote != nil) {
-      const one: Integer = quote.copper()
+      const one: integer = quote.copper()
       sale = (one * yield * count).floor()
       oldest = older(oldest, quote.age())
     }
     const before = prices.listed(PriceKey::of(makes))
     if (before != nil) { listed = (before.copper() * yield * count).floor() }
   }
-  const profit: Integer | nil = sale != nil && cost != nil ? sale - cost : nil
+  const profit: integer | nil = sale != nil && cost != nil ? sale - cost : nil
   return {
     cost: cost, toBuy: toBuy, sellable: makes != nil, sale: sale, listed: listed, cut: prices.cut(), profit: profit,
     oldest: oldest, priced: priced
@@ -128,19 +128,19 @@ public function totalsOf(
 }
 
 // The oldest of the ages taken so far and another; a price of no age leaves it.
-function older(oldest: Integer | nil, age: Integer | nil): Integer | nil {
+function older(oldest: integer | nil, age: integer | nil): integer | nil {
   if (age == nil) { return oldest }
   return (oldest ?? age).max(age)
 }
 
 // How many one making of a recipe gives: the mean of its least and most; one where the client says nothing.
-public function yieldOf(recipe: Integer): Number {
+public function yieldOf(recipe: integer): number {
   const schematic = Game::recipeReader.schematic(recipe)
   if (schematic == nil) { return 1 }
   return (schematic.least + schematic.most) / 2
 }
 
 // The item a recipe makes; none for one that makes none (an enchant) or the client says nothing of.
-public function makesOf(recipe: Integer): Integer | nil {
+public function makesOf(recipe: integer): integer | nil {
   return Game::recipeReader.schematic(recipe)?.makes
 }

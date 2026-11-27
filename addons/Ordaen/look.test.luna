@@ -8,23 +8,23 @@ import root Core from "Ordaen"
 import Ordaen from "Ordaen"
 import { artOf, presetOf } from "@/look"
 
-function color(c: Color): String {
+function color(c: Color): string {
   return "[%g, %g, %g]".format(c.r, c.g, c.b)
 }
 
-function text(key: String, value: String): String {
+function text(key: string, value: string): string {
   return `"${key}": "${value}"`
 }
 
-function hue(key: String, value: Ordaen::Hue): String {
+function hue(key: string, value: Ordaen::Hue): string {
   return text(key, `${value}`)
 }
 
-function paint(key: String, value: Color): String {
+function paint(key: string, value: Color): string {
   return `"${key}": ${color(value)}`
 }
 
-function json(name: Ordaen::Preset): String {
+function json(name: Ordaen::Preset): string {
   let l = Ordaen::preset(name)
   let entries = [
     text("font", `${l.font}`), text("fontHeader", `${l.fontHeader}`), text("fontNumbers", `${l.fontNumbers}`),
@@ -54,7 +54,7 @@ test "the presets, as the design site reads them" {
   for (name of Ordaen::PRESETS) { Test::note(json(name)) }
 }
 
-function file(font: FontFiles | nil): String {
+function file(font: FontFiles | nil): string {
   if (font == nil) { return "the client's own text font" }
   const bold = font.bold
   return bold == nil ? `${font.regular} (no bold)` : `${font.regular}, bold ${bold}`
@@ -70,7 +70,7 @@ test "the files each preset draws its text, titles, numbers and pages of sentenc
 // Numbers are drawn only in a font whose digits are equally wide: a look saved with another for them (Fira Sans
 // Condensed) loads with the default's, as every value the look's settings read (`settings.luna`) that doesn't fit.
 test "a look saved with numbers in a font of unequal digits loads them in the default's" {
-  const saved: Map<String, Unknown> = {}
+  const saved: map<string, unknown> = {}
   saved["fontNumbers"] = "firaCondensed"
   saved["font"] = "philosopher"
   const look = Ordaen::Look::decode(saved, Ordaen::preset(Ordaen::Preset::Ordaen))

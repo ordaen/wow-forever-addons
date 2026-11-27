@@ -10,10 +10,10 @@ import { OrdaenArt } from "@/art"
 import { Component } from "@/module"
 
 // The cut's depth and the heading's rule's, 8 texels of their art at a texel a pixel; the rule's entry, 8 texels.
-public const CUT: Number<Length> = 9.375dp
-const ENTRY: Number<Length> = 9.375dp
+public const CUT: number<Length> = 9.375dp
+const ENTRY: number<Length> = 9.375dp
 // The paint's opacity over the wood where it is whole, and the wood's colour on average (window-wood.tga).
-const PAINT_OPACITY: Number = 0.85
+const PAINT_OPACITY: number = 0.85
 const WOOD: Color = { r: 21 / 255, g: 13 / 255, b: 5 / 255, a: 1 }
 
 // What the white paint is tinted to show `seen` on the wood: worked back from it at the paint's opacity over the wood's
@@ -49,12 +49,12 @@ class CutPiece implements Component {
 // drawn to read as carved where the long cut (lit from the left) reads flat: five texels, both walls in shadow laid
 // over the wood as black (the wood is too dark for a multiplied shade to show), a lip of light at its right, and its
 // top end in shadow where light from above can't reach. As high as its box; `SHORT_CUT` wide.
-const TEXEL: Number<Length> = 1.171875dp
-public const SHORT_CUT: Number<Length> = TEXEL * 5
+const TEXEL: number<Length> = 1.171875dp
+public const SHORT_CUT: number<Length> = TEXEL * 5
 const SHORT_SHADOW: Color = Color::hex("#000000")
 const SHORT_LIP: Color = Color::hex("#1e1e1e")
-const SHORT_WALLS: Array<Number> = [0.7, 0.85, 0.85, 0.7]
-const SHORT_TOP_END: Array<Number> = [0.6, 0.35]
+const SHORT_WALLS: array<number> = [0.7, 0.85, 0.85, 0.7]
+const SHORT_TOP_END: array<number> = [0.6, 0.35]
 
 public class ShortCut implements Component {
   public render(self): Template {
@@ -72,12 +72,12 @@ public class ShortCut implements Component {
 // The divider: the cut whole across its box (`upright` false) or down it (true, the light from the left); across, a
 // `title` stands on it in the middle, the cut stopping short of it on each side.
 public class Groove implements Component {
-  derived titled: Boolean = self.title != ""
+  derived titled: boolean = self.title != ""
   derived color: Color = Ordaen.look.values.heading
 
-  upright: Signal<Boolean>
-  title: Signal<String>
-  constructor(upright: Signal<Boolean> = false, title: Signal<String> = "") {
+  upright: Signal<boolean>
+  title: Signal<string>
+  constructor(upright: Signal<boolean> = false, title: Signal<string> = "") {
     self.upright = upright
     self.title = title
   }
@@ -106,12 +106,12 @@ public class Groove implements Component {
 // A line across the column: the heading where it has a title (the title at its left, the paint after it to the
 // column's end), else the divider.
 public class Cut implements Component {
-  derived titled: Boolean = self.title != ""
+  derived titled: boolean = self.title != ""
   derived color: Color = Ordaen.look.values.heading
   derived paint: Color = paintFor(Ordaen.look.values.headingPaint)
 
-  title: Signal<String>
-  constructor(title: Signal<String> = "") {
+  title: Signal<string>
+  constructor(title: Signal<string> = "") {
     self.title = title
   }
 

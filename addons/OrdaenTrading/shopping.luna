@@ -11,10 +11,10 @@ import { Source, Wanted } from "@/wanted"
 // asked for it.
 public struct Row {
   item: ItemId
-  needed: Integer
-  held: Integer
-  toBuy: Integer
-  lines: Array<Wanted>
+  needed: integer
+  held: integer
+  toBuy: integer
+  lines: array<Wanted>
 }
 
 // Where an item of the list is bought: from a merchant that sells it for no more than the house asks (or the house
@@ -37,8 +37,8 @@ public class ShoppingList {
   // Moves when the bags change: what is held is read again.
   state bags = 0
   // What is needed of each item, all lines summed.
-  public derived needed: Map<ItemId, Integer> = self.neededOf()
-  public derived rows: Array<Row> = self.rowsOf()
+  public derived needed: map<ItemId, integer> = self.neededOf()
+  public derived rows: array<Row> = self.rowsOf()
   kept: mut Kept
 
   constructor(kept: mut Kept) {
@@ -47,13 +47,13 @@ public class ShoppingList {
   }
 
   // The lines as they stand.
-  public lines(self): Array<Wanted> {
+  public lines(self): array<Wanted> {
     _ = self.revision
     return self.kept.shopping
   }
 
   // So many of an item, and what asked for them.
-  public add(mut self, item: ItemId, count: Integer, source: Source) {
+  public add(mut self, item: ItemId, count: integer, source: Source) {
     if (count <= 0) { return }
     if (self.kept.shopping.length >= MOST) { _ = self.kept.shopping.remove(1) }
     self.kept.shopping.push({ item: item, count: count, source: source })
@@ -67,7 +67,7 @@ public class ShoppingList {
 
   // Every item there is no more to buy of.
   public clearBought(mut self) {
-    const done: Map<ItemId, Boolean> = {}
+    const done: map<ItemId, boolean> = {}
     for (row of peek self.rows) {
       if (row.toBuy == 0) { done[row.item] = true }
     }
@@ -75,15 +75,15 @@ public class ShoppingList {
   }
 
   // Every item on the list browsed in one query: their prices come back as the house's results.
-  public searchAll(self): Boolean {
-    let items: Array<Integer> = []
+  public searchAll(self): boolean {
+    let items: array<integer> = []
     for (row of peek self.rows) { items.push(row.item) }
     if (items.length == 0) { return false }
     return Game::auctionQuery.browse(items)
   }
 
-  keep(mut self, kept: (line: Wanted) => Boolean) {
-    let left: Array<Wanted> = []
+  keep(mut self, kept: (line: Wanted) => boolean) {
+    let left: array<Wanted> = []
     for (line of self.kept.shopping) {
       if (kept(line)) { left.push(line) }
     }
@@ -93,17 +93,17 @@ public class ShoppingList {
 
   onBags(mut self) { self.bags += 1 }
 
-  neededOf(self): Map<ItemId, Integer> {
-    const made: Map<ItemId, Integer> = {}
+  neededOf(self): map<ItemId, integer> {
+    const made: map<ItemId, integer> = {}
     for (line of self.lines()) { made[line.item] = (made[line.item] ?? 0) + line.count }
     return made
   }
 
-  rowsOf(self): Array<Row> {
+  rowsOf(self): array<Row> {
     _ = self.bags
     // The items in the order they were first asked for, and each one's lines.
-    let order: Array<ItemId> = []
-    const byItem: Map<ItemId, mut Array<Wanted>> = {}
+    let order: array<ItemId> = []
+    const byItem: map<ItemId, mut array<Wanted>> = {}
     for (line of self.lines()) {
       const lines = byItem[line.item]
       if (lines == nil) {
@@ -113,7 +113,7 @@ public class ShoppingList {
         lines.push(line)
       }
     }
-    let list: Array<Row> = []
+    let list: array<Row> = []
     for (item of order) {
       const needed = self.needed[item] ?? 0
       const held = Game::items.owned(item)

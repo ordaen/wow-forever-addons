@@ -7,8 +7,8 @@ import { FilterButton, FilterGroup, switched } from "@/filter"
 
 enum Kind { Tracked, Grey, Green, Yellow }
 
-const COLOURS: Array<Kind> = [Kind::Grey, Kind::Green, Kind::Yellow]
-const GROUPS: Array<FilterGroup<Kind>> = [
+const COLOURS: array<Kind> = [Kind::Grey, Kind::Green, Kind::Yellow]
+const GROUPS: array<FilterGroup<Kind>> = [
   { options: [{ key: Kind::Tracked, label: "Tracked only" }] },
   {
     label: "Difficulty",
@@ -18,8 +18,8 @@ const GROUPS: Array<FilterGroup<Kind>> = [
 const GOLD: Color = Color::hex("#f0c860")
 
 class List {
-  public state values: Map<Kind, Boolean> = switched({}, COLOURS, true)
-  const start: Map<Kind, Boolean> = switched({}, COLOURS, true)
+  public state values: map<Kind, boolean> = switched({}, COLOURS, true)
+  const start: map<Kind, boolean> = switched({}, COLOURS, true)
 
   public render(self): Template {
     return $ltml {
@@ -30,7 +30,7 @@ class List {
   }
 }
 
-function on(list: List, kind: Kind): Boolean {
+function on(list: List, kind: Kind): boolean {
   return list.values[kind] == true
 }
 
@@ -41,7 +41,7 @@ function menu(): Test::Part {
 }
 
 // The funnel's Tip, the menu closed.
-function tip(): String {
+function tip(): string {
   if (Test::page().window("Difficulty").shown()) { Test::click({ x: 590, y: 390 }, nil) }
   Test::page().button(Ordaen.art.ctl.tool.filter).hover()
   return Test::page().window("Filter").texts().join(" | ")

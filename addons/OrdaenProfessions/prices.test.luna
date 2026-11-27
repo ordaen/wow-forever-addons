@@ -34,48 +34,48 @@ const SETTINGS = "Move mode"
 const PRICES_OFF = "Needs Ordaen Trading: turn it on to see prices."
 const PRICES_TIP = "Cost, sale and profit by Ordaen Trading's prices."
 
-function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game::Difficulty): Game::Recipe {
+function recipe(id: integer, name: string, craftable: integer, difficulty: Game::Difficulty): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true, difficulty: difficulty,
     craftable: craftable
   }
 }
 
-function reagent(item: Integer, name: String, need: Integer, have: Integer): Game::Reagent {
+function reagent(item: integer, name: string, need: integer, have: integer): Game::Reagent {
   return { itemID: item, name: name, icon: "Interface/Icons/INV_Misc_Note_01", have: have, need: need }
 }
 
 // A cloak takes a bolt (one held) and a thread (none); a bolt takes two linen (none).
-function reagents(id: Integer): Array<Game::Reagent> {
+function reagents(id: integer): array<Game::Reagent> {
   if (id == CLOAK_RECIPE) { return [reagent(CLOTH, "Bolt of Linen Cloth", 1, 1), reagent(THREAD, "Coarse Thread", 1, 0)] }
   return [reagent(LINEN, "Linen Cloth", 2, 0)]
 }
 
 // Each recipe makes one of its item: the cloak a cloak, the bolt a bolt.
-function schematic(id: Integer): Game::Schematic | nil {
+function schematic(id: integer): Game::Schematic | nil {
   return { recipe: id, makes: id == CLOAK_RECIPE ? CLOAK : CLOTH, least: 1, most: 1, parts: [] }
 }
 
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting }]
 }
 
-function categories(): Array<Game::Category> {
+function categories(): array<Game::Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
 // The cloak (the bags make three) first, the bolt (none) after it.
-function recipes(): Array<Game::Recipe> {
+function recipes(): array<Game::Recipe> {
   return [recipe(CLOAK_RECIPE, "Linen Cloak", 3, Game::Difficulty::Always), recipe(BOLT_RECIPE, "Bolt of Linen Cloth", 0, Game::Difficulty::Rarely)]
 }
 
 // What a merchant sells: thread at 10 c.
-function merchant(): Map<Integer, Integer> | nil {
+function merchant(): map<integer, integer> | nil {
   return { [THREAD]: 10 }
 }
 
 // The house seen now: a bolt at 1 s, a thread at 15 c, a cloak at 5 s.
-function house(): Array<Game::Offer> {
+function house(): array<Game::Offer> {
   return [{ key: CLOTH, copper: 100, quantity: 5 }, { key: THREAD, copper: 15, quantity: 20 }, { key: CLOAK, copper: 500, quantity: 2 }]
 }
 
@@ -83,7 +83,7 @@ function window(): Test::Part {
   return Test::page().window("Overview")
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
@@ -91,8 +91,8 @@ function reads(part: Test::Part, expected: String): Boolean {
 
 // Whether the card's totals read exactly this, from «Cost» to the card's switches: where they don't, the test fails
 // with what they read.
-function totals(expected: String): Boolean {
-  let read: Array<String> = []
+function totals(expected: string): boolean {
+  let read: array<string> = []
   for (shown of window().texts()) {
     if (shown == "Favorite") { break }
     if (read.length > 0 || shown == "Cost") { read.push(shown) }
@@ -109,16 +109,16 @@ function settings(): Test::Part {
 }
 
 // Whether two colours are the same as the client keeps them (to three places).
-function near(a: Color, b: Color): Boolean {
+function near(a: Color, b: Color): boolean {
   return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
 }
 
 // Whether the window shows `next` straight after `first`, in the order drawn.
 // Whether Ordaen Trading's shopping list reads exactly this, its rows from the first under the headings to «Search
 // all»: the list's window opened from Ordaen Trading's «Shopping list» at the house (open), as the player does.
-function shoppingList(expected: String): Boolean {
+function shoppingList(expected: string): boolean {
   Test::page().window("Sell").button("Shopping list").click()
-  let read: Array<String> = []
+  let read: array<string> = []
   let inside = false
   for (shown of Test::page().window("Search all").texts()) {
     if (shown == "Search all") { break }
@@ -130,7 +130,7 @@ function shoppingList(expected: String): Boolean {
   return true
 }
 
-function follows(first: String, next: String): Boolean {
+function follows(first: string, next: string): boolean {
   const shown = window().texts()
   for (index, text of shown) {
     if (text == first && shown[index + 1] == next) { return true }
@@ -173,7 +173,7 @@ test "the totals at each source: the merchant's price is what a vendor pays; a p
   Game::merchant.prices = merchant
   Game::merchant.opened.emit()
   Game::auctionQuery.results.emit(house())
-  Game::items.sellPrice = (id: Integer): Integer | nil => id == CLOAK ? 200 : nil
+  Game::items.sellPrice = (id: integer): integer | nil => id == CLOAK ? 200 : nil
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
@@ -230,7 +230,7 @@ test "the prices and totals are for the make row's count" {
 
 test "a merchant's price as cheap as the house's is taken" {
   Game::clock.server = NOW
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => ({ [THREAD]: 15 })
+  Game::merchant.prices = (): map<integer, integer> | nil => ({ [THREAD]: 15 })
   Game::merchant.opened.emit()
   Game::auctionQuery.results.emit(house())
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
@@ -288,7 +288,7 @@ test "a making that gives several sells for the mean of what it gives" {
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
   Game::tradeSkill.reagents = reagents
-  Game::recipeReader.schematic = (id: Integer): Game::Schematic | nil => ({ recipe: id, makes: CLOAK, least: 2, most: 4, parts: [] })
+  Game::recipeReader.schematic = (id: integer): Game::Schematic | nil => ({ recipe: id, makes: CLOAK, least: 2, most: 4, parts: [] })
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
   Test::expect(totals("Cost | 0g 1s 15c | ~ | 0g 0s 10c | Price | 0g 14s 25c | — | Profit | 0g 13s 10c | ~ | - | 0g 1s 10c | Prices: 0 h ago | To the shopping list"))
@@ -364,7 +364,7 @@ test "prices under a day old are said dim" {
 
 test "the prices' age is the sale's too, where every part is a merchant's" {
   Game::clock.server = NOW
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => ({ [THREAD]: 10, [CLOTH]: 50 })
+  Game::merchant.prices = (): map<integer, integer> | nil => ({ [THREAD]: 10, [CLOTH]: 50 })
   Game::merchant.opened.emit()
   Game::auctionQuery.results.emit([{ key: CLOAK, copper: 500, quantity: 2 }])
   Game::frames.Professions = Client::CreateFrame("Frame", "ProfessionsFrame", Client::UIParent, nil)
@@ -405,7 +405,7 @@ test "a reagent the game names no item of has no price" {
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => [{ name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }]
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => [{ name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }]
   Game::recipeReader.schematic = schematic
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING
@@ -493,12 +493,12 @@ test "the table sorts by the cost at the house and by profit, a recipe with none
     recipe(BELT_RECIPE, "Linen Belt", 0, Game::Difficulty::Usually)
   ]
   // The vest takes a dye no one sells; the apron a thread, and the belt one, which sells for nothing known.
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => {
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => {
     if (id == 2385) { return [reagent(2324, "Gray Dye", 1, 0)] }
     if (id == APRON_RECIPE || id == BELT_RECIPE) { return [reagent(THREAD, "Coarse Thread", 1, 0)] }
     return reagents(id)
   }
-  Game::recipeReader.schematic = (id: Integer): Game::Schematic | nil => {
+  Game::recipeReader.schematic = (id: integer): Game::Schematic | nil => {
     if (id == APRON_RECIPE) { return { recipe: id, makes: APRON, least: 1, most: 1, parts: [] } }
     if (id == BELT_RECIPE) { return { recipe: id, makes: 4999, least: 1, most: 1, parts: [] } }
     return schematic(id)
@@ -510,7 +510,7 @@ test "the table sorts by the cost at the house and by profit, a recipe with none
   // At the house: the apron's and the belt's thread 15 c, the cloak 1 s 15 c, the bolt 2 s of linen, the vest none.
   // The profit at the better: the apron 9 s 35 c at the house; the belt 10 c lost at a merchant (nobody buys it); the
   // cloak 3 s 60 c; the bolt, sold at 95 c, 1 s 5 c lost; the vest none.
-  const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
+  const order = (): string => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
   const houseCost = (): Test::Part => window().button("Auction").nth(1)
   houseCost().click()
   Test::expect(order().contains("Linen Belt, Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
@@ -618,7 +618,7 @@ test "a missing reagent the game names no item of isn't put onto the shopping li
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => [
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => [
     { name: "Strange Dust", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }, reagent(THREAD, "Coarse Thread", 1, 0)
   ]
   Game::recipeReader.schematic = schematic
@@ -639,7 +639,7 @@ test "with nothing missing «To the shopping list» is off" {
   Game::professions.list = professions()
   Game::tradeSkill.categories = categories()
   Game::tradeSkill.recipes = recipes()
-  Game::tradeSkill.reagents = (id: Integer): Array<Game::Reagent> => [reagent(CLOTH, "Bolt of Linen Cloth", 1, 9)]
+  Game::tradeSkill.reagents = (id: integer): array<Game::Reagent> => [reagent(CLOTH, "Bolt of Linen Cloth", 1, 9)]
   Game::recipeReader.schematic = schematic
   Test::mount(nil, SCREEN)
   Game::tradeSkill.open = TAILORING

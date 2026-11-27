@@ -26,21 +26,21 @@ const OLDER = 11507
 
 // An addon the test adds to the client's list, as its TOC says it and as the client has it.
 struct Fake {
-  const name: String
-  const title: String
-  const notes: String = ""
-  const author: String = ""
-  const version: String = ""
-  const category: String = ""
-  const group: String = ""
-  const demand: Boolean = false
-  const outdated: Boolean = false
+  const name: string
+  const title: string
+  const notes: string = ""
+  const author: string = ""
+  const version: string = ""
+  const category: string = ""
+  const group: string = ""
+  const demand: boolean = false
+  const outdated: boolean = false
   // Why the client doesn't load it while it is on: nil where it does.
   const reason: Client::AddOnReason | nil = nil
-  loaded: Boolean = false
+  loaded: boolean = false
   // What `LoadAddOn` answers where it refuses one on demand.
-  const refuses: String | nil = nil
-  const icon: String = ""
+  const refuses: string | nil = nil
+  const icon: string = ""
 }
 
 // The client's list of addons as the test makes it, and what the client keeps of them: off for this character, the
@@ -48,21 +48,21 @@ struct Fake {
 // answers the client's functions from it answers for every addon (an answer replaces the stand-in's whole), so the
 // list starts with the stand-in's own three as their TOCs say them; what each needs is the stand-in's.
 class World {
-  public fakes: mut Array<mut Fake>
-  public off: mut Map<String, Boolean> = {}
-  public split: mut Map<String, Boolean> = {}
-  public savedOff: mut Map<String, Boolean> = {}
-  savedSplit: mut Map<String, Boolean> = {}
+  public fakes: mut array<mut Fake>
+  public off: mut map<string, boolean> = {}
+  public split: mut map<string, boolean> = {}
+  public savedOff: mut map<string, boolean> = {}
+  savedSplit: mut map<string, boolean> = {}
 
-  constructor(fakes: mut Array<mut Fake>) { self.fakes = fakes }
+  constructor(fakes: mut array<mut Fake>) { self.fakes = fakes }
 
-  fake(self, name: String | Integer): Fake | nil {
-    if (name is Integer) { return self.fakes[name] }
+  fake(self, name: string | integer): Fake | nil {
+    if (name is integer) { return self.fakes[name] }
     return self.fakes.find(fake => fake.name == name)
   }
 
   // An addon taken out of the folder.
-  public remove(mut self, name: String) {
+  public remove(mut self, name: string) {
     let at = 0
     for (index, fake of self.fakes) {
       if (fake.name == name) { at = index }
@@ -70,11 +70,11 @@ class World {
     _ = self.fakes.remove(at)
   }
 
-  public count(self): Integer { return self.fakes.length }
+  public count(self): integer { return self.fakes.length }
 
-  public name(self, index: String | Integer): String { return self.fake(index)?.name ?? "" }
+  public name(self, index: string | integer): string { return self.fake(index)?.name ?? "" }
 
-  public metadata(self, name: String | Integer, field: String): String | nil {
+  public metadata(self, name: string | integer, field: string): string | nil {
     const fake = self.fake(name)
     if (fake == nil) { return nil }
     const value = match (field) {
@@ -90,18 +90,18 @@ class World {
     return value == "" ? nil : value
   }
 
-  public demand(self, name: String | Integer): Boolean { return self.fake(name)?.demand == true }
+  public demand(self, name: string | integer): boolean { return self.fake(name)?.demand == true }
 
-  public interface(self, name: String | Integer): Number { return self.fake(name)?.outdated == true ? OLDER : CURRENT }
+  public interface(self, name: string | integer): number { return self.fake(name)?.outdated == true ? OLDER : CURRENT }
 
-  public state(self, name: String | Integer, character: String | nil): Client::AddOnEnableState {
+  public state(self, name: string | integer, character: string | nil): Client::AddOnEnableState {
     const fake = self.fake(name)
     if (fake == nil) { return .None }
     if (character == nil && self.split[fake.name] == true) { return .Some }
     return self.off[fake.name] == true ? .None : .All
   }
 
-  public turn(mut self, name: String | Integer, character: String | nil, isOff: Boolean) {
+  public turn(mut self, name: string | integer, character: string | nil, isOff: boolean) {
     const fake = self.fake(name)
     if (fake == nil) { return }
     const key = fake.name
@@ -123,13 +123,13 @@ class World {
     self.split = self.savedSplit.clone()
   }
 
-  public loaded(self, name: String | Integer): (Boolean, Boolean) {
+  public loaded(self, name: string | integer): (boolean, boolean) {
     const done = self.fake(name)?.loaded == true
     return done, done
   }
 
-  public loadable(self, name: String | Integer, character: String | nil, demandLoaded: Boolean | nil): (
-    Boolean, Client::AddOnReason | nil
+  public loadable(self, name: string | integer, character: string | nil, demandLoaded: boolean | nil): (
+    boolean, Client::AddOnReason | nil
   ) {
     const fake = self.fake(name)
     if (fake == nil) { return false, "MISSING" }
@@ -138,7 +138,7 @@ class World {
   }
 
   // Why the client doesn't load an addon: off, what it needs missing or not loading, its own reason, or on demand.
-  reason(self, fake: Fake, demandLoaded: Boolean): Client::AddOnReason | nil {
+  reason(self, fake: Fake, demandLoaded: boolean): Client::AddOnReason | nil {
     if (self.off[fake.name] == true) { return "DISABLED" }
     for (need of needsOf(...Client::C_AddOns::GetAddOnDependencies(fake.name))) {
       const other = self.fake(need)
@@ -150,7 +150,7 @@ class World {
     return nil
   }
 
-  public load(mut self, name: String | Integer): (Boolean | nil, String | nil) {
+  public load(mut self, name: string | integer): (boolean | nil, string | nil) {
     const fake = self.fake(name)
     if (fake == nil) { return false, "MISSING" }
     const reason = self.reason(fake, true)
@@ -165,15 +165,15 @@ class World {
 }
 
 // What a client's call gives, one after another, as a list.
-function needsOf(...names: String): Array<String> {
-  const list: Array<String> = []
+function needsOf(...names: string): array<string> {
+  const list: array<string> = []
   for (i of 1..names.length) { list.push(names[i] ?? "") }
   return list
 }
 
 // The stand-in's own three, as their TOCs say them; then three addons of other authors: one in its category, loaded;
 // one built for an older client, which the client doesn't load; one on demand, not loaded, with no category.
-function everyday(): mut Array<mut Fake> {
+function everyday(): mut array<mut Fake> {
   return [
     { name: "LunaType", title: "LunaType", loaded: true },
     {
@@ -194,21 +194,21 @@ function everyday(): mut Array<mut Fake> {
 // time, 10 now and at its peak, 20 on average), the frames over 5 and over 50 ms, memory in KB; how often it was
 // sampled and weighed.
 class Meter {
-  public now: mut Map<String, Number> = {}
-  public peak: mut Map<String, Number> = {}
-  public spikes: mut Map<String, Number> = {}
-  public spikes50: mut Map<String, Number> = {}
-  public memory: mut Map<String, Number> = {}
+  public now: mut map<string, number> = {}
+  public peak: mut map<string, number> = {}
+  public spikes: mut map<string, number> = {}
+  public spikes50: mut map<string, number> = {}
+  public memory: mut map<string, number> = {}
   public samples = 0
   public weighed = 0
   constructor() {}
 
-  public whole(mut self, metric: Client::AddOnProfilerMetric): Number {
+  public whole(mut self, metric: Client::AddOnProfilerMetric): number {
     if (metric == .RecentAverageTime) { self.samples += 1 }
     return metric == .SessionAverageTime ? 20 : 10
   }
 
-  public of(self, name: String, metric: Client::AddOnProfilerMetric): Number {
+  public of(self, name: string, metric: Client::AddOnProfilerMetric): number {
     return match (metric) {
       .RecentAverageTime => self.now[name] ?? 0
       .PeakTime => self.peak[name] ?? 0
@@ -221,11 +221,11 @@ class Meter {
   }
 
   // Every addon together, now: 1.4 of the client's 10.
-  public overall(self, metric: Client::AddOnProfilerMetric): Number { return metric == .RecentAverageTime ? 1.4 : 0 }
+  public overall(self, metric: Client::AddOnProfilerMetric): number { return metric == .RecentAverageTime ? 1.4 : 0 }
 
   // The ten heaviest now, as the client names them: those over 1 % here.
-  public top(self, metric: Client::AddOnProfilerMetric, k: Number): Array<Client::AddOnProfilerResult> {
-    const list: Array<Client::AddOnProfilerResult> = []
+  public top(self, metric: Client::AddOnProfilerMetric, k: number): array<Client::AddOnProfilerResult> {
+    const list: array<Client::AddOnProfilerResult> = []
     if (metric != .RecentAverageTime || k != 10) { return list }
     for (name, now of self.now) {
       if (now >= 1) { list.push({ addOnName: name, metricValue: now }) }
@@ -235,7 +235,7 @@ class Meter {
 
   public weigh(mut self) { self.weighed += 1 }
 
-  public kb(self, name: String | Integer): Number { return name is String ? self.memory[name] ?? 0 : 0 }
+  public kb(self, name: string | integer): number { return name is string ? self.memory[name] ?? 0 : 0 }
 }
 
 // The AddOns window: found by «Reset», which its footer always shows.
@@ -256,47 +256,47 @@ function open() {
 }
 
 // An addon's row, or a category's caption, by its title: the first drawn, the list's (the card may name it too).
-function row(title: String): Test::Part {
+function row(title: string): Test::Part {
   return window().text(title).nth(1).item()
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   return same(part.texts().join(" | "), expected)
 }
 
 // Whether a text is exactly this: where it isn't, the test fails with what it is.
-function same(read: String, expected: String): Boolean {
+function same(read: string, expected: string): boolean {
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // Whether a row's switch is on (lit whole), off, or on for some (its knob halfway, lit at half).
-function switchOn(part: Test::Part): Boolean {
+function switchOn(part: Test::Part): boolean {
   return part.button(Ordaen.art.ctl.switchOn).shown() && part.box(Ordaen.art.ctl.knobOn).opacity() == 1
 }
-function switchOff(part: Test::Part): Boolean { return part.button(Ordaen.art.ctl.switchOff).shown() }
-function switchSome(part: Test::Part): Boolean { return part.box(Ordaen.art.ctl.knobOn).opacity() == 0.5 }
+function switchOff(part: Test::Part): boolean { return part.button(Ordaen.art.ctl.switchOff).shown() }
+function switchSome(part: Test::Part): boolean { return part.box(Ordaen.art.ctl.knobOn).opacity() == 0.5 }
 
 // A row's switch clicked.
-function flip(title: String) {
+function flip(title: string) {
   const part = row(title)
   part.button(switchOff(part) ? Ordaen.art.ctl.switchOff : Ordaen.art.ctl.switchOn).click()
 }
 
 // The question's dialog: found by its title.
-function question(title: String): Test::Part {
+function question(title: string): Test::Part {
   return Test::page().window(Locale::DISABLE_TITLE.format(title))
 }
 
 // A choice of one of the header's pickers: the picker by its glyph, then the choice in its list.
-function pick(glyph: Art, choice: String) {
+function pick(glyph: Art, choice: string) {
   window().button(glyph).click()
   Test::page().window(choice).button(choice).click()
 }
 
 // A kind of the filter picked: its list opened, the choice clicked, the list closed again by a click on the button.
-function filter(choice: String) {
+function filter(choice: string) {
   window().button(Ordaen.art.ctl.tool.filter).click()
   Test::page().window(Locale::FILTER_PERFORMANCE).button(choice).click()
   window().button(Ordaen.art.ctl.tool.filter).click()
@@ -305,7 +305,7 @@ function filter(choice: String) {
 // The window's texts in the order drawn: the list and its footer up to «Reload», and the card's after it.
 // Where the card starts among the window's texts: its title, the nearest text before its «State» that the list said
 // already (the picked addon's row); past the end where no card shows.
-function cardStart(texts: Array<String>): Integer {
+function cardStart(texts: array<string>): integer {
   let state = 0
   for (i, text of texts) {
     if (state == 0 && text == Locale::CARD_STATE) { state = i }
@@ -322,10 +322,10 @@ function cardStart(texts: Array<String>): Integer {
 }
 
 // The list's texts, in the order they stand: up to the card, or to the footer's «Reload».
-function listed(): Array<String> {
+function listed(): array<string> {
   const texts = window().texts()
   const start = cardStart(texts)
-  const list: Array<String> = []
+  const list: array<string> = []
   for (i, text of texts) {
     if (i >= start || text == Locale::RELOAD) { break }
     list.push(text)
@@ -334,16 +334,16 @@ function listed(): Array<String> {
 }
 
 // The titles of the addons' rows in the order they stand, captions left out.
-function titles(): String {
+function titles(): string {
   const names = ["Bagger", "Old Map", "Ordaen", "Ordaen System", "Chatter", "LunaType", "Ordaen Bank", "Fresh"]
   return listed().filter(text => names.any(name => name == text)).join(", ")
 }
 
 // What the card says, joined by « | »: from its title (`cardStart`) to the footer, which «Reset» starts.
-function card(): String {
+function card(): string {
   const texts = window().texts()
   const start = cardStart(texts)
-  const list: Array<String> = []
+  const list: array<string> = []
   for (i, text of texts) {
     if (i >= start) {
       if (text == Locale::RESET) { break }
@@ -354,7 +354,7 @@ function card(): String {
 }
 
 // A row's menu of quick actions: right-click on it, the menu found by «Details», which it always offers.
-function menu(title: String): Test::Part {
+function menu(title: string): Test::Part {
   row(title).rightClick()
   return Test::page().window(Locale::MENU_DETAILS)
 }
@@ -2305,7 +2305,7 @@ test "the window opened in a fight stays, and stays after it" {
 // Sets
 
 // A set saved under a name, as the player saves one: «Sets», «Save current as…», the name, «Save».
-function saveSet(name: String) {
+function saveSet(name: string) {
   window().button(Locale::SETS).click()
   Test::page().button(Locale::SET_SAVE).click()
   Test::page().window(Locale::SET_NEW).input().type(name)
@@ -2313,7 +2313,7 @@ function saveSet(name: String) {
 }
 
 // A set's dialog, opened from «Sets».
-function set(name: String): Test::Part {
+function set(name: string): Test::Part {
   window().button(Locale::SETS).click()
   Test::page().window(Locale::SET_SAVE).button(name).click()
   return Test::page().window(Locale::SET_TITLE.format(name))

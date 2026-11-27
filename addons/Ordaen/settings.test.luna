@@ -6,18 +6,18 @@ import { Look, Preset, preset } from "@/look"
 
 // A colour that lost its fields.
 struct Partial implements Plain {
-  r: Number
+  r: number
 }
 
 // What saved data may hold where the look was kept: the accent without its green, blue and alpha, the red a string,
 // the text's colour whole.
 struct Damaged implements Plain {
   accent: Partial
-  red: String
+  red: string
   redText: Color
 }
 
-function color(c: Color): String {
+function color(c: Color): string {
   return "%g, %g, %g, %g".format(c.r, c.g, c.b, c.a)
 }
 
@@ -33,7 +33,7 @@ test "`/ordaen` with a name no module has opens the settings on Ordaen's own pag
 
 test "a library that needs Ordaen is no module: the settings list no switch for it, and `/ordaen` names it not" {
   // What the build writes into the TOC of an addon with a root.
-  const rooted: Map<String, String> = {}
+  const rooted: map<string, string> = {}
   rooted["X-LunaType-Root"] = "1"
   Test::addon({ name: "OrdaenFakeModule", title: "Fake Module", needs: ["Ordaen"], fields: rooted })
   Test::addon({ name: "OrdaenFakeLibrary", title: "Fake Library", needs: ["Ordaen"] })

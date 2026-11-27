@@ -11,15 +11,15 @@ const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [
 // The hotkeys of a frame of the game's that another module draws or binds (a button of the action bars), by the
 // frame's name: what a tooltip shown for that frame adds to its own. None where the frame isn't the module's.
 public trait OwnerKeys {
-  public keys(self, owner: String): Array<String>
+  public keys(self, owner: string): array<string>
 }
 
 // The hotkeys' section of a tooltip: drawn only with a line in it.
 public class Hotkeys implements Component {
-  derived any: Boolean = self.keys.length > 0
+  derived any: boolean = self.keys.length > 0
 
-  keys: Signal<Array<String>>
-  constructor(keys: Signal<Array<String>>) { self.keys = keys }
+  keys: Signal<array<string>>
+  constructor(keys: Signal<array<string>>) { self.keys = keys }
 
   public render(self): Template {
     return $ltml {

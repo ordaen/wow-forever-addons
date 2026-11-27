@@ -7,15 +7,15 @@ import { Component, PickRow, SECONDARY_TEXT } from "Ordaen"
 
 // What a line shows of its place.
 public struct SlotRow {
-  place: String
-  depth: Integer
+  place: string
+  depth: integer
   // Its number and what stands there (`3. Pings`).
-  label: String
+  label: string
   // What kind of item it is, as the catalogue names it.
-  kind: String
+  kind: string
   // A submenu or a slot: its mark, open while its items are shown under it.
-  holds: Boolean
-  open: Boolean
+  holds: boolean
+  open: boolean
 }
 
 const INDENT = 18.75dp
@@ -24,14 +24,14 @@ const MARK_TINT: Color = Color::hex("#d6a56b")
 const KIND: Color = Color::hex("#a89a80")
 
 public class SlotLine implements Component {
-  public chosen: Event<String> = new Event()
+  public chosen: Event<string> = new Event()
 
-  derived gutter: Number<Length> = self.row.depth * INDENT + MARK
+  derived gutter: number<Length> = self.row.depth * INDENT + MARK
   derived mark: Art = self.row.open ? Ordaen.art.ctl.markOpen : Ordaen.art.ctl.markClosed
 
   row: Signal<SlotRow>
-  picked: Signal<Boolean>
-  constructor(row: Signal<SlotRow>, picked: Signal<Boolean>) {
+  picked: Signal<boolean>
+  constructor(row: Signal<SlotRow>, picked: Signal<boolean>) {
     self.row = row
     self.picked = picked
   }

@@ -30,10 +30,10 @@ const WHITE: Color = Color::hex("#ffffff")
 const FIELD_BACK: Color = Color::hex("#00000080")
 const FIELD_EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const FIELD_PAD: Edges = { right: 3sp, left: 3sp }
-const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
-const FILL: Array<Track> = [{ fr: 1 }]
+const ROW: array<Track> = [{ fr: 1 }, "max-content"]
+const FILL: array<Track> = [{ fr: 1 }]
 // Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
-const TOOLS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
+const TOOLS: array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
 const AFTER: Edges = { left: GAP }
 const LIST_BACK: Color = Color::hex("#0a0806f7")
 const LIST_EDGE: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
@@ -41,16 +41,16 @@ const LIST_PAD: Edges = { top: 2sp, bottom: 2sp }
 const LIST_WIDTH = 246.09375dp
 
 public class Toolbar implements Component {
-  derived searching: Boolean = self.search != ""
+  derived searching: boolean = self.search != ""
   // Enter in the search field: what searches at once, where typing searches only once it settles.
   public submit: Event<nil> = new Event()
 
-  search: mut Signal<String>
-  placeholder: Signal<String>
+  search: mut Signal<string>
+  placeholder: Signal<string>
   constructor(
-    search: mut Signal<String>,
+    search: mut Signal<string>,
     // What the field searches by, in it while it is empty.
-    placeholder: Signal<String>
+    placeholder: Signal<string>
   ) {
     self.search = search
     self.placeholder = placeholder
@@ -79,25 +79,25 @@ public class Toolbar implements Component {
 
 public class ToolButton implements Component {
   state hovered = false
-  derived tipShown: Boolean = self.hovered && !self.open
+  derived tipShown: boolean = self.hovered && !self.open
   derived glyphColor: Color = !self.tinted ? WHITE : self.open || self.lit ? GOLD : INK
   derived plate: Art = self.open && !self.tinted ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
 
   icon: Signal<Art>
-  title: Signal<String>
-  text: Signal<String>
-  open: mut Signal<Boolean>
-  lit: Signal<Boolean>
-  const tinted: Boolean
+  title: Signal<string>
+  text: Signal<string>
+  open: mut Signal<boolean>
+  lit: Signal<boolean>
+  const tinted: boolean
   constructor(
     icon: Signal<Art>,
     // What it does («Sort»), and what it is set to («By name»): its Tip.
-    title: Signal<String>,
-    text: Signal<String>,
-    open: mut Signal<Boolean>,
-    lit: Signal<Boolean> = false,
+    title: Signal<string>,
+    text: Signal<string>,
+    open: mut Signal<boolean>,
+    lit: Signal<boolean> = false,
     // A glyph its colour tints; false for a picture of the game's, drawn in its own colours.
-    tinted: Boolean = true
+    tinted: boolean = true
   ) {
     self.icon = icon
     self.title = title
@@ -134,15 +134,15 @@ public class ToolAct implements Component {
   derived glyph: Color = self.disabled ? DIM : INK
 
   icon: Signal<Art>
-  title: Signal<String>
-  text: Signal<String>
-  disabled: Signal<Boolean>
+  title: Signal<string>
+  text: Signal<string>
+  disabled: Signal<boolean>
   constructor(
     icon: Signal<Art>,
     // What it does («Sort the bags»), and how («By quality»): its Tip.
-    title: Signal<String>,
-    text: Signal<String>,
-    disabled: Signal<Boolean> = false
+    title: Signal<string>,
+    text: Signal<string>,
+    disabled: Signal<boolean> = false
   ) {
     self.icon = icon
     self.title = title
@@ -169,27 +169,27 @@ public class ToolAct implements Component {
   }
 }
 
-public class ToolPick<T: Unknown> implements Component {
+public class ToolPick<T: unknown> implements Component {
   state open = false
   derived picked: Choice<T> | nil = self.choices.find(choice => choice.value == self.value)
-  derived shown: String = self.picked?.label ?? ""
+  derived shown: string = self.picked?.label ?? ""
   derived glyph: Art = self.picked?.icon ?? self.icon
 
   value: mut Signal<T>
-  const choices: Array<Choice<T>>
+  const choices: array<Choice<T>>
   icon: Signal<Art>
-  title: Signal<String>
-  lit: Signal<Boolean>
+  title: Signal<string>
+  lit: Signal<boolean>
   const listBounds: Bounds
   constructor(
     value: mut Signal<T>,
-    choices: Array<Choice<T>>,
+    choices: array<Choice<T>>,
     // Its glyph where the picked choice has none of its own.
     icon: Signal<Art>,
     // What it chooses («Sort»): its Tip's title, over the picked choice.
-    title: Signal<String>,
-    lit: Signal<Boolean> = false,
-    listWidth: Number<Length> = LIST_WIDTH
+    title: Signal<string>,
+    lit: Signal<boolean> = false,
+    listWidth: number<Length> = LIST_WIDTH
   ) {
     self.value = value
     self.choices = choices
@@ -223,17 +223,17 @@ public class ToolPick<T: Unknown> implements Component {
 // has a heading (its number, from 1), then each of `more`, a sort no column shows (a class, a role), numbered after the
 // columns. A heading clicked picks its choice here, and a choice picked here lights its heading.
 public class ToolSort implements Component {
-  sorted: mut Signal<Integer>
-  const choices: Array<Choice<Integer>>
-  title: Signal<String>
+  sorted: mut Signal<integer>
+  const choices: array<Choice<integer>>
+  title: Signal<string>
   constructor(
     // The table's column and choice it is sorted by, from 1; 0 for none.
-    sorted: mut Signal<Integer>,
-    columns: Array<Column>,
+    sorted: mut Signal<integer>,
+    columns: array<Column>,
     // What it sorts («Sort»): its Tip's title.
-    title: Signal<String>,
+    title: Signal<string>,
     // Sorts no column shows, by their labels: `columns.length + 1` and on.
-    more: Array<String> = []
+    more: array<string> = []
   ) {
     self.sorted = sorted
     self.title = title
@@ -248,8 +248,8 @@ public class ToolSort implements Component {
 }
 
 // The choices of a ToolSort: the sortable columns with a heading, then the sorts no column shows.
-public function sortChoices(columns: Array<Column>, more: Array<String>): Array<Choice<Integer>> {
-  const list: Array<Choice<Integer>> = []
+public function sortChoices(columns: array<Column>, more: array<string>): array<Choice<integer>> {
+  const list: array<Choice<integer>> = []
   for (index, column of columns) {
     if (column.sortable == true && column.title != "") { list.push({ value: index, label: column.title }) }
   }

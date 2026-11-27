@@ -8,14 +8,14 @@ import root Ordaen from "Ordaen"
 import { KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
 
 class Hiding {
-  state tabs: Array<WindowTabSpec> = [{ title: "Hiding" }]
+  state tabs: array<WindowTabSpec> = [{ title: "Hiding" }]
   state tab = 1
   public state open = true
   public closes = 0
   public window: mut KeptWindow = new KeptWindow("hiding", "hiding", { x: 0ui, y: 0ui, width: 300ui, height: 200ui })
 
   // It hides and shows again as these say, drawn.
-  public chose(mut self, hide: Array<Occasion>, show: Array<Occasion>) {
+  public chose(mut self, hide: array<Occasion>, show: array<Occasion>) {
     self.window.memory.write({ hideDuring: hide, showAfter: show, ..self.window.defaults })
     Test::mount(self, { left: 0, top: 0, width: 200, height: 100 })
   }
@@ -36,7 +36,7 @@ class Hiding {
 }
 
 // How many textures the client draws now: more while the window shows.
-function drawn(): Integer {
+function drawn(): integer {
   Test::flush()
   return Test::drawn().length
 }

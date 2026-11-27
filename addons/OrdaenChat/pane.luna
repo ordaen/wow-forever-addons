@@ -22,7 +22,7 @@ const MAX: "max-content" = "max-content"
 // stands wider than the player chose where its tabs and this need it.
 const LINES_LEAST = 480dp
 // The lines take all the frame's height.
-const ALL: Array<Track> = [{ fr: 1 }]
+const ALL: array<Track> = [{ fr: 1 }]
 // The game's input, as high as its template makes it (FloatingChatFrame.xml): an embed is the size it is given, and
 // the input's room is this high whether it shows or not.
 const GAME_INPUT = 32ui
@@ -53,7 +53,7 @@ public enum LinkAction {
   Abandon = "abandon", Copy = "copy"
 }
 
-const NAME_ACTIONS: Array<LinkAction> = [.Whisper, .Invite, .Who, .Befriend, .Copy, .Ignore, .More]
+const NAME_ACTIONS: array<LinkAction> = [.Whisper, .Invite, .Who, .Befriend, .Copy, .Ignore, .More]
 
 // A tab's menu asked for: the tab, and what was picked.
 public struct TabPick {
@@ -69,10 +69,10 @@ public struct LinkPick {
 
 // What a link's menu offers: a name's actions; a quest's, shown in Ordaen Quests' log and on the map where it is on,
 // and the log's own where the log holds it, as it stands there; and its name copied.
-function actionsFor(link: Event::Link | nil): Array<LinkAction> {
+function actionsFor(link: Event::Link | nil): array<LinkAction> {
   if (link == nil) { return [] }
   if (nameOf(link.link) != nil) { return NAME_ACTIONS }
-  const actions: Array<LinkAction> = []
+  const actions: array<LinkAction> = []
   const id = questOf(link.link)
   if (id != nil && Quests != nil) {
     actions.push(.ShowInLog)
@@ -89,18 +89,18 @@ function actionsFor(link: Event::Link | nil): Array<LinkAction> {
 }
 
 // A quest link's quest (`quest:123:...`).
-public function questOf(link: String): Integer | nil {
+public function questOf(link: string): integer | nil {
   return link.match("^quest:(%d+)")?.toNumber()?.floor()
 }
 
 // What a link shows, without its brackets: a name, an item's, a quest's title.
-public function shownName(link: Event::Link): String {
+public function shownName(link: Event::Link): string {
   return nameOf(link.link) ?? link.text.match("|h%[(.-)%]|h") ?? link.text
 }
 
 // What a tab's menu offers it: undocking a docked window but the first, docking an undocked one.
-function actionsOf(tab: ChatTab | nil): Array<TabAction> {
-  const actions: Array<TabAction> = [.Rename, .Settings, .New, .Lock, .Interactable]
+function actionsOf(tab: ChatTab | nil): array<TabAction> {
+  const actions: array<TabAction> = [.Rename, .Settings, .New, .Lock, .Interactable]
   if (tab != nil && tab.docked && tab.window > 1) { actions.push(.Undock) }
   if (tab != nil && !tab.docked) { actions.push(.Dock) }
   actions.push(.Close)
@@ -108,7 +108,7 @@ function actionsOf(tab: ChatTab | nil): Array<TabAction> {
 }
 
 // The player's name in a link (`player:Thrall-Realm:7`).
-public function nameOf(link: String): String | nil {
+public function nameOf(link: string): string | nil {
   return link.match("^player:([^:]+)")
 }
 
@@ -134,65 +134,65 @@ public class Pane implements Component {
   state menuLink: Event::Link | nil = nil
 
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
-  derived rows: Array<Track> = [{ fr: 1, min: self.height }]
+  derived rows: array<Track> = [{ fr: 1, min: self.height }]
   derived logFrame: any Frame | nil = self.logOf()
-  derived shown: Array<Entry> = self.shownOf()
-  derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
+  derived shown: array<Entry> = self.shownOf()
+  derived inputShown: boolean = self.input != nil && (self.typing || self.inputAlways)
   // Where the newest line stands over the lines' bottom: while the input shows over it, above the input's field.
-  derived linesFoot: Number<Length> = self.inputShown ? GAME_INPUT + 2 * FIELD_EDGE.width : 0ui
+  derived linesFoot: number<Length> = self.inputShown ? GAME_INPUT + 2 * FIELD_EDGE.width : 0ui
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
-  derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuLink != nil ?
+  derived opacity: number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuLink != nil ?
     1 :
     self.awayOpacity
-  derived tabActions: Array<TabAction> = actionsOf(self.menuTab)
-  derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
+  derived tabActions: array<TabAction> = actionsOf(self.menuTab)
+  derived tabEntries: array<MenuEntry> = self.tabEntriesOf()
   // The open tab's lines let the mouse through (the game's «Make uninteractable»).
-  derived clickThrough: Boolean = self.open?.uninteractable == true
+  derived clickThrough: boolean = self.open?.uninteractable == true
   // The open link menu's actions, read as it opens; a name's `More` and a link's `Copy` a group of their own.
-  derived linkActions: Array<LinkAction> = actionsFor(self.menuLink)
-  derived menuTitle: String = self.menuLink != nil ? shownName(self.menuLink ?? panic("titled while open")) : ""
+  derived linkActions: array<LinkAction> = actionsFor(self.menuLink)
+  derived menuTitle: string = self.menuLink != nil ? shownName(self.menuLink ?? panic("titled while open")) : ""
   // The map isn't opened in a fight: the client lets no addon open it there.
-  derived linkEntries: Array<MenuEntry> = self.linkActions.map(action => MenuEntry {
+  derived linkEntries: array<MenuEntry> = self.linkActions.map(action => MenuEntry {
     label: linkLabel(action), on: nil, disabled: action == LinkAction::ShowOnMap && Game::situation.combat,
     group: action == LinkAction::Copy || action == LinkAction::More || action == LinkAction::Track || action == LinkAction::Untrack, more: nil
   })
 
-  tabs: Signal<Array<ChatTab>>
-  openKey: Signal<String>
+  tabs: Signal<array<ChatTab>>
+  openKey: Signal<string>
   // The tabs' least width, and the room kept under them (the character's portrait under the docked pane's).
-  tabsLeast: Signal<Number<Length>>
-  tabsFoot: Signal<Number<Length>>
-  width: Signal<Number<Length>>
-  height: Signal<Number<Length>>
-  awayOpacity: Signal<Number>
+  tabsLeast: Signal<number<Length>>
+  tabsFoot: Signal<number<Length>>
+  width: Signal<number<Length>>
+  height: Signal<number<Length>>
+  awayOpacity: Signal<number>
   ground: Signal<Color>
-  textSize: Signal<Number<TextSize>>
+  textSize: Signal<number<TextSize>>
   // A message's line: a row's at the chat's text size; messages stand apart by the chat's setting, each read as one.
-  derived line: Number<Length> = Ordaen.lengthOf(BODY_LINE) * self.textSize / 1rem
-  between: Signal<Number<Spacing>>
+  derived line: number<Length> = Ordaen.lengthOf(BODY_LINE) * self.textSize / 1rem
+  between: Signal<number<Spacing>>
   input: Signal<any Frame | nil>
-  typing: Signal<Boolean>
-  inputAlways: Signal<Boolean>
+  typing: Signal<boolean>
+  inputAlways: Signal<boolean>
   constructor(
-    tabs: Signal<Array<ChatTab>>,
+    tabs: Signal<array<ChatTab>>,
     // The tab shown: its key.
-    openKey: Signal<String>,
-    width: Signal<Number<Length>>,
-    height: Signal<Number<Length>>,
+    openKey: Signal<string>,
+    width: Signal<number<Length>>,
+    height: Signal<number<Length>>,
     // How much of it shows while the cursor is off it (1: all of it).
-    awayOpacity: Signal<Number>,
+    awayOpacity: Signal<number>,
     // The lines' dark ground.
     ground: Signal<Color>,
     // The lines' text size.
-    textSize: Signal<Number<TextSize>>,
+    textSize: Signal<number<TextSize>>,
     // The room between messages.
-    between: Signal<Number<Spacing>>,
+    between: Signal<number<Spacing>>,
     // The input it holds (nil: none; Enter opens the chat's), shown while the player types or always.
     input: Signal<any Frame | nil> = nil,
-    typing: Signal<Boolean> = false,
-    inputAlways: Signal<Boolean> = false,
-    tabsLeast: Signal<Number<Length>> = 0ui,
-    tabsFoot: Signal<Number<Length>> = 0ui
+    typing: Signal<boolean> = false,
+    inputAlways: Signal<boolean> = false,
+    tabsLeast: Signal<number<Length>> = 0ui,
+    tabsFoot: Signal<number<Length>> = 0ui
   ) {
     self.tabsLeast = tabsLeast
     self.tabsFoot = tabsFoot
@@ -212,7 +212,7 @@ public class Pane implements Component {
 
   // The chat's keys scroll the game's chosen window: the pane whose open tab is it scrolls a line, a page (as many
   // lines as its height holds) or to an end.
-  onScrolled(mut self, window: Integer, scroll: Game::ChatScroll) {
+  onScrolled(mut self, window: integer, scroll: Game::ChatScroll) {
     const tab = peek self.open
     if (tab == nil || tab.window != window) { return }
     const most = (0).max(tab.lines.length - 1)
@@ -234,14 +234,14 @@ public class Pane implements Component {
     return Game::chat.windows.find(window => window.index == tab.window)?.frame
   }
 
-  shownOf(self): Array<Entry> {
+  shownOf(self): array<Entry> {
     const tab = self.open
     // The lines change in place: their version is what tells the view.
     if (tab == nil || tab.version < 0) { return [] }
     return tab.slice(self.back, ROWS)
   }
 
-  tabEntriesOf(self): Array<MenuEntry> {
+  tabEntriesOf(self): array<MenuEntry> {
     const tab = self.menuTab
     return self.tabActions.map(action => MenuEntry {
       label: tabLabel(action, tab?.uninteractable == true), on: action == TabAction::Lock ? tab?.locked == true : nil,
@@ -256,7 +256,7 @@ public class Pane implements Component {
 
   onMenu(mut self, tab: ChatTab) { self.menuTab = tab }
 
-  onTabPick(mut self, place: Integer) {
+  onTabPick(mut self, place: integer) {
     const tab = peek self.menuTab
     const action = (peek self.tabActions)[place]
     self.menuTab = nil
@@ -265,7 +265,7 @@ public class Pane implements Component {
 
   onTabMenuClose(mut self) { self.menuTab = nil }
 
-  onLinkPick(mut self, place: Integer) {
+  onLinkPick(mut self, place: integer) {
     const link = peek self.menuLink
     const action = (peek self.linkActions)[place]
     self.menuLink = nil
@@ -380,7 +380,7 @@ public class Pane implements Component {
 }
 
 // An entry's words: the game's own where its tab menu has them (undock, the mouse through the lines or not).
-function tabLabel(action: TabAction, uninteractable: Boolean): String {
+function tabLabel(action: TabAction, uninteractable: boolean): string {
   return match (action) {
     .Rename => Locale::TAB_RENAME
     .Settings => Locale::TAB_SETTINGS
@@ -393,7 +393,7 @@ function tabLabel(action: TabAction, uninteractable: Boolean): String {
   }
 }
 
-function linkLabel(action: LinkAction): String {
+function linkLabel(action: LinkAction): string {
   return match (action) {
     .Whisper => Locale::NAME_WHISPER
     .Invite => Locale::NAME_INVITE

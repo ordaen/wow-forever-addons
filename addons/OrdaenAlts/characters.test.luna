@@ -38,13 +38,13 @@ function alts() {
 }
 
 // A character's row, read whole.
-function row(name: String): String {
+function row(name: string): string {
   return window().text(name).item().texts().join(" | ")
 }
 
 // The names in the table, in its order.
-function order(names: Array<String>): String {
-  const found: Array<String> = []
+function order(names: array<string>): string {
+  const found: array<string> = []
   for (text of window().texts()) {
     if (names.any(name => name == text)) { found.push(text) }
   }
@@ -52,7 +52,7 @@ function order(names: Array<String>): String {
 }
 
 // A character of the player's realm and side, last played `hours` ago.
-function alt(name: String, level: Integer, hours: Integer): mut Character {
+function alt(name: string, level: integer, hours: integer): mut Character {
   return Character {
     name: name, realm: REALM, faction: .Alliance, level: level, seen: Hour::fromNow(-hours * 3600), mailExpires: nil
   }
@@ -70,9 +70,9 @@ function again() {
 
 // The characters other sessions recorded (each its own GUID), and the one being played as it was last played where it
 // was, kept as the module's saved records and read by the module anew.
-function recorded(others: Array<Character>, me: Character | nil) {
+function recorded(others: array<Character>, me: Character | nil) {
   const kept = Kept {}
-  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + String::of(index + 1))] = character.clone() }
+  for (index, character of others) { kept.characters[CharacterId::of("Player-1-" + string::of(index + 1))] = character.clone() }
   if (me != nil) { kept.characters[CharacterId::of(PLAYER)] = me.clone() }
   Game::saved.store(.Own, "characters", kept)
   again()
@@ -140,7 +140,7 @@ test "the bags' free slots show once the bags are read, a dash before, and follo
   Test::mount(nil, SCREEN)
   Test::open("/alts")
   // The bags' room as the game says it, read as the bags change.
-  const room = (free: Integer, slots: Integer): String => {
+  const room = (free: integer, slots: integer): string => {
     Game::bags.roomOfAll = (): Game::BagRoom => { return { free: free, slots: slots } }
     Game::bags.changed.emit()
     return row("Player")
@@ -153,15 +153,15 @@ test "the bags' free slots show once the bags are read, a dash before, and follo
 
 test "the bank says how long ago it was read: in hours under a day, then in whole days" {
   Game::clock.server = START
-  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => {
-    const held: Map<Integer, Integer> = {}
+  Game::bankObserver.holdings = (): map<integer, integer> | nil => {
+    const held: map<integer, integer> = {}
     return held
   }
   Test::mount(nil, SCREEN)
   Test::open("/alts")
   Game::bankObserver.opened.emit()
   // The window opened again a number of hours on: the row read as it is then.
-  const later = (hours: Integer): String => {
+  const later = (hours: integer): string => {
     Game::clock.server = START + hours * 3600
     Test::open("/alts")
     Test::open("/alts")
@@ -175,19 +175,19 @@ test "the bank says how long ago it was read: in hours under a day, then in whol
 
 test "the mail says when its first mail with something expires, in red within three days, a dash for none" {
   Game::clock.server = START
-  Game::mailObserver.holdings = (): Map<Integer, Integer> | nil => {
-    const held: Map<Integer, Integer> = {}
+  Game::mailObserver.holdings = (): map<integer, integer> | nil => {
+    const held: map<integer, integer> = {}
     return held
   }
   Test::mount(nil, SCREEN)
   Test::open("/alts")
   // The inbox read with its first mail expiring in a number of hours, or none: the row, and the colour of its text.
-  const mail = (hours: Integer | nil): String => {
-    Game::mailObserver.soonest = (): Integer | nil => hours == nil ? nil : hours * 3600
+  const mail = (hours: integer | nil): string => {
+    Game::mailObserver.soonest = (): integer | nil => hours == nil ? nil : hours * 3600
     Game::mailObserver.changed.emit()
     return row("Player")
   }
-  const ink = (text: String): Color => window().text("Player").item().text(text).textColor()
+  const ink = (text: string): Color => window().text("Player").item().text(text).textColor()
   Test::expect(mail(-2) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 0 h" && ink("in 0 h").equal(RED))
   Test::expect(mail(5) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 5 h" && ink("in 5 h").equal(RED))
   Test::expect(mail(23) == "Player | 1 | 0g 0s 0c | — | now | never opened | in 23 h")
@@ -240,7 +240,7 @@ test "the character being played is written down with its class, for others to c
 test "the table is in the names' order, and a heading sorts by its column, a second click the other way" {
   Game::clock.server = START
   // Each column orders the six otherwise.
-  const holding = (name: String, level: Integer, money: Integer, free: Integer, hours: Integer): Character => {
+  const holding = (name: string, level: integer, money: integer, free: integer, hours: integer): Character => {
     const made = alt(name, level, hours)
     made.money = Copper::of(money)
     made.slots = 40
@@ -254,7 +254,7 @@ test "the table is in the names' order, and a heading sorts by its column, a sec
   ], nil)
   const names = ["Aria", "Bram", "Cole", "Dana", "Eli", "Player"]
   Test::expect(order(names) == "Aria, Bram, Cole, Dana, Eli, Player")
-  const sorted = (heading: String): String => {
+  const sorted = (heading: string): string => {
     window().button(heading).click()
     return order(names)
   }
@@ -310,8 +310,8 @@ test "a character forgotten leaves the table, and stays gone when the module rea
 }
 
 test "forty characters scroll inside the window" {
-  const others: Array<Character> = []
-  for (i of 1..39) { others.push(alt("Alt " + String::of(100 + i), 10, i)) }
+  const others: array<Character> = []
+  for (i of 1..39) { others.push(alt("Alt " + string::of(100 + i), 10, i)) }
   Test::mount(nil, SCREEN)
   recorded(others, nil)
   Test::expect(row("Alt 101") == "Alt 101 | 10 | 0g 0s 0c | — | 1 h ago | never opened | never opened | Forget")
@@ -319,8 +319,8 @@ test "forty characters scroll inside the window" {
 
 test "what was recorded is kept: after a reload the money, the bags and the bank read are as they were" {
   // The stand-in's own clock, which the new session's game has too.
-  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => {
-    const held: Map<Integer, Integer> = {}
+  Game::bankObserver.holdings = (): map<integer, integer> | nil => {
+    const held: map<integer, integer> = {}
     return held
   }
   Test::mount(nil, SCREEN)

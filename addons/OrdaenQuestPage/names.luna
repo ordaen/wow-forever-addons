@@ -12,10 +12,10 @@ public enum NamedKind { Figure = "figure", Item = "item" }
 // A thing a quest names: its name in the player's language, what it is, the link its name is marked with
 // (`ordaen:npc:448`, `item:2589`), and the lines a tip of a figure says under its name.
 public struct Named {
-  name: String
+  name: string
   kind: NamedKind
-  link: String
-  lines: Array<String>
+  link: string
+  lines: array<string>
 }
 
 // The inks a name is marked in on the parchment: a figure's rust, an item's deep blue; each 6:1 on the paper.
@@ -24,15 +24,15 @@ const ITEM_INK = "123c6e"
 
 // A word of a text: where it starts and ends (bytes), and how many letters it has.
 struct Word {
-  from: Integer
-  to: Integer
-  letters: Integer
+  from: integer
+  to: integer
+  letters: integer
 }
 
 // How many bytes the letter at `at` takes; 0 where no letter starts there (a space, a sign, a quote, a dash). A
 // letter is a Latin one or a digit, an apostrophe inside a name (Mo'grosh), or any letter of two or three bytes but
 // the general punctuation's (« » — … ’, which start with 0xC2 or 0xE2).
-function letterAt(text: String, at: Integer): Integer {
+function letterAt(text: string, at: integer): integer {
   const b = text.byte(at) ?? 0
   if ((b >= 48 && b <= 57) || (b >= 65 && b <= 90) || (b >= 97 && b <= 122) || b == 39) { return 1 }
   if (b >= 195 && b <= 223) { return 2 }
@@ -41,8 +41,8 @@ function letterAt(text: String, at: Integer): Integer {
 }
 
 // The words of a text, in order.
-function wordsOf(text: String): Array<Word> {
-  const words: Array<Word> = []
+function wordsOf(text: string): array<Word> {
+  const words: array<Word> = []
   const end = text.length
   let from = 0
   let letters = 0
@@ -66,21 +66,21 @@ function wordsOf(text: String): Array<Word> {
 
 // A word's first letter in small case, where it is a capital of Latin or Cyrillic (Ё too), else as it is: a name
 // begins with a capital, the text that speaks of it often doesn't. Its other letters are compared as they stand.
-function smallFirst(text: String, word: Word): String {
+function smallFirst(text: string, word: Word): string {
   const b = text.byte(word.from) ?? 0
-  if (b >= 65 && b <= 90) { return String::char(b + 32) }
+  if (b >= 65 && b <= 90) { return string::char(b + 32) }
   if (b == 208) {
     const c = text.byte(word.from + 1) ?? 0
     // А–П (D0 90–9F) to а–п (D0 B0–BF); Р–Я (D0 A0–AF) to р–я (D1 80–8F); Ё (D0 81) to ё (D1 91).
-    if (c >= 144 && c <= 159) { return String::char(208) + String::char(c + 32) }
-    if (c >= 160 && c <= 175) { return String::char(209) + String::char(c - 32) }
-    if (c == 129) { return String::char(209) + String::char(145) }
+    if (c >= 144 && c <= 159) { return string::char(208) + string::char(c + 32) }
+    if (c >= 160 && c <= 175) { return string::char(209) + string::char(c - 32) }
+    if (c == 129) { return string::char(209) + string::char(145) }
   }
   return text.sub(word.from, word.from + letterAt(text, word.from) - 1)
 }
 
 // A word as it is compared: its first letter small, the rest as it stands, through its `letters` first letters.
-function keyOf(text: String, word: Word, letters: Integer): String {
+function keyOf(text: string, word: Word, letters: integer): string {
   let at = word.from + letterAt(text, word.from)
   for (n of 2..letters) { at += letterAt(text, at) }
   return smallFirst(text, word) + text.sub(word.from + letterAt(text, word.from), at - 1)
@@ -89,7 +89,7 @@ function keyOf(text: String, word: Word, letters: Integer): String {
 // How many of a name's word's letters a word of the text must begin with: all of a short one (three letters or
 // fewer, which the language doesn't bend into another word), else all but its last two (one of four letters), where
 // the language puts its endings («Бергворт» in «Бергворту», «геомант» in «геомантов»).
-function stemOf(letters: Integer): Integer {
+function stemOf(letters: integer): integer {
   if (letters <= 3) { return letters }
   if (letters == 4) { return 3 }
   return letters - 2
@@ -97,7 +97,7 @@ function stemOf(letters: Integer): Integer {
 
 // Whether the text's word is the name's word bent: it begins with the name's stem, is the name's word itself where
 // that is short, and is at most four letters longer (an ending, not another word).
-function bends(text: String, word: Word, name: String, part: Word): Boolean {
+function bends(text: string, word: Word, name: string, part: Word): boolean {
   if (word.letters < stemOf(part.letters) || word.letters > part.letters + 4) { return false }
   if (part.letters <= 3 && word.letters != part.letters) { return false }
   const stem = stemOf(part.letters)
@@ -105,27 +105,27 @@ function bends(text: String, word: Word, name: String, part: Word): Boolean {
 }
 
 // Whether only a space or a hyphen stands between two words of the text, as between the words of a name.
-function joined(text: String, before: Word, after: Word): Boolean {
+function joined(text: string, before: Word, after: Word): boolean {
   const gap = text.sub(before.to + 1, after.from - 1)
   return gap == " " || gap == "-" || gap == " - "
 }
 
 // Where a name stands in the text, as a span of bytes.
 struct Found {
-  from: Integer
-  to: Integer
+  from: integer
+  to: integer
   named: Named
 }
 
 // The text with each name it speaks of marked as its link, in its ink: the names with the most words first, a name
 // found where another already stands left out. A text with the game's own codes in it (`|c…|r`, a link of its own)
 // is left as it is: a mark inside one of them would break it.
-public function markNames(text: String, names: Array<Named>): String {
+public function markNames(text: string, names: array<Named>): string {
   if (text.contains("|")) { return text }
   const words = wordsOf(text)
-  const found: Array<Found> = []
+  const found: array<Found> = []
   const ordered = names.filter(named => named.name != "")
-  ordered.sort((a: Named, b: Named): Boolean => wordsOf(a.name).length > wordsOf(b.name).length)
+  ordered.sort((a: Named, b: Named): boolean => wordsOf(a.name).length > wordsOf(b.name).length)
   for (named of ordered) {
     const parts = wordsOf(named.name)
     if (parts.length == 0) { continue }
@@ -147,8 +147,8 @@ public function markNames(text: String, names: Array<Named>): String {
     }
   }
   if (found.length == 0) { return text }
-  found.sort((a: Found, b: Found): Boolean => a.from < b.from)
-  const pieces: Array<String> = []
+  found.sort((a: Found, b: Found): boolean => a.from < b.from)
+  const pieces: array<string> = []
   let at = 1
   for (one of found) {
     pieces.push(text.sub(at, one.from - 1))
@@ -163,17 +163,17 @@ public function markNames(text: String, names: Array<Named>): String {
 // A text on the parchment, its names marked: under the cursor an item's name shows the game's tooltip of it, an NPC's
 // or an object's a tip of its lines (who it is to the quest, where it stands).
 public class ScrollText implements Component {
-  derived marked: String = markNames(self.value, self.names)
+  derived marked: string = markNames(self.value, self.names)
   state hovered: Named | nil = nil
-  derived tipShown: Boolean = self.hovered != nil
-  derived tipTitle: String = self.hovered?.name ?? ""
-  derived tipText: String = (self.hovered?.lines ?? []).join("\n")
+  derived tipShown: boolean = self.hovered != nil
+  derived tipTitle: string = self.hovered?.name ?? ""
+  derived tipText: string = (self.hovered?.lines ?? []).join("\n")
   // The box the game's tooltip of an item was shown by, hidden there when the cursor leaves the name.
   shownBy: any Frame | nil = nil
 
-  value: Signal<String>
-  names: Signal<Array<Named>>
-  constructor(value: Signal<String>, names: Signal<Array<Named>> = []) {
+  value: Signal<string>
+  names: Signal<array<Named>>
+  constructor(value: Signal<string>, names: Signal<array<Named>> = []) {
     self.value = value
     self.names = names
   }

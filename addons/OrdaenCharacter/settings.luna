@@ -10,7 +10,7 @@ import Style from "@/style"
 // How large the paper doll's slots are: the standard, a larger, or the largest the screen draws an icon at whole.
 public enum SlotSize implements Plain { Standard = "standard", Large = "large", Sharpest = "sharpest" }
 
-const SLOT_SIZES: Array<Choice<SlotSize>> = [
+const SLOT_SIZES: array<Choice<SlotSize>> = [
   { value: SlotSize::Standard, label: Locale::SLOT_STANDARD },
   { value: SlotSize::Large, label: Locale::SLOT_LARGE },
   { value: SlotSize::Sharpest, label: Locale::SLOT_SHARPEST }
@@ -19,7 +19,7 @@ const SLOT_SIZES: Array<Choice<SlotSize>> = [
 // The largest slot whose icon the screen draws with no texel spread over more than one pixel: the icon's picture
 // (its texels less the rim the client cuts) in the screen's pixels, and the slot's edge round it; never under the
 // standard slot (a dense screen draws that sharp already), never past what the paper doll holds.
-function sharpestSlot(): Number<Length> {
+function sharpestSlot(): number<Length> {
   const wide, high = Client::GetPhysicalScreenSize()
   const pixels = high * Client::UIParent.GetEffectiveScale() / 1080
   const sharp = Style::SLOT_EDGE * 2 + 1dp * Style::ICON_TEXELS.floor() / pixels
@@ -27,7 +27,7 @@ function sharpestSlot(): Number<Length> {
 }
 
 // A slot's size as the player chose it.
-public function slotSizeOf(size: SlotSize): Number<Length> {
+public function slotSizeOf(size: SlotSize): number<Length> {
   return match (size) {
     .Standard => Style::SLOT
     .Large => Style::SLOT_LARGE
@@ -38,24 +38,24 @@ public function slotSizeOf(size: SlotSize): Number<Length> {
 // What the player chooses.
 public struct Choices implements Plain {
   // A thin bar under each slot shows its item's durability.
-  durability: Boolean
+  durability: boolean
   slotSize: SlotSize = SlotSize::Sharpest
   // The names of the spec tabs; empty for ours.
-  specOne: String = ""
-  specTwo: String = ""
+  specOne: string = ""
+  specTwo: string = ""
   // The build gear is weighed for (Ordaen's worth) before a character's first talent point, by its class and the
   // build's key (a spec of the class or one of Forever's builds within one, a Shockadin); a class not here: its default.
-  classBuilds: mut Map<String, String> = {}
+  classBuilds: mut map<string, string> = {}
 }
 
 // The builds a character picked for its talent groups (Ordaen's worth), by their keys; empty: by its talents.
 public struct Picks implements Plain {
-  primary: String = ""
-  secondary: String = ""
+  primary: string = ""
+  secondary: string = ""
 }
 
 // A build's name as the player reads it: a spec's the client's own, Forever's builds ours.
-function buildName(spec: SpecWeights): String {
+function buildName(spec: SpecWeights): string {
   const index = spec.spec
   if (index != nil) {
     let _, name, _, _, _, _, _, _, _, _ = Client::C_SpecializationInfo::GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
@@ -70,30 +70,30 @@ function buildName(spec: SpecWeights): String {
 }
 
 // The builds the player's class weighs gear for.
-function buildChoices(): Array<Choice<String>> {
-  return specsOf(Game::player.classTag).map((spec: SpecWeights): Choice<String> => ({ value: spec.key, label: buildName(spec) }))
+function buildChoices(): array<Choice<string>> {
+  return specsOf(Game::player.classTag).map((spec: SpecWeights): Choice<string> => ({ value: spec.key, label: buildName(spec) }))
 }
 
 // The class's build row, by the class's name as the client gives it.
-function classBuildLabel(): String {
+function classBuildLabel(): string {
   let name, _, _ = Client::UnitClass("player")
   return Locale::SETTING_CLASS_BUILD.format(name ?? Game::player.classTag)
 }
 
 // A talent group's build: by its talents, or one picked.
-function pickChoices(): Array<Choice<String>> {
-  let choices: Array<Choice<String>> = [{ value: "", label: Locale::BUILD_BY_TALENTS }]
+function pickChoices(): array<Choice<string>> {
+  let choices: array<Choice<string>> = [{ value: "", label: Locale::BUILD_BY_TALENTS }]
   for (choice of buildChoices()) { choices.push(choice) }
   return choices
 }
 
 public class GeneralPage implements Component {
-  const builds: Array<Choice<String>> = buildChoices()
-  const picks: Array<Choice<String>> = pickChoices()
-  const classLabel: String = classBuildLabel()
-  const groups: Integer = Game::talentTrees.groups()
+  const builds: array<Choice<string>> = buildChoices()
+  const picks: array<Choice<string>> = pickChoices()
+  const classLabel: string = classBuildLabel()
+  const groups: integer = Game::talentTrees.groups()
   // The player's class's build before its first point, as the profile keeps it: written there as it is picked.
-  state classBuild: String
+  state classBuild: string
   settings: mut Settings<Choices>
   memory: mut ModuleMemory<Picks>
   constructor(settings: mut Settings<Choices>, memory: mut ModuleMemory<Picks>) {
@@ -126,20 +126,20 @@ public class GeneralPage implements Component {
 // «Talents»: the spec tabs' names.
 public class SpecNamesPage implements Component {
   // What each name's field shows: the setting, or what is typed and not written yet.
-  state one: String
-  state two: String
-  const oneRest: mut Resting<String>
-  const twoRest: mut Resting<String>
+  state one: string
+  state two: string
+  const oneRest: mut Resting<string>
+  const twoRest: mut Resting<string>
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
     self.one = (peek self.settings.values).specOne
     self.two = (peek self.settings.values).specTwo
-    self.oneRest = new Resting<String>((name: String): nil => {
+    self.oneRest = new Resting<string>((name: string): nil => {
       self.settings.change((choices: mut Choices): nil => { choices.specOne = name })
     })
-    self.twoRest = new Resting<String>((name: String): nil => {
+    self.twoRest = new Resting<string>((name: string): nil => {
       self.settings.change((choices: mut Choices): nil => { choices.specTwo = name })
     })
     watch (typed of self.one) { self.typedOne(typed) }
@@ -149,19 +149,19 @@ public class SpecNamesPage implements Component {
     watch { self.showTwo(self.settings.values.specTwo) }
   }
 
-  typedOne(mut self, typed: String) {
+  typedOne(mut self, typed: string) {
     if (typed != (peek self.settings.values).specOne) { self.oneRest.move(typed) }
   }
 
-  typedTwo(mut self, typed: String) {
+  typedTwo(mut self, typed: string) {
     if (typed != (peek self.settings.values).specTwo) { self.twoRest.move(typed) }
   }
 
-  showOne(mut self, name: String) {
+  showOne(mut self, name: string) {
     if (!self.oneRest.busy()) { self.one = name }
   }
 
-  showTwo(mut self, name: String) {
+  showTwo(mut self, name: string) {
     if (!self.twoRest.busy()) { self.two = name }
   }
 

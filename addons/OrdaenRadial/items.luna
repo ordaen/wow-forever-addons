@@ -11,9 +11,9 @@ const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 
 // A window: its name, its icon, and how it is opened (a line of a macro the client runs, in a fight too; none: ours).
 struct Opening {
-  title: String
+  title: string
   icon: Asset
-  line: String | nil
+  line: string | nil
 }
 
 function opening(window: Window): Opening {
@@ -41,9 +41,9 @@ function openAction(window: Window): WheelAction {
 // A kind of ping: its name, the client's mark of it, and its number for `/ping` (the client reads a kind's name only
 // in its own language, a number in every one).
 struct Pinging {
-  title: String
+  title: string
   icon: Atlas
-  number: Integer
+  number: integer
 }
 
 function pinging(ping: Ping): Pinging {
@@ -55,7 +55,7 @@ function pinging(ping: Ping): Pinging {
   }
 }
 
-const MARK_ICONS: Array<Asset> = [
+const MARK_ICONS: array<Asset> = [
   "Interface/TargetingFrame/UI-RaidTargetingIcon_1", "Interface/TargetingFrame/UI-RaidTargetingIcon_2",
   "Interface/TargetingFrame/UI-RaidTargetingIcon_3", "Interface/TargetingFrame/UI-RaidTargetingIcon_4",
   "Interface/TargetingFrame/UI-RaidTargetingIcon_5", "Interface/TargetingFrame/UI-RaidTargetingIcon_6",
@@ -63,17 +63,17 @@ const MARK_ICONS: Array<Asset> = [
 ]
 const CLEAR: Asset = "Interface/Buttons/UI-GroupLoot-Pass-Up"
 
-function markIcon(mark: Integer): Asset {
+function markIcon(mark: integer): Asset {
   return MARK_ICONS[mark] ?? CLEAR
 }
 
 // The client's icon of a spell the player has, by its name; none where the spellbook hasn't it.
-function spellIcon(spell: String): FileId | nil {
+function spellIcon(spell: string): FileId | nil {
   const icon, _, _ = Client::C_Spell::GetSpellTexture(spell)
   return icon
 }
 
-function bagCount(item: Integer): Number {
+function bagCount(item: integer): number {
   return Client::C_Item::GetItemCount(item, nil, nil, nil, nil)
 }
 
@@ -83,14 +83,14 @@ const NO_POWER: Color = Color::hex("#4060ff")
 const GLOBAL_COOLDOWN = 1.5
 
 // A cooldown's run as the box takes it; none where there is none, or it is the global one.
-function running(start: Number | nil, length: Number | nil): FillDuration | nil {
+function running(start: number | nil, length: number | nil): FillDuration | nil {
   if (start == nil || length == nil || length <= GLOBAL_COOLDOWN || start <= 0) { return nil }
   return { start: start, length: length }
 }
 
 // A spell as the action bars show it: its charges, red out of range of the target, blue without the power, its
 // cooldown; dimmed where the spellbook hasn't it.
-function spellShown(spell: String): WheelItem {
+function spellShown(spell: string): WheelItem {
   const icon = spellIcon(spell)
   const charges = Client::C_Spell::GetSpellCharges(spell)
   const usable, noPower = Client::C_Spell::IsSpellUsable(spell)
@@ -98,7 +98,7 @@ function spellShown(spell: String): WheelItem {
   const cooldown = Client::C_Spell::GetSpellCooldown(spell)
   return {
     name: spell, icon: icon ?? QUESTION, dim: icon == nil || !usable && !noPower,
-    count: charges != nil && charges.maxCharges > 1 ? String::of(charges.currentCharges) : "",
+    count: charges != nil && charges.maxCharges > 1 ? string::of(charges.currentCharges) : "",
     tone: inRange == false ? OUT_OF_RANGE : noPower ? NO_POWER : nil,
     cooldown: running(cooldown?.startTime, cooldown?.duration), segments: 0, segment: 0
   }
@@ -106,26 +106,26 @@ function spellShown(spell: String): WheelItem {
 
 // An item of the bags: how many the player holds, red out of range of the target, its cooldown; dimmed while the
 // player hasn't it.
-function bagShown(item: Integer): WheelItem {
+function bagShown(item: integer): WheelItem {
   const count = bagCount(item)
   const inRange = Client::C_Item::IsItemInRange(item, "target")
   const start, length, _ = Client::C_Item::GetItemCooldown(item)
   return {
-    name: Client::C_Item::GetItemNameByID(item) ?? String::of(item), icon: Client::C_Item::GetItemIconByID(item) ?? QUESTION,
-    dim: count < 1, count: count > 1 ? String::of(count.floor()) : "",
+    name: Client::C_Item::GetItemNameByID(item) ?? string::of(item), icon: Client::C_Item::GetItemIconByID(item) ?? QUESTION,
+    dim: count < 1, count: count > 1 ? string::of(count.floor()) : "",
     tone: inRange == false ? OUT_OF_RANGE : nil, cooldown: running(start, length), segments: 0, segment: 0
   }
 }
 
 // A macro of the player's: its own icon; dimmed where the player has none so named.
-function macroShown(macro: String): WheelItem {
+function macroShown(macro: string): WheelItem {
   const name, icon, _ = Client::GetMacroInfo(macro)
   return plainItem(macro, icon ?? QUESTION, name == nil)
 }
 
 // How an item is drawn; a kind of another module's as it offers now (none: not loaded); an emote by the name the
 // client's commands give it (`emoteNames`).
-public function shown(item: Item, offer: RadialOffer | nil, emotes: Map<String, String>): WheelItem {
+public function shown(item: Item, offer: RadialOffer | nil, emotes: map<string, string>): WheelItem {
   return match (item) {
     .Empty => plainItem("", QUESTION, true)
     .Spell => spellShown(item.spell)
@@ -167,14 +167,14 @@ public function actionOf(item: Item, offer: RadialOffer | nil): WheelAction {
 
 // A line of a macro done only in a form: Lua (`/run`, which reads no conditional) asks the form itself, any other
 // command takes the conditional after its verb.
-function formLine(line: String, form: Integer): String {
+function formLine(line: string, form: integer): string {
   const code = line.match("^/run (.+)$")
   if (code != nil) { return `/run if GetShapeshiftForm() == ${form} then ${code} end` }
-  return line.replace("^(/%S+)", (verb: String): String => `${verb} [form:${form}]`)
+  return line.replace("^(/%S+)", (verb: string): string => `${verb} [form:${form}]`)
 }
 
 // An action done only in a form (the stance bar's place): the client's macro conditional before what it does.
-public function inForm(action: WheelAction, form: Integer): WheelAction {
+public function inForm(action: WheelAction, form: integer): WheelAction {
   const when = `[form:${form}]`
   return match (action) {
     .Spell => .MacroText { text: `/cast ${when} ${action.spell}` }
@@ -188,6 +188,6 @@ public function inForm(action: WheelAction, form: Integer): WheelAction {
 
 // What the client refuses in a fight: the windows of ours that change what a fight locks (placing the frames, the
 // settings that bind keys).
-public function refusesInFight(item: Item): Boolean {
+public function refusesInFight(item: Item): boolean {
   return item is Item::Open && (item.window == Window::Placing || item.window == Window::Settings)
 }

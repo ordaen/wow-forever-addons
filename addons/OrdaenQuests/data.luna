@@ -11,27 +11,27 @@ const CONTRACT = 4
 const NO_QUESTS: NpcQuests = { starts: [], ends: [] }
 
 // Of the sellers, those friendly to `side` (QuestieDB's "A" and "H"); none for a player of neither.
-public function sellingTo(sellers: Array<Seller>, side: Game::Faction): Array<Integer> {
+public function sellingTo(sellers: array<Seller>, side: Game::Faction): array<integer> {
   const letter = side == Game::Faction::Alliance ? "A" : side == Game::Faction::Horde ? "H" : nil
   if (letter == nil) { return [] }
   return sellers.filter(seller => seller.sides.contains(letter)).map(seller => seller.npc)
 }
 
 public class QuestieData {
-  known: mut Map<Integer, QuestFacts> = {}
+  known: mut map<integer, QuestFacts> = {}
   // Quests asked of and not known, so they aren't asked again.
-  unknown: mut Map<Integer, Boolean> = {}
+  unknown: mut map<integer, boolean> = {}
   // The NPCs' quests asked of.
-  npcs: mut Map<Integer, NpcQuests> = {}
+  npcs: mut map<integer, NpcQuests> = {}
 
   // Why nothing can be read (QuestieDB of another contract, its own message); nil where it can be.
-  public fault(self): String | nil {
+  public fault(self): string | nil {
     let fits, said = LibQuestieDB::RequireContract(CONTRACT)
     return fits ? nil : said ?? "QuestieDB's contract doesn't match"
   }
 
   // A quest's facts; nil for one QuestieDB doesn't know (Forever's newest).
-  public quest(mut self, id: Integer): QuestFacts | nil {
+  public quest(mut self, id: integer): QuestFacts | nil {
     const kept = self.known[id]
     if (kept != nil || self.unknown[id] == true || self.fault() != nil) { return kept }
     const read = Questie::quest(id)
@@ -45,19 +45,19 @@ public class QuestieData {
 
   // The NPCs that sell an item who trade with `side`'s players; none where QuestieDB can't be read. Asked as a list
   // of things to buy opens, not kept.
-  public vendorsOf(self, item: Integer, side: Game::Faction): Array<Integer> {
+  public vendorsOf(self, item: integer, side: Game::Faction): array<integer> {
     return self.fault() == nil ? sellingTo(Questie::vendors(item), side) : []
   }
 
   // An NPC's name and spawns; nil for one QuestieDB doesn't know, or where it can't be read. Asked on a click, not
   // kept.
-  public npc(self, id: Integer): Figure | nil {
+  public npc(self, id: integer): Figure | nil {
     return self.fault() == nil ? Questie::npc(id) : nil
   }
 
   // The quests an NPC gives and takes back; none for one QuestieDB doesn't know. Asked as a creature's tooltip shows,
   // kept for the session.
-  public npcQuests(mut self, id: Integer): NpcQuests {
+  public npcQuests(mut self, id: integer): NpcQuests {
     const kept = self.npcs[id]
     if (kept != nil) { return kept }
     const read = self.fault() == nil ? Questie::npcQuests(id) ?? NO_QUESTS : NO_QUESTS

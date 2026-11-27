@@ -9,7 +9,7 @@ class Cost {
   state axe = true
   state bar = false
   state picked = ""
-  state seen: Number | nil = 5 * 86400
+  state seen: number | nil = 5 * 86400
 
   onAxe(mut self) { self.picked = "Bronze Axe" }
   onTin(mut self) { self.picked = "Tin Ore" }

@@ -42,15 +42,15 @@ public struct Places {
 
 public struct Choices {
   // The parts, each on or off.
-  microOn: Boolean
-  statusOn: Boolean
-  bottomOn: Boolean
+  microOn: boolean
+  statusOn: boolean
+  bottomOn: boolean
   microIcons: MicroIcons
   charButton: CharButton
   charView: CharView
   // The panel's text.
   outline: Outline
-  shadow: Boolean
+  shadow: boolean
   // The experience bar.
   xpTexture: XpTexture
   xpBorder: XpBorder
@@ -58,7 +58,7 @@ public struct Choices {
   // The panel: where, how long, how high, what sits in which zone, when it shows.
   edge: Edge
   fit: Fit
-  height: Number
+  height: number
   places: Places
   visibility: Visibility
 }

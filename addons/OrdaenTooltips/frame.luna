@@ -20,9 +20,9 @@ const SIDE_WIDTH = 309.375dp
 const ICON = 70.3125dp
 // The ladder's steps (`space`): a line's between the lines of a section, an item's round a section, a panel's
 // inside the frame.
-const LINE: Number<Spacing> = 2sp
-const SECTION: Number<Spacing> = 3sp
-const INSIDE: Number<Spacing> = 5sp
+const LINE: number<Spacing> = 2sp
+const SECTION: number<Spacing> = 3sp
+const INSIDE: number<Spacing> = 5sp
 const LABEL: Color = Color::hex("#cbb994")
 const QUIET: Color = Color::hex("#857a66")
 const QUIET_VALUE: Color = Color::hex("#a39883")
@@ -31,21 +31,21 @@ const FREE: Color = Color::hex("#e6dcc6")
 const BLACK: Color = Color::hex("#000000")
 public const RULE: Line = { width: 1.171875dp, color: Color::hex("#d6a56b2e"), sides: [Side::Top] }
 const RIM: Line = { width: 1.171875dp, color: Color::hex("#6c5535") }
-const FILL: Array<Track> = [{ fr: 1 }]
-const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
-const ALONE: Array<Track> = [{ fr: 1 }]
-public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "max-content"]
+const FILL: array<Track> = [{ fr: 1 }]
+const WITH_ICON: array<Track> = [ICON, { fr: 1 }]
+const ALONE: array<Track> = [{ fr: 1 }]
+public const NAME_VALUE: array<Track> = [{ fr: 1 }, "max-content"]
 // A line's icon (a reagent's), a line of the footer's text high.
 const LINE_ICON = 16.40625dp
-const ICON_NAME_VALUE: Array<Track> = [LINE_ICON, { fr: 1 }, "max-content"]
-const ICON_NAME: Array<Track> = [LINE_ICON, { fr: 1 }]
+const ICON_NAME_VALUE: array<Track> = [LINE_ICON, { fr: 1 }, "max-content"]
+const ICON_NAME: array<Track> = [LINE_ICON, { fr: 1 }]
 // A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
 // 10 px (ctl.compareUp, ctl.compareDown).
-const COMPARED: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
+const COMPARED: array<Track> = ["max-content", "max-content", "max-content", "max-content"]
 const COMPARED_GAP = 1sp
 const COMPARED_MARK = 11.71875dp
 // A text at its own width, the rest of its row empty.
-public const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
+public const OWN_WIDTH: array<Track> = ["max-content", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
 // The hotkeys, last in a tooltip that has no bar, keep a section's room under them (`Hotkeys` keeps it over them);
 // before the bar, the bar's own room is all there is between them.
@@ -63,7 +63,7 @@ const BAR_GOLD: Color = Color::hex("#d6a56b80")
 // beside it.
 // A compared tooltip's header («Equipped») over its title: the main tooltip beside it stands as much lower, so the
 // titles are level.
-public const HEADER: Number<Spacing> = 10.5sp
+public const HEADER: number<Spacing> = 10.5sp
 const BY_ITS_TEXT: Beside = { beside: "parent" }
 // The game's red X.
 const CLOSE_ART: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
@@ -77,14 +77,14 @@ const APART: Edges = { top: 4sp }
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
-  left: String
-  right: String | nil
+  left: string
+  right: string | nil
   leftColor: Color
   rightColor: Color
-  size: Number<TextSize>
+  size: number<TextSize>
   padding: Edges
   // A sentence (a description), its lines a little apart.
-  sentence: Boolean = false
+  sentence: boolean = false
   // What its name opens, and what its value does.
   opens: Opens
   valueOpens: Opens
@@ -94,7 +94,7 @@ public struct Drawn {
   icon: Art | nil = nil
 }
 
-function opensSomething(opens: Opens): Boolean {
+function opensSomething(opens: Opens): boolean {
   match (opens) {
     Opens::None => return false
     else => return true
@@ -109,21 +109,21 @@ public class TermText implements Component {
 
   state over = false
   state onOpened = false
-  derived lit: Boolean = self.locked && self.opensSomething()
-  derived open: Boolean = self.lit && (self.over || self.onOpened)
+  derived lit: boolean = self.locked && self.opensSomething()
+  derived open: boolean = self.lit && (self.over || self.onOpened)
 
-  text: Signal<String>
+  text: Signal<string>
   color: Signal<Color>
-  size: Signal<Number<TextSize>>
+  size: Signal<number<TextSize>>
   opens: Signal<Opens>
-  locked: Signal<Boolean>
+  locked: Signal<boolean>
   const font: TextFont | nil
   constructor(
-    text: Signal<String>,
+    text: Signal<string>,
     color: Signal<Color>,
-    size: Signal<Number<TextSize>>,
+    size: Signal<number<TextSize>>,
     opens: Signal<Opens>,
-    locked: Signal<Boolean>,
+    locked: Signal<boolean>,
     // A value's text is in the numbers' font; nothing keeps the text's.
     font: TextFont | nil = nil
   ) {
@@ -136,7 +136,7 @@ public class TermText implements Component {
     watch { self.forgetCursor() }
   }
 
-  opensSomething(self): Boolean { return opensSomething(self.opens) }
+  opensSomething(self): boolean { return opensSomething(self.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
   forgetCursor(mut self) {
@@ -174,19 +174,19 @@ public class TermText implements Component {
 public class PartText implements Component {
   public slot opened(opens: Opens)
 
-  derived notFirst: Boolean = self.index > 1
+  derived notFirst: boolean = self.index > 1
   derived own: Color = self.part.color ?? self.color
 
   part: Signal<Part>
-  index: Signal<Integer>
+  index: Signal<integer>
   const color: Color
-  locked: Signal<Boolean>
+  locked: Signal<boolean>
   constructor(
     part: Signal<Part>,
-    index: Signal<Integer>,
+    index: Signal<integer>,
     // The line's colour, for a piece without its own.
     color: Color,
-    locked: Signal<Boolean> = false
+    locked: Signal<boolean> = false
   ) {
     self.part = part
     self.index = index
@@ -213,24 +213,24 @@ public class PartText implements Component {
 public class Row implements Component {
   public slot opened(opens: Opens)
 
-  derived paired: Boolean = self.line.right != nil
-  derived right: String = self.line.right ?? ""
-  derived opening: Boolean = opensSomething(self.line.opens)
-  derived valueOpening: Boolean = opensSomething(self.line.valueOpens)
+  derived paired: boolean = self.line.right != nil
+  derived right: string = self.line.right ?? ""
+  derived opening: boolean = opensSomething(self.line.opens)
+  derived valueOpening: boolean = opensSomething(self.line.valueOpens)
   // A compared stat's difference: «(by ▲)» green when it is more, «(by ▼)» red when less, after the value.
-  derived hasCompared: Boolean = self.line.compared != nil
-  derived plainValue: Boolean = !self.hasCompared && !self.valueOpening
-  derived comparedMore: Boolean = self.line.compared?.more == true
+  derived hasCompared: boolean = self.line.compared != nil
+  derived plainValue: boolean = !self.hasCompared && !self.valueOpening
+  derived comparedMore: boolean = self.line.compared?.more == true
   derived comparedColor: Color = self.comparedMore ? GREEN : RED
   derived comparedMark: Art = self.comparedMore ? Ordaen.art.ctl.compareUp : Ordaen.art.ctl.compareDown
-  derived comparedBy: String = `(${self.line.compared?.by ?? ""}`
+  derived comparedBy: string = `(${self.line.compared?.by ?? ""}`
   // A line with an icon (a reagent's) has it in a column before its name.
-  derived hasIcon: Boolean = self.line.icon != nil
-  derived tracks: Array<Track> = self.hasIcon ? ICON_NAME_VALUE : NAME_VALUE
+  derived hasIcon: boolean = self.line.icon != nil
+  derived tracks: array<Track> = self.hasIcon ? ICON_NAME_VALUE : NAME_VALUE
 
   line: Signal<Drawn>
-  locked: Signal<Boolean>
-  constructor(line: Signal<Drawn>, locked: Signal<Boolean> = false) {
+  locked: Signal<boolean>
+  constructor(line: Signal<Drawn>, locked: Signal<boolean> = false) {
     self.line = line
     self.locked = locked
   }
@@ -292,8 +292,8 @@ public class Row implements Component {
 // body's colour, other free lines in their own; 6 px more above a line where rows turn into sentences or back.
 // `was` is the section as it was drawn, made from the lines `from`: a line that is the one it was made from, with
 // the room it had, is `was`'s again, and with every line so, `was` itself.
-function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>): Array<Drawn> {
-  let list: Array<Drawn> = []
+function rows(lines: array<TextLine>, was: array<Drawn>, from: array<TextLine>): array<Drawn> {
+  let list: array<Drawn> = []
   let same = lines.length == was.length
   let pairedBefore = false
   let underHead = false
@@ -326,40 +326,40 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
 }
 
 public class TipFrame implements Component {
-  derived width: Number<Length> = self.side ? SIDE_WIDTH : WIDTH
-  derived hasHeader: Boolean = self.model.header != nil
-  derived header: String = self.model.header ?? ""
-  derived headerHigh: Number<Length> = Ordaen.lengthOf(HEADER)
+  derived width: number<Length> = self.side ? SIDE_WIDTH : WIDTH
+  derived hasHeader: boolean = self.model.header != nil
+  derived header: string = self.model.header ?? ""
+  derived headerHigh: number<Length> = Ordaen.lengthOf(HEADER)
   // The picture by the title: an icon, or a unit's face.
-  derived hasIcon: Boolean = self.pictured()
+  derived hasIcon: boolean = self.pictured()
   derived icon: Art | nil = self.iconArt()
-  derived face: String | nil = self.faceUnit()
-  derived titleColumns: Array<Track> = self.hasIcon ? WITH_ICON : ALONE
+  derived face: string | nil = self.faceUnit()
+  derived titleColumns: array<Track> = self.hasIcon ? WITH_ICON : ALONE
   // A tooltip with no name nor picture (what using an item does, under its tab) has no title: its first section
   // stands at its top, with no rule over it.
-  derived titled: Boolean = self.model.name != "" || self.hasIcon
+  derived titled: boolean = self.model.name != "" || self.hasIcon
   derived factsRule: Line | nil = self.titled ? RULE : nil
-  derived hasDesc: Boolean = self.model.desc.length > 0
-  derived hasInfo: Boolean = self.model.info.length > 0
-  derived descColumns: Array<Track> = self.tracks(self.model.desc.length)
-  derived infoColumns: Array<Track> = self.tracks(self.model.info.length)
+  derived hasDesc: boolean = self.model.desc.length > 0
+  derived hasInfo: boolean = self.model.info.length > 0
+  derived descColumns: array<Track> = self.tracks(self.model.desc.length)
+  derived infoColumns: array<Track> = self.tracks(self.model.info.length)
 
-  derived facts: Integer = self.model.facts.length
-  derived hasFacts: Boolean = self.facts > 0
+  derived facts: integer = self.model.facts.length
+  derived hasFacts: boolean = self.facts > 0
   // The body's lines and what there is more of, as they are drawn, kept from one model to the next: a line of the
   // model that is the line it was is drawn by the row it had, so a model with one line changed draws that line
   // anew and nothing else. `bodyOf` and `moreOf` are the model's lines each was made from.
-  state body: Array<Drawn> = []
-  state more: Array<Drawn> = []
-  bodyOf: Array<TextLine> = []
-  moreOf: Array<TextLine> = []
-  derived foot: Array<Drawn> = self.notes()
-  derived hasBody: Boolean = self.body.length > 0
-  derived hasMore: Boolean = self.more.length > 0
-  derived hasFoot: Boolean = self.foot.length > 0
-  derived hasKeys: Boolean = self.model.keys.length > 0
+  state body: array<Drawn> = []
+  state more: array<Drawn> = []
+  bodyOf: array<TextLine> = []
+  moreOf: array<TextLine> = []
+  derived foot: array<Drawn> = self.notes()
+  derived hasBody: boolean = self.body.length > 0
+  derived hasMore: boolean = self.more.length > 0
+  derived hasFoot: boolean = self.foot.length > 0
+  derived hasKeys: boolean = self.model.keys.length > 0
   // The band ends the tooltip.
-  derived bandLast: Boolean = !self.hasBody && !self.hasMore && !self.hasFoot && !self.hasKeys
+  derived bandLast: boolean = !self.hasBody && !self.hasMore && !self.hasFoot && !self.hasKeys
   // The title alone (a sign): no room under it.
   derived titlePadding: Edges = self.hasFacts || !self.bandLast || self.hasHeader ? UNDER_TITLE : NO_PAD
   // A rule only between two present sections; none between the title and the body. The title is always there,
@@ -376,18 +376,18 @@ public class TipFrame implements Component {
   public slot opened(opens: Opens)
 
   model: Signal<Model>
-  side: Signal<Boolean>
-  locks: Signal<Boolean>
-  charge: Signal<Integer>
-  locked: Signal<Boolean>
+  side: Signal<boolean>
+  locks: Signal<boolean>
+  charge: Signal<integer>
+  locked: Signal<boolean>
   constructor(
     model: Signal<Model>,
-    side: Signal<Boolean> = false,
+    side: Signal<boolean> = false,
     // The main tooltip of a group that locks: it has the lock's bar, filled this far of a hundred, and is locked or
     // not. One that never locks (a button's text) keeps no room for a bar: it is its content's height.
-    locks: Signal<Boolean> = false,
-    charge: Signal<Integer> = 0,
-    locked: Signal<Boolean> = false
+    locks: Signal<boolean> = false,
+    charge: Signal<integer> = 0,
+    locked: Signal<boolean> = false
   ) {
     self.model = model
     self.side = side
@@ -412,7 +412,7 @@ public class TipFrame implements Component {
     self.moreOf = lines
   }
 
-  pictured(self): Boolean {
+  pictured(self): boolean {
     let picture = self.model.picture
     match (picture) {
       Picture::None => return false
@@ -428,7 +428,7 @@ public class TipFrame implements Component {
     }
   }
 
-  faceUnit(self): String | nil {
+  faceUnit(self): string | nil {
     let picture = self.model.picture
     match (picture) {
       Picture::Face => return picture.unit
@@ -437,8 +437,8 @@ public class TipFrame implements Component {
   }
 
   // One column as wide as each piece and each « · » between two, and the rest of the row empty.
-  tracks(self, pieces: Integer): Array<Track> {
-    let list: Array<Track> = []
+  tracks(self, pieces: integer): array<Track> {
+    let list: array<Track> = []
     for (i of 1..pieces) {
       if (i > 1) { list.push("max-content") }
       list.push("max-content")
@@ -447,8 +447,8 @@ public class TipFrame implements Component {
     return list
   }
 
-  notes(self): Array<Drawn> {
-    let list: Array<Drawn> = []
+  notes(self): array<Drawn> {
+    let list: array<Drawn> = []
     for (note of self.model.foot) {
       let alone = note.right == nil
       list.push({

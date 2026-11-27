@@ -10,11 +10,11 @@ const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: 
 const START = 1790002800
 const HOUR = 3600
 const DAY = 86400
-const LINEN: Integer = 2589
+const LINEN: integer = 2589
 const LAST_BAR: Color = Color::hex("#f0c860")
 const BAR: Color = Color::hex("#d6a56b")
 
-function names(id: Integer): Game::TooltipData | nil {
+function names(id: integer): Game::TooltipData | nil {
   if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0 }] } }
   return { lines: [{ left: "Ware %d".format(id), kind: 0 }] }
 }
@@ -23,14 +23,14 @@ function window(): Test::Part {
   return Test::page().window("Sell")
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // The chart's ends: the span's lowest, then its highest.
-function ends(expected: String): Boolean {
+function ends(expected: string): boolean {
   const panel = window().button("Post").item()
   const shown = panel.texts()
   for (index, text of shown) {
@@ -46,7 +46,7 @@ function ends(expected: String): Boolean {
 test "an item with no price seen says it has no history" {
   Game::clock.server = START
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -56,7 +56,7 @@ test "an item with no price seen says it has no history" {
 
 test "a browse this hour: the day's last bar is gold" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -70,7 +70,7 @@ test "a browse this hour: the day's last bar is gold" {
 
 test "the day: a bar an hour, its lowest and highest at the ends; an hour's two looks keep the cheaper" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -90,7 +90,7 @@ test "the day: a bar an hour, its lowest and highest at the ends; an hour's two 
 
 test "the week: a bar a day, each day's lowest; a day older than a week left out" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -113,7 +113,7 @@ test "the week: a bar a day, each day's lowest; a day older than a week left out
 
 test "the month: a bar a day for 30 days; a look 40 days old is gone" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -132,7 +132,7 @@ test "the month: a bar a day for 30 days; a look 40 days old is gone" {
 
 test "yesterday's hours are rolled into their day's lowest: the day shows today's alone" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -155,10 +155,10 @@ test "a history is kept for 8,000 items at most: one more has none" {
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: Array<Game::Offer> = []
+  let offers: array<Game::Offer> = []
   for (index of 1..8001) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
   Game::auctionQuery.results.emit(offers)
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [
     { item: 18000, count: 1, bag: 0, slot: 1, commodity: true }, { item: 18001, count: 1, bag: 0, slot: 2, commodity: true }
   ]
   window().button("Sell").click()
@@ -173,15 +173,15 @@ test "the 8,000 are freed as a full scan drops what is 30 days old: a new item h
   Game::items.tooltip = names
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
-  let offers: Array<Game::Offer> = []
+  let offers: array<Game::Offer> = []
   for (index of 1..8000) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
   Game::auctionQuery.results.emit(offers)
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [
     { item: 18002, count: 1, bag: 0, slot: 2, commodity: true }
   ]
   window().button("Sell").click()
   Game::clock.server = START + 731 * HOUR
-  Game::auctionScan.read = (index: Integer): (Integer, Integer, Integer) => { return 18003, 50, 1 }
+  Game::auctionScan.read = (index: integer): (integer, integer, integer) => { return 18003, 50, 1 }
   window().button("Scan").click()
   Game::auctionScan.finished.emit(1)
   Test::pass(0.2)
@@ -191,7 +191,7 @@ test "the 8,000 are freed as a full scan drops what is 30 days old: a new item h
 }
 
 // The three texts after `label` in the panel.
-function says(label: String, expected: String): Boolean {
+function says(label: string, expected: string): boolean {
   const shown = window().button("Post").item().texts()
   for (index, text of shown) {
     if (text == label) {
@@ -205,7 +205,7 @@ function says(label: String, expected: String): Boolean {
 
 test "the day has a bar for each of its 24 hours, the week one a day for 7, the month for 30" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -225,7 +225,7 @@ test "the day has a bar for each of its 24 hours, the week one a day for 7, the 
 
 test "a look in the day's first hour has its bar, as has one on the month's first day" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::auctionHouse.open = true
   window().button("Sell").click()
@@ -243,12 +243,12 @@ test "a look in the day's first hour has its bar, as has one on the month's firs
 
 test "the panel names the item and says its market price with the price's age, and a merchant's price" {
   Game::items.tooltip = names
-  Game::auctionActions.sellable = (): Array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Game::auctionActions.sellable = (): array<Game::Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test::mount(nil, SCREEN)
   Game::clock.server = START + -50 * HOUR
   Game::auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
   Game::clock.server = START
-  Game::merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 13 } }
+  Game::merchant.prices = (): map<integer, integer> | nil => { return { [LINEN]: 13 } }
   Game::merchant.opened.emit()
   Game::auctionHouse.open = true
   window().button("Sell").click()

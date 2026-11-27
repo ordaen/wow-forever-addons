@@ -20,14 +20,14 @@ const TALK: FileId = 132053
 // The flight master's icon: an option that leads somewhere.
 const TAXI: FileId = 132057
 
-function option(id: Integer, name: String, order: Integer, icon: FileId): Client::GossipOptionUIInfo {
+function option(id: integer, name: string, order: integer, icon: FileId): Client::GossipOptionUIInfo {
   return {
     gossipOptionID: id, name: name, icon: icon, rewards: [], status: Client::GossipOptionStatus::Available, flags: 0,
     selectOptionWhenOnlyOption: false, orderIndex: order
   }
 }
 
-function gossipQuest(id: Integer, title: String, level: Integer, complete: Boolean): Client::GossipQuestUIInfo {
+function gossipQuest(id: integer, title: string, level: integer, complete: boolean): Client::GossipQuestUIInfo {
   return {
     title: title, questLevel: level, isTrivial: false, isComplete: complete, isLegendary: false, isIgnored: false,
     questID: id, isImportant: false, isMeta: false, questInfoID: 0
@@ -66,7 +66,7 @@ function pie(): Test::QuestPage {
 
 function window(): Test::Part { return Test::page().window("Innkeeper Farley") }
 
-function asked(): String { return Test::talked().join(", ") }
+function asked(): string { return Test::talked().join(", ") }
 
 // The list
 
@@ -96,7 +96,7 @@ test "each line has its key, and a quest its level after its title" {
 }
 
 // A window of the game's that its window manager places on the left, one of its three.
-function panel(name: String): any Client::Frame {
+function panel(name: string): any Client::Frame {
   const own = Client::CreateFrame("Frame", name, Client::UIParent, nil)
   own.SetSize(300, 400)
   own.SetPoint("TOPLEFT", Client::UIParent, "TOPLEFT", 16, -116)
@@ -512,7 +512,7 @@ test "a click on a reward picks it" {
 
 test "Ctrl+click on a reward's slot tries it on and picks nothing" {
   let tried = ""
-  Client::DressUpItemLink = (link: String): Boolean => {
+  Client::DressUpItemLink = (link: string): boolean => {
     tried = link
     return true
   }
@@ -568,7 +568,7 @@ test "a turn-in that takes money asks first, with the price" {
 }
 
 test "the sell price: the dearest reward's in gold" {
-  Client::C_Item::GetItemInfo = (item: String | Integer): (String | nil, String | nil, Client::ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) => {
+  Client::C_Item::GetItemInfo = (item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil, string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, boolean | nil, string | nil) => {
     return nil, nil, Client::ItemQuality::Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil
   }
   Test::mount(nil, SCREEN)
@@ -581,7 +581,7 @@ test "the sell price: the dearest reward's in gold" {
 
 test "the upgrade column, by what each reward is worth to the player's spec: the best with its arrow" {
   Test::mount(nil, SCREEN)
-  Dialogue.upgradeOf = (link: String): Number | nil => link == "item:1001" ? 0.08 : 0.03
+  Dialogue.upgradeOf = (link: string): number | nil => link == "item:1001" ? 0.08 : 0.03
   Test::talk(innkeeper())
   Test::quest(pie())
   Events::QUEST_COMPLETE.emit()
@@ -597,7 +597,7 @@ test "a group quest says its group's size" {
 }
 
 test "a quest an item starts: the tab is the item, and declining closes" {
-  Client::C_Item::GetItemNameByID = (item: String | Integer): String | nil => "Bloodstained Note"
+  Client::C_Item::GetItemNameByID = (item: string | integer): string | nil => "Bloodstained Note"
   Test::mount(nil, SCREEN)
   Test::quest(pie())
   Events::QUEST_DETAIL.emit(1327)
@@ -711,7 +711,7 @@ test "auto-accept «All»: every quest offered is accepted as the talk starts, t
 }
 
 test "auto-accept «All» accepts nothing while the quest log is full" {
-  Client::C_QuestLog::GetNumQuestLogEntries = (): (Number, Number) => {
+  Client::C_QuestLog::GetNumQuestLogEntries = (): (number, number) => {
     return 25, 25
   }
   Test::mount(nil, SCREEN)
@@ -744,12 +744,12 @@ test "auto-complete «Picked» hands in the quest picked, its single reward take
 test "a reward worth at least the setting's share more than what is worn is put on as it lands in the bags; a lesser one isn't" {
   Test::mount(nil, SCREEN)
   Dialogue.settings.values.autoComplete = Auto::Picked
-  let equipped: Array<String> = []
+  let equipped: array<string> = []
   let landed = 0
-  Client::GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
-  Client::C_Item::GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => landed
-  Client::C_Item::EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String::of(item)) }
-  Dialogue.upgradeOf = (link: String): Number | nil => 0.3
+  Client::GetQuestItemLink = (kind: string, index: number): string | nil => "item:4540"
+  Client::C_Item::GetItemCount = (item: string | integer, bank: boolean | nil, uses: boolean | nil, reagent: boolean | nil, account: boolean | nil): number => landed
+  Client::C_Item::EquipItemByName = (item: string | integer, slot: integer | nil) => { equipped.push(string::of(item)) }
+  Dialogue.upgradeOf = (link: string): number | nil => 0.3
   Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
   Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()
@@ -762,7 +762,7 @@ test "a reward worth at least the setting's share more than what is worn is put 
   Test::expect(equipped.join(", ") == "item:4540" && Test::printed().join(" ").contains("(+30%)"))
   Events::BAG_UPDATE_DELAYED.emit()
   Test::expect(equipped.length == 1)
-  Dialogue.upgradeOf = (link: String): Number | nil => 0.1
+  Dialogue.upgradeOf = (link: string): number | nil => 0.1
   landed = 2
   Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
   Test::talk(innkeeper())
@@ -796,9 +796,9 @@ test "a book: every page read as it opens and shown at once; Escape closes it" {
 // Sounds
 
 test "the window opens and closes with the game's own sounds" {
-  const sounds: Array<String> = []
-  Client::C_Sound::PlaySound = (kit: Number, kind: Unknown, a: Boolean | nil, b: Boolean | nil, c: Number | nil, d: Number | nil): (Boolean | nil, Unknown) => {
-    sounds.push(String::of(kit))
+  const sounds: array<string> = []
+  Client::C_Sound::PlaySound = (kit: number, kind: unknown, a: boolean | nil, b: boolean | nil, c: number | nil, d: number | nil): (boolean | nil, unknown) => {
+    sounds.push(string::of(kit))
     return true, nil
   }
   Test::mount(nil, SCREEN)
@@ -811,12 +811,12 @@ test "the window opens and closes with the game's own sounds" {
 // A quest giver's greeting
 
 test "a quest giver's greeting: its quests by their place, picked as the game's own greeting picks them" {
-  Client::GetGreetingText = (): String => "Greetings, citizen."
-  Client::GetNumAvailableQuests = (): Number => 1
-  Client::GetAvailableTitle = (index: Number): (String | nil, Boolean) => {
+  Client::GetGreetingText = (): string => "Greetings, citizen."
+  Client::GetNumAvailableQuests = (): number => 1
+  Client::GetAvailableTitle = (index: number): (string | nil, boolean) => {
     return "Wanted: Hogger", false
   }
-  Client::GetAvailableLevel = (index: Integer): Number => 11
+  Client::GetAvailableLevel = (index: integer): number => 11
   Test::mount(nil, SCREEN)
   Test::talk({ name: "Marshal Dughan", id: 240 })
   Events::GOSSIP_CLOSED.emit(true)
@@ -1005,7 +1005,7 @@ test "the NPC's title under its name is the plain line of its tooltip, never its
 
 // A guard's directions: seventeen places.
 function guard(): Test::Npc {
-  let options: Array<Client::GossipOptionUIInfo> = []
+  let options: array<Client::GossipOptionUIInfo> = []
   for (index of 1..17) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
   return { name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options }
 }
@@ -1129,19 +1129,19 @@ test "the scroll stands at one size, 5:3, on every quest page" {
 }
 
 // What the client knows of the reward: it binds as it is worn (its fourteenth value 2).
-function bindingReward(item: String | Integer): (String | nil, String | nil, Client::ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) {
+function bindingReward(item: string | integer): (string | nil, string | nil, Client::ItemQuality | nil, number | nil, number | nil, string | nil, string | nil, number | nil, string | nil, FileId | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, boolean | nil, string | nil) {
   return "Bread", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 2, nil, nil, nil, nil
 }
 
 test "a reward that binds as it is worn is left in the bags, and the chat says so: binding it is the player's choice" {
   Test::mount(nil, SCREEN)
   Dialogue.settings.values.autoComplete = Auto::Picked
-  let equipped: Array<String> = []
-  Client::GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
-  Client::C_Item::GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => 1
-  Client::C_Item::EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String::of(item)) }
+  let equipped: array<string> = []
+  Client::GetQuestItemLink = (kind: string, index: number): string | nil => "item:4540"
+  Client::C_Item::GetItemCount = (item: string | integer, bank: boolean | nil, uses: boolean | nil, reagent: boolean | nil, account: boolean | nil): number => 1
+  Client::C_Item::EquipItemByName = (item: string | integer, slot: integer | nil) => { equipped.push(string::of(item)) }
   Client::C_Item::GetItemInfo = bindingReward
-  Dialogue.upgradeOf = (link: String): Number | nil => 0.3
+  Dialogue.upgradeOf = (link: string): number | nil => 0.3
   Test::quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
   Test::talk(innkeeper())
   window().text("A Parcel for Farley").click()

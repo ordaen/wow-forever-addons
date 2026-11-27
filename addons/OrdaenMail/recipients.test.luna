@@ -5,14 +5,14 @@ import Test from "$test"
 import { classColor } from "Ordaen"
 import { communities, friends, guild, starts } from "@/recipients"
 
-function friend(name: String, guid: String, online: Boolean): Client::FriendInfo {
+function friend(name: string, guid: string, online: boolean): Client::FriendInfo {
   return {
     connected: online, name: name, className: nil, area: nil, notes: nil, guid: guid, level: 60, dnd: false, afk: false,
     rafLinkType: Client::RafLinkType::None
   }
 }
 
-function sameColor(a: Color | nil, b: Color | nil): Boolean {
+function sameColor(a: Color | nil, b: Color | nil): boolean {
   if (a == nil || b == nil) { return a == b }
   return a.equal(b)
 }
@@ -24,10 +24,10 @@ test "a name is matched from its start, of any case, and the whole of a surname"
 }
 
 test "friends come online first, each in its class's colour" {
-  Client::C_FriendList::GetNumFriends = (): Integer => 2
-  Client::C_FriendList::GetFriendInfoByIndex = (index: Integer): Client::FriendInfo | nil =>
+  Client::C_FriendList::GetNumFriends = (): integer => 2
+  Client::C_FriendList::GetFriendInfoByIndex = (index: integer): Client::FriendInfo | nil =>
   index == 1 ? friend("Aria", "Player-1-2", false) : friend("Dorn", "Player-1-3", true)
-  Client::GetPlayerInfoByGUID = (guid: String): (String | nil, String | nil, String | nil, String | nil, Number | nil, String | nil, String | nil, Number | nil) => {
+  Client::GetPlayerInfoByGUID = (guid: string): (string | nil, string | nil, string | nil, string | nil, number | nil, string | nil, string | nil, number | nil) => {
     return nil, guid == "Player-1-3" ? "WARRIOR" : "MAGE", nil, nil, nil, nil, nil, nil
   }
   const list = friends()
@@ -37,10 +37,10 @@ test "friends come online first, each in its class's colour" {
 }
 
 test "the guild's members come in their classes' colours" {
-  Client::GetNumGuildMembers = (): (Integer, Integer) => {
+  Client::GetNumGuildMembers = (): (integer, integer) => {
     return 1, 1
   }
-  Client::GetGuildRosterInfo = (index: Integer): (String | nil, String | nil, Number | nil, Number | nil, String | nil, String | nil, String | nil, String | nil, Boolean | nil, Number | nil, String | nil) => {
+  Client::GetGuildRosterInfo = (index: integer): (string | nil, string | nil, number | nil, number | nil, string | nil, string | nil, string | nil, string | nil, boolean | nil, number | nil, string | nil) => {
     return "Regy", nil, nil, 42, nil, nil, nil, nil, true, nil, "PRIEST"
   }
   const list = guild()
@@ -49,12 +49,12 @@ test "the guild's members come in their classes' colours" {
 }
 
 test "a character community's members stand under its name, in their classes' colours, without the player" {
-  Client::C_Club::GetSubscribedClubs = (): Array<Client::ClubInfo> => [
+  Client::C_Club::GetSubscribedClubs = (): array<Client::ClubInfo> => [
     { clubId: "7", name: "Crafters", shortName: nil, description: "", broadcast: "", clubType: Client::ClubType::Character, avatarId: 0,
       memberCount: nil, favoriteTimeStamp: nil, joinTime: nil, socialQueueingEnabled: nil, crossFaction: nil }
   ]
-  Client::C_Club::GetClubMembers = (clubId: String, streamId: String | nil): Array<Unknown> => [1, 2]
-  Client::C_Club::GetMemberInfo = (clubId: String, member: Unknown): Client::ClubMemberInfo | nil => {
+  Client::C_Club::GetClubMembers = (clubId: string, streamId: string | nil): array<unknown> => [1, 2]
+  Client::C_Club::GetMemberInfo = (clubId: string, member: unknown): Client::ClubMemberInfo | nil => {
     const me = member == 1
     return {
       isSelf: me, memberId: member, name: me ? "Player" : "Wren", role: nil, presence: Client::ClubMemberPresence::Online, clubType: nil,
@@ -65,7 +65,7 @@ test "a character community's members stand under its name, in their classes' co
       timerunningSeasonID: nil, discordInfo: nil
     }
   }
-  Client::C_CreatureInfo::GetClassInfo = (classID: Number): Client::ClassInfo | nil =>
+  Client::C_CreatureInfo::GetClassInfo = (classID: number): Client::ClassInfo | nil =>
   { className: "Rogue", classFile: "ROGUE", classID: classID }
   const list = communities()
   Test::expect(list.length == 1 && list[1]?.name == "Wren" && list[1]?.group == "Crafters")

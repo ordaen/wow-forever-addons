@@ -10,35 +10,35 @@ import { PartPrice, partsOf, totalsOf, yieldOf } from "@/cost"
 // One source's totals.
 public struct SourceTotals {
   // The parts sold here, at their price; none where none is.
-  cost: Integer | nil
+  cost: integer | nil
   // The parts not sold here, by name.
-  missing: Array<String>
+  missing: array<string>
   // What the made item brings here; none where it isn't bought here (or nothing is made).
-  sale: Integer | nil
-  profit: Integer | nil
+  sale: integer | nil
+  profit: integer | nil
   // The parts not sold here that the other source sells, by name: their price is in the profit.
-  filled: Array<String>
+  filled: array<string>
   // The parts sold at neither: the profit leaves them out.
-  unpriced: Array<String>
+  unpriced: array<string>
 }
 
 // A part's price for its count at one source: the house's or a merchant's.
 public enum Source { Auction, Merchant }
 
-function priceAt(part: PartPrice, source: Source): Integer | nil {
+function priceAt(part: PartPrice, source: Source): integer | nil {
   return source == .Auction ? part.auction : part.vendor
 }
 
 function other(source: Source): Source { return source == .Auction ? .Merchant : .Auction }
 
 // One source's totals, the other source filling in for the profit; `sale` what the made item brings here.
-public function sourceTotalsOf(parts: Array<PartPrice>, source: Source, sale: Integer | nil): SourceTotals {
+public function sourceTotalsOf(parts: array<PartPrice>, source: Source, sale: integer | nil): SourceTotals {
   // Nothing to buy costs nothing; parts none of which is sold here have no cost here.
-  let cost: Integer | nil = parts.length == 0 ? 0 : nil
+  let cost: integer | nil = parts.length == 0 ? 0 : nil
   let fill = 0
-  const missing: Array<String> = []
-  const filled: Array<String> = []
-  const unpriced: Array<String> = []
+  const missing: array<string> = []
+  const filled: array<string> = []
+  const unpriced: array<string> = []
   for (part of parts) {
     const here = priceAt(part, source)
     if (here != nil) {
@@ -57,20 +57,20 @@ public function sourceTotalsOf(parts: Array<PartPrice>, source: Source, sale: In
   const spent = (cost ?? 0) + fill
   // A profit stands on a price: of a part bought, or of the sale where nothing is bought.
   const anyPrice = (parts.length > 0 && cost != nil) || filled.length > 0 || (parts.length == 0 && sale != nil)
-  const profit: Integer | nil = !anyPrice ? nil : (sale ?? 0) - spent
+  const profit: integer | nil = !anyPrice ? nil : (sale ?? 0) - spent
   return { cost: cost, missing: missing, sale: sale, profit: profit, filled: filled, unpriced: unpriced }
 }
 
 // Whether a cost leaves parts out: some bought here and some not; none for no totals.
-public function roughCost(side: SourceTotals | nil): Boolean { return side != nil && side.cost != nil && side.missing.length > 0 }
+public function roughCost(side: SourceTotals | nil): boolean { return side != nil && side.cost != nil && side.missing.length > 0 }
 
 // Whether a profit leaves something out or takes another source's price: some parts are bought here and some not,
 // or a part has no price at all.
-public function roughProfit(side: SourceTotals | nil): Boolean { return side != nil && (roughCost(side) || side.unpriced.length > 0) }
+public function roughProfit(side: SourceTotals | nil): boolean { return side != nil && (roughCost(side) || side.unpriced.length > 0) }
 
 // What a merchant pays for what `count` makings of a recipe make; none where merchants don't buy it, or nothing is
 // made (or the client has no word of the item yet).
-public function merchantSaleOf(made: Integer | nil, recipe: Integer, count: Integer): Integer | nil {
+public function merchantSaleOf(made: integer | nil, recipe: integer, count: integer): integer | nil {
   if (made == nil) { return nil }
   const one = Game::items.sellPrice(made) ?? 0
   if (one <= 0) { return nil }
@@ -83,7 +83,7 @@ public struct BothSources {
   merchant: SourceTotals
 }
 
-public function bothSourcesOf(prices: any PriceSource, recipe: Integer, made: Integer | nil, count: Integer): BothSources {
+public function bothSourcesOf(prices: any PriceSource, recipe: integer, made: integer | nil, count: integer): BothSources {
   const parts = partsOf(prices, Game::tradeSkill.reagents(recipe), count)
   const totals = totalsOf(prices, parts, made, yieldOf(recipe), count)
   return {

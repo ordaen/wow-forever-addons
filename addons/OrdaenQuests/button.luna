@@ -4,7 +4,7 @@ import Client from "$client"
 
 public class TakenClick {
   const button: any Client::Frame
-  const game: Unknown
+  const game: unknown
 
   constructor(button: any Client::Frame, run: () => nil) {
     self.button = button

@@ -11,7 +11,7 @@ import { Character, CharacterId, Kept, Known, Place, RecipeId } from "@/characte
 import Locale from "@/locales"
 
 // The open profession's recipes as the game's side reads them: these ids, each learned.
-function learned(ids: Array<Integer>): Array<Game::Recipe> {
+function learned(ids: array<integer>): array<Game::Recipe> {
   return ids.map(id => Game.Recipe {
     id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game::Difficulty::Usually, craftable: 0
   })
@@ -23,15 +23,15 @@ const SMITHING = 164
 const START = 1577836800 + 1000 * 3600
 
 // What a place holds, as the game gives it: item, count, item, count.
-function counts(pairs: Array<Integer>): Map<Integer, Integer> {
-  const held: Map<Integer, Integer> = {}
+function counts(pairs: array<integer>): map<integer, integer> {
+  const held: map<integer, integer> = {}
   for (i of 1..pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
   return held
 }
 
 // The characters other sessions recorded, by their GUIDs, kept as the module's saved records; the module turned off
 // and on in Ordaen's settings reads them.
-function recorded(guids: Array<String>, characters: Array<Character>) {
+function recorded(guids: array<string>, characters: array<Character>) {
   const kept = Kept {}
   for (index, character of characters) { kept.characters[CharacterId::of(guids[index] ?? "")] = character.clone() }
   Game::saved.store(.Own, "characters", kept)
@@ -43,7 +43,7 @@ function recorded(guids: Array<String>, characters: Array<Character>) {
 }
 
 // A smith of a realm and side who knows these recipes.
-function smith(name: String, realm: String, faction: String, recipes: Array<Integer>): mut Character {
+function smith(name: string, realm: string, faction: string, recipes: array<integer>): mut Character {
   const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
   for (id of recipes) { known.recipes.push(RecipeId::of(id)) }
   const made = Character {
@@ -62,7 +62,7 @@ test "a recipe the character knows is answered with it, in reach, and the hour i
   Game::clock.server = START
   Test::mount(nil, SCREEN)
   Game::tradeSkill.recipes = learned([2663, 2662])
-  Game::recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == 2663 ? 7200 : nil
+  Game::recipeReader.cooldown = (recipe: integer): integer | nil => recipe == 2663 ? 7200 : nil
   const before = Alts.revision
   Game::tradeSkill.open = SMITHING
   Test::flush()
@@ -81,7 +81,7 @@ test "a character of another realm or side knows its recipes out of reach, and c
     ["Player-1-2", "Player-2-3", "Player-1-4"],
     [smith("Aria", "Stand-in", "Alliance", [2663]), smith("Regy", "Elsewhere", "Alliance", [2663]), smith("Horda", "Stand-in", "Horde", [2663])]
   )
-  const reach: Map<String, Boolean> = {}
+  const reach: map<string, boolean> = {}
   for (knower of Alts.knowers(RecipeId::of(2663))) { reach[Alts.characters[knower.who]?.name ?? ""] = knower.reachable }
   Test::expect(reach["Aria"] == true && reach["Regy"] == false && reach["Horda"] == false)
   Test::expect(Alts.reaches(CharacterId::of("Player-1-2")) && Alts.reaches(Alts.current))
@@ -115,11 +115,11 @@ test "a recipe learned with no profession open, or of one never read, waits for 
 
 test "an item held is answered with each holder, how many and where" {
   Test::mount(nil, SCREEN)
-  Game::bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12])
+  Game::bags.holdings = (): map<integer, integer> | nil => counts([2589, 12])
   Game::bags.changed.emit()
-  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20])
+  Game::bankObserver.holdings = (): map<integer, integer> | nil => counts([2589, 20])
   Game::bankObserver.opened.emit()
-  const where: Map<String, Integer> = {}
+  const where: map<string, integer> = {}
   for (held of Alts.holders(ItemId::of(2589))) {
     Test::expect(held.who == Alts.current)
     where[held.place == Place::Bags ? "bags" : held.place == Place::Bank ? "bank" : "?"] = held.count
@@ -129,14 +129,14 @@ test "an item held is answered with each holder, how many and where" {
 
 test "a reading that changes nothing moves no revision; money moves none either" {
   Test::mount(nil, SCREEN)
-  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20])
+  Game::bankObserver.holdings = (): map<integer, integer> | nil => counts([2589, 20])
   Game::bankObserver.opened.emit()
   const before = Alts.revision
   Game::bankObserver.changed.emit()
   Game::money.amount = 777
   Game::player.level = 12
   Test::expect(Alts.revision == before)
-  Game::bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 21])
+  Game::bankObserver.holdings = (): map<integer, integer> | nil => counts([2589, 21])
   Game::bankObserver.changed.emit()
   Test::expect(Alts.revision > before)
 }
@@ -171,7 +171,7 @@ test "a profession read again with the same recipes moves no revision" {
 }
 
 test "the bags read again with nothing changed tell the window nothing" {
-  Game::bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12])
+  Game::bags.holdings = (): map<integer, integer> | nil => counts([2589, 12])
   Test::mount(nil, SCREEN)
   Game::bags.changed.emit()
   Test::open("/alts")
@@ -180,11 +180,11 @@ test "the bags read again with nothing changed tell the window nothing" {
 
 test "past forty characters the one played longest ago is dropped, never the one being played" {
   Game::clock.server = START
-  const guids: Array<String> = []
-  const others: Array<Character> = []
+  const guids: array<string> = []
+  const others: array<Character> = []
   for (i of 1..40) {
-    guids.push("Player-1-" + String::of(100 + i))
-    others.push(Character { name: "Alt " + String::of(i), realm: "Stand-in", faction: .Alliance, seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
+    guids.push("Player-1-" + string::of(100 + i))
+    others.push(Character { name: "Alt " + string::of(i), realm: "Stand-in", faction: .Alliance, seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
   }
   Test::mount(nil, SCREEN)
   recorded(guids, others)
@@ -196,11 +196,11 @@ test "past forty characters the one played longest ago is dropped, never the one
 }
 
 test "one fewer than the most characters drops none" {
-  const guids: Array<String> = []
-  const others: Array<Character> = []
+  const guids: array<string> = []
+  const others: array<Character> = []
   for (i of 1..39) {
-    guids.push("Player-1-" + String::of(100 + i))
-    others.push(Character { name: "Alt " + String::of(i), seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
+    guids.push("Player-1-" + string::of(100 + i))
+    others.push(Character { name: "Alt " + string::of(i), seen: Hour::fromNow((i - 1000) * 3600), mailExpires: nil })
   }
   Test::mount(nil, SCREEN)
   recorded(guids, others)
@@ -209,14 +209,14 @@ test "one fewer than the most characters drops none" {
 
 test "a reading past the most recipes or kinds of items is refused, and says so" {
   Test::mount(nil, SCREEN)
-  const recipes: Array<Integer> = []
+  const recipes: array<integer> = []
   for (i of 1..1501) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING
   Test::flush()
-  const items: Map<Integer, Integer> = {}
+  const items: map<integer, integer> = {}
   for (i of 1..1001) { items[i] = 1 }
-  Game::bags.holdings = (): Map<Integer, Integer> | nil => items
+  Game::bags.holdings = (): map<integer, integer> | nil => items
   Game::bags.changed.emit()
   Test::expect(Alts.knowers(RecipeId::of(1)).length == 0 && Alts.holders(ItemId::of(1)).length == 0)
   const heard = Test::errors()
@@ -227,14 +227,14 @@ test "a reading past the most recipes or kinds of items is refused, and says so"
 
 test "the most recipes and kinds of items are taken" {
   Test::mount(nil, SCREEN)
-  const recipes: Array<Integer> = []
+  const recipes: array<integer> = []
   for (i of 1..1500) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING
   Test::flush()
-  const items: Map<Integer, Integer> = {}
+  const items: map<integer, integer> = {}
   for (i of 1..1000) { items[i] = 1 }
-  Game::bags.holdings = (): Map<Integer, Integer> | nil => items
+  Game::bags.holdings = (): map<integer, integer> | nil => items
   Game::bags.changed.emit()
   Test::expect(Alts.knowers(RecipeId::of(1)).length == 1 && Alts.holders(ItemId::of(1)).length == 1)
 }
@@ -254,7 +254,7 @@ test "the saved size of twenty characters with three hundred recipes and a hundr
   for (i of 1..20) {
     const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
     for (r of 1..300) { known.recipes.push(RecipeId::of(2000 + r * 7)) }
-    const items: Map<ItemId, Integer> = {}
+    const items: map<ItemId, integer> = {}
     for (n of 1..150) { items[ItemId::of(2000 + n * 13)] = n }
     const character = Character {
       name: "Regy Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, level: 60, seen: Hour::now(), mailExpires: nil
@@ -262,7 +262,7 @@ test "the saved size of twenty characters with three hundred recipes and a hundr
     character.professions.push(known)
     character.held[Place::Bank] = items
     character.read[Place::Bank] = Hour::now()
-    kept.characters[CharacterId::of("Player-6946-" + String::of(100000 + i))] = character
+    kept.characters[CharacterId::of("Player-6946-" + string::of(100000 + i))] = character
   }
   const packed = Game::encoding.serialize(kept) ?? panic("plain data packs")
   Test::expect(packed.length < 40000)
@@ -289,7 +289,7 @@ test "the character played again on another realm knows its recipes in reach" {
 
 test "a recipe learned past the most a profession keeps is left out" {
   Test::mount(nil, SCREEN)
-  const recipes: Array<Integer> = []
+  const recipes: array<integer> = []
   for (i of 1..1500) { recipes.push(i) }
   Game::tradeSkill.recipes = learned(recipes)
   Game::tradeSkill.open = SMITHING

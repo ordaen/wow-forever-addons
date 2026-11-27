@@ -18,7 +18,7 @@ const BAD: Line = { width: 1.171875dp, color: Color::hex("#c0463c") }
 const PADDING: Edges = { right: 3sp, left: 3sp }
 
 // The copper a text names, or nothing where it isn't an amount.
-public function copperOf(text: String): Integer | nil {
+public function copperOf(text: string): integer | nil {
   let rest = text.replace("%s+", "").lower()
   if (rest == "") { return nil }
   let gold = 0
@@ -59,7 +59,7 @@ public function copperOf(text: String): Integer | nil {
 }
 
 // An amount as it is typed: its units from the largest, none that is nought.
-public function copperText(copper: Integer): String {
+public function copperText(copper: integer): string {
   const gold = (copper / 10000).floor()
   const silver = (copper / 100).floor() % 100
   const rest = copper % 100
@@ -71,16 +71,16 @@ public function copperText(copper: Integer): String {
 }
 
 public class MoneyField implements Component {
-  public state text: String
-  public derived bad: Boolean = self.text != "" && copperOf(self.text) == nil
+  public state text: string
+  public derived bad: boolean = self.text != "" && copperOf(self.text) == nil
   public derived edge: Line = self.bad ? BAD : EDGE
 
-  value: mut Signal<Integer>
-  disabled: Signal<Boolean>
+  value: mut Signal<integer>
+  disabled: Signal<boolean>
   constructor(
     // In copper.
-    value: mut Signal<Integer>,
-    disabled: Signal<Boolean> = false
+    value: mut Signal<integer>,
+    disabled: Signal<boolean> = false
   ) {
     self.value = value
     self.disabled = disabled
@@ -90,13 +90,13 @@ public class MoneyField implements Component {
   }
 
   // What was typed names an amount: it is the cell's.
-  take(mut self, typed: String) {
+  take(mut self, typed: string) {
     const copper = copperOf(typed)
     if (copper != nil && copper != peek self.value) { self.value = copper }
   }
 
   // Another wrote the amount: the text says it, unless it already does.
-  show(mut self, amount: Integer) {
+  show(mut self, amount: integer) {
     if (copperOf(peek self.text) != amount) { self.text = copperText(amount) }
   }
 
@@ -109,15 +109,15 @@ public class MoneyField implements Component {
 }
 
 public class MoneyInput implements Component {
-  label: Signal<String>
-  value: mut Signal<Integer>
-  hint: Signal<String>
-  disabled: Signal<Boolean>
+  label: Signal<string>
+  value: mut Signal<integer>
+  hint: Signal<string>
+  disabled: Signal<boolean>
   constructor(
-    label: Signal<String>,
-    value: mut Signal<Integer>,
-    hint: Signal<String> = Locale::MONEY_HINT,
-    disabled: Signal<Boolean> = false
+    label: Signal<string>,
+    value: mut Signal<integer>,
+    hint: Signal<string> = Locale::MONEY_HINT,
+    disabled: Signal<boolean> = false
   ) {
     self.label = label
     self.value = value

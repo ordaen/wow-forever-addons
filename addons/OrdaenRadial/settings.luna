@@ -16,16 +16,16 @@ import { addPlace, emptyUnder, hasRoom, holdsItems, numberOf, parentOf, removePl
 import { preset, presetRing } from "@/preset"
 import { SlotLine, SlotRow } from "@/slotLine"
 
-const RINGS: Array<Choice<Integer>> = [
+const RINGS: array<Choice<integer>> = [
   { value: 1, label: Locale::RING_FIRST },
   { value: 2, label: Locale::RING_SECOND },
   { value: 3, label: Locale::RING_THIRD }
 ]
-const OPENS: Array<Choice<OpensAt>> = [
+const OPENS: array<Choice<OpensAt>> = [
   { value: OpensAt::Cursor, label: Locale::OPENS_CURSOR },
   { value: OpensAt::Middle, label: Locale::OPENS_MIDDLE }
 ]
-const NAMES: Array<Choice<WheelNames>> = [
+const NAMES: array<Choice<WheelNames>> = [
   { value: WheelNames::Off, label: Locale::NAMES_OFF },
   { value: WheelNames::Chosen, label: Locale::NAMES_CHOSEN },
   { value: WheelNames::Always, label: Locale::NAMES_ALWAYS }
@@ -33,7 +33,7 @@ const NAMES: Array<Choice<WheelNames>> = [
 
 // What can stand in a place: the catalogue, by a name of its own; a spell, an item, a macro, an emote and a submenu
 // take the text written beside it.
-public const CATALOGUE: Array<Choice<String>> = [
+public const CATALOGUE: array<Choice<string>> = [
   { value: "empty", label: Locale::KIND_EMPTY },
   { value: "spell", label: Locale::KIND_SPELL },
   { value: "item", label: Locale::KIND_ITEM },
@@ -73,7 +73,7 @@ const BUTTON_WIDTH = 160dp
 const ICON_SIZE = 32dp
 
 // An emote by what the player wrote: its token (`laugh`), or the command the wheel names it by (`/смех`).
-function emoteToken(text: String, emotes: Map<String, String>): String {
+function emoteToken(text: string, emotes: map<string, string>): string {
   const token = text.upper()
   if (emotes[token] != nil) { return token }
   for (one, name of emotes) {
@@ -83,7 +83,7 @@ function emoteToken(text: String, emotes: Map<String, String>): String {
 }
 
 // The item a catalogue's entry makes, with the text written beside it.
-public function itemOf(kind: String, text: String, emotes: Map<String, String>): Item {
+public function itemOf(kind: string, text: string, emotes: map<string, string>): Item {
   const number = text.toNumber()
   const whole = number != nil ? number.floor() : 0
   return match (kind) {
@@ -121,7 +121,7 @@ public function itemOf(kind: String, text: String, emotes: Map<String, String>):
 
 // The catalogue's entry an item is: what the tab shows of a place chosen. One that takes no text is the entry that
 // makes it.
-public function kindOf(item: Item): String {
+public function kindOf(item: Item): string {
   return match (item) {
     .Spell => "spell"
     .Bag => "item"
@@ -138,20 +138,20 @@ public function kindOf(item: Item): String {
 }
 
 // The text an item was made with, written back in the field beside the catalogue.
-public function textOf(item: Item, emotes: Map<String, String>): String {
+public function textOf(item: Item, emotes: map<string, string>): string {
   return match (item) {
     .Spell => item.spell
-    .Bag => String::of(item.item)
+    .Bag => string::of(item.item)
     .Macro => item.macro
     .Emote => emotes[item.token] ?? item.token
     .Menu, .Slot => item.title
-    .RaidMark, .WorldMark => String::of(item.mark)
+    .RaidMark, .WorldMark => string::of(item.mark)
     .Line => item.line
     else => ""
   }
 }
 
-const MODIFIERS: Array<Choice<String>> = [
+const MODIFIERS: array<Choice<string>> = [
   { value: "", label: Locale::MODIFIER_NONE },
   { value: "shift", label: Locale::MODIFIER_SHIFT },
   { value: "ctrl", label: Locale::MODIFIER_CTRL },
@@ -159,7 +159,7 @@ const MODIFIERS: Array<Choice<String>> = [
 ]
 
 // A condition from what the tab's fields say; none where they say nothing.
-public function conditionOf(classTag: String, form: String, modifier: String): Condition | nil {
+public function conditionOf(classTag: string, form: string, modifier: string): Condition | nil {
   const tag = classTag.upper()
   const number = form.toNumber()
   const held: WheelModifier | nil = match (modifier) {
@@ -172,7 +172,7 @@ public function conditionOf(classTag: String, form: String, modifier: String): C
   return { classTag: tag == "" ? nil : tag, form: number?.floor(), modifier: held }
 }
 
-function modifierOf(condition: Condition | nil): String {
+function modifierOf(condition: Condition | nil): string {
   return match (condition?.modifier) {
     .Shift => "shift"
     .Ctrl => "ctrl"
@@ -185,12 +185,12 @@ function modifierOf(condition: Condition | nil): String {
 // none for anything else.
 public function heldItem(): Item | nil {
   const kind, first, _, spellId = Client::GetCursorInfo()
-  if (kind == "spell" && spellId is Integer) {
+  if (kind == "spell" && spellId is integer) {
     const name = Client::C_Spell::GetSpellName(spellId)
     return name != nil ? Item.Spell { spell: name } : nil
   }
-  if (kind == "item" && first is Integer) { return .Bag { item: first } }
-  if (kind == "macro" && first is Integer) {
+  if (kind == "item" && first is integer) { return .Bag { item: first } }
+  if (kind == "macro" && first is integer) {
     const name, _, _ = Client::GetMacroInfo(first)
     return name != nil ? Item.Macro { macro: name } : nil
   }
@@ -209,7 +209,7 @@ public class RingsPage implements Component {
   state ring = 1
   state place = ""
   // The places that hold items whose items the tree shows under them.
-  state opened: Map<String, Boolean> = {}
+  state opened: map<string, boolean> = {}
   // The item for the place chosen and its condition, as the fields say.
   state kind = "spell"
   state text = ""
@@ -218,17 +218,17 @@ public class RingsPage implements Component {
   state modifier = ""
   state opensAt: OpensAt = OpensAt::Middle
   state names: WheelNames = WheelNames::Chosen
-  state scale: Number = 1
+  state scale: number = 1
   state remember = false
   state anchored = true
-  derived keys: String = self.keysOf()
+  derived keys: string = self.keysOf()
   derived shownRing: Ring | nil = self.settings.values.rings[self.ring]
-  derived rows: Array<SlotRow> = self.rowsOf()
+  derived rows: array<SlotRow> = self.rowsOf()
   derived chosenItem: Item | nil = self.itemAt(self.place)
-  derived path: String = self.pathOf()
-  derived hasChoice: Boolean = self.chosenItem != nil
-  derived roomBeside: Boolean = self.roomBesideOf()
-  derived roomInside: Boolean = self.roomInsideOf()
+  derived path: string = self.pathOf()
+  derived hasChoice: boolean = self.chosenItem != nil
+  derived roomBeside: boolean = self.roomBesideOf()
+  derived roomInside: boolean = self.roomInsideOf()
   // The icon picker open for the place chosen; the icon the player chose for it (none: its item's own), and the icon
   // it shows now either way (none: its name in its wedge).
   state picking = false
@@ -236,15 +236,15 @@ public class RingsPage implements Component {
   derived shownIcon: Art | nil = self.shownIconOf()
   derived iconValue: IconChoice = self.iconValueOf()
   // The catalogue, with the kinds other modules add as the page is made.
-  const catalogue: Array<Choice<String>>
+  const catalogue: array<Choice<string>>
 
   settings: mut Settings<Choices>
   // What the wheel names each emote by, by its token.
-  const emotes: Map<String, String>
-  constructor(settings: mut Settings<Choices>, kinds: Signal<Array<any RadialKind>>, emotes: Map<String, String>) {
+  const emotes: map<string, string>
+  constructor(settings: mut Settings<Choices>, kinds: Signal<array<any RadialKind>>, emotes: map<string, string>) {
     self.settings = settings
     self.emotes = emotes
-    const all: Array<Choice<String>> = []
+    const all: array<Choice<string>> = []
     for (choice of CATALOGUE) { all.push(choice) }
     for (kind of peek kinds) { all.push({ value: `kind:${kind.id}`, label: kind.title }) }
     self.catalogue = all
@@ -257,7 +257,7 @@ public class RingsPage implements Component {
     watch (anchored of self.anchored) { self.change((r: mut Ring): nil => { r.anchored = anchored }) }
   }
 
-  load(mut self, index: Integer) {
+  load(mut self, index: integer) {
     const ring = (peek self.settings.values).rings[index]
     if (ring == nil) { return }
     self.opensAt = ring.opensAt
@@ -270,7 +270,7 @@ public class RingsPage implements Component {
   }
 
   // The fields say what stands in the place chosen now.
-  loadPlace(mut self, place: String) {
+  loadPlace(mut self, place: string) {
     const ring = peek self.shownRing
     if (ring == nil) { return }
     const item = ring.items[place]
@@ -279,7 +279,7 @@ public class RingsPage implements Component {
     self.kind = kindOf(item)
     self.text = textOf(item, self.emotes)
     self.classTag = condition?.classTag ?? ""
-    self.form = condition?.form != nil ? String::of(condition?.form ?? 0) : ""
+    self.form = condition?.form != nil ? string::of(condition?.form ?? 0) : ""
     self.modifier = modifierOf(condition)
   }
 
@@ -297,7 +297,7 @@ public class RingsPage implements Component {
   }
 
   // What stands in a place of the ring shown.
-  itemAt(self, place: String): Item | nil {
+  itemAt(self, place: string): Item | nil {
     const ring = self.shownRing
     return ring != nil ? ring.items[place] : nil
   }
@@ -339,44 +339,44 @@ public class RingsPage implements Component {
   }
 
   // Whether a place fits beside the one chosen (in the ring itself where none is chosen).
-  roomBesideOf(self): Boolean {
+  roomBesideOf(self): boolean {
     const ring = self.shownRing
     return ring != nil && hasRoom(ring, parentOf(self.place))
   }
 
   // Whether the place chosen holds items and one more fits in it.
-  roomInsideOf(self): Boolean {
+  roomInsideOf(self): boolean {
     const ring = self.shownRing
     const item = self.chosenItem
     return ring != nil && item != nil && holdsItems(item) && hasRoom(ring, self.place)
   }
 
-  keysOf(self): String {
+  keysOf(self): string {
     const first, second = Client::GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
     if (first == nil) { return Locale::KEY_NONE }
     return second == nil ? first : `${first}, ${second}`
   }
 
   // A place's line: its number and what stands there.
-  labelOf(self, item: Item, place: String): String {
+  labelOf(self, item: Item, place: string): string {
     const name = item is Item::Empty ? Locale::KIND_EMPTY : shown(item, nil, self.emotes).name
     return `${numberOf(place)}. ${name}`
   }
 
-  kindLabel(self, item: Item): String {
+  kindLabel(self, item: Item): string {
     const key = kindOf(item)
     return self.catalogue.find(choice => choice.value == key)?.label ?? key
   }
 
   // The tree's lines: each place of the ring, and under one that holds items and is open, its own.
-  rowsOf(self): Array<SlotRow> {
-    const rows: Array<SlotRow> = []
+  rowsOf(self): array<SlotRow> {
+    const rows: array<SlotRow> = []
     const ring = self.shownRing
     if (ring != nil) { self.addRows(ring, "", 0, rows) }
     return rows
   }
 
-  addRows(self, ring: Ring, parent: String, depth: Integer, rows: mut Array<SlotRow>) {
+  addRows(self, ring: Ring, parent: string, depth: integer, rows: mut array<SlotRow>) {
     for (number of 1..(ring.counts[parent] ?? 0)) {
       const place = within(parent, number)
       const item = ring.items[place] ?? Item::Empty
@@ -390,10 +390,10 @@ public class RingsPage implements Component {
   }
 
   // Where the place chosen stands: the titles of the submenus it is in, and its number.
-  pathOf(self): String {
+  pathOf(self): string {
     const ring = self.shownRing
     if (ring == nil || self.place == "") { return Locale::SLOT_NONE }
-    const labels: Array<String> = []
+    const labels: array<string> = []
     let at = ""
     for (number of self.place.split("_")) {
       at = at == "" ? number : `${at}_${number}`
@@ -403,7 +403,7 @@ public class RingsPage implements Component {
   }
 
   // A line clicked: its place chosen, and one that holds items opened or closed.
-  choose(mut self, place: String) {
+  choose(mut self, place: string) {
     const item = peek self.itemAt(place)
     if (item != nil && holdsItems(item)) {
       const opened = (peek self.opened).clone()
@@ -416,7 +416,7 @@ public class RingsPage implements Component {
   // An empty place added beside the one chosen (at the end of its ring), and chosen.
   addBeside(mut self) {
     const parent = parentOf(self.place)
-    let added: String | nil = nil
+    let added: string | nil = nil
     self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
     const place = added
     if (place != nil) { self.place = place }
@@ -425,7 +425,7 @@ public class RingsPage implements Component {
   // An empty place added at the end of the submenu or the slot chosen, shown and chosen.
   addInside(mut self) {
     const parent = self.place
-    let added: String | nil = nil
+    let added: string | nil = nil
     self.change((r: mut Ring): nil => { added = addPlace(r, parent) })
     const place = added
     if (place == nil) { return }
@@ -435,9 +435,9 @@ public class RingsPage implements Component {
     self.place = place
   }
 
-  shift(mut self, by: Integer) {
+  shift(mut self, by: integer) {
     const place = self.place
-    let moved: String | nil = nil
+    let moved: string | nil = nil
     self.change((r: mut Ring): nil => { moved = shiftPlace(r, place, by) })
     const next = moved
     if (next != nil) { self.place = next }

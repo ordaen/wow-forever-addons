@@ -10,15 +10,15 @@ const DIM: Color = Color::hex("#a3977f")
 
 // One count: what it counts, and how many, written as the window says it («12», «3 / 25»).
 public struct FooterCount {
-  label: String
-  value: String
+  label: string
+  value: string
   // The value's colour where it says something; the body's ink otherwise.
   color: Color | nil = nil
 }
 
 public class FooterCounts implements Component {
-  counts: Signal<Array<FooterCount>>
-  constructor(counts: Signal<Array<FooterCount>>) {
+  counts: Signal<array<FooterCount>>
+  constructor(counts: Signal<array<FooterCount>>) {
     self.counts = counts
   }
 

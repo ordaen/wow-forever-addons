@@ -32,16 +32,16 @@ public enum View implements Plain { Categories = "categories", Table = "table" }
 // second click on a table's heading), the view, and the addon whose card stands beside it. The search isn't kept: a
 // list cut short by an old search at the next opening says nothing of why.
 public struct ListView implements Plain {
-  everyone: Boolean = true
+  everyone: boolean = true
   heat: Heat = Heat::All
   standing: Standing = Standing::All
   age: Age = Age::All
   loading: Loading = Loading::All
   written: Written = Written::All
   order: Order = Order::Name
-  descending: Boolean = false
+  descending: boolean = false
   view: View = View::Categories
-  picked: String = ""
+  picked: string = ""
 }
 const LIST_VIEW: ListView = {}
 
@@ -50,36 +50,36 @@ const LIST_VIEW: ListView = {}
 // never take the filters past a memory's bound with it; at most `FOLDED_MOST` names of each, the earliest folded let
 // go first, and a category or a parent no addon has any more let go as the window opens.
 public struct Folded implements Plain {
-  categories: Array<String> = []
-  parents: Array<String> = []
+  categories: array<string> = []
+  parents: array<string> = []
 }
 const FOLDED: Folded = {}
 public const FOLDED_MOST = 8
 
-const ORDERS: Array<Choice<Order>> = [
+const ORDERS: array<Choice<Order>> = [
   { value: Order::Name, label: Locale::SORT_NAME },
   { value: Order::Now, label: Locale::SORT_NOW },
   { value: Order::Peak, label: Locale::SORT_PEAK },
   { value: Order::Memory, label: Locale::SORT_MEMORY }
 ]
-const VIEWS: Array<Choice<View>> = [
+const VIEWS: array<Choice<View>> = [
   { value: View::Categories, label: Locale::VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: View::Table, label: Locale::VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
 const REFRESH = 18.75dp
-const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
-const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const GROUP: Array<Track> = ["max-content", "max-content"]
+const BODY: array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const GROUP: array<Track> = ["max-content", "max-content"]
 // «Reset», «Disable all» and «Sets».
-const LEFT_GROUP: Array<Track> = ["max-content", "max-content", "max-content"]
-const STRIP: Array<Track> = [{ fr: 1 }, "max-content"]
+const LEFT_GROUP: array<Track> = ["max-content", "max-content", "max-content"]
+const STRIP: array<Track> = [{ fr: 1 }, "max-content"]
 // The list runs to the window's frame and footer; the toolbar, the headings and the lines under the list keep the
 // window's room, as the rows' text does.
 const HEADING: Edges = { left: WINDOW_ROOM, right: WINDOW_ROOM }
 const TOOLS: Edges = { top: 6sp, left: WINDOW_ROOM, right: WINDOW_ROOM }
 const EDGE_TO_EDGE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
-const HALF: Number<Spacing> = 3sp / 2
+const HALF: number<Spacing> = 3sp / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
 const RELOAD_TIP: TipText = { title: Locale::RELOAD, text: Locale::IN_COMBAT, rows: [] }
@@ -92,19 +92,19 @@ public const SETTINGS_TAB = 1
 public const ADDONS_TAB = 2
 // The options' own small tab of key bindings, second after the game's first group (as Blizzard lists them).
 const KEYS_SECTION = 2
-const OPTIONS_ROWS: Array<Track> = ["max-content", { fr: 1, min: 0ui }]
-const FILL: Array<Track> = [{ fr: 1, min: 0ui }]
+const OPTIONS_ROWS: array<Track> = ["max-content", { fr: 1, min: 0ui }]
+const FILL: array<Track> = [{ fr: 1, min: 0ui }]
 // Under the options' tabs, which run edge to edge: the window's room round the page.
 const OPTIONS_PAGE: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 5sp, left: WINDOW_ROOM }
 
 // An addon of a parent's group (`## Group`), the parent itself aside.
-function isUnder(addon: AddOn, parent: String): Boolean { return addon.group == parent && addon.name != parent }
+function isUnder(addon: AddOn, parent: string): boolean { return addon.group == parent && addon.name != parent }
 
 // A fold's names with `name` folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
-function flipped(kept: Array<String>, name: String): Array<String> {
+function flipped(kept: array<string>, name: string): array<string> {
   const next = kept.filter(held => held != name)
   if (next.length == kept.length) { next.push(name) }
-  const capped: Array<String> = []
+  const capped: array<string> = []
   for (index, held of next) {
     if (index > next.length - FOLDED_MOST) { capped.push(held) }
   }
@@ -112,7 +112,7 @@ function flipped(kept: Array<String>, name: String): Array<String> {
 }
 
 // The value of the column `order` sorts by.
-function weightOf(order: Order, name: String, profiler: Profiler): Number {
+function weightOf(order: Order, name: string, profiler: Profiler): number {
   return match (order) {
     .Name => 0
     .Now => (peek profiler.loads)[name]?.now ?? -1
@@ -122,14 +122,14 @@ function weightOf(order: Order, name: String, profiler: Profiler): Number {
 }
 
 // From which value a column is lit: its heaviest third, of the values above nought.
-function thirdOf(values: Array<Number>): Number {
-  const list: Array<Number> = []
+function thirdOf(values: array<number>): number {
+  const list: array<number> = []
   for (value of values) {
     if (value > 0) { list.push(value) }
   }
-  if (list.length == 0) { return Number::huge }
+  if (list.length == 0) { return number::huge }
   list.sort((a, b) => a > b)
-  return list[(list.length / 3).ceil()] ?? Number::huge
+  return list[(list.length / 3).ceil()] ?? number::huge
 }
 
 // Where the window opens until the player moves it.
@@ -138,7 +138,7 @@ public const WINDOW: Placing = { x: 0ui, y: 0ui, width: Style::WIDTH, height: St
 public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
   // Blizzard's settings window asked for at a page.
-  public blizzard: Event<Integer> = new Event()
+  public blizzard: Event<integer> = new Event()
 
   state tab = 1
   // The window as the root declares it (`System.window`); one of its own where it is made alone (a test's).
@@ -147,7 +147,7 @@ public class AddOnsWindow implements Component {
   public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW, .Profile, "addons")
   public folds: mut ModuleMemory<Folded> = new ModuleMemory<Folded>(FOLDED, .Profile, "addons:folded")
   // What is to be switched off once the player answers, with the question's title.
-  public state asking: Array<String> = []
+  public state asking: array<string> = []
   // The sets' menu, and the set being saved (-1) or looked at (its place); 0: none.
   state setsOpen = false
   state editing = 0
@@ -155,24 +155,24 @@ public class AddOnsWindow implements Component {
   state setNote = ""
   state waitHovered = false
 
-  derived visible: Array<AddOn> = self.visibleOf()
-  derived lines: Array<Line> = self.linesOf()
+  derived visible: array<AddOn> = self.visibleOf()
+  derived lines: array<Line> = self.linesOf()
   derived hot: Hot = self.hotOf()
-  derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
+  derived countText: string = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
     Locale::COUNT_OF.format(self.visible.length, self.catalog.addons.length)
-  derived tabs: Array<WindowTabSpec> = [
+  derived tabs: array<WindowTabSpec> = [
     { title: Client::SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01", padding: EDGE_TO_EDGE },
     { title: Client::ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01", padding: EDGE_TO_EDGE }
   ]
   // The options' small tab picked: the game's groups in the client's order, its key bindings second.
   state section = 1
-  derived sections: Array<String> = self.sectionsOf()
-  derived onOptions: Boolean = self.tab == SETTINGS_TAB
-  derived onKeys: Boolean = self.onOptions && self.section == KEYS_SECTION
-  derived onGameSettings: Boolean = self.onOptions && !self.onKeys
+  derived sections: array<string> = self.sectionsOf()
+  derived onOptions: boolean = self.tab == SETTINGS_TAB
+  derived onKeys: boolean = self.onOptions && self.section == KEYS_SECTION
+  derived onGameSettings: boolean = self.onOptions && !self.onKeys
   // The group of the settings shown, by its place among the client's groups.
-  derived group: Integer = self.section < KEYS_SECTION ? self.section : self.section - 1
-  derived onAddOns: Boolean = self.tab == ADDONS_TAB
+  derived group: integer = self.section < KEYS_SECTION ? self.section : self.section - 1
+  derived onAddOns: boolean = self.tab == ADDONS_TAB
   derived side: WindowSide | nil = self.onAddOns && self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
     { width: Style::CARD, content: self.card } : nil
   // Asked before every key goes back to the client's defaults.
@@ -180,25 +180,25 @@ public class AddOnsWindow implements Component {
   // Asked before the page's settings go back to their defaults.
   state defaultsAsked = false
   // Nothing of the settings waits for Apply, or a fight holds them.
-  derived nothingWaits: Boolean = self.settings.waiting.length == 0 || self.fighting
-  derived pickedModule: Boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
-  derived tabled: Boolean = self.list.values.view == .Table
-  derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
-  derived overall: String = self.profiler.measuring ? Locale::ALL_ADDONS.format(percent(self.profiler.overall)) : ""
-  derived notMeasuring: Boolean = !self.profiler.measuring
-  derived also: String = Locale::ALSO.format((self.catalog.step?.also ?? []).join(", "))
-  derived stepShown: Boolean = self.catalog.step != nil
-  derived question: String = Locale::DISABLE_ASK.format(self.dependentsText())
-  derived questionTitle: String = Locale::DISABLE_TITLE.format(self.catalog.titleOf(self.asking[1] ?? ""))
-  derived setEntries: Array<MenuEntry> = self.setEntriesOf()
-  derived setTitle: String = self.editing < 0 ? Locale::SET_NEW :
+  derived nothingWaits: boolean = self.settings.waiting.length == 0 || self.fighting
+  derived pickedModule: boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
+  derived tabled: boolean = self.list.values.view == .Table
+  derived columns: array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
+  derived overall: string = self.profiler.measuring ? Locale::ALL_ADDONS.format(percent(self.profiler.overall)) : ""
+  derived notMeasuring: boolean = !self.profiler.measuring
+  derived also: string = Locale::ALSO.format((self.catalog.step?.also ?? []).join(", "))
+  derived stepShown: boolean = self.catalog.step != nil
+  derived question: string = Locale::DISABLE_ASK.format(self.dependentsText())
+  derived questionTitle: string = Locale::DISABLE_TITLE.format(self.catalog.titleOf(self.asking[1] ?? ""))
+  derived setEntries: array<MenuEntry> = self.setEntriesOf()
+  derived setTitle: string = self.editing < 0 ? Locale::SET_NEW :
     Locale::SET_TITLE.format(self.sets.list[self.editing]?.name ?? "")
-  derived waitText: String = self.catalog.waiting > 0 ? Locale::RELOAD_NEEDED.format(self.catalog.waiting) : ""
-  derived waitRows: Array<TipRow> = self.waitRowsOf()
-  derived fighting: Boolean = Game::situation.combat
+  derived waitText: string = self.catalog.waiting > 0 ? Locale::RELOAD_NEEDED.format(self.catalog.waiting) : ""
+  derived waitRows: array<TipRow> = self.waitRowsOf()
+  derived fighting: boolean = Game::situation.combat
   // In a fight «Reload» says why it waits, under the cursor.
   derived reloadTip: TipText | nil = self.fighting ? RELOAD_TIP : nil
-  derived waitTip: Boolean = self.waitHovered && self.waitText != ""
+  derived waitTip: boolean = self.waitHovered && self.waitText != ""
 
   const card: Template = $ltml {
     <Card name={self.list.values.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
@@ -245,19 +245,19 @@ public class AddOnsWindow implements Component {
   }
 
   // Closed, it stays drawn: it opens again at the cost of a surface shown.
-  shown: Signal<Boolean>
+  shown: Signal<boolean>
   const bindings: mut Bindings = new Bindings()
   const settings: mut SystemSettings = new SystemSettings()
   const catalog: mut Catalog = new Catalog()
   const profiler: mut Profiler = new Profiler()
   const sets: mut Sets = new Sets()
   // Ordaen's folder: the addon its modules stand under.
-  const framework: String
-  const whom: Array<Choice<Boolean>>
+  const framework: string
+  const whom: array<Choice<boolean>>
   // What the profile keeps of the game's settings; none for a window made alone (a test's).
   const keeping: mut GameKeeping | nil
   constructor(
-    framework: String, shown: Signal<Boolean> = true, declared: mut KeptWindow | nil = nil, keeping: mut GameKeeping | nil = nil
+    framework: string, shown: Signal<boolean> = true, declared: mut KeptWindow | nil = nil, keeping: mut GameKeeping | nil = nil
   ) {
     self.keeping = keeping
     self.declared = declared ?? new KeptWindow("addons", Client::ADDONS, WINDOW)
@@ -286,7 +286,7 @@ public class AddOnsWindow implements Component {
   }
 
   onBindings(mut self) { self.bindings.read() }
-  onSetting(mut self, name: String, value: String) { self.settings.refresh() }
+  onSetting(mut self, name: string, value: string) { self.settings.refresh() }
   // A setting the player set: the profile's, or the game's again where it went back to its default.
   onWritten(mut self, written: SettingWritten) {
     const keeping = self.keeping
@@ -298,10 +298,10 @@ public class AddOnsWindow implements Component {
     }
   }
   // The options' small tabs: each group's name, the key bindings' second.
-  sectionsOf(self): Array<String> {
+  sectionsOf(self): array<string> {
     const names = self.settings.groups.map(group => group.name)
     const keys = Runtime::text("SETTINGS_KEYBINDINGS_LABEL") ?? Client::KEY_BINDINGS
-    const list: Array<String> = []
+    const list: array<string> = []
     for (index, name of names) {
       if (index == KEYS_SECTION) { list.push(keys) }
       list.push(name)
@@ -325,14 +325,14 @@ public class AddOnsWindow implements Component {
 
   // Each open reads the list in one pass and samples once a second, hearing `ADDON_LOADED` while it shows; a close
   // stops both.
-  follow(mut self, open: Boolean) {
+  follow(mut self, open: boolean) {
     if (!open) {
       self.profiler.stop()
       return
     }
     self.catalog.read()
     self.dropGone()
-    const loaded: Array<String> = []
+    const loaded: array<string> = []
     for (addon of peek self.catalog.addons) {
       if ((peek self.catalog.statuses)[addon.name]?.loaded == true) { loaded.push(addon.name) }
     }
@@ -340,9 +340,9 @@ public class AddOnsWindow implements Component {
     Events::ADDON_LOADED.listen(self.onLoaded)
   }
 
-  onLoaded(mut self, name: String, fromUser: Boolean) { self.catalog.refresh() }
+  onLoaded(mut self, name: string, fromUser: boolean) { self.catalog.refresh() }
 
-  onText(self): String {
+  onText(self): string {
     let on = 0
     for (addon of self.catalog.addons) {
       if (self.catalog.statuses[addon.name]?.enabled != .Off) { on += 1 }
@@ -351,7 +351,7 @@ public class AddOnsWindow implements Component {
   }
 
   // Whether an addon shows with the search and the filter as they are: it matches every kind.
-  matches(self, addon: AddOn, status: Status | nil): Boolean {
+  matches(self, addon: AddOn, status: Status | nil): boolean {
     const query = self.search.lower()
     if (query != "" && !addon.words.contains(query)) { return false }
     const hot = match (self.list.values.heat) {
@@ -383,8 +383,8 @@ public class AddOnsWindow implements Component {
   }
 
   // The addons that show, in the order the sort says.
-  visibleOf(self): Array<AddOn> {
-    const list: Array<AddOn> = []
+  visibleOf(self): array<AddOn> {
+    const list: array<AddOn> = []
     for (addon of self.catalog.addons) {
       if (self.matches(addon, self.catalog.statuses[addon.name])) { list.push(addon) }
     }
@@ -407,8 +407,8 @@ public class AddOnsWindow implements Component {
 
   // The lines: in a table, every addon shown; by category, a caption for each category (by its exact text, «Other»
   // last) and its addons, each group's members right under their parent, indented.
-  linesOf(self): Array<Line> {
-    const list: Array<Line> = []
+  linesOf(self): array<Line> {
+    const list: array<Line> = []
     if (self.list.values.view == .Table) {
       for (addon of self.visible) {
         list.push({
@@ -418,7 +418,7 @@ public class AddOnsWindow implements Component {
       return list
     }
     // Each group whole, whatever the search and the filter show of it: what its caption's switch switches.
-    const groups: Map<String, mut Array<String>> = {}
+    const groups: map<string, mut array<string>> = {}
     for (addon of self.catalog.addons) {
       if (addon.group != self.framework || addon.name == self.framework) {
         const held = groups[addon.category]
@@ -429,8 +429,8 @@ public class AddOnsWindow implements Component {
         }
       }
     }
-    const byCategory: Map<String, mut Array<AddOn>> = {}
-    const categories: Array<String> = []
+    const byCategory: map<string, mut array<AddOn>> = {}
+    const categories: array<string> = []
     for (addon of self.visible) {
       const held = byCategory[addon.category]
       if (held == nil) {
@@ -449,7 +449,7 @@ public class AddOnsWindow implements Component {
         names: groups[category] ?? [], tabled: false
       })
       if (!folded) {
-        const here: Map<String, Boolean> = {}
+        const here: map<string, boolean> = {}
         for (addon of members) { here[addon.name] = true }
         for (addon of members) {
           if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
@@ -475,31 +475,31 @@ public class AddOnsWindow implements Component {
   }
 
   hotOf(self): Hot {
-    const now: Array<Number> = []
-    const peak: Array<Number> = []
+    const now: array<number> = []
+    const peak: array<number> = []
     for (_, load of self.profiler.loads) {
       now.push(load.now)
       peak.push(load.peak)
     }
-    const weights: Array<Number> = []
+    const weights: array<number> = []
     for (_, kb of self.profiler.memory) { weights.push(kb) }
     return { now: thirdOf(now), peak: thirdOf(peak), memory: thirdOf(weights) }
   }
 
-  dependentsText(self): String {
-    const names: Array<String> = []
+  dependentsText(self): string {
+    const names: array<string> = []
     for (name of self.catalog.dependentsOf(self.asking)) { names.push(self.catalog.titleOf(name)) }
     return names.join(", ")
   }
 
-  setEntriesOf(self): Array<MenuEntry> {
-    const list: Array<MenuEntry> = [{ label: Locale::SET_SAVE }]
+  setEntriesOf(self): array<MenuEntry> {
+    const list: array<MenuEntry> = [{ label: Locale::SET_SAVE }]
     for (index, kept of self.sets.list) { list.push({ label: kept.name, group: index == 1 }) }
     return list
   }
 
-  waitRowsOf(self): Array<TipRow> {
-    const list: Array<TipRow> = []
+  waitRowsOf(self): array<TipRow> {
+    const list: array<TipRow> = []
     for (addon of self.catalog.addons) {
       const status = self.catalog.statuses[addon.name]
       if (status != nil) {
@@ -513,23 +513,23 @@ public class AddOnsWindow implements Component {
     return list
   }
 
-  onPick(mut self, name: String) { self.list.values.picked = name }
+  onPick(mut self, name: string) { self.list.values.picked = name }
 
   // A caption clicked: folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
-  onFold(mut self, category: String) {
+  onFold(mut self, category: string) {
     self.folds.values.categories = flipped((peek self.folds.values).categories, category)
   }
 
   // A group's parent's mark clicked: its members folded under it, or shown again; as captions are, at most
   // `FOLDED_MOST`.
-  onFoldGroup(mut self, parent: String) {
+  onFoldGroup(mut self, parent: string) {
     self.folds.values.parents = flipped((peek self.folds.values).parents, parent)
   }
 
   // The folded categories and parents no addon has any more (each addon of one taken out of the folder) are let go.
   dropGone(mut self) {
-    const categories: Map<String, Boolean> = {}
-    const names: Map<String, Boolean> = {}
+    const categories: map<string, boolean> = {}
+    const names: map<string, boolean> = {}
     for (addon of peek self.catalog.addons) {
       categories[addon.category] = true
       names[addon.name] = true
@@ -543,12 +543,12 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onSettings(self, name: String) { Ordaen.toggleNamed(name) }
+  onSettings(self, name: string) { Ordaen.toggleNamed(name) }
 
   // The checkbox: on with what it needs; off alone, after asking where others need it. With Ctrl on a group's
   // parent, the parent and every addon of its group to the parent's new state together.
-  public onToggle(mut self, name: String, control: Boolean) {
-    const names: Array<String> = [name]
+  public onToggle(mut self, name: string, control: boolean) {
+    const names: array<string> = [name]
     if (control) {
       for (member of (peek self.catalog.members)[name] ?? []) { names.push(member) }
     }
@@ -560,7 +560,7 @@ public class AddOnsWindow implements Component {
   }
 
   // A caption's switch: its whole group on for all where any of it isn't, else off, after asking where others need it.
-  onToggleGroup(mut self, names: Array<String>) {
+  onToggleGroup(mut self, names: array<string>) {
     if (names.length == 0) { return }
     const statuses = peek self.catalog.statuses
     if (!names.all(name => statuses[name]?.enabled == .On)) {
@@ -571,7 +571,7 @@ public class AddOnsWindow implements Component {
   }
 
   // Off alone, or after asking where others that stay on need what goes.
-  switchOff(mut self, names: Array<String>) {
+  switchOff(mut self, names: array<string>) {
     if (self.catalog.dependentsOf(names).length == 0) {
       self.catalog.switchOff(names)
     } else {
@@ -579,11 +579,11 @@ public class AddOnsWindow implements Component {
     }
   }
 
-  onCardToggle(mut self, name: String) { self.onToggle(name, false) }
+  onCardToggle(mut self, name: string) { self.onToggle(name, false) }
 
   // «Load» from a row's menu: the addon loads now, its card opens to say how it went (the client's reason, where it
   // refused, is its row's and its card's state).
-  onLoadNow(mut self, name: String) {
+  onLoadNow(mut self, name: string) {
     self.list.values.picked = name
     _ = self.catalog.load(name)
   }
@@ -604,7 +604,7 @@ public class AddOnsWindow implements Component {
   onSets(mut self) { self.setsOpen = !self.setsOpen }
   closeSets(mut self) { self.setsOpen = false }
 
-  onSet(mut self, index: Integer) {
+  onSet(mut self, index: integer) {
     self.setsOpen = false
     self.setNote = ""
     if (index == 1) {
@@ -668,7 +668,7 @@ public class AddOnsWindow implements Component {
   onWaitEnter(mut self) { self.waitHovered = true }
   onWaitLeave(mut self) { self.waitHovered = false }
   onClose(mut self) { self.close.emit() }
-  onBlizzard(self, page: Integer) { self.blizzard.emit(page) }
+  onBlizzard(self, page: integer) { self.blizzard.emit(page) }
 
   public render(self): Template {
     return $ltml {

@@ -9,10 +9,10 @@ import { Errors, Kind } from "@/errors"
 
 // Told of each blocked or forbidden action as the client reports it, repeats too: the addon it blames, the function
 // with its parentheses, "blocked" or "forbidden".
-public type TaintListener = (addon: String, called: String, verb: String) => nil
+public type TaintListener = (addon: string, called: string, verb: string) => nil
 
 public class Catcher {
-  taintListeners: mut Array<TaintListener> = []
+  taintListeners: mut array<TaintListener> = []
 
   errors: mut Errors
   constructor(errors: mut Errors) {
@@ -26,40 +26,40 @@ public class Catcher {
   }
 
   // An error or a fault the runtime caught: the stack and the locals with a message's first time this session.
-  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
+  public error(mut self, message: string, stack: string | nil, locals: string | nil) {
     if (self.errors.repeatOf(message) == nil) {
       _ = self.errors.add({ message: message, stack: stack, locals: locals, kind: nil, source: nil })
     }
   }
 
   // A failure that raised nothing, of the addon `source`.
-  public fault(mut self, message: String, source: String) {
+  public fault(mut self, message: string, source: string) {
     if (self.errors.repeatOf(message) == nil) {
       _ = self.errors.add({ message: message, stack: nil, locals: nil, kind: Kind::Error, source: source })
     }
   }
 
-  onBlocked(mut self, isTainted: String, function_: String) {
+  onBlocked(mut self, isTainted: string, function_: string) {
     self.taint("ADDON_ACTION_BLOCKED", isTainted, function_)
   }
 
-  onForbidden(mut self, isTainted: String, function_: String) {
+  onForbidden(mut self, isTainted: string, function_: string) {
     self.taint("ADDON_ACTION_FORBIDDEN", isTainted, function_)
   }
 
   // Records a blocked or forbidden protected action (ADDON_ACTION_BLOCKED / _FORBIDDEN), each one the client
   // reports: whatever made it, the player saw the client's dialog or message for it.
-  public taint(mut self, event: String, addon: String | nil, func: String | nil) {
+  public taint(mut self, event: string, addon: string | nil, func: string | nil) {
     let verb = event == "ADDON_ACTION_FORBIDDEN" ? "forbidden" : "blocked"
     // The client names the function with its parentheses or without ("UNKNOWN()", "Minimap:SetParent").
-    let called = String::of(func)
+    let called = string::of(func)
     const closed, _ = called.find("%)$")
     if (closed == nil) {
       called = called + "()"
     }
-    let message = "%s: call to %s was %s".format(String::of(addon), called, verb)
+    let message = "%s: call to %s was %s".format(string::of(addon), called, verb)
     for (listener of self.taintListeners) {
-      listener(String::of(addon), called, verb)
+      listener(string::of(addon), called, verb)
     }
     if (self.errors.repeatOf(message) == nil) {
       // The addon WoW blames: its folder name, "Blizzard" for Blizzard_*, else "other".

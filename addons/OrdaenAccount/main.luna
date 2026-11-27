@@ -23,7 +23,7 @@ public const TAB_ALTS = 3
 public const TAB_COLLECTIONS = 4
 
 // Each tab runs to the frame's line (its `padding` none): its sections keep their own room.
-const TABS: Array<WindowTabSpec> = [
+const TABS: array<WindowTabSpec> = [
   { title: Locale::TAB_LEGACY, icon: "UI-Legacy-Tree-Adventure", padding: Style::NO_ROOM },
   { title: Locale::TAB_ACHIEVEMENTS, icon: "Interface/Icons/Achievement_Quests_Completed_08", padding: Style::NO_ROOM },
   { title: Locale::TAB_ALTS, icon: "Interface/Icons/Achievement_Character_Human_Male", padding: Style::NO_ROOM },
@@ -32,11 +32,11 @@ const TABS: Array<WindowTabSpec> = [
 
 // A window of the game's ours stands for: its addon, its frame's name, and the tab ours opens on.
 struct GameWindow {
-  addon: String
-  frame: String
-  tab: Integer
+  addon: string
+  frame: string
+  tab: integer
 }
-const GAME_WINDOWS: Array<GameWindow> = [
+const GAME_WINDOWS: array<GameWindow> = [
   { addon: "Blizzard_LegacySystem", frame: "LegacySystemFrame", tab: TAB_LEGACY },
   { addon: "Blizzard_AchievementUI", frame: "AchievementFrame", tab: TAB_ACHIEVEMENTS },
   { addon: "Blizzard_Collections", frame: "CollectionsJournal", tab: TAB_COLLECTIONS }
@@ -46,15 +46,15 @@ const JOURNAL = "CollectionsJournal"
 const JOURNAL_ADDON = "Blizzard_Collections"
 
 public class Account implements Module, App {
-  public const title: String = "Ordaen Account"
+  public const title: string = "Ordaen Account"
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
-  public const pages: Array<SettingsPage> = [
+  public const windows: mut array<mut KeptWindow> = [self.window]
+  public const pages: array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public state open = false
-  public state tab: Integer = TAB_LEGACY
+  public state tab: integer = TAB_LEGACY
   // The pages: what each shows, its footer and its side.
   const legacy: mut Legacy = new Legacy()
   const challenges: mut Challenges = new Challenges()
@@ -76,8 +76,8 @@ public class Account implements Module, App {
   }
   derived alts: Template = Alts?.content ?? self.altsOff
   // The game's windows ours stands for, and those of them showing: held unseen and off the screen.
-  games: mut Array<any Client::Frame> = []
-  state held: mut Array<any Frame> = []
+  games: mut array<any Client::Frame> = []
+  state held: mut array<any Frame> = []
   pass: mut GamePass = new GamePass()
   // The micro menu's button pressed: the journal it shows opens ours on the tab last open, not on «Collections».
   fromButton = false
@@ -85,7 +85,7 @@ public class Account implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    Runtime::command("/account", (text: String): nil => {
+    Runtime::command("/account", (text: string): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.toggle() }
       }
@@ -114,14 +114,14 @@ public class Account implements Module, App {
     }
   }
 
-  onAddonLoaded(mut self, name: String) {
+  onAddonLoaded(mut self, name: string) {
     for (game of GAME_WINDOWS) {
       if (game.addon == name) { self.hook(Runtime::frame(game.frame), game.tab) }
     }
   }
 
   // A game's window ours stands for: ours opens and closes with it, on its tab.
-  hook(mut self, frame: any Frame | nil, tab: Integer) {
+  hook(mut self, frame: any Frame | nil, tab: integer) {
     if (frame == nil) { return }
     const window: any Client::Frame = frame
     if (self.games.any(one => one == window)) { return }
@@ -137,7 +137,7 @@ public class Account implements Module, App {
     if (window.IsShown()) { self.onGameShown(frame, tab) }
   }
 
-  onGameShown(mut self, frame: any Frame, tab: Integer) {
+  onGameShown(mut self, frame: any Frame, tab: integer) {
     if (self.pass.passes(frame)) { return }
     if (!self.fromButton) { self.window.ask(tab) }
     self.fromButton = false
@@ -173,7 +173,7 @@ public class Account implements Module, App {
   }
 
   // The appearances: the game's own journal on its tab, as it is; ours closes.
-  onTransmog(mut self, tab: Integer) {
+  onTransmog(mut self, tab: integer) {
     self.onClose()
     // Its addon loaded first (and hooked, as it loads), so the journal shows let through, then turns to its tab.
     if (Runtime::frame(JOURNAL) == nil) { _ = Client::C_AddOns::LoadAddOn(JOURNAL_ADDON) }

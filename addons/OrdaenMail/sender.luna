@@ -35,14 +35,14 @@ public class Sender {
 
   // A letter written put into the queue: as many letters as its stacks need, twelve each, «(n/N)» on their subjects;
   // the money with the first, cash on delivery only where it is one letter. The queue goes on at once.
-  public put(mut self, to: String, subject: String, body: String, stacks: Array<Game::MailStack>, copper: Integer, cod: Integer) {
+  public put(mut self, to: string, subject: string, body: string, stacks: array<Game::MailStack>, copper: integer, cod: integer) {
     const count = lettersFor(stacks.length)
     const values = peek self.memory.values
     let next = values.next
-    const queue: Array<Sent> = []
+    const queue: array<Sent> = []
     for (letter of values.queue) { queue.push(letter.clone()) }
     for (place of 1..count) {
-      const items: Array<SentItem> = []
+      const items: array<SentItem> = []
       for (index of ((place - 1) * PLACES + 1)..(place * PLACES).min(stacks.length)) {
         const stack = stacks[index] ?? panic("within the stacks")
         items.push({ item: stack.item, count: stack.count })
@@ -61,7 +61,7 @@ public class Sender {
   }
 
   // Whether a letter is on its way: the game's letter is the queue's until it went.
-  public busy(self): Boolean { return (peek self.memory.values).queue.any(l => l.state == SentState::Sending) }
+  public busy(self): boolean { return (peek self.memory.values).queue.any(l => l.state == SentState::Sending) }
 
   // The first waiting letter sent, where the mailbox is open and none is on its way.
   public go(mut self) {
@@ -119,7 +119,7 @@ public class Sender {
     const done = gone.clone()
     done.state = SentState::Sent
     done.at = peek Game::clock.server
-    const history: Array<Sent> = [done]
+    const history: array<Sent> = [done]
     for (old of values.history) {
       if (history.length < HISTORY_MOST) { history.push(old) }
     }
@@ -127,7 +127,7 @@ public class Sender {
     self.go()
   }
 
-  onRefused(mut self, message: String) { self.said = message }
+  onRefused(mut self, message: string) { self.said = message }
 
   onBags(mut self) {
     if (!self.splitting) { return }
@@ -138,7 +138,7 @@ public class Sender {
   onFailed(mut self) { self.failSending(self.said == "" ? Locale::NOT_SENT : self.said) }
 
   // The letter on its way didn't go: it stops, and so does the queue.
-  failSending(mut self, why: String) {
+  failSending(mut self, why: string) {
     if (self.answer != nil) { destroy self.answer }
     const queue = (peek self.memory.values).queue
     const at = queue.find(l => l.state == SentState::Sending)
@@ -158,7 +158,7 @@ public class Sender {
   // «Stop»: what waits stops.
   public pause(mut self) { self.stopAll(Locale::STOPPED_BY_YOU) }
 
-  stopAll(mut self, why: String) {
+  stopAll(mut self, why: string) {
     self.splitting = false
     const values = peek self.memory.values
     const queue = values.queue.map(l => waits(l) ? { state: SentState::Stopped, why: why, ..l } : l)
@@ -174,7 +174,7 @@ public class Sender {
   }
 
   // A letter still waiting taken out of the queue.
-  public remove(mut self, number: Integer) {
+  public remove(mut self, number: integer) {
     const values = peek self.memory.values
     const queue = values.queue.filter(l => l.number != number || l.state == SentState::Sending)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
@@ -183,8 +183,8 @@ public class Sender {
 
 // The stacks of the bags that hold a letter's items: each exactly that many of that item, not on its way anywhere, none
 // taken twice. An item no stack holds is left out.
-function stacksFor(items: Array<SentItem>): Array<Game::MailStack> {
-  const found: Array<Game::MailStack> = []
+function stacksFor(items: array<SentItem>): array<Game::MailStack> {
+  const found: array<Game::MailStack> = []
   for (wanted of items) {
     const stack = stackOf(wanted.item, wanted.count, false, found)
     if (stack != nil) { found.push(stack) }
@@ -194,8 +194,8 @@ function stacksFor(items: Array<SentItem>): Array<Game::MailStack> {
 
 // The first of a letter's items no whole stack holds split off a bigger one into an empty slot, as the game's split
 // does; false where every item has its stack, or none can be split (no bigger stack, no empty slot).
-function splitFor(items: Array<SentItem>): Boolean {
-  const found: Array<Game::MailStack> = []
+function splitFor(items: array<SentItem>): boolean {
+  const found: array<Game::MailStack> = []
   for (wanted of items) {
     const stack = stackOf(wanted.item, wanted.count, false, found)
     if (stack != nil) {
@@ -210,11 +210,11 @@ function splitFor(items: Array<SentItem>): Boolean {
 }
 
 struct Place {
-  bag: Integer
-  slot: Integer
+  bag: integer
+  slot: integer
 }
 
-function biggerStack(item: Integer, count: Integer, except: Array<Game::MailStack>): Place | nil {
+function biggerStack(item: integer, count: integer, except: array<Game::MailStack>): Place | nil {
   let slot = emptySlot()
   for (bag of 0..Game::bags.last) {
     for (place of 1..Game::bags.size(bag)) {
@@ -239,7 +239,7 @@ function emptyPlace(): Place | nil {
 
 // A stack of the bags of exactly that many of that item, locked (on its way: in the game's letter) or not, and none of
 // `except`; none where no stack is.
-public function stackOf(item: Integer, count: Integer, locked: Boolean, except: Array<Game::MailStack>): Game::MailStack | nil {
+public function stackOf(item: integer, count: integer, locked: boolean, except: array<Game::MailStack>): Game::MailStack | nil {
   let slot = emptySlot()
   for (bag of 0..Game::bags.last) {
     for (place of 1..Game::bags.size(bag)) {

@@ -16,16 +16,16 @@ const OUTLINE: Line = { width: 1ui, color: GOLD }
 // one made joins Ordaen's parts, and leaves them as it ends: the parts placing knows are the movers drawn.
 public class Mover implements Component {
   // What tells the part from every other: its module's folder and its own name (`OrdaenPanel.bags`).
-  public const id: String
+  public const id: string
   // Its name in the placing mode.
-  public const title: String
+  public const title: string
   public grab: Event<nil> = new Event()
   public drag: Event<Event::Drag> = new Event()
   public drop: Event<nil> = new Event()
   // A right click: the part goes back where its module says.
   public reset: Event<nil> = new Event()
 
-  constructor(id: String, title: String) {
+  constructor(id: string, title: string) {
     self.id = id
     self.title = title
     Ordaen.parts.add(self)
@@ -73,14 +73,14 @@ public class Placed implements Component {
   from: Anchored = { point: "CENTER" }
   state dragged: Anchored | nil = nil
 
-  const id: String
-  const title: String
+  const id: string
+  const title: string
   home: Signal<Anchored>
   constructor(
     // What tells it from every other part: its module's folder and its own name (`OrdaenPanel.bags`).
-    id: String,
+    id: string,
     // Its name in the placing mode.
-    title: String,
+    title: string,
     // Where it stands while the player never moved it.
     home: Signal<Anchored>
   ) {

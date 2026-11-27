@@ -10,12 +10,12 @@ import Locale from "@/locales"
 const HEIGHT = 39.84375dp
 const SHADOW: Shadow = { color: Color::hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
-const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const CELLS: array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const NOTCH: Line = { width: 1.171875dp, color: Color::hex("#00000080"), sides: [Side::Right] }
-const FILL: Array<Track> = [{ fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
 
 // The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.
-function rankOf(most: Integer): String {
+function rankOf(most: integer): string {
   match (most) {
     75 => return Locale::RANK_75
     150 => return Locale::RANK_150
@@ -27,24 +27,24 @@ function rankOf(most: Integer): String {
 
 public class BandBar implements Component {
   // The bar in two columns: the filled part, and the rest.
-  derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
-  derived label: String = self.labelOf()
+  derived parts: array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
+  derived label: string = self.labelOf()
   const fill: Art = xpFillArt(XpFill::Brushed)
 
   // The player's skill and the most it goes to now.
-  rank: Signal<Integer>
-  most: Signal<Integer>
-  constructor(rank: Signal<Integer>, most: Signal<Integer>) {
+  rank: Signal<integer>
+  most: Signal<integer>
+  constructor(rank: Signal<integer>, most: Signal<integer>) {
     self.rank = rank
     self.most = most
   }
 
-  shareOf(self): Number {
+  shareOf(self): number {
     if (self.most <= 0) { return 0 }
     return (1).min(self.rank / self.most)
   }
 
-  labelOf(self): String {
+  labelOf(self): string {
     if (self.rank <= 0 && self.most <= 0) { return "" }
     const skill = "%d / %d".format(self.rank, self.most)
     const rank = rankOf(self.most)

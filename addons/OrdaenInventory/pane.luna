@@ -29,16 +29,16 @@ import { Vault } from "@/vault"
 // grouping (by type where none is said); the junk's rules; the slot's clicks; the room between two slots, in steps of
 // the spacing; a slot's size, in the interface's pixels.
 public struct Choices implements Plain {
-  hidden: Array<Tab>
-  hideEmpty: Boolean
-  grouping: Map<Tab, Grouping>
+  hidden: array<Tab>
+  hideEmpty: boolean
+  grouping: map<Tab, Grouping>
   junk: JunkRules
   slotPresses: Clicks
   // The junk is sold as a merchant's window opens, as «Sell junk» sells it.
-  sellJunkAtVendor: Boolean = true
-  slotGap: Number = SLOT_GAP
-  slotSize: Number = SLOT_SIZE
-  rowLeast: Number = ROW_LEAST
+  sellJunkAtVendor: boolean = true
+  slotGap: number = SLOT_GAP
+  slotSize: number = SLOT_SIZE
+  rowLeast: number = ROW_LEAST
   loot: LootChoices = LOOT_CHOICES
 }
 
@@ -52,30 +52,30 @@ public struct BagsView implements Plain {
 // The list of tabs at the left, and the room between it and the cards: more than between two cards, so the list reads
 // apart from them.
 public const TABS_WIDTH = 217.96875dp
-public const TABS_GAP: Number<Spacing> = 8sp
+public const TABS_GAP: number<Spacing> = 8sp
 // The room the list's scroll bar takes at its right.
 public const SCROLL_ROOM = 18.75dp
 // What a window keeps above and below its list (its tab row, its header, its footer's text, its room), the footer's
 // marble's own room besides (`footRoom`): the list is never higher than the screen less these.
 const AROUND_LIST = 257.8125dp
 
-const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const BODY: array<Track> = ["max-content", { fr: 1 }]
 // The tabs' column is as wide as its longest tab, never narrower than `TABS_WIDTH`: a name is never cut short.
-const WITH_TABS: Array<Track> = ["max-content", { fr: 1 }]
+const WITH_TABS: array<Track> = ["max-content", { fr: 1 }]
 const TABS_BOUNDS: Bounds = { min: TABS_WIDTH }
 // The tabs' column: the window's room at the top, the sides and under them.
 const COLUMN_ROOM: Edges = { top: 8sp, right: 4sp, bottom: 8sp, left: 4sp }
-const FILL: Array<Track> = [{ fr: 1 }]
-const NOTED: Array<Track> = ["max-content", { fr: 1 }]
+const FILL: array<Track> = [{ fr: 1 }]
+const NOTED: array<Track> = ["max-content", { fr: 1 }]
 // The counts, the room between, the buttons (or the gold tracked), the money.
-const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
+const FOOT: array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 // The footer band's room over and under what it holds, and its line along the top (Ordaen's FooterBand).
-const FOOT_BAND: Number<Spacing> = 4sp
+const FOOT_BAND: number<Spacing> = 4sp
 const BAND_LINE: ArtBorder = { sides: [Side::Top], ..ARTWORK.frame.tabIconLine }
 const LABEL: Color = Color::hex("#a3977f")
 const COUNT: Color = Color::hex("#a3977f")
 const BUTTON = 140.625dp
-const SORTS: Array<Choice<SortBy>> = [
+const SORTS: array<Choice<SortBy>> = [
   { value: SortBy::Bags, label: Locale::SORT_BAGS },
   { value: SortBy::Quality, label: Locale::SORT_QUALITY },
   { value: SortBy::Name, label: Locale::SORT_NAME },
@@ -87,12 +87,12 @@ const SORTS: Array<Choice<SortBy>> = [
 const BACKPACK: FileId = 130716
 
 // The junk of a vault's slots, and what a merchant gives for it.
-public function junkIn(stock: Stock): Array<Slot> {
+public function junkIn(stock: Stock): array<Slot> {
   _ = stock.revision
   return stock.all.filter(slot => slot.junk)
 }
 
-public function worthIn(junk: Array<Slot>): Integer {
+public function worthIn(junk: array<Slot>): integer {
   let worth = 0
   for (slot of junk) { worth += slot.read.price * slot.read.count }
   return worth
@@ -101,16 +101,16 @@ public function worthIn(junk: Array<Slot>): Integer {
 // A tab of the guild's at the window's left: its icon and name, the withdrawals a day it allows; one the player may
 // not see is dim, and away from the guild bank every tab but the one seen last.
 class GuildTabEntry implements Component {
-  public picked: Event<Integer> = new Event()
-  derived selected: Boolean = self.page == GuildPage::Items && self.current == self.tab.index
-  derived off: Boolean = !self.tab.viewable || (!self.live && !self.selected)
-  derived limit: String = withdrawalsText(self.tab)
+  public picked: Event<integer> = new Event()
+  derived selected: boolean = self.page == GuildPage::Items && self.current == self.tab.index
+  derived off: boolean = !self.tab.viewable || (!self.live && !self.selected)
+  derived limit: string = withdrawalsText(self.tab)
 
   tab: Signal<GuildTab>
-  current: Signal<Integer>
+  current: Signal<integer>
   page: Signal<GuildPage>
-  live: Signal<Boolean>
-  constructor(tab: Signal<GuildTab>, current: Signal<Integer>, page: Signal<GuildPage>, live: Signal<Boolean>) {
+  live: Signal<boolean>
+  constructor(tab: Signal<GuildTab>, current: Signal<integer>, page: Signal<GuildPage>, live: Signal<boolean>) {
     self.tab = tab
     self.current = current
     self.page = page
@@ -133,7 +133,7 @@ class GuildTabEntry implements Component {
 public class Pane {
   // The header's «Sort the bags»; a guild's tab, its log, its money's log picked; the footer's buttons.
   public arrange: Event<nil> = new Event()
-  public guildTab: Event<Integer> = new Event()
+  public guildTab: Event<integer> = new Event()
   public guildLog: Event<nil> = new Event()
   public moneyLog: Event<nil> = new Event()
   public sellJunk: Event<nil> = new Event()
@@ -144,68 +144,68 @@ public class Pane {
   public state search = ""
   state goldShown = false
 
-  derived isGuild: Boolean = self.vault == Vault::Guild
-  public derived isBags: Boolean = self.vault == Vault::Bags
-  derived isBank: Boolean = self.vault == Vault::Bank
-  public derived categories: Boolean = !self.isGuild && self.list.values.view == View::Categories
-  derived withList: Boolean = self.categories || self.isGuild
-  derived query: String = self.search.lower()
+  derived isGuild: boolean = self.vault == Vault::Guild
+  public derived isBags: boolean = self.vault == Vault::Bags
+  derived isBank: boolean = self.vault == Vault::Bank
+  public derived categories: boolean = !self.isGuild && self.list.values.view == View::Categories
+  derived withList: boolean = self.categories || self.isGuild
+  derived query: string = self.search.lower()
   // The vault's slots, read once at least: the bank's are read at a banker alone.
   derived stock: Stock = self.stockOf()
-  derived seen: Boolean = self.stock.total > 0
+  derived seen: boolean = self.stock.total > 0
   // Away from its vault, a copy: the window says so, and its slots are shown, not used.
-  derived copy: Boolean = !self.live && self.seen
-  derived copyText: String = self.isGuild ? Locale::GUILD_COPY : Locale::BANK_COPY
+  derived copy: boolean = !self.live && self.seen
+  derived copyText: string = self.isGuild ? Locale::GUILD_COPY : Locale::BANK_COPY
   // The copy's note over the list, which takes the rest.
-  derived listRows: Array<Track> = self.copy ? NOTED : FILL
-  public derived counts: Map<Tab, Integer> = self.countsOf()
-  public derived tabs: Array<Tab> = self.tabsOf()
+  derived listRows: array<Track> = self.copy ? NOTED : FILL
+  public derived counts: map<Tab, integer> = self.countsOf()
+  public derived tabs: array<Tab> = self.tabsOf()
   derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab::All
   // The categories as Ordaen's column of tabs has them: each's name, its count, off where it holds nothing, and the
   // shown one's place, which a click writes.
-  derived tabNames: Array<String> = self.tabs.map(tab => tabName(tab))
-  derived tabCounts: Array<Integer> = self.tabs.map(tab => self.counts[tab] ?? 0)
-  derived tabOffs: Array<Boolean> = self.tabs.map(tab => (self.counts[tab] ?? 0) == 0)
+  derived tabNames: array<string> = self.tabs.map(tab => tabName(tab))
+  derived tabCounts: array<integer> = self.tabs.map(tab => self.counts[tab] ?? 0)
+  derived tabOffs: array<boolean> = self.tabs.map(tab => (self.counts[tab] ?? 0) == 0)
   state tabPlace = 1
-  public derived sections: Array<Section> = self.sectionsOf()
+  public derived sections: array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
-  derived slotGap: Number<Spacing> = self.choices.slotGap * 1sp
+  derived slotGap: number<Spacing> = self.choices.slotGap * 1sp
   derived room: CardRoom = cardRoom(self.choices.slotGap, self.choices.slotSize, self.choices.rowLeast)
-  derived slotSize: Number<Length> = self.room.slot
+  derived slotSize: number<Length> = self.room.slot
   // The least window: a card of the fewest slots in a row, the list of tabs beside it where it shows.
-  public derived leastWidth: Number<Length> = frameSides() + self.tabsRoom + cardWidth(self.room.least, self.room) + SCROLL_ROOM
-  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(2 * PAGE_SIDE) : 0ui
+  public derived leastWidth: number<Length> = frameSides() + self.tabsRoom + cardWidth(self.room.least, self.room) + SCROLL_ROOM
+  derived tabsRoom: number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(2 * PAGE_SIDE) : 0ui
   // The toolbar keeps the page's sides itself, or stands in the column beside the tabs that keeps them.
   derived toolRoom: Edges = self.withList ? TOP_ROOM : TOOL_ROOM
-  derived listWidth: Number<Length> = self.width - frameSides() - self.tabsRoom - SCROLL_ROOM
-  public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
+  derived listWidth: number<Length> = self.width - frameSides() - self.tabsRoom - SCROLL_ROOM
+  public derived lines: array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
-  derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
-  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_BAND) + reachDown(BAND_LINE) + BAND_LINE.width * 1ui
-  derived listHeight: Number<Length> = self.cardsHeight.min(Client::UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
+  derived cardsHeight: number<Length> = heightOf(self.lines, self.room)
+  derived footRoom: number<Length> = Ordaen.lengthOf(FOOT_BAND) + reachDown(BAND_LINE) + BAND_LINE.width * 1ui
+  derived listHeight: number<Length> = self.cardsHeight.min(Client::UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
   // It scrolls where the screen is too low for it, and clips otherwise: either way the cards, laid out for the width
   // it has, ask nothing of the window's least width, so the grip narrows it past the row it started from.
   derived listOverflow: Overflow = self.listHeight < self.cardsHeight ? Overflow::Scroll : Overflow::Hidden
   public derived filter: Filter = { query: self.query, place: Game::bags.place, lit: self.isBags ? self.lit : -1 }
-  derived free: Integer = self.stock.free
-  derived fills: Map<Integer, String> = self.stock.fills
+  derived free: integer = self.stock.free
+  derived fills: map<integer, string> = self.stock.fills
   // The footer's counts: the free slots of the bags or the bank, and its junk where the junk is shown; the guild
   // bank's withdrawal left today.
-  derived footCounts: Array<FooterCount> = self.footCountsOf()
+  derived footCounts: array<FooterCount> = self.footCountsOf()
   // The junk in the shown vault: how many, and what a merchant gives for it.
-  derived junk: Array<Slot> = junkIn(self.stock)
-  derived junkCount: Integer = self.junk.count(slot => peek slot.id != 0)
-  derived junkWorth: Integer = worthIn(self.junk)
-  derived junkShown: Boolean = self.categories && self.shownTab == Tab::Junk
-  derived selling: Boolean = self.isBags && Game::bags.place == Game::BagPlace::Merchant && self.junkCount > 0
-  derived guildLive: Boolean = self.isGuild && self.live
-  derived gridShown: Boolean = !self.isGuild || !self.live || (self.guild.page == GuildPage::Items && !self.guild.loading)
-  derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale::GUILD_ANY : Game::money.format(self.guild.withdrawLeft)
-  derived goldRows: Array<TipRow> = self.gold
-  derived bankSlots: Boolean = self.isBank && self.live
+  derived junk: array<Slot> = junkIn(self.stock)
+  derived junkCount: integer = self.junk.count(slot => peek slot.id != 0)
+  derived junkWorth: integer = worthIn(self.junk)
+  derived junkShown: boolean = self.categories && self.shownTab == Tab::Junk
+  derived selling: boolean = self.isBags && Game::bags.place == Game::BagPlace::Merchant && self.junkCount > 0
+  derived guildLive: boolean = self.isGuild && self.live
+  derived gridShown: boolean = !self.isGuild || !self.live || (self.guild.page == GuildPage::Items && !self.guild.loading)
+  derived guildLeft: string = self.guild.withdrawLeft < 0 ? Locale::GUILD_ANY : Game::money.format(self.guild.withdrawLeft)
+  derived goldRows: array<TipRow> = self.gold
+  derived bankSlots: boolean = self.isBank && self.live
   // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
   // made, as the module's is.
-  views: Array<Choice<View>> = [
+  views: array<Choice<View>> = [
     { value: View::Categories, label: Locale::VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
     { value: View::Bags, label: Locale::VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
     { value: View::One, label: Locale::VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
@@ -219,31 +219,31 @@ public class Pane {
   const guild: GuildBank
   vault: Signal<Vault>
   // Whether the vault is open: the bags always, the bank at a banker, the guild bank at its vault.
-  live: Signal<Boolean>
+  live: Signal<boolean>
   list: mut ModuleMemory<BagsView>
   choices: Signal<Choices>
   // The window's body's width, as the player sized it.
-  width: Signal<Number<Length>>
-  lit: Signal<Integer>
-  running: Signal<Boolean>
-  gold: Signal<Array<TipRow>>
-  slotsOpen: mut Signal<Boolean>
-  bankSlotsOpen: mut Signal<Boolean>
+  width: Signal<number<Length>>
+  lit: Signal<integer>
+  running: Signal<boolean>
+  gold: Signal<array<TipRow>>
+  slotsOpen: mut Signal<boolean>
+  bankSlotsOpen: mut Signal<boolean>
   constructor(
     carried: Stock,
     bank: Stock,
     guildStock: Stock,
     guild: GuildBank,
     vault: Signal<Vault>,
-    live: Signal<Boolean>,
+    live: Signal<boolean>,
     list: mut ModuleMemory<BagsView>,
     choices: Signal<Choices>,
-    width: Signal<Number<Length>>,
-    lit: Signal<Integer>,
-    running: Signal<Boolean>,
-    gold: Signal<Array<TipRow>>,
-    slotsOpen: mut Signal<Boolean>,
-    bankSlotsOpen: mut Signal<Boolean>,
+    width: Signal<number<Length>>,
+    lit: Signal<integer>,
+    running: Signal<boolean>,
+    gold: Signal<array<TipRow>>,
+    slotsOpen: mut Signal<boolean>,
+    bankSlotsOpen: mut Signal<boolean>,
     menu: Signal<SlotMenu | nil>,
     useClick: Signal<UseClick>
   ) {
@@ -282,16 +282,16 @@ public class Pane {
     }
   }
 
-  countsOf(self): Map<Tab, Integer> {
+  countsOf(self): map<Tab, integer> {
     const stock = self.stock
     _ = stock.revision
     return countsOf(stock.all)
   }
 
   // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
-  tabsOf(self): Array<Tab> {
+  tabsOf(self): array<Tab> {
     const choices = self.choices
-    let tabs: Array<Tab> = [Tab::All]
+    let tabs: array<Tab> = [Tab::All]
     if ((self.counts[Tab::New] ?? 0) > 0) { tabs.push(Tab::New) }
     for (kind of KINDS) {
       const empty = (self.counts[kind] ?? 0) == 0
@@ -301,7 +301,7 @@ public class Pane {
     return tabs
   }
 
-  sectionsOf(self): Array<Section> {
+  sectionsOf(self): array<Section> {
     const stock = self.stock
     _ = stock.revision
     if (self.isGuild) { return oneSection(stock.bags) }
@@ -312,14 +312,14 @@ public class Pane {
     }
   }
 
-  footCountsOf(self): Array<FooterCount> {
+  footCountsOf(self): array<FooterCount> {
     if (self.guildLive) { return [{ label: Locale::GUILD_LEFT, value: self.guildLeft }] }
     const free: FooterCount = { label: Locale::FOOT_FREE, value: Locale::FREE_OF.format(self.free, self.stock.total) }
     if (!self.junkShown) { return [free] }
     return [free, { label: Locale::FOOT_JUNK, value: Locale::JUNK_WORTH.format(self.junkCount, Game::money.format(self.junkWorth)) }]
   }
 
-  onGuildTab(self, tab: Integer) { self.guildTab.emit(tab) }
+  onGuildTab(self, tab: integer) { self.guildTab.emit(tab) }
   onGuildLog(self) { self.guildLog.emit() }
   onMoneyLog(self) { self.moneyLog.emit() }
   onArrange(self) { self.arrange.emit() }

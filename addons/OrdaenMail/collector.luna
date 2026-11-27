@@ -30,9 +30,9 @@ public class Collector {
   public state stacks = 0
   public state stopped: Stop | nil = nil
   // The letters it takes from; none: every letter «Take all» opens.
-  targets: Array<String> = []
+  targets: array<string> = []
   // Attachments skipped (`key/place`) and the tries of the one asked last.
-  skipped: mut Map<String, Boolean> = {}
+  skipped: mut map<string, boolean> = {}
   asked = ""
   tries = 0
   waiting: Task<nil> | nil = nil
@@ -46,7 +46,7 @@ public class Collector {
   }
 
   // Takes from these letters, as they now stand, leaving that many bag slots free.
-  public start(mut self, letters: Array<Game::MailLetter>, keepFree: Integer) {
+  public start(mut self, letters: array<Game::MailLetter>, keepFree: integer) {
     self.keepFree = keepFree
     self.targets = letters.map(keyOf)
     self.skipped = {}
@@ -71,7 +71,7 @@ public class Collector {
     self.stopped = nil
   }
 
-  wanted(self, letter: Game::MailLetter): Boolean {
+  wanted(self, letter: Game::MailLetter): boolean {
     return collectable(letter) && self.targets.any(k => k == keyOf(letter))
   }
 
@@ -104,7 +104,7 @@ public class Collector {
     self.stop(.Done)
   }
 
-  ask(mut self, name: String) {
+  ask(mut self, name: string) {
     if (name == self.asked) {
       self.tries += 1
       if (self.tries >= TRIES) { self.skipped[name] = true }
@@ -135,7 +135,7 @@ public class Collector {
     self.waiting = self.pace()
   }
 
-  onRefused(mut self, message: String) {
+  onRefused(mut self, message: string) {
     if (!(peek self.running)) { return }
     if (message == Game::strings.inventoryFull) {
       self.stop(.Full)

@@ -37,31 +37,31 @@ const KEPT = "kept"
 // opened from «Buy» and «Sell».
 const BUY = 1
 const SELL = 2
-const TABS: Array<WindowTabSpec> = [{ title: Locale::PAGE_BUY }, { title: Locale::PAGE_SELL }]
-const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale::PAGE_SHOPPING }]
-const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale::PAGE_OWNED }]
-const FILL: Array<Track> = [{ fr: 1 }]
+const TABS: array<WindowTabSpec> = [{ title: Locale::PAGE_BUY }, { title: Locale::PAGE_SELL }]
+const SHOPPING_TABS: array<WindowTabSpec> = [{ title: Locale::PAGE_SHOPPING }]
+const OWNED_TABS: array<WindowTabSpec> = [{ title: Locale::PAGE_OWNED }]
+const FILL: array<Track> = [{ fr: 1 }]
 // The merchant's window: two columns of goods; its right column widens it. It opens with Ordaen Inventory' window: by
 // default they stand side by side about the screen's middle, the merchant's on the left (its side column with it),
 // this gap between them. Where the screen is too narrow for both, they overlap.
 const MERCHANT_WIDTH = 796.875dp
 const MERCHANT_HEIGHT = 609.375dp
 const APART = 11.71875dp
-function merchantX(): Number<Length> { return -(MERCHANT_WIDTH + APART) / 2 - windowSideWide(SIDE_WIDTH) }
+function merchantX(): number<Length> { return -(MERCHANT_WIDTH + APART) / 2 - windowSideWide(SIDE_WIDTH) }
 
 public class Trading implements Module, App {
-  public const title: String = "Ordaen Trading"
+  public const title: string = "Ordaen Trading"
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style::WIDTH, height: Style::HEIGHT }, true)
   public shoppingWindow: mut KeptWindow = new KeptWindow("shopping", Locale::PAGE_SHOPPING, { x: 0ui, y: 0ui, width: Style::SIDE_WIDTH, height: Style::HEIGHT })
   public ownedWindow: mut KeptWindow = new KeptWindow("owned", Locale::PAGE_OWNED, { x: 0ui, y: 0ui, width: Style::SIDE_WIDTH, height: Style::HEIGHT })
   public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale::MERCHANT, { x: merchantX(), y: 0ui, width: MERCHANT_WIDTH, height: MERCHANT_HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow, self.merchantWindow]
+  public const windows: mut array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow, self.merchantWindow]
   // The merchant the player stands at, and how the player left its window's list (the profile's).
   public vendor: mut Vendor = new Vendor()
   public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
-  public const pages: Array<SettingsPage> = [
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale::PAGE_DATA, content: $ltml {
       <DataPage scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
@@ -69,8 +69,8 @@ public class Trading implements Module, App {
     } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
-  derived cut: Integer = self.settings.values.cut
-  derived priceLine: Boolean = self.settings.values.priceLine
+  derived cut: integer = self.settings.values.cut
+  derived priceLine: boolean = self.settings.values.priceLine
 
   kept: mut Kept
   house: mut House
@@ -88,19 +88,19 @@ public class Trading implements Module, App {
   // The window: its page (the window's tab) and where it stands while it isn't full screen. It shows while the house
   // is open, and goes with it; so do the docked windows, each open from its button until it is closed.
   state page = BUY
-  derived shown: Boolean = Game::auctionHouse.open && self.settings.values.window
+  derived shown: boolean = Game::auctionHouse.open && self.settings.values.window
   state shoppingOpen = false
   state ownedOpen = false
   // The game's merchant window, while a merchant is open.
-  derived merchantFrames: Array<any Frame> = self.merchantFramesOf()
+  derived merchantFrames: array<any Frame> = self.merchantFramesOf()
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
-  derived room: Number<Length> = self.shoppingOpen || self.ownedOpen ? Style::SIDE_WIDTH : 0ui
+  derived room: number<Length> = self.shoppingOpen || self.ownedOpen ? Style::SIDE_WIDTH : 0ui
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
   // page, while the page shows one.
-  state buyChosen: Array<Found> = []
-  state sellChosen: Array<Offered> = []
+  state buyChosen: array<Found> = []
+  state sellChosen: array<Offered> = []
   derived side: WindowSide | nil = self.sideOf()
   // The window's footer: the status under every page.
   const footer: Template = $ltml {
@@ -152,7 +152,7 @@ public class Trading implements Module, App {
     if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
   }
 
-  merchantFramesOf(self): Array<any Frame> {
+  merchantFramesOf(self): array<any Frame> {
     if (!self.vendor.open) { return [] }
     const frame = Runtime::frame("MerchantFrame")
     return frame == nil ? [] : [frame]

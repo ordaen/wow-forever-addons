@@ -18,7 +18,7 @@ public enum Filter implements Plain { All = "all", Players = "players", Auction 
 public enum View implements Plain { List = "list", Categories = "categories", Table = "table" }
 
 // Whether a letter passes the filter and the search (a part of its subject, its sender or an item's name).
-public function matches(letter: Game::MailLetter, filter: Filter, search: String): Boolean {
+public function matches(letter: Game::MailLetter, filter: Filter, search: string): boolean {
   const kept = match (filter) {
     Filter::All => true
     Filter::Players => letter.kind == Game::MailKind::Player
@@ -36,67 +36,67 @@ public function matches(letter: Game::MailLetter, filter: Filter, search: String
 
 // Whether «Take all» opens the letter: it holds money or items, asks nothing to be paid, and isn't a game master's
 // (those are opened by hand, as the game's own «Open all» leaves them).
-public function collectable(letter: Game::MailLetter): Boolean {
+public function collectable(letter: Game::MailLetter): boolean {
   return letter.cod == 0 && !letter.gm && (letter.copper > 0 || letter.items.length > 0)
 }
 
 // A letter's name among the others while the inbox shifts under it (taken letters go, new ones come): its sender and
 // subject.
-public function keyOf(letter: Game::MailLetter): String { return `${letter.sender}\n${letter.subject}` }
+public function keyOf(letter: Game::MailLetter): string { return `${letter.sender}\n${letter.subject}` }
 
 public enum SentState implements Plain { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
 
 // An item a letter going out carries, by its number and how many.
 public struct SentItem implements Plain {
-  item: Integer = 0
-  count: Integer = 0
+  item: integer = 0
+  count: integer = 0
 }
 
 // A letter of «Outbox»: waiting to go, or gone.
 public struct Sent implements Plain {
-  number: Integer = 0
-  to: String = ""
-  subject: String = ""
-  body: String = ""
-  items: Array<SentItem> = []
-  copper: Integer = 0
-  cod: Integer = 0
+  number: integer = 0
+  to: string = ""
+  subject: string = ""
+  body: string = ""
+  items: array<SentItem> = []
+  copper: integer = 0
+  cod: integer = 0
   state: SentState = SentState::Waiting
   // Why it stopped; empty otherwise.
-  why: String = ""
+  why: string = ""
   // When it was put into the queue, and when it went: the realm's seconds.
-  at: Integer = 0
+  at: integer = 0
 }
 
 // A letter not yet gone and not stopped: waiting, or on its way.
-public function waits(letter: Sent): Boolean { return letter.state == SentState::Waiting || letter.state == SentState::Sending }
+public function waits(letter: Sent): boolean { return letter.state == SentState::Waiting || letter.state == SentState::Sending }
 
 // What is kept of the outbox, per character: the letters waiting (to survive a closed mailbox and a reload) and the
 // last letters gone, each capped; the next letter's number.
 public struct Kept implements Plain {
-  queue: Array<Sent> = []
-  history: Array<Sent> = []
-  next: Integer = 1
+  queue: array<Sent> = []
+  history: array<Sent> = []
+  next: integer = 1
 }
 
 // The recent recipients, account-wide: the newest first.
 public struct Recent implements Plain {
-  names: Array<String> = []
+  names: array<string> = []
 }
 
 // The subject with its letter's place among several, «(2/3)», kept within the game's length.
-public function numbered(subject: String, place: Integer, of: Integer): String {
+public function numbered(subject: string, place: integer, of: integer): string {
   if (of == 1) { return subject }
   const mark = ` (${place}/${of})`
   return subject.sub(1, SUBJECT_MOST - mark.length) + mark
 }
 
 // How many letters stacks go out as: twelve a letter, one for none.
-public function lettersFor(stacks: Integer): Integer { return (1).max(((stacks + PLACES - 1) / PLACES).floor()) }
+public function lettersFor(stacks: integer): integer { return (1).max(((stacks + PLACES - 1) / PLACES).floor()) }
 
 // A name put first among the recent recipients, once, the list kept to its cap.
-public function remembered(names: Array<String>, name: String): Array<String> {
-  const list: Array<String> = [name]
+public function remembered(names: array<string>, name: string): array<string> {
+  const list: array<string> = [name]
   for (one of names) {
     if (one != name && list.length < RECIPIENTS_MOST) { list.push(one) }
   }

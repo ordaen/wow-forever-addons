@@ -18,18 +18,18 @@ const GREEN: Color = Color::hex("#40d060")
 // An item slot's well, empty or not.
 const SLOT_WELL: Color = Color::hex("#0d0a08")
 
-function item(place: Integer, id: Integer, name: String, count: Integer): Game::MailItem {
+function item(place: integer, id: integer, name: string, count: integer): Game::MailItem {
   return { place: place, item: id, name: name, count: count, link: `|Hitem:${id}|h[${name}]|h` }
 }
 
-function letter(index: Integer, kind: Game::MailKind, subject: String, sender: String, copper: Integer, cod: Integer, days: Number, items: Array<Game::MailItem>): Game::MailLetter {
+function letter(index: integer, kind: Game::MailKind, subject: string, sender: string, copper: integer, cod: integer, days: number, items: array<Game::MailItem>): Game::MailLetter {
   return {
     index: index, kind: kind, subject: subject, sender: sender, copper: copper, cod: cod, days: days, items: items,
     read: false, returned: false, gm: false, deletable: kind != Game::MailKind::Player
   }
 }
 
-function letters(): Array<Game::MailLetter> {
+function letters(): array<Game::MailLetter> {
   return [
     letter(1, .Auction, "Auction successful: Linen Cloth", "Auction House", 12500, 0, 29, []),
     letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(1, 2589, "Linen Cloth", 20), item(3, 2592, "Wool Cloth", 5)]),
@@ -39,14 +39,14 @@ function letters(): Array<Game::MailLetter> {
 }
 
 // Whether a text is drawn in this colour.
-function drawnIn(part: Test::Part, color: Color): Boolean {
+function drawnIn(part: Test::Part, color: Color): boolean {
   const ink = part.textColor()
   return (ink.r * 255).round() == (color.r * 255).round() && (ink.g * 255).round() == (color.g * 255).round() &&
     (ink.b * 255).round() == (color.b * 255).round()
 }
 
 // What was asked of the game since last asked, as one line.
-function asked(): String { return Test::requests().join(", ") }
+function asked(): string { return Test::requests().join(", ") }
 
 // The window
 
@@ -90,7 +90,7 @@ test "«To my characters» has one footer, its own: the letters «Send all» tak
 test "the inbox tab counts the letters, the footer the letters shown of those waiting" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -103,7 +103,7 @@ test "the inbox tab counts the letters, the footer the letters shown of those wa
 test "while more letters wait than the server shows, it is asked again a little later" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 60
+  Game::mailbox.waiting = (): integer => 60
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
   _ = Test::requests()
@@ -116,7 +116,7 @@ test "while more letters wait than the server shows, it is asked again a little 
 test "each row says its subject, its sender, what it carries and the days left" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -131,7 +131,7 @@ test "each row says its subject, its sender, what it carries and the days left" 
 test "the search finds a letter by an item it carries" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -145,7 +145,7 @@ test "the search finds a letter by an item it carries" {
 test "the view by kind puts the letters under their kinds' captions with the counts, which fold" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -159,7 +159,7 @@ test "the view by kind puts the letters under their kinds' captions with the cou
 }
 
 // The subjects in the window, in its order.
-function order(window: Test::Part): String {
+function order(window: Test::Part): string {
   const subjects = ["Auction successful: Linen Cloth", "Bolts for you", "Pay for the sword", "Welcome"]
   return window.texts().filter(text => subjects.any(subject => subject == text)).join(", ")
 }
@@ -167,7 +167,7 @@ function order(window: Test::Part): String {
 test "the table sorts by a heading, a second click the other way" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -184,7 +184,7 @@ test "the table sorts by a heading, a second click the other way" {
 test "a row's tooltip names the sender, each attachment with its count, the money and the keys" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -200,13 +200,13 @@ test "a row's tooltip names the sender, each attachment with its count, the mone
 
 test "a click opens the letter beside the list: its text read, its items as rewards, the game's sound" {
   let played = 0
-  Client::PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
+  Client::PlaySound = (kit: integer, channel: string | nil, once: boolean | nil): (boolean | nil, unknown) => {
     played += 1
     return true, nil
   }
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -223,7 +223,7 @@ test "a click opens the letter beside the list: its text read, its items as rewa
 test "an attachment clicked is taken from its place" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -237,13 +237,13 @@ test "an attachment clicked is taken from its place" {
 
 test "Ctrl+click on an attachment tries it on and takes nothing" {
   let tried = ""
-  Client::DressUpItemLink = (link: String): Boolean => {
+  Client::DressUpItemLink = (link: string): boolean => {
     tried = link
     return true
   }
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -258,11 +258,11 @@ test "Ctrl+click on an attachment tries it on and takes nothing" {
 }
 
 test "an attachment the player can't use says so in red; one Pawn rates says by how much it raises the best scale" {
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => id == 2592 ? { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } : nil
-  Mail.upgrade = (link: String): Number | nil => link.contains("Linen") ? 0.153 : nil
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => id == 2592 ? { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } : nil
+  Mail.upgrade = (link: string): number | nil => link.contains("Linen") ? 0.153 : nil
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -277,7 +277,7 @@ test "an attachment the player can't use says so in red; one Pawn rates says by 
 test "Shift+click on a row takes everything from it, one thing at a time as the game reads the inbox again" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -292,7 +292,7 @@ test "Shift+click on a row takes everything from it, one thing at a time as the 
   Game::mailObserver.changed.emit()
   Test::pass(1)
   Test::expect(asked() == "")
-  Game::mailbox.letters = (): Array<Game::MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
+  Game::mailbox.letters = (): array<Game::MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
   answered()
   Test::expect(asked() == "Mailbox.takeItem 2 3")
 }
@@ -307,7 +307,7 @@ function answered() {
 test "«Take all» takes the money first and leaves cash on delivery and game masters' letters" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -315,13 +315,13 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
   const window = Test::page().window(MAIL)
   window.button("Take all (2)").click()
   Test::expect(asked() == "Mailbox.takeMoney 1")
-  Game::mailbox.letters = (): Array<Game::MailLetter> => letters().filter(l => l.index != 1)
+  Game::mailbox.letters = (): array<Game::MailLetter> => letters().filter(l => l.index != 1)
   answered()
   Test::expect(asked() == "Mailbox.takeItem 2 1")
 }
 
 test "«Take all» writes the house's sale into Ordaen Trading's ledger once, from its invoice" {
-  Client::GetInboxInvoiceInfo = (index: Number): (String | nil, String | nil, String | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+  Client::GetInboxInvoiceInfo = (index: number): (string | nil, string | nil, string | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil, number | nil) => {
     if (index == 1) { return "seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20 }
     return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
   }
@@ -329,7 +329,7 @@ test "«Take all» writes the house's sale into Ordaen Trading's ledger once, fr
   const auction = Trading ?? panic("Ordaen Trading is on")
   const before, copperBefore = auction.ledger.total(.Sold)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -343,7 +343,7 @@ test "«Take all» writes the house's sale into Ordaen Trading's ledger once, fr
 test "«Inventory is full» stops taking; «can't carry any more» skips that attachment" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -351,7 +351,7 @@ test "«Inventory is full» stops taking; «can't carry any more» skips that at
   const window = Test::page().window(MAIL)
   window.button("Take all (2)").click()
   _ = Test::requests()
-  Game::mailbox.letters = (): Array<Game::MailLetter> => letters().filter(l => l.index != 1)
+  Game::mailbox.letters = (): array<Game::MailLetter> => letters().filter(l => l.index != 1)
   answered()
   Test::expect(asked() == "Mailbox.takeItem 2 1")
   Game::mailObserver.refused.emit(Game::strings.itemMaxCount)
@@ -366,7 +366,7 @@ test "«Inventory is full» stops taking; «can't carry any more» skips that at
 test "taking leaves the bag slots the setting keeps free" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -382,7 +382,7 @@ test "taking leaves the bag slots the setting keeps free" {
 test "an attachment that won't come is skipped after a few tries, never asked forever" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -402,7 +402,7 @@ test "an attachment that won't come is skipped after a few tries, never asked fo
 test "Ctrl+click returns a player's letter, and never the world's" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -416,10 +416,10 @@ test "Ctrl+click returns a player's letter, and never the world's" {
 }
 
 test "cash on delivery asks before paying, and takes once paid" {
-  Client::GetMoney = (): Number => 100000
+  Client::GetMoney = (): number => 100000
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -434,10 +434,10 @@ test "cash on delivery asks before paying, and takes once paid" {
 }
 
 test "cash on delivery the player can't pay says so and takes nothing" {
-  Client::GetMoney = (): Number => 10
+  Client::GetMoney = (): number => 10
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -453,7 +453,7 @@ test "cash on delivery the player can't pay says so and takes nothing" {
 test "a letter that holds nothing offers «Delete», and deletes it only while it is still there" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -468,7 +468,7 @@ test "a letter that holds nothing offers «Delete», and deletes it only while i
 test "ticked letters are taken or returned together from the footer; Shift ticks the range" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -487,7 +487,7 @@ test "ticked letters are taken or returned together from the footer; Shift ticks
 test "«Write» opens the form; a recipient typed and «Send» puts the letter into the queue, which sends it" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -516,21 +516,21 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   window.input().nth(2).type("Regron")
   // The stack lies locked while it is in the game's letter, and free again once the form gave it back.
   let inLetter = true
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => {
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => {
     if (bag != 0 || slot != 2) { return false }
     into.id = 2589
     into.count = 20
     into.locked = inLetter
     return true
   }
-  Client::GetSendMailItem = (place: Integer): (String | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+  Client::GetSendMailItem = (place: integer): (string | nil, number | nil, number | nil, number | nil, number | nil) => {
     if (place == 1) { return "Linen Cloth", 2589, 1, 20, 1 }
     return nil, nil, nil, nil, nil
   }
-  Client::C_Item::GetItemNameByID = (id: String | Integer): String | nil => id == 2589 ? "Linen Cloth" : nil
+  Client::C_Item::GetItemNameByID = (id: string | integer): string | nil => id == 2589 ? "Linen Cloth" : nil
   Events::MAIL_SEND_INFO_UPDATE.emit()
-  Client::GetSendMailItem = (place: Integer): (String | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+  Client::GetSendMailItem = (place: integer): (string | nil, number | nil, number | nil, number | nil, number | nil) => {
     return nil, nil, nil, nil, nil
   }
   Test::expect(window.texts().join(" | ").contains("Attachments | 1 | Letters | 1"))
@@ -551,14 +551,14 @@ test "the form draws an empty slot, and an item from the bags let go on it goes 
   window.button("Write").click()
   // The four fields (to, subject, text, money) and the slot, the fourth drawn.
   Test::expect(window.box(SLOT_WELL).count() == 5)
-  Client::C_Container::GetContainerItemInfo = (bag: Integer, slot: Integer): Client::ContainerItemInfo | nil => bag == 0 && slot >= 2 && slot <= 3 ?
+  Client::C_Container::GetContainerItemInfo = (bag: integer, slot: integer): Client::ContainerItemInfo | nil => bag == 0 && slot >= 2 && slot <= 3 ?
     Client.ContainerItemInfo {
       iconFileID: 132889, stackCount: 20, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
       hyperlink: "item:2589", isFiltered: false, hasNoValue: false, itemID: 2589, isBound: false, itemName: "Linen Cloth"
     } :
     nil
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => {
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => {
     if (bag != 0 || slot < 2 || slot > 3) { return false }
     into.id = 2589
     into.count = 20
@@ -581,14 +581,14 @@ test "«To» completes against every recipient in a popover: each name in its cl
   Game::mailbox.letters = letters
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
-  Client::C_FriendList::GetNumFriends = (): Integer => 1
-  Client::C_FriendList::GetFriendInfoByIndex = (index: Integer): Client::FriendInfo | nil => {
+  Client::C_FriendList::GetNumFriends = (): integer => 1
+  Client::C_FriendList::GetFriendInfoByIndex = (index: integer): Client::FriendInfo | nil => {
     return {
       connected: true, name: "Regy", className: nil, area: nil, notes: nil, guid: "Player-1-2", level: 60, dnd: false,
       afk: false, rafLinkType: Client::RafLinkType::None
     }
   }
-  Client::GetPlayerInfoByGUID = (guid: String): (String | nil, String | nil, String | nil, String | nil, Number | nil, String | nil, String | nil, Number | nil) => {
+  Client::GetPlayerInfoByGUID = (guid: string): (string | nil, string | nil, string | nil, string | nil, number | nil, string | nil, string | nil, number | nil) => {
     return nil, "WARRIOR", nil, nil, nil, nil, nil, nil
   }
   Mail.sender.recent.write({ names: ["Regron", "Dorn"] })
@@ -646,8 +646,8 @@ test "part of a stack is split off into an empty slot first, and the letter goes
   Game::mailObserver.opened.emit()
   // Twenty Linen Cloth in 0/2, the rest empty; once split, five lie in 0/1.
   let split = false
-  Game::bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
-  Game::bags.readSlot = (bag: Integer, slot: Integer, into: mut Game::SlotItem): Boolean => {
+  Game::bags.size = (bag: integer): integer => bag == 0 ? 4 : 0
+  Game::bags.readSlot = (bag: integer, slot: integer, into: mut Game::SlotItem): boolean => {
     if (bag != 0) { return false }
     into.id = 2589
     into.locked = false
@@ -662,7 +662,7 @@ test "part of a stack is split off into an empty slot first, and the letter goes
     return false
   }
   let asks = ""
-  Game::bags.split = (fromBag: Integer, fromSlot: Integer, count: Integer, toBag: Integer, toSlot: Integer): Boolean => {
+  Game::bags.split = (fromBag: integer, fromSlot: integer, count: integer, toBag: integer, toSlot: integer): boolean => {
     asks = `${fromBag}/${fromSlot} ${count} into ${toBag}/${toSlot}`
     return true
   }
@@ -677,8 +677,8 @@ test "part of a stack is split off into an empty slot first, and the letter goes
 
 test "«Don't accept trades at the mailbox» sets the game's own setting while it is open, and puts it back" {
   let said = ""
-  Client::C_CVar::GetCVar = (name: String): String | nil => "0"
-  Client::C_CVar::SetCVar = (name: String, value: String | nil): Boolean => {
+  Client::C_CVar::GetCVar = (name: string): string | nil => "0"
+  Client::C_CVar::SetCVar = (name: string, value: string | nil): boolean => {
     said += `${name}=${value ?? ""};`
     return true
   }
@@ -706,7 +706,7 @@ test "«Reply» opens the form to the letter's sender" {
 test "a letter that fails stops with the game's reason, and «Continue» sends it again" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -727,7 +727,7 @@ test "a letter that fails stops with the game's reason, and «Continue» sends i
 test "closing the window with letters waiting asks first" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()
@@ -741,7 +741,7 @@ test "closing the window with letters waiting asks first" {
 test "the mailbox closed stops the queue there; the next mailbox opens on «Outbox» with «Continue»" {
   Test::mount(nil, PAGE)
   Game::mailbox.letters = letters
-  Game::mailbox.waiting = (): Integer => 4
+  Game::mailbox.waiting = (): integer => 4
   Game::bags.free = 20
   Game::mailObserver.open = true
   Game::mailObserver.opened.emit()

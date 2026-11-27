@@ -15,15 +15,15 @@ const CHANNEL = "master"
 // What the player chose of looting, the profile's.
 public struct LootChoices implements Plain {
   // Every slot taken at once where the client's auto loot takes the window.
-  fast: Boolean = true
+  fast: boolean = true
   // The client's auto loot on for every character of the account, kept on at each login.
-  everyCharacter: Boolean = false
+  everyCharacter: boolean = false
   // A sound as the bags are full while looting.
-  fullSound: Boolean = false
+  fullSound: boolean = false
   // The game's reel as a catch comes in.
-  reelSound: Boolean = true
+  reelSound: boolean = true
   // What was looted shown beside the screen's middle, a line each (`LootToasts`).
-  toasts: Boolean = true
+  toasts: boolean = true
 }
 
 // What looting is while the player chose nothing.
@@ -35,12 +35,12 @@ const FULL_SOUND = 139
 public class Looter {
   // A slot taken: the toasts show what it held.
   public took: Event<LootSlot> = new Event()
-  derived fast: Boolean = self.choices.fast
-  derived everyCharacter: Boolean = self.choices.everyCharacter
+  derived fast: boolean = self.choices.fast
+  derived everyCharacter: boolean = self.choices.everyCharacter
 
   choices: Signal<LootChoices>
   // The window being looted: its slots as it opened, and whether something was left.
-  slots: Array<LootSlot> = []
+  slots: array<LootSlot> = []
   left = false
   // The bags' sound once a window.
   sounded = false
@@ -63,7 +63,7 @@ public class Looter {
     Game::loot.showWindow(true)
   }
 
-  onOpened(mut self, auto: Boolean) {
+  onOpened(mut self, auto: boolean) {
     self.slots = Game::loot.slots()
     self.left = false
     self.sounded = false
@@ -92,7 +92,7 @@ public class Looter {
     self.looting = nil
   }
 
-  onCleared(self, cleared: Integer) {
+  onCleared(self, cleared: integer) {
     for (slot of self.slots) {
       if (slot.slot == cleared) { self.took.emit(slot) }
     }
@@ -116,7 +116,7 @@ public class Looter {
 }
 
 // Whether a slot is the player's to take: no roll or master looter holds it, and it isn't locked.
-function takes(slot: LootSlot, threshold: Integer | nil): Boolean {
+function takes(slot: LootSlot, threshold: integer | nil): boolean {
   if (slot.locked) { return false }
   return threshold == nil || slot.kind != .Item || slot.quality < threshold
 }

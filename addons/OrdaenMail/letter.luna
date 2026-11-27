@@ -16,15 +16,15 @@ import Style from "@/style"
 const SLOT = 42.1875dp
 // The green the game's tooltips give a gain.
 const RAISE: Color = Color::hex("#1eff00")
-const REWARD: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
-const MONEY: Array<Track> = [{ fr: 1 }, "max-content"]
-const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
-const PARTS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const REWARD: array<Track> = [SLOT, { fr: 1 }, "max-content"]
+const MONEY: array<Track> = [{ fr: 1 }, "max-content"]
+const FOOT: array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const PARTS: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 // What a letter's action asks.
 public enum LetterAct {
-  TakeItem { place: Integer }
-  TryOn { link: String }
+  TakeItem { place: integer }
+  TryOn { link: string }
   TakeMoney
   TakeAll
   GiveBack
@@ -38,14 +38,14 @@ public class Attachment implements Component {
   public act: Event<LetterAct> = new Event()
 
   derived info: AttachmentInfo = infoOf(self.item.item)
-  derived usable: Boolean = usableItem(self.item.item)
+  derived usable: boolean = usableItem(self.item.item)
   // How much more it is worth to the player's spec than what is worn, as «+n%»; empty where it is none.
-  derived raise: String = upgradeText(self.upgrade(self.item.link))
+  derived raise: string = upgradeText(self.upgrade(self.item.link))
 
   item: Signal<Game::MailItem>
-  index: Signal<Integer>
-  upgrade: (link: String) => Number | nil
-  constructor(item: Signal<Game::MailItem>, index: Signal<Integer>, upgrade: (link: String) => Number | nil) {
+  index: Signal<integer>
+  upgrade: (link: string) => number | nil
+  constructor(item: Signal<Game::MailItem>, index: Signal<integer>, upgrade: (link: string) => number | nil) {
     self.item = item
     self.index = index
     self.upgrade = upgrade
@@ -81,11 +81,11 @@ public class Attachment implements Component {
 // What the client says of an item: its quality's colour, its kind and slot, what a merchant gives for one.
 public struct AttachmentInfo {
   color: Color
-  kind: String
-  price: Integer
+  kind: string
+  price: integer
 }
 
-function infoOf(item: Integer): AttachmentInfo {
+function infoOf(item: integer): AttachmentInfo {
   const _, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   let color = Style::INK
   if (quality != nil) {
@@ -93,7 +93,7 @@ function infoOf(item: Integer): AttachmentInfo {
     color = { r: r, g: g, b: b, a: 1 }
   }
   const worn = slot != nil && slot != "" ? Runtime::text(slot) : nil
-  const parts: Array<String> = []
+  const parts: array<string> = []
   if (worn != nil) { parts.push(worn) }
   if (subkind != nil && subkind != "") { parts.push(subkind) } else if (kind != nil) { parts.push(kind) }
   return { color: color, kind: parts.join(", "), price: (price ?? 0).floor() }
@@ -102,24 +102,24 @@ function infoOf(item: Integer): AttachmentInfo {
 public class LetterView implements Component {
   public act: Event<LetterAct> = new Event()
 
-  derived hasMoney: Boolean = self.letter.copper > 0
-  derived hasCod: Boolean = self.letter.cod > 0
-  derived holds: Boolean = self.hasMoney || self.letter.items.length > 0
-  derived takeLabel: String = self.hasCod ? Locale::PAY_AND_TAKE : Locale::TAKE
-  derived returnable: Boolean = self.letter.kind == Game::MailKind::Player && !self.letter.deletable && !self.letter.returned
-  derived replies: Boolean = self.letter.kind == Game::MailKind::Player
-  derived from: String = Locale::FROM_DAYS.format(senderOf(self.letter), daysText(self.letter))
-  derived hasText: Boolean = self.text != ""
+  derived hasMoney: boolean = self.letter.copper > 0
+  derived hasCod: boolean = self.letter.cod > 0
+  derived holds: boolean = self.hasMoney || self.letter.items.length > 0
+  derived takeLabel: string = self.hasCod ? Locale::PAY_AND_TAKE : Locale::TAKE
+  derived returnable: boolean = self.letter.kind == Game::MailKind::Player && !self.letter.deletable && !self.letter.returned
+  derived replies: boolean = self.letter.kind == Game::MailKind::Player
+  derived from: string = Locale::FROM_DAYS.format(senderOf(self.letter), daysText(self.letter))
+  derived hasText: boolean = self.text != ""
 
   letter: Signal<Game::MailLetter>
-  text: Signal<String>
-  busy: Signal<Boolean>
-  upgrade: (link: String) => Number | nil
+  text: Signal<string>
+  busy: Signal<boolean>
+  upgrade: (link: string) => number | nil
   constructor(
     letter: Signal<Game::MailLetter>,
-    text: Signal<String>,
-    busy: Signal<Boolean>,
-    upgrade: (link: String) => Number | nil
+    text: Signal<string>,
+    busy: Signal<boolean>,
+    upgrade: (link: string) => number | nil
   ) {
     self.letter = letter
     self.text = text

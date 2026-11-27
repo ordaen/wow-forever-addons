@@ -4,10 +4,10 @@ import root Ordaen from "Ordaen"
 import { NumberFormat } from "@/globals"
 import { number } from "@/numbers"
 
-const SAMPLES: Array<Number> = [0, 1795, 2.5, 1234567.089, 0.25, 0.004, -3.14159, -0.0001, 12.999]
+const SAMPLES: array<number> = [0, 1795, 2.5, 1234567.089, 0.25, 0.004, -3.14159, -0.0001, 12.999]
 
-function written(title: String) {
-  let parts: Array<String> = []
+function written(title: string) {
+  let parts: array<string> = []
   for (n of SAMPLES) { parts.push(number(n).replace("\194\160", "_")) }
   Test::note(`${title}:`)
   for (part of parts) { Test::note(`  ${part}`) }

@@ -4,15 +4,15 @@ import { Edges } from "$ltml"
 
 // What Ordaen's window frame takes across past the room the windows were sized for.
 const FRAME_ACROSS = 3.7ui
-public const WIDTH: Number<Length> = 703.125dp + FRAME_ACROSS
-public const HEIGHT: Number<Length> = 656.25dp
-public const PAGE: Number<Length> = 492.1875dp
+public const WIDTH: number<Length> = 703.125dp + FRAME_ACROSS
+public const HEIGHT: number<Length> = 656.25dp
+public const PAGE: number<Length> = 492.1875dp
 // The chain window: as wide as the page with its frame, beside the log's centre at first.
-public const CHAIN_WIDTH: Number<Length> = PAGE + FRAME_ACROSS
-public const CHAIN_HEIGHT: Number<Length> = 585.9375dp
-public const CHAIN_X: Number<Length> = 468.75dp
-public const ASK: Number<Length> = 468.75dp
-public const ASK_BUTTON: Number<Length> = 140.625dp
+public const CHAIN_WIDTH: number<Length> = PAGE + FRAME_ACROSS
+public const CHAIN_HEIGHT: number<Length> = 585.9375dp
+public const CHAIN_X: number<Length> = 468.75dp
+public const ASK: number<Length> = 468.75dp
+public const ASK_BUTTON: number<Length> = 140.625dp
 // The docked panel: a window's dark body over Blizzard's log, nothing of it showing through.
 public const DOCKED_BACK: Color = Color::hex("#0a0806f7")
 public const DOCKED_PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }

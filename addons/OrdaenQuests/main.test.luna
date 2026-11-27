@@ -17,12 +17,12 @@ import { QuestSort } from "@/model"
 
 const PAGE: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
-function quest(id: Integer, title: String, header: String): Test::LogQuest {
+function quest(id: integer, title: string, header: string): Test::LogQuest {
   return { id: id, title: title, header: header, level: 14, objectives: [{ text: "Wolves slain: 5/10" }] }
 }
 
 // The player's log: two quests of the world, one of a dungeon.
-function standing(): mut Array<Test::LogQuest> {
+function standing(): mut array<Test::LogQuest> {
   return [
     { story: "Gryan asks you to look into Westfall.", xp: 420, ..quest(101, "The Defias Brotherhood", "Westfall") },
     { tag: 81, ..quest(102, "Red Silk Bandanas", "The Deadmines") },
@@ -31,7 +31,7 @@ function standing(): mut Array<Test::LogQuest> {
 }
 
 // The module with this log, its window open; QuestieDB knows the first quest, given and taken back by Gryan.
-function opened(log: Array<Test::LogQuest>) {
+function opened(log: array<Test::LogQuest>) {
   Test::questieDB(
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
@@ -247,7 +247,7 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
 
 test "many rewards give way to the parchment, which keeps its least height" {
   const log = standing()
-  let choices: Array<Test::LogReward> = []
+  let choices: array<Test::LogReward> = []
   for (index of 1..6) { choices.push({ item: 1001 + index % 3, count: index }) }
   log[3] = { rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
@@ -612,7 +612,7 @@ test "its layers stand on Ordaen Map's settings page while Map is on" {
 }
 
 // The quests of the world's tab, in the order their titles stand in the window.
-function before(first: String, second: String): Boolean {
+function before(first: string, second: string): boolean {
   const texts = Test::page().window("World").texts()
   let at = 0
   let then = 0
@@ -759,7 +759,7 @@ test "«Abandon quest» in the question is the danger plate" {
 
 test "Shift+Left-click on a title puts its chat link where a chat line is open, and tracks nothing then" {
   opened(standing())
-  Game::chat.linkQuest = (id: Integer): Boolean => id == 103
+  Game::chat.linkQuest = (id: integer): boolean => id == 103
   Test::hold([.Shift])
   Test::page().window("World").text("Elwynn Wolves").click()
   Test::hold([])

@@ -7,22 +7,22 @@ import Test from "$test"
 
 const SCREEN: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
-const LINEN: Integer = 2589
-const ORE: Integer = 2770
-const BOLT: Integer = 2996
+const LINEN: integer = 2589
+const ORE: integer = 2770
+const BOLT: integer = 2996
 const GREEN: Color = Color::hex("#40c040")
 const RED: Color = Color::hex("#ff4040")
 const GOLD: Color = Color::hex("#ffd100")
 const DIM: Color = Color::hex("#a3977f")
 
-function names(id: Integer): Game::TooltipData | nil {
+function names(id: integer): Game::TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == BOLT ? "Bolt of Linen Cloth" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
 }
 
 // Linen, 20 at 9 s, two hours left; ore, 5 with a bid alone; a bolt sold.
-function auctions(): Array<Game::Owned> {
+function auctions(): array<Game::Owned> {
   return [
     { auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 },
     { auction: 2, item: ORE, quantity: 5, buyout: nil, sold: false, left: nil },
@@ -34,14 +34,14 @@ function window(): Test::Part {
   return Test::page().window("Check")
 }
 
-function reads(part: Test::Part, expected: String): Boolean {
+function reads(part: Test::Part, expected: string): boolean {
   const read = part.texts().join(" | ")
   if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
   return true
 }
 
 // What the game was asked, but the tooltips of the rows the cursor crossed.
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   Test::flush()
   const said = Test::requests().filter(request => !request.contains("Items.show")).join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
@@ -236,7 +236,7 @@ test "the price for one is the buyout shared out, rounded down; an auction of no
 test "an auction not seen on the house says so dimly; its name in its quality's colour" {
   Game::ownedAuctions.list = [{ auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 }]
   Game::clock.server = START
-  Game::items.tooltip = (id: Integer): Game::TooltipData | nil => {
+  Game::items.tooltip = (id: integer): Game::TooltipData | nil => {
     return { lines: [{ left: "Linen Cloth", kind: 0, quality: GREEN }] }
   }
   Test::mount(nil, SCREEN)

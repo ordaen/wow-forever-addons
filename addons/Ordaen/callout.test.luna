@@ -9,7 +9,7 @@ import { Component } from "@/module"
 const TITLE = "Talent points to spend"
 
 // A button of the game's, 32 by 40 px, its middle `fromBottom` px over the screen's bottom (negative: under its top).
-function button(name: String, fromBottom: Number): any Client::Frame {
+function button(name: string, fromBottom: number): any Client::Frame {
   const made = Client::CreateFrame("Button", name, Client::C_UI::GetUIParent(), nil)
   made.SetSize(32, 40)
   if (fromBottom > 0) {
@@ -129,7 +129,7 @@ test "a speech callout is the client's chat bubble in its colour with its count 
   Test::mount(page, { left: 0, top: 0, width: 1600, height: 900 })
   Test::expect(Test::page().text("3").shown())
   Test::expect(!Test::page().box(Ordaen.art.window.wood).shown() && !Test::page().box(Ordaen.art.ctl.corner.close).shown())
-  const pieces = Test::drawn().filter(d => d.file is String && String::of(d.file).contains("ChatBubble-NineSlice"))
+  const pieces = Test::drawn().filter(d => d.file is string && string::of(d.file).contains("ChatBubble-NineSlice"))
   Test::expect(pieces.length == 9 && pieces.filter(d => d.desaturated).length == 9)
   const tail = Test::edges("ChatBubble-Tail", 0)
   const count = Test::page().text("3").rect()

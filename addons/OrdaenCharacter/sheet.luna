@@ -14,14 +14,14 @@ import { Given, ITEM_KEYS, MAINS } from "@/stat"
 // A slot of the paper doll: the client's number for it, the art of its well while nothing is worn there, and the
 // name of the client's text that names it (its tooltip while it is empty).
 public struct SlotSpec {
-  const id: Integer
+  const id: integer
   const empty: Asset
-  const name: String
+  const name: string
 }
 
 // The slots as the game's paper doll stands them: eight down the left, eight down the right, the weapons along the
 // bottom with the ammo's after the ranged one.
-public const LEFT: Array<SlotSpec> = [
+public const LEFT: array<SlotSpec> = [
   { id: 1, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Head", name: "HEADSLOT" },
   { id: 2, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Neck", name: "NECKSLOT" },
   { id: 3, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shoulder", name: "SHOULDERSLOT" },
@@ -31,7 +31,7 @@ public const LEFT: Array<SlotSpec> = [
   { id: 19, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Tabard", name: "TABARDSLOT" },
   { id: 9, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Wrists", name: "WRISTSLOT" }
 ]
-public const RIGHT: Array<SlotSpec> = [
+public const RIGHT: array<SlotSpec> = [
   { id: 10, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Hands", name: "HANDSSLOT" },
   { id: 6, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Waist", name: "WAISTSLOT" },
   { id: 7, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Legs", name: "LEGSSLOT" },
@@ -41,14 +41,14 @@ public const RIGHT: Array<SlotSpec> = [
   { id: 13, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket", name: "TRINKET0SLOT" },
   { id: 14, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket", name: "TRINKET1SLOT" }
 ]
-public const WEAPONS: Array<SlotSpec> = [
+public const WEAPONS: array<SlotSpec> = [
   { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand", name: "MAINHANDSLOT" },
   { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand", name: "SECONDARYHANDSLOT" },
   { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ranged", name: "RANGEDSLOT" }
 ]
 // The weapons of a class that keeps a relic in the ranged slot: its well and its name the relic's, as the game's paper
 // doll draws it (`checkRelic` and `UnitHasRelicSlot`).
-public const RELIC_WEAPONS: Array<SlotSpec> = [
+public const RELIC_WEAPONS: array<SlotSpec> = [
   { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand", name: "MAINHANDSLOT" },
   { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand", name: "SECONDARYHANDSLOT" },
   { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Relic", name: "RELICSLOT" }
@@ -56,42 +56,42 @@ public const RELIC_WEAPONS: Array<SlotSpec> = [
 public const AMMO: SlotSpec = { id: 0, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ammo", name: "AMMOSLOT" }
 
 // The time between two swings of both hands together: two hands swing 1/main + 1/off times a second.
-public function swingOf(stats: Stats): Number {
+public function swingOf(stats: Stats): number {
   const off = stats.offSpeed
   if (off == nil || off <= 0) { return stats.speed }
   return 1 / (1 / stats.speed + 1 / off)
 }
 
 // A hand's damage a second: its average hit over its seconds between hits; none without a weapon's speed.
-public function handDps(min: Number, max: Number, speed: Number): Number {
+public function handDps(min: number, max: number, speed: number): number {
   return speed <= 0 ? 0 : (min + max) / 2 / speed
 }
 
 // Both hands' damage a second together, and the ranged weapon's.
-public function meleeDps(stats: Stats): Number {
+public function meleeDps(stats: Stats): number {
   return handDps(stats.minDamage, stats.maxDamage, stats.speed) + handDps(stats.offMinDamage, stats.offMaxDamage, stats.offSpeed ?? 0)
 }
-public function rangedDps(stats: Stats): Number { return handDps(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed) }
+public function rangedDps(stats: Stats): number { return handDps(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed) }
 // The slots the items' level counts: every one but the shirt, the tabard and the ammo.
 const SHIRT = 4
 const TABARD = 19
 
 // What is worn in a slot; `item` none for an empty one.
 public struct Worn {
-  const slot: Integer
-  const item: Integer | nil
+  const slot: integer
+  const item: integer | nil
   const quality: Quality
-  const level: Integer | nil
+  const level: integer | nil
   // What is left of it, from 0 to 1; none for what doesn't wear.
-  const durability: Number | nil
+  const durability: number | nil
   // How many it holds (the ammo's), picked up or on its way somewhere (the client takes nothing of it), and the
   // cooldown it waits on since it was last used.
-  const count: Integer = 1
-  const locked: Boolean = false
+  const count: integer = 1
+  const locked: boolean = false
   const cooldown: FillDuration | nil = nil
   // Its name, and the stats it gives (its stat tooltips' «Items»).
-  const name: String = ""
-  const gives: Array<Given> = []
+  const name: string = ""
+  const gives: array<Given> = []
   // The set it is a piece of, with the bonuses in effect; none for an item of none.
   const set: WornSet | nil = nil
 }
@@ -100,47 +100,47 @@ public struct Worn {
 // power a point of strength and of agility, ranged attack power a point of agility, and the crit a point of agility
 // and the spell crit a point of intellect give, in percent.
 public struct Conversions implements Plain {
-  attackPerStrength: Number = 0
-  attackPerAgility: Number = 0
-  rangedPerAgility: Number = 0
-  critPerAgility: Number = 0
-  spellCritPerIntellect: Number = 0
+  attackPerStrength: number = 0
+  attackPerAgility: number = 0
+  rangedPerAgility: number = 0
+  critPerAgility: number = 0
+  spellCritPerIntellect: number = 0
 }
 
 // One of the sets the game's equipment manager keeps: whether all of it is worn, and how many of its items are
 // nowhere the player has them.
 public struct GearSet {
-  const id: Integer
-  const name: String
-  const worn: Boolean
-  const missing: Integer
+  const id: integer
+  const name: string
+  const worn: boolean
+  const missing: integer
 }
 
 // What the game's paper doll says of each stat as its tooltip's text, under the stat's name: the client's own words,
 // filled with the player's numbers, where they tell what the window doesn't already show (what defense takes off a
 // blow). Empty where the game says nothing more.
 public struct StatTips {
-  primary: Array<String> = ["", "", "", "", ""]
-  armor: String = ""
-  attackPower: String = ""
-  rangedAttackPower: String = ""
-  defense: String = ""
-  block: String = ""
-  armorPenetration: String = ""
-  spellPenetration: String = ""
-  spellDamage: String = ""
-  healing: String = ""
+  primary: array<string> = ["", "", "", "", ""]
+  armor: string = ""
+  attackPower: string = ""
+  rangedAttackPower: string = ""
+  defense: string = ""
+  block: string = ""
+  armorPenetration: string = ""
+  spellPenetration: string = ""
+  spellDamage: string = ""
+  healing: string = ""
 }
 
 // Who the character is, as the paper doll's top says it: its name and its surname where Forever gives it one;
 // `scene` its race as the client names its files (`Dwarf`, `NightElf`, `Scourge`): the scene the model stands in.
 public struct Who {
-  const name: String
-  const surname: String = ""
-  const level: Integer
-  const race: String
-  const className: String
-  const scene: String = ""
+  const name: string
+  const surname: string = ""
+  const level: integer
+  const race: string
+  const className: string
+  const scene: string = ""
 }
 
 // What the character's resource bar holds.
@@ -148,113 +148,113 @@ public enum Resource implements Plain { Mana = "Mana", Rage = "Rage", Energy = "
 
 // The character's stats as the client works them out, with every buff and item counted.
 public struct Stats {
-  strength: Integer = 0
-  agility: Integer = 0
-  stamina: Integer = 0
-  intellect: Integer = 0
-  spirit: Integer = 0
-  health: Integer = 0
-  power: Integer = 0
+  strength: integer = 0
+  agility: integer = 0
+  stamina: integer = 0
+  intellect: integer = 0
+  spirit: integer = 0
+  health: integer = 0
+  power: integer = 0
   resource: Resource = Resource::Mana
-  armor: Integer = 0
+  armor: integer = 0
   // Arcane, fire, frost, nature and shadow, in that order.
-  resistances: Array<Integer> = [0, 0, 0, 0, 0]
-  attackPower: Integer = 0
-  rangedAttackPower: Integer = 0
+  resistances: array<integer> = [0, 0, 0, 0, 0]
+  attackPower: integer = 0
+  rangedAttackPower: integer = 0
   // The main hand's damage per hit and its seconds between hits; the off hand's where one is held.
-  minDamage: Number = 0
-  maxDamage: Number = 0
-  speed: Number = 0
-  offSpeed: Number | nil = nil
+  minDamage: number = 0
+  maxDamage: number = 0
+  speed: number = 0
+  offSpeed: number | nil = nil
   // Chances in percent.
-  meleeCrit: Number = 0
-  rangedCrit: Number = 0
-  spellCrit: Number = 0
-  hit: Number = 0
-  dodge: Number = 0
-  parry: Number = 0
-  block: Number = 0
-  spellDamage: Integer = 0
-  healing: Integer = 0
+  meleeCrit: number = 0
+  rangedCrit: number = 0
+  spellCrit: number = 0
+  hit: number = 0
+  dodge: number = 0
+  parry: number = 0
+  block: number = 0
+  spellDamage: integer = 0
+  healing: integer = 0
   // Mana every five seconds while casting.
-  regen: Number = 0
+  regen: number = 0
   // Mana every five seconds outside casting: the mana bar's regeneration.
-  restingRegen: Number = 0
+  restingRegen: number = 0
   // Health every five seconds out of a fight and in one; what spirit gives of health's and of mana's (standing, as
   // the game's own sheet counts it).
-  healthRegen: Number = 0
-  combatHealthRegen: Number = 0
-  healthFromSpirit: Number = 0
-  manaFromSpirit: Number = 0
+  healthRegen: number = 0
+  combatHealthRegen: number = 0
+  healthFromSpirit: number = 0
+  manaFromSpirit: number = 0
   // The class keeps a relic where others keep a ranged weapon (a paladin's libram, a druid's idol, a shaman's totem).
-  relic: Boolean = false
+  relic: boolean = false
   // At the game's greatest level: what lands is counted against a raid's boss, else against a target of its level.
-  atMaxLevel: Boolean = false
+  atMaxLevel: boolean = false
   // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
-  bases: Array<Integer> = [0, 0, 0, 0, 0]
+  bases: array<integer> = [0, 0, 0, 0, 0]
   tips: StatTips = {}
   // Hit by kind, in percent: the one rating's share plus what talents and items give that kind, as the game's own
   // sheet adds them.
-  meleeHit: Number = 0
-  rangedHit: Number = 0
-  spellHit: Number = 0
+  meleeHit: number = 0
+  rangedHit: number = 0
+  spellHit: number = 0
   // The boss's dodge taken away, in percent; armor penetration and spell penetration as the client counts them.
-  expertise: Number = 0
-  armorPenetration: Integer = 0
-  spellPenetration: Integer = 0
+  expertise: number = 0
+  armorPenetration: integer = 0
+  spellPenetration: integer = 0
   // The defense skill with its bonus, the damage a block stops, and the share of a level 63 boss's blows armor stops.
-  defense: Integer = 0
-  blockValue: Integer = 0
-  armorReduction: Number = 0
+  defense: integer = 0
+  blockValue: integer = 0
+  armorReduction: number = 0
   // Each school's spell damage: holy, fire, nature, frost, shadow and arcane, the client's schools 2 to 7.
-  schoolDamage: Array<Integer> = [0, 0, 0, 0, 0, 0]
+  schoolDamage: array<integer> = [0, 0, 0, 0, 0, 0]
   // The off hand's damage per hit, and the ranged weapon's with its seconds between shots.
-  offMinDamage: Number = 0
-  offMaxDamage: Number = 0
-  rangedMinDamage: Number = 0
-  rangedMaxDamage: Number = 0
-  rangedSpeed: Number = 0
+  offMinDamage: number = 0
+  offMaxDamage: number = 0
+  rangedMinDamage: number = 0
+  rangedMaxDamage: number = 0
+  rangedSpeed: number = 0
   // A druid's energy beside its mana (none for the others) and what it regains a second.
-  energy: Integer = 0
-  energyRegen: Number = 0
+  energy: integer = 0
+  energyRegen: number = 0
   // Running and swimming, in percent of the game's base speeds.
-  runSpeed: Number = 100
-  swimSpeed: Number = 100
+  runSpeed: number = 100
+  swimSpeed: number = 100
   // The skill line of what each hand and the ranged slot hold (`SkillLineAttributes.skillID`), none where nothing is
   // held or the ranged slot holds a relic.
-  mainSkill: Integer | nil = nil
-  offSkill: Integer | nil = nil
-  rangedSkill: Integer | nil = nil
+  mainSkill: integer | nil = nil
+  offSkill: integer | nil = nil
+  rangedSkill: integer | nil = nil
   // The main hand's and the ranged weapon's skill past the level's (five a level), and a raid boss's defense (its level
   // 63's) past the level's: each point of skill past a target's defense takes 0.04% off its misses, dodges and parries
   // and adds as much to crit, as the game's skills frame counts it.
-  meleeSkillPast: Number = 0
-  offSkillPast: Number = 0
-  rangedSkillPast: Number = 0
-  bossDefensePast: Number = 15
+  meleeSkillPast: number = 0
+  offSkillPast: number = 0
+  rangedSkillPast: number = 0
+  bossDefensePast: number = 15
   // The chance a swing of the main hand glances, and how much less a glancing blow deals, in percent: against a raid
   // boss, and against a target of the player's level.
-  bossGlancing: Number = 0
-  levelGlancing: Number = 0
-  bossGlancingPenalty: Number = 0
-  levelGlancingPenalty: Number = 0
+  bossGlancing: number = 0
+  levelGlancing: number = 0
+  bossGlancingPenalty: number = 0
+  levelGlancingPenalty: number = 0
   // Haste in percent, as the game's paper doll shows each: the melee swings', the ranged shots' (the ammo's with it),
   // the spells'.
-  meleeHaste: Number = 0
-  rangedHaste: Number = 0
-  spellHaste: Number = 0
+  meleeHaste: number = 0
+  rangedHaste: number = 0
+  spellHaste: number = 0
   // A shield in the off hand: what blocks.
-  shield: Boolean = false
+  shield: boolean = false
   // How much less physical damage the armor lets through from a raid boss, in percent (`armorReduction` a target's of
   // the player's level).
-  bossArmorReduction: Number = 0
+  bossArmorReduction: number = 0
   // The defense skill past the level's (five a level; below it, less than nothing).
-  defensePast: Number = 0
+  defensePast: number = 0
   conversions: Conversions = {}
 }
 
 // The client's skill line of each weapon kind, by the item's subclass (`WEAPON_SUBCLASS_TO_SKILL_ID`).
-const WEAPON_SKILLS: Map<Integer, Integer> = {
+const WEAPON_SKILLS: map<integer, integer> = {
   [0]: 44, [1]: 172, [2]: 45, [3]: 46, [4]: 54, [5]: 160, [6]: 229, [7]: 43, [8]: 55, [10]: 136, [13]: 473, [15]: 173,
   [16]: 176, [18]: 226, [19]: 228
 }
@@ -280,79 +280,79 @@ const SWIM_BASE = 4.722222
 // where it is between the standing's start and its end. `index` is the client's place of the row in its list as it
 // stands now: folding a group moves the rows after it.
 public struct Faction {
-  const index: Integer
-  const id: Integer
-  const name: String
-  const description: String
-  const standing: Integer
-  const value: Integer
-  const min: Integer
-  const max: Integer
-  const header: Boolean
+  const index: integer
+  const id: integer
+  const name: string
+  const description: string
+  const standing: integer
+  const value: integer
+  const min: integer
+  const max: integer
+  const header: boolean
   // A heading that has a standing of its own.
-  const ranked: Boolean
-  const child: Boolean
-  const collapsed: Boolean
-  const atWar: Boolean
-  const canToggleAtWar: Boolean
-  const canSetInactive: Boolean
-  const watched: Boolean
+  const ranked: boolean
+  const child: boolean
+  const collapsed: boolean
+  const atWar: boolean
+  const canToggleAtWar: boolean
+  const canSetInactive: boolean
+  const watched: boolean
 }
 
 // A row of the game's skill list: a heading, which folds, or a skill with its rank, the bonus on it and the cap for the
 // level, the game's description, and whether the player may unlearn it (a profession, a secondary skill).
 public struct Skill {
   // The client's skill line (`skillID`): what a weapon's kind names.
-  const id: Integer = 0
+  const id: integer = 0
   // Its place in the game's list, which folds and unfolds by it.
-  const index: Integer = 0
-  const name: String
-  const header: Boolean
-  const collapsed: Boolean = false
-  const rank: Integer
-  const modifier: Integer
-  const max: Integer
-  const description: String = ""
-  const abandonable: Boolean = false
+  const index: integer = 0
+  const name: string
+  const header: boolean
+  const collapsed: boolean = false
+  const rank: integer
+  const modifier: integer
+  const max: integer
+  const description: string = ""
+  const abandonable: boolean = false
 }
 
 public trait Sheet {
-  public worn(self, slot: Integer): Worn
-  public usesAmmo(self): Boolean
+  public worn(self, slot: integer): Worn
+  public usesAmmo(self): boolean
   public who(self): Who
   // The player's statistics; none while the client holds them secret (in a fight where secrets apply).
   public stats(self): Stats | nil
-  public factions(self): Array<Faction>
+  public factions(self): array<Faction>
   // Whether a faction of the list is inactive: asked of the one the player picks.
-  public inactive(self, index: Integer): Boolean
-  public skills(self): Array<Skill>
+  public inactive(self, index: integer): boolean
+  public skills(self): array<Skill>
   // A heading of the skills, by its place, unfolded (`open`) or folded, as the game keeps it; a skill unlearned.
-  public foldSkills(mut self, index: Integer, open: Boolean)
-  public unlearn(mut self, skill: Integer)
+  public foldSkills(mut self, index: integer, open: boolean)
+  public unlearn(mut self, skill: integer)
   // The slot clicked as the game's own slot is: what the cursor holds is equipped there, or what is worn there is
   // taken onto the cursor (to the bags, the bars, another slot).
-  public pickup(mut self, slot: Integer)
+  public pickup(mut self, slot: integer)
   // Whether what the cursor holds goes in the slot: the slot is lit, as the game's is.
-  public fits(self, slot: Integer): Boolean
+  public fits(self, slot: integer): boolean
   // What is worn there tried on in the dressing room, as Ctrl+Left-click does.
-  public tryOn(mut self, slot: Integer)
+  public tryOn(mut self, slot: integer)
   // What the bags hold that the slot takes (the game's flyout, Alt), by the items' numbers, and one of them put on.
-  public fitting(self, slot: Integer): Array<Integer>
-  public equip(mut self, item: Integer, slot: Integer)
+  public fitting(self, slot: integer): array<integer>
+  public equip(mut self, item: integer, slot: integer)
   // The equipment manager's sets, one put on, and what is worn saved as a new one.
-  public sets(self): Array<GearSet>
-  public useSet(mut self, id: Integer)
-  public saveSet(mut self, name: String)
-  public fold(mut self, index: Integer, open: Boolean)
-  public watchFaction(mut self, index: Integer, on: Boolean)
-  public toggleAtWar(mut self, index: Integer)
-  public setInactive(mut self, index: Integer, inactive: Boolean)
+  public sets(self): array<GearSet>
+  public useSet(mut self, id: integer)
+  public saveSet(mut self, name: string)
+  public fold(mut self, index: integer, open: boolean)
+  public watchFaction(mut self, index: integer, on: boolean)
+  public toggleAtWar(mut self, index: integer)
+  public setInactive(mut self, index: integer, inactive: boolean)
 }
 
-function levelCounts(slot: Integer): Boolean { return slot != SHIRT && slot != TABARD && slot != AMMO.id }
+function levelCounts(slot: integer): boolean { return slot != SHIRT && slot != TABARD && slot != AMMO.id }
 
 // What is worn in the slots the items' level counts, each with its level, the highest first.
-public function levelledItems(worn: Array<Worn>): Array<Worn> {
+public function levelledItems(worn: array<Worn>): array<Worn> {
   const levelled = worn.filter(piece => piece.item != nil && piece.level != nil && levelCounts(piece.slot))
   levelled.sort((a, b) => (a.level ?? 0) > (b.level ?? 0))
   return levelled
@@ -360,7 +360,7 @@ public function levelledItems(worn: Array<Worn>): Array<Worn> {
 
 // The median of their levels (`levelledItems`): the middle one, or halfway between the two in the middle; none while
 // nothing is worn. One item far above or below the rest (a quest's weapon) moves it no more than any other.
-public function medianLevel(levelled: Array<Worn>): Number | nil {
+public function medianLevel(levelled: array<Worn>): number | nil {
   const count = levelled.length
   if (count == 0) { return nil }
   const upper = levelled[((count + 1) / 2).floor()]?.level ?? 0
@@ -368,7 +368,7 @@ public function medianLevel(levelled: Array<Worn>): Number | nil {
   return (upper + lower) / 2
 }
 
-function resistanceOf(school: Client::Damageclass): Integer {
+function resistanceOf(school: Client::Damageclass): integer {
   let _, value, _, _ = Client::UnitResistance("player", school)
   return value.floor()
 }
@@ -384,22 +384,22 @@ function resourceOf(kind: Client::PowerType | nil): Resource {
 
 // What the game's paper doll writes under a stat's value: its base and what buffs and items add and take («300+12»);
 // empty where nothing does.
-function breakdown(natural: Integer, up: Integer, down: Integer): String {
+function breakdown(natural: integer, up: integer, down: integer): string {
   if (up == 0 && down == 0) { return "" }
-  let text = String::of(natural)
+  let text = string::of(natural)
   if (up > 0) { text += `+${up}` }
-  if (down < 0) { text += String::of(down) }
+  if (down < 0) { text += string::of(down) }
   return text
 }
 
 // One of the client's own texts by its name; empty where it has none.
-function said(key: String): String {
+function said(key: string): string {
   return Runtime::text(key) ?? ""
 }
 
 // The skill line of the weapon a slot holds; none for an empty slot or what is no weapon (a shield, a book).
 // A skill line's rank with its bonus, none where the player hasn't it.
-function skillValue(id: Integer | nil): Integer | nil {
+function skillValue(id: integer | nil): integer | nil {
   if (id == nil) { return nil }
   for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
     const data = Client::C_SkillInfo::GetSkillLineInfo(index)
@@ -409,14 +409,14 @@ function skillValue(id: Integer | nil): Integer | nil {
 }
 
 // Whether the off hand holds a shield.
-function shieldWorn(): Boolean {
+function shieldWorn(): boolean {
   const id = Client::GetInventoryItemID("player", 17)
   if (id == nil) { return false }
   let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
   return kind == ARMOR_CLASS && subclass == SHIELDS
 }
 
-function weaponSkill(slot: Integer): Integer | nil {
+function weaponSkill(slot: integer): integer | nil {
   const id = Client::GetInventoryItemID("player", slot)
   if (id == nil) { return nil }
   let _, _, _, _, _, kind, subclass = Client::C_Item::GetItemInfoInstant(id.floor())
@@ -432,7 +432,7 @@ const AGILITY = 2
 const INTELLECT = 4
 
 // The start of a line the client writes with a format, its text before the format's `%s` («Чары: »).
-function startOf(format: String | nil): String {
+function startOf(format: string | nil): string {
   if (format == nil) { return "" }
   const start = format.match("^(.-)%%s")
   return start ?? ""
@@ -441,7 +441,7 @@ function startOf(format: String | nil): String {
 // The words the client's lines are told by, in the client's language: its own names of the item stats, and this
 // addon's words for what the client names nowhere (armor and every stat as a bonus says them, a chance's stem).
 public function clientWords(): LineWords {
-  const flat: Array<FlatWord> = [
+  const flat: array<FlatWord> = [
     { label: Locale::WORD_ARMOR, stats: [.Armor] },
     { label: Locale::WORD_ALL_STATS, stats: MAINS }
   ]
@@ -466,8 +466,8 @@ public function clientWords(): LineWords {
 }
 
 // The lines of the tooltip of the item a unit wears in a slot, in order.
-function linesOf(unit: String, slot: Integer): Array<ItemLine> {
-  const lines: Array<ItemLine> = []
+function linesOf(unit: string, slot: integer): array<ItemLine> {
+  const lines: array<ItemLine> = []
   const data = Client::C_TooltipInfo::GetInventoryItem(unit, slot, nil)
   if (!(data is Table)) { return lines }
   const raw = data["lines"]
@@ -477,19 +477,19 @@ function linesOf(unit: String, slot: Integer): Array<ItemLine> {
     if (line is Table) {
       const text = line["leftText"]
       const kind = line["type"]
-      if (text is String && kind is Number) { lines.push({ text: text, kind: kind.floor() }) }
+      if (text is string && kind is number) { lines.push({ text: text, kind: kind.floor() }) }
     }
   }
   return lines
 }
 
-function givenBy(link: String | nil): Array<Given> {
-  const gives: Array<Given> = []
+function givenBy(link: string | nil): array<Given> {
+  const gives: array<Given> = []
   if (link == nil) { return gives }
   const table = Client::C_Item::GetItemStats(link)
   if (table is Table) {
     for (key, value of table) {
-      if (key is String && value is Number) {
+      if (key is string && value is number) {
         const known = ITEM_KEYS[key]
         if (known != nil) {
           const amount = known.rating == 0 ? value : Client::GetCombatRatingBonusForCombatRatingValue(known.rating, value) ?? value
@@ -503,13 +503,13 @@ function givenBy(link: String | nil): Array<Given> {
 
 // What a unit wears in a slot, as any unit's can be read (the player's, or the player inspected once the server
 // answered): the item, its name, quality and level, and what it gives with its enchant and its set.
-public function wornBy(unit: String, slot: Integer, words: LineWords): Worn {
+public function wornBy(unit: string, slot: integer, words: LineWords): Worn {
   const id = Client::GetInventoryItemID(unit, slot)
   if (id == nil) { return { slot: slot, item: nil, quality: Quality::Common, level: nil, durability: nil } }
   const item = id.floor()
   let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client::C_Item::GetItemInfo(item)
   const bonuses = bonusesOf(linesOf(unit, slot), words)
-  const gives: Array<Given> = []
+  const gives: array<Given> = []
   for (given of givenBy(Client::GetInventoryItemLink(unit, slot))) { gives.push(given) }
   for (given of bonuses.base) { gives.push(given) }
   for (given of bonuses.enchant) { gives.push(given) }
@@ -541,7 +541,7 @@ public class ClientSheet implements Sheet {
 
   // What anyone's slot says, and what only the player's own does: its wear, how many, whether it is locked, its
   // cooldown.
-  public worn(self, slot: Integer): Worn {
+  public worn(self, slot: integer): Worn {
     const piece = wornBy("player", slot, self.words)
     if (piece.item == nil) { return piece }
     let left, most = Client::GetInventoryItemDurability(slot)
@@ -561,17 +561,17 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public fits(self, slot: Integer): Boolean { return Client::C_PaperDollInfo::CursorCanGoInSlot(slot) }
+  public fits(self, slot: integer): boolean { return Client::C_PaperDollInfo::CursorCanGoInSlot(slot) }
 
-  public tryOn(mut self, slot: Integer) {
+  public tryOn(mut self, slot: integer) {
     const link = Client::GetInventoryItemLink("player", slot)
     if (link != nil) { _ = Client::DressUpItemLink(link) }
   }
 
-  public fitting(self, slot: Integer): Array<Integer> {
-    const found: Map<Integer, Integer> = {}
+  public fitting(self, slot: integer): array<integer> {
+    const found: map<integer, integer> = {}
     _ = Client::GetInventoryItemsForSlot(slot, found)
-    const items: Array<Integer> = []
+    const items: array<integer> = []
     for (_, item of found) {
       if (!items.any(i => i == item)) { items.push(item) }
     }
@@ -579,10 +579,10 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone, as the game's flyout does it.
-  public equip(mut self, item: Integer, slot: Integer) { Client::C_Item::EquipItemByName(item, slot) }
+  public equip(mut self, item: integer, slot: integer) { Client::C_Item::EquipItemByName(item, slot) }
 
-  public sets(self): Array<GearSet> {
-    const sets: Array<GearSet> = []
+  public sets(self): array<GearSet> {
+    const sets: array<GearSet> = []
     for (id of Client::C_EquipmentSet::GetEquipmentSetIDs()) {
       let name, _, _, worn, _, _, _, lost, _ = Client::C_EquipmentSet::GetEquipmentSetInfo(id)
       if (name != nil) {
@@ -598,11 +598,11 @@ public class ClientSheet implements Sheet {
   }
 
   // In the player's click alone: the client refuses it in a fight, which the window says before.
-  public useSet(mut self, id: Integer) { _ = Client::C_EquipmentSet::UseEquipmentSet(id) }
+  public useSet(mut self, id: integer) { _ = Client::C_EquipmentSet::UseEquipmentSet(id) }
 
-  public saveSet(mut self, name: String) { Client::C_EquipmentSet::CreateEquipmentSet(name, nil) }
+  public saveSet(mut self, name: string) { Client::C_EquipmentSet::CreateEquipmentSet(name, nil) }
 
-  public usesAmmo(self): Boolean { return Client::UnitUsesAmmo("player") }
+  public usesAmmo(self): boolean { return Client::UnitUsesAmmo("player") }
 
   public who(self): Who {
     let race, scene, _ = Client::UnitRace("player")
@@ -622,16 +622,16 @@ public class ClientSheet implements Sheet {
     let speed, offSpeed, _ = Client::UnitAttackSpeed("player")
     let resting, casting = Client::GetManaRegen()
     let kind, token, _, _, _ = Client::UnitPowerType("player", nil)
-    let spellDamage: Number = 0
+    let spellDamage: number = 0
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client::GetSpellBonusDamage(school) ?? 0) }
     const attackPower = (base + positive + negative).floor()
     const rangedAttackPower = (rangedBase + rangedPositive + rangedNegative).floor()
     const healing = Client::GetSpellBonusHealing().floor()
     const block = Client::GetBlockChance()
     const hit = Client::GetHitModifier()
-    const primary: Array<Integer> = []
-    const bases: Array<Integer> = []
-    const primaryTips: Array<String> = []
+    const primary: array<integer> = []
+    const bases: array<integer> = []
+    const primaryTips: array<string> = []
     for (index of 1..5) {
       let natural, effective, up, down = Client::UnitStat("player", index)
       primary.push(effective.floor())
@@ -646,7 +646,7 @@ public class ClientSheet implements Sheet {
     let expertise, _, _ = Client::GetExpertise()
     let _, runSpeed, _, swimSpeed = Client::GetUnitSpeed("player")
     let energyRegen, _ = Client::GetPowerRegenForPowerType(ENERGY_POWER)
-    const schoolDamage: Array<Integer> = []
+    const schoolDamage: array<integer> = []
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client::GetSpellBonusDamage(school) ?? 0).floor()) }
     const relic = Client::UnitHasRelicSlot("player")
     let healthRegen, combatHealthRegen = Client::GetHealthRegen()
@@ -766,8 +766,8 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public factions(self): Array<Faction> {
-    const rows: Array<Faction> = []
+  public factions(self): array<Faction> {
+    const rows: array<Faction> = []
     for (index of 1..Client::C_Reputation::GetNumFactions()) {
       const data = Client::C_Reputation::GetFactionDataByIndex(index)
       if (data != nil) {
@@ -794,10 +794,10 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public inactive(self, index: Integer): Boolean { return !Client::C_Reputation::IsFactionActive(index) }
+  public inactive(self, index: integer): boolean { return !Client::C_Reputation::IsFactionActive(index) }
 
-  public skills(self): Array<Skill> {
-    const rows: Array<Skill> = []
+  public skills(self): array<Skill> {
+    const rows: array<Skill> = []
     for (index of 1..Client::C_SkillInfo::GetNumSkillLines()) {
       const data = Client::C_SkillInfo::GetSkillLineInfo(index)
       if (data != nil) {
@@ -818,9 +818,9 @@ public class ClientSheet implements Sheet {
     return rows
   }
 
-  public pickup(mut self, slot: Integer) { Client::PickupInventoryItem(slot) }
+  public pickup(mut self, slot: integer) { Client::PickupInventoryItem(slot) }
 
-  public foldSkills(mut self, index: Integer, open: Boolean) {
+  public foldSkills(mut self, index: integer, open: boolean) {
     if (open) {
       Client::C_SkillInfo::ExpandSkillHeader(index)
     } else {
@@ -828,9 +828,9 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public unlearn(mut self, skill: Integer) { Client::C_SkillInfo::AbandonSkill(skill) }
+  public unlearn(mut self, skill: integer) { Client::C_SkillInfo::AbandonSkill(skill) }
 
-  public fold(mut self, index: Integer, open: Boolean) {
+  public fold(mut self, index: integer, open: boolean) {
     if (open) {
       Client::C_Reputation::ExpandFactionHeader(index)
     } else {
@@ -839,21 +839,21 @@ public class ClientSheet implements Sheet {
   }
 
   // The faction shown on the bar: none once the one shown is turned off (index 0, as the game's own switch does).
-  public watchFaction(mut self, index: Integer, on: Boolean) { Client::C_Reputation::SetWatchedFactionByIndex(on ? index : 0) }
+  public watchFaction(mut self, index: integer, on: boolean) { Client::C_Reputation::SetWatchedFactionByIndex(on ? index : 0) }
 
-  public toggleAtWar(mut self, index: Integer) { Client::C_Reputation::ToggleFactionAtWar(index) }
+  public toggleAtWar(mut self, index: integer) { Client::C_Reputation::ToggleFactionAtWar(index) }
 
-  public setInactive(mut self, index: Integer, inactive: Boolean) { Client::C_Reputation::SetFactionActive(index, !inactive) }
+  public setInactive(mut self, index: integer, inactive: boolean) { Client::C_Reputation::SetFactionActive(index, !inactive) }
 }
 
 // A standing's name as the client writes it (`FACTION_STANDING_LABEL1`, hated, to `8`, exalted).
-public function standingName(standing: Integer): String {
+public function standingName(standing: integer): string {
   return Runtime::text(`FACTION_STANDING_LABEL${standing}`) ?? ""
 }
 
 // A standing's colour as the client's reputation bar fills it (`FACTION_BAR_COLORS`); neutral's where it has none.
 const NEUTRAL: Color = { r: 0.9, g: 0.7, b: 0, a: 1 }
-public function standingColor(standing: Integer): Color {
+public function standingColor(standing: integer): Color {
   const color = Client::FACTION_BAR_COLORS[standing]
   if (color == nil) { return NEUTRAL }
   return { r: color.r, g: color.g, b: color.b, a: 1 }

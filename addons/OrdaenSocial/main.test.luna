@@ -26,7 +26,7 @@ const PAGE: Test::Page = { left: 0, top: 0, width: 1600, height: 900, screen: tr
 const WINDOW = "Recent Allies"
 
 // Whether a field in this part shows this text: the guild's message and information are texts to copy.
-function fieldSays(part: Test::Part, text: String): Boolean {
+function fieldSays(part: Test::Part, text: string): boolean {
   const fields = part.input()
   for (at of 1..fields.count()) {
     if (fields.nth(at).value() == text) { return true }
@@ -34,11 +34,11 @@ function fieldSays(part: Test::Part, text: String): Boolean {
   return false
 }
 
-function hero(name: String, level: Integer, area: String): Hero {
+function hero(name: string, level: integer, area: string): Hero {
   return { name: name, level: level, className: "Warrior", classFile: "WARRIOR", area: area, realm: "Flamegor" }
 }
 
-function member(name: String, level: Integer, className: String, zone: String, presence: Presence, rank: String, order: Integer, note: String): Member {
+function member(name: string, level: integer, className: string, zone: string, presence: Presence, rank: string, order: integer, note: string): Member {
   return {
     key: name, name: name, level: level, className: className, classFile: "", zone: zone, presence: presence, rank: rank,
     rankOrder: order, note: note, officerNote: "", away: presence == .Offline ? 50 : 0, achievementPoints: level * 10,
@@ -48,7 +48,7 @@ function member(name: String, level: Integer, className: String, zone: String, p
 
 // The friends as the game gives them: two Battle.net friends (one a best friend playing here, one offline), two
 // characters (one offline).
-function friends(): Array<Friend> {
+function friends(): array<Friend> {
   return [
     {
       index: 1, presence: .Offline, note: "", hero: nil,
@@ -70,18 +70,18 @@ function friends(): Array<Friend> {
 }
 
 // The rest the game's friends part answers each test with: a request, one ignored, the player's Battle.net self.
-function requests(): Array<Game::FriendRequest> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
-function ignoredOnes(): Array<Game::Ignored> { return [Game.Ignored.Character { index: 1, name: "Rudegnome" }] }
+function requests(): array<Game::FriendRequest> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
+function ignoredOnes(): array<Game::Ignored> { return [Game.Ignored.Character { index: 1, name: "Rudegnome" }] }
 
 function battleNetSelf(): Game::BattleNetSelf {
   return { battleTag: "Ordaen#2718", presence: .Online, broadcast: "", hero: hero("Torvald", 25, "Ironforge") }
 }
 
 // What the window asked of the game's parts since last asked, as one line.
-function askedGame(): String { return Test::requests().join(", ") }
+function askedGame(): string { return Test::requests().join(", ") }
 
 // The guild: three (one offline) whose ranks the player may change and who may manage the guild, or not; none.
-function guildOf(motd: String, manages: Boolean): GuildRoster {
+function guildOf(motd: string, manages: boolean): GuildRoster {
   return {
     name: "Iron Vow", motd: motd, info: "Be kind to the new ones.",
     members: [
@@ -93,13 +93,13 @@ function guildOf(motd: String, manages: Boolean): GuildRoster {
   }
 }
 
-function guildRoster(motd: String): GuildRoster | nil { return guildOf(motd, true) }
-function guildUnmanaged(motd: String): GuildRoster | nil { return guildOf(motd, false) }
-function noGuild(motd: String): GuildRoster | nil { return nil }
-function guildMotd(): String { return "Raid on Friday" }
+function guildRoster(motd: string): GuildRoster | nil { return guildOf(motd, true) }
+function guildUnmanaged(motd: string): GuildRoster | nil { return guildOf(motd, false) }
+function noGuild(motd: string): GuildRoster | nil { return nil }
+function guildMotd(): string { return "Raid on Friday" }
 
 // Three lines of the guild's news, one sticky, and the news' filter of three kinds.
-function guildNews(): Array<GuildNews> {
+function guildNews(): array<GuildNews> {
   return [
     { who: "Ingrid", what: "crafted [Copper Chain Vest]", kind: .Crafted, subject: 3471, day: 12, month: 11, sticky: false },
     { who: "Branna", what: "earned [Level 20]", kind: .Achievement, subject: 7, day: 10, month: 11, sticky: false },
@@ -107,7 +107,7 @@ function guildNews(): Array<GuildNews> {
   ]
 }
 
-function newsFilters(): Array<NewsFilter> {
+function newsFilters(): array<NewsFilter> {
   return [
     { kind: 2, label: "Achievements", shown: true }, { kind: 3, label: "Dungeon Encounters", shown: true },
     { kind: 6, label: "Epic Items Crafted", shown: true }
@@ -115,14 +115,14 @@ function newsFilters(): Array<NewsFilter> {
 }
 
 // Two communities, each with its members and two streams.
-function clubs(): Array<Club> {
+function clubs(): array<Club> {
   return [
     { id: "c1", name: "Night Fishers", description: "We fish at night.", broadcast: "Tonight at nine", battleNet: true, memberCount: 2 },
     { id: "c2", name: "Smiths of Ironforge", description: "", broadcast: "", battleNet: false, memberCount: 1 }
   ]
 }
 
-function clubMembers(club: String): Array<Member> {
+function clubMembers(club: string): array<Member> {
   if (club == "c2") { return [member("Bjorn", 25, "Paladin", "Ironforge", .Online, "Owner", 1, "")] }
   return [
     member("Halvar", 23, "Hunter", "Wetlands", .Online, "Owner", 1, "the best rod"),
@@ -130,13 +130,13 @@ function clubMembers(club: String): Array<Member> {
   ]
 }
 
-function streams(club: String): Array<ClubStream> {
+function streams(club: string): array<ClubStream> {
   return [{ id: "1", name: "General", subject: "Everything" }, { id: "2", name: "Catches", subject: "" }]
 }
 
 // Two recent allies: Gunnar, pinned or not, did a dungeon with the player (the game finds him among the dungeons);
 // Astrid did nothing of either.
-function alliesOf(categories: Array<AllyCategory> | nil, pinned: Boolean): Array<RecentAlly> {
+function alliesOf(categories: array<AllyCategory> | nil, pinned: boolean): array<RecentAlly> {
   const gunnar: RecentAlly = {
     member: member("Gunnar", 25, "Shaman", "Redridge", .Online, "", 0, ""), fullName: "Gunnar-Flamegor",
     meetings: [{ text: "Completed the Deadmines together", when: Game::clock.server - 7200 }, { text: "Traded", when: Game::clock.server - 259200 }],
@@ -152,16 +152,16 @@ function alliesOf(categories: Array<AllyCategory> | nil, pinned: Boolean): Array
   ]
 }
 
-function allies(categories: Array<AllyCategory> | nil): Array<RecentAlly> { return alliesOf(categories, true) }
-function alliesUnpinned(categories: Array<AllyCategory> | nil): Array<RecentAlly> { return alliesOf(categories, false) }
-function allyCategories(): Array<AllyCategory> { return [.PvP, .Dungeons] }
+function allies(categories: array<AllyCategory> | nil): array<RecentAlly> { return alliesOf(categories, true) }
+function alliesUnpinned(categories: array<AllyCategory> | nil): array<RecentAlly> { return alliesOf(categories, false) }
+function allyCategories(): array<AllyCategory> { return [.PvP, .Dungeons] }
 
 // The test's door to the chat, the group and the clipboard: what it is asked is heard.
 class FakePeople implements People {
-  heard: mut Array<String> = []
+  heard: mut array<string> = []
 
-  public copy(mut self, text: String) { self.heard.push(`copy ${text}`) }
-  public inviteTo(mut self, name: String) { self.heard.push(`invite ${name}`) }
+  public copy(mut self, text: string) { self.heard.push(`copy ${text}`) }
+  public inviteTo(mut self, name: string) { self.heard.push(`invite ${name}`) }
 }
 
 // The game's friends window, shown as its key or its micro button shows it, with the test's door: ours.
@@ -383,11 +383,11 @@ test "the filter shows each kind and those offline, and the view draws the frien
 }
 
 // The friends' names as the list shows them, in its order, joined by «, ».
-function friendsOrder(window: Test::Part): String {
+function friendsOrder(window: Test::Part): string {
   return window.texts().filter(text => text == "Alexei" || text == "Irina" || text == "Eliana" || text == "Darrick").join(", ")
 }
 
-function sortBy(window: Test::Part, choice: String) {
+function sortBy(window: Test::Part, choice: string) {
   window.button(Ordaen.art.ctl.tool.sort).click()
   Test::page().window("Online first").button(choice).click()
 }
@@ -726,7 +726,7 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
 }
 
 // Where a text first stands among those a part says, in the order drawn.
-function placeOf(part: Test::Part, text: String): Integer {
+function placeOf(part: Test::Part, text: string): integer {
   for (at, said of part.texts()) {
     if (said == text) { return at }
   }
@@ -1160,7 +1160,7 @@ test "the guild's news filter offers the game's kinds here and asks the game for
 }
 
 test "a line of the guild's news has its tooltip: an achievement's name and description, an item's own button" {
-  Client::GetAchievementInfo = (id: Integer, index: Integer | nil): (Number | nil, String | nil, Number | nil, Boolean | nil, Number | nil, Number | nil, Number | nil, String | nil, Number | nil, FileId | nil, String | nil, Boolean | nil, Boolean | nil, String | nil) => {
+  Client::GetAchievementInfo = (id: integer, index: integer | nil): (number | nil, string | nil, number | nil, boolean | nil, number | nil, number | nil, number | nil, string | nil, number | nil, FileId | nil, string | nil, boolean | nil, boolean | nil, string | nil) => {
     return id, "Level 20", 10, true, 11, 10, 26, "Reach level 20.", 0, nil, nil, false, false, nil
   }
   Test::mount(nil, PAGE)
@@ -1241,7 +1241,7 @@ test "an ally a request was sent to this session says so, and can't be asked aga
 test "the characters last seen are capped, go when not seen for long or no longer friends, and stay while Battle.net is off" {
   const now = 1800000000
   const old: SeenHero = { name: "Old", level: 10, className: "Mage", classFile: "MAGE", realm: "Flamegor", at: now - 200 * 86400 }
-  const kept: Map<String, SeenHero> = {}
+  const kept: map<string, SeenHero> = {}
   kept["Old#1"] = old
   kept["Gone#2"] = { name: "Gone", level: 5, className: "", classFile: "", realm: "", at: now }
   kept["Drake#2145"] = { name: "Torgrim", level: 25, className: "Warrior", classFile: "WARRIOR", realm: "Flamegor", at: now }
@@ -1254,8 +1254,8 @@ test "the characters last seen are capped, go when not seen for long or no longe
   // Nothing changed: nothing to write.
   Test::expect(seenAfter(read, friends(), now) == nil)
   // At most two hundred: the oldest go.
-  const many: Map<String, SeenHero> = {}
-  const list: Array<Friend> = []
+  const many: map<string, SeenHero> = {}
+  const list: array<Friend> = []
   for (at of 1..205) {
     const tag = `Friend#${at}`
     many[tag] = { name: "A", level: 1, className: "", classFile: "", realm: "", at: now - at }
@@ -1266,7 +1266,7 @@ test "the characters last seen are capped, go when not seen for long or no longe
 }
 
 // The friends a session later: Alexei gone offline.
-function friendsLater(): Array<Friend> {
+function friendsLater(): array<Friend> {
   return friends().map((friend: Friend): Friend => {
     if (friend.account?.battleTag != "Drake#2145") { return friend }
     return Friend { index: friend.index, presence: .Offline, note: friend.note, hero: nil, account: friend.account }
@@ -1299,10 +1299,10 @@ test "an offline Battle.net friend shows the character last seen, after a reload
 // The whispers
 
 // Two colours of the same channels.
-function sameColor(a: Color, b: Color): Boolean { return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a }
+function sameColor(a: Color, b: Color): boolean { return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a }
 
 // A whisper as Ordaen Chat hands it: heard (or told, by the player), its words what the bubble shows.
-function whisper(sender: String, words: String, told: Boolean = false, time: Number = Game::clock.server): mut Game::ChatLine {
+function whisper(sender: string, words: string, told: boolean = false, time: number = Game::clock.server): mut Game::ChatLine {
   const kind = told ? "WHISPER_INFORM" : "WHISPER"
   return {
     kind: kind, event: `CHAT_MSG_${kind}`, body: words, plain: words, text: words, sender: sender, guid: "", lineId: 1,

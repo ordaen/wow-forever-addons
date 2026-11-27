@@ -2,7 +2,7 @@
 // the game's own window plays it (a window opened, a tab turned). A kit the client hasn't plays nothing.
 import Client from "$client"
 
-public function playSound(kit: String) {
+public function playSound(kit: string) {
   const id = Client::SOUNDKIT[kit]
   if (id != nil) { _ = Client::PlaySound(id, nil, nil) }
 }

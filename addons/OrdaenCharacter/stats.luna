@@ -13,22 +13,22 @@ import Style from "@/style"
 
 // A stat with a cap: its name, its value against the cap, the value as written and the fill's colour.
 public struct Gauge {
-  const label: String
-  const value: Number
-  const cap: Number
-  const text: String
+  const label: string
+  const value: number
+  const cap: number
+  const text: string
   const tone: Color
   // The stat its tooltip tells the sources of; none for one without.
   const stat: Stat | nil = nil
   // Its caps, marked on it.
-  const caps: Array<Cap> = []
+  const caps: array<Cap> = []
   // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the gauge's.
   const tip: Hang | nil = nil
 }
 
 // A gauge whose caps are marked on it: it reaches a fifth past the greatest, so each mark stands inside it.
-function capped(label: String, value: Number, stat: Stat, caps: Array<Cap>): Gauge {
-  let most: Number = 0
+function capped(label: string, value: number, stat: Stat, caps: array<Cap>): Gauge {
+  let most: number = 0
   for (c of caps) { most = most.max(c.at) }
   return { label: label, value: value, cap: most * CAPPED_ROOM, text: percent(value), tone: Style::GAUGE, stat: stat, caps: caps }
 }
@@ -36,20 +36,20 @@ const CAPPED_ROOM = 1.2
 
 // A stat on a line of its own: its name, its value and a unit after it.
 public struct Row {
-  const label: String
-  const value: String
-  const unit: String = ""
+  const label: string
+  const value: string
+  const unit: string = ""
   const stat: Stat | nil = nil
 }
 
 // One of a section's main numbers: its glyph in the socket in its colour, its name over its value; `lit` the
 // section's lead, its glyph bright.
 public struct Figure {
-  const label: String
-  const value: String
+  const label: string
+  const value: string
   const glyph: Piece
   const color: Color
-  const lit: Boolean = false
+  const lit: boolean = false
   const stat: Stat | nil = nil
   // Where its tooltip stands, tried before its column's ways: the tooltip's corner on the card's.
   const tip: Hang | nil = nil
@@ -59,16 +59,16 @@ public struct Figure {
 // weapons', the defense), its cards (a row each, a row's cards sharing its width, a lone card half of it), its gauges
 // and its lines.
 public struct Section {
-  const title: String
-  const lead: Array<Gauge> = []
-  const cards: Array<Array<Figure>>
-  const gauges: Array<Gauge>
-  const rows: Array<Row>
+  const title: string
+  const lead: array<Gauge> = []
+  const cards: array<array<Figure>>
+  const gauges: array<Gauge>
+  const rows: array<Row>
 }
 
 // A resistance on the resistances' bar: its value, its school's colour and its stat.
 public struct Resist {
-  const value: Integer
+  const value: integer
   const color: Color
   const stat: Stat
 }
@@ -76,12 +76,12 @@ public struct Resist {
 // One of the five main stats: its value, its name in three letters, and what the game's sheet says of it; `valued`
 // where the player's spec weighs it among its most (`mainsOf`).
 public struct Main {
-  const value: Integer
-  const short: String
-  const label: String
-  const tip: String
+  const value: integer
+  const short: string
+  const label: string
+  const tip: string
   const stat: Stat
-  const valued: Boolean = false
+  const valued: boolean = false
 }
 
 // The gauges' full: crit, defense (a level 63 boss can't crit), dodge, parry and block, haste; the armor and a
@@ -97,13 +97,13 @@ const ARMOR_CAP = 17265
 // fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage, armor, percent, block
 // (a shield), blocked (a shield struck through) and time (an hourglass).
 const GLYPH_FILE: Asset = "@/media/character-glyphs.tga"
-const function glyphPieces(): Array<Piece> {
-  let list: Array<Piece> = []
+const function glyphPieces(): array<Piece> {
+  let list: array<Piece> = []
   for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
   return list
 }
-const GLYPHS: Array<Piece> = glyphPieces()
-function glyph(row: Integer): Piece { return GLYPHS[row] ?? panic("fourteen glyphs") }
+const GLYPHS: array<Piece> = glyphPieces()
+function glyph(row: integer): Piece { return GLYPHS[row] ?? panic("fourteen glyphs") }
 const HEAL_GLYPH = 7
 const POWER_GLYPH = 8
 const DAMAGE_GLYPH = 9
@@ -113,11 +113,11 @@ const BLOCK_GLYPH = 12
 const BLOCKED_GLYPH = 13
 const TIME_GLYPH = 14
 // The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
-const SCHOOL_COLORS: Array<Color> = [Style::HOLY, Style::FIRE, Style::NATURE, Style::FROST, Style::SHADOW, Style::ARCANE]
-function schoolColor(school: Integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
+const SCHOOL_COLORS: array<Color> = [Style::HOLY, Style::FIRE, Style::NATURE, Style::FROST, Style::SHADOW, Style::ARCANE]
+function schoolColor(school: integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
 // The schools' names, holy to arcane: a spell card's title.
-const SCHOOL_NAMES: Array<String> = [Locale::SCHOOL_HOLY, Locale::SCHOOL_FIRE, Locale::SCHOOL_NATURE, Locale::SCHOOL_FROST, Locale::SCHOOL_SHADOW, Locale::SCHOOL_ARCANE]
-function schoolName(school: Integer): String { return SCHOOL_NAMES[school - 1] ?? panic("six schools") }
+const SCHOOL_NAMES: array<string> = [Locale::SCHOOL_HOLY, Locale::SCHOOL_FIRE, Locale::SCHOOL_NATURE, Locale::SCHOOL_FROST, Locale::SCHOOL_SHADOW, Locale::SCHOOL_ARCANE]
+function schoolName(school: integer): string { return SCHOOL_NAMES[school - 1] ?? panic("six schools") }
 const HOLY = 2
 const FIRE = 3
 const NATURE = 4
@@ -127,10 +127,10 @@ const ARCANE = 7
 
 // A class's damage schools and the school it heals with (none: 0), by its tag.
 struct Casting {
-  const schools: Array<Integer>
-  const heals: Integer
+  const schools: array<integer>
+  const heals: integer
 }
-const CASTING: Map<String, Casting> = {
+const CASTING: map<string, Casting> = {
   MAGE: { schools: [FIRE, FROST, ARCANE], heals: 0 },
   WARLOCK: { schools: [SHADOW, FIRE], heals: 0 },
   PRIEST: { schools: [SHADOW, HOLY], heals: HOLY },
@@ -139,28 +139,28 @@ const CASTING: Map<String, Casting> = {
   PALADIN: { schools: [HOLY], heals: HOLY }
 }
 
-function percent(value: Number): String { return "%.2f%%".format(value) }
-function seconds(value: Number): String { return "%.2f".format(value) }
-function tenths(value: Number): String { return "%.1f".format(value) }
+function percent(value: number): string { return "%.2f%%".format(value) }
+function seconds(value: number): string { return "%.2f".format(value) }
+function tenths(value: number): string { return "%.1f".format(value) }
 
-function measured(label: String, value: Number, cap: Number, text: String, stat: Stat): Gauge {
+function measured(label: string, value: number, cap: number, text: string, stat: Stat): Gauge {
   return { label: label, value: value, cap: cap, text: text, tone: Style::GAUGE, stat: stat }
 }
 
-function rate(label: String, value: Number, cap: Number, stat: Stat): Gauge {
+function rate(label: string, value: number, cap: number, stat: Stat): Gauge {
   return measured(label, value, cap, percent(value), stat)
 }
 
 // The five main stats. By the player's spec's weights (`weights`, its own sheet's alone): the most weighed first,
 // those weighed at least half the most `valued`. Without: the class's own first (the greatest of strength, agility and
 // intellect), then stamina, then the rest in the game's order.
-public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
-  const worth: Array<Number> = weights == nil ? [0, 0, 0, 0, 0] :
+public function mainsOf(stats: Stats, weights: Weights | nil): array<Main> {
+  const worth: array<number> = weights == nil ? [0, 0, 0, 0, 0] :
     [weights.strength, weights.agility, weights.stamina, weights.intellect, weights.spirit]
-  let most: Number = 0
+  let most: number = 0
   for (weight of worth) { most = most.max(weight) }
-  const valued = (index: Integer): Boolean => most > 0 && (worth[index] ?? 0) * 2 >= most
-  const all: Array<Main> = [
+  const valued = (index: integer): boolean => most > 0 && (worth[index] ?? 0) * 2 >= most
+  const all: array<Main> = [
     { value: stats.strength, short: Locale::STRENGTH_SHORT, label: Locale::STRENGTH, tip: stats.tips.primary[1] ?? "", stat: .Strength, valued: valued(1) },
     { value: stats.agility, short: Locale::AGILITY_SHORT, label: Locale::AGILITY, tip: stats.tips.primary[2] ?? "", stat: .Agility, valued: valued(2) },
     { value: stats.stamina, short: Locale::STAMINA_SHORT, label: Locale::STAMINA, tip: stats.tips.primary[3] ?? "", stat: .Stamina, valued: valued(3) },
@@ -168,12 +168,12 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
     { value: stats.spirit, short: Locale::SPIRIT_SHORT, label: Locale::SPIRIT, tip: stats.tips.primary[5] ?? "", stat: .Spirit, valued: valued(5) }
   ]
   if (most > 0) {
-    let order: Array<Integer> = [1, 2, 3, 4, 5]
-    order.sort((a: Integer, b: Integer): Boolean => (worth[a] ?? 0) > (worth[b] ?? 0) || ((worth[a] ?? 0) == (worth[b] ?? 0) && a < b))
+    let order: array<integer> = [1, 2, 3, 4, 5]
+    order.sort((a: integer, b: integer): boolean => (worth[a] ?? 0) > (worth[b] ?? 0) || ((worth[a] ?? 0) == (worth[b] ?? 0) && a < b))
     return order.map(index => all[index] ?? panic("five main stats"))
   }
   const lead = stats.intellect > stats.strength.max(stats.agility) ? 4 : stats.agility > stats.strength ? 2 : 1
-  const order: Array<Integer> = [lead, 3]
+  const order: array<integer> = [lead, 3]
   for (index of 1..5) {
     if (index != lead && index != 3) { order.push(index) }
   }
@@ -183,8 +183,8 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
 // The defence section's cards: the armor's cut of the damage and what of an enemy's blows lands on the player, side by
 // side, against the enemy the cards count; under them, with a shield, block's chance and the damage a block stops. The
 // reduction's tooltip stands over it, the hit's on its right, block's on its left, each clear of what it lights.
-function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
-  const rows: Array<Array<Figure>> = [[
+function defenceCardsOf(stats: Stats): array<array<Figure>> {
+  const rows: array<array<Figure>> = [[
     {
       label: Locale::DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH),
       color: Style::STAT, stat: .DamageReduction, tip: { point: .BottomLeft, to: .TopLeft }
@@ -200,7 +200,7 @@ function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
         label: Locale::BLOCK, value: percent(stats.block), glyph: glyph(BLOCK_GLYPH), color: Style::STAT, stat: .Block,
         tip: { point: .BottomRight, to: .BottomLeft }
       },
-      { label: Locale::BLOCK_VALUE, value: String::of(stats.blockValue), glyph: glyph(BLOCKED_GLYPH), color: Style::STAT, stat: .BlockValue }
+      { label: Locale::BLOCK_VALUE, value: string::of(stats.blockValue), glyph: glyph(BLOCKED_GLYPH), color: Style::STAT, stat: .BlockValue }
     ])
   }
   return rows
@@ -211,7 +211,7 @@ function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
 public function defenceOf(stats: Stats): Section {
   return {
     title: Locale::SECTION_DEFENSE,
-    lead: [{ label: Locale::SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String::of(stats.defense), tone: Style::SKILL, stat: .Defense }],
+    lead: [{ label: Locale::SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: string::of(stats.defense), tone: Style::SKILL, stat: .Defense }],
     cards: defenceCardsOf(stats),
     gauges: defenceGauges(stats),
     rows: []
@@ -219,12 +219,12 @@ public function defenceOf(stats: Stats): Section {
 }
 
 // The defence section's gauges under its cards: dodge and parry, then the armor, its tooltip over it.
-function defenceGauges(stats: Stats): Array<Gauge> {
+function defenceGauges(stats: Stats): array<Gauge> {
   return [
     rate(Locale::DODGE, stats.dodge, AVOIDANCE_CAP, .Dodge),
     rate(Locale::PARRY, stats.parry, AVOIDANCE_CAP, .Parry),
     {
-      label: Locale::ARMOR, value: stats.armor, cap: ARMOR_CAP, text: String::of(stats.armor), tone: Style::ARMOR, stat: .Armor,
+      label: Locale::ARMOR, value: stats.armor, cap: ARMOR_CAP, text: string::of(stats.armor), tone: Style::ARMOR, stat: .Armor,
       tip: { point: .BottomLeft, to: .TopLeft }
     }
   ]
@@ -232,39 +232,39 @@ function defenceGauges(stats: Stats): Array<Gauge> {
 
 // Under a pool's bar: what it regains, out of a fight and in one, every five seconds (energy every second, in a fight
 // as out of it; rage none).
-public function healthRegenRows(stats: Stats): Array<Row> {
+public function healthRegenRows(stats: Stats): array<Row> {
   return [
-    { label: Locale::REGEN, value: String::of(stats.healthRegen.floor()), unit: Locale::PER_FIVE, stat: .HealthRegen },
-    { label: Locale::COMBAT_REGEN, value: String::of(stats.combatHealthRegen.floor()), unit: Locale::PER_FIVE, stat: .CombatHealthRegen }
+    { label: Locale::REGEN, value: string::of(stats.healthRegen.floor()), unit: Locale::PER_FIVE, stat: .HealthRegen },
+    { label: Locale::COMBAT_REGEN, value: string::of(stats.combatHealthRegen.floor()), unit: Locale::PER_FIVE, stat: .CombatHealthRegen }
   ]
 }
-public function powerRegenRows(stats: Stats): Array<Row> {
+public function powerRegenRows(stats: Stats): array<Row> {
   return match (stats.resource) {
     .Mana => [
-      { label: Locale::REGEN, value: String::of(stats.restingRegen.floor()), unit: Locale::PER_FIVE, stat: .ManaRegen },
-      { label: Locale::COMBAT_REGEN, value: String::of(stats.regen.floor()), unit: Locale::PER_FIVE, stat: .Regen }
+      { label: Locale::REGEN, value: string::of(stats.restingRegen.floor()), unit: Locale::PER_FIVE, stat: .ManaRegen },
+      { label: Locale::COMBAT_REGEN, value: string::of(stats.regen.floor()), unit: Locale::PER_FIVE, stat: .Regen }
     ]
     .Energy => energyRegenRows(stats)
     else => []
   }
 }
-public function energyRegenRows(stats: Stats): Array<Row> {
-  return [{ label: Locale::REGEN, value: String::of(stats.energyRegen.floor()), unit: Locale::PER_SECOND }]
+public function energyRegenRows(stats: Stats): array<Row> {
+  return [{ label: Locale::REGEN, value: string::of(stats.energyRegen.floor()), unit: Locale::PER_SECOND }]
 }
 
 // The movement speeds, in percent of the game's base.
-public function speedsOf(stats: Stats): Array<Row> {
+public function speedsOf(stats: Stats): array<Row> {
   return [
-    { label: Locale::RUN_SPEED, value: String::of(stats.runSpeed.round()), unit: "%", stat: .RunSpeed },
-    { label: Locale::SWIM_SPEED, value: String::of(stats.swimSpeed.round()), unit: "%" }
+    { label: Locale::RUN_SPEED, value: string::of(stats.runSpeed.round()), unit: "%", stat: .RunSpeed },
+    { label: Locale::SWIM_SPEED, value: string::of(stats.swimSpeed.round()), unit: "%" }
   ]
 }
 
 // The resistances the character has, each a share of their sum in its school's colour: fire, nature, frost, shadow,
 // arcane; none at 0.
-public function resistsOf(stats: Stats): Array<Resist> {
+public function resistsOf(stats: Stats): array<Resist> {
   const r = stats.resistances
-  const all: Array<Resist> = [
+  const all: array<Resist> = [
     { value: r[2] ?? 0, color: Style::FIRE, stat: .FireResistance },
     { value: r[4] ?? 0, color: Style::NATURE, stat: .NatureResistance },
     { value: r[3] ?? 0, color: Style::FROST, stat: .FrostResistance },
@@ -276,15 +276,15 @@ public function resistsOf(stats: Stats): Array<Resist> {
 
 // A weapon a section holds: its skill line (none where nothing is held) and the stat its skill's tooltip tells.
 struct Held {
-  const skill: Integer | nil
+  const skill: integer | nil
   const stat: Stat
 }
 
 // The skill gauges of the weapons a section holds, the main hand's and the other's where each holds one: one a skill
 // (two swords share one, the main hand's), in blue up to the cap, each with its tooltip.
-function skillGauges(held: Array<Held>, skills: Array<Skill>): Array<Gauge> {
-  const gauges: Array<Gauge> = []
-  const seen: Array<Integer> = []
+function skillGauges(held: array<Held>, skills: array<Skill>): array<Gauge> {
+  const gauges: array<Gauge> = []
+  const seen: array<integer> = []
   for (weapon of held) {
     const id = weapon.skill
     if (id != nil && !seen.any(s => s == id)) {
@@ -292,7 +292,7 @@ function skillGauges(held: Array<Held>, skills: Array<Skill>): Array<Gauge> {
       const skill = skills.find(s => s.id == id)
       if (skill != nil) {
         const value = skill.rank + skill.modifier
-        gauges.push({ label: skill.name, value: value, cap: skill.max, text: String::of(value), tone: Style::SKILL, stat: weapon.stat })
+        gauges.push({ label: skill.name, value: value, cap: skill.max, text: string::of(value), tone: Style::SKILL, stat: weapon.stat })
       }
     }
   }
@@ -309,23 +309,23 @@ function landsCard(stat: Stat, stats: Stats): Figure {
 }
 
 // A section's card of the seconds between its swings or its shots.
-function speedCard(between: Number, stat: Stat): Figure {
+function speedCard(between: number, stat: Stat): Figure {
   return { label: Locale::ATTACK_SPEED, value: `${seconds(between)} ${Locale::SECONDS}`, glyph: glyph(TIME_GLYPH), color: Style::STAT, stat: stat }
 }
 
 // The second row of a weapon's section: what lands, and the seconds between its attacks where it has any.
-function landsRow(lands: Stat, between: Number, speed: Stat, stats: Stats): Array<Figure> {
+function landsRow(lands: Stat, between: number, speed: Stat, stats: Stats): array<Figure> {
   const row = [landsCard(lands, stats)]
   if (between > 0) { row.push(speedCard(between, speed)) }
   return row
 }
 
-function melee(stats: Stats, skills: Array<Skill>): Section {
+function melee(stats: Stats, skills: array<Skill>): Section {
   return {
     title: Locale::SECTION_MELEE,
     lead: skillGauges([{ skill: stats.mainSkill, stat: .MainHandSkill }, { skill: stats.offSkill, stat: .OffHandSkill }], skills),
     cards: [[
-      { label: Locale::ATTACK_POWER, value: String::of(stats.attackPower), glyph: glyph(POWER_GLYPH), color: Style::STAT, stat: .AttackPower },
+      { label: Locale::ATTACK_POWER, value: string::of(stats.attackPower), glyph: glyph(POWER_GLYPH), color: Style::STAT, stat: .AttackPower },
       { label: Locale::DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style::STAT, stat: .MeleeDps }
     ], landsRow(.MeleeLands, stats.speed > 0 ? swingOf(stats) : 0, .AttackSpeed, stats)],
     gauges: [
@@ -334,12 +334,12 @@ function melee(stats: Stats, skills: Array<Skill>): Section {
       capped(Locale::EXPERTISE, stats.expertise, .Expertise, expertiseCaps()),
       rate(Locale::HASTE, stats.meleeHaste, HASTE_CAP, .MeleeHaste)
     ],
-    rows: [{ label: Locale::ARMOR_PENETRATION, value: String::of(stats.armorPenetration), stat: .ArmorPenetration }]
+    rows: [{ label: Locale::ARMOR_PENETRATION, value: string::of(stats.armorPenetration), stat: .ArmorPenetration }]
   }
 }
 
 // The ranged weapon's section; a wand's is its skill and its damage a second alone (no attack power counts in it).
-function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
+function ranged(stats: Stats, skills: array<Skill>): Section | nil {
   const skill = stats.rangedSkill
   if (skill == nil) { return nil }
   const lead = skillGauges([{ skill: skill, stat: .RangedSkill }], skills)
@@ -360,7 +360,7 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
     title: Locale::SECTION_RANGED,
     lead: lead,
     cards: [[
-      { label: Locale::ATTACK_POWER, value: String::of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style::STAT, stat: .RangedAttackPower },
+      { label: Locale::ATTACK_POWER, value: string::of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style::STAT, stat: .RangedAttackPower },
       { label: Locale::DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style::STAT, stat: .RangedDps }
     ], landsRow(.RangedLands, stats.rangedSpeed, .RangedAttackSpeed, stats)],
     gauges: [capped(Locale::HIT, stats.rangedHit, .RangedHit, hitCaps(.RangedHit, stats)), rate(Locale::CRIT, stats.rangedCrit, CRIT_CAP, .RangedCrit), haste],
@@ -370,17 +370,17 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
 
 // The spells of a class that casts: a card per school its damage spells use, the greatest first and lit, then its
 // healing where it heals; spell hit and crit; penetration and the mana regained while casting.
-function spells(stats: Stats, classTag: String): Section | nil {
+function spells(stats: Stats, classTag: string): Section | nil {
   const casting = CASTING[classTag]
   if (casting == nil) { return nil }
   const schools = casting.schools.map(school => school)
   schools.sort((a, b) => (stats.schoolDamage[a - 1] ?? 0) > (stats.schoolDamage[b - 1] ?? 0))
-  const cards: Array<Figure> = []
+  const cards: array<Figure> = []
   for (index, school of schools) {
-    cards.push({ label: schoolName(school), value: String::of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1, stat: .SpellDamage })
+    cards.push({ label: schoolName(school), value: string::of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1, stat: .SpellDamage })
   }
   if (casting.heals != 0) {
-    cards.push({ label: Locale::HEALING, value: String::of(stats.healing), glyph: glyph(HEAL_GLYPH), color: schoolColor(casting.heals), stat: .Healing })
+    cards.push({ label: Locale::HEALING, value: string::of(stats.healing), glyph: glyph(HEAL_GLYPH), color: schoolColor(casting.heals), stat: .Healing })
   }
   return {
     title: Locale::SECTION_SPELLS,
@@ -390,14 +390,14 @@ function spells(stats: Stats, classTag: String): Section | nil {
       rate(Locale::CRIT, stats.spellCrit, CRIT_CAP, .SpellCrit),
       rate(Locale::HASTE, stats.spellHaste, HASTE_CAP, .SpellHaste)
     ],
-    rows: [{ label: Locale::SPELL_PENETRATION, value: String::of(stats.spellPenetration), stat: .SpellPenetration }]
+    rows: [{ label: Locale::SPELL_PENETRATION, value: string::of(stats.spellPenetration), stat: .SpellPenetration }]
   }
 }
 
 // The right column's sections in the order the class reads them: a caster's spells first, then melee and ranged;
 // anyone else's melee and ranged, then their spells.
-public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String): Array<Section> {
-  const sections: Array<Section> = []
+public function sectionsOf(stats: Stats, skills: array<Skill>, classTag: string): array<Section> {
+  const sections: array<Section> = []
   const magic = spells(stats, classTag)
   const caster = stats.intellect > stats.strength.max(stats.agility)
   if (caster && magic != nil) { sections.push(magic) }
@@ -408,11 +408,11 @@ public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String)
   return sections
 }
 
-const NO_BOOSTS: Map<String, Boost> = {}
-const NO_ROWS: Array<Row> = []
+const NO_BOOSTS: map<string, Boost> = {}
+const NO_ROWS: array<Row> = []
 
 // A stat's value's ink: green while an aura raises it, red while one lowers it, else its own.
-function inkOf(stat: Stat | nil, boosts: Map<String, Boost>, plain: Color): Color {
+function inkOf(stat: Stat | nil, boosts: map<string, Boost>, plain: Color): Color {
   if (stat == nil) { return plain }
   const boost = boosts[`${stat}`]
   if (boost == .Up) { return Style::GREEN }
@@ -441,7 +441,7 @@ public const TIP_LEFT: Beside = {
 // Where a view's tooltip stands: its own way first where it has one, then its column's.
 function placeFor(column: Beside, own: Hang | nil): Beside {
   if (own == nil) { return column }
-  const prefer: Array<Hang> = [own]
+  const prefer: array<Hang> = [own]
   for (hang of column.prefer ?? []) { prefer.push(hang) }
   return { beside: column.beside, prefer: prefer }
 }
@@ -454,16 +454,16 @@ public class StatSpot implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   state hovered = false
-  derived open: Boolean = self.hovered && self.stat != nil && !self.quiet
-  derived glows: Boolean = self.stat != nil && self.shown.fed.any(s => s == self.stat)
+  derived open: boolean = self.hovered && self.stat != nil && !self.quiet
+  derived glows: boolean = self.stat != nil && self.shown.fed.any(s => s == self.stat)
 
   stat: Signal<Stat | nil>
-  title: Signal<String>
+  title: Signal<string>
   shown: Signal<Breakdown>
   // Something in it shows a tooltip of its own (a gauge's mark under the cursor): its own stays shut meanwhile.
-  quiet: Signal<Boolean>
+  quiet: Signal<boolean>
   tip: Signal<Beside>
-  constructor(stat: Signal<Stat | nil>, title: Signal<String>, shown: Signal<Breakdown>, quiet: Signal<Boolean> = false,
+  constructor(stat: Signal<Stat | nil>, title: Signal<string>, shown: Signal<Breakdown>, quiet: Signal<boolean> = false,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.stat = stat
     self.title = title
@@ -496,7 +496,7 @@ public class StatSpot implements Component {
 }
 
 // A gauge's caps as marks at their shares of its full.
-function marksOf(gauge: Gauge): Array<GaugeMark> {
+function marksOf(gauge: Gauge): array<GaugeMark> {
   return gauge.cap <= 0 ? [] : gauge.caps.map(c => GaugeMark { share: c.at / gauge.cap, title: c.title, text: c.text })
 }
 
@@ -506,17 +506,17 @@ public class StatGauge implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   state onMark = false
-  derived share: Number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
-  derived marks: Array<GaugeMark> = marksOf(self.gauge)
+  derived share: number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
+  derived marks: array<GaugeMark> = marksOf(self.gauge)
   derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style::DIM : BRIGHT_TEXT)
-  derived title: String = self.gauge.label
+  derived title: string = self.gauge.label
   derived place: Beside = placeFor(self.tip, self.gauge.tip)
 
   gauge: Signal<Gauge>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
+  boosts: Signal<map<string, Boost>>
   tip: Signal<Beside>
-  constructor(gauge: Signal<Gauge>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS,
+  constructor(gauge: Signal<Gauge>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.gauge = gauge
     self.shown = shown
@@ -549,13 +549,13 @@ public class StatRow implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived ink: Color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style::DIM : BRIGHT_TEXT)
-  derived title: String = self.row.label
+  derived title: string = self.row.label
 
   row: Signal<Row>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
+  boosts: Signal<map<string, Boost>>
   tip: Signal<Beside>
-  constructor(row: Signal<Row>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS,
+  constructor(row: Signal<Row>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.row = row
     self.shown = shown
@@ -584,16 +584,16 @@ const SOCKET_CORNERS: Corners = { topLeft: true, bottomLeft: true, topRight: fal
 public class StatCard implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived glyphShade: Number = self.figure.lit ? 1 : 0.7
-  derived title: String = self.figure.label
+  derived glyphShade: number = self.figure.lit ? 1 : 0.7
+  derived title: string = self.figure.label
   derived place: Beside = placeFor(self.tip, self.figure.tip)
   derived ink: Color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
 
   figure: Signal<Figure>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
+  boosts: Signal<map<string, Boost>>
   tip: Signal<Beside>
-  constructor(figure: Signal<Figure>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS,
+  constructor(figure: Signal<Figure>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.figure = figure
     self.shown = shown
@@ -636,15 +636,15 @@ public class StatCard implements Component {
 public class SectionView implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived carded: Boolean = self.section.cards.length > 0
-  derived led: Boolean = self.section.lead.length > 0
+  derived carded: boolean = self.section.cards.length > 0
+  derived led: boolean = self.section.lead.length > 0
 
   section: Signal<Section>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
+  boosts: Signal<map<string, Boost>>
   // The side of its stats their tooltips stand on: the side of the window the section is on.
   tip: Signal<Beside>
-  constructor(section: Signal<Section>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS,
+  constructor(section: Signal<Section>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.section = section
     self.shown = shown
@@ -688,15 +688,15 @@ public class SectionView implements Component {
 public class MainStat implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived title: String = self.main.label
+  derived title: string = self.main.label
   derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
   // Its letters gold where the player's spec weighs it among its most.
   derived shortInk: Color = self.main.valued ? Style::GOLD : Style::DIM
 
   main: Signal<Main>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
-  constructor(main: Signal<Main>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
+  boosts: Signal<map<string, Boost>>
+  constructor(main: Signal<Main>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS) {
     self.main = main
     self.shown = shown
     self.boosts = boosts
@@ -708,7 +708,7 @@ public class MainStat implements Component {
     return $ltml {
       <StatSpot stat={self.main.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box gap={0.5sp} xAlign={Align::Center} padding={Style::MAIN_PAD}>
-          <text value={String::of(self.main.value)} textSize={Style::MAIN_TEXT} textFont={TextFont::Numbers}
+          <text value={string::of(self.main.value)} textSize={Style::MAIN_TEXT} textFont={TextFont::Numbers}
                 textColor={self.ink} wrap={.None} />
           <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={self.shortInk} wrap={.None} />
         </box>
@@ -726,12 +726,12 @@ function resistTrack(resist: Resist): Track { return { fr: resist.value } }
 public class ResistBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived tracks: Array<Track> = self.resists.map(resistTrack)
+  derived tracks: array<Track> = self.resists.map(resistTrack)
 
-  resists: Signal<Array<Resist>>
+  resists: Signal<array<Resist>>
   shown: Signal<Breakdown>
   tip: Signal<Beside>
-  constructor(resists: Signal<Array<Resist>>, shown: Signal<Breakdown> = NO_BREAKDOWN, tip: Signal<Beside> = TIP_RIGHT) {
+  constructor(resists: Signal<array<Resist>>, shown: Signal<Breakdown> = NO_BREAKDOWN, tip: Signal<Beside> = TIP_RIGHT) {
     self.resists = resists
     self.shown = shown
     self.tip = tip
@@ -749,7 +749,7 @@ public class ResistBar implements Component {
                columns={self.tracks} rows={[{ fr: 1 }]}>
             <StatSpot $for={index, resist of self.resists} stat={resist.stat} title={statName(resist.stat)} shown={self.shown}
                       tip={self.tip} @tipped={self.onTipped}>
-              <WellSlice color={resist.color} text={String::of(resist.value)} corners={sliceCorners(index, self.resists.length)} />
+              <WellSlice color={resist.color} text={string::of(resist.value)} corners={sliceCorners(index, self.resists.length)} />
             </StatSpot>
           </box>
           <CarveShade />
@@ -761,7 +761,7 @@ public class ResistBar implements Component {
 }
 
 // A slice's rounded corners: the well's left ones on the first, its right ones on the last.
-function sliceCorners(index: Integer, count: Integer): Corners {
+function sliceCorners(index: integer, count: integer): Corners {
   return { topLeft: index == 1, bottomLeft: index == 1, topRight: index == count, bottomRight: index == count }
 }
 
@@ -777,25 +777,25 @@ public class PoolBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   // The fill and the rest of the tube, inside its ring.
-  derived parts: Array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
+  derived parts: array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
   derived deep: Color = deeper(self.color)
   // The fill rounded as the trough is at its left end, and at its right once the bar is full.
   derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.filled >= 1, bottomRight: self.filled >= 1 }
-  derived title: String = self.stat != nil ? statName(self.stat ?? .Health) : ""
+  derived title: string = self.stat != nil ? statName(self.stat ?? .Health) : ""
   derived ink: Color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
 
-  amount: Signal<String>
+  amount: Signal<string>
   color: Signal<Color>
   // What it regains, as lines under it, each with its own tooltip.
-  regen: Signal<Array<Row>>
+  regen: Signal<array<Row>>
   // How much of the bar is full: rage is empty out of a fight.
-  filled: Signal<Number>
+  filled: Signal<number>
   stat: Signal<Stat | nil>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
+  boosts: Signal<map<string, Boost>>
   tip: Signal<Beside>
-  constructor(amount: Signal<String>, color: Signal<Color>, regen: Signal<Array<Row>> = NO_ROWS, filled: Signal<Number> = 1,
-    stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS,
+  constructor(amount: Signal<string>, color: Signal<Color>, regen: Signal<array<Row>> = NO_ROWS, filled: Signal<number> = 1,
+    stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<map<string, Boost>> = NO_BOOSTS,
     tip: Signal<Beside> = TIP_RIGHT) {
     self.amount = amount
     self.color = color

@@ -9,15 +9,15 @@ const MOST = 50
 
 // One character's gold, and when it was last seen (the server's time).
 public struct Purse implements Plain {
-  name: String
-  realm: String
-  copper: Integer
-  seen: Integer
+  name: string
+  realm: string
+  copper: integer
+  seen: integer
 }
 
 public struct Purses implements Plain {
   // By the character's GUID.
-  characters: Map<String, Purse>
+  characters: map<string, Purse>
 }
 
 const NONE: Purses = { characters: {} }
@@ -25,15 +25,15 @@ const NONE: Purses = { characters: {} }
 public class Gold {
   public memory: mut ModuleMemory<Purses> = new ModuleMemory<Purses>(NONE, .Account)
   // Every character's on this realm, this one's first, then by how much, and the total.
-  public derived rows: Array<TipRow> = self.rowsOf()
+  public derived rows: array<TipRow> = self.rowsOf()
 
   constructor() {
     watch (copper of Game::money.amount) { self.keep(copper) }
   }
 
-  keep(mut self, copper: Integer) {
+  keep(mut self, copper: integer) {
     const own = Game::player.guid
-    let characters: Map<String, Purse> = {}
+    let characters: map<string, Purse> = {}
     let count = 1
     for (guid, purse of (peek self.memory.values).characters) {
       if (guid != own) {
@@ -45,7 +45,7 @@ public class Gold {
     // Past the most kept: the one seen longest ago goes.
     if (count > MOST) {
       let oldest = ""
-      let when: Integer | nil = nil
+      let when: integer | nil = nil
       for (guid, purse of characters) {
         if (when == nil || purse.seen < when) {
           oldest = guid
@@ -57,10 +57,10 @@ public class Gold {
     self.memory.write({ characters: characters })
   }
 
-  rowsOf(self): Array<TipRow> {
+  rowsOf(self): array<TipRow> {
     const own = Game::player.guid
     const realm = Game::player.realm
-    let others: Array<Purse> = []
+    let others: array<Purse> = []
     let total = 0
     let mine: Purse | nil = nil
     for (guid, purse of self.memory.values.characters) {
@@ -69,8 +69,8 @@ public class Gold {
         if (guid == own) { mine = purse } else { others.push(purse) }
       }
     }
-    others.sort((a: Purse, b: Purse): Boolean => a.copper > b.copper || (a.copper == b.copper && a.name < b.name))
-    let rows: Array<TipRow> = []
+    others.sort((a: Purse, b: Purse): boolean => a.copper > b.copper || (a.copper == b.copper && a.name < b.name))
+    let rows: array<TipRow> = []
     if (mine != nil) { rows.push({ label: mine.name, value: Game::money.format(mine.copper) }) }
     for (purse of others) { rows.push({ label: purse.name, value: Game::money.format(purse.copper) }) }
     rows.push({ label: Locale::GOLD_TOTAL, value: Game::money.format(total) })

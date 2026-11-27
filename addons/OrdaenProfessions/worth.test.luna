@@ -16,35 +16,35 @@ const LINEN = 2589
 const CLOAK = 2570
 const NOW = 1790002800
 
-function recipe(id: Integer, name: String): Game::Recipe {
+function recipe(id: integer, name: string): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
     difficulty: Game::Difficulty::Always, craftable: 0
   }
 }
 
-function recipes(): Array<Game::Recipe> { return [recipe(CLOAK_RECIPE, "Linen Cloak"), recipe(BOLT_RECIPE, "Bolt of Linen Cloth")] }
+function recipes(): array<Game::Recipe> { return [recipe(CLOAK_RECIPE, "Linen Cloak"), recipe(BOLT_RECIPE, "Bolt of Linen Cloth")] }
 
-function reagents(id: Integer): Array<Game::Reagent> { return [] }
+function reagents(id: integer): array<Game::Reagent> { return [] }
 
 // A cloak takes a bolt and a thread; a bolt takes two linen.
-function schematic(id: Integer): Game::Schematic | nil {
+function schematic(id: integer): Game::Schematic | nil {
   if (id == CLOAK_RECIPE) {
     return { recipe: id, makes: CLOAK, least: 1, most: 1, parts: [{ item: CLOTH, count: 1 }, { item: THREAD, count: 1 }] }
   }
   return { recipe: id, makes: CLOTH, least: 1, most: 1, parts: [{ item: LINEN, count: 2 }] }
 }
 
-function professions(): Array<Game::Profession> {
+function professions(): array<Game::Profession> {
   return [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting }]
 }
 
-function categories(): Array<Game::Category> {
+function categories(): array<Game::Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
 // The house: a bolt at 1 s, a thread at 15 c, a cloak at 5 s, linen at 20 c.
-function house(): Array<Game::Offer> {
+function house(): array<Game::Offer> {
   return [
     { key: CLOTH, copper: 100, quantity: 5 }, { key: THREAD, copper: 15, quantity: 20 }, { key: CLOAK, copper: 500, quantity: 2 },
     { key: LINEN, copper: 20, quantity: 40 }
@@ -52,17 +52,17 @@ function house(): Array<Game::Offer> {
 }
 
 // The bags: one bolt and four linen.
-function bags(): Map<Integer, Integer> | nil { return { [CLOTH]: 1, [LINEN]: 4 } }
+function bags(): map<integer, integer> | nil { return { [CLOTH]: 1, [LINEN]: 4 } }
 
 function window(): Test::Part {
   return Test::page().window("Worth it")
 }
 
-function row(name: String): String {
+function row(name: string): string {
   return window().text(name).item().texts().join(" | ")
 }
 
-function reads(said: String, expected: String): Boolean {
+function reads(said: string, expected: string): boolean {
   if (said != expected) { panic(`it reads «${said}», not «${expected}»`) }
   return true
 }

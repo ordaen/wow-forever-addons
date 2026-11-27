@@ -44,27 +44,27 @@ const BY_THE_RIGHT: Hang = { point: Point::TopLeft, to: Point::TopRight }
 // What the game's tooltip is about, since when, and whether a tooltip of its kind locks; how long it waits before it
 // shows (its kind's delay), and whether it waited that long (`ripe`).
 struct Target {
-  kind: Integer | nil
-  about: String | nil
-  since: Number
-  locks: Boolean
-  delay: Number = 0
-  ripe: Boolean = false
+  kind: integer | nil
+  about: string | nil
+  since: number
+  locks: boolean
+  delay: number = 0
+  ripe: boolean = false
 }
 
 // What is drawn for the tooltip the game shows now.
 struct Shown {
   model: Model
   // The tooltips beside it from the start, and the worn items it is compared with.
-  sides: Array<Model>
-  compared: Array<Model>
+  sides: array<Model>
+  compared: array<Model>
   // What other modules' sections are asked about: the item by its number and its link (0 and "" for anything
   // else), the world object by its name ("" for anything else).
-  item: Integer
-  link: String
-  object: String
+  item: integer
+  link: string
+  object: string
   // It locks as the cursor stays: the main tooltip keeps the room of the lock's bar (a button's text never does).
-  locks: Boolean
+  locks: boolean
   // Where its kind stands, the general place put in for the kind's «Default».
   place: Place
 }
@@ -82,7 +82,7 @@ const NOTHING: Model = {
 }
 
 public class Tooltips implements Module, App {
-  public const title: String = "Ordaen Tooltips"
+  public const title: string = "Ordaen Tooltips"
 
   // Each kind's place is where Blizzard's own UI puts it: what a frame holds (an item, an ability, an effect, a
   // button) beside its frame, what is in the world (a player, an NPC, an object) in Blizzard's place.
@@ -97,7 +97,7 @@ public class Tooltips implements Module, App {
     objectsOn: true, objectsPlace: KindPlace::Default, textsOn: true, textsPlace: KindPlace::Anchor, textsExtra: true,
     itemsLock: true, spellsLock: true, aurasLock: true, playersLock: true, npcsLock: true, objectsLock: true
   })
-  public const pages: Array<SettingsPage> = [
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale::TAB_ITEMS, content: $ltml { <ItemsPage settings={mut self.settings} /> } },
     { title: Locale::TAB_SPELLS, content: $ltml { <SpellsPage settings={mut self.settings} /> } },
@@ -117,36 +117,36 @@ public class Tooltips implements Module, App {
   state kept: Held | nil = nil
   // When the game's tooltip went, while it is gone; since when the cursor has been on neither the locked group nor
   // its source, while it is away.
-  state hiddenAt: Number | nil = nil
-  state leftAt: Number | nil = nil
+  state hiddenAt: number | nil = nil
+  state leftAt: number | nil = nil
   // The cursor is on the group (on a part of it that opens another tooltip too); it has been on it since it locked.
   state over = false
   state visited = false
   // The game's word of every press of the mouse, heard while a tooltip is locked.
   pressHeard: Handle | nil = nil
-  derived locked: Boolean = self.kept != nil
+  derived locked: boolean = self.kept != nil
   // What is drawn locks: it is locked, or it charges as the cursor stays (a button's text never does). Kept with
   // the last show while nothing shows, as the rest of it is.
-  derived locking: Boolean = self.locked || (self.drawn?.locks ?? false)
-  derived charge: Integer = self.chargeNow()
-  derived gone: Boolean = self.goneNow()
-  derived away: Boolean = self.awayNow()
+  derived locking: boolean = self.locked || (self.drawn?.locks ?? false)
+  derived charge: integer = self.chargeNow()
+  derived gone: boolean = self.goneNow()
+  derived away: boolean = self.awayNow()
   // The game's tooltip shows what is locked: the cursor is back on its source.
-  derived onSource: Boolean = self.onSourceNow()
+  derived onSource: boolean = self.onSourceNow()
   derived current: Shown | nil = self.read ?? self.kept?.shown
   // It shows once its target waited its delay, or while it is locked.
-  derived shown: Boolean = self.current != nil && (self.kept != nil || (self.target?.ripe ?? false))
+  derived shown: boolean = self.current != nil && (self.kept != nil || (self.target?.ripe ?? false))
   // The last show, kept while nothing shows: the group is drawn once, and a show changes only what differs from
   // the one before.
   state last: Shown | nil = nil
   derived drawn: Shown | nil = self.current ?? self.last
   // The group is drawn from the first show on.
-  derived ever: Boolean = self.drawn != nil
-  derived keysAsked: Array<String> = self.keysAddedNow()
-  state keysAdded: Array<String> = []
+  derived ever: boolean = self.drawn != nil
+  derived keysAsked: array<string> = self.keysAddedNow()
+  state keysAdded: array<string> = []
   derived model: Model = self.withKeys(self.drawn?.model ?? NOTHING)
-  derived sides: Array<Model> = self.drawn?.sides ?? []
-  derived compared: Array<Model> = self.drawn?.compared ?? []
+  derived sides: array<Model> = self.drawn?.sides ?? []
+  derived compared: array<Model> = self.drawn?.compared ?? []
   derived standing: Standing = self.kept?.standing ?? self.where()
   derived chosen: Options = self.options()
 
@@ -166,24 +166,24 @@ public class Tooltips implements Module, App {
 
   // The pinned tooltip, read as the hover one is; nothing while none is pinned, or one of a kind left to the game.
   derived pinnedRead: Shown | nil = self.pinnedNow()
-  derived pinnedShown: Boolean = self.pinnedRead != nil
+  derived pinnedShown: boolean = self.pinnedRead != nil
   derived pinnedModel: Model = self.pinnedRead?.model ?? NOTHING
-  derived pinnedSides: Array<Model> = self.pinnedRead?.sides ?? []
-  derived pinnedCompared: Array<Model> = self.pinnedRead?.compared ?? []
-  derived pinnedItem: Integer = self.pinnedRead?.item ?? 0
-  derived pinnedLink: String = self.pinnedRead?.link ?? ""
+  derived pinnedSides: array<Model> = self.pinnedRead?.sides ?? []
+  derived pinnedCompared: array<Model> = self.pinnedRead?.compared ?? []
+  derived pinnedItem: integer = self.pinnedRead?.item ?? 0
+  derived pinnedLink: string = self.pinnedRead?.link ?? ""
   // Where the game's pinned tooltip stands, hanging by its top left as it does.
   derived pinnedStanding: Standing = { by: Game::tooltip.pinned.corner, inPlace: true, below: true, right: false }
 
   // The item the tooltip shows, 0 where it shows none; the world object, "" where it shows none.
-  derived item: Integer = self.current?.item ?? 0
-  derived link: String = self.current?.link ?? ""
-  derived object: String = self.current?.object ?? ""
+  derived item: integer = self.current?.item ?? 0
+  derived link: string = self.current?.link ?? ""
+  derived object: string = self.current?.object ?? ""
 
   constructor() {
     Ordaen.modules.add(self)
     // What is drawn here is unseen from the game's show itself; the watch's word follows a frame later.
-    Game::tooltip.claim((data: Game::TooltipData): Boolean => self.claims(data))
+    Game::tooltip.claim((data: Game::TooltipData): boolean => self.claims(data))
     watch { self.keepUnseen() }
     watch { Game::tooltip.hidePinned(self.pinnedShown) }
     watch { self.follow() }
@@ -198,7 +198,7 @@ public class Tooltips implements Module, App {
   }
 
   // A press is heard while a tooltip is locked, and not otherwise.
-  hearPresses(mut self, locked: Boolean) {
+  hearPresses(mut self, locked: boolean) {
     if (locked && self.pressHeard == nil) {
       self.pressHeard = Events::GLOBAL_MOUSE_DOWN.listen(self.onPress)
     } else if (!locked && self.pressHeard != nil) {
@@ -210,15 +210,15 @@ public class Tooltips implements Module, App {
   // A press of the mouse anywhere but on the locked group takes it away. The game says it of every press, and takes
   // nothing of it: the press still goes to what it was on (a window starts its drag, a button its click). The close
   // button is on the group, and closes it as itself.
-  onPress(mut self, button: String) {
+  onPress(mut self, button: string) {
     if (peek self.kept != nil && !(peek self.over)) { self.close() }
   }
 
   // The hotkeys other modules add for the item shown. A module may say them of the frame under the cursor (a bag's
   // slot): read while the tooltip isn't locked, kept as they were while it is (the cursor gone onto the tooltip).
-  keysAddedNow(self): Array<String> {
+  keysAddedNow(self): array<string> {
     const shownItem = self.drawn?.item ?? 0
-    let added: Array<String> = []
+    let added: array<string> = []
     if (shownItem == 0) { return added }
     const link = self.drawn?.link ?? ""
     for (row of self.keys) {
@@ -236,7 +236,7 @@ public class Tooltips implements Module, App {
   withKeys(self, model: Model): Model {
     const added = self.keysAdded
     if (added.length == 0) { return model }
-    let keys: Array<String> = []
+    let keys: array<string> = []
     for (key of model.keys) { keys.push(key) }
     for (key of added) { keys.push(key) }
     return { keys: keys, ..model }
@@ -248,7 +248,7 @@ public class Tooltips implements Module, App {
   }
 
   // How far the lock is charged, of `STEPS`. The time is read only while a target charges.
-  chargeNow(self): Integer {
+  chargeNow(self): integer {
     if (self.kept != nil) { return STEPS }
     let target = self.target
     if (target == nil || !target.locks || self.closed) { return 0 }
@@ -258,13 +258,13 @@ public class Tooltips implements Module, App {
   }
 
   // The game's tooltip has been gone for longer than a refresh takes.
-  goneNow(self): Boolean {
+  goneNow(self): boolean {
     let at = self.hiddenAt
     return at != nil && self.kept == nil && Game::clock.time >= at + REFRESH
   }
 
   // The cursor has been off the locked group for longer than the grace.
-  awayNow(self): Boolean {
+  awayNow(self): boolean {
     let at = self.leftAt
     return at != nil && Game::clock.time >= at + GRACE
   }
@@ -334,12 +334,12 @@ public class Tooltips implements Module, App {
   }
 
   unpin(self) { Game::tooltip.unpin() }
-  dragPinned(self, moving: Boolean) { Game::tooltip.dragPinned(moving) }
+  dragPinned(self, moving: boolean) { Game::tooltip.dragPinned(moving) }
 
   onEnter(mut self) { self.over = true }
   onLeave(mut self) { self.over = false }
 
-  onSourceNow(self): Boolean {
+  onSourceNow(self): boolean {
     let tip = Game::tooltip.main
     let target = self.target
     return tip.shown && target != nil && target.kind == tip.data.kind && target.about == tip.data.about
@@ -368,7 +368,7 @@ public class Tooltips implements Module, App {
   }
 
   // Whether what the game's tooltip shows is drawn here: a kind read here, its switch on.
-  public claims(self, data: Game::TooltipData): Boolean {
+  public claims(self, data: Game::TooltipData): boolean {
     const kind = kindOf(data)
     return kind != nil && self.wanted(kind, data)
   }
@@ -391,7 +391,7 @@ public class Tooltips implements Module, App {
   }
 
   // The unit a tooltip is about is a player.
-  aPlayer(self, data: Game::TooltipData): Boolean {
+  aPlayer(self, data: Game::TooltipData): boolean {
     let first = data.lines[1]
     let token = first != nil && first.kind == UNIT_NAME ? first.unit : nil
     let who = token != nil ? Game::units.of(token) : nil
@@ -399,7 +399,7 @@ public class Tooltips implements Module, App {
   }
 
   // Whether tooltips of this kind are drawn here. A unit is a player or an NPC, each with its own switch.
-  wanted(self, kind: Kind, data: Game::TooltipData): Boolean {
+  wanted(self, kind: Kind, data: Game::TooltipData): boolean {
     let chosen = self.settings.values
     match (kind) {
       Kind::Item => return chosen.itemsOn
@@ -414,7 +414,7 @@ public class Tooltips implements Module, App {
   }
 
   // Whether a tooltip of this kind locks. One that is only text has nothing to open.
-  locks(self, kind: Kind, data: Game::TooltipData): Boolean {
+  locks(self, kind: Kind, data: Game::TooltipData): boolean {
     let chosen = self.settings.values
     match (kind) {
       Kind::Item => return chosen.itemsLock
@@ -429,7 +429,7 @@ public class Tooltips implements Module, App {
   }
 
   // How long a tooltip of this kind waits before it shows: its kind's delay, or the general one where it is «Default».
-  delayOf(self, kind: Kind, data: Game::TooltipData): Number {
+  delayOf(self, kind: Kind, data: Game::TooltipData): number {
     let chosen = self.settings.values
     let own = match (kind) {
       Kind::Item => chosen.itemsDelay
@@ -487,7 +487,7 @@ public class Tooltips implements Module, App {
 
   // What a tooltip of the game's shows (its data, the frame it is shown for, the worn items it is compared with), as
   // drawn here; nothing for a kind left to the game.
-  shownOf(self, data: Game::TooltipData, ownerName: String | nil, worn: Array<Game::TooltipData>, before: Model | nil): Shown | nil {
+  shownOf(self, data: Game::TooltipData, ownerName: string | nil, worn: array<Game::TooltipData>, before: Model | nil): Shown | nil {
     let kind = kindOf(data)
     if (kind == nil || !self.wanted(kind, data)) { return nil }
     let options = self.chosen
@@ -510,7 +510,7 @@ public class Tooltips implements Module, App {
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
     // item; with two, on each worn one.
-    let compared: Array<Model> = []
+    let compared: array<Model> = []
     let model = told
     for (wornData of worn) {
       let other = item(wornData, options)
@@ -536,8 +536,8 @@ public class Tooltips implements Module, App {
     const creature = creatureOf(data)
     if (creature == 0) { return model }
     const offering = self.settings.values.npcsQuests
-    const wants: Array<Wanted> = []
-    const offers: Array<Offered> = []
+    const wants: array<Wanted> = []
+    const offers: array<Offered> = []
     for (entry of self.creatures) {
       for (want of entry.wants(creature)) { wants.push(want) }
       if (offering) {
@@ -590,7 +590,7 @@ public class Tooltips implements Module, App {
 // The item's worth to the player's spec, as a note at the foot: how much more or less than what is worn, green or
 // red; nothing for an item that isn't worn or that the spec weighs at nothing. A weapon of a kind the class can learn
 // and the player hasn't (`untrained`: the client marks its type) says so after it.
-function withWorth(model: Model, link: String, untrained: Boolean): Model {
+function withWorth(model: Model, link: string, untrained: boolean): Model {
   if (link == "") { return model }
   const share = Ordaen.worth.upgradeOf(link)
   if (share == nil) { return model }
@@ -598,7 +598,7 @@ function withWorth(model: Model, link: String, untrained: Boolean): Model {
   const percent = (share * 100).round()
   const right = percent > 0 ? `+${percent}%` : percent < 0 ? `−${-percent}%` : "="
   const color = percent > 0 ? GREEN : percent < 0 ? RED : nil
-  let foot: Array<Note> = []
+  let foot: array<Note> = []
   for (note of model.foot) { foot.push(note) }
   foot.push({ left: Locale::WORTH_FOR.format(spec), right: right, valueColor: color })
   if (untrained) { foot.push({ left: Locale::WORTH_UNTRAINED, valueColor: RED }) }
@@ -613,9 +613,9 @@ function blizzardPlace(tip: Game::ShownTip): Standing {
 }
 
 // The model with the hotkeys other modules give its owner, by the owner's name, after its own.
-function ownerKeys(owner: String | nil, model: Model): Model {
+function ownerKeys(owner: string | nil, model: Model): Model {
   if (owner == nil || Ordaen.hotkeys.length == 0) { return model }
-  let keys: Array<String> = []
+  let keys: array<string> = []
   for (key of model.keys) { keys.push(key) }
   for (row of Ordaen.hotkeys) {
     for (key of row.keys(owner)) { keys.push(key) }

@@ -13,8 +13,8 @@ function read(): mut SystemSettings {
   return settings
 }
 
-function names(settings: SystemSettings): String {
-  const all: Array<String> = []
+function names(settings: SystemSettings): string {
+  const all: array<string> = []
   for (group of settings.groups) {
     all.push(group.name)
     for (page of group.pages) { all.push(page.child ? `  ${page.name}` : page.name) }
@@ -113,7 +113,7 @@ test "the page's defaults set each of its settings back to the game's" {
 }
 
 // The line of a variable, its page opened.
-function lineFor(settings: mut SystemSettings, variable: String): SettingLine {
+function lineFor(settings: mut SystemSettings, variable: string): SettingLine {
   for (group of settings.groups) {
     for (page of group.pages) {
       const line = settings.linesOf(page.id).find(line => line.variable == variable)

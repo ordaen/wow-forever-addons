@@ -14,15 +14,15 @@ import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, TalentTreeVi
 import Locale from "@/locales"
 import Style from "@/style"
 
-const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
-const SEARCH_WIDTH: Number<Length> = 281.25dp
-const TOP: Array<Track> = [SEARCH_WIDTH, { fr: 1 }, "max-content"]
+const TREES: array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const PAGE: array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FOOT: array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+const SEARCH_WIDTH: number<Length> = 281.25dp
+const TOP: array<Track> = [SEARCH_WIDTH, { fr: 1 }, "max-content"]
 // The page's buttons, each as wide as the longest of their labels needs.
-const BUTTON_WIDTH: Number<Length> = 175.78125dp
+const BUTTON_WIDTH: number<Length> = 175.78125dp
 // The trees' lines: dark, a faint light beside each, as the game's own window draws them.
-const LINE: Number<Length> = 1.171875dp
+const LINE: number<Length> = 1.171875dp
 const LINE_COLOR: Color = Color::hex("#000000")
 const LINE_LIGHT: Color = Color::hex("#d6a56b2e")
 // The header (on the wood) and the footer (on the marble) reach the window's sides; what they hold stands in by the
@@ -32,7 +32,7 @@ function rimAt(side: Side): ArtBorder {
   return { sides: [side], ..Ordaen.art.frame.tabIconLine }
 }
 // The class's art under its three trees, as the client's talents window draws it.
-const ARTS: Map<String, Atlas> = {
+const ARTS: map<string, Atlas> = {
   DRUID: "talent-background-druid", HUNTER: "talent-background-hunter", MAGE: "talent-background-mage",
   PALADIN: "talent-background-paladin", PRIEST: "talent-background-priest", ROGUE: "talent-background-rogue",
   SHAMAN: "talent-background-shaman", WARLOCK: "talent-background-warlock", WARRIOR: "talent-background-warrior"
@@ -42,27 +42,27 @@ const WHITE: Color = Color::hex("#ffffff")
 
 // The class trainer's price for a reset of the talents, as it last offered one, in copper: 0 before the first.
 public struct KeptWipe implements Plain {
-  cost: Integer = 0
+  cost: integer = 0
 }
 
 // One tree in its column, as high as the trees' room: a dark line at its left after the first.
 class TreeColumn implements Component {
-  public spend: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
+  public spend: Event<integer> = new Event()
+  public refund: Event<integer> = new Event()
 
-  derived after: Boolean = self.place > 1
+  derived after: boolean = self.place > 1
 
   tree: Signal<Game::TalentTree>
-  place: Signal<Integer>
-  search: Signal<String>
-  constructor(tree: Signal<Game::TalentTree>, place: Signal<Integer>, search: Signal<String>) {
+  place: Signal<integer>
+  search: Signal<string>
+  constructor(tree: Signal<Game::TalentTree>, place: Signal<integer>, search: Signal<string>) {
     self.tree = tree
     self.place = place
     self.search = search
   }
 
-  onSpend(mut self, id: Integer) { self.spend.emit(id) }
-  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+  onSpend(mut self, id: integer) { self.spend.emit(id) }
+  onRefund(mut self, id: integer) { self.refund.emit(id) }
 
   public render(self): Template {
     return $ltml {
@@ -77,10 +77,10 @@ class TreeColumn implements Component {
 
 // The header's right: the points left to spend.
 class PointsLeft implements Component {
-  derived points: String = "%d".format(self.unspent)
+  derived points: string = "%d".format(self.unspent)
 
-  unspent: Signal<Integer>
-  constructor(unspent: Signal<Integer>) {
+  unspent: Signal<integer>
+  constructor(unspent: Signal<integer>) {
     self.unspent = unspent
   }
 
@@ -98,12 +98,12 @@ class PointsLeft implements Component {
 // that it isn't known yet and where it is learnt.
 class WipePrice implements Component {
   state hovered = false
-  derived priced: Boolean = self.wipeCost > 0
-  derived unpriced: Boolean = !self.priced
-  derived tip: String = self.priced ? Locale::TRAINER_RESET_TIP : Locale::TRAINER_RESET_UNKNOWN_TIP
+  derived priced: boolean = self.wipeCost > 0
+  derived unpriced: boolean = !self.priced
+  derived tip: string = self.priced ? Locale::TRAINER_RESET_TIP : Locale::TRAINER_RESET_UNKNOWN_TIP
 
-  wipeCost: Signal<Integer>
-  constructor(wipeCost: Signal<Integer>) {
+  wipeCost: Signal<integer>
+  constructor(wipeCost: Signal<integer>) {
     self.wipeCost = wipeCost
   }
 
@@ -124,35 +124,35 @@ class WipePrice implements Component {
 }
 
 public class TalentsPage implements Component {
-  public spend: Event<Integer> = new Event()
-  public refund: Event<Integer> = new Event()
+  public spend: Event<integer> = new Event()
+  public refund: Event<integer> = new Event()
   public apply: Event<nil> = new Event()
   public cancel: Event<nil> = new Event()
   public activate: Event<nil> = new Event()
 
   state search = ""
-  derived empty: Boolean = self.trees.length == 0
+  derived empty: boolean = self.trees.length == 0
   // Points wait to be applied: the spec's own, while it is the active one.
-  derived waiting: Boolean = self.staged && self.active
-  derived inactive: Boolean = !self.active
+  derived waiting: boolean = self.staged && self.active
+  derived inactive: boolean = !self.active
   derived art: Atlas | nil = ARTS[self.classTag]
 
-  trees: Signal<Array<Game::TalentTree>>
-  unspent: Signal<Integer>
-  staged: Signal<Boolean>
-  active: Signal<Boolean>
-  wipeCost: Signal<Integer>
-  classTag: Signal<String>
+  trees: Signal<array<Game::TalentTree>>
+  unspent: Signal<integer>
+  staged: Signal<boolean>
+  active: Signal<boolean>
+  wipeCost: Signal<integer>
+  classTag: Signal<string>
   constructor(
-    trees: Signal<Array<Game::TalentTree>>,
-    unspent: Signal<Integer>,
-    staged: Signal<Boolean>,
+    trees: Signal<array<Game::TalentTree>>,
+    unspent: Signal<integer>,
+    staged: Signal<boolean>,
     // The spec group shown is the one the player has active.
-    active: Signal<Boolean>,
+    active: Signal<boolean>,
     // The trainer's price for a reset, in copper: 0 while not known.
-    wipeCost: Signal<Integer> = 0,
+    wipeCost: Signal<integer> = 0,
     // The class whose art the trees stand on.
-    classTag: Signal<String> = ""
+    classTag: Signal<string> = ""
   ) {
     self.trees = trees
     self.unspent = unspent
@@ -162,8 +162,8 @@ public class TalentsPage implements Component {
     self.classTag = classTag
   }
 
-  onSpend(mut self, id: Integer) { self.spend.emit(id) }
-  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+  onSpend(mut self, id: integer) { self.spend.emit(id) }
+  onRefund(mut self, id: integer) { self.refund.emit(id) }
   onApply(mut self) { self.apply.emit() }
   onCancel(mut self) { self.cancel.emit() }
   onActivate(mut self) { self.activate.emit() }

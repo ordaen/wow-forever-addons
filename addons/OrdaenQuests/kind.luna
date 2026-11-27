@@ -5,7 +5,7 @@
 public enum QuestKind { World, Dungeon, Raid, PvP }
 
 // The tabs in their order, World first.
-public const KINDS: Array<QuestKind> = [QuestKind::World, QuestKind::Dungeon, QuestKind::Raid, QuestKind::PvP]
+public const KINDS: array<QuestKind> = [QuestKind::World, QuestKind::Dungeon, QuestKind::Raid, QuestKind::PvP]
 
 // `Enum.QuestTag`'s values that name an instance or a battleground.
 const TAG_DUNGEON = 81
@@ -16,7 +16,7 @@ const TAG_RAID_25 = 89
 const TAG_PVP = 41
 
 // A quest's kind by its tag; an old quest carries none (nil), or `Group` (1), an elite outdoor quest: the World's.
-public const function kindOfTag(tag: Integer | nil): QuestKind {
+public const function kindOfTag(tag: integer | nil): QuestKind {
   if (tag == TAG_DUNGEON || tag == TAG_HEROIC) { return .Dungeon }
   if (tag == TAG_RAID || tag == TAG_RAID_10 || tag == TAG_RAID_25) { return .Raid }
   if (tag == TAG_PVP) { return .PvP }

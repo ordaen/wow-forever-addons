@@ -17,8 +17,8 @@ test "the map opens at the area's map; OpenMap's stitched view glides to that ma
 }
 
 // The quests of the game's pins that show, «101,102».
-function pinsShown(): String {
-  return Test::questPins().map(id => String::of(id)).join(",")
+function pinsShown(): string {
+  return Test::questPins().map(id => string::of(id)).join(",")
 }
 
 test "the game's quest pins are every quest's, but the quest shown's alone while one is shown, as the map turns too" {

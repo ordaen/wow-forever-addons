@@ -13,14 +13,14 @@ import { SelectItem } from "@/selectItem"
 import { KeptWindow, Occasion, WindowView } from "@/window"
 
 const SIDEBAR = 234.375dp
-const COLUMNS: Array<Track> = [SIDEBAR, { fr: 1 }]
+const COLUMNS: array<Track> = [SIDEBAR, { fr: 1 }]
 const INK: Color = Color::hex("#e8dcc4")
 // How far the numbers go: a place from the screen's centre, a size of the body.
 const FAR = 4000
 const LEAST_SIZE = 100
 const MOST_SIZE = 4000
 // What can hide a window, and show it again.
-const OCCASIONS: Array<Choice<Occasion>> = [
+const OCCASIONS: array<Choice<Occasion>> = [
   { value: Occasion::Combat, label: Locale::OCCASION_COMBAT },
   { value: Occasion::Travel, label: Locale::OCCASION_TRAVEL },
   { value: Occasion::Moving, label: Locale::OCCASION_MOVING }
@@ -28,23 +28,23 @@ const OCCASIONS: Array<Choice<Occasion>> = [
 
 // The title of a module's page of its windows, in its `pages`:
 // `{ title: windowsTitle(), content: $ltml { <WindowsPage windows={[self.window]} /> } }`.
-public function windowsTitle(): String { return Locale::WINDOWS_TAB }
+public function windowsTitle(): string { return Locale::WINDOWS_TAB }
 
 // The tabs a window opens on, offered, and what tells one offer from the next.
 struct Offer {
-  key: Integer
-  choices: Array<Choice<Integer>>
+  key: integer
+  choices: array<Choice<integer>>
 }
 
 // One window in the sidebar: picked, the page shows its settings.
 class WindowItem implements Component {
-  public picked: Event<Integer> = new Event()
-  derived chosen: Boolean = self.current == self.index
+  public picked: Event<integer> = new Event()
+  derived chosen: boolean = self.current == self.index
 
-  title: Signal<String>
-  index: Signal<Integer>
-  current: Signal<Integer>
-  constructor(title: Signal<String>, index: Signal<Integer>, current: Signal<Integer>) {
+  title: Signal<string>
+  index: Signal<integer>
+  current: Signal<integer>
+  constructor(title: Signal<string>, index: Signal<integer>, current: Signal<integer>) {
     self.title = title
     self.index = index
     self.current = current
@@ -67,22 +67,22 @@ public class WindowsPage implements Component {
   // is written to its memory, and a change of the memory (the window dragged) shows here.
   state remember = true
   state full = false
-  state x: Number = 0
-  state y: Number = 0
-  state width: Number = 0
-  state height: Number = 0
+  state x: number = 0
+  state y: number = 0
+  state width: number = 0
+  state height: number = 0
   state openOn = 0
-  state hideDuring: Array<Occasion> = []
-  state showAfter: Array<Occasion> = []
+  state hideDuring: array<Occasion> = []
+  state showAfter: array<Occasion> = []
   // The tab it opens on: «the one last open», then each of its tabs.
-  derived tabChoices: Array<Choice<Integer>> = self.tabChoicesOf()
+  derived tabChoices: array<Choice<integer>> = self.tabChoicesOf()
   // The dropdown is made anew when the tabs it offers change.
-  derived offers: Array<Offer> = [{ key: self.tabChoices.length, choices: self.tabChoices }]
-  derived fixed: Boolean = !self.remember
+  derived offers: array<Offer> = [{ key: self.tabChoices.length, choices: self.tabChoices }]
+  derived fixed: boolean = !self.remember
   derived view: WindowView = self.viewOf()
 
-  windows: mut Array<mut KeptWindow>
-  constructor(windows: mut Array<mut KeptWindow>) {
+  windows: mut array<mut KeptWindow>
+  constructor(windows: mut array<mut KeptWindow>) {
     self.windows = windows
     watch (view of self.view) { self.show(view) }
     watch { self.keep() }
@@ -95,8 +95,8 @@ public class WindowsPage implements Component {
     return window.memory.values
   }
 
-  tabChoicesOf(self): Array<Choice<Integer>> {
-    const list: Array<Choice<Integer>> = [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
+  tabChoicesOf(self): array<Choice<integer>> {
+    const list: array<Choice<integer>> = [{ value: 0, label: Locale::WINDOW_LAST_TAB }]
     const window = self.windows[self.current]
     if (window == nil) { return list }
     for (index, title of window.tabs) { list.push({ value: index, label: title }) }
@@ -143,7 +143,7 @@ public class WindowsPage implements Component {
     if (!next.equal(was)) { window.memory.write(next) }
   }
 
-  onPick(mut self, index: Integer) { self.current = index }
+  onPick(mut self, index: integer) { self.current = index }
 
   public render(self): Template {
     return $ltml {

@@ -21,7 +21,7 @@ import { TextField } from "@/textField"
 
 const INK: Color = Color::hex("#e8dcc4")
 const DIM: Color = Color::hex("#a3977f")
-const BUTTONS: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
+const BUTTONS: array<Track> = ["max-content", "max-content", "max-content", "max-content"]
 const CONFIRM_WIDTH = 567.1875dp
 // The specialisations a class has in the game: three trees.
 const SPECS = 3
@@ -32,32 +32,32 @@ enum Use { Character = "character", Class = "class", Account = "account" }
 
 // What a dropdown of profiles offers, and what tells it from the offer before it.
 struct Offer {
-  key: String
-  choices: Array<Choice<String>>
+  key: string
+  choices: array<Choice<string>>
 }
 
 // A line of the import's preview: a module in the text and what taking it would do.
 struct Line {
-  text: String
+  text: string
   color: Color
 }
 
 // A profile's name chosen of the profiles there are now. A `Dropdown` keeps the choices it was made with, so this one is
 // made again each time the profiles change; `none` adds «Not set», the empty name.
 class ProfileDropdown implements Component {
-  derived offers: Array<Offer> = [self.offer()]
+  derived offers: array<Offer> = [self.offer()]
 
-  label: Signal<String>
-  value: mut Signal<String>
-  names: Signal<Array<String>>
-  hint: Signal<String>
-  const none: Boolean
+  label: Signal<string>
+  value: mut Signal<string>
+  names: Signal<array<string>>
+  hint: Signal<string>
+  const none: boolean
   constructor(
-    label: Signal<String>,
-    value: mut Signal<String>,
-    names: Signal<Array<String>>,
-    hint: Signal<String> = "",
-    none: Boolean = false
+    label: Signal<string>,
+    value: mut Signal<string>,
+    names: Signal<array<string>>,
+    hint: Signal<string> = "",
+    none: boolean = false
   ) {
     self.label = label
     self.value = value
@@ -67,7 +67,7 @@ class ProfileDropdown implements Component {
   }
 
   offer(self): Offer {
-    const choices: Array<Choice<String>> = []
+    const choices: array<Choice<string>> = []
     let key = self.none ? "-" : ""
     if (self.none) { choices.push({ value: "", label: Locale::PROFILES_NO_PICK }) }
     for (name of self.names) {
@@ -87,12 +87,12 @@ class ProfileDropdown implements Component {
 
 // A module of a profile's sections with a checkbox: it tells its page when it is ticked or not.
 class TickRow implements Component {
-  public toggled: Event<(String, Boolean)> = new Event()
-  state on: Boolean
-  const key: String
-  const label: String
+  public toggled: Event<(string, boolean)> = new Event()
+  state on: boolean
+  const key: string
+  const label: string
 
-  constructor(key: String, titles: Map<String, String>, on: Boolean) {
+  constructor(key: string, titles: map<string, string>, on: boolean) {
     self.key = key
     self.label = labelOf(key, titles)
     self.on = on
@@ -108,9 +108,9 @@ class TickRow implements Component {
 
 // A line of text.
 class Note implements Component {
-  text: Signal<String>
+  text: Signal<string>
   color: Signal<Color>
-  constructor(text: Signal<String>, color: Signal<Color>) {
+  constructor(text: Signal<string>, color: Signal<Color>) {
     self.text = text
     self.color = color
   }
@@ -123,20 +123,20 @@ class Note implements Component {
 }
 
 // What the section of a key is called: Ordaen's own, its look, or the module's title.
-function labelOf(key: String, titles: Map<String, String>): String {
+function labelOf(key: string, titles: map<string, string>): string {
   if (key == "Ordaen") { return Locale::LIST_GLOBAL }
   if (key == "Ordaen:look") { return Locale::LIST_THEMES }
   const addon = key.match("^([^:]+)") ?? key
   return titles[addon] ?? key
 }
 
-function addonOf(key: String): String {
+function addonOf(key: string): string {
   return key.match("^([^:]+)") ?? key
 }
 
 // The keys of a profile's sections, in order.
-function keysOf(profile: Profile | nil): Array<String> {
-  const keys: Array<String> = []
+function keysOf(profile: Profile | nil): array<string> {
+  const keys: array<string> = []
   if (profile != nil) {
     for (key, _ of profile.sections) { keys.push(key) }
   }
@@ -146,7 +146,7 @@ function keysOf(profile: Profile | nil): Array<String> {
 
 public class ProfilesPage implements Component {
   // The profile the buttons work on.
-  state chosen: String
+  state chosen: string
   // The name New and Rename take, and the text exported or imported.
   state name = ""
   state fromBlank = false
@@ -166,40 +166,40 @@ public class ProfilesPage implements Component {
   state spec3 = ""
   // The profile copied from, and the modules not ticked for a copy and an export.
   state source = ""
-  state copyOff: Array<String> = []
-  state exportOff: Array<String> = []
+  state copyOff: array<string> = []
+  state exportOff: array<string> = []
   // The profile in the text pasted, once it has been read.
   state previewed: Shared | nil = nil
 
-  derived names: Array<String> = self.profiles.names
-  derived only: Boolean = self.names.length < 2
-  derived others: Array<String> = self.othersOf()
-  derived activeLine: String = Locale::PROFILES_ACTIVE_NOW.format(self.profiles.active, self.whyText())
-  derived hasSpec: Boolean = Game::player.spec != nil
-  derived spec1Label: String = self.specLabelOf(1)
-  derived spec2Label: String = self.specLabelOf(2)
-  derived spec3Label: String = self.specLabelOf(3)
-  derived exportKeys: Array<String> = keysOf(self.profiles.kept.profiles[self.profiles.active])
-  derived copyKeys: Array<String> = keysOf(self.profiles.kept.profiles[self.source])
-  derived lines: Array<Line> = self.linesOf()
+  derived names: array<string> = self.profiles.names
+  derived only: boolean = self.names.length < 2
+  derived others: array<string> = self.othersOf()
+  derived activeLine: string = Locale::PROFILES_ACTIVE_NOW.format(self.profiles.active, self.whyText())
+  derived hasSpec: boolean = Game::player.spec != nil
+  derived spec1Label: string = self.specLabelOf(1)
+  derived spec2Label: string = self.specLabelOf(2)
+  derived spec3Label: string = self.specLabelOf(3)
+  derived exportKeys: array<string> = keysOf(self.profiles.kept.profiles[self.profiles.active])
+  derived copyKeys: array<string> = keysOf(self.profiles.kept.profiles[self.source])
+  derived lines: array<Line> = self.linesOf()
   derived red: Color = Ordaen.look.values.redText
-  derived asking: Boolean = self.ask != Ask::None
-  derived askingDelete: Boolean = self.ask == Ask::Delete
-  derived askingReset: Boolean = self.ask == Ask::Reset
-  derived hasFault: Boolean = self.fault != ""
-  derived hasNote: Boolean = self.note != ""
-  derived deleteAsk: String = Locale::PROFILES_DELETE_ASK.format(self.chosen)
-  derived resetAsk: String = Locale::PROFILES_RESET_ASK.format(self.chosen)
-  derived canCreate: Boolean = self.previewed != nil
-  derived hasOthers: Boolean = self.others.length > 0
+  derived asking: boolean = self.ask != Ask::None
+  derived askingDelete: boolean = self.ask == Ask::Delete
+  derived askingReset: boolean = self.ask == Ask::Reset
+  derived hasFault: boolean = self.fault != ""
+  derived hasNote: boolean = self.note != ""
+  derived deleteAsk: string = Locale::PROFILES_DELETE_ASK.format(self.chosen)
+  derived resetAsk: string = Locale::PROFILES_RESET_ASK.format(self.chosen)
+  derived canCreate: boolean = self.previewed != nil
+  derived hasOthers: boolean = self.others.length > 0
 
   const profiles: mut Profiles
   // What each module of the account is called, by its folder.
-  const titles: Map<String, String>
+  const titles: map<string, string>
 
   constructor() {
     self.profiles = Ordaen.keeper.profiles
-    const titles: Map<String, String> = {}
+    const titles: map<string, string> = {}
     for (addon of Ordaen.moduleAddons()) { titles[addon.name] = addon.title }
     titles["Ordaen"] = Ordaen.title
     self.titles = titles
@@ -219,15 +219,15 @@ public class ProfilesPage implements Component {
   }
 
   // The first profile that isn't `name`: nothing to copy from where there is none.
-  otherThan(self, name: String): String {
+  otherThan(self, name: string): string {
     for (each of self.names) {
       if (each != name) { return each }
     }
     return ""
   }
 
-  othersOf(self): Array<String> {
-    const list: Array<String> = []
+  othersOf(self): array<string> {
+    const list: array<string> = []
     for (each of self.names) {
       if (each != self.profiles.active) { list.push(each) }
     }
@@ -235,7 +235,7 @@ public class ProfilesPage implements Component {
   }
 
   // What was previewed is the text before it was changed.
-  textChanged(mut self, shown: String) {
+  textChanged(mut self, shown: string) {
     self.previewed = nil
   }
 
@@ -249,7 +249,7 @@ public class ProfilesPage implements Component {
     }
   }
 
-  whyText(self): String {
+  whyText(self): string {
     match (self.profiles.why) {
       Profiles::Reason::Spec => return Locale::PROFILES_WHY_SPEC.format(Game::player.spec?.name ?? "")
       Profiles::Reason::Character => return Locale::PROFILES_WHY_CHARACTER
@@ -259,15 +259,15 @@ public class ProfilesPage implements Component {
   }
 
   // A specialisation's row: its place, and its name where it is the one the character plays.
-  specLabelOf(self, index: Integer): String {
+  specLabelOf(self, index: integer): string {
     const spec = Game::player.spec
     if (spec != nil && spec.index == index) { return Locale::PROFILES_USE_SPEC_NOW.format(index, spec.name) }
     return Locale::PROFILES_USE_SPEC.format(index)
   }
 
   // What the preview says of each module in the text: whether it is installed and how many of its settings differ.
-  linesOf(self): Array<Line> {
-    const lines: Array<Line> = []
+  linesOf(self): array<Line> {
+    const lines: array<Line> = []
     const shared = self.previewed
     if (shared == nil) { return lines }
     const keys = keysOf({ sections: shared.sections })
@@ -288,7 +288,7 @@ public class ProfilesPage implements Component {
     return lines
   }
 
-  say(mut self, fault: String, note: String) {
+  say(mut self, fault: string, note: string) {
     self.fault = fault
     self.note = note
   }
@@ -308,7 +308,7 @@ public class ProfilesPage implements Component {
   }
 
   // The rows show the picks as they are kept.
-  sync(mut self, shown: Integer) {
+  sync(mut self, shown: integer) {
     const picks = self.profiles.kept.picks
     const who = self.profiles.who()
     const guid = who.character ?? ""
@@ -322,14 +322,14 @@ public class ProfilesPage implements Component {
   }
 
   // The profile picked for a specialisation of a character; empty for none.
-  specOf(self, guid: String, index: Integer): String {
+  specOf(self, guid: string, index: integer): string {
     const specs = self.profiles.kept.picks.bySpec[guid]
     if (specs == nil) { return "" }
     return specs[index] ?? ""
   }
 
   // Whether the profile the page is on is the one picked by the rule.
-  holds(self, use: Use): Boolean {
+  holds(self, use: Use): boolean {
     const picks = self.profiles.kept.picks
     const who = self.profiles.who()
     if (use == Use::Character) { return picks.byCharacter[who.character ?? ""] == self.chosen }
@@ -340,7 +340,7 @@ public class ProfilesPage implements Component {
   // A change of what is kept, made at once: one that switches this character to another profile asks nothing, as
   // every change is kept as it is made (`edit` packs the values first). `note` is said once it is made (nothing
   // where it is empty).
-  request(mut self, change: (next: mut SavedProfiles) => nil, chosen: String, note: String) {
+  request(mut self, change: (next: mut SavedProfiles) => nil, chosen: string, note: string) {
     const next = self.profiles.edit()
     change(next)
     self.profiles.apply(next)
@@ -354,7 +354,7 @@ public class ProfilesPage implements Component {
     self.epoch += 1
   }
 
-  use(mut self, use: Use, on: Boolean) {
+  use(mut self, use: Use, on: boolean) {
     const who = self.profiles.who()
     const guid = who.character ?? ""
     const chosen = self.chosen
@@ -367,7 +367,7 @@ public class ProfilesPage implements Component {
       return
     }
     const tag = who.classTag
-    const name: String | nil = on ? chosen : nil
+    const name: string | nil = on ? chosen : nil
     if (use == Use::Character) {
       self.request((next: mut SavedProfiles) => next.picks.forCharacter(guid, name), chosen, "")
     } else if (use == Use::Class) {
@@ -377,7 +377,7 @@ public class ProfilesPage implements Component {
     }
   }
 
-  useSpec(mut self, index: Integer, name: String) {
+  useSpec(mut self, index: integer, name: string) {
     const guid = self.profiles.who().character ?? ""
     if (name == self.specOf(guid, index)) { return }
     self.fault = ""
@@ -388,7 +388,7 @@ public class ProfilesPage implements Component {
   onNew(mut self) {
     const made = self.typed()
     if (made == nil) { return }
-    const from: String | nil = self.fromBlank ? nil : self.chosen
+    const from: string | nil = self.fromBlank ? nil : self.chosen
     if (!self.profiles.make(made, from)) { return }
     self.chosen = made
     self.name = ""
@@ -423,7 +423,7 @@ public class ProfilesPage implements Component {
   }
 
   // The profile this character would use once `gone` is.
-  afterDelete(self, gone: String): String {
+  afterDelete(self, gone: string): string {
     const next = (peek self.profiles.kept).clone()
     next.without(gone)
     return picked(next.picks, self.profiles.who())
@@ -445,17 +445,17 @@ public class ProfilesPage implements Component {
     self.say("", Locale::PROFILES_NOTE_RESET.format(target))
   }
 
-  onCopyTick(mut self, key: String, on: Boolean) {
+  onCopyTick(mut self, key: string, on: boolean) {
     self.copyOff = self.ticked(self.copyOff, key, on)
   }
 
-  onExportTick(mut self, key: String, on: Boolean) {
+  onExportTick(mut self, key: string, on: boolean) {
     self.exportOff = self.ticked(self.exportOff, key, on)
   }
 
   // The keys not ticked, with `key` in them or not.
-  ticked(self, off: Array<String>, key: String, on: Boolean): Array<String> {
-    const list: Array<String> = []
+  ticked(self, off: array<string>, key: string, on: boolean): array<string> {
+    const list: array<string> = []
     for (each of off) {
       if (each != key) { list.push(each) }
     }
@@ -464,8 +464,8 @@ public class ProfilesPage implements Component {
   }
 
   // The sections ticked of a profile that has them.
-  chosenSections(self, profile: Profile | nil, off: Array<String>): Map<String, String> {
-    const sections: Map<String, String> = {}
+  chosenSections(self, profile: Profile | nil, off: array<string>): map<string, string> {
+    const sections: map<string, string> = {}
     if (profile == nil) { return sections }
     for (key, packed of profile.sections) {
       if (!off.any(each => each == key)) { sections[key] = packed }
@@ -479,7 +479,7 @@ public class ProfilesPage implements Component {
     const from = self.profiles.kept.profiles[self.source]
     const sections = self.chosenSections(from, self.copyOff)
     let copied = 0
-    let kept: Array<String> = []
+    let kept: array<string> = []
     Ordaen.keeper.together(() => {
       for (key, packed of sections) {
         if (Ordaen.keeper.copyIn(key, Game::encoding.deserialize(packed))) {
@@ -532,7 +532,7 @@ public class ProfilesPage implements Component {
     self.previewed = result
   }
 
-  refusal(self, refused: Refused): String {
+  refusal(self, refused: Refused): string {
     match (refused.reason) {
       Refusal::NotProfile => return Locale::PROFILES_REFUSED_NOT_PROFILE
       Refusal::Version => return Locale::PROFILES_REFUSED_VERSION.format(refused.version ?? "?")

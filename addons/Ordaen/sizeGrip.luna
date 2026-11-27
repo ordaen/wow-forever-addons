@@ -16,7 +16,7 @@ public class SizeGrip implements Component {
 
   derived art: ByInteractionState<Art> = { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
   // The client's grabber points at the bottom right.
-  derived turn: Number<Angle> = self.corner == GripCorner::TopRight ? -90deg : 0deg
+  derived turn: number<Angle> = self.corner == GripCorner::TopRight ? -90deg : 0deg
 
   corner: Signal<GripCorner>
   constructor(corner: Signal<GripCorner> = GripCorner::BottomRight) {

@@ -8,33 +8,33 @@ import { Friend, Hero, Member, RecentAlly } from "$game"
 // A whisper as its conversation shows it: the words (their web addresses links), when, whose, and whether the client
 // kept them secret (drawn as the client gives them, never measured, never kept).
 public struct TalkLine implements Plain {
-  whole: String
+  whole: string
   // When it was said (seconds since 1970).
-  time: Number
+  time: number
   // The player's own (a whisper told): drawn on the right.
-  mine: Boolean
-  secret: Boolean
+  mine: boolean
+  secret: boolean
   // Who said it (their GUID; empty for none): a player reported has their lines taken away.
-  sender: String
+  sender: string
   // When the session that heard it began (seconds since 1970): a conversation sets each session's lines apart under
   // a rule naming it. 0 for a line kept before sessions were told apart.
-  session: Number = 0
+  session: number = 0
 }
 
 // When this session began: the session of every line it hears.
-public const THIS_SESSION: Number = peek Game::clock.server
+public const THIS_SESSION: number = peek Game::clock.server
 
 // What one conversation keeps between sessions: its lines, how many of them wait unread, and whether it was closed
 // (out of the list until its person whispers again).
 public struct KeptTalk implements Plain {
-  key: String
-  lines: Array<TalkLine>
-  unread: Integer = 0
-  closed: Boolean = false
+  key: string
+  lines: array<TalkLine>
+  unread: integer = 0
+  closed: boolean = false
 }
 
 // A conversation as the next session keeps it.
-public function keptOf(talk: Talk, closed: Boolean): KeptTalk {
+public function keptOf(talk: Talk, closed: boolean): KeptTalk {
   const lines = talk.kept()
   return { key: talk.key, lines: lines, unread: (peek talk.unread).min(lines.length), closed: closed }
 }
@@ -42,22 +42,22 @@ public function keptOf(talk: Talk, closed: Boolean): KeptTalk {
 // Who a conversation is with, as its row names them: a character by its name, in its class's colour where it is
 // known, and its level where it is; a Battle.net friend by the account's name, the character it plays (if any) under it.
 public struct TalkWho {
-  name: String
-  classFile: String
-  level: Integer
+  name: string
+  classFile: string
+  level: integer
   // A Battle.net friend's character in this game: the row's second line.
   hero: Hero | nil
 }
 
 // The people a conversation's partner may be found among.
 public struct KnownPeople {
-  friends: Array<Friend>
-  members: Array<Member>
-  allies: Array<RecentAlly>
+  friends: array<Friend>
+  members: array<Member>
+  allies: array<RecentAlly>
 }
 
 // Two names of one character: the same, or one of them its name without the realm the other adds.
-function sameName(a: String, b: String): Boolean {
+function sameName(a: string, b: string): boolean {
   return a == b || a.match("^([^%-]+)") == b || b.match("^([^%-]+)") == a
 }
 
@@ -78,51 +78,51 @@ public function whoOf(talk: Talk, known: KnownPeople): TalkWho {
 }
 
 // A character's class as the client tells it by its GUID: empty for none, or where the client doesn't know it.
-function classByGuid(guid: String): String {
+function classByGuid(guid: string): string {
   if (guid == "") { return "" }
   let _, classFile, _, _, _, _, _, _ = Client::GetPlayerInfoByGUID(guid)
   return classFile ?? ""
 }
 
 public struct KeptTalks implements Plain {
-  talks: Array<KeptTalk>
+  talks: array<KeptTalk>
 }
 
 // The whispers' kinds (the client's `ChatTypeInfo` keys): what the player whispered; what was heard (a character's, a
 // Battle.net friend's, the away and busy answers); a Battle.net friend's either way. The conversation is the sender's
 // (the one told, for what was told).
-const TOLD: Array<String> = ["WHISPER_INFORM", "BN_WHISPER_INFORM"]
-const HEARD: Array<String> = ["WHISPER", "BN_WHISPER", "AFK", "DND"]
-const BATTLE_NET: Array<String> = ["BN_WHISPER", "BN_WHISPER_INFORM"]
+const TOLD: array<string> = ["WHISPER_INFORM", "BN_WHISPER_INFORM"]
+const HEARD: array<string> = ["WHISPER", "BN_WHISPER", "AFK", "DND"]
+const BATTLE_NET: array<string> = ["BN_WHISPER", "BN_WHISPER_INFORM"]
 // Lines a conversation holds, and keeps for the next session.
 public const HELD = 500
 public const KEPT = 200
 
 // Whether a chat line is a whisper: told or heard, from someone.
-public function isWhisper(line: Game::ChatLine): Boolean {
+public function isWhisper(line: Game::ChatLine): boolean {
   return line.sender != "" && (isTold(line) || HEARD.any(kind => kind == line.kind))
 }
 
-public function isTold(line: Game::ChatLine): Boolean { return TOLD.any(kind => kind == line.kind) }
+public function isTold(line: Game::ChatLine): boolean { return TOLD.any(kind => kind == line.kind) }
 
-public function isBattleNet(line: Game::ChatLine): Boolean { return BATTLE_NET.any(kind => kind == line.kind) }
+public function isBattleNet(line: Game::ChatLine): boolean { return BATTLE_NET.any(kind => kind == line.kind) }
 
 // A conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
-public function talkKey(name: String, battleNet: Boolean): String {
+public function talkKey(name: string, battleNet: boolean): string {
   return `${battleNet ? "b" : "t"}:${name}`
 }
 
 // A conversation: with whom (the name the client's whisper takes), its lines oldest first, which a view follows by
 // `version`, and the lines heard while it wasn't the one shown.
 public class Talk {
-  public const key: String
-  public const partner: String
-  public const battleNet: Boolean
-  public lines: mut Array<TalkLine> = []
+  public const key: string
+  public const partner: string
+  public const battleNet: boolean
+  public lines: mut array<TalkLine> = []
   public state version = 0
   public state unread = 0
 
-  constructor(key: String) {
+  constructor(key: string) {
     self.key = key
     self.partner = key.sub(3)
     self.battleNet = key.sub(1, 2) == "b:"
@@ -136,15 +136,15 @@ public class Talk {
   }
 
   // The lines of the last session, before this one's.
-  public recall(mut self, lines: Array<TalkLine>) {
-    const now: Array<TalkLine> = lines.clone()
+  public recall(mut self, lines: array<TalkLine>) {
+    const now: array<TalkLine> = lines.clone()
     for (line of self.lines) { now.push(line) }
     self.lines = now
     self.version = (peek self.version) + 1
   }
 
   // The last `KEPT` that can be kept.
-  public kept(self): Array<TalkLine> {
+  public kept(self): array<TalkLine> {
     const keep = self.lines.filter(line => !line.secret)
     for (at of KEPT + 1..keep.length) { _ = keep.remove(1) }
     return keep
@@ -158,7 +158,7 @@ public class Talk {
   }
 
   // A sender's lines taken away (a player reported).
-  public forgetSender(mut self, guid: String) {
+  public forgetSender(mut self, guid: string) {
     const kept = self.lines.filter(line => line.sender != guid)
     if (kept.length == self.lines.length) { return }
     self.lines = kept
@@ -166,8 +166,8 @@ public class Talk {
   }
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
-  public slice(self, back: Integer, count: Integer): Array<TalkLine> {
-    const shown: Array<TalkLine> = []
+  public slice(self, back: integer, count: integer): array<TalkLine> {
+    const shown: array<TalkLine> = []
     const last = self.lines.length - back
     for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
     return shown

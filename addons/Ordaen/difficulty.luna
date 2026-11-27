@@ -4,7 +4,7 @@ import root Ordaen from "Ordaen"
 
 // A quest's level in its difficulty's colour, or in `plain` while the player has the game's colours off
 // (`Ordaen.questColors`), as the game's own log and tracker draw it.
-public function questLevelColor(quest: Integer, player: Integer, plain: Color): Color {
+public function questLevelColor(quest: integer, player: integer, plain: Color): Color {
   return Ordaen.questColors ? colorOf(difficultyOf(quest, player)) : plain
 }
 
@@ -12,14 +12,14 @@ public function questLevelColor(quest: Integer, player: Integer, plain: Color): 
 public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
 
 // The levels below the player's at which a quest is still green, as the client counts them.
-const function greenRange(level: Integer): Integer {
+const function greenRange(level: integer): integer {
   if (level <= 5) { return 5 }
   if (level <= 39) { return (level / 10).floor() + 5 }
   if (level <= 59) { return (level / 5).floor() + 1 }
   return 12
 }
 
-public const function difficultyOf(quest: Integer, player: Integer): Difficulty {
+public const function difficultyOf(quest: integer, player: integer): Difficulty {
   const above = quest - player
   if (above >= 5) { return .Impossible }
   if (above >= 3) { return .Hard }

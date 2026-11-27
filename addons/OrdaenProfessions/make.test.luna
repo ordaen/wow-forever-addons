@@ -14,9 +14,9 @@ const BLACKSMITHING = 164
 const CLOAK = 2387
 const BOLT = 2963
 const UNKNOWN = 9999999
-const MODES: Array<String> = ["Quantity", "Raise skill"]
+const MODES: array<string> = ["Quantity", "Raise skill"]
 
-function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game::Difficulty = Game::Difficulty::Always): Game::Recipe {
+function recipe(id: integer, name: string, craftable: integer, difficulty: Game::Difficulty = Game::Difficulty::Always): Game::Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
     difficulty: difficulty, craftable: craftable
@@ -24,19 +24,19 @@ function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game:
 }
 
 // Tailoring at `rank` of 75, and Blacksmithing.
-function professions(rank: Integer): Array<Game::Profession> {
+function professions(rank: integer): array<Game::Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: rank, max: 75, kind: Game::ProfessionKind::Crafting },
     { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game::ProfessionKind::Crafting }
   ]
 }
 
-function categories(): Array<Game::Category> {
+function categories(): array<Game::Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
 // The bags make `cloaks` cloaks (orange) and nine bolts (green).
-function recipes(cloaks: Integer): Array<Game::Recipe> {
+function recipes(cloaks: integer): array<Game::Recipe> {
   return [recipe(CLOAK, "Linen Cloak", cloaks), recipe(BOLT, "Bolt of Linen Cloth", 9, Game::Difficulty::Rarely)]
 }
 
@@ -46,8 +46,8 @@ function window(): Test::Part {
 
 // The make row as it reads: the mode, the count with − and +, «Create», and under them what it comes
 // to (none said by «Quantity»).
-function row(): String {
-  let read: Array<String> = []
+function row(): string {
+  let read: array<string> = []
   let created = false
   for (shown of window().texts()) {
     if (read.length > 0 || MODES.any(name => name == shown)) { read.push(shown) }
@@ -59,28 +59,28 @@ function row(): String {
 }
 
 // Whether the make row reads exactly this: where it doesn't, the test fails with what it reads.
-function reads(expected: String): Boolean {
+function reads(expected: string): boolean {
   const read = row()
   if (read != expected) { panic(`the make row reads «${read}», not «${expected}»`) }
   return true
 }
 
-function asked(expected: String): Boolean {
+function asked(expected: string): boolean {
   const said = Test::requests().join(", ")
   if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
   return true
 }
 
-function times(count: Integer, label: String) {
+function times(count: integer, label: string) {
   for (step of 1..count) { window().button(label).click() }
 }
 
-function off(label: String): Boolean {
+function off(label: string): boolean {
   return window().button(label).paintedWith(Ordaen.art.ctl.buttonDisabled)
 }
 
 // The mode picked from the row's dropdown, which shows `from`: its list holds the other two.
-function mode(from: String, to: String) {
+function mode(from: string, to: string) {
   window().button(from).click()
   const other = MODES.find(name => name != from) ?? panic("three modes")
   Test::page().window(other).button(to).click()

@@ -11,8 +11,8 @@ const INK: Color = Color::hex("#e8dcc4")
 const CLEAR: Color = Color::hex("#00000000")
 
 public class CopyText implements Component {
-  value: Signal<String>
-  constructor(value: Signal<String>) {
+  value: Signal<string>
+  constructor(value: Signal<string>) {
     self.value = value
   }
 

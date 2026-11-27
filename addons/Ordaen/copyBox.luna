@@ -17,9 +17,9 @@ const ROOM = 360dp
 public class CopyBox implements Component {
   public close: Event<nil> = new Event()
 
-  title: Signal<String>
-  value: Signal<String>
-  constructor(title: Signal<String>, value: Signal<String>) {
+  title: Signal<string>
+  value: Signal<string>
+  constructor(title: Signal<string>, value: Signal<string>) {
     self.title = title
     self.value = value
   }

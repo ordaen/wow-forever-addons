@@ -3,11 +3,11 @@ import Game from "$game"
 import Test from "$test"
 import { DB, ERRORS_MAX, Entry, Errors, Kind, Meta, SAVED, isOurs, noErrors, read, sourceOf, takeSaved } from "@/errors"
 
-function saved(session: Integer, nextId: Integer): mut DB {
+function saved(session: integer, nextId: integer): mut DB {
   return { session: session, nextId: nextId, sessions: {}, errors: [] }
 }
 
-function kept(id: Integer, message: String, source: String, kind: Kind, session: Integer): mut Entry {
+function kept(id: integer, message: string, source: string, kind: Kind, session: integer): mut Entry {
   return Entry { id: id, kind: kind, source: source, message: message, count: 1, time: "2026-01-01 00:00:00", session: session }
 }
 
@@ -30,11 +30,11 @@ test "makes a fresh table where none was kept" {
 
 test "reads what a session left and drops what doesn't fit" {
   // The table as the client's saved file has it.
-  const left: Array<Map<String, Unknown>> = [
+  const left: array<map<string, unknown>> = [
     { id: 1, kind: "error", source: "other", message: "old", count: 2, time: "2026-01-01 00:00:00", session: 3 },
     { id: 2, kind: "neither", message: "no kind it has" }
   ]
-  const raw: Map<String, Unknown> = { session: 4, nextId: 2, errors: left }
+  const raw: map<string, unknown> = { session: 4, nextId: 2, errors: left }
   const db = read(raw)
   Test::expect(db.session == 4)
   Test::expect(db.nextId == 2)
@@ -106,8 +106,8 @@ test "attributes Blizzard's own code to Blizzard, and nothing named to other" {
 
 test "counts LunaType and the addons written in it as ours, by their TOC, not by a name" {
   // The client's list: a LunaType addon's TOC names its sources in a dev build; another addon's names none.
-  Client::C_AddOns::DoesAddOnExist = (name: String | Integer): Boolean => name == "OrdaenTrading" || name == "OrdaenElsewhere" || name == "Details"
-  Client::C_AddOns::GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => name == "OrdaenTrading" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenTrading" : nil
+  Client::C_AddOns::DoesAddOnExist = (name: string | integer): boolean => name == "OrdaenTrading" || name == "OrdaenElsewhere" || name == "Details"
+  Client::C_AddOns::GetAddOnMetadata = (name: string | integer, variable: string): string | nil => name == "OrdaenTrading" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenTrading" : nil
   // A seam's fault is LunaType's error.
   Test::expect(isOurs("LunaType"))
   Test::expect(isOurs("OrdaenTrading"))
@@ -162,8 +162,8 @@ test "tells listeners about new errors and repeats, and which are first this ses
   let db = saved(1, 1)
   db.errors.push(kept(1, "old", "other", Kind::Error, 1))
   let errors = new Errors(db, noMeta())
-  let seen: Array<String> = []
-  errors.onChange((entry: Entry, isNew: Boolean, firstThisSession: Boolean): nil => {
+  let seen: array<string> = []
+  errors.onChange((entry: Entry, isNew: boolean, firstThisSession: boolean): nil => {
     seen.push(`${entry.message} ${isNew} ${firstThisSession}`)
   })
   _ = errors.add({ message: "x" })
@@ -174,7 +174,7 @@ test "tells listeners about new errors and repeats, and which are first this ses
 }
 
 test "formats an error with versions, stack and locals" {
-  Client::C_AddOns::GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => "1.2.3"
+  Client::C_AddOns::GetAddOnMetadata = (name: string | integer, variable: string): string | nil => "1.2.3"
   let errors = new Errors(noErrors(), { client: "1.60.1", build: "70790", interface: 16001, locale: "ruRU", core: "0.1.0" })
   let entry, _ = errors.add({ message: "Interface/AddOns/OrdaenMinimap/Map.lua:9: boom", stack: "the stack", locals: "x = 1" })
   let text = errors.format(entry)

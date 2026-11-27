@@ -31,7 +31,7 @@ const EDGE_ROOM_TOP = 4ui
 const METAL = 3ui
 // The least the panel is high: a cell, a fixed size, under the metal and the room along it. A height saved lower is
 // read as this.
-const LEAST_HEIGHT: Number<Length> = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
+const LEAST_HEIGHT: number<Length> = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
 // Where the free parts stand until the player moves them: above the bottom of the screen.
 const MICRO_HOME: Anchored = { point: Point::BottomLeft, x: 140ui, y: -10ui }
 const SOCIAL_HOME: Anchored = { point: Point::BottomLeft, x: 660ui, y: -10ui }
@@ -41,8 +41,8 @@ const BAGS_HOME: Anchored = { point: Point::BottomRight, x: -10ui, y: -10ui }
 // The zones along the panel. Across the whole edge, thirds; as long as its items, each zone as long as they are.
 // Either way an end never gives way past its items' length, and the middle is a share that does, down to its own
 // items' least (the experience bar's): on a screen too short for that the panel scrolls down a side.
-const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const FITTED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const THIRDS: array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const FITTED: array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it, and what stands
 // over the panel's start (the chat's tabs) keeps it too, while the portrait shows (`portraitShown`).
 public const PORTRAIT_WIDTH = 128ui
@@ -51,33 +51,33 @@ public const PORTRAIT_HEIGHT = 124ui
 // (6 against 4.5), standing out over the panel's corner.
 const PORTRAIT_FRAME_WEIGHT = 6 / 4.5
 // The face stands inside the frame: the frame's art takes its room inside the portrait's box, on its top and its right.
-function faceTop(): Number<Length> {
+function faceTop(): number<Length> {
   return reachDown(portraitFrame())
 }
-function faceRight(): Number<Length> {
+function faceRight(): number<Length> {
   return reachAcross(portraitFrame())
 }
 // The level's badge over the frame's top right corner, in the place of its corner piece: centred on the frame's inner
 // corner, where its top and right lines meet the face.
 const LEVEL_SIZE = 36ui
 // Read as drawn: the frame is Ordaen's, made after this file loads.
-function levelLeft(): Number<Length> {
+function levelLeft(): number<Length> {
   return PORTRAIT_WIDTH - reachAcross(portraitFrame()) - LEVEL_SIZE / 2
 }
-function levelTop(): Number<Length> {
+function levelTop(): number<Length> {
   return reachDown(portraitFrame()) - LEVEL_SIZE / 2
 }
 function portraitFrame(): ArtBorder {
   const metal = Ordaen.art.frame.window
   return { sides: [Side::Top, Side::Right], scale: metal.scale * PORTRAIT_FRAME_WEIGHT, width: metal.width * PORTRAIT_FRAME_WEIGHT, ..metal }
 }
-const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
+const PORTRAIT_ROOM: array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point::BottomLeft }
 // The talent points to spend, on a round badge (the level's, smaller) centred on the portrait's frame down its right
 // side (its metal 6 wide, its middle 3 in from the edge), under the level's badge.
 const TALENTS_SIZE = 20ui
 const FRAME_MIDDLE = 3ui
-const TALENTS_LEFT: Number<Length> = PORTRAIT_WIDTH - FRAME_MIDDLE - TALENTS_SIZE / 2
+const TALENTS_LEFT: number<Length> = PORTRAIT_WIDTH - FRAME_MIDDLE - TALENTS_SIZE / 2
 const TALENTS_TOP = 50ui
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
@@ -91,14 +91,14 @@ const SOCIAL_FOLDER = "OrdaenSocial"
 // The whispers' bubble: a plain round dot of Ordaen's violet, in the tone of the game's whisper pink.
 const WHISPERS_LOOK: CalloutLook = CalloutLook.Speech { tone: Color::hex("#8a4fd0") }
 // The friends' button the whispers' bubble points at, while it shows.
-function bubbleBy(shown: Boolean, button: any Frame | nil): Array<any Frame> {
+function bubbleBy(shown: boolean, button: any Frame | nil): array<any Frame> {
   return !shown || button == nil ? [] : [button]
 }
 // Down a side of the screen: one column, the zones one under another.
-const DOWN: Array<Track> = [{ fr: 1 }]
+const DOWN: array<Track> = [{ fr: 1 }]
 
 // The class's icon, by the class's tag as the game names it.
-function classIconOf(tag: String): Art {
+function classIconOf(tag: string): Art {
   match (tag) {
     "WARRIOR" => return "Interface/Icons/ClassIcon_Warrior"
     "PALADIN" => return "Interface/Icons/ClassIcon_Paladin"
@@ -125,20 +125,20 @@ function edgeOf(side: Side): Edge {
 public class ZoneBox implements Component {
   // Ordaen's art: its root is there before this module loads.
   derived align: Align = self.alignOf()
-  derived micro: Boolean = self.panel.microIn(self.zone)
+  derived micro: boolean = self.panel.microIn(self.zone)
   // Friends and guild with the menu in one zone stand in the menu, before its game menu's button; elsewhere, on
   // their own.
-  derived social: Boolean = self.panel.socialIn(self.zone)
-  derived socialAlone: Boolean = self.social && !self.micro
+  derived social: boolean = self.panel.socialIn(self.zone)
+  derived socialAlone: boolean = self.social && !self.micro
   // The experience bar lies along a panel that runs across the screen: down a side there is no room for it.
-  derived experience: Boolean = self.panel.experienceIn(self.zone) && !self.panel.vertical
-  derived zoneName: Boolean = self.panel.zoneIn(self.zone)
-  derived clock: Boolean = self.panel.clockIn(self.zone)
-  derived money: Boolean = self.panel.moneyIn(self.zone)
-  derived bags: Boolean = self.panel.bagsIn(self.zone)
+  derived experience: boolean = self.panel.experienceIn(self.zone) && !self.panel.vertical
+  derived zoneName: boolean = self.panel.zoneIn(self.zone)
+  derived clock: boolean = self.panel.clockIn(self.zone)
+  derived money: boolean = self.panel.moneyIn(self.zone)
+  derived bags: boolean = self.panel.bagsIn(self.zone)
   // One track as long as each item that sits here: columns across the screen, rows down a side of it.
-  derived columns: Array<Track> = self.panel.vertical ? DOWN : self.tracks()
-  derived rows: Array<Track> | nil = self.panel.vertical ? self.tracks() : nil
+  derived columns: array<Track> = self.panel.vertical ? DOWN : self.tracks()
+  derived rows: array<Track> | nil = self.panel.vertical ? self.tracks() : nil
   derived along: Align = self.panel.vertical ? Align::Center : self.align
   derived across: Align = self.panel.vertical ? self.align : Align::Center
 
@@ -163,8 +163,8 @@ public class ZoneBox implements Component {
     }
   }
 
-  tracks(self): Array<Track> {
-    let list: Array<Track> = []
+  tracks(self): array<Track> {
+    let list: array<Track> = []
     for (here of [self.micro, self.socialAlone]) {
       if (here) { list.push("max-content") }
     }
@@ -216,7 +216,7 @@ public class ZoneBox implements Component {
 const FOLDER = "OrdaenPanel"
 
 public class Panel implements Module, App {
-  public const title: String = "Ordaen Panel"
+  public const title: string = "Ordaen Panel"
 
   // Ordaen's art, look and fonts: its root is there before this module loads.
 
@@ -224,10 +224,10 @@ public class Panel implements Module, App {
   // The action bars' own settings, kept apart from the panel's (`OrdaenPanel:bars`).
   bars: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS, "bars")
   // Each bar's settings before the player changes them, as the character's Blizzard settings have its bars.
-  const barsDefaults: Map<String, BarChoice> = barDefaults()
+  const barsDefaults: map<string, BarChoice> = barDefaults()
   // Bartender4 is loaded: the action bars stay off, and their page says why.
-  const barsConflict: Boolean = bartenderLoaded()
-  public const pages: Array<SettingsPage> = [
+  const barsConflict: boolean = bartenderLoaded()
+  public const pages: array<SettingsPage> = [
     { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale::TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale::TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
@@ -243,7 +243,7 @@ public class Panel implements Module, App {
   state portraitHovered = false
   // The talent points the player has to spend in the active spec: a badge on the portrait's rim while there are any.
   public state unspentTalents = 0
-  derived talentsShown: Boolean = self.unspentTalents > 0
+  derived talentsShown: boolean = self.unspentTalents > 0
 
   constructor() {
     Ordaen.modules.add(self)
@@ -262,91 +262,91 @@ public class Panel implements Module, App {
   }
 
   // What the zones read.
-  public derived goldIcons: Boolean = self.settings.values.microIcons == MicroIcons::Gold
+  public derived goldIcons: boolean = self.settings.values.microIcons == MicroIcons::Gold
   // The player's portrait stands in the screen's corner: asked for, with the menu at the start of a panel
   // along the bottom. The character's button is then the portrait, and the menu has no cell for it.
-  public derived portraitShown: Boolean = self.settings.values.charButton == CharButton::Portrait && self.settings.values.microOn && self.settings.values.bottomOn &&
+  public derived portraitShown: boolean = self.settings.values.charButton == CharButton::Portrait && self.settings.values.microOn && self.settings.values.bottomOn &&
     self.side == Side::Bottom && self.at(Item::Micromenu) == Zone::Left
   // The side it stands along: its edge, or, while the player drags it in the placing mode, the side nearest the cursor.
   derived side: Side = self.docking ?? sideOf(self.settings.values.edge)
   state docking: Side | nil = nil
   // The panel runs down a side of the screen: its zones one under another, each item's cells too.
-  public derived vertical: Boolean = self.side == Side::Left || self.side == Side::Right
-  public derived outline: Integer = self.outlineOf()
+  public derived vertical: boolean = self.side == Side::Left || self.side == Side::Right
+  public derived outline: integer = self.outlineOf()
   public derived shadow: Shadow = self.settings.values.shadow ? TEXT_SHADOW : NO_SHADOW
   public derived clockColor: Color = Game::clock.invites > 0 ? PENDING : INK
 
   // The items off the panel, or all of them while the panel is off: each a free part of its own, which the
   // player places in Ordaen's placing mode. (The zone's name and the time aren't: off the panel they are the
   // minimap's.)
-  derived freeMicro: Boolean = self.settings.values.microOn && self.isFree(Item::Micromenu)
-  derived freeSocial: Boolean = self.settings.values.microOn && self.isFree(Item::Social)
-  derived freeExperience: Boolean = self.settings.values.statusOn && self.isFree(Item::Experience)
-  derived freeMoney: Boolean = self.isFree(Item::Currencies)
-  derived freeBags: Boolean = self.isFree(Item::Bags)
+  derived freeMicro: boolean = self.settings.values.microOn && self.isFree(Item::Micromenu)
+  derived freeSocial: boolean = self.settings.values.microOn && self.isFree(Item::Social)
+  derived freeExperience: boolean = self.settings.values.statusOn && self.isFree(Item::Experience)
+  derived freeMoney: boolean = self.isFree(Item::Currencies)
+  derived freeBags: boolean = self.isFree(Item::Bags)
 
   // Hidden with nothing to see and nothing for the cursor to find: not drawn at all (shown on mouseover, it never
   // fades to nothing).
-  derived drawn: Boolean = self.settings.values.bottomOn && self.opacity > 0
-  derived opacity: Number = self.opacityOf()
+  derived drawn: boolean = self.settings.values.bottomOn && self.opacity > 0
+  derived opacity: number = self.opacityOf()
   // The portrait shows with the panel, standing in it: over it, however often the panel shows again.
-  public derived face: String | nil = self.settings.values.charView == CharView::Face ? "player" : nil
+  public derived face: string | nil = self.settings.values.charView == CharView::Face ? "player" : nil
   public derived classIcon: Art | nil = self.settings.values.charView == CharView::ClassIcon ? classIconOf(Game::player.classTag) : nil
   public derived xpView: XpView = self.settings.values.xpView
   // The experience bar's fill and edge: its own choice, or the look's bar texture and frame.
   public derived xpFill: Art = self.xpFillOf()
-  public derived xpBezel: Boolean = self.settings.values.xpBorder == XpBorder::Bezel ||
+  public derived xpBezel: boolean = self.settings.values.xpBorder == XpBorder::Bezel ||
     self.settings.values.xpBorder == XpBorder::Theme && Ordaen.look.values.barFrame == BarFrame::Bezel
   // With Ordaen Spells on, its window holds the spellbook and the talents: one button opens it. Told among Ordaen's
   // modules by its title: a module needs no other module, so the panel doesn't import it.
-  public derived spellsMerged: Boolean = Ordaen.modules.any(module => module.title == SPELLS)
+  public derived spellsMerged: boolean = Ordaen.modules.any(module => module.title == SPELLS)
   // With Ordaen Social on, its window holds the friends and the guild: the friends' button alone opens it, the guild's
   // goes (and comes back as the module is turned off).
-  public derived guildMerged: Boolean = Ordaen.modules.any(module => module.title == SOCIAL)
+  public derived guildMerged: boolean = Ordaen.modules.any(module => module.title == SOCIAL)
   // Parts of the next level's experience other modules know the player will get (Ordaen Quests: quests done, not
   // turned in), drawn in the experience's tube after its fill, each with its tooltip.
   public const xpSources = new Registry<any XpSource>()
-  public derived xpParts: Array<XpPart> = self.partsOf()
+  public derived xpParts: array<XpPart> = self.partsOf()
   // With Ordaen Account on, its window holds the collections, the legacy and the achievements: one button, in the
   // legacy's place, opens it; the legacy's and the collections' go (and come back as the module is turned off).
-  public derived accountMerged: Boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
+  public derived accountMerged: boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
   // The whispers Ordaen Social says wait unread: a plain violet bubble with how many, pointing at the friends' button
   // from over it (under it on a panel along the top), while any wait.
-  derived unread: Integer = Ordaen.noticeOf(SOCIAL_FOLDER)
-  derived whispersBy: Array<any Frame> = bubbleBy(self.settings.values.microOn && self.unread > 0,
+  derived unread: integer = Ordaen.noticeOf(SOCIAL_FOLDER)
+  derived whispersBy: array<any Frame> = bubbleBy(self.settings.values.microOn && self.unread > 0,
     Game::frames.QuickJoinToastButton)
-  derived whispersCount: String = "%d".format(self.unread)
+  derived whispersCount: string = "%d".format(self.unread)
   derived whispersSide: CalloutSide = self.side == Side::Top ? CalloutSide::Below : CalloutSide::Above
   derived place: Place = self.placeOf()
   // The zones: three columns across the screen, three rows down a side of it; thirds of the whole edge, or each
   // as long as its items.
-  derived thirds: Array<Track> = self.settings.values.fit == Fit::Full ? THIRDS : FITTED
-  derived columns: Array<Track> = self.vertical ? DOWN : self.thirds
-  derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
+  derived thirds: array<Track> = self.settings.values.fit == Fit::Full ? THIRDS : FITTED
+  derived columns: array<Track> = self.vertical ? DOWN : self.thirds
+  derived rows: array<Track> | nil = self.vertical ? self.thirds : nil
   // How far it reaches in from its edge, and how high its inside is across the screen: under the metal and the room
   // along it.
-  derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
-  public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
+  derived tall: number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
+  public derived inside: number<Length> = self.tall - METAL - EDGE_ROOM_TOP
   // The room it keeps along the screen's bottom edge: its height and its top edge's metal, which reaches over it,
   // while it is on and stands there; else none. What stands on the panel stands this far up.
-  public derived bottomRoom: Number<Length> = self.settings.values.bottomOn && self.side == Side::Bottom ? self.drawnTall : 0ui
+  public derived bottomRoom: number<Length> = self.settings.values.bottomOn && self.side == Side::Bottom ? self.drawnTall : 0ui
   // The room under the metal, a measure of the art, as a padding takes it.
   derived edgeRoom: Edges = { top: Ordaen.spacingOf(EDGE_ROOM_TOP) }
   // How far its dividers reach up past its cells to meet the metal: across that room; down a side, the room is at its
   // inner edge, along the dividers, and they reach nothing.
-  public derived rise: Number<Length> = self.vertical ? 0ui : EDGE_ROOM_TOP
+  public derived rise: number<Length> = self.vertical ? 0ui : EDGE_ROOM_TOP
   // How far it reaches in from its edge as drawn: its top edge's metal stands past its line, inside the box's size.
-  derived drawnTall: Number<Length> = self.tall + reachDown(Ordaen.art.panel.edge)
+  derived drawnTall: number<Length> = self.tall + reachDown(Ordaen.art.panel.edge)
   // The experience bar on its own: 600 at its frame's line, the art past the line on either side.
-  derived freeXpWidth: Number<Length> = 600ui + reachAcross(Ordaen.art.frame.small)
-  derived width: Number<Length> | nil = self.vertical ? self.tall : nil
-  derived height: Number<Length> | nil = self.vertical ? nil : self.drawnTall
+  derived freeXpWidth: number<Length> = 600ui + reachAcross(Ordaen.art.frame.small)
+  derived width: number<Length> | nil = self.vertical ? self.tall : nil
+  derived height: number<Length> | nil = self.vertical ? nil : self.drawnTall
   derived along: Align = self.vertical ? Align::Center : Align::Stretch
   derived across: Align = self.vertical ? Align::Stretch : Align::Center
   // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.
   derived overflow: Overflow | nil = self.vertical ? Overflow::Scroll : nil
 
-  outlineOf(self): Integer {
+  outlineOf(self): integer {
     match (self.settings.values.outline) {
       Outline::None => return 0
       Outline::Thin => return 1
@@ -380,27 +380,27 @@ public class Panel implements Module, App {
     }
   }
 
-  isFree(self, item: Item): Boolean { return !self.settings.values.bottomOn || self.at(item) == Zone::Off }
+  isFree(self, item: Item): boolean { return !self.settings.values.bottomOn || self.at(item) == Zone::Off }
 
   // Whether an item sits in a zone of the panel.
-  public microIn(self, zone: Zone): Boolean { return self.settings.values.microOn && self.at(Item::Micromenu) == zone }
-  public socialIn(self, zone: Zone): Boolean { return self.settings.values.microOn && self.at(Item::Social) == zone }
-  public experienceIn(self, zone: Zone): Boolean { return self.settings.values.statusOn && self.at(Item::Experience) == zone }
-  public zoneIn(self, zone: Zone): Boolean { return self.at(Item::Zone) == zone }
-  public clockIn(self, zone: Zone): Boolean { return self.at(Item::Clock) == zone }
-  public moneyIn(self, zone: Zone): Boolean { return self.at(Item::Currencies) == zone }
-  public bagsIn(self, zone: Zone): Boolean { return self.at(Item::Bags) == zone }
+  public microIn(self, zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Micromenu) == zone }
+  public socialIn(self, zone: Zone): boolean { return self.settings.values.microOn && self.at(Item::Social) == zone }
+  public experienceIn(self, zone: Zone): boolean { return self.settings.values.statusOn && self.at(Item::Experience) == zone }
+  public zoneIn(self, zone: Zone): boolean { return self.at(Item::Zone) == zone }
+  public clockIn(self, zone: Zone): boolean { return self.at(Item::Clock) == zone }
+  public moneyIn(self, zone: Zone): boolean { return self.at(Item::Currencies) == zone }
+  public bagsIn(self, zone: Zone): boolean { return self.at(Item::Bags) == zone }
 
   // How visible it is now, by its visibility in the state the player is in, the cursor on it or on its portrait. In
   // the placing mode it shows, to be taken to another side.
-  opacityOf(self): Number {
+  opacityOf(self): number {
     if (Ordaen.placing) { return 1 }
     return opacityNow(self.settings.values.visibility, self.hovered || self.portraitHovered)
   }
 
   // What the other modules' sources give now, none left out where one has nothing to show.
-  partsOf(self): Array<XpPart> {
-    const parts: Array<XpPart> = []
+  partsOf(self): array<XpPart> {
+    const parts: array<XpPart> = []
     for (source of self.xpSources) {
       const part = source.part()
       if (part != nil) { parts.push(part) }
@@ -431,8 +431,8 @@ public class Panel implements Module, App {
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
   readTalents(mut self) { self.unspentTalents = Game::talentTrees.unspent(Game::talentTrees.activeGroup()) }
-  onPoints(mut self, changed: Number) { self.readTalents() }
-  onGroup(mut self, now: Number, before: Number) { self.readTalents() }
+  onPoints(mut self, changed: number) { self.readTalents() }
+  onGroup(mut self, now: number, before: number) { self.readTalents() }
 
   onPortraitEnter(mut self) { self.portraitHovered = true }
   onPortraitLeave(mut self) { self.portraitHovered = false }

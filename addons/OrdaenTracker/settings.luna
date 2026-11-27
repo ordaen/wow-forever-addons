@@ -10,17 +10,17 @@ const MOST_TRACKED = 25
 // none either way).
 public enum GroundShown implements Plain { Hover = "hover", Always = "always" }
 
-const GROUND_SHOWN: Array<Choice<GroundShown>> = [
+const GROUND_SHOWN: array<Choice<GroundShown>> = [
   { value: GroundShown::Hover, label: Locale::GROUND_ON_HOVER },
   { value: GroundShown::Always, label: Locale::GROUND_ALWAYS }
 ]
 
 public struct Choices implements Plain {
   // The most quests it lists, the first of the tracked; the rest wait until one before them goes.
-  listed: Integer
+  listed: integer
   // When its ground shows, and how opaque it is, from 0 to 1.
   groundShown: GroundShown
-  ground: Number
+  ground: number
 }
 
 public const DEFAULTS: Choices = { listed: MOST_TRACKED, groundShown: GroundShown::Hover, ground: 0.55 }

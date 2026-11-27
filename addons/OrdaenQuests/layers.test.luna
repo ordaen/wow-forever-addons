@@ -7,7 +7,7 @@ import { LogQuest } from "@/book"
 import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, nearestYards, startsAt } from "@/layers"
 import { Figure, QuestFacts, Spot } from "@/questie"
 
-function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
+function quest(id: integer, tracked: boolean, done: boolean): LogQuest {
   return {
     id: id, title: `Quest ${id}`, level: 10, header: "Westfall", kind: .World, done: done, failed: false,
     tracked: tracked, group: 0, shareable: false, xp: 0, money: 0,
@@ -17,8 +17,8 @@ function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
 
 // The log and the facts the layers follow.
 class Holder {
-  public state quests: Array<LogQuest> = []
-  public state facts: Map<Integer, QuestFacts> = {}
+  public state quests: array<LogQuest> = []
+  public state facts: map<integer, QuestFacts> = {}
   public state shown = 0
   public state npc: Figure | nil = nil
 }
@@ -128,10 +128,10 @@ test "of several NPCs' spots the one nearest the player is picked; with none mea
   const far: Figure = { id: 1, kind: .Npc, name: "Far Trainer", spots: [{ area: 12, x: 0.9, y: 0.9 }, { area: 1519, x: 0.5, y: 0.5 }] }
   const near: Figure = { id: 2, kind: .Npc, name: "Near Vendor", spots: [{ area: 12, x: 0.4, y: 0.6 }] }
   // The player stands at 0.4, 0.5 of area 12; another area is another continent.
-  const distance = (spot: Spot): Number | nil => spot.area == 12 ? ((spot.x - 0.4) ** 2 + (spot.y - 0.5) ** 2).sqrt() : nil
+  const distance = (spot: Spot): number | nil => spot.area == 12 ? ((spot.x - 0.4) ** 2 + (spot.y - 0.5) ** 2).sqrt() : nil
   const picked = nearestOf([far, near], distance) ?? panic("a spot")
   Test::expect(picked.figure.name == "Near Vendor" && picked.spot.y == 0.6)
-  const none = nearestOf([far, near], (spot: Spot): Number | nil => nil) ?? panic("the first")
+  const none = nearestOf([far, near], (spot: Spot): number | nil => nil) ?? panic("the first")
   Test::expect(none.figure.name == "Far Trainer" && none.spot.x == 0.9)
   Test::expect(nearestOf([{ id: 3, kind: .Npc, name: "Nowhere", spots: [] }], distance) == nil)
 }
@@ -143,8 +143,8 @@ test "an NPC's distance is to its nearest spot on the player's continent, nil wh
     name: "Trainer",
     spots: [{ area: 1519, x: 0.5, y: 0.5 }, { area: 12, x: 0.4, y: 0.9 }, { area: 12, x: 0.4, y: 0.7 }]
   }
-  const distance = (spot: Spot): Number | nil => spot.area == 12 ? ((spot.x - 0.4) ** 2 + (spot.y - 0.5) ** 2).sqrt() : nil
+  const distance = (spot: Spot): number | nil => spot.area == 12 ? ((spot.x - 0.4) ** 2 + (spot.y - 0.5) ** 2).sqrt() : nil
   const yards = nearestYards(npc, distance) ?? panic("measured")
   Test::expect((yards - 0.2).abs() < 0.0001)
-  Test::expect(nearestYards(npc, (spot: Spot): Number | nil => nil) == nil)
+  Test::expect(nearestYards(npc, (spot: Spot): number | nil => nil) == nil)
 }

@@ -3,7 +3,7 @@ import Test from "$test"
 import { ProgressBar } from "@/progressBar"
 
 class Scan {
-  state done: Number = 0.25
+  state done: number = 0.25
   state label = "Scanning 25%"
 
   public render(self): Template {

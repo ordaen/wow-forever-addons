@@ -24,11 +24,11 @@ const RED: Color = Color::hex("#ff4040")
 // A picked service's line.
 const LIT: Color = Color::hex("#00000040")
 
-function lines(): Array<Game::SpellLine> {
+function lines(): array<Game::SpellLine> {
   return [{ index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }]
 }
 
-function spells(): Array<Game::SpellEntry> {
+function spells(): array<Game::SpellEntry> {
   return [
     { id: 78, name: "Heroic Strike", rank: "Rank 2", icon: ICON, level: 8, passive: false, line: 2 },
     { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 },
@@ -38,7 +38,7 @@ function spells(): Array<Game::SpellEntry> {
   ]
 }
 
-function services(): Array<Game::TrainerService> {
+function services(): array<Game::TrainerService> {
   return [
     {
       index: 1, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, status: Game::ServiceStatus::Available, level: 8, cost: 400,
@@ -56,7 +56,7 @@ function services(): Array<Game::TrainerService> {
 }
 
 // Whether a text is drawn in this colour.
-function drawnIn(part: Test::Part, color: Color): Boolean {
+function drawnIn(part: Test::Part, color: Color): boolean {
   const ink = part.textColor()
   return (ink.r * 255).round() == (color.r * 255).round() &&
     (ink.g * 255).round() == (color.g * 255).round() &&
@@ -65,7 +65,7 @@ function drawnIn(part: Test::Part, color: Color): Boolean {
 }
 
 // Whether every text is shown in the part, each drawn after the one before it.
-function inOrder(part: Test::Part, wanted: Array<String>): Boolean {
+function inOrder(part: Test::Part, wanted: array<string>): boolean {
   const texts = part.texts()
   let at = 0
   for (text of wanted) {
@@ -80,14 +80,14 @@ function inOrder(part: Test::Part, wanted: Array<String>): Boolean {
 }
 
 // A choice picked from a toolbar button's list: the button by the glyph it shows, then the choice in its list.
-function pick(window: Test::Part, button: Art, among: String, choice: String) {
+function pick(window: Test::Part, button: Art, among: string, choice: string) {
   window.button(button).click()
   Test::page().window(among).button(choice).click()
 }
 
 // What another addon hears of the spellbook through the interface's registry of events.
 class Heard {
-  said: mut Array<String> = []
+  said: mut array<string> = []
   onShow(mut self) { self.said.push("shown") }
   onHide(mut self) { self.said.push("hidden") }
 }
@@ -128,7 +128,7 @@ test "the spellbook reads the game's spells each time it opens" {
   Game::spellbook.entries = spells
   const window = book()
   Test::open("/spellbook")
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 6673, name: "Battle Shout", rank: "", icon: ICON, level: 1, passive: false, line: 2 }
   ]
   Test::open("/spellbook")
@@ -179,7 +179,7 @@ test "the game's spells window is kept out of sight while ours stands in its pla
 
 // A game window held away from its start: the game's window manager reads it as having no place among its three, so
 // showing it later fills none.
-function unmanaged(window: any Client::Frame): Boolean {
+function unmanaged(window: any Client::Frame): boolean {
   Test::flush()
   return window.GetAttribute("UIPanelLayout-defined") == true && window.GetAttribute("UIPanelLayout-area") == nil
 }
@@ -207,7 +207,7 @@ test "the game's trainer window is held from its load while no trainer is open, 
   // The game's trainer window loaded (as the first trainer opens): held from then, before any shows.
   Game::frames.Trainer = own
   Test::expect(unmanaged(own))
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.open = true
   Test::flush()
   Test::expect(own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16)
@@ -245,7 +245,7 @@ test "each spell's row shows its name, and under it its skill line and its rank,
 test "each spell's row shows its icon" {
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 78, name: "Heroic Strike", rank: "", icon: SWORD, level: 8, passive: false, line: 2 },
     { id: 772, name: "Rend", rank: "", icon: ICON, level: 4, passive: false, line: 2 }
   ]
@@ -261,7 +261,7 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
   _ = gameWindow()
   const window = book()
   Test::expect(window.text("Heroic Strike").shown())
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 78, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, level: 16, passive: false, line: 2 }
   ]
   Client::PlayerSpellsUtil::OpenToSpellBookTab()
@@ -275,7 +275,7 @@ test "a spell learned while the spellbook shows is in it at once" {
   Game::spellbook.lines = lines
   Game::spellbook.entries = spells
   const window = book()
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 6673, name: "Battle Shout", rank: "", icon: ICON, level: 1, passive: false, line: 2 }
   ]
   Game::spellbook.changed.emit()
@@ -286,7 +286,7 @@ test "a spell learned while the spellbook shows is in it at once" {
 test "a spell learned while the spellbook is shut asks the game for nothing" {
   Test::mount(nil, PAGE)
   let asked = 0
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => {
+  Game::spellbook.entries = (): array<Game::SpellEntry> => {
     asked += 1
     return []
   }
@@ -320,7 +320,7 @@ function bySpec(window: Test::Part) {
 
 test "by spec, the spells stand under a heading for each skill line, in the book's order; a line with none has none" {
   Test::mount(nil, PAGE)
-  Game::spellbook.lines = (): Array<Game::SpellLine> => [
+  Game::spellbook.lines = (): array<Game::SpellLine> => [
     { index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }, { index: 4, name: "Fury" }
   ]
   Game::spellbook.entries = spells
@@ -402,7 +402,7 @@ test "the sort offers no «Active first»: the headings stand the kinds apart" {
 test "two ranks of one spell stand by the level each is learned at" {
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 6547, name: "Rend", rank: "Rank 2", icon: ICON, level: 10, passive: false, line: 2 },
     { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 }
   ]
@@ -506,7 +506,7 @@ test "the table view shows a spell's skill line, kind and level in columns, sort
 }
 
 // Dragged from a spell's row a little way: pressed, moved, a frame, let go.
-function drag(name: String) {
+function drag(name: string) {
   const from = Test::holding(name, nil)
   Test::moveTo(from)
   Test::press(nil)
@@ -567,13 +567,13 @@ test "the pick-up's click, rebound to Ctrl, puts the spell on the cursor and cas
   Game::spellbook.entries = spells
   const window = book()
   _ = Test::performed()
-  Game::input.modifiedClick = (click: Game::ModifiedClick): Boolean => click == .PickupAction
+  Game::input.modifiedClick = (click: Game::ModifiedClick): boolean => click == .PickupAction
   Test::hold([.Ctrl])
   window.text("Rend").item().button(ICON).click()
   Test::hold([])
   Test::expect(Client::CursorHasSpell() && Test::performed().length == 0)
   Client::ClearCursor()
-  Game::input.modifiedClick = (click: Game::ModifiedClick): Boolean => click == .SelfCast
+  Game::input.modifiedClick = (click: Game::ModifiedClick): boolean => click == .SelfCast
   Test::hold([.Alt])
   window.text("Rend").item().button(ICON).click()
   Test::hold([])
@@ -593,7 +593,7 @@ test "the cursor on a spell's slot shows the game's tooltip of the spell" {
 test "a spell not learned yet is dimmed, cast by nothing and put on no bar" {
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 100, name: "Charge", rank: "", icon: ICON, level: 4, passive: false, line: 2, learned: false }
   ]
   const window = book()
@@ -622,7 +622,7 @@ test "a spell cooling down is shaded by the client's clock until the client says
 test "a racial passive's rank says «Racial» alone: its group says it is passive" {
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 20573, name: "Hardiness", rank: "Racial Passive", icon: ICON, level: 1, passive: true, line: 1 }
   ]
   const window = book()
@@ -632,7 +632,7 @@ test "a racial passive's rank says «Racial» alone: its group says it is passiv
 test "a rank by its number reads «Rank 2», a word as the client gives it" {
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 116, name: "Frostbolt", rank: "Уровень 2", icon: ICON, level: 4, passive: false, line: 2 },
     { id: 20577, name: "Cannibalize", rank: "Racial", icon: ICON, level: 1, passive: false, line: 1 }
   ]
@@ -645,12 +645,12 @@ test "the pet's spells stand last under its book; the right button on a pet's sp
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
   Game::spellbook.entries = spells
-  Game::spellbook.petBook = (): String | nil => "Demon"
-  Game::spellbook.petEntries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.petBook = (): string | nil => "Demon"
+  Game::spellbook.petEntries = (): array<Game::SpellEntry> => [
     { id: 3716, name: "Torment", rank: "", icon: SWORD, level: 10, passive: false, line: 0, pet: true, slot: 1 }
   ]
   let auto = false
-  Game::spellbook.autoCast = (spell: Game::SpellEntry): Boolean | nil => spell.pet ? auto : nil
+  Game::spellbook.autoCast = (spell: Game::SpellEntry): boolean | nil => spell.pet ? auto : nil
   const window = book()
   Test::expect(inOrder(window, ["Active", "Rend", "Passive", "Parry", "Demon", "Torment"]))
   // Its book says whose it is and its line: under it, nothing.
@@ -668,14 +668,14 @@ test "the pet's spells stand last under its book; the right button on a pet's sp
 
 test "opened and closed by its command, the spellbook plays the game's sounds and tells other addons" {
   Test::mount(nil, PAGE)
-  const played: Array<Integer> = []
-  Client::PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
+  const played: array<integer> = []
+  Client::PlaySound = (kit: integer, channel: string | nil, once: boolean | nil): (boolean | nil, unknown) => {
     played.push(kit)
     return true, nil
   }
   const heard = new Heard()
-  Client::EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Show", (owner: Unknown): nil => heard.onShow(), heard)
-  Client::EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Hide", (owner: Unknown): nil => heard.onHide(), heard)
+  Client::EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Show", (owner: unknown): nil => heard.onShow(), heard)
+  Client::EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Hide", (owner: unknown): nil => heard.onHide(), heard)
   _ = book()
   Test::expect(heard.said.join(", ") == "shown")
   Test::expect(played.length == 1 && played[1] == Client::SOUNDKIT["UI_CLASS_TALENT_OPEN_WINDOW"])
@@ -721,8 +721,8 @@ test "a long name wraps in its column, on its font's own lines, and is never cut
   Test::mount(nil, PAGE)
   Game::spellbook.lines = lines
   const long = "Improved Heroic Strike of the Long Winter Nights"
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => {
-    const list: Array<Game::SpellEntry> = []
+  Game::spellbook.entries = (): array<Game::SpellEntry> => {
+    const list: array<Game::SpellEntry> = []
     for (spell of spells()) { list.push(spell) }
     list.push({ id: 99, name: long, rank: "Rank 3", icon: ICON, level: 20, passive: false, line: 2 })
     return list
@@ -752,7 +752,7 @@ test "the trainer's window shows while the game's class trainer is open" {
 test "a trainer whose list fills after it shows, in the same frame, shows the list" {
   Test::mount(nil, PAGE)
   let filled = false
-  Game::trainer.services = (): Array<Game::TrainerService> => filled ? services() : []
+  Game::trainer.services = (): array<Game::TrainerService> => filled ? services() : []
   // TRAINER_SHOW with the list empty, then TRAINER_UPDATE with it filled, before a frame passes.
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -764,7 +764,7 @@ test "a trainer whose list fills after it shows, in the same frame, shows the li
 test "the trainer's window's close leaves the trainer, as the game's does" {
   Test::mount(nil, PAGE)
   Game::trainer.services = services
-  const left: Array<String> = []
+  const left: array<string> = []
   Client::CloseTrainer = (): nil => left.push("closed")
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -774,7 +774,7 @@ test "the trainer's window's close leaves the trainer, as the game's does" {
 
 test "a trainer that teaches no class opens no window of ours" {
   Test::mount(nil, PAGE)
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.services = services
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -784,10 +784,10 @@ test "a trainer that teaches no class opens no window of ours" {
 
 test "a class trainer met after a profession's opens the trainer's window" {
   Test::mount(nil, PAGE)
-  Game::trainer.teachesClass = (): Boolean => false
+  Game::trainer.teachesClass = (): boolean => false
   Game::trainer.open = true
   Game::trainer.open = false
-  Game::trainer.teachesClass = (): Boolean => true
+  Game::trainer.teachesClass = (): boolean => true
   Game::trainer.services = services
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -857,7 +857,7 @@ test "what a service needs turns dim once the trainer says it can be learned" {
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
-  Game::trainer.services = (): Array<Game::TrainerService> => services().map(service => Game.TrainerService { status: .Available, ..service })
+  Game::trainer.services = (): array<Game::TrainerService> => services().map(service => Game.TrainerService { status: .Available, ..service })
   Game::trainer.changed.emit()
   Test::expect(drawnIn(window.text("Rank 2 · Requires level 50"), DIM))
 }
@@ -884,7 +884,7 @@ test "sorted by level, by price or available first, the services stand so" {
 
 test "services alike in the sort stand in the trainer's order" {
   Test::mount(nil, PAGE)
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Rend", rank: "", icon: nil, status: Game::ServiceStatus::Available, level: 4, cost: 100, description: "" },
     { index: 2, name: "Charge", rank: "", icon: nil, status: Game::ServiceStatus::Available, level: 4, cost: 100, description: "" }
   ]
@@ -978,7 +978,7 @@ test "the trainer's page of the settings chooses the view the trainer's window o
 
 test "with nothing picked, the trainer asks for a pick, and the footer counts the services by what can be done with them" {
   Test::mount(nil, PAGE)
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "A", rank: "", icon: nil, status: Game::ServiceStatus::Available, level: 1, cost: 0, description: "" },
     { index: 2, name: "B", rank: "", icon: nil, status: Game::ServiceStatus::Unavailable, level: 1, cost: 0, description: "" },
     { index: 3, name: "C", rank: "", icon: nil, status: Game::ServiceStatus::Unavailable, level: 1, cost: 0, description: "" },
@@ -997,7 +997,7 @@ test "with nothing picked, the trainer asks for a pick, and the footer counts th
 test "with nothing picked, the card is the trainer's: its greeting and what all not learned costs, the counts left to the footer" {
   Test::mount(nil, PAGE)
   Game::trainer.services = services
-  Game::trainer.greeting = (): String => "Hail, warrior."
+  Game::trainer.greeting = (): string => "Hail, warrior."
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1009,20 +1009,20 @@ test "with nothing picked, the card is the trainer's: its greeting and what all 
 
 test "a picked spell says what changes against the rank the player has, and the game's facts of it in the tooltip's band" {
   Test::mount(nil, PAGE)
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     {
       index: 1, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, status: Game::ServiceStatus::Available, level: 8, cost: 400,
       description: "A strong attack that deals 32 more damage.", spell: 285
     }
   ]
-  Game::spellbook.entries = (): Array<Game::SpellEntry> => [
+  Game::spellbook.entries = (): array<Game::SpellEntry> => [
     { id: 284, name: "Heroic Strike", rank: "Rank 2", icon: SWORD, level: 4, passive: false, line: 2 }
   ]
-  Game::spells.description = (id: Integer): String | nil => id == 284 ? "Deals 21 more damage." : "Deals 32 more damage."
-  Game::spells.tooltip = (id: Integer): Game::TooltipData | nil => {
+  Game::spells.description = (id: integer): string | nil => id == 284 ? "Deals 21 more damage." : "Deals 32 more damage."
+  Game::spells.tooltip = (id: integer): Game::TooltipData | nil => {
     return { lines: [{ left: "Heroic Strike", kind: 13 }, { left: "15 Rage", right: "Melee Range", kind: 0 }, { left: "Next melee", kind: 0 }] }
   }
-  Game::spells.cost = (id: Integer): Game::SpellCost | nil => ({ amount: 15, resource: .Rage })
+  Game::spells.cost = (id: integer): Game::SpellCost | nil => ({ amount: 15, resource: .Rage })
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1104,7 +1104,7 @@ test "a service's row follows what the trainer says of it" {
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     { index: 1, name: "Heroic Strike", rank: "Rank 4", icon: ICON, status: Game::ServiceStatus::Available, level: 16, cost: 400, description: "" }
   ]
   Game::trainer.changed.emit()
@@ -1120,7 +1120,7 @@ test "the count of the services follows what the trainer says" {
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
   Test::expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 1 | Learned | 1 | Your money"))
-  Game::trainer.services = (): Array<Game::TrainerService> => []
+  Game::trainer.services = (): array<Game::TrainerService> => []
   Game::trainer.changed.emit()
   Test::expect(window.texts().join(" | ").contains("Available | 0 | Unavailable | 0 | Learned | 0 | Your money"))
 }
@@ -1155,8 +1155,8 @@ test "a price the player can't pay is red, one they can in ink" {
 test "Learn buys the picked service where it can be learned and paid for, and is greyed otherwise" {
   Test::mount(nil, PAGE)
   Game::trainer.services = services
-  const bought: Array<Integer> = []
-  Client::BuyTrainerService = (index: Integer): nil => bought.push(index)
+  const bought: array<integer> = []
+  Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1171,7 +1171,7 @@ test "Learn buys the picked service where it can be learned and paid for, and is
 }
 
 // Three services that can be learned now around one that can't yet, each said by its description.
-function described(): Array<Game::TrainerService> {
+function described(): array<Game::TrainerService> {
   return [
     { index: 1, name: "A", rank: "", icon: nil, status: Game::ServiceStatus::Available, level: 1, cost: 100, description: "About A" },
     { index: 2, name: "B", rank: "", icon: nil, status: Game::ServiceStatus::Unavailable, level: 30, cost: 100, description: "About B" },
@@ -1184,8 +1184,8 @@ test "Learn goes on to the next service that can be learned now, past one that c
   Test::mount(nil, PAGE)
   Game::trainer.services = described
   Game::money.amount = 1000
-  const bought: Array<Integer> = []
-  Client::BuyTrainerService = (index: Integer): nil => bought.push(index)
+  const bought: array<integer> = []
+  Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1198,7 +1198,7 @@ test "Learn goes on to the next service that can be learned now, past one that c
 }
 
 // Four services that can be learned now (one starting a profession), and one that can't yet.
-function batch(): Array<Game::TrainerService> {
+function batch(): array<Game::TrainerService> {
   return [
     { index: 1, name: "A", rank: "", icon: nil, status: Game::ServiceStatus::Available, level: 1, cost: 100, description: "" },
     { index: 2, name: "B", rank: "", icon: nil, status: Game::ServiceStatus::Unavailable, level: 30, cost: 100, description: "" },
@@ -1229,8 +1229,8 @@ test "with nothing picked, «Learn available» asks first, then learns what can 
   Test::mount(nil, PAGE)
   Game::trainer.services = batch
   Game::money.amount = 1000
-  const bought: Array<Integer> = []
-  Client::BuyTrainerService = (index: Integer): nil => bought.push(index)
+  const bought: array<integer> = []
+  Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1244,8 +1244,8 @@ test "«Learn available» is greyed while the money doesn't pay for all; a list 
   Test::mount(nil, PAGE)
   Game::trainer.services = batch
   Game::money.amount = 500
-  const bought: Array<Integer> = []
-  Client::BuyTrainerService = (index: Integer): nil => bought.push(index)
+  const bought: array<integer> = []
+  Client::BuyTrainerService = (index: integer): nil => bought.push(index)
   Game::trainer.open = true
   Game::trainer.changed.emit()
   const window = Test::page().window(TRAINER)
@@ -1255,7 +1255,7 @@ test "«Learn available» is greyed while the money doesn't pay for all; a list 
   Test::expect(Test::page().text("Not enough money for all of them together.").shown())
   Game::money.amount = 1000
   window.button("Learn available · 0g 6s 0c").click()
-  Game::trainer.services = (): Array<Game::TrainerService> => batch().filter(service => service.index != 5)
+  Game::trainer.services = (): array<Game::TrainerService> => batch().filter(service => service.index != 5)
   Game::trainer.changed.emit()
   Test::page().window("Learn 3 skills for").button("Learn").click()
   Test::expect(bought.length == 0)
@@ -1300,7 +1300,7 @@ function ranked(service: Game::TrainerService): Game::TrainerService {
 
 test "«Learn available»'s tip names each skill it learns, with its rank and price; the card what all not learned costs" {
   Test::mount(nil, PAGE)
-  Game::trainer.services = (): Array<Game::TrainerService> => batch().map(service => ranked(service))
+  Game::trainer.services = (): array<Game::TrainerService> => batch().map(service => ranked(service))
   Game::money.amount = 1000
   Game::trainer.open = true
   Game::trainer.changed.emit()
@@ -1328,7 +1328,7 @@ test "a class trainer's own window stands away, unseen, while ours shows" {
 
 test "a service's line names its spec before its rank, and its card lights what its description says" {
   Test::mount(nil, PAGE)
-  Game::trainer.services = (): Array<Game::TrainerService> => [
+  Game::trainer.services = (): array<Game::TrainerService> => [
     {
       index: 1, name: "Rend", rank: "Rank 2", icon: nil, status: Game::ServiceStatus::Available, level: 10, cost: 100,
       description: "Wounds the target for 28 damage over 12 sec.", skillLine: "Arms"

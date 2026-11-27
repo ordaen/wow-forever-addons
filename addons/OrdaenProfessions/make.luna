@@ -11,11 +11,11 @@ import Style from "@/style"
 import { MakeMode } from "@/view"
 
 // The mode, the count with its − and +, the room left, «Create»; what it comes to on a line of its own.
-const MAKE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const MAKE: array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 const STEP = 32.8125dp
 const MODE_WIDTH = 164.0625dp
 const STOP_CASTING: Action = .RunMacro { macro: "/stopcasting" }
-const MODES: Array<Choice<MakeMode>> = [
+const MODES: array<Choice<MakeMode>> = [
   { value: MakeMode::Count, label: Locale::MAKE_COUNT },
   { value: MakeMode::Skill, label: Locale::MAKE_SKILL }
 ]
@@ -25,49 +25,49 @@ public enum Queueing { None, Waiting, Making }
 
 public class MakeRow implements Component {
   // «Create» clicked, with how many: making must start in the click.
-  public create: Event<Integer> = new Event()
+  public create: Event<integer> = new Event()
   // «Stop» or «Remove from queue» clicked: the recipe leaves the queue, its run ending with the craft under way.
   public drop: Event<nil> = new Event()
 
-  derived making: Boolean = self.queueing == Queueing::Making
-  derived button: String = match (self.queueing) {
+  derived making: boolean = self.queueing == Queueing::Making
+  derived button: string = match (self.queueing) {
     Queueing::None => Locale::CREATE
     Queueing::Waiting => Locale::UNQUEUE
     Queueing::Making => Locale::STOP
   }
-  derived blocked: Boolean = self.queueing == Queueing::None && self.cannot
+  derived blocked: boolean = self.queueing == Queueing::None && self.cannot
   // While a craft is being made, «Stop» interrupts it too: only a secure press may stop a cast (`/stopcasting`).
   derived stopping: Action | nil = self.making ? STOP_CASTING : nil
 
   // The most the count may be: by «Quantity», what the bags make now; by «Raise skill», the points left before the
   // rank's most.
-  derived most: Integer = self.mostOf()
+  derived most: integer = self.mostOf()
   // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
-  derived expected: Integer | nil = self.expectedOf()
+  derived expected: integer | nil = self.expectedOf()
   // How many «Create» makes.
-  derived makes: Integer = self.makingOf()
-  derived hint: String = self.hintOf()
-  derived cannot: Boolean = self.makes < 1
+  derived makes: integer = self.makingOf()
+  derived hint: string = self.hintOf()
+  derived cannot: boolean = self.makes < 1
   // What the bags make of the recipe now.
-  derived craftable: Integer = self.recipe?.craftable ?? 0
+  derived craftable: integer = self.recipe?.craftable ?? 0
 
   recipe: Signal<Game::Recipe | nil>
-  count: mut Signal<Integer>
+  count: mut Signal<integer>
   mode: mut Signal<MakeMode>
   profession: Signal<Game::Profession | nil>
-  yellow: Signal<Integer | nil>
-  grey: Signal<Integer | nil>
+  yellow: Signal<integer | nil>
+  grey: Signal<integer | nil>
   queueing: Signal<Queueing>
   constructor(
     recipe: Signal<Game::Recipe | nil>,
     // How many to make, or skill points to gain.
-    count: mut Signal<Integer>,
+    count: mut Signal<integer>,
     mode: mut Signal<MakeMode>,
     // The profession open: its skill, and the most its rank allows.
     profession: Signal<Game::Profession | nil>,
     // The skill at which the recipe turns yellow and grey; none where the client's table hasn't it.
-    yellow: Signal<Integer | nil>,
-    grey: Signal<Integer | nil>,
+    yellow: Signal<integer | nil>,
+    grey: Signal<integer | nil>,
     queueing: Signal<Queueing> = Queueing::None
   ) {
     self.recipe = recipe
@@ -79,7 +79,7 @@ public class MakeRow implements Component {
     self.queueing = queueing
   }
 
-  expectedOf(self): Integer | nil {
+  expectedOf(self): integer | nil {
     const profession = self.profession
     const yellow = self.yellow
     const grey = self.grey
@@ -87,14 +87,14 @@ public class MakeRow implements Component {
     return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
   }
 
-  mostOf(self): Integer {
+  mostOf(self): integer {
     if (self.mode != MakeMode::Skill) { return self.craftable }
     const profession = self.profession
     return profession == nil ? 0 : profession.max - profession.rank
   }
 
   // What «Create» makes: never more than the bags make now.
-  makingOf(self): Integer {
+  makingOf(self): integer {
     const craftable = self.craftable
     return match (self.mode) {
       MakeMode::Count => self.count.min(craftable)
@@ -102,7 +102,7 @@ public class MakeRow implements Component {
     }
   }
 
-  hintOf(self): String {
+  hintOf(self): string {
     return match (self.mode) {
       MakeMode::Count => ""
       MakeMode::Skill => self.expected == nil ? Locale::MAKE_NO_SKILL : Locale::MAKE_ABOUT.format(self.expected ?? 0)

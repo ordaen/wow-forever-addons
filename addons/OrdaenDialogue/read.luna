@@ -21,19 +21,19 @@ public enum LineKind { TurnIn, RepeatTurnIn, New, Daily, Legendary, InProgress, 
 // One line of the NPC's list.
 public struct Line {
   const kind: LineKind
-  const title: String
+  const title: string
   // A quest's level; 0 for a plain option.
-  const level: Integer
+  const level: integer
   const difficulty: Difficulty
   const icon: Art
   // Which it is: a gossip option's ID (what its mark keeps; 0 for an option the client gives none, a vendor's), a
   // gossip quest's ID, or a greeting quest's place.
-  const id: Integer
+  const id: integer
   // An option's place, which picks it as the game's own window does (`SelectOptionByIndex`); 0 for a quest.
-  const order: Integer = 0
+  const order: integer = 0
   // An option that leads somewhere (a vendor's goods, a trainer, a flight, the bank, an inn), not a line of talk:
   // what the one-option skip picks.
-  const leads: Boolean = false
+  const leads: boolean = false
   const source: Source
 }
 
@@ -42,25 +42,25 @@ public struct Line {
 const TALK_ICON = 132053
 
 // Whether an option leads somewhere: not the talk icon, and no quest's or film's flag (`flags` 1, 4) on it.
-function leadsSomewhere(option: Client::GossipOptionUIInfo): Boolean {
+function leadsSomewhere(option: Client::GossipOptionUIInfo): boolean {
   return option.icon != TALK_ICON && option.flags == 0
 }
 
 // What a quest needs handed in: an item with how many the player has and how many it takes.
 public struct Need {
-  const name: String
+  const name: string
   const icon: Art | nil
-  const item: Integer | nil
-  const have: Integer
-  const need: Integer
+  const item: integer | nil
+  const have: integer
+  const need: integer
 }
 
 // What the client says of the quest a quest giver shows.
 // The reward to pick for the player, by its place among the choices: the one worth most more than what is worn
 // (`upgradeOf`, of those the player can use), else the one that sells for most; 0 where none sells either.
-public function bestReward(choices: Array<Reward>, upgradeOf: (link: String) => Number | nil): Integer {
+public function bestReward(choices: array<Reward>, upgradeOf: (link: string) => number | nil): integer {
   let best = 0
-  let bestShare: Number = 0
+  let bestShare: number = 0
   for (reward of choices) {
     const link = reward.link
     const share = link != nil && !reward.unusable ? upgradeOf(link) ?? 0 : 0
@@ -81,26 +81,26 @@ public function bestReward(choices: Array<Reward>, upgradeOf: (link: String) => 
 }
 
 public struct Quest {
-  const id: Integer
-  const title: String
+  const id: integer
+  const title: string
   // The page's text: the description (details), what the NPC says of it (progress), the thanks (reward).
-  const text: String
-  const objectives: String
-  const group: Integer
-  const choices: Array<Reward>
-  const also: Array<Reward>
-  const money: Integer
-  const xp: Integer
-  const standings: Array<Standing>
+  const text: string
+  const objectives: string
+  const group: integer
+  const choices: array<Reward>
+  const also: array<Reward>
+  const money: integer
+  const xp: integer
+  const standings: array<Standing>
   // The things its words name (QuestieDB's, while Quests is on), marked on the parchment.
-  const names: Array<Named>
-  const needs: Array<Need>
-  const moneyNeeded: Integer
-  const completable: Boolean
+  const names: array<Named>
+  const needs: array<Need>
+  const moneyNeeded: integer
+  const completable: boolean
   // Accepting it flags the player for PvP: asked first, as the game's own window asks.
-  const pvp: Boolean
+  const pvp: boolean
   // The game accepts it itself (`QuestGetAutoAccept`): there is nothing to decline, its accept acknowledges.
-  const autoAccepted: Boolean
+  const autoAccepted: boolean
 }
 
 // The game's quest icons.
@@ -122,7 +122,7 @@ function questIcon(kind: LineKind): Art {
   }
 }
 
-function questLine(kind: LineKind, title: String, level: Integer, trivial: Boolean, id: Integer, source: Source): Line {
+function questLine(kind: LineKind, title: string, level: integer, trivial: boolean, id: integer, source: Source): Line {
   return {
     // The client's own word that it is trivial stands; else the quest log's reckoning.
     kind: kind, title: title, level: level,
@@ -132,20 +132,20 @@ function questLine(kind: LineKind, title: String, level: Integer, trivial: Boole
 }
 
 // A new quest's kind by how often it may be done.
-function offerKind(frequency: Number | nil, legendary: Boolean): LineKind {
+function offerKind(frequency: number | nil, legendary: boolean): LineKind {
   if (legendary) { return .Legendary }
   if (frequency != nil && frequency > 0) { return .Daily }
   return .New
 }
 
 // A quest in the player's log: to hand in, blue where it may be done again, or in progress.
-function activeKind(complete: Boolean, repeatable: Boolean): LineKind {
+function activeKind(complete: boolean, repeatable: boolean): LineKind {
   if (!complete) { return .InProgress }
   return repeatable ? .RepeatTurnIn : .TurnIn
 }
 
 // The order the list shows its kinds in.
-function rank(kind: LineKind): Integer {
+function rank(kind: LineKind): integer {
   return match (kind) {
     .TurnIn, .RepeatTurnIn => 1
     .New, .Daily, .Legendary => 2
@@ -154,8 +154,8 @@ function rank(kind: LineKind): Integer {
   }
 }
 
-function inOrder(lines: mut Array<Line>): Array<Line> {
-  let ordered: Array<Line> = []
+function inOrder(lines: mut array<Line>): array<Line> {
+  let ordered: array<Line> = []
   for (step of 1..4) {
     for (line of lines) {
       if (rank(line.kind) == step) { ordered.push(line) }
@@ -165,8 +165,8 @@ function inOrder(lines: mut Array<Line>): Array<Line> {
 }
 
 // The gossip window's list: its quests, then its options in the game's order.
-public function gossipLines(): Array<Line> {
-  let lines: Array<Line> = []
+public function gossipLines(): array<Line> {
+  let lines: array<Line> = []
   for (quest of Client::C_GossipInfo::GetActiveQuests()) {
     const kind = activeKind(quest.isComplete == true, quest.repeatable == true || (quest.frequency ?? 0) > 0)
     lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
@@ -175,7 +175,7 @@ public function gossipLines(): Array<Line> {
     const kind = quest.repeatable == true ? LineKind::Daily : offerKind(quest.frequency, quest.isLegendary)
     lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
   }
-  let options: Array<Client::GossipOptionUIInfo> = []
+  let options: array<Client::GossipOptionUIInfo> = []
   for (given of Client::C_GossipInfo::GetOptions()) { options.push(given) }
   options.sort((a, b) => a.orderIndex < b.orderIndex)
   for (option of options) {
@@ -189,8 +189,8 @@ public function gossipLines(): Array<Line> {
 }
 
 // A quest giver's greeting: its quests in progress and to hand in, then the new ones, each by its place.
-public function greetingLines(): Array<Line> {
-  let lines: Array<Line> = []
+public function greetingLines(): array<Line> {
+  let lines: array<Line> = []
   for (index of 1..Client::GetNumActiveQuests().floor()) {
     const title, complete = Client::GetActiveTitle(index)
     const kind = activeKind(complete, false)
@@ -207,7 +207,7 @@ public function greetingLines(): Array<Line> {
 }
 
 // A quest's item of a kind (`choice`, `reward`) at its place.
-function questItem(kind: String, index: Integer): Reward {
+function questItem(kind: string, index: integer): Reward {
   const name, texture, count, _, usable, itemID = Client::GetQuestItemInfo(kind, index)
   const item = itemID != nil ? itemID.floor() : nil
   return itemReward(item, count.floor(), name ?? "", artOf(texture), usable, Client::GetQuestItemLink(kind, index),
@@ -215,7 +215,7 @@ function questItem(kind: String, index: Integer): Reward {
 }
 
 // A currency the quest gives, to choose (its place among the choices) or anyway (0).
-function currencyReward(info: Client::QuestRewardCurrencyInfo, index: Integer): Reward {
+function currencyReward(info: Client::QuestRewardCurrencyInfo, index: integer): Reward {
   return {
     kind: .Currency, name: info.name, icon: artOf(info.texture), count: info.totalRewardAmount.floor(),
     quality: QUALITIES[info.quality.floor() + 1] ?? .Common, item: nil, link: Client::C_CurrencyInfo::GetCurrencyLink(info.currencyID, nil),
@@ -224,7 +224,7 @@ function currencyReward(info: Client::QuestRewardCurrencyInfo, index: Integer): 
 }
 
 // A choice at its place: an item, or a currency where the client says the place holds one.
-function choiceReward(index: Integer): Reward {
+function choiceReward(index: integer): Reward {
   if (Client::GetQuestItemInfoLootType("choice", index) == CURRENCY_LOOT) {
     const info = Client::C_QuestOffer::GetQuestRewardCurrencyInfo("choice", index)
     if (info != nil) { return currencyReward(info, index) }
@@ -233,14 +233,14 @@ function choiceReward(index: Integer): Reward {
 }
 
 // A currency's quality as the client numbers it (`Enum.ItemQuality`, from 0), in the order of its numbers.
-const QUALITIES: Array<Quality> = [.Poor, .Common, .Uncommon, .Rare, .Epic, .Legendary, .Artifact, .Heirloom]
+const QUALITIES: array<Quality> = [.Poor, .Common, .Uncommon, .Rare, .Epic, .Legendary, .Artifact, .Heirloom]
 
 // `GetQuestItemInfoLootType` of a currency (0 is an item).
 const CURRENCY_LOOT = 1
 
 // What a quest gives besides its items to choose: its items and currencies, spells learned, a title, a skill's points.
-function givenRewards(questID: Integer): Array<Reward> {
-  let given: Array<Reward> = []
+function givenRewards(questID: integer): array<Reward> {
+  let given: array<Reward> = []
   for (index of 1..Client::GetNumQuestRewards()) { given.push(questItem("reward", index)) }
   for (info of Client::C_QuestInfoSystem::GetQuestRewardCurrencies(questID) ?? []) { given.push(currencyReward(info, 0)) }
   for (spell of Client::C_QuestInfoSystem::GetQuestRewardSpells(questID) ?? []) {
@@ -271,8 +271,8 @@ function givenRewards(questID: Integer): Array<Reward> {
 
 // What a quest needs handed in, with how many of each the player has: its items (none where the quest hides them, nor
 // one it hides) and its currencies.
-function needsOf(): Array<Need> {
-  let needs: Array<Need> = []
+function needsOf(): array<Need> {
+  let needs: array<Need> = []
   if (!Client::C_QuestOffer::GetHideRequiredItems()) {
     for (index of 1..Client::GetNumQuestItems()) {
       if (!Client::IsQuestItemHidden(index)) {
@@ -294,9 +294,9 @@ function needsOf(): Array<Need> {
 }
 
 // The page a quest giver shows, with its text: the details' description, the progress' words or the reward's thanks.
-public function questOf(text: String): Quest {
+public function questOf(text: string): Quest {
   const id = Client::GetQuestID().floor()
-  let choices: Array<Reward> = []
+  let choices: array<Reward> = []
   for (index of 1..Client::GetNumQuestChoices()) { choices.push(choiceReward(index)) }
   return {
     id: id, title: Client::GetTitleText(), text: text, objectives: Client::GetObjectiveText(),
@@ -308,4 +308,4 @@ public function questOf(text: String): Quest {
 }
 
 // A book's pages, every one read: the client turns to the next while it has one, each turn another `ITEM_TEXT_READY`.
-public function bookPage(): String { return Client::ItemTextGetText() }
+public function bookPage(): string { return Client::ItemTextGetText() }

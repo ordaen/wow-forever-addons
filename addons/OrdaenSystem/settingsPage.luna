@@ -12,36 +12,36 @@ import { LineKind, PageGroup, SettingLine, SettingsPage, SystemSettings, lineMat
 import Style from "@/style"
 
 // The list as wide as its pages' names, each on one line.
-const COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+const COLUMNS: array<Track> = ["max-content", { fr: 1 }]
 // The room the page leaves, which each list scrolls in: never its content's whole height.
-const FILL: Array<Track> = [{ fr: 1, min: 0ui }]
+const FILL: array<Track> = [{ fr: 1, min: 0ui }]
 const PAD: Edges = { left: 3sp, right: 3sp }
 const INDENT: Edges = { left: 5.5sp }
 const BUTTON = 234.375dp
 
 // A dropdown's choice from the client's option.
-function choiceOf(option: Client::SettingsOption): Choice<Boolean | Number | String> {
+function choiceOf(option: Client::SettingsOption): Choice<boolean | number | string> {
   return { value: option.value, label: option.label }
 }
 
 public class SettingsTab implements Component {
   // Blizzard's window asked for at a page: what only Blizzard draws. Its owner lets it through (`GamePass`).
-  public blizzard: Event<Integer> = new Event()
+  public blizzard: Event<integer> = new Event()
   state search = ""
-  derived query: String = self.search.lower()
+  derived query: string = self.search.lower()
   // The groups the list shows: the picked one, or every one while searching.
-  derived listed: Array<PageGroup> = self.query != "" ? self.settings.groups : self.pickedGroup()
-  derived found: Map<Integer, Boolean> = self.settings.matching(self.query)
-  derived shownLines: Array<SettingLine> = self.settings.lines.filter(line => lineMatches(line, self.query))
+  derived listed: array<PageGroup> = self.query != "" ? self.settings.groups : self.pickedGroup()
+  derived found: map<integer, boolean> = self.settings.matching(self.query)
+  derived shownLines: array<SettingLine> = self.settings.lines.filter(line => lineMatches(line, self.query))
   // The page's lines by its headings, each a section: what stands before the first heading is under the page's name.
-  derived sections: Array<LineSection> = sectionsOf(self.shownLines, self.titleOf())
-  derived searching: Boolean = self.query != ""
-  derived canvas: Boolean = self.pageOf()?.canvas == true
+  derived sections: array<LineSection> = sectionsOf(self.shownLines, self.titleOf())
+  derived searching: boolean = self.query != ""
+  derived canvas: boolean = self.pageOf()?.canvas == true
 
   const settings: mut SystemSettings
   // The group picked, by its place among the settings' groups.
-  group: Signal<Integer>
-  constructor(settings: mut SystemSettings, group: Signal<Integer> = 1) {
+  group: Signal<integer>
+  constructor(settings: mut SystemSettings, group: Signal<integer> = 1) {
     self.settings = settings
     self.group = group
     // A group picked opens its first page, unless the page shown is one of its own.
@@ -52,7 +52,7 @@ public class SettingsTab implements Component {
     }
   }
 
-  pickedGroup(self): Array<PageGroup> {
+  pickedGroup(self): array<PageGroup> {
     const group = self.settings.groups[self.group]
     return group == nil ? [] : [group]
   }
@@ -65,9 +65,9 @@ public class SettingsTab implements Component {
     return nil
   }
 
-  titleOf(self): String { return self.pageOf()?.name ?? "" }
+  titleOf(self): string { return self.pageOf()?.name ?? "" }
 
-  onPick(mut self, id: Integer) { self.settings.open(id) }
+  onPick(mut self, id: integer) { self.settings.open(id) }
   onBlizzard(self) { self.blizzard.emit(self.settings.page) }
 
   public render(self): Template {
@@ -99,15 +99,15 @@ public class SettingsTab implements Component {
 
 // A section of a page: a heading's lines.
 struct LineSection {
-  title: String
-  lines: Array<SettingLine>
+  title: string
+  lines: array<SettingLine>
 }
 
 // A page's lines cut at its headings: a section each, the lines before the first heading under `first`.
-function sectionsOf(lines: Array<SettingLine>, first: String): Array<LineSection> {
-  const list: Array<LineSection> = []
+function sectionsOf(lines: array<SettingLine>, first: string): array<LineSection> {
+  const list: array<LineSection> = []
   let title = first
-  let held: Array<SettingLine> = []
+  let held: array<SettingLine> = []
   for (line of lines) {
     if (line.kind == .Header) {
       if (held.length > 0) { list.push({ title: title, lines: held }) }
@@ -124,18 +124,18 @@ function sectionsOf(lines: Array<SettingLine>, first: String): Array<LineSection
 // A group's pages; while searching, only the pages the search finds (a group with none is left out), each group under
 // its caption (the tabs name the group otherwise).
 class PageGroupList implements Component {
-  public pick: Event<Integer> = new Event()
-  derived pages: Array<SettingsPage> = self.query == "" ? self.group.pages : self.group.pages.filter(page => self.found[page.id] == true)
-  derived any: Boolean = self.pages.length > 0
+  public pick: Event<integer> = new Event()
+  derived pages: array<SettingsPage> = self.query == "" ? self.group.pages : self.group.pages.filter(page => self.found[page.id] == true)
+  derived any: boolean = self.pages.length > 0
 
   group: Signal<PageGroup>
-  picked: Signal<Integer>
-  query: Signal<String>
-  found: Signal<Map<Integer, Boolean>>
-  captioned: Signal<Boolean>
+  picked: Signal<integer>
+  query: Signal<string>
+  found: Signal<map<integer, boolean>>
+  captioned: Signal<boolean>
   constructor(
-    group: Signal<PageGroup>, picked: Signal<Integer>, query: Signal<String>, found: Signal<Map<Integer, Boolean>>,
-    captioned: Signal<Boolean> = false
+    group: Signal<PageGroup>, picked: Signal<integer>, query: Signal<string>, found: Signal<map<integer, boolean>>,
+    captioned: Signal<boolean> = false
   ) {
     self.captioned = captioned
     self.group = group
@@ -144,7 +144,7 @@ class PageGroupList implements Component {
     self.found = found
   }
 
-  onPick(self, id: Integer) { self.pick.emit(id) }
+  onPick(self, id: integer) { self.pick.emit(id) }
 
   public render(self): Template {
     return $ltml {
@@ -159,13 +159,13 @@ class PageGroupList implements Component {
 }
 
 class PageEntry implements Component {
-  public pick: Event<Integer> = new Event()
-  derived selected: Boolean = self.page.id == self.picked
+  public pick: Event<integer> = new Event()
+  derived selected: boolean = self.page.id == self.picked
   derived padding: Edges = self.page.child ? INDENT : {}
 
   page: Signal<SettingsPage>
-  picked: Signal<Integer>
-  constructor(page: Signal<SettingsPage>, picked: Signal<Integer>) {
+  picked: Signal<integer>
+  constructor(page: Signal<SettingsPage>, picked: Signal<integer>) {
     self.page = page
     self.picked = picked
   }
@@ -186,15 +186,15 @@ class PageEntry implements Component {
 class LineRow implements Component {
   public blizzard: Event<nil> = new Event()
   state checked = false
-  state number: Number = 0
-  state chosen: Boolean | Number | String = ""
-  derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
+  state number: number = 0
+  state chosen: boolean | number | string = ""
+  derived choices: array<Choice<boolean | number | string>> = self.line.kind == .Choice ?
     self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
-  derived fighting: Boolean = Game::situation.combat
-  derived locked: Boolean = self.line.writing == .None || self.fighting
+  derived fighting: boolean = Game::situation.combat
+  derived locked: boolean = self.line.writing == .None || self.fighting
   // A line under a checkbox that is off: hidden, as Blizzard's is.
-  derived hidden: Boolean = self.settings.values[self.line.under] == false
-  derived tip: String = self.settings.tipOf(self.line)
+  derived hidden: boolean = self.settings.values[self.line.under] == false
+  derived tip: string = self.settings.tipOf(self.line)
   derived inset: Edges = self.line.under == "" ? {} : INDENT
 
   line: Signal<SettingLine>
@@ -204,8 +204,8 @@ class LineRow implements Component {
     self.settings = settings
     watch {
       const value = self.settings.values[self.line.variable]
-      if (value is Boolean) { self.checked = value }
-      if (value is Number) { self.number = value }
+      if (value is boolean) { self.checked = value }
+      if (value is number) { self.number = value }
       if (value != nil) { self.chosen = value }
     }
     // Each control speaks for its own kind of line alone: the others hold their first values, never the setting's.
@@ -221,7 +221,7 @@ class LineRow implements Component {
   }
 
   // A control's value that isn't the client's: the player changed it, and the variable is written.
-  changed(mut self, value: Boolean | Number | String) {
+  changed(mut self, value: boolean | number | string) {
     const variable = peek self.line.variable
     const now = (peek self.settings.values)[variable]
     if (now == nil || now == value || peek self.locked) { return }

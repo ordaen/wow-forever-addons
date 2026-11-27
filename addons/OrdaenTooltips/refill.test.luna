@@ -12,8 +12,8 @@ const GOLD: Color = Color::hex("#ffd100")
 const WHITE: Color = Color::hex("#ffffff")
 
 // The game's tooltip showing the menu button's text: its title, the game's lines, and the memory of `addons` addons.
-function memory(corner: any Frame, owner: any Frame, addons: Integer): Game::ShownTip {
-  let lines: Array<Game::TooltipLine> = [
+function memory(corner: any Frame, owner: any Frame, addons: integer): Game::ShownTip {
+  let lines: array<Game::TooltipLine> = [
     { left: "Game Menu |cffffd200(Escape)|r", leftColor: WHITE, kind: 0 },
     { left: "Latency:", leftColor: GOLD, kind: 0 },
     { left: "Home 31 ms", leftColor: WHITE, kind: 0 },
@@ -33,8 +33,8 @@ function memory(corner: any Frame, owner: any Frame, addons: Integer): Game::Sho
 
 // The tooltip filled anew with another value on one line, as the game's side tells it: the other lines the tables
 // they were.
-function refilled(tip: Game::ShownTip, at: Integer, right: String): Game::ShownTip {
-  let lines: Array<Game::TooltipLine> = []
+function refilled(tip: Game::ShownTip, at: integer, right: string): Game::ShownTip {
+  let lines: array<Game::TooltipLine> = []
   for (i, line of tip.data.lines) {
     lines.push(i == at ? { right: right, ..line } : line)
   }
@@ -52,7 +52,7 @@ test "a held tooltip the game fills anew costs what changed in it: a refill of t
 
   // The kilobytes a refill with one line changed makes (the refill told, and the frame that draws it), in a tooltip
   // of four addons' memory and in one of twenty-four.
-  let made: Array<Number> = []
+  let made: array<number> = []
   for (addons of [4, 24]) {
     const first = memory(corner, button, addons)
     Game::tooltip.main = first

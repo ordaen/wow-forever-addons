@@ -11,12 +11,12 @@ const EDGE: Line = { width: 1.171875dp, color: Color::hex("#4a3a24") }
 const PADDING: Edges = { top: 2.5sp, right: 3sp, bottom: 2.5sp, left: 3sp }
 
 public class TextBox implements Component {
-  value: mut Signal<String>
-  height: Signal<Number<Length>>
+  value: mut Signal<string>
+  height: Signal<number<Length>>
   constructor(
-    value: mut Signal<String>,
+    value: mut Signal<string>,
     // As high as this; as wide as where it stands.
-    height: Signal<Number<Length>> = 187.5dp
+    height: Signal<number<Length>> = 187.5dp
   ) {
     self.value = value
     self.height = height
