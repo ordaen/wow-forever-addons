@@ -14,7 +14,8 @@ import { Listing, PriceKey, serverSeconds } from "@/quote"
 // `CHECK` auctions: about 300 auctions a frame on a 160,000-auction house, a reading of eight or nine seconds.
 const FRAME_MS: Number = 4
 const CHECK = 50
-// How long the auctions whose item's data was asked for are waited for, in seconds.
+// How long the auctions whose item's data was asked for are waited for after the last item came, in seconds: while
+// items keep coming, the reading waits for them all.
 const LOAD_WAIT = 10
 // The share of the progress bar the reading takes; setting the prices takes the rest.
 const READ_SHARE: Number = 0.9
@@ -94,14 +95,15 @@ public class Scanner {
         self.since = Client.debugprofilestop()
       }
     }
-    // The auctions read before their item's data came, read again as it comes; a while at most.
-    const until = (peek Game.clock.time) + LOAD_WAIT
+    // The auctions read before their item's data came, read again as it comes, until none came for a while.
+    let until = (peek Game.clock.time) + LOAD_WAIT
     let turn = 1
     for (round of 1..) {
       for (step of 1..) {
         const index = Game.auctionScan.again(turn)
         if (index == 0) { break }
         turn += 1
+        until = (peek Game.clock.time) + LOAD_WAIT
         const key, unit, many = Game.auctionScan.read(index)
         take(key, unit, many, mut alone, mut several)
         if (step % CHECK == 0 && self.spent()) {
