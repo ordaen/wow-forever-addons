@@ -1089,8 +1089,9 @@ test "a talent under the cursor says what the client's tooltip says: its rank, w
   Test.expect(Test.page().text("Parry +2%").shown() && Test.page().text("Parry +3%").shown())
   Test.expect(Test.page().text("2/5").shown() && Test.page().text("Click to learn.").shown())
   window.button(FRAME_GREY).hover()
-  // No rank held: the first rank's words as what it does, the points its tree still needs, nothing to click for.
-  Test.expect(Test.page().text("Keeps 5 rage").shown() && !Test.page().text("Parry +2%").shown())
+  // No rank held: the first rank's words as what it does (its number lit gold, as a spell's), the points its tree
+  // still needs, nothing to click for.
+  Test.expect(Test.page().text("Keeps |cffffd1005|r rage").shown() && !Test.page().text("Parry +2%").shown())
   Test.expect(Test.page().text("Requires 5 points in this tree").shown())
 }
 

@@ -12,6 +12,7 @@
 // held does (or the first will), what the next rank will, the points its tree still needs, and that a click learns it.
 import Game from "$game"
 import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
+import { richDescription } from "@/description"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { Tip, TipRow, TipSection } from "@/tip"
@@ -182,9 +183,10 @@ public function spentIn(tree: Game.TalentTree): Integer {
   return sum
 }
 
-// What a node's tooltip says under its name: what the rank held does, or the first rank where it holds none.
+// What a node's tooltip says under its name: what the rank held does, or the first rank where it holds none; its
+// keywords lit as a spell's description's.
 function tipTextOf(node: Game.TalentNode): String {
-  return (node.rank > 0 ? node.current : node.next) ?? ""
+  return richDescription((node.rank > 0 ? node.current : node.next) ?? "")
 }
 
 // Its rows: its rank of its ranks, each point its tree still needs (red), and that a click learns it where one may.
@@ -200,7 +202,7 @@ function tipRowsOf(node: Game.TalentNode): Array<TipRow> {
 // Its next rank, where it holds one and has another.
 function tipSectionsOf(node: Game.TalentNode): Array<TipSection> {
   const next = node.next
-  return node.rank > 0 && next != nil ? [{ title: Locale.TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
+  return node.rank > 0 && next != nil ? [{ title: Locale.TALENT_NEXT_RANK, rows: [{ label: richDescription(next), value: "" }] }] : []
 }
 
 // A node's look, as the client's talent window finds it (`CalculateVisualState`), the first that holds: a rank that no
