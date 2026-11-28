@@ -2,12 +2,13 @@
 // let through, and how a count goes into letters.
 import Client from "$client"
 import Game from "$game"
+import Runtime from "$runtime"
 import Test from "$test"
 import { classColor } from "Ordaen"
 import type { Crafting } from "OrdaenProfessions"
 import { Sent } from "@/letters"
 import { Kin, Least, OwnTab, SendRule, SendRules, ownRows, ruleKey, ruleOf, stacksOf } from "@/own"
-import { Loose, Purposed, Why, disenchantWhy } from "@/purposes"
+import { Loose, Purposed, Why, classesOf, disenchantWhy } from "@/purposes"
 import { SendLines } from "@/sendLines"
 import { Sender } from "@/sender"
 import { Choices, DisenchantUpTo } from "@/settings"
@@ -239,6 +240,9 @@ function upgrade(link: String): Number | nil {
   return nil
 }
 
+// A tooltip's line of the classes an item is for, as the client writes it.
+function classesLine(listed: String): String { return (Runtime.text("ITEM_CLASSES_ALLOWED") ?? panic("the client's format")).format(listed) }
+
 // The game as these tests have it: the stand-in's priest at level 30, the items above, the staff and the ring marked
 // unusable in their tooltips, the scroll for mages alone, the tome for mages and priests.
 function rigged() {
@@ -246,8 +250,8 @@ function rigged() {
   Client.C_Item.GetItemInfo = itemInfo
   Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
     if (id == STAFF || id == RING) { return { lines: [{ left: "Requires Staves", kind: 0, usable: false }] } }
-    if (id == SCROLL) { return { lines: [{ left: "Классы: Mage", kind: 0 }] } }
-    if (id == TOME) { return { lines: [{ left: "Классы: Mage, Priest", kind: 0 }] } }
+    if (id == SCROLL) { return { lines: [{ left: classesLine("Mage"), kind: 0 }] } }
+    if (id == TOME) { return { lines: [{ left: classesLine("Mage, Priest"), kind: 0 }] } }
     return { lines: [] }
   }
 }
@@ -304,16 +308,38 @@ test "a sword from the bags to disenchant stands in the enchanter's «Disenchant
   Test.expect(Test.blank())
 }
 
-test "gear to disenchant goes to the characters with Enchanting alone, in a section of its own" {
+test "gear to disenchant goes to the characters with Enchanting, a class's items to that class's characters, each in a section of its own" {
   rigged()
-  const purposed: Array<Purposed> = [{ loose: looseOf(SWORD, 2, WEAPON), why: .Low { level: 12 }, classes: [] }]
+  const purposed: Array<Purposed> = [
+    { loose: looseOf(SWORD, 2, WEAPON), why: .Low { level: 12 }, classes: [] },
+    { loose: looseOf(SCROLL, 2, 0), why: nil, classes: ["MAGE"] }
+  ]
   const rows = ownRows(kin(), {}, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine), purposed)
-  // Regron doesn't enchant: he has no row.
-  Test.expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Aria 1")
+  // Regron neither enchants nor is a mage: he has no row.
+  Test.expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Aria 2")
   const aria = rows[1] ?? panic("Aria's row")
-  Test.expect(aria.sections.map(section => section.title).join(", ") == "Disenchanting")
+  Test.expect(aria.sections.map(section => section.title).join(", ") == "Disenchanting, For a Mage only")
   const disenchant = aria.sections[1] ?? panic("her disenchanting")
   Test.expect(disenchant.offers.map(offer => `${offer.name}: ${offer.detail}`).join(", ") == "2131: Level 12, below yours")
+}
+
+test "an item's classes are its tooltip's «Classes» line, by the client's tags" {
+  rigged()
+  Test.expect(classesOf(SCROLL).join(",") == "MAGE")
+  Test.expect(classesOf(TOME).join(",") == "MAGE,PRIEST")
+  Test.expect(classesOf(SWORD).length == 0)
+}
+
+test "a tooltip says whose class an item is for, with the characters of that class; nothing for one the player's class uses" {
+  rigged()
+  const host = new LinesHost()
+  const lines = host.lines
+  Test.expect(lines.lines(SCROLL, linkOf(SCROLL)).map(line => `${line.left}|${line.right ?? ""}`).join(", ") == "For a Mage only|, Aria|")
+  // A priest's own: the tome a priest uses too.
+  Test.expect(lines.lines(TOME, linkOf(TOME)).length == 0)
+  // Items for another class switched off.
+  host.choices = { classItems: false, ..DEFAULTS }
+  Test.expect(lines.lines(SCROLL, linkOf(SCROLL)).length == 0)
 }
 
 test "a tooltip says gear can be disenchanted and why, with the characters it goes to; nothing for gear that stays" {
