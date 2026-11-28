@@ -178,9 +178,22 @@ public class Vendor {
     self.guildRepairs = Client.CanGuildBankRepair()
   }
 
-  // The player's own click: one purchase of the item (`count` items of a stack the merchant sells by one; nil: the
-  // merchant's own stack), bought back, mended.
-  public buy(self, ware: Ware, count: Integer | nil) { Client.BuyMerchantItem(ware.index, count) }
+  // The player's own click: `count` items of the item, in purchases of at most the merchant's most at once (of its
+  // stack each where it sells one stack a purchase); nil: one purchase of its stack. Bought back, mended.
+  public buy(self, ware: Ware, count: Integer | nil) {
+    if (count == nil) {
+      Client.BuyMerchantItem(ware.index, nil)
+      return
+    }
+    const byCount = ware.most > 1
+    const each = byCount ? ware.most : ware.stack
+    let left = count
+    for (purchase of 1..((count + each - 1) / each).floor()) {
+      const now = left.min(each)
+      Client.BuyMerchantItem(ware.index, byCount ? now : nil)
+      left -= now
+    }
+  }
   public buyBack(self, sold: Sold) { Client.BuybackItem(sold.place) }
   public repairAll(self, guild: Boolean) { Client.RepairAllItems(guild) }
   // The client's repair cursor: the next item clicked, worn or carried, is mended; again, the cursor is back.

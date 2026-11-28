@@ -4,8 +4,9 @@
 // repairs where the merchant repairs («Repair an item» lit while the cursor mends). The goods: every item at once in two
 // columns that scroll (no pages), by the merchant's list, by category, or as a table, a quest's item marked with the
 // game's «!»; the search, the sort and the filter dim nothing but leave out what doesn't fit; the footer counts what
-// shows. An item's left click or drag puts it onto the cursor, its right click buys one purchase, Shift+Left-click asks
-// how many, Shift+Right-click puts its link into the chat, Ctrl tries it on, Alt is the client's modified click; a price
+// shows. An item's left click buys one purchase, Shift+Left ten, Ctrl+Left a hundred (as many as are left and the money
+// pays for), its drag puts it onto the cursor, its right click opens its menu (buy, how many, try on, link), Alt is
+// the client's modified click; a price
 // at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
 // that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
@@ -154,6 +155,19 @@ function moneyFor(ware: Ware, count: Integer | nil): Integer {
 function mostFor(ware: Ware, money: Integer): Integer {
   if (ware.price <= 0) { return ware.most }
   return ware.most.min((money * ware.stack / ware.price).floor())
+}
+
+// The purchases a Shift+Left-click and a Ctrl+Left-click buy at once.
+const SHIFT_PURCHASES = 10
+const CTRL_PURCHASES = 100
+
+// How many items `purchases` purchases of the item come to: as many as the merchant has left and the player's money
+// pays for.
+function bulkOf(ware: Ware, purchases: Integer, money: Integer): Integer {
+  let count = purchases * ware.stack
+  if (ware.available >= 0) { count = count.min(ware.available * ware.stack) }
+  if (ware.price > 0) { count = count.min((money * ware.stack / ware.price).floor()) }
+  return count
 }
 
 // The line under an item's name: how many the merchant has left, and how many the bags hold.
@@ -477,21 +491,27 @@ public class MerchantWindow implements Component {
     return asking.ware.costs.map(cost => `${cost.amount} ${cost.name}`).join(", ")
   }
 
-  // A click on an item, in the player's own call: Left buys one purchase (asked first where the game asks), Right opens
-  // its menu (buy, how many, try on, link), Shift+Left asks how many, Ctrl tries it on, Alt is the client's modified
-  // click; a drag puts it onto the cursor, bought as it is put into a bag.
+  // A click on an item, in the player's own call: Left buys one purchase, Shift+Left ten, Ctrl+Left a hundred (as many
+  // as are left and the money pays for; asked first where the game asks), Right opens its menu (buy, how many, try on,
+  // link), Alt is the client's modified click; a drag puts it onto the cursor, bought as it is put into a bag.
   onWare(mut self, ware: Ware, click: Event.Press) {
-    if (Game.input.controlDown()) {
-      self.vendor.dressUp(ware)
-    } else if (Game.input.altDown()) {
+    if (Game.input.altDown()) {
       self.vendor.modifiedClick(ware)
     } else if (click.button == MouseButton.Right) {
       self.menuAt = ware.index
+    } else if (click.button == MouseButton.Left && Game.input.controlDown()) {
+      self.bulk(ware, CTRL_PURCHASES)
     } else if (click.button == MouseButton.Left && Game.input.shiftDown()) {
-      self.askCount(ware)
+      self.bulk(ware, SHIFT_PURCHASES)
     } else if (click.button == MouseButton.Left) {
       self.purchase(ware, nil)
     }
+  }
+
+  // Several purchases of an item at once; nothing where none can be bought.
+  bulk(mut self, ware: Ware, purchases: Integer) {
+    const count = bulkOf(ware, purchases, Game.money.amount)
+    if (count > 0) { self.purchase(ware, count) }
   }
 
   // How many of an item to buy, asked where one purchase may take more than one.
