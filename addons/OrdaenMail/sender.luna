@@ -9,6 +9,11 @@ import Locale from "@/locales"
 
 // How long the game is given to answer a letter before it counts as not sent.
 const ANSWER = 10
+// How long a letter waits for the bags to change after a split, or while a stack of its items is locked (the server
+// hasn't answered a split or a move yet), before it looks again; and how many times it looks before it goes without
+// what is still locked.
+const SETTLE = 1
+const SETTLE_TRIES = 5
 
 function emptySlot(): mut Game.SlotItem {
   return {
@@ -23,8 +28,12 @@ public class Sender {
   // What the game said last while a letter went: why it didn't.
   said = ""
   answer: Task<nil> | nil = nil
-  // A stack split for the next letter, which waits for the bags to hold it.
-  splitting = false
+  // The next letter waits for the bags: a stack was split for it, or one of its items lies locked. It looks again as
+  // the bags change, or after `SETTLE` seconds where they don't.
+  settling = false
+  settleLater: Task<nil> | nil = nil
+  // How many times the next letter has waited for its locked items.
+  settleTries = 0
 
   constructor() {
     Game.bags.changed.listen(self.onBags)
@@ -70,32 +79,54 @@ public class Sender {
     if (queue.any(l => l.state == SentState.Sending)) { return }
     const at = queue.find(l => l.state == SentState.Waiting)
     if (at == nil) { return }
-    const letter = at.clone()
-    // Part of a stack is split off first; the letter goes once the bags hold it.
-    if (self.splitting) { return }
-    if (splitFor(letter.items)) {
-      self.splitting = true
+    // An item whose stack the server hasn't given back yet (a split, a move) is waited for; then part of a stack is
+    // split off; the letter goes once the bags hold it.
+    if (self.settling) { return }
+    if (self.settleTries < SETTLE_TRIES && unsettled(at.items)) {
+      self.settleTries += 1
+      self.settle()
       return
     }
-    const stacks = stacksFor(letter.items)
-    if (stacks.length < letter.items.length) {
-      letter.why = Locale.ITEMS_MISSING.format(letter.items.length - stacks.length)
+    if (splitFor(at.items)) {
+      self.settle()
+      return
     }
+    self.settleTries = 0
+    const stacks = stacksFor(at.items)
+    // On its way before the game's letter is written: what the letter takes in is the queue's, not the form's.
+    const sending = at.clone()
+    sending.state = SentState.Sending
+    if (stacks.length < at.items.length) {
+      sending.why = Locale.ITEMS_MISSING.format(at.items.length - stacks.length)
+    }
+    self.replace(sending)
     self.said = ""
     Game.mailbox.writing(true)
     const sent = Game.mailbox.send({
-      to: letter.to, subject: letter.subject, body: letter.body, copper: letter.copper, cod: letter.cod, stacks: stacks
+      to: at.to, subject: at.subject, body: at.body, copper: at.copper, cod: at.cod, stacks: stacks
     })
     if (!sent) {
-      letter.state = SentState.Stopped
-      letter.why = Locale.ITEMS_MOVED
-      self.replace(letter)
+      const stopped = at.clone()
+      stopped.state = SentState.Stopped
+      stopped.why = Locale.ITEMS_MOVED
+      self.replace(stopped)
       return
     }
-    letter.state = SentState.Sending
-    self.replace(letter)
     if (self.answer != nil) { destroy self.answer }
     self.answer = self.waitAnswer()
+  }
+
+  // The next letter waits for the bags to change, or for `SETTLE` seconds.
+  settle(mut self) {
+    self.settling = true
+    if (self.settleLater != nil) { destroy self.settleLater }
+    self.settleLater = self.settleAfter()
+  }
+
+  async settleAfter(mut self) {
+    await Game.delay(SETTLE)
+    self.settleLater = nil
+    self.onBags()
   }
 
   async waitAnswer(mut self) {
@@ -130,8 +161,9 @@ public class Sender {
   onRefused(mut self, message: String) { self.said = message }
 
   onBags(mut self) {
-    if (!self.splitting) { return }
-    self.splitting = false
+    if (!self.settling) { return }
+    self.settling = false
+    if (self.settleLater != nil) { destroy self.settleLater }
     self.go()
   }
 
@@ -159,7 +191,9 @@ public class Sender {
   public pause(mut self) { self.stopAll(Locale.STOPPED_BY_YOU) }
 
   stopAll(mut self, why: String) {
-    self.splitting = false
+    self.settling = false
+    self.settleTries = 0
+    if (self.settleLater != nil) { destroy self.settleLater }
     const values = peek self.memory.values
     const queue = values.queue.map(l => waits(l) ? { state: SentState.Stopped, why: why, ..l } : l)
     self.memory.write({ queue: queue, history: values.history, next: values.next })
@@ -190,6 +224,31 @@ function stacksFor(items: Array<SentItem>): Array<Game.MailStack> {
     if (stack != nil) { found.push(stack) }
   }
   return found
+}
+
+// Whether one of a letter's items has no stack of its count to go, while a stack of that item lies locked: the server
+// hasn't answered a split or a move yet, and the bags change again once it has.
+function unsettled(items: Array<SentItem>): Boolean {
+  const found: Array<Game.MailStack> = []
+  for (wanted of items) {
+    const stack = stackOf(wanted.item, wanted.count, false, found)
+    if (stack != nil) {
+      found.push(stack)
+    } else if (lockedStack(wanted.item)) {
+      return true
+    }
+  }
+  return false
+}
+
+function lockedStack(item: Integer): Boolean {
+  let slot = emptySlot()
+  for (bag of 0..Game.bags.last) {
+    for (place of 1..Game.bags.size(bag)) {
+      if (Game.bags.readSlot(bag, place, mut slot) && slot.id == item && slot.locked) { return true }
+    }
+  }
+  return false
 }
 
 // The first of a letter's items no whole stack holds split off a bigger one into an empty slot, as the game's split

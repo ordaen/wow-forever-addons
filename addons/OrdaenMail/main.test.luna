@@ -540,6 +540,56 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   Test.expect(asked().contains("Mailbox.send Regron Linen Cloth 2589x20"))
 }
 
+test "«Send» with the form open: the game's letter keeps the items the queue puts into it, the form takes none back" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  window.button("Write").click()
+  window.input().nth(2).type("Regron")
+  // Twenty Linen Cloth in 0/2, locked while they lie in the game's letter.
+  let inLetter = false
+  Client.C_Container.GetContainerItemInfo = (bag: Integer, slot: Integer): Client.ContainerItemInfo | nil => bag == 0 && slot == 2 ?
+    Client.ContainerItemInfo {
+      iconFileID: 132889, stackCount: 20, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
+      hyperlink: "item:2589", isFiltered: false, hasNoValue: false, itemID: 2589, isBound: false, itemName: "Linen Cloth"
+    } :
+    nil
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0 || slot != 2) { return false }
+    into.id = 2589
+    into.count = 20
+    into.locked = inLetter
+    return true
+  }
+  Client.C_Item.GetItemNameByID = (id: String | Integer): String | nil => id == 2589 ? "Linen Cloth" : nil
+  // Right-click in the bags: the game's letter takes the stack, the form after it.
+  inLetter = true
+  Test.inKey(() => Client.C_Container.UseContainerItem(0, 2, nil, nil, nil))
+  inLetter = false
+  Test.expect(window.texts().join(" | ").contains("Attachments | 1 | Letters | 1"))
+  // The game writes its letter as the client does: each stack picked up and let go on a place, which tells the
+  // letter changed at once.
+  let attached = 0
+  Game.mailbox.send = (draft: Game.MailDraft): Boolean => {
+    Client.SetSendMailShowing(true)
+    for (place, stack of draft.stacks) {
+      Client.C_Container.PickupContainerItem(stack.bag, stack.slot)
+      Client.ClickSendMailItemButton(place, nil)
+    }
+    for (place of 1..12) {
+      if (Client.HasSendMailItem(place)) { attached += 1 }
+    }
+    return true
+  }
+  window.button("Send").click()
+  Test.expect(attached == 1)
+}
+
 test "the form draws an empty slot, and an item from the bags let go on it goes into the letter" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
@@ -673,6 +723,49 @@ test "part of a stack is split off into an empty slot first, and the letter goes
   split = true
   Game.bags.changed.emit()
   Test.expect(asked().contains("Mailbox.send Regron Cloth 2589x5"))
+}
+
+test "a split the server hasn't answered yet is waited for: the letter goes with the part once it lies free" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  // Twenty Linen Cloth in 0/2; split, five lie in 0/1, locked (as both stacks are) until the server answers.
+  let split = false
+  let freed = false
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0) { return false }
+    into.id = 2589
+    into.locked = split && !freed
+    if (slot == 2) {
+      into.count = split ? 15 : 20
+      return true
+    }
+    if (slot == 1 && split) {
+      into.count = 5
+      return true
+    }
+    return false
+  }
+  let splits = 0
+  Game.bags.split = (fromBag: Integer, fromSlot: Integer, count: Integer, toBag: Integer, toSlot: Integer): Boolean => {
+    splits += 1
+    return true
+  }
+  _ = Test.requests()
+  Mail.sender.put("Regron", "Cloth", "", [{ bag: 0, slot: 2, item: 2589, count: 5 }], 0, 0)
+  // The bags change as the split is made, the stacks still locked: nothing goes, nothing is split again.
+  split = true
+  Game.bags.changed.emit()
+  Test.expect(!asked().contains("Mailbox.send") && splits == 1)
+  // No change comes for a while: it looks again by itself, and the part, free now, goes.
+  freed = true
+  Test.pass(1.1)
+  Test.expect(asked().contains("Mailbox.send Regron Cloth 2589x5") && splits == 1)
+  const sending = Mail.sender.memory.values.queue[1] ?? panic("the letter on its way")
+  Test.expect(sending.why == "")
 }
 
 test "«Don't accept trades at the mailbox» sets the game's own setting while it is open, and puts it back" {
