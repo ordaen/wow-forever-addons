@@ -411,15 +411,19 @@ surface 288,134.12 935.77x215.08 on MEDIUM clamped raised by a click
             box 295.2,271.72 538.89x70.29
               box 295.2,271.72 538.89x53.93
                 box 313.69,284.52 501.91x28.33
-                  box 313.69,284.52 399.84x28.33
-                    box 313.69,284.52 399.84x28.33 #00000080 input "" @change @submit
-                    box 313.69,284.52 399.84x28.33 absolute
-                      text 322.22,290.77 382.78x15.83 "Search by name or reagent" #a3977f
-                  box 713.53,284.52 102.07x28.33
+                  box 313.69,284.52 365.82x28.33
+                    box 313.69,284.52 365.82x28.33 #00000080 input "" @change @submit
+                    box 313.69,284.52 365.82x28.33 absolute
+                      text 322.22,290.77 348.76x15.83 "Search by name or reagent" #a3977f
+                  box 679.51,284.52 136.09x28.33
+                    box 679.51,284.52 34.02x28.33
+                      box 685.2,284.52 28.33x28.33
+                        box 685.2,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                          box 692.7,292.02 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
                     box 713.53,284.52 34.02x28.33
                       box 719.22,284.52 28.33x28.33
                         box 719.22,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                          box 726.72,292.02 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
+                          box 726.72,292.02 13.33x13.33 Interface/Icons/Spell_ChargePositive
                     box 747.56,284.52 34.02x28.33
                       box 753.24,284.52 28.33x28.33
                         box 753.24,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
@@ -976,15 +980,19 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
             box 295.2,271.72 648.8x70.29
               box 295.2,271.72 648.8x53.93
                 box 313.69,284.52 611.82x28.33
-                  box 313.69,284.52 509.76x28.33
-                    box 313.69,284.52 509.76x28.33 #00000080 input "" @change @submit
-                    box 313.69,284.52 509.76x28.33 absolute
-                      text 322.22,290.77 492.69x15.83 "Search by name or reagent" #a3977f
-                  box 823.44,284.52 102.07x28.33
+                  box 313.69,284.52 475.73x28.33
+                    box 313.69,284.52 475.73x28.33 #00000080 input "" @change @submit
+                    box 313.69,284.52 475.73x28.33 absolute
+                      text 322.22,290.77 458.67x15.83 "Search by name or reagent" #a3977f
+                  box 789.42,284.52 136.09x28.33
+                    box 789.42,284.52 34.02x28.33
+                      box 795.11,284.52 28.33x28.33
+                        box 795.11,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                          box 802.61,292.02 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
                     box 823.44,284.52 34.02x28.33
                       box 829.13,284.52 28.33x28.33
                         box 829.13,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                          box 836.63,292.02 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
+                          box 836.63,292.02 13.33x13.33 Interface/Icons/Spell_ChargePositive
                     box 857.47,284.52 34.02x28.33
                       box 863.16,284.52 28.33x28.33
                         box 863.16,284.52 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress

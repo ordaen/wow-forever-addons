@@ -207,11 +207,25 @@ function sort(choice: String) {
   pick(Ordaen.art.ctl.tool.sort, "By difficulty", choice)
 }
 
-// The filter's menu, opened from the funnel.
-function filter(): Test.Part {
-  if (!Test.page().window("Raises the skill").shown()) { window().button(Ordaen.art.ctl.tool.filter).click() }
-  return Test.page().window("Raises the skill")
+// The funnel's menu, opened from it: the one holding «Reset».
+function filter(): Test.Part { return picker(Ordaen.art.ctl.tool.filter, "Reset") }
+
+// The pickers beside the funnel: how a recipe raises the skill, how one not learned is learned, by their pictures.
+const SKILL_UPS: Art = "Interface/Icons/Spell_ChargePositive"
+const WAYS: Art = "Interface/Icons/INV_Misc_Book_11"
+
+// A toolbar button's list, opened from it: the one holding `first`. Another list open, the first click closes it.
+function picker(icon: Art, first: String): Test.Part {
+  for (attempt of 1..2) {
+    if (Test.page().window(first).shown()) { break }
+    window().button(icon).click()
+  }
+  return Test.page().window(first)
 }
+
+function skillUps(): Test.Part { return picker(SKILL_UPS, "Orange: always raises") }
+
+function ways(): Test.Part { return picker(WAYS, "From a trainer") }
 
 // A line of the open right-click menu clicked: the menu is found by its «Link in chat», which it always shows.
 function choose(label: String) {
@@ -365,7 +379,7 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   Test.expect(!window().button(Ordaen.art.ctl.tool.sort).shown())
   Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   // The name, the skill (none known here), how many; with no reagents the costs are nothing, nothing is bought back.
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   window().button("Available").click()
   Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Available").click()
@@ -392,8 +406,8 @@ test "a table's row says its made item's class and where it is worn, else its ki
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("Table")
-  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   window().button("Class").click()
   Test.expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
   window().button("Class").click()
@@ -491,12 +505,12 @@ test "two recipes of one name stand by their numbers, whichever way they came" {
   // The first, by its number, is chosen: its count on its row.
   Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | [2]"))
   view("Table")
-  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | — | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
 }
 
 // The filter
 
-test "the filter's «Can make» leaves what the bags make now, «Raises the skill» what still raises it" {
+test "the funnel's «Can make» leaves what the bags make now; the skill-up picker the difficulties picked" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -510,10 +524,29 @@ test "the filter's «Can make» leaves what the bags make now, «Raises the skil
   view("By category")
   filter().button("Can make").click()
   Test.expect(lists("Linen Cloak, Linen Bag"))
-  filter().button("Raises the skill").click()
+  skillUps().text("Grey: doesn't raise").click()
   Test.expect(lists("Linen Cloak"))
   filter().button("Can make").click()
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
+  skillUps().text("Orange: always raises").click()
+  Test.expect(lists("Brown Linen Vest"))
+}
+
+test "each tab's filter has what applies to its recipes: «Can make» the learned ones', the standing, the side and where it's learned the others'" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(reads(filter(), "Can make | Reset"))
+  Test.expect(skillUps().shown() && !window().button(WAYS).shown())
+  // Its button closes the list; the tab is clicked with none open.
+  window().button(SKILL_UPS).click()
+  window().button("Not learned").click()
+  Test.expect(reads(filter(), "No reputation asked | The other faction's too | Reset"))
+  Test.expect(reads(ways(), "From a trainer | From a vendor | From a quest | From a drop | From elsewhere"))
+  Test.expect(skillUps().shown())
 }
 
 test "the recipes not learned have a tab of their own, after the recipes'; the overview's tab stands first" {
@@ -545,12 +578,11 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Can make").click()
-  filter().button("Raises the skill").click()
   Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Reset").click()
   Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
-  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "the filter starts as What's Training's: a trainer's, a vendor's or a quest's, none asking a standing" {
@@ -571,7 +603,7 @@ test "the filter starts as What's Training's: a trainer's, a vendor's or a quest
   Test.expect(listed().contains("Trainer's Shirt") && !listed().contains("Vendor's Robe"))
   filter().button("No reputation asked").click()
   Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
-  filter().button("From a trainer").click()
+  ways().text("From a trainer").click()
   Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
 }
 
@@ -601,7 +633,10 @@ test "a click anywhere but the filter's menu closes it" {
   Game.tradeSkill.open = TAILORING
   Test.expect(filter().shown())
   window().button("Recipes").click()
-  Test.expect(!Test.page().window("Raises the skill").shown())
+  Test.expect(!Test.page().window("Reset").shown())
+  Test.expect(skillUps().shown())
+  window().button("Recipes").click()
+  Test.expect(!Test.page().window("Orange: always raises").shown())
 }
 
 test "the funnel's tip names the options on, or that none is" {
@@ -612,18 +647,20 @@ test "the funnel's tip names the options on, or that none is" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | From a trainer, From a vendor, From a quest, No reputation asked"))
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
   filter().button("Can make").click()
-  filter().button("Raises the skill").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill, From a trainer, From a vendor, From a quest, No reputation asked"))
-  for (label of ["Can make", "Raises the skill", "From a trainer", "From a vendor", "From a quest", "No reputation asked"]) {
-    filter().button(label).click()
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make"))
+  window().button(SKILL_UPS).hover()
+  Test.expect(reads(Test.page().window("Raises the skill"),
+    "Raises the skill | Orange: always raises, Yellow: usually raises, Green: rarely raises, Grey: doesn't raise"))
+  for (label of ["Orange: always raises", "Yellow: usually raises", "Green: rarely raises", "Grey: doesn't raise"]) {
+    skillUps().text(label).click()
   }
   window().button("Recipes").click()
-  window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
+  window().button(SKILL_UPS).hover()
+  Test.expect(reads(Test.page().window("Raises the skill"), "Raises the skill | None picked"))
 }
 
 test "the funnel is lit while a filter is on" {
@@ -634,7 +671,7 @@ test "the funnel is lit while a filter is on" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   const unlit = window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT)
-  filter().button("Raises the skill").click()
+  filter().button("Can make").click()
   window().button("Recipes").click()
   Test.expect(!unlit && window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT))
 }
@@ -679,18 +716,18 @@ test "each profession keeps its own filter and view as it was left; another open
   Game.tradeSkill.open = BLACKSMITHING
   Test.expect(window().input().value() == "" && !window().text("Available").shown())
   Test.expect(reads(window().text("Weapons").item(), "Weapons | 1 | /1"))
-  filter().button("Raises the skill").click()
+  skillUps().text("Orange: always raises").click()
+  Test.expect(lists(""))
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.open = TAILORING
-  // Tailoring as it was left, but the search: the table, «Can make» alone.
+  // Tailoring as it was left, but the search: the table, «Can make» alone, every skill-up.
   Test.expect(window().input().value() == "" && window().text("Available").shown())
   Test.expect(lists("Linen Bag, Linen Cloak"))
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
-  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(lists("") && !filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "the search reads a recipe's reagents once, not again at each letter typed" {

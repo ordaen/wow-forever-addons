@@ -13,6 +13,9 @@ import { Act, FAVORITES, Group, Kept, TableFacts, has, members } from "@/view"
 
 const NO_SIDE: SourceTotals = { cost: nil, missing: [], sale: nil, profit: nil, filled: [], unpriced: [] }
 const NO_SOURCES: BothSources = { auction: NO_SIDE, merchant: NO_SIDE }
+// A skill-up's edges in their difficulties' colours.
+const ORANGE: Color = Style.difficultyColor(Game.Difficulty.Always)
+const YELLOW: Color = Style.difficultyColor(Game.Difficulty.Usually)
 
 // An amount of money in a table's cell at its right, «~» before it where it leaves parts out; «—» for none.
 class SourceCell implements Component {
@@ -238,6 +241,10 @@ public class RecipeTableRow implements Component {
   derived color: Color = Style.difficultyColor(self.recipe.difficulty)
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived skill: String = self.facts?.skill == nil ? "—" : "%d".format(self.facts?.skill ?? 0)
+  // How far it raises the skill: orange up to where it turns yellow, yellow up to where it turns green.
+  derived ranged: Boolean = self.facts?.yellow != nil && self.facts?.green != nil
+  derived orangeTo: String = "%d".format(self.facts?.yellow ?? 0)
+  derived yellowTo: String = "%d".format(self.facts?.green ?? 0)
   derived subtype: String = self.facts?.subtype ?? ""
   derived kind: String = self.facts?.kind ?? ""
   derived menuOpen: Boolean = self.menuFor == self.recipe.id
@@ -292,6 +299,16 @@ public class RecipeTableRow implements Component {
           <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} /> </TableCell>
           <TableCell align={Align.End}>
             <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
+          </TableCell>
+          <TableCell align={Align.End}>
+            <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
+              <$if={self.ranged}>
+                <text value={self.orangeTo} textColor={ORANGE} wrap={.None} textFont={.Numbers} />
+                <text value={"–"} textColor={Style.DIM} />
+                <text value={self.yellowTo} textColor={YELLOW} wrap={.None} textFont={.Numbers} />
+              </>
+              <text $else value={"—"} textColor={Style.DIM} />
+            </box>
           </TableCell>
           <TableCell> <text value={self.subtype} textColor={Style.DIM} /> </TableCell>
           <TableCell> <text value={self.kind} textColor={Style.DIM} /> </TableCell>

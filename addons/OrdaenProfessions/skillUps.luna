@@ -11,9 +11,12 @@ public function difficultyAt(thresholds: Thresholds, recipe: Integer, skill: Int
   const grey = thresholds.grey[recipe]
   if (yellow == nil || grey == nil || skill >= grey) { return Game.Difficulty.Never }
   if (skill < yellow) { return Game.Difficulty.Always }
-  if (skill < (yellow + grey) / 2) { return Game.Difficulty.Usually }
+  if (skill < greenFrom(yellow, grey)) { return Game.Difficulty.Usually }
   return Game.Difficulty.Rarely
 }
+
+// The skill a recipe turns green at: halfway from its yellow to its grey, rounded up (a skill below the half is yellow).
+public function greenFrom(yellow: Integer, grey: Integer): Integer { return ((yellow + grey) / 2).ceil() }
 
 // A recipe as the lists show it: one not learned says what it would do for the skill now (the client says nothing of
 // it), so its name takes that colour as a learned one's does; a learned one is the client's.
@@ -53,14 +56,37 @@ public function thresholdsOf(skillLine: Integer | nil): Thresholds {
   return { yellow: yellow, grey: grey, learned: learned }
 }
 
+// The chance one making raises the skill at `skill`, by classic's rule: always below yellow (orange), (grey − skill) /
+// (grey − yellow) from yellow up (yellow and green), never from grey; `bonus` (Legacy's, `legacyBonus`) added, at most
+// always.
+public function skillUpChance(skill: Integer, yellow: Integer, grey: Integer, bonus: Number): Number {
+  if (skill >= grey) { return 0 }
+  const chance: Number = skill < yellow ? 1 : (grey - skill) / (grey - yellow)
+  return (1).min(chance + bonus)
+}
+
 // How many makings it takes, on average, to raise the skill by `points` from `skill`: none where the skill would
 // reach the recipe's grey, or the most the rank allows, first.
-public function expectedMakings(skill: Integer, most: Integer, yellow: Integer, grey: Integer, points: Integer): Integer | nil {
+public function expectedMakings(
+  skill: Integer, most: Integer, yellow: Integer, grey: Integer, points: Integer, bonus: Number
+): Integer | nil {
   let total: Number = 0
   for (step of 0..points - 1) {
     const at = skill + step
     if (at >= grey || at >= most) { return nil }
-    total += at < yellow ? 1 : (grey - yellow) / (grey - at)
+    total += 1 / skillUpChance(at, yellow, grey, bonus)
   }
   return total.ceil()
+}
+
+// Legacy's «Working Overtime» (spell 1225451: the client's Spell table, «Increases your chance to gain a skill increase
+// from using any primary, secondary, or class-based tradeskill by $s1%», its SpellEffect aura 657 of 10): what it adds
+// to a skill-up's chance while the player has it, read from its description as the client gives it; 0 without it. The
+// client doesn't say how it adds: taken as points onto the chance (10% raises a 50% chance to 60%), an in-game check.
+const WORKING_OVERTIME = 1225451
+
+public function legacyBonus(): Number {
+  if (!Game.spells.known(WORKING_OVERTIME)) { return 0 }
+  const percent = Game.spells.description(WORKING_OVERTIME)?.match("(%d+)%%")?.toNumber()
+  return (percent ?? 0) / 100
 }

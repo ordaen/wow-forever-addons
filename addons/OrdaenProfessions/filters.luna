@@ -1,0 +1,126 @@
+// The recipe lists' filter, each tab's its own and each profession's its own: the funnel's switches of what applies to
+// the tab's recipes (the learned ones' «Can make»; the not learned ones' standing and side), and beside it what any
+// number of is picked: how likely a recipe is to raise the skill (both tabs), and how a recipe not learned is learned
+// (its tab alone). A profession left keeps its filter for the session; one opened takes its own, or a fresh one.
+import Game from "$game"
+import { Art } from "$ltml"
+import { Choice, FilterButton, FilterGroup, ToolMany } from "Ordaen"
+import Locale from "@/locales"
+import { RecipeSource, Way, otherSideOnly, sideOfPlayer, wayOf } from "@/sources"
+
+enum RecipeFilter { Makeable, NoReputation, OtherSide }
+
+const LEARNED_FILTERS: Array<FilterGroup<RecipeFilter>> = [
+  { options: [{ key: RecipeFilter.Makeable, label: Locale.FILTER_MAKEABLE }] }
+]
+const UNLEARNED_FILTERS: Array<FilterGroup<RecipeFilter>> = [
+  {
+    options: [{ key: RecipeFilter.NoReputation, label: Locale.FILTER_NO_REPUTATION }, { key: RecipeFilter.OtherSide, label: Locale.FILTER_OTHER_SIDE }]
+  }
+]
+const SKILL_UPS: Array<Choice<Game.Difficulty>> = [
+  { value: Game.Difficulty.Always, label: Locale.SKILL_UP_0 }, { value: Game.Difficulty.Usually, label: Locale.SKILL_UP_1 },
+  { value: Game.Difficulty.Rarely, label: Locale.SKILL_UP_2 }, { value: Game.Difficulty.Never, label: Locale.SKILL_UP_3 }
+]
+const WAYS: Array<Choice<Way>> = [
+  { value: Way.Trainer, label: Locale.FILTER_TRAINER }, { value: Way.Vendor, label: Locale.FILTER_VENDOR },
+  { value: Way.Quest, label: Locale.FILTER_QUEST }, { value: Way.Drop, label: Locale.FILTER_DROP },
+  { value: Way.Other, label: Locale.FILTER_OTHER_WAY }
+]
+// The game's pictures on the two pickers' buttons: a rising skill, a trainer's book.
+const SKILL_UP_ICON: Art = "Interface/Icons/Spell_ChargePositive"
+const WAY_ICON: Art = "Interface/Icons/INV_Misc_Book_11"
+
+// The filter as the window starts a profession's, as What's Training's does: every recipe however it raises the skill;
+// the recipes not learned from a trainer, a vendor or a quest, none asking a standing (the other side's alone left out).
+const SWITCHES_START: Map<RecipeFilter, Boolean> = { [RecipeFilter.NoReputation]: true }
+const SKILL_UPS_START: Array<Game.Difficulty> = [Game.Difficulty.Always, Game.Difficulty.Usually, Game.Difficulty.Rarely, Game.Difficulty.Never]
+const WAYS_START: Array<Way> = [Way.Trainer, Way.Vendor, Way.Quest]
+
+// A profession's filter as the player left it.
+struct Filtered {
+  switches: Map<RecipeFilter, Boolean>
+  skillUps: Array<Game.Difficulty>
+  ways: Array<Way>
+}
+
+// Whether a list holds a value.
+function holds<T: Unknown>(list: Array<T>, value: T): Boolean { return list.any(each => each == value) }
+
+// Whether a list of a picker's differs from what the window starts it as: its button is lit.
+function narrows<T: Unknown>(picked: Array<T>, start: Array<T>): Boolean {
+  return picked.length != start.length || picked.any(each => !holds(start, each))
+}
+
+public class RecipeFilters {
+  public state switches: Map<RecipeFilter, Boolean> = SWITCHES_START
+  public state skillUps: Array<Game.Difficulty> = SKILL_UPS_START
+  public state ways: Array<Way> = WAYS_START
+  derived skillUpsNarrow: Boolean = narrows(self.skillUps, SKILL_UPS_START)
+  derived waysNarrow: Boolean = narrows(self.ways, WAYS_START)
+  // What it lets through, as a text: the window keeps its sorted lists while it stands.
+  public derived key: String = self.keyOf()
+  // Each profession's filter as the player left it, by its skill line.
+  kept: mut Map<Integer, Filtered> = {}
+
+  // Whether the tab of the recipes not learned shows: its own filters, else the learned ones'.
+  state unlearned = false
+
+  // Another tab shows: the tools are its own.
+  public showUnlearned(mut self, on: Boolean) { self.unlearned = on }
+
+  keyOf(self): String {
+    const on: Array<String> = []
+    for (key of [RecipeFilter.Makeable, RecipeFilter.NoReputation, RecipeFilter.OtherSide]) { on.push(self.switches[key] == true ? "1" : "0") }
+    for (choice of SKILL_UPS) { on.push(holds(self.skillUps, choice.value) ? "1" : "0") }
+    for (choice of WAYS) { on.push(holds(self.ways, choice.value) ? "1" : "0") }
+    return on.join("")
+  }
+
+  // Whether a recipe (one not learned as it would do for the skill now) passes on its tab: how it raises the skill,
+  // then a learned one by «Can make», one not learned by where it is learned (`source`; one of unknown source passes).
+  public passes(self, recipe: Game.Recipe, source: RecipeSource | nil): Boolean {
+    if (!holds(self.skillUps, recipe.difficulty)) { return false }
+    if (recipe.learned) { return self.switches[RecipeFilter.Makeable] != true || recipe.craftable > 0 }
+    return source == nil || self.learnedFrom(source)
+  }
+
+  // A recipe not learned by where it is learned: a way picked, no reputation where those are left out, the other
+  // side's alone where those are shown.
+  public learnedFrom(self, source: RecipeSource): Boolean {
+    if (self.switches[RecipeFilter.NoReputation] == true && source.reputation.length > 0) { return false }
+    if (self.switches[RecipeFilter.OtherSide] != true && otherSideOnly(source, sideOfPlayer())) { return false }
+    return source.sources.any(way => holds(self.ways, wayOf(way)))
+  }
+
+  // A recipe opened from elsewhere is shown: what of the filter leaves it out lets everything through.
+  public letThrough(mut self, recipe: Game.Recipe, source: RecipeSource | nil) {
+    if (!holds(peek self.skillUps, recipe.difficulty)) { self.skillUps = SKILL_UPS_START }
+    if (!recipe.learned && source != nil && !self.learnedFrom(source)) {
+      self.switches = {}
+      self.ways = WAYS.map(choice => choice.value)
+    }
+  }
+
+  // Another profession opened: the one left (0 for none) keeps its filter, the one opened takes its own, or a fresh one.
+  public switchTo(mut self, left: Integer, opened: Integer) {
+    if (left != 0) { self.kept[left] = { switches: peek self.switches, skillUps: peek self.skillUps, ways: peek self.ways } }
+    const own = self.kept[opened]
+    self.switches = own?.switches ?? SWITCHES_START
+    self.skillUps = own?.skillUps ?? SKILL_UPS_START
+    self.ways = own?.ways ?? WAYS_START
+  }
+
+  // The funnel of the tab's switches, the skill-up's picker, and on the tab of the recipes not learned the ways'.
+  public tools(self): Template {
+    return $ltml {
+      // Two of their own, never one changed over: a funnel's groups are its own for its life.
+      <FilterButton $if={self.unlearned} values={mut self.switches} start={SWITCHES_START} groups={UNLEARNED_FILTERS} />
+      <FilterButton $if={!self.unlearned} values={mut self.switches} start={SWITCHES_START} groups={LEARNED_FILTERS} />
+      <ToolMany value={mut self.skillUps} choices={SKILL_UPS} icon={SKILL_UP_ICON} title={Locale.FILTER_SKILLUP}
+                none={Locale.FILTER_PICKED_NONE} lit={self.skillUpsNarrow} tinted={false} />
+      <ToolMany $if={self.unlearned} value={mut self.ways} choices={WAYS} icon={WAY_ICON} title={Locale.FILTER_WAYS}
+                none={Locale.FILTER_PICKED_NONE} lit={self.waysNarrow} tinted={false} />
+    }
+  }
+}

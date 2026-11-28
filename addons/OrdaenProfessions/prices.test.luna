@@ -472,9 +472,9 @@ test "the table lists each recipe's cost and price at the house and at a merchan
   // The name, the skill (What's Training's: no trainer met), how many; the cost at the house and («~», the cloth left
   // out) at a merchant; what the cloak brings at the house and (nothing: merchants don't buy it) at one; the profit at
   // the better.
-  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 1 | 3 | 0g 1s 15c | ~ | 0g 0s 10c | 0g 4s 75c | — | 0g 3s 60c"))
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 1 | 35 | – | 48 | 3 | 0g 1s 15c | ~ | 0g 0s 10c | 0g 4s 75c | — | 0g 3s 60c"))
   // The bolt's linen has no price here: no cost, no profit; it sells at the house for 95 c.
-  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | 1 | - | — | — | 0g 0s 95c | — | —"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | 1 | 25 | – | 38 | - | — | — | 0g 0s 95c | — | —"))
 }
 
 test "the table sorts by the cost at the house and by profit, a recipe with none last either way" {

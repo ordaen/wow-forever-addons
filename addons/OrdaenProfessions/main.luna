@@ -9,7 +9,7 @@ import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, Ground, ItemId, KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, Ground, ItemId, KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Trading from "OrdaenTrading"
 import type { PriceSource, Sellers } from "OrdaenTrading"
@@ -20,6 +20,7 @@ import { makesOf } from "@/cost"
 import { Crafter, Crafting, TooltipCrafters, craftersOf, craftingOf } from "@/crafters"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
+import { RecipeFilters } from "@/filters"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { Queueing } from "@/make"
@@ -29,8 +30,8 @@ import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
-import { Thresholds, learnable, thresholdsOf } from "@/skillUps"
-import { LearnPlace, RecipeSource, Way, learnedSkillOf, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
+import { Thresholds, greenFrom, learnable, thresholdsOf } from "@/skillUps"
+import { LearnPlace, RecipeSource, learnedSkillOf, readinessOf, sourcesOf } from "@/sources"
 import { ProfessionSpell, ProfessionSpells, professionSpellsOf } from "@/spells"
 import { bothSourcesOf } from "@/split"
 import Style from "@/style"
@@ -74,10 +75,13 @@ const BAND_WITH_SPELLS: Array<Track> = [{ fr: 1 }, "max-content"]
 const NAMES: Track = { fr: 1, min: 234.375dp }
 // The made item's class and type: they wrap past it.
 const KIND = 105.46875dp
+// Two skills with a dash between them.
+const SKILL_UP: Track = { fit: 93.75dp }
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
   { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_SKILL_UP, width: SKILL_UP, align: Align.End, sortable: true },
   { title: Locale.COLUMN_CLASS, width: KIND, sortable: true },
   { title: Locale.COLUMN_TYPE, width: KIND, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 105.46875dp, align: Align.End, sortable: true }
@@ -88,6 +92,7 @@ const MONEY = 117.1875dp
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
   { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_SKILL_UP, width: SKILL_UP, align: Align.End, sortable: true },
   { title: Locale.COLUMN_CLASS, width: KIND, sortable: true },
   { title: Locale.COLUMN_TYPE, width: KIND, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 105.46875dp, align: Align.End, sortable: true },
@@ -110,51 +115,6 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE }
 ]
-// The filter: the game's own options («Фильтр»).
-enum RecipeFilter { Makeable, SkillUp, Trainer, Vendor, Quest, Drop, OtherWay, NoReputation, OtherSide }
-const FILTERS: Array<FilterGroup<RecipeFilter>> = [
-  {
-    options: [{ key: RecipeFilter.Makeable, label: Locale.FILTER_MAKEABLE }, { key: RecipeFilter.SkillUp, label: Locale.FILTER_SKILLUP }]
-  },
-  {
-    options: [
-      { key: RecipeFilter.Trainer, label: Locale.FILTER_TRAINER }, { key: RecipeFilter.Vendor, label: Locale.FILTER_VENDOR },
-      { key: RecipeFilter.Quest, label: Locale.FILTER_QUEST }, { key: RecipeFilter.Drop, label: Locale.FILTER_DROP },
-      { key: RecipeFilter.OtherWay, label: Locale.FILTER_OTHER_WAY }
-    ]
-  },
-  {
-    options: [{ key: RecipeFilter.NoReputation, label: Locale.FILTER_NO_REPUTATION }, { key: RecipeFilter.OtherSide, label: Locale.FILTER_OTHER_SIDE }]
-  }
-]
-// The options that narrow the recipes not learned to the ways that are on: none on, every way.
-const WAY_FILTERS: Array<RecipeFilter> = [RecipeFilter.Trainer, RecipeFilter.Vendor, RecipeFilter.Quest, RecipeFilter.Drop, RecipeFilter.OtherWay]
-
-function filterOf(way: Way): RecipeFilter {
-  return match (way) {
-    .Trainer => RecipeFilter.Trainer
-    .Vendor => RecipeFilter.Vendor
-    .Quest => RecipeFilter.Quest
-    .Drop => RecipeFilter.Drop
-    .Other => RecipeFilter.OtherWay
-  }
-}
-
-// What is on, an option after another in the filter's order.
-function keyOf(filter: Map<RecipeFilter, Boolean>): String {
-  let key = ""
-  for (group of FILTERS) {
-    for (option of group.options) { key = key + (filter[option.key] == true ? "1" : "0") }
-  }
-  return key
-}
-
-// The filter as the window starts it, as What's Training's does: the recipes not learned from a trainer, a vendor or a
-// quest, none asking a standing (the other side's alone left out).
-const FILTER_START: Map<RecipeFilter, Boolean> = {
-  [RecipeFilter.Trainer]: true, [RecipeFilter.Vendor]: true, [RecipeFilter.Quest]: true, [RecipeFilter.NoReputation]: true
-}
-
 // A group of What's Training's by its name.
 function readinessName(readiness: Integer): String {
   if (readiness == READY_NOW) { return Locale.READY_NOW }
@@ -220,8 +180,6 @@ public class Professions implements Module, App {
   // kept under the profession in `views` as it changes, and read from there as another opens.
   public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW)
   public views: mut ModuleMemory<ListViews> = new ModuleMemory<ListViews>({ byLine: {} }, .Profile, "views")
-  // Each profession's filter as the player left it, by its skill line: the session's, as the filter is.
-  filters: mut Map<Integer, Map<RecipeFilter, Boolean>> = {}
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
@@ -237,14 +195,11 @@ public class Professions implements Module, App {
   state count = 1
   state makeMode: MakeMode = MakeMode.Count
   public state search = ""
-  // The filter's options on, and each as the passing reads it.
-  public state filter: Map<RecipeFilter, Boolean> = FILTER_START
-  derived onlyMake: Boolean = self.filter[RecipeFilter.Makeable] == true
-  derived onlySkill: Boolean = self.filter[RecipeFilter.SkillUp] == true
+  // The filter of the tab shown, the open profession's, and its tools on the toolbar.
+  public filter: mut RecipeFilters
+  const filterTools: Template
   // Where the recipes of the profession open are learned, read as it opens.
   derived sources: Map<Integer, RecipeSource> = sourcesOf(self.profession?.skillLine)
-  // What is on, as a text: the sorted lists are kept while it stands.
-  derived filterKey: String = keyOf(self.filter)
   // The recipe whose menu is open; 0 for none.
   public state menuFor = 0
   // Every recipe the search and the filter let through, in the sort's order: worked out again when any of them
@@ -339,6 +294,9 @@ public class Professions implements Module, App {
 
   constructor() {
     self.crafting = new CraftQueue(mut self.memory)
+    self.filter = new RecipeFilters()
+    self.filterTools = self.filter.tools()
+    watch (unlearned of self.unlearnedShown) { self.filter.showUnlearned(unlearned) }
     Ordaen.modules.add(self)
     // The run the window was closed during ended: the profession closes now; another opened shows the window.
     watch (running of self.crafting.running) { self.runEnded(running) }
@@ -532,30 +490,17 @@ public class Professions implements Module, App {
     return text
   }
 
+  // Whether the search and the tab's filter let a recipe through (one not learned as it would do for the skill now).
   passes(mut self, recipe: Game.Recipe, sought: String): Boolean {
     if (sought != "" && !self.textOf(recipe).contains(sought)) { return false }
-    if (self.onlyMake && recipe.craftable < 1) { return false }
-    if (self.onlySkill && recipe.difficulty == Game.Difficulty.Never) { return false }
     // Learned on every page but the one of the recipes not learned, which shows those alone.
-    if (recipe.learned) { return !self.unlearnedShown }
-    if (!self.unlearnedShown) { return false }
-    const source = self.sources[recipe.id]
-    return source == nil || self.learnedFromShown(source)
-  }
-
-  // A recipe not learned is shown by where it is learned: a way that is on (where any is), no reputation where those
-  // are left out, the other side's alone where those are shown.
-  learnedFromShown(self, source: RecipeSource): Boolean {
-    if (self.filter[RecipeFilter.NoReputation] == true && source.reputation.length > 0) { return false }
-    if (self.filter[RecipeFilter.OtherSide] != true && otherSideOnly(source, sideOfPlayer())) { return false }
-    const anyWay = WAY_FILTERS.any(key => self.filter[key] == true)
-    return !anyWay || source.sources.any(way => self.filter[filterOf(wayOf(way))] == true)
+    return recipe.learned != self.unlearnedShown && self.filter.passes(recipe, self.sources[recipe.id])
   }
 
   shownOf(mut self): Array<Game.Recipe> {
     const sought = self.search.lower()
     const sort = self.list.values.sort
-    const asked = `${sought}\n${sort}\n${self.filterKey}\n${self.unlearnedShown}\n${self.byReadiness}`
+    const asked = `${sought}\n${sort}\n${self.filter.key}\n${self.unlearnedShown}\n${self.byReadiness}`
     if (asked != self.sortedAs) {
       self.sortedAs = asked
       self.sortedOf = {}
@@ -568,7 +513,8 @@ public class Professions implements Module, App {
     const thresholds = self.thresholds
     const rank = self.profession?.rank ?? 0
     for (recipe of all) {
-      if (self.passes(recipe, sought)) { list.push(learnable(recipe, thresholds, rank)) }
+      const shown = learnable(recipe, thresholds, rank)
+      if (self.passes(shown, sought)) { list.push(shown) }
     }
     if (self.byReadiness) {
       const sources = self.sources
@@ -659,13 +605,17 @@ public class Professions implements Module, App {
     if (self.list.values.view != View.Table || self.onCamp) { return facts }
     const prices = self.prices
     if (prices != nil) { _ = prices.revision }
-    const learned = self.thresholds.learned
+    const thresholds = self.thresholds
     const taught = self.taught
     const sources = self.sources
     for (recipe of self.mains) {
       const made = makesOf(recipe.id)
+      const yellow = thresholds.yellow[recipe.id]
+      const grey = thresholds.grey[recipe.id]
       const fact: TableFacts = {
-        skill: learnedSkillOf(learned[recipe.id], taught[recipe.name], sources[recipe.id]),
+        skill: learnedSkillOf(thresholds.learned[recipe.id], taught[recipe.name], sources[recipe.id]),
+        yellow: grey == nil ? nil : yellow,
+        green: yellow == nil || grey == nil ? nil : greenFrom(yellow, grey),
         subtype: made == nil ? nil : Game.items.subtype(made),
         kind: made == nil ? nil : Game.items.equipSlot(made) ?? Game.items.category(made),
         both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, made, 1)
@@ -721,10 +671,9 @@ public class Professions implements Module, App {
     if (open != nil && open != self.skillLine) {
       // Each profession has its own list: the one left keeps its filter (its view is kept as it changes), the one
       // opened takes its own, or a fresh one, and an empty search.
-      if (self.skillLine != 0) { self.filters[self.skillLine] = peek self.filter }
+      self.filter.switchTo(self.skillLine, open)
       self.skillLine = open
       self.search = ""
-      self.filter = self.filters[open] ?? FILTER_START
       self.list.write((peek self.views.values).byLine[open] ?? LIST_VIEW)
       self.texts = {}
       self.category = 0
@@ -940,11 +889,11 @@ public class Professions implements Module, App {
     const page = self.pageAt(inCamp ? Page.Camp : recipe.learned ? Page.Recipes : Page.Unlearned)
     self.opening = page != peek self.page
     self.page = page
-    // One the filter leaves out is shown: the filter lets every way through.
+    // One the filter leaves out is shown: the filter lets it through.
     const source = (peek self.sources)[id]
-    if (!recipe.learned && source != nil && !self.learnedFromShown(source)) { self.filter = {} }
-    const grouped = !recipe.learned && (peek self.list.values).grouping == Grouping.Readiness
     const profession = peek self.profession
+    self.filter.letThrough(learnable(recipe, peek self.thresholds, profession?.rank ?? 0), source)
+    const grouped = !recipe.learned && (peek self.list.values).grouping == Grouping.Readiness
     self.category = grouped ? readinessOf(source, profession?.rank ?? 0, profession?.max ?? 0) : recipe.categoryID
     self.pickRecipe(id)
   }
@@ -1000,7 +949,7 @@ public class Professions implements Module, App {
                 <box rows={TOOLED} width={Style.LISTS_BOUNDS}>
                   <box padding={TOOL_ROOM}>
                     <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-                      <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
+                      {self.filterTools}
                       <ToolPick $if={!self.isTable && !self.byReadiness} value={mut self.list.values.sort} choices={SORTS}
                                 icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
                       <ToolPick $if={self.unlearnedShown && !self.isTable} value={mut self.list.values.grouping} choices={GROUPINGS}

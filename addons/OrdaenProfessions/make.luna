@@ -6,7 +6,7 @@ import Game from "$game"
 import { Action, Align, Track } from "$ltml"
 import { Choice, CompactDropdown, Component, CountInput, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
-import { expectedMakings } from "@/skillUps"
+import { expectedMakings, legacyBonus } from "@/skillUps"
 import Style from "@/style"
 import { MakeMode } from "@/view"
 
@@ -84,7 +84,7 @@ public class MakeRow implements Component {
     const yellow = self.yellow
     const grey = self.grey
     if (profession == nil || yellow == nil || grey == nil) { return nil }
-    return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
+    return expectedMakings(profession.rank, profession.max, yellow, grey, self.count, legacyBonus())
   }
 
   mostOf(self): Integer {
