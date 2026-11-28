@@ -1,14 +1,23 @@
 // What the player put up at the house, and when: a row for each post the client took, kept with the module's data so
 // a sale or an auction back unsold (the ledger's, from the mailbox) can be matched to the post it came of, and how long
-// it took to sell be said. At most `MOST` rows, none older than 90 days: an auction lasts a day at most, and older
-// posts say nothing of how the market moves now.
+// it took to sell be said. Each of a post's auctions is kept by its id, with the moment the client told it sold (the
+// house's notification, wherever the player was). At most `MOST` rows, none older than 90 days: an auction lasts a day
+// at most, and older posts say nothing of how the market moves now.
 import Game from "$game"
 
-// One post: the item by its name (as the house's mail names it), how many, the server's time it went up, in seconds.
+// One auction of a post: its id, as the client gave it, and the server's time it sold, in seconds; 0 while it hasn't.
+public struct Lot implements Plain {
+  auction: Integer = 0
+  sold: Integer = 0
+}
+
+// One post: the item by its name (as the house's mail names it), how many, the server's time it went up, in seconds,
+// and its auctions (none in a row kept before they were).
 public struct Posted implements Plain {
   item: String = ""
   count: Integer = 0
   at: Integer = 0
+  lots: Array<Lot> = []
 }
 
 // How many rows are kept; the oldest goes first.
@@ -21,9 +30,11 @@ public class PostLog {
   public state revision = 0
   rows: mut Array<Posted>
 
-  // `rows` are the module's saved ones, written in place; those past 90 days go as the next is written.
+  // `rows` are the module's saved ones, written in place; those past 90 days go as the next is written. A sale the
+  // client tells is written to its post's auction.
   constructor(rows: mut Array<Posted>) {
     self.rows = rows
+    Game.ownedAuctions.sold.listen(self.sold)
   }
 
   // The rows, oldest first.
@@ -32,8 +43,8 @@ public class PostLog {
     return self.rows
   }
 
-  // A post the client took.
-  public record(mut self, item: String, count: Integer) {
+  // A post the client took, and the auctions it made.
+  public record(mut self, item: String, count: Integer, auctions: Array<Integer>) {
     const now = peek Game.clock.server
     let old = 0
     for (row of self.rows) {
@@ -42,7 +53,20 @@ public class PostLog {
     }
     for (index of 1..old) { _ = self.rows.remove(1) }
     if (self.rows.length >= MOST) { _ = self.rows.remove(1) }
-    self.rows.push({ item: item, count: count, at: now })
+    self.rows.push({ item: item, count: count, at: now, lots: auctions.map(auction => Lot { auction: auction, sold: 0 }) })
     self.revision += 1
+  }
+
+  // One of the player's auctions sold: the moment is kept with its post's auction, where a post made it.
+  sold(mut self, auction: Integer, at: Integer) {
+    for (place of self.rows.length..1 step -1) {
+      const row = self.rows[place] ?? panic("a row at each place")
+      if (row.lots.any(lot => lot.auction == auction)) {
+        const lots = row.lots.map(lot => lot.auction == auction ? Lot { auction: auction, sold: at } : lot)
+        self.rows[place] = { lots: lots, ..row }
+        self.revision += 1
+        return
+      }
+    }
   }
 }

@@ -245,9 +245,9 @@ test "the player's auctions are counted by item, the sold ones left out" {
   Game.items.tooltip = named
   Test.mount(nil, SCREEN)
   Game.ownedAuctions.list = [
-    { auction: 1, item: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil },
-    { auction: 2, item: COPPER, quantity: 5, buyout: 900, sold: false, left: nil },
-    { auction: 3, item: LINEN, quantity: 1, buyout: 100, sold: true, left: nil }
+    { auction: 1, item: COPPER, key: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil },
+    { auction: 2, item: COPPER, key: COPPER, quantity: 5, buyout: 900, sold: false, left: nil },
+    { auction: 3, item: LINEN, key: LINEN, quantity: 1, buyout: 100, sold: true, left: nil }
   ]
   _ = items()
   Test.expect(shows(listed("Copper Bar | — | — | — | 25 | 25", 1, 25)))
@@ -256,12 +256,12 @@ test "the player's auctions are counted by item, the sold ones left out" {
 test "an empty list of auctions before the house answers keeps them, and one while it is open empties them" {
   Game.items.tooltip = named
   Test.mount(nil, SCREEN)
-  Game.ownedAuctions.list = [{ auction: 1, item: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil }]
+  Game.ownedAuctions.list = [{ auction: 1, item: COPPER, key: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil }]
   _ = items()
   Game.ownedAuctions.list = []
   Test.expect(shows(listed("Copper Bar | — | — | — | 20 | 20", 1, 20)))
   Game.auctionHouse.open = true
-  Game.ownedAuctions.list = [{ auction: 2, item: LINEN, quantity: 1, buyout: nil, sold: false, left: nil }]
+  Game.ownedAuctions.list = [{ auction: 2, item: LINEN, key: LINEN, quantity: 1, buyout: nil, sold: false, left: nil }]
   Game.ownedAuctions.list = []
   Test.expect(shows(listed(Locale.NOTHING_FOUND, 0, 0)))
 }

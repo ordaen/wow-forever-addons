@@ -163,7 +163,7 @@ public class OwnedPage implements Component {
       const name, color = nameOf(owned.item)
       const buyout = owned.buyout
       const unit = buyout != nil && owned.quantity > 0 ? (buyout / owned.quantity).floor() : nil
-      const listing = self.house.listed(PriceKey.of(owned.item))
+      const listing = self.house.listed(PriceKey.given(owned.key))
       const lowest = listing != nil && unit != nil ? unit <= listing.low() : nil
       const left = owned.left
       list.push({

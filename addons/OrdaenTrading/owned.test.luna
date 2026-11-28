@@ -25,9 +25,9 @@ function names(id: Integer): Game.TooltipData | nil {
 // Linen, 20 at 9 s, two hours left; ore, 5 with a bid alone; a bolt sold.
 function auctions(): Array<Game.Owned> {
   return [
-    { auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 },
-    { auction: 2, item: ORE, quantity: 5, buyout: nil, sold: false, left: nil },
-    { auction: 3, item: BOLT, quantity: 1, buyout: 300, sold: true, left: nil }
+    { auction: 1, item: LINEN, key: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 },
+    { auction: 2, item: ORE, key: ORE, quantity: 5, buyout: nil, sold: false, left: nil },
+    { auction: 3, item: BOLT, key: BOLT, quantity: 1, buyout: 300, sold: true, left: nil }
   ]
 }
 
@@ -101,6 +101,21 @@ test "under its name, whether an auction is the house's lowest as last seen" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 44, quantity: 40 }])
   Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | Undercut | 20 | 0g 0s 45c | 2 h | Cancel"))
   Test.expect(window().text("Undercut").textColor().equal(RED))
+}
+
+test "a weapon with a random suffix is the lowest or not of its own variant's listings, not its plain item's" {
+  const blade = 15210
+  const suffixed = blade + 1018 * 1048576
+  Game.ownedAuctions.list = [{ auction: 4, item: blade, key: suffixed, quantity: 1, buyout: 5000, sold: false, left: 7200 }]
+  Game.auctionQuery.results.emit([{ key: blade, copper: 10, quantity: 3 }, { key: suffixed, copper: 5000, quantity: 1 }])
+  Game.clock.server = START
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id == blade ? { lines: [{ left: "Ironwood Blade", kind: 0 }] } : nil
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Test.expect(reads(window().text("Ironwood Blade").item(), "Ironwood Blade | Lowest | 1 | 0g 50s 0c | 2 h | Cancel"))
 }
 
 test "«Cancel» on a row cancels its auction from the click; once the client took it the list is asked again" {
@@ -243,9 +258,9 @@ test "the list the client gives anew is shown as it comes" {
 
 test "the time left: minutes rounded up to the hour, then hours rounded up" {
   Game.ownedAuctions.list = [
-    { auction: 1, item: LINEN, quantity: 1, buyout: 100, sold: false, left: 61 },
-    { auction: 2, item: ORE, quantity: 1, buyout: 100, sold: false, left: 3600 },
-    { auction: 3, item: BOLT, quantity: 1, buyout: 100, sold: false, left: 7201 }
+    { auction: 1, item: LINEN, key: LINEN, quantity: 1, buyout: 100, sold: false, left: 61 },
+    { auction: 2, item: ORE, key: ORE, quantity: 1, buyout: 100, sold: false, left: 3600 },
+    { auction: 3, item: BOLT, key: BOLT, quantity: 1, buyout: 100, sold: false, left: 7201 }
   ]
   Game.clock.server = START
   Game.items.tooltip = names
@@ -260,8 +275,8 @@ test "the time left: minutes rounded up to the hour, then hours rounded up" {
 
 test "the price for one is the buyout shared out, rounded down; an auction of none has none" {
   Game.ownedAuctions.list = [
-    { auction: 1, item: LINEN, quantity: 20, buyout: 919, sold: false, left: 7200 },
-    { auction: 2, item: ORE, quantity: 0, buyout: 919, sold: false, left: 7200 }
+    { auction: 1, item: LINEN, key: LINEN, quantity: 20, buyout: 919, sold: false, left: 7200 },
+    { auction: 2, item: ORE, key: ORE, quantity: 0, buyout: 919, sold: false, left: 7200 }
   ]
   Game.clock.server = START
   Game.items.tooltip = names
@@ -274,7 +289,7 @@ test "the price for one is the buyout shared out, rounded down; an auction of no
 }
 
 test "an auction not seen on the house says so dimly; its name in its quality's colour" {
-  Game.ownedAuctions.list = [{ auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 }]
+  Game.ownedAuctions.list = [{ auction: 1, item: LINEN, key: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 }]
   Game.clock.server = START
   Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
     return { lines: [{ left: "Linen Cloth", kind: 0, quality: GREEN }] }
@@ -287,7 +302,7 @@ test "an auction not seen on the house says so dimly; its name in its quality's 
 }
 
 test "«Check» with one auction browses its item" {
-  Game.ownedAuctions.list = [{ auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 }]
+  Game.ownedAuctions.list = [{ auction: 1, item: LINEN, key: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 }]
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)

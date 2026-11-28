@@ -29,10 +29,10 @@ function history(): Test.Part {
   return Test.page().window("History")
 }
 
-// The item picked on «Sell» put up, as many as its panel says, the client taking the post.
-function post() {
+// The item picked on «Sell» put up, as many as its panel says, the client taking the post as this auction.
+function post(auction: Integer) {
   Test.page().window("Sell").button("Post").click()
-  Game.auctionActions.answered.emit(.Posted)
+  Game.auctionActions.answered.emit(.Posted { auctions: [auction] })
 }
 
 test "each item's sales and returns, matched to its posts: how long a sale took, the fastest, the median, the slowest" {
@@ -46,11 +46,11 @@ test "each item's sales and returns, matched to its posts: how long a sale took,
   // Three posts of 5, an hour apart.
   Test.page().window("Sell").text("Linen Cloth").click()
   for (turn of 1..15) { Test.page().window("Sell").button("Post").item().button("-").click() }
-  post()
+  post(11)
   Game.clock.server = START + HOUR
-  post()
+  post(12)
   Game.clock.server = START + 2 * HOUR
-  post()
+  post(13)
   // The first sold 3 hours after it went up; the second 4; the third came back.
   Game.clock.server = START + 3 * HOUR
   Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
@@ -61,6 +61,31 @@ test "each item's sales and returns, matched to its posts: how long a sale took,
   const page = history()
   Test.expect(reads(page.text("Linen Cloth").item(), "Linen Cloth | 10 | 0g 3s 40c | 5 | 3 h | 4 h | 4 h"))
   Test.expect(!page.text("Copper Ore").shown())
+}
+
+test "a sale the client told is timed to that moment from its own auction's post; one it didn't tell, until its mail was read" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 20, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.page().window("Sell").button("Sell").click()
+  Test.page().window("Sell").text("Linen Cloth").click()
+  for (turn of 1..15) { Test.page().window("Sell").button("Post").item().button("-").click() }
+  post(21)
+  Game.clock.server = START + HOUR
+  post(22)
+  // The second post sold half an hour after it went up, the first not yet; another's auction sold is no post's.
+  Game.ownedAuctions.sold.emit(22, START + HOUR + 1800)
+  Game.ownedAuctions.sold.emit(99, START + HOUR + 1800)
+  // Its mail read hours later: timed to the sale, not to the mail, and to its own post, not the oldest.
+  Game.clock.server = START + 6 * HOUR
+  Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
+  // The first's sale wasn't told: timed until its mail was read.
+  Game.clock.server = START + 8 * HOUR
+  Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
+  Test.expect(reads(history().text("Linen Cloth").item(), "Linen Cloth | 10 | 0g 3s 40c | 0 | 30 min | 5 h | 8 h"))
 }
 
 test "a sale with no post of «Sell» before it has no time" {

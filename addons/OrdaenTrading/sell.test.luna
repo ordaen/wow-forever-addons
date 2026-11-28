@@ -238,7 +238,7 @@ test "the lowest listed being the player's own auction is matched, not undercut"
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
-  Game.ownedAuctions.list = [{ auction: 7, item: LINEN, quantity: 10, buyout: 360, sold: false, left: nil }]
+  Game.ownedAuctions.list = [{ auction: 7, item: LINEN, key: LINEN, quantity: 10, buyout: 360, sold: false, left: nil }]
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
@@ -257,7 +257,7 @@ test "the panel follows the bags: after a post, the next names what is left and 
   window().button("Sell").click()
   window().text("Linen Cloth").click()
   panel().button("Post").click()
-  Game.auctionActions.answered.emit(.Posted)
+  Game.auctionActions.answered.emit(.Posted { auctions: [1] })
   // The first stack went: six are left, in another bag.
   Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 6, bag: 1, slot: 4, commodity: true }]
   Game.bags.changed.emit()
@@ -497,7 +497,7 @@ test "once its answer came, the panel hears no other" {
   window().button("Sell").click()
   window().text("Linen Cloth").click()
   panel().button("Post").click()
-  Game.auctionActions.answered.emit(.Posted)
+  Game.auctionActions.answered.emit(.Posted { auctions: [1] })
   Game.auctionActions.answered.emit(.Refused { reason: "Not yours" })
   Test.expect(!panel().text("Not yours").shown())
 }

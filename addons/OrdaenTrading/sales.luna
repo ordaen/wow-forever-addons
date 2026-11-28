@@ -1,8 +1,9 @@
 // «Sold» (a tab of «My auctions»): what the player's auctions came to, an item a row, from the house's mail the
 // mailbox read (the ledger) and the posts the player made from «Sell» (`PostLog`): how many sold and for how much, how
-// many came back unsold, and how long a sale took from its post, the fastest, the median and the slowest. A sale or a
-// return is matched to the oldest post of its item not yet matched that went up before it; the time is until its mail
-// was read, the one moment the client tells.
+// many came back unsold, and how long a sale took from its post, the fastest, the median and the slowest. A sale is
+// matched to the post whose auction the client told sold before its mail was read, the time until that moment; where
+// none was told (a post before auctions were kept, a sale while the player was away), a sale or a return is matched to
+// the oldest post of its item not yet matched that went up before it, the time until its mail was read.
 import { Align } from "$ltml"
 import { Column, Component, ModuleMemory, Money, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import { Dealt, Ledger } from "@/ledger"
@@ -26,6 +27,12 @@ public struct ItemSales {
 struct Open {
   left: Integer
   at: Integer
+}
+
+// One of a post's auctions the client told sold: when, and the post it came of.
+struct Sale {
+  sold: Integer
+  post: mut Open
 }
 
 const NAME_COLUMN = 1
@@ -53,7 +60,13 @@ function take(queue: mut Array<mut Open> | nil, count: Integer, by: Integer): In
   let left = count
   for (turn of 1..) {
     const next = queue[1]
-    if (left <= 0 || next == nil || next.at > by) { break }
+    if (next == nil) { break }
+    // A post a sale the client told took in full.
+    if (next.left <= 0) {
+      _ = queue.remove(1)
+      continue
+    }
+    if (left <= 0 || next.at > by) { break }
     if (first == nil) { first = next.at }
     const taken = next.left.min(left)
     left -= taken
@@ -72,17 +85,54 @@ function middleOf(times: Array<Integer>): Integer | nil {
   return (((times[half] ?? 0) + (times[half + 1] ?? 0)) / 2).floor()
 }
 
-// Each item's sales and returns, the ledger's rows matched to the posts, both oldest first.
+// From `queue`, the first sale the client told by `by` (seconds), taken, `count` of its post taken with it: how long it
+// took to sell; none where none was told by then.
+function takeSale(queue: mut Array<mut Sale> | nil, count: Integer, by: Integer): Integer | nil {
+  if (queue == nil) { return nil }
+  const next = queue[1]
+  if (next == nil || next.sold > by) { return nil }
+  _ = queue.remove(1)
+  next.post.left -= next.post.left.min(count)
+  return next.sold - next.post.at
+}
+
+// How long a sale of the ledger took from its post: by the moment the client told it sold, else until its mail was
+// read; none where no post is matched (a row kept before the ledger told seconds is matched to none).
+function sellTime(open: mut Array<mut Open> | nil, told: mut Array<mut Sale> | nil, deal: Dealt): Integer | nil {
+  if (deal.seconds <= 0) { return nil }
+  const byTold = takeSale(mut told, deal.count, deal.seconds)
+  if (byTold != nil) { return byTold }
+  const posted = take(mut open, deal.count, deal.seconds)
+  return posted != nil ? deal.seconds - posted : nil
+}
+
+// Each item's sales and returns, the ledger's rows matched to the posts, both oldest first. A sale is matched by the
+// moment the client told one of its post's auctions sold, the first told before its mail was read; where none was, to
+// the oldest post not yet matched, its time until its mail was read.
 public function salesOf(deals: Array<Dealt>, posts: Array<Posted>): mut Array<ItemSales> {
   let open: Map<String, mut Array<mut Open>> = {}
+  let told: Map<String, mut Array<mut Sale>> = {}
   for (post of posts) {
+    const entry: Open = { left: post.count, at: post.at }
     const queue = open[post.item]
     if (queue != nil) {
-      queue.push({ left: post.count, at: post.at })
+      queue.push(mut entry)
     } else {
-      open[post.item] = [{ left: post.count, at: post.at }]
+      open[post.item] = [entry]
+    }
+    for (lot of post.lots) {
+      if (lot.sold > 0) {
+        const sale: Sale = { sold: lot.sold, post: entry }
+        const sales = told[post.item]
+        if (sales != nil) {
+          sales.push(mut sale)
+        } else {
+          told[post.item] = [sale]
+        }
+      }
     }
   }
+  for (_, sales of told) { sales.sort((a, b) => a.sold < b.sold) }
   let at: Map<String, Integer> = {}
   let list: Array<ItemSales> = []
   let times: Map<String, mut Array<Integer>> = {}
@@ -96,13 +146,14 @@ public function salesOf(deals: Array<Dealt>, posts: Array<Posted>): mut Array<It
       times[deal.item] = []
     }
     const row = list[place] ?? panic("a row for each item")
-    // A row kept before the ledger told seconds is matched to no post.
-    const posted = deal.seconds > 0 ? take(mut open[deal.item], deal.count, deal.seconds) : nil
     if (deal.deal == .Sold) {
       list[place] = { sold: row.sold + deal.count, copper: row.copper + deal.copper, ..row }
       const took = times[deal.item]
-      if (posted != nil && took != nil) { took.push(deal.seconds - posted) }
+      const time = sellTime(mut open[deal.item], mut told[deal.item], deal)
+      if (time != nil && took != nil) { took.push(time) }
     } else {
+      // A row kept before the ledger told seconds is matched to no post.
+      if (deal.seconds > 0) { _ = take(mut open[deal.item], deal.count, deal.seconds) }
       list[place] = { expired: row.expired + deal.count, ..row }
     }
   }

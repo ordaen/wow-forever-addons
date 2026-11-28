@@ -238,10 +238,9 @@ function postingUnit(house: House, key: PriceKey, market: Copper | nil): Integer
   const listed = house.listed(key)
   if (listed == nil) { return market ?? 0 }
   const low = listed.low()
-  const item = key.item()
   for (owned of peek Game.ownedAuctions.list) {
     const buyout = owned.buyout
-    if (owned.item == item && !owned.sold && buyout != nil && owned.quantity > 0 && (buyout / owned.quantity).floor() <= low) {
+    if (PriceKey.given(owned.key) == key && !owned.sold && buyout != nil && owned.quantity > 0 && (buyout / owned.quantity).floor() <= low) {
       return low
     }
   }
@@ -311,15 +310,16 @@ public class Posting implements Component {
     self.refused = sent ? nil : Locale.POST_NOT_SENT
   }
 
-  // The post's answer: taken, it is logged (how long it takes to sell is matched to it); refused, its words.
+  // The post's answer: taken, it is logged with its auctions (how long it takes to sell is matched to it); refused,
+  // its words.
   onAnswer(mut self, answer: Game.ActionAnswer) {
     const count = peek self.sending
     if (count == 0) { return }
     self.sending = 0
     if (answer is Game.ActionAnswer.Refused) {
       self.refused = answer.reason
-    } else if (answer == .Posted) {
-      self.posts.record(self.name, count)
+    } else if (answer is Game.ActionAnswer.Posted) {
+      self.posts.record(self.name, count, answer.auctions)
     }
   }
 
