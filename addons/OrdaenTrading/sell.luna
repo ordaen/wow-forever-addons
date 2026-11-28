@@ -12,6 +12,7 @@ import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel, PriceOrDash, merchantPays } from "@/itemPanel"
 import Locale from "@/locales"
+import { PostLog } from "@/posts"
 import { PriceKey, PriceSource } from "@/quote"
 import Style from "@/style"
 
@@ -255,8 +256,8 @@ public class Posting implements Component {
   state duration: Game.Duration = Game.Duration.Long
   // The client's refusal of the last post, in its words, or why nothing was sent.
   state refused: String | nil = nil
-  // A post sent from here waits for its answer.
-  state sending = false
+  // A post sent from here waits for its answer: how many it put up; 0 for none.
+  state sending = 0
   derived hasRefused: Boolean = self.refused != nil
   derived refusedText: String = self.refused ?? ""
   derived most: Integer = mostOf(self.offered)
@@ -274,8 +275,17 @@ public class Posting implements Component {
   const house: House
   const prices: any PriceSource
   const history: any PriceHistory | nil
-  constructor(offered: Signal<Offered>, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
+  posts: mut PostLog
+  constructor(
+    offered: Signal<Offered>,
+    house: House,
+    prices: any PriceSource,
+    history: any PriceHistory | nil,
+    // Where a post the client took is logged.
+    posts: mut PostLog
+  ) {
     self.offered = offered
+    self.posts = posts
     const first = peek offered
     self.key = PriceKey.of(first.item)
     self.name = first.name
@@ -297,14 +307,20 @@ public class Posting implements Component {
     const duration = peek self.duration
     const sent = from.commodity ? Game.auctionActions.postCommodity(from, count, duration, unit) :
       Game.auctionActions.postItem(from, count, duration, nil, unit * count)
-    self.sending = sent
+    self.sending = sent ? count : 0
     self.refused = sent ? nil : Locale.POST_NOT_SENT
   }
 
+  // The post's answer: taken, it is logged (how long it takes to sell is matched to it); refused, its words.
   onAnswer(mut self, answer: Game.ActionAnswer) {
-    if (!peek self.sending) { return }
-    self.sending = false
-    if (answer is Game.ActionAnswer.Refused) { self.refused = answer.reason }
+    const count = peek self.sending
+    if (count == 0) { return }
+    self.sending = 0
+    if (answer is Game.ActionAnswer.Refused) {
+      self.refused = answer.reason
+    } else if (answer == .Posted) {
+      self.posts.record(self.name, count)
+    }
   }
 
   public render(self): Template {

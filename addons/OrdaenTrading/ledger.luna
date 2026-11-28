@@ -6,13 +6,15 @@ import { Hour } from "Ordaen"
 
 public enum Deal implements Plain { Sold = "sold", Bought = "bought", Expired = "expired" }
 
-// One row: the item by its name (an invoice names it so), how many, for how much in all.
+// One row: the item by its name (an invoice names it so), how many, for how much in all, the hour its mail was read
+// and the same in the server's seconds (0 in a row kept before they were).
 public struct Dealt implements Plain {
   deal: Deal = .Sold
   item: String = ""
   count: Integer = 0
   copper: Integer = 0
   at: Hour = 0
+  seconds: Integer = 0
 }
 
 // How many rows are kept; the oldest goes first.
@@ -33,12 +35,21 @@ public class Ledger {
   // An invoice of the house's, as the mailbox gives it.
   public record(mut self, invoice: Game.Invoice) {
     const deal: Deal = invoice.kind == "buyer" ? .Bought : .Sold
-    self.add({ deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour.now() })
+    self.add({
+      deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour.now(),
+      seconds: peek Game.clock.server
+    })
   }
 
   // An auction came back unsold.
   public expired(mut self, item: String, count: Integer) {
-    self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour.now() })
+    self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour.now(), seconds: peek Game.clock.server })
+  }
+
+  // The rows, oldest first.
+  public deals(self): Array<Dealt> {
+    _ = self.revision
+    return self.rows
   }
 
   // The rows of one kind, and their money together.

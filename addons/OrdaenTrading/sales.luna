@@ -1,0 +1,205 @@
+// «Sold» (a tab of «My auctions»): what the player's auctions came to, an item a row, from the house's mail the
+// mailbox read (the ledger) and the posts the player made from «Sell» (`PostLog`): how many sold and for how much, how
+// many came back unsold, and how long a sale took from its post, the fastest, the median and the slowest. A sale or a
+// return is matched to the oldest post of its item not yet matched that went up before it; the time is until its mail
+// was read, the one moment the client tells.
+import { Align } from "$ltml"
+import { Column, Component, ModuleMemory, Money, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
+import { Dealt, Ledger } from "@/ledger"
+import Locale from "@/locales"
+import { PostLog, Posted } from "@/posts"
+import Style from "@/style"
+import { leftText } from "@/style"
+
+// One item's auctions, as its row draws it: the times in seconds, none where no sale was matched to its post.
+public struct ItemSales {
+  name: String
+  sold: Integer
+  copper: Integer
+  expired: Integer
+  fastest: Integer | nil
+  median: Integer | nil
+  slowest: Integer | nil
+}
+
+// A post not yet matched in full: how many of it are left, and when it went up.
+struct Open {
+  left: Integer
+  at: Integer
+}
+
+const NAME_COLUMN = 1
+const SOLD_COLUMN = 2
+const COPPER_COLUMN = 3
+const EXPIRED_COLUMN = 4
+const FASTEST_COLUMN = 5
+const MEDIAN_COLUMN = 6
+const TIME_WIDTH = 58.59375dp
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: Locale.SOLD, width: 51.5625dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_EARNED, width: 93.75dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_EXPIRED, width: 51.5625dp, align: Align.End, sortable: true, tip: Locale.EXPIRED_TIP },
+  { title: Locale.COLUMN_FASTEST, width: TIME_WIDTH, align: Align.End, sortable: true, tip: Locale.SELL_TIME_TIP },
+  { title: Locale.COLUMN_MEDIAN, width: TIME_WIDTH, align: Align.End, sortable: true, tip: Locale.SELL_TIME_TIP },
+  { title: Locale.COLUMN_SLOWEST, width: TIME_WIDTH, align: Align.End, sortable: true, tip: Locale.SELL_TIME_TIP }
+]
+
+// From `queue`, the oldest posts that went up by `by` (seconds), `count` of them taken: when the first of them went up;
+// none where none did.
+function take(queue: mut Array<mut Open> | nil, count: Integer, by: Integer): Integer | nil {
+  if (queue == nil) { return nil }
+  let first: Integer | nil = nil
+  let left = count
+  for (turn of 1..) {
+    const next = queue[1]
+    if (left <= 0 || next == nil || next.at > by) { break }
+    if (first == nil) { first = next.at }
+    const taken = next.left.min(left)
+    left -= taken
+    next.left -= taken
+    if (next.left <= 0) { _ = queue.remove(1) }
+  }
+  return first
+}
+
+// The middle of times in order: the mean of the two in the middle of an even count.
+function middleOf(times: Array<Integer>): Integer | nil {
+  const count = times.length
+  if (count == 0) { return nil }
+  const half = (count / 2).floor()
+  if (count % 2 == 1) { return times[half + 1] }
+  return (((times[half] ?? 0) + (times[half + 1] ?? 0)) / 2).floor()
+}
+
+// Each item's sales and returns, the ledger's rows matched to the posts, both oldest first.
+public function salesOf(deals: Array<Dealt>, posts: Array<Posted>): mut Array<ItemSales> {
+  let open: Map<String, mut Array<mut Open>> = {}
+  for (post of posts) {
+    const queue = open[post.item]
+    if (queue != nil) {
+      queue.push({ left: post.count, at: post.at })
+    } else {
+      open[post.item] = [{ left: post.count, at: post.at }]
+    }
+  }
+  let at: Map<String, Integer> = {}
+  let list: Array<ItemSales> = []
+  let times: Map<String, mut Array<Integer>> = {}
+  for (deal of deals) {
+    if (deal.deal == .Bought) { continue }
+    let place = at[deal.item] ?? 0
+    if (place == 0) {
+      list.push({ name: deal.item, sold: 0, copper: 0, expired: 0, fastest: nil, median: nil, slowest: nil })
+      place = list.length
+      at[deal.item] = place
+      times[deal.item] = []
+    }
+    const row = list[place] ?? panic("a row for each item")
+    // A row kept before the ledger told seconds is matched to no post.
+    const posted = deal.seconds > 0 ? take(mut open[deal.item], deal.count, deal.seconds) : nil
+    if (deal.deal == .Sold) {
+      list[place] = { sold: row.sold + deal.count, copper: row.copper + deal.copper, ..row }
+      const took = times[deal.item]
+      if (posted != nil && took != nil) { took.push(deal.seconds - posted) }
+    } else {
+      list[place] = { expired: row.expired + deal.count, ..row }
+    }
+  }
+  for (place, row of list) {
+    const took = times[row.name] ?? []
+    took.sort((a, b) => a < b)
+    list[place] = { fastest: took[1], median: middleOf(took), slowest: took[took.length], ..row }
+  }
+  return list
+}
+
+// A time a sale took, or a dim «—».
+function timeText(seconds: Integer | nil): String {
+  return seconds != nil ? leftText(seconds) : "—"
+}
+
+class SalesRow implements Component {
+  derived fastest: String = timeText(self.sales.fastest)
+  derived median: String = timeText(self.sales.median)
+  derived slowest: String = timeText(self.sales.slowest)
+
+  // The row's item: the table hands the row to another item as it scrolls.
+  sales: Signal<ItemSales>
+  constructor(sales: Signal<ItemSales>) {
+    self.sales = sales
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow>
+        <TableCell>
+          <box overflow={.Hidden}>
+            <text value={self.sales.name} textColor={Style.INK} wrap={.None} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
+          <text value={"%d"} arguments={[self.sales.sold]} textColor={Style.INK} />
+        </TableCell>
+        <TableCell align={Align.End}> <Money amount={self.sales.copper} /> </TableCell>
+        <TableCell align={Align.End}>
+          <text value={"%d"} arguments={[self.sales.expired]} textColor={Style.INK} />
+        </TableCell>
+        <TableCell align={Align.End}> <text value={self.fastest} textColor={Style.INK} wrap={.None} /> </TableCell>
+        <TableCell align={Align.End}> <text value={self.median} textColor={Style.INK} wrap={.None} /> </TableCell>
+        <TableCell align={Align.End}> <text value={self.slowest} textColor={Style.INK} wrap={.None} /> </TableCell>
+      </TableRow>
+    }
+  }
+}
+
+// How the player left the list: its sorts (`Table`'s; none: as the ledger has them).
+public struct SalesView implements Plain {
+  sorts: Array<Integer> = []
+}
+const SALES_VIEW: SalesView = {}
+
+public class SalesPage implements Component {
+  // How the player left the list, the profile's (`ModuleMemory`).
+  public list: mut ModuleMemory<SalesView> = new ModuleMemory<SalesView>(SALES_VIEW, .Profile, "sales")
+  derived rows: Array<ItemSales> = self.rowsOf()
+  derived empty: String = self.rows.length == 0 ? Locale.NO_SALES : ""
+
+  const ledger: Ledger
+  const posts: PostLog
+  constructor(ledger: Ledger, posts: PostLog) {
+    self.ledger = ledger
+    self.posts = posts
+  }
+
+  rowsOf(self): Array<ItemSales> {
+    let list = salesOf(self.ledger.deals(), self.posts.posts())
+    const sorts = self.list.values.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, before, missing)) }
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={COLUMNS} sorts={mut self.list.values.sorts} empty={self.empty}>
+        <SalesRow $for={row of self.rows} $key={row.name} sales={row} />
+      </Table>
+    }
+  }
+}
+
+// Whether `a` comes before `b` by the column (`sortedBefore`): by name, fewest, least, fastest first.
+function before(a: ItemSales, b: ItemSales, column: Integer): Boolean {
+  if (column == NAME_COLUMN) { return a.name < b.name }
+  if (column == SOLD_COLUMN) { return a.sold < b.sold }
+  if (column == COPPER_COLUMN) { return a.copper < b.copper }
+  if (column == EXPIRED_COLUMN) { return a.expired < b.expired }
+  if (column == FASTEST_COLUMN) { return (a.fastest ?? 0) < (b.fastest ?? 0) }
+  if (column == MEDIAN_COLUMN) { return (a.median ?? 0) < (b.median ?? 0) }
+  return (a.slowest ?? 0) < (b.slowest ?? 0)
+}
+
+// Whether a row has no time in a time's column: it stands last, either way.
+function missing(row: ItemSales, column: Integer): Boolean {
+  return column >= FASTEST_COLUMN && row.fastest == nil
+}

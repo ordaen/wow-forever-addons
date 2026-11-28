@@ -15,9 +15,11 @@ import { Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { OwnedPage } from "@/owned"
+import { PostLog } from "@/posts"
 import { OrdaenPrices, takeMerchant } from "@/prices"
 import { PriceSource } from "@/quote"
 import { TooltipLines } from "@/rows"
+import { SalesPage } from "@/sales"
 import { Scanner } from "@/scan"
 import { Offered, Posting, SellPage } from "@/sell"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
@@ -39,7 +41,9 @@ const BUY = 1
 const SELL = 2
 const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }]
 const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
-const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
+const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }, { title: Locale.PAGE_HISTORY }]
+const OWNED = 1
+const HISTORY = 2
 const FILL: Array<Track> = [{ fr: 1 }]
 // The merchant's window: two columns of goods; its right column widens it. It opens with Ordaen Inventory' window: by
 // default they stand side by side about the screen's middle, the merchant's on the left (its side column with it),
@@ -80,6 +84,8 @@ public class Trading implements Module, App {
   public const prices: any PriceSource
   // The sales and purchases the mailbox reads.
   public const ledger: mut Ledger
+  // What the player put up from «Sell», and when.
+  posts: mut PostLog
   // The shopping list: what Professions and the player ask to buy.
   public const shopping: mut ShoppingList
   // The lines in Ordaen Tooltips' item tooltip, while Tooltips is on.
@@ -93,8 +99,9 @@ public class Trading implements Module, App {
   state ownedOpen = false
   // The game's merchant window, while a merchant is open.
   derived merchantFrames: Array<any Frame> = self.merchantFramesOf()
-  // A docked window's one tab, and its width (it stands the screen's height).
+  // A docked window's one tab, and its width (it stands the screen's height); «My auctions»' tab of two.
   state sideTab = 1
+  state ownedTab = OWNED
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
   derived room: Number<Length> = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0ui
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
@@ -119,7 +126,7 @@ public class Trading implements Module, App {
       </box>
       <box $case={SELL} rows={FILL}>
         <Posting $for={offered of self.sellChosen} $key={offered.item} offered={offered} house={self.house}
-                 prices={self.prices} history={self.source} />
+                 prices={self.prices} history={self.source} posts={mut self.posts} />
       </box>
       <box $else />
     </box>
@@ -135,6 +142,7 @@ public class Trading implements Module, App {
     self.prices = self.source
     self.scanner = new Scanner(mut self.house, mut self.source, mut self.kept)
     self.ledger = new Ledger(mut self.kept.ledger)
+    self.posts = new PostLog(mut self.kept.posts)
     self.shopping = new ShoppingList(mut self.kept)
     self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)
     Game.auctionHouse.opened.listen(self.onOpened)
@@ -211,9 +219,13 @@ public class Trading implements Module, App {
                 declared={mut self.shoppingWindow} docked={Side.Right} @close={self.closeShopping}>
           <ShoppingPage prices={self.prices} list={mut self.shopping} />
         </Window>
-        <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} declared={mut self.ownedWindow}
+        <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.ownedTab} declared={mut self.ownedWindow}
                 docked={Side.Right} @close={self.closeOwned}>
-          <OwnedPage house={self.house} revision={self.source.revision} every={self.settings.values.ownedRefresh} />
+          <box $match={self.ownedTab} rows={FILL}>
+            <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision}
+                       every={self.settings.values.ownedRefresh} />
+            <SalesPage $case={HISTORY} ledger={self.ledger} posts={self.posts} />
+          </box>
         </Window>
       </>
     }

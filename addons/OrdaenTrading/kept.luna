@@ -2,6 +2,7 @@ import { Copper, ItemId } from "Ordaen"
 // What Ordaen Trading keeps between sessions, in its own saved variable (`Game.Scope.Own`: loaded with the module, so
 // a player with it off loads none of it). Every part is data the game can't give back cheaply.
 import { Dealt } from "@/ledger"
+import { Posted } from "@/posts"
 import { Wanted } from "@/wanted"
 
 public struct Kept implements Plain {
@@ -16,6 +17,8 @@ public struct Kept implements Plain {
   shopping: mut Array<Wanted> = []
   // The sales ledger.
   ledger: mut Array<Dealt> = []
+  // What the player put up, and when: a sale matched to its post says how long it took.
+  posts: mut Array<Posted> = []
 }
 
 // The merchants' prices kept at most: every item a merchant sells for money is a few thousand; past it no new one is.

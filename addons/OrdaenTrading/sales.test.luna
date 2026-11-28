@@ -1,0 +1,79 @@
+// «History», «My auctions»' second tab, as the player meets it: an item a row, how many sold and for how much, how
+// many came back, and how long a sale took from its post on «Sell» (the fastest, the median, the slowest). The posts
+// are «Sell»'s, the sales and returns the mailbox's (`Trading.ledger`, as Ordaen Mail writes it).
+import Game from "$game"
+import Test from "$test"
+import root Trading from "OrdaenTrading"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const START = 1790002800
+const HOUR = 3600
+const LINEN: Integer = 2589
+
+function names(id: Integer): Game.TooltipData | nil {
+  if (id != LINEN) { return nil }
+  return { lines: [{ left: "Linen Cloth", kind: 0 }] }
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// «My auctions» open at «History».
+function history(): Test.Part {
+  Test.page().window("Sell").button("Sell").click()
+  Test.page().window("Sell").button("My auctions").click()
+  Test.page().window("Check").button("History").click()
+  return Test.page().window("History")
+}
+
+// The item picked on «Sell» put up, as many as its panel says, the client taking the post.
+function post() {
+  Test.page().window("Sell").button("Post").click()
+  Game.auctionActions.answered.emit(.Posted)
+}
+
+test "each item's sales and returns, matched to its posts: how long a sale took, the fastest, the median, the slowest" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 20, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.page().window("Sell").button("Sell").click()
+  // Three posts of 5, an hour apart.
+  Test.page().window("Sell").text("Linen Cloth").click()
+  for (turn of 1..15) { Test.page().window("Sell").button("Post").item().button("-").click() }
+  post()
+  Game.clock.server = START + HOUR
+  post()
+  Game.clock.server = START + 2 * HOUR
+  post()
+  // The first sold 3 hours after it went up; the second 4; the third came back.
+  Game.clock.server = START + 3 * HOUR
+  Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
+  Game.clock.server = START + 5 * HOUR
+  Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
+  Trading.ledger.expired("Linen Cloth", 5)
+  Trading.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 300, count: 20 })
+  const page = history()
+  Test.expect(reads(page.text("Linen Cloth").item(), "Linen Cloth | 10 | 0g 3s 40c | 5 | 3 h | 4 h | 4 h"))
+  Test.expect(!page.text("Copper Ore").shown())
+}
+
+test "a sale with no post of «Sell» before it has no time" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Trading.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 170, count: 5 })
+  Test.expect(reads(history().text("Linen Cloth").item(), "Linen Cloth | 5 | 0g 1s 70c | 0 | — | — | —"))
+}
+
+test "nothing sold or back yet says so" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.expect(history().text("No sale or return read from the mail yet.").shown())
+}

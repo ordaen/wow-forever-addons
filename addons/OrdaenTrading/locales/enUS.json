@@ -183,5 +183,14 @@
   "OWNED_UPDATED": "Updated %d s ago",
   "CANCEL_ONE_AT_A_TIME": "One cancel at a time: click again once the last is answered.",
   "OWNED_REFRESH": "Refresh «My auctions» every",
-  "OWNED_REFRESH_TIP": "While its window is open. 0: only when you click «Check»."
+  "OWNED_REFRESH_TIP": "While its window is open. 0: only when you click «Check».",
+  "PAGE_HISTORY": "History",
+  "COLUMN_EARNED": "Earned",
+  "COLUMN_EXPIRED": "Unsold",
+  "EXPIRED_TIP": "Came back by mail unsold.",
+  "COLUMN_FASTEST": "Fastest",
+  "COLUMN_MEDIAN": "Median",
+  "COLUMN_SLOWEST": "Slowest",
+  "SELL_TIME_TIP": "How long a sale took: from its post on «Sell» until its mail was read.",
+  "NO_SALES": "No sale or return read from the mail yet."
 }

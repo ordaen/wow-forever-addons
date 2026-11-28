@@ -2,5 +2,6 @@
 # without a default that isn't here is a finding. Written by `lunatype build`; `lunatype check <folder> --lock`
 # takes in the fields there are, for one no copy was ever saved without.
 OrdaenTrading/ledger.Dealt: at copper count deal item
+OrdaenTrading/posts.Posted: at count item
 OrdaenTrading/wanted.Source.Queue: character crafts recipe
 OrdaenTrading/wanted.Wanted: count item source

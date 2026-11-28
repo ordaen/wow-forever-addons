@@ -1,0 +1,48 @@
+// What the player put up at the house, and when: a row for each post the client took, kept with the module's data so
+// a sale or an auction back unsold (the ledger's, from the mailbox) can be matched to the post it came of, and how long
+// it took to sell be said. At most `MOST` rows, none older than 90 days: an auction lasts a day at most, and older
+// posts say nothing of how the market moves now.
+import Game from "$game"
+
+// One post: the item by its name (as the house's mail names it), how many, the server's time it went up, in seconds.
+public struct Posted implements Plain {
+  item: String = ""
+  count: Integer = 0
+  at: Integer = 0
+}
+
+// How many rows are kept; the oldest goes first.
+const MOST = 1000
+// How long a row is kept: 90 days, in seconds.
+const KEPT_SECONDS = 7776000
+
+public class PostLog {
+  // Moves with every row written: a reader of the posts follows it.
+  public state revision = 0
+  rows: mut Array<Posted>
+
+  // `rows` are the module's saved ones, written in place; those past 90 days go as the next is written.
+  constructor(rows: mut Array<Posted>) {
+    self.rows = rows
+  }
+
+  // The rows, oldest first.
+  public posts(self): Array<Posted> {
+    _ = self.revision
+    return self.rows
+  }
+
+  // A post the client took.
+  public record(mut self, item: String, count: Integer) {
+    const now = peek Game.clock.server
+    let old = 0
+    for (row of self.rows) {
+      if (now - row.at <= KEPT_SECONDS) { break }
+      old += 1
+    }
+    for (index of 1..old) { _ = self.rows.remove(1) }
+    if (self.rows.length >= MOST) { _ = self.rows.remove(1) }
+    self.rows.push({ item: item, count: count, at: now })
+    self.revision += 1
+  }
+}
