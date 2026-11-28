@@ -11,7 +11,7 @@
 import Game from "$game"
 import { Align, Beside, Edges, Frame, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableCell, TableRow, ToolButton, ToolPick, Toolbar, ageText } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableCell, TableRow, ToolButton, ToolPick, Toolbar, ageText, sortedBefore } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -435,6 +435,8 @@ public class BuyPage implements Component {
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<BuyView> = new ModuleMemory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
+  // The table's second sort (`sortedBefore`).
+  state then = 0
   // The row whose menu shows; none.
   state menuFor: PriceKey | nil = nil
   // What the house was last searched for, as `wanted` says it.
@@ -575,7 +577,8 @@ public class BuyPage implements Component {
   sortedOf(self, list: mut Array<Found>): Array<Found> {
     const column = self.list.values.sorted
     const down = self.list.values.descending
-    if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
+    const then = self.then
+    if (column != 0 || then != 0) { list.sort((a, b) => sortedBefore(a, b, column, down, then, before)) }
     return list
   }
 
@@ -594,6 +597,8 @@ public class BuyPage implements Component {
   }
 
   onPick(mut self, key: PriceKey) { self.picked = key }
+
+  onSecond(mut self, then: Integer) { self.then = then }
   onMenu(mut self, key: PriceKey) { self.menuFor = key }
 
   // A line of a row's menu: one of the item on the shopping list, its name searched for at once; the menu closes.
@@ -649,14 +654,14 @@ public class BuyPage implements Component {
           </box>
           <box rows={FILL}>
             <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   empty={self.emptySaid}>
+                   empty={self.emptySaid} twoSorts={true} @secondSort={self.onSecond}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
                         @act={self.onAct} />
             </Table>
             <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   empty={self.emptySaid}>
+                   empty={self.emptySaid} twoSorts={true} @secondSort={self.onSecond}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
