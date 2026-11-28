@@ -1,6 +1,6 @@
 // Ordaen Professions as the player meets it: one window in place of the game's own professions window, shown while
 // the game has a profession open; its tabs (one a profession), the skill bar, the profession's own tabs, the
-// profession's spell in the footer, Escape and the close, the settings, and what is kept between sessions. The game is
+// profession's spells beside the skill bar, Escape and the close, the settings, and what is kept between sessions. The game is
 // the test's: what it reports (`Game.tradeSkill`, `Game.professions`) and what it was asked (`Test.requests()`).
 import Client from "$client"
 import Game from "$game"
@@ -340,49 +340,89 @@ test "the profession last open is asked for after a reload" {
   _ = own
 }
 
-// The profession's spell
+// The profession's spells
 
-test "Mining has «Find Minerals» at the skill bar's right, which the client casts from the player's click" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
-  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = MINING
-  // In the band, on the bar's line, a gap between them.
-  const bar = window().text("Apprentice · 70 / 75").rect()
-  const button = window().button("Find Minerals").rect()
-  Test.expect(button.top < bar.bottom && button.bottom > bar.top && button.left > bar.right)
-  _ = Test.performed()
-  window().button("Find Minerals").click()
-  Test.expect(Test.performed().join(", ") == "spell Find Minerals")
+// The icons of Mining's spells in the client's book: Smelting, Find Minerals.
+const SMELTING_ICON: FileId = 135811
+const FINDING_ICON: FileId = 136025
+// Mining's own, a passive spell.
+const PASSIVE_ICON: FileId = 134708
+
+// The client's book of professions: Mining the first profession (its spells after the spellbook's tenth slot: Smelting,
+// Find Minerals, and Mining's own passive), Tailoring the second (no spell of its own).
+function spellbook() {
+  Client.GetProfessions = (): (Integer | nil, Integer | nil, Integer | nil, Integer | nil, Integer | nil, Integer | nil) => {
+    return 1, 2, nil, nil, nil, nil
+  }
+  Client.GetProfessionInfo = (index: Integer): (String, Number, Integer, Integer, Integer, Integer, Integer) => {
+    if (index == 1) { return "Mining", 136248, 70, 75, 3, 10, MINING }
+    return "Tailoring", 136249, 31, 75, 0, 13, TAILORING
+  }
+  Client.C_SpellBook.GetSpellBookItemInfo = (slot: Integer, bank: Client.SpellBookSpellBank): Client.SpellBookItemInfo | nil => {
+    if (slot == 11) { return bookSpell(2656, "Smelting", SMELTING_ICON, false) }
+    if (slot == 12) { return bookSpell(2580, "Find Minerals", FINDING_ICON, false) }
+    if (slot == 13) { return bookSpell(2575, "Mining", PASSIVE_ICON, true) }
+    return nil
+  }
 }
 
-test "Herbalism has «Find Herbs»; a crafting profession has no spell in the footer" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [
-    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
+function bookSpell(id: Integer, name: String, icon: FileId, passive: Boolean): Client.SpellBookItemInfo {
+  return {
+    actionID: id, spellID: id, itemType: Client.SpellBookItemType.Spell, name: name, subName: "", iconID: icon,
+    isPassive: passive, isOffSpec: false, skillLineIndex: nil
+  }
+}
+
+function mining(): Array<Game.Profession> {
+  return [
+    { skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering },
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
-  Game.spells.name = (id: Integer): String | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => true
+}
+
+test "Mining has its spells at the skill bar's right, each cast by the player's click; its passive one has none" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = mining()
+  spellbook()
   Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = HERBALISM
-  Test.expect(window().button("Find Herbs").shown())
+  Game.tradeSkill.open = MINING
+  // In the band, on the bar's line, after it.
+  const bar = window().text("Apprentice · 70 / 75").rect()
+  const smelting = window().button(SMELTING_ICON).rect()
+  Test.expect(smelting.top < bar.bottom && smelting.bottom > bar.top && smelting.left > bar.right)
+  Test.expect(window().button(FINDING_ICON).rect().left > smelting.right)
+  Test.expect(!window().button(PASSIVE_ICON).shown())
+  _ = Test.performed()
+  window().button(SMELTING_ICON).click()
+  window().button(FINDING_ICON).click()
+  Test.expect(Test.performed().join(", ") == "spell Smelting, spell Find Minerals")
+}
+
+test "a profession's spell dragged off its slot is on the cursor, for the action bars to take" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = mining()
+  spellbook()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  Test.expect(!Client.CursorHasSpell())
+  const from = window().button(FINDING_ICON).rect()
+  Test.moveTo({ x: from.left + 10, y: from.top + 10 })
+  Test.press(nil)
+  Test.moveTo({ x: from.left + 30, y: from.top + 20 })
+  Test.flush()
+  Test.release(nil)
+  Test.expect(Client.CursorHasSpell())
+}
+
+test "a profession with no spell of its own has none beside the bar" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = mining()
+  spellbook()
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
   Game.tradeSkill.open = TAILORING
-  Test.expect(!window().button("Find Herbs").shown() && !window().button("Find Minerals").shown())
-}
-
-test "a profession's spell the character doesn't know has no button" {
-  Game.frames.Professions = gameWindow()
-  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
-  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => false
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = MINING
-  Test.expect(window().shown() && !window().button("Find Minerals").shown())
+  Test.expect(window().shown() && !window().button(SMELTING_ICON).shown() && !window().button(FINDING_ICON).shown())
 }
 
 // The settings

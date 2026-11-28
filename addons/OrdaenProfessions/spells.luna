@@ -1,0 +1,83 @@
+// The spells a profession comes with, at the skill bar's right: the ones the game's own book of professions shows
+// under it (`GetProfessionInfo` names how many and where they stand in the player's spellbook): Smelting and Find
+// Minerals, Find Herbs, Disenchant, Fishing, Basic Campfire. A click casts one, a drag puts it on the cursor for the
+// action bars, as the game's book does; a passive one has no slot (it is neither cast nor put on a bar).
+import Client from "$client"
+import { Action, Art } from "$ltml"
+import { Component, ItemButton } from "Ordaen"
+
+// As high as the skill bar beside them.
+const SLOT = 39.84375dp
+
+public struct ProfessionSpell {
+  id: Integer
+  // What the client casts it by.
+  name: String
+  icon: Art
+}
+
+// The spells of the profession with that skill line, in the book's order; none for one that isn't the player's.
+public function professionSpellsOf(skillLine: Integer | nil): Array<ProfessionSpell> {
+  if (skillLine == nil) { return [] }
+  return spellsAmong(skillLine, ...Client.GetProfessions())
+}
+
+// The same, among the professions the client numbers so.
+function spellsAmong(skillLine: Integer, ...indexes: Integer | nil): Array<ProfessionSpell> {
+  for (i of 1..indexes.length) {
+    const index = indexes[i]
+    if (index != nil) {
+      let _, _, _, _, count, offset, line = Client.GetProfessionInfo(index)
+      if (line == skillLine) { return spellsAt(offset, count) }
+    }
+  }
+  return []
+}
+
+// The spellbook's spells after `offset`, `count` of them, but the passive ones.
+function spellsAt(offset: Integer, count: Integer): Array<ProfessionSpell> {
+  const list: Array<ProfessionSpell> = []
+  for (at of 1..count) {
+    const info = Client.C_SpellBook.GetSpellBookItemInfo(offset + at, Client.SpellBookSpellBank.Player)
+    const spell = info?.spellID
+    if (info != nil && spell != nil && info.itemType == Client.SpellBookItemType.Spell && !info.isPassive) {
+      list.push({ id: spell.floor(), name: info.name, icon: info.iconID })
+    }
+  }
+  return list
+}
+
+// One spell's slot: its icon, its tooltip, Shift+Left-click its link (`ItemButton`'s).
+public class ProfessionSpellSlot implements Component {
+  derived cast: Action | nil = Action.CastSpell { spell: self.spell.name, chord: .Left, selfCast: false }
+
+  spell: Signal<ProfessionSpell>
+  constructor(spell: Signal<ProfessionSpell>) {
+    self.spell = spell
+  }
+
+  // Dragged off its slot: onto the cursor, which the action bars take.
+  onGrab(self) { Client.C_Spell.PickupSpell((peek self.spell).id) }
+
+  public render(self): Template {
+    return $ltml {
+      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={SLOT} @dragged={self.onGrab} />
+    }
+  }
+}
+
+// The profession's spells side by side.
+public class ProfessionSpells implements Component {
+  spells: Signal<Array<ProfessionSpell>>
+  constructor(spells: Signal<Array<ProfessionSpell>>) {
+    self.spells = spells
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={{ each: "max-content" }} gap={2sp}>
+        <ProfessionSpellSlot $for={spell of self.spells} spell={spell} />
+      </box>
+    }
+  }
+}

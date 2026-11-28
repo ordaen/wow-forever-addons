@@ -78,8 +78,6 @@
   "TAB_OVERVIEW": "Обзор",
   "NEXT_RANK": "Следующий ранг: %s, с навыка %d и %d-го уровня",
   "SECONDARY": "Вторичная профессия",
-  "ACTION_FISH": "Рыбачить",
-  "ACTION_DISENCHANT": "Распылить",
   "COUNT_LEARNED": "Изучено: %d · не изучено: %d",
   "COUNT_MAKEABLE": "Можно создать сейчас: %d",
   "COUNT_SKILLUP": "Повышают навык: %d",

@@ -1,5 +1,5 @@
 // A profession's «Overview» tab as the player meets it: the card with the next rank (a secondary profession says so)
-// and the profession's own spell; the recipes counted; what to learn next and where (a click opens it); what the work
+// and what it needs; the recipes counted; what to learn next and where (a click opens it); what the work
 // needs; the tracked recipes and what each lacks. The recipes are Mining's own, by their numbers, so the client's
 // table of where each turns yellow orders what to learn next; a trainer met says the rest.
 import Client from "$client"
@@ -149,49 +149,6 @@ test "a secondary profession says so; a primary one doesn't" {
     window().button("Overview").click()
     Test.expect(window().text("Secondary profession").shown())
   }
-}
-
-test "Fishing's overview has «Fish», which the client casts from the player's click" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = [{ id: 3, name: "Fishing" }, { id: 30, name: "Resting at camp", parentID: 3 }]
-  Game.spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = FISHING
-  window().button("Overview").click()
-  _ = Test.performed()
-  window().button("Fish").click()
-  Test.expect(Test.performed().join(", ") == "spell Fishing")
-}
-
-test "Enchanting's overview has «Disenchant»; Mining's has no spell on it" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = [profession(ENCHANTING, "Enchanting", 70, 75), profession(MINING, "Mining", 70, 75)]
-  Game.tradeSkill.categories = categories()
-  Game.spells.name = (id: Integer): String | nil => id == 13262 ? "Disenchant" : id == 2580 ? "Find Minerals" : nil
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = ENCHANTING
-  window().button("Overview").click()
-  _ = Test.performed()
-  window().button("Disenchant").click()
-  Test.expect(Test.performed().join(", ") == "spell Disenchant")
-  Game.tradeSkill.open = MINING
-  window().button("Overview").click()
-  Test.expect(!window().button("Disenchant").shown() && !window().button("Fish").shown())
-}
-
-test "the overview's spell the character doesn't know has no button" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
-  Game.spells.known = (id: Integer): Boolean => false
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = FISHING
-  window().button("Overview").click()
-  Test.expect(window().text("Secondary profession").shown() && !window().button("Fish").shown())
 }
 
 // The sections

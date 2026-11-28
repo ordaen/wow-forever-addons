@@ -1,12 +1,12 @@
 // The profession's «Overview» tab: nothing the tab and the skill bar already say. A card with the next rank and what
-// it needs (a secondary profession says so), and the profession's own spell where it has one on this tab («Fish»,
-// «Disenchant»); under it, three sections: the recipes counted (learned, not learned, makeable now, raising the
+// it needs (a secondary profession says so; the profession's spells stand in the band over every tab); under it, three
+// sections: the recipes counted (learned, not learned, makeable now, raising the
 // skill), «What to learn next» (the recipes not learned by the skill they are learned at, and where; a click opens
 // one), and what the work needs (each tool or place a learned recipe asks for); then the tracked recipes with what
 // each still lacks (a click opens one).
 import Game from "$game"
-import { Action, Align, Line, Overflow, Track } from "$ltml"
-import { Component, PushButton, SECONDARY_TEXT, copperText } from "Ordaen"
+import { Line, Overflow, Track } from "$ltml"
+import { Component, SECONDARY_TEXT, copperText } from "Ordaen"
 import { Taught, learnSkillOf } from "@/learn"
 import Locale from "@/locales"
 import { Thresholds } from "@/skillUps"
@@ -16,7 +16,6 @@ import { Kept, has } from "@/view"
 const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
 const PAD: Number<Spacing> = 5sp
-const CARD: Array<Track> = [{ fr: 1 }, "max-content"]
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 // The most recipes «What to learn next» lists.
 const NEXT_MOST = 6
@@ -24,10 +23,6 @@ const NEXT_MOST = 6
 const COOKING = 185
 const FIRST_AID = 129
 const FISHING = 356
-const ENCHANTING = 333
-// The spells a profession's overview casts: Fishing's, and Enchanting's Disenchant.
-const FISH_SPELL = 7620
-const DISENCHANT_SPELL = 13262
 
 // The rank after the one whose most is `most`, the skill it is learned from and the level it needs; none after the
 // last.
@@ -44,21 +39,6 @@ public function nextRankOf(most: Integer): NextRank | nil {
     225 => { name: Locale.RANK_300, skill: 200, level: 35 }
     else => nil
   }
-}
-
-// The profession's own spell on its overview, by its name as the client has it; none for one that has none.
-public function overviewSpellOf(skillLine: Integer): Integer | nil {
-  return match (skillLine) {
-    FISHING => FISH_SPELL
-    ENCHANTING => DISENCHANT_SPELL
-    else => nil
-  }
-}
-
-// The spell's name as the client has it, where the player knows it; empty for none.
-public function knownSpellName(spell: Integer | nil): String {
-  if (spell == nil || !Game.spells.known(spell)) { return "" }
-  return Game.spells.name(spell) ?? ""
 }
 
 function secondary(skillLine: Integer): Boolean {
@@ -127,11 +107,6 @@ public class OverviewPage implements Component {
   derived hasNext: Boolean = self.next != nil
   derived nextText: String = self.nextTextOf()
   derived isSecondary: Boolean = secondary(self.profession?.skillLine ?? 0)
-  derived spell: Integer | nil = overviewSpellOf(self.profession?.skillLine ?? 0)
-  derived spellName: String = knownSpellName(self.spell)
-  derived hasSpell: Boolean = self.spellName != ""
-  derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale.ACTION_FISH : Locale.ACTION_DISENCHANT
-  derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
   derived counts: Array<OverviewLine> = self.countsOf()
   derived toLearn: Array<OverviewLine> = self.toLearnOf()
   derived needs: Array<OverviewLine> = self.needsOf()
@@ -234,12 +209,9 @@ public class OverviewPage implements Component {
   public render(self): Template {
     return $ltml {
       <box overflow={Overflow.Scroll} gap={6sp}>
-        <box columns={CARD} gap={6sp} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
-          <box gap={1.5sp}>
-            <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
-            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          </box>
-          <PushButton $if={self.hasSpell} label={self.spellLabel} width={164.0625dp} action={self.spellAction} />
+        <box gap={1.5sp} padding={PAD} border={FRAME} background={BACK}>
+          <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
+          <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
         <box columns={GRID} gap={6sp}>
           <OverviewSection title={Locale.TAB_RECIPES} lines={self.counts} />

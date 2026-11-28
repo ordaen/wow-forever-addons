@@ -78,8 +78,6 @@
   "TAB_OVERVIEW": "Overview",
   "NEXT_RANK": "Next rank: %s, from skill %d and level %d",
   "SECONDARY": "Secondary profession",
-  "ACTION_FISH": "Fish",
-  "ACTION_DISENCHANT": "Disenchant",
   "COUNT_LEARNED": "Learned: %d · not learned: %d",
   "COUNT_MAKEABLE": "Can make now: %d",
   "COUNT_SKILLUP": "Raise the skill: %d",
