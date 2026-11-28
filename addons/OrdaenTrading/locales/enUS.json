@@ -179,5 +179,9 @@
   "POST_NOT_SENT": "The house won't take that many from your bags now.",
   "QUOTED": "Priced by the house: «Confirm» buys %d for this total.",
   "AUCTION_WHOLE": "An auction is bought whole.",
-  "BACK": "Back"
+  "BACK": "Back",
+  "OWNED_UPDATED": "Updated %d s ago",
+  "CANCEL_ONE_AT_A_TIME": "One cancel at a time: click again once the last is answered.",
+  "OWNED_REFRESH": "Refresh «My auctions» every",
+  "OWNED_REFRESH_TIP": "While its window is open. 0: only when you click «Check»."
 }

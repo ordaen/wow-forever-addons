@@ -12,9 +12,11 @@ public struct Choices implements Plain {
   window: Boolean
   // The «Auction» line in an item's tooltip.
   priceLine: Boolean
+  // How often «My auctions» asks the client for the list while it is open, in seconds; 0: only by «Check».
+  ownedRefresh: Integer = 5
 }
 
-public const DEFAULTS: Choices = { scanOnOpen: true, cut: 5, window: true, priceLine: true }
+public const DEFAULTS: Choices = { scanOnOpen: true, cut: 5, window: true, priceLine: true, ownedRefresh: 5 }
 
 public class GeneralPage implements Component {
   settings: mut Settings<Choices>
@@ -29,6 +31,8 @@ public class GeneralPage implements Component {
                    unit={Unit.None} />
       <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.values.window} />
       <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.values.priceLine} />
+      <NumberInput label={Locale.OWNED_REFRESH} hint={Locale.OWNED_REFRESH_TIP} value={mut self.settings.values.ownedRefresh}
+                   least={0} most={60} unit={Unit.Sec} />
     }
   }
 }

@@ -4,6 +4,7 @@
 // it; «Check» asks for the list again and browses its items. The auctions are the game's (`Game.ownedAuctions`).
 import Game from "$game"
 import Test from "$test"
+import { ARTWORK } from "Ordaen"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
@@ -116,6 +117,43 @@ test "«Cancel» on a row cancels its auction from the click; once the client to
   Test.expect(asked("AuctionActions.cancel 2"))
   Game.auctionActions.answered.emit(.Cancelled)
   Test.expect(asked("OwnedAuctions.refresh"))
+  // Its row goes at once, though the client's list is still the old one.
+  Test.expect(!window().text("Copper Ore").shown() && window().text("Linen Cloth").shown())
+}
+
+test "a cancelled auction the client still lists stays gone; one it gives back after is shown again" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Sell").click()
+  Test.page().window("Sell").button("My auctions").click()
+  window().text("Copper Ore").item().button("Cancel").click()
+  Game.auctionActions.answered.emit(.Cancelled)
+  Game.ownedAuctions.list = auctions()
+  Test.expect(!window().text("Copper Ore").shown())
+  Game.ownedAuctions.list = auctions().filter(owned => owned.auction != 2)
+  Test.flush()
+  Game.ownedAuctions.list = auctions()
+  Test.expect(window().text("Copper Ore").shown())
+}
+
+test "the list is asked again every 5 seconds while the window is open, and when it came is said under it" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Sell").click()
+  Test.page().window("Sell").button("My auctions").click()
+  Game.ownedAuctions.list = auctions()
+  Test.expect(window().text("Updated 0 s ago").shown())
+  _ = Test.requests()
+  Test.pass(4)
+  Test.expect(asked("") && window().text("Updated 4 s ago").shown())
+  Test.pass(1.1)
+  Test.expect(asked("OwnedAuctions.refresh"))
 }
 
 test "a cancel the client refuses asks for nothing more" {
@@ -147,7 +185,7 @@ test "an answer to what the window didn't send asks for nothing" {
   Test.expect(asked(""))
 }
 
-test "«Cancel» waits while the client answers another action" {
+test "«Cancel» stays lit while the client answers another action; a click then sends nothing and says so" {
   Game.ownedAuctions.list = auctions()
   Game.clock.server = START
   Game.items.tooltip = names
@@ -157,9 +195,11 @@ test "«Cancel» waits while the client answers another action" {
   house.button("Sell").click()
   house.button("My auctions").click()
   Game.auctionActions.busy = true
-  _ = Test.requests()
-  window().text("Copper Ore").item().button("Cancel").click()
-  Test.expect(asked(""))
+  Game.auctionActions.cancel = (auction: Integer): Boolean => false
+  const cancel = window().text("Copper Ore").item().button("Cancel")
+  Test.expect(!cancel.paintedWith(ARTWORK.ctl.buttonDisabled))
+  cancel.click()
+  Test.expect(window().text("One cancel at a time: click again once the last is answered.").shown())
 }
 
 test "«Check» asks for the auctions again and browses their items" {

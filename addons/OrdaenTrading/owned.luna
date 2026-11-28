@@ -1,7 +1,9 @@
 // «My auctions» (design `auction`), a window docked at the screen's right, opened from «Sell»: the character's auctions
 // as the client last gave them: the item, whether it is the house's lowest as last seen (under its name), how many,
 // the price for one, the time left, and «Cancel» on a row (one a click,
-// the client's from a click alone). «Check» asks the client for them again and browses their items.
+// the client's from a click alone; the row goes once the client took it). «Check» asks the client for them again and
+// browses their items; the list is asked again every so often while it is open (the settings'), and when it last came
+// is said under it.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
 import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
@@ -23,8 +25,9 @@ const COLUMNS: Array<Column> = [
 ]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
-// The list, the rest of the window's height; «Check» and what it does under it.
-const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
+// The list, the rest of the window's height; «Check» and what it does under it, a cancel that waited, when the list
+// came.
+const PAGE: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 const BUTTONS: Array<Track> = ["max-content", { fr: 1 }]
 
@@ -55,11 +58,8 @@ class OwnedRow implements Component {
 
   // The row's auction: the table hands the row to another auction as it scrolls.
   shown: Signal<Shown>
-  // An action waits: no other goes.
-  busy: Signal<Boolean>
-  constructor(shown: Signal<Shown>, busy: Signal<Boolean>) {
+  constructor(shown: Signal<Shown>) {
     self.shown = shown
-    self.busy = busy
   }
 
   onCancel(self) { self.cancel.emit(self.shown.auction) }
@@ -91,8 +91,7 @@ class OwnedRow implements Component {
           <text value={self.shown.left} textColor={Style.INK} />
         </TableCell>
         <TableCell align={Align.End}>
-          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={CANCEL_WIDTH} disabled={self.busy}
-                      @click={self.onCancel} />
+          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={CANCEL_WIDTH} @click={self.onCancel} />
         </TableCell>
       </TableRow>
     }
@@ -108,24 +107,59 @@ const OWNED_VIEW: OwnedView = {}
 public class OwnedPage implements Component {
   // How the player left the list, the profile's (`ModuleMemory`).
   public list: mut ModuleMemory<OwnedView> = new ModuleMemory<OwnedView>(OWNED_VIEW, .Profile, "owned")
-  // A cancel sent from here waits for its answer.
-  state sending = false
+  // The auction whose cancel was sent from here and waits for its answer; 0 for none.
+  state cancelling = 0
+  // Auctions cancelled that the client's list still had when it was last given: shown no more.
+  state gone: mut Array<Integer> = []
+  // A cancel clicked while another action waited: said under the list until the next goes.
+  state waited = false
+  // When the client last gave the list, in the server's seconds; 0 before it has.
+  state updated = 0
   derived rows: Array<Shown> = self.shownOf()
+  derived updatedText: String = self.updated == 0 ? "" : Locale.OWNED_UPDATED.format((0).max(Game.clock.server - self.updated))
 
   const house: House
   revision: Signal<Integer>
-  constructor(house: House, revision: Signal<Integer>) {
+  every: Signal<Integer>
+  constructor(
+    house: House,
+    revision: Signal<Integer>,
+    // How often the list is asked again while the window is open, in seconds; 0: only by «Check».
+    every: Signal<Integer> = 0
+  ) {
     self.house = house
     self.revision = revision
-    // The page shown: the client is asked for the auctions as they stand.
+    self.every = every
+    // The page shown: the client is asked for the auctions as they stand, and again every so often.
     _ = Game.ownedAuctions.refresh()
     Game.auctionActions.answered.listen(self.onAnswer)
+    watch (list of Game.ownedAuctions.list) { self.given(list) }
+    watch {
+      const seconds = self.every
+      if (seconds > 0) { _ = self.refreshEvery(seconds) }
+    }
+  }
+
+  async refreshEvery(self, seconds: Integer) {
+    for (turn of 1..) {
+      await Game.delay(seconds)
+      _ = Game.ownedAuctions.refresh()
+    }
+  }
+
+  // The client gave the list: when, and the cancelled auctions it no longer has are forgotten.
+  given(mut self, list: Array<Game.Owned>) {
+    self.updated = peek Game.clock.server
+    const gone = peek self.gone
+    if (gone.length > 0) { self.gone = gone.filter(auction => list.any(owned => owned.auction == auction)) }
   }
 
   shownOf(self): Array<Shown> {
     _ = self.revision
+    const gone = self.gone
     let list: Array<Shown> = []
     for (owned of Game.ownedAuctions.list) {
+      if (gone.any(auction => auction == owned.auction)) { continue }
       const name, color = nameOf(owned.item)
       const buyout = owned.buyout
       const unit = buyout != nil && owned.quantity > 0 ? (buyout / owned.quantity).floor() : nil
@@ -148,15 +182,23 @@ public class OwnedPage implements Component {
     if (items.length > 0) { _ = Game.auctionQuery.browse(items) }
   }
 
-  // From the player's click alone: one auction.
+  // From the player's click alone: one auction. The client takes one action at a time: a click while another waits
+  // sends nothing and says so.
   onCancel(mut self, auction: Integer) {
-    if (Game.auctionActions.cancel(auction)) { self.sending = true }
+    const sent = Game.auctionActions.cancel(auction)
+    self.waited = !sent
+    if (sent) { self.cancelling = auction }
   }
 
+  // The cancel taken: its row goes at once, and the list is asked again.
   onAnswer(mut self, answer: Game.ActionAnswer) {
-    if (!peek self.sending) { return }
-    self.sending = false
-    if (answer == .Cancelled) { _ = Game.ownedAuctions.refresh() }
+    const auction = peek self.cancelling
+    if (auction == 0) { return }
+    self.cancelling = 0
+    if (answer == .Cancelled) {
+      self.gone.push(auction)
+      _ = Game.ownedAuctions.refresh()
+    }
   }
 
   public render(self): Template {
@@ -164,8 +206,7 @@ public class OwnedPage implements Component {
       <box rows={PAGE} gap={3sp}>
         <box rows={FILL}>
           <Table columns={COLUMNS} sorts={mut self.list.values.sorts}>
-            <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
-                      @cancel={self.onCancel} />
+            <OwnedRow $for={row of self.rows} $key={row} shown={row} @cancel={self.onCancel} />
             <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
               <text value={Locale.NO_AUCTIONS} textColor={Style.DIM} />
             </box>
@@ -175,6 +216,8 @@ public class OwnedPage implements Component {
           <PushButton label={Locale.CHECK} width={164.0625dp} @click={self.onCheck} />
           <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
+        <text $if={self.waited} value={Locale.CANCEL_ONE_AT_A_TIME} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <text value={self.updatedText} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }

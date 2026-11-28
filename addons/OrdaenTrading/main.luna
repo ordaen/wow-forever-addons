@@ -213,7 +213,7 @@ public class Trading implements Module, App {
         </Window>
         <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} declared={mut self.ownedWindow}
                 docked={Side.Right} @close={self.closeOwned}>
-          <OwnedPage house={self.house} revision={self.source.revision} />
+          <OwnedPage house={self.house} revision={self.source.revision} every={self.settings.values.ownedRefresh} />
         </Window>
       </>
     }

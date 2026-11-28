@@ -83,7 +83,7 @@ test "the house's cut set to 10%: what an item brings is weighed with it against
   Test.expect(window().text("Linen Cloth").item().text("Auction").shown())
   const page = settings()
   // A click at the slider's middle: half of 0 to 20.
-  page.box(Ordaen.art.ctl.groove).click()
+  page.box(Ordaen.art.ctl.groove).nth(1).click()
   Test.expect(page.text("10").shown())
   // 36 less 10% is 32: the merchant pays more.
   Test.expect(window().text("Linen Cloth").item().text("Vendor").shown())
