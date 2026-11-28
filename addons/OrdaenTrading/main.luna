@@ -100,6 +100,8 @@ public class Trading implements Module, App {
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
   // page, while the page shows one.
   state buyChosen: Array<Found> = []
+  // The lot picked of «Buy»'s row, by its auction (0: the cheapest): the side section buys from it.
+  state buyLot = 0
   state sellChosen: Array<Offered> = []
   derived side: WindowSide | nil = self.sideOf()
   // The window's footer: the status under every page.
@@ -113,7 +115,7 @@ public class Trading implements Module, App {
     <box $match={self.page} rows={FILL}>
       <box $case={BUY} rows={FILL}>
         <Chosen $for={found of self.buyChosen} $key={found.key} found={peek found} house={self.house}
-                prices={self.prices} history={self.source} shopping={mut self.shopping} />
+                prices={self.prices} history={self.source} shopping={mut self.shopping} lot={self.buyLot} />
       </box>
       <box $case={SELL} rows={FILL}>
         <Posting $for={offered of self.sellChosen} $key={offered.item} offered={offered} house={self.house}
@@ -199,7 +201,7 @@ public class Trading implements Module, App {
                 @settings={self.onSettings}>
           <box $match={self.page} rows={FILL}>
             <BuyPage $case={BUY} house={mut self.house} prices={self.prices} offers={self.scanner.offers}
-                     items={self.scanner.known} shopping={mut self.shopping} chosen={mut self.buyChosen}
+                     items={self.scanner.known} shopping={mut self.shopping} chosen={mut self.buyChosen} lot={mut self.buyLot}
                      @openList={self.onShopping} />
             <SellPage $case={SELL} prices={self.prices} chosen={mut self.sellChosen}
                       @openOwned={self.onOwned} />

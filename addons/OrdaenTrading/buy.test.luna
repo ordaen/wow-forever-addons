@@ -425,7 +425,7 @@ test "the filter is kept between sessions" {
 
 // A row picked
 
-test "a commodity picked: its listings asked and shown, a quantity, the total of the cheapest that hold it" {
+test "a commodity picked: its lots asked and shown over the list, a quantity, the total of the cheapest that hold it" {
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -439,7 +439,8 @@ test "a commodity picked: its listings asked and shown, a quantity, the total of
     { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true }
   ])
-  Test.expect(reads(panel().text("10").item(), "0g 0s 36c | 10 | 2 h"))
+  Test.expect(reads(window().text("10").item(), "0g 0s 36c | 10 | 0g 3s 60c | 2 h"))
+  Test.expect(window().button("Back").shown() && window().text("Copper Ore").opacity() == 0)
   Test.expect(panel().text("Listed: 30").shown() && says(panel(), "Total", "0g 0s 36c"))
   // Shift steps 10, then one a click.
   Test.hold([.Shift])
@@ -747,7 +748,7 @@ test "a row picked while the house takes no query asks its listings once it does
   Test.expect(asked("AuctionQuery.listings 2589"))
 }
 
-test "the listings the quantity buys from are marked: the cheapest that hold it" {
+test "the cheapest lot is marked; a commodity's lot picked is reached: the quantity takes it and the cheaper ones" {
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -757,16 +758,83 @@ test "the listings the quantity buys from are marked: the cheapest that hold it"
   _ = Test.requests()
   window().text("Linen Cloth").click()
   Game.auctionQuery.listed.emit(LINEN, [
-    { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
-    { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
-    { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
+    { auction: 61, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
+    { auction: 62, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
+    { auction: 63, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
   ])
-  Test.expect(panel().text("10").item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
+  Test.expect(window().text("10").item().paintedWith(PICKED) && !window().text("20").item().paintedWith(PICKED))
+  window().text("20").click()
+  Test.expect(window().text("20").item().paintedWith(PICKED) && !window().text("10").item().paintedWith(PICKED))
+  Test.expect(says(panel(), "Quantity", "- | 30 | +") && says(panel(), "Total", "0g 11s 60c"))
+}
+
+test "an item's lot picked is the one «Buy» buys out" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  window().text("Bronze Axe").click()
+  Game.auctionQuery.listed.emit(AXE, [
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false },
+    { auction: 74, unit: 2500, quantity: 1, buyout: 2500, left: 7200, own: false, commodity: false }
+  ])
+  Test.expect(says(panel(), "Total", "0g 22s 0c") && panel().text("An auction is bought whole.").shown())
+  window().text("0g 25s 0c").nth(1).click()
+  Test.expect(says(panel(), "Total", "0g 25s 0c"))
+  _ = Test.requests()
+  panel().button("Buy").click()
+  Test.expect(asked("AuctionActions.bid 74 2500"))
+}
+
+test "«Back» shows the list again as it was, the row still picked and its panel still shown" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  window().text("Linen Cloth").click()
+  Test.expect(window().text("Copper Ore").opacity() == 0)
+  window().button("Back").click()
+  Test.expect(window().text("Copper Ore").opacity() == 1 && !window().button("Back").shown())
+  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(PICKED) && panel().text("Listed: 30").shown())
+}
+
+test "the player's own lots are shown and not counted: a quantity past the others' can't be bought" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 15 }])
+  window().text("Linen Cloth").click()
+  Game.auctionQuery.listed.emit(LINEN, [
+    { auction: 61, unit: 30, quantity: 10, left: 7200, own: true, commodity: true },
+    { auction: 62, unit: 40, quantity: 5, left: 7200, own: false, commodity: true }
+  ])
+  Test.expect(window().text("10").shown() && says(panel(), "Total", "0g 0s 40c"))
   Test.hold([.Shift])
   panel().button("+").click()
   Test.hold([])
-  Test.expect(panel().text("20").item().paintedWith(PICKED) && !panel().text("5").item().paintedWith(PICKED))
-  Test.expect(says(panel(), "Total", "0g 4s 0c"))
+  _ = Test.requests()
+  panel().button("Buy").click()
+  Test.expect(asked("") && panel().button("Buy").paintedWith(Ordaen.art.ctl.buttonDisabled))
+}
+
+test "a commodity priced by the house says what «Confirm» buys" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().text("Linen Cloth").click()
+  Game.auctionQuery.listed.emit(LINEN, [{ auction: 61, unit: 36, quantity: 30, left: 7200, own: false, commodity: true }])
+  panel().button("Buy").click()
+  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 1, total: 36 })
+  Test.expect(panel().text("Priced by the house: «Confirm» buys 1 for this total.").shown() && panel().button("Confirm").shown())
 }
 
 test "a refusal is taken away by the next purchase sent" {
@@ -936,13 +1004,14 @@ test "one row an item: picked, it is its cheapest variant, whose prices the pane
   window().text("Sergeant's Warhammer").click()
   Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(PICKED))
   Test.expect(says(panel(), "Average", "0g 9s 33c"))
+  window().button("Back").click()
   window().text("Sergeant's Warhammer").nth(1).rightClick()
   Test.expect(Test.page().window("Search for this item").shown())
   Test.page().window("Search for this item").text("Add to shopping list").click()
   Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(LISTED))
 }
 
-test "a quantity the listings hold exactly can be bought; the quantity's listings marked, the next not" {
+test "a quantity the listings hold exactly can be bought" {
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -959,13 +1028,12 @@ test "a quantity the listings hold exactly can be bought; the quantity's listing
   Test.hold([])
   panel().button("-").click()
   Test.expect(says(panel(), "Quantity", "- | 10 | +"))
-  Test.expect(panel().text("10").nth(1).item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
   Test.hold([.Shift])
   panel().button("+").click()
   panel().button("+").click()
   Test.hold([])
   for (i of 1..5) { panel().button("+").click() }
-  Test.expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
+  Test.expect(says(panel(), "Quantity", "- | 35 | +"))
   _ = Test.requests()
   panel().button("Buy").click()
   Test.expect(asked("AuctionActions.startPurchase 2589 35"))

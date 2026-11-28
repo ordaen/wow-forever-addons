@@ -9,7 +9,7 @@
 // the right its listings, a quantity, the total, «Buy» (the client's from a click alone) and «Add to shopping list». A
 // row right-clicked: its menu (`RowMenu`).
 import Game from "$game"
-import { Align, Beside, Edges, Frame, Layer, Line, MouseButton, Side, Track } from "$ltml"
+import { Align, Beside, Edges, Frame, Layer, Line, MouseButton, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableCell, TableRow, ToolButton, ToolPick, Toolbar, ageText, sortedBefore } from "Ordaen"
 import { PriceHistory } from "@/history"
@@ -77,11 +77,16 @@ const RANGE: Array<Track> = ["max-content", "max-content", "max-content"]
 const CATEGORY: Array<Track> = [{ fr: 1 }]
 const CLASS_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const SUBCLASS_PAD: Edges = { top: 1.5sp, right: 5sp, bottom: 1.5sp, left: 5sp + 4sp }
-const LISTING_COLUMNS: Array<Column> = [
+// An item's lots, the cheapest first as the client gives them: the price for one, how many, all of them, the time left.
+const LOT_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
-  { title: Locale.COLUMN_COUNT, width: 65.625dp, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End }
+  { title: Locale.COLUMN_COUNT, width: 75dp, align: Align.End },
+  { title: Locale.COLUMN_TOTAL, width: 112.5dp, align: Align.End },
+  { title: Locale.COLUMN_LEFT, width: 82.03125dp, align: Align.End }
 ]
+// The lots open: «Back» and the item's name over its lots.
+const LOTS: Array<Track> = ["max-content", { fr: 1 }]
+const BACK_ROW: Array<Track> = ["max-content", { fr: 1 }]
 // The categories at the left, the results at the right.
 const PAGE: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
 // How long the typing settles before what is typed is searched for, in seconds.
@@ -91,8 +96,8 @@ const SIDE: Array<Track> = ["max-content", { fr: 1 }]
 // The toolbar, and the shopping list's window at the row's right end.
 const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
-// The item panel's part: the listings (the rest of its height), the quantity and the total, a refusal, the buttons.
-const PANEL: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
+// The item panel's part: the quantity and the total, what the next click does, a refusal, the buttons.
+const PANEL: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const MENU_WIDTH = 246.09375dp
 const MENU_BACK: Color = Color.hex("#0a0806f7")
@@ -321,10 +326,11 @@ class RowMenu implements Component {
 }
 
 // One row: a variant's, or an item's with its variants folded (its lowest a range where they differ). Its name is cut
-// where its column is narrower than it, so a long name never pushes the table past the page. A left click picks it; a
-// right click picks it and opens its menu.
+// where its column is narrower than it, so a long name never pushes the table past the page. A left click picks it and
+// opens its lots; a right click picks it and opens its menu.
 class FoundRow implements Component {
   public pick: Event<PriceKey> = new Event()
+  public open: Event<PriceKey> = new Event()
   public menu: Event<PriceKey> = new Event()
   public act: Event<(RowAct, Found)> = new Event()
 
@@ -356,7 +362,11 @@ class FoundRow implements Component {
 
   onPick(self, button: MouseButton) {
     self.pick.emit(self.found.key)
-    if (button == MouseButton.Right) { self.menu.emit(self.found.key) }
+    if (button == MouseButton.Right) {
+      self.menu.emit(self.found.key)
+    } else {
+      self.open.emit(self.found.key)
+    }
   }
 
   onAct(self, act: RowAct) { self.act.emit(act, self.found) }
@@ -454,6 +464,16 @@ public class BuyPage implements Component {
   // What the table says under its headings while it has no rows.
   derived emptySaid: String = self.rows.length == 0 ? self.empty : ""
   derived anyClass: Boolean = self.itemClass == ANY
+  // The picked row's lots stand over the list (kept as it was, its scroll too, for «Back»).
+  state opened = false
+  // The picked row's lots, as the client gives them to the panel's purchase, which asks.
+  state lots: Purchase | nil = nil
+  state lotSorts: Array<Integer> = []
+  derived lotRows: Array<Game.Listing> = self.lots?.listings ?? []
+  derived lotMarked: Integer = self.lots?.markedFor(self.lot) ?? 0
+  derived listOpacity: Number = self.opened ? 0 : 1
+  derived openedName: String = self.picks[1]?.name ?? ""
+  derived openedColor: Color = self.picks[1]?.color ?? Style.INK
   // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
   turn = 0
 
@@ -466,6 +486,7 @@ public class BuyPage implements Component {
   // The shopping list: its items marked, the row picked added to it.
   shopping: mut ShoppingList
   chosen: mut Signal<Array<Found>>
+  lot: mut Signal<Integer>
   constructor(
     house: mut House,
     prices: any PriceSource,
@@ -475,8 +496,11 @@ public class BuyPage implements Component {
     items: Signal<Integer>,
     shopping: mut ShoppingList,
     // The row picked, while it is shown: the window's side section draws it.
-    chosen: mut Signal<Array<Found>>
+    chosen: mut Signal<Array<Found>>,
+    // The lot the player picked of it, by its auction (0: none, the cheapest): the side section buys from it.
+    lot: mut Signal<Integer>
   ) {
+    self.lot = lot
     self.house = house
     self.prices = prices
     self.offers = offers
@@ -591,7 +615,21 @@ public class BuyPage implements Component {
     return row != nil ? [row] : []
   }
 
-  onPick(mut self, key: PriceKey) { self.picked = key }
+  // A row picked: the panel shows it, its cheapest lot the one bought from; its lots heard for when they open.
+  onPick(mut self, key: PriceKey) {
+    if (peek self.picked == key && peek self.lots != nil) { return }
+    self.picked = key
+    self.lot = 0
+    destroy self.lots
+    self.lots = new Purchase(key, false)
+  }
+
+  // A row clicked: its lots stand over the list.
+  onOpen(mut self, key: PriceKey) { self.opened = true }
+
+  onBack(mut self) { self.opened = false }
+
+  onLot(mut self, auction: Integer) { self.lot = auction }
 
   onMenu(mut self, key: PriceKey) { self.menuFor = key }
 
@@ -647,18 +685,34 @@ public class BuyPage implements Component {
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL}>
-            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
-              <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
-                        wanted={self.shopping.needed[row.item] != nil}
-                        menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
-                        @act={self.onAct} />
-            </Table>
-            <Table $else columns={COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
-              <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
-                        wanted={self.shopping.needed[row.item] != nil}
-                        menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
-                        @act={self.onAct} />
-            </Table>
+            <box rows={FILL} opacity={self.listOpacity}>
+              <Table $if={self.byItem} columns={ITEM_COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
+                <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
+                          wanted={self.shopping.needed[row.item] != nil}
+                          menuOpen={self.menuFor == row.key} @pick={self.onPick} @open={self.onOpen} @menu={self.onMenu}
+                          @act={self.onAct} />
+              </Table>
+              <Table $else columns={COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
+                <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
+                          wanted={self.shopping.needed[row.item] != nil}
+                          menuOpen={self.menuFor == row.key} @pick={self.onPick} @open={self.onOpen} @menu={self.onMenu}
+                          @act={self.onAct} />
+              </Table>
+            </box>
+            // The picked row's lots, over the list.
+            <box $if={self.opened} position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} rows={LOTS}
+                 gap={3sp}>
+              <box columns={BACK_ROW} gap={3sp} yAlign={Align.Center}>
+                <PushButton label={Locale.BACK} width={Style.OPENER} @click={self.onBack} />
+                <text value={self.openedName} textColor={self.openedColor} wrap={.Cut} />
+              </box>
+              <box rows={FILL}>
+                <Table columns={LOT_COLUMNS} sorts={mut self.lotSorts}>
+                  <LotRow $for={index, listing of self.lotRows} $key={index} listing={listing} index={index}
+                          marked={self.lotMarked} @pick={self.onLot} />
+                </Table>
+              </box>
+            </box>
           </box>
         </box>
       </box>
@@ -671,51 +725,56 @@ function leftOf(seconds: Integer | nil): String {
   return seconds != nil ? leftText(seconds) : "—"
 }
 
-// One listing of the picked item: its price for one, how many, the time left; marked where the next click buys
-// from it (its place within `first` to `last`).
-class ListingRow implements Component {
-  derived left: String = leftOf(self.listing.left)
-  derived selected: Boolean = self.index >= self.first && self.index <= self.last
+// One lot of the picked item: its price for one, how many, all of them, the time left; marked where the panel buys
+// from it, the player's own dim. A click picks it.
+class LotRow implements Component {
+  public pick: Event<Integer> = new Event()
 
-  const listing: Game.Listing
-  const index: Integer
-  first: Signal<Integer>
-  last: Signal<Integer>
-  constructor(listing: Game.Listing, index: Integer, first: Signal<Integer>, last: Signal<Integer>) {
+  derived left: String = leftOf(self.listing.left)
+  derived total: Integer = self.listing.buyout ?? self.listing.unit * self.listing.quantity
+  derived selected: Boolean = self.index == self.marked
+  derived ink: Color = self.listing.own ? Style.DIM : Style.INK
+
+  // The row's lot: the table hands the row to another lot as it scrolls.
+  listing: Signal<Game.Listing>
+  index: Signal<Integer>
+  marked: Signal<Integer>
+  constructor(listing: Signal<Game.Listing>, index: Signal<Integer>, marked: Signal<Integer>) {
     self.listing = listing
     self.index = index
-    self.first = first
-    self.last = last
+    self.marked = marked
   }
+
+  onPick(self) { self.pick.emit(self.listing.auction) }
 
   public render(self): Template {
     return $ltml {
-      <TableRow selected={self.selected}>
+      <TableRow selected={self.selected} @pick={self.onPick}>
         <TableCell align={Align.End}>
           <Money amount={self.listing.unit} />
         </TableCell>
         <TableCell align={Align.End}>
-          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={.None} />
+          <text value={"%d"} arguments={[self.listing.quantity]} textColor={self.ink} wrap={.None} />
         </TableCell>
         <TableCell align={Align.End}>
-          <text value={self.left} textColor={Style.INK} wrap={.None} />
+          <Money amount={self.total} />
+        </TableCell>
+        <TableCell align={Align.End}>
+          <text value={self.left} textColor={self.ink} wrap={.None} />
         </TableCell>
       </TableRow>
     }
   }
 }
 
-// The row picked: its listings (those the next click buys from marked), a quantity of a commodity (an item's
-// auction is bought whole), the total, «Buy» (a commodity's second click confirms the price the client gave) and
-// «Add to shopping list».
+// The row picked: a quantity of a commodity (an item's auction is bought whole), the total, what the next click does,
+// «Buy» (a commodity's second click confirms the price the client gave) and «Add to shopping list». The lot the player
+// picked of it (`lot`) is the one bought from: an item's auction, or a commodity's count to it, the cheaper ones
+// with it (the client sells the cheapest first).
 public class Chosen implements Component {
   state count = 1
-  state listSorts: Array<Integer> = []
   derived listings: Array<Game.Listing> = self.purchase.listings ?? []
   derived commodity: Boolean = self.purchase.commodity
-  // The listings the next click buys from: a commodity's first so many, an item's one auction.
-  derived first: Integer = self.commodity ? 1 : self.purchase.next
-  derived last: Integer = self.commodity ? self.purchase.coveredBy(self.count) : self.purchase.next
   derived refused: Boolean = self.purchase.refused != nil
   derived refusedText: String = self.purchase.refused ?? ""
   derived auction: Game.Listing | nil = self.listings[self.purchase.next]
@@ -725,6 +784,9 @@ public class Chosen implements Component {
   derived canBuy: Boolean = !Game.auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
       self.auction != nil)
   derived auctionCount: String = String.of(self.auction?.quantity ?? 0)
+  // What the next click does: «Confirm» buys what the house priced; an item's auction goes whole.
+  derived note: String = self.quoted ? Locale.QUOTED.format(self.count) : self.commodity ? "" : Locale.AUCTION_WHOLE
+  derived noted: Boolean = self.note != "" && self.purchase.listed
 
   // Under the item's name in its panel: how many are listed.
   const detail: String
@@ -734,20 +796,32 @@ public class Chosen implements Component {
   const history: any PriceHistory | nil
   purchase: mut Purchase
   shopping: mut ShoppingList
+  lot: Signal<Integer>
   constructor(
     found: Found,
     house: House,
     prices: any PriceSource,
     history: any PriceHistory | nil,
-    shopping: mut ShoppingList
+    shopping: mut ShoppingList,
+    // The lot the player picked, by its auction; 0 for none: the cheapest.
+    lot: Signal<Integer> = 0
   ) {
     self.found = found
     self.house = house
     self.prices = prices
     self.history = history
     self.shopping = shopping
+    self.lot = lot
     self.detail = Locale.LISTED_COUNT.format(found.listed)
     self.purchase = new Purchase(found.key)
+    watch (picked of self.lot) { self.pickLot(picked) }
+  }
+
+  // A lot picked: an item's next click buys it; a commodity's count reaches it.
+  pickLot(mut self, picked: Integer) {
+    self.purchase.picked = picked
+    const place = peek self.purchase.pickedAt
+    if (peek self.commodity && place > 0) { self.count = (1).max(self.purchase.countTo(place)) }
   }
 
   totalOf(self): Integer {
@@ -767,12 +841,6 @@ public class Chosen implements Component {
       <ItemPanel key={self.found.key} name={self.found.name} color={self.found.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
         <box rows={PANEL} gap={3sp}>
-          <box rows={FILL}>
-            <Table columns={LISTING_COLUMNS} sorts={mut self.listSorts}>
-              <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
-                          index={index} first={self.first} last={self.last} />
-            </Table>
-          </box>
           <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
             <text value={Locale.QUANTITY} textColor={Style.INK} />
             <CountInput $if={self.commodity} value={mut self.count} least={1} most={MOST_COUNT} step={STEP} />
@@ -781,6 +849,9 @@ public class Chosen implements Component {
             <box xAlign={Align.End}>
               <Money amount={self.total} />
             </box>
+          </box>
+          <box>
+            <text $if={self.noted} value={self.note} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           </box>
           <box>
             <text $if={self.refused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />

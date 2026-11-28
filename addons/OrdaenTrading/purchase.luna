@@ -1,7 +1,8 @@
 // Buying one item at the house, for «Buy»'s picked row and a shopping list row's «Buy N»: its listings asked of the
 // client (the cheapest first), then, from the player's click alone, a commodity bought in two clicks (the price asked,
-// then bought at it) or an item's auction bought out, one a click, the cheapest first. Only the answer to what this
-// sent is read here: the client answers one action at a time (`Game.auctionActions.busy`).
+// then bought at it) or an item's auction bought out, one a click: the lot the player picked, else the cheapest. The
+// player's own lots are shown and never bought: a commodity's count and cost leave them out. Only the answer to what
+// this sent is read here: the client answers one action at a time (`Game.auctionActions.busy`).
 import Game from "$game"
 import { PriceKey } from "@/quote"
 
@@ -13,22 +14,32 @@ public class Purchase {
   public state quotedTotal = 0
   // The client's refusal of what this sent last, in its words; none where it took it.
   public state refused: String | nil = nil
+  // The lot the player picked, by its auction; 0 for none.
+  public state picked = 0
   // The listings are wanted: asked as soon as the house takes a query.
-  state wanted = true
+  state wanted: Boolean
   // An action sent from here waits for its answer.
   state sending = false
   public derived listed: Boolean = self.listings != nil
   // Bought by quantity, not by auction.
   public derived commodity: Boolean = (self.listings ?? [])[1]?.commodity == true
-  // The auction the next click buys out (an item's), cheapest first: none for a commodity, or where none has a buyout.
+  // The picked lot's place in the listings, where it is there; 0 otherwise.
+  public derived pickedAt: Integer = self.placeOf(self.picked)
+  // The auction the next click buys out (an item's): the lot picked, else the cheapest the player can buy; none for a
+  // commodity, or where none can be bought.
   public derived next: Integer = self.nextOf()
-  // How many the listings hold in all.
+  // How many the lots the player can buy hold in all.
   public derived held: Integer = self.heldOf()
 
   public const key: PriceKey
 
-  constructor(key: PriceKey) {
+  constructor(
+    key: PriceKey,
+    // It asks the client for the listings; otherwise it hears the answers to another's asking.
+    asks: Boolean = true
+  ) {
     self.key = key
+    self.wanted = asks
     Game.auctionQuery.listed.listen(self.onListed)
     Game.auctionActions.answered.listen(self.onAnswer)
     watch {
@@ -36,47 +47,81 @@ public class Purchase {
     }
   }
 
+  placeOf(self, auction: Integer): Integer {
+    if (auction == 0) { return 0 }
+    for (index, listing of self.listings ?? []) {
+      if (listing.auction == auction) { return index }
+    }
+    return 0
+  }
+
   nextOf(self): Integer {
-    const listings = self.listings
-    if (listings == nil || self.commodity) { return 0 }
+    return self.commodity ? 0 : self.markedFor(self.picked)
+  }
+
+  // The place of the lot shown as the one bought from, `picked` the player's pick (by its auction, 0 for none): the
+  // lot picked where the player can buy it, else the cheapest they can.
+  public markedFor(self, picked: Integer): Integer {
+    const listings = self.listings ?? []
+    const commodity = self.commodity
+    const place = self.placeOf(picked)
+    const chosen = listings[place]
+    if (chosen != nil && (commodity ? !chosen.own : buyable(chosen))) { return place }
     for (index, listing of listings) {
-      if (listing.buyout != nil && !listing.own) { return index }
+      if (commodity ? !listing.own : buyable(listing)) { return index }
     }
     return 0
   }
 
   heldOf(self): Integer {
     let count = 0
-    for (listing of self.listings ?? []) { count += listing.quantity }
+    for (listing of self.listings ?? []) {
+      if (!listing.own) { count += listing.quantity }
+    }
     return count
   }
 
-  // What `count` of a commodity costs, the cheapest first; nil where the listings hold fewer.
+  // What `count` of a commodity costs, the cheapest first, the player's own left out; nil where the lots hold fewer.
   public costOf(self, count: Integer): Integer | nil {
     let left = count
     let copper = 0
     for (listing of self.listings ?? []) {
-      const taken = listing.quantity.min(left)
-      copper += taken * listing.unit
-      left -= taken
+      if (!listing.own) {
+        const taken = listing.quantity.min(left)
+        copper += taken * listing.unit
+        left -= taken
+      }
     }
     return left > 0 ? nil : copper
   }
 
-  // How many of the listings, the cheapest first, a commodity's `count` takes from.
+  // The place of the last lot, the cheapest first, a commodity's `count` takes from (the player's own passed over).
   public coveredBy(self, count: Integer): Integer {
     let left = count
     let covered = 0
-    for (listing of self.listings ?? []) {
+    for (index, listing of self.listings ?? []) {
       if (left <= 0) { break }
-      left -= listing.quantity
-      covered += 1
+      if (!listing.own) {
+        left -= listing.quantity
+        covered = index
+      }
     }
     return covered
   }
 
+  // How many of a commodity take every lot to the one at `place`, the cheapest first: the client sells the cheapest
+  // first, so a lot is reached by buying those under it too.
+  public countTo(self, place: Integer): Integer {
+    let count = 0
+    for (index, listing of self.listings ?? []) {
+      if (index > place) { break }
+      if (!listing.own) { count += listing.quantity }
+    }
+    return count
+  }
+
   // From the player's click alone: a commodity's `count` priced, or bought where the client priced that many; an
-  // item's cheapest auction with a buyout bought out. False where nothing was sent.
+  // item's auction (`next`) bought out. False where nothing was sent.
   public buy(mut self, count: Integer): Boolean {
     const listings = peek self.listings
     if (listings == nil) { return false }
@@ -121,4 +166,9 @@ public class Purchase {
       }
     }
   }
+}
+
+// An auction the player can buy out: one with a buyout, not their own.
+function buyable(listing: Game.Listing): Boolean {
+  return listing.buyout != nil && !listing.own
 }

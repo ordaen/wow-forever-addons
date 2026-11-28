@@ -109,6 +109,8 @@ function merchantAsks(item: Integer, name: String): String {
   Game.auctionQuery.results.emit([{ key: item, copper: 50, quantity: 1 }])
   Test.page().window("Sell").text(name).click()
   const shown = Test.page().window("Sell").button("Add to shopping list").item().texts()
+  // Its lots open over the list: «Back» to it, for the next.
+  Test.page().window("Sell").button("Back").click()
   for (index, text of shown) {
     if (text == "Vendor price each") { return shown[index + 1] ?? "" }
   }
