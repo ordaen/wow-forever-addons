@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow } from "Ordaen"
+import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -128,6 +128,8 @@ public class SellPage implements Component {
   // How the player left the list, the profile's (`ModuleMemory`).
   public list: mut ModuleMemory<SellView> = new ModuleMemory<SellView>(SELL_VIEW, .Profile, "sell")
   state picked: ItemId | nil = nil
+  // The table's second sort (`sortedBefore`).
+  state then = 0
   // Moves as the bags change: what the house takes is read again.
   state bags = 0
   derived rows: Array<Offered> = self.rowsOf()
@@ -148,6 +150,8 @@ public class SellPage implements Component {
   }
 
   onBags(mut self) { self.bags += 1 }
+
+  onSecond(mut self, then: Integer) { self.then = then }
 
   rowsOf(self): Array<Offered> {
     _ = self.bags
@@ -177,7 +181,8 @@ public class SellPage implements Component {
     }
     const column = self.list.values.sorted
     const down = self.list.values.descending
-    if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
+    const then = self.then
+    if (column != 0 || then != 0) { list.sort((a, b) => sortedBefore(a, b, column, down, then, before)) }
     return list
   }
 
@@ -201,7 +206,8 @@ public class SellPage implements Component {
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL}>
-            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
+                   twoSorts={true} @secondSort={self.onSecond}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />
               <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
