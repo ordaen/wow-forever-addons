@@ -1355,6 +1355,22 @@ test "the footer says the free slots of the total, and the currency the player f
   Test.expect(bags().text("13 Marks").shown() && !bags().text("12 Marks").shown())
 }
 
+test "the footer's free slots are the client's: the keyring and a bag for one kind of thing are left out" {
+  const world = new World(everyday())
+  // The linen bag takes one kind of thing alone; the keyring holds a key of its 32 places.
+  world.general = false
+  world.items.push({ bag: -1, slot: 1, id: 5396, name: "Key to Searing Gorge", icon: DEED, kind: 13 })
+  Game.bags.containers = [0, 1, 2, 3, 4, -1]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => bag == -1 ?
+    { bag: -1, item: nil, name: "Keyring", icon: nil, slots: 32, general: false } : world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => bag == -1 ? 32 : world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  // The backpack's sixteen slots, seven of them taken.
+  Test.expect(bags().text("9 of 16").shown())
+}
+
 test "the cursor on the gold: this character's, then this realm's others by how much (alike, by name), the total; off it, gone" {
   // Each character logged in once with its gold: «Player» first, then four more, one on another realm.
   Game.money.amount = 500

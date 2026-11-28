@@ -113,11 +113,14 @@ public class Stock {
     return changed
   }
 
-  // Each container's fill and the free slots: the fills' texts made again only where a container's count changed.
+  // Each container's fill, and the free slots of those that take any item, as the client counts its free slots
+  // (`CalculateTotalNumberOfFreeBagSlots`): the keyring and a bag for one kind of thing are left out. The fills' texts
+  // are made again only where a container's count changed.
   count(mut self) {
     let free = 0
     let total = 0
     let same = self.used.length == self.bags.length
+    const infos = peek self.infos
     for (index, slots of self.bags) {
       let used = 0
       for (slot of slots) {
@@ -127,8 +130,10 @@ public class Stock {
         self.used[index] = used
         same = false
       }
-      free += slots.length - used
-      total += slots.length
+      if (infos[index]?.general == true) {
+        free += slots.length - used
+        total += slots.length
+      }
     }
     if (!same) {
       let fills: Map<Integer, String> = {}
