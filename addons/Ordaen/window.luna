@@ -12,7 +12,7 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import Game from "$game"
-import { Align, Art, Bounds, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Action, Align, Art, Bounds, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { cornerArtWidth, reachAcross, toRod } from "@/art"
 import { Component } from "@/module"
@@ -403,6 +403,9 @@ class CornerPlate implements Component {
 
   derived plate: Art = self.plateOf()
   derived glyph: Art = self.glyphOf()
+  // Close, in a window the client's secure code opens and closes (`toggledBy`): the client's own hiding of it, so in a
+  // fight too; heard after it, as any press.
+  derived action: Action | nil = self.secure && self.control == .Close ? Action.CloseSurface : nil
 
   control: Signal<CornerControl>
   const index: Integer
@@ -411,11 +414,13 @@ class CornerPlate implements Component {
   const width: Number<Length>
   const glyphLeft: Number<Length>
   full: Signal<Boolean>
-  constructor(control: Signal<CornerControl>, index: Integer, count: Integer, full: Signal<Boolean>) {
+  const secure: Boolean
+  constructor(control: Signal<CornerControl>, index: Integer, count: Integer, full: Signal<Boolean>, secure: Boolean = false) {
     self.control = control
     self.index = index
     self.count = count
     self.full = full
+    self.secure = secure
     self.left = plateLeft(index, count)
     self.width = plateWidth(index, count)
     self.glyphLeft = index == 1 ? GLYPH_LEFT_FIRST : GLYPH_LEFT
@@ -441,7 +446,7 @@ class CornerPlate implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={0ui} width={self.width} height={CORNER_HEIGHT}
-           overflow={Overflow.Hidden} @pointerPress={self.press} @keyPress(.Enter)={self.press} @keyPress(.Space)={self.press}>
+           overflow={Overflow.Hidden} action={self.action} @pointerPress={self.press} @keyPress(.Enter)={self.press} @keyPress(.Space)={self.press}>
         // The plate and its glyph show the control's interaction state: the plate's art is wider than the control.
         <box position={Position.Absolute} left={0ui} top={0ui} width={PLATE_ART} height={CORNER_HEIGHT}
              background={self.plate} interactionState={self.$interactionState} />
@@ -457,6 +462,8 @@ class CornerPlate implements Component {
 public class Window implements Component {
   // The close button, and Escape.
   public close: Event<nil> = new Event()
+  // One of its keys opened it, by the client's secure code (a window made `toggledBy`): its owner opens what it shows.
+  public openedByKey: Event<nil> = new Event()
   // The settings button was clicked (a window made `withSettings`): the owner opens its settings.
   public settings: Event<nil> = new Event()
   // A tab was clicked: its place among the tabs, in the click's own call.
@@ -547,6 +554,7 @@ public class Window implements Component {
   const nothing: Template = $ltml {}
   const docked: Side | nil
   const asks: Boolean
+  const toggledBy: Array<String> | nil
   room: Signal<Number<Length>>
   // Its declaration: where it stands, and what the player did with it, kept in the active profile.
   declared: mut KeptWindow
@@ -595,8 +603,13 @@ public class Window implements Component {
     asks: Boolean = false,
     // The room between the frame's line and each tab's page, as a box's padding is (a tab's own `padding` goes over
     // it): none said, the window's own, its frame's inset and `WINDOW_ROOM` (less over a footer).
-    padding: Edges | nil = nil
+    padding: Edges | nil = nil,
+    // The client's binding commands whose keys open and close it by the client's secure code, in a fight too: a window
+    // of secure boxes (the bags' slots). Its close box and Escape close it so too; a key that opens it is told to
+    // `@openedByKey`, one that closes it to `@close`.
+    toggledBy: Array<String> | nil = nil
   ) {
+    self.toggledBy = toggledBy
     self.ownPadding = padding
     self.asks = asks
     self.footer = footer ?? $ltml {}
@@ -821,6 +834,9 @@ public class Window implements Component {
     self.picked.emit(index)
   }
   onClose(mut self) { self.close.emit() }
+  onToggled(mut self, shown: Boolean) {
+    if (shown) { self.openedByKey.emit() } else { self.close.emit() }
+  }
   onCorner(mut self, control: CornerControl) {
     match (control) {
       .Settings => self.settings.emit()
@@ -904,7 +920,7 @@ public class Window implements Component {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
       <surface leading={.Row} shown={self.seen} layer={Layer.Panel} place={self.place} width={self.bounds} height={self.height} clamp={true}
-               raise={true}
+               raise={true} toggledBy={self.toggledBy} @toggled={self.onToggled}
                @keyDown.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.window} background={Ordaen.art.window.wood}
@@ -951,7 +967,7 @@ public class Window implements Component {
           <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden} opacity={self.controlsOpacity}
                @pointerEnter={self.onControlsIn} @pointerLeave={self.onControlsOut}>
             <CornerPlate $for={index, control of self.controls} control={control} index={index}
-                         count={self.controls.length} full={self.full} @pressed={self.onCorner} />
+                         count={self.controls.length} full={self.full} secure={self.toggledBy != nil} @pressed={self.onCorner} />
           </box>
         </box>
       </surface>
