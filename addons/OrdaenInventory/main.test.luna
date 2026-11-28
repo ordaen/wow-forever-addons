@@ -780,22 +780,37 @@ test "a left click on a slot is the client's own use of the item, each click one
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.showBag 0 3"))
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3" && asked("Bags.follow true, Items.showBag 0 3"))
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3")
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3")
   // The slot placed again (the window resized): its hover's highlight still lets the press through to the use.
   Inventory.settings.change((values: mut Choices): nil => { values.slotGap = values.slotGap + 1 })
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3")
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3")
   // Shut and opened again, the slot hovered before the press.
   Game.bags.open = false
   Game.bags.open = true
   held(POTION).hover()
   Test.pass(1)
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3")
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3")
   held(POTION).rightClick()
   Test.expect(Test.performed().length == 0)
+}
+
+test "at the mailbox and in a trade, a slot's use is the client's own secure use, which puts the item in: the bags send nothing" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  for (place of [Game.BagPlace.Mail, Game.BagPlace.Trade]) {
+    Game.bags.place = place
+    _ = Test.requests()
+    held(SWORD).click()
+    Test.expect(Test.performed().join(", ") == "macro /use 0 4" && !Test.requests().join(", ").contains("Bags.send"))
+  }
 }
 
 test "Shift+right-click puts the item's link into the chat" {
@@ -2047,7 +2062,7 @@ test "while a spell waits for an item, a left click gives it the slot's item, th
   Test.flush()
   _ = Test.requests()
   held(SWORD).click()
-  Test.expect(Test.performed().join(", ") == "item 0 4")
+  Test.expect(Test.performed().join(", ") == "macro /use 0 4")
   Test.expect(askedOnly(""))
   Game.player.targeting = false
 }

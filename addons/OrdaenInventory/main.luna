@@ -32,7 +32,7 @@ import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, s
 import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
 import { LOOT_CHOICES, LootChoices, Looter } from "@/loot"
-import { CONTAINER, MOVED, Slot, SortBy, handsOver } from "@/model"
+import { CONTAINER, MOVED, Slot, SortBy, handsOver, refundOf } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, ConveniencePage, JunkPage, LookPage, LootPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
@@ -171,8 +171,9 @@ public class Inventory implements Module, App {
   derived gameFrames: Array<any Frame> = self.gameFramesOf()
   // The header's picks: the view and the sort, kept in the profile as they are picked.
   public list: mut ModuleMemory<BagsView> = new ModuleMemory<BagsView>(BAGS_VIEW, .Profile, "view")
-  // The chord a container's slot is used by, the client's own secure click.
-  derived useClick: UseClick = useClickOf(self.settings.values.slotPresses)
+  // The chord a container's slot is used by, the client's own secure click; none while the merchant shows what he buys
+  // back, as the game's bags sell nothing then.
+  derived useClick: UseClick | nil = self.buyingBack ? nil : useClickOf(self.settings.values.slotPresses)
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
   derived goldRows: Array<TipRow> = self.gold.rows
@@ -509,8 +510,8 @@ public class Inventory implements Module, App {
     }
   }
 
-  // The slot's use: a guild bank's stack goes into the bags; a container's the client used itself, and at a merchant
-  // the sale is noted, to be learned from once the bag's update says it sold.
+  // The slot's use: a guild bank's stack goes into the bags; a container's the client used itself (`rows.luna`:
+  // `actionNow`), and at a merchant the sale is noted, to be learned from once the bag's update says it sold.
   used(mut self, slot: Slot) {
     const id = peek slot.id
     if (id == 0) { return }
@@ -518,8 +519,9 @@ public class Inventory implements Module, App {
       self.guild.take(slot.bag, slot.index)
       return
     }
+    if (slot.vault != Vault.Bags) { return }
     const place = peek Game.bags.place
-    if (place == Game.BagPlace.Merchant && slot.vault == Vault.Bags) {
+    if (place == Game.BagPlace.Merchant) {
       // The buyback shown: nothing is sold. A purchase still refundable is asked about first, and refunded.
       if (peek self.buyingBack) { return }
       if (refundOf(slot) != nil) {
@@ -527,11 +529,10 @@ public class Inventory implements Module, App {
         return
       }
     }
-    if (slot.vault == Vault.Bags && !handsOver(place) && slot.read.kind == CONTAINER) {
+    if (!handsOver(place) && slot.read.kind == CONTAINER) {
       self.putOn(slot)
       return
     }
-    if (slot.vault != Vault.Bags || !handsOver(place) || !Game.bags.send(slot.bag, slot.index)) { return }
     if (place != Game.BagPlace.Merchant) { return }
     const rules = peek self.settings.values.junk
     self.sale = {
@@ -870,11 +871,4 @@ function unsellable(slot: Slot): String | nil {
   if (slot.read.price <= 0) { return "no price" }
   if (refundOf(slot) != nil) { return "refundable" }
   return nil
-}
-
-function refundOf(slot: Slot): Client.ItemPurchaseInfo | nil {
-  const info = Client.C_Container.GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
-  if (info == nil || info.refundSeconds <= 0) { return nil }
-  if (info.money <= 0 && info.itemCount <= 0 && info.currencyCount <= 0) { return nil }
-  return info
 }

@@ -190,3 +190,11 @@ public class Slot {
 public function handsOver(place: Game.BagPlace): Boolean {
   return place == .Merchant || place == .Trade || place == .Mail
 }
+
+// What a purchase still refundable in the slot gives back, or none.
+public function refundOf(slot: Slot): Client.ItemPurchaseInfo | nil {
+  const info = Client.C_Container.GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
+  if (info == nil || info.refundSeconds <= 0) { return nil }
+  if (info.money <= 0 && info.itemCount <= 0 && info.currencyCount <= 0) { return nil }
+  return info
+}

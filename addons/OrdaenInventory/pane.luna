@@ -245,7 +245,7 @@ public class Pane {
     slotsOpen: mut Signal<Boolean>,
     bankSlotsOpen: mut Signal<Boolean>,
     menu: Signal<SlotMenu | nil>,
-    useClick: Signal<UseClick>
+    useClick: Signal<UseClick | nil>
   ) {
     self.carried = carried
     self.bank = bank

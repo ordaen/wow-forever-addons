@@ -330,18 +330,14 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
-  Game.bags.send = (bag: Integer, slot: Integer): Boolean => {
-    Test.asked("Bags.send", bag, slot)
-    return true
-  }
   _ = Test.printed()
   _ = Test.requests()
   // The client's coin bag over a slot at a merchant, as the game's own bags show it.
   bags().button(CLOTH).hover()
   Test.expect(Test.cursor() == "BUY_CURSOR")
   bags().button(CLOTH).click()
-  // Sold by the bags themselves: the client's secure use would equip what can be worn.
-  Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.send 0 3"))
+  // Sold by the client's secure use of the slot, as the game's own bags sell it.
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3" && !Test.requests().join(", ").contains("Bags.send"))
   world.take(0, 3)
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).shown())
@@ -666,7 +662,7 @@ test "a purchase still refundable is asked about at the merchant and refunded, n
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.requests()
   bags().button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Test.expect(Test.performed().length == 0 && !Test.requests().join(", ").contains("Bags.send"))
   const dialog = Test.page().window(Locale.REFUND)
   Test.expect(dialog.shown())
   dialog.button(Locale.REFUND).click()
@@ -689,10 +685,10 @@ test "while the merchant's buyback shows (Ordaen Trading's window says so), a sl
   Test.flush()
   _ = Test.requests()
   bags().button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Test.expect(Test.performed().length == 0)
   Inventory.showsBuyback(false)
   bags().button(CLOTH).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3")
   Events.MERCHANT_CLOSED.emit()
 }
 

@@ -72,12 +72,12 @@ test "the merchant's window sells the bags' junk from its right column, saying w
 test "while the merchant's window shows the buyback, a slot's use in the bags sells nothing" {
   atMerchant()
   Test.page().button(Locale.BUYBACK).click()
-  _ = Test.requests()
+  _ = Test.performed()
   Test.page().window("Inventory").button(CLOTH).click()
-  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
-  // The goods again: the cloth sells.
+  Test.expect(Test.performed().length == 0)
+  // The goods again: the cloth sells, by the client's secure use of its slot.
   Test.page().button("Tharynn").click()
   Test.page().window("Inventory").button(CLOTH).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.send 0 2"))
+  Test.expect(Test.performed().join(", ") == "macro /use 0 2")
   Events.MERCHANT_CLOSED.emit()
 }

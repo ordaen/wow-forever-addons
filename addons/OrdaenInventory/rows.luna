@@ -10,7 +10,7 @@ import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, usableItem } from "Ordaen"
 import { UseClick } from "@/clicks"
 import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
-import { CONTAINER, Slot, handsOver } from "@/model"
+import { CONTAINER, Slot, handsOver, refundOf } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
 
@@ -71,8 +71,9 @@ public class Shelf {
   public gap: Signal<Number<Spacing>>
   public fills: Signal<Map<Integer, String>>
   public menu: Signal<SlotMenu | nil>
-  // How a container's slot is used (the client's secure click).
-  public useClick: Signal<UseClick>
+  // How a container's slot is used (the client's secure click); none while nothing is to be used (the merchant shows
+  // what he buys back).
+  public useClick: Signal<UseClick | nil>
   // Whether the slots' vault is open: shut (the bank away from a banker), they are its copy, shown and not used.
   public live: Signal<Boolean>
   constructor(
@@ -82,7 +83,7 @@ public class Shelf {
     gap: Signal<Number<Spacing>>,
     fills: Signal<Map<Integer, String>>,
     menu: Signal<SlotMenu | nil>,
-    useClick: Signal<UseClick>,
+    useClick: Signal<UseClick | nil>,
     live: Signal<Boolean>
   ) {
     self.filter = filter
@@ -122,16 +123,7 @@ class BagSlot implements Component {
   // Gear the player can use, worth more to its spec than what it wears (Ordaen's worth).
   derived upgrade: Boolean = self.upgradeNow()
   derived questMark: Asset | nil = self.slot.startsQuest ? QUEST_BANG : self.slot.questItem ? QUEST_BORDER : nil
-  // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
-  // nor a copy of a vault that isn't open, nor any slot while Use hands the item over (sold to a merchant, put in a
-  // trade or a letter): the client's secure use equips what can be worn (`SecureTemplates.lua`), so the bags hand it
-  // over themselves. A bag's use is the bags' own too: the client's puts it on only where a place is empty. While a
-  // spell waits for an item to land on (an enchant, a sharpening stone, lockpicking), the left click gives it this
-  // one, as the game's bags do, whatever the scheme says.
-  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil :
-    Game.player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton.Left } :
-    handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
-    Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
+  derived action: Action | nil = self.actionNow()
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: String = self.shelf.menu?.title ?? ""
@@ -141,6 +133,25 @@ class BagSlot implements Component {
   constructor(slot: Signal<Slot>, shelf: Shelf) {
     self.slot = slot
     self.shelf = shelf
+  }
+
+  // A container's item is used by the client's secure click on the scheme's chord for Use, as the game's own bags use
+  // it: worn, used, sold to a merchant, put in a trade or a letter. None for a guild bank's, a copy of a vault that
+  // isn't open, while the merchant shows what he buys back, or for a purchase still refundable at a merchant (the bags
+  // ask about the refund first, as the game's do). A bag's use is the bags' own away from a place that takes it: the
+  // client's puts it on only where a place is empty. While a spell waits for an item to land on (an enchant, a
+  // sharpening stone, lockpicking, Disenchant), the left click gives it this one, as the game's bags do, whatever the
+  // scheme says.
+  actionNow(self): Action | nil {
+    const slot = self.slot
+    if (slot.vault == Vault.Guild || !self.shelf.live) { return nil }
+    if (Game.player.targeting) { return Action.UseBagItem { bag: slot.bag, slot: slot.index, chord: MouseButton.Left } }
+    const use = self.shelf.useClick
+    const place = self.shelf.filter.place
+    if (use == nil || (slot.read.kind == CONTAINER && !handsOver(place)) || (place == .Merchant && refundOf(slot) != nil)) {
+      return nil
+    }
+    return Action.UseBagItem { bag: slot.bag, slot: slot.index, chord: use.chord }
   }
 
   upgradeNow(self): Boolean {
