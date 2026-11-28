@@ -21,6 +21,7 @@ import { Crafter, Crafting, TooltipCrafters, craftersOf, craftingOf } from "@/cr
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
 import { RecipeFilters } from "@/filters"
+import { GuidePage } from "@/guide"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { Queueing } from "@/make"
@@ -39,7 +40,6 @@ import {
   Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, ListViews, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
   Sorted, sorted, TableFacts, tableBefore, View
 } from "@/view"
-import { WorthPage } from "@/worth"
 
 const FILL: Array<Track> = [{ fr: 1 }]
 // The trainer's tab: the client's book of a trade.
@@ -165,7 +165,7 @@ public class Professions implements Module, App {
   public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   // What the profession trainers met teach, the account's: every character meets the same trainers.
   public learning: mut ModuleMemory<Learning> = new ModuleMemory<Learning>({ recipes: {} }, .Account)
-  // The recipe book, the account's: what every character knows, and what each recipe takes and makes («Выгода»).
+  // The recipe book, the account's: what every character knows, and what each recipe takes and makes (`@/book`).
   public book: mut ModuleMemory<Book> = new ModuleMemory<Book>({ recipes: {}, characters: {} }, .Account, "book")
   derived written: Book = self.book.values
   // Every known recipe by the items it takes, for `uses`.
@@ -237,7 +237,9 @@ public class Professions implements Module, App {
   derived byReadiness: Boolean = self.unlearnedShown && self.list.values.grouping == Grouping.Readiness
   derived queueShown: Boolean = self.pageKind == Page.Queue
   derived overviewShown: Boolean = self.pageKind == Page.Overview
-  derived worthShown: Boolean = self.pageKind == Page.Worth
+  derived guideShown: Boolean = self.pageKind == Page.Guide
+  // A crafting profession below its rank's most has a leveling guide.
+  derived guided: Boolean = self.profession?.kind == Game.ProfessionKind.Crafting && (self.profession?.rank ?? 0) < (self.profession?.max ?? 0)
   derived shoppingShown: Boolean = self.pageKind == Page.Shopping
   // Ordaen Trading's shopping list as the last page, while Trading is on.
   const shopping: Boolean = Trading != nil
@@ -442,13 +444,13 @@ public class Professions implements Module, App {
   }
 
   // The overview first, then the recipes (the page it opens at), the camp's, the ones not learned, the queue, the
-  // worth.
+  // leveling guide (a crafting profession below its rank's most), the shopping list.
   pageKindsOf(self): Array<Page> {
     let kinds: Array<Page> = [Page.Overview, Page.Recipes]
     if (self.camp != 0 && self.hasRecipes(self.camp)) { kinds.push(Page.Camp) }
     kinds.push(Page.Unlearned)
     kinds.push(Page.Queue)
-    kinds.push(Page.Worth)
+    if (self.guided) { kinds.push(Page.Guide) }
     if (self.shopping) { kinds.push(Page.Shopping) }
     return kinds
   }
@@ -473,7 +475,7 @@ public class Professions implements Module, App {
         Page.Unlearned => Locale.TAB_UNLEARNED
         Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE
         Page.Overview => Locale.TAB_OVERVIEW
-        Page.Worth => Locale.TAB_WORTH
+        Page.Guide => Locale.TAB_GUIDE
         Page.Shopping => Locale.TAB_SHOPPING
       })
     }
@@ -939,7 +941,8 @@ public class Professions implements Module, App {
                          @counted={self.onQueueCount} @shop={self.onShop} />
               <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                             kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
-              <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
+              <GuidePage $elseif={self.guideShown} profession={self.profession} thresholds={self.thresholds} taught={self.taught}
+                         prices={self.prices} @pick={self.openRecipe} />
               <box $elseif={self.shoppingShown} rows={FILL}> {self.shoppingTab} </box>
               // The recipes, from the band to the window's bottom and side to side: the toolbar over the lists on the
               // wood, and the recipe beside both, the full height, on the quest scroll's paper. The categories stand on

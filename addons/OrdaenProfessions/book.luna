@@ -1,7 +1,7 @@
 // The recipe book: for each character of the account, the recipes it knows of each profession, and for every recipe met
-// what it takes and makes. Saved for the account, so «Выгода» prices any character's recipes while no profession is
-// open, or while that character isn't played. A profession's page is read as it opens and each time its list changes:
-// one client call a recipe it knows.
+// what it takes and makes. Saved for the account, so an item's tooltip names every character who crafts with it, and
+// another module reads what a queue takes, while no profession is open or that character isn't played. A profession's
+// page is read as it opens and each time its list changes: one client call a recipe it knows.
 import Debug from "$debug"
 import Game from "$game"
 
@@ -16,9 +16,6 @@ public struct Entry implements Plain {
   name: String = ""
   // The item it makes; none for one that makes no item (an enchant).
   makes: Integer | nil
-  // How many one making gives: from the least to the most.
-  least: Integer = 1
-  most: Integer = 1
   parts: Array<Reagent> = []
 }
 
@@ -47,9 +44,6 @@ public struct Book implements Plain {
 // The most characters and recipes the book keeps: a character or a recipe past them isn't written, and the seam says so.
 public const MOST_CHARACTERS = 40
 public const MOST_RECIPES = 6000
-
-// How many one making gives: the mean of its least and most.
-public function yieldOfEntry(entry: Entry): Number { return (entry.least + entry.most) / 2 }
 
 // The character being played as Forever names it: its name and its surname («Regy Ironsight»), its name alone where it
 // has none.
@@ -84,7 +78,7 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
       const schematic = Game.recipeReader.schematic(id)
       if (schematic != nil && entries < MOST_RECIPES) {
         next.recipes[id] = {
-          name: names[id] ?? "", makes: schematic.makes, least: schematic.least, most: schematic.most,
+          name: names[id] ?? "", makes: schematic.makes,
           parts: schematic.parts.map(part => Reagent { item: part.item, count: part.count })
         }
         entries += 1

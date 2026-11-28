@@ -227,7 +227,7 @@ public function members(
 }
 
 // The profession's own tabs: the camp's while it has recipes.
-public enum Page { Recipes = "recipes", Camp = "camp", Unlearned = "unlearned", Queue = "queue", Overview = "overview", Worth = "worth", Shopping = "shopping" }
+public enum Page { Recipes = "recipes", Camp = "camp", Unlearned = "unlearned", Queue = "queue", Overview = "overview", Guide = "guide", Shopping = "shopping" }
 
 // A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession (whose
 // «Queue» tab shows it and runs it), and its name (the game names only the open profession's recipes).

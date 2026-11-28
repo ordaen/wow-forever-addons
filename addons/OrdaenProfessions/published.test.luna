@@ -7,8 +7,8 @@ import { needsOf, usesOf } from "@/published"
 function book(): Book {
   return {
     recipes: {
-      [2738]: { name: "Copper Axe", makes: 3, least: 1, most: 1, parts: [{ item: 2841, count: 2 }, { item: 2836, count: 1 }] },
-      [3926]: { name: "Bronze Tube", makes: 4, least: 1, most: 1, parts: [{ item: 2841, count: 3 }] }
+      [2738]: { name: "Copper Axe", makes: 3, parts: [{ item: 2841, count: 2 }, { item: 2836, count: 1 }] },
+      [3926]: { name: "Bronze Tube", makes: 4, parts: [{ item: 2841, count: 3 }] }
     },
     characters: {
       ["Player-1-1"]: { name: "Regy", realm: "R", professions: { [164]: { name: "Blacksmithing", recipes: [2738] } } },

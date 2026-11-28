@@ -399,13 +399,13 @@ surface 288,134.12 935.77x215.08 on MEDIUM clamped raised by a click
             box 583.59,240.83 67.47x30.89 #00000000 @keyPress @pointerPress
               box 582.76,270.89 69.13x0.83 absolute #3e2f1d
               text 601.49,248.78 31.67x15.83 "Queue" #a3977f
-            box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
-              box 650.22,270.89 87.47x0.83 absolute #3e2f1d
-              text 668.96,248.78 50x15.83 "Worth it" #a3977f
-            box 736.86,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
-              box 736.02,270.89 117.47x0.83 absolute #3e2f1d
-              text 754.76,248.78 80x15.83 "Shopping list" #a3977f
-            box 852.66,240.83 363.91x30.89
+            box 651.06,240.83 121.63x30.89 #00000000 @keyPress @pointerPress
+              box 650.22,270.89 123.3x0.83 absolute #3e2f1d
+              text 668.96,248.78 85.83x15.83 "Leveling guide" #a3977f
+            box 772.69,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
+              box 771.86,270.89 117.47x0.83 absolute #3e2f1d
+              text 790.59,248.78 80x15.83 "Shopping list" #a3977f
+            box 888.49,240.83 328.08x30.89
         box 295.2,271.72 921.37x70.29
           box 295.2,271.72 921.37x70.29
             box 295.2,271.72 538.89x70.29
@@ -968,13 +968,13 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
             box 583.59,240.83 67.47x30.89 #00000000 @keyPress @pointerPress
               box 582.76,270.89 69.13x0.83 absolute #3e2f1d
               text 601.49,248.78 31.67x15.83 "Queue" #a3977f
-            box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
-              box 650.22,270.89 87.47x0.83 absolute #3e2f1d
-              text 668.96,248.78 50x15.83 "Worth it" #a3977f
-            box 736.86,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
-              box 736.02,270.89 117.47x0.83 absolute #3e2f1d
-              text 754.76,248.78 80x15.83 "Shopping list" #a3977f
-            box 852.66,240.83 740.14x30.89
+            box 651.06,240.83 121.63x30.89 #00000000 @keyPress @pointerPress
+              box 650.22,270.89 123.3x0.83 absolute #3e2f1d
+              text 668.96,248.78 85.83x15.83 "Leveling guide" #a3977f
+            box 772.69,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
+              box 771.86,270.89 117.47x0.83 absolute #3e2f1d
+              text 790.59,248.78 80x15.83 "Shopping list" #a3977f
+            box 888.49,240.83 704.31x30.89
         box 295.2,271.72 1297.6x70.29
           box 295.2,271.72 1297.6x70.29
             box 295.2,271.72 648.8x70.29

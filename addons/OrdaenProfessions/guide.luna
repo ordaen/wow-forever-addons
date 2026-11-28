@@ -1,0 +1,320 @@
+// The «Leveling guide» tab of a crafting profession below its rank's most: the cheapest way, on average, from the skill
+// now to that most, by Ordaen Trading's prices, worked out while the tab shows. Only to the rank's most, so green
+// recipes never come into it: at each skill point it takes the orange or yellow recipe that costs the least per point.
+//
+// A recipe's cost per point at a skill is a making's cost (its reagents, each bought the cheaper way, at the house or a
+// merchant) less what the made items bring (the better of the house, its cut taken, and a merchant), divided by the
+// chance one making raises the skill there (`skillUpChance`, Legacy's Working Overtime counted). That chance is the
+// coefficient between orange and yellow: orange always raises it, yellow by classic's (grey − skill) / (grey − yellow),
+// so a yellow recipe is taken where it costs less than an orange one by more than its chance falls short (a yellow
+// recipe at a 50% chance must cost under half the orange one's). The guide's makings and totals are what that chance
+// leads to on average. A recipe not learned that a trainer met teaches is in it from the skill the trainer said, its
+// price shared over the points it stays orange or yellow while it is weighed, and paid once where it is taken.
+import Game from "$game"
+import { Align, Edges, MouseButton, Track } from "$ltml"
+import { BRIGHT_TEXT, Column, Component, FooterBand, Money, SECONDARY_TEXT, Table, TableCell, TableRow, WINDOW_ROOM } from "Ordaen"
+import type { PriceKey, PriceSource } from "OrdaenTrading"
+import { makesOf, unitOf, yieldOf } from "@/cost"
+import { Taught } from "@/learn"
+import Locale from "@/locales"
+import { Thresholds, greenFrom, legacyBonus, skillUpChance } from "@/skillUps"
+import Style from "@/style"
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_RECIPE, width: { fr: 1 } },
+  { title: Locale.COLUMN_SKILL, width: 93.75dp, align: Align.End },
+  { title: Locale.GUIDE_CRAFTS, width: 93.75dp, align: Align.End },
+  { title: Locale.COLUMN_COST, width: 117.1875dp, align: Align.End },
+  { title: Locale.GUIDE_SALE, width: 117.1875dp, align: Align.End },
+  { title: Locale.COLUMN_PROFIT, width: 117.1875dp, align: Align.End }
+]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const HEAD_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 3sp, left: WINDOW_ROOM }
+const TOTALS: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
+const NONE = "—"
+// Legacy's Working Overtime, whose name the note gives as the client has it.
+const WORKING_OVERTIME = 1225451
+
+// A recipe as the guide weighs it.
+public struct GuideRecipe {
+  id: Integer
+  name: String
+  yellow: Integer
+  grey: Integer
+  // The skill it can be made from: 0 for one learned, the trainer's for one not learned.
+  from: Integer
+  // What learning it costs: 0 for one learned.
+  training: Integer
+  // One making's reagents, bought the cheaper way; what its made items bring (0 where nothing sells).
+  cost: Integer
+  sale: Integer
+}
+
+// A run of skill points made with one recipe: from `from` to `to`, about `makings` makings, what they cost (its
+// training with them) and bring, and the difference.
+public struct GuideStep {
+  recipe: Integer
+  name: String
+  from: Integer
+  to: Integer
+  makings: Integer
+  training: Integer
+  cost: Integer
+  sale: Integer
+  profit: Integer
+}
+
+// The guide: its runs, their totals, and the skill from which nothing raises it (none where it reaches the most).
+public struct Guide {
+  steps: Array<GuideStep>
+  cost: Integer
+  sale: Integer
+  profit: Integer
+  stuck: Integer | nil
+}
+
+// A run as it is gathered: its makings on average.
+struct Run {
+  recipe: GuideRecipe
+  from: Integer
+  to: Integer
+  makings: Number
+  training: Integer
+}
+
+// What a point costs on average by a recipe at `skill`: none where it isn't made there yet, or is green or grey there.
+// A recipe not yet trained shares its price over the points it stays orange or yellow from here, to the most.
+function perPoint(recipe: GuideRecipe, skill: Integer, most: Integer, bonus: Number, trained: Boolean): Number | nil {
+  const green = greenFrom(recipe.yellow, recipe.grey)
+  if (skill < recipe.from || skill >= green) { return nil }
+  const net: Number = (recipe.cost - recipe.sale) / skillUpChance(skill, recipe.yellow, recipe.grey, bonus)
+  if (trained || recipe.training == 0) { return net }
+  return net + recipe.training / (most.min(green) - skill)
+}
+
+// The recipe that costs the least per point at `skill`; a tie goes to the surer one, then the lower number.
+function bestAt(recipes: Array<GuideRecipe>, skill: Integer, most: Integer, bonus: Number, trained: Map<Integer, Boolean>): GuideRecipe | nil {
+  let best: GuideRecipe | nil = nil
+  let least: Number = 0
+  let surest: Number = 0
+  for (recipe of recipes) {
+    const cost = perPoint(recipe, skill, most, bonus, trained[recipe.id] == true)
+    if (cost != nil) {
+      const chance = skillUpChance(skill, recipe.yellow, recipe.grey, bonus)
+      if (best == nil || cost < least || (cost == least && chance > surest)) {
+        best = recipe
+        least = cost
+        surest = chance
+      }
+    }
+  }
+  return best
+}
+
+function stepOf(run: Run): GuideStep {
+  const cost = (run.makings * run.recipe.cost).round() + run.training
+  const sale = (run.makings * run.recipe.sale).round()
+  return {
+    recipe: run.recipe.id, name: run.recipe.name, from: run.from, to: run.to, makings: run.makings.ceil(),
+    training: run.training, cost: cost, sale: sale, profit: sale - cost
+  }
+}
+
+// The cheapest way on average from `skill` to `most`, point by point.
+public function guideOf(recipes: Array<GuideRecipe>, skill: Integer, most: Integer, bonus: Number): Guide {
+  const trained: Map<Integer, Boolean> = {}
+  const runs: Array<Run> = []
+  let stuck: Integer | nil = nil
+  for (at of skill..most - 1) {
+    const best = bestAt(recipes, at, most, bonus, trained)
+    if (best == nil) {
+      stuck = at
+      break
+    }
+    const makings = 1 / skillUpChance(at, best.yellow, best.grey, bonus)
+    const last = runs.pop()
+    if (last != nil && last.recipe.id == best.id) {
+      runs.push({ to: at + 1, makings: last.makings + makings, ..last })
+    } else {
+      if (last != nil) { runs.push(last) }
+      runs.push({ recipe: best, from: at, to: at + 1, makings: makings, training: trained[best.id] == true ? 0 : best.training })
+      trained[best.id] = true
+    }
+  }
+  const steps = runs.map(stepOf)
+  let cost = 0
+  let sale = 0
+  for (step of steps) {
+    cost += step.cost
+    sale += step.sale
+  }
+  return { steps: steps, cost: cost, sale: sale, profit: sale - cost, stuck: stuck }
+}
+
+// One making's reagents bought the cheaper way; none where one has no price.
+function costOf(prices: any PriceSource, recipe: Integer): Integer | nil {
+  let cost = 0
+  for (reagent of Game.tradeSkill.reagents(recipe)) {
+    const unit = unitOf(prices, reagent.itemID).unit
+    if (unit == nil) { return nil }
+    cost += unit * reagent.need
+  }
+  return cost
+}
+
+// What one making's items bring at the better of the house (its cut taken) and a merchant; 0 where neither buys.
+function saleOf(prices: any PriceSource, recipe: Integer): Integer {
+  const made = makesOf(recipe)
+  if (made == nil) { return 0 }
+  const house = prices.sell(PriceKey.of(made))?.copper() ?? 0
+  const merchant = Game.items.sellPrice(made) ?? 0
+  return (house.max(merchant) * yieldOf(recipe)).floor()
+}
+
+// A text for a skill run.
+function skillsText(step: GuideStep): String { return "%d–%d".format(step.from, step.to) }
+
+// One run of the guide: its recipe (and the training it asks first), the skills, the makings, the money.
+public class GuideLine implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived skills: String = skillsText(self.step)
+  derived makings: String = "~%d".format(self.step.makings)
+  derived trains: Boolean = self.step.training > 0
+  derived learn: String = Locale.GUIDE_LEARN.format(Game.money.format(self.step.training))
+  derived losing: Boolean = self.step.profit < 0
+  derived profit: Integer = self.step.profit.abs()
+  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+
+  step: Signal<GuideStep>
+  constructor(step: Signal<GuideStep>) { self.step = step }
+
+  onPick(self, button: MouseButton) { self.pick.emit((peek self.step).recipe) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow @pick={self.onPick}>
+        <TableCell>
+          <box>
+            <text value={self.step.name} textColor={BRIGHT_TEXT} />
+            <text $if={self.trains} value={self.learn} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}> <text value={self.skills} textColor={Style.INK} textFont={.Numbers} wrap={.None} /> </TableCell>
+        <TableCell align={Align.End}> <text value={self.makings} textColor={Style.INK} textFont={.Numbers} wrap={.None} /> </TableCell>
+        <TableCell align={Align.End}> <Money amount={self.step.cost} /> </TableCell>
+        <TableCell align={Align.End}> <Money amount={self.step.sale} /> </TableCell>
+        <TableCell align={Align.End}>
+          <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
+            <text $if={self.losing} value={"-"} textColor={Style.RED} />
+            <Money amount={self.profit} color={self.profitColor} />
+          </box>
+        </TableCell>
+      </TableRow>
+    }
+  }
+}
+
+public class GuidePage implements Component {
+  // A run's recipe clicked: it opens in the lists.
+  public pick: Event<Integer> = new Event()
+  state sorted = 0
+  state descending = false
+  derived bonus: Number = legacyBonus()
+  derived guide: Guide = self.guideNow()
+  derived steps: Array<GuideStep> = self.guide.steps
+  derived about: String = Locale.GUIDE_ABOUT.format(self.profession?.max ?? 0)
+  derived noPrices: Boolean = self.prices == nil
+  derived hasLegacy: Boolean = self.bonus > 0
+  derived legacy: String = Locale.GUIDE_LEGACY.format(Game.spells.name(WORKING_OVERTIME) ?? "", (self.bonus * 100).round())
+  derived isStuck: Boolean = self.guide.stuck != nil
+  derived stuck: String = Locale.GUIDE_STUCK.format(self.guide.stuck ?? 0)
+  derived losing: Boolean = self.guide.profit < 0
+  derived profit: Integer = self.guide.profit.abs()
+  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+
+  profession: Signal<Game.Profession | nil>
+  thresholds: Signal<Thresholds>
+  taught: Signal<Map<String, Taught>>
+  prices: Signal<any PriceSource | nil>
+  constructor(
+    profession: Signal<Game.Profession | nil>,
+    // Where the profession's recipes turn yellow and grey.
+    thresholds: Signal<Thresholds>,
+    // What the trainers met teach, by the recipe's name.
+    taught: Signal<Map<String, Taught>>,
+    prices: Signal<any PriceSource | nil>
+  ) {
+    self.profession = profession
+    self.thresholds = thresholds
+    self.taught = taught
+    self.prices = prices
+  }
+
+  guideNow(self): Guide {
+    const profession = self.profession
+    if (profession == nil) { return { steps: [], cost: 0, sale: 0, profit: 0, stuck: nil } }
+    return guideOf(self.recipesOf(), profession.rank, profession.max, self.bonus)
+  }
+
+  // The profession's recipes the guide may take: learned, or taught by a trainer met; each with a price for all its
+  // reagents, and not yet grey.
+  recipesOf(self): Array<GuideRecipe> {
+    const list: Array<GuideRecipe> = []
+    const prices = self.prices
+    const profession = self.profession
+    if (prices == nil || profession == nil) { return list }
+    _ = prices.revision
+    const thresholds = self.thresholds
+    const taught = self.taught
+    for (recipe of Game.tradeSkill.recipes) {
+      const yellow = thresholds.yellow[recipe.id]
+      const grey = thresholds.grey[recipe.id]
+      const teaching = recipe.learned ? nil : taught[recipe.name]
+      if (yellow != nil && grey != nil && grey > profession.rank && (recipe.learned || teaching != nil)) {
+        const cost = costOf(prices, recipe.id)
+        if (cost != nil) {
+          list.push({
+            id: recipe.id, name: recipe.name, yellow: yellow, grey: grey, from: teaching?.skill ?? 0,
+            training: teaching?.cost ?? 0, cost: cost, sale: saleOf(prices, recipe.id)
+          })
+        }
+      }
+    }
+    return list
+  }
+
+  onPick(self, recipe: Integer) { self.pick.emit(recipe) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE}>
+        <box padding={HEAD_PAD} gap={2sp}>
+          <text value={self.about} textSize={SECONDARY_TEXT} textColor={Style.DIM} leading={.Prose} />
+          <text $if={self.hasLegacy} value={self.legacy} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text $if={self.isStuck} value={self.stuck} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+        <box rows={[{ fr: 1 }]}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <GuideLine $for={step of self.steps} step={step} @pick={self.onPick} />
+          </Table>
+        </box>
+        <FooterBand>
+          <box columns={TOTALS} gap={3sp} yAlign={Align.Center}>
+            <text value={Locale.GUIDE_TOTAL} textColor={Style.GOLD} />
+            <text value={Locale.COLUMN_COST} textColor={Style.DIM} />
+            <Money amount={self.guide.cost} />
+            <text value={Locale.GUIDE_SALE} textColor={Style.DIM} />
+            <Money amount={self.guide.sale} />
+            <text value={Locale.COLUMN_PROFIT} textColor={Style.DIM} />
+            <box columns={{ each: "max-content" }} gap={0.5sp}>
+              <text $if={self.losing} value={"-"} textColor={Style.RED} />
+              <Money amount={self.profit} color={self.profitColor} />
+            </box>
+          </box>
+        </FooterBand>
+      </box>
+    }
+  }
+}

@@ -1,0 +1,141 @@
+// The «Leveling guide» tab: the cheapest way on average from the skill to the rank's most, an orange recipe against a
+// yellow one by its cost over its chance, green ones never; its runs, totals and what it can't reach; Legacy's Working
+// Overtime in the chance; and the tab on a crafting profession below its most alone.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import { GuideRecipe, guideOf } from "@/guide"
+import { legacyBonus, skillUpChance } from "@/skillUps"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const TAILORING = 197
+const MINING = 186
+// Linen Cloak and Bolt of Linen Cloth, by their spells: the client's table turns the cloak yellow at 35 and grey at 48,
+// the bolt yellow at 25 and grey at 38.
+const CLOAK = 2387
+const BOLT = 2963
+
+function guided(id: Integer, yellow: Integer, grey: Integer, cost: Integer, sale: Integer): GuideRecipe {
+  return { id: id, name: `Recipe ${id}`, yellow: yellow, grey: grey, from: 0, training: 0, cost: cost, sale: sale }
+}
+
+// Whether the guide's runs read exactly this: «recipe from–to ×makings», joined by «, ».
+function runs(recipes: Array<GuideRecipe>, skill: Integer, most: Integer, bonus: Number, expected: String): Boolean {
+  const read = guideOf(recipes, skill, most, bonus).steps.map(step => `${step.recipe} ${step.from}-${step.to} x${step.makings}`).join(", ")
+  if (read != expected) { panic(`the guide reads «${read}», not «${expected}»`) }
+  return true
+}
+
+test "classic's chance: orange always, yellow and green by how far from grey, grey never; Legacy's points added, at most always" {
+  Test.expect(skillUpChance(39, 40, 80, 0) == 1 && skillUpChance(50, 40, 80, 0) == 0.75 && skillUpChance(80, 40, 80, 0) == 0)
+  Test.expect((skillUpChance(50, 40, 80, 0.1) - 0.85).abs() < 0.0001 && skillUpChance(39, 40, 80, 0.1) == 1)
+}
+
+test "a yellow recipe is taken over an orange one where its cost over its chance is lower; else the orange" {
+  // At 50 the first is orange (yellow at 60), the second yellow at a 75% chance.
+  Test.expect(runs([guided(1, 60, 80, 100, 0), guided(2, 40, 80, 60, 0)], 50, 51, 0, "2 50-51 x2"))
+  Test.expect(runs([guided(1, 60, 80, 100, 0), guided(2, 40, 80, 80, 0)], 50, 51, 0, "1 50-51 x1"))
+}
+
+test "a green recipe is never taken, however cheap" {
+  // The second turns green at 60.
+  Test.expect(runs([guided(1, 70, 90, 100, 0), guided(2, 40, 80, 1, 0)], 60, 62, 0, "1 60-62 x2"))
+}
+
+test "what a making's items bring takes from its cost: the cheaper on balance wins" {
+  Test.expect(runs([guided(1, 70, 90, 100, 0), guided(2, 70, 90, 150, 80)], 10, 11, 0, "2 10-11 x1"))
+}
+
+test "the runs of one recipe are one, with their makings, cost, sale and profit; the totals add them" {
+  const guide = guideOf([guided(1, 15, 15, 10, 4), guided(2, 30, 50, 12, 0)], 10, 20, 0)
+  const first = guide.steps[1] ?? panic("a run")
+  const second = guide.steps[2] ?? panic("a second run")
+  Test.expect(guide.steps.length == 2 && first.from == 10 && first.to == 15 && first.makings == 5)
+  Test.expect(first.cost == 50 && first.sale == 20 && first.profit == -30)
+  Test.expect(second.recipe == 2 && second.from == 15 && second.to == 20 && second.cost == 60)
+  Test.expect(guide.cost == 110 && guide.sale == 20 && guide.profit == -90 && guide.stuck == nil)
+}
+
+test "where no recipe raises the skill the guide stops and says from what skill" {
+  const guide = guideOf([guided(1, 15, 20, 10, 0)], 10, 30, 0)
+  Test.expect(guide.stuck == 18 && (guide.steps[1]?.to ?? 0) == 18)
+}
+
+test "a recipe a trainer teaches comes in from its skill, its price paid once where it is first taken" {
+  const taught: GuideRecipe = { id: 2, name: "Taught", yellow: 40, grey: 60, from: 12, training: 100, cost: 1, sale: 0 }
+  const guide = guideOf([guided(1, 40, 60, 20, 0), taught], 10, 30, 0)
+  Test.expect(guide.steps.length == 2 && (guide.steps[1]?.recipe ?? 0) == 1 && (guide.steps[1]?.to ?? 0) == 12)
+  Test.expect((guide.steps[2]?.recipe ?? 0) == 2 && (guide.steps[2]?.training ?? 0) == 100 && (guide.steps[2]?.cost ?? 0) == 118)
+}
+
+test "Legacy's Working Overtime raises a yellow recipe's chance: fewer makings" {
+  Test.expect(runs([guided(1, 40, 80, 10, 0)], 50, 52, 0, "1 50-52 x3"))
+  Test.expect(runs([guided(1, 40, 80, 10, 0)], 50, 52, 0.3, "1 50-52 x2"))
+}
+
+test "Working Overtime's points are read from its description while the player has it; none without it" {
+  Test.expect(legacyBonus() == 0)
+  Game.spells.known = (id: Integer): Boolean => id == 1225451
+  Game.spells.description = (id: Integer): String | nil =>
+  "Increases your chance to gain a skill increase from using any primary, secondary, or class-based tradeskill by 10%."
+  Test.expect((legacyBonus() - 0.1).abs() < 0.0001)
+}
+
+// The tab
+
+function window(): Test.Part {
+  return Test.page().window("Overview")
+}
+
+function recipe(id: Integer, name: String): Game.Recipe {
+  return { id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true, difficulty: Game.Difficulty.Always, craftable: 0 }
+}
+
+// A cloak takes a bolt and a thread; a bolt, two linen.
+function reagents(id: Integer): Array<Game.Reagent> {
+  if (id == CLOAK) {
+    return [
+      { itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 },
+      { itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }
+    ]
+  }
+  return [{ itemID: 2589, name: "Linen Cloth", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 2 }]
+}
+
+function rigged(rank: Integer, max: Integer) {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: rank, max: max, kind: Game.ProfessionKind.Crafting },
+    { skillLine: MINING, name: "Mining", icon: 136248, rank: 10, max: 75, kind: Game.ProfessionKind.Gathering }
+  ]
+  Game.tradeSkill.categories = [{ id: 1, name: "Tailoring" }, { id: 11, name: "Cloth armour", parentID: 1 }]
+  Game.tradeSkill.recipes = [recipe(CLOAK, "Linen Cloak"), recipe(BOLT, "Bolt of Linen Cloth")]
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => ({ recipe: id, makes: id == CLOAK ? 2570 : 2996, least: 1, most: 1, parts: [] })
+  // A merchant sells thread at 10c; the house has linen at 10c, bolts at 1s, cloaks at 5s.
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => ({ [2320]: 10 })
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit([
+    { key: 2589, copper: 10, quantity: 20 }, { key: 2996, copper: 100, quantity: 5 }, { key: 2570, copper: 500, quantity: 2 }
+  ])
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+}
+
+test "a crafting profession below its most has «Leveling guide»: the runs to its most, the totals in the footer; no «Worth it»" {
+  rigged(30, 75)
+  Test.expect(!window().button("Worth it").shown())
+  window().button("Leveling guide").click()
+  // The cloak (orange to 35, yellow to 48) costs 1s 10c a making and sells for 4s 75c: more on balance than the bolt
+  // (20c, selling for 95c), so it is taken all the way; past 48 both are green.
+  Test.expect(window().text("From 48 no recipe you know, or that a trainer you met teaches, raises the skill.").shown())
+  Test.expect(window().text("Linen Cloak").item().texts().join(" | ") == "Linen Cloak | 30–48 | ~23 | 0g 25s 10c | 1g 8s 39c | 0g 83s 29c")
+  Test.expect(window().text("Total").shown())
+}
+
+test "a profession at its rank's most, and a gathering one, have no guide" {
+  rigged(75, 75)
+  Test.expect(!window().button("Leveling guide").shown())
+  Game.tradeSkill.open = MINING
+  Test.expect(!window().button("Leveling guide").shown())
+}
