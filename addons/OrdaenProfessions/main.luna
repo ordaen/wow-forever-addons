@@ -30,7 +30,7 @@ import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
 import { Thresholds, learnable, thresholdsOf } from "@/skillUps"
-import { LearnPlace, RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
+import { LearnPlace, RecipeSource, Way, learnedSkillOf, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import { bothSourcesOf } from "@/split"
 import Style from "@/style"
 import {
@@ -656,7 +656,7 @@ public class Professions implements Module, App {
     return list
   }
 
-  // Each listed recipe's skill (the item's that teaches it, else what a trainer said), its made item's type, and one
+  // Each listed recipe's skill (`learnedSkillOf`), its made item's type, and one
   // making's totals at each source while prices show (read again when a price may have moved). Nothing while the
   // table doesn't show.
   factsOf(self): Map<Integer, TableFacts> {
@@ -666,10 +666,11 @@ public class Professions implements Module, App {
     if (prices != nil) { _ = prices.revision }
     const learned = self.thresholds.learned
     const taught = self.taught
+    const sources = self.sources
     for (recipe of self.mains) {
       const made = makesOf(recipe.id)
       const fact: TableFacts = {
-        skill: learned[recipe.id] ?? taught[recipe.name]?.skill,
+        skill: learnedSkillOf(learned[recipe.id], taught[recipe.name], sources[recipe.id]),
         subtype: made == nil ? nil : Game.items.subtype(made),
         kind: made == nil ? nil : Game.items.equipSlot(made) ?? Game.items.category(made),
         both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, made, 1)

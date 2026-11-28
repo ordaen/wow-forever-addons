@@ -5,6 +5,7 @@ import { Book } from "@/book"
 import { CraftersLines, craftersOf } from "@/crafters"
 import { Taught } from "@/learn"
 import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
+import { learnedSkillOf, sourcesOf } from "@/sources"
 import Style from "@/style"
 
 const FEATHER = 4776
@@ -62,6 +63,28 @@ test "the tooltip says «Used in crafting», then a line per character, the one 
   Test.expect(foot[1]?.left == "In bags and bank" && foot[1]?.right == "0")
   Test.expect(lines[1]?.opens == nil)
   Test.expect(new CraftersLines(() => found, () => written, () => taught).lines(1100, "").length == 0)
+}
+
+test "a trainer's recipe no trainer met has said says the skill What's Training gives it" {
+  Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
+  // Smelt Iron (3307), a mining trainer's recipe learned at 125, taking iron ore.
+  const written: Book = {
+    recipes: { [3307]: { name: "Smelt Iron", makes: 3575, parts: [{ item: 2772, count: 1 }] } },
+    characters: { [ME]: { name: "Player", realm: "Home", professions: { [186]: { name: "Mining", recipes: [3307], rank: 150 } } } }
+  }
+  const found = craftersOf(written)
+  const lines = new CraftersLines(() => found, () => written, () => ({})).lines(2772, "")
+  const rows = lines[2]?.opens?.rows ?? []
+  Test.expect(rows.length == 1 && rows[1]?.left == "Smelt Iron" && rows[1]?.right == "125")
+}
+
+test "a recipe's skill: its item's ask first, then a trainer met, then What's Training; none where none says" {
+  const source = sourcesOf(186)[3307]
+  Test.expect(source?.skill == 125)
+  Test.expect(learnedSkillOf(110, { skill: 120, cost: 0 }, source) == 110)
+  Test.expect(learnedSkillOf(nil, { skill: 120, cost: 0 }, source) == 120)
+  Test.expect(learnedSkillOf(nil, nil, source) == 125)
+  Test.expect(learnedSkillOf(nil, nil, nil) == nil)
 }
 
 test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, green to grey, grey past; grey unknown" {

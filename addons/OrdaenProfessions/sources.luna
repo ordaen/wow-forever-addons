@@ -6,6 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
 import root Quests from "OrdaenQuests"
+import { Taught } from "@/learn"
 import Locale from "@/locales"
 import Recipes from "@/recipes"
 import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
@@ -70,6 +71,15 @@ public function sourcesOf(skillLine: Integer | nil): Map<Integer, RecipeSource> 
     }
   }
   return sources
+}
+
+// The skill a recipe is learned at: the one its teaching item asks, else what a trainer met said, else What's
+// Training's; none where none of them says it.
+public function learnedSkillOf(asked: Integer | nil, taught: Taught | nil, source: RecipeSource | nil): Integer | nil {
+  if (asked != nil) { return asked }
+  if (taught != nil) { return taught.skill }
+  if (source != nil && source.skill > 0) { return source.skill }
+  return nil
 }
 
 // The points of skill ahead within which a recipe is «coming soon», as What's Training counts them.

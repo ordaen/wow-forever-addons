@@ -12,6 +12,7 @@ import { Book, playerName } from "@/book"
 import { Taught } from "@/learn"
 import Locale from "@/locales"
 import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
+import { RecipeSource, learnedSkillOf, sourcesOf } from "@/sources"
 import Style from "@/style"
 
 const NONE: Array<Line> = []
@@ -157,10 +158,11 @@ public class CraftersLines implements ItemLines {
     for (skillLine of professions) {
       const table = thresholds[skillLine] ?? thresholdsOf(skillLine)
       thresholds[skillLine] = table
+      const sources = sourcesOf(skillLine)
       for (own of [true, false]) {
         for (crafter of found) {
           if (crafter.skillLine == skillLine && (crafter.guid == me) == own) {
-            lines.push(self.lineOf(crafter, item, book, table))
+            lines.push(self.lineOf(crafter, item, book, table, sources))
           }
         }
       }
@@ -169,13 +171,13 @@ public class CraftersLines implements ItemLines {
   }
 
   // A crafter's line: its name in its best recipe's colour, opening the recipes; its profession at the right.
-  lineOf(self, crafter: Crafter, item: Integer, book: Book, table: Thresholds): Line {
+  lineOf(self, crafter: Crafter, item: Integer, book: Book, table: Thresholds, sources: Map<Integer, RecipeSource>): Line {
     const crafting = craftingOf(crafter, book, table)
     const rows: Array<Listed> = []
     const taught = self.taught()
     for (index, recipe of crafting.recipes) {
-      // The skill it is learned at: its item's, else what a trainer said; none where neither is known.
-      const at = table.learned[crafter.recipes[index] ?? 0] ?? taught[recipe.name]?.skill
+      const spell = crafter.recipes[index] ?? 0
+      const at = learnedSkillOf(table.learned[spell], taught[recipe.name], sources[spell])
       rows.push({ left: recipe.name, right: at == nil ? nil : String.of(at), color: recipe.color, item: recipe.makes })
     }
     const own = crafter.guid == Game.player.guid
