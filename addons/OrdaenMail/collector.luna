@@ -1,21 +1,23 @@
-// Taking from several letters at once («Take all», the ticked letters, Shift+click on one): one thing at a time,
-// paced by the server. It takes a letter's money or one attachment, then waits for the server's answer (`taken`, or a
-// failure), a short ceiling of time at most, and a moment more, and goes on with what the inbox then holds. The inbox
-// read the take itself brings (`changed`) comes before the answer, still holding what was taken: asked again then, the
-// same thing goes twice and the server says its mail database failed; asked in the answer's own moment, the server
-// leaves it unanswered (the user's probe, 2026-11-24). The letters are named by
-// their sender and subject, as the inbox shifts under them. «Inventory is full» stops it; «can't carry any more» skips
-// that attachment; one that won't come after a few tries is skipped, never looped on. Cash on delivery and a game
-// master's letters are never taken by it; the free bag slots the setting keeps are left free (money still comes).
+// Taking from several letters at once («Take all», the ticked letters, Shift+click on one): one thing at a time, as
+// fast as the server answers. It takes a letter's money or one attachment, and asks the next the moment the client is
+// ready for it: the server answered (`taken`, a refusal or a failure), the client holds no mail command still pending
+// (looked at again each frame while it does), and the inbox no longer shows what was taken (a read that still shows it
+// waits for the next, `changed`). The inbox read the take itself brings comes before the answer, still holding what
+// was taken: asked again then, the same thing goes twice and the server says its mail database failed; asked in the
+// answer's own moment, with the inbox not yet read anew, the server leaves it unanswered (the user's probe,
+// 2026-11-24). Where no answer comes, the thing is asked again after a ceiling of time. The letters are named by their
+// sender and subject, as the inbox shifts under them. «Inventory is full» stops it; «can't carry any more» skips that
+// attachment; one that won't come after a few tries is skipped, never looped on. Cash on delivery and a game master's
+// letters are never taken by it; the free bag slots the setting keeps are left free (money still comes).
 import Game from "$game"
 import { collectable, keyOf } from "@/letters"
 
 // How long the server is given to answer before the thing is asked again.
 const CEILING = 2
-// How long after the server's answer the next thing is asked.
-const PACE = 0.25
 // Tries of one attachment before it is skipped.
 const TRIES = 3
+// The place of a letter's money among what is asked of it; its attachments are 1 and up.
+const MONEY = 0
 
 // Why taking stopped.
 public enum Stop { Done = "done", Full = "full", Closed = "closed" }
@@ -31,11 +33,18 @@ public class Collector {
   public state stopped: Stop | nil = nil
   // The letters it takes from; none: every letter «Take all» opens.
   targets: Array<String> = []
-  // Attachments skipped (`key/place`) and the tries of the one asked last.
+  // Attachments skipped (`key/place`) and the tries of the one asked last: its letter's key and its place (`MONEY` for
+  // the money).
   skipped: mut Map<String, Boolean> = {}
   asked = ""
+  askedLetter = ""
+  askedPlace = MONEY
   tries = 0
+  // The server answered what was asked last: the next goes once the client is ready.
+  answered = false
+  // The ceiling of the thing asked; the next frame's look while a mail command is pending.
   waiting: Task<nil> | nil = nil
+  looking: Task<nil> | nil = nil
   // The free bag slots it leaves.
   keepFree = 0
 
@@ -43,6 +52,7 @@ public class Collector {
     Game.mailObserver.taken.listen(self.onAnswer)
     Game.mailObserver.refused.listen(self.onRefused)
     Game.mailObserver.failed.listen(self.onFailed)
+    Game.mailObserver.changed.listen(self.onChanged)
   }
 
   // Takes from these letters, as they now stand, leaving that many bag slots free.
@@ -61,7 +71,13 @@ public class Collector {
     if (!(peek self.running)) { return }
     self.running = false
     self.stopped = why
+    self.quiet()
+  }
+
+  // No ceiling and no look pending.
+  quiet(mut self) {
     if (self.waiting != nil) { destroy self.waiting }
+    if (self.looking != nil) { destroy self.looking }
   }
 
   // A new visit to the mailbox: nothing taken yet.
@@ -81,7 +97,7 @@ public class Collector {
     for (letter of Game.mailbox.letters()) {
       if (!self.wanted(letter)) { continue }
       if (letter.copper > 0) {
-        self.ask(`${keyOf(letter)}/money`)
+        self.ask(letter, MONEY)
         self.taking.emit(letter)
         Game.mailbox.takeMoney(letter.index)
         self.money += letter.copper
@@ -94,7 +110,7 @@ public class Collector {
       for (item of letter.items) {
         const name = `${keyOf(letter)}/${item.place}`
         if (self.skipped[name] == true) { continue }
-        self.ask(name)
+        self.ask(letter, item.place)
         self.taking.emit(letter)
         Game.mailbox.takeItem(letter.index, item.place)
         self.stacks += 1
@@ -104,7 +120,10 @@ public class Collector {
     self.stop(.Done)
   }
 
-  ask(mut self, name: String) {
+  // A letter's money (`MONEY`) or an attachment is about to be asked for: counted as a try, and given a ceiling.
+  ask(mut self, letter: Game.MailLetter, place: Integer) {
+    const key = keyOf(letter)
+    const name = place == MONEY ? `${key}/money` : `${key}/${place}`
     if (name == self.asked) {
       self.tries += 1
       if (self.tries >= TRIES) { self.skipped[name] = true }
@@ -112,7 +131,10 @@ public class Collector {
       self.asked = name
       self.tries = 1
     }
-    if (self.waiting != nil) { destroy self.waiting }
+    self.askedLetter = key
+    self.askedPlace = place
+    self.answered = false
+    self.quiet()
     self.waiting = self.ceiling()
   }
 
@@ -122,18 +144,43 @@ public class Collector {
     self.step()
   }
 
-  async pace(mut self) {
-    await Game.delay(PACE)
-    self.waiting = nil
+  // Whether the inbox still shows what was asked last: the letter's money, or that attachment.
+  stillShown(self): Boolean {
+    const letter = Game.mailbox.letters().find(l => keyOf(l) == self.askedLetter)
+    if (letter == nil) { return false }
+    if (self.askedPlace == MONEY) { return letter.copper > 0 }
+    return letter.items.any(item => item.place == self.askedPlace)
+  }
+
+  // The next thing is asked once the client is ready: the answer came, no mail command is pending, and the inbox no
+  // longer shows what was taken (or it was skipped). While a command is pending it looks again the next frame; while
+  // the inbox still shows it, at its next read.
+  advance(mut self) {
+    if (!(peek self.running) || !self.answered) { return }
+    if (Game.mailbox.pending()) {
+      if (self.looking == nil) { self.looking = self.lookNextFrame() }
+      return
+    }
+    if (self.skipped[self.asked] != true && self.stillShown()) { return }
+    self.quiet()
     self.step()
   }
 
-  // The server answered what was asked: the next thing is asked a moment later.
+  async lookNextFrame(mut self) {
+    await Game.delay(0)
+    self.looking = nil
+    self.advance()
+  }
+
+  // The server answered what was asked.
   onAnswer(mut self) {
     if (!(peek self.running)) { return }
-    if (self.waiting != nil) { destroy self.waiting }
-    self.waiting = self.pace()
+    self.answered = true
+    self.advance()
   }
+
+  // The inbox was read anew: after the answer, it may show the take done.
+  onChanged(mut self) { self.advance() }
 
   onRefused(mut self, message: String) {
     if (!(peek self.running)) { return }

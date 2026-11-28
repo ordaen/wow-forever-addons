@@ -304,6 +304,38 @@ function answered() {
   Test.pass(0.3)
 }
 
+test "«Take all» asks the next thing the moment the client is ready: the answer came, the inbox shows the take done, no command pending" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.button("Take all (2)").click()
+  Test.expect(asked() == "Mailbox.takeMoney 1")
+  // The inbox read anew without the money, then the answer: the next thing is asked in the answer itself.
+  Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "")
+  Game.mailObserver.taken.emit()
+  Test.expect(asked() == "Mailbox.takeItem 2 1")
+  // The answer while the inbox still shows the linen: nothing until it is read anew.
+  Game.mailObserver.taken.emit()
+  Test.expect(asked() == "")
+  // Read anew, the linen gone, while the client still holds a mail command: asked the frame it lets go of it.
+  Game.mailbox.letters = (): Array<Game.MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
+  let busy = true
+  Game.mailbox.pending = (): Boolean => busy
+  Game.mailObserver.changed.emit()
+  Test.pass(0.1)
+  Test.expect(asked() == "")
+  busy = false
+  Test.pass(0.02)
+  Test.expect(asked() == "Mailbox.takeItem 2 3")
+}
+
 test "«Take all» takes the money first and leaves cash on delivery and game masters' letters" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
