@@ -58,10 +58,11 @@ const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 // A label at the left, its value or control at the right.
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const STEP = 32.8125dp
+// An auction's durations on Forever: the client's 1, 2 and 3 are 2, 8 and 24 hours.
 const DURATIONS: Array<Choice<Game.Duration>> = [
-  { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
-  { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
-  { value: Game.Duration.Long, label: Locale.HOURS.format(48) }
+  { value: Game.Duration.Short, label: Locale.HOURS.format(2) },
+  { value: Game.Duration.Medium, label: Locale.HOURS.format(8) },
+  { value: Game.Duration.Long, label: Locale.HOURS.format(24) }
 ]
 
 // A price for one times how many; none where the price is.
@@ -250,7 +251,7 @@ function postingUnit(house: House, key: PriceKey, market: Copper | nil): Integer
 public class Posting implements Component {
   state count: Integer
   state unit: Integer
-  state duration: Game.Duration = Game.Duration.Medium
+  state duration: Game.Duration = Game.Duration.Long
   // The client's refusal of the last post, in its words, or why nothing was sent.
   state refused: String | nil = nil
   // A post sent from here waits for its answer.

@@ -250,7 +250,7 @@ test "the panel follows the bags: after a post, the next names what is left and 
   Test.expect(panel().text("In bags: 6").shown() && says(panel(), "Quantity", "- | 6 | +"))
   _ = Test.requests()
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postCommodity 2589 1 4 6 2 35"))
+  Test.expect(asked("AuctionActions.postCommodity 2589 1 4 6 3 35"))
 }
 
 test "a post the client won't send says why" {
@@ -302,7 +302,7 @@ test "the quantity steps by one, by a hundred with Ctrl held, and holds to what 
   Test.expect(says(panel(), "Quantity", "- | 26 | +"))
 }
 
-test "the deposit is the client's for the quantity and the duration" {
+test "the durations are Forever's 2, 8 and 24 hours, 24 to start; the deposit is the client's for each" {
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -312,11 +312,12 @@ test "the deposit is the client's for the quantity and the duration" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Test.expect(says(panel(), "Deposit", "0g 1s 4c"))
-  panel().button("12 h").click()
-  Test.expect(says(panel(), "Deposit", "0g 0s 52c"))
-  panel().button("48 h").click()
+  Test.expect(says(panel(), "Duration", "2 h | 8 h | 24 h"))
   Test.expect(says(panel(), "Deposit", "0g 2s 8c"))
+  panel().button("2 h").click()
+  Test.expect(says(panel(), "Deposit", "0g 0s 52c"))
+  panel().button("8 h").click()
+  Test.expect(says(panel(), "Deposit", "0g 1s 4c"))
 }
 
 test "a deposit the client doesn't say is a dash" {
@@ -346,7 +347,7 @@ test "«Post» puts a commodity up from every stack, at the quantity, the durati
   Test.hold([.Ctrl])
   panel().button("+").click()
   Test.hold([])
-  panel().button("12 h").click()
+  panel().button("2 h").click()
   _ = Test.requests()
   panel().button("Post").click()
   Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 1 35"))
@@ -368,7 +369,7 @@ test "«Post» puts an item up as an auction of its own, its buyout the price ty
   Test.key(Key.Enter)
   _ = Test.requests()
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postItem 2847 0 2 1 2 -1 2000"))
+  Test.expect(asked("AuctionActions.postItem 2847 0 2 1 3 -1 2000"))
 }
 
 test "a post the client refuses says its words in red, and the next post takes them away" {
@@ -418,7 +419,7 @@ test "«Post» waits while the client answers another action" {
   Test.expect(asked(""))
   Game.auctionActions.busy = false
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 2 35"))
+  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 3 35"))
 }
 
 // More of «Sell»
@@ -454,7 +455,7 @@ test "an item listed at a copper is priced at a copper, and posted at it" {
   Test.expect(panel().input().value() == "1c")
   _ = Test.requests()
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 2 1"))
+  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 3 1"))
 }
 
 test "an item's stack is posted as one auction, its buyout the price for each times the count" {
@@ -469,7 +470,7 @@ test "an item's stack is posted as one auction, its buyout the price for each ti
   panel().button("-").click()
   _ = Test.requests()
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postItem 2847 0 2 2 2 -1 2000"))
+  Test.expect(asked("AuctionActions.postItem 2847 0 2 2 3 -1 2000"))
 }
 
 test "once its answer came, the panel hears no other" {
