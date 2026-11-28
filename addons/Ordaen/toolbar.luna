@@ -2,8 +2,9 @@
 // icon-only buttons, each opening its list under it. Every window that searches, filters, sorts or chooses a view
 // draws these with it.
 //
-// Toolbar: the row. The search field fills what the buttons leave, its hint in dim text while it is empty; the
-// buttons are its unnamed slot, in the order written, each 6 px after what stands before it.
+// Toolbar: the row. The search field fills what the buttons leave, its hint in dim text while it is empty, a cross at
+// its right while it holds text, which clears it; the search is cleared as the window closes. The buttons are its
+// unnamed slot, in the order written, each 6 px after what stands before it.
 // ToolButton: a 34 px square bronze plate with a glyph; a click opens or closes what its slot holds (the caller's
 // list, drawn while `open`). The glyph is gold while the list is open or while `lit` (a filter that narrows the list);
 // otherwise ink. Under the cursor, while closed, a Tip names what it does and what it is set to.
@@ -30,6 +31,10 @@ const WHITE: Color = Color.hex("#ffffff")
 const FIELD_BACK: Color = Color.hex("#00000080")
 const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const FIELD_PAD: Edges = { right: 3sp, left: 3sp }
+// The clear cross at the field's right, and the room the text leaves it.
+const CLEAR = 18.75dp
+const CLEAR_PAD: Edges = { right: 3sp }
+const FIELD_PAD_CLEAR: Edges = { right: 9sp, left: 3sp }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 // Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
@@ -42,6 +47,7 @@ const LIST_WIDTH = 246.09375dp
 
 public class Toolbar implements Component {
   derived searching: Boolean = self.search != ""
+  derived fieldPad: Edges = self.searching ? FIELD_PAD_CLEAR : FIELD_PAD
   // Enter in the search field: what searches at once, where typing searches only once it settles.
   public submit: Event<nil> = new Event()
 
@@ -56,17 +62,27 @@ public class Toolbar implements Component {
     self.placeholder = placeholder
   }
 
+  // A search is the window's while it shows: it closing (or the toolbar leaving it) clears it.
+  destructor() { self.search = "" }
+
   onSubmit(mut self) { self.submit.emit() }
+
+  clear(mut self) { self.search = "" }
 
   public render(self): Template {
     return $ltml {
       <box columns={ROW} yAlign={Align.Center}>
         <box height={SIZE} rows={FILL}>
-          <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
+          <input value={mut self.search} padding={self.fieldPad} textColor={INK} background={FIELD_BACK}
                  border={FIELD_EDGE} @submit={self.onSubmit} />
           <box $if={!self.searching} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                padding={FIELD_PAD} yAlign={Align.Center} mouseThrough={true}>
             <text value={self.placeholder} textColor={DIM} wrap={.Cut} />
+          </box>
+          <box $if={self.searching} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={CLEAR_PAD}
+               yAlign={Align.Center}>
+            <box width={CLEAR} height={CLEAR} background={Ordaen.art.ctl.corner.close} @pointerPress={self.clear}
+                 @keyPress(.Enter)={self.clear} @keyPress(.Space)={self.clear} />
           </box>
         </box>
         <box columns={TOOLS} yAlign={Align.Center}>
