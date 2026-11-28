@@ -3,6 +3,7 @@
 // chart of the day (a bar an hour), the week or the month (a bar a day), the player's pick; its prices (the market with
 // its age, the lowest listed, the merchant's); then what the page does with it (its slot: «Buy»'s listings and «Buy»,
 // «Sell»'s quantity and «Post»), in the rest of the panel's height.
+import Game from "$game"
 import { Align, Track } from "$ltml"
 import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, SECONDARY_TEXT, Segmented, TITLE_TEXT } from "Ordaen"
 import { PriceHistory } from "@/history"
@@ -35,6 +36,33 @@ const HEAD: Array<Track> = ["max-content", { fr: 1 }]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const PRICE: Array<Track> = ["max-content", "max-content"]
 const ENDS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+
+// What a merchant pays for one, as the client says: none where merchants don't buy it, or the client hasn't the
+// item's data.
+public function merchantPays(item: ItemId): Copper | nil {
+  const copper = Game.items.sellPrice(item)
+  return copper == nil || copper <= 0 ? nil : Copper.of(copper)
+}
+
+// A price, or a dim «—» where there is none.
+public class PriceOrDash implements Component {
+  derived known: Boolean = self.amount != nil
+  derived copper: Integer = self.amount ?? 0
+
+  amount: Signal<Integer | nil>
+  constructor(amount: Signal<Integer | nil>) {
+    self.amount = amount
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box>
+        <Money $if={self.known} amount={self.copper} />
+        <text $else value={"—"} textColor={Style.DIM} />
+      </box>
+    }
+  }
+}
 
 // One bar of the chart: its height (none where no price was seen in its hour or day), and its colour: the latest gold.
 struct Bar {
@@ -135,30 +163,33 @@ public class ItemPanel implements Component {
   derived market: Copper | nil = self.marketOf()
   derived age: Number | nil = self.ageOf()
   derived lowest: Copper | nil = self.lowestOf()
-  derived vendor: Copper | nil = self.prices.vendor(self.item)
+  derived vendor: Copper | nil = self.merchantSells ? self.prices.vendor(self.item) : merchantPays(self.item)
+  derived vendorLabel: String = self.merchantSells ? Locale.VENDOR_PRICE : Locale.VENDOR_PAYS
   derived marketAmount: Integer = self.market ?? 0
-  derived lowestAmount: Integer = self.lowest ?? 0
-  derived vendorAmount: Integer = self.vendor ?? 0
 
   const item: ItemId
   const key: PriceKey
   const name: String
   const color: Color
-  const detail: String
+  detail: Signal<String>
   const house: House
   const prices: any PriceSource
   const history: any PriceHistory | nil
+  const merchantSells: Boolean
   constructor(
     // The item, a variant by its suffix: its prices and its chart are the variant's own.
     key: PriceKey,
     name: String,
     color: Color,
     // The line under the name: how many are listed («Buy»), how many the bags hold («Sell»).
-    detail: String,
+    detail: Signal<String>,
     house: House,
     prices: any PriceSource,
-    history: any PriceHistory | nil
+    history: any PriceHistory | nil,
+    // The merchant's price is what one asks for it («Buy»); otherwise what one pays for it («Sell»).
+    merchantSells: Boolean = true
   ) {
+    self.merchantSells = merchantSells
     self.item = key.item()
     self.key = key
     self.name = name
@@ -204,11 +235,9 @@ public class ItemPanel implements Component {
           </box>
           <text $else value={"—"} textColor={Style.DIM} />
           <text value={Locale.COLUMN_LOW} textColor={Style.INK} />
-          <Money $if={self.lowest != nil} amount={self.lowestAmount} />
-          <text $else value={"—"} textColor={Style.DIM} />
-          <text value={Locale.VENDOR_PRICE} textColor={Style.INK} />
-          <Money $if={self.vendor != nil} amount={self.vendorAmount} />
-          <text $else value={"—"} textColor={Style.DIM} />
+          <PriceOrDash amount={self.lowest} />
+          <text value={self.vendorLabel} textColor={Style.INK} />
+          <PriceOrDash amount={self.vendor} />
         </box>
         <box rows={[{ fr: 1 }]}>
           <slot />

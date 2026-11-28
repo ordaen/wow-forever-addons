@@ -237,7 +237,7 @@ test "sorted by the market, the share or the age" {
   Game.clock.server = START + 2 * HOUR
   // Ore shown again with none listed: its price stays as it was seen two hours ago, half its market now.
   Game.auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 0 }, { key: LINEN, copper: 36, quantity: 30 }])
-  window().button("Market").click()
+  window().button("Average").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
   window().button("%").click()
   Test.expect(before("Copper Ore", "Linen Cloth"))
@@ -623,7 +623,7 @@ test "a variant picked shows its own market and lowest in the panel" {
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
   window().text("Sergeant's Warhammer of the Bear").click()
-  Test.expect(says(panel(), "Market", "0g 11s 0c") && says(panel(), "Lowest", "0g 11s 0c"))
+  Test.expect(says(panel(), "Average", "0g 11s 0c") && says(panel(), "Lowest", "0g 11s 0c"))
 }
 
 // A row's menu
@@ -930,7 +930,7 @@ test "one row an item: picked, it is its cheapest variant, whose prices the pane
   ])
   window().text("Sergeant's Warhammer").click()
   Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(PICKED))
-  Test.expect(says(panel(), "Market", "0g 9s 33c"))
+  Test.expect(says(panel(), "Average", "0g 9s 33c"))
   window().text("Sergeant's Warhammer").nth(1).rightClick()
   Test.expect(Test.page().window("Search for this item").shown())
   Test.page().window("Search for this item").text("Add to shopping list").click()

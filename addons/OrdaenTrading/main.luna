@@ -116,7 +116,7 @@ public class Trading implements Module, App {
                 prices={self.prices} history={self.source} shopping={mut self.shopping} />
       </box>
       <box $case={SELL} rows={FILL}>
-        <Posting $for={offered of self.sellChosen} $key={offered.item} offered={peek offered} house={self.house}
+        <Posting $for={offered of self.sellChosen} $key={offered.item} offered={offered} house={self.house}
                  prices={self.prices} history={self.source} />
       </box>
       <box $else />

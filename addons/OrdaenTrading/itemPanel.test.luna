@@ -241,7 +241,7 @@ test "a look in the day's first hour has its bar, as has one on the month's firs
   Test.expect(ends("0g 0s 20c | 0g 0s 90c"))
 }
 
-test "the panel names the item and says its market price with the price's age, and a merchant's price" {
+test "the panel names the item and says its market price with the price's age, and what a merchant pays on «Sell»" {
   Game.items.tooltip = names
   Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
   Test.mount(nil, SCREEN)
@@ -250,9 +250,10 @@ test "the panel names the item and says its market price with the price's age, a
   Game.clock.server = START
   Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 13 } }
   Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 3 : nil
   Game.auctionHouse.open = true
   window().button("Sell").click()
   window().text("Linen Cloth").click()
   Test.expect(window().button("Post").item().text("Linen Cloth").shown())
-  Test.expect(says("Market", "0g 0s 36c | (2 d.)") && says("Vendor price each", "0g 0s 13c | Quantity"))
+  Test.expect(says("Average", "0g 0s 36c | (2 d.)") && says("Vendor pays each", "0g 0s 3c | Quantity"))
 }

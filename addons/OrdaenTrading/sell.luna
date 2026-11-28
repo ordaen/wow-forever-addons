@@ -1,14 +1,16 @@
 // «Sell» (design `auction`): the bags' items the house takes (`Game.auctionActions.sellable()`, read again as the bags
-// change), each with how many, the cheapest listed at the last look, its market, its merchant's price and which pays
-// more (what it is listed for after the house's cut, against the merchant). The one picked: a quantity (the counter Professions has), a price for one (the lowest listed
-// less a copper, or the market), the duration, the merchant's price and the deposit as money, and «Post», one auction
-// a click (the client's from a click alone). «My auctions» opens their window.
+// change), each with how many, the cheapest listed at the last look for one and for all of them, its market, what a
+// merchant pays for one and for all of them, and which pays more (what it is listed for after the house's cut, against
+// the merchant). The one picked, following the bags: a quantity (the counter Professions has, all the bags hold to
+// start), a price for one (the lowest listed less a copper, the lowest itself where it is the player's own, or the
+// market), the duration, the merchant's price and the deposit as money, and «Post», one auction a click (the client's
+// from a click alone), saying why where nothing was sent. «My auctions» opens their window.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
+import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
-import { ItemPanel } from "@/itemPanel"
+import { ItemPanel, PriceOrDash, merchantPays } from "@/itemPanel"
 import Locale from "@/locales"
 import { PriceKey, PriceSource } from "@/quote"
 import Style from "@/style"
@@ -20,29 +22,35 @@ public struct Offered {
   name: String
   color: Color
   count: Integer
-  // The cheapest listed at the last look (48 hours at most), and the market.
+  // The cheapest listed at the last look (48 hours at most), for one and for all of them; the market.
   lowest: Copper | nil
+  lowestAll: Integer | nil
   market: Copper | nil
-  vendor: Copper | nil
+  // What a merchant pays for one and for all of them; none where merchants don't buy it.
+  merchant: Copper | nil
+  merchantAll: Integer | nil
   // The house pays more than the merchant, after its cut; none where neither price is known.
   house: Boolean | nil
 }
 
 const NAME_COLUMN = 1
 const LOWEST_COLUMN = 3
-const MARKET_COLUMN = 4
-const VENDOR_COLUMN = 5
+const LOWEST_ALL_COLUMN = 4
+const MARKET_COLUMN = 5
+const MERCHANT_COLUMN = 6
+const MERCHANT_ALL_COLUMN = 7
 
+const PRICE_WIDTH = 112.5dp
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_COUNT, width: 75dp, align: Align.End },
-  { title: Locale.COLUMN_LOW, width: 112.5dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_MARKET, width: 112.5dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_VENDOR, width: 112.5dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_LOW, width: PRICE_WIDTH, align: Align.End, sortable: true, tip: Locale.LOW_TIP },
+  { title: Locale.COLUMN_LOW_ALL, width: PRICE_WIDTH, align: Align.End, sortable: true, tip: Locale.LOW_ALL_TIP },
+  { title: Locale.COLUMN_MARKET, width: PRICE_WIDTH, align: Align.End, sortable: true, tip: Locale.MARKET_TIP },
+  { title: Locale.COLUMN_VENDOR, width: PRICE_WIDTH, align: Align.End, sortable: true, tip: Locale.VENDOR_PAYS_TIP },
+  { title: Locale.COLUMN_VENDOR_ALL, width: PRICE_WIDTH, align: Align.End, sortable: true, tip: Locale.VENDOR_ALL_TIP },
   { title: Locale.COLUMN_BETTER, width: 105.46875dp }
 ]
-// The bags' side, and the picked item's panel at the right, the page's whole height.
-const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
 const FILL: Array<Track> = [{ fr: 1 }]
 const SIDE: Array<Track> = ["max-content", { fr: 1 }]
 const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -56,6 +64,11 @@ const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Long, label: Locale.HOURS.format(48) }
 ]
 
+// A price for one times how many; none where the price is.
+function timesCount(copper: Copper | nil, count: Integer): Integer | nil {
+  return copper != nil ? copper * count : nil
+}
+
 class OfferedRow implements Component {
   public pick: Event<ItemId> = new Event()
 
@@ -63,9 +76,6 @@ class OfferedRow implements Component {
     Locale.BETTER_VENDOR
   derived betterInk: Color = self.offered.house == nil ? Style.DIM : self.offered.house == true ? Style.GREEN :
     Style.GOLD
-  derived lowest: Integer = self.offered.lowest ?? 0
-  derived market: Integer = self.offered.market ?? 0
-  derived vendor: Integer = self.offered.vendor ?? 0
 
   // The row's item: the table hands the row to another item as it scrolls.
   offered: Signal<Offered>
@@ -96,18 +106,11 @@ class OfferedRow implements Component {
         <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
         </TableCell>
-        <TableCell align={Align.End}>
-          <Money $if={self.offered.lowest != nil} amount={self.lowest} />
-          <text $else value={"—"} textColor={Style.DIM} />
-        </TableCell>
-        <TableCell align={Align.End}>
-          <Money $if={self.offered.market != nil} amount={self.market} />
-          <text $else value={"—"} textColor={Style.DIM} />
-        </TableCell>
-        <TableCell align={Align.End}>
-          <Money $if={self.offered.vendor != nil} amount={self.vendor} />
-          <text $else value={"—"} textColor={Style.DIM} />
-        </TableCell>
+        <TableCell align={Align.End}> <PriceOrDash amount={self.offered.lowest} /> </TableCell>
+        <TableCell align={Align.End}> <PriceOrDash amount={self.offered.lowestAll} /> </TableCell>
+        <TableCell align={Align.End}> <PriceOrDash amount={self.offered.market} /> </TableCell>
+        <TableCell align={Align.End}> <PriceOrDash amount={self.offered.merchant} /> </TableCell>
+        <TableCell align={Align.End}> <PriceOrDash amount={self.offered.merchantAll} /> </TableCell>
         <TableCell> <text value={self.better} textColor={self.betterInk} wrap={.None} /> </TableCell>
       </TableRow>
     }
@@ -164,18 +167,17 @@ public class SellPage implements Component {
       const index = at[item]
       if (index != nil) {
         const kept = list[index]
-        if (kept != nil) { list[index] = { count: kept.count + stack.count, ..kept } }
+        if (kept != nil) { list[index] = counted(kept, kept.count + stack.count) }
       } else {
         const key = PriceKey.of(item)
         const name, color = nameOf(item)
         const net = self.prices.sell(key)?.copper()
-        const vendor = self.prices.vendor(item)
-        const house = net == nil ? (vendor == nil ? nil : false) : vendor == nil || net > vendor
-        list.push({
-          from: stack, item: item, name: name, color: color, count: stack.count,
-          lowest: self.prices.lowest(key)?.copper(), market: self.prices.market(key)?.copper(), vendor: vendor,
-          house: house
-        })
+        const merchant = merchantPays(item)
+        const house = net == nil ? (merchant == nil ? nil : false) : merchant == nil || net > merchant
+        list.push(counted({
+          from: stack, item: item, name: name, color: color, count: 0, lowest: self.prices.lowest(key)?.copper(),
+          lowestAll: nil, market: self.prices.market(key)?.copper(), merchant: merchant, merchantAll: nil, house: house
+        }, stack.count))
         at[item] = list.length
       }
     }
@@ -221,56 +223,88 @@ public class SellPage implements Component {
   }
 }
 
-// The item picked, in the item panel: how many, the price for one, how long, the deposit, and «Post».
+// An item's row with `count` of it: its prices for all of them follow.
+function counted(offered: Offered, count: Integer): Offered {
+  return {
+    count: count, lowestAll: timesCount(offered.lowest, count), merchantAll: timesCount(offered.merchant, count),
+    ..offered
+  }
+}
+
+// The most of an item one post takes: a commodity from every stack at once, an item's auction from its first stack.
+function mostOf(offered: Offered): Integer {
+  return offered.from.commodity ? offered.count : offered.from.count
+}
+
+// The price for one an item is put up at: a copper under the lowest listed (a copper at least), or the lowest itself
+// where one of the player's own auctions asks that or less (the player isn't undercut by their own post); the market
+// where nothing is listed.
+function postingUnit(house: House, key: PriceKey, market: Copper | nil): Integer {
+  const listed = house.listed(key)
+  if (listed == nil) { return market ?? 0 }
+  const low = listed.low()
+  const item = key.item()
+  for (owned of peek Game.ownedAuctions.list) {
+    const buyout = owned.buyout
+    if (owned.item == item && !owned.sold && buyout != nil && owned.quantity > 0 && (buyout / owned.quantity).floor() <= low) {
+      return low
+    }
+  }
+  return (low - 1).max(1)
+}
+
+// The item picked, in the item panel: how many, the price for one, how long, the deposit, and «Post». It follows its
+// row as the bags change: what a post names is where the item lies now.
 public class Posting implements Component {
-  state count = 1
+  state count: Integer
   state unit: Integer
   state duration: Game.Duration = Game.Duration.Medium
-  // The client's refusal of the last post, in its words.
+  // The client's refusal of the last post, in its words, or why nothing was sent.
   state refused: String | nil = nil
   // A post sent from here waits for its answer.
   state sending = false
   derived hasRefused: Boolean = self.refused != nil
   derived refusedText: String = self.refused ?? ""
-  // A commodity is posted from every stack at once; an item's auction from its first stack.
-  derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
+  derived most: Integer = mostOf(self.offered)
   derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
   // What the house holds back for this many for this long, as the client says it; «—» where it doesn't.
   derived deposit: Integer | nil = Game.auctionActions.deposit(self.offered.from, self.count, self.duration)
-  derived depositAmount: Integer = self.deposit ?? 0
+  // Under the item's name in its panel: how many the bags hold.
+  derived detail: String = Locale.IN_BAGS.format(self.offered.count)
 
-  const offered: Offered
+  offered: Signal<Offered>
+  // The item: a row the panel follows is its item's alone.
   const key: PriceKey
+  const name: String
+  const color: Color
   const house: House
   const prices: any PriceSource
   const history: any PriceHistory | nil
-  // Under the item's name in its panel: how many the bags hold.
-  const detail: String
-  constructor(offered: Offered, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
+  constructor(offered: Signal<Offered>, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
     self.offered = offered
-    self.key = PriceKey.of(offered.item)
+    const first = peek offered
+    self.key = PriceKey.of(first.item)
+    self.name = first.name
+    self.color = first.color
     self.house = house
     self.prices = prices
     self.history = history
-    self.detail = Locale.IN_BAGS.format(offered.count)
-    // The posting rule: a copper under the lowest listed; the market where nothing is listed.
-    const listed = house.listed(self.key)
-    self.unit = listed != nil ? (listed.low() - 1).max(1) : offered.market ?? 0
+    // All the bags hold, as one post takes them.
+    self.count = mostOf(first)
+    self.unit = postingUnit(house, self.key, first.market)
     Game.auctionActions.answered.listen(self.onAnswer)
   }
 
-  // From the player's click alone: one auction.
+  // From the player's click alone: one auction; where nothing went, why.
   onPost(mut self) {
-    const from = self.offered.from
+    const from = (peek self.offered).from
     const count = peek self.count
     const unit = peek self.unit
     const duration = peek self.duration
     const sent = from.commodity ? Game.auctionActions.postCommodity(from, count, duration, unit) :
       Game.auctionActions.postItem(from, count, duration, nil, unit * count)
-    if (sent) {
-      self.sending = true
-      self.refused = nil
-    }
+    self.sending = sent
+    self.refused = sent ? nil : Locale.POST_NOT_SENT
   }
 
   onAnswer(mut self, answer: Game.ActionAnswer) {
@@ -281,8 +315,8 @@ public class Posting implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemPanel key={self.key} name={self.offered.name} color={self.offered.color} detail={self.detail}
-                 house={self.house} prices={self.prices} history={self.history}>
+      <ItemPanel key={self.key} name={self.name} color={self.color} detail={self.detail}
+                 house={self.house} prices={self.prices} history={self.history} merchantSells={false}>
         <box gap={3sp}>
           <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
             <text value={Locale.QUANTITY} textColor={Style.INK} />
@@ -294,8 +328,7 @@ public class Posting implements Component {
           <Segmented value={mut self.duration} choices={DURATIONS} />
           <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
             <text value={Locale.DEPOSIT} textColor={Style.INK} />
-            <Money $if={self.deposit != nil} amount={self.depositAmount} />
-            <text $else value={"—"} textColor={Style.DIM} />
+            <PriceOrDash amount={self.deposit} />
           </box>
           <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           <box>
@@ -313,6 +346,9 @@ public class Posting implements Component {
 function before(a: Offered, b: Offered, column: Integer): Boolean {
   if (column == NAME_COLUMN) { return a.name < b.name }
   if (column == LOWEST_COLUMN) { return (a.lowest ?? 0) < (b.lowest ?? 0) }
+  if (column == LOWEST_ALL_COLUMN) { return (a.lowestAll ?? 0) < (b.lowestAll ?? 0) }
   if (column == MARKET_COLUMN) { return (a.market ?? 0) < (b.market ?? 0) }
-  return (a.vendor ?? 0) < (b.vendor ?? 0)
+  if (column == MERCHANT_COLUMN) { return (a.merchant ?? 0) < (b.merchant ?? 0) }
+  if (column == MERCHANT_ALL_COLUMN) { return (a.merchantAll ?? 0) < (b.merchantAll ?? 0) }
+  return false
 }

@@ -247,7 +247,7 @@ test "a full scan's market is the cheapest fifth of what is listed, the lowest b
   Game.auctionScan.read = reader(sold)
   scanned(sold)
   const shown = panel("Copper Ore")
-  Test.expect(says(shown, "Market", "0g 1s 7c") && says(shown, "Lowest", "0g 1s 0c"))
+  Test.expect(says(shown, "Average", "0g 1s 7c") && says(shown, "Lowest", "0g 1s 0c"))
 }
 
 test "one auction far below the rest moves the fifth little; a single auction is its own price" {
@@ -262,8 +262,8 @@ test "one auction far below the rest moves the fifth little; a single auction is
   ]
   Game.auctionScan.read = reader(sold)
   scanned(sold)
-  Test.expect(says(panel("Copper Ore"), "Market", "0g 1s 82c"))
-  Test.expect(says(panel("Linen Cloth"), "Market", "0g 5s 0c"))
+  Test.expect(says(panel("Copper Ore"), "Average", "0g 1s 82c"))
+  Test.expect(says(panel("Linen Cloth"), "Average", "0g 5s 0c"))
 }
 
 test "an auction with no buyout, or one the client couldn't say, counts for nothing" {
@@ -275,7 +275,7 @@ test "an auction with no buyout, or one the client couldn't say, counts for noth
   const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }, { key: LINEN, unit: 0, many: 5 }, { key: 0, unit: 10, many: 1 }]
   Game.auctionScan.read = reader(sold)
   scanned(sold)
-  Test.expect(says(panel("Linen Cloth"), "Market", "0g 0s 40c") && window().text("Prices: just now · 1 item").shown())
+  Test.expect(says(panel("Linen Cloth"), "Average", "0g 0s 40c") && window().text("Prices: just now · 1 item").shown())
 }
 
 test "a weapon's random suffix is a price of its own, which its tooltip reads" {
@@ -378,15 +378,15 @@ test "the market moves toward each look with a half-life of six hours; looks in 
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 1000, quantity: 5 }])
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 2000, quantity: 5 }])
-  Test.expect(says(panel("Linen Cloth"), "Market", "0g 10s 0c"))
+  Test.expect(says(panel("Linen Cloth"), "Average", "0g 10s 0c"))
   // An hour weighs 1 − 2^(−1/6): 11%.
   Game.clock.server = START + HOUR
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 2000, quantity: 5 }])
-  Test.expect(says(window().button("Post").item(), "Market", "0g 11s 9c"))
+  Test.expect(says(window().button("Post").item(), "Average", "0g 11s 9c"))
   // A day weighs 1 − 2^(−24/6): 94%.
   Game.clock.server = START + 25 * HOUR
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 1000, quantity: 7 }])
-  Test.expect(says(window().button("Post").item(), "Market", "0g 10s 7c"))
+  Test.expect(says(window().button("Post").item(), "Average", "0g 10s 7c"))
 }
 
 test "what one costs is the lowest listed for two days, then the market; past 30 days nothing" {
@@ -414,8 +414,7 @@ test "what one costs is the lowest listed for two days, then the market; past 30
 
 test "what one brings is the lesser of the market and a fresh lowest, less the cut: «Pays more» weighs it" {
   Game.clock.server = START
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [ORE]: 96 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == ORE ? 96 : nil
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
   Test.mount(nil, SCREEN)
@@ -460,7 +459,7 @@ test "a full scan drops what was unseen past 30 days: its market and its lowest"
   scanned(sold)
   Test.expect(window().text("Prices: just now · 2 items").shown())
   const shown = panel("Linen Cloth")
-  Test.expect(says(shown, "Market", "—") && says(shown, "Lowest", "—"))
+  Test.expect(says(shown, "Average", "—") && says(shown, "Lowest", "—"))
 }
 
 test "a browse's prices are kept as the house shuts, and read back the same after a reload" {
@@ -477,7 +476,7 @@ test "a browse's prices are kept as the house shuts, and read back the same afte
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
   Game.auctionHouse.open = true
-  Test.expect(window().text("1 item").shown() && says(panel("Linen Cloth"), "Market", "0g 0s 45c"))
+  Test.expect(window().text("1 item").shown() && says(panel("Linen Cloth"), "Average", "0g 0s 45c"))
 }
 
 test "a full scan is kept as it ends, and read back the same after a reload" {
@@ -494,7 +493,7 @@ test "a full scan is kept as it ends, and read back the same after a reload" {
   Game.auctionActions.sellable = bags
   Game.auctionHouse.open = true
   const shown = panel("Copper Ore")
-  Test.expect(says(shown, "Market", "0g 1s 7c") && says(shown, "Lowest", "0g 1s 0c"))
+  Test.expect(says(shown, "Average", "0g 1s 7c") && says(shown, "Lowest", "0g 1s 0c"))
 }
 
 test "each realm's house has its own prices" {
@@ -589,8 +588,7 @@ test "a full scan keeps what was seen 30 days ago to the hour" {
 
 test "what one brings counts the lowest to its 48th hour, and nothing past 30 days" {
   Game.clock.server = START
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [ORE]: 96 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == ORE ? 96 : nil
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
   Test.mount(nil, SCREEN)
@@ -608,7 +606,7 @@ test "what one brings counts the lowest to its 48th hour, and nothing past 30 da
   // Past 30 days the house has no price: the merchant's alone.
   Game.clock.server = START + 721 * HOUR
   Game.bags.changed.emit()
-  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | — | 0g 0s 96c | Vendor")
+  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | — | — | 0g 0s 96c | 0g 0s 96c | Vendor")
 }
 
 test "the prices' age: just now under a minute, minutes from one, hours from one" {

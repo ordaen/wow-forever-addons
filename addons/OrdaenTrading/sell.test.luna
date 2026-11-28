@@ -100,8 +100,19 @@ test "each item the bags can put up is a row, its stacks counted together, with 
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | — | Auction"))
-  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | — | —"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 9s 36c | 0g 0s 36c | — | — | Auction"))
+  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | — | — | — | —"))
+}
+
+test "the price columns' headings say what each is under the cursor" {
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  window().button("Average").hover()
+  Test.expect(Test.page().window("A running average of the prices seen at each look at the house: a look 6 hours old counts half as much as one now. None after 30 days unseen.").shown())
+  window().button("All at lowest").hover()
+  Test.expect(Test.page().window("The lowest listed for one, times how many your bags hold.").shown())
 }
 
 test "bags with nothing the house takes say so" {
@@ -127,9 +138,11 @@ test "the bags changing are read again" {
   Test.expect(!window().text("Linen Cloth").shown() && window().text("Copper Ore").shown())
 }
 
-test "a merchant's price shows beside the house's, and whichever pays more after the house's cut is named" {
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 33, [AXE]: 500 } }
+test "what a merchant pays shows beside the house's, and whichever pays more after the house's cut is named" {
+  // What a merchant asks for linen isn't what one pays for it.
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 999 } }
   Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 33 : id == AXE ? 500 : nil
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -139,15 +152,16 @@ test "a merchant's price shows beside the house's, and whichever pays more after
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   // 36 less 5% is 34: the house pays more than 33.
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | 0g 0s 33c | Auction"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 9s 36c | 0g 0s 36c | 0g 0s 33c | 0g 8s 58c | Auction"))
   Test.expect(window().text("Linen Cloth").item().text("Auction").textColor().equal(GREEN))
-  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | 0g 5s 0c | Vendor"))
+  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | — | 0g 5s 0c | 0g 5s 0c | Vendor"))
+  window().text("Linen Cloth").click()
+  Test.expect(says(panel(), "Vendor pays each", "0g 0s 33c"))
   Test.expect(window().text("Bronze Axe").item().text("Vendor").textColor().equal(GOLD))
 }
 
 test "a merchant paying what the house brings after its cut is named over it" {
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 34 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 34 : nil
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -157,12 +171,11 @@ test "a merchant paying what the house brings after its cut is named over it" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   // 36 less 5% rounds down to 34: the same, and the house is no better.
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | 0g 0s 34c | Vendor"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 9s 36c | 0g 0s 36c | 0g 0s 34c | 0g 8s 84c | Vendor"))
 }
 
 test "a column's title sorts the rows by it, and again the other way" {
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 34, [AXE]: 500, [ORE]: 20 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 34 : id == AXE ? 500 : id == ORE ? 20 : nil
   Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
     { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
@@ -178,7 +191,7 @@ test "a column's title sorts the rows by it, and again the other way" {
   Test.expect(before("Bronze Axe", "Copper Ore") && before("Copper Ore", "Linen Cloth"))
   window().button("Item").click()
   Test.expect(before("Linen Cloth", "Copper Ore") && before("Copper Ore", "Bronze Axe"))
-  window().button("Market").click()
+  window().button("Average").click()
   Test.expect(before("Bronze Axe", "Linen Cloth") && before("Linen Cloth", "Copper Ore"))
   window().button("Vendor").nth(1).click()
   Test.expect(before("Copper Ore", "Linen Cloth") && before("Linen Cloth", "Bronze Axe"))
@@ -186,7 +199,7 @@ test "a column's title sorts the rows by it, and again the other way" {
 
 // The item picked
 
-test "an item picked shows in the panel: how many the bags hold, its prices, a copper under the lowest as its price" {
+test "an item picked shows in the panel: how many the bags hold, all of them to post, a copper under the lowest" {
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -196,9 +209,57 @@ test "an item picked shows in the panel: how many the bags hold, its prices, a c
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Test.expect(panel().text("In bags: 26").shown() && panel().text("Price: 1 copper under the lowest listed.").shown())
-  Test.expect(says(panel(), "Quantity", "- | 1 | +"))
+  Test.expect(panel().text("In bags: 26").shown())
+  Test.expect(panel().text("Price: 1 copper under the lowest listed, or the lowest where it is yours.").shown())
+  Test.expect(says(panel(), "Quantity", "- | 26 | +"))
   Test.expect(panel().input().value() == "35c")
+}
+
+test "the lowest listed being the player's own auction is matched, not undercut" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Game.ownedAuctions.list = [{ auction: 7, item: LINEN, quantity: 10, buyout: 360, sold: false, left: nil }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().button("Sell").click()
+  window().text("Linen Cloth").click()
+  Test.expect(panel().input().value() == "36c")
+}
+
+test "the panel follows the bags: after a post, the next names what is left and where" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().button("Sell").click()
+  window().text("Linen Cloth").click()
+  panel().button("Post").click()
+  Game.auctionActions.answered.emit(.Posted)
+  // The first stack went: six are left, in another bag.
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 6, bag: 1, slot: 4, commodity: true }]
+  Game.bags.changed.emit()
+  Test.expect(panel().text("In bags: 6").shown() && says(panel(), "Quantity", "- | 6 | +"))
+  _ = Test.requests()
+  panel().button("Post").click()
+  Test.expect(asked("AuctionActions.postCommodity 2589 1 4 6 2 35"))
+}
+
+test "a post the client won't send says why" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().button("Sell").click()
+  window().text("Linen Cloth").click()
+  Game.auctionActions.postCommodity = (from: Game.Sellable, quantity: Integer, duration: Game.Duration, unit: Integer): Boolean => false
+  panel().button("Post").click()
+  Test.expect(panel().text("The house won't take that many from your bags now.").textColor().equal(RED))
 }
 
 test "an item nothing of which is listed takes the market as its price; one with neither can't be posted" {
@@ -225,12 +286,15 @@ test "the quantity steps by one, by a hundred with Ctrl held, and holds to what 
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Test.hold([.Ctrl])
-  panel().button("+").click()
-  Test.hold([])
   Test.expect(says(panel(), "Quantity", "- | 26 | +"))
   panel().button("-").click()
   Test.expect(panel().text("25").shown())
+  Test.hold([.Ctrl])
+  panel().button("-").click()
+  Test.expect(says(panel(), "Quantity", "- | 1 | +"))
+  panel().button("+").click()
+  Test.hold([])
+  Test.expect(says(panel(), "Quantity", "- | 26 | +"))
 }
 
 test "the deposit is the client's for the quantity and the duration" {
@@ -243,11 +307,11 @@ test "the deposit is the client's for the quantity and the duration" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Test.expect(says(panel(), "Deposit", "0g 0s 4c"))
+  Test.expect(says(panel(), "Deposit", "0g 1s 4c"))
   panel().button("12 h").click()
-  Test.expect(says(panel(), "Deposit", "0g 0s 2c"))
+  Test.expect(says(panel(), "Deposit", "0g 0s 52c"))
   panel().button("48 h").click()
-  Test.expect(says(panel(), "Deposit", "0g 0s 8c"))
+  Test.expect(says(panel(), "Deposit", "0g 2s 8c"))
 }
 
 test "a deposit the client doesn't say is a dash" {
@@ -349,7 +413,7 @@ test "«Post» waits while the client answers another action" {
   Test.expect(asked(""))
   Game.auctionActions.busy = false
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 1 2 35"))
+  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 2 35"))
 }
 
 // More of «Sell»
@@ -385,7 +449,7 @@ test "an item listed at a copper is priced at a copper, and posted at it" {
   Test.expect(panel().input().value() == "1c")
   _ = Test.requests()
   panel().button("Post").click()
-  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 1 2 1"))
+  Test.expect(asked("AuctionActions.postCommodity 2589 0 1 26 2 1"))
 }
 
 test "an item's stack is posted as one auction, its buyout the price for each times the count" {
@@ -397,7 +461,7 @@ test "an item's stack is posted as one auction, its buyout the price for each ti
   Game.auctionQuery.results.emit([{ key: AXE, copper: 1001, quantity: 2 }])
   window().button("Sell").click()
   window().text("Bronze Axe").click()
-  panel().button("+").click()
+  panel().button("-").click()
   _ = Test.requests()
   panel().button("Post").click()
   Test.expect(asked("AuctionActions.postItem 2847 0 2 2 2 -1 2000"))
@@ -420,8 +484,7 @@ test "once its answer came, the panel hears no other" {
 
 test "what an item brings is weighed with the cut: 5% of a silver is 5 copper" {
   Game.clock.server = START
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 95 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 95 : nil
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
   Test.mount(nil, SCREEN)
@@ -429,8 +492,7 @@ test "what an item brings is weighed with the cut: 5% of a silver is 5 copper" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 100, quantity: 30 }])
   window().button("Sell").click()
   Test.expect(window().text("Linen Cloth").item().text("Vendor").shown())
-  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 94 } }
-  Game.merchant.opened.emit()
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == LINEN ? 94 : nil
   Game.bags.changed.emit()
   Test.expect(window().text("Linen Cloth").item().text("Auction").shown())
 }
@@ -443,5 +505,5 @@ test "an item neither the house nor a merchant prices says «—» dim for which
   Game.auctionHouse.open = true
   window().button("Sell").click()
   const axe = window().text("Bronze Axe").item()
-  Test.expect(reads(axe, "Bronze Axe | 1 | — | — | — | —") && axe.text("—").nth(4).textColor().equal(DIM))
+  Test.expect(reads(axe, "Bronze Axe | 1 | — | — | — | — | — | —") && axe.text("—").nth(6).textColor().equal(DIM))
 }
