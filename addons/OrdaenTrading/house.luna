@@ -57,8 +57,9 @@ const HISTORY_DAYS = 30
 // (24 hours and 29 days) is about 160 bytes at rest, so the most is about 1.3 MB of the saved variable.
 public const HISTORY_MOST = 8000
 
-// Each observation moves the market by `1 − 2^(−Δ/72)`, Δ the hours since it last moved.
-const HALF_LIFE: Number = 72
+// Each observation moves the market by `1 − 2^(−Δ/6)`, Δ the hours since it last moved: a scan an hour after the
+// last moves it a tenth of the way, one a day after nearly all of it.
+const HALF_LIFE: Number = 6
 // A key unseen this long (30 days, in hours) is dropped at a full scan's end, and no price is read from it before.
 public const KEPT_HOURS = 720
 

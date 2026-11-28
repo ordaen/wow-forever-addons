@@ -115,7 +115,7 @@ test "what a merchant asks shows as the vendor's price, and is kept after a relo
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   window().button("Sell").click()
-  Test.expect(window().text("Coarse Thread").item().texts().join(" | ") == "Coarse Thread | 1 | — | 0g 0s 10c | Vendor")
+  Test.expect(window().text("Coarse Thread").item().texts().join(" | ") == "Coarse Thread | 1 | — | — | 0g 0s 10c | Vendor")
 }
 
 test "a merchant whose prices the client didn't give changes nothing" {
@@ -148,7 +148,7 @@ test "5,000 merchants' prices are kept at most: a price seen before is written a
   Game.auctionHouse.open = true
   window().button("Sell").click()
   Test.expect(window().text("Coarse Thread").item().text("0g 0s 12c").shown())
-  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | — | —")
+  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | — | — | —")
 }
 
 test "with one price short of 5,000 kept, one of two new ones is kept and the other isn't" {

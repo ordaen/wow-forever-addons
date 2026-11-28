@@ -57,6 +57,10 @@ public trait PriceSource {
   public revision: Signal<Integer>
   // What one costs now: the lowest listed where it is 48 hours old or less, the market otherwise.
   public buy(self, key: PriceKey): Quote | nil
+  // The market: each look's price, the newer weighing the more (a half-life of hours); none past 30 days unseen.
+  public market(self, key: PriceKey): Quote | nil
+  // The cheapest listed at the last look, where that look is 48 hours old or less.
+  public lowest(self, key: PriceKey): Quote | nil
   // What one is listed for: the lesser of the market and a fresh lowest.
   public listed(self, key: PriceKey): Quote | nil
   // What one brings: what it is listed for, less the house's cut.

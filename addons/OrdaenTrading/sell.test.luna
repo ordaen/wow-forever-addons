@@ -100,8 +100,8 @@ test "each item the bags can put up is a row, its stacks counted together, with 
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | — | Auction"))
-  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | —"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | — | Auction"))
+  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | — | —"))
 }
 
 test "bags with nothing the house takes say so" {
@@ -139,9 +139,9 @@ test "a merchant's price shows beside the house's, and whichever pays more after
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   // 36 less 5% is 34: the house pays more than 33.
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 33c | Auction"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | 0g 0s 33c | Auction"))
   Test.expect(window().text("Linen Cloth").item().text("Auction").textColor().equal(GREEN))
-  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | 0g 5s 0c | Vendor"))
+  Test.expect(reads(window().text("Bronze Axe").item(), "Bronze Axe | 1 | — | — | 0g 5s 0c | Vendor"))
   Test.expect(window().text("Bronze Axe").item().text("Vendor").textColor().equal(GOLD))
 }
 
@@ -157,7 +157,7 @@ test "a merchant paying what the house brings after its cut is named over it" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   // 36 less 5% rounds down to 34: the same, and the house is no better.
-  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 34c | Vendor"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 26 | 0g 0s 36c | 0g 0s 36c | 0g 0s 34c | Vendor"))
 }
 
 test "a column's title sorts the rows by it, and again the other way" {
@@ -443,5 +443,5 @@ test "an item neither the house nor a merchant prices says «—» dim for which
   Game.auctionHouse.open = true
   window().button("Sell").click()
   const axe = window().text("Bronze Axe").item()
-  Test.expect(reads(axe, "Bronze Axe | 1 | — | — | —") && axe.text("—").nth(3).textColor().equal(DIM))
+  Test.expect(reads(axe, "Bronze Axe | 1 | — | — | — | —") && axe.text("—").nth(4).textColor().equal(DIM))
 }

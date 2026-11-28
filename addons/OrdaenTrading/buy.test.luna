@@ -152,13 +152,13 @@ test "the lowest's share of its market: green for a bargain under 90%, red over 
   Game.auctionQuery.ready = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
   _ = Test.requests()
-  // A day on, the market moved a fifth of the way: linen 36 → 40 by 21%, ore 90 → 60.
-  Game.clock.server = START + 24 * HOUR
+  // An hour on, the market moved a tenth of the way: linen 36 toward 30 by 11%, ore 90 toward 120.
+  Game.clock.server = START + HOUR
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 30 }, { key: ORE, copper: 120, quantity: 40 }])
   Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 30 | 0g 0s 30c | 0g 0s 35c | 86% | < 1 h"))
   Test.expect(window().text("86%").textColor().equal(GREEN))
-  Test.expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 1s 20c | 0g 0s 96c | 125% | < 1 h"))
-  Test.expect(window().text("125%").textColor().equal(RED))
+  Test.expect(reads(window().text("Copper Ore").item(), "Copper Ore | 40 | 0g 1s 20c | 0g 0s 93c | 129% | < 1 h"))
+  Test.expect(window().text("129%").textColor().equal(RED))
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 35, quantity: 30 }])
   Test.expect(window().text("Linen Cloth").item().text("100%").textColor().equal(INK))
 }
@@ -256,16 +256,16 @@ test "variants: each a row named with its suffix, its own lowest and its own mar
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 800, quantity: 1 },
     { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1500, quantity: 1 }
   ])
-  Game.clock.server = START + 24 * HOUR
+  Game.clock.server = START + HOUR
   Game.auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 933, quantity: 3 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 },
     { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 2 }
   ])
   Test.expect(reads(window().text("Sergeant's Warhammer of the Bear").item(),
-    "Sergeant's Warhammer of the Bear | 3 | 0g 9s 33c | 0g 10s 66c | 88% | < 1 h"))
+    "Sergeant's Warhammer of the Bear | 3 | 0g 9s 33c | 0g 10s 82c | 86% | < 1 h"))
   Test.expect(reads(window().text("Sergeant's Warhammer of the Eagle").item(),
-    "Sergeant's Warhammer of the Eagle | 1 | 0g 9s 33c | 0g 8s 27c | 113% | < 1 h"))
+    "Sergeant's Warhammer of the Eagle | 1 | 0g 9s 33c | 0g 8s 15c | 114% | < 1 h"))
   Test.expect(window().text("Sergeant's Warhammer of the Monkey").shown())
 }
 

@@ -34,6 +34,19 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     return market
   }
 
+  public market(self, key: PriceKey): Quote | nil {
+    const market = self.house.quote(key)
+    if (market == nil || market.age() > KEPT_HOURS) { return nil }
+    return market
+  }
+
+  public lowest(self, key: PriceKey): Quote | nil {
+    const market = self.house.quote(key)
+    const listing = self.house.listed(key)
+    if (market == nil || listing == nil || market.age() > FRESH) { return nil }
+    return Quote.of(listing.low(), market.seen())
+  }
+
   public listed(self, key: PriceKey): Quote | nil {
     const market = self.house.quote(key)
     if (market == nil) { return nil }

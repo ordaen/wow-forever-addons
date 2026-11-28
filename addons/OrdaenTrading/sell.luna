@@ -1,6 +1,6 @@
 // «Sell» (design `auction`): the bags' items the house takes (`Game.auctionActions.sellable()`, read again as the bags
-// change), each with how many, its market, its merchant's price and which pays more (the market after the house's cut
-// against the merchant). The one picked: a quantity (the counter Professions has), a price for one (the lowest listed
+// change), each with how many, the cheapest listed at the last look, its market, its merchant's price and which pays
+// more (what it is listed for after the house's cut, against the merchant). The one picked: a quantity (the counter Professions has), a price for one (the lowest listed
 // less a copper, or the market), the duration, the merchant's price and the deposit as money, and «Post», one auction
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
@@ -20,6 +20,8 @@ public struct Offered {
   name: String
   color: Color
   count: Integer
+  // The cheapest listed at the last look (48 hours at most), and the market.
+  lowest: Copper | nil
   market: Copper | nil
   vendor: Copper | nil
   // The house pays more than the merchant, after its cut; none where neither price is known.
@@ -27,12 +29,14 @@ public struct Offered {
 }
 
 const NAME_COLUMN = 1
-const MARKET_COLUMN = 3
-const VENDOR_COLUMN = 4
+const LOWEST_COLUMN = 3
+const MARKET_COLUMN = 4
+const VENDOR_COLUMN = 5
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_COUNT, width: 75dp, align: Align.End },
+  { title: Locale.COLUMN_LOW, width: 112.5dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_MARKET, width: 112.5dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_VENDOR, width: 112.5dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_BETTER, width: 105.46875dp }
@@ -59,6 +63,7 @@ class OfferedRow implements Component {
     Locale.BETTER_VENDOR
   derived betterInk: Color = self.offered.house == nil ? Style.DIM : self.offered.house == true ? Style.GREEN :
     Style.GOLD
+  derived lowest: Integer = self.offered.lowest ?? 0
   derived market: Integer = self.offered.market ?? 0
   derived vendor: Integer = self.offered.vendor ?? 0
 
@@ -90,6 +95,10 @@ class OfferedRow implements Component {
         </TableCell>
         <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
+        </TableCell>
+        <TableCell align={Align.End}>
+          <Money $if={self.offered.lowest != nil} amount={self.lowest} />
+          <text $else value={"—"} textColor={Style.DIM} />
         </TableCell>
         <TableCell align={Align.End}>
           <Money $if={self.offered.market != nil} amount={self.market} />
@@ -155,12 +164,12 @@ public class SellPage implements Component {
       } else {
         const key = PriceKey.of(item)
         const name, color = nameOf(item)
-        const market = self.prices.buy(key)?.copper()
         const net = self.prices.sell(key)?.copper()
         const vendor = self.prices.vendor(item)
         const house = net == nil ? (vendor == nil ? nil : false) : vendor == nil || net > vendor
         list.push({
-          from: stack, item: item, name: name, color: color, count: stack.count, market: market, vendor: vendor,
+          from: stack, item: item, name: name, color: color, count: stack.count,
+          lowest: self.prices.lowest(key)?.copper(), market: self.prices.market(key)?.copper(), vendor: vendor,
           house: house
         })
         at[item] = list.length
@@ -297,6 +306,7 @@ public class Posting implements Component {
 // Whether `a` comes before `b` by the column: by name, cheapest first.
 function before(a: Offered, b: Offered, column: Integer): Boolean {
   if (column == NAME_COLUMN) { return a.name < b.name }
+  if (column == LOWEST_COLUMN) { return (a.lowest ?? 0) < (b.lowest ?? 0) }
   if (column == MARKET_COLUMN) { return (a.market ?? 0) < (b.market ?? 0) }
   return (a.vendor ?? 0) < (b.vendor ?? 0)
 }
