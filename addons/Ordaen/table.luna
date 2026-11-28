@@ -130,15 +130,31 @@ function tracksOf(columns: Array<Column>): Array<Track> {
   return list
 }
 
+// Whether `a` comes before `b` in a table sorted by `sorted` (`descending` or not), then, where that leaves them level,
+// by the second sort `then` (a column's number, negative where it runs down; 0 for none). `before(a, b, column)` is a
+// column's own order, ascending. What a page sorts its rows with.
+public function sortedBefore<T>(a: T, b: T, sorted: Integer, descending: Boolean, then: Integer,
+  before: (a: T, b: T, column: Integer) => Boolean): Boolean {
+  if (sorted != 0) {
+    if (before(a, b, sorted)) { return !descending }
+    if (before(b, a, sorted)) { return descending }
+  }
+  if (then == 0) { return false }
+  return then > 0 ? before(a, b, then) : before(b, a, -then)
+}
+
 // A column's heading, as high as the headings beside it, its title in its middle; under a group's, a cell's room.
 class Heading implements Component {
   derived picked: Boolean = self.sorted == self.index
+  // The second sort is by it: its number, negative where it runs down.
+  derived second: Boolean = self.then.abs() == self.index && !self.picked
   derived padding: Edges = self.grouped ? CELL_PADDING : HEADING_PADDING
   // The light under it and the mark are always drawn, what isn't the state clear or at no opacity: only colours and
-  // the mark's art tell the heading the rows are ordered by, and which way.
+  // the mark's art tell the heading the rows are ordered by, and which way; the second sort's mark at half.
   derived light: Color = self.picked ? LIGHT : CLEAR
-  derived marked: Number = self.picked ? 1 : 0
-  derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
+  derived marked: Number = self.picked ? 1 : self.second ? 0.5 : 0
+  derived down: Boolean = self.second ? self.then < 0 : self.descending
+  derived mark: Art = self.down ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
   derived markFirst: Boolean = self.column.align == Align.End
   derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
@@ -148,12 +164,16 @@ class Heading implements Component {
   const index: Integer
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
+  then: mut Signal<Integer>
+  const twoSorts: Boolean
   const grouped: Boolean
   constructor(
     column: Signal<Column>,
     index: Integer,
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
+    then: mut Signal<Integer>,
+    twoSorts: Boolean,
     // It stands under a group's heading.
     grouped: Boolean
   ) {
@@ -161,9 +181,12 @@ class Heading implements Component {
     self.index = index
     self.sorted = sorted
     self.descending = descending
+    self.then = then
+    self.twoSorts = twoSorts
     self.grouped = grouped
   }
 
+  // A click sorts by it, again reverses; the second sort goes where it was this column.
   onClick(mut self) {
     if (!self.sortable) { return }
     if (self.picked) {
@@ -172,12 +195,21 @@ class Heading implements Component {
       self.sorted = self.index
       self.descending = false
     }
+    if (self.then.abs() == self.index) { self.then = 0 }
+  }
+
+  // Shift and a click: the second sort by it, again reverses it; none on the first sort's own column, or a table
+  // that sorts by one.
+  onThen(mut self) {
+    if (!self.sortable || self.picked || !self.twoSorts) { return }
+    self.then = self.then == self.index ? -self.index : self.index
   }
 
   public render(self): Template {
     return $ltml {
       <box yAlignSelf={Align.Stretch} padding={self.padding} xAlign={self.column.align} yAlign={Align.Center} background={self.shade}
-           @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+           @pointerPress(.Left)={self.onClick} @pointerPress([.Shift, .Left])={self.onThen} @keyPress(.Enter)={self.onClick}
+           @keyPress(.Space)={self.onClick} @keyPress([.Shift, .Enter])={self.onThen}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
         <box columns={HEAD} gap={1sp} yAlign={Align.Center} interactionState={self.$interactionState}>
@@ -214,12 +246,16 @@ class HeadGroup implements Component {
   head: Signal<Head>
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
+  then: mut Signal<Integer>
+  const twoSorts: Boolean
   ground: Signal<Ground>
   const table: Boolean
   constructor(
     head: Signal<Head>,
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
+    then: mut Signal<Integer>,
+    twoSorts: Boolean,
     ground: Signal<Ground>,
     // The table's headings, all of them.
     table: Boolean = false
@@ -227,6 +263,8 @@ class HeadGroup implements Component {
     self.head = head
     self.sorted = sorted
     self.descending = descending
+    self.then = then
+    self.twoSorts = twoSorts
     self.ground = ground
     self.table = table
   }
@@ -242,8 +280,9 @@ class HeadGroup implements Component {
         // The headings come of the columns, which never change: each is read once.
         <$for={under of self.head.under}>
           <Heading $if={under.under.length == 0} column={under.column} index={peek under.index} sorted={mut self.sorted}
-                   descending={mut self.descending} grouped={!self.table} />
-          <HeadGroup $else head={under} sorted={mut self.sorted} descending={mut self.descending} ground={self.ground} />
+                   descending={mut self.descending} then={mut self.then} twoSorts={self.twoSorts} grouped={!self.table} />
+          <HeadGroup $else head={under} sorted={mut self.sorted} descending={mut self.descending} then={mut self.then}
+                     twoSorts={self.twoSorts} ground={self.ground} />
         </>
       </box>
     }
@@ -358,8 +397,13 @@ public class Table implements Component {
   derived sides: Number<Spacing> = self.ground == Ground.Wood ? WOOD_SIDES : WELL_SIDES
 
   columns: Signal<Array<Column>>
+  // The second sort (`twoSorts`): a column's number, negative where it runs down; 0 for none. Told as it changes.
+  state then = 0
+  public secondSort: Event<Integer> = new Event()
+
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
+  const twoSorts: Boolean
   height: Signal<Number<Length> | nil>
   const rowsVary: Boolean
   empty: Signal<String>
@@ -382,8 +426,13 @@ public class Table implements Component {
     empty: Signal<String> = "",
     // What it stands on: a well (its headings on a darker band), or the wood (its cells ruled apart: their
     // `TableRow`s say so too).
-    ground: Signal<Ground> = Ground.Well
+    ground: Signal<Ground> = Ground.Well,
+    // A second sort, where rows the first leaves level are ordered by another column (Shift and a click on its
+    // heading), told by `secondSort` (what `sortedBefore` reads); otherwise the table sorts by one column.
+    twoSorts: Boolean = false
   ) {
+    self.twoSorts = twoSorts
+    watch (then of self.then) { self.secondSort.emit(then) }
     self.empty = empty
     self.ground = ground
     self.columns = columns
@@ -398,8 +447,8 @@ public class Table implements Component {
       <box columns={1} rows={FILLED}>
         <ScrolledList tracks={self.tracks} height={self.height} virtual={!self.rowsVary} ground={self.ground}
                       sides={self.sides}>
-          <HeadGroup #head head={self.head} sorted={mut self.sorted} descending={mut self.descending} ground={self.ground}
-                     table={true} />
+          <HeadGroup #head head={self.head} sorted={mut self.sorted} descending={mut self.descending} then={mut self.then}
+                     twoSorts={self.twoSorts} ground={self.ground} table={true} />
           <slot />
         </ScrolledList>
         <box $if={self.emptyShown} position={Position.Absolute} left={0ui} right={0ui} top={EMPTY_TOP} xAlign={Align.Center}>

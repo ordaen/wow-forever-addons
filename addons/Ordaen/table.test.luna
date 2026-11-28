@@ -7,7 +7,7 @@ import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
 import { Money } from "@/money"
 import { Ground } from "@/scrolledList"
-import { Column, Table, TableCell, TableRow } from "@/table"
+import { Column, Table, TableCell, TableRow, sortedBefore } from "@/table"
 
 public struct Sale {
   name: String
@@ -384,4 +384,78 @@ test "a row on the wood is ruled under, the last too" {
 
 function near(a: Number, b: Number): Boolean {
   return (a - b).abs() < 0.02
+}
+
+// A column's own order, ascending: what `sortedBefore` is handed.
+function saleBefore(a: Sale, b: Sale, column: Integer): Boolean {
+  if (column == 1) { return a.name < b.name }
+  if (column == 2) { return a.price < b.price }
+  return a.seen < b.seen
+}
+
+// A table sorted by two: two sales of one price, told apart by the second sort.
+class TwoSorts {
+  public state sales: Array<Sale> = [
+    { name: "Copper Bar", price: 150, seen: 3 },
+    { name: "Arcane Dust", price: 40, seen: 9 },
+    { name: "Bronze Bar", price: 150, seen: 1 }
+  ]
+  public state sorted = 0
+  public state descending = false
+  public state then = 0
+  public derived ordered: Array<Sale> = self.order()
+
+  order(self): Array<Sale> {
+    let list: Array<Sale> = self.sales.map(sale => sale)
+    const sorted = self.sorted
+    const down = self.descending
+    const then = self.then
+    list.sort((a, b) => sortedBefore(a, b, sorted, down, then, saleBefore))
+    return list
+  }
+
+  onSecond(mut self, then: Integer) { self.then = then }
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} twoSorts={true}
+             @secondSort={self.onSecond}>
+        <TableRow $for={sale of self.ordered} $key={sale}>
+          <TableCell> <text value={sale.name} /> </TableCell>
+          <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"%d"} arguments={[sale.seen.floor()]} /> </TableCell>
+          <TableCell />
+        </TableRow>
+      </Table>
+    }
+  }
+}
+
+test "Shift and a click on another heading sorts the rows the first leaves level by it, again reverses it; a click alone clears it" {
+  let page = new TwoSorts()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.click(Test.holding("Price", nil), nil)
+  // Two bars at 150: as given, until the second sort tells them apart.
+  Test.expect(page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Copper Bar, Bronze Bar")
+  Test.hold([.Shift])
+  Test.click(Test.holding("Item", nil), nil)
+  Test.hold([])
+  Test.flush()
+  Test.expect(page.sorted == 2)
+  Test.expect(page.then == 1)
+  Test.expect(page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Bronze Bar, Copper Bar")
+  Test.hold([.Shift])
+  Test.click(Test.holding("Item", nil), nil)
+  Test.hold([])
+  Test.flush()
+  Test.expect(page.then == -1 && page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Copper Bar, Bronze Bar")
+  // Shift on the first sort's own heading does nothing; a click alone on the second's makes it the first.
+  Test.hold([.Shift])
+  Test.click(Test.holding("Price", nil), nil)
+  Test.hold([])
+  Test.flush()
+  Test.expect(page.sorted == 2 && page.then == -1)
+  Test.click(Test.holding("Item", nil), nil)
+  Test.flush()
+  Test.expect(page.sorted == 1 && page.then == 0)
 }
