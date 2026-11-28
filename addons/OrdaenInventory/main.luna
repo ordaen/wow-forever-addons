@@ -78,6 +78,8 @@ const APART = 11.71875dp
 const BAGS_X = (WIDTH + APART) / 2
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
 const SAFE_SALE = 12
+// The client's binding commands that open and close the bags: the window takes their keys (`Window`'s `toggledBy`).
+const BAG_KEYS: Array<String> = ["OPENALLBAGS", "TOGGLEBACKPACK"]
 
 // The module's mark in the chat.
 const CAPTION: Color = Color.hex("#e8c35a")
@@ -148,8 +150,6 @@ public class Inventory implements Module, App {
   state refunding: Slot | nil = nil
   derived refundText: String = self.refundTextOf()
   state amount = 0
-  // The window is built the first time it opens, and kept drawn, shown or hidden, from then on.
-  state ever = false
 
   public derived bankOpen: Boolean = Game.bankObserver.open
   public derived shown: Boolean = Game.bags.open || self.bankOpen || self.guild.open
@@ -228,6 +228,18 @@ public class Inventory implements Module, App {
     watch (buttons of Game.bags.buttons) { for (button of buttons) { self.hookBag(button) } }
     // A mark, a score or a rule changed: every slot's verdict is worked out again.
     watch { self.judge(self.junkLists.values, self.settings.values.junk) }
+    // The sections held through a fight are worked out as it ends.
+    watch (fighting of Game.situation.combat) { if (!fighting) { self.thaw() } }
+    // The bags' window is drawn from the start, hidden, and its slots follow the bags whether it shows or not: each
+    // slot is a secure button, which only exists if made out of a fight, and the window opens in one (`toggledBy`).
+    Game.bags.follow(true)
+    self.readAll()
+  }
+
+  thaw(mut self) {
+    self.carried.thaw()
+    self.bank.thaw()
+    self.vaultGuild.thaw()
   }
 
   destructor() {
@@ -307,9 +319,8 @@ public class Inventory implements Module, App {
 
   byCount(self): Boolean { return peek self.list.values.sort == SortBy.Count }
 
-  // The bags opened: everything read anew and followed while they are; shut, nothing is heard.
+  // The bags opened: everything read anew; shut, what the window held open lets go.
   onOpen(mut self, open: Boolean) {
-    Game.bags.follow(open)
     if (!open) {
       self.arranger.stop()
       self.lit = -1
@@ -317,8 +328,13 @@ public class Inventory implements Module, App {
       self.menu = nil
       return
     }
-    self.ever = true
     self.readAll()
+  }
+
+  // A bag key opened the window by the client's secure code (in a fight too): the game's bags open with it, which the
+  // window follows.
+  onOpened(mut self) {
+    if (!peek Game.bags.open) { Game.bags.toggle() }
   }
 
   // The bank opened: its window shows, read now and again after each batch of the client's updates while it is open.
@@ -327,7 +343,6 @@ public class Inventory implements Module, App {
       self.bankSlotsOpen = false
       return
     }
-    self.ever = true
     self.readBank()
     Events.BAG_UPDATE_DELAYED.listen(self.onBatch)
   }
@@ -346,11 +361,7 @@ public class Inventory implements Module, App {
   }
 
   onGuild(mut self, open: Boolean) {
-    if (!open) {
-      self.moving = nil
-      return
-    }
-    self.ever = true
+    if (!open) { self.moving = nil }
   }
 
   // The guild bank's shown tab came: its slots read, in their own order.
@@ -832,31 +843,30 @@ public class Inventory implements Module, App {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
       <LootToasts $if={self.toastsShown && self.lootLines.any} lines={mut self.lootLines} />
-      <$if={self.ever}>
-        <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
-                minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
-          {self.main.body}
-        </Window>
-        <Window tabs={self.vaultTabs} selected={mut self.vaultTab} declared={mut self.vaultWindow} shown={self.atVault}
-                minWidth={self.side.leastWidth} padding={NO_ROOM} footer={self.side.footer} @close={self.onVaultClose}>
-          {self.side.body}
-        </Window>
-        <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
-                        @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag}
-                        @pick={self.onKeepBag} @lift={self.onLiftBag} />
-        <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
-                         @close={self.onBankSlotsClosed} />
-        <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale.REFUND}>
-          <text value={self.refundText} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRefundCancel} />
-          <PushButton #buttons label={Locale.REFUND} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onRefund} />
-        </Dialog>
-        <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>
-          <MoneyField value={mut self.amount} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
-          <PushButton #buttons label={self.moneyTitle} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onMoneyMove} />
-        </Dialog>
-      </>
+      <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
+              minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} toggledBy={BAG_KEYS}
+              @close={self.onClose} @openedByKey={self.onOpened} @settings={self.onSettings}>
+        {self.main.body}
+      </Window>
+      <Window tabs={self.vaultTabs} selected={mut self.vaultTab} declared={mut self.vaultWindow} shown={self.atVault}
+              minWidth={self.side.leastWidth} padding={NO_ROOM} footer={self.side.footer} @close={self.onVaultClose}>
+        {self.side.body}
+      </Window>
+      <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
+                      @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag}
+                      @pick={self.onKeepBag} @lift={self.onLiftBag} />
+      <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
+                       @close={self.onBankSlotsClosed} />
+      <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale.REFUND}>
+        <text value={self.refundText} />
+        <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRefundCancel} />
+        <PushButton #buttons label={Locale.REFUND} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onRefund} />
+      </Dialog>
+      <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>
+        <MoneyField value={mut self.amount} />
+        <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
+        <PushButton #buttons label={self.moneyTitle} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onMoneyMove} />
+      </Dialog>
     }
   }
 }

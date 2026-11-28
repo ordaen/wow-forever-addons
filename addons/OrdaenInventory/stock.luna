@@ -22,6 +22,8 @@ public class Stock {
   public state total = 0
   // The slots that took another item in the last update: a protection follows its item there.
   public arrived: mut Array<Slot> = []
+  // A regroup waits for the fight's end.
+  held = false
 
   constructor(vault: Vault) { self.vault = vault }
 
@@ -77,11 +79,24 @@ public class Stock {
   }
 
   // The sections are worked out again where an update changed where items lie, what is new or what is junk, or a count
-  // where the sort is by count.
+  // where the sort is by count. In a fight they wait for its end (`thaw`): each slot is a secure button that keeps its
+  // bag's slot and its place until then, and shows what lies in that slot now.
   public regroup(mut self, changed: Integer, byCount: Boolean) {
     const regroup = Client.bit.band(changed, MOVED + MARKED + JUDGED) != 0 ||
       (Client.bit.band(changed, COUNTED) != 0 && byCount)
-    if (regroup) { self.revision += 1 }
+    if (!regroup) { return }
+    if (peek Game.situation.combat) {
+      self.held = true
+      return
+    }
+    self.revision += 1
+  }
+
+  // The fight ended: the sections held through it are worked out.
+  public thaw(mut self) {
+    if (!self.held) { return }
+    self.held = false
+    self.revision += 1
   }
 
   // A container's place among the kept ones (1 on), by its number; none for one not kept.

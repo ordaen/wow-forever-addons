@@ -293,16 +293,84 @@ test "the window shows while the game has its bags open, and the game's own bag 
   Test.expect(!bags().shown() && own.GetAlpha() == 0)
 }
 
-test "the bags are followed while they are open, and not while they are shut" {
+test "the bags are followed from the start, whether the window shows or not: its secure slots are made out of a fight" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
-  Test.expect(Test.requests().length == 0)
+  Test.expect(!bags().shown())
   Game.bags.open = true
-  Test.expect(bags().shown() && asked("Bags.follow true"))
   Game.bags.open = false
-  Test.expect(!bags().shown() && asked("Bags.follow false"))
+  Test.expect(!bags().shown() && !Test.requests().join(", ").contains("Bags.follow false"))
+}
+
+// The bags' window drawn on the screen, hidden, the bags read as the client's updates at the login read them, and the
+// player's bag key: what a fight finds.
+function keyedWorld(): mut World {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  _ = Client.SetBinding("B", "OPENALLBAGS", nil)
+  Test.mount(nil, SCREEN)
+  Inventory.readAll()
+  Test.flush()
+  return world
+}
+
+test "never opened before a fight, the bag key opens the window in one, its slots use their items, and the key closes it" {
+  const world = keyedWorld()
+  Test.combat(true)
+  Test.keyBound("B")
+  Test.expect(bags().shown() && Game.bags.open)
+  held(SWORD).click()
+  Test.expect(Test.performed().join(", ") == "macro /use 0 4")
+  Test.keyBound("B")
+  Test.expect(!bags().shown() && !Game.bags.open)
+  Test.combat(false)
+}
+
+test "opened and shut before a fight, the bag key opens the window in one; Escape and its close box close it" {
+  const world = keyedWorld()
+  Game.bags.open = true
+  Test.flush()
+  Game.bags.open = false
+  Test.flush()
+  Test.combat(true)
+  Test.keyBound("B")
+  Test.expect(bags().shown())
+  Test.keyBound("ESCAPE")
+  Test.expect(!bags().shown() && !Game.bags.open)
+  Test.keyBound("B")
+  bags().text("13 of 22").hover()
+  bags().button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!bags().shown() && !Game.bags.open)
+  Test.combat(false)
+}
+
+test "loot in a fight shows in its own slot, which uses it; in the sections it waits for the fight's end" {
+  const world = keyedWorld()
+  Test.combat(true)
+  Test.keyBound("B")
+  world.items.push({ bag: 0, slot: 6, id: 4306, name: "Silk Cloth", icon: SILK, count: 3, kind: 7, subkind: 5, subkindName: "Cloth" })
+  Game.bags.updated.emit(0)
+  // The sections stand as they were: the silk's slot is in «Free» until the fight ends.
+  Test.expect(!held(SILK).shown())
+  Test.combat(false)
+  Test.flush()
+  Test.expect(held(SILK).shown())
+  // In one bag every slot shows: what a fight brings shows at once, in its slot, and is used there.
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  // The window hides as a fight begins (its settings' default), and the key opens it in the fight.
+  Test.combat(true)
+  Test.expect(!bags().shown())
+  Test.keyBound("B")
+  world.items.push({ bag: 0, slot: 8, id: 4338, name: "Mageweave Cloth", icon: MAGEWEAVE, count: 2, kind: 7, subkind: 5, subkindName: "Cloth" })
+  Game.bags.updated.emit(0)
+  Test.expect(held(MAGEWEAVE).shown())
+  held(MAGEWEAVE).click()
+  Test.expect(Test.performed().join(", ") == "macro /use 0 8")
+  Test.combat(false)
 }
 
 test "the window's close shuts the game's bags" {
@@ -356,7 +424,7 @@ test "turned off in the settings the window goes and the game's own bag windows 
   // The modules in the list: Bags, then Tooltips.
   page.button(Ordaen.art.ctl.switchOn).nth(1).click()
   Test.expect(own.GetAlpha() == 1 && !Test.page().text("13 of 22").shown())
-  Test.expect(asked("Bags.follow true, Bags.follow false"))
+  Test.expect(asked("Bags.follow false"))
   page.button(Ordaen.art.ctl.switchOff).click()
   Test.expect(own.GetAlpha() == 0 && Test.page().text("13 of 22").shown())
 }
@@ -780,7 +848,7 @@ test "a left click on a slot is the client's own use of the item, each click one
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "macro /use 0 3" && asked("Bags.follow true, Items.showBag 0 3"))
+  Test.expect(Test.performed().join(", ") == "macro /use 0 3" && asked("Items.showBag 0 3"))
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "macro /use 0 3")
   // The slot placed again (the window resized): its hover's highlight still lets the press through to the use.
@@ -823,7 +891,7 @@ test "Shift+right-click puts the item's link into the chat" {
   Test.hold([.Shift])
   Test.hold([.Shift])
   held(POTION).rightClick()
-  Test.expect(asked("Bags.follow true, Items.showBag 0 3, Chat.link 118"))
+  Test.expect(asked("Items.showBag 0 3, Chat.link 118"))
 }
 
 // Where the player stands
@@ -1092,7 +1160,7 @@ test "«Sort the bags» leaves a bag that takes only its own kind as it is" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(Ordaen.art.ctl.tool.arrange).click()
-  Test.expect(asked("Bags.follow true") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  Test.expect(asked("") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
 }
 
 test "«Sort the bags» waits for a locked slot, and goes on once it is let go" {
@@ -1108,7 +1176,7 @@ test "«Sort the bags» waits for a locked slot, and goes on once it is let go" 
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(Ordaen.art.ctl.tool.arrange).click()
-  Test.expect(asked("Bags.follow true") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  Test.expect(asked("") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
   world.at(0, 2).locked = false
   Game.bags.updated.emit(0)
   Test.expect(asked("Bags.swap 0 2 0 1"))
@@ -1129,7 +1197,7 @@ test "«Sort the bags» never takes a stack out of a place it belongs in, waitin
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(Ordaen.art.ctl.tool.arrange).click()
-  Test.expect(asked("Bags.follow true") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  Test.expect(asked("") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
   world.at(0, 1).locked = false
   Game.bags.updated.emit(0)
   Test.expect(asked("Bags.swap 0 2 0 1"))
@@ -1212,7 +1280,7 @@ test "«Sort the bags» over bags in order ends at once, an item picked up or no
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   bags().button(Ordaen.art.ctl.tool.arrange).click()
-  Test.expect(asked("Bags.follow true") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  Test.expect(asked("") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
 }
 
 test "«Sort the bags» gives up after as many goes as there are slots, the client moving nothing" {
