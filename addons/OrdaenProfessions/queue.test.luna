@@ -278,8 +278,9 @@ test "each profession's «Queue» shows and counts its own lines alone" {
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = SMITHING
+  // Tailoring's run stopped as Blacksmithing opened: the stone runs at once.
   create("Rough Sharpening Stone", 1)
-  Test.expect(window().text(NOTE).shown())
+  Test.expect(!window().text(NOTE).shown())
   window().button("Queue (1)").click()
   Test.expect(reads(window().text("Rough Sharpening Stone").item(), "Rough Sharpening Stone | - | 1 | + | x"))
   Test.expect(!window().text("Linen Cloak").shown() && !window().text("Bolt of Linen Cloth").shown())
@@ -301,13 +302,13 @@ test "«Create next» runs the open profession's first line; the other professio
   Game.tradeSkill.open = TAILORING
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 2)
+  Game.tradeSkill.made.emit(CLOAK)
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = SMITHING
   create("Rough Sharpening Stone", 1)
-  Game.tradeSkill.made.emit(CLOAK)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
   window().button("Queue (1)").click()
-  Test.expect(window().text("Next: Rough Sharpening Stone ×1. Click «Create next».").shown())
   _ = Test.requests()
   window().button("Create next").click()
   Test.expect(asked("TradeSkill.craft 2660 1") && window().text("Making Rough Sharpening Stone: 1 left.").shown())
@@ -332,11 +333,14 @@ test "«Create» in a profession with nothing of it waiting makes it at once, th
   Game.tradeSkill.open = TAILORING
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 2)
+  Game.tradeSkill.made.emit(CLOAK)
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = SMITHING
+  _ = Test.requests()
   create("Rough Sharpening Stone", 1)
-  Game.tradeSkill.made.emit(CLOAK)
+  Test.expect(asked("TradeSkill.craft 2660 1") && !window().text(NOTE).shown())
+  Game.tradeSkill.made.emit(STONE)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(5)
   Game.tradeSkill.open = TAILORING
@@ -357,21 +361,19 @@ test "a pause is its profession's: the other profession's tab says only what is 
   Game.tradeSkill.open = TAILORING
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 2)
+  Game.tradeSkill.made.emit(CLOAK)
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = SMITHING
   create("Rough Sharpening Stone", 1)
   Game.tradeSkill.stopped.emit(Game.CraftStop.Failed)
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Paused: the game couldn't make the next one. Check the reagents and tools, then click «Create next».").shown())
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(5)
   Game.tradeSkill.open = TAILORING
-  window().button("Queue (2)").click()
-  Test.expect(window().text("Paused: the game couldn't make the next one. Check the reagents and tools, then click «Create next».").shown())
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Game.tradeSkill.open = SMITHING
   window().button("Queue (1)").click()
-  Test.expect(window().text("Next: Rough Sharpening Stone ×1. Click «Create next».").shown())
+  Test.expect(window().text("Next: Bolt of Linen Cloth ×2. Click «Create next».").shown())
 }
 
 // What pauses the queue
@@ -407,6 +409,33 @@ test "an interruption pauses the queue as it is" {
   create("Linen Cloak", 4)
   Game.tradeSkill.made.emit(CLOAK)
   Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Paused: crafting was interrupted. Click «Create next» to go on.").shown())
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 3 | + | x") && !off(window().button("Create next")))
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2387 3"))
+}
+
+test "another profession opened mid-run stops the client's run: the queue waits as interrupted, «Create next» on and no «Stop»" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 4)
+  Game.tradeSkill.made.emit(CLOAK)
+  // The player's tab: the client opens Blacksmithing and makes no more cloaks, saying nothing of it.
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Game.tradeSkill.open = TAILORING
+  window().text("Linen Cloak").nth(1).click()
+  Test.expect(window().button("Remove from queue").shown() && !window().button("Stop").shown())
   window().button("Queue (1)").click()
   Test.expect(window().text("Paused: crafting was interrupted. Click «Create next» to go on.").shown())
   Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 3 | + | x") && !off(window().button("Create next")))

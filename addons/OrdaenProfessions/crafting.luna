@@ -29,6 +29,7 @@ public class CraftQueue {
     Game.tradeSkill.made.listen(self.onMade)
     Game.tradeSkill.stopped.listen(self.onStopped)
     watch (fighting of Game.situation.combat) { self.onCombat(fighting) }
+    watch (open of Game.tradeSkill.open) { self.onOpen(open) }
   }
 
   // A profession's lines, in the order they run.
@@ -125,6 +126,19 @@ public class CraftQueue {
     const line = (peek self.lines).find(entry => entry.recipe == making)
     if (line == nil) { return }
     self.pause(line.skillLine, match (stop) { Game.CraftStop.Interrupted => Pause.Interrupted, Game.CraftStop.Failed => Pause.Failed })
+  }
+
+  // Another profession opened, or the profession closed, while a run goes: the client makes a run only of the open
+  // profession and stops repeating it as another opens (it says nothing of that), so the queue stops following the run
+  // and its profession's queue waits as interrupted, its line keeping what is left, for the player's click. A profession
+  // opens from the player's click alone, never at a run's end, so the switch can't wait for the run.
+  onOpen(mut self, open: Integer | nil) {
+    if (!peek self.running) { return }
+    const making = peek self.making
+    const line = (peek self.lines).find(entry => entry.recipe == making)
+    if (line == nil || line.skillLine == open) { return }
+    self.left = 0
+    self.pause(line.skillLine, Pause.Interrupted)
   }
 
   // A fight: nothing more starts in any profession until the player's click after it (a run already going is the
