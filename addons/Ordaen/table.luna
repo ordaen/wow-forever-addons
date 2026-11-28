@@ -18,17 +18,19 @@ import { Align, Art, ByInteractionState, Edges, Event, Fit, Frame, Line, MouseBu
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Ground, ScrolledList } from "@/scrolledList"
+import { Tip } from "@/tip"
 import { BRIGHT_TEXT, WINDOW_ROOM } from "@/units"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
 // heading click sorts by it, the groups it is in, outermost first: neighbouring columns of one group share a heading
-// over theirs.
+// over theirs; what its heading's Tip says of it under the cursor (its title the Tip's), none for none.
 public struct Column {
   title: String
   width: Track
   align: Align | nil
   sortable: Boolean | nil
   group: Array<String> | nil
+  tip: String | nil
 }
 
 // A heading: a column's (nothing `under` it), or a group's, its title over the headings `under` it. `index` (from 1) is
@@ -159,6 +161,10 @@ class Heading implements Component {
   derived markFirst: Boolean = self.column.align == Align.End
   derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | ByInteractionState<Color> = self.sortable ? SHADE : CLEAR
+  state hovered = false
+  derived tipped: Boolean = self.column.tip != nil
+  derived tipShown: Boolean = self.hovered && self.tipped
+  derived tipText: String = self.column.tip ?? ""
 
   column: Signal<Column>
   const index: Integer
@@ -205,11 +211,19 @@ class Heading implements Component {
     self.then = self.then == self.index ? -self.index : self.index
   }
 
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
   public render(self): Template {
     return $ltml {
       <box yAlignSelf={Align.Stretch} padding={self.padding} xAlign={self.column.align} yAlign={Align.Center} background={self.shade}
            @pointerPress(.Left)={self.onClick} @pointerPress([.Shift, .Left])={self.onThen} @keyPress(.Enter)={self.onClick}
            @keyPress(.Space)={self.onClick} @keyPress([.Shift, .Enter])={self.onThen}>
+        // A heading with a Tip hears the cursor over it, and takes no click from the heading.
+        <box $if={self.tipped} position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} mouseThrough={true}
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <Tip $if={self.tipShown} title={self.column.title} text={self.tipText} />
+        </box>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
         <box columns={HEAD} gap={1sp} yAlign={Align.Center} interactionState={self.$interactionState}>
