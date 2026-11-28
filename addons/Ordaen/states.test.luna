@@ -89,8 +89,9 @@ function fontsOf(frame: any Client.Frame, out: mut Array<String>) {
 
 // What the page draws, a line each, its colours left out: its frames and regions as the client describes them, its
 // texts' fonts, and (with `crops`) each texture's file with the size of the part of it drawn. A popup it opens (a
-// tip under the cursor, on a strata of its own) is no part of its look.
-function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
+// tip under the cursor, on a strata of its own) is no part of its look. Without `texts`, what each text says is left out
+// too (a sorted table's line, which says its order).
+function drawnBut(page: any Client.Frame, crops: Boolean, texts: Boolean = true): Array<String> {
   Test.flush()
   let lines: Array<String> = []
   // A texture over another of the same place and size is a light on it (an art's glow, its pushed row): one line.
@@ -109,7 +110,7 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
     const plain = line.replace(" color=[^ ]+", "").replace(" vertex=[^ ]+", "").replace(" alpha=[^ ]+", "")
     let indent, place = plain.match("^(%s*)Texture .-(%-?[%d%.]+,%-?[%d%.]+ [%d%.]+x[%d%.]+)")
     if (indent == nil || place == nil) {
-      lines.push(plain)
+      lines.push(texts ? plain : plain.replace(" text=\"[^\"]*\"", ""))
     } else if (laid[indent + place] != true) {
       laid[indent + place] = true
       lines.push(`${indent}Texture ${place}`)
@@ -133,8 +134,8 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
 }
 
 // What the page draws is what it drew at first, or the test stops and says the first line that isn't.
-function same(page: any Client.Frame, first: Array<String>, state: String, crops: Boolean) {
-  const now = drawnBut(page, crops)
+function same(page: any Client.Frame, first: Array<String>, state: String, crops: Boolean, texts: Boolean) {
+  const now = drawnBut(page, crops, texts)
   for (index of 1..first.length.max(now.length)) {
     const was = first[index] ?? "(nothing)"
     const seen = now[index] ?? "(nothing)"
@@ -151,27 +152,26 @@ function sameBox(frame: any Client.Frame, first: String, state: String) {
 // The component that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go
 // there (a click), and again after each of `steps` (each sets a state the owner holds). Away from the cursor the
 // textures' crops are compared too, unless `moves`: a state that moves art from one box to another of its own width (the
-// picked tab's wood).
-function holdsItsBox(at: Test.Point, steps: Array<() => nil>, moves: Boolean = false) {
+// picked tab's wood). Without `texts`, what the texts say is left out (`drawnBut`).
+function holdsItsBox(at: Test.Point, steps: Array<() => nil>, moves: Boolean = false, texts: Boolean = true) {
   const frame = frameAt(at)
   const page = pageOf(frame)
   Test.moveTo(AWAY)
   const box = rectOf(frame)
-  // Under the cursor a light is an art's other row.
-  const away = drawnBut(page, !moves)
-  const first = drawnBut(page, false)
+  const away = drawnBut(page, !moves, texts)
+  const first = drawnBut(page, false, texts)
   for (index of 0..steps.length) {
     const step = steps[index]
     if (step != nil) { step() }
     const state = index == 0 ? "as drawn" : `after step ${index}`
     Test.moveTo(AWAY)
-    same(page, away, state + ", away from the cursor", !moves)
+    same(page, away, state + ", away from the cursor", !moves, texts)
     Test.moveTo(at)
-    same(page, first, state + ", under the cursor", false)
+    same(page, first, state + ", under the cursor", false, texts)
     Test.press(nil)
     sameBox(frame, box, state + ", pressed")
     Test.release(nil)
-    same(page, first, state + ", clicked", false)
+    same(page, first, state + ", clicked", false, texts)
   }
   Test.moveTo(AWAY)
 }
@@ -383,14 +383,13 @@ const COLUMNS: Array<Column> = [
 ]
 
 class Sorted {
-  state column = 1
-  state descending = false
+  state sorts: Array<Integer> = [1, 2]
   state selected = false
 
   public render(self): Template {
     return $ltml {
       <box width={585.9375dp}>
-        <Table columns={COLUMNS} sorted={mut self.column} descending={mut self.descending}>
+        <Table columns={COLUMNS} sorts={mut self.sorts}>
           <TableRow selected={self.selected}>
             <TableCell> <text value={"Linen Bandage"} /> </TableCell>
           </TableRow>
@@ -404,11 +403,12 @@ test "a table's heading and row keep their boxes sorted by or not, selected or n
   let page = new Sorted()
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
-    () => { page.column = 2 }, () => { page.descending = true }, () => { page.selected = true },
-    () => { page.column = 1 }, () => { page.selected = false }
+    () => { page.sorts = [2, 1] }, () => { page.sorts = [-2, 1] }, () => { page.selected = true },
+    () => { page.sorts = [-1, 2] }, () => { page.selected = false }
   ]
+  // The line over the table says the order, which each step and each heading's click changes.
   for (name of ["Recipe", "Makeable", "Plain", "Linen Bandage"]) {
-    holdsItsBox(Test.holding(name, nil), steps)
+    holdsItsBox(Test.holding(name, nil), steps, false, false)
   }
   destroy page
 }

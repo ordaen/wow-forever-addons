@@ -1,7 +1,7 @@
 // «Characters»: every recorded character in a sortable table, and «Forget» on each but the one being played, which
 // asks first. A row is built from the records when they change while this tab shows.
 import { Align, Track } from "$ltml"
-import { BUTTON_HEIGHT, Column, Component, Dialog, Hour, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
+import { BUTTON_HEIGHT, Column, Component, Dialog, Hour, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import { CharacterId, Place, STALE } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -38,6 +38,15 @@ public struct Line {
   apart: Boolean
   // Not played for ninety days: the player may forget it.
   stale: Boolean
+}
+
+// Whether `a` comes before `b` by a column, ascending (`sortedBefore`).
+function lineBefore(a: Line, b: Line, column: Integer): Boolean {
+  if (column == 1) { return a.name < b.name }
+  if (column == 2) { return a.level < b.level }
+  if (column == 3) { return a.money < b.money }
+  if (column == 4) { return a.free < b.free }
+  return a.away < b.away
 }
 
 // One row of the table: the character's cells, and «Forget» where it may be forgotten.
@@ -89,8 +98,7 @@ public class CharacterRow implements Component {
 public class Characters implements Component {
   // The character the player asked to forget, until the answer.
   state asking: CharacterId | nil = nil
-  state sorted = 0
-  state descending = false
+  state sorts: Array<Integer> = []
   derived lines: Array<Line> = self.linesOf()
   derived ordered: Array<Line> = self.order()
   derived question: String = self.questionOf()
@@ -137,16 +145,8 @@ public class Characters implements Component {
   order(self): Array<Line> {
     const list: Array<Line> = []
     for (line of self.lines) { list.push(line) }
-    const column = self.sorted
-    const down = self.descending
-    if (column == 0) { return list }
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
-      if (column == 2) { return down ? a.level > b.level : a.level < b.level }
-      if (column == 3) { return down ? a.money > b.money : a.money < b.money }
-      if (column == 4) { return down ? a.free > b.free : a.free < b.free }
-      return down ? a.away > b.away : a.away < b.away
-    })
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, lineBefore)) }
     return list
   }
 
@@ -170,7 +170,7 @@ public class Characters implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+        <Table columns={COLUMNS} sorts={mut self.sorts}>
           <CharacterRow $for={line of self.ordered} $key={line.who} line={line} @forget={self.ask} />
         </Table>
         <box $if={self.alone} padding={Style.NOTE_ROOM}>

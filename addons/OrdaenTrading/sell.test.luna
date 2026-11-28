@@ -191,8 +191,13 @@ test "a column's title sorts the rows by it, and again the other way" {
   Test.expect(before("Bronze Axe", "Copper Ore") && before("Copper Ore", "Linen Cloth"))
   window().button("Item").click()
   Test.expect(before("Linen Cloth", "Copper Ore") && before("Copper Ore", "Bronze Axe"))
+  // Each sort taken away before the next, each column sorts alone; the axe, with no average, last either way.
+  window().button("Item").rightClick()
   window().button("Average").click()
-  Test.expect(before("Bronze Axe", "Linen Cloth") && before("Linen Cloth", "Copper Ore"))
+  Test.expect(before("Linen Cloth", "Copper Ore") && before("Copper Ore", "Bronze Axe"))
+  window().button("Average").click()
+  Test.expect(before("Copper Ore", "Linen Cloth") && before("Linen Cloth", "Bronze Axe"))
+  window().button("Average").rightClick()
   window().button("Vendor").nth(1).click()
   Test.expect(before("Copper Ore", "Linen Cloth") && before("Linen Cloth", "Bronze Axe"))
 }

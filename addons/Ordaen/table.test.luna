@@ -1,6 +1,6 @@
-// The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
-// nothing, the rows follow their own cells, and a body given a height builds only the rows in view: a row handed
-// another item follows its cell.
+// The library's Table: a heading click adds its column to the sorts and again reverses it, a right click takes it
+// away, a dim line over the table says the order, a column that isn't sortable does nothing, the rows follow their own
+// cells, and a body given a height builds only the rows in view: a row handed another item follows its cell.
 import { Align, Frame, MouseButton, Track } from "$ltml"
 import Test from "$test"
 import Wow from "LunaTypeRenderer"
@@ -28,8 +28,7 @@ class Sales {
     { name: "Bronze Axe", price: 12345, seen: 86400 },
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
   ]
-  public state sorted = 0
-  public state descending = false
+  public state sorts: Array<Integer> = []
   public state picked = ""
   public state clicks = 0
   public state height: Number<Length> | nil = nil
@@ -38,14 +37,8 @@ class Sales {
   order(self): Array<Sale> {
     let list: Array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
-    const column = self.sorted
-    const down = self.descending
-    if (column == 0) { return list }
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
-      if (column == 2) { return down ? a.price > b.price : a.price < b.price }
-      return down ? a.seen > b.seen : a.seen < b.seen
-    })
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, saleBefore)) }
     return list
   }
 
@@ -56,7 +49,7 @@ class Sales {
 
   public render(self): Template {
     return $ltml {
-      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
+      <Table columns={COLUMNS} sorts={mut self.sorts} height={self.height}>
         <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onPick}>
           <TableCell> <text value={sale.name} /> </TableCell>
           <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
@@ -78,27 +71,30 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
   Test.shot("unsorted: the rows as given, no heading marked")
   Test.expect(names(page) == "Copper Bar, Bronze Axe, Arcane Dust")
 
-  Test.click(Test.holding("Price", nil), nil)
-  Test.expect(page.sorted == 2 && !page.descending)
+  Test.page().button("Price").click()
+  Test.expect(page.sorts.equal([2]))
   Test.expect(names(page) == "Arcane Dust, Copper Bar, Bronze Axe")
   Test.shot("Price clicked: ordered by it, the cheapest first, its heading gold with the up mark and a light under it")
 
-  Test.click(Test.holding("Price", nil), nil)
-  Test.expect(page.descending)
+  Test.page().button("Price").click()
+  Test.expect(page.sorts.equal([-2]))
   Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
   Test.shot("Price clicked again: reversed, the down mark")
 
-  Test.click(Test.holding("Item", nil), nil)
-  Test.expect(page.sorted == 1 && !page.descending)
+  Test.page().button("Price").rightClick()
+  Test.page().button("Item").click()
+  Test.expect(page.sorts.equal([1]))
   Test.expect(names(page) == "Arcane Dust, Bronze Axe, Copper Bar")
-  Test.shot("Item clicked: by name, ascending again, the light moved")
+  Test.shot("Price taken away, Item clicked: by name, ascending again, the light moved")
 
-  Test.click(Test.holding("Age", nil), nil)
+  Test.page().button("Item").rightClick()
+  Test.page().button("Age").click()
   Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
-  Test.shot("Age clicked: the youngest first")
+  Test.shot("Item taken away, Age clicked: the youngest first")
 
-  Test.click(Test.holding("Note", nil), nil)
-  Test.expect(page.sorted == 3)
+  Test.page().button("Note").click()
+  Test.page().button("Note").rightClick()
+  Test.expect(page.sorts.equal([3]))
   Test.shot("Note clicked: it isn't sortable, nothing changes")
 
   page.sales = [
@@ -132,14 +128,13 @@ function many(count: Integer): Array<Sale> {
 // A table in a row that shares what is left of a page 200 high, between a head and a foot: six hundred sales.
 class Long {
   public state sales: Array<Sale> = many(600)
-  public state sorted = 0
-  public state descending = false
+  public state sorts: Array<Integer> = []
 
   public render(self): Template {
     return $ltml {
       <box height={200ui} rows={PAGE}>
         <text value={"head"} />
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+        <Table columns={COLUMNS} sorts={mut self.sorts}>
           <TableRow $for={sale of self.sales} $key={sale}>
             <TableCell> <text value={sale.name} /> </TableCell>
             <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
@@ -191,12 +186,11 @@ const SHARED: Array<Column> = [
 
 // Three columns that share the width, a row whose zone runs far past its column.
 class Shared {
-  public state sorted = 0
-  public state descending = false
+  public state sorts: Array<Integer> = []
 
   public render(self): Template {
     return $ltml {
-      <Table columns={SHARED} sorted={mut self.sorted} descending={mut self.descending}>
+      <Table columns={SHARED} sorts={mut self.sorts}>
         <TableRow>
           <TableCell>
             <text value={"Ingrid"} wrap={.None} />
@@ -244,8 +238,7 @@ const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
 
 // Two groups of two columns between two columns in none, on the wood.
 class Grouped {
-  public state sorted = 0
-  public state descending = false
+  public state sorts: Array<Integer> = []
   // The row the cursor last came onto.
   public row: any Frame | nil = nil
 
@@ -253,7 +246,7 @@ class Grouped {
 
   public render(self): Template {
     return $ltml {
-      <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
+      <Table columns={GROUPED} sorts={mut self.sorts} ground={Ground.Wood}>
         <TableRow $for={ware of WARES} ground={Ground.Wood} @enter={self.onRow}>
           <TableCell> <text value={ware} /> </TableCell>
           <TableCell align={Align.End}> <text value={"1"} /> </TableCell>
@@ -280,8 +273,10 @@ test "neighbouring columns of one group share a heading over theirs; a table on 
   // A column in no group has its heading over both rows, its title in their middle.
   const item = Test.page().text("Item").rect()
   Test.expect(item.top > cost.top && item.bottom < house.bottom)
-  Test.click(Test.holding("Vendor", nil), nil)
-  Test.expect(page.sorted == 3)
+  Test.page().button("Vendor").nth(1).click()
+  Test.expect(page.sorts.equal([3]))
+  // The order's line names a column in a group by the group's title and its own.
+  Test.expect(Test.page().text("Cost - Vendor").shown())
   Test.shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
   destroy page
   Test.expect(Test.blank())
@@ -322,15 +317,14 @@ const NESTED: Array<Column> = [
 
 // A group in a group: «House» under «Price», over two columns, beside a column of «Price» in no further group.
 class Nested {
-  public state sorted = 0
-  public state descending = false
+  public state sorts: Array<Integer> = []
   public row: any Frame | nil = nil
 
   onRow(mut self, frame: any Frame) { self.row = frame }
 
   public render(self): Template {
     return $ltml {
-      <Table columns={NESTED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
+      <Table columns={NESTED} sorts={mut self.sorts} ground={Ground.Wood}>
         <TableRow ground={Ground.Wood} @enter={self.onRow}>
           <TableCell> <text value={"Ore"} /> </TableCell>
           <TableCell> <text value={"one"} /> </TableCell>
@@ -393,33 +387,26 @@ function saleBefore(a: Sale, b: Sale, column: Integer): Boolean {
   return a.seen < b.seen
 }
 
-// A table sorted by two: two sales of one price, told apart by the second sort.
-class TwoSorts {
+// A table sorted by several: two sales of one price, told apart by the next sort.
+class Ties {
   public state sales: Array<Sale> = [
     { name: "Copper Bar", price: 150, seen: 3 },
     { name: "Arcane Dust", price: 40, seen: 9 },
     { name: "Bronze Bar", price: 150, seen: 1 }
   ]
-  public state sorted = 0
-  public state descending = false
-  public state then = 0
+  public state sorts: Array<Integer> = []
   public derived ordered: Array<Sale> = self.order()
 
   order(self): Array<Sale> {
     let list: Array<Sale> = self.sales.map(sale => sale)
-    const sorted = self.sorted
-    const down = self.descending
-    const then = self.then
-    list.sort((a, b) => sortedBefore(a, b, sorted, down, then, saleBefore))
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, saleBefore)) }
     return list
   }
 
-  onSecond(mut self, then: Integer) { self.then = then }
-
   public render(self): Template {
     return $ltml {
-      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} twoSorts={true}
-             @secondSort={self.onSecond}>
+      <Table columns={COLUMNS} sorts={mut self.sorts}>
         <TableRow $for={sale of self.ordered} $key={sale}>
           <TableCell> <text value={sale.name} /> </TableCell>
           <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
@@ -431,31 +418,52 @@ class TwoSorts {
   }
 }
 
-test "Shift and a click on another heading sorts the rows the first leaves level by it, again reverses it; a click alone clears it" {
-  let page = new TwoSorts()
+function tied(page: Ties): String {
+  return page.ordered.map(sale => sale.name).join(", ")
+}
+
+test "a click on another heading sorts the rows the first leaves level by it, again reverses it; a right click takes a sort away" {
+  let page = new Ties()
   Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  Test.click(Test.holding("Price", nil), nil)
-  // Two bars at 150: as given, until the second sort tells them apart.
-  Test.expect(page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Copper Bar, Bronze Bar")
-  Test.hold([.Shift])
-  Test.click(Test.holding("Item", nil), nil)
-  Test.hold([])
-  Test.flush()
-  Test.expect(page.sorted == 2)
-  Test.expect(page.then == 1)
-  Test.expect(page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Bronze Bar, Copper Bar")
-  Test.hold([.Shift])
-  Test.click(Test.holding("Item", nil), nil)
-  Test.hold([])
-  Test.flush()
-  Test.expect(page.then == -1 && page.ordered.map(sale => sale.name).join(", ") == "Arcane Dust, Copper Bar, Bronze Bar")
-  // Shift on the first sort's own heading does nothing; a click alone on the second's makes it the first.
-  Test.hold([.Shift])
-  Test.click(Test.holding("Price", nil), nil)
-  Test.hold([])
-  Test.flush()
-  Test.expect(page.sorted == 2 && page.then == -1)
-  Test.click(Test.holding("Item", nil), nil)
-  Test.flush()
-  Test.expect(page.sorted == 1 && page.then == 0)
+  Test.page().button("Price").click()
+  Test.expect(page.sorts.equal([2]) && Test.page().text("Price").count() == 2)
+  Test.page().button("Item").click()
+  Test.expect(page.sorts.equal([2, 1]) && tied(page) == "Arcane Dust, Bronze Bar, Copper Bar")
+  Test.expect(Test.page().text("Price > Item").shown())
+  Test.page().button("Item").click()
+  Test.expect(page.sorts.equal([2, -1]) && tied(page) == "Arcane Dust, Copper Bar, Bronze Bar")
+  Test.expect(Test.page().text("Price > desc Item").shown())
+  Test.shot("sorted by Price, then by Item down: the order over the table, Item's mark at half")
+  Test.page().button("Price").rightClick()
+  Test.expect(page.sorts.equal([-1]) && tied(page) == "Copper Bar, Bronze Bar, Arcane Dust")
+  Test.expect(Test.page().text("desc Item").shown())
+  // A right click on a heading that sorts nothing does nothing.
+  Test.page().button("Age").rightClick()
+  Test.expect(page.sorts.equal([-1]))
+  Test.page().button("Item").rightClick()
+  Test.expect(page.sorts.length == 0 && !Test.page().text("desc Item").shown())
+  destroy page
+  Test.expect(Test.blank())
+}
+
+// A sale whose price isn't known: what `missing` says of the price's column.
+function unpriced(sale: Sale, column: Integer): Boolean {
+  return column == 2 && sale.price == 0
+}
+
+test "sortedBefore orders by each sort in turn, a negative one down, and a missing cell last either way" {
+  const ash: Sale = { name: "Ash", price: 10, seen: 1 }
+  const birch: Sale = { name: "Birch", price: 10, seen: 1 }
+  const cedar: Sale = { name: "Cedar", price: 10, seen: 2 }
+  const dust: Sale = { name: "Dust", price: 5, seen: 9 }
+  const list: Array<Sale> = [ash, birch, cedar, dust]
+  list.sort((a, b) => sortedBefore(a, b, [2, -3, -1], saleBefore))
+  Test.expect(list.map(sale => sale.name).join(", ") == "Dust, Cedar, Birch, Ash")
+  Test.expect(!sortedBefore(ash, ash, [1, 2, 3], saleBefore) && !sortedBefore(ash, birch, [], saleBefore))
+  const elm: Sale = { name: "Elm", price: 0, seen: 4 }
+  const priced: Array<Sale> = [elm, cedar, dust]
+  priced.sort((a, b) => sortedBefore(a, b, [2], saleBefore, unpriced))
+  Test.expect(priced.map(sale => sale.name).join(", ") == "Dust, Cedar, Elm")
+  priced.sort((a, b) => sortedBefore(a, b, [-2], saleBefore, unpriced))
+  Test.expect(priced.map(sale => sale.name).join(", ") == "Cedar, Dust, Elm")
 }

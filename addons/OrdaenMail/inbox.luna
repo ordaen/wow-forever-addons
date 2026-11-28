@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, Modifier, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar, sortedBefore } from "Ordaen"
 import { Filter, URGENT_DAYS, View, collectable, matches } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -17,10 +17,16 @@ import Style from "@/style"
 public struct InboxView implements Plain {
   filter: Filter = Filter.All
   view: View = View.List
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 const INBOX_VIEW: InboxView = {}
+
+// Whether `a` comes before `b` by a column, ascending (`sortedBefore`): the subject, the sender, the days left.
+function letterBefore(a: Game.MailLetter, b: Game.MailLetter, column: Integer): Boolean {
+  if (column == 1) { return a.subject < b.subject }
+  if (column == 2) { return senderOf(a) < senderOf(b) }
+  return a.days < b.days
+}
 
 // The sender's kind as a row's icon: a player's letter, the auction house's, the world's.
 const PLAYER_ICON: Art = "Interface/Icons/INV_Letter_15"
@@ -289,14 +295,8 @@ public class Inbox implements Component {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.letters.filter(l => matches(l, filter, search))
-    const column = self.list.values.sorted
-    const down = self.list.values.descending
-    if (column == 0) { return list }
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.subject > b.subject : a.subject < b.subject }
-      if (column == 2) { return down ? senderOf(a) > senderOf(b) : senderOf(a) < senderOf(b) }
-      return down ? a.days > b.days : a.days < b.days
-    })
+    const sorts = self.list.values.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, letterBefore)) }
     return list
   }
 
@@ -356,7 +356,7 @@ public class Inbox implements Component {
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
-            <ToolSort sorted={mut self.list.values.sorted} columns={COLUMNS} title={Locale.SORT} />
+            <ToolSort sorts={mut self.list.values.sorts} columns={COLUMNS} title={Locale.SORT} />
             <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
           </Toolbar>
           <PushButton label={self.takeLabel} width={Style.WIDE_BUTTON} plate={ButtonPlate.Accent} disabled={self.nothingToTake}
@@ -376,7 +376,7 @@ public class Inbox implements Component {
                        ticked={self.ticked} busy={self.busy} @clicked={self.onClicked} @tick={self.onTick} />
           </box>
         </ScrolledList>
-        <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
+        <Table $else columns={COLUMNS} sorts={mut self.list.values.sorts} rowsVary={true}>
           <LetterTableRow $for={letter of self.shown} $key={letter.index} letter={letter} picked={self.picked}
                           busy={self.busy} @clicked={self.onClicked} />
         </Table>

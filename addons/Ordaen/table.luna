@@ -16,10 +16,11 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Event, Fit, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
+import Locale from "@/locales"
 import { Component } from "@/module"
 import { Ground, ScrolledList } from "@/scrolledList"
 import { Tip } from "@/tip"
-import { BRIGHT_TEXT, WINDOW_ROOM } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
 // heading click sorts by it, the groups it is in, outermost first: neighbouring columns of one group share a heading
@@ -112,8 +113,10 @@ const HEAD: Array<Track> = ["max-content", "max-content"]
 public const ROW: Number<Length> = 32.8125dp
 // Where the text of a table with no rows stands: under its headings, a row down.
 const EMPTY_TOP: Number<Length> = 46.875dp
-// The well fills what the table is given; its headings stay over its rows as they scroll.
+// The well fills what the table is given; its headings stay over its rows as they scroll. Sorted, the order's line over
+// it, its text where the cells' text starts.
 const FILLED: Array<Track> = [{ fr: 1 }]
+const ORDERED: Array<Track> = ["max-content", { fr: 1 }]
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
 const MARK_WIDTH = 9.375dp
 const MARK_HEIGHT = 7.03125dp
@@ -132,30 +135,69 @@ function tracksOf(columns: Array<Column>): Array<Track> {
   return list
 }
 
-// Whether `a` comes before `b` in a table sorted by `sorted` (`descending` or not), then, where that leaves them level,
-// by the second sort `then` (a column's number, negative where it runs down; 0 for none). `before(a, b, column)` is a
-// column's own order, ascending. What a page sorts its rows with.
-public function sortedBefore<T>(a: T, b: T, sorted: Integer, descending: Boolean, then: Integer,
-  before: (a: T, b: T, column: Integer) => Boolean): Boolean {
-  if (sorted != 0) {
-    if (before(a, b, sorted)) { return !descending }
-    if (before(b, a, sorted)) { return descending }
+// Whether `a` comes before `b` in a table sorted by `sorts`: by the first, where it leaves them level by the next, and
+// on (each a column's number, negative where it runs down). `before(a, b, column)` is a column's own order, ascending,
+// of rows that have something there; `missing(row, column)`, where a row has nothing in a column (a «—»): such a row
+// stands after every one that has, either way. What a page sorts its rows with.
+public function sortedBefore<T>(
+  a: T, b: T, sorts: Array<Integer>, before: (a: T, b: T, column: Integer) => Boolean,
+  missing: ((row: T, column: Integer) => Boolean) | nil = nil
+): Boolean {
+  for (sort of sorts) {
+    const column = sort.abs()
+    if (missing != nil) {
+      const gone = missing(a, column)
+      if (gone != missing(b, column)) { return !gone }
+      if (gone) { continue }
+    }
+    if (before(a, b, column)) { return sort > 0 }
+    if (before(b, a, column)) { return sort < 0 }
   }
-  if (then == 0) { return false }
-  return then > 0 ? before(a, b, then) : before(b, a, -then)
+  return false
+}
+
+// A table's sorts, then `column` where none of them is by it, the first one's way: what tells rows apart that the
+// player's sorts leave level (the name).
+public function sortsThen(sorts: Array<Integer>, column: Integer): Array<Integer> {
+  if (sorts.any(sort => sort.abs() == column)) { return sorts }
+  const all = sorts.map(sort => sort)
+  all.push((sorts[1] ?? 0) < 0 ? -column : column)
+  return all
+}
+
+// The order a table's rows are sorted in, in words: each sort's heading (a group's titles before it, «Auction -
+// Cost»), a descending one marked so, `>` between; nothing while none sorts.
+function orderOf(columns: Array<Column>, sorts: Array<Integer>): String {
+  const words: Array<String> = []
+  for (sort of sorts) {
+    const column = columns[sort.abs()]
+    if (column == nil) { continue }
+    const path = (column.group ?? []).map(title => title)
+    path.push(column.title)
+    const name = path.filter(title => title != "").join(" - ")
+    words.push(sort < 0 ? Locale.TABLE_SORT_DOWN.format(name) : name)
+  }
+  return words.join(" > ")
+}
+
+// Where a column stands among a table's sorts, from 1; 0 where it sorts nothing.
+function placeOf(sorts: Array<Integer>, column: Integer): Integer {
+  for (at, sort of sorts) {
+    if (sort.abs() == column) { return at }
+  }
+  return 0
 }
 
 // A column's heading, as high as the headings beside it, its title in its middle; under a group's, a cell's room.
 class Heading implements Component {
-  derived picked: Boolean = self.sorted == self.index
-  // The second sort is by it: its number, negative where it runs down.
-  derived second: Boolean = self.then.abs() == self.index && !self.picked
+  derived place: Integer = placeOf(self.sorts, self.index)
+  derived picked: Boolean = self.place == 1
   derived padding: Edges = self.grouped ? CELL_PADDING : HEADING_PADDING
   // The light under it and the mark are always drawn, what isn't the state clear or at no opacity: only colours and
-  // the mark's art tell the heading the rows are ordered by, and which way; the second sort's mark at half.
+  // the mark's art tell the heading the rows are ordered by, and which way; a later sort's mark at half.
   derived light: Color = self.picked ? LIGHT : CLEAR
-  derived marked: Number = self.picked ? 1 : self.second ? 0.5 : 0
-  derived down: Boolean = self.second ? self.then < 0 : self.descending
+  derived marked: Number = self.picked ? 1 : self.place > 0 ? 0.5 : 0
+  derived down: Boolean = (self.sorts[self.place] ?? 0) < 0
   derived mark: Art = self.down ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
   derived markFirst: Boolean = self.column.align == Align.End
@@ -168,47 +210,39 @@ class Heading implements Component {
 
   column: Signal<Column>
   const index: Integer
-  sorted: mut Signal<Integer>
-  descending: mut Signal<Boolean>
-  then: mut Signal<Integer>
-  const twoSorts: Boolean
+  sorts: mut Signal<Array<Integer>>
   const grouped: Boolean
   constructor(
     column: Signal<Column>,
     index: Integer,
-    sorted: mut Signal<Integer>,
-    descending: mut Signal<Boolean>,
-    then: mut Signal<Integer>,
-    twoSorts: Boolean,
+    sorts: mut Signal<Array<Integer>>,
     // It stands under a group's heading.
     grouped: Boolean
   ) {
     self.column = column
     self.index = index
-    self.sorted = sorted
-    self.descending = descending
-    self.then = then
-    self.twoSorts = twoSorts
+    self.sorts = sorts
     self.grouped = grouped
   }
 
-  // A click sorts by it, again reverses; the second sort goes where it was this column.
+  // A click sorts by it after the sorts before (ascending), or turns its own sort round where it sorts already.
   onClick(mut self) {
     if (!self.sortable) { return }
-    if (self.picked) {
-      self.descending = !self.descending
+    const sorts = self.sorts.map(sort => sort)
+    const place = self.place
+    if (place == 0) {
+      sorts.push(self.index)
     } else {
-      self.sorted = self.index
-      self.descending = false
+      sorts[place] = -(sorts[place] ?? 0)
     }
-    if (self.then.abs() == self.index) { self.then = 0 }
+    self.sorts = sorts
   }
 
-  // Shift and a click: the second sort by it, again reverses it; none on the first sort's own column, or a table
-  // that sorts by one.
-  onThen(mut self) {
-    if (!self.sortable || self.picked || !self.twoSorts) { return }
-    self.then = self.then == self.index ? -self.index : self.index
+  // A right click (or Delete) takes its sort away; the later sorts move up.
+  onRemove(mut self) {
+    if (self.place == 0) { return }
+    const index = self.index
+    self.sorts = self.sorts.filter(sort => sort.abs() != index)
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -217,8 +251,8 @@ class Heading implements Component {
   public render(self): Template {
     return $ltml {
       <box yAlignSelf={Align.Stretch} padding={self.padding} xAlign={self.column.align} yAlign={Align.Center} background={self.shade}
-           @pointerPress(.Left)={self.onClick} @pointerPress([.Shift, .Left])={self.onThen} @keyPress(.Enter)={self.onClick}
-           @keyPress(.Space)={self.onClick} @keyPress([.Shift, .Enter])={self.onThen}>
+           @pointerPress(.Left)={self.onClick} @pointerPress(.Right)={self.onRemove} @keyPress(.Enter)={self.onClick}
+           @keyPress(.Space)={self.onClick} @keyPress(.Delete)={self.onRemove}>
         // A heading with a Tip hears the cursor over it, and takes no click from the heading.
         <box $if={self.tipped} position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} mouseThrough={true}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -258,27 +292,18 @@ class HeadGroup implements Component {
   derived border: Line | nil = !self.table ? nil : self.wood ? HEAD_RULES : UNDER
 
   head: Signal<Head>
-  sorted: mut Signal<Integer>
-  descending: mut Signal<Boolean>
-  then: mut Signal<Integer>
-  const twoSorts: Boolean
+  sorts: mut Signal<Array<Integer>>
   ground: Signal<Ground>
   const table: Boolean
   constructor(
     head: Signal<Head>,
-    sorted: mut Signal<Integer>,
-    descending: mut Signal<Boolean>,
-    then: mut Signal<Integer>,
-    twoSorts: Boolean,
+    sorts: mut Signal<Array<Integer>>,
     ground: Signal<Ground>,
     // The table's headings, all of them.
     table: Boolean = false
   ) {
     self.head = head
-    self.sorted = sorted
-    self.descending = descending
-    self.then = then
-    self.twoSorts = twoSorts
+    self.sorts = sorts
     self.ground = ground
     self.table = table
   }
@@ -293,10 +318,9 @@ class HeadGroup implements Component {
         </box>
         // The headings come of the columns, which never change: each is read once.
         <$for={under of self.head.under}>
-          <Heading $if={under.under.length == 0} column={under.column} index={peek under.index} sorted={mut self.sorted}
-                   descending={mut self.descending} then={mut self.then} twoSorts={self.twoSorts} grouped={!self.table} />
-          <HeadGroup $else head={under} sorted={mut self.sorted} descending={mut self.descending} then={mut self.then}
-                     twoSorts={self.twoSorts} ground={self.ground} />
+          <Heading $if={under.under.length == 0} column={under.column} index={peek under.index} sorts={mut self.sorts}
+                   grouped={!self.table} />
+          <HeadGroup $else head={under} sorts={mut self.sorts} ground={self.ground} />
         </>
       </box>
     }
@@ -410,14 +434,14 @@ public class Table implements Component {
   derived head: Head = headOf(self.columns)
   derived sides: Number<Spacing> = self.ground == Ground.Wood ? WOOD_SIDES : WELL_SIDES
 
-  columns: Signal<Array<Column>>
-  // The second sort (`twoSorts`): a column's number, negative where it runs down; 0 for none. Told as it changes.
-  state then = 0
-  public secondSort: Event<Integer> = new Event()
+  // The order the rows are sorted in, over the table while there is one.
+  derived order: String = orderOf(self.columns, self.sorts)
+  derived ordered: Boolean = self.order != ""
+  derived rows: Array<Track> = self.ordered ? ORDERED : FILLED
+  derived orderPadding: Edges = { top: 2sp, left: self.sides + CELL_SIDE, right: self.sides + CELL_SIDE, bottom: 1sp }
 
-  sorted: mut Signal<Integer>
-  descending: mut Signal<Boolean>
-  const twoSorts: Boolean
+  columns: Signal<Array<Column>>
+  sorts: mut Signal<Array<Integer>>
   height: Signal<Number<Length> | nil>
   const rowsVary: Boolean
   empty: Signal<String>
@@ -426,9 +450,9 @@ public class Table implements Component {
   constructor(
     // Follows what it is given: a column for each of what the rows hold (a profession each character may have).
     columns: Signal<Array<Column>>,
-    // The column the rows are ordered by, from 1; 0 for none.
-    sorted: mut Signal<Integer>,
-    descending: mut Signal<Boolean>,
+    // What the rows are sorted by, in turn (`sortedBefore`): each a column's number from 1, negative where it runs down.
+    // A click on a heading adds its column, or turns its sort round; a right click takes it away.
+    sorts: mut Signal<Array<Integer>>,
     // The table's height, its headings and its well's rim in it: its rows scroll past it. None: the rest of the room
     // its box gives it.
     height: Signal<Number<Length> | nil> = nil,
@@ -440,29 +464,25 @@ public class Table implements Component {
     empty: Signal<String> = "",
     // What it stands on: a well (its headings on a darker band), or the wood (its cells ruled apart: their
     // `TableRow`s say so too).
-    ground: Signal<Ground> = Ground.Well,
-    // A second sort, where rows the first leaves level are ordered by another column (Shift and a click on its
-    // heading), told by `secondSort` (what `sortedBefore` reads); otherwise the table sorts by one column.
-    twoSorts: Boolean = false
+    ground: Signal<Ground> = Ground.Well
   ) {
-    self.twoSorts = twoSorts
-    watch (then of self.then) { self.secondSort.emit(then) }
     self.empty = empty
     self.ground = ground
     self.columns = columns
-    self.sorted = sorted
-    self.descending = descending
+    self.sorts = sorts
     self.height = height
     self.rowsVary = rowsVary
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={FILLED}>
+      <box columns={1} rows={self.rows}>
+        <box $if={self.ordered} padding={self.orderPadding}>
+          <text value={self.order} textSize={SECONDARY_TEXT} textColor={PLAIN} wrap={.Cut} />
+        </box>
         <ScrolledList tracks={self.tracks} height={self.height} virtual={!self.rowsVary} ground={self.ground}
                       sides={self.sides}>
-          <HeadGroup #head head={self.head} sorted={mut self.sorted} descending={mut self.descending} then={mut self.then}
-                     twoSorts={self.twoSorts} ground={self.ground} table={true} />
+          <HeadGroup #head head={self.head} sorts={mut self.sorts} ground={self.ground} table={true} />
           <slot />
         </ScrolledList>
         <box $if={self.emptyShown} position={Position.Absolute} left={0ui} right={0ui} top={EMPTY_TOP} xAlign={Align.Center}>

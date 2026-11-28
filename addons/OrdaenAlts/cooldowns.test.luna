@@ -27,7 +27,9 @@ const RED: Color = Color.hex("#ff4040")
 const GREEN: Color = Color.hex("#40d060")
 const AWAY: Color = Color.hex("#7a7060")
 const TABS = "Characters | Items | Cooldowns | Professions"
-const HEADINGS = "Recipe | Character | Ready"
+const COLUMNS = "Recipe | Character | Ready"
+// The order's line over the table (by «Ready», at first), then the headings.
+const HEADINGS = `Ready | ${COLUMNS}`
 // The server's clock at an hour's start: a number of hours from it is that many hours.
 const START = 1577836800 + 1000 * 3600
 const SMITHING = 164
@@ -143,7 +145,7 @@ test "a recipe the game has no name for is listed by its number" {
   Test.expect(shows(`${HEADINGS} | #3320 | Aria | in 3 h | ${TABS}`))
 }
 
-test "a heading sorts the cooldowns by its column, a second click the other way" {
+test "a heading sorts the cooldowns by its column, a second click the other way, a right click no more" {
   Game.clock.server = START
   Game.spells.name = spellName
   Test.mount(nil, SCREEN)
@@ -151,21 +153,24 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
     crafter("Aria", SMITHING, [STONE, 30]), crafter("Bram", ALCHEMY, [TRANSMUTE, -5]), crafter("Cole", ALCHEMY, [MOONCLOTH, 2])
   ])
   const window = cooldowns()
-  const rows = (first: String, second: String, third: String): String => `${HEADINGS} | ${first} | ${second} | ${third} | ${TABS}`
+  const rows = (order: String, first: String, second: String, third: String): String =>
+  `${order} | ${COLUMNS} | ${first} | ${second} | ${third} | ${TABS}`
   const stone = "Elemental Sharpening Stone | Aria | in 1 d."
   const transmute = "Transmute: Iron to Gold | Bram | Ready"
   const mooncloth = "Mooncloth | Cole | in 2 h"
-  Test.expect(shows(rows(transmute, mooncloth, stone)))
+  Test.expect(shows(rows("Ready", transmute, mooncloth, stone)))
   window.button(Locale.COL_READY).nth(1).click()
-  Test.expect(shows(rows(stone, mooncloth, transmute)))
+  Test.expect(shows(rows("desc Ready", stone, mooncloth, transmute)))
+  window.button(Locale.COL_READY).nth(1).rightClick()
   window.button(Locale.COL_RECIPE).click()
-  Test.expect(shows(rows(stone, mooncloth, transmute)))
+  Test.expect(shows(rows("Recipe", stone, mooncloth, transmute)))
   window.button(Locale.COL_RECIPE).click()
-  Test.expect(shows(rows(transmute, mooncloth, stone)))
+  Test.expect(shows(rows("desc Recipe", transmute, mooncloth, stone)))
+  window.button(Locale.COL_RECIPE).rightClick()
   window.button(Locale.COL_NAME).click()
-  Test.expect(shows(rows(stone, transmute, mooncloth)))
+  Test.expect(shows(rows("Character", stone, transmute, mooncloth)))
   window.button(Locale.COL_NAME).click()
-  Test.expect(shows(rows(mooncloth, transmute, stone)))
+  Test.expect(shows(rows("desc Character", mooncloth, transmute, stone)))
 }
 
 test "forty cooldowns scroll inside the window" {

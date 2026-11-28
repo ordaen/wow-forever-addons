@@ -380,10 +380,13 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   // The name, the skill (none known here), how many; with no reagents the costs are nothing, nothing is bought back.
   Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  // By the name at first: taken away, by «Available» alone.
+  window().button("Recipe").rightClick()
   window().button("Available").click()
   Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Available").click()
   Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
+  window().button("Available").rightClick()
   window().button("Recipe").click()
   Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   window().button("Recipe").click()
@@ -408,6 +411,8 @@ test "a table's row says its made item's class and where it is worn, else its ki
   view("Table")
   Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
   Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | — | Bag | Container | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  // By the name at first: taken away, by the class alone.
+  window().button("Recipe").rightClick()
   window().button("Class").click()
   Test.expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
   window().button("Class").click()
@@ -1290,6 +1295,7 @@ test "the view, the sort and the table's order are there after a reload" {
   view("By category")
   sort("By name")
   view("Table")
+  window().button("Recipe").rightClick()
   window().button("Available").click()
   Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Available").click()

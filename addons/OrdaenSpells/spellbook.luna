@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterCount, ItemButton, ListFooter, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableCell, TableRow, ToolPick, Toolbar } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterCount, ItemButton, ListFooter, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableCell, TableRow, ToolPick, Toolbar, sortedBefore, sortsThen } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -23,13 +23,12 @@ public enum BookLayout implements Plain { Columns = "columns", Table = "table" }
 public enum Grouping implements Plain { Type = "type", Spec = "spec" }
 
 // How the player left the spellbook's list: its sort, the spells it shows, its view and its grouping; the table's sort is its
-// headings' (the column, from 1, and whether turned round).
+// headings' (`Table`'s sorts).
 public struct BookView implements Plain {
   sort: SortBy = SortBy.Name
   kinds: Kinds = Kinds.All
   layout: BookLayout = BookLayout.Columns
-  heading: Integer = 1
-  descending: Boolean = false
+  sorts: Array<Integer> = [1]
   grouping: Grouping = Grouping.Type
 }
 const BOOK_VIEW: BookView = {}
@@ -58,14 +57,15 @@ const LAYOUTS: Array<Choice<BookLayout>> = [
   { value: BookLayout.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The table's columns (each row lays its cells out alone: widths that don't follow the cells keep the columns
-// in line), and the order each heading sorts by.
+// in line).
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_SPELL, width: { fr: 1 }, sortable: true },
   { title: Locale.COL_LINE, width: 164.0625dp, sortable: true },
   { title: Locale.COL_KIND, width: 112.5dp, sortable: true },
   { title: Locale.COL_LEVEL, width: 70.3125dp, align: Align.End, sortable: true }
 ]
-const HEADINGS: Array<SortBy> = [SortBy.Name, SortBy.Line, SortBy.Active, SortBy.Level]
+// The name's column: what tells apart the spells the player's sorts leave level.
+const NAME_COLUMN = 1
 // A column of spells, as wide wherever it stands: an icon and a name with its rank, generous so that a long name wraps
 // rather than is cut; and the room between columns and rows.
 const COLUMN: Number<Length> = 337.5dp
@@ -100,6 +100,17 @@ function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
   if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
   if (by == SortBy.Line && a.line != b.line) { return a.line < b.line }
   return a.name < b.name || (a.name == b.name && a.level < b.level)
+}
+
+// Whether the spell stands before another by a table's column, ascending (`sortedBefore`): the name (then the rank),
+// the line, the active first, the level.
+function columnBefore(a: Game.SpellEntry, b: Game.SpellEntry, column: Integer): Boolean {
+  return match (column) {
+    2 => a.line < b.line
+    3 => !a.passive && b.passive
+    4 => a.level < b.level
+    else => a.name < b.name || (a.name == b.name && a.level < b.level)
+  }
 }
 
 // Whether the spell is one the filter keeps.
@@ -362,9 +373,8 @@ public class SpellbookPage {
     }
     const view = self.list.values
     if (view.layout == BookLayout.Table) {
-      const heading = HEADINGS[view.heading] ?? SortBy.Name
-      const descending = view.descending
-      list.sort((a, b) => descending ? before(b, a, heading) : before(a, b, heading))
+      const sorts = sortsThen(view.sorts, NAME_COLUMN)
+      list.sort((a, b) => sortedBefore(a, b, sorts, columnBefore))
       return list
     }
     const by = columnSort(view.sort, view.grouping)
@@ -405,7 +415,7 @@ public class SpellbookPage {
       <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
         <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
       </box>
-      <Table $elseif={self.tabled} columns={COLUMNS} sorted={mut self.list.values.heading} descending={mut self.list.values.descending}>
+      <Table $elseif={self.tabled} columns={COLUMNS} sorts={mut self.list.values.sorts}>
         <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} line={self.lineOf(spell)} />
       </Table>
       <box $else overflow={Overflow.Scroll} columns={1} gap={GROUPS_APART}>

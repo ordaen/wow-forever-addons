@@ -12,7 +12,7 @@
 import Game from "$game"
 import { Align, Art, Columns, Cursor, Edges, Event, Frame, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, ITEM_KINDS, ItemButton, ItemKind, KeptWindow, ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, kindName } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, ITEM_KINDS, ItemButton, ItemKind, KeptWindow, ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, kindName, sortedBefore } from "Ordaen"
 import Locale from "@/locales"
 import { Sold, Vendor, Ware } from "@/vendor"
 
@@ -21,14 +21,13 @@ public enum WareView implements Plain { List = "list", Categories = "categories"
 public enum WareSort implements Plain { Merchant = "merchant", Name = "name", Price = "price", Usable = "usable" }
 public enum WareFilter implements Plain { All = "all", Usable = "usable", Affordable = "affordable" }
 
-// How the player left the merchant's window, the profile's: the view, the sort, the filter, the table's column (0: the
-// merchant's order) and its way. The search isn't kept.
+// How the player left the merchant's window, the profile's: the view, the sort, the filter, the table's sorts (none: the
+// merchant's order). The search isn't kept.
 public struct MerchantView implements Plain {
   view: WareView = WareView.List
   sort: WareSort = WareSort.Merchant
   filter: WareFilter = WareFilter.All
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 public const MERCHANT_VIEW: MerchantView = {}
 
@@ -124,13 +123,14 @@ function before(a: Ware, b: Ware, sort: WareSort): Boolean {
   return a.index < b.index
 }
 
-// The table's order: by its column (1 the name, 2 the type, 3 the level, 4 how many the bags hold, 5 the price), the
-// merchant's where they are alike or none is picked.
-function tableBefore(a: Ware, b: Ware, column: Integer, descending: Boolean): Boolean {
-  const ka = columnKey(a, column)
-  const kb = columnKey(b, column)
-  if (ka != kb) { return descending ? kb < ka : ka < kb }
-  return a.index < b.index
+// The merchant's own order: what tells apart the wares the sorts leave level, after the table's columns.
+const MERCHANT_ORDER = 6
+
+// The table's order by a column, ascending (`sortedBefore`): 1 the name, 2 the type, 3 the level, 4 how many the bags
+// hold, 5 the price; `MERCHANT_ORDER`, after them, the merchant's own.
+function tableBefore(a: Ware, b: Ware, column: Integer): Boolean {
+  if (column == MERCHANT_ORDER) { return a.index < b.index }
+  return columnKey(a, column) < columnKey(b, column)
 }
 
 function columnKey(ware: Ware, column: Integer): String {
@@ -443,7 +443,9 @@ public class MerchantWindow implements Component {
     const money = Game.money.amount
     let wares = self.vendor.wares.filter(ware => kept(ware, view.filter, self.query, money))
     if (view.view == WareView.Table) {
-      wares.sort((a, b) => tableBefore(a, b, view.sorted, view.descending))
+      const sorts = view.sorts.map(sort => sort)
+      sorts.push(MERCHANT_ORDER)
+      wares.sort((a, b) => sortedBefore(a, b, sorts, tableBefore))
     } else {
       wares.sort((a, b) => before(a, b, view.sort))
     }
@@ -660,7 +662,7 @@ public class MerchantWindow implements Component {
             </Toolbar>
           </box>
           <box $if={self.tabled} rows={FILL}>
-            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+            <Table columns={COLUMNS} sorts={mut self.list.values.sorts}>
               <WareTableRow $for={ware of self.shown} $key={ware.index} ware={ware} menuShown={self.menuAt == ware.index}
                             entries={self.menuEntries} @pressed={self.onWareRow} @chose={self.onChose} @closed={self.onMenuClosed} />
             </Table>

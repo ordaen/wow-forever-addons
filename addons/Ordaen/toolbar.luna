@@ -292,28 +292,39 @@ public class ToolMany<T: Unknown> implements Component {
 
 // ToolSort: the sort of a table as a ToolPick, the same one its headings set: a choice for each sortable column that
 // has a heading (its number, from 1), then each of `more`, a sort no column shows (a class, a role), numbered after the
-// columns. A heading clicked picks its choice here, and a choice picked here lights its heading.
+// columns. It shows the table's first sort; a choice picked here sorts by it alone.
 public class ToolSort implements Component {
-  sorted: mut Signal<Integer>
+  // The first sort's column or choice, as the pick shows it; 0 for none.
+  state first = 0
+
+  sorts: mut Signal<Array<Integer>>
   const choices: Array<Choice<Integer>>
   title: Signal<String>
   constructor(
-    // The table's column and choice it is sorted by, from 1; 0 for none.
-    sorted: mut Signal<Integer>,
+    // The table's sorts (`Table`'s).
+    sorts: mut Signal<Array<Integer>>,
     columns: Array<Column>,
     // What it sorts («Sort»): its Tip's title.
     title: Signal<String>,
     // Sorts no column shows, by their labels: `columns.length + 1` and on.
     more: Array<String> = []
   ) {
-    self.sorted = sorted
+    self.sorts = sorts
     self.title = title
     self.choices = sortChoices(columns, more)
+    watch (held of self.sorts) { self.first = (held[1] ?? 0).abs() }
+    watch (first of self.first) { self.pick(first) }
+  }
+
+  // A choice picked: the rows sorted by it alone, ascending; nothing where it sorts first already.
+  pick(mut self, first: Integer) {
+    if (((peek self.sorts)[1] ?? 0).abs() == first) { return }
+    self.sorts = first == 0 ? [] : [first]
   }
 
   public render(self): Template {
     return $ltml {
-      <ToolPick value={mut self.sorted} choices={self.choices} icon={Ordaen.art.ctl.tool.sort} title={self.title} />
+      <ToolPick value={mut self.first} choices={self.choices} icon={Ordaen.art.ctl.tool.sort} title={self.title} />
     }
   }
 }

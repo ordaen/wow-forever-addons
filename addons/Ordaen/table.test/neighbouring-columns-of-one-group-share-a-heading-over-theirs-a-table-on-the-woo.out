@@ -1,68 +1,70 @@
 -- grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row
-box 0,0 600x95.07
-  box 0,0 600x95.07
-    box 0,0 600x47.53
-      box 0,0 600x47.53
-        box 14.22,0.83 171.56x45.87 #00000000 @keyPress @pointerPress
-          box 14.22,45.03 171.56x1.67 absolute #00000000
-          box 18.49,16.57 163.02x14.4
-            text 18.49,16.57 25.83x14.4 "Item" #cbb994
-            box 47.17,21.27 6.67x5
-              box 43.83,17.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-        box 185.78,0.83 160x45.87
-          box 185.78,0.83 160x22.93
-            text 252.86,5.1 25.83x14.4 "Cost" #a3977f
-          box 185.78,23.77 80x22.93 #00000000 @keyPress @pointerPress
-            box 185.78,45.03 80x1.67 absolute #00000000
-            box 220.33,28.03 41.18x14.4
-              box 220.33,32.73 6.67x5
-                box 217,28.57 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-              text 229.84,28.03 31.67x14.4 "House" #cbb994
-          box 265.78,23.77 80x22.93 #00000033 @keyPress @pointerPress
-            box 265.78,45.03 80x1.67 absolute #d6a56b
-            box 293.67,28.03 47.84x14.4
-              box 293.67,32.73 6.67x5
-                box 290.33,28.57 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
-              text 303.18,28.03 38.33x14.4 "Vendor" #f0c860
-        box 345.78,0.83 160x45.87
-          box 345.78,0.83 160x22.93
-            text 409.94,5.1 31.67x14.4 "Price" #a3977f
-          box 345.78,23.77 80x22.93 #00000000 @keyPress @pointerPress
-            box 345.78,45.03 80x1.67 absolute #00000000
-            box 387,28.03 34.51x14.4
-              text 387,28.03 31.67x14.4 "House" #a3977f
-          box 425.78,23.77 80x22.93 #00000000 @keyPress @pointerPress
-            box 425.78,45.03 80x1.67 absolute #00000000
-            box 460.33,28.03 41.18x14.4
-              text 460.33,28.03 38.33x14.4 "Vendor" #a3977f
-        box 505.78,0.83 80x45.87 #00000000 @keyPress @pointerPress
-          box 505.78,45.03 80x1.67 absolute #00000000
-          box 540.33,16.57 41.18x14.4
-            text 540.33,16.57 38.33x14.4 "Profit" #a3977f
-    box 0,47.53 600x47.53 scrolled 0 of 0
-      box 0,47.53 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-        box 14.22,47.53 171.56x22.93
-          text 18.49,51.8 163.02x14.4 "Copper Bar" #ffffff
-        box 185.78,47.53 80x22.93
-          text 253.18,51.8 8.33x14.4 "1" #ffffff right
-        box 265.78,47.53 80x22.93
-          text 333.18,51.8 8.33x14.4 "2" #ffffff right
-        box 345.78,47.53 80x22.93
-          text 413.18,51.8 8.33x14.4 "3" #ffffff right
-        box 425.78,47.53 80x22.93
-          text 493.18,51.8 8.33x14.4 "4" #ffffff right
-        box 505.78,47.53 80x22.93
-          text 573.18,51.8 8.33x14.4 "5" #ffffff right
-      box 0,71.3 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-        box 14.22,71.3 171.56x22.93
-          text 18.49,75.57 163.02x14.4 "Bronze Axe" #ffffff
-        box 185.78,71.3 80x22.93
-          text 253.18,75.57 8.33x14.4 "1" #ffffff right
-        box 265.78,71.3 80x22.93
-          text 333.18,75.57 8.33x14.4 "2" #ffffff right
-        box 345.78,71.3 80x22.93
-          text 413.18,75.57 8.33x14.4 "3" #ffffff right
-        box 425.78,71.3 80x22.93
-          text 493.18,75.57 8.33x14.4 "4" #ffffff right
-        box 505.78,71.3 80x22.93
-          text 573.18,75.57 8.33x14.4 "5" #ffffff right
+box 0,0 600x115.6
+  box 0,0 600x20.53
+    text 18.49,5.69 563.02x12 "Cost - Vendor" #a3977f
+  box 0,20.53 600x95.07
+    box 0,20.53 600x47.53
+      box 0,20.53 600x47.53
+        box 14.22,21.37 171.56x45.87 #00000000 @keyPress @pointerPress
+          box 14.22,65.57 171.56x1.67 absolute #00000000
+          box 18.49,37.1 163.02x14.4
+            text 18.49,37.1 25.83x14.4 "Item" #cbb994
+            box 47.17,41.8 6.67x5
+              box 43.83,37.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+        box 185.78,21.37 160x45.87
+          box 185.78,21.37 160x22.93
+            text 252.86,25.63 25.83x14.4 "Cost" #a3977f
+          box 185.78,44.3 80x22.93 #00000000 @keyPress @pointerPress
+            box 185.78,65.57 80x1.67 absolute #00000000
+            box 220.33,48.57 41.18x14.4
+              box 220.33,53.27 6.67x5
+                box 217,49.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+              text 229.84,48.57 31.67x14.4 "House" #cbb994
+          box 265.78,44.3 80x22.93 #00000033 @keyPress @pointerPress
+            box 265.78,65.57 80x1.67 absolute #d6a56b
+            box 293.67,48.57 47.84x14.4
+              box 293.67,53.27 6.67x5
+                box 290.33,49.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+              text 303.18,48.57 38.33x14.4 "Vendor" #f0c860
+        box 345.78,21.37 160x45.87
+          box 345.78,21.37 160x22.93
+            text 409.94,25.63 31.67x14.4 "Price" #a3977f
+          box 345.78,44.3 80x22.93 #00000000 @keyPress @pointerPress
+            box 345.78,65.57 80x1.67 absolute #00000000
+            box 387,48.57 34.51x14.4
+              text 387,48.57 31.67x14.4 "House" #a3977f
+          box 425.78,44.3 80x22.93 #00000000 @keyPress @pointerPress
+            box 425.78,65.57 80x1.67 absolute #00000000
+            box 460.33,48.57 41.18x14.4
+              text 460.33,48.57 38.33x14.4 "Vendor" #a3977f
+        box 505.78,21.37 80x45.87 #00000000 @keyPress @pointerPress
+          box 505.78,65.57 80x1.67 absolute #00000000
+          box 540.33,37.1 41.18x14.4
+            text 540.33,37.1 38.33x14.4 "Profit" #a3977f
+    box 0,68.07 600x47.53 scrolled 0 of 0
+      box 0,68.07 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+        box 14.22,68.07 171.56x22.93
+          text 18.49,72.33 163.02x14.4 "Copper Bar" #ffffff
+        box 185.78,68.07 80x22.93
+          text 253.18,72.33 8.33x14.4 "1" #ffffff right
+        box 265.78,68.07 80x22.93
+          text 333.18,72.33 8.33x14.4 "2" #ffffff right
+        box 345.78,68.07 80x22.93
+          text 413.18,72.33 8.33x14.4 "3" #ffffff right
+        box 425.78,68.07 80x22.93
+          text 493.18,72.33 8.33x14.4 "4" #ffffff right
+        box 505.78,68.07 80x22.93
+          text 573.18,72.33 8.33x14.4 "5" #ffffff right
+      box 0,91.83 600x23.77 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+        box 14.22,91.83 171.56x22.93
+          text 18.49,96.1 163.02x14.4 "Bronze Axe" #ffffff
+        box 185.78,91.83 80x22.93
+          text 253.18,96.1 8.33x14.4 "1" #ffffff right
+        box 265.78,91.83 80x22.93
+          text 333.18,96.1 8.33x14.4 "2" #ffffff right
+        box 345.78,91.83 80x22.93
+          text 413.18,96.1 8.33x14.4 "3" #ffffff right
+        box 425.78,91.83 80x22.93
+          text 493.18,96.1 8.33x14.4 "4" #ffffff right
+        box 505.78,91.83 80x22.93
+          text 573.18,96.1 8.33x14.4 "5" #ffffff right

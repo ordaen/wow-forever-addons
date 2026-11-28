@@ -111,9 +111,9 @@ test "the footer is a band of marble under the list, the money on it" {
 
 test "a view kept before «Learned» started off loads with it off, its sort kept" {
   const kept: Map<String, Boolean> = { known: true, available: true }
-  const old: Map<String, Unknown> = { filter: kept, sorted: 2 }
+  const old: Map<String, Unknown> = { filter: kept, sorts: [2] }
   const view = TrainerList.decode(old, { view: TrainerView.Table })
-  Test.expect(view.shows[TrainerShow.Known] == false && view.sorted == 2)
+  Test.expect(view.shows[TrainerShow.Known] == false && view.sorts.equal([2]))
 }
 
 test "a known service's card says so in place of its price and «Learn», its name in the title's own line" {

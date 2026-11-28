@@ -513,10 +513,13 @@ test "the table sorts by the cost at the house and by profit, a recipe with none
   // cloak 3 s 60 c; the bolt, sold at 95 c, 1 s 5 c lost; the vest none.
   const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
   const houseCost = (): Test.Part => window().button("Auction").nth(1)
+  // By the name at first: taken away, by the cost alone, then by the profit alone.
+  window().button("Recipe").rightClick()
   houseCost().click()
   Test.expect(order().contains("Linen Belt, Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
   houseCost().click()
   Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Linen Belt, Brown Linen Vest"))
+  houseCost().rightClick()
   window().button("Profit").click()
   Test.expect(order().contains("Bolt of Linen Cloth, Linen Belt, Linen Cloak, Simple Apron, Brown Linen Vest"))
   window().button("Profit").click()

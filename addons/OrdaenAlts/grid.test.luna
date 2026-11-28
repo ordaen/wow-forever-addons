@@ -27,6 +27,8 @@ const RED: Color = Color.hex("#ff4040")
 const GREEN: Color = Color.hex("#40d060")
 const AWAY: Color = Color.hex("#7a7060")
 const TABS = "Characters | Items | Cooldowns | Professions"
+// The order's line over the table: by name, at first.
+const ORDER = "Character"
 
 // The window at its «Professions» tab: `/alts`, the tab.
 function grid(): Test.Part {
@@ -75,7 +77,7 @@ test "each character's skill is shown in each profession by name, a dash where i
   recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300), skill("Alchemy", 120, 225)])])
   const window = grid()
   Test.expect(shows(
-    `Character | Alchemy | Mining | Tailoring | Aria | 120 / 225 | — | 300 / 300 | Player | — | 75 / 150 | — | ${TABS}`
+    `${ORDER} | Character | Alchemy | Mining | Tailoring | Aria | 120 / 225 | — | 300 / 300 | Player | — | 75 / 150 | — | ${TABS}`
   ))
   Test.expect(window.text("Aria").textColor().equal(INK) && window.text("75 / 150").textColor().equal(INK))
   Test.expect(window.text("Player").item().texts().join(" | ") == "Player | — | 75 / 150 | —")
@@ -85,14 +87,14 @@ test "a dash for a profession a character lacks is dim" {
   Test.mount(nil, SCREEN)
   recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300)]), crafter("Bram", "Stand-in", [skill("Mining", 1, 75)])])
   const window = grid()
-  Test.expect(shows(`Character | Mining | Tailoring | Aria | — | 300 / 300 | Bram | 1 / 75 | — | Player | — | — | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Mining | Tailoring | Aria | — | 300 / 300 | Bram | 1 / 75 | — | Player | — | — | ${TABS}`))
   Test.expect(window.text("—").nth(1).textColor().equal(DIM))
 }
 
 test "a character with no profession is listed with only its name" {
   Test.mount(nil, SCREEN)
   _ = grid()
-  Test.expect(shows(`Character | Player | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Player | ${TABS}`))
 }
 
 test "two characters of one name on different realms each have their own skills" {
@@ -103,7 +105,7 @@ test "two characters of one name on different realms each have their own skills"
   for (pair of [[here, there], [there, here]]) {
     recorded(pair)
     _ = grid()
-    Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
+    Test.expect(shows(`${ORDER} | Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
     (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
   }
 }
@@ -122,11 +124,11 @@ test "the skills follow the game as it lists them, and a profession it hasn't na
   Game.tradeSkill.recipes = learned([2663])
   Game.tradeSkill.open = 164
   const window = grid()
-  Test.expect(shows(`Character | Player | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Player | ${TABS}`))
   Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 75, max: 150, kind: .Crafting }]
-  Test.expect(shows(`Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
   Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 76, max: 225, kind: .Crafting }]
-  Test.expect(shows(`Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
+  Test.expect(shows(`${ORDER} | Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
 }
 
 test "a profession's skill and name follow the game, one dropped leaves the table, and an empty list changes nothing" {
@@ -136,16 +138,16 @@ test "a profession's skill and name follow the game, one dropped leaves the tabl
     { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
     { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
   ]
-  Test.expect(shows(`Character | Blacksmithing | Mining | Player | 150 / 300 | 75 / 300 | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Blacksmithing | Mining | Player | 150 / 300 | 75 / 300 | ${TABS}`))
   Game.professions.list = [
     { skillLine: 164, name: "Schmiedekunst", icon: "x", rank: 151, max: 300, kind: .Crafting },
     { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
   ]
-  Test.expect(shows(`Character | Mining | Schmiedekunst | Player | 75 / 300 | 151 / 300 | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Mining | Schmiedekunst | Player | 75 / 300 | 151 / 300 | ${TABS}`))
   Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 80, max: 300, kind: .Gathering }]
-  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Mining | Player | 80 / 300 | ${TABS}`))
   Game.professions.list = []
-  Test.expect(shows(`Character | Mining | Player | 80 / 300 | ${TABS}`))
+  Test.expect(shows(`${ORDER} | Character | Mining | Player | 80 / 300 | ${TABS}`))
 }
 
 test "a profession's heading sorts by its skill, the highest first, again the lowest, a character without it last" {
@@ -155,8 +157,11 @@ test "a profession's heading sorts by its skill, the highest first, again the lo
     crafter("Cole", "Stand-in", [skill("Tailoring", 10, 75)])
   ])
   const window = grid()
+  // The name's sort taken away, the skill's first and the name's after it: those without the skill by name.
+  window.button("Character").rightClick()
   window.button("Mining").click()
-  Test.expect(shows(`Character | Mining | Tailoring | Bram | 200 / 300 | — | Aria | 50 / 75 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
+  window.button("Character").click()
+  Test.expect(shows(`Mining > Character | Character | Mining | Tailoring | Bram | 200 / 300 | — | Aria | 50 / 75 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
   window.button("Mining").click()
-  Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Bram | 200 / 300 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
+  Test.expect(shows(`desc Mining > Character | Character | Mining | Tailoring | Aria | 50 / 75 | — | Bram | 200 / 300 | — | Cole | — | 10 / 75 | Player | — | — | ${TABS}`))
 }

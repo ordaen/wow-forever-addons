@@ -55,12 +55,12 @@ test "the market holds a row for each of the market's controls, each following i
   Test.expect(!page.treeOpen)
   Test.shot("the tree's root clicked: closed, its child gone")
 
-  Test.click(Test.holding("Each", nil), nil)
-  Test.expect(page.sorted == 2)
+  Test.page().button("Each").click()
+  Test.expect(page.sorts.equal([2]))
   Test.shot("the table's Each heading clicked: the sales ordered by it, the cheapest first")
 
-  Test.click(Test.holding("Each", nil), nil)
-  Test.expect(page.descending)
+  Test.page().button("Each").click()
+  Test.expect(page.sorts.equal([-2]))
   Test.shot("clicked again: reversed")
 
   Test.click(Test.holding("Copper Bar", nil), nil)

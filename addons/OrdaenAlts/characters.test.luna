@@ -237,7 +237,7 @@ test "the character being played is written down with its class, for others to c
   Test.expect(Game.player.classTag != "")
   Test.expect(Alts.characters[CharacterId.of(PLAYER)]?.classTag == Game.player.classTag) }
 
-test "the table is in the names' order, and a heading sorts by its column, a second click the other way" {
+test "the table is in the names' order, and a heading sorts by its column, a second click the other way, a right click no more" {
   Game.clock.server = START
   // Each column orders the six otherwise.
   const holding = (name: String, level: Integer, money: Integer, free: Integer, hours: Integer): Character => {
@@ -260,12 +260,16 @@ test "the table is in the names' order, and a heading sorts by its column, a sec
   }
   Test.expect(sorted(Locale.COL_NAME) == "Aria, Bram, Cole, Dana, Eli, Player")
   Test.expect(sorted(Locale.COL_NAME) == "Player, Eli, Dana, Cole, Bram, Aria")
+  window().button(Locale.COL_NAME).rightClick()
   Test.expect(sorted(Locale.COL_LEVEL) == "Player, Bram, Cole, Aria, Eli, Dana")
   Test.expect(sorted(Locale.COL_LEVEL) == "Dana, Eli, Aria, Cole, Bram, Player")
+  window().button(Locale.COL_LEVEL).rightClick()
   Test.expect(sorted(Locale.COL_GOLD) == "Player, Dana, Cole, Aria, Eli, Bram")
   Test.expect(sorted(Locale.COL_GOLD) == "Bram, Eli, Aria, Cole, Dana, Player")
+  window().button(Locale.COL_GOLD).rightClick()
   Test.expect(sorted(Locale.COL_BAGS) == "Player, Aria, Eli, Cole, Bram, Dana")
   Test.expect(sorted(Locale.COL_BAGS) == "Dana, Bram, Cole, Eli, Aria, Player")
+  window().button(Locale.COL_BAGS).rightClick()
   Test.expect(sorted(Locale.COL_SEEN) == "Player, Cole, Eli, Aria, Bram, Dana")
   Test.expect(sorted(Locale.COL_SEEN) == "Dana, Bram, Aria, Eli, Cole, Player")
 }

@@ -37,8 +37,7 @@ class Controls {
   state money = 0
   state notes = ""
   state page = 1
-  state sorted = 1
-  state descending = false
+  state sorts: Array<Integer> = [1]
   state row = 0
   state menu = false
   state picked = 0
@@ -66,7 +65,7 @@ class Controls {
           <NumberInput label={"Scale"} value={mut self.scale} least={0.5} most={2} step={0.1} />
           <MoneyInput label={"Price"} value={mut self.money} />
           <TextBox value={mut self.notes} height={40ui} />
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={COLUMNS} sorts={mut self.sorts}>
             <TableRow @pick={self.pickRow}> <TableCell> <text value={"a row"} /> </TableCell> </TableRow>
           </Table>
           <box height={20ui} @pointerPress={self.showMenu} @keyPress(.Enter)={self.showMenu} @keyPress(.Space)={self.showMenu}>

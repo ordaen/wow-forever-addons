@@ -159,10 +159,9 @@ class ShoppingRow implements Component {
   }
 }
 
-// How the player left the shopping list: the column it is sorted by (0: as it comes) and which way.
+// How the player left the shopping list: its sorts (`Table`'s; none: as it comes).
 public struct ShoppingView implements Plain {
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 const SHOPPING_VIEW: ShoppingView = {}
 
@@ -261,7 +260,7 @@ public class ShoppingPage implements Component {
           </box>
         </box>
         <box rows={FILL}>
-          <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending}>
+          <Table columns={COLUMNS} sorts={mut self.kept.values.sorts}>
             <ShoppingRow $for={row of self.rows} $key={row} row={row} prices={self.prices}
                          selected={self.picked == row.item}
                          quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}

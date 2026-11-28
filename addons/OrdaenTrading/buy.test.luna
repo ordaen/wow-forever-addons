@@ -215,8 +215,11 @@ test "a column's title sorts the rows by it, and again the other way; the sort i
   Test.expect(before("Copper Ore", "Linen Cloth"))
   window().button("Item").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
+  // Each sort taken away before the next, each column sorts alone.
+  window().button("Item").rightClick()
   window().button("Lowest").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
+  window().button("Lowest").rightClick()
   window().button("Listed").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
   window().button("Listed").click()
@@ -239,8 +242,10 @@ test "sorted by the market, the share or the age" {
   Game.auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 0 }, { key: LINEN, copper: 36, quantity: 30 }])
   window().button("Average").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
+  window().button("Average").rightClick()
   window().button("%").click()
   Test.expect(before("Copper Ore", "Linen Cloth"))
+  window().button("%").rightClick()
   window().button("Age").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
 }

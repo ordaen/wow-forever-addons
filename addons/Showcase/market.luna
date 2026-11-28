@@ -2,7 +2,7 @@
 // slots and a sortable table of sales.
 import { Align, Event, MouseButton } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableCell, TableRow, ToolPick, Toolbar, TreeRow } from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableCell, TableRow, ToolPick, Toolbar, TreeRow, sortedBefore } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 
@@ -12,6 +12,13 @@ public struct Sale {
   name: String
   price: Integer
   seen: Number
+}
+
+// Whether `a` comes before `b` by a column, ascending (`sortedBefore`).
+function saleBefore(a: Sale, b: Sale, column: Integer): Boolean {
+  if (column == 1) { return a.name < b.name }
+  if (column == 2) { return a.price < b.price }
+  return a.seen < b.seen
 }
 
 const FLAGS: Array<Marker> = [{ corner: Corner.TopLeft, color: Color.hex("#ffd100") }]
@@ -47,8 +54,7 @@ public class Market implements Component {
     { name: "Bronze Axe", price: 12345, seen: 86400 },
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
   ]
-  state sorted = 0
-  state descending = false
+  state sorts: Array<Integer> = []
   // The button of the last click on a row of the sales.
   state clicked = "none"
   state sortBy: Order = Order.Difficulty
@@ -60,18 +66,12 @@ public class Market implements Component {
   derived menuEntries: Array<MenuEntry> = self.entriesOf()
   derived ordered: Array<Sale> = self.order()
 
-  // The sales by the column the table is sorted by, as the page keeps them when it is not.
+  // The sales by what the table is sorted by, as the page keeps them when it is not.
   order(self): Array<Sale> {
     let list: Array<Sale> = []
     for (sale of self.sales) { list.push(sale) }
-    const column = self.sorted
-    const down = self.descending
-    if (column == 0) { return list }
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
-      if (column == 2) { return down ? a.price > b.price : a.price < b.price }
-      return down ? a.seen > b.seen : a.seen < b.seen
-    })
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, saleBefore)) }
     return list
   }
 
@@ -137,7 +137,7 @@ public class Market implements Component {
           <SettingRow label={"Last click on a row"}>
             <text value={self.clicked} />
           </SettingRow>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={COLUMNS} sorts={mut self.sorts}>
             <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onSale}>
               <TableCell> <text value={sale.name} /> </TableCell>
               <TableCell align={Align.End}>

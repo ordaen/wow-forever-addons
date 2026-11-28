@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, sortedBefore } from "Ordaen"
 import { Sent, SentState, View, waits } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -17,10 +17,16 @@ public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent
 public struct OutboxView implements Plain {
   filter: SentFilter = SentFilter.All
   view: View = View.List
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 const OUTBOX_VIEW: OutboxView = {}
+
+// Whether `a` comes before `b` by a column, ascending (`sortedBefore`): the number, the recipient, the state.
+function sentBefore(a: Sent, b: Sent, column: Integer): Boolean {
+  if (column == 1) { return a.number < b.number }
+  if (column == 3) { return a.to < b.to }
+  return stateText(a) < stateText(b)
+}
 
 const FILTERS: Array<Choice<SentFilter>> = [
   { value: SentFilter.All, label: Locale.SENT_ALL },
@@ -259,14 +265,8 @@ public class Outbox implements Component {
     const filter = self.list.values.filter
     const search = self.search
     const list = self.all.filter(l => passes(l, filter, search))
-    const column = self.list.values.sorted
-    const down = self.list.values.descending
-    if (column == 0) { return list }
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.number > b.number : a.number < b.number }
-      if (column == 3) { return down ? a.to > b.to : a.to < b.to }
-      return down ? stateText(a) > stateText(b) : stateText(a) < stateText(b)
-    })
+    const sorts = self.list.values.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, sentBefore)) }
     return list
   }
 
@@ -301,7 +301,7 @@ public class Outbox implements Component {
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH_SENT}>
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
-            <ToolSort sorted={mut self.list.values.sorted} columns={COLUMNS} title={Locale.SORT} />
+            <ToolSort sorts={mut self.list.values.sorts} columns={COLUMNS} title={Locale.SORT} />
             <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
           </Toolbar>
           <PushButton label={Locale.WRITE} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onWrite} />
@@ -318,7 +318,7 @@ public class Outbox implements Component {
             <SentRow $for={letter of group.letters} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
           </box>
         </ScrolledList>
-        <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
+        <Table $else columns={COLUMNS} sorts={mut self.list.values.sorts} rowsVary={true}>
           <SentTableRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
         </Table>
         <box $if={self.hasQueue} columns={BAR} gap={2sp} yAlign={Align.Center}>

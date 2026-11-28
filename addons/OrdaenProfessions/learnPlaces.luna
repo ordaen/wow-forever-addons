@@ -5,7 +5,7 @@
 // a few rows it scrolls, its scrollbar on hover.
 import Game from "$game"
 import { Align } from "$ltml"
-import { Column, Component, Ground, Money, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
+import { Column, Component, Ground, Money, SECONDARY_TEXT, Table, TableCell, TableRow, sortedBefore, sortsThen } from "Ordaen"
 import Locale from "@/locales"
 import { LearnPlace } from "@/sources"
 import Style from "@/style"
@@ -18,6 +18,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_DISTANCE, width: 117.1875dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End, sortable: true }
 ]
+const BY_NAME = 1
 const BY_WAY = 2
 const BY_DISTANCE = 3
 const BY_PRICE = 4
@@ -32,19 +33,17 @@ public struct Placed {
   yards: Number | nil
 }
 
-// Whether `a` stands before `b` by a column, a place with no distance after every one with one, either way; then by
-// name. Never a place before itself.
-function placedBefore(column: Integer, descending: Boolean, a: Placed, b: Placed): Boolean {
-  if (column == BY_DISTANCE && a.yards != b.yards) {
-    const x = a.yards
-    const y = b.yards
-    if (x == nil || y == nil) { return x != nil }
-    return (x < y) != descending
-  }
-  if (column == BY_WAY && a.place.way != b.place.way) { return (a.place.way < b.place.way) != descending }
-  if (column == BY_PRICE && a.place.cost != b.place.cost) { return (a.place.cost < b.place.cost) != descending }
-  if (a.place.name == b.place.name) { return false }
-  return (a.place.name < b.place.name) != descending
+// Whether `a` stands before `b` by a column, ascending (`sortedBefore`).
+function placedBefore(a: Placed, b: Placed, column: Integer): Boolean {
+  if (column == BY_DISTANCE) { return (a.yards ?? 0) < (b.yards ?? 0) }
+  if (column == BY_WAY) { return a.place.way < b.place.way }
+  if (column == BY_PRICE) { return a.place.cost < b.place.cost }
+  return a.place.name < b.place.name
+}
+
+// A place with no distance: after every one with one, either way.
+function farOff(placed: Placed, column: Integer): Boolean {
+  return column == BY_DISTANCE && placed.yards == nil
 }
 
 // How far a place is, as the table says it.
@@ -94,8 +93,7 @@ class LearnPlaceRow implements Component {
 public class LearnTable implements Component {
   // A place clicked, where it opens something.
   public open: Event<LearnPlace> = new Event()
-  state sorted = BY_DISTANCE
-  state descending = false
+  state sorts: Array<Integer> = [BY_DISTANCE]
   derived placed: Array<Placed> = self.placedOf()
   derived height: Number<Length> | nil = self.places.length > MOST_ROWS ? MOST_HEIGHT : nil
 
@@ -115,9 +113,8 @@ public class LearnTable implements Component {
     for (place of self.places) {
       list.push({ place: place, yards: place.npc == 0 ? nil : self.distance(place.npc) })
     }
-    const column = self.sorted
-    const descending = self.descending
-    list.sort((a, b) => placedBefore(column, descending, a, b))
+    const sorts = sortsThen(self.sorts, BY_NAME)
+    list.sort((a, b) => sortedBefore(a, b, sorts, placedBefore, farOff))
     return list
   }
 
@@ -125,7 +122,7 @@ public class LearnTable implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}
+      <Table columns={COLUMNS} sorts={mut self.sorts} height={self.height}
              rowsVary={true} ground={Ground.Wood}>
         <LearnPlaceRow $for={one of self.placed} placed={one} @open={self.onOpen} />
       </Table>

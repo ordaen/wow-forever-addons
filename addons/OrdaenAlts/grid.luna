@@ -1,7 +1,7 @@
 // «Professions»: a table of the characters, a column for each profession any of them has, the skill in each cell; a
 // click on a heading sorts by it (a profession's column by the skill, a character without it last), again reverses.
 import { Align } from "$ltml"
-import { Column, Component, Table, TableCell, TableRow } from "Ordaen"
+import { Column, Component, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import { Character } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -55,9 +55,24 @@ class SkillRow implements Component {
   }
 }
 
+// Whether `a` comes before `b` by a column (`sortedBefore`): by name, then realm; a profession's skill the highest first.
+function lineBefore(a: SkillLine, b: SkillLine, column: Integer): Boolean {
+  if (column <= 1) { return a.name < b.name || (a.name == b.name && a.key < b.key) }
+  return rankAt(a, column) > rankAt(b, column)
+}
+
+// A line's skill in a column's profession; -1 where it hasn't the profession.
+function rankAt(line: SkillLine, column: Integer): Integer {
+  return line.skills[column - 1]?.rank ?? -1
+}
+
+// A line without the column's profession: last, either way.
+function skillMissing(line: SkillLine, column: Integer): Boolean {
+  return column > 1 && rankAt(line, column) < 0
+}
+
 public class Grid implements Component {
-  state sorted = 1
-  state descending = false
+  state sorts: Array<Integer> = [1]
   derived names: Array<String> = self.namesOf()
   derived columns: Array<Column> = self.columnsOf()
   derived lines: Array<SkillLine> = self.linesOf()
@@ -116,28 +131,18 @@ public class Grid implements Component {
     return list
   }
 
-  // The lines by the column the table is sorted by: the name's, or a profession's skill (without it, last either way).
+  // The lines by what the table is sorted by: the name, or a profession's skill (without it, last either way).
   order(self): Array<SkillLine> {
     const list: Array<SkillLine> = []
     for (line of self.lines) { list.push(line) }
-    const column = self.sorted
-    const down = self.descending
-    if (column <= 1) {
-      if (down) { list.sort((a, b) => a.name > b.name) }
-      return list
-    }
-    list.sort((a, b) => {
-      const left = a.skills[column - 1]?.rank ?? -1
-      const right = b.skills[column - 1]?.rank ?? -1
-      if (left < 0 || right < 0) { return left > right }
-      return down ? left < right : left > right
-    })
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, lineBefore, skillMissing)) }
     return list
   }
 
   public render(self): Template {
     return $ltml {
-      <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
+      <Table columns={self.columns} sorts={mut self.sorts}>
         <SkillRow $for={line of self.ordered} $key={line.key} line={line} />
       </Table>
     }

@@ -98,17 +98,16 @@ test "how long ago: never under a minute, then hours, then days" {
 
 class Listing {
   state names: Array<String> = []
-  state sorted = 0
-  state descending = false
+  state sorts: Array<Integer> = []
   state query = ""
 
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]}>
         <Toolbar search={mut self.query} placeholder={"Search"}>
-          <ToolSort sorted={mut self.sorted} columns={COLUMNS} title={"Sort"} more={["Class"]} />
+          <ToolSort sorts={mut self.sorts} columns={COLUMNS} title={"Sort"} more={["Class"]} />
         </Toolbar>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={200dp}
+        <Table columns={COLUMNS} sorts={mut self.sorts} height={200dp}
                empty={self.names.length == 0 ? "Nothing found" : ""}>
           <TableRow $for={name of self.names}>
             <TableCell column={COLUMNS[1]}>
@@ -140,7 +139,7 @@ test "the toolbar's sort offers the sortable columns with a heading, then the so
   Test.mount(page, { left: 0, top: 0, width: 500, height: 400 })
   Test.page().button(Ordaen.art.ctl.tool.sort).click()
   Test.page().text("Class").click()
-  Test.expect(page.sorted == 4)
+  Test.expect(page.sorts.length == 1 && page.sorts[1] == 4)
   Test.page().text("Name").click()
-  Test.expect(page.sorted == 1)
+  Test.expect(page.sorts.length == 2 && page.sorts[2] == 1)
 }

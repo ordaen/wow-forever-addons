@@ -415,9 +415,11 @@ test "the sort is the table's: its headings and the toolbar's sort set one order
   Test.expect(friendsOrder(window) == "Alexei, Darrick, Eliana, Irina")
   window.button(Ordaen.art.ctl.tool.list).click()
   Test.page().text("Table").click()
-  // The heading of the sort picked in the list; clicked, the order turns round, the best friend still on top.
+  // The heading of the sort picked in the list; clicked, the order turns round, the best friend still on top; taken
+  // away, another heading sorts alone.
   window.button("Name").click()
   Test.expect(friendsOrder(window) == "Alexei, Irina, Eliana, Darrick")
+  window.button("Name").rightClick()
   window.button("Level").click()
   Test.expect(friendsOrder(window) == "Alexei, Eliana, Darrick, Irina")
 }
@@ -1129,7 +1131,8 @@ test "the guild's last column shows the notes, the professions or the achievemen
   window.button(Ordaen.art.ctl.tool.columns).click()
   Test.page().text("Achievement Points").click()
   Test.expect(window.text("240").shown() && window.text("Achievement Points").shown())
-  // Sorted by it: the fewest first, those online above those offline.
+  // Sorted by it alone (the rank's sort taken away): the fewest first, those online above those offline.
+  window.button("Rank").rightClick()
   window.text("Achievement Points").click()
   Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
 }

@@ -126,8 +126,7 @@ class VendorRow implements Component {
 public class VendorPage implements Component {
   state picked: ItemId | nil = nil
   // The rows stand as the list has them: the headings sort nothing.
-  state sorted = 0
-  state descending = false
+  state sorts: Array<Integer> = []
   derived rows: Array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market.Vendor)
   derived empty: Boolean = self.rows.length == 0
   derived chosen: Row | nil = self.rows.find(row => row.item == self.picked)
@@ -177,7 +176,7 @@ public class VendorPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE}>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+        <Table columns={COLUMNS} sorts={mut self.sorts}>
           <VendorRow $for={row of self.rows} $key={row} row={row} prices={self.prices} sellers={self.sellers}
                      selected={self.picked == row.item} @pick={self.onPick} />
           <box $if={self.empty} padding={Style.NOTE_PAD} yAlign={Align.Center}>

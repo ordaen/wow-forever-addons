@@ -175,9 +175,9 @@ test "the table sorts by a heading, a second click the other way" {
   const window = Test.page().window(MAIL)
   window.button(Ordaen.art.ctl.tool.list).click()
   Test.page().window("Table").button("Table").click()
-  window.text("Left").click()
+  window.button("Left").click()
   Test.expect(order(window) == "Bolts for you, Pay for the sword, Auction successful: Linen Cloth, Welcome")
-  window.text("Left").click()
+  window.button("Left").click()
   Test.expect(order(window) == "Welcome, Auction successful: Linen Cloth, Pay for the sword, Bolts for you")
 }
 

@@ -1,6 +1,7 @@
 // What the professions window's lists share: the views of a profession's recipes, how they are ordered, what a click on
 // a row asks of the window, and the groups the recipes fall into.
 import Game from "$game"
+import { sortedBefore, sortsThen } from "Ordaen"
 import { BothSources, betterOf } from "@/split"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
@@ -15,13 +16,12 @@ public enum SortBy implements Plain { Difficulty = "difficulty", Name = "name", 
 // them, by what the player can learn now (`READINESS`).
 public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
 
-// How the player left a profession's recipe list: its view, its sort, and the table's order (its column from 1, and
-// which way). The search isn't kept: a list cut short by an old search at the next opening says nothing of why.
+// How the player left a profession's recipe list: its view, its sort, and the table's sorts (`Table`'s). The search
+// isn't kept: a list cut short by an old search at the next opening says nothing of why.
 public struct ListView implements Plain {
   view: View = View.Columns
   sort: SortBy = SortBy.Difficulty
-  tableColumn: Integer = 1
-  tableDescending: Boolean = false
+  tableSorts: Array<Integer> = [1]
   grouping: Grouping = Grouping.Readiness
 }
 public const LIST_VIEW: ListView = {}
@@ -136,50 +136,33 @@ function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game.Recipe)
   return nil
 }
 
-// Whether `x` stands before `y` in a column, as far as they differ: none where they don't. One with nothing stands
-// after every one with something, either way.
-function numberBefore(x: Integer | nil, y: Integer | nil, descending: Boolean): Boolean | nil {
-  if (x != nil && y != nil) {
-    if (x < y) { return !descending }
-    if (y < x) { return descending }
-    return nil
-  }
-  if (x != y) { return x != nil }
-  return nil
-}
-
-function textBefore(x: String | nil, y: String | nil, descending: Boolean): Boolean | nil {
-  if (x != nil && y != nil) {
-    if (x < y) { return !descending }
-    if (y < x) { return descending }
-    return nil
-  }
-  if (x != y) { return x != nil }
-  return nil
-}
-
-// Whether `a` stands before `b` by one column (`facts` by recipe), as far as they differ there: none where they don't.
-function columnBefore(
-  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game.Recipe, b: Game.Recipe
-): Boolean | nil {
-  if (column == COLUMN_NAME) { return textBefore(a.name, b.name, descending) }
+// Whether `a` stands before `b` by one column, ascending (`sortedBefore`), of recipes that have something there (`facts`
+// by recipe): the name, then the number.
+function columnBefore(column: Integer, facts: Map<Integer, TableFacts>, a: Game.Recipe, b: Game.Recipe): Boolean {
+  if (column == COLUMN_NAME) { return a.name < b.name || (a.name == b.name && a.id < b.id) }
   const x = facts[a.id]
   const y = facts[b.id]
-  const texts = column == COLUMN_CLASS || column == COLUMN_TYPE
-  return texts ? textBefore(textAt(column, x), textAt(column, y), descending) : numberBefore(numberAt(column, x, a), numberAt(column, y, b), descending)
+  if (column == COLUMN_CLASS || column == COLUMN_TYPE) { return (textAt(column, x) ?? "") < (textAt(column, y) ?? "") }
+  return (numberAt(column, x, a) ?? 0) < (numberAt(column, y, b) ?? 0)
 }
 
-// The table's order by a column, then by name, then by number, the column's way. A cell with nothing stands last
-// either way.
-public function tableBefore(
-  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game.Recipe, b: Game.Recipe
-): Boolean {
-  const by = columnBefore(column, descending, facts, a, b)
-  if (by != nil) { return by }
-  if (a.name != b.name) { return (a.name < b.name) != descending }
-  // A recipe never stands before itself, whichever way: Lua's sort asks that too.
-  if (a.id == b.id) { return false }
-  return (a.id < b.id) != descending
+// Whether a recipe has nothing in a column (no price, no skill known): it stands after every one with something, either
+// way.
+function missingAt(column: Integer, facts: Map<Integer, TableFacts>, recipe: Game.Recipe): Boolean {
+  if (column == COLUMN_NAME) { return false }
+  const at = facts[recipe.id]
+  if (column == COLUMN_CLASS || column == COLUMN_TYPE) { return textAt(column, at) == nil }
+  return numberAt(column, at, recipe) == nil
+}
+
+// The table's rows: by its sorts (`sortedBefore`), then by name and number the first sort's way.
+public function tableRows(recipes: Array<Game.Recipe>, sorts: Array<Integer>, facts: Map<Integer, TableFacts>): Array<Game.Recipe> {
+  const list = recipes.map(recipe => recipe)
+  const order = sortsThen(sorts, COLUMN_NAME)
+  const recipeBefore = (a: Game.Recipe, b: Game.Recipe, column: Integer): Boolean => columnBefore(column, facts, a, b)
+  const missing = (recipe: Game.Recipe, column: Integer): Boolean => missingAt(column, facts, recipe)
+  list.sort((a, b) => sortedBefore(a, b, order, recipeBefore, missing))
+  return list
 }
 
 // Whether a number is among the ones listed.

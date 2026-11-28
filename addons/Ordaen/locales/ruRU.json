@@ -302,5 +302,6 @@
   "TALENT_RANK": "Уровень",
   "TALENT_NEXT_RANK": "Следующий ранг:",
   "TALENT_TREE_POINTS": "Требуется очков в этой ветке: %d",
-  "TALENT_LEARN": "Нажмите, чтобы изучить."
+  "TALENT_LEARN": "Нажмите, чтобы изучить.",
+  "TABLE_SORT_DOWN": "убыв. %s"
 }

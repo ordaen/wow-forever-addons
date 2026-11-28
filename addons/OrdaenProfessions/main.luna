@@ -38,7 +38,7 @@ import { bothSourcesOf } from "@/split"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, ListViews, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
-  Sorted, sorted, TableFacts, tableBefore, View
+  Sorted, sorted, TableFacts, tableRows, View
 } from "@/view"
 
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -590,13 +590,7 @@ public class Professions implements Module, App {
   }
 
   tableRowsOf(self): Array<Game.Recipe> {
-    let list: Array<Game.Recipe> = []
-    for (recipe of self.mains) { list.push(recipe) }
-    const column = self.list.values.tableColumn
-    const descending = self.list.values.tableDescending
-    const facts = self.facts
-    list.sort((a, b) => tableBefore(column, descending, facts, a, b))
-    return list
+    return tableRows(self.mains, self.list.values.tableSorts, self.facts)
   }
 
   // Each listed recipe's skill (`learnedSkillOf`), its made item's type, and one
@@ -984,15 +978,15 @@ public class Professions implements Module, App {
                                    @act={self.onAct} />
                   </SideList>
                   <box $else rows={FILL}>
-                    <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
-                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}
+                    <Table $if={self.priced} columns={PRICED_COLUMNS} sorts={mut self.list.values.tableSorts}
+                           ground={Ground.Wood}
                            rowsVary={true}>
                       <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       chosen={self.chosenRecipe} kept={self.kept}
                                       menuFor={self.menuFor} priced={true} @act={self.onAct} />
                     </Table>
-                    <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn}
-                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}
+                    <Table $else columns={COLUMNS} sorts={mut self.list.values.tableSorts}
+                           ground={Ground.Wood}
                            rowsVary={true}>
                       <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       chosen={self.chosenRecipe} kept={self.kept}

@@ -218,8 +218,7 @@ public class GuideLine implements Component {
 public class GuidePage implements Component {
   // A run's recipe clicked: it opens in the lists.
   public pick: Event<Integer> = new Event()
-  state sorted = 0
-  state descending = false
+  state sorts: Array<Integer> = []
   derived bonus: Number = legacyBonus()
   derived guide: Guide = self.guideNow()
   derived steps: Array<GuideStep> = self.guide.steps
@@ -296,7 +295,7 @@ public class GuidePage implements Component {
           <text $if={self.isStuck} value={self.stuck} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
         <box rows={[{ fr: 1 }]}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={COLUMNS} sorts={mut self.sorts}>
             <GuideLine $for={step of self.steps} step={step} @pick={self.onPick} />
           </Table>
         </box>

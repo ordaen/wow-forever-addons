@@ -497,6 +497,8 @@ test "the table view shows a spell's skill line, kind and level in columns, sort
   Game.spellbook.entries = spells
   const window = book()
   pick(window, Ordaen.art.ctl.tool.columns, "In columns", "Table")
+  // By the name at first: taken away, the level alone.
+  window.button("Spell").rightClick()
   Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Warrior | Active | 4")
   window.button("Level").click()
   Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))

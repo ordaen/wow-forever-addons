@@ -1,7 +1,7 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, Hour, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
+import { Column, Component, Hour, SECONDARY_TEXT, Table, TableCell, TableRow, sortedBefore } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -30,10 +30,16 @@ function waitOf(recipe: String, who: String, hours: Integer): Wait {
   }
 }
 
+// Whether `a` comes before `b` by a column, ascending (`sortedBefore`).
+function waitBefore(a: Wait, b: Wait, column: Integer): Boolean {
+  if (column == 1) { return a.recipe < b.recipe }
+  if (column == 2) { return a.who < b.who }
+  return a.hours < b.hours
+}
+
 public class Cooldowns implements Component {
-  // The column the table is sorted by; the soonest first at first.
-  state sorted = 3
-  state descending = false
+  // What the table is sorted by; the soonest first at first.
+  state sorts: Array<Integer> = [3]
   derived waits: Array<Wait> = self.waitsOf()
   derived ordered: Array<Wait> = self.order()
   derived empty: Boolean = self.waits.length == 0
@@ -65,13 +71,8 @@ public class Cooldowns implements Component {
   order(self): Array<Wait> {
     const list: Array<Wait> = []
     for (wait of self.waits) { list.push(wait) }
-    const column = self.sorted
-    const down = self.descending
-    list.sort((a, b) => {
-      if (column == 1) { return down ? a.recipe > b.recipe : a.recipe < b.recipe }
-      if (column == 2) { return down ? a.who > b.who : a.who < b.who }
-      return down ? a.hours > b.hours : a.hours < b.hours
-    })
+    const sorts = self.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, waitBefore)) }
     return list
   }
 
@@ -81,7 +82,7 @@ public class Cooldowns implements Component {
         <box $if={self.empty} padding={Style.TOP_ROOM}>
           <text value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+        <Table columns={COLUMNS} sorts={mut self.sorts}>
           <TableRow $for={wait of self.ordered} $key={wait}>
             <TableCell> <text value={wait.recipe} textColor={Style.INK} /> </TableCell>
             <TableCell> <text value={wait.who} textColor={Style.INK} wrap={.None} /> </TableCell>

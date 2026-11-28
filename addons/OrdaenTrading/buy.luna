@@ -138,13 +138,12 @@ function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
 // The filter's menu under the toolbar's funnel: the level bands and the qualities, each a list of its choices (the
 // first lets every one through), the second under a rule. A choice picked stays in the open menu; a click anywhere
 // else closes it. The classes are the categories at the page's left.
-// How the player left «Buy»'s list: the filter's level band and quality, the column it is sorted by (0: as the
-// house gives it) and which way, and whether it shows each variant or each item.
+// How the player left «Buy»'s list: the filter's level band and quality, its sorts (`Table`'s; none: as the house
+// gives it), and whether it shows each variant or each item.
 public struct BuyView implements Plain {
   level: Integer = ANY
   quality: Integer = ANY
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
   view: View = View.Variants
 }
 const BUY_VIEW: BuyView = {}
@@ -435,8 +434,6 @@ public class BuyPage implements Component {
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<BuyView> = new ModuleMemory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
-  // The table's second sort (`sortedBefore`).
-  state then = 0
   // The row whose menu shows; none.
   state menuFor: PriceKey | nil = nil
   // What the house was last searched for, as `wanted` says it.
@@ -575,10 +572,8 @@ public class BuyPage implements Component {
   }
 
   sortedOf(self, list: mut Array<Found>): Array<Found> {
-    const column = self.list.values.sorted
-    const down = self.list.values.descending
-    const then = self.then
-    if (column != 0 || then != 0) { list.sort((a, b) => sortedBefore(a, b, column, down, then, before)) }
+    const sorts = self.list.values.sorts
+    if (sorts.length > 0) { list.sort((a, b) => sortedBefore(a, b, sorts, before, missing)) }
     return list
   }
 
@@ -598,7 +593,6 @@ public class BuyPage implements Component {
 
   onPick(mut self, key: PriceKey) { self.picked = key }
 
-  onSecond(mut self, then: Integer) { self.then = then }
   onMenu(mut self, key: PriceKey) { self.menuFor = key }
 
   // A line of a row's menu: one of the item on the shopping list, its name searched for at once; the menu closes.
@@ -653,15 +647,13 @@ public class BuyPage implements Component {
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL}>
-            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   empty={self.emptySaid} twoSorts={true} @secondSort={self.onSecond}>
+            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
                         @act={self.onAct} />
             </Table>
-            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   empty={self.emptySaid} twoSorts={true} @secondSort={self.onSecond}>
+            <Table $else columns={COLUMNS} sorts={mut self.list.values.sorts} empty={self.emptySaid}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
@@ -718,8 +710,7 @@ class ListingRow implements Component {
 // «Add to shopping list».
 public class Chosen implements Component {
   state count = 1
-  state listSorted = 0
-  state listDescending = false
+  state listSorts: Array<Integer> = []
   derived listings: Array<Game.Listing> = self.purchase.listings ?? []
   derived commodity: Boolean = self.purchase.commodity
   // The listings the next click buys from: a commodity's first so many, an item's one auction.
@@ -777,7 +768,7 @@ public class Chosen implements Component {
                  house={self.house} prices={self.prices} history={self.history}>
         <box rows={PANEL} gap={3sp}>
           <box rows={FILL}>
-            <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}>
+            <Table columns={LISTING_COLUMNS} sorts={mut self.listSorts}>
               <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
                           index={index} first={self.first} last={self.last} />
             </Table>
@@ -803,7 +794,7 @@ public class Chosen implements Component {
   }
 }
 
-// Whether `a` comes before `b` by the column, cheapest, fewest, first by name and youngest first.
+// Whether `a` comes before `b` by the column (`sortedBefore`): cheapest, fewest, first by name and youngest first.
 function before(a: Found, b: Found, column: Integer): Boolean {
   if (column == NAME_COLUMN) { return a.name < b.name }
   if (column == LISTED_COLUMN) { return a.listed < b.listed }
@@ -811,4 +802,10 @@ function before(a: Found, b: Found, column: Integer): Boolean {
   if (column == MARKET_COLUMN) { return (a.market?.copper() ?? 0) < (b.market?.copper() ?? 0) }
   if (column == SHARE_COLUMN) { return (a.share ?? 0) < (b.share ?? 0) }
   return (a.market?.seen() ?? 0) > (b.market?.seen() ?? 0)
+}
+
+// Whether a row has nothing in the column (no market known): it stands last, either way.
+function missing(row: Found, column: Integer): Boolean {
+  if (column == SHARE_COLUMN) { return row.share == nil }
+  return column >= MARKET_COLUMN && row.market == nil
 }

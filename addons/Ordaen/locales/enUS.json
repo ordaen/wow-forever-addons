@@ -302,5 +302,6 @@
   "TALENT_RANK": "Rank",
   "TALENT_NEXT_RANK": "Next rank:",
   "TALENT_TREE_POINTS": "Requires %d points in this tree",
-  "TALENT_LEARN": "Click to learn."
+  "TALENT_LEARN": "Click to learn.",
+  "TABLE_SORT_DOWN": "desc %s"
 }

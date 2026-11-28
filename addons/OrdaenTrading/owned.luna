@@ -99,10 +99,9 @@ class OwnedRow implements Component {
   }
 }
 
-// How the player left the auctions' list: the column it is sorted by (0: as it comes) and which way.
+// How the player left the auctions' list: its sorts (`Table`'s; none: as it comes).
 public struct OwnedView implements Plain {
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 const OWNED_VIEW: OwnedView = {}
 
@@ -164,7 +163,7 @@ public class OwnedPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
         <box rows={FILL}>
-          <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+          <Table columns={COLUMNS} sorts={mut self.list.values.sorts}>
             <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />
             <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>

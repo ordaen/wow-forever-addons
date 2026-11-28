@@ -34,9 +34,10 @@ function shows(expected: String): Boolean {
   return true
 }
 
-// The tab with an empty search: the table's headings, these rows, the totals under them, the tabs.
+// The tab with an empty search: the order's line (by the total), the table's headings, these rows, the totals under them,
+// the tabs.
 function listed(rows: String, count: Integer, all: Integer): String {
-  return `Search items | Item | Bags | Bank | Mail | Auctions | Total | ${rows} | ${count} items, ${all} in all | ${TABS}`
+  return `Search items | Total | Item | Bags | Bank | Mail | Auctions | Total | ${rows} | ${count} items, ${all} in all | ${TABS}`
 }
 
 // What a place holds, as the game gives it: item, count, item, count.
@@ -81,7 +82,7 @@ test "Items is a table of every item held, the most first: its count in each pla
   Test.mount(nil, SCREEN)
   recorded([holder("Aria", .Bank, [LINEN, 20, WOOL, 5]), holder("Bram", .Mail, [COPPER, 1])])
   _ = items()
-  Test.expect(shows(`Search items | Item | Bags | Bank | Mail | Auctions | Total | Linen Cloth | 12 | 20 | — | — | 32 | Wool Cloth | — | 5 | — | — | 5 | Copper Bar | 3 | — | 1 | — | 4 | 3 items, 41 in all | ${TABS}`))
+  Test.expect(shows(`Search items | Total | Item | Bags | Bank | Mail | Auctions | Total | Linen Cloth | 12 | 20 | — | — | 32 | Wool Cloth | — | 5 | — | — | 5 | Copper Bar | 3 | — | 1 | — | 4 | 3 items, 41 in all | ${TABS}`))
 }
 
 test "items held alike are listed by their name" {
@@ -90,7 +91,7 @@ test "items held alike are listed by their name" {
   Game.bags.changed.emit()
   Test.mount(nil, SCREEN)
   _ = items()
-  Test.expect(shows(`Search items | Item | Bags | Bank | Mail | Auctions | Total | Copper Bar | 5 | — | — | — | 5 | Linen Cloth | 5 | — | — | — | 5 | 2 items, 10 in all | ${TABS}`))
+  Test.expect(shows(`Search items | Total | Item | Bags | Bank | Mail | Auctions | Total | Copper Bar | 5 | — | — | — | 5 | Linen Cloth | 5 | — | — | — | 5 | 2 items, 10 in all | ${TABS}`))
 }
 
 test "a search keeps the items whose name holds it, in any case" {
@@ -99,7 +100,7 @@ test "a search keeps the items whose name holds it, in any case" {
   Game.bags.changed.emit()
   Test.mount(nil, SCREEN)
   items().input().type("CLOTH")
-  Test.expect(shows(`Item | Bags | Bank | Mail | Auctions | Total | Wool Cloth | 30 | — | — | — | 30 | Linen Cloth | 12 | — | — | — | 12 | 2 items, 42 in all | ${TABS}`))
+  Test.expect(shows(`Total | Item | Bags | Bank | Mail | Auctions | Total | Wool Cloth | 30 | — | — | — | 30 | Linen Cloth | 12 | — | — | — | 12 | 2 items, 42 in all | ${TABS}`))
 }
 
 test "a search by an item's number finds it" {
@@ -108,7 +109,7 @@ test "a search by an item's number finds it" {
   Game.bags.changed.emit()
   Test.mount(nil, SCREEN)
   items().input().type("2840")
-  Test.expect(shows(`Item | Bags | Bank | Mail | Auctions | Total | Copper Bar | 3 | — | — | — | 3 | 1 items, 3 in all | ${TABS}`))
+  Test.expect(shows(`Total | Item | Bags | Bank | Mail | Auctions | Total | Copper Bar | 3 | — | — | — | 3 | 1 items, 3 in all | ${TABS}`))
 }
 
 test "a search that finds nothing says so" {
@@ -117,7 +118,7 @@ test "a search that finds nothing says so" {
   Game.bags.changed.emit()
   Test.mount(nil, SCREEN)
   items().input().type("iron")
-  Test.expect(shows(`Item | Bags | Bank | Mail | Auctions | Total | ${Locale.NOTHING_FOUND} | 0 items, 0 in all | ${TABS}`))
+  Test.expect(shows(`Total | Item | Bags | Bank | Mail | Auctions | Total | ${Locale.NOTHING_FOUND} | 0 items, 0 in all | ${TABS}`))
 }
 
 test "an item the game has no name for yet is listed by its number" {
@@ -126,7 +127,7 @@ test "an item the game has no name for yet is listed by its number" {
   Game.bags.changed.emit()
   Test.mount(nil, SCREEN)
   _ = items()
-  Test.expect(shows(`Search items | Item | Bags | Bank | Mail | Auctions | Total | #4306 | 2 | — | — | — | 2 | 1 items, 2 in all | ${TABS}`))
+  Test.expect(shows(`Search items | Total | Item | Bags | Bank | Mail | Auctions | Total | #4306 | 2 | — | — | — | 2 | 1 items, 2 in all | ${TABS}`))
 }
 
 test "the game is asked an item's name once while the tab shows" {
@@ -162,6 +163,8 @@ test "a heading sorts by its column: a place's count the most first, again the l
   Test.mount(nil, SCREEN)
   recorded([holder("Aria", .Bank, [COPPER, 40])])
   const window = items()
+  // The total's sort taken away: by the bags alone.
+  window.button(Locale.COL_TOTAL).rightClick()
   window.button(Locale.COL_BAGS_HELD).click()
   Test.expect(window.texts().filter(text => text == "Linen Cloth" || text == "Copper Bar").join(", ") == "Linen Cloth, Copper Bar")
   window.button(Locale.COL_BAGS_HELD).click()
@@ -284,7 +287,7 @@ test "a search lists what it finds, the most held first" {
   Test.mount(nil, SCREEN)
   items().input().type("cloth")
   Test.expect(shows(
-    `Item | Bags | Bank | Mail | Auctions | Total | Cloth | 9 | — | — | — | 9 | Cloth | 5 | — | — | — | 5 | Apron of Cloth | 4 | — | — | — | 4 | Bolt of Cloth | 3 | — | — | — | 3 | Cloth | 2 | — | — | — | 2 | 5 items, 23 in all | ${TABS}`
+    `Total | Item | Bags | Bank | Mail | Auctions | Total | Cloth | 9 | — | — | — | 9 | Cloth | 5 | — | — | — | 5 | Apron of Cloth | 4 | — | — | — | 4 | Bolt of Cloth | 3 | — | — | — | 3 | Cloth | 2 | — | — | — | 2 | 5 items, 23 in all | ${TABS}`
   ))
 }
 

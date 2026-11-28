@@ -17,7 +17,7 @@ import {
   ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FilterGroup, FoldCaption, FooterCount, KeptWindow,
   ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableCell, TableRow,
   Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec, bandOf, richDescription,
-  sortChoices, switched
+  sortChoices, sortedBefore, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -43,18 +43,18 @@ public struct TrainerIgnored implements Plain {
 // What a service's menu does, in its order.
 enum MenuAct { Learn, Ignore, Link }
 
-// How the player left a trainer's window, the owning module's profile's: what the filter shows, the view, the column or
-// sort it is ordered by (0: the trainer's order) and its way. The search isn't kept. Each kind opens in its own view
+// How the player left a trainer's window, the owning module's profile's: what the filter shows, the view, its sorts
+// (`Table`'s; none: the trainer's order). The search isn't kept. Each kind opens in its own view
 // (`TrainerList { view: .List }` for a class trainer's categories).
 public struct TrainerList implements Plain {
   shows: Map<TrainerShow, Boolean> = FILTER_START
   view: TrainerView = TrainerView.Table
-  sorted: Integer = 0
-  descending: Boolean = false
+  sorts: Array<Integer> = []
 }
 
-// What a sort orders by; a trainer's kind lays its columns out as one of these each.
-enum Key { Name, Rank, Level, Skill, Cost, Status }
+// What a sort orders by; a trainer's kind lays its columns out as one of these each. `Index`, the trainer's own order, comes
+// last of every kind's: what tells apart services the sorts leave level.
+enum Key { Name, Rank, Level, Skill, Cost, Status, Index }
 
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
@@ -103,8 +103,8 @@ public const TRAINER_VIEWS: Array<Choice<TrainerView>> = [
 const MORE_SORTS: Array<String> = [Locale.TRAINER_AVAILABLE_FIRST]
 // The columns after the service's own: a class trainer's rank and level, a profession trainer's level and skill; the
 // price last.
-const CLASS_KEYS: Array<Key> = [Key.Name, Key.Rank, Key.Level, Key.Cost, Key.Status]
-const TRADE_KEYS: Array<Key> = [Key.Name, Key.Level, Key.Skill, Key.Cost, Key.Status]
+const CLASS_KEYS: Array<Key> = [Key.Name, Key.Rank, Key.Level, Key.Cost, Key.Status, Key.Index]
+const TRADE_KEYS: Array<Key> = [Key.Name, Key.Level, Key.Skill, Key.Cost, Key.Status, Key.Index]
 const NARROW = 70.3125dp
 const PRICE = 117.1875dp
 const TRACKS: Array<Track> = [{ fr: 1 }, NARROW, NARROW, PRICE]
@@ -158,12 +158,10 @@ function linkOf(service: Game.TrainerService): String | nil {
   return Client.GetTrainerServiceItemLink(service.index)
 }
 
-// The order of a sort, the trainer's where two are alike or none is picked.
-function before(a: Game.TrainerService, b: Game.TrainerService, key: Key | nil, descending: Boolean): Boolean {
-  const ka = key == nil ? "" : keyOf(a, key)
-  const kb = key == nil ? "" : keyOf(b, key)
-  if (ka != kb) { return descending ? kb < ka : ka < kb }
-  return a.index < b.index
+// Whether a service comes before another by a sort's key, ascending (`sortedBefore`).
+function keyBefore(a: Game.TrainerService, b: Game.TrainerService, key: Key | nil): Boolean {
+  if (key == nil) { return false }
+  return keyOf(a, key) < keyOf(b, key)
 }
 
 function statusRank(status: Game.ServiceStatus): Integer {
@@ -182,6 +180,7 @@ function keyOf(service: Game.TrainerService, key: Key): String {
     Key.Skill => "%08d".format(service.skill ?? 0)
     Key.Cost => "%012d".format(service.cost)
     Key.Status => String.of(statusRank(service.status))
+    Key.Index => "%08d".format(service.index)
   }
 }
 
@@ -801,10 +800,14 @@ public class TrainerPage {
 
   shownOf(self): Array<Game.TrainerService> {
     const view = self.list.values
-    const key = self.keys[view.sorted]
+    const keys = self.keys
+    // The player's sorts, then the trainer's own order.
+    const sorts = view.sorts.map(sort => sort)
+    sorts.push(keys.length)
+    const columnBefore = (a: Game.TrainerService, b: Game.TrainerService, column: Integer): Boolean => keyBefore(a, b, keys[column])
     const ignored = self.ignoredNames
     let services = self.services.filter(service => passes(service, view.shows, self.query, ignored))
-    services.sort((a, b) => before(a, b, key, view.descending))
+    services.sort((a, b) => sortedBefore(a, b, sorts, columnBefore))
     return services
   }
 
@@ -1034,7 +1037,7 @@ public class TrainerPage {
       <box padding={HEAD_ROOM} gap={6sp}>
         <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
         <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
-          <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
+          <ToolSort sorts={mut self.list.values.sorts} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
           <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
           <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
         </Toolbar>
@@ -1043,7 +1046,7 @@ public class TrainerPage {
         <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
       </box>
       <box $elseif={self.tabled} rows={FILL}>
-        <Table columns={self.columns} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+        <Table columns={self.columns} sorts={mut self.list.values.sorts}>
           <ServiceTableRow $for={service of self.shown} $key={service.index} service={service} trade={self.trade}
                            rows={self.rows} />
         </Table>

@@ -7,7 +7,7 @@
 import { GuildRights, Member } from "$game"
 import { Align, MouseButton, TextWrap } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText } from "Ordaen"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText, sortedBefore, sortsThen } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -106,6 +106,7 @@ function byNumber(a: Integer, b: Integer): Integer { return a < b ? -1 : a > b ?
 
 function compared(column: Integer, a: Member, b: Member, extra: Extra): Integer {
   return match (column) {
+    BY_NAME => byText(a.name, b.name)
     BY_LEVEL => byNumber(a.level, b.level)
     BY_CLASS => byText(a.className, b.className)
     BY_ZONE => byText(whereOf(a), whereOf(b))
@@ -115,13 +116,11 @@ function compared(column: Integer, a: Member, b: Member, extra: Extra): Integer 
   }
 }
 
-// Whether a member stands before another: those online first, then the column's order, then the name.
-function before(a: Member, b: Member, column: Integer, descending: Boolean, extra: Extra): Boolean {
+// Whether a member stands before another: those online first, then the sorts (`sortedBefore`, by `before`, each
+// column's own way).
+function memberBefore(a: Member, b: Member, sorts: Array<Integer>, before: (a: Member, b: Member, column: Integer) => Boolean): Boolean {
   if (online(a) != online(b)) { return online(a) }
-  const order = compared(column, a, b, extra)
-  if (order != 0) { return descending ? order > 0 : order < 0 }
-  const names = byText(a.name, b.name)
-  return column == BY_NAME && descending ? names > 0 : names < 0
+  return sortedBefore(a, b, sorts, before)
 }
 
 // Whether a member is found by what the player typed: in the name, the class, the zone, the rank or the note.
@@ -131,10 +130,12 @@ function found(member: Member, query: String): Boolean {
   return text.contains(query.lower())
 }
 
-// The members a roster shows, in its order.
-public function shownOf(members: Array<Member>, query: String, show: Show, column: Integer, descending: Boolean, extra: Extra = .Note): Array<Member> {
+// The members a roster shows, in its order: by the sorts, then by name where none of them is by it.
+public function shownOf(members: Array<Member>, query: String, show: Show, sorts: Array<Integer>, extra: Extra = .Note): Array<Member> {
   const shown = members.filter(member => found(member, query) && (show == .Everyone || online(member)))
-  shown.sort((a, b) => before(a, b, column, descending, extra))
+  const order = sortsThen(sorts, BY_NAME)
+  const before = (a: Member, b: Member, column: Integer): Boolean => compared(column, a, b, extra) < 0
+  shown.sort((a, b) => memberBefore(a, b, order, before))
   return shown
 }
 
@@ -208,10 +209,9 @@ public class MemberTable implements Component {
 
   state query = ""
   state show: Show = .Everyone
-  state sorted = BY_RANK
-  state descending = false
+  state sorts: Array<Integer> = [BY_RANK]
   state extra: Extra = .Note
-  derived shown: Array<Member> = shownOf(self.members, self.query, self.show, self.sorted, self.descending, self.extra)
+  derived shown: Array<Member> = shownOf(self.members, self.query, self.show, self.sorts, self.extra)
   derived lit: Boolean = self.show != .Everyone
   derived empty: String = self.shown.length == 0 ? Locale.NOTHING_FOUND : ""
 
@@ -237,24 +237,24 @@ public class MemberTable implements Component {
         <box padding={Style.SIDE_ROOM}>
           <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
             <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
-            <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
+            <ToolSort sorts={mut self.sorts} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
             <ToolPick $if={self.guild} value={mut self.extra} choices={EXTRAS} icon={Ordaen.art.ctl.tool.columns} title={Locale.EXTRA_COLUMN} />
           </Toolbar>
         </box>
         <box $if={self.extra == .Professions} columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={PROFESSION_COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true} empty={self.empty}>
+          <Table columns={PROFESSION_COLUMNS} sorts={mut self.sorts} rowsVary={true} empty={self.empty}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} extra={self.extra}
                        @pick={self.onPick} @menu={self.onMenu} />
           </Table>
         </box>
         <box $elseif={self.extra == .Achievements} columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={ACHIEVEMENT_COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true} empty={self.empty}>
+          <Table columns={ACHIEVEMENT_COLUMNS} sorts={mut self.sorts} rowsVary={true} empty={self.empty}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} extra={self.extra}
                        @pick={self.onPick} @menu={self.onMenu} />
           </Table>
         </box>
         <box $else columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true} empty={self.empty}>
+          <Table columns={self.columns} sorts={mut self.sorts} rowsVary={true} empty={self.empty}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} extra={self.extra}
                        @pick={self.onPick} @menu={self.onMenu} />
           </Table>
