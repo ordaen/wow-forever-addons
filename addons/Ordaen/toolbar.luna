@@ -16,7 +16,7 @@
 // ToolAct: a ToolButton's plate and glyph that does one thing when clicked (sorting the bags now), its Tip saying what.
 import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, DropdownItem } from "@/dropdown"
+import { Choice, DropdownItem, ManyItem, flippedIn, labelsOf } from "@/dropdown"
 import { Component } from "@/module"
 import { Column } from "@/table"
 import { Tip } from "@/tip"
@@ -229,6 +229,61 @@ public class ToolPick<T: Unknown> implements Component {
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />
+        </surface>
+      </ToolButton>
+    }
+  }
+}
+
+// ToolMany: a ToolButton with a list of choices of which any number are picked, as a ManyDropdown's (each with its
+// tick): a click on a choice picks it or lets it go and leaves the list open, a click anywhere else closes it. Its Tip
+// names the picked choices, or says `none`; it is lit where the caller says the picked ones narrow the list.
+public class ToolMany<T: Unknown> implements Component {
+  state open = false
+  derived picked: String = labelsOf(self.choices, self.value)
+  derived shown: String = self.picked == "" ? self.none : self.picked
+
+  value: mut Signal<Array<T>>
+  const choices: Array<Choice<T>>
+  icon: Signal<Art>
+  title: Signal<String>
+  none: Signal<String>
+  lit: Signal<Boolean>
+  const tinted: Boolean
+  const listBounds: Bounds
+  constructor(
+    value: mut Signal<Array<T>>,
+    choices: Array<Choice<T>>,
+    icon: Signal<Art>,
+    // What it chooses («Raises the skill»): its Tip's title, over the picked choices.
+    title: Signal<String>,
+    // What its Tip says while nothing is picked.
+    none: Signal<String>,
+    lit: Signal<Boolean> = false,
+    // A glyph its colour tints; false for a picture of the game's, drawn in its own colours.
+    tinted: Boolean = true,
+    listWidth: Number<Length> = LIST_WIDTH
+  ) {
+    self.value = value
+    self.choices = choices
+    self.icon = icon
+    self.title = title
+    self.none = none
+    self.lit = lit
+    self.tinted = tinted
+    self.listBounds = { min: listWidth, max: nil }
+  }
+
+  close(mut self) { self.open = false }
+
+  onFlip(mut self, flipped: T) { self.value = flippedIn(self.choices, peek self.value, flipped) }
+
+  public render(self): Template {
+    return $ltml {
+      <ToolButton icon={self.icon} title={self.title} text={self.shown} open={mut self.open} lit={self.lit} tinted={self.tinted}>
+        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+                 background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
+          <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />
         </surface>
       </ToolButton>
     }

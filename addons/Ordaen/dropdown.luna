@@ -208,8 +208,8 @@ public class CompactDropdown<T: Unknown> implements Component {
   }
 }
 
-// One choice in a `ManyDropdown`'s open menu: its tick, gold while it is picked.
-class ManyItem<T: Unknown> implements Component {
+// One choice in a `ManyDropdown`'s or a `ToolMany`'s open menu: its tick, gold while it is picked.
+public class ManyItem<T: Unknown> implements Component {
   public flip: Event<T> = new Event()
 
   derived picked: Boolean = self.value.any((each: T) => each == self.choice.value)
@@ -241,12 +241,22 @@ class ManyItem<T: Unknown> implements Component {
 const TICK = 18.75dp
 
 // The labels of the choices a list holds, in the choices' order, joined; none when it holds none.
-function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): String {
+public function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): String {
   const labels: Array<String> = []
   for (choice of choices) {
     if (value.any((each: T) => each == choice.value)) { labels.push(choice.label) }
   }
   return labels.join(", ")
+}
+
+// What is picked with one choice flipped (picked where it wasn't, let go where it was), in the choices' order.
+public function flippedIn<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>, flipped: T): mut Array<T> {
+  const next: Array<T> = []
+  for (choice of choices) {
+    const held = value.any((each: T) => each == choice.value)
+    if (held != (choice.value == flipped)) { next.push(choice.value) }
+  }
+  return next
 }
 
 // ManyDropdown: a setting that is any number of several choices, as a `Dropdown` is one: the plate shows the picked
@@ -289,15 +299,7 @@ public class ManyDropdown<T: Unknown> implements Component {
   close(mut self) { self.open = false }
 
   // The choice flipped: the list keeps the choices' order.
-  onFlip(mut self, flipped: T) {
-    const was = peek self.value
-    const next: Array<T> = []
-    for (choice of self.choices) {
-      const held = was.any((each: T) => each == choice.value)
-      if (held != (choice.value == flipped)) { next.push(choice.value) }
-    }
-    self.value = next
-  }
+  onFlip(mut self, flipped: T) { self.value = flippedIn(self.choices, peek self.value, flipped) }
 
   public render(self): Template {
     return $ltml {

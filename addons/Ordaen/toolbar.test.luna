@@ -6,7 +6,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ARTWORK } from "@/art"
 import { Choice } from "@/dropdown"
-import { ToolButton, ToolPick, Toolbar } from "@/toolbar"
+import { ToolButton, ToolMany, ToolPick, Toolbar } from "@/toolbar"
 
 enum Order { Difficulty = "difficulty", Name = "name" }
 enum Look { Columns = "columns", List = "list" }
@@ -136,4 +136,51 @@ test "the toolbar's buttons stand on the search's row; each Tip says what it doe
   Test.expect(page.submitted == 1 && page.search == "ore")
   destroy page
   Test.expect(Test.blank())
+}
+
+// A window whose toolbar picks any number of colours.
+enum Shade { Orange = "orange", Yellow = "yellow", Green = "green" }
+
+const SHADES: Array<Choice<Shade>> = [
+  { value: Shade.Orange, label: "Orange" }, { value: Shade.Yellow, label: "Yellow" }, { value: Shade.Green, label: "Green" }
+]
+
+class Picking {
+  public state shades: Array<Shade> = [Shade.Orange, Shade.Green]
+  public state search = ""
+
+  public render(self): Template {
+    return $ltml {
+      <box width={400ui}>
+        <Toolbar search={mut self.search} placeholder={"Search by name"}>
+          <ToolMany value={mut self.shades} choices={SHADES} icon={Ordaen.art.ctl.tool.list} title={"Colours"} none={"None"} />
+        </Toolbar>
+      </box>
+    }
+  }
+}
+
+test "a ToolMany's list ticks any number of choices: a click picks one or lets it go and leaves the list open; its Tip names them" {
+  let page = new Picking()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 400 })
+  const button = Test.painted(Ordaen.art.ctl.tool.list, nil)
+  Test.moveTo(button)
+  Test.flush()
+  Test.expect(tipSays("Colours", "Orange, Green"))
+  Test.click(button, nil)
+  Test.click(Test.holding("Yellow", nil), nil)
+  Test.expect(page.shades.length == 3 && page.shades[2] == Shade.Yellow)
+  // The list stays open: another click lets a choice go.
+  Test.click(Test.holding("Orange", nil), nil)
+  Test.click(Test.holding("Green", nil), nil)
+  Test.expect(page.shades.length == 1 && page.shades[1] == Shade.Yellow)
+  Test.click(Test.holding("Yellow", nil), nil)
+  Test.expect(page.shades.length == 0)
+  // Its button closes the list; the Tip, once the cursor comes back, says nothing is picked.
+  Test.click(button, nil)
+  Test.moveTo({ x: 590, y: 390 })
+  Test.flush()
+  Test.moveTo(button)
+  Test.flush()
+  Test.expect(tipSays("Colours", "None"))
 }
