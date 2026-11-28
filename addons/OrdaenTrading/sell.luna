@@ -131,7 +131,7 @@ public class SellPage implements Component {
   // How the player left the list, the profile's (`ModuleMemory`).
   public list: mut ModuleMemory<SellView> = new ModuleMemory<SellView>(SELL_VIEW, .Profile, "sell")
   state picked: ItemId | nil = nil
-  // Moves as the bags change: what the house takes is read again.
+  // Moves as the bags change, or an item the client hadn't loaded comes: what the house takes is read again.
   state bags = 0
   derived rows: Array<Offered> = self.rowsOf()
   // The row picked, while it is shown: one or none, handed to the window's side section.
@@ -148,6 +148,7 @@ public class SellPage implements Component {
     self.chosen = chosen
     watch (picks of self.picks) { self.chosen = picks.map(offered => offered) }
     Game.bags.changed.listen(self.onBags)
+    Game.auctionActions.sellableChanged.listen(self.onBags)
   }
 
   onBags(mut self) { self.bags += 1 }

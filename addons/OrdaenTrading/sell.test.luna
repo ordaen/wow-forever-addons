@@ -138,6 +138,20 @@ test "the bags changing are read again" {
   Test.expect(!window().text("Linen Cloth").shown() && window().text("Copper Ore").shown())
 }
 
+test "an item the client hadn't loaded (a full scan churns its cache) is read again as it comes" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  // The client hasn't loaded linen's data: it is left out for now.
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: ORE, count: 3, bag: 0, slot: 5, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Test.expect(!window().text("Linen Cloth").shown())
+  Game.auctionActions.sellable = bags
+  Game.auctionActions.sellableChanged.emit()
+  Test.expect(window().text("Linen Cloth").shown() && window().text("Bronze Axe").shown())
+}
+
 test "what a merchant pays shows beside the house's, and whichever pays more after the house's cut is named" {
   // What a merchant asks for linen isn't what one pays for it.
   Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 999 } }
