@@ -35,7 +35,7 @@ import { ProfessionSpell, ProfessionSpells, professionSpellsOf } from "@/spells"
 import { bothSourcesOf } from "@/split"
 import Style from "@/style"
 import {
-  Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
+  Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, ListViews, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
   Sorted, sorted, TableFacts, tableBefore, View
 } from "@/view"
 import { WorthPage } from "@/worth"
@@ -216,8 +216,12 @@ public class Professions implements Module, App {
   // What this character's craft queue takes, every line still to make together: another module's read.
   public derived queue: Array<QueueItem> = needsOf(self.written, self.crafting.lines)
   derived taught: Map<String, Taught> = self.learning.values.recipes
-  // How the player left the recipe list: its view, its sort and the table's order, the profile's.
+  // How the player left the open profession's recipe list: its view, its sort and the table's order, the profile's;
+  // kept under the profession in `views` as it changes, and read from there as another opens.
   public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW)
+  public views: mut ModuleMemory<ListViews> = new ModuleMemory<ListViews>({ byLine: {} }, .Profile, "views")
+  // Each profession's filter as the player left it, by its skill line: the session's, as the filter is.
+  filters: mut Map<Integer, Map<RecipeFilter, Boolean>> = {}
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
@@ -343,6 +347,7 @@ public class Professions implements Module, App {
     // The page's watch stands before the open profession's: what the profession chose again as it opens is kept.
     watch (page of self.page) { self.onPage() }
     watch { self.followOpen() }
+    watch { self.keepView() }
     watch { self.writeBook(Game.tradeSkill.open, Game.tradeSkill.recipes) }
     watch { self.shown = self.shownOf() }
     // Another recipe chosen, or another profession open: the count starts again at one.
@@ -714,7 +719,13 @@ public class Professions implements Module, App {
       self.memory.write({ last: open, ..now })
     }
     if (open != nil && open != self.skillLine) {
+      // Each profession has its own list: the one left keeps its filter (its view is kept as it changes), the one
+      // opened takes its own, or a fresh one, and an empty search.
+      if (self.skillLine != 0) { self.filters[self.skillLine] = peek self.filter }
       self.skillLine = open
+      self.search = ""
+      self.filter = self.filters[open] ?? FILTER_START
+      self.list.write((peek self.views.values).byLine[open] ?? LIST_VIEW)
       self.texts = {}
       self.category = 0
       self.recipe = 0
@@ -727,6 +738,17 @@ public class Professions implements Module, App {
         self.recipe = seen.recipe
       }
     }
+  }
+
+  // The open profession's list as it is now, kept under it.
+  keepView(mut self) {
+    const view: ListView = self.list.values
+    const line = self.skillLine
+    const now = peek self.views.values
+    if (line == 0 || (now.byLine[line]?.equal(view) ?? false)) { return }
+    let byLine = now.byLine.clone()
+    byLine[line] = view
+    self.views.write({ byLine: byLine })
   }
 
   // A tab opens its profession through the game, in the click's own call: the client takes it from nothing

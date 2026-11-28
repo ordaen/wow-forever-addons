@@ -15,9 +15,8 @@ public enum SortBy implements Plain { Difficulty = "difficulty", Name = "name", 
 // them, by what the player can learn now (`READINESS`).
 public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
 
-// How the player left the recipe list, the profile's (`ModuleMemory`): its view, its sort, and the
-// table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
-// next opening says nothing of why.
+// How the player left a profession's recipe list: its view, its sort, and the table's order (its column from 1, and
+// which way). The search isn't kept: a list cut short by an old search at the next opening says nothing of why.
 public struct ListView implements Plain {
   view: View = View.Columns
   sort: SortBy = SortBy.Difficulty
@@ -26,6 +25,12 @@ public struct ListView implements Plain {
   grouping: Grouping = Grouping.Readiness
 }
 public const LIST_VIEW: ListView = {}
+
+// Each profession's list as the player left it, by its skill line, the profile's (`ModuleMemory`): a profession opens
+// as it was left, never as another was.
+public struct ListViews implements Plain {
+  byLine: Map<Integer, ListView>
+}
 
 // How many «Create» makes: the count written, as many as it takes to raise the skill by the count, or all the
 // bags allow.

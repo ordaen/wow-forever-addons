@@ -662,6 +662,37 @@ test "the search finds a recipe by its name or by a reagent's, in any case" {
   Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
 }
 
+test "each profession keeps its own filter and view as it was left; another opened starts with an empty search" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().input().type("bag")
+  view("Table")
+  filter().button("Can make").click()
+  Test.expect(window().text("Available").shown())
+  // Blacksmithing: in columns, its filter as the window starts it, nothing sought.
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(window().input().value() == "" && !window().text("Available").shown())
+  Test.expect(reads(window().text("Weapons").item(), "Weapons | 1 | /1"))
+  filter().button("Raises the skill").click()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.open = TAILORING
+  // Tailoring as it was left, but the search: the table, «Can make» alone.
+  Test.expect(window().input().value() == "" && window().text("Available").shown())
+  Test.expect(lists("Linen Bag, Linen Cloak"))
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
+}
+
 test "the search reads a recipe's reagents once, not again at each letter typed" {
   let readings = 0
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
@@ -695,10 +726,11 @@ test "reagents the game told late are searched once the profession is opened aga
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
   Game.tradeSkill.open = BLACKSMITHING
-  Test.expect(lists(""))
+  Test.expect(lists("Copper Mace"))
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.open = TAILORING
+  window().input().type("coarse")
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
 }
 
