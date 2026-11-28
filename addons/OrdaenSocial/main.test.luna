@@ -727,6 +727,54 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   Test.expect(window.text("Ingrid").shown() && !window.text("Torvald").shown())
 }
 
+// The guild's page is drawn once a window's opening: another tab shown hides it, so the search typed into it, and its
+// roster of hundreds, are there again as the guild's tab comes back. Closed, the window lets it go.
+test "the guild's page is kept while another tab shows, and let go as the window closes" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  window.input().nth(1).type("heals")
+  window.text("Friends").click()
+  Test.expect(window.text("Eliana").shown() && !window.text("Ingrid").shown())
+  window.text("Guild").click()
+  Test.expect(window.input().nth(1).value() == "heals")
+  Test.expect(window.text("Ingrid").shown() && !window.text("Torvald").shown())
+  Social.onClose()
+  Test.expect(!window.shown())
+  opened(new FakePeople()).text("Guild").click()
+  Test.expect(Test.page().window(WINDOW).input().nth(1).value() == "")
+}
+
+// The game's guild window shown reads the roster to open ours on the guild; ours opening reads it no second time.
+test "the game's guild window shown reads the roster once" {
+  Test.mount(nil, PAGE)
+  let reads = 0
+  Game.guild.roster = (motd: String): GuildRoster | nil => {
+    reads += 1
+    return guildOf(motd, true)
+  }
+  Game.guild.motd = guildMotd
+  Runtime.press(Client.GuildMicroButton, .Left)
+  Test.expect(Test.page().window(WINDOW).text("Torvald").shown())
+  Test.expect(reads == 1)
+  // What the game says of the roster while the window shows is read.
+  Events.GUILD_ROSTER_UPDATE.emit(false)
+  Test.expect(reads == 2)
+}
+
 // Where a text first stands among those a part says, in the order drawn.
 function placeOf(part: Test.Part, text: String): Integer {
   for (at, said of part.texts()) {

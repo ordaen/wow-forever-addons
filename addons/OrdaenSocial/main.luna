@@ -96,6 +96,9 @@ public class Social implements Module, App {
   public state tab: Integer = TAB_FRIENDS
   public state sub: Integer = SUB_STATUS
   public state guildSub: Integer = SUB_ROSTER
+  // The guild's page, once shown since the window opened: kept drawn, hidden while another tab shows, so a switch
+  // back is a show and not a roster built anew.
+  state guildKept = false
   // The game's own windows ours stands for, and those of them showing: held unseen and off the screen.
   games: mut Array<any Client.Frame> = []
   state held: mut Array<any Frame> = []
@@ -114,6 +117,9 @@ public class Social implements Module, App {
   // The guild's message of the day: the client gives it in the player's input alone, and says it anew (`GUILD_MOTD`).
   state motd = ""
   state guild: GuildRoster | nil = nil
+  // Whether the roster was read since the window opened: the game's guild window shown reads it to pick the tab, and
+  // the window's opening doesn't read it again. What the game says of it while the window shows is read at once.
+  guildRead = false
   state news: Array<GuildNews> = []
   state newsFilters: Array<NewsFilter> = []
   state clubs: Array<Club> = []
@@ -206,6 +212,14 @@ public class Social implements Module, App {
     // The friends read: the characters Battle.net friends play here written down.
     watch (friends of self.read) { noteSeen(mut self.seen, friends, Client.GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
+    watch {
+      if (!self.open) {
+        self.guildRead = false
+        self.guildKept = false
+      } else if (self.tab == TAB_GUILD && self.guild != nil) {
+        self.guildKept = true
+      }
+    }
     watch (opened of self.open) {
       if (!opened) { return }
       self.refresh()
@@ -336,7 +350,7 @@ public class Social implements Module, App {
     self.readRequests()
     self.readIgnored()
     self.readMe()
-    self.readGuild()
+    if (!self.guildRead) { self.readGuild() }
     self.readNews()
     self.readClubs()
     self.readAllies()
@@ -348,7 +362,10 @@ public class Social implements Module, App {
   readRequests(mut self) { self.requests = Game.friends.requests() }
   readIgnored(mut self) { self.ignored = Game.friends.ignored() }
   readMe(mut self) { self.me = Game.friends.battleNetSelf() }
-  readGuild(mut self) { self.guild = Game.guild.roster(peek self.motd) }
+  readGuild(mut self) {
+    self.guild = Game.guild.roster(peek self.motd)
+    self.guildRead = true
+  }
 
   onMotd(mut self, text: String) {
     self.motd = text
@@ -846,6 +863,12 @@ public class Social implements Module, App {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+        <box $if={self.guildKept && self.guild != nil} shown={self.tab == TAB_GUILD} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
+          <box padding={Style.TOP_ROOM}> <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} /> </box>
+          <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
+                       @pick={self.onPickMember} @menu={self.onGuildMenu} />
+          <NewsList $else news={self.news} filters={self.newsFilters} @filter={self.onNewsFilter} />
+        </box>
         <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <box padding={Style.TOP_ROOM}> <Tabs tabs={self.subTabs} selected={mut self.sub} /> </box>
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
@@ -854,13 +877,7 @@ public class Social implements Module, App {
           <RequestList $elseif={self.sub == SUB_REQUESTS} requests={self.requests} @answer={self.onAnswer} />
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
-        <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <box padding={Style.TOP_ROOM}> <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} /> </box>
-          <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
-                       @pick={self.onPickMember} @menu={self.onGuildMenu} />
-          <NewsList $else news={self.news} filters={self.newsFilters} @filter={self.onNewsFilter} />
-        </box>
-        <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
+        <box $elseif={self.tab == TAB_GUILD && self.guild == nil} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={.None} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
@@ -873,7 +890,7 @@ public class Social implements Module, App {
         </box>
         <Whispers $elseif={self.tab == TAB_WHISPERS} talks={self.talks} who={self.talkWho} openKey={self.talkOpen} @picked={self.onTalkPick}
                   @talkPicked={self.onTalkMenu} @start={self.onTalkStart} @send={self.onTalkSend} @link={self.onTalkLink} />
-        <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
+        <AllyList $elseif={self.tab != TAB_GUILD} allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
                   categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>
       <CopyBox $if={self.copied != ""} title={Locale.COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
