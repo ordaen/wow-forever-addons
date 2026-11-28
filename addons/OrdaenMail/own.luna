@@ -1,11 +1,13 @@
-// «To my characters»: what the bags hold for the professions of the player's other characters, from Ordaen Alts (who
-// they are, what each holds) and Ordaen Professions (whose recipes take an item, at what difficulty), as the sending
-// rules let through (`SendRules`: per character and profession, on or off, and the least a recipe must do for the
-// skill). At the left a list of the characters something goes to, each with how many items; nothing for anyone, a
-// note and a way to the rules. At the right the chosen character's items, a section per profession: each ticked with
-// its count, its recipes' count in the colour of the best for the skill, its tooltip the recipes in their colours;
-// each section sends its own, and the footer sends all, with how many letters that takes. The tab follows the bags: a
-// letter sent takes its items out, and what is left is what it shows.
+// «To my characters»: what the bags hold for the player's other characters, from Ordaen Alts (who they are, their
+// classes and professions) and Ordaen Professions (whose recipes take an item, at what difficulty): what their
+// professions' recipes take, as the sending rules let through (`SendRules`: per character and profession, on or off,
+// and the least a recipe must do for the skill); gear to disenchant, for a character with Enchanting; items only
+// their class uses (`@/purposes`, as the settings say). At the left a list of the characters something goes to, each
+// with how many items; nothing for anyone, a note and a way to the rules. At the right the chosen character's items, a
+// section per profession, then «Disenchanting», then its class's: each item ticked with its count and a line under its
+// name (its recipes' count in the colour of the best for the skill, why it goes to disenchant, its class), its tooltip
+// the recipes in their colours; each section sends its own, and the footer sends all, with how many letters that
+// takes. The tab follows the bags: a letter sent takes its items out, and what is left is what it shows.
 import Client from "$client"
 import Game from "$game"
 import { Align, Bounds, Edges, Track } from "$ltml"
@@ -15,7 +17,9 @@ import { skillUpRank } from "OrdaenProfessions"
 import type { CraftRecipe, Crafting } from "OrdaenProfessions"
 import { lettersFor } from "@/letters"
 import Locale from "@/locales"
+import { ENCHANTING, Loose, Purposed, UpgradeRead, classNameOf, looseOf, purposedOf, whyText } from "@/purposes"
 import { Sender } from "@/sender"
+import { Choices } from "@/settings"
 import Style from "@/style"
 
 const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
@@ -64,22 +68,29 @@ public function allows(rule: SendRule, crafting: Crafting): Boolean {
   return rule.on && skillUpRank(crafting.best) <= worstOf(rule.least)
 }
 
-// One of the bags' items a character's profession uses: how many the bags hold, its recipes in that profession as the
-// character sees them, and the best one's colour.
+// One of the bags' items that goes to a character: how many the bags hold, the line under its name and its colour (its
+// recipes' count in the best one's colour, why it goes to disenchant), and its tooltip's rows (the recipes, each in its
+// colour).
 public struct Offer {
   item: Integer
   name: String
   count: Integer
-  recipes: Array<CraftRecipe>
+  detail: String
   color: Color
+  tips: Array<TipRow>
 }
 
-// A profession of a character and what the bags hold for it.
+// A part of what goes to a character, under its title: a profession's (by its skill line), «Disenchanting», its
+// class's.
 public struct Section {
-  skillLine: Integer
-  profession: String
+  key: String
+  title: String
   offers: Array<Offer>
 }
+
+// Sections' keys besides the professions'.
+const DISENCHANT_KEY = "disenchant"
+const CLASS_KEY = "class"
 
 // A character something goes to: its sections, and how many items they hold (an item in two sections once).
 public struct OwnRow {
@@ -93,11 +104,12 @@ public struct OwnRow {
 // Whose recipes take an item, as Ordaen Professions answers it.
 public type CraftingRead = (item: Integer) => Array<Crafting>
 
-// One of the player's other characters a letter reaches.
+// One of the player's other characters a letter reaches: its class, and whether it has Enchanting.
 public struct Kin {
   who: String
   name: String
   classTag: String
+  enchants: Boolean
 }
 
 function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(item) ?? String.of(item) }
@@ -106,47 +118,92 @@ function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(
 public function kinOf(alts: Alts): Array<Kin> {
   const kin: Array<Kin> = []
   for (who, character of alts.characters) {
-    if (who != alts.current && alts.reaches(who)) { kin.push({ who: who, name: character.name, classTag: character.classTag }) }
+    if (who != alts.current && alts.reaches(who)) {
+      const enchants = character.professions.any(known => known.skillLine == ENCHANTING)
+      kin.push({ who: who, name: character.name, classTag: character.classTag, enchants: enchants })
+    }
   }
   kin.sort((a, b) => a.name < b.name)
   return kin
 }
 
-// Per kin, what the bags hold that its professions' recipes take, as the rules let through: `crafting` whose recipes
-// take an item. A character nothing goes to has no row.
+function byName(offers: mut Array<Offer>): Array<Offer> {
+  offers.sort((a, b) => a.name < b.name)
+  return offers
+}
+
+// A character's sections of what its professions' recipes take, as the rules let through, by the professions' names.
+function craftSections(
+  one: Kin, held: Map<Integer, Integer>, crafting: (item: Integer) => Array<Crafting>,
+  rule: (who: String, skillLine: Integer) => SendRule
+): Array<Section> {
+  const offers: Map<Integer, mut Array<Offer>> = {}
+  const professions: Map<Integer, String> = {}
+  for (item, bagged of held) {
+    for (use of crafting(item)) {
+      if (use.guid == one.who && allows(rule(one.who, use.skillLine), use)) {
+        const offer: Offer = {
+          item: item, name: itemName(item), count: bagged, detail: Locale.OWN_RECIPES.format(use.recipes.length),
+          color: use.bestColor, tips: use.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
+        }
+        const list = offers[use.skillLine]
+        if (list == nil) { offers[use.skillLine] = [offer] } else { list.push(offer) }
+        professions[use.skillLine] = use.profession
+      }
+    }
+  }
+  const sections: Array<Section> = []
+  for (skillLine, list of offers) {
+    sections.push({ key: String.of(skillLine), title: professions[skillLine] ?? "", offers: byName(mut list) })
+  }
+  sections.sort((a, b) => a.title < b.title)
+  return sections
+}
+
+// What goes to a character besides what its professions take: gear to disenchant, where it has Enchanting; what its
+// class alone uses.
+function purposeSections(one: Kin, purposed: Array<Purposed>): Array<Section> {
+  const sections: Array<Section> = []
+  const disenchant: Array<Offer> = []
+  const classed: Array<Offer> = []
+  for (each of purposed) {
+    const why = each.why
+    if (one.enchants && why != nil) { disenchant.push(offerOf(each.loose, whyText(why))) }
+    if (each.classes.any(tag => tag == one.classTag)) { classed.push(offerOf(each.loose, classNameOf(one.classTag))) }
+  }
+  if (disenchant.length > 0) { sections.push({ key: DISENCHANT_KEY, title: Locale.SECTION_DISENCHANT, offers: byName(mut disenchant) }) }
+  if (classed.length > 0) {
+    sections.push({ key: CLASS_KEY, title: Locale.SECTION_CLASS.format(classNameOf(one.classTag)), offers: byName(mut classed) })
+  }
+  return sections
+}
+
+function offerOf(loose: Loose, detail: String): Offer {
+  return { item: loose.item, name: loose.name, count: loose.count, detail: detail, color: Style.DIM, tips: [] }
+}
+
+// Per kin, what the bags hold for it: what its professions' recipes take, as the rules let through (`crafting` whose
+// recipes take an item), then what `purposed` gives it. A character nothing goes to has no row.
 public function ownRows(
   kin: Array<Kin>, held: Map<Integer, Integer>, crafting: (item: Integer) => Array<Crafting>,
-  rule: (who: String, skillLine: Integer) => SendRule
+  rule: (who: String, skillLine: Integer) => SendRule, purposed: Array<Purposed>
 ): Array<OwnRow> {
   const rows: Array<OwnRow> = []
   for (one of kin) {
-    const offers: Map<Integer, mut Array<Offer>> = {}
-    const professions: Map<Integer, String> = {}
+    const sections: Array<Section> = []
+    for (section of craftSections(one, held, crafting, rule)) { sections.push(section) }
+    for (section of purposeSections(one, purposed)) { sections.push(section) }
     const items: Map<Integer, Boolean> = {}
     let count = 0
-    for (item, bagged of held) {
-      for (use of crafting(item)) {
-        if (use.guid == one.who && allows(rule(one.who, use.skillLine), use)) {
-          const offer: Offer = { item: item, name: itemName(item), count: bagged, recipes: use.recipes, color: use.bestColor }
-          const list = offers[use.skillLine]
-          if (list == nil) { offers[use.skillLine] = [offer] } else { list.push(offer) }
-          professions[use.skillLine] = use.profession
-          if (items[item] == nil) {
-            items[item] = true
-            count += 1
-          }
+    for (section of sections) {
+      for (offer of section.offers) {
+        if (items[offer.item] == nil) {
+          items[offer.item] = true
+          count += 1
         }
       }
     }
-    const sections: Array<Section> = []
-    for (skillLine, list of offers) {
-      list.sort((a, b) => a.name < b.name)
-      sections.push({ skillLine: skillLine, profession: professions[skillLine] ?? "", offers: list })
-    }
-    if (count > 0) {
-      sections.sort((a, b) => a.profession < b.profession)
-      rows.push({ who: one.who, name: one.name, color: classColor(one.classTag), sections: sections, items: count })
-    }
+    if (count > 0) { rows.push({ who: one.who, name: one.name, color: classColor(one.classTag), sections: sections, items: count }) }
   }
   return rows
 }
@@ -164,7 +221,8 @@ public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
     let left = want.count
     for (bag of 0..Game.bags.last) {
       for (place of 1..Game.bags.size(bag)) {
-        if (left > 0 && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && slot.id == want.item && slot.count <= left) {
+        if (left > 0 && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && !slot.bound && slot.id == want.item &&
+            slot.count <= left) {
           stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
           left -= slot.count
         }
@@ -194,16 +252,15 @@ function offersOf(row: OwnRow): Array<Offer> {
   return offers
 }
 
-// An item that goes: ticked, its name, its recipes' count in the best one's colour, how many; its tooltip the
-// recipes, each in its colour.
+// An item that goes: ticked, its name, the line under it in its colour, how many; its tooltip the offer's rows, where
+// it has any.
 class OfferRow implements Component {
   // The item, and how many of it go now: 0 while it is unticked.
   public toggled: Event<(Integer, Integer)> = new Event()
   state checked = true
   state count = 0
   state hovered = false
-  derived recipes: String = Locale.OWN_RECIPES.format(self.offer.recipes.length)
-  derived rows: Array<TipRow> = self.offer.recipes.map((recipe: CraftRecipe): TipRow => TipRow { label: recipe.name, value: "", tone: recipe.color })
+  derived tipped: Boolean = self.hovered && self.offer.tips.length > 0
 
   offer: Signal<Offer>
   constructor(offer: Signal<Offer>) {
@@ -222,17 +279,17 @@ class OfferRow implements Component {
           <Tick value={mut self.checked} />
           <box columns={1}>
             <text value={self.offer.name} textColor={Style.INK} wrap={.Cut} />
-            <text value={self.recipes} textColor={self.offer.color} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={self.offer.detail} textColor={self.offer.color} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
         </box>
-        <Tip $if={self.hovered} title={self.offer.name} text={""} rows={self.rows} />
+        <Tip $if={self.tipped} title={self.offer.name} text={""} rows={self.offer.tips} />
       </box>
     }
   }
 }
 
-// A profession's items, under its name, with «Send» for them.
+// A section's items, under its title, with «Send» for them.
 class SectionBlock implements Component {
   public send: Event<Section> = new Event()
   public toggled: Event<(Integer, Integer)> = new Event()
@@ -246,7 +303,7 @@ class SectionBlock implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp}>
-        <text value={self.section.profession} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
+        <text value={self.section.title} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
         <OfferRow $for={offer of self.section.offers} $key={offer.item} offer={offer} @toggled={self.onToggle} />
         <box xAlign={Align.End}>
           <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
@@ -265,8 +322,10 @@ public class OwnTab {
 
   // How many of each item go, by «who:item»: 0 for one unticked; the whole of what the bags hold where unset.
   state chosen: Map<String, Integer> = {}
-  // What the bags hold, by item: read again each time they change (a letter sent takes its items out).
+  // What the bags hold, by item, and the items a letter can take (none bound): read again each time they change (a
+  // letter sent takes its items out).
   state held: Map<Integer, Integer> = {}
+  state loose: Array<Loose> = []
   // The character's tab chosen, by its place; the first where the list is shorter now.
   state picked = 1
   derived noAlts: Boolean = self.reached == nil
@@ -285,6 +344,8 @@ public class OwnTab {
   reached: Signal<Array<Kin> | nil>
   const crafting: CraftingRead
   rules: Signal<SendRules>
+  choices: Signal<Choices>
+  const upgrade: UpgradeRead
   sender: mut Sender
   constructor(
     // The characters a letter reaches (`kinOf`); none while Ordaen Alts is off.
@@ -292,11 +353,17 @@ public class OwnTab {
     // Whose recipes take an item (Ordaen Professions' `craftingWith`).
     crafting: CraftingRead,
     rules: Signal<SendRules>,
+    // What goes besides what the recipes take: gear to disenchant, items for another class.
+    choices: Signal<Choices>,
+    // How much better an item is than what the player wears (Ordaen's worth).
+    upgrade: UpgradeRead,
     sender: mut Sender
   ) {
     self.reached = reached
     self.crafting = crafting
     self.rules = rules
+    self.choices = choices
+    self.upgrade = upgrade
     self.sender = sender
     self.onBags()
     Game.bags.changed.listen(self.onBags)
@@ -306,11 +373,13 @@ public class OwnTab {
   onBags(mut self) {
     const held = Game.bags.holdings()
     if (held != nil) { self.held = held }
+    self.loose = looseOf()
   }
 
   rowsOf(self): Array<OwnRow> {
     const rules = self.rules
-    return ownRows(self.kin, self.held, self.crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
+    const purposed = purposedOf(self.loose, self.choices, self.upgrade)
+    return ownRows(self.kin, self.held, self.crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine), purposed)
   }
 
   // How many letters «Send all» takes: none where nothing is ticked.
@@ -365,7 +434,7 @@ public class OwnTab {
       </box>
       <box rows={FILL} padding={PAGE_ROOM}>
         <ScrolledList columns={1} gap={6sp} ground={Ground.Wood}>
-          <SectionBlock $for={section of self.sections} $key={section.skillLine} section={section}
+          <SectionBlock $for={section of self.sections} $key={section.key} section={section}
                         @send={self.onSendSection} @toggled={self.onToggle} />
         </ScrolledList>
       </box>

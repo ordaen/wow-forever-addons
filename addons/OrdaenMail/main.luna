@@ -22,6 +22,7 @@ import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
 import { CraftingRead, Kin, OwnTab, SendRules, kinOf } from "@/own"
 import { RulesPage } from "@/rules"
+import { TooltipSends } from "@/sendLines"
 import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -71,6 +72,8 @@ public class Mail implements Module, App {
   const crafting: CraftingRead = (item: Integer): Array<Crafting> => Professions.craftingWith(item)
   // «To my characters»: its columns and its footer.
   public own: mut OwnTab
+  // What «To my characters» does with an item, in the item's tooltip.
+  tips: TooltipSends
 
   state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []
@@ -120,7 +123,8 @@ public class Mail implements Module, App {
   }
 
   constructor() {
-    self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, mut self.sender)
+    self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, self.settings.values, self.upgrade, mut self.sender)
+    self.tips = new TooltipSends(self.kin, self.settings.values, self.upgrade)
     self.own.configure.listen(self.onSettings)
     Ordaen.modules.add(self)
     Game.mailObserver.opened.listen(self.onOpened)

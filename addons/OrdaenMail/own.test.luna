@@ -7,7 +7,10 @@ import { classColor } from "Ordaen"
 import type { Crafting } from "OrdaenProfessions"
 import { Sent } from "@/letters"
 import { Kin, Least, OwnTab, SendRule, SendRules, ownRows, ruleKey, ruleOf, stacksOf } from "@/own"
+import { Loose, Purposed, Why, disenchantWhy } from "@/purposes"
+import { SendLines } from "@/sendLines"
 import { Sender } from "@/sender"
+import { Choices, DisenchantUpTo } from "@/settings"
 
 const BAR = 2841
 const STONE = 2836
@@ -17,8 +20,12 @@ const ENGINEERING = 202
 const ORANGE: Color = Color.hex("#ff8040")
 const GREY: Color = Color.hex("#808080")
 
+// Regron the warrior, and Aria the mage, who has Enchanting.
 function kin(): Array<Kin> {
-  return [{ who: "Player-1-3", name: "Regron", classTag: "WARRIOR" }, { who: "Player-1-2", name: "Aria", classTag: "MAGE" }]
+  return [
+    { who: "Player-1-3", name: "Regron", classTag: "WARRIOR", enchants: false },
+    { who: "Player-1-2", name: "Aria", classTag: "MAGE", enchants: true }
+  ]
 }
 
 // Bronze bars go into Regron's axe (Blacksmithing, orange for him) and Aria's tube (Engineering, grey for her); stone
@@ -47,13 +54,13 @@ const ANY: SendRules = {}
 
 test "each other character something goes to has a row, its items in a section per profession, in its class's colour" {
   Client.C_Item.GetItemNameByID = names
-  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine))
+  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5, [LINEN]: 10 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine), [])
   Test.expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Regron 2, Aria 1")
   const regron = rows[1] ?? panic("Regron's row")
   const smithing = regron.sections[1] ?? panic("his Blacksmithing")
-  Test.expect(smithing.profession == "Blacksmithing" && smithing.offers.map(offer => `${offer.name} ${offer.count}`).join(", ") == "Bronze Bar 20, Rough Stone 5")
+  Test.expect(smithing.title == "Blacksmithing" && smithing.offers.map(offer => `${offer.name} ${offer.count}`).join(", ") == "Bronze Bar 20, Rough Stone 5")
   const bar = smithing.offers[1] ?? panic("the bars")
-  Test.expect(bar.color.equal(ORANGE) && bar.recipes.map(recipe => recipe.name).join(", ") == "Bronze Axe")
+  Test.expect(bar.color.equal(ORANGE) && bar.detail == "Recipes: 1" && bar.tips.map(tip => tip.label).join(", ") == "Bronze Axe")
   const color = regron.color
   Test.expect(color != nil && color.equal(classColor("WARRIOR") ?? panic("the client colours a warrior")))
 }
@@ -66,11 +73,11 @@ test "a profession switched off sends nothing, nor one whose best recipe is wors
       [ruleKey("Player-1-2", ENGINEERING)]: { on: true, least: Least.Green }
     }
   }
-  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine))
+  const rows = ownRows(kin(), { [BAR]: 20, [STONE]: 5 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(rules, who, skillLine), [])
   // Regron's smithing is off; Aria's tube is grey, below «green and better»: nothing goes to anyone.
   Test.expect(rows.length == 0)
   const orange: SendRules = { rules: { [ruleKey("Player-1-3", BLACKSMITHING)]: { on: true, least: Least.Orange } } }
-  const kept = ownRows(kin(), { [BAR]: 20 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(orange, who, skillLine))
+  const kept = ownRows(kin(), { [BAR]: 20 }, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(orange, who, skillLine), [])
   Test.expect(kept.map(row => row.name).join(", ") == "Regron, Aria")
 }
 
@@ -96,16 +103,33 @@ class OwnPage {
   public bagged: Map<Integer, Integer> = { [BAR]: 20, [STONE]: 5 }
   public state reached: Array<Kin> | nil = kin()
   public state rules: SendRules = {}
+  public state choices: Choices = { keepFree: 0, blockTrades: false }
   public sender: mut Sender = new Sender()
   own: mut OwnTab
 
   constructor() {
-    self.own = new OwnTab(self.reached, crafting, self.rules, mut self.sender)
+    self.own = new OwnTab(self.reached, crafting, self.rules, self.choices, (link: String): Number | nil => nil, mut self.sender)
     self.own.configure.listen(self.onConfigure)
   }
 
   public slotAt(self, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
-    if (bag != 0 || slot > 2) { return false }
+    if (bag != 0 || slot > 3) { return false }
+    into.quality = 1
+    into.kind = 7
+    into.bound = false
+    if (slot == 3) {
+      // A green sword asking level 12, where the test lays one.
+      const swords = self.bagged[SWORD] ?? 0
+      if (swords == 0) { return false }
+      into.id = SWORD
+      into.count = swords
+      into.quality = 2
+      into.kind = WEAPON
+      into.link = linkOf(SWORD)
+      into.name = "Sword"
+      into.locked = false
+      return true
+    }
     const item = slot == 1 ? BAR : STONE
     const count = self.bagged[item] ?? 0
     if (count == 0) { return false }
@@ -168,4 +192,136 @@ test "a letter sent takes its items out of the bags, and the tab follows: nothin
   Test.expect(page.configured == 1)
   destroy page
   Test.expect(Test.blank())
+}
+
+// Gear and a scroll, as the client knows them: a green sword asking level 12, a blue cloak asking 28 and worse than
+// what is worn, a green staff the player can't use, an epic ring the player can't use, a green belt better than what
+// is worn, a mage's scroll, and a tome for mages and priests.
+const SWORD = 2131
+const CLOAK = 2132
+const STAFF = 2133
+const RING = 2134
+const BELT = 2135
+const SCROLL = 211953
+const TOME = 211954
+const WEAPON = 2
+const ARMOR = 4
+
+function linkOf(item: Integer): String { return `item:${item}` }
+
+function itemInfo(info: String | Integer): (
+  String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil,
+  String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil,
+  String | nil
+) {
+  if (info == linkOf(SWORD)) { return "Sword", nil, .Uncommon, 15, 12, nil, nil, 1, "INVTYPE_WEAPON", nil, 100, WEAPON, 7, nil, nil, nil, false, nil }
+  if (info == linkOf(CLOAK)) { return "Cloak", nil, .Rare, 30, 28, nil, nil, 1, "INVTYPE_CLOAK", nil, 100, ARMOR, 1, nil, nil, nil, false, nil }
+  if (info == linkOf(STAFF)) { return "Staff", nil, .Uncommon, 28, 25, nil, nil, 1, "INVTYPE_2HWEAPON", nil, 100, WEAPON, 10, nil, nil, nil, false, nil }
+  if (info == linkOf(RING)) { return "Ring", nil, .Epic, 30, 25, nil, nil, 1, "INVTYPE_FINGER", nil, 100, ARMOR, 0, nil, nil, nil, false, nil }
+  if (info == linkOf(BELT)) { return "Belt", nil, .Uncommon, 10, 5, nil, nil, 1, "INVTYPE_WAIST", nil, 100, ARMOR, 2, nil, nil, nil, false, nil }
+  if (info == linkOf(SCROLL)) { return "Scroll of Arcane Power I", nil, .Uncommon, 20, 20, nil, nil, 1, "", nil, 100, 0, 8, nil, nil, nil, false, nil }
+  if (info == linkOf(TOME)) { return "Tome", nil, .Common, 20, 20, nil, nil, 1, "", nil, 100, 0, 8, nil, nil, nil, false, nil }
+  return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+}
+
+// The tests' rig: a level-30 priest (the stand-in's character) and the lines a tooltip gets, following its cells.
+class LinesHost {
+  public state reached: Array<Kin> | nil = kin()
+  public state choices: Choices = { keepFree: 0, blockTrades: false }
+  public lines: SendLines
+  constructor() { self.lines = new SendLines(self.reached, self.choices, upgrade) }
+}
+
+// The cloak is worse than what is worn, the belt better; the rest weighs nothing.
+function upgrade(link: String): Number | nil {
+  if (link == linkOf(CLOAK)) { return -0.2 }
+  if (link == linkOf(BELT)) { return 0.3 }
+  return nil
+}
+
+// The game as these tests have it: the stand-in's priest at level 30, the items above, the staff and the ring marked
+// unusable in their tooltips, the scroll for mages alone, the tome for mages and priests.
+function rigged() {
+  Game.player.level = 30
+  Client.C_Item.GetItemInfo = itemInfo
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    if (id == STAFF || id == RING) { return { lines: [{ left: "Requires Staves", kind: 0, usable: false }] } }
+    if (id == SCROLL) { return { lines: [{ left: "Классы: Mage", kind: 0 }] } }
+    if (id == TOME) { return { lines: [{ left: "Классы: Mage, Priest", kind: 0 }] } }
+    return { lines: [] }
+  }
+}
+
+function looseOf(item: Integer, quality: Integer, kind: Integer): Loose {
+  return { item: item, link: linkOf(item), name: String.of(item), count: 1, quality: quality, kind: kind }
+}
+
+function whyOf(choices: Choices, loose: Loose): String {
+  const why = disenchantWhy(choices, loose, upgrade)
+  return match (why) {
+    nil => "-"
+    Why.CantUse => "can't use"
+    Why.Low => `level ${why.level}`
+    Why.Worse => "worse"
+  }
+}
+
+const DEFAULTS: Choices = { keepFree: 0, blockTrades: false }
+
+test "gear goes to disenchant up to the quality set, for what the player can't use, what asks a level well below, what is worse; never what is better" {
+  rigged()
+  const sword = looseOf(SWORD, 2, WEAPON)
+  Test.expect(whyOf(DEFAULTS, sword) == "level 12")
+  Test.expect(whyOf(DEFAULTS, looseOf(CLOAK, 3, ARMOR)) == "worse")
+  Test.expect(whyOf(DEFAULTS, looseOf(STAFF, 2, WEAPON)) == "can't use")
+  // Past «up to rare»; better than what is worn; not gear.
+  Test.expect(whyOf(DEFAULTS, looseOf(RING, 4, ARMOR)) == "-")
+  Test.expect(whyOf(DEFAULTS, looseOf(BELT, 2, ARMOR)) == "-")
+  Test.expect(whyOf(DEFAULTS, looseOf(SCROLL, 2, 0)) == "-")
+  Test.expect(whyOf({ disenchantUpTo: DisenchantUpTo.Epic, ..DEFAULTS }, looseOf(RING, 4, ARMOR)) == "can't use")
+  Test.expect(whyOf({ disenchantUpTo: DisenchantUpTo.Off, ..DEFAULTS }, sword) == "-")
+  Test.expect(whyOf({ disenchantBelow: 0, ..DEFAULTS }, sword) == "-")
+  Test.expect(whyOf({ disenchantWorse: false, ..DEFAULTS }, looseOf(CLOAK, 3, ARMOR)) == "-")
+  Test.expect(whyOf({ disenchantUnusable: false, ..DEFAULTS }, looseOf(STAFF, 2, WEAPON)) == "-")
+}
+
+test "a sword from the bags to disenchant stands in the enchanter's «Disenchanting», with why, and goes in her letter" {
+  rigged()
+  let page = opened()
+  page.bagged = { [BAR]: 20, [STONE]: 5, [SWORD]: 1 }
+  Game.bags.changed.emit()
+  const screen = Test.page()
+  screen.text("Aria").click()
+  Test.expect(screen.text("Disenchanting").shown() && screen.text("Level 12, below yours").shown())
+  Test.expect(screen.text("Aria").item().texts().join(" | ") == "Aria | 2")
+  screen.button("Send all").click()
+  const queued = (peek page.sender.memory.values).queue
+  Test.expect(queued.any((letter: Sent): Boolean => letter.to == "Aria" && letter.items.any(sent => sent.item == SWORD)))
+  // By level off: nothing goes to disenchant.
+  page.choices = { disenchantBelow: 0, keepFree: 0, blockTrades: false }
+  Test.expect(!screen.text("Disenchanting").shown())
+  destroy page
+  Test.expect(Test.blank())
+}
+
+test "gear to disenchant goes to the characters with Enchanting alone, in a section of its own" {
+  rigged()
+  const purposed: Array<Purposed> = [{ loose: looseOf(SWORD, 2, WEAPON), why: .Low { level: 12 }, classes: [] }]
+  const rows = ownRows(kin(), {}, crafting, (who: String, skillLine: Integer): SendRule => ruleOf(ANY, who, skillLine), purposed)
+  // Regron doesn't enchant: he has no row.
+  Test.expect(rows.map(row => `${row.name} ${row.items}`).join(", ") == "Aria 1")
+  const aria = rows[1] ?? panic("Aria's row")
+  Test.expect(aria.sections.map(section => section.title).join(", ") == "Disenchanting")
+  const disenchant = aria.sections[1] ?? panic("her disenchanting")
+  Test.expect(disenchant.offers.map(offer => `${offer.name}: ${offer.detail}`).join(", ") == "2131: Level 12, below yours")
+}
+
+test "a tooltip says gear can be disenchanted and why, with the characters it goes to; nothing for gear that stays" {
+  rigged()
+  const host = new LinesHost()
+  const lines = host.lines
+  Test.expect(lines.lines(SWORD, linkOf(SWORD)).map(line => `${line.left}|${line.right ?? ""}`).join(", ") == "Can be disenchanted|Level 12, below yours, Aria|")
+  Test.expect(lines.lines(BELT, linkOf(BELT)).length == 0)
+  host.choices = { disenchantUpTo: DisenchantUpTo.Off, ..DEFAULTS }
+  Test.expect(lines.lines(SWORD, linkOf(SWORD)).length == 0)
 }

@@ -1,0 +1,199 @@
+// What an item of the bags is for besides the recipes that take it: gear to disenchant, which goes to the player's
+// characters with Enchanting, and an item only other classes use (a mage's scrolls and tomes), which goes to the
+// characters of those classes. Gear is offered to disenchant up to the quality the settings say (`Choices`), never
+// where it is better than what the player wears, and only for a reason the settings let through: the player can't use
+// it, it asks a level well below the player's, or it is worse than what is worn. Which classes an item is for alone,
+// the game says in its tooltip («Classes: Mage»).
+import Client from "$client"
+import Game from "$game"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { usableItem } from "Ordaen"
+import Locale from "@/locales"
+import { Choices, DisenchantUpTo } from "@/settings"
+
+// The client's skill line of Enchanting (`SkillLine`): the profession that disenchants.
+public const ENCHANTING = 333
+// The client's item classes (`Enum.ItemClass`) that disenchant: weapons and armour.
+const WEAPON = 2
+const ARMOR = 4
+// The qualities (`Enum.ItemQuality`) gear disenchants at: uncommon to epic.
+const UNCOMMON = 2
+const RARE = 3
+const EPIC = 4
+
+// An item of the bags a letter can take: how many lie in the stacks that aren't bound, a link of one, its name, its
+// quality and the client's class of it.
+public struct Loose {
+  item: Integer
+  link: String
+  name: String
+  count: Integer
+  quality: Integer
+  kind: Integer
+}
+
+// Why gear goes to disenchant.
+public enum Why {
+  CantUse
+  // It asks this level, below the player's by the settings' levels or more.
+  Low { level: Integer }
+  Worse
+}
+
+public function whyText(why: Why): String {
+  return match (why) {
+    Why.CantUse => Locale.WHY_CANT_USE
+    Why.Low => Locale.WHY_LOW.format(why.level)
+    Why.Worse => Locale.WHY_WORSE
+  }
+}
+
+// An item of the bags and what it is for besides crafting: why it goes to disenchant (none: it doesn't), and the
+// other classes it is for alone, by the game's tags of them (`MAGE`).
+public struct Purposed {
+  loose: Loose
+  why: Why | nil
+  classes: Array<String>
+}
+
+// How much more an item is worth to the player than what it wears in its place (Ordaen's worth): none where it isn't
+// worn or the spec weighs nothing.
+public type UpgradeRead = (link: String) => Number | nil
+
+function emptySlot(): mut Game.SlotItem {
+  return {
+    id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
+    bound: false, locked: false, isNew: false, price: 0
+  }
+}
+
+// The bags' items a letter can take, each once, in the order first met.
+public function looseOf(): Array<Loose> {
+  const list: Array<mut Loose> = []
+  const at: Map<Integer, Integer> = {}
+  let slot = emptySlot()
+  for (bag of 0..Game.bags.last) {
+    for (place of 1..Game.bags.size(bag)) {
+      if (Game.bags.readSlot(bag, place, mut slot) && !slot.bound) {
+        const index = at[slot.id]
+        const known = index == nil ? nil : list[index]
+        if (known == nil) {
+          list.push({ item: slot.id, link: slot.link, name: slot.name, count: slot.count, quality: slot.quality, kind: slot.kind })
+          at[slot.id] = list.length
+        } else {
+          known.count += slot.count
+        }
+      }
+    }
+  }
+  return list
+}
+
+// An item shown by its link, as the bags would hold one: none while the client hasn't the item yet.
+public function looseOfLink(item: Integer, link: String): Loose | nil {
+  const name, _, quality, _, _, _, _, _, _, _, _, kind, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(link)
+  if (name == nil || quality == nil || kind == nil) { return nil }
+  return { item: item, link: link, name: name, count: 1, quality: qualityNumber(quality), kind: kind.floor() }
+}
+
+// A quality as the bags' slots read it, by the client's number of it.
+function qualityNumber(quality: Client.ItemQuality): Integer {
+  return match (quality) {
+    Client.ItemQuality.Poor => 0
+    Client.ItemQuality.Common => 1
+    Client.ItemQuality.Uncommon => UNCOMMON
+    Client.ItemQuality.Rare => RARE
+    Client.ItemQuality.Epic => EPIC
+    Client.ItemQuality.Legendary => 5
+    Client.ItemQuality.Artifact => 6
+    Client.ItemQuality.Heirloom => 7
+    Client.ItemQuality.WoWToken => 8
+  }
+}
+
+function mostQuality(upTo: DisenchantUpTo): Integer {
+  return match (upTo) {
+    DisenchantUpTo.Off => 0
+    DisenchantUpTo.Uncommon => UNCOMMON
+    DisenchantUpTo.Rare => RARE
+    DisenchantUpTo.Epic => EPIC
+  }
+}
+
+// The level an item asks (at least 1); none while the client hasn't the item yet.
+function requiredLevel(link: String): Integer | nil {
+  const _, _, _, _, least, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(link)
+  return least == nil ? nil : least.floor().max(1)
+}
+
+// Why gear goes to disenchant, as the settings say; none for what isn't gear of a quality that disenchants, what is
+// better than what the player wears, and what no reason the settings let through holds for.
+public function disenchantWhy(choices: Choices, loose: Loose, upgrade: UpgradeRead): Why | nil {
+  if (loose.kind != WEAPON && loose.kind != ARMOR) { return nil }
+  if (loose.quality < UNCOMMON || loose.quality > mostQuality(choices.disenchantUpTo)) { return nil }
+  const share = upgrade(loose.link)
+  if (share != nil && share > 0) { return nil }
+  if (choices.disenchantUnusable && !usableItem(loose.item)) { return .CantUse }
+  const below = choices.disenchantBelow.floor()
+  const level = requiredLevel(loose.link)
+  if (below > 0 && level != nil && Game.player.level - level >= below) { return .Low { level: level } }
+  if (choices.disenchantWorse && share != nil && share < 0) { return .Worse }
+  return nil
+}
+
+// A class's tag (`MAGE`) by its name in the player's language, a man's or a woman's («Чернокнижница»), as the client
+// names it; none for a name it hasn't.
+function classTagOf(name: String): String | nil {
+  for (female of [false, true]) {
+    const names = Client.LocalizedClassList(female)
+    if (names is Table) {
+      for (tag, shown of names) {
+        if (tag is String && shown == name) { return tag }
+      }
+    }
+  }
+  return nil
+}
+
+// A class's name in the player's language by its tag; the tag where the client hasn't it.
+public function classNameOf(tag: String): String {
+  const names = Client.LocalizedClassList(false)
+  const shown = names is Table ? names[tag] : nil
+  return shown is String ? shown : tag
+}
+
+// The classes an item is for alone, by their tags, from the «Classes: …» line of its tooltip; none for an item every
+// class uses, or one whose tooltip the client hasn't yet.
+public function classesOf(item: Integer): Array<String> {
+  const tags: Array<String> = []
+  const format = Runtime.text("ITEM_CLASSES_ALLOWED")
+  const tip = Ordaen.itemTip(item)
+  if (format == nil || tip == nil) { return tags }
+  for (line of tip.lines) {
+    const parts = (line.left ?? "").unformat(format)
+    if (parts != nil) {
+      for (name of (parts[1] ?? "").split(",")) {
+        const tag = classTagOf(name.match("^%s*(.-)%s*$") ?? name)
+        if (tag != nil) { tags.push(tag) }
+      }
+      return tags
+    }
+  }
+  return tags
+}
+
+// The other classes an item is for alone, as the settings let through: none where the player's class is among them.
+public function otherClassesOf(choices: Choices, item: Integer): Array<String> {
+  if (!choices.classItems) { return [] }
+  const tags = classesOf(item)
+  if (tags.any(tag => tag == Game.player.classTag)) { return [] }
+  return tags
+}
+
+// What each of the bags' items is for besides crafting.
+public function purposedOf(loose: Array<Loose>, choices: Choices, upgrade: UpgradeRead): Array<Purposed> {
+  return loose.map((one: Loose): Purposed => Purposed {
+    loose: one, why: disenchantWhy(choices, one, upgrade), classes: otherClassesOf(choices, one.item)
+  })
+}

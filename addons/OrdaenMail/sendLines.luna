@@ -1,0 +1,62 @@
+// Ordaen Mail's lines in an item's tooltip, added to Ordaen Tooltips' `uses` section: what «To my characters» does
+// with the item besides what recipes take (Ordaen Professions says those): «Can be disenchanted» with why, then the
+// player's characters with Enchanting it goes to; «For a Mage only», then the player's characters of that class.
+// Nothing for an item neither holds for. As the settings say (`Choices`), as «To my characters» offers it.
+import { classColor } from "Ordaen"
+import root Tooltips from "OrdaenTooltips"
+import type { ItemLines, Line } from "OrdaenTooltips"
+import Locale from "@/locales"
+import { Kin } from "@/own"
+import { UpgradeRead, classNameOf, disenchantWhy, looseOfLink, otherClassesOf, whyText } from "@/purposes"
+import { Choices } from "@/settings"
+
+const NONE: Array<Line> = []
+const HEAD: Color = Color.hex("#ffd100")
+
+// A character the item goes to, under the line that says why.
+function kinLine(one: Kin): Line { return { left: one.name, color: classColor(one.classTag), indent: true } }
+
+public class SendLines implements ItemLines {
+  reached: Signal<Array<Kin> | nil>
+  choices: Signal<Choices>
+  const upgrade: UpgradeRead
+  constructor(reached: Signal<Array<Kin> | nil>, choices: Signal<Choices>, upgrade: UpgradeRead) {
+    self.reached = reached
+    self.choices = choices
+    self.upgrade = upgrade
+  }
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    const choices = self.choices
+    const kin = self.reached ?? []
+    const lines: Array<Line> = []
+    const loose = looseOfLink(item, link)
+    const why = loose == nil ? nil : disenchantWhy(choices, loose, self.upgrade)
+    if (why != nil) {
+      lines.push({ left: Locale.TIP_DISENCHANT, right: whyText(why), color: HEAD })
+      for (one of kin) {
+        if (one.enchants) { lines.push(kinLine(one)) }
+      }
+    }
+    for (tag of otherClassesOf(choices, item)) {
+      lines.push({ left: Locale.TIP_CLASS.format(classNameOf(tag)), color: HEAD })
+      for (one of kin) {
+        if (one.classTag == tag) { lines.push(kinLine(one)) }
+      }
+    }
+    return lines.length == 0 ? NONE : lines
+  }
+}
+
+// The lines, added to Tooltips' `uses` while Tooltips is on: the watch's run owns them, so they end when either module
+// does. Without Tooltips the root import stays nil and nothing is added.
+public class TooltipSends {
+  const lines: SendLines
+  constructor(reached: Signal<Array<Kin> | nil>, choices: Signal<Choices>, upgrade: UpgradeRead) {
+    self.lines = new SendLines(reached, choices, upgrade)
+    watch (tooltips of Tooltips) {
+      if (tooltips == nil) { return }
+      tooltips.uses.add(self.lines)
+    }
+  }
+}

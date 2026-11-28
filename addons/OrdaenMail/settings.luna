@@ -1,7 +1,21 @@
-// Ordaen Mail's page in the settings window: what collecting and sending do. Each control writes one entry of the
+// Ordaen Mail's page in the settings window: what collecting and sending do, and what «To my characters» offers besides
+// what the professions take (gear to disenchant, items for another class). Each control writes one entry of the
 // settings, at once.
-import { Checkbox, Component, NumberInput, Settings } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, NumberInput, Section, Settings } from "Ordaen"
 import Locale from "@/locales"
+
+// The best quality of gear «To my characters» offers to disenchant; `Off`: none.
+public enum DisenchantUpTo implements Plain { Off = "off", Uncommon = "uncommon", Rare = "rare", Epic = "epic" }
+
+const UP_TO: Array<Choice<DisenchantUpTo>> = [
+  { value: DisenchantUpTo.Off, label: Locale.DISENCHANT_OFF },
+  { value: DisenchantUpTo.Uncommon, label: Locale.DISENCHANT_UNCOMMON },
+  { value: DisenchantUpTo.Rare, label: Locale.DISENCHANT_RARE },
+  { value: DisenchantUpTo.Epic, label: Locale.DISENCHANT_EPIC }
+]
+
+// The most levels below the player's a setting takes.
+const MOST_BELOW = 60
 
 // What the player chooses.
 public struct Choices implements Plain {
@@ -9,9 +23,21 @@ public struct Choices implements Plain {
   keepFree: Number
   // The game's trade requests are refused while the mailbox is open.
   blockTrades: Boolean
+  // Gear offered to the characters with Enchanting: up to this quality, where one of the checks below holds.
+  disenchantUpTo: DisenchantUpTo = DisenchantUpTo.Rare
+  // What the player can't use.
+  disenchantUnusable: Boolean = true
+  // What asks a level this many below the player's or more; 0: no gear by its level.
+  disenchantBelow: Number = 10
+  // What is worth less than what the player wears in its place.
+  disenchantWorse: Boolean = true
+  // Items only other classes use (a mage's scrolls), offered to the characters of those classes.
+  classItems: Boolean = true
 }
 
 public class GeneralPage implements Component {
+  derived noDisenchant: Boolean = self.settings.values.disenchantUpTo == DisenchantUpTo.Off
+
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
@@ -23,6 +49,19 @@ public class GeneralPage implements Component {
                    value={mut self.settings.values.keepFree} least={0} most={20} />
       <Checkbox label={Locale.SETTING_BLOCK_TRADES} hint={Locale.SETTING_BLOCK_TRADES_TIP}
                 value={mut self.settings.values.blockTrades} />
+      <Section title={Locale.SETTINGS_OWN}>
+        <Dropdown label={Locale.SETTING_DISENCHANT} hint={Locale.SETTING_DISENCHANT_TIP}
+                  value={mut self.settings.values.disenchantUpTo} choices={UP_TO} />
+        <Checkbox label={Locale.SETTING_DE_UNUSABLE} value={mut self.settings.values.disenchantUnusable}
+                  disabled={self.noDisenchant} />
+        <NumberInput label={Locale.SETTING_DE_BELOW} hint={Locale.SETTING_DE_BELOW_TIP}
+                     value={mut self.settings.values.disenchantBelow} least={0} most={MOST_BELOW}
+                     disabled={self.noDisenchant} />
+        <Checkbox label={Locale.SETTING_DE_WORSE} value={mut self.settings.values.disenchantWorse}
+                  disabled={self.noDisenchant} />
+        <Checkbox label={Locale.SETTING_CLASS_ITEMS} hint={Locale.SETTING_CLASS_ITEMS_TIP}
+                  value={mut self.settings.values.classItems} />
+      </Section>
     }
   }
 }

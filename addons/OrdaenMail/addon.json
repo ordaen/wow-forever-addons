@@ -7,6 +7,7 @@
     "Ordaen": "^1.0.0",
     "OrdaenAlts": "^1.0.0",
     "OrdaenTrading": "^1.0.0",
-    "OrdaenProfessions": "^1.0.0"
+    "OrdaenProfessions": "^1.0.0",
+    "OrdaenTooltips": "^1.0.0"
   }
 }
